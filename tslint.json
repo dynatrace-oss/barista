@@ -1,0 +1,62 @@
+{
+  "extends": "tslint:all",
+  "rulesDirectory": [
+    "node_modules/codelyzer"
+  ],
+  "rules": {
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "completed-docs": false,
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "max-line-length": [
+      true,
+      132
+    ],
+    "member-ordering": [
+      true,
+      {
+        "order": "statics-first"
+      }
+    ],
+    "no-implicit-dependencies": [
+      true,
+      "dev"
+    ],
+    "no-parameter-properties": false,
+    "no-submodule-imports": [
+      true,
+      "@angular/cdk/coercion",
+      "@angular/cdk/portal",
+      "@angular/common/http",
+      "@angular/core/testing",
+      "@angular/router/testing"
+    ],
+    "no-unnecessary-class": [
+      "allow-static-only",
+      "allow-constructor-only"
+    ],
+    "no-unsafe-any": false,
+    "prefer-function-over-method": false,
+    "strict-boolean-expressions": [
+      true,
+      "allow-string"
+    ],
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration"
+    ],
+    "variable-name": [
+      true,
+      "allow-leading-underscore"
+    ]
+  }
+}

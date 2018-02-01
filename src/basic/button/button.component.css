@@ -1,0 +1,32 @@
+:host[class^="fonticon-"]:not(:empty)::before,
+:host[class*=" fonticon-"]:not(:empty)::before,
+:host[class^="icon-"]:not(:empty)::before,
+:host[class*=" icon-"]:not(:empty)::before {
+  margin-right: 10px; }
+
+:host[class^="fonticon-"]:empty,
+:host[class*=" fonticon-"]:empty,
+:host[class^="icon-"]:empty,
+:host[class*=" icon-"]:empty {
+  padding-left: 0;
+  padding-right: 0;
+  width: 32px;
+  text-align: center; }
+
+:host.btn--call-to-action.btn--primary:not([disabled]) {
+  background-color: #7dc540;
+  border-color: #7dc540; }
+
+:host.btn--call-to-action.btn--secondary:not([disabled]) {
+  background-color: transparent;
+  border-color: #7dc540;
+  color: #7dc540; }
+
+:host.btn--warning.btn--primary:not([disabled]) {
+  background-color: #e6be00;
+  border-color: #e6be00; }
+
+:host.btn--warning.btn--secondary:not([disabled]) {
+  background-color: transparent;
+  border-color: #e6be00;
+  color: #e6be00; }
