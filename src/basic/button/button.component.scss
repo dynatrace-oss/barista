@@ -1,0 +1,39 @@
+@import "../../../node_modules/@dynatrace/groundhog/src/common/colors";
+
+:host[class^="fonticon-"],
+:host[class*=" fonticon-"],
+:host[class^="icon-"],
+:host[class*=" icon-"] {
+  &:not(:empty)::before {
+    margin-right: 10px;
+  }
+
+  &:empty {
+    padding-left: 0;
+    padding-right: 0;
+    width: 32px;
+    text-align: center;
+  }
+}
+
+@mixin btn-wariant($color) {
+
+  &.btn--primary:not([disabled]) {
+    background-color: $color;
+    border-color: $color;
+  }
+
+  &.btn--secondary:not([disabled]) {
+    background-color: transparent;
+    border-color: $color;
+    color: $color;
+  }
+}
+
+:host.btn--call-to-action {
+  @include btn-wariant($greenicon);
+}
+
+:host.btn--warning {
+  @include btn-wariant($yellow-600);
+}

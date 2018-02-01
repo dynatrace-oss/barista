@@ -1,0 +1,6 @@
+{
+  "extends": "./tslint.json",
+  "rules": {
+    "newline-per-chained-call": false
+  }
+}
