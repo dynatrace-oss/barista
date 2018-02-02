@@ -43,3 +43,6 @@ Thumbs.db
 
 # OpenSSL generated files
 /ssl
+
+# gradle
+.gradle
