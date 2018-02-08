@@ -32,8 +32,8 @@ gulp.task("package-lib", () =>
 );
 
 gulp.task("copy:styles", () =>
-    gulp.src("src/styles")
-        .pipe(gulp.dest(DIST_DIR))
+    gulp.src("src/styles/**")
+        .pipe(gulp.dest(`${DIST_DIR}/styles`))
 );
 
 gulp.task("dev", gulp.series("package-lib", "symlink"));
