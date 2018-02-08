@@ -4,76 +4,90 @@ Angular module containing common, reusable UI components and helpers.
 
 ## Usage
 
-Install library using NPM
+Install library using yarn
+```
+yarn install @dynatrace/angular-components
+```
+Or if you are using npm
 ```
 npm install @dynatrace/angular-components
 ```
 
 ## Development
 
+### Prerequisites
+
+1. NodeJS 7.10.0+
+1. Yarn
+   ```
+   npm install -g yarn
+   ```
+Alternatively, you can use gradle (see instructions below), which automatically sets up local NodeJS environment,
+but on the other hand, requires JVM. 
+
 ### Building
 1. Install NPM dependencies
    ```
-   npm install
+   yarn install
    ```
 1. Build dev version of the library
    ```
-   npm run dev-build
+   yarn run dev-build
    ```
    Alternatively, run the build in watch mode, so every change made will be automatically built.
    ```
-   npm run watch
+   yarn run watch
    ```
 
 ### Running unit tests and style lint
 
 Unit tests:
 ```
-npm run test
+yarn run test
 ```
 
 Code style check:
 ```
-npm run lint
+yarn run lint
 ```
 
 ### Using local version for development
 
 1. Build development version
-1. Create a NPM link
+1. Create an NPM link
    1. In the library directory:
       ```
-      sudo npm link
+      sudo yarn link
       ```
    1. In the other project directory:
       ```
-      npm link @dynatrace/angular-components
+      yarn link @dynatrace/angular-components
       ```
 1. Any further build will be automatically updated in the project referencing the link.
 
 To unlink development version:
 ```
-npm unlink @dynatrace/angular-components
-npm install
+yarn unlink @dynatrace/angular-components
+yarn install
 ```
 
 ### Using CI branch version for development
 
 Each push to git repository triggers a CI build which publishes a development version to Artifactory. 
-To use it just install it as dependency:
+To use it just install it as a dependency:
 ```
-npm install @dynatrace/angular-components@<version>
+yarn install @dynatrace/angular-components@<version>
 ``` 
 `<version>` can be retrieved from Jenkins build number (e.g. `0.0.1-feature-mybranch.20180218141635`)
 
 ### Using Gradle build
 
 Gradle build is meant for CI servers and does not require NodeJS installed upfront. 
-Instead, it downloads NodeJS binaries locally from Arifactory and runs any npm task with that node version.
+Instead, it downloads NodeJS binaries locally from Arifactory and runs any yarn task with that node version.
 
 Gradle tasks look very similar to the NPM ones, e.g.:
 ```
-./gradlew npmInstall
+./gradlew yarn_install
 ./gradlew test
 ./gradlew lint
 ./gradlew devBuild
