@@ -1,8 +1,8 @@
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
-import { UiComponentsModule } from "./ui-components.module";
+import { AngularComponentsModule } from "./angular-components.module";
 
 platformBrowserDynamic()
-  .bootstrapModule(UiComponentsModule)
+  .bootstrapModule(AngularComponentsModule)
   // tslint:disable-next-line:no-console typedef
   .catch((err): void => { console.log(err); });

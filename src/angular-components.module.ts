@@ -21,5 +21,5 @@ import { LoadingSpinnerComponent } from "./basic/loading-spinner/loading-spinner
     FormsModule,
   ],
 })
-export class UiComponentsModule {
+export class AngularComponentsModule {
 }
