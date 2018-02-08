@@ -5,7 +5,7 @@
   "scripts": {
     "test": "ng test --watch false",
     "lint": "ng lint",
-    "dev": "gulp dev",
+    "dev": "gulp dev-build",
     "watch": "gulp watch",
     "build": "gulp build"
   },

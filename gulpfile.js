@@ -36,10 +36,10 @@ gulp.task("copy:styles", () =>
         .pipe(gulp.dest(`${DIST_DIR}/styles`))
 );
 
-gulp.task("dev", gulp.series("package-lib", "symlink"));
+gulp.task("dev-build", gulp.series("package-lib", "symlink"));
 
 gulp.task("watch", () =>
-    gulp.watch("src", gulp.series("dev"))
+    gulp.watch("src", gulp.series("dev-build"))
 );
 
 gulp.task("build", gulp.series("package-lib", "copy:styles"));
