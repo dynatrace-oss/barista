@@ -46,3 +46,4 @@ Thumbs.db
 
 # gradle
 .gradle
+*.gdsl
