@@ -12,17 +12,10 @@ const ngPackage = () => through.obj((file, encoding, callback) => {
         .catch(error => callback(error, null));
 });
 
-gulp.task("symlink:node_modules", () =>
-    gulp.src("node_modules")
-        .pipe(gulp.symlink(DIST_DIR))
-);
-
 gulp.task("symlink:styles", () =>
     gulp.src("src/styles")
         .pipe(gulp.symlink(DIST_DIR))
 );
-
-gulp.task("symlink", gulp.parallel("symlink:styles", "symlink:node_modules"));
 
 gulp.task("package-lib", () =>
     gulp.src("ng-package.json", {
@@ -36,7 +29,7 @@ gulp.task("copy:styles", () =>
         .pipe(gulp.dest(`${DIST_DIR}/styles`))
 );
 
-gulp.task("dev-build", gulp.series("package-lib", "symlink"));
+gulp.task("dev-build", gulp.series("package-lib", "symlink:styles"));
 
 gulp.task("watch", () =>
     gulp.watch("src", gulp.series("dev-build"))

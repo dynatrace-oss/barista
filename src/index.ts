@@ -1,3 +1,3 @@
-export * from "./core";
+export * from "./core/index";
 
 export * from "./angular-components.module";
