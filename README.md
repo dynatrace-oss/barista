@@ -78,7 +78,7 @@ To use it just install it as a dependency:
 ```
 yarn install @dynatrace/angular-components@<version>
 ``` 
-`<version>` can be retrieved from Jenkins build number (e.g. `0.0.1-feature-mybranch.20180218141635`)
+`<version>` can be retrieved from Jenkins build number (e.g. `1.5.0-feature-mybranch.20180218141635`)
 
 ### Using Gradle build
 
@@ -97,3 +97,33 @@ To see complete list of gradlew builds, run:
 ```
 ./gradlew tasks
 ```
+
+### Versioning
+
+#### Git repository version
+
+Version in package.json is hardcoded to match x.x.0-dev pattern. 
+Specific patch versions are bumped by CI but not commited to the repository.
+
+#### Branch versions
+
+Versions built by the CI from branches have the last suffix set by the following rule:
+
+`x.x.0-<branch-name>.<date-and-time>`
+
+e.g. 
+
+`1.5.0-feature-mybranch.20180218141635`
+
+They are published to NPM repository and installable as normal. 
+Athough, wildcard semver syntax will not match them (i.e. `^0.5.0` will match `0.5.1` but not `0.5.0-branch.20180218141635`).
+
+#### Master branch versions
+
+Each CI build from master branch bumps patch version (e.g. `0.1.4 -> 0.1.5`)
+
+#### Incrementing major/minor version
+
+Major and minor versions have to be incremented manually. 
+To do it, open `package.json` and bump major/minor number.
+Remember to leave patch and suffix section unchanged (e.g. `1.5.0-dev -> 1.6.0-dev`, `1.6.0-dev -> 2.0.0-dev`)
