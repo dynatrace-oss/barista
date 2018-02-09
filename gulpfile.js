@@ -2,7 +2,7 @@ const gulp = require("gulp");
 const through = require("through2");
 const ngPackagr = require("ng-packagr/lib/ng-packagr");
 
-const DIST_DIR = "dist";
+const DIST_DIR = "build/dist";
 
 const ngPackage = () => through.obj((file, encoding, callback) => {
     ngPackagr.createNgPackage({

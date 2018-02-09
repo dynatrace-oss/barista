@@ -7,7 +7,7 @@
     {
       "name": "components",
       "root": "src/components",
-      "outDir": "dist",
+      "outDir": "build/dist",
       "main": "../main.ts",
       "test": "../test.ts",
       "polyfills": "../polyfills.ts",
@@ -18,7 +18,7 @@
     {
       "name": "docs",
       "root": "src/docs",
-      "outDir": "dist/docs",
+      "outDir": "build/docs",
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "../polyfills.ts",
