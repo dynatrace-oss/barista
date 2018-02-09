@@ -8,7 +8,8 @@
     "lint": "ng lint",
     "dev-build": "gulp dev-build",
     "watch": "gulp watch",
-    "build": "gulp build"
+    "build": "gulp build",
+    "build-docs": "ng build -a docs"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
