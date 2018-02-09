@@ -1,0 +1,32 @@
+@import "../components/styles/constants";
+@import "../components/styles/images";
+
+$LOGO_MARGIN_TOP: 12px;
+$LOGO_MARGIN_LEFT: 25px;
+$NAVIGATION_MENU_WIDTH: 284px;
+
+.nav__brand {
+  background: url($PRODUCT_LOGO) no-repeat;
+  background-size: contain;
+  height: 20px;
+}
+
+.sidebar {
+  .headline {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 64px;
+    padding-left: 20px;
+    padding-right: 8px;
+    text-decoration: none;
+    background-color: $gray-130;
+    font-size: 24px;
+    font-weight: 300;
+  }
+
+  .sidebar__item {
+    box-sizing: border-box;
+    height: 52px;
+  }
+}

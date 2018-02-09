@@ -1,0 +1,29 @@
+@import "../../../components/styles/constants";
+
+.table {
+  margin-bottom: 0;
+}
+
+td {
+  padding: 5px 10px;
+}
+
+tr:nth-child(1) td {
+  background-color: $white;
+}
+
+tr:nth-child(2) td {
+  background-color: $gray-130;
+}
+
+tr:nth-child(3) td {
+  background-color: $gray-800;
+}
+
+tr:nth-child(4) td {
+  background-color: $yellow-600;
+}
+
+tr:nth-child(5) td {
+  background-color: $red-500;
+}
