@@ -13,6 +13,19 @@ Or if you are using npm
 npm install @dynatrace/angular-components
 ```
 
+## Documentation
+
+Documentation is available by starting a local server at <http://localhost:4300>
+
+##### Using NPM
+   1. Meet NodeJS prerequisites (see `Development -> Prerequisites` section)
+   1. Install dependencies - `yarn install`
+   1. Start documentation server - `yarn start` 
+
+##### Using gradle
+   1. Install JDK
+   1. Run gradle task - `./gradlew startDocs`
+
 ## Development
 
 ### Prerequisites
