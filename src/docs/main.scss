@@ -1,0 +1,17 @@
+@import "~highlight.js/styles/github-gist.css";
+@import "../components/styles/constants";
+@import "../components/styles/main";
+@import "../components/styles/fonticons";
+@import "../components/styles/fonts";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: $gray-100;
+  font-family: 'BerninaSansWeb', sans-serif;
+}
+
+a {
+  cursor: pointer;
+}

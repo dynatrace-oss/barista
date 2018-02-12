@@ -1,0 +1,107 @@
+<h1>Button</h1>
+<source-example [example]="examples.simple"></source-example>
+
+<h2>API</h2>
+
+<h3>Import module</h3>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    WidgetsModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h3>Initialization</h3>
+<div>
+  Button can by initialized by setting one of the following CSS classes:
+  <ul class="list">
+    <li><code>.btn</code> - initializes component and adds just some basic, common button styles</li>
+    <li><code>.btn--primary</code> - initializes component and adds "primary" styles</li>
+    <li><code>.btn--secondary</code> - initializes component and adds "primary" styles</li>
+  </ul>
+  <em>When setting on of the <code>.btn--primary</code> or <code>.btn--secondary</code> classes, <code>.btn</code> class will be
+    added
+    implicitly.</em>
+</div>
+
+<h3>Options</h3>
+<h4>Properties</h4>
+<table class="table">
+  <thead>
+  <tr>
+    <td>Name</td>
+    <td>Type</td>
+    <td>Default</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>disabled</code></td>
+    <td><code>boolean | string | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>Sets disable state, if property is set and the value is truthy or undefined</td>
+  </tr>
+  </tbody>
+</table>
+
+<h4>CSS Classes</h4>
+<table class="table">
+  <thead>
+  <tr>
+    <td>Name</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>btn--primary</code></td>
+    <td>Sets the primary state</td>
+  </tr>
+  <tr>
+    <td><code>btn--secondary</code></td>
+    <td>Sets the secondary state</td>
+  </tr>
+  <tr>
+    <td><code>icon-*, fonticon-*</code></td>
+    <td>Sets selected icon</td>
+  </tr>
+  <tr>
+    <td><code>btn--call-to-action</code></td>
+    <td>Sets the "call to action" color variant</td>
+  </tr>
+  <tr>
+    <td><code>btn--warning</code></td>
+    <td>Sets the "warning" color variant</td>
+  </tr>
+  <tr>
+    <td><code>theme--dark</code></td>
+    <td>Set on the button itself or on any of its parent, changes button colors to be better visible on a dark background</td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Button states</h2>
+<source-example [example]="examples.states"></source-example>
+
+<h2>Color variants</h2>
+<div class="layout is-flex variants">
+  <div>
+    <h3>"Call to action" variant</h3>
+    <source-example [example]="examples.callToAction"></source-example>
+  </div>
+
+  <div>
+    <h3>"Warning" variant</h3>
+    <source-example [example]="examples.warning"></source-example>
+  </div>
+</div>
+
+<h2>DIfferent types of initialization</h2>
+<source-example [example]="examples.btnTag"></source-example>
+
+<h2>Click handling</h2>
+<source-example [example]="examples.click"></source-example>
