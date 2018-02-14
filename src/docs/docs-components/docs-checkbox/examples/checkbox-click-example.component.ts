@@ -15,19 +15,19 @@ import { Component } from "@angular/core";
   // @formatter:on
 })
 export class CheckboxClickExampleComponent {
-  public state1: boolean = false;
-  public state2: boolean = false;
-  public state3: boolean = false;
+  public state1 = false;
+  public state2 = false;
+  public state3 = false;
 
-  onStateChanged1(value: boolean) {
+  public onStateChanged1(value: boolean) {
     this.state1 = value;
   }
 
-  onStateChanged2(value: boolean) {
+  public onStateChanged2(value: boolean) {
     this.state2 = value;
   }
 
-  onStateChanged3(value: boolean) {
+  public onStateChanged3(value: boolean) {
     this.state3 = value;
   }
 }

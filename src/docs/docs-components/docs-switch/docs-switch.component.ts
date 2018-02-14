@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { SwitchClickExampleComponent } from "./examples/switch-click-example.component";
-import { SwitchSimpleExampleComponent } from "./examples/switch-simple-example.component";
-import { SwitchSidesExampleComponent } from "./examples/switch-sides-example.component";
-import { SwitchStatesExampleComponent } from "./examples/switch-states-example.component";
 import { SwitchHtmlExampleComponent } from "./examples/switch-html-example.component";
+import { SwitchSidesExampleComponent } from "./examples/switch-sides-example.component";
+import { SwitchSimpleExampleComponent } from "./examples/switch-simple-example.component";
+import { SwitchStatesExampleComponent } from "./examples/switch-states-example.component";
 
 @Component({
   selector: "docs-switch",
