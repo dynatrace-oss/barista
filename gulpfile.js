@@ -13,7 +13,7 @@ const ngPackage = () => through.obj((file, encoding, callback) => {
 });
 
 gulp.task("symlink:styles", () =>
-    gulp.src("src/styles")
+    gulp.src("src/components/styles")
         .pipe(gulp.symlink(DIST_DIR))
 );
 
@@ -25,7 +25,7 @@ gulp.task("package-lib", () =>
 );
 
 gulp.task("copy:styles", () =>
-    gulp.src("src/styles/**")
+    gulp.src("src/components/styles/**")
         .pipe(gulp.dest(`${DIST_DIR}/styles`))
 );
 
