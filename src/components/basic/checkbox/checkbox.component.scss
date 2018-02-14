@@ -1,0 +1,14 @@
+@import "~@dynatrace/groundhog/src/common/colors";
+
+.checkbox__label:after {
+  background-image: url(../../../docs/assets/images/icons/Icons_file_003_Checkmark_turquoise.svg);
+}
+
+.checkbox__label.theme--dark:after,
+.theme--dark .checkbox__label:after {
+  background-image: url(../../../docs/assets/images/icons/Icons_file_003_Checkmark_white.svg);
+}
+
+.checkbox[disabled]:checked + .checkbox__label:after {
+  background-image: url(../../../docs/assets/images/icons/Icons_file_003_Checkmark_disabled.svg);
+}

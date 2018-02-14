@@ -14,6 +14,12 @@ import { Component } from "@angular/core";
         <a routerLink="/components/button" class="sidebar__item" routerLinkActive="is-current">
           <span class="sidebar__headline">Button</span>
         </a>
+        <a routerLink="/components/checkbox" class="sidebar__item" routerLinkActive="is-current">
+          <span class="sidebar__headline">Checkbox</span>
+        </a>
+        <a routerLink="/components/switch" class="sidebar__item" routerLinkActive="is-current">
+          <span class="sidebar__headline">Switch</span>
+        </a>        
       </nav>
       <div class="island island--connected">
         <router-outlet></router-outlet>
