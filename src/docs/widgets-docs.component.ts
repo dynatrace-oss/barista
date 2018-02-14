@@ -19,7 +19,7 @@ import { Component } from "@angular/core";
         </a>
         <a routerLink="/components/switch" class="sidebar__item" routerLinkActive="is-current">
           <span class="sidebar__headline">Switch</span>
-        </a>        
+        </a>
       </nav>
       <div class="island island--connected">
         <router-outlet></router-outlet>

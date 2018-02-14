@@ -1,6 +1,5 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 
 let nextUniqueId = 0;
 
@@ -14,7 +13,7 @@ let nextUniqueId = 0;
         [attr.disabled]="disabled ? 'disabled' : null"
         class="checkbox"
         [attr.id]="id" />
-      <label 
+      <label
         class="checkbox__label"
         (click)="onClick()"
         [attr.for]="id">
@@ -25,7 +24,7 @@ let nextUniqueId = 0;
 export class CheckboxComponent {
 
   /** Unique id for this input. */
-  private _uid = `dt-checkbox-${nextUniqueId++}`;
+  private readonly _uid = `dt-checkbox-${nextUniqueId++}`;
 
   /** _uid or provided id via input */
   private _id: string;
@@ -35,7 +34,7 @@ export class CheckboxComponent {
   private _disabled;
   private _label = "";
 
-  onClick() {
+  public onClick() {
     if (!this._disabled) {
       this.value = !this.value;
       this.notify.emit(this.value);
@@ -51,16 +50,14 @@ export class CheckboxComponent {
     this._value = coerceBooleanProperty(value);
   }
 
-
   public get checked(): boolean | string {
     return this._checked;
   }
 
   @Input("checked")
-  public set checked(checked: boolean | string ) {
+  public set checked(checked: boolean | string) {
     this._checked = coerceBooleanProperty(checked);
   }
-
 
   public get disabled(): boolean | string {
     return this._disabled;
@@ -82,14 +79,14 @@ export class CheckboxComponent {
 
   /** Unique id of the element. */
   @Input()
-  get id(): string { return this._id; }
-  set id(customId: string) {
+  public get id(): string { return this._id; }
+  public set id(customId: string) {
     this._id = customId || this._uid;
   }
 
-  @Output() notify: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public notify: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() {
+  public constructor() {
     this.id = this.id;
   }
 }
