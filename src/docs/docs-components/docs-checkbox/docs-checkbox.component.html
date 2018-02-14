@@ -1,0 +1,53 @@
+<h1>Checkbox</h1>
+<source-example [example]="examples.simple"></source-example>
+
+<h2>API</h2>
+
+<h3>Import module</h3>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    WidgetsModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h3>Options</h3>
+<h4>Properties</h4>
+<table class="table">
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Type</td>
+        <td>Default</td>
+        <td>Description</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>label</code></td>
+        <td><code>string</code></td>
+        <td><code></code></td>
+        <td>Sets the text of the label.</td>
+    </tr>
+    <tr>
+        <td><code>disabled</code></td>
+        <td><code>string | undefined</code></td>
+        <td><code>undefined</code></td>
+        <td>Sets disable state, if property is set and the value is truthy or undefined</td>
+    </tr>
+    <tr>
+        <td><code>checked</code></td>
+        <td><code>string | undefined</code></td>
+        <td><code>undefined</code></td>
+        <td>Represents the state: true means that the switch is turned ON.</td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<h2>Click handling</h2>
+<source-example [example]="examples.click"></source-example>
