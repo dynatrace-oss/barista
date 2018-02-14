@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { CheckboxSimpleExampleComponent } from "./examples/checkbox-simple-example.component";
 import { CheckboxClickExampleComponent } from "./examples/checkbox-click-example.component";
+import { CheckboxSimpleExampleComponent } from "./examples/checkbox-simple-example.component";
 
 @Component({
   selector: "docs-checkbox",

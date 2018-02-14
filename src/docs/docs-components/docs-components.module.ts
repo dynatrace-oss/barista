@@ -8,8 +8,8 @@ import { BUTTON_EXAMPLES } from "./docs-button/examples/ButtonExamples";
 import { DocsCheckboxComponent } from "./docs-checkbox/docs-checkbox.component";
 import { CHECKBOX_EXAMPLES } from "./docs-checkbox/examples/CheckboxExamples";
 import { DocsComponentsRoutingModule } from "./docs-components-routing.module";
-import {SWITCH_EXAMPLES} from "./docs-switch/examples/SwitchExamples";
-import {DocsSwitchComponent} from "./docs-switch/docs-switch.component";
+import { DocsSwitchComponent } from "./docs-switch/docs-switch.component";
+import { SWITCH_EXAMPLES } from "./docs-switch/examples/SwitchExamples";
 
 const EXAMPLES = [
   ...BUTTON_EXAMPLES,

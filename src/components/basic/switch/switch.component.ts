@@ -1,9 +1,8 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import {CheckboxComponent} from "../checkbox/checkbox.component";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { CheckboxComponent } from "../checkbox/checkbox.component";
 
-let nextUniqueId = 0;
+const nextUniqueId = 0;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,7 +15,7 @@ let nextUniqueId = 0;
         class="switch"
         [class.to-right]="right"
         [attr.id]="id" />
-      <label 
+      <label
         class="switch__label"
         (click)="onClick()"
         [attr.for]="id">
