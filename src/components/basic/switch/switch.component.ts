@@ -2,8 +2,6 @@ import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { CheckboxComponent } from "../checkbox/checkbox.component";
 
-const nextUniqueId = 0;
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "dt-switch",

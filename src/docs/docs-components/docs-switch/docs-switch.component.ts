@@ -30,9 +30,9 @@ export class DocsSwitchComponent {
 
   public examples = {
     click: SwitchClickExampleComponent,
-    simple: SwitchSimpleExampleComponent,
-    sides: SwitchSidesExampleComponent,
-    states: SwitchStatesExampleComponent,
     html: SwitchHtmlExampleComponent,
+    sides: SwitchSidesExampleComponent,
+    simple: SwitchSimpleExampleComponent,
+    states: SwitchStatesExampleComponent,
   };
 }
