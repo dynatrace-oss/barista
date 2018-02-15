@@ -8,12 +8,12 @@ import { CheckboxComponent } from "../checkbox/checkbox.component";
   styleUrls: ["./switch.component.scss"],
   template: `
       <input type="checkbox"
+        [attr.id]="id"
         [attr.checked]="value ? 'checked' : null"
         [attr.disabled]="disabled ? 'disabled' : null"
-        (change)="onChange()"
         class="switch"
         [class.to-right]="right"
-        [attr.id]="id" />
+        (change)="onChange()" />
       <label
         class="switch__label"
         [attr.for]="id">
