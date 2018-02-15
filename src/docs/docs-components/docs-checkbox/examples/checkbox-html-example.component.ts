@@ -3,13 +3,13 @@ import { Component } from "@angular/core";
 @Component({
   // @formatter:off
   template: `
-  <dt-switch checked [label]="htmlContent"></dt-switch>
+  <dt-checkbox checked [label]="htmlContent"></dt-checkbox>
   <br><br>
-  <dt-switch checked [label]="longContent"></dt-switch>
+  <dt-checkbox checked [label]="longContent"></dt-checkbox>
 `,
   // @formatter:on
 })
-export class SwitchHtmlExampleComponent {
+export class CheckboxHtmlExampleComponent {
   public htmlContent = "This is some <sup>HTML</sup> content<sub>example</sub>";
   public longContent = "This is an example of a long content. Very long content." +
       "It's so long that if you are reading this, you must be very bored. " +
