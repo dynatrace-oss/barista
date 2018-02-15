@@ -9,13 +9,14 @@ let nextUniqueId = 0;
   styleUrls: ["./checkbox.component.scss"],
   template: `
       <input type="checkbox"
-        [attr.checked]="checked ? 'checked' : null"
+        [attr.checked]="value ? 'checked' : null"
+        [attr.value]="value"
         [attr.disabled]="disabled ? 'disabled' : null"
+        (change)="onChange()"
         class="checkbox"
         [attr.id]="id" />
       <label
         class="checkbox__label"
-        (click)="onClick()"
         [attr.for]="id">
         <span role="checkbox" class="checkbox__caption" [innerHtml]="label"></span>
       </label>
@@ -30,9 +31,7 @@ export class CheckboxComponent {
 
   /** _uid or provided id via input */
   private _id: string;
-
-  private _checked;
-  private _value;
+  private _value = false;
   private _disabled;
   private _label = "";
 
@@ -40,18 +39,8 @@ export class CheckboxComponent {
     return this._value;
   }
 
-  @Input("checked")
-  public set value(value: boolean) {
-    this._value = coerceBooleanProperty(value);
-  }
-
-  public get checked(): boolean | string {
-    return this._checked;
-  }
-
-  @Input("checked")
-  public set checked(checked: boolean | string) {
-    this._checked = coerceBooleanProperty(checked);
+  @Input("checked") public set value(v: boolean) {
+    this._value = coerceBooleanProperty(v);
   }
 
   public get disabled(): boolean | string {
@@ -83,11 +72,8 @@ export class CheckboxComponent {
     this.id = this.id;
   }
 
-  public onClick(): void {
-    if (!this._disabled) {
-      this.value = !this.value;
-      this.notify.emit(this.value);
-    }
+  public onChange(): void {
+    this.value = !this.value;
+    this.notify.emit(this.value);
   }
-
 }
