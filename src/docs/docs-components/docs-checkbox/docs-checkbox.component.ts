@@ -26,7 +26,7 @@ import { CheckboxSimpleExampleComponent } from "./examples/checkbox-simple-examp
 export class DocsCheckboxComponent {
 
   public examples = {
-    simple: CheckboxSimpleExampleComponent,
     click: CheckboxClickExampleComponent,
+    simple: CheckboxSimpleExampleComponent,
   };
 }

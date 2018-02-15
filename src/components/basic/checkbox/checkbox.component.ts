@@ -23,6 +23,8 @@ let nextUniqueId = 0;
 })
 export class CheckboxComponent {
 
+  @Output() public notify: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   /** Unique id for this input. */
   private readonly _uid = `dt-checkbox-${nextUniqueId++}`;
 
@@ -33,13 +35,6 @@ export class CheckboxComponent {
   private _value;
   private _disabled;
   private _label = "";
-
-  public onClick() {
-    if (!this._disabled) {
-      this.value = !this.value;
-      this.notify.emit(this.value);
-    }
-  }
 
   public get value(): boolean {
     return this._value;
@@ -84,9 +79,15 @@ export class CheckboxComponent {
     this._id = customId || this._uid;
   }
 
-  @Output() public notify: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   public constructor() {
     this.id = this.id;
   }
+
+  public onClick(): void {
+    if (!this._disabled) {
+      this.value = !this.value;
+      this.notify.emit(this.value);
+    }
+  }
+
 }

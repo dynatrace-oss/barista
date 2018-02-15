@@ -19,15 +19,15 @@ export class SwitchClickExampleComponent {
   public state2 = false;
   public state3 = false;
 
-  public onStateChanged1(value: boolean) {
+  public onStateChanged1(value: boolean): void {
     this.state1 = value;
   }
 
-  public onStateChanged2(value: boolean) {
+  public onStateChanged2(value: boolean): void {
     this.state2 = value;
   }
 
-  public onStateChanged3(value: boolean) {
+  public onStateChanged3(value: boolean): void {
     this.state3 = value;
   }
 }
