@@ -1,7 +1,7 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostBinding, Input, QueryList } from "@angular/core";
+import { EmptyClass } from "../../core/base/EmptyClass";
 import { CanDisable, mixinDisabled } from "../../core/mixins/disabled.mixin";
-import { EmptyClass } from "../../core/mixins/empty-class";
 
 const _ButtonComponentBase = mixinDisabled(EmptyClass);
 

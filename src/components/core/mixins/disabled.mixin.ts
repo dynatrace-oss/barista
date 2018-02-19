@@ -7,9 +7,8 @@
  */
 
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
-import { Constructor } from "./constructor";
+import { Constructor } from "../base/Constructor";
 
-/** @docs-private */
 export interface CanDisable {
     disabled: boolean;
 }
@@ -17,10 +16,18 @@ export interface CanDisable {
 // tslint:disable no-any
 export const mixinDisabled = <T extends Constructor<{}>>(base: T): Constructor<CanDisable> & T =>
     class extends base {
+
+        // Not sure but tslint complains that this member is never reassigned
+        // tslint:disable-next-line:prefer-readonly
         private _disabled = false;
 
-        public get disabled(): any { return this._disabled; }
-        public set disabled(value: any) { this._disabled = coerceBooleanProperty(value); }
+        // noinspection JSUnusedGlobalSymbols
+        public get disabled(): any {
+            return this._disabled;
+        }
 
-        public constructor(...args: any[]) { super(...args); }
+        // noinspection JSUnusedGlobalSymbols
+        public set disabled(value: any) {
+            this._disabled = coerceBooleanProperty(value);
+        }
     };
