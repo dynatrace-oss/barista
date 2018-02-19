@@ -1,5 +1,5 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostBinding, Input, QueryList } from "@angular/core";
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from "@angular/core";
 import { EmptyClass } from "../../core/base/EmptyClass";
 import { CanDisable, mixinDisabled } from "../../core/mixins/disabled.mixin";
 
@@ -30,8 +30,6 @@ enum ButtonVariant {
   `,
 })
 export class ButtonComponent extends _ButtonComponentBase implements CanDisable {
-  @ContentChildren(ElementRef)
-  public content: QueryList<ElementRef>;
 
   private importance = ButtonImportance.PRIMARY;
   private _variant = ButtonVariant.NORMAL;

@@ -1,13 +1,13 @@
 const gulp = require("gulp");
 const through = require("through2");
-const ngPackagr = require("ng-packagr/lib/ng-packagr");
+const packagr = require("ng-packagr/lib/ng-v5/packagr");
 
 const DIST_DIR = "build/dist";
 
 const ngPackage = () => through.obj((file, encoding, callback) => {
-    ngPackagr.createNgPackage({
-            project: file.path
-        })
+    packagr.ngPackagr()
+        .forProject(file.path)
+        .build()
         .then(result => callback(null, result))
         .catch(error => callback(error, null));
 });
