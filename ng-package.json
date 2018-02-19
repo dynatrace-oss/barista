@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
   "dest": "build/dist",
+  "workingDirectory": "build/ng_pkg_build",
   "lib": {
     "entryFile": "index.ts"
   }
