@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostBi
 import { EmptyClass } from "../../core/base/EmptyClass";
 import { CanDisable, mixinDisabled } from "../../core/mixins/disabled.mixin";
 
-const _ButtonComponentBase = mixinDisabled(EmptyClass);
+export const _ButtonComponentBase = mixinDisabled(EmptyClass);
 
 enum ButtonImportance {
   PRIMARY,
