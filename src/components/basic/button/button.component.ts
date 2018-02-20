@@ -1,7 +1,7 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ChangeDetectionStrategy, Component, HostBinding, Input } from "@angular/core";
 import { EmptyClass } from "../../core/base/EmptyClass";
-import { CanDisable, mixinDisabled } from "../../core/mixins/disabled.mixin";
+import { CanBeDisabled, mixinDisabled } from "../../core/mixins/disabled.mixin";
 
 export const _ButtonComponentBase = mixinDisabled(EmptyClass);
 
@@ -29,7 +29,7 @@ enum ButtonVariant {
     <ng-content></ng-content>
   `,
 })
-export class ButtonComponent extends _ButtonComponentBase implements CanDisable {
+export class ButtonComponent extends _ButtonComponentBase implements CanBeDisabled {
 
   private importance = ButtonImportance.PRIMARY;
   private _variant = ButtonVariant.NORMAL;

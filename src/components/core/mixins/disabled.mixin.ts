@@ -1,21 +1,13 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { Constructor } from "../base/Constructor";
 
-export interface CanDisable {
+export interface CanBeDisabled {
     disabled: boolean;
 }
 
 // tslint:disable no-any
-export const mixinDisabled = <T extends Constructor<{}>>(base: T): Constructor<CanDisable> & T =>
-    class extends base {
+export const mixinDisabled = <T extends Constructor<{}>> (baseClass: T): Constructor<CanBeDisabled> & T =>
+    class extends baseClass {
 
         // Not sure but tslint complains that this member is never reassigned
         // tslint:disable-next-line:prefer-readonly
