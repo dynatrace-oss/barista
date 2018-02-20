@@ -14,12 +14,14 @@ export const mixinDisabled = <T extends Constructor<{}>> (baseClass: T): Constru
         private _disabled = false;
 
         // noinspection JSUnusedGlobalSymbols
-        public get disabled(): any {
+        public get disabled(): boolean {
             return this._disabled;
         }
 
         // noinspection JSUnusedGlobalSymbols
-        public set disabled(value: any) {
+        public set disabled(value: boolean) {
+            // Although, we defined value type as a boolean (TS API), we need to be prepared to take any value
+            // since it ca be set from HTML, which doesn't validate types
             this._disabled = coerceBooleanProperty(value);
         }
     };
