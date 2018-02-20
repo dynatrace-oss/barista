@@ -12,13 +12,13 @@ import { Component } from "@angular/core";
     <a dt-btn variant="call-to-action">Button</a>
   </ng-template>
   <ng-template #variant>
-    <a dt-btn variant="call-to-action">Button</a>
+    <a dt-btn disabled variant="call-to-action">Button</a>
   </ng-template>
   <ng-template #variant>
     <a dt-btn secondary variant="call-to-action">Button</a>
   </ng-template>
   <ng-template #variant>
-    <a dt-btn secondary variant="call-to-action" disabled>Button</a>
+    <a dt-btn secondary disabled variant="call-to-action">Button</a>
   </ng-template>
 </variants-table>`,
   // @formatter:on
