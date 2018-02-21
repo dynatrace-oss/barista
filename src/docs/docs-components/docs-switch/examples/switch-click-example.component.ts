@@ -3,13 +3,13 @@ import { Component } from "@angular/core";
 @Component({
   // @formatter:off
   template: `
-<dt-switch (notify)="onStateChanged1($event)"></dt-switch>
+<dt-switch (checkedChange)="onStateChanged1($event)"></dt-switch>
 <div>Switch state: {{ state1 }}</div>
 
-<dt-switch (notify)="onStateChanged2($event)"></dt-switch>
+<dt-switch (checkedChange)="onStateChanged2($event)"></dt-switch>
 <div>Switch state: {{ state2 }}</div>
 
-<dt-switch (notify)="onStateChanged3($event)" disabled></dt-switch>
+<dt-switch (checkedChange)="onStateChanged3($event)" disabled></dt-switch>
 <div>Switch state: {{ state3 }}</div>
 `,
   // @formatter:on

@@ -1,20 +1,28 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 let nextUniqueId = 0;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      multi: true,
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CheckboxComponent),
+    },
+  ],
   selector: "dt-checkbox",
   styleUrls: ["./checkbox.component.scss"],
   template: `
       <input type="checkbox"
+        [attr.id]="id"
         [attr.checked]="value ? 'checked' : null"
         [attr.value]="value"
         [attr.disabled]="disabled ? 'disabled' : null"
-        (change)="onChange()"
         class="checkbox"
-        [attr.id]="id" />
+        (change)="onChanged();"/>
       <label
         class="checkbox__label"
         [attr.for]="id">
@@ -22,9 +30,10 @@ let nextUniqueId = 0;
       </label>
   `,
 })
-export class CheckboxComponent {
 
-  @Output() public notify: EventEmitter<boolean> = new EventEmitter<boolean>();
+export class CheckboxComponent implements ControlValueAccessor {
+
+  @Output() public checkedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   /** Unique id for this input. */
   private readonly _uid = `dt-checkbox-${nextUniqueId++}`;
@@ -35,12 +44,23 @@ export class CheckboxComponent {
   private _disabled;
   private _label = "";
 
+  public constructor() {
+    this.id = this.id;
+  }
+
+  // tslint:disable: no-empty no-any
+  public onChange: any = () => { };
+  public onTouched: any = () => { };
+  // tslint:enable: no-empty no-any
+
   public get value(): boolean {
     return this._value;
   }
 
   @Input("checked") public set value(v: boolean) {
     this._value = coerceBooleanProperty(v);
+    this.onChange(v);
+    this.onTouched();
   }
 
   public get disabled(): boolean | string {
@@ -68,12 +88,31 @@ export class CheckboxComponent {
     this._id = customId || this._uid;
   }
 
-  public constructor() {
-    this.id = this.id;
+  public onChanged(): void {
+    this.value = !this.value;
+    this.checkedChange.emit(this.value);
   }
 
-  public onChange(): void {
-    this.value = !this.value;
-    this.notify.emit(this.value);
+  // From ControlValueAccessor interface
+  public writeValue(v: boolean | string): void {
+    if (coerceBooleanProperty(v)) {
+      this._value = coerceBooleanProperty(v);
+    }
   }
+
+  // From ControlValueAccessor interface
+  public registerOnChange(fn: void): void {
+    this.onChange = fn;
+  }
+
+  // From ControlValueAccessor interface
+  public registerOnTouched(fn: void): void {
+    this.onTouched = fn;
+  }
+
+  // From ControlValueAccessor interface
+  public setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
 }

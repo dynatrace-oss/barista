@@ -10,10 +10,11 @@ import { CheckboxComponent } from "../checkbox/checkbox.component";
       <input type="checkbox"
         [attr.id]="id"
         [attr.checked]="value ? 'checked' : null"
+        [attr.value]="value"
         [attr.disabled]="disabled ? 'disabled' : null"
         class="switch"
         [class.to-right]="right"
-        (change)="onChange()" />
+        (change)="onChanged()" />
       <label
         class="switch__label"
         [attr.for]="id">
@@ -21,6 +22,7 @@ import { CheckboxComponent } from "../checkbox/checkbox.component";
       </label>
   `,
 })
+
 export class SwitchComponent extends CheckboxComponent {
 
   private _right = false;

@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
+import { ReactiveFormsModule } from "@angular/forms";
 import { AngularComponentsModule } from "../../components";
 import { UiModule } from "../ui/ui.module";
 import { DocsButtonComponent } from "./docs-button/docs-button.component";
@@ -32,6 +33,7 @@ const EXAMPLES = [
     DocsComponentsRoutingModule,
     UiModule,
     AngularComponentsModule,
+    ReactiveFormsModule,
   ],
 })
 export class DocsComponentsModule {
