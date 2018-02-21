@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { SwitchClickExampleComponent } from "./examples/switch-click-example.component";
+import { SwitchDarkExampleComponent } from "./examples/switch-dark-example.component";
 import { SwitchHtmlExampleComponent } from "./examples/switch-html-example.component";
 import { SwitchSidesExampleComponent } from "./examples/switch-sides-example.component";
 import { SwitchSimpleExampleComponent } from "./examples/switch-simple-example.component";
@@ -30,6 +31,7 @@ export class DocsSwitchComponent {
 
   public examples = {
     click: SwitchClickExampleComponent,
+    dark: SwitchDarkExampleComponent,
     html: SwitchHtmlExampleComponent,
     sides: SwitchSidesExampleComponent,
     simple: SwitchSimpleExampleComponent,

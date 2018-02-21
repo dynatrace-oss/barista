@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonComponent } from "./basic/button/button.component";
 import { CheckboxComponent } from "./basic/checkbox/checkbox.component";
 import { LoadingIndicatorComponent } from "./basic/loading-indicator.component";
@@ -25,6 +25,7 @@ import { SwitchComponent } from "./basic/switch/switch.component";
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class AngularComponentsModule {
