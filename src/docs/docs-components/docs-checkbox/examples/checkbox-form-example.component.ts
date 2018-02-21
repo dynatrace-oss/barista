@@ -6,7 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
   template: `
   <form [formGroup]="form" (submit)="submit()">
     <dt-checkbox formControlName="agreed" label="I agree..."></dt-checkbox>
-    <button class="btn btn--primary" [disabled]="form.invalid">Submit</button>
+    <a dt-btn class="btn btn--primary" [disabled]="form.invalid">Submit</a>
   </form>
 `,
   // @formatter:on
