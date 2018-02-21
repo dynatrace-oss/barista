@@ -17,40 +17,40 @@ import { Component } from "@angular/core";
   <ng-template #header></ng-template>
 
   <ng-template #variant>
-    <a class="btn--primary">Button</a>
+    <a dt-btn >Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--primary" disabled>Button</a>
+    <a dt-btn  disabled>Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--secondary">Button</a>
+    <a dt-btn secondary>Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--secondary" disabled>Button</a>
+    <a dt-btn secondary disabled>Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--primary fonticon-Plugin">Button</a>
+    <a dt-btn class="fonticon-Plugin">Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--primary fonticon-Plugin"></a>
+    <a dt-btn class="fonticon-Plugin"></a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--primary fonticon-Plugin" disabled>Button</a>
+    <a dt-btn disabled class="fonticon-Plugin">Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--primary fonticon-Plugin" disabled></a>
+    <a dt-btn disabled class="fonticon-Plugin"></a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--secondary fonticon-Plugin">Button</a>
+    <a dt-btn secondary class="fonticon-Plugin">Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--secondary fonticon-Plugin"></a>
+    <a dt-btn secondary class="fonticon-Plugin"></a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--secondary fonticon-Plugin" disabled>Button</a>
+    <a dt-btn secondary disabled class="fonticon-Plugin">Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--secondary fonticon-Plugin" disabled></a>
+    <a dt-btn secondary disabled class="fonticon-Plugin"></a>
   </ng-template>
 </variants-table>`,
   // @formatter:on

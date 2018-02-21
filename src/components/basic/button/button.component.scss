@@ -1,39 +1,88 @@
-@import "../../../../node_modules/@dynatrace/groundhog/src/common/colors";
+@import "~@dynatrace/groundhog/src/common/colors";
+@import "~@dynatrace/groundhog/src/button/button-common";
+@import "~@dynatrace/groundhog/src/button/button-themes";
+@import "~@dynatrace/groundhog/src/button/button-variants";
 
-:host[class^="fonticon-"],
-:host[class*=" fonticon-"],
-:host[class^="icon-"],
-:host[class*=" icon-"] {
-  &:not(:empty)::before {
-    margin-right: 10px;
+@mixin btn-wariant($primary-color, $primary-hover-color, $secondary-hover-border-color) {
+
+  &.primary:not([disabled]) {
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+    &:hover {
+      background-color: $primary-hover-color;
+      border-color: $primary-hover-color;
+    }
   }
 
-  &:empty {
-    padding-left: 0;
-    padding-right: 0;
-    width: 32px;
-    text-align: center;
-  }
-}
+  &.secondary:not([disabled]) {
+    border-color: $primary-color;
+    color: $primary-color;
 
-@mixin btn-wariant($color) {
-
-  &.btn--primary:not([disabled]) {
-    background-color: $color;
-    border-color: $color;
-  }
-
-  &.btn--secondary:not([disabled]) {
-    background-color: transparent;
-    border-color: $color;
-    color: $color;
+    &:hover {
+      border-color: $secondary-hover-border-color;
+      &:not(:hover) {
+        background-color: $gray-100;
+      }
+    }
   }
 }
 
-:host.btn--call-to-action {
-  @include btn-wariant($greenicon);
+@mixin variants() {
+  &.call-to-action {
+    @include btn-wariant($green-500, $green-700, $green-600);
+  }
+
+  &.warning {
+    @include btn-wariant($yellow-600, $yellow-700, $yellow-700);
+  }
 }
 
-:host.btn--warning {
-  @include btn-wariant($yellow-600);
+:host {
+  @include btn-common();
+  @include variants();
+
+  &[disabled] {
+    pointer-events: none;
+  }
+
+  & > .icon {
+    @include btn-icon-element();
+  }
+
+  &.primary {
+    @include btn-primary();
+  }
+
+  &.secondary {
+    @include btn-secondary();
+  }
+
+  &[class^="fonticon-"],
+  &[class*=" fonticon-"],
+  &[class^="icon-"],
+  &[class*=" icon-"] {
+    &:not(:empty)::before {
+      margin-right: 10px;
+    }
+
+    &:empty {
+      padding-left: 0;
+      padding-right: 0;
+      width: 32px;
+      text-align: center;
+    }
+  }
+}
+
+:host.primary.theme--dark,
+.theme--dark :host.primary {
+  @include btn-primary-theme-dark();
+  @include variants();
+}
+
+.theme--dark :host.secondary,
+:host.secondary.theme--dark {
+  @include btn-secondary-theme-dark();
+  @include variants();
 }
