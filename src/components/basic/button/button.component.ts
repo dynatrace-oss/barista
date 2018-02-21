@@ -1,34 +1,67 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostBinding, Input, QueryList } from "@angular/core";
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from "@angular/core";
+import { CanBeDisabled, mixinDisabled } from "../../core/mixins/disabled.mixin";
+import { MixinComposer } from "../../core/mixins/MixinComposer";
+
+enum ButtonImportance {
+  PRIMARY,
+  SECONDARY,
+}
+
+enum ButtonVariant {
+  NORMAL = "normal",
+  WARNING = "warning",
+  CALL_TO_ACTION = "call-to-action",
+}
+
+export const _ButtonComponentBase = MixinComposer.fromScratch()
+    .with(mixinDisabled)
+    .build();
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     "[attr.disabled]": "disabled || null",
   },
+  inputs: ["disabled", "secondary"],
   preserveWhitespaces: false,
-  selector: ".btn, .btn--primary, .btn--secondary",
+  selector: "[dt-btn]",
   styleUrls: ["./button.component.scss"],
   template: `
     <ng-content></ng-content>
   `,
 })
-export class ButtonComponent {
-  @ContentChildren(ElementRef)
-  public content: QueryList<ElementRef>;
+export class ButtonComponent extends _ButtonComponentBase implements CanBeDisabled {
 
-  @HostBinding("class.btn")
-  public readonly btnClass = true;
+  private importance = ButtonImportance.PRIMARY;
+  private _variant = ButtonVariant.NORMAL;
 
-  private _disabled = false;
-
-  public get disabled(): boolean | string {
-    return this._disabled;
+  public set secondary(value: boolean) {
+    this.importance = coerceBooleanProperty(value) ? ButtonImportance.SECONDARY : ButtonImportance.PRIMARY;
   }
 
-  @Input("disabled")
-  public set disabled(disabled: boolean | string) {
-    this._disabled = coerceBooleanProperty(disabled);
+  @HostBinding("class.secondary")
+  public get secondary(): boolean {
+      return this.importance === ButtonImportance.SECONDARY;
   }
 
+  @HostBinding("class.primary")
+  public get primary(): boolean {
+      return this.importance === ButtonImportance.PRIMARY;
+  }
+
+  @Input()
+  public set variant(value: string) {
+    this._variant = value ? ButtonVariant[value] : ButtonVariant.NORMAL;
+  }
+
+  @HostBinding("class.call-to-action")
+  public get variantCallToAction(): boolean {
+    return this._variant === ButtonVariant.CALL_TO_ACTION;
+  }
+
+  @HostBinding("class.warning")
+  public get variantWarning(): boolean {
+      return this._variant === ButtonVariant.WARNING;
+  }
 }
