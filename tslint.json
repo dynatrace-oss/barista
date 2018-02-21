@@ -13,6 +13,7 @@
       true,
       "never-prefix"
     ],
+    "linebreak-style": [true, "CRLF"],
     "max-line-length": [
       true,
       132
