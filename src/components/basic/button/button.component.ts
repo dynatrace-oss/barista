@@ -1,9 +1,7 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ChangeDetectionStrategy, Component, HostBinding, Input } from "@angular/core";
-import { EmptyClass } from "../../core/base/EmptyClass";
 import { CanBeDisabled, mixinDisabled } from "../../core/mixins/disabled.mixin";
-
-export const _ButtonComponentBase = mixinDisabled(EmptyClass);
+import { MixinComposer } from "../../core/mixins/MixinComposer";
 
 enum ButtonImportance {
   PRIMARY,
@@ -15,6 +13,10 @@ enum ButtonVariant {
   WARNING = "warning",
   CALL_TO_ACTION = "call-to-action",
 }
+
+export const _ButtonComponentBase = MixinComposer.fromScratch()
+    .with(mixinDisabled)
+    .build();
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
