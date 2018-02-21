@@ -1,6 +1,12 @@
+@import "~@dynatrace/groundhog/src/base/typography";
+@import "~@dynatrace/groundhog/src/base/base";
+@import "~@dynatrace/groundhog/src/list/list";
+@import "~@dynatrace/groundhog/src/layout/layout";
+@import "~@dynatrace/groundhog/src/layout/islands";
+@import "~@dynatrace/groundhog/src/table/table";
+
 @import "~highlight.js/styles/github-gist.css";
 @import "../components/styles/constants";
-@import "../components/styles/main";
 @import "../components/styles/fonticons";
 @import "../components/styles/fonts";
 

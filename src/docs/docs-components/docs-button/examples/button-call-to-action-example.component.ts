@@ -9,16 +9,16 @@ import { Component } from "@angular/core";
   <ng-template #header>..disabled</ng-template>
 
   <ng-template #variant>
-    <a class="btn--primary btn--call-to-action">Button</a>
+    <a dt-btn variant="call-to-action">Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--primary btn--call-to-action">Button</a>
+    <a dt-btn disabled variant="call-to-action">Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--secondary btn--call-to-action">Button</a>
+    <a dt-btn secondary variant="call-to-action">Button</a>
   </ng-template>
   <ng-template #variant>
-    <a class="btn--secondary btn--call-to-action" disabled>Button</a>
+    <a dt-btn secondary disabled variant="call-to-action">Button</a>
   </ng-template>
 </variants-table>`,
   // @formatter:on
