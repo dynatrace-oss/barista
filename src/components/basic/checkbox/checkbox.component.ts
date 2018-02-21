@@ -1,11 +1,18 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { CanBeDisabled, mixinDisabled } from "../../core/mixins/disabled.mixin";
+import { MixinComposer } from "../../core/mixins/MixinComposer";
 
 let nextUniqueId = 0;
 
+export const _CheckboxComponentsBase = MixinComposer.fromScratch()
+    .with(mixinDisabled)
+    .build();
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  inputs: ["disabled"],
   providers: [
     {
       multi: true,
@@ -26,12 +33,12 @@ let nextUniqueId = 0;
       <label
         class="checkbox__label"
         [attr.for]="id">
-        <span role="checkbox" class="checkbox__caption" [innerHtml]="label"></span>
+        <span class="checkbox__caption" [innerHtml]="label"></span>
       </label>
   `,
 })
 
-export class CheckboxComponent implements ControlValueAccessor {
+export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeDisabled, ControlValueAccessor {
 
   @Output() public checkedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -41,10 +48,10 @@ export class CheckboxComponent implements ControlValueAccessor {
   /** _uid or provided id via input */
   private _id: string;
   private _value = false;
-  private _disabled;
   private _label = "";
 
   public constructor() {
+    super();
     this.id = this.id;
   }
 
@@ -63,15 +70,6 @@ export class CheckboxComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  public get disabled(): boolean | string {
-    return this._disabled;
-  }
-
-  @Input("disabled")
-  public set disabled(disabled: boolean | string) {
-    this._disabled = coerceBooleanProperty(disabled);
-  }
-
   public get label(): string {
     return this._label;
   }
@@ -81,11 +79,14 @@ export class CheckboxComponent implements ControlValueAccessor {
     this._label = label;
   }
 
-  /** Unique id of the element. */
   @Input()
-  public get id(): string { return this._id; }
-  public set id(customId: string) {
-    this._id = customId || this._uid;
+  public get id(): string {
+    return this._id;
+  }
+
+  // Not sure if custom ids should be allowed, perhaps not
+  public set id(id: string) {
+    this._id = id || this._uid;
   }
 
   public onChanged(): void {
@@ -94,10 +95,8 @@ export class CheckboxComponent implements ControlValueAccessor {
   }
 
   // From ControlValueAccessor interface
-  public writeValue(v: boolean | string): void {
-    if (coerceBooleanProperty(v)) {
-      this._value = coerceBooleanProperty(v);
-    }
+  public writeValue(v: boolean): void {
+    this._value = coerceBooleanProperty(v);
   }
 
   // From ControlValueAccessor interface
