@@ -98,6 +98,7 @@ export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeD
     this.disabled = isDisabled;
   }
 
+  // tslint:disable-next-line
   private onChanged(): void {
     this.value = !this.value;
     this.checkedChange.emit(this.value);
