@@ -20,6 +20,9 @@ import { Component } from "@angular/core";
         <a routerLink="/components/switch" class="sidebar__item" routerLinkActive="is-current">
           <span class="sidebar__headline">Switch</span>
         </a>
+        <a routerLink="/components/radiobutton" class="sidebar__item" routerLinkActive="is-current">
+            <span class="sidebar__headline">Radio-button</span>
+        </a>
       </nav>
       <div class="island island--connected">
         <router-outlet></router-outlet>
