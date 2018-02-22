@@ -14,19 +14,15 @@ import { Component } from "@angular/core";
       background-color: #434343;
     }
   `],
-  template: `
-  <div class="container light">
+  template: `<div class="container light">
     <dt-switch checked disabled></dt-switch>
-    <dt-switch [label]="lightSide"></dt-switch>
+    <dt-switch></dt-switch>
   </div>
   <div class="theme--dark container dark">
-    <dt-switch checked disabled></dt-switch>
-    <dt-switch [label]="darkSide"></dt-switch>
-  </div>
-`,
+    <dt-switch checked disabled>regular, boring light background</dt-switch>
+    <dt-switch>some ancestor has class='theme--dark'</dt-switch>
+  </div>`,
   // @formatter:on
 })
 export class SwitchDarkExampleComponent {
-  public lightSide = "regular, boring light background";
-  public darkSide = "some ancestor has class='theme--dark'";
 }

@@ -20,14 +20,14 @@ import { CheckboxComponent } from "../checkbox/checkbox.component";
         [attr.id]="id"
         [attr.checked]="value ? 'checked' : null"
         [attr.value]="value"
-        [attr.disabled]="disabled ? 'disabled' : null"
+        [disabled]="disabled ? 'disabled' : null"
         class="switch"
         [class.to-right]="right"
         (change)="onChanged()" />
       <label
         class="switch__label"
         [attr.for]="id">
-        <span class="switch__caption" [innerHtml]="label"></span>
+        <span class="switch__caption" ><ng-content></ng-content></span>
       </label>
   `,
 })
