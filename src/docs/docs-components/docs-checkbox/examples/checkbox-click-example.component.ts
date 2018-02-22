@@ -2,30 +2,13 @@ import { Component } from "@angular/core";
 
 @Component({
   // @formatter:off
-  template: `<dt-checkbox (checkedChange)="onStateChanged1($event)"></dt-checkbox>
-<div>Checkbox state: {{ state1 }}</div>
-
-<dt-checkbox (checkedChange)="onStateChanged2($event)"></dt-checkbox>
-<div>Checkbox state: {{ state2 }}</div>
-
-<dt-checkbox (checkedChange)="onStateChanged3($event)" disabled></dt-checkbox>
-<div>Checkbox state: {{ state3 }}</div>`,
+  template: `<dt-checkbox (checkedChange)="state1 = $event">Checkbox state: {{ state1 }}</dt-checkbox><br>
+<dt-checkbox (checkedChange)="state2 = $event">Checkbox state: {{ state2 }}</dt-checkbox><br>
+<dt-checkbox (checkedChange)="state3 = $event" disabled>Checkbox state: {{ state3 }}</dt-checkbox>`,
   // @formatter:on
 })
 export class CheckboxClickExampleComponent {
   public state1 = false;
   public state2 = false;
   public state3 = false;
-
-  public onStateChanged1(value: boolean): void {
-    this.state1 = value;
-  }
-
-  public onStateChanged2(value: boolean): void {
-    this.state2 = value;
-  }
-
-  public onStateChanged3(value: boolean): void {
-    this.state3 = value;
-  }
 }

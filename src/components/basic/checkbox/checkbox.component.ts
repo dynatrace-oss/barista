@@ -55,8 +55,8 @@ export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeD
   }
 
   // tslint:disable: no-empty no-any
-  public onChange: any = () => { };
-  public onTouched: any = () => { };
+  public onChangeCallback: any = () => { };
+  public onTouchedCallback: any = () => { };
   // tslint:enable: no-empty no-any
 
   public get value(): boolean {
@@ -65,8 +65,8 @@ export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeD
 
   @Input("checked") public set value(v: boolean) {
     this._value = coerceBooleanProperty(v);
-    this.onChange(v);
-    this.onTouched();
+    this.onChangeCallback(v);
+    this.onTouchedCallback();
   }
 
   @Input()
@@ -74,14 +74,8 @@ export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeD
     return this._id;
   }
 
-  // Not sure if custom ids should be allowed, perhaps not
   public set id(id: string) {
     this._id = id || this._uid;
-  }
-
-  public onChanged(): void {
-    this.value = !this.value;
-    this.checkedChange.emit(this.value);
   }
 
   // From ControlValueAccessor interface
@@ -91,12 +85,12 @@ export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeD
 
   // From ControlValueAccessor interface
   public registerOnChange(fn: void): void {
-    this.onChange = fn;
+    this.onChangeCallback = fn;
   }
 
   // From ControlValueAccessor interface
   public registerOnTouched(fn: void): void {
-    this.onTouched = fn;
+    this.onTouchedCallback = fn;
   }
 
   // From ControlValueAccessor interface
@@ -104,4 +98,8 @@ export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeD
     this.disabled = isDisabled;
   }
 
+  private onChanged(): void {
+    this.value = !this.value;
+    this.checkedChange.emit(this.value);
+  }
 }
