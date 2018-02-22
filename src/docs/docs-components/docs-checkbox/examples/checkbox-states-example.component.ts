@@ -9,21 +9,19 @@ import { Component } from "@angular/core";
   <ng-template #header>..disabled</ng-template>
 
   <ng-template #variant>
-    <dt-checkbox checked [label]="example"></dt-checkbox>
+    <dt-checkbox checked>just an example label</dt-checkbox>
   </ng-template>
   <ng-template #variant>
-    <dt-checkbox checked disabled [label]="example"></dt-checkbox>
+    <dt-checkbox checked disabled>just an example label</dt-checkbox>
   </ng-template>
   <ng-template #variant>
-    <dt-checkbox [label]="example"></dt-checkbox>
+    <dt-checkbox>just an example label</dt-checkbox>
   </ng-template>
   <ng-template #variant>
-    <dt-checkbox disabled [label]="example"></dt-checkbox>
+    <dt-checkbox disabled>just an example label</dt-checkbox>
   </ng-template>
-</variants-table>
-`,
+</variants-table>`,
   // @formatter:on
 })
 export class CheckboxStatesExampleComponent {
-  public example = "just an example label";
 }

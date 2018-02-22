@@ -2,16 +2,14 @@ import { Component } from "@angular/core";
 
 @Component({
   // @formatter:off
-  template: `
-<dt-switch (checkedChange)="onStateChanged1($event)"></dt-switch>
+  template: `<dt-switch (checkedChange)="onStateChanged1($event)"></dt-switch>
 <div>Switch state: {{ state1 }}</div>
 
 <dt-switch (checkedChange)="onStateChanged2($event)"></dt-switch>
 <div>Switch state: {{ state2 }}</div>
 
 <dt-switch (checkedChange)="onStateChanged3($event)" disabled></dt-switch>
-<div>Switch state: {{ state3 }}</div>
-`,
+<div>Switch state: {{ state3 }}</div>`,
   // @formatter:on
 })
 export class SwitchClickExampleComponent {

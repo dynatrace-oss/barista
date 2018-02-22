@@ -27,13 +27,13 @@ export const _CheckboxComponentsBase = MixinComposer.fromScratch()
         [attr.id]="id"
         [attr.checked]="value ? 'checked' : null"
         [attr.value]="value"
-        [attr.disabled]="disabled ? 'disabled' : null"
+        [disabled]="disabled ? 'disabled' : null"
         class="checkbox"
         (change)="onChanged();"/>
       <label
         class="checkbox__label"
         [attr.for]="id">
-        <span class="checkbox__caption" [innerHtml]="label"></span>
+        <span class="checkbox__caption"><ng-content></ng-content></span>
       </label>
   `,
 })
@@ -48,7 +48,6 @@ export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeD
   /** _uid or provided id via input */
   private _id: string;
   private _value = false;
-  private _label = "";
 
   public constructor() {
     super();
@@ -68,15 +67,6 @@ export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeD
     this._value = coerceBooleanProperty(v);
     this.onChange(v);
     this.onTouched();
-  }
-
-  public get label(): string {
-    return this._label;
-  }
-
-  @Input("label")
-  public set label(label: string) {
-    this._label = label;
   }
 
   @Input()
