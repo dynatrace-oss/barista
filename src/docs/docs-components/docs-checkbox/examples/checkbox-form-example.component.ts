@@ -3,12 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 
 @Component({
   // @formatter:off
-  template: `
-  <form [formGroup]="form" (submit)="submit()">
-    <dt-checkbox formControlName="agreed" label="I agree..."></dt-checkbox>
+  template: `<form [formGroup]="form" (submit)="submit()">
+    <dt-checkbox formControlName="agreed">I agree...</dt-checkbox>
     <a dt-btn class="btn btn--primary" [disabled]="form.invalid">Submit</a>
-  </form>
-`,
+  </form>`,
   // @formatter:on
 })
 export class CheckboxFormExampleComponent {

@@ -9,21 +9,19 @@ import { Component } from "@angular/core";
   <ng-template #header>..disabled</ng-template>
 
   <ng-template #variant>
-    <dt-switch checked [label]="example"></dt-switch>
+    <dt-switch checked>just an example label</dt-switch>
   </ng-template>
   <ng-template #variant>
-    <dt-switch checked disabled [label]="example"></dt-switch>
+    <dt-switch checked disabled>just an example label</dt-switch>
   </ng-template>
   <ng-template #variant>
-    <dt-switch [label]="example"></dt-switch>
+    <dt-switch>just an example label</dt-switch>
   </ng-template>
   <ng-template #variant>
-    <dt-switch disabled [label]="example"></dt-switch>
+    <dt-switch disabled>just an example label</dt-switch>
   </ng-template>
-</variants-table>
-`,
+</variants-table>`,
   // @formatter:on
 })
 export class SwitchStatesExampleComponent {
-  public example = "just an example label";
 }

@@ -14,19 +14,15 @@ import { Component } from "@angular/core";
       background-color: #434343;
     }
   `],
-  template: `
-  <div class="container light">
+  template: `<div class="container light">
     <dt-checkbox checked disabled></dt-checkbox>
-    <dt-checkbox [label]="lightSide"></dt-checkbox>
+    <dt-checkbox>regular, boring light background</dt-checkbox>
   </div>
   <div class="theme--dark container dark">
     <dt-checkbox checked disabled></dt-checkbox>
-    <dt-checkbox [label]="darkSide"></dt-checkbox>
-  </div>
-`,
+    <dt-checkbox>some ancestor has class='theme--dark'</dt-checkbox>
+  </div>`,
   // @formatter:on
 })
 export class CheckboxDarkExampleComponent {
-  public lightSide = "regular, boring light background";
-  public darkSide = "some ancestor has class='theme--dark'";
 }

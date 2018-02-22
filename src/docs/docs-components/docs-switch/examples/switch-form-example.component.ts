@@ -3,12 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 
 @Component({
   // @formatter:off
-  template: `
-  <form [formGroup]="formWithSwitch" (submit)="submit()">
-    <dt-switch formControlName="enabled" label="I agree..."></dt-switch>
+  template: `<form [formGroup]="formWithSwitch" (submit)="submit()">
+    <dt-switch formControlName="enabled">I agree to everything</dt-switch>
     <a dt-btn class="btn btn--primary" [disabled]="formWithSwitch.invalid">Submit</a>
-  </form>
-`,
+  </form>`,
   // @formatter:on
 })
 export class SwitchFormExampleComponent {
