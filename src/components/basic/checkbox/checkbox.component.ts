@@ -22,8 +22,7 @@ export const _CheckboxComponentsBase = MixinComposer.fromScratch()
   ],
   selector: "dt-checkbox",
   styleUrls: ["./checkbox.component.scss"],
-  template: `
-      <input type="checkbox"
+  template: `<input type="checkbox"
         [attr.id]="id"
         [attr.checked]="value ? 'checked' : null"
         [attr.value]="value"
@@ -34,8 +33,7 @@ export const _CheckboxComponentsBase = MixinComposer.fromScratch()
         class="checkbox__label"
         [attr.for]="id">
         <span class="checkbox__caption"><ng-content></ng-content></span>
-      </label>
-  `,
+      </label>`,
 })
 
 export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeDisabled, ControlValueAccessor {

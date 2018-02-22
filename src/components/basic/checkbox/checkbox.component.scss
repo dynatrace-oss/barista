@@ -6,10 +6,50 @@
 }
 
 .checkbox__label.theme--dark:after,
-.theme--dark .checkbox__label:after {
+.theme--dark :host .checkbox__label:after {
   background-image: url(../../../docs/assets/images/icons/Icons_file_003_Checkmark_white.svg);
 }
 
 .checkbox[disabled]:checked + .checkbox__label:after {
   background-image: url(../../../docs/assets/images/icons/Icons_file_003_Checkmark_disabled.svg);
+}
+
+.checkbox__label.theme--dark,
+.theme--dark :host .checkbox__label {
+  color: #fff;
+}
+
+.checkbox__label.theme--dark:before,
+.theme--dark :host .checkbox__label:before {
+  border: solid 2px #fff;
+}
+
+.checkbox__label.theme--dark:hover:before,
+.theme--dark :host .checkbox__label:hover:before {
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.checkbox:checked + .checkbox__label:after,
+.checkbox:checked + .checkbox__label.theme--dark:after,
+.theme--dark :host .checkbox:checked + .checkbox__label:after {
+  display: block;
+}
+
+.checkbox[disabled] + .checkbox__label,
+.checkbox[disabled] + .checkbox__label.theme--dark,
+.theme--dark :host .checkbox[disabled] + .checkbox__label {
+  color: $disabledcolor;
+  cursor: default;
+}
+
+.checkbox[disabled] + .checkbox__label:before {
+  border-color: $disabledcolor;
+  background-color: transparent;
+}
+
+.checkbox[disabled] + .checkbox__label:after,
+.checkbox[disabled] + .checkbox__label.theme--dark:after,
+.theme--dark :host .checkbox[disabled] + .checkbox__label:after {
+  display: none;
 }
