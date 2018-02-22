@@ -9,12 +9,15 @@ import { BUTTON_EXAMPLES } from "./docs-button/examples/ButtonExamples";
 import { DocsCheckboxComponent } from "./docs-checkbox/docs-checkbox.component";
 import { CHECKBOX_EXAMPLES } from "./docs-checkbox/examples/CheckboxExamples";
 import { DocsComponentsRoutingModule } from "./docs-components-routing.module";
+import { DocsRadiobuttonComponent } from "./docs-radiobutton/docs-radiobutton.component";
+import { RADIOBUTTON_EXAMPLES } from "./docs-radiobutton/examples/RadiobuttonExamples";
 import { DocsSwitchComponent } from "./docs-switch/docs-switch.component";
 import { SWITCH_EXAMPLES } from "./docs-switch/examples/SwitchExamples";
 
 const EXAMPLES = [
   ...BUTTON_EXAMPLES,
   ...CHECKBOX_EXAMPLES,
+  ...RADIOBUTTON_EXAMPLES,
   ...SWITCH_EXAMPLES,
 ];
 
@@ -22,6 +25,7 @@ const EXAMPLES = [
   declarations: [
     DocsButtonComponent,
     DocsCheckboxComponent,
+    DocsRadiobuttonComponent,
     DocsSwitchComponent,
     ...EXAMPLES,
   ],
