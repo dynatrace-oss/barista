@@ -11,6 +11,10 @@ const routes: Routes = [
     component: DocsIndexComponent,
     path: "",
   },
+  {
+    path: "**",
+    redirectTo: "",
+  },
 ];
 
 @NgModule({
