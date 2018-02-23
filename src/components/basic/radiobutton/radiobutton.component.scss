@@ -1,2 +1,115 @@
 @import "~@dynatrace/groundhog/src/common/colors";
 @import "~@dynatrace/groundhog/src/radiobutton/radiobutton";
+
+.radio {
+  clip: rect(0 0 0 0);
+  position: absolute;
+}
+
+.radio__label {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+}
+
+.radio__label.theme--dark,
+.theme--dark :host .radio__label {
+  color: #fff;
+}
+
+.radio__caption {
+  font-family: $mainfont;
+  font-size: 14px;
+  padding-right: 20px;
+}
+
+.radio__label:before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  border: solid 2px $turquoise-600;
+}
+
+.radio__label.theme--dark:before,
+.theme--dark :host .radio__label:before {
+  border: solid 2px #fff;
+}
+
+.radio__label:after,
+.radio__label.theme--dark:after,
+.theme--dark :host .radio__label:after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.radio__label:focus,
+.radio:focus + .radio__label:before {
+
+  @include focusStyle();
+}
+
+.radio__label:hover:before {
+  border-color: $turquoise-700;
+}
+
+.radio__label.theme--dark:hover:before,
+.theme--dark :host .radio__label:hover:before {
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.radio:checked + .radio__label:after {
+  background-color: $turquoise-600;
+}
+
+.radio:checked + .radio__label.theme--dark:after,
+.theme--dark :host .radio:checked + .radio__label:after {
+  background-color: #fff;
+}
+
+.radio[disabled] + .radio__label,
+.radio[disabled] + .radio__label.theme--dark,
+.theme--dark :host .radio[disabled] + .radio__label {
+  color: $disabledcolor;
+  cursor: default;
+}
+
+.radio[disabled] + .radio__label:before {
+  border-color: $disabledcolor;
+  background-color: transparent;
+}
+
+.radio[disabled] + .radio__label:after,
+.radio[disabled] + .radio__label.theme--dark:after,
+.theme--dark :host .radio[disabled] + .radio__label:after {
+  display: none;
+}
+
+:host .radio[disabled]:checked + .radio__label:before,
+.radio[disabled]:checked + .radio__label:before {
+  border-color: $disabledcolor;
+}
+
+:host .radio[disabled]:checked + .radio__label:after,
+.radio[disabled]:checked + .radio__label:after {
+  display: block;
+  background-color: $disabledcolor;
+}

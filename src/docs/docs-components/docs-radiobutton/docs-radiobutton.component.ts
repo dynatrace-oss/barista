@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { RadiobuttonDarkExampleComponent } from "./examples/radiobutton-dark-example.component";
 import { RadiobuttonSimpleExampleComponent } from "./examples/radiobutton-simple-example.component";
 
 @Component({
@@ -29,6 +30,7 @@ import { RadiobuttonSimpleExampleComponent } from "./examples/radiobutton-simple
 export class DocsRadiobuttonComponent {
 
   public examples = {
+    dark: RadiobuttonDarkExampleComponent,
     simple: RadiobuttonSimpleExampleComponent,
   };
 }
