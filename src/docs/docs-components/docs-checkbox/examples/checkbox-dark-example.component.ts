@@ -15,12 +15,16 @@ import { Component } from "@angular/core";
     }
   `],
   template: `<div class="container light">
-    <dt-checkbox checked disabled></dt-checkbox>
     <dt-checkbox>regular, boring light background</dt-checkbox>
   </div>
+  <div class="container light">
+      <dt-checkbox checked disabled>...disabled</dt-checkbox>
+  </div>
   <div class="theme--dark container dark">
-    <dt-checkbox checked disabled></dt-checkbox>
     <dt-checkbox>some ancestor has class='theme--dark'</dt-checkbox>
+  </div>
+  <div class="theme--dark container dark">
+      <dt-checkbox checked disabled>...disabled</dt-checkbox>
   </div>`,
   // @formatter:on
 })
