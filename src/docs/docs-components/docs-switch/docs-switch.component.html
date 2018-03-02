@@ -1,0 +1,69 @@
+<h1>Switch</h1>
+<source-example [example]="examples.simple"></source-example>
+
+<h2>API</h2>
+
+<h3>Import module</h3>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    WidgetsModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h3>Initialization</h3>
+<div>
+  Switch can by initialized by using <code>dt-switch</code> tag.
+</div>
+
+<h3>Options</h3>
+<h4>Properties</h4>
+<table class="table">
+  <thead>
+  <tr>
+    <td>Name</td>
+    <td>Type</td>
+    <td>Default</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>disabled</code></td>
+    <td><code>boolean | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>Sets disable state, if property is set and the value is truthy or undefined</td>
+  </tr>
+  <tr>
+    <td><code>checked</code></td>
+    <td><code>boolean | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>Defines whether the switch is turned ON</td>
+  </tr>
+  <tr>
+    <td><code>right</code></td>
+    <td><code>boolean | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>Sets switch on the right side of the label</td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Switch states</h2>
+<source-example [example]="examples.states"></source-example>
+
+<h2>Other variants</h2>
+<h3>Sides</h3>
+<source-example [example]="examples.sides"></source-example>
+<h3>Content</h3>
+<source-example [example]="examples.html"></source-example>
+
+<h2>Click handling</h2>
+<source-example [example]="examples.click"></source-example>
+
+<h2>Usage in forms</h2>
+<source-example [example]="examples.form"></source-example>
+
