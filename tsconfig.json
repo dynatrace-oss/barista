@@ -9,8 +9,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "paths": {
+      "@dynatrace/angular-components": [
+        "src/components"
+      ],
       "@dynatrace/angular-components/*": [
-        "build/dist/*"
+        "src/components/*"
       ]
     },
     "strictNullChecks": true,

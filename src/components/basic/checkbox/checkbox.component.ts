@@ -1,8 +1,7 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { CanBeDisabled, mixinDisabled } from "../../core/mixins/disabled.mixin";
-import { MixinComposer } from "../../core/mixins/MixinComposer";
+import { CanBeDisabled, MixinComposer, mixinDisabled } from "@dynatrace/angular-components/core";
 
 let nextUniqueId = 0;
 
@@ -96,8 +95,7 @@ export class CheckboxComponent extends _CheckboxComponentsBase implements CanBeD
     this.disabled = isDisabled;
   }
 
-  // tslint:disable-next-line
-  private onChanged(): void {
+  public onChanged(): void {
     this.value = !this.value;
     this.checkedChange.emit(this.value);
   }
