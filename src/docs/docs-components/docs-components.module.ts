@@ -2,7 +2,10 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
 import { ReactiveFormsModule } from "@angular/forms";
-import { AngularComponentsModule } from "../../components";
+import { ButtonModule } from "@dynatrace/angular-components/basic/button";
+import { CheckboxModule } from "@dynatrace/angular-components/basic/checkbox";
+import { RadiobuttonModule } from "@dynatrace/angular-components/basic/radiobutton";
+import { SwitchModule } from "@dynatrace/angular-components/basic/switch";
 import { UiModule } from "../ui/ui.module";
 import { DocsButtonComponent } from "./docs-button/docs-button.component";
 import { BUTTON_EXAMPLES } from "./docs-button/examples/ButtonExamples";
@@ -36,7 +39,10 @@ const EXAMPLES = [
     CommonModule,
     DocsComponentsRoutingModule,
     UiModule,
-    AngularComponentsModule,
+    ButtonModule,
+    CheckboxModule,
+    SwitchModule,
+    RadiobuttonModule,
     ReactiveFormsModule,
   ],
 })
