@@ -1,0 +1,10 @@
+{
+  "name": "@dynatrace/angular-components",
+  "ngPackage": {
+    "dest": "../../build/dist",
+    "workingDirectory": "../../build/ng_pkg_build",
+    "lib": {
+      "entryFile": "index.ts"
+    }
+  }
+}
