@@ -1,12 +1,18 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "./build/dist",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "paths": {
+      "@dynatrace/angular-components/*": [
+        "build/dist/*"
+      ]
+    },
     "strictNullChecks": true,
     "target": "es5",
     "typeRoots": [

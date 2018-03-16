@@ -1,7 +1,7 @@
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ChangeDetectionStrategy, Component, HostBinding, Input } from "@angular/core";
-import { CanBeDisabled, mixinDisabled } from "../../core/mixins/disabled.mixin";
-import { MixinComposer } from "../../core/mixins/MixinComposer";
+import { CanBeDisabled, mixinDisabled } from "@dynatrace/angular-components/core";
+import { MixinComposer } from "@dynatrace/angular-components/core";
 
 enum ButtonImportance {
   PRIMARY,
