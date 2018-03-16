@@ -1,5 +1,5 @@
 import { Type } from "@angular/core";
-import { Arrays } from "../../components";
+import { Arrays } from "@dynatrace/angular-components/core";
 
 // tslint:disable:no-any
 

@@ -1,6 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, HostBinding, Input, Renderer2 } from "@angular/core";
+import { Arrays } from "@dynatrace/angular-components/core";
 import * as hljs from "highlight.js";
-import { Arrays } from "../../../components";
 
 @Directive({
   selector: "[docsSnippet]",

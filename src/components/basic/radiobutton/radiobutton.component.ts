@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
-import { CanBeChecked, mixinChecked } from "../../core/mixins/checked.mixin";
-import { CanBeDisabled, mixinDisabled } from "../../core/mixins/disabled.mixin";
-import { MixinComposer } from "../../core/mixins/MixinComposer";
+import { CanBeChecked, CanBeDisabled, mixinChecked, MixinComposer, mixinDisabled } from "@dynatrace/angular-components/core";
 
 let nextUniqueId = 0;
 

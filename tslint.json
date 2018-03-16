@@ -38,7 +38,8 @@
       "@angular/cdk/portal",
       "@angular/common/http",
       "@angular/core/testing",
-      "@angular/router/testing"
+      "@angular/router/testing",
+      "@dynatrace/angular-components"
     ],
     "no-unnecessary-class": [
       "allow-static-only",
