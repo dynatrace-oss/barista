@@ -1,1 +1,1 @@
-export * from "./collections/Arrays";
+export * from "./public_api";
