@@ -1,6 +1,6 @@
 const gulp = require("gulp");
 const through = require("through2");
-const packagr = require("ng-packagr/lib/ng-v5/packagr");
+const packagr = require("@dynatrace/ng-packagr/lib/ng-v5/packagr");
 
 const DIST_DIR = "build/dist";
 

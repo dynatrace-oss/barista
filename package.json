@@ -46,7 +46,7 @@
     "karma-jasmine": "^1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "lodash": "^4.17.5",
-    "ng-packagr": "^2.0.0",
+    "@dynatrace/ng-packagr": "2.3.0-snapshot.1",
     "node-sass": "^4.7.2",
     "puppeteer": "^1.0.0",
     "rxjs": "^5.5.0",
