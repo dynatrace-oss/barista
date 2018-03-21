@@ -21,8 +21,8 @@ import {
  * style as different variants.
  */
 const BUTTON_HOST_ATTRIBUTES = [
-  'gh-button',
-  'gh-icon-button'
+  'dt-button',
+  'dt-icon-button'
 ];
 
 // Boilerplate for applying mixins to GhButton.
@@ -65,7 +65,7 @@ export class GhButton extends _GhButtonMixinBase
   }
 
   /** Whether the button is icon button. */
-  _isIconButton: boolean = this._hasHostAttributes('gh-icon-button');
+  _isIconButton: boolean = this._hasHostAttributes('dt-icon-button');
 
   private _variant: ButtonVariant;
 
@@ -78,7 +78,7 @@ export class GhButton extends _GhButtonMixinBase
 
     // For each of the variant selectors that is prevent in the button's host
     // attributes, add the correct corresponding class.
-    for (const attr of  BUTTON_HOST_ATTRIBUTES) {
+    for (const attr of BUTTON_HOST_ATTRIBUTES) {
       if (this._hasHostAttributes(attr)) {
         (elementRef.nativeElement as HTMLElement).classList.add(attr);
       }
@@ -107,10 +107,10 @@ export class GhButton extends _GhButtonMixinBase
 
   private _replaceCssClass(newClass?: string, oldClass?: string) {
     if (oldClass) {
-      this._elementRef.nativeElement.classList.remove(`gh-button-${oldClass}`);
+      this._elementRef.nativeElement.classList.remove(`dt-button-${oldClass}`);
     }
     if (newClass) {
-      this._elementRef.nativeElement.classList.add(`gh-button-${newClass}`);
+      this._elementRef.nativeElement.classList.add(`dt-button-${newClass}`);
     }
   }
 

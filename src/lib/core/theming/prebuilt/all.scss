@@ -4,9 +4,9 @@
 @import './royalblue-theme';
 
 // Include non-theme styles for core.
-@include gh-core();
+@include dt-core();
 
-@include  gh-turquoise-theme(true);
-@include  gh-purple-theme(false);
-@include  gh-blue-theme(false);
-@include  gh-royalblue-theme(false);
+@include  dt-turquoise-theme(true);
+@include  dt-purple-theme(false);
+@include  dt-blue-theme(false);
+@include  dt-royalblue-theme(false);
