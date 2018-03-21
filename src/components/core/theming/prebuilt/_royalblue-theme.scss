@@ -1,0 +1,23 @@
+@import '../all-theme';
+@import '../../style/variables';
+
+@mixin gh-royalblue-theme($default: false) {
+
+  $theme-light: gh-theme-light(
+    gh-palette($royalblue-600, $royalblue-700, $royalblue-800),
+    gh-palette($turquoise-600, $turquoise-700, $turquoise-800),
+    gh-palette($yellow-600, $yellow-700, $yellow-800),
+    gh-palette($red-600, $red-700, $red-800),
+    gh-palette($green-600, $green-700, $green-800)
+  );
+
+  $theme-dark: gh-theme-dark(
+    gh-palette($royalblue-500, $royalblue-400, $royalblue-300),
+    gh-palette($turquoise-500, $turquoise-400, $turquoise-300),
+    gh-palette($yellow-600, $yellow-500, $yellow-400),
+    gh-palette($red-500, $red-400, $red-300),
+    gh-palette($green-500, $green-400, $green-300)
+  );
+
+  @include gh-component-theme('royalblue', $default, $theme-light, $theme-dark);
+}

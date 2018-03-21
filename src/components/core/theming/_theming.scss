@@ -1,0 +1,76 @@
+@function gh-palette($default, $hover, $active) {
+  $result: (
+    default: $default,
+    hover: $hover,
+    active: $active,
+  );
+  @return $result;
+}
+
+@function gh-color($palette, $flavor: default) {
+  @return map-get($palette, $flavor);
+}
+
+@function gh-theme-light(
+  $main-palette,
+  $accent-palette,
+  $warning-palette,
+  $error-palette,
+  $cta-palette
+) {
+  @return (
+    main: $main-palette,
+    accent: $accent-palette,
+    warning: $warning-palette,
+    error: $error-palette,
+    cta: $cta-palette,
+    is-dark: false
+  );
+}
+
+@function gh-theme-dark(
+  $main-palette,
+  $accent-palette,
+  $warning-palette,
+  $error-palette,
+  $cta-palette
+) {
+  @return (
+    main: $main-palette,
+    accent: $accent-palette,
+    warning: $warning-palette,
+    error: $error-palette,
+    cta: $cta-palette,
+    is-dark: true
+  );
+}
+
+@mixin gh-component-theme(
+  $name,
+  $default,
+  $theme-light,
+  $theme-dark
+) {
+  @if $default == false {
+    .gh-theme-#{$name},
+    .gh-theme-#{$name}.gh-theme-light {
+      @include gh-theme($theme-light);
+    }
+    .gh-theme-#{$name}.gh-theme-dark {
+      @include gh-theme($theme-dark);
+    }
+  }
+  @else {
+    @include gh-core();
+    @include gh-theme($theme-light);
+    .gh-theme-#{$name},
+    .gh-theme-light,
+    .gh-theme-#{$name}.gh-theme-light {
+      @include gh-theme($theme-light);
+    }
+    .gh-theme-dark,
+    .gh-theme-#{$name}.gh-theme-dark {
+      @include gh-theme($theme-dark);
+    }
+  }
+}

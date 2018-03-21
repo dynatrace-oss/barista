@@ -1,0 +1,11 @@
+@import '@angular/cdk/overlay';
+@import '@angular/cdk/a11y';
+
+@mixin gh-core() {
+  @include cdk-a11y();
+  @include cdk-overlay();
+}
+
+@mixin gh-core-theme($theme) {
+  // TODO
+}
