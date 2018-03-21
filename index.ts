@@ -1,1 +1,1 @@
-export * from "./src/components/index";
+export * from "./src/lib/public-api";

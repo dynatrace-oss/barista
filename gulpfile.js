@@ -18,7 +18,7 @@ gulp.task("symlink:styles", () =>
 );
 
 gulp.task("package-lib", () =>
-    gulp.src("src/components/package.json", {
+    gulp.src("src/lib/package.json", {
             read: false,
         })
         .pipe(ngPackage())
