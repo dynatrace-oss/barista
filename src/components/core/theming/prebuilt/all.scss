@@ -1,0 +1,12 @@
+@import './turquoise-theme';
+@import './purple-theme';
+@import './blue-theme';
+@import './royalblue-theme';
+
+// Include non-theme styles for core.
+@include gh-core();
+
+@include  gh-turquoise-theme(true);
+@include  gh-purple-theme(false);
+@include  gh-blue-theme(false);
+@include  gh-royalblue-theme(false);

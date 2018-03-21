@@ -1,1 +1,2 @@
-export * from "./angular-components.module";
+export * from "./button";
+export * from "./core";
