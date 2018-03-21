@@ -1,0 +1,19 @@
+// Mixin overriding default focus styles and setting our own
+@mixin gh-focus-style() {
+  outline: none;
+  box-shadow: 0 0 0 2px $focuscolor;
+}
+
+// Mixin overriding default styles for interactive elements (button, ..)
+// like the gray background, the border, and the outline.
+@mixin gh-interactive-reset() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
