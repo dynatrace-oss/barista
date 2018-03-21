@@ -10,10 +10,10 @@
     "experimentalDecorators": true,
     "paths": {
       "@dynatrace/angular-components": [
-        "src/components"
+        "src/lib"
       ],
       "@dynatrace/angular-components/*": [
-        "src/components/*"
+        "src/lib/*"
       ]
     },
     "strictNullChecks": true,

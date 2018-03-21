@@ -1,13 +1,13 @@
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 
-%gh-button-base {
+%dt-button-base {
   font-family: $mainfont;
   box-sizing: border-box;
   position: relative;
 
   // Reset browser <button> styles.
-  @include gh-interactive-reset();
+  @include dt-interactive-reset();
 
   // Make anchors render like buttons.
   display: inline-block;
@@ -40,14 +40,14 @@
   }
 
   &:focus:not([disabled]) {
-    @include gh-focus-style();
+    @include dt-focus-style();
   }
 
   &::-moz-focus-inner {
     border: 0;
   }
 
-  .gh-icon {
+  .dt-icon {
     width: 20px;
     height: 20px;
     margin-right: 4px;
@@ -56,19 +56,19 @@
   }
 }
 
-.gh-button {
-  @extend %gh-button-base;
+.dt-button {
+  @extend %dt-button-base;
 }
 
-.gh-icon-button {
-  @extend %gh-button-base;
+.dt-icon-button {
+  @extend %dt-button-base;
 
   padding-left: 0;
   padding-right: 0;
   width: 32px;
   text-align: center;
 
-  .gh-icon {
+  .dt-icon {
     margin-right: 0;
   }
 }

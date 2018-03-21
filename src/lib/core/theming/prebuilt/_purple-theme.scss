@@ -1,23 +1,23 @@
 @import '../all-theme';
 @import '../../style/variables';
 
-@mixin gh-purple-theme($default: false) {
+@mixin dt-purple-theme($default: false) {
 
-  $theme-light: gh-theme-light(
-    gh-palette($purple-600, $purple-700, $purple-800),
-    gh-palette($turquoise-600, $turquoise-700, $turquoise-800),
-    gh-palette($yellow-600, $yellow-700, $yellow-800),
-    gh-palette($red-600, $red-700, $red-800),
-    gh-palette($green-600, $green-700, $green-800)
+  $theme-light: dt-theme-light(
+    dt-palette($purple-600, $purple-700, $purple-800),
+    dt-palette($turquoise-600, $turquoise-700, $turquoise-800),
+    dt-palette($yellow-600, $yellow-700, $yellow-800),
+    dt-palette($red-600, $red-700, $red-800),
+    dt-palette($green-600, $green-700, $green-800)
   );
 
-  $theme-dark: gh-theme-dark(
-    gh-palette($purple-500, $purple-400, $purple-300),
-    gh-palette($turquoise-500, $turquoise-400, $turquoise-300),
-    gh-palette($yellow-600, $yellow-500, $yellow-400),
-    gh-palette($red-500, $red-400, $red-300),
-    gh-palette($green-500, $green-400, $green-300)
+  $theme-dark: dt-theme-dark(
+    dt-palette($purple-500, $purple-400, $purple-300),
+    dt-palette($turquoise-500, $turquoise-400, $turquoise-300),
+    dt-palette($yellow-600, $yellow-500, $yellow-400),
+    dt-palette($red-500, $red-400, $red-300),
+    dt-palette($green-500, $green-400, $green-300)
   );
 
-  @include gh-component-theme('purple', $default, $theme-light, $theme-dark);
+  @include dt-component-theme('purple', $default, $theme-light, $theme-dark);
 }
