@@ -1,19 +1,7 @@
 @import '../core';
 @import '../../button/button-theme';
-@import '../../checkbox/checkbox-theme';
-@import '../../progress-circle/progress-circle-theme';
-@import '../../select/select-theme';
-@import '../../tile/tile-theme';
-@import '../../card/card-theme';
-@import '../../radio/radio-theme';
 
-@mixin gh-theme($theme) {
-  @include gh-card-theme($theme);
-  @include gh-core-theme($theme);
-  @include gh-checkbox-theme($theme);
-  @include gh-button-theme($theme);
-  @include gh-progress-circle-theme($theme);
-  @include gh-select-theme($theme);
-  @include gh-tile-theme($theme);
-  @include gh-radio-theme($theme);
+@mixin dt-theme($theme) {
+  @include dt-core-theme($theme);
+  @include dt-button-theme($theme);
 }

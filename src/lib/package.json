@@ -1,8 +1,8 @@
 {
   "name": "@dynatrace/angular-components",
   "ngPackage": {
-    "dest": "../../build/dist",
-    "workingDirectory": "../../build/ng_pkg_build",
+    "dest": "../../dist/lib",
+    "workingDirectory": "../../dist/ng_pkg_build",
     "lib": {
       "entryFile": "public-api.ts"
     }
