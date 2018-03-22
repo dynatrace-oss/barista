@@ -1,5 +1,6 @@
 import { join } from 'path';
-import { task, watch, series, src, parallel } from 'gulp';
+import { task, watch, src } from 'gulp';
+import { sequenceTask } from '../util/sequence-task';
 import { buildConfig } from '../build-config';
 import { ngcCompile } from '../util/ngc-compile';
 import {red} from 'chalk';
@@ -14,7 +15,7 @@ const defaultOptions = {
   singleRun: false
 };
 
-task('test:build', series('library:build', (done: () => void) => {
+task('test:build', ['library:build'], (done) => {
   const tsConfig = join(buildConfig.libDir, 'tsconfig-test.json');
   ngcCompile(['-p', tsConfig]).catch(() => {
     const error = red(`Failed to compile lib using ${tsConfig}`);
@@ -23,13 +24,13 @@ task('test:build', series('library:build', (done: () => void) => {
   }).then(() => {
     done();
   });
-}));
+});
 
 /**
  * Runs the unit tests. Does not watch for changes.
  * This task should be used when running tests on the CI server.
  */
-task('test:single-run', series('test:build', (done: () => void) => {
+task('test:single-run', ['test:build'], (done: () => void) => {
   // Load karma not outside. Karma pollutes Promise with a different implementation.
   const karma = require('karma');
 
@@ -39,15 +40,14 @@ task('test:single-run', series('test:build', (done: () => void) => {
   }, (exitCode: number) => {
     exitCode === 0 ? done() : process.exit(exitCode);
   }).start();
-}));
+});
 
 /**
  * [Watch task] Runs the unit tests, rebuilding and re-testing when sources change.
- * Does not inline resources.
  *
  * This task should be used when running unit tests locally.
  */
-task('test', series('library:build', karmaWatchTask({ browsers: ['Chrome'] })));
+task('test', ['test:build'], karmaWatchTask({ browsers: ['Chrome'] }));
 
 /**
  * Returns a Gulp task that spawns a Karma server and reloads whenever the files change.
@@ -81,6 +81,7 @@ function karmaWatchTask(options?: any) {
     server.on('browser_register', () => runTests());
 
     // Whenever a file change has been recognized, rebuild and re-run the tests.
-    watch(patternRoot + '.+(ts|scss|html)', series('library:build', () => runTests));
+
+    watch(`${patternRoot}.+(ts|scss|html)`, () => runTests());
   };
 }
