@@ -9,9 +9,6 @@ const packagr = require('@dynatrace/ng-packagr/lib/ng-v5/packagr');
 
 const themesGlob = join(buildConfig.libDir, 'core/theming/prebuilt/*.scss');
 
-// const tsConfig = require(join(buildConfig.libDir, 'tsconfig-build.json'));
-// console.log(tsConfig.compilerOptions);
-
 const ngPackage = () => through.obj((file, _, callback) => {
   packagr.ngPackagr()
       .forProject(file.path)
