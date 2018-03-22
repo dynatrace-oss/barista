@@ -38,7 +38,6 @@ const defaultVariant = 'primary';
  * Groundhog design button.
  */
 @Component({
-  moduleId: module.id,
   selector: `button[gh-button], button[gh-icon-button]`,
   exportAs: 'ghButton',
   host: {
@@ -120,7 +119,6 @@ export class GhButton extends _GhButtonMixinBase
  * Groundhog design button.
  */
 @Component({
-  moduleId: module.id,
   selector: `a[gh-button]`,
   exportAs: 'ghButton, ghAnchor',
   host: {

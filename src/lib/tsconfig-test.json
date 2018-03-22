@@ -1,0 +1,25 @@
+
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "importHelpers": false,
+    "module": "commonjs",
+    "target": "es5",
+    "types": ["jasmine"],
+    "paths": {
+      "@dynatrace/angular-components": ["dist/lib"],
+      "@dynatrace/angular-components/*": ["dist/lib/*"]
+    },
+    "rootDir": ".",
+    "outDir": "../../dist/unit-test"
+  },
+  "angularCompilerOptions": {
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "emitDecoratorMetadata": true,
+    "fullTemplateTypeCheck": true
+  },
+  "include": [
+    "**/*.spec.ts"
+  ]
+}
