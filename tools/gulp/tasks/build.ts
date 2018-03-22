@@ -1,6 +1,7 @@
-import { dest, src, task, series, parallel } from 'gulp';
+import { dest, src, task} from 'gulp';
 import { join } from 'path';
 import { buildConfig } from '../build-config';
+import { sequenceTask } from '../util/sequence-task';
 
 import * as through from 'through2';
 import * as sass from 'gulp-sass';
@@ -24,9 +25,11 @@ task('library:themes', () =>
   }).on('error', sass.logError))
   .pipe(dest(join(buildConfig.libOutputDir, 'themes'))));
 
-task('library:build', series('clean', parallel('library:themes', () =>
+task('library:prepare-build', sequenceTask('clean', 'library:themes'));
+
+task('library:build', ['library:prepare-build'], () =>
   src('src/lib/package.json', {
     read: false,
   })
   .pipe(ngPackage())
-)));
+);
