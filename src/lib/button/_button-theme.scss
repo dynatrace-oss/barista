@@ -20,7 +20,7 @@
 }
 
 @mixin dt-button-theme-variants($theme) {
-  $palette-names: 'main', 'accent', 'warning', 'error', 'cta';
+  $palette-names: 'main', 'warning', 'cta';
   $default-palette: 'main';
 
   @each $name in $palette-names {
