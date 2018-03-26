@@ -89,7 +89,7 @@ System.config({
   .then(__karma__.start, __karma__.error);
 
 
-/** Runs the ngx-groundhog specs in Karma. */
+/** Runs the lib specs in Karma. */
 function runSpecs() {
   // By importing all spec files, Karma will run the tests directly.
   console.log(specFiles);
@@ -98,7 +98,7 @@ function runSpecs() {
   }));
 }
 
-/** Whether the specified file is part of ngx-groundhog. */
+/** Whether the specified file is part of lib. */
 function isSpecFile(path) {
   return path.slice(-8) === '.spec.js' && path.indexOf('node_modules') === -1;
 }
