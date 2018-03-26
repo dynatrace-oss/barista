@@ -13,6 +13,10 @@ export interface BuildConfig {
   uiTestAppDir: string;
   /** Path where the output of the UI Test app is stored */
   uiTestAppOutputDir: string;
+  /** Path where the universal is stored */
+  universalAppDir: string;
+  /** Path where the output of the universal app is stored */
+  universalAppOutputDir: string;
 }
 
 const projectRoot = join(__dirname, '../..');
@@ -30,4 +34,8 @@ export const buildConfig: BuildConfig = {
   uiTestAppDir: join(projectRoot, 'src', 'ui-test-app'),
   /** Path where the output of the UI Test app is stored */
   uiTestAppOutputDir: join(projectRoot, 'dist', 'ui-test-app'),
+  /** Path where the universal is stored */
+  universalAppDir: join(projectRoot, 'src', 'universal-app'),
+  /** Path where the output of the universal app is stored */
+  universalAppOutputDir: join(projectRoot, 'dist', 'universal-app'),
 } ;
