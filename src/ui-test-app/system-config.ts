@@ -45,10 +45,6 @@ System.config({
 
     '@dynatrace/angular-components':
       'dist/lib/bundles/dynatrace-angular-components.umd.js',
-    '@dynatrace/angular-components/core':
-      'dist/lib/bundles/dynatrace-angular-components-core.umd.js',
-    '@dynatrace/angular-components/button':
-      'dist/lib/bundles/dynatrace-angular-components-button.umd.js',
   },
   packages: {
     // Thirdparty barrels.
