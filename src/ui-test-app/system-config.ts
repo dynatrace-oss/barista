@@ -1,5 +1,5 @@
 /** Type declaration for ambient System. */
-declare const System: any;
+declare const System: any; // tslint:disable-line no-any
 
 // Apply the CLI SystemJS configuration.
 System.config({
@@ -53,7 +53,7 @@ System.config({
     // Set the default extension for the root package, because otherwise the demo-app can't
     // be built within the production mode. Due to missing file extensions.
     '.': {
-      defaultExtension: 'js'
-    }
-  }
+      defaultExtension: 'js',
+    },
+  },
 });

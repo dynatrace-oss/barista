@@ -8,33 +8,77 @@
     "node_modules/codelyzer"
   ],
   "rules": {
-    "max-line-length": [true, 100],
-    // Disable this flag because of SHA tslint#48b0c597f9257712c7d1f04b55ed0aa60e333f6a
-    // TSLint now shows warnings if types for properties are inferred. This rule needs to be
-    // disabled because all properties need to have explicit types set to work for Dgeni.
-    "no-inferrable-types": false,
+    // Bans jasmine helper functions that will prevent the CI from properly running tests.
+    "ban": [
+      true,
+      ["fit"],
+      ["fdescribe"],
+      ["xit"],
+      ["xdescribe"],
+      {"name": "Object.assign", "message": "Use the spread operator instead."}
+    ],
     "class-name": true,
     "comment-format": [
       true,
       "check-space"
     ],
+    "completed-docs": false,
+    "curly": true,
+    "eofline": true,
+    // Disallows importing the whole RxJS library. Submodules can be still imported.
+    "import-blacklist": [true, "rxjs", "rxjs/operators"],
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
     "indent": [
       true,
       "spaces"
     ],
-    "eofline": true,
-    "no-duplicate-variable": true,
-    "no-eval": true,
-    "no-arg": true,
-    "no-internal-module": true,
-    "no-trailing-whitespace": true,
-    "no-bitwise": true,
-    "no-shadowed-variable": true,
-    "no-unused-expression": true,
-    "no-var-keyword": true,
+    // Avoids inconsistent linebreak styles in source files. Forces developers to use LF linebreaks.
+    "linebreak-style": [true, "LF"],
+    // this needs to be disabled since having multiple components/directives 
+    // in one file is sometimes suitable due to the size and sharing of small pieces of code
+    "max-classes-per-file": false,
+    "max-line-length": [true, 132],
+    // no implicit dependencies need to be false since we have cross references inside the modules which are not listed as a dependency
     "member-access": [true, "no-public"],
+    "member-ordering": false,
+    "no-implicit-dependencies": [
+      false
+    ],
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-duplicate-variable": true,
+    // it is in some places essential for change detection
+    "no-empty": false,
+    "no-eval": true,
     "no-debugger": true,
+    "no-internal-module": true,
+    // Namespaces are not allowed, because of Closure compiler.
+    "no-namespace": true,
+    // This is essential for specific checks where typescript has a hard time resolving the type of it.
+    // This would the result in using checks (like instanceof) in some places that are slower.
+    "no-non-null-assertion": false,
+    "no-null-keyword": false,
+    "no-parameter-properties": false,
+    "no-shadowed-variable": true,
+    "no-submodule-imports": [
+      true,
+      "@angular/cdk/coercion",
+      "@angular/cdk/portal",
+      "@angular/common/http",
+      "@angular/core/testing",
+      "@angular/router/testing",
+      "@angular/platform-browser/animations",
+      "@dynatrace/ng-packagr/lib/ng-v5/packagr"
+    ],
+    "no-trailing-whitespace": true,
+    "no-var-keyword": true,
+    "no-unsafe-any": false,
+    "no-unused-expression": true,
     "no-unused-variable": true,
+    "object-literal-sort-keys": false,
     "one-line": [
       true,
       "check-catch",
@@ -42,12 +86,23 @@
       "check-open-brace",
       "check-whitespace"
     ],
+    // ordering is better to be logically grouped than alphabetical
+    "ordered-imports": false,
+    "prefer-function-over-method": false,
     "quotemark": [
       true,
       "single",
       "avoid-escape"
     ],
     "semicolon": true,
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration"
+    ],
     "typedef-whitespace": [
       true,
       {
@@ -58,7 +113,6 @@
         "variable-declaration": "nospace"
       }
     ],
-    "curly": true,
     "variable-name": [
       true,
       "ban-keywords",
@@ -74,21 +128,6 @@
       "check-type",
       "check-preblock"
     ],
-    // Bans jasmine helper functions that will prevent the CI from properly running tests.
-    "ban": [
-      true,
-      ["fit"],
-      ["fdescribe"],
-      ["xit"],
-      ["xdescribe"],
-      {"name": "Object.assign", "message": "Use the spread operator instead."}
-    ],
-    // Disallows importing the whole RxJS library. Submodules can be still imported.
-    "import-blacklist": [true, "rxjs", "rxjs/operators"],
-    // Avoids inconsistent linebreak styles in source files. Forces developers to use LF linebreaks.
-    "linebreak-style": [true, "LF"],
-    // Namespaces are not allowed, because of Closure compiler.
-    "no-namespace": true,
 
     // Custom Rules
     "ts-loader": true,
