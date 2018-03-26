@@ -1,7 +1,0 @@
-@import '../core';
-@import '../../button/button-theme';
-
-@mixin dt-theme($theme) {
-  @include dt-core-theme($theme);
-  @include dt-button-theme($theme);
-}
