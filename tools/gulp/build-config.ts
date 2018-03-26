@@ -9,6 +9,10 @@ export interface BuildConfig {
   libOutputDir: string;
   /** Path to the directory for the library */
   libDir: string;
+  /** Path where the UI Test app is stored */
+  uiTestAppDir: string;
+  /** Path where the output of the UI Test app is stored */
+  uiTestAppOutputDir: string;
 }
 
 const projectRoot = join(__dirname, '../..');
@@ -22,4 +26,8 @@ export const buildConfig: BuildConfig = {
   libOutputDir: join(projectRoot, 'dist', 'lib'),
   /** Path to the root of the project. */
   projectDir: projectRoot,
+  /** Path where the UI Test app is stored */
+  uiTestAppDir: join(projectRoot, 'src', 'ui-test-app'),
+  /** Path where the output of the UI Test app is stored */
+  uiTestAppOutputDir: join(projectRoot, 'dist', 'ui-test-app'),
 } ;
