@@ -14,7 +14,7 @@ const prerenderOutFile = join(buildConfig.universalAppOutputDir, 'prerender.js')
 
 /** Task that builds the universal-app and runs the prerender script. */
 task('universal', ['universal:build'], execTask(
-  // Runs node with the tsconfig-paths module to alias the @dynatrace/ngx-groundhog dependency.
+  // Runs node with the tsconfig-paths module to alias the @dynatrace/angular-components dependency.
   'node', ['-r', 'tsconfig-paths/register', prerenderOutFile], {
     env: {TS_NODE_PROJECT: tsconfigPrerenderPath},
     // Errors in lifecycle hooks will write to STDERR, but won't exit the process with an
