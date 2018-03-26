@@ -7,8 +7,8 @@ import * as through from 'through2';
 import * as sass from 'gulp-sass';
 
 const packagr = require('@dynatrace/ng-packagr/lib/ng-v5/packagr');
-
-const themesGlob = join(buildConfig.libDir, 'core/theming/prebuilt/*.scss');
+// commented themes for now, lets add this as soon as we implement theming
+// const themesGlob = join(buildConfig.libDir, 'core/theming/prebuilt/*.scss');
 
 const ngPackage = () => through.obj((file, _, callback) => {
   packagr.ngPackagr()
@@ -18,12 +18,12 @@ const ngPackage = () => through.obj((file, _, callback) => {
       .catch((error: any) => callback(error, null));
 });
 
-task('library:themes', () =>
-  src(themesGlob)
-  .pipe(sass({
-    includePaths: ['node_modules/']
-  }).on('error', sass.logError))
-  .pipe(dest(join(buildConfig.libOutputDir, 'themes'))));
+// task('library:themes', () =>
+//   src(themesGlob)
+//   .pipe(sass({
+//     includePaths: ['node_modules/']
+//   }).on('error', sass.logError))
+//   .pipe(dest(join(buildConfig.libOutputDir, 'themes'))));
 
 task('library:compile', ['clean'], () =>
   src('src/lib/package.json', {
@@ -31,4 +31,4 @@ task('library:compile', ['clean'], () =>
   })
   .pipe(ngPackage()));
 
-task('library:build', sequenceTask('library:compile', 'library:themes'));
+task('library:build', sequenceTask('library:compile' /*, 'library:themes' */));

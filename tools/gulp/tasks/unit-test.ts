@@ -3,7 +3,7 @@ import { task, watch, src } from 'gulp';
 import { sequenceTask } from '../util/sequence-task';
 import { buildConfig } from '../build-config';
 import { ngcCompile } from '../util/ngc-compile';
-import {red} from 'chalk';
+import { red } from 'chalk';
 
 // Default Karma options.
 const defaultOptions = {
@@ -41,7 +41,6 @@ task('test:single-run', ['test:build'], (done: () => void) => {
 
 /**
  * [Watch task] Runs the unit tests, rebuilding and re-testing when sources change.
- *
  * This task should be used when running unit tests locally.
  */
 task('test', ['test:build'], karmaWatchTask({ browsers: ['Chrome'] }));
@@ -78,7 +77,6 @@ function karmaWatchTask(options?: any) {
     server.on('browser_register', () => runTests());
 
     // Whenever a file change has been recognized, rebuild and re-run the tests.
-
     watch(`${patternRoot}.+(ts|scss|html)`, () => runTests());
   };
 }
