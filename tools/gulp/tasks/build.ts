@@ -7,7 +7,7 @@ import * as through from 'through2';
 import * as sass from 'gulp-sass';
 import { replaceVersionPlaceholders } from '../util/replace-version-placeholder';
 
-const packagr = require('@dynatrace/ng-packagr/lib/ng-v5/packagr');
+import * as packagr from '@dynatrace/ng-packagr/lib/ng-v5/packagr';
 // commented themes for now, lets add this as soon as we implement theming
 // const themesGlob = join(buildConfig.libDir, 'core/theming/prebuilt/*.scss');
 

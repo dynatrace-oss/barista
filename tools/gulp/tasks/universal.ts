@@ -19,9 +19,8 @@ task('universal', ['universal:build'], execTask(
     env: {TS_NODE_PROJECT: tsconfigPrerenderPath},
     // Errors in lifecycle hooks will write to STDERR, but won't exit the process with an
     // error code, however we still want to catch those cases in the CI.
-    failOnStderr: true
-  }
-));
+    failOnStderr: true,
+  }));
 
 task('universal:build', sequenceTask(
   'clean',
@@ -32,12 +31,15 @@ task('universal:build', sequenceTask(
 ));
 
 /** Task that builds the universal app in the output directory. */
-task('universal:build-app-ts', (done) => {
-  ngcCompile(['-p', tsconfigAppPath]).catch(() => {
+task('universal:build-app-ts', (done: (() => void)) => {
+  ngcCompile(['-p', tsconfigAppPath])
+  .catch(() => {
     const error = red(`Failed to compile lib using ${tsconfigAppPath}`);
     console.error(error);
+
     return Promise.reject(error);
-  }).then(() => {
+  })
+  .then(() => {
     done();
   });
 });
