@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 
 @Component({
-  selector: "app-root",
+  selector: "docs-app-root",
   styleUrls: ["./widgets-docs.component.scss"],
   template: `
     <div class="nav has-no-secondary">

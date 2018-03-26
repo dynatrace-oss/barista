@@ -2,7 +2,7 @@ import { Component, ContentChildren, QueryList, TemplateRef } from "@angular/cor
 import * as _ from "lodash";
 
 @Component({
-  selector: "variants-table",
+  selector: "docs-variants-table",
   styleUrls: ["./variants-table.component.scss"],
   template: `
     <table class="table">

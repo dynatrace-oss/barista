@@ -1,0 +1,4 @@
+<form [formGroup]="formWithSwitch" (submit)="submit()">
+    <dt-switch formControlName="enabled">I agree to everything</dt-switch>
+    <a dt-btn class="btn btn--primary" [disabled]="formWithSwitch.invalid">Submit</a>
+</form>
