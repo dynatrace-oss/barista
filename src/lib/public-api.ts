@@ -5,3 +5,5 @@
  * barrel export and therefore break aot compilation with the library
  * export * from './core/index';
  */
+
+ export * from './dummy/index';
