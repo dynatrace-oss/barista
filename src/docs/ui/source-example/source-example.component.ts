@@ -3,7 +3,7 @@ import { Component, Input, Type } from "@angular/core";
 import { TemplateRetriever } from "../../core/TemplateRetriever";
 
 @Component({
-  selector: "source-example",
+  selector: "docs-source-example",
   styles: [`
     .portal {
       margin-top: 20px;
@@ -25,7 +25,7 @@ import { TemplateRetriever } from "../../core/TemplateRetriever";
       <a *ngIf="!codeVisible" (click)="codeVisible = true">Show source</a>
       <a *ngIf="codeVisible" (click)="codeVisible = false">Hide source</a>
     </div>
-    <pre class="code" *ngIf="codeVisible"><code [snippet]="source" [language]="['html', 'typescript']"></code></pre>
+    <pre class="code" *ngIf="codeVisible"><code [docsSnippet]="source" [language]="['html', 'typescript']"></code></pre>
   `,
 })
 export class SourceExampleComponent {

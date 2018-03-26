@@ -5,11 +5,11 @@ import { CheckboxComponent } from "../checkbox/checkbox.component";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ["disabled"],
   providers: [
     {
       multi: true,
       provide: NG_VALUE_ACCESSOR,
+      // tslint:disable-next-line:no-forward-ref
       useExisting: forwardRef(() => SwitchComponent),
     },
   ],

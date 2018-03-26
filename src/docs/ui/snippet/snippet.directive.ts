@@ -3,7 +3,7 @@ import * as hljs from "highlight.js";
 import { Arrays } from "../../../components";
 
 @Directive({
-  selector: "[snippet]",
+  selector: "[docsSnippet]",
 })
 export class SnippetDirective implements AfterViewInit {
 
@@ -11,7 +11,7 @@ export class SnippetDirective implements AfterViewInit {
   public language: string | string[];
 
   @Input()
-  public snippet: string;
+  public docsSnippet: string;
 
   @HostBinding("class.hljs")
   public hljsClass = "hljs";
@@ -21,7 +21,7 @@ export class SnippetDirective implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     const languages = this.language ? Arrays.from(this.language) : hljs.listLanguages();
-    const highlightResult = hljs.highlightAuto(this.snippet || this.element.nativeElement.innerHTML, languages);
+    const highlightResult = hljs.highlightAuto(this.docsSnippet || this.element.nativeElement.innerHTML, languages);
 
     this.element.nativeElement.innerHTML = highlightResult.value;
     this.renderer.addClass(this.element.nativeElement, highlightResult.language);
