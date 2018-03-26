@@ -8,7 +8,7 @@
 
 const stylelint = require('stylelint');
 
-const ruleName = 'groundhog/no-nested-mixin';
+const ruleName = 'stylelint/no-nested-mixin';
 const messages = stylelint.utils.ruleMessages(ruleName, {
   expected: () => 'Nested mixins are not allowed.',
 });
