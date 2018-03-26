@@ -13,5 +13,5 @@ task('stylelint', execNodeTask(
 ));
 
 task('tslint', execNodeTask(
-  'tslint', [tsGlob, '--config', 'tslint.json']
+  'tslint', ['--project', 'tslint.json', tsGlob]
 ));
