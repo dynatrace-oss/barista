@@ -4,12 +4,12 @@
  * MIT-style license that can be found in the LICENSE file at https://angular.io/license
  */
 
-import { src, task } from 'gulp';
+import { src, task, SrcOptions } from 'gulp';
 import { buildConfig } from '../build-config';
 
 const gulpClean = require('gulp-clean');
 
 /** Deletes the dist/ directory. */
 task('clean', () =>
-  src(buildConfig.outputDir, { read: false, allowEmpty: true })
+  src(buildConfig.outputDir, { read: false, allowEmpty: true } as SrcOptions)
   .pipe(gulpClean(null)));
