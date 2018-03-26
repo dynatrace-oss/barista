@@ -25,11 +25,10 @@ task('library:themes', () =>
   }).on('error', sass.logError))
   .pipe(dest(join(buildConfig.libOutputDir, 'themes'))));
 
-task('library:prepare-build', sequenceTask('clean', 'library:themes'));
-
-task('library:build', ['library:prepare-build'], () =>
+task('library:compile', ['clean'], () =>
   src('src/lib/package.json', {
     read: false,
   })
-  .pipe(ngPackage())
-);
+  .pipe(ngPackage()));
+
+task('library:build', sequenceTask('library:compile', 'library:themes'));
