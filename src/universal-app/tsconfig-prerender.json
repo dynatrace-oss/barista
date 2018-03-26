@@ -1,0 +1,27 @@
+// TypeScript config file that is used to compile the files that prerender the Universal app.
+{
+  "compilerOptions": {
+    "declaration": false,
+    "stripInternal": false,
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": ".",
+    "rootDir": ".",
+    "sourceMap": true,
+    "target": "es2015",
+    "lib": ["es2015", "dom"],
+    "skipLibCheck": true,
+    "types": [],
+    "baseUrl": ".",
+    "paths": {
+      "@dynatrace/angular-components": ["./lib"],
+      "@dynatrace/angular-components/*": ["./lib/*"]
+    }
+  },
+  "files": [
+    "prerender.ts"
+  ]
+}
