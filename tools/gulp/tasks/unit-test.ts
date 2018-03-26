@@ -5,9 +5,6 @@ import { buildConfig } from '../build-config';
 import { ngcCompile } from '../util/ngc-compile';
 import {red} from 'chalk';
 
-import * as through from 'through2';
-const packagr = require('@dynatrace/ng-packagr/lib/ng-v5/packagr');
-
 // Default Karma options.
 const defaultOptions = {
   configFile: join(buildConfig.projectDir, 'test/karma.conf.js'),
