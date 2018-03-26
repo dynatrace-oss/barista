@@ -3,13 +3,14 @@
   "version": "0.0.1-dev",
   "description": "",
   "scripts": {
-    "start": "ng serve -a docs --port 4300",
-    "test": "ng test --watch false",
-    "lint": "ng lint",
-    "dev-build": "gulp dev-build",
-    "watch": "gulp watch",
-    "build": "gulp build",
-    "build-docs": "ng build -a docs"
+    "serve-docs": "ng serve -a docs --port 4300",
+    "build-docs": "ng build -a docs",
+    "build": "gulp library:build",
+    "test": "gulp test:single-run",
+    "test:watch": "gulp test",
+    "ui-test": "gulp ui-test",
+    "lint": "gulp lint",
+    "universal": "gulp universal"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",

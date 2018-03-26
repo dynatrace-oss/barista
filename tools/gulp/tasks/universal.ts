@@ -1,7 +1,6 @@
 import { task, src, dest } from 'gulp';
 import { execTask, tsBuildTask } from '../util/task_helpers';
 import { join } from 'path';
-import { copySync } from 'fs-extra';
 import { buildConfig } from '../build-config';
 import { sequenceTask } from '../util/sequence-task';
 import { ngcCompile } from '../util/ngc-compile';
