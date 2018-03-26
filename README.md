@@ -43,23 +43,34 @@ but on the other hand, requires JVM.
    ```
    yarn install
    ```
-1. Build dev version of the library
+1. Building the library
    ```
-   yarn run dev-build
-   ```
-   Alternatively, run the build in watch mode, so every change made will be automatically built.
-   ```
-   yarn run watch
+   yarn run build
    ```
 
-### Running unit tests and style lint
+### Running tests and style lint
 
 Unit tests:
 ```
 yarn run test
 ```
 
-Code style check:
+Unit tests with watcher for local testing:
+```
+yarn run test:watch
+```
+
+UI Tests
+```
+yarn run ui-tests
+```
+
+Universal build
+```
+yarn run universal
+```
+
+Stylelint
 ```
 yarn run lint
 ```
@@ -68,7 +79,7 @@ yarn run lint
 
 1. Build development version
 1. Create an NPM link
-   1. In the library directory:
+   1. In the library output directory `dist/lib`:
       ```
       sudo yarn link
       ```
