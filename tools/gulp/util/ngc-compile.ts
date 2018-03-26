@@ -3,9 +3,9 @@
  * Based on the build of angular/material2 by Google Inc. governed by an
  * MIT-style license that can be found in the LICENSE file at https://angular.io/license
  */
-import {resolve as resolvePath} from 'path';
-import {spawn} from 'child_process';
-import {red} from 'chalk';
+import { resolve as resolvePath } from 'path';
+import { spawn } from 'child_process';
+import { red } from 'chalk';
 
 /**
  * Spawns a child process that compiles using ngc.
