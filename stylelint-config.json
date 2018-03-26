@@ -4,8 +4,8 @@
     "./tools/stylelint/no-nested-mixin/index.js"
   ],
   "rules": {
-    "groundhog/selector-no-deep": true,
-    "groundhog/no-nested-mixin": true,
+    "stylelint/selector-no-deep": true,
+    "stylelint/no-nested-mixin": true,
     "color-hex-case": "lower",
     "color-no-invalid-hex": true,
     "function-calc-no-unspaced-operator": true,
