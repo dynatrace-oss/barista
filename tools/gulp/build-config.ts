@@ -17,6 +17,8 @@ export interface BuildConfig {
   universalAppDir: string;
   /** Path where the output of the universal app is stored */
   universalAppOutputDir: string;
+  /** Version for angular peer dependencies */
+  angularVersion: string;
 }
 
 const projectRoot = join(__dirname, '../..');
@@ -38,4 +40,7 @@ export const buildConfig: BuildConfig = {
   universalAppDir: join(projectRoot, 'src', 'universal-app'),
   /** Path where the output of the universal app is stored */
   universalAppOutputDir: join(projectRoot, 'dist', 'universal-app'),
+  /** Angular Version that is required for the library.
+   * This will be used as the version for the angular peer dependencies */
+  angularVersion: '^5.0.0',
 } ;

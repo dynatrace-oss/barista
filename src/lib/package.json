@@ -1,10 +1,19 @@
 {
   "name": "@dynatrace/angular-components",
-  "ngPackage": {
-    "dest": "../../dist/lib",
-    "workingDirectory": "../../dist/ng_pkg_build",
-    "lib": {
-      "entryFile": "public-api.ts"
-    }
+  "description": "Dynatrace components for Angular",
+  "repository": {
+    "type": "git",
+    "url": "***REMOVED***
+  },
+  "keywords": [
+    "angular",
+    "dynatrace",
+    "components"
+  ],
+  "homepage": "***REMOVED***
+  "peerDependencies": {
+    "@angular/cdk": "0.0.0-NG" ,
+    "@angular/core": "0.0.0-NG",
+    "@angular/common": "0.0.0-NG"
   }
 }
