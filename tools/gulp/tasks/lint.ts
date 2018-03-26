@@ -9,9 +9,9 @@ const tsGlob = 'src/lib/**/!(*.spec).ts';
 task('lint', ['stylelint', 'tslint']);
 
 task('stylelint', execNodeTask(
-  'stylelint', [stylesGlob, '--config', 'stylelint-config.json', '--syntax', 'scss']
+  'stylelint', [stylesGlob, '--config', 'stylelint-config.json', '--syntax', 'scss'],
 ));
 
 task('tslint', execNodeTask(
-  'tslint', ['--project', 'tslint.json', tsGlob]
+  'tslint', ['--project', 'tsconfig.json', tsGlob],
 ));

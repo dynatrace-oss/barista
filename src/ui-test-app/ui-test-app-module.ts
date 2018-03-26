@@ -14,7 +14,7 @@ import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
 @NgModule({
   exports: [
     // ButtonModule,
-  ]
+  ],
 })
 export class DynatraceAngularCompModule {}
 
@@ -24,7 +24,7 @@ export class DynatraceAngularCompModule {}
     RouterModule.forRoot(UI_TEST_APP_ROUTES),
     DynatraceAngularCompModule,
     NoopAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     UIApp,
