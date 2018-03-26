@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 @Component({
   // @formatter:off
-  template: `<variants-table>
+  template: `<docs-variants-table>
   <ng-template #header>Primary</ng-template>
   <ng-template #header>..disabled</ng-template>
   <ng-template #header>Secondary</ng-template>
@@ -20,7 +20,7 @@ import { Component } from "@angular/core";
   <ng-template #variant>
     <a dt-btn secondary disabled variant="call-to-action">Button</a>
   </ng-template>
-</variants-table>`,
+</docs-variants-table>`,
   // @formatter:on
 })
 export class ButtonCallToActionExampleComponent {

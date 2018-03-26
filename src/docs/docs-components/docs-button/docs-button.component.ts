@@ -17,7 +17,7 @@ import { ButtonWarningExampleComponent } from "./examples/button-warning-example
       margin-left: 20px;
     }
 
-    source-example {
+    docs-source-example {
       display: inline-block;
     }
 

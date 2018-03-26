@@ -13,7 +13,7 @@ import { RadiobuttonSimpleExampleComponent } from "./examples/radiobutton-simple
       margin-left: 20px;
     }
 
-    source-example {
+    docs-source-example {
       display: inline-block;
     }
 

@@ -12,7 +12,6 @@ export const _RadiobuttonComponentsBase = MixinComposer.fromScratch()
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ["disabled", "checked"],
   selector: "dt-radio",
   styleUrls: ["./radiobutton.component.scss"],
   template: `<input type="radio"
