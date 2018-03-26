@@ -39,12 +39,12 @@ import { Component, Input } from "@angular/core";
     }
   `],
   template: `
-      <div class="loader">
-          <div class="spinner">
-              <dt-loading-spinner></dt-loading-spinner>
-          </div>
-          <span class="text">{{ text }}</span>
+    <div class="loader">
+      <div class="spinner">
+        <dt-loading-spinner></dt-loading-spinner>
       </div>
+      <span class="text">{{ text }}</span>
+    </div>
   `,
 })
 export class LoadingIndicatorComponent {
