@@ -31,11 +31,6 @@ function _globify(maybeGlob: string, suffix = '**/*') {
   return path.join(maybeGlob, suffix);
 }
 
-/** Creates a task that runs the Angular Compiler CLI. */
-export function ngcBuildTask(tsConfigPath: string) {
-  return execNodeTask('@angular/compiler-cli', 'ngc', ['-p', tsConfigPath]);
-}
-
 /** Options that can be passed to execTask or execNodeTask. */
 export interface ExecTaskOptions {
   // Whether STDOUT and STDERR messages should be printed.
