@@ -18,7 +18,7 @@ import { SwitchStatesExampleComponent } from "./examples/switch-states-example.c
       margin-left: 20px;
     }
 
-    source-example {
+    docs-source-example {
       display: inline-block;
     }
 

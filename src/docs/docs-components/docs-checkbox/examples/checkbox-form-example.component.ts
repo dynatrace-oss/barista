@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -9,7 +9,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
   </form>`,
   // @formatter:on
 })
-export class CheckboxFormExampleComponent {
+export class CheckboxFormExampleComponent implements OnInit {
   public form = new FormGroup({
     agreed: new FormControl(),
   });

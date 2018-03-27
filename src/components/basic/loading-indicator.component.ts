@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: "loading-indicator",
+  selector: "dt-loading-indicator",
   styles: [`
     .loader {
       padding: 0 28px;
@@ -41,7 +41,7 @@ import { Component, Input } from "@angular/core";
   template: `
     <div class="loader">
       <div class="spinner">
-        <loading-spinner></loading-spinner>
+        <dt-loading-spinner></dt-loading-spinner>
       </div>
       <span class="text">{{ text }}</span>
     </div>
