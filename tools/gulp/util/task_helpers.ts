@@ -9,6 +9,8 @@ import * as gulp from 'gulp';
 import * as path from 'path';
 
 import { buildConfig } from '../build-config';
+import { watch, src } from 'gulp';
+import { yellow } from 'chalk';
 
 /* Those imports lack typings. */
 const gulpConnect = require('gulp-connect');
@@ -131,4 +133,19 @@ export function serverTask(packagePath: string, livereload = true) {
       }
     });
   };
+}
+
+/**
+ * Function that watches a set of file globs and runs given Gulp tasks if a given file changes.
+ * By default the livereload server will be also called on file change.
+ */
+export function watchFiles(fileGlob: string | string[], tasks: string[], livereload = true,
+  debounceDelay = 700) {
+  watch(fileGlob, {debounceDelay}, [...tasks, () => livereload && triggerLivereload()]);
+}
+
+/** Triggers a reload when livereload is enabled and a gulp-connect server is running. */
+export function triggerLivereload() {
+  console.log(yellow('Server: Changes were detected and a livereload was triggered.'));
+  return src('dist').pipe(gulpConnect.reload());
 }

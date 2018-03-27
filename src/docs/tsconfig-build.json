@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "lib": ["es6", "es2015", "dom"],
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "outDir": "../../dist/docs",
+    "sourceMap": true,
+    "target": "es5",
+    "stripInternal": false,
+    "typeRoots": [
+      "../../node_modules/@types/!(node)"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@dynatrace/angular-components/*": ["../../dist/lib/*"],
+      "@dynatrace/angular-components": ["../../dist/lib"]
+    }
+  },
+  "files": [
+    "./docs-types.d.ts",
+    "./docs.module.ts",
+    "./system-config.ts",
+    "./main.ts"
+  ]
+}

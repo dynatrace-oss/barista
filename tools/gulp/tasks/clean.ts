@@ -10,6 +10,10 @@ import { buildConfig } from '../build-config';
 const gulpClean = require('gulp-clean');
 
 /** Deletes the dist/ directory. */
-task('clean', () =>
-  src(buildConfig.outputDir, { read: false, allowEmpty: true } as SrcOptions)
+task('clean:universal', () =>
+  src(buildConfig.universalAppOutputDir, { read: false, allowEmpty: true } as SrcOptions)
+  .pipe(gulpClean(null)));
+
+  task('clean:lib', () =>
+  src(buildConfig.libOutputDir, { read: false, allowEmpty: true } as SrcOptions)
   .pipe(gulpClean(null)));

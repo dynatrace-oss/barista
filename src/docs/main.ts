@@ -1,8 +1,8 @@
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { WidgetsDocsModule } from "./widgets-docs.module";
+import { DocsModule } from './docs.module';
 
 platformBrowserDynamic()
-  .bootstrapModule(WidgetsDocsModule)
+  .bootstrapModule(DocsModule)
   // tslint:disable-next-line:no-console typedef
   .catch((err): void => { console.log(err); });
