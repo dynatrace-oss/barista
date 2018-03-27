@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 
 @Component({
-  selector: "loading-spinner",
+  selector: "dt-loading-spinner",
   styleUrls: ["./loading-spinner.component.scss"],
   template: `
     <div class="side">

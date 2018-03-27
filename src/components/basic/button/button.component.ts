@@ -20,11 +20,8 @@ export const _ButtonComponentBase = MixinComposer.fromScratch()
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    "[attr.disabled]": "disabled || null",
-  },
-  inputs: ["disabled", "secondary"],
   preserveWhitespaces: false,
+  // tslint:disable-next-line:component-selector
   selector: "[dt-btn]",
   styleUrls: ["./button.component.scss"],
   template: `
@@ -36,11 +33,12 @@ export class ButtonComponent extends _ButtonComponentBase implements CanBeDisabl
   private importance = ButtonImportance.PRIMARY;
   private _variant = ButtonVariant.NORMAL;
 
+  @Input()
+  @HostBinding("class.secondary")
   public set secondary(value: boolean) {
     this.importance = coerceBooleanProperty(value) ? ButtonImportance.SECONDARY : ButtonImportance.PRIMARY;
   }
 
-  @HostBinding("class.secondary")
   public get secondary(): boolean {
       return this.importance === ButtonImportance.SECONDARY;
   }
@@ -56,12 +54,17 @@ export class ButtonComponent extends _ButtonComponentBase implements CanBeDisabl
   }
 
   @HostBinding("class.call-to-action")
-  public get variantCallToAction(): boolean {
+  private get variantCallToAction(): boolean {
     return this._variant === ButtonVariant.CALL_TO_ACTION;
   }
 
   @HostBinding("class.warning")
-  public get variantWarning(): boolean {
+  private get variantWarning(): boolean {
       return this._variant === ButtonVariant.WARNING;
+  }
+
+  @HostBinding("attr.disabled")
+  private get disabledBinding(): true | undefined {
+    return this.disabled ? this.disabled : undefined;
   }
 }

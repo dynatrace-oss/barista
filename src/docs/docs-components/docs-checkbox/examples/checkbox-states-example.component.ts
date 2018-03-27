@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 @Component({
   // @formatter:off
-  template: `<variants-table>
+  template: `<docs-variants-table>
   <ng-template #header>Checked</ng-template>
   <ng-template #header>..disabled</ng-template>
   <ng-template #header>Not checked</ng-template>
@@ -20,7 +20,7 @@ import { Component } from "@angular/core";
   <ng-template #variant>
     <dt-checkbox disabled>just an example label</dt-checkbox>
   </ng-template>
-</variants-table>`,
+</docs-variants-table>`,
   // @formatter:on
 })
 export class CheckboxStatesExampleComponent {
