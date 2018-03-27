@@ -1,15 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  // @formatter:off
-  template: `<form [formGroup]="formWithSwitch" (submit)="submit()">
-    <dt-switch formControlName="enabled">I agree to everything</dt-switch>
-    <a dt-btn class="btn btn--primary" [disabled]="formWithSwitch.invalid">Submit</a>
-  </form>`,
-  // @formatter:on
+  templateUrl: "switch-form-example.component.html",
 })
-export class SwitchFormExampleComponent {
+export class SwitchFormExampleComponent implements OnInit {
   public formWithSwitch = new FormGroup({
     enabled: new FormControl(),
   });

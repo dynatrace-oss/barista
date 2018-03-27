@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 @Component({
   // @formatter:off
-  template: `<variants-table>
+  template: `<docs-variants-table>
   <ng-template #header>ON</ng-template>
   <ng-template #header>..disabled</ng-template>
   <ng-template #header>OFF</ng-template>
@@ -20,7 +20,7 @@ import { Component } from "@angular/core";
   <ng-template #variant>
     <dt-switch disabled>just an example label</dt-switch>
   </ng-template>
-</variants-table>`,
+</docs-variants-table>`,
   // @formatter:on
 })
 export class SwitchStatesExampleComponent {
