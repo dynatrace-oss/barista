@@ -23,7 +23,7 @@ task('universal', ['universal:build'], execTask(
   }));
 
 task('universal:build', sequenceTask(
-  'clean',
+  'clean:universal',
   'library:build',
   ['universal:copy-lib', 'universal:copy-files'],
   'universal:build-app-ts',
