@@ -28,7 +28,7 @@ const ngPackage = () => through.obj((file, _, callback) => {
 
 task('library:version-replace', () => replaceVersionPlaceholders());
 
-task('library:compile', ['clean'], () =>
+task('library:compile', ['clean:lib'], () =>
   src('src/lib/ng-package.json', {
     read: false,
   })

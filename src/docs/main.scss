@@ -1,23 +1,77 @@
-@import "~@dynatrace/groundhog/src/base/typography";
-@import "~@dynatrace/groundhog/src/base/base";
-@import "~@dynatrace/groundhog/src/list/list";
-@import "~@dynatrace/groundhog/src/layout/layout";
-@import "~@dynatrace/groundhog/src/layout/islands";
-@import "~@dynatrace/groundhog/src/table/table";
+@import '../../node_modules/highlight.js/styles/github-gist.css';
 
-@import "~highlight.js/styles/github-gist.css";
-@import "../components/styles/constants";
-@import "../components/styles/fonticons";
-@import "../components/styles/fonts";
-
-html, body {
+%typecsset-reset {
   margin: 0;
   padding: 0;
-  height: 100%;
-  background-color: $gray-100;
-  font-family: 'BerninaSansWeb', sans-serif;
+  margin-bottom: 12px;
+}
+
+* { box-sizing: border-box; }
+
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'BerninaSans', 'Open Sans', sans-serif;
+  color: #454646;
+  counter-reset: section;
 }
 
 a {
-  cursor: pointer;
+  text-decoration: none;
+  color: #00a1b2;
+  transition: color 100ms ease-out;
+}
+
+a:hover {
+  color: #00848e;
+  text-decoration: underline;
+}
+
+h1,
+h2,
+h3 {
+  @extend %typecsset-reset;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 44px;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4,
+h5,
+h6 {
+  line-height: 1.6;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+h1:not(:first-child),
+h2:not(:first-child),
+h3:not(:first-child),
+h4:not(:first-child),
+h5:not(:first-child),
+h6:not(:first-child) {
+  margin-top: 32px;
 }

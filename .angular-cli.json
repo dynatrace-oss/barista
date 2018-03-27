@@ -1,35 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "ui-components"
-  },
-  "apps": [
-    {
-      "name": "docs",
-      "root": "src/docs",
-      "outDir": "dist/docs",
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "./polyfills.ts",
-      "tsconfig": "./tsconfig.app.json",
-      "testTsconfig": "./tsconfig.spec.json",
-      "prefix": "",
-      "assets": [
-        "assets"
-      ],
-      "styles": [
-        "main.scss"
-      ]
-    }
-  ],
-  "defaults": {
-    "styleExt": "scss",
-    "component": {
-      "inlineStyle": true,
-      "inlineTemplate": true
-    },
-    "serve": {
-      "host": "0.0.0.0"
-    }
+    "name": "angular-components"
   }
 }
