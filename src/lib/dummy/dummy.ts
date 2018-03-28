@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'dt-dummy',
   styleUrls: ['./dummy.scss'],
   templateUrl: './dummy.html',
+  exportAs: 'dtDummy',
 })
 export class DtDummy implements OnInit {
   ngOnInit(): void {
