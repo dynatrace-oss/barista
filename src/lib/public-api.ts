@@ -7,4 +7,4 @@
  */
 
 export * from './core/index';
-export * from './dummy/index';
+export * from './button/index';
