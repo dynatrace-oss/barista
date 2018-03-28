@@ -44,27 +44,22 @@ const removeModuleId = () => through.obj((file, _, callback) => {
   callback(null, file);
 });
 
-task('library:temp-copy', () => 
-  src(join(buildConfig.libDir, '**/*'))
-  .pipe(dest(buildConfig.libPackageDir)));
 
 task('library:removeModuleId', () => 
-  src(join(buildConfig.libPackageDir, '/**/*.ts'))
+  src(join(buildConfig.libOutputDir, '/**/*.js'))
   .pipe(removeModuleId())
-  .pipe(dest(buildConfig.libPackageDir)));
+  .pipe(dest(buildConfig.libOutputDir)));
 
 task('library:compile', () =>
-  src(join(buildConfig.libPackageDir, 'ng-package.json'), {
+  src(join(buildConfig.libDir, 'package.json'), {
     read: false,
   })
   .pipe(ngPackage()));
 
 task('library:build', sequenceTask(
   'clean:lib',
-  'library:temp-copy',
-  'library:removeModuleId',
   'library:compile',
   'library:version-replace',
-  'clean:temp',
+  'library:removeModuleId',
   /*, 'library:themes' */
 ));
