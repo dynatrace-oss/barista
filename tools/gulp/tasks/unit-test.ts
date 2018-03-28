@@ -13,7 +13,7 @@ const defaultOptions = {
 };
 
 task('test:copy-assets', () =>
-  src(join(buildConfig.libDir, '**/*.html'))
+  src(join(buildConfig.libDir, '**/*.+(html|scss)'))
   .pipe(dest(join(buildConfig.outputDir, 'unit-test'))));
 
 task('test:build', ['test:copy-assets', 'library:build'], (done) => {
