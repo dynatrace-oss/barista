@@ -45,34 +45,40 @@ but on the other hand, requires JVM.
    ```
 1. Building the library
    ```
-   yarn run build
+   yarn build
    ```
+
+### Developing
+Developing with the docs app
+```
+yarn docs
+```
 
 ### Running tests and style lint
 
 Unit tests:
 ```
-yarn run test
+yarn test
 ```
 
 Unit tests with watcher for local testing:
 ```
-yarn run test:watch
+yarn test:watch
 ```
 
 UI Tests
 ```
-yarn run ui-tests
+yarn ui-tests
 ```
 
 Universal build
 ```
-yarn run universal
+yarn universal
 ```
 
 Stylelint
 ```
-yarn run lint
+yarn lint
 ```
 
 ### Using local version for development
