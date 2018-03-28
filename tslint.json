@@ -35,13 +35,15 @@
       true,
       "spaces"
     ],
-    // this needs to be disabled since having multiple components/directives 
+    // this needs to be disabled since having multiple components/directives
     // in one file is sometimes suitable due to the size and sharing of small pieces of code
     "max-classes-per-file": false,
     "max-line-length": [true, 132],
     // no implicit dependencies need to be false since we have cross references inside the modules which are not listed as a dependency
     "member-access": [true, "no-public"],
     "member-ordering": false,
+    // Disabled as it would also force new lines for only one operator or function call
+    "newline-per-chained-call": false,
     "no-implicit-dependencies": [
       false
     ],
@@ -68,6 +70,8 @@
     "no-unused-expression": true,
     "no-unused-variable": true,
     "object-literal-sort-keys": false,
+    // Disabled otherwise normal functions like class mixins are not possible
+    "only-arrow-functions": false,
     "one-line": [
       true,
       "check-catch",
@@ -87,9 +91,9 @@
     "typedef": [
       true,
       "call-signature",
-      "arrow-call-signature",
       "parameter",
-      "arrow-parameter",
+      // Removed as this could be result in a lot of pollution when piping RxJS operators and array functions
+      // "arrow-parameter",
       "property-declaration"
     ],
     "typedef-whitespace": [
@@ -100,6 +104,19 @@
         "parameter": "nospace",
         "property-declaration": "nospace",
         "variable-declaration": "nospace"
+      }
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "objects": "always",
+          "arrays": "always",
+          // Disabled as this would lead to an undefined last arguments in every function with multiline arguments
+          "functions": "never",
+          "typeLiterals": "ignore"
+        },
+        "esSpecCompliant": true
       }
     ],
     "variable-name": [
