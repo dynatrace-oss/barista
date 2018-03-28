@@ -7,7 +7,7 @@ const SPACES_FOR_PACKAGE_JSON = 2;
 /** RegExp that matches Angular version placeholders within a file. */
 const ngVersionPlaceholder = new RegExp('0.0.0-NG', 'g');
 
-export const replaceVersionPlaceholders = (): void => {
+export function replaceVersionPlaceholders() {
   /* read the package json in the dist directory for the library
     and replace the NG-version placeholder */
   const packageJson = readFileSync(join(buildConfig.libOutputDir, 'package.json'), 'utf-8')
