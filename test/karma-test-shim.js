@@ -126,7 +126,7 @@ function configureTestBed() {
  * destruction are thrown instead of silently logged. Also runs TestBed.resetTestingModule after
  * each unit test.
  *
- * Without this patch, the combination of two behaviors is problematic for ngx-groundhog:
+ * Without this patch, the combination of two behaviors is problematic for lib:
  * - TestBed.resetTestingModule catches errors thrown on fixture destruction and logs them without
  *     the errors ever being thrown. This means that any component errors that occur in ngOnDestroy
  *     can encounter errors silently and still pass unit tests.
