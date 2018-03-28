@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
  * Home component for welcome message in DocsApp.
  */
 @Component({
-  selector: 'home',
+  selector: 'docs-home',
   template: `
   <h1>Dynatrace angular components library</h1>
   <p>Choose component from the left menu to see its documentation.<p>
@@ -25,7 +25,7 @@ import { Component } from '@angular/core';
 export class Home {}
 
 @Component({
-  selector: 'docs',
+  selector: 'docs-app',
   styleUrls: ['docs.component.scss'],
   templateUrl: 'docs.component.html',
 })
