@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { task, watch, src } from 'gulp';
+import { task, watch, src, dest } from 'gulp';
 import { sequenceTask } from '../util/sequence-task';
 import { buildConfig } from '../build-config';
 import { ngcCompile } from '../util/ngc-compile';
@@ -12,7 +12,11 @@ const defaultOptions = {
   singleRun: false
 };
 
-task('test:build', ['library:build'], (done) => {
+task('test:copy-assets', () =>
+  src(join(buildConfig.libDir, '**/*.html'))
+  .pipe(dest(join(buildConfig.outputDir, 'unit-test'))));
+
+task('test:build', ['test:copy-assets', 'library:build'], (done) => {
   const tsConfig = join(buildConfig.libDir, 'tsconfig-test.json');
   ngcCompile(['-p', tsConfig]).catch(() => {
     const error = red(`Failed to compile lib using ${tsConfig}`);
