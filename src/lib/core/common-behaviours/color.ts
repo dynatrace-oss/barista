@@ -1,7 +1,7 @@
 import { Constructor } from './constructor';
 import { ElementRef } from '@angular/core';
 
-type Partial<T> = {
+export type Partial<T> = {
   [P in keyof T]?: T[P];
 };
 
