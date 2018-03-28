@@ -1,8 +1,8 @@
 import { task } from 'gulp';
-import { execNodeTask } from 'util/task_helpers';
-import { sequenceTask } from 'util/sequence-task';
+import { execNodeTask } from '../util/task_helpers';
+import { sequenceTask } from '../util/sequence-task';
 
-task('docs', sequenceTask(['docs:serve', 'library:watch']));
+task('docs', sequenceTask('library:build', ['docs:serve', 'library:watch']));
 
 task('docs:build', execNodeTask('@angular/cli', 'ng', ['build', '-a', 'docs', '--prod']));
 
