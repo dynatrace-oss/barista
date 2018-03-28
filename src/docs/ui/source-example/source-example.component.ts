@@ -4,7 +4,7 @@ import { TemplateRetriever } from '../../core/template-retriever';
 
 @Component({
   moduleId: module.id,
-  selector: 'source-example',
+  selector: 'docs-source-example',
   styleUrls: ['source-example.component.scss'],
   templateUrl: 'source-example.component.html',
 })

@@ -2,7 +2,7 @@ import { AfterViewInit, Directive, ElementRef, HostBinding, Input, Renderer2 } f
 import * as hljs from 'highlight.js';
 
 @Directive({
-  selector: '[snippet]',
+  selector: '[docsSnippet]',
 })
 export class SnippetDirective implements AfterViewInit {
 

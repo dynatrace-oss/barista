@@ -2,7 +2,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'home',
-  template: `<p>ui-test tests!</p>`
+  template: `<p>ui-test tests!</p>`,
 })
 export class Home {}
 
