@@ -3,7 +3,8 @@
   "version": "0.0.1-dev",
   "description": "",
   "scripts": {
-    "docs": "gulp serve:docs",
+    "docs": "gulp docs",
+    "docs:build": "gulp docs:build",
     "build": "gulp library:build",
     "test": "gulp test:single-run",
     "test:watch": "gulp test",

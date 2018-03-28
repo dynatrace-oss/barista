@@ -24,10 +24,7 @@
       "@dynatrace/angular-components": ["../../dist/lib"]
     }
   },
-  "files": [
-    "./docs-types.d.ts",
-    "./docs.module.ts",
-    "./system-config.ts",
-    "./main.ts"
+  "include": [
+    "**/*.ts"
   ]
 }
