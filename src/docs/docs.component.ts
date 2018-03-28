@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 export class Docs {
   navItems = [
     {name: 'Start', route: '/'},
-    {name: 'Dummy', route: '/dummy'},
+    {name: 'Button', route: '/button'},
   ];
 }
