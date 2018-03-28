@@ -4,7 +4,7 @@ import { DummyExampleComponent } from './examples/dummy-example.component';
 @Component({
   moduleId: module.id,
   selector: 'docs-dummy',
-  styleUrls: ['./docs-dummy.component.css'],
+  styleUrls: ['./docs-dummy.component.scss'],
   templateUrl: './docs-dummy.component.html',
 })
 export class DocsDummyComponent {
