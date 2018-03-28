@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { DummyExampleComponent } from './examples/dummy-example.component';
 import { DocsDummyComponent } from './docs-dummy.component';
 import { UiModule } from '../../ui/ui.module';
-import { DummyModule } from '@dynatrace/angular-components/dummy';
+import { DummyModule } from '@dynatrace/angular-components';
 
 export const DUMMY_EXAMPLES = [
   DummyExampleComponent,

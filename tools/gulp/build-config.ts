@@ -9,6 +9,9 @@ export interface BuildConfig {
   libOutputDir: string;
   /* Path to the directory for the library */
   libDir: string;
+  /* Path to the directory where the build for the library will run 
+   this is necessary because we need to remove the module.id during the build to have it working with aot */
+  libPackageDir: string;
   /* Path where the UI Test app is stored */
   uiTestAppDir: string;
   /* Path where the output of the UI Test app is stored */
@@ -26,6 +29,8 @@ const projectRoot = join(__dirname, '../..');
 export const buildConfig: BuildConfig = {
   /* Path to the library */
   libDir: join(projectRoot, 'src', 'lib'),
+  /* Path to the library package dir */
+  libPackageDir: join(projectRoot, 'dist', 'lib-temp'),
   /* Path to the directory where the output will be stored. */
   outputDir: join(projectRoot, 'dist'),
   /* Path to the directory where the library build will be stored */

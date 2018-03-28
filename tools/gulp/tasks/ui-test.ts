@@ -55,7 +55,7 @@ task(':test:protractor:setup',
 task(':test:protractor', execNodeTask('protractor', [PROTRACTOR_CONFIG_PATH]));
 
 /** Starts up the ui-test app server. */
-task(':serve:ui-test-app', () => serverTask(buildConfig.uiTestAppOutputDir, false));
+task(':serve:ui-test-app', serverTask(buildConfig.uiTestAppOutputDir, false));
 
 /** Terminates the ui-test app server */
 task(':serve:ui-test-app:stop', gulpConnect.serverClose);
