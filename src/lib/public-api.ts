@@ -6,4 +6,5 @@
  * export * from './core/index';
  */
 
- export * from './dummy/index';
+export * from './core/index';
+export * from './dummy/index';
