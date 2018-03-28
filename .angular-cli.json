@@ -2,5 +2,23 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "name": "angular-components"
-  }
+  },
+  "apps": [
+    {
+      "name": "docs",
+      "root": "src/docs",
+      "outDir": "dist/docs",
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "./polyfills.ts",
+      "tsconfig": "./tsconfig-build.json",
+      "prefix": "",
+      "assets": [
+        "assets"
+      ],
+      "styles": [
+        "main.scss"
+      ]
+    }
+  ]
 }

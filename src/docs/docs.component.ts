@@ -26,7 +26,7 @@ export class Home {}
 
 @Component({
   selector: 'docs',
-  styleUrls: ['docs.component.css'],
+  styleUrls: ['docs.component.scss'],
   templateUrl: 'docs.component.html',
 })
 export class Docs {
