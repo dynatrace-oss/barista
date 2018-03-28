@@ -5,9 +5,9 @@
     "experimentalDecorators": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "lib": ["es6", "es2015", "dom"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitAny": true,
@@ -19,12 +19,24 @@
       "../../node_modules/@types/!(node)"
     ],
     "baseUrl": ".",
+    "rootDirs": [
+      ".",
+      "../../dist/docs"
+    ],
     "paths": {
       "@dynatrace/angular-components/*": ["../../dist/lib/*"],
       "@dynatrace/angular-components": ["../../dist/lib"]
     }
   },
-  "include": [
-    "**/*.ts"
-  ]
+  "files": [
+    "./docs-types.d.ts",
+    "./docs.module.ts",
+    "./main.ts",
+    "./polyfills.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": false,
+    // TODO: disabled for now due to @angular/forms
+    "fullTemplateTypeCheck": false
+  }
 }
