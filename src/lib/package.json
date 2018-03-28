@@ -15,5 +15,12 @@
     "@angular/cdk": "0.0.0-NG" ,
     "@angular/core": "0.0.0-NG",
     "@angular/common": "0.0.0-NG"
+  },
+  "ngPackage": {
+    "dest": "../../dist/lib",
+    "workingDirectory": "../../dist/ng_pkg_build",
+    "lib": {
+      "entryFile": "public-api.ts"
+    }
   }
 }
