@@ -18,6 +18,9 @@
       ],
       "styles": [
         "main.scss"
+      ],
+      "scripts": [
+        "../../node_modules/highlight.js/lib/highlight.js"
       ]
     }
   ]
