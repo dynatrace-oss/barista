@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
+  moduleId: module.id,
   selector: 'dt-dummy',
   styleUrls: ['./dummy.scss'],
   templateUrl: './dummy.html',

@@ -14,6 +14,10 @@ task('clean:universal', () =>
   src(buildConfig.universalAppOutputDir, { read: false, allowEmpty: true } as SrcOptions)
   .pipe(gulpClean(null)));
 
-  task('clean:lib', () =>
+task('clean:lib', () =>
   src(buildConfig.libOutputDir, { read: false, allowEmpty: true } as SrcOptions)
+  .pipe(gulpClean(null)));
+
+task('clean:temp', () =>
+  src(buildConfig.libPackageDir, { read: false, allowEmpty: true } as SrcOptions)
   .pipe(gulpClean(null)));

@@ -33,14 +33,38 @@ task('library:watch', () => {
 
 task('library:version-replace', () => replaceVersionPlaceholders());
 
-task('library:compile', ['clean:lib'], () =>
-  src('src/lib/ng-package.json', {
+// module.id needs to be removed to work with the aot compiler
+const removeModuleId = () => through.obj((file, _, callback) => {
+  if (file.isNull()) {
+    callback(null);
+    return;
+  }
+  const contentStr = file.contents.toString('utf8');
+  file.contents = Buffer.from(contentStr.replace(/\s*moduleId:\s*module\.id\s*,?\s*/gm, ''));
+  callback(null, file);
+});
+
+task('library:temp-copy', () => 
+  src(join(buildConfig.libDir, '**/*'))
+  .pipe(dest(buildConfig.libPackageDir)));
+
+task('library:removeModuleId', () => 
+  src(join(buildConfig.libPackageDir, '/**/*.ts'))
+  .pipe(removeModuleId())
+  .pipe(dest(buildConfig.libPackageDir)));
+
+task('library:compile', () =>
+  src(join(buildConfig.libPackageDir, 'ng-package.json'), {
     read: false,
   })
   .pipe(ngPackage()));
 
 task('library:build', sequenceTask(
+  'clean:lib',
+  'library:temp-copy',
+  'library:removeModuleId',
   'library:compile',
   'library:version-replace',
+  'clean:temp',
   /*, 'library:themes' */
 ));
