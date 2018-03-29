@@ -10,7 +10,7 @@ export class SnippetDirective implements AfterViewInit {
   language: string | string[];
 
   @Input()
-  snippet: string;
+  docsSnippet: string;
 
   @HostBinding('class.hljs')
   hljsClass = 'hljs';
@@ -20,7 +20,7 @@ export class SnippetDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const languages = this.language ? Array.from(this.language) : hljs.listLanguages();
-    const highlightResult = hljs.highlightAuto(this.snippet || this.element.nativeElement.innerHTML, languages);
+    const highlightResult = hljs.highlightAuto(this.docsSnippet || this.element.nativeElement.innerHTML, languages);
 
     this.element.nativeElement.innerHTML = highlightResult.value;
     this.renderer.addClass(this.element.nativeElement, highlightResult.language);
