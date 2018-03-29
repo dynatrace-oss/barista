@@ -3,4 +3,4 @@
   <a *ngIf="!codeVisible" (click)="codeVisible = true">Show source</a>
   <a *ngIf="codeVisible" (click)="codeVisible = false">Hide source</a>
 </div>
-<pre class="code" *ngIf="codeVisible"><code docsSnippet [snippet]="source" language="['html', 'typescript']"></code></pre>
+<pre class="code" *ngIf="codeVisible"><code [docsSnippet]="source" language="['html', 'typescript']"></code></pre>
