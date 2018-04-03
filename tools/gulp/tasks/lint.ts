@@ -1,5 +1,5 @@
 import {task} from 'gulp';
-import {execNodeTask} from '../util/task_helpers';
+import { execNodeTask } from '../util/task-runner';
 
 /** Glob that matches all SCSS or CSS files that should be linted. */
 const stylesGlob = 'src/lib/**/!(*.bundle).+(css|scss)';

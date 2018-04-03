@@ -1,1 +1,2 @@
-export * from './public-api';
+export * from './dummy-module';
+export * from './dummy';

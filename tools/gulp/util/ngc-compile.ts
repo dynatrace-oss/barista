@@ -4,7 +4,7 @@
  * MIT-style license that can be found in the LICENSE file at https://angular.io/license
  */
 import { resolve as resolvePath } from 'path';
-import { spawn } from 'child_process';
+import * as spawn from 'cross-spawn';
 import { red } from 'chalk';
 
 /**
