@@ -14,7 +14,7 @@ export function mixinDisabled<T extends Constructor<{}>>(base: T): Constructor<C
     get disabled(): boolean { return this._disabled; }
     set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); }
 
-    // tslint:disable-next-line:no-any
+    // tslint:disable-next-line
     constructor(...args: any[]) { super(...args); }
   };
 }
