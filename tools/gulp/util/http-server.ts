@@ -1,3 +1,8 @@
+/**
+ * @license
+ * Based on the build of angular/material2 by Google Inc. governed by an
+ * MIT-style license that can be found in the LICENSE file at https://angular.io/license
+ */
 import * as fs from 'fs';
 import * as path from 'path';
 import { buildConfig } from '../build-config';
