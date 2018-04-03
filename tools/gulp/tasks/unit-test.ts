@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { task, watch, src, dest } from 'gulp';
+import { task, watch, src, dest, WatchCallback } from 'gulp';
 import { sequenceTask } from '../util/sequence-task';
 import { buildConfig } from '../build-config';
 import { ngcCompile } from '../util/ngc-compile';
@@ -9,20 +9,19 @@ import { red } from 'chalk';
 const defaultOptions = {
   configFile: join(buildConfig.projectDir, 'test/karma.conf.js'),
   autoWatch: false,
-  singleRun: false
+  singleRun: false,
 };
 
-task('test:copy-assets', () =>
-  src(join(buildConfig.libDir, '**/*.+(html|scss)'))
-  .pipe(dest(join(buildConfig.outputDir, 'unit-test'))));
-
-task('test:build', ['test:copy-assets', 'library:build'], (done) => {
+task('test:build', ['library:build'], (done) => {
   const tsConfig = join(buildConfig.libDir, 'tsconfig-test.json');
-  ngcCompile(['-p', tsConfig]).catch(() => {
+  ngcCompile(['-p', tsConfig])
+  .catch(() => {
     const error = red(`Failed to compile lib using ${tsConfig}`);
     console.error(error);
+
     return Promise.reject(error);
-  }).then(() => {
+  })
+  .then(() => {
     done();
   });
 });
@@ -38,7 +37,7 @@ task('test:single-run', ['test:build'], (done: () => void) => {
   new karma.Server({
     ...defaultOptions,
     singleRun: true,
-  }, (exitCode: number) => {
+  },               (exitCode: number) => {
     exitCode === 0 ? done() : process.exit(exitCode);
   }).start();
 });
@@ -72,13 +71,15 @@ function karmaWatchTask(options?: any) {
     // Tests will only run if TypeScript compilation was successful.
     const runTests = (error?: Error) => {
       if (!error) {
-        server.refreshFiles().then(() => server._injector.get('executor').schedule());
+        server.refreshFiles()
+        .then(() => server._injector.get('executor')
+        .schedule());
       }
     };
 
     // Boot up the test server and run the tests whenever a new browser connects.
     server.start();
-    server.on('browser_register', () => runTests());
+    server.on('browser_register', runTests());
 
     // Whenever a file change has been recognized, rebuild and re-run the tests.
     watch(`${patternRoot}.+(ts|scss|html)`, () => runTests());
