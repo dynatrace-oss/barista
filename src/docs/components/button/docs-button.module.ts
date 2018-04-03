@@ -3,6 +3,7 @@ import { ButtonExampleComponent } from './examples/button-example.component';
 import { DocsButtonComponent } from './docs-button.component';
 import { UiModule } from '../../ui/ui.module';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
+import { CommonModule } from '@angular/common';
 
 const EXAMPLES = [
   ButtonExampleComponent,
@@ -10,6 +11,7 @@ const EXAMPLES = [
 
 @NgModule({
   imports: [
+    CommonModule,
     UiModule,
     DtButtonModule,
   ],
