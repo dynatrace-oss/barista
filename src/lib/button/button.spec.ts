@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtButtonModule, DtButton } from './index';
+import { DtButtonModule, DtButton } from '@dynatrace/angular-components/button';
 
 describe('DtButton', () => {
 
