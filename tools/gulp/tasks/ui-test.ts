@@ -4,7 +4,8 @@ import { sequenceTask } from '../util/sequence-task';
 import { buildConfig } from '../build-config';
 import { ngcCompile } from '../util/ngc-compile';
 import { red } from 'chalk';
-import { execNodeTask, serverTask } from '../util/task_helpers';
+import { execNodeTask } from '../util/task-runner';
+import { serverTask } from '../util/http-server';
 
 // There are no type definitions available for these imports.
 const gulpConnect = require('gulp-connect');
@@ -17,16 +18,19 @@ const assetsGlob = join(buildConfig.uiTestAppDir, '**/*.+(html|css|json|ts)');
 task('ui-test-app:build', sequenceTask(
   'library:build',
   ['ui-test-app:copy', 'ui-test-app:copy-lib'],
-  'ui-test-app:build-ts'
+  'ui-test-app:build-ts',
 ));
 
 task('ui-test-app:build-ts', (done) => {
   const tsConfig = join(buildConfig.uiTestAppOutputDir, 'tsconfig-build.json');
-  ngcCompile(['-p', tsConfig]).catch(() => {
+  ngcCompile(['-p', tsConfig])
+  .catch(() => {
     const error = red(`Failed to compile lib using ${tsConfig}`);
     console.error(error);
+
     return Promise.reject(error);
-  }).then(() => {
+  })
+  .then(() => {
     done();
   });
 });
@@ -49,7 +53,7 @@ task('ui-test-app:copy-lib', () =>
 
 /** Ensures that protractor and webdriver are set up to run. */
 task(':test:protractor:setup',
-  execNodeTask('protractor', 'webdriver-manager', ['update', '--gecko=false']));
+     execNodeTask('protractor', 'webdriver-manager', ['update', '--gecko=false']));
 
 /** Runs protractor tests (assumes that server is already running. */
 task(':test:protractor', execNodeTask('protractor', [PROTRACTOR_CONFIG_PATH]));
