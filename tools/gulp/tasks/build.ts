@@ -1,4 +1,4 @@
-import { dest, src, task} from 'gulp';
+import { dest, src, task, watch } from 'gulp';
 import { join } from 'path';
 import { buildConfig } from '../build-config';
 import { sequenceTask } from '../util/sequence-task';
@@ -6,7 +6,6 @@ import { sequenceTask } from '../util/sequence-task';
 import * as through from 'through2';
 import * as sass from 'gulp-sass';
 import { replaceVersionPlaceholders } from '../util/replace-version-placeholder';
-import { watchFiles } from '../util/task_helpers';
 
 import * as packagr from '@dynatrace/ng-packagr/lib/ng-v5/packagr';
 // commented themes for now, lets add this as soon as we implement theming
@@ -27,16 +26,19 @@ const ngPackage = () => through.obj((file, _, callback) => {
 //   }).on('error', sass.logError))
 //   .pipe(dest(join(buildConfig.libOutputDir, 'themes'))));
 
+const WATCH_DEBOUNCE_DELAY = 700;
+
 task('library:watch', () => {
-  watchFiles(join(buildConfig.libDir, '**/*'), ['library:compile']);
+  watch(join(buildConfig.libDir, '**/*'), { debounceDelay: WATCH_DEBOUNCE_DELAY }, ['library:compile']);
 });
 
-task('library:version-replace', () => replaceVersionPlaceholders());
+task('library:version-replace', replaceVersionPlaceholders);
 
 // module.id needs to be removed to work with the aot compiler
 const removeModuleId = () => through.obj((file, _, callback) => {
   if (file.isNull()) {
     callback(null);
+
     return;
   }
   const contentStr = file.contents.toString('utf8');
@@ -44,8 +46,7 @@ const removeModuleId = () => through.obj((file, _, callback) => {
   callback(null, file);
 });
 
-
-task('library:removeModuleId', () => 
+task('library:removeModuleId', () =>
   src(join(buildConfig.libOutputDir, '/**/*.js'))
   .pipe(removeModuleId())
   .pipe(dest(buildConfig.libOutputDir)));

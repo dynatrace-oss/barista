@@ -1,5 +1,5 @@
 import { task, src, dest } from 'gulp';
-import { execTask, tsBuildTask } from '../util/task_helpers';
+import { execTask, execNodeTask } from '../util/task-runner';
 import { join } from 'path';
 import { buildConfig } from '../build-config';
 import { sequenceTask } from '../util/sequence-task';
@@ -27,7 +27,7 @@ task('universal:build', sequenceTask(
   'library:build',
   ['universal:copy-lib', 'universal:copy-files'],
   'universal:build-app-ts',
-  'universal:build-prerender-ts'
+  'universal:build-prerender-ts',
 ));
 
 /** Task that builds the universal app in the output directory. */
@@ -50,7 +50,7 @@ task('universal:copy-files', () =>
   .pipe(dest(buildConfig.universalAppOutputDir)));
 
 /** Task that builds the prerender script in the output directory. */
-task('universal:build-prerender-ts', tsBuildTask(tsconfigPrerenderPath));
+task('universal:build-prerender-ts', execNodeTask('typescript', 'tsc', ['-p', tsconfigPrerenderPath]));
 
 task('universal:copy-lib', () =>
   src(join(buildConfig.libOutputDir, '**/*'))
