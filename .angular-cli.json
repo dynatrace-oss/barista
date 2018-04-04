@@ -22,8 +22,7 @@
         "main.scss"
       ],
       "scripts": [
-        "../../node_modules/highlight.js/lib/highlight.js",
-        "../../node_modules/highcharts/highcharts.js"
+        "../../node_modules/highlight.js/lib/highlight.js"
       ]
     }
   ],

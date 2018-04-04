@@ -1,3 +1,6 @@
 <h1>Chart</h1>
-
-<dt-chart></dt-chart>
+<button (click)="changeChartType('line')">Line</button>
+<button (click)="changeChartType('column')">Bar</button>
+<button (click)="changeChartType('pie')">Pie</button>
+<button (click)="addSeries()">Add series</button>
+<dt-chart [type]="_chartType"></dt-chart>
