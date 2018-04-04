@@ -4,7 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DocsRoutingModule } from './docs-routing.module';
-import { Docs, Home } from './docs.component';
+import { Docs } from './docs.component';
+import { Home } from './docs-home/docs-home.component';
 import { DocsDummyModule } from './components/dummy/docs-dummy.module';
 
 @NgModule({
