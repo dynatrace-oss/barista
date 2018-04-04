@@ -25,7 +25,7 @@
   },
   "files": [
     "./ui-test-app-module.ts",
-    "./ui-test-app-types.d.ts",
+    "../../typings.d.ts",
     "./main.ts",
     "./system-config.ts"
   ],
