@@ -29,7 +29,7 @@
     }
   },
   "files": [
-    "./typings.d.ts",
+    "../../typings.d.ts",
     "./docs.module.ts",
     "./main.ts",
     "./polyfills.ts"
