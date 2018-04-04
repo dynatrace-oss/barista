@@ -103,6 +103,7 @@ export class DtTheme implements OnDestroy {
   ngOnDestroy(): void {
     this._stateChanges.next();
     this._stateChanges.complete();
+    this._parentSub.unsubscribe();
   }
 
   /** Generates the theme class names for the currently defined name and variant */
