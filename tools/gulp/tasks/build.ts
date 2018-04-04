@@ -8,8 +8,6 @@ import * as sass from 'gulp-sass';
 import { replaceVersionPlaceholders } from '../util/replace-version-placeholder';
 
 import * as packagr from '@dynatrace/ng-packagr/lib/ng-v5/packagr';
-// commented themes for now, lets add this as soon as we implement theming
-// const themesGlob = join(buildConfig.libDir, 'core/theming/prebuilt/*.scss');
 
 const ngPackage = () => through.obj((file, _, callback) => {
   packagr.ngPackagr()
@@ -18,13 +16,6 @@ const ngPackage = () => through.obj((file, _, callback) => {
       .then((result: any) => callback(null, result))
       .catch((error: any) => callback(error, null));
 });
-
-// task('library:themes', () =>
-//   src(themesGlob)
-//   .pipe(sass({
-//     includePaths: ['node_modules/']
-//   }).on('error', sass.logError))
-//   .pipe(dest(join(buildConfig.libOutputDir, 'themes'))));
 
 const WATCH_DEBOUNCE_DELAY = 700;
 
@@ -62,5 +53,4 @@ task('library:build', sequenceTask(
   'library:compile',
   'library:version-replace',
   'library:removeModuleId',
-  /*, 'library:themes' */
 ));
