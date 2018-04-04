@@ -9,7 +9,7 @@
       <li *ngFor="let navItem of navItems">
         <a routerLinkActive
           #routerLinkActiveInstance="routerLinkActive"
-          [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
+          [attr.tabindex]="routerLinkActiveInstance.isActive ? -1 : 0"
           [routerLink]="[navItem.route]">
           {{navItem.name}}
         </a>
