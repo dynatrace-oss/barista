@@ -5,7 +5,10 @@
     "baseUrl": ".",
     "paths": {
       "@dynatrace/angular-components": ["../lib/public-api.ts"]
-    }
+    },
+    "types": [
+      "highcharts"
+    ]
   },
   "include": ["./**/*.ts"]
 }
