@@ -1,0 +1,23 @@
+<div class="nav has-no-secondary">
+  <a class="nav__brand" routerLink="/">
+    <img class="nav__logo" src="http://assets.dynatrace.com/global/logos/dynatrace-logo.svg" alt="dynatrace logo"/>
+  </a>
+</div>
+<div class="content-wrapper">
+  <nav class="sidenav">
+    <ul>
+      <li *ngFor="let navItem of navItems">
+        <a routerLinkActive
+          #routerLinkActiveInstance="routerLinkActive"
+          [attr.tabindex]="routerLinkActiveInstance.isActive ? -1 : 0"
+          [routerLink]="[navItem.route]">
+          {{navItem.name}}
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="docs-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
