@@ -1,14 +1,19 @@
-<h1>Chart with data as obersable</h1>
-
-<h2>Line chart</h2>
-<dt-chart [options]="lineOptions" [data]="_chartService.getStreamedChartdata()"></dt-chart>
-<h2>Column chart</h2>
-<dt-chart [options]="columnOptions" [data]="data"></dt-chart>
-
-<h2>Pie chart</h2>
-<dt-chart [options]="pieOptions" [data]="data"></dt-chart>
-
+<button dt-button (click)="toggleMenu()">Trigger resize</button>
+<div [style.padding-left.px]="_menuOpen ? 200 : 0">
 <h1>Chart with static data</h1>
 
 <h2>Column chart</h2>
-<dt-chart [options]="columnOptions" [data]="dataStatic"></dt-chart>
+<dt-chart [options]="columnOptions" [data]="dataStatic">
+</dt-chart>
+
+<h1>Chart with data as observable</h1>
+
+<h2>Line chart</h2>
+<dt-chart [options]="lineOptions" [data]="data$"></dt-chart>
+
+<h2>Column chart</h2>
+<dt-chart [options]="columnOptions" [data]="data$"></dt-chart>
+
+<h2>Pie chart</h2>
+<dt-chart [options]="pieOptions" [data]="data$"></dt-chart>
+</div>

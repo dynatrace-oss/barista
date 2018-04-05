@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartType, DtChart } from '@dynatrace/angular-components/chart';
+import { ViewportResizer } from '@dynatrace/angular-components/core';
 import { ChartService } from './docs-chart.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -19,6 +20,10 @@ export class DocsChartComponent {
     },
     xAxis: {
        type: 'datetime',
+    },
+    yAxis: {
+      min: 100,
+      max: 200,
     },
   };
 
@@ -46,7 +51,7 @@ export class DocsChartComponent {
     },
   };
 
-  data: Observable<Highcharts.IndividualSeriesOptions[]>;
+  data$: Observable<Highcharts.IndividualSeriesOptions[]>;
 
   dataStatic = [{
     color: '#C396E0',
@@ -87,8 +92,15 @@ export class DocsChartComponent {
     ],
   }];
 
-  constructor(private _chartService: ChartService) {
-    this.data = this._chartService.getStreamedChartdata();
+  _menuOpen = false;
+
+  constructor(private _chartService: ChartService, private _viewportResizer: ViewportResizer) {
+    this.data$ = this._chartService.getStreamedChartdata();
+  }
+
+  toggleMenu(): void {
+    this._menuOpen = !this._menuOpen;
+    this._viewportResizer.emit();
   }
 
 }
