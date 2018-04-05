@@ -5,7 +5,8 @@ import {
   Optional,
   SkipSelf,
   OnDestroy,
-  isDevMode
+  isDevMode,
+  Renderer2
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -25,6 +26,11 @@ export type DtThemeVariant = 'light' | 'dark' | null;
 
 export function getDtThemeNotValidError(name: string): Error {
   return Error(`The provided theme name "${name}" for dtTheme is not a valid theme!`);
+}
+
+interface NameVariantClasses {
+  name: string | null;
+  variant: string | null;
 }
 
 @Directive({
@@ -91,6 +97,7 @@ export class DtTheme implements OnDestroy {
 
   constructor(
     private _elementRef: ElementRef,
+    private _renderer: Renderer2,
     @Optional() @SkipSelf() private _parentTheme: DtTheme
   ) {
     if (this._parentTheme) {
@@ -109,27 +116,33 @@ export class DtTheme implements OnDestroy {
   }
 
   /** Generates the theme class names for the currently defined name and variant */
-  private _genClassNames(): [string | null, string | null] {
-    return [
-      this.name ? `dt-theme-${this.name}` : null,
-      this.variant ? `dt-theme-${this.variant}` : null,
-    ];
+  private _genClassNames(): NameVariantClasses {
+    return {
+      name: this.name ? `dt-theme-${this.name}` : null,
+      variant: this.variant ? `dt-theme-${this.variant}` : null,
+    };
   }
 
-  /** Replaces classes on the host element */
+  /** Replaces name and variant classes on the host element */
   private _replaceHostClasses(
-    newClasses?: [string | null, string | null],
-    oldClasses?: [string | null, string | null]
+    newClasses: NameVariantClasses,
+    oldClasses: NameVariantClasses
   ): void {
-    // To run this in universal we have to use className instead of classList
-    let classes: string[] = this._elementRef.nativeElement.className.split(' ');
-    if (oldClasses) {
-      classes = classes.filter((c) => oldClasses.filter((o) => !!o).indexOf(c) === -1);
+    this._replaceClass(oldClasses.name, newClasses.name);
+    this._replaceClass(oldClasses.variant, newClasses.variant);
+  }
+
+  /** Replaces oldClass class with newClass */
+  private _replaceClass(oldClass: string | null, newClass: string | null): void {
+    if (oldClass !== newClass) {
+      const el = this._elementRef.nativeElement;
+      if (oldClass !== null) {
+        this._renderer.removeClass(el, oldClass);
+      }
+      if (newClass !== null) {
+        this._renderer.addClass(el, newClass);
+      }
     }
-    if (newClasses) {
-      classes.push(...(newClasses.filter((c) => !!c && classes.indexOf(c) === -1) as string[]));
-    }
-    this._elementRef.nativeElement.className = classes.filter((c) => !!c).join(' ');
   }
 
   /** Notify developers if max depth level has been exceeded */
