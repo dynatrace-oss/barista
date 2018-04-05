@@ -21,9 +21,9 @@ const MAX_DEPTH = 1;
 // only if you have adjusted the css selectors.
 const MAX_DEPTH_EXCEPTION_CLASSESS = [];
 
-const THEME_VALIDATION_RX = /((?:[a-zA-Z-]+)?)(?::(light|dark))?/;
-const THEME_VARIANTS = ['light', 'dark'];
 export type DtThemeVariant = 'light' | 'dark' | null;
+const THEME_VALIDATION_RX = /((?:[a-zA-Z-]+)?)(?::(light|dark))?/;
+const THEME_VARIANTS: DtThemeVariant[] = ['light', 'dark'];
 
 export function getDtThemeNotValidError(name: string): Error {
   return Error(`The provided theme name "${name}" for dtTheme is not a valid theme!`);
@@ -67,9 +67,9 @@ export class DtTheme implements OnDestroy {
     const [, name, variant] = result;
 
     this._name = name || (this._parentTheme && this._parentTheme.name) || null;
-    this._variant =
-      variant && THEME_VARIANTS[variant] !== -1 ? variant as DtThemeVariant :
-        (this._parentTheme && this._parentTheme.variant) || null;
+    this._variant = variant && THEME_VARIANTS.indexOf(variant as DtThemeVariant) !== -1 ?
+      variant as DtThemeVariant :
+      (this._parentTheme && this._parentTheme.variant) || null;
 
     // Only replace css classes if name or variant have actually changed
     if (name !== currentName || variant !== currentVariant) {
@@ -82,7 +82,7 @@ export class DtTheme implements OnDestroy {
   get name(): string | null { return this._name; }
 
   /** Whether the theme is the light or dark variant */
-  get variant(): DtThemeVariant { return this._variant; }
+  get variant(): DtThemeVariant | null { return this._variant; }
 
   /** @internal The level of depth */
   get _depthLevel(): number {
@@ -93,7 +93,7 @@ export class DtTheme implements OnDestroy {
   readonly _stateChanges: Subject<void> = new Subject<void>();
 
   private _name: string | null = null;
-  private _variant: DtThemeVariant = null;
+  private _variant: DtThemeVariant | null = null;
   private _parentSub: Subscription = NeverObservable.create().subscribe();
 
   constructor(
