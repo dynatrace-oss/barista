@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartType, DtChart } from '@dynatrace/angular-components/chart';
+import { ChartService } from './docs-chart.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   moduleId: module.id,
@@ -8,17 +10,85 @@ import { ChartType, DtChart } from '@dynatrace/angular-components/chart';
   templateUrl: './docs-chart.component.html',
 })
 export class DocsChartComponent {
-  @ViewChild(DtChart) chart: DtChart;
-  _chartType: ChartType = 'line';
+  lineOptions: Highcharts.Options = {
+    chart: {
+      type: 'line',
+    },
+    title: {
+      text: 'Line chart',
+    },
+    xAxis: {
+       type: 'datetime',
+    },
+  };
 
-  changeChartType(value: ChartType): void {
-    this._chartType = value;
+  columnOptions: Highcharts.Options = {
+    chart: {
+      type: 'column',
+    },
+    title: {
+      text: 'Bar/Column chart',
+    },
+    xAxis: {
+       type: 'datetime',
+    },
+  };
+
+  pieOptions: Highcharts.Options = {
+    chart: {
+      type: 'pie',
+    },
+    title: {
+      text: 'Pie chart',
+    },
+    xAxis: {
+       type: 'datetime',
+    },
+  };
+
+  data: Observable<Highcharts.IndividualSeriesOptions[]>;
+
+  dataStatic = [{
+    color: '#C396E0',
+    name: 'Actions/min',
+    data: [
+      [
+        1370304000000,
+        140,
+      ],
+      [
+        1370390400000,
+        120,
+      ],
+      [
+        1370476800000,
+        170,
+      ],
+      [
+        1370563200000,
+        170,
+      ],
+      [
+        1370736000000,
+        180,
+      ],
+      [
+        1370822400000,
+        160,
+      ],
+      [
+        1370908800000,
+        170,
+      ],
+      [
+        1370995200000,
+        90
+      ],
+    ],
+  }];
+
+  constructor(private _chartService: ChartService) {
+    this.data = this._chartService.getStreamedChartdata();
   }
 
-  addSeries(): void {
-    this.chart.addSeries({
-      name: 'Linz',
-      data: [50, 60, 60, 105, 106.0, 60, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3],
-    });
-  }
 }

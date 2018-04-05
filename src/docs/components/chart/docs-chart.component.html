@@ -1,6 +1,14 @@
-<h1>Chart</h1>
-<button (click)="changeChartType('line')">Line</button>
-<button (click)="changeChartType('column')">Bar</button>
-<button (click)="changeChartType('pie')">Pie</button>
-<button (click)="addSeries()">Add series</button>
-<dt-chart [type]="_chartType"></dt-chart>
+<h1>Chart with data as obersable</h1>
+
+<h2>Line chart</h2>
+<dt-chart [options]="lineOptions" [data]="_chartService.getStreamedChartdata()"></dt-chart>
+<h2>Column chart</h2>
+<dt-chart [options]="columnOptions" [data]="data"></dt-chart>
+
+<h2>Pie chart</h2>
+<dt-chart [options]="pieOptions" [data]="data"></dt-chart>
+
+<h1>Chart with static data</h1>
+
+<h2>Column chart</h2>
+<dt-chart [options]="columnOptions" [data]="dataStatic"></dt-chart>
