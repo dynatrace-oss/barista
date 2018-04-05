@@ -1,3 +1,4 @@
+import {NeverObservable} from 'rxjs/observable/NeverObservable';
 import {
   Directive,
   Input,
@@ -93,7 +94,7 @@ export class DtTheme implements OnDestroy {
 
   private _name: string | null = null;
   private _variant: DtThemeVariant = null;
-  private _parentSub: Subscription;
+  private _parentSub: Subscription = NeverObservable.create().subscribe();
 
   constructor(
     private _elementRef: ElementRef,
@@ -110,9 +111,7 @@ export class DtTheme implements OnDestroy {
   ngOnDestroy(): void {
     this._stateChanges.next();
     this._stateChanges.complete();
-    if (this._parentSub) {
-      this._parentSub.unsubscribe();
-    }
+    this._parentSub.unsubscribe();
   }
 
   /** Generates the theme class names for the currently defined name and variant */
