@@ -13,6 +13,9 @@ import { DocsLoadingDistractorModule } from './components/loading-distractor/doc
 import { DocsExpandablePanelModule } from './components/expandable-panel/docs-expandable-panel.module';
 import { DocsExpandableSectionModule } from './components/expandable-section/docs-expandable-section.module';
 import { DocsTableModule } from './components/table/docs-table.module';
+import { DocsChartModule } from './components/chart/docs-chart.module';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { Platform } from '@angular/cdk/platform';
 
 @NgModule({
   imports: [
@@ -34,6 +37,9 @@ import { DocsTableModule } from './components/table/docs-table.module';
   ],
   entryComponents: [
     Docs,
+  ],
+  providers: [
+    Platform,
   ],
   bootstrap: [Docs],
 })

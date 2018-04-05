@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { DocsChartComponent } from './docs-chart.component';
 import { UiModule } from '../../ui/ui.module';
-import { ChartModule } from '@dynatrace/angular-components/chart';
+import { ChartModule } from '@dynatrace/angular-components';
+import { DEFAULT_VIEWPORT_RESIZER_PROVIDER } from '@dynatrace/angular-components/core';
 import { ChartService } from './docs-chart.service';
+import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
@@ -17,6 +19,8 @@ import { ChartService } from './docs-chart.service';
   ],
   providers: [
     ChartService,
+    VIEWPORT_RULER_PROVIDER,
+    DEFAULT_VIEWPORT_RESIZER_PROVIDER,
   ],
 })
 export class DocsChartModule {
