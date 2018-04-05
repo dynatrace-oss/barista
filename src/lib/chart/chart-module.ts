@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { DtChart } from './chart';
-import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
+  imports: [
+    CommonModule,
+  ],
   exports: [
     DtChart,
   ],
