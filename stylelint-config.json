@@ -32,7 +32,8 @@
       "em",
       "vh",
       "vw",
-      "vmin"
+      "vmin",
+      "s"
     ],
     "value-list-comma-space-after": "always-single-line",
     "value-list-comma-space-before": "never",

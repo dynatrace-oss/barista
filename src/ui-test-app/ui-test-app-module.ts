@@ -7,6 +7,7 @@ import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
 import { DtButtonModule } from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
+import { ButtongroupUI } from './buttongroup/buttongroup-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -30,6 +31,7 @@ export class DynatraceAngularCompModule {}
     UIApp,
     Home,
     ButtonUI,
+    ButtongroupUI,
   ],
   bootstrap: [UIApp],
 })
