@@ -48,16 +48,3 @@ export function mixinColor<T extends Constructor<HasElementRef>, P extends Parti
     }
   };
 }
-
-class A {
-  _elementRef: ElementRef;
-}
-
-type CustomPallette = 'main' | 'accent';
-
-mixinColor(A);
-mixinColor(A, 'main');
-mixinColor(A, 'asdf'); // <- error
-mixinColor<Constructor<A>, CustomPallette>(A, 'main');
-mixinColor<Constructor<A>, CustomPallette>(A, 'cta'); // <- error
-mixinColor<Constructor<A>, CustomPallette>(A, 'asdf'); // <- error
