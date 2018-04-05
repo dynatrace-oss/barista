@@ -133,7 +133,7 @@ export class DtTheme implements OnDestroy {
   }
 
   /** Replaces oldClass class with newClass */
-  private _replaceClass(oldClass: string | null, newClass: string | null): void {
+  private _replaceClass(oldClass: string | null, newClass: string | null): void {
     if (oldClass !== newClass) {
       const el = this._elementRef.nativeElement;
       if (oldClass !== null) {
