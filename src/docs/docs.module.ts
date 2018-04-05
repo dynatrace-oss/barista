@@ -7,6 +7,7 @@ import { DocsRoutingModule } from './docs-routing.module';
 import { Docs } from './docs.component';
 import { Home } from './docs-home/docs-home.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
+import { DocsButtongroupModule } from 'components/buttongroup/docs-buttongroup.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { DocsButtonModule } from './components/button/docs-button.module';
     HttpClientModule,
     DocsRoutingModule,
     DocsButtonModule,
+    DocsButtongroupModule,
   ],
   declarations: [
     Docs,
