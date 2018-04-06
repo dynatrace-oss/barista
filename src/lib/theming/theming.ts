@@ -13,7 +13,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { replaceCssClass } from '@dynatrace/angular-components/core';
 
-const MAX_DEPTH = 1;
+const MAX_DEPTH = 2;
 // dtTemes placed on elements containing one of these classes
 // will ignore the max depth check.
 // Needed for special cases like the context dialog where the
@@ -23,7 +23,7 @@ const MAX_DEPTH = 1;
 const MAX_DEPTH_EXCEPTION_CLASSESS = [];
 
 export type DtThemeVariant = 'light' | 'dark' | null;
-const THEME_VALIDATION_RX = /((?:[a-zA-Z-]+)?)(?::(light|dark))?/;
+const THEME_VALIDATION_RX = /^((?:[a-zA-Z-]+)?)(?::(light|dark))?$/;
 const THEME_VARIANTS: DtThemeVariant[] = ['light', 'dark'];
 
 export function getDtThemeNotValidError(name: string): Error {
