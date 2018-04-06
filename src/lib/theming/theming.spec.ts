@@ -16,7 +16,6 @@ describe('DtTheme', () => {
 
   it('should apply the dt-theme class', () => {
     const fixture = TestBed.createComponent(TestApp);
-    const testComponent = fixture.debugElement.componentInstance;
     const sectionDebugElement = fixture.debugElement.query(By.css('section'));
     fixture.detectChanges();
 
