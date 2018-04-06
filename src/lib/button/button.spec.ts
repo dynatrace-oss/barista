@@ -64,7 +64,7 @@ describe('DtButton', () => {
         .toBe('cta', 'Expected the mixed-into class to have an updated color property');
     });
 
-    it('should remove old color classes if new color is set', () => {
+    it('should add class for default color', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
 
@@ -73,6 +73,14 @@ describe('DtButton', () => {
 
       expect(buttonElement.nativeElement.classList)
         .toContain('dt-color-main', 'Expected the element to have the "dt-color-main" class set');
+    });
+
+    it('should remove old color classes if new color is set', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      fixture.detectChanges();
+
+      const buttonElement = fixture.debugElement.query(By.css('button'));
+      const instance = buttonElement.componentInstance;
 
       instance.color = 'cta';
 
@@ -98,7 +106,7 @@ describe('DtButton', () => {
         .toBe('secondary', 'Expected the mixed-into class to have an updated variant property');
     });
 
-    it('should remove old variant classes if new variant is set', () => {
+    it('should add class for default variant', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
 
@@ -107,7 +115,14 @@ describe('DtButton', () => {
 
       expect(buttonElement.nativeElement.classList)
         .toContain('dt-button-primary', 'Expected the element to have the "dt-button-primary" class set');
+    });
 
+    it('should remove old variant classes if new variant is set', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      fixture.detectChanges();
+
+      const buttonElement = fixture.debugElement.query(By.css('button'));
+      const instance = buttonElement.componentInstance;
       instance.variant = 'secondary';
 
       expect(buttonElement.nativeElement.classList)
