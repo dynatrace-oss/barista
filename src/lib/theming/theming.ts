@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { replaceCssClass } from '@dynatrace/angular-components/core';
 
 const MAX_DEPTH = 1;
 // dtTemes placed on elements containing one of these classes
@@ -127,8 +128,8 @@ export class DtTheme implements OnDestroy {
     newClasses: NameVariantClasses,
     oldClasses: NameVariantClasses
   ): void {
-    this._replaceClass(oldClasses.name, newClasses.name);
-    this._replaceClass(oldClasses.variant, newClasses.variant);
+    replaceCssClass(this._elementRef, oldClasses.name, newClasses.name, this._renderer);
+    replaceCssClass(this._elementRef, oldClasses.variant, newClasses.variant, this._renderer);
   }
 
   /** Replaces oldClass class with newClass */

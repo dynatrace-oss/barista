@@ -1,5 +1,6 @@
 import { Constructor } from './constructor';
 import { ElementRef } from '@angular/core';
+import { replaceCssClass } from '../util/platform-util';
 
 export interface CanColor {
   /** Theme color palette for the component. */
@@ -28,12 +29,11 @@ export function mixinColor<T extends Constructor<HasElementRef>, P extends Parti
       const colorPalette = value || defaultColor as P;
 
       if (colorPalette !== this._color) {
-        if (this._color) {
-          this._elementRef.nativeElement.classList.remove(`dt-color-${this._color}`);
-        }
-        if (colorPalette) {
-          this._elementRef.nativeElement.classList.add(`dt-color-${colorPalette}`);
-        }
+
+        replaceCssClass(
+          this._elementRef,
+          this._color ? `dt-color-${this._color}` : null,
+          colorPalette ? `dt-color-${colorPalette}` : null);
 
         this._color = colorPalette;
       }

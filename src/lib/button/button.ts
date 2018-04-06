@@ -14,6 +14,7 @@ import {
   HasElementRef,
   mixinDisabled,
   CanDisable,
+  replaceCssClass
 } from '@dynatrace/angular-components/core';
 
 /**
@@ -109,12 +110,7 @@ export class DtButton extends _DtButtonMixinBase
   }
 
   private _replaceCssClass(newClass?: string, oldClass?: string): void {
-    if (oldClass) {
-      this._renderer.removeClass(this._elementRef.nativeElement, `dt-button-${oldClass}`);
-    }
-    if (newClass) {
-      this._renderer.addClass(this._elementRef.nativeElement, `dt-button-${newClass}`);
-    }
+    replaceCssClass(this._elementRef, `dt-button-${oldClass}`, `dt-button-${newClass}`, this._renderer);
   }
 
 }
