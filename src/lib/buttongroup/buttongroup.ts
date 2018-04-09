@@ -13,8 +13,7 @@ import {
   EventEmitter,
   AfterContentInit,
   OnDestroy,
-  forwardRef,
-  Optional
+  forwardRef
 } from '@angular/core';
 
 import {
@@ -289,7 +288,6 @@ mixinTabIndex(DtButtonGroupItemBase);
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtButtongroupItem<T> extends _DtButtongroupItem implements CanDisable, HasTabIndex  {
-
 
   private _selected: boolean;
   private _value: T;
