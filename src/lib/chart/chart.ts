@@ -88,6 +88,7 @@ export class DtChart implements AfterViewInit, OnDestroy {
       this._noData = false;
       this._changeDetectorRef.markForCheck();
     }
+    this._options.series = this._series;
     this.update();
   }
 
@@ -97,7 +98,6 @@ export class DtChart implements AfterViewInit, OnDestroy {
 
   update(redraw: boolean = true, oneToOne: boolean = true): void {
     if (this._chartObject) {
-      this._options.series = this._series;
       this._chartObject.update(this._options, redraw, oneToOne);
       this.updated.emit();
     }
