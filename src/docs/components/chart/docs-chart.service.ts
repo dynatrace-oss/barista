@@ -27,6 +27,7 @@ export class ChartService {
       return [{
         color: '#C396E0',
         name: 'Actions/min',
+        metricId: `MetricId-${Math.floor(Math.random() * 100)}`,
         data,
       }];
     }));
