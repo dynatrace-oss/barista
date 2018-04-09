@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
   Input,
+  Renderer2
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import {
@@ -13,6 +14,7 @@ import {
   HasElementRef,
   mixinDisabled,
   CanDisable,
+  replaceCssClass
 } from '@dynatrace/angular-components/core';
 
 /**
@@ -67,7 +69,11 @@ export class DtButton extends _DtButtonMixinBase
   /** Whether the button is icon button. */
   _isIconButton: boolean = this._hasHostAttributes('dt-icon-button');
 
-  constructor(elementRef: ElementRef, private _focusMonitor: FocusMonitor) {
+  constructor(
+    elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+    private _renderer: Renderer2
+  ) {
     super(elementRef);
 
     // Set the default variant to trigger the setters.
@@ -104,12 +110,7 @@ export class DtButton extends _DtButtonMixinBase
   }
 
   private _replaceCssClass(newClass?: string, oldClass?: string): void {
-    if (oldClass) {
-      this._elementRef.nativeElement.classList.remove(`dt-button-${oldClass}`);
-    }
-    if (newClass) {
-      this._elementRef.nativeElement.classList.add(`dt-button-${newClass}`);
-    }
+    replaceCssClass(this._elementRef, `dt-button-${oldClass}`, `dt-button-${newClass}`, this._renderer);
   }
 
 }
@@ -135,8 +136,8 @@ export class DtButton extends _DtButtonMixinBase
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtAnchor extends DtButton {
-  constructor(elementRef: ElementRef, focusMonitor: FocusMonitor) {
-    super(elementRef, focusMonitor);
+  constructor(elementRef: ElementRef, focusMonitor: FocusMonitor, renderer: Renderer2) {
+    super(elementRef, focusMonitor, renderer);
   }
 
   _haltDisabledEvents(event: Event): void {
