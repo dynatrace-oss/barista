@@ -6,6 +6,5 @@ import {Component} from '@angular/core';
   templateUrl: 'buttongroup-ui.html',
 })
 export class ButtongroupUI {
-  isDisabled = false;
-  clickCounter = 0;
+  groupValues = ['Value 0', 'Value 1', 'Value 2'];
 }
