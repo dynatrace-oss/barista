@@ -58,20 +58,19 @@
 
 :host {
   @extend %dt-button-base;
-}
 
-:host.dt-icon-button {
-  @extend %dt-button-base;
+  &.dt-icon-button {
+    padding-left: 0;
+    padding-right: 0;
+    width: 32px;
+    text-align: center;
 
-  padding-left: 0;
-  padding-right: 0;
-  width: 32px;
-  text-align: center;
-
-  .dt-icon {
-    margin-right: 0;
+    .dt-icon {
+      margin-right: 0;
+    }
   }
 }
+
 // TODO @thomas.pink: Remove this once theming is in place
 @function dt-palette($default, $hover, $active) {
   $result: (
@@ -160,7 +159,7 @@ $theme-dark: (
     // SECONDARY
     ////////////////////////////
     & #{$namespace}.dt-button-secondary {
-      background: #fff;
+      background: transparent;
       border-color: $default-color;
       color: $default-color;
     }
