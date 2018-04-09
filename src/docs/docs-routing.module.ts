@@ -5,6 +5,7 @@ import { Home } from './docs-home/docs-home.component';
 import { DocsButtonComponent } from './components/button/docs-button.component';
 import { DocsButtonGroupComponent } from './components/button-group/docs-button-group.component';
 import { DocsInputComponent } from './components/input/docs-input.component';
+import { DocsInlineEditorComponent } from './components/inline-editor/docs-inline-editor.component';
 import { DocsLoadingDistractorComponent } from './components/loading-distractor/docs-loading-distractor.component';
 import { DocsExpandablePanelComponent } from './components/expandable-panel/docs-expandable-panel.component';
 import { DocsExpandableSectionComponent } from './components/expandable-section/docs-expandable-section.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'context-dialog', component: DocsContextDialogComponent },
   { path: 'input', component: DocsInputComponent },
   { path: 'expandable-panel', component: DocsExpandablePanelComponent },
+  { path: 'inline-editor', component: DocsInlineEditorComponent },
   { path: 'expandable-section', component: DocsExpandableSectionComponent },
   { path: 'input', component: DocsInputComponent },
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },

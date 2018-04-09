@@ -14,6 +14,7 @@ export class Docs {
     {name: 'Chart', route: '/chart'},
     {name: 'Context dialog', route: '/context-dialog'},
     {name: 'Expandable panel', route: '/expandable-panel'},
+    {name: 'Inline Editor', route: '/inline-editor'},
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Input', route: '/input'},
     {name: 'Links', route: '/links'},
