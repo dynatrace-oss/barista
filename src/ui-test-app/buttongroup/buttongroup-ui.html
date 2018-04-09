@@ -1,15 +1,22 @@
 <section>
-  <div>
-    <p>
-      isDisabled: {{isDisabled}}, clickCounter:
-      <span id="click-counter">{{clickCounter}}</span>
-    </p>
-    <button dt-button (click)="isDisabled=!isDisabled" id="disable-toggle">
-      Disable buttons
-    </button>
-  </div>
+  Current value: <span id="lblGroup-1">{{ control1.value }}</span>
+  <dt-buttongroup #control1 id="group-1">
+    <dt-buttongroup-item
+      *ngFor="let gvalue of groupValues; let i = index"
+      [id]="'group-1-item-' + i"
+      [value]="gvalue"
+    >{{gvalue}}</dt-buttongroup-item>
+  </dt-buttongroup>
+</section>
 
-  <button dt-button [disabled]="isDisabled" (click)="clickCounter=clickCounter+1" id="test-button">
-    off
-  </button>
+<section>
+  Current value: <span id="lblGroup-2">{{ control2.value }}</span>
+  <dt-buttongroup #control2 id="group-2" disabled>
+    <dt-buttongroup-item
+      *ngFor="let gvalue of groupValues; let i = index"
+      [id]="'group-2-item-' + i"
+      [value]="gvalue"
+    >{{gvalue}}</dt-buttongroup-item>
+  </dt-buttongroup>
+
 </section>

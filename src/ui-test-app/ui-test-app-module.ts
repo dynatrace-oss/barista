@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
-import { DtButtonModule } from '@dynatrace/angular-components';
+import { DtButtongroupModule, DtButtonModule} from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
 import { ButtongroupUI } from './buttongroup/buttongroup-ui';
 
@@ -15,6 +15,7 @@ import { ButtongroupUI } from './buttongroup/buttongroup-ui';
 @NgModule({
   exports: [
     DtButtonModule,
+    DtButtongroupModule
   ],
 })
 export class DynatraceAngularCompModule {}

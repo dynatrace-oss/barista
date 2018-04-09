@@ -195,6 +195,10 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
 
         this._selectItem(true, evt.source);
       });
+    const selectedItem = this._options.filter((item) => item.selected);
+    if (selectedItem.length > 0) {
+      this._selectItem(false, selectedItem[0]);
+    }
   }
 
   clearSelection(): void {
@@ -289,7 +293,7 @@ mixinTabIndex(DtButtonGroupItemBase);
 })
 export class DtButtongroupItem<T> extends _DtButtongroupItem implements CanDisable, HasTabIndex  {
 
-  private _selected: boolean;
+  private _selected = false;
   private _value: T;
   private _disabled = false;
 
