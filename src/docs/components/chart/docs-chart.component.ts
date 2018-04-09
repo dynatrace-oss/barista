@@ -56,6 +56,7 @@ export class DocsChartComponent {
   dataStatic = [{
     color: '#C396E0',
     name: 'Actions/min',
+    metricId: 'SomeMetricId',
     data: [
       [
         1370304000000,
@@ -92,10 +93,16 @@ export class DocsChartComponent {
     ],
   }];
 
+  @ViewChild('static') staticChart: DtChart;
+
   _menuOpen = false;
 
   constructor(private _chartService: ChartService, private _viewportResizer: ViewportResizer) {
     this.data$ = this._chartService.getStreamedChartdata();
+  }
+
+  ngAfterViewInit(): void {
+    console.log(this.staticChart.metricIds());
   }
 
   toggleMenu(): void {
