@@ -1,7 +1,7 @@
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 
-%dt-button-base {
+:host {
   font-family: $mainfont;
   box-sizing: border-box;
   position: relative;
@@ -54,10 +54,6 @@
     margin-top: 5px;
     vertical-align: top;
   }
-}
-
-:host {
-  @extend %dt-button-base;
 
   &.dt-icon-button {
     padding-left: 0;
