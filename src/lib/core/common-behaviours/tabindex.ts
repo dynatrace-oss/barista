@@ -17,7 +17,7 @@ export function mixinTabIndex<T extends Constructor<CanDisable>>(base: T, defaul
       // If the specified tabIndex value is null or undefined, fall back to the default value.
 
       // tslint:disable-next-line
-      this._tabIndex = value !== undefined ? value : defaultTabIndex;
+      this._tabIndex = typeof value !== 'number' ? value : defaultTabIndex;
     }
 
     // tslint:disable-next-line:no-any
