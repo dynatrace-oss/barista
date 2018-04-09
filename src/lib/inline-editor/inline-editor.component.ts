@@ -4,14 +4,8 @@ import {
   EventEmitter,
   HostBinding,
   Input,
-  Output
+  Output,
 } from "@angular/core";
-import { CanBeDisabled, mixinDisabled } from "../../core/mixins/disabled.mixin";
-import { MixinComposer } from "../../core/mixins/MixinComposer";
-
-export const _InlineEditorComponentBase = MixinComposer.fromScratch()
-    .with(mixinDisabled)
-    .build();
 
 const MODES = {
   IDLE: 0,
@@ -26,27 +20,30 @@ const MODES = {
   selector: "[dt-inline-editor]",
   styleUrls: ["./inline-editor.component.scss"],
   template: `
-    {{ text }}
+    <span *ngIf="!isEditingMode()">{{ text }}</span>
     <input [(ngModel)]="text" *ngIf="isEditingMode()" />
-    <button type="button" *ngIf="!isEditingMode() !isDisabled()" (click)="enterEditingMode()">edit</button>
+    <button type="button" *ngIf="!isEditingMode()" (click)="enterEditingMode()">edit</button>
     <button type="button" *ngIf="isEditingMode()" (click)="saveAndQuitEditing()">save</button>
     <button type="button" *ngIf="isEditingMode()" (click)="cancelAndQuitEditing()">cancel</button>
   `,
 })
-export class InlineEditorComponent extends _InlineEditorComponentBase implements CanBeDisabled {
+export class DtInlineEditor  {
 
   private mode = MODES.IDLE;
+  private initialState: string;
 
   @Input('dt-inline-editor') text: string = '';
   @Output('dt-inline-editorChange') textChange = new EventEmitter();
 
   @HostBinding("attr.disabled")
   private get disabledBinding(): true | undefined {
-    return this.disabled ? this.disabled : undefined;
+    //return this.disabled ? this.disabled : undefined;
+    return undefined
   }
 
   public enterEditingMode() {
     this.mode = MODES.EDITING;
+    this.initialState = this.text;
   }
 
   public saveAndQuitEditing() {
@@ -55,8 +52,8 @@ export class InlineEditorComponent extends _InlineEditorComponentBase implements
   }
 
   public cancelAndQuitEditing() {
+    this.text = this.initialState;
     this.mode = MODES.IDLE;
-    // TODO: reset text to initial state
   }
 
   public isEditingMode() {

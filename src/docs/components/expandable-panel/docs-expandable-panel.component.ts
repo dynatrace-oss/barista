@@ -16,6 +16,6 @@ export class DocsExpandablePanelComponent {
     default: DefaultExpandablePanelExampleComponent,
     trigger: TriggerExpandablePanelExampleComponent,
     open: OpenExpandablePanelExampleComponent,
-    triggerSimple: TriggerSimpleExpandablePanelExampleComponent
+    triggerSimple: TriggerSimpleExpandablePanelExampleComponent,
   };
 }
