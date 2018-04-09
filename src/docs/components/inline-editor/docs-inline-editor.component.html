@@ -1,3 +1,8 @@
 <h1>Inline Editor</h1>
-<h2 [(dt-inline-editor)]="contentString"></h2>
+
+<h2 [(dt-inline-editor)]="contentString" #sectionTitle></h2>
+
 <span> model state : {{ contentString }}</span>
+<br/><br/>
+<button (click)="openEditor()">open editor</button>
+<button (click)="closeEditor()">close editor</button>
