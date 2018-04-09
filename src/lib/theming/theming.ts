@@ -1,3 +1,4 @@
+import {NeverObservable} from 'rxjs/observable/NeverObservable';
 import {
   Directive,
   Input,
@@ -5,12 +6,14 @@ import {
   Optional,
   SkipSelf,
   OnDestroy,
-  isDevMode
+  isDevMode,
+  Renderer2
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { replaceCssClass } from '@dynatrace/angular-components/core';
 
-const MAX_DEPTH = 1;
+const MAX_DEPTH = 2;
 // dtTemes placed on elements containing one of these classes
 // will ignore the max depth check.
 // Needed for special cases like the context dialog where the
@@ -19,12 +22,17 @@ const MAX_DEPTH = 1;
 // only if you have adjusted the css selectors.
 const MAX_DEPTH_EXCEPTION_CLASSESS = [];
 
-const THEME_VALIDATION_RX = /((?:[a-zA-Z-]+)?)(?::(light|dark))?/;
-const THEME_VARIANTS = ['light', 'dark'];
 export type DtThemeVariant = 'light' | 'dark' | null;
+const THEME_VALIDATION_RX = /^((?:[a-zA-Z-]+)?)(?::(light|dark))?$/;
+const THEME_VARIANTS: DtThemeVariant[] = ['light', 'dark'];
 
 export function getDtThemeNotValidError(name: string): Error {
   return Error(`The provided theme name "${name}" for dtTheme is not a valid theme!`);
+}
+
+interface NameVariantClasses {
+  name: string | null;
+  variant: string | null;
 }
 
 @Directive({
@@ -60,9 +68,9 @@ export class DtTheme implements OnDestroy {
     const [, name, variant] = result;
 
     this._name = name || (this._parentTheme && this._parentTheme.name) || null;
-    this._variant =
-      variant && THEME_VARIANTS[variant] !== -1 ? variant as DtThemeVariant :
-        (this._parentTheme && this._parentTheme.variant) || null;
+    this._variant = variant && THEME_VARIANTS.indexOf(variant as DtThemeVariant) !== -1 ?
+      variant as DtThemeVariant :
+      (this._parentTheme && this._parentTheme.variant) || null;
 
     // Only replace css classes if name or variant have actually changed
     if (name !== currentName || variant !== currentVariant) {
@@ -75,7 +83,7 @@ export class DtTheme implements OnDestroy {
   get name(): string | null { return this._name; }
 
   /** Whether the theme is the light or dark variant */
-  get variant(): DtThemeVariant { return this._variant; }
+  get variant(): DtThemeVariant | null { return this._variant; }
 
   /** @internal The level of depth */
   get _depthLevel(): number {
@@ -86,11 +94,12 @@ export class DtTheme implements OnDestroy {
   readonly _stateChanges: Subject<void> = new Subject<void>();
 
   private _name: string | null = null;
-  private _variant: DtThemeVariant = null;
-  private _parentSub: Subscription;
+  private _variant: DtThemeVariant | null = null;
+  private _parentSub: Subscription = NeverObservable.create().subscribe();
 
   constructor(
     private _elementRef: ElementRef,
+    private _renderer: Renderer2,
     @Optional() @SkipSelf() private _parentTheme: DtTheme
   ) {
     if (this._parentTheme) {
@@ -109,27 +118,33 @@ export class DtTheme implements OnDestroy {
   }
 
   /** Generates the theme class names for the currently defined name and variant */
-  private _genClassNames(): [string | null, string | null] {
-    return [
-      this.name ? `dt-theme-${this.name}` : null,
-      this.variant ? `dt-theme-${this.variant}` : null,
-    ];
+  private _genClassNames(): NameVariantClasses {
+    return {
+      name: this.name ? `dt-theme-${this.name}` : null,
+      variant: this.variant ? `dt-theme-${this.variant}` : null,
+    };
   }
 
-  /** Replaces classes on the host element */
+  /** Replaces name and variant classes on the host element */
   private _replaceHostClasses(
-    newClasses?: [string | null, string | null],
-    oldClasses?: [string | null, string | null]
+    newClasses: NameVariantClasses,
+    oldClasses: NameVariantClasses
   ): void {
-    // To run this in universal we have to use className instead of classList
-    let classes: string[] = this._elementRef.nativeElement.className.split(' ');
-    if (oldClasses) {
-      classes = classes.filter((c) => oldClasses.filter((o) => !!o).indexOf(c) === -1);
+    replaceCssClass(this._elementRef, oldClasses.name, newClasses.name, this._renderer);
+    replaceCssClass(this._elementRef, oldClasses.variant, newClasses.variant, this._renderer);
+  }
+
+  /** Replaces oldClass class with newClass */
+  private _replaceClass(oldClass: string | null, newClass: string | null): void {
+    if (oldClass !== newClass) {
+      const el = this._elementRef.nativeElement;
+      if (oldClass !== null) {
+        this._renderer.removeClass(el, oldClass);
+      }
+      if (newClass !== null) {
+        this._renderer.addClass(el, newClass);
+      }
     }
-    if (newClasses) {
-      classes.push(...(newClasses.filter((c) => !!c && classes.indexOf(c) === -1) as string[]));
-    }
-    this._elementRef.nativeElement.className = classes.filter((c) => !!c).join(' ');
   }
 
   /** Notify developers if max depth level has been exceeded */
