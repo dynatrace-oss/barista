@@ -1,40 +1,34 @@
 import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  OnInit,
-  ElementRef,
-  ContentChildren,
-  QueryList,
-  Input,
-  NgZone,
-  ChangeDetectorRef,
-  Output,
-  EventEmitter,
   AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Input,
+  isDevMode,
+  NgZone,
   OnDestroy,
-  forwardRef
+  OnInit,
+  Output,
+  QueryList,
+  ViewEncapsulation
 } from '@angular/core';
 
-import {
-  mixinDisabled,
-  CanDisable,
-  mixinTabIndex,
-  HasTabIndex,
-} from '@dynatrace/angular-components/core';
+import { CanDisable, HasTabIndex, mixinDisabled, mixinTabIndex } from '@dynatrace/angular-components/core';
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ENTER, SPACE } from '@angular/cdk/keycodes';
-
-import { Observable } from 'rxjs/Observable';
-import { defer } from 'rxjs/observable/defer';
-import { merge } from 'rxjs/observable/merge';
-import { take } from 'rxjs/operators/take';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { startWith } from 'rxjs/operators/startWith';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { Subject } from 'rxjs/Subject';
-import { SelectionModel } from '@angular/cdk/collections';
+import {Observable} from 'rxjs/Observable';
+import {defer} from 'rxjs/observable/defer';
+import {merge} from 'rxjs/observable/merge';
+import {take} from 'rxjs/operators/take';
+import {switchMap} from 'rxjs/operators/switchMap';
+import {startWith} from 'rxjs/operators/startWith';
+import {takeUntil} from 'rxjs/operators/takeUntil';
+import {Subject} from 'rxjs/Subject';
+import {SelectionModel} from '@angular/cdk/collections';
+import {DtButtongroupItem, DtButtonGroupItemSelectionChange} from './buttongroup-item';
 
 export class DtButtongroupBase {
 constructor(public _elementRef: ElementRef) { }
@@ -59,7 +53,8 @@ mixinTabIndex(mixinDisabled(DtButtongroupBase));
 export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasTabIndex, OnInit,
   OnDestroy, AfterContentInit {
 
-  @Output() readonly valueChange: EventEmitter<T> = new EventEmitter<T>();
+  @Output()
+  readonly valueChange: EventEmitter<T> = new EventEmitter<T>();
 
   // tslint:disable-next-line
   @ContentChildren(forwardRef(() => DtButtongroupItem), {descendants: true})
@@ -71,6 +66,21 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
   private _selectionModel: SelectionModel<DtButtongroupItem<T>>;
   private _value: T | undefined;
 
+  /** Combined stream of all of the child options' change events. */
+  private selectionChanges: Observable<DtButtonGroupItemSelectionChange<T>> = defer(() => {
+    if (this._options) {
+      // This will create an array of selectionChange Observables and
+      // then combine/merge them into one so we can later easily subscribe
+      // to all at once and get the event (the option plus isUserEvent flag)
+      // of the triggered option
+      return merge(...this._options.map((option) => option.selectionChange));
+    }
+
+    return this._ngZone.onStable
+      .asObservable()
+      .pipe(take(1), switchMap(() => this.selectionChanges));
+  });
+
   constructor(
       private _changeDetectorRef: ChangeDetectorRef,
       private _ngZone: NgZone,
@@ -79,7 +89,6 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
     super(_elementRef);
   }
 
-  /** Value of the buttongroup. */
   @Input()
   get value(): T | undefined {
     return this._value;
@@ -108,6 +117,14 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
       // A different comparator means the selection could change.
       this._initializeSelection();
     }
+  }
+
+  clearSelection(): void {
+    this._selectItem(false, undefined);
+  }
+
+  selectValue(value: T): void {
+    this._setSelectionByValue(value, false);
   }
 
   private writeValue(value: T | undefined): void {
@@ -145,27 +162,17 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
         // Treat null as a special reset value.
         return option.value !== null && this._compareWith(option.value, value);
       } catch (error) {
+        if (isDevMode()) {
+          // tslint:disable-next-line:no-console
+          console.error('Error in compareWith', error);
+        }
+
         return false;
       }
     });
 
     return correspondingOption;
   }
-
-  /** Combined stream of all of the child options' change events. */
-  selectionChanges: Observable<DtButtonGroupItemSelectionChange<T>> = defer(() => {
-    if (this._options) {
-      // This will create an array of selectionChange Observables and
-      // then combine/merge them into one so we can later easily subscribe
-      // to all at once and get the event (the option plus isUserEvent flag)
-      // of the triggered option
-      return merge(...this._options.map((option) => option.selectionChange));
-    }
-
-    return this._ngZone.onStable
-      .asObservable()
-      .pipe(take(1), switchMap(() => this.selectionChanges));
-  });
 
   ngOnInit(): void {
     this._selectionModel = new SelectionModel<DtButtongroupItem<T>>(false, undefined, false);
@@ -199,14 +206,6 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
     if (selectedItem.length > 0) {
       this._selectItem(false, selectedItem[0]);
     }
-  }
-
-  clearSelection(): void {
-    this._selectItem(false, undefined);
-  }
-
-  selectValue(value: T): void {
-    this._setSelectionByValue(value, false);
   }
 
   private _clearSelection(skip?: DtButtongroupItem<T>): void {
@@ -252,112 +251,6 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
         this.valueChange.emit(this._value);
       }
       this._changeDetectorRef.markForCheck();
-    }
-  }
-}
-
-/** Event object emitted by GhOption when selected or deselected. */
-export interface DtButtonGroupItemSelectionChange<T> {
-    /** Reference to the option that emitted the event. */
-    source: DtButtongroupItem<T>;
-    /** Whether the change in the option's value was a result of a user action. */
-    isUserInput: boolean;
-}
-
-// Boilerplate for applying mixins to DtButtonGroupItem
-export class DtButtonGroupItemBase {
-  disabled: boolean;
-  constructor(public _elementRef: ElementRef) { }
-}
-
-export const _DtButtongroupItem =
-mixinTabIndex(DtButtonGroupItemBase);
-
-@Component({
-  moduleId: module.id,
-  selector: 'dt-buttongroup-item',
-  template: `<ng-content></ng-content>`,
-  host: {
-    'role': 'button',
-    '[attr.tabindex]': 'tabIndex',
-    '[class.dt-buttongroup-item-selected]': 'selected',
-    '[class.dt-buttongroup-item-disabled]': 'disabled',
-    'class': 'dt-buttongroup-item',
-    '(click)': '_selectViaInteraction()',
-    '(keydown)': '_handleKeydown($event)',
-  },
-  styleUrls: ['buttongroup-item.scss'],
-  preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated,
-})
-export class DtButtongroupItem<T> extends _DtButtongroupItem implements CanDisable, HasTabIndex  {
-
-  private _selected = false;
-  private _value: T;
-  private _disabled = false;
-
-  @Output() readonly selectionChange = new EventEmitter<DtButtonGroupItemSelectionChange<T>>();
-
-  constructor(private _buttonGroup: DtButtongroup<T>,
-              private _changeDetectorRef: ChangeDetectorRef,
-              _elementRef: ElementRef
-  ) {
-    super(_elementRef);
-  }
-
-  /** Whether the buttongroup item is selected. */
-  @Input()
-  get selected(): boolean {
-    return this._selected && !this.disabled;
-  }
-  set selected(value: boolean) {
-    const newValue = coerceBooleanProperty(value);
-    const changed = this._selected !== newValue;
-    this._selected = newValue;
-    if (changed) {
-      this._changeDetectorRef.markForCheck();
-    }
-  }
-
-  /** Whether the buttongroup item is disabled. */
-  @Input()
-  get disabled(): boolean {
-    return this._disabled  || this._buttonGroup.disabled;
-  }
-  set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); }
-
-  /** The bound value. */
-  @Input()
-  get value(): T { return this._value; }
-  set value(newValue: T) {
-    if (this._value !== newValue) {
-      this._value = newValue;
-    }
-  }
-
-  select(selected: boolean = true): void {
-    this.selected = selected;
-  }
-
-  deselect(): void {
-    this.selected = false;
-  }
-
-  _selectViaInteraction(): void {
-    if (!this.disabled) {
-      this._changeDetectorRef.markForCheck();
-      this.selectionChange.emit({source: this, isUserInput: true});
-    }
-  }
-
-  /** Ensures the option is selected when activated from the keyboard. */
-  _handleKeydown(event: KeyboardEvent): void {
-    if (event.keyCode === ENTER || event.keyCode === SPACE) {
-      this._selectViaInteraction();
-
-      // Prevent the page from scrolling down and form submits.
-      event.preventDefault();
     }
   }
 }
