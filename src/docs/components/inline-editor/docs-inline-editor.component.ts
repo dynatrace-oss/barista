@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { DtInlineEditor } from '../../../lib/inline-editor/inline-editor.component';
 
 @Component({
   moduleId: module.id,
@@ -6,6 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./docs-inline-editor.component.scss'],
   templateUrl: './docs-inline-editor.component.html',
 })
-export class DocsInlineEditorComponent {
+export class DocsInlineEditorComponent implements OnInit {
   contentString: string = "hello world"
+  @ViewChild('sectionTitle') sectionTitleReference: DtInlineEditor;
+  
+  ngOnInit() {
+    // this.sectionTitleReference.enterEditingMode();
+  }
+
+  openEditor () {
+    this.sectionTitleReference.enterEditingMode();
+  }
+
+  closeEditor () {
+    this.sectionTitleReference.cancelAndQuitEditing();
+  }
 }
