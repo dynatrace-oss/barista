@@ -14,7 +14,7 @@ const MODES = {
 }
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   // tslint:disable-next-line:component-selector
   selector: "[dt-inline-editor]",
