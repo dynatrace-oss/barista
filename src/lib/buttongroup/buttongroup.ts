@@ -13,7 +13,8 @@ import {
   EventEmitter,
   AfterContentInit,
   OnDestroy,
-  isDevMode, forwardRef
+  forwardRef,
+  Optional
 } from '@angular/core';
 
 import {
@@ -61,13 +62,15 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
 
   @Output() readonly valueChange: EventEmitter<T> = new EventEmitter<T>();
 
+  // tslint:disable-next-line
   @ContentChildren(forwardRef(() => DtButtongroupItem), {descendants: true})
   private _options: QueryList<DtButtongroupItem<T>>;
 
   private _compareWith = (o1: T, o2: T) => o1 === o2;
+  // tslint:disable-next-line:no-any
   private _destroy = new Subject<any>();
   private _selectionModel: SelectionModel<DtButtongroupItem<T>>;
-  private _value: T;
+  private _value: T | undefined;
 
   constructor(
       private _changeDetectorRef: ChangeDetectorRef,
@@ -79,8 +82,11 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
 
   /** Value of the buttongroup. */
   @Input()
-  get value(): T { return this._value; }
-  set value(newValue: T) {
+  get value(): T | undefined {
+    return this._value;
+  }
+
+  set value(newValue: T | undefined) {
     if (this._value !== newValue) {
       this.writeValue(newValue);
       this._value = newValue;
@@ -93,7 +99,10 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
    * should be returned.
    */
   @Input()
-  get compareWith() { return this._compareWith; }
+  get compareWith(): (o1: T, o2: T) => boolean {
+    return this._compareWith;
+  }
+
   set compareWith(fn: (o1: T, o2: T) => boolean) {
     this._compareWith = fn;
     if (this._selectionModel) {
@@ -102,7 +111,7 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
     }
   }
 
-  private writeValue(value: T): void {
+  private writeValue(value: T | undefined): void {
     if (this._options) {
       this._setSelectionByValue(value);
     }
@@ -112,10 +121,10 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
    * Sets the selected option based on a value. If no option can be
    * found with the designated value, the select trigger is cleared.
    */
-  private _setSelectionByValue(value: T, isUserInput = false): void {
-    const correspondingOption = this._findOptionForValue(value);
+  private _setSelectionByValue(value: T | undefined, isUserInput: boolean = false): void {
+    const correspondingOption = value !== undefined ? this._findOptionForValue(value) : undefined;
     if (correspondingOption !== undefined) {
-    	this._selectItem(correspondingOption, false);
+      this._selectItem(false, correspondingOption);
     }
   }
 
@@ -123,16 +132,20 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
-      this._setSelectionByValue(this._value);
-    });
+      if (this._value !== undefined) {
+        this._setSelectionByValue(this._value);
+      }
+    })
+    .catch(() => {})
+    ;
   }
 
   private _findOptionForValue(value: T): DtButtongroupItem<T> | undefined {
-    const correspondingOption = this._options.find( ( option: DtButtongroupItem<T> ) => {
+    const correspondingOption = this._options.find((option: DtButtongroupItem<T>) => {
       try {
         // Treat null as a special reset value.
-        return option.value !== null && this._compareWith( option.value, value );
-      } catch ( error ) {
+        return option.value !== null && this._compareWith(option.value, value);
+      } catch (error) {
         return false;
       }
     });
@@ -181,12 +194,12 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
 
       .subscribe((evt) => {
 
-        this._selectItem(evt.source, true);
+        this._selectItem(true, evt.source);
       });
   }
 
   clearSelection(): void {
-    this._clearSelection();
+    this._selectItem(false, undefined);
   }
 
   selectValue(value: T): void {
@@ -202,19 +215,36 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
     });
   }
 
-  private _selectItem(option: DtButtongroupItem<T>, fireEvent: boolean): void {
-    const wasSelected = this._selectionModel.isSelected(option);
+  private _selectItem(fireEvent: boolean, option?: DtButtongroupItem<T>): void {
+    if (option !== undefined) {
+      const wasSelected = this._selectionModel.isSelected(option);
 
-    if (wasSelected) {
-      return;
-    }
+      if (wasSelected) {
+        return;
+      }
 
-    this._clearSelection(option);
-    this._selectionModel.select(option);
-    option.select();
-    this._value = option.value;
+      this._clearSelection(option);
+      this._selectionModel.select(option);
+      option.select();
+      this._value = option.value;
 
-    if (wasSelected !== this._selectionModel.isSelected(option)) {
+      if (wasSelected !== this._selectionModel.isSelected(option)) {
+        if (fireEvent) {
+          this.valueChange.emit(this._value);
+        }
+        this._changeDetectorRef.markForCheck();
+      }
+    } else {
+      const hasValue = this._selectionModel.hasValue();
+
+      if (!hasValue) {
+        return;
+      }
+
+      this._clearSelection(option);
+      this._selectionModel.clear();
+      this._value = undefined;
+
       if (fireEvent) {
         this.valueChange.emit(this._value);
       }
@@ -253,10 +283,13 @@ mixinTabIndex(DtButtonGroupItemBase);
     '(click)': '_selectViaInteraction()',
     '(keydown)': '_handleKeydown($event)',
   },
+  styleUrls: ['buttongroup-item.scss'],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtButtongroupItem<T> extends _DtButtongroupItem implements CanDisable, HasTabIndex  {
+
 
   private _selected: boolean;
   private _value: T;
