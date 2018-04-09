@@ -68,6 +68,8 @@ System.config({
       'dist/lib/bundles/dynatrace-angular-components.umd.js',
     '@dynatrace/angular-components/button':
       'dist/lib/bundles/dynatrace-angular-components-button.umd.js',
+    '@dynatrace/angular-components/buttongroup':
+	    'dist/lib/bundles/dynatrace-angular-components-buttongroup.umd.js',
     '@dynatrace/angular-components/core':
       'dist/lib/bundles/dynatrace-angular-components-core.umd.js',
     '@dynatrace/angular-components/theming':
