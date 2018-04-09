@@ -132,19 +132,6 @@ export class DtTheme implements OnDestroy {
     replaceCssClass(this._elementRef, oldClasses.variant, newClasses.variant, this._renderer);
   }
 
-  /** Replaces oldClass class with newClass */
-  private _replaceClass(oldClass: string | null, newClass: string | null): void {
-    if (oldClass !== newClass) {
-      const el = this._elementRef.nativeElement;
-      if (oldClass !== null) {
-        this._renderer.removeClass(el, oldClass);
-      }
-      if (newClass !== null) {
-        this._renderer.addClass(el, newClass);
-      }
-    }
-  }
-
   /** Notify developers if max depth level has been exceeded */
   private _warnIfDepthExceeded(): void {
     if (isDevMode() && console && console.warn && this._depthLevel > MAX_DEPTH &&
