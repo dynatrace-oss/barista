@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 @Component({
   moduleId: module.id,
   template: `
-  <h3>Light theme</h3>
   <section>
     <div *ngFor="let color of colors">
       <h4>{{color.name}} Button</h4>
@@ -27,7 +26,6 @@ import { Component } from '@angular/core';
   </section>
 
   <section class="dark" dtTheme=":dark">
-    <h3>In a Dark theme</h3>
     <div *ngFor="let color of colors">
       <h4>{{color.name}} Button</h4>
       <div class="variant">
