@@ -5,15 +5,15 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
-import { DummyUI } from './dummy/dummy-ui';
-import { DummyModule } from '@dynatrace/angular-components';
+import { DtButtonModule } from '@dynatrace/angular-components';
+import { ButtonUI } from './button/button-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
  */
 @NgModule({
   exports: [
-    DummyModule,
+    DtButtonModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -29,9 +29,8 @@ export class DynatraceAngularCompModule {}
   declarations: [
     UIApp,
     Home,
-    DummyUI,
+    ButtonUI,
   ],
   bootstrap: [UIApp],
-  entryComponents: [Home],
 })
 export class UiTestAppModule { }

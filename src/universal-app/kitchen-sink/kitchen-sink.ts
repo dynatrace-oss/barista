@@ -1,9 +1,12 @@
 import {Component, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ServerModule} from '@angular/platform-server';
+import {
+  DtButtonModule
+} from '@dynatrace/angular-components';
 
 @Component({
-  selector: 'kitchen-sink',
+  selector: 'dt-kitchen-sink',
   templateUrl: './kitchen-sink.html',
 })
 export class KitchenSink {}
@@ -11,6 +14,7 @@ export class KitchenSink {}
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({appId: 'kitchen-sink'}),
+    DtButtonModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
