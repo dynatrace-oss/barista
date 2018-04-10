@@ -2,8 +2,6 @@ import {
   Component,
   ViewEncapsulation,
   ChangeDetectionStrategy,
-  ElementRef,
-  Input
 } from '@angular/core';
 
 let nextUniqueId = 0;
