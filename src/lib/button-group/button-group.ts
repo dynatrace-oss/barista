@@ -28,52 +28,52 @@ import {startWith} from 'rxjs/operators/startWith';
 import {takeUntil} from 'rxjs/operators/takeUntil';
 import {Subject} from 'rxjs/Subject';
 import {SelectionModel} from '@angular/cdk/collections';
-import {DtButtongroupItem, DtButtonGroupItemSelectionChange} from './buttongroup-item';
+import {DtButtonGroupItem, DtButtonGroupItemSelectionChange} from './button-group-item';
 
-export class DtButtongroupBase {
+export class DtButtonGroupBase {
 constructor(public _elementRef: ElementRef) { }
 }
-export const _DtButtongroup =
-mixinTabIndex(mixinDisabled(DtButtongroupBase));
+export const _DtButtonGroup =
+mixinTabIndex(mixinDisabled(DtButtonGroupBase));
 
 @Component({
   moduleId: module.id,
-  selector: 'dt-buttongroup',
+  selector: 'dt-button-group',
   template: '<ng-content></ng-content>',
-  styleUrls: ['buttongroup.scss'],
+  styleUrls: ['button-group.scss'],
   inputs: ['disabled', 'tabIndex'],
   host: {
-    'class': 'dt-buttongroup',
+    'class': 'dt-button-group',
     '[attr.aria-disabled]': 'disabled.toString()',
   },
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasTabIndex, OnInit,
+export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasTabIndex, OnInit,
   OnDestroy, AfterContentInit {
 
   @Output()
   readonly valueChange: EventEmitter<T> = new EventEmitter<T>();
 
-  // tslint:disable-next-line
-  @ContentChildren(forwardRef(() => DtButtongroupItem), {descendants: true})
-  private _options: QueryList<DtButtongroupItem<T>>;
+  // tslint:disable-next-line:no-forward-ref
+  @ContentChildren(forwardRef(() => DtButtonGroupItem), {descendants: true})
+  private _items: QueryList<DtButtonGroupItem<T>>;
 
   private _compareWith = (o1: T, o2: T) => o1 === o2;
   // tslint:disable-next-line:no-any
   private _destroy = new Subject<any>();
-  private _selectionModel: SelectionModel<DtButtongroupItem<T>>;
+  private _selectionModel: SelectionModel<DtButtonGroupItem<T>>;
   private _value: T | undefined;
 
   /** Combined stream of all of the child options' change events. */
   private selectionChanges: Observable<DtButtonGroupItemSelectionChange<T>> = defer(() => {
-    if (this._options) {
+    if (this._items) {
       // This will create an array of selectionChange Observables and
       // then combine/merge them into one so we can later easily subscribe
       // to all at once and get the event (the option plus isUserEvent flag)
       // of the triggered option
-      return merge(...this._options.map((option) => option.selectionChange));
+      return merge(...this._items.map((option) => option.selectionChange));
     }
 
     return this._ngZone.onStable
@@ -128,7 +128,7 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
   }
 
   private writeValue(value: T | undefined): void {
-    if (this._options) {
+    if (this._items) {
       this._setSelectionByValue(value);
     }
   }
@@ -156,8 +156,8 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
     ;
   }
 
-  private _findOptionForValue(value: T): DtButtongroupItem<T> | undefined {
-    const correspondingOption = this._options.find((option: DtButtongroupItem<T>) => {
+  private _findOptionForValue(value: T): DtButtonGroupItem<T> | undefined {
+    const correspondingOption = this._items.find((option: DtButtonGroupItem<T>) => {
       try {
         // Treat null as a special reset value.
         return option.value !== null && this._compareWith(option.value, value);
@@ -175,11 +175,11 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
   }
 
   ngOnInit(): void {
-    this._selectionModel = new SelectionModel<DtButtongroupItem<T>>(false, undefined, false);
+    this._selectionModel = new SelectionModel<DtButtonGroupItem<T>>(false, undefined, false);
   }
 
   ngAfterContentInit(): void {
-    this._options.changes
+    this._items.changes
       .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
         this._resetOptions();
@@ -196,28 +196,28 @@ export class DtButtongroup<T> extends _DtButtongroup implements CanDisable, HasT
     this.selectionChanges
       .pipe(
 
-      takeUntil(merge<DtButtongroupItem<T>>(this._destroy, this._options.changes)))
+      takeUntil(merge<DtButtonGroupItem<T>>(this._destroy, this._items.changes)))
 
       .subscribe((evt) => {
 
         this._selectItem(true, evt.source);
       });
-    const selectedItem = this._options.filter((item) => item.selected);
+    const selectedItem = this._items.filter((item) => item.selected);
     if (selectedItem.length > 0) {
       this._selectItem(false, selectedItem[0]);
     }
   }
 
-  private _clearSelection(skip?: DtButtongroupItem<T>): void {
+  private _clearSelection(skip?: DtButtonGroupItem<T>): void {
     this._selectionModel.clear();
-    this._options.forEach((option) => {
+    this._items.forEach((option) => {
       if (option !== skip) {
         option.deselect();
       }
     });
   }
 
-  private _selectItem(fireEvent: boolean, option?: DtButtongroupItem<T>): void {
+  private _selectItem(fireEvent: boolean, option?: DtButtonGroupItem<T>): void {
     if (option !== undefined) {
       const wasSelected = this._selectionModel.isSelected(option);
 

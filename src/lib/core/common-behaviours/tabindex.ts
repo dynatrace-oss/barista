@@ -1,5 +1,6 @@
 import {Constructor} from './constructor';
 import {CanDisable} from './disabled';
+import {coerceNumberProperty} from '@angular/cdk/coercion';
 
 export interface HasTabIndex {
   /** Tabindex of the component. */
@@ -16,8 +17,7 @@ export function mixinTabIndex<T extends Constructor<CanDisable>>(base: T, defaul
     set tabIndex(value: number) {
       // If the specified tabIndex value is null or undefined, fall back to the default value.
 
-      // tslint:disable-next-line
-      this._tabIndex = typeof value !== 'number' ? value : defaultTabIndex;
+      this._tabIndex = coerceNumberProperty(value, defaultTabIndex);
     }
 
     // tslint:disable-next-line:no-any

@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'buttongroup-example.component.html',
+  templateUrl: 'button-group-example.component.html',
 })
-export class ButtongroupExampleComponent {
-  
+export class ButtonGroupExampleComponent {
+
   groupValues: string[] = ['Performance', 'Connectivity', 'Failure rate'];
   groupValues2: { key: string, name: string }[] = [
     { key: 'perf', name: 'Performance' },

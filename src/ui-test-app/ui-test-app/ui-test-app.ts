@@ -14,6 +14,6 @@ export class UIApp {
   navItems = [
     {name: 'Start', route: '/'},
     {name: 'Button', route: '/button'},
-    {name: 'Buttongroup', route: '/buttongroup'},
+    {name: 'ButtonGroup', route: '/button-group'},
   ];
 }
