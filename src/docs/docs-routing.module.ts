@@ -7,6 +7,7 @@ import { DocsButtonComponent } from 'components/button/docs-button.component';
 const routes: Routes = [
   { path: '', component: Home },
   { path: 'button', component: DocsButtonComponent },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
