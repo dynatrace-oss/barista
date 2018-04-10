@@ -66,9 +66,6 @@ export class DtButton extends _DtButtonMixinBase
   }
   private _variant: ButtonVariant;
 
-  /** Whether the button is icon button. */
-  _isIconButton: boolean = this._hasHostAttributes('dt-icon-button');
-
   constructor(
     elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
