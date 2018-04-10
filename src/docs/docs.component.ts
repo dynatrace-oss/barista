@@ -9,5 +9,6 @@ export class Docs {
   navItems = [
     {name: 'Start', route: '/'},
     {name: 'Button', route: '/button'},
+    {name: 'Loading distractor', route: '/loading-distractor'},
   ];
 }

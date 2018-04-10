@@ -1,0 +1,59 @@
+@import '../core/style/variables';
+
+
+:host {
+  background-color: rgba(25, 25, 25, 0.65);
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 28px;
+  border-radius: 3px;
+}
+
+.dt-loading-distractor-label {
+  display: block;
+  font-family: $mainfont;
+  font-size: 18px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: $logolime;
+  padding-left: 8px;
+}
+
+.dt-loading-spinner .dt-loading-distractor-label {
+  padding-left: 8px;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes dash {
+  0% { stroke-dashoffset: 138.2304px; }
+  50% { stroke-dashoffset: 86.394px; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes dash {
+  0% { stroke-dashoffset: 138.2304px; }
+  50% { stroke-dashoffset: 86.394px; }
+  100% { stroke-dashoffset: 0; }
+}
