@@ -5,7 +5,6 @@ import { SpinnerLoadingDistractorExampleComponent } from './examples/loading-dis
 @Component({
   moduleId: module.id,
   selector: 'docs-loading-distractor',
-  styleUrls: ['./docs-loading-distractor.component.scss'],
   templateUrl: './docs-loading-distractor.component.html',
 })
 export class DocsLoadingDistractorComponent {
