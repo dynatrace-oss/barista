@@ -1,0 +1,96 @@
+@import '../core/style/variables';
+
+$dt-row-height: 40px;
+$dt-row-horizontal-padding: 12px;
+
+/**
+* Flex-based table structure
+*/
+dt-table {
+  display: block;
+  font-family: $mainfont;
+  font-size: 14px;
+  font-weight: 300;
+  color: $gray-700;
+}
+
+dt-header-row {
+  font-size: 12px;
+}
+
+dt-row {
+
+  &:nth-child(odd) {
+    background-color: #fff;
+  }
+  &:nth-child(even) {
+    background-color: $gray-100;
+  }
+}
+
+dt-row, dt-header-row {
+  align-items: center;
+  border: 0;
+  box-sizing: border-box;
+  display: flex;
+  min-height: $dt-row-height;
+
+  // Workaround for https://goo.gl/pFmjJD in IE 11. Adds a pseudo
+  // element that will stretch the row the correct height. See:
+  // https://connect.microsoft.com/IE/feedback/details/802625
+  &::after {
+    display: inline-block;
+    min-height: inherit;
+    content: '';
+  }
+}
+
+dt-cell:first-child, dt-header-cell:first-child {
+  padding-left: $dt-row-horizontal-padding;
+}
+
+dt-cell:last-child, dt-header-cell:last-child {
+  padding-right: $dt-row-horizontal-padding;
+}
+
+dt-cell, dt-header-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  min-height: inherit;
+}
+
+/**
+* Native HTML table structure
+*/
+table.dt-table {
+  border-spacing: 0;
+}
+
+tr.dt-header-row {
+  height: $dt-row-height;
+}
+
+tr.dt-row {
+  height: $dt-row-height;
+}
+
+th.dt-header-cell {
+  text-align: left;
+}
+
+th.dt-header-cell, td.dt-cell {
+  padding: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+th.dt-header-cell:first-child, td.dt-cell:first-child {
+  padding-left: $dt-row-horizontal-padding;
+}
+
+th.dt-header-cell:last-child, td.dt-cell:last-child {
+  padding-right: $dt-row-horizontal-padding;
+}
