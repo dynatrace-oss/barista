@@ -5,8 +5,9 @@ import { Home } from './docs-home/docs-home.component';
 import { DocsButtonComponent } from './components/button/docs-button.component';
 import { DocsInputComponent } from './components/input/docs-input.component';
 import { DocsLoadingDistractorComponent } from './components/loading-distractor/docs-loading-distractor.component';
-import {DocsExpandablePanelComponent} from './components/expandable-panel/docs-expandable-panel.component';
-import {DocsExpandableSectionComponent} from './components/expandable-section/docs-expandable-section.component';
+import { DocsExpandablePanelComponent } from './components/expandable-panel/docs-expandable-panel.component';
+import { DocsExpandableSectionComponent } from './components/expandable-section/docs-expandable-section.component';
+import { DocsTableComponent } from 'components/table/docs-table.component';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
   { path: 'links', component: DocsLinkComponent },
   { path: '**', redirectTo: '' },
+  { path: 'table', component: DocsTableComponent },
+  { path: '*', redirectTo: '' },
 ];
 
 @NgModule({
