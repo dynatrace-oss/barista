@@ -20,7 +20,7 @@
     "dest": "../../dist/lib",
     "workingDirectory": "../../dist/ng_pkg_build",
     "lib": {
-      "entryFile": "public-api.ts"
+      "entryFile": "index.ts"
     }
   }
 }
