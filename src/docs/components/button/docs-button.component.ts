@@ -4,6 +4,7 @@ import { SimpleButtonExampleComponent } from './examples/button-simple-example.c
 import { InteractionButtonExampleComponent } from './examples/button-interaction-example.component';
 import { VariantButtonExampleComponent } from './examples/button-variant-example.component';
 import { ColorButtonExampleComponent } from './examples/button-color-example.component';
+import { DefaultButtonExampleComponent } from './examples/button-default-example.component';
 
 @Component({
   moduleId: module.id,
@@ -14,6 +15,7 @@ import { ColorButtonExampleComponent } from './examples/button-color-example.com
 export class DocsButtonComponent {
 
   examples = {
+    default: DefaultButtonExampleComponent,
     simple: SimpleButtonExampleComponent,
     interaction: InteractionButtonExampleComponent,
     variant: VariantButtonExampleComponent,
