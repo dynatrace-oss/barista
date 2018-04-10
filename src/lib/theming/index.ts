@@ -1,2 +1,2 @@
 export * from './theming-module';
-export * from './theming';
+export * from './theme';
