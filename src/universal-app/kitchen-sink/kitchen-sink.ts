@@ -2,7 +2,8 @@ import {Component, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ServerModule} from '@angular/platform-server';
 import {
-  DtButtonModule
+  DtButtonModule,
+  DtLoadingDistractorModule,
 } from '@dynatrace/angular-components';
 
 @Component({
@@ -15,6 +16,7 @@ export class KitchenSink {}
   imports: [
     BrowserModule.withServerTransition({appId: 'kitchen-sink'}),
     DtButtonModule,
+    DtLoadingDistractorModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
