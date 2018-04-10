@@ -11,13 +11,13 @@
 <p>You have to import the <code>DtButtonModule</code> when you want to use the <code>dt-button</code>:</p>
 <!-- @formatter:off -->
 <pre><code snippet language="typescript">@NgModule({{"{"}}
-    imports: [
-      DtButtonModule,
-    ],
-  {{"}"}})
-  class MyModule {{"{}"}}
-  </code></pre>
-  <!-- @formatter:on -->
+  imports: [
+    DtButtonModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
 
 <h2>Initialization</h2>
 <p>
@@ -26,7 +26,7 @@
 <table class="table">
   <thead>
     <tr>
-      <td>Attribute</td>
+      <td width="190px">Attribute</td>
       <td>Description</td>
     </tr>
   </thead>
@@ -46,9 +46,9 @@
 <table class="table">
   <thead>
     <tr>
-      <td>Name</td>
-      <td>Type</td>
-      <td>Default</td>
+      <td width="160px">Name</td>
+      <td width="250px">Type</td>
+      <td width="160px">Default</td>
       <td>Description</td>
     </tr>
   </thead>
@@ -85,6 +85,26 @@
     </tr>
   </tbody>
 </table>
+
+<h2>Theming</h2>
+<p>
+  The button styling depends on the theme the component is in. You can set a theme on an area of the app by using the <code>dtTheme</code> directive.<br>
+</p>
+<i>Example:</i>
+<!-- @formatter:off -->
+<pre><code snippet language="html">&lt;div dtTheme="purple:dark"&gt;
+  &lt;button dt-button&gt;My themed button&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<!-- @formatter:on -->
+
+<p><strong>NOTE:</strong><br>Right now only setting the light or dark mode is available. Full theming functionality will be added in a later stage.</p>
+
+<h2>Accessibility</h2>
+<p>
+  By using native <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> elements accessibility is ensured per default.<br>
+  Buttons or links containing only icons (<code>dt-icon-button</code>) should be given a meaningful label via <code>aria-label</code> or <code>aria-labelledby</code>.
+</p>
 
 <h2>Examples</h2>
 <h3>Simple example</h3>
