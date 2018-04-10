@@ -1,12 +1,9 @@
-import { Injectable, Provider, Optional, SkipSelf } from '@angular/core';
+import { Provider, Optional, SkipSelf } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/operators/merge';
 import { map } from 'rxjs/operators/map';
-import { throttle } from 'rxjs/operators/throttle';
-import { interval } from 'rxjs/observable/interval';
 
 /** Default timeout used to throttle window resize events */
 const DEFAULT_WINDOW_EVENT_TIMEOUT = 150;
