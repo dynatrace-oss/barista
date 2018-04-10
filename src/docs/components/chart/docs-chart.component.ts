@@ -14,6 +14,7 @@ export class DocsChartComponent {
   lineOptions: Highcharts.Options = {
     chart: {
       type: 'line',
+      reflow: false,
     },
     title: {
       text: 'Line chart',
@@ -30,6 +31,7 @@ export class DocsChartComponent {
   columnOptions: Highcharts.Options = {
     chart: {
       type: 'column',
+      reflow: false,
     },
     title: {
       text: 'Bar/Column chart',
@@ -42,6 +44,7 @@ export class DocsChartComponent {
   pieOptions: Highcharts.Options = {
     chart: {
       type: 'pie',
+      reflow: false,
     },
     title: {
       text: 'Pie chart',
@@ -53,10 +56,10 @@ export class DocsChartComponent {
 
   data$: Observable<Highcharts.IndividualSeriesOptions[]>;
 
-  dataStatic = [{
+  dataStatic: Highcharts.IndividualSeriesOptions[] = [{
     color: '#C396E0',
     name: 'Actions/min',
-    metricId: 'SomeMetricId',
+    id: 'SomeMetricId',
     data: [
       [
         1370304000000,
@@ -65,30 +68,6 @@ export class DocsChartComponent {
       [
         1370390400000,
         120,
-      ],
-      [
-        1370476800000,
-        170,
-      ],
-      [
-        1370563200000,
-        170,
-      ],
-      [
-        1370736000000,
-        180,
-      ],
-      [
-        1370822400000,
-        160,
-      ],
-      [
-        1370908800000,
-        170,
-      ],
-      [
-        1370995200000,
-        90
       ],
     ],
   }];
@@ -99,10 +78,6 @@ export class DocsChartComponent {
 
   constructor(private _chartService: ChartService, private _viewportResizer: ViewportResizer) {
     this.data$ = this._chartService.getStreamedChartdata();
-  }
-
-  ngAfterViewInit(): void {
-    console.log(this.staticChart.metricIds());
   }
 
   toggleMenu(): void {
