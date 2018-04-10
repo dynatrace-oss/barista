@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DtTheme } from './theming';
+import { DtTheme } from './theme';
 
 @NgModule({
   exports: [DtTheme],
