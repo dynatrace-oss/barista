@@ -5,8 +5,8 @@ import { Home } from './docs-home/docs-home.component';
 import { DocsButtonComponent } from 'components/button/docs-button.component';
 
 const routes: Routes = [
-  { path: '', component: Home },
   { path: 'button', component: DocsButtonComponent },
+  { path: '', component: Home },
 ];
 
 @NgModule({
