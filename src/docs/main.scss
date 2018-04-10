@@ -1,4 +1,5 @@
 @import '../../node_modules/highlight.js/styles/github-gist.css';
+@import '../../node_modules/@dynatrace/groundhog/dist/css/table/table.css';
 
 %typecsset-reset {
   margin: 0;
@@ -74,4 +75,10 @@ h4:not(:first-child),
 h5:not(:first-child),
 h6:not(:first-child) {
   margin-top: 32px;
+}
+
+.dark {
+  background-color: #454545;
+  color: #fff;
+  padding: 16px;
 }

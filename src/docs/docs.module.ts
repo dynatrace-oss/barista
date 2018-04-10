@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DocsRoutingModule } from './docs-routing.module';
 import { Docs } from './docs.component';
 import { Home } from './docs-home/docs-home.component';
-import { DocsDummyModule } from './components/dummy/docs-dummy.module';
+import { DocsButtonModule } from './components/button/docs-button.module';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { DocsDummyModule } from './components/dummy/docs-dummy.module';
     BrowserAnimationsModule,
     HttpClientModule,
     DocsRoutingModule,
-    DocsDummyModule,
+    DocsButtonModule,
   ],
   declarations: [
     Docs,
