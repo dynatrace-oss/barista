@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { ButtongroupExampleComponent } from './examples/buttongroup-example.component';
-import { DocsButtongroupComponent } from './docs-buttongroup.component';
+import { ButtonGroupExampleComponent } from './examples/button-group-example.component';
+import { DocsButtonGroupComponent } from './docs-button-group.component';
 import { UiModule } from '../../ui/ui.module';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtButtongroupModule } from '@dynatrace/angular-components/buttongroup';
+import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
 import { CommonModule } from '@angular/common';
 
 const EXAMPLES = [
-  ButtongroupExampleComponent,
+  ButtonGroupExampleComponent,
 ];
 
 @NgModule({
@@ -15,18 +15,18 @@ const EXAMPLES = [
     CommonModule,
     UiModule,
     DtButtonModule,
-    DtButtongroupModule,
+    DtButtonGroupModule,
   ],
   declarations: [
     ...EXAMPLES,
-    DocsButtongroupComponent,
+    DocsButtonGroupComponent,
   ],
   exports: [
-    DocsButtongroupComponent,
+    DocsButtonGroupComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
   ],
 })
-export class DocsButtongroupModule {
+export class DocsButtonGroupModule {
 }

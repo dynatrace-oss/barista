@@ -1,8 +1,8 @@
 import { browser, by, element, ExpectedConditions } from 'protractor';
 
-describe('buttongroup', () => {
+describe('button-group', () => {
   describe('disabling behavior', () => {
-    beforeEach(() => browser.get('/buttongroup'));
+    beforeEach(() => browser.get('/button-group'));
 
     it('should execute click handlers when not disabled', async () => {
       element(by.id('group-1-item-1')).click();
@@ -10,7 +10,7 @@ describe('buttongroup', () => {
     });
 
     it('should not execute click handlers when disabled', async () => {
-      expect(await element(by.id('group-2-item-1')).getAttribute('class')).toContain('dt-buttongroup-item-disabled');
+      expect(await element(by.id('group-2-item-1')).getAttribute('class')).toContain('dt-button-group-item-disabled');
       expect(await element(by.id('lblGroup-2')).getText()).toEqual('');
     });
 
