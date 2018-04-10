@@ -8,5 +8,5 @@
 
 export * from './core/index';
 export * from './button/index';
-export * from './buttongroup/index';
+export * from './button-group/index';
 export * from './theming/index';
