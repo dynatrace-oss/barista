@@ -43,8 +43,7 @@ export class DefaultViewportResizer implements ViewportResizer {
 /** ViewportResizer Factory to ensure a singleton, can set the timeout for window resize events */
 function VIEWPORT_RESIZER_FACTORY(
   viewportRuler: ViewportRuler,
-  parentResizer?: ViewportResizer,
-  throttleTime: number = DEFAULT_WINDOW_EVENT_TIMEOUT
+  parentResizer?: ViewportResizer
 ): ViewportResizer {
   return parentResizer || new DefaultViewportResizer(viewportRuler);
 }
