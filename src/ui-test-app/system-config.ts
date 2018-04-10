@@ -43,8 +43,9 @@ System.config({
     '@angular/cdk/stepper': 'node:@angular/cdk/bundles/cdk-stepper.umd.js',
     '@angular/cdk/table': 'node:@angular/cdk/bundles/cdk-table.umd.js',
 
-    '@dynatrace/angular-components':
-      'dist/lib/bundles/dynatrace-angular-components.umd.js',
+    '@dynatrace/angular-components': 'dist/lib/bundles/dynatrace-angular-components.umd.js',
+    '@dynatrace/angular-components/core': 'dist/lib/bundles/dynatrace-angular-components-core.umd.js',
+    '@dynatrace/angular-components/button': 'dist/lib/bundles/dynatrace-angular-components-button.umd.js',
   },
   packages: {
     // Thirdparty barrels.
