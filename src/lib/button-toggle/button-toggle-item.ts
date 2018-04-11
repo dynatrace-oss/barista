@@ -1,67 +1,65 @@
 
-// Boilerplate for applying mixins to DtButtonGroupItem
+// Boilerplate for applying mixins to DtButtonToggleItem
 import {CanDisable, HasTabIndex, mixinTabIndex} from '@dynatrace/angular-components/core';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef, Component, ElementRef,
-  EventEmitter,
+  EventEmitter, HostBinding, HostListener,
   Input,
   Output,
   ViewEncapsulation
 } from '@angular/core';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {DtButtonGroup} from './button-group';
+import {DtButtonToggle} from './button-toggle';
 
-export interface DtButtonGroupItemSelectionChange<T> {
+export interface DtButtonToggleItemSelectionChange<T> {
   /** Reference to the option that emitted the event. */
-  source: DtButtonGroupItem<T>;
+  source: DtButtonToggleItem<T>;
   /** Whether the change in the option's value was a result of a user action. */
   isUserInput: boolean;
 }
-export class DtButtonGroupItemBase {
+export class DtButtonToggleItemBase {
   disabled: boolean;
   constructor(public _elementRef: ElementRef) { }
 }
 
-export const _DtButtonGroupItem =
-  mixinTabIndex(DtButtonGroupItemBase);
+export const _DtButtonToggleItem =
+  mixinTabIndex(DtButtonToggleItemBase);
 
 @Component({
   moduleId: module.id,
-  selector: 'dt-button-group-item',
+  selector: 'dt-button-toggle-item',
   template: `<ng-content></ng-content>`,
   host: {
-    'role': 'button',
+    'role': 'radio',
+    'class': 'dt-button-toggle-item',
     '[attr.tabindex]': 'tabIndex',
-    '[class.dt-button-group-item-selected]': 'selected',
-    '[class.dt-button-group-item-disabled]': 'disabled',
-    'class': 'dt-button-group-item',
-    '(click)': '_selectViaInteraction()',
-    '(keydown)': '_handleKeydown($event)',
   },
-  styleUrls: ['button-group-item.scss'],
+  styleUrls: ['button-toggle-item.scss'],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtButtonGroupItem<T> extends _DtButtonGroupItem implements CanDisable, HasTabIndex  {
+export class DtButtonToggleItem<T> extends _DtButtonToggleItem implements CanDisable, HasTabIndex  {
 
   private _selected = false;
   private _value: T;
   private _disabled = false;
 
-  @Output() readonly selectionChange = new EventEmitter<DtButtonGroupItemSelectionChange<T>>();
+  @Output() readonly selectionChange = new EventEmitter<DtButtonToggleItemSelectionChange<T>>();
 
-  constructor(private _buttonGroup: DtButtonGroup<T>,
+  constructor(private _buttonGroup: DtButtonToggle<T>,
               private _changeDetectorRef: ChangeDetectorRef,
               _elementRef: ElementRef
   ) {
     super(_elementRef);
   }
 
-  /** Whether the button-group item is selected. */
+  /** Whether the button-toggle item is selected. */
   @Input()
+  @HostBinding('attr.aria-selected')
+  @HostBinding('class.dt-button-toggle-item-selected')
   get selected(): boolean {
     return this._selected && !this.disabled;
   }
@@ -74,12 +72,16 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem implements CanDisab
     }
   }
 
-  /** Whether the button-group item is disabled. */
+  /** Whether the button-toggle item is disabled. */
   @Input()
+  @HostBinding('attr.aria-disabled')
+  @HostBinding('class.dt-button-toggle-item-disabled')
   get disabled(): boolean {
     return this._disabled  || this._buttonGroup.disabled;
   }
-  set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); }
+  set disabled(value: boolean) {
+    this._disabled = value;
+  }
 
   /** The bound value. */
   @Input()
@@ -98,7 +100,8 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem implements CanDisab
     this.selected = false;
   }
 
-  _selectViaInteraction(): void {
+  @HostListener('click')
+  private _onSelect(): void {
     if (!this.disabled) {
       this._changeDetectorRef.markForCheck();
       this.selectionChange.emit({source: this, isUserInput: true});
@@ -106,9 +109,11 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem implements CanDisab
   }
 
   /** Ensures the option is selected when activated from the keyboard. */
-  _handleKeydown(event: KeyboardEvent): void {
+  @HostListener('keydown', ['$event'])
+  // tslint:disable-next-line
+  private _handleKeydown(event: KeyboardEvent): void {
     if (event.keyCode === ENTER || event.keyCode === SPACE) {
-      this._selectViaInteraction();
+      this._onSelect();
 
       // Prevent the page from scrolling down and form submits.
       event.preventDefault();

@@ -9,6 +9,6 @@ export class Docs {
   navItems = [
     {name: 'Start', route: '/'},
     {name: 'Button', route: '/button'},
-    {name: 'Button Group', route: '/button-group'},
+    {name: 'Button Toggle', route: '/button-toggle'},
   ];
 }

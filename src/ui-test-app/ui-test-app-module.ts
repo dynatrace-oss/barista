@@ -5,9 +5,9 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
-import { DtButtonGroupModule, DtButtonModule} from '@dynatrace/angular-components';
+import { DtButtonToggleModule, DtButtonModule} from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
-import { ButtonGroupUi } from './button-group/button-group-ui';
+import { ButtonToggleUi } from './button-toggle/button-toggle-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -15,7 +15,7 @@ import { ButtonGroupUi } from './button-group/button-group-ui';
 @NgModule({
   exports: [
     DtButtonModule,
-    DtButtonGroupModule
+    DtButtonToggleModule
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -32,7 +32,7 @@ export class DynatraceAngularCompModule {}
     UIApp,
     Home,
     ButtonUI,
-    ButtonGroupUi,
+    ButtonToggleUi,
   ],
   bootstrap: [UIApp],
 })
