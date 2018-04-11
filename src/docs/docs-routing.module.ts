@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', component: Home },
   { path: 'button', component: DocsButtonComponent },
   { path: 'button-toggle', component: DocsButtonToggleComponent },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
