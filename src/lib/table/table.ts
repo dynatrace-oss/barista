@@ -8,6 +8,7 @@ import { CdkTable, CDK_TABLE_TEMPLATE } from '@angular/cdk/table';
   template: CDK_TABLE_TEMPLATE,
   exportAs: 'dtTable',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated
+  // tslint:disable-next-line:use-view-encapsulation
+  encapsulation: ViewEncapsulation.None,
 })
 export class DtTable<T> extends CdkTable<T> { }
