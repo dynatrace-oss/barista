@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from '@angular/core';
 import { CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef } from '@angular/cdk/table';
 
 /**
