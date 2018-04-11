@@ -14,5 +14,10 @@ describe('button-toggle', () => {
       expect(await element(by.id('lblGroup-2')).getText()).toEqual('');
     });
 
+    it('should not execute click handlers when item disabled', async () => {
+      expect(await element(by.id('group-3-item-1')).getAttribute('class')).toContain('dt-button-toggle-item-disabled');
+      expect(await element(by.id('lblGroup-3')).getText()).toEqual('');
+    });
+
   });
 });

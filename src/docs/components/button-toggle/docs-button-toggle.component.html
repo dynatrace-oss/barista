@@ -136,6 +136,16 @@ class MyModule {{"{}"}}
     <td><code>false</code></td>
     <td>Sets or gets the selected state of this item</td>
   </tr>
+  <tr>
+    <td><code>[color]</code></td>
+    <td><code>string | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>Sets color. Possible options:
+      <ul>
+        <li><code>main</code> (default)</li>
+        <li><code>error</code></li>
+      </ul></td>
+  </tr>
   </tbody>
 </table>
 
@@ -145,6 +155,9 @@ class MyModule {{"{}"}}
 
 <h3>Item disabled</h3>
 <docs-source-example [example]="examples.itemDisabled"></docs-source-example>
+
+<h3>Error state</h3>
+<docs-source-example [example]="examples.error"></docs-source-example>
 
 <h3>Interactive example</h3>
 <docs-source-example [example]="examples.interactive"></docs-source-example>

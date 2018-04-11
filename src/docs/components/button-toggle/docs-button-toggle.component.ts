@@ -3,6 +3,7 @@ import {ButtonToggleDefaultExampleComponent} from './examples/button-toggle-defa
 import {ButtonToggleDisabledExampleComponent} from './examples/button-toggle-disabled-example.component';
 import {ButtonToggleItemDisabledExampleComponent} from './examples/button-toggle-item-disabled-example.component';
 import {ButtonToggleInteractiveExampleComponent} from './examples/button-toggle-interactive-example.component';
+import {ButtonToggleErrorExampleComponent} from './examples/button-toggle-error-example.component';
 
 @Component({
   moduleId: module.id,
@@ -16,6 +17,7 @@ export class DocsButtonToggleComponent {
     default: ButtonToggleDefaultExampleComponent,
     groupDisabled: ButtonToggleDisabledExampleComponent,
     itemDisabled: ButtonToggleItemDisabledExampleComponent,
-    interactive: ButtonToggleInteractiveExampleComponent
+    interactive: ButtonToggleInteractiveExampleComponent,
+    error: ButtonToggleErrorExampleComponent
   };
 }

@@ -20,3 +20,16 @@
   </dt-button-toggle>
 
 </section>
+
+<section>
+  Current value: <span id="lblGroup-3">{{ control3.value }}</span>
+  <dt-button-toggle #control3 id="group-3">
+    <dt-button-toggle-item
+      *ngFor="let gvalue of groupValues; let i = index"
+      [id]="'group-3-item-' + i"
+      [value]="gvalue"
+      [disabled]="i === 1"
+    >{{gvalue}}</dt-button-toggle-item>
+  </dt-button-toggle>
+
+</section>
