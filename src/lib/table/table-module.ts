@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CdkTableModule } from '@angular/cdk/table';
 import { DtTable } from './table';
 import { DtHeaderRow, DtHeaderRowDef, DtRow, DtRowDef } from './row';
 import { DtCell, DtCellDef, DtColumnDef, DtHeaderCell, DtHeaderCellDef } from './cell';
-import { CdkTableModule } from '@angular/cdk/table';
-import { CommonModule } from '@angular/common';
 
-const EXPORT_DECLARATIONS = [
+const EXPORTED_DECLARATIONS = [
   DtTable,
   DtHeaderRow,
   DtHeaderRowDef,
@@ -24,10 +24,10 @@ const EXPORT_DECLARATIONS = [
     CdkTableModule
   ],
   exports: [
-    ...EXPORT_DECLARATIONS,
+    ...EXPORTED_DECLARATIONS,
   ],
   declarations: [
-    ...EXPORT_DECLARATIONS,
+    ...EXPORTED_DECLARATIONS,
   ],
 })
 export class DtTableModule {}
