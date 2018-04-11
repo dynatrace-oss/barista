@@ -7,7 +7,7 @@ import { DocsRoutingModule } from './docs-routing.module';
 import { Docs } from './docs.component';
 import { Home } from './docs-home/docs-home.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
-import { DocsButtonGroupModule } from './components/button-group/docs-button-group.module';
+import { DocsButtonToggleModule } from './components/button-toggle/docs-button-toggle.module';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { DocsButtonGroupModule } from './components/button-group/docs-button-gro
     HttpClientModule,
     DocsRoutingModule,
     DocsButtonModule,
-    DocsButtonGroupModule,
+    DocsButtonToggleModule,
   ],
   declarations: [
     Docs,

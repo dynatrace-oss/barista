@@ -47,7 +47,7 @@
   }
 }
 
-:host.dt-button-group-item-disabled {
+:host.dt-button-toggle-item-disabled {
   pointer-events: none;
   color: $gray-300;
 }
@@ -76,7 +76,7 @@ $theme-dark: (
 );
 
 // TODO @thomas.pink: Move this to button theme once theming is in place
-@mixin dt-button-group-theme-variants($theme) {
+@mixin dt-button-toggle-theme-variants($theme) {
   $palette-names: 'main', 'warning', 'cta';
   $default-palette: 'main';
 
@@ -92,11 +92,11 @@ $theme-dark: (
       $namespace: ':host::ng-deep.dt-color-#{$name}';
     }
 
-    & #{$namespace}.dt-button-group-item:not(.dt-button-group-item-disabled) {
+    & #{$namespace}.dt-button-toggle-item:not(.dt-button-toggle-item-disabled) {
       color: $default-color;
     }
 
-    &#{$namespace}.dt-button-group-item:hover {
+    &#{$namespace}.dt-button-toggle-item:hover {
       box-shadow:
         1px 0 0 0 $hover-color,
         0 1px 0 0 $hover-color,
@@ -105,7 +105,7 @@ $theme-dark: (
         0 1px 0 0 $hover-color inset;
     }
 
-    &#{$namespace}.dt-button-group-item-selected:focus {
+    &#{$namespace}.dt-button-toggle-item-selected:focus {
       box-shadow:
         2px 0 0 0 $active-color,
         0 2px 0 0 $active-color,
@@ -114,7 +114,7 @@ $theme-dark: (
         0 2px 0 0 $active-color inset;
     }
 
-    &#{$namespace}.dt-button-group-item-selected {
+    &#{$namespace}.dt-button-toggle-item-selected {
       z-index:1;
       position:relative;
 
@@ -130,7 +130,7 @@ $theme-dark: (
 }
 
 // TODO @thomas.pink: Remove this once theming is in place
-@include dt-button-group-theme-variants($theme-light);
+@include dt-button-toggle-theme-variants($theme-light);
 .dt-theme-dark {
-  @include dt-button-group-theme-variants($theme-dark);
+  @include dt-button-toggle-theme-variants($theme-dark);
 }
