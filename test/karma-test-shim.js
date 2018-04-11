@@ -70,6 +70,8 @@ System.config({
       'dist/lib/bundles/dynatrace-angular-components-button.umd.js',
     '@dynatrace/angular-components/core':
       'dist/lib/bundles/dynatrace-angular-components-core.umd.js',
+    '@dynatrace/angular-components/loading-distractor':
+      'dist/lib/bundles/dynatrace-angular-components-loading-distractor.umd.js',
     '@dynatrace/angular-components/theming':
     'dist/lib/bundles/dynatrace-angular-components-theming.umd.js',
   },
