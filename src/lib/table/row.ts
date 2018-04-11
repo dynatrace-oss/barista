@@ -1,11 +1,5 @@
 import { ChangeDetectionStrategy, Component, Directive, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import {
-  CDK_ROW_TEMPLATE,
-  CdkHeaderRow,
-  CdkHeaderRowDef,
-  CdkRow,
-  CdkRowDef,
-} from '@angular/cdk/table';
+import { CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef } from '@angular/cdk/table';
 
 /**
  * Header row definition for the dt-table.
@@ -28,8 +22,7 @@ export class DtHeaderRowDef extends CdkHeaderRowDef { }
   providers: [{provide: CdkRowDef, useExisting: DtRowDef}],
   inputs: ['columns: dtRowDefColumns', 'when: dtRowDefWhen'],
 })
-export class DtRowDef<T> extends CdkRowDef<T> {
-}
+export class DtRowDef<T> extends CdkRowDef<T> { }
 
 /** Header template container that contains the cell outlet. Adds the right class and role. */
 @Component({
@@ -37,7 +30,7 @@ export class DtRowDef<T> extends CdkRowDef<T> {
   selector: 'dt-header-row, tr[dt-header-row]',
   template: CDK_ROW_TEMPLATE,
   host: {
-    class: 'dt-header-row',
+    class: 'dt-table__header-row',
     role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,7 +46,7 @@ export class DtHeaderRow extends CdkHeaderRow { }
   selector: 'dt-row, tr[dt-row]',
   template: CDK_ROW_TEMPLATE,
   host: {
-    class: 'dt-row',
+    class: 'dt-table__row',
     role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
