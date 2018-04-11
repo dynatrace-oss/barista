@@ -1,5 +1,5 @@
 const path = require('path');
-const puppeteer = require('puppeteer');
+const chromeConfig = require('./chrome.conf');
 
 // Load ts-node to be able to execute TypeScript files with protractor.
 require('ts-node').register({
@@ -7,7 +7,6 @@ require('ts-node').register({
 });
 
 const UI_TEST_BASE_URL = process.env['UI_TEST_BASE_URL'] || 'http://localhost:4200';
-const runsOnCI = process.env.CI;
 
 const config = {
   useAllAngular2AppRoots: true,
@@ -22,13 +21,8 @@ const config = {
   capabilities: {
     'browserName': 'chrome',
     chromeOptions: {
-      args: [
-        '--headless',
-        '--disable-gpu',
-        '--window-size=800x600',
-        ...(runsOnCI ? ['--no-sandbox', '--disable-setuid-sandbox'] : [])
-      ],
-      binary: puppeteer.executablePath(),
+      args: chromeConfig.protractorFlags,
+      binary: chromeConfig.binary,
     },
     name: 'Dynatrace Angular Components UI Tests',
   },

@@ -5,9 +5,9 @@
  */
 
 const path = require('path');
-const runsOnCI = process.env.CI;
+const chromeConfig = require('./chrome.conf');
 
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+process.env.CHROME_BIN = chromeConfig.binary;
 
 module.exports = (config) => {
 
@@ -51,13 +51,12 @@ module.exports = (config) => {
     browserDisconnectTimeout: 20000,
     browserNoActivityTimeout: 240000,
     captureTimeout: 120000,
-    browsers: [runsOnCI ? 'ChromeHeadlessCI' : 'ChromeHeadless'],
+    browsers: ['CustomChromeHeadless'],
 
     customLaunchers: {
-      // Jenkins docker image does not support SUID sandbox
-      ChromeHeadlessCI: {
+      CustomChromeHeadless: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--disable-setuid-sandbox'],
+        flags: chromeConfig.karmaFlags,
       }
     },
 
