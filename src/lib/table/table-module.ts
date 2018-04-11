@@ -21,7 +21,7 @@ const EXPORTED_DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
-    CdkTableModule
+    CdkTableModule,
   ],
   exports: [
     ...EXPORTED_DECLARATIONS,

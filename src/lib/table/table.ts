@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 
 @Component({

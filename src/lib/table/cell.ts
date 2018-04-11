@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 
 /**
