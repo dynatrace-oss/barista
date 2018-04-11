@@ -7,17 +7,12 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   moduleId: module.id,
   selector: 'docs-chart',
-  styleUrls: ['./docs-chart.component.scss'],
   templateUrl: './docs-chart.component.html',
 })
 export class DocsChartComponent {
   lineOptions: Highcharts.Options = {
     chart: {
       type: 'line',
-      reflow: false,
-    },
-    title: {
-      text: 'Line chart',
     },
     xAxis: {
        type: 'datetime',
@@ -31,10 +26,6 @@ export class DocsChartComponent {
   columnOptions: Highcharts.Options = {
     chart: {
       type: 'column',
-      reflow: false,
-    },
-    title: {
-      text: 'Bar/Column chart',
     },
     xAxis: {
        type: 'datetime',
@@ -44,10 +35,6 @@ export class DocsChartComponent {
   pieOptions: Highcharts.Options = {
     chart: {
       type: 'pie',
-      reflow: false,
-    },
-    title: {
-      text: 'Pie chart',
     },
     xAxis: {
        type: 'datetime',

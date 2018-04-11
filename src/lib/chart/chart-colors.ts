@@ -23,40 +23,51 @@ const TURQUOISE_700 = '#00848e';
 const TURQUOISE_800 = '#006d75';
 const TURQUOISE_900 = '#005559';
 
+export interface ChartColorPalette {
+  single: string;
+  multi: string[];
+}
+
+const purple: ChartColorPalette = {
+  single: PURPLE_500,
+  multi: [
+    PURPLE_700,
+    PURPLE_600,
+    PURPLE_500,
+    PURPLE_400,
+    PURPLE_300,
+    PURPLE_200,
+  ],
+};
+
+const royalblue: ChartColorPalette = {
+  single: ROYALBLUE_500,
+  multi: [
+    ROYALBLUE_700,
+    ROYALBLUE_600,
+    ROYALBLUE_500,
+    ROYALBLUE_400,
+    ROYALBLUE_300,
+    ROYALBLUE_200,
+  ],
+};
+
+const turquoise: ChartColorPalette = {
+  single: TURQUOISE_500,
+  multi: [
+    TURQUOISE_900,
+    TURQUOISE_800,
+    TURQUOISE_700,
+    TURQUOISE_600,
+    TURQUOISE_500,
+    TURQUOISE_400,
+    TURQUOISE_300,
+    TURQUOISE_200,
+  ],
+};
+
 export const CHART_COLOR_PALETTES = {
-  purple: {
-    single: PURPLE_500,
-    multi: [
-      PURPLE_700,
-      PURPLE_600,
-      PURPLE_500,
-      PURPLE_400,
-      PURPLE_300,
-      PURPLE_200,
-    ],
-  },
-  royalblue: {
-    single: ROYALBLUE_500,
-    multi: [
-      ROYALBLUE_700,
-      ROYALBLUE_600,
-      ROYALBLUE_500,
-      ROYALBLUE_400,
-      ROYALBLUE_300,
-      ROYALBLUE_200,
-    ],
-  },
-  turquoise: {
-    single: TURQUOISE_500,
-    multi: [
-      TURQUOISE_900,
-      TURQUOISE_800,
-      TURQUOISE_700,
-      TURQUOISE_600,
-      TURQUOISE_500,
-      TURQUOISE_400,
-      TURQUOISE_300,
-      TURQUOISE_200,
-    ],
-  },
+  purple,
+  royalblue,
+  turquoise,
 };

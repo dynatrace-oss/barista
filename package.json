@@ -59,6 +59,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-connect": "^5.2.0",
     "gulp-sass": "^3.1.0",
+    "highcharts": "^6.0.7",
     "highlight.js": "^9.12.0",
     "http-rewrite-middleware": "^0.1.6",
     "jasmine-core": "^2.9.1",

@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators/map';
 export class ChartService {
   getStreamedChartdata(): Observable<any> {
     console.log('called streamed data');
-    return timer(5000, 5000)
+    return timer(0, 5000)
     .pipe(map(() => {
       const data = [];
       for (let i = 0; i < 10; i++) {
