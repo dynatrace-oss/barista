@@ -8,12 +8,15 @@ import {ButtonToggleDefaultExampleComponent} from './examples/button-toggle-defa
 import {ButtonToggleDisabledExampleComponent} from './examples/button-toggle-disabled-example.component';
 import {ButtonToggleItemDisabledExampleComponent} from './examples/button-toggle-item-disabled-example.component';
 import {ButtonToggleInteractiveExampleComponent} from './examples/button-toggle-interactive-example.component';
+import {ButtonToggleErrorExampleComponent} from './examples/button-toggle-error-example.component';
+import {DtThemingModule} from '@dynatrace/angular-components/theming';
 
 const EXAMPLES = [
   ButtonToggleDefaultExampleComponent,
   ButtonToggleDisabledExampleComponent,
   ButtonToggleItemDisabledExampleComponent,
-  ButtonToggleInteractiveExampleComponent
+  ButtonToggleInteractiveExampleComponent,
+  ButtonToggleErrorExampleComponent
 ];
 
 @NgModule({
@@ -22,6 +25,7 @@ const EXAMPLES = [
     UiModule,
     DtButtonModule,
     DtButtonToggleModule,
+    DtThemingModule
   ],
   declarations: [
     ...EXAMPLES,

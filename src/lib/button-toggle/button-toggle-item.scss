@@ -64,20 +64,18 @@
 }
 $theme-light: (
   main: dt-palette($turquoise-600, $turquoise-700, $turquoise-800),
-  warning: dt-palette($yellow-600, $yellow-700, $yellow-800),
-  cta: dt-palette($green-600, $green-700, $green-800),
+  error: dt-palette($red-600, $red-700, $red-800),
   is-dark: false
 );
 $theme-dark: (
   main: dt-palette($turquoise-500, $turquoise-400, $turquoise-300),
-  warning: dt-palette($yellow-600, $yellow-500, $yellow-400),
-  cta: dt-palette($green-500, $green-400, $green-300),
+  error: dt-palette($red-600, $red-500, $red-400),
   is-dark: true
 );
 
 // TODO @thomas.pink: Move this to button theme once theming is in place
 @mixin dt-button-toggle-theme-variants($theme) {
-  $palette-names: 'main', 'warning', 'cta';
+  $palette-names: 'main', 'error';
   $default-palette: 'main';
 
   @each $name in $palette-names {
@@ -89,7 +87,7 @@ $theme-dark: (
 
     $namespace: ':host';
     @if $name != $default-palette {
-      $namespace: ':host::ng-deep.dt-color-#{$name}';
+      $namespace: ':host.dt-color-#{$name}';
     }
 
     & #{$namespace}.dt-button-toggle-item:not(.dt-button-toggle-item-disabled) {

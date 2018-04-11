@@ -1,6 +1,6 @@
 
 // Boilerplate for applying mixins to DtButtonToggleItem
-import {CanDisable, HasTabIndex, mixinTabIndex} from '@dynatrace/angular-components/core';
+import {CanColor, CanDisable, HasTabIndex, mixinColor, mixinTabIndex} from '@dynatrace/angular-components/core';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef, Component, ElementRef,
@@ -24,8 +24,11 @@ export class DtButtonToggleItemBase {
   constructor(public _elementRef: ElementRef) { }
 }
 
+export type ButtonToggleThemePalette = 'main' | 'error' | undefined;
+const defaultPalette: ButtonToggleThemePalette = 'main';
+
 export const _DtButtonToggleItem =
-  mixinTabIndex(DtButtonToggleItemBase);
+  mixinTabIndex(mixinColor(DtButtonToggleItemBase, defaultPalette));
 
 @Component({
   moduleId: module.id,
@@ -37,11 +40,13 @@ export const _DtButtonToggleItem =
     '[attr.tabindex]': 'tabIndex',
   },
   styleUrls: ['button-toggle-item.scss'],
+  inputs: ['color'],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtButtonToggleItem<T> extends _DtButtonToggleItem implements CanDisable, HasTabIndex  {
+
+export class DtButtonToggleItem<T> extends _DtButtonToggleItem implements CanDisable, CanColor, HasTabIndex  {
 
   private _selected = false;
   private _value: T;
@@ -80,7 +85,7 @@ export class DtButtonToggleItem<T> extends _DtButtonToggleItem implements CanDis
     return this._disabled  || this._buttonGroup.disabled;
   }
   set disabled(value: boolean) {
-    this._disabled = value;
+    this._disabled = coerceBooleanProperty(value);
   }
 
   /** The bound value. */
