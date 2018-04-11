@@ -10,5 +10,8 @@ import { CdkTable } from '@angular/cdk/table';
   changeDetection: ChangeDetectionStrategy.OnPush,
   // tslint:disable-next-line:use-view-encapsulation
   encapsulation: ViewEncapsulation.None,
+  host: {
+    class: 'dt-table',
+  },
 })
 export class DtTable<T> extends CdkTable<T> { }

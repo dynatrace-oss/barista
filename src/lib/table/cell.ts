@@ -1,11 +1,5 @@
 import { Directive, ElementRef, Input } from '@angular/core';
-import {
-  CdkCell,
-  CdkCellDef,
-  CdkColumnDef,
-  CdkHeaderCell,
-  CdkHeaderCellDef,
-} from '@angular/cdk/table';
+import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 
 /**
  * Cell definition for the dt-table.
@@ -45,30 +39,18 @@ export class DtColumnDef extends CdkColumnDef {
 @Directive({
   selector: 'dt-header-cell, th[dt-header-cell]',
   host: {
-    class: 'dt-header-cell',
+    class: 'dt-table__header-cell',
     role: 'columnheader',
   },
 })
-export class DtHeaderCell extends CdkHeaderCell {
-  constructor(columnDef: DtColumnDef,
-              elementRef: ElementRef) {
-    super(columnDef, elementRef);
-    elementRef.nativeElement.classList.add(`dt-column-${columnDef.cssClassFriendlyName}`);
-  }
-}
+export class DtHeaderCell { }
 
 /** Cell template container that adds the right classes and role. */
 @Directive({
   selector: 'dt-cell, td[dt-cell]',
   host: {
-    class: 'dt-cell',
+    class: 'dt-table__cell',
     role: 'gridcell',
   },
 })
-export class DtCell extends CdkCell {
-  constructor(columnDef: DtColumnDef,
-              elementRef: ElementRef) {
-    super(columnDef, elementRef);
-    elementRef.nativeElement.classList.add(`dt-column-${columnDef.cssClassFriendlyName}`);
-  }
-}
+export class DtCell { }
