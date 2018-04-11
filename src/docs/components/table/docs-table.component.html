@@ -1,1 +1,21 @@
 <h1>Table</h1>
+
+<dt-table [dataSource]="dataSource1">
+  <ng-container dtColumnDef="id">
+    <dt-header-cell *dtHeaderCellDef>ID</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{row.id}}</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="host">
+    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="ip">
+    <dt-header-cell *dtHeaderCellDef>IP</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{row.ip}}</dt-cell>
+  </ng-container>
+
+  <dt-header-row *dtHeaderRowDef="['id', 'host', 'ip']"></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: ['id', 'host', 'ip']"></dt-row>
+</dt-table>
