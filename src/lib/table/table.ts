@@ -1,12 +1,13 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { CdkTable } from '@angular/cdk/table';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CdkTable, CDK_TABLE_TEMPLATE } from '@angular/cdk/table';
 
 @Component({
   moduleId: module.id,
   selector: 'dt-table',
   styleUrls: ['./table.scss'],
-  templateUrl: './table.html',
+  template: CDK_TABLE_TEMPLATE,
   exportAs: 'dtTable',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated
 })
-export class DtTable<T> extends CdkTable<T> {}
+export class DtTable<T> extends CdkTable<T> { }
