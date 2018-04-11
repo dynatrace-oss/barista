@@ -16,7 +16,7 @@ export class DocsInlineEditorComponent implements OnInit {
   }
 
   openEditor () {
-    this.sectionTitleReference.enterEditingMode();
+    this.sectionTitleReference.enterEditing();
   }
 
   closeEditor () {
