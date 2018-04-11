@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import {
   CDK_ROW_TEMPLATE,
   CdkHeaderRow,
@@ -37,10 +37,12 @@ export class DtRowDef<T> extends CdkRowDef<T> {
   selector: 'dt-header-row, tr[dt-header-row]',
   template: CDK_ROW_TEMPLATE,
   host: {
-    'class': 'dt-header-row',
-    'role': 'row',
+    class: 'dt-header-row',
+    role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // tslint:disable-next-line:use-view-encapsulation
+  encapsulation: ViewEncapsulation.None,
   exportAs: 'dtHeaderRow',
 })
 export class DtHeaderRow extends CdkHeaderRow { }
@@ -51,10 +53,12 @@ export class DtHeaderRow extends CdkHeaderRow { }
   selector: 'dt-row, tr[dt-row]',
   template: CDK_ROW_TEMPLATE,
   host: {
-    'class': 'dt-row',
-    'role': 'row',
+    class: 'dt-row',
+    role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // tslint:disable-next-line:use-view-encapsulation
+  encapsulation: ViewEncapsulation.None,
   exportAs: 'dtRow',
 })
 export class DtRow extends CdkRow { }

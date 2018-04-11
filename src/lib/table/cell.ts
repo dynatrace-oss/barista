@@ -13,7 +13,7 @@ import {
  */
 @Directive({
   selector: '[dtCellDef]',
-  providers: [{provide: CdkCellDef, useExisting: DtCellDef}]
+  providers: [{provide: CdkCellDef, useExisting: DtCellDef}],
 })
 export class DtCellDef extends CdkCellDef { }
 
@@ -23,7 +23,7 @@ export class DtCellDef extends CdkCellDef { }
  */
 @Directive({
   selector: '[dtHeaderCellDef]',
-  providers: [{provide: CdkHeaderCellDef, useExisting: DtHeaderCellDef}]
+  providers: [{provide: CdkHeaderCellDef, useExisting: DtHeaderCellDef}],
 })
 export class DtHeaderCellDef extends CdkHeaderCellDef { }
 
@@ -37,6 +37,7 @@ export class DtHeaderCellDef extends CdkHeaderCellDef { }
 })
 export class DtColumnDef extends CdkColumnDef {
   /** Unique name for this column. */
+  // tslint:disable-next-line:no-input-rename
   @Input('dtColumnDef') name: string;
 }
 
@@ -44,8 +45,8 @@ export class DtColumnDef extends CdkColumnDef {
 @Directive({
   selector: 'dt-header-cell, th[dt-header-cell]',
   host: {
-    'class': 'dt-header-cell',
-    'role': 'columnheader',
+    class: 'dt-header-cell',
+    role: 'columnheader',
   },
 })
 export class DtHeaderCell extends CdkHeaderCell {
@@ -60,8 +61,8 @@ export class DtHeaderCell extends CdkHeaderCell {
 @Directive({
   selector: 'dt-cell, td[dt-cell]',
   host: {
-    'class': 'dt-cell',
-    'role': 'gridcell',
+    class: 'dt-cell',
+    role: 'gridcell',
   },
 })
 export class DtCell extends CdkCell {
