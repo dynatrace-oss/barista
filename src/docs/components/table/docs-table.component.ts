@@ -20,11 +20,13 @@ export class DocsTableComponent implements AfterViewInit {
   ];
 
   @ViewChild(HeaderRowPlaceholder) _headerRowPlaceholder: HeaderRowPlaceholder;
+  @ContentChild(HeaderRowPlaceholder) _headerRowPlaceholder2: HeaderRowPlaceholder;
 
   constructor() { }
 
   ngAfterViewInit() {
-    console.log('test', this._headerRowPlaceholder);
+    console.log('ViewChild', this._headerRowPlaceholder);
+    console.log('ContentChild', this._headerRowPlaceholder2);
   }
 
 }
