@@ -1,0 +1,42 @@
+@import '../core/style/variables';
+
+$dt-loading-spinner-default-size: 30px;
+$dt-loading-spinner-small-size: 15px;
+$dt-loading-spinner-offset: 22px*3.1416; //r(-gap)*2*3.14
+$dt-loading-spinner-duration: 1700ms;
+$dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+:host {
+  display: inline-block;
+  width: $dt-loading-spinner-default-size;
+  height: $dt-loading-spinner-default-size;
+
+  &.dt-loading-spinner-size-small {
+    width: $dt-loading-spinner-small-size;
+    height: $dt-loading-spinner-small-size;
+  }
+}
+
+.dt-loading-spinner-svg {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  stroke-width: 4px;
+  stroke: $logolime;
+  fill: none;
+  -webkit-animation: spin $dt-loading-spinner-duration * 2 linear infinite;
+          animation: spin $dt-loading-spinner-duration * 2 linear infinite;
+
+  .dt-loading-spinner-size-small & {
+    stroke: $gray-500;
+  }
+}
+
+.dt-loading-spinner-path {
+  stroke-dasharray: $dt-loading-spinner-offset;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-animation: dash $dt-loading-spinner-duration $dt-loading-spinner-ease infinite;
+          animation: dash $dt-loading-spinner-duration $dt-loading-spinner-ease infinite;
+}

@@ -10,5 +10,6 @@ export class Docs {
     {name: 'Start', route: '/'},
     {name: 'Button', route: '/button'},
     {name: 'Button Toggle', route: '/button-toggle'},
+    {name: 'Loading distractor', route: '/loading-distractor'},
   ];
 }
