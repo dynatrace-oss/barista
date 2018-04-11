@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ViewContainerRef } from '@angular/core';
 import {
   CDK_ROW_TEMPLATE,
   CdkHeaderRow,
@@ -14,7 +14,7 @@ import {
 @Directive({
   selector: '[dtHeaderRowDef]',
   providers: [{provide: CdkHeaderRowDef, useExisting: DtHeaderRowDef}],
-  inputs: ['columns:dtHeaderRowDef'],
+  inputs: ['columns: dtHeaderRowDef'],
 })
 export class DtHeaderRowDef extends CdkHeaderRowDef { }
 

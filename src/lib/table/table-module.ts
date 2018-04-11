@@ -24,4 +24,4 @@ const EXPORT_DECLARATIONS = [
     ...EXPORT_DECLARATIONS
   ],
 })
-export class TableModule {}
+export class DtTableModule {}
