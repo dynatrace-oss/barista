@@ -8,6 +8,7 @@ import { DocsLoadingDistractorComponent } from './components/loading-distractor/
 import { DocsExpandablePanelComponent } from './components/expandable-panel/docs-expandable-panel.component';
 import { DocsExpandableSectionComponent } from './components/expandable-section/docs-expandable-section.component';
 import { DocsTableComponent } from './components/table/docs-table.component';
+import { DocsChartComponent } from './components/chart/docs-chart.component';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
   { path: 'links', component: DocsLinkComponent },
   { path: 'table', component: DocsTableComponent },
+  { path: 'chart', component: DocsChartComponent },
   { path: '**', redirectTo: '' },
 ];
 

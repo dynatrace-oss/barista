@@ -30,6 +30,7 @@ import { Platform } from '@angular/cdk/platform';
     DocsExpandablePanelModule,
     DocsExpandableSectionModule,
     DocsTableModule,
+    DocsChartModule,
   ],
   declarations: [
     Docs,

@@ -3,21 +3,21 @@
 <h1>Chart with static data</h1>
 
 <h2>Column chart</h2>
-<dt-chart [options]="columnOptions" [data]="dataStatic" #static></dt-chart>
+<dt-chart [options]="columnOptions" [series]="dataStatic" #static></dt-chart>
 
 <h1>Chart with data as observable</h1>
 
 <h2>Line chart</h2>
-<dt-chart [options]="lineOptions" [data]="data$"></dt-chart>
+<dt-chart [options]="lineOptions" [series]="data$"></dt-chart>
 
 <h2>Column chart</h2>
-<dt-chart [options]="columnOptions" [data]="data$"></dt-chart>
+<dt-chart [options]="columnOptions" [series]="data$"></dt-chart>
 
 <h2>Pie chart</h2>
-<dt-chart [options]="pieOptions" [data]="data$"></dt-chart>
+<dt-chart [options]="pieOptions" [series]="data$"></dt-chart>
 </div>
 
 <h2>Purple Theme</h2>
 <div dtTheme="purple">
-<dt-chart [options]="lineOptions" [data]="data$"></dt-chart>
+<dt-chart [options]="lineOptions" [series]="data$"></dt-chart>
 </div>

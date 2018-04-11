@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DocsChartComponent } from './docs-chart.component';
 import { UiModule } from '../../ui/ui.module';
-import { ChartModule } from '@dynatrace/angular-components';
+import { ChartModule, DtThemingModule } from '@dynatrace/angular-components';
 import { DEFAULT_VIEWPORT_RESIZER_PROVIDER } from '@dynatrace/angular-components/core';
 import { ChartService } from './docs-chart.service';
 import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
@@ -10,6 +10,7 @@ import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
   imports: [
     UiModule,
     ChartModule,
+    DtThemingModule,
   ],
   declarations: [
     DocsChartComponent,
