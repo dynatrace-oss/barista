@@ -4,10 +4,9 @@ import { buildConfig } from '../build-config';
 import { sequenceTask } from '../util/sequence-task';
 
 import * as through from 'through2';
-import * as sass from 'gulp-sass';
 import { replaceVersionPlaceholders } from '../util/replace-version-placeholder';
 
-import * as packagr from '@dynatrace/ng-packagr/lib/ng-v5/packagr';
+import * as packagr from 'ng-packagr/lib/ng-v5/packagr';
 
 const ngPackage = () => through.obj((file, _, callback) => {
   packagr.ngPackagr()
