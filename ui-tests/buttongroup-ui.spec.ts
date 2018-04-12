@@ -1,4 +1,5 @@
 import { browser, by, element, ExpectedConditions } from 'protractor';
+import {not} from 'rxjs/util/not';
 
 describe('button-toggle', () => {
   describe('disabling behavior', () => {
@@ -7,6 +8,17 @@ describe('button-toggle', () => {
     it('should execute click handlers when not disabled', async () => {
       element(by.id('group-1-item-1')).click();
       expect(await element(by.id('lblGroup-1')).getText()).toEqual('Value 1');
+      element(by.id('group-1-item-0')).click();
+      expect(await element(by.id('lblGroup-1')).getText()).toEqual('Value 0');
+    });
+    it('should have styles', async () => {
+      element(by.id('group-1-item-0')).click();
+      expect(await element(by.id('group-1-item-0')).getAttribute('class')).toContain('dt-button-toggle-item-selected');
+      expect(await element(by.id('group-1-item-1')).getAttribute('class')).not.toContain('dt-button-toggle-item-selected');
+
+      element(by.id('group-1-item-1')).click();
+      expect(await element(by.id('group-1-item-0')).getAttribute('class')).not.toContain('dt-button-toggle-item-selected');
+      expect(await element(by.id('group-1-item-1')).getAttribute('class')).toContain('dt-button-toggle-item-selected');
     });
 
     it('should not execute click handlers when disabled', async () => {
