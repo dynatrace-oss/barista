@@ -7,6 +7,7 @@ import * as through from 'through2';
 import { replaceVersionPlaceholders } from '../util/replace-version-placeholder';
 
 import * as packagr from 'ng-packagr/lib/ng-v5/packagr';
+import { parseFile } from 'sass-graph';
 
 const ngPackage = () => through.obj((file, _, callback) => {
   packagr.ngPackagr()
@@ -19,7 +20,7 @@ const ngPackage = () => through.obj((file, _, callback) => {
 const WATCH_DEBOUNCE_DELAY = 700;
 
 task('library:watch', () => {
-  watch(join(buildConfig.libDir, '**/*'), { debounceDelay: WATCH_DEBOUNCE_DELAY }, ['library:compile']);
+  watch(join(buildConfig.libDir, '**/*'), { debounceDelay: WATCH_DEBOUNCE_DELAY }, ['library:compile', 'library:styles']);
 });
 
 task('library:version-replace', replaceVersionPlaceholders);
@@ -47,9 +48,17 @@ task('library:compile', () =>
   })
   .pipe(ngPackage()));
 
+task('library:styles', () => {
+  const stylesGraph = parseFile(join(buildConfig.libDir, 'style/index.scss'));
+
+  return src(Object.keys(stylesGraph.index), {base: buildConfig.libDir})
+    .pipe(dest(buildConfig.libOutputDir));
+});
+
 task('library:build', sequenceTask(
   'clean:lib',
   'library:compile',
+  'library:styles',
   'library:version-replace',
-  'library:removeModuleId',
+  'library:removeModuleId'
 ));
