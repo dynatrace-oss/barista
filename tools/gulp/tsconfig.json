@@ -14,9 +14,10 @@
       "node"
     ],
     "baseUrl": ".",
-    "paths": {
-      
-    }
+    "paths": {},
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "files": [
     "gulpfile.ts"
