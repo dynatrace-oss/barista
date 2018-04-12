@@ -34,7 +34,7 @@
   }
 
   &:focus:not([disabled]) {
-    @include gh-focus-style();
+    @include dt-focus-style();
   }
 }
 
