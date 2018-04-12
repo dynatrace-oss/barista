@@ -5,8 +5,9 @@
  */
 
 const path = require('path');
+const chromeConfig = require('./chrome.conf');
 
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+process.env.CHROME_BIN = chromeConfig.binary;
 
 module.exports = (config) => {
 
@@ -50,7 +51,14 @@ module.exports = (config) => {
     browserDisconnectTimeout: 20000,
     browserNoActivityTimeout: 240000,
     captureTimeout: 120000,
-    browsers: ['ChromeHeadless'],
+    browsers: ['CustomChromeHeadless'],
+
+    customLaunchers: {
+      CustomChromeHeadless: {
+        base: 'ChromeHeadless',
+        flags: chromeConfig.karmaFlags,
+      }
+    },
 
     client: {
       jasmine: {
