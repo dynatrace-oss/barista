@@ -1,0 +1,127 @@
+<h1>Expandable panel</h1>
+<p>
+  This Angular component provides basic expand/collapse functionality without any styling.
+  A <code>&lt;dt-expandable-panel&gt;</code> element should be used whenever some action is performed. The expandable trigger directive (<code>dtExpandablePanel</code>)
+  allows you to bind a custom element as trigger to an expandable panel. The expandable trigger binds to key and click events.
+</p>
+<p>
+  Animation is done using Angular animations. So, don't forget
+  to provide the animations module, too.
+</p>
+
+<h2>Imports</h2>
+<p>You have to import the <code>DtExpandablePanelModule</code> when you want to use the <code>dt-expandable-panel</code>:</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    DtExpandablePanelModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h2>Initialization</h2>
+<p>
+  To apply the dynatrace expandable panel, use the <code>&lt;dt-expandable-panel&gt;</code> element. Example:
+</p>
+<docs-source-example [example]="examples.default"></docs-source-example>
+
+<table class="table">
+  <thead>
+  <tr>
+    <td width="190px">Attribute</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>dt-expandable-panel</code></td>
+    <td>The expandable panel, with the behaviour, but without styling</td>
+  </tr>
+  <tr>
+    <td><code>[dtExpandablePanel]=#panel</code></td>
+    <td>The expandable trigger which listens on click and key events. The trigger needs to get a panel assigned.</td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Options & Properties</h2>
+<h3>Expandable panel</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <td width="160px">Name</td>
+    <td width="250px">Type</td>
+    <td width="160px">Default</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>[opened]</code></td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
+    <td>Sets or gets the opened state</td>
+  </tr>
+  <tr>
+    <td><code>(openedChange)</code></td>
+    <td><code>event&lt;boolean&gt;</code></td>
+    <td></td>
+    <td>Emits an event when the expanded state changes.</td>
+  </tr>
+  <tr>
+    <td><code>toggle</code></td>
+    <td><code>boolean | undefined</code></td>
+    <td></td>
+    <td>Toggles the expanded state, i.e. changes it to expanded, if collapsed, or vice-versa</td>
+  </tr>
+  <tr>
+    <td><code>open</code></td>
+    <td><code>boolean | undefined</code></td>
+    <td></td>
+    <td>Expands the panel</td>
+  </tr>
+  <tr>
+    <td><code>close</code></td>
+    <td><code>boolean | undefined</code></td>
+    <td></td>
+    <td>Collapses the panel</td>
+  </tr>
+  </tbody>
+</table>
+<h3>Expandable trigger</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <td width="160px">Name</td>
+    <td width="250px">Type</td>
+    <td width="160px">Default</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>[opened]</code></td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
+    <td>Sets or gets the opened state</td>
+  </tr>
+  <tr>
+    <td><code>[dtExpandablePanel]</code></td>
+    <td><code>DtExpandablePanel</code></td>
+    <td><code>undefined</code></td>
+    <td>Attaches the expandable panel to this trigger</td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Examples</h2>
+<h3>Open state</h3>
+<docs-source-example [example]="examples.open"></docs-source-example>
+
+<h2>Simple trigger</h2>
+<docs-source-example [example]="examples.triggerSimple"></docs-source-example>
+
+<h2>Styled trigger</h2>
+<docs-source-example [example]="examples.trigger"></docs-source-example>

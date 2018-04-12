@@ -8,6 +8,8 @@ import { Docs } from './docs.component';
 import { Home } from './docs-home/docs-home.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
 import { DocsLoadingDistractorModule } from './components/loading-distractor/docs-loading-distractor.module';
+import {DocsExpandablePanelModule} from './components/expandable-panel/docs-expandable-panel.module';
+import {DocsExpandableSectionModule} from './components/expandable-section/docs-expandable-section.module';
 
 @NgModule({
   imports: [
@@ -17,6 +19,8 @@ import { DocsLoadingDistractorModule } from './components/loading-distractor/doc
     DocsRoutingModule,
     DocsButtonModule,
     DocsLoadingDistractorModule,
+    DocsExpandablePanelModule,
+    DocsExpandableSectionModule
   ],
   declarations: [
     Docs,
