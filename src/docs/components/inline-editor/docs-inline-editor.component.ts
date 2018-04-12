@@ -10,7 +10,7 @@ import { DtInlineEditor } from '../../../lib/inline-editor/inline-editor.compone
 export class DocsInlineEditorComponent implements OnInit {
   contentString: string = "hello world"
   @ViewChild('sectionTitle') sectionTitleReference: DtInlineEditor;
-  
+
   ngOnInit() {
     // this.sectionTitleReference.enterEditingMode();
   }
