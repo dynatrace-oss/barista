@@ -4,12 +4,19 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: `
     <input dtInput
-      type="email"
+      required
       placeholder="Enter Text"
-      [(ngModel)]="emailValue"/>
-    <p>Output: <em>{{emailValue || 'none'}}</em></p>
+      [(ngModel)]="textValue"
+      #textControl="ngModel" />
+    <p>Output: <em>{{textValue || 'none'}}</em></p>
+    <!-- The lines below are just for the showcase, do not use this in production -->
+    <p>
+      Touched: {{ textControl.touched }}<br />
+      Dirty: {{ textControl.dirty }}<br />
+      Status: {{ textControl.control?.status }}<br />
+    </p>
   `,
 })
 export class NgModelInputExample {
-  emailValue = '';
+  textValue = '';
 }
