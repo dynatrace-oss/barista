@@ -92,9 +92,7 @@ export class DtButtonToggleItem<T> extends _DtButtonToggleItem implements CanDis
   @Input()
   get value(): T { return this._value; }
   set value(newValue: T) {
-    if (this._value !== newValue) {
-      this._value = newValue;
-    }
+    this._value = newValue;
   }
 
   select(selected: boolean = true): void {
@@ -108,7 +106,6 @@ export class DtButtonToggleItem<T> extends _DtButtonToggleItem implements CanDis
   @HostListener('click')
   private _onSelect(): void {
     if (!this.disabled) {
-      this._changeDetectorRef.markForCheck();
       this.selectionChange.emit({source: this, isUserInput: true});
     }
   }
