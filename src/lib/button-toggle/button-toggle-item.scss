@@ -1,6 +1,6 @@
 @import '../core/style/variables';
 
-@mixin boxShadow($width, $color) {
+@mixin boxShadowSelected($width, $color) {
   box-shadow:
     $width 0 0 0 $color,
     0 $width 0 0 $color,
@@ -8,9 +8,20 @@
     $width 0 0 0 $color inset,
     0 $width 0 0 $color inset;
 }
-@mixin boxShadow2($width, $color) {
+@mixin boxShadowFocus() {
   box-shadow:
-    0 0 0 $width $color;
+    0 0 0 2px $gray-300;
+}
+@mixin boxShadowSelectedFocus($width, $color) {
+  box-shadow:
+    $width 0 0 0 $color,
+    0 $width 0 0 $color,
+    $width $width 0 0 $color,
+    $width 0 0 0 $color inset,
+    0 $width 0 0 $color inset,
+    0 0 0 1px $gray-300,
+    2px 0 0 0 $gray-300,
+    0 2px 0 0 $gray-300;
 }
 
 :host {
@@ -25,7 +36,7 @@
   line-height: 32px;
   vertical-align: middle;
 
-  @include boxShadow(1px, $gray-300);
+  @include boxShadowSelected(1px, $gray-300);
 
   cursor: pointer;
   transition: box-shadow 0.1s;
@@ -36,7 +47,7 @@
   }
 
   &:focus {
-    @include boxShadow2(2px, $gray-300);
+    @include boxShadowFocus();
  }
 
   &:first-child {
@@ -49,7 +60,6 @@
 
   &.dt-button-toggle-item-selected {
     background-color: $gray-100;
-    font-weight: 600;
   }
 
   &.dt-button-toggle-item-disabled {
@@ -68,7 +78,7 @@
   @return $result;
 }
 $theme-light: (
-  main: dt-palette($turquoise-600, $turquoise-700, $turquoise-800),
+  main: dt-palette($turquoise-600, $turquoise-600, $turquoise-700),
   error: dt-palette($red-600, $red-700, $red-800),
   is-dark: false
 );
@@ -100,18 +110,19 @@ $theme-dark: (
     }
 
     &#{$namespace}.dt-button-toggle-item:hover {
-      @include boxShadow(1px, $hover-color);
+      @include boxShadowSelected(1px, $hover-color);
     }
 
-    &#{$namespace}.dt-button-toggle-item-selected:focus {
-      @include boxShadow2(2px, $active-color);
+    &#{$namespace}.dt-button-toggle-item.dt-button-toggle-item-selected:focus {
+      @include boxShadowSelectedFocus(1px, $active-color);
     }
 
-    &#{$namespace}.dt-button-toggle-item-selected {
+    &#{$namespace}.dt-button-toggle-item.dt-button-toggle-item-selected {
       z-index:1;
       position:relative;
+      color: $active-color;
 
-      @include boxShadow(1px, $active-color);
+      @include boxShadowSelected(1px, $active-color);
     }
 
   }

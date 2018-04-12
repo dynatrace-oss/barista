@@ -146,13 +146,13 @@ export class DtButtonToggle<T> extends _DtButtonToggle implements CanDisable, Ha
   private _initializeSelection(): void {
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
+
+    // tslint:disable-next-line:no-floating-promises
     Promise.resolve().then(() => {
       if (this._value !== undefined) {
         this._selectValue(this._value);
       }
     })
-      .catch(() => {
-      })
     ;
   }
 
@@ -197,9 +197,9 @@ export class DtButtonToggle<T> extends _DtButtonToggle implements CanDisable, Ha
 
         this._selectItem(true, evt.source);
       });
-    const selectedItem = this._items.filter((item) => item.selected);
-    if (selectedItem.length > 0) {
-      this._selectItem(false, selectedItem[0]);
+    const selectedItem = this._items.find((item) => item.selected);
+    if (selectedItem !== undefined) {
+      this._selectItem(false, selectedItem);
     }
   }
 

@@ -53,9 +53,9 @@ describe('DtButtonToggle', () => {
     it('should set individual button names based on the template name', () => {
 
       let i = 0;
-      for (const item of itemInstances) {
-        expect(item.value).toBe(testComponent.values[i++][0]);
-      }
+      itemInstances.forEach((item, i) =>
+        expect(item.value).toBe(testComponent.values[i][0])
+      );
     });
 
     it('should have a value after selections', () => {

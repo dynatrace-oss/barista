@@ -8,7 +8,6 @@ import {ButtonToggleErrorExampleComponent} from './examples/button-toggle-error-
 @Component({
   moduleId: module.id,
   selector: 'docs-button-toggle',
-  styleUrls: ['./docs-button-toggle.component.scss'],
   templateUrl: './docs-button-toggle.component.html',
 })
 export class DocsButtonToggleComponent {

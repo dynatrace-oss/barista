@@ -19,10 +19,5 @@ export function mixinTabIndex<T extends Constructor<CanDisable>>(base: T, defaul
 
       this._tabIndex = coerceNumberProperty(value, defaultTabIndex);
     }
-
-    // tslint:disable-next-line:no-any
-    constructor(...args: any[]) {
-      super(...args);
-    }
   };
 }
