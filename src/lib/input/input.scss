@@ -1,0 +1,52 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+
+.dt-input {
+  font-family: $mainfont;
+  appearance: none;
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  text-decoration: none;
+  border: 1px solid $disabledcolor;
+  border-radius: 3px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 11px;
+  padding-right: 11px;
+  font-size: 14px;
+  line-height: 32px;
+  line-height: -moz-block-height;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: left;
+  overflow: hidden;
+  width: 100%;
+  color: $gray-700;
+
+  &:hover:not([disabled]) {
+    border-color: $gray-500;
+  }
+
+  &[disabled] {
+    background-color: $gray-100;
+    color: $disabledcolor;
+  }
+
+  &:focus:not([disabled]) {
+    @include gh-focus-style();
+  }
+}
+
+input.dt-input {
+  height: 32px;
+  line-height: 32px;
+}
+
+textarea.dt-input {
+  line-height: 1.5;
+  resize: none;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  white-space: pre-wrap;
+}
