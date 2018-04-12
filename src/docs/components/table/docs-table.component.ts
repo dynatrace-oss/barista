@@ -4,7 +4,6 @@ import { HeaderRowPlaceholder } from '@angular/cdk/table';
 @Component({
   moduleId: module.id,
   selector: 'docs-table',
-  styleUrls: ['./docs-table.component.scss'],
   templateUrl: './docs-table.component.html',
 })
 export class DocsTableComponent {
