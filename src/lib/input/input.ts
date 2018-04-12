@@ -66,8 +66,6 @@ export const _DtInputMixinBase = mixinErrorState(DtInputBase);
     '[attr.aria-describedby]': '_ariaDescribedby || null',
     '[attr.aria-invalid]': 'errorState',
     '[attr.aria-required]': 'required.toString()',
-    '(blur)': '_focusChanged(false)',
-    '(focus)': '_focusChanged(true)',
     '(input)': '_onInput()',
   },
 })
