@@ -10,11 +10,12 @@ import {
   forwardRef,
 } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 const MODES = {
   IDLE: 0,
   EDITING: 1,
-  DISABLED: 2
+  SAVING: 2
 }
 
 @Component({
@@ -24,15 +25,25 @@ const MODES = {
   selector: "[dt-inline-editor]",
   styleUrls: ["./inline-editor.component.scss"],
   template: `
-    <span *ngIf="!isEditing()">{{ value }}</span>
+    <span *ngIf="isIdle()">{{ value }}</span>
     <input #input
-      *ngIf="isEditing()"
+      *ngIf="isEditing() || isSaving()"
+      [disabled]="isSaving()"
       [value]="value"
       (change)="onChange()"
       (keyup)="onChange()" />
-    <button type="button" *ngIf="!isEditing()" (click)="enterEditing()">edit</button>
-    <button type="button" *ngIf="isEditing()" (click)="saveAndQuitEditing()">save</button>
-    <button type="button" *ngIf="isEditing()" (click)="cancelAndQuitEditing()">cancel</button>
+    <button type="button" *ngIf="isIdle()" (click)="enterEditing()">edit</button>
+
+    <span *ngIf="isSaving()"> (saving...)</span>
+
+    <button type="button"
+      *ngIf="isEditing() || isSaving()"
+      [disabled]="isSaving()"
+      (click)="saveAndQuitEditing()">save</button>
+    <button type="button"
+      *ngIf="isEditing() || isSaving()"
+      [disabled]="isSaving()"
+      (click)="cancelAndQuitEditing()">cancel</button>
   `,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DtInlineEditor), multi: true }
@@ -40,7 +51,6 @@ const MODES = {
 })
 export class DtInlineEditor implements ControlValueAccessor {
 
-  private innerValue: string = '';
   private changed = new Array<(value: string) => void>();
   private touched = new Array<() => void>();
   private initialState: string;
@@ -48,11 +58,13 @@ export class DtInlineEditor implements ControlValueAccessor {
 
   @ViewChild('input') inputReference: ElementRef;
 
-  @HostBinding("attr.disabled")
-  private get disabledBinding(): true | undefined {
-    //return this.disabled ? this.disabled : undefined;
-    return undefined
-  }
+  @Input('onSave') onSaveFunction: (result: { value: string }) => Observable<void>;
+  @Output('enterEditing') enterEditingEvent = new EventEmitter<{ value: string }>();
+  @Output('quitEditing') quitEditingEvent = new EventEmitter<{ value: string }>();
+  @Output('save') saveEvent = new EventEmitter<{ value: string }>();
+  @Output('cancel') cancelEvent = new EventEmitter<{ value: string }>();
+  @Output('saved') savedEvent = new EventEmitter<{ value: string }>();
+  @Output('failed') failedEvent = new EventEmitter<{ value: string, error: any }>();
 
   private onChange() {
     this.value = this.inputReference.nativeElement.value;
@@ -64,23 +76,55 @@ export class DtInlineEditor implements ControlValueAccessor {
     this.initialState = this.value;
     this.mode = MODES.EDITING;
     this.touch();
+
+    // Better to trigger it where input is shown already
+    this.enterEditingEvent.emit({ value: this.value });
   }
 
   public saveAndQuitEditing() {
-    this.mode = MODES.IDLE;
+    const value = this.value
+
+    this.saveEvent.emit({ value });
+
+    if (this.onSaveFunction) {
+      this.mode = MODES.SAVING;
+      this.onSaveFunction({ value })
+        .subscribe(
+          () => {
+            this.mode = MODES.IDLE;
+            this.savedEvent.emit({ value });
+            this.quitEditingEvent.emit({ value });
+          },
+          (error) => {
+            this.mode = MODES.EDITING;
+            this.failedEvent.emit({ value, error });
+          }
+        );
+    } else {
+      this.mode = MODES.IDLE;
+    }
   }
 
   public cancelAndQuitEditing() {
+    const value = this.value;
     this.value = this.initialState;
     this.mode = MODES.IDLE;
+    // Triggered with the value that was canceled
+    this.cancelEvent.emit({ value });
+    // Triggered with the actual value
+    this.quitEditingEvent.emit({ value: this.value });
+  }
+
+  public isIdle() {
+    return this.mode === MODES.IDLE;
   }
 
   public isEditing() {
     return this.mode === MODES.EDITING;
   }
 
-  public isDisabled() {
-    return this.mode === MODES.DISABLED;
+  public isSaving() {
+    return this.mode === MODES.SAVING;
   }
 
   // Data binding
