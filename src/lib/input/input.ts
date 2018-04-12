@@ -3,15 +3,12 @@ import {
   Input,
   Optional,
   Self,
-  OnChanges,
-  OnDestroy,
   ElementRef,
   DoCheck
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
-import { Subject } from 'rxjs/Subject';
 import {
   ErrorStateMatcher,
   mixinErrorState,
@@ -32,15 +29,6 @@ const INPUT_INVALID_TYPES = [
   'reset',
   'submit',
 ];
-
-const NEVER_EMPTY_INPUT_TYPES = [
-  'date',
-  'datetime',
-  'datetime-local',
-  'month',
-  'time',
-  'week',
-].filter((t) => getSupportedInputTypes().has(t));
 
 // Boilerplate for applying mixins to DtInput.
 export class DtInputBase {
@@ -199,11 +187,6 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
       this._previousNativeValue = newValue;
       this.stateChanges.next();
     }
-  }
-
-  /** Checks whether the input type is one of the types that are never empty. */
-  private _isNeverEmpty(): boolean {
-    return NEVER_EMPTY_INPUT_TYPES.indexOf(this._type) !== -1;
   }
 
   /** Checks whether the input is invalid based on the native validation. */
