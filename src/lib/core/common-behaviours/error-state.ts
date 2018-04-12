@@ -36,6 +36,9 @@ export function mixinErrorState<T extends Constructor<HasErrorState>>(base: T)
       const oldState = this.errorState;
       const parent = this._parentFormGroup || this._parentForm;
       const matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+      // Disable 'no-unnecessary-type-assertion' rule here as it is a bug in tslint and TS:
+      // https://github.com/palantir/tslint/issues/3540
+      // tslint:disable-next-line:no-unnecessary-type-assertion
       const control = this.ngControl ? this.ngControl.control as FormControl : null;
       const newState = matcher.isErrorState(control, parent);
 
