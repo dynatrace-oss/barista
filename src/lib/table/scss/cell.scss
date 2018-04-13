@@ -3,21 +3,4 @@
 
 :host.dt-cell {
   @extend %base-cell;
-
-  &.dt-align-left {
-    justify-content: flex-start;
-  }
-
-  &.dt-align-right {
-    justify-content: flex-end;
-  }
-
-  &.dt-align-center {
-    justify-content: center;
-  }
-
-  &.dt-column-sorted {
-    font-weight: 700;
-    color: $gray-900;
-  }
 }
