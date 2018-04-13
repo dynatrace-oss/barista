@@ -1,4 +1,4 @@
-import { Directive, Input, ComponentRef, Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 
 /**
