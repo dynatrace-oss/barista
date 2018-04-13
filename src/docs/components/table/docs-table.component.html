@@ -163,6 +163,22 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
 
 <p>The DataSource type is an abstract class with two methods: connect and disconnect. Connect has to return an Observable that the table subscribes to. Disconnect does cleanup. Usin this class to wrap the data provided for the table allows for maximum flexibility and will be the responsible of a future sort, and filter functionalities</p>
 
+
+<h2>Programmatic access</h2>
+<h3>Through the table object</h3>
+<ul>
+  <li>addColumnDef()</li>
+  <li>removeColumnDef()</li>
+  <li>addRowDef()</li>
+  <li>removeRowDef()</li>
+  <li>renderRows()</li>
+  <li>setHeaderRowDef()</li>
+</ul>
+<h3>Through the header object</h3>
+<ul>
+  <li>getColumnsDiff()</li>
+</ul>
+
 <h2>Styling</h2>
 <p>
     The styling will be set for the core component and cannot be changed by the developer using the component. The component should be them-able, though.
