@@ -5,6 +5,7 @@ import {
   EventEmitter,
   HostBinding,
   Input,
+  OnDestroy,
   Output,
   ViewChild,
   forwardRef,
@@ -46,13 +47,15 @@ const MODES = {
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DtInlineEditor), multi: true }
   ]
 })
-export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked {
+export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, OnDestroy {
 
   private changed = new Array<(value: string) => void>();
   private touched = new Array<() => void>();
   private initialState: string;
   private mode = MODES.IDLE;
   private modeOnLastCheck = MODES.IDLE;
+
+  private $saving: any;
 
   @ViewChild('input') inputReference: ElementRef;
   @ViewChild('edit') editButtonReference: ElementRef;
@@ -64,6 +67,13 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked {
   @Output('cancel') cancelEvent = new EventEmitter<{ value: string }>();
   @Output('saved') savedEvent = new EventEmitter<{ value: string }>();
   @Output('failed') failedEvent = new EventEmitter<{ value: string, error: any }>();
+
+  public ngOnDestroy() {
+    if (this.$saving) {
+      this.$saving.unsubscribe();
+      this.$saving = null;
+    }
+  }
 
   private onChange() {
     this.value = this.inputReference.nativeElement.value;
@@ -103,16 +113,18 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked {
 
     if (this.onSaveFunction) {
       this.mode = MODES.SAVING;
-      this.onSaveFunction({ value })
+      this.$saving = this.onSaveFunction({ value })
         .subscribe(
           () => {
             this.mode = MODES.IDLE;
             this.savedEvent.emit({ value });
             this.quitEditingEvent.emit({ value });
+            this.$saving = null;
           },
           (error) => {
             this.mode = MODES.EDITING;
             this.failedEvent.emit({ value, error });
+            this.$saving = null;
           }
         );
     } else {
