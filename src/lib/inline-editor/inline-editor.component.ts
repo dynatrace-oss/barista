@@ -8,6 +8,7 @@ import {
   Output,
   ViewChild,
   forwardRef,
+  AfterViewChecked
 } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -19,9 +20,7 @@ const MODES = {
 }
 
 @Component({
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
-  // tslint:disable-next-line:component-selector
   selector: "[dt-inline-editor]",
   styleUrls: ["./inline-editor.component.scss"],
   template: `
@@ -32,7 +31,7 @@ const MODES = {
       [value]="value"
       (change)="onChange()"
       (keyup)="onChange()" />
-    <button type="button" *ngIf="isIdle()" (click)="enterEditing()">edit</button>
+    <button #edit type="button" *ngIf="isIdle()" (click)="enterEditing()">edit</button>
 
     <span *ngIf="isSaving()"> (saving...)</span>
 
@@ -49,14 +48,16 @@ const MODES = {
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DtInlineEditor), multi: true }
   ]
 })
-export class DtInlineEditor implements ControlValueAccessor {
+export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked {
 
   private changed = new Array<(value: string) => void>();
   private touched = new Array<() => void>();
   private initialState: string;
   private mode = MODES.IDLE;
+  private modeOnLastCheck = MODES.IDLE;
 
   @ViewChild('input') inputReference: ElementRef;
+  @ViewChild('edit') editButtonReference: ElementRef;
 
   @Input('onSave') onSaveFunction: (result: { value: string }) => Observable<void>;
   @Output('enterEditing') enterEditingEvent = new EventEmitter<{ value: string }>();
@@ -69,6 +70,22 @@ export class DtInlineEditor implements ControlValueAccessor {
   private onChange() {
     this.value = this.inputReference.nativeElement.value;
   }
+
+  ngAfterViewChecked() {
+    if (this.mode !== this.modeOnLastCheck) {
+      this.trapFocusToEditControls();
+      this.modeOnLastCheck = this.mode;
+    }
+  }
+
+  private trapFocusToEditControls() {
+    if (this.mode === MODES.EDITING) {
+      this.inputReference.nativeElement.focus();
+    } else {
+      this.editButtonReference.nativeElement.focus();
+    }
+  }
+
 
   // Public API
 
