@@ -27,15 +27,15 @@ export class DtRowDef<T> extends CdkRowDef<T> { }
 /** Header template container that contains the cell outlet. Adds the right class and role. */
 @Component({
   moduleId: module.id,
-  selector: 'dt-header-row, tr[dt-header-row]',
+  selector: 'dt-header-row',
   template: CDK_ROW_TEMPLATE,
+  styleUrls: ['./scss/header-row.scss'],
   host: {
-    class: 'dt-table__header-row',
+    class: 'dt-header-row',
     role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-view-encapsulation
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtHeaderRow',
 })
 export class DtHeaderRow extends CdkHeaderRow { }
@@ -43,15 +43,15 @@ export class DtHeaderRow extends CdkHeaderRow { }
 /** Data row template container that contains the cell outlet. Adds the right class and role. */
 @Component({
   moduleId: module.id,
-  selector: 'dt-row, tr[dt-row]',
+  selector: 'dt-row',
   template: CDK_ROW_TEMPLATE,
+  styleUrls: ['./scss/row.scss'],
   host: {
-    class: 'dt-table__row',
+    class: 'dt-row',
     role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-view-encapsulation
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtRow',
 })
 export class DtRow extends CdkRow { }

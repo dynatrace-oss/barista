@@ -1,0 +1,12 @@
+@import '../../core/style/variables';
+
+/**
+* Flex-based table structure
+*/
+:host.dt-table {
+  display: block;
+  font-family: $mainfont;
+  font-size: 14px;
+  font-weight: 300;
+  color: $gray-700;
+}
