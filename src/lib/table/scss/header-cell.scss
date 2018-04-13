@@ -5,6 +5,7 @@
   @extend %base-cell;
 
   font-size: 12px;
+
   &::after {
     content: ' ';
     width: 100%;
