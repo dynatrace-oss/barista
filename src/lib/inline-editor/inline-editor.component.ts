@@ -12,6 +12,8 @@ import {
 } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { timeout } from "q";
+import { setTimeout } from "timers";
 
 const MODES = {
   IDLE: 0,
@@ -36,12 +38,10 @@ const MODES = {
     <span *ngIf="isSaving()"> (saving...)</span>
 
     <button type="button"
-      *ngIf="isEditing() || isSaving()"
-      [disabled]="isSaving()"
+      *ngIf="isEditing()"
       (click)="saveAndQuitEditing()">save</button>
     <button type="button"
-      *ngIf="isEditing() || isSaving()"
-      [disabled]="isSaving()"
+      *ngIf="isEditing()"
       (click)="cancelAndQuitEditing()">cancel</button>
   `,
   providers: [
@@ -73,15 +73,15 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked {
 
   ngAfterViewChecked() {
     if (this.mode !== this.modeOnLastCheck) {
-      this.trapFocusToEditControls();
+      this.setFocusToEditControls();
       this.modeOnLastCheck = this.mode;
     }
   }
 
-  private trapFocusToEditControls() {
+  private setFocusToEditControls() {
     if (this.mode === MODES.EDITING) {
       this.inputReference.nativeElement.focus();
-    } else {
+    } else if (this.mode === MODES.IDLE) {
       this.editButtonReference.nativeElement.focus();
     }
   }
