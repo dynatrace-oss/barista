@@ -141,11 +141,12 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
     </tr>
   </table>
 
-<h2>Options & Properties</h2>
+<h2>Inputs & Outputs</h2>
 <table class="table">
   <thead>
     <tr>
       <td width="160px">Name</td>
+      <td width="160px">Direction</td>
       <td width="250px">Type</td>
       <td width="160px">Default</td>
       <td>Description</td>
@@ -154,12 +155,14 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
   <tbody>
     <tr>
       <td><code>dataSource</code></td>
+      <td>input</td>
       <td><code>object[] | Observable | DataSource </code></td>
       <td><code>undefined</code></td>
       <td>Data to be shown in the table</td>
     </tr>
   </tbody>
 </table>
+There are no outputs at this stage. The table is totally passive.
 
 <p>The DataSource type is an abstract class with two methods: connect and disconnect. Connect has to return an Observable that the table subscribes to. Disconnect does cleanup. Usin this class to wrap the data provided for the table allows for maximum flexibility and will be the responsible of a future sort, and filter functionalities</p>
 
