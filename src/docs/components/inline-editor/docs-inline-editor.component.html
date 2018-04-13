@@ -1,8 +1,9 @@
 <h1>Inline Editor</h1>
 
-<h2 dt-inline-editor [(ngModel)]="contentString" #sectionTitle></h2>
+<h2 dt-inline-editor [(ngModel)]="contentString" [onSave]="saveMessage" #sectionTitle></h2>
 
 <span> model state : <input [(ngModel)]="contentString"> {{ contentString }}</span>
 <br/><br/>
 <button (click)="openEditor()">open editor</button>
-<button (click)="closeEditor()">close editor</button>
+<button (click)="saveAndCloseEditor()">Save inline edit</button>
+<button (click)="cancelAndCloseEditor()">Cancel inline edit</button>
