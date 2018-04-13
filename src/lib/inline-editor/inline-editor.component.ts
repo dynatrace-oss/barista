@@ -12,8 +12,6 @@ import {
 } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { timeout } from "q";
-import { setTimeout } from "timers";
 
 const MODES = {
   IDLE: 0,
