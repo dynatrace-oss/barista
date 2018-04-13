@@ -10,6 +10,23 @@ $dt-row-horizontal-padding: 12px;
   padding-left: $dt-row-horizontal-padding;
   position: relative;
 
+  &.dt-align-left {
+    justify-content: flex-start;
+  }
+
+  &.dt-align-right {
+    justify-content: flex-end;
+  }
+
+  &.dt-align-center {
+    justify-content: center;
+  }
+
+  &.dt-column-sorted {
+    font-weight: 700;
+    color: $gray-900;
+  }
+
   &:last-child {
     padding-right: $dt-row-horizontal-padding;
   }
