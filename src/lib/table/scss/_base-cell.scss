@@ -1,0 +1,16 @@
+$dt-row-horizontal-padding: 12px;
+
+%base-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  min-height: inherit;
+  padding-left: $dt-row-horizontal-padding;
+  position: relative;
+
+  &:last-child {
+    padding-right: $dt-row-horizontal-padding;
+  }
+}

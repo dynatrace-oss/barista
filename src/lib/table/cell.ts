@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, ComponentRef, Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 
 /**
@@ -36,21 +36,31 @@ export class DtColumnDef extends CdkColumnDef {
 }
 
 /** Header cell template container that adds the right classes and role. */
-@Directive({
+@Component({
   selector: 'dt-header-cell, th[dt-header-cell]',
+  template: '<ng-content></ng-content>',
+  styleUrls: ['./scss/header-cell.scss'],
   host: {
-    class: 'dt-table__header-cell',
+    class: 'dt-header-cell',
     role: 'columnheader',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
+  exportAs: 'dtHeaderRow',
 })
 export class DtHeaderCell { }
 
 /** Cell template container that adds the right classes and role. */
-@Directive({
+@Component({
   selector: 'dt-cell, td[dt-cell]',
+  template: '<ng-content></ng-content>',
+  styleUrls: ['./scss/cell.scss'],
   host: {
-    class: 'dt-table__cell',
+    class: 'dt-cell',
     role: 'gridcell',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
+  exportAs: 'dtHeaderRow',
 })
 export class DtCell { }

@@ -1,0 +1,13 @@
+@import '../../core/style/variables';
+@import 'base-row';
+
+:host.dt-row {
+  @extend %row-base;
+
+  &:nth-child(even) {
+    background-color: #fff;
+  }
+  &:nth-child(odd) {
+    background-color: $gray-100;
+  }
+}
