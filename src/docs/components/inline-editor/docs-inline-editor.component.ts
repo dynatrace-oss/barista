@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DtInlineEditor } from '../../../lib/inline-editor/inline-editor.component';
+import { Observable } from "rxjs/Observable"
+import 'rxjs/add/operator/delay';
 
 @Component({
   moduleId: module.id,
@@ -11,15 +13,36 @@ export class DocsInlineEditorComponent implements OnInit {
   contentString: string = "hello world"
   @ViewChild('sectionTitle') sectionTitleReference: DtInlineEditor;
 
-  ngOnInit() {
-    // this.sectionTitleReference.enterEditingMode();
-  }
+  ngOnInit() {}  
 
   openEditor () {
     this.sectionTitleReference.enterEditing();
   }
 
-  closeEditor () {
+  saveAndCloseEditor () {
+    this.sectionTitleReference.saveAndQuitEditing();
+  }
+
+  cancelAndCloseEditor () {
     this.sectionTitleReference.cancelAndQuitEditing();
   }
+
+  saveMessage = () => new Observable<void>((observer) => {
+    observer.next()
+    // observer.error()
+    observer.complete()
+  }).delay(5000);
+
+  // saveMessage = (message) => {
+  //   return new Promise(function(resolve, reject) {
+  //     console.log('async method called with text ' + message);
+  //     setTimeout(() => {
+  //       if (message) {
+  //         resolve("Stuff worked!");
+  //       } else {
+  //         reject(Error("It broke"));
+  //       }
+  //     }, 5000);
+  //   });
+  // }
 }
