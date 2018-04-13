@@ -6,10 +6,28 @@ import { CommonModule } from '@angular/common';
 import { DtThemingModule } from '@dynatrace/angular-components/theming';
 import { DtTableModule } from '@dynatrace/angular-components/table';
 
+import { DefaultTableExampleComponent } from './examples/table-default-example.component';
+
+const EXAMPLES = [
+    DefaultTableExampleComponent,
+];
+
 @NgModule({
-    imports: [DtTableModule],
-    exports: [DocsTableComponent],
-    declarations: [DocsTableComponent],
-    providers: [],
+    imports: [
+        CommonModule,
+        UiModule,
+        DtThemingModule,
+        DtTableModule,
+    ],
+    exports: [
+        DocsTableComponent,
+    ],
+    declarations: [
+        ...EXAMPLES,
+        DocsTableComponent,
+    ],
+    entryComponents: [
+        ...EXAMPLES,
+    ],
 })
 export class DocsTableModule { }
