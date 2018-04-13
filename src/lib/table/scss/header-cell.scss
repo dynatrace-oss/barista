@@ -1,0 +1,17 @@
+@import '../../core/style/variables';
+@import 'base-cell';
+
+:host.dt-header-cell {
+  @extend %base-cell;
+
+  font-size: 12px;
+  &::after {
+    content: ' ';
+    width: 100%;
+    height: 1px;
+    background-color: $gray-200;
+    display: inline-block;
+    position: absolute;
+    bottom: 13px;
+  }
+}
