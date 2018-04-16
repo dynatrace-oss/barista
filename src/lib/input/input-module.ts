@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { DtInput } from './input';
 import { CommonModule } from '@angular/common';
 import { PlatformModule } from '@angular/cdk/platform';
-import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
+import { DEFAULT_ERROR_STATE_MATCHER_PROVIDER } from '@dynatrace/angular-components/core';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
   declarations: [
     DtInput,
   ],
-  providers: [ErrorStateMatcher],
+  providers: [DEFAULT_ERROR_STATE_MATCHER_PROVIDER],
 })
 export class DtInputModule { }
