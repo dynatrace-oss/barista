@@ -34,7 +34,7 @@ const MODES = {
       (keyup)="onChange()" />
     <button #edit type="button" *ngIf="isIdle()" (click)="enterEditing()">edit</button>
 
-    <span *ngIf="isSaving()"> (saving...)</span>
+    <span *ngIf="isSaving()"> &#8987;</span>
 
     <button type="button"
       *ngIf="isEditing()"
