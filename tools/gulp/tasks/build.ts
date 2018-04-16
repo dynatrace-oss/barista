@@ -12,6 +12,7 @@ import { parseFile } from 'sass-graph';
 const ngPackage = () => through.obj((file, _, callback) => {
   packagr.ngPackagr()
       .forProject(file.path)
+      .withTsConfig(join(buildConfig.projectDir, 'tsconfig.json'))
       .build()
       .then((result: any) => callback(null, result))
       .catch((error: any) => callback(error, null));
