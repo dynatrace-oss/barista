@@ -6,8 +6,11 @@ import {LoremIpsum} from '../../../core/lorem-ipsum';
   template: `<dt-expandable-section #section1>
     <dt-expandable-section-header>My header text</dt-expandable-section-header>
   {{ text }}
-</dt-expandable-section>`
+</dt-expandable-section><br>
+  <button dt-button (click)="section1.open()">Open</button>
+  <button dt-button (click)="section1.close()">Close</button>
+  <button dt-button (click)="section1.toggle()">Toggle</button>`
 })
-export class DefaultExpandableSectionExampleComponent {
+export class InteractiveExpandableSectionExampleComponent {
   text = LoremIpsum.paragraph1
 }

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {DefaultExpandableSectionExampleComponent} from './examples/expandable-section-default-example.component';
+import {InteractiveExpandableSectionExampleComponent} from './examples/expandable-section-interactive-example.component';
+import {OpenExpandableSectionExampleComponent} from './examples/expandable-section-open-example.component';
 
 @Component({
   moduleId: module.id,
@@ -10,6 +12,8 @@ import {DefaultExpandableSectionExampleComponent} from './examples/expandable-se
 export class DocsExpandableSectionComponent {
 
   examples = {
-    default: DefaultExpandableSectionExampleComponent
+    default: DefaultExpandableSectionExampleComponent,
+    interactive: InteractiveExpandableSectionExampleComponent,
+    open: OpenExpandableSectionExampleComponent,
   };
 }
