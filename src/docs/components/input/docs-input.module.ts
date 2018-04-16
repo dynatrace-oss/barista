@@ -10,12 +10,14 @@ import { NgModelInputExample } from './examples/input-ng-model-example';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TextareaInputExample } from './examples/input-textarea-example';
 import { DisabledReadonlyInputExample } from './examples/input-disabled-readonly-example';
+import { DarkInputExample } from './examples/input-dark-example';
 
 const EXAMPLES = [
   DefaultInputExample,
   DisabledReadonlyInputExample,
   NgModelInputExample,
   TextareaInputExample,
+  DarkInputExample,
 ];
 
 @NgModule({
