@@ -70,6 +70,10 @@ System.config({
       'dist/lib/bundles/dynatrace-angular-components-button.umd.js',
     '@dynatrace/angular-components/core':
       'dist/lib/bundles/dynatrace-angular-components-core.umd.js',
+    '@dynatrace/angular-components/expandable-panel':
+      'dist/lib/bundles/dynatrace-angular-components-expandable-panel.umd.js',
+    '@dynatrace/angular-components/expandable-section':
+      'dist/lib/bundles/dynatrace-angular-components-expandable-section.umd.js',
     '@dynatrace/angular-components/loading-distractor':
       'dist/lib/bundles/dynatrace-angular-components-loading-distractor.umd.js',
     '@dynatrace/angular-components/theming':
