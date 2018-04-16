@@ -13,4 +13,4 @@ import { CommonModule } from '@angular/common';
     DtChart,
   ],
 })
-export class ChartModule {}
+export class DtChartModule {}
