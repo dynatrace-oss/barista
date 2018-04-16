@@ -1,3 +1,6 @@
-<div>
+<div [dtExpandablePanel]="panel1">
+  <ng-content select="dt-expandable-section-header"></ng-content></div>
+<dt-expandable-panel #panel1>
+
   <ng-content></ng-content>
-</div>
+</dt-expandable-panel>

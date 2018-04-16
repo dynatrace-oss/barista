@@ -5,9 +5,14 @@ import { CommonModule } from '@angular/common';
 import {DtButtonModule} from '@dynatrace/angular-components/button';
 import {DtExpandableSectionModule} from '@dynatrace/angular-components/expandable-section';
 import {DefaultExpandableSectionExampleComponent} from './examples/expandable-section-default-example.component';
+import {DtExpandablePanelModule} from '@dynatrace/angular-components/expandable-panel';
+import {InteractiveExpandableSectionExampleComponent} from './examples/expandable-section-interactive-example.component';
+import {OpenExpandableSectionExampleComponent} from './examples/expandable-section-open-example.component';
 
 const EXAMPLES = [
   DefaultExpandableSectionExampleComponent,
+  InteractiveExpandableSectionExampleComponent,
+  OpenExpandableSectionExampleComponent,
 ];
 
 @NgModule({
