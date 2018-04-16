@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   ViewChild,
   ElementRef,
   AfterViewInit,
@@ -10,24 +9,19 @@ import {
   EventEmitter,
   Output,
   Optional,
-  ChangeDetectorRef,
   SkipSelf,
   SimpleChanges,
   OnChanges,
   isDevMode,
+  ViewEncapsulation,
 } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { ViewportResizer } from '@dynatrace/angular-components/core';
-import { Subject } from 'rxjs/Subject';
-import { NeverObservable } from 'rxjs/observable/NeverObservable';
 import { delay } from 'rxjs/operators/delay';
 import { CHART_COLOR_PALETTES, ChartColorPalette } from './chart-colors';
 import { DtTheme } from '@dynatrace/angular-components/theming';
-
-export type ChartType = 'line' | 'column' | 'pie';
-const defaultChartType = 'line';
 
 export type DtChartOptions = Highcharts.Options & { series?: undefined };
 export type DtChartSeries = Highcharts.IndividualSeriesOptions[];
@@ -38,6 +32,8 @@ export type DtChartSeries = Highcharts.IndividualSeriesOptions[];
   styleUrls: ['./chart.scss'],
   templateUrl: './chart.html',
   exportAs: 'dtChart',
+  encapsulation: ViewEncapsulation.Emulated,
+  preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
@@ -71,7 +67,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
 
   constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
     @Optional() private _viewportResizer: ViewportResizer,
     @Optional() @SkipSelf() private _theme: DtTheme
   ) {
@@ -105,10 +100,12 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
   }
 
+  /** returns the series data for the chart */
   getSeries(): DtChartSeries {
     return this._series;
   }
 
+  /** returns an array of ids for the series data */
   getAllIds(): Array<string | undefined> | undefined {
     if (this._series) {
 
@@ -122,11 +119,15 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * applies the colors from the theme to the series if no color for the series is set
    */
   _applyColors(): void {
-    if (this._theme === null || this._theme.name === null) {
-      return;
+    if (this._theme && this._theme.name) {
+      this._colorPalette = CHART_COLOR_PALETTES[this._theme.name];
+      // this._colorPalette = CHART_COLOR_PALETTES['turquoise'];
+      if (this._colorPalette) {
+        this._series.forEach((s: Highcharts.IndividualSeriesOptions, index: number): void => {
+          this._applySeriesColor(s, index);
+        });
+      }
     }
-    this._colorPalette = CHART_COLOR_PALETTES[this._theme.name]; // TODO check if undefined
-    this._series.forEach((s: Highcharts.IndividualSeriesOptions, index: number) => this._applySeriesColor(s, index));
   }
 
   _applySeriesColor(s: Highcharts.IndividualSeriesOptions, index: number): void {
@@ -141,20 +142,23 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       return;
     }
     if (index >= this._colorPalette.multi.length && isDevMode()) {
+      // tslint:disable-next-line: no-console
       console.error(`The number of series exceeds the number of chart colors in the theme ${this._theme.name}.
         Please specify colors for your series.`);
     }
+    // apply color for multi series
     s.color = this._colorPalette.multi[index];
   }
 
   _getHighchartsOptions(): Highcharts.Options {
     const options = this.options as Highcharts.Options;
-    options.series = this._series as Highcharts.IndividualSeriesOptions[];
+    options.series = this._series;
 
     return options;
   }
 
   _createChart(): void {
+    this._applyColors();
     this._chartObject = Highcharts.chart(this.container.nativeElement, this._getHighchartsOptions());
   }
 

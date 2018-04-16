@@ -55,7 +55,6 @@ export class DtTheme implements OnDestroy {
    */
   @Input()
   set dtTheme(value: string) {
-    console.log(value);
     if (value === void 0) {
       return;
     }
