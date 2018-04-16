@@ -32,16 +32,19 @@ export class DocsInlineEditorComponent {
 
   successfulSave () {
     return new Observable<void>((observer) => {
-      observer.next();
-      observer.complete();
-    }).delay(2e3);
->>>>>>> InlinEditor: Demo page
+      setTimeout(() => {
+        observer.next();
+        observer.complete();
+      }, 2e3);
+    });
   }
 
   failingSave () {
     return new Observable<void>((observer) => {
-      observer.error();
-    }).delay(2e3);
+      setTimeout(() => {
+        observer.error();
+      }, 2e3);
+    });
   }
 <<<<<<< HEAD
 

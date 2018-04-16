@@ -59,9 +59,11 @@
   <pre>
 successfulSave () &#123;
   return new Observable&lt;void&gt;((observer) =&gt; &#123;
-    observer.next()
-    observer.complete()
-  }).delay(2e3);
+    setTimeout(() =&gt; &#123;
+      observer.next();
+      observer.complete();
+    }, 2e3);
+  });
 }</pre>
 
   <pre>
@@ -82,9 +84,10 @@ successfulSave () &#123;
   <pre>
 failingSave () &#123;
   return new Observable&lt;void&gt;((observer) =&gt; &#123;
-    observer.error();
-    observer.complete();
-  }).delay(2e3);
+    setTimeout(() =&gt; &#123;
+      observer.error();
+    }, 2e3);
+  });
 }</pre>
 
   <pre>
