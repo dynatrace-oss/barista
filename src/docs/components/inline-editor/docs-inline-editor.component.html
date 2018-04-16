@@ -1,9 +1,95 @@
 <h1>Inline Editor</h1>
 
-<h2 dt-inline-editor [(ngModel)]="contentString" [onSave]="saveMessage" #sectionTitle></h2>
+<h2>Samples</h2>
 
-<span> model state : <input [(ngModel)]="contentString"> {{ contentString }}</span>
-<br/><br/>
-<button (click)="openEditor()">open editor</button>
-<button (click)="saveAndCloseEditor()">Save inline edit</button>
-<button (click)="cancelAndCloseEditor()">Cancel inline edit</button>
+<h3>Basic usage</h3>
+
+<p>Editor with two-way data-binding</p>
+
+<section class="sample">
+  <article>
+    <h6 dt-inline-editor
+      [(ngModel)]="sampleModel1"></h6>
+    <span>model: <code>{{ sampleModel1 }}</code></span>
+  </article>
+
+  <pre>
+&lt;h6 dt-inline-editor
+  [(ngModel)]="sampleModel1"&gt;&lt;/h6&gt;</pre>
+</section>
+
+<h3>JavaScript API</h3>
+
+<p>Using programmatic API to control the component</p>
+
+<section class="sample">
+  <article>
+    <h6 #sampleEditor2
+      dt-inline-editor
+      [(ngModel)]="sampleModel2"></h6>
+
+    <button (click)="sampleEditor2.enterEditing()">open editor</button>
+    <button (click)="sampleEditor2.saveAndQuitEditing()">save changes</button>
+    <button (click)="sampleEditor2.cancelAndQuitEditing()">cancel changes</button>
+  </article>
+
+  <pre>@ViewChild('sampleEditor2') sampleEditor2: DtInlineEditor;</pre>
+
+  <pre>
+&lt;h6 #sampleEditor2
+  dt-inline-editor
+  [(ngModel)]="sampleModel2"&gt;&lt;/h6&gt;
+
+&lt;button (click)="sampleEditor2.enterEditing()"&gt;open editor&lt;/button&gt;
+&lt;button (click)="sampleEditor2.saveAndQuitEditing()"&gt;save changes&lt;/button&gt;
+&lt;button (click)="sampleEditor2.cancelAndQuitEditing()"&gt;cancel changes&lt;/button&gt;</pre>
+</section>
+
+<h3>Asynchronous tasks</h3>
+
+<p>Successful operation</p>
+
+<section class="sample">
+  <article>
+    <h6 dt-inline-editor
+      [(ngModel)]="sampleModel3Successful"
+      [onSave]="successfulSave"></h6>
+  </article>
+
+  <pre>
+successfulSave () &#123;
+  return new Observable&lt;void&gt;((observer) =&gt; &#123;
+    observer.next()
+    observer.complete()
+  }).delay(2e3);
+}</pre>
+
+  <pre>
+&lt;h6 dt-inline-editor
+  [(ngModel)]="sampleModel3Successful"
+  [onSave]="successfulSave"&gt;&lt;/h6&gt;</pre>
+</section>
+
+<p>Failing operation</p>
+
+<section class="sample">
+  <article>
+    <h6 dt-inline-editor
+      [(ngModel)]="sampleModel3Failing"
+      [onSave]="failingSave"></h6>
+  </article>
+
+  <pre>
+failingSave () &#123;
+  return new Observable&lt;void&gt;((observer) =&gt; &#123;
+    observer.error();
+    observer.complete();
+  }).delay(2e3);
+}</pre>
+
+  <pre>
+&lt;h6 dt-inline-editor
+  [(ngModel)]="sampleModel3Failing"
+  [onSave]="failingSave"&gt;&lt;/h6&gt;</pre>
+</section>
+
