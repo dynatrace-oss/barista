@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
-import { DtButtonModule } from '@dynatrace/angular-components';
+import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { ButtonUI } from './button/button-ui';
 
 /**
