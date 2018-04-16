@@ -125,10 +125,13 @@ export class DtExpandablePanelTrigger {
     const isAltKey = event.altKey;
     if (keyCode === ENTER || keyCode === SPACE) {
       this._expandable.toggle();
+      event.preventDefault();
     } else if (isAltKey && keyCode === DOWN_ARROW) {
       this._expandable.open();
+      event.preventDefault();
     } else if (isAltKey && keyCode === UP_ARROW) {
       this._expandable.close();
+      event.preventDefault();
     }
   }
 }
