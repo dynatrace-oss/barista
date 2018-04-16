@@ -109,7 +109,6 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
   @Input()
   get readonly(): boolean { return this._readonly; }
   set readonly(value: boolean) { this._readonly = coerceBooleanProperty(value); }
-  private _readonly = false;
 
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;
@@ -121,6 +120,7 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
   private _id: string;
   private _disabled = false;
   private _required = false;
+  private _readonly = false;
   private _type = 'text';
   private _previousNativeValue: string;
 
@@ -174,7 +174,7 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
 
   /** Make sure the input is a supported type. */
   private _validateType(): void {
-    if (INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
+    if (INPUT_INVALID_TYPES.includes(this._type)) {
       throw new Error(`Input type "${this._type}" isn't supported by dtInput.`);
     }
   }
@@ -188,13 +188,4 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
       this.stateChanges.next();
     }
   }
-
-  /** Checks whether the input is invalid based on the native validation. */
-  protected _isBadInput(): boolean {
-    // The `validity` property won't be present on platform-server.
-    const validity = (this._elementRef.nativeElement as HTMLInputElement).validity;
-
-    return validity && validity.badInput;
-  }
-
 }
