@@ -1,5 +1,3 @@
-import { Provider, InjectionToken, Inject } from '@angular/core';
-
 const PURPLE_200 = '#debbf3';
 const PURPLE_300 = '#c396e0';
 const PURPLE_400 = '#a972cc';

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ChartType, DtChart } from '@dynatrace/angular-components/chart';
+import { DtChart } from '@dynatrace/angular-components/chart';
 import { ViewportResizer } from '@dynatrace/angular-components/core';
 import { ChartService } from './docs-chart.service';
 import { Observable } from 'rxjs/Observable';
@@ -44,7 +44,6 @@ export class DocsChartComponent {
   data$: Observable<Highcharts.IndividualSeriesOptions[]>;
 
   dataStatic: Highcharts.IndividualSeriesOptions[] = [{
-    color: '#C396E0',
     name: 'Actions/min',
     id: 'SomeMetricId',
     data: [
@@ -55,6 +54,34 @@ export class DocsChartComponent {
       [
         1370390400000,
         120,
+      ],
+    ],
+  }];
+
+  dataStaticMulti: Highcharts.IndividualSeriesOptions[] = [{
+    name: 'Actions/min',
+    id: 'SomeMetricId',
+    data: [
+      [
+        1370304000000,
+        140,
+      ],
+      [
+        1370390400000,
+        120,
+      ],
+    ],
+  }, {
+    name: 'Requests/min',
+    id: 'requestsId',
+    data: [
+      [
+        1370304000000,
+        160,
+      ],
+      [
+        1370390400000,
+        150,
       ],
     ],
   }];

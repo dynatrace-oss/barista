@@ -4,11 +4,11 @@ import { Observer } from 'rxjs/Observer';
 import { timer } from 'rxjs/observable/timer';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
+import { DtChartSeries } from '@dynatrace/angular-components/chart';
 
 @Injectable()
 export class ChartService {
-  getStreamedChartdata(): Observable<any> {
-    console.log('called streamed data');
+  getStreamedChartdata(): Observable<DtChartSeries> {
     return timer(0, 5000)
     .pipe(map(() => {
       const data = [];
@@ -20,15 +20,12 @@ export class ChartService {
         ]);
       }
 
-      data.sort((a, b) => {
-        return a[0] - b[0];
-      });
+      data.sort((a, b) => a[0] - b[0]);
 
       return [{
-        color: '#C396E0',
         name: 'Actions/min',
-        metricId: `MetricId-${Math.floor(Math.random() * 100)}`,
-        data,
+        id: `MetricId-${Math.floor(Math.random() * 100)}`,
+        series: data,
       }];
     }));
   }
