@@ -1,42 +1,42 @@
 import {async, TestBed} from '@angular/core/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtButtonToggle, DtButtonToggleItem, DtButtonToggleModule} from '@dynatrace/angular-components/button-toggle';
+import {DtButtonGroup, DtButtonGroupItem, DtButtonGroupModule} from '@dynatrace/angular-components/button-group';
 
-describe('DtButtonToggle', () => {
+describe('DtButtonGroup', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtButtonToggleModule],
-      declarations: [TestAppButtonToggle, TestAppButtonToggleWithSelection, TestAppButtonToggleWithSelection2],
+      imports: [DtButtonGroupModule],
+      declarations: [TestAppButtonGroup, TestAppButtonGroupWithSelection, TestAppButtonGroupWithSelection2],
     });
 
     TestBed.compileComponents();
   }));
 
-  describe('button-toggle', () => {
+  describe('button-group', () => {
 
     let fixture;
-    let testComponent: TestAppButtonToggle;
+    let testComponent: TestAppButtonGroup;
 
     let groupDebugElement: DebugElement;
 
-    let groupInstance: DtButtonToggle<string>;
-    let itemInstances: DtButtonToggleItem<string>[];
+    let groupInstance: DtButtonGroup<string>;
+    let itemInstances: DtButtonGroupItem<string>[];
 
     let itemDebugElements: DebugElement[];
     let itemHtmlElements: HTMLElement[];
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TestAppButtonToggle);
+      fixture = TestBed.createComponent(TestAppButtonGroup);
       fixture.detectChanges();
 
       testComponent = fixture.debugElement.componentInstance;
 
-      groupDebugElement = fixture.debugElement.query(By.directive(DtButtonToggle));
-      groupInstance = groupDebugElement.injector.get<DtButtonToggle<string>>(DtButtonToggle);
+      groupDebugElement = fixture.debugElement.query(By.directive(DtButtonGroup));
+      groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(DtButtonGroup);
 
-      itemDebugElements = fixture.debugElement.queryAll(By.directive(DtButtonToggleItem));
+      itemDebugElements = fixture.debugElement.queryAll(By.directive(DtButtonGroupItem));
       itemHtmlElements = itemDebugElements.map(debugEl => debugEl.nativeElement);
       itemInstances = itemDebugElements.map(debugEl => debugEl.componentInstance);
     }));
@@ -62,7 +62,7 @@ describe('DtButtonToggle', () => {
 
       expect(groupInstance.value).toBe(undefined);
 
-      let item = fixture.debugElement.nativeElement.querySelector('dt-button-toggle-item:nth-child(2)');
+      let item = fixture.debugElement.nativeElement.querySelector('dt-button-group-item:nth-child(2)');
       item.click();
 
       expect(groupInstance.value).toBe(testComponent.values[1][0]);
@@ -124,27 +124,27 @@ describe('DtButtonToggle', () => {
     });
   });
 
-  describe('button-toggle-with-selection', () => {
+  describe('button-group-with-selection', () => {
     let fixture;
-    let testComponent: TestAppButtonToggleWithSelection;
+    let testComponent: TestAppButtonGroupWithSelection;
 
     let groupDebugElement: DebugElement;
 
-    let groupInstance: DtButtonToggle<string>;
-    let itemInstances: DtButtonToggleItem<string>[];
+    let groupInstance: DtButtonGroup<string>;
+    let itemInstances: DtButtonGroupItem<string>[];
 
     let itemDebugElements: DebugElement[];
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TestAppButtonToggleWithSelection);
+      fixture = TestBed.createComponent(TestAppButtonGroupWithSelection);
       fixture.detectChanges();
 
       testComponent = fixture.debugElement.componentInstance;
 
-      groupDebugElement = fixture.debugElement.query(By.directive(DtButtonToggle));
-      groupInstance = groupDebugElement.injector.get<DtButtonToggle<string>>(DtButtonToggle);
+      groupDebugElement = fixture.debugElement.query(By.directive(DtButtonGroup));
+      groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(DtButtonGroup);
 
-      itemDebugElements = fixture.debugElement.queryAll(By.directive(DtButtonToggleItem));
+      itemDebugElements = fixture.debugElement.queryAll(By.directive(DtButtonGroupItem));
       itemInstances = itemDebugElements.map(debugEl => debugEl.componentInstance);
     }));
 
@@ -156,25 +156,25 @@ describe('DtButtonToggle', () => {
     });
   });
 
-  describe('button-toggle-with-selection2', () => {
+  describe('button-group-with-selection2', () => {
     let fixture;
-    let testComponent: TestAppButtonToggleWithSelection2;
+    let testComponent: TestAppButtonGroupWithSelection2;
 
     let groupDebugElement: DebugElement;
 
-    let groupInstance: DtButtonToggle<string>;
-    let itemInstances: DtButtonToggleItem<string>[];
+    let groupInstance: DtButtonGroup<string>;
+    let itemInstances: DtButtonGroupItem<string>[];
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TestAppButtonToggleWithSelection2);
+      fixture = TestBed.createComponent(TestAppButtonGroupWithSelection2);
       fixture.detectChanges();
 
       testComponent = fixture.debugElement.componentInstance;
 
-      groupDebugElement = fixture.debugElement.query(By.directive(DtButtonToggle));
-      groupInstance = groupDebugElement.injector.get<DtButtonToggle<string>>(DtButtonToggle);
+      groupDebugElement = fixture.debugElement.query(By.directive(DtButtonGroup));
+      groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(DtButtonGroup);
 
-      const itemDebugElements = fixture.debugElement.queryAll(By.directive(DtButtonToggleItem));
+      const itemDebugElements = fixture.debugElement.queryAll(By.directive(DtButtonGroupItem));
       itemInstances = itemDebugElements.map(debugEl => debugEl.componentInstance);
     }));
 
@@ -192,36 +192,36 @@ const values : [string, boolean][] = [['Performance', false], ['Connectivity', t
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-button-toggle>
-      <dt-button-toggle-item *ngFor="let value of values" [value]="value[0]">{{value[0]}}</dt-button-toggle-item>
-    </dt-button-toggle>
+    <dt-button-group>
+      <dt-button-group-item *ngFor="let value of values" [value]="value[0]">{{value[0]}}</dt-button-group-item>
+    </dt-button-group>
   `
 })
-class TestAppButtonToggle {
+class TestAppButtonGroup {
   values = values;
 }
 
 @Component({
   selector: 'dt-test-app-selection',
   template: `
-    <dt-button-toggle>
-      <dt-button-toggle-item *ngFor="let value of values" [value]="value[0]" [selected]="value[1]">{{value[0]}}
-      </dt-button-toggle-item>
-    </dt-button-toggle>
+    <dt-button-group>
+      <dt-button-group-item *ngFor="let value of values" [value]="value[0]" [selected]="value[1]">{{value[0]}}
+      </dt-button-group-item>
+    </dt-button-group>
   `
 })
-class TestAppButtonToggleWithSelection {
+class TestAppButtonGroupWithSelection {
   values = values;
 }
 
 @Component({
   selector: 'dt-test-app-selection2',
   template: `
-    <dt-button-toggle [value]="values[1][0]">
-      <dt-button-toggle-item *ngFor="let value of values" [value]="value[0]">{{value[0]}}</dt-button-toggle-item>
-    </dt-button-toggle>
+    <dt-button-group [value]="values[1][0]">
+      <dt-button-group-item *ngFor="let value of values" [value]="value[0]">{{value[0]}}</dt-button-group-item>
+    </dt-button-group>
   `
 })
-class TestAppButtonToggleWithSelection2 {
+class TestAppButtonGroupWithSelection2 {
   values = values;
 }

@@ -1,35 +1,35 @@
 <section>
   Current value: <span id="lblGroup-1">{{ control1.value }}</span>
-  <dt-button-toggle #control1 id="group-1">
-    <dt-button-toggle-item
+  <dt-button-group #control1 id="group-1">
+    <dt-button-group-item
       *ngFor="let gvalue of groupValues; let i = index"
       [id]="'group-1-item-' + i"
       [value]="gvalue"
-    >{{gvalue}}</dt-button-toggle-item>
-  </dt-button-toggle>
+    >{{gvalue}}</dt-button-group-item>
+  </dt-button-group>
 </section>
 
 <section>
   Current value: <span id="lblGroup-2">{{ control2.value }}</span>
-  <dt-button-toggle #control2 id="group-2" disabled>
-    <dt-button-toggle-item
+  <dt-button-group #control2 id="group-2" disabled>
+    <dt-button-group-item
       *ngFor="let gvalue of groupValues; let i = index"
       [id]="'group-2-item-' + i"
       [value]="gvalue"
-    >{{gvalue}}</dt-button-toggle-item>
-  </dt-button-toggle>
+    >{{gvalue}}</dt-button-group-item>
+  </dt-button-group>
 
 </section>
 
 <section>
   Current value: <span id="lblGroup-3">{{ control3.value }}</span>
-  <dt-button-toggle #control3 id="group-3">
-    <dt-button-toggle-item
+  <dt-button-group #control3 id="group-3">
+    <dt-button-group-item
       *ngFor="let gvalue of groupValues; let i = index"
       [id]="'group-3-item-' + i"
       [value]="gvalue"
       [disabled]="i === 1"
-    >{{gvalue}}</dt-button-toggle-item>
-  </dt-button-toggle>
+    >{{gvalue}}</dt-button-group-item>
+  </dt-button-group>
 
 </section>

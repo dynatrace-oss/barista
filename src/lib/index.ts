@@ -8,6 +8,6 @@
 
 export * from './core/index';
 export * from './button/index';
-export * from './button-toggle/index';
+export * from './button-group/index';
 export * from './loading-distractor/index';
 export * from './theming/index';

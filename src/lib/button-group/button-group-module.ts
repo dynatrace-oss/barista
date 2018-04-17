@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { A11yModule } from '@angular/cdk/a11y';
-import { DtButtonToggle } from './button-toggle';
-import { DtButtonToggleItem } from './button-toggle-item';
+import { DtButtonGroup } from './button-group';
+import { DtButtonGroupItem } from './button-group-item';
 
 @NgModule({
   imports: [
@@ -10,12 +10,12 @@ import { DtButtonToggleItem } from './button-toggle-item';
     A11yModule,
   ],
   exports: [
-    DtButtonToggle,
-    DtButtonToggleItem,
+    DtButtonGroup,
+    DtButtonGroupItem,
   ],
   declarations: [
-    DtButtonToggle,
-    DtButtonToggleItem,
+    DtButtonGroup,
+    DtButtonGroupItem,
   ],
 })
-export class DtButtonToggleModule { }
+export class DtButtonGroupModule { }
