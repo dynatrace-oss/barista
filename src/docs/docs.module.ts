@@ -7,7 +7,7 @@ import { DocsRoutingModule } from './docs-routing.module';
 import { Docs } from './docs.component';
 import { Home } from './docs-home/docs-home.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
-import { DocsButtonToggleModule } from './components/button-toggle/docs-button-toggle.module';
+import { DocsButtonGroupModule } from './components/button-group/docs-button-group.module';
 import { DocsLoadingDistractorModule } from './components/loading-distractor/docs-loading-distractor.module';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { DocsLoadingDistractorModule } from './components/loading-distractor/doc
     HttpClientModule,
     DocsRoutingModule,
     DocsButtonModule,
-    DocsButtonToggleModule,
+    DocsButtonGroupModule,
     DocsLoadingDistractorModule,
   ],
   declarations: [

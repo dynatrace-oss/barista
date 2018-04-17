@@ -1,5 +1,5 @@
 
-// Boilerplate for applying mixins to DtButtonToggleItem
+// Boilerplate for applying mixins to DtButtonGroupItem
 import {CanColor, CanDisable, HasTabIndex, mixinColor, mixinTabIndex} from '@dynatrace/angular-components/core';
 import {
   ChangeDetectionStrategy,
@@ -11,60 +11,60 @@ import {
 } from '@angular/core';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {DtButtonToggle} from './button-toggle';
+import {DtButtonGroup} from './button-group';
 
-export interface DtButtonToggleItemSelectionChange<T> {
+export interface DtButtonGroupItemSelectionChange<T> {
   /** Reference to the option that emitted the event. */
-  source: DtButtonToggleItem<T>;
+  source: DtButtonGroupItem<T>;
   /** Whether the change in the option's value was a result of a user action. */
   isUserInput: boolean;
 }
-export class DtButtonToggleItemBase {
+export class DtButtonGroupItemBase {
   disabled: boolean;
   constructor(public _elementRef: ElementRef) { }
 }
 
-export type ButtonToggleThemePalette = 'main' | 'error' | undefined;
-const defaultPalette: ButtonToggleThemePalette = 'main';
+export type ButtonGroupThemePalette = 'main' | 'error' | undefined;
+const defaultPalette: ButtonGroupThemePalette = 'main';
 
-export const _DtButtonToggleItem =
-  mixinTabIndex(mixinColor(DtButtonToggleItemBase, defaultPalette));
+export const _DtButtonGroupItem =
+  mixinTabIndex(mixinColor(DtButtonGroupItemBase, defaultPalette));
 
 @Component({
   moduleId: module.id,
-  selector: 'dt-button-toggle-item',
+  selector: 'dt-button-group-item',
   template: `<ng-content></ng-content>`,
   host: {
     'role': 'radio',
-    'class': 'dt-button-toggle-item',
+    'class': 'dt-button-group-item',
     '[attr.tabindex]': 'tabIndex',
   },
-  styleUrls: ['button-toggle-item.scss'],
+  styleUrls: ['button-group-item.scss'],
   inputs: ['color'],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
 
-export class DtButtonToggleItem<T> extends _DtButtonToggleItem implements CanDisable, CanColor, HasTabIndex  {
+export class DtButtonGroupItem<T> extends _DtButtonGroupItem implements CanDisable, CanColor, HasTabIndex  {
 
   private _selected = false;
   private _value: T;
   private _disabled = false;
 
-  @Output() readonly selectionChange = new EventEmitter<DtButtonToggleItemSelectionChange<T>>();
+  @Output() readonly selectionChange = new EventEmitter<DtButtonGroupItemSelectionChange<T>>();
 
-  constructor(private _buttonGroup: DtButtonToggle<T>,
+  constructor(private _buttonGroup: DtButtonGroup<T>,
               private _changeDetectorRef: ChangeDetectorRef,
               _elementRef: ElementRef
   ) {
     super(_elementRef);
   }
 
-  /** Whether the button-toggle item is selected. */
+  /** Whether the button-group item is selected. */
   @Input()
   @HostBinding('attr.aria-selected')
-  @HostBinding('class.dt-button-toggle-item-selected')
+  @HostBinding('class.dt-button-group-item-selected')
   get selected(): boolean {
     return this._selected && !this.disabled;
   }
@@ -77,10 +77,10 @@ export class DtButtonToggleItem<T> extends _DtButtonToggleItem implements CanDis
     }
   }
 
-  /** Whether the button-toggle item is disabled. */
+  /** Whether the button-group item is disabled. */
   @Input()
   @HostBinding('attr.aria-disabled')
-  @HostBinding('class.dt-button-toggle-item-disabled')
+  @HostBinding('class.dt-button-group-item-disabled')
   get disabled(): boolean {
     return this._disabled  || this._buttonGroup.disabled;
   }

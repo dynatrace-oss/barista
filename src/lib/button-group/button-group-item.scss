@@ -58,11 +58,11 @@
     border-radius: 0 3px 3px 0;
   }
 
-  &.dt-button-toggle-item-selected {
+  &.dt-button-group-item-selected {
     background-color: $gray-100;
   }
 
-  &.dt-button-toggle-item-disabled {
+  &.dt-button-group-item-disabled {
     pointer-events: none;
     color: $gray-300;
   }
@@ -89,7 +89,7 @@ $theme-dark: (
 );
 
 // TODO @thomas.pink: Move this to button theme once theming is in place
-@mixin dt-button-toggle-theme-variants($theme) {
+@mixin dt-button-group-theme-variants($theme) {
   $palette-names: 'main', 'error';
   $default-palette: 'main';
 
@@ -105,19 +105,19 @@ $theme-dark: (
       $namespace: ':host.dt-color-#{$name}';
     }
 
-    & #{$namespace}.dt-button-toggle-item:not(.dt-button-toggle-item-disabled) {
+    & #{$namespace}.dt-button-group-item:not(.dt-button-group-item-disabled) {
       color: $default-color;
     }
 
-    &#{$namespace}.dt-button-toggle-item:hover {
+    &#{$namespace}.dt-button-group-item:hover {
       @include boxShadowSelected(1px, $hover-color);
     }
 
-    &#{$namespace}.dt-button-toggle-item.dt-button-toggle-item-selected:focus {
+    &#{$namespace}.dt-button-group-item.dt-button-group-item-selected:focus {
       @include boxShadowSelectedFocus(1px, $active-color);
     }
 
-    &#{$namespace}.dt-button-toggle-item.dt-button-toggle-item-selected {
+    &#{$namespace}.dt-button-group-item.dt-button-group-item-selected {
       z-index:1;
       position:relative;
       color: $active-color;
@@ -129,7 +129,7 @@ $theme-dark: (
 }
 
 // TODO @thomas.pink: Remove this once theming is in place
-@include dt-button-toggle-theme-variants($theme-light);
+@include dt-button-group-theme-variants($theme-light);
 .dt-theme-dark {
-  @include dt-button-toggle-theme-variants($theme-dark);
+  @include dt-button-group-theme-variants($theme-dark);
 }
