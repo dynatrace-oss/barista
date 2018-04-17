@@ -68,8 +68,8 @@ System.config({
       'dist/lib/bundles/dynatrace-angular-components.umd.js',
     '@dynatrace/angular-components/button':
       'dist/lib/bundles/dynatrace-angular-components-button.umd.js',
-    '@dynatrace/angular-components/button-toggle':
-	    'dist/lib/bundles/dynatrace-angular-components-button-toggle.umd.js',
+    '@dynatrace/angular-components/button-group':
+	    'dist/lib/bundles/dynatrace-angular-components-button-group.umd.js',
     '@dynatrace/angular-components/core':
       'dist/lib/bundles/dynatrace-angular-components-core.umd.js',
     '@dynatrace/angular-components/loading-distractor':

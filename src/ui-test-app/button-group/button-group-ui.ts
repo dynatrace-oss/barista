@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'dt-button-toggle-ui',
-  templateUrl: 'button-toggle-ui.html',
+  selector: 'dt-button-group-ui',
+  templateUrl: 'button-group-ui.html',
 })
-export class ButtonToggleUi {
+export class ButtonGroupUi {
   groupValues = ['Value 0', 'Value 1', 'Value 2'];
 }

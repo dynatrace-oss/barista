@@ -3,17 +3,17 @@ import { Component } from '@angular/core';
 @Component({
   moduleId: module.id,
   template: `<div>
-  <dt-button-toggle #control1 [disabled]="control1AllDisabled">
+  <dt-button-group #control1 [disabled]="control1AllDisabled">
     <ng-container *ngFor="let gvalue of groupValues; let i = index">
-      <dt-button-toggle-item
+      <dt-button-group-item
         *ngIf="!control1secondOdd || i % 2 === 0"
         [value]="gvalue.key"
         [disabled]="i === 2 && control1secondDisabled"
         [selected]="i === 1"
       >{{gvalue.name}}
-      </dt-button-toggle-item>
+      </dt-button-group-item>
     </ng-container>
-  </dt-button-toggle>
+  </dt-button-group>
 </div>
 <div style="margin-top: .5em;">Current value: {{ control1.value }}</div>
 <div style="margin-top: .5em;">
@@ -25,7 +25,7 @@ import { Component } from '@angular/core';
   <button dt-button (click)="control1secondOdd=!control1secondOdd">Toggle odd items</button>
 </div>`,
 })
-export class ButtonToggleInteractiveExampleComponent {
+export class ButtonGroupInteractiveExampleComponent {
   groupValues: { key: string, name: string }[] = [
     { key: 'perf', name: 'Performance' },
     { key: 'conn', name: 'Connectivity' },

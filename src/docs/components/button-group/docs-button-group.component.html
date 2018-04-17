@@ -1,15 +1,15 @@
-<h1>ButtonToggle</h1>
+<h1>ButtonGroup</h1>
 
 <p>
-  This component create a button toggle elements with Dynatrace styling.
+  This component create a button group elements with Dynatrace styling.
 </p>
 
 <h2>Imports</h2>
-<p>You have to import the <code>DtButtonToggleModule</code> when you want to use the <code>dt-button-toggle</code>:</p>
+<p>You have to import the <code>DtButtonGroupModule</code> when you want to use the <code>dt-button-group</code>:</p>
 <!-- @formatter:off -->
 <pre><code snippet language="typescript">@NgModule({{"{"}}
   imports: [
-    DtButtonToggleModule,
+    DtButtonGroupModule,
   ],
 {{"}"}})
 class MyModule {{"{}"}}
@@ -18,7 +18,7 @@ class MyModule {{"{}"}}
 
 <h2>Initialization</h2>
 <p>
-  To apply the dynatrace button toggle, use the <code>&lt;dt-button-toggle&gt;</code> and <code>&lt;dt-button-toggle-item&gt;</code> elements. Example:
+  To apply the dynatrace button group, use the <code>&lt;dt-button-group&gt;</code> and <code>&lt;dt-button-group-item&gt;</code> elements. Example:
 </p>
 <docs-source-example [example]="examples.default"></docs-source-example>
 
@@ -32,11 +32,11 @@ class MyModule {{"{}"}}
     </thead>
     <tbody>
     <tr>
-      <td><code>dt-button-toggle</code></td>
-      <td>Indicate the outer element of the button toggle. The group element can contain multiple &lt;dt-button-toggle-item&lt; elements.</td>
+      <td><code>dt-button-group</code></td>
+      <td>Indicate the outer element of the button group. The group element can contain multiple &lt;dt-button-group-item&lt; elements.</td>
     </tr>
     <tr>
-      <td><code>dt-button-toggle-item</code></td>
+      <td><code>dt-button-group-item</code></td>
       <td>The element of an individual button.</td>
     </tr>
     </tbody>
@@ -44,7 +44,7 @@ class MyModule {{"{}"}}
 </section>
 
 <h2>Options & Properties</h2>
-<h4>Button toggle</h4>
+<h4>Button group</h4>
 <table class="table">
   <thead>
   <tr>
@@ -95,7 +95,7 @@ class MyModule {{"{}"}}
   </tbody>
 </table>
 
-<h4>Button toggle item</h4>
+<h4>Button group item</h4>
 <table class="table">
   <thead>
   <tr>
