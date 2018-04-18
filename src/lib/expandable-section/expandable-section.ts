@@ -39,7 +39,7 @@ export class DtExpandableSection implements AfterViewInit {
   private _panel: DtExpandablePanel;
 
   @Input()
-  @HostBinding('class.dt-expandable-panel-opened')
+  @HostBinding('class.dt-expandable-section-opened')
   get opened(): boolean {
     return this._panel.opened;
   }
