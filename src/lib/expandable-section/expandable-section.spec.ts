@@ -1,35 +1,35 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtExpandablePanelModule, DtExpandablePanel } from '@dynatrace/angular-components/expandable-panel';
+import { DtExpandableSectionModule, DtExpandableSection } from '@dynatrace/angular-components/expandable-section';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DebugElement} from '@angular/core/src/debug/debug_node';
 
-describe('DtExpandablePanel', () => {
+describe('DtExpandableSection', () => {
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtExpandablePanelModule, NoopAnimationsModule],
-      declarations: [TestApp],
-    });
 
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        imports: [DtExpandableSectionModule, NoopAnimationsModule],
+        declarations: [TestApp],
+      });
     TestBed.compileComponents();
   }));
 
-  describe('dt-expandable-panel', () => {
+  describe('dt-expandable-section', () => {
 
     let fixture;
     let testComponent: TestApp;
     let instanceDebugElement: DebugElement;
     let instanceElement: HTMLElement;
-    let instance: DtExpandablePanel;
+    let instance: DtExpandableSection;
 
     beforeEach(async(() => {
       fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
-      instanceDebugElement = fixture.debugElement.query(By.directive(DtExpandablePanel));
+      instanceDebugElement = fixture.debugElement.query(By.directive(DtExpandableSection));
       instanceElement = instanceDebugElement.nativeElement;
-      instance = instanceDebugElement.injector.get<DtExpandablePanel>(DtExpandablePanel);
+      instance = instanceDebugElement.injector.get<DtExpandableSection>(DtExpandableSection);
     }));
 
     it('should be closed', () => {
@@ -56,20 +56,20 @@ describe('DtExpandablePanel', () => {
     });
     it('should have correct styles applied', () => {
       expect(instanceElement.classList).not.toContain(
-        'dt-expandable-panel-opened');
+        'dt-expandable-section-opened');
 
       instance.toggle();
       fixture.detectChanges();
 
       expect(instanceElement.classList).toContain(
-        'dt-expandable-panel-opened');
+        'dt-expandable-section-opened');
     });
   });
 });
 
 @Component({
   selector: 'dt-test-app',
-  template: `<dt-expandable-panel>text</dt-expandable-panel>`,
+  template: `<dt-expandable-section><dt-expandable-section-header>Header</dt-expandable-section-header>text</dt-expandable-section>`,
 })
 class TestApp {
 }

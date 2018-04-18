@@ -8,11 +8,13 @@ import {DefaultExpandableSectionExampleComponent} from './examples/expandable-se
 import {DtExpandablePanelModule} from '@dynatrace/angular-components/expandable-panel';
 import {InteractiveExpandableSectionExampleComponent} from './examples/expandable-section-interactive-example.component';
 import {OpenExpandableSectionExampleComponent} from './examples/expandable-section-open-example.component';
+import {CustomStylingExpandableSectionExampleComponent} from './examples/expandable-section-custom-styling-example.component';
 
 const EXAMPLES = [
   DefaultExpandableSectionExampleComponent,
   InteractiveExpandableSectionExampleComponent,
   OpenExpandableSectionExampleComponent,
+  CustomStylingExpandableSectionExampleComponent
 ];
 
 @NgModule({
