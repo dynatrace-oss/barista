@@ -63,6 +63,11 @@
     // This is essential for specific checks where typescript has a hard time resolving the type of it.
     // This would the result in using checks (like instanceof) in some places that are slower.
     "no-non-null-assertion": false,
+    // Static only classes are needed for us to do angular modules that have forRoot or forChild
+    "no-unnecessary-class": false,
+    // Disabled, as it would force us to use bind or some other stuff to prevent "this"
+    // in callbacks instead of arrow functions
+    "no-unnecessary-callback-wrapper": false,
     "no-null-keyword": false,
     "no-parameter-properties": false,
     "no-shadowed-variable": true,

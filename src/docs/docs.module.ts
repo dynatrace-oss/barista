@@ -22,6 +22,7 @@ import { DocsCardModule } from './components/card/docs-card.module';
 import { DocsContextDialogModule } from './components/context-dialog/docs-context-dialog.module';
 import { DocsFormFieldModule } from './components/form-field/docs-form-field-module';
 import { CoreModule } from './core/core.module';
+import { DocsIconModule } from './components/icon/docs-icon.module';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { CoreModule } from './core/core.module';
     DocsButtonGroupModule,
     DocsInputModule,
     DocsInlineEditorModule,
+    DocsIconModule,
     DocsLoadingDistractorModule,
     DocsLinkModule,
     DocsExpandablePanelModule,
