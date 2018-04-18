@@ -22,6 +22,7 @@ System.config({
     'main': 'main.js',
     'tslib': 'node:tslib/tslib.js',
     'moment': 'node:moment/min/moment-with-locales.min.js',
+    'highcharts': 'node:highcharts/highcharts.js',
 
     // Angular specific mappings.
     '@angular/core': 'node:@angular/core/bundles/core.umd.js',
