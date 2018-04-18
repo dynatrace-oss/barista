@@ -19,6 +19,7 @@ export class Docs {
     {name: 'Form field', route: '/form-field'},
     {name: 'Input', route: '/input'},
     {name: 'Links', route: '/links'},
+    {name: 'Icon', route: '/icon'},
     {name: 'Loading distractor', route: '/loading-distractor'},
     {name: 'Table', route: '/table'},
     {name: 'Tile', route: '/tile'},

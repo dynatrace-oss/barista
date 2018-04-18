@@ -15,6 +15,7 @@ import { DocsTileComponent } from './components/tile/docs-tile.component';
 import { DocsCardComponent } from './components/card/docs-card.component';
 import { DocsContextDialogComponent } from './components/context-dialog/docs-context-dialog.component';
 import { DocsFormField } from 'components/form-field/docs-form-field';
+import { DocsIconComponent } from 'components/icon/docs-icon.component';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'expandable-section', component: DocsExpandableSectionComponent },
   { path: 'input', component: DocsInputComponent },
   { path: 'form-field', component: DocsFormField },
+  { path: 'icon', component: DocsIconComponent },
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
   { path: 'links', component: DocsLinkComponent },
   { path: 'table', component: DocsTableComponent },
