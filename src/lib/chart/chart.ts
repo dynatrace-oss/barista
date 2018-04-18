@@ -26,6 +26,8 @@ import { DtTheme } from '@dynatrace/angular-components/theming';
 export type DtChartOptions = Highcharts.Options & { series?: undefined };
 export type DtChartSeries = Highcharts.IndividualSeriesOptions[];
 
+const defaultChartColorPalette = 'turquoise';
+
 @Component({
   moduleId: module.id,
   selector: 'dt-chart',
@@ -39,8 +41,8 @@ export type DtChartSeries = Highcharts.IndividualSeriesOptions[];
 export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('container') container: ElementRef;
 
-  _noData = true;
-  private _series: DtChartSeries = [];
+  _loading = false;
+  private _series: DtChartSeries;
   private _chartObject: Highcharts.ChartObject;
   private _dataSub: Subscription | null = null;
   private _colorPalette: ChartColorPalette;
@@ -62,6 +64,11 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     } else if (series) {
       this._series = series;
     }
+  }
+
+  @Input()
+  set loading(isLoading: boolean) {
+    this._loading = isLoading;
   }
 
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
@@ -119,14 +126,13 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * applies the colors from the theme to the series if no color for the series is set
    */
   _applyColors(): void {
-    if (this._theme && this._theme.name) {
-      this._colorPalette = CHART_COLOR_PALETTES[this._theme.name];
-      // this._colorPalette = CHART_COLOR_PALETTES['turquoise'];
-      if (this._colorPalette) {
-        this._series.forEach((s: Highcharts.IndividualSeriesOptions, index: number): void => {
-          this._applySeriesColor(s, index);
-        });
-      }
+    this._colorPalette = this._theme && this._theme.name ?
+      CHART_COLOR_PALETTES[this._theme.name] : CHART_COLOR_PALETTES[defaultChartColorPalette];
+
+    if (this._series) {
+      this._series.forEach((s: Highcharts.IndividualSeriesOptions, index: number): void => {
+        this._applySeriesColor(s, index);
+      });
     }
   }
 
@@ -160,12 +166,14 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   _createChart(): void {
     this._applyColors();
     this._chartObject = Highcharts.chart(this.container.nativeElement, this._getHighchartsOptions());
+    this._loading = !this._series;
   }
 
   _update(redraw: boolean = true, oneToOne: boolean = true): void {
     if (this._chartObject) {
       this._applyColors();
       this._chartObject.update(this._getHighchartsOptions(), redraw, oneToOne);
+      this._loading = !this._series;
       this.updated.emit();
     }
   }

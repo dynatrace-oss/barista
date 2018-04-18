@@ -3,7 +3,7 @@
 <h1>Chart with static data</h1>
 
 <h2>Column chart</h2>
-<dt-chart [options]="columnOptions" [series]="dataStatic" #static></dt-chart>
+<dt-chart [options]="lineOptions" [series]="dataStatic" #static></dt-chart>
 
 <h1>Chart with data as observable</h1>
 
@@ -18,6 +18,6 @@
 </div>
 
 <h2>Purple Theme</h2>
-<div dtTheme="purple">
+<div dtTheme="royalblue" >
 <dt-chart [options]="lineOptions" [series]="data$"></dt-chart>
 </div>
