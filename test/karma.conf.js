@@ -34,6 +34,9 @@ module.exports = (config) => {
       {pattern: 'node_modules/@angular/**/*', included: false, watched: false},
       {pattern: 'node_modules/rxjs/**/*', included: false, watched: false},
 
+      // Included highcharts for tests
+      {pattern: 'node_modules/highcharts/highcharts.js', included: false, watched: false},
+
       {pattern: 'test/karma-test-shim.js', included: true, watched: false},
 
       // Includes all package tests and source files into karma. Those files will be watched.
