@@ -5,7 +5,6 @@ $dt-row-height: 40px;
   border: 0;
   box-sizing: border-box;
   display: flex;
-  min-height: $dt-row-height;
 
   // Workaround for https://goo.gl/pFmjJD in IE 11. Adds a pseudo
   // element that will stretch the row the correct height. See:

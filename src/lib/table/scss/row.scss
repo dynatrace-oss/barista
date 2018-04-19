@@ -2,6 +2,7 @@
 @import 'base-row';
 
 :host.dt-row {
+  min-height: $dt-row-height;
   @extend %row-base;
 
   &:nth-child(even) {

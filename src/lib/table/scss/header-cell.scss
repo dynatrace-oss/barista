@@ -2,17 +2,40 @@
 @import 'base-cell';
 
 :host.dt-header-cell {
+  font-size: 12px;
+  word-wrap: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
   @extend %base-cell;
 
-  font-size: 12px;
-
-  &::after {
-    content: ' ';
+  &.dt-align-left::after {
+    @extend %bottom-line;
     width: 100%;
-    height: 1px;
-    background-color: $gray-200;
-    display: inline-block;
-    position: absolute;
-    bottom: 13px;
   }
+
+  &.dt-align-right::before {
+    @extend %bottom-line;
+    width: 100%;
+  }
+
+  &.dt-align-center::before {
+    @extend %bottom-line;
+    width: 50%;
+  }
+
+  &.dt-align-center::after {
+    @extend %bottom-line;
+    width: 50%;
+  }
+}
+
+%bottom-line {
+  content: ' ';
+  height: 1px;
+  background-color: $gray-200;
+  display: inline-block;
+  position: relative;
+  bottom: -3px;
+  margin: 0 3px;
 }
