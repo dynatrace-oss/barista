@@ -64,6 +64,12 @@ describe('DtExpandableSection', () => {
       expect(instanceElement.classList).toContain(
         'dt-expandable-section-opened');
     });
+    it('should not open when disabled', () => {
+      instance.disabled = true;
+      instance.open();
+      expect(instance.opened).toBe(false);
+    });
+
   });
 });
 

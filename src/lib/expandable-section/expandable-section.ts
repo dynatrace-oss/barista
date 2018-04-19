@@ -1,6 +1,6 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   EventEmitter,
   HostBinding,
@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {DtExpandablePanel} from '@dynatrace/angular-components/expandable-panel';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import { CanDisable } from '@dynatrace/angular-components/core';
 
 @Component({
   moduleId: module.id,
@@ -33,7 +34,12 @@ export class DtExpandableSectionHeader { }
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtExpandableSection implements AfterViewInit {
+export class DtExpandableSection implements AfterViewInit, CanDisable {
+
+  private _disabled = false;
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {
+  }
 
   @ViewChild(DtExpandablePanel)
   private _panel: DtExpandablePanel;
@@ -41,10 +47,25 @@ export class DtExpandableSection implements AfterViewInit {
   @Input()
   @HostBinding('class.dt-expandable-section-opened')
   get opened(): boolean {
-    return this._panel.opened;
+    return this._panel.opened && !this.disabled;
   }
   set opened(value: boolean) {
     this._panel.opened = coerceBooleanProperty(value);
+  }
+
+  @Input()
+  @HostBinding('attr.aria-disabled')
+  @HostBinding('class.dt-expandable-section-disabled')
+  get disabled(): boolean {
+    return this._disabled;
+  }
+
+  set disabled(value: boolean) {
+    this._disabled = coerceBooleanProperty(value);
+    if (value) {
+      this._panel.close();
+    }
+    this._changeDetectorRef.markForCheck();
   }
 
   @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -56,11 +77,15 @@ export class DtExpandableSection implements AfterViewInit {
   }
 
   toggle(): void {
-    this._panel.toggle();
+    if (!this.disabled) {
+      this._panel.toggle();
+    }
   }
 
   open(): void {
-    this._panel.open();
+    if (!this.disabled) {
+      this._panel.open();
+    }
   }
 
   close(): void {
