@@ -7,6 +7,7 @@ import { DocsRoutingModule } from './docs-routing.module';
 import { Docs } from './docs.component';
 import { Home } from './docs-home/docs-home.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
+import { DocsLinkModule } from './components/link/docs-link.module';
 import { DocsInputModule } from 'components/input/docs-input.module';
 import { DocsLoadingDistractorModule } from './components/loading-distractor/docs-loading-distractor.module';
 import {DocsExpandablePanelModule} from './components/expandable-panel/docs-expandable-panel.module';
@@ -21,6 +22,7 @@ import {DocsExpandableSectionModule} from './components/expandable-section/docs-
     DocsButtonModule,
     DocsInputModule,
     DocsLoadingDistractorModule,
+    DocsLinkModule,
     DocsExpandablePanelModule,
     DocsExpandableSectionModule
   ],
