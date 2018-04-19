@@ -1,5 +1,11 @@
-import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Renderer2, ElementRef } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
+
+export const DT_COLUMN_TYPES = {
+  left: ['left', 'text', 'id'],
+  center: ['center', 'icon', 'control'],
+  right: ['right', 'number', 'date', 'ip'],
+};
 
 /**
  * Cell definition for the dt-table.
@@ -33,11 +39,13 @@ export class DtColumnDef extends CdkColumnDef {
   /** Unique name for this column. */
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnDef') name: string;
+  // tslint:disable-next-line:no-input-rename
+  @Input('dtColumnType') type: string;
 }
 
 /** Header cell template container that adds the right classes and role. */
 @Component({
-  selector: 'dt-header-cell, th[dt-header-cell]',
+  selector: 'dt-header-cell',
   template: '<ng-content></ng-content>',
   styleUrls: ['./scss/header-cell.scss'],
   host: {
@@ -46,13 +54,17 @@ export class DtColumnDef extends CdkColumnDef {
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  exportAs: 'dtHeaderRow',
+  exportAs: 'dtHeaderCell',
 })
-export class DtHeaderCell { }
+export class DtHeaderCell {
+  constructor(private columnDef: DtColumnDef, private renderer: Renderer2, private elem: ElementRef) {
+    setColumnClass.bind(this)();
+  }
+}
 
 /** Cell template container that adds the right classes and role. */
 @Component({
-  selector: 'dt-cell, td[dt-cell]',
+  selector: 'dt-cell',
   template: '<ng-content></ng-content>',
   styleUrls: ['./scss/cell.scss'],
   host: {
@@ -61,6 +73,26 @@ export class DtHeaderCell { }
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  exportAs: 'dtHeaderRow',
+  exportAs: 'dtCell',
 })
-export class DtCell { }
+export class DtCell {
+  constructor(private columnDef: DtColumnDef, private renderer: Renderer2, private elem: ElementRef) {
+    setColumnClass.bind(this)();
+  }
+}
+
+function getColumnAlignmentClass(columnType: string): string | void {
+  if (!columnType) { return; }
+  const [cssAlignmentClass] = Object.keys(DT_COLUMN_TYPES).filter((idx) => (DT_COLUMN_TYPES[idx].includes(columnType)));
+
+  return cssAlignmentClass;
+}
+
+function setColumnClass(): void {
+  const { cssClassFriendlyName, type } = this.columnDef;
+  const { nativeElement } = this.elem;
+  const cssAlignmentClass = getColumnAlignmentClass(type) || 'left';
+
+  this.renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
+  this.renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
+}
