@@ -2,30 +2,32 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  // tslint:disable
   template: `<dt-table [dataSource]="dataSource1">
-  <ng-container dtColumnDef="host">
-    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
-    <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
+  <ng-container dtColumnDef="host" dtColumnType="text">
+  <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+  <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
   </ng-container>
 
-  <ng-container dtColumnDef="cpu">
+  <ng-container dtColumnDef="cpu" dtColumnType="text">
   <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
-    <dt-cell *dtCellDef="let row; index as i; count as c; first as f; last as l; even as e; odd as o">Row {{i}}/{{c}} {{e ? 'even' : 'odd'}}: {{row.cpu}} {{f ? 'first': ''}} {{l ? 'last' : ''}}</dt-cell>
+  <dt-cell *dtCellDef="let row; index as i; count as c; first as f; last as l; even as e; odd as o">Row {{i}}/{{c}} {{e ? 'even' : 'odd'}}: {{row.cpu}} {{f ? 'first': ''}} {{l ? 'last' : ''}}</dt-cell>
   </ng-container>
 
-  <ng-container dtColumnDef="memory">
-    <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
-    <dt-cell *dtCellDef="let row">{{row.memory}}</dt-cell>
+  <ng-container dtColumnDef="memory" dtColumnType="number">
+  <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
+  <dt-cell *dtCellDef="let row">{{row.memory}}</dt-cell>
   </ng-container>
 
-  <ng-container dtColumnDef="traffic">
-    <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
-    <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
+  <ng-container dtColumnDef="traffic" dtColumnType="control">
+  <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
+  <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
   </ng-container>
 
   <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"></dt-header-row>
   <dt-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']; index as i; count as c; first as f; last as l; even as e; odd as o" (click)="rowClicked(row, i, c)"></dt-row>
-</dt-table>`,
+  </dt-table>`,
+  // tslint:enable
 })
 export class DefaultTableExampleComponent {
   dataSource1: object[] = [
@@ -36,6 +38,7 @@ export class DefaultTableExampleComponent {
   ];
 
   rowClicked(row: object, index: number, count: number): void {
+    // tslint:disable-next-line
     console.log('row', index, '/', count, ':', row, 'clicked');
-  };
+  }
 }
