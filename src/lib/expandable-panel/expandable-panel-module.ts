@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { A11yModule } from '@angular/cdk/a11y';
-import { DtExpandablePanel, DtExpandablePanelTrigger } from './expandable-panel';
+import { DtExpandablePanelTrigger } from './expandable-panel-trigger';
+import { DtExpandablePanel } from './expandable-panel';
 
 @NgModule({
   imports: [
@@ -9,12 +10,12 @@ import { DtExpandablePanel, DtExpandablePanelTrigger } from './expandable-panel'
     A11yModule,
   ],
   exports: [
-    DtExpandablePanel,
     DtExpandablePanelTrigger,
+    DtExpandablePanel,
   ],
   declarations: [
-    DtExpandablePanel,
     DtExpandablePanelTrigger,
+    DtExpandablePanel,
   ],
 })
 export class DtExpandablePanelModule { }
