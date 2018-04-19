@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtChartModule, DtChart, DtChartSeries, DtChartOptions } from '@dynatrace/angular-components/chart';
+import { DtChartModule, DtChart, DtChartSeries, DtChartOptions } from './index';
 import { Observable } from 'rxjs/Observable';
 import { timer } from 'rxjs/observable/timer';
 import { startWith } from 'rxjs/operators/startWith';
