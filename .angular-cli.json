@@ -13,9 +13,11 @@
       "polyfills": "./polyfills.ts",
       "tsconfig": "./tsconfig-build.json",
       "prefix": "",
-      "assets": [
-        "assets"
-      ],
+      "assets": [{
+        "glob": "**",
+        "input": "../lib/assets",
+        "output": "./assets"
+      }],
       "styles": [
         "main.scss"
       ],
@@ -23,5 +25,10 @@
         "../../node_modules/highlight.js/lib/highlight.js"
       ]
     }
-  ]
+  ],
+  "defaults": {
+    "serve": {
+      "host": "0.0.0.0"
+    }
+  }
 }

@@ -1,6 +1,6 @@
-@import '../../node_modules/highlight.js/styles/github-gist.css';
-@import '../../node_modules/@dynatrace/groundhog/dist/css/table/table.css';
-@import '../lib/style/index.scss';
+@import '~highlight.js/styles/github-gist.css';
+@import '~@dynatrace/groundhog/dist/css/table/table.css';
+@import '../lib/style/index';
 
 %typecsset-reset {
   margin: 0;
