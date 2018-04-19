@@ -10,6 +10,9 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './docs-chart.component.html',
 })
 export class DocsChartComponent {
+  loading: false;
+  dataStaticDelayed = null;
+
   lineOptions: Highcharts.Options = {
     chart: {
       type: 'line',

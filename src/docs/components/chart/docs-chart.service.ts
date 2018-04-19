@@ -8,7 +8,7 @@ import { DtChartSeries } from '@dynatrace/angular-components/chart';
 @Injectable()
 export class ChartService {
   getStreamedChartdata(): Observable<DtChartSeries> {
-    return timer(0, 5000)
+    return timer(10000, 5000)
     .pipe(map(() => {
       const data: Array<[number, number]> = [];
       for (let i = 0; i < 10; i++) {
