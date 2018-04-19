@@ -65,6 +65,7 @@ task('library:build', sequenceTask(
   'clean:lib',
   'library:compile',
   'library:styles',
+  'library:assets',
   'library:version-replace',
   'library:removeModuleId'
 ));
