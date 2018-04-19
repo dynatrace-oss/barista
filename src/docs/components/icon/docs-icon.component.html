@@ -1,2 +1,91 @@
 <h1>Button</h1>
 <docs-source-example [example]="examples.default"></docs-source-example>
+
+<p>
+  <code>&lt;dt-icon&gt;</code> provides an easy way to use SVG (not font or bitmap) icons in your app.<br>
+  It does so by directly inlining the SVG content into the page as a child of the component (rather than using a tag or a div background image).
+  This makes it easier to apply CSS styles to SVG icons.
+</p>
+
+<h2>Imports</h2>
+<p>
+  You have to import the <code>DtIconModule</code> in your <code>AppModule</code>.<br>
+  <strong>Note:</strong> It needs a bit of configuration to work. Use the forRoot method and pass in the configuration object.<br>
+  See more in the <a href="/icon#configuration">configuration section below</a>.
+</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    DtIconModule.forRoot({{"{"}} svgIconLocation: `/assets/icons/{{"{{"}}name}}.svg` {{"}"}}),
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h2>Options & Properties</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <td width="160px">Name</td>
+      <td width="250px">Type</td>
+      <td width="160px">Default</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>name</code></td>
+      <td><code>string</code></td>
+      <td><code>-</code></td>
+      <td>The name of the icon.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="configuration">Configuration</h2>
+<p>
+  DtIcons uses a service called <code>DtIconRegistry</code> under the hood.
+  This service loades, parses and stores the icons youn want to use in your template.
+  To work properly <code>DtIconRegistry</code> needs a bit of configuration.
+  To provide this configuration please use the static <code>forRoot</code> method on the module class in your AppModule imports.
+  Just pass in the configuration object to the <code>forRoot</code> method:
+</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    DtIconModule.forRoot({{"{"}} svgIconLocation: `/assets/icons/{{"{{"}}name}}.svg` {{"}"}}),
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<p><strong>Configuration options</strong></p>
+<table class="table">
+  <thead>
+    <tr>
+      <td width="160px">Name</td>
+      <td width="160px">Type</td>
+      <td>Example</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>svgIconLocation</code></td>
+      <td><code>string</code></td>
+      <td><code>/assets/icons/{{"{{"}}name}}.svg</code></td>
+      <td>Location where the icons will be loaded. Use the <code>{{"{{"}}name}}</code> placeholder for the icon name.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  If you don't want to use the <code>forRoot</code> method, you can also provide the configuration via the <code>DT_ICON_CONFIGURATION</code> injection token in the DI.
+</p>
+
+<h2>Accessibility</h2>
+Similar to an <code>&lt;img&gt;</code> element, an icon alone does not convey any useful information for a screen-reader user.<br>
+The user of <code>&lt;dt-icon&gt;</code> must provide additional information on to how the icon is used.<br>
+Based on this, <code>&lt;dt-icon&gt;</code> is marked as <code>aria-hidden="true"</code> by default, but this can be overriden by adding <code>aria-hidden="false"</code> to the element.
