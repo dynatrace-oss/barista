@@ -1,4 +1,4 @@
-<div [dtExpandablePanel]="panel1" class="dt-expandable-section-header">
+<div [dtExpandablePanel]="expandablepanel" class="dt-expandable-section-header" [disabled]="disabled">
     <svg viewBox="0 0 512 512">
       <path d="M403.078 142.412L256 289.49 108.922 142.412l-45.255 45.255L256 380l192.333-192.333z"/>
     </svg>
@@ -7,6 +7,6 @@
     </div>
 </div>
 
-<dt-expandable-panel #panel1 class="dt-expandable-section-container">
+<dt-expandable-panel #expandablepanel class="dt-expandable-section-container">
   <ng-content></ng-content>
 </dt-expandable-panel>
