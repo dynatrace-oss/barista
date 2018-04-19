@@ -1,0 +1,46 @@
+$font-family: "BerninaSansWeb";
+$fonts-path: "/assets/fonts" !default;
+
+@mixin font-face($variant, $ff: $font-family) {
+  font-family: $ff;
+  src: url("#{$fonts-path}/bernina/BerninaSans-Web-#{$variant}.woff") format('woff'),
+  url("#{$fonts-path}/bernina/BerninaSans-Web-#{$variant}.ttf") format('truetype');
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+@font-face {
+  @include font-face("Light");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  @include font-face("LightItalic");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  @include font-face("Regular");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  @include font-face("Semibold");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  @include font-face("Bold");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  @include font-face("NarrowLight", 'BerninaSansNarrow');
+  font-weight: 300;
+  font-style: normal;
+}
