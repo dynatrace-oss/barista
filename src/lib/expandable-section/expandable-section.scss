@@ -12,20 +12,42 @@
   position: relative;
   overflow: hidden;
   font-size: 12px;
-}
+  color: $gray-500;
 
-.dt-expandable-section-header > svg {
-  width: 16px;
-  height: 16px;
-  fill: $turquoise-600;
+  > svg {
+    width: 16px;
+    height: 16px;
+    fill: $turquoise-600;
+  }
+
+  > *:first-child {
+    position: absolute;
+    vertical-align: middle;
+    top: -1px;
+    height: 16px;
+    transition: 0.125s;
+    transform: rotate(-90deg);
+  }
+
+  > *:last-child {
+    margin-left: 24px;
+  }
+
+  > *:last-child::after {
+    margin-bottom: 1px solid black;
+  }
 }
 
 .dt-expandable-section-header:hover, .dt-expandable-section-header span:hover {
   color: $gray-700;
 }
 
+.dt-expandable-section-header:hover > svg {
+  fill: $turquoise-700;
+}
+
 .dt-expandable-section-header-line:hover::after {
-  border-color: $gray-700;
+  border-bottom: 1px solid $gray-700;
 }
 
 .dt-expandable-section-header-line::after {
@@ -37,21 +59,18 @@
   border-bottom: 1px solid $gray-400;
 }
 
-.dt-expandable-section-header > *:first-child {
-  position: absolute;
-  vertical-align: middle;
-  top: -1px;
-  height: 16px;
-  transition: 0.125s;
-  transform: rotate(-90deg);
-}
+:host.dt-expandable-section-disabled {
 
-.dt-expandable-section-header > *:last-child {
-  margin-left: 24px;
-}
+  pointer-events: none;
 
-.dt-expandable-section-header > *:last-child::after {
-  margin-bottom: 1px solid black;
+  .dt-expandable-section-header {
+
+    color: $gray-300;
+
+    > svg {
+      fill: $gray-300;
+    }
+  }
 }
 
 :host.dt-expandable-section-opened .dt-expandable-section-header > svg {
