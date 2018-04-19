@@ -1,0 +1,57 @@
+@import '../core/style/variables';
+@import '../icons/_icons-mixin.scss';
+
+$dark-link-hover-bg: rgba(255,255,255,0.2);
+$dark-link-active-bg: rgba(255,255,255,0.3);
+
+a {
+  cursor: pointer;
+  color: $turquoise-600;
+  text-decoration: none;
+
+  &:hover {
+    color: $turquoise-700;
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: $turquoise-800;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid $gray-300;
+  }
+
+  &.external:after {
+    @extend .fonticon-ExternalLink:before;
+    @include icons-before("fonticons");
+
+    display: inline-block;
+    position: relative;
+    bottom: -0.05em;
+    margin-left: 4px;
+  }
+}
+
+// TODO: replace this selector when "dtTheme" directive is ready
+.theme--dark a {
+  color: white;
+  text-decoration: underline;
+
+  &:hover {
+    color: white;
+    text-decoration: underline;
+    background-color: $dark-link-hover-bg;
+  }
+
+  &:active {
+    color: white;
+    text-decoration: underline;
+    background-color: $dark-link-active-bg;
+  }
+
+  &:focus {
+    outline: 2px solid $gray-300;
+  }
+}
