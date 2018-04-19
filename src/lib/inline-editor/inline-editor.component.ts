@@ -26,20 +26,20 @@ const MODES = {
   styleUrls: ["./inline-editor.component.scss"],
   template: `
     <span *ngIf="isIdle()">{{ value }}</span>
-    <input #input
+    <input dtInput #input
       *ngIf="isEditing() || isSaving()"
       [disabled]="isSaving()"
       [value]="value"
       (change)="onChange()"
       (keyup)="onChange()" />
-    <button #edit type="button" *ngIf="isIdle()" (click)="enterEditing()">edit</button>
+    <button dt-button #edit type="button" *ngIf="isIdle()" (click)="enterEditing()">edit</button>
 
-    <span *ngIf="isSaving()"> &#8987;</span>
+    <dt-loading-spinner *ngIf="isSaving()"></dt-loading-spinner>
 
-    <button type="button"
+    <button dt-button type="button"
       *ngIf="isEditing()"
       (click)="saveAndQuitEditing()">save</button>
-    <button type="button"
+    <button dt-button variant="secondary" type="button"
       *ngIf="isEditing()"
       (click)="cancelAndQuitEditing()">cancel</button>
   `,
