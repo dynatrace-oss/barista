@@ -29,17 +29,6 @@ body {
   counter-reset: section;
 }
 
-a {
-  text-decoration: none;
-  color: #00a1b2;
-  transition: color 100ms ease-out;
-}
-
-a:hover {
-  color: #00848e;
-  text-decoration: underline;
-}
-
 h1,
 h2,
 h3 {

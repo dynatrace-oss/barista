@@ -4,7 +4,7 @@
 $dark-link-hover-bg: rgba(255,255,255,0.2);
 $dark-link-active-bg: rgba(255,255,255,0.3);
 
-a {
+a.dt-link {
   cursor: pointer;
   color: $turquoise-600;
   text-decoration: none;
@@ -34,8 +34,8 @@ a {
   }
 }
 
-.dt-theme-dark a,
-a.dt-theme-dark {
+.dt-theme-dark a.dt-link,
+a.dt-link.dt-theme-dark {
   color: white;
   text-decoration: underline;
 
