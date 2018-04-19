@@ -57,7 +57,8 @@ export class DtColumnDef extends CdkColumnDef {
   exportAs: 'dtHeaderCell',
 })
 export class DtHeaderCell {
-  constructor(private columnDef: DtColumnDef, private renderer: Renderer2, private elem: ElementRef) {
+  // tslint:disable-next-line:no-unused-variable
+  constructor(private _columnDef: DtColumnDef, private _renderer: Renderer2, private _elem: ElementRef) {
     setColumnClass.bind(this)();
   }
 }
@@ -76,23 +77,24 @@ export class DtHeaderCell {
   exportAs: 'dtCell',
 })
 export class DtCell {
-  constructor(private columnDef: DtColumnDef, private renderer: Renderer2, private elem: ElementRef) {
+  // tslint:disable-next-line:no-unused-variable
+  constructor(private _columnDef: DtColumnDef, private _renderer: Renderer2, private _elem: ElementRef) {
     setColumnClass.bind(this)();
   }
 }
 
 function getColumnAlignmentClass(columnType: string): string | void {
-  if (!columnType) { return; }
+  if (!columnType) { return undefined; }
   const [cssAlignmentClass] = Object.keys(DT_COLUMN_TYPES).filter((idx) => (DT_COLUMN_TYPES[idx].includes(columnType)));
 
   return cssAlignmentClass;
 }
 
 function setColumnClass(): void {
-  const { cssClassFriendlyName, type } = this.columnDef;
-  const { nativeElement } = this.elem;
+  const { cssClassFriendlyName, type } = this._columnDef;
+  const { nativeElement } = this._elem;
   const cssAlignmentClass = getColumnAlignmentClass(type) || 'left';
 
-  this.renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
-  this.renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
+  this._renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
+  this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
 }
