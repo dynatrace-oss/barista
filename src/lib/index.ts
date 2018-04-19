@@ -15,3 +15,4 @@ export * from './theming/index';
 export * from './table/index';
 export * from './chart/index';
 export * from './button/index';
+export * from './chart/index';

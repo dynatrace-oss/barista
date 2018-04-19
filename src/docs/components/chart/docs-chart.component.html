@@ -1,4 +1,4 @@
-<button dt-button (click)="toggleMenu()">Trigger resize</button>
+<!-- <button dt-button (click)="toggleMenu()">Trigger resize</button>
 <div [style.padding-left.px]="_menuOpen ? 200 : 0">
 <h1>Chart with static data</h1>
 
@@ -18,6 +18,14 @@
 </div>
 
 <h2>Purple Theme</h2>
-<div dtTheme="royalblue" >
+<div dtTheme="purple" >
 <dt-chart [options]="lineOptions" [series]="data$"></dt-chart>
-</div>
+</div> -->
+
+<h2>Loading</h2>
+<button dt-button (click)="dataStaticDelayed = dataStatic">Init data</button>
+<dt-chart [options]="lineOptions" [series]="dataStaticDelayed"></dt-chart>
+
+<!-- <h2>Toggle loading</h2>
+<button dt-button (click)="loading = !loading">Toggle loading</button>
+<dt-chart [options]="lineOptions" [series]="dataStatic" [loading]="loading"></dt-chart> -->
