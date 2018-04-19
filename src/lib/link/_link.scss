@@ -23,7 +23,7 @@ a {
     outline: 2px solid $gray-300;
   }
 
-  &.external:after {
+  &.dt-external:after {
     @extend .fonticon-ExternalLink:before;
     @include icons-before("fonticons");
 
@@ -34,8 +34,8 @@ a {
   }
 }
 
-// TODO: replace this selector when "dtTheme" directive is ready
-.theme--dark a {
+.dt-theme-dark a,
+a.dt-theme-dark {
   color: white;
   text-decoration: underline;
 
