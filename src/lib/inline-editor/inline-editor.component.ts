@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -10,20 +9,20 @@ import {
   ViewChild,
   forwardRef,
   AfterViewChecked
-} from "@angular/core";
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
 const MODES = {
   IDLE: 0,
   EDITING: 1,
-  SAVING: 2
-}
+  SAVING: 2,
+};
 
 @Component({
   preserveWhitespaces: false,
-  selector: "[dt-inline-editor]",
-  styleUrls: ["./inline-editor.component.scss"],
+  selector: '[dt-inline-editor]',
+  styleUrls: ['./inline-editor.component.scss'],
   template: `
     <span *ngIf="isIdle()">{{ value }}</span>
     <input dtInput #input
@@ -44,8 +43,8 @@ const MODES = {
       (click)="cancelAndQuitEditing()">cancel</button>
   `,
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DtInlineEditor), multi: true }
-  ]
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DtInlineEditor), multi: true },
+  ],
 })
 export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, OnDestroy {
 
@@ -68,25 +67,25 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
   @Output('saved') savedEvent = new EventEmitter<{ value: string }>();
   @Output('failed') failedEvent = new EventEmitter<{ value: string, error: any }>();
 
-  public ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.$saving) {
       this.$saving.unsubscribe();
       this.$saving = null;
     }
   }
 
-  private onChange() {
+  private onChange(): void {
     this.value = this.inputReference.nativeElement.value;
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     if (this.mode !== this.modeOnLastCheck) {
       this.setFocusToEditControls();
       this.modeOnLastCheck = this.mode;
     }
   }
 
-  private setFocusToEditControls() {
+  private setFocusToEditControls(): void {
     if (this.mode === MODES.EDITING) {
       this.inputReference.nativeElement.focus();
     } else if (this.mode === MODES.IDLE) {
@@ -94,10 +93,9 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
     }
   }
 
-
   // Public API
 
-  public enterEditing() {
+  enterEditing(): void {
     this.initialState = this.value;
     this.mode = MODES.EDITING;
     this.touch();
@@ -106,8 +104,8 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
     this.enterEditingEvent.emit({ value: this.value });
   }
 
-  public saveAndQuitEditing() {
-    const value = this.value
+  saveAndQuitEditing(): void {
+    const value = this.value;
 
     this.saveEvent.emit({ value });
 
@@ -132,7 +130,7 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
     }
   }
 
-  public cancelAndQuitEditing() {
+  cancelAndQuitEditing(): void {
     const value = this.value;
     this.value = this.initialState;
     this.mode = MODES.IDLE;
@@ -142,46 +140,46 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
     this.quitEditingEvent.emit({ value: this.value });
   }
 
-  public isIdle() {
+  isIdle(): boolean {
     return this.mode === MODES.IDLE;
   }
 
-  public isEditing() {
+  isEditing(): boolean {
     return this.mode === MODES.EDITING;
   }
 
-  public isSaving() {
+  isSaving(): boolean {
     return this.mode === MODES.SAVING;
   }
 
   // Data binding
 
-  private _value: string = '';
+  private _value = '';
 
   private set value(value: string) {
     if (this._value !== value) {
-      this._value = value
-      this.changed.forEach(f => f(value))
+      this._value = value;
+      this.changed.forEach((f) => f(value));
     }
   }
 
-  private get value() {
-    return this._value
+  private get value(): string {
+    return this._value;
   }
 
-  private touch() {
-    this.touched.forEach(f => f());
+  private touch(): void {
+    this.touched.forEach((f) => f());
   }
 
-  public writeValue(value: string) {
+  writeValue(value: string): void {
     this._value = value;
   }
 
-  public registerOnChange(fn: (value: string) => void) {
-    this.changed.push(fn)
+  registerOnChange(fn: (value: string) => void): void {
+    this.changed.push(fn);
   }
 
-  public registerOnTouched(fn: () => void) {
-    this.touched.push(fn)
+  registerOnTouched(fn: () => void): void {
+    this.touched.push(fn);
   }
 }
