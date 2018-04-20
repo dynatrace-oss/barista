@@ -87,7 +87,7 @@ yarn lint
 1. Create an NPM link
    1. In the library output directory `dist/lib`:
       ```
-      sudo yarn link
+      yarn link
       ```
    1. In the other project directory:
       ```
