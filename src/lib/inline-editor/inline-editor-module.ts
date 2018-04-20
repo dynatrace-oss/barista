@@ -12,7 +12,7 @@ import { DtInputModule } from '@dynatrace/angular-components/input';
     CommonModule,
     DtLoadingDistractorModule,
     DtButtonModule,
-    DtInputModule
+    DtInputModule,
   ],
   exports: [
     DtInlineEditor,
