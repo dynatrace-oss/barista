@@ -1,0 +1,36 @@
+@import '../core/style/variables';
+
+$image-size: 92px;
+$margin-top: 48px;
+$padding: 8px;
+
+:host.dt-empty-state {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  font-family: $mainfont;
+  font-size: 14px;
+  font-weight: 400;
+  color: $gray-700;
+  margin: $margin-top 0;
+  line-height: 1.4;
+}
+
+.message-area {
+  padding-left: $padding;
+  white-space: pre-line;
+}
+
+.image-box {
+  border: 1px solid #000;
+  display: inline-block;
+  height: $image-size;
+  width: $image-size;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.message-title {
+  font-size: 24px;
+  font-weight: 300;
+}

@@ -1,4 +1,4 @@
-import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Renderer2, ElementRef } from '@angular/core';
+import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 
 export const DT_COLUMN_TYPES = {
@@ -80,6 +80,9 @@ export class DtCell {
   // tslint:disable-next-line:no-unused-variable
   constructor(private _columnDef: DtColumnDef, private _renderer: Renderer2, private _elem: ElementRef) {
     setColumnClass.bind(this)();
+
+    // tslint:disable-next-line
+    console.log(_elem);
   }
 }
 

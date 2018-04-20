@@ -6,7 +6,8 @@ import {
   Input,
   ViewChild,
   TemplateRef,
-  ViewContainerRef
+  ViewContainerRef,
+  AfterContentInit
 } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 
@@ -18,19 +19,27 @@ import { CdkTable } from '@angular/cdk/table';
   exportAs: 'dtTable',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
+  preserveWhitespaces: false,
   host: {
     class: 'dt-table',
   },
 })
-export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
+export class DtTable<T> extends CdkTable<T> implements AfterContentInit, AfterContentChecked {
+  @Input() emptyTitle: string;
   @Input() emptyMessage: string;
   @ViewChild('noDataPlaceholder', {read: ViewContainerRef}) noDataPlaceholder: ViewContainerRef;
   @ViewChild('noData') noDataTemplate: TemplateRef<void>;
 
+  ngAfterContentInit(): void {
+    this.emptyTitle = this.emptyTitle || 'No data';
+    this.emptyMessage = this.emptyMessage || `Sorry, there's no data to display`;
+  }
+
   ngAfterContentChecked(): void {
     super.ngAfterContentChecked();
 
-    if (this.isEmptyDataSource()) {
+    if (this.isEmptyDataSource) {
+      this.noDataPlaceholder.clear();
       this.noDataPlaceholder.createEmbeddedView(this.noDataTemplate);
     }
   }
@@ -40,7 +49,7 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
     super.renderRows();
   }
 
-  isEmptyDataSource(): boolean {
+  get isEmptyDataSource(): boolean {
     if (Array.isArray(this.dataSource) && !this.dataSource.length) {
       return true;
     }

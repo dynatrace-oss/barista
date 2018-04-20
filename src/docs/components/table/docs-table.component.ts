@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { HeaderRowPlaceholder } from '@angular/cdk/table';
 import { DefaultTableExampleComponent } from './examples/table-default-example.component';
+import { EmptyTableExampleComponent } from './examples/table-empty-state.component';
 
 @Component({
   moduleId: module.id,
@@ -9,5 +10,6 @@ import { DefaultTableExampleComponent } from './examples/table-default-example.c
 })
 export class DocsTableComponent { examples = {
     default: DefaultTableExampleComponent,
+    empty: EmptyTableExampleComponent,
   };
 }
