@@ -1,48 +1,13 @@
-// @import "~@dynatrace/groundhog/src/common/colors";
-// @import "~@dynatrace/groundhog/src/button/button-common";
-// @import "~@dynatrace/groundhog/src/button/button-themes";
-// @import "~@dynatrace/groundhog/src/button/button-variants";
+:host {
+  display: flex;
+  align-items: center;
+}
 
-// :host {
-//   &[disabled] {
-//     pointer-events: none;
-//   }
+.dt-input {
+  width: auto;
+}
 
-//   & > .icon {
-//     @include btn-icon-element();
-//   }
-
-//   &.primary {
-//     @include btn-primary();
-//   }
-
-//   &.secondary {
-//     @include btn-secondary();
-//   }
-
-//   &[class^="fonticon-"],
-//   &[class*=" fonticon-"],
-//   &[class^="icon-"],
-//   &[class*=" icon-"] {
-//     &:not(:empty)::before {
-//       margin-right: 10px;
-//     }
-
-//     &:empty {
-//       padding-left: 0;
-//       padding-right: 0;
-//       width: 32px;
-//       text-align: center;
-//     }
-//   }
-// }
-
-// :host.primary.theme--dark,
-// .theme--dark :host.primary {
-//   @include btn-primary-theme-dark();
-// }
-
-// .theme--dark :host.secondary,
-// :host.secondary.theme--dark {
-//   @include btn-secondary-theme-dark();
-// }
+.dt-input ~ *,
+span ~ * {
+  margin-left: 10px;
+}
