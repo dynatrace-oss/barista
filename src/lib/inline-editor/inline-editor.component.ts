@@ -87,9 +87,13 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
 
   private setFocusToEditControls(): void {
     if (this.mode === MODES.EDITING) {
-      this.inputReference.nativeElement.focus();
+      if (this.inputReference.nativeElement) {
+        this.inputReference.nativeElement.focus();
+      }
     } else if (this.mode === MODES.IDLE) {
-      this.editButtonReference.nativeElement.focus();
+      if (this.editButtonReference.nativeElement) {
+        this.editButtonReference.nativeElement.focus();
+      }
     }
   }
 
