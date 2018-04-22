@@ -15,6 +15,7 @@ const TIMEOUT_MS = 2000;
 })
 export class FailingInlineEditorExample {
   sampleModel = 'text content';
+
   failingSaveFunction(): Observable<void> {
     return new Observable<void>((observer) => {
       setTimeout(
