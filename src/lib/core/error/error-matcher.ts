@@ -8,7 +8,9 @@ export abstract class ErrorStateMatcher {
 /** Error state matcher that matches when a control is invalid and dirty. */
 export class DefaultErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
+    const isFormSubmitted = form && form.submitted;
+    const isControlInvalid = !!control && control.invalid;
+    return !!(isControlInvalid && (control!.dirty || isFormSubmitted));
   }
 }
 
