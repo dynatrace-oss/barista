@@ -17,17 +17,21 @@ import {
 
 let nextUniqueId = 0;
 
-// Invalid input type. Using one of these will throw an error.
-const INPUT_INVALID_TYPES = [
-  'button',
-  'checkbox',
-  'file',
-  'hidden',
-  'image',
-  'radio',
-  'range',
-  'reset',
-  'submit',
+// Valid input type. Using one other than these will throw an error.
+const INPUT_VALID_TYPES = [
+  'color',
+  'date',
+  'datetime-local',
+  'email',
+  'month',
+  'number',
+  'password',
+  'search',
+  'tel',
+  'text',
+  'time',
+  'url',
+  'week',
 ];
 
 // Boilerplate for applying mixins to DtInput.
@@ -174,7 +178,7 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
 
   /** Make sure the input is a supported type. */
   private _validateType(): void {
-    if (INPUT_INVALID_TYPES.includes(this._type)) {
+    if (!INPUT_VALID_TYPES.includes(this._type)) {
       throw new Error(`Input type "${this._type}" isn't supported by dtInput.`);
     }
   }
