@@ -14,9 +14,6 @@ export class DocsChartComponent {
   dataStaticDelayed = null;
 
   lineOptions: Highcharts.Options = {
-    chart: {
-      type: 'line',
-    },
     xAxis: {
        type: 'datetime',
     },
@@ -27,18 +24,12 @@ export class DocsChartComponent {
   };
 
   columnOptions: Highcharts.Options = {
-    chart: {
-      type: 'column',
-    },
     xAxis: {
        type: 'datetime',
     },
   };
 
   pieOptions: Highcharts.Options = {
-    chart: {
-      type: 'pie',
-    },
     xAxis: {
        type: 'datetime',
     },
@@ -49,6 +40,7 @@ export class DocsChartComponent {
   dataStatic: Highcharts.IndividualSeriesOptions[] = [{
     name: 'Actions/min',
     id: 'SomeMetricId',
+    type: 'area',
     data: [
       [
         1370304000000,
@@ -64,6 +56,7 @@ export class DocsChartComponent {
   dataStaticMulti: Highcharts.IndividualSeriesOptions[] = [{
     name: 'Actions/min',
     id: 'SomeMetricId',
+    type: 'area',
     data: [
       [
         1370304000000,
@@ -77,6 +70,7 @@ export class DocsChartComponent {
   }, {
     name: 'Requests/min',
     id: 'requestsId',
+    type: 'area',
     data: [
       [
         1370304000000,
