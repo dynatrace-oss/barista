@@ -7,6 +7,7 @@ import { DtThemingModule } from '@dynatrace/angular-components/theming';
 import { DtTableModule } from '@dynatrace/angular-components/table';
 import { DtTableEmptyStateModule } from '@dynatrace/angular-components/table/table-empty-state';
 import { TableDefaultComponent } from './examples/table-default.component';
+import { TableDifferentWidthComponent } from './examples/table-different-width.component';
 import { TableEmptyStateComponent } from './examples/table-empty-state.component';
 import { TableObservableComponent } from './examples/table-observable.component';
 import { TableDataSourceComponent } from './examples/table-data-source.component';
@@ -14,6 +15,7 @@ import { TableLoadingComponent } from './examples/table-loading.component';
 
 const EXAMPLES = [
   TableDefaultComponent,
+  TableDifferentWidthComponent,
   TableEmptyStateComponent,
   TableObservableComponent,
   TableDataSourceComponent,

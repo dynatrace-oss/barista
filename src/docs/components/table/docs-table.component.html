@@ -1,6 +1,5 @@
 <h1>Table</h1>
 
-<docs-source-example [example]="examples.dataSource"></docs-source-example>
 <docs-source-example [example]="examples.default"></docs-source-example>
 
 <p>
@@ -83,6 +82,11 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
 <p>(note: The dtRowDef also exports row context, which can be used for event and property bindings on the row element)</p>
 <p>See the source code of any of the examples in this page to see all the pieces in place</p>
 
+<h3>Width proportion</h3>
+<p>You can customize the column width proportion with <code>[dtColumnProportion]</code></p>
+
+<docs-source-example [example]="examples.width"></docs-source-example>
+
 <h3>Empty state</h3>
 <p>You can customize the empty Title and Message when the table is empty with <code>[emptyTitle]</code> and <code>[emptyMessage]</code></p>
 
@@ -119,6 +123,11 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
       <td><code>dtColumnType</code></td>
       <td>Attribute</td>
       <td>Type for the column (to be used in the alignment and for future versions add pipes and masks), possibles types are left-alignment <code>['left', 'text', 'id'],</code> center-alignment <code>['center', 'icon', 'control'],</code> right-alignment <code>['right', 'number', 'date', 'ip']</code></td>
+    </tr>
+    <tr>
+      <td><code>dtColumnProportion</code></td>
+      <td>Attribute</td>
+      <td>A number describing the width proportion for the column <code>[dtColumnProportion]=2</code> means that this column will be double width as the regular ones</td>
     </tr>
     <tr>
       <td><code>dt-header-cell</code></td>
