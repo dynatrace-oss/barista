@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { interval } from 'rxjs/observable/interval';
+import { Subscription } from 'rxjs/Subscription';
+// tslint:disable-next-line
+import 'rxjs/add/operator/take';
 
 @Component({
   moduleId: module.id,
   // tslint:disable
   template: `
-  <button (click)="getAnotherRow()">Add one more Row</button>
+  <button (click)="startSubscription()">Start subscription</button>
   <button (click)="clearRows()">Clear</button>
   <dt-table [dataSource]="dataSource1" [emptyTitle]="emptyTitle" [emptyMessage]="emptyMessage">
     <ng-container dtColumnDef="host" dtColumnType="text">
@@ -39,6 +44,16 @@ export class TableObservableComponent {
   emptyTitle = 'No Host';
   emptyMessage = `from 9:00 - 10:00\n Remove filter to make your search less restrictive.
   Expand or change the timeframe you're searching within.`;
+  // tslint:disable-next-line:no-magic-numbers
+  source = interval(1000);
+  subscription: Subscription;
+
+  startSubscription(): void {
+    this.subscription = this.source
+    // tslint:disable-next-line:no-magic-numbers
+    .take(5)
+    .subscribe(() => this.getAnotherRow());
+  }
 
   clearRows(): void {
     this.dataSource1.next([]);
