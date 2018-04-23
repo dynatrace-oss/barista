@@ -24,6 +24,7 @@ export class ChartService {
       return [{
         name: 'Actions/min',
         id: `MetricId-${Math.floor(Math.random() * 100)}`,
+        type: 'column',
         data,
       }];
     }));
