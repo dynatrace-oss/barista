@@ -74,6 +74,8 @@ System.config({
       'dist/lib/bundles/dynatrace-angular-components-loading-distractor.umd.js',
     '@dynatrace/angular-components/table':
       'dist/lib/bundles/dynatrace-angular-components-table.umd.js',
+    '@dynatrace/angular-components/table/table-empty-state':
+      'dist/lib/bundles/dynatrace-angular-components-table-table-empty-state.umd.js',
     '@dynatrace/angular-components/theming':
       'dist/lib/bundles/dynatrace-angular-components-theming.umd.js',
   },
