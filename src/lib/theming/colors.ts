@@ -1,3 +1,6 @@
+/**
+ * Colors Enumeration used in typescript (only charts for now)
+ */
 export enum Colors {
   WHITE = '#ffffff',
   PURPLE_200 = '#debbf3',
@@ -23,6 +26,9 @@ export enum Colors {
   TURQUOISE_900 = '#005559',
 }
 
+/**
+ * Interface that specifies the structure for the palettes in charts
+ */
 export interface ChartColorPalette {
   single: string;
   multi: string[];

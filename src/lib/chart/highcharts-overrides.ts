@@ -1,76 +1,49 @@
 import * as Highcharts from 'highcharts';
 
-console.log(Highcharts.chart);
-
 export const configureLegendSymbols = () => {
-
-  console.log('CONFIGURED');
-    // tslint:disable-next-line: no-any
-  (Highcharts as any).seriesTypes.area.prototype.drawLegendSymbol = function(legend) {
-    console.log('area legend');
-    const options = this.options;
-    const symbolWidth = legend.symbolWidth;
+  // tslint:disable-next-line: no-any
+  (Highcharts as any).seriesTypes.area.prototype.drawLegendSymbol = function(): void {
     const renderer = this.chart.renderer;
     const legendItemGroup = this.legendGroup;
-    const baseline = legend.baseline;
+    const attr = {
+      fill: this.options.color,
+    };
+    this.legendLine = renderer.path(
+      ['M10.5 5.5l3.5 4.8v3.2H2v-11L6.5 8z']).attr(attr).add(
+      legendItemGroup);
+  };
+  // tslint:disable-next-line: no-any
+  (Highcharts as any).seriesTypes.line.prototype.drawLegendSymbol = function(): void {
+    const renderer = this.chart.renderer;
+    const legendItemGroup = this.legendGroup;
+    const attr = {
+      fill: this.options.color,
+    };
+    this.legendLine = renderer.path(
+      ['M14 2.6l-3.8 4.8-3.4-2.3L2 9.8v2.8l5-5 3.6 2.5L14 5.8z']).attr(attr).add(
+      legendItemGroup);
+  };
+  // tslint:disable-next-line: no-any
+  (Highcharts as any).seriesTypes.pie.prototype.drawLegendSymbol = function(legend: any, item: any): void {
+    const options = legend.options;
 
-    // if lineWidth is set to 0 then draw standard rectangle
-    // tslint:disable-next-line: no-any
-    let attr = {} as any;
-    if (options.useRectangleLegend) {
-      attr = {
-        'stroke-width' : 1,
-        'fill' : options.color, // TODO: add opacity
-      };
-      if (options.dashStyle) {
-        attr.dashstyle = options.dashStyle;
-      }
-      this.legendLine = renderer.path(
-          [ 'M', 0, baseline + 1, 'L', 12, baseline + 1, 'L', 12,
-              baseline - 11, 'L', 0, baseline - 11, 'L', 0,
-              baseline + 1 ]).attr(attr).add(legendItemGroup);
-      } else if (options.lineWidth) {
-        attr = {
-          'stroke-width' : options.lineWidth,
-          'fill' : options.color, // TODO: add opacity
-        };
-        if (options.dashStyle) {
-          attr.dashstyle = options.dashStyle;
-        }
-        this.legendLine = renderer.path(
-            [ "M", 2, baseline + 1, "L", 2, baseline - 2, "L", 7,
-                baseline - 6, "L", 10, baseline - 4, "L", 14,
-                baseline - 9, "L", 14, baseline + 1 ]).attr(
-            attr).add(legendItemGroup);
-      }
+    item.legendSymbol = this.chart.renderer.path(
+      ['M13 13C13 7.5 8.5 3 3 3v10h10z'])
+        .addClass('highcharts-point')
+        .attr({
+            zIndex: 3,
+        }).add(item.legendGroup);
   };
 
   // tslint:disable-next-line: no-any
-  (Highcharts as any).seriesTypes.column.prototype.drawLegendSymbol = function(legend: any): void {
-    console.log('column legend');
-    const options = this.options;
-    const symbolWidth = legend.symbolWidth;
-    const step = symbolWidth / 20;
+  (Highcharts as any).seriesTypes.column.prototype.drawLegendSymbol = function(): void {
     const renderer = this.chart.renderer;
     const legendItemGroup = this.legendGroup;
-    const baseline = legend.baseline;
-    let attr;
-
-    // Draw the bars
-    if (options.lineWidth) {
-      attr = {
-        'stroke-width' : options.lineWidth,
-        'stroke' : 'red',
-        'stroke-opacity' : 1.0,
-      };
-      this.legendLine = renderer.path(
-          [ "M", step * 2, baseline + 1, "L", step * 2,
-              baseline - 5, "L", step * 3, baseline - 5, "L",
-              step * 3, baseline + 1, "M", step * 7,
-              baseline + 1, "L", step * 7, baseline - 11,
-              ]).attr(attr).add(
-          legendItemGroup);
-      console.log(this.legendLine);
-    }
+    const attr = {
+      fill: this.options.color,
+    };
+    this.legendLine = renderer.path(
+        ['M2 7.3h2.5v5.8H2z M6.8 3h2.5v10H6.8z M11.5 5.1H14V13h-2.5z']).attr(attr).add(
+        legendItemGroup);
   };
 };
