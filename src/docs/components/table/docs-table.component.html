@@ -1,7 +1,6 @@
 <h1>Table</h1>
 
-<docs-source-example [example]="examples.empty"></docs-source-example>
-
+<docs-source-example [example]="examples.dataSource"></docs-source-example>
 <docs-source-example [example]="examples.default"></docs-source-example>
 
 <p>
@@ -46,6 +45,7 @@
 <!-- @formatter:off -->
 <pre><code snippet language="typescript">@NgModule({{"{"}}
   imports: [
+    ...
     DtTableModule,
   ],
 {{"}"}})
@@ -82,6 +82,16 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
 
 <p>(note: The dtRowDef also exports row context, which can be used for event and property bindings on the row element)</p>
 <p>See the source code of any of the examples in this page to see all the pieces in place</p>
+
+<h3>Empty state of table</h3>
+<p>You can customize the empty Title and Message when the table is empty with <code>[emptyTitle]</code> and <code>[emptyMessage]</code></p>
+
+<docs-source-example [example]="examples.empty"></docs-source-example>
+
+<h3>Observable as DataSource</h3>
+<p>You can pass an Observable to the <code>[dataSource]</code> property</p>
+
+<docs-source-example [example]="examples.observable"></docs-source-example>
 
 <h3>
   Component and attribute directives for the table:
@@ -167,6 +177,20 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
       <td><code>undefined</code></td>
       <td>Data to be shown in the table</td>
     </tr>
+    <tr>
+      <td><code>emptyTitle</code></td>
+      <td>input</td>
+      <td><code>string</code></td>
+      <td><code>"No data"</code></td>
+      <td>Title to be shown when the table is empty</td>
+    </tr>
+    <tr>
+      <td><code>emptyMessage</code></td>
+      <td>input</td>
+      <td><code>string</code></td>
+      <td><code>"Sorry, there's no data to display"</code></td>
+      <td>Message to be shown when the table is empty</td>
+    </tr>
   </tbody>
 </table>
 There are no outputs at this stage. The table is totally passive.
@@ -177,16 +201,16 @@ There are no outputs at this stage. The table is totally passive.
 <h2>Programmatic access</h2>
 <h3>Through the table object</h3>
 <ul>
-  <li>addColumnDef()</li>
-  <li>removeColumnDef()</li>
-  <li>addRowDef()</li>
-  <li>removeRowDef()</li>
-  <li>renderRows()</li>
-  <li>setHeaderRowDef()</li>
+  <li><code>addColumnDef()</code></li>
+  <li><code>removeColumnDef()</code></li>
+  <li><code>addRowDef()</code></li>
+  <li><code>removeRowDef()</code></li>
+  <li><code>renderRows()</code></li>
+  <li><code>setHeaderRowDef()</code></li>
 </ul>
 <h3>Through the header object</h3>
 <ul>
-  <li>getColumnsDiff()</li>
+  <li><code>getColumnsDiff()</code></li>
 </ul>
 
 <h2>Styling</h2>
@@ -231,9 +255,3 @@ There are no outputs at this stage. The table is totally passive.
 </p>
 
 <p><strong>NOTE:</strong><br>Right now only setting the light or dark mode is available. Full theming functionality will be added in a later stage.</p>
-
-<h2>Accessibility</h2>
-<p>
-</p>
-
-<h2>Examples</h2>
