@@ -24,7 +24,7 @@ import { delay } from 'rxjs/operators/delay';
 import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette, Colors } from '@dynatrace/angular-components/theming';
 import { mergeNestedGroup } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
-import { configureLegendSymbols } from './highcharts-overrides';
+import { configureLegendSymbols } from './highcharts-legend-overrides';
 
 export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions[];
@@ -157,6 +157,12 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
   }
 
+  /**
+   * Applies a color to a series with the following rules
+   * 1. leave color if its passed in the series
+   * 2. if only one series is present choose the single color from the theme palette
+   * 3. choose the color from the themepalette that matches the index of the series
+   */
   private _applySeriesColor(s: IndividualSeriesOptions, index: number): void {
     // leave the color if there is already a color set
     if (s.color) {
@@ -233,6 +239,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
   }
 
+  /** updates the loading status of the component */
   private _setLoading(): void {
     if (this.options) {
       this._loading = !this._series;
@@ -240,6 +247,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     this._changeDetectorRef.markForCheck();
   }
 
+  /** merges the options passed as input with the defaultOptions */
   private _mergeOptions(options: DtChartOptions): DtChartOptions {
     if (!options) {
       return defaultChartOptions;
