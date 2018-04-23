@@ -41,6 +41,8 @@ export class DtColumnDef extends CdkColumnDef {
   @Input('dtColumnDef') name: string;
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnType') type: string;
+  // tslint:disable-next-line:no-input-rename
+  @Input('dtColumnProportion') proportion: number;
 }
 
 /** Header cell template container that adds the right classes and role. */
@@ -91,10 +93,12 @@ function getColumnAlignmentClass(columnType: string): string | void {
 }
 
 function setColumnClass(): void {
-  const { cssClassFriendlyName, type } = this._columnDef;
+  const { cssClassFriendlyName, type, proportion } = this._columnDef;
   const { nativeElement } = this._elem;
   const cssAlignmentClass = getColumnAlignmentClass(type) || 'left';
 
   this._renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
   this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
+  this._renderer.setStyle(nativeElement, 'flex-grow', proportion);
+  this._renderer.setStyle(nativeElement, 'flex-shrink', proportion);
 }
