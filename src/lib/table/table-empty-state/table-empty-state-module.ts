@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtEmptyState } from './empty-state';
+import { DtTableEmptyState } from './table-empty-state';
 
 @NgModule({
   imports: [
     CommonModule,
   ],
   exports: [
-    DtEmptyState,
+    DtTableEmptyState,
   ],
   declarations: [
-    DtEmptyState,
+    DtTableEmptyState,
   ],
 })
-export class DtEmptyStateModule {}
+export class DtTableEmptyStateModule {}

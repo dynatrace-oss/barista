@@ -2,9 +2,16 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 export class DtDataSource<T> {
-  loading: boolean;
+  loadingObserver = new BehaviorSubject<boolean>(false);
   private readonly _data: BehaviorSubject<T[]>;
   private readonly _renderData = new BehaviorSubject<T[]>([]);
+
+  get loading(): boolean {
+    return this.loadingObserver.value;
+  }
+  set loading(value: boolean) {
+    this.loadingObserver.next(value);
+  }
 
   // Raw data
   get data(): T[] {
