@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   moduleId: module.id,
   // tslint:disable
   template: `
-  <button (click)="getAnotherRow()">Add one more Row</button>
-  <button (click)="clearRows()">Clear</button>
-  <dt-table [dataSource]="dataSource1" [emptyTitle]="emptyTitle" [emptyMessage]="emptyMessage">
+  <button (click)="toggleLoading()">Toggle loading property</button>
+  <dt-table [dataSource]="dataSource1" [isLoading]="tableLoading">
     <ng-container dtColumnDef="host" dtColumnType="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
@@ -33,26 +31,17 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
   </dt-table>`
   // tslint:enable
 })
-export class TableObservableComponent {
-  dataSource1 = new BehaviorSubject<object[]>([]);
+export class TableLoadingComponent {
+  dataSource1: object[] = [
+    { host: 'et-demo-2-win4', cpu: '30 %', memory: '38 % of 5.83 GB', traffic: '98.7 Mbit/s' },
+    { host: 'et-demo-2-win3', cpu: '26 %', memory: '46 % of 6 GB', traffic: '625 Mbit/s' },
+    { host: 'docker-host2', cpu: '25.4 %', memory: '38 % of 5.83 GB', traffic: '419 Mbit/s' },
+    { host: 'et-demo-2-win1', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
+  ];
+  tableLoading = true;
 
-  emptyTitle = 'No Host';
-  emptyMessage = `from 9:00 - 10:00\n Remove filter to make your search less restrictive.
-  Expand or change the timeframe you're searching within.`;
-
-  clearRows(): void {
-    this.dataSource1.next([]);
+  toggleLoading(): void {
+    this.tableLoading = !this.tableLoading;
   }
 
-  getAnotherRow(): void {
-    // tslint:disable
-    this.dataSource1.next(
-    [...this.dataSource1.value, {
-      host: 'et-demo-2-win4',
-      cpu: `${(Math.random() * 10).toFixed(2)} %`,
-      memory: `${(Math.random() * 10).toFixed(2)} % of ${(Math.random() * 40).toFixed(2)} GB`,
-      traffic: `${(Math.random() * 100).toFixed(2)} Mbit/s`,
-    }]);
-    // tslint:enable
-  }
 }

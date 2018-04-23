@@ -43,7 +43,6 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentInit, AfterCo
     this.templatePlaceholder.clear();
     switch (true) {
       case this.isLoading:
-        this._rowPlaceholder.viewContainer.clear();
         this.templatePlaceholder.createEmbeddedView(this.loadingTemplate);
         break;
       case this.isEmptyDataSource:

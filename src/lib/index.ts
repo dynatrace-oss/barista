@@ -14,4 +14,4 @@ export * from './expandable-section/index';
 export * from './loading-distractor/index';
 export * from './theming/index';
 export * from './table/index';
-export * from './empty-state/index';
+export * from './table/table-empty-state/index';

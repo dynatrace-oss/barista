@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
-import { DtEmptyStateModule } from '@dynatrace/angular-components/empty-state';
+import { DtTableEmptyStateModule } from '@dynatrace/angular-components/table/table-empty-state';
 import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 import { DtTable } from './table';
 import { DtHeaderRow, DtHeaderRowDef, DtRow, DtRowDef } from './row';
@@ -24,7 +24,7 @@ const EXPORTED_DECLARATIONS = [
   imports: [
     CommonModule,
     CdkTableModule,
-    DtEmptyStateModule,
+    DtTableEmptyStateModule,
     DtLoadingDistractorModule,
   ],
   exports: [
