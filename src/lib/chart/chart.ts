@@ -28,6 +28,7 @@ import { configureLegendSymbols } from './highcharts-overrides';
 
 export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions[];
+interface DtChartTooltip { (): string | boolean; iswrapped: boolean; }
 
 const defaultChartColorPalette = 'turquoise';
 const defaultChartOptions: DtChartOptions = {
@@ -176,31 +177,57 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     s.color = this._colorPalette.multi[index];
   }
 
+  /**
+   * returns the combined highcharts options for the chart
+   * combines series and options passed, merged with the defaultOptions
+   */
   private _getHighchartsOptions(): Options {
-    const options = this._mergeOptions(this.options) as Options;
+    let highchartsOptions = this._mergeOptions(this.options) as Options;
+    highchartsOptions = this._wrapTooltip(highchartsOptions);
+    highchartsOptions.series = this._series;
+
+    return highchartsOptions;
+  }
+
+/**
+ * Wraps the options.tooltip.formatter function passed into a div.dt-chart-tooltip
+ * to enable correct styling for the tooltip
+ */
+  private _wrapTooltip(highchartsOptions: Options): Options {
+    const formatter = highchartsOptions.tooltip!.formatter as DtChartTooltip;
+
     let tooltipFormatterFunc = defaultTooltipFormatter;
     if (this.options.tooltip && this.options.tooltip.formatter) {
       tooltipFormatterFunc = this.options.tooltip.formatter;
     }
-    options.tooltip!.formatter = function(): string | boolean {
-      const tooltipFormatterFuncBound = tooltipFormatterFunc.bind(this);
+    if (!formatter || !formatter.iswrapped) {
+      highchartsOptions.tooltip!.formatter = function(): string | boolean {
+        const tooltipFormatterFuncBound = tooltipFormatterFunc.bind(this);
 
-      return `<div class="dt-chart-tooltip">${tooltipFormatterFuncBound()}</div>`;
-    };
-    options.series = this._series;
+        return `<div class="dt-chart-tooltip">${tooltipFormatterFuncBound()}</div>`;
+      } as DtChartTooltip;
+      (highchartsOptions.tooltip!.formatter as DtChartTooltip)!.iswrapped = true;
+    }
 
-    return options;
+    return highchartsOptions;
   }
 
+  /**
+   * Spins up the chart with correct colors applied
+   */
   private _createChart(): void {
     this._applyColors();
     this._chartObject = chart(this.container.nativeElement, this._getHighchartsOptions());
     this._setLoading();
   }
 
+  /**
+   * Update function to apply new data to the chart
+   */
   private _update(redraw: boolean = true, oneToOne: boolean = true): void {
     if (this._chartObject) {
       this._applyColors();
+      this._setLoading();
       this._chartObject.update(this._getHighchartsOptions(), redraw, oneToOne);
       this.updated.emit();
     }
@@ -214,7 +241,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   private _mergeOptions(options: DtChartOptions): DtChartOptions {
-    if (options) {
+    if (!options) {
       return defaultChartOptions;
     }
     for (const prop in defaultChartOptions) {

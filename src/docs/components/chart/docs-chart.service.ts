@@ -14,7 +14,7 @@ export class ChartService {
       for (let i = 0; i < 10; i++) {
         const now = new Date();
         data.push([
-          Math.floor(now.getTime() + Math.random() * 100000),
+          Math.floor(now.getTime() + Math.random() * 100),
           Math.floor(Math.random() * 100 + 100),
         ]);
       }

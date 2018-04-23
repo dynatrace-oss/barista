@@ -3,6 +3,7 @@ import { DtChart } from '@dynatrace/angular-components/chart';
 import { ViewportResizer } from '@dynatrace/angular-components/core';
 import { ChartService } from './docs-chart.service';
 import { Observable } from 'rxjs/Observable';
+import { Colors } from '@dynatrace/angular-components/theming';
 
 @Component({
   moduleId: module.id,
@@ -13,7 +14,7 @@ export class DocsChartComponent {
   loading: false;
   dataStaticDelayed = null;
 
-  lineOptions: Highcharts.Options = {
+  options: Highcharts.Options = {
     xAxis: {
        type: 'datetime',
     },
@@ -23,19 +24,50 @@ export class DocsChartComponent {
     },
   };
 
-  columnOptions: Highcharts.Options = {
-    xAxis: {
-       type: 'datetime',
-    },
-  };
-
-  pieOptions: Highcharts.Options = {
-    xAxis: {
-       type: 'datetime',
-    },
-  };
-
   data$: Observable<Highcharts.IndividualSeriesOptions[]>;
+
+  dataLegend: Highcharts.IndividualSeriesOptions[] = [{
+    name: 'Area',
+    type: 'area',
+    data: [
+      [
+        1370304000000,
+        140,
+      ],
+      [
+        1370390400000,
+        120,
+      ],
+    ],
+  },
+  {
+    name: 'Column',
+    type: 'column',
+    data: [
+      [
+        1370304000000,
+        140,
+      ],
+      [
+        1370390400000,
+        120,
+      ],
+    ],
+  },
+  {
+    name: 'Line',
+    type: 'line',
+    data: [
+      [
+        1370304000000,
+        140,
+      ],
+      [
+        1370390400000,
+        120,
+      ],
+    ],
+  }];
 
   dataStatic: Highcharts.IndividualSeriesOptions[] = [{
     name: 'Actions/min',
@@ -50,6 +82,33 @@ export class DocsChartComponent {
         1370390400000,
         120,
       ],
+    ],
+  }];
+
+  optionsPie: Highcharts.Options = {
+    chart: {
+      type: 'pie',
+    },
+    plotOptions: {
+      pie: {
+          showInLegend: true,
+      },
+    },
+  };
+
+  dataPie: Highcharts.IndividualSeriesOptions[] = [{
+    name: 'Data',
+    data: [
+      {
+        name: 'p1',
+        y: 30,
+        color: Colors.PURPLE_700,
+      },
+      {
+        name: 'p2',
+        y: 70,
+        color: Colors.PURPLE_200,
+      },
     ],
   }];
 

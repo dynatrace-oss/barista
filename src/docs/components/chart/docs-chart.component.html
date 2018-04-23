@@ -3,28 +3,31 @@
 <h1>Chart with static data</h1>
 
 <h2>Column chart</h2>
-<dt-chart [options]="lineOptions" [series]="dataStatic" #static></dt-chart>
+<dt-chart [options]="options" [series]="dataStatic" #static></dt-chart>
 
 <h1>Chart with data as observable</h1>
 
 <h2>Line chart</h2>
-<dt-chart [options]="lineOptions" [series]="data$"></dt-chart>
+<dt-chart [options]="options" [series]="data$"></dt-chart>
 
 <h2>Column chart</h2>
-<dt-chart [options]="columnOptions" [series]="data$"></dt-chart>
-
+<dt-chart [options]="options" [series]="data$"></dt-chart> 
+</div> -->
 <h2>Pie chart</h2>
-<dt-chart [options]="pieOptions" [series]="data$"></dt-chart>
-</div>
+<dt-chart [options]="optionsPie" [series]="dataPie"></dt-chart>
 
+<!-- 
 <h2>Purple Theme</h2>
 <div dtTheme="purple" >
-<dt-chart [options]="lineOptions" [series]="data$"></dt-chart>
-</div> -->
+<dt-chart [options]="options" [series]="data$"></dt-chart>
+</div>
 
 <h2>Loading</h2>
 <button dt-button (click)="dataStaticDelayed = dataStatic">Init data</button>
-<dt-chart [options]="lineOptions" [series]="dataStaticDelayed"></dt-chart>
+<dt-chart [options]="options" [series]="dataStaticDelayed"></dt-chart> -->
+
+<h2>Legend</h2>
+<dt-chart [options]="options" [series]="dataLegend"></dt-chart>
 
 <!-- <h2>Toggle loading</h2>
 <button dt-button (click)="loading = !loading">Toggle loading</button>
