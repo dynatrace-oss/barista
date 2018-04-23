@@ -25,10 +25,6 @@ import { Component } from '@angular/core';
       <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
     </ng-container>
 
-    <ng-container>
-      <dt-empty-state [emptyTitle]="emptyTitle" [emptyMessage]="emptyMessage"></dt-empty-state>
-    </ng-container>
-
     <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"></dt-header-row>
     <dt-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic'];"></dt-row>
   </dt-table>

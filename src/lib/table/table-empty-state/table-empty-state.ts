@@ -7,18 +7,18 @@ import {
 
 @Component({
   moduleId: module.id,
-  selector: 'dt-empty-state',
-  styleUrls: ['empty-state.scss'],
-  templateUrl: 'empty-state.html',
-  exportAs: 'dtEmptyState',
+  selector: 'dt-table-empty-state',
+  styleUrls: ['table-empty-state.scss'],
+  templateUrl: 'table-empty-state.html',
+  exportAs: 'dtTableEmptyState',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   host: {
-    class: 'dt-empty-state',
+    class: 'dt-table-empty-state',
   },
 })
-export class DtEmptyState {
+export class DtTableEmptyState {
   @Input() emptyTitle: string;
   @Input() emptyMessage: string;
 }

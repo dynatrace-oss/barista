@@ -3,9 +3,11 @@
 <ng-container #placeholder></ng-container>
 
 <ng-template #emptyTemplate>
-    <dt-empty-state [emptyTitle]="emptyTitle" [emptyMessage]="emptyMessage"></dt-empty-state>
+    <dt-table-empty-state [emptyTitle]="emptyTitle" [emptyMessage]="emptyMessage"></dt-table-empty-state>
 </ng-template>
 
 <ng-template #loadingTemplate>
-    <dt-loading-spinner></dt-loading-spinner>
+    <div class="floatLoading">
+        <dt-loading-spinner></dt-loading-spinner>
+    </div>
 </ng-template>
