@@ -22,37 +22,3 @@
 .dt-loading-spinner .dt-loading-distractor-label {
   padding-left: 8px;
 }
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0);
-            transform: rotate(0);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    -webkit-transform: rotate(0);
-            transform: rotate(0);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes dash {
-  0% { stroke-dashoffset: 138.2304px; }
-  50% { stroke-dashoffset: 86.394px; }
-  100% { stroke-dashoffset: 0; }
-}
-
-@keyframes dash {
-  0% { stroke-dashoffset: 138.2304px; }
-  50% { stroke-dashoffset: 86.394px; }
-  100% { stroke-dashoffset: 0; }
-}
