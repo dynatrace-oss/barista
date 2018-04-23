@@ -34,7 +34,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         style({
           overflow: 'hidden',
         }),
-        animate('0.4s ease'),
+        animate('225ms cubic-bezier(0.4,0.0,0.2,1)'),
       ]),
     ]),
   ],
