@@ -25,8 +25,10 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   stroke-width: 4px;
   stroke: $logolime;
   fill: none;
+  // stylelint-disable max-line-length
   -webkit-animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear infinite;
           animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear infinite;
+  // stylelint-enable
 
   .dt-loading-spinner-size-small & {
     stroke: $gray-500;
@@ -37,8 +39,10 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   stroke-dasharray: $dt-loading-spinner-offset;
   -webkit-transform-origin: center;
           transform-origin: center;
+  // stylelint-disable max-line-length
   -webkit-animation: dt-loading-spinner-dash $dt-loading-spinner-duration $dt-loading-spinner-ease infinite;
           animation: dt-loading-spinner-dash $dt-loading-spinner-duration $dt-loading-spinner-ease infinite;
+  // stylelint-enable
 }
 
 @-webkit-keyframes dt-loading-spinner-spin {
