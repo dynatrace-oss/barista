@@ -8,42 +8,43 @@
 .dt-expandable-section-header {
   @include dt-interactive-reset();
 
-  margin-bottom: 0.25em;
   position: relative;
-  overflow: hidden;
   font-size: 12px;
   color: $gray-500;
 
-  > svg {
+  svg {
     width: 16px;
     height: 16px;
+    left: -2px;
     fill: $turquoise-600;
-  }
-
-  > *:first-child {
     position: absolute;
     vertical-align: middle;
-    top: -1px;
-    height: 16px;
     transition: 0.125s;
     transform: rotate(-90deg);
   }
+}
 
-  > *:last-child {
-    margin-left: 24px;
-  }
+.dt-expandable-section-header-content {
+  margin-left: 18px;
+  padding-right: 2px;
+}
 
-  > *:last-child::after {
-    margin-bottom: 1px solid black;
-  }
+:host:not(.dt-expandable-section-disabled) .dt-expandable-section-header:focus
+  .dt-expandable-section-header-line-content {
+  @include dt-focus-style();
 }
 
 .dt-expandable-section-header:hover, .dt-expandable-section-header span:hover {
   color: $gray-700;
 }
 
-.dt-expandable-section-header:hover > svg {
+.dt-expandable-section-header:hover svg {
   fill: $turquoise-700;
+}
+
+.dt-expandable-section-header-line {
+  overflow: hidden;
+  position: relative;
 }
 
 .dt-expandable-section-header-line:hover::after {
@@ -54,9 +55,15 @@
   content: '';
   width: 1000%;
   position: absolute;
-  bottom: 2px;
-  margin-left: 4px;
+  top: 1em;
+  margin-top: 2px;
   border-bottom: 1px solid $gray-400;
+}
+
+.dt-expandable-section-header-line-content {
+  display: inline-block;
+  margin: 2px;
+  position: relative;
 }
 
 :host.dt-expandable-section-disabled {
@@ -67,17 +74,21 @@
 
     color: $gray-300;
 
-    > svg {
+    svg {
       fill: $gray-300;
     }
   }
+
+  .dt-expandable-section-header-line::after {
+    border-bottom: 1px solid $gray-300;
+  }
 }
 
-:host.dt-expandable-section-opened .dt-expandable-section-header > svg {
+:host.dt-expandable-section-opened .dt-expandable-section-header svg {
   transform: rotate(0deg);
 }
 
 .dt-expandable-section-container {
-  margin-left: 24px;
-  margin-top: 8px;
+  margin-left: 20px;
+  margin-top: 12px;
 }
