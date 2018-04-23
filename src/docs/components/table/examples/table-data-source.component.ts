@@ -7,7 +7,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
   template: `
   <button (click)="getAnotherRow()">Add one more Row</button>
   <button (click)="clearRows()">Clear</button>
-  <dt-table [dataSource]="dataSource1" [emptyTitle]="emptyTitle" [emptyMessage]="emptyMessage">
+  <button (click)="toggleLoading()">Toggle loading property</button>
+  <dt-table [dataSource]="dataSource1" [emptyTitle]="emptyTitle" [emptyMessage]="emptyMessage" [isLoading]="tableLoading">
     <ng-container dtColumnDef="host" dtColumnType="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
@@ -43,9 +44,20 @@ export class TableDataSourceComponent {
   emptyTitle = 'No Host';
   emptyMessage = `from 9:00 - 10:00\n Remove filter to make your search less restrictive.
   Expand or change the timeframe you're searching within.`;
+  tableLoading = false;
+
+  constructor() {
+    this.getAnotherRow();
+    this.getAnotherRow();
+    this.getAnotherRow();
+  }
 
   clearRows(): void {
     this.dataSource1.next([]);
+  }
+
+  toggleLoading(): void {
+    this.tableLoading = !this.tableLoading;
   }
 
   getAnotherRow(): void {
