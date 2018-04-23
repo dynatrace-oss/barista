@@ -11,6 +11,7 @@ export class Docs {
     {name: 'Button', route: '/button'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
+    {name: 'Input', route: '/input'},
     {name: 'Loading distractor', route: '/loading-distractor'},
   ];
 }

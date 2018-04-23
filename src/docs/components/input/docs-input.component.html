@@ -1,0 +1,146 @@
+<h1>Input & Textarea</h1>
+
+<docs-source-example [example]="examples.default"></docs-source-example>
+
+<p><code>dtInput</code> is a directive that applies dynatrace styling to native <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code> elements and allows them to work with <code>&lt;dt-form-field&gt;</code>.</p>
+
+<h2>Imports</h2>
+<p>You have to import the <code>DtInputModule</code> when you want to use <code>dtInput</code>:</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    DtInputModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h2>Initialization</h2>
+<p>To apply the dynatrace input, add the <code>dtInput</code> attribute to the <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code> elements.</p>
+
+<h2>Attributes</h2>
+<p>
+  All valid <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code> attributes can be used on <code>dtInput</code> including <code>ngModel</code> and <code>formControl</code>.<br>
+  The only exception ist type where not all values are possible.
+</p>
+
+<p><strong>Invalid type values are:</strong></p>
+<table class="table">
+  <thead>
+    <tr>
+      <td width="270px">Invalid type(s)</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>button</code>, <code>image</code>, <code>reset</code>, <code>submit</code></td>
+      <td>Use the button component instead</td>
+    </tr>
+    <tr>
+      <td><code>checkbox</code></td>
+      <td>Use the checkbox component instead</td>
+    </tr>
+    <tr>
+      <td><code>file</code></td>
+      <td>Is not (yet) supported. Maybe there will be an upload component in the future.</td>
+    </tr>
+    <tr>
+      <td><code>hidden</code></td>
+      <td>Hidden input fields should not be a thing in a client side app. They also do not need styling.</td>
+    </tr>
+    <tr>
+      <td><code>radio</code></td>
+      <td>Use the radio-button component instead</td>
+    </tr>
+    <tr>
+      <td><code>range</code></td>
+      <td>Is not (yet) supported. Maybe there will be a slider/range component in the future.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Options & Properties</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <td width="200px">Name</td>
+      <td width="200px">Type</td>
+      <td width="260px">Default</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>string</code></td>
+      <td><code>-</code></td>
+      <td>Id of the element.</td>
+    </tr>
+    <tr>
+      <td><code>disabled</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether the element is disabled.</td>
+    </tr>
+    <tr>
+      <td><code>required</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether the input is required. Used for validation.</td>
+    </tr>
+    <tr>
+      <td><code>placeholder</code></td>
+      <td><code>string</code></td>
+      <td><code>-</code></td>
+      <td>Input placeholder text.</td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td><code>string</code></td>
+      <td><code>text</code></td>
+      <td>Input type of the element. See valid types above.</td>
+    </tr>
+    <tr>
+      <td><code>value</code></td>
+      <td><code>string</code></td>
+      <td><code></code></td>
+      <td>Input value of the input.</td>
+    </tr>
+    <tr>
+      <td><code>readonly</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether the input is readonly.</td>
+    </tr>
+    <tr>
+      <td><code>errorStateMatcher</code></td>
+      <td><code>ErrorStateMatcher</code></td>
+      <td><code>DefaultErrorStateMatcher</code></td>
+      <td>A class used to control when error messages are shown.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Accessibility</h2>
+<p>The <code>dtInput</code> directive works with native <code></code>&lt;input&gt; and <code></code>&lt;textarea&gt; to provide an accessible experience.</p>
+<p>If there's no <code>&lt;dt-form-field&gt;</code> used or it does not contain a <code>&lt;dt-label&gt;</code>, <code>aria-label</code>, <code>aria-labelledby</code> or should be added.</p>
+<p>Any <code>dt-error</code> and <code>dt-hint</code> are automatically added to the input's <code>aria-describedby</code> list, and <code>aria-invalid</code> is automatically updated based on the input's validity state.</p>
+
+<h2>Examples:</h2>
+
+<h4>Default example</h4>
+<docs-source-example [example]="examples.default"></docs-source-example>
+
+<h4>Disabled & readonly</h4>
+<docs-source-example [example]="examples.disabledReadonly"></docs-source-example>
+
+<h4>NgModel</h4>
+<docs-source-example [example]="examples.ngmodel"></docs-source-example>
+
+<h4>Textarea</h4>
+<docs-source-example [example]="examples.textarea"></docs-source-example>
+
+<h4>Dark</h4>
+<docs-source-example [example]="examples.dark"></docs-source-example>
