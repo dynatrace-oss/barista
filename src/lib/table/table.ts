@@ -7,7 +7,7 @@ import {
   ViewChild,
   TemplateRef,
   ViewContainerRef,
-  AfterContentInit
+  AfterContentInit,
 } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 
@@ -28,7 +28,7 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentInit, AfterCo
   @Input() emptyTitle: string;
   @Input() emptyMessage: string;
   @ViewChild('noDataPlaceholder', {read: ViewContainerRef}) noDataPlaceholder: ViewContainerRef;
-  @ViewChild('noData') noDataTemplate: TemplateRef<void>;
+  @ViewChild('noData') noDataTemplate: TemplateRef<{}>;
 
   ngAfterContentInit(): void {
     this.emptyTitle = this.emptyTitle || 'No data';
