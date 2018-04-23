@@ -27,8 +27,10 @@ import { CdkTable } from '@angular/cdk/table';
 export class DtTable<T> extends CdkTable<T> implements AfterContentInit, AfterContentChecked {
   @Input() emptyTitle: string;
   @Input() emptyMessage: string;
-  @ViewChild('noDataPlaceholder', {read: ViewContainerRef}) noDataPlaceholder: ViewContainerRef;
-  @ViewChild('noData') noDataTemplate: TemplateRef<{}>;
+  @Input() isLoading: boolean;
+  @ViewChild('placeholder', {read: ViewContainerRef}) templatePlaceholder: ViewContainerRef;
+  @ViewChild('emptyTemplate') emptyTemplate: TemplateRef<{}>;
+  @ViewChild('loadingTemplate') loadingTemplate: TemplateRef<{}>;
 
   ngAfterContentInit(): void {
     this.emptyTitle = this.emptyTitle || 'No data';
@@ -38,14 +40,21 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentInit, AfterCo
   ngAfterContentChecked(): void {
     super.ngAfterContentChecked();
 
-    if (this.isEmptyDataSource) {
-      this.noDataPlaceholder.clear();
-      this.noDataPlaceholder.createEmbeddedView(this.noDataTemplate);
+    this.templatePlaceholder.clear();
+    switch (true) {
+      case this.isLoading:
+        this._rowPlaceholder.viewContainer.clear();
+        this.templatePlaceholder.createEmbeddedView(this.loadingTemplate);
+        break;
+      case this.isEmptyDataSource:
+        this.templatePlaceholder.createEmbeddedView(this.emptyTemplate);
+        break;
+      default:
     }
   }
 
   renderRows(): void {
-    this.noDataPlaceholder.clear();
+    this.templatePlaceholder.clear();
     super.renderRows();
   }
 

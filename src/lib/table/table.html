@@ -1,7 +1,11 @@
 <ng-container headerRowPlaceholder></ng-container>
 <ng-container rowPlaceholder></ng-container>
-<ng-container #noDataPlaceholder></ng-container>
+<ng-container #placeholder></ng-container>
 
-<ng-template #noData>
+<ng-template #emptyTemplate>
     <dt-empty-state [emptyTitle]="emptyTitle" [emptyMessage]="emptyMessage"></dt-empty-state>
+</ng-template>
+
+<ng-template #loadingTemplate>
+    <dt-loading-spinner></dt-loading-spinner>
 </ng-template>
