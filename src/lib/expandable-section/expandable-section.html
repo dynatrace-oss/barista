@@ -1,9 +1,13 @@
 <div [dtExpandablePanel]="expandablepanel" class="dt-expandable-section-header" [disabled]="disabled">
-    <svg viewBox="0 0 512 512">
-      <path d="M403.078 142.412L256 289.49 108.922 142.412l-45.255 45.255L256 380l192.333-192.333z"/>
-    </svg>
     <div class="dt-expandable-section-header-line">
-      <ng-content select="dt-expandable-section-header"></ng-content>
+      <div class="dt-expandable-section-header-line-content">
+        <svg viewBox="0 0 512 512">
+          <path d="M403.078 142.412L256 289.49 108.922 142.412l-45.255 45.255L256 380l192.333-192.333z"/>
+        </svg>
+        <div class="dt-expandable-section-header-content">
+          <ng-content select="dt-expandable-section-header"></ng-content>
+        </div>
+      </div>
     </div>
 </div>
 
