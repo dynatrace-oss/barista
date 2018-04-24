@@ -13,5 +13,5 @@ import {LoremIpsum} from '../../../core/lorem-ipsum';
   <button dt-button (click)="section1disabled = !section1disabled">Disabled / Enable</button>`
 })
 export class InteractiveExpandableSectionExampleComponent {
-  text = LoremIpsum.paragraph1
+  text = LoremIpsum
 }

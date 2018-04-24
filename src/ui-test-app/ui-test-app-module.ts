@@ -9,6 +9,8 @@ import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { ButtonUI } from './button/button-ui';
 import { ExpandableSectionUi } from './expandable-section/expandable-section-ui';
 import { DtExpandableSectionModule } from '@dynatrace/angular-components/expandable-section';
+import {DtExpandablePanelModule} from '@dynatrace/angular-components/expandable-panel';
+import {ExpandablePanelUi} from './expandable-panel/expandable-panel-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -16,6 +18,7 @@ import { DtExpandableSectionModule } from '@dynatrace/angular-components/expanda
 @NgModule({
   exports: [
     DtButtonModule,
+    DtExpandablePanelModule,
     DtExpandableSectionModule,
   ],
 })
@@ -33,6 +36,7 @@ export class DynatraceAngularCompModule {}
     UIApp,
     Home,
     ButtonUI,
+    ExpandablePanelUi,
     ExpandableSectionUi
   ],
   bootstrap: [UIApp],

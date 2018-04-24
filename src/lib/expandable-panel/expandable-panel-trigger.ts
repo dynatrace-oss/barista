@@ -1,30 +1,49 @@
 import {DOWN_ARROW, ENTER, SPACE, UP_ARROW} from '@angular/cdk/keycodes';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {ChangeDetectorRef, Directive, HostBinding, HostListener, Input} from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectorRef,
+  Directive,
+  HostBinding,
+  HostListener,
+  Input, OnDestroy
+} from '@angular/core';
 import {DtExpandablePanel} from './expandable-panel';
 import {CanDisable} from '@dynatrace/angular-components/core';
+import {Subscription} from 'rxjs/Subscription';
 
 @Directive({
   selector: '[dtExpandablePanel]',
-  exportAs: 'dtExpandableTrigger',
+  exportAs: 'dtExpandablePanelTrigger',
   host: {
     '[tabindex]': 'disabled ? -1 : 0',
+    'role': 'button',
     'class': 'dt-expandable-panel-trigger',
   },
 })
-export class DtExpandablePanelTrigger implements CanDisable {
+export class DtExpandablePanelTrigger implements CanDisable, AfterContentInit, OnDestroy {
 
   private _expandable: DtExpandablePanel;
   private _disabled = false;
+  private _subscription: Subscription;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
   @Input()
   set dtExpandablePanel(value: DtExpandablePanel) {
     this._expandable = value;
-    this._expandable.openedChange.subscribe((opened) => {
+  }
+
+  ngAfterContentInit(): void {
+    this._subscription = this._expandable.openedChange.subscribe((opened) => {
       this._changeDetectorRef.markForCheck();
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this._subscription) {
+      this._subscription.unsubscribe();
+    }
   }
 
   @Input()
