@@ -1,7 +1,7 @@
 import * as Highcharts from 'highcharts';
 
 export const configureLegendSymbols = () => {
-
+  // tslint:disable-next-line: no-any
   if (!(Highcharts as any).seriesTypes) {
     return;
   }
