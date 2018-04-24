@@ -25,7 +25,6 @@ export const configureLegendSymbols = () => {
   };
   // tslint:disable-next-line: no-any
   (Highcharts as any).seriesTypes.pie.prototype.drawLegendSymbol = function(legend: any, item: any): void {
-    const options = legend.options;
 
     item.legendSymbol = this.chart.renderer.path(
       ['M13 13C13 7.5 8.5 3 3 3v10h10z'])
