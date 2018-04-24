@@ -7,7 +7,7 @@ import { generateData } from '../chart-data-utils';
 import { DtChartSeries } from '@dynatrace/angular-components/chart';
 
 @Component({
-  template: `<button dt-button (click)="toggleData()">Set data</button>
+  template: `<button dt-button (click)="toggleData()">toggle data</button>
   <dt-chart [options]="options" [series]="series"></dt-chart>`,
 })
 export class ChartLoadingExampleComponent {
