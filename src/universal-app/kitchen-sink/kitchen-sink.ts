@@ -1,10 +1,8 @@
 import {Component, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ServerModule} from '@angular/platform-server';
-import {
-  DtButtonModule,
-  DtLoadingDistractorModule,
-} from '@dynatrace/angular-components';
+import { DtButtonModule } from '@dynatrace/angular-components/button';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 
 @Component({
   selector: 'dt-kitchen-sink',

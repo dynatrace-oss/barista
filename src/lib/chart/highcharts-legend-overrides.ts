@@ -1,6 +1,10 @@
 import * as Highcharts from 'highcharts';
 
 export const configureLegendSymbols = () => {
+
+  if (!(Highcharts as any).seriesTypes) {
+    return;
+  }
   // tslint:disable-next-line: no-any
   (Highcharts as any).seriesTypes.area.prototype.drawLegendSymbol = function(): void {
     const renderer = this.chart.renderer;
