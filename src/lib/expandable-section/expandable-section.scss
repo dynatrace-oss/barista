@@ -6,8 +6,6 @@
 }
 
 .dt-expandable-section-header {
-  @include dt-interactive-reset();
-
   display: flex;
   align-items: baseline;
 
@@ -50,6 +48,8 @@
 }
 
 .dt-expandable-section-header-trigger {
+  @include dt-interactive-reset();
+
   display: inline-flex;
   align-items: center;
 
