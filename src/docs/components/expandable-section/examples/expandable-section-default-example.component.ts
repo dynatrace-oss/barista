@@ -9,5 +9,5 @@ import {LoremIpsum} from '../../../core/lorem-ipsum';
 </dt-expandable-section>`
 })
 export class DefaultExpandableSectionExampleComponent {
-  text = LoremIpsum.paragraph1
+  text = LoremIpsum
 }

@@ -9,5 +9,5 @@ import {LoremIpsum} from '../../../core/lorem-ipsum';
 <button dt-button (click)="panel1.toggle()">Toggle</button>`
 })
 export class DefaultExpandablePanelExampleComponent {
-  text = LoremIpsum.paragraph1
+  text = LoremIpsum
 }

@@ -14,6 +14,7 @@ import { CanDisable } from '@dynatrace/angular-components/core';
 
 @Component({
   moduleId: module.id,
+  exportAs: 'dtExpandableSectionHeader',
   selector: 'dt-expandable-section-header',
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.Emulated,
@@ -25,6 +26,7 @@ export class DtExpandableSectionHeader { }
 @Component({
   moduleId: module.id,
   selector: 'dt-expandable-section',
+  exportAs: 'dtExpandableSection',
   templateUrl: 'expandable-section.html',
   styleUrls: ['expandable-section.scss'],
   host: {
@@ -62,13 +64,13 @@ export class DtExpandableSection implements AfterViewInit, CanDisable {
 
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
-    if (value) {
+    if (this._disabled) {
       this._panel.close();
     }
     this._changeDetectorRef.markForCheck();
   }
 
-  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() readonly openedChange = new EventEmitter<boolean>();
 
   ngAfterViewInit(): void {
     this._panel.openedChange.subscribe((event: boolean) => {
@@ -76,10 +78,11 @@ export class DtExpandableSection implements AfterViewInit, CanDisable {
     });
   }
 
-  toggle(): void {
+  toggle(): boolean {
     if (!this.disabled) {
       this._panel.toggle();
     }
+    return this.opened;
   }
 
   open(): void {

@@ -14,6 +14,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
   moduleId: module.id,
   selector: 'dt-expandable-panel',
+  exportAs: 'dtExpandablePanel',
   templateUrl: 'expandable-panel.html',
   styleUrls: ['expandable-panel.scss'],
   host: {
@@ -50,14 +51,15 @@ export class DtExpandablePanel {
   set opened(value: boolean) { this._opened = coerceBooleanProperty(value); }
 
   /** Event emitted when the select has been opened. */
-  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() readonly openedChange = new EventEmitter<boolean>();
 
   private _opened = false;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
-  toggle(): void {
+  toggle(): boolean {
     this._openClose(!this._opened);
+    return this.opened;
   }
 
   open(): void {

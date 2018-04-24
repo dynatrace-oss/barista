@@ -48,7 +48,7 @@ describe('DtExpandableSection', () => {
       expect(instance.opened).toBe(true);
     });
     it('should be opened after toggle', () => {
-      instance.toggle();
+      expect(instance.toggle()).toBe(true);
       expect(instance.opened).toBe(true);
 
       instance.close();
@@ -58,7 +58,7 @@ describe('DtExpandableSection', () => {
       expect(instanceElement.classList).not.toContain(
         'dt-expandable-section-opened');
 
-      instance.toggle();
+      expect(instance.toggle()).toBe(true);
       fixture.detectChanges();
 
       expect(instanceElement.classList).toContain(
