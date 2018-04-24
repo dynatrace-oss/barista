@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { SnippetDirective } from './snippet/snippet.directive';
 import { SourceExampleComponent } from './source-example/source-example.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { SourceExampleComponent } from './source-example/source-example.componen
     CommonModule,
     HttpClientModule,
     PortalModule,
+    BrowserModule,
+    BrowserAnimationsModule,
   ],
 })
 export class UiModule {

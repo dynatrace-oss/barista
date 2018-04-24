@@ -1,0 +1,85 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+
+:host {
+  box-sizing: border-box;
+}
+
+.dt-expandable-section-header {
+  display: flex;
+  align-items: baseline;
+
+  position: relative;
+  font-size: 12px;
+  color: $gray-500;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    left: -2px;
+    fill: $turquoise-600;
+    position: absolute;
+    vertical-align: middle;
+    transition: 0.125s;
+    transform: rotate(-90deg);
+  }
+}
+
+.dt-expandable-section-header-content {
+  margin-left: 18px;
+  padding-right: 2px;
+}
+
+:host:not(.dt-expandable-section-disabled) .dt-expandable-section-header-trigger:focus {
+  @include dt-focus-style();
+}
+
+.dt-expandable-section-header-trigger:hover {
+  color: $gray-700;
+
+  svg {
+    fill: $turquoise-700;
+  }
+}
+
+.dt-expandable-section-header-line {
+  flex-grow: 1;
+  border-bottom: 1px solid $gray-400;
+}
+
+.dt-expandable-section-header-trigger {
+  @include dt-interactive-reset();
+
+  display: inline-flex;
+  align-items: center;
+
+  margin: 2px;
+  position: relative;
+}
+
+:host.dt-expandable-section-disabled {
+
+  pointer-events: none;
+
+  .dt-expandable-section-header {
+
+    color: $gray-300;
+
+    svg {
+      fill: $gray-300;
+    }
+  }
+
+  .dt-expandable-section-header-line {
+    border-bottom: 1px solid $gray-300;
+  }
+}
+
+:host.dt-expandable-section-opened .dt-expandable-section-header svg {
+  transform: rotate(0deg);
+}
+
+.dt-expandable-section-container {
+  margin-left: 20px;
+  margin-top: 12px;
+}
