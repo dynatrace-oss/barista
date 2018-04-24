@@ -7,14 +7,8 @@ import {
   ViewChild,
   TemplateRef,
   ViewContainerRef,
-  IterableDiffers,
-  ChangeDetectorRef,
-  ElementRef,
-  Attribute,
-  ComponentFactoryResolver,
 } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
-import { DtTableEmptyState } from '@dynatrace/angular-components/table/table-empty-state';
 
 @Component({
   moduleId: module.id,
@@ -33,14 +27,6 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   @Input() isLoading: boolean;
   @ViewChild('placeholder', {read: ViewContainerRef}) templatePlaceholder: ViewContainerRef;
   @ViewChild('loadingTemplate') loadingTemplate: TemplateRef<{}>;
-
-  constructor(_differs: IterableDiffers,
-              _changeDetectorRef: ChangeDetectorRef,
-              _elementRef: ElementRef,
-              @Attribute('role') role: string,
-              private readonly _componentFactoryResolver: ComponentFactoryResolver) {
-    super(_differs, _changeDetectorRef, _elementRef, role);
-  }
 
   ngAfterContentChecked(): void {
     super.ngAfterContentChecked();
