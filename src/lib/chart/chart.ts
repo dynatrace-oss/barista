@@ -21,7 +21,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { ViewportResizer } from '@dynatrace/angular-components/core';
 import { delay } from 'rxjs/operators/delay';
-import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette, Colors } from '@dynatrace/angular-components/theming';
+import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '@dynatrace/angular-components/theming';
 import { mergeNestedGroup } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
@@ -66,14 +66,21 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('container') container: ElementRef;
 
   _loading = false;
-  private _autoLoadingEnabled = true;
   private _series: DtChartSeries | undefined;
+  private _options: DtChartOptions;
   private _chartObject: ChartObject;
   private _dataSub: Subscription | null = null;
   private _colorPalette: ChartColorPalette;
+  private _isTooltipWrapped = false;
 
   @Input()
-  options: DtChartOptions;
+  set options(options: DtChartOptions) {
+    this._isTooltipWrapped = false;
+    this._options = options;
+  }
+  get options(): DtChartOptions {
+    return this._options;
+  }
 
   @Input()
   set series(series: Observable<DtChartSeries> | DtChartSeries | undefined) {
@@ -87,7 +94,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
         this._update();
       });
     } else {
-      console.log(series);
       this._series = series;
     }
     this._setLoading();
@@ -112,7 +118,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.series.previousValue !== changes.series.currentValue || changes.options) {
+    if (changes.series || changes._options) {
       this._update();
     }
   }
@@ -197,24 +203,25 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     return highchartsOptions;
   }
 
-/**
- * Wraps the options.tooltip.formatter function passed into a div.dt-chart-tooltip
- * to enable correct styling for the tooltip
- */
+  /**
+   * Wraps the options.tooltip.formatter function passed into a div.dt-chart-tooltip
+   * to enable correct styling for the tooltip
+   */
   private _wrapTooltip(highchartsOptions: Options): Options {
-    const formatter = highchartsOptions.tooltip!.formatter as DtChartTooltip;
 
-    let tooltipFormatterFunc = defaultTooltipFormatter;
-    if (this.options.tooltip && this.options.tooltip.formatter) {
-      tooltipFormatterFunc = this.options.tooltip.formatter;
-    }
-    if (!formatter || !formatter.iswrapped) {
+    if (!this._isTooltipWrapped) {
+      let tooltipFormatterFunc = defaultTooltipFormatter;
+      if (this.options.tooltip && this.options.tooltip.formatter) {
+        tooltipFormatterFunc = this.options.tooltip.formatter;
+      }
+
       highchartsOptions.tooltip!.formatter = function(): string | boolean {
         const tooltipFormatterFuncBound = tooltipFormatterFunc.bind(this);
 
         return `<div class="dt-chart-tooltip">${tooltipFormatterFuncBound()}</div>`;
       } as DtChartTooltip;
-      (highchartsOptions.tooltip!.formatter as DtChartTooltip)!.iswrapped = true;
+
+      this._isTooltipWrapped = true;
     }
 
     return highchartsOptions;
