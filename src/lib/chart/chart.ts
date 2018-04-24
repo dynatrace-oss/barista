@@ -92,6 +92,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       this._dataSub = series.subscribe((s: DtChartSeries) => {
         this._series = s;
         this._update();
+        this._changeDetectorRef.markForCheck();
       });
     } else {
       this._series = series;
@@ -137,8 +138,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /** returns the series data for the chart */
-  getSeries(): DtChartSeries | undefined {
-    return this._series;
+  getSeries(): DtChartSeries {
+    return this._series || [];
   }
 
   /** returns an array of ids for the series data */
@@ -252,7 +253,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _setLoading(): void {
     if (this.options) {
       this._loading = !this._series;
-      this._changeDetectorRef.markForCheck();
     }
   }
 
