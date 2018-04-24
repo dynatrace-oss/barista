@@ -7,9 +7,14 @@ import {
   ViewChild,
   TemplateRef,
   ViewContainerRef,
-  AfterContentInit,
+  IterableDiffers,
+  ChangeDetectorRef,
+  ElementRef,
+  Attribute,
+  ComponentFactoryResolver,
 } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
+import { DtTableEmptyState } from '@dynatrace/angular-components/table/table-empty-state';
 
 @Component({
   moduleId: module.id,
@@ -24,17 +29,17 @@ import { CdkTable } from '@angular/cdk/table';
     class: 'dt-table',
   },
 })
-export class DtTable<T> extends CdkTable<T> implements AfterContentInit, AfterContentChecked {
-  @Input() emptyTitle: string;
-  @Input() emptyMessage: string;
+export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   @Input() isLoading: boolean;
   @ViewChild('placeholder', {read: ViewContainerRef}) templatePlaceholder: ViewContainerRef;
-  @ViewChild('emptyTemplate') emptyTemplate: TemplateRef<{}>;
   @ViewChild('loadingTemplate') loadingTemplate: TemplateRef<{}>;
 
-  ngAfterContentInit(): void {
-    this.emptyTitle = this.emptyTitle || 'No data';
-    this.emptyMessage = this.emptyMessage || `Sorry, there's no data to display`;
+  constructor(_differs: IterableDiffers,
+              _changeDetectorRef: ChangeDetectorRef,
+              _elementRef: ElementRef,
+              @Attribute('role') role: string,
+              private readonly _componentFactoryResolver: ComponentFactoryResolver) {
+    super(_differs, _changeDetectorRef, _elementRef, role);
   }
 
   ngAfterContentChecked(): void {
@@ -46,7 +51,7 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentInit, AfterCo
         this.templatePlaceholder.createEmbeddedView(this.loadingTemplate);
         break;
       case this.isEmptyDataSource:
-        this.templatePlaceholder.createEmbeddedView(this.emptyTemplate);
+        // TODO: Add implementation for showing the empty state
         break;
       default:
     }

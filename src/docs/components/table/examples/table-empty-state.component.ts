@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'docs-empty-table',
   // tslint:disable
   template: `
-  <dt-table [dataSource]="dataSource1" [emptyTitle]="emptyTitle" [emptyMessage]="emptyMessage">
+  <dt-table [dataSource]="dataSource1">
     <ng-container dtColumnDef="host" dtColumnType="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
