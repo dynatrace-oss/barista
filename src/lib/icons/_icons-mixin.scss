@@ -1,4 +1,4 @@
-$fonts-path: "/assets/fonts" !default;
+$fonts-path: '/assets/fonts' !default;
 
 @mixin icons-before($type) {
   //noinspection CssNoGenericFontName
@@ -16,7 +16,7 @@ $fonts-path: "/assets/fonts" !default;
 }
 
 @mixin icons($name, $version) {
-  $type: "#{$name}s";
+  $type: '#{$name}s';
   @font-face {
     font-family: $type;
     src: url('#{$fonts-path}/#{$type}/#{$type}_#{$version}.eot');
@@ -28,7 +28,7 @@ $fonts-path: "/assets/fonts" !default;
     font-style: normal;
   }
 
-  [class*="#{$name}-"]::before, [class*=" #{$name}-"]::before {
+  [class*='#{$name}-']::before, [class*=' #{$name}-']::before {
     @include icons-before($type);
   }
 }

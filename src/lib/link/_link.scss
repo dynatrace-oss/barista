@@ -1,8 +1,8 @@
 @import '../core/style/variables';
 @import '../icons/_icons-mixin.scss';
 
-$dark-link-hover-bg: rgba(255,255,255,0.2);
-$dark-link-active-bg: rgba(255,255,255,0.3);
+$dark-link-hover-bg: rgba(255, 255, 255, 0.2);
+$dark-link-active-bg: rgba(255, 255, 255, 0.3);
 
 a.dt-link {
   cursor: pointer;
@@ -23,9 +23,9 @@ a.dt-link {
     outline: 2px solid $gray-300;
   }
 
-  &.dt-external:after {
+  &.dt-external::after {
     @extend .fonticon-ExternalLink:before;
-    @include icons-before("fonticons");
+    @include icons-before('fonticons');
 
     display: inline-block;
     position: relative;
