@@ -6,8 +6,11 @@
  * export * from './core/index';
  */
 
-export * from './core/index';
 export * from './button/index';
+export * from './core/index';
+export * from './input/index';
+export * from './expandable-panel/index';
+export * from './expandable-section/index';
 export * from './button-group/index';
 export * from './loading-distractor/index';
 export * from './theming/index';

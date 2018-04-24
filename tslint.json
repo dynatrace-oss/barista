@@ -44,6 +44,8 @@
     "member-ordering": false,
     // Disabled as it would also force new lines for only one operator or function call
     "newline-per-chained-call": false,
+    // Changing it as it does also enforce this rule for very simple code
+    "newline-before-return": false,
     "no-implicit-dependencies": [
       false
     ],

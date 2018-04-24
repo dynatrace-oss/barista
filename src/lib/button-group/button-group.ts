@@ -87,6 +87,8 @@ export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasT
     if (this._items) {
       const correspondingOption = newValue !== undefined ? this._findItemForValue(newValue) : undefined;
       this._selectItem(false, correspondingOption);
+    } else {
+      this._value = newValue;
     }
   }
 

@@ -6,8 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
 import { DtButtonGroupModule, DtButtonModule} from '@dynatrace/angular-components';
+import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
+import { ExpandableSectionUi } from './expandable-section/expandable-section-ui';
+import { DtExpandableSectionModule } from '@dynatrace/angular-components/expandable-section';
+import {DtExpandablePanelModule} from '@dynatrace/angular-components/expandable-panel';
+import {ExpandablePanelUi} from './expandable-panel/expandable-panel-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -16,6 +21,8 @@ import { ButtonGroupUi } from './button-group/button-group-ui';
   exports: [
     DtButtonModule,
     DtButtonGroupModule
+    DtExpandablePanelModule,
+    DtExpandableSectionModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -33,6 +40,8 @@ export class DynatraceAngularCompModule {}
     Home,
     ButtonUI,
     ButtonGroupUi,
+    ExpandablePanelUi,
+    ExpandableSectionUi
   ],
   bootstrap: [UIApp],
 })
