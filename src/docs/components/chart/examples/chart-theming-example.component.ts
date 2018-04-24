@@ -6,9 +6,10 @@ import { BarChartSeriesOptions } from 'highcharts';
 import { generateData } from '../chart-data-utils';
 
 @Component({
-  template: '<dt-chart [options]="options" [series]="series"></dt-chart>',
+  template: `<div [dtTheme]="turquoise"><dt-chart [options]="options" [series]="series"></dt-chart></div>`,
 })
-export class ChartDefaultExampleComponent {
+export class ChartThemingExampleComponent {
+
   options: Highcharts.Options = {
     xAxis: {
       type: 'datetime',
@@ -51,21 +52,18 @@ export class ChartDefaultExampleComponent {
     {
       name: 'Requests',
       type: 'column',
-      color: Colors.ROYALBLUE_200,
       yAxis: 1,
       data: generateData(40, 0, 200, 1370304000000, 900000),
     },
     {
       name: 'Failed requests',
       type: 'column',
-      color: Colors.ROYALBLUE_500,
       yAxis: 1,
       data: generateData(40, 0, 15, 1370304000000, 900000),
     },
     {
       name: 'Failure rate',
       type: 'line',
-      color: Colors.ROYALBLUE_700,
       data: generateData(40, 0, 20, 1370304000000, 900000),
     }];
 }
