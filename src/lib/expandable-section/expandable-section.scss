@@ -50,7 +50,9 @@
 }
 
 .dt-expandable-section-header-trigger {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+
   margin: 2px;
   position: relative;
 }
