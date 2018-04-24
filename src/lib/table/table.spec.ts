@@ -64,19 +64,6 @@ describe('DtTable', () => {
         .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-header-cell class applied');
     });
 
-    it('Should render a TableEmptyStateComponent', () => {
-      const fixture = TestBed.createComponent(TestApp);
-
-      const noEmptyStateComponent = fixture.debugElement.query(By.directive(DtTableEmptyState));
-      expect(noEmptyStateComponent).toBeFalsy('Expected the DtEmptyStateComponent not beign rendered for not empty tables');
-
-      fixture.componentInstance.dataSource = [];
-      fixture.detectChanges();
-
-      const emptyStateComponent = fixture.debugElement.query(By.directive(DtTableEmptyState));
-      expect(emptyStateComponent).toBeTruthy('Expected the DtEmptyStateComponent rendered for empty tables');
-    });
-
     it('Should render a LoadingComponent', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.componentInstance.loading = true;
