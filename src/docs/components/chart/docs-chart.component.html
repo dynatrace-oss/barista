@@ -34,17 +34,23 @@ class MyModule {{"{}"}}
   </thead>
   <tbody>
     <tr>
-      <td><code>options</code></td>
+      <td><code>@Input() options</code></td>
       <td><code>DtChartOptions | undefined</code></td>
       <td><code>undefined</code></td>
       <td>Sets options for the chart. DtChartOptions extends from Highcharts.Options,
         but removes the series property. The series property is passed as it's own input</td>
     </tr>
     <tr>
-      <td><code>series</code></td>
+      <td><code>@Input() series</code></td>
       <td><code>Observable&lt;Highcharts.IndividualSeriesOptions[]&gt; | Highcharts.IndividualSeriesOptions[] | undefined</code></td>
       <td><code>undefined</code></td>
       <td>Sets the series of the chart. The type can either be a stream of series data for continues updates or a static array.</td>
+    </tr>
+    <tr>
+      <td><code>@Output() updated</code></td>
+      <td><code>EventEmitter&lt;void&gt;</code></td>
+      <td></td>
+      <td>Event emitted when the chart options or series are updated</td>
     </tr>
   </tbody>
 </table>
