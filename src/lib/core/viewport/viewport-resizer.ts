@@ -8,7 +8,7 @@ const DEFAULT_WINDOW_EVENT_TIMEOUT = 150;
 
 /** Abstract class so the consumer can implement there own ViewportResizer */
 export abstract class ViewportResizer {
-  abstract change(throttleTime?: number): Observable<void>;
+  abstract change(): Observable<void>;
 }
 
 /** Default ViewportResizer implementation that will only react to window size changes */
@@ -17,8 +17,8 @@ export class DefaultViewportResizer implements ViewportResizer {
   constructor(private _viewportRuler: ViewportRuler) { }
 
   /** Returns a stream that emits whenever the size of the viewport changes. */
-  change(throttleTime: number = DEFAULT_WINDOW_EVENT_TIMEOUT): Observable<void> {
-    return this._viewportRuler.change(throttleTime)
+  change(): Observable<void> {
+    return this._viewportRuler.change(DEFAULT_WINDOW_EVENT_TIMEOUT)
       .pipe(map(() => void 0));
   }
 }
