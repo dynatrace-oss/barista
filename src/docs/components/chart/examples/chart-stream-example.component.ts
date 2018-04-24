@@ -1,0 +1,51 @@
+// tslint:disable:no-magic-numbers
+import { Component } from '@angular/core';
+import { Colors } from '@dynatrace/angular-components/theming';
+import { generateData } from '../chart-data-utils';
+import { ChartService } from '../docs-chart.service';
+import { IndividualSeriesOptions } from 'highcharts';
+import { Observable } from 'rxjs/Observable';
+
+@Component({
+  template: '<dt-chart [options]="options" [series]="series$"></dt-chart>',
+})
+export class ChartStreamExampleComponent {
+
+  options: Highcharts.Options = {
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: [
+      {
+        title: null,
+        labels: {
+          format: '{value}/min',
+        },
+        tickInterval: 50,
+      },
+    ],
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+      },
+      series: {
+        marker: {
+          enabled: false,
+        },
+      },
+    },
+    tooltip: {
+      formatter(): string | boolean {
+        return `${this.series.name}&nbsp${this.y}`;
+      },
+    },
+  };
+
+  series$: Observable<IndividualSeriesOptions[]>;
+
+  constructor(private _chartService: ChartService) {
+    this.series$ = this._chartService.getStreamedChartdata();
+  }
+}
+
+// tslint:enable:no-magic-numbers
