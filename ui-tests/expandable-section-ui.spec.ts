@@ -1,7 +1,7 @@
 import { browser, by, element, ExpectedConditions } from 'protractor';
 
 describe('expandable-section', () => {
-  describe('disabling behavior', () => {
+  describe('behavior', () => {
     beforeEach(() => browser.get('/expandable-section'));
 
     it('should toggle', async () => {
@@ -28,6 +28,11 @@ describe('expandable-section', () => {
       expect(await element(by.id('open')).getText()).toEqual('1');
       element(by.id('btnDisable')).click();
       expect(await element(by.id('open')).getText()).toEqual('0');
+    });
+
+    it('should open on label click', async () => {
+      element(by.id('lblHeader')).click();
+      expect(await element(by.id('open')).getText()).toEqual('1');
     });
 
   });

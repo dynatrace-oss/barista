@@ -8,6 +8,9 @@
 .dt-expandable-section-header {
   @include dt-interactive-reset();
 
+  display: flex;
+  align-items: baseline;
+
   position: relative;
   font-size: 12px;
   color: $gray-500;
@@ -29,38 +32,24 @@
   padding-right: 2px;
 }
 
-:host:not(.dt-expandable-section-disabled) .dt-expandable-section-header:focus
-  .dt-expandable-section-header-line-content {
+:host:not(.dt-expandable-section-disabled) .dt-expandable-section-header-trigger:focus {
   @include dt-focus-style();
 }
 
-.dt-expandable-section-header:hover, .dt-expandable-section-header span:hover {
+.dt-expandable-section-header-trigger:hover {
   color: $gray-700;
-}
 
-.dt-expandable-section-header:hover svg {
-  fill: $turquoise-700;
+  svg {
+    fill: $turquoise-700;
+  }
 }
 
 .dt-expandable-section-header-line {
-  overflow: hidden;
-  position: relative;
-}
-
-.dt-expandable-section-header-line:hover::after {
-  border-bottom: 1px solid $gray-700;
-}
-
-.dt-expandable-section-header-line::after {
-  content: '';
-  width: 1000%;
-  position: absolute;
-  top: 1em;
-  margin-top: 2px;
+  flex-grow: 1;
   border-bottom: 1px solid $gray-400;
 }
 
-.dt-expandable-section-header-line-content {
+.dt-expandable-section-header-trigger {
   display: inline-block;
   margin: 2px;
   position: relative;
@@ -79,7 +68,7 @@
     }
   }
 
-  .dt-expandable-section-header-line::after {
+  .dt-expandable-section-header-line {
     border-bottom: 1px solid $gray-300;
   }
 }
