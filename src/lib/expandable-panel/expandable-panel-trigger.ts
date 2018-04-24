@@ -9,7 +9,7 @@ import {
   Input, OnDestroy
 } from '@angular/core';
 import {DtExpandablePanel} from './expandable-panel';
-import {CanDisable} from '@dynatrace/angular-components/core';
+import {CanDisable} from '../core/index';
 import {Subscription} from 'rxjs/Subscription';
 
 @Directive({
