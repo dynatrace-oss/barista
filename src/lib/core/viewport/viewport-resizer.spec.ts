@@ -1,8 +1,5 @@
-
-import { Component } from '@angular/core';
 import { TestBed, async, inject, tick, fakeAsync } from '@angular/core/testing';
 import { DEFAULT_VIEWPORT_RESIZER_PROVIDER, ViewportResizer } from '@dynatrace/angular-components';
-import { By } from '@angular/platform-browser';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
 
@@ -41,25 +38,15 @@ describe('ViewportResizer', () => {
       subscription.unsubscribe();
     });
 
-    it('should emit a value on the change observable after emit is called', () => {
-      const spy = jasmine.createSpy('viewport changed spy');
-      const subscription = resizer.change(0).subscribe(spy);
-
-      resizer.emit();
-      expect(spy).toHaveBeenCalled();
-      subscription.unsubscribe();
-    });
-
     it('should emit a value with default throttle', fakeAsync(() => {
       const spy = jasmine.createSpy('viewport changed spy');
       const subscription = resizer.change().subscribe(spy);
 
       window.dispatchEvent(createFakeEvent('resize'));
       expect(spy).not.toHaveBeenCalled();
-      tick(150)
+      tick(150);
       expect(spy).toHaveBeenCalled();
       subscription.unsubscribe();
     }));
   });
 });
-
