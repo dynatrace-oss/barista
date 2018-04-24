@@ -7,12 +7,16 @@ import { DEFAULT_VIEWPORT_RESIZER_PROVIDER } from '@dynatrace/angular-components
 import { ChartService } from './docs-chart.service';
 import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { ChartLineExampleComponent } from './examples/chart-line-example.component';
 import { ChartDefaultExampleComponent } from './examples/chart-default-example.component';
+import { ChartStreamExampleComponent } from './examples/chart-stream-example.component';
+import { ChartThemingExampleComponent } from './examples/chart-theming-example.component';
+import { ChartLoadingExampleComponent } from './examples/chart-loading-example.component';
 
 const EXAMPLES = [
-  ChartLineExampleComponent,
   ChartDefaultExampleComponent,
+  ChartStreamExampleComponent,
+  ChartThemingExampleComponent,
+  ChartLoadingExampleComponent,
 ];
 
 @NgModule({
@@ -20,6 +24,7 @@ const EXAMPLES = [
     UiModule,
     DtChartModule,
     DtThemingModule,
+    DtButtonModule,
   ],
   declarations: [
     DocsChartComponent,

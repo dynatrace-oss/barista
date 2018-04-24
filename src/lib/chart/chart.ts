@@ -66,7 +66,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('container') container: ElementRef;
 
   _loading = false;
-  private _series: DtChartSeries;
+  private _autoLoadingEnabled = true;
+  private _series: DtChartSeries | undefined;
   private _chartObject: ChartObject;
   private _dataSub: Subscription | null = null;
   private _colorPalette: ChartColorPalette;
@@ -85,7 +86,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
         this._series = s;
         this._update();
       });
-    } else if (series) {
+    } else {
+      console.log(series);
       this._series = series;
     }
     this._setLoading();
@@ -110,7 +112,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.series || changes.options) {
+    if (changes.series.previousValue !== changes.series.currentValue || changes.options) {
       this._update();
     }
   }
@@ -129,7 +131,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /** returns the series data for the chart */
-  getSeries(): DtChartSeries {
+  getSeries(): DtChartSeries | undefined {
     return this._series;
   }
 
@@ -169,7 +171,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       return;
     }
     // if there is one series apply the single property
-    if (this._series.length === 1) {
+    if (this._series && this._series.length === 1) {
       s.color = this._colorPalette.single;
 
       return;
@@ -243,8 +245,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _setLoading(): void {
     if (this.options) {
       this._loading = !this._series;
+      this._changeDetectorRef.markForCheck();
     }
-    this._changeDetectorRef.markForCheck();
   }
 
   /** merges the options passed as input with the defaultOptions */

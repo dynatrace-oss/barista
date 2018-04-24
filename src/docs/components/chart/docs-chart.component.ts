@@ -4,8 +4,10 @@ import { ViewportResizer } from '@dynatrace/angular-components/core';
 import { ChartService } from './docs-chart.service';
 import { Observable } from 'rxjs/Observable';
 import { Colors } from '@dynatrace/angular-components/theming';
-import { ChartLineExampleComponent } from './examples/chart-line-example.component';
 import { ChartDefaultExampleComponent } from './examples/chart-default-example.component';
+import { ChartStreamExampleComponent } from './examples/chart-stream-example.component';
+import { ChartThemingExampleComponent } from './examples/chart-theming-example.component';
+import { ChartLoadingExampleComponent } from './examples/chart-loading-example.component';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +18,9 @@ export class DocsChartComponent {
 
   examples = {
     default: ChartDefaultExampleComponent,
-    line: ChartLineExampleComponent,
+    stream: ChartStreamExampleComponent,
+    theming: ChartThemingExampleComponent,
+    loading: ChartLoadingExampleComponent,
   };
 
   loading: false;
