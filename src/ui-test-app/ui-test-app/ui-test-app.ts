@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'dt-home',
@@ -14,5 +14,7 @@ export class UIApp {
   navItems = [
     {name: 'Start', route: '/'},
     {name: 'Button', route: '/button'},
+    {name: 'Expandable panel', route: '/expandable-panel'},
+    {name: 'Expandable section', route: '/expandable-section'},
   ];
 }
