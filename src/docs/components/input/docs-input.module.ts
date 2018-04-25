@@ -9,7 +9,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TextareaInputExample } from './examples/input-textarea-example';
 import { DisabledReadonlyInputExample } from './examples/input-disabled-readonly-example';
 import { DarkInputExample } from './examples/input-dark-example';
-import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
 
 const EXAMPLES = [
   DefaultInputExample,
@@ -26,7 +25,6 @@ const EXAMPLES = [
     FormsModule,
     ReactiveFormsModule,
     DtInputModule,
-    DtFormFieldModule,
     DtButtonModule,
   ],
   declarations: [

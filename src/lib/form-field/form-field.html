@@ -1,0 +1,26 @@
+<div class="dt-form-field-wrapper">
+  <div class="dt-form-field-container" (click)="_control.onContainerClick && _control.onContainerClick($event)">
+    <label class="dt-form-field-label"
+      *ngIf="!!this._labelChild"
+      [attr.for]="_control.id"
+      [attr.aria-owns]="_control.id"
+      [class.dt-empty]="_control.empty">
+      <ng-content select="dt-label"></ng-content>
+    </label>
+
+    <div class="dt-form-field-control">
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+  <div class="dt-form-field-subscript-wrapper">
+    <div class="dt-form-field-error" *ngIf="_getDisplayedError()" [@transitionErrors]="_errorAnimationState">
+        <ng-content select="dt-error"></ng-content>
+    </div>
+    <div class="dt-form-field-hint-wrapper" *ngIf="_hintChildren.length">
+      <ng-content select="dt-hint:not([align='end'])"></ng-content>
+      <span class="dt-form-field-hint-spacer"></span>
+      <ng-content select="dt-hint[align='end']"></ng-content>
+    </div>
+  </div>
+</div>

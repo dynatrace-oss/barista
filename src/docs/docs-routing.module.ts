@@ -14,6 +14,7 @@ import { DocsChartComponent } from './components/chart/docs-chart.component';
 import { DocsTileComponent } from './components/tile/docs-tile.component';
 import { DocsCardComponent } from './components/card/docs-card.component';
 import { DocsContextDialogComponent } from './components/context-dialog/docs-context-dialog.component';
+import { DocsFormField } from 'components/form-field/docs-form-field';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'inline-editor', component: DocsInlineEditorComponent },
   { path: 'expandable-section', component: DocsExpandableSectionComponent },
   { path: 'input', component: DocsInputComponent },
+  { path: 'form-field', component: DocsFormField },
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
   { path: 'links', component: DocsLinkComponent },
   { path: 'table', component: DocsTableComponent },

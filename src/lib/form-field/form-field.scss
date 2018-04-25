@@ -1,0 +1,94 @@
+@import '../core/style/variables';
+
+.dt-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+}
+
+.dt-form-field-control {
+  display: block;
+  position: relative;
+  flex: auto;
+  width: 100%;
+
+  min-width: 180px;
+}
+
+.dt-form-field-control.dt-form-field-control > * {
+  // We need to enforce display block here
+  // so the control fills the form field
+  display: block;
+  width: 100%;
+}
+
+.dt-form-field-label {
+  position: relative;
+  font-size: 12px;
+  font-weight: 400;
+  display: block;
+  padding-bottom: 6px;
+}
+
+.dt-form-field-subscript-wrapper {
+  position: relative;
+}
+
+.dt-form-field-error {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border: 1px solid $disabledcolor;
+  background-color: $gray-100;
+  padding: 8px 12px 7px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  transform-origin: top left;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: -1px;
+    right: -1px;
+    height: 2px;
+    background-color: $red-500;
+  }
+}
+
+.dt-form-field-invalid .dt-input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.dt-form-field-hint-wrapper {
+  display: flex;
+  padding-top: 6px;
+}
+
+.dt-form-field-hint-spacer {
+  flex: 1 0 8px;
+}
+
+.dt-hint,
+.dt-error {
+  font-family: $mainfont;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: none;
+  appearance: none;
+  display: block;
+  box-sizing: border-box;
+  white-space: normal;
+}
+
+.dt-hint {
+  color: $gray-500;
+}
+
+.dt-error {
+  color: $red-500;
+}
