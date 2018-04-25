@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { replaceCssClass } from '@dynatrace/angular-components/core';
+import { replaceCssClass } from '../core/index';
 
 const MAX_DEPTH = 2;
 // dtTemes placed on elements containing one of these classes

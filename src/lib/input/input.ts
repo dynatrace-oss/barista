@@ -13,7 +13,7 @@ import {
   ErrorStateMatcher,
   mixinErrorState,
   CanUpdateErrorState
-} from '@dynatrace/angular-components/core';
+} from '../core/index';
 
 let nextUniqueId = 0;
 

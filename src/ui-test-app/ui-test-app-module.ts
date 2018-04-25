@@ -5,13 +5,10 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
-import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
-import { DtButtonModule } from '@dynatrace/angular-components/button';
+import { DtButtonModule, DtButtonGroupModule, DtExpandableSectionModule, DtExpandablePanelModule } from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
 import { ExpandableSectionUi } from './expandable-section/expandable-section-ui';
-import { DtExpandableSectionModule } from '@dynatrace/angular-components/expandable-section';
-import {DtExpandablePanelModule} from '@dynatrace/angular-components/expandable-panel';
 import {ExpandablePanelUi} from './expandable-panel/expandable-panel-ui';
 
 /**
@@ -41,7 +38,7 @@ export class DynatraceAngularCompModule {}
     ButtonUI,
     ButtonGroupUi,
     ExpandablePanelUi,
-    ExpandableSectionUi
+    ExpandableSectionUi,
   ],
   bootstrap: [UIApp],
 })
