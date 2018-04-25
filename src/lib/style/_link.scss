@@ -23,6 +23,10 @@ a.dt-link {
     outline: 2px solid $gray-300;
   }
 
+  &:active:focus {
+    outline: none;
+  }
+
   &.dt-external::after {
     @extend .fonticon-ExternalLink:before;
     @include icons-before('fonticons');
