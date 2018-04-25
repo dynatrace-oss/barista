@@ -13,11 +13,11 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
-const MODES = {
-  IDLE: 0,
-  EDITING: 1,
-  SAVING: 2,
-};
+enum MODES {
+  IDLE,
+  EDITING,
+  SAVING,
+}
 
 @Component({
   preserveWhitespaces: false,
