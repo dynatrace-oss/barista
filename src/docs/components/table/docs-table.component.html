@@ -88,12 +88,16 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
 <docs-source-example [example]="examples.width"></docs-source-example>
 
 <h3>Empty state</h3>
-<p>You can customize the empty Title and Message when the table is empty with <code>[emptyTitle]</code> and <code>[emptyMessage]</code></p>
+<p>You can customize the empty Title and Message when the table is empty using the following tags: <code>&lt;dt-table-empty-state&gt;</code>, <code>&lt;dt-table-empty-state-image&gt;</code>, <code>&lt;dt-table-empty-state-title&gt;</code>, <code>&lt;dt-table-empty-state-message&gt;</code></p>
 
 <docs-source-example [example]="examples.empty"></docs-source-example>
 
+<p>Also you can pass custom content enclosing it between <code>&lt;dt-table-empty-state&gt;</code></p>
+
+<docs-source-example [example]="examples.emptyCustom"></docs-source-example>
+
 <h3>Loading state</h3>
-<p>You can mark the Table as loading using <code>[isLoading]</code></p>
+<p>You can mark the Table as loading using <code>[isLoading]</code> and pass the content to display with <code>&lt;dt-table-loading-state&gt;</code>></p>
 
 <docs-source-example [example]="examples.loading"></docs-source-example>
 
@@ -169,6 +173,26 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
       <td><code>*dtRowDef</code></td>
       <td>Attribute</td>
       <td>Defines the visible columns in each row by receiving a columnName[] and also exposes the same micro-syntax that the dt-cell but for event and property binding</td>
+    </tr>
+    <tr>
+      <td><code>dt-table-empty-state</code></td>
+      <td>Component</td>
+      <td>Placeholder for the content displayed when the table is empty</td>
+    </tr>
+    <tr>
+      <td><code>dt-table-empty-state-image</code></td>
+      <td>Component</td>
+      <td>Placeholder for the image or icon to use within the <code>&lt;dt-table-empty-table&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code>dt-table-empty-state-title</code></td>
+      <td>Component</td>
+      <td>Placeholder for the title to use within the <code>&lt;dt-table-empty-table&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code>dt-table-empty-state-message</code></td>
+      <td>Component</td>
+      <td>Placeholder for the message to use within the <code>&lt;dt-table-empty-table&gt;</code></td>
     </tr>
   </table>
 

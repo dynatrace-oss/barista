@@ -1,9 +1,10 @@
 <ng-container headerRowPlaceholder></ng-container>
 <ng-container rowPlaceholder></ng-container>
-<ng-container #placeholder></ng-container>
 
-<ng-template #loadingTemplate>
-    <div class="floatLoading">
-        <dt-loading-spinner></dt-loading-spinner>
-    </div>
-</ng-template>
+<ng-container *ngIf="isEmptyDataSource">
+    <ng-content select="dt-table-empty-state"></ng-content>
+</ng-container>
+
+<ng-container *ngIf="isLoading">
+    <ng-content select="dt-table-loading-state"></ng-content>
+</ng-container>

@@ -5,10 +5,11 @@ import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtThemingModule } from '@dynatrace/angular-components/theming';
 import { DtTableModule } from '@dynatrace/angular-components/table';
-import { DtTableEmptyStateModule } from '@dynatrace/angular-components/table/table-empty-state';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 import { TableDefaultComponent } from './examples/table-default.component';
 import { TableDifferentWidthComponent } from './examples/table-different-width.component';
 import { TableEmptyStateComponent } from './examples/table-empty-state.component';
+import { TableEmptyCustomStateComponent } from './examples/table-empty-custom-state.component';
 import { TableObservableComponent } from './examples/table-observable.component';
 import { TableDataSourceComponent } from './examples/table-data-source.component';
 import { TableLoadingComponent } from './examples/table-loading.component';
@@ -17,6 +18,7 @@ const EXAMPLES = [
   TableDefaultComponent,
   TableDifferentWidthComponent,
   TableEmptyStateComponent,
+  TableEmptyCustomStateComponent,
   TableObservableComponent,
   TableDataSourceComponent,
   TableLoadingComponent,
@@ -28,7 +30,7 @@ const EXAMPLES = [
     UiModule,
     DtThemingModule,
     DtTableModule,
-    DtTableEmptyStateModule,
+    DtLoadingDistractorModule,
   ],
   exports: [
     DocsTableComponent,
