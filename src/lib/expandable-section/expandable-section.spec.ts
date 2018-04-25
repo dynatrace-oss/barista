@@ -1,7 +1,7 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtExpandableSectionModule, DtExpandableSection } from '@dynatrace/angular-components/expandable-section';
+import { DtExpandableSectionModule, DtExpandableSection } from '@dynatrace/angular-components';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DebugElement} from '@angular/core/src/debug/debug_node';
 

@@ -9,7 +9,7 @@ import {
   Input, OnDestroy
 } from '@angular/core';
 import {DtExpandablePanel} from './expandable-panel';
-import {CanDisable} from '@dynatrace/angular-components/core';
+import {CanDisable} from '../core/index';
 import {Subscription} from 'rxjs/Subscription';
 
 @Directive({
@@ -67,7 +67,7 @@ export class DtExpandablePanelTrigger implements CanDisable, AfterContentInit, O
 
   @HostListener('click', ['$event'])
   // tslint:disable-next-line:no-unused-variable
-  private _onClick(event: MouseEvent): void {
+  _onClick(event: MouseEvent): void {
     if (this._expandable) {
       this._expandable.toggle();
     }
@@ -76,7 +76,7 @@ export class DtExpandablePanelTrigger implements CanDisable, AfterContentInit, O
 
   @HostListener('keydown', ['$event'])
   // tslint:disable-next-line:no-unused-variable
-  private _handleKeydown(event: KeyboardEvent): void {
+  _handleKeydown(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
     const isAltKey = event.altKey;
     if (keyCode === ENTER || keyCode === SPACE) {

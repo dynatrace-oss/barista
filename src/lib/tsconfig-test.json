@@ -8,7 +8,6 @@
     "types": ["jasmine"],
     "paths": {
       "@dynatrace/angular-components": ["dist/lib"],
-      "@dynatrace/angular-components/*": ["dist/lib/*"]
     },
     "rootDir": ".",
     "outDir": "../../dist/unit-test"
