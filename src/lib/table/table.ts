@@ -4,9 +4,6 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   Input,
-  ViewChild,
-  TemplateRef,
-  ViewContainerRef,
 } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 

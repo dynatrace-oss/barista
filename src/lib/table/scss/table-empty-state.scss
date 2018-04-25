@@ -37,7 +37,9 @@ $padding: 8px;
     font-weight: 300;
   }
 
+  // stylelint-disable selector-pseudo-element-no-unknown
   ::ng-deep.image-box {
+  // stylelint-enable
     img {
       border: 0;
       height: $image-size;

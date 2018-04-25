@@ -2,7 +2,6 @@ import {
   Component,
   ViewEncapsulation,
   ChangeDetectionStrategy,
-  Input,
   Directive,
   ContentChild,
 } from '@angular/core';
