@@ -99,6 +99,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
     this._setLoading();
   }
+  get series(): Observable<DtChartSeries> | DtChartSeries | undefined {
+    return this._series;
+  }
 
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
 
@@ -137,13 +140,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
   }
 
-  /** returns the series data for the chart */
-  getSeries(): DtChartSeries {
-    return this._series || [];
-  }
-
   /** returns an array of ids for the series data */
-  getAllIds(): Array<string | undefined> | undefined {
+  get seriesIds(): Array<string | undefined> | undefined {
     if (this._series) {
 
       return this._series.map((s: IndividualSeriesOptions) => s.id);
@@ -153,14 +151,28 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /**
+   * returns the combined highcharts options for the chart
+   * combines series and options passed, merged with the defaultOptions
+   */
+  get highchartsOptions(): Options {
+    let highchartsOptions = mergeOptions(defaultChartOptions, this.options) as Options;
+    highchartsOptions = this._wrapTooltip(highchartsOptions);
+    if (this._series) {
+      // clone objects inside series array before adding the color
+      highchartsOptions.series = this._series.map(((s) => ({...s})));
+      this._applyColors(highchartsOptions.series);
+    }
+    return highchartsOptions;
+  }
+
+  /**
    * applies the colors from the theme to the series if no color for the series is set
    */
-  private _applyColors(): void {
+  private _applyColors(series: IndividualSeriesOptions[]): void {
     this._colorPalette = this._theme && this._theme.name ?
       CHART_COLOR_PALETTES[this._theme.name] : CHART_COLOR_PALETTES[defaultChartColorPalette];
-
-    if (this._series) {
-      this._series.forEach((s: IndividualSeriesOptions, index: number): void => {
+    if (series) {
+      series.forEach((s: IndividualSeriesOptions, index: number): void => {
         this._applySeriesColor(s, index);
       });
     }
@@ -193,22 +205,10 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /**
-   * returns the combined highcharts options for the chart
-   * combines series and options passed, merged with the defaultOptions
-   */
-  private _getHighchartsOptions(): Options {
-    let highchartsOptions = mergeOptions(defaultChartOptions, this.options) as Options;
-    highchartsOptions = this._wrapTooltip(highchartsOptions);
-    highchartsOptions.series = this._series;
-
-    return highchartsOptions;
-  }
-
-  /**
    * Wraps the options.tooltip.formatter function passed into a div.dt-chart-tooltip
    * to enable correct styling for the tooltip
    */
-  private _wrapTooltip(highchartsOptions: Options): Options {
+  private _wrapTooltip(highchartsOpts: Options): Options {
 
     if (!this._isTooltipWrapped) {
       let tooltipFormatterFunc = defaultTooltipFormatter;
@@ -216,7 +216,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
         tooltipFormatterFunc = this.options.tooltip.formatter;
       }
 
-      highchartsOptions.tooltip!.formatter = function(): string | boolean {
+      highchartsOpts.tooltip!.formatter = function(): string | boolean {
         const tooltipFormatterFuncBound = tooltipFormatterFunc.bind(this);
 
         return `<div class="dt-chart-tooltip">${tooltipFormatterFuncBound()}</div>`;
@@ -225,15 +225,14 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       this._isTooltipWrapped = true;
     }
 
-    return highchartsOptions;
+    return highchartsOpts;
   }
 
   /**
    * Spins up the chart with correct colors applied
    */
   private _createChart(): void {
-    this._applyColors();
-    this._chartObject = chart(this.container.nativeElement, this._getHighchartsOptions());
+    this._chartObject = chart(this.container.nativeElement, this.highchartsOptions);
     this._setLoading();
   }
 
@@ -242,9 +241,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    */
   private _update(redraw: boolean = true, oneToOne: boolean = true): void {
     if (this._chartObject) {
-      this._applyColors();
       this._setLoading();
-      this._chartObject.update(this._getHighchartsOptions(), redraw, oneToOne);
+      this._chartObject.update(this.highchartsOptions, redraw, oneToOne);
       this.updated.emit();
     }
   }
