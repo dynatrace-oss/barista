@@ -1,8 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtTableModule, DtTable, DtRow, DtCell, DtTableEmptyState, DtTableLoadingState, DtTableEmptyStateTitle, DtTableEmptyStateMessage } from '@dynatrace/angular-components/table';
-import { DtLoadingDistractorModule, DtLoadingDistractor } from '@dynatrace/angular-components/loading-distractor';
+import {
+  DtTableModule,
+  DtTable,
+  DtRow,
+  DtCell,
+  DtTableEmptyState,
+  DtTableLoadingState,
+  DtTableEmptyStateTitle,
+  DtTableEmptyStateMessage,
+  DtLoadingDistractorModule,
+  DtLoadingDistractor,
+} from '@dynatrace/angular-components';
 
 describe('DtTable', () => {
 
