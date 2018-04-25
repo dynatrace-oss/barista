@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtInputModule } from '@dynatrace/angular-components/input';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
+import { DtButtonModule, DtInputModule, DtThemingModule } from '@dynatrace/angular-components';
 import { DocsInputComponent } from './docs-input.component';
 import { DefaultInputExample } from './examples/input-default-example';
 import { NgModelInputExample } from './examples/input-ng-model-example';

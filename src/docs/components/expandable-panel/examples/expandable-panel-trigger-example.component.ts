@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DtExpandablePanelTrigger} from '@dynatrace/angular-components/expandable-panel';
 
 @Component({
   moduleId: module.id,
