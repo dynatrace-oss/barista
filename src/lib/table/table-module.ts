@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
-import { DtTableEmptyStateModule, DtTableEmptyState } from '@dynatrace/angular-components/table/table-empty-state';
-import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 import { DtTable } from './table';
 import { DtHeaderRow, DtHeaderRowDef, DtRow, DtRowDef } from './row';
 import { DtCell, DtCellDef, DtColumnDef, DtHeaderCell, DtHeaderCellDef } from './cell';
+import { DtTableEmptyState, DtTableEmptyStateImage, DtTableEmptyStateTitle, DtTableEmptyStateMessage } from './table-empty-state';
+import { DtTableLoadingState } from './table-loading-state';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
@@ -18,23 +18,23 @@ const EXPORTED_DECLARATIONS = [
   DtColumnDef,
   DtHeaderCell,
   DtHeaderCellDef,
+  DtTableEmptyState,
+  DtTableEmptyStateImage,
+  DtTableEmptyStateTitle,
+  DtTableEmptyStateMessage,
+  DtTableLoadingState,
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     CdkTableModule,
-    DtTableEmptyStateModule,
-    DtLoadingDistractorModule,
   ],
   exports: [
     ...EXPORTED_DECLARATIONS,
   ],
   declarations: [
     ...EXPORTED_DECLARATIONS,
-  ],
-  entryComponents: [
-    DtTableEmptyState,
   ],
 })
 export class DtTableModule {}

@@ -1,0 +1,47 @@
+@import '../../core/style/variables';
+
+$image-size: 86px;
+$image-margin: 2px;
+$margin-top: 48px;
+$padding: 8px;
+
+:host.dt-table-empty-state {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  font-family: $mainfont;
+  font-size: 14px;
+  font-weight: 400;
+  color: $gray-700;
+  margin: $margin-top 0;
+  line-height: 1.4;
+
+  .message-area {
+    padding-left: $padding;
+    white-space: pre-line;
+  }
+
+  .image-box {
+    border: 1px solid $gray-500;
+    box-sizing: content-box;
+    padding: $image-margin;
+    display: inline-block;
+    height: $image-size;
+    width: $image-size;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  .message-title {
+    font-size: 24px;
+    font-weight: 300;
+  }
+
+  ::ng-deep.image-box {
+    img {
+      border: 0;
+      height: $image-size;
+      width: $image-size;
+    }
+  }
+}
