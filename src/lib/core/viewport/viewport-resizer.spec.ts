@@ -31,7 +31,7 @@ describe('ViewportResizer', () => {
 
     it('should emit a value on resize', () => {
       const spy = jasmine.createSpy('viewport changed spy');
-      const subscription = resizer.change(0).subscribe(spy);
+      const subscription = resizer.change().subscribe(spy);
 
       window.dispatchEvent(createFakeEvent('resize'));
       expect(spy).toHaveBeenCalled();

@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
-import { DtButtonGroupModule, DtButtonModule} from '@dynatrace/angular-components';
+import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
@@ -20,7 +20,7 @@ import {ExpandablePanelUi} from './expandable-panel/expandable-panel-ui';
 @NgModule({
   exports: [
     DtButtonModule,
-    DtButtonGroupModule
+    DtButtonGroupModule,
     DtExpandablePanelModule,
     DtExpandableSectionModule,
   ],

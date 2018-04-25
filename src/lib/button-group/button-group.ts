@@ -110,10 +110,6 @@ export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasT
     }
   }
 
-  clearSelection(): void {
-    this._selectItem(false, undefined);
-  }
-
   selectValue(value: T): void {
     this.value = value;
   }
@@ -139,9 +135,8 @@ export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasT
 
     // tslint:disable-next-line:no-floating-promises
     Promise.resolve().then(() => {
-      if (this._value !== undefined) {
-        this.value = this._value;
-      }
+      // ensure selection, or selected value
+      this.value = this._value;
     })
     ;
   }
@@ -203,6 +198,11 @@ export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasT
   }
 
   private _selectItem(fireEvent: boolean, option?: DtButtonGroupItem<T>): void {
+
+    if (option === undefined) {
+      option = this._items.find((item => !item.disabled));
+    }
+
     if ((option !== undefined && this._selectionModel.isSelected(option))
       || (option === undefined && !this._selectionModel.hasValue())) {
 

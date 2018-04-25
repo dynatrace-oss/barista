@@ -110,9 +110,6 @@ describe('DtButtonGroup', () => {
     it('should clear selections when clearing the group', () => {
       groupInstance.selectValue(testComponent.values[1][0]);
       expect(itemInstances[1].selected).toBe(true);
-
-      groupInstance.clearSelection();
-      expect(itemInstances[1].selected).toBe(false);
     });
     it('should find value with compareWith',() => {
       groupInstance.selectValue('F');

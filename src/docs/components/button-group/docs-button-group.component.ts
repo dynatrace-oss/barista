@@ -4,6 +4,7 @@ import {ButtonGroupDisabledExampleComponent} from './examples/button-group-disab
 import {ButtonGroupItemDisabledExampleComponent} from './examples/button-group-item-disabled-example.component';
 import {ButtonGroupInteractiveExampleComponent} from './examples/button-group-interactive-example.component';
 import {ButtonGroupErrorExampleComponent} from './examples/button-group-error-example.component';
+import {ButtonGroupDarkExampleComponent} from './examples/button-group-dark-example.component';
 
 @Component({
   moduleId: module.id,
@@ -17,6 +18,7 @@ export class DocsButtonGroupComponent {
     groupDisabled: ButtonGroupDisabledExampleComponent,
     itemDisabled: ButtonGroupItemDisabledExampleComponent,
     interactive: ButtonGroupInteractiveExampleComponent,
-    error: ButtonGroupErrorExampleComponent
+    error: ButtonGroupErrorExampleComponent,
+    dark: ButtonGroupDarkExampleComponent,
   };
 }

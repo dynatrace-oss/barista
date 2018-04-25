@@ -10,13 +10,15 @@ import {ButtonGroupItemDisabledExampleComponent} from './examples/button-group-i
 import {ButtonGroupInteractiveExampleComponent} from './examples/button-group-interactive-example.component';
 import {ButtonGroupErrorExampleComponent} from './examples/button-group-error-example.component';
 import {DtThemingModule} from '@dynatrace/angular-components/theming';
+import {ButtonGroupDarkExampleComponent} from './examples/button-group-dark-example.component';
 
 const EXAMPLES = [
   ButtonGroupDefaultExampleComponent,
   ButtonGroupDisabledExampleComponent,
   ButtonGroupItemDisabledExampleComponent,
   ButtonGroupInteractiveExampleComponent,
-  ButtonGroupErrorExampleComponent
+  ButtonGroupErrorExampleComponent,
+  ButtonGroupDarkExampleComponent,
 ];
 
 @NgModule({
