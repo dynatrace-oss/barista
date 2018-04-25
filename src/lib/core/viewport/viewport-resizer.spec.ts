@@ -31,22 +31,11 @@ describe('ViewportResizer', () => {
 
     it('should emit a value on resize', () => {
       const spy = jasmine.createSpy('viewport changed spy');
-      const subscription = resizer.change(0).subscribe(spy);
+      const subscription = resizer.change().subscribe(spy);
 
       window.dispatchEvent(createFakeEvent('resize'));
       expect(spy).toHaveBeenCalled();
       subscription.unsubscribe();
     });
-
-    it('should emit a value with default throttle', fakeAsync(() => {
-      const spy = jasmine.createSpy('viewport changed spy');
-      const subscription = resizer.change().subscribe(spy);
-
-      window.dispatchEvent(createFakeEvent('resize'));
-      expect(spy).not.toHaveBeenCalled();
-      tick(150);
-      expect(spy).toHaveBeenCalled();
-      subscription.unsubscribe();
-    }));
   });
 });
