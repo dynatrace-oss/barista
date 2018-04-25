@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
+import { DtThemingModule } from '@dynatrace/angular-components';
 import { UiModule } from '../../ui/ui.module';
 import { DocsLinkComponent } from './docs-link.component';
 import { LinkDarkExampleComponent } from './examples/link-dark-example.component';
