@@ -8,7 +8,9 @@ import {
   Output,
   ViewChild,
   forwardRef,
-  AfterViewChecked
+  AfterViewChecked,
+  ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -20,12 +22,19 @@ enum MODES {
 }
 
 @Component({
+  moduleId: module.id,
   preserveWhitespaces: false,
   selector: '[dt-inline-editor]',
+  exportAs: 'dt-inline-editor',
+  // encapsulation: ViewEncapsulation.Emulated,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./inline-editor.component.scss'],
   templateUrl: './inline-editor.html',
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DtInlineEditor), multi: true },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DtInlineEditor),
+      multi: true },
   ],
 })
 export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, OnDestroy {
