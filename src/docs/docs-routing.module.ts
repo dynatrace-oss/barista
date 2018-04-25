@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DocsLinkComponent } from './components/link/docs-link.component';
 import { Home } from './docs-home/docs-home.component';
 import { DocsButtonComponent } from './components/button/docs-button.component';
 import { DocsButtonGroupComponent } from './components/button-group/docs-button-group.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'expandable-panel', component: DocsExpandablePanelComponent },
   { path: 'expandable-section', component: DocsExpandableSectionComponent },
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
+  { path: 'links', component: DocsLinkComponent },
   { path: '**', redirectTo: '' },
 ];
 
