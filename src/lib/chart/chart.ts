@@ -19,9 +19,9 @@ import {
 import { Options, IndividualSeriesOptions, ChartObject, chart } from 'highcharts';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { ViewportResizer } from '@dynatrace/angular-components/core';
+import { ViewportResizer } from '../core/index';
 import { delay } from 'rxjs/operators/delay';
-import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '@dynatrace/angular-components/theming';
+import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '../theming/index';
 import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';

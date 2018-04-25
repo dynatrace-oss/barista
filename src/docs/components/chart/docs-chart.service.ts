@@ -5,9 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { timer } from 'rxjs/observable/timer';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
-import { DtChartSeries } from '@dynatrace/angular-components/chart';
+import { DtChartSeries, Colors } from '@dynatrace/angular-components';
 import { generateData } from './chart-data-utils';
-import { Colors } from '@dynatrace/angular-components/theming';
 
 @Injectable()
 export class ChartService {

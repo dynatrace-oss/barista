@@ -1,10 +1,9 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { Colors } from '@dynatrace/angular-components/theming';
+import { Colors, DtChartSeries } from '@dynatrace/angular-components';
 import { BarChartSeriesOptions } from 'highcharts';
 import { generateData } from '../chart-data-utils';
-import { DtChartSeries } from '@dynatrace/angular-components/chart';
 
 @Component({
   template: `<button dt-button (click)="toggleData()">toggle data</button>
