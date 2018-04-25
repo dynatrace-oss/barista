@@ -3,8 +3,8 @@
     "angular-whitespace": [true, "check-semicolon"],
     "banana-in-box": true,
     "templates-no-negated-async": true,
-    // Changed because selectors like `dt-header-cell, th[dt-header-cell]` would not be possible
-    "directive-selector": [true, "", ["dt", "docs"], "camelCase"],
+    // Changed because in some places we need a element selector for directives
+    "directive-selector": [false, "", ["dt", "docs"]],
     // Changed because selectors like `button[dt-button], button[dt-icon-button]` would not be possible
     "component-selector": [true, "", ["dt", "docs"], "kebab-case"],
     // We need to change this to enable the usage of class mixins.

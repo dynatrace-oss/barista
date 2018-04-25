@@ -64,6 +64,7 @@ export const _DtInputMixinBase = mixinErrorState(DtInputBase);
     '(blur)': '_focusChanged(false)',
     '(focus)': '_focusChanged(true)',
   },
+  providers: [{provide: DtFormFieldControl, useExisting: DtInput}],
 })
 export class DtInput extends _DtInputMixinBase
   implements DoCheck, OnChanges, OnDestroy, CanUpdateErrorState, DtFormFieldControl<string> {

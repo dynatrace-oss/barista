@@ -64,9 +64,7 @@ export class DtError {
   selector: 'dt-form-field',
   exportAs: 'dtFormField',
   templateUrl: 'form-field.html',
-  styleUrls: [
-    'form-field.css',
-  ],
+  styleUrls: ['form-field.scss'],
   host: {
     'class': 'dt-form-field',
     '[class.dt-form-field-invalid]': '_control.errorState',
@@ -93,6 +91,10 @@ export class DtError {
       ]),
     ]),
   ],
+  // We need to disable view encapsulation on the form-field so
+  // are able to style label, hint, error and the control component
+  // in the ng-content areas
+  // tslint:disable-next-line:use-view-encapsulation
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
