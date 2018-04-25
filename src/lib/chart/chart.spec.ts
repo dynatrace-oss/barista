@@ -1,13 +1,19 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtChartModule, DtChart, DtChartSeries, DtChartOptions } from '@dynatrace/angular-components/chart';
+import {
+  DtChartModule,
+  DtChart,
+  DtChartSeries,
+  DtChartOptions,
+  CHART_COLOR_PALETTES,
+  DtThemingModule,
+} from '@dynatrace/angular-components';
 import { Observable } from 'rxjs/Observable';
 import { timer } from 'rxjs/observable/timer';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { CHART_COLOR_PALETTES, DtThemingModule } from '@dynatrace/angular-components/theming';
 
 const OBSERVABLE_TIMER = 500;
 
@@ -32,7 +38,7 @@ describe('DtChart', () => {
       fixture.whenStable().then(() => {
         chartComponent.ngAfterViewInit();
         fixture.detectChanges();
-        expect(chartComponent.getSeries().length).toBe(1);
+        expect((chartComponent.series as DtChartSeries).length).toBe(1);
       });
     }));
     it('should display data from observable', async(() => {
@@ -42,7 +48,7 @@ describe('DtChart', () => {
       const chartComponent = chartDebugElement.componentInstance;
       fixture.whenStable().then(() => {
         chartComponent.ngAfterViewInit();
-        const series = chartComponent.getSeries();
+        const series = chartComponent.series;
         expect(series[0].data).toEqual([[1523972199774, 0], [1523972201622, 10]]);
       });
     }));
@@ -53,13 +59,13 @@ describe('DtChart', () => {
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       fixture.whenStable().then(() => {
         chartComponent.ngAfterViewInit();
-        const firstSeries = chartComponent.getSeries();
+        const firstSeries = chartComponent.series;
         fixture.componentInstance.emitTestData();
         fixture.detectChanges();
-        const secondSeries = chartComponent.getSeries();
-        expect(firstSeries[0].data).toBeDefined();
-        expect(secondSeries[0].data).toBeDefined();
-        expect(firstSeries[0].data).not.toEqual(secondSeries[0].data);
+        const secondSeries = chartComponent.series;
+        expect(firstSeries![0].data).toBeDefined();
+        expect(secondSeries![0].data).toBeDefined();
+        expect(firstSeries![0].data).not.toEqual(secondSeries![0].data);
       });
     }));
     it('provides an array of ids for the series', async(() => {
@@ -69,18 +75,18 @@ describe('DtChart', () => {
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       fixture.whenStable().then(() => {
         chartComponent.ngAfterViewInit();
-        const ids = chartComponent.getAllIds();
+        const ids = chartComponent.seriesIds;
         expect(ids).toEqual(['someMetricId', 'someOtherMetricId']);
       });
     }));
-    it('getAllIds returns undefined if there is no series data', async(() => {
+    it('seriesIds returns undefined if there is no series data', async(() => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.noseries'));
       const chartComponent = chartDebugElement.componentInstance;
       fixture.whenStable().then(() => {
         chartComponent.ngAfterViewInit();
-        const ids = chartComponent.getAllIds();
+        const ids = chartComponent.seriesIds;
         expect(ids).toBeUndefined();
       });
     }));
@@ -144,34 +150,34 @@ describe('DtChart', () => {
         expect(series1NativeElement.getAttribute('stroke')).toEqual('#00ff00');
       });
     }));
-    /** Test not working, because DI for Theme does not work correctly in tests right now, check again with new packagr veersion */
-    // it('should choose the single color from the colorpalette of the theme for single series', async(() => {
-    //   const fixture = TestBed.createComponent(TestApp);
-    //   fixture.detectChanges();
-    //   const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.themeSingle'));
-    //   const chartComponent = chartDebugElement.componentInstance as DtChart;
+    /** Test not working, because DI for Theme does not work correctly in tests right now, check again with new packagr version */
+    it('should choose the single color from the colorpalette of the theme for single series', async(() => {
+      const fixture = TestBed.createComponent(TestApp);
+      fixture.detectChanges();
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.themeSingle'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
 
-    //   fixture.whenStable().then(() => {
-    //     chartComponent.ngAfterViewInit();
-    //     const series0NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-0 .highcharts-graph');
-    //     expect(series0NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.single);
-    //   });
-    // }));
-    /** Test not working, because DI for Theme does not work correctly in tests right now, check again with new packagr veersion */
-    // it('should choose the multi color from the colorpalette of the theme for multi series', async(() => {
-    //   const fixture = TestBed.createComponent(TestApp);
-    //   fixture.detectChanges();
-    //   const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.themeMulti'));
-    //   const chartComponent = chartDebugElement.componentInstance as DtChart;
+      fixture.whenStable().then(() => {
+        chartComponent.ngAfterViewInit();
+        const series0NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-0 .highcharts-graph');
+        expect(series0NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.single);
+      });
+    }));
+    /** Test not working, because DI for Theme does not work correctly in tests right now, check again with new packagr version */
+    it('should choose the multi color from the colorpalette of the theme for multi series', async(() => {
+      const fixture = TestBed.createComponent(TestApp);
+      fixture.detectChanges();
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.themeMulti'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
 
-    //   fixture.whenStable().then(() => {
-    //     chartComponent.ngAfterViewInit();
-    //     const series0NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-0 .highcharts-graph');
-    //     expect(series0NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.multi[0]);
-    //     const series1NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-1 .highcharts-graph');
-    //     expect(series1NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.multi[1]);
-    //   });
-    // }));
+      fixture.whenStable().then(() => {
+        chartComponent.ngAfterViewInit();
+        const series0NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-0 .highcharts-graph');
+        expect(series0NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.multi[0]);
+        const series1NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-1 .highcharts-graph');
+        expect(series1NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.multi[1]);
+      });
+    }));
   });
 });
 
@@ -181,8 +187,8 @@ describe('DtChart', () => {
   template: `
     <dt-chart class="static" [series]="seriesStaticSingle" [options]="lineOptions"></dt-chart>
     <dt-chart class="staticMulti" [series]="seriesStaticMulti" [options]="lineOptions"></dt-chart>
-    <dt-chart class="dynamic" [series]="seriesDynamic" [options]="columnOptions"></dt-chart>
     <dt-chart class="noseries" [options]="columnOptions"></dt-chart>
+    <dt-chart class="dynamic" [series]="seriesDynamic" [options]="columnOptions"></dt-chart>
     <div dtTheme="purple">
       <dt-chart class="staticWithColor" [series]="seriesStaticWithColor" [options]="lineOptions"></dt-chart>
       <dt-chart class="themeSingle" [series]="seriesStaticSingle" [options]="lineOptions"></dt-chart>
