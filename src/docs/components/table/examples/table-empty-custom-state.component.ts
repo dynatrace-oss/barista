@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   // tslint:disable
   template: `
-  <button (click)="toggleLoading()">Toggle loading property</button>
-  <dt-table [dataSource]="dataSource1" [isLoading]="tableLoading">
+  <dt-table [dataSource]="dataSource1">
     <ng-container dtColumnDef="host" dtColumnType="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
@@ -26,26 +25,26 @@ import { Component } from '@angular/core';
       <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
     </ng-container>
 
-    <dt-table-loading-state>
-      <dt-loading-distractor>Loading...</dt-loading-distractor>
-    </dt-table-loading-state>
+    <dt-table-empty-state>
+        This is the custom content passed.
+    </dt-table-empty-state>
 
     <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"></dt-header-row>
     <dt-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic'];"></dt-row>
-  </dt-table>`
+  </dt-table>
+  <button (click)="toggleEmptyState()">Toggle empty state</button>`,
   // tslint:enable
 })
-export class TableLoadingComponent {
-  dataSource1: object[] = [
+export class TableEmptyCustomStateComponent {
+  dataSource: object[] = [
     { host: 'et-demo-2-win4', cpu: '30 %', memory: '38 % of 5.83 GB', traffic: '98.7 Mbit/s' },
     { host: 'et-demo-2-win3', cpu: '26 %', memory: '46 % of 6 GB', traffic: '625 Mbit/s' },
     { host: 'docker-host2', cpu: '25.4 %', memory: '38 % of 5.83 GB', traffic: '419 Mbit/s' },
     { host: 'et-demo-2-win1', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
   ];
-  tableLoading = true;
+  dataSource1: object[] = [];
 
-  toggleLoading(): void {
-    this.tableLoading = !this.tableLoading;
+  toggleEmptyState(): void {
+    this.dataSource1 = this.dataSource1.length ? [] : [...this.dataSource];
   }
-
 }
