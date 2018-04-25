@@ -10,7 +10,7 @@ function createFakeEvent(type: string): Event {
   return event;
 }
 
-describe('ViewportResizer', () => {
+describe('DefaultViewportResizer', () => {
   let resizer: ViewportResizer;
 
   beforeEach(async(() => {
@@ -27,15 +27,13 @@ describe('ViewportResizer', () => {
     resizer = viewportResizer;
   }));
 
-  describe('emit', () => {
+  it('should emit on resize', fakeAsync(() => {
+    const spy = jasmine.createSpy('viewport changed spy');
+    const subscription = resizer.change().subscribe(spy);
 
-    it('should emit a value on resize', () => {
-      const spy = jasmine.createSpy('viewport changed spy');
-      const subscription = resizer.change().subscribe(spy);
-
-      window.dispatchEvent(createFakeEvent('resize'));
-      expect(spy).toHaveBeenCalled();
-      subscription.unsubscribe();
-    });
-  });
+    window.dispatchEvent(createFakeEvent('resize'));
+    tick(150);
+    expect(spy).toHaveBeenCalled();
+    subscription.unsubscribe();
+  }));
 });
