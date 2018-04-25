@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
         *ngIf="!control1secondOdd || i % 2 === 0"
         [value]="gvalue.key"
         [disabled]="i === 2 && control1secondDisabled"
-        [selected]="i === 1"
       >{{gvalue.name}}
       </dt-button-group-item>
     </ng-container>
@@ -17,7 +16,6 @@ import { Component } from '@angular/core';
 </div>
 <div style="margin-top: .5em;">Current value: {{ control1.value }}</div>
 <div style="margin-top: .5em;">
-  <button dt-button (click)="control1.clearSelection()">Clear selection</button>
   <button dt-button (click)="control1.selectValue(groupValues[0].key)">Select 1<sup>st</sup> key</button>
   <button dt-button (click)="control1.selectValue(groupValues[1].key)">Select 2<sup>nd</sup> key</button>
   <button dt-button (click)="control1AllDisabled=!control1AllDisabled">Toggle all disabled</button>

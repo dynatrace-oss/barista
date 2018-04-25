@@ -36,8 +36,6 @@
   line-height: 32px;
   vertical-align: middle;
 
-  @include boxShadowSelected(1px, $gray-300);
-
   cursor: pointer;
   transition: box-shadow 0.1s;
 
@@ -58,10 +56,6 @@
     border-radius: 0 3px 3px 0;
   }
 
-  &.dt-button-group-item-selected {
-    background-color: $gray-100;
-  }
-
   &.dt-button-group-item-disabled {
     pointer-events: none;
     color: $gray-300;
@@ -69,22 +63,24 @@
 }
 
 // TODO @thomas.pink: Remove this once theming is in place
-@function dt-palette($default, $hover, $active) {
+@function dt-palette($default, $hover, $active, $border, $background) {
   $result: (
     default: $default,
     hover: $hover,
     active: $active,
+    border: $border,
+    background: $background,
   );
   @return $result;
 }
 $theme-light: (
-  main: dt-palette($turquoise-600, $turquoise-600, $turquoise-700),
-  error: dt-palette($red-600, $red-700, $red-800),
+  main: dt-palette($turquoise-600, $turquoise-600, $turquoise-700, $gray-300, $gray-100),
+  error: dt-palette($red-600, $red-700, $red-800, $gray-300, $gray-100),
   is-dark: false
 );
 $theme-dark: (
-  main: dt-palette($turquoise-500, $turquoise-400, $turquoise-300),
-  error: dt-palette($red-600, $red-500, $red-400),
+  main: dt-palette(#fff, $turquoise-400, $turquoise-300, #fff, $gray-640),
+  error: dt-palette($red-400, $red-500, $red-600, #fff, $gray-640),
   is-dark: true
 );
 
@@ -99,30 +95,40 @@ $theme-dark: (
     $default-color: map-get($palette, 'default');
     $hover-color: map-get($palette, 'hover');
     $active-color: map-get($palette, 'active');
+    $background-color: map-get($palette, 'background');
+    $border-color: map-get($palette, 'border');
 
     $namespace: ':host';
     @if $name != $default-palette {
       $namespace: ':host.dt-color-#{$name}';
     }
 
+    & #{$namespace} {
+      @include boxShadowSelected(1px, $border-color);
+    }
+
     & #{$namespace}.dt-button-group-item:not(.dt-button-group-item-disabled) {
       color: $default-color;
     }
 
-    &#{$namespace}.dt-button-group-item:hover {
+    & #{$namespace}.dt-button-group-item:hover {
       @include boxShadowSelected(1px, $hover-color);
     }
 
-    &#{$namespace}.dt-button-group-item.dt-button-group-item-selected:focus {
+    & #{$namespace}.dt-button-group-item.dt-button-group-item-selected:focus {
       @include boxShadowSelectedFocus(1px, $active-color);
     }
 
-    &#{$namespace}.dt-button-group-item.dt-button-group-item-selected {
+    & #{$namespace}.dt-button-group-item.dt-button-group-item-selected {
       z-index:1;
       position:relative;
       color: $active-color;
 
       @include boxShadowSelected(1px, $active-color);
+    }
+
+    & #{$namespace}.dt-button-group-item-selected {
+      background-color: $background-color;
     }
 
   }
