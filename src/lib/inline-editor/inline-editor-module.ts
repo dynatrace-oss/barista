@@ -21,4 +21,4 @@ import { DtInputModule } from '@dynatrace/angular-components/input';
     DtInlineEditor,
   ],
 })
-export class InlineEditorModule {}
+export class DtInlineEditorModule {}
