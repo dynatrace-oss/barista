@@ -1,6 +1,6 @@
-@import '../../node_modules/highlight.js/styles/github-gist.css';
-@import '../../node_modules/@dynatrace/groundhog/dist/css/table/table.css';
-@import '../lib/style/index.scss';
+@import '~highlight.js/styles/github-gist.css';
+@import '~@dynatrace/groundhog/dist/css/table/table.css';
+@import '../lib/style/index';
 
 %typecsset-reset {
   margin: 0;
@@ -24,20 +24,9 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'BerninaSans', 'Open Sans', sans-serif;
+  font-family: 'BerninaSansWeb', 'Open Sans', sans-serif;
   color: #454646;
   counter-reset: section;
-}
-
-a {
-  text-decoration: none;
-  color: #00a1b2;
-  transition: color 100ms ease-out;
-}
-
-a:hover {
-  color: #00848e;
-  text-decoration: underline;
 }
 
 h1,

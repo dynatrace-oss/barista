@@ -7,7 +7,7 @@ import * as through from 'through2';
 import { replaceVersionPlaceholders } from '../util/replace-version-placeholder';
 
 import * as packagr from 'ng-packagr/lib/ng-v5/packagr';
-import { parseFile } from 'sass-graph';
+import { parseDir } from 'sass-graph';
 
 const ngPackage = () => through.obj((file, _, callback) => {
   packagr.ngPackagr()
@@ -50,16 +50,22 @@ task('library:compile', () =>
   .pipe(ngPackage()));
 
 task('library:styles', () => {
-  const stylesGraph = parseFile(join(buildConfig.libDir, 'style/index.scss'));
+  const stylesGraph = parseDir(join(buildConfig.libDir, 'style'));
 
   return src(Object.keys(stylesGraph.index), {base: buildConfig.libDir})
     .pipe(dest(buildConfig.libOutputDir));
 });
 
+task('library:assets', () =>
+  src(join(buildConfig.libDir, 'assets/**'))
+    .pipe(dest(join(buildConfig.libOutputDir, 'assets')))
+);
+
 task('library:build', sequenceTask(
   'clean:lib',
   'library:compile',
   'library:styles',
+  'library:assets',
   'library:version-replace',
   'library:removeModuleId'
 ));
