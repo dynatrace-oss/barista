@@ -4,7 +4,7 @@ import {
   Optional,
   Self,
   ElementRef,
-  DoCheck
+  DoCheck, OnChanges, OnDestroy
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -14,6 +14,8 @@ import {
   mixinErrorState,
   CanUpdateErrorState
 } from '../core/index';
+import { DtFormFieldControl } from '../form-field/index';
+import { Subject } from 'rxjs/Subject';
 
 let nextUniqueId = 0;
 
@@ -59,9 +61,18 @@ export const _DtInputMixinBase = mixinErrorState(DtInputBase);
     '[attr.aria-invalid]': 'errorState',
     '[attr.aria-required]': 'required.toString()',
     '(input)': '_onInput()',
+    '(blur)': '_focusChanged(false)',
+    '(focus)': '_focusChanged(true)',
   },
 })
-export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErrorState {
+export class DtInput extends _DtInputMixinBase
+  implements DoCheck, OnChanges, OnDestroy, CanUpdateErrorState, DtFormFieldControl<string> {
+
+  /** Implemented as part of DtFormFieldControl. */
+  focused = false;
+
+  /** Implemented as part of DtFormFieldControl. */
+  readonly stateChanges = new Subject<void>();
 
   @Input()
   get id(): string { return this._id; }
@@ -77,6 +88,13 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
   }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
+
+    // Browsers may not fire the blur event if the input is disabled too quickly.
+    // Reset from here to ensure that the element doesn't become stuck.
+    if (this.focused) {
+      this.focused = false;
+      this.stateChanges.next();
+    }
   }
 
   @Input()
@@ -117,8 +135,22 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;
 
+  /** Implemented as part of DtFormFieldControl. */
+  get empty(): boolean {
+    return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput();
+  }
+
   /** The aria-describedby attribute on the input for improved a11y. */
   _ariaDescribedby: string;
+
+  protected _neverEmptyInputTypes = [
+    'date',
+    'datetime',
+    'datetime-local',
+    'month',
+    'time',
+    'week',
+  ].filter((t) => getSupportedInputTypes().has(t));
 
   private _uid = `dt-input-${nextUniqueId++}`;
   private _id: string;
@@ -144,6 +176,10 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
     this._previousNativeValue = this.value;
   }
 
+  ngOnChanges(): void {
+    this.stateChanges.next();
+  }
+
   ngDoCheck(): void {
     if (this.ngControl) {
       // We need to re-evaluate this on every change detection cycle, because there are some
@@ -158,12 +194,30 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
     this._dirtyCheckNativeValue();
   }
 
+  ngOnDestroy(): void {
+    this.stateChanges.complete();
+  }
+
   /** Focuses the input. */
   focus(): void { this._elementRef.nativeElement.focus(); }
+
+  /** Implemented as part of DtFormFieldControl. */
+  setDescribedByIds(ids: string[]): void { this._ariaDescribedby = ids.join(' '); }
+
+  /** Implemented as part of DtFormFieldControl. */
+  onContainerClick(): void { this.focus(); }
 
   _onInput(): void {
     // _onInput is basically just a noop function to let change detection know
     // when the user types. Never remove this function, even if it's empty.
+  }
+
+  /** Callback for the cases where the focused state of the input changes. */
+  _focusChanged(isFocused: boolean): void {
+    if (isFocused !== this.focused && !this.readonly) {
+      this.focused = isFocused;
+      this.stateChanges.next();
+    }
   }
 
   /** Determines if the component host is a textarea. If not recognizable it returns false. */
@@ -191,5 +245,17 @@ export class DtInput extends _DtInputMixinBase implements DoCheck, CanUpdateErro
       this._previousNativeValue = newValue;
       this.stateChanges.next();
     }
+  }
+
+  /** Checks whether the input type is one of the types that are never empty. */
+  protected _isNeverEmpty(): boolean {
+    return this._neverEmptyInputTypes.indexOf(this._type) > -1;
+  }
+
+  /** Checks whether the input is invalid based on the native validation. */
+  protected _isBadInput(): boolean {
+    // The `validity` property won't be present on platform-server.
+    const validity = (this._elementRef.nativeElement as HTMLInputElement).validity;
+    return validity && validity.badInput;
   }
 }
