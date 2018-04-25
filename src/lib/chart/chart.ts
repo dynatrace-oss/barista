@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ViewportResizer } from '@dynatrace/angular-components/core';
 import { delay } from 'rxjs/operators/delay';
 import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '@dynatrace/angular-components/theming';
-import { mergeNestedGroup } from './chart-utils';
+import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
 
@@ -197,7 +197,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * combines series and options passed, merged with the defaultOptions
    */
   private _getHighchartsOptions(): Options {
-    let highchartsOptions = this._mergeOptions(this.options) as Options;
+    let highchartsOptions = mergeOptions(defaultChartOptions, this.options) as Options;
     highchartsOptions = this._wrapTooltip(highchartsOptions);
     highchartsOptions.series = this._series;
 
@@ -254,19 +254,5 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     if (this.options) {
       this._loading = !this._series;
     }
-  }
-
-  /** merges the options passed as input with the defaultOptions */
-  private _mergeOptions(options: DtChartOptions): DtChartOptions {
-    if (!options) {
-      return defaultChartOptions;
-    }
-    for (const prop in defaultChartOptions) {
-      if (defaultChartOptions.hasOwnProperty(prop)) {
-        mergeNestedGroup(options, defaultChartOptions, prop);
-      }
-    }
-
-    return options;
   }
 }
