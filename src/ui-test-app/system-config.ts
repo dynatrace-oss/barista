@@ -44,10 +44,6 @@ System.config({
     '@angular/cdk/table': 'node:@angular/cdk/bundles/cdk-table.umd.js',
 
     '@dynatrace/angular-components': 'dist/lib/bundles/dynatrace-angular-components.umd.js',
-    '@dynatrace/angular-components/core': 'dist/lib/bundles/dynatrace-angular-components-core.umd.js',
-    '@dynatrace/angular-components/button': 'dist/lib/bundles/dynatrace-angular-components-button.umd.js',
-    '@dynatrace/angular-components/expandable-panel': 'dist/lib/bundles/dynatrace-angular-components-expandable-panel.umd.js',
-    '@dynatrace/angular-components/expandable-section': 'dist/lib/bundles/dynatrace-angular-components-expandable-section.umd.js',
   },
   packages: {
     // Thirdparty barrels.

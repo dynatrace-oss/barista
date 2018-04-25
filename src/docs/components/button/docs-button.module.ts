@@ -8,8 +8,7 @@ import { AllButtonExampleComponent } from './examples/button-all-example.compone
 import { DocsButtonComponent } from './docs-button.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
+import { DtButtonModule, DtThemingModule } from '@dynatrace/angular-components';
 
 const EXAMPLES = [
   DefaultButtonExampleComponent,
