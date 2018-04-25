@@ -6,9 +6,6 @@
  * export * from './core/index';
  */
 
- // this root module is needed so the dependency tree is working for the primary entry point
-export * from './dt-angular-components-module';
-
 export * from './core/index';
 export * from './input/index';
 export * from './expandable-panel/index';
