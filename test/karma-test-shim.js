@@ -66,20 +66,6 @@ System.config({
 
     '@dynatrace/angular-components':
       'dist/lib/bundles/dynatrace-angular-components.umd.js',
-    '@dynatrace/angular-components/button':
-      'dist/lib/bundles/dynatrace-angular-components-button.umd.js',
-    '@dynatrace/angular-components/core':
-      'dist/lib/bundles/dynatrace-angular-components-core.umd.js',
-    '@dynatrace/angular-components/expandable-panel':
-      'dist/lib/bundles/dynatrace-angular-components-expandable-panel.umd.js',
-    '@dynatrace/angular-components/expandable-section':
-      'dist/lib/bundles/dynatrace-angular-components-expandable-section.umd.js',
-    '@dynatrace/angular-components/input':
-      'dist/lib/bundles/dynatrace-angular-components-input.umd.js',
-    '@dynatrace/angular-components/loading-distractor':
-      'dist/lib/bundles/dynatrace-angular-components-loading-distractor.umd.js',
-    '@dynatrace/angular-components/theming':
-    'dist/lib/bundles/dynatrace-angular-components-theming.umd.js',
   },
   packages: {
     // Thirdparty barrels.
