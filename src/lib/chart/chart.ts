@@ -208,15 +208,15 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * Wraps the options.tooltip.formatter function passed into a div.dt-chart-tooltip
    * to enable correct styling for the tooltip
    */
-  private _wrapTooltip(highchartsOpts: Options): Options {
+  private _wrapTooltip(highchartsOptions: Options): Options {
 
     if (!this._isTooltipWrapped) {
       let tooltipFormatterFunc = defaultTooltipFormatter;
-      if (this.options.tooltip && this.options.tooltip.formatter) {
+      if (this.options && this.options.tooltip && this.options.tooltip.formatter) {
         tooltipFormatterFunc = this.options.tooltip.formatter;
       }
 
-      highchartsOpts.tooltip!.formatter = function(): string | boolean {
+      highchartsOptions.tooltip!.formatter = function(): string | boolean {
         const tooltipFormatterFuncBound = tooltipFormatterFunc.bind(this);
 
         return `<div class="dt-chart-tooltip">${tooltipFormatterFuncBound()}</div>`;
@@ -225,7 +225,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       this._isTooltipWrapped = true;
     }
 
-    return highchartsOpts;
+    return highchartsOptions;
   }
 
   /**

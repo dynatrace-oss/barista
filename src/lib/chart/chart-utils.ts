@@ -7,10 +7,12 @@ export function mergeOptions<T>(a: T, b: T): T {
   Object.keys(a).forEach((key) => {
     cloned[key] = a[key];
   });
-  Object.keys(b).forEach((key) => {
-    (typeof cloned[key] === 'object' && !Array.isArray(cloned[key])) ?
-      cloned[key] = mergeOptions(cloned[key], b[key]) : cloned[key] = b[key];
-  });
+  if (b) {
+    Object.keys(b).forEach((key) => {
+      (typeof cloned[key] === 'object' && !Array.isArray(cloned[key])) ?
+        cloned[key] = mergeOptions(cloned[key], b[key]) : cloned[key] = b[key];
+    });
+  }
 
   return cloned;
 }
