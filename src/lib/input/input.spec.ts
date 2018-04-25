@@ -11,8 +11,7 @@ import {
 } from '@angular/forms';
 import { PlatformModule, Platform } from '@angular/cdk/platform';
 import { By } from '@angular/platform-browser';
-import { DtInputModule, DtInput } from '@dynatrace/angular-components/input';
-import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
+import { ErrorStateMatcher, DtInputModule, DtInput } from '@dynatrace/angular-components';
 
 describe('DtInput without forms', () => {
   beforeEach(fakeAsync(() => {

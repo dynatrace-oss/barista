@@ -18,8 +18,7 @@
     "types": [],
     "baseUrl": ".",
     "paths": {
-      "@dynatrace/angular-components": ["./lib"],
-      "@dynatrace/angular-components/*": ["./lib/*"]
+      "@dynatrace/angular-components": ["./lib"]
     }
   },
   "files": [

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { DtExpandableSection, DtExpandableSectionHeader } from './expandable-section';
-import { DtExpandablePanelModule } from '@dynatrace/angular-components/expandable-panel';
+import { DtExpandablePanelModule } from '../expandable-panel/expandable-panel-module';
 
 @NgModule({
   imports: [
