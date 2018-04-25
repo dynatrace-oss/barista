@@ -1,6 +1,6 @@
 
 // Boilerplate for applying mixins to DtButtonGroupItem
-import {CanColor, CanDisable, HasTabIndex, mixinColor, mixinTabIndex} from '@dynatrace/angular-components/core';
+import {CanColor, CanDisable, HasTabIndex, mixinColor, mixinTabIndex} from '../core/index';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef, Component, ElementRef,

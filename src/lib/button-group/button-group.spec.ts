@@ -1,7 +1,7 @@
 import {async, TestBed} from '@angular/core/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtButtonGroup, DtButtonGroupItem, DtButtonGroupModule} from '@dynatrace/angular-components/button-group';
+import {DtButtonGroup, DtButtonGroupItem, DtButtonGroupModule} from '@dynatrace/angular-components';
 
 describe('DtButtonGroup', () => {
 
@@ -57,11 +57,12 @@ describe('DtButtonGroup', () => {
         expect(item.value).toBe(testComponent.values[i][0])
       );
     });
+    it('should have a default selection', () => {
+
+      expect(groupInstance.value).toBe('Performance');
+    });
 
     it('should have a value after selections', () => {
-
-      expect(groupInstance.value).toBe(undefined);
-
       let item = fixture.debugElement.nativeElement.querySelector('dt-button-group-item:nth-child(2)');
       item.click();
 
@@ -113,7 +114,7 @@ describe('DtButtonGroup', () => {
     });
     it('should find value with compareWith',() => {
       groupInstance.selectValue('F');
-      expect(groupInstance.value).toBe(undefined);
+      expect(groupInstance.value).toBe('Performance'); // default value
 
       groupInstance.compareWith = (s1: string, s2: string) => s1.startsWith(s2) || s2.startsWith(s1);
       groupInstance.selectValue('F');
