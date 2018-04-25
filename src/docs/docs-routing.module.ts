@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'expandable-panel', component: DocsExpandablePanelComponent },
   { path: 'expandable-section', component: DocsExpandableSectionComponent },
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
-  { path: 'link', component: DocsLinkComponent },
+  { path: 'links', component: DocsLinkComponent },
   { path: '**', redirectTo: '' },
 ];
 
