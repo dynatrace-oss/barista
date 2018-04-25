@@ -28,7 +28,7 @@ describe('button-group', () => {
 
     it('should not execute click handlers when item disabled', async () => {
       expect(await element(by.id('group-3-item-1')).getAttribute('class')).toContain('dt-button-group-item-disabled');
-      expect(await element(by.id('lblGroup-3')).getText()).toEqual('');
+      expect(await element(by.id('lblGroup-3')).getText()).toEqual('Value 0');
     });
 
   });
