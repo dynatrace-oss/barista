@@ -1,15 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtTableModule, DtTable, DtRow, DtCell } from '@dynatrace/angular-components/table';
-import { DtTableEmptyState } from '@dynatrace/angular-components/table/table-empty-state';
-import { DtLoadingSpinner } from '@dynatrace/angular-components/loading-distractor';
+import { DtTableModule, DtTable, DtRow, DtCell, DtTableEmptyState, DtTableLoadingState, DtTableEmptyStateTitle, DtTableEmptyStateMessage } from '@dynatrace/angular-components/table';
+import { DtLoadingDistractorModule, DtLoadingDistractor } from '@dynatrace/angular-components/loading-distractor';
 
 describe('DtTable', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtTableModule],
+      imports: [DtTableModule, DtLoadingDistractorModule],
       declarations: [TestApp],
     });
 
@@ -64,18 +63,41 @@ describe('DtTable', () => {
         .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-header-cell class applied');
     });
 
+    it('Should render a EmptyState content', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      fixture.detectChanges();
+
+      const noEmptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyState));
+      expect(noEmptyComponent).toBeFalsy('Expected the DtTableEmptyState not beign rendered for not empty tables');
+
+      fixture.componentInstance.dataSource = [];
+      fixture.detectChanges();
+
+      const emptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyState));
+      expect(emptyComponent).toBeTruthy('Expected the DtTableEmptyState rendered for empty tables');
+
+      const emptyTitleComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateTitle));
+      expect(emptyTitleComponent).toBeTruthy('Expected the DtTableEmptyStateTitle rendered for empty tables');
+
+      const emptyMessageComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateMessage));
+      expect(emptyMessageComponent).toBeTruthy('Expected the DtTableEmptyStateMessage rendered for empty tables');
+    });
+
     it('Should render a LoadingComponent', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.componentInstance.loading = true;
       fixture.detectChanges();
 
-      const loadingComponent = fixture.debugElement.query(By.directive(DtLoadingSpinner));
-      expect(loadingComponent).toBeTruthy('Expected the DtLoadingSpinner rendered for loading tables');
+      const loadingComponent = fixture.debugElement.query(By.directive(DtLoadingDistractor));
+      expect(loadingComponent).toBeTruthy('Expected the DtLoadingSpinner beign rendered for loading tables');
+
+      const loadingPlaceholder = fixture.debugElement.query(By.directive(DtTableLoadingState));
+      expect(loadingPlaceholder).toBeTruthy('Expected the DtTableLoadingState placeholder beign rendered for loading tables');
 
       fixture.componentInstance.loading = false;
       fixture.detectChanges();
 
-      const noLoadingComponent = fixture.debugElement.query(By.directive(DtLoadingSpinner));
+      const noLoadingComponent = fixture.debugElement.query(By.directive(DtLoadingDistractor));
       expect(noLoadingComponent).toBeFalsy('Expected the DtLoadingSpinner not beign rendered for not loading tables');
     });
 
@@ -96,6 +118,15 @@ describe('DtTable', () => {
       <dt-header-cell *dtHeaderCellDef>column 2</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.col2}}</dt-cell>
     </ng-container>
+
+    <dt-table-empty-state>
+      <dt-table-empty-state-title>No host</dt-table-empty-state-title>
+      <dt-table-empty-state-message>Test message</dt-table-empty-state-message>
+    </dt-table-empty-state>
+
+    <dt-table-loading-state>
+      <dt-loading-distractor>Loading...</dt-loading-distractor>
+    </dt-table-loading-state>
 
     <dt-header-row *dtHeaderRowDef="['col1', 'col2']"></dt-header-row>
     <dt-row *dtRowDef="let row; columns: ['col1', 'col2']"></dt-row>
