@@ -28,12 +28,12 @@ describe('DefaultViewportResizer', () => {
   }));
 
   it('should emit on resize', fakeAsync(() => {
-      const spy = jasmine.createSpy('viewport changed spy');
-      const subscription = resizer.change().subscribe(spy);
+    const spy = jasmine.createSpy('viewport changed spy');
+    const subscription = resizer.change().subscribe(spy);
 
-      window.dispatchEvent(createFakeEvent('resize'));
-      tick(150);
-      expect(spy).toHaveBeenCalled();
-      subscription.unsubscribe();
-    }));
-  });
+    window.dispatchEvent(createFakeEvent('resize'));
+    tick(150);
+    expect(spy).toHaveBeenCalled();
+    subscription.unsubscribe();
+  }));
+});

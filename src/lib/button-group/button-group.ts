@@ -17,7 +17,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import {CanDisable, HasTabIndex, mixinDisabled, mixinTabIndex} from '@dynatrace/angular-components/core';
+import {CanDisable, HasTabIndex, mixinDisabled, mixinTabIndex} from '../core/index';
 
 import {Observable} from 'rxjs/Observable';
 import {defer} from 'rxjs/observable/defer';
@@ -197,10 +197,12 @@ export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasT
     });
   }
 
-  private _selectItem(fireEvent: boolean, option?: DtButtonGroupItem<T>): void {
+  private _selectItem(fireEvent: boolean, newOption?: DtButtonGroupItem<T>): void {
+
+    let option = newOption;
 
     if (option === undefined) {
-      option = this._items.find((item => !item.disabled));
+      option = this._items.find((item) => !item.disabled);
     }
 
     if ((option !== undefined && this._selectionModel.isSelected(option))
