@@ -12,7 +12,7 @@ export class Docs {
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Input', route: '/input'},
-    {name: 'Link', route: '/link'},
+    {name: 'Links', route: '/links'},
     {name: 'Loading distractor', route: '/loading-distractor'},
   ];
 }
