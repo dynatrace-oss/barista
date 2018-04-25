@@ -1,21 +1,7 @@
-import { DtChartOptions } from './chart';
+export function mergeOptions<T>(a: T, b: T): T {
+  Object.keys(b).forEach((key) => {
+    (typeof a[key] === 'object' && !Array.isArray(a[key])) ? a[key] = mergeOptions(a[key], b[key]) : a[key] = b[key];
+  });
 
-export function mergeNestedGroup(
-  options: DtChartOptions,
-  defaultChartOptions: DtChartOptions,
-  optionGroupName: string
-): DtChartOptions {
-  if (!options[optionGroupName]) {
-    options[optionGroupName] = {};
-  }
-
-  if (defaultChartOptions[optionGroupName]) {
-    for (const prop in defaultChartOptions[optionGroupName]) {
-      if (defaultChartOptions[optionGroupName].hasOwnProperty(prop) && !options[optionGroupName].hasOwnProperty(prop)) {
-        options[optionGroupName][prop] = defaultChartOptions[optionGroupName][prop];
-      }
-    }
-  }
-
-  return options;
+  return a;
 }
