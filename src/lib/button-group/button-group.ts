@@ -202,7 +202,10 @@ export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasT
     let option = newOption;
 
     if (option === undefined) {
-      option = this._items.find((item) => !item.disabled);
+      option = this._items.find((item) => !item.disabled && item.selected);
+      if (option === undefined) {
+        option = this._items.find((item) => !item.disabled);
+      }
     }
 
     if ((option !== undefined && this._selectionModel.isSelected(option))
