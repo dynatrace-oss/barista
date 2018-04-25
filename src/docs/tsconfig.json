@@ -4,7 +4,6 @@
     "rootDir": "..",
     "baseUrl": ".",
     "paths": {
-      "@dynatrace/angular-components/*": ["../lib/*"],
       "@dynatrace/angular-components": ["../lib/public-api.ts"]
     }
   },

@@ -15,7 +15,7 @@ import {
   mixinDisabled,
   CanDisable,
   replaceCssClass
-} from '@dynatrace/angular-components/core';
+} from '../core/index';
 
 /**
  * List of classes to add to DtButton instances based on host attributes to
