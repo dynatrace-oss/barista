@@ -23,25 +23,7 @@ const MODES = {
   preserveWhitespaces: false,
   selector: '[dt-inline-editor]',
   styleUrls: ['./inline-editor.component.scss'],
-  template: `
-    <span *ngIf="isIdle()">{{ value }}</span>
-    <input dtInput #input
-      *ngIf="isEditing() || isSaving()"
-      [disabled]="isSaving()"
-      [value]="value"
-      (change)="onChange()"
-      (keyup)="onChange()" />
-    <button dt-button #edit type="button" *ngIf="isIdle()" (click)="enterEditing()">edit</button>
-
-    <dt-loading-spinner *ngIf="isSaving()"></dt-loading-spinner>
-
-    <button dt-button type="button"
-      *ngIf="isEditing()"
-      (click)="saveAndQuitEditing()">save</button>
-    <button dt-button variant="secondary" type="button"
-      *ngIf="isEditing()"
-      (click)="cancelAndQuitEditing()">cancel</button>
-  `,
+  templateUrl: './inline-editor.html',
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DtInlineEditor), multi: true },
   ],
