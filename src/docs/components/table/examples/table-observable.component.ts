@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs/Subscription';
 // tslint:disable-next-line
 import 'rxjs/add/operator/take';
 
+const MAX_ROWS = 5;
+
 @Component({
   moduleId: module.id,
   // tslint:disable
@@ -51,7 +53,7 @@ export class TableObservableComponent {
   startSubscription(): void {
     this.subscription = this.source
     // tslint:disable-next-line:no-magic-numbers
-    .take(5)
+    .take(MAX_ROWS)
     .subscribe(() => this.getAnotherRow());
   }
 
