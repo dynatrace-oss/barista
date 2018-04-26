@@ -10,6 +10,7 @@ import {
   DtTableLoadingState,
   DtTableEmptyStateTitle,
   DtTableEmptyStateMessage,
+  DtTableEmptyStateDirective,
   DtLoadingDistractorModule,
   DtLoadingDistractor,
 } from '@dynatrace/angular-components';
@@ -78,7 +79,7 @@ describe('DtTable', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
 
-      const noEmptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyState));
+      const noEmptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateDirective));
       expect(noEmptyComponent).toBeFalsy('Expected the DtTableEmptyState not beign rendered for not empty tables');
 
       const emptyDataSources = [[], null, undefined];
@@ -87,7 +88,7 @@ describe('DtTable', () => {
         fixture.componentInstance.dataSource = ds;
         fixture.detectChanges();
 
-        const emptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyState));
+        const emptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateDirective));
         expect(emptyComponent).toBeTruthy('Expected the DtTableEmptyState rendered for empty tables');
 
         const emptyTitleComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateTitle));
@@ -135,7 +136,7 @@ describe('DtTable', () => {
       <dt-cell *dtCellDef="let row">{{row.col2}}</dt-cell>
     </ng-container>
 
-    <dt-table-empty-state>
+    <dt-table-empty-state dtTableEmptyState>
       <dt-table-empty-state-title>No host</dt-table-empty-state-title>
       <dt-table-empty-state-message>Test message</dt-table-empty-state-message>
     </dt-table-empty-state>
