@@ -4,7 +4,13 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { DtTable } from './table';
 import { DtHeaderRow, DtHeaderRowDef, DtRow, DtRowDef } from './row';
 import { DtCell, DtCellDef, DtColumnDef, DtHeaderCell, DtHeaderCellDef } from './cell';
-import { DtTableEmptyState, DtTableEmptyStateImage, DtTableEmptyStateTitle, DtTableEmptyStateMessage } from './table-empty-state';
+import {
+  DtTableEmptyState,
+  DtTableEmptyStateImage,
+  DtTableEmptyStateTitle,
+  DtTableEmptyStateMessage,
+  DtTableEmptyStateDirective,
+} from './table-empty-state';
 import { DtTableLoadingState } from './table-loading-state';
 
 const EXPORTED_DECLARATIONS = [
@@ -19,6 +25,7 @@ const EXPORTED_DECLARATIONS = [
   DtHeaderCell,
   DtHeaderCellDef,
   DtTableEmptyState,
+  DtTableEmptyStateDirective,
   DtTableEmptyStateImage,
   DtTableEmptyStateTitle,
   DtTableEmptyStateMessage,

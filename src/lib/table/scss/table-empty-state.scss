@@ -1,7 +1,5 @@
 @import '../../core/style/variables';
 
-$image-size: 86px;
-$image-margin: 2px;
 $margin-top: 48px;
 $padding: 8px;
 
@@ -18,30 +16,5 @@ $padding: 8px;
   .message-area {
     padding-left: $padding;
     white-space: pre-line;
-  }
-
-  .image-box {
-    box-sizing: content-box;
-    padding: $image-margin;
-    display: inline-block;
-    height: $image-size;
-    width: $image-size;
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
-
-  .message-title {
-    font-size: 24px;
-    font-weight: 300;
-  }
-
-  // stylelint-disable selector-pseudo-element-no-unknown
-  ::ng-deep.image-box {
-  // stylelint-enable
-    img {
-      border: 0;
-      height: $image-size;
-      width: $image-size;
-    }
   }
 }
