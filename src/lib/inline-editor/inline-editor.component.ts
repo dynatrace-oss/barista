@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
   OnDestroy,
   Output,
@@ -10,10 +9,7 @@ import {
   forwardRef,
   AfterViewChecked,
   ViewEncapsulation,
-  ChangeDetectionStrategy,
-  SimpleChanges,
-  OnChanges,
-  ChangeDetectorRef
+  // ChangeDetectionStrategy,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
