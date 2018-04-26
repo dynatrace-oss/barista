@@ -7,19 +7,19 @@ import {
 } from '@angular/core';
 
 @Directive({
-  // tslint:disable-next-line
+  // tslint:disable-next-line:directive-selector
   selector: 'dt-table-empty-state-title',
 })
 export class DtTableEmptyStateTitle { }
 
 @Directive({
-  // tslint:disable-next-line
+  // tslint:disable-next-line:directive-selector
   selector: 'dt-table-empty-state-message',
 })
 export class DtTableEmptyStateMessage { }
 
 @Directive({
-  // tslint:disable-next-line
+  // tslint:disable-next-line:directive-selector
   selector: 'dt-table-empty-state-image',
 })
 export class DtTableEmptyStateImage { }
