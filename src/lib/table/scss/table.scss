@@ -1,12 +1,19 @@
 @import '../../core/style/variables';
 
-/**
-* Flex-based table structure
-*/
 :host.dt-table {
   display: block;
   position: relative;
   font-size: 14px;
   font-weight: normal;
   color: $gray-700;
+
+  .floatLoading {
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
 }
