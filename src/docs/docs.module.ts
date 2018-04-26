@@ -10,8 +10,9 @@ import { DocsButtonModule } from './components/button/docs-button.module';
 import { DocsLinkModule } from './components/link/docs-link.module';
 import { DocsInputModule } from 'components/input/docs-input.module';
 import { DocsLoadingDistractorModule } from './components/loading-distractor/docs-loading-distractor.module';
-import {DocsExpandablePanelModule} from './components/expandable-panel/docs-expandable-panel.module';
-import {DocsExpandableSectionModule} from './components/expandable-section/docs-expandable-section.module';
+import { DocsExpandablePanelModule } from './components/expandable-panel/docs-expandable-panel.module';
+import { DocsExpandableSectionModule } from './components/expandable-section/docs-expandable-section.module';
+import { DocsTableModule } from './components/table/docs-table.module';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {DocsExpandableSectionModule} from './components/expandable-section/docs-
     DocsLoadingDistractorModule,
     DocsLinkModule,
     DocsExpandablePanelModule,
-    DocsExpandableSectionModule
+    DocsExpandableSectionModule,
+    DocsTableModule,
   ],
   declarations: [
     Docs,
