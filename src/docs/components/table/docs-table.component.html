@@ -88,11 +88,12 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
 <docs-source-example [example]="examples.width"></docs-source-example>
 
 <h3>Empty state</h3>
-<p>You can customize the empty Title and Message when the table is empty using the following tags: <code>&lt;dt-table-empty-state&gt;</code>, <code>&lt;dt-table-empty-state-image&gt;</code>, <code>&lt;dt-table-empty-state-title&gt;</code>, <code>&lt;dt-table-empty-state-message&gt;</code></p>
+<p>You can pass an empty state to the table to be displayed when there's no data displayed using the <code>dtTableEmptyState</code> directive</p>
+<p>The recommended approach to use it is using the following components: <code>&lt;dt-table-empty-state&gt;</code>, <code>&lt;dt-table-empty-state-image&gt;</code>, <code>&lt;dt-table-empty-state-title&gt;</code>, <code>&lt;dt-table-empty-state-message&gt;</code></p>
 
 <docs-source-example [example]="examples.empty"></docs-source-example>
 
-<p>Also you can pass custom content enclosing it between <code>&lt;dt-table-empty-state&gt;</code></p>
+<p>Also you can pass custom content using the same <code>dtTableEmptyState</code></p>
 
 <docs-source-example [example]="examples.emptyCustom"></docs-source-example>
 
