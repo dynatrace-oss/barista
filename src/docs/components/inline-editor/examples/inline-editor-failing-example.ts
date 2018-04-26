@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { DtInlineEditor } from '@dynatrace/angular-components';
-import { Observable } from "rxjs/Observable"
+import { Observable } from 'rxjs/Observable';
+// tslint:disable-next-line:no-import-side-effect
 import 'rxjs/add/operator/delay';
+const TIMEOUT_MS = 2000;
 
 @Component({
   moduleId: module.id,
@@ -12,13 +14,14 @@ import 'rxjs/add/operator/delay';
   `,
 })
 export class FailingInlineEditorExample {
-  private sampleModel = 'text content';
-
-  private failingSaveFunction () {
+  sampleModel = 'text content';
+  failingSaveFunction(): Observable<void> {
     return new Observable<void>((observer) => {
-      setTimeout(() => {
-        observer.error();
-      }, 2e3);
+      setTimeout(
+        () => {
+          observer.error();
+        },
+        TIMEOUT_MS);
     });
   }
 }

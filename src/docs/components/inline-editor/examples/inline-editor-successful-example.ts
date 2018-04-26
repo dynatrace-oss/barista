@@ -3,6 +3,8 @@ import { DtInlineEditor } from '@dynatrace/angular-components';
 import { Observable } from "rxjs/Observable"
 import 'rxjs/add/operator/delay';
 
+const TIMEOUT_MS = 2000;
+
 @Component({
   moduleId: module.id,
   template: `
@@ -12,14 +14,16 @@ import 'rxjs/add/operator/delay';
   `,
 })
 export class SuccessfulInlineEditorExample {
-  private sampleModel = 'text content';
+  sampleModel = 'text content';
 
-  private successfulSaveFunction () {
+  successfulSaveFunction(): Observable<void> {
     return new Observable<void>((observer) => {
-      setTimeout(() => {
-        observer.next();
-        observer.complete();
-      }, 2e3);
+      setTimeout(
+        () => {
+          observer.next();
+          observer.complete();
+        },
+        TIMEOUT_MS);
     });
   }
 }
