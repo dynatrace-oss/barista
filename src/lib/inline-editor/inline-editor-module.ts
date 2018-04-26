@@ -6,7 +6,7 @@ import {
   DtLoadingDistractorModule,
   DtButtonModule,
   DtInputModule,
-} from '@dynatrace/angular-components';
+} from '../';
 
 @NgModule({
   imports: [
