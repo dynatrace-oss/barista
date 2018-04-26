@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UiModule } from '../../ui/ui.module';
-import { DtInlineEditorModule } from '@dynatrace/angular-components/inline-editor';
+import { DtInlineEditorModule } from '@dynatrace/angular-components';
 import { DocsInlineEditorComponent } from './docs-inline-editor.component';
 import { DefaultInlineEditorExample } from './examples/inline-editor-default-example';
 import { ApiInlineEditorExample } from './examples/inline-editor-api-example';
