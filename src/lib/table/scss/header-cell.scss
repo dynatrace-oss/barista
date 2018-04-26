@@ -12,6 +12,7 @@
   &.dt-align-left::after {
     @extend %bottom-line;
     width: 100%;
+    margin-right: 4px;
   }
 
   &.dt-align-right::before {
@@ -37,5 +38,5 @@
   display: inline-block;
   position: relative;
   bottom: -4px;
-  margin: 0 4px;
+  // margin: 0 4px;
 }
