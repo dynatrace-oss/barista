@@ -10,10 +10,12 @@ $dt-row-horizontal-padding: 4px;
 
   &.dt-align-left {
     justify-content: flex-start;
+    padding-left: $dt-row-horizontal-padding;
   }
 
   &.dt-align-right {
     justify-content: flex-end;
+    padding-right: $dt-row-horizontal-padding;
   }
 
   &.dt-align-center {
@@ -23,13 +25,5 @@ $dt-row-horizontal-padding: 4px;
   &.dt-column-sorted {
     font-weight: 700;
     color: $gray-900;
-  }
-
-  &:first-child {
-    padding-left: $dt-row-horizontal-padding;
-  }
-
-  &:last-child {
-    padding-right: $dt-row-horizontal-padding;
   }
 }
