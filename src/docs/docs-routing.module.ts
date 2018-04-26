@@ -17,8 +17,6 @@ const routes: Routes = [
   { path: 'expandable-section', component: DocsExpandableSectionComponent },
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
   { path: 'links', component: DocsLinkComponent },
-  { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
-  { path: 'table', component: DocsTableComponent },
   { path: 'table', component: DocsTableComponent },
   { path: '**', redirectTo: '' },
 ];
@@ -27,5 +25,4 @@ const routes: Routes = [
   exports: [RouterModule],
   imports: [RouterModule.forRoot(routes)],
 })
-export class DocsRoutingModule {
-}
+export class DocsRoutingModule { }
