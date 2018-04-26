@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   // tslint:disable
   template: `
+  <button (click)="toggleEmptyState()">Toggle empty state</button>
+
   <dt-table [dataSource]="dataSource1">
     <ng-container dtColumnDef="host" dtColumnType="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
@@ -25,14 +27,13 @@ import { Component } from '@angular/core';
       <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
     </ng-container>
 
-    <dt-table-empty-state>
+    <div dtTableEmptyState style="width: 100%; text-align:center; margin: 3em 0;">
         This is the custom content passed.
-    </dt-table-empty-state>
+    </div>
 
     <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"></dt-header-row>
     <dt-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic'];"></dt-row>
-  </dt-table>
-  <button (click)="toggleEmptyState()">Toggle empty state</button>`,
+  </dt-table>`,
   // tslint:enable
 })
 export class TableEmptyCustomStateComponent {
