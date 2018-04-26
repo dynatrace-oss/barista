@@ -1,5 +1,10 @@
 @import 'base-row';
 
+$header-padding: 8px;
+
 :host.dt-header-row {
   @extend %row-base;
+
+  padding-left: $header-padding;
+  padding-right: $header-padding;
 }
