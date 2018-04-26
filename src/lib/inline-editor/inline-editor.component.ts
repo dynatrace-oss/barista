@@ -10,10 +10,14 @@ import {
   forwardRef,
   AfterViewChecked,
   ViewEncapsulation,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  SimpleChanges,
+  OnChanges,
+  ChangeDetectorRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 enum MODES {
   IDLE,
@@ -26,62 +30,62 @@ enum MODES {
   preserveWhitespaces: false,
   selector: '[dt-inline-editor]',
   exportAs: 'dt-inline-editor',
-  // encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.Emulated,
   // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./inline-editor.component.scss'],
-  templateUrl: './inline-editor.html',
+  templateUrl: './inline-editor.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      // tslint:disable-next-line:no-forward-ref
       useExisting: forwardRef(() => DtInlineEditor),
       multi: true },
   ],
 })
 export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, OnDestroy {
 
-  private changed = new Array<(value: string) => void>();
-  private touched = new Array<() => void>();
-  private initialState: string;
-  private mode = MODES.IDLE;
-  private modeOnLastCheck = MODES.IDLE;
+  private _onChanged: (value: string) => void;
+  private _onTouched: () => void;
+  private _initialState: string;
+  private _mode = MODES.IDLE;
+  private _modeOnLastCheck = MODES.IDLE;
 
-  private $saving: any;
+  private _$saving: Subscription | null;
 
   @ViewChild('input') inputReference: ElementRef;
   @ViewChild('edit') editButtonReference: ElementRef;
 
-  @Input('onSave') onSaveFunction: (result: { value: string }) => Observable<void>;
-  @Output('enterEditing') enterEditingEvent = new EventEmitter<{ value: string }>();
-  @Output('quitEditing') quitEditingEvent = new EventEmitter<{ value: string }>();
-  @Output('save') saveEvent = new EventEmitter<{ value: string }>();
-  @Output('cancel') cancelEvent = new EventEmitter<{ value: string }>();
-  @Output('saved') savedEvent = new EventEmitter<{ value: string }>();
-  @Output('failed') failedEvent = new EventEmitter<{ value: string, error: any }>();
+  @Input() onSave: (value: string) => Observable<void>;
+  @Output() editing = new EventEmitter<string>();
+  @Output() edited = new EventEmitter<string>();
+  @Output() saving = new EventEmitter<string>();
+  // tslint:disable-next-line:no-any
+  @Output() saved = new EventEmitter<{ value: string; error: any } | null>();
+  @Output() cancelled = new EventEmitter<string>();
 
   ngOnDestroy(): void {
-    if (this.$saving) {
-      this.$saving.unsubscribe();
-      this.$saving = null;
+    if (this._$saving) {
+      this._$saving.unsubscribe();
     }
   }
 
-  private onChange(): void {
-    this.value = this.inputReference.nativeElement.value;
+  _onChange(): void {
+    this._value = this.inputReference.nativeElement.value;
   }
 
   ngAfterViewChecked(): void {
-    if (this.mode !== this.modeOnLastCheck) {
-      this.setFocusToEditControls();
-      this.modeOnLastCheck = this.mode;
+    if (this._mode !== this._modeOnLastCheck) {
+      this.focus();
+      this._modeOnLastCheck = this._mode;
     }
   }
 
-  private setFocusToEditControls(): void {
-    if (this.mode === MODES.EDITING) {
+  private focus(): void {
+    if (this._mode === MODES.EDITING) {
       if (this.inputReference.nativeElement) {
         this.inputReference.nativeElement.focus();
       }
-    } else if (this.mode === MODES.IDLE) {
+    } else if (this._mode === MODES.IDLE) {
       if (this.editButtonReference.nativeElement) {
         this.editButtonReference.nativeElement.focus();
       }
@@ -91,79 +95,74 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
   // Public API
 
   enterEditing(): void {
-    this.initialState = this.value;
-    this.mode = MODES.EDITING;
-    this.touch();
+    this._initialState = this._value;
+    this._mode = MODES.EDITING;
+    this._onTouched();
 
     // Better to trigger it where input is shown already
-    this.enterEditingEvent.emit({ value: this.value });
+    this.editing.emit(this._value);
   }
 
   saveAndQuitEditing(): void {
-    const value = this.value;
+    const value = this._value;
 
-    this.saveEvent.emit({ value });
+    this.saving.emit(value);
 
-    if (this.onSaveFunction) {
-      this.mode = MODES.SAVING;
-      this.$saving = this.onSaveFunction({ value })
+    if (this.onSave) {
+      this._mode = MODES.SAVING;
+      this._$saving = this.onSave(value)
         .subscribe(
           () => {
-            this.mode = MODES.IDLE;
-            this.savedEvent.emit({ value });
-            this.quitEditingEvent.emit({ value });
-            this.$saving = null;
+            this._mode = MODES.IDLE;
+            this.saved.emit();
+            this.edited.emit(value);
           },
           (error) => {
-            this.mode = MODES.EDITING;
-            this.failedEvent.emit({ value, error });
-            this.$saving = null;
+            this._mode = MODES.EDITING;
+            this.saved.emit({ value, error });
           }
         );
     } else {
-      this.mode = MODES.IDLE;
+      this._mode = MODES.IDLE;
     }
   }
 
   cancelAndQuitEditing(): void {
-    const value = this.value;
-    this.value = this.initialState;
-    this.mode = MODES.IDLE;
+    const value = this._value;
+    this._value = this._initialState;
+    this._mode = MODES.IDLE;
     // Triggered with the value that was canceled
-    this.cancelEvent.emit({ value });
+    this.cancelled.emit(value);
     // Triggered with the actual value
-    this.quitEditingEvent.emit({ value: this.value });
+    this.edited.emit(this._value);
   }
 
-  isIdle(): boolean {
-    return this.mode === MODES.IDLE;
+  get isIdle(): boolean {
+    return this._mode === MODES.IDLE;
   }
 
-  isEditing(): boolean {
-    return this.mode === MODES.EDITING;
+  get isEditing(): boolean {
+    return this._mode === MODES.EDITING;
   }
 
-  isSaving(): boolean {
-    return this.mode === MODES.SAVING;
+  get isSaving(): boolean {
+    return this._mode === MODES.SAVING;
   }
 
   // Data binding
 
   private _value = '';
 
-  private set value(value: string) {
+  set value(value: string) {
+    // ChangeDetectorRef.detectChanges();
     if (this._value !== value) {
       this._value = value;
-      this.changed.forEach((f) => f(value));
+      this._onChanged(value);
     }
   }
 
-  private get value(): string {
+  get value(): string {
     return this._value;
-  }
-
-  private touch(): void {
-    this.touched.forEach((f) => f());
   }
 
   writeValue(value: string): void {
@@ -171,10 +170,10 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
   }
 
   registerOnChange(fn: (value: string) => void): void {
-    this.changed.push(fn);
+    this._onChanged = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    this.touched.push(fn);
+    this._onTouched = fn;
   }
 }
