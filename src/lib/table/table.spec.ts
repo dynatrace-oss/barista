@@ -42,9 +42,10 @@ describe('DtTable', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
 
-      const dataSourceRows = fixture.componentInstance.dataSource.length;
+      const dataSourceRows = (fixture.componentInstance.dataSource as object[]).length;
       const tableRows = fixture.debugElement.queryAll(By.directive(DtRow));
-      const dataSourceCells = fixture.componentInstance.dataSource.reduce((prev, cur) => Object.keys(cur).length + prev, 0);
+      const dataSourceCells = (fixture.componentInstance.dataSource as object[])
+        .reduce((prev, cur) => Object.keys(cur).length + prev, 0);
       const tableCells = fixture.debugElement.queryAll(By.directive(DtCell));
 
       expect(tableRows.length).toBe(dataSourceRows, 'Expected the same amount of rows that the dataSource');
@@ -80,17 +81,22 @@ describe('DtTable', () => {
       const noEmptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyState));
       expect(noEmptyComponent).toBeFalsy('Expected the DtTableEmptyState not beign rendered for not empty tables');
 
-      fixture.componentInstance.dataSource = [];
-      fixture.detectChanges();
+      const emptyDataSources = [[], null, undefined];
 
-      const emptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyState));
-      expect(emptyComponent).toBeTruthy('Expected the DtTableEmptyState rendered for empty tables');
+      emptyDataSources.forEach((ds) => {
+        fixture.componentInstance.dataSource = ds;
+        fixture.detectChanges();
 
-      const emptyTitleComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateTitle));
-      expect(emptyTitleComponent).toBeTruthy('Expected the DtTableEmptyStateTitle rendered for empty tables');
+        const emptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyState));
+        expect(emptyComponent).toBeTruthy('Expected the DtTableEmptyState rendered for empty tables');
 
-      const emptyMessageComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateMessage));
-      expect(emptyMessageComponent).toBeTruthy('Expected the DtTableEmptyStateMessage rendered for empty tables');
+        const emptyTitleComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateTitle));
+        expect(emptyTitleComponent).toBeTruthy('Expected the DtTableEmptyStateTitle rendered for empty tables');
+
+        const emptyMessageComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateMessage));
+        expect(emptyMessageComponent).toBeTruthy('Expected the DtTableEmptyStateMessage rendered for empty tables');
+      });
+
     });
 
     it('Should render a LoadingComponent', () => {
@@ -146,7 +152,7 @@ describe('DtTable', () => {
 class TestApp {
   @ViewChild(DtTable) tableComponent: DtTable<object[]>;
   loading = false;
-  dataSource = [
+  dataSource: object[] | null | undefined = [
     {col1: 'test 1', col2: 'test 2'},
     {col1: 'test 1', col2: 'test 2'},
     {col1: 'test 1', col2: 'test 2'},
