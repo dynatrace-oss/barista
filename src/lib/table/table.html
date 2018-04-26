@@ -5,6 +5,6 @@
     <ng-content select="[dtTableEmptyState]"></ng-content>
 </ng-container>
 
-<ng-container *ngIf="isLoading">
-    <ng-content select="dt-table-loading-state"></ng-content>
-</ng-container>
+<div *ngIf="isLoading" class="floatLoading">
+    <ng-content select="[dtTableLoadingState]"></ng-content>
+</div>

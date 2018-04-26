@@ -141,9 +141,7 @@ describe('DtTable', () => {
       <dt-table-empty-state-message>Test message</dt-table-empty-state-message>
     </dt-table-empty-state>
 
-    <dt-table-loading-state>
-      <dt-loading-distractor>Loading...</dt-loading-distractor>
-    </dt-table-loading-state>
+    <dt-loading-distractor dtTableLoadingState>Loading...</dt-loading-distractor>
 
     <dt-header-row *dtHeaderRowDef="['col1', 'col2']"></dt-header-row>
     <dt-row *dtRowDef="let row; columns: ['col1', 'col2']"></dt-row>
