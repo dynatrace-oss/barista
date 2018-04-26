@@ -6,7 +6,6 @@ $dt-row-horizontal-padding: 4px;
   align-items: center;
   overflow: hidden;
   word-wrap: break-word;
-  padding-left: $dt-row-horizontal-padding;
   position: relative;
 
   &.dt-align-left {
@@ -24,6 +23,10 @@ $dt-row-horizontal-padding: 4px;
   &.dt-column-sorted {
     font-weight: 700;
     color: $gray-900;
+  }
+
+  &:first-child {
+    padding-left: $dt-row-horizontal-padding;
   }
 
   &:last-child {
