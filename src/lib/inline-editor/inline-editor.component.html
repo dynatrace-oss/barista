@@ -5,5 +5,7 @@
 
 <dt-loading-spinner *ngIf="isSaving"></dt-loading-spinner>
 
-<button dt-button type="button" *ngIf="isEditing" (click)="saveAndQuitEditing()">save</button>
-<button dt-button variant="secondary" type="button" *ngIf="isEditing" (click)="cancelAndQuitEditing()">cancel</button>
+<ng-container *ngIf="isEditing">
+  <button dt-button type="button"  (click)="saveAndQuitEditing()">save</button>
+  <button dt-button variant="secondary" type="button" (click)="cancelAndQuitEditing()">cancel</button>
+</ng-container>
