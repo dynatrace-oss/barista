@@ -45,11 +45,11 @@ describe('DtChart', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.dynamic'));
-      const chartComponent = chartDebugElement.componentInstance;
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
       fixture.whenStable().then(() => {
         chartComponent.ngAfterViewInit();
-        const series = chartComponent.series;
-        expect(series[0].data).toEqual([[1523972199774, 0], [1523972201622, 10]]);
+        const series = chartComponent.highchartsOptions.series;
+        expect(series![0].data).toEqual([[1523972199774, 0], [1523972201622, 10]]);
       });
     }));
     it('should update the data if observable fires new data', async(() => {
@@ -59,10 +59,10 @@ describe('DtChart', () => {
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       fixture.whenStable().then(() => {
         chartComponent.ngAfterViewInit();
-        const firstSeries = chartComponent.series;
+        const firstSeries = chartComponent.highchartsOptions.series;
         fixture.componentInstance.emitTestData();
         fixture.detectChanges();
-        const secondSeries = chartComponent.series;
+        const secondSeries = chartComponent.highchartsOptions.series;
         expect(firstSeries![0].data).toBeDefined();
         expect(secondSeries![0].data).toBeDefined();
         expect(firstSeries![0].data).not.toEqual(secondSeries![0].data);

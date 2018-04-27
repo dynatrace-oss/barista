@@ -53,7 +53,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('container') container: ElementRef;
 
   _loading = false;
-  private _series: DtChartSeries | undefined;
+  private _series: Observable<DtChartSeries> | DtChartSeries | undefined;
   private _options: DtChartOptions;
   private _chartObject: ChartObject;
   private _dataSub: Subscription | null = null;
@@ -87,6 +87,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     } else {
       this._mergeSeries(series);
     }
+    this._series = series;
     this._setLoading();
   }
 
@@ -129,9 +130,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   /** returns an array of ids for the series data */
   get seriesIds(): Array<string | undefined> | undefined {
-    if (this._series) {
+    if (this._highchartsOptions.series) {
 
-      return this._series.map((s: IndividualSeriesOptions) => s.id);
+      return this._highchartsOptions.series.map((s: IndividualSeriesOptions) => s.id);
     }
 
     return undefined;
@@ -190,7 +191,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       return;
     }
     // if there is one series apply the single property
-    if (this._series && this._series.length === 1) {
+    if (this._highchartsOptions.series && this._highchartsOptions.series.length === 1) {
       s.color = this._colorPalette.single;
 
       return;
