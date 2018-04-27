@@ -214,9 +214,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
     if (!this._isTooltipWrapped) {
       let tooltipFormatterFunc = defaultTooltipFormatter;
-      console.log(this.options);
       if (this.options && this.options.tooltip && this.options.tooltip.formatter) {
-        console.log('custom tooltip func');
         tooltipFormatterFunc = this.options.tooltip.formatter;
       }
 
