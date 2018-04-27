@@ -14,6 +14,8 @@ import {
 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { startWith } from 'rxjs/operators/startWith';
+import { empty } from 'rxjs/observable/empty';
+import { merge } from 'rxjs/observable/merge';
 import {
   getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError
@@ -22,6 +24,8 @@ import { DtFormFieldControl } from './form-field-control';
 import { DtLabel } from './label';
 import { DtHint } from './hint';
 import { DtError } from './error';
+import { DtPrefix } from './prefix';
+import { DtSuffix } from './suffix';
 
 let nextUniqueId = 0;
 
@@ -77,6 +81,8 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
   @ContentChildren(DtHint) _hintChildren: QueryList<DtHint>;
   @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
   @ContentChild(DtFormFieldControl) _control: DtFormFieldControl<T>;
+  @ContentChildren(DtPrefix) _prefixChildren: QueryList<DtPrefix>;
+  @ContentChildren(DtSuffix) _suffixChildren: QueryList<DtSuffix>;
 
   private _displayedError = false;
 
@@ -84,6 +90,7 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
 
   ngAfterContentInit(): void {
     this._validateControlChild();
+
     // Subscribe to changes in the child control state in order to update the form field UI.
     this._control.stateChanges.pipe(startWith(null!)).subscribe(() => {
       this._syncDescribedByIds();
@@ -91,12 +98,10 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
       this._changeDetectorRef.markForCheck();
     });
 
-    const ngControl = this._control.ngControl;
-    if (ngControl && ngControl.valueChanges) {
-      ngControl.valueChanges.subscribe(() => {
-        this._changeDetectorRef.markForCheck();
-      });
-    }
+    // Run change detection if the value, prefix, or suffix changes.
+    const valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || empty();
+    merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
+        .subscribe(() => this._changeDetectorRef.markForCheck());
 
     // Re-validate when the number of hints changes.
     this._hintChildren.changes.pipe(startWith(null)).subscribe(() => {
