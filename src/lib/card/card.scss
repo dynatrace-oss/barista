@@ -52,24 +52,3 @@
 .dt-card-actions {
   display: block;
 }
-
-@function dt-palette($default, $hover, $active) {
-  $result: (
-    default: $default,
-    hover: $hover,
-    active: $active,
-  );
-  @return $result;
-}
-$theme-light: (
-  main: dt-palette($turquoise-600, $turquoise-700, $turquoise-800),
-  warning: dt-palette($yellow-600, $yellow-700, $yellow-800),
-  cta: dt-palette($green-600, $green-700, $green-800),
-  is-dark: false
-);
-$theme-dark: (
-  main: dt-palette($turquoise-500, $turquoise-400, $turquoise-300),
-  warning: dt-palette($yellow-600, $yellow-500, $yellow-400),
-  cta: dt-palette($green-500, $green-400, $green-300),
-  is-dark: true
-);
