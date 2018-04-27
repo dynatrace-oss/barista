@@ -5,6 +5,8 @@ import { DtHint } from './hint';
 import { DtLabel } from './label';
 import { DtError } from './error';
 import { DtFormField } from './form-field';
+import { DtPrefix } from './prefix';
+import { DtSuffix } from './suffix';
 
 @NgModule({
   imports: [
@@ -16,12 +18,16 @@ import { DtFormField } from './form-field';
     DtLabel,
     DtHint,
     DtError,
+    DtPrefix,
+    DtSuffix,
   ],
   declarations: [
     DtFormField,
     DtLabel,
     DtHint,
     DtError,
+    DtPrefix,
+    DtSuffix,
   ],
 })
 export class DtFormFieldModule { }

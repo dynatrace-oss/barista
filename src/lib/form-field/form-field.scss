@@ -1,25 +1,36 @@
 @import '../core/style/variables';
 
+// Infix stretches to fit the container, but naturally wants to be this wide. We set this in order
+// to have a a consistent natural size for the various types of controls that can go in a form
+// field.
+$dt-form-field-default-infix-width: 180px !default;
+
 .dt-form-field {
   display: inline-block;
   position: relative;
   text-align: left;
 }
 
-.dt-form-field-control {
+.dt-form-field-body {
+  display: flex;
+  align-items: baseline;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.dt-form-field-prefix,
+.dt-form-field-suffix {
+  white-space: nowrap;
+  flex: none;
+  position: relative;
+}
+
+.dt-form-field-infix {
   display: block;
   position: relative;
   flex: auto;
-  width: 100%;
-
-  min-width: 180px;
-}
-
-.dt-form-field-control.dt-form-field-control > * {
-  // We need to enforce display block here
-  // so the control fills the form field
-  display: block;
-  width: 100%;
+  min-width: 0;
+  width: $dt-form-field-default-infix-width;
 }
 
 .dt-form-field-label {
