@@ -1,11 +1,9 @@
 import {
   Component,
-  Directive,
   ViewEncapsulation,
   ChangeDetectionStrategy,
   ContentChild,
   ContentChildren,
-  Input,
   QueryList,
   AfterContentInit,
   ChangeDetectorRef,
@@ -84,8 +82,6 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
   @ContentChildren(DtPrefix) _prefixChildren: QueryList<DtPrefix>;
   @ContentChildren(DtSuffix) _suffixChildren: QueryList<DtSuffix>;
 
-  private _displayedError = false;
-
   constructor(private _changeDetectorRef: ChangeDetectorRef) { }
 
   ngAfterContentInit(): void {
@@ -130,7 +126,7 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
   /** Determines whether a class from the NgControl should be forwarded to the host element. */
   _shouldForward(prop: string): boolean {
     const ngControl = this._control ? this._control.ngControl : null;
-    // tslint:disable-next-line:no-any
+    // tslint:disable-next-line:no-any no-unnecessary-type-assertion
     return ngControl && (ngControl as any)[prop];
   }
 
