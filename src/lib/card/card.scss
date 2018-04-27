@@ -52,3 +52,21 @@
 .dt-card-actions {
   display: block;
 }
+
+.dt-theme-dark { 
+  .dt-card {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .dt-card-icon svg {
+    fill: #fff;
+  }
+
+  .dt-card-title {
+    color: #fff;
+  }
+
+  .dt-card-subtitle {
+    color: #fff;
+  }
+}
