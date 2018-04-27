@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlatformModule } from '@angular/cdk/platform';
-import { DtFormField, DtLabel, DtHint, DtError } from './form-field';
+import { DtHint } from './hint';
+import { DtLabel } from './label';
+import { DtError } from './error';
+import { DtFormField } from './form-field';
 
 @NgModule({
   imports: [
