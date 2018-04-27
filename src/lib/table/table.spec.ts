@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import {
   DtTableModule,
   DtTable,
+  DtHeaderCell,
   DtRow,
   DtCell,
   DtTableEmptyState,
@@ -19,8 +21,8 @@ describe('DtTable', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtTableModule, DtLoadingDistractorModule],
-      declarations: [TestApp],
+      imports: [CommonModule, DtTableModule, DtLoadingDistractorModule],
+      declarations: [TestApp, TestDynamicApp],
     });
 
     TestBed.compileComponents();
@@ -118,6 +120,38 @@ describe('DtTable', () => {
       expect(noLoadingComponent).toBeFalsy('Expected the DtLoadingSpinner not beign rendered for not loading tables');
     });
 
+    it('Should render dynamic columns', () => {
+      const fixture = TestBed.createComponent(TestDynamicApp);
+      fixture.detectChanges();
+
+      const { dataSource, columns } = fixture.componentInstance;
+
+      const testColumns = fixture.debugElement.queryAll(By.directive(DtHeaderCell));
+      expect(testColumns.length).toBe(columns.length,
+                                      'Expected the DtLoadingSpinner beign rendered for loading tables');
+
+      const MAX_ITER = 10;
+      for (let i = 0; i < MAX_ITER; i++) {
+        const newRow = {};
+
+        columns.forEach((elem) => {
+          newRow[elem] = { [`${elem}`]: elem };
+        });
+
+        fixture.componentInstance.dataSource.push(newRow);
+      }
+
+      fixture.componentInstance.tableComponent.renderRows();
+      fixture.detectChanges();
+
+      const cells = fixture.debugElement.queryAll(By.directive(DtCell));
+      const testCells = dataSource.reduce((prev, cur) => Object.keys(cur).length + prev, 0);
+      const testRows = fixture.debugElement.queryAll(By.directive(DtRow));
+
+      expect(cells.length).toBe(testCells, 'Expected the same number of DtCells as DataSource cells');
+      expect(dataSource.length).toBe(testRows.length, 'Expected the same number of DtRows as DataSource rows');
+    });
+
   });
 });
 
@@ -157,4 +191,25 @@ class TestApp {
     {col1: 'test 1', col2: 'test 2'},
     {col1: 'test 1', col2: 'test 2'},
   ];
+}
+
+/** Test component that contains a Dynamic DtTable. */
+@Component({
+  selector: 'dt-test-app',
+  template: `
+  <dt-table [dataSource]="dataSource">
+    <ng-container *ngFor="let column of columns;" [dtColumnDef]="column">
+      <dt-header-cell *dtHeaderCellDef>{{ column }}</dt-header-cell>
+      <dt-cell *dtCellDef="let row">{{ row[column] }}</dt-cell>
+    </ng-container>
+
+    <dt-header-row *dtHeaderRowDef="columns"></dt-header-row>
+    <dt-row *dtRowDef="let row; columns: columns"></dt-row>
+</dt-table>
+  `,
+})
+class TestDynamicApp {
+  @ViewChild(DtTable) tableComponent: DtTable<object[]>;
+  columns = ['col1', 'col2', 'col3'];
+  dataSource: object[] = [];
 }
