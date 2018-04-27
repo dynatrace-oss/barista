@@ -12,52 +12,18 @@ import {
   AfterContentChecked,
   AfterViewInit,
 } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { startWith } from 'rxjs/operators/startWith';
 import {
   getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError
 } from './form-field-errors';
 import { DtFormFieldControl } from './form-field-control';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { DtLabel } from './label';
+import { DtHint } from './hint';
+import { DtError } from './error';
 
 let nextUniqueId = 0;
-
-/** Hint text to be shown underneath the form field control. */
-@Directive({
-  selector: 'dt-hint',
-  host: {
-    'class': 'dt-hint',
-    '[class.dt-hint-right]': 'align == "end"',
-    '[attr.id]': 'id',
-    // Remove align attribute to prevent it from interfering with layout.
-    '[attr.align]': 'null',
-  },
-})
-export class DtHint {
-  /** Whether to align the hint label at the start or end of the line. */
-  @Input() align: 'start' | 'end' = 'start';
-
-  /** Unique ID for the hint. Used for the aria-describedby on the form field control. */
-  @Input() id = `dt-hint-${nextUniqueId++}`;
-}
-
-@Directive({
-  selector: 'dt-label',
-})
-export class DtLabel { }
-
-/** Single error message to be shown underneath the form field. */
-@Directive({
-  selector: 'dt-error',
-  host: {
-    'class': 'dt-error',
-    'role': 'alert',
-    '[attr.id]': 'id',
-  },
-})
-export class DtError {
-  @Input() id = `dt-error-${nextUniqueId++}`;
-}
 
 @Component({
   moduleId: module.id,
