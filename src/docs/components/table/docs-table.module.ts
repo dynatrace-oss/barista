@@ -10,6 +10,7 @@ import { TableEmptyStateComponent } from './examples/table-empty-state.component
 import { TableEmptyCustomStateComponent } from './examples/table-empty-custom-state.component';
 import { TableObservableComponent } from './examples/table-observable.component';
 import { TableLoadingComponent } from './examples/table-loading.component';
+import { TableDynamicColumnsComponent } from './examples/table-dynamic-columns.component';
 
 const EXAMPLES = [
   TableDefaultComponent,
@@ -18,6 +19,7 @@ const EXAMPLES = [
   TableEmptyCustomStateComponent,
   TableObservableComponent,
   TableLoadingComponent,
+  TableDynamicColumnsComponent,
 ];
 
 @NgModule({

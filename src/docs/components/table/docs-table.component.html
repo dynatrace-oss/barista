@@ -107,6 +107,11 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
 
 <docs-source-example [example]="examples.observable"></docs-source-example>
 
+<h3>Dynamic Columns</h3>
+<p>You can bind the column definitions to an array with a <code>*ngFor</code> directive</p>
+
+<docs-source-example [example]="examples.dynamicColumns"></docs-source-example>
+
 <h3>
   Component and attribute directives for the table:
 </h3>
@@ -176,9 +181,14 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
       <td>Defines the visible columns in each row by receiving a columnName[] and also exposes the same micro-syntax that the dt-cell but for event and property binding</td>
     </tr>
     <tr>
+      <td><code>dtTableEmptyState</code></td>
+      <td>Directive</td>
+      <td>Placeholder for the content displayed when the table is empty</td>
+    </tr>
+    <tr>
       <td><code>dt-table-empty-state</code></td>
       <td>Component</td>
-      <td>Placeholder for the content displayed when the table is empty</td>
+      <td>Placeholder for the formatted content displayed when the table is empty</td>
     </tr>
     <tr>
       <td><code>dt-table-empty-state-image</code></td>
@@ -195,6 +205,11 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
       <td>Component</td>
       <td>Placeholder for the message to use within the <code>&lt;dt-table-empty-table&gt;</code></td>
     </tr>
+    <tr>
+        <td><code>dtTableLoadingState</code></td>
+        <td>Directive</td>
+        <td>Placeholder for the content displayed when the table is loading</td>
+      </tr>
   </table>
 
 <h2>Inputs & Outputs</h2>
@@ -215,20 +230,6 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
       <td><code>object[] | Observable | DataSource </code></td>
       <td><code>undefined</code></td>
       <td>Data to be shown in the table</td>
-    </tr>
-    <tr>
-      <td><code>emptyTitle</code></td>
-      <td>input</td>
-      <td><code>string</code></td>
-      <td><code>"No data"</code></td>
-      <td>Title to be shown when the table is empty</td>
-    </tr>
-    <tr>
-      <td><code>emptyMessage</code></td>
-      <td>input</td>
-      <td><code>string</code></td>
-      <td><code>"Sorry, there's no data to display"</code></td>
-      <td>Message to be shown when the table is empty</td>
     </tr>
     <tr>
       <td><code>isLoading</code></td>
