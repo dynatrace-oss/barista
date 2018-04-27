@@ -27,6 +27,9 @@
       ],
       "@dynatrace/angular-components/*": [
         "src/lib/*"
+      ],
+      "highcharts": [
+        "node_modules/highcharts"
       ]
     },
     "strictNullChecks": true,

@@ -15,5 +15,6 @@ export class Docs {
     {name: 'Links', route: '/links'},
     {name: 'Loading distractor', route: '/loading-distractor'},
     {name: 'Table', route: '/table'},
+    {name: 'Chart', route: '/chart'},
   ];
 }
