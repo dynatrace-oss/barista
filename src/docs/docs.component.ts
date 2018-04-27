@@ -10,13 +10,14 @@ export class Docs {
     {name: 'Start', route: '/'},
     {name: 'Button', route: '/button'},
     {name: 'Button Group', route: '/button-group'},
+    {name: 'Card', route: '/card'},
+    {name: 'Chart', route: '/chart'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Input', route: '/input'},
     {name: 'Links', route: '/links'},
     {name: 'Loading distractor', route: '/loading-distractor'},
     {name: 'Table', route: '/table'},
-    {name: 'Chart', route: '/chart'},
     {name: 'Tile', route: '/tile'},
   ];
 }

@@ -47,12 +47,14 @@ export class DtCardActions { }
   selector: 'dt-card',
   exportAs: 'dtCard',
   templateUrl: 'card.html',
-  styleUrls: ['card.css'],
+  styleUrls: ['card.scss'],
   host: {
+    'class': 'dt-card',
     // We know that a header is present when the card has at least a title
     '[class.dt-card-has-header]': '!!_title',
   },
-  encapsulation: ViewEncapsulation.Emulated,
+  // tslint:disable-next-line: use-view-encapsulation
+  encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
