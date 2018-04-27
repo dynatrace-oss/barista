@@ -3,7 +3,7 @@ import { DtChartOptions } from './chart';
 export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
   chart: {
     style: {
-      fontFamily: 'BerninaSans',
+      fontFamily: 'BerninaSansWeb',
     },
   },
   title: {
