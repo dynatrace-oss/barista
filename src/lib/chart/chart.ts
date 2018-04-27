@@ -25,26 +25,13 @@ import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '../theming/ind
 import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
+import { DEFAULT_CHART_OPTIONS } from './chart-options';
 
 export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions[];
 interface DtChartTooltip { (): string | boolean; iswrapped: boolean; }
 
 const defaultChartColorPalette = 'turquoise';
-const defaultChartOptions: DtChartOptions = {
-  title: {
-    text: null,
-  },
-  credits: {
-    enabled: false,
-  },
-  tooltip: {
-    useHTML: true,
-    backgroundColor: 'transparent',
-    borderWidth: 0,
-    shadow: false,
-  },
-};
 
 // Override Highcharts prototypes
 configureLegendSymbols();
@@ -72,14 +59,14 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _dataSub: Subscription | null = null;
   private _colorPalette: ChartColorPalette;
   private _isTooltipWrapped = false;
+  private _highchartsOptions: Options;
 
   @Input()
   get options(): DtChartOptions {
     return this._options;
   }
   set options(options: DtChartOptions) {
-    this._isTooltipWrapped = false;
-    this._options = options;
+    this._mergeOptions(options);
   }
 
   @Input()
@@ -93,12 +80,12 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
     if (series instanceof Observable) {
       this._dataSub = series.subscribe((s: DtChartSeries) => {
-        this._series = s;
+        this._mergeSeries(s);
         this._update();
         this._changeDetectorRef.markForCheck();
       });
     } else {
-      this._series = series;
+      this._mergeSeries(series);
     }
     this._setLoading();
   }
@@ -155,14 +142,27 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * combines series and options passed, merged with the defaultOptions
    */
   get highchartsOptions(): Options {
-    let highchartsOptions = mergeOptions(defaultChartOptions, this.options) as Options;
-    highchartsOptions = this._wrapTooltip(highchartsOptions);
-    if (this._series) {
-      // clone objects inside series array before adding the color
-      highchartsOptions.series = this._series.map(((s) => ({...s})));
-      this._applyColors(highchartsOptions.series);
+    if (!this._highchartsOptions) {
+      this._highchartsOptions = DEFAULT_CHART_OPTIONS;
     }
-    return highchartsOptions;
+    return this._highchartsOptions;
+  }
+
+  /* merge options with internal highcharts options and defaultoptions */
+  private _mergeOptions(options: DtChartOptions): void {
+    const merged = mergeOptions(DEFAULT_CHART_OPTIONS, options) as Options;
+    merged.series = this.highchartsOptions.series;
+    this._wrapTooltip(merged);
+    this._highchartsOptions = merged;
+  }
+
+  /* merge series with the highcharts options internally */
+  private _mergeSeries(series: DtChartSeries | undefined): void {
+    const options = this.highchartsOptions;
+    options.series = series && series.map(((s) => ({...s})));
+    if (options.series) {
+      this._applyColors(options.series);
+    }
   }
 
   /**
@@ -208,7 +208,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * Wraps the options.tooltip.formatter function passed into a div.dt-chart-tooltip
    * to enable correct styling for the tooltip
    */
-  private _wrapTooltip(highchartsOptions: Options): Options {
+  private _wrapTooltip(highchartsOptions: Options): void {
 
     if (!this._isTooltipWrapped) {
       let tooltipFormatterFunc = defaultTooltipFormatter;
@@ -224,8 +224,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
       this._isTooltipWrapped = true;
     }
-
-    return highchartsOptions;
   }
 
   /**
@@ -249,8 +247,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   /** updates the loading status of the component */
   private _setLoading(): void {
-    if (this.options) {
-      this._loading = !this._series;
-    }
+    this._loading = !this._highchartsOptions.series;
   }
 }
