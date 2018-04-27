@@ -1,0 +1,55 @@
+@import '../core/style/variables';
+
+:host {
+  display: block;
+  font-family: $mainfont;
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 16px;
+  margin: 24px;
+}
+
+.dt-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  .dt-icon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+.dt-card-header {
+  display: flex;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.dt-card-heading {
+  flex: 1 0 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dt-card-title {
+  display: block;
+  font-size: 24px;
+  color: $gray-700;
+  font-weight: 300;
+}
+
+.dt-card-subtitle {
+  display: block;
+  font-size: 14px;
+  color: $gray-700;
+}
+
+.dt-card-actions {
+  display: block;
+
+}
