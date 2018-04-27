@@ -74,15 +74,18 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _isTooltipWrapped = false;
 
   @Input()
+  get options(): DtChartOptions {
+    return this._options;
+  }
   set options(options: DtChartOptions) {
     this._isTooltipWrapped = false;
     this._options = options;
   }
-  get options(): DtChartOptions {
-    return this._options;
-  }
 
   @Input()
+  get series(): Observable<DtChartSeries> | DtChartSeries | undefined {
+    return this._series;
+  }
   set series(series: Observable<DtChartSeries> | DtChartSeries | undefined) {
     if (this._dataSub) {
       this._dataSub.unsubscribe();
@@ -98,9 +101,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       this._series = series;
     }
     this._setLoading();
-  }
-  get series(): Observable<DtChartSeries> | DtChartSeries | undefined {
-    return this._series;
   }
 
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
