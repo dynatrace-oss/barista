@@ -1,5 +1,6 @@
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
+@import '../core/style/form-control';
 
 .dt-input {
   font-family: $mainfont;
@@ -8,21 +9,24 @@
   display: inline-block;
   box-sizing: border-box;
   text-decoration: none;
-  border: 1px solid $disabledcolor;
-  border-radius: 3px;
   padding-top: 0;
   padding-bottom: 0;
-  padding-left: 11px;
-  padding-right: 11px;
+  padding-left: 12px;
+  padding-right: 12px;
   font-size: 14px;
   line-height: 32px;
   line-height: -moz-block-height;
   vertical-align: middle;
   white-space: nowrap;
   text-align: left;
-  overflow: hidden;
-  width: 100%;
   color: $gray-700;
+  border: none;
+  width: 100%;
+  outline: none;
+
+  :not(.dt-form-field-infix) > & {
+    @include dt-form-control();
+  }
 
   &:hover:not([disabled]) {
     border-color: $gray-500;
@@ -33,7 +37,7 @@
     color: $disabledcolor;
   }
 
-  &:focus:not([disabled]) {
+  :not(.dt-form-field-infix) > &:focus:not([disabled]) {
     @include dt-focus-style();
   }
 }
