@@ -18,6 +18,7 @@ import { DocsChartModule } from './components/chart/docs-chart.module';
 import { DocsTileModule } from './components/tile/docs-tile.module';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
+import { DocsCardModule } from './components/card/docs-card.module';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { Platform } from '@angular/cdk/platform';
     DocsTableModule,
     DocsChartModule,
     DocsTileModule,
+    DocsCardModule,
   ],
   declarations: [
     Docs,
