@@ -1,11 +1,11 @@
-<span *ngIf="isIdle">{{ value }}</span>
-<input dtInput #input *ngIf="isEditing || isSaving" [disabled]="isSaving" [value]="value" (change)="_onChange()" (keyup)="_onChange()"
+<span *ngIf="idle">{{ value }}</span>
+<input dtInput #input *ngIf="editing || saving" [disabled]="saving" [value]="value" (input)="onChange()"
 />
-<button dt-button #edit type="button" *ngIf="isIdle" (click)="enterEditing()">edit</button>
+<button dt-button #edit type="button" *ngIf="idle" (click)="enterEditing()">edit</button>
 
-<dt-loading-spinner *ngIf="isSaving"></dt-loading-spinner>
+<dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
-<ng-container *ngIf="isEditing">
+<ng-container *ngIf="editing">
   <button dt-button type="button"  (click)="saveAndQuitEditing()">save</button>
   <button dt-button variant="secondary" type="button" (click)="cancelAndQuitEditing()">cancel</button>
 </ng-container>

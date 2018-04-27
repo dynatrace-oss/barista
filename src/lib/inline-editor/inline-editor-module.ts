@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DtInlineEditor } from './inline-editor.component';
 import { DtInputModule } from '../input/input-module';
@@ -8,7 +8,7 @@ import { DtLoadingDistractorModule } from '../loading-distractor/loading-distrac
 
 @NgModule({
   imports: [
-    FormsModule,
+    // FormsModule,
     CommonModule,
     DtLoadingDistractorModule,
     DtButtonModule,
