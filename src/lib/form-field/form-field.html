@@ -3,8 +3,7 @@
     <label class="dt-form-field-label"
       *ngIf="!!this._labelChild"
       [attr.for]="_control.id"
-      [attr.aria-owns]="_control.id"
-      [class.dt-empty]="_control.empty">
+      [attr.aria-owns]="_control.id">
       <ng-content select="dt-label"></ng-content>
     </label>
 
