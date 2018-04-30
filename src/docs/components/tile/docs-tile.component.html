@@ -1,10 +1,74 @@
 <h1>Tile</h1>
 <docs-source-example [example]="examples.default"></docs-source-example>
 
+<h2>Imports</h2>
+<p>You have to import the <code>DtTileModule</code> when you want to use the <code>dt-tile</code>:</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    DtTileModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h2>Initialization</h2>
+<p>  <code>&lt;dt-tile&gt;</code> is a visual container for wrapping a wide variety of contents.
+  In addition to the custom content, the tile can also hold some special sections:
+</p>
+<ul>
+  <li><code>&lt;dt-tile-title&gt;</code> - The title of this tile, needs to be defined to show the tile's header</li>
+  <li><code>&lt;dt-tile-subtitle&gt;</code> - Right below the title, a subtitle can be placed.</li>
+  <li><code>&lt;dt-tile-icon&gt;</code> - An icon in the top left corner of the card. <strong>not ready yet:</strong>Use <code>&lt;dt-icon&gt;</code> for it as soon as it is ready</li>
+</ul>
+<p>If only a <code>&lt;dt-tile-title&gt;</code> and no <code>&lt;dt-tile-subtitle&gt;</code> the tile will be rendered in a small version</p>
+
+<h2>Options & Properties</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <td width="160px">Name</td>
+      <td width="250px">Type</td>
+      <td width="160px">Default</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>disabled</code></td>
+      <td><code>boolean | undefined</code></td>
+      <td><code>undefined</code></td>
+      <td>Sets disable state if property is set and the value is truthy or undefined</td>
+    </tr>
+    <tr>
+      <td><code>color</code></td>
+      <td><code>string | undefined</code></td>
+      <td><code>undefined</code></td>
+      <td>Sets color. Possible options:
+        <ul>
+          <li><code>main</code></li>
+          <li><code>error</code></li>
+          <li><code>recovered</code></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3>Disabled Tile</h3>
+<docs-source-example [example]="examples.disabled"></docs-source-example>
 
 <h3>Small Tile</h3>
 <docs-source-example [example]="examples.small"></docs-source-example>
 
+<h3>Main Tile</h3>
+<docs-source-example [example]="examples.main"></docs-source-example>
+
 <h3>Recovered Tile</h3>
 <docs-source-example [example]="examples.recovered"></docs-source-example>
+
+<h3>Error Tile</h3>
+<docs-source-example [example]="examples.error"></docs-source-example>
 
