@@ -4,6 +4,7 @@ import { ButtonUI } from '../button/button-ui';
 import {ButtonGroupUi} from "../button-group/button-group-ui";
 import { ExpandableSectionUi } from '../expandable-section/expandable-section-ui';
 import {ExpandablePanelUi} from '../expandable-panel/expandable-panel-ui';
+import { TileUI } from '../tile/tile-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -11,4 +12,5 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'button-group', component: ButtonGroupUi },
   { path: 'expandable-panel', component: ExpandablePanelUi },
   { path: 'expandable-section', component: ExpandableSectionUi },
+  { path: 'tile', component: TileUI },
 ];
