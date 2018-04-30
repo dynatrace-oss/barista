@@ -9,6 +9,7 @@ import { TitleCardExampleComponent } from './examples/title-card-example.compone
 import { SubtitleCardExampleComponent } from './examples/subtitle-card-example.component';
 import { ActionButtonsCardExampleComponent } from './examples/action-buttons-card-example.component';
 import { DarkThemeCardExampleComponent } from './examples/darktheme-card-example.component';
+import { IconCardExampleComponent } from './examples/icon-card-example.component';
 
 const EXAMPLES = [
   DefaultCardExampleComponent,
@@ -17,6 +18,7 @@ const EXAMPLES = [
   SubtitleCardExampleComponent,
   ActionButtonsCardExampleComponent,
   DarkThemeCardExampleComponent,
+  IconCardExampleComponent,
 ];
 
 @NgModule({

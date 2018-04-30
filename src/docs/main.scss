@@ -67,8 +67,14 @@ h6:not(:first-child) {
   margin-top: 32px;
 }
 
+.demo-card {
+  background-color: #f2f2f2; 
+  padding: 1rem;
+}
+
 .dark {
   background-color: #454646;
   color: #fff;
   padding: 16px;
 }
+
