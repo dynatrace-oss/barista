@@ -5,6 +5,7 @@ import { TitleCardExampleComponent } from './examples/title-card-example.compone
 import { SubtitleCardExampleComponent } from './examples/subtitle-card-example.component';
 import { ActionButtonsCardExampleComponent } from './examples/action-buttons-card-example.component';
 import { DarkThemeCardExampleComponent } from './examples/darktheme-card-example.component';
+import { IconCardExampleComponent } from './examples/icon-card-example.component';
 
 @Component({
   moduleId: module.id,
@@ -20,5 +21,6 @@ export class DocsCardComponent {
     subtitle: SubtitleCardExampleComponent,
     actions: ActionButtonsCardExampleComponent,
     dark: DarkThemeCardExampleComponent,
+    icon: IconCardExampleComponent,
   };
 }
