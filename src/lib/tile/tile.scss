@@ -149,14 +149,14 @@
 $theme-light: (
   main: dt-palette($turquoise-600, $turquoise-700, $turquoise-800),
   error: dt-palette($red-600, $red-700, $red-800),
-  recovered: dt-palette($green-600,	$green-700,	$green-800),
-  is-dark: false
+  recovered: dt-palette($green-600, $green-700, $green-800),
+  is-dark: false,
 );
 $theme-dark: (
   main: dt-palette($turquoise-500, $turquoise-400, $turquoise-300),
   error: dt-palette($red-500, $red-400, $red-300),
-  recovered: dt-palette($green-500,	$green-400,	$green-300),
-  is-dark: true
+  recovered: dt-palette($green-500, $green-400, $green-300),
+  is-dark: true,
 );
 
 @mixin dt-tile-theme($theme) {
