@@ -5,8 +5,30 @@
   font-family: $mainfont;
   background-color: #fff;
   border-radius: 3px;
-  padding: 16px;
-  margin: 24px;
+  padding: 8px;
+  margin: 8px;
+}
+
+@media(min-width: 460px) {
+  
+  .dt-card {
+    padding: 12px;
+  }
+}
+
+@media(min-width: 992px) {
+  
+  .dt-card {
+    padding: 16px;
+    margin: 16px;
+  }
+}
+
+@media(min-width: 1200px) {
+  
+  .dt-card {
+    margin: 20px;
+  }
 }
 
 .dt-card-icon {
