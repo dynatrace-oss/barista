@@ -17,5 +17,6 @@ export class UIApp {
     {name: 'ButtonGroup', route: '/button-group'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
+    {name: 'tile', route: '/tile'},
   ];
 }
