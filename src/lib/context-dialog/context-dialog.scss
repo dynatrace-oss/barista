@@ -19,6 +19,7 @@ $panel-padding: 12px;
   font-size: 14px;
 }
 
+// this very specific selector is necessary to override the emulated button styles
 [dt-icon-button].dt-context-dialog-close-trigger {
   border: none;
   position: absolute;
