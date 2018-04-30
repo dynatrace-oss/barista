@@ -1,3 +1,13 @@
+// tslint:disable:no-magic-numbers
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
 import {mixinTabIndex} from './tabindex';
 
 describe('mixinTabIndex', () => {
@@ -46,3 +56,4 @@ describe('mixinTabIndex', () => {
 class TestClass {
   disabled = false;
 }
+// tslint:enable:no-magic-numbers
