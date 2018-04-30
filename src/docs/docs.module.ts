@@ -19,6 +19,7 @@ import { DocsTileModule } from './components/tile/docs-tile.module';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
 import { DocsCardModule } from './components/card/docs-card.module';
+import { DocsContextDialogModule } from './components/context-dialog/docs-context-dialog.module';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { DocsCardModule } from './components/card/docs-card.module';
     DocsChartModule,
     DocsTileModule,
     DocsCardModule,
+    DocsContextDialogModule,
   ],
   declarations: [
     Docs,
