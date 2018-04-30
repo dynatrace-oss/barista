@@ -1,0 +1,41 @@
+@import '../core/style/variables';
+@import '../../../node_modules/@angular/cdk/overlay';
+@import '../../../node_modules/@angular/cdk/_a11y';
+
+@include cdk-a11y();
+@include cdk-overlay();
+
+$panel-padding-btn: 32px;
+$panel-padding: 12px;
+
+.dt-context-dialog-panel {
+  background-color: $gray-700;
+  padding: $panel-padding-btn $panel-padding $panel-padding $panel-padding;
+  display: inline-block;
+  border-radius: 3px;
+  position: relative;
+  transform-origin: top right;
+  color: #fff;
+  font-size: 14px;
+}
+
+[dt-icon-button].dt-context-dialog-close-trigger {
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  &:hover {
+    background-color: $gray-700;
+  }
+}
+
+.dt-context-dialog-panel-bottom {
+  transform-origin: bottom right;
+  padding: $panel-padding $panel-padding $panel-padding-btn $panel-padding;
+}
+
+.dt-context-dialog-panel-bottom .gh-context-dialog-close-trigger {
+  top: auto;
+  bottom: 0;
+}
