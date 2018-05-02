@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    // Create a dashboard component
+    "dtComponent": {
+      "description": "Create a component with a demo",
+      "factory": "./component/index",
+      "schema": "./component/schema.json",
+      "aliases": [ "dt-component" ]
+    }
+  }
+}
