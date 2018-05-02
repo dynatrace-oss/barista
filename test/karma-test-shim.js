@@ -22,6 +22,7 @@ System.config({
     'main': 'main.js',
     'tslib': 'node:tslib/tslib.js',
     'moment': 'node:moment/min/moment-with-locales.min.js',
+    'highcharts': 'node:highcharts/highcharts.js',
 
     // Angular specific mappings.
     '@angular/core': 'node:@angular/core/bundles/core.umd.js',
@@ -66,6 +67,16 @@ System.config({
 
     '@dynatrace/angular-components':
       'dist/lib/bundles/dynatrace-angular-components.umd.js',
+    '@dynatrace/angular-components/button':
+      'dist/lib/bundles/dynatrace-angular-components-button.umd.js',
+    '@dynatrace/angular-components/core':
+      'dist/lib/bundles/dynatrace-angular-components-core.umd.js',
+    '@dynatrace/angular-components/loading-distractor':
+      'dist/lib/bundles/dynatrace-angular-components-loading-distractor.umd.js',
+    '@dynatrace/angular-components/table':
+      'dist/lib/bundles/dynatrace-angular-components-table.umd.js',
+    '@dynatrace/angular-components/theming':
+      'dist/lib/bundles/dynatrace-angular-components-theming.umd.js',
   },
   packages: {
     // Thirdparty barrels.
