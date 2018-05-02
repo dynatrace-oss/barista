@@ -1,36 +1,28 @@
-import {
-  Directive,
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  OnInit,
-  ElementRef,
-  OnDestroy,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  Attribute,
-  ChangeDetectorRef,
-  Inject,
-  Optional,
-} from '@angular/core';
-import {
-  mixinDisabled,
-  CanDisable,
-  mixinTabIndex,
-  HasTabIndex,
-  CanColor,
-  mixinColor,
-} from '../core/index';
-import { CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
-import { Subject } from 'rxjs/Subject';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
-import {takeUntil} from 'rxjs/operators/takeUntil';
-import {map} from 'rxjs/operators/map';
-import {filter} from 'rxjs/operators/filter';
-import {merge} from 'rxjs/observable/merge';
+import {
+  Attribute,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  Optional,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
+  isDevMode,
+} from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { merge } from 'rxjs/observable/merge';
+import { filter } from 'rxjs/operators/filter';
+import { map } from 'rxjs/operators/map';
+import { takeUntil } from 'rxjs/operators/takeUntil';
+import { CanColor, CanDisable, HasTabIndex, mixinColor, mixinDisabled, mixinTabIndex } from '../core/index';
 
 // Boilerplate for applying mixins to DtContextDialog.
 export class DtContextDialogBase {
@@ -49,9 +41,9 @@ export const _DtContextDialogBase =
     'class': 'dt-context-dialog',
     'attr.aria-hidden': 'true',
     '[attr.aria-disabled]': 'disabled.toString()',
-    'tabindex': '-1',
+    'tabIndex': '-1',
   },
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -61,7 +53,7 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
   private _panelOpen = false;
 
   /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject();
+  private _destroy = new Subject<void>();
 
   /** Last emitted position of the overlay */
   private _connectionPair: ConnectionPositionPair;
@@ -151,7 +143,20 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
     if (!this._focusTrap) {
       this._focusTrap = this._focusTrapFactory.create(this._overlayDir.overlayRef.overlayElement);
     }
-    this._focusTrap.focusInitialElementWhenReady();
+    this._focusTrap.focusInitialElementWhenReady()
+    .then((success: boolean) => {
+      if (isDevMode) {
+        const msg = success ? 'Setting focus was successful' : 'Setting focus did not work';
+        // tslint:disable-next-line: no-console
+        console.log(msg);
+      }
+    })
+    .catch((error: Error) => {
+      if (isDevMode) {
+        // tslint:disable-next-line: no-console
+        console.log('Error when trying to set initial focus', error);
+      }
+    });
   }
 
   /** Restores focus to the element that was focused before the overlay opened. */
@@ -159,6 +164,7 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
     const toFocus = this._elementFocusedBeforeDialogWasOpened;
 
     // We need the extra check, because IE can set the `activeElement` to null in some cases.
+    // tslint:disable-next-line: strict-type-predicates no-unbound-method
     if (toFocus && typeof toFocus.focus === 'function') {
       toFocus.focus();
     }
