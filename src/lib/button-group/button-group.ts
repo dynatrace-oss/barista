@@ -80,7 +80,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasT
 
   @Input()
   get value(): T | undefined {
-    return this._value;
+    return !this.disabled ? this._value : undefined;
   }
 
   set value(newValue: T | undefined) {
@@ -180,7 +180,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasT
       .pipe(takeUntil(merge<DtButtonGroupItem<T>>(this._destroy, this._items.changes)))
       .subscribe((evt) => {
 
-        this._selectItem(true, evt.source);
+        this._selectItem(true, evt.isDeselection ? undefined : evt.source);
       });
     const selectedItem = this._items.find((item) => item.selected);
     if (selectedItem !== undefined) {
