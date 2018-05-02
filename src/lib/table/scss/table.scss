@@ -1,7 +1,10 @@
 @import '../../core/style/variables';
 
 :host.dt-table {
-  display: block;
+  // To display at least one column with the entire width
+  display: inline-flex;
+  flex-flow: column nowrap;
+  min-width: 100%;
   position: relative;
   font-size: 14px;
   font-weight: normal;
