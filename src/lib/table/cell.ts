@@ -95,7 +95,7 @@ function getColumnAlignmentClass(columnType: string): string | void {
 }
 
 function setColumnClass(): void {
-  const { cssClassFriendlyName, type, proportion, minWidth } = this._columnDef;
+  const { type, proportion, minWidth } = this._columnDef;
   const { nativeElement } = this._elem;
   const cssAlignmentClass = getColumnAlignmentClass(type) || 'left';
 
