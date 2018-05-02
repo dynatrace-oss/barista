@@ -1,0 +1,8 @@
+@import '../../core/style/variables';
+@import 'base-cell';
+
+:host.dt-cell {
+  min-height: inherit;
+
+  @extend %base-cell;
+}
