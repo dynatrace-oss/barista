@@ -2,3 +2,9 @@
 
 @import '../icons/index';
 @import '../input/input';
+
+@import '../../../node_modules/@angular/cdk/overlay';
+@import '../../../node_modules/@angular/cdk/_a11y';
+
+@include cdk-a11y();
+@include cdk-overlay();
