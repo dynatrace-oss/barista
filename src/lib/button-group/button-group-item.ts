@@ -18,6 +18,8 @@ export interface DtButtonGroupItemSelectionChange<T> {
   source: DtButtonGroupItem<T>;
   /** Whether the change in the option's value was a result of a user action. */
   isUserInput: boolean;
+  /** Whether the change resulted in a de-selection of an item */
+  isDeselection: boolean;
 }
 export class DtButtonGroupItemBase {
   disabled: boolean;
@@ -86,6 +88,15 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem implements CanDisab
   }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
+
+    if (this._disabled && this._selected) {
+      this._selected = false;
+      this._changeDetectorRef.markForCheck();
+      // tslint:disable-next-line:no-floating-promises
+      Promise.resolve().then(() => {
+        this.selectionChange.emit({source: this, isUserInput: false, isDeselection: true});
+      });
+    }
   }
 
   /** The bound value. */
@@ -106,7 +117,7 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem implements CanDisab
   @HostListener('click')
   private _onSelect(): void {
     if (!this.disabled) {
-      this.selectionChange.emit({source: this, isUserInput: true});
+      this.selectionChange.emit({source: this, isUserInput: true, isDeselection: false});
     }
   }
 
