@@ -1,22 +1,9 @@
-import {
-  async,
-  ComponentFixture,
-  TestBed,
-  inject,
-  fakeAsync,
-  flush,
-  flushMicrotasks,
-  tick
-} from '@angular/core/testing';
-import {Component, ViewChild, ViewChildren, QueryList} from '@angular/core';
-import {By} from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import {ENTER, SPACE, TAB} from '@angular/cdk/keycodes';
-import {
-  DtContextDialogModule,
-  DtContextDialog,
-} from '@dynatrace/angular-components';
+import { Component, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed, async, fakeAsync, flush, inject } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DtContextDialog, DtContextDialogModule } from '@dynatrace/angular-components';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
@@ -57,9 +44,9 @@ describe('DtContextDialog', () => {
         beforeEach(fakeAsync(() => {
           fixture = TestBed.createComponent(BasicContextDialog);
           fixture.detectChanges();
-          contextDialog = fixture.debugElement.query(By.css('.gh-context-dialog')).nativeElement;
+          contextDialog = fixture.debugElement.query(By.css('.dt-context-dialog')).nativeElement;
           openTrigger = fixture.debugElement
-            .query(By.css('.gh-context-dialog-open-trigger')).nativeElement;
+            .query(By.css('.dt-context-dialog-open-trigger')).nativeElement;
         }));
 
         it('should set the role of the overlay to dialog', fakeAsync(() => {
@@ -67,7 +54,7 @@ describe('DtContextDialog', () => {
           fixture.detectChanges();
           flush();
           const contextMenuPanel = fixture.debugElement
-            .query(By.css('.gh-context-dialog-panel')).nativeElement;
+            .query(By.css('.dt-context-dialog-panel')).nativeElement;
           expect(contextMenuPanel.getAttribute('role')).toEqual('dialog');
         }));
 
@@ -76,8 +63,8 @@ describe('DtContextDialog', () => {
           fixture.detectChanges();
           flush();
           const contextDialogPanel = fixture.debugElement
-            .query(By.css('.gh-context-dialog-panel')).nativeElement;
-          expect(contextDialogPanel.classList.contains('gh-theme-dark')).toEqual(true);
+            .query(By.css('.dt-context-dialog-panel')).nativeElement;
+          expect(contextDialogPanel.classList.contains('dt-theme-dark')).toEqual(true);
         }));
 
         it('should support setting a custom aria-label', fakeAsync(() => {
@@ -137,9 +124,9 @@ describe('DtContextDialog', () => {
 @Component({
   selector: 'dt-basic-context-dialog',
   template: `
-  <gh-context-dialog [aria-label]="ariaLabel" [tabIndex]="tabIndexOverride" [disabled]="disabled">
+  <dt-context-dialog [aria-label]="ariaLabel" [tabIndex]="tabIndexOverride" [disabled]="disabled">
     <p>Some cool content</p>
-  </gh-context-dialog>
+  </dt-context-dialog>
   `,
 })
 class BasicContextDialog {
