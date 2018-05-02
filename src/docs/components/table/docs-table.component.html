@@ -2,44 +2,16 @@
 
 <docs-source-example [example]="examples.default"></docs-source-example>
 
-<p>
-  Styleguide: <a href="***REMOVED*** Style Guide</a>
-</p>
-
 <h2>Description</h2>
 <p>
   The DT Angular data table enhances the Material's cdk table (https://material.angular.io/cdk/table/overview) but it also limits it in this first implementation (we are removing unneeded things from the public API)
 </p>
-<p>As per the style guide: "The table component can be either a static or an interactive element. It can be used to drill down to a details page and there is also the possibility to add, remove, edit a table row or even expand a row for further information."</p>
-<!-- <p>
-  As per groundhog: "The Groundhog table appears in three versions:
-</p>
-    <ul>
-      <li>Standard table table</li>
-      <li>Responsive table table--responsive</li>
-      <li>The expandable table"</li>
-    </ul> -->
-<p>
-  This version of the core table component just addresses a static data table. No user interaction with it allowed. So just groundhog's standard and responsive tables (equivalent to classes .table .table–responsive).
-</p>
-<p>
-  This version does not yet allow for any of the following capabilities that Dynatrace's data tables need
-</p>
-<ul>
-  <li>two lines per row tables.</li>
-  <li>on hover reaction of any type (ex: on hover tool tips for icons)</li>
-  <li>Filtering</li>
-  <li>Sorting</li>
-  <li>Pagination</li>
-  <li>Problem/Warning indicators</li>
-  <li>Edit mode</li>
-  <li>Add/Remove/Delete rows</li>
-  <li>Move Up/Down</li>
-  <li>Buttons or Charts as content</li>
-</ul>
-<p>All pending functionality will be progressively addressed by future versions</p>
 
-  <h2>Imports</h2>
+<p>
+  Styleguide: <a href="***REMOVED*** Style Guide</a>
+</p>
+
+<h2>Imports</h2>
 <p>You have to import the <code>DtTableModule</code> when you want to use the <code>dt-table</code>:</p>
 <!-- @formatter:off -->
 <pre><code snippet language="typescript">@NgModule({{"{"}}
@@ -51,66 +23,6 @@
 class MyModule {{"{}"}}
 </code></pre>
 <!-- @formatter:on -->
-
-<h2>Table Usage</h2>
-<p>
-The cdk table stablishes a very different approach on how to define the table template. It does not use the native HTML table. So there is no td, tr, th involved.
-Instead, you need to define all possible columns that the table may show (depending on the data available) and then define the table header and body by selecting from the column definitions, which subset of columns you will show.
-</p>
-<p>
-Each column definition is created with dt-header-cell and dt-cell inside an <a href="https://angular.io/guide/structural-directives#ngcontainer">ng-container</a> structural directive with a dtColumDef attribute directive applied to it.
-</p>
-<pre class="docs-markdown-pre"><code class="lang-html docs-markdown-code"><span class="hljs-tag">&lt;<span class="hljs-name">ng-container</span> <span class="hljs-attr">dtColumnDef</span>=<span class="hljs-string">"username"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">dt-header-cell</span> *<span class="hljs-attr">dtHeaderCellDef</span>&gt;</span> User name <span class="hljs-tag">&lt;/<span class="hljs-name">dt-header-cell</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">dt-cell</span> *<span class="hljs-attr">dtCellDef</span>=<span class="hljs-string">"let row"</span>&gt;</span> <span ngNonBindable>{{row.a}} </span><span class="hljs-tag">&lt;/<span class="hljs-name">dt-cell</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">ng-container</span>&gt;</span>
-</code></pre>
-
-<p>(dtCellDef not only exports the row data but also the same properties as *ngFor using the same <a href="https://gist.github.com/mhevery/d3530294cff2e4a1b3fe15ff75d08855">micro-syntax</a>)</p>
-
-<p>The table header is defined next with a dt-header-row component and a dtHeaderRowDef directive:</p>
-
-<pre class="docs-markdown-pre"><code class="lang-html docs-markdown-code"><span class="hljs-tag">&lt;<span class="hljs-name">dt-header-row</span> *<span class="hljs-attr">dtHeaderRowDef</span>=<span class="hljs-string">"['username', 'age', 'title']"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dt-header-row</span>&gt;</span></code>
-</pre>
-
-<p>And finally the table row is defined with a dt-row component and a dtRowDef directive:</p>
-
-<pre class="docs-markdown-pre"><code class="lang-html docs-markdown-code">
-<span class="hljs-tag">&lt;<span class="hljs-name">dt-row</span> *<span class="hljs-attr">dtRowDef</span>=<span class="hljs-string">"let row; columns: ['username', 'age', 'title']"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dt-row</span>&gt;</span>
-</code></pre>
-
-<p>(note: The dtRowDef also exports row context, which can be used for event and property bindings on the row element)</p>
-<p>See the source code of any of the examples in this page to see all the pieces in place</p>
-
-<h3>Width proportion</h3>
-<p>You can customize the column width proportion with <code>[dtColumnProportion]</code></p>
-
-<docs-source-example [example]="examples.width"></docs-source-example>
-
-<h3>Empty state</h3>
-<p>You can pass an empty state to the table to be displayed when there's no data displayed using the <code>dtTableEmptyState</code> directive</p>
-<p>The recommended approach to use it is using the following components: <code>&lt;dt-table-empty-state&gt;</code>, <code>&lt;dt-table-empty-state-image&gt;</code>, <code>&lt;dt-table-empty-state-title&gt;</code>, <code>&lt;dt-table-empty-state-message&gt;</code></p>
-
-<docs-source-example [example]="examples.empty"></docs-source-example>
-
-<p>Also you can pass custom content using the same <code>dtTableEmptyState</code></p>
-
-<docs-source-example [example]="examples.emptyCustom"></docs-source-example>
-
-<h3>Loading state</h3>
-<p>You can mark the Table as loading using <code>[isLoading]</code> and pass the content to display with <code>dtTableLoadingState</code> directive</p>
-
-<docs-source-example [example]="examples.loading"></docs-source-example>
-
-<h3>Observable as DataSource</h3>
-<p>You can pass an Observable to the <code>[dataSource]</code> property</p>
-
-<docs-source-example [example]="examples.observable"></docs-source-example>
-
-<h3>Dynamic Columns</h3>
-<p>You can bind the column definitions to an array with a <code>*ngFor</code> directive</p>
-
-<docs-source-example [example]="examples.dynamicColumns"></docs-source-example>
 
 <h3>
   Component and attribute directives for the table:
@@ -138,6 +50,11 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
       <td><code>dtColumnProportion</code></td>
       <td>Attribute</td>
       <td>A number describing the width proportion for the column <code>[dtColumnProportion]=2</code> means that this column will be double width as the regular ones</td>
+    </tr>
+    <tr>
+      <td><code>dtColumnMinWidth</code></td>
+      <td>Attribute</td>
+      <td>A CSS string describing the minimum width for the column <code>[dtColumnMinWidth]="'200px'"</code> means that this column will be at least 200px width</td>
     </tr>
     <tr>
       <td><code>dt-header-cell</code></td>
@@ -242,6 +159,74 @@ Each column definition is created with dt-header-cell and dt-cell inside an <a h
 </table>
 There are no outputs at this stage. The table is totally passive.
 
+<h2>Table Usage</h2>
+
+<p>
+The cdk table stablishes a very different approach on how to define the table template. It does not use the native HTML table. So there is no td, tr, th involved.
+Instead, you need to define all possible columns that the table may show (depending on the data available) and then define the table header and body by selecting from the column definitions, which subset of columns you will show.
+</p>
+
+<p>
+Each column definition is created with dt-header-cell and dt-cell inside an <a href="https://angular.io/guide/structural-directives#ngcontainer">ng-container</a> structural directive with a dtColumDef attribute directive applied to it.
+</p>
+
+<pre class="docs-markdown-pre"><code class="lang-html docs-markdown-code"><span class="hljs-tag">&lt;<span class="hljs-name">ng-container</span> <span class="hljs-attr">dtColumnDef</span>=<span class="hljs-string">"username"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">dt-header-cell</span> *<span class="hljs-attr">dtHeaderCellDef</span>&gt;</span> User name <span class="hljs-tag">&lt;/<span class="hljs-name">dt-header-cell</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">dt-cell</span> *<span class="hljs-attr">dtCellDef</span>=<span class="hljs-string">"let row"</span>&gt;</span> <span ngNonBindable>{{row.a}} </span><span class="hljs-tag">&lt;/<span class="hljs-name">dt-cell</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ng-container</span>&gt;</span>
+</code></pre>
+
+<p>(dtCellDef not only exports the row data but also the same properties as *ngFor using the same <a href="https://gist.github.com/mhevery/d3530294cff2e4a1b3fe15ff75d08855">micro-syntax</a>)</p>
+
+<p>The table header is defined next with a dt-header-row component and a dtHeaderRowDef directive:</p>
+
+<pre class="docs-markdown-pre"><code class="lang-html docs-markdown-code"><span class="hljs-tag">&lt;<span class="hljs-name">dt-header-row</span> *<span class="hljs-attr">dtHeaderRowDef</span>=<span class="hljs-string">"['username', 'age', 'title']"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dt-header-row</span>&gt;</span></code>
+</pre>
+
+<p>And finally the table row is defined with a dt-row component and a dtRowDef directive:</p>
+
+<pre class="docs-markdown-pre"><code class="lang-html docs-markdown-code">
+<span class="hljs-tag">&lt;<span class="hljs-name">dt-row</span> *<span class="hljs-attr">dtRowDef</span>=<span class="hljs-string">"let row; columns: ['username', 'age', 'title']"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dt-row</span>&gt;</span>
+</code></pre>
+
+<p>(note: The dtRowDef also exports row context, which can be used for event and property bindings on the row element)</p>
+<p>See the source code of any of the examples in this page to see all the pieces in place</p>
+
+<h3>Width proportion</h3>
+<p>You can customize the column width proportion with <code>[dtColumnProportion]</code></p>
+
+<docs-source-example [example]="examples.width"></docs-source-example>
+
+<h3>Minimum Width</h3>
+<p>You can customize the column minimun width with <code>[dtColumnWidth]</code></p>
+
+<docs-source-example [example]="examples.minWidth"></docs-source-example>
+
+<h3>Empty state</h3>
+<p>You can pass an empty state to the table to be displayed when there's no data displayed using the <code>dtTableEmptyState</code> directive</p>
+<p>The recommended approach to use it is using the following components: <code>&lt;dt-table-empty-state&gt;</code>, <code>&lt;dt-table-empty-state-image&gt;</code>, <code>&lt;dt-table-empty-state-title&gt;</code>, <code>&lt;dt-table-empty-state-message&gt;</code></p>
+
+<docs-source-example [example]="examples.empty"></docs-source-example>
+
+<p>Also you can pass custom content using the same <code>dtTableEmptyState</code></p>
+
+<docs-source-example [example]="examples.emptyCustom"></docs-source-example>
+
+<h3>Loading state</h3>
+<p>You can mark the Table as loading using <code>[isLoading]</code> and pass the content to display with <code>dtTableLoadingState</code> directive</p>
+
+<docs-source-example [example]="examples.loading"></docs-source-example>
+
+<h3>Observable as DataSource</h3>
+<p>You can pass an Observable to the <code>[dataSource]</code> property</p>
+
+<docs-source-example [example]="examples.observable"></docs-source-example>
+
+<h3>Dynamic Columns</h3>
+<p>You can bind the column definitions to an array with a <code>*ngFor</code> directive</p>
+
+<docs-source-example [example]="examples.dynamicColumns"></docs-source-example>
+
 <p>The DataSource type is an abstract class with two methods: connect and disconnect. Connect has to return an Observable that the table subscribes to. Disconnect does cleanup. Usin this class to wrap the data provided for the table allows for maximum flexibility and will be the responsible of a future sort, and filter functionalities</p>
 
 
@@ -302,3 +287,25 @@ There are no outputs at this stage. The table is totally passive.
 </p>
 
 <p><strong>NOTE:</strong><br>Right now only setting the light or dark mode is available. Full theming functionality will be added in a later stage.</p>
+
+<p>As per the style guide: "The table component can be either a static or an interactive element. It can be used to drill down to a details page and there is also the possibility to add, remove, edit a table row or even expand a row for further information."</p>
+
+<p>
+  This version of the core table component just addresses a static data table. No user interaction with it allowed. So just groundhog's standard and responsive tables (equivalent to classes .table .table–responsive).
+</p>
+<p>
+  This version does not yet allow for any of the following capabilities that Dynatrace's data tables need
+</p>
+<ul>
+  <li>two lines per row tables.</li>
+  <li>on hover reaction of any type (ex: on hover tool tips for icons)</li>
+  <li>Filtering</li>
+  <li>Sorting</li>
+  <li>Pagination</li>
+  <li>Problem/Warning indicators</li>
+  <li>Edit mode</li>
+  <li>Add/Remove/Delete rows</li>
+  <li>Move Up/Down</li>
+  <li>Buttons or Charts as content</li>
+</ul>
+<p>All pending functionality will be progressively addressed by future versions</p>
