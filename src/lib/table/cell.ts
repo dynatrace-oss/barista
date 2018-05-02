@@ -42,7 +42,9 @@ export class DtColumnDef extends CdkColumnDef {
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnType') type: string;
   // tslint:disable-next-line:no-input-rename
-  @Input('dtColumnProportion') proportion: number;
+  @Input('dtColumnProportion') proportion = 1;
+  // tslint:disable-next-line:no-input-rename
+  @Input('dtColumnMinWidth') minWidth: string;
 }
 
 /** Header cell template container that adds the right classes and role. */
@@ -93,12 +95,14 @@ function getColumnAlignmentClass(columnType: string): string | void {
 }
 
 function setColumnClass(): void {
-  const { cssClassFriendlyName, type, proportion } = this._columnDef;
+  const { cssClassFriendlyName, type, proportion, minWidth } = this._columnDef;
   const { nativeElement } = this._elem;
   const cssAlignmentClass = getColumnAlignmentClass(type) || 'left';
 
-  this._renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
   this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
   this._renderer.setStyle(nativeElement, 'flex-grow', proportion);
   this._renderer.setStyle(nativeElement, 'flex-shrink', proportion);
+  if (typeof minWidth === 'string') {
+    this._renderer.setStyle(nativeElement, 'min-width', minWidth);
+  }
 }
