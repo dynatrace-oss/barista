@@ -4,8 +4,11 @@
     "rootDir": "..",
     "baseUrl": ".",
     "paths": {
-      "@dynatrace/angular-components": ["../lib"]
-    }
+      "@dynatrace/angular-components": ["../../dist/lib"]
+    },
+    "types": [
+      "highcharts"
+    ]
   },
   "include": ["./**/*.ts"]
 }

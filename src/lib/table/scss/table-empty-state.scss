@@ -1,0 +1,20 @@
+@import '../../core/style/variables';
+
+$margin-top: 48px;
+$padding: 8px;
+
+:host.dt-table-empty-state {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: $gray-700;
+  margin: $margin-top 0;
+  line-height: 1.4;
+
+  .message-area {
+    padding-left: $padding;
+    white-space: pre-line;
+  }
+}
