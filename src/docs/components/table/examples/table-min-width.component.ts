@@ -4,12 +4,12 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   // tslint:disable
   template: `<dt-table [dataSource]="dataSource1">
-  <ng-container dtColumnDef="host" dtColumnType="text" dtColumnMinWidth="400px">
+  <ng-container dtColumnDef="host" dtColumnType="text" [dtColumnMinWidth]="300">
     <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
   </ng-container>
 
-  <ng-container dtColumnDef="cpu" dtColumnType="text">
+  <ng-container dtColumnDef="cpu" dtColumnType="text" dtColumnMinWidth="50%">
     <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
     <dt-cell *dtCellDef="let row;">{{row.cpu}}</dt-cell>
   </ng-container>
