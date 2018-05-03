@@ -44,7 +44,7 @@ export class DtColumnDef extends CdkColumnDef {
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnProportion') proportion = 1;
   // tslint:disable-next-line:no-input-rename
-  @Input('dtColumnMinWidth') minWidth: string;
+  @Input('dtColumnMinWidth') minWidth: string | number;
 }
 
 /** Header cell template container that adds the right classes and role. */
@@ -102,7 +102,13 @@ function setColumnClass(): void {
   this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
   this._renderer.setStyle(nativeElement, 'flex-grow', proportion);
   this._renderer.setStyle(nativeElement, 'flex-shrink', proportion);
+
+  let setMinWidth = '0';
   if (typeof minWidth === 'string') {
-    this._renderer.setStyle(nativeElement, 'min-width', minWidth);
+    setMinWidth = minWidth;
   }
+  if (Number.isInteger(minWidth)) {
+    setMinWidth = `${minWidth}px`;
+  }
+  this._renderer.setStyle(nativeElement, 'min-width', setMinWidth);
 }
