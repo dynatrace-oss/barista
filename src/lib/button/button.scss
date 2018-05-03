@@ -48,6 +48,7 @@
   }
 
   .dt-icon {
+    display: inline-block;
     width: 20px;
     height: 20px;
     margin-right: 4px;
@@ -65,6 +66,17 @@
       margin-right: 0;
     }
   }
+}
+
+
+
+::ng-deep .dt-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  margin-top: 5px;
+  vertical-align: top;
 }
 
 // TODO @thomas.pink: Remove this once theming is in place

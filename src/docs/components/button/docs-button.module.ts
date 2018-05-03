@@ -8,7 +8,8 @@ import { AllButtonExampleComponent } from './examples/button-all-example.compone
 import { DocsButtonComponent } from './docs-button.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtButtonModule, DtThemingModule } from '@dynatrace/angular-components';
+import { DtButtonModule, DtThemingModule, DtIconModule } from '@dynatrace/angular-components';
+import { IconsButtonExampleComponent } from './examples/button-icons-example.component';
 
 const EXAMPLES = [
   DefaultButtonExampleComponent,
@@ -16,6 +17,7 @@ const EXAMPLES = [
   InteractionButtonExampleComponent,
   VariantButtonExampleComponent,
   ColorButtonExampleComponent,
+  IconsButtonExampleComponent,
   AllButtonExampleComponent,
 ];
 
@@ -25,6 +27,7 @@ const EXAMPLES = [
     UiModule,
     DtButtonModule,
     DtThemingModule,
+    DtIconModule,
   ],
   declarations: [
     ...EXAMPLES,

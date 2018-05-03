@@ -33,7 +33,7 @@ export function getDtIconNoHttpProviderError(): Error {
  * DtIconRegistry is a service that loads and provides icon svg resources by name.
  *
  * Since the icon registry deals with a global shared resource-location, we cannot have
- * more than one registry active.
+ * more than one registry active. To ensure this use the `forRoot` method on the DtIconModule.
  */
 export class DtIconRegistry {
 
