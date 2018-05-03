@@ -17,12 +17,16 @@ import { DtIconType } from './icon-types';
   selector: 'dt-icon',
   exportAs: 'dtIcon',
   template: '<ng-content></ng-content>',
+  styles: [':host { display: inline-block; }'],
   host: {
     role: 'img',
-    class: 'gh-icon',
+    class: 'dt-icon',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated,
+  // Changing view encapsulation to None as there is actually no need for encapsulation.
+  // There is no real template and it makes it way easier to re-color (fill) the icon from the outside.
+  // tslint:disable-next-line:use-view-encapsulation
+  encapsulation: ViewEncapsulation.None,
 })
 export class DtIcon implements OnChanges {
 
