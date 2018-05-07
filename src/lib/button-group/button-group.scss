@@ -1,0 +1,12 @@
+@import '../core/style/variables';
+
+:host {
+  display: inline-flex;
+  margin: 0;
+
+  height: 32px;
+}
+
+:host, :host * {
+  box-sizing: border-box;
+}

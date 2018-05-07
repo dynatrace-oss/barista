@@ -1,0 +1,160 @@
+<h1>ButtonGroup</h1>
+
+<p>
+  This component create a button group elements with Dynatrace styling.
+</p>
+
+<h2>Imports</h2>
+<p>You have to import the <code>DtButtonGroupModule</code> when you want to use the <code>dt-button-group</code>:</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    DtButtonGroupModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h2>Initialization</h2>
+<p>
+  To apply the dynatrace button group, use the <code>&lt;dt-button-group&gt;</code> and <code>&lt;dt-button-group-item&gt;</code> elements. Example:
+</p>
+<docs-source-example [example]="examples.default"></docs-source-example>
+
+<section style="margin-top: 1em;">
+  <table class="table">
+    <thead>
+    <tr>
+      <td width="190px">Attribute</td>
+      <td>Description</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><code>dt-button-group</code></td>
+      <td>Indicate the outer element of the button group. The group element can contain multiple &lt;dt-button-group-item&lt; elements.</td>
+    </tr>
+    <tr>
+      <td><code>dt-button-group-item</code></td>
+      <td>The element of an individual button.</td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+<h2>Options & Properties</h2>
+<h4>Button group</h4>
+<table class="table">
+  <thead>
+  <tr>
+    <td width="160px">Name</td>
+    <td width="250px">Type</td>
+    <td width="160px">Default</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr>
+    <td><code>[value]</code></td>
+    <td><code>T | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>The current (selected) value</td>
+  </tr>
+  <tr>
+    <td><code>[disabled]</code></td>
+    <td><code>boolean | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>Sets disable state if property is set and the value is truthy or undefined</td>
+  </tr>
+  <tr>
+    <td><code>[tabIndex]</code></td>
+    <td><code>number</code></td>
+    <td><code>0</code></td>
+    <td>Sets and gets the tabIndex property</td>
+  </tr>
+  <tr>
+    <td><code>(valueChange)</code></td>
+    <td><code>event&lt;T&gt;</code></td>
+    <td><code></code></td>
+    <td>Emits an event when the user selects an other button.</td>
+  </tr>
+  <tr>
+    <td><code>selectValue(T)</code></td>
+    <td><code>void</code></td>
+    <td><code></code></td>
+    <td>Select a specific option (value) programmatically.</td>
+  </tr>
+  </tbody>
+</table>
+
+<h4>Button group item</h4>
+<table class="table">
+  <thead>
+  <tr>
+    <td width="160px">Name</td>
+    <td width="250px">Type</td>
+    <td width="160px">Default</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>&lt;ng-content&gt;</code></td>
+    <td><code></code></td>
+    <td><code></code></td>
+    <td>The content/text which is displayed inside of the item</td>
+  </tr>
+  <tr>
+    <td><code>[value]</code></td>
+    <td><code>T | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>The associated value of this item</td>
+  </tr>
+  <tr>
+    <td><code>[disabled]</code></td>
+    <td><code>boolean | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>Sets disable state if property is set and the value is truthy or undefined</td>
+  </tr>
+  <tr>
+    <td><code>[tabIndex]</code></td>
+    <td><code>number</code></td>
+    <td><code>0</code></td>
+    <td>Sets and gets the tabIndex property</td>
+  </tr>
+  <tr>
+    <td><code>[selected]</code></td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
+    <td>Sets or gets the selected state of this item</td>
+  </tr>
+  <tr>
+    <td><code>[color]</code></td>
+    <td><code>string | undefined</code></td>
+    <td><code>undefined</code></td>
+    <td>Sets color. Possible options:
+      <ul>
+        <li><code>main</code> (default)</li>
+        <li><code>error</code></li>
+      </ul></td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Examples</h2>
+<h3>Group disabled</h3>
+<docs-source-example [example]="examples.groupDisabled"></docs-source-example>
+
+<h3>Item disabled</h3>
+<docs-source-example [example]="examples.itemDisabled"></docs-source-example>
+
+<h3>Error state</h3>
+<docs-source-example [example]="examples.error"></docs-source-example>
+
+<h3>Interactive example</h3>
+<docs-source-example [example]="examples.interactive"></docs-source-example>
+
+<h3>Dark example</h3>
+<docs-source-example [example]="examples.dark"></docs-source-example>
