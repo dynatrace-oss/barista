@@ -24,6 +24,19 @@ export enum Colors {
   TURQUOISE_700 = '#00848e',
   TURQUOISE_800 = '#006d75',
   TURQUOISE_900 = '#005559',
+
+  GRAY_100 = '#f8f8f8',
+  GRAY_130 = '#f2f2f2',
+  GRAY_200 = '#e6e6e6',
+  GRAY_300 = '#ccc',
+  GRAY_400 = '#b7b7b7',
+  GRAY_500 = '#898989',
+  GRAY_600 = '#6d6d6d',
+  GRAY_640 = '#525252',
+  GRAY_700 = '#454646',
+  GRAY_800 = '#353535',
+  GRAY_860 = '#242424',
+  GRAY_900 = '#191919',
 }
 
 /**
