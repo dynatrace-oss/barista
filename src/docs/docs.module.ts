@@ -7,6 +7,7 @@ import { DocsRoutingModule } from './docs-routing.module';
 import { Docs } from './docs.component';
 import { Home } from './docs-home/docs-home.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
+import { DocsButtonGroupModule } from './components/button-group/docs-button-group.module';
 import { DocsLinkModule } from './components/link/docs-link.module';
 import { DocsInputModule } from 'components/input/docs-input.module';
 import { DocsLoadingDistractorModule } from './components/loading-distractor/docs-loading-distractor.module';
@@ -24,6 +25,7 @@ import { Platform } from '@angular/cdk/platform';
     HttpClientModule,
     DocsRoutingModule,
     DocsButtonModule,
+    DocsButtonGroupModule,
     DocsInputModule,
     DocsLoadingDistractorModule,
     DocsLinkModule,
