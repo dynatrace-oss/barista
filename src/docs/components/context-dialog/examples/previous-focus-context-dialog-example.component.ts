@@ -6,7 +6,7 @@ import { DtButton, DtContextDialog } from '@dynatrace/angular-components';
   template: `
   <button dt-button variant="secondary" (click)="open()" #focusme>Open</button>
   <dt-context-dialog #contextdialog>
-  <p>Close me to return the focus to the "Focus me" button</p>
+  <p>Close me to return the focus to the "Open" button</p>
   <button dt-button variant="secondary">Focused</button>
   </dt-context-dialog>`,
 })
