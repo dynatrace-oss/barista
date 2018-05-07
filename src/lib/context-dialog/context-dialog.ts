@@ -56,7 +56,7 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
   private _destroy = new Subject<void>();
 
   /** Last emitted position of the overlay */
-  private _connectionPair: ConnectionPositionPair;
+  private _lastOverlayPosition: ConnectionPositionPair;
 
   /** The class that traps and manages focus within the overlay. */
   private _focusTrap: FocusTrap | null;
@@ -96,7 +96,7 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
   @ViewChild('panel') _panel: ElementRef;
 
   /** Whether or not the overlay panel is open. */
-  get panelOpen(): boolean {
+  get isPanelOpen(): boolean {
     return this._panelOpen;
   }
 
@@ -203,13 +203,13 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
       .pipe(map((change) => change.connectionPair))
       .subscribe((connectionPair) => {
         // Set the classes to indicate the position of the overlay
-        if (this._connectionPair) {
+        if (this._lastOverlayPosition) {
           this._panel.nativeElement.classList
-            .remove(`dt-context-dialog-panel-${this._connectionPair.originY}`);
+            .remove(`dt-context-dialog-panel-${this._lastOverlayPosition.originY}`);
         }
         this._panel.nativeElement.classList
           .add(`dt-context-dialog-panel-${connectionPair.originY}`);
-        this._connectionPair = connectionPair;
+        this._lastOverlayPosition = connectionPair;
       });
   }
 
