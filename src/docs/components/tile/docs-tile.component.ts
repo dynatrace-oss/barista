@@ -5,6 +5,7 @@ import { RecoveredTileExampleComponent } from './examples/recovered-tile-example
 import { ErrorTileExampleComponent } from './examples/error-tile-example.component';
 import { MainTileExampleComponent } from './examples/main-tile-example.component';
 import { DisabledTileExampleComponent } from './examples/disabled-tile.example.component';
+import { IconAlignTileExampleComponent } from './examples/icon-align-example.component';
 
 @Component({
   moduleId: module.id,
@@ -20,5 +21,6 @@ export class DocsTileComponent {
     error: ErrorTileExampleComponent,
     main: MainTileExampleComponent,
     disabled: DisabledTileExampleComponent,
+    iconAlign: IconAlignTileExampleComponent,
   };
 }
