@@ -58,6 +58,7 @@
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
+  line-height: 1.6;
 }
 
 .dt-card-title {
@@ -74,9 +75,6 @@
   display: block;
   font-size: 14px;
   color: $gray-700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .dt-card-actions {
