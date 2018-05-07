@@ -1,0 +1,19 @@
+<div class="dt-tile-header">
+  <ng-content select="
+    dt-tile-icon:not([align='end']),
+    [dt-tile-icon]:not([align='end']),
+    [dtTileIcon]:not([align='end'])">
+  </ng-content>
+  <div class="dt-tile-heading">
+    <ng-content select="dt-tile-title, [dt-tile-title], [dtTileTitle]"></ng-content>
+    <ng-content select="dt-tile-subtitle, [dt-tile-subtitle], [dtTileSubtitle]"></ng-content>
+  </div>
+  <ng-content select="
+    dt-tile-icon[align='end'],
+    [dt-tile-icon][align='end'],
+    [dtTileIcon][align='end']">
+  </ng-content>
+</div>
+<div class="dt-tile-content">
+  <ng-content></ng-content>
+</div>

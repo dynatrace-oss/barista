@@ -1,0 +1,189 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+
+.dt-tile {
+  display: block;
+  font-family: $mainfont;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  box-sizing: border-box;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+  line-height: -moz-block-height;
+  border: 1px solid $gray-200;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+
+  &:hover:not(.dt-tile-disabled) {
+    border-color: $gray-700;
+  }
+
+  &.dt-tile-disabled {
+    pointer-events: none;
+    border-color: $gray-300;
+    cursor: default;
+    box-shadow: none;
+  }
+
+  &:focus:not(.dt-tile-disabled) {
+    @include dt-focus-style();
+  }
+}
+
+.dt-tile-header {
+  display: flex;
+  background-color: $gray-100;
+  height: 52px;
+  border-bottom: none;
+  width: 100%;
+
+  .dt-tile-small & {
+    height: 36px;;
+  }
+}
+
+.dt-tile-icon {
+  width: 52px;
+  height: 52px;
+  background-color: $gray-700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  svg {
+    fill: #fff;
+  }
+
+  .dt-tile-small & {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dt-icon {
+    width: 32px;
+    height: 32px;
+
+    .dt-tile-small & {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.dt-tile-disabled .dt-tile-icon {
+  background-color: $gray-300;
+}
+
+.dt-tile-heading {
+  padding: 8px 11px 0;
+  flex: 1 0 8px;
+  overflow: hidden;
+}
+
+.dt-tile-title {
+  display: block;
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 400;
+  color: $gray-700;
+  line-height: 1.2;
+
+  // Text truncation
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dt-tile-subtitle {
+  display: block;
+  margin-top: 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: $gray-500;
+  position: relative;
+  line-height: 1.2;
+
+  // Text truncation
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dt-tile-disabled .dt-tile-title,
+.dt-tile-disabled .dt-tile-subtitle, {
+  color: $gray-300;
+}
+
+.dt-tile-content {
+  display: block;
+  font-size: 14px;
+  color: $gray-700;
+  margin: 0;
+  padding: 11px;
+  border: 1px solid transparent;
+  border-radius: 0 0 3px 3px;
+  border-top: none;
+  background-color: #fff;
+}
+
+.dt-tile-disabled .dt-tile-content {
+  color: $gray-300;
+}
+
+// TODO @thomas.pink: Remove this once theming is in place
+@function dt-palette($default, $hover, $active) {
+  $result: (
+    default: $default,
+    hover: $hover,
+    active: $active,
+  );
+  @return $result;
+}
+$theme-light: (
+  main: dt-palette($turquoise-600, $turquoise-700, $turquoise-800),
+  error: dt-palette($red-600, $red-700, $red-800),
+  recovered: dt-palette($green-600, $green-700, $green-800),
+  is-dark: false,
+);
+$theme-dark: (
+  main: dt-palette($turquoise-500, $turquoise-400, $turquoise-300),
+  error: dt-palette($red-500, $red-400, $red-300),
+  recovered: dt-palette($green-500, $green-400, $green-300),
+  is-dark: true,
+);
+
+@mixin dt-tile-theme($theme) {
+
+  $palette-names: 'main', 'error', 'recovered';
+  $default-palette: 'main';
+
+  .dt-tile:not(.dt-tile-disabled) {
+    @each $name in $palette-names {
+      $palette: map-get($theme, $name);
+      $default-color: map-get($palette, 'default');
+
+      &.dt-color-#{$name} {
+        &:hover {
+          border-color: $default-color;
+        }
+
+        .dt-tile-icon {
+          background-color: $default-color;
+        }
+      }
+    }
+  }
+}
+
+// TODO @thomas.pink: Remove this once theming is in place
+@include dt-tile-theme($theme-light);
+.dt-theme-dark {
+  @include dt-tile-theme($theme-dark);
+}
