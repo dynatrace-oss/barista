@@ -15,6 +15,7 @@ export class UIApp {
     {name: 'Start', route: '/'},
     {name: 'Button', route: '/button'},
     {name: 'ButtonGroup', route: '/button-group'},
+    {name: 'Context Dialog', route: '/context-dialog'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'tile', route: '/tile'},
