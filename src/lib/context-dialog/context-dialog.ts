@@ -52,9 +52,6 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
-  /** Emits whenever the component is destroyed. */
-  private _destroy = new Subject<void>();
-
   /** Last emitted position of the overlay */
   private _lastOverlayPosition: ConnectionPositionPair;
 
@@ -195,10 +192,9 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
     positionChange
       // Stop listening when the component will be destroyed
       // or the overlay closes
-      .pipe(takeUntil(merge(
-        this._destroy,
+      .pipe(takeUntil(
         this.openedChange.pipe(filter((o) => !o))
-      )))
+      ))
       // Map the change event to the provided ConnectionPositionPair
       .pipe(map((change) => change.connectionPair))
       .subscribe((connectionPair) => {
@@ -215,8 +211,6 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
 
   /** Hook that trigger right before the component will be destroyed. */
   ngOnDestroy(): void {
-    this._destroy.next();
-    this._destroy.complete();
     this.close();
   }
 }
