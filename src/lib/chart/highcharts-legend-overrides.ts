@@ -12,7 +12,7 @@ export const configureLegendSymbols = () => {
       ['M10.5 5.5l3.5 4.8v3.2H2v-11L6.5 8z']
     )
     .addClass('highcharts-point')
-    .add(item.legendItemGroup);
+    .add(item.legendGroup);
   };
   // tslint:disable-next-line: no-any
   (Highcharts as any).seriesTypes.line.prototype.drawLegendSymbol = function(legend: any, item: any): void {
@@ -24,7 +24,6 @@ export const configureLegendSymbols = () => {
   };
   // tslint:disable-next-line: no-any
   (Highcharts as any).seriesTypes.pie.prototype.drawLegendSymbol = function(legend: any, item: any): void {
-
     item.legendSymbol = this.chart.renderer.path(
       ['M13 13C13 7.5 8.5 3 3 3v10h10z']
     )
