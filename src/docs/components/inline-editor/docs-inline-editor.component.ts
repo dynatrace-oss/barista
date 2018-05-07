@@ -7,7 +7,6 @@ import { FailingInlineEditorExample } from './examples/inline-editor-failing-exa
 @Component({
   moduleId: module.id,
   selector: 'docs-inline-editor',
-  styleUrls: ['./docs-inline-editor.component.scss'],
   templateUrl: './docs-inline-editor.component.html',
 })
 export class DocsInlineEditorComponent {
