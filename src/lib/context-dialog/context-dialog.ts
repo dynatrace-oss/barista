@@ -17,8 +17,6 @@ import {
   ViewEncapsulation,
   isDevMode,
 } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { merge } from 'rxjs/observable/merge';
 import { filter } from 'rxjs/operators/filter';
 import { map } from 'rxjs/operators/map';
 import { takeUntil } from 'rxjs/operators/takeUntil';
