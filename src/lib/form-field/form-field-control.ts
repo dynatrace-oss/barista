@@ -7,7 +7,7 @@ export abstract class DtFormFieldControl<T> {
   value: T | null;
 
   /**
-   * Stream that emits whenever the state of the control changes such that the parent `GhFormField`
+   * Stream that emits whenever the state of the control changes such that the parent `DtFormField`
    * needs to run change detection.
    */
   readonly stateChanges: Observable<void>;
