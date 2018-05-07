@@ -20,7 +20,7 @@ const EXAMPLES = [
     FormsModule,
     DtInlineEditorModule,
     UiModule,
-    InlineEditorModule
+    DtInlineEditorModule,
   ],
   declarations: [
     ...EXAMPLES,
