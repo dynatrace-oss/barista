@@ -7,7 +7,18 @@
   width: auto;
 }
 
-.dt-input ~ *,
-span ~ * {
+.dt-input ~ button,
+span ~ button {
   margin-left: 10px;
+}
+
+.dt-button-primary {
+  background: transparent;
+  background-size: contain;
+  &:hover,
+  &:focus,
+  &:active {
+    border: none;
+    background: transparent;
+  }
 }

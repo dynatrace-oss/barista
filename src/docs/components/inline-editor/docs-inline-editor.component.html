@@ -37,10 +37,10 @@ class MyModule {{"{}"}}
       <td>The two-way data-binding to set the content and handle changes.</td>
     </tr>
     <tr>
-      <td><code>onSave</code></td>
+      <td><code>onRemoteSave</code></td>
       <td><code>function</code></td>
       <td><code></code></td>
-      <td>A callback returning an Observable that will be triggered on save action.</td>
+      <td>A callback returning an Observable that will be triggered when the (potentially async) saving of the new value has finished. The inline editor needs to be notified so it can go back to idle state if ok or stay in editing mode if failed.</td>
     </tr>
   </tbody>
 </table>

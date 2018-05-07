@@ -10,7 +10,7 @@ const TIMEOUT_MS = 2000;
   template: `
     <em dt-inline-editor
       [(ngModel)]="sampleModel"
-      [onSave]="successfulSaveFunction"></em>
+      [onRemoteSave]="successfulSaveFunction"></em>
   `,
 })
 export class SuccessfulInlineEditorExample {

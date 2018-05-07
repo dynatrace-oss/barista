@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: `
     <em dt-inline-editor
-      [(ngModel)]="sampleModel"></em>
+      [(ngModel)]="sampleModel">
+    </em>
     <span>model: <code>{{ sampleModel }}</code></span>
   `,
 })

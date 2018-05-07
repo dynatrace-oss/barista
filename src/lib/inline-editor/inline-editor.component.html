@@ -1,11 +1,15 @@
-<span *ngIf="idle">{{ value }}</span>
+<ng-container *ngIf="idle">
+  <span >{{ value }}</span>
+  <button dt-button #edit aria-label="edit" type="button" (click)="enterEditing()">
+      edit
+  </button>
+</ng-container>
 <input dtInput #input *ngIf="editing || saving" [disabled]="saving" [value]="value" (input)="onChange()"
 />
-<button dt-button #edit aria-label="edit" type="button" *ngIf="idle" (click)="enterEditing()">edit</button>
 
 <dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
 <ng-container *ngIf="editing">
-  <button dt-button aria-label="save" type="button"  (click)="saveAndQuitEditing()">save</button>
-  <button dt-button aria-label="cancel" variant="secondary" type="button" (click)="cancelAndQuitEditing()">cancel</button>
-</ng-container>
+    <button dt-button aria-label="save" type="button"  (click)="saveAndQuitEditing()">save</button>
+    <button dt-button aria-label="cancel" variant="secondary" type="button" (click)="cancelAndQuitEditing()">cancel</button>
+  </ng-container>
