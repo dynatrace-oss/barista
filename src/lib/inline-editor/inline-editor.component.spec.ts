@@ -166,15 +166,16 @@ describe('DtInlineEditor', () => {
   template: `<h1 dt-inline-editor [(ngModel)]="model"></h1>`,
 })
 class TestApp {
-  model: 'content'
+  model: 'content';
 }
 
 @Component({
   template: `<h1 dt-inline-editor [(ngModel)]="model" [onSave]="save"></h1>`,
 })
 class TestAppWithSuccessSave {
-  model: 'content'
-  save () {
+  model: 'content';
+
+  save(): Observable<void> {
     return new Observable((observer) => {
       observer.next();
       observer.complete();
@@ -186,8 +187,9 @@ class TestAppWithSuccessSave {
   template: `<h1 dt-inline-editor [(ngModel)]="model" [onSave]="save"></h1>`,
 })
 class TestAppWithFailureSave {
-  model: 'content'
-  save () {
+  model: 'content';
+
+  save(): Observable<void> {
     return new Observable((observer) => {
       observer.error();
       observer.complete();

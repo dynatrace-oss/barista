@@ -52,7 +52,7 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
   @ViewChild('input') inputReference: ElementRef;
   @ViewChild('edit') editButtonReference: ElementRef;
 
-  @Input() onSave: (value: string) => Observable<void>;
+  @Input() onRemoteSave: (value: string) => Observable<void>;
   @Output() saved = new EventEmitter<string>();
   @Output() cancelled = new EventEmitter<string>();
 
@@ -99,9 +99,9 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
   saveAndQuitEditing(): void {
     const value = this._value;
 
-    if (this.onSave) {
+    if (this.onRemoteSave) {
       this._mode = MODES.SAVING;
-      this._saving = this.onSave(value)
+      this._saving = this.onRemoteSave(value)
         .subscribe(
           () => {
             this._mode = MODES.IDLE;
@@ -116,6 +116,7 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
         );
     } else {
       this._mode = MODES.IDLE;
+      this.saved.emit(value);
     }
     this._changeDetectorRef.markForCheck();
   }
