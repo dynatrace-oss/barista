@@ -42,7 +42,7 @@ export class DtColumnDef extends CdkColumnDef {
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnType') type: string;
   // tslint:disable-next-line:no-input-rename
-  @Input('dtColumnProportion') proportion = 1;
+  @Input('dtColumnProportion') proportion: number;
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnMinWidth') minWidth: string | number;
 }
@@ -100,15 +100,20 @@ function setColumnClass(): void {
   const cssAlignmentClass = getColumnAlignmentClass(type) || 'left';
 
   this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
-  this._renderer.setStyle(nativeElement, 'flex-grow', proportion);
-  this._renderer.setStyle(nativeElement, 'flex-shrink', proportion);
 
-  let setMinWidth = '0';
-  if (typeof minWidth === 'string') {
-    setMinWidth = minWidth;
+  if (Number.isInteger(proportion)) {
+    this._renderer.setStyle(nativeElement, 'flex-grow', proportion);
+    this._renderer.setStyle(nativeElement, 'flex-shrink', proportion);
   }
-  if (Number.isInteger(minWidth)) {
-    setMinWidth = `${minWidth}px`;
+
+  if (minWidth !== undefined) {
+    let setMinWidth = '0';
+    if (typeof minWidth === 'string') {
+      setMinWidth = minWidth;
+    }
+    if (Number.isInteger(minWidth)) {
+      setMinWidth = `${minWidth}px`;
+    }
+    this._renderer.setStyle(nativeElement, 'min-width', setMinWidth);
   }
-  this._renderer.setStyle(nativeElement, 'min-width', setMinWidth);
 }
