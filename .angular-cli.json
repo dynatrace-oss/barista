@@ -17,6 +17,10 @@
         "glob": "**",
         "input": "../lib/assets",
         "output": "./assets"
+      },{
+        "glob": "**",
+        "input": "../docs/assets",
+        "output": "./assets"
       }],
       "styles": [
         "main.scss"
