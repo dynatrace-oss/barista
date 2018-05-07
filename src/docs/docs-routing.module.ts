@@ -10,18 +10,21 @@ import { DocsExpandablePanelComponent } from './components/expandable-panel/docs
 import { DocsExpandableSectionComponent } from './components/expandable-section/docs-expandable-section.component';
 import { DocsTableComponent } from './components/table/docs-table.component';
 import { DocsChartComponent } from './components/chart/docs-chart.component';
+import { DocsTileComponent } from './components/tile/docs-tile.component';
 
 const routes: Routes = [
   { path: '', component: Home },
   { path: 'button', component: DocsButtonComponent },
   { path: 'button-group', component: DocsButtonGroupComponent },
+  { path: 'chart', component: DocsChartComponent },
   { path: 'input', component: DocsInputComponent },
   { path: 'expandable-panel', component: DocsExpandablePanelComponent },
   { path: 'expandable-section', component: DocsExpandableSectionComponent },
+  { path: 'input', component: DocsInputComponent },
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
   { path: 'links', component: DocsLinkComponent },
   { path: 'table', component: DocsTableComponent },
-  { path: 'chart', component: DocsChartComponent },
+  { path: 'tile', component: DocsTileComponent },
   { path: '**', redirectTo: '' },
 ];
 
