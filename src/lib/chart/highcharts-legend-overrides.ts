@@ -11,6 +11,7 @@ export const configureLegendSymbols = () => {
     item.legendSymbol = this.chart.renderer.path(
       ['M10.5 5.5l3.5 4.8v3.2H2v-11L6.5 8z']
     )
+    .addClass('highcharts-point')
     .add(item.legendItemGroup);
   };
   // tslint:disable-next-line: no-any
@@ -39,6 +40,7 @@ export const configureLegendSymbols = () => {
     item.legendSymbol = this.chart.renderer.path(
       ['M2 7.3h2.5v5.8H2z M6.8 3h2.5v10H6.8z M11.5 5.1H14V13h-2.5z']
     )
+    .addClass('highcharts-point')
     .add(item.legendGroup);
   };
 };
