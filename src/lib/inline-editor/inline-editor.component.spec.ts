@@ -48,16 +48,6 @@ describe('DtInlineEditor', () => {
 
   });
 
-  it('should contain the edit text somewhere', () => {
-    const fixture = TestBed.createComponent(TestApp);
-    const component = fixture.componentInstance; //// !!!
-    fixture.detectChanges();
-
-    const inlineEditorComponent: HTMLElement = fixture.debugElement.nativeElement;
-
-    expect(inlineEditorComponent.textContent).toContain('edit');
-  });
-
   it('should create controls', () => {
     const fixture = TestBed.createComponent(TestApp);
     fixture.detectChanges();
