@@ -4,10 +4,10 @@ import { Default<%= classify(name) %>ExampleComponent } from './examples/default
 @Component({
   moduleId: module.id,
   selector: 'docs-<%=dasherize(name)%>',
-  templateUrl: '<%=dasherize(name)%>.component.html',
-  styleUrls: ['<%=dasherize(name)%>.component.scss'],
+  templateUrl: 'docs-<%=dasherize(name)%>.component.html',
+  styleUrls: ['docs-<%=dasherize(name)%>.component.scss'],
 })
-export class <%= classify(name) %>Demo {
+export class Docs<%= classify(name) %>Component {
   examples = {
     default: Default<%= classify(name) %>ExampleComponent,
   };
