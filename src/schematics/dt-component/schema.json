@@ -6,10 +6,6 @@
   "properties": {
     "name": {
       "type": "string"
-    },
-    "sourceDir": {
-      "type": "string",
-      "default": "src"
     }
   }
 }

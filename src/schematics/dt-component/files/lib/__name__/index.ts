@@ -1,1 +1,2 @@
-export * from './public-api';
+export * from './<%=dasherize(name)%>-module';
+export * from './<%=dasherize(name)%>';

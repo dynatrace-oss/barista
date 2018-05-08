@@ -1,12 +1,12 @@
 {
-  "$schema": "./node_modules/@angular-devkit/schematics/collection-schema.json",
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     // Create a component
     "dtComponent": {
       "description": "Create a component with a demo",
       "factory": "./dt-component/index",
       "schema": "./dt-component/schema.json",
-      "aliases": [ "dt-component" ]
+      "aliases": [ "dtc" ]
     }
   }
 }
