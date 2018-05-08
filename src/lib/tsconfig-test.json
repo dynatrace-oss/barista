@@ -7,9 +7,9 @@
     "target": "es5",
     "types": ["jasmine"],
     "paths": {
-      "@dynatrace/angular-components": ["dist/lib"],
+      "@dynatrace/angular-components": ["dist/lib"]
     },
-    "rootDir": ".",
+    "rootDir": "..",
     "outDir": "../../dist/unit-test"
   },
   "angularCompilerOptions": {
@@ -19,7 +19,7 @@
     "fullTemplateTypeCheck": true
   },
   "include": [
-    "**/*.spec.ts",
+    "../lib/**/*.spec.ts",
     "typings.d.ts"
   ]
 }
