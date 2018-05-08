@@ -1,9 +1,6 @@
 import {
-  Directive,
   Component,
-  ViewEncapsulation,
   ChangeDetectionStrategy,
-  OnInit,
 } from '@angular/core';
 
 @Component({
