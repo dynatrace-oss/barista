@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+.dt-input {
+  width: auto;
+}
+
+.dt-input ~ button,
+span ~ button {
+  margin-left: 10px;
+}
+
+.dt-button-with-icon {
+  padding: 0 5px !important;
+  border:none;
+  background: transparent !important;
+  background-size: contain !important;
+  &:hover,
+  &:focus,
+  &:active {
+    border: none !important;
+    background: transparent !important;
+  }
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+

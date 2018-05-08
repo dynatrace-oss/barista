@@ -1,0 +1,32 @@
+<ng-container *ngIf="idle">
+  <span>{{value}}</span>
+  <button dt-button class="dt-button-with-icon" #edit aria-label="edit" type="button" (click)="enterEditing()">
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+      <rect x="146.45694" y="177.54385" transform="matrix(0.70711 -0.70711 0.70711 0.70711 -91.58234 261.98898)" fill="#4fd5e0" width="248.00113" height="128.00058"></rect>
+      <path fill="#4fd5e0" d="M441.57568,129.82138l-59.39697-59.39697c-8.59152-8.59154-22.52115-8.59154-31.1127,0l-15.55634,15.55635
+        l90.50967,90.50965l15.55634-15.55634C450.16721,152.34254,450.16721,138.4129,441.57568,129.82138z"></path>
+      <polygon fill="#4fd5e0" points="83.44682,393.94647 63.98066,448.01944 118.05362,428.55328 "></polygon>
+      <polygon fill="#4fd5e0" points="151.32907,416.57388 205.40202,397.10773 114.89235,306.59808 95.4262,360.67102 "></polygon>
+      </svg>
+  </button>
+</ng-container>
+<input dtInput #input *ngIf="editing || saving" [disabled]="saving" [value]="value" (input)="onChange()"
+/>
+
+<dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
+
+<ng-container *ngIf="editing">
+    <button dt-button class="dt-button-with-icon" aria-label="save" type="button"  (click)="saveAndQuitEditing()">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <polygon fill="#4fd5e0" points="453.44849,132.55295 404.42163,91.41453 203.87195,330.42038 99.68994,243.00125
+            58.55151,292.02811 211.76038,420.58566 "></polygon>
+          </svg>
+    </button>
+    <button dt-button class="dt-button-with-icon" aria-label="cancel" variant="secondary" type="button" (click)="cancelAndQuitEditing()">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <polygon fill="#4fd5e0" points="434.19092,134.37753 377.62256,77.80918 256,199.43173 134.37744,77.80918 77.80908,134.37753
+                199.43164,256.00009 77.80908,377.62265 134.37744,434.19101 256,312.56845 377.62256,434.19101 434.19092,377.62265
+                312.56836,256.00009 "></polygon>
+          </svg>
+    </button>
+  </ng-container>

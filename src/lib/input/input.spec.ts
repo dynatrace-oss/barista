@@ -133,7 +133,7 @@ describe('DtInput without forms', () => {
     const fixture = TestBed.createComponent(DtInputTextareaWithBindings);
     fixture.detectChanges();
 
-    const textarea: HTMLTextAreaElement = fixture.nativeElement.querySelector('textarea');
+    const textarea: HTMLTextAreaElement = fixture.debugElement.nativeElement.querySelector('textarea');
     expect(textarea).not.toBeNull();
   }));
 });

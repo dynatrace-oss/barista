@@ -15,6 +15,7 @@ export class Docs {
     {name: 'Context dialog', route: '/context-dialog'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
+    {name: 'Inline Editor', route: '/inline-editor'},
     {name: 'Input', route: '/input'},
     {name: 'Links', route: '/links'},
     {name: 'Loading distractor', route: '/loading-distractor'},
