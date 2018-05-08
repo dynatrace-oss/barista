@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
-import { TestBed, fakeAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  ComponentFixture} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+  ReactiveFormsModule, } from '@angular/forms';
 import { PlatformModule } from '@angular/cdk/platform';
 import { By } from '@angular/platform-browser';
-import { DtInlineEditorModule, DtInlineEditor } from '@dynatrace/angular-components';
+import {
+  DtInlineEditorModule,
+  DtInlineEditor } from '@dynatrace/angular-components';
 import { Observable } from 'rxjs/Observable';
 
 describe('DtInlineEditor', () => {
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
@@ -28,7 +31,32 @@ describe('DtInlineEditor', () => {
     });
 
     TestBed.compileComponents();
-  }));
+  });
+
+  it('should create the components', () => {
+    let fixture: any = TestBed.createComponent(TestApp);
+    let component = fixture.componentInstance;
+    expect(component).toBeDefined();
+
+    fixture = TestBed.createComponent(TestAppWithSuccessSave);
+    component = fixture.componentInstance;
+    expect(component).toBeDefined();
+
+    fixture = TestBed.createComponent(TestAppWithFailureSave);
+    component = fixture.componentInstance;
+    expect(component).toBeDefined();
+
+  });
+
+  it('should contain the edit text somewhere', () => {
+    const fixture = TestBed.createComponent(TestApp);
+    const component = fixture.componentInstance; //// !!!
+    fixture.detectChanges();
+
+    const inlineEditorComponent: HTMLElement = fixture.debugElement.nativeElement;
+
+    expect(inlineEditorComponent.textContent).toContain('edit');
+  });
 
   it('should create controls', () => {
     const fixture = TestBed.createComponent(TestApp);
@@ -36,8 +64,10 @@ describe('DtInlineEditor', () => {
 
     const textReference = fixture.debugElement.query(By.css('span'));
 
-    expect(textReference.nativeElement.innerText)
-      .toBe('content', 'Expected inner text to reflext ngModel value');
+    fixture.whenStable().then(() => {
+      expect(textReference.nativeElement.innerText)
+      .toBe('content', 'Expected inner text to reflect ngModel value');
+    });
 
     const buttonReference = fixture.debugElement.query(By.css('button'));
 
@@ -61,8 +91,10 @@ describe('DtInlineEditor', () => {
     expect(cancelButtonReference).not.toBeFalsy();
 
     expect(inputReference).not.toBeFalsy();
-    expect(inputReference.nativeElement.value)
+    fixture.whenStable().then(() => {
+      expect(inputReference.nativeElement.value)
       .toBe('content', 'Expect ngModel value to be mapped to input value');
+    });
   });
 
   it('should save changes', () => {
@@ -85,8 +117,10 @@ describe('DtInlineEditor', () => {
 
     const textReference = fixture.debugElement.query(By.css('span'));
 
-    expect(textReference.nativeElement.innerText)
+    fixture.whenStable().then(() => {
+      expect(textReference.nativeElement.innerText)
       .toBe('hola', 'Expected inner text to be changed');
+    });
   });
 
   it('should cancel changes', () => {
@@ -109,11 +143,13 @@ describe('DtInlineEditor', () => {
 
     const textReference = fixture.debugElement.query(By.css('span'));
 
-    expect(textReference.nativeElement.innerText)
-      .toBe('content', 'Expected inner text not to be changed');
+    fixture.whenStable().then(() => {
+      expect(textReference.nativeElement.innerText)
+      .toBe('hola', 'Expected inner text to be changed');
+    });
   });
 
-  it('should call save method and apply changes', fakeAsync(() => {
+  it('should call save method and apply changes', () => {
     const fixture = TestBed.createComponent(TestAppWithSuccessSave);
     const instanceDebugElement = fixture.debugElement.query(By.directive(DtInlineEditor));
     const instance = instanceDebugElement.injector.get<DtInlineEditor>(DtInlineEditor);
@@ -133,11 +169,13 @@ describe('DtInlineEditor', () => {
 
     const textReference = fixture.debugElement.query(By.css('span'));
 
-    expect(textReference.nativeElement.innerText)
+    fixture.whenStable().then(() => {
+      expect(textReference.nativeElement.innerText)
       .toBe('hola', 'Expected inner text to be changed');
-  }));
+    });
+  });
 
-  it('should call save method and reject changes', fakeAsync(() => {
+  it('should call save method and reject changes', () => {
     const fixture = TestBed.createComponent(TestAppWithSuccessSave);
     const instanceDebugElement = fixture.debugElement.query(By.directive(DtInlineEditor));
     const instance = instanceDebugElement.injector.get<DtInlineEditor>(DtInlineEditor);
@@ -157,20 +195,23 @@ describe('DtInlineEditor', () => {
 
     const textReference = fixture.debugElement.query(By.css('span'));
 
-    expect(textReference.nativeElement.innerText)
-      .toBe('content', 'Expected inner text not to be changed');
-  }));
+    fixture.whenStable().then(() => {
+      expect(textReference.nativeElement.innerText)
+      .toBe('content', 'Expected inner text to be changed');
+    });
+  });
 });
 
 @Component({
-  template: `<h1 dt-inline-editor [(ngModel)]="model"></h1>`,
+  template: `<em dt-inline-editor
+  [(ngModel)]="initialValue"></em>`,
 })
 class TestApp {
-  model: 'content';
+  initialValue: 'content';
 }
 
 @Component({
-  template: `<h1 dt-inline-editor [(ngModel)]="model" [onSave]="save"></h1>`,
+  template: `<h1 dt-inline-editor [(ngModel)]="model" [onRemoteSave]="save"></h1>`,
 })
 class TestAppWithSuccessSave {
   model: 'content';
@@ -184,7 +225,7 @@ class TestAppWithSuccessSave {
 }
 
 @Component({
-  template: `<h1 dt-inline-editor [(ngModel)]="model" [onSave]="save"></h1>`,
+  template: `<h1 dt-inline-editor [(ngModel)]="model" [onRemoteSave]="save"></h1>`,
 })
 class TestAppWithFailureSave {
   model: 'content';
