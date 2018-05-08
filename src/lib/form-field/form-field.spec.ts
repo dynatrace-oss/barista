@@ -12,7 +12,7 @@ import {
   DtInput,
   ErrorStateMatcher,
 } from '@dynatrace/angular-components';
-import { dispatchFakeEvent } from '../testing/dispatch-events';
+import { dispatchFakeEvent } from '../../testing/dispatch-events';
 
 /**
  * Gets a RegExp used to detect an angular wrapped error message.
