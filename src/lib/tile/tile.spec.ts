@@ -37,7 +37,7 @@ describe('DtTile', () => {
 
   it('should add a disabled class to the tile element', () => {
     const fixture = TestBed.createComponent(TestApp);
-    const tileNativeElement = fixture.nativeElement.querySelector('dt-tile');
+    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tile');
     expect(tileNativeElement.classList.contains('dt-tile-disabled'))
       .toBeFalsy('Expected tile not to be disabled');
 
