@@ -72,20 +72,6 @@ describe('DtFormField without forms', () => {
     }
   }));
 
-  // Safari Desktop and IE don't support type="date" and fallback to type="text".
-  it('should be treated as empty if type is date in Safari Desktop or IE', fakeAsync(() => {
-    const platform = new Platform();
-
-    if (platform.TRIDENT || (platform.SAFARI && !platform.IOS)) {
-      const fixture = TestBed.createComponent(DtInputDateTestController);
-      fixture.detectChanges();
-
-      const el = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
-      expect(el).not.toBeNull();
-      expect(el.classList.contains('dt-form-field-empty')).toBe(true);
-    }
-  }));
-
   it('should treat text input type as empty at init', fakeAsync(() => {
     const fixture = TestBed.createComponent(DtInputTextTestController);
     fixture.detectChanges();
@@ -101,8 +87,6 @@ describe('DtFormField without forms', () => {
 
     const inputEl = fixture.debugElement.query(By.css('input'));
     const el = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
-    expect(el).not.toBeNull();
-    expect(el.classList.contains('dt-form-field-empty')).toBe(true, 'should be empty');
 
     inputEl.nativeElement.value = 'hello';
     // Simulate input event.
