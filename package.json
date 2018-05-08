@@ -12,6 +12,7 @@
     "lint": "gulp lint",
     "universal": "gulp universal"
   },
+  "schematics": "./src/schematics/collection.json",
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
@@ -29,14 +30,16 @@
     "zone.js": "^0.8.12"
   },
   "devDependencies": {
-    "@angular-devkit/core": "^0.2.0",
-    "@angular/cli": "^1.7.3",
+    "@angular-devkit/core": "^0.6.0",
+    "@angular-devkit/schematics": "^0.6.0",
+    "@angular/cli": "^6.0.0",
     "@angular/compiler-cli": "~5.2.0",
     "@angular/http": "^5.2.0",
     "@angular/platform-browser-dynamic": "~5.2.0",
     "@angular/platform-server": "~5.2.0",
     "@angular/router": "~5.2.0",
     "@dynatrace/groundhog": "^5.3.5",
+    "@schematics/angular": "^0.6.0",
     "@types/chalk": "^0.4.31",
     "@types/cross-spawn": "^6.0.0",
     "@types/fs-extra": "^5.0.0",
