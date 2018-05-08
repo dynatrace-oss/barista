@@ -4,6 +4,7 @@ import {
   SchematicsException,
 } from '@angular-devkit/schematics';
 import { InsertChange } from './change';
+import { strings } from '@angular-devkit/core';
 
 export function getSourceFile(host: Tree, path: string): ts.SourceFile {
   const buffer = host.read(path);
@@ -86,9 +87,9 @@ export function addDynatraceAngularComponentsImport(source: ts.SourceFile, path:
   const namedImports = findNodes(lastImport, ts.SyntaxKind.NamedImports) as ts.NamedImports[];
 
   if (namedImports.length === 0) {
-    throw new SchematicsException(`No named imports found from @dynatrace/angular-components in ${path}`)
+    throw new SchematicsException(`No named imports found from @dynatrace/angular-components in ${path}`);
   }
-  const lastNamedImport = namedImports[namedImports.length -1];
+  const lastNamedImport = namedImports[namedImports.length - 1];
   const end = lastNamedImport.elements.end;
   // Get the indentation of the last element, if any.
   const indentation = getIndentation(lastNamedImport.elements);
@@ -99,7 +100,7 @@ export function addDynatraceAngularComponentsImport(source: ts.SourceFile, path:
 /**
  * Gets the indentation string for the last entry in NodeArray
  */
-export function getIndentation(elements: ts.NodeArray<any>): string {
+export function getIndentation(elements: ts.NodeArray<any> | ts.Node[]): string {
   let indentation = '\n';
   if (elements.length > 0) {
     const text = elements[elements.length - 1].getFullText();
@@ -109,4 +110,22 @@ export function getIndentation(elements: ts.NodeArray<any>): string {
     }
   }
   return indentation;
+}
+
+export function addImport(
+  sourcePath: string,
+  sourceFile: ts.SourceFile,
+  importName: string,
+  importLocation: string
+): InsertChange {
+  /**
+   * get all importnodes if there are any and insert a new one at the end
+   */
+  const importNodes = findNodes(sourceFile, ts.SyntaxKind.ImportDeclaration);
+  let pos = 0;
+  if (importNodes.length > 0) {
+    pos = importNodes[importNodes.length - 1].getEnd();
+  }
+  const toInsert = `\nimport { ${importName} } from ${importLocation}`;
+  return new InsertChange(sourcePath, pos, toInsert);
 }

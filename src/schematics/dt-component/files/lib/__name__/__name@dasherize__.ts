@@ -8,16 +8,15 @@ import {
 
 @Component({
   moduleId: module.id,
-  selector: 'gh-<%=dasherize(name)%>',
+  selector: 'dt-<%=dasherize(name)%>',
   templateUrl: '<%=dasherize(name)%>.html',
-  styleUrls: ['<%=dasherize(name)%>.css'],
+  styleUrls: ['<%=dasherize(name)%>.scss'],
   host: {
-    'class': 'gh-<%=dasherize(name)%>',
+    'class': 'dt-<%=dasherize(name)%>',
   },
-  encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Gh<%= classify(name) %> {
+export class Dt<%= classify(name) %> {
 
 }
