@@ -12,7 +12,7 @@ import {
   templateUrl: '<%=dasherize(name)%>.html',
   styleUrls: ['<%=dasherize(name)%>.scss'],
   host: {
-    'class': 'dt-<%=dasherize(name)%>',
+    class: 'dt-<%=dasherize(name)%>',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
