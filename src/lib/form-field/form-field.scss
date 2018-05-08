@@ -1,0 +1,112 @@
+@import '../core/style/variables';
+@import '../core/style/form-control';
+@import '../core/style/interactive-common';
+
+// Infix stretches to fit the container, but naturally wants to be this wide. We set this in order
+// to have a a consistent natural size for the various types of controls that can go in a form
+// field.
+$dt-form-field-default-infix-width: 180px !default;
+
+.dt-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+}
+
+.dt-form-field-body {
+  display: flex;
+  align-items: baseline;
+  box-sizing: border-box;
+  width: 100%;
+  @include dt-form-control();
+
+  .dt-focused & {
+    @include dt-focus-style();
+  }
+}
+
+.dt-form-field-prefix,
+.dt-form-field-suffix {
+  white-space: nowrap;
+  flex: none;
+  position: relative;
+}
+
+.dt-form-field-infix {
+  display: block;
+  position: relative;
+  flex: auto;
+  min-width: 0;
+  width: $dt-form-field-default-infix-width;
+}
+
+.dt-form-field-label {
+  position: relative;
+  font-size: 12px;
+  font-weight: 400;
+  display: block;
+  padding-bottom: 6px;
+}
+
+.dt-form-field-subscript-wrapper {
+  position: relative;
+}
+
+.dt-form-field-error {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border: 1px solid $disabledcolor;
+  background-color: $gray-100;
+  padding: 8px 12px 7px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  transform-origin: top left;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: -1px;
+    right: -1px;
+    height: 2px;
+    background-color: $red-500;
+  }
+}
+
+.dt-form-field-invalid .dt-input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.dt-form-field-hint-wrapper {
+  display: flex;
+  padding-top: 6px;
+}
+
+.dt-form-field-hint-spacer {
+  flex: 1 0 8px;
+}
+
+.dt-hint,
+.dt-error {
+  font-family: $mainfont;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: none;
+  appearance: none;
+  display: block;
+  box-sizing: border-box;
+  white-space: normal;
+}
+
+.dt-hint {
+  color: $gray-500;
+}
+
+.dt-error {
+  color: $red-500;
+}

@@ -1,0 +1,10 @@
+// Mixin to create the border and spacings for inputs, form-fields, ...
+@mixin dt-form-control() {
+  box-sizing: border-box;
+  border: 1px solid $disabledcolor;
+  border-radius: 3px;
+  overflow: hidden;
+  width: 100%;
+  font-size: 14px;
+  line-height: 32px;
+}

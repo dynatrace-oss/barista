@@ -7,6 +7,7 @@
  */
 
 export * from './core/index';
+export * from './form-field/index';
 export * from './input/index';
 export * from './expandable-panel/index';
 export * from './inline-editor/index';
