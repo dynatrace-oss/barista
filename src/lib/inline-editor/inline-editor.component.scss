@@ -12,13 +12,20 @@ span ~ button {
   margin-left: 10px;
 }
 
-.dt-button-primary {
-  background: transparent;
-  background-size: contain;
+.dt-button-with-icon {
+  padding: 0 5px !important;
+  border:none;
+  background: transparent !important;
+  background-size: contain !important;
   &:hover,
   &:focus,
   &:active {
-    border: none;
-    background: transparent;
+    border: none !important;
+    background: transparent !important;
+  }
+  svg {
+    display: inline-block;
+    vertical-align: middle;
   }
 }
+
