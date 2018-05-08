@@ -12,5 +12,5 @@
   "dependencies": {
     "@angular-devkit/core": "^0.6.0",
     "@angular-devkit/schematics": "^0.6.0"
-  },
+  }
 }
