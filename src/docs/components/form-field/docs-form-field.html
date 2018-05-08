@@ -1,0 +1,56 @@
+<h1>Form field</h1>
+
+<docs-source-example [example]="examples.default"></docs-source-example>
+
+<p>
+  <code>&lt;dt-form-field&gt;</code> is a component that wraps form input components like <code>dtInput</code> and
+  provides functionality for a label (<code>&lt;dt-label&gt;</code>), errors (<code>&lt;dt-error&gt;</code>) and hints (<code>&lt;dt-hint&gt;</code>).
+</p>
+
+<h2>Label</h2>
+<p>
+    A label can be applied by adding a <code>&lt;dt-label&gt;</code> element.<br>
+    <code>&lt;dt-form-field&gt;</code> takes care of linking the label correctly to the form component by adding <code>for="input-id"</code> and the correct aria attributes.
+</p>
+
+<p><em>Example:</em></p>
+<docs-source-example [example]="examples.default"></docs-source-example>
+
+<h2>Hint labels</h2>
+<p>
+  Hint labels are additional descriptive text that appears below the form field.
+  A <code>&lt;dt-form-field&gt;</code> can have up to two hint labels: one start-aligned and one end-aligned.
+</p>
+
+<p>
+  Hint labels can be added with the <code>&lt;dt-hint&gt;</code> element inside the form field.
+  Hints can be added to either side by setting the align property on <code>&lt;dt-hint&gt;</code> to either start or end.
+  Attempting to add multiple hints to the same side will raise an error.
+</p>
+
+<p><code>&lt;dt-form-field&gt;</code> takes care of linking the hints correctly to the form component.</p>
+
+<p><em>Example:</em></p>
+<docs-source-example [example]="examples.hint"></docs-source-example>
+
+<h2>Error messages</h2>
+
+<p>
+  Error messages can be shown under the form field by adding <code>&lt;dt-error&gt;</code> elements inside the form field.
+  Errors are hidden initially and will be displayed on invalid form fields, after the user has interacted with the element or the parent form has been submitted.
+  The errors will appear on top of the hint labels and will overlap them.
+</p>
+
+<p>If a form field can have more than one error state, it is up to the consumer to toggle which messages should be displayed. This can be done with <code>ngIf</code> or <code>ngSwitch</code>.</p>
+
+<p><em>Example:</em></p>
+<docs-source-example [example]="examples.error"></docs-source-example>
+
+<h2>Prefix & suffix</h2>
+<p>Custom content (like buttons, icons, loading-spinners) can be included before and after the input tag, as a prefix or suffix. It will be included within the visual container that wraps the form control.</p>
+<p>Adding the <code>dtPrefix</code> directive to an element inside the <code>&lt;dt-form-field&gt;</code> will designate it as the prefix. Similarly, adding <code>dtSuffix</code> will designate it as the suffix.</p>
+<p><strong>NOTE:</strong> Prefix & suffix is still WIP. We need to update the styles once no-border buttons, small buttons and icons are in place.</p>
+
+<p><em>Example:</em></p>
+<docs-source-example [example]="examples.prefixSuffix"></docs-source-example>
+
