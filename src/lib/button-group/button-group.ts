@@ -17,7 +17,12 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import {CanDisable, HasTabIndex, mixinDisabled, mixinTabIndex} from '../core/index';
+import {
+  CanDisable,
+  DtLogger, DtLoggerFactory,
+  HasTabIndex,
+  mixinDisabled, mixinTabIndex
+} from '../core/index';
 
 import {Observable} from 'rxjs/Observable';
 import {defer} from 'rxjs/observable/defer';
@@ -29,6 +34,8 @@ import {takeUntil} from 'rxjs/operators/takeUntil';
 import {Subject} from 'rxjs/Subject';
 import {SelectionModel} from '@angular/cdk/collections';
 import {DtButtonGroupItem, DtButtonGroupItemSelectionChange} from './button-group-item';
+
+const LOG: DtLogger = DtLoggerFactory.create('DtButtonGroup');
 
 export class DtButtonGroupBase {
   constructor(public _elementRef: ElementRef) {
@@ -148,8 +155,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup implements CanDisable, HasT
         return option.value !== null && this._compareWith(option.value, value);
       } catch (error) {
         if (isDevMode()) {
-          // tslint:disable-next-line:no-console
-          console.error('Error in compareWith', error);
+          LOG.error('Error in compareWith', error);
         }
 
         return false;
