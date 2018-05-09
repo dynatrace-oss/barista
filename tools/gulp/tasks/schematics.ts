@@ -3,14 +3,15 @@ import { execNodeTask } from '../util/task-runner';
 import { join, resolve as resolvePath } from 'path';
 import { buildConfig } from '../build-config';
 import { spawn } from 'child_process';
+import { readFile } from 'fs';
 import { red } from 'chalk';
-import { sequenceTask } from 'util/sequence-task';
+import { sequenceTask } from '../util/sequence-task';
 
 const gulpClean = require('gulp-clean');
 
 const SCHEMATICS_ROOT = join(buildConfig.projectDir, 'src/schematics');
 const SCHEMATICS_CONFIG_PATH = join(SCHEMATICS_ROOT, 'tsconfig.json');
-const SCHEMATICS_OUTDIR = join(buildConfig.projectDir, 'node_modules', '@dynatrace', 'angular-components-schematics');
+const SCHEMATICS_OUTDIR = join(buildConfig.projectDir, 'node_modules', '@dynatrace', 'components-schematics');
 
 /**
  * Spawns a child process that compiles using tsc.
