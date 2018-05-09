@@ -21,12 +21,14 @@ import { Platform } from '@angular/cdk/platform';
 import { DocsCardModule } from './components/card/docs-card.module';
 import { DocsContextDialogModule } from './components/context-dialog/docs-context-dialog.module';
 import { DocsFormFieldModule } from './components/form-field/docs-form-field-module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    CoreModule,
     DocsRoutingModule,
     DocsButtonModule,
     DocsButtonGroupModule,
