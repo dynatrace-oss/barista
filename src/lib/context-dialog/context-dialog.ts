@@ -139,13 +139,6 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
       this._focusTrap = this._focusTrapFactory.create(this._overlayDir.overlayRef.overlayElement);
     }
     this._focusTrap.focusInitialElementWhenReady()
-    .then((success: boolean) => {
-      if (isDevMode) {
-        const msg = success ? 'Setting focus was successful' : 'Setting focus did not work';
-        // tslint:disable-next-line: no-console
-        console.log(msg);
-      }
-    })
     .catch((error: Error) => {
       if (isDevMode) {
         // tslint:disable-next-line: no-console
