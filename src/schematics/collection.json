@@ -2,7 +2,7 @@
   "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     // Create a component
-    "dtComponent": {
+    "dt-component": {
       "description": "Create a component with a demo",
       "factory": "./dt-component/index",
       "schema": "./dt-component/schema.json",

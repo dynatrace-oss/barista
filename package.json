@@ -41,7 +41,6 @@
     "@angular/platform-server": "~5.2.0",
     "@angular/router": "~5.2.0",
     "@dynatrace/groundhog": "^5.3.5",
-    "@schematics/angular": "^0.6.0",
     "@types/chalk": "^0.4.31",
     "@types/cross-spawn": "^6.0.0",
     "@types/fs-extra": "^5.0.0",
