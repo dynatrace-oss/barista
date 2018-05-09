@@ -11,33 +11,43 @@ import {
 import { take } from 'rxjs/operators/take';
 import { DtIconRegistry } from './icon-registry';
 import { DtIconType } from './icon-types';
+import { CanColor, mixinColor, HasElementRef, DtExtendedThemePalette } from '../core/index';
+// Importing Contructor by its own, because it is not exported in core (and should not be exported)
+import { Constructor } from '../core/common-behaviours/constructor';
+
+// Boilerplate for applying mixins to DtInput.
+export class DtIconBase {
+  constructor(public _elementRef: ElementRef) { }
+}
+export const _DtIconMixinBase = mixinColor<Constructor<DtIconBase>, DtExtendedThemePalette>(DtIconBase);
 
 @Component({
   moduleId: module.id,
   selector: 'dt-icon',
   exportAs: 'dtIcon',
   template: '<ng-content></ng-content>',
-  styles: [':host { display: inline-block; }'],
+  styleUrls: ['icon.scss'],
   host: {
     role: 'img',
     class: 'dt-icon',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // Changing view encapsulation to None as there is actually no need for encapsulation.
-  // There is no real template and it makes it way easier to re-color (fill) the icon from the outside.
+  // Disabled view encapsulation because we need to access and style
+  // the dynamically loaded and generated svg elements.
   // tslint:disable-next-line:use-view-encapsulation
   encapsulation: ViewEncapsulation.None,
 })
-export class DtIcon implements OnChanges {
+export class DtIcon extends _DtIconMixinBase implements OnChanges, CanColor, HasElementRef {
 
   /** Name of the icon in the registry. */
   @Input() name: DtIconType;
 
   constructor(
-    private _elementRef: ElementRef,
+    _elementRef: ElementRef,
     private _iconRegistry: DtIconRegistry,
     @Attribute('aria-hidden') ariaHidden: string
   ) {
+    super(_elementRef);
     // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
     // the right thing to do for the majority of icon use-cases.
     if (!ariaHidden) {
