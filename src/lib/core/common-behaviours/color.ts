@@ -4,7 +4,7 @@ import { replaceCssClass } from '../util/platform-util';
 
 export interface CanColor {
   /** Theme color palette for the component. */
-  color: ThemePalette;
+  color: Partial<DtExtendedThemePalette>;
 }
 
 export interface HasElementRef {
@@ -12,14 +12,16 @@ export interface HasElementRef {
 }
 
 /** Possible color palette values. */
-export type ThemePalette = 'main' | 'accent' | 'warning' | 'error' | 'cta' | undefined;
+export type DtThemePalette = 'main' | 'accent' | 'warning' | 'error' | 'cta' | undefined;
+
+export type DtExtendedThemePalette = DtThemePalette | 'light' | 'dark';
 
 /** Mixin to augment a directive with a `color` property. */
 export function mixinColor<T extends Constructor<HasElementRef>>(
-  base: T, defaultColor?: ThemePalette): Constructor<CanColor> & T;
-export function mixinColor<T extends Constructor<HasElementRef>, P extends Partial<ThemePalette>>(
+  base: T, defaultColor?: DtThemePalette): Constructor<CanColor> & T;
+export function mixinColor<T extends Constructor<HasElementRef>, P extends Partial<DtExtendedThemePalette>>(
   base: T, defaultColor?: P): Constructor<CanColor> & T;
-export function mixinColor<T extends Constructor<HasElementRef>, P extends Partial<ThemePalette>>(
+export function mixinColor<T extends Constructor<HasElementRef>, P extends Partial<DtExtendedThemePalette>>(
   base: T, defaultColor?: P): Constructor<CanColor> & T {
   return class extends base {
     private _color: P;
