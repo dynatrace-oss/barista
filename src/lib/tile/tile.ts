@@ -4,7 +4,6 @@ import {
   ViewEncapsulation,
   Directive,
   ContentChild,
-  Input,
   ElementRef
 } from '@angular/core';
 import {
@@ -30,12 +29,10 @@ export class DtTileTitle { }
 @Directive({
   selector: `dt-tile-icon, [dt-tile-icon], [dtTileIcon]`,
   host: {
-    'class': 'dt-tile-icon',
-    '[class.dt-tile-icon-end]': 'align === "end"',
+    class: 'dt-tile-icon',
   },
 })
 export class DtTileIcon {
-  @Input() align: 'start' | 'end' = 'start';
 }
 
 /** Sub-title of a tile, needed as it's used as a selector in the API. */
