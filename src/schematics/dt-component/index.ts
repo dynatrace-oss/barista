@@ -42,7 +42,7 @@ function addExportToRootIndex(options: DtComponentOptions): Rule {
 }
 
 /**
- * Adds the declarations for the lib module inside the demo-groundhog-module
+ * Adds the declarations for the lib module inside the docs-module
  */
 function addDeclarationsToDocsModule(options: DtComponentOptions): Rule {
   return (host: Tree) => {
