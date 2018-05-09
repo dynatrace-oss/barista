@@ -9,13 +9,11 @@ import {
 } from '@dynatrace/angular-components';
 import { DefaultContextDialogExampleComponent } from './examples/default-context-dialog-example.component';
 import { DarkContextDialogExampleComponent } from './examples/dark-context-dialog-example.component';
-import { FocusContextDialogExampleComponent } from './examples/focus-context-dialog-example.component';
 import { PrevFocusContextDialogExampleComponent } from './examples/previous-focus-context-dialog-example.component';
 
 const EXAMPLES = [
   DefaultContextDialogExampleComponent,
   DarkContextDialogExampleComponent,
-  FocusContextDialogExampleComponent,
   PrevFocusContextDialogExampleComponent,
 ];
 
