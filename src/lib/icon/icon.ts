@@ -11,15 +11,14 @@ import {
 import { take } from 'rxjs/operators/take';
 import { DtIconRegistry } from './icon-registry';
 import { DtIconType } from './icon-types';
-import { CanColor, mixinColor, HasElementRef, DtExtendedThemePalette } from '../core/index';
+import {
+  DtThemePalette,
+  setComponentColorClasses
+} from '../core/index';
 // Importing Contructor by its own, because it is not exported in core (and should not be exported)
 import { Constructor } from '../core/common-behaviours/constructor';
 
-// Boilerplate for applying mixins to DtInput.
-export class DtIconBase {
-  constructor(public _elementRef: ElementRef) { }
-}
-export const _DtIconMixinBase = mixinColor<Constructor<DtIconBase>, DtExtendedThemePalette>(DtIconBase);
+export type DtIconColorPalette = DtThemePalette | 'light' | 'dark';
 
 @Component({
   moduleId: module.id,
@@ -37,17 +36,26 @@ export const _DtIconMixinBase = mixinColor<Constructor<DtIconBase>, DtExtendedTh
   // tslint:disable-next-line:use-view-encapsulation
   encapsulation: ViewEncapsulation.None,
 })
-export class DtIcon extends _DtIconMixinBase implements OnChanges, CanColor, HasElementRef {
+export class DtIcon implements OnChanges {
 
   /** Name of the icon in the registry. */
   @Input() name: DtIconType;
 
+  @Input()
+  get color(): DtIconColorPalette { return this._color; }
+  set color(value: DtIconColorPalette) {
+    if (value !== this._color) {
+      setComponentColorClasses(this, value);
+      this._color = value;
+    }
+  }
+  private _color: DtIconColorPalette;
+
   constructor(
-    _elementRef: ElementRef,
+    public _elementRef: ElementRef,
     private _iconRegistry: DtIconRegistry,
     @Attribute('aria-hidden') ariaHidden: string
   ) {
-    super(_elementRef);
     // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
     // the right thing to do for the majority of icon use-cases.
     if (!ariaHidden) {
