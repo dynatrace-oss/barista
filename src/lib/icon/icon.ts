@@ -41,6 +41,10 @@ export class DtIcon implements OnChanges {
   /** Name of the icon in the registry. */
   @Input() name: DtIconType;
 
+  /**
+   * Fill color of the svg icon.
+   * We can not use the color mixin here because icon has a special extended set of colors.
+   */
   @Input()
   get color(): DtIconColorPalette { return this._color; }
   set color(value: DtIconColorPalette) {
