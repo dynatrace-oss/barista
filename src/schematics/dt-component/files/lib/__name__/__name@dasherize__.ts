@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -13,6 +14,7 @@ import {
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class Dt<%= classify(name) %> {
 
