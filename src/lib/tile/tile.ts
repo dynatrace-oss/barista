@@ -4,7 +4,6 @@ import {
   ViewEncapsulation,
   Directive,
   ContentChild,
-  Input,
   ElementRef
 } from '@angular/core';
 import {
