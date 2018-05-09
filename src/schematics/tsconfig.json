@@ -13,7 +13,7 @@
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "rootDir": ".",
-    "outDir": "../../node_modules/@dynatrace/angular-components-schematics/",
+    "outDir": "../../node_modules/@dynatrace/components-schematics/",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
