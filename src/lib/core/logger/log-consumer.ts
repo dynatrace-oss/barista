@@ -28,7 +28,10 @@ export class DtStaticLogConsumer implements DtLogConsumer {
   }
 }
 
+// Angular integration
+const staticLogConsumer = DtStaticLogConsumer.getInstance();
+
 export const DT_LOG_CONSUMER_PROVIDER: Provider = {
   provide: DtLogConsumer,
-  useValue: DtStaticLogConsumer.getInstance(),
+  useValue: staticLogConsumer,
 };
