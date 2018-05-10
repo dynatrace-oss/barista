@@ -19,13 +19,15 @@ import {
 import { Options, IndividualSeriesOptions, ChartObject, chart } from 'highcharts';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { ViewportResizer } from '../core/index';
+import { DtLogger, DtLoggerFactory, ViewportResizer } from '../core/index';
 import { delay } from 'rxjs/operators/delay';
 import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '../theming/index';
 import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
 import { DEFAULT_CHART_OPTIONS } from './chart-options';
+
+const LOG: DtLogger = DtLoggerFactory.create('DtChart');
 
 export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions[];
@@ -198,8 +200,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       return;
     }
     if (index >= this._colorPalette.multi.length && isDevMode()) {
-      // tslint:disable-next-line: no-console
-      console.error(`The number of series exceeds the number of chart colors in the theme ${this._theme.name}.
+      LOG.error(`The number of series exceeds the number of chart colors in the theme ${this._theme.name}.
         Please specify colors for your series.`);
     }
     // apply color for multi series
