@@ -6,7 +6,7 @@ The <code>&lt;dt-context-dialog&gt;</code> creates a container that is hidden in
 It is possible to disable the entire context dialog.
 The context dialog traps the focus inside the overlay until it is closed again.
 It sets the focus to the previously focused element when closed.
-The first interactive element inside the context dialog will get the focus, when the context menu is opened.
+The closing button inside the context dialog will get the focus, when the context menu is opened.
 </p>
 
 <h2>Imports</h2>
@@ -99,9 +99,6 @@ Context dialogs should be given a meaningful label via aria-label, because the b
 <h2>Examples</h2>
 <h3>Context dialog on dark background</h3>
 <docs-source-example [example]="examples.dark"></docs-source-example>
-
-<h3>Focus the first interactive element</h3>
-<docs-source-example [example]="examples.focus"></docs-source-example>
 
 <h3>Focus previously focused element on close</h3>
 <p>To show the previous focused element working - please use the button labeled "Open" and not the button with the icon to open the context dialog</p>
