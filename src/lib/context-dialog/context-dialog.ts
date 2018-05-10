@@ -20,7 +20,14 @@ import {
 import { filter } from 'rxjs/operators/filter';
 import { map } from 'rxjs/operators/map';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { CanColor, CanDisable, HasTabIndex, mixinColor, mixinDisabled, mixinTabIndex } from '../core/index';
+import {
+  CanColor, CanDisable,
+  DtLogger, DtLoggerFactory,
+  HasTabIndex,
+  mixinColor, mixinDisabled, mixinTabIndex
+} from '../core/index';
+
+const LOG: DtLogger = DtLoggerFactory.create('ContextDialogue');
 
 // Boilerplate for applying mixins to DtContextDialog.
 export class DtContextDialogBase {
@@ -140,9 +147,8 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
     }
     this._focusTrap.focusInitialElementWhenReady()
     .catch((error: Error) => {
-      if (isDevMode) {
-        // tslint:disable-next-line: no-console
-        console.log('Error when trying to set initial focus', error);
+      if (isDevMode()) {
+        LOG.debug('Error when trying to set initial focus', error);
       }
     });
   }

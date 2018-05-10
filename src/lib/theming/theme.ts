@@ -11,7 +11,9 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { replaceCssClass } from '../core/index';
+import { DtLogger, DtLoggerFactory, replaceCssClass } from '../core/index';
+
+const LOG: DtLogger = DtLoggerFactory.create('DtTheme');
 
 const MAX_DEPTH = 2;
 // dtTemes placed on elements containing one of these classes
@@ -136,11 +138,10 @@ export class DtTheme implements OnDestroy {
 
   /** Notify developers if max depth level has been exceeded */
   private _warnIfDepthExceeded(): void {
-    if (isDevMode() && console && console.warn && this._depthLevel > MAX_DEPTH &&
+    if (isDevMode() && this._depthLevel > MAX_DEPTH &&
       !MAX_DEPTH_EXCEPTION_CLASSESS.some((c) => this._elementRef.nativeElement.classList.contains(c))
     ) {
-      // tslint:disable-next-line:no-console
-      console.warn(`The max supported depth level (${MAX_DEPTH}) of nested themes (dtTheme) has ` +
+      LOG.warn(`The max supported depth level (${MAX_DEPTH}) of nested themes (dtTheme) has ` +
         `been exceeded. This could result in wrong styling unpredictable styling side effects.`);
     }
   }

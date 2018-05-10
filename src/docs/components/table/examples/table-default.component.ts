@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
+
+const LOG: DtLogger = DtLoggerFactory.create('TableDefaultComponent');
 
 @Component({
   moduleId: module.id,
@@ -39,6 +42,6 @@ export class TableDefaultComponent {
 
   rowClicked(row: object, index: number, count: number): void {
     // tslint:disable-next-line
-    console.log('row', index, '/', count, ':', row, 'clicked');
+    LOG.debug(`row ${index}/${count} clicked`, row);
   }
 }
