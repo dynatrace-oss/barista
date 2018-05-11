@@ -29,6 +29,11 @@ export function getDtIconNoHttpProviderError(): Error {
                'app imports.');
 }
 
+export function getDtIconNoConfigProviderError(): Error {
+  return Error('Could not find config provider for icons. ' +
+               'Please use DtIconModule.forRoot or provide the config in your app module');
+}
+
 /**
  * DtIconRegistry is a service that loads and provides icon svg resources by name.
  *
@@ -84,6 +89,9 @@ export class DtIconRegistry {
    * from it.
    */
   private _loadSvgIconFromConfig(iconConfig: SvgIconConfig): Observable<SVGElement> {
+    if (!this._config) {
+      throw getDtIconNoConfigProviderError();
+    }
     const url = this._config.svgIconLocation.replace(new RegExp('{{name}}', 'g'), iconConfig.name);
     return this._fetchUrl(url)
         .pipe(map((svgText) => this._createSvgElementForSingleIcon(svgText)));
