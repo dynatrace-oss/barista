@@ -17,6 +17,7 @@ import {
 } from '../core/index';
 // Importing Contructor by its own, because it is not exported in core (and should not be exported)
 import { Constructor } from '../core/common-behaviours/constructor';
+import { Platform } from '@angular/cdk/platform';
 
 export type DtIconColorPalette = DtThemePalette | 'light' | 'dark';
 
@@ -58,6 +59,7 @@ export class DtIcon implements OnChanges {
   constructor(
     public _elementRef: ElementRef,
     private _iconRegistry: DtIconRegistry,
+    private _plateform: Platform,
     @Attribute('aria-hidden') ariaHidden: string
   ) {
     // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
@@ -68,7 +70,7 @@ export class DtIcon implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.name) {
+    if (changes.name && this._plateform.isBrowser) {
       if (this.name) {
         this._iconRegistry.getNamedSvgIcon(this.name).pipe(take(1)).subscribe(
           (svg) => this._setSvgElement(svg),
