@@ -10,6 +10,7 @@ import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtButtonModule, DtThemingModule, DtIconModule } from '@dynatrace/angular-components';
 import { IconsButtonExampleComponent } from './examples/button-icons-example.component';
+import { IconOnlyButtonExampleComponent } from './examples/button-icon-only-example.component';
 
 const EXAMPLES = [
   DefaultButtonExampleComponent,
@@ -18,6 +19,7 @@ const EXAMPLES = [
   VariantButtonExampleComponent,
   ColorButtonExampleComponent,
   IconsButtonExampleComponent,
+  IconOnlyButtonExampleComponent,
   AllButtonExampleComponent,
 ];
 
