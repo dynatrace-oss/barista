@@ -9,6 +9,7 @@ import {
   DtContextDialogModule,
   DtButtonGroupModule,
   DtTableModule,
+  DtIconModule,
 } from '@dynatrace/angular-components';
 
 @Component({
@@ -33,6 +34,7 @@ export class KitchenSink {
     DtCardModule,
     DtContextDialogModule,
     DtButtonGroupModule,
+    DtIconModule.forRoot({svgIconLocation: ''}),
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
