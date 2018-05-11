@@ -47,36 +47,25 @@
     border: 0;
   }
 
-  .dt-icon {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 4px;
-    margin-top: 5px;
-    vertical-align: top;
-  }
-
   &.dt-icon-button {
     padding-left: 0;
     padding-right: 0;
     width: 32px;
     text-align: center;
-
-    .dt-icon {
-      margin-right: 0;
-    }
   }
 }
 
-
-
-::ng-deep .dt-icon {
+.dt-button-icon {
   display: inline-block;
   width: 20px;
   height: 20px;
   margin-right: 4px;
   margin-top: 5px;
   vertical-align: top;
+
+  :host.dt-icon-button & {
+    margin-right: 0;
+  }
 }
 
 // TODO @thomas.pink: Remove this once theming is in place
