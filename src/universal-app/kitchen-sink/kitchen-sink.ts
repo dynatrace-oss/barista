@@ -7,6 +7,7 @@ import {
   DtTileModule,
   DtCardModule,
   DtContextDialogModule,
+  DtButtonGroupModule,
 } from '@dynatrace/angular-components';
 
 @Component({
@@ -23,6 +24,7 @@ export class KitchenSink {}
     DtTileModule,
     DtCardModule,
     DtContextDialogModule,
+    DtButtonGroupModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
