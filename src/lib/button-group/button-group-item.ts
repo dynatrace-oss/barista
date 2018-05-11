@@ -115,7 +115,7 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem implements CanDisab
   }
 
   @HostListener('click')
-  private _onSelect(): void {
+  _onSelect(): void {
     if (!this.disabled) {
       this.selectionChange.emit({source: this, isUserInput: true, isDeselection: false});
     }
@@ -124,7 +124,7 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem implements CanDisab
   /** Ensures the option is selected when activated from the keyboard. */
   @HostListener('keydown', ['$event'])
   // tslint:disable-next-line
-  private _handleKeydown(event: KeyboardEvent): void {
+  _handleKeydown(event: KeyboardEvent): void {
     if (event.keyCode === ENTER || event.keyCode === SPACE) {
       this._onSelect();
 
