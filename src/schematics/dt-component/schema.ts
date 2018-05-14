@@ -1,7 +1,9 @@
 export interface DtComponentOptions {
   name: string;
   path: string;
-  symbolName: string;
+  moduleName: string;
+  selector: string;
+  docsComponent: string;
   universal: boolean;
   uitest: boolean;
 }

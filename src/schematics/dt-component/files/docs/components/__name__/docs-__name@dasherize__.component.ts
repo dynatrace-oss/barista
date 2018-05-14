@@ -7,7 +7,7 @@ import { Default<%= classify(name) %>ExampleComponent } from './examples/default
   templateUrl: 'docs-<%=dasherize(name)%>.component.html',
   styleUrls: ['docs-<%=dasherize(name)%>.component.scss'],
 })
-export class Docs<%= classify(name) %>Component {
+export class <%= docsComponent %> {
   examples = {
     default: Default<%= classify(name) %>ExampleComponent,
   };
