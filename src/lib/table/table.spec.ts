@@ -64,6 +64,8 @@ describe('DtTable', () => {
       const tableCells = fixture.debugElement.queryAll(By.css('dt-cell'));
       const tableHeaderRows = fixture.debugElement.queryAll(By.css('dt-header-row'));
       const tableHeaderCells = fixture.debugElement.queryAll(By.css('dt-header-cell'));
+      const tableColumnProportionCells = fixture.debugElement.queryAll(By.css('dt-column-col1'));
+      const tableColumnWidthCells = fixture.debugElement.queryAll(By.css('dt-column-col2'));
 
       expect(tableComponent.length)
         .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-table class applied');
@@ -160,12 +162,12 @@ describe('DtTable', () => {
   selector: 'dt-test-app',
   template: `
   <dt-table [dataSource]="dataSource" [isLoading]="loading">
-    <ng-container dtColumnDef="col1">
+    <ng-container dtColumnDef="col1" dtColumnProportion="2">
       <dt-header-cell *dtHeaderCellDef>column 1</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.col1}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="col2">
+    <ng-container dtColumnDef="col2" dtColumnWidth="50">
       <dt-header-cell *dtHeaderCellDef>column 2</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.col2}}</dt-cell>
     </ng-container>

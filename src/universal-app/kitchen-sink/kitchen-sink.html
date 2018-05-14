@@ -28,3 +28,13 @@
   <dt-button-group-item>CPU</dt-button-group-item>
   <dt-button-group-item>Connectivity</dt-button-group-item>
 </dt-button-group>
+
+<dt-table [dataSource]="tableDataSource">
+  <ng-container dtColumnDef="host" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
+  </ng-container>
+
+  <dt-header-row *dtHeaderRowDef="['host']"></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: ['host'];"></dt-row>
+</dt-table>

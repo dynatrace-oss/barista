@@ -4,22 +4,22 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   // tslint:disable
   template: `<dt-table [dataSource]="dataSource1">
-  <ng-container dtColumnDef="host" dtColumnType="text" [dtColumnMinWidth]="300">
+  <ng-container dtColumnDef="host" dtColumnAlign="text" [dtColumnMinWidth]="300">
     <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
   </ng-container>
 
-  <ng-container dtColumnDef="cpu" dtColumnType="text" dtColumnMinWidth="50%">
+  <ng-container dtColumnDef="cpu" dtColumnAlign="text" dtColumnMinWidth="50%">
     <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
     <dt-cell *dtCellDef="let row;">{{row.cpu}}</dt-cell>
   </ng-container>
 
-  <ng-container dtColumnDef="memory" dtColumnType="number">
+  <ng-container dtColumnDef="memory" dtColumnAlign="number">
     <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.memory}}</dt-cell>
   </ng-container>
 
-  <ng-container dtColumnDef="traffic" dtColumnType="control">
+  <ng-container dtColumnDef="traffic" dtColumnAlign="control">
     <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
   </ng-container>

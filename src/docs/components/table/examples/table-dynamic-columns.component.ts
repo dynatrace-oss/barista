@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   template: `
   <dt-table [dataSource]="dataSource1" [isLoading]="tableLoading">
 
-    <ng-container *ngFor="let column of columnsDef;" [dtColumnDef]="column.id" [dtColumnType]="column.type">
+    <ng-container *ngFor="let column of columnsDef;" [dtColumnDef]="column.id" [dtColumnAlign]="column.type">
       <dt-header-cell *dtHeaderCellDef>{{ column.title }}</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{ row[column.id] }}</dt-cell>
     </ng-container>
