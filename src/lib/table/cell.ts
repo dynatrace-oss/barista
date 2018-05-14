@@ -1,5 +1,6 @@
 import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Renderer2, ElementRef } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtTableColumnAlign } from './column-align.model';
 /**
  * Cell definition for the dt-table.
@@ -106,13 +107,8 @@ function setColumnClass(): void {
   }
 
   if (minWidth !== undefined) {
-    let setMinWidth = '0';
-    if (typeof minWidth === 'string') {
-      setMinWidth = minWidth;
-    }
-    if (Number.isInteger(minWidth)) {
-      setMinWidth = `${minWidth}px`;
-    }
+    const setMinWidth = coerceNumberProperty(minWidth) ? `${minWidth}px` : minWidth;
+
     this._renderer.setStyle(nativeElement, 'min-width', setMinWidth);
   }
 }

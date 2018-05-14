@@ -167,7 +167,7 @@ describe('DtTable', () => {
       <dt-cell *dtCellDef="let row">{{row.col1}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="col2" dtColumnWidth="50">
+    <ng-container dtColumnDef="col2" dtColumnMinWidth="50">
       <dt-header-cell *dtHeaderCellDef>column 2</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.col2}}</dt-cell>
     </ng-container>
