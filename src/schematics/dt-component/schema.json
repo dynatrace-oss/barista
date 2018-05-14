@@ -6,6 +6,14 @@
   "properties": {
     "name": {
       "type": "string"
+    },
+    "uitest": {
+      "type": "boolean",
+      "default": false
+    },
+    "universal": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

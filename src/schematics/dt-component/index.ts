@@ -9,17 +9,15 @@ import {
   template,
   url,
   branchAndMerge,
+  noop,
+  source,
 } from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
 import { DtComponentOptions } from './schema';
-import { getSourceFile, getSourceNodes, findNodes, getIndentation, addImport } from '../utils/ast-utils';
+import { getSourceFile, getSourceNodes, findNodes, getIndentation, addImport, addDynatraceAngularComponentsImport } from '../utils/ast-utils';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { InsertChange, commitChanges } from '../utils/change';
-
-function filterTemplates(): Rule {
-  return filter((path) => !path.match(/\.bak$/));
-}
 
 /**
  * Adds the export to the index in the lib root
@@ -130,10 +128,63 @@ function addNavitemInDocs(options: DtComponentOptions): Rule {
   };
 }
 
+/** Adds import and declaration to universal */
+function addDeclarationsToKitchenSink(options: DtComponentOptions): Rule {
+  return (host: Tree) => {
+    const sourceFilePath = path.join('src', 'universal-app', 'kitchen-sink', 'kitchen-sink.ts');
+    const sourceFile = getSourceFile(host, sourceFilePath);
+    const moduleName = `Dt${strings.classify(options.name)}Module`;
+
+    const importChange = addDynatraceAngularComponentsImport(
+      sourceFile,
+      sourceFilePath,
+      moduleName
+    );
+    const changes = [importChange];
+
+    /**
+     * add it to the imports declaration in the module
+     */
+    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
+    const importSyntaxLists = assignments
+      .filter((c) => c.getText().startsWith('imports')) // filter imports
+      .map((c) => c.getChildren())
+      .reduce((acc, val) => acc.concat(val), []) // flatten
+      .filter((c) => c.kind === ts.SyntaxKind.ArrayLiteralExpression) // filter out arrays
+      .filter((c) => c.getText().match(/Dt\w*?Module/)) // filter the one with other Dt***Module declarations
+      .map((c) => c.getChildren())
+      .reduce((acc, val) => acc.concat(val), []) // flatten
+      .filter((c) => c.kind === ts.SyntaxKind.SyntaxList) as ts.SyntaxList[]; // remove tokens
+
+    const indentation = getIndentation(importSyntaxLists);
+    const toInsert = `${indentation}${moduleName},`;
+    const importsChange = new InsertChange(sourceFilePath, importSyntaxLists[0].end, toInsert);
+    changes.push(importsChange);
+    return commitChanges(host, changes, sourceFilePath);
+  };
+}
+
+/** Adds selector to html */
+function addCompToKitchenSink(options: DtComponentOptions): Rule {
+  return (tree: Tree) => {
+    const filePath = path.join('src', 'universal-app', 'kitchen-sink', 'kitchen-sink.html');
+    const content = tree.read(filePath);
+    if (!content) {
+      return;
+    }
+    const selector = `dt-${strings.dasherize(options.name)}`;
+    // Prevent from adding the same component again.
+    if (content.indexOf(selector) === -1) {
+      tree.overwrite(filePath, `${content}\n<${selector}></${selector}>`);
+    }
+    return tree;
+  };
+}
+
 export default function(options: DtComponentOptions): Rule {
   options.symbolName = `Dt${strings.classify(options.name)}Module`;
   const templateSource = apply(url('./files'), [
-      filterTemplates(),
+      options.uitest ? noop() : filter((path) => !path.startsWith('/ui-test-app')),
       template({
         ...strings,
         ...options,
@@ -142,12 +193,11 @@ export default function(options: DtComponentOptions): Rule {
     ]);
 
   return chain([
-      branchAndMerge(chain([
-        mergeWith(templateSource),
-        addExportToRootIndex(options),
-        addDeclarationsToDocsModule(options),
-        addRouteInDocs(options),
-        addNavitemInDocs(options),
-      ])),
-    ]);
+    mergeWith(templateSource),
+    addExportToRootIndex(options),
+    addDeclarationsToDocsModule(options),
+    addRouteInDocs(options),
+    addNavitemInDocs(options),
+    options.universal ? chain([addDeclarationsToKitchenSink(options), addCompToKitchenSink(options)]) : noop(),
+  ]);
 }
