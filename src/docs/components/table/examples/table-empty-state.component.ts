@@ -7,42 +7,42 @@ import { Component } from '@angular/core';
   <button (click)="toggleEmptyState()">Toggle empty state</button>
 
   <dt-table [dataSource]="dataSource1">
-    <ng-container dtColumnDef="usersId" dtColumnType="text">
+    <ng-container dtColumnDef="usersId" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Users ID</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.usersId}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="sessionCount" dtColumnType="number">
+    <ng-container dtColumnDef="sessionCount" dtColumnAlign="number">
       <dt-header-cell *dtHeaderCellDef>Session count</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.sessionCount}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="averageDuration" dtColumnType="number">
+    <ng-container dtColumnDef="averageDuration" dtColumnAlign="number">
       <dt-header-cell *dtHeaderCellDef>Average duration</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.averageDuration}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="errors" dtColumnType="number">
+    <ng-container dtColumnDef="errors" dtColumnAlign="number">
       <dt-header-cell *dtHeaderCellDef>Errors</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.errors}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="country" dtColumnType="text">
+    <ng-container dtColumnDef="country" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Country</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.country}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="city" dtColumnType="text">
+    <ng-container dtColumnDef="city" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>City</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.city}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="browserFamily" dtColumnType="text">
+    <ng-container dtColumnDef="browserFamily" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Browser Family</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.browserFamily}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="device" dtColumnType="text">
+    <ng-container dtColumnDef="device" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Device</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.device}}</dt-cell>
     </ng-container>

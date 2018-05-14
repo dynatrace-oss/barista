@@ -8,18 +8,26 @@ import {
   DtCardModule,
   DtContextDialogModule,
   DtButtonGroupModule,
+  DtTableModule,
 } from '@dynatrace/angular-components';
 
 @Component({
   selector: 'dt-kitchen-sink',
   templateUrl: './kitchen-sink.html',
 })
-export class KitchenSink {}
+export class KitchenSink {
+  tableDataSource: object[] = [
+    { host: 'et-demo-2-win4' },
+    { host: 'et-demo-2-win6' },
+    { host: 'et-demo-2-win8' },
+  ];
+}
 
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({appId: 'kitchen-sink'}),
     DtButtonModule,
+    DtTableModule,
     DtLoadingDistractorModule,
     DtTileModule,
     DtCardModule,
@@ -33,7 +41,10 @@ export class KitchenSink {}
 export class KitchenSinkClientModule { }
 
 @NgModule({
-  imports: [KitchenSinkClientModule, ServerModule],
+  imports: [
+    KitchenSinkClientModule,
+    ServerModule,
+  ],
   bootstrap: [KitchenSink],
   entryComponents: [KitchenSink],
 })
