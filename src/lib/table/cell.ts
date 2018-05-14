@@ -1,12 +1,6 @@
 import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Renderer2, ElementRef } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
-
-export const DT_COLUMN_TYPES = {
-  left: ['left', 'text', 'id'],
-  center: ['center', 'icon', 'control'],
-  right: ['right', 'number', 'date', 'ip'],
-};
-
+import { DtTableColumnAlign } from './column-align.model';
 /**
  * Cell definition for the dt-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -40,7 +34,7 @@ export class DtColumnDef extends CdkColumnDef {
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnDef') name: string;
   // tslint:disable-next-line:no-input-rename
-  @Input('dtColumnType') type: string;
+  @Input('dtColumnAlign') align: string;
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnProportion') proportion: number;
   // tslint:disable-next-line:no-input-rename
@@ -87,18 +81,23 @@ export class DtCell {
   }
 }
 
-function getColumnAlignmentClass(columnType: string): string | void {
-  if (!columnType) { return undefined; }
-  const [cssAlignmentClass] = Object.keys(DT_COLUMN_TYPES).filter((idx) => (DT_COLUMN_TYPES[idx].includes(columnType)));
+function getColumnAlignmentClass(columnAlign: string): string | void {
+  if (!columnAlign) { return undefined; }
 
-  return cssAlignmentClass;
+  const possibleAlignments = Object.keys(DtTableColumnAlign);
+  const aligmentIndex = possibleAlignments.indexOf(columnAlign);
+
+  const cssAlignmentClass = aligmentIndex >= 0 ? possibleAlignments[aligmentIndex] : DtTableColumnAlign.LEFT;
+
+  return cssAlignmentClass.toLocaleLowerCase();
 }
 
 function setColumnClass(): void {
-  const { type, proportion, minWidth } = this._columnDef;
+  const { align, proportion, minWidth, cssClassFriendlyName } = this._columnDef;
   const { nativeElement } = this._elem;
-  const cssAlignmentClass = getColumnAlignmentClass(type) || 'left';
+  const cssAlignmentClass = getColumnAlignmentClass(align) || 'left';
 
+  this._renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
   this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
 
   if (Number.isInteger(proportion)) {
