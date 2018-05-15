@@ -101,9 +101,10 @@ function setColumnClass(): void {
   this._renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
   this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
 
-  if (Number.isInteger(proportion)) {
-    this._renderer.setStyle(nativeElement, 'flex-grow', proportion);
-    this._renderer.setStyle(nativeElement, 'flex-shrink', proportion);
+  const setProportion = coerceNumberProperty(proportion);
+  if (proportion !== undefined && setProportion > 0) {
+    this._renderer.setStyle(nativeElement, 'flex-grow', setProportion);
+    this._renderer.setStyle(nativeElement, 'flex-shrink', setProportion);
   }
 
   if (minWidth !== undefined) {
