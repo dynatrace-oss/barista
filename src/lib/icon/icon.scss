@@ -36,7 +36,8 @@ $theme-dark: (
     $color: #fff;
     @if $name == 'dark' {
       $color: #ccc;
-    } @else if $name != 'light' {
+    }
+    @else if $name != 'light' {
       $palette: map-get($theme, $name);
       $color: map-get($palette, 'default');
     }
