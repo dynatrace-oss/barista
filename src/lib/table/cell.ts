@@ -1,7 +1,20 @@
 import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Renderer2, ElementRef } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { DtTableColumnAlign } from './column-align.model';
+
+export enum DtTableColumnAlign {
+  LEFT = 'LEFT',
+  TEXT = 'LEFT',
+  ID = 'LEFT',
+  CENTER = 'CENTER',
+  ICON = 'CENTER',
+  CONTROL = 'CENTER',
+  RIGHT = 'RIGHT',
+  NUMBER = 'RIGHT',
+  DATE = 'RIGHT',
+  IP = 'RIGHT',
+}
+
 /**
  * Cell definition for the dt-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -86,9 +99,8 @@ function getColumnAlignmentClass(columnAlign: string): string | void {
   if (!columnAlign) { return undefined; }
 
   const possibleAlignments = Object.keys(DtTableColumnAlign);
-  const aligmentIndex = possibleAlignments.indexOf(columnAlign);
 
-  const cssAlignmentClass = aligmentIndex >= 0 ? possibleAlignments[aligmentIndex] : DtTableColumnAlign.LEFT;
+  const cssAlignmentClass = possibleAlignments.includes(columnAlign) ? columnAlign : DtTableColumnAlign.LEFT;
 
   return cssAlignmentClass.toLocaleLowerCase();
 }
@@ -102,7 +114,7 @@ function setColumnClass(): void {
   this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
 
   const setProportion = coerceNumberProperty(proportion);
-  if (proportion !== undefined && setProportion > 0) {
+  if (setProportion > 0) {
     this._renderer.setStyle(nativeElement, 'flex-grow', setProportion);
     this._renderer.setStyle(nativeElement, 'flex-shrink', setProportion);
   }
