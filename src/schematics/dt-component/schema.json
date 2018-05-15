@@ -9,7 +9,7 @@
     },
     "uitest": {
       "type": "boolean",
-      "default": false,
+      "default": true,
       "aliases": ["ui"]
     },
     "universal": {
