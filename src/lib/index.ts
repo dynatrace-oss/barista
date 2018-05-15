@@ -27,4 +27,5 @@ export * from './context-dialog/index';
 export * from './tag/index';
 export * from './radio/index';
 export * from './show-more/index';
+export * from './checkbox/index';
 export * from './progress-circle/index';
