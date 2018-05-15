@@ -1,11 +1,10 @@
 import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Renderer2, ElementRef } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-export const DT_COLUMN_TYPES = {
-  left: ['left', 'text', 'id'],
-  center: ['center', 'icon', 'control'],
-  right: ['right', 'number', 'date', 'ip'],
-};
+/** Custom Types for Cell alignments */
+export type DtTableColumnAlign = 'left' | 'right' | 'center';
+export type DtTableColumnTypedAlign = 'text' | 'id' | 'icon' | 'control' | 'number' | 'date' | 'ip';
 
 /**
  * Cell definition for the dt-table.
@@ -40,9 +39,11 @@ export class DtColumnDef extends CdkColumnDef {
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnDef') name: string;
   // tslint:disable-next-line:no-input-rename
-  @Input('dtColumnType') type: string;
+  @Input('dtColumnAlign') align: DtTableColumnTypedAlign | DtTableColumnAlign;
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnProportion') proportion: number;
+  // tslint:disable-next-line:no-input-rename
+  @Input('dtColumnMinWidth') minWidth: string | number;
 }
 
 /** Header cell template container that adds the right classes and role. */
@@ -85,20 +86,43 @@ export class DtCell {
   }
 }
 
-function getColumnAlignmentClass(columnType: string): string | void {
-  if (!columnType) { return undefined; }
-  const [cssAlignmentClass] = Object.keys(DT_COLUMN_TYPES).filter((idx) => (DT_COLUMN_TYPES[idx].includes(columnType)));
+const ALIGNMENT_CAST_MAP = new Map<DtTableColumnTypedAlign, DtTableColumnAlign>([
+  ['icon', 'center'],
+  ['control', 'center'],
+  ['number', 'right'],
+  ['date', 'right'],
+  ['ip', 'right'],
+]);
 
-  return cssAlignmentClass;
+/**
+ * Maps the provided alignment to a css align provided by the cast map, if there's no coincidence
+ * return the provided one. In the latter case will be handle with the default left-aligned SCSS style.
+ *
+ * This will be also 'type checked' with the Template Compiler feature from @Angular6.
+ */
+function coerceAlignment(value: DtTableColumnAlign | DtTableColumnTypedAlign): DtTableColumnAlign {
+  return ALIGNMENT_CAST_MAP.get(value as DtTableColumnTypedAlign) || value as DtTableColumnAlign;
 }
 
+/** Set classes name and styles props for columns. */
+// TODO: change this function to a cell mixin.
 function setColumnClass(): void {
-  const { cssClassFriendlyName, type, proportion } = this._columnDef;
+  const { align, proportion, minWidth, cssClassFriendlyName } = this._columnDef;
   const { nativeElement } = this._elem;
-  const cssAlignmentClass = getColumnAlignmentClass(type) || 'left';
+  const cssAlignmentClass = coerceAlignment(align);
 
-  this._renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
-  this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
-  this._renderer.setStyle(nativeElement, 'flex-grow', proportion);
-  this._renderer.setStyle(nativeElement, 'flex-shrink', proportion);
+  this._renderer.addClass(nativeElement, `dt-table-column-${cssClassFriendlyName}`);
+  this._renderer.addClass(nativeElement, `dt-table-column-align-${cssAlignmentClass}`);
+
+  const setProportion = coerceNumberProperty(proportion);
+  if (setProportion > 0) {
+    this._renderer.setStyle(nativeElement, 'flex-grow', setProportion);
+    this._renderer.setStyle(nativeElement, 'flex-shrink', setProportion);
+  }
+
+  if (minWidth !== undefined) {
+    const setMinWidth = coerceNumberProperty(minWidth) ? `${minWidth}px` : minWidth;
+
+    this._renderer.setStyle(nativeElement, 'min-width', setMinWidth);
+  }
 }

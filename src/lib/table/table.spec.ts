@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import {
   DtTableModule,
@@ -64,17 +64,61 @@ describe('DtTable', () => {
       const tableCells = fixture.debugElement.queryAll(By.css('dt-cell'));
       const tableHeaderRows = fixture.debugElement.queryAll(By.css('dt-header-row'));
       const tableHeaderCells = fixture.debugElement.queryAll(By.css('dt-header-cell'));
+      const tableColumnProportionCells = fixture.debugElement.queryAll(By.css('.dt-table-column-col1'));
+      const tableColumnMinWidthCells = fixture.debugElement.queryAll(By.css('.dt-table-column-col2'));
+      const tableColumnMinWidthAndPropCells = fixture.debugElement.queryAll(By.css('.dt-table-column-col3'));
+      const tableHeaderCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-header-cell.dt-table-column-align-center'));
+      const tableCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-cell.dt-table-column-align-center'));
 
+      // tslint:disable:no-magic-numbers
       expect(tableComponent.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-table class applied');
+        .toBe(1, 'Expected 1 component with directive <dt-table>');
       expect(tableRows.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-row class applied');
+        .toBe(4, 'Expected 4 components with directive <dt-row>');
       expect(tableCells.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-cell class applied');
+        .toBe(12, 'Expected 12 components with directive <dt-cell>');
       expect(tableHeaderRows.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-header-row class applied');
+        .toBe(1, 'Expected 1 component with directive <dt-header-row>');
       expect(tableHeaderCells.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-header-cell class applied');
+        .toBe(3, 'Expected 3 components with directive <dt-header-cell>');
+      expect(tableColumnProportionCells.length)
+        .toBe(5, 'Expected 5 components with the CSS .dt-table-column-col1 class applied');
+      expect(tableColumnMinWidthCells.length)
+        .toBe(5, 'Expected 5 components with the CSS .dt-table-column-col2 class applied');
+      expect(tableColumnMinWidthAndPropCells.length)
+        .toBe(5, 'Expected 5 components with the CSS .dt-table-column-col3 class applied');
+      expect(tableHeaderCellsAlignCenter.length)
+        .toBe(1, 'Expected 1 header cells with the CSS .dt-table-column-align-center class applied');
+      expect(tableCellsAlignCenter.length)
+        .toBe(4, 'Expected 4 header cells with the CSS .dt-table-column-align-center class applied');
+
+      tableColumnMinWidthCells.forEach((cell, index) => {
+        expect(cell.nativeElement.style.minWidth)
+          .toBe('50px', `Expected cell ${index} min width prop set`);
+        expect(cell.nativeElement.style.flexGrow)
+          .toBeFalsy(`Expected cell ${index} flexGrow prop to be empty`);
+        expect(cell.nativeElement.style.flexShrink)
+          .toBeFalsy(`Expected cell ${index} flexShrink prop to be empty`);
+      });
+
+      tableColumnProportionCells.forEach((cell, index) => {
+        expect(cell.nativeElement.style.minWidth)
+          .toBeFalsy(`Expected cell ${index} minWidth prop to be empty`);
+        expect(cell.nativeElement.style.flexGrow)
+          .toBe('2', `Expected cell ${index} with just DtColumnProportion input set, have flexGrow prop set to 2`);
+        expect(cell.nativeElement.style.flexShrink)
+          .toBe('2', `Expected cell ${index} with just DtColumnProportion prop set, have flexShrink prop set to 2`);
+      });
+
+      tableColumnMinWidthAndPropCells.forEach((cell, index) => {
+        expect(cell.nativeElement.style.minWidth)
+          .toBe('50px', `Expected cell ${index} Expected min width prop set`);
+        expect(cell.nativeElement.style.flexGrow)
+          .toBe('2', `Expected cell ${index} with DtColumnProportion input set, have flexGrow prop set to 2`);
+        expect(cell.nativeElement.style.flexShrink)
+          .toBe('2', `Expected cell ${index} with DtColumnProportion input set, have flexShrink prop set to 2`);
+      });
+      // tslint:enable:no-magic-numbers
     });
 
     it('Should render a EmptyState content', () => {
@@ -160,14 +204,19 @@ describe('DtTable', () => {
   selector: 'dt-test-app',
   template: `
   <dt-table [dataSource]="dataSource" [isLoading]="loading">
-    <ng-container dtColumnDef="col1">
+    <ng-container dtColumnDef="col1" [dtColumnProportion]="2" dtColumnAlign="center">
       <dt-header-cell *dtHeaderCellDef>column 1</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.col1}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="col2">
+    <ng-container dtColumnDef="col2" dtColumnMinWidth="50" dtColumnAlign="no-align-type">
       <dt-header-cell *dtHeaderCellDef>column 2</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.col2}}</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="col3" dtColumnMinWidth="50" dtColumnProportion="2">
+      <dt-header-cell *dtHeaderCellDef>column 3</dt-header-cell>
+      <dt-cell *dtCellDef="let row">{{row.col3}}</dt-cell>
     </ng-container>
 
     <dt-table-empty-state dtTableEmptyState>
@@ -177,20 +226,24 @@ describe('DtTable', () => {
 
     <dt-loading-distractor dtTableLoadingState>Loading...</dt-loading-distractor>
 
-    <dt-header-row *dtHeaderRowDef="['col1', 'col2']"></dt-header-row>
-    <dt-row *dtRowDef="let row; columns: ['col1', 'col2']"></dt-row>
-</dt-table>
+    <dt-header-row *dtHeaderRowDef="['col1', 'col2', 'col3']"></dt-header-row>
+    <dt-row *dtRowDef="let row; columns: ['col1', 'col2', 'col3']"></dt-row>
+  </dt-table>
   `,
 })
 class TestApp {
   @ViewChild(DtTable) tableComponent: DtTable<object[]>;
   loading = false;
   dataSource: object[] | null | undefined = [
-    {col1: 'test 1', col2: 'test 2'},
-    {col1: 'test 1', col2: 'test 2'},
-    {col1: 'test 1', col2: 'test 2'},
-    {col1: 'test 1', col2: 'test 2'},
+    {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
+    {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
+    {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
+    {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
   ];
+
+  constructor(public _renderer: Renderer2) {
+
+  }
 }
 
 /** Test component that contains a Dynamic DtTable. */
@@ -205,7 +258,7 @@ class TestApp {
 
     <dt-header-row *dtHeaderRowDef="columns"></dt-header-row>
     <dt-row *dtRowDef="let row; columns: columns"></dt-row>
-</dt-table>
+    </dt-table>
   `,
 })
 class TestDynamicApp {
