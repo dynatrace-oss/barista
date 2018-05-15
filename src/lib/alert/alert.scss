@@ -1,0 +1,71 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+
+:host, :host * {
+  box-sizing: border-box;
+}
+
+$display-type: inline-flex;
+
+:host {
+  font-size: 14px;
+  color: $gray-700;
+
+  display: none; // is overriden in the severity-types
+  align-items: stretch;
+}
+
+.icon-container {
+  flex-shrink: 0;
+  width: 36px;
+  position: relative;
+  border: 0;
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+}
+
+.icon-container svg {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: calc(50% - 10px);
+
+  fill: $white;
+  margin: 0 8px;
+}
+
+.text-container {
+  background-color: $white;
+
+  border-top-right-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+  border-left: 0 !important;
+
+  padding: 10px 16px;
+}
+
+:host.warning {
+
+  display: $display-type;
+
+  .icon-container {
+    background-color: $warning-color;
+  }
+
+  .text-container {
+    border: 1px solid $warning-color;
+  }
+}
+
+:host.error {
+
+  display: $display-type;
+
+  .icon-container {
+    background-color: $error-color;
+  }
+  .text-container {
+    border: 1px solid $error-color;
+  }
+
+}
