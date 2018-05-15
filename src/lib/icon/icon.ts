@@ -16,7 +16,6 @@ import {
   setComponentColorClasses
 } from '../core/index';
 // Importing Contructor by its own, because it is not exported in core (and should not be exported)
-import { Constructor } from '../core/common-behaviours/constructor';
 import { Platform } from '@angular/cdk/platform';
 
 export type DtIconColorPalette = DtThemePalette | 'light' | 'dark';
