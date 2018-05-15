@@ -2,18 +2,18 @@ import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-export enum DtTableColumnAlign {
-  LEFT = 'LEFT',
-  TEXT = 'LEFT',
-  ID = 'LEFT',
-  CENTER = 'CENTER',
-  ICON = 'CENTER',
-  CONTROL = 'CENTER',
-  RIGHT = 'RIGHT',
-  NUMBER = 'RIGHT',
-  DATE = 'RIGHT',
-  IP = 'RIGHT',
-}
+const DT_TABLE_COLUMN_ALIGN = {
+  LEFT: 'LEFT',
+  TEXT: 'LEFT',
+  ID: 'LEFT',
+  CENTER: 'CENTER',
+  ICON: 'CENTER',
+  CONTROL: 'CENTER',
+  RIGHT: 'RIGHT',
+  NUMBER: 'RIGHT',
+  DATE: 'RIGHT',
+  IP: 'RIGHT',
+};
 
 /**
  * Cell definition for the dt-table.
@@ -98,11 +98,13 @@ export class DtCell {
 function getColumnAlignmentClass(columnAlign: string): string | void {
   if (!columnAlign) { return undefined; }
 
-  const possibleAlignments = Object.keys(DtTableColumnAlign);
+  const possibleAlignments = Object.keys(DT_TABLE_COLUMN_ALIGN);
 
-  const cssAlignmentClass = possibleAlignments.includes(columnAlign) ? columnAlign : DtTableColumnAlign.LEFT;
+  const cssAlignmentClass = possibleAlignments.includes(columnAlign)
+    ? DT_TABLE_COLUMN_ALIGN[columnAlign]
+    : DT_TABLE_COLUMN_ALIGN.LEFT;
 
-  return cssAlignmentClass.toLocaleLowerCase();
+  return cssAlignmentClass.toLowerCase();
 }
 
 function setColumnClass(): void {
