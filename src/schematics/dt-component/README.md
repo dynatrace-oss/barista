@@ -12,10 +12,11 @@ ng g @dynatrace/components-schematics:dtc my-new-component
 - Optional: Adds the component to the ui-tests-app and creates a ui-test spec file. - defaults to false
 
 The following options are available: 
-- universal - boolean - default: true
-- ui-test - boolean - default: false
+- universal (un) - boolean - default: true
+- ui-test (ui) - boolean - default: false
 
 e.g.
 ```
-ng g @dynatrace/components-schematics:dtc my-new-component -universal=false -ui-test=true
+ng g @dynatrace/components-schematics:dtc my-new-component --universal=false --uitest=true #or
+ng g @dynatrace/components-schematics:dtc my-new-component -un=false -ui=true
 ```

@@ -9,11 +9,13 @@
     },
     "uitest": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "aliases": ["ui"]
     },
     "universal": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "aliases": ["un"]
     }
   }
 }
