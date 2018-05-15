@@ -9,7 +9,7 @@
 
   @extend %base-cell;
 
-  &.dt-align-left::after {
+  &::after {
     @extend %bottom-line;
     width: 100%;
     margin-left: $dt-row-horizontal-padding;
@@ -19,6 +19,10 @@
     @extend %bottom-line;
     width: 100%;
     margin-right: $dt-row-horizontal-padding;
+  }
+
+  &.dt-align-right::after {
+    content: none;
   }
 
   &.dt-align-center::before {

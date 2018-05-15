@@ -67,8 +67,6 @@ describe('DtTable', () => {
       const tableColumnProportionCells = fixture.debugElement.queryAll(By.css('.dt-column-col1'));
       const tableColumnMinWidthCells = fixture.debugElement.queryAll(By.css('.dt-column-col2'));
       const tableColumnMinWidthAndPropCells = fixture.debugElement.queryAll(By.css('.dt-column-col3'));
-      const tableHeaderCellsAlignLeft = fixture.debugElement.queryAll(By.css('.dt-header-cell.dt-align-left'));
-      const tableCellsAlignLeft = fixture.debugElement.queryAll(By.css('.dt-cell.dt-align-left'));
       const tableHeaderCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-header-cell.dt-align-center'));
       const tableCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-cell.dt-align-center'));
 
@@ -89,10 +87,6 @@ describe('DtTable', () => {
         .toBe(5, 'Expected 5 components with the CSS .dt-column-col2 class applied');
       expect(tableColumnMinWidthAndPropCells.length)
         .toBe(5, 'Expected 5 components with the CSS .dt-column-col3 class applied');
-      expect(tableHeaderCellsAlignLeft.length)
-        .toBe(2, 'Expected 2 header cells with the CSS .dt-align-left class applied even with an invalid alignment');
-      expect(tableCellsAlignLeft.length)
-        .toBe(8, 'Expected 8 header cells with the CSS .dt-align-left class applied even with an invalid alignment');
       expect(tableHeaderCellsAlignCenter.length)
         .toBe(1, 'Expected 1 header cells with the CSS .dt-align-center class applied');
       expect(tableCellsAlignCenter.length)
