@@ -208,12 +208,21 @@ export default function(options: DtComponentOptions): Rule {
   options.docsComponent = `Docs${strings.classify(options.name)}Component`;
   const templateSource = apply(url('./files'), [
       options.uitest ? noop() : filter((p) => !p.startsWith('/ui-test-app')),
+      filter((p) => !p.startsWith('/ui-tests')),
       template({
         ...strings,
         ...options,
       }),
       move('src'),
     ]);
+  const uitestsTemplates = apply(url('./files'), [
+    filter((p) => p.startsWith('/ui-tests')),
+    template({
+      ...strings,
+      ...options,
+    }),
+    move('.'),
+  ]);
 
   return chain([
     mergeWith(templateSource),
@@ -222,6 +231,10 @@ export default function(options: DtComponentOptions): Rule {
     addRouteInDocs(options),
     addNavitemInDocs(options),
     options.universal ? chain([addDeclarationsToKitchenSink(options), addCompToKitchenSinkHtml(options)]) : noop(),
-    options.uitest ? chain([addRouteInUITestApp(options), addNavitemInUITestApp(options)]) : noop(),
+    options.uitest ? chain([
+      mergeWith(uitestsTemplates),
+      addRouteInUITestApp(options),
+      addNavitemInUITestApp(options),
+    ]) : noop(),
   ]);
 }
