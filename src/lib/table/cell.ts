@@ -2,19 +2,6 @@ import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-const DT_TABLE_COLUMN_ALIGN = {
-  LEFT: 'LEFT',
-  TEXT: 'LEFT',
-  ID: 'LEFT',
-  CENTER: 'CENTER',
-  ICON: 'CENTER',
-  CONTROL: 'CENTER',
-  RIGHT: 'RIGHT',
-  NUMBER: 'RIGHT',
-  DATE: 'RIGHT',
-  IP: 'RIGHT',
-};
-
 /**
  * Cell definition for the dt-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -95,22 +82,34 @@ export class DtCell {
   }
 }
 
-function getColumnAlignmentClass(columnAlign: string): string | void {
-  if (!columnAlign) { return undefined; }
+/** Custom Types for Cell alignments */
+type DtTableColumnAlign = 'left' | 'right' | 'center';
+type DtTableColumnTypedAlign = 'text' | 'id' | 'icon' | 'control' | 'number' | 'date' | 'ip';
 
-  const possibleAlignments = Object.keys(DT_TABLE_COLUMN_ALIGN);
+const ALIGNMENT_CAST_MAP = new Map<DtTableColumnAlign | DtTableColumnTypedAlign, DtTableColumnAlign>([
+  ['left', 'left'],
+  ['text', 'left'],
+  ['id', 'left'],
+  ['center', 'center'],
+  ['icon', 'center'],
+  ['control', 'center'],
+  ['right', 'right'],
+  ['number', 'right'],
+  ['date', 'right'],
+  ['ip', 'right'],
+]);
 
-  const cssAlignmentClass = possibleAlignments.includes(columnAlign)
-    ? DT_TABLE_COLUMN_ALIGN[columnAlign]
-    : DT_TABLE_COLUMN_ALIGN.LEFT;
-
-  return cssAlignmentClass.toLowerCase();
+/** Maps the provided alignment to a css align provided by the cast map. */
+function coerceAlignment(value: DtTableColumnAlign | DtTableColumnTypedAlign): DtTableColumnAlign {
+  return ALIGNMENT_CAST_MAP.get(value as DtTableColumnTypedAlign) || 'left';
 }
 
+/** Set classes name and styles props for columns. */
+// TODO: change this function to a cell mixin.
 function setColumnClass(): void {
   const { align, proportion, minWidth, cssClassFriendlyName } = this._columnDef;
   const { nativeElement } = this._elem;
-  const cssAlignmentClass = getColumnAlignmentClass(align) || 'left';
+  const cssAlignmentClass = coerceAlignment(align);
 
   this._renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
   this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
