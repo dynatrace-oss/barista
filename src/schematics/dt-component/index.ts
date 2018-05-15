@@ -160,19 +160,21 @@ function addComponentToUiTestModule(options: DtComponentOptions): Rule {
     const sourceFilePath = path.join('src', 'ui-test-app', 'ui-test-app-module.ts');
     const sourceFile = getSourceFile(host, sourceFilePath);
 
-    const importChange = addDynatraceAngularComponentsImport(
+    const changes = [];
+    /** @dynatrace/angular-component import */
+    changes.push(addDynatraceAngularComponentsImport(
       sourceFile,
       sourceFilePath,
       options.moduleName
-    );
-    const changes = [importChange];
+    ));
 
     /**
-     * add it to the imports declaration in the module
-     * since we have 2 imports property assignments we need to find the one with Dt***Module entries
-     * get the indentation and the end and add a new import
+     * relative <name>UI import
      */
-    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
+    const uiImportName = `${strings.classify(options.name)}UI`;
+    const uiImportLocation = `'./${strings.dasherize(options.name)}/${strings.dasherize(options.name)}-ui';`;
+    changes.push(addImport(sourceFilePath, sourceFile, uiImportName, uiImportLocation));
+
     /**
      * add to exports of DynatraceAngularCompModule
      */
@@ -181,7 +183,7 @@ function addComponentToUiTestModule(options: DtComponentOptions): Rule {
     /**
      * Add to declarations of UiTestAppModule
      */
-    changes.push(addToNgModule(sourceFilePath, sourceFile, `${strings.classify(options.name)}UI`, 'declarations', /\w*?UI/));
+    changes.push(addToNgModule(sourceFilePath, sourceFile, uiImportName, 'declarations', /\w*?UI/));
     return commitChanges(host, changes, sourceFilePath);
   };
 }
