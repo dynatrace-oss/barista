@@ -15,8 +15,6 @@ import {
   DtThemePalette,
   setComponentColorClasses
 } from '../core/index';
-// Importing Contructor by its own, because it is not exported in core (and should not be exported)
-import { Platform } from '@angular/cdk/platform';
 
 export type DtIconColorPalette = DtThemePalette | 'light' | 'dark';
 
@@ -58,7 +56,6 @@ export class DtIcon implements OnChanges {
   constructor(
     public _elementRef: ElementRef,
     private _iconRegistry: DtIconRegistry,
-    private _plateform: Platform,
     @Attribute('aria-hidden') ariaHidden: string
   ) {
     // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
@@ -69,17 +66,14 @@ export class DtIcon implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Icons should only be loaded and rendered if we are in the browser
-    // to avoid shipping svg dom element for example in universal. That could
-    // lead to a lot of redundant html code shipped to the browser.
-    if (changes.name && this._plateform.isBrowser) {
+    if (changes.name) {
       if (this.name) {
         this._iconRegistry.getNamedSvgIcon(this.name).pipe(take(1)).subscribe(
           (svg) => this._setSvgElement(svg),
           // We do not break the app when an icon could not be loaded
           // so do only a console.log here
           // tslint:disable-next-line:no-console
-          (err: Error) => console.log(`Error retrieving icon: ${err.message}`)
+          (err: Error) => console.log(`Error retrieving icon: ${this.name} ${err.message}`)
         );
       } else {
         this._clearSvgElement();

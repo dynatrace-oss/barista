@@ -54,9 +54,6 @@ import { DocsIconModule } from './components/icon/docs-icon.module';
   entryComponents: [
     Docs,
   ],
-  providers: [
-    Platform,
-  ],
   bootstrap: [Docs],
 })
 export class DocsModule {

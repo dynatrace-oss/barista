@@ -1,4 +1,4 @@
-import { Injectable, Provider, Optional, SkipSelf, Inject } from '@angular/core';
+import { Provider, Optional, SkipSelf, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -38,7 +38,6 @@ export function getDtIconNoConfigProviderError(): Error {
  * Since the icon registry deals with a global shared resource-location, we cannot have
  * more than one registry active. To ensure this use the `forRoot` method on the DtIconModule.
  */
-@Injectable()
 export class DtIconRegistry {
 
   /** URLs and cached SVG elements for individual icons. */
@@ -93,7 +92,7 @@ export class DtIconRegistry {
     }
     const url = this._config.svgIconLocation.replace(new RegExp('{{name}}', 'g'), iconConfig.name);
     return this._fetchUrl(url)
-        .pipe(map((svgText) => this._createSvgElementForSingleIcon(svgText)));
+      .pipe(map((svgText) => this._createSvgElementForSingleIcon(svgText)));
   }
 
   /**
@@ -101,7 +100,6 @@ export class DtIconRegistry {
    * cached, so future calls with the same URL may not cause another HTTP request.
    */
   private _fetchUrl(url: string): Observable<string> {
-
     if (!this._httpClient) {
       throw getDtIconNoHttpProviderError();
     }
@@ -126,7 +124,6 @@ export class DtIconRegistry {
 
   /** Creates a DOM element from the given SVG string, and adds default attributes. */
   private _createSvgElementForSingleIcon(responseText: string): SVGElement {
-
     // Creating a DOM element from the given SVG string.
     const div = this._document.createElement('div');
     div.innerHTML = responseText;
@@ -169,7 +166,6 @@ export const DT_ICON_REGISTRY_PROVIDER: Provider = {
     [new Optional(), new SkipSelf(), DtIconRegistry],
     [new Optional(), DT_ICON_CONFIGURATION],
     [new Optional(), HttpClient],
-    // tslint:disable-next-line:no-any
     [new Optional(), DOCUMENT],
   ],
 };
