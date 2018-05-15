@@ -12,8 +12,8 @@ $dt-checkbox-size: 20px;
   cursor: pointer;
 }
 
-.dt-checkbox-disabled,
-.dt-checkbox-disabled .dt-checkbox-label {
+:host.dt-checkbox-disabled,
+:host.dt-checkbox-disabled .dt-checkbox-label {
   cursor: default;
 }
 
@@ -33,15 +33,15 @@ $dt-checkbox-size: 20px;
   border: solid 2px $turquoise-600;
   margin-right: 8px;
 
-  .dt-checkbox-disabled & {
+  :host.dt-checkbox-disabled & {
     border-color: $disabledcolor;
   }
 
-  .dt-checkbox-button:not(.dt-checkbox-disabled):hover & {
+  .dt-checkbox-button:not(:host.dt-checkbox-disabled):hover & {
     border-color: $turquoise-700;
   }
 
-  .dt-checkbox-focused:not(.dt-checkbox-disabled) & {
+  .dt-checkbox-focused:not(:host.dt-checkbox-disabled) & {
     @include dt-focus-style();
   }
 }
@@ -59,7 +59,7 @@ $dt-checkbox-size: 20px;
   transition: stroke-dashoffset 150ms cubic-bezier(0.14, 0, 0, 1);
   stroke-dashoffset: 560;
 
-  .dt-checkbox-disabled & {
+  :host.dt-checkbox-disabled & {
     stroke: $disabledcolor;
   }
 }
@@ -68,11 +68,11 @@ $dt-checkbox-size: 20px;
   font-size: 14px;
   padding-right: 20px;
 
-  .dt-checkbox-disabled & {
+  :host.dt-checkbox-disabled & {
     color: $disabledcolor;
   }
 }
 
-.dt-checkbox-checked .dt-checkbox-checkmark svg {
+:host.dt-checkbox-checked .dt-checkbox-checkmark svg {
   stroke-dashoffset: 0;
 }
