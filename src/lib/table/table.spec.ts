@@ -68,22 +68,23 @@ describe('DtTable', () => {
       const tableColumnProportionCells = fixture.debugElement.queryAll(By.css('.dt-column-col1'));
       const tableColumnMinWidthAndPropCells = fixture.debugElement.queryAll(By.css('.dt-column-col3'));
 
+      // tslint:disable:no-magic-numbers
       expect(tableComponent.length)
-      .toBeGreaterThanOrEqual(1, 'Expected at least one component with directive <dt-table>');
+        .toBe(1, 'Expected 1 component with directive <dt-table>');
       expect(tableRows.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with directive <dt-row>');
+        .toBe(4, 'Expected 4 components with directive <dt-row>');
       expect(tableCells.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with directive <dt-cell>');
+        .toBe(12, 'Expected 12 components with directive <dt-cell>');
       expect(tableHeaderRows.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with directive <dt-header-row>');
+        .toBe(1, 'Expected 1 component with directive <dt-header-row>');
       expect(tableHeaderCells.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with directive <dt-header-cell>');
+        .toBe(3, 'Expected 3 components with directive <dt-header-cell>');
       expect(tableColumnProportionCells.length)
-          .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-column-col1 class applied');
+        .toBe(5, 'Expected 5 components with the CSS .dt-column-col1 class applied');
       expect(tableColumnMinWidthCells.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-column-col2 class applied');
+        .toBe(5, 'Expected 5 components with the CSS .dt-column-col2 class applied');
       expect(tableColumnMinWidthAndPropCells.length)
-        .toBeGreaterThanOrEqual(1, 'Expected at least one component with the CSS .dt-column-col3 class applied');
+        .toBe(5, 'Expected 5 components with the CSS .dt-column-col3 class applied');
 
       tableColumnMinWidthCells.forEach((cell, index) => {
         expect(cell.nativeElement.style.minWidth)
@@ -94,7 +95,6 @@ describe('DtTable', () => {
           .toBeFalsy(`Expected cell ${index} flexShrink prop to be empty`);
       });
 
-      // tslint:disable:no-magic-numbers
       tableColumnProportionCells.forEach((cell, index) => {
         expect(cell.nativeElement.style.minWidth)
           .toBeFalsy(`Expected cell ${index} minWidth prop to be empty`);
