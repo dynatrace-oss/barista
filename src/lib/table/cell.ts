@@ -111,8 +111,8 @@ function setColumnClass(): void {
   const { nativeElement } = this._elem;
   const cssAlignmentClass = coerceAlignment(align);
 
-  this._renderer.addClass(nativeElement, `dt-column-${cssClassFriendlyName}`);
-  this._renderer.addClass(nativeElement, `dt-align-${cssAlignmentClass}`);
+  this._renderer.addClass(nativeElement, `dt-table-column-${cssClassFriendlyName}`);
+  this._renderer.addClass(nativeElement, `dt-table-column-align-${cssAlignmentClass}`);
 
   const setProportion = coerceNumberProperty(proportion);
   if (setProportion > 0) {

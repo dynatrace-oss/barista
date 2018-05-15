@@ -64,11 +64,11 @@ describe('DtTable', () => {
       const tableCells = fixture.debugElement.queryAll(By.css('dt-cell'));
       const tableHeaderRows = fixture.debugElement.queryAll(By.css('dt-header-row'));
       const tableHeaderCells = fixture.debugElement.queryAll(By.css('dt-header-cell'));
-      const tableColumnProportionCells = fixture.debugElement.queryAll(By.css('.dt-column-col1'));
-      const tableColumnMinWidthCells = fixture.debugElement.queryAll(By.css('.dt-column-col2'));
-      const tableColumnMinWidthAndPropCells = fixture.debugElement.queryAll(By.css('.dt-column-col3'));
-      const tableHeaderCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-header-cell.dt-align-center'));
-      const tableCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-cell.dt-align-center'));
+      const tableColumnProportionCells = fixture.debugElement.queryAll(By.css('.dt-table-column-col1'));
+      const tableColumnMinWidthCells = fixture.debugElement.queryAll(By.css('.dt-table-column-col2'));
+      const tableColumnMinWidthAndPropCells = fixture.debugElement.queryAll(By.css('.dt-table-column-col3'));
+      const tableHeaderCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-header-cell.dt-table-column-align-center'));
+      const tableCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-cell.dt-table-column-align-center'));
 
       // tslint:disable:no-magic-numbers
       expect(tableComponent.length)
@@ -82,15 +82,15 @@ describe('DtTable', () => {
       expect(tableHeaderCells.length)
         .toBe(3, 'Expected 3 components with directive <dt-header-cell>');
       expect(tableColumnProportionCells.length)
-        .toBe(5, 'Expected 5 components with the CSS .dt-column-col1 class applied');
+        .toBe(5, 'Expected 5 components with the CSS .dt-table-column-col1 class applied');
       expect(tableColumnMinWidthCells.length)
-        .toBe(5, 'Expected 5 components with the CSS .dt-column-col2 class applied');
+        .toBe(5, 'Expected 5 components with the CSS .dt-table-column-col2 class applied');
       expect(tableColumnMinWidthAndPropCells.length)
-        .toBe(5, 'Expected 5 components with the CSS .dt-column-col3 class applied');
+        .toBe(5, 'Expected 5 components with the CSS .dt-table-column-col3 class applied');
       expect(tableHeaderCellsAlignCenter.length)
-        .toBe(1, 'Expected 1 header cells with the CSS .dt-align-center class applied');
+        .toBe(1, 'Expected 1 header cells with the CSS .dt-table-column-align-center class applied');
       expect(tableCellsAlignCenter.length)
-        .toBe(4, 'Expected 4 header cells with the CSS .dt-align-center class applied');
+        .toBe(4, 'Expected 4 header cells with the CSS .dt-table-column-align-center class applied');
 
       tableColumnMinWidthCells.forEach((cell, index) => {
         expect(cell.nativeElement.style.minWidth)
