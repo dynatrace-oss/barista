@@ -36,6 +36,18 @@ import {
  */
 let nextUniqueId = 0;
 
+/** Represents the different states that require custom transitions between them. */
+export const enum TransitionCheckState {
+  /** The initial state of the component before any user interaction. */
+  Init,
+  /** The state representing the component when it's becoming checked. */
+  Checked,
+  /** The state representing the component when it's becoming unchecked. */
+  Unchecked,
+  /** The state representing the component when it's becoming indeterminate. */
+  Indeterminate,
+}
+
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -54,7 +66,7 @@ export interface DtCheckboxChange {
 }
 
 // Boilerplate for applying mixins to DtCheckbox.
-export class DtCheckboxBase {}
+export class DtCheckboxBase { }
 export const _DtCheckboxMixinBase = mixinTabIndex(mixinDisabled(DtCheckboxBase));
 
 @Component({
@@ -114,9 +126,35 @@ export class DtCheckbox extends _DtCheckboxMixinBase
   // tslint:disable-next-line:no-input-rename
   @Input('aria-labelledby') ariaLabelledby: string | null = null;
 
+  /**
+   * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
+   * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
+   * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
+   * set to false.
+   */
+  @Input()
+  get indeterminate(): boolean { return this._indeterminate; }
+  set indeterminate(value: boolean) {
+    const changed = value !== this._indeterminate;
+    this._indeterminate = value;
+
+    if (changed) {
+      if (this._indeterminate) {
+        this._transitionCheckState(TransitionCheckState.Indeterminate);
+      } else {
+        this._transitionCheckState(
+          this.checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+      }
+      this.indeterminateChange.emit(this._indeterminate);
+    }
+  }
+
   /** Event emitted when the checkbox's `checked` value changes. */
   // tslint:disable-next-line:no-output-named-after-standard-event
   @Output() readonly change = new EventEmitter<DtCheckboxChange>();
+
+  /** Event emitted when the checkbox's `indeterminate` value changes. */
+  @Output() readonly indeterminateChange = new EventEmitter<boolean>();
 
   /** The native radio input element */
   @ViewChild('input') _inputElement: ElementRef;
@@ -130,6 +168,9 @@ export class DtCheckbox extends _DtCheckboxMixinBase
   private _uid = `dt-checkbox-${nextUniqueId++}`;
   private _id: string;
   private _required: boolean;
+  private _indeterminate = false;
+  private _currentCheckState: TransitionCheckState = TransitionCheckState.Init;
+  private _currentAnimationClass = '';
   private _controlValueAccessorChangeFn: (value: boolean) => void = () => { };
 
   constructor(
@@ -171,6 +212,15 @@ export class DtCheckbox extends _DtCheckboxMixinBase
     event.stopPropagation();
 
     if (!this.disabled) {
+      if (this.indeterminate) {
+        Promise.resolve().then(() => {
+          this._indeterminate = false;
+          this.indeterminateChange.emit(this._indeterminate);
+        });
+
+        this._transitionCheckState(
+          this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+      }
       this.toggle();
       this._emitChangeEvent();
     }
@@ -181,6 +231,10 @@ export class DtCheckbox extends _DtCheckboxMixinBase
     // Otherwise the change event, from the input element, will bubble up and
     // emit its event object to the `change` output.
     event.stopPropagation();
+  }
+
+  _getAriaChecked(): 'true' | 'false' | 'mixed' {
+    return this.checked ? 'true' : (this.indeterminate ? 'mixed' : 'false');
   }
 
   /** Implemented as a part of ControlValueAccessor. */
@@ -212,6 +266,58 @@ export class DtCheckbox extends _DtCheckboxMixinBase
   private _emitChangeEvent(): void {
     this._controlValueAccessorChangeFn(this.checked);
     this.change.emit({ source: this, checked: this.checked });
+  }
+
+  private _transitionCheckState(newState: TransitionCheckState): void {
+    const oldState = this._currentCheckState;
+    const element: HTMLElement = this._elementRef.nativeElement;
+
+    if (oldState === newState) {
+      return;
+    }
+    if (this._currentAnimationClass.length > 0) {
+      element.classList.remove(this._currentAnimationClass);
+    }
+
+    this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(oldState, newState);
+    this._currentCheckState = newState;
+
+    if (this._currentAnimationClass.length > 0) {
+      element.classList.add(this._currentAnimationClass);
+    }
+  }
+
+  private _getAnimationClassForCheckStateTransition(
+    oldState: TransitionCheckState, newState: TransitionCheckState): string {
+    let animSuffix = '';
+
+    switch (oldState) {
+      case TransitionCheckState.Init:
+        // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
+        // [checked] bound to it.
+        if (newState === TransitionCheckState.Checked) {
+          animSuffix = 'unchecked-checked';
+        } else if (newState === TransitionCheckState.Indeterminate) {
+          animSuffix = 'unchecked-indeterminate';
+        } else {
+          return '';
+        }
+        break;
+      case TransitionCheckState.Unchecked:
+        animSuffix = newState === TransitionCheckState.Checked ?
+          'unchecked-checked' : 'unchecked-indeterminate';
+        break;
+      case TransitionCheckState.Checked:
+        animSuffix = newState === TransitionCheckState.Unchecked ?
+          'checked-unchecked' : 'checked-indeterminate';
+        break;
+      case TransitionCheckState.Indeterminate:
+        animSuffix = newState === TransitionCheckState.Checked ?
+          'indeterminate-checked' : 'indeterminate-unchecked';
+        break;
+    }
+
+    return `dt-checkbox-anim-${animSuffix}`;
   }
 }
 
