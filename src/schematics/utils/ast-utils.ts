@@ -136,7 +136,7 @@ export type NgModuleDefinition = 'imports' | 'declarations' | 'exports';
 export function addToNgModule(
   sourcePath: string,
   sourceFile: ts.SourceFile,
-  options: DtComponentOptions,
+  name: string,
   position: NgModuleDefinition,
   filter: RegExp = /Dt\w*?Module/
 ): InsertChange {
@@ -151,6 +151,6 @@ export function addToNgModule(
     .reduce((acc, val) => acc.concat(val), []) // flatten
     .filter((c) => c.kind === ts.SyntaxKind.SyntaxList) as ts.SyntaxList[]; // remove tokens
   const indentation = getIndentation(importSyntaxLists);
-  const toInsert = `${indentation}${options.moduleName},`;
+  const toInsert = `${indentation}${name},`;
   return new InsertChange(sourcePath, importSyntaxLists[0].end, toInsert);
 }
