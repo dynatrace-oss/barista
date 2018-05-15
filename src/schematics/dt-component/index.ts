@@ -134,7 +134,7 @@ function addDeclarationsToKitchenSink(options: DtComponentOptions): Rule {
      */
     const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
 
-    changes.push(addToNgModule(sourceFilePath, sourceFile, options, 'imports'));
+    changes.push(addToNgModule(sourceFilePath, sourceFile, options.moduleName, 'imports'));
     return commitChanges(host, changes, sourceFilePath);
   };
 }
@@ -176,12 +176,12 @@ function addComponentToUiTestModule(options: DtComponentOptions): Rule {
     /**
      * add to exports of DynatraceAngularCompModule
      */
-    changes.push(addToNgModule(sourceFilePath, sourceFile, options, 'exports'));
+    changes.push(addToNgModule(sourceFilePath, sourceFile, options.moduleName, 'exports'));
 
     /**
      * Add to declarations of UiTestAppModule
      */
-    changes.push(addToNgModule(sourceFilePath, sourceFile, options, 'declarations', /\w*?UI/));
+    changes.push(addToNgModule(sourceFilePath, sourceFile, `${strings.classify(options.name)}UI`, 'declarations', /\w*?UI/));
     return commitChanges(host, changes, sourceFilePath);
   };
 }
