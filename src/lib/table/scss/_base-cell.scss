@@ -7,18 +7,17 @@ $dt-row-horizontal-padding: 4px;
   overflow: hidden;
   word-wrap: break-word;
   position: relative;
+  justify-content: flex-start;
+  padding-left: $dt-row-horizontal-padding;
 
-  &.dt-align-left {
-    justify-content: flex-start;
-    padding-left: $dt-row-horizontal-padding;
-  }
-
-  &.dt-align-right {
+  &.dt-table-column-align-right {
     justify-content: flex-end;
+    padding-left: 0;
     padding-right: $dt-row-horizontal-padding;
   }
 
-  &.dt-align-center {
+  &.dt-table-column-align-center {
+    padding-left: 0;
     justify-content: center;
   }
 
