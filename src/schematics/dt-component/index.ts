@@ -205,7 +205,7 @@ function addNavitemInUITestApp(options: DtComponentOptions): Rule {
 export default function(options: DtComponentOptions): Rule {
   options.moduleName = `Dt${strings.classify(options.name)}Module`;
   options.selector = `dt-${strings.dasherize(options.name)}`;
-  options.docsComponent = `Docs${strings.classify(name)}Component`;
+  options.docsComponent = `Docs${strings.classify(options.name)}Component`;
   const templateSource = apply(url('./files'), [
       options.uitest ? noop() : filter((p) => !p.startsWith('/ui-test-app')),
       template({

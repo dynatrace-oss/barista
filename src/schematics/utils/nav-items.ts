@@ -14,16 +14,18 @@ export function addNavItem(host: Tree, options: DtComponentOptions, modulePath: 
   .find((node: ts.PropertyDeclaration) => node.name.getText() === 'navItems') as ts.PropertyDeclaration;
   const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression).elements;
   const toInsert = `{name: '${strings.capitalize(options.name)}', route: '/${strings.dasherize(options.name)}'},`;
-  const navItemBefore = routes
+  let navItemBefore = routes
     .filter((node: ts.Expression) => !node.getText().includes('route: \'/\''))
     .find((node: ts.Expression) => node.getText() > toInsert);
 
-  if (navItemBefore) {
-    const indentation = getIndentation([navItemBefore]);
-    const end = navItemBefore.getStart();
-    const routesChange = new InsertChange(modulePath, end, `${toInsert}${indentation}`);
-    changes.push(routesChange);
+  if (!navItemBefore) {
+    navItemBefore = routes[routes.length - 1];
   }
+
+  const indentation = getIndentation([navItemBefore]);
+  const end = navItemBefore.getStart();
+  const routesChange = new InsertChange(modulePath, end, `${toInsert}${indentation}`);
+  changes.push(routesChange);
 
   return commitChanges(host, changes, modulePath);
 }
