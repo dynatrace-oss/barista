@@ -64,9 +64,13 @@ describe('DtTable', () => {
       const tableCells = fixture.debugElement.queryAll(By.css('dt-cell'));
       const tableHeaderRows = fixture.debugElement.queryAll(By.css('dt-header-row'));
       const tableHeaderCells = fixture.debugElement.queryAll(By.css('dt-header-cell'));
-      const tableColumnMinWidthCells = fixture.debugElement.queryAll(By.css('.dt-column-col2'));
       const tableColumnProportionCells = fixture.debugElement.queryAll(By.css('.dt-column-col1'));
+      const tableColumnMinWidthCells = fixture.debugElement.queryAll(By.css('.dt-column-col2'));
       const tableColumnMinWidthAndPropCells = fixture.debugElement.queryAll(By.css('.dt-column-col3'));
+      const tableHeaderCellsAlignLeft = fixture.debugElement.queryAll(By.css('.dt-header-cell.dt-align-left'));
+      const tableCellsAlignLeft = fixture.debugElement.queryAll(By.css('.dt-cell.dt-align-left'));
+      const tableHeaderCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-header-cell.dt-align-center'));
+      const tableCellsAlignCenter = fixture.debugElement.queryAll(By.css('.dt-cell.dt-align-center'));
 
       // tslint:disable:no-magic-numbers
       expect(tableComponent.length)
@@ -85,6 +89,14 @@ describe('DtTable', () => {
         .toBe(5, 'Expected 5 components with the CSS .dt-column-col2 class applied');
       expect(tableColumnMinWidthAndPropCells.length)
         .toBe(5, 'Expected 5 components with the CSS .dt-column-col3 class applied');
+      expect(tableHeaderCellsAlignLeft.length)
+        .toBe(2, 'Expected 2 header cells with the CSS .dt-align-left class applied even with an invalid alignment');
+      expect(tableCellsAlignLeft.length)
+        .toBe(8, 'Expected 8 header cells with the CSS .dt-align-left class applied even with an invalid alignment');
+      expect(tableHeaderCellsAlignCenter.length)
+        .toBe(1, 'Expected 1 header cells with the CSS .dt-align-center class applied');
+      expect(tableCellsAlignCenter.length)
+        .toBe(4, 'Expected 4 header cells with the CSS .dt-align-center class applied');
 
       tableColumnMinWidthCells.forEach((cell, index) => {
         expect(cell.nativeElement.style.minWidth)
@@ -198,12 +210,12 @@ describe('DtTable', () => {
   selector: 'dt-test-app',
   template: `
   <dt-table [dataSource]="dataSource" [isLoading]="loading">
-    <ng-container dtColumnDef="col1" [dtColumnProportion]="2">
+    <ng-container dtColumnDef="col1" [dtColumnProportion]="2" dtColumnAlign="center">
       <dt-header-cell *dtHeaderCellDef>column 1</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.col1}}</dt-cell>
     </ng-container>
 
-    <ng-container dtColumnDef="col2" dtColumnMinWidth="50">
+    <ng-container dtColumnDef="col2" dtColumnMinWidth="50" dtColumnAlign="no-align-type">
       <dt-header-cell *dtHeaderCellDef>column 2</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.col2}}</dt-cell>
     </ng-container>
