@@ -1,5 +1,4 @@
-import { Injectable, Provider, Optional, SkipSelf, Inject, InjectionToken, Renderer2 } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Injectable, Provider, Optional, SkipSelf, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,7 +8,6 @@ import { finalize } from 'rxjs/operators/finalize';
 import { share } from 'rxjs/operators/share';
 import { map } from 'rxjs/operators/map';
 import { tap } from 'rxjs/operators/tap';
-import { _throw as observableThrow } from 'rxjs/observable/throw';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
 import { DtIconType } from './icon-types';
@@ -40,6 +38,7 @@ export function getDtIconNoConfigProviderError(): Error {
  * Since the icon registry deals with a global shared resource-location, we cannot have
  * more than one registry active. To ensure this use the `forRoot` method on the DtIconModule.
  */
+@Injectable()
 export class DtIconRegistry {
 
   /** URLs and cached SVG elements for individual icons. */
@@ -129,7 +128,7 @@ export class DtIconRegistry {
   private _createSvgElementForSingleIcon(responseText: string): SVGElement {
 
     // Creating a DOM element from the given SVG string.
-    const div = this._document!.createElement('div');
+    const div = this._document.createElement('div');
     div.innerHTML = responseText;
     const svg = div.querySelector('svg') as SVGElement;
 
@@ -171,6 +170,6 @@ export const DT_ICON_REGISTRY_PROVIDER: Provider = {
     [new Optional(), DT_ICON_CONFIGURATION],
     [new Optional(), HttpClient],
     // tslint:disable-next-line:no-any
-    [new Optional(), DOCUMENT as InjectionToken<any>],
+    [new Optional(), DOCUMENT],
   ],
 };
