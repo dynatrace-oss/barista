@@ -22,6 +22,7 @@ import { DocsCardModule } from './components/card/docs-card.module';
 import { DocsContextDialogModule } from './components/context-dialog/docs-context-dialog.module';
 import { DocsFormFieldModule } from './components/form-field/docs-form-field-module';
 import { CoreModule } from './core/core.module';
+import { DocsAlertModule } from './components/alert/docs-alert.module';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { CoreModule } from './core/core.module';
     DocsCardModule,
     DocsContextDialogModule,
     DocsFormFieldModule,
+    DocsAlertModule,
   ],
   declarations: [
     Docs,
