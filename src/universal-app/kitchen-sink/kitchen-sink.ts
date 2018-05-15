@@ -34,7 +34,9 @@ export class KitchenSink {
     DtCardModule,
     DtContextDialogModule,
     DtButtonGroupModule,
-    DtIconModule.forRoot({svgIconLocation: ''}),
+    // TODO @thomaspink: Add again if universal supports XHR.
+    // Issue: ***REMOVED***/***REMOVED***
+    // DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
