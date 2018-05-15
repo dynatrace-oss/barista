@@ -20,6 +20,7 @@ import {
   getIndentation,
   getSourceFile,
   getSourceNodes,
+  addToNgModule,
 } from '../utils/ast-utils';
 import { InsertChange, commitChanges } from '../utils/change';
 import { addNavItem } from '../utils/nav-items';
@@ -132,20 +133,8 @@ function addDeclarationsToKitchenSink(options: DtComponentOptions): Rule {
      * get the indentation and the end and add a new import
      */
     const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
-    const importSyntaxLists = assignments
-      .filter((c) => c.getText().startsWith('imports')) // filter imports
-      .map((c) => c.getChildren())
-      .reduce((acc, val) => acc.concat(val), []) // flatten
-      .filter((c) => c.kind === ts.SyntaxKind.ArrayLiteralExpression) // filter out arrays
-      .filter((c) => c.getText().match(/Dt\w*?Module/)) // filter the one with other Dt***Module declarations
-      .map((c) => c.getChildren())
-      .reduce((acc, val) => acc.concat(val), []) // flatten
-      .filter((c) => c.kind === ts.SyntaxKind.SyntaxList) as ts.SyntaxList[]; // remove tokens
 
-    const indentation = getIndentation(importSyntaxLists);
-    const toInsert = `${indentation}${options.moduleName},`;
-    const importsChange = new InsertChange(sourceFilePath, importSyntaxLists[0].end, toInsert);
-    changes.push(importsChange);
+    changes.push(addToNgModule(sourceFilePath, sourceFile, options, 'imports'));
     return commitChanges(host, changes, sourceFilePath);
   };
 }
@@ -163,6 +152,37 @@ function addCompToKitchenSinkHtml(options: DtComponentOptions): Rule {
       tree.overwrite(filePath, `${content}\n<${options.selector}></${options.selector}>`);
     }
     return tree;
+  };
+}
+
+function addComponentToUiTestModule(options: DtComponentOptions): Rule {
+  return (host: Tree) => {
+    const sourceFilePath = path.join('src', 'ui-test-app', 'ui-test-app-module.ts');
+    const sourceFile = getSourceFile(host, sourceFilePath);
+
+    const importChange = addDynatraceAngularComponentsImport(
+      sourceFile,
+      sourceFilePath,
+      options.moduleName
+    );
+    const changes = [importChange];
+
+    /**
+     * add it to the imports declaration in the module
+     * since we have 2 imports property assignments we need to find the one with Dt***Module entries
+     * get the indentation and the end and add a new import
+     */
+    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
+    /**
+     * add to exports of DynatraceAngularCompModule
+     */
+    changes.push(addToNgModule(sourceFilePath, sourceFile, options, 'exports'));
+
+    /**
+     * Add to declarations of UiTestAppModule
+     */
+    changes.push(addToNgModule(sourceFilePath, sourceFile, options, 'declarations', /\w*?UI/));
+    return commitChanges(host, changes, sourceFilePath);
   };
 }
 
@@ -233,6 +253,7 @@ export default function(options: DtComponentOptions): Rule {
       mergeWith(uitestsTemplates),
       addRouteInUITestApp(options),
       addNavitemInUITestApp(options),
+      addComponentToUiTestModule(options),
     ]) : noop(),
   ]);
 }
