@@ -70,6 +70,9 @@ export class DtIcon implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // Icons should only be loaded and rendered if we are in the browser
+    // to avoid shipping svg dom element for example in universal. That could
+    // lead to a lot of redundant html code shipped to the browser.
     if (changes.name && this._plateform.isBrowser) {
       if (this.name) {
         this._iconRegistry.getNamedSvgIcon(this.name).pipe(take(1)).subscribe(
