@@ -20,6 +20,7 @@ import { DocsAlertComponent } from './components/alert/docs-alert.component';
 import { DocsIconComponent } from 'components/icon/docs-icon.component';
 import { DocsRadioComponent } from './components/radio/docs-radio.component';
 import { DocsShowMoreComponent } from './components/show-more/docs-show-more.component';
+import { DocsCheckboxComponent } from './components/checkbox/docs-checkbox.component';
 import { DocsProgressCircleComponent } from './components/progress-circle/docs-progress-circle.component';
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: 'alert-component', component: DocsAlertComponent },
   { path: 'radio', component: DocsRadioComponent },
   { path: 'show-more', component: DocsShowMoreComponent },
+  { path: 'checkbox', component: DocsCheckboxComponent },
   { path: 'progress-circle', component: DocsProgressCircleComponent },
   { path: '**', redirectTo: '' },
 ];

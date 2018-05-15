@@ -1,0 +1,31 @@
+<label
+  class="dt-checkbox-label"
+  [attr.for]="_inputId">
+  <input #input
+    type="checkbox"
+    class="dt-checkbox-input"
+    [required]="required"
+    [checked]="checked"
+    [disabled]="disabled"
+    [name]="name"
+    [value]="value"
+    [id]="_inputId"
+    [tabIndex]="tabIndex"
+    [attr.aria-label]="ariaLabel || null"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [attr.aria-checked]="checked.toString()"
+    (change)="_onInputChange($event)"
+    (click)="_onInputClick($event)"/>
+  <div class="dt-checkbox-container">
+    <div class="dt-checkbox-checkmark">
+      <svg viewBox="0 0 512 512" focusable="false">
+        <path fill="transparent" stroke-width="64" d="M79.57 267.044l128.761 107.991 221.185-263.55" stroke-dasharray="560" />
+      </svg>
+    </div>
+  </div>
+  <div class="dt-checkbox-caption">
+    <!-- Add an invisible span so JAWS can read the label -->
+    <span style="display:none">&nbsp;</span>
+    <ng-content></ng-content>
+  </div>
+</label>
