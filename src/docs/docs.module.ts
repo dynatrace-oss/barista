@@ -27,6 +27,7 @@ import { DocsShowMoreModule } from './components/show-more/docs-show-more.module
 import { FormsModule } from '@angular/forms';
 import {DtThemingModule} from '@dynatrace/angular-components';
 import { DocsRadioModule } from './components/radio/docs-radio.module';
+import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
 import { DocsProgressCircleModule } from './components/progress-circle/docs-progress-circle.module';
 
 @NgModule({
@@ -57,6 +58,7 @@ import { DocsProgressCircleModule } from './components/progress-circle/docs-prog
     DocsShowMoreModule,
     DtThemingModule,
     DocsRadioModule,
+    DocsCheckboxModule,
     DocsProgressCircleModule,
   ],
   declarations: [
