@@ -42,7 +42,7 @@ let nextUniqueId = 0;
  */
 export const DT_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-forward-ref
+  // tslint:disable-next-line:no-forward-ref no-use-before-declare
   useExisting: forwardRef(() => DtCheckbox),
   multi: true,
 };
@@ -148,7 +148,7 @@ export class DtCheckbox extends _DtCheckboxMixinBase
   ngAfterViewInit(): void {
     this._focusMonitor
       .monitor(this._inputElement.nativeElement, false)
-      .subscribe((focusOrigin) => this._onInputFocusChange(focusOrigin));
+      .subscribe((focusOrigin) => { this._onInputFocusChange(focusOrigin); });
   }
 
   ngOnDestroy(): void {
@@ -217,7 +217,7 @@ export class DtCheckbox extends _DtCheckboxMixinBase
 
 export const DT_CHECKBOX_REQUIRED_VALIDATOR: Provider = {
   provide: NG_VALIDATORS,
-  // tslint:disable-next-line:no-forward-ref
+  // tslint:disable-next-line:no-forward-ref no-use-before-declare
   useExisting: forwardRef(() => DtCheckboxRequiredValidator),
   multi: true,
 };
