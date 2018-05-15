@@ -1,31 +1,29 @@
+import { strings } from '@angular-devkit/core';
 import {
-  chain,
-  mergeWith,
+  Rule,
   Tree,
   apply,
+  chain,
   filter,
+  mergeWith,
   move,
-  Rule,
+  noop,
   template,
   url,
-  branchAndMerge,
-  noop,
-  source,
 } from '@angular-devkit/schematics';
-import { strings } from '@angular-devkit/core';
-import { DtComponentOptions } from './schema';
-import {
-  getSourceFile,
-  getSourceNodes,
-  findNodes,
-  getIndentation,
-  addImport,
-  addDynatraceAngularComponentsImport,
-} from '../utils/ast-utils';
 import * as path from 'path';
 import * as ts from 'typescript';
+import {
+  addDynatraceAngularComponentsImport,
+  addImport,
+  findNodes,
+  getIndentation,
+  getSourceFile,
+  getSourceNodes,
+} from '../utils/ast-utils';
 import { InsertChange, commitChanges } from '../utils/change';
 import { addNavItem } from '../utils/nav-items';
+import { DtComponentOptions } from './schema';
 
 /**
  * Adds the export to the index in the lib root
