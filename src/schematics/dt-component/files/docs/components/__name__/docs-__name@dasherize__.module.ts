@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Default<%= classify(name) %>ExampleComponent } from './examples/default-<%= dasherize(name) %>-example.component';
-import { Docs<%= classify(name) %>Component } from './docs-<%= dasherize(name) %>.component';
+import { <%= docsComponent %> } from './docs-<%= dasherize(name) %>.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { Dt<%= classify(name) %>Module } from '@dynatrace/angular-components';
+import { <%= moduleName %> } from '@dynatrace/angular-components';
 
 const EXAMPLES = [
   Default<%= classify(name) %>ExampleComponent,
@@ -13,14 +13,14 @@ const EXAMPLES = [
   imports: [
     CommonModule,
     UiModule,
-    Dt<%= classify(name) %>Module,
+    <%= moduleName %>,
   ],
   declarations: [
     ...EXAMPLES,
-    Docs<%= classify(name) %>Component,
+    <%= docsComponent %>,
   ],
   exports: [
-    Docs<%= classify(name) %>Component,
+    <%= docsComponent %>,
   ],
   entryComponents: [
     ...EXAMPLES,
