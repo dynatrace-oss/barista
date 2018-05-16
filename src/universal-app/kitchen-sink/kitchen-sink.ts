@@ -2,6 +2,7 @@ import {Component, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ServerModule} from '@angular/platform-server';
 import {
+  DtAlertModule,
   DtButtonModule,
   DtLoadingDistractorModule,
   DtTileModule,
@@ -9,6 +10,7 @@ import {
   DtContextDialogModule,
   DtButtonGroupModule,
   DtTableModule,
+  DtTagModule,
   DtIconModule,
 } from '@dynatrace/angular-components';
 
@@ -27,10 +29,12 @@ export class KitchenSink {
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({appId: 'kitchen-sink'}),
+    DtAlertModule,
     DtButtonModule,
     DtTableModule,
     DtLoadingDistractorModule,
     DtTileModule,
+    DtTagModule,
     DtCardModule,
     DtContextDialogModule,
     DtButtonGroupModule,

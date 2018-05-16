@@ -22,6 +22,7 @@ import { DocsCardModule } from './components/card/docs-card.module';
 import { DocsContextDialogModule } from './components/context-dialog/docs-context-dialog.module';
 import { DocsFormFieldModule } from './components/form-field/docs-form-field-module';
 import { CoreModule } from './core/core.module';
+import { DocsTagModule } from './components/tag/docs-tag.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
 import { DocsIconModule } from './components/icon/docs-icon.module';
 
@@ -47,6 +48,7 @@ import { DocsIconModule } from './components/icon/docs-icon.module';
     DocsCardModule,
     DocsContextDialogModule,
     DocsFormFieldModule,
+    DocsTagModule,
     DocsAlertModule,
   ],
   declarations: [
