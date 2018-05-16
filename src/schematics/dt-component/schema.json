@@ -6,6 +6,16 @@
   "properties": {
     "name": {
       "type": "string"
+    },
+    "uitest": {
+      "type": "boolean",
+      "default": true,
+      "aliases": ["ui"]
+    },
+    "universal": {
+      "type": "boolean",
+      "default": true,
+      "aliases": ["un"]
     }
   }
 }

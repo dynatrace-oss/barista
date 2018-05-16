@@ -1,25 +1,30 @@
+import { strings } from '@angular-devkit/core';
 import {
-  chain,
-  mergeWith,
+  Rule,
   Tree,
   apply,
+  chain,
   filter,
+  mergeWith,
   move,
-  Rule,
+  noop,
   template,
   url,
-  branchAndMerge,
 } from '@angular-devkit/schematics';
-import { strings } from '@angular-devkit/core';
-import { DtComponentOptions } from './schema';
-import { getSourceFile, getSourceNodes, findNodes, getIndentation, addImport } from '../utils/ast-utils';
 import * as path from 'path';
 import * as ts from 'typescript';
+import {
+  addDynatraceAngularComponentsImport,
+  addImport,
+  findNodes,
+  getIndentation,
+  getSourceFile,
+  getSourceNodes,
+  addToNgModule,
+} from '../utils/ast-utils';
 import { InsertChange, commitChanges } from '../utils/change';
-
-function filterTemplates(): Rule {
-  return filter((path) => !path.match(/\.bak$/));
-}
+import { addNavItem } from '../utils/nav-items';
+import { DtComponentOptions } from './schema';
 
 /**
  * Adds the export to the index in the lib root
@@ -106,48 +111,151 @@ function addRouteInDocs(options: DtComponentOptions): Rule {
  * Adds a new navitem inside the docs navitems
  */
 function addNavitemInDocs(options: DtComponentOptions): Rule {
+  return (host: Tree) => addNavItem(host, options, path.join('src', 'docs', 'docs.component.ts'));
+}
+
+/** Adds import and declaration to universal */
+function addDeclarationsToKitchenSink(options: DtComponentOptions): Rule {
   return (host: Tree) => {
-    const modulePath = path.join('src', 'docs', 'docs.component.ts');
-    const sourceFile = getSourceFile(host, modulePath);
-    const changes: InsertChange[] = [];
+    const sourceFilePath = path.join('src', 'universal-app', 'kitchen-sink', 'kitchen-sink.ts');
+    const sourceFile = getSourceFile(host, sourceFilePath);
 
-    const routesDeclaration = findNodes(sourceFile, ts.SyntaxKind.PropertyDeclaration)
-    .find((node: ts.PropertyDeclaration) => node.name.getText() === 'navItems') as ts.PropertyDeclaration;
-    const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression).elements;
-    const toInsert = `{name: '${strings.capitalize(options.name)}', route: '/${strings.dasherize(options.name)}'},`;
-    const navItemBefore = routes
-      .filter((node: ts.Expression) => !node.getText().includes('route: \'/\''))
-      .find((node: ts.Expression) => node.getText() > toInsert);
+    const importChange = addDynatraceAngularComponentsImport(
+      sourceFile,
+      sourceFilePath,
+      options.moduleName
+    );
+    const changes = [importChange];
 
-    if (navItemBefore) {
-      const indentation = getIndentation([navItemBefore]);
-      const end = navItemBefore.getStart();
-      const routesChange = new InsertChange(modulePath, end, `${toInsert}${indentation}`);
-      changes.push(routesChange);
-    }
+    /**
+     * add it to the imports declaration in the module
+     * since we have 2 imports property assignments we need to find the one with Dt***Module entries
+     * get the indentation and the end and add a new import
+     */
+    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
 
-    return commitChanges(host, changes, modulePath);
+    changes.push(addToNgModule(sourceFilePath, sourceFile, options.moduleName, 'imports'));
+    return commitChanges(host, changes, sourceFilePath);
   };
 }
 
+/** Adds selector to html */
+function addCompToKitchenSinkHtml(options: DtComponentOptions): Rule {
+  return (tree: Tree) => {
+    const filePath = path.join('src', 'universal-app', 'kitchen-sink', 'kitchen-sink.html');
+    const content = tree.read(filePath);
+    if (!content) {
+      return;
+    }
+    // Prevent from adding the same component again.
+    if (content.indexOf(options.selector) === -1) {
+      tree.overwrite(filePath, `${content}\n<${options.selector}></${options.selector}>`);
+    }
+    return tree;
+  };
+}
+
+function addComponentToUiTestModule(options: DtComponentOptions): Rule {
+  return (host: Tree) => {
+    const sourceFilePath = path.join('src', 'ui-test-app', 'ui-test-app-module.ts');
+    const sourceFile = getSourceFile(host, sourceFilePath);
+
+    const changes = [];
+    /** @dynatrace/angular-component import */
+    changes.push(addDynatraceAngularComponentsImport(
+      sourceFile,
+      sourceFilePath,
+      options.moduleName
+    ));
+
+    /**
+     * relative <name>UI import
+     */
+    const uiImportName = `${strings.classify(options.name)}UI`;
+    const uiImportLocation = `'./${strings.dasherize(options.name)}/${strings.dasherize(options.name)}-ui';`;
+    changes.push(addImport(sourceFilePath, sourceFile, uiImportName, uiImportLocation));
+
+    /**
+     * add to exports of DynatraceAngularCompModule
+     */
+    changes.push(addToNgModule(sourceFilePath, sourceFile, options.moduleName, 'exports'));
+
+    /**
+     * Add to declarations of UiTestAppModule
+     */
+    changes.push(addToNgModule(sourceFilePath, sourceFile, uiImportName, 'declarations', /\w*?UI/));
+    return commitChanges(host, changes, sourceFilePath);
+  };
+}
+
+/**
+ * Adds a new route inside the ui-test routes
+ */
+function addRouteInUITestApp(options: DtComponentOptions): Rule {
+  return (host: Tree) => {
+    const modulePath = path.join('src', 'ui-test-app', 'ui-test-app', 'routes.ts');
+    const sourceFile = getSourceFile(host, modulePath);
+
+    const importName = `${strings.classify(options.name)}UI`;
+    const importLocation = `'../${strings.dasherize(options.name)}/${strings.dasherize(options.name)}-ui';`;
+    const importChange = addImport(modulePath, sourceFile, importName, importLocation);
+
+    /**
+     * find last route and add new route
+     */
+    const routesDeclaration = findNodes(sourceFile, ts.SyntaxKind.VariableDeclaration)
+    .find((node: ts.VariableDeclaration) => node.name.getText() === 'UI_TEST_APP_ROUTES') as ts.VariableDeclaration;
+    const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression).elements;
+    const end = (routes[routes.length - 1] as ts.Expression).getStart();
+    const indentation = getIndentation(routes);
+    const toInsert = `{ path: '${strings.dasherize(options.name)}', component: ${importName} },${indentation}`;
+    const routesChange = new InsertChange(modulePath, end, toInsert);
+
+    return commitChanges(host, [importChange, routesChange], modulePath);
+  };
+}
+
+/**
+ * Adds a new navitem inside the ui-test navitems
+ */
+function addNavitemInUITestApp(options: DtComponentOptions): Rule {
+  return (host: Tree) => addNavItem(host, options, path.join('src', 'ui-test-app', 'ui-test-app', 'ui-test-app.ts'));
+}
+
 export default function(options: DtComponentOptions): Rule {
-  options.symbolName = `Dt${strings.classify(options.name)}Module`;
+  options.moduleName = `Dt${strings.classify(options.name)}Module`;
+  options.selector = `dt-${strings.dasherize(options.name)}`;
+  options.docsComponent = `Docs${strings.classify(options.name)}Component`;
   const templateSource = apply(url('./files'), [
-      filterTemplates(),
+      options.uitest ? noop() : filter((p) => !p.startsWith('/ui-test-app')),
+      filter((p) => !p.startsWith('/ui-tests')),
       template({
         ...strings,
         ...options,
       }),
       move('src'),
     ]);
+  const uitestsTemplates = apply(url('./files'), [
+    filter((p) => p.startsWith('/ui-tests')),
+    template({
+      ...strings,
+      ...options,
+    }),
+    move('.'),
+  ]);
 
   return chain([
-      branchAndMerge(chain([
-        mergeWith(templateSource),
-        addExportToRootIndex(options),
-        addDeclarationsToDocsModule(options),
-        addRouteInDocs(options),
-        addNavitemInDocs(options),
-      ])),
-    ]);
+    mergeWith(templateSource),
+    addExportToRootIndex(options),
+    addDeclarationsToDocsModule(options),
+    addRouteInDocs(options),
+    addNavitemInDocs(options),
+    options.universal ? chain([addDeclarationsToKitchenSink(options), addCompToKitchenSinkHtml(options)]) : noop(),
+    options.uitest ? chain([
+      mergeWith(uitestsTemplates),
+      addRouteInUITestApp(options),
+      addNavitemInUITestApp(options),
+      addComponentToUiTestModule(options),
+    ]) : noop(),
+  ]);
 }
