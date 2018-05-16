@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtButtonModule, DtButton } from '@dynatrace/angular-components';
+import { DtButtonModule, DtButton, DtIconModule } from '@dynatrace/angular-components';
 
 describe('DtButton', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtButtonModule],
+      imports: [DtButtonModule, DtIconModule],
       declarations: [TestApp],
     });
 
@@ -130,6 +130,16 @@ describe('DtButton', () => {
       expect(buttonElement.nativeElement.classList)
         .toContain('dt-button-secondary', 'Expected the element to have the "dt-button-secondary" class set');
     });
+
+    it('should pass the color to the icon', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      fixture.detectChanges();
+
+      const iconElement = fixture.debugElement.query(By.css('dt-icon'));
+      const instance = iconElement.componentInstance;
+
+      instance.color = 'light';
+    });
   });
 
   // Anchor button tests
@@ -183,6 +193,7 @@ describe('DtButton', () => {
   template: `
     <button dt-button type="button" (click)="increment()"
       [disabled]="isDisabled">
+      <dt-icon></dt-icon>
       Go
     </button>
     <a href="http://www.dynatrace.com" dt-button [disabled]="isDisabled">
