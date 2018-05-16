@@ -79,6 +79,7 @@ export const _DtCheckboxMixinBase = mixinTabIndex(mixinDisabled(DtCheckboxBase))
     '[id]': 'id',
     'class': 'dt-checkbox',
     '[class.dt-checkbox-checked]': 'checked',
+    '[class.dt-checkbox-indeterminate]': 'indeterminate',
     '[class.dt-checkbox-disabled]': 'disabled',
     '(focus)': '_inputElement.nativeElement.focus()',
   },
