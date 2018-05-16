@@ -11,8 +11,8 @@ import { DtCheckboxChange } from '@dynatrace/angular-components';
         [indeterminate]="_isIndeterminate()"
         (change)="changeAll($event)"
       >All</dt-checkbox></div>
-    <div><dt-checkbox (change)="_checkbox1 = $event.checked" [checked]="_checkbox1">Checkbox 1</dt-checkbox></div>
-    <div><dt-checkbox (change)="_checkbox2 = $event.checked" [checked]="_checkbox2">Checkbox 2</dt-checkbox></div>
+    <div><dt-checkbox (change)="_checkbox1 = $event.checked" [checked]="_checkbox1">Checkbox 1</dt-checkbox> {{_checkbox1}}</div>
+    <div><dt-checkbox (change)="_checkbox2 = $event.checked" [checked]="_checkbox2">Checkbox 2</dt-checkbox> {{_checkbox2}}</div>
   `,
 })
 export class IndeterminateCheckboxExampleComponent {
