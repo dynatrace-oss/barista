@@ -5,6 +5,7 @@ import {
 } from '@angular-devkit/schematics';
 import { InsertChange } from './change';
 import { strings } from '@angular-devkit/core';
+import { DtComponentOptions } from '../dt-component/schema';
 
 export function getSourceFile(host: Tree, path: string): ts.SourceFile {
   const buffer = host.read(path);
@@ -128,4 +129,28 @@ export function addImport(
   }
   const toInsert = `\nimport { ${importName} } from ${importLocation}`;
   return new InsertChange(sourcePath, pos, toInsert);
+}
+
+export type NgModuleDefinition = 'imports' | 'declarations' | 'exports';
+
+export function addToNgModule(
+  sourcePath: string,
+  sourceFile: ts.SourceFile,
+  name: string,
+  position: NgModuleDefinition,
+  filter: RegExp = /Dt\w*?Module/
+): InsertChange {
+  const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
+  const importSyntaxLists = assignments
+    .filter((c) => c.getText().startsWith(position)) // filter by position
+    .map((c) => c.getChildren())
+    .reduce((acc, val) => acc.concat(val), []) // flatten
+    .filter((c) => c.kind === ts.SyntaxKind.ArrayLiteralExpression) // filter out arrays
+    .filter((c) => c.getText().match(filter)) // filter the one with other Dt***Module declarations
+    .map((c) => c.getChildren())
+    .reduce((acc, val) => acc.concat(val), []) // flatten
+    .filter((c) => c.kind === ts.SyntaxKind.SyntaxList) as ts.SyntaxList[]; // remove tokens
+  const indentation = getIndentation(importSyntaxLists);
+  const toInsert = `${indentation}${name},`;
+  return new InsertChange(sourcePath, importSyntaxLists[0].end, toInsert);
 }
