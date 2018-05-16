@@ -1,8 +1,9 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation, Input, ElementRef, Renderer2, ChangeDetectorRef,
+  ViewEncapsulation, Input, ElementRef, ChangeDetectorRef,
 } from '@angular/core';
+import {replaceCssClass} from '../core/index';
 
 export type DtAlertSeverity = 'error' | 'warning' | undefined;
 
@@ -21,7 +22,6 @@ export type DtAlertSeverity = 'error' | 'warning' | undefined;
 export class DtAlert {
 
   constructor(private _el: ElementRef,
-              private _renderer: Renderer2,
               private _changeDetectorRef: ChangeDetectorRef) { }
 
   private _severity: DtAlertSeverity;
@@ -32,13 +32,12 @@ export class DtAlert {
   }
 
   set severity(newValue: DtAlertSeverity) {
-    if (this._severity !== undefined) {
-      this._renderer.removeClass(this._el.nativeElement, this._severity.toString());
-    }
+    replaceCssClass(this._el, this._calcCssClass(this._severity), this._calcCssClass(newValue));
     this._severity = newValue;
-    if (this._severity !== undefined) {
-      this._renderer.addClass(this._el.nativeElement, this._severity.toString());
-    }
     this._changeDetectorRef.markForCheck();
+  }
+
+  private _calcCssClass(severity: DtAlertSeverity): string | undefined {
+    return severity !== undefined ? `dt-alert-${severity.toString()}` : undefined;
   }
 }
