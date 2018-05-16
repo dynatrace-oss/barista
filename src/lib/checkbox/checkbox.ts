@@ -99,6 +99,10 @@ export class DtCheckbox extends _DtCheckboxMixinBase
     const coercedValue = coerceBooleanProperty(value);
     if (coercedValue !== this._checked) {
       this._checked = coercedValue;
+      if (!this.indeterminate) {
+        this._transitionCheckState(
+          this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+      }
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -221,8 +225,6 @@ export class DtCheckbox extends _DtCheckboxMixinBase
       }
 
       this.toggle();
-      this._transitionCheckState(
-        this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
       this._emitChangeEvent();
     }
   }
