@@ -1,0 +1,79 @@
+@import '../core/style/variables';
+
+$remove-icon-size: 16px;
+
+:host {
+  box-sizing: border-box;
+  font-family: $mainfont;
+  font-size: 12px;
+  text-decoration: none;
+  border: 1px solid $gray-130;
+  background-color: $gray-130;
+  border-radius: 12px;
+  min-width: 30px;
+  height: 24px;
+  padding: 2px 8px;
+  margin: 5px;
+  outline: none;
+  color: $gray-700;
+
+  display: inline-flex;
+  align-items: center;
+}
+
+:host.dt-tag-interactive {
+  cursor: pointer;
+  color: $turquoise-700;
+  border-color: $gray-300;
+
+  background-color: #fff;
+
+  &:hover {
+    background-color: $gray-130;
+    border-color: $gray-400;
+  }
+
+  &:focus {
+    box-shadow:
+      0 0 0 2px $gray-300;
+  }
+}
+
+.dt-tag-remove-icon {
+  height: $remove-icon-size;
+
+  > svg {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 8px;
+
+    fill: $turquoise-600;
+    width: $remove-icon-size;
+    height: $remove-icon-size;
+
+    &:hover {
+      fill: $turquoise-700;
+    }
+  }
+}
+
+:host.dt-tag-disabled {
+  background-color: #fff;
+  color: $gray-300;
+  border: 1px solid $gray-200;
+}
+
+.dt-tag-name {
+  font-size: 12px;
+}
+
+/* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
+.dt-tag-name ::ng-deep .tag-key {
+  color: $gray-500;
+  margin-right: 0.25em;
+}
+
+/* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
+:host.dt-tag-disabled .dt-tag-name ::ng-deep .tag-key {
+  color: inherit;
+}

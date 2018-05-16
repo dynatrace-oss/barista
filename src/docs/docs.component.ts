@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 export class Docs {
   navItems = [
-    {name: 'Start', route: '/'},
     {name: 'Alert', route: '/alert-component'},
     {name: 'Button', route: '/button'},
     {name: 'Button Group', route: '/button-group'},
@@ -23,6 +22,7 @@ export class Docs {
     {name: 'Links', route: '/links'},
     {name: 'Loading distractor', route: '/loading-distractor'},
     {name: 'Table', route: '/table'},
+    {name: 'Tag', route: '/tag'},
     {name: 'Tile', route: '/tile'},
   ];
 }

@@ -1,0 +1,12 @@
+<div class="dt-tag-name">
+  <ng-content select="dt-tag-key, [dt-tag-key], [dtTagKey]" #key></ng-content>
+  <ng-content></ng-content>
+</div>
+
+<div class="dt-tag-remove-icon" *ngIf="removable" (click)="_doDelete()">
+  <svg viewBox="0 0 512 512">
+    <polygon points="434.19092,134.37753 377.62256,77.80918 256,199.43173 134.37744,77.80918 77.80908,134.37753
+199.43164,256.00009 77.80908,377.62265 134.37744,434.19101 256,312.56845 377.62256,434.19101 434.19092,377.62265
+312.56836,256.00009 "/>
+  </svg>
+</div>
