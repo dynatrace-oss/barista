@@ -1,4 +1,4 @@
-<div class="icon-container" [ngSwitch]="severity">
+<div class="dt-alert-icon-container" [ngSwitch]="severity">
   <svg viewBox="0 0 512 512" *ngSwitchCase="'warning'">
     <path d="M256,44.0001L32.22363,431.60214h447.55273L256,44.0001z M284,396.00009h-56v-56.00195h56V396.00009z
        M228,288.00009v-132h56v132H228z"/>
@@ -9,6 +9,6 @@
   </svg>
 </div>
 
-<div class="text-container">
+<div class="dt-alert-text-container">
   <ng-content></ng-content>
 </div>
