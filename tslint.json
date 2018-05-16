@@ -74,10 +74,6 @@
     "no-submodule-imports": false,
     "no-trailing-whitespace": true,
     "no-var-keyword": true,
-    // Disabling no void expression as it prevents us from doing arrow funktion that return void.
-    // E.g. (err: Error) => console.log(`Error retrieving icon: ${err.message}`)
-    // or (svg) => this._setSvgElement(svg)
-    "no-void-expression": false,
     "no-unsafe-any": false,
     "no-unused-expression": true,
     "no-unused-variable": true,
