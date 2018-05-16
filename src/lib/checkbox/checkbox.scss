@@ -73,6 +73,23 @@ $dt-checkbox-size: 20px;
   }
 }
 
-:host.dt-checkbox-checked .dt-checkbox-checkmark svg {
+:host.dt-checkbox-anim-unchecked-checked .dt-checkbox-checkmark svg {
   stroke-dashoffset: 0;
+}
+
+// TODO: animations
+:host.dt-checkbox-anim-checked-unchecked .dt-checkbox-checkmark svg {
+  stroke-dashoffset: 560;
+}
+
+:host.dt-checkbox-anim-unchecked-indeterminate .dt-checkbox-checkmark svg {
+}
+
+:host.dt-checkbox-anim-checked-indeterminate .dt-checkbox-checkmark svg {
+}
+
+:host.dt-checkbox-anim-indeterminate-unchecked .dt-checkbox-checkmark svg {
+}
+
+:host.dt-checkbox-anim-indeterminate-checked .dt-checkbox-checkmark svg {
 }
