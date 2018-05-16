@@ -217,11 +217,11 @@ export class DtCheckbox extends _DtCheckboxMixinBase
           this._indeterminate = false;
           this.indeterminateChange.emit(this._indeterminate);
         });
-
-        this._transitionCheckState(
-          this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
       }
+
       this.toggle();
+      this._transitionCheckState(
+        this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
       this._emitChangeEvent();
     }
   }
