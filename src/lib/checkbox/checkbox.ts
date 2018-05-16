@@ -218,6 +218,7 @@ export class DtCheckbox extends _DtCheckboxMixinBase
 
     if (!this.disabled) {
       if (this.indeterminate) {
+        // tslint:disable-next-line:no-floating-promises
         Promise.resolve().then(() => {
           this._indeterminate = false;
           this.indeterminateChange.emit(this._indeterminate);
