@@ -97,7 +97,7 @@ export class DtButton extends _DtButtonMixinBase
   ngAfterContentInit(): void {
     this._icons.changes
       .pipe(startWith(null))
-      .subscribe(() => this._updateIconColors());
+      .subscribe(() => { this._updateIconColors(); });
   }
 
   ngOnDestroy(): void {
