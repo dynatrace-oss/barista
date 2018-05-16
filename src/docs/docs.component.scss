@@ -71,4 +71,10 @@
   li + li {
     border-top: 1px solid #e6e6e6;
   }
+
+  .router-link-active {
+    border-left: 6px solid #525252;
+    padding-left: 14px;
+  }
 }
+
