@@ -9,7 +9,6 @@ import {DarkAlertExampleComponent} from './examples/dark-alert-example.component
   moduleId: module.id,
   selector: 'docs-alert-component',
   templateUrl: 'docs-alert.component.html',
-  styleUrls: ['docs-alert.component.scss'],
 })
 export class DocsAlertComponent {
   examples = {
