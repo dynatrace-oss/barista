@@ -14,13 +14,13 @@ describe('DtAlert', () => {
     TestBed.compileComponents();
   }));
 
-  it('should add classes', () => {
+  it('expects ', () => {
     const fixture = TestBed.createComponent(TestApp);
     fixture.detectChanges();
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
-    expect(tileNativeElement.classList.contains('error'))
-      .toBeTruthy('Expected alert to have css style');
+    expect(tileNativeElement.classList.contains('dt-alert-error'))
+      .toBeTruthy('css class to be present');
 
     let groupDebugElement = fixture.debugElement.query(By.directive(DtAlert));
     let groupInstance = groupDebugElement.injector.get<DtAlert>(DtAlert);
@@ -28,11 +28,11 @@ describe('DtAlert', () => {
     groupInstance.severity = 'warning';
     fixture.detectChanges();
 
-    expect(tileNativeElement.classList.contains('warning'))
-      .toBeTruthy('Expected alert to have css style');
+    expect(tileNativeElement.classList.contains('dt-alert-warning'))
+      .toBeTruthy('new css class to be present after change');
 
-    expect(tileNativeElement.classList.contains('error'))
-      .toBeFalsy('Expected alert to not have css style');
+    expect(tileNativeElement.classList.contains('dt-alert-error'))
+      .toBeFalsy('previous css class to not be present after change');
 
   });
 });
