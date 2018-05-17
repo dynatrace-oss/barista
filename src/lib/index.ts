@@ -6,6 +6,7 @@
  * export * from './core/index';
  */
 
+export * from './alert/index';
 export * from './core/index';
 export * from './form-field/index';
 export * from './input/index';
