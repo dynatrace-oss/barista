@@ -13,10 +13,13 @@ import { DtIconRegistry } from './icon-registry';
 import { DtIconType } from './icon-types';
 import {
   DtThemePalette,
-  setComponentColorClasses
+  setComponentColorClasses,
+  DtLoggerFactory
 } from '../core/index';
 
 export type DtIconColorPalette = DtThemePalette | 'light' | 'dark';
+
+const iconLogger = DtLoggerFactory.create('DtIcon');
 
 @Component({
   moduleId: module.id,
@@ -71,9 +74,8 @@ export class DtIcon implements OnChanges {
         this._iconRegistry.getNamedSvgIcon(this.name).pipe(take(1)).subscribe(
           (svg) => { this._setSvgElement(svg); },
           // We do not break the app when an icon could not be loaded
-          // so do only a console.log here
-          // tslint:disable-next-line:no-console
-          (err: Error) => { console.log(`Error retrieving icon: ${this.name} ${err.message}`); }
+          // so do only a log here
+          (err: Error) => { iconLogger.error(`Error retrieving icon: ${this.name} ${err.message}`); }
         );
       } else {
         this._clearSvgElement();
