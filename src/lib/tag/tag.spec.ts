@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {DtTagModule, DtTag} from '@dynatrace/angular-components';
 
-fdescribe('DtTag', () => {
+describe('DtTag', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtTagModule],
