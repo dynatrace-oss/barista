@@ -15,6 +15,7 @@ import { DocsTileComponent } from './components/tile/docs-tile.component';
 import { DocsCardComponent } from './components/card/docs-card.component';
 import { DocsContextDialogComponent } from './components/context-dialog/docs-context-dialog.component';
 import { DocsFormField } from 'components/form-field/docs-form-field';
+import { DocsAlertComponent } from './components/alert/docs-alert.component';
 import { DocsIconComponent } from 'components/icon/docs-icon.component';
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'links', component: DocsLinkComponent },
   { path: 'table', component: DocsTableComponent },
   { path: 'tile', component: DocsTileComponent },
+  { path: 'alert-component', component: DocsAlertComponent },
   { path: '**', redirectTo: '' },
 ];
 
