@@ -47,23 +47,24 @@
     border: 0;
   }
 
-  .dt-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 4px;
-    margin-top: 5px;
-    vertical-align: top;
-  }
-
   &.dt-icon-button {
     padding-left: 0;
     padding-right: 0;
     width: 32px;
     text-align: center;
+  }
+}
 
-    .dt-icon {
-      margin-right: 0;
-    }
+.dt-button-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  margin-top: 5px;
+  vertical-align: top;
+
+  :host.dt-icon-button & {
+    margin-right: 0;
   }
 }
 
