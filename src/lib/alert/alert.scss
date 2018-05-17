@@ -1,0 +1,68 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+
+$display-type: inline-flex;
+
+:host {
+  font-size: 14px;
+  color: $gray-700;
+  box-sizing: border-box;
+
+  display: none; // is overriden in the severity-types
+  align-items: stretch;
+}
+
+.dt-alert-icon-container {
+  flex-shrink: 0;
+  width: 36px;
+  position: relative;
+  border: 0;
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+}
+
+.dt-alert-icon-container svg {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: calc(50% - 10px);
+
+  fill: white;
+  margin: 0 8px;
+}
+
+.dt-alert-text-container {
+  background-color: white;
+
+  border-top-right-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+  border-left: 0 !important;
+
+  padding: 10px 16px;
+}
+
+:host.dt-alert-warning {
+
+  display: $display-type;
+
+  .dt-alert-icon-container {
+    background-color: $warning-color;
+  }
+
+  .dt-alert-text-container {
+    border: 1px solid $warning-color;
+  }
+}
+
+:host.dt-alert-error {
+
+  display: $display-type;
+
+  .dt-alert-icon-container {
+    background-color: $error-color;
+  }
+  .dt-alert-text-container {
+    border: 1px solid $error-color;
+  }
+
+}
