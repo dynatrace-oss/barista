@@ -1,1 +1,6 @@
-<ng-content></ng-content>
+<span class="dt-button-icon" *ngIf="_icons.length">
+  <ng-content select="dt-icon"></ng-content>
+</span>
+<span class="dt-button-label">
+  <ng-content></ng-content>
+</span>
