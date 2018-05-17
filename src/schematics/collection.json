@@ -7,6 +7,12 @@
       "factory": "./dt-component/index",
       "schema": "./dt-component/schema.json",
       "aliases": [ "dtc" ]
+    },
+    "dt-example": {
+      "description": "Create a new example in component",
+      "factory": "./dt-example/index",
+      "schema": "./dt-example/schema.json",
+      "aliases": [ "dte" ]
     }
   }
 }
