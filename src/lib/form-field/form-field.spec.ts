@@ -13,17 +13,7 @@ import {
   ErrorStateMatcher,
 } from '@dynatrace/angular-components';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
-
-/**
- * Gets a RegExp used to detect an angular wrapped error message.
- * See https://github.com/angular/angular/issues/8348
- *
- * Should be removed once Angular CDK ships it.
- */
-export function wrappedErrorMessage(e: Error): RegExp {
-  const escapedMessage = e.message.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
-  return new RegExp(escapedMessage);
-}
+import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 const TEST_IMPORTS = [
   FormsModule,
