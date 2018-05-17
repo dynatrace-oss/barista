@@ -4,8 +4,13 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   OnDestroy,
+  AfterContentInit,
   Input,
-  Renderer2
+  Renderer2,
+  ContentChildren,
+  QueryList,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import {
@@ -16,6 +21,8 @@ import {
   CanDisable,
   replaceCssClass
 } from '../core/index';
+import { DtIcon } from '../icon/index';
+import { startWith } from 'rxjs/operators/startWith';
 
 /**
  * List of classes to add to DtButton instances based on host attributes to
@@ -53,7 +60,7 @@ const defaultVariant = 'primary';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtButton extends _DtButtonMixinBase
-  implements OnDestroy, CanDisable, CanColor, HasElementRef {
+  implements OnDestroy, OnChanges, AfterContentInit, CanDisable, CanColor, HasElementRef {
 
   @Input()
   get variant(): ButtonVariant { return this._variant; }
@@ -65,6 +72,8 @@ export class DtButton extends _DtButtonMixinBase
     }
   }
   private _variant: ButtonVariant;
+
+  @ContentChildren(DtIcon) _icons: QueryList<DtIcon>;
 
   constructor(
     elementRef: ElementRef,
@@ -87,6 +96,18 @@ export class DtButton extends _DtButtonMixinBase
     this._focusMonitor.monitor(this._elementRef.nativeElement, true);
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.color || changes.variant) {
+      this._updateIconColors();
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this._icons.changes
+      .pipe(startWith(null))
+      .subscribe(() => { this._updateIconColors(); });
+  }
+
   ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
   }
@@ -94,6 +115,18 @@ export class DtButton extends _DtButtonMixinBase
   /** Focuses the button. */
   focus(): void {
     this._getHostElement().focus();
+  }
+
+  /** Sets the icon colors according to the button variant. */
+  private _updateIconColors(): void {
+    if (this._icons) {
+      this._icons.forEach((icon) => {
+        // Only set the icon color if the user did not set it
+        if (!icon.color) {
+          icon.color = this.variant === 'primary' ? 'light' : this.color;
+        }
+      });
+    }
   }
 
   /** Retrieves the native element of the host. */
