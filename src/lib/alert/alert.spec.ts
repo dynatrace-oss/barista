@@ -8,7 +8,7 @@ describe('DtAlert', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtAlertModule],
-      declarations: [TestApp],
+      declarations: [TestApp, TestAppEmpty],
     });
 
     TestBed.compileComponents();
@@ -41,9 +41,22 @@ describe('DtAlert', () => {
     expect(tileNativeElement.classList.contains('dt-alert-error'))
       .toBeFalsy();
   });
+
+  it('expects no css class to be present by default', () => {
+    const fixture = TestBed.createComponent(TestAppEmpty);
+    fixture.detectChanges();
+
+    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
+    expect(tileNativeElement.classList.contains('dt-alert-error'))
+      .toBeFalsy();
+    expect(tileNativeElement.classList.contains('dt-alert-warning'))
+      .toBeFalsy();
+  });
+
+
 });
 
-  /** Test component that contains an DtAlert. */
+/** Test component that contains an DtAlert. */
 @Component({
   selector: 'dt-test-app',
   template: `
@@ -51,5 +64,13 @@ describe('DtAlert', () => {
   `,
 })
 class TestApp {
-
+}
+/** Test component that is not visible by default. */
+@Component({
+  selector: 'dt-test-app-empty',
+  template: `
+    <dt-alert></dt-alert>
+  `,
+})
+class TestAppEmpty {
 }
