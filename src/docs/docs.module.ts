@@ -23,6 +23,7 @@ import { DocsContextDialogModule } from './components/context-dialog/docs-contex
 import { DocsFormFieldModule } from './components/form-field/docs-form-field-module';
 import { CoreModule } from './core/core.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
+import { DocsIconModule } from './components/icon/docs-icon.module';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { DocsAlertModule } from './components/alert/docs-alert.module';
     DocsButtonGroupModule,
     DocsInputModule,
     DocsInlineEditorModule,
+    DocsIconModule,
     DocsLoadingDistractorModule,
     DocsLinkModule,
     DocsExpandablePanelModule,
@@ -53,9 +55,6 @@ import { DocsAlertModule } from './components/alert/docs-alert.module';
   ],
   entryComponents: [
     Docs,
-  ],
-  providers: [
-    Platform,
   ],
   bootstrap: [Docs],
 })
