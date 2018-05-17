@@ -17,6 +17,7 @@ export class Docs {
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Inline Editor', route: '/inline-editor'},
     {name: 'Form field', route: '/form-field'},
+    {name: 'Icon', route: '/icon'},
     {name: 'Input', route: '/input'},
     {name: 'Links', route: '/links'},
     {name: 'Loading distractor', route: '/loading-distractor'},
