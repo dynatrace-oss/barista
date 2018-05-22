@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtButtonModule, DtButton, DtIconModule } from '@dynatrace/angular-components';
+import { DtButtonModule, DtButton, DtIconModule, getDtButtonNestedVariantNotAllowedError } from '@dynatrace/angular-components';
+import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 describe('DtButton', () => {
 
@@ -140,6 +141,15 @@ describe('DtButton', () => {
 
       instance.color = 'light';
     });
+
+    it('should throw an error when trying to set variant nested on non icon buttons', async () => {
+      const expectedError = wrappedErrorMessage(getDtButtonNestedVariantNotAllowedError());
+      expect(() => {
+        const fixture = TestBed.createComponent(TestApp);
+        fixture.componentInstance.variant = 'nested';
+        fixture.detectChanges();
+      }).toThrowError(expectedError);
+    });
   });
 
   // Anchor button tests
@@ -192,7 +202,7 @@ describe('DtButton', () => {
   selector: 'dt-test-app',
   template: `
     <button dt-button type="button" (click)="increment()"
-      [disabled]="isDisabled">
+      [disabled]="isDisabled" [variant]="variant">
       <dt-icon></dt-icon>
       Go
     </button>
@@ -204,7 +214,7 @@ describe('DtButton', () => {
 class TestApp {
   clickCount = 0;
   isDisabled = false;
-  rippleDisabled = false;
+  variant = 'primary';
 
   increment(): void {
     this.clickCount++;
