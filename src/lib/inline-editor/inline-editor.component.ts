@@ -7,7 +7,6 @@ import {
   Output,
   ViewChild,
   forwardRef,
-  AfterViewChecked,
   ViewEncapsulation,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -94,8 +93,8 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
     if (this.onRemoteSave) {
       this._mode = MODES.SAVING;
       this._saving = this.onRemoteSave(value).subscribe(
-        () => this._emitValue(value),
-        (error) => this._emitError(error));
+        () => { this._emitValue(value); },
+        (error) => { this._emitError(error); });
       this._changeDetectorRef.markForCheck();
     } else {
       this._emitValue(value);
@@ -153,7 +152,7 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   }
 
   private _focusWhenStable(): void {
-    this._executeOnStable(() => this.focus());
+    this._executeOnStable(() => {this.focus(); });
   }
 
   private _executeOnStable(fn: () => void): void {
