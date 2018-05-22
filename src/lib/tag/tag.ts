@@ -1,7 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation, HostBinding, Directive, Output, EventEmitter, Input,
+  ViewEncapsulation, Directive, Output, EventEmitter, Input, HostListener,
 } from '@angular/core';
 
 import {
@@ -9,6 +9,7 @@ import {
   mixinDisabled,
 } from '../core/index';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {DELETE} from '@angular/cdk/keycodes';
 
 export class DtTagBase {
 }
@@ -34,7 +35,7 @@ export class DtTagKey { }
     'class': 'dt-tag',
     '[attr.role]': `'option'`,
     '[attr.aria-disabled]': 'disabled.toString()',
-    '[attr.tabindex]': 'interactive ? 1 : -1',
+    '[attr.tabindex]': 'removable && !disabled ? 0 : -1',
     '[class.dt-tag-disabled]': 'disabled',
   },
   inputs: ['disabled'],
@@ -51,7 +52,6 @@ export class DtTag<T> extends _DtTag implements CanDisable {
   readonly removed: EventEmitter<T> = new EventEmitter<T>();
 
   private _removable = false;
-  private _interactive = false;
 
   @Input()
   get removable(): boolean {
@@ -62,18 +62,10 @@ export class DtTag<T> extends _DtTag implements CanDisable {
     this._removable = newValue;
   }
 
-  /** Whether the button-group item is selected. */
-  @Input()
-  @HostBinding('class.dt-tag-interactive')
-  get interactive(): boolean {
-    return this._interactive && !this.disabled;
-  }
-  set interactive(value: boolean) {
-    const newValue = coerceBooleanProperty(value);
-    this._interactive = newValue;
-  }
-
-  _doDelete(): void {
-    this.removed.emit(this.value);
+  @HostListener('keyup', ['$event'])
+  _doDelete(event?: KeyboardEvent): void {
+    if (!this.disabled && (event === undefined || event.keyCode === DELETE)) {
+      this.removed.emit(this.value);
+    }
   }
 }
