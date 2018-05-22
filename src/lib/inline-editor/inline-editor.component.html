@@ -10,23 +10,20 @@
       </svg>
   </button>
 </ng-container>
-<input dtInput #input *ngIf="editing || saving" [disabled]="saving" [value]="value" (input)="onChange()"
-/>
 
 <dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
-<ng-container *ngIf="editing">
-    <button dt-button class="dt-button-with-icon" aria-label="save" type="button"  (click)="saveAndQuitEditing()">
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
-          <polygon fill="#4fd5e0" points="453.44849,132.55295 404.42163,91.41453 203.87195,330.42038 99.68994,243.00125
-            58.55151,292.02811 211.76038,420.58566 "></polygon>
-          </svg>
+<ng-container *ngIf="editing || saving">
+
+  <dt-form-field>
+    <input dtInput #input [disabled]="saving" [value]="value" (input)="onChange()" />
+
+    <button dt-icon-button dtSuffix variant="nested" aria-label="save" type="button"  (click)="saveAndQuitEditing()" >
+      <dt-icon name="checkmark"></dt-icon>
     </button>
-    <button dt-button class="dt-button-with-icon" aria-label="cancel" variant="secondary" type="button" (click)="cancelAndQuitEditing()">
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
-          <polygon fill="#4fd5e0" points="434.19092,134.37753 377.62256,77.80918 256,199.43173 134.37744,77.80918 77.80908,134.37753
-                199.43164,256.00009 77.80908,377.62265 134.37744,434.19101 256,312.56845 377.62256,434.19101 434.19092,377.62265
-                312.56836,256.00009 "></polygon>
-          </svg>
+
+    <button dt-icon-button dtSuffix variant="nested" aria-label="cancel" type="button" (click)="cancelAndQuitEditing()">
+      <dt-icon name="close"></dt-icon>
     </button>
-  </ng-container>
+  </dt-form-field>
+</ng-container>
