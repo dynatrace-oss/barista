@@ -1,12 +1,15 @@
 import {async, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtTagModule, DtTag} from '@dynatrace/angular-components';
+import {DtTagModule, DtTag, DtIconModule} from '@dynatrace/angular-components';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('DtTag', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtTagModule],
+      imports: [DtTagModule, HttpClientModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
       declarations: [TestAppSimple, TestAppRemovable],
     });
 
@@ -17,7 +20,7 @@ describe('DtTag', () => {
     const fixture = TestBed.createComponent(TestAppSimple);
     fixture.detectChanges();
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag svg');
+    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag dt-icon');
     expect(tileNativeElement).toBeFalsy();
   });
 
@@ -25,7 +28,7 @@ describe('DtTag', () => {
     const fixture = TestBed.createComponent(TestAppRemovable);
     fixture.detectChanges();
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag svg');
+    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag dt-icon');
     expect(tileNativeElement).toBeTruthy();
   });
 
@@ -38,7 +41,7 @@ describe('DtTag', () => {
     let groupDebugElement = fixture.debugElement.query(By.directive(DtTag));
     let groupInstance = groupDebugElement.injector.get<DtTag<string>>(DtTag);
 
-    let item = fixture.debugElement.nativeElement.querySelector('div.dt-tag-remove-icon');
+    let item = fixture.debugElement.nativeElement.querySelector('dt-icon');
 
     expect(fixture.componentInstance.removeEventCount).toBe(0);
 
@@ -58,11 +61,10 @@ describe('DtTag', () => {
 })
 class TestAppSimple {
 }
+
 @Component({
   selector: 'dt-test-app',
-  template: `
-    <dt-tag interactive>Value</dt-tag>
-  `,
+  template: `<dt-tag removable (removed)="increaseEventCount()">Value</dt-tag>`,
 })
 class TestAppRemovable {
   removeEventCount = 0;
