@@ -10,8 +10,10 @@ import { PlatformModule } from '@angular/cdk/platform';
 import { By } from '@angular/platform-browser';
 import {
   DtInlineEditorModule,
-  DtInlineEditor } from '@dynatrace/angular-components';
+  DtInlineEditor, DtIconModule
+} from '@dynatrace/angular-components';
 import { Observable } from 'rxjs/Observable';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('DtInlineEditor', () => {
   beforeEach(() => {
@@ -22,6 +24,8 @@ describe('DtInlineEditor', () => {
         NoopAnimationsModule,
         PlatformModule,
         ReactiveFormsModule,
+        HttpClientModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations: [
         TestApp,
