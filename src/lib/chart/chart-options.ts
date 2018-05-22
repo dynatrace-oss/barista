@@ -7,6 +7,9 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
     style: {
       fontFamily: 'BerninaSansWeb',
     },
+    height: 300,
+    plotBorderColor: Colors.GRAY_300,
+    plotBorderWidth: 1,
   },
   title: {
     text: null,
@@ -41,4 +44,6 @@ export const DEFAULT_CHART_AXIS_STYLES: AxisOptions = {
       fontSize: '12px',
     },
   },
+  tickWidth: 1,
+  tickLength: 4,
 };
