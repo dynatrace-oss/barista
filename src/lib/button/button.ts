@@ -24,6 +24,10 @@ import {
 import { DtIcon } from '../icon/index';
 import { startWith } from 'rxjs/operators/startWith';
 
+export function getDtButtonNestedVariantNotAllowedError(): Error {
+  return Error(`The nested button variant is only allowed on dt-icon-button`);
+}
+
 /**
  * List of classes to add to DtButton instances based on host attributes to
  * style as different variants.
@@ -39,7 +43,7 @@ export class DtButtonBase {
 }
 export const _DtButtonMixinBase = mixinDisabled(mixinColor(DtButtonBase, 'main'));
 
-export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonVariant = 'primary' | 'secondary' | 'nested';
 const defaultVariant = 'primary';
 
 /**
@@ -67,6 +71,9 @@ export class DtButton extends _DtButtonMixinBase
   set variant(value: ButtonVariant) {
     const variant = value || defaultVariant;
     if (variant !== this._variant) {
+      if (variant === 'nested' && !this._hasHostAttributes('dt-icon-button')) {
+        throw getDtButtonNestedVariantNotAllowedError();
+      }
       this._replaceCssClass(variant, this._variant);
       this._variant = variant;
     }

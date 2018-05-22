@@ -53,6 +53,15 @@
     width: 32px;
     text-align: center;
   }
+
+  &.dt-button-nested {
+    border: 0;
+  }
+
+  &.dt-button-nested:hover:not([disabled]),
+  &.dt-button-nested:active:not([disabled]) {
+    background: $gray-100;
+  }
 }
 
 .dt-button-icon {
