@@ -239,12 +239,6 @@ $theme-dark: (
           fill: #fff;
         }
       }
-
-      ////////////////////////////
-      // NESTED
-      ////////////////////////////
-      & #{$namespace}.dt-button-nested {
-      }
     }
     @else {
       & #{$namespace}.dt-button-secondary[disabled] {
