@@ -16,7 +16,7 @@ import {
   ViewEncapsulation,
   ChangeDetectorRef,
 } from '@angular/core';
-import { Options, IndividualSeriesOptions, ChartObject, chart } from 'highcharts';
+import { Options, IndividualSeriesOptions, ChartObject, chart, AxisOptions } from 'highcharts';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { DtLogger, DtLoggerFactory, ViewportResizer } from '../core/index';
@@ -25,7 +25,7 @@ import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '../theming/ind
 import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
-import { DEFAULT_CHART_OPTIONS } from './chart-options';
+import { DEFAULT_CHART_OPTIONS, DEFAULT_CHART_AXIS_STYLES } from './chart-options';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtChart');
 
@@ -149,6 +149,12 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     if (!this._highchartsOptions) {
       this._highchartsOptions = DEFAULT_CHART_OPTIONS;
     }
+    if (this._highchartsOptions.xAxis) {
+      this._mergeAxis('xAxis');
+    }
+    if (this._highchartsOptions.yAxis) {
+      this._mergeAxis('yAxis');
+    }
     return this._highchartsOptions;
   }
 
@@ -166,6 +172,19 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     options.series = series && series.map(((s) => ({...s})));
     if (options.series) {
       this._applyColors(options.series);
+    }
+  }
+
+  /* merge default axis options to all axis */
+  private _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
+    if (!this._highchartsOptions[axis]) {
+      return;
+    }
+    if (Array.isArray(this._highchartsOptions[axis])) {
+      this._highchartsOptions[axis] = this._highchartsOptions[axis]
+        .map((a) => mergeOptions(DEFAULT_CHART_AXIS_STYLES, a) as AxisOptions[]);
+    } else {
+      this._highchartsOptions[axis] = mergeOptions(DEFAULT_CHART_AXIS_STYLES, this._highchartsOptions[axis]);
     }
   }
 
