@@ -19,19 +19,6 @@ $remove-icon-size: 16px;
 
   display: inline-flex;
   align-items: center;
-}
-
-:host.dt-tag-interactive {
-  cursor: pointer;
-  color: $turquoise-700;
-  border-color: $gray-300;
-
-  background-color: #fff;
-
-  &:hover {
-    background-color: $gray-130;
-    border-color: $gray-400;
-  }
 
   &:focus {
     box-shadow:
@@ -39,17 +26,17 @@ $remove-icon-size: 16px;
   }
 }
 
-.dt-tag-remove-icon {
+dt-icon {
   height: $remove-icon-size;
+  width: $remove-icon-size;
+  margin-left: 8px;
+  display: inline-block;
+  cursor: pointer;
 
-  > svg {
-    display: inline-block;
-    cursor: pointer;
-    margin-left: 8px;
+  /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
+  ::ng-deep > svg {
 
     fill: $turquoise-600;
-    width: $remove-icon-size;
-    height: $remove-icon-size;
 
     &:hover {
       fill: $turquoise-700;
@@ -58,9 +45,15 @@ $remove-icon-size: 16px;
 }
 
 :host.dt-tag-disabled {
+  pointer-events: none;
   background-color: #fff;
   color: $gray-300;
   border: 1px solid $gray-200;
+
+  /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
+  dt-icon ::ng-deep > svg {
+    fill: $gray-300;
+  }
 }
 
 .dt-tag-name {
