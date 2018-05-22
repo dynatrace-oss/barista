@@ -7,7 +7,7 @@ describe('DtTag', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtTagModule],
-      declarations: [TestAppSimple, TestAppRemovable, TestAppInteractive],
+      declarations: [TestAppSimple, TestAppRemovable],
     });
 
     TestBed.compileComponents();
@@ -27,24 +27,6 @@ describe('DtTag', () => {
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag svg');
     expect(tileNativeElement).toBeTruthy();
-  });
-
-  it('should not have interactive styles', () => {
-    const fixture = TestBed.createComponent(TestAppSimple);
-    fixture.detectChanges();
-
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag');
-    expect(tileNativeElement.classList.contains('dt-tag-interactive'))
-      .toBeFalsy();
-  });
-
-  it('should have interactive styles', () => {
-    const fixture = TestBed.createComponent(TestAppInteractive);
-    fixture.detectChanges();
-
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag');
-    expect(tileNativeElement.classList.contains('dt-tag-interactive'))
-      .toBeTruthy();
   });
 
   it('should fire removed event', () => {
@@ -81,12 +63,6 @@ class TestAppSimple {
   template: `
     <dt-tag interactive>Value</dt-tag>
   `,
-})
-class TestAppInteractive {
-}
-@Component({
-  selector: 'dt-test-app',
-  template: `<dt-tag removable (removed)="increaseEventCount()">Value</dt-tag>`,
 })
 class TestAppRemovable {
   removeEventCount = 0;
