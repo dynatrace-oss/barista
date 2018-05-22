@@ -7,9 +7,10 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
     style: {
       fontFamily: 'BerninaSansWeb',
     },
-    height: 300,
+    height: 230,
     plotBorderColor: Colors.GRAY_300,
     plotBorderWidth: 1,
+    spacingBottom: 12,
   },
   title: {
     text: null,
