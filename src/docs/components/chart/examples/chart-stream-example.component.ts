@@ -1,6 +1,6 @@
 // tslint:disable:no-magic-numbers
 import { Component } from '@angular/core';
-import { ChartService } from '../docs-chart.service';
+import { ChartService } from './docs-chart.service';
 import { IndividualSeriesOptions } from 'highcharts';
 import { Observable } from 'rxjs';
 
