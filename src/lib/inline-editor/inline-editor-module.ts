@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { DtInlineEditor } from './inline-editor.component';
 import { DtInputModule } from '../input/input-module';
 import { DtButtonModule } from '../button/button-module';
-import { DtLoadingDistractorModule } from '../loading-distractor/loading-distractor-module';
+import { DtLoadingDistractorModule } from '../loading-distractor/index';
+import { DtFormFieldModule } from '../form-field/index';
+import { DtIconModule } from '../icon/index';
 
 @NgModule({
   imports: [
@@ -11,6 +13,8 @@ import { DtLoadingDistractorModule } from '../loading-distractor/loading-distrac
     DtLoadingDistractorModule,
     DtButtonModule,
     DtInputModule,
+    DtFormFieldModule,
+    DtIconModule,
   ],
   exports: [
     DtInlineEditor,
