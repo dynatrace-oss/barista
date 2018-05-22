@@ -16,9 +16,9 @@
   svg {
     width: 16px;
     height: 16px;
-    left: -2px;
+    margin-left: -2px;
+    margin-top: -2px;
     fill: $turquoise-600;
-    position: absolute;
     vertical-align: middle;
     transition: 0.125s;
     transform: rotate(-90deg);
@@ -26,7 +26,7 @@
 }
 
 .dt-expandable-section-header-content {
-  margin-left: 18px;
+  margin-left: 4px;
   padding-right: 2px;
 }
 
@@ -51,7 +51,7 @@
   @include dt-interactive-reset();
 
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
 
   margin: 2px;
   position: relative;
