@@ -25,9 +25,10 @@ import * as fs from 'fs';
 /**
  * Adds a new exampleComponent inside file
  */
-function addExampleInFile(options: DtExampleOptions,
-                          file: string,
-                          syntaxKind: ts.SyntaxKind.VariableDeclaration | ts.SyntaxKind.PropertyDeclaration): Rule {
+function addExampleInFile(
+  options: DtExampleOptions,
+  file: string,
+  syntaxKind: ts.SyntaxKind.VariableDeclaration | ts.SyntaxKind.PropertyDeclaration): Rule {
   return (host: Tree) => {
     const modulePath = path.join('src', 'docs', 'components', options.component, `docs-${options.component}.${file}.ts`);
     const sourceFile = getSourceFile(host, modulePath);
@@ -82,21 +83,25 @@ export default function(options: DtExampleOptions): Rule {
   }
   options.component = strings.decamelize(options.component);
   options.name = strings.decamelize(options.name);
-  const moduleFile = fs.existsSync(path.join('src',
-                                             'docs',
-                                             'components',
-                                             options.component,
-                                             `docs-${options.component}.module.ts`));
-  const componentFile = fs.existsSync(path.join('src',
-                                                'docs',
-                                                'components',
-                                                options.component,
-                                                `docs-${options.component}.component.ts`));
-  const htmlFile = fs.existsSync(path.join('src',
-                                           'docs',
-                                           'components',
-                                           options.component,
-                                           `docs-${options.component}.component.html`));
+  const moduleFile = fs.existsSync(path.join(
+    'src',
+    'docs',
+    'components',
+    options.component,
+    `docs-${options.component}.module.ts`));
+  const componentFile = fs.existsSync(path.join(
+    'src',
+    'docs',
+    'components',
+    options.component,
+    `docs-${options.component}.component.ts`)
+  );
+  const htmlFile = fs.existsSync(path.join(
+    'src',
+    'docs',
+    'components',
+    options.component,
+    `docs-${options.component}.component.html`));
   if (!moduleFile || !componentFile || !htmlFile) {
     throw new SchematicsException(`Some files needed do not exist or component is missing.`);
   }
