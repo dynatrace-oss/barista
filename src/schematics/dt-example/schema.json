@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchemanticsForDtExample",
+  "title": "DtExample Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "component": {
+      "type": "string"
+    }
+  }
+}
