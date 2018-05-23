@@ -1,11 +1,16 @@
 import { DtChartOptions } from './chart';
 import { Colors } from '../theming/colors';
+import { AxisOptions } from 'highcharts';
 
 export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
   chart: {
     style: {
       fontFamily: 'BerninaSansWeb',
     },
+    height: 230,
+    plotBorderColor: Colors.GRAY_300,
+    plotBorderWidth: 1,
+    spacingBottom: 12,
   },
   title: {
     text: null,
@@ -22,7 +27,7 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
   legend: {
     itemStyle: {
       fontWeight: 'normal',
-      fontSize: '10px',
+      fontSize: '12px',
       color: Colors.GRAY_700,
     },
     itemHoverStyle: {
@@ -32,4 +37,14 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
       color: Colors.GRAY_300,
     },
   },
+};
+
+export const DEFAULT_CHART_AXIS_STYLES: AxisOptions = {
+  labels: {
+    style: {
+      fontSize: '12px',
+    },
+  },
+  tickWidth: 1,
+  tickLength: 4,
 };
