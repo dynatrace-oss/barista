@@ -1,19 +1,12 @@
 import { Component } from '@angular/core';
-import {
-  TestBed,
-  ComponentFixture} from '@angular/core/testing';
+import { TestBed, ComponentFixture} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  FormsModule,
-  ReactiveFormsModule, } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { PlatformModule } from '@angular/cdk/platform';
 import { By } from '@angular/platform-browser';
-import {
-  DtInlineEditorModule,
-  DtInlineEditor, DtIconModule
-} from '@dynatrace/angular-components';
+import { DtInlineEditorModule, DtInlineEditor, DtIconModule } from '@dynatrace/angular-components';
 import { Observable } from 'rxjs/Observable';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 
 describe('DtInlineEditor', () => {
   beforeEach(() => {
@@ -38,6 +31,7 @@ describe('DtInlineEditor', () => {
   });
 
   it('should create the components', () => {
+    // tslint:disable-next-line:no-any
     let fixture: any = TestBed.createComponent(TestApp);
     let component = fixture.componentInstance;
     expect(component).toBeDefined();
