@@ -17,10 +17,9 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { Options, IndividualSeriesOptions, ChartObject, chart, AxisOptions } from 'highcharts';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
 import { DtLogger, DtLoggerFactory, ViewportResizer } from '../core/index';
-import { delay } from 'rxjs/operators/delay';
+import { delay } from 'rxjs/operators';
 import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '../theming/index';
 import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';

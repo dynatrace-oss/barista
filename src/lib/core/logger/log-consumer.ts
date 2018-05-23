@@ -1,5 +1,4 @@
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject, Observable } from 'rxjs';
 import { Provider } from '@angular/core';
 import { DtLogEntry } from './log-entry';
 
