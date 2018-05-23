@@ -135,12 +135,13 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
 
   /** Handles the native input change */
   _onInputChange(): void {
-    this.value = this.inputReference.nativeElement.value;
+    this._value = this.inputReference.nativeElement.value;
   }
 
   private _emitValue(value: string): void {
     this._mode = MODES.IDLE;
     this.saved.emit(this.value);
+    this._onChanged(value);
     this._changeDetectorRef.markForCheck();
   }
 
