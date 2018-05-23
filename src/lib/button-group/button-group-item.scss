@@ -44,10 +44,6 @@
     position:relative;
   }
 
-  &:focus {
-    @include boxShadowFocus();
- }
-
   &:first-child {
     border-radius: 3px 0 0 3px;
   }
@@ -105,6 +101,10 @@ $theme-dark: (
 
     & #{$namespace} {
       @include boxShadowSelected(1px, $border-color);
+
+      &:focus {
+        @include boxShadowFocus();
+      }
     }
 
     & #{$namespace}.dt-button-group-item:not(.dt-button-group-item-disabled) {
@@ -117,10 +117,6 @@ $theme-dark: (
 
     & #{$namespace}.dt-button-group-item.dt-button-group-item-selected {
 
-      &:focus {
-        @include boxShadowSelectedFocus(1px, $active-color);
-      }
-
       &:not(.dt-button-group-item-disabled) {
         z-index:1;
         position:relative;
@@ -128,6 +124,10 @@ $theme-dark: (
         background-color: $background-color;
 
         @include boxShadowSelected(1px, $active-color);
+
+        &:focus {
+          @include boxShadowSelectedFocus(1px, $active-color);
+        }
       }
     }
   }
