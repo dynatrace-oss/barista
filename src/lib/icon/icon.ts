@@ -8,7 +8,7 @@ import {
   SimpleChanges,
   OnChanges,
 } from '@angular/core';
-import { take } from 'rxjs/operators/take';
+import { take } from 'rxjs/operators';
 import { DtIconRegistry } from './icon-registry';
 import { DtIconType } from './icon-types';
 import {
