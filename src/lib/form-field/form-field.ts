@@ -11,9 +11,8 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { startWith } from 'rxjs/operators/startWith';
-import { empty } from 'rxjs/observable/empty';
-import { merge } from 'rxjs/observable/merge';
+import { startWith } from 'rxjs/operators';
+import { EMPTY as empty, merge } from 'rxjs';
 import {
   getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError

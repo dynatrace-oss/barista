@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { interval } from 'rxjs/observable/interval';
-import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject, Observable, interval, Subscription } from 'rxjs';
 // tslint:disable-next-line
 import 'rxjs/add/operator/take';
 

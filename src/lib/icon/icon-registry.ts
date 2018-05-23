@@ -2,12 +2,8 @@ import { Provider, Optional, SkipSelf, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import { of as observableOf } from 'rxjs/observable/of';
-import { finalize } from 'rxjs/operators/finalize';
-import { share } from 'rxjs/operators/share';
-import { map } from 'rxjs/operators/map';
-import { tap } from 'rxjs/operators/tap';
+import { Observable, of as observableOf } from 'rxjs';
+import { finalize, share, map, tap } from 'rxjs/operators';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
 import { DtIconType } from './icon-types';
