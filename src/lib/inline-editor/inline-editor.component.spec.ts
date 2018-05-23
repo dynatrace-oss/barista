@@ -153,6 +153,7 @@ describe('DtInlineEditor', () => {
 
     const inputReference = fixture.debugElement.query(By.css('input'));
     const saveButtonReference = fixture.debugElement.query(By.css('button[aria-label=save]'));
+    const textReference = fixture.debugElement.query(By.css('span'));
 
     inputReference.nativeElement.value = 'hola';
     fixture.detectChanges();
@@ -161,12 +162,29 @@ describe('DtInlineEditor', () => {
     saveButtonReference.nativeElement.click();
     fixture.detectChanges();
 
-    const textReference = fixture.debugElement.query(By.css('span'));
-
     fixture.whenStable().then(() => {
       expect(textReference.nativeElement.innerText)
       .toBe('hola', 'Expected inner text to be changed');
     });
+  });
+
+  it('should not update the model if save has not been called', () => {
+    const fixture = TestBed.createComponent(TestAppWithSuccessSave);
+    const instanceDebugElement = fixture.debugElement.query(By.directive(DtInlineEditor));
+    const instance = instanceDebugElement.injector.get<DtInlineEditor>(DtInlineEditor);
+
+    instance.enterEditing();
+    fixture.detectChanges();
+
+    const inputReference = fixture.debugElement.query(By.css('input'));
+    const textReference = fixture.debugElement.query(By.css('span'));
+
+    inputReference.nativeElement.value = 'hola';
+    fixture.detectChanges();
+    // TODO: Trigger ngModel data-binding
+
+    expect(textReference.nativeElement.innerText)
+      .toBe('', 'Make sure model has not yet be applied');
   });
 
   it('should call save method and reject changes', () => {
