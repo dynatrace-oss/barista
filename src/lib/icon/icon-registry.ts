@@ -63,6 +63,7 @@ export class DtIconRegistry {
 
     if (!config) {
       config = { name, svgElement: null};
+      this._svgIconConfigs.set(name, config);
     }
 
     return this._getSvgFromConfig(config);
