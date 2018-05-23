@@ -24,14 +24,8 @@ import {
   mixinDisabled, mixinTabIndex
 } from '../core/index';
 
-import {Observable} from 'rxjs/Observable';
-import {defer} from 'rxjs/observable/defer';
-import {merge} from 'rxjs/observable/merge';
-import {take} from 'rxjs/operators/take';
-import {switchMap} from 'rxjs/operators/switchMap';
-import {startWith} from 'rxjs/operators/startWith';
-import {takeUntil} from 'rxjs/operators/takeUntil';
-import {Subject} from 'rxjs/Subject';
+import { Observable, defer, merge, Subject } from 'rxjs';
+import { take, switchMap, startWith, takeUntil } from 'rxjs/operators';
 import {SelectionModel} from '@angular/cdk/collections';
 import {DtButtonGroupItem, DtButtonGroupItemSelectionChange} from './button-group-item';
 

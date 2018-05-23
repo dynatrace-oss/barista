@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { PlatformModule } from '@angular/cdk/platform';
 import { By } from '@angular/platform-browser';
 import { DtInlineEditorModule, DtInlineEditor, DtIconModule } from '@dynatrace/angular-components';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('DtInlineEditor', () => {

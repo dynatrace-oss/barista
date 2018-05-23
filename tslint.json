@@ -26,7 +26,7 @@
     "curly": true,
     "eofline": true,
     // Disallows importing the whole RxJS library. Submodules can be still imported.
-    "import-blacklist": [true, "rxjs", "rxjs/operators"],
+    "import-blacklist": [true, "rxjs/operators"],
     "interface-name": [
       true,
       "never-prefix"
