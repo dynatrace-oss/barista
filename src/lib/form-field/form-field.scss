@@ -16,7 +16,7 @@ $dt-form-field-default-infix-width: 180px !default;
 .dt-form-field-body {
   display: flex;
 
-  // Do not set `align-items` as it fucks up SVGs baseline alignment
+  // Do not set `align-items` as it breaks SVGs baseline alignment
   // align-items: baseline;
   box-sizing: border-box;
 
