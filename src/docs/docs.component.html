@@ -7,7 +7,7 @@
   <nav class="sidenav">
     <ul>
       <li *ngFor="let navItem of navItems">
-        <a routerLinkActive
+        <a routerLinkActive="router-link-active"
           #routerLinkActiveInstance="routerLinkActive"
           [attr.tabindex]="routerLinkActiveInstance.isActive ? -1 : 0"
           [routerLink]="[navItem.route]">
