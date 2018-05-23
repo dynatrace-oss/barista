@@ -15,10 +15,17 @@ $dt-form-field-default-infix-width: 180px !default;
 
 .dt-form-field-body {
   display: flex;
-  align-items: baseline;
+
+  // Do not set `align-items` as it breaks SVGs baseline alignment
+  // align-items: baseline;
   box-sizing: border-box;
+
   width: 100%;
   @include dt-form-control();
+
+  // We need to set overflow visible to prevent the outline
+  // of inner interactive elements (like buttons) to be cut off
+  overflow: visible;
 
   .dt-focused & {
     @include dt-focus-style();
@@ -30,6 +37,7 @@ $dt-form-field-default-infix-width: 180px !default;
   white-space: nowrap;
   flex: none;
   position: relative;
+  display: flex;
 }
 
 .dt-form-field-infix {
@@ -38,6 +46,53 @@ $dt-form-field-default-infix-width: 180px !default;
   flex: auto;
   min-width: 0;
   width: $dt-form-field-default-infix-width;
+}
+
+// Hack to make sure the child element of the infix, prefix or suffix container is display block.
+// This is needed to prevent a 1px spacing issue if the child has display inline-block or inline.
+.dt-form-field-infix.dt-form-field-infix,
+.dt-form-field-prefix.dt-form-field-prefix,
+.dt-form-field-suffix.dt-form-field-suffix {
+  > * {
+    display: block;
+  }
+}
+
+.dt-prefix {
+  margin-right: 2px;
+}
+
+.dt-suffix {
+  margin-left: 2px;
+}
+
+// Every prefix or suffix element has to be at least 30px wide
+// This solves the issue with single characters as prefix or suffix.
+.dt-prefix,
+.dt-suffix {
+  min-width: 30px;
+  text-align: center;
+}
+
+// Buttons in form fields are 2 px smaller => 30px
+.dt-button.dt-prefix,
+.dt-button.dt-suffix
+.dt-icon-button.dt-prefix,
+.dt-icon-button.dt-suffix {
+  height: 30px;
+  width: 30px;
+}
+
+// We also need to specify the size of icons used as prefix or suffix
+// to align them correctly and prevent them from growing out of box
+.dt-icon.dt-prefix,
+.dt-icon.dt-suffix {
+  width: 30px;
+  height: 30px;
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .dt-form-field-label {

@@ -7,14 +7,16 @@ import {
   Output,
   ViewChild,
   forwardRef,
-  AfterViewChecked,
   ViewEncapsulation,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  NgZone,
+
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { take } from 'rxjs/operators/take';
 
 const enum MODES {
   IDLE,
@@ -39,14 +41,13 @@ const enum MODES {
       multi: true },
   ],
 })
-export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, OnDestroy {
+export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
 
   private _onChanged: (value: string) => void = () => {};
   private _onTouched: () => void = () => {};
   private _initialState: string;
   private _mode = MODES.IDLE;
-  private _modeOnLastCheck = MODES.IDLE;
-
+  private _value = '';
   private _saving: Subscription | null;
 
   @ViewChild('input') inputReference: ElementRef;
@@ -56,94 +57,11 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
   @Output() saved = new EventEmitter<string>();
   @Output() cancelled = new EventEmitter<string>();
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+  get idle(): boolean { return this._mode === MODES.IDLE; }
+  get editing(): boolean { return this._mode === MODES.EDITING; }
+  get saving(): boolean { return this._mode === MODES.SAVING; }
 
-  ngOnDestroy(): void {
-    if (this._saving) {
-      this._saving.unsubscribe();
-    }
-  }
-
-  onChange(): void {
-    this._value = this.inputReference.nativeElement.value;
-  }
-
-  ngAfterViewChecked(): void {
-    if (this._mode !== this._modeOnLastCheck) {
-      this.focus();
-      this._modeOnLastCheck = this._mode;
-    }
-  }
-
-  private focus(): void {
-    if (this._mode === MODES.EDITING) {
-      if (this.inputReference.nativeElement) {
-        this.inputReference.nativeElement.focus();
-      }
-    } else if (this._mode === MODES.IDLE) {
-      if (this.editButtonReference.nativeElement) {
-        this.editButtonReference.nativeElement.focus();
-      }
-    }
-  }
-
-  // Public API /////////////////////////////////////
-  enterEditing(): void {
-    this._initialState = this._value;
-    this._mode = MODES.EDITING;
-    this._onTouched();
-
-    this._changeDetectorRef.markForCheck();
-  }
-
-  saveAndQuitEditing(): void {
-    const value = this._value;
-
-    if (this.onRemoteSave) {
-      this._mode = MODES.SAVING;
-      this._saving = this.onRemoteSave(value)
-        .subscribe(
-          () => {
-            this._mode = MODES.IDLE;
-            this.saved.emit(value);
-            this._changeDetectorRef.markForCheck();
-          },
-          (error) => {
-            this._mode = MODES.EDITING;
-            this.saved.error(error);
-            this._changeDetectorRef.markForCheck();
-          }
-        );
-    } else {
-      this._mode = MODES.IDLE;
-      this.saved.emit(value);
-    }
-    this._changeDetectorRef.markForCheck();
-  }
-
-  cancelAndQuitEditing(): void {
-    const value = this._value;
-    this._value = this._initialState;
-    this._mode = MODES.IDLE;
-    this.cancelled.emit(value);
-    this._changeDetectorRef.markForCheck();
-  }
-
-  get idle(): boolean {
-    return this._mode === MODES.IDLE;
-  }
-
-  get editing(): boolean {
-    return this._mode === MODES.EDITING;
-  }
-
-  get saving(): boolean {
-    return this._mode === MODES.SAVING;
-  }
-
-  // Data binding //////////////////////////////////////////////
-  private _value = '';
-
+  get value(): string { return this._value; }
   set value(value: string) {
     if (this._value !== value) {
       this._value = value;
@@ -152,20 +70,97 @@ export class DtInlineEditor implements ControlValueAccessor, AfterViewChecked, O
     }
   }
 
-  get value(): string {
-    return this._value;
+  constructor(private _changeDetectorRef: ChangeDetectorRef, private _ngZone: NgZone) { }
+
+  ngOnDestroy(): void {
+    if (this._saving) {
+      this._saving.unsubscribe();
+    }
   }
 
-  writeValue(value: string): void {
-    this._value = value;
+  enterEditing(): void {
+    this._initialState = this.value;
+    this._mode = MODES.EDITING;
+    this._onTouched();
+    this._focusWhenStable();
+
     this._changeDetectorRef.markForCheck();
   }
 
+  saveAndQuitEditing(): void {
+    const value = this.value;
+
+    if (this.onRemoteSave) {
+      this._mode = MODES.SAVING;
+      this._saving = this.onRemoteSave(value).subscribe(
+        () => { this._emitValue(value); },
+        (error) => { this._emitError(error); });
+      this._changeDetectorRef.markForCheck();
+    } else {
+      this._emitValue(value);
+    }
+  }
+
+  cancelAndQuitEditing(): void {
+    const value = this._value;
+    this.value = this._initialState;
+    this._mode = MODES.IDLE;
+    this.cancelled.emit(value);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Implemented as part of ControlValueAccessor */
+  writeValue(value: string): void {
+    this.value = value;
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Implemented as part of ControlValueAccessor */
   registerOnChange(fn: (value: string) => void): void {
     this._onChanged = fn;
   }
 
+  /** Implemented as part of ControlValueAccessor */
   registerOnTouched(fn: () => void): void {
     this._onTouched = fn;
+  }
+
+  focus(): void {
+    if (this._mode === MODES.EDITING && this.inputReference) {
+      this.inputReference.nativeElement.focus();
+    } else if (this._mode === MODES.IDLE && this.editButtonReference) {
+      this.editButtonReference.nativeElement.focus();
+    }
+  }
+
+  /** Handles the native input change */
+  _onInputChange(): void {
+    this._value = this.inputReference.nativeElement.value;
+  }
+
+  private _emitValue(value: string): void {
+    this._mode = MODES.IDLE;
+    this.saved.emit(this.value);
+    this._onChanged(value);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  // tslint:disable-next-line:no-any
+  private _emitError(error: any): void {
+    this._mode = MODES.EDITING;
+    this.saved.error(error);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  private _focusWhenStable(): void {
+    this._executeOnStable(() => {this.focus(); });
+  }
+
+  private _executeOnStable(fn: () => void): void {
+    if (this._ngZone.isStable) {
+      fn();
+    } else {
+      this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(fn);
+    }
   }
 }
