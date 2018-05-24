@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { startWith } from 'rxjs/operators';
-import { EMPTY as empty, merge } from 'rxjs';
+import { EMPTY, merge } from 'rxjs';
 import {
   getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError
@@ -95,7 +95,7 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
     });
 
     // Run change detection if the value, prefix, or suffix changes.
-    const valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || empty();
+    const valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || EMPTY;
     merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
         .subscribe(() => this._changeDetectorRef.markForCheck());
 
