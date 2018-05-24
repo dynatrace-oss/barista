@@ -3,8 +3,10 @@
   box-sizing: border-box;
   border: 1px solid $disabledcolor;
   border-radius: 3px;
-  overflow: hidden;
-  width: 100%;
   font-size: 14px;
   line-height: 30px;
+
+  .dt-theme-dark & {
+    border-color: $gray-400;
+  }
 }
