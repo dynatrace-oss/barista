@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtInlineEditor } from './inline-editor.component';
+import { DtInlineEditor } from './inline-editor';
 import { DtInputModule } from '../input/input-module';
 import { DtButtonModule } from '../button/button-module';
 import { DtLoadingDistractorModule } from '../loading-distractor/index';
