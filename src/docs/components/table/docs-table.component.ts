@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { HeaderRowPlaceholder } from '@angular/cdk/table';
 import { TableDefaultComponent } from './examples/table-default.component';
 import { TableDifferentWidthComponent } from './examples/table-different-width.component';
 import { TableMinWidthComponent } from './examples/table-min-width.component';

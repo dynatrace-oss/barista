@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject, Observable, interval, Subscription } from 'rxjs';
-// tslint:disable-next-line
-import 'rxjs/add/operator/take';
+import { BehaviorSubject, interval, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 const MAX_ROWS = 5;
 
@@ -44,13 +43,13 @@ export class TableObservableComponent {
   emptyMessage = `from 9:00 - 10:00\n Remove filter to make your search less restrictive.
   Expand or change the timeframe you're searching within.`;
   // tslint:disable-next-line:no-magic-numbers
-  source = interval(1000);
+  private source = interval(1000);
   subscription: Subscription;
 
   startSubscription(): void {
     this.subscription = this.source
     // tslint:disable-next-line:no-magic-numbers
-    .take(MAX_ROWS)
+    .pipe(take(MAX_ROWS))
     .subscribe(() => this.getAnotherRow());
   }
 
