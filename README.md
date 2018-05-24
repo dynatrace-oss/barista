@@ -55,7 +55,6 @@ yarn docs
 ```
 
 ### Running tests and style lint
-
 Unit tests:
 ```
 yarn test
