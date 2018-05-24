@@ -14,7 +14,6 @@
   padding-left: 12px;
   padding-right: 12px;
   font-size: 14px;
-  line-height: 30px;
   line-height: -moz-block-height;
   vertical-align: middle;
   white-space: nowrap;
@@ -23,22 +22,30 @@
   border: none;
   width: 100%;
   outline: none;
-
-  :not(.dt-form-field-infix) > & {
-    @include dt-form-control();
-  }
+  @include dt-form-control();
 
   &:hover:not([disabled]) {
     border-color: $gray-500;
   }
 
-  &[disabled] {
-    background-color: $gray-130;
-    color: $disabledcolor;
+  .dt-form-field-infix > & {
+    border: none;
+    border-radius: none;
   }
 
   :not(.dt-form-field-infix) > &:focus:not([disabled]) {
     @include dt-focus-style();
+  }
+
+  &[disabled] {
+    background-color: $gray-130;
+    color: $disabledcolor;
+
+    .dt-theme-dark & {
+      color: $gray-400;
+      background-color: $gray-500;
+      border-color: $gray-400;
+    }
   }
 }
 
