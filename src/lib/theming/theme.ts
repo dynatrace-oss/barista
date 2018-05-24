@@ -1,4 +1,3 @@
-import {NeverObservable} from 'rxjs/observable/NeverObservable';
 import {
   Directive,
   Input,
@@ -9,9 +8,9 @@ import {
   isDevMode,
   Renderer2
 } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, NEVER } from 'rxjs';
 import { DtLogger, DtLoggerFactory, replaceCssClass } from '../core/index';
-import {getDtThemeNotValidError, getDtThemeVariantNotValidError} from './theming-errors';
+import { getDtThemeNotValidError, getDtThemeVariantNotValidError } from './theming-errors';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtTheme');
 
@@ -85,7 +84,7 @@ export class DtTheme implements OnDestroy {
   private _name: string | null = null;
   private _variant: DtThemeVariant | null = null;
   private _classNames: NameVariantClasses = { name: null, variant: null };
-  private _parentSub: Subscription = NeverObservable.create().subscribe();
+  private _parentSub: Subscription = NEVER.create().subscribe();
 
   constructor(
     private _elementRef: ElementRef,
