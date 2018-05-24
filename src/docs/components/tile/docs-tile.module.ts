@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtTileModule, DtThemingModule } from '@dynatrace/angular-components';
+import { HttpClientModule } from '@angular/common/http';
+import { DtTileModule, DtThemingModule, DtIconModule } from '@dynatrace/angular-components';
 import { DocsTileComponent } from './docs-tile.component';
 import { DefaultTileExampleComponent } from './examples/default-tile-example.component';
 import { SmallTileExampleComponent } from './examples/small-tile-example.component';
@@ -25,6 +26,8 @@ const EXAMPLES = [
     UiModule,
     DtTileModule,
     DtThemingModule,
+    HttpClientModule,
+    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
   ],
   declarations: [
     ...EXAMPLES,
