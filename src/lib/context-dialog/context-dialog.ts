@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Directive,
   ElementRef,
   EventEmitter,
   Inject,
@@ -14,6 +15,7 @@ import {
   Optional,
   Output,
   ViewChild,
+  ContentChild,
   ViewEncapsulation,
   isDevMode,
 } from '@angular/core';
@@ -35,6 +37,11 @@ export class DtContextDialogBase {
 }
 export const _DtContextDialogBase =
   mixinTabIndex(mixinDisabled(mixinColor(DtContextDialogBase)));
+
+@Directive({
+  selector: '[dtContextDialogIcon]',
+})
+export class DtContextDialogIconDirective { }
 
 @Component({
   moduleId: module.id,
@@ -97,6 +104,8 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
   /** Panel that holds the content */
   @ViewChild('panel') _panel: ElementRef;
 
+  @ContentChild(DtContextDialogIconDirective) contextDialogIcon;
+
   /** Whether or not the overlay panel is open. */
   get isPanelOpen(): boolean {
     return this._panelOpen;
@@ -111,7 +120,6 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
     @Optional() @Inject(DOCUMENT) private _document: any
   ) {
     super(elementRef);
-
     this.tabIndex = parseInt(tabIndex, 10) || 0;
   }
 

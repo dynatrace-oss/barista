@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { DefaultContextDialogExampleComponent } from './examples/default-context-dialog-example.component';
 import { DarkContextDialogExampleComponent } from './examples/dark-context-dialog-example.component';
 import { PrevFocusContextDialogExampleComponent } from './examples/previous-focus-context-dialog-example.component';
+import { CustomIconContextDialogExampleComponent } from './examples/custom-icon-context-dialog-example.component';
+import {
+  DarkThemeCustomIconContextDialogExampleComponent
+} from './examples/dark-theme-custom-icon-context-dialog-example.component';
 
 @Component({
   moduleId: module.id,
@@ -14,5 +18,7 @@ export class DocsContextDialogComponent {
     default: DefaultContextDialogExampleComponent,
     dark: DarkContextDialogExampleComponent,
     prevFocus: PrevFocusContextDialogExampleComponent,
+    CustomIcon: CustomIconContextDialogExampleComponent,
+    DarkThemeCustomIcon: DarkThemeCustomIconContextDialogExampleComponent,
   };
 }
