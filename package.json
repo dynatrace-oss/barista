@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "docs": "gulp docs",
-    "docs:build": "ng build -a docs",
+    "docs:build": "ng build docs",
     "build": "gulp library:build",
     "test": "gulp test:single-run",
     "test:watch": "gulp test",
