@@ -31,8 +31,8 @@ const enum MODES {
   exportAs: 'dt-inline-editor',
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./inline-editor.component.scss'],
-  templateUrl: './inline-editor.component.html',
+  styleUrls: ['./inline-editor.scss'],
+  templateUrl: './inline-editor.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
