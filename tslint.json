@@ -148,6 +148,6 @@
     ],
 
     // Custom Rules
-    "ts-loader": true,
+    "ts-loader": true
   }
 }
