@@ -1,9 +1,10 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, ViewChild } from '@angular/core';
+import {Component, ContentChild, ViewChild} from '@angular/core';
 import { ComponentFixture, TestBed, async, fakeAsync, flush, inject } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtContextDialog, DtContextDialogModule } from '@dynatrace/angular-components';
+import {DtContextDialog, DtContextDialogModule, DtContextDialogIconDirective, DtIconModule} from '@dynatrace/angular-components';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
@@ -14,6 +15,8 @@ describe('DtContextDialog', () => {
     TestBed.configureTestingModule({
       imports: [
         DtContextDialogModule,
+        HttpClientTestingModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations,
     }).compileComponents();
@@ -33,6 +36,7 @@ describe('DtContextDialog', () => {
     beforeEach(async(() => {
       configureDtContextDialogTestingModule([
         BasicContextDialog,
+        ContextDialogCustomIcon,
       ]);
     }));
     describe('accessibility', () => {
@@ -112,6 +116,14 @@ describe('DtContextDialog', () => {
             'Expected context  Dialog element to be focused.'
           );
         }));
+
+        it('should be able to render custom icon', () => {
+          const fixtureCustom = TestBed.createComponent(ContextDialogCustomIcon);
+          fixtureCustom.detectChanges();
+
+          const customIconComponent = fixtureCustom.debugElement.query(By.directive(DtContextDialogIconDirective));
+          expect(customIconComponent).toBeTruthy('Expected the DtContextDialogIconDirective to display custom icon');
+        });
       });
     });
   });
@@ -124,9 +136,9 @@ describe('DtContextDialog', () => {
 @Component({
   selector: 'dt-basic-context-dialog',
   template: `
-  <dt-context-dialog [aria-label]="ariaLabel" [tabIndex]="tabIndexOverride" [disabled]="disabled">
-    <p>Some cool content</p>
-  </dt-context-dialog>
+    <dt-context-dialog [aria-label]="ariaLabel" [tabIndex]="tabIndexOverride" [disabled]="disabled">
+      <p>Some cool content</p>
+    </dt-context-dialog>
   `,
 })
 class BasicContextDialog {
@@ -136,4 +148,22 @@ class BasicContextDialog {
   editDisabled = false;
 
   @ViewChild(DtContextDialog) contextDialog: DtContextDialog;
+}
+
+@Component({
+  selector: 'dt-basic-context-dialog',
+  template: `
+  <dt-context-dialog [aria-label]="ariaLabel" [tabIndex]="tabIndexOverride" [disabled]="disabled">
+    <dt-icon dtContextDialogIcon name="agent" color="main"></dt-icon>
+    <p>Some cool content</p>
+  </dt-context-dialog>
+  `,
+})
+class ContextDialogCustomIcon {
+  tabIndexOverride: number;
+  ariaLabel: string;
+  disabled: boolean;
+
+  @ViewChild(DtContextDialog) contextDialog: DtContextDialog;
+  @ContentChild(DtContextDialogIconDirective) contextDialogIcon: DtContextDialogIconDirective;
 }
