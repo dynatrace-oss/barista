@@ -10,19 +10,8 @@
   cdkOverlayOrigin
   (click)="open()"
   class="dt-context-dialog-open-trigger">
-  <ng-container *ngIf="contextDialogIcon; else defaultSVGIcon">
-    <ng-content select="[dtContextDialogIcon]"></ng-content>
-  </ng-container>
+  <dt-icon [name]="_iconName$ | async"></dt-icon>
 </button>
-<ng-template #defaultSVGIcon>
-  <div class="dt-icon">
-    <svg viewBox="0 0 512 512">
-      <circle cx="404" cy="256" r="44"/>
-      <circle cx="256" cy="256" r="44"/>
-      <circle cx="108" cy="256" r="44"/>
-    </svg>
-  </div>
-</ng-template>
 <ng-template
   cdkConnectedOverlay
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
@@ -59,3 +48,4 @@
     </button>
   </div>
 </ng-template>
+<ng-content select="dt-context-dialog-icon"></ng-content>
