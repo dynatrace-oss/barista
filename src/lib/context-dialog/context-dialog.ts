@@ -18,6 +18,9 @@ import {
   ContentChild,
   ViewEncapsulation,
   isDevMode,
+  AfterContentInit,
+  DoCheck,
+  OnChanges,
 } from '@angular/core';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import {
@@ -26,8 +29,11 @@ import {
   HasTabIndex,
   mixinColor, mixinDisabled, mixinTabIndex
 } from '../core/index';
+import { DtIcon } from '../icon/index';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialogue');
+const DEFAULT_OPENING_ICON = 'more';
 
 // Boilerplate for applying mixins to DtContextDialog.
 export class DtContextDialogBase {
@@ -36,10 +42,25 @@ export class DtContextDialogBase {
 export const _DtContextDialogBase =
   mixinTabIndex(mixinDisabled(mixinColor(DtContextDialogBase)));
 
-@Directive({
-  selector: '[dtContextDialogIcon]',
+@Component({
+  selector: 'dt-context-dialog-icon',
+  template: '<ng-content></ng-content>',
+  styles: [':host { display: none;  }'],
+  host: {
+    'hidden': 'true',
+    'attr.aria-hidden': 'true',
+  },
+  encapsulation: ViewEncapsulation.Emulated,
+  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtContextDialogIconDirective { }
+export class DtContextDialogIcon {
+  @ContentChild(DtIcon) _icon;
+
+  get iconName(): string {
+    return this._icon && this._icon.name;
+  }
+}
 
 @Component({
   moduleId: module.id,
@@ -58,7 +79,7 @@ export class DtContextDialogIconDirective { }
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtContextDialog extends _DtContextDialogBase
-implements OnDestroy, HasTabIndex, CanDisable, CanColor {
+implements OnDestroy, HasTabIndex, CanDisable, CanColor, AfterContentInit, DoCheck {
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
@@ -96,13 +117,16 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
     },
   ];
 
+  /** BehaviorSubject that has the current iconname as value */
+  _iconName$ = new BehaviorSubject<string>(DEFAULT_OPENING_ICON);
+
   /** Overlay pane containing the content */
   @ViewChild(CdkConnectedOverlay) _overlayDir: CdkConnectedOverlay;
 
   /** Panel that holds the content */
   @ViewChild('panel') _panel: ElementRef;
 
-  @ContentChild(DtContextDialogIconDirective) contextDialogIcon;
+  @ContentChild(DtContextDialogIcon) contextDialogIcon;
 
   /** Whether or not the overlay panel is open. */
   get isPanelOpen(): boolean {
@@ -119,6 +143,14 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
   ) {
     super(elementRef);
     this.tabIndex = parseInt(tabIndex, 10) || 0;
+  }
+
+  ngDoCheck(): void {
+    this._updateIcon();
+  }
+
+  ngAfterContentInit(): void {
+    this._updateIcon();
   }
 
   /** Opens the panel */
@@ -144,6 +176,17 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
   /** Focuses the context-dialog element. */
   focus(): void {
     this._elementRef.nativeElement.focus();
+  }
+
+  /**
+   * checks if a contentchild DtContextDialogIcon exists and has a name and changes the name
+   * on the internal dt-icon accordingly
+   */
+  private _updateIcon(): void {
+    const currentIconName = this.contextDialogIcon && this.contextDialogIcon.iconName || DEFAULT_OPENING_ICON;
+    if (this._iconName$.value !== currentIconName) {
+      this._iconName$.next(currentIconName);
+    }
   }
 
   /** Moves the focus inside the focus trap. */
@@ -215,5 +258,6 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
   /** Hook that trigger right before the component will be destroyed. */
   ngOnDestroy(): void {
     this.close();
+    this._iconName$.complete();
   }
 }
