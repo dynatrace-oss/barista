@@ -5,9 +5,12 @@ import { Component } from '@angular/core';
   template: `
   <div class="light" dtTheme=":light">
   <dt-context-dialog>
-  <dt-icon dtContextDialogIcon name="agent" color="main"></dt-icon>
+    <dt-context-dialog-icon><dt-icon [name]="name"></dt-icon></dt-context-dialog-icon>
   <div>Example Content</div>
   </dt-context-dialog>
+    <button (click)="name = 'abort'">{{name}}</button>
   </div>`,
 })
-export class CustomIconContextDialogExampleComponent { }
+export class CustomIconContextDialogExampleComponent {
+  name = 'agent';
+}
