@@ -97,7 +97,8 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
     // Run change detection if the value, prefix, or suffix changes.
     const valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || EMPTY;
     merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
-        .subscribe(() => this._changeDetectorRef.markForCheck());
+        .subscribe(() =>
+          this._changeDetectorRef.markForCheck());
 
     // Re-validate when the number of hints changes.
     this._hintChildren.changes.pipe(startWith(null)).subscribe(() => {
