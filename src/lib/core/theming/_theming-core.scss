@@ -1,9 +1,6 @@
-// Stores a list of themes by name that contain the light and dark theme definition
-$dt-themes: ();
-
-// Stores the current theme definition while traversing all themes when applied to a component
-// Note: Needs to be global!
-$dt-current-theme: ();
+// WARNING!!!!!!!!
+// NEVER IMPORT THIS FILE DIRECTLY!!!
+// Always use _theming.scss
 
 // Helper function to receive a specific palette from a theme definition
 @function dt-get-theme-palette($theme, $name) {
