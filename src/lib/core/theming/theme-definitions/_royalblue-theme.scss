@@ -18,4 +18,4 @@ $dt-royalblue-theme-dark: dt-theme-dark(
   /* cta */       dt-theme-palette($green-500, $green-400, $green-300)
 );
 
-@include dt-register-theme('royalblue', $dt-royalblue-theme-light, $dt-royalblue-theme-dark, true);
+@include dt-register-theme('royalblue', $dt-royalblue-theme-light, $dt-royalblue-theme-dark, false);
