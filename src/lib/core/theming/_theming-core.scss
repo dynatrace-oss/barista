@@ -1,0 +1,109 @@
+// Stores a list of themes by name that contain the light and dark theme definition
+$dt-themes: ();
+
+// Stores the current theme definition while traversing all themes when applied to a component
+// Note: Needs to be global!
+$dt-current-theme: ();
+
+@function dt-theme-palette($default, $hover, $active) {
+  $result: (
+    default: $default,
+    hover: $hover,
+    active: $active,
+  );
+  @return $result;
+}
+
+@function dt-get-theme-palette($theme, $name) {
+  @return map-get($theme, $name);
+}
+
+@function dt-get-theme-color($palette, $name) {
+  @return map-get($palette, $name);
+}
+
+// Creates a light theme definition object containing all color palettes for the theme
+@function dt-theme-light(
+  $main-palette,
+  $accent-palette,
+  $warning-palette,
+  $error-palette,
+  $recovered-palette,
+  $cta-palette
+) {
+  @return (
+    main: $main-palette,
+    accent: $accent-palette,
+    warning: $warning-palette,
+    error: $error-palette,
+    recovered: $recovered-palette,
+    cta: $cta-palette,
+    is-dark: false
+  );
+}
+
+// Creates a dark theme definition object containing all color palettes for the theme
+@function dt-theme-dark(
+  $main-palette,
+  $accent-palette,
+  $warning-palette,
+  $error-palette,
+  $recovered-palette,
+  $cta-palette
+) {
+  @return (
+    main: $main-palette,
+    accent: $accent-palette,
+    warning: $warning-palette,
+    error: $error-palette,
+    recovered: $recovered-palette,
+    cta: $cta-palette,
+    is-dark: true
+  );
+}
+
+// Registers and adds the provided light and dark theme to the list of theme definitions
+@mixin dt-register-theme($name, $light-theme, $dark-theme, $default: false) {
+  $dt-themes: map-merge($dt-themes, (
+    $name: (
+      name: $name,
+      light: $light-theme,
+      dark: $dark-theme,
+      default: $default
+    )
+  )) !global;
+}
+
+// Applies the components theme mixin to all registered themes
+@mixin dt-apply-theme() {
+  @each $name, $theme in $dt-themes {
+    $light-theme: map-get($theme, light);
+    $dark-theme: map-get($theme, dark);
+    $default: map-get($theme, default);
+
+    @if $default == false {
+      .gh-theme-#{$name},
+      .gh-theme-#{$name}.gh-theme-light {
+        $dt-current-theme: $light-theme !global;
+        @content;
+      }
+      .gh-theme-#{$name}.gh-theme-dark {
+        $dt-current-theme: $dark-theme !global;
+        @content;
+      }
+    } @else {
+      $dt-current-theme: $light-theme !global;
+      @content;
+      .gh-theme-#{$name},
+      .gh-theme-light,
+      .gh-theme-#{$name}.gh-theme-light {
+        @content;
+      }
+      $dt-current-theme: $dark-theme !global;
+      .gh-theme-dark,
+      .gh-theme-#{$name}.gh-theme-dark {
+        @content;
+      }
+    }
+  }
+}
