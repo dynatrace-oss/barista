@@ -18,6 +18,7 @@ import { DocsFormField } from 'components/form-field/docs-form-field';
 import { DocsTagComponent } from './components/tag/docs-tag.component';
 import { DocsAlertComponent } from './components/alert/docs-alert.component';
 import { DocsIconComponent } from 'components/icon/docs-icon.component';
+import { DocsKeyValueListComponent } from './components/key-value-list/docs-key-value-list.component';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'tile', component: DocsTileComponent },
   { path: 'tag', component: DocsTagComponent },
   { path: 'alert-component', component: DocsAlertComponent },
+  { path: 'key-value-list', component: DocsKeyValueListComponent },
   { path: '**', redirectTo: '' },
 ];
 

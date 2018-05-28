@@ -1,0 +1,30 @@
+.dt-key-value-list {
+  display: block;
+}
+dl {
+  -webkit-column-gap: 60px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 60px; /* Firefox */
+    column-gap: 60px;
+}
+.dtKeyValueListColumns2 {
+    columns: 2;
+}
+.dtKeyValueListColumns3 {
+    columns: 3;
+}
+.dtKeyValueListColumns4 {
+    columns: 4;
+}
+dt {
+  display:inline-block;
+  width:50%;
+  padding-right:40px;
+}
+dd {
+  
+  display:inline-block;
+  width:50%;
+  padding-left:40px;
+  margin:0px;
+  text-align: right;
+}
