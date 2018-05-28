@@ -1,0 +1,6 @@
+<dl  [ngClass]="getColumnsClass()">
+    <ng-container *ngFor="let ee of _dataSource;">
+        <dt>{{getKeyEntry(ee)}}</dt>
+        <dd>{{getValueEntry(ee)}}</dd> 
+    </ng-container> 
+</dl> 
