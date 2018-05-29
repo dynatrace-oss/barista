@@ -62,6 +62,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _colorPalette: ChartColorPalette;
   private _isTooltipWrapped = false;
   private _highchartsOptions: Options;
+  private _viewportResizerSub: Subscription;
 
   @Input()
   get options(): DtChartOptions {
@@ -102,7 +103,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     private _changeDetectorRef: ChangeDetectorRef
   ) {
     if (this._viewportResizer) {
-      this._viewportResizer.change()
+      this._viewportResizerSub = this._viewportResizer.change()
         .pipe(delay(0))// delay to postpone the reflow to the next change detection cycle
         .subscribe(() => {
           if (this._chartObject) {
@@ -128,6 +129,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
     if (this._dataSub) {
       this._dataSub.unsubscribe();
+    }
+    if (this._viewportResizerSub) {
+      this._viewportResizerSub.unsubscribe();
     }
   }
 
