@@ -24,7 +24,7 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
   plotOptions: {
           series: {
               animation: {
-                  duration: 600,
+                  duration: 1000,
                   easing: 'easeInOutExpo'
               },
           },
