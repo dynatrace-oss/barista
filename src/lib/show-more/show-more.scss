@@ -1,0 +1,55 @@
+@import '../core/style/variables';
+
+:host {
+  box-sizing: border-box;
+}
+
+:host {
+  display: block;
+  text-align: center;
+  color: $turquoise-600;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 5px 5px 0;
+
+  dt-icon {
+    display: block;
+  }
+
+  /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
+  > ::ng-deep * svg {
+    width: 28px;
+    height: 28px;
+    fill: $turquoise-600;
+    transform: rotate(0deg);
+    transition: transform 400ms;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $gray-300 inset;
+  }
+
+  &:hover {
+    color: $turquoise-700;
+
+    /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
+    ::ng-deep svg {
+      fill: $turquoise-700;
+    }
+  }
+
+  /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
+  &.dt-show-more-show-less ::ng-deep svg {
+    transform: rotate(180deg);
+  }
+}
+
+.dt-show-more-label {
+  font-size: 14px;
+  margin-bottom: 8px;
+
+  &:empty {
+    margin-bottom: 0;
+  }
+}
