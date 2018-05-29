@@ -18,7 +18,7 @@
       $palette: dt-get-theme-palette($theme, $name);
       $color: dt-get-theme-color($palette, 'default');
     }
-    .dt-icon.dt-color-#{$name} svg {
+    .dt-icon.dt-color-#{$name} {
       fill: $color;
     }
   }
