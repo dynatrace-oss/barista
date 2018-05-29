@@ -80,6 +80,11 @@ Stylelint
 yarn lint
 ```
 
+Pre-commit sanity check (runs all tests + linting)
+```
+gradlew completeBuild
+```
+
 ### Using local version for development
 
 1. Build development version
