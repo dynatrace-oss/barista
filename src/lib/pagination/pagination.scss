@@ -1,0 +1,69 @@
+@import '../core/style/variables';
+
+:host {
+  box-sizing: border-box;
+
+  font-size: 14px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+
+  & .dt-pagination-arrow {
+    flex-shrink: 0;
+  }
+
+  & .dt-pagination-arrow dt-icon {
+    width: 20px;
+    height: 20px;
+    fill: $gray-300;
+  }
+
+  & .dt-pagination-arrow-active dt-icon {
+    fill: $turquoise-600;
+
+    &:hover {
+      color: $turquoise-700;
+      fill: $turquoise-700;
+    }
+  }
+
+  & .dt-pagination-arrow:not(.dt-pagination-arrow-active) {
+    pointer-events: none;
+  }
+}
+
+.dt-pagination-arrow-left dt-icon {
+  transform: scale(-1, 1);
+}
+
+
+.dt-pagination-numbers {
+  margin: 0 8px;
+  color: $gray-700;
+
+  display: flex;
+
+  & > * {
+    /* TODO: eventually remove them after nested button improvements */
+    min-width: 32px;
+    padding: 0;
+
+    text-align: center;
+    user-select: none;
+  }
+}
+
+.dt-pagination-numbers .dt-pagination-item-active {
+  font-weight: bolder;
+  line-height: 32px;
+
+}
+
+.dt-pagination-item-ellipsis {
+  text-align: center;
+  line-height: 32px;
+
+  font-size: 14px;
+  color: $gray-300;
+}
