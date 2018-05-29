@@ -2,13 +2,21 @@ import { DtChartOptions } from './chart';
 import { Colors } from '../theming/colors';
 import { AxisOptions } from 'highcharts';
 
-/** Extend browser native Math object for highcharts easing function */
-(Math as any).easeInOutExpo= function(pos) {
-  if(pos === 0) return 0;
-  if(pos === 1) return 1;
-  if((pos /= 0.5 ) < 1) return 0.5 * Math.pow(2, 10 * (pos - 1));
-  return 0.5 * (-Math.pow(2, -10 * -- pos) + 2);
+// tslint:disable:no-magic-numbers
+/** Custom highcharts easing function */
+const DT_EASEINOUT = (pos: number): number => {
+  if (pos === 0) {
+    return 0;
+  }
+  if (pos === 1) {
+    return 1;
+  }
+  if (pos * 2 < 1) {
+    return Math.pow(2, (pos * 2 - 1) * 10) * 0.5;
+  }
+  return (-Math.pow(2, (pos * 2 - 1) * -10) * 0.5 + 2);
 };
+// tslint:enable:no-magic-numbers
 
 export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
   chart: {
@@ -26,7 +34,8 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
     series: {
       animation: {
         duration: 1000,
-        easing: 'easeInOutExpo'
+        // tslint:disable-next-line:no-any
+        easing: DT_EASEINOUT as any, // As any to bypass highcharts types
       },
     },
   },
