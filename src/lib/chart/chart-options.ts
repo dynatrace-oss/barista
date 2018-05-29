@@ -22,7 +22,6 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
     spacingTop: 12,
     animation: false,
   },
-
   plotOptions: {
     series: {
       animation: {
@@ -31,7 +30,6 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
       },
     },
   },
-
   title: {
     text: null,
   },
@@ -50,7 +48,6 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
       fontSize: '12px',
       color: Colors.GRAY_700,
     },
-
     itemHoverStyle: {
       color: Colors.GRAY_900,
     },
