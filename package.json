@@ -31,6 +31,7 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.6.3",
     "@angular-devkit/core": "^0.6.0",
     "@angular-devkit/schematics": "^0.6.0",
     "@angular/cli": "^6.0.3",
@@ -43,12 +44,10 @@
     "@types/cross-spawn": "^6.0.0",
     "@types/fs-extra": "^5.0.0",
     "@types/glob": "^5.0.33",
-    "@types/gulp": "^3.8.34",
     "@types/gulp-sass": "0.0.31",
     "@types/highcharts": "^5.0.20",
     "@types/highlight.js": "^9.12.2",
     "@types/jasmine": "^2.8.5",
-    "@types/node": "^6.0.111",
     "@types/sass-graph": "^2.1.2",
     "@types/stylelint": "^7.11.0",
     "@types/through2": "^2.0.33",
@@ -82,7 +81,6 @@
     "tslint": "^5.8.0",
     "typescript": "~2.7.2",
     "uglify-js": "^2.8.14",
-    "web-animations-js": "^2.3.1",
-    "@angular-devkit/build-angular": "~0.6.3"
+    "web-animations-js": "^2.3.1"
   }
 }
