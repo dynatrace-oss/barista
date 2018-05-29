@@ -98,7 +98,8 @@
         $dt-current-theme: $dark-theme !global;
         @content;
       }
-    } @else {
+    }
+    @else {
       $dt-current-theme: $light-theme !global;
       @content;
       .dt-theme-#{$name},
