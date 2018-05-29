@@ -1,12 +1,14 @@
 import { DtChartOptions } from './chart';
 import { Colors } from '../theming/colors';
 import { AxisOptions } from 'highcharts';
+
+/** Extend browser native Math object for highcharts easing function */
 (Math as any).easeInOutExpo= function(pos) {
-    if(pos===0) return 0;
-    if(pos===1) return 1;
-    if((pos/=0.5) < 1) return 0.5 * Math.pow(2,10 * (pos-1));
-    return 0.5 * (-Math.pow(2, -10 * --pos) + 2);
-  };
+  if(pos === 0) return 0;
+  if(pos === 1) return 1;
+  if((pos /= 0.5 ) < 1) return 0.5 * Math.pow(2, 10 * (pos - 1));
+  return 0.5 * (-Math.pow(2, -10 * -- pos) + 2);
+};
 
 export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
   chart: {
@@ -22,13 +24,13 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
   },
 
   plotOptions: {
-          series: {
-              animation: {
-                  duration: 1000,
-                  easing: 'easeInOutExpo'
-              },
-          },
+    series: {
+      animation: {
+        duration: 1000,
+        easing: 'easeInOutExpo'
       },
+    },
+  },
 
   title: {
     text: null,
