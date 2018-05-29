@@ -1,0 +1,70 @@
+<h1>Show More</h1>
+
+<p>
+  This component create a show more pagination widget.
+</p>
+
+<h2>Imports</h2>
+<p>You have to import the <code>DtShowMoreModule</code> when you want to use the <code>dt-show-more</code>:</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    DtShowMoreModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h2>Initialization</h2>
+<p>
+  To apply the dynatrace show more component, use the <code>&lt;dt-show-more&gt;</code> element with some content as text. Example:
+</p>
+<docs-source-example [example]="examples.default"></docs-source-example>
+
+
+<h2>Options & Properties</h2>
+<h4>Button group</h4>
+<table class="table">
+  <thead>
+  <tr>
+    <td width="160px">Name</td>
+    <td width="250px">Type</td>
+    <td width="160px">Default</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr>
+    <td><code>&lt;ng-content&gt;</code></td>
+    <td><code></code></td>
+    <td><code></code></td>
+    <td>The (optional) text which gets displayed above the arrow</td>
+  </tr>
+  <tr>
+    <td><code>[showMore]</code></td>
+    <td><code>boolean</code></td>
+    <td><code>true</code></td>
+    <td>The property which stores the expanded state of the component. If the value is <code>true</code>, then the arrow of the component is pointing downwards.</td>
+  </tr>
+  <tr>
+    <td><code>(changed)</code></td>
+    <td><code>event&lt;boolean&gt;</code></td>
+    <td><code></code></td>
+    <td>The event which gets fired when the state changes. The event is fired when the user clicks on the component, as well as using SPACE or ENTER keys.</td>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Examples</h2>
+<h3>Without text</h3>
+<docs-source-example [example]="examples.notext"></docs-source-example>
+
+<h3>Interactive example</h3>
+<docs-source-example [example]="examples.interactive"></docs-source-example>
+
+<h3>Dark theme</h3>
+<docs-source-example [example]="examples.darktheme"></docs-source-example>
+
+

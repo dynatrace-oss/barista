@@ -18,6 +18,7 @@ export class UIApp {
     {name: 'Context Dialog', route: '/context-dialog'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
+    {name: 'Show-more', route: '/show-more'},
     {name: 'tile', route: '/tile'},
   ];
 }
