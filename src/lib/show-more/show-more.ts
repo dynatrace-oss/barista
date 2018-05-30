@@ -43,24 +43,21 @@ export class DtShowMore {
   }
 
   @HostListener('keydown', ['$event'])
-  // tslint:disable-next-line:no-unused-variable
-  private _handleKeydown(event: KeyboardEvent): void {
+  _handleKeydown(event: KeyboardEvent): void {
     if (event.keyCode === ENTER || event.keyCode === SPACE) {
       event.preventDefault();
     }
   }
 
   @HostListener('keyup', ['$event'])
-  // tslint:disable-next-line:no-unused-variable
-  private _handleKeyup(event: KeyboardEvent): void {
+  _handleKeyup(event: KeyboardEvent): void {
     if (event.keyCode === ENTER || event.keyCode === SPACE) {
       this._fireChange();
     }
   }
 
   @HostListener('click')
-  // tslint:disable-next-line:no-unused-variable
-  private _handleClick(): void {
+  _handleClick(): void {
     this._fireChange();
   }
 

@@ -15,7 +15,7 @@ const EXAMPLES = [
     CommonModule,
     UiModule,
     HttpClientModule,
-    DtIconModule.forRoot({ svgIconLocation: `assets/icons/{{name}}.svg` }),
+    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
   ],
   declarations: [
     ...EXAMPLES,

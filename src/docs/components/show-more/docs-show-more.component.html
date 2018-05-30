@@ -18,7 +18,9 @@ class MyModule {{"{}"}}
 
 <h2>Initialization</h2>
 <p>
-  To apply the dynatrace show more component, use the <code>&lt;dt-show-more&gt;</code> element with some content as text. Example:
+  To apply the dynatrace show more component, use the <code>&lt;dt-show-more&gt;</code> element with some content as text. To use a
+  <i>Show less</i> label an additional <code>&lt;dt-show-less-label&gt;</code> tag can be used.
+  Example:
 </p>
 <docs-source-example [example]="examples.default"></docs-source-example>
 
@@ -52,7 +54,8 @@ class MyModule {{"{}"}}
     <td><code>(changed)</code></td>
     <td><code>event&lt;boolean&gt;</code></td>
     <td><code></code></td>
-    <td>The event which gets fired when the state changes. The event is fired when the user clicks on the component, as well as using SPACE or ENTER keys.</td>
+    <td>The event which gets fired when the state changes. The event is fired when the user clicks on the component, as well as using SPACE or ENTER keys. The value passed, is
+    the current value of <code>showMore</code> (<code>!showLess</code>).</td>
   </tr>
   </tbody>
 </table>
