@@ -5,8 +5,9 @@ import { execNodeTask } from '../util/task-runner';
 const stylesGlob = 'src/lib/**/!(*.bundle).+(css|scss)';
 
 const tsGlob = 'src/lib/**/!(*.spec).ts';
+const tsSpecsGlob = 'src/lib/**/*.spec.ts';
 
-task('lint', ['stylelint', 'tslint']);
+task('lint', ['stylelint', 'tslint', 'tslint:specs']);
 
 task('stylelint', execNodeTask(
   'stylelint', [stylesGlob, '--config', 'stylelint-config.json', '--syntax', 'scss'],
@@ -14,4 +15,8 @@ task('stylelint', execNodeTask(
 
 task('tslint', execNodeTask(
   'tslint', ['--project', 'tsconfig.json', tsGlob],
+));
+
+task('tslint:specs', execNodeTask(
+  'tslint', ['--config', 'tslint.spec.json', '--project', 'tsconfig.json', tsSpecsGlob],
 ));
