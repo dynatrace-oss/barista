@@ -26,4 +26,5 @@ export class Docs {
     {name: 'Tag', route: '/tag'},
     {name: 'Tile', route: '/tile'},
   ];
+  selectedTheme = 'turquoise';
 }

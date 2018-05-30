@@ -1,15 +1,16 @@
-import {async, TestBed} from '@angular/core/testing';
-import {Component} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {DtTagModule, DtTag, DtIconModule} from '@dynatrace/angular-components';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
+import { DtIconModule, DtTagModule } from '@dynatrace/angular-components';
 
 describe('DtTag', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtTagModule, HttpClientModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
+      imports: [
+        DtTagModule,
+        HttpClientModule,
+        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+      ],
       declarations: [TestAppSimple, TestAppRemovable],
     });
 
@@ -36,12 +37,7 @@ describe('DtTag', () => {
     const fixture = TestBed.createComponent(TestAppRemovable);
     fixture.detectChanges();
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag');
-
-    let groupDebugElement = fixture.debugElement.query(By.directive(DtTag));
-    let groupInstance = groupDebugElement.injector.get<DtTag<string>>(DtTag);
-
-    let item = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const item = fixture.debugElement.nativeElement.querySelector('dt-icon');
 
     expect(fixture.componentInstance.removeEventCount).toBe(0);
 
@@ -52,7 +48,7 @@ describe('DtTag', () => {
 
 });
 
-  /** Test component that contains an DtTag. */
+/** Test component that contains an DtTag. */
 @Component({
   selector: 'dt-test-app',
   template: `

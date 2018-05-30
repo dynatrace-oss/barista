@@ -1,5 +1,7 @@
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './alert-theme';
 
 $display-type: inline-flex;
 
@@ -42,27 +44,14 @@ $display-type: inline-flex;
 }
 
 :host.dt-alert-warning {
-
   display: $display-type;
-
-  .dt-alert-icon-container {
-    background-color: $warning-color;
-  }
-
-  .dt-alert-text-container {
-    border: 1px solid $warning-color;
-  }
 }
 
 :host.dt-alert-error {
-
   display: $display-type;
+}
 
-  .dt-alert-icon-container {
-    background-color: $error-color;
-  }
-  .dt-alert-text-container {
-    border: 1px solid $error-color;
-  }
-
+// Apply the alert theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-alert($dt-current-theme);
 }
