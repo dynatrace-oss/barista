@@ -1,8 +1,7 @@
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ConnectionPositionPair, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
-  Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -15,50 +14,79 @@ import {
   Optional,
   Output,
   ViewChild,
-  ContentChild,
   ViewEncapsulation,
   isDevMode,
-  AfterContentInit,
-  DoCheck,
-  OnChanges,
 } from '@angular/core';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import {
-  CanColor, CanDisable,
-  DtLogger, DtLoggerFactory,
-  HasTabIndex,
-  mixinColor, mixinDisabled, mixinTabIndex
+  CanDisable,
+  DtLogger,
+  DtLoggerFactory,
 } from '../core/index';
-import { DtIcon } from '../icon/index';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialogue');
-const DEFAULT_OPENING_ICON = 'more';
-
-// Boilerplate for applying mixins to DtContextDialog.
-export class DtContextDialogBase {
-  constructor(public _elementRef: ElementRef) { }
-}
-export const _DtContextDialogBase =
-  mixinTabIndex(mixinDisabled(mixinColor(DtContextDialogBase)));
-
-@Component({
-  selector: 'dt-context-dialog-icon',
-  template: '<ng-content></ng-content>',
-  styles: [':host { display: none;  }'],
-  host: {
-    'hidden': 'true',
-    'attr.aria-hidden': 'true',
+const OVERLAY_POSITIONS = [
+  {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'top',
   },
-  encapsulation: ViewEncapsulation.Emulated,
-  preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class DtContextDialogIcon {
-  @ContentChild(DtIcon) _icon;
+  {
+    originX: 'end',
+    originY: 'bottom',
+    overlayX: 'end',
+    overlayY: 'bottom',
+  },
+];
 
-  get iconName(): string {
-    return this._icon && this._icon.name;
+@Directive({
+  selector: 'button[dtContextDialogTrigger]',
+  exportAs: 'dtContextDialogTrigger',
+  inputs: ['disabled'],
+  host: {
+    'class': 'dt-context-dialog-trigger',
+    '[attr.aria-disabled]': '_disabled.toString()',
+    '(click)': 'dialog && dialog.open()',
+  },
+})
+export class DtContextDialogTrigger extends CdkOverlayOrigin implements CanDisable, OnDestroy {
+
+  private _dialog: DtContextDialog | undefined;
+  private _disabled = false;
+
+  @Input('dtContextDialogTrigger')
+  get dialog(): DtContextDialog | undefined { return this._dialog; }
+  set dialog(value: DtContextDialog | undefined) {
+    if (value !== this._dialog) {
+      this._unregisterFromDialog();
+      if (value) {
+        value._registerTrigger(this);
+      }
+      this._dialog = value;
+    }
+  }
+
+  @Output() readonly openChange = new EventEmitter<void>();
+
+  constructor(elementRef: ElementRef) {
+    super(elementRef);
+  }
+
+  ngOnDestroy(): void {
+    this._unregisterFromDialog();
+  }
+
+  _unregisterFromDialog(): void {
+    if (this._dialog) {
+      this._dialog._unregisterTrigger(this);
+      this._dialog = undefined;
+    }
+  }
+
+  set disabled(value: boolean) {
+    this._disabled = coerceBooleanProperty(value);
   }
 }
 
@@ -67,21 +95,18 @@ export class DtContextDialogIcon {
   selector: 'dt-context-dialog',
   templateUrl: 'context-dialog.html',
   styleUrls: ['context-dialog.scss'],
-  inputs: ['disabled', 'tabIndex', 'color'],
   host: {
     'class': 'dt-context-dialog',
+    '[class.dt-context-dialog-panel]': 'opened',
     'attr.aria-hidden': 'true',
-    '[attr.aria-disabled]': 'disabled.toString()',
-    'tabIndex': '-1',
   },
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtContextDialog extends _DtContextDialogBase
-implements OnDestroy, HasTabIndex, CanDisable, CanColor, AfterContentInit, DoCheck {
+export class DtContextDialog implements OnDestroy {
   /** Whether or not the overlay panel is open. */
-  private _panelOpen = false;
+  private _opened = false;
 
   /** Last emitted position of the overlay */
   private _lastOverlayPosition: ConnectionPositionPair;
@@ -95,6 +120,8 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor, AfterContentInit, DoChe
    */
   private _elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
 
+  private  _trigger: DtContextDialogTrigger | undefined = undefined;
+
   /** Aria label of the context-dialog. */
   // tslint:disable-next-line:no-input-rename
   @Input('aria-label') ariaLabel = '';
@@ -102,91 +129,68 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor, AfterContentInit, DoChe
   /** Event emitted when the select has been opened. */
   @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  _positions = [
-    {
-      originX: 'end',
-      originY: 'top',
-      overlayX: 'end',
-      overlayY: 'top',
-    },
-    {
-      originX: 'end',
-      originY: 'bottom',
-      overlayX: 'end',
-      overlayY: 'bottom',
-    },
-  ];
-
-  /** BehaviorSubject that has the current iconname as value */
-  _iconName$ = new BehaviorSubject<string>(DEFAULT_OPENING_ICON);
-
   /** Overlay pane containing the content */
   @ViewChild(CdkConnectedOverlay) _overlayDir: CdkConnectedOverlay;
 
   /** Panel that holds the content */
   @ViewChild('panel') _panel: ElementRef;
 
-  @ContentChild(DtContextDialogIcon) contextDialogIcon;
+  @ViewChild(DtContextDialogTrigger) _defaultTrigger: DtContextDialogTrigger;
 
   /** Whether or not the overlay panel is open. */
   get isPanelOpen(): boolean {
-    return this._panelOpen;
+    return this._opened;
   }
+
+  get trigger(): DtContextDialogTrigger | undefined {
+    return this._trigger;
+  }
+
+  // get hasCustomTrigger(): boolean {
+  //   return this._trigger;
+  // }
+  _positions = OVERLAY_POSITIONS;
 
   constructor(
-    elementRef: ElementRef,
+    private _elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _focusTrapFactory: FocusTrapFactory,
-    @Attribute('tabindex') tabIndex: string,
     // tslint:disable-next-line: no-any
     @Optional() @Inject(DOCUMENT) private _document: any
-  ) {
-    super(elementRef);
-    this.tabIndex = parseInt(tabIndex, 10) || 0;
+  ) {}
+
+  @Input()
+  // @HostBinding('class.dt-context-dialog-panel')
+  get opened(): boolean { return this._opened; }
+  set opened(value: boolean) { this._opened = coerceBooleanProperty(value); }
+
+  toggle(): boolean {
+    this._openClose(!this._opened);
+    return this.opened;
   }
 
-  ngDoCheck(): void {
-    this._updateIcon();
-  }
-
-  ngAfterContentInit(): void {
-    this._updateIcon();
-  }
-
-  /** Opens the panel */
   open(): void {
-    if (!this.disabled && !this._panelOpen) {
-      this._panelOpen = true;
-      this.openedChange.emit(true);
-      this._savePreviouslyFocusedElement();
-      this._changeDetectorRef.markForCheck();
-    }
+    this._openClose(true);
   }
 
-  /** Closes the panel */
   close(): void {
-    if (this._panelOpen) {
-      this._panelOpen = false;
-      this.openedChange.emit(false);
+    this._openClose(false);
+  }
+
+  private _openClose(open: boolean): void {
+    this._opened = open;
+    this.openedChange.emit(open);
+    if (this._opened) {
+      this._savePreviouslyFocusedElement();
+    } else {
       this._restoreFocus();
-      this._changeDetectorRef.markForCheck();
     }
+    this._changeDetectorRef.detectChanges();
   }
 
   /** Focuses the context-dialog element. */
   focus(): void {
     this._elementRef.nativeElement.focus();
-  }
-
-  /**
-   * checks if a contentchild DtContextDialogIcon exists and has a name and changes the name
-   * on the internal dt-icon accordingly
-   */
-  private _updateIcon(): void {
-    const currentIconName = this.contextDialogIcon && this.contextDialogIcon.iconName || DEFAULT_OPENING_ICON;
-    if (this._iconName$.value !== currentIconName) {
-      this._iconName$.next(currentIconName);
-    }
   }
 
   /** Moves the focus inside the focus trap. */
@@ -227,6 +231,23 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor, AfterContentInit, DoChe
     }
   }
 
+  _registerTrigger(trigger: DtContextDialogTrigger): void {
+    if (trigger !== this._defaultTrigger && this._trigger === this._defaultTrigger) {
+        // TODO assign default trigger
+    }
+    // if (this.trigger) {
+     // LOG.debug('Trying to register', Error);
+    // }
+    this._trigger = trigger;
+  }
+
+  _unregisterTrigger(trigger: DtContextDialogTrigger): void {
+    if (this._trigger !== trigger) {
+      LOG.debug('Trying to unregister a trigger that is not assigned', Error);
+    }
+    this._trigger = trigger;
+  }
+
   /** Callback that is invoked when the overlay panel has been attached. */
   _onAttached(): void {
     /** trap focus within the overlay */
@@ -258,6 +279,5 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor, AfterContentInit, DoChe
   /** Hook that trigger right before the component will be destroyed. */
   ngOnDestroy(): void {
     this.close();
-    this._iconName$.complete();
   }
 }
