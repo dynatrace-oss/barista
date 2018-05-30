@@ -24,7 +24,10 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   @Input() isLoading: boolean;
 
   get isEmptyDataSource(): boolean {
-    if (Array.isArray(this.dataSource) && !this.dataSource.length) {
+    if (
+      (Array.isArray(this.dataSource) && !this.dataSource.length) ||
+      (this.dataSource && !(this.dataSource as T[]).length)
+    ) {
       return true;
     }
 
