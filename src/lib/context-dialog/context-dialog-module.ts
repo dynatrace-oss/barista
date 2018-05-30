@@ -4,12 +4,11 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { A11yModule } from '@angular/cdk/a11y';
 import { DtButtonModule, } from '../button/index';
 import { DtThemingModule } from '../theming/index';
-import { DtContextDialog, DtContextDialogIconDirective } from './context-dialog';
-import { DtIconModule } from '../icon/index';
+import { DtContextDialog, DtContextDialogTrigger } from './context-dialog';
 
 const EXPORTED_DECLARATIONS = [
   DtContextDialog,
-  DtContextDialogIconDirective,
+  DtContextDialogTrigger,
 ];
 
 @NgModule({
@@ -19,7 +18,6 @@ const EXPORTED_DECLARATIONS = [
     DtThemingModule,
     OverlayModule,
     A11yModule,
-    DtIconModule,
   ],
   exports: [
     ...EXPORTED_DECLARATIONS,
