@@ -1,0 +1,117 @@
+@import '../core/theming/theming';
+
+@mixin dt-theme-button($theme) {
+  $palette-names: 'main', 'warning', 'cta';
+  $default-palette: 'main';
+
+  @each $name in $palette-names {
+    $is-dark: map-get($theme, 'is-dark');
+    $palette: dt-get-theme-palette($theme, $name);
+    $default-color: dt-get-theme-color($palette, 'default');
+    $hover-color: dt-get-theme-color($palette, 'hover');
+    $active-color: dt-get-theme-color($palette, 'active');
+
+    $namespace: ':host';
+    @if $name != $default-palette {
+      $namespace: ':host.dt-color-#{$name}';
+    }
+
+    ////////////////////////////
+    // PRIMARY
+    ////////////////////////////
+    & #{$namespace}.dt-button-primary {
+        background: $default-color;
+        border-color: $default-color;
+        color: #fff;
+    }
+    & #{$namespace}.dt-button-primary:hover:not([disabled]) {
+      background: $hover-color;
+      border-color: $hover-color;
+      color: #fff;
+    }
+    & #{$namespace}.dt-button-primary:active:not([disabled]) {
+      background: $active-color;
+      border-color: $active-color;
+      color: #fff;
+    }
+
+    @if ($is-dark == true) {
+      & #{$namespace}.dt-button-primary,
+      & #{$namespace}.dt-button-primary:hover:not([disabled]),
+      & #{$namespace}.dt-button-primary:active:not([disabled]) {
+        border-color: #fff;
+      }
+      & #{$namespace}.dt-button-primary[disabled] {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+    @else {
+      & #{$namespace}.dt-button-primary[disabled] {
+        background: $disabledcolor;
+        border-color: $disabledcolor;
+        color: #fff;
+      }
+    }
+
+    ////////////////////////////
+    // SECONDARY
+    ////////////////////////////
+    & #{$namespace}.dt-button-secondary {
+      background: transparent;
+      border-color: $default-color;
+      color: $default-color;
+    }
+    & #{$namespace}.dt-button-secondary:hover:not([disabled]) {
+      background: $gray-100;
+      border-color: $hover-color;
+      color: $hover-color;
+    }
+    & #{$namespace}.dt-button-secondary:active:not([disabled]) {
+      background: $gray-100;
+      border-color: $active-color;
+      color: $active-color;
+    }
+
+    @if $is-dark == true {
+      & #{$namespace}.dt-button-secondary,
+      & #{$namespace}.dt-button-secondary[disabled] {
+        background: transparent;
+        color: #fff;
+      }
+      & #{$namespace}.dt-button-secondary:hover:not([disabled]) {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+      & #{$namespace}.dt-button-secondary:active:not([disabled]) {
+        background: rgba(255, 255, 255, 0.3);
+        color: #fff;
+      }
+      & #{$namespace}.dt-button-secondary[disabled] {
+        border-color: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.6);
+      }
+      // Main does not have the main color as a border
+      // so we have to specifiy it differently
+      @if $name == 'main' {
+        & #{$namespace}.dt-button-secondary,
+        & #{$namespace}.dt-button-secondary:hover:not([disabled]) {
+          border-color: #fff;
+          color: $gray-100;
+        }
+        & #{$namespace}.dt-button-secondary:active:not([disabled]) {
+          border-color: #fff;
+          color: #fff;
+        }
+      }
+    }
+    @else {
+      & #{$namespace}.dt-button-secondary[disabled] {
+        background: #fff;
+        border-color: $disabledcolor;
+        color: $disabledcolor;
+      }
+    }
+  }
+}
