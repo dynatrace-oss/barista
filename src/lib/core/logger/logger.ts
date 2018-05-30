@@ -3,7 +3,7 @@ import { DtLogEntryParam } from './log-entry';
 import { DtLogLevel } from './log-level.enum';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 
-export const DT_LOGGER_NAME = new InjectionToken('DtLoggerName');
+export const DT_LOGGER_NAME = new InjectionToken<string>('DtLoggerName');
 
 @Injectable()
 export class DtLogger {
