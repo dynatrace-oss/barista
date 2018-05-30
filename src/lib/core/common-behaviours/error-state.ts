@@ -1,7 +1,7 @@
-import {Constructor} from './constructor';
-import {ErrorStateMatcher} from '../error';
-import {FormControl, FormGroupDirective, NgControl, NgForm} from '@angular/forms';
-import {Subject} from 'rxjs/Subject';
+import { Constructor } from './constructor';
+import { ErrorStateMatcher } from '../error';
+import { FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 export interface CanUpdateErrorState {
   updateErrorState(): void;
