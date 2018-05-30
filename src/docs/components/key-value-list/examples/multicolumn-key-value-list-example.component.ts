@@ -3,7 +3,7 @@ import { DtKeyValueList } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
-  template: '<dt-key-value-list columns="2" [key]="key1"  [val]="value1" [dataSource]="dataSource1"></dt-key-value-list>',
+  template: '<dt-key-value-list></dt-key-value-list>',
 })
 export class MulticolumnKeyValueListExampleComponent {
   dataSource1: object[] = [

@@ -2,7 +2,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtKeyValueListModule, DtKeyValueList} from '@dynatrace/angular-components';
+import {DtKeyValueListModule, DtKeyValueList, DtKeyValueListItem} from '@dynatrace/angular-components';
 
 describe('DtKeyValueList', () => {
   beforeEach(async(() => {

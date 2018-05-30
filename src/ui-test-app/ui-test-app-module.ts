@@ -12,6 +12,7 @@ import {
   DtExpandablePanelModule,
   DtTileModule,
   DtContextDialogModule,
+  DtKeyValueListModule,
 } from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
@@ -19,6 +20,7 @@ import { ExpandableSectionUi } from './expandable-section/expandable-section-ui'
 import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
+import { KeyValueListUI } from './key-value-list/key-value-list-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -31,6 +33,7 @@ import { ContextDialogUI } from './context-dialog/context-dialog-ui';
     DtExpandableSectionModule,
     DtTileModule,
     DtContextDialogModule,
+    DtKeyValueListModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -52,6 +55,7 @@ export class DynatraceAngularCompModule {}
     ExpandableSectionUi,
     TileUI,
     ContextDialogUI,
+    KeyValueListUI,
   ],
   bootstrap: [UIApp],
 })

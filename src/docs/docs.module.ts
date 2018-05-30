@@ -25,6 +25,7 @@ import { CoreModule } from './core/core.module';
 import { DocsTagModule } from './components/tag/docs-tag.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
 import { DocsIconModule } from './components/icon/docs-icon.module';
+import { DocsKeyValueListModule } from './components/key-value-list/docs-key-value-list.module';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { DocsIconModule } from './components/icon/docs-icon.module';
     DocsFormFieldModule,
     DocsTagModule,
     DocsAlertModule,
+    DocsKeyValueListModule,
   ],
   declarations: [
     Docs,
