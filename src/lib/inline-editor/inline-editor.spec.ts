@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtIconModule, DtInlineEditor, DtInlineEditorModule } from '@dynatrace/angular-components';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 describe('DtInlineEditor', () => {
   beforeEach(() => {
