@@ -37,3 +37,15 @@ $dialog-max-width: 328px;
   top: auto;
   bottom: 0;
 }
+
+// TODO @thomas.pink: remove after icon has been implemented
+$dt-icon-size-small: 20px;
+
+.dt-context-dialog-close-trigger .dt-icon {
+  display: inline-block;
+  margin-top: 5px;
+  vertical-align: top;
+  width: $dt-icon-size-small;
+  height: $dt-icon-size-small;
+  fill: #fff;
+}
