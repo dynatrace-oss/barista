@@ -84,7 +84,7 @@ export class DtTheme implements OnDestroy {
   private _name: string | null = null;
   private _variant: DtThemeVariant | null = null;
   private _classNames: NameVariantClasses = { name: null, variant: null };
-  private _parentSub: Subscription = NEVER.create().subscribe();
+  private _parentSub: Subscription = NEVER.subscribe();
 
   constructor(
     private _elementRef: ElementRef,
