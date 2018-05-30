@@ -1,5 +1,5 @@
-import {DOWN_ARROW, ENTER, SPACE, UP_ARROW} from '@angular/cdk/keycodes';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import { DOWN_ARROW, ENTER, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
   ChangeDetectorRef,
@@ -8,9 +8,9 @@ import {
   HostListener,
   Input, OnDestroy
 } from '@angular/core';
-import {DtExpandablePanel} from './expandable-panel';
-import {CanDisable} from '../core/index';
-import {Subscription} from 'rxjs/Subscription';
+import { DtExpandablePanel } from './expandable-panel';
+import { CanDisable } from '../core/index';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[dtExpandablePanel]',
