@@ -8,14 +8,10 @@ import {
   Output,
   EventEmitter,
   ChangeDetectorRef,
-  ContentChildren,
-  forwardRef,
-  QueryList,
   Optional,
   AfterViewInit,
   OnDestroy,
   OnInit,
-  AfterContentInit,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
@@ -25,7 +21,6 @@ import {
   HasTabIndex
 } from '../core/index';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DtRadioGroup } from './radio-group';
 
 let nextUniqueId = 0;
@@ -83,7 +78,7 @@ export class DtRadioButton<T> extends _GhRadioButtonMixinBase
   /** Whether the radio button is disabled. */
   @Input()
   get disabled(): boolean {
-    return this._disabled || (this._radioGroup !== null && this._radioGroup.disabled);
+    return this._disabled || (this._radioGroup && this._radioGroup.disabled);
   }
   set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); }
 
@@ -118,7 +113,7 @@ export class DtRadioButton<T> extends _GhRadioButtonMixinBase
   set value(value: T) {
     if (this._value !== value) {
       this._value = value;
-      if (this._radioGroup !== null) {
+      if (this._radioGroup) {
         if (!this.checked) {
           // Update checked when the value changed to match the radio group's value
           this.checked = this._radioGroup.value === value;
@@ -179,7 +174,7 @@ export class DtRadioButton<T> extends _GhRadioButtonMixinBase
   ngAfterViewInit(): void {
     this._focusMonitor
       .monitor(this._inputElement.nativeElement, false)
-      .subscribe((focusOrigin) => this._onInputFocusChange(focusOrigin));
+      .subscribe((focusOrigin) => { this._onInputFocusChange(focusOrigin); });
   }
 
   ngOnDestroy(): void {
