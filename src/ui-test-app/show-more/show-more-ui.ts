@@ -6,5 +6,5 @@ import {Component} from '@angular/core';
   templateUrl: 'show-more-ui.html',
 })
 export class ShowMoreUI {
-  showMore = true;
+  showLess = false;
 }
