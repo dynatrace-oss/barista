@@ -1,0 +1,117 @@
+// WARNING!!!!!!!!
+// NEVER IMPORT THIS FILE DIRECTLY!!!
+// Always use _theming.scss
+
+// Helper function to receive a specific palette from a theme definition
+@function dt-get-theme-palette($theme, $name) {
+  // Note: It basically just shims the map-get function
+  // but makes it more easier to read an understand on
+  // the consumer side.
+  @return map-get($theme, $name);
+}
+
+// Helper function to receive a specific color from a theme palette.
+// Use `dt-get-theme-palette` first to geht the palett from the theme
+@function dt-get-theme-color($palette, $name) {
+  // Note: It basically just shims the map-get function
+  // but makes it more easier to read an understand on
+  // the consumer side.
+  @return map-get($palette, $name);
+}
+
+// Creates a theme color palette containting the default, hover and active color
+@function dt-theme-palette($default, $hover, $active) {
+  $result: (
+    default: $default,
+    hover: $hover,
+    active: $active,
+  );
+  @return $result;
+}
+
+// Creates a light theme definition object containing all color palettes for the theme
+@function dt-theme-light(
+  $main-palette,
+  $accent-palette,
+  $warning-palette,
+  $error-palette,
+  $recovered-palette,
+  $cta-palette
+) {
+  @return (
+    main: $main-palette,
+    accent: $accent-palette,
+    warning: $warning-palette,
+    error: $error-palette,
+    recovered: $recovered-palette,
+    cta: $cta-palette,
+    is-dark: false
+  );
+}
+
+// Creates a dark theme definition object containing all color palettes for the theme
+@function dt-theme-dark(
+  $main-palette,
+  $accent-palette,
+  $warning-palette,
+  $error-palette,
+  $recovered-palette,
+  $cta-palette
+) {
+  @return (
+    main: $main-palette,
+    accent: $accent-palette,
+    warning: $warning-palette,
+    error: $error-palette,
+    recovered: $recovered-palette,
+    cta: $cta-palette,
+    is-dark: true
+  );
+}
+
+// Registers and adds the provided light and dark theme to the list of theme definitions
+@mixin dt-register-theme($name, $light-theme, $dark-theme, $default: false) {
+  $dt-themes: map-merge($dt-themes, (
+    $name: (
+      name: $name,
+      light: $light-theme,
+      dark: $dark-theme,
+      default: $default
+    )
+  )) !global;
+}
+
+// Applies the components theme mixin to all registered themes
+@mixin dt-apply-theme() {
+  @each $name, $theme in $dt-themes {
+    $light-theme: map-get($theme, light);
+    $dark-theme: map-get($theme, dark);
+    $default: map-get($theme, default);
+
+    @if $default == false {
+      .dt-theme-#{$name},
+      .dt-theme-#{$name}.dt-theme-light {
+        $dt-current-theme: $light-theme !global;
+        @content;
+      }
+      .dt-theme-#{$name}.dt-theme-dark {
+        $dt-current-theme: $dark-theme !global;
+        @content;
+      }
+    }
+    @else {
+      $dt-current-theme: $light-theme !global;
+      @content;
+      .dt-theme-#{$name},
+      .dt-theme-light,
+      .dt-theme-#{$name}.dt-theme-light {
+        @content;
+      }
+      $dt-current-theme: $dark-theme !global;
+      .dt-theme-dark,
+      .dt-theme-#{$name}.dt-theme-dark {
+        @content;
+      }
+    }
+  }
+}
