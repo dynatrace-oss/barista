@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { DtInlineEditor } from '@dynatrace/angular-components';
-import { Observable } from 'rxjs/Observable';
-// tslint:disable-next-line:no-import-side-effect
-import 'rxjs/add/operator/delay';
+import { Observable } from 'rxjs';
 const TIMEOUT_MS = 2000;
 
 @Component({
