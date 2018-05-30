@@ -1,25 +1,22 @@
-import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { DebugElement } from '@angular/core/src/debug/debug_node';
+import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtExpandableSectionModule, DtExpandableSection } from '@dynatrace/angular-components';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {DebugElement} from '@angular/core/src/debug/debug_node';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DtExpandableSection, DtExpandableSectionModule } from '@dynatrace/angular-components';
 
 describe('DtExpandableSection', () => {
-
-
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [DtExpandableSectionModule, NoopAnimationsModule],
-        declarations: [TestApp],
-      });
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [DtExpandableSectionModule, NoopAnimationsModule],
+      declarations: [TestApp],
+    });
     TestBed.compileComponents();
   }));
 
   describe('dt-expandable-section', () => {
 
     let fixture;
-    let testComponent: TestApp;
     let instanceDebugElement: DebugElement;
     let instanceElement: HTMLElement;
     let instance: DtExpandableSection;
@@ -37,16 +34,19 @@ describe('DtExpandableSection', () => {
       instance.close();
       expect(instance.opened).toBe(false);
     });
+
     it('should be opened', () => {
       instance.opened = true;
       expect(instance.opened).toBe(true);
     });
+
     it('should be opened after method call', () => {
       instance.open();
       expect(instance.opened).toBe(true);
       instance.open();
       expect(instance.opened).toBe(true);
     });
+
     it('should be opened after toggle', () => {
       expect(instance.toggle()).toBe(true);
       expect(instance.opened).toBe(true);
@@ -54,6 +54,7 @@ describe('DtExpandableSection', () => {
       instance.close();
       expect(instance.opened).toBe(false);
     });
+
     it('should have correct styles applied', () => {
       expect(instanceElement.classList).not.toContain(
         'dt-expandable-section-opened');
@@ -64,18 +65,21 @@ describe('DtExpandableSection', () => {
       expect(instanceElement.classList).toContain(
         'dt-expandable-section-opened');
     });
+
     it('should not open when disabled', () => {
       instance.disabled = true;
       instance.open();
       expect(instance.opened).toBe(false);
     });
-
   });
 });
 
 @Component({
   selector: 'dt-test-app',
-  template: `<dt-expandable-section><dt-expandable-section-header>Header</dt-expandable-section-header>text</dt-expandable-section>`,
+  template: `<dt-expandable-section>
+    <dt-expandable-section-header>Header</dt-expandable-section-header>
+    text
+    </dt-expandable-section>`,
 })
 class TestApp {
 }
