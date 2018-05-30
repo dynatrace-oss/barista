@@ -14,9 +14,8 @@ import {
 
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { take } from 'rxjs/operators/take';
+import { Observable, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 const enum MODES {
   IDLE,

@@ -9,7 +9,7 @@ import {
   DtChartSeries,
   DtThemingModule,
 } from '@dynatrace/angular-components';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 describe('DtChart', () => {
 
