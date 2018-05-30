@@ -1,7 +1,6 @@
-<button
+<button *ngIf="!trigger"
   dt-icon-button
-  [color]="color"
-  [attr.tabindex]="tabIndex"
+  [attr.tabIndex]="tabIndex"
   [disabled]="disabled"
   [attr.aria-label]="ariaLabel"
   variant="secondary"
@@ -19,7 +18,7 @@
   (backdropClick)="close()"
   (attach)="_onAttached()"
   (detach)="close()"
-  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOrigin]="trigger"
   [cdkConnectedOverlayOpen]="isPanelOpen"
   [cdkConnectedOverlayPositions]="_positions">
   <div
@@ -48,4 +47,4 @@
     </button>
   </div>
 </ng-template>
-<ng-content select="dt-context-dialog-icon"></ng-content>
+
