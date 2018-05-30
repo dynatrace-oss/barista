@@ -1,7 +1,7 @@
-import {Provider, Optional, SkipSelf} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {ViewportRuler} from '@angular/cdk/scrolling';
-import {map} from 'rxjs/operators/map';
+import { Provider, Optional, SkipSelf } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { map } from 'rxjs/operators';
 
 /** Default timeout used to throttle window resize events */
 const DEFAULT_WINDOW_EVENT_TIMEOUT = 150;
