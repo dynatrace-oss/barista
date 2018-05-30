@@ -39,7 +39,7 @@ describe('DtShowMore', () => {
     });
 
     it('should have less styles', () => {
-      testComponent.showMore = false;
+      testComponent.showLess = true;
       fixture.detectChanges();
 
       expect(instanceElement.classList).toContain(
@@ -58,10 +58,10 @@ describe('DtShowMore', () => {
 
 @Component({
   selector: 'dt-test-app',
-  template: `<dt-show-more [showMore]="showMore" (changed)="eventFired()">More</dt-show-more>`,
+  template: `<dt-show-more [showLess]="showLess" (changed)="eventFired()">More</dt-show-more>`,
 })
 class TestApp {
-  showMore = true;
+  showLess = false;
   eventsFired = 0;
 
   eventFired() {
