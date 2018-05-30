@@ -12,12 +12,8 @@
   margin-top: 10px;
   padding: 5px 5px 0;
 
-  dt-icon {
-    display: block;
-  }
-
-  /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
-  > ::ng-deep * svg {
+  > dt-icon {
+    display: inline-block;
     width: 28px;
     height: 28px;
     fill: $turquoise-600;
@@ -33,14 +29,12 @@
   &:hover {
     color: $turquoise-700;
 
-    /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
-    ::ng-deep svg {
+    dt-icon {
       fill: $turquoise-700;
     }
   }
 
-  /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
-  &.dt-show-more-show-less ::ng-deep svg {
+  &.dt-show-more-show-less dt-icon {
     transform: rotate(180deg);
   }
 }
