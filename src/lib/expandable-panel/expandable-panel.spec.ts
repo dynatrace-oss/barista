@@ -19,7 +19,6 @@ describe('DtExpandablePanel', () => {
   describe('dt-expandable-panel', () => {
 
     let fixture;
-    let testComponent: TestApp;
     let instanceDebugElement: DebugElement;
     let instanceElement: HTMLElement;
     let instance: DtExpandablePanel;
@@ -37,16 +36,19 @@ describe('DtExpandablePanel', () => {
       instance.close();
       expect(instance.opened).toBe(false);
     });
+
     it('should be opened', () => {
       instance.opened = true;
       expect(instance.opened).toBe(true);
     });
+
     it('should be opened after method call', () => {
       instance.open();
       expect(instance.opened).toBe(true);
       instance.open();
       expect(instance.opened).toBe(true);
     });
+
     it('should be opened after toggle', () => {
       expect(instance.toggle()).toBe(true);
       expect(instance.opened).toBe(true);
@@ -54,6 +56,7 @@ describe('DtExpandablePanel', () => {
       instance.close();
       expect(instance.opened).toBe(false);
     });
+
     it('should have correct styles applied', () => {
       expect(instanceElement.classList).not.toContain(
         'dt-expandable-panel-opened');
