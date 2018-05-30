@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
-import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import {
-  DtIconModule,
-  DtIconRegistry,
-  getDtIconNoHttpProviderError,
-  getDtIconNoConfigProviderError
-} from '@dynatrace/angular-components';
+import { Component } from '@angular/core';
+import { async, inject, TestBed } from '@angular/core/testing';
+import { DtIconModule, getDtIconNoConfigProviderError, getDtIconNoHttpProviderError } from '@dynatrace/angular-components';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 /**
@@ -34,7 +29,7 @@ describe('DtIcon', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
       ],
       declarations: [
         IconWithName,
@@ -46,11 +41,9 @@ describe('DtIcon', () => {
     TestBed.compileComponents();
   }));
 
-  let iconRegistry: DtIconRegistry;
   let http: HttpTestingController;
 
-  beforeEach(inject([DtIconRegistry, HttpTestingController], (dtir: DtIconRegistry, h: HttpTestingController) => {
-    iconRegistry = dtir;
+  beforeEach(inject([HttpTestingController], (h: HttpTestingController) => {
     http = h;
   }));
 
@@ -137,8 +130,6 @@ describe('DtIcon', () => {
 });
 
 describe('DtIcon without config', () => {
-  let iconRegistry: DtIconRegistry;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtIconModule],
@@ -146,10 +137,6 @@ describe('DtIcon without config', () => {
     });
 
     TestBed.compileComponents();
-  }));
-
-  beforeEach(inject([DtIconRegistry], (dtir: DtIconRegistry) => {
-    iconRegistry = dtir;
   }));
 
   it('should throw an error when trying to load a remote icon', async () => {
@@ -165,19 +152,13 @@ describe('DtIcon without config', () => {
 });
 
 describe('DtIcon without HttpClientModule', () => {
-  let iconRegistry: DtIconRegistry;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
+      imports: [DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`})],
       declarations: [IconWithName],
     });
 
     TestBed.compileComponents();
-  }));
-
-  beforeEach(inject([DtIconRegistry], (dtir: DtIconRegistry) => {
-    iconRegistry = dtir;
   }));
 
   it('should throw an error when trying to load a remote icon', async () => {
@@ -192,16 +173,23 @@ describe('DtIcon without HttpClientModule', () => {
   });
 });
 
-@Component({template: `<dt-icon [name]="iconName"></dt-icon>`})
+@Component({
+  template: `<dt-icon [name]="iconName"></dt-icon>`,
+})
 class IconWithName {
   iconName: string | undefined = '';
 }
 
-@Component({ template: `<dt-icon [color]="iconColor">{{iconName}}</dt-icon>` })
+@Component({
+  template: `<dt-icon [color]="iconColor">{{iconName}}</dt-icon>`,
+})
 class IconWithColor {
   iconName = '';
   iconColor = 'main';
 }
 
-@Component({template: '<dt-icon aria-hidden="false">face</dt-icon>'})
-class IconWithAriaHiddenFalse {}
+@Component({
+  template: '<dt-icon aria-hidden="false">face</dt-icon>',
+})
+class IconWithAriaHiddenFalse {
+}

@@ -1,20 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, Renderer2, ViewChild } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  DtTableModule,
-  DtTable,
-  DtHeaderCell,
-  DtRow,
   DtCell,
-  DtTableEmptyState,
-  DtTableLoadingState,
-  DtTableEmptyStateTitle,
-  DtTableEmptyStateMessage,
-  DtTableEmptyStateDirective,
-  DtLoadingDistractorModule,
+  DtHeaderCell,
   DtLoadingDistractor,
+  DtLoadingDistractorModule,
+  DtRow,
+  DtTable,
+  DtTableEmptyStateDirective,
+  DtTableEmptyStateMessage,
+  DtTableEmptyStateTitle,
+  DtTableLoadingState,
+  DtTableModule,
 } from '@dynatrace/angular-components';
 
 describe('DtTable', () => {
@@ -168,18 +167,17 @@ describe('DtTable', () => {
       const fixture = TestBed.createComponent(TestDynamicApp);
       fixture.detectChanges();
 
-      const { dataSource, columns } = fixture.componentInstance;
+      const {dataSource, columns} = fixture.componentInstance;
 
       const testColumns = fixture.debugElement.queryAll(By.directive(DtHeaderCell));
-      expect(testColumns.length).toBe(columns.length,
-                                      'Expected the DtLoadingSpinner beign rendered for loading tables');
+      expect(testColumns.length).toBe(columns.length, 'Expected the DtLoadingSpinner being rendered for loading tables');
 
       const MAX_ITER = 10;
       for (let i = 0; i < MAX_ITER; i++) {
         const newRow = {};
 
         columns.forEach((elem) => {
-          newRow[elem] = { [`${elem}`]: elem };
+          newRow[elem] = {[`${elem}`]: elem};
         });
 
         fixture.componentInstance.dataSource.push(newRow);

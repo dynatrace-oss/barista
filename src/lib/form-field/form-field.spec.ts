@@ -452,6 +452,7 @@ describe('DtFormField with forms', () => {
       const component = fixture.componentInstance;
       const containerEl = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
 
+      // tslint:disable-next-line:no-unnecessary-type-assertion
       const control = component.formGroup.get('name')!;
 
       expect(control.invalid).toBe(true, 'Expected form control to be invalid');
