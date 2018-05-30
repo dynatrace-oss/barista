@@ -1,1 +1,4 @@
-<dt-show-more id="show-more-1"[showMore]="showMore" #dtshowmore (changed)="showMore=!showMore"><ng-container *ngIf="dtshowmore.showMore; else elseBlock">Show more</ng-container><ng-template #elseBlock>Show less</ng-template></dt-show-more>
+<dt-show-more id="show-more-1"[showLess]="showLess" #dtshowmore (changed)="showLess=!showLess">
+  Show more
+  <dt-show-less-label>Show less</dt-show-less-label>
+</dt-show-more>

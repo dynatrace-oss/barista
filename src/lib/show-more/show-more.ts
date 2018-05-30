@@ -1,9 +1,14 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation, Input, HostListener, Output, EventEmitter,
+  ViewEncapsulation, Input, HostListener, Output, EventEmitter, Directive, ContentChild,
 } from '@angular/core';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
+
+@Directive({
+  selector: `dt-show-less-label`,
+})
+export class DtShowLessLabel { }
 
 @Component({
   moduleId: module.id,
@@ -13,7 +18,7 @@ import {ENTER, SPACE} from '@angular/cdk/keycodes';
   host: {
     'class': 'dt-show-more',
     '[attr.tabindex]': '0',
-    '[class.dt-show-more-show-less]': '!_showMore',
+    '[class.dt-show-more-show-less]': 'showLess',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,15 +28,18 @@ export class DtShowMore {
 
   @Output() readonly changed = new EventEmitter<boolean>();
 
-  private _showMore = true;
+  @ContentChild(DtShowLessLabel)
+  _lessLabel: DtShowLessLabel;
+
+  private _showLess: boolean;
 
   @Input()
-  get showMore(): boolean {
-    return this._showMore;
+  get showLess(): boolean {
+    return this._showLess || false;
   }
 
-  set showMore(value: boolean) {
-    this._showMore = value;
+  set showLess(value: boolean) {
+    this._showLess = value;
   }
 
   @HostListener('keydown', ['$event'])
@@ -57,6 +65,6 @@ export class DtShowMore {
   }
 
   private _fireChange(): void {
-    this.changed.emit(this.showMore);
+    this.changed.emit(!this.showLess);
   }
 }
