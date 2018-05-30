@@ -1,15 +1,13 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Platform } from '@angular/cdk/platform';
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, async, fakeAsync, flush, inject } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtContextDialog, DtContextDialogModule } from '@dynatrace/angular-components';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
-  let overlayContainerElement: HTMLElement;
-  let platform: Platform;
 
+  // tslint:disable-next-line:no-any
   function configureDtContextDialogTestingModule(declarations: any[] | undefined): void {
     TestBed.configureTestingModule({
       imports: [
@@ -18,10 +16,8 @@ describe('DtContextDialog', () => {
       declarations,
     }).compileComponents();
 
-    inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
+    inject([OverlayContainer], (oc: OverlayContainer) => {
       overlayContainer = oc;
-      overlayContainerElement = oc.getContainerElement();
-      platform = p;
     })();
   }
 
@@ -107,10 +103,7 @@ describe('DtContextDialog', () => {
           document.body.focus(); // ensure that focus isn't on the trigger already
           fixture.componentInstance.contextDialog.focus();
 
-          expect(document.activeElement).toBe(
-            contextDialog,
-            'Expected context  Dialog element to be focused.'
-          );
+          expect(document.activeElement).toBe(contextDialog, 'Expected context  Dialog element to be focused.');
         }));
       });
     });
