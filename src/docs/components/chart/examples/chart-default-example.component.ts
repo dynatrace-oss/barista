@@ -2,7 +2,6 @@
 
 import { Component } from '@angular/core';
 import { Colors } from '@dynatrace/angular-components';
-import { BarChartSeriesOptions } from 'highcharts';
 import { generateData } from '../chart-data-utils';
 
 @Component({

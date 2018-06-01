@@ -1,30 +1,23 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Platform } from '@angular/cdk/platform';
-import {Component, ContentChild, ViewChild} from '@angular/core';
-import { ComponentFixture, TestBed, async, fakeAsync, flush, inject } from '@angular/core/testing';
+import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {DtContextDialog, DtContextDialogModule, DtContextDialogIconDirective, DtIconModule} from '@dynatrace/angular-components';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { DtContextDialog, DtContextDialogModule } from '@dynatrace/angular-components';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
-  let overlayContainerElement: HTMLElement;
-  let platform: Platform;
 
+  // tslint:disable-next-line:no-any
   function configureDtContextDialogTestingModule(declarations: any[] | undefined): void {
     TestBed.configureTestingModule({
       imports: [
         DtContextDialogModule,
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations,
     }).compileComponents();
 
-    inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
+    inject([OverlayContainer], (oc: OverlayContainer) => {
       overlayContainer = oc;
-      overlayContainerElement = oc.getContainerElement();
-      platform = p;
     })();
   }
 
@@ -36,7 +29,6 @@ describe('DtContextDialog', () => {
     beforeEach(async(() => {
       configureDtContextDialogTestingModule([
         BasicContextDialog,
-        ContextDialogCustomIcon,
       ]);
     }));
     describe('accessibility', () => {
@@ -111,19 +103,8 @@ describe('DtContextDialog', () => {
           document.body.focus(); // ensure that focus isn't on the trigger already
           fixture.componentInstance.contextDialog.focus();
 
-          expect(document.activeElement).toBe(
-            contextDialog,
-            'Expected context  Dialog element to be focused.'
-          );
+          expect(document.activeElement).toBe(contextDialog, 'Expected context  Dialog element to be focused.');
         }));
-
-        it('should be able to render custom icon', () => {
-          const fixtureCustom = TestBed.createComponent(ContextDialogCustomIcon);
-          fixtureCustom.detectChanges();
-
-          const customIconComponent = fixtureCustom.debugElement.query(By.directive(DtContextDialogIconDirective));
-          expect(customIconComponent).toBeTruthy('Expected the DtContextDialogIconDirective to display custom icon');
-        });
       });
     });
   });
@@ -136,9 +117,9 @@ describe('DtContextDialog', () => {
 @Component({
   selector: 'dt-basic-context-dialog',
   template: `
-    <dt-context-dialog [aria-label]="ariaLabel" [tabIndex]="tabIndexOverride" [disabled]="disabled">
-      <p>Some cool content</p>
-    </dt-context-dialog>
+  <dt-context-dialog [aria-label]="ariaLabel" [tabIndex]="tabIndexOverride" [disabled]="disabled">
+    <p>Some cool content</p>
+  </dt-context-dialog>
   `,
 })
 class BasicContextDialog {
@@ -148,22 +129,4 @@ class BasicContextDialog {
   editDisabled = false;
 
   @ViewChild(DtContextDialog) contextDialog: DtContextDialog;
-}
-
-@Component({
-  selector: 'dt-basic-context-dialog',
-  template: `
-  <dt-context-dialog [aria-label]="ariaLabel" [tabIndex]="tabIndexOverride" [disabled]="disabled">
-    <dt-icon dtContextDialogIcon name="agent" color="main"></dt-icon>
-    <p>Some cool content</p>
-  </dt-context-dialog>
-  `,
-})
-class ContextDialogCustomIcon {
-  tabIndexOverride: number;
-  ariaLabel: string;
-  disabled: boolean;
-
-  @ViewChild(DtContextDialog) contextDialog: DtContextDialog;
-  @ContentChild(DtContextDialogIconDirective) contextDialogIcon: DtContextDialogIconDirective;
 }

@@ -1,5 +1,7 @@
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './tile-theme';
 
 .dt-tile {
   display: block;
@@ -137,53 +139,7 @@
   color: $gray-300;
 }
 
-// TODO @thomas.pink: Remove this once theming is in place
-@function dt-palette($default, $hover, $active) {
-  $result: (
-    default: $default,
-    hover: $hover,
-    active: $active,
-  );
-  @return $result;
-}
-$theme-light: (
-  main: dt-palette($turquoise-600, $turquoise-700, $turquoise-800),
-  error: dt-palette($red-600, $red-700, $red-800),
-  recovered: dt-palette($green-600, $green-700, $green-800),
-  is-dark: false,
-);
-$theme-dark: (
-  main: dt-palette($turquoise-500, $turquoise-400, $turquoise-300),
-  error: dt-palette($red-500, $red-400, $red-300),
-  recovered: dt-palette($green-500, $green-400, $green-300),
-  is-dark: true,
-);
-
-@mixin dt-tile-theme($theme) {
-
-  $palette-names: 'main', 'error', 'recovered';
-  $default-palette: 'main';
-
-  .dt-tile:not(.dt-tile-disabled) {
-    @each $name in $palette-names {
-      $palette: map-get($theme, $name);
-      $default-color: map-get($palette, 'default');
-
-      &.dt-color-#{$name} {
-        &:hover {
-          border-color: $default-color;
-        }
-
-        .dt-tile-icon {
-          background-color: $default-color;
-        }
-      }
-    }
-  }
-}
-
-// TODO @thomas.pink: Remove this once theming is in place
-@include dt-tile-theme($theme-light);
-.dt-theme-dark {
-  @include dt-tile-theme($theme-dark);
+// Apply the tile theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-tile($dt-current-theme);
 }
