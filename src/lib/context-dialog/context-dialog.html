@@ -1,15 +1,13 @@
-<button *ngIf="!trigger"
+<button [hidden]="hasCustomTrigger"
   dt-icon-button
   [attr.tabIndex]="tabIndex"
   [disabled]="disabled"
   [attr.aria-label]="ariaLabel"
   variant="secondary"
-  #trigger
-  #origin="cdkOverlayOrigin"
   cdkOverlayOrigin
   (click)="open()"
-  class="dt-context-dialog-open-trigger">
-  <dt-icon [name]="_iconName$ | async"></dt-icon>
+  class="dt-context-dialog-trigger">
+  <dt-icon name="more"></dt-icon>
 </button>
 <ng-template
   cdkConnectedOverlay
@@ -18,7 +16,7 @@
   (backdropClick)="close()"
   (attach)="_onAttached()"
   (detach)="close()"
-  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOrigin]="_trigger"
   [cdkConnectedOverlayOpen]="isPanelOpen"
   [cdkConnectedOverlayPositions]="_positions">
   <div
