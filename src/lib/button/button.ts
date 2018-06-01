@@ -22,7 +22,7 @@ import {
   replaceCssClass
 } from '../core/index';
 import { DtIcon } from '../icon/index';
-import { startWith } from 'rxjs/operators/startWith';
+import { startWith } from 'rxjs/operators';
 
 export function getDtButtonNestedVariantNotAllowedError(): Error {
   return Error(`The nested button variant is only allowed on dt-icon-button`);

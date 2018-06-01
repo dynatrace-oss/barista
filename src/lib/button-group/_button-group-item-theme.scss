@@ -1,0 +1,59 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+
+@mixin dt-theme-button-group-item($theme) {
+  $palette-names: 'main', 'error';
+  $default-palette: 'main';
+
+  @each $name in $palette-names {
+    $is-dark: map-get($theme, 'is-dark');
+    $palette: dt-get-theme-palette($theme, $name);
+    $default-color: dt-get-theme-color($palette, 'default');
+    $hover-color: dt-get-theme-color($palette, 'hover');
+    $active-color: dt-get-theme-color($palette, 'active');
+    $background-color: $gray-100;
+    $border-color: $gray-300;
+
+    @if ($is-dark == true) {
+      $border-color: #fff;
+      $background-color: $gray-640;
+    }
+
+    $namespace: ':host';
+    @if $name != $default-palette {
+      $namespace: ':host.dt-color-#{$name}';
+    }
+
+    & #{$namespace} {
+      @include boxShadowSelected(1px, $border-color);
+
+      &:focus {
+        @include boxShadowFocus();
+      }
+    }
+
+    & #{$namespace}.dt-button-group-item:not(.dt-button-group-item-disabled) {
+      color: $default-color;
+    }
+
+    & #{$namespace}.dt-button-group-item:hover {
+      @include boxShadowSelected(1px, $hover-color);
+    }
+
+    & #{$namespace}.dt-button-group-item.dt-button-group-item-selected {
+
+      &:not(.dt-button-group-item-disabled) {
+        z-index:1;
+        position:relative;
+        color: $active-color;
+        background-color: $background-color;
+
+        @include boxShadowSelected(1px, $active-color);
+
+        &:focus {
+          @include boxShadowSelectedFocus(1px, $active-color);
+        }
+      }
+    }
+  }
+}

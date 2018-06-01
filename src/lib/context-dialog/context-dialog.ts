@@ -17,9 +17,7 @@ import {
   ViewEncapsulation,
   isDevMode,
 } from '@angular/core';
-import { filter } from 'rxjs/operators/filter';
-import { map } from 'rxjs/operators/map';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import {
   CanColor, CanDisable,
   DtLogger, DtLoggerFactory,
