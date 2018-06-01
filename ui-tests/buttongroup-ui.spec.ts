@@ -1,5 +1,4 @@
-import { browser, by, element, ExpectedConditions } from 'protractor';
-import {not} from 'rxjs/util/not';
+import { browser, by, element } from 'protractor';
 
 describe('button-group', () => {
   describe('disabling behavior', () => {

@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { async, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtLoadingDistractorModule, DtLoadingSpinner } from '@dynatrace/angular-components';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components';
 
 describe('DtLoadingSpinner', () => {
 
@@ -37,4 +37,5 @@ describe('DtLoadingSpinner', () => {
   selector: 'dt-test-app',
   template: `<dt-loading-spinner></dt-loading-spinner>`,
 })
-class TestApp { }
+class TestApp {
+}

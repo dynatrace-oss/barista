@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig",
   "compilerOptions": {
     "experimentalDecorators": true,
     "noUnusedParameters": true,
@@ -14,10 +15,7 @@
       "node"
     ],
     "baseUrl": ".",
-    "paths": {},
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "paths": {}
   },
   "files": [
     "gulpfile.ts"

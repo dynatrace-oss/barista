@@ -55,7 +55,6 @@ yarn docs
 ```
 
 ### Running tests and style lint
-
 Unit tests:
 ```
 yarn test
@@ -79,6 +78,11 @@ yarn universal
 Stylelint
 ```
 yarn lint
+```
+
+Pre-commit sanity check (runs all tests + linting)
+```
+gradlew completeBuild
 ```
 
 ### Using local version for development

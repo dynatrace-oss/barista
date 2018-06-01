@@ -1,10 +1,8 @@
 // tslint:disable:no-magic-numbers
 import { Component } from '@angular/core';
-import { Colors } from '@dynatrace/angular-components';
-import { generateData } from '../chart-data-utils';
 import { ChartService } from '../docs-chart.service';
 import { IndividualSeriesOptions } from 'highcharts';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   template: '<dt-chart [options]="options" [series]="series$"></dt-chart>',

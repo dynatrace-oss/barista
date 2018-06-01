@@ -5,8 +5,10 @@ import { Component } from '@angular/core';
   template: `
     <dt-form-field>
       <input type="text" dtInput placeholder="Please insert amout"/>
-      <span dtPrefix>$</span>
-      <button dtSuffix dt-button>Submit</button>
+      <dt-icon dtPrefix name="filter">$</dt-icon>
+      <button dt-icon-button dtSuffix variant="nested">
+        <dt-icon name="checkmark"></dt-icon>
+      </button>
     </dt-form-field>
   `,
 })

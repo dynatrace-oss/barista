@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtButtonModule, DtButton, DtIconModule, getDtButtonNestedVariantNotAllowedError } from '@dynatrace/angular-components';
+import { DtButtonModule, DtIconModule, getDtButtonNestedVariantNotAllowedError } from '@dynatrace/angular-components';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 describe('DtButton', () => {
@@ -70,7 +70,6 @@ describe('DtButton', () => {
       fixture.detectChanges();
 
       const buttonElement = fixture.debugElement.query(By.css('button'));
-      const instance = buttonElement.componentInstance;
 
       expect(buttonElement.nativeElement.classList)
         .toContain('dt-color-main', 'Expected the element to have the "dt-color-main" class set');
@@ -112,7 +111,6 @@ describe('DtButton', () => {
       fixture.detectChanges();
 
       const buttonElement = fixture.debugElement.query(By.css('button'));
-      const instance = buttonElement.componentInstance;
 
       expect(buttonElement.nativeElement.classList)
         .toContain('dt-button-primary', 'Expected the element to have the "dt-button-primary" class set');

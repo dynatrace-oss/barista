@@ -17,7 +17,7 @@ import {
   CanUpdateErrorState
 } from '../core/index';
 import { DtFormFieldControl } from '../form-field/index';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 let nextUniqueId = 0;
 
