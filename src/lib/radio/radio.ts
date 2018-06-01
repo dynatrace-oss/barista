@@ -43,7 +43,7 @@ export const _GhRadioButtonMixinBase = mixinTabIndex(GhRadioButtonBase);
   exportAs: 'ghRadioButton',
   templateUrl: 'radio.html',
   styleUrls: ['radio.scss'],
-  inputs: ['disabled', 'tabIndex'],
+  inputs: ['tabIndex'],
   host: {
     'class': 'dt-radio-button',
     '[class.dt-radio-checked]': 'checked',
@@ -80,7 +80,13 @@ export class DtRadioButton<T> extends _GhRadioButtonMixinBase
   get disabled(): boolean {
     return this._disabled || (this._radioGroup && this._radioGroup.disabled);
   }
-  set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); }
+  set disabled(value: boolean) {
+    const newDisabledState = coerceBooleanProperty(value);
+    if (this._disabled !== newDisabledState) {
+      this._disabled = newDisabledState;
+      this._changeDetector.markForCheck();
+    }
+  }
 
   /** Whether this radio button is checked. */
   @Input()
