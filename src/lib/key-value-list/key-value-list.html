@@ -1,3 +1,5 @@
-<dl ng-class="getColumnsClass()">
-        <ng-content></ng-content>
-</dl> 
+<div class='key-value-list'>
+    <div [ngClass]="getColumnsClass()">
+    <ng-content></ng-content>
+    </div> 
+</div>
