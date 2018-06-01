@@ -1,4 +1,4 @@
-<ng-container [portalHost]="portal" class="portal"></ng-container>
+<ng-template [cdkPortalOutlet]="portal" class="portal"></ng-template>
 <div class="toggle">
   <a *ngIf="!codeVisible" (click)="codeVisible = true" class="dt-link">Show source</a>
   <a *ngIf="codeVisible" (click)="codeVisible = false" class="dt-link">Hide source</a>

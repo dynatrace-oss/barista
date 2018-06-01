@@ -26,12 +26,15 @@ import { DocsTagModule } from './components/tag/docs-tag.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
 import { DocsIconModule } from './components/icon/docs-icon.module';
 import { DocsKeyValueListModule } from './components/key-value-list/docs-key-value-list.module';
+import { FormsModule } from '@angular/forms';
+import {DtThemingModule} from '@dynatrace/angular-components';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     CoreModule,
     DocsRoutingModule,
     DocsButtonModule,
@@ -52,6 +55,7 @@ import { DocsKeyValueListModule } from './components/key-value-list/docs-key-val
     DocsTagModule,
     DocsAlertModule,
     DocsKeyValueListModule,
+    DtThemingModule,
   ],
   declarations: [
     Docs,

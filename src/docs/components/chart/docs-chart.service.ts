@@ -1,10 +1,8 @@
 // tslint:disable:no-magic-numbers
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { timer } from 'rxjs/observable/timer';
-import { startWith } from 'rxjs/operators/startWith';
-import { map } from 'rxjs/operators/map';
+import { Observable, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { DtChartSeries, Colors } from '@dynatrace/angular-components';
 import { generateData } from './chart-data-utils';
 

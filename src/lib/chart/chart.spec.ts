@@ -9,11 +9,8 @@ import {
   CHART_COLOR_PALETTES,
   DtThemingModule,
 } from '@dynatrace/angular-components';
-import { Observable } from 'rxjs/Observable';
-import { timer } from 'rxjs/observable/timer';
-import { startWith } from 'rxjs/operators/startWith';
-import { map } from 'rxjs/operators/map';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable, timer, BehaviorSubject } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 const OBSERVABLE_TIMER = 500;
 

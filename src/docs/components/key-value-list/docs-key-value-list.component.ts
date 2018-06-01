@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DefaultKeyValueListExampleComponent } from './examples/default-key-value-list-example.component';
 import { MulticolumnKeyValueListExampleComponent } from './examples/multicolumn-key-value-list-example.component';
-import { FunctionKeyValueListExampleComponent } from './examples/function-key-value-list-example.component';
+import { LongtextKeyValueListExampleComponent } from './examples/longtext-key-value-list-example.component';
 
 @Component({
   moduleId: module.id,
@@ -13,6 +13,6 @@ export class DocsKeyValueListComponent {
   examples = {
     default: DefaultKeyValueListExampleComponent,
     multicolumn: MulticolumnKeyValueListExampleComponent,
-    func : FunctionKeyValueListExampleComponent
+    longtext: LongtextKeyValueListExampleComponent,
   };
 }

@@ -1,12 +1,20 @@
+@import '../core/style/variables';
 .dt-key-value-list {
   display: block;
+  width:100%;
 }
-dl {
-  -webkit-column-gap: 60px; /* Chrome, Safari, Opera */
-    -moz-column-gap: 60px; /* Firefox */
+.key-value-list {
+width:100%;
+}
+.dtKeyValueListColumns1,
+.dtKeyValueListColumns2,
+.dtKeyValueListColumns3,
+.dtKeyValueListColumns4 {
+
+    position: relative;
     column-gap: 60px;
 }
-.dtKeyValueListColumns2 {
+.dtKeyValueListColumns2 { 
     columns: 2;
 }
 .dtKeyValueListColumns3 {
@@ -15,16 +23,49 @@ dl {
 .dtKeyValueListColumns4 {
     columns: 4;
 }
-dt {
-  display:inline-block;
-  width:50%;
-  padding-right:40px;
+:host {
+    clear:both;
+    width: 100%;
+     display: flex;
+     position:relative;
 }
-dd {
+div.dt {
+  padding-right:5px;
+
+  font-family: Bernina Sans Regular;
+  font-size: 12px;
+  color: $gray-500;
+  line-height: 28px;
+  text-align: left;
+  background-color: inherit;
+  z-index: 1;
+      flex-grow: 1;
+    min-width: 110px;
+  text-shadow: 1px 2px 2px #fff, 2px 2px 2px #fff, 3px 2px 2px #fff, 4px 2px 2px #fff, 5px 2px 2px #fff, 6px 2px 2px #fff, -1px 2px 1px #fff, -2px 2px 1px #fff, -3px 2px 2px #fff, -4px 2px 2px #fff, -5px 2px 2px #fff, -6px 2px 2px #fff;
+    
+}
+
+div.dd {
   
-  display:inline-block;
-  width:50%;
-  padding-left:40px;
   margin:0px;
   text-align: right;
+  font-family: Bernina Sans Regular;
+  font-size: 14px;
+  color: $gray-700;
+  line-height: 28px;
+  background-color: inherit;
+  z-index: 1;
+  float: right;
+  text-shadow: 1px 2px 2px #fff, 2px 2px 2px #fff, 3px 2px 2px #fff, 4px 2px 2px #fff, 5px 2px 2px #fff, 6px 2px 2px #fff, -1px 2px 1px #fff, -2px 2px 1px #fff, -3px 2px 2px #fff, -4px 2px 2px #fff, -5px 2px 2px #fff, -6px 2px 2px #fff;
+} 
+
+div.splitter {
+    width: 100%;
+    min-width: 24px;
+    overflow: hidden;
+    height: 18px;
+    margin-top: 1px;
+    border-bottom: 1px dotted $gray-300;
+    position:absolute;
+    top: 0px;
 }
