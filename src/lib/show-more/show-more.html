@@ -1,9 +1,5 @@
 <div class="dt-show-more-label">
-  <ng-container *ngIf="_lessLabel === undefined || !showLess">
-    <ng-content></ng-content>
-  </ng-container>
-  <ng-container *ngIf="showLess">
-    <ng-content select="dt-show-less-label"></ng-content>
-  </ng-container>
+  <ng-content *ngIf="_lessLabel === undefined || !showLess"></ng-content>
+  <ng-content select="dt-show-less-label" *ngIf="showLess"></ng-content>
 </div>
 <dt-icon name="dropDownOpen"></dt-icon>
