@@ -22,17 +22,6 @@ export const configureLegendSymbols = () => {
     .addClass('highcharts-point')
     .add(item.legendGroup);
   };
-  // tslint:disable-next-line: no-any
-  (Highcharts as any).seriesTypes.pie.prototype.drawLegendSymbol = function(legend: any, item: any): void {
-    item.legendSymbol = this.chart.renderer.path(
-      ['M13 13C13 7.5 8.5 3 3 3v10h10z']
-    )
-    .addClass('highcharts-point')
-    .attr({
-      zIndex: 3,
-    })
-    .add(item.legendGroup);
-  };
 
   // tslint:disable-next-line: no-any
   (Highcharts as any).seriesTypes.column.prototype.drawLegendSymbol = function(legend: any, item: any): void {
