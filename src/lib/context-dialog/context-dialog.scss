@@ -16,6 +16,10 @@ $dialog-max-width: 328px;
   max-width: $dialog-max-width;
 }
 
+.dt-context-dialog-trigger[hidden] {
+  display: none;
+}
+
 // this very specific selector is necessary to override the emulated button styles
 [dt-icon-button].dt-context-dialog-close-trigger {
   border: none;
