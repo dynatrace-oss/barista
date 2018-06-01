@@ -1,14 +1,16 @@
-
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {DtShowMoreModule, DtShowMore, DtIconModule} from '@dynatrace/angular-components';
 import {HttpClientModule} from '@angular/common/http';
+import {ENTER} from '@angular/cdk/keycodes';
 
 describe('DtShowMore', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtShowMoreModule, HttpClientModule,
+      imports: [
+        DtShowMoreModule,
+        HttpClientModule,
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
       declarations: [TestApp],
     });
@@ -22,7 +24,6 @@ describe('DtShowMore', () => {
     let testComponent: TestApp;
     let instanceDebugElement: DebugElement;
     let instanceElement: HTMLElement;
-    let instance: DtShowMore;
 
     beforeEach(async(() => {
       fixture = TestBed.createComponent(TestApp);
@@ -30,7 +31,6 @@ describe('DtShowMore', () => {
       fixture.detectChanges();
       instanceDebugElement = fixture.debugElement.query(By.directive(DtShowMore));
       instanceElement = instanceDebugElement.nativeElement;
-      instance = instanceDebugElement.injector.get<DtShowMore>(DtShowMore);
     }));
 
     it('should not contain less style', () => {
@@ -54,7 +54,25 @@ describe('DtShowMore', () => {
       expect(testComponent.eventsFired).toBe(1);
     });
 
-  });});
+    it('should fire events with keys', () => {
+      expect(testComponent.eventsFired).toBe(0);
+
+      const event = new KeyboardEvent('keyup', {
+        key: 'Enter',
+      });
+
+      // tslint:disable-next-line:no-any
+      const anyEvent = event as any;
+      delete anyEvent.keyCode;
+      Object.defineProperty(anyEvent, 'keyCode', {value: ENTER});
+
+      instanceElement.dispatchEvent(event);
+
+      expect(testComponent.eventsFired).toBe(1);
+    });
+
+  });
+});
 
 @Component({
   selector: 'dt-test-app',
@@ -64,7 +82,7 @@ class TestApp {
   showLess = false;
   eventsFired = 0;
 
-  eventFired() {
+  eventFired(): void {
     this.eventsFired++;
   }
 }
