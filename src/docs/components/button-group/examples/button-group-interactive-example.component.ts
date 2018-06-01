@@ -24,7 +24,7 @@ import { Component } from '@angular/core';
 </div>`,
 })
 export class ButtonGroupInteractiveExampleComponent {
-  groupValues: { key: string, name: string }[] = [
+  groupValues: Array<{ key: string; name: string }> = [
     { key: 'perf', name: 'Performance' },
     { key: 'conn', name: 'Connectivity' },
     { key: 'fail', name: 'Failure rate' },
