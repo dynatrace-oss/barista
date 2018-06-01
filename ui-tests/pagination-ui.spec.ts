@@ -17,4 +17,11 @@ describe('Pagination', () => {
     expect(await element(by.id('dt-pagination-label-1')).getText()).toEqual('11');
   });
 
+  it('should go through all pages', async () => {
+    for (let i = 2; i <= 11; i++) {
+      await element(by.css('.dt-pagination-arrow:last-child')).click();
+      expect(await element(by.id('dt-pagination-label-1')).getText()).toEqual(`${i}`);
+    }
+  });
+
 });
