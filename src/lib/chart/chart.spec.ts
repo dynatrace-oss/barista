@@ -1,21 +1,15 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  DtChartModule,
-  DtChart,
-  DtChartSeries,
-  DtChartOptions,
   CHART_COLOR_PALETTES,
+  DtChart,
+  DtChartModule,
+  DtChartOptions,
+  DtChartSeries,
   DtThemingModule,
 } from '@dynatrace/angular-components';
-import { Observable } from 'rxjs/Observable';
-import { timer } from 'rxjs/observable/timer';
-import { startWith } from 'rxjs/operators/startWith';
-import { map } from 'rxjs/operators/map';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-const OBSERVABLE_TIMER = 500;
+import { BehaviorSubject } from 'rxjs';
 
 describe('DtChart', () => {
 
@@ -41,6 +35,7 @@ describe('DtChart', () => {
         expect((chartComponent.series as DtChartSeries).length).toBe(1);
       });
     }));
+
     it('should display data from observable', async(() => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
@@ -52,6 +47,7 @@ describe('DtChart', () => {
         expect(series![0].data).toEqual([[1523972199774, 0], [1523972201622, 10]]);
       });
     }));
+
     it('should update the data if observable fires new data', async(() => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
@@ -68,6 +64,7 @@ describe('DtChart', () => {
         expect(firstSeries![0].data).not.toEqual(secondSeries![0].data);
       });
     }));
+
     it('provides an array of ids for the series', async(() => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
@@ -79,6 +76,7 @@ describe('DtChart', () => {
         expect(ids).toEqual(['someMetricId', 'someOtherMetricId']);
       });
     }));
+
     it('seriesIds returns undefined if there is no series data', async(() => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
@@ -101,7 +99,7 @@ describe('DtChart', () => {
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
       const spy = jasmine.createSpy('chart updated spy');
-      const subscription = chartComponent.updated.subscribe(spy);
+      chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
 
       fixture.whenStable().then(() => {
@@ -118,7 +116,7 @@ describe('DtChart', () => {
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
       const spy = jasmine.createSpy('chart updated spy');
-      const subscription = chartComponent.updated.subscribe(spy);
+      chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
 
       fixture.whenStable().then(() => {
@@ -126,7 +124,7 @@ describe('DtChart', () => {
         fixture.componentInstance.seriesStaticSingle = [{
           name: 'Actions/min',
           id: 'someMetricId',
-          data: [[1370304000000, 140],[1370390400000, 120]],
+          data: [[1370304000000, 140], [1370390400000, 120]],
         }];
         fixture.detectChanges();
         expect(spy).toHaveBeenCalled();
@@ -150,6 +148,7 @@ describe('DtChart', () => {
         expect(series1NativeElement.getAttribute('stroke')).toEqual('#00ff00');
       });
     }));
+
     /** Test not working, because DI for Theme does not work correctly in tests right now, check again with new packagr version */
     it('should choose the single color from the colorpalette of the theme for single series', async(() => {
       const fixture = TestBed.createComponent(TestApp);
@@ -163,6 +162,7 @@ describe('DtChart', () => {
         expect(series0NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.single);
       });
     }));
+
     /** Test not working, because DI for Theme does not work correctly in tests right now, check again with new packagr version */
     it('should choose the multi color from the colorpalette of the theme for multi series', async(() => {
       const fixture = TestBed.createComponent(TestApp);
@@ -202,7 +202,7 @@ class TestApp {
       type: 'line',
     },
     xAxis: {
-       type: 'datetime',
+      type: 'datetime',
     },
     yAxis: {
       min: 100,
@@ -213,19 +213,19 @@ class TestApp {
     {
       name: 'Actions/min',
       id: 'someMetricId',
-      data: [[1370304000000, 140],[1370390400000, 120]],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
   ];
   seriesStaticMulti: DtChartSeries = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
-      data: [[1370304000000, 140],[1370390400000, 120]],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
     {
       name: 'Requests/min',
       id: 'someOtherMetricId',
-      data: [[1370304000000, 130],[1370390400000, 110]],
+      data: [[1370304000000, 130], [1370390400000, 110]],
     },
   ];
   columnOptions: DtChartOptions = {
@@ -233,7 +233,7 @@ class TestApp {
       type: 'column',
     },
     xAxis: {
-       type: 'datetime',
+      type: 'datetime',
     },
     yAxis: {
       min: 0,
@@ -246,13 +246,13 @@ class TestApp {
       name: 'Actions/min',
       id: 'someMetricId',
       color: '#ff0000',
-      data: [[1370304000000, 140],[1370390400000, 120]],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
     {
       name: 'Requests/min',
       id: 'someOtherMetricId',
       color: '#00ff00',
-      data: [[1370304000000, 130],[1370390400000, 110]],
+      data: [[1370304000000, 130], [1370390400000, 110]],
     }];
 
   seriesDynamic = new BehaviorSubject([{
@@ -263,9 +263,9 @@ class TestApp {
 
   emitTestData(): void {
     this.seriesDynamic.next([{
-        name: 'Actions/min',
-        id: 'someid',
-        data: [[1523972199774, 20], [1523972201622, 30]],
-      }]);
+      name: 'Actions/min',
+      id: 'someid',
+      data: [[1523972199774, 20], [1523972201622, 30]],
+    }]);
   }
 }

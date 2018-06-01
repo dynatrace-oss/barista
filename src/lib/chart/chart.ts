@@ -17,10 +17,9 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { Options, IndividualSeriesOptions, ChartObject, chart, AxisOptions } from 'highcharts';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
 import { DtLogger, DtLoggerFactory, ViewportResizer } from '../core/index';
-import { delay } from 'rxjs/operators/delay';
+import { delay } from 'rxjs/operators';
 import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '../theming/index';
 import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
@@ -62,6 +61,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _colorPalette: ChartColorPalette;
   private _isTooltipWrapped = false;
   private _highchartsOptions: Options;
+  private _viewportResizerSub: Subscription;
 
   @Input()
   get options(): DtChartOptions {
@@ -102,7 +102,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     private _changeDetectorRef: ChangeDetectorRef
   ) {
     if (this._viewportResizer) {
-      this._viewportResizer.change()
+      this._viewportResizerSub = this._viewportResizer.change()
         .pipe(delay(0))// delay to postpone the reflow to the next change detection cycle
         .subscribe(() => {
           if (this._chartObject) {
@@ -128,6 +128,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
     if (this._dataSub) {
       this._dataSub.unsubscribe();
+    }
+    if (this._viewportResizerSub) {
+      this._viewportResizerSub.unsubscribe();
     }
   }
 

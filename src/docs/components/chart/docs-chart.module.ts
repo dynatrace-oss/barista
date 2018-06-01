@@ -37,6 +37,8 @@ const EXAMPLES = [
   ],
   providers: [
     ChartService,
+    // JIRA task: ***REMOVED***
+    // tslint:disable-next-line:deprecation
     VIEWPORT_RULER_PROVIDER,
     DEFAULT_VIEWPORT_RESIZER_PROVIDER,
   ],

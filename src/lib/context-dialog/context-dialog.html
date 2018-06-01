@@ -7,7 +7,7 @@
   variant="secondary"
   #trigger
   #origin="cdkOverlayOrigin"
-  cdk-overlay-origin
+  cdkOverlayOrigin
   (click)="open()"
   class="dt-context-dialog-open-trigger">
   <ng-container *ngIf="contextDialogIcon; else defaultSVGIcon">
@@ -24,15 +24,15 @@
   </div>
 </ng-template>
 <ng-template
-  cdk-connected-overlay
-  backdropClass="cdk-overlay-transparent-backdrop"
+  cdkConnectedOverlay
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   hasBackdrop
   (backdropClick)="close()"
   (attach)="_onAttached()"
   (detach)="close()"
-  [origin]="origin"
-  [open]="isPanelOpen"
-  [positions]="_positions">
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="isPanelOpen"
+  [cdkConnectedOverlayPositions]="_positions">
   <div
     class="dt-context-dialog-panel"
     [attr.aria-labelledby]="ariaLabel"

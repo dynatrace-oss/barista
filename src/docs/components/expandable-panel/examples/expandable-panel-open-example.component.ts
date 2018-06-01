@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LoremIpsum} from '../../../core/lorem-ipsum';
+import { LOREM_IPSUM } from '../../../core/lorem-ipsum';
 
 @Component({
   moduleId: module.id,
@@ -10,5 +10,5 @@ import {LoremIpsum} from '../../../core/lorem-ipsum';
 <button dt-button (click)="panel1.open()">Open</button><button dt-button (click)="panel1.close()">Close</button>`,
 })
 export class OpenExpandablePanelExampleComponent {
-  text = LoremIpsum
+  text = LOREM_IPSUM;
 }
