@@ -1,6 +1,6 @@
 import {browser, by, element, ExpectedConditions, protractor} from 'protractor';
 
-fdescribe('show-more', () => {
+describe('show-more', () => {
     beforeEach(() => browser.get('/show-more'));
 
     it('should change text after click', async () => {
