@@ -16,6 +16,7 @@ import {
   ViewChild,
   ViewEncapsulation,
   isDevMode,
+  AfterViewInit,
 } from '@angular/core';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import {
@@ -104,9 +105,9 @@ export class DtContextDialogTrigger extends CdkOverlayOrigin implements CanDisab
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtContextDialog implements OnDestroy {
+export class DtContextDialog implements OnDestroy, AfterViewInit {
   /** Whether or not the overlay panel is open. */
-  private _opened = false;
+  private _panelOpen = false;
 
   /** Last emitted position of the overlay */
   private _lastOverlayPosition: ConnectionPositionPair;
@@ -120,7 +121,7 @@ export class DtContextDialog implements OnDestroy {
    */
   private _elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
 
-  private  _trigger: DtContextDialogTrigger | undefined = undefined;
+  private  _trigger: CdkOverlayOrigin;
 
   /** Aria label of the context-dialog. */
   // tslint:disable-next-line:no-input-rename
@@ -135,20 +136,21 @@ export class DtContextDialog implements OnDestroy {
   /** Panel that holds the content */
   @ViewChild('panel') _panel: ElementRef;
 
-  @ViewChild(DtContextDialogTrigger) _defaultTrigger: DtContextDialogTrigger;
+  @ViewChild(CdkOverlayOrigin) _defaultTrigger: CdkOverlayOrigin;
 
   /** Whether or not the overlay panel is open. */
   get isPanelOpen(): boolean {
-    return this._opened;
+    return this._panelOpen;
   }
 
-  get trigger(): DtContextDialogTrigger | undefined {
+  get trigger(): CdkOverlayOrigin | DtContextDialogTrigger {
     return this._trigger;
   }
 
-  // get hasCustomTrigger(): boolean {
-  //   return this._trigger;
-  // }
+  get hasCustomTrigger(): boolean {
+    return this._trigger && this._trigger !== this._defaultTrigger;
+  }
+
   _positions = OVERLAY_POSITIONS;
 
   constructor(
@@ -159,14 +161,14 @@ export class DtContextDialog implements OnDestroy {
     @Optional() @Inject(DOCUMENT) private _document: any
   ) {}
 
-  @Input()
-  // @HostBinding('class.dt-context-dialog-panel')
-  get opened(): boolean { return this._opened; }
-  set opened(value: boolean) { this._opened = coerceBooleanProperty(value); }
+  ngAfterViewInit(): void {
+    if (this._defaultTrigger && !this.hasCustomTrigger) {
+      this._trigger = this._defaultTrigger;
+    }
+  }
 
-  toggle(): boolean {
-    this._openClose(!this._opened);
-    return this.opened;
+  toggle(): void {
+    this._openClose(!this._panelOpen);
   }
 
   open(): void {
@@ -178,9 +180,9 @@ export class DtContextDialog implements OnDestroy {
   }
 
   private _openClose(open: boolean): void {
-    this._opened = open;
+    this._panelOpen = open;
     this.openedChange.emit(open);
-    if (this._opened) {
+    if (this._panelOpen) {
       this._savePreviouslyFocusedElement();
     } else {
       this._restoreFocus();
@@ -232,20 +234,19 @@ export class DtContextDialog implements OnDestroy {
   }
 
   _registerTrigger(trigger: DtContextDialogTrigger): void {
-    if (trigger !== this._defaultTrigger && this._trigger === this._defaultTrigger) {
-        // TODO assign default trigger
+    if (this.hasCustomTrigger) {
+      LOG.debug('Already has a custom trigger registered', Error);
     }
-    // if (this.trigger) {
-     // LOG.debug('Trying to register', Error);
-    // }
     this._trigger = trigger;
+    this._changeDetectorRef.markForCheck();
   }
 
   _unregisterTrigger(trigger: DtContextDialogTrigger): void {
     if (this._trigger !== trigger) {
       LOG.debug('Trying to unregister a trigger that is not assigned', Error);
     }
-    this._trigger = trigger;
+    this._trigger = this._defaultTrigger;
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Callback that is invoked when the overlay panel has been attached. */
@@ -279,5 +280,8 @@ export class DtContextDialog implements OnDestroy {
   /** Hook that trigger right before the component will be destroyed. */
   ngOnDestroy(): void {
     this.close();
+    if (this.hasCustomTrigger) {
+      (this._trigger as DtContextDialogTrigger)._unregisterFromDialog();
+    }
   }
 }

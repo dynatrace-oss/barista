@@ -5,6 +5,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { DtButtonModule, } from '../button/index';
 import { DtThemingModule } from '../theming/index';
 import { DtContextDialog, DtContextDialogTrigger } from './context-dialog';
+import { DtIconModule } from '../icon/index';
 
 const EXPORTED_DECLARATIONS = [
   DtContextDialog,
@@ -16,6 +17,7 @@ const EXPORTED_DECLARATIONS = [
     CommonModule,
     DtButtonModule,
     DtThemingModule,
+    DtIconModule,
     OverlayModule,
     A11yModule,
   ],
