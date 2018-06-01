@@ -1,4 +1,6 @@
 @import '../core/style/variables';
+@import '../core/theming/theming';
+@import './pagination-theme';
 
 :host {
   box-sizing: border-box;
@@ -40,7 +42,6 @@
 
 .dt-pagination-numbers {
   margin: 0 8px;
-  color: $gray-700;
 
   display: flex;
 
@@ -48,6 +49,7 @@
     /* TODO: eventually remove them after nested button improvements */
     min-width: 32px;
     padding: 0;
+    color: $gray-600;
 
     text-align: center;
     user-select: none;
@@ -57,7 +59,7 @@
 .dt-pagination-numbers .dt-pagination-item-active {
   font-weight: bolder;
   line-height: 32px;
-
+  color: $gray-900;
 }
 
 .dt-pagination-item-ellipsis {
@@ -66,4 +68,9 @@
 
   font-size: 14px;
   color: $gray-300;
+}
+
+// Apply the button-group-item theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-pagination($dt-current-theme);
 }
