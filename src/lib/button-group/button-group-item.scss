@@ -1,4 +1,6 @@
 @import '../core/style/variables';
+@import '../core/theming/theming';
+@import './button-group-item-theme';
 
 @mixin boxShadowSelected($width, $color) {
   box-shadow:
@@ -58,83 +60,7 @@
   }
 }
 
-// TODO @thomas.pink: Remove this once theming is in place
-@function dt-palette($default, $hover, $active, $border, $background) {
-  $result: (
-    default: $default,
-    hover: $hover,
-    active: $active,
-    border: $border,
-    background: $background,
-  );
-  @return $result;
-}
-$theme-light: (
-  main: dt-palette($turquoise-600, $turquoise-600, $turquoise-700, $gray-300, $gray-100),
-  error: dt-palette($red-600, $red-700, $red-800, $gray-300, $gray-100),
-  is-dark: false
-);
-$theme-dark: (
-  main: dt-palette(#fff, $turquoise-400, $turquoise-300, #fff, $gray-640),
-  error: dt-palette($red-400, $red-500, $red-600, #fff, $gray-640),
-  is-dark: true
-);
-
-// TODO @thomas.pink: Move this to button theme once theming is in place
-@mixin dt-button-group-theme-variants($theme) {
-  $palette-names: 'main', 'error';
-  $default-palette: 'main';
-
-  @each $name in $palette-names {
-    $is-dark: map-get($theme, 'is-dark');
-    $palette: map-get($theme, $name);
-    $default-color: map-get($palette, 'default');
-    $hover-color: map-get($palette, 'hover');
-    $active-color: map-get($palette, 'active');
-    $background-color: map-get($palette, 'background');
-    $border-color: map-get($palette, 'border');
-
-    $namespace: ':host';
-    @if $name != $default-palette {
-      $namespace: ':host.dt-color-#{$name}';
-    }
-
-    & #{$namespace} {
-      @include boxShadowSelected(1px, $border-color);
-
-      &:focus {
-        @include boxShadowFocus();
-      }
-    }
-
-    & #{$namespace}.dt-button-group-item:not(.dt-button-group-item-disabled) {
-      color: $default-color;
-    }
-
-    & #{$namespace}.dt-button-group-item:hover {
-      @include boxShadowSelected(1px, $hover-color);
-    }
-
-    & #{$namespace}.dt-button-group-item.dt-button-group-item-selected {
-
-      &:not(.dt-button-group-item-disabled) {
-        z-index:1;
-        position:relative;
-        color: $active-color;
-        background-color: $background-color;
-
-        @include boxShadowSelected(1px, $active-color);
-
-        &:focus {
-          @include boxShadowSelectedFocus(1px, $active-color);
-        }
-      }
-    }
-  }
-}
-
-// TODO @thomas.pink: Remove this once theming is in place
-@include dt-button-group-theme-variants($theme-light);
-.dt-theme-dark {
-  @include dt-button-group-theme-variants($theme-dark);
+// Apply the button-group-item theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-button-group-item($dt-current-theme);
 }

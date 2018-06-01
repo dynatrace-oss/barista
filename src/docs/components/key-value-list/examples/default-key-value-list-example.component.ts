@@ -5,7 +5,7 @@ import { DtKeyValueList } from '@dynatrace/angular-components';
   moduleId: module.id,
   template: `<dt-key-value-list>
    <dt-key-value-list-item *ngFor="let entry of entries" [key]="entry.key" [value]="entry.value"></dt-key-value-list-item>
-  </dt-key-value-list>`,
+</dt-key-value-list>`,
 })
 export class DefaultKeyValueListExampleComponent {
   entries: object[] = [

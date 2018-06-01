@@ -6,12 +6,12 @@ import {
   Output,
   Directive,
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   moduleId: module.id,
+  styleUrls: ['key-value-list.scss'],
   selector: 'dt-key-value-list-item',
-  template : '<dt>{{key}}</dt><dd>{{value}}</dd>',
+  template : '<div class="splitter"></div><div class="dt">{{key}}</div><div class="dd">{{value}}</div>',
   host : {
     class : "dt-key-value-list-item"
   }
