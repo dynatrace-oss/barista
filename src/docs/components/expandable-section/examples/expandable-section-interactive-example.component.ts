@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LoremIpsum} from '../../../core/lorem-ipsum';
+import { LOREM_IPSUM } from '../../../core/lorem-ipsum';
 
 @Component({
   moduleId: module.id,
@@ -10,8 +10,8 @@ import {LoremIpsum} from '../../../core/lorem-ipsum';
   <button dt-button (click)="section1.open()">Open</button>
   <button dt-button (click)="section1.close()">Close</button>
   <button dt-button (click)="section1.toggle()">Toggle</button>
-  <button dt-button (click)="section1disabled = !section1disabled">Disabled / Enable</button>`
+  <button dt-button (click)="section1disabled = !section1disabled">Disabled / Enable</button>`,
 })
 export class InteractiveExpandableSectionExampleComponent {
-  text = LoremIpsum
+  text = LOREM_IPSUM;
 }
