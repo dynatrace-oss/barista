@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import { Component } from '@angular/core';
 import { DtTag } from '@dynatrace/angular-components';
 
 @Component({
@@ -25,6 +25,6 @@ export class InteractiveTagExampleComponent {
   value2 = 'My value 2';
 
   doRemove(tag: DtTag<string>): void {
-    window.alert('Tag removed: ' + tag.value);
+    window.alert(`Tag removed: ${tag.value}`);
   }
 }
