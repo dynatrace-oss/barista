@@ -1,5 +1,7 @@
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './button-theme';
 
 :host {
   font-family: $mainfont;
@@ -28,6 +30,7 @@
   font-size: 14px;
   line-height: 30px;
   line-height: -moz-block-height;
+  background: transparent;
 
   &:hover {
     text-decoration: none;
@@ -77,181 +80,7 @@
   }
 }
 
-// TODO @thomas.pink: Remove this once theming is in place
-@function dt-palette($default, $hover, $active) {
-  $result: (
-    default: $default,
-    hover: $hover,
-    active: $active,
-  );
-  @return $result;
-}
-$theme-light: (
-  main: dt-palette($turquoise-600, $turquoise-700, $turquoise-800),
-  warning: dt-palette($yellow-600, $yellow-700, $yellow-800),
-  cta: dt-palette($green-600, $green-700, $green-800),
-  is-dark: false
-);
-$theme-dark: (
-  main: dt-palette($turquoise-500, $turquoise-400, $turquoise-300),
-  warning: dt-palette($yellow-600, $yellow-500, $yellow-400),
-  cta: dt-palette($green-500, $green-400, $green-300),
-  is-dark: true
-);
-
-// TODO @thomas.pink: Move this to button theme once theming is in place
-@mixin dt-button-theme-variants($theme) {
-  $palette-names: 'main', 'warning', 'cta';
-  $default-palette: 'main';
-
-  @each $name in $palette-names {
-    $is-dark: map-get($theme, 'is-dark');
-    $palette: map-get($theme, $name);
-    $default-color: map-get($palette, 'default');
-    $hover-color: map-get($palette, 'hover');
-    $active-color: map-get($palette, 'active');
-
-    $namespace: ':host';
-    @if $name != $default-palette {
-      $namespace: ':host.dt-color-#{$name}';
-    }
-
-    ////////////////////////////
-    // PRIMARY
-    ////////////////////////////
-    & #{$namespace}.dt-button-primary {
-        background: $default-color;
-        border-color: $default-color;
-        color: #fff;
-    }
-    & #{$namespace}.dt-button-primary:hover:not([disabled]) {
-      background: $hover-color;
-      border-color: $hover-color;
-      color: #fff;
-    }
-    & #{$namespace}.dt-button-primary:active:not([disabled]) {
-      background: $active-color;
-      border-color: $active-color;
-      color: #fff;
-    }
-    & #{$namespace}.dt-button-primary .dt-icon svg {
-      fill: #fff;
-    }
-
-    @if ($is-dark == true) {
-      & #{$namespace}.dt-button-primary,
-      & #{$namespace}.dt-button-primary:hover:not([disabled]),
-      & #{$namespace}.dt-button-primary:active:not([disabled]) {
-        border-color: #fff;
-      }
-      & #{$namespace}.dt-button-primary[disabled] {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.6);
-      }
-      & #{$namespace}.dt-button-primary[disabled] .dt-icon svg {
-        fill: rgba(255, 255, 255, 0.6);
-      }
-    }
-    @else {
-      & #{$namespace}.dt-button-primary[disabled] {
-        background: $disabledcolor;
-        border-color: $disabledcolor;
-        color: #fff;
-      }
-    }
-
-    ////////////////////////////
-    // SECONDARY
-    ////////////////////////////
-    & #{$namespace}.dt-button-secondary {
-      background: transparent;
-      border-color: $default-color;
-      color: $default-color;
-    }
-    & #{$namespace}.dt-button-secondary:hover:not([disabled]) {
-      background: $gray-100;
-      border-color: $hover-color;
-      color: $hover-color;
-    }
-    & #{$namespace}.dt-button-secondary:active:not([disabled]) {
-      background: $gray-100;
-      border-color: $active-color;
-      color: $active-color;
-    }
-    & #{$namespace}.dt-button-secondary .dt-icon svg {
-      fill: $default-color;
-    }
-    & #{$namespace}.dt-button-secondary:hover:not([disabled]) .dt-icon svg {
-      fill: $hover-color;
-    }
-    & #{$namespace}.dt-button-secondary:active:not([disabled]) .dt-icon svg {
-      fill: $active-color;
-    }
-    & #{$namespace}.dt-button-secondary[disabled] .dt-icon svg {
-      fill: $disabledcolor;
-    }
-
-    @if $is-dark == true {
-      & #{$namespace}.dt-button-secondary,
-      & #{$namespace}.dt-button-secondary[disabled] {
-        background: transparent;
-        color: #fff;
-      }
-      & #{$namespace}.dt-button-secondary:hover:not([disabled]) {
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-      }
-      & #{$namespace}.dt-button-secondary:active:not([disabled]) {
-        background: rgba(255, 255, 255, 0.3);
-        color: #fff;
-      }
-      & #{$namespace}.dt-button-secondary[disabled] {
-        border-color: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.6);
-      }
-      & #{$namespace}.dt-button-secondary .dt-icon svg {
-        fill: #fff;
-      }
-      & #{$namespace}.dt-button-secondary:hover:not([disabled]) .dt-icon svg {
-        fill: #fff;
-      }
-      & #{$namespace}.dt-button-secondary:active:not([disabled]) .dt-icon svg {
-        fill: #fff;
-      }
-      // Main does not have the main color as a border
-      // so we have to specifiy it differently
-      @if $name == 'main' {
-        & #{$namespace}.dt-button-secondary,
-        & #{$namespace}.dt-button-secondary:hover:not([disabled]) {
-          border-color: #fff;
-          color: $gray-100;
-        }
-        & #{$namespace}.dt-button-secondary .dt-icon svg,
-        & #{$namespace}.dt-button-secondary:hover:not([disabled]) .dt-icon svg {
-          fill: $gray-100;
-        }
-        & #{$namespace}.dt-button-secondary:active:not([disabled]) {
-          border-color: #fff;
-          color: #fff;
-        }
-        & #{$namespace}.dt-button-secondary:active:not([disabled]) .dt-icon svg {
-          fill: #fff;
-        }
-      }
-    }
-    @else {
-      & #{$namespace}.dt-button-secondary[disabled] {
-        background: #fff;
-        border-color: $disabledcolor;
-        color: $disabledcolor;
-      }
-    }
-  }
-}
-
-// TODO @thomas.pink: Remove this once theming is in place
-@include dt-button-theme-variants($theme-light);
-.dt-theme-dark {
-  @include dt-button-theme-variants($theme-dark);
+// Apply the button theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-button($dt-current-theme);
 }

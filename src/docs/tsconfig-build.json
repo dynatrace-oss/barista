@@ -35,6 +35,7 @@
   ],
   "angularCompilerOptions": {
     "skipTemplateCodegen": false,
-    "fullTemplateTypeCheck": false
+    "fullTemplateTypeCheck": false,
+    "preserveWhitespace": true
   }
 }

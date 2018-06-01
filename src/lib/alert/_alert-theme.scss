@@ -1,0 +1,27 @@
+@import '../core/theming/theming';
+
+@mixin dt-theme-alert($theme) {
+  $error-palette: dt-get-theme-palette($theme, error);
+  $error-color: dt-get-theme-color($error-palette, default);
+  $warning-palette: dt-get-theme-palette($theme, warning);
+  $warning-color: dt-get-theme-color($warning-palette, default);
+
+  :host.dt-alert-warning {
+    .dt-alert-icon-container {
+      background-color: $warning-color;
+    }
+    .dt-alert-text-container {
+      border: 1px solid $warning-color;
+    }
+  }
+
+  :host.dt-alert-error {
+    .dt-alert-icon-container {
+      background-color: $error-color;
+    }
+    .dt-alert-text-container {
+      border: 1px solid $error-color;
+    }
+
+  }
+}

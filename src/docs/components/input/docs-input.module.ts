@@ -26,6 +26,7 @@ const EXAMPLES = [
     ReactiveFormsModule,
     DtInputModule,
     DtButtonModule,
+    DtThemingModule,
   ],
   declarations: [
     ...EXAMPLES,

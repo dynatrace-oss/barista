@@ -1,4 +1,3 @@
-import {NeverObservable} from 'rxjs/observable/NeverObservable';
 import {
   Directive,
   Input,
@@ -9,9 +8,9 @@ import {
   isDevMode,
   Renderer2
 } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { Subject, Subscription, NEVER } from 'rxjs';
 import { DtLogger, DtLoggerFactory, replaceCssClass } from '../core/index';
+import { getDtThemeNotValidError, getDtThemeVariantNotValidError } from './theming-errors';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtTheme');
 
@@ -27,10 +26,6 @@ const MAX_DEPTH_EXCEPTION_CLASSESS = [];
 export type DtThemeVariant = 'light' | 'dark' | null;
 const THEME_VALIDATION_RX = /^((?:[a-zA-Z-]+)?)(?::(light|dark))?$/;
 const THEME_VARIANTS: DtThemeVariant[] = ['light', 'dark'];
-
-export function getDtThemeNotValidError(name: string): Error {
-  return Error(`The provided theme name "${name}" for dtTheme is not a valid theme!`);
-}
 
 interface NameVariantClasses {
   name: string | null;
@@ -57,35 +52,26 @@ export class DtTheme implements OnDestroy {
    */
   @Input()
   set dtTheme(value: string) {
-    if (value === void 0) {
-      return;
-    }
-    const result = !!value ? value.match(THEME_VALIDATION_RX) : null;
-    if (result === null) {
-      throw getDtThemeNotValidError(value);
-    }
-    const classNames = this._genClassNames();
-    const currentName = this.name;
-    const currentVariant = this.variant;
-    const [, name, variant] = result;
-
-    this._name = name || (this._parentTheme && this._parentTheme.name) || null;
-    this._variant = variant && THEME_VARIANTS.indexOf(variant as DtThemeVariant) !== -1 ?
-      variant as DtThemeVariant :
-      (this._parentTheme && this._parentTheme.variant) || null;
-
-    // Only replace css classes if name or variant have actually changed
-    if (name !== currentName || variant !== currentVariant) {
-      this._replaceHostClasses(this._genClassNames(), classNames);
-      this._stateChanges.next();
+    if (value !== void 0) {
+      const { name, variant } = this._parseThemeValue(value);
+      if (name !== this._name || variant !== this._variant) {
+        this._name = name;
+        this._variant = variant;
+        this._updateHostClasses();
+        this._stateChanges.next();
+      }
     }
   }
 
   /** Name of the specified theme (royalblue, ...) */
-  get name(): string | null { return this._name; }
+  get name(): string | null {
+    return this._name || (this._parentTheme && this._parentTheme.name);
+  }
 
   /** Whether the theme is the light or dark variant */
-  get variant(): DtThemeVariant | null { return this._variant; }
+  get variant(): DtThemeVariant | null {
+    return this._variant || (this._parentTheme && this._parentTheme.variant);
+  }
 
   /** @internal The level of depth */
   get _depthLevel(): number {
@@ -97,7 +83,8 @@ export class DtTheme implements OnDestroy {
 
   private _name: string | null = null;
   private _variant: DtThemeVariant | null = null;
-  private _parentSub: Subscription = NeverObservable.create().subscribe();
+  private _classNames: NameVariantClasses = { name: null, variant: null };
+  private _parentSub: Subscription = NEVER.subscribe();
 
   constructor(
     private _elementRef: ElementRef,
@@ -105,8 +92,15 @@ export class DtTheme implements OnDestroy {
     @Optional() @SkipSelf() private _parentTheme: DtTheme
   ) {
     if (this._parentTheme) {
-      this._parentSub = this._parentTheme._stateChanges
-        .subscribe(() => this.dtTheme = this.dtTheme);
+      this._parentSub = this._parentTheme._stateChanges.subscribe(() => {
+        // Only update if either the local name or the local variant is not set
+        // If both are set we do not need the values from the parent
+        if (!this._name || !this._variant) {
+          this._updateHostClasses();
+          // Notify child themes of this changes
+          this._stateChanges.next();
+        }
+      });
     }
     this._warnIfDepthExceeded();
   }
@@ -119,21 +113,21 @@ export class DtTheme implements OnDestroy {
     }
   }
 
+  /** Updates name and variant classes on the host element */
+  private _updateHostClasses(): void {
+    const currentClassNames = this._classNames;
+    const newClassNames = this._genClassNames();
+    replaceCssClass(this._elementRef, currentClassNames.name, newClassNames.name, this._renderer);
+    replaceCssClass(this._elementRef, currentClassNames.variant, newClassNames.variant, this._renderer);
+    this._classNames = newClassNames;
+  }
+
   /** Generates the theme class names for the currently defined name and variant */
   private _genClassNames(): NameVariantClasses {
     return {
       name: this.name ? `dt-theme-${this.name}` : null,
       variant: this.variant ? `dt-theme-${this.variant}` : null,
     };
-  }
-
-  /** Replaces name and variant classes on the host element */
-  private _replaceHostClasses(
-    newClasses: NameVariantClasses,
-    oldClasses: NameVariantClasses
-  ): void {
-    replaceCssClass(this._elementRef, oldClasses.name, newClasses.name, this._renderer);
-    replaceCssClass(this._elementRef, oldClasses.variant, newClasses.variant, this._renderer);
   }
 
   /** Notify developers if max depth level has been exceeded */
@@ -144,5 +138,17 @@ export class DtTheme implements OnDestroy {
       LOG.warn(`The max supported depth level (${MAX_DEPTH}) of nested themes (dtTheme) has ` +
         `been exceeded. This could result in wrong styling unpredictable styling side effects.`);
     }
+  }
+
+  private _parseThemeValue(value: string): { name: string; variant: DtThemeVariant } {
+    const result = !!value ? value.match(THEME_VALIDATION_RX) : null;
+    if (result === null) {
+      throw getDtThemeNotValidError(value);
+    }
+    const [, name, variant] = result;
+    if (variant && THEME_VARIANTS.indexOf(variant as DtThemeVariant) === -1) {
+      throw getDtThemeVariantNotValidError(value, variant);
+    }
+    return { name, variant: variant as DtThemeVariant };
   }
 }

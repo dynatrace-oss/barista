@@ -1,2 +1,2 @@
 export * from './inline-editor-module';
-export * from './inline-editor.component';
+export * from './inline-editor';
