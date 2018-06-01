@@ -48,9 +48,10 @@ export class TableObservableComponent {
 
   startSubscription(): void {
     this.subscription = this.source
-    // tslint:disable-next-line:no-magic-numbers
     .pipe(take(MAX_ROWS))
-    .subscribe(() => this.getAnotherRow());
+    .subscribe((): void => {
+      this.getAnotherRow();
+    });
   }
 
   clearRows(): void {
