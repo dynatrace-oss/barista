@@ -1,7 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation, Input, ElementRef, ChangeDetectorRef,
+  ViewEncapsulation, Input, ElementRef, ChangeDetectorRef, Renderer2
 } from '@angular/core';
 import {replaceCssClass} from '../core/index';
 
