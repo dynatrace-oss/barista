@@ -79,7 +79,7 @@
     "run-sequence": "^2.2.1",
     "sass-graph": "^2.2.4",
     "stylelint": "^8.4.0",
-    "stylelint-junit-formatter" : "^0.2.1",
+    "stylelint-checkstyle-formatter" : "^0.1.1",
     "ts-node": "^3.0.4",
     "tsconfig-paths": "^2.3.0",
     "tsickle": "^0.27.3",
