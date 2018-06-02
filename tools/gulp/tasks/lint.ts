@@ -1,5 +1,10 @@
 import {task} from 'gulp';
-import { execNodeTask } from '../util/task-runner';
+import {execNodeTask} from '../util/task-runner';
+import {buildConfig} from '../build-config';
+import {join} from "path";
+import {createWriteStream} from 'fs';
+import {ensureDirSync} from 'fs-extra';
+import Orchestrator = require("orchestrator");
 
 /** Glob that matches all SCSS or CSS files that should be linted. */
 const stylesGlob = 'src/lib/**/!(*.bundle).+(css|scss)';
@@ -11,6 +16,33 @@ const tsUiTestApp = 'src/ui-test-app/**/!(*.spec).ts';
 const tsUniversalApp = 'src/universal-app/**/!(*.spec).ts';
 const tsUiSpecsGlob = 'ui-tests/**/*.spec.ts';
 
+const lintOutDir = join(buildConfig.outputDir,'checkstyle');
+const stylelintOutFile = join(lintOutDir, 'stylelint.xml');
+
+const ciArgs = ['--format', 'checkstyle', '--out'];
+
+const stylelintArgs = [stylesGlob, '--config', 'stylelint-config.json', '--syntax', 'scss'];
+const ciStylelintArgs = [...stylelintArgs, '--custom-formatter', 'node_modules/stylelint-junit-formatter/index.js', ];
+
+const lintArgs = ['--project', 'tsconfig.json', tsGlob];
+const ciLintArgs = [...lintArgs, ...ciArgs, join(lintOutDir, 'checkstyle.xml')];
+
+const specLintArgs = ['--config', 'tslint.spec.json', '--project', 'tsconfig.json', tsSpecsGlob];
+const ciSpecLintArgs = [...specLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-spec.xml')];
+
+const docsLintArgs = ['--project', 'src/docs/tsconfig.json', tsDocs];
+const ciDocsLintArgs = [...docsLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-docs.xml')];
+
+const uiTestAppLintArgs = ['--project', 'src/ui-test-app/tsconfig.json', tsUiTestApp];
+const ciUiTestAppLintArgs = [...uiTestAppLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-ui-test-app.xml')];
+
+const universalLintArgs = ['--project', 'src/universal-app/tsconfig.json', tsUniversalApp];
+const ciUniversalLintArgs = [...universalLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-universal.xml')];
+
+const uiTestLintArgs = ['--config', 'tslint.spec.json', '--project', 'ui-tests/tsconfig.json', tsUiSpecsGlob];
+const ciUiTestLintArgs = [...uiTestLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-ui-test.xml')]
+
+
 task('lint', [
   'stylelint',
   'tslint',
@@ -21,30 +53,48 @@ task('lint', [
   'tslint:ui-tests',
 ]);
 
-task('stylelint', execNodeTask(
-  'stylelint', [stylesGlob, '--config', 'stylelint-config.json', '--syntax', 'scss'],
+task('ensureOutDirectory', () => {
+  ensureDirSync(buildConfig.outputDir);
+  ensureDirSync(lintOutDir);
+});
+
+task('stylelint', ['ensureOutDirectory'],
+  process.env.CI === 'true' ? executeStylelintOnCI : execNodeTask('stylelint', stylelintArgs));
+
+function executeStylelintOnCI(done: (err?: any) => void) {
+  const file = createWriteStream(stylelintOutFile);
+  execNodeTask(
+    'stylelint', ciStylelintArgs, undefined, {
+      silentStdout: true,
+      stdoutListener: (data: string) => file.write(data),
+    }
+  )((err?: any) => {
+      done(err);
+      file.end();
+    }
+  );
+}
+
+task('tslint', ['ensureOutDirectory'], execNodeTask(
+  'tslint', process.env.CI==='true' ? ciLintArgs : lintArgs,
 ));
 
-task('tslint', execNodeTask(
-  'tslint', ['--project', 'tsconfig.json', tsGlob],
+task('tslint:specs', ['ensureOutDirectory'], execNodeTask(
+  'tslint', process.env.CI==='true' ? ciSpecLintArgs : specLintArgs,
 ));
 
-task('tslint:specs', execNodeTask(
-  'tslint', ['--config', 'tslint.spec.json', '--project', 'tsconfig.json', tsSpecsGlob],
+task('tslint:docs', ['ensureOutDirectory'], execNodeTask(
+  'tslint', process.env.CI==='true' ? ciDocsLintArgs : docsLintArgs,
 ));
 
-task('tslint:docs', execNodeTask(
-  'tslint', ['--project', 'src/docs/tsconfig.json', tsDocs],
+task('tslint:ui-test-app', ['ensureOutDirectory'], execNodeTask(
+  'tslint', process.env.CI==='true' ? ciUiTestAppLintArgs : uiTestAppLintArgs,
 ));
 
-task('tslint:ui-test-app', execNodeTask(
-  'tslint', ['--project', 'src/ui-test-app/tsconfig.json', tsUiTestApp],
+task('tslint:universal-app', ['ensureOutDirectory'], execNodeTask(
+  'tslint', process.env.CI==='true' ? ciUniversalLintArgs : universalLintArgs,
 ));
 
-task('tslint:universal-app', execNodeTask(
-  'tslint', ['--project', 'src/universal-app/tsconfig.json', tsUniversalApp],
-));
-
-task('tslint:ui-tests', execNodeTask(
-  'tslint', ['--config', 'tslint.spec.json', '--project', 'ui-tests/tsconfig.json', tsUiSpecsGlob],
+task('tslint:ui-tests', ['ensureOutDirectory'], execNodeTask(
+  'tslint', process.env.CI==='true' ? ciUiTestLintArgs : uiTestLintArgs,
 ));
