@@ -22,7 +22,7 @@ const stylelintOutFile = join(lintOutDir, 'stylelint.xml');
 const ciArgs = ['--format', 'checkstyle', '--out'];
 
 const stylelintArgs = [stylesGlob, '--config', 'stylelint-config.json', '--syntax', 'scss'];
-const ciStylelintArgs = [...stylelintArgs, '--custom-formatter', 'node_modules/stylelint-junit-formatter/index.js', ];
+const ciStylelintArgs = [...stylelintArgs, '--custom-formatter', 'node_modules/stylelint-checkstyle-formatter/index.js', ];
 
 const lintArgs = ['--project', 'tsconfig.json', tsGlob];
 const ciLintArgs = [...lintArgs, ...ciArgs, join(lintOutDir, 'checkstyle.xml')];
