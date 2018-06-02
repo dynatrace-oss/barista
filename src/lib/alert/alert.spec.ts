@@ -19,7 +19,7 @@ describe('DtAlert', () => {
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
     expect(tileNativeElement.classList.contains('dt-alert-error'))
-      .toBeFalsy();
+      .toBeTruthy();
   });
 
   it('expects correct css class after change', () => {
