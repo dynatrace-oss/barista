@@ -11,7 +11,7 @@ describe('button', () => {
 
     it('should not execute click handlers when disabled', async () => {
       element(by.id('disable-toggle')).click();
-      expect(await element(by.id('test-button')).getAttribute('disabled')).toBeFalsy();
+      expect(await element(by.id('test-button')).getAttribute('disabled')).toBeTruthy();
       element(by.id('test-button')).click();
       expect(await element(by.id('click-counter')).getText()).toEqual('0');
     });
