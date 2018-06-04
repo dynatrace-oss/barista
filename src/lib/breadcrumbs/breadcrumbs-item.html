@@ -1,0 +1,13 @@
+<a *ngIf="!_isActive && external" [href]="href" class="item link">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</a>
+<a *ngIf="!_isActive && !external" [routerLink]="href" queryParamsHandling="merge" class="item link">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</a>
+<span *ngIf="_isActive" class="item non-clickable">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</span>
+
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
