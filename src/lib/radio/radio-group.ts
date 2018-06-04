@@ -162,7 +162,7 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   /** Updates the `selected` state of each radio button based on the groups value. */
   private _updateSelectedRadioFromValue(): void {
-    if (this._radios !== null && !(this._selected !== null && this._selected.value === this._value)) {
+    if (this._radios && !(this._selected !== null && this._selected.value === this._value)) {
       this._selected = null;
       this._radios.forEach((radio) => {
         radio.checked = this.value === radio.value;
