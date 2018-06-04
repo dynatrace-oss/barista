@@ -1,4 +1,4 @@
-import {browser, by, element, ExpectedConditions, protractor} from 'protractor';
+import {browser, by, element, protractor} from 'protractor';
 
 describe('show-more', () => {
     beforeEach(() => browser.get('/show-more'));
