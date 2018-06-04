@@ -9,7 +9,6 @@ import { WithTextProgressCircleExampleComponent } from './examples/with-text-pro
   moduleId: module.id,
   selector: 'docs-progress-circle',
   templateUrl: 'docs-progress-circle.component.html',
-  styleUrls: ['docs-progress-circle.component.scss'],
 })
 export class DocsProgressCircleComponent {
   examples = {
