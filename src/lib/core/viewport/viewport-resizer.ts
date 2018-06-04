@@ -1,6 +1,6 @@
-import { Provider, Optional, SkipSelf, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ViewportRuler } from '@angular/cdk/scrolling';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /** Default timeout used to throttle window resize events */
