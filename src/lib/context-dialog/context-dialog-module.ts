@@ -4,7 +4,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { A11yModule } from '@angular/cdk/a11y';
 import { DtButtonModule, } from '../button/index';
 import { DtThemingModule } from '../theming/index';
-import { DtContextDialog, DtContextDialogTrigger } from './context-dialog';
+import { DtContextDialog } from './context-dialog';
+import { DtContextDialogTrigger } from './context-dialog-trigger';
 import { DtIconModule } from '../icon/index';
 
 const EXPORTED_DECLARATIONS = [
