@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { Colors } from '@dynatrace/angular-components';
-import { generateData } from '../chart-data-utils';
+import { generateData } from './chart-data-utils';
 
 @Component({
   template: '<dt-chart [options]="options" [series]="series"></dt-chart>',
