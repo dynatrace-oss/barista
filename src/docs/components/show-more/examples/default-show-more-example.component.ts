@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
   <dt-show-less-label>Show less</dt-show-less-label>
 </dt-show-more>`,
 })
-export class DefaultShowMoreExampleComponent { }
+export class DefaultShowMoreExampleComponent {
+  showLess = false;
+}

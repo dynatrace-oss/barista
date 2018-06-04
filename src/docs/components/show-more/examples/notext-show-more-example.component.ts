@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: '<dt-show-more [showLess]="showLess" (changed)="showLess=!showLess"></dt-show-more>',
 })
-export class NoTextShowMoreExampleComponent { }
+export class NoTextShowMoreExampleComponent {
+  showLess = false;
+}
