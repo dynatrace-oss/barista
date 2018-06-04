@@ -1,4 +1,4 @@
-import { Provider, Optional, SkipSelf, Inject, Injectable } from '@angular/core';
+import { Optional, Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
