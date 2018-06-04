@@ -31,7 +31,6 @@ describe('DtRadio', () => {
     let fixture: ComponentFixture<RadiosInsideRadioGroup>;
     let groupDebugElement: DebugElement;
     let radioDebugElements: DebugElement[];
-    let radioNativeElements: HTMLElement[];
     let radioLabelElements: HTMLLabelElement[];
     let radioInputElements: HTMLInputElement[];
     let groupInstance: DtRadioGroup<any>;
@@ -48,7 +47,6 @@ describe('DtRadio', () => {
       groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);
 
       radioDebugElements = fixture.debugElement.queryAll(By.directive(DtRadioButton));
-      radioNativeElements = radioDebugElements.map((debugEl) => debugEl.nativeElement);
       radioInstances = radioDebugElements.map((debugEl) => debugEl.componentInstance);
 
       radioLabelElements = radioDebugElements
@@ -641,9 +639,9 @@ describe('DtRadio', () => {
       radioInstances = radioDebugElements.map((debugEl) => debugEl.componentInstance);
     }));
 
-    // it('should initialize selection of radios based on model value', () => {
-    //   expect(groupInstance.selected).toBe(radioInstances[2]);
-    // });
+    it('should initialize selection of radios based on model value', () => {
+      expect(groupInstance.selected).toBe(radioInstances[2]);
+    });
   });
 });
 
