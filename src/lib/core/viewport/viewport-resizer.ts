@@ -1,4 +1,4 @@
-import { Provider, Optional, SkipSelf } from '@angular/core';
+import { Provider, Optional, SkipSelf, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { map } from 'rxjs/operators';
@@ -12,7 +12,8 @@ export abstract class ViewportResizer {
 }
 
 /** Default ViewportResizer implementation that will only react to window size changes */
-export class DefaultViewportResizer implements ViewportResizer {
+@Injectable({ providedIn: 'root' })
+export class DtDefaultViewportResizer implements ViewportResizer {
 
   constructor(private _viewportRuler: ViewportRuler) { }
 
@@ -23,17 +24,5 @@ export class DefaultViewportResizer implements ViewportResizer {
   }
 }
 
-/** ViewportResizer Factory to ensure a singleton, can set the timeout for window resize events */
-function DEFAULT_VIEWPORT_RESIZER_FACTORY(
-  viewportRuler: ViewportRuler,
-  parentResizer?: ViewportResizer
-): ViewportResizer {
-  return parentResizer || new DefaultViewportResizer(viewportRuler);
-}
-
-/** Default provider */
-export const DEFAULT_VIEWPORT_RESIZER_PROVIDER: Provider = {
-  provide: ViewportResizer,
-  useFactory: DEFAULT_VIEWPORT_RESIZER_FACTORY,
-  deps: [ViewportRuler, [new Optional(), new SkipSelf(), ViewportResizer]],
-};
+/** @deprecated Remove on next major version */
+export const DEFAULT_VIEWPORT_RESIZER_PROVIDER = DtDefaultViewportResizer;
