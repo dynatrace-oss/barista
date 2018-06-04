@@ -4,7 +4,6 @@ import {buildConfig} from '../build-config';
 import {join} from "path";
 import {createWriteStream} from 'fs';
 import {ensureDirSync} from 'fs-extra';
-import Orchestrator = require("orchestrator");
 
 /** Glob that matches all SCSS or CSS files that should be linted. */
 const stylesGlob = 'src/lib/**/!(*.bundle).+(css|scss)';
@@ -45,7 +44,7 @@ task('ensureOutDirectory', () => {
 });
 
 task('stylelint', ['ensureOutDirectory'],
-  process.env.CI === 'true' ? executeStylelintOnCI : execNodeTask('stylelint', stylelintArgs));
+  isCi ? executeStylelintOnCI : execNodeTask('stylelint', stylelintArgs));
 
 function executeStylelintOnCI(done: (err?: any) => void) {
   const file = createWriteStream(stylelintOutFile);
