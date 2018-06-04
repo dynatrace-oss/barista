@@ -5,12 +5,19 @@ import {
   ElementRef,
   ChangeDetectorRef,
   Input,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { mixinColor, CanColor } from '../core/index';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */
 const CIRCLE_CIRCUMFERENCE = 328;
+
+export interface DtProgressCircleChange {
+  newValue: number;
+  oldValue: number;
+}
 
 // Boilerplate for applying mixins to DtProgressCircle.
 export class DtProgressCircleBase {
@@ -32,7 +39,6 @@ export const _DtProgressCircleMixinBase = mixinColor(DtProgressCircleBase, 'main
     '[attr.aria-valuenow]': 'value',
   },
   inputs: ['color'],
-  preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
@@ -53,6 +59,10 @@ export class DtProgressCircle extends _DtProgressCircleMixinBase implements CanC
   }
   set value(v: number | null) {
     if (v !== this._value) {
+      this.valueChange.emit({
+        oldValue: coerceNumberProperty(this._value),
+        newValue: coerceNumberProperty(v),
+      });
       this._value = coerceNumberProperty(v);
       this._calculateViewParams();
     }
@@ -79,10 +89,12 @@ export class DtProgressCircle extends _DtProgressCircleMixinBase implements CanC
     this._calculateViewParams();
   }
 
+  @Output() readonly valueChange = new EventEmitter<DtProgressCircleChange>();
+
   /** The percentage of the progress circle that coincides with the value. */
   get percent(): number { return clamp(this._percent); }
 
-  /** @internal Dash offset base on the values percentage */
+  /** Dash offset base on the values percentage */
   _dashOffset: number = CIRCLE_CIRCUMFERENCE;
 
   private _value: number | null = null;
@@ -109,11 +121,13 @@ export class DtProgressCircle extends _DtProgressCircleMixinBase implements CanC
 
   /** Calculates the percentage of the progress circle that a value is. */
   private _calculatePercentage(value: number | null): number {
+    // tslint:disable-next-line: no-magic-numbers
     return ((value || 0) - this.min) / (this.max - this.min) * 100;
   }
 
   /** Calculates the dash offset of the progress circle based on the calculated percent */
   private _calculateDashOffset(percent: number): number {
+    // tslint:disable-next-line: no-magic-numbers
     return CIRCLE_CIRCUMFERENCE - (CIRCLE_CIRCUMFERENCE / 100 * percent);
   }
 }
