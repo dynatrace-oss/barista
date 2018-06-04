@@ -16,8 +16,6 @@ import { DocsExpandableSectionModule } from './components/expandable-section/doc
 import { DocsTableModule } from './components/table/docs-table.module';
 import { DocsChartModule } from './components/chart/docs-chart.module';
 import { DocsTileModule } from './components/tile/docs-tile.module';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-import { Platform } from '@angular/cdk/platform';
 import { DocsCardModule } from './components/card/docs-card.module';
 import { DocsContextDialogModule } from './components/context-dialog/docs-context-dialog.module';
 import { DocsFormFieldModule } from './components/form-field/docs-form-field-module';

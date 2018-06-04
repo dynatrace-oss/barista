@@ -11,7 +11,6 @@ import {
   DtButtonGroupModule,
   DtTableModule,
   DtTagModule,
-  DtIconModule,
   DtShowMoreModule,
 } from '@dynatrace/angular-components';
 
