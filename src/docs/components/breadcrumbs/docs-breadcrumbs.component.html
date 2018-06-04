@@ -1,0 +1,65 @@
+<h1>Breadcrumbs</h1>
+
+<docs-source-example [example]="examples.default"></docs-source-example>
+
+<p>Breadcrumbs are used to navigate and to indicate the currently viewed page.</p>
+
+<h2>Imports</h2>
+<p>You have to import the <code>DtBreadcrumbsModule</code> when you want to use <code>dt-breadcrumbs</code> or <code>dt-breadcrumbs-item</code> elements:</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+    DtBreadcrumbsModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+
+<h2>Options & Properties</h2>
+
+<h3>dt-breadcrumbs</h3>
+<p><code>dt-breadcrumbs</code> element has no configuration options. It's just a wrapper for the <code>dt-breadcrumbs-item</code> elements</p>
+
+<h3>dt-breadcrumbs-item</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <td>Name</td>
+    <td>Type</td>
+    <td>Default</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>&lt;ng-content&gt;</code></td>
+    <td>html</td>
+    <td></td>
+    <td>HTML to be rendered as item content</td>
+  </tr>
+  <tr>
+    <td><code>[href]</code></td>
+    <td>string | any[]</td>
+    <td></td>
+    <td>Value passed to the <code>routerLink</code> attribute underneath, accepts the same values as the directive. Element will be item as active automatically if the href attribute matches the current route.</td>
+  </tr>
+  <tr>
+    <td><code>[external]</code></td>
+    <td>boolean | undefined</td>
+    <td>false</td>
+    <td>If empty or truthy parameter given, the <code>href</code> attribute will not be interpreted as internal router link but rather as en external href</td>
+  </tr>
+  </tbody>
+</table>
+<p><code>dt-breadcrumbs-item</code> automatically determines, whether it should be rendered as active by comparing the passed href value with the current route.</p>
+
+<h2>Examples</h2>
+
+<h3>Listening to an observable</h3>
+<docs-source-example [example]="examples.observable"></docs-source-example>
+
+<h3>External</h3>
+<docs-source-example [example]="examples.external"></docs-source-example>
+
+<h3>Dark</h3>
+<docs-source-example [example]="examples.dark"></docs-source-example>

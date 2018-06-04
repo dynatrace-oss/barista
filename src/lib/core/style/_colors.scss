@@ -102,3 +102,129 @@ $gray-860: #242424;
 $gray-900: #191919;
 
 $logolime: #b4dc00;
+
+$full-color-palette: (
+  'turquoise': (
+    100: $turquoise-100,
+    200: $turquoise-200,
+    300: $turquoise-300,
+    400: $turquoise-400,
+    500: $turquoise-500,
+    600: $turquoise-600,
+    700: $turquoise-700,
+    800: $turquoise-800,
+    900: $turquoise-900,
+  ),
+
+  'green': (
+    100: $green-100,
+    200: $green-200,
+    300: $green-300,
+    400: $green-400,
+    500: $green-500,
+    600: $green-600,
+    700: $green-700,
+    800: $green-800,
+    900: $green-900,
+  ),
+
+  'blue': (
+    100: $blue-100,
+    200: $blue-200,
+    300: $blue-300,
+    400: $blue-400,
+    500: $blue-500,
+    600: $blue-600,
+    700: $blue-700,
+    800: $blue-800,
+    900: $blue-900,
+  ),
+
+  'royalblue': (
+    100: $royalblue-100,
+    200: $royalblue-200,
+    300: $royalblue-300,
+    400: $royalblue-400,
+    500: $royalblue-500,
+    600: $royalblue-600,
+    700: $royalblue-700,
+    800: $royalblue-800,
+    900: $royalblue-900,
+  ),
+
+  'purple': (
+    100: $purple-100,
+    200: $purple-200,
+    300: $purple-300,
+    400: $purple-400,
+    500: $purple-500,
+    600: $purple-600,
+    700: $purple-700,
+    800: $purple-800,
+    900: $purple-900,
+  ),
+
+  'red': (
+    100: $red-100,
+    200: $red-200,
+    300: $red-300,
+    400: $red-400,
+    500: $red-500,
+    600: $red-600,
+    700: $red-700,
+    800: $red-800,
+    900: $red-900,
+  ),
+
+  'orange': (
+    100: $orange-100,
+    200: $orange-200,
+    300: $orange-300,
+    400: $orange-400,
+    500: $orange-500,
+    600: $orange-600,
+    700: $orange-700,
+    800: $orange-800,
+    900: $orange-900,
+  ),
+
+  'yellow': (
+    100: $yellow-100,
+    200: $yellow-200,
+    300: $yellow-300,
+    400: $yellow-400,
+    500: $yellow-500,
+    600: $yellow-600,
+    700: $yellow-700,
+    800: $yellow-800,
+    900: $yellow-900,
+  ),
+
+  'shamrockgreen': (
+    100: $shamrockgreen-100,
+    200: $shamrockgreen-200,
+    300: $shamrockgreen-300,
+    400: $shamrockgreen-400,
+    500: $shamrockgreen-500,
+    600: $shamrockgreen-600,
+    700: $shamrockgreen-700,
+    800: $shamrockgreen-800,
+    900: $shamrockgreen-900,
+  ),
+
+  'gray': (
+    100: $gray-100,
+    200: $gray-200,
+    300: $gray-300,
+    400: $gray-400,
+    500: $gray-500,
+    600: $gray-600,
+    700: $gray-700,
+    800: $gray-800,
+    900: $gray-900,
+  ),
+);
+
+@function get-color($color, $shade) {
+  @return map-get(map-get($full-color-palette, $color), $shade);
+}
