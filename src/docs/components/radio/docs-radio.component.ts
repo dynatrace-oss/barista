@@ -7,7 +7,6 @@ import { DarkRadioExample } from './examples/dark-radio-example';
   moduleId: module.id,
   selector: 'docs-radio',
   templateUrl: 'docs-radio.component.html',
-  styleUrls: ['docs-radio.component.scss'],
 })
 export class DocsRadioComponent {
   examples = {
