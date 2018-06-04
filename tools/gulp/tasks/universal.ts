@@ -24,7 +24,7 @@ task('universal', ['universal:build'], execTask(
 
 task('universal:build', sequenceTask(
   'clean:universal',
-  process.env.CI === 'true'? undefined:'library:build',
+  process.env.SKIP_BUILD === 'true'? undefined:'library:build',
   ['universal:copy-lib', 'universal:copy-files'],
   'universal:build-app-ts',
   'universal:build-prerender-ts',
