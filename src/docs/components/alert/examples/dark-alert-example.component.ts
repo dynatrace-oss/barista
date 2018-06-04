@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LoremIpsum} from '../../../core/lorem-ipsum';
+import { LOREM_IPSUM } from '../../../core/lorem-ipsum';
 
 @Component({
   moduleId: module.id,
@@ -8,5 +8,5 @@ import {LoremIpsum} from '../../../core/lorem-ipsum';
 </section>`,
 })
 export class DarkAlertExampleComponent {
-  text = LoremIpsum
+  text = LOREM_IPSUM;
 }

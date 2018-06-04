@@ -25,7 +25,7 @@ const EXAMPLES = [
     UiModule,
     DtButtonModule,
     DtButtonGroupModule,
-    DtThemingModule
+    DtThemingModule,
   ],
   declarations: [
     ...EXAMPLES,
