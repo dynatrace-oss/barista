@@ -16,7 +16,7 @@ const PROTRACTOR_CONFIG_PATH = join(buildConfig.projectDir, 'test/protractor.con
 const assetsGlob = join(buildConfig.uiTestAppDir, '**/*.+(html|css|json|ts)');
 
 task('ui-test-app:build', sequenceTask(
-  process.env.CI === 'true'? undefined : 'library:build',
+  process.env.SKIP_BUILD === 'true'? undefined : 'library:build',
   ['ui-test-app:copy', 'ui-test-app:copy-lib'],
   'ui-test-app:build-ts',
 ));
