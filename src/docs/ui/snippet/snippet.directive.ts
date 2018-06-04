@@ -6,7 +6,7 @@ import * as hljs from 'highlight.js';
 })
 export class SnippetDirective implements AfterViewInit {
 
-  @Input('language')
+  @Input()
   language: string | string[];
 
   @Input()
