@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
   <dt-show-more [showLess]="showLess" (changed)="showLess=!showLess">Toggle more/less</dt-show-more>
 </section>`,
 })
-export class DarkThemeShowMoreExampleComponent { }
+export class DarkThemeShowMoreExampleComponent {
+  showLess = false;
+}
