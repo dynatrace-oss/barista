@@ -15,6 +15,8 @@ export interface ExecTaskOptions {
   env?: any;
   // Whether the task should fail if the process writes to STDERR.
   failOnStderr?: boolean;
+  //optional handler to capture stdout
+  stdoutListener?: (data: string) => boolean;
 }
 
 /** Create a task that executes a binary as if from the command line. */
@@ -26,6 +28,9 @@ export function execTask(binPath: string, args: string[], options: ExecTaskOptio
 
     if (!options.silentStdout && !options.silent) {
       childProcess.stdout.on('data', (data: string) => process.stdout.write(data));
+    }
+    if(options.stdoutListener) {
+      childProcess.stdout.on('data', options.stdoutListener);
     }
 
     if (!options.silent || options.failOnStderr) {
