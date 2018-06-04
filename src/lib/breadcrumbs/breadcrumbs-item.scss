@@ -1,0 +1,84 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './breadcrumbs-item-theme';
+
+:host {
+  display: inline-block;
+  margin-top: 0;
+  font-size: 16px;
+  max-height: 30px;
+  line-height: 30px;
+  position: relative;
+
+  &:last-child {
+    flex-grow: 1;
+  }
+
+  &:first-child .item {
+    margin-left: 0;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.item {
+  margin-left: 2px;
+
+  &::before, &::after {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 2px;
+    width: 16px;
+    height: 32px;
+    box-sizing: border-box;
+    border-color: transparent transparent transparent white;
+    border-style: solid;
+    border-width: 16px 8px;
+    z-index: 1;
+  }
+}
+
+.link {
+  &, &:visited {
+    color: #fff;
+    display: block;
+    height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 16px 0 20px;
+    text-decoration: none;
+  }
+
+  &::after {
+    left: 100%;
+    z-index: 2;
+  }
+
+  &:focus,
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.non-clickable {
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 16px 0 20px;
+  display: block;
+
+  &::after {
+    display: none;
+  }
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-breadcrumbs-item($dt-current-theme, $dt-current-theme-name);
+}
