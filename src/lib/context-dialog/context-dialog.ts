@@ -2,10 +2,10 @@ import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { CdkConnectedOverlay, ConnectionPositionPair, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
+  Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Directive,
   ElementRef,
   EventEmitter,
   Inject,
@@ -20,11 +20,14 @@ import {
 } from '@angular/core';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import {
+  HasTabIndex,
   CanDisable,
   DtLogger,
   DtLoggerFactory,
+  mixinTabIndex,
+  mixinDisabled,
 } from '../core/index';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import { DtContextDialogTrigger} from '@dynatrace/angular-components/context-dialog/context-dialog-trigger';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialogue');
 const OVERLAY_POSITIONS = [
@@ -42,54 +45,9 @@ const OVERLAY_POSITIONS = [
   },
 ];
 
-@Directive({
-  selector: 'button[dtContextDialogTrigger]',
-  exportAs: 'dtContextDialogTrigger',
-  inputs: ['disabled'],
-  host: {
-    'class': 'dt-context-dialog-trigger',
-    '[attr.aria-disabled]': '_disabled.toString()',
-    '(click)': 'dialog && dialog.open()',
-  },
-})
-export class DtContextDialogTrigger extends CdkOverlayOrigin implements CanDisable, OnDestroy {
-
-  private _dialog: DtContextDialog | undefined;
-  private _disabled = false;
-
-  @Input('dtContextDialogTrigger')
-  get dialog(): DtContextDialog | undefined { return this._dialog; }
-  set dialog(value: DtContextDialog | undefined) {
-    if (value !== this._dialog) {
-      this._unregisterFromDialog();
-      if (value) {
-        value._registerTrigger(this);
-      }
-      this._dialog = value;
-    }
-  }
-
-  @Output() readonly openChange = new EventEmitter<void>();
-
-  constructor(elementRef: ElementRef) {
-    super(elementRef);
-  }
-
-  ngOnDestroy(): void {
-    this._unregisterFromDialog();
-  }
-
-  _unregisterFromDialog(): void {
-    if (this._dialog) {
-      this._dialog._unregisterTrigger(this);
-      this._dialog = undefined;
-    }
-  }
-
-  set disabled(value: boolean) {
-    this._disabled = coerceBooleanProperty(value);
-  }
-}
+// Boilerplate for applying mixins to DtContextDialog.
+export class DtContextDialogBase { }
+export const _DtContextDialogMixinBase = mixinTabIndex(mixinDisabled(DtContextDialogBase));
 
 @Component({
   moduleId: module.id,
@@ -99,13 +57,16 @@ export class DtContextDialogTrigger extends CdkOverlayOrigin implements CanDisab
   host: {
     'class': 'dt-context-dialog',
     '[class.dt-context-dialog-panel]': 'opened',
+    '[attr.aria-disabled]': 'disabled.toString()',
     'attr.aria-hidden': 'true',
   },
+  inputs: ['disabled', 'tabIndex'],
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtContextDialog implements OnDestroy, AfterViewInit {
+export class DtContextDialog extends _DtContextDialogMixinBase
+  implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit {
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
@@ -154,21 +115,21 @@ export class DtContextDialog implements OnDestroy, AfterViewInit {
   _positions = OVERLAY_POSITIONS;
 
   constructor(
-    private _elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _focusTrapFactory: FocusTrapFactory,
+    @Attribute('tabindex') tabIndex: string,
     // tslint:disable-next-line: no-any
     @Optional() @Inject(DOCUMENT) private _document: any
-  ) {}
+  ) {
+    super();
+
+    this.tabIndex = parseInt(tabIndex, 10) || 0;
+  }
 
   ngAfterViewInit(): void {
     if (this._defaultTrigger && !this.hasCustomTrigger) {
       this._trigger = this._defaultTrigger;
     }
-  }
-
-  toggle(): void {
-    this._openClose(!this._panelOpen);
   }
 
   open(): void {
@@ -192,7 +153,7 @@ export class DtContextDialog implements OnDestroy, AfterViewInit {
 
   /** Focuses the context-dialog element. */
   focus(): void {
-    this._elementRef.nativeElement.focus();
+      this.trigger.elementRef.nativeElement.focus();
   }
 
   /** Moves the focus inside the focus trap. */
@@ -279,7 +240,10 @@ export class DtContextDialog implements OnDestroy, AfterViewInit {
 
   /** Hook that trigger right before the component will be destroyed. */
   ngOnDestroy(): void {
-    this.close();
+    if (this._panelOpen) {
+      this._restoreFocus();
+      this.openedChange.emit(false);
+    }
     if (this.hasCustomTrigger) {
       (this._trigger as DtContextDialogTrigger)._unregisterFromDialog();
     }

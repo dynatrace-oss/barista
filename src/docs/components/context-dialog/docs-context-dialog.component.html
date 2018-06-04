@@ -1,113 +1,113 @@
 <h1>Context dialog</h1>
 <docs-source-example [example]="examples.default"></docs-source-example>
 
-<!--<p>-->
-<!--The <code>&lt;dt-context-dialog&gt;</code> creates a container that is hidden inside an overlay.-->
-<!--It is possible to disable the entire context dialog.-->
-<!--The context dialog traps the focus inside the overlay until it is closed again.-->
-<!--It sets the focus to the previously focused element when closed.-->
-<!--The closing button inside the context dialog will get the focus, when the context menu is opened.-->
-<!--</p>-->
+<p>
+The <code>&lt;dt-context-dialog&gt;</code> creates a container that is hidden inside an overlay.
+It is possible to disable the entire context dialog.
+The context dialog traps the focus inside the overlay until it is closed again.
+It sets the focus to the previously focused element when closed.
+The closing button inside the context dialog will get the focus, when the context menu is opened.
+</p>
 
-<!--<h2>Imports</h2>-->
-<!--<p>You have to import the <code>DtContextDialogModule</code> when you want to use the <code>dt-context-dialog</code>:</p>-->
-<!--&lt;!&ndash; @formatter:off &ndash;&gt;-->
-<!--<pre><code snippet language="typescript">@NgModule({{"{"}}-->
-  <!--imports: [-->
-  <!--DtContextDialogModule,-->
-  <!--],-->
-<!--{{"}"}})-->
-<!--class MyModule {{"{}"}}-->
-<!--</code></pre>-->
-<!--&lt;!&ndash; @formatter:on &ndash;&gt;-->
+<h2>Imports</h2>
+<p>You have to import the <code>DtContextDialogModule</code> when you want to use the <code>dt-context-dialog</code>:</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+  DtContextDialogModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
 
-<!--<h2>Accessibility</h2>-->
-<!--Context dialogs should be given a meaningful label via aria-label, because the button does not have a text.-->
+<h2>Accessibility</h2>
+Context dialogs should be given a meaningful label via aria-label, because the button does not have a text.
 
-<!--<h2>Options & Properties</h2>-->
-<!--<table class="table">-->
-  <!--<thead>-->
-    <!--<tr>-->
-      <!--<td width="160px">Name</td>-->
-      <!--<td width="250px">Type</td>-->
-      <!--<td width="160px">Default</td>-->
-      <!--<td>Description</td>-->
-    <!--</tr>-->
-  <!--</thead>-->
-  <!--<tbody>-->
-    <!--<tr>-->
-      <!--<td><code>@Input() tabIndex</code></td>-->
-      <!--<td><code>number</code></td>-->
-      <!--<td><code>0</code></td>-->
-      <!--<td>Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex</td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-      <!--<td><code>@Input() disabled</code></td>-->
-      <!--<td><code>boolean</code></td>-->
-      <!--<td><code>false</code></td>-->
-      <!--<td>Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled</td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-      <!--<td><code>@Input() aria-label</code></td>-->
-      <!--<td><code>string</code></td>-->
-      <!--<td></td>-->
-      <!--<td>Aria label of the context dialog trigger button.</td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-      <!--<td><code>@Ouput() openedChanged</code></td>-->
-      <!--<td><code>EventEmitter&lt;boolean&gt;</code></td>-->
-      <!--<td></td>-->
-      <!--<td>Event emitted when the context dialog opens or closes.</td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-      <!--<td><code>isPanelOpen</code></td>-->
-      <!--<td><code>boolean</code></td>-->
-      <!--<td></td>-->
-      <!--<td>Returns wether or not the panel is open</td>-->
-    <!--</tr>-->
-  <!--</tbody>-->
-<!--</table>-->
+<h2>Options & Properties</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <td width="160px">Name</td>
+      <td width="250px">Type</td>
+      <td width="160px">Default</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>@Input() tabIndex</code></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+      <td>Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex</td>
+    </tr>
+    <tr>
+      <td><code>@Input() disabled</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled</td>
+    </tr>
+    <tr>
+      <td><code>@Input() aria-label</code></td>
+      <td><code>string</code></td>
+      <td></td>
+      <td>Aria label of the context dialog trigger button.</td>
+    </tr>
+    <tr>
+      <td><code>@Ouput() openedChanged</code></td>
+      <td><code>EventEmitter&lt;boolean&gt;</code></td>
+      <td></td>
+      <td>Event emitted when the context dialog opens or closes.</td>
+    </tr>
+    <tr>
+      <td><code>isPanelOpen</code></td>
+      <td><code>boolean</code></td>
+      <td></td>
+      <td>Returns wether or not the panel is open</td>
+    </tr>
+  </tbody>
+</table>
 
-<!--<h2>Methods</h2>-->
-<!--<table class="table">-->
-  <!--<thead>-->
-    <!--<tr>-->
-      <!--<td width="160px">Name</td>-->
-      <!--<td>Description</td>-->
-      <!--<td>Return value</td>-->
-    <!--</tr>-->
-  <!--</thead>-->
-  <!--<tbody>-->
-    <!--<tr>-->
-      <!--<td><code>open</code></td>-->
-      <!--<td>Opens the context dialog</td>-->
-      <!--<td><code>void</code></td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-      <!--<td><code>close</code></td>-->
-      <!--<td>Closes the context dialog</td>-->
-      <!--<td><code>void</code></td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-      <!--<td><code>focus</code></td>-->
-      <!--<td>Focuses the context dialog</td>-->
-      <!--<td><code>void</code></td>-->
-    <!--</tr>-->
-  <!--</tbody>-->
-<!--</table>-->
+<h2>Methods</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <td width="160px">Name</td>
+      <td>Description</td>
+      <td>Return value</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>open</code></td>
+      <td>Opens the context dialog</td>
+      <td><code>void</code></td>
+    </tr>
+    <tr>
+      <td><code>close</code></td>
+      <td>Closes the context dialog</td>
+      <td><code>void</code></td>
+    </tr>
+    <tr>
+      <td><code>focus</code></td>
+      <td>Focuses the context dialog</td>
+      <td><code>void</code></td>
+    </tr>
+  </tbody>
+</table>
 
 <h2>Examples</h2>
-<h3>Context dialog on dark background</h3>
-<docs-source-example [example]="examples.dark"></docs-source-example>
-
 <h3>Focus previously focused element on close</h3>
 <p>To show the previous focused element working - please use the button labeled "Open" and not the button with the icon to open the context dialog</p>
 <docs-source-example [example]="examples.prevFocus"></docs-source-example>
 
 <h3>Context dialog with custom icon</h3>
-<p>To add a custom icon use the <code>dtContextDialogIcon</code> directive in a <code>&lt;dt-icon&gt;</code> component.</p>
+<p>To add a custom icon use the <code>&lt;dt-button dt-icon-button&gt;&lt;/dt-button&gt;</code> component and add the directive <code>[dtContextDialogTrigger]</code> to be able to link it to the correct context dialog.</p>
 <docs-source-example [example]="examples.CustomIcon"></docs-source-example>
 
+<h3>Context dialog on dark background</h3>
+<docs-source-example [example]="examples.dark"></docs-source-example>
 
-<h3>Context dialog on dark theme with custom icon</h3>
-<docs-source-example [example]="examples.DarkThemeCustomIcon"></docs-source-example>
+
+<h3>Interactive</h3>
+        <docs-source-example [example]="examples.Interactive"></docs-source-example>
