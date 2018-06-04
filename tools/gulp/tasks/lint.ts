@@ -24,24 +24,10 @@ const ciArgs = ['--format', 'checkstyle', '--out'];
 const stylelintArgs = [stylesGlob, '--config', 'stylelint-config.json', '--syntax', 'scss'];
 const ciStylelintArgs = [...stylelintArgs, '--custom-formatter', 'node_modules/stylelint-checkstyle-formatter/index.js', ];
 
-const lintArgs = ['--project', 'tsconfig.json', tsGlob];
-const ciLintArgs = [...lintArgs, ...ciArgs, join(lintOutDir, 'checkstyle.xml')];
+const isCi = process.env.CI==='true';
 
-const specLintArgs = ['--config', 'tslint.spec.json', '--project', 'tsconfig.json', tsSpecsGlob];
-const ciSpecLintArgs = [...specLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-spec.xml')];
-
-const docsLintArgs = ['--project', 'src/docs/tsconfig.json', tsDocs];
-const ciDocsLintArgs = [...docsLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-docs.xml')];
-
-const uiTestAppLintArgs = ['--project', 'src/ui-test-app/tsconfig.json', tsUiTestApp];
-const ciUiTestAppLintArgs = [...uiTestAppLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-ui-test-app.xml')];
-
-const universalLintArgs = ['--project', 'src/universal-app/tsconfig.json', tsUniversalApp];
-const ciUniversalLintArgs = [...universalLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-universal.xml')];
-
-const uiTestLintArgs = ['--config', 'tslint.spec.json', '--project', 'ui-tests/tsconfig.json', tsUiSpecsGlob];
-const ciUiTestLintArgs = [...uiTestLintArgs, ...ciArgs, join(lintOutDir, 'checkstyle-ui-test.xml')]
-
+const outputToXML = (shouldOutToXML: boolean, lintArgs: string[], outFile: string): string[] =>
+  (!shouldOutToXML) ? lintArgs : [...lintArgs, ...ciArgs, join(lintOutDir, outFile)];
 
 task('lint', [
   'stylelint',
@@ -76,25 +62,25 @@ function executeStylelintOnCI(done: (err?: any) => void) {
 }
 
 task('tslint', ['ensureOutDirectory'], execNodeTask(
-  'tslint', process.env.CI==='true' ? ciLintArgs : lintArgs,
+  'tslint', outputToXML(isCi, ['--project', 'tsconfig.json', tsGlob], 'checkstyle.xml'),
 ));
 
 task('tslint:specs', ['ensureOutDirectory'], execNodeTask(
-  'tslint', process.env.CI==='true' ? ciSpecLintArgs : specLintArgs,
+  'tslint', outputToXML(isCi, ['--config', 'tslint.spec.json', '--project', 'tsconfig.json', tsSpecsGlob], 'checkstyle-spec.xml'),
 ));
 
 task('tslint:docs', ['ensureOutDirectory'], execNodeTask(
-  'tslint', process.env.CI==='true' ? ciDocsLintArgs : docsLintArgs,
+  'tslint', outputToXML(isCi, ['--project', 'src/docs/tsconfig.json', tsDocs], 'checkstyle-docs.xml'),
 ));
 
 task('tslint:ui-test-app', ['ensureOutDirectory'], execNodeTask(
-  'tslint', process.env.CI==='true' ? ciUiTestAppLintArgs : uiTestAppLintArgs,
+  'tslint', outputToXML(isCi, ['--project', 'src/ui-test-app/tsconfig.json', tsUiTestApp], 'checkstyle-ui-test-app.xml'),
 ));
 
 task('tslint:universal-app', ['ensureOutDirectory'], execNodeTask(
-  'tslint', process.env.CI==='true' ? ciUniversalLintArgs : universalLintArgs,
+  'tslint', outputToXML(isCi,['--project', 'src/universal-app/tsconfig.json', tsUniversalApp], 'checkstyle-universal.xml'),
 ));
 
 task('tslint:ui-tests', ['ensureOutDirectory'], execNodeTask(
-  'tslint', process.env.CI==='true' ? ciUiTestLintArgs : uiTestLintArgs,
+  'tslint', outputToXML(isCi, ['--config', 'tslint.spec.json', '--project', 'ui-tests/tsconfig.json', tsUiSpecsGlob], 'checkstyle-ui-test.xml'),
 ));
