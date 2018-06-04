@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
 </dt-show-more>
 <button dt-button (click)="showLess=!showLess" [variant]="showLess ? 'primary' : 'secondary'">Toggle more</button>`,
 })
-export class InteractiveShowMoreExampleComponent { }
+export class InteractiveShowMoreExampleComponent {
+  showLess = false;
+}
