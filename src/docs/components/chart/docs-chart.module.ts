@@ -5,7 +5,7 @@ import {
   DtChartModule,
   DtButtonModule,
   DtThemingModule,
-  DEFAULT_VIEWPORT_RESIZER_PROVIDER,
+  DtDefaultViewportResizer,
 } from '@dynatrace/angular-components';
 import { ChartService } from './examples/docs-chart.service';
 import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
@@ -40,7 +40,7 @@ const EXAMPLES = [
     // JIRA task: ***REMOVED***
     // tslint:disable-next-line:deprecation
     VIEWPORT_RULER_PROVIDER,
-    DEFAULT_VIEWPORT_RESIZER_PROVIDER,
+    DtDefaultViewportResizer,
   ],
   entryComponents: [
     ...EXAMPLES,
