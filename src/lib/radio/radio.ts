@@ -12,13 +12,16 @@ import {
   AfterViewInit,
   OnDestroy,
   OnInit,
+  Renderer2,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import {
   mixinTabIndex,
   CanDisable,
-  HasTabIndex
+  HasTabIndex,
+  removeCssClass,
+  addCssClass
 } from '../core/index';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DtRadioGroup } from './radio-group';
@@ -160,6 +163,7 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     private _changeDetector: ChangeDetectorRef,
     private _radioDispatcher: UniqueSelectionDispatcher,
     private _focusMonitor: FocusMonitor,
+    private _renderer: Renderer2,
     @Optional() private _radioGroup: DtRadioGroup<T>
   ) {
     super();
@@ -231,9 +235,9 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     const element = this._elementRef.nativeElement;
 
     if (focusOrigin === 'keyboard') {
-      element.classList.add('dt-radio-focused');
+      addCssClass(element, 'dt-radio-focused', this._renderer);
     } else if (!focusOrigin) {
-      element.classList.remove('dt-radio-focused');
+      removeCssClass(element, 'dt-radio-focused', this._renderer);
       if (this._radioGroup) {
         this._radioGroup._touch();
       }
