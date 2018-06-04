@@ -8,6 +8,7 @@ import { TileUI } from '../tile/tile-ui';
 import { ContextDialogUI } from '../context-dialog/context-dialog-ui';
 import { RadioUI } from '../radio/radio.ui';
 import { ShowMoreUI } from '../show-more/show-more-ui';
+import { ProgressCircleUI } from '../progress-circle/progress-circle-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -18,5 +19,6 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'expandable-section', component: ExpandableSectionUi },
   { path: 'radio', component: RadioUI },
   { path: 'show-more', component: ShowMoreUI },
+  { path: 'progress-circle', component: ProgressCircleUI },
   { path: 'tile', component: TileUI },
 ];

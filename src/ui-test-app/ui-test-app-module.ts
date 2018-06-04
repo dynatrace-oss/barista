@@ -15,6 +15,7 @@ import {
   DtIconModule,
   DtRadioModule,
   DtShowMoreModule,
+  DtProgressCircleModule,
 } from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
@@ -25,6 +26,7 @@ import { ContextDialogUI } from './context-dialog/context-dialog-ui';
 import { RadioUI } from './radio/radio.ui';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
+import { ProgressCircleUI } from './progress-circle/progress-circle-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -39,6 +41,7 @@ import { ShowMoreUI } from './show-more/show-more-ui';
     DtContextDialogModule,
     DtRadioModule,
     DtShowMoreModule,
+    DtProgressCircleModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -64,6 +67,7 @@ export class DynatraceAngularCompModule {}
     TileUI,
     ContextDialogUI,
     ShowMoreUI,
+    ProgressCircleUI,
   ],
   bootstrap: [UIApp],
 })
