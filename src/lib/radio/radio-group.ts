@@ -18,7 +18,7 @@ let nextUniqueId = 0;
 
 @Directive({
   selector: 'dt-radio-group',
-  exportAs: 'ghRadioGroup',
+  exportAs: 'dtRadioGroup',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     // tslint:disable-next-line:no-forward-ref
@@ -99,8 +99,8 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   ngAfterContentInit(): void {
     // Mark this component as initialized in AfterContentInit because the initial value can
-    // possibly be set by NgModel on GhRadioGroup, and it is possible that the OnInit of the
-    // NgModel occurs *after* the OnInit of the GhRadioGroup.
+    // possibly be set by NgModel on DtRadioGroup, and it is possible that the OnInit of the
+    // NgModel occurs *after* the OnInit of the DtRadioGroup.
     this._isInitialized = true;
   }
 
@@ -147,7 +147,7 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   private _markRadiosForCheck(): void {
     if (this._radios) {
-      this._radios.forEach((radio) => radio._markForCheck());
+      this._radios.forEach((radio) => { radio._markForCheck(); });
     }
   }
 

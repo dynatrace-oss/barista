@@ -31,16 +31,16 @@ export interface DtRadioChange<T> {
   value: T | null;
 }
 
-// Boilerplate for applying mixins to GhRadioButton.
-export class GhRadioButtonBase {
+// Boilerplate for applying mixins to DtRadioButton.
+export class DtRadioButtonBase {
   disabled: boolean;
 }
-export const _GhRadioButtonMixinBase = mixinTabIndex(GhRadioButtonBase);
+export const _DtRadioButtonMixinBase = mixinTabIndex(DtRadioButtonBase);
 
 @Component({
   moduleId: module.id,
   selector: 'dt-radio-button',
-  exportAs: 'ghRadioButton',
+  exportAs: 'dtRadioButton',
   templateUrl: 'radio.html',
   styleUrls: ['radio.scss'],
   inputs: ['tabIndex'],
@@ -55,7 +55,7 @@ export const _GhRadioButtonMixinBase = mixinTabIndex(GhRadioButtonBase);
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
 })
-export class DtRadioButton<T> extends _GhRadioButtonMixinBase
+export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   implements OnInit, AfterViewInit, OnDestroy, CanDisable, HasTabIndex {
 
   private _uniqueId = `dt-radio-${++nextUniqueId}`;
