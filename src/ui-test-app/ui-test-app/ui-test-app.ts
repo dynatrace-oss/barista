@@ -20,7 +20,6 @@ export class UIApp {
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'radio', route: '/radio'},
     {name: 'Show-more', route: '/show-more'},
-    {name: 'Progress-circle', route: '/progress-circle'},
     {name: 'tile', route: '/tile'},
   ];
 }
