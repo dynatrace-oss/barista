@@ -25,7 +25,7 @@ export class IndeterminateCheckboxExampleComponent {
   }
 
   _isChecked(): boolean {
-    return this._checkbox1 || this._checkbox2;
+    return this._checkbox1 && this._checkbox2;
   }
 
   changeAll(event: DtCheckboxChange): void {
