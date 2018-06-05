@@ -408,14 +408,14 @@ describe('DtCheckbox', () => {
       it('should not apply transition classes when there is no state change', () => {
         testComponent.isChecked = checkboxInstance.checked;
         fixture.detectChanges();
-        expect(checkboxNativeElement).not.toMatch(/^mat\-checkbox\-anim/g);
+        expect(checkboxNativeElement).not.toMatch(/^dt\-checkbox\-anim/g);
 
         testComponent.isIndeterminate = checkboxInstance.indeterminate;
-        expect(checkboxNativeElement).not.toMatch(/^mat\-checkbox\-anim/g);
+        expect(checkboxNativeElement).not.toMatch(/^dt\-checkbox\-anim/g);
       });
 
       it('should not initially have any transition classes', () => {
-        expect(checkboxNativeElement).not.toMatch(/^mat\-checkbox\-anim/g);
+        expect(checkboxNativeElement).not.toMatch(/^dt\-checkbox\-anim/g);
       });
     });
   });
