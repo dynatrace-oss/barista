@@ -25,3 +25,4 @@ export * from './tile/index';
 export * from './card/index';
 export * from './context-dialog/index';
 export * from './tag/index';
+export * from './radio/index';
