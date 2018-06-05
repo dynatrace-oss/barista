@@ -1,0 +1,23 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+
+@mixin dt-theme-radio($theme) {
+  $is-dark: map-get($theme, 'is-dark');
+
+  @if ($is-dark == true) {
+    :host .dt-radio-outer-circle {
+      border-color: #fff;
+    }
+    :host.dt-radio-disabled .dt-radio-outer-circle {
+      border-color: $gray-500;
+    }
+    :host:not(.dt-radio-disabled):hover .dt-radio-outer-circle {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: #fff;
+    }
+    :host .dt-radio-inner-circle,
+    :host:not(.dt-radio-disabled):hover .dt-radio-inner-circle {
+      background-color: #fff;
+    }
+  }
+}
