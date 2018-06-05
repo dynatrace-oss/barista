@@ -45,23 +45,23 @@ export const _DtProgressCircleMixinBase = mixinColor(DtProgressCircleBase, 'main
 export class DtProgressCircle extends _DtProgressCircleMixinBase implements CanColor {
   /** Value of the progress circle. */
   @Input()
-  get value(): number | null {
+  get value(): number {
     // If the value needs to be read and it is still uninitialized,
     // or if the value is smaller than the min set it to the min.
     if (this._value === null || this._value < this._min) {
-      this.value = this._min;
-    } else
+      return this._min;
+    }
     // Also check for the upper bound and set the value to the max
     if (this._value > this._max) {
-      this.value = this._max;
+      return this._max;
     }
     return this._value;
   }
-  set value(v: number | null) {
-    if (v !== this._value) {
+  set value(v: number) {
+    if (clamp(v) !== this.value) {
       this.valueChange.emit({
-        oldValue: coerceNumberProperty(this._value),
-        newValue: coerceNumberProperty(v),
+        oldValue: coerceNumberProperty(this.value),
+        newValue: coerceNumberProperty(clamp(v)),
       });
       this._value = coerceNumberProperty(v);
       this._calculateViewParams();
@@ -81,11 +81,6 @@ export class DtProgressCircle extends _DtProgressCircleMixinBase implements CanC
   get min(): number { return this._min; }
   set min(v: number) {
     this._min = coerceNumberProperty(v, this._min);
-
-    // If the value wasn't explicitly set by the user, set it to the min.
-    if (this._value === null) {
-      this.value = this._min;
-    }
     this._calculateViewParams();
   }
 
@@ -111,7 +106,7 @@ export class DtProgressCircle extends _DtProgressCircleMixinBase implements CanC
 
   /** Updates all view parameters */
   private _calculateViewParams(): void {
-    this._percent = this._calculatePercentage(this._value);
+    this._percent = this._calculatePercentage(this.value);
     this._dashOffset = this._calculateDashOffset(this._percent);
 
     // Since this also modifies the percentage and dashOffset,
