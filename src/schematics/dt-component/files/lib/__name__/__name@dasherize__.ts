@@ -7,6 +7,7 @@ import {
 @Component({
   moduleId: module.id,
   selector: 'dt-<%=dasherize(name)%>',
+  exportAs: 'dt<%=classify(name)%>',
   templateUrl: '<%=dasherize(name)%>.html',
   styleUrls: ['<%=dasherize(name)%>.scss'],
   host: {
