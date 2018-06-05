@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DefaultCheckboxExampleComponent } from './examples/default-checkbox-example';
 import { IndeterminateCheckboxExampleComponent } from './examples/indeterminate-checkbox-example';
+import { DarkCheckboxExample } from './examples/dark-checkbox-example';
 
 @Component({
   moduleId: module.id,
@@ -12,5 +13,6 @@ export class DocsCheckboxComponent {
   examples = {
     default: DefaultCheckboxExampleComponent,
     indeterminate: IndeterminateCheckboxExampleComponent,
+    dark: DarkCheckboxExample,
   };
 }
