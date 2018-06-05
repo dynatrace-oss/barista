@@ -49,7 +49,7 @@ export const enum TransitionCheckState {
 }
 
 /**
- * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
+ * Provider Expression that allows dt-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  */
 export const DT_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
