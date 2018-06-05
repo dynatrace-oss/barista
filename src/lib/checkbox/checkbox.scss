@@ -46,26 +46,6 @@ $dt-checkbox-size: 20px;
   }
 }
 
-.dt-checkbox-checkmark {
-  width: $dt-checkbox-size - 4;
-  height: $dt-checkbox-size - 4;
-}
-
-.dt-checkbox-checkmark svg {
-  display: block;
-  stroke: $turquoise-600;
-  width: $dt-checkbox-size - 4;
-  height: $dt-checkbox-size - 4;
-  transition:
-    stroke-dashoffset 150ms cubic-bezier(0.14, 0, 0, 1),
-    transform 150ms cubic-bezier(0.14, 0, 0, 1);
-  stroke-dashoffset: 560;
-
-  :host.dt-checkbox-disabled & {
-    stroke: $disabledcolor;
-  }
-}
-
 .dt-checkbox-caption {
   font-size: 14px;
   padding-right: 20px;
@@ -75,33 +55,78 @@ $dt-checkbox-size: 20px;
   }
 }
 
-:host.dt-checkbox-anim-unchecked-checked .dt-checkbox-checkmark svg {
-  stroke-dashoffset: 0;
-  transform: rotate(0);
+.dt-checkbox-icon {
+  width: $dt-checkbox-size - 4;
+  height: $dt-checkbox-size - 4;
 }
 
-// TODO: animations
-:host.dt-checkbox-anim-checked-unchecked .dt-checkbox-checkmark svg {
+.dt-checkbox-icon svg {
+  display: block;
+  stroke: $turquoise-600;
+  width: $dt-checkbox-size - 4;
+  height: $dt-checkbox-size - 4;
+
+  :host.dt-checkbox-disabled & {
+    stroke: $disabledcolor;
+  }
+}
+.dt-checkbox-checkmark,
+.dt-checkbox-indeterminate {
+  animation-fill-mode: forwards;
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.14, 0, 0, 1);
+}
+
+.dt-checkbox-checkmark {
   stroke-dashoffset: 560;
-  transform: rotate(0);
 }
 
-:host.dt-checkbox-anim-unchecked-indeterminate .dt-checkbox-checkmark svg {
-  stroke-dashoffset: -176;
-  transform: rotate(49deg) translate(-1px, 1px);
+.dt-checkbox-indeterminate {
+  stroke-dashoffset: 352;
 }
 
-:host.dt-checkbox-anim-checked-indeterminate .dt-checkbox-checkmark svg {
-  stroke-dashoffset: -176;
-  transform: rotate(49deg) translate(-1px, 1px);
+@keyframes dt-checkbox-check {
+  0% { stroke-dashoffset: 560; }
+  100% { stroke-dashoffset: 0; }
 }
 
-:host.dt-checkbox-anim-indeterminate-unchecked .dt-checkbox-checkmark svg {
-  stroke-dashoffset: 560;
-  transform: rotate(49deg);
+@keyframes dt-checkbox-uncheck {
+  0% { stroke-dashoffset: 1120; }
+  100% { stroke-dashoffset: 560; }
 }
 
-:host.dt-checkbox-anim-indeterminate-checked .dt-checkbox-checkmark svg {
-  stroke-dashoffset: 0;
-  transform: rotate(0);
+@keyframes dt-checkbox-indeterminate {
+  0% { stroke-dashoffset: 352; }
+  100% { stroke-dashoffset: 0; }
 }
+
+@keyframes dt-checkbox-determined {
+  0% { stroke-dashoffset: 704; }
+  100% { stroke-dashoffset: 352; }
+}
+
+:host.dt-checkbox-anim-unchecked-checked .dt-checkbox-checkmark {
+  animation-name: dt-checkbox-check;
+}
+:host.dt-checkbox-anim-checked-unchecked .dt-checkbox-checkmark,
+:host.dt-checkbox-anim-checked-indeterminate .dt-checkbox-checkmark {
+  animation-name: dt-checkbox-uncheck;
+}
+:host.dt-checkbox-anim-unchecked-indeterminate .dt-checkbox-indeterminate {
+  animation-name: dt-checkbox-indeterminate;
+}
+:host.dt-checkbox-anim-checked-indeterminate .dt-checkbox-indeterminate {
+  animation-name: dt-checkbox-indeterminate;
+  animation-delay: 150ms;
+}
+:host.dt-checkbox-anim-indeterminate-checked .dt-checkbox-indeterminate {
+  animation-name: dt-checkbox-determined;
+}
+:host.dt-checkbox-anim-indeterminate-checked .dt-checkbox-checkmark {
+  animation-name: dt-checkbox-check;
+  animation-delay: 150ms;
+}
+:host.dt-checkbox-anim-indeterminate-unchecked .dt-checkbox-indeterminate {
+  animation-name: dt-checkbox-determined;
+}
+
