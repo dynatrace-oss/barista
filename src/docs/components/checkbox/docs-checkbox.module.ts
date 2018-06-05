@@ -5,10 +5,12 @@ import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtCheckboxModule } from '@dynatrace/angular-components';
 import { IndeterminateCheckboxExampleComponent } from './examples/indeterminate-checkbox-example';
+import { DarkCheckboxExample } from './examples/dark-checkbox-example';
 
 const EXAMPLES = [
   DefaultCheckboxExampleComponent,
   IndeterminateCheckboxExampleComponent,
+  DarkCheckboxExample,
 ];
 
 @NgModule({

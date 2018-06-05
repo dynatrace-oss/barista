@@ -1,5 +1,26 @@
 <h1>Checkbox</h1>
 <docs-source-example [example]="examples.default"></docs-source-example>
+<p><code>&lt;dt-checkbox&gt;</code> provides the same functionality as a native enhanced with styling and animations.</p>
 
-<h2>Indeterminate</h2>
+<h2>Indeterminate state</h2>
+<p>
+  <code>&lt;dt-checkbox&gt;</code> supports an indeterminate state, similar to the native <input type="checkbox">.
+  While the indeterminate property of the checkbox is true, it will render as indeterminate regardless of the checked value.
+  Any interaction with the checkbox by a user (i.e., clicking) will remove the indeterminate state.
+</p>
+
 <docs-source-example [example]="examples.indeterminate"></docs-source-example>
+
+Angular forms
+<code>&lt;dt-checkbox&gt;</code> is compatible with @angular/forms and supports both FormsModule and ReactiveFormsModule.
+
+<h2>Accessibility</h2>
+<p>
+  The <code>&lt;dt-checkbox&gt;</code> uses an internal <code>&lt;input type="checkbox"&gt;</code> to provide an accessible experience.
+  This internal checkbox receives focus and is automatically labelled by the text content of the <code>&lt;dt-checkbox&gt;</code> element.
+</p>
+
+<p>Checkboxes without text or labels should be given a meaningful label via <code>aria-label</code> or <code>aria-labelledby</code>.</p>
+
+<h3>Dark</h3>
+<docs-source-example [example]="examples.dark"></docs-source-example>
