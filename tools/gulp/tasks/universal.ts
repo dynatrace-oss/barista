@@ -37,7 +37,7 @@ task('universal:build-app-ts', (done: (() => void)) => {
     const error = red(`Failed to compile lib using ${tsconfigAppPath}`);
     console.error(error);
 
-    return Promise.reject(error);
+    done(error);
   })
   .then(() => {
     done();
