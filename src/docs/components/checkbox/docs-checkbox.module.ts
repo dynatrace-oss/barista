@@ -3,7 +3,7 @@ import { DefaultCheckboxExampleComponent } from './examples/default-checkbox-exa
 import { DocsCheckboxComponent } from './docs-checkbox.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtCheckboxModule } from '@dynatrace/angular-components';
+import { DtCheckboxModule, DtThemingModule } from '@dynatrace/angular-components';
 import { IndeterminateCheckboxExampleComponent } from './examples/indeterminate-checkbox-example';
 import { DarkCheckboxExample } from './examples/dark-checkbox-example';
 
@@ -18,6 +18,7 @@ const EXAMPLES = [
     CommonModule,
     UiModule,
     DtCheckboxModule,
+    DtThemingModule,
   ],
   declarations: [
     ...EXAMPLES,
