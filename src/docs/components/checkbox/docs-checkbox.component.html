@@ -2,6 +2,91 @@
 <docs-source-example [example]="examples.default"></docs-source-example>
 <p><code>&lt;dt-checkbox&gt;</code> provides the same functionality as a native enhanced with styling and animations.</p>
 
+<h2>API</h2>
+
+input	id
+input	required
+input	disabled
+input	checked
+input	value
+input	name
+ouput	change
+
+<h2>Options & Properties</h2>
+
+<h3>Checkbox</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <td width="160px">Name</td>
+      <td width="160px">Type</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ng-content</code></td>
+      <td><code>string</code></td>
+      <td>Text will be set as the label.</td>
+    </tr>
+    <tr>
+      <td><code>@Input() checked</code></td>
+      <td><code>boolean</code></td>
+      <td>Whether or not the checkbox is checked.</td>
+    </tr>
+    <tr>
+      <td><code>@Input() id</code></td>
+      <td><code>string</code></td>
+      <td>Unique id of the element.</td>
+    </tr>
+    <tr>
+      <td><code>@Input() required</code></td>
+      <td><code>boolean</code></td>
+      <td>Whether the checkbox is required.</td>
+    </tr>
+    <tr>
+      <td><code>@Input() indeterminate</code></td>
+      <td><code>boolean</code></td>
+      <td>Whether the element is in indeterminate state also known as mixed mode.</td>
+    </tr>
+    <tr>
+      <td><code>@Input() disabled</code></td>
+      <td><code>boolean</code></td>
+      <td>Whether the element is disabled.</td>
+    </tr>
+    <tr>
+      <td><code>@Input() tabIndex</code></td>
+      <td><code>number</code></td>
+      <td>The elements tab index.</td>
+    </tr>
+    <tr>
+      <td><code>@Input() name</code></td>
+      <td><code>string</code></td>
+      <td>The elements tab index.</td>
+    </tr>
+    <tr>
+      <td><code>@Input() value</code></td>
+      <td><code>&lt;T&gt;</code></td>
+      <td>The value attribute of the native input element</td>
+    </tr>
+    <tr>
+      <td><code>@Input() aria-label</code></td>
+      <td><code>string</code></td>
+      <td>Takes precedence as the element's text alternative.</td>
+    </tr>
+    <tr>
+      <td><code>@Input() aria-labelledby</code></td>
+      <td><code>string</code></td>
+      <td>Is read after the element's label and field type</td>
+    </tr>
+    <tr>
+        <td><code>@Output() change</code></td>
+        <td><code>DtCheckboxChange&lt;T&gt;</code></td>
+        <td>Callen everytime the checkbox gets checked or uncheced</td>
+      </tr>
+  </tbody>
+</table>
+
 <h2>Indeterminate state</h2>
 <p>
   <code>&lt;dt-checkbox&gt;</code> supports an indeterminate state, similar to the native <input type="checkbox">.
