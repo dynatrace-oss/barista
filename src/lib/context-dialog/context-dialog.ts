@@ -27,7 +27,7 @@ import {
   mixinTabIndex,
   mixinDisabled,
 } from '../core/index';
-import { DtContextDialogTrigger} from '@dynatrace/angular-components/context-dialog/context-dialog-trigger';
+import { DtContextDialogTrigger} from './context-dialog-trigger';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialogue');
 const OVERLAY_POSITIONS = [
@@ -133,14 +133,14 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   }
 
   open(): void {
-    this._openClose(true);
+    this._setOpen(true);
   }
 
   close(): void {
-    this._openClose(false);
+    this._setOpen(false);
   }
 
-  private _openClose(open: boolean): void {
+  private _setOpen(open: boolean): void {
     this._panelOpen = open;
     this.openedChange.emit(open);
     if (this._panelOpen) {
@@ -148,7 +148,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     } else {
       this._restoreFocus();
     }
-    this._changeDetectorRef.detectChanges();
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Focuses the context-dialog element. */
@@ -196,7 +196,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   _registerTrigger(trigger: DtContextDialogTrigger): void {
     if (this.hasCustomTrigger) {
-      LOG.debug('Already has a custom trigger registered', Error);
+      LOG.debug('Already has a custom trigger registered');
     }
     this._trigger = trigger;
     this._changeDetectorRef.markForCheck();
@@ -204,7 +204,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   _unregisterTrigger(trigger: DtContextDialogTrigger): void {
     if (this._trigger !== trigger) {
-      LOG.debug('Trying to unregister a trigger that is not assigned', Error);
+      LOG.debug('Trying to unregister a trigger that is not assigned');
     }
     this._trigger = this._defaultTrigger;
     this._changeDetectorRef.markForCheck();
