@@ -19,7 +19,7 @@ task('test:build', process.env.SKIP_BUILD === 'true'? []: ['library:build'], (do
     const error = red(`Failed to compile lib using ${tsConfig}`);
     console.error(error);
 
-    return Promise.reject(error);
+    done(error);
   })
   .then(() => {
     done();
