@@ -75,7 +75,6 @@ describe('DtCheckbox', () => {
     it('should add and remove indeterminate state', () => {
       expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-checked');
       expect(inputElement.checked).toBe(false);
-      // expect(inputElement.indeterminate).toBe(false);
       expect(inputElement.getAttribute('aria-checked')).toBe('false', 'Expect aria-checked to be false');
 
       testComponent.isIndeterminate = true;
@@ -83,7 +82,6 @@ describe('DtCheckbox', () => {
 
       expect(checkboxNativeElement.classList).toContain('dt-checkbox-indeterminate');
       expect(inputElement.checked).toBe(false);
-      // expect(inputElement.indeterminate).toBe(true);
       expect(inputElement.getAttribute('aria-checked'))
         .toBe('mixed', 'Expect aria checked to be mixed for indeterminate checkbox');
 
@@ -92,7 +90,6 @@ describe('DtCheckbox', () => {
 
       expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-indeterminate');
       expect(inputElement.checked).toBe(false);
-      // expect(inputElement.indeterminate).toBe(false);
     });
 
     it('should set indeterminate to false when input clicked', fakeAsync(() => {
@@ -100,7 +97,6 @@ describe('DtCheckbox', () => {
       fixture.detectChanges();
 
       expect(checkboxInstance.indeterminate).toBe(true);
-      // expect(inputElement.indeterminate).toBe(true);
       expect(testComponent.isIndeterminate).toBe(true);
 
       inputElement.click();
@@ -114,7 +110,6 @@ describe('DtCheckbox', () => {
       fixture.detectChanges();
 
       expect(checkboxInstance.checked).toBe(true);
-      // expect(inputElement.indeterminate).toBe(false);
       expect(inputElement.checked).toBe(true);
       expect(testComponent.isIndeterminate).toBe(false);
 
@@ -122,7 +117,6 @@ describe('DtCheckbox', () => {
       fixture.detectChanges();
 
       expect(checkboxInstance.indeterminate).toBe(true);
-      // expect(inputElement.indeterminate).toBe(true);
       expect(inputElement.checked).toBe(true);
       expect(testComponent.isIndeterminate).toBe(true);
       expect(inputElement.getAttribute('aria-checked'))
@@ -139,7 +133,6 @@ describe('DtCheckbox', () => {
       fixture.detectChanges();
 
       expect(checkboxInstance.checked).toBe(false);
-      // expect(inputElement.indeterminate).toBe(false);
       expect(inputElement.checked).toBe(false);
       expect(testComponent.isIndeterminate).toBe(false);
     }));
@@ -149,14 +142,12 @@ describe('DtCheckbox', () => {
       fixture.detectChanges();
 
       expect(checkboxInstance.indeterminate).toBe(true);
-      // expect(inputElement.indeterminate).toBe(true);
       expect(testComponent.isIndeterminate).toBe(true);
 
       testComponent.isChecked = true;
       fixture.detectChanges();
 
       expect(checkboxInstance.checked).toBe(true);
-      // expect(inputElement.indeterminate).toBe(true);
       expect(inputElement.checked).toBe(true);
       expect(testComponent.isIndeterminate).toBe(true);
 
@@ -164,7 +155,6 @@ describe('DtCheckbox', () => {
       fixture.detectChanges();
 
       expect(checkboxInstance.checked).toBe(false);
-      // expect(inputElement.indeterminate).toBe(true);
       expect(inputElement.checked).toBe(false);
       expect(testComponent.isIndeterminate).toBe(true);
     });

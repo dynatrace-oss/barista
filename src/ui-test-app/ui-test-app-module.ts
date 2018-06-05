@@ -8,6 +8,7 @@ import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
 import {
   DtButtonModule,
   DtButtonGroupModule,
+  DtCheckboxModule,
   DtExpandableSectionModule,
   DtExpandablePanelModule,
   DtTileModule,
@@ -25,6 +26,7 @@ import { ContextDialogUI } from './context-dialog/context-dialog-ui';
 import { RadioUI } from './radio/radio.ui';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
+import { CheckboxUI } from './checkbox/checkbox-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -33,6 +35,7 @@ import { ShowMoreUI } from './show-more/show-more-ui';
   exports: [
     DtButtonModule,
     DtButtonGroupModule,
+    DtCheckboxModule,
     DtExpandablePanelModule,
     DtExpandableSectionModule,
     DtTileModule,
@@ -58,6 +61,7 @@ export class DynatraceAngularCompModule {}
     Home,
     ButtonUI,
     ButtonGroupUi,
+    CheckboxUI,
     ExpandablePanelUi,
     ExpandableSectionUi,
     RadioUI,
