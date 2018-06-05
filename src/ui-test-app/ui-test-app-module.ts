@@ -12,6 +12,7 @@ import {
   DtExpandablePanelModule,
   DtTileModule,
   DtContextDialogModule,
+  DtRadioModule,
   DtShowMoreModule,
 } from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
@@ -20,6 +21,7 @@ import { ExpandableSectionUi } from './expandable-section/expandable-section-ui'
 import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
+import { RadioUI } from './radio/radio.ui';
 import { ShowMoreUI } from './show-more/show-more-ui';
 
 /**
@@ -33,6 +35,7 @@ import { ShowMoreUI } from './show-more/show-more-ui';
     DtExpandableSectionModule,
     DtTileModule,
     DtContextDialogModule,
+    DtRadioModule,
     DtShowMoreModule,
   ],
 })
@@ -53,6 +56,7 @@ export class DynatraceAngularCompModule {}
     ButtonGroupUi,
     ExpandablePanelUi,
     ExpandableSectionUi,
+    RadioUI,
     TileUI,
     ContextDialogUI,
     ShowMoreUI,
