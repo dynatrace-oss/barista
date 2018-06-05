@@ -12,6 +12,7 @@ import {
   DtExpandablePanelModule,
   DtTileModule,
   DtContextDialogModule,
+  DtIconModule,
 } from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
@@ -19,6 +20,7 @@ import { ExpandableSectionUi } from './expandable-section/expandable-section-ui'
 import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
+import { HttpClientModule } from '@angular/common/http';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -42,6 +44,8 @@ export class DynatraceAngularCompModule {}
     DynatraceAngularCompModule,
     NoopAnimationsModule,
     ReactiveFormsModule,
+    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
+    HttpClientModule,
   ],
   declarations: [
     UIApp,

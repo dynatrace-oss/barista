@@ -56,7 +56,6 @@ export const _DtContextDialogMixinBase = mixinTabIndex(mixinDisabled(DtContextDi
   styleUrls: ['context-dialog.scss'],
   host: {
     'class': 'dt-context-dialog',
-    '[class.dt-context-dialog-panel]': 'opened',
     '[attr.aria-disabled]': 'disabled.toString()',
     'attr.aria-hidden': 'true',
   },
