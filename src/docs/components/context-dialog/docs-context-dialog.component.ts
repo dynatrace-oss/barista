@@ -15,8 +15,8 @@ export class DocsContextDialogComponent {
   examples = {
     default: DefaultContextDialogExampleComponent,
     prevFocus: PrevFocusContextDialogExampleComponent,
-    CustomIcon: CustomIconContextDialogExampleComponent,
+    customIcon: CustomIconContextDialogExampleComponent,
     dark: DarkContextDialogExampleComponent,
-    Interactive: InteractiveContextDialogExampleComponent,
+    interactive: InteractiveContextDialogExampleComponent,
   };
 }
