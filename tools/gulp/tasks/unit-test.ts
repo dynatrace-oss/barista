@@ -12,7 +12,7 @@ const defaultOptions = {
   singleRun: false,
 };
 
-task('test:build', process.env.SKIP_BUILD === 'true'? []: ['library:build'], (done) => {
+task('test:build', process.env.SKIP_BUILD === 'true'? []: ['library:build'], (done: ((err?: any) => void)) => {
   const tsConfig = join(buildConfig.libDir, 'tsconfig-test.json');
   ngcCompile(['-p', tsConfig])
   .catch(() => {

@@ -21,7 +21,7 @@ task('ui-test-app:build', sequenceTask(
   'ui-test-app:build-ts',
 ));
 
-task('ui-test-app:build-ts', (done) => {
+task('ui-test-app:build-ts', (done: ((err?: any) => void)) => {
   const tsConfig = join(buildConfig.uiTestAppOutputDir, 'tsconfig-build.json');
   ngcCompile(['-p', tsConfig])
   .catch(() => {
