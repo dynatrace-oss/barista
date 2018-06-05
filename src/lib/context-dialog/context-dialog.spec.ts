@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtContextDialog, DtContextDialogModule, DtContextDialogTrigger, DtIconModule,
@@ -53,7 +53,7 @@ describe('DtContextDialog', () => {
         it('should set the role of the overlay to dialog', fakeAsync(() => {
           fixture.componentInstance.contextDialog.open();
           fixture.detectChanges();
-          flush();
+          tick();
           const contextMenuPanel = fixture.debugElement
             .query(By.css('.dt-context-dialog-panel')).nativeElement;
           expect(contextMenuPanel.getAttribute('role')).toEqual('dialog');
@@ -62,7 +62,7 @@ describe('DtContextDialog', () => {
         it('should have the dark theme class on the panel', fakeAsync(() => {
           fixture.componentInstance.contextDialog.open();
           fixture.detectChanges();
-          flush();
+          tick();
           const contextDialogPanel = fixture.debugElement
             .query(By.css('.dt-context-dialog-panel')).nativeElement;
           expect(contextDialogPanel.classList.contains('dt-theme-dark')).toEqual(true);
@@ -102,9 +102,9 @@ describe('DtContextDialog', () => {
 
         it('should be able to focus the context dialog default trigger', fakeAsync(() => {
           document.body.focus(); // ensure that focus isn't on the trigger already
-          flush();
+          tick();
           fixture.componentInstance.contextDialog.focus();
-          flush();
+          tick();
 
           expect(document.activeElement)
             .toBe(contextDialogDefaultTrigger, 'Expected context Dialog trigger to be focused.');
@@ -127,7 +127,7 @@ describe('DtContextDialog', () => {
 
           const  contextDialogCustomTrigger = fixture.debugElement.query(By.directive(DtContextDialogTrigger));
           contextDialogCustomTrigger.nativeElement.click();
-          flush();
+          tick();
           expect(fixture.componentInstance.contextDialog.isPanelOpen)
             .toBeTruthy('Expected the custom trigger to open the context dialog');
         }));
@@ -137,12 +137,27 @@ describe('DtContextDialog', () => {
           fixture.detectChanges();
           const  contextDialogCustomTrigger = fixture.debugElement.query(By.directive(DtContextDialogTrigger)).nativeElement;
           document.body.focus(); // ensure that focus isn't on the trigger already
-          flush();
+          tick();
           fixture.componentInstance.contextDialog.focus();
-          flush();
+          tick();
 
           expect(document.activeElement)
             .toBe(contextDialogCustomTrigger, 'Expected context Dialog custom trigger to be focused.');
+        }));
+
+        it('should be able to unregister a custom trigger', fakeAsync(() => {
+          fixture.componentInstance.customTrigger = true;
+          fixture.detectChanges();
+          expect(fixture.componentInstance.contextDialog.trigger)
+            .toBe(fixture.componentInstance.contextDialogTrigger, 'Expected context Dialog custom trigger to be assigned.');
+          fixture.componentInstance.contextDialogTrigger._unregisterFromDialog();
+          fixture.detectChanges();
+          const contextDialogDefaultTriggerComponent = fixture.componentInstance.contextDialog._defaultTrigger;
+
+          expect(contextDialogDefaultTrigger.hidden)
+            .toBeFalsy('Expected to show default trigger button');
+          expect(fixture.componentInstance.contextDialog.trigger)
+            .toBe(contextDialogDefaultTriggerComponent, 'Expected context Dialog default trigger to be assigned.');
         }));
       });
     });
