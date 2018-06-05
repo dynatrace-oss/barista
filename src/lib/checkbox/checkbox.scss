@@ -1,5 +1,7 @@
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './checkbox-theme';
 
 $dt-checkbox-size: 20px;
 
@@ -130,3 +132,7 @@ $dt-checkbox-size: 20px;
   animation-name: dt-checkbox-determined;
 }
 
+// Apply the checkbox theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-checkbox($dt-current-theme);
+}
