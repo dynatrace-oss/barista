@@ -60,8 +60,8 @@ export const DT_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
 };
 
 /** Change event object emitted by DtCheckbox */
-export interface DtCheckboxChange {
-  source: DtCheckbox;
+export interface DtCheckboxChange<T> {
+  source: DtCheckbox<T>;
   checked: boolean;
 }
 
@@ -89,7 +89,7 @@ export const _DtCheckboxMixinBase = mixinTabIndex(mixinDisabled(DtCheckboxBase))
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtCheckbox extends _DtCheckboxMixinBase
+export class DtCheckbox<T> extends _DtCheckboxMixinBase
   implements CanDisable, HasTabIndex, AfterViewInit, OnDestroy, ControlValueAccessor {
 
   /** Whether or not the checkbox is checked. */
@@ -99,10 +99,8 @@ export class DtCheckbox extends _DtCheckboxMixinBase
     const coercedValue = coerceBooleanProperty(value);
     if (coercedValue !== this._checked) {
       this._checked = coercedValue;
-      if (!this.indeterminate) {
-        this._transitionCheckState(
-          this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
-      }
+      this._transitionCheckState(
+        this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -117,11 +115,24 @@ export class DtCheckbox extends _DtCheckboxMixinBase
   get required(): boolean { return this._required; }
   set required(value: boolean) { this._required = coerceBooleanProperty(value); }
 
+  /**
+   * Whether the checkbox is disabled. This fully overrides the implementation provided by
+   * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
+   */
+  @Input()
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    if (value !== this.disabled) {
+      this._disabled = value;
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
   /** Name value will be applied to the input element if present */
   @Input() name: string | null = null;
 
   /** The value attribute of the native input element */
-  @Input() value: string;
+  @Input() value: T;
 
   /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
   // tslint:disable-next-line:no-input-rename
@@ -156,7 +167,7 @@ export class DtCheckbox extends _DtCheckboxMixinBase
 
   /** Event emitted when the checkbox's `checked` value changes. */
   // tslint:disable-next-line:no-output-named-after-standard-event
-  @Output() readonly change = new EventEmitter<DtCheckboxChange>();
+  @Output() readonly change = new EventEmitter<DtCheckboxChange<T>>();
 
   /** Event emitted when the checkbox's `indeterminate` value changes. */
   @Output() readonly indeterminateChange = new EventEmitter<boolean>();
@@ -173,6 +184,7 @@ export class DtCheckbox extends _DtCheckboxMixinBase
   private _uid = `dt-checkbox-${nextUniqueId++}`;
   private _id: string;
   private _required: boolean;
+  private _disabled = false;
   private _indeterminate = false;
   private _currentCheckState: TransitionCheckState = TransitionCheckState.Init;
   private _currentAnimationClass = '';
@@ -254,6 +266,11 @@ export class DtCheckbox extends _DtCheckboxMixinBase
   /** Implemented as a part of ControlValueAccessor. */
   registerOnTouched(fn: () => void = () => { }): void {
     this._onTouched = fn;
+  }
+
+  /** Implemented as a part of ControlValueAccessor. */
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   private _onInputFocusChange(focusOrigin: FocusOrigin): void {
