@@ -26,6 +26,7 @@ import { DocsIconModule } from './components/icon/docs-icon.module';
 import { DocsShowMoreModule } from './components/show-more/docs-show-more.module';
 import { FormsModule } from '@angular/forms';
 import {DtThemingModule} from '@dynatrace/angular-components';
+import { DocsRadioModule } from './components/radio/docs-radio.module';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import {DtThemingModule} from '@dynatrace/angular-components';
     DocsAlertModule,
     DocsShowMoreModule,
     DtThemingModule,
+    DocsRadioModule,
   ],
   declarations: [
     Docs,

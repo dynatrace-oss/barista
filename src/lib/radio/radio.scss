@@ -1,0 +1,101 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './radio-theme';
+
+
+$dt-radio-size: 20px;
+
+:host {
+  display: inline-block;
+}
+
+:host:not(.dt-radio-disabled) {
+  cursor: pointer;
+}
+
+:host.dt-radio-disabled, :host.dt-radio-disabled .dt-radio-label {
+  cursor: default;
+}
+
+.dt-radio-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.dt-radio-container {
+  display: inline-block;
+  position: relative;
+  width: $dt-radio-size;
+  height: $dt-radio-size;
+  flex-shrink: 0;
+}
+
+// The outer circle for the radio, always present.
+.dt-radio-outer-circle {
+  display: block;
+  width: $dt-radio-size;
+  height: $dt-radio-size;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  border: solid 2px $turquoise-600;
+  transition: border-color ease 280ms;
+
+  :host.dt-radio-disabled & {
+    border-color: $disabledcolor;
+  }
+
+  :host:not(.dt-radio-disabled):hover & {
+    border-color: $turquoise-700;
+  }
+
+  :host.dt-radio-focused:not(.dt-radio-disabled) & {
+    @include dt-focus-style();
+  }
+}
+
+.dt-radio-inner-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width:  $dt-radio-size;
+  height:  $dt-radio-size;
+  border-radius: 50%;
+  background-color: $turquoise-600;
+  transition: transform ease 280ms, background-color ease 280ms;
+
+  // Note: This starts from 0.001 instead of 0, because transitioning from 0 to 0.5 causes
+  // IE to flash the entire circle for a couple of frames, throwing off the entire animation.
+  transform: scale(0.001);
+
+  :host.dt-radio-checked & {
+    transform: scale(0.5);
+  }
+
+  :host:not(.dt-radio-disabled):hover & {
+    background-color: $turquoise-700;
+  }
+}
+
+.dt-radio-label-content {
+  display: inline-block;
+  font-family: $mainfont;
+  font-size: 14px;
+  padding-left: 8px;
+
+  :host.dt-radio-disabled & {
+    color: $disabledcolor;
+  }
+}
+
+
+// Apply the radio theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-radio($dt-current-theme);
+}
