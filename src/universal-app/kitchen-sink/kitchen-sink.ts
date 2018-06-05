@@ -11,6 +11,8 @@ import {
   DtButtonGroupModule,
   DtTableModule,
   DtTagModule,
+  // DtIconModule,
+  DtRadioModule,
   DtShowMoreModule,
 } from '@dynatrace/angular-components';
 
@@ -38,6 +40,7 @@ export class KitchenSink {
     DtCardModule,
     DtContextDialogModule,
     DtButtonGroupModule,
+    DtRadioModule,
     DtShowMoreModule,
     // TODO @thomaspink: Add again if universal supports XHR.
     // Issue: ***REMOVED***/***REMOVED***

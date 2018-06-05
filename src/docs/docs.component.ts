@@ -21,6 +21,7 @@ export class Docs {
     {name: 'Input', route: '/input'},
     {name: 'Links', route: '/links'},
     {name: 'Loading distractor', route: '/loading-distractor'},
+    {name: 'Radio', route: '/radio'},
     {name: 'Show more', route: '/show-more'},
     {name: 'Table', route: '/table'},
     {name: 'Tag', route: '/tag'},

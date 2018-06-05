@@ -1,0 +1,25 @@
+<label [attr.for]="_inputId" class="dt-radio-label" #label>
+  <input #input
+    class="dt-radio-input cdk-visually-hidden"
+    type="radio"
+    [id]="_inputId"
+    [checked]="checked"
+    [disabled]="disabled"
+    [tabIndex]="tabIndex"
+    [attr.name]="name"
+    [required]="required"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledby"
+    [attr.aria-describedby]="ariaDescribedby"
+    (change)="_onInputChange($event)"
+    (click)="_onInputClick($event)">
+  <div class="dt-radio-container">
+    <div class="dt-radio-outer-circle"></div>
+    <div class="dt-radio-inner-circle"></div>
+  </div>
+  <div class="dt-radio-label-content">
+    <!-- Add an invisible span so JAWS can read the label -->
+    <span style="display:none">&nbsp;</span>
+    <ng-content></ng-content>
+  </div>
+</label>
