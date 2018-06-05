@@ -2,7 +2,7 @@ import { Provider, Optional, SkipSelf, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { finalize, share, map, tap } from 'rxjs/operators';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
@@ -69,7 +69,7 @@ export class DtIconRegistry {
   private _getSvgFromConfig(config: SvgIconConfig): Observable<SVGElement> {
     if (config.svgElement) {
       // We already have the SVG element for this icon, return a copy.
-      return observableOf(cloneSvg(config.svgElement));
+      return of(cloneSvg(config.svgElement));
     } else {
       // Fetch the icon from the config's URL, cache it, and return a copy.
       return this._loadSvgIconFromConfig(config).pipe(
