@@ -16,6 +16,10 @@ $dialog-max-width: 328px;
   max-width: $dialog-max-width;
 }
 
+.dt-context-dialog-trigger[hidden] {
+  display: none;
+}
+
 // this very specific selector is necessary to override the emulated button styles
 [dt-icon-button].dt-context-dialog-close-trigger {
   border: none;
@@ -36,59 +40,4 @@ $dialog-max-width: 328px;
 .dt-context-dialog-panel-bottom .dt-context-dialog-close-trigger {
   top: auto;
   bottom: 0;
-}
-
-// TODO @thomas.pink: remove after icon has been implemented
-$dt-icon-size-small: 20px;
-
-.dt-context-dialog-open-trigger .dt-icon, .dt-context-dialog-close-trigger .dt-icon {
-  display: inline-block;
-  margin-top: 5px;
-  vertical-align: top;
-  width: $dt-icon-size-small;
-  height: $dt-icon-size-small;
-}
-
-// TODO @thomas.pink: Remove this once theming is in place
-@function dt-palette($default, $hover, $active) {
-  $result: (
-    default: $default,
-    hover: $hover,
-    active: $active,
-  );
-  @return $result;
-}
-$theme-light: (
-  main: dt-palette($turquoise-600, $turquoise-700, $turquoise-800),
-  is-dark: false
-);
-$theme-dark: (
-  main: dt-palette($turquoise-500, $turquoise-400, $turquoise-300),
-  is-dark: true
-);
-
-@mixin dt-context-dialog-theme($theme) {
-  $palette: map-get($theme, 'main');
-  $is-dark: map-get($theme, 'is-dark');
-
-  .dt-context-dialog-open-trigger .dt-icon svg {
-    fill: map-get($palette, 'default');
-  }
-
-  @if $is-dark == true {
-    .dt-context-dialog-open-trigger .dt-icon svg {
-      fill: #fff;
-    }
-  }
-}
-
-@include dt-context-dialog-theme($theme-light);
-:host-context(.dt-theme-dark) {
-
-  @include dt-context-dialog-theme($theme-dark);
-
-}
-
-.dt-context-dialog-close-trigger .dt-icon {
-  fill: #fff;
 }

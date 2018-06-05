@@ -86,6 +86,7 @@ describe('DtShowMore', () => {
 
       instanceElement.dispatchEvent(event);
 
+      // tslint:disable-next-line:no-unbound-method
       expect(event.preventDefault).toHaveBeenCalled();
     });
 
