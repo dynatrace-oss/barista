@@ -28,7 +28,7 @@ export class IndeterminateCheckboxExampleComponent {
     return this._checkbox1 && this._checkbox2;
   }
 
-  changeAll(event: DtCheckboxChange): void {
+  changeAll(event: DtCheckboxChange<string>): void {
     this._checkbox1 = event.checked;
     this._checkbox2 = event.checked;
   }
