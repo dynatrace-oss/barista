@@ -4,6 +4,7 @@ import {ServerModule} from '@angular/platform-server';
 import {
   DtAlertModule,
   DtButtonModule,
+  DtCheckboxModule,
   DtLoadingDistractorModule,
   DtTileModule,
   DtCardModule,
@@ -34,6 +35,7 @@ export class KitchenSink {
     BrowserModule.withServerTransition({appId: 'kitchen-sink'}),
     DtAlertModule,
     DtButtonModule,
+    DtCheckboxModule,
     DtTableModule,
     DtLoadingDistractorModule,
     DtTileModule,
