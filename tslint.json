@@ -19,7 +19,6 @@
     ],
     "completed-docs": false,
     "curly": true,
-    "cyclomatic-complexity": false,
     "eofline": true,
     "interface-name": [
       true,

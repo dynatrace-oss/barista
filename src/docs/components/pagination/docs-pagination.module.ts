@@ -7,7 +7,6 @@ import { DefaultPaginationExampleComponent } from './examples/default-pagination
 import {ManyPaginationExampleComponent} from './examples/many-pagination-example.component';
 import {DarkThemePaginationExampleComponent} from './examples/darktheme-pagination-example.component';
 
-
 const EXAMPLES = [
   DefaultPaginationExampleComponent,
   ManyPaginationExampleComponent,
