@@ -3,7 +3,7 @@ import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {DtShowMoreModule, DtShowMore, DtIconModule} from '@dynatrace/angular-components';
 import {HttpClientModule} from '@angular/common/http';
-import {ENTER} from '@angular/cdk/keycodes';
+import {ENTER, SPACE} from '@angular/cdk/keycodes';
 
 describe('DtShowMore', () => {
   beforeEach(async(() => {
@@ -69,6 +69,24 @@ describe('DtShowMore', () => {
       instanceElement.dispatchEvent(event);
 
       expect(testComponent.eventsFired).toBe(1);
+    });
+
+    it('should prevent space key', () => {
+      expect(testComponent.eventsFired).toBe(0);
+
+      const event = new KeyboardEvent('keydown', {
+        key: 'Space',
+      });
+      spyOn(event, 'preventDefault');
+
+      // tslint:disable-next-line:no-any
+      const anyEvent = event as any;
+      delete anyEvent.keyCode;
+      Object.defineProperty(anyEvent, 'keyCode', {value: SPACE});
+
+      instanceElement.dispatchEvent(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
     });
 
   });
