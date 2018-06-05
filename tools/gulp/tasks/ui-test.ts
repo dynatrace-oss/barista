@@ -28,7 +28,7 @@ task('ui-test-app:build-ts', (done) => {
     const error = red(`Failed to compile lib using ${tsConfig}`);
     console.error(error);
 
-    return Promise.reject(error);
+    done(error);
   })
   .then(() => {
     done();
