@@ -40,7 +40,7 @@ task(':schematics:copy', () =>
   .pipe(dest(SCHEMATICS_OUTDIR)));
 
 /** Runs tsc compilation */
-task(':schematics:compile', (done) => {
+task(':schematics:compile', (done: ((err?: any) => void)) => {
   tscCompile(['-p', SCHEMATICS_CONFIG_PATH])
   .catch(() => {
     const error = red(`Failed to compile schematics using ${SCHEMATICS_CONFIG_PATH}`);
