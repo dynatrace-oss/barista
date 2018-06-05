@@ -97,9 +97,16 @@ Context dialogs should be given a meaningful label via aria-label, because the b
 </table>
 
 <h2>Examples</h2>
-<h3>Context dialog on dark background</h3>
-<docs-source-example [example]="examples.dark"></docs-source-example>
-
 <h3>Focus previously focused element on close</h3>
 <p>To show the previous focused element working - please use the button labeled "Open" and not the button with the icon to open the context dialog</p>
 <docs-source-example [example]="examples.prevFocus"></docs-source-example>
+
+<h3>Context dialog with custom icon</h3>
+<p>To add a custom icon use the <code>&lt;dt-button dt-icon-button&gt;&lt;/dt-button&gt;</code> component and add the directive <code>[dtContextDialogTrigger]</code> to be able to link it to the correct context dialog.</p>
+<docs-source-example [example]="examples.customIcon"></docs-source-example>
+
+<h3>Context dialog on dark background</h3>
+<docs-source-example [example]="examples.dark"></docs-source-example>
+
+<h3>Interactive</h3>
+<docs-source-example [example]="examples.interactive"></docs-source-example>
