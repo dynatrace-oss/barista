@@ -4,25 +4,12 @@ import {
   ViewEncapsulation, Input, ChangeDetectorRef, Output, EventEmitter,
 } from '@angular/core';
 import {OnInit} from '@angular/core/src/metadata/lifecycle_hooks';
+import {calculatePaginationState} from './pagination-state';
 
 /* Component-internal data-structure */
-export type PaginationNumberType = [number, 'normal' | 'active' | 'ellipsis'];
-
-const enum Constants {
-  MAX_ALL_ITEMS = 7,
-  LEFT_BORDER = 3,
-  LEFT_BORDER_PLUS = 4,
-  RIGHT_BORDER_DIFF = 2,
-  RIGHT_BORDER_PLUS_DIFF = 3,
-}
-const enum DisplayState {
-  All,               // 1 (2) 3 4 5
-  Outside,           // 1 (2) 3 ... 84 85 86
-  LeftExtended,      // 1 2 (3) 4 ... 85 86
-  LeftExtendedPlus,  // 1 2 3 (4) 5 ... 86
-  RightExtended,     // 1 2 ... 83 (84) 85 86
-  RightExtendedPlus, // 1 ... (83) 84 85 86
-  Middle,            // 1 ... 54 (55) 56 ... 86
+export interface PaginationNumberType {
+  page: number;
+  state: 'normal' | 'active' | 'ellipsis';
 }
 
 @Component({
@@ -92,56 +79,25 @@ export class DtPagination implements OnInit {
     this._rightArrowActive = this._numbers && !!this.maxPages && this.currentPage < this.maxPages;
   }
 
-  private _calculateDisplayState(): DisplayState {
-    const max: number = this._maxPages || 0;
-    const current = this.currentPage;
-
-    if (max > Constants.MAX_ALL_ITEMS) {
-      if (current === Constants.LEFT_BORDER) {
-        return DisplayState.LeftExtended;
-      } else if (current === Constants.LEFT_BORDER_PLUS) {
-          return DisplayState.LeftExtendedPlus;
-      } else if (current === (max - Constants.RIGHT_BORDER_DIFF)) {
-        return DisplayState.RightExtended;
-      } else if (current === (max - Constants.RIGHT_BORDER_PLUS_DIFF)) {
-        return DisplayState.RightExtendedPlus;
-      } else if (current <= Constants.LEFT_BORDER || current >= (max - Constants.RIGHT_BORDER_DIFF)) {
-        return DisplayState.Outside;
-      } else {
-        return DisplayState.Middle;
-      }
-    }
-    return DisplayState.All;
-  }
-
   private _calculateNumbers(): PaginationNumberType[] {
     const max: number = this._maxPages || 0;
 
     const newNumbers: PaginationNumberType[] = [];
     const current = this.currentPage;
 
-    const displayState = this._calculateDisplayState();
+    const paginationState = calculatePaginationState(current, max);
 
     let lastEllipsis = false;
 
     for (let i = 1; i <= max; i++) {
 
-      const shouldDisplay = displayState === DisplayState.All
-        || (displayState === DisplayState.Outside && i <= Constants.LEFT_BORDER)
-        || (displayState === DisplayState.Outside && i >= (max - Constants.RIGHT_BORDER_DIFF))
-        || (displayState === DisplayState.LeftExtended
-          && (i <= (Constants.LEFT_BORDER + 1) || i > (max - Constants.RIGHT_BORDER_DIFF)))
-        || (displayState === DisplayState.LeftExtendedPlus
-          && (i <= (Constants.LEFT_BORDER_PLUS + 1) || i > (max - Constants.RIGHT_BORDER_DIFF + 1)))
-        || (displayState === DisplayState.RightExtended
-          && (i < (Constants.LEFT_BORDER) || i >= (max - Constants.RIGHT_BORDER_DIFF - 1)))
-        || (displayState === DisplayState.RightExtendedPlus
-          && (i < (Constants.LEFT_BORDER - 1) || i >= (max - Constants.RIGHT_BORDER_PLUS_DIFF - 1)))
-        || (displayState === DisplayState.Middle && (i === 1 || i === max || Math.abs(current - i) <= 1))
-      ;
+      const shouldDisplay = paginationState(i, current, max);
 
       if (shouldDisplay || !lastEllipsis) {
-        newNumbers.push([i, shouldDisplay ? (i === current ? 'active' : 'normal') : 'ellipsis']);
+        newNumbers.push({
+            page: i,
+            state: shouldDisplay ? (i === current ? 'active' : 'normal') : 'ellipsis',
+          });
         lastEllipsis = !shouldDisplay;
       }
     }
@@ -155,9 +111,9 @@ export class DtPagination implements OnInit {
   }
 
   _handleNumberClick(paginationNumber: PaginationNumberType): void {
-    if (paginationNumber[1] === 'normal') {
-      this.currentPage = paginationNumber[0];
-      this.changed.emit(paginationNumber[0]);
+    if (paginationNumber.state === 'normal') {
+      this.currentPage = paginationNumber.page;
+      this.changed.emit(paginationNumber.page);
     }
   }
 }

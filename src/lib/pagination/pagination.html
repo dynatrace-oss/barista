@@ -4,18 +4,18 @@
 
 <div class="dt-pagination-numbers">
   <ng-container *ngFor="let number of _numbers" >
-    <ng-container *ngIf="number[1] === 'normal'; else elseBlock">
+    <ng-container *ngIf="number.state === 'normal'; else elseBlock">
       <button dt-button variant="nested" (click)="_handleNumberClick(number)">
-        {{number[0]}}
+        {{number.page}}
       </button>
     </ng-container>
     <ng-template #elseBlock>
       <span
-        [class.dt-pagination-item-ellipsis]="number[1] === 'ellipsis'"
-        [class.dt-pagination-item-active]="number[1] === 'active'"
-        [attr.aria-current]="number[1] === 'active' ? true : undefined"
+        [class.dt-pagination-item-ellipsis]="number.state === 'ellipsis'"
+        [class.dt-pagination-item-active]="number.state === 'active'"
+        [attr.aria-current]="number.state === 'active' ? true : undefined"
       >
-        {{number[1] === 'ellipsis' ? '&hellip;' : number[0]}}
+        {{number.state === 'ellipsis' ? '&hellip;' : number.page}}
       </span>
     </ng-template>
   </ng-container>
