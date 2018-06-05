@@ -46,7 +46,7 @@ task(':schematics:compile', (done) => {
     const error = red(`Failed to compile schematics using ${SCHEMATICS_CONFIG_PATH}`);
     console.error(error);
 
-    return Promise.reject(error);
+    done(error);
   })
   .then(() => {
     done();
