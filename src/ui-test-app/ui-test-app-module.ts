@@ -12,6 +12,7 @@ import {
   DtExpandablePanelModule,
   DtTileModule,
   DtContextDialogModule,
+  DtIconModule,
   DtRadioModule,
   DtShowMoreModule,
 } from '@dynatrace/angular-components';
@@ -22,6 +23,7 @@ import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
 import { RadioUI } from './radio/radio.ui';
+import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
 
 /**
@@ -48,6 +50,8 @@ export class DynatraceAngularCompModule {}
     DynatraceAngularCompModule,
     NoopAnimationsModule,
     ReactiveFormsModule,
+    DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
+    HttpClientModule,
   ],
   declarations: [
     UIApp,
