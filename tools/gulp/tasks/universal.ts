@@ -31,13 +31,13 @@ task('universal:build', sequenceTask(
 ));
 
 /** Task that builds the universal app in the output directory. */
-task('universal:build-app-ts', (done: (() => void)) => {
+task('universal:build-app-ts', (done: ((err?: any) => void)) => {
   ngcCompile(['-p', tsconfigAppPath])
   .catch(() => {
     const error = red(`Failed to compile lib using ${tsconfigAppPath}`);
     console.error(error);
 
-    return Promise.reject(error);
+    done(error);
   })
   .then(() => {
     done();
