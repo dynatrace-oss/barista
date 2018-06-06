@@ -7,6 +7,7 @@ import { ExpandablePanelUi } from '../expandable-panel/expandable-panel-ui';
 import { TileUI } from '../tile/tile-ui';
 import { ContextDialogUI } from '../context-dialog/context-dialog-ui';
 import { RadioUI } from '../radio/radio.ui';
+import { ShowMoreUI } from '../show-more/show-more-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -16,5 +17,6 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'expandable-panel', component: ExpandablePanelUi },
   { path: 'expandable-section', component: ExpandableSectionUi },
   { path: 'radio', component: RadioUI },
+  { path: 'show-more', component: ShowMoreUI },
   { path: 'tile', component: TileUI },
 ];
