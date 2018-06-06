@@ -3,12 +3,14 @@
  */
 export enum Colors {
   WHITE = '#ffffff',
+
   PURPLE_200 = '#debbf3',
   PURPLE_300 = '#c396e0',
   PURPLE_400 = '#a972cc',
   PURPLE_500 = '#9355b7',
   PURPLE_600 = '#7c38a1',
   PURPLE_700 = '#612c85',
+
   ROYALBLUE_200 = '#b9c5ff',
   ROYALBLUE_300 = '#97a9ff',
   ROYALBLUE_400 = '#748cff',
@@ -24,6 +26,21 @@ export enum Colors {
   TURQUOISE_700 = '#00848e',
   TURQUOISE_800 = '#006d75',
   TURQUOISE_900 = '#005559',
+
+  YELLOW_200 = '#FFF29A',
+  YELLOW_300 = '#FFEE7C',
+  YELLOW_600 = '#E6BE00',
+  YELLOW_700 = '#C9A999',
+  YELLOW_800 = '#AB8300',
+  YELLOW_900 = '#8E6500',
+
+  ORANGE_200 = '#FFD0AB',
+  ORANGE_300 = '#FFA86C',
+  ORANGE_400 = '#FD8232',
+  ORANGE_500 = '#EF651F',
+  ORANGE_600 = '#C95218',
+  ORANGE_700 = '#B64915',
+  ORANGE_800 = '#8D380F',
 
   GRAY_100 = '#f8f8f8',
   GRAY_130 = '#f2f2f2',
@@ -85,8 +102,35 @@ const turquoise: ChartColorPalette = {
   ],
 };
 
+const yellow: ChartColorPalette = {
+  single: Colors.YELLOW_600,
+  multi: [
+    Colors.YELLOW_900,
+    Colors.YELLOW_800,
+    Colors.YELLOW_700,
+    Colors.YELLOW_600,
+    Colors.YELLOW_300,
+    Colors.YELLOW_200,
+  ],
+};
+
+const orange: ChartColorPalette = {
+  single: Colors.ORANGE_500,
+  multi: [
+    Colors.ORANGE_800,
+    Colors.ORANGE_700,
+    Colors.ORANGE_600,
+    Colors.ORANGE_500,
+    Colors.ORANGE_400,
+    Colors.ORANGE_300,
+    Colors.ORANGE_200,
+  ],
+};
+
 export const CHART_COLOR_PALETTES = {
   purple,
   royalblue,
   turquoise,
+  yellow,
+  orange,
 };
