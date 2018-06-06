@@ -6,10 +6,21 @@ import {
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
+import {
+  CanDisable,
+  mixinDisabled, mixinTabIndex
+} from '../core/index';
+import {HasTabIndex} from '@dynatrace/angular-components/core';
+
 @Directive({
   selector: `dt-show-less-label`,
 })
 export class DtShowLessLabel { }
+
+export class DtShowMoreBase {
+}
+export const _DtShowMore =
+  mixinTabIndex(mixinDisabled(DtShowMoreBase));
 
 @Component({
   moduleId: module.id,
@@ -17,27 +28,28 @@ export class DtShowLessLabel { }
   exportAs: 'dtShowMore',
   templateUrl: 'show-more.html',
   styleUrls: ['show-more.scss'],
+  inputs: ['disabled', 'tabIndex'],
   host: {
     'class': 'dt-show-more',
-    '[attr.tabindex]': '0',
+    '[attr.tabindex]': 'tabIndex',
     '[class.dt-show-more-show-less]': 'showLess',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtShowMore {
+export class DtShowMore extends _DtShowMore implements CanDisable, HasTabIndex {
 
-  @Output() readonly changed = new EventEmitter<boolean>();
+  @Output() readonly changed = new EventEmitter<void>();
 
   @ContentChild(DtShowLessLabel)
   _lessLabel: DtShowLessLabel;
 
-  private _showLess: boolean;
+  private _showLess = false;
 
   @Input()
   get showLess(): boolean {
-    return this._showLess || false;
+    return this._showLess;
   }
 
   set showLess(value: boolean) {
@@ -66,6 +78,6 @@ export class DtShowMore {
   }
 
   private _fireChange(): void {
-    this.changed.emit(!this.showLess);
+    this.changed.emit();
   }
 }
