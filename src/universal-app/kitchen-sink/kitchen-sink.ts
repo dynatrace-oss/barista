@@ -13,6 +13,7 @@ import {
   DtTagModule,
   DtIconModule,
   DtRadioModule,
+  DtShowMoreModule,
 } from '@dynatrace/angular-components';
 
 @Component({
@@ -41,6 +42,7 @@ export class KitchenSink {
     DtButtonGroupModule,
     DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
     DtRadioModule,
+    DtShowMoreModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
