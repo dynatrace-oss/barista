@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: `
     <div>
-      <button *ngIf="customTrigger" dt-icon-button [dtContextDialogTrigger]="interactiveDialog" variant="secondary">
+      <button *ngIf="customTrigger" dt-icon-button [dtContextDialogTrigger]="interactiveDialog"
+              [disabled]="interactiveDialogDisabled" variant="secondary">
       <dt-icon name="agent"></dt-icon>
     </button>
     <dt-context-dialog #interactiveDialog [disabled]="interactiveDialogDisabled">
