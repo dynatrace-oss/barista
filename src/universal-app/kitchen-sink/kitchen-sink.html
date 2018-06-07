@@ -34,12 +34,7 @@
   <dt-button-group-item>Connectivity</dt-button-group-item>
 </dt-button-group>
 
-<!--
-  TODO @thomaspink: Add again if universal supports XHR.
-  Issue: ***REMOVED***/***REMOVED***
--->
-
-<!-- <dt-show-more></dt-show-more> -->
+<<dt-show-more>Show more</dt-show-more>
 
 <dt-table [dataSource]="tableDataSource">
   <ng-container dtColumnDef="host" dtColumnAlign="text">
@@ -52,6 +47,8 @@
 </dt-table>
 
 <dt-tag>My tag</dt-tag>
+
+<dt-pagination [maxPages]="4"></dt-pagination>
 
 <dt-radio-group name="group0">
   <dt-radio-button value="aberfeldy">Aberfeldy</dt-radio-button>
