@@ -26,6 +26,11 @@
                 "glob": "**",
                 "input": "src/docs/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/assets/icons"
               }
             ],
             "styles": [

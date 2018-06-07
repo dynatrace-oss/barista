@@ -6,10 +6,10 @@ import { Observable, of } from 'rxjs';
 import { finalize, share, map, tap } from 'rxjs/operators';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
-import { DtIconType } from './icon-types';
+import { DtIconPack } from '@dynatrace/dt-iconpack';
 
 interface SvgIconConfig {
-  name: DtIconType;
+  name: DtIconPack.DtIconType;
   svgElement: SVGElement | null;
 }
 
@@ -54,7 +54,7 @@ export class DtIconRegistry {
    *
    * @param name Name of the icon to be retrieved.
    */
-  getNamedSvgIcon(name: DtIconType): Observable<SVGElement> {
+  getNamedSvgIcon(name: DtIconPack.DtIconType): Observable<SVGElement> {
     // Return (copy of) cached icon if possible.
     let config = this._svgIconConfigs.get(name);
 
