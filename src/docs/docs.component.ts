@@ -12,6 +12,7 @@ export class Docs {
     {name: 'Button Group', route: '/button-group'},
     {name: 'Card', route: '/card'},
     {name: 'Chart', route: '/chart'},
+    {name: 'Checkbox', route: '/checkbox'},
     {name: 'Context dialog', route: '/context-dialog'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
