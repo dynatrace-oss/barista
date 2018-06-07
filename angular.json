@@ -46,7 +46,7 @@
             ]
           },
           "configurations": {
-            "production" : {}
+            "production": {}
           }
         },
         "serve": {
@@ -76,6 +76,46 @@
       "root": "",
       "sourceRoot": "",
       "projectType": "application"
+    },
+    "angular-components": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "library",
+      "prefix": "dt",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.json",
+            "project": "src/lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "src/lib/package.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/lib/test.ts",
+            "tsConfig": "src/lib/tsconfig.spec.json",
+            "karmaConfig": "src/lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.json"
+            ],
+            "tslintConfig": "tslint.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "docs",
