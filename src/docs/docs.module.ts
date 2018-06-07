@@ -23,6 +23,7 @@ import { CoreModule } from './core/core.module';
 import { DocsTagModule } from './components/tag/docs-tag.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
 import { DocsIconModule } from './components/icon/docs-icon.module';
+import { DocsPaginationModule } from './components/pagination/docs-pagination.module';
 import { DocsShowMoreModule } from './components/show-more/docs-show-more.module';
 import { FormsModule } from '@angular/forms';
 import {DtThemingModule} from '@dynatrace/angular-components';
@@ -54,6 +55,7 @@ import { DocsProgressCircleModule } from './components/progress-circle/docs-prog
     DocsFormFieldModule,
     DocsTagModule,
     DocsAlertModule,
+    DocsPaginationModule,
     DocsShowMoreModule,
     DtThemingModule,
     DocsRadioModule,

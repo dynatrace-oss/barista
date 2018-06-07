@@ -12,6 +12,7 @@ import {
   DtExpandablePanelModule,
   DtTileModule,
   DtContextDialogModule,
+  DtPaginationModule,
   DtIconModule,
   DtRadioModule,
   DtShowMoreModule,
@@ -22,6 +23,7 @@ import { ExpandableSectionUi } from './expandable-section/expandable-section-ui'
 import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
+import { PaginationUI } from './pagination/pagination-ui';
 import { RadioUI } from './radio/radio.ui';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
@@ -37,6 +39,7 @@ import { ShowMoreUI } from './show-more/show-more-ui';
     DtExpandableSectionModule,
     DtTileModule,
     DtContextDialogModule,
+    DtPaginationModule,
     DtRadioModule,
     DtShowMoreModule,
   ],
@@ -50,6 +53,7 @@ export class DynatraceAngularCompModule {}
     DynatraceAngularCompModule,
     NoopAnimationsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
     HttpClientModule,
   ],
@@ -63,6 +67,7 @@ export class DynatraceAngularCompModule {}
     RadioUI,
     TileUI,
     ContextDialogUI,
+    PaginationUI,
     ShowMoreUI,
   ],
   bootstrap: [UIApp],
