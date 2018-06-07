@@ -33,8 +33,8 @@ export class DtPagination implements OnInit {
   private _currentPage: number | undefined;
 
   _numbers: PaginationNumberType[] | undefined;
-  _leftArrowActive: boolean;
-  _rightArrowActive: boolean;
+  _leftArrowActive = false;
+  _rightArrowActive = false;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
   }
