@@ -132,7 +132,9 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   }
 
   open(): void {
-    this._setOpen(true);
+    if (!this.disabled) {
+      this._setOpen(true);
+    }
   }
 
   close(): void {
