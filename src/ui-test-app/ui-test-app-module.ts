@@ -54,7 +54,6 @@ export class DynatraceAngularCompModule {}
     NoopAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
     DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
     HttpClientModule,
   ],
