@@ -20,7 +20,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "paths": {
       "@dynatrace/angular-components": [
         "src/lib"
@@ -30,6 +33,9 @@
       ],
       "highcharts": [
         "node_modules/highcharts"
+      ],
+      "angular-components": [
+        "dist/angular-components"
       ]
     },
     "strictNullChecks": true,
@@ -37,5 +43,10 @@
       "node_modules/@types"
     ]
   },
-  "exclude": ["node_modules", "dist", "**/*.ngfactory.ts", "**/*.shim.ts"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.ngfactory.ts",
+    "**/*.shim.ts"
+  ]
 }
