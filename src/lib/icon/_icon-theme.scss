@@ -2,7 +2,7 @@
 @import '../core/theming/theming';
 
 @mixin dt-theme-icon($theme) {
-  $color-names: 'main', 'warning', 'error', 'cta', 'light', 'dark';
+  $color-names: 'main', 'accent', 'warning', 'error', 'cta', 'light', 'dark';
   $is-dark: map-get($theme, 'is-dark');
 
   @each $name in $color-names {
@@ -18,7 +18,7 @@
       $palette: dt-get-theme-palette($theme, $name);
       $color: dt-get-theme-color($palette, 'default');
     }
-    .dt-icon.dt-color-#{$name} {
+    .dt-icon.dt-color-#{$name} svg {
       fill: $color;
     }
   }

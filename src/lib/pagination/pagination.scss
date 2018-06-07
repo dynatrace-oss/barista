@@ -21,15 +21,6 @@
     fill: $gray-300;
   }
 
-  & .dt-pagination-arrow-active dt-icon {
-    fill: $turquoise-600;
-
-    &:hover {
-      color: $turquoise-700;
-      fill: $turquoise-700;
-    }
-  }
-
   & .dt-pagination-arrow:not(.dt-pagination-arrow-active) {
     pointer-events: none;
   }
@@ -38,7 +29,6 @@
 .dt-pagination-arrow-left dt-icon {
   transform: scale(-1, 1);
 }
-
 
 .dt-pagination-numbers {
   margin: 0 8px;

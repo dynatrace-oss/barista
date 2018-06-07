@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtButtonModule, DtIconModule} from '@dynatrace/angular-components';
+import { DtButtonModule, DtIconModule } from '@dynatrace/angular-components';
+
 describe('DtButton', () => {
 
   beforeEach(async(() => {
@@ -137,6 +138,15 @@ describe('DtButton', () => {
 
       instance.color = 'light';
     });
+
+    // it('should throw an error when trying to set variant nested on non icon buttons', async () => {
+    //   const expectedError = wrappedErrorMessage(getDtButtonNestedVariantNotAllowedError());
+    //   expect(() => {
+    //     const fixture = TestBed.createComponent(TestApp);
+    //     fixture.componentInstance.variant = 'nested';
+    //     fixture.detectChanges();
+    //   }).toThrowError(expectedError);
+    // });
   });
 
   // Anchor button tests
