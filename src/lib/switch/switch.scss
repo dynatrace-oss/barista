@@ -1,0 +1,158 @@
+@import '../core/style/variables';
+
+//.dt-switch-input {
+//  clip: rect(0 0 0 0);
+//  position: absolute;
+//}
+
+.dt-switch-bar{
+  display: inline-block;
+}
+
+.dt-switch-content {
+  font-family: Bernina Sans Regular;
+  font-size: 14px;
+}
+
+.dt-switch-label {
+  position: relative;
+  padding-left: 8px;
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+}
+
+.dt-switch-label:before {
+  content: " ";
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  border: solid 1px $turquoise-600;
+  border-radius: 10px;
+  position: absolute;
+  left: 0;
+  box-sizing: border-box;
+  background-color: transparent;
+  background-image: radial-gradient(circle 5px, transparent 0, transparent 2px, $gray-700 3px, transparent 4px);
+  background-size: 10px 10px;
+  background-repeat: no-repeat;
+  background-position: 21px 4px;
+  transition: background-color 100ms ease-in;
+  top: -1px;
+}
+
+.dt-switch-label:after {
+  content: " ";
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: $gray-700;
+  transition: left 100ms ease-out, right 100ms ease-out;
+  margin-top: 3px;
+  margin-left: 4px;
+  box-sizing: border-box;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+}
+
+.dt-switch-label:hover:before {
+  border: solid 1px $turquoise-700;
+  background-color: $gray-100;
+}
+
+
+.dt-switch-label:active:before {
+  border: solid 1px $turquoise-800;
+  background-color: $gray-100;
+}
+
+.switch:checked:hover + .dt-switch-label:hover:before {
+  background-color: $turquoise-700;
+  border-color: $turquoise-700;
+}
+
+.switch:checked:active + .dt-switch-label:active:before {
+  background-color: $turquoise-800;
+  border-color: $turquoise-800;
+}
+
+.dt-switch-label:focus {
+  outline: none;
+}
+
+//.to-right + .dt-switch-label{
+//  padding-left: 0;
+//  padding-right: 44px;
+//}
+//
+//.to-right + .dt-switch-label:before {
+//  left: auto;
+//  right: 0;
+//}
+//
+//.to-right + .dt-switch-label:after {
+//  left: auto;
+//  right: 20px;
+//}
+
+.dt-switch-input:checked + .dt-switch-label:before {
+  background-color: $turquoise-600;
+  border-color: $turquoise-600;
+  background-image: linear-gradient(to right, #fff 1px, transparent 0);
+  background-size: 8px 8px;
+  background-repeat: no-repeat;
+  background-position: 9px 5px;
+}
+
+.dt-switch-input:checked + .dt-switch-label:after {
+  left: 16px;
+}
+
+.dt-switch-input.to-right:checked + .dt-switch-label:after {
+  left: auto;
+  right: 4px;
+}
+
+.dt-switch-input[disabled] + .dt-switch-label:before {
+  border-color: $gray-300;
+  background-image: radial-gradient(circle 5px, transparent 0, transparent 2px, $gray-300 3px, transparent 4px);
+}
+
+.dt-switch-input[disabled]:checked + .dt-switch-label:before {
+  border-color: $gray-300;
+  background-image: linear-gradient(to right, $gray-300 1px, transparent 0);
+}
+
+.dt-switch-input[disabled] + .dt-switch-label:after {
+  background-color: $gray-300;
+  border: 1px solid $gray-300;
+}
+
+.dt-switch-input[disabled]:checked + .dt-switch-label:before {
+  background-color: transparent;
+  outline: none;
+}
+
+.dt-switch-input[disabled] + .dt-switch-label {
+  color: $gray-300;
+  cursor: default;
+}
+
+.dt-switch-input[disabled]:checked:hover + .dt-switch-labelhover:before {
+  background-color: transparent;
+  border-color: $gray-300;
+  box-shadow: none;
+}
+
+.dt-switch-input[disabled]:not(checked):hover + .dt-switch-label:hover:before {
+  background-color: transparent;
+  border-color: $gray-300;
+  box-shadow: none;
+}
+
+.dt-switch-input:focus:not(:active) + .dt-switch-label:before {
+
+  //@include focusStyle();
+}
