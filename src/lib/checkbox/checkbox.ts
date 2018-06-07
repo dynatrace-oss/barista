@@ -336,6 +336,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
         animSuffix = newState === TransitionCheckState.Checked ?
           'indeterminate-checked' : 'indeterminate-unchecked';
         break;
+      default: {}
     }
 
     return `dt-checkbox-anim-${animSuffix}`;
