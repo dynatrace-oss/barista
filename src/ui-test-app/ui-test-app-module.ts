@@ -14,7 +14,6 @@ import {
   DtContextDialogModule,
   DtPaginationModule,
   DtIconModule,
-  DtIconModule,
   DtRadioModule,
   DtShowMoreModule,
 } from '@dynatrace/angular-components';
