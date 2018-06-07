@@ -25,7 +25,6 @@ import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
 import { PaginationUI } from './pagination/pagination-ui';
-import {HttpClientModule} from '@angular/common/http';
 import { RadioUI } from './radio/radio.ui';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
