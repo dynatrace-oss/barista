@@ -24,6 +24,7 @@ import { DocsTagModule } from './components/tag/docs-tag.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
 import { DocsIconModule } from './components/icon/docs-icon.module';
 import { FormsModule } from '@angular/forms';
+import { DocsCopyClipboardModule } from './components/copy-clipboard/docs-copy-clipboard.module';
 import {DtThemingModule} from '@dynatrace/angular-components';
 
 @NgModule({
@@ -52,6 +53,7 @@ import {DtThemingModule} from '@dynatrace/angular-components';
     DocsTagModule,
     DocsAlertModule,
     DtThemingModule,
+    DocsCopyClipboardModule,
   ],
   declarations: [
     Docs,

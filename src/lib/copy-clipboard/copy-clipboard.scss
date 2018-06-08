@@ -1,0 +1,14 @@
+@import '../core/style/variables';
+
+.dt-copy-clipboard {
+    display: flex;
+    width: 100%;
+}
+.dt-copy-clipboard textarea, dt-copy-clipboard input {
+	flex-grow: 1;
+	margin-right: 8px;
+}
+
+.dt-copy-clipboard button {
+	align-self: flex-end;
+}

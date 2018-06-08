@@ -13,6 +13,7 @@ export class Docs {
     {name: 'Card', route: '/card'},
     {name: 'Chart', route: '/chart'},
     {name: 'Context dialog', route: '/context-dialog'},
+    {name: 'Copy Clipboard', route: '/copy-clipboard'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Inline Editor', route: '/inline-editor'},
