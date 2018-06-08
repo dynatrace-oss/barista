@@ -18,6 +18,7 @@ import { DocsFormField } from 'components/form-field/docs-form-field';
 import { DocsTagComponent } from './components/tag/docs-tag.component';
 import { DocsAlertComponent } from './components/alert/docs-alert.component';
 import { DocsIconComponent } from 'components/icon/docs-icon.component';
+import { DocsCopyClipboardComponent } from 'components/copy-clipboard/docs-copy-clipboard.component';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'tile', component: DocsTileComponent },
   { path: 'tag', component: DocsTagComponent },
   { path: 'alert-component', component: DocsAlertComponent },
+  { path: 'copy-clipboard', component: DocsCopyClipboardComponent },
   { path: '**', redirectTo: '' },
 ];
 
