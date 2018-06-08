@@ -4,4 +4,5 @@ import {enableProdMode} from '@angular/core';
 
 enableProdMode();
 
+// tslint:disable-next-line:no-floating-promises
 platformBrowser().bootstrapModuleFactory(UiTestAppModuleNgFactory);

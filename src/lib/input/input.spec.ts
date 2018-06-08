@@ -1,17 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
-import { TestBed, fakeAsync, inject, ComponentFixture, flush } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  NgForm,
-  FormControl,
-  Validators,
-  FormGroup
-} from '@angular/forms';
-import { PlatformModule, Platform } from '@angular/cdk/platform';
+import { PlatformModule } from '@angular/cdk/platform';
+import { Component } from '@angular/core';
+import { fakeAsync, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ErrorStateMatcher, DtInputModule, DtInput } from '@dynatrace/angular-components';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DtInputModule } from '@dynatrace/angular-components';
 
 describe('DtInput without forms', () => {
   beforeEach(fakeAsync(() => {
@@ -148,7 +141,8 @@ class DtInputWithRequired {
 @Component({
   template: `<input dtInput id="test-id">`,
 })
-class DtInputWithId { }
+class DtInputWithId {
+}
 
 @Component({
   template: `<input dtInput [placeholder]="placeholder">`,

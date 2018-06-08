@@ -1,4 +1,4 @@
-import {browser, by, element, ExpectedConditions, Key } from 'protractor';
+import {browser, by, element, Key } from 'protractor';
 
 describe('context-dialog', () => {
   beforeEach(() => browser.get('/context-dialog'));
@@ -34,7 +34,7 @@ describe('context-dialog', () => {
 
   describe('close behaviour', () => {
     it('should open and close the context dialog', async () => {
-      await element(by.id('context-dialog')).click();
+      element(by.id('context-dialog')).click();
       await browser.isElementPresent(by.css('.dt-context-dialog-panel'));
       await element(by.css('.dt-context-dialog-close-trigger')).click();
       expect(await browser.isElementPresent(by.css('.dt-context-dialog-panel'))).toBeFalsy();

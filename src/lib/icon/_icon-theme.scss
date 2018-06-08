@@ -2,12 +2,16 @@
 @import '../core/theming/theming';
 
 @mixin dt-theme-icon($theme) {
-  $color-names: 'main', 'warning', 'error', 'cta', 'light', 'dark';
+  $color-names: 'main', 'accent', 'warning', 'error', 'cta', 'light', 'dark';
+  $is-dark: map-get($theme, 'is-dark');
 
   @each $name in $color-names {
     // default to light
     $color: #fff;
-    @if $name == 'dark' {
+    @if $is-dark == true {
+      $color: #fff;
+    }
+    @else if $name == 'dark' {
       $color: #ccc;
     }
     @else if $name != 'light' {

@@ -1,0 +1,22 @@
+@import '../core/theming/theming';
+
+@mixin dt-theme-progress-circle($theme) {
+  $palette-names: 'main', 'accent', 'warning', 'recovered', 'error';
+  $default-palette: 'main';
+
+  @each $name in $palette-names {
+    $is-dark: map-get($theme, 'is-dark');
+    $palette: dt-get-theme-palette($theme, $name);
+    $default-color: dt-get-theme-color($palette, 'default');
+
+    $namespace: ':host';
+    @if $name != $default-palette {
+      $namespace: ':host.dt-color-#{$name}';
+    }
+
+    & #{$namespace} .dt-progress-circle-progress {
+      stroke: $default-color;
+    }
+
+  }
+}

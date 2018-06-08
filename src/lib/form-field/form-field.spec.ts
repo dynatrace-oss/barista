@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewChild, Provider, Type } from '@angular/core';
 import { fakeAsync, TestBed, flush, ComponentFixture } from '@angular/core/testing';
+import { AbstractControl } from '@angular/forms/src/model';
 import { By } from '@angular/platform-browser';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { FormsModule, ReactiveFormsModule, FormControl, Validators, NgForm, FormGroupDirective, FormGroup } from '@angular/forms';
@@ -7,7 +8,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtFormFieldModule,
   DtInputModule,
-  getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError,
   DtInput,
   ErrorStateMatcher,
@@ -453,6 +453,7 @@ describe('DtFormField with forms', () => {
       const component = fixture.componentInstance;
       const containerEl = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
 
+      // tslint:disable-next-line:no-unnecessary-type-assertion
       const control = component.formGroup.get('name')!;
 
       expect(control.invalid).toBe(true, 'Expected form control to be invalid');
@@ -683,7 +684,7 @@ class DtInputWithReadonlyInput { }
 })
 class DtInputWithFormErrorMessages {
   @ViewChild('form') form: NgForm;
-  formControl = new FormControl('', Validators.required);
+  formControl = new FormControl('', (control: AbstractControl) => Validators.required(control));
   renderError = true;
 }
 
@@ -701,7 +702,7 @@ class DtInputWithFormErrorMessages {
 class DtInputWithFormGroupErrorMessages {
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   formGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', (control: AbstractControl) => Validators.required(control)),
   });
 }
 
@@ -720,7 +721,7 @@ class DtInputWithFormGroupErrorMessages {
 })
 class DtInputWithCustomErrorStateMatcher {
   formGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', (control: AbstractControl) => Validators.required(control)),
   });
 
   errorState = false;

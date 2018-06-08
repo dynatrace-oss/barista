@@ -1,9 +1,7 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { Colors } from '@dynatrace/angular-components';
-import { BarChartSeriesOptions } from 'highcharts';
-import { generateData } from '../chart-data-utils';
+import { generateData } from './chart-data-utils';
 
 @Component({
   template: `<div [dtTheme]="turquoise"><dt-chart [options]="options" [series]="series"></dt-chart></div>`,

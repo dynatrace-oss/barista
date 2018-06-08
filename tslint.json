@@ -8,13 +8,8 @@
     "node_modules/codelyzer"
   ],
   "rules": {
-    // Bans jasmine helper functions that will prevent the CI from properly running tests.
     "ban": [
       true,
-      ["fit"],
-      ["fdescribe"],
-      ["xit"],
-      ["xdescribe"],
       {"name": "Object.assign", "message": "Use the spread operator instead."}
     ],
     "class-name": true,
