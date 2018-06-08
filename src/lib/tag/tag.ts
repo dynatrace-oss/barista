@@ -11,10 +11,9 @@ import {
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {DELETE} from '@angular/cdk/keycodes';
 
-export class DtTagBase {
-}
+export class DtTagBase {}
 
-export const _DtTag =
+export const _DtTagMixinBase =
   mixinDisabled(DtTagBase);
 
 /** Key of a tag, needed as it's used as a selector in the API. */
@@ -43,7 +42,7 @@ export class DtTagKey { }
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTag<T> extends _DtTag implements CanDisable {
+export class DtTag<T> extends _DtTagMixinBase implements CanDisable {
 
   @Input()
   value: T | undefined;

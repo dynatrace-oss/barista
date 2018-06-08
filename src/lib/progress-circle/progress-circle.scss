@@ -1,0 +1,41 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+@import './progress-circle-theme';
+
+:host {
+  display: inline-block;
+}
+
+.dt-progress-circle-body {
+  display: inline-block;
+  position: relative;
+}
+
+.dt-progress-circle-background,
+.dt-progress-circle-progress {
+  fill: transparent;
+  stroke-width: 8;
+}
+
+.dt-progress-circle-background {
+  stroke: #e6e6e6;
+}
+
+.dt-progress-circle-progress {
+  stroke-dasharray: 328;
+  stroke-dashoffset: 328;
+  transition: stroke-dashoffset 450ms ease-out, stroke 250ms ease-out;
+}
+
+.dt-progress-circle-content {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Apply the progress-circle theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-progress-circle($dt-current-theme);
+}

@@ -5,6 +5,8 @@ import {
   Input,
   Output,
   Directive,
+  ContentChildren,
+  QueryList,
 } from '@angular/core';
 
 @Component({
@@ -34,9 +36,17 @@ export class DtKeyValueListItem {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtKeyValueList {
-  @Input() columns = 1;
+  @ContentChildren(DtKeyValueListItem) items: QueryList<DtKeyValueListItem>;
 
   private getColumnsClass(): string {
-    return 'dtKeyValueListColumns' + (this.columns);
+    var columns : number;
+    if (this.items.length>18) {
+        columns = 3;
+    } else if (this.items.length>12) {
+        columns = 2;
+    } else {
+        columns = 1;
+    }
+    return 'dtKeyValueListColumns' + (columns);
   }
 }

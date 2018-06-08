@@ -4,6 +4,7 @@ import {ServerModule} from '@angular/platform-server';
 import {
   DtAlertModule,
   DtButtonModule,
+  DtCheckboxModule,
   DtLoadingDistractorModule,
   DtTileModule,
   DtCardModule,
@@ -12,6 +13,10 @@ import {
   DtTableModule,
   DtTagModule,
   DtIconModule,
+  DtPaginationModule,
+  DtRadioModule,
+  DtShowMoreModule,
+  DtProgressCircleModule,
 } from '@dynatrace/angular-components';
 
 @Component({
@@ -31,6 +36,7 @@ export class KitchenSink {
     BrowserModule.withServerTransition({appId: 'kitchen-sink'}),
     DtAlertModule,
     DtButtonModule,
+    DtCheckboxModule,
     DtTableModule,
     DtLoadingDistractorModule,
     DtTileModule,
@@ -38,9 +44,11 @@ export class KitchenSink {
     DtCardModule,
     DtContextDialogModule,
     DtButtonGroupModule,
-    // TODO @thomaspink: Add again if universal supports XHR.
-    // Issue: https://dev-jira.dynatrace.org/browse/***REMOVED***
-    // DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
+    DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
+    DtRadioModule,
+    DtShowMoreModule,
+    DtProgressCircleModule,
+    DtPaginationModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],

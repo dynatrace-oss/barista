@@ -9,11 +9,15 @@ import { buildConfig } from '../build-config';
 
 const gulpClean = require('gulp-clean');
 
-/** Deletes the dist/ directory. */
-task('clean:universal', () =>
-  src(buildConfig.universalAppOutputDir, { read: false, allowEmpty: true } as SrcOptions)
-  .pipe(gulpClean(null)));
+const cleanTask = (dir: string) =>
+src(dir, { read: false, allowEmpty: true } as SrcOptions)
+.pipe(gulpClean(null));
 
-task('clean:lib', () =>
-  src(buildConfig.libOutputDir, { read: false, allowEmpty: true } as SrcOptions)
-  .pipe(gulpClean(null)));
+/** Deletes the dist/ directory. */
+task('clean:universal', () => cleanTask(buildConfig.universalAppOutputDir));
+
+task('clean:lib', () => cleanTask(buildConfig.libOutputDir));
+
+task('clean:unit-test', () => cleanTask(buildConfig.unitTestOutputDir));
+
+task('clean:ui-test', () => cleanTask(buildConfig.uiTestAppOutputDir));

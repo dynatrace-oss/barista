@@ -15,7 +15,7 @@ npm install @dynatrace/angular-components
 
 ## Documentation
 
-Documentation is available by starting a local server at <http://localhost:4300>
+Documentation is available by starting a local server at <http://localhost:4200>
 
 ##### Using NPM
    1. Meet NodeJS prerequisites (see `Development -> Prerequisites` section)

@@ -7,7 +7,7 @@ import {
   DtThemingModule,
   DEFAULT_VIEWPORT_RESIZER_PROVIDER,
 } from '@dynatrace/angular-components';
-import { ChartService } from './docs-chart.service';
+import { ChartService } from './examples/docs-chart.service';
 import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
 import { ChartDefaultExampleComponent } from './examples/chart-default-example.component';
 import { ChartStreamExampleComponent } from './examples/chart-stream-example.component';
@@ -37,6 +37,8 @@ const EXAMPLES = [
   ],
   providers: [
     ChartService,
+    // JIRA task: ***REMOVED***
+    // tslint:disable-next-line:deprecation
     VIEWPORT_RULER_PROVIDER,
     DEFAULT_VIEWPORT_RESIZER_PROVIDER,
   ],

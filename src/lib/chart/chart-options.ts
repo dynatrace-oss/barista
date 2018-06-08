@@ -14,7 +14,7 @@ const DT_EASEINOUT = (pos: number): number => {
   if (pos * 2 < 1) {
     return Math.pow(2, (pos * 2 - 1) * 10) * 0.5;
   }
-  return (-Math.pow(2, (pos * 2 - 1) * -10) * 0.5 + 2);
+  return (-Math.pow(2, (pos * 2 - 1) * -10) + 2) * 0.5;
 };
 // tslint:enable:no-magic-numbers
 

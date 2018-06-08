@@ -1,22 +1,13 @@
-<button 
+<button [hidden]="hasCustomTrigger"
   dt-icon-button
-  [color]="color"
-  [attr.tabindex]="tabIndex"
+  [attr.tabIndex]="tabIndex"
   [disabled]="disabled"
   [attr.aria-label]="ariaLabel"
   variant="secondary"
-  #trigger
-  #origin="cdkOverlayOrigin"
   cdkOverlayOrigin
   (click)="open()"
-  class="dt-context-dialog-open-trigger">
-  <div class="dt-icon">
-    <svg viewBox="0 0 512 512">
-      <circle cx="404" cy="256" r="44"/>
-      <circle cx="256" cy="256" r="44"/>
-      <circle cx="108" cy="256" r="44"/>
-    </svg>
-  </div>
+  class="dt-context-dialog-trigger">
+  <dt-icon name="more"></dt-icon>
 </button>
 <ng-template
   cdkConnectedOverlay
@@ -25,7 +16,7 @@
   (backdropClick)="close()"
   (attach)="_onAttached()"
   (detach)="close()"
-  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOrigin]="trigger"
   [cdkConnectedOverlayOpen]="isPanelOpen"
   [cdkConnectedOverlayPositions]="_positions">
   <div
@@ -40,17 +31,13 @@
     </div>
     <button
       dt-icon-button
-      [color]="color"
       variant="secondary"
       class="dt-context-dialog-close-trigger"
       (click)="close()"
       aria-label="close"
       cdkFocusInitial>
-      <div class="dt-icon">
-        <svg viewBox="0 0 512 512">
-          <path d="M434.191 134.378l-56.568-56.569L256 199.432 134.377 77.809l-56.568 56.569L199.432 256 77.809 377.623l56.568 56.568L256 312.568l121.623 121.623 56.568-56.568L312.568 256z"/>
-        </svg>
-      </div>
+      <dt-icon name="abort"></dt-icon>
     </button>
   </div>
 </ng-template>
+

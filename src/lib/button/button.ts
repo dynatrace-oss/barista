@@ -72,7 +72,7 @@ export class DtButton extends _DtButtonMixinBase
     const variant = value || defaultVariant;
     if (variant !== this._variant) {
       if (variant === 'nested' && !this._hasHostAttributes('dt-icon-button')) {
-        throw getDtButtonNestedVariantNotAllowedError();
+        // throw getDtButtonNestedVariantNotAllowedError();
       }
       this._replaceCssClass(variant, this._variant);
       this._variant = variant;
