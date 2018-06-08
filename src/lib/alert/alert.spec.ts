@@ -1,8 +1,7 @@
-
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, DebugElement} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {DtAlertModule, DtAlert} from '@dynatrace/angular-components';
+import { Component } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DtAlert, DtAlertModule } from '@dynatrace/angular-components';
 
 describe('DtAlert', () => {
   beforeEach(async(() => {
@@ -29,8 +28,8 @@ describe('DtAlert', () => {
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
 
-    let groupDebugElement = fixture.debugElement.query(By.directive(DtAlert));
-    let groupInstance = groupDebugElement.injector.get<DtAlert>(DtAlert);
+    const groupDebugElement = fixture.debugElement.query(By.directive(DtAlert));
+    const groupInstance = groupDebugElement.injector.get<DtAlert>(DtAlert);
 
     groupInstance.severity = 'warning';
     fixture.detectChanges();
@@ -52,8 +51,6 @@ describe('DtAlert', () => {
     expect(tileNativeElement.classList.contains('dt-alert-warning'))
       .toBeFalsy();
   });
-
-
 });
 
 /** Test component that contains an DtAlert. */
@@ -65,6 +62,7 @@ describe('DtAlert', () => {
 })
 class TestApp {
 }
+
 /** Test component that is not visible by default. */
 @Component({
   selector: 'dt-test-app-empty',
