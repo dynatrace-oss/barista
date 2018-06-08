@@ -1,10 +1,6 @@
 <h1>Kitchen sink app</h1>
 
-<!--
-  TODO @thomaspink: Add again if universal supports XHR.
-  Issue: https://dev-jira.dynatrace.org/browse/***REMOVED***
--->
-<!-- <dt-icon name="agent"></dt-icon> -->
+<dt-icon name="agent"></dt-icon>
 
 <dt-alert>My alert</dt-alert>
 <dt-alert severity="warning">My alert</dt-alert>
@@ -38,6 +34,8 @@
   <dt-button-group-item>Connectivity</dt-button-group-item>
 </dt-button-group>
 
+<<dt-show-more>Show more</dt-show-more>
+
 <dt-table [dataSource]="tableDataSource">
   <ng-container dtColumnDef="host" dtColumnAlign="text">
     <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
@@ -49,3 +47,15 @@
 </dt-table>
 
 <dt-tag>My tag</dt-tag>
+
+<dt-pagination [maxPages]="4"></dt-pagination>
+
+<dt-radio-group name="group0">
+  <dt-radio-button value="aberfeldy">Aberfeldy</dt-radio-button>
+  <dt-radio-button value="dalmore">Dalmore</dt-radio-button>
+  <dt-radio-button value="jacky" disabled>Jack Daniels</dt-radio-button>
+  <dt-radio-button value="glenlivet">Glenlivet</dt-radio-button>
+</dt-radio-group>
+
+<dt-checkbox>Checkbox</dt-checkbox>
+<dt-progress-circle></dt-progress-circle>

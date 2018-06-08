@@ -16,8 +16,6 @@ import { DocsExpandableSectionModule } from './components/expandable-section/doc
 import { DocsTableModule } from './components/table/docs-table.module';
 import { DocsChartModule } from './components/chart/docs-chart.module';
 import { DocsTileModule } from './components/tile/docs-tile.module';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-import { Platform } from '@angular/cdk/platform';
 import { DocsCardModule } from './components/card/docs-card.module';
 import { DocsContextDialogModule } from './components/context-dialog/docs-context-dialog.module';
 import { DocsFormFieldModule } from './components/form-field/docs-form-field-module';
@@ -26,8 +24,13 @@ import { DocsTagModule } from './components/tag/docs-tag.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
 import { DocsIconModule } from './components/icon/docs-icon.module';
 import { DocsKeyValueListModule } from './components/key-value-list/docs-key-value-list.module';
+import { DocsPaginationModule } from './components/pagination/docs-pagination.module';
+import { DocsShowMoreModule } from './components/show-more/docs-show-more.module';
 import { FormsModule } from '@angular/forms';
 import {DtThemingModule} from '@dynatrace/angular-components';
+import { DocsRadioModule } from './components/radio/docs-radio.module';
+import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
+import { DocsProgressCircleModule } from './components/progress-circle/docs-progress-circle.module';
 
 @NgModule({
   imports: [
@@ -55,7 +58,12 @@ import {DtThemingModule} from '@dynatrace/angular-components';
     DocsTagModule,
     DocsAlertModule,
     DocsKeyValueListModule,
+    DocsPaginationModule,
+    DocsShowMoreModule,
     DtThemingModule,
+    DocsRadioModule,
+    DocsCheckboxModule,
+    DocsProgressCircleModule,
   ],
   declarations: [
     Docs,

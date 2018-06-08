@@ -15,7 +15,7 @@ export function replaceCssClass(elOrRef: any,
 }
 
 // tslint:disable-next-line:no-any
-function addCssClass(el: any, name: string, renderer?: Renderer2): void {
+export function addCssClass(el: any, name: string, renderer?: Renderer2): void {
   if (renderer) {
     renderer.addClass(el, name);
   } else {
@@ -24,7 +24,7 @@ function addCssClass(el: any, name: string, renderer?: Renderer2): void {
 }
 
 // tslint:disable-next-line:no-any
-function removeCssClass(el: any, name: string, renderer?: Renderer2): void {
+export function removeCssClass(el: any, name: string, renderer?: Renderer2): void {
   if (renderer) {
     renderer.removeClass(el, name);
   } else {

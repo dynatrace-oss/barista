@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { task, watch, src, dest } from 'gulp';
+import { task, src, dest, start } from 'gulp';
 import { sequenceTask } from '../util/sequence-task';
 import { buildConfig } from '../build-config';
 import { ngcCompile } from '../util/ngc-compile';
@@ -16,19 +16,19 @@ const PROTRACTOR_CONFIG_PATH = join(buildConfig.projectDir, 'test/protractor.con
 const assetsGlob = join(buildConfig.uiTestAppDir, '**/*.+(html|css|json|ts)');
 
 task('ui-test-app:build', sequenceTask(
-  'library:build',
+  process.env.SKIP_BUILD === 'true' ? undefined : 'library:build',
   ['ui-test-app:copy', 'ui-test-app:copy-lib'],
-  'ui-test-app:build-ts',
+  'ui-test-app:build-ts'
 ));
 
-task('ui-test-app:build-ts', (done) => {
+task('ui-test-app:build-ts', (done: ((err?: any) => void)) => {
   const tsConfig = join(buildConfig.uiTestAppOutputDir, 'tsconfig-build.json');
   ngcCompile(['-p', tsConfig])
   .catch(() => {
     const error = red(`Failed to compile lib using ${tsConfig}`);
     console.error(error);
 
-    return Promise.reject(error);
+    done(error);
   })
   .then(() => {
     done();
@@ -36,10 +36,11 @@ task('ui-test-app:build-ts', (done) => {
 });
 
 task('ui-test', sequenceTask(
+  'clean:ui-test',
   [':test:protractor:setup', 'serve:ui-test-app'],
   ':test:protractor',
-  ':serve:ui-test-app:stop',
-));
+  ':serve:ui-test-app:stop'
+)).on('err', () => start(':serve:ui-test-app:stop'));
 
 /** Task that copies all required assets to the output folder. */
 task('ui-test-app:copy', () =>

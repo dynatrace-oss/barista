@@ -1,5 +1,5 @@
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ConnectionPositionPair, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
   Attribute,
@@ -16,42 +16,56 @@ import {
   ViewChild,
   ViewEncapsulation,
   isDevMode,
+  AfterViewInit,
 } from '@angular/core';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import {
-  CanColor, CanDisable,
-  DtLogger, DtLoggerFactory,
   HasTabIndex,
-  mixinColor, mixinDisabled, mixinTabIndex
+  CanDisable,
+  DtLogger,
+  DtLoggerFactory,
+  mixinTabIndex,
+  mixinDisabled,
 } from '../core/index';
+import { DtContextDialogTrigger} from './context-dialog-trigger';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialogue');
+const OVERLAY_POSITIONS = [
+  {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'top',
+  },
+  {
+    originX: 'end',
+    originY: 'bottom',
+    overlayX: 'end',
+    overlayY: 'bottom',
+  },
+];
 
 // Boilerplate for applying mixins to DtContextDialog.
-export class DtContextDialogBase {
-  constructor(public _elementRef: ElementRef) { }
-}
-export const _DtContextDialogBase =
-  mixinTabIndex(mixinDisabled(mixinColor(DtContextDialogBase)));
+export class DtContextDialogBase { }
+export const _DtContextDialogMixinBase = mixinTabIndex(mixinDisabled(DtContextDialogBase));
 
 @Component({
   moduleId: module.id,
   selector: 'dt-context-dialog',
   templateUrl: 'context-dialog.html',
   styleUrls: ['context-dialog.scss'],
-  inputs: ['disabled', 'tabIndex', 'color'],
   host: {
     'class': 'dt-context-dialog',
-    'attr.aria-hidden': 'true',
     '[attr.aria-disabled]': 'disabled.toString()',
-    'tabIndex': '-1',
+    'attr.aria-hidden': 'true',
   },
+  inputs: ['disabled', 'tabIndex'],
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtContextDialog extends _DtContextDialogBase
-implements OnDestroy, HasTabIndex, CanDisable, CanColor {
+export class DtContextDialog extends _DtContextDialogMixinBase
+  implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit {
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
@@ -67,6 +81,8 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
    */
   private _elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
 
+  private  _trigger: CdkOverlayOrigin;
+
   /** Aria label of the context-dialog. */
   // tslint:disable-next-line:no-input-rename
   @Input('aria-label') ariaLabel = '';
@@ -74,68 +90,71 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
   /** Event emitted when the select has been opened. */
   @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  _positions = [
-    {
-      originX: 'end',
-      originY: 'top',
-      overlayX: 'end',
-      overlayY: 'top',
-    },
-    {
-      originX: 'end',
-      originY: 'bottom',
-      overlayX: 'end',
-      overlayY: 'bottom',
-    },
-  ];
-
   /** Overlay pane containing the content */
   @ViewChild(CdkConnectedOverlay) _overlayDir: CdkConnectedOverlay;
 
   /** Panel that holds the content */
   @ViewChild('panel') _panel: ElementRef;
 
+  @ViewChild(CdkOverlayOrigin) _defaultTrigger: CdkOverlayOrigin;
+
   /** Whether or not the overlay panel is open. */
   get isPanelOpen(): boolean {
     return this._panelOpen;
   }
 
+  get trigger(): CdkOverlayOrigin | DtContextDialogTrigger {
+    return this._trigger;
+  }
+
+  get hasCustomTrigger(): boolean {
+    return this._trigger && this._trigger !== this._defaultTrigger;
+  }
+
+  _positions = OVERLAY_POSITIONS;
+
   constructor(
-    elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _focusTrapFactory: FocusTrapFactory,
     @Attribute('tabindex') tabIndex: string,
     // tslint:disable-next-line: no-any
     @Optional() @Inject(DOCUMENT) private _document: any
   ) {
-    super(elementRef);
+    super();
 
     this.tabIndex = parseInt(tabIndex, 10) || 0;
   }
 
-  /** Opens the panel */
-  open(): void {
-    if (!this.disabled && !this._panelOpen) {
-      this._panelOpen = true;
-      this.openedChange.emit(true);
-      this._savePreviouslyFocusedElement();
-      this._changeDetectorRef.markForCheck();
+  ngAfterViewInit(): void {
+    if (this._defaultTrigger && !this.hasCustomTrigger) {
+      this._trigger = this._defaultTrigger;
     }
   }
 
-  /** Closes the panel */
-  close(): void {
-    if (this._panelOpen) {
-      this._panelOpen = false;
-      this.openedChange.emit(false);
-      this._restoreFocus();
-      this._changeDetectorRef.markForCheck();
+  open(): void {
+    if (!this.disabled) {
+      this._setOpen(true);
     }
+  }
+
+  close(): void {
+    this._setOpen(false);
+  }
+
+  private _setOpen(open: boolean): void {
+    this._panelOpen = open;
+    this.openedChange.emit(open);
+    if (this._panelOpen) {
+      this._savePreviouslyFocusedElement();
+    } else {
+      this._restoreFocus();
+    }
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Focuses the context-dialog element. */
   focus(): void {
-    this._elementRef.nativeElement.focus();
+      this.trigger.elementRef.nativeElement.focus();
   }
 
   /** Moves the focus inside the focus trap. */
@@ -176,6 +195,22 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
     }
   }
 
+  _registerTrigger(trigger: DtContextDialogTrigger): void {
+    if (this.hasCustomTrigger) {
+      LOG.debug('Already has a custom trigger registered');
+    }
+    this._trigger = trigger;
+    this._changeDetectorRef.markForCheck();
+  }
+
+  _unregisterTrigger(trigger: DtContextDialogTrigger): void {
+    if (this._trigger !== trigger) {
+      LOG.debug('Trying to unregister a trigger that is not assigned');
+    }
+    this._trigger = this._defaultTrigger;
+    this._changeDetectorRef.markForCheck();
+  }
+
   /** Callback that is invoked when the overlay panel has been attached. */
   _onAttached(): void {
     /** trap focus within the overlay */
@@ -206,6 +241,12 @@ implements OnDestroy, HasTabIndex, CanDisable, CanColor {
 
   /** Hook that trigger right before the component will be destroyed. */
   ngOnDestroy(): void {
-    this.close();
+    if (this._panelOpen) {
+      this._restoreFocus();
+      this.openedChange.emit(false);
+    }
+    if (this.hasCustomTrigger) {
+      (this._trigger as DtContextDialogTrigger)._unregisterFromDialog();
+    }
   }
 }
