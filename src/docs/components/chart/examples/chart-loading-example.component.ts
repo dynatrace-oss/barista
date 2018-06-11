@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { Colors, DtChartSeries } from '@dynatrace/angular-components';
-import { generateData } from '../chart-data-utils';
+import { generateData } from './chart-data-utils';
 
 @Component({
   template: `<button dt-button (click)="toggleData()">toggle data</button>
