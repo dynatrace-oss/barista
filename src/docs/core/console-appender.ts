@@ -1,5 +1,5 @@
 import { DtLogConsumer, DtLogEntry, DtLogEntryParam, DtLogLevel } from '@dynatrace/angular-components';
-import { APP_INITIALIZER, FactoryProvider, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ConsoleAppender {
