@@ -1,5 +1,5 @@
 import { TestBed, async, inject, tick, fakeAsync } from '@angular/core/testing';
-import { DtViewportResizer } from '@dynatrace/angular-components';
+import { ViewportResizer } from '@dynatrace/angular-components';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
 
@@ -11,7 +11,7 @@ function createFakeEvent(type: string): Event {
 }
 
 describe('DefaultViewportResizer', () => {
-  let resizer: DtViewportResizer;
+  let resizer: ViewportResizer;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,7 +22,7 @@ describe('DefaultViewportResizer', () => {
     });
   }));
 
-  beforeEach(inject([DtViewportResizer], (viewportResizer: DtViewportResizer) => {
+  beforeEach(inject([ViewportResizer], (viewportResizer: ViewportResizer) => {
     resizer = viewportResizer;
   }));
 
