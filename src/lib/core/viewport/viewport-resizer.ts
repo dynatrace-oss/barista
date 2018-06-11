@@ -23,6 +23,3 @@ export class DtDefaultViewportResizer implements ViewportResizer {
       .pipe(map(() => void 0));
   }
 }
-
-/** @deprecated Remove on next major version */
-export const DEFAULT_VIEWPORT_RESIZER_PROVIDER = DtDefaultViewportResizer;
