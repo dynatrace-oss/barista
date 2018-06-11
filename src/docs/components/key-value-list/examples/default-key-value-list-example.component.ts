@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DtKeyValueList } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,

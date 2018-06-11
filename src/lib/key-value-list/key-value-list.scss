@@ -6,15 +6,13 @@
 .key-value-list {
 width:100%;
 }
-.dtKeyValueListColumns1,
-.dtKeyValueListColumns2,
-.dtKeyValueListColumns3{
+.dtKeyValueListColumns1, .dtKeyValueListColumns2, .dtKeyValueListColumns3 {
 
     position: relative;
     column-gap: 60px;
 }
 @media(min-width: 662px) {
-	.dtKeyValueListColumns2,.dtKeyValueListColumns3 { 
+	.dtKeyValueListColumns2, .dtKeyValueListColumns3 {
 	    columns: 2;
 	}
 }
@@ -57,8 +55,7 @@ div.dt {
 }
 
 div.dd {
-  
-        margin: 0;
+    margin: 0;
     text-align: right;
     font-family: Bernina Sans Regular;
     font-size: 14px;
@@ -87,12 +84,12 @@ div.dd {
 }
 
 div.splitter {
-        width: 100%;
+    width: 100%;
     min-width: 24px;
     overflow: hidden;
     height: 18px;
     margin-top: 1px;
     border-bottom: 1px dotted #ccc;
     position: absolute;
-    top: 0px;
+    top: 0;
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DtKeyValueList } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
@@ -18,7 +17,6 @@ export class LongtextKeyValueListExampleComponent {
     { key : 'Virtualization', value : 'Xen' },
     { key : 'Instance', value : 'i-53f0d1b7' },
     { key : 'Architecture', value : 'x68,64-bit' },
-    
     { key : '2. Hostname (Public)', value : 'ec25217103181.eu-west1.compute.amazon-aws.com' },
     { key : '2. Hostname (Private)', value : 'ip-1723129141.eu-west-1.compute.internal' },
     { key : '2. Instance Type', value : 'm3.medium' },
@@ -26,6 +24,6 @@ export class LongtextKeyValueListExampleComponent {
     { key : '2. AMI', value : 'ami-f12ab886' },
     { key : '2. Virtualization', value : 'Xen' },
     { key : '2. Instance', value : 'i-53f0d1b7' },
-    { key : '2. Architecture', value : 'x68,64-bit' }
+    { key : '2. Architecture', value : 'x68,64-bit' },
   ];
-} 
+}
