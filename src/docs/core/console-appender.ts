@@ -4,9 +4,6 @@ import { APP_INITIALIZER, FactoryProvider, Injectable } from '@angular/core';
 @Injectable()
 export class ConsoleAppender {
   constructor(private readonly logConsumer: DtLogConsumer) {
-  }
-
-  init(): void {
     this.logConsumer.consume()
       .subscribe((log: DtLogEntry): void => {
         const formattedMessage = `[${log.level}] ${log.loggerName} | ${log.message}`;
@@ -29,12 +26,3 @@ export class ConsoleAppender {
     }
   }
 }
-
-export const LOG_APPENDER_PROVIDER: FactoryProvider = {
-  deps: [ConsoleAppender],
-  multi: true,
-  provide: APP_INITIALIZER,
-  useFactory: (consoleAppender: ConsoleAppender): () => void => (): void => {
-    consoleAppender.init();
-  },
-};
