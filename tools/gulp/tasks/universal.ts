@@ -24,20 +24,20 @@ task('universal', ['universal:build'], execTask(
 
 task('universal:build', sequenceTask(
   'clean:universal',
-  'library:build',
+  process.env.SKIP_BUILD === 'true'? undefined:'library:build',
   ['universal:copy-lib', 'universal:copy-files'],
   'universal:build-app-ts',
   'universal:build-prerender-ts',
 ));
 
 /** Task that builds the universal app in the output directory. */
-task('universal:build-app-ts', (done: (() => void)) => {
+task('universal:build-app-ts', (done: ((err?: any) => void)) => {
   ngcCompile(['-p', tsconfigAppPath])
   .catch(() => {
     const error = red(`Failed to compile lib using ${tsconfigAppPath}`);
     console.error(error);
 
-    return Promise.reject(error);
+    done(error);
   })
   .then(() => {
     done();

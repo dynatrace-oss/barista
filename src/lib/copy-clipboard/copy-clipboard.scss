@@ -9,6 +9,11 @@
 	margin-right: 8px;
 }
 
-.dt-copy-clipboard button {
+.dt-copy-clipboard-button {
 	align-self: flex-end;
+}
+.dt-copy-clipboard-source-hiddentext {
+	position: fixed;
+	left: -9999px;
+	top: -9999px;
 }

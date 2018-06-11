@@ -15,9 +15,13 @@ export class UIApp {
     {name: 'Start', route: '/'},
     {name: 'Button', route: '/button'},
     {name: 'ButtonGroup', route: '/button-group'},
+    {name: 'Checkbox', route: '/checkbox'},
     {name: 'Context Dialog', route: '/context-dialog'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
+    {name: 'Pagination', route: '/pagination'},
+    {name: 'radio', route: '/radio'},
+    {name: 'Show-more', route: '/show-more'},
     {name: 'tile', route: '/tile'},
   ];
 }
