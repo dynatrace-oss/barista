@@ -6,14 +6,9 @@ import { map } from 'rxjs/operators';
 /** Default timeout used to throttle window resize events */
 const DEFAULT_WINDOW_EVENT_TIMEOUT = 150;
 
-/** Abstract class so the consumer can implement there own ViewportResizer */
-export abstract class ViewportResizer {
-  abstract change(): Observable<void>;
-}
-
 /** Default ViewportResizer implementation that will only react to window size changes */
-@Injectable({ providedIn: 'root' })
-export class DtDefaultViewportResizer implements ViewportResizer {
+@Injectable()
+export class DtDefaultViewportResizer implements DtViewportResizer {
 
   constructor(private _viewportRuler: ViewportRuler) { }
 
@@ -22,4 +17,13 @@ export class DtDefaultViewportResizer implements ViewportResizer {
     return this._viewportRuler.change(DEFAULT_WINDOW_EVENT_TIMEOUT)
       .pipe(map(() => void 0));
   }
+}
+
+/** Abstract class so the consumer can implement there own ViewportResizer */
+@Injectable({
+  providedIn: 'root',
+  useClass: DtDefaultViewportResizer,
+})
+export abstract class DtViewportResizer {
+  abstract change(): Observable<void>;
 }

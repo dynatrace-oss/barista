@@ -40,7 +40,6 @@ const EXAMPLES = [
     // JIRA task: ***REMOVED***
     // tslint:disable-next-line:deprecation
     VIEWPORT_RULER_PROVIDER,
-    DtDefaultViewportResizer,
   ],
   entryComponents: [
     ...EXAMPLES,
