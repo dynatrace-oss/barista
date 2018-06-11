@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 import {
   DtCopyClipboard,
   DtCopyClipboardButton,
-  DtCopyClipboardSpan
+  DtCopyClipboardSource,
+  DtCopyClipboardLabel,
 } from './copy-clipboard';
 
 @NgModule({
@@ -15,12 +16,14 @@ import {
   exports: [
     DtCopyClipboard,
     DtCopyClipboardButton,
-    DtCopyClipboardSpan,
+    DtCopyClipboardSource,
+    DtCopyClipboardLabel,
   ],
   declarations: [
     DtCopyClipboard,
     DtCopyClipboardButton,
-    DtCopyClipboardSpan
+    DtCopyClipboardSource,
+    DtCopyClipboardLabel,
   ],
 })
 export class DtCopyClipboardModule { }
