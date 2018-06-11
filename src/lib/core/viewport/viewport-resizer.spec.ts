@@ -16,7 +16,6 @@ describe('DefaultViewportResizer', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        DtViewportResizer,
         ViewportRuler,
         Platform,
       ],
