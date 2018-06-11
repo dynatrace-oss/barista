@@ -6,7 +6,6 @@ import { DtIcon } from './icon';
 @NgModule({
   exports: [DtIcon],
   declarations: [DtIcon],
-  providers: [DtIconRegistry],
 })
 export class DtIconModule {
   static forRoot(config: DtIconConfiguration): ModuleWithProviders {
@@ -14,7 +13,6 @@ export class DtIconModule {
       ngModule: DtIconModule,
       providers: [
         { provide: DT_ICON_CONFIGURATION, useValue: config },
-        DtIconRegistry,
       ],
     };
   }
