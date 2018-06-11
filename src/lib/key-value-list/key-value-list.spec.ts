@@ -1,8 +1,7 @@
 
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {DtKeyValueListModule, DtKeyValueList, DtKeyValueListItem} from '@dynatrace/angular-components';
+import {DtKeyValueListModule} from '@dynatrace/angular-components';
 
 describe('DtKeyValueList', () => {
   beforeEach(async(() => {
@@ -13,17 +12,17 @@ describe('DtKeyValueList', () => {
 
     TestBed.compileComponents();
   }));
-
-  /**
-   * insert your tests here
-   */
 });
 
   /** Test component that contains an DtKeyValueList. */
 @Component({
   selector: 'dt-test-app',
   template: `
-    <!-- insert your component testapp usage here -->
+    <dt-key-value-list>
+   <dt-key-value-list-item key="Temp" value="1"></dt-key-value-list-item>
+   <dt-key-value-list-item key="Temp1" value="13"></dt-key-value-list-item>
+   <dt-key-value-list-item key="Temp2" value="28"></dt-key-value-list-item>
+</dt-key-value-list>
   `,
 })
 class TestApp {
