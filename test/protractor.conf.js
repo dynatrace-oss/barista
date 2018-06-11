@@ -26,6 +26,25 @@ const config = {
     },
     name: 'Dynatrace Angular Components UI Tests',
   },
+  onPrepare: function() {
+    var jasmineReporters = require('jasmine-reporters');
+
+    // returning the promise makes protractor wait for the reporter config before executing tests
+    return browser.getProcessedConfig().then(function(config) {
+
+      var browserName = config.capabilities.browserName;
+
+      var junitReporter = new jasmineReporters.JUnitXmlReporter({
+        consolidateAll: true,
+        savePath: 'dist/testresults',
+        filePrefix: browserName + '-ui-test',
+        modifySuiteName: function(generatedSuiteName, suite) {
+          return 'ui-test.' + browserName + '.' + generatedSuiteName;
+        }
+      });
+      jasmine.getEnv().addReporter(junitReporter);
+    });
+  }
 };
 
 exports.config = config;

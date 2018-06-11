@@ -33,8 +33,9 @@ function addExampleInFile(
     const modulePath = path.join('src', 'docs', 'components', options.component, `docs-${options.component}.${file}.ts`);
     const sourceFile = getSourceFile(host, modulePath);
     const importName = `${strings.classify(options.name)}${strings.classify(options.component)}ExampleComponent`;
-    const importLocation = `'./examples/${strings.dasherize(options.name)}
-        -${strings.dasherize(options.component)}-example.component';`;
+    const dasherizeName = strings.dasherize(options.name);
+    const dasherizeComponent = strings.dasherize(options.component);
+    const importLocation = `'./examples/${dasherizeName}-${dasherizeComponent}-example.component';`;
     const importChange = addImport(modulePath, sourceFile, importName, importLocation);
     /**
      * find last example and add new example
@@ -94,8 +95,7 @@ export default function(options: DtExampleOptions): Rule {
     'docs',
     'components',
     options.component,
-    `docs-${options.component}.component.ts`)
-  );
+    `docs-${options.component}.component.ts`));
   const htmlFile = fs.existsSync(path.join(
     'src',
     'docs',

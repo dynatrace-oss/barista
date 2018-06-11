@@ -1,0 +1,138 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './checkbox-theme';
+
+$dt-checkbox-size: 20px;
+
+:host {
+  display: inline-block;
+}
+
+:host:not(.dt-checkbox-disabled),
+:host:not(.dt-checkbox-disabled) .dt-checkbox-label {
+  cursor: pointer;
+}
+
+:host.dt-checkbox-disabled,
+:host.dt-checkbox-disabled .dt-checkbox-label {
+  cursor: default;
+}
+
+.dt-checkbox-input {
+  clip: rect(0 0 0 0);
+  position: absolute;
+}
+
+.dt-checkbox-label {
+  display: flex;
+  align-items: center;
+}
+
+.dt-checkbox-container {
+  width: $dt-checkbox-size;
+  height: $dt-checkbox-size;
+  border: solid 2px $turquoise-600;
+  margin-right: 8px;
+
+  :host.dt-checkbox-disabled & {
+    border-color: $disabledcolor;
+  }
+
+  .dt-checkbox-button:not(:host.dt-checkbox-disabled):hover & {
+    border-color: $turquoise-700;
+  }
+
+  .dt-checkbox-focused:not(:host.dt-checkbox-disabled) & {
+    @include dt-focus-style();
+  }
+}
+
+.dt-checkbox-caption {
+  font-size: 14px;
+  padding-right: 20px;
+
+  :host.dt-checkbox-disabled & {
+    color: $disabledcolor;
+  }
+}
+
+.dt-checkbox-icon {
+  width: $dt-checkbox-size - 4;
+  height: $dt-checkbox-size - 4;
+}
+
+.dt-checkbox-icon svg {
+  display: block;
+  stroke: $turquoise-600;
+  width: $dt-checkbox-size - 4;
+  height: $dt-checkbox-size - 4;
+
+  :host.dt-checkbox-disabled & {
+    stroke: $disabledcolor;
+  }
+}
+.dt-checkbox-checkmark,
+.dt-checkbox-indeterminate {
+  animation-fill-mode: forwards;
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.14, 0, 0, 1);
+}
+
+.dt-checkbox-checkmark {
+  stroke-dashoffset: 560;
+}
+
+.dt-checkbox-indeterminate {
+  stroke-dashoffset: 352;
+}
+
+@keyframes dt-checkbox-check {
+  0% { stroke-dashoffset: 560; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes dt-checkbox-uncheck {
+  0% { stroke-dashoffset: 1120; }
+  100% { stroke-dashoffset: 560; }
+}
+
+@keyframes dt-checkbox-indeterminate {
+  0% { stroke-dashoffset: 352; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes dt-checkbox-determined {
+  0% { stroke-dashoffset: 704; }
+  100% { stroke-dashoffset: 352; }
+}
+
+:host.dt-checkbox-anim-unchecked-checked .dt-checkbox-checkmark {
+  animation-name: dt-checkbox-check;
+}
+:host.dt-checkbox-anim-checked-unchecked .dt-checkbox-checkmark,
+:host.dt-checkbox-anim-checked-indeterminate .dt-checkbox-checkmark {
+  animation-name: dt-checkbox-uncheck;
+}
+:host.dt-checkbox-anim-unchecked-indeterminate .dt-checkbox-indeterminate {
+  animation-name: dt-checkbox-indeterminate;
+}
+:host.dt-checkbox-anim-checked-indeterminate .dt-checkbox-indeterminate {
+  animation-name: dt-checkbox-indeterminate;
+  animation-delay: 150ms;
+}
+:host.dt-checkbox-anim-indeterminate-checked .dt-checkbox-indeterminate {
+  animation-name: dt-checkbox-determined;
+}
+:host.dt-checkbox-anim-indeterminate-checked .dt-checkbox-checkmark {
+  animation-name: dt-checkbox-check;
+  animation-delay: 150ms;
+}
+:host.dt-checkbox-anim-indeterminate-unchecked .dt-checkbox-indeterminate {
+  animation-name: dt-checkbox-determined;
+}
+
+// Apply the checkbox theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-checkbox($dt-current-theme);
+}
