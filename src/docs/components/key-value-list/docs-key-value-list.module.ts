@@ -10,7 +10,7 @@ import { DtKeyValueListModule } from '@dynatrace/angular-components';
 const EXAMPLES = [
   DefaultKeyValueListExampleComponent,
   MulticolumnKeyValueListExampleComponent,
-  LongtextKeyValueListExampleComponent
+  LongtextKeyValueListExampleComponent,
 ];
 
 @NgModule({

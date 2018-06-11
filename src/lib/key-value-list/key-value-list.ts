@@ -3,8 +3,6 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   Input,
-  Output,
-  Directive,
   ContentChildren,
   QueryList,
 } from '@angular/core';
@@ -15,8 +13,8 @@ import {
   selector: 'dt-key-value-list-item',
   template : '<div class="splitter"></div><div class="dt">{{key}}</div><div class="dd">{{value}}</div>',
   host : {
-    class : "dt-key-value-list-item"
-  }
+    class : 'dt-key-value-list-item',
+  },
 })
 export class DtKeyValueListItem {
   @Input() key;
@@ -38,15 +36,20 @@ export class DtKeyValueListItem {
 export class DtKeyValueList {
   @ContentChildren(DtKeyValueListItem) items: QueryList<DtKeyValueListItem>;
 
-  private getColumnsClass(): string {
-    var columns : number;
-    if (this.items.length>18) {
-        columns = 3;
-    } else if (this.items.length>12) {
-        columns = 2;
+  getColumnsClass(): string {
+    const COLUMNS_3_ITEMS = 18;
+    const COLUMNS_2_ITEMS = 12;
+    const COLUMNS_3 = 3;
+    const COLUMNS_2 = 2;
+    const COLUMNS_1 = 1;
+    let columns: number;
+    if (this.items.length > COLUMNS_3_ITEMS) {
+        columns = COLUMNS_3;
+    } else if (this.items.length > COLUMNS_2_ITEMS) {
+        columns = COLUMNS_2;
     } else {
-        columns = 1;
+        columns = COLUMNS_1;
     }
-    return 'dtKeyValueListColumns' + (columns);
+    return `dtKeyValueListColumns${columns}`;
   }
 }
