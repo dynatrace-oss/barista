@@ -9,7 +9,6 @@ import { DT_LOG_CONSUMER_PROVIDER } from '@dynatrace/angular-components';
   ],
   providers: [
     DT_LOG_CONSUMER_PROVIDER,
-    ConsoleAppender,
   ],
 })
 export class CoreModule {

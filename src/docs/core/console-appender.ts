@@ -1,7 +1,7 @@
 import { DtLogConsumer, DtLogEntry, DtLogEntryParam, DtLogLevel } from '@dynatrace/angular-components';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ConsoleAppender {
   constructor(private readonly logConsumer: DtLogConsumer) {
     this.logConsumer.consume()
