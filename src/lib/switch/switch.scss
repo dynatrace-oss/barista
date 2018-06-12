@@ -18,7 +18,7 @@
   position: absolute;
 }
 
-.dt-switch-bar{
+.dt-switch-bar {
   display: inline-block;
   width: 36px;
   height: 20px;
@@ -36,8 +36,8 @@
   user-select: none;
 }
 
-.dt-switch-label:before {
-  content: " ";
+.dt-switch-label::before {
+  content: '';
   display: inline-block;
   width: 36px;
   height: 20px;
@@ -47,7 +47,12 @@
   left: 0;
   box-sizing: border-box;
   background-color: transparent;
-  background-image: radial-gradient(circle 5px, transparent 0, transparent 2px, $gray-700 3px, transparent 4px);
+  background-image: radial-gradient(circle 5px,
+    transparent 0,
+    transparent 2px,
+    $gray-700 3px,
+    transparent 4px
+  );
   background-size: 10px 10px;
   background-repeat: no-repeat;
   background-position: 21px 4px;
@@ -79,7 +84,12 @@
 
   :host.dt-switch-disabled & {
       border-color: $disabledcolor;
-      background-image: radial-gradient(circle 5px, transparent 0, transparent 2px, $disabledcolor 3px, transparent 4px);
+      background-image: radial-gradient(circle 5px,
+        transparent 0,
+        transparent 2px,
+        $disabledcolor 3px,
+        transparent 4px
+      );
       background-color: transparent;
   }
 
@@ -90,8 +100,8 @@
   }
 }
 
-.dt-switch-label:after {
-  content: " ";
+.dt-switch-label::after {
+  content: '';
   height: 12px;
   width: 12px;
   border-radius: 50%;
