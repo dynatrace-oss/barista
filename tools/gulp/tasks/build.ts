@@ -6,17 +6,18 @@ import { sequenceTask } from '../util/sequence-task';
 import * as through from 'through2';
 import { replaceVersionPlaceholders } from '../util/replace-version-placeholder';
 
-import * as packagr from 'ng-packagr/lib/ng-v5/packagr';
+// import * as packagr from 'ng-packagr/lib/ng-v5/packagr';
 import { parseDir } from 'sass-graph';
+import { execNodeTask } from '../util/task-runner';
 
-const ngPackage = () => through.obj((file, _, callback) => {
-  packagr.ngPackagr()
-      .forProject(file.path)
-      .withTsConfig(join(buildConfig.projectDir, 'tsconfig.json'))
-      .build()
-      .then((result: any) => callback(null, result))
-      .catch((error: any) => callback(error, null));
-});
+// const ngPackage = () => through.obj((file, _, callback) => {
+//   packagr.ngPackagr()
+//       .forProject(file.path)
+//       .withTsConfig(join(buildConfig.projectDir, 'tsconfig.json'))
+//       .build()
+//       .then((result: any) => callback(null, result))
+//       .catch((error: any) => callback(error, null));
+// });
 
 const WATCH_DEBOUNCE_DELAY = 700;
 
@@ -43,29 +44,31 @@ task('library:removeModuleId', () =>
   .pipe(removeModuleId())
   .pipe(dest(buildConfig.libOutputDir)));
 
-task('library:compile', () =>
-  src(join(buildConfig.libDir, 'package.json'), {
-    read: false,
-  })
-  .pipe(ngPackage()));
+// task('library:compile', () =>
+//   src(join(buildConfig.libDir, 'package.json'), {
+//     read: false,
+//   })
+//   .pipe(ngPackage()));
 
-task('library:styles', () => {
-  const stylesGraph = parseDir(join(buildConfig.libDir, 'style'));
+task('library:compile', execNodeTask('@angular/cli', 'ng', ['build', 'lib']));
 
-  return src(Object.keys(stylesGraph.index), {base: buildConfig.libDir})
-    .pipe(dest(buildConfig.libOutputDir));
-});
+// task('library:styles', () => {
+//   const stylesGraph = parseDir(join(buildConfig.libDir, 'style'));
 
-task('library:assets', () =>
-  src(join(buildConfig.libDir, 'assets/**'))
-    .pipe(dest(join(buildConfig.libOutputDir, 'assets')))
-);
+//   return src(Object.keys(stylesGraph.index), {base: buildConfig.libDir})
+//     .pipe(dest(buildConfig.libOutputDir));
+// });
 
-task('library:build', sequenceTask(
-  'clean:lib',
-  'library:compile',
-  'library:styles',
-  'library:assets',
-  'library:version-replace',
-  'library:removeModuleId'
-));
+// task('library:assets', () =>
+//   src(join(buildConfig.libDir, 'assets/**'))
+//     .pipe(dest(join(buildConfig.libOutputDir, 'assets')))
+// );
+
+// task('library:build', sequenceTask(
+//   'clean:lib',
+//   'library:compile',
+//   // 'library:styles',
+//   // 'library:assets',
+//   '',
+//   'library:removeModuleId'
+// ));

@@ -5,8 +5,6 @@ import { By } from '@angular/platform-browser';
 import {
   DtCell,
   DtHeaderCell,
-  DtLoadingDistractor,
-  DtLoadingDistractorModule,
   DtRow,
   DtTable,
   DtTableEmptyStateDirective,
@@ -14,7 +12,8 @@ import {
   DtTableEmptyStateTitle,
   DtTableLoadingState,
   DtTableModule,
-} from '@dynatrace/angular-components';
+} from './index';
+import { DtLoadingDistractor, DtLoadingDistractorModule } from '../loading-distractor/index';
 
 describe('DtTable', () => {
 

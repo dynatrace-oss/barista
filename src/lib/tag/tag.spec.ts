@@ -1,7 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { DtIconModule, DtTagModule } from '@dynatrace/angular-components';
+import { DtTagModule } from './index';
+import { DtIconModule } from '../icon/index';
 
 describe('DtTag', () => {
   beforeEach(async(() => {

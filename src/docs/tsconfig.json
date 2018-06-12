@@ -1,14 +1,40 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "..",
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noUnusedParameters": false,
+    "strictNullChecks": true,
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "outDir": "../../dist/docs",
+    "sourceMap": true,
+    "target": "es5",
+    "stripInternal": false,
+    "typeRoots": [
+      "../../node_modules/@types/!(node)"
+    ],
     "baseUrl": ".",
+    "rootDirs": [
+      ".",
+      "../../dist/docs"
+    ],
     "paths": {
-      "@dynatrace/angular-components": ["../../dist/lib"]
-    },
-    "types": [
-      "highcharts"
-    ]
+      "@dynatrace/angular-components": ["../../src/lib"]
+    }
   },
-  "include": ["./**/*.ts"]
+  "files": [
+    "../../typings.d.ts",
+    "./docs.module.ts",
+    "./main.ts",
+    "./polyfills.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": false,
+    "fullTemplateTypeCheck": false,
+    "preserveWhitespace": true
+  }
 }
