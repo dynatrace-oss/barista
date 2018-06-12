@@ -1,0 +1,66 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+@import './pagination-theme';
+
+:host {
+  box-sizing: border-box;
+
+  font-size: 14px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+
+  & .dt-pagination-arrow {
+    flex-shrink: 0;
+  }
+
+  & .dt-pagination-arrow dt-icon {
+    width: 20px;
+    height: 20px;
+    fill: $gray-300;
+  }
+
+  & .dt-pagination-arrow:not(.dt-pagination-arrow-active) {
+    pointer-events: none;
+  }
+}
+
+.dt-pagination-arrow-left dt-icon {
+  transform: scale(-1, 1);
+}
+
+.dt-pagination-numbers {
+  margin: 0 8px;
+
+  display: flex;
+
+  & > * {
+    /* TODO: eventually remove them after nested button improvements */
+    min-width: 32px;
+    padding: 0;
+    color: $gray-600;
+
+    text-align: center;
+    user-select: none;
+  }
+}
+
+.dt-pagination-numbers .dt-pagination-item-active {
+  font-weight: bolder;
+  line-height: 32px;
+  color: $gray-900;
+}
+
+.dt-pagination-item-ellipsis {
+  text-align: center;
+  line-height: 32px;
+
+  font-size: 14px;
+  color: $gray-300;
+}
+
+// Apply the button-group-item theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-pagination($dt-current-theme);
+}

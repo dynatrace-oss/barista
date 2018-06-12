@@ -6,7 +6,7 @@ import {
   OnDestroy,
   Output
 } from '@angular/core';
-import {DtContextDialog} from '@dynatrace/angular-components/context-dialog/context-dialog';
+import {DtContextDialog} from './context-dialog';
 import {CdkOverlayOrigin} from '@angular/cdk/overlay';
 
 @Directive({
