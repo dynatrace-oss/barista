@@ -1,5 +1,5 @@
 import { Subject, Observable } from 'rxjs';
-import { Provider, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DtLogEntry } from './log-entry';
 
 const LOG_BUS = new Subject<DtLogEntry>();
