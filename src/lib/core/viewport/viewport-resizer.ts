@@ -9,7 +9,7 @@ const DEFAULT_WINDOW_EVENT_TIMEOUT = 150;
 /** Default ViewportResizer implementation that will only react to window size changes */
 @Injectable()
 // tslint:disable-next-line:no-use-before-declare
-export class DtDefaultViewportResizer implements ViewportResizer {
+export class DtDefaultViewportResizer implements DtViewportResizer {
 
   constructor(private _viewportRuler: ViewportRuler) { }
 
@@ -25,6 +25,6 @@ export class DtDefaultViewportResizer implements ViewportResizer {
   providedIn: 'root',
   useClass: DtDefaultViewportResizer,
 })
-export abstract class ViewportResizer {
+export abstract class DtViewportResizer {
   abstract change(): Observable<void>;
 }
