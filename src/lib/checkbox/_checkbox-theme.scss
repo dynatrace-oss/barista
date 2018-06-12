@@ -1,0 +1,27 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+
+@mixin dt-theme-checkbox($theme) {
+  $is-dark: map-get($theme, 'is-dark');
+
+  @if ($is-dark == true) {
+    :host .dt-checkbox-container {
+      border-color: #fff;
+    }
+    :host .dt-checkbox-icon svg {
+      stroke: #fff;
+    }
+    :host.dt-checkbox-disabled {
+      .dt-checkbox-container {
+        border-color: $gray-500;
+      }
+      .dt-checkbox-icon svg {
+        stroke: $gray-500;
+      }
+    }
+    :host:hover:not(.dt-checkbox-disabled)  .dt-checkbox-container {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+  }
+}
