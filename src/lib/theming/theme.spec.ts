@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtTheme, DtThemingModule } from '@dynatrace/angular-components';
+import { DtTheme, DtThemingModule } from './index';
 
 describe('DtTheme', () => {
 
