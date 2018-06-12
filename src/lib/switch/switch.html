@@ -1,7 +1,8 @@
-<label class="dt-switch-label" #label [attr.for]="inputId">
+<label class="dt-switch-label"
+       #label
+       [attr.for]="inputId">
 
-  <div #toggleBar class="dt-switch-bar"
-       [class.dt-switch-bar-no-side-margin]="!labelContent.textContent || !labelContent.textContent.trim()">
+  <div #toggleBar class="dt-switch-bar">
 
     <input #input class="dt-switch-input" type="checkbox"
            [id]="inputId"
@@ -9,7 +10,7 @@
            [tabIndex]="tabIndex"
            [disabled]="disabled"
            [checked]="checked"
-           [attr.name]="name"
+           [name]="name"
            [value]="value"
            [attr.aria-label]="ariaLabel || null"
            [attr.aria-labelledby]="ariaLabelledby"

@@ -11,9 +11,10 @@ import {
   DtButtonGroupModule,
   DtTableModule,
   DtTagModule,
-  // DtIconModule,
+  DtIconModule,
   DtRadioModule,
   DtShowMoreModule,
+  DtSwitchModule,
 } from '@dynatrace/angular-components';
 
 @Component({
@@ -42,9 +43,8 @@ export class KitchenSink {
     DtButtonGroupModule,
     DtRadioModule,
     DtShowMoreModule,
-    // TODO @thomaspink: Add again if universal supports XHR.
-    // Issue: ***REMOVED***/***REMOVED***
-    // DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
+    DtSwitchModule,
+    DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
