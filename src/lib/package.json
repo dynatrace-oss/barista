@@ -19,7 +19,7 @@
     "highcharts": "^6.0.7"
   },
   "ngPackage": {
-    "dest": "../../dist/angular-components",
+    "dest": "../../dist/lib",
     "lib": {
       "entryFile": "index.ts"
     }
