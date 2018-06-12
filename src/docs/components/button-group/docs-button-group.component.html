@@ -1,4 +1,5 @@
 <h1>ButtonGroup</h1>
+<docs-source-example [example]="examples.default"></docs-source-example>
 
 <p>
   This component create a button group elements with Dynatrace styling.
@@ -20,7 +21,6 @@ class MyModule {{"{}"}}
 <p>
   To apply the dynatrace button group, use the <code>&lt;dt-button-group&gt;</code> and <code>&lt;dt-button-group-item&gt;</code> elements. Example:
 </p>
-<docs-source-example [example]="examples.default"></docs-source-example>
 
 <section style="margin-top: 1em;">
   <table class="table">
@@ -60,7 +60,7 @@ class MyModule {{"{}"}}
     <td><code>[value]</code></td>
     <td><code>T | undefined</code></td>
     <td><code>undefined</code></td>
-    <td>The current (selected) value</td>
+    <td>Gets sets the current value</td>
   </tr>
   <tr>
     <td><code>[disabled]</code></td>
@@ -79,12 +79,6 @@ class MyModule {{"{}"}}
     <td><code>event&lt;T&gt;</code></td>
     <td><code></code></td>
     <td>Emits an event when the user selects an other button.</td>
-  </tr>
-  <tr>
-    <td><code>selectValue(T)</code></td>
-    <td><code>void</code></td>
-    <td><code></code></td>
-    <td>Select a specific option (value) programmatically.</td>
   </tr>
   </tbody>
 </table>
