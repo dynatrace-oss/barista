@@ -78,14 +78,6 @@ export class DtButtonGroup<T> extends _DtButtonGroup
     this._markItemsForCheck();
   }
 
-  get _selected(): DtButtonGroupItem<T> | null { return this._selectedItem; }
-  set _selected(selected: DtButtonGroupItem<T> | null) {
-    if (this._selectedItem !== selected) {
-      this._selectedItem = selected;
-      this._changeDetectorRef.markForCheck();
-    }
-  }
-
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
     super();
   }
@@ -120,7 +112,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
 
   /** Updates the `selected` state of each item button based on the groups value. */
   private _updateSelectedItemFromValue(): void {
-    if (this._items && !(this._selected !== null && this._selected.value === this._value)) {
+    if (this._items) {
       this._items.forEach((item) => {
         item.selected = this.value === item.value;
       });
@@ -186,13 +178,6 @@ implements CanDisable, CanColor, HasTabIndex, AfterContentInit {
     const newValue = coerceBooleanProperty(value);
     if (this._selected !== newValue) {
       this._selected = newValue;
-      if (newValue && this._buttonGroup && this._buttonGroup.value !== this.value) {
-        this._buttonGroup._selected = this;
-      } else if (!newValue && this._buttonGroup && this._buttonGroup.value === this.value) {
-        // When unchecking the selected items, update the selected item
-        // property on the group.
-        this._buttonGroup._selected = null;
-      }
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -238,7 +223,6 @@ implements CanDisable, CanColor, HasTabIndex, AfterContentInit {
 
     if (this._buttonGroup && groupValueChanged) {
       this._buttonGroup.value = this.value;
-      this._buttonGroup._selected = this;
       this._buttonGroup._emitChangeEvent();
     }
   }
