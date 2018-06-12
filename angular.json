@@ -14,8 +14,8 @@
             "outputPath": "dist/docs",
             "index": "src/docs/index.html",
             "main": "src/docs/main.ts",
-            "tsConfig": "src/docs/./tsconfig-build.json",
-            "polyfills": "src/docs/./polyfills.ts",
+            "tsConfig": "src/docs/tsconfig.json",
+            "polyfills": "src/docs/polyfills.ts",
             "assets": [
               {
                 "glob": "**",
@@ -46,7 +46,9 @@
             ]
           },
           "configurations": {
-            "production": {}
+            "production": {
+              "tsConfig": "src/docs/tsconfig-build.json"
+            }
           }
         },
         "serve": {
@@ -77,7 +79,7 @@
       "sourceRoot": "",
       "projectType": "application"
     },
-    "angular-components": {
+    "lib": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "library",
