@@ -37,7 +37,7 @@ import { FormControl, FormsModule, ReactiveFormsModule, NgModel } from '@angular
 import { By } from '@angular/platform-browser';
 import {DtSwitchModule, DtSwitch, DtSwitchChange} from '@dynatrace/angular-components';
 
-fdescribe('DtSwitch', () => {
+describe('DtSwitch', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(fakeAsync(() => {
