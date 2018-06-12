@@ -1,12 +1,38 @@
 $font-family: 'BerninaSansWeb';
-$fonts-path: '/assets/fonts' !default;
+$fonts-dir: '/assets/fonts' !default;
+$fonts-path: '/bernina/BerninaSans-Web';
 
-@mixin font-face($variant, $ff: $font-family) {
+
+@mixin font-face($variant, $ff: $font-family, $fd: $fonts-path) {
   font-family: $ff;
-  src: url('#{$fonts-path}/bernina/BerninaSans-Web-#{$variant}.woff') format('woff'),
-  url('#{$fonts-path}/bernina/BerninaSans-Web-#{$variant}.ttf') format('truetype');
+  src: url('#{$fonts-dir}#{$fd}-#{$variant}.woff') format('woff'),
+  url('#{$fonts-dir}#{$fd}-#{$variant}.ttf') format('truetype');
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+@font-face {
+  @include font-face('Regular', 'VeraMonoWeb', '/bitstream/VeraMono-Web');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  @include font-face('Bold', 'VeraMonoWeb', '/bitstream/VeraMono-Web');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  @include font-face('Bold-Italic', 'VeraMonoWeb', '/bitstream/VeraMono-Web');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  @include font-face('Italic', 'VeraMonoWeb', '/bitstream/VeraMono-Web');
+  font-weight: 400;
+  font-style: italic;
 }
 
 @font-face {

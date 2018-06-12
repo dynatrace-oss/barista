@@ -1,13 +1,13 @@
+@import '../lib/style/index';
+
 // THIS FILE CAN BE REMOVED ONCE WE REPLACE HTML TABLES WITH OUR DT-TABLES
-// CSS-GROUNDHOG IS NO LONGER NEEDED 
+// CSS-GROUNDHOG IS NO LONGER NEEDED
 
 .table {
   border-spacing: 0;
-  font-size: 14px;
-  line-height: 1.4em;
-  font-family: 'BerninaSansWeb', 'Open Sans', sans-serif;
   margin-bottom: 1.5rem;
   width: 100%;
+  @include default-font(14px, 1.4);
 }
 
 .table th,
@@ -20,6 +20,10 @@
 .table td {
   padding-top: 10px;
   padding-bottom: 11px;
+}
+
+code {
+  @include code-font;
 }
 
 @media (max-width: 920px) {
@@ -59,8 +63,7 @@
   .table--responsive td:before {
     content: attr(data-th) " ";
     text-align: left;
-    font-weight: 700;
-    font-size: 12px;
+    @include custom-font-styles($default-font-color, 700, 12px);
     position: absolute;
     border-right: 1px solid #e6e6e6;
     height: 100%;
@@ -76,8 +79,7 @@
 .table thead th,
 .table thead td {
   text-align: left;
-  font-weight: 400;
-  font-size: 12px;
+  @include custom-font-size(12px);
   position: relative;
   overflow: hidden;
   padding-top: 0;
