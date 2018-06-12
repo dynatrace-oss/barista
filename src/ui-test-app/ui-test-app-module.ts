@@ -8,10 +8,13 @@ import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
 import {
   DtButtonModule,
   DtButtonGroupModule,
+  DtCheckboxModule,
   DtExpandableSectionModule,
   DtExpandablePanelModule,
   DtTileModule,
   DtContextDialogModule,
+  DtPaginationModule,
+  DtIconModule,
   DtRadioModule,
   DtShowMoreModule,
   DtSwitchModule,
@@ -22,8 +25,11 @@ import { ExpandableSectionUi } from './expandable-section/expandable-section-ui'
 import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
+import { PaginationUI } from './pagination/pagination-ui';
 import { RadioUI } from './radio/radio.ui';
+import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
+import { CheckboxUI } from './checkbox/checkbox-ui';
 import { SwitchUI } from './switch/switch-ui';
 
 /**
@@ -33,10 +39,12 @@ import { SwitchUI } from './switch/switch-ui';
   exports: [
     DtButtonModule,
     DtButtonGroupModule,
+    DtCheckboxModule,
     DtExpandablePanelModule,
     DtExpandableSectionModule,
     DtTileModule,
     DtContextDialogModule,
+    DtPaginationModule,
     DtRadioModule,
     DtShowMoreModule,
     DtSwitchModule,
@@ -51,17 +59,21 @@ export class DynatraceAngularCompModule {}
     DynatraceAngularCompModule,
     NoopAnimationsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
   ],
   declarations: [
     UIApp,
     Home,
     ButtonUI,
     ButtonGroupUi,
+    CheckboxUI,
     ExpandablePanelUi,
     ExpandableSectionUi,
     RadioUI,
     TileUI,
     ContextDialogUI,
+    PaginationUI,
     ShowMoreUI,
     SwitchUI,
   ],
