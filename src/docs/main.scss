@@ -22,39 +22,39 @@ html {
 }
 
 body {
+  @include body-font();
   margin: 0;
   padding: 0;
-  font-family: 'BerninaSansWeb', 'Open Sans', sans-serif;
-  color: #454646;
   counter-reset: section;
 }
 
-h1,
-h2,
-h3 {
-  @extend %typecsset-reset;
-  font-weight: 300;
-  line-height: 1.2;
-}
-
 h1 {
-  font-size: 44px;
+  @extend %typecsset-reset;
+  @include h1-font();
 }
 
 h2 {
-  font-size: 32px;
-  line-height: 1.2;
+  @extend %typecsset-reset;
+  @include h2-font();
 }
 
 h3 {
-  font-size: 24px;
+  @extend %typecsset-reset;
+  @include h3-font();
+}
+
+code {
+  @include code-font;
+}
+
+label {
+  @include label-font;
 }
 
 h4,
 h5,
 h6 {
-  line-height: 1.6;
-  font-size: 16px;
+  @include custom-font-size(16px);
   margin-bottom: 6px;
 }
 
@@ -81,4 +81,3 @@ h6:not(:first-child) {
   color: #fff;
   padding: 16px;
 }
-
