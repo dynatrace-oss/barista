@@ -1,0 +1,110 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+
+@mixin dt-theme-switch($theme) {
+  $is-dark: map-get($theme, 'is-dark');
+
+  @if ($is-dark == true) {
+
+    :host:not(.dt-switch-checked, .dt-switch-disabled):hover .dt-switch-label:before {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    :host .dt-switch-label:before {
+      background-image: radial-gradient(circle 5px, transparent 0, transparent 2px, #fff 3px, transparent 4px);
+      border-color: #fff;
+      background-color: transparent;
+    }
+
+    :host .dt-switch-label:after {
+      background-color: #fff;
+    }
+
+    :host.dt-switch-checked {
+      .dt-switch-label:before {
+        background-image: linear-gradient(to right, #fff 1px, transparent 0);
+        border-color: $turquoise-600;
+        background-color: $turquoise-600;
+      }
+
+      &:not(.dt-switch-label-disabled):hover .dt-switch-label:before{
+        border-color: $turquoise-700;
+        background-color: $turquoise-700;
+      }
+    }
+
+    :host.dt-switch-disabled {
+      .dt-switch-label:before {
+        background-image: radial-gradient(circle 5px, transparent 0, transparent 2px, $gray-500 3px, transparent 4px);
+        border-color: $gray-500;
+        background-color: transparent;
+      }
+      .dt-switch-label:after {
+        background-color: $gray-500;
+      }
+
+    }
+
+    :host.dt-switch-checked.dt-switch-disabled {
+      .dt-switch-label:before {
+        background-image: linear-gradient(to right, $gray-500 1px, transparent 0);
+      }
+
+      &:hover .dt-switch-label:before {
+        background-color: transparent;
+        border-color: $gray-500;
+      }
+    }
+
+    //:host .dt-switch-label:not(.dt-switch-label-checked, .dt-switch-label-disabled):before {
+    //  background-image: radial-gradient(circle 5px, transparent 0, transparent 2px, #fff 3px, transparent 4px);
+    //  border-color: #fff;
+    //  background-color: transparent;
+    //}
+    //:host .dt-switch-label:not(.dt-switch-label-disabled):after {
+    //  background-color: #fff;
+    //}
+    //:host .dt-switch-label-checked:before {
+    //  background-image: linear-gradient(to right, #fff 1px, transparent 0);
+    //  border-color: $turquoise-600;
+    //  background-color: $turquoise-600;
+    //}
+    //:host .dt-switch-label-disabled:before {
+    //  background-image: radial-gradient(circle 5px, transparent 0, transparent 2px, $gray-300 3px, transparent 4px);
+    //  border-color: $gray-300;
+    //  background-color: transparent;
+    //}
+    //:host .dt-switch-label-disabled:after {
+    //  background-color: $gray-300;
+    //}
+    //:host .dt-switch-label-checked.dt-switch-label-disabled:before {
+    //  background-image: linear-gradient(to right, $gray-300 1px, transparent 0);
+    //  border-color: $gray-300;
+    //  background-color: transparent;
+    //}
+    //:host:not(.dt-switch-checked, .dt-switch-disabled):hover .dt-switch-label:before {
+    //  //border-color: #fff;
+    //  background-color: rgba(255, 255, 255, 0.2);
+    //}
+    //:host .dt-switch-label-checked:not(.dt-switch-label-disabled):hover:before {
+    //  border-color: $turquoise-700;
+    //  background-color: $turquoise-700;
+    //}
+
+    //:host .dt-checkbox-icon svg {
+    //  stroke: #fff;
+    //}
+    //:host.dt-checkbox-disabled {
+    //  .dt-checkbox-container {
+    //    border-color: $gray-500;
+    //  }
+    //  .dt-checkbox-icon svg {
+    //    stroke: $gray-500;
+    //  }
+    //}
+    //:host:hover:not(.dt-checkbox-disabled)  .dt-checkbox-container {
+    //  background-color: rgba(255, 255, 255, 0.2);
+    //}
+
+  }
+}

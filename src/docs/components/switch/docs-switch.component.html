@@ -1,0 +1,85 @@
+<h1>Switch</h1>
+<docs-source-example [example]="examples.default"></docs-source-example>
+<p><code>&lt;dt-swtich&gt;</code> is an on/off control that can be toggled via clicking. The switch behaves similarly to a checkbox, though it does not support an indeterminate state.</p>
+
+<h2>Options & Properties</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <td width="160px">Name</td>
+    <td width="160px">Type</td>
+    <td>Description</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>ng-content</code></td>
+    <td><code>string</code></td>
+    <td>Text will be set as the label.</td>
+  </tr>
+  <tr>
+    <td><code>@Input() checked</code></td>
+    <td><code>boolean</code></td>
+    <td>Whether or not the switch is checked.</td>
+  </tr>
+  <tr>
+    <td><code>@Input() id</code></td>
+    <td><code>string</code></td>
+    <td>Unique id of the element.</td>
+  </tr>
+  <tr>
+    <td><code>@Input() required</code></td>
+    <td><code>boolean</code></td>
+    <td>Whether the switch is required.</td>
+  </tr>
+  <tr>
+    <td><code>@Input() disabled</code></td>
+    <td><code>boolean</code></td>
+    <td>Whether the element is disabled.</td>
+  </tr>
+  <tr>
+    <td><code>@Input() tabIndex</code></td>
+    <td><code>number</code></td>
+    <td>The elements tab index.</td>
+  </tr>
+  <tr>
+    <td><code>@Input() name</code></td>
+    <td><code>string</code></td>
+    <td>Name value will be applied to the input element if present.</td>
+  </tr>
+  <tr>
+    <td><code>@Input() value</code></td>
+    <td><code>&lt;T&gt;</code></td>
+    <td>The value attribute of the native input element</td>
+  </tr>
+  <tr>
+    <td><code>@Input() aria-label</code></td>
+    <td><code>string</code></td>
+    <td>Takes precedence as the element's text alternative.</td>
+  </tr>
+  <tr>
+    <td><code>@Input() aria-labelledby</code></td>
+    <td><code>string</code></td>
+    <td>Is read after the element's label and field type</td>
+  </tr>
+  <tr>
+    <td><code>@Output() change</code></td>
+    <td><code>DtSwitchChange&lt;T&gt;</code></td>
+    <td>Called every time the switch gets checked or unchecked</td>
+  </tr>
+  </tbody>
+</table>
+
+Angular forms
+<code>&lt;dt-switch&gt;</code> is compatible with @angular/forms and supports both FormsModule and ReactiveFormsModule.
+
+<h2>Accessibility</h2>
+<p>
+  The <code>&lt;dt-switch&gt;</code> uses an internal <code>&lt;input type="checkbox"&gt;</code> to provide an accessible experience.
+  This internal checkbox receives focus and is automatically labelled by the text content of the <code>&lt;dt-switch&gt;</code> element.
+</p>
+
+<p>Switches without text or labels should be given a meaningful label via <code>aria-label</code> or <code>aria-labelledby</code>.</p>
+
+<h3>DarkTheme</h3>
+<docs-source-example [example]="examples.darkTheme"></docs-source-example>
