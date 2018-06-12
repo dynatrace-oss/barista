@@ -23,6 +23,7 @@ export class Docs {
     {name: 'Loading distractor', route: '/loading-distractor'},
     {name: 'Radio', route: '/radio'},
     {name: 'Show more', route: '/show-more'},
+    {name: 'Switch', route: '/switch'},
     {name: 'Table', route: '/table'},
     {name: 'Tag', route: '/tag'},
     {name: 'Tile', route: '/tile'},

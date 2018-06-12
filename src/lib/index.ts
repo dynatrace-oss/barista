@@ -27,3 +27,4 @@ export * from './context-dialog/index';
 export * from './tag/index';
 export * from './radio/index';
 export * from './show-more/index';
+export * from './switch/index';

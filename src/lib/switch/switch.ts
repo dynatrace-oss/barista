@@ -37,7 +37,7 @@ let nextUniqueId = 0;
  * Provider Expression that allows dt-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  */
-export const DT_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
+export const DT_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   // tslint:disable-next-line:no-forward-ref no-use-before-declare
   useExisting: forwardRef(() => DtSwitch),
@@ -50,7 +50,7 @@ export interface DtSwitchChange<T> {
   checked: boolean;
 }
 
-// Boilerplate for applying mixins to DtContextDialog.
+// Boilerplate for applying mixins to DtSwitch.
 export class DtSwitchBase { }
 export const _DtSwitchMixinBase = mixinTabIndex(mixinDisabled(DtSwitchBase));
 
@@ -68,7 +68,7 @@ export const _DtSwitchMixinBase = mixinTabIndex(mixinDisabled(DtSwitchBase));
     '[class.dt-switch-disabled]': 'disabled',
     '(focus)': '_inputElement.nativeElement.focus()',
   },
-  providers: [DT_CHECKBOX_CONTROL_VALUE_ACCESSOR],
+  providers: [DT_SWITCH_CONTROL_VALUE_ACCESSOR],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
@@ -82,7 +82,6 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   set checked(value: boolean) {
     const coercedValue = coerceBooleanProperty(value);
     if (coercedValue !== this._checked) {
-      console.log("coercedValue", coercedValue);
       this._checked = coercedValue;
       this._changeDetectorRef.markForCheck();
     }
@@ -106,7 +105,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     if (value !== this.disabled) {
-      this._disabled = value;
+      this._disabled = coerceBooleanProperty(value);
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -169,7 +168,6 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
 
   /** Toggles the `checked` state of the checkbox. */
   toggle(): void {
-    console.log("toggle");
     this.checked = !this.checked;
   }
 
@@ -177,7 +175,6 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     // We have to stop propagation for click events on the visual hidden input element.
     // Otherwise this will lead to multiple click events.
     event.stopPropagation();
-    console.log("clicked");
 
     // if (!this.disabled) {
     //   this.toggle();
@@ -243,15 +240,6 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     this._controlValueAccessorChangeFn(this.checked);
     this.change.emit({ source: this, checked: this.checked });
   }
-
-  /** Method being called whenever the label text changes. */
-  _onLabelTextChange() {
-    // This method is getting called whenever the label of the slide-toggle changes.
-    // Since the slide-toggle uses the OnPush strategy we need to notify it about the change
-    // that has been recognized by the cdkObserveContent directive.
-    this._changeDetectorRef.markForCheck();
-  }
-
 }
 
 export const DT_SWITCH_REQUIRED_VALIDATOR: Provider = {
