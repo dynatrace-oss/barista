@@ -6,7 +6,6 @@ import { DarkThemeSwitchExampleComponent } from './examples/dark-theme-switch-ex
   moduleId: module.id,
   selector: 'docs-switch',
   templateUrl: 'docs-switch.component.html',
-  styleUrls: ['docs-switch.component.scss'],
 })
 export class DocsSwitchComponent {
   examples = {

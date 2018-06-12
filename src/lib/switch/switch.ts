@@ -30,11 +30,11 @@ import {
   mixinDisabled,
 } from '../core/index';
 
-// Increasing integer for generating unique ids for slide-toggle components.
+// Increasing integer for generating unique ids for switch components.
 let nextUniqueId = 0;
 
 /**
- * Provider Expression that allows dt-checkbox to register as a ControlValueAccessor.
+ * Provider Expression that allows dt-switch to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  */
 export const DT_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -44,7 +44,7 @@ export const DT_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   multi: true,
 };
 
-/** Change event object emitted by DtCheckbox */
+/** Change event object emitted by DtSwitch */
 export interface DtSwitchChange<T> {
   source: DtSwitch<T>;
   checked: boolean;
@@ -76,7 +76,7 @@ export const _DtSwitchMixinBase = mixinTabIndex(mixinDisabled(DtSwitchBase));
 export class DtSwitch<T> extends _DtSwitchMixinBase
   implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit, ControlValueAccessor {
 
-  /** Whether or not the checkbox is checked. */
+  /** Whether or not the switch is checked. */
   @Input()
   get checked(): boolean { return this._checked; }
   set checked(value: boolean) {
@@ -92,13 +92,13 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   get id(): string { return this._id; }
   set id(value: string) { this._id = value || this._uid; }
 
-  /** Whether the checkbox is required. */
+  /** Whether the switch is required. */
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) { this._required = coerceBooleanProperty(value); }
 
   /**
-   * Whether the checkbox is disabled. This fully overrides the implementation provided by
+   * Whether the switch is disabled. This fully overrides the implementation provided by
    * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
    */
   @Input()
@@ -124,7 +124,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     // tslint:disable-next-line:no-input-rename
   @Input('aria-labelledby') ariaLabelledby: string | null = null;
 
-  /** Event emitted when the checkbox's `checked` value changes. */
+  /** Event emitted when the switch's `checked` value changes. */
     // tslint:disable-next-line:no-output-named-after-standard-event
   @Output() readonly change = new EventEmitter<DtSwitchChange<T>>();
 
@@ -166,7 +166,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
   }
 
-  /** Toggles the `checked` state of the checkbox. */
+  /** Toggles the `checked` state of the switch. */
   toggle(): void {
     this.checked = !this.checked;
   }
@@ -175,11 +175,6 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     // We have to stop propagation for click events on the visual hidden input element.
     // Otherwise this will lead to multiple click events.
     event.stopPropagation();
-
-    // if (!this.disabled) {
-    //   this.toggle();
-    //   this._emitChangeEvent();
-    // }
   }
 
   _onInputChange(event: Event): void {
@@ -251,7 +246,7 @@ export const DT_SWITCH_REQUIRED_VALIDATOR: Provider = {
 
 /**
  * Validator for checkbox's required attribute in template-driven checkbox.
- * TODO @thomaspink: Remove once CheckboxRequiredValidator supports custom checkbox
+ * TODO @alexfrasst: Remove once CheckboxRequiredValidator supports custom checkbox
  */
 @Directive({
   selector: `dt-switch[required][formControlName],

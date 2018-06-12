@@ -90,8 +90,6 @@
   }
 }
 
-
-
 .dt-switch-label:after {
   content: " ";
   height: 12px;
@@ -115,58 +113,6 @@
     background-color: $disabledcolor;
   }
 }
-
-//:host:not(.dt-switch-disabled):focus {
-//  @include dt-focus-style();
-//}
-
-//.dt-switch-label-checked:before {
-//  background-color: $turquoise-600;
-//  border-color: $turquoise-600;
-//  background-image: linear-gradient(to right, #fff 1px, transparent 0);
-//  background-size: 8px 8px;
-//  background-repeat: no-repeat;
-//  background-position: 9px 5px;
-//}
-
-//.dt-switch-label-checked:after {
-//  left: 16px;
-//}
-
-//.dt-switch-label:not(.dt-switch-label-checked, .dt-switch-label-disabled):hover:before {
-//  border: 1px solid $turquoise-700;
-//  background-color: $gray-100;
-//}
-
-//.dt-switch-label-checked:hover:before {
-//  background-color: $turquoise-700;
-//  border-color: $turquoise-700;
-//}
-
-//.dt-switch-label-disabled:before {
-//  border-color: $disabledcolor;
-//  background-image: radial-gradient(circle 5px, transparent 0, transparent 2px, $disabledcolor 3px, transparent 4px);
-//  background-color: transparent;
-//}
-
-//.dt-switch-label-disabled:after {
-//  background-color: $disabledcolor;
-//}
-
-//.dt-switch-label-checked.dt-switch-label-disabled:before {
-//  border-color: $disabledcolor;
-//  background-image: linear-gradient(to right, $disabledcolor 1px, transparent 0);
-//  background-color: transparent;
-//}
-
-//.dt-switch-label-checked.dt-switch-label-disabled:after {
-//  background-color: $disabledcolor;
-//}
-
-//.dt-switch-input:focus:not(:active) + .dt-switch-label:before {
-//
-//  //@include focusStyle();
-//}
 
 // Apply the switch theme to all theme definitions
 @include dt-apply-theme() {
