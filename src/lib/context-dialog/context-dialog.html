@@ -16,7 +16,7 @@
   (backdropClick)="close()"
   (attach)="_onAttached()"
   (detach)="close()"
-  [cdkConnectedOverlayOrigin]="_trigger"
+  [cdkConnectedOverlayOrigin]="trigger"
   [cdkConnectedOverlayOpen]="isPanelOpen"
   [cdkConnectedOverlayPositions]="_positions">
   <div
@@ -31,7 +31,6 @@
     </div>
     <button
       dt-icon-button
-      [color]="color"
       variant="secondary"
       class="dt-context-dialog-close-trigger"
       (click)="close()"

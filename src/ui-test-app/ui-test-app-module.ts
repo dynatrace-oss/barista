@@ -14,6 +14,7 @@ import {
   DtContextDialogModule,
   DtRadioModule,
   DtShowMoreModule,
+  DtSwitchModule,
 } from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
@@ -23,6 +24,7 @@ import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
 import { RadioUI } from './radio/radio.ui';
 import { ShowMoreUI } from './show-more/show-more-ui';
+import { SwitchUI } from './switch/switch-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -37,6 +39,7 @@ import { ShowMoreUI } from './show-more/show-more-ui';
     DtContextDialogModule,
     DtRadioModule,
     DtShowMoreModule,
+    DtSwitchModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -60,6 +63,7 @@ export class DynatraceAngularCompModule {}
     TileUI,
     ContextDialogUI,
     ShowMoreUI,
+    SwitchUI,
   ],
   bootstrap: [UIApp],
 })
