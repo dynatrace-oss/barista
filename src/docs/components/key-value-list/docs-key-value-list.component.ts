@@ -7,7 +7,6 @@ import { LongtextKeyValueListExampleComponent } from './examples/longtext-key-va
   moduleId: module.id,
   selector: 'docs-key-value-list',
   templateUrl: 'docs-key-value-list.component.html',
-  styleUrls: ['docs-key-value-list.component.scss'],
 })
 export class DocsKeyValueListComponent {
   examples = {
