@@ -1,4 +1,4 @@
-@import '../lib/style/index';
+@import '../lib/style/font-mixins';
 
 // THIS FILE CAN BE REMOVED ONCE WE REPLACE HTML TABLES WITH OUR DT-TABLES
 // CSS-GROUNDHOG IS NO LONGER NEEDED
@@ -20,10 +20,6 @@
 .table td {
   padding-top: 10px;
   padding-bottom: 11px;
-}
-
-code {
-  @include code-font;
 }
 
 @media (max-width: 920px) {
