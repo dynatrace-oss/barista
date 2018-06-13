@@ -1,7 +1,7 @@
 import {async, TestBed} from '@angular/core/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtButtonGroup, DtButtonGroupItem, DtButtonGroupModule} from '@dynatrace/angular-components';
+import {DtButtonGroup, DtButtonGroupItem, DtButtonGroupModule} from './index';
 
 describe('DtButtonGroup', () => {
 

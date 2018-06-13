@@ -74,11 +74,6 @@
         }
       }
     },
-    "docs-e2e": {
-      "root": "",
-      "sourceRoot": "",
-      "projectType": "application"
-    },
     "lib": {
       "root": "",
       "sourceRoot": "src",
@@ -102,19 +97,7 @@
           "options": {
             "main": "src/lib/test.ts",
             "tsConfig": "src/lib/tsconfig.spec.json",
-            "karmaConfig": "src/lib/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.json"
-            ],
-            "tslintConfig": "tslint.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "karmaConfig": "test/karma.conf.js"
           }
         }
       }

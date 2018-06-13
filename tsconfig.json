@@ -33,9 +33,6 @@
       ],
       "highcharts": [
         "node_modules/highcharts"
-      ],
-      "angular-components": [
-        "dist/angular-components"
       ]
     },
     "strictNullChecks": true,
