@@ -1,6 +1,11 @@
+/*
+ * mixins for setting font-styles
+ */
+
+@import 'variables';
 $monospace-font-family: 'VeraMonoWeb';
 $default-font-family: 'BerninaSansWeb';
-$default-font-color: $gray-700;
+$default-font-color: $textcolor;
 $default-font-weight: normal;
 $default-font-size: 14px;
 $default-line-height: 1.6;
