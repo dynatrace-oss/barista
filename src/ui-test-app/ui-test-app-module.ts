@@ -48,6 +48,7 @@ import { CheckboxUI } from './checkbox/checkbox-ui';
     DtPaginationModule,
     DtRadioModule,
     DtShowMoreModule,
+    DtKeyValueListModule,
   ],
 })
 export class DynatraceAngularCompModule {}
