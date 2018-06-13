@@ -1,9 +1,12 @@
 import { DtLogConsumer, DtLogEntry, DtLogEntryParam, DtLogLevel } from '@dynatrace/angular-components';
-import { Injectable } from '@angular/core';
+import { APP_INITIALIZER, FactoryProvider, Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ConsoleAppender {
   constructor(private readonly logConsumer: DtLogConsumer) {
+  }
+
+  init(): void {
     this.logConsumer.consume()
       .subscribe((log: DtLogEntry): void => {
         const formattedMessage = `[${log.level}] ${log.loggerName} | ${log.message}`;
@@ -26,3 +29,14 @@ export class ConsoleAppender {
     }
   }
 }
+
+export const LOG_APPENDER_PROVIDER_FACTORY  = (consoleAppender: ConsoleAppender): () => void => (): void => {
+  consoleAppender.init();
+};
+
+export const LOG_APPENDER_INITIALIZER: FactoryProvider = {
+  deps: [ConsoleAppender],
+  multi: true,
+  provide: APP_INITIALIZER,
+  useFactory: LOG_APPENDER_PROVIDER_FACTORY,
+};
