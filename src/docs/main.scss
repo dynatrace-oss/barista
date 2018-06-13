@@ -22,33 +22,15 @@ html {
 }
 
 body {
-  @include body-font();
   margin: 0;
   padding: 0;
   counter-reset: section;
 }
 
-h1 {
-  @extend %typecsset-reset;
-  @include h1-font();
-}
-
-h2 {
-  @extend %typecsset-reset;
-  @include h2-font();
-}
-
+h1,
+h2,
 h3 {
   @extend %typecsset-reset;
-  @include h3-font();
-}
-
-code {
-  @include code-font;
-}
-
-label {
-  @include label-font;
 }
 
 h4,
