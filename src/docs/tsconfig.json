@@ -1,17 +1,11 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "noUnusedParameters": false,
-    "strictNullChecks": true,
-    "lib": ["es2017", "dom"],
-    "skipLibCheck": true,
-    "module": "es2015",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "outDir": "../../dist/docs",
-    "sourceMap": true,
     "target": "es5",
     "stripInternal": false,
     "typeRoots": [
@@ -23,7 +17,8 @@
       "../../dist/docs"
     ],
     "paths": {
-      "@dynatrace/angular-components": ["../../src/lib"]
+      "@dynatrace/angular-components": ["../../src/lib"],
+      "@dynatrace/angular-components/*": ["../../src/lib/*"]
     }
   },
   "files": [
