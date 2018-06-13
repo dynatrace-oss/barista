@@ -2,7 +2,8 @@
 import {async, TestBed} from '@angular/core/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtPaginationModule, DtPagination, DtIconModule} from '@dynatrace/angular-components';
+import {DtPaginationModule, DtPagination} from './index';
+import {DtIconModule} from '../icon/index';
 import {HttpClientModule} from '@angular/common/http';
 
 function extractNumbers(elementList: HTMLElement[]): string {

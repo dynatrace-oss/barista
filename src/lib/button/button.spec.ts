@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtButtonModule, getDtButtonNestedVariantNotAllowedError } from './index';
+import { DtButtonModule } from './index';
 import { DtIconModule } from '../icon/index';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 describe('DtButton', () => {
 

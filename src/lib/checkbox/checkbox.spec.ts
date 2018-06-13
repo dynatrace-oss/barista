@@ -4,7 +4,7 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DtCheckbox, DtCheckboxChange, DtCheckboxModule } from '@dynatrace/angular-components';
+import { DtCheckbox, DtCheckboxChange, DtCheckboxModule } from './index';
 
 describe('DtCheckbox', () => {
   let fixture: ComponentFixture<any>;
