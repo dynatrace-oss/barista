@@ -1,3 +1,4 @@
+$monospace-font-family: 'VeraMonoWeb';
 $default-font-family: 'BerninaSansWeb';
 $default-font-color: $gray-700;
 $default-font-weight: normal;
@@ -28,7 +29,7 @@ $default-line-height: 1.6;
 @mixin monospace-font($font-size: $default-font-size, $line-height: $default-line-height,
                       $font-weight: $default-font-weight) {
 
-  font-family: 'VeraMonoWeb';
+  font-family: $monospace-font-family;
   @include custom-font-styles($default-font-color, $font-weight, $font-size, $line-height);
 }
 
