@@ -29,6 +29,7 @@ import {DtThemingModule} from '@dynatrace/angular-components';
 import { DocsRadioModule } from './components/radio/docs-radio.module';
 import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
 import { DocsProgressCircleModule } from './components/progress-circle/docs-progress-circle.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { DocsProgressCircleModule } from './components/progress-circle/docs-prog
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    CoreModule,
     DocsRoutingModule,
     DocsButtonModule,
     DocsButtonGroupModule,
