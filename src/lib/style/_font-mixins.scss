@@ -1,0 +1,63 @@
+/*
+ * mixins for setting font-styles
+ */
+
+@import 'variables';
+$monospace-font-family: 'VeraMonoWeb';
+$default-font-family: 'BerninaSansWeb';
+$default-font-color: $textcolor;
+$default-font-weight: normal;
+$default-font-size: 14px;
+$default-line-height: 1.6;
+
+@mixin custom-font-styles($color: false, $font-weight: false,
+                          $font-size: false, $line-height: false) {
+
+  @if $color { color: $color; }
+  @if $font-weight { font-weight: $font-weight; }
+  @if $font-size { font-size: $font-size; }
+  @if $line-height { line-height: $line-height; }
+}
+
+@mixin custom-font-size($font-size: false, $line-height: false) {
+  @if $font-size { font-size: $font-size; }
+  @if $line-height { line-height: $line-height; }
+}
+
+@mixin default-font($font-size: $default-font-size, $line-height: $default-line-height,
+                    $font-weight: $default-font-weight) {
+
+  font-family: $default-font-family;
+  @include custom-font-styles($default-font-color, $font-weight, $font-size, $line-height);
+}
+
+@mixin monospace-font($font-size: $default-font-size, $line-height: $default-line-height,
+                      $font-weight: $default-font-weight) {
+
+  font-family: $monospace-font-family;
+  @include custom-font-styles($default-font-color, $font-weight, $font-size, $line-height);
+}
+
+@mixin body-font($line-height: $default-line-height) {
+  @include default-font(14px, $line-height);
+}
+
+@mixin h1-font($line-height: $default-line-height) {
+  @include default-font(24px, $line-height, 300);
+}
+
+@mixin h2-font($line-height: $default-line-height) {
+  @include default-font(18px, $line-height, 300);
+}
+
+@mixin h3-font($line-height: $default-line-height) {
+  @include default-font(16px, $line-height);
+}
+
+@mixin code-font {
+  @include monospace-font();
+}
+
+@mixin label-font {
+  @include default-font(12px, 1.6);
+}
