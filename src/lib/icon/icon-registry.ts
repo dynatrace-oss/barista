@@ -6,10 +6,10 @@ import { Observable, of } from 'rxjs';
 import { finalize, share, map, tap } from 'rxjs/operators';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
-import { DtIconPack } from '@dynatrace/dt-iconpack';
+import { DtIconType } from '@dynatrace/dt-iconpack';
 
 interface SvgIconConfig {
-  name: DtIconPack.DtIconType;
+  name: DtIconType;
   svgElement: SVGElement | null;
 }
 
