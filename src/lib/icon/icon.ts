@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { DtIconRegistry } from './icon-registry';
-import { DtIconPack } from '@dynatrace/dt-iconpack';
+import { DtIconType } from '@dynatrace/dt-iconpack';
 import {
   DtThemePalette,
   setComponentColorClasses,
@@ -40,7 +40,7 @@ const iconLogger = DtLoggerFactory.create('DtIcon');
 export class DtIcon implements OnChanges {
 
   /** Name of the icon in the registry. */
-  @Input() name: DtIconPack.DtIconType;
+  @Input() name: DtIconType;
 
   /**
    * Fill color of the svg icon.
