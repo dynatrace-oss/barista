@@ -26,7 +26,6 @@
     "@angular/platform-browser": "~6.0.2",
     "core-js": "^2.4.1",
     "rxjs": "^6.2.0",
-    "rxjs-tslint": "^0.1.4",
     "systemjs": "0.19.43",
     "tslib": "^1.7.1",
     "zone.js": "^0.8.26"
@@ -78,6 +77,7 @@
     "puppeteer": "^1.0.0",
     "resolve-bin": "^0.4.0",
     "run-sequence": "^2.2.1",
+    "rxjs-tslint": "^0.1.4",
     "sass-graph": "^2.2.4",
     "stylelint": "^8.4.0",
     "stylelint-checkstyle-formatter": "^0.1.1",
