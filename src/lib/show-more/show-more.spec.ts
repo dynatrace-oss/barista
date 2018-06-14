@@ -5,7 +5,7 @@ import {DtShowMoreModule, DtShowMore} from './index';
 import {DtIconModule} from '../icon/index';
 import {HttpClientModule, HttpXhrBackend} from '@angular/common/http';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
-import { MockBackend } from '@angular/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtShowMore', () => {
   beforeEach(async(() => {
@@ -17,7 +17,7 @@ describe('DtShowMore', () => {
       declarations: [TestApp],
       providers: [{
         provide: HttpXhrBackend,
-        useClass: MockBackend,
+        useClass: HttpClientTestingModule,
       }],
     });
 
