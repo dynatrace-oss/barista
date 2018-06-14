@@ -9,8 +9,8 @@ import {
 @Component({
   moduleId: module.id,
   selector: 'dt-key-value-list-item',
+  templateUrl: 'key-value-list-item.html',
   styleUrls: ['key-value-list-item.scss'],
-  template : '<dt class="dt"><span class="spankey">{{key}}</span></dt><dd class="dd"><span class="spanvalue">{{value}}</span></dd>',
   host : {
     class : 'dt-key-value-list-item',
   },
