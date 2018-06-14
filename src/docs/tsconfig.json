@@ -4,11 +4,22 @@
     "rootDir": "..",
     "baseUrl": ".",
     "paths": {
-      "@dynatrace/angular-components": ["../../dist/lib"]
+      "@dynatrace/angular-components": ["../../src/lib"],
+      "@dynatrace/angular-components/*": ["../../src/lib/*"]
     },
-    "types": [
-      "highcharts"
-    ]
+    "preserveConstEnums": true,
+    "experimentalDecorators": true,
   },
-  "include": ["./**/*.ts"]
+  "files": [
+    "../../typings.d.ts",
+    "./docs.module.ts",
+    "./main.ts",
+    "./polyfills.ts",
+    "../../node_modules/@dynatrace/dt-iconpack/index.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": false,
+    "fullTemplateTypeCheck": false,
+    "preserveWhitespace": true
+  }
 }
