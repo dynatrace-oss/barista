@@ -5,7 +5,7 @@ import {By} from '@angular/platform-browser';
 import {DtPaginationModule, DtPagination} from './index';
 import {DtIconModule} from '../icon/index';
 import {HttpClientModule, HttpXhrBackend} from '@angular/common/http';
-import { MockBackend } from '@angular/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 function extractNumbers(elementList: HTMLElement[]): string {
   const result: string[] = [];
@@ -32,7 +32,7 @@ describe('DtPagination', () => {
       declarations: [TestApp],
       providers: [{
         provide: HttpXhrBackend,
-        useClass: MockBackend,
+        useClass: HttpClientTestingModule,
       }],
     });
 
