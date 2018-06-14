@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LOG_APPENDER_PROVIDER, ConsoleAppender } from './console-appender';
-import { DT_LOG_CONSUMER_PROVIDER } from '@dynatrace/angular-components';
+import { LOG_APPENDER_INITIALIZER } from './console-appender';
 
 @NgModule({
   imports: [
     CommonModule,
   ],
   providers: [
-    DT_LOG_CONSUMER_PROVIDER,
-    ConsoleAppender,
-    LOG_APPENDER_PROVIDER,
+    LOG_APPENDER_INITIALIZER,
   ],
 })
 export class CoreModule {

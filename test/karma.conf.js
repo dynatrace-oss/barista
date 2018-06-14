@@ -9,6 +9,8 @@ const chromeConfig = require('./chrome.conf');
 
 process.env.CHROME_BIN = chromeConfig.binary;
 
+const isOnCI = process.env.CI;
+
 module.exports = (config) => {
 
   config.set({
@@ -76,6 +78,8 @@ module.exports = (config) => {
       jasmine: {
         random: false
       }
-    }
+    },
+
+    colors: !isOnCI,
   });
 };
