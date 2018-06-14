@@ -3,8 +3,9 @@ import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {DtShowMoreModule, DtShowMore} from './index';
 import {DtIconModule} from '../icon/index';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HttpXhrBackend} from '@angular/common/http';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
+import { MockBackend } from '@angular/http/testing';
 
 describe('DtShowMore', () => {
   beforeEach(async(() => {
@@ -14,6 +15,10 @@ describe('DtShowMore', () => {
         HttpClientModule,
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
       declarations: [TestApp],
+      providers: [{
+        provide: HttpXhrBackend,
+        useClass: MockBackend,
+      }],
     });
 
     TestBed.compileComponents();
