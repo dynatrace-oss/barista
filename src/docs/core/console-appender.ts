@@ -1,7 +1,7 @@
 import { DtLogConsumer, DtLogEntry, DtLogEntryParam, DtLogLevel } from '@dynatrace/angular-components';
 import { APP_INITIALIZER, FactoryProvider, Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ConsoleAppender {
   constructor(private readonly logConsumer: DtLogConsumer) {
   }
@@ -30,11 +30,13 @@ export class ConsoleAppender {
   }
 }
 
-export const LOG_APPENDER_PROVIDER: FactoryProvider = {
+export const LOG_APPENDER_PROVIDER_FACTORY  = (consoleAppender: ConsoleAppender): () => void => (): void => {
+  consoleAppender.init();
+};
+
+export const LOG_APPENDER_INITIALIZER: FactoryProvider = {
   deps: [ConsoleAppender],
   multi: true,
   provide: APP_INITIALIZER,
-  useFactory: (consoleAppender: ConsoleAppender): () => void => (): void => {
-    consoleAppender.init();
-  },
+  useFactory: LOG_APPENDER_PROVIDER_FACTORY,
 };

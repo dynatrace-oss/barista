@@ -1,0 +1,29 @@
+/*
+ * Definition of default font-styles for basic use cases
+ */
+
+@import 'font-mixins';
+
+body {
+  @include body-font();
+}
+
+h1 {
+  @include h1-font();
+}
+
+h2 {
+  @include h2-font();
+}
+
+h3 {
+  @include h3-font();
+}
+
+code {
+  @include code-font;
+}
+
+label {
+  @include label-font;
+}

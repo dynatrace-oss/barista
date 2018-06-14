@@ -1,7 +1,12 @@
-@import 'colors';
+/*
+ * core styles for the component library
+ */
+@import 'variables';
 
+@import 'font-mixins';
 @import '../icons/index';
 @import '../input/input';
+@import 'link';
 
 @import '~@angular/cdk/overlay';
 @import '~@angular/cdk/_a11y';
