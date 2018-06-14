@@ -54,7 +54,7 @@ export class DtIconRegistry {
    *
    * @param name Name of the icon to be retrieved.
    */
-  getNamedSvgIcon(name: DtIconPack.DtIconType): Observable<SVGElement> {
+  getNamedSvgIcon(name: DtIconType): Observable<SVGElement> {
     // Return (copy of) cached icon if possible.
     let config = this._svgIconConfigs.get(name);
 

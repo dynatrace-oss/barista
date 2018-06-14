@@ -40,7 +40,7 @@
     "@angular/platform-browser-dynamic": "~6.0.2",
     "@angular/platform-server": "~6.0.2",
     "@angular/router": "~6.0.2",
-    "@dynatrace/dt-iconpack": "^1.0.0",
+    "@dynatrace/dt-iconpack": "^1.0.6",
     "@types/chalk": "^0.4.31",
     "@types/cross-spawn": "^6.0.0",
     "@types/fs-extra": "^5.0.0",
