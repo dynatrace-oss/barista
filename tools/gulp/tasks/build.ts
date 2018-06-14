@@ -38,7 +38,7 @@ task('library:assets', () =>
     .pipe(dest(join(buildConfig.libOutputDir, 'assets')))
 );
 
-task('library:compile', execNodeTask('@angular/cli', 'ng', ['build', 'lib']));
+task('library:compile', execNodeTask('@angular/cli', 'ng', ['build', 'lib', '--prod']));
 
 task('library:build', sequenceTask(
   'library:compile',
