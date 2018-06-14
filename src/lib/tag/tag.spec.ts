@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { DtTagModule } from './index';
 import { DtIconModule } from '../icon/index';
-import { MockBackend } from '@angular/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtTag', () => {
   beforeEach(async(() => {
@@ -16,7 +16,7 @@ describe('DtTag', () => {
       declarations: [TestAppSimple, TestAppRemovable],
       providers: [{
         provide: HttpXhrBackend,
-        useClass: MockBackend,
+        useClass: HttpClientTestingModule,
       }],
     });
 

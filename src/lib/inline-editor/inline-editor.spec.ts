@@ -1,6 +1,6 @@
 import { PlatformModule } from '@angular/cdk/platform';
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
-import { MockBackend } from '@angular/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,7 +30,7 @@ describe('DtInlineEditor', () => {
       ],
       providers: [{
         provide: HttpXhrBackend,
-        useClass: MockBackend,
+        useClass: HttpClientTestingModule,
       }],
     });
 
