@@ -7,6 +7,10 @@
   position: relative;
   column-gap: 60px;
 }
+:host dl {
+	margin: 0;
+	display: block;
+}
 @media(min-width: 662px) {
   :host.dtKeyValueListColumns2, :host.dtKeyValueListColumns3 {
     columns: 280px 2;
