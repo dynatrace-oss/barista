@@ -143,16 +143,45 @@ describe('DtBreadcrumbsItem', () => {
     expect(spanElement).not.toBeNull();
   });
 
+  it('should render link if the route is active but active parameter is set to false', () => {
+    const fixture = TestBed.createComponent(TestBreadcrumbsItem);
+    const component = fixture.componentInstance;
+
+    component.href = 'test1/test-current';
+    component.active = false;
+    fixture.detectChanges();
+
+    const linkElement = fixture.debugElement.query(By.css('a'));
+    const spanElement = fixture.debugElement.query(By.css('span'));
+    expect(linkElement).not.toBeNull();
+    expect(spanElement).toBeNull();
+  });
+
+  it('should render span if the route is not active but active parameter is set to true', () => {
+    const fixture = TestBed.createComponent(TestBreadcrumbsItem);
+    const component = fixture.componentInstance;
+
+    component.href = 'test1/test2';
+    component.active = true;
+    fixture.detectChanges();
+
+    const linkElement = fixture.debugElement.query(By.css('a'));
+    const spanElement = fixture.debugElement.query(By.css('span'));
+    expect(linkElement).toBeNull();
+    expect(spanElement).not.toBeNull();
+  });
+
 });
 
 @Component({
-  template: `<dt-breadcrumbs-item [href]="href" [external]="external">{{ text }}</dt-breadcrumbs-item>`,
+  template: `<dt-breadcrumbs-item [href]="href" [external]="external" [active]="active">{{ text }}</dt-breadcrumbs-item>`,
 })
 class TestBreadcrumbsItem {
   text = '';
   // tslint:disable-next-line no-any
   href: string | any[] = '';
   external = false;
+  active: boolean | undefined = undefined;
 }
 
 @Component({
