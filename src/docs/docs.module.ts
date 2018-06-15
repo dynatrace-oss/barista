@@ -19,7 +19,6 @@ import { DocsTileModule } from './components/tile/docs-tile.module';
 import { DocsCardModule } from './components/card/docs-card.module';
 import { DocsContextDialogModule } from './components/context-dialog/docs-context-dialog.module';
 import { DocsFormFieldModule } from './components/form-field/docs-form-field-module';
-import { CoreModule } from './core/core.module';
 import { DocsTagModule } from './components/tag/docs-tag.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
 import { DocsIconModule } from './components/icon/docs-icon.module';
@@ -30,6 +29,7 @@ import {DtThemingModule} from '@dynatrace/angular-components';
 import { DocsRadioModule } from './components/radio/docs-radio.module';
 import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
 import { DocsProgressCircleModule } from './components/progress-circle/docs-progress-circle.module';
+import { CoreModule } from './core/core.module';
 import { DocsSwitchModule } from './components/switch/docs-switch.module';
 
 @NgModule({
