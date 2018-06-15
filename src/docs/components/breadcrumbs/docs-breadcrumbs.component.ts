@@ -3,6 +3,7 @@ import { DefaultBreadcrumbsExampleComponent } from './examples/default-breadcrum
 import { ObservableBreadcrumbsExampleComponent } from './examples/observable-breadcrumbs-example.component';
 import { ExternalBreadcrumbsExampleComponent } from './examples/external-breadcrumbs-example.component';
 import { DarkBreadcrumbsExampleComponent } from './examples/dark-breadcrumbs-example.component';
+import { AutoActiveBreadcrumbsExampleComponent } from './examples/auto-active-breadcrumbs-example.component';
 
 @Component({
   selector: 'docs-breadcrumbs',
@@ -14,5 +15,6 @@ export class DocsBreadcrumbsComponent {
     observable: ObservableBreadcrumbsExampleComponent,
     external: ExternalBreadcrumbsExampleComponent,
     dark: DarkBreadcrumbsExampleComponent,
+    autoActive: AutoActiveBreadcrumbsExampleComponent,
   };
 }
