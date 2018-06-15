@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DtBreadcrumbsItem } from './breadcrumbs-item';
+import { DtBreadcrumbsItem } from './item/breadcrumbs-item';
 import { DtBreadcrumbs } from './breadcrumbs';
 
 @NgModule({

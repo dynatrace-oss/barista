@@ -8,6 +8,7 @@ export type RouterLinkAccepted = string | any[];
 @Component({
   moduleId: module.id,
   selector: 'dt-breadcrumbs-item',
+  exportAs: 'dtBreadcrumbsItem',
   templateUrl: './breadcrumbs-item.html',
   styleUrls: ['./breadcrumbs-item.scss'],
   preserveWhitespaces: false,
@@ -48,7 +49,7 @@ export class DtBreadcrumbsItem {
   private checkIsActive(href: RouterLinkAccepted): boolean {
     let urlTree: UrlTree;
     if (Array.isArray(href)) {
-      urlTree = this.router.createUrlTree(Array.isArray(href) ? href : [href], {
+      urlTree = this.router.createUrlTree(href, {
         queryParamsHandling: 'merge',
       });
     } else {
