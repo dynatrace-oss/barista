@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DtInputModule } from '../input/input-module';
 import { DtButtonModule } from '../button/button-module';
+import { DtIconModule } from '../icon/icon-module';
 import { CommonModule } from '@angular/common';
 import {
   DtCopyClipboard,
@@ -12,7 +13,8 @@ import {
 @NgModule({
   imports: [CommonModule,
             DtInputModule,
-            DtButtonModule],
+            DtButtonModule,
+            DtIconModule],
   exports: [
     DtCopyClipboard,
     DtCopyClipboardButton,

@@ -1,0 +1,18 @@
+@import '../core/style/variables';
+:host {
+	align-self: flex-end;
+}
+:host > button {
+	min-width: 70px;
+}
+:host > button.dt-copy-clipboard-success, 
+:host > button.dt-copy-clipboard-success:not([disabled]),
+:host > button.dt-copy-clipboard-success:hover:not([disabled]),
+:host > button.dt-copy-clipboard-success:active:not([disabled]) {
+	background-color: $green-500;
+	border-color:  $green-500;
+	color: white;
+}
+:host > .dt-copy-clipboard-hide {
+  display: none;
+}
