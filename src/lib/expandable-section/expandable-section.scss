@@ -1,3 +1,4 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 
@@ -10,8 +11,7 @@
   align-items: baseline;
 
   position: relative;
-  font-size: 12px;
-  color: $gray-500;
+  @include label-font();
 
   svg {
     width: 16px;
