@@ -7,7 +7,7 @@
   text-align: right;
   overflow: hidden;
 }
-.dt-key-value-list-item-dt {
+.dt-key-value-list-item-key {
   font-family: $mainfont;
   font-size: 12px;
   color: $gray-500;
@@ -17,7 +17,7 @@
   float: left;
   position: relative;
 }
-.dt-key-value-list-item-dt::after {
+.dt-key-value-list-item-key::after {
   content: ' ';
   position:absolute;
   left:0;
@@ -27,7 +27,7 @@
   border-bottom: 1px dotted $gray-300;
 }
 
-.dt-key-value-list-item-dd {
+.dt-key-value-list-item-value {
   margin: 0;
   text-align: right;
   display:inline;
@@ -42,12 +42,12 @@
   word-break: break-all;
 }
 
-.dt-key-value-list-item-key {
+.dt-key-value-list-item-key-inner {
   background-color: white;
   z-index: 1;
 }
 
-.dt-key-value-list-item-value {
+.dt-key-value-list-item-value-inner {
     background-color: white;
     z-index: 1;
 }
