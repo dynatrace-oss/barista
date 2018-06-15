@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 @Component({
   moduleId: module.id,
   selector: 'dt-breadcrumbs',
+  exportAs: 'dtBreadcrumbs',
   templateUrl: 'breadcrumbs.html',
   styleUrls: ['breadcrumbs.scss'],
   host: {
