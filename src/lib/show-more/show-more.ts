@@ -10,7 +10,7 @@ import {
   CanDisable,
   mixinDisabled, mixinTabIndex
 } from '../core/index';
-import {HasTabIndex} from '@dynatrace/angular-components/core';
+import { HasTabIndex } from '../core/common-behaviours/index';
 
 @Directive({
   selector: `dt-show-less-label`,

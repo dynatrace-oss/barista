@@ -1,12 +1,28 @@
-$font-family: 'BerninaSansWeb';
-$fonts-path: '/assets/fonts' !default;
+$fonts-dir: '/assets/fonts' !default;
+$default-font-family: 'BerninaSansWeb';
+$default-font-path: '/bernina/BerninaSans-Web';
+$monospace-font-family: 'VeraMonoWeb';
+$monospace-font-path: '/bitstream/VeraMono-Web';
 
-@mixin font-face($variant, $ff: $font-family) {
+
+@mixin font-face($variant, $ff: $default-font-family, $fp: $default-font-path) {
   font-family: $ff;
-  src: url('#{$fonts-path}/bernina/BerninaSans-Web-#{$variant}.woff') format('woff'),
-  url('#{$fonts-path}/bernina/BerninaSans-Web-#{$variant}.ttf') format('truetype');
+  src: url('#{$fonts-dir}#{$fp}-#{$variant}.woff') format('woff'),
+  url('#{$fonts-dir}#{$fp}-#{$variant}.ttf') format('truetype');
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+@font-face {
+  @include font-face('Regular', $monospace-font-family, $monospace-font-path);
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  @include font-face('Bold', $monospace-font-family, $monospace-font-path);
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
