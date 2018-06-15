@@ -1,11 +1,11 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 
 $remove-icon-size: 16px;
 
 :host {
+  @include label-font();
   box-sizing: border-box;
-  font-family: $mainfont;
-  font-size: 12px;
   text-decoration: none;
   border: 1px solid $gray-130;
   background-color: $gray-130;
@@ -15,7 +15,6 @@ $remove-icon-size: 16px;
   padding: 2px 8px;
   margin: 5px;
   outline: none;
-  color: $gray-700;
 
   display: inline-flex;
   align-items: center;
@@ -54,10 +53,6 @@ dt-icon {
   dt-icon ::ng-deep > svg {
     fill: $gray-300;
   }
-}
-
-.dt-tag-name {
-  font-size: 12px;
 }
 
 /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */

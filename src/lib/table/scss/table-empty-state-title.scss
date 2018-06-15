@@ -1,5 +1,7 @@
+@import '../../style/font-mixins';
+
 :host.dt-table-empty-state-title {
   display: block;
-  font-size: 24px;
-  font-weight: 300;
+  @include custom-font-styles(false, 300);
+  @include default-font(24px, $default-line-height, 300);
 }
