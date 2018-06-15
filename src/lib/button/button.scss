@@ -3,7 +3,7 @@
 @import '../core/theming/theming';
 @import './button-theme';
 
-:host {
+.dt-button {
   font-family: $mainfont;
   box-sizing: border-box;
   position: relative;
@@ -65,6 +65,12 @@
   &.dt-button-nested:active:not([disabled]) {
     background: $gray-100;
   }
+
+  sub, sup {
+    // Zero out the line-height so that it doesn't
+    // interfere with the positioning that follows
+    line-height: 0;
+  }
 }
 
 .dt-button-icon {
@@ -75,7 +81,7 @@
   margin-top: 5px;
   vertical-align: top;
 
-  :host.dt-icon-button & {
+  .dt-button.dt-icon-button & {
     margin-right: 0;
   }
 }
