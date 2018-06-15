@@ -42,6 +42,7 @@ export class DtKeyValueListItem {
 export class DtKeyValueList {
   @ContentChildren(DtKeyValueListItem) items: QueryList<DtKeyValueListItem>;
 
+  // tslint:disable:no-any no-magic-numbers
   get columns(): number {
     const threeColumnsLayoutMinItems = 18;
     const twoColumnsLayoutMinItems = 12;

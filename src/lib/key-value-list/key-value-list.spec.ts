@@ -19,9 +19,8 @@ describe('DtKeyValueList', () => {
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
       expect(tileNativeElement).toBeDefined('Element not found');
       fixture.detectChanges(); // trigger initial data binding
-      expect(tileNativeElement.classList.length).toBeGreaterThanOrEqual(1, 'At least one class must be defined');
-      expect(tileNativeElement.classList.contains('dt-key-value-list-columns1'))
-        .toBeTruthy('Key Value list should contain 1 column only');
+      expect(tileNativeElement.getAttribute('columns') === '1')
+      .toBeTruthy('Key Value list must contain 1 column');
     });
 
     it('two columns should be used', () => {
@@ -29,18 +28,16 @@ describe('DtKeyValueList', () => {
         const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
         expect(tileNativeElement).toBeDefined('Element not found');
         fixture.detectChanges(); // trigger initial data binding
-        expect(tileNativeElement.classList.length).toBeGreaterThanOrEqual(1, 'At least one class must be defined');
-        expect(tileNativeElement.classList.contains('dt-key-value-list-columns2'))
-          .toBeTruthy('Key Value list should contain 2 columns only');
+        expect(tileNativeElement.getAttribute('columns') === '2')
+          .toBeTruthy('Key Value list must contain 2 columns');
       });
     it('three columns should be used', () => {
         const fixture = TestBed.createComponent(TestApp3);
         const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
         expect(tileNativeElement).toBeDefined('Element not found');
         fixture.detectChanges(); // trigger initial data binding
-        expect(tileNativeElement.classList.length).toBeGreaterThanOrEqual(1, 'At least one class must be defined');
-        expect(tileNativeElement.classList.contains('dt-key-value-list-columns3'))
-          .toBeTruthy('Key Value list should contain 3 columns only');
+        expect(tileNativeElement.getAttribute('columns') === '3')
+          .toBeTruthy('Key Value list must contain 3 columns');
       });
   });
 });
