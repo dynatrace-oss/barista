@@ -1,7 +1,9 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { DtIconModule, DtTagModule } from '@dynatrace/angular-components';
+import { DtTagModule } from './index';
+import { DtIconModule } from '../icon/index';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtTag', () => {
   beforeEach(async(() => {
@@ -12,6 +14,10 @@ describe('DtTag', () => {
         DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
       ],
       declarations: [TestAppSimple, TestAppRemovable],
+      providers: [{
+        provide: HttpXhrBackend,
+        useClass: HttpClientTestingModule,
+      }],
     });
 
     TestBed.compileComponents();

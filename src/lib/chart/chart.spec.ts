@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  CHART_COLOR_PALETTES,
   DtChart,
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
-  DtThemingModule,
-} from '@dynatrace/angular-components';
+} from './index';
+import { DtThemingModule, CHART_COLOR_PALETTES } from '../theming/index';
 import { BehaviorSubject } from 'rxjs';
 
 describe('DtChart', () => {
