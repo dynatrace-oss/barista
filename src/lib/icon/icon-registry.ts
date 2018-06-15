@@ -1,4 +1,4 @@
-import { Provider, Optional, SkipSelf, Inject } from '@angular/core';
+import { Optional, Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { finalize, share, map, tap } from 'rxjs/operators';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
-import { DtIconType } from './icon-types';
+import { DtIconType } from '@dynatrace/dt-iconpack';
 
 interface SvgIconConfig {
   name: DtIconType;
@@ -34,6 +34,7 @@ export function getDtIconNoConfigProviderError(): Error {
  * Since the icon registry deals with a global shared resource-location, we cannot have
  * more than one registry active. To ensure this use the `forRoot` method on the DtIconModule.
  */
+@Injectable({providedIn: 'root'})
 export class DtIconRegistry {
 
   /** URLs and cached SVG elements for individual icons. */
@@ -43,7 +44,7 @@ export class DtIconRegistry {
   private _inProgressUrlFetches = new Map<string, Observable<string>>();
 
   constructor(
-    @Optional() private _config: DtIconConfiguration,
+    @Optional() @Inject(DT_ICON_CONFIGURATION) private _config: DtIconConfiguration,
     @Optional() private _httpClient: HttpClient,
     // tslint:disable-next-line:no-any
     @Optional() @Inject(DOCUMENT) private _document?: any) { }
@@ -145,24 +146,3 @@ export class DtIconRegistry {
 function cloneSvg(svg: SVGElement): SVGElement {
   return svg.cloneNode(true) as SVGElement;
 }
-
-export function DT_ICON_REGISTRY_PROVIDER_FACTORY(
-  parentRegistry: DtIconRegistry,
-  config: DtIconConfiguration,
-  httpClient: HttpClient,
-  // tslint:disable-next-line:no-any
-  doc?: any
-): DtIconRegistry {
-  return parentRegistry || new DtIconRegistry(config, httpClient, doc);
-}
-
-export const DT_ICON_REGISTRY_PROVIDER: Provider = {
-  provide: DtIconRegistry,
-  useFactory: DT_ICON_REGISTRY_PROVIDER_FACTORY,
-  deps: [
-    [new Optional(), new SkipSelf(), DtIconRegistry],
-    [new Optional(), DT_ICON_CONFIGURATION],
-    [new Optional(), HttpClient],
-    [new Optional(), DOCUMENT],
-  ],
-};
