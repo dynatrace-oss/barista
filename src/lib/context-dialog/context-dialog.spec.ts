@@ -3,8 +3,9 @@ import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  DtContextDialog, DtContextDialogModule, DtContextDialogTrigger, DtIconModule,
-} from '@dynatrace/angular-components';
+  DtContextDialog, DtContextDialogModule, DtContextDialogTrigger,
+} from './index';
+import { DtIconModule } from '../icon/index';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('DtContextDialog', () => {
