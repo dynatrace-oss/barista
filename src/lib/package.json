@@ -20,8 +20,6 @@
   },
   "ngPackage": {
     "dest": "../../dist/lib",
-    "deleteDestPath": false,
-    "workingDirectory": "../../dist/ng_pkg_build",
     "lib": {
       "entryFile": "index.ts"
     }

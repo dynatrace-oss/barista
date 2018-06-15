@@ -3,7 +3,7 @@ import { DebugElement } from '@angular/core/src/debug/debug_node';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtExpandableSection, DtExpandableSectionModule } from '@dynatrace/angular-components';
+import { DtExpandableSection, DtExpandableSectionModule } from './index';
 
 describe('DtExpandableSection', () => {
   beforeEach(async(() => {
