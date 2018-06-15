@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
     <button dt-button>Primary button</button>
     <button dt-button variant="secondary">Secondary button</button>
   `,
+  styles: ['.dt-button + .dt-button { margin-left: 12px; }'],
 })
 export class VariantButtonExampleComponent { }
