@@ -18,7 +18,7 @@ import {
 } from '@angular/core';
 import { Options, IndividualSeriesOptions, ChartObject, chart, AxisOptions } from 'highcharts';
 import { Observable, Subscription } from 'rxjs';
-import { DtLogger, DtLoggerFactory, ViewportResizer } from '../core/index';
+import { DtLogger, DtLoggerFactory, DtViewportResizer } from '../core/index';
 import { delay } from 'rxjs/operators';
 import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '../theming/index';
 import { mergeOptions } from './chart-utils';
@@ -97,7 +97,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
 
   constructor(
-    @Optional() private _viewportResizer: ViewportResizer,
+    @Optional() private _viewportResizer: DtViewportResizer,
     @Optional() @SkipSelf() private _theme: DtTheme,
     private _changeDetectorRef: ChangeDetectorRef
   ) {

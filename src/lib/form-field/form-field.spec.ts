@@ -5,13 +5,9 @@ import { By } from '@angular/platform-browser';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { FormsModule, ReactiveFormsModule, FormControl, Validators, NgForm, FormGroupDirective, FormGroup } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  DtFormFieldModule,
-  DtInputModule,
-  getDtFormFieldMissingControlError,
-  DtInput,
-  ErrorStateMatcher,
-} from '@dynatrace/angular-components';
+import { DtFormFieldModule, getDtFormFieldMissingControlError } from './index';
+import { DtInputModule, DtInput } from '../input/index';
+import { ErrorStateMatcher } from '../core/index';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
