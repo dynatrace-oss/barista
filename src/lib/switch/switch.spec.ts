@@ -562,7 +562,6 @@ describe('DtSwitch', () => {
   });
 });
 
-/** Simple component for testing a single checkbox. */
 @Component({
   template: `
   <div (click)="parentElementClicked = true" (keyup)="parentElementKeyedUp = true">
@@ -591,7 +590,6 @@ class SingleSwitch {
   onSwitchChange: (event?: DtSwitchChange<any>) => void = () => { };
 }
 
-/** Simple component for testing an DtSwitch with ngModel in a form. */
 @Component({
   template: `
     <form>
@@ -603,7 +601,6 @@ class SwitchWithFormDirectives {
   isGood = false;
 }
 
-/** Simple component for testing an DtSwitch with required ngModel. */
 @Component({
   template: `<dt-switch [required]="isRequired" [(ngModel)]="isGood">Be good</dt-switch>`,
 })
@@ -612,16 +609,14 @@ class SwitchWithNgModel {
   isRequired = true;
 }
 
-/** Simple test component with multiple switches. */
-@Component(({
+@Component({
   template: `
     <dt-switch>Option 1</dt-switch>
     <dt-switch>Option 2</dt-switch>
   `,
-}))
+})
 class MultipleSwitches { }
 
-/** Simple test component with tabIndex */
 @Component({
   template: `
     <dt-switch
@@ -634,7 +629,6 @@ class SwitchWithTabIndex {
   isDisabled = false;
 }
 
-/** Simple test component that accesses DtSwitch using ViewChild. */
 @Component({
   template: `
     <dt-switch></dt-switch>`,
@@ -647,25 +641,21 @@ class SwitchUsingViewChild {
   }
 }
 
-/** Simple test component with an aria-label set. */
 @Component({
   template: `<dt-switch aria-label="Super effective"></dt-switch>`,
 })
 class SwitchWithAriaLabel { }
 
-/** Simple test component with an aria-label set. */
 @Component({
   template: `<dt-switch aria-labelledby="some-id"></dt-switch>`,
 })
 class SwitchWithAriaLabelledby { }
 
-/** Simple test component with name attribute */
 @Component({
   template: `<dt-switch name="test-name"></dt-switch>`,
 })
 class SwitchWithNameAttribute { }
 
-/** Simple test component with change event */
 @Component({
   template: `<dt-switch (change)="lastEvent = $event"></dt-switch>`,
 })
@@ -673,7 +663,6 @@ class SwitchWithChangeEvent {
   lastEvent: DtSwitchChange<any>;
 }
 
-/** Test component with reactive forms */
 @Component({
   template: `<dt-switch [formControl]="formControl"></dt-switch>`,
 })
@@ -681,7 +670,6 @@ class SwitchWithFormControl {
   formControl = new FormControl();
 }
 
-/** Test component without label */
 @Component({
   template: `<dt-switch>{{ label }}</dt-switch>`,
 })
@@ -689,7 +677,6 @@ class SwitchWithoutLabel {
   label: string;
 }
 
-/** Test component with the native tabindex attribute. */
 @Component({
   template: `<dt-switch tabindex="5"></dt-switch>`,
 })

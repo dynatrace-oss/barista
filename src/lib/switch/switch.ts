@@ -14,6 +14,7 @@ import {
   Attribute,
   ChangeDetectorRef,
   Directive,
+  Renderer2,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusOrigin, FocusMonitor } from '@angular/cdk/a11y';
@@ -128,7 +129,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     // tslint:disable-next-line:no-output-named-after-standard-event
   @Output() readonly change = new EventEmitter<DtSwitchChange<T>>();
 
-  /** The native radio input element */
+  /** The native switch input element */
   @ViewChild('input') _inputElement: ElementRef;
 
   /** Returns the unique id for the visual hidden input. */
@@ -144,6 +145,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   private _controlValueAccessorChangeFn: (value: boolean) => void = () => { };
 
   constructor(
+    private _renderer: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
@@ -166,7 +168,6 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
   }
 
-  /** Toggles the `checked` state of the switch. */
   toggle(): void {
     this.checked = !this.checked;
   }
@@ -224,9 +225,9 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     const element = this._elementRef.nativeElement;
 
     if (focusOrigin === 'keyboard') {
-      element.classList.add('dt-switch-focused');
+      this._renderer.addClass(element, 'dt-switch-focused');
     } else if (!focusOrigin) {
-      element.classList.remove('dt-switch-focused');
+      this._renderer.removeClass(element, 'dt-switch-focused');
       this._onTouched();
     }
   }

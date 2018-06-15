@@ -3,13 +3,16 @@ import { Component } from '@angular/core';
 @Component({
   moduleId: module.id,
   template: `
-    <div>
+    <div class="dt-switch-margin">
     <dt-switch>Default</dt-switch>
-    <br>
+    </div>
+    <div class="dt-switch-margin">
     <dt-switch checked>Checked</dt-switch>
-    <br>
+    </div>
+    <div class="dt-switch-margin">
     <dt-switch disabled>Disabled</dt-switch>
-    <br>
+    </div>
+    <div class="dt-switch-margin">
     <dt-switch checked disabled>Checked Disabled</dt-switch>
     </div>
   `,
