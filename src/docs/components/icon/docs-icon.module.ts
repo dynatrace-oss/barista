@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { DtIconModule } from '@dynatrace/angular-components';
 import { DocsIconComponent } from './docs-icon.component';
 import { DefaultIconExample } from './examples/icon-default-example';
+import { AllIconExample } from './examples/icon-all-example';
 import { HttpClientModule } from '@angular/common/http';
 
 const EXAMPLES = [
   DefaultIconExample,
+  AllIconExample,
 ];
 
 @NgModule({
