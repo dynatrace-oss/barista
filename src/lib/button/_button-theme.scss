@@ -11,9 +11,9 @@
     $hover-color: dt-get-theme-color($palette, 'hover');
     $active-color: dt-get-theme-color($palette, 'active');
 
-    $namespace: ':host';
+    $namespace: '.dt-button';
     @if $name != $default-palette {
-      $namespace: ':host.dt-color-#{$name}';
+      $namespace: '.dt-button.dt-color-#{$name}';
     }
 
     ////////////////////////////
