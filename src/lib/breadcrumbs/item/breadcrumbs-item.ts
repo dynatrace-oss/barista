@@ -17,6 +17,8 @@ export type RouterLinkAccepted = string | any[];
 })
 export class DtBreadcrumbsItem {
 
+  @Input() active: boolean | undefined;
+
   @Input()
   get external(): boolean | undefined {
     return this._external;
@@ -47,6 +49,10 @@ export class DtBreadcrumbsItem {
   _isActive = false;
 
   private checkIsActive(href: RouterLinkAccepted): boolean {
+    if (this.active !== undefined) {
+      return this.active;
+    }
+
     let urlTree: UrlTree;
     if (Array.isArray(href)) {
       urlTree = this.router.createUrlTree(href, {

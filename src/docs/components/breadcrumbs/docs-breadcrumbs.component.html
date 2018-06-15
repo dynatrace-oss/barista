@@ -49,9 +49,14 @@ class MyModule {{"{}"}}
     <td>false</td>
     <td>If empty or truthy parameter given, the <code>href</code> attribute will not be interpreted as internal router link but rather as en external href</td>
   </tr>
+  <tr>
+    <td><code>[active]</code></td>
+    <td>boolean | undefined</td>
+    <td>undefined</td>
+    <td>Renders a text or a link if the parameter is true or false, respectively. If the parameter is not set, <code>dt-breadcrumbs-item</code> automatically determines, whether it should be rendered as an active by comparing the passed href value with the current route.</td>
+  </tr>
   </tbody>
 </table>
-<p><code>dt-breadcrumbs-item</code> automatically determines, whether it should be rendered as active by comparing the passed href value with the current route.</p>
 
 <h2>Examples</h2>
 
@@ -60,6 +65,9 @@ class MyModule {{"{}"}}
 
 <h3>External</h3>
 <docs-source-example [example]="examples.external"></docs-source-example>
+
+<h3>Active state automatically retrieved from Router</h3>
+<docs-source-example [example]="examples.autoActive"></docs-source-example>
 
 <h3>Dark</h3>
 <docs-source-example [example]="examples.dark"></docs-source-example>

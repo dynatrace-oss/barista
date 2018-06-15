@@ -7,12 +7,14 @@ import { DtBreadcrumbsModule } from '@dynatrace/angular-components';
 import { ObservableBreadcrumbsExampleComponent } from './examples/observable-breadcrumbs-example.component';
 import { ExternalBreadcrumbsExampleComponent } from './examples/external-breadcrumbs-example.component';
 import { DarkBreadcrumbsExampleComponent } from './examples/dark-breadcrumbs-example.component';
+import { AutoActiveBreadcrumbsExampleComponent } from './examples/auto-active-breadcrumbs-example.component';
 
 const EXAMPLES = [
   DefaultBreadcrumbsExampleComponent,
   ObservableBreadcrumbsExampleComponent,
   ExternalBreadcrumbsExampleComponent,
   DarkBreadcrumbsExampleComponent,
+  AutoActiveBreadcrumbsExampleComponent,
 ];
 
 @NgModule({
