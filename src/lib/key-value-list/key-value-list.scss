@@ -3,22 +3,24 @@
   display:block;
   width:100%;
 }
-:host.dtKeyValueListColumns1, :host.dtKeyValueListColumns2, :host.dtKeyValueListColumns3 {
-  position: relative;
-  column-gap: 60px;
-}
-:host dl {
+dl {
 	margin: 0;
 	display: block;
 }
+:host.dt-key-value-list-columns1, 
+:host.dt-key-value-list-columns2, 
+:host.dt-key-value-list-columns3 {
+  position: relative;
+  column-gap: 60px;
+}
 @media(min-width: 662px) {
-  :host.dtKeyValueListColumns2, :host.dtKeyValueListColumns3 {
+  :host.dt-key-value-list-columns2, :host.dt-key-value-list-columns3 {
     columns: 280px 2;
     max-width: 1220px;
   }
 }
 @media(min-width: 920px) {
-  :host.dtKeyValueListColumns3 {
+  :host.dt-key-value-list-columns3 {
     columns: 280px 3;
     max-width: 1860px;
   }
