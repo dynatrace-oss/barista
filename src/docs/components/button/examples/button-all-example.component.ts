@@ -58,6 +58,7 @@ import { Component } from '@angular/core';
       display: inline-block;
       min-width: 160px;
     }
+    .dt-button + .dt-button { margin-left: 12px; }
   `],
 })
 export class AllButtonExampleComponent {
