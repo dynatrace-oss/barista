@@ -1,3 +1,4 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 @import '../core/theming/theming';
@@ -49,7 +50,7 @@ $dt-checkbox-size: 20px;
 }
 
 .dt-checkbox-caption {
-  font-size: 14px;
+  @include main-font();
   padding-right: 20px;
 
   :host.dt-checkbox-disabled & {

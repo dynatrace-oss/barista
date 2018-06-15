@@ -1,3 +1,4 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 @import '../core/theming/theming';
@@ -6,8 +7,7 @@
 $display-type: inline-flex;
 
 :host {
-  font-size: 14px;
-  color: $gray-700;
+  @include main-font();
   box-sizing: border-box;
 
   display: none; // is overriden in the severity-types
