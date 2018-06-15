@@ -42,12 +42,7 @@
   word-break: break-all;
 }
 
-.dt-key-value-list-item-key-inner {
+.dt-key-value-list-item-value span, .dt-key-value-list-item-key span {
   background-color: white;
   z-index: 1;
-}
-
-.dt-key-value-list-item-value-inner {
-    background-color: white;
-    z-index: 1;
 }
