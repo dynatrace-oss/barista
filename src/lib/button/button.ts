@@ -54,12 +54,15 @@ const defaultVariant = 'primary';
   selector: `button[dt-button], button[dt-icon-button]`,
   exportAs: 'dtButton',
   host: {
+    'class': 'dt-button',
     '[disabled]': 'disabled || null',
   },
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
   inputs: ['disabled', 'color'],
-  encapsulation: ViewEncapsulation.Emulated,
+  // Removing view encapsulation so we can style tags like <sup> inside the ng-content
+  // tslint:disable-next-line:use-view-encapsulation
+  encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
