@@ -1,3 +1,4 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 @import '../core/theming/theming';
@@ -5,7 +6,6 @@
 
 .dt-tile {
   display: block;
-  font-family: $mainfont;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -90,12 +90,9 @@
 }
 
 .dt-tile-title {
+  @include h2-font(1.2);
   display: block;
   margin-top: 0;
-  font-size: 16px;
-  font-weight: 400;
-  color: $gray-700;
-  line-height: 1.2;
 
   // Text truncation
   white-space: nowrap;
@@ -104,13 +101,10 @@
 }
 
 .dt-tile-subtitle {
+  @include label-font(1.2);
   display: block;
   margin-top: 0;
-  font-size: 12px;
-  font-weight: 400;
-  color: $gray-500;
   position: relative;
-  line-height: 1.2;
 
   // Text truncation
   white-space: nowrap;
@@ -125,8 +119,7 @@
 
 .dt-tile-content {
   display: block;
-  font-size: 14px;
-  color: $gray-700;
+  @include main-font();
   margin: 0;
   padding: 11px;
   border: 1px solid transparent;
