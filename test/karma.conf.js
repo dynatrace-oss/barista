@@ -24,7 +24,10 @@ module.exports = (config) => {
       require('@angular-devkit/build-angular/plugins/karma'),
     ],
     client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      jasmine: {
+        random: false,
+      },
     },
     coverageIstanbulReporter: {
       dir: path.join(__dirname, '../../coverage'),
@@ -34,7 +37,7 @@ module.exports = (config) => {
     reporters: ['dots','junit'],
     autoWatch: true,
     singleRun: false,
-    colors: true,
+    colors: !isOnCI,
     logLevel: config.LOG_INFO,
 
 
@@ -57,13 +60,5 @@ module.exports = (config) => {
         flags: chromeConfig.karmaFlags,
       }
     },
-
-    client: {
-      jasmine: {
-        random: false
-      }
-    },
-
-    colors: !isOnCI,
   });
 };

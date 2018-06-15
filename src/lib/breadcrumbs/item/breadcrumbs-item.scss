@@ -1,7 +1,7 @@
-@import '../core/style/variables';
-@import '../core/style/interactive-common';
-@import '../core/theming/theming';
-@import './breadcrumbs-item-theme';
+@import '../../core/style/variables';
+@import '../../core/style/interactive-common';
+@import '../../core/theming/theming';
+@import 'breadcrumbs-item-theme';
 
 :host {
   display: inline-block;
