@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
     <button dt-button><dt-icon name="agent"></dt-icon>Primary with icon</button>
     <button dt-button variant="secondary"><dt-icon name="agent"></dt-icon>Secondary with icon</button>
   `,
+  styles: ['.dt-button + .dt-button { margin-left: 8px; }'],
 })
 export class IconsButtonExampleComponent { }

@@ -1,9 +1,10 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 @import '../core/style/form-control';
 
 .dt-input {
-  font-family: $mainfont;
+  @include main-font();
   appearance: none;
   position: relative;
   display: inline-block;
@@ -13,12 +14,10 @@
   padding-bottom: 0;
   padding-left: 12px;
   padding-right: 12px;
-  font-size: 14px;
   line-height: -moz-block-height;
   vertical-align: middle;
   white-space: nowrap;
   text-align: left;
-  color: $gray-700;
   border: none;
   width: 100%;
   outline: none;
