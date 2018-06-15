@@ -20,7 +20,7 @@ describe('DtKeyValueList', () => {
       expect(tileNativeElement).toBeDefined('Element not found');
       fixture.detectChanges(); // trigger initial data binding
       expect(tileNativeElement.classList.length).toBeGreaterThanOrEqual(1, 'At least one class must be defined');
-      expect(tileNativeElement.classList.contains('dtKeyValueListColumns1'))
+      expect(tileNativeElement.classList.contains('dt-key-value-list-columns1'))
         .toBeTruthy('Key Value list should contain 1 column only');
     });
 
@@ -30,7 +30,7 @@ describe('DtKeyValueList', () => {
         expect(tileNativeElement).toBeDefined('Element not found');
         fixture.detectChanges(); // trigger initial data binding
         expect(tileNativeElement.classList.length).toBeGreaterThanOrEqual(1, 'At least one class must be defined');
-        expect(tileNativeElement.classList.contains('dtKeyValueListColumns2'))
+        expect(tileNativeElement.classList.contains('dt-key-value-list-columns2'))
           .toBeTruthy('Key Value list should contain 2 columns only');
       });
     it('three columns should be used', () => {
@@ -39,7 +39,7 @@ describe('DtKeyValueList', () => {
         expect(tileNativeElement).toBeDefined('Element not found');
         fixture.detectChanges(); // trigger initial data binding
         expect(tileNativeElement.classList.length).toBeGreaterThanOrEqual(1, 'At least one class must be defined');
-        expect(tileNativeElement.classList.contains('dtKeyValueListColumns3'))
+        expect(tileNativeElement.classList.contains('dt-key-value-list-columns3'))
           .toBeTruthy('Key Value list should contain 3 columns only');
       });
   });
