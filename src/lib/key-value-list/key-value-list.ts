@@ -15,7 +15,7 @@ import {
   host : {
     class : 'dt-key-value-list-item',
   },
-  exportAs : 'dt-key-value-list-item',
+  exportAs : 'dtKeyValueListItem',
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
@@ -29,11 +29,12 @@ export class DtKeyValueListItem {
   moduleId: module.id,
   selector: 'dt-key-value-list',
   host : {
-    '[class]': 'columnsClass',
+    'class': 'dt-key-value-list',
+    '[attr.columns]': 'columns',
   },
   templateUrl: 'key-value-list.html',
   styleUrls: ['key-value-list.scss'],
-  exportAs : 'dt-key-value-list',
+  exportAs : 'dtKeyValueList',
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
@@ -41,16 +42,16 @@ export class DtKeyValueListItem {
 export class DtKeyValueList {
   @ContentChildren(DtKeyValueListItem) items: QueryList<DtKeyValueListItem>;
 
-  get columnsClass(): string {
+  get columns(): number {
     const threeColumnsLayoutMinItems = 18;
     const twoColumnsLayoutMinItems = 12;
 
     if (this.items.length > threeColumnsLayoutMinItems) {
-        return `dt-key-value-list-columns3`;
+        return 3;
     } else if (this.items.length > twoColumnsLayoutMinItems) {
-        return `dt-key-value-list-columns2`;
+        return 2;
     } else {
-        return `dt-key-value-list-columns1`;
+        return 1;
     }
   }
 }
