@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { DtBreadcrumbsModule } from '@dynatrace/angular-components';
+import { DtBreadcrumbsModule } from '../breadcrumbs-module';
 
 describe('DtBreadcrumbsItem', () => {
 

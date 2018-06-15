@@ -1,4 +1,4 @@
-@import '../core/theming/theming';
+@import '../../core/theming/theming';
 
 @mixin dt-theme-breadcrumbs-item($theme, $theme-name) {
   $palette: dt-get-theme-palette($theme, 'main');
