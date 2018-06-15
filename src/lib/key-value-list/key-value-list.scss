@@ -2,25 +2,21 @@
 :host {
   display:block;
   width:100%;
-}
-dl {
-	margin: 0;
-	display: block;
-}
-:host.dt-key-value-list-columns1, 
-:host.dt-key-value-list-columns2, 
-:host.dt-key-value-list-columns3 {
   position: relative;
   column-gap: 60px;
 }
+:host dl {
+	margin: 0;
+	display: block;
+}
 @media(min-width: 662px) {
-  :host.dt-key-value-list-columns2, :host.dt-key-value-list-columns3 {
+  :host[columns="2"], :host[columns="3"] {
     columns: 280px 2;
     max-width: 1220px;
   }
 }
 @media(min-width: 920px) {
-  :host.dt-key-value-list-columns3 {
+  :host[columns="3"] {
     columns: 280px 3;
     max-width: 1860px;
   }
