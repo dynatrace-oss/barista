@@ -44,7 +44,6 @@ import { CheckboxUI } from './checkbox/checkbox-ui';
     DtExpandableSectionModule,
     DtTileModule,
     DtContextDialogModule,
-    DtKeyValueListModule,
     DtPaginationModule,
     DtRadioModule,
     DtShowMoreModule,
