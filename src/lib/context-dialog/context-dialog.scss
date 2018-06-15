@@ -1,3 +1,4 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 
 $panel-padding-btn: 38px;
@@ -5,6 +6,7 @@ $panel-padding: 12px;
 $dialog-max-width: 328px;
 
 .dt-context-dialog-panel {
+  @include main-font();
   background-color: $gray-700;
   padding: $panel-padding-btn $panel-padding $panel-padding $panel-padding;
   display: inline-block;
@@ -12,7 +14,6 @@ $dialog-max-width: 328px;
   position: relative;
   transform-origin: top right;
   color: #fff;
-  font-size: 14px;
   max-width: $dialog-max-width;
 }
 

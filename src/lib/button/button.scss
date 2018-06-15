@@ -1,10 +1,11 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 @import '../core/theming/theming';
 @import './button-theme';
 
 .dt-button {
-  font-family: $mainfont;
+  @include main-font(30px);
   box-sizing: border-box;
   position: relative;
 
@@ -27,8 +28,6 @@
   padding-bottom: 0;
   padding-left: 15px;
   padding-right: 15px;
-  font-size: 14px;
-  line-height: 30px;
   line-height: -moz-block-height;
   background: transparent;
 
