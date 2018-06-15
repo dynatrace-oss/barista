@@ -1,19 +1,16 @@
 @import '../core/style/variables';
 
 .dt-copy-clipboard {
-    display: flex;
     width: 100%;
+    display: flex;
 }
-.dt-copy-clipboard textarea, dt-copy-clipboard input {
+.dt-copy-clipboard .dt-cc-input-wrap {
 	flex-grow: 1;
 	margin-right: 8px;
 }
-
-.dt-copy-clipboard-button {
-	align-self: flex-end;
+.dt-copy-clipboard textarea.dt-copy-clipboard-success, .dt-copy-clipboard input.dt-copy-clipboard-success {
+	border: 1px solid $green-500;
 }
-.dt-copy-clipboard-source-hiddentext {
-	position: fixed;
-	left: -9999px;
-	top: -9999px;
+.dt-copy-clipboard :not(.dt-form-field-infix) > .dt-input:focus:not([disabled]) {
+	box-shadow: none;
 }
