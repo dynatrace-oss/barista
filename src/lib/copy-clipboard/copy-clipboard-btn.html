@@ -1,0 +1,6 @@
+<button dt-button class="dt-copy-clipboard-success" *ngIf="_showCheck" >
+  <dt-icon name="checkmark"></dt-icon>
+</button>
+<button dt-button (click)="clicktrigger()" *ngIf="!_showCheck" #clickBtn>
+  <ng-content></ng-content>
+</button>
