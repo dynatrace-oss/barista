@@ -138,7 +138,6 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   }
 
   close(): void {
-    console.log('close triggered');
     this._setOpen(false);
   }
 
