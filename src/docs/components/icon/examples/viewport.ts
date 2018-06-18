@@ -1,7 +1,7 @@
-import {Injectable, ElementRef, Optional, SkipSelf} from '@angular/core';
-import {ScrollDispatcher, ViewportRuler} from '@angular/cdk/scrolling';
-import {map, filter, merge} from 'rxjs/operators';
-import {Subject, Observable} from 'rxjs';
+import { Injectable, ElementRef } from '@angular/core';
+import { ScrollDispatcher, ViewportRuler } from '@angular/cdk/scrolling';
+import { map, filter } from 'rxjs/operators';
+import { Subject, Observable, merge } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class Viewport {
@@ -73,17 +73,18 @@ export class Viewport {
 
   // tslint:disable-next-line:no-any
   private _change(context?: any): Observable<ClientRect> {
-    return this._scrollDispatcher.scrolled()
-      .pipe(merge(this._viewportRuler.change()))
-      .pipe(merge(this._refresher.pipe(filter(((ctx) => !ctx || asElement(context) === asElement(ctx))))))
-      .pipe(map(() => this._viewportRuler.getViewportRect()));
+    return merge(
+      this._scrollDispatcher.scrolled(),
+      this._viewportRuler.change(),
+      this._refresher.pipe(filter(((ctx) => !ctx || asElement(context) === asElement(ctx))))
+    ).pipe(map(() => this._viewportRuler.getViewportRect()));
   }
 
 }
 
 /** Calculates if the element is visible in the viewports Client Rect */
 export function isElementVisible(element: Element, viewportRect: ClientRect): boolean {
-  const {bottom, top} = element.getBoundingClientRect();
+  const { bottom, top } = element.getBoundingClientRect();
   return bottom >= 0 && top <= viewportRect.height;
 }
 
