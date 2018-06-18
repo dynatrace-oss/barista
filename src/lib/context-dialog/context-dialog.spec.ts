@@ -1,5 +1,5 @@
-import { OverlayContainer, CdkConnectedOverlay } from '@angular/cdk/overlay';
-import { Component, ViewChild, ContentChild } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
