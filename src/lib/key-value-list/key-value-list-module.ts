@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtKeyValueList, DtKeyValueListItem } from './key-value-list';
+import { DtKeyValueList } from './key-value-list';
+import { DtKeyValueListItem } from './key-value-list-item';
 
 @NgModule({
   imports: [
