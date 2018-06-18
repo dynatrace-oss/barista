@@ -235,7 +235,7 @@ export class DtInput extends _DtInputMixinBase
 
   /** Make sure the input is a supported type. */
   private _validateType(): void {
-    if (INPUT_VALID_TYPES.indexOf(this._type) === -1) {
+    if (!INPUT_VALID_TYPES.includes(this._type)) {
       throw new Error(`Input type "${this._type}" isn't supported by dtInput.`);
     }
   }
