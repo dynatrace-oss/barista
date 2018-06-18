@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DefaultAlertExampleComponent } from './examples/default-alert-example.component';
 import { DocsAlertComponent } from './docs-alert.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
@@ -10,7 +9,6 @@ import {InteractiveAlertExampleComponent} from './examples/interactive-alert-exa
 import {DarkAlertExampleComponent} from './examples/dark-alert-example.component';
 
 const EXAMPLES = [
-  DefaultAlertExampleComponent,
   WarningAlertExampleComponent,
   ErrorAlertExampleComponent,
   InteractiveAlertExampleComponent,
