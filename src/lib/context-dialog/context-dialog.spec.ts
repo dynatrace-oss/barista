@@ -1,6 +1,6 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { OverlayContainer, CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { Component, ViewChild, ContentChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtContextDialog, DtContextDialogModule, DtContextDialogTrigger,
@@ -161,6 +161,26 @@ describe('DtContextDialog', () => {
             .toBe(contextDialogDefaultTriggerComponent, 'Expected context Dialog default trigger to be assigned.');
         }));
       });
+    });
+    describe('blur behaviour for context-dialog', () => {
+      let fixture: ComponentFixture<BasicContextDialog>;
+
+      beforeEach(fakeAsync(() => {
+        fixture = TestBed.createComponent(BasicContextDialog);
+        fixture.detectChanges();
+      }));
+      it('should close the context dialog on blur', fakeAsync(() => {
+        const contextDialog = fixture.componentInstance.contextDialog;
+        contextDialog.open();
+        fixture.detectChanges();
+        tick();
+        const backdrop = contextDialog._overlayDir.overlayRef;
+        expect(backdrop.backdropElement).toBeDefined();
+        (backdrop.backdropElement as HTMLElement).click();
+        fixture.detectChanges();
+        flush();
+        expect(contextDialog.isPanelOpen).toBeFalsy();
+      }));
     });
   });
 });
