@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { generateData } from './chart-data-utils';
 
 @Component({
-  template: `<div [dtTheme]="turquoise"><dt-chart [options]="options" [series]="series"></dt-chart></div>`,
+  template: `<div dtTheme="turquoise"><dt-chart [options]="options" [series]="series"></dt-chart></div>`,
 })
 export class ChartThemingExampleComponent {
 
