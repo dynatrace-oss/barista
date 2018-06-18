@@ -1,4 +1,4 @@
-{
+module.exports = {
   "plugins": [
     "./tools/stylelint/selector-no-deep/index.js",
     "./tools/stylelint/no-nested-mixin/index.js"
@@ -30,6 +30,7 @@
       "deg",
       "ms",
       "em",
+      "rem",
       "vh",
       "vw",
       "vmin",
@@ -82,4 +83,4 @@
     "no-missing-end-of-source-newline": true,
     "max-line-length": 100
   }
-}
+};
