@@ -35,40 +35,17 @@ export class Viewport {
   }
 
   /** Stream that emits when the element enters the viewport */
-  elementEnter(el: Element | ElementRef): Observable<boolean> {
+  elementEnter(el: Element | ElementRef): Observable<void> {
     return this.elementVisibility(el)
-      .pipe(filter((visibility) => visibility));
+      .pipe(filter((visibility) => visibility))
+      .pipe(map(() => void 0));
   }
 
   /** Stream that emits when the element leaves the viewport */
-  elementLeave(el: Element | ElementRef): Observable<boolean> {
+  elementLeave(el: Element | ElementRef): Observable<void> {
     return this.elementVisibility(el)
-      .pipe(filter((visibility) => !visibility));
-  }
-
-  /** Returns the viewport's width and height. */
-  getViewportSize(): Readonly<{
-    width: number;
-    height: number;
-  }> {
-    return this._viewportRuler.getViewportSize();
-  }
-  /** Gets a ClientRect for the viewport's bounds. */
-  getViewportRect(): ClientRect {
-    return this._viewportRuler.getViewportRect();
-  }
-
-  /** Gets the (top, left) scroll position of the viewport. */
-  getViewportScrollPosition(): {
-    top: number;
-    left: number;
-  } {
-    return this._viewportRuler.getViewportScrollPosition();
-  }
-
-  /** Trigger a custom update on the viewport streams */
-  update(context?: Element | ElementRef): void {
-    this._refresher.next(context);
+      .pipe(filter((visibility) => !visibility))
+      .pipe(map(() => void 0));
   }
 
   // tslint:disable-next-line:no-any

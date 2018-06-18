@@ -25,7 +25,6 @@ export class DocsAsyncIcon implements OnDestroy {
 
   constructor(viewport: Viewport, el: ElementRef, changeDetector: ChangeDetectorRef) {
     this._viewportEnterSub = viewport.elementEnter(el)
-      .pipe(filter((visible) => visible))
       .pipe(take(1))
       .subscribe(() => {
         this._show = true;
