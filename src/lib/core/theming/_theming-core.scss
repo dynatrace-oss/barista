@@ -88,6 +88,8 @@
     $dark-theme: map-get($theme, dark);
     $default: map-get($theme, default);
 
+    $dt-current-theme-name: $name !global;
+
     @if $default == false {
       .dt-theme-#{$name},
       .dt-theme-#{$name}.dt-theme-light {
