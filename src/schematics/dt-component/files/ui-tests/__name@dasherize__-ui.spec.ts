@@ -1,6 +1,6 @@
-import {browser, by, element, ExpectedConditions } from 'protractor';
+import { browser } from 'protractor';
 
 describe('<%=classify(name)%>', () => {
-  beforeEach(() => browser.get('/<%=dasherize(name)%>'));
+  beforeEach(async () => browser.get('/<%=dasherize(name)%>'));
 
 });
