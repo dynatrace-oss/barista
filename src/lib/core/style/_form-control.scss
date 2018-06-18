@@ -4,7 +4,10 @@
   box-sizing: border-box;
   border: 1px solid $disabledcolor;
   border-radius: 3px;
-  @include custom-font-size(14px, 30px);
+  min-height: 32px;
+  // Strangely setting the lineheight to 29 instead of 30
+  // centers the text more consistent
+  @include custom-font-size(14px, 29px);
 
   .dt-theme-dark & {
     border-color: $gray-400;
