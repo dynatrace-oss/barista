@@ -133,6 +133,43 @@ $dt-checkbox-size: 20px;
   animation-name: dt-checkbox-determined;
 }
 
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .dt-checkbox-checkmark,
+  .dt-checkbox-indeterminate {
+    animation-fill-mode: initial;
+  }
+  :host.dt-checkbox-anim-unchecked-checked .dt-checkbox-checkmark {
+    stroke-dashoffset: 0;
+    animation-name: void;
+  }
+  :host.dt-checkbox-anim-checked-unchecked .dt-checkbox-checkmark,
+  :host.dt-checkbox-anim-checked-indeterminate .dt-checkbox-checkmark {
+    stroke-dashoffset: 560;
+    animation-name: void;
+  }
+  :host.dt-checkbox-anim-unchecked-indeterminate .dt-checkbox-indeterminate {
+    stroke-dashoffset: 0;
+    animation-name: void;
+  }
+  :host.dt-checkbox-anim-checked-indeterminate .dt-checkbox-indeterminate {
+    stroke-dashoffset: 0;
+    animation-name: void;
+  }
+  :host.dt-checkbox-anim-indeterminate-checked .dt-checkbox-indeterminate {
+    stroke-dashoffset: 352;
+    animation-name: void;
+  }
+  :host.dt-checkbox-anim-indeterminate-checked .dt-checkbox-checkmark {
+    stroke-dashoffset: 0;
+    animation-name: void;
+  }
+  :host.dt-checkbox-anim-indeterminate-unchecked .dt-checkbox-indeterminate {
+    stroke-dashoffset: 352;
+    animation-name: void;
+  }
+}
+
+
 // Apply the checkbox theme to all theme definitions
 @include dt-apply-theme() {
   @include dt-theme-checkbox($dt-current-theme);
