@@ -1,20 +1,24 @@
 @import '../core/style/variables';
+
 :host {
-  display:block;
-  width:100%;
+  display: block;
+  width: 100%;
   position: relative;
   column-gap: 60px;
 }
+
 :host dl {
-	margin: 0;
-	display: block;
+  margin: 0;
+  display: block;
 }
+
 @media(min-width: 662px) {
   :host[columns='2'], :host[columns='3'] {
     columns: 280px 2;
     max-width: 1220px;
   }
 }
+
 @media(min-width: 920px) {
   :host[columns='3'] {
     columns: 280px 3;
