@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, filter, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import { Viewport } from './viewport';
