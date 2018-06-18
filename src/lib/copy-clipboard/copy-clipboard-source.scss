@@ -1,5 +1,12 @@
 @import '../core/style/variables';
 
 :host {
-  display: none;
+  textarea {
+    position: fixed;
+    left: -9999px;
+    top: -9999px;
+  }
+  span {
+    display:none;
+  }
 }

@@ -4,13 +4,21 @@
     width: 100%;
     display: flex;
 }
-.dt-copy-clipboard .dt-cc-input-wrap {
+.dt-copy-clipboard .dt-copy-clipboard-input-wrap {
 	flex-grow: 1;
 	margin-right: 8px;
 }
-.dt-copy-clipboard textarea.dt-copy-clipboard-success, .dt-copy-clipboard input.dt-copy-clipboard-success {
+.dt-copy-clipboard textarea.dt-copy-clipboard-successful, .dt-copy-clipboard input.dt-copy-clipboard-successful {
 	border: 1px solid $green-500;
 }
 .dt-copy-clipboard :not(.dt-form-field-infix) > .dt-input:focus:not([disabled]) {
 	box-shadow: none;
+}
+
+.dt-theme-dark .dt-copy-clipboard textarea, .dt-theme-dark .dt-copy-clipboard input {
+	background-color: black;
+	color: $gray-400;
+}
+.dt-copy-clipboard .dt-copy-clipboard-label {
+  cursor: pointer;
 }

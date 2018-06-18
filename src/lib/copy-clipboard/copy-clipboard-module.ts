@@ -8,6 +8,7 @@ import {
   DtCopyClipboardButton,
   DtCopyClipboardSource,
   DtCopyClipboardLabel,
+  DtCopyClipboardSuccess,
 } from './copy-clipboard';
 
 @NgModule({
@@ -20,12 +21,14 @@ import {
     DtCopyClipboardButton,
     DtCopyClipboardSource,
     DtCopyClipboardLabel,
+    DtCopyClipboardSuccess,
   ],
   declarations: [
     DtCopyClipboard,
     DtCopyClipboardButton,
     DtCopyClipboardSource,
     DtCopyClipboardLabel,
+    DtCopyClipboardSuccess,
   ],
 })
 export class DtCopyClipboardModule { }
