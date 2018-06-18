@@ -30,6 +30,7 @@
   .dt-form-field-infix > & {
     border: none;
     border-radius: none;
+    min-height: 30px;
   }
 
   :not(.dt-form-field-infix) > &:focus:not([disabled]) {
