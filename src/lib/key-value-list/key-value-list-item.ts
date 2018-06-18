@@ -1,8 +1,6 @@
 import {
   Component,
   Input,
-  ContentChildren,
-  QueryList,
   ChangeDetectionStrategy,
   ViewEncapsulation,
 } from '@angular/core';
