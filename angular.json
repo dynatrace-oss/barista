@@ -14,8 +14,8 @@
             "outputPath": "dist/docs",
             "index": "src/docs/index.html",
             "main": "src/docs/main.ts",
-            "tsConfig": "src/docs/./tsconfig-build.json",
-            "polyfills": "src/docs/./polyfills.ts",
+            "tsConfig": "src/docs/tsconfig.json",
+            "polyfills": "src/docs/polyfills.ts",
             "assets": [
               {
                 "glob": "**",
@@ -26,6 +26,16 @@
                 "glob": "**",
                 "input": "src/docs/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "metadata.json",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/assets/icons"
               }
             ],
             "styles": [
@@ -36,7 +46,26 @@
             ]
           },
           "configurations": {
-            "production" : {}
+            "production": {
+              "tsConfig": "src/docs/tsconfig-build.json",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "vendorChunk": false
+            },
+            "production-aot": {
+              "tsConfig": "src/docs/tsconfig-build.json",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "aot": true
+            }
           }
         },
         "serve": {
@@ -62,13 +91,36 @@
         }
       }
     },
-    "docs-e2e": {
+    "lib": {
       "root": "",
-      "sourceRoot": "",
-      "projectType": "application"
+      "sourceRoot": "src",
+      "projectType": "library",
+      "prefix": "dt",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.json",
+            "project": "src/lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "src/lib/package.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/lib/test.ts",
+            "tsConfig": "src/lib/tsconfig.spec.json",
+            "karmaConfig": "test/karma.conf.js"
+          }
+        }
+      }
     }
   },
-  "defaultProject": "docs",
+  "defaultProject": "lib",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": ""

@@ -1,28 +1,11 @@
-import { dest, src, task, watch } from 'gulp';
+import { dest, src, task } from 'gulp';
 import { join } from 'path';
 import { buildConfig } from '../build-config';
-import { sequenceTask } from '../util/sequence-task';
-
 import * as through from 'through2';
 import { replaceVersionPlaceholders } from '../util/replace-version-placeholder';
-
-import * as packagr from 'ng-packagr/lib/ng-v5/packagr';
+import { execNodeTask } from '../util/task-runner';
+import { sequenceTask } from '../util/sequence-task';
 import { parseDir } from 'sass-graph';
-
-const ngPackage = () => through.obj((file, _, callback) => {
-  packagr.ngPackagr()
-      .forProject(file.path)
-      .withTsConfig(join(buildConfig.projectDir, 'tsconfig.json'))
-      .build()
-      .then((result: any) => callback(null, result))
-      .catch((error: any) => callback(error, null));
-});
-
-const WATCH_DEBOUNCE_DELAY = 700;
-
-task('library:watch', () => {
-  watch(join(buildConfig.libDir, '**/*'), { debounceDelay: WATCH_DEBOUNCE_DELAY }, ['library:compile', 'library:styles']);
-});
 
 task('library:version-replace', replaceVersionPlaceholders);
 
@@ -43,12 +26,6 @@ task('library:removeModuleId', () =>
   .pipe(removeModuleId())
   .pipe(dest(buildConfig.libOutputDir)));
 
-task('library:compile', () =>
-  src(join(buildConfig.libDir, 'package.json'), {
-    read: false,
-  })
-  .pipe(ngPackage()));
-
 task('library:styles', () => {
   const stylesGraph = parseDir(join(buildConfig.libDir, 'style'));
 
@@ -61,8 +38,9 @@ task('library:assets', () =>
     .pipe(dest(join(buildConfig.libOutputDir, 'assets')))
 );
 
+task('library:compile', execNodeTask('@angular/cli', 'ng', ['build', 'lib', '--prod']));
+
 task('library:build', sequenceTask(
-  'clean:lib',
   'library:compile',
   'library:styles',
   'library:assets',

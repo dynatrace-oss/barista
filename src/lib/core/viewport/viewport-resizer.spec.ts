@@ -1,5 +1,5 @@
 import { TestBed, async, inject, tick, fakeAsync } from '@angular/core/testing';
-import { DtViewportResizer } from '@dynatrace/angular-components';
+import { DtViewportResizer } from './viewport-resizer';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
 
