@@ -71,12 +71,9 @@ class DtIconTemplateVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const {
-      sourceSpan: {
-        end: { offset: endOffset },
-        start: { offset: startOffset },
-      },
-    } = prop;
+    const startOffset = prop.sourceSpan.start.offset;
+    const endOffset = prop.sourceSpan.end.offset;
+
     if (attrAst) {
       this.addFailureFromStartToEnd(startOffset, endOffset, getWrongNameMessage(attrAst.value));
     } else {
