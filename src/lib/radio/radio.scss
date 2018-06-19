@@ -1,3 +1,4 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 @import '../core/theming/theming';
@@ -84,9 +85,8 @@ $dt-radio-size: 20px;
 }
 
 .dt-radio-label-content {
+  @include main-font();
   display: inline-block;
-  font-family: $mainfont;
-  font-size: 14px;
   padding-left: 8px;
 
   :host.dt-radio-disabled & {
