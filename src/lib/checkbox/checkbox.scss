@@ -143,6 +143,8 @@ $dt-checkbox-size: 20px;
     stroke-dasharray: 0 !important;
     stroke-dashoffset: 0 !important;
     animation-name: void !important;
+    animation-duration: 0;
+    animation-delay: 0;
     opacity: 0;
   }
   &.dt-checkbox-anim-unchecked-checked .dt-checkbox-checkmark,
