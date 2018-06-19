@@ -1,5 +1,6 @@
 # Button
-<docs-source-example [example]="examples.default"></docs-source-example>
+
+{{component-demo name="DefaultButtonExampleComponent" }}
 
 This Angular button enhances native `<button>` and `<a>` elements with Dynatrace styling.
 Make sure to always use `<button>` or `<a>` tags to provide the accessible experience for the user.
@@ -7,6 +8,7 @@ A `<button>` element should be used whenever some action is performed.
 An `<a>` element should be used whenever the user will navigate to another view.
 
 ## Imports
+
 You have to import the `DtButtonModule` when you want to use the `dt-button`:
 
 ```typescript
@@ -98,28 +100,28 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 ### Simple example
 
-<docs-source-example [example]="examples.simple"></docs-source-example>
+{{component-demo name="SimpleButtonExampleComponent"}}
 
 ### Interaction
 
-<docs-source-example [example]="examples.interaction"></docs-source-example>
+{{component-demo name="InteractionButtonExampleComponent"}}
 
 ### Variants
 
-<docs-source-example [example]="examples.variant"></docs-source-example>
+{{component-demo name="VariantButtonExampleComponent"}}
 
 ### Colors
 
-<docs-source-example [example]="examples.color"></docs-source-example>
+{{component-demo name="ColorButtonExampleComponent"}}
 
 ### With Icons
 
-<docs-source-example [example]="examples.icons"></docs-source-example>
+{{component-demo name="IconsButtonExampleComponent"}}
 
 ### Icon only
 
-<docs-source-example [example]="examples.iconOnly"></docs-source-example>
+{{component-demo name="IconOnlyButtonExampleComponent"}}
 
 ### All combinations
 
-<docs-source-example [example]="examples.all"></docs-source-example>
+{{component-demo name="AllButtonExampleComponent" fullwidth="true"}}
