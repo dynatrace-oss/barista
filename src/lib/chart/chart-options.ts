@@ -70,6 +70,7 @@ export const DEFAULT_CHART_AXIS_STYLES: AxisOptions = {
   labels: {
     style: {
       fontSize: '12px',
+      color: Colors.GRAY_700,
     },
   },
   tickWidth: 1,

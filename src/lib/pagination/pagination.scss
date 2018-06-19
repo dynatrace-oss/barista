@@ -1,11 +1,11 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/theming/theming';
 @import './pagination-theme';
 
 :host {
+  @include main-font();
   box-sizing: border-box;
-
-  font-size: 14px;
   height: 26px;
 
   display: flex;
@@ -47,16 +47,12 @@
 }
 
 .dt-pagination-numbers .dt-pagination-item-active {
-  font-weight: bolder;
-  line-height: 32px;
-  color: $gray-900;
+  @include custom-font-styles($gray-900, 700, 14px, 32px);
 }
 
 .dt-pagination-item-ellipsis {
+  @include custom-font-size(false, 32px);
   text-align: center;
-  line-height: 32px;
-
-  font-size: 14px;
   color: $gray-300;
 }
 
