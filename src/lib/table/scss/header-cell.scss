@@ -1,8 +1,9 @@
+@import '../../style/font-mixins';
 @import '../../core/style/variables';
 @import 'base-cell';
 
 :host.dt-header-cell {
-  font-size: 12px;
+  @include label-font();
   word-wrap: normal;
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -5,7 +5,7 @@
 @import 'font-mixins';
 
 body {
-  @include body-font();
+  @include main-font();
 }
 
 h1 {

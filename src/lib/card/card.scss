@@ -1,8 +1,9 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 
 .dt-card {
+  @include main-font();
   display: block;
-  font-family: $mainfont;
   background-color: #fff;
   border-radius: 3px;
   padding: 8px;
@@ -10,14 +11,14 @@
 }
 
 @media(min-width: 460px) {
-  
+
   .dt-card {
     padding: 12px;
   }
 }
 
 @media(min-width: 992px) {
-  
+
   .dt-card {
     padding: 16px;
     margin: 16px;
@@ -25,7 +26,7 @@
 }
 
 @media(min-width: 1200px) {
-  
+
   .dt-card {
     margin: 20px;
   }
@@ -58,23 +59,19 @@
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  line-height: 1.6;
 }
 
 .dt-card-title {
+  @include h1-font();
   display: block;
-  font-size: 24px;
-  color: $gray-700;
-  font-weight: 300;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .dt-card-subtitle {
+  @include h2-font();
   display: block;
-  font-size: 14px;
-  color: $gray-700;
 }
 
 .dt-card-actions {
