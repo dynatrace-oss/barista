@@ -37,7 +37,7 @@ export class DtCopyClipboardButton implements AfterViewInit {
   }
 
   // tslint:disable-next-line:no-unused-variable
-  private clicktrigger(): void {
+  clicktrigger(): void {
     const dtCopyClipboardTimeout = 800;
     this._showCheck = true;
     setTimeout(() => { this._showCheck = false; this.cd.detectChanges(); }, dtCopyClipboardTimeout);
