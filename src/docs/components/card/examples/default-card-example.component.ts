@@ -4,9 +4,6 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: `<div class="demo-card">
 <dt-card>
-  <dt-card-icon>
-    <dt-icon name="application"></dt-icon>
-  </dt-card-icon>
   <dt-card-title>Top 3 JavaScript errors</dt-card-title>
   <dt-card-subtitle>Some subtitle</dt-card-subtitle>
   <dt-card-actions><button dt-button variant="secondary">Some Action</button></dt-card-actions>
