@@ -47,7 +47,24 @@
           },
           "configurations": {
             "production": {
-              "tsConfig": "src/docs/tsconfig-build.json"
+              "tsConfig": "src/docs/tsconfig-build.json",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "vendorChunk": false
+            },
+            "production-aot": {
+              "tsConfig": "src/docs/tsconfig-build.json",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "aot": true
             }
           }
         },
@@ -103,7 +120,7 @@
       }
     }
   },
-  "defaultProject": "docs",
+  "defaultProject": "lib",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": ""

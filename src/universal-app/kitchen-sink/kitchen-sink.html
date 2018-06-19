@@ -61,3 +61,9 @@
 <dt-progress-circle></dt-progress-circle>
 
 <dt-switch></dt-switch>
+
+<dt-breadcrumbs>
+  <dt-breadcrumbs-item href="/first"></dt-breadcrumbs-item>
+  <dt-breadcrumbs-item [href]="['/first', '/second']" external></dt-breadcrumbs-item>
+  <dt-breadcrumbs-item [href]="['/first', {param1: 'value1'}, '/second']" [external]="true"></dt-breadcrumbs-item>
+</dt-breadcrumbs>

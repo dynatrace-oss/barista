@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  // @formatter:off
   template: `<div>
   <dt-button-group #control1 [disabled]="control1AllDisabled">
     <ng-container *ngFor="let gvalue of groupValues; let i = index">
@@ -22,6 +23,7 @@ import { Component } from '@angular/core';
   <button dt-button (click)="control1secondDisabled=!control1secondDisabled">Toggle 3<sup>rd</sup> disabled</button>
   <button dt-button (click)="control1secondOdd=!control1secondOdd">Toggle odd items</button>
 </div>`,
+  // @formatter:on
 })
 export class ButtonGroupInteractiveExampleComponent {
   groupValues: Array<{ key: string; name: string }> = [
@@ -31,4 +33,7 @@ export class ButtonGroupInteractiveExampleComponent {
     { key: 'av', name: 'Availability' },
     { key: 'cpu', name: 'CPU' },
   ];
+  control1AllDisabled = false;
+  control1secondDisabled = false;
+  control1secondOdd = false;
 }

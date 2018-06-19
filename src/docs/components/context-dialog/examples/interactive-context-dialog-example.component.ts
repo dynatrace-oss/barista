@@ -20,5 +20,5 @@ import { Component } from '@angular/core';
 })
 export class InteractiveContextDialogExampleComponent {
   interactiveDialogDisabled = false;
-  customTrigger: false;
+  customTrigger = false;
 }

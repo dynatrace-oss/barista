@@ -1,3 +1,4 @@
+@import '../../style/font-mixins';
 @import '../../core/style/variables';
 
 :host.dt-table {
@@ -6,9 +7,7 @@
   flex-flow: column nowrap;
   min-width: 100%;
   position: relative;
-  font-size: 14px;
-  font-weight: normal;
-  color: $gray-700;
+  @include main-font();
 
   .floatLoading {
     position: absolute;
