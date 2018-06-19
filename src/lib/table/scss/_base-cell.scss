@@ -1,3 +1,4 @@
+@import '../../style/font-mixins';
 $dt-row-horizontal-padding: 4px;
 
 %base-cell {
@@ -22,7 +23,6 @@ $dt-row-horizontal-padding: 4px;
   }
 
   &.dt-column-sorted {
-    font-weight: 700;
-    color: $gray-900;
+    @include custom-font-styles($gray-900, 700);
   }
 }
