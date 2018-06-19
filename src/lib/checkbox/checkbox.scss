@@ -133,6 +133,34 @@ $dt-checkbox-size: 20px;
   animation-name: dt-checkbox-determined;
 }
 
+// Disabling checkbox animation on IE and falling back to just show and hide of svg paths
+// Needs to be done, because IE / Edge do not support animation of stroke-dashoffset
+// https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/6493460/
+:host.dt-checkbox-animation-fallback {
+  .dt-checkbox-checkmark,
+  .dt-checkbox-indeterminate {
+    animation-fill-mode: none;
+    stroke-dasharray: 0 !important;
+    stroke-dashoffset: 0 !important;
+    animation-name: void !important;
+    animation-duration: 0;
+    animation-delay: 0;
+    opacity: 0;
+  }
+  &.dt-checkbox-anim-unchecked-checked .dt-checkbox-checkmark,
+  &.dt-checkbox-anim-unchecked-indeterminate .dt-checkbox-indeterminate,
+  &.dt-checkbox-anim-checked-indeterminate .dt-checkbox-indeterminate,
+  &.dt-checkbox-anim-indeterminate-checked .dt-checkbox-checkmark {
+    opacity: 1;
+  }
+  &.dt-checkbox-anim-checked-unchecked .dt-checkbox-checkmark,
+  &.dt-checkbox-anim-checked-indeterminate .dt-checkbox-checkmark,
+  &.dt-checkbox-anim-indeterminate-checked .dt-checkbox-indeterminate,
+  &.dt-checkbox-anim-indeterminate-unchecked .dt-checkbox-indeterminate {
+    opacity: 0;
+  }
+}
+
 // Apply the checkbox theme to all theme definitions
 @include dt-apply-theme() {
   @include dt-theme-checkbox($dt-current-theme);
