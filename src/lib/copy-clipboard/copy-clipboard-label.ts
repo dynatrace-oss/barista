@@ -28,7 +28,7 @@ export class DtCopyClipboardLabel {
 
   constructor(private cd: ChangeDetectorRef) { }
   // tslint:disable-next-line:no-unused-variable
-  private clickTrigger(): void {
+  clickTrigger(): void {
     this.clicked.emit();
   }
 
