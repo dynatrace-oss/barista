@@ -8,7 +8,7 @@
 <dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
 <dt-form-field *ngIf="editing || saving">
-  <input dtInput #input [disabled]="saving" [value]="value" (input)="_onInputChange()" />
+  <input dtInput #input [disabled]="saving" [value]="value" (input)="_onInputChange()" class="dt-form-field-input" />
 
   <button dt-icon-button dtSuffix variant="nested" aria-label="save" (click)="saveAndQuitEditing()" >
     <dt-icon name="checkmark"></dt-icon>
