@@ -1,24 +1,42 @@
 @import '../core/style/variables';
+@import '../core/theming/theming';
 
-.dt-copy-clipboard {
-    width: 100%;
-    display: flex;
-}
-.dt-copy-clipboard .dt-copy-clipboard-input-wrap {
-	flex-grow: 1;
-	margin-right: 8px;
-}
-.dt-copy-clipboard textarea.dt-copy-clipboard-successful, .dt-copy-clipboard input.dt-copy-clipboard-successful {
-	border: 1px solid $green-500;
-}
-.dt-copy-clipboard :not(.dt-form-field-infix) > .dt-input:focus:not([disabled]) {
-	box-shadow: none;
+:host {
+  width: 100%;
+  display: flex;
+
+  >>> .dt-copy-clipboard-successful {
+    border: 1px solid $green-500;
+  }
+
+  .dt-copy-clipboard-input-wrap {
+    flex-grow: 1;
+    margin-right: 8px;
+  }
+
+  >>> .dt-input:focus:not([disabled]) {
+    box-shadow: none;
+  }
+
+  .dt-copy-clipboard-label {
+    cursor: pointer;
+  }
 }
 
-.dt-theme-dark .dt-copy-clipboard textarea, .dt-theme-dark .dt-copy-clipboard input {
-	background-color: black;
-	color: $gray-400;
+.dt-theme-dark textarea, .dt-theme-dark input {
+  background-color: black;
+  color: $gray-400;
 }
-.dt-copy-clipboard .dt-copy-clipboard-label {
-  cursor: pointer;
+
+@include dt-apply-theme() {
+  $is-dark: map-get($dt-current-theme, 'is-dark');
+  @if ($is-dark == true) {
+    :host {
+      >>> textarea,
+      >>> input {
+        background-color: black;
+        color: $gray-400;
+      }
+    }
+  }
 }
