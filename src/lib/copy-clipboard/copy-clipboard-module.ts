@@ -5,11 +5,19 @@ import { DtIconModule } from '../icon/icon-module';
 import { CommonModule } from '@angular/common';
 import {
   DtCopyClipboard,
-  DtCopyClipboardButton,
-  DtCopyClipboardSource,
-  DtCopyClipboardLabel,
-  DtCopyClipboardSuccess,
 } from './copy-clipboard';
+import {
+  DtCopyClipboardButton,
+} from './copy-clipboard-btn';
+import {
+  DtCopyClipboardSource,
+} from './copy-clipboard-source';
+import {
+  DtCopyClipboardLabel,
+} from './copy-clipboard-label';
+import {
+  DtCopyClipboardSuccess,
+} from './copy-clipboard-success';
 
 @NgModule({
   imports: [CommonModule,
