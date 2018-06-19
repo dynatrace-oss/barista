@@ -7,7 +7,7 @@
   @if ($is-dark == true) {
 
     :host {
-      &:not(.dt-switch-disabled) .dt-switch-content {
+      .dt-switch-content {
         color: #fff;
       }
 
