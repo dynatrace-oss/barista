@@ -65,9 +65,12 @@
       background-repeat: no-repeat;
       background-position: 9px 5px;
     }
+    .dt-switch-label::after {
+      left: 16px;
+    }
   }
 
-  & .dt-switch-label::after {
+  .dt-switch-label::after {
     content: '';
     height: 12px;
     width: 12px;
@@ -80,12 +83,6 @@
     display: block;
     top: 0;
     left: 0;
-  }
-
-  &.dt-switch-checked {
-    .dt-switch-label::after {
-      left: 16px;
-    }
   }
 }
 

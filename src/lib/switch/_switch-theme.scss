@@ -7,6 +7,10 @@
   @if ($is-dark == true) {
 
     :host {
+      &:not(.dt-switch-disabled) .dt-switch-content {
+        color: #fff;
+      }
+
       &:not(.dt-switch-checked, .dt-switch-disabled):hover {
         .dt-switch-label::before {
           background-color: rgba(255, 255, 255, 0.2);
