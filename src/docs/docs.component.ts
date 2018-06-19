@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class Docs {
   navItems = [
     {name: 'Alert', route: '/alert-component'},
+    {name: 'Breadcrumbs', route: '/breadcrumbs'},
     {name: 'Button', route: '/button'},
     {name: 'Button Group', route: '/button-group'},
     {name: 'Card', route: '/card'},
