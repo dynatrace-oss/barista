@@ -28,7 +28,7 @@ import {DtButton} from '../button/button';
 export class DtCopyClipboardButton implements AfterViewInit {
   @ViewChildren('clickBtn') private _btns: QueryList<DtButton>;
   // tslint:disable-next-line:no-unused-variable
-  private _showCheck = false;
+  _showCheck = false;
   private _enabled = true;
   // tslint:disable-next-line:no-any
   @Output() clicked: EventEmitter<any> = new EventEmitter();
