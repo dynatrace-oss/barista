@@ -1,6 +1,6 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { ScrollDispatcher, ViewportRuler } from '@angular/cdk/scrolling';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { Subject, Observable, merge } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -24,14 +24,9 @@ export class Viewport {
   elementVisibility(el: Element | ElementRef): Observable<boolean> {
     const element = asElement(el);
     const change$ = this._change(element);
-    // We have to wrap it in a closure so we can store the
-    // elements visibility
-    return (() => {
-      let visibility = false;
-      return change$
-        .pipe(filter((viewportRect) => visibility !== isElementVisible(element, viewportRect)))
-        .pipe(map(() => visibility = !visibility));
-    })();
+    return change$
+      .pipe(map((viewportRect) => isElementVisible(element, viewportRect)))
+      .pipe(distinctUntilChanged());
   }
 
   /** Stream that emits when the element enters the viewport */
