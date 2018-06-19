@@ -24,6 +24,7 @@ import { DocsShowMoreComponent } from './components/show-more/docs-show-more.com
 import { DocsCheckboxComponent } from './components/checkbox/docs-checkbox.component';
 import { DocsProgressCircleComponent } from './components/progress-circle/docs-progress-circle.component';
 import { DocsSwitchComponent } from './components/switch/docs-switch.component';
+import { DocsBreadcrumbsComponent } from './components/breadcrumbs/docs-breadcrumbs.component';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'checkbox', component: DocsCheckboxComponent },
   { path: 'progress-circle', component: DocsProgressCircleComponent },
   { path: 'switch', component: DocsSwitchComponent },
+  { path: 'breadcrumbs', component: DocsBreadcrumbsComponent },
   { path: '**', redirectTo: '' },
 ];
 
