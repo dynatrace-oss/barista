@@ -13,7 +13,9 @@ import {
   forwardRef,
   Attribute,
   Directive,
-  Provider
+  Provider,
+  OnInit,
+  Renderer2
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusOrigin, FocusMonitor } from '@angular/cdk/a11y';
@@ -27,8 +29,10 @@ import {
   mixinTabIndex,
   mixinDisabled,
   CanDisable,
-  HasTabIndex
+  HasTabIndex,
+  addCssClass
 } from '../core/index';
+import { Platform } from '@angular/cdk/platform';
 
 /**
  * Checkbox IDs need to be unique across components, so this counter exists outside of
@@ -90,7 +94,7 @@ export const _DtCheckboxMixinBase = mixinTabIndex(mixinDisabled(DtCheckboxBase))
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtCheckbox<T> extends _DtCheckboxMixinBase
-  implements CanDisable, HasTabIndex, AfterViewInit, OnDestroy, ControlValueAccessor {
+  implements CanDisable, HasTabIndex, AfterViewInit, OnDestroy, OnInit, ControlValueAccessor {
 
   /** Whether or not the checkbox is checked. */
   @Input()
@@ -194,6 +198,8 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
+    private _platform: Platform,
+    private _renderer: Renderer2,
     @Attribute('tabindex') tabIndex: string
   ) {
     super();
@@ -201,6 +207,14 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     // Force setter to be called in case id was not specified.
     this.id = this.id;
     this.tabIndex = parseInt(tabIndex, 10) || 0;
+  }
+
+  ngOnInit(): void {
+    // We need to do the user agent check on JS side
+    // because there is no css specific solution for EDGE
+    if (this._platform.TRIDENT || this._platform.EDGE) {
+      addCssClass(this._elementRef.nativeElement, 'dt-checkbox-animation-fallback', this._renderer);
+    }
   }
 
   ngAfterViewInit(): void {
