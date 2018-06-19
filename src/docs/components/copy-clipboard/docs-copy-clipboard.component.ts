@@ -4,6 +4,7 @@ import { CallbackCopyClipboardExampleComponent } from './examples/callback-copy-
 import { TextCopyClipboardExampleComponent } from './examples/text-copy-clipboard-example.component';
 import { DisabledCopyClipboardExampleComponent } from './examples/disabled-copy-clipboard-example.component';
 import { DarkCopyClipboardExampleComponent } from './examples/dark-copy-clipboard-example.component';
+import {ContextCopyClipboardExampleComponent} from './examples/context-copy-clipboard-example.component';
 
 @Component({
   selector: 'docs-copy-clipboard',
@@ -17,5 +18,6 @@ export class DocsCopyClipboardComponent {
     text : TextCopyClipboardExampleComponent,
     disabled : DisabledCopyClipboardExampleComponent,
     dark : DarkCopyClipboardExampleComponent,
+    context : ContextCopyClipboardExampleComponent,
   };
 }
