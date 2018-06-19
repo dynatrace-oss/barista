@@ -15,7 +15,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
   },
 })
 export class DtCopyClipboardSuccess {
-  private _show = false;
+  _show = false;
 
   constructor(private cd: ChangeDetectorRef) {
   }
