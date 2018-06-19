@@ -11,7 +11,7 @@
 }
 
 .dt-loading-distractor-label {
-  @include default-font(18px);
+  @include h2-font();
   display: block;
   box-sizing: border-box;
   text-decoration: none;

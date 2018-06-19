@@ -23,6 +23,9 @@ export class InteractiveTagExampleComponent {
 
   value1 = 'My value 1';
   value2 = 'My value 2';
+  disabled = false;
+  canRemove = false;
+  hasKey = false;
 
   doRemove(tag: DtTag<string>): void {
     window.alert(`Tag removed: ${tag.value}`);
