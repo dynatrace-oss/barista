@@ -1,10 +1,13 @@
+@import '../../style/font-mixins';
 // Mixin to create the border and spacings for inputs, form-fields, ...
 @mixin dt-form-control() {
   box-sizing: border-box;
   border: 1px solid $disabledcolor;
   border-radius: 3px;
-  font-size: 14px;
-  line-height: 30px;
+  min-height: 32px;
+  // Strangely setting the lineheight to 29 instead of 30
+  // centers the text more consistent
+  @include custom-font-size(false, 29px);
 
   .dt-theme-dark & {
     border-color: $gray-400;

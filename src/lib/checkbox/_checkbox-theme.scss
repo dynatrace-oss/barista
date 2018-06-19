@@ -23,5 +23,8 @@
       background-color: rgba(255, 255, 255, 0.2);
     }
 
+    :host:not(.dt-checkbox-disabled) .dt-checkbox-caption {
+      color: #fff;
+    }
   }
 }

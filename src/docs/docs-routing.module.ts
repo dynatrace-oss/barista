@@ -24,6 +24,7 @@ import { DocsRadioComponent } from './components/radio/docs-radio.component';
 import { DocsShowMoreComponent } from './components/show-more/docs-show-more.component';
 import { DocsCheckboxComponent } from './components/checkbox/docs-checkbox.component';
 import { DocsProgressCircleComponent } from './components/progress-circle/docs-progress-circle.component';
+import { DocsBreadcrumbsComponent } from './components/breadcrumbs/docs-breadcrumbs.component';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'show-more', component: DocsShowMoreComponent },
   { path: 'checkbox', component: DocsCheckboxComponent },
   { path: 'progress-circle', component: DocsProgressCircleComponent },
+  { path: 'breadcrumbs', component: DocsBreadcrumbsComponent },
   { path: '**', redirectTo: '' },
 ];
 

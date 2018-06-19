@@ -3,12 +3,6 @@
  */
 
 @import 'variables';
-$monospace-font-family: 'VeraMonoWeb';
-$default-font-family: 'BerninaSansWeb';
-$default-font-color: $textcolor;
-$default-font-weight: normal;
-$default-font-size: 14px;
-$default-line-height: 1.6;
 
 @mixin custom-font-styles($color: false, $font-weight: false,
                           $font-size: false, $line-height: false) {
@@ -38,7 +32,7 @@ $default-line-height: 1.6;
   @include custom-font-styles($default-font-color, $font-weight, $font-size, $line-height);
 }
 
-@mixin body-font($line-height: $default-line-height) {
+@mixin main-font($line-height: $default-line-height) {
   @include default-font(14px, $line-height);
 }
 
@@ -58,6 +52,6 @@ $default-line-height: 1.6;
   @include monospace-font();
 }
 
-@mixin label-font {
-  @include default-font(12px, 1.6);
+@mixin label-font($line-height: $default-line-height) {
+  @include default-font(12px, $line-height);
 }
