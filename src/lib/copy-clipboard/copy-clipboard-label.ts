@@ -24,7 +24,7 @@ export class DtCopyClipboardLabel {
   // tslint:disable-next-line:no-any
   @Input() clicked: EventEmitter<any> = new EventEmitter();
   // tslint:disable-next-line:no-unused-variable
-  private _show = true;
+  _show = true;
 
   constructor(private cd: ChangeDetectorRef) { }
   // tslint:disable-next-line:no-unused-variable
