@@ -1,9 +1,11 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/theming/theming';
 @import './progress-circle-theme';
 
 :host {
   display: inline-block;
+  @include main-font();
 }
 
 .dt-progress-circle-body {
