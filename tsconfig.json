@@ -37,8 +37,7 @@
     },
     "strictNullChecks": true,
     "typeRoots": [
-      "node_modules/@types",
-      "node_modules/codelizer"
+      "node_modules/@types"
     ]
   },
   "exclude": [
