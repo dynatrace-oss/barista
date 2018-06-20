@@ -51,6 +51,7 @@ $arrow-padding: 2px;
 
 .link {
   &, &:visited {
+    @include dt-interactive-reset();
     color: #fff;
     display: block;
     height: $height;
@@ -69,6 +70,10 @@ $arrow-padding: 2px;
   &:hover {
     color: #fff;
     text-decoration: none;
+  }
+
+  &:focus {
+    @include dt-focus-style();
   }
 }
 
