@@ -1,6 +1,6 @@
 # Card
 
-{{component-demo name="DefaultCardExampleComponent" }}
+{{component-demo name="DefaultCardExampleComponent"}}
 
 `<dt-card>` is a visual container for wrapping a wide variety of contents.
 In addition to the custom content, the card can also hold some special sections:
@@ -14,26 +14,26 @@ In addition to the custom content, the card can also hold some special sections:
 
 ### Content only
 
-{{component-demo name="ContentOnlyCardExampleComponent" }}
+{{component-demo name="ContentOnlyCardExampleComponent"}}
 
 ### Title
 
-{{component-demo name="TitleCardExampleComponent" }}
+{{component-demo name="TitleCardExampleComponent"}}
 
 ### Title & Subtitle
 
-{{component-demo name="SubtitleCardExampleComponent" }}
+{{component-demo name="SubtitleCardExampleComponent"}}
 
 ### Actions
 
-{{component-demo name="ActionButtonsCardExampleComponent" }}
+{{component-demo name="ActionButtonsCardExampleComponent"}}
 
 ### Icon
 
 **Note:** icons are not yet implemented. This is merely a placeholder to show card capabilities.
 
-{{component-demo name="IconCardExampleComponent" }}
+{{component-demo name="IconCardExampleComponent"}}
 
 ### Darktheme
 
-{{component-demo name="DarkThemeCardExampleComponent" }}
+{{component-demo name="DarkThemeCardExampleComponent"}}

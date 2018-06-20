@@ -1,6 +1,6 @@
 # Chart
 
-{{component-demo name="ChartDefaultExampleComponent" }}
+{{component-demo name="ChartDefaultExampleComponent"}}
 
 This dt-chart component wraps highcharts to be used within angular.
 
@@ -9,12 +9,14 @@ This dt-chart component wraps highcharts to be used within angular.
 You have to import the `DtChartModule` when you want to use the `dt-chart`:
 
 ```typescript
+
 @NgModule({
   imports: [
     DtChartModule,
   ],
 })
 class MyModule {}
+
 ```
 
 ## Initialization
@@ -43,9 +45,11 @@ The chart will take a chart color for the series data if no color is specified f
 *Example:*
 
 ```html
+
 <div dtTheme="purple">
   <dt-chart options="myoptions" series="myseries" ></dt-chart>
 </div>
+
 ```
 
 ## Reflow
@@ -57,12 +61,12 @@ ViewportResizer notifies the dt-chart component about Viewport changes that trig
 
 ### Stream example
 
-{{component-demo name="ChartStreamExampleComponent" }}
+{{component-demo name="ChartStreamExampleComponent"}}
 
 ### Theming example
 
-{{component-demo name="ChartThemingExampleComponent" }}
+{{component-demo name="ChartThemingExampleComponent"}}
 
 ### Loading example
 
-{{component-demo name="ChartLoadingExampleComponent" }}
+{{component-demo name="ChartLoadingExampleComponent"}}
