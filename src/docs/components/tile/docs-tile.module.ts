@@ -27,7 +27,7 @@ const EXAMPLES = [
     DtTileModule,
     DtThemingModule,
     HttpClientModule,
-    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
+    DtIconModule,
   ],
   declarations: [
     ...EXAMPLES,

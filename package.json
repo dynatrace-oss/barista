@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "docs": "ng serve docs",
-    "docs:build": "ng build docs",
+    "docs:build": "gulp docs:build",
     "build": "gulp library:build",
     "test": "ng test lib --watch=false",
     "test:watch": "ng test lib",
