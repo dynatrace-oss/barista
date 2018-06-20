@@ -27,6 +27,7 @@ export class Docs {
     {name: 'Progress circle', route: '/progress-circle'},
     {name: 'Radio', route: '/radio'},
     {name: 'Show more', route: '/show-more'},
+    {name: 'Switch', route: '/switch'},
     {name: 'Table', route: '/table'},
     {name: 'Tag', route: '/tag'},
     {name: 'Tile', route: '/tile'},
