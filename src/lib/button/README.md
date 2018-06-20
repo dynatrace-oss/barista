@@ -1,6 +1,6 @@
 # Button
 
-{{component-demo name="DefaultButtonExampleComponent" }}
+{{component-demo name="DefaultButtonExampleComponent"}}
 
 This Angular button enhances native `<button>` and `<a>` elements with Dynatrace styling.
 Make sure to always use `<button>` or `<a>` tags to provide the accessible experience for the user.
@@ -12,12 +12,14 @@ An `<a>` element should be used whenever the user will navigate to another view.
 You have to import the `DtButtonModule` when you want to use the `dt-button`:
 
 ```typescript
+
 @NgModule({
   imports: [
     DtButtonModule,
   ],
 })
 class MyModule {}
+
 ```
 
 ## Initialization
@@ -31,60 +33,24 @@ To apply the dynatrace button, add one of the following attributes to the `<butt
 
 ## Options & Properties
 
-<table class="table">
-  <thead>
-    <tr>
-      <td width="160px">Name</td>
-      <td width="250px">Type</td>
-      <td width="160px">Default</td>
-      <td>Description</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>disabled</code></td>
-      <td><code>boolean | undefined</code></td>
-      <td><code>undefined</code></td>
-      <td>Sets disable state if property is set and the value is truthy or undefined</td>
-    </tr>
-    <tr>
-      <td><code>color</code></td>
-      <td><code>string | undefined</code></td>
-      <td><code>main</code></td>
-      <td>Sets color. Possible options:
-        <ul>
-          <li><code>main</code> (default)</li>
-          <li><code>warning</code></li>
-          <li><code>cta</code></li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td><code>variant</code></td>
-      <td><code>string | undefined</code></td>
-      <td><code>primary</code></td>
-      <td>
-        Sets variant. Possible options:
-        <ul>
-          <li><code>primary</code> (default)</li>
-          <li><code>secondary</code></li>
-          <li><code>nested</code> Only available for <code>dt-icon-button</code></li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `disabled` | `boolean | undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined |
+| `color` | `string | undefined` | `main` | Sets color. Possible options: <ul><li><code>main</code> (default)</li><li><code>warning</code></li><li><code>cta</code></li></ul> |
+| `variant` | `string | undefined` | `primary` | Sets variant. Possible options: <ul><li><code>primary</code> (default)</li><li><code>secondary</code></li><li><code>nested</code> Only available for <code>dt-icon-button</code></li></ul> |
 
 ## Theming
 
-The button styling depends on the theme the component is in. You can set a theme on an area of the app by using the <code>dtTheme</code> directive.<br>
+The button styling depends on the theme the component is in. You can set a theme on an area of the app by using the `dtTheme` directive.
 
 *Example:*
 
 ```html
+
 <div dtTheme="purple:dark">
   <button dt-button>My themed button</button>
 </div>
+
 ```
 
 **NOTE:**
