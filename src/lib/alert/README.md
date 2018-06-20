@@ -17,7 +17,7 @@ class MyModule {}
 
 To apply the dynatrace alert component, use the `<dt-alert>` element. Example:
 
-{{component-demo name="WarningAlertExampleComponent" }}
+{{component-demo name="WarningAlertExampleComponent"}}
 
 | Attribute        | Description    |
 | ---------------- | -------------- |
@@ -34,16 +34,16 @@ To apply the dynatrace alert component, use the `<dt-alert>` element. Example:
 
 ### Longer text
 
-{{component-demo name="DefaultAlertExampleComponent" }}
+{{component-demo name="DefaultAlertExampleComponent"}}
 
 ### Error
 
-{{component-demo name="ErrorAlertExampleComponent" }}
+{{component-demo name="ErrorAlertExampleComponent"}}
 
 ### Interactive example
 
-{{component-demo name="InteractiveAlertExampleComponent" }}
+{{component-demo name="InteractiveAlertExampleComponent"}}
 
 ### Dark mode
 
-{{component-demo name="DarkAlertExampleComponent" }}
+{{component-demo name="DarkAlertExampleComponent"}}
