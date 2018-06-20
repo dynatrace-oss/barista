@@ -30,6 +30,7 @@ describe('DtBreadcrumbsItem', () => {
         TestBreadcrumbsItem,
         NonExternalBreadcrumbsItem,
         ExternalBreadcrumbsItem,
+        EmptyBreadcrumbsItem,
         EmptyComponent,
       ],
     });
@@ -171,6 +172,17 @@ describe('DtBreadcrumbsItem', () => {
     expect(spanElement).not.toBeNull();
   });
 
+  it('should render span if href is not set', () => {
+    const fixture = TestBed.createComponent(EmptyBreadcrumbsItem);
+
+    fixture.detectChanges();
+
+    const linkElement = fixture.debugElement.query(By.css('a'));
+    const spanElement = fixture.debugElement.query(By.css('span'));
+    expect(linkElement).toBeNull();
+    expect(spanElement).not.toBeNull();
+  });
+
 });
 
 @Component({
@@ -198,6 +210,12 @@ class NonExternalBreadcrumbsItem {
 class ExternalBreadcrumbsItem {
   // tslint:disable-next-line no-any
   href: string | any[] = '';
+}
+
+@Component({
+  template: `<dt-breadcrumbs-item></dt-breadcrumbs-item>`,
+})
+class EmptyBreadcrumbsItem {
 }
 
 @Component({
