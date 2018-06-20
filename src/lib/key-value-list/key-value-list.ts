@@ -17,7 +17,7 @@ const keyValueListTwoColumnsLayoutMinItems = 12;
   selector: 'dt-key-value-list',
   host : {
     'class': 'dt-key-value-list',
-    '[attr.dt-columns]': 'columns',
+    '[attr.dt-column]': 'columns',
   },
   templateUrl: 'key-value-list.html',
   styleUrls: ['key-value-list.scss'],
