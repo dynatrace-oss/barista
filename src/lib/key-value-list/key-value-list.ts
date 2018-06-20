@@ -9,12 +9,15 @@ import {
   DtKeyValueListItem
 } from './key-value-list-item';
 
+const keyValueListThreeColumnsLayoutMinItems = 18;
+const keyValueListTwoColumnsLayoutMinItems = 12;
+
 @Component({
   moduleId: module.id,
   selector: 'dt-key-value-list',
   host : {
     'class': 'dt-key-value-list',
-    '[attr.columns]': 'columns',
+    '[attr.dt-columns]': 'columns',
   },
   templateUrl: 'key-value-list.html',
   styleUrls: ['key-value-list.scss'],
@@ -28,12 +31,10 @@ export class DtKeyValueList {
 
   // tslint:disable:no-any no-magic-numbers
   get columns(): number {
-    const threeColumnsLayoutMinItems = 18;
-    const twoColumnsLayoutMinItems = 12;
 
-    if (this.items.length > threeColumnsLayoutMinItems) {
+    if (this.items.length > keyValueListThreeColumnsLayoutMinItems) {
         return 3;
-    } else if (this.items.length > twoColumnsLayoutMinItems) {
+    } else if (this.items.length > keyValueListTwoColumnsLayoutMinItems) {
         return 2;
     } else {
         return 1;
