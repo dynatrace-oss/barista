@@ -30,7 +30,7 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   renderRows(): void {
     super.renderRows();
 
-    if (!this._data.length) {
+    if (this.isEmptyDataSource) {
       this._changeDetectorRef.markForCheck();
     }
   }
