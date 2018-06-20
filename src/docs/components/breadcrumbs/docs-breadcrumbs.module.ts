@@ -8,6 +8,7 @@ import { ObservableBreadcrumbsExampleComponent } from './examples/observable-bre
 import { ExternalBreadcrumbsExampleComponent } from './examples/external-breadcrumbs-example.component';
 import { DarkBreadcrumbsExampleComponent } from './examples/dark-breadcrumbs-example.component';
 import { AutoActiveBreadcrumbsExampleComponent } from './examples/auto-active-breadcrumbs-example.component';
+import { OverrideActiveBreadcrumbsExampleComponent } from './examples/override-active-breadcrumbs-example.component';
 
 const EXAMPLES = [
   DefaultBreadcrumbsExampleComponent,
@@ -15,6 +16,7 @@ const EXAMPLES = [
   ExternalBreadcrumbsExampleComponent,
   DarkBreadcrumbsExampleComponent,
   AutoActiveBreadcrumbsExampleComponent,
+  OverrideActiveBreadcrumbsExampleComponent,
 ];
 
 @NgModule({
