@@ -31,6 +31,7 @@ import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
 import { DocsProgressCircleModule } from './components/progress-circle/docs-progress-circle.module';
 import { DocsBreadcrumbsModule } from './components/breadcrumbs/docs-breadcrumbs.module';
 import { CoreModule } from './core/core.module';
+import { DocsSwitchModule } from './components/switch/docs-switch.module';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { CoreModule } from './core/core.module';
     DocsRadioModule,
     DocsCheckboxModule,
     DocsProgressCircleModule,
+    DocsSwitchModule,
     DocsBreadcrumbsModule,
   ],
   declarations: [
