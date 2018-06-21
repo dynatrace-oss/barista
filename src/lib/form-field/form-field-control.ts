@@ -38,4 +38,10 @@ export abstract class DtFormFieldControl<T> {
 
   /** Handles a click on the control's container. */
   abstract onContainerClick(event: MouseEvent): void;
+
+  /**
+   * Whether the input is currently in an autofilled state. If property is not present on the
+   * control it is assumed to be false.
+   */
+  readonly autofilled?: boolean;
 }
