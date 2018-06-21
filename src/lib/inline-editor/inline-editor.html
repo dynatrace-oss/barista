@@ -1,14 +1,14 @@
 <ng-container *ngIf="idle">
   <span>{{value}}</span>
   <button dt-icon-button variant="nested" #edit aria-label="edit" (click)="enterEditing()">
-    <dt-icon name="edit"></dt-icon>
+    <dt-icon name="edit1"></dt-icon>
   </button>
 </ng-container>
 
 <dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
 <dt-form-field *ngIf="editing || saving">
-  <input dtInput #input [disabled]="saving" [value]="value" (input)="_onInputChange()" />
+  <input dtInput #input [disabled]="saving" [value]="value" (input)="_onInputChange()" class="dt-form-field-input" />
 
   <button dt-icon-button dtSuffix variant="nested" aria-label="save" (click)="saveAndQuitEditing()" >
     <dt-icon name="checkmark"></dt-icon>
