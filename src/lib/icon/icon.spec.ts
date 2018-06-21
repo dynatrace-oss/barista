@@ -181,7 +181,7 @@ class IconWithName {
 }
 
 @Component({
-  template: `<dt-icon [color]="iconColor">{{iconName}}</dt-icon>`,
+  template: `<dt-icon name="agent" [color]="iconColor">{{iconName}}</dt-icon>`,
 })
 class IconWithColor {
   iconName = '';
@@ -189,7 +189,7 @@ class IconWithColor {
 }
 
 @Component({
-  template: '<dt-icon aria-hidden="false">face</dt-icon>',
+  template: '<dt-icon name="agent" aria-hidden="false">face</dt-icon>',
 })
 class IconWithAriaHiddenFalse {
 }
