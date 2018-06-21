@@ -6,14 +6,13 @@ import { VariantButtonExampleComponent } from './examples/button-variant-example
 import { ColorButtonExampleComponent } from './examples/button-color-example.component';
 import { AllButtonExampleComponent } from './examples/button-all-example.component';
 import { DarkButtonExampleComponent } from './examples/button-dark-example.component';
-import { DocsButtonComponent } from './docs-button.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtButtonModule, DtThemingModule, DtIconModule } from '@dynatrace/angular-components';
 import { IconsButtonExampleComponent } from './examples/button-icons-example.component';
 import { IconOnlyButtonExampleComponent } from './examples/button-icon-only-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultButtonExampleComponent,
   SimpleButtonExampleComponent,
   InteractionButtonExampleComponent,
@@ -35,13 +34,12 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsButtonComponent,
-  ],
-  exports: [
-    DocsButtonComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsButtonModule {

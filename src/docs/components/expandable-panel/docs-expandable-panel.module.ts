@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DocsExpandablePanelComponent } from './docs-expandable-panel.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtButtonModule, DtExpandablePanelModule } from '@dynatrace/angular-components';
@@ -24,10 +23,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsExpandablePanelComponent,
-  ],
-  exports: [
-    DocsExpandablePanelComponent,
   ],
   entryComponents: [
     ...EXAMPLES,

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { DefaultProgressCircleExampleComponent } from './examples/default-progress-circle-example.component';
-import { DocsProgressCircleComponent } from './docs-progress-circle.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtProgressCircleModule, DtIconModule, DtButtonGroupModule, DtButtonModule } from '@dynatrace/angular-components';
@@ -28,10 +27,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsProgressCircleComponent,
-  ],
-  exports: [
-    DocsProgressCircleComponent,
   ],
   entryComponents: [
     ...EXAMPLES,

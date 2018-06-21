@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { DefaultTagExampleComponent } from './examples/default-tag-example.component';
-import { DocsTagComponent } from './docs-tag.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtTagModule, DtButtonModule } from '@dynatrace/angular-components';
@@ -28,10 +27,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsTagComponent,
-  ],
-  exports: [
-    DocsTagComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
