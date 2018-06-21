@@ -43,7 +43,7 @@ System.config({
     '@angular/cdk/scrolling': 'node:@angular/cdk/bundles/cdk-scrolling.umd.js',
     '@angular/cdk/stepper': 'node:@angular/cdk/bundles/cdk-stepper.umd.js',
     '@angular/cdk/table': 'node:@angular/cdk/bundles/cdk-table.umd.js',
-
+    '@angular/cdk/text-field': 'node:@angular/cdk/bundles/cdk-text-field.umd.js',
     '@dynatrace/angular-components': 'dist/lib/bundles/dynatrace-angular-components.umd.js',
   },
   packages: {
