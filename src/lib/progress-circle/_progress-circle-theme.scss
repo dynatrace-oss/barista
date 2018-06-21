@@ -9,9 +9,9 @@
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
 
-    $namespace: '.dt-progress-circle';
+    $namespace: ':host';
     @if $name != $default-palette {
-      $namespace: '.dt-progress-circle.dt-color-#{$name}';
+      $namespace: ':host.dt-color-#{$name}';
     }
 
     & #{$namespace} .dt-progress-circle-progress {
