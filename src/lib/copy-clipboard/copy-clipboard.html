@@ -1,10 +1,8 @@
 <div class="dt-copy-clipboard-input-wrap">
-  <ng-content ngClass="dt-copy-clipboard-input-content" ></ng-content>
+  <ng-content></ng-content>
 </div>
 
-<button dt-button  *ngIf='_showIcon' class="dt-copy-clipboard-button dt-copy-clipboard-successful">
-  <dt-icon name="checkmark"></dt-icon>
-</button>
-<button dt-button  *ngIf='!_showIcon' class="dt-copy-clipboard-button" #copyButton (click)="this.copy2Clipboard();">
-  <ng-content select="dt-copy-clipboard-label"></ng-content>
+<button dt-button [disabled]="!_enabled" class="dt-copy-clipboard-button dt-copy-clipboard-btn-button" #copyButton (click)="this.copy2Clipboard();">
+  <dt-icon *ngIf='_showIcon' name="checkmark"></dt-icon>
+  <ng-content *ngIf='!_showIcon' select="dt-copy-clipboard-label"></ng-content>
 </button>

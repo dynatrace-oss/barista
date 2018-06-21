@@ -1,6 +1,7 @@
 @import '../core/style/variables';
 @import '../core/theming/theming';
 
+/* stylelint-disable selector-pseudo-element-no-unknown  */
 :host {
   width: 100%;
   display: flex;
@@ -10,12 +11,19 @@
     margin-right: 8px;
   }
 
+  ::ng-deep textarea.dt-copy-clipboard-successful,
+  ::ng-deep input.dt-copy-clipboard-successful,
+  ::ng-deep :not(.dt-form-field-infix) > input.dt-input:focus:not([disabled]) {
+    border: 1px solid $green-500;
+    box-shadow: none;
+  }
+
   .dt-copy-clipboard-button {
     align-self: flex-end;
     min-width: 80px;
   }
-  .dt-copy-clipboard-input-wrap /ng-deep/ textarea {
-    box-shadow:none;
+  .dt-copy-clipboard-input-wrap textarea {
+    box-shadow: none;
     border: 1px solid $green-500;
   }
   button.dt-copy-clipboard-button.dt-copy-clipboard-successful {
@@ -25,13 +33,12 @@
   }
 }
 
-
 @include dt-apply-theme() {
   $is-dark: map-get($dt-current-theme, 'is-dark');
   @if ($is-dark == true) {
     :host {
-      >>> textarea,
-      >>> input {
+      ::ng-deep textarea,
+      ::ng-deep input {
         background-color: black;
         color: $gray-400;
       }
