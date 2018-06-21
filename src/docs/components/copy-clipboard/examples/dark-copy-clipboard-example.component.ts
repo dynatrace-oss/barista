@@ -5,7 +5,7 @@ import {Component} from '@angular/core';
     <section class="dark" dtTheme=":dark">
       <dt-copy-clipboard>
         <textarea dtInput>https://dark.dynatrace.com/</textarea>
-        <dt-copy-clipboard-btn>Copy</dt-copy-clipboard-btn>
+        <dt-copy-clipboard-label>Copy</dt-copy-clipboard-label>
       </dt-copy-clipboard>
     </section>`,
 })

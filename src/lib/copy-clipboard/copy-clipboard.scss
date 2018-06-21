@@ -5,28 +5,26 @@
   width: 100%;
   display: flex;
 
-  >>> .dt-copy-clipboard-successful {
-    border: 1px solid $green-500;
-  }
-
   .dt-copy-clipboard-input-wrap {
     flex-grow: 1;
     margin-right: 8px;
   }
 
-  >>> .dt-input:focus:not([disabled]) {
-    box-shadow: none;
+  .dt-copy-clipboard-button {
+    align-self: flex-end;
+    min-width: 80px;
   }
-
-  .dt-copy-clipboard-label {
-    cursor: pointer;
+  .dt-copy-clipboard-input-wrap /ng-deep/ textarea {
+    box-shadow:none;
+    border: 1px solid $green-500;
+  }
+  button.dt-copy-clipboard-button.dt-copy-clipboard-successful {
+    border: 1px solid $green-500;
+    color: white;
+    background-color: $green-500;
   }
 }
 
-.dt-theme-dark textarea, .dt-theme-dark input {
-  background-color: black;
-  color: $gray-400;
-}
 
 @include dt-apply-theme() {
   $is-dark: map-get($dt-current-theme, 'is-dark');
