@@ -1,6 +1,6 @@
 import {HttpClientModule} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DtCopyClipboardModule, DtIconModule} from './index';
 
@@ -27,11 +27,13 @@ describe('DtCopyClipboard', () => {
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-clipboard-btn-button'));
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    setTimeout((): void => {
-      fixture.detectChanges();
-      expect(fixture.componentInstance.copyEventCount).toBeGreaterThan(0, 'At least 1 copy must be called');
-      done();
-    }, 1500);
+    setTimeout(
+      (): void => {
+        fixture.detectChanges();
+        expect(fixture.componentInstance.copyEventCount).toBeGreaterThan(0, 'At least 1 copy must be called');
+        done();
+      },
+      1500);
   });
 
   it('should not trigger callback', (done: DoneFn): void => {
@@ -79,7 +81,6 @@ class TestApp2 {
   copyEventCount = 0;
 
   increaseEventCount(): void {
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     this.copyEventCount++;
   }
 }
