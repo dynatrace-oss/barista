@@ -4,7 +4,7 @@ import {Component} from '@angular/core';
   template: `<dt-context-dialog #contextdialog color="cta">
     <dt-copy-clipboard (copied)="this.contextdialog.close();">
       <input dtInput value="https://context.dynatrace.com" />
-      <dt-copy-clipboard-btn>Copy</dt-copy-clipboard-btn>
+      <dt-copy-clipboard-label>Copy</dt-copy-clipboard-label>
     </dt-copy-clipboard>
   </dt-context-dialog>`,
 })
