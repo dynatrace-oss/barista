@@ -18,6 +18,7 @@ import {
   DtIconModule,
   DtRadioModule,
   DtShowMoreModule,
+  DtSwitchModule,
 } from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
@@ -31,6 +32,7 @@ import { RadioUI } from './radio/radio.ui';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
 import { CheckboxUI } from './checkbox/checkbox-ui';
+import { SwitchUI } from './switch/switch-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -48,6 +50,7 @@ import { CheckboxUI } from './checkbox/checkbox-ui';
     DtRadioModule,
     DtShowMoreModule,
     DtKeyValueListModule,
+    DtSwitchModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -61,7 +64,6 @@ export class DynatraceAngularCompModule {}
     ReactiveFormsModule,
     HttpClientModule,
     DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
-    HttpClientModule,
   ],
   declarations: [
     UIApp,
@@ -77,6 +79,7 @@ export class DynatraceAngularCompModule {}
     KeyValueListUI,
     PaginationUI,
     ShowMoreUI,
+    SwitchUI,
   ],
   bootstrap: [UIApp],
 })

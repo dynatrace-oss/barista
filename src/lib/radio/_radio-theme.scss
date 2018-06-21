@@ -19,5 +19,9 @@
     :host:not(.dt-radio-disabled):hover .dt-radio-inner-circle {
       background-color: #fff;
     }
+
+    :host:not(.dt-radio-disabled) .dt-radio-label-content {
+      color: #fff;
+    }
   }
 }

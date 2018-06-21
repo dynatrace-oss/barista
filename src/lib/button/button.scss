@@ -1,10 +1,11 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
 @import '../core/theming/theming';
 @import './button-theme';
 
 .dt-button {
-  font-family: $mainfont;
+  @include main-font(30px);
   box-sizing: border-box;
   position: relative;
 
@@ -27,8 +28,6 @@
   padding-bottom: 0;
   padding-left: 15px;
   padding-right: 15px;
-  font-size: 14px;
-  line-height: 30px;
   line-height: -moz-block-height;
   background: transparent;
 
@@ -48,6 +47,14 @@
 
   &::-moz-focus-inner {
     border: 0;
+  }
+
+  // Hack that fixes the annoying issue in IE where an
+  // inner padding is applied when button receives active state.
+  // This issue can only be fixed in IE11+
+  // See: https://stackoverflow.com/questions/6744406/internet-explorer-buttonactive-inner-padding
+  & > span {
+    position: relative;
   }
 
   &.dt-icon-button {
