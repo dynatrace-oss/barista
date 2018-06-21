@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { DtInlineEditorModule } from '@dynatrace/angular-components';
 import { DefaultInlineEditorExample } from './examples/inline-editor-default-example';
 import { ApiInlineEditorExample } from './examples/inline-editor-api-example';
 import { SuccessfulInlineEditorExample } from './examples/inline-editor-successful-example';
 import { FailingInlineEditorExample } from './examples/inline-editor-failing-example';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultInlineEditorExample,
   ApiInlineEditorExample,
   SuccessfulInlineEditorExample,
@@ -26,6 +26,9 @@ const EXAMPLES = [
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsInlineEditorModule {

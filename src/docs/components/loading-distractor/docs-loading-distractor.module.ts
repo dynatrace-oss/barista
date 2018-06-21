@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtLoadingDistractorModule } from '@dynatrace/angular-components';
 import { DefaultLoadingDistractorExampleComponent } from './examples/loading-distractor-default-example';
 import { SpinnerLoadingDistractorExampleComponent } from './examples/loading-distractor-spinner-example';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultLoadingDistractorExampleComponent,
   SpinnerLoadingDistractorExampleComponent,
 ];
@@ -21,6 +21,9 @@ const EXAMPLES = [
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsLoadingDistractorModule {

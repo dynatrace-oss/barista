@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import {
   DtContextDialogModule,
@@ -13,7 +13,7 @@ import { PrevFocusContextDialogExampleComponent } from './examples/previous-focu
 import { CustomIconContextDialogExampleComponent } from './examples/custom-icon-context-dialog-example.component';
 import { InteractiveContextDialogExampleComponent } from './examples/interactive-context-dialog-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultContextDialogExampleComponent,
   DarkContextDialogExampleComponent,
   PrevFocusContextDialogExampleComponent,
@@ -35,6 +35,9 @@ const EXAMPLES = [
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsContextDialogModule {
