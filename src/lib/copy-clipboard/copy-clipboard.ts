@@ -44,6 +44,9 @@ export class DtCopyClipboard  {
   @ViewChild('copyButton', {read: ElementRef}) copyButtonRef: ElementRef;
   // tslint:disable-next-line:no-unused-variable
   private _showIcon = false;
+  get showIcon(): boolean {
+    return this._showIcon;
+  }
 
   private _enabled = true;
   @Input() set enabled(value: boolean) {
@@ -75,6 +78,7 @@ export class DtCopyClipboard  {
       if (this.copyButtonRef) {
         removeCssClass(this.copyButtonRef.nativeElement, 'dt-copy-clipboard-successful');
       }
+      this._cd.markForCheck();
     });
     if (this.input) {
       this.input.nativeElement.select();
