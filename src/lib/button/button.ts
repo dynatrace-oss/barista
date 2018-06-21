@@ -11,6 +11,7 @@ import {
   QueryList,
   OnChanges,
   SimpleChanges,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import {
@@ -23,6 +24,7 @@ import {
 } from '../core/index';
 import { DtIcon } from '../icon/index';
 import { startWith } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 export function getDtButtonNestedVariantNotAllowedError(): Error {
   return Error(`The nested button variant is only allowed on dt-icon-button`);
@@ -82,13 +84,15 @@ export class DtButton extends _DtButtonMixinBase
     }
   }
   private _variant: ButtonVariant;
+  private _iconChangesSub: Subscription;
 
   @ContentChildren(DtIcon) _icons: QueryList<DtIcon>;
 
   constructor(
     elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
-    private _renderer: Renderer2
+    private _renderer: Renderer2,
+    private _changeDetectorRef: ChangeDetectorRef
   ) {
     super(elementRef);
 
@@ -113,13 +117,19 @@ export class DtButton extends _DtButtonMixinBase
   }
 
   ngAfterContentInit(): void {
-    this._icons.changes
+    this._iconChangesSub = this._icons.changes
       .pipe(startWith(null))
-      .subscribe(() => { this._updateIconColors(); });
+      .subscribe(() => {
+        this._updateIconColors();
+        this._changeDetectorRef.markForCheck();
+      });
   }
 
   ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+    if (this._iconChangesSub) {
+      this._iconChangesSub.unsubscribe();
+    }
   }
 
   /** Focuses the button. */
@@ -176,8 +186,13 @@ export class DtButton extends _DtButtonMixinBase
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtAnchor extends DtButton {
-  constructor(elementRef: ElementRef, focusMonitor: FocusMonitor, renderer: Renderer2) {
-    super(elementRef, focusMonitor, renderer);
+  constructor(
+    elementRef: ElementRef,
+    focusMonitor: FocusMonitor,
+    renderer: Renderer2,
+    changeDetectorRef: ChangeDetectorRef
+  ) {
+    super(elementRef, focusMonitor, renderer, changeDetectorRef);
   }
 
   _haltDisabledEvents(event: Event): void {
