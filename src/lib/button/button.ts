@@ -24,7 +24,7 @@ import {
 } from '../core/index';
 import { DtIcon } from '../icon/index';
 import { startWith } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, NEVER } from 'rxjs';
 
 export function getDtButtonNestedVariantNotAllowedError(): Error {
   return Error(`The nested button variant is only allowed on dt-icon-button`);
@@ -84,7 +84,7 @@ export class DtButton extends _DtButtonMixinBase
     }
   }
   private _variant: ButtonVariant;
-  private _iconChangesSub: Subscription;
+  private _iconChangesSub: Subscription = NEVER.subscribe();
 
   @ContentChildren(DtIcon) _icons: QueryList<DtIcon>;
 
@@ -127,9 +127,7 @@ export class DtButton extends _DtButtonMixinBase
 
   ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
-    if (this._iconChangesSub) {
-      this._iconChangesSub.unsubscribe();
-    }
+    this._iconChangesSub.unsubscribe();
   }
 
   /** Focuses the button. */
