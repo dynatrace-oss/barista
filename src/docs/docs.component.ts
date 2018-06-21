@@ -21,6 +21,7 @@ export class Docs {
     {name: 'Form field', route: '/form-field'},
     {name: 'Icon', route: '/icon'},
     {name: 'Input', route: '/input'},
+    {name: 'Key-Value list', route: '/key-value-list'},
     {name: 'Links', route: '/links'},
     {name: 'Loading distractor', route: '/loading-distractor'},
     {name: 'Pagination', route: '/pagination'},
