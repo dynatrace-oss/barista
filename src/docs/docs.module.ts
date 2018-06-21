@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Docs } from './docs.component';
-import { Home } from './docs-home/docs-home.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
 import { DocsButtonGroupModule } from './components/button-group/docs-button-group.module';
 import { DocsLinkModule } from './components/link/docs-link.module';
@@ -73,7 +72,6 @@ import { DocsViewerComponent } from './core/docs-viewer.component';
   ],
   declarations: [
     Docs,
-    Home,
     DocsViewerComponent,
   ],
   exports: [

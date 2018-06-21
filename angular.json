@@ -28,6 +28,11 @@
                 "output": "/assets/doc"
               },
               {
+                "glob": "README.md",
+                "input": "src/docs/docs-home",
+                "output": "/assets/doc/index"
+              },
+              {
                 "glob": "**",
                 "input": "src/docs/assets",
                 "output": "/assets"

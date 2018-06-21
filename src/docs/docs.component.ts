@@ -51,6 +51,7 @@ export class Docs {
     this._documentService.currentDocument.subscribe((doc) => this.currentDocument = doc);
     this._locationService.currentPath.subscribe((path) => {
       this.currentPath = path;
+      console.log(this._isFetchingTimeout)
       // Start progress bar if doc not rendered within brief time
       clearTimeout(this._isFetchingTimeout);
       // tslint:disable-next-line:no-magic-numbers
