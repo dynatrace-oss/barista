@@ -9,8 +9,6 @@ import {
 } from './index';
 import { DtThemingModule, CHART_COLOR_PALETTES } from '../theming/index';
 import { BehaviorSubject } from 'rxjs';
-import { DEFAULT_CHART_OPTIONS } from './chart-options';
-import { mergeOptions } from './chart-utils';
 
 describe('DtChart', () => {
 
@@ -81,12 +79,12 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       fixture.detectChanges();
-      expect(chartComponent.highchartsOptions.tooltip).toBeDefined();
-      expect(chartComponent.highchartsOptions.tooltip!.formatter).toBeDefined();
+      const tooltip = chartComponent.highchartsOptions.tooltip;
+      expect(tooltip).toBeDefined();
+      // tslint:disable-next-line: no-unbound-method
+      expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
-      expect(
-        chartComponent.highchartsOptions.tooltip!.formatter!.bind({series: { name: 'somename'}})()
-      ).toEqual('<div class="dt-chart-tooltip">somename</div>');
+      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual('<div class="dt-chart-tooltip">somename</div>');
     });
 
     it('should update the options at runtime', () => {
@@ -125,6 +123,7 @@ describe('DtChart', () => {
       fixture.detectChanges();
       const tooltip = chartComponent.highchartsOptions.tooltip;
       expect(tooltip).toBeDefined();
+      // tslint:disable-next-line: no-unbound-method
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
       expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual('<div class="dt-chart-tooltip">somename</div>');
