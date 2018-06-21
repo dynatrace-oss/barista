@@ -22,76 +22,61 @@ describe('DtChart', () => {
   }));
 
   describe('Data', () => {
-    it('should display static data', async(() => {
+    it('should display static data', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        fixture.detectChanges();
-        expect((chartComponent.series as DtChartSeries).length).toBe(1);
-      });
-    }));
+      fixture.detectChanges();
+      expect((chartComponent.series as DtChartSeries).length).toBe(1);
+    });
 
-    it('should display data from observable', async(() => {
+    it('should display data from observable', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.dynamic'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        const series = chartComponent.highchartsOptions.series;
-        expect(series![0].data).toEqual([[1523972199774, 0], [1523972201622, 10]]);
-      });
-    }));
+      const series = chartComponent.highchartsOptions.series;
+      expect(series![0].data).toEqual([[1523972199774, 0], [1523972201622, 10]]);
+    });
 
-    it('should update the data if observable fires new data', async(() => {
+    it('should update the data if observable fires new data', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.dynamic'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        const firstSeries = chartComponent.highchartsOptions.series;
-        fixture.componentInstance.emitTestData();
-        fixture.detectChanges();
-        const secondSeries = chartComponent.highchartsOptions.series;
-        expect(firstSeries![0].data).toBeDefined();
-        expect(secondSeries![0].data).toBeDefined();
-        expect(firstSeries![0].data).not.toEqual(secondSeries![0].data);
-      });
-    }));
+      const firstSeries = chartComponent.highchartsOptions.series;
+      fixture.componentInstance.emitTestData();
+      fixture.detectChanges();
+      const secondSeries = chartComponent.highchartsOptions.series;
+      expect(firstSeries![0].data).toBeDefined();
+      expect(secondSeries![0].data).toBeDefined();
+      expect(firstSeries![0].data).not.toEqual(secondSeries![0].data);
+    });
 
-    it('provides an array of ids for the series', async(() => {
+    it('provides an array of ids for the series', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.staticMulti'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        const ids = chartComponent.seriesIds;
-        expect(ids).toEqual(['someMetricId', 'someOtherMetricId']);
-      });
-    }));
+      const ids = chartComponent.seriesIds;
+      expect(ids).toEqual(['someMetricId', 'someOtherMetricId']);
+    });
 
-    it('seriesIds returns undefined if there is no series data', async(() => {
+    it('seriesIds returns undefined if there is no series data', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.noseries'));
       const chartComponent = chartDebugElement.componentInstance;
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        const ids = chartComponent.seriesIds;
-        expect(ids).toBeUndefined();
-      });
-    }));
+      const ids = chartComponent.seriesIds;
+      expect(ids).toBeUndefined();
+    });
   });
 
   describe('update event', () => {
 
-    it('should fire updated after the data observable emits a new value', async(() => {
+    it('should fire updated after the data observable emits a new value', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.dynamic'));
@@ -101,14 +86,11 @@ describe('DtChart', () => {
       chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
 
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        fixture.componentInstance.emitTestData();
-        expect(spy).toHaveBeenCalled();
-      });
-    }));
+      fixture.componentInstance.emitTestData();
+      expect(spy).toHaveBeenCalled();
+    });
 
-    it('should fire updated after the static data is updated', async(() => {
+    it('should fire updated after the static data is updated', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
@@ -118,65 +100,44 @@ describe('DtChart', () => {
       chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
 
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        fixture.componentInstance.seriesStaticSingle = [{
-          name: 'Actions/min',
-          id: 'someMetricId',
-          data: [[1370304000000, 140], [1370390400000, 120]],
-        }];
-        fixture.detectChanges();
-        expect(spy).toHaveBeenCalled();
-      });
-    }));
+      fixture.componentInstance.seriesStaticSingle = [{
+        name: 'Actions/min',
+        id: 'someMetricId',
+        data: [[1370304000000, 140], [1370390400000, 120]],
+      }];
+      fixture.detectChanges();
+      expect(spy).toHaveBeenCalled();
+    });
   });
 
   describe('coloring', () => {
-    it('should leave the color of series unchanged if provided', async(() => {
+    it('should leave the color of series unchanged if provided', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.staticWithColor'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        fixture.detectChanges();
-        const series0NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-0 .highcharts-graph');
-        expect(series0NativeElement.getAttribute('stroke')).toEqual('#ff0000');
-        const series1NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-1 .highcharts-graph');
-        expect(series1NativeElement.getAttribute('stroke')).toEqual('#00ff00');
-      });
-    }));
+      expect(chartComponent.highchartsOptions.series![0].color).toBe('#ff0000');
+      expect(chartComponent.highchartsOptions.series![1].color).toBe('#00ff00');
+    });
 
-    /** Test not working, because DI for Theme does not work correctly in tests right now, check again with new packagr version */
-    it('should choose the single color from the colorpalette of the theme for single series', async(() => {
+    it('should choose the single color from the colorpalette of the theme for single series', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.themeSingle'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        const series0NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-0 .highcharts-graph');
-        expect(series0NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.single);
-      });
-    }));
+      expect(chartComponent.highchartsOptions.series![0].color).toEqual(CHART_COLOR_PALETTES.purple.single);
+    });
 
-    /** Test not working, because DI for Theme does not work correctly in tests right now, check again with new packagr version */
-    it('should choose the multi color from the colorpalette of the theme for multi series', async(() => {
+    it('should choose the multi color from the colorpalette of the theme for multi series', () => {
       const fixture = TestBed.createComponent(TestApp);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.themeMulti'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-
-      fixture.whenStable().then(() => {
-        chartComponent.ngAfterViewInit();
-        const series0NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-0 .highcharts-graph');
-        expect(series0NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.multi[0]);
-        const series1NativeElement = chartDebugElement.nativeElement.querySelector('.highcharts-series-1 .highcharts-graph');
-        expect(series1NativeElement.getAttribute('stroke')).toEqual(CHART_COLOR_PALETTES.purple.multi[1]);
-      });
-    }));
+      expect(chartComponent.highchartsOptions.series![0].color).toEqual(CHART_COLOR_PALETTES.purple.multi[0]);
+      expect(chartComponent.highchartsOptions.series![1].color).toEqual(CHART_COLOR_PALETTES.purple.multi[1]);
+    });
   });
 });
 
