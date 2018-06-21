@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { DefaultRadioExample } from './examples/default-radio-example';
-import { DocsRadioComponent } from './docs-radio.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtRadioModule, DtThemingModule } from '@dynatrace/angular-components';
@@ -22,10 +21,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsRadioComponent,
-  ],
-  exports: [
-    DocsRadioComponent,
   ],
   entryComponents: [
     ...EXAMPLES,

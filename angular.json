@@ -23,6 +23,11 @@
                 "output": "/assets"
               },
               {
+                "glob": "*/README.md",
+                "input": "src/lib/",
+                "output": "/assets/doc"
+              },
+              {
                 "glob": "**",
                 "input": "src/docs/assets",
                 "output": "/assets"

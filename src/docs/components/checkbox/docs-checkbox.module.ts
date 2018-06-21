@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { DefaultCheckboxExampleComponent } from './examples/default-checkbox-example';
-import { DocsCheckboxComponent } from './docs-checkbox.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtCheckboxModule, DtThemingModule } from '@dynatrace/angular-components';
@@ -22,10 +21,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsCheckboxComponent,
-  ],
-  exports: [
-    DocsCheckboxComponent,
   ],
   entryComponents: [
     ...EXAMPLES,

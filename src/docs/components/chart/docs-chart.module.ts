@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DocsChartComponent } from './docs-chart.component';
 import { UiModule } from '../../ui/ui.module';
 import {
   DtChartModule,
@@ -27,11 +26,7 @@ const EXAMPLES = [
     DtButtonModule,
   ],
   declarations: [
-    DocsChartComponent,
     ...EXAMPLES,
-  ],
-  exports: [
-    DocsChartComponent,
   ],
   providers: [
     ChartService,
