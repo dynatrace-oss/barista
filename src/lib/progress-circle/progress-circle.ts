@@ -40,8 +40,7 @@ export const _DtProgressCircleMixinBase = mixinColor(DtProgressCircleBase, 'main
   },
   inputs: ['color'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-view-encapsulation
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtProgressCircle extends _DtProgressCircleMixinBase implements CanColor {
   /** Value of the progress circle. */
