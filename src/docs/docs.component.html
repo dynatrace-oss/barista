@@ -12,11 +12,15 @@
 <div class="content-wrapper" [dtTheme]="selectedTheme">
   <nav class="sidenav">
     <ul>
-      
+      <li *ngFor="let navItem of navItems">
+        <a href="{{navItem.route}}">{{navItem.name}}</a>
+      </li>
     </ul>
   </nav>
 
   <div class="docs-content">
-    <docs-viewer [doc]="currentDocument"></docs-viewer>
+    <docs-viewer [doc]="currentDocument">
+      <docs-home></docs-home>
+    </docs-viewer>
   </div>
 </div>
