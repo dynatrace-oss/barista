@@ -69,6 +69,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
   set options(options: DtChartOptions) {
     this._options = options;
+    this._isTooltipWrapped = false;
     this._mergeOptions(options);
   }
 
@@ -113,7 +114,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.series || changes._options) {
+    if (changes.series || changes.options) {
       this._update();
     }
   }
