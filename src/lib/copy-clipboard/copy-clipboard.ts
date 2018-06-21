@@ -3,19 +3,17 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   ContentChild,
-  AfterViewInit,
   Input,
   Output,
   EventEmitter,
   ElementRef,
+  ContentChildren, ChangeDetectorRef, AfterViewInit, QueryList, ViewChildren,
 } from '@angular/core';
 import {DtInput} from '../input/input';
-import {DtCopyClipboardSuccess} from './copy-clipboard-success';
-import {DtCopyClipboardSource} from './copy-clipboard-source';
-import {DtCopyClipboardLabel} from './copy-clipboard-label';
-import {DtCopyClipboardButton} from './copy-clipboard-btn';
+import {addCssClass, removeCssClass} from '../core/util';
+import {DtButton} from '../button';
 
-const DT_COPY_CLIPBOARD_TIMER = 800;
+const DT_COPY_CLIPBOARD_TIMER = 800000;
 
 @Component({
   moduleId: module.id,
@@ -31,23 +29,22 @@ const DT_COPY_CLIPBOARD_TIMER = 800;
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtCopyClipboard implements AfterViewInit {
+  constructor(private _cd: ChangeDetectorRef) { }
 
-  private _enabled = true;
-  // tslint:disable-next-line:no-any
-  @Output() copied: EventEmitter<any> = new EventEmitter();
+  @Output() copied: EventEmitter<string> = new EventEmitter();
   @ContentChild(DtInput, {read: ElementRef}) input: ElementRef;
   @ContentChild(DtInput) inputComponent: DtInput;
-  @ContentChild(DtCopyClipboardSource) source: DtCopyClipboardSource;
-  @ContentChild(DtCopyClipboardSuccess) successText: DtCopyClipboardSuccess;
-  @ContentChild(DtCopyClipboardButton) copyButton: DtCopyClipboardButton;
-  @ContentChild(DtCopyClipboardLabel) copyLabel: DtCopyClipboardLabel;
+  @ViewChildren('copyButton') copyButton: QueryList<DtButton>;
+  private _showIcon = false;
 
-  ngAfterViewInit(): void {
-    if (this.copyButton) {
-      this.copyButton.clicked.subscribe((event) => { this.copy2clipboard(); });
+  private _enabled = true;
+  @Input() set enabled(value: boolean) {
+    this._enabled = value;
+    if (this.copyButton && this.copyButton.length > 0) {
+      this.copyButton.first.disabled = !value;
     }
-    if (this.copyLabel) {
-      this.copyLabel.clicked.subscribe((event) => { this.copy2clipboard(); });
+    if (this.inputComponent) {
+      this.inputComponent.disabled = !value;
     }
   }
 
@@ -55,39 +52,31 @@ export class DtCopyClipboard implements AfterViewInit {
     return this._enabled;
   }
 
-  @Input() set enabled(value: boolean) {
-    this._enabled = value;
-    if (this.copyButton) {
-      this.copyButton.enabled = value;
-    }
-    if (this.inputComponent) {
-      this.inputComponent.disabled = !value;
-    }
-  }
-
-  private copy2clipboard(): void {
+  copy2Clipboard(): void {
     if (!this._enabled) {
       return; // do nothing if not enabled
     }
     if (this.input) {
-      this.input.nativeElement.classList.add('dt-copy-clipboard-successful');
+      this._showIcon = true;
+      addCssClass(this.input.nativeElement, 'dt-copy-clipboard-successful');
       setTimeout(
         () => {
-          this.input.nativeElement.classList.remove('dt-copy-clipboard-successful');
-          this.copied.emit();
+          this._showIcon = false;
+          removeCssClass(this.input.nativeElement, 'dt-copy-clipboard-successful');
         },
         DT_COPY_CLIPBOARD_TIMER);
       this.input.nativeElement.select();
       document.execCommand('copy');
-    } /* then */ else if (this.source) {
-      this.source.copy();
-      if (this.successText) {
-        this.copyLabel.hide();
-        this.successText.show();
-        setTimeout(() => { this.copyLabel.show(); this.successText.hide(); this.copied.emit(); }, DT_COPY_CLIPBOARD_TIMER);
-      }
-    } else {
-      this.copied.emit();
+      this.copied.emit(this.inputComponent.value);
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.copyButton && this.copyButton.length > 0) {
+      this.copyButton.first.disabled = !this._enabled;
+    }
+    if (this.inputComponent) {
+      this.inputComponent.disabled = !this._enabled;
     }
   }
 }
