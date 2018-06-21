@@ -22,6 +22,7 @@ import { DocsFormFieldModule } from './components/form-field/docs-form-field-mod
 import { DocsTagModule } from './components/tag/docs-tag.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
 import { DocsIconModule } from './components/icon/docs-icon.module';
+import { DocsKeyValueListModule } from './components/key-value-list/docs-key-value-list.module';
 import { DocsPaginationModule } from './components/pagination/docs-pagination.module';
 import { DocsShowMoreModule } from './components/show-more/docs-show-more.module';
 import { FormsModule } from '@angular/forms';
@@ -58,6 +59,7 @@ import { DocsSwitchModule } from './components/switch/docs-switch.module';
     DocsFormFieldModule,
     DocsTagModule,
     DocsAlertModule,
+    DocsKeyValueListModule,
     DocsPaginationModule,
     DocsShowMoreModule,
     DtThemingModule,
