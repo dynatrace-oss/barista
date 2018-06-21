@@ -29,13 +29,13 @@ export class DtBreadcrumbsItem {
   }
 
   @Input()
-  get href(): RouterLinkAccepted {
+  get href(): RouterLinkAccepted | undefined {
     return this._href;
   }
 
-  set href(value: RouterLinkAccepted) {
+  set href(value: RouterLinkAccepted | undefined) {
     this._href = value;
-    this._isActive = this.checkIsActive(value);
+    this._isActive = this.checkIsActive();
   }
 
   constructor(
@@ -45,21 +45,25 @@ export class DtBreadcrumbsItem {
   }
 
   private _external = false;
-  private _href: RouterLinkAccepted;
-  _isActive = false;
+  private _href: RouterLinkAccepted | undefined;
+  _isActive = true;
 
-  private checkIsActive(href: RouterLinkAccepted): boolean {
+  private checkIsActive(): boolean {
     if (this.active !== undefined) {
       return this.active;
     }
 
+    if (this._href === undefined) {
+      return true;
+    }
+
     let urlTree: UrlTree;
-    if (Array.isArray(href)) {
-      urlTree = this.router.createUrlTree(href, {
+    if (Array.isArray(this._href)) {
+      urlTree = this.router.createUrlTree(this._href, {
         queryParamsHandling: 'merge',
       });
     } else {
-      urlTree = this.mergeQueryParams(this.router.parseUrl(href));
+      urlTree = this.mergeQueryParams(this.router.parseUrl(this._href));
     }
     return this.router.isActive(urlTree, true);
   }
