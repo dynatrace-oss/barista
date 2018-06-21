@@ -3,7 +3,7 @@
 @import '../core/theming/theming';
 @import './progress-circle-theme';
 
-.dt-progress-circle {
+:host {
   display: inline-block;
   @include main-font();
 }
