@@ -3,12 +3,17 @@ import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtButtonModule } from './index';
 import { DtIconModule } from '../icon/index';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtButton', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtButtonModule, DtIconModule],
+      imports: [
+        DtButtonModule,
+        HttpClientTestingModule,
+        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+      ],
       declarations: [TestApp],
     });
 
@@ -201,7 +206,7 @@ describe('DtButton', () => {
   template: `
     <button dt-button type="button" (click)="increment()"
       [disabled]="isDisabled" [variant]="variant">
-      <dt-icon></dt-icon>
+      <dt-icon name="agent"></dt-icon>
       Go
     </button>
     <a href="http://www.dynatrace.com" dt-button [disabled]="isDisabled">
