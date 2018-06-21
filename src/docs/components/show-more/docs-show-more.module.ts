@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtShowMoreModule, DtThemingModule, DtButtonModule } from '@dynatrace/angular-components';
 import { DefaultShowMoreExampleComponent } from './examples/default-show-more-example.component';
@@ -7,7 +7,7 @@ import {InteractiveShowMoreExampleComponent} from './examples/interactive-show-m
 import {NoTextShowMoreExampleComponent} from './examples/notext-show-more-example.component';
 import {DarkThemeShowMoreExampleComponent} from './examples/darktheme-show-more-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultShowMoreExampleComponent,
   InteractiveShowMoreExampleComponent,
   NoTextShowMoreExampleComponent,
@@ -27,6 +27,9 @@ const EXAMPLES = [
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsShowMoreModule {

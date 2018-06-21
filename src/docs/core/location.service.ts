@@ -43,7 +43,6 @@ export class LocationService {
     ctrlKey: boolean = false,
     metaKey: boolean = false
   ): boolean {
-
     // Check for modifier keys and non-left-button, which indicate the user wants to control navigation
     if (button !== 0 || ctrlKey || metaKey) {
       return true;
