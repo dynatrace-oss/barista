@@ -12,7 +12,7 @@ describe('DtCopyClipboard', () => {
         HttpClientModule,
         DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
       ],
-      declarations: [TestApp, TestApp2, TestApp3],
+      declarations: [TestApp, TestApp2],
     });
 
     TestBed.compileComponents();
@@ -49,16 +49,6 @@ describe('DtCopyClipboard', () => {
       1500);
   });
 
-  it('should switch to success message', (): void => {
-    const fixture = TestBed.createComponent(TestApp3);
-    fixture.detectChanges();
-    const labelElement = fixture.debugElement.query(By.css('.dt-copy-clipboard-label span'));
-    labelElement.nativeElement.dispatchEvent(new Event('click'));
-    fixture.detectChanges();
-
-    const successElement = fixture.debugElement.query(By.css('.dt-copy-clipboard-success'));
-    expect(successElement.nativeElement.innerText).toBe('success', 'Success should be visible');
-  });
 });
 
 /** Test component that contains an DtCopyComponent. */
@@ -67,7 +57,7 @@ describe('DtCopyClipboard', () => {
   template: `
     <dt-copy-clipboard (copied)="increaseEventCount();">
       <input dtInput value="https://context.dynatrace.com"/>
-      <dt-copy-clipboard-btn>Copy</dt-copy-clipboard-btn>
+      <dt-copy-clipboard-label>Copy</dt-copy-clipboard-label>
     </dt-copy-clipboard>`,
 })
 class TestApp {
@@ -83,7 +73,7 @@ class TestApp {
   template: `
     <dt-copy-clipboard [enabled]="false" (copied)="increaseEventCount();">
       <input dtInput value="https://context.dynatrace.com"/>
-      <dt-copy-clipboard-btn>Copy</dt-copy-clipboard-btn>
+      <dt-copy-clipboard-label>Copy</dt-copy-clipboard-label>
     </dt-copy-clipboard>`,
 })
 class TestApp2 {
@@ -92,17 +82,4 @@ class TestApp2 {
   increaseEventCount(): void {
     this.copyEventCount++;
   }
-}
-
-@Component({
-  selector: 'dt-test-app3',
-  template: `
-    <dt-copy-clipboard>
-      <dt-copy-clipboard-source>https://textclick.dyntrace.com</dt-copy-clipboard-source>
-      <dt-copy-clipboard-label>click here, to copy</dt-copy-clipboard-label>
-      <dt-copy-clipboard-success>success</dt-copy-clipboard-success>
-    </dt-copy-clipboard>`,
-})
-class TestApp3 {
-  copyEventCount = 0;
 }

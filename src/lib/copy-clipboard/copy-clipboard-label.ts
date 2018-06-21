@@ -15,7 +15,10 @@ import {
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  template: `<span *ngIf="_show" (click)="clickTrigger()"><ng-content></ng-content></span>`,
+  template: `<span (click)="clickTrigger()">
+    <dt-icon name="checkmark" *ngIf="!show" ></dt-icon>
+    <ng-content *ngIf="show"></ng-content>
+  </span>`,
   host: {
     class: 'dt-copy-clipboard-label',
   },
@@ -24,7 +27,7 @@ export class DtCopyClipboardLabel {
   // tslint:disable-next-line:no-any
   @Input() clicked: EventEmitter<any> = new EventEmitter();
   // tslint:disable-next-line:no-unused-variable
-  _show = true;
+  private _show = true;
 
   constructor(private cd: ChangeDetectorRef) { }
   // tslint:disable-next-line:no-unused-variable
@@ -32,13 +35,14 @@ export class DtCopyClipboardLabel {
     this.clicked.emit();
   }
 
-  hide(): void {
-    this._show = false;
-    this.cd.detectChanges();
+  set show(show: boolean) {
+    this._show = show;
+    this.cd.markForCheck();
   }
 
-  show(): void {
+  get show(): boolean {
     this._show = true;
-    this.cd.detectChanges();
+    this.cd.markForCheck();
+    return this._show;
   }
 }

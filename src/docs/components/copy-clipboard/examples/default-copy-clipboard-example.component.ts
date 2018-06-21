@@ -4,7 +4,7 @@ import {Component} from '@angular/core';
   template: `
     <dt-copy-clipboard>
       <textarea dtInput>https://defaultcopy.dynatrace.com/</textarea>
-      <dt-copy-clipboard-btn>Copy</dt-copy-clipboard-btn>
+      <dt-copy-clipboard-label>Copy</dt-copy-clipboard-label>
     </dt-copy-clipboard>`,
 })
 export class DefaultCopyClipboardExampleComponent {
