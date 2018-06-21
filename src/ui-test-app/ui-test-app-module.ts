@@ -13,6 +13,7 @@ import {
   DtExpandablePanelModule,
   DtTileModule,
   DtContextDialogModule,
+  DtKeyValueListModule,
   DtPaginationModule,
   DtIconModule,
   DtRadioModule,
@@ -25,6 +26,7 @@ import { ExpandableSectionUi } from './expandable-section/expandable-section-ui'
 import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
+import { KeyValueListUI } from './key-value-list/key-value-list-ui';
 import { PaginationUI } from './pagination/pagination-ui';
 import { RadioUI } from './radio/radio.ui';
 import { HttpClientModule } from '@angular/common/http';
@@ -47,6 +49,7 @@ import { SwitchUI } from './switch/switch-ui';
     DtPaginationModule,
     DtRadioModule,
     DtShowMoreModule,
+    DtKeyValueListModule,
     DtSwitchModule,
   ],
 })
@@ -73,6 +76,7 @@ export class DynatraceAngularCompModule {}
     RadioUI,
     TileUI,
     ContextDialogUI,
+    KeyValueListUI,
     PaginationUI,
     ShowMoreUI,
     SwitchUI,

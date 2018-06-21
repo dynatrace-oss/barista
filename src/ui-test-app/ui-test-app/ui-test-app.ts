@@ -19,6 +19,7 @@ export class UIApp {
     {name: 'Context Dialog', route: '/context-dialog'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
+    {name: 'Key-value-list', route: '/key-value-list'},
     {name: 'Pagination', route: '/pagination'},
     {name: 'Switch', route: '/switch'},
     {name: 'radio', route: '/radio'},
