@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DocsPaginationComponent } from './docs-pagination.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import {DtPaginationModule, DtButtonModule, DtThemingModule} from '@dynatrace/angular-components';
@@ -23,10 +22,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsPaginationComponent,
-  ],
-  exports: [
-    DocsPaginationComponent,
   ],
   entryComponents: [
     ...EXAMPLES,

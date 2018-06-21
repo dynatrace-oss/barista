@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtButtonModule, DtInputModule, DtThemingModule } from '@dynatrace/angular-components';
-import { DocsInputComponent } from './docs-input.component';
 import { DefaultInputExample } from './examples/input-default-example';
 import { NgModelInputExample } from './examples/input-ng-model-example';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -30,10 +29,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsInputComponent,
-  ],
-  exports: [
-    DocsInputComponent,
   ],
   entryComponents: [
     ...EXAMPLES,

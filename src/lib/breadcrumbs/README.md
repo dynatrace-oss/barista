@@ -42,10 +42,6 @@ class MyModule {}
 
 {{component-demo name="ExternalBreadcrumbsExampleComponent"}}
 
-### Active state automatically retrieved from Router
-
-{{component-demo name="AutoActiveBreadcrumbsExampleComponent"}}
-
 ### Dark
 
 {{component-demo name="DarkBreadcrumbsExampleComponent"}}

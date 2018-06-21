@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DocsExpandableSectionComponent } from './docs-expandable-section.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtButtonModule, DtExpandableSectionModule } from '@dynatrace/angular-components';
@@ -24,10 +23,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsExpandableSectionComponent,
-  ],
-  exports: [
-    DocsExpandableSectionComponent,
   ],
   entryComponents: [
     ...EXAMPLES,

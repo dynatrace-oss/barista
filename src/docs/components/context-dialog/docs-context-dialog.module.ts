@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DocsContextDialogComponent } from './docs-context-dialog.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import {
@@ -33,10 +32,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsContextDialogComponent,
-  ],
-  exports: [
-    DocsContextDialogComponent,
   ],
   entryComponents: [
     ...EXAMPLES,

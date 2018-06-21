@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DocsCardComponent } from './docs-card.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtCardModule, DtButtonModule, DtThemingModule, DtIconModule, } from '@dynatrace/angular-components';
@@ -32,10 +31,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsCardComponent,
-  ],
-  exports: [
-    DocsCardComponent,
   ],
   entryComponents: [
     ...EXAMPLES,

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DocsShowMoreComponent } from './docs-show-more.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtShowMoreModule, DtThemingModule, DtButtonModule } from '@dynatrace/angular-components';
@@ -25,10 +24,6 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsShowMoreComponent,
-  ],
-  exports: [
-    DocsShowMoreComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
