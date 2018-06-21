@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtCardModule, DtButtonModule, DtThemingModule, DtIconModule, } from '@dynatrace/angular-components';
 import { DefaultCardExampleComponent } from './examples/default-card-example.component';
@@ -10,7 +10,7 @@ import { ActionButtonsCardExampleComponent } from './examples/action-buttons-car
 import { DarkThemeCardExampleComponent } from './examples/darktheme-card-example.component';
 import { IconCardExampleComponent } from './examples/icon-card-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultCardExampleComponent,
   ContentOnlyCardExampleComponent,
   TitleCardExampleComponent,
@@ -34,6 +34,9 @@ const EXAMPLES = [
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsCardModule {

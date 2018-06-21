@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtButtonModule, DtInputModule, DtThemingModule } from '@dynatrace/angular-components';
 import { DefaultInputExample } from './examples/input-default-example';
@@ -9,7 +9,7 @@ import { TextareaInputExample } from './examples/input-textarea-example';
 import { DisabledReadonlyInputExample } from './examples/input-disabled-readonly-example';
 import { DarkInputExample } from './examples/input-dark-example';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultInputExample,
   DisabledReadonlyInputExample,
   NgModelInputExample,
@@ -32,6 +32,9 @@ const EXAMPLES = [
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsInputModule {

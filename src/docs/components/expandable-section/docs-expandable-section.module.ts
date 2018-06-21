@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtButtonModule, DtExpandableSectionModule } from '@dynatrace/angular-components';
 import {DefaultExpandableSectionExampleComponent} from './examples/expandable-section-default-example.component';
@@ -7,7 +7,7 @@ import {InteractiveExpandableSectionExampleComponent} from './examples/expandabl
 import {OpenExpandableSectionExampleComponent} from './examples/expandable-section-open-example.component';
 import {DisabledExpandableSectionExampleComponent} from './examples/expandable-section-disabled-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultExpandableSectionExampleComponent,
   InteractiveExpandableSectionExampleComponent,
   OpenExpandableSectionExampleComponent,
@@ -26,6 +26,9 @@ const EXAMPLES = [
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsExpandableSectionModule {
