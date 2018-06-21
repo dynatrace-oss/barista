@@ -1,3 +1,4 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/theming/theming';
 @import './button-group-item-theme';
@@ -31,11 +32,9 @@
   border: none;
   outline: none;
 
-  font-family: $mainfont;
-  font-size: 14px;
+  @include main-font(32px);
 
   padding: 0 12px;
-  line-height: 32px;
   vertical-align: middle;
 
   cursor: pointer;

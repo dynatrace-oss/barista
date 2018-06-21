@@ -1,8 +1,9 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 
 :host {
   box-sizing: border-box;
-
+  @include main-font();
   display: block;
   text-align: center;
   color: $turquoise-600;
@@ -38,7 +39,6 @@
 }
 
 .dt-show-more-label {
-  font-size: 14px;
   margin-bottom: 8px;
 
   &:empty {
