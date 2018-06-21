@@ -24,7 +24,7 @@ const SHOWDOWN_OPTIONS = {
   tables: true,
   simpleLineBreaks: true,
   smartIndentationFix: true,
-  noHeaderId: true,
+  // noHeaderId: true,
 };
 
 const SHOWDOWN_CLASS_MAP = {
@@ -89,18 +89,6 @@ export class DocumentService {
       replaced = replaced.replace(p3, '></docs-source-example>');
       return replaced;
     });
-
-
-
-
-    const text = `
-    # 1st Heading
-    ## 2nd Heading
-
-    - first item
-    - second item
-    `;
-
     return this._markdown.makeHtml(_tmp);
   }
 
