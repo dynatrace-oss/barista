@@ -29,6 +29,7 @@ const SHOWDOWN_OPTIONS = {
 
 const SHOWDOWN_CLASS_MAP = {
   table: 'table',
+  a: 'dt-link',
 };
 
 @Injectable({ providedIn: 'root' })
@@ -41,7 +42,6 @@ export class DocumentService {
 
   constructor(private _http: HttpClient, location: LocationService) {
     this.currentDocument = location.currentPath.pipe(switchMap((path) => this.getDocument(path)));
-
     const bindings = Object.keys(SHOWDOWN_CLASS_MAP)
       .map((key) => ({
         type: 'output',
@@ -82,11 +82,11 @@ export class DocumentService {
   }
 
   private generateHTML(content: string): string {
-    const regex = /({{component-demo name)=\"(.+?)\"(}})/g;
+    const regex = /({{component-demo name)=\".+?\"(}})/g;
 
-    const _tmp = content.replace(regex, (match: string, p1: string, p2: string, p3: string): string => {
+    const _tmp = content.replace(regex, (match: string, p1: string, p2: string): string => {
       let replaced = match.replace(p1, '<docs-source-example example');
-      replaced = replaced.replace(p3, '></docs-source-example>');
+      replaced = replaced.replace(p2, '></docs-source-example>');
       return replaced;
     });
     return this._markdown.makeHtml(_tmp);
