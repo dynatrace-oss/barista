@@ -36,6 +36,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
+  /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
   ::ng-deep .dt-icon {
     width: 56px;
   }
