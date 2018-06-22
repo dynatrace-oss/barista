@@ -87,12 +87,12 @@ export class DocsViewerComponent implements OnDestroy {
   protected render(doc: DocumentContents): Observable<void> {
     return this._void$.pipe(
       tap(() => this.nextViewContainer.innerHTML = doc.content || ''),
-      tap(() => this.prepareTitle(doc.id)),
-      tap(() => this.clearDemos()),
-      switchMap(() => this.renderDemos()),
-      tap(() => this.docReady.emit()),
+      tap(() => { this.prepareTitle(doc.id); }),
+      tap(() => { this.clearDemos(); }),
+      switchMap(async () => this.renderDemos()),
+      tap(() => { this.docReady.emit(); }),
       switchMap(() => this.swapViews()),
-      tap(() => this.docRendered.emit()),
+      tap(() => { this.docRendered.emit(); }),
       catchError((err) => {
         const errorMessage = (err instanceof Error) ? err.stack : err;
         LOG.error(`Failed preparing document '${doc.id}':`, errorMessage);
@@ -101,7 +101,7 @@ export class DocsViewerComponent implements OnDestroy {
     );
   }
 
-  protected renderDemos(): Promise<void> {
+  protected async renderDemos(): Promise<void> {
     // tslint:disable-next-line:no-any
     const examples: Array<Type<any>> = [];
     if (Array.isArray(this._componentExamples)) {
@@ -130,7 +130,7 @@ export class DocsViewerComponent implements OnDestroy {
   }
 
   private clearDemos(): void {
-    this._portalHosts.forEach((h) => h.dispose());
+    this._portalHosts.forEach((h) => { h.dispose(); });
     this._portalHosts = [];
   }
 
@@ -144,7 +144,7 @@ export class DocsViewerComponent implements OnDestroy {
         subscriber.next();
         subscriber.complete();
       });
-      return () => cancelAnimationFrame(rafId);
+      return () => { cancelAnimationFrame(rafId); };
     });
 
     // Get the actual transition duration (taking global styles into account).
@@ -190,14 +190,14 @@ export class DocsViewerComponent implements OnDestroy {
         // Remove the current view from the viewer.
         switchMap(() => animateLeave(this.currViewContainer)),
         tap(() => this.currViewContainer.parentElement!.removeChild(this.currViewContainer)),
-        tap(() => this.docRemoved.emit())
+        tap(() => { this.docRemoved.emit(); })
       );
     }
 
     return done$.pipe(
       // Insert the next view into the viewer.
       tap(() => this._hostElement.appendChild(this.nextViewContainer)),
-      tap(() => this.docInserted.emit()),
+      tap(() => { this.docInserted.emit(); }),
       switchMap(() => animateEnter(this.nextViewContainer)),
       tap(() => {
         const prevViewContainer = this.currViewContainer;

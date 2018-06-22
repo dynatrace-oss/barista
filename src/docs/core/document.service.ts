@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AsyncSubject, Observable, of } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { LocationService } from './location.service';
-import { Converter, setFlavor, ShowdownExtension } from 'showdown';
+import { Converter, setFlavor } from 'showdown';
 
 export const DOC_CONTENT_URL_PREFIX = 'assets/doc/';
 
