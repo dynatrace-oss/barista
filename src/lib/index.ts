@@ -35,3 +35,4 @@ export * from '@dynatrace/angular-components/breadcrumbs';
 export * from '@dynatrace/angular-components/tabs';
 export * from '@dynatrace/angular-components/toast';
 export * from '@dynatrace/angular-components/select';
+export * from '@dynatrace/angular-components/overlay';
