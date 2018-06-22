@@ -1,0 +1,93 @@
+@import '../../core/style/variables';
+@import '../../core/style/interactive-common';
+@import '../../style/font-mixins';
+@import '../../core/theming/theming';
+@import 'breadcrumbs-item-theme';
+
+$height: 32px;
+$arrow-width: 8px;
+$arrow-padding: 2px;
+
+:host {
+  @include custom-font-size(14px, $height);
+  height: $height;
+  display: inline-block;
+  margin-top: 0;
+  position: relative;
+
+  &:last-child {
+    flex-grow: 1;
+  }
+
+  &:first-child .item {
+    margin-left: 0;
+    padding-left: 14px;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.item {
+  margin-left: $arrow-padding;
+  padding: 0 10px 0 #{$arrow-width + 8px};
+
+  &::before, &::after {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: $arrow-padding;
+    width: $arrow-width * 2;
+    height: $height;
+    box-sizing: border-box;
+    border-color: transparent transparent transparent white;
+    border-style: solid;
+    border-width: #{$height / 2} $arrow-width;
+    z-index: 1;
+  }
+}
+
+.link {
+  &, &:visited {
+    @include dt-interactive-reset();
+    color: #fff;
+    display: block;
+    height: $height;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  &::after {
+    left: 100%;
+    z-index: 2;
+  }
+
+  &:focus,
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &:focus {
+    @include dt-focus-style();
+  }
+}
+
+.non-clickable {
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+
+  &::after {
+    display: none;
+  }
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-breadcrumbs-item($dt-current-theme, $dt-current-theme-name);
+}

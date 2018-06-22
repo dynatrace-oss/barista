@@ -5,6 +5,10 @@ $dt-themes: ();
 // Note: Needs to be global!
 $dt-current-theme: ();
 
+// Stores the current theme name while traversing all themes when applied to a component
+// Note: Needs to be global!
+$dt-current-theme-name: ();
+
 @import './theming-core';
 @import './theme-definitions/_turquoise-theme';
 @import './theme-definitions/_blue-theme';
