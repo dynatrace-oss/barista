@@ -14,7 +14,7 @@ export class LocationService {
 
   constructor(private _location: Location) {
     this._urlSubject.next(_location.path(true));
-    this._location.subscribe((state) => this._urlSubject.next(state.url || ''));
+    this._location.subscribe((state) => { this._urlSubject.next(state.url || ''); });
   }
 
   go(url: string | null | undefined): void {
