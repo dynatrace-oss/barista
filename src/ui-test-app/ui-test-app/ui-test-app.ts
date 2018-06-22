@@ -23,6 +23,7 @@ export class UIApp {
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Key-value-list', route: '/key-value-list'},
     {name: 'Copy-To-Clipboard', route: '/copy-to-clipboard'},
+    {name: 'Overlay', route: '/overlay'},
     {name: 'Pagination', route: '/pagination'},
     {name: 'Progress-bar', route: '/progress-bar'},
     {name: 'Switch', route: '/switch'},
