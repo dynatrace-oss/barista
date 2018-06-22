@@ -15,12 +15,11 @@
     "@angular/cdk": "0.0.0-NG" ,
     "@angular/core": "0.0.0-NG",
     "@angular/common": "0.0.0-NG",
+    "@dynatrace/dt-iconpack": ">= 1.0.6 < 2",
     "highcharts": "^6.0.7"
   },
   "ngPackage": {
     "dest": "../../dist/lib",
-    "deleteDestPath": false,
-    "workingDirectory": "../../dist/ng_pkg_build",
     "lib": {
       "entryFile": "index.ts"
     }

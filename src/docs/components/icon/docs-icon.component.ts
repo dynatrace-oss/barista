@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DefaultIconExample } from './examples/icon-default-example';
+import { AllIconExample } from './examples/icon-all-example';
 
 @Component({
   moduleId: module.id,
@@ -10,5 +11,6 @@ export class DocsIconComponent {
 
   examples = {
     default: DefaultIconExample,
+    all: AllIconExample,
   };
 }

@@ -148,6 +148,7 @@
     ],
 
     // Custom Rules
-    "ts-loader": true
+    "ts-loader": true,
+    "dt-icon-names": true
   }
 }
