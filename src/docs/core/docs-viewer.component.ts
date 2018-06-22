@@ -8,7 +8,9 @@ import {
   ComponentFactoryResolver,
   Injector,
   Inject,
-  Type
+  Type,
+  ViewContainerRef,
+  ApplicationRef
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
@@ -16,6 +18,7 @@ import { Observable, of, timer } from 'rxjs';
 import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DocumentContents } from './document.service';
 import { EMBEDDED_COMPONENTS, COMPONENT_EXAMPLES } from '../ui/ui.module';
+import { DomPortalHost, ComponentPortal } from '@angular/cdk/portal';
 
 // Initialization prevents flicker once pre-rendering is on
 const initialDocViewerElement = document.querySelector('docs-viewer');
@@ -30,10 +33,11 @@ export const NO_ANIMATIONS = 'no-animations';
 })
 export class DocsViewerComponent implements OnDestroy {
   static animationsEnabled = true;
-  private hostElement: HTMLElement;
-  private void$ = of<void>(undefined);
-  private onDestroy$ = new EventEmitter<void>();
-  private docContents$ = new EventEmitter<DocumentContents>();
+  private _hostElement: HTMLElement;
+  private _void$ = of<void>(undefined);
+  private _onDestroy$ = new EventEmitter<void>();
+  private _docContents$ = new EventEmitter<DocumentContents>();
+  private _portalHosts: DomPortalHost[] = [];
 
   protected currViewContainer: HTMLElement = document.createElement('div');
   protected nextViewContainer: HTMLElement = document.createElement('div');
@@ -41,7 +45,7 @@ export class DocsViewerComponent implements OnDestroy {
   @Input()
   set doc(newDoc: DocumentContents) {
     if (newDoc) {
-      this.docContents$.emit(newDoc);
+      this._docContents$.emit(newDoc);
     }
   }
   @Output() docReady = new EventEmitter<void>();
@@ -56,31 +60,35 @@ export class DocsViewerComponent implements OnDestroy {
     elementRef: ElementRef,
     private titleService: Title,
     private _resolver: ComponentFactoryResolver,
-    private _injector: Injector
+    private _injector: Injector,
+    private _viewContainerRef: ViewContainerRef,
+    private _appRef: ApplicationRef
   ) {
-    this.hostElement = elementRef.nativeElement;
-    this.hostElement.innerHTML = initialDocViewerContent;
+    this._hostElement = elementRef.nativeElement;
+    this._hostElement.innerHTML = initialDocViewerContent;
 
-    if (this.hostElement.firstElementChild) {
-      this.currViewContainer = this.hostElement.firstElementChild as HTMLElement;
+    if (this._hostElement.firstElementChild) {
+      this.currViewContainer = this._hostElement.firstElementChild as HTMLElement;
     }
 
-    this.docContents$
+    this._docContents$
       .pipe(
         switchMap((newDoc) => this.render(newDoc)),
-        takeUntil(this.onDestroy$)
+        takeUntil(this._onDestroy$)
       )
       .subscribe();
   }
 
   ngOnDestroy(): void {
-    this.onDestroy$.emit();
+    this.clearDemos();
+    this._onDestroy$.emit();
   }
 
   protected render(doc: DocumentContents): Observable<void> {
-    return this.void$.pipe(
+    return this._void$.pipe(
       tap(() => this.nextViewContainer.innerHTML = doc.content || ''),
       tap(() => this.prepareTitle(doc.id)),
+      tap(() => this.clearDemos()),
       switchMap(() => this.renderDemos()),
       tap(() => this.docReady.emit()),
       switchMap(() => this.swapViews()),
@@ -88,7 +96,7 @@ export class DocsViewerComponent implements OnDestroy {
       catchError((err) => {
         const errorMessage = (err instanceof Error) ? err.stack : err;
         LOG.error(`Failed preparing document '${doc.id}':`, errorMessage);
-        return this.void$;
+        return this._void$;
       })
     );
   }
@@ -100,22 +108,30 @@ export class DocsViewerComponent implements OnDestroy {
       this._componentExamples.forEach((components) => examples.push(...components));
     }
     this._embeddedComponents.forEach((comp) => {
-      const factory = this._resolver.resolveComponentFactory(comp);
       const embeddedComponentElements = this.nextViewContainer.querySelectorAll('docs-source-example[example]');
+
       // tslint:disable-next-line:no-any
       for (const element of embeddedComponentElements as any as HTMLElement[]) {
         const name = element.getAttribute('example');
         const componentType = examples.find((example) => example.name === name);
         if (componentType) {
-
-          const ref = factory.create(this._injector, [], element);
+          const portalHost = new DomPortalHost(element, this._resolver, this._appRef, this._injector);
+          const examplePortal = new ComponentPortal(comp, this._viewContainerRef);
+          const ref = portalHost.attach(examplePortal);
           ref.instance.componentType = componentType;
-          ref.changeDetectorRef.detectChanges();
+          // ref.changeDetectorRef.detectChanges();
+
+          this._portalHosts.push(portalHost);
         }
       }
     });
 
     return Promise.resolve();
+  }
+
+  private clearDemos(): void {
+    this._portalHosts.forEach((h) => h.dispose());
+    this._portalHosts = [];
   }
 
   protected prepareTitle(id: string): void {
@@ -143,15 +159,15 @@ export class DocsViewerComponent implements OnDestroy {
     const animateProp =
       (elem: HTMLElement, prop: keyof CSSStyleDeclaration, from: string, to: string, duration = 200) => {
         const animationsDisabled = !DocsViewerComponent.animationsEnabled
-          || this.hostElement.classList.contains(NO_ANIMATIONS);
+          || this._hostElement.classList.contains(NO_ANIMATIONS);
         if (prop === 'length' || prop === 'parentRule') {
           // We cannot animate length or parentRule properties because they are readonly
-          return this.void$;
+          return this._void$;
         }
         elem.style.transition = '';
         return animationsDisabled
-          ? this.void$.pipe(tap(() => elem.style[prop] = to))
-          : this.void$.pipe(
+          ? this._void$.pipe(tap(() => elem.style[prop] = to))
+          : this._void$.pipe(
             // In order to ensure that the `from` value will be applied immediately (i.e.
             // without transition) and that the `to` value will be affected by the
             // `transition` style, we need to ensure an animation frame has passed between
@@ -160,14 +176,14 @@ export class DocsViewerComponent implements OnDestroy {
             switchMap(() => raf$), tap(() => elem.style.transition = `all ${duration}ms ease-in-out`),
             // tslint:disable-next-line:no-any
             switchMap(() => raf$), tap(() => (elem.style as any)[prop] = to),
-            switchMap(() => timer(getActualDuration(elem))), switchMap(() => this.void$)
+            switchMap(() => timer(getActualDuration(elem))), switchMap(() => this._void$)
           );
       };
 
     const animateLeave = (elem: HTMLElement) => animateProp(elem, 'opacity', '1', '0.1');
     const animateEnter = (elem: HTMLElement) => animateProp(elem, 'opacity', '0.1', '1');
 
-    let done$ = this.void$;
+    let done$ = this._void$;
 
     if (this.currViewContainer.parentElement) {
       done$ = done$.pipe(
@@ -180,7 +196,7 @@ export class DocsViewerComponent implements OnDestroy {
 
     return done$.pipe(
       // Insert the next view into the viewer.
-      tap(() => this.hostElement.appendChild(this.nextViewContainer)),
+      tap(() => this._hostElement.appendChild(this.nextViewContainer)),
       tap(() => this.docInserted.emit()),
       switchMap(() => animateEnter(this.nextViewContainer)),
       tap(() => {
