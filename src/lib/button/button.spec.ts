@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtButtonModule, DtIconModule } from '@dynatrace/angular-components';
+import { DtButtonModule } from './index';
+import { DtIconModule } from '../icon/index';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtButton', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtButtonModule, DtIconModule],
+      imports: [
+        DtButtonModule,
+        HttpClientTestingModule,
+        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+      ],
       declarations: [TestApp],
     });
 
@@ -191,6 +197,22 @@ describe('DtButton', () => {
       expect(buttonDebugElement.nativeElement.getAttribute('disabled'))
         .toBeNull('Expect no disabled');
     });
+
+    it('should remove icon container when icon is removed', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      const testComponent = fixture.debugElement.componentInstance as TestApp;
+      fixture.detectChanges();
+
+      let iconContainer = fixture.debugElement.query(By.css('.dt-button-icon'));
+
+      expect(iconContainer).not.toBeNull();
+
+      testComponent.showIcon = false;
+      fixture.detectChanges();
+      iconContainer = fixture.debugElement.query(By.css('.dt-button-icon'));
+
+      expect(iconContainer).toBeNull();
+    });
   });
 });
 
@@ -200,7 +222,7 @@ describe('DtButton', () => {
   template: `
     <button dt-button type="button" (click)="increment()"
       [disabled]="isDisabled" [variant]="variant">
-      <dt-icon></dt-icon>
+      <dt-icon name="agent" *ngIf="showIcon"></dt-icon>
       Go
     </button>
     <a href="http://www.dynatrace.com" dt-button [disabled]="isDisabled">
@@ -212,6 +234,7 @@ class TestApp {
   clickCount = 0;
   isDisabled = false;
   variant = 'primary';
+  showIcon = true;
 
   increment(): void {
     this.clickCount++;

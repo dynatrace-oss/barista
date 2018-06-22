@@ -5,7 +5,7 @@ import {
   paginationStateLeftExtendedPlus, paginationStateMiddle,
   paginationStateOutside, paginationStateRightExtended,
   paginationStateRightExtendedPlus
-} from '@dynatrace/angular-components';
+} from './index';
 
 describe('pagination states', () => {
 

@@ -1,3 +1,4 @@
+@import '../style/font-mixins';
 @import '../core/style/variables';
 
 :host {
@@ -10,9 +11,8 @@
 }
 
 .dt-loading-distractor-label {
+  @include h2-font();
   display: block;
-  font-family: $mainfont;
-  font-size: 18px;
   box-sizing: border-box;
   text-decoration: none;
   color: $logolime;

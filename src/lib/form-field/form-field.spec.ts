@@ -5,13 +5,9 @@ import { By } from '@angular/platform-browser';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { FormsModule, ReactiveFormsModule, FormControl, Validators, NgForm, FormGroupDirective, FormGroup } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  DtFormFieldModule,
-  DtInputModule,
-  getDtFormFieldMissingControlError,
-  DtInput,
-  ErrorStateMatcher,
-} from '@dynatrace/angular-components';
+import { DtFormFieldModule, getDtFormFieldMissingControlError, getDtFormFieldDuplicatedHintError } from './index';
+import { DtInputModule, DtInput } from '../input/index';
+import { ErrorStateMatcher } from '../core/index';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
@@ -124,13 +120,17 @@ describe('DtFormField without forms', () => {
     expect(labelElement.getAttribute('aria-owns')).toBe(inputElement.id);
   }));
 
-  /** TODO: removing this test after migration, this fails without any reason  */
-  // it('validates there\'s only one hint label per side', fakeAsync(() => {
-  //   const fixture = TestBed.createComponent(DtInputInvalidHintTestController);
-
-  //   expect(() => fixture.detectChanges()).toThrowError(
-  //     wrappedErrorMessage(getDtFormFieldDuplicatedHintError('start')));
-  // }));
+  it('validates there\'s only one hint label per side', fakeAsync(() => {
+    const fixture = TestBed.createComponent(DtInputInvalidHintTestController);
+    expect(() => {
+      try {
+        fixture.detectChanges();
+        flush();
+      } catch {
+        flush();
+      }
+    }).toThrowError(wrappedErrorMessage(getDtFormFieldDuplicatedHintError('start')));
+  }));
 
   it('validates that dtInput child is present', fakeAsync(() => {
     const fixture = TestBed.createComponent(DtInputMissingDtInputTestController);

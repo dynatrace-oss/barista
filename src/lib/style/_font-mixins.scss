@@ -52,6 +52,6 @@
   @include monospace-font();
 }
 
-@mixin label-font {
-  @include default-font(12px, 1.6);
+@mixin label-font($line-height: $default-line-height) {
+  @include default-font(12px, $line-height);
 }

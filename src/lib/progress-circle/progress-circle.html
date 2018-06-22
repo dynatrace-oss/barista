@@ -1,9 +1,8 @@
 <div class="dt-progress-circle-body">
   <svg viewBox="0 0 112 112" width="112px" height="112px">
-    <path class="dt-progress-circle-background" d="M56 4a52 52 0 1 1 0 104A52 52 0 1 1 56 4" />
-    <path class="dt-progress-circle-progress"
-      [style.stroke-dashoffset]="_dashOffset"
-      d="M56 4a52 52 0 1 1 0 104A52 52 0 1 1 56 4" />
+    <circle class="dt-progress-circle-background" cx="56" cy="56" r="52"></circle>
+    <circle class="dt-progress-circle-progress" transform="rotate(-90, 56, 56)"
+    [style.stroke-dashoffset]="_dashOffset" cx="56" cy="56" r="52"></circle>
   </svg>
   <div class="dt-progress-circle-content">
     <ng-content></ng-content>

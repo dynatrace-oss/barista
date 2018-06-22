@@ -24,6 +24,7 @@ export class DtDefaultViewportResizer implements DtViewportResizer {
 @Injectable({
   providedIn: 'root',
   useClass: DtDefaultViewportResizer,
+  deps: [ViewportRuler],
 })
 export abstract class DtViewportResizer {
   abstract change(): Observable<void>;
