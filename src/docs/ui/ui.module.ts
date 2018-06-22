@@ -12,8 +12,8 @@ export const embeddedComponentList: Array<Type<any>> = [
   SourceExampleComponent,
 ];
 
-export const EMBEDDED_COMPONENTS = new InjectionToken('embedded-components');
-export const COMPONENT_EXAMPLES = new InjectionToken('component-examples');
+export const EMBEDDED_COMPONENTS = new InjectionToken<string>('embedded-components');
+export const COMPONENT_EXAMPLES = new InjectionToken<string>('component-examples');
 
 @NgModule({
   declarations: [
