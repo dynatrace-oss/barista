@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { DocsCardComponent } from './docs-card.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtCardModule, DtButtonModule, DtThemingModule, } from '@dynatrace/angular-components';
+import { DtCardModule, DtButtonModule, DtThemingModule, DtIconModule, } from '@dynatrace/angular-components';
 import { DefaultCardExampleComponent } from './examples/default-card-example.component';
 import { ContentOnlyCardExampleComponent } from './examples/contentonly-card-example.component';
 import { TitleCardExampleComponent } from './examples/title-card-example.component';
@@ -28,6 +28,7 @@ const EXAMPLES = [
     DtCardModule,
     DtButtonModule,
     DtThemingModule,
+    DtIconModule,
   ],
   declarations: [
     ...EXAMPLES,

@@ -50,3 +50,4 @@ Thumbs.db
 # gradle
 .gradle
 *.gdsl
+.metadata

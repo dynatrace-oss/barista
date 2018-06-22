@@ -4,7 +4,7 @@ import { fakeAsync, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtInputModule } from '@dynatrace/angular-components';
+import { DtInputModule } from './index';
 
 describe('DtInput without forms', () => {
   beforeEach(fakeAsync(() => {

@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
-import { DtIconModule, getDtIconNoConfigProviderError, getDtIconNoHttpProviderError } from '@dynatrace/angular-components';
+import { DtIconModule, getDtIconNoConfigProviderError, getDtIconNoHttpProviderError } from './index';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 /**
@@ -181,7 +181,7 @@ class IconWithName {
 }
 
 @Component({
-  template: `<dt-icon [color]="iconColor">{{iconName}}</dt-icon>`,
+  template: `<dt-icon name="agent" [color]="iconColor">{{iconName}}</dt-icon>`,
 })
 class IconWithColor {
   iconName = '';
@@ -189,7 +189,7 @@ class IconWithColor {
 }
 
 @Component({
-  template: '<dt-icon aria-hidden="false">face</dt-icon>',
+  template: '<dt-icon name="agent" aria-hidden="false">face</dt-icon>',
 })
 class IconWithAriaHiddenFalse {
 }

@@ -2,8 +2,10 @@
 import {async, TestBed} from '@angular/core/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtPaginationModule, DtPagination, DtIconModule} from '@dynatrace/angular-components';
-import {HttpClientModule} from '@angular/common/http';
+import {DtPaginationModule, DtPagination} from './index';
+import {DtIconModule} from '../icon/index';
+import {HttpClientModule, HttpXhrBackend} from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 function extractNumbers(elementList: HTMLElement[]): string {
   const result: string[] = [];
@@ -28,6 +30,10 @@ describe('DtPagination', () => {
         HttpClientModule,
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
       declarations: [TestApp],
+      providers: [{
+        provide: HttpXhrBackend,
+        useClass: HttpClientTestingModule,
+      }],
     });
 
     TestBed.compileComponents();

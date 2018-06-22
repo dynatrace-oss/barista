@@ -15,44 +15,31 @@ module.exports = (config) => {
 
   config.set({
     basePath: path.join(__dirname, '..'),
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-sourcemap-loader'),
       require('karma-junit-reporter'),
+      require('@angular-devkit/build-angular/plugins/karma'),
     ],
-    files: [
-      {pattern: 'node_modules/core-js/client/core.js', included: true, watched: false},
-      {pattern: 'node_modules/tslib/tslib.js', included: true, watched: false},
-      {pattern: 'node_modules/systemjs/dist/system.src.js', included: true, watched: false},
-      {pattern: 'node_modules/zone.js/dist/zone.js', included: true, watched: false},
-      {pattern: 'node_modules/zone.js/dist/proxy.js', included: true, watched: false},
-      {pattern: 'node_modules/zone.js/dist/sync-test.js', included: true, watched: false},
-      {pattern: 'node_modules/zone.js/dist/jasmine-patch.js', included: true, watched: false},
-      {pattern: 'node_modules/zone.js/dist/async-test.js', included: true, watched: false},
-      {pattern: 'node_modules/zone.js/dist/fake-async-test.js', included: true, watched: false},
-
-      // Include all Angular dependencies
-      {pattern: 'node_modules/@angular/**/*', included: false, watched: false},
-      {pattern: 'node_modules/rxjs/**/*', included: false, watched: false},
-
-      // Included highcharts for tests
-      {pattern: 'node_modules/highcharts/highcharts.js', included: false, watched: false},
-
-      {pattern: 'test/karma-test-shim.js', included: true, watched: false},
-
-      // Includes all package tests and source files into karma. Those files will be watched.
-      // This pattern also matches all all sourcemap files and TypeScript files for debugging.
-      {pattern: 'dist/**/*', included: false, watched: true},
-    ],
-    preprocessors: {
-      'dist/lib/**/*.js': ['sourcemap']
+    client: {
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      jasmine: {
+        random: false,
+      },
     },
-
+    coverageIstanbulReporter: {
+      dir: path.join(__dirname, '../../coverage'),
+      reports: ['html', 'lcovonly'],
+      fixWebpackSourcePaths: true
+    },
     reporters: ['dots','junit'],
-    autoWatch: false,
+    autoWatch: true,
     singleRun: false,
+    colors: !isOnCI,
+    logLevel: config.LOG_INFO,
+
 
     junitReporter: {
       outputDir: 'dist/testresults/',
@@ -73,13 +60,5 @@ module.exports = (config) => {
         flags: chromeConfig.karmaFlags,
       }
     },
-
-    client: {
-      jasmine: {
-        random: false
-      }
-    },
-
-    colors: !isOnCI,
   });
 };
