@@ -1,5 +1,6 @@
 @import '../core/style/variables';
 @import '../core/theming/theming';
+@import './copy-clipboard-theme';
 
 /* stylelint-disable selector-pseudo-element-no-unknown  */
 :host {
@@ -11,8 +12,7 @@
     margin-right: 8px;
   }
 
-  ::ng-deep textarea.dt-copy-clipboard-successful,
-  ::ng-deep input.dt-copy-clipboard-successful,
+  ::ng-deep .dt-copy-clipboard-successful,
   ::ng-deep :not(.dt-form-field-infix) > input.dt-input:focus:not([disabled]) {
     border: 1px solid $green-500;
     box-shadow: none;
@@ -21,27 +21,17 @@
   .dt-copy-clipboard-button {
     align-self: flex-end;
     min-width: 80px;
+    .dt-copy-clipboard-successful {
+      color: white;
+      background-color: $green-500;
+    }
   }
   .dt-copy-clipboard-input-wrap textarea {
     box-shadow: none;
     border: 1px solid $green-500;
   }
-  button.dt-copy-clipboard-button.dt-copy-clipboard-successful {
-    border: 1px solid $green-500;
-    color: white;
-    background-color: $green-500;
-  }
 }
-
+// Apply the button theme to all theme definitions
 @include dt-apply-theme() {
-  $is-dark: map-get($dt-current-theme, 'is-dark');
-  @if ($is-dark == true) {
-    :host {
-      ::ng-deep textarea,
-      ::ng-deep input {
-        background-color: black;
-        color: $gray-400;
-      }
-    }
-  }
+  @include dt-theme-copy-clipboard($dt-current-theme);
 }
