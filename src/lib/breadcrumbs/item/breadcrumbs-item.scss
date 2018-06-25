@@ -19,7 +19,7 @@ $arrow-padding: 2px;
     flex-grow: 1;
   }
 
-  &:first-child .item {
+  &:first-child .dt-breadcrumb-item {
     margin-left: 0;
     padding-left: 14px;
 
@@ -29,7 +29,7 @@ $arrow-padding: 2px;
   }
 }
 
-.item {
+.dt-breadcrumb-item {
   margin-left: $arrow-padding;
   padding: 0 10px 0 #{$arrow-width + 8px};
 
@@ -49,7 +49,7 @@ $arrow-padding: 2px;
   }
 }
 
-.link {
+.dt-breadcrumb-link {
   &, &:visited {
     @include dt-interactive-reset();
     color: #fff;
@@ -77,7 +77,7 @@ $arrow-padding: 2px;
   }
 }
 
-.non-clickable {
+.dt-breadcrumb-non-clickable {
   color: #fff;
   text-overflow: ellipsis;
   white-space: nowrap;
