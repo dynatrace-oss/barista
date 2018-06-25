@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "docs": "ng serve docs",
-    "docs:build": "ng build docs",
+    "docs:build": "gulp docs:build",
     "build": "gulp library:build",
     "test": "ng test lib --watch=false",
     "test:watch": "ng test lib",
@@ -80,6 +80,7 @@
     "puppeteer": "^1.0.0",
     "resolve-bin": "^0.4.0",
     "run-sequence": "^2.2.1",
+    "rxjs-tslint": "^0.1.5",
     "sass-graph": "^2.2.4",
     "stylelint": "^8.4.0",
     "stylelint-checkstyle-formatter": "^0.1.1",
