@@ -1,6 +1,6 @@
 # Form field
 
-{{component-demo name="DefaultFormFieldExample"}}
+<docs-source-example example="DefaultFormFieldExample"></docs-source-example>
 
 `<dt-form-field>` is a component that wraps form input components like `dtInput` and provides functionality for a label (`<dt-label>`), errors (`<dt-error>`) and hints (`<dt-hint>`).
 
@@ -22,7 +22,7 @@ Attempting to add multiple hints to the same side will raise an error.
 
 *Example:*
 
-{{component-demo name="HintFormFieldExample"}}
+<docs-source-example example="HintFormFieldExample"></docs-source-example>
 
 ## Error messages
 
@@ -34,7 +34,7 @@ If a form field can have more than one error state, it is up to the consumer to 
 
 *Example:*
 
-{{component-demo name="ErrorFormFieldExample"}}
+<docs-source-example example="ErrorFormFieldExample"></docs-source-example>
 
 ## Prefix & suffix
 
@@ -44,4 +44,4 @@ Adding the `dtPrefix` directive to an element inside the `<dt-form-field>` will 
 
 *Example:*
 
-{{component-demo name="PrefixSuffixFormFieldExample"}}
+<docs-source-example example="PrefixSuffixFormFieldExample"></docs-source-example>

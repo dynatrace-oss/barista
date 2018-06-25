@@ -1,6 +1,6 @@
 # Button
 
-{{component-demo name="DefaultButtonExampleComponent"}}
+<docs-source-example example="DefaultButtonExampleComponent"></docs-source-example>
 
 This Angular button enhances native `<button>` and `<a>` elements with Dynatrace styling.
 Make sure to always use `<button>` or `<a>` tags to provide the accessible experience for the user.
@@ -66,28 +66,28 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 ### Simple example
 
-{{component-demo name="SimpleButtonExampleComponent"}}
+<docs-source-example example="SimpleButtonExampleComponent"></docs-source-example>
 
 ### Interaction
 
-{{component-demo name="InteractionButtonExampleComponent"}}
+<docs-source-example example="InteractionButtonExampleComponent"></docs-source-example>
 
 ### Variants
 
-{{component-demo name="VariantButtonExampleComponent"}}
+<docs-source-example example="VariantButtonExampleComponent"></docs-source-example>
 
 ### Colors
 
-{{component-demo name="ColorButtonExampleComponent"}}
+<docs-source-example example="ColorButtonExampleComponent"></docs-source-example>
 
 ### With Icons
 
-{{component-demo name="IconsButtonExampleComponent"}}
+<docs-source-example example="IconsButtonExampleComponent"></docs-source-example>
 
 ### Icon only
 
-{{component-demo name="IconOnlyButtonExampleComponent"}}
+<docs-source-example example="IconOnlyButtonExampleComponent"></docs-source-example>
 
 ### All combinations
 
-{{component-demo name="AllButtonExampleComponent" fullwidth="true"}}
+<docs-source-example example="AllButtonExampleComponent" fullwidth="true"></docs-source-example>

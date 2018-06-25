@@ -26,7 +26,7 @@ class MyModule {}
 
 To apply the dynatrace expandable panel, use the `<dt-expandable-panel>` element. Example:
 
-{{component-demo name="DefaultExpandablePanelExampleComponent"}}
+<docs-source-example example="DefaultExpandablePanelExampleComponent"></docs-source-example>
 
 | Attribute | Description |
 | --- | --- |
@@ -56,12 +56,12 @@ To apply the dynatrace expandable panel, use the `<dt-expandable-panel>` element
 
 ### Open state
 
-{{component-demo name="OpenExpandablePanelExampleComponent"}}
+<docs-source-example example="OpenExpandablePanelExampleComponent"></docs-source-example>
 
 ## Simple trigger
 
-{{component-demo name="TriggerSimpleExpandablePanelExampleComponent"}}
+<docs-source-example example="TriggerSimpleExpandablePanelExampleComponent"></docs-source-example>
 
 ## Styled trigger
 
-{{component-demo name="TriggerExpandablePanelExampleComponent"}}
+<docs-source-example example="TriggerExpandablePanelExampleComponent"></docs-source-example>

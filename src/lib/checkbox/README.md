@@ -1,6 +1,6 @@
 # Checkbox
 
-{{component-demo name="DefaultCheckboxExampleComponent"}}
+<docs-source-example example="DefaultCheckboxExampleComponent"></docs-source-example>
 
 `<dt-checkbox>` provides the same functionality as a native enhanced with styling and animations.
 
@@ -27,7 +27,7 @@
 While the indeterminate property of the checkbox is true, it will render as indeterminate regardless of the checked value.
 Any interaction with the checkbox by a user (i.e., clicking) will remove the indeterminate state.
 
-{{component-demo name="IndeterminateCheckboxExampleComponent"}}
+<docs-source-example example="IndeterminateCheckboxExampleComponent"></docs-source-example>
 
 Angular forms `<dt-checkbox>` is compatible with @angular/forms and supports both FormsModule and ReactiveFormsModule.
 
@@ -40,4 +40,4 @@ Checkboxes without text or labels should be given a meaningful label via `aria-l
 
 ### Dark
 
-{{component-demo name="DarkCheckboxExample"}}
+<docs-source-example example="DarkCheckboxExample"></docs-source-example>

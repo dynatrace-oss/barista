@@ -1,6 +1,6 @@
 # Progress circle
 
-{{component-demo name="DefaultProgressCircleExampleComponent"}}
+<docs-source-example example="DefaultProgressCircleExampleComponent"></docs-source-example>
 
 The `<dt-progress-circle>` creates a container that is hidden inside an overlay.
 It is possible to set the value for the progress circle as well as setting a min and max value.
@@ -41,16 +41,16 @@ Prgoress circles should be given a meaningful label via aria-label or aria-label
 
 ### Progress circle with text in content
 
-{{component-demo name="WithTextProgressCircleExampleComponent"}}
+<docs-source-example example="WithTextProgressCircleExampleComponent"></docs-source-example>
 
 ### Progress circle with icon in content
 
-{{component-demo name="WithIconProgressCircleExampleComponent"}}
+<docs-source-example example="WithIconProgressCircleExampleComponent"></docs-source-example>
 
 ### Progress circle with color
 
-{{component-demo name="WithColorProgressCircleExampleComponent"}}
+<docs-source-example example="WithColorProgressCircleExampleComponent"></docs-source-example>
 
 ### Progress circle change
 
-{{component-demo name="ChangeProgressCircleExampleComponent"}}
+<docs-source-example example="ChangeProgressCircleExampleComponent"></docs-source-example>
