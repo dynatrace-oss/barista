@@ -2,7 +2,7 @@
   <ng-content></ng-content>
 </div>
 
-<button dt-button [disabled]="!enabled" class="dt-copy-clipboard-button dt-copy-clipboard-btn-button" #copyButton (click)="this.copy2Clipboard();">
+<button dt-button [disabled]="disabled" class="dt-copy-clipboard-button dt-copy-clipboard-btn-button" #copyButton (click)="copy2Clipboard();">
   <dt-icon *ngIf='showIcon' name="checkmark"></dt-icon>
   <ng-content *ngIf='!showIcon' select="dt-copy-clipboard-label"></ng-content>
 </button>
