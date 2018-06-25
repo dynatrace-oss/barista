@@ -27,10 +27,10 @@ const SHOWDOWN_OPTIONS = {
   // noHeaderId: true,
 };
 
-const SHOWDOWN_CLASS_MAP = {
-  table: 'table',
-  a: 'dt-link',
-};
+enum SHOWDOWN_CLASS_MAP {
+  table = 'table',
+  a = 'dt-link',
+}
 
 @Injectable({ providedIn: 'root' })
 export class DocumentService {
@@ -46,7 +46,7 @@ export class DocumentService {
       .map((key) => ({
         type: 'output',
         regex: new RegExp(`<${key}>`, 'g'),
-        replace: `<${key} class="${SHOWDOWN_CLASS_MAP[key]}">`,
+        replace: `<${key} class="${SHOWDOWN_CLASS_MAP[key as keyof typeof SHOWDOWN_CLASS_MAP]}">`,
       }));
 
     this._markdown.addExtension(bindings, 'custom-markdown-classes');
