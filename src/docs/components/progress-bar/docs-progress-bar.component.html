@@ -1,20 +1,19 @@
-<h1>Progress circle</h1>
+<h1>Progress bar</h1>
 <docs-source-example [example]="examples.default"></docs-source-example>
 
 <p>
-The <code>&lt;dt-progress-circle&gt;</code> creates a container that is hidden inside an overlay.
-It is possible to set the value for the progress circle as well as setting a min and max value.
-The color property can be set to specify the color of the progress. The color depends on the theme the progress circle is in.
+The <code>&lt;dt-progress-bars&gt;</code> creates a simple progress bar.
+It is possible to set the value for the progress bars as well as setting a min and max value.
+The color property can be set to specify the color of the progress. The color depends on the theme the progress bars is in.
 The value will be clamped between the min and max values.
-With <code>ng-content</code> the content inside the progress-circle can be set.
 </p>
 
 <h2>Imports</h2>
-<p>You have to import the <code>DtProgressCircleModule</code> when you want to use the <code>dt-progress-circle</code>:</p>
+<p>You have to import the <code>DtProgressBarModule</code> when you want to use the <code>dt-progress-bars</code>:</p>
 <!-- @formatter:off -->
 <pre><code snippet language="typescript">@NgModule({{"{"}}
   imports: [
-  DtProgressCircleModule,
+  DtProgressBarModule,
   ],
 {{"}"}})
 class MyModule {{"{}"}}
@@ -22,7 +21,7 @@ class MyModule {{"{}"}}
 <!-- @formatter:on -->
 
 <h2>Accessibility</h2>
-Progress circles should be given a meaningful label via aria-label or aria-labelledby.
+Progress bars should be given a meaningful label via aria-label or aria-labelledby.
 
 <h2>Options & Properties</h2>
 <table class="table">
@@ -39,25 +38,31 @@ Progress circles should be given a meaningful label via aria-label or aria-label
       <td><code>@Input() value</code></td>
       <td><code>number</code></td>
       <td><code>0</code></td>
-      <td>Gets and sets the value on the progress-circle.</td>
+      <td>Gets and sets the value on the progress-bars.</td>
     </tr>
     <tr>
       <td><code>@Input() min</code></td>
       <td><code>number</code></td>
       <td><code>0</code></td>
-      <td>Gets and sets the minimum value on the progress circle</td>
+      <td>Gets and sets the minimum value on the progress bars</td>
     </tr>
     <tr>
       <td><code>@Input() max</code></td>
       <td><code>number</code></td>
       <td><code>100</code></td>
-      <td>Gets and sets the maximum value on the progress circle</td>
+      <td>Gets and sets the maximum value on the progress bars</td>
+    </tr>
+    <tr>
+      <td><code>@Input() right</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Gets and sets the progress bar in right-to-left mode</td>
     </tr>
     <tr>
       <td><code>@Ouput() valueChange</code></td>
       <td><code>EventEmitter&lt;{{'{'}} oldValue: number, newValue: number {{'}'}}&gt;</code></td>
       <td></td>
-      <td>Event emitted when the progress circle value changes.</td>
+      <td>Event emitted when the progress bars value changes.</td>
     </tr>
     <tr>
       <td><code>percentage</code></td>
@@ -69,14 +74,11 @@ Progress circles should be given a meaningful label via aria-label or aria-label
 </table>
 
 <h2>Examples</h2>
-<h3>Progress circle with text in content</h3>
-<docs-source-example [example]="examples.withText"></docs-source-example>
-
-<h3>Progress circle with icon in content</h3>
-<docs-source-example [example]="examples.withIcon"></docs-source-example>
-
-<h3>Progress circle with color</h3>
+<h3>Progress bars with color</h3>
 <docs-source-example [example]="examples.withColor"></docs-source-example>
 
-<h3>Progress circle change</h3>
+<h3>Progress bars change</h3>
 <docs-source-example [example]="examples.change"></docs-source-example>
+
+<h3>Progress bars in RTL mode</h3>
+<docs-source-example [example]="examples.withRtl"></docs-source-example>

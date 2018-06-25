@@ -34,6 +34,7 @@ import { DocsBreadcrumbsModule } from './components/breadcrumbs/docs-breadcrumbs
 import { CoreModule } from './core/core.module';
 import { DocsSwitchModule } from './components/switch/docs-switch.module';
 import { environment } from './environments/environment';
+import { DocsProgressBarModule } from './components/progress-bar/docs-progress-bar.module';
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { environment } from './environments/environment';
     DocsProgressCircleModule,
     DocsSwitchModule,
     DocsBreadcrumbsModule,
+    DocsProgressBarModule,
   ],
   declarations: [
     Docs,
