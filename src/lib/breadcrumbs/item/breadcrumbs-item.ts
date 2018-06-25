@@ -36,7 +36,7 @@ export class DtBreadcrumbsItem {
   }
 
   private _external = false;
-  private _isLastItem = true;
+  private _isLastItem = false;
 
   constructor(private readonly _changeDetectorRef: ChangeDetectorRef) { }
 }
