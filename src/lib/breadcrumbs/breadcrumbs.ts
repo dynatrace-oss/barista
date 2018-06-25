@@ -36,7 +36,9 @@ export class DtBreadcrumbs implements AfterContentInit, OnDestroy {
       .subscribe(() => {
         // We need to notify the items whether they are the last one in the list,
         // because they use this information to determine their active state.
-        this._items.forEach((item, index) => item._lastItem = this._items.length - 1 === index);
+        this._items.forEach((item, index) => {
+          item._lastItem = this._items.length - 1 === index;
+        });
       });
   }
 
