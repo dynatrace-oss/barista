@@ -60,8 +60,8 @@ export class Docs {
 
   }
 
-  @HostListener('click', ['$event.target', '$event.button', '$event.ctrlKey', '$event.metaKey', '$event.altKey'])
-  onClick(eventTarget: HTMLElement, button: number, ctrlKey: boolean, metaKey: boolean, altKey: boolean): boolean {
+  @HostListener('click', ['$event.target', '$event.button', '$event.ctrlKey', '$event.metaKey'])
+  onClick(eventTarget: HTMLElement, button: number, ctrlKey: boolean, metaKey: boolean): boolean {
     // Deal with anchor clicks; climb DOM tree until anchor found (or null)
     let target: HTMLElement|null = eventTarget;
     while (target && !(target instanceof HTMLAnchorElement)) {
