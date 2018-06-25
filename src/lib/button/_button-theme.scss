@@ -18,7 +18,7 @@
       @if ($is-dark == true) {
         $default-color: $turquoise-500;
         $hover-color: $turquoise-400;
-        $active-color: $turquoise-400;
+        $active-color: $turquoise-300;
       }
       @else {
         $default-color: $turquoise-600;
