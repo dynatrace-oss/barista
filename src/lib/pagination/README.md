@@ -21,7 +21,7 @@ To use the dynatrace pagination component, use the `<dt-pagination>` element.
 
 *Example:*
 
-{{component-demo name="DefaultPaginationExampleComponent"}}
+<docs-source-example example="DefaultPaginationExampleComponent"></docs-source-example>
 
 ## Options & Properties
 
@@ -35,8 +35,8 @@ To use the dynatrace pagination component, use the `<dt-pagination>` element.
 
 ### Many pages
 
-{{component-demo name="ManyPaginationExampleComponent"}}
+<docs-source-example example="ManyPaginationExampleComponent"></docs-source-example>
 
 ### Dark theme
 
-{{component-demo name="DarkThemePaginationExampleComponent"}}
+<docs-source-example example="DarkThemePaginationExampleComponent"></docs-source-example>

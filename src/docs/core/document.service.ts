@@ -70,7 +70,7 @@ export class DocumentService {
       .pipe(
         map((response) => {
           const document: DocumentContents = {
-            content: this.generateHTML(response),
+            content: this._markdown.makeHtml(response),
             id,
           };
           return document;
@@ -79,17 +79,6 @@ export class DocumentService {
       .subscribe(subject);
 
     return subject.asObservable();
-  }
-
-  private generateHTML(content: string): string {
-    const regex = /({{component-demo name)=\".+?\"(}})/g;
-
-    const _tmp = content.replace(regex, (match: string, p1: string, p2: string): string => {
-      let replaced = match.replace(p1, '<docs-source-example example');
-      replaced = replaced.replace(p2, '></docs-source-example>');
-      return replaced;
-    });
-    return this._markdown.makeHtml(_tmp);
   }
 
   private getError(id: string, error: HttpErrorResponse): Observable<string> {

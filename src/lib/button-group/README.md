@@ -1,6 +1,6 @@
 # ButtonGroup
 
-{{component-demo name="ButtonGroupDefaultExampleComponent"}}
+<docs-source-example example="ButtonGroupDefaultExampleComponent"></docs-source-example>
 
 This component create a button group elements with Dynatrace styling.
 
@@ -56,20 +56,20 @@ To apply the dynatrace button group, use the `<dt-button-group>` and `<dt-button
 
 ### Group disabled
 
-{{component-demo name="ButtonGroupDisabledExampleComponent"}}
+<docs-source-example example="ButtonGroupDisabledExampleComponent"></docs-source-example>
 
 ### Item disabled
 
-{{component-demo name="ButtonGroupItemDisabledExampleComponent"}}
+<docs-source-example example="ButtonGroupItemDisabledExampleComponent"></docs-source-example>
 
 ### Error state
 
-{{component-demo name="ButtonGroupErrorExampleComponent"}}
+<docs-source-example example="ButtonGroupErrorExampleComponent"></docs-source-example>
 
 ### Interactive example
 
-{{component-demo name="ButtonGroupInteractiveExampleComponent"}}
+<docs-source-example example="ButtonGroupInteractiveExampleComponent"></docs-source-example>
 
 ### Dark example
 
-{{component-demo name="ButtonGroupDarkExampleComponent" themedark="true"}}
+<docs-source-example example="ButtonGroupDarkExampleComponent" themedark="true"></docs-source-example>

@@ -1,6 +1,6 @@
 # Tile
 
-{{component-demo name="DefaultTileExampleComponent"}}
+<docs-source-example example="DefaultTileExampleComponent"></docs-source-example>
 
 ## Imports
 
@@ -36,20 +36,20 @@ If only a `<dt-tile-title>` and no `<dt-tile-subtitle>` the tile will be rendere
 
 ### Disabled Tile
 
-{{component-demo name="DisabledTileExampleComponent"}}
+<docs-source-example example="DisabledTileExampleComponent"></docs-source-example>
 
 ### Small Tile
 
-{{component-demo name="SmallTileExampleComponent"}}
+<docs-source-example example="SmallTileExampleComponent"></docs-source-example>
 
 ### Main Tile
 
-{{component-demo name="MainTileExampleComponent"}}
+<docs-source-example example="MainTileExampleComponent"></docs-source-example>
 
 ### Recovered Tile
 
-{{component-demo name="RecoveredTileExampleComponent"}}
+<docs-source-example example="RecoveredTileExampleComponent"></docs-source-example>
 
 ### Error Tile
 
-{{component-demo name="ErrorTileExampleComponent"}}
+<docs-source-example example="ErrorTileExampleComponent"></docs-source-example>

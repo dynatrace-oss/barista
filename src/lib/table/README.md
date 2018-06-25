@@ -1,6 +1,6 @@
 # Table
 
-{{component-demo name="TableDefaultComponent"}}
+<docs-source-example example="TableDefaultComponent"></docs-source-example>
 
 ## Description
 
@@ -95,42 +95,42 @@ See the source code of any of the examples in this page to see all the pieces in
 
 You can customize the column width proportion with `[dtColumnProportion]`
 
-{{component-demo name="TableDifferentWidthComponent"}}
+<docs-source-example example="TableDifferentWidthComponent"></docs-source-example>
 
 ### Minimum Width
 
 You can customize the column minimun width with `[dtColumnWidth]`
 
-{{component-demo name="TableMinWidthComponent"}}
+<docs-source-example example="TableMinWidthComponent"></docs-source-example>
 
 ### Empty state
 
 You can pass an empty state to the table to be displayed when there's no data displayed using the `dtTableEmptyState` directive
 The recommended approach to use it is using the following components: `<dt-table-empty-state>`, `<dt-table-empty-state-image>`, `<dt-table-empty-state-title>`, `<dt-table-empty-state-message>`
 
-{{component-demo name="TableEmptyStateComponent"}}
+<docs-source-example example="TableEmptyStateComponent"></docs-source-example>
 
 Also you can pass custom content using the same `dtTableEmptyState`
 
-{{component-demo name="TableEmptyCustomStateComponent"}}
+<docs-source-example example="TableEmptyCustomStateComponent"></docs-source-example>
 
 ### Loading state
 
 You can mark the Table as loading using `[isLoading]` and pass the content to display with `dtTableLoadingState` directive
 
-{{component-demo name="TableLoadingComponent"}}
+<docs-source-example example="TableLoadingComponent"></docs-source-example>
 
 ### Observable as DataSource
 
 You can pass an Observable to the `[dataSource]` property
 
-{{component-demo name="TableObservableComponent"}}
+<docs-source-example example="TableObservableComponent"></docs-source-example>
 
 ### Dynamic Columns
 
 You can bind the column definitions to an array with a `*ngFor` directive
 
-{{component-demo name="TableDynamicColumnsComponent"}}
+<docs-source-example example="TableDynamicColumnsComponent"></docs-source-example>
 
 The DataSource type is an abstract class with two methods: connect and disconnect. Connect has to return an Observable that the table subscribes to. Disconnect does cleanup. Usin this class to wrap the data provided for the table allows for maximum flexibility and will be the responsible of a future sort, and filter functionalities
 

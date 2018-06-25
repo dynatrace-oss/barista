@@ -1,6 +1,6 @@
 # Input & Textarea
 
-{{component-demo name="DefaultInputExample"}}
+<docs-source-example example="DefaultInputExample"></docs-source-example>
 
 `dtInput` is a directive that applies dynatrace styling to native `<input>` and `<textarea>` elements and allows them to work with `<dt-form-field>`.
 
@@ -62,16 +62,16 @@ Any `dt-error` and `dt-hint` are automatically added to the input's `aria-descri
 
 ### Disabled & readonly
 
-{{component-demo name="DisabledReadonlyInputExample"}}
+<docs-source-example example="DisabledReadonlyInputExample"></docs-source-example>
 
 ### NgModel
 
-{{component-demo name="NgModelInputExample"}}
+<docs-source-example example="NgModelInputExample"></docs-source-example>
 
 ### Textarea
 
-{{component-demo name="TextareaInputExample"}}
+<docs-source-example example="TextareaInputExample"></docs-source-example>
 
 ### Dark
 
-{{component-demo name="DarkInputExample"}}
+<docs-source-example example="DarkInputExample"></docs-source-example>

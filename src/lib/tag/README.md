@@ -24,7 +24,7 @@ In addition, also other selectors can be used.
 
 *Example:*
 
-{{component-demo name="DefaultTagExampleComponent"}}
+<docs-source-example example="DefaultTagExampleComponent"></docs-source-example>
 
 ## Options & Properties
 
@@ -40,17 +40,17 @@ In addition, also other selectors can be used.
 
 ### Disabled state
 
-{{component-demo name="DisabledTagExampleComponent"}}
+<docs-source-example example="DisabledTagExampleComponent"></docs-source-example>
 
 ### Removable state
 
-{{component-demo name="RemovableTagExampleComponent"}}
+<docs-source-example example="RemovableTagExampleComponent"></docs-source-example>
 
 ### With key/category
 
-{{component-demo name="KeyTagExampleComponent"}}
+<docs-source-example example="KeyTagExampleComponent"></docs-source-example>
 
 ### Interactive example
 
-{{component-demo name="InteractiveTagExampleComponent"}}
+<docs-source-example example="InteractiveTagExampleComponent"></docs-source-example>
 
