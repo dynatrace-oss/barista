@@ -1,6 +1,6 @@
 # Chart
 
-{{component-demo name="ChartDefaultExampleComponent"}}
+<docs-source-example example="ChartDefaultExampleComponent"></docs-source-example>
 
 This dt-chart component wraps highcharts to be used within angular.
 
@@ -61,12 +61,12 @@ ViewportResizer notifies the dt-chart component about Viewport changes that trig
 
 ### Stream example
 
-{{component-demo name="ChartStreamExampleComponent"}}
+<docs-source-example example="ChartStreamExampleComponent"></docs-source-example>
 
 ### Theming example
 
-{{component-demo name="ChartThemingExampleComponent"}}
+<docs-source-example example="ChartThemingExampleComponent"></docs-source-example>
 
 ### Loading example
 
-{{component-demo name="ChartLoadingExampleComponent"}}
+<docs-source-example example="ChartLoadingExampleComponent"></docs-source-example>

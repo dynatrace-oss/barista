@@ -1,6 +1,6 @@
 # Inline Editor
 
-{{component-demo name="DefaultInlineEditorExample"}}
+<docs-source-example example="DefaultInlineEditorExample"></docs-source-example>
 
 `dt-inline-editor` is a directive that makes any text containing HTML element editable.
 
@@ -34,12 +34,12 @@ To apply, add the `dt-inline-editor` attribute to the HTML element.
 
 ### JavaScript API
 
-{{component-demo name="ApiInlineEditorExample"}}
+<docs-source-example example="ApiInlineEditorExample"></docs-source-example>
 
 ### Successful asynchronous operation
 
-{{component-demo name="SuccessfulInlineEditorExample"}}
+<docs-source-example example="SuccessfulInlineEditorExample"></docs-source-example>
 
 ### Failing asynchronous operation
 
-{{component-demo name="FailingInlineEditorExample"}}
+<docs-source-example example="FailingInlineEditorExample"></docs-source-example>
