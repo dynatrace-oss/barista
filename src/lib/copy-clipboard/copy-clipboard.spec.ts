@@ -1,15 +1,15 @@
-import {HttpClientModule} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {async, TestBed} from '@angular/core/testing';
+import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DtCopyClipboardModule, DtIconModule} from './index';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('DtCopyClipboard', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         DtCopyClipboardModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
       ],
       declarations: [TestApp, TestApp2],
@@ -18,37 +18,28 @@ describe('DtCopyClipboard', () => {
     TestBed.compileComponents();
   }));
 
-  /*
-  fakeasync causes problems due the xhr request which is triggered, when the checkmark will be visible
-  */
-  it('should trigger callback', (done: DoneFn) => {
+  it('should trigger callback', fakeAsync((): void => {
     const fixture = TestBed.createComponent(TestApp);
     fixture.detectChanges();
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-clipboard-btn-button'));
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
     fixture.detectChanges();
-    setTimeout(
-      (): void => {
-        fixture.detectChanges();
-        expect(fixture.componentInstance.copyEventCount).toBeGreaterThan(0, 'At least 1 copy must be called');
-        done();
-      },
-      1500);
-  });
+    tick(1500);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.copyEventCount).toBeGreaterThan(0, 'At least 1 copy must be called');
 
-  it('should not trigger callback', (done: DoneFn): void => {
+  }));
+
+  it('should not trigger callback', fakeAsync((): void => {
     const fixture = TestBed.createComponent(TestApp2);
     fixture.detectChanges();
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-clipboard-btn-button'));
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
-    setTimeout(
-      (): void => {
-        fixture.detectChanges();
-        expect(fixture.componentInstance.copyEventCount).toBe(0, 'disabled copy to clipboards container should not trigger');
-        done();
-      },
-      1500);
-  });
+    fixture.detectChanges();
+    tick(1500);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.copyEventCount).toBe(0, 'disabled copy to clipboards container should not trigger');
+  }));
 
 });
 
@@ -72,7 +63,7 @@ class TestApp {
 @Component({
   selector: 'dt-test-app2',
   template: `
-    <dt-copy-clipboard [enabled]="false" (copied)="increaseEventCount();">
+    <dt-copy-clipboard [disabled]="true" (copied)="increaseEventCount();">
       <input dtInput value="https://context.dynatrace.com"/>
       <dt-copy-clipboard-label>Copy</dt-copy-clipboard-label>
     </dt-copy-clipboard>`,

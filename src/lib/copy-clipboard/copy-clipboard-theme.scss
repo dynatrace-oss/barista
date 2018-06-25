@@ -1,0 +1,15 @@
+@import '../core/theming/theming';
+
+/* stylelint-disable selector-pseudo-element-no-unknown  */
+
+@mixin dt-theme-copy-clipboard($theme) {
+  $is-dark: map-get($dt-current-theme, 'is-dark');
+  @if ($is-dark == true) {
+    :host {
+      ::ng-deep .dt-input {
+        background-color: black;
+        color: $gray-400;
+      }
+    }
+  }
+}

@@ -12,9 +12,11 @@ import {
   DtExpandableSectionModule,
   DtExpandablePanelModule,
   DtTileModule,
+  DtInputModule,
   DtContextDialogModule,
   DtKeyValueListModule,
   DtPaginationModule,
+  DtCopyClipboardModule,
   DtIconModule,
   DtRadioModule,
   DtShowMoreModule,
@@ -33,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
 import { CheckboxUI } from './checkbox/checkbox-ui';
 import { SwitchUI } from './switch/switch-ui';
+import { CopyClipboardUi } from './copy-clipboard/copy-clipboard-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -42,10 +45,12 @@ import { SwitchUI } from './switch/switch-ui';
     DtButtonModule,
     DtButtonGroupModule,
     DtCheckboxModule,
+    DtInputModule,
     DtExpandablePanelModule,
     DtExpandableSectionModule,
     DtTileModule,
     DtContextDialogModule,
+    DtCopyClipboardModule,
     DtPaginationModule,
     DtRadioModule,
     DtShowMoreModule,
@@ -76,6 +81,7 @@ export class DynatraceAngularCompModule {}
     RadioUI,
     TileUI,
     ContextDialogUI,
+    CopyClipboardUi,
     KeyValueListUI,
     PaginationUI,
     ShowMoreUI,

@@ -7,15 +7,12 @@ import {
   Output,
   EventEmitter,
   ElementRef,
-  QueryList,
   ChangeDetectorRef,
-  ViewChildren, ViewChild,
+  ViewChild, ContentChildren, QueryList,
 } from '@angular/core';
 import {DtInput} from '../input/input';
 import {addCssClass, removeCssClass} from '../core/util';
-import {DtButton} from '../button';
-import {of} from 'rxjs';
-import {delay} from 'rxjs/operators';
+import {timer} from 'rxjs';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
 
@@ -32,15 +29,13 @@ const DT_COPY_CLIPBOARD_TIMER = 800;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtCopyClipboard  {
+export class DtCopyClipboard {
   constructor(public _cd: ChangeDetectorRef) {
-
   }
 
   @Output() copied: EventEmitter<void> = new EventEmitter();
   @ContentChild(DtInput, {read: ElementRef}) input: ElementRef;
   @ContentChild(DtInput) inputComponent: DtInput;
-  @ViewChildren('copyButton') copyButton: QueryList<DtButton>;
   @ViewChild('copyButton', {read: ElementRef}) copyButtonRef: ElementRef;
   // tslint:disable-next-line:no-unused-variable
   private _showIcon = false;
@@ -48,35 +43,38 @@ export class DtCopyClipboard  {
     return this._showIcon;
   }
 
-  private _enabled = true;
-  @Input() set enabled(value: boolean) {
-    this._enabled = value;
-    if (this.inputComponent) {
-      this.inputComponent.disabled = !value;
-    }
+  private _disabled = false;
+  get disabled(): boolean {
+    return this._disabled;
   }
-  get enabled(): boolean {
-    return this._enabled;
+
+  @Input() set disabled(value: boolean) {
+    this._disabled = value;
+    if (this.inputComponent) {
+      this.inputComponent.disabled = value;
+    }
   }
 
   copy2Clipboard(): void {
-    if (!this._enabled) {
+    const dtCopyClipboardSuccessful = 'dt-copy-clipboard-successful';
+    if (this._disabled) {
       return; // do nothing if not enabled
     }
     this._showIcon = true;
+
     if (this.input) {
-      addCssClass(this.input.nativeElement, 'dt-copy-clipboard-successful');
+      addCssClass(this.input.nativeElement, dtCopyClipboardSuccessful);
     }
     if (this.copyButtonRef) {
-      addCssClass(this.copyButtonRef.nativeElement, 'dt-copy-clipboard-successful');
+      addCssClass(this.copyButtonRef.nativeElement, dtCopyClipboardSuccessful);
     }
-    of(true).pipe(delay(DT_COPY_CLIPBOARD_TIMER)).subscribe((): void => {
+    timer(DT_COPY_CLIPBOARD_TIMER).subscribe((): void => {
       this._showIcon = false;
       if (this.input) {
-        removeCssClass(this.input.nativeElement, 'dt-copy-clipboard-successful');
+        removeCssClass(this.input.nativeElement, dtCopyClipboardSuccessful);
       }
       if (this.copyButtonRef) {
-        removeCssClass(this.copyButtonRef.nativeElement, 'dt-copy-clipboard-successful');
+        removeCssClass(this.copyButtonRef.nativeElement, dtCopyClipboardSuccessful);
       }
       this._cd.markForCheck();
     });
