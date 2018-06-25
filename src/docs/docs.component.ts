@@ -26,6 +26,7 @@ export class Docs {
     {name: 'Loading distractor', route: '/loading-distractor'},
     {name: 'Pagination', route: '/pagination'},
     {name: 'Progress circle', route: '/progress-circle'},
+    {name: 'Progress bar', route: '/progress-bar'},
     {name: 'Radio', route: '/radio'},
     {name: 'Show more', route: '/show-more'},
     {name: 'Switch', route: '/switch'},

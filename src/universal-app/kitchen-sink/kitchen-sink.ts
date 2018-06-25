@@ -20,6 +20,7 @@ import {
   DtSwitchModule,
   DtProgressCircleModule,
   DtBreadcrumbsModule,
+  DtProgressBarModule,
 } from '@dynatrace/angular-components';
 
 @Component({
@@ -55,6 +56,7 @@ export class KitchenSink {
     DtPaginationModule,
     DtSwitchModule,
     DtBreadcrumbsModule,
+    DtProgressBarModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],

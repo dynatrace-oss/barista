@@ -1,0 +1,24 @@
+@import '../style/font-mixins';
+@import '../core/style/variables';
+@import '../core/theming/theming';
+@import './progress-bar-theme';
+
+:host {
+	display: flex;
+	align-items: stretch;
+	min-height: 8px;
+	background-color: $gray-200;
+	box-sizing: border-box;
+}
+
+:host.dt-progress-bar-right {
+  justify-content: flex-end;
+}
+
+.dt-progress-bar-progress {
+	transition: width ease-in-out 350ms;
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-progress-bar($dt-current-theme);
+}
