@@ -19,6 +19,7 @@ import {
   DtRadioModule,
   DtShowMoreModule,
   DtSwitchModule,
+  DtProgressBarModule,
 } from '@dynatrace/angular-components';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
@@ -33,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
 import { CheckboxUI } from './checkbox/checkbox-ui';
 import { SwitchUI } from './switch/switch-ui';
+import { ProgressBarUI } from './progress-bar/progress-bar-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -51,6 +53,7 @@ import { SwitchUI } from './switch/switch-ui';
     DtShowMoreModule,
     DtKeyValueListModule,
     DtSwitchModule,
+    DtProgressBarModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -80,6 +83,7 @@ export class DynatraceAngularCompModule {}
     PaginationUI,
     ShowMoreUI,
     SwitchUI,
+    ProgressBarUI,
   ],
   bootstrap: [UIApp],
 })
