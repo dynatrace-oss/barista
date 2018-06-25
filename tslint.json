@@ -5,7 +5,8 @@
   ],
   "rulesDirectory": [
     "./tools/tslint-rules/",
-    "node_modules/codelyzer"
+    "node_modules/codelyzer",
+    "node_modules/rxjs-tslint"
   ],
   "rules": {
     "ban": [
@@ -91,6 +92,10 @@
       "single",
       "avoid-escape"
     ],
+    "rxjs-collapse-imports": true,
+    "rxjs-pipeable-operators-only": true,
+    "rxjs-no-static-observable-methods": true,
+    "rxjs-proper-imports": true,
     "semicolon": true,
     // Turning it of so it does not throw on default value assertion like this: variant = value || defaultVariant
     // There is also an open issue on this one: https://github.com/palantir/tslint/issues/3279
