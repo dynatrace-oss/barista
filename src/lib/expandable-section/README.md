@@ -26,7 +26,7 @@ class MyModule {}
 
 To apply the dynatrace expandable panel, use the `<dt-expandable-section>` element. Example:
 
-{{component-demo name="DefaultExpandableSectionExampleComponent"}}
+<docs-source-example example="DefaultExpandableSectionExampleComponent"></docs-source-example>
 
 | Attribute | Description |
 | --- | --- |
@@ -50,12 +50,12 @@ To apply the dynatrace expandable panel, use the `<dt-expandable-section>` eleme
 
 ### Open state by default
 
-{{component-demo name="OpenExpandableSectionExampleComponent"}}
+<docs-source-example example="OpenExpandableSectionExampleComponent"></docs-source-example>
 
 ### Disabled
 
-{{component-demo name="DisabledExpandableSectionExampleComponent"}}
+<docs-source-example example="DisabledExpandableSectionExampleComponent"></docs-source-example>
 
 ### Interactive
 
-{{component-demo name="InteractiveExpandableSectionExampleComponent"}}
+<docs-source-example example="InteractiveExpandableSectionExampleComponent"></docs-source-example>

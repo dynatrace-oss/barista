@@ -1,6 +1,6 @@
 # Icon
 
-{{component-demo name="DefaultIconExample"}}
+<docs-source-example example="DefaultIconExample"></docs-source-example>
 
 `<dt-icon>` provides an easy way to use SVG (not font or bitmap) icons in your app.
 It does so by directly inlining the SVG content into the page as a child of the component (rather than using a tag or a div background image).
@@ -92,4 +92,4 @@ Based on this, `<dt-icon>` is marked as `aria-hidden="true"` by default, but thi
 
 Below you can see all icons that are currently shipped within the `@dynatrace/dt-iconpack` package. You can use these names as the name property for the dt-icon component
 
-{{component-demo name="AllIconExample"}}
+<docs-source-example example="AllIconExample"></docs-source-example>

@@ -1,12 +1,12 @@
 # Loading distractor & loading spinner
 
-{{component-demo name="DefaultLoadingDistractorExampleComponent"}}
+<docs-source-example example="DefaultLoadingDistractorExampleComponent"></docs-source-example>
 
 `<dt-loading-spinner>` and `<dt-loading-distractor>` are a circular indicators of activity (eg. loading).
 
 ## Progress spinner
 
-{{component-demo name="SpinnerLoadingDistractorExampleComponent"}}
+<docs-source-example example="SpinnerLoadingDistractorExampleComponent"></docs-source-example>
 
 **NOTE:**
 

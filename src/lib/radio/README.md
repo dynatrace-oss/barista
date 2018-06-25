@@ -1,6 +1,6 @@
 # Radio
 
-{{component-demo name="DefaultRadioExample"}}
+<docs-source-example example="DefaultRadioExample"></docs-source-example>
 
 `<dt-radio-button>` provides the same functionality as a native enhanced with styling and animations.
 
@@ -16,7 +16,7 @@ Individual radio-buttons inside of a radio-group will inherit the name of the gr
 
 All radio-buttons with the same name comprise a set from which only one may be selected at a time.
 
-{{component-demo name="NameGroupingRadioExample"}}
+<docs-source-example example="NameGroupingRadioExample"></docs-source-example>
 
 ## Angular forms
 
@@ -31,4 +31,4 @@ Radio button groups should be given a meaningful label via `aria-label` or `aria
 
 ### Dark Example
 
-{{component-demo name="DarkRadioExample"}}
+<docs-source-example example="DarkRadioExample"></docs-source-example>

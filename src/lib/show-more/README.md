@@ -2,7 +2,7 @@
 
 This component create a show more pagination widget.
 
-{{component-demo name="DefaultShowMoreExampleComponent"}}
+<docs-source-example example="DefaultShowMoreExampleComponent"></docs-source-example>
 
 ## Imports
 
@@ -39,14 +39,14 @@ To apply the dynatrace show more component, use the `<dt-show-more>` element wit
 
 ### Without text
 
-{{component-demo name="NoTextShowMoreExampleComponent"}}
+<docs-source-example example="NoTextShowMoreExampleComponent"></docs-source-example>
 
 ### Interactive example
 
-{{component-demo name="InteractiveShowMoreExampleComponent"}}
+<docs-source-example example="InteractiveShowMoreExampleComponent"></docs-source-example>
 
 ### Dark theme
 
-{{component-demo name="DarkThemeShowMoreExampleComponent"}}
+<docs-source-example example="DarkThemeShowMoreExampleComponent"></docs-source-example>
 
 

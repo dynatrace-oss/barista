@@ -1,6 +1,6 @@
 # Breadcrumbs
 
-{{component-demo name="DefaultBreadcrumbsExampleComponent"}}
+<docs-source-example example="DefaultBreadcrumbsExampleComponent"></docs-source-example>
 
 Breadcrumbs are used to navigate and to indicate the currently viewed page.
 
@@ -36,12 +36,12 @@ class MyModule {}
 
 ### Listening to an observable
 
-{{component-demo name="ObservableBreadcrumbsExampleComponent"}}
+<docs-source-example example="ObservableBreadcrumbsExampleComponent"></docs-source-example>
 
 ### External
 
-{{component-demo name="ExternalBreadcrumbsExampleComponent"}}
+<docs-source-example example="ExternalBreadcrumbsExampleComponent"></docs-source-example>
 
 ### Dark
 
-{{component-demo name="DarkBreadcrumbsExampleComponent"}}
+<docs-source-example example="DarkBreadcrumbsExampleComponent"></docs-source-example>
