@@ -1,10 +1,10 @@
-<a *ngIf="_displayMode === _displayModes.ExternalLink" [href]="href" class="dt-breadcrumb-item dt-breadcrumb-link">
+<a *ngIf="external && !_lastItem" [href]="href" class="dt-breadcrumb-item dt-breadcrumb-link">
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
-<a *ngIf="_displayMode === _displayModes.RouterLink" [routerLink]="href" queryParamsHandling="merge" class="dt-breadcrumb-item dt-breadcrumb-link">
+<a *ngIf="!external && !_lastItem" [routerLink]="href" queryParamsHandling="merge" class="dt-breadcrumb-item dt-breadcrumb-link">
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
-<span *ngIf="_displayMode === _displayModes.Active" class="dt-breadcrumb-item dt-breadcrumb-non-clickable">
+<span *ngIf="_lastItem" class="dt-breadcrumb-item dt-breadcrumb-non-clickable">
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </span>
 
