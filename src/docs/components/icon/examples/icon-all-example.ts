@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { DtIconType } from '@dynatrace/dt-iconpack';
+import { environment } from '../../../environments/environment';
 import { Viewport } from './viewport';
 
 @Component({
@@ -58,6 +59,10 @@ export class AllIconExample {
 
   icons$: Observable<string[]>;
   constructor(private _httpClient: HttpClient) {
-    this.icons$ = this._httpClient.get('assets/icons/metadata.json').pipe(map((res: { icons: string[] }) => res.icons));
+    this.icons$ = this._httpClient
+      .get(`${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/metadata.json`)
+      .pipe(
+        map((res: { icons: string[] }) => res.icons)
+      );
   }
 }

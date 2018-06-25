@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
-import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtIconModule } from '@dynatrace/angular-components';
-import { DocsIconComponent } from './docs-icon.component';
-import { DefaultIconExample } from './examples/icon-default-example';
-import { AllIconExample, DocsAsyncIcon } from './examples/icon-all-example';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+
+import { DtIconModule } from '@dynatrace/angular-components';
+import { UiModule } from '../../ui/ui.module';
+import { DocsIconComponent } from './docs-icon.component';
+import { AllIconExample, DocsAsyncIcon } from './examples/icon-all-example';
+import { DefaultIconExample } from './examples/icon-default-example';
 
 const EXAMPLES = [
   DefaultIconExample,
@@ -18,7 +19,7 @@ const EXAMPLES = [
     CommonModule,
     UiModule,
     HttpClientModule,
-    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
+    DtIconModule,
   ],
   declarations: [
     ...EXAMPLES,
