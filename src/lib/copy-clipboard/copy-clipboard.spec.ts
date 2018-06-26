@@ -30,6 +30,20 @@ describe('DtCopyClipboard', () => {
 
   }));
 
+  it('should set checkmark to visible and visible afterwards', fakeAsync((): void => {
+    const fixture = TestBed.createComponent(TestApp);
+    fixture.detectChanges();
+    const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-clipboard-btn-button'));
+    buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    tick(200);
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('.dt-button-icon')) !== null).toBeTruthy('Icon should be visible');
+    tick(2000);
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('.dt-button-icon'))).toBeNull('Icon should be invisible');
+  }));
+
   it('should not trigger callback', fakeAsync((): void => {
     const fixture = TestBed.createComponent(TestApp2);
     fixture.detectChanges();

@@ -12,8 +12,7 @@
     margin-right: 8px;
   }
 
-  ::ng-deep .dt-copy-clipboard-successful,
-  ::ng-deep :not(.dt-form-field-infix) > input.dt-input:focus:not([disabled]) {
+  ::ng-deep  .dt-copy-clipboard-successful.dt-input:not([disabled]) {
     border: 1px solid $green-500;
     box-shadow: none;
   }
@@ -26,8 +25,8 @@
       background-color: $green-500;
     }
   }
-  .dt-copy-clipboard-input-wrap textarea {
-    box-shadow: none;
+  ::ng-deep button.dt-button.dt-copy-clipboard-successful {
+    background-color: $green-500;
     border: 1px solid $green-500;
   }
 }

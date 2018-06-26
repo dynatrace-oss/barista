@@ -8,11 +8,12 @@ import {
   EventEmitter,
   ElementRef,
   ChangeDetectorRef,
-  ViewChild, ContentChildren, QueryList,
+  ViewChild, OnInit, OnDestroy,
 } from '@angular/core';
 import {DtInput} from '../input/input';
 import {addCssClass, removeCssClass} from '../core/util';
-import {timer} from 'rxjs';
+import {timer, Observable} from 'rxjs';
+import {Subscription} from 'rxjs/internal/Subscription';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
 
@@ -33,6 +34,7 @@ export class DtCopyClipboard {
   constructor(public _cd: ChangeDetectorRef) {
   }
 
+  private _timer: Subscription;
   @Output() copied: EventEmitter<void> = new EventEmitter();
   @ContentChild(DtInput, {read: ElementRef}) input: ElementRef;
   @ContentChild(DtInput) inputComponent: DtInput;
@@ -59,30 +61,31 @@ export class DtCopyClipboard {
     const dtCopyClipboardSuccessful = 'dt-copy-clipboard-successful';
     if (this._disabled) {
       return; // do nothing if not enabled
-    }
+    } /* then */
     this._showIcon = true;
 
     if (this.input) {
       addCssClass(this.input.nativeElement, dtCopyClipboardSuccessful);
-    }
+    } /* then */
     if (this.copyButtonRef) {
       addCssClass(this.copyButtonRef.nativeElement, dtCopyClipboardSuccessful);
-    }
-    timer(DT_COPY_CLIPBOARD_TIMER).subscribe((): void => {
+    } /* then */
+
+    this._timer = timer(DT_COPY_CLIPBOARD_TIMER).subscribe((): void => {
       this._showIcon = false;
       if (this.input) {
         removeCssClass(this.input.nativeElement, dtCopyClipboardSuccessful);
-      }
+      } /* then */
       if (this.copyButtonRef) {
         removeCssClass(this.copyButtonRef.nativeElement, dtCopyClipboardSuccessful);
-      }
+      } /* then */
       this._cd.markForCheck();
+      this._timer.unsubscribe();
     });
     if (this.input) {
       this.input.nativeElement.select();
       document.execCommand('copy');
-    }
-    /* then */
+    } /* then */
     this.copied.emit();
   }
 }
