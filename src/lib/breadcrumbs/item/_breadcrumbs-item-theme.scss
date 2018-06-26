@@ -7,7 +7,7 @@
   $active-color: dt-get-theme-color($palette, 'active');
 
   :host {
-    .link {
+    .dt-breadcrumb-link {
       &, &:visited {
         background-color: $default-color;
 
@@ -33,7 +33,7 @@
       }
     }
 
-    .non-clickable {
+    .dt-breadcrumb-non-clickable {
       $bg-color: get-color($theme-name, 500);
       @if($bg-color) {
         background-color: $bg-color;
