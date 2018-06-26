@@ -1,4 +1,4 @@
-import {$, browser, by, element, ExpectedConditions, protractor} from 'protractor';
+import {browser, by, element, protractor} from 'protractor';
 
 describe('CopyClipboard UI Test', () => {
   beforeEach(() => {

@@ -8,12 +8,11 @@ import {
   EventEmitter,
   ElementRef,
   ChangeDetectorRef,
-  ViewChild, OnInit, OnDestroy,
+  ViewChild,
 } from '@angular/core';
 import {DtInput} from '../input/input';
 import {addCssClass, removeCssClass} from '../core/util';
-import {timer, Observable} from 'rxjs';
-import {Subscription} from 'rxjs/internal/Subscription';
+import {timer, Subscription} from 'rxjs';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
 
