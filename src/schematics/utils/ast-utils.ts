@@ -137,7 +137,7 @@ export function addDynatraceSubPackageImport(
   sourceFile: ts.SourceFile,
   options: DtComponentOptions
 ): InsertChange {
-  return addImport(sourcePath, sourceFile, options.moduleName, `'@dynatrace/angular-components/${dasherize(options.name)}'`);
+  return addImport(sourcePath, sourceFile, options.moduleName, `'@dynatrace/angular-components/${dasherize(options.name)}';`);
 }
 
 export type NgModuleDefinition = 'imports' | 'declarations' | 'exports';
