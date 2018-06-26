@@ -35,6 +35,7 @@ export class DtCopyClipboard {
 
   private _timer: Subscription;
   @Output() copied: EventEmitter<void> = new EventEmitter();
+  @Output() copyFailed: EventEmitter<void> = new EventEmitter();
   @ContentChild(DtInput, {read: ElementRef}) input: ElementRef;
   @ContentChild(DtInput) inputComponent: DtInput;
   @ViewChild('copyButton', {read: ElementRef}) copyButtonRef: ElementRef;
@@ -61,6 +62,13 @@ export class DtCopyClipboard {
     if (this._disabled) {
       return; // do nothing if not enabled
     } /* then */
+    if (this.input) {
+      this.input.nativeElement.select();
+      if (!document.execCommand('copy')) {
+        this.copyFailed.emit();
+        return;
+      }
+    } /* then */
     this._showIcon = true;
 
     if (this.input) {
@@ -81,10 +89,7 @@ export class DtCopyClipboard {
       this._cd.markForCheck();
       this._timer.unsubscribe();
     });
-    if (this.input) {
-      this.input.nativeElement.select();
-      document.execCommand('copy');
-    } /* then */
+
     this.copied.emit();
   }
 }
