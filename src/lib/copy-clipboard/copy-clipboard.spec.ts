@@ -38,7 +38,9 @@ describe('DtCopyClipboard', () => {
     fixture.detectChanges();
     tick(200);
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('.dt-button-icon')) !== null).toBeTruthy('Icon should be visible');
+
+    const checkIfIconExist = fixture.debugElement.query(By.css('.dt-button-icon'));
+    expect(checkIfIconExist).not.toBeNull('Icon should be visible');
     tick(2000);
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.dt-button-icon'))).toBeNull('Icon should be invisible');
