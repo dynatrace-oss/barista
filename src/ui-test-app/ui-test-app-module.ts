@@ -37,7 +37,7 @@ import { SwitchUI } from './switch/switch-ui';
  */
 @NgModule({
   exports: [
-    DtButtonModule,
+
     DtButtonGroupModule,
     DtCheckboxModule,
     DtExpandablePanelModule,
@@ -55,13 +55,14 @@ export class DynatraceAngularCompModule {}
 
 @NgModule({
   imports: [
+    DtButtonModule,
     BrowserModule,
     RouterModule.forRoot(UI_TEST_APP_ROUTES),
     DynatraceAngularCompModule,
     NoopAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
+    DtIconModule.forRoot({svgIconLocation: '/assets/icons/{{name}}.svg'}),
   ],
   declarations: [
     UIApp,
@@ -79,6 +80,7 @@ export class DynatraceAngularCompModule {}
     ShowMoreUI,
     SwitchUI,
   ],
+  entryComponents: [UIApp],
   bootstrap: [UIApp],
 })
 export class UiTestAppModule { }
