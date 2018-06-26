@@ -21,8 +21,8 @@ import {
   mixinDisabled,
   CanDisable,
   replaceCssClass
-} from '../core/index';
-import { DtIcon } from '../icon/index';
+} from '@dynatrace/angular-components/core';
+import { DtIcon } from '@dynatrace/angular-components/icon';
 import { startWith } from 'rxjs/operators';
 import { Subscription, NEVER } from 'rxjs';
 
