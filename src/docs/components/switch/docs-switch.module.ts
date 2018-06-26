@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { DefaultSwitchExampleComponent } from './examples/default-switch-example.component';
-import { DocsSwitchComponent } from './docs-switch.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtSwitchModule, DtThemingModule } from '@dynatrace/angular-components';
 import { DarkThemeSwitchExampleComponent } from './examples/dark-theme-switch-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultSwitchExampleComponent,
   DarkThemeSwitchExampleComponent,
 ];
@@ -20,13 +19,12 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsSwitchComponent,
-  ],
-  exports: [
-    DocsSwitchComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsSwitchModule {
