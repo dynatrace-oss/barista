@@ -32,7 +32,7 @@ function addExampleInFile(
   return (host: Tree) => {
     const modulePath = path.join('src', 'docs', 'components', options.component, `docs-${options.component}.${file}.ts`);
     const sourceFile = getSourceFile(host, modulePath);
-    const importName = `${strings.classify(options.name)}${strings.classify(options.component)}ExampleComponent`;
+    const importName = options.exampleComponentName;
     const dasherizeName = strings.dasherize(options.name);
     const dasherizeComponent = strings.dasherize(options.component);
     const importLocation = `'./examples/${dasherizeName}-${dasherizeComponent}-example.component';`;
@@ -64,16 +64,16 @@ function addExampleInFile(
 /**
  * Adds a new exampleComponent in html file
  */
-function addExampleInHTML(options: DtExampleOptions): Rule {
+function addExampleInReadme(options: DtExampleOptions): Rule {
   return (tree: Tree) => {
-    const filePath = path.join('src', 'docs', 'components', options.component, `docs-${options.component}.component.html`);
+    const filePath = path.join('src', 'lib', options.component, 'README.md');
     const content = tree.read(filePath);
     if (!content) {
       return;
     }
-    tree.overwrite(filePath, `${content}
-        \n<h3>${strings.classify(options.name)}</h3>
-        <docs-source-example [example]="examples.${strings.classify(options.name)}"></docs-source-example>`);
+    tree.overwrite(filePath, content +
+        `\n\n### ${strings.classify(options.name)}\n\n` +
+        `<docs-source-example example="${options.exampleComponentName}"></docs-source-example>`);
     return tree;
   };
 }
@@ -84,25 +84,19 @@ export default function(options: DtExampleOptions): Rule {
   }
   options.component = strings.decamelize(options.component);
   options.name = strings.decamelize(options.name);
+  options.exampleComponentName = `${strings.classify(options.name)}${strings.classify(options.component)}ExampleComponent`;
   const moduleFile = fs.existsSync(path.join(
     'src',
     'docs',
     'components',
     options.component,
     `docs-${options.component}.module.ts`));
-  const componentFile = fs.existsSync(path.join(
+  const mdFile = fs.existsSync(path.join(
     'src',
-    'docs',
-    'components',
+    'lib',
     options.component,
-    `docs-${options.component}.component.ts`));
-  const htmlFile = fs.existsSync(path.join(
-    'src',
-    'docs',
-    'components',
-    options.component,
-    `docs-${options.component}.component.html`));
-  if (!moduleFile || !componentFile || !htmlFile) {
+    'README.md'));
+  if (!moduleFile || !mdFile) {
     throw new SchematicsException(`Some files needed do not exist or component is missing.`);
   }
   const templateSource = apply(url('./files'), [
@@ -113,7 +107,6 @@ export default function(options: DtExampleOptions): Rule {
   return chain([
     mergeWith(templateSource),
     addExampleInFile(options, 'module', ts.SyntaxKind.VariableDeclaration),
-    addExampleInFile(options, 'component', ts.SyntaxKind.PropertyDeclaration),
-    addExampleInHTML(options),
+    addExampleInReadme(options),
   ]);
 }
