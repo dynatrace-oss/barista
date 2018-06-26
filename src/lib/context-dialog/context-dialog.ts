@@ -26,7 +26,7 @@ import {
   DtLoggerFactory,
   mixinTabIndex,
   mixinDisabled,
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 import { DtContextDialogTrigger} from './context-dialog-trigger';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialogue');

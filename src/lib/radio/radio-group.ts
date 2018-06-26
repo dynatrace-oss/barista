@@ -10,7 +10,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CanDisable } from '../core/index';
+import { CanDisable } from '@dynatrace/angular-components/core';
 import { DtRadioButton, DtRadioChange } from './radio';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 

@@ -8,9 +8,8 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 import {
   CanDisable,
-  mixinDisabled, mixinTabIndex
-} from '../core/index';
-import { HasTabIndex } from '../core/common-behaviours/index';
+  mixinDisabled, mixinTabIndex, HasTabIndex
+} from '@dynatrace/angular-components/core';
 
 @Directive({
   selector: `dt-show-less-label`,
