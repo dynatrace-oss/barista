@@ -14,7 +14,6 @@ import {
 import * as path from 'path';
 import * as ts from 'typescript';
 import {
-  addDynatraceAngularComponentsImport,
   addImport,
   findNodes,
   getIndentation,
