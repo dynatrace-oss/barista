@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DocsAlertComponent } from './docs-alert.component';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import {DtAlertModule, DtButtonModule, DtThemingModule} from '@dynatrace/angular-components';
