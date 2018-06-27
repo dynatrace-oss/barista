@@ -108,10 +108,10 @@ export class DocsViewerComponent implements OnDestroy {
       this._componentExamples.forEach((components) => examples.push(...components));
     }
     this._embeddedComponents.forEach((comp) => {
-      const embeddedComponentElements = this.nextViewContainer.querySelectorAll('docs-source-example[example]');
+      const embeddedComponentElements = [].slice.call(this.nextViewContainer.querySelectorAll('docs-source-example[example]'));
 
       // tslint:disable-next-line:no-any
-      for (const element of embeddedComponentElements as any as HTMLElement[]) {
+      for (const element of embeddedComponentElements as HTMLElement[]) {
         const name = element.getAttribute('example');
         const componentType = examples.find((example) => example.name === name);
         if (componentType) {
