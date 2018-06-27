@@ -1,4 +1,4 @@
-import { DtLogger, DtLoggerFactory } from '../core/index';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtChart');
 
