@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class LocationService {
@@ -9,12 +10,12 @@ export class LocationService {
   private readonly _urlParser = document.createElement('a');
   private _urlSubject = new ReplaySubject<string>(1);
 
-  currentUrl = this._urlSubject.pipe(map((url) => this.stripSlashes(url)));
+  currentUrl = this._urlSubject.pipe(map((url) => this.stripSlashes(this.cleanUrl(url))));
   currentPath = this.currentUrl.pipe(map((url) => (url.match(/[^?#]*/) || [])[0]));
 
   constructor(private _location: Location) {
     this._urlSubject.next(_location.path(true));
-    this._location.subscribe((state) => { this._urlSubject.next(state.url || ''); });
+    this._location.subscribe((state) => { this._urlSubject.next(this.cleanUrl(state.url as string) || ''); });
   }
 
   go(url: string | null | undefined): void {
@@ -71,6 +72,11 @@ export class LocationService {
 
     this.go(relativeUrl);
     return false;
+  }
+
+  private cleanUrl(url: string): string {
+    const path = environment.deployUrl.replace(window.location.origin, '');
+    return url.replace(path, '');
   }
 
   private stripSlashes(url: string): string {

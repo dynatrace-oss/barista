@@ -4,8 +4,9 @@ import { Observable, of } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { Converter, setFlavor } from 'showdown';
+import { environment } from '../environments/environment';
 
-export const DOC_CONTENT_URL_PREFIX = 'assets/doc/';
+export const DOC_CONTENT_URL_PREFIX = `${environment.deployUrl.replace(/\/+$/, '')}/assets/doc/`;
 
 const FILE_NOT_FOUND_ERROR_CONTENTS = `
   <h1>File not found Error 404</h1>
@@ -55,7 +56,8 @@ export class DocumentService {
 
   private getDocument(url: string): Observable<DocumentContents> {
     const id = url || 'index';
-
+    // console.log(environment.deployUrl)
+    // console.log(url)
     if (!this._cache.has(id)) {
       this._cache.set(id, this.fetchDocument(id));
     }
