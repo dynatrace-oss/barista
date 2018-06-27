@@ -5,9 +5,8 @@ import {
   Input, ChangeDetectorRef, Output, EventEmitter, ElementRef,
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import { DtProgressChange, HasProgressValues, mixinHasProgress} from '../progress-base/progress-base';
-import {mixinColor} from '../core/common-behaviours/color';
-import {CanColor} from '../core/common-behaviours';
+import { DtProgressChange, HasProgressValues, mixinHasProgress} from '@dynatrace/angular-components/progress-base';
+import { mixinColor, CanColor } from '@dynatrace/angular-components/core';
 
 export type DtProgressBarChange = DtProgressChange;
 
