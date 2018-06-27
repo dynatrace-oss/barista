@@ -1,14 +1,26 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation, ChangeDetectorRef, ElementRef,
+  ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter, ElementRef,
 } from '@angular/core';
-import {DtProgressBase, DtProgressChange} from '../progress-base/progress-base';
+import {
+  DtProgressChange,
+  HasProgressValues,
+  mixinHasProgress
+} from '../progress-base/progress-base';
+import {mixinColor} from '../core';
+import {CanColor} from '../core/common-behaviours';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */
 const CIRCLE_CIRCUMFERENCE = 328;
 
 export type DtProgressCircleChange = DtProgressChange;
+
+export class DtProgressCircleBase {
+  constructor(public _elementRef: ElementRef) { }
+}
+
+export const _DtProgressCircle = mixinHasProgress(mixinColor(DtProgressCircleBase, 'main'));
 
 @Component({
   moduleId: module.id,
@@ -17,29 +29,36 @@ export type DtProgressCircleChange = DtProgressChange;
   styleUrls: ['progress-circle.scss'],
   exportAs: 'dtProgressCircle',
   host: {
-    class: 'dt-progress-circle',
-    role: 'progressbar',
+    'class': 'dt-progress-circle',
+    'role': 'progressbar',
+    '[attr.aria-valuemin]': 'min',
+    '[attr.aria-valuemax]': 'max',
+    '[attr.aria-valuenow]': 'value',
   },
-  inputs: ['color'],
+  inputs: ['color', 'value', 'min', 'max'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtProgressCircle extends DtProgressBase<DtProgressCircleChange> {
+export class DtProgressCircle extends _DtProgressCircle implements CanColor, HasProgressValues {
+
+  @Output()
+  readonly valueChange = new EventEmitter<DtProgressCircleChange>();
 
   /** Dash offset base on the values percentage */
   _dashOffset: number = CIRCLE_CIRCUMFERENCE;
 
-  constructor(
-    elementRef: ElementRef,
-    _changeDetectorRef: ChangeDetectorRef
-  ) {
-    super(elementRef, _changeDetectorRef);
+  constructor(private _changeDetectorRef: ChangeDetectorRef, public _elementRef: ElementRef) {
+    super(_elementRef);
   }
 
   /** Updates all view parameters */
-  protected _calculateViewParams(): void {
-    this._dashOffset = this._calculateDashOffset(this._calculatePercentage(this.value));
-    super._calculateViewParams();
+  _updateValues(): void {
+    super._updateValues();
+    this._dashOffset = this._calculateDashOffset(this.percent);
+
+    // Since this also modifies the percentage and dashOffset,
+    // we need to let the change detection know.
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Calculates the dash offset of the progress circle based on the calculated percent */
@@ -48,7 +67,7 @@ export class DtProgressCircle extends DtProgressBase<DtProgressCircleChange> {
     return CIRCLE_CIRCUMFERENCE - (CIRCLE_CIRCUMFERENCE / 100 * percent);
   }
 
-  protected _emitValueChangeEvent(oldValue: number, newValue: number): void {
+  _emitValueChangeEvent(oldValue: number, newValue: number): void {
     this.valueChange.emit({oldValue, newValue});
   }
 }
