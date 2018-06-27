@@ -37,7 +37,7 @@ import { SwitchUI } from './switch/switch-ui';
  */
 @NgModule({
   exports: [
-
+    DtButtonModule,
     DtButtonGroupModule,
     DtCheckboxModule,
     DtExpandablePanelModule,
@@ -55,7 +55,6 @@ export class DynatraceAngularCompModule {}
 
 @NgModule({
   imports: [
-    DtButtonModule,
     BrowserModule,
     RouterModule.forRoot(UI_TEST_APP_ROUTES),
     DynatraceAngularCompModule,
