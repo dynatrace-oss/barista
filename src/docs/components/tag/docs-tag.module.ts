@@ -6,7 +6,6 @@ import { DtTagModule, DtButtonModule } from '@dynatrace/angular-components';
 import {DisabledTagExampleComponent} from './examples/disabled-tag-example.component';
 import {KeyTagExampleComponent} from './examples/key-tag-example.component';
 import {InteractiveTagExampleComponent} from './examples/interactive-tag-example.component';
-import {RouterModule} from '@angular/router';
 import {RemovableTagExampleComponent} from './examples/removable-tag-example.component';
 
 export const EXAMPLES = [
@@ -21,7 +20,6 @@ export const EXAMPLES = [
   imports: [
     CommonModule,
     UiModule,
-    RouterModule,
     DtButtonModule,
     DtTagModule,
   ],
