@@ -4,13 +4,13 @@ import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtProgressBarModule, DtIconModule, DtButtonGroupModule, DtButtonModule } from '@dynatrace/angular-components';
 import { DefaultProgressBarExampleComponent } from './examples/default-progress-bar-example.component';
-import { WithRtlProgressBarExampleComponent } from './examples/with-rtl-progress-bar-example.component';
+import { RightAlignedProgressBarExampleComponent } from './examples/right-aligned-progress-bar-example.component';
 import { WithColorProgressBarExampleComponent } from './examples/with-color-progress-bar-example.component';
 import { ChangeProgressBarExampleComponent } from './examples/change-progress-bar-example.component';
 
 const EXAMPLES = [
   DefaultProgressBarExampleComponent,
-  WithRtlProgressBarExampleComponent,
+  RightAlignedProgressBarExampleComponent,
   WithColorProgressBarExampleComponent,
   ChangeProgressBarExampleComponent,
 ];
