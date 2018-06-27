@@ -15,6 +15,7 @@ import {addCssClass, removeCssClass} from '../core/util';
 import {timer, Subscription} from 'rxjs';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
+const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-clipboard-successful';
 
 @Component({
   moduleId: module.id,
@@ -57,10 +58,9 @@ export class DtCopyClipboard implements AfterContentInit {
     }
   }
 
-  copy2Clipboard(): void {
-    const dtCopyClipboardSuccessful = 'dt-copy-clipboard-successful';
+  copyToClipboard(): void {
     if (this._disabled) {
-      return; // do nothing if not enabled
+      return;
     } /* then */
     if (this.input) {
       this.input.nativeElement.select();
@@ -72,25 +72,31 @@ export class DtCopyClipboard implements AfterContentInit {
     this._showIcon = true;
 
     if (this.input) {
-      addCssClass(this.input.nativeElement, dtCopyClipboardSuccessful);
+      addCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     } /* then */
     if (this.copyButtonRef) {
-      addCssClass(this.copyButtonRef.nativeElement, dtCopyClipboardSuccessful);
+      addCssClass(this.copyButtonRef.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     } /* then */
 
     this._timer = timer(DT_COPY_CLIPBOARD_TIMER).subscribe((): void => {
-      this._showIcon = false;
-      if (this.input) {
-        removeCssClass(this.input.nativeElement, dtCopyClipboardSuccessful);
-      } /* then */
-      if (this.copyButtonRef) {
-        removeCssClass(this.copyButtonRef.nativeElement, dtCopyClipboardSuccessful);
-      } /* then */
-      this._cd.markForCheck();
-      this._timer.unsubscribe();
+      this._resetCopyState();
     });
 
     this.copied.emit();
+  }
+
+  private _resetCopyState() {
+    this._showIcon = false;
+    if (this.input) {
+      removeCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+    }
+    /* then */
+    if (this.copyButtonRef) {
+      removeCssClass(this.copyButtonRef.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+    }
+    /* then */
+    this._cd.markForCheck();
+    this._timer.unsubscribe();
   }
 
   ngAfterContentInit(): void {
