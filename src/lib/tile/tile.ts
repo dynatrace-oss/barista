@@ -14,7 +14,7 @@ import {
   HasElementRef,
   CanColor,
   mixinColor
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 
 /** Title of a tile, needed as it's used as a selector in the API. */
 @Directive({

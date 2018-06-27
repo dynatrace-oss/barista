@@ -5,22 +5,20 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
-import {
-  DtButtonModule,
-  DtButtonGroupModule,
-  DtCheckboxModule,
-  DtExpandableSectionModule,
-  DtExpandablePanelModule,
-  DtTileModule,
-  DtContextDialogModule,
-  DtKeyValueListModule,
-  DtPaginationModule,
-  DtIconModule,
-  DtRadioModule,
-  DtShowMoreModule,
-  DtSwitchModule,
-  DtProgressBarModule,
-} from '@dynatrace/angular-components';
+import { DtButtonModule } from '@dynatrace/angular-components/button';
+import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
+import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
+import { DtExpandableSectionModule } from '@dynatrace/angular-components/expandable-section';
+import { DtExpandablePanelModule } from '@dynatrace/angular-components/expandable-panel';
+import { DtTileModule } from '@dynatrace/angular-components/tile';
+import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
+import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
+import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtRadioModule } from '@dynatrace/angular-components/radio';
+import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
+import { DtSwitchModule } from '@dynatrace/angular-components/switch';
+import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
 import { ExpandableSectionUi } from './expandable-section/expandable-section-ui';

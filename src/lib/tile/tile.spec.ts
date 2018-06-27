@@ -1,5 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
-import { DtTileModule } from './index';
+import { DtTileModule } from '@dynatrace/angular-components';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 describe('DtTile', () => {
