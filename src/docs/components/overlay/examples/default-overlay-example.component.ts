@@ -16,10 +16,10 @@ import { Component } from '@angular/core';
 @Component({
   moduleId: module.id,
   template: `
-    <button [dtOverlayTrigger]="overlayId1">Open</button>
-    <dt-overlay-container #overlayId1>
+    <button [dtOverlay]="overlay">Open</button>
+    <ng-template #overlay>
       <p>Overlay content 1</p>
-    </dt-overlay-container>
+    </ng-template>
   `,
 })
 export class DefaultOverlayExampleComponent {
