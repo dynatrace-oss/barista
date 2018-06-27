@@ -4,7 +4,7 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {DtSwitchModule, DtSwitch, DtSwitchChange} from './index';
+import {DtSwitchModule, DtSwitch, DtSwitchChange} from '@dynatrace/angular-components';
 
 describe('DtSwitch', () => {
   let fixture: ComponentFixture<any>;

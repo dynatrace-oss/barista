@@ -9,9 +9,11 @@
     "target": "es5",
     "types": ["jasmine"],
     "paths": {
-      "@dynatrace/angular-components": ["dist/lib"],
+      "@dynatrace/angular-components": [
+        "."
+      ],
       "@dynatrace/angular-components/*": [
-        "src/lib/*"
+        "./*"
       ]
     },
     "rootDir": "..",

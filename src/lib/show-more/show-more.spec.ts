@@ -1,8 +1,7 @@
 import {async, TestBed} from '@angular/core/testing';
 import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtShowMoreModule, DtShowMore} from './index';
-import {DtIconModule} from '../icon/index';
+import {DtShowMoreModule, DtShowMore, DtIconModule} from '@dynatrace/angular-components';
 import {HttpClientModule, HttpXhrBackend} from '@angular/common/http';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
