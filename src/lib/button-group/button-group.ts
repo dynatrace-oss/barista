@@ -21,7 +21,7 @@ import {
   mixinColor,
   mixinDisabled,
   mixinTabIndex,
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 
 export class DtButtonGroupBase { }
 

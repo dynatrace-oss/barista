@@ -1,7 +1,7 @@
 
 import {async, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
-import {DtKeyValueListModule} from './index';
+import {DtKeyValueListModule} from '@dynatrace/angular-components';
 
 describe('DtKeyValueList', () => {
   beforeEach(async(() => {

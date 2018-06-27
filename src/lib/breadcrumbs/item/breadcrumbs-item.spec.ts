@@ -2,9 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { DtBreadcrumbsModule } from '../breadcrumbs-module';
-import { DtBreadcrumbsItem } from './breadcrumbs-item';
+import { DtBreadcrumbsModule, DtBreadcrumbsItem } from '@dynatrace/angular-components';
 
 describe('DtBreadcrumbsItem', () => {
 

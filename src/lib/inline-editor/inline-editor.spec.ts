@@ -6,8 +6,11 @@ import { TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtInlineEditor, DtInlineEditorModule } from './index';
-import { DtIconModule } from '../icon/index';
+import {
+  DtInlineEditor,
+  DtInlineEditorModule,
+  DtIconModule,
+} from '@dynatrace/angular-components';
 import { Observable } from 'rxjs';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 
