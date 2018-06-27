@@ -8,7 +8,7 @@ import {
   EventEmitter,
   ElementRef,
   ChangeDetectorRef,
-  ViewChild,
+  ViewChild, AfterContentInit,
 } from '@angular/core';
 import {DtInput} from '../input/input';
 import {addCssClass, removeCssClass} from '../core/util';
@@ -29,7 +29,7 @@ const DT_COPY_CLIPBOARD_TIMER = 800;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtCopyClipboard {
+export class DtCopyClipboard implements AfterContentInit {
   constructor(public _cd: ChangeDetectorRef) {
   }
 
@@ -91,5 +91,11 @@ export class DtCopyClipboard {
     });
 
     this.copied.emit();
+  }
+
+  ngAfterContentInit(): void {
+    if (this.inputComponent) {
+      this.inputComponent.readonly = true;
+    }
   }
 }
