@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AsyncSubject, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { Converter, setFlavor } from 'showdown';
@@ -64,26 +64,27 @@ export class DocumentService {
 
   private fetchDocument(id: string): Observable<DocumentContents> {
     const requestPath = `${DOC_CONTENT_URL_PREFIX}${id}/README.md`;
-    const subject = new AsyncSubject<DocumentContents>();
 
-    this._http.get(requestPath, { responseType: 'text' })
+    return this._http.get(requestPath, { responseType: 'text' })
       .pipe(
-        map((response) => {
+        map((response: string) => {
           const document: DocumentContents = {
             content: this._markdown.makeHtml(response),
             id,
           };
           return document;
         }),
-        catchError((error: HttpErrorResponse) => this.getError(id, error)))
-      .subscribe(subject);
-
-    return subject.asObservable();
+        catchError((error: HttpErrorResponse) => this.getError(id, error))
+      );
   }
 
-  private getError(id: string, error: HttpErrorResponse): Observable<string> {
+  private getError(id: string, error: HttpErrorResponse): Observable<DocumentContents> {
     this._cache.delete(id);
     // tslint:disable-next-line:no-magic-numbers
-    return of(error.status === 404 ? FILE_NOT_FOUND_ERROR_CONTENTS : FETCHING_ERROR_CONTENTS);
+    const errorMessage = error.status === 404 ? FILE_NOT_FOUND_ERROR_CONTENTS : FETCHING_ERROR_CONTENTS;
+    return of ({
+      id: 'error',
+      content: errorMessage,
+    });
   }
 }
