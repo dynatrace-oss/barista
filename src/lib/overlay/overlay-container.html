@@ -1,0 +1,23 @@
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayHasBackdrop]="hasBackdrop"
+  (backdropClick)="close()"
+  (attach)="onAttach()"
+  (detach)="onDetach()"
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOpen | async"
+  [cdkConnectedOverlayOffsetX]="0">
+  <div
+    class="dt-overlay-container-panel"
+    [attr.aria-labelledby]="ariaLabel"
+    #panel
+    role="overlay"
+    dtTheme=":dark"
+    >
+    <div class="dt-overlay-container-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</ng-template>
+
+<!-- cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop" -->
