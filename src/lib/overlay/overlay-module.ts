@@ -6,6 +6,7 @@ import { DtButtonModule, } from '../button/index';
 import { DtThemingModule } from '../theming/index';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayTrigger } from './overlay-trigger';
+import { PortalModule } from '@angular/cdk/portal';
 
 const EXPORTED_DECLARATIONS = [
   DtOverlayContainer,
@@ -18,6 +19,7 @@ const EXPORTED_DECLARATIONS = [
     DtButtonModule,
     DtThemingModule,
     OverlayModule,
+    PortalModule,
     A11yModule,
   ],
   exports: [
@@ -26,5 +28,6 @@ const EXPORTED_DECLARATIONS = [
   declarations: [
     ...EXPORTED_DECLARATIONS,
   ],
+  entryComponents: [DtOverlayContainer],
 })
 export class DtOverlayModule {}

@@ -6,7 +6,7 @@ $panel-padding: 12px;
 $overlay-max-width: 620px;
 $overlay-min-width: 36px;
 
-.dt-overlay-container-panel {
+:host {
   @include main-font();
   background-color: white;
   border: 1px solid $turquoise-600;
