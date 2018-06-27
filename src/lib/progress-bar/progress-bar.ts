@@ -2,12 +2,20 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewEncapsulation,
-  Input, ChangeDetectorRef, ElementRef,
+  Input, ChangeDetectorRef, Output, EventEmitter, ElementRef,
 } from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {DtProgressBase, DtProgressChange} from '../progress-base/progress-base';
+import { DtProgressChange, HasProgressValues, mixinHasProgress} from '../progress-base/progress-base';
+import {mixinColor} from '../core/common-behaviours/color';
+import {CanColor} from '../core/common-behaviours';
 
 export type DtProgressBarChange = DtProgressChange;
+
+export class DtProgressBarBase {
+  constructor(public _elementRef: ElementRef) { }
+}
+
+export const _DtProgressBar = mixinHasProgress(mixinColor(DtProgressBarBase, 'main'));
 
 @Component({
   moduleId: module.id,
@@ -18,31 +26,40 @@ export type DtProgressBarChange = DtProgressChange;
   host: {
     'class': 'dt-progress-bar',
     'role': 'progressbar',
-    '[class.dt-progress-bar-right]': 'right',
+    '[class.dt-progress-bar-right]': 'rightAligned',
+    '[attr.aria-valuemin]': 'min',
+    '[attr.aria-valuemax]': 'max',
+    '[attr.aria-valuenow]': 'value',
   },
-  inputs: ['color'],
+  inputs: ['color', 'value', 'min', 'max'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtProgressBar extends DtProgressBase<DtProgressBarChange> {
+export class DtProgressBar extends _DtProgressBar implements CanColor, HasProgressValues {
 
-  /** If the progress bar is used in RTL mode */
+  /** If the progress bar element is aligned to the right */
   @Input()
-  get right(): boolean { return this._right; }
-  set right(v: boolean) {
-    this._right = coerceBooleanProperty(v);
+  get rightAligned(): boolean { return this._rightAligned; }
+  set rightAligned(v: boolean) {
+    this._rightAligned = coerceBooleanProperty(v);
   }
 
-  private _right = false;
+  @Output()
+  readonly valueChange = new EventEmitter<DtProgressBarChange>();
 
-  constructor(
-    elementRef: ElementRef,
-    _changeDetectorRef: ChangeDetectorRef
-  ) {
-    super(elementRef, _changeDetectorRef);
+  private _rightAligned = false;
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef, public _elementRef: ElementRef) {
+    super(_elementRef);
   }
 
-  protected _emitValueChangeEvent(oldValue: number, newValue: number): void {
+  /** Updates all view parameters */
+  _updateValues(): void {
+    super._updateValues();
+    this._changeDetectorRef.markForCheck();
+  }
+
+  _emitValueChangeEvent(oldValue: number, newValue: number): void {
     this.valueChange.emit({oldValue, newValue});
   }
 }
