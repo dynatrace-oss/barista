@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
-import { DebugElement } from '@angular/core/src/debug/debug_node';
+import { Component, DebugElement } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtExpandableSection, DtExpandableSectionModule } from './index';
+import { DtExpandableSection, DtExpandableSectionModule } from '@dynatrace/angular-components';
 
 describe('DtExpandableSection', () => {
   beforeEach(async(() => {
