@@ -1,55 +1,30 @@
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Output
-} from '@angular/core';
-import {DtOverlay} from './overlay';
-import {CdkOverlayOrigin} from '@angular/cdk/overlay';
+import { Directive, Input, ElementRef } from '@angular/core';
+import { DtOverlayService } from './overlay';
+import { DtOverlayConfig } from './overlay-config';
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { OverlayRef } from '@angular/cdk/overlay';
+import { DtOverlayContainer } from './overlay-container';
 
 @Directive({
   selector: '[dtOverlayTrigger]',
   exportAs: 'dtOverlayTrigger',
   host: {
-    'class': 'dt-overlay-trigger',
-    '(mouseenter)': 'overlay && overlay.appear()',
-    '(mouseleave)': 'overlay && overlay.closeOnHoverOut()',
-    '(mousemove)': 'overlay && overlay.move($event)',
-    '(click)': 'overlay && overlay.getConfig().enableClick && overlay.stay()',
-  },
+    '(mouseenter)': 'overlayRef && dtOverlayService.openHover()',
+    '(mouseleave)': 'overlayRef && dtOverlayService.closeHover()',
+    '(click)': 'overlayRef && dtOverlayService.stay(true, this)',
+  }
 })
-export class DtOverlayTrigger extends CdkOverlayOrigin implements OnDestroy {
-
-  private _overlay: DtOverlay | undefined;
+export class DtOverlayTrigger extends CdkOverlayOrigin {
 
   @Input('dtOverlayTrigger')
-  get overlay(): DtOverlay | undefined { return this._overlay; }
-  set overlay(value: DtOverlay | undefined) {
-    if (value !== this._overlay) {
-      this._unregisterFromOverlay();
-      if (value) {
-        value.registerTrigger(this);
-      }
-      this._overlay = value;
-    }
+  set overlayId(value: DtOverlayContainer) {
+    value.registerTrigger(this);
   }
+  @Input() dtOverlayConfig: DtOverlayConfig;
 
-  @Output() readonly openChange = new EventEmitter<void>();
-
-  constructor(elementRef: ElementRef) {
+  constructor(public dtOverlayService: DtOverlayService, elementRef: ElementRef) {
     super(elementRef);
   }
 
-  ngOnDestroy(): void {
-    this._unregisterFromOverlay();
-  }
-
-  _unregisterFromOverlay(): void {
-    if (this._overlay) {
-      this._overlay.unregisterTrigger(this);
-      this._overlay = undefined;
-    }
-  }
+  public overlayRef: OverlayRef = this.dtOverlayService.create(this, this.dtOverlayConfig);
 }
