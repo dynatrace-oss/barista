@@ -8,8 +8,7 @@ import {
   HasProgressValues,
   mixinHasProgress
 } from '../progress-base/progress-base';
-import {mixinColor} from '../core';
-import {CanColor} from '../core/common-behaviours';
+import { mixinColor, CanColor } from '@dynatrace/angular-components/core';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */
 const CIRCLE_CIRCUMFERENCE = 328;

@@ -29,7 +29,7 @@ import {
   CanDisable,
   mixinTabIndex,
   mixinDisabled,
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 
 // Increasing integer for generating unique ids for switch components.
 let nextUniqueId = 0;

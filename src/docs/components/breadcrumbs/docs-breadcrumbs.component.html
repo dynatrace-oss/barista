@@ -41,19 +41,13 @@ class MyModule {{"{}"}}
     <td><code>[href]</code></td>
     <td>string | any[] | undefined</td>
     <td>undefined</td>
-    <td>Value passed to the <code>routerLink</code> attribute underneath, accepts the same values as the directive. Element will be item as active automatically if the href attribute matches the current route.</td>
+    <td>Value passed to the <code>routerLink</code> attribute underneath, accepts the same values as the directive.</td>
   </tr>
   <tr>
     <td><code>[external]</code></td>
     <td>boolean | undefined</td>
     <td>false</td>
     <td>If empty or truthy parameter given, the <code>href</code> attribute will not be interpreted as internal router link but rather as en external href</td>
-  </tr>
-  <tr>
-    <td><code>[active]</code></td>
-    <td>boolean | undefined</td>
-    <td>undefined</td>
-    <td>Renders a text or a link if the parameter is true or false, respectively. If the parameter is not set, <code>dt-breadcrumbs-item</code> automatically determines, whether it should be rendered as an active by comparing the passed href value with the current route. If the href parameter is not set, item is marked as active</td>
   </tr>
   </tbody>
 </table>
@@ -65,12 +59,6 @@ class MyModule {{"{}"}}
 
 <h3>External</h3>
 <docs-source-example [example]="examples.external"></docs-source-example>
-
-<h3>Active state automatically retrieved from Router</h3>
-<docs-source-example [example]="examples.autoActive"></docs-source-example>
-
-<h3>Automatic active state overridden</h3>
-<docs-source-example [example]="examples.OverrideActive"></docs-source-example>
 
 <h3>Dark</h3>
 <docs-source-example [example]="examples.dark"></docs-source-example>
