@@ -62,6 +62,7 @@ System.config({
     '@dynatrace/angular-components/key-value-list': 'dist/lib/bundles/dynatrace-angular-components-key-value-list.umd.js',
     '@dynatrace/angular-components/loading-distractor': 'dist/lib/bundles/dynatrace-angular-components-loading-distractor.umd.js',
     '@dynatrace/angular-components/pagination': 'dist/lib/bundles/dynatrace-angular-components-pagination.umd.js',
+    '@dynatrace/angular-components/progress-bar': 'dist/lib/bundles/dynatrace-angular-components-progress-bar.umd.js',
     '@dynatrace/angular-components/progress-circle': 'dist/lib/bundles/dynatrace-angular-components-progress-circle.umd.js',
     '@dynatrace/angular-components/radio': 'dist/lib/bundles/dynatrace-angular-components-radio.umd.js',
     '@dynatrace/angular-components/show-more': 'dist/lib/bundles/dynatrace-angular-components-show-more.umd.js',

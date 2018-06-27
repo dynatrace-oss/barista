@@ -7,7 +7,7 @@ import {
   DtProgressChange,
   HasProgressValues,
   mixinHasProgress
-} from '../progress-base/progress-base';
+} from '@dynatrace/angular-components/progress-base';
 import { mixinColor, CanColor } from '@dynatrace/angular-components/core';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */

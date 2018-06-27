@@ -1,5 +1,5 @@
 import {coerceNumberProperty} from '@angular/cdk/coercion';
-import {Constructor} from '../core/common-behaviours/constructor';
+import {Constructor} from '@dynatrace/angular-components/core';
 
 export interface DtProgressChange {
   newValue: number;
