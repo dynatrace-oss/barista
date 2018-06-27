@@ -17,8 +17,8 @@ import {
   ErrorStateMatcher,
   mixinErrorState,
   CanUpdateErrorState
-} from '../core/index';
-import { DtFormFieldControl } from '../form-field/index';
+} from '@dynatrace/angular-components/core';
+import { DtFormFieldControl } from '@dynatrace/angular-components/form-field';
 import { Subject } from 'rxjs';
 
 let nextUniqueId = 0;
