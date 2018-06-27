@@ -3,7 +3,7 @@ import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
-import { DtRadioButton, DtRadioChange, DtRadioGroup, DtRadioModule } from './index';
+import { DtRadioButton, DtRadioChange, DtRadioGroup, DtRadioModule } from '@dynatrace/angular-components';
 
 // tslint:disable:no-any no-magic-numbers
 

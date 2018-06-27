@@ -2,25 +2,23 @@ import {Component, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ServerModule} from '@angular/platform-server';
 import { RouterModule } from '@angular/router';
-import {
-  DtAlertModule,
-  DtButtonModule,
-  DtCheckboxModule,
-  DtLoadingDistractorModule,
-  DtTileModule,
-  DtCardModule,
-  DtContextDialogModule,
-  DtButtonGroupModule,
-  DtTableModule,
-  DtTagModule,
-  DtIconModule,
-  DtPaginationModule,
-  DtRadioModule,
-  DtShowMoreModule,
-  DtSwitchModule,
-  DtProgressCircleModule,
-  DtBreadcrumbsModule,
-} from '@dynatrace/angular-components';
+import { DtAlertModule } from '@dynatrace/angular-components/alert';
+import { DtButtonModule } from '@dynatrace/angular-components/button';
+import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
+import { DtTileModule } from '@dynatrace/angular-components/tile';
+import { DtCardModule } from '@dynatrace/angular-components/card';
+import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
+import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
+import { DtTableModule } from '@dynatrace/angular-components/table';
+import { DtTagModule } from '@dynatrace/angular-components/tag';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
+import { DtRadioModule } from '@dynatrace/angular-components/radio';
+import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
+import { DtSwitchModule } from '@dynatrace/angular-components/switch';
+import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-circle';
+import { DtBreadcrumbsModule } from '@dynatrace/angular-components/breadcrumbs';
 
 @Component({
   selector: 'dt-kitchen-sink',

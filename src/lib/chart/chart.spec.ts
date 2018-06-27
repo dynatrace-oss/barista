@@ -6,8 +6,9 @@ import {
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
-} from './index';
-import { DtThemingModule, CHART_COLOR_PALETTES } from '../theming/index';
+  DtThemingModule,
+  CHART_COLOR_PALETTES,
+} from '@dynatrace/angular-components';
 import { BehaviorSubject } from 'rxjs';
 
 describe('DtChart', () => {

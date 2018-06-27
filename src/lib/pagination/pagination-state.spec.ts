@@ -5,7 +5,7 @@ import {
   paginationStateLeftExtendedPlus, paginationStateMiddle,
   paginationStateOutside, paginationStateRightExtended,
   paginationStateRightExtendedPlus
-} from './index';
+} from './pagination-state';
 
 describe('pagination states', () => {
 
