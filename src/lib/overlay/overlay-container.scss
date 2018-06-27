@@ -6,7 +6,7 @@ $panel-padding: 12px;
 $overlay-max-width: 620px;
 $overlay-min-width: 36px;
 
-.dt-overlay-panel {
+.dt-overlay-container-panel {
   @include main-font();
   background-color: white;
   border: 1px solid $turquoise-600;
@@ -20,30 +20,4 @@ $overlay-min-width: 36px;
   transform-origin: top right;
   max-width: $overlay-max-width;
   min-width: $overlay-min-width;
-}
-
-.dt-overlay-trigger[hidden] {
-  display: none;
-}
-
-// this very specific selector is necessary to override the emulated button styles
-[dt-icon-button].dt-overlay-close-trigger {
-  border: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  &:hover {
-    background-color: $gray-700;
-  }
-}
-
-.dt-overlay-panel-bottom {
-  transform-origin: bottom right;
-  padding: $panel-padding $panel-padding $panel-padding-btn $panel-padding;
-}
-
-.dt-oerlay-panel-bottom .dt-overlay-close-trigger {
-  top: auto;
-  bottom: 0;
 }
