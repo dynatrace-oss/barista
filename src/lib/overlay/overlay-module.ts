@@ -4,15 +4,12 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { A11yModule } from '@angular/cdk/a11y';
 import { DtButtonModule, } from '../button/index';
 import { DtThemingModule } from '../theming/index';
-import { DtOverlay } from './overlay';
+import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayTrigger } from './overlay-trigger';
-import { DtOverlayConfig } from './overlay-config';
-import { DtIconModule } from '../icon/index';
 
 const EXPORTED_DECLARATIONS = [
-  DtOverlay,
+  DtOverlayContainer,
   DtOverlayTrigger,
-  DtOverlayConfig,
 ];
 
 @NgModule({
@@ -22,7 +19,6 @@ const EXPORTED_DECLARATIONS = [
     DtThemingModule,
     OverlayModule,
     A11yModule,
-    DtIconModule,
   ],
   exports: [
     ...EXPORTED_DECLARATIONS,
