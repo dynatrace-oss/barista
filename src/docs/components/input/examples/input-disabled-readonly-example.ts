@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -10,6 +11,7 @@ import { Component } from '@angular/core';
     <p><button dt-button (click)="isReadonly = !isReadonly">Toggle readonly</button></p>
   `,
 })
+@OriginalClassName('DisabledReadonlyInputExample')
 export class DisabledReadonlyInputExample {
   isDisabled = false;
   isReadonly = false;
