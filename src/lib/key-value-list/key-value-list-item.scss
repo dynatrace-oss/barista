@@ -13,7 +13,6 @@
   color: $gray-500;
   line-height: 28px;
   text-align: left;
-  z-index: -1;
   float: left;
   position: relative;
 }
@@ -22,7 +21,6 @@
   position:absolute;
   left:0;
   bottom: 9px;
-  z-index: -1;
   width: 50000px;
   border-bottom: 1px dotted $gray-300;
 }
@@ -45,4 +43,5 @@
 .dt-key-value-list-item-value span, .dt-key-value-list-item-key span {
   background-color: white;
   z-index: 1;
+  position: relative;
 }
