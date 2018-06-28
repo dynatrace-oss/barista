@@ -57,8 +57,6 @@ export class DocumentService {
   private getDocument(url: string): Observable<DocumentContents> {
     const basePath = environment.deployUrl.replace(/^\/|\/$/g, '');
     const id = url.replace(new RegExp(`^${basePath}`), '') || 'index';
-    // console.log(environment.deployUrl)
-    // console.log(url)
     if (!this._cache.has(id)) {
       this._cache.set(id, this.fetchDocument(id));
     }
