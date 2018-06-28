@@ -10,6 +10,6 @@ import { Component } from '@angular/core';
     <dt-radio-button value="glenlivet">Glenlivet</dt-radio-button>
   </dt-radio-group>
   `,
-  styles: ['dt-radio-button { display: block; } dt-radio-button + dt-radio-button { margin-top: 8px; }'],
+  styles: ['dt-radio-button { display: block; } dt-radio-button + dt-radio-button { margin-top: 20px; }'],
 })
 export class DefaultRadioExample { }
