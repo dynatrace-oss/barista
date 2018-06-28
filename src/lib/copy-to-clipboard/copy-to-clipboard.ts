@@ -10,9 +10,11 @@ import {
   ChangeDetectorRef,
   ViewChild, AfterContentInit,
 } from '@angular/core';
-import {DtInput} from '../input/input';
-import {addCssClass, removeCssClass} from '../core/util';
-import {timer, Subscription} from 'rxjs';
+
+import { DtInput } from '@dynatrace/angular-components/input';
+
+import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
+import { timer, Subscription } from 'rxjs';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
 const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
@@ -61,22 +63,21 @@ export class DtCopyToClipboard implements AfterContentInit {
   copyToClipboard(): void {
     if (this._disabled) {
       return;
-    } /* then */
+    }
     if (this.input) {
       this.input.nativeElement.select();
       if (!document.execCommand('copy')) {
         this.copyFailed.emit();
         return;
       }
-    } /* then */
+    }
     this._showIcon = true;
-
     if (this.input) {
       addCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
-    } /* then */
+    }
     if (this.copyButtonRef) {
       addCssClass(this.copyButtonRef.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
-    } /* then */
+    }
 
     this._timer = timer(DT_COPY_CLIPBOARD_TIMER).subscribe((): void => {
       this._resetCopyState();
@@ -90,11 +91,9 @@ export class DtCopyToClipboard implements AfterContentInit {
     if (this.input) {
       removeCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     }
-    /* then */
     if (this.copyButtonRef) {
       removeCssClass(this.copyButtonRef.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     }
-    /* then */
     this._cd.markForCheck();
     this._timer.unsubscribe();
   }

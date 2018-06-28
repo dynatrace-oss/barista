@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { DtInputModule } from '../input/input-module';
-import { DtButtonModule } from '../button/button-module';
-import { DtIconModule } from '../icon/icon-module';
+import { DtInputModule } from '@dynatrace/angular-components/input';
+import { DtButtonModule } from '@dynatrace/angular-components/button';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { CommonModule } from '@angular/common';
 import {
   DtCopyToClipboard,
