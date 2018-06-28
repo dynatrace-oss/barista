@@ -4,10 +4,18 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: `
   <div dtTheme=":dark" class="dark">
-    <div><dt-checkbox checked>Check me</dt-checkbox></div>
-    <div><dt-checkbox [indeterminate]="true">Indeterminate</dt-checkbox></div>
-    <div><dt-checkbox disabled checked>Disabled</dt-checkbox></div>
+    <dt-checkbox checked>Check me</dt-checkbox>
+    <dt-checkbox [indeterminate]="true">Indeterminate</dt-checkbox>
+    <dt-checkbox disabled checked>Disabled</dt-checkbox>
   </div>
   `,
+  styles: [`
+    dt-checkbox {
+      display: block;
+    }
+    dt-checkbox + dt-checkbox {
+      margin-top: 20px;
+    }
+  `],
 })
 export class DarkCheckboxExample { }
