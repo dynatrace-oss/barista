@@ -5,6 +5,7 @@ import { InteractionButtonExampleComponent } from './examples/button-interaction
 import { VariantButtonExampleComponent } from './examples/button-variant-example.component';
 import { ColorButtonExampleComponent } from './examples/button-color-example.component';
 import { AllButtonExampleComponent } from './examples/button-all-example.component';
+import { DarkButtonExampleComponent } from './examples/button-dark-example.component';
 import { DocsButtonComponent } from './docs-button.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
@@ -20,6 +21,7 @@ const EXAMPLES = [
   ColorButtonExampleComponent,
   IconsButtonExampleComponent,
   IconOnlyButtonExampleComponent,
+  DarkButtonExampleComponent,
   AllButtonExampleComponent,
 ];
 
