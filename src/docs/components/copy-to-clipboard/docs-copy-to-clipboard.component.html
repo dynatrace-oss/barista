@@ -1,0 +1,80 @@
+<h1>Copy clipboard</h1>
+
+<p>
+  The <code>&lt;dt-copy-to-clipboard&gt;</code> creates a container including a textarea, input or a label ready
+  to be copied to the clipboard.
+  It is possible to disable the entire copy clipboard container.
+</p>
+<p>
+  Using <code>&lt;dt-copy-to-clipboard-label></code> defines the button content (e.g. text like "click here to copy").
+</p>
+
+<h2>Imports</h2>
+<p>You have to import the <code>DtCopyToClipboardModule</code> when you want to use the <code>dt-copy-to-clipboard</code>:</p>
+<!-- @formatter:off -->
+<pre><code snippet language="typescript">@NgModule({{"{"}}
+  imports: [
+  DtCopyClipboardModule,
+  ],
+{{"}"}})
+class MyModule {{"{}"}}
+</code></pre>
+<!-- @formatter:on -->
+
+<h3>Options</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>enabled</code></td>
+    <td>boolean</td>
+    <td>If <code>true</code> (= default) the included button and textarea are disabled, no copy is possible</td>
+  </tr>
+  <tr>
+    <td><code>copied</code></td>
+    <td>event</td>
+    <td>Callback that is triggered after a successful copy</td>
+  </tr>
+
+  </tbody>
+</table>
+
+<h3>Default copy</h3>
+<p>
+  This showcase demonstrates an example use case with a regular textarea a button.
+</p>
+<docs-source-example [example]="examples.default"></docs-source-example>
+
+
+<h3>Callback copy</h3>
+<p>
+  This showcase demonstrates an example use case with a callback trigger.
+</p>
+<docs-source-example [example]="examples.callback"></docs-source-example>
+
+<h3>Disabled copy</h3>
+<p>
+  In this showcase the the copy to clipboard is disabled. if you trigger toggle the copy 2 clipboard is enabled and
+  you the text can be copied.
+</p>
+<docs-source-example [example]="examples.disabled"></docs-source-example>
+
+<h3>Dark copy</h3>
+<p>
+  A dark themed textarea based copy to clipboard component.
+</p>
+<docs-source-example [example]="examples.dark"></docs-source-example>
+
+<h3>Context Dialog</h3>
+<p>
+  A copy to clipboad component included within a context dialog. if the copy was performed the dialog gets closed.
+</p>
+<docs-source-example [example]="examples.context"></docs-source-example>
+
+

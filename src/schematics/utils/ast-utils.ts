@@ -6,6 +6,7 @@ import {
 import { InsertChange } from './change';
 import { strings } from '@angular-devkit/core';
 import { DtComponentOptions } from '../dt-component/schema';
+import { dasherize } from '@angular-devkit/core/src/utils/strings';
 
 export function getSourceFile(host: Tree, path: string): ts.SourceFile {
   const buffer = host.read(path);
@@ -129,6 +130,14 @@ export function addImport(
   }
   const toInsert = `\nimport { ${importName} } from ${importLocation}`;
   return new InsertChange(sourcePath, pos, toInsert);
+}
+
+export function addDynatraceSubPackageImport(
+  sourcePath: string,
+  sourceFile: ts.SourceFile,
+  options: DtComponentOptions
+): InsertChange {
+  return addImport(sourcePath, sourceFile, options.moduleName, `'@dynatrace/angular-components/${dasherize(options.name)}';`);
 }
 
 export type NgModuleDefinition = 'imports' | 'declarations' | 'exports';

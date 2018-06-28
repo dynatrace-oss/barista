@@ -1,0 +1,21 @@
+@import '../core/theming/theming';
+
+/* stylelint-disable selector-pseudo-element-no-unknown  */
+
+@mixin dt-theme-copy-to-clipboard($theme) {
+  $is-dark: map-get($dt-current-theme, 'is-dark');
+  @if ($is-dark == true) {
+    :host {
+      ::ng-deep .dt-input {
+        background-color: black;
+        color: $gray-400;
+      }
+      ::ng-deep button.dt-button.dt-copy-clipboard-successful,
+      ::ng-deep button.dt-button.dt-copy-clipboard-successful:hover:not([disabled]) {
+        background-color: $green-500;
+        border: 1px solid $green-500;
+        box-shadow:none;
+      }
+    }
+  }
+}

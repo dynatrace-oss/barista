@@ -31,7 +31,7 @@ import {
   CanDisable,
   HasTabIndex,
   addCssClass
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 import { Platform } from '@angular/cdk/platform';
 
 /**

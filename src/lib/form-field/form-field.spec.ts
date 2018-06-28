@@ -1,13 +1,26 @@
 import { Component, ChangeDetectionStrategy, ViewChild, Provider, Type } from '@angular/core';
 import { fakeAsync, TestBed, flush, ComponentFixture } from '@angular/core/testing';
-import { AbstractControl } from '@angular/forms/src/model';
 import { By } from '@angular/platform-browser';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { FormsModule, ReactiveFormsModule, FormControl, Validators, NgForm, FormGroupDirective, FormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormControl,
+  Validators,
+  NgForm,
+  FormGroupDirective,
+  FormGroup,
+  AbstractControl,
+} from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtFormFieldModule, getDtFormFieldMissingControlError, getDtFormFieldDuplicatedHintError } from './index';
-import { DtInputModule, DtInput } from '../input/index';
-import { ErrorStateMatcher } from '../core/index';
+import {
+  DtFormFieldModule,
+  getDtFormFieldMissingControlError,
+  getDtFormFieldDuplicatedHintError,
+  DtInputModule,
+  DtInput,
+  ErrorStateMatcher,
+} from '@dynatrace/angular-components';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
