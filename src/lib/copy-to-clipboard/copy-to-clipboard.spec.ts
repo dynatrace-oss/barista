@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import {DtCopyToClipboardModule, DtIconModule} from './index';
+import {DtCopyToClipboardModule, DtIconModule} from '@dynatrace/angular-components';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('DtCopyToClipboard', () => {
@@ -63,10 +63,10 @@ describe('DtCopyToClipboard', () => {
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-copy-clipboard (copied)="increaseEventCount();">
+    <dt-copy-to-clipboard (copied)="increaseEventCount();">
       <input dtInput value="https://context.dynatrace.com"/>
-      <dt-copy-clipboard-label>Copy</dt-copy-clipboard-label>
-    </dt-copy-clipboard>`,
+      <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
+    </dt-copy-to-clipboard>`,
 })
 class TestApp {
   copyEventCount = 0;
@@ -79,10 +79,10 @@ class TestApp {
 @Component({
   selector: 'dt-test-app2',
   template: `
-    <dt-copy-clipboard [disabled]="true" (copied)="increaseEventCount();">
+    <dt-copy-to-clipboard [disabled]="true" (copied)="increaseEventCount();">
       <input dtInput value="https://context.dynatrace.com"/>
-      <dt-copy-clipboard-label>Copy</dt-copy-clipboard-label>
-    </dt-copy-clipboard>`,
+      <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
+    </dt-copy-to-clipboard>`,
 })
 class TestApp2 {
   copyEventCount = 0;
