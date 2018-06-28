@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -11,4 +12,5 @@ Toggle trigger (<span *ngIf="trigger1.opened">Close</span><span *ngIf="!trigger1
 </div>`,
   styles: [`.dt-expandable-panel-trigger span {color: green} .dt-expandable-panel-trigger-open span {color: #ddd}`],
 })
+@OriginalClassName('TriggerExpandablePanelExampleComponent')
 export class TriggerExpandablePanelExampleComponent {}
