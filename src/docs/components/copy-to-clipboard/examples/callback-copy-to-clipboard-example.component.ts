@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { timer } from 'rxjs/internal/observable/timer';
+import { Component } from '@angular/core';
+import { timer } from 'rxjs';
 
 @Component({
   template: `
@@ -8,18 +8,19 @@ import { timer } from 'rxjs/internal/observable/timer';
       <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
     </dt-copy-to-clipboard>
     <br/>
-    <div #callbackresult>
-      Will change after copy
+    <div>
+      {{_copyHint}}
     </div>`,
 })
 export class CallbackCopyToClipboardExampleComponent {
-  @ViewChild('callbackresult') callbackResult: ElementRef;
+  // tslint:disable-next-line:no-unused-variable
+  private _copyHint = 'Will change after copy';
 
   copyCallback(): void {
-    this.callbackResult.nativeElement.innerHTML = 'Copy was done';
+    this._copyHint = 'Copy was done';
     // tslint:disable-next-line:no-magic-numbers
     timer(2500).subscribe((): void => {
-      this.callbackResult.nativeElement.innerHTML = 'Will change after copy';
+      this._copyHint = 'Will change after copy';
     });
   }
 }
