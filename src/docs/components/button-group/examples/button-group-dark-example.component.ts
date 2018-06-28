@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -12,4 +13,5 @@ import { Component } from '@angular/core';
   </dt-button-group>
 </section>`,
 })
+@OriginalClassName('ButtonGroupDarkExampleComponent')
 export class ButtonGroupDarkExampleComponent { }
