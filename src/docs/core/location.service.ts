@@ -10,18 +10,18 @@ export class LocationService {
   private readonly _urlParser = document.createElement('a');
   private _urlSubject = new ReplaySubject<string>(1);
 
-  currentUrl = this._urlSubject.pipe(map((url) => this.stripSlashes(this.cleanUrl(url))));
+  currentUrl = this._urlSubject.pipe(map((url) => this._stripSlashes(this._cleanUrl(url))));
   currentPath = this.currentUrl.pipe(map((url) => (url.match(/[^?#]*/) || [])[0]));
 
   constructor(private _location: Location) {
     this._urlSubject.next(_location.path(true));
-    this._location.subscribe((state) => { this._urlSubject.next(this.cleanUrl(state.url as string) || ''); });
+    this._location.subscribe((state) => { this._urlSubject.next(this._cleanUrl(state.url as string) || ''); });
   }
 
   go(url: string | null | undefined): void {
     if (!url) { return; }
     // tslint:disable-next-line:no-parameter-reassignment
-    url = this.stripSlashes(url);
+    url = this._stripSlashes(url);
     if (/^http/.test(url)) {
       this.goExternal(url);
     } else {
@@ -74,14 +74,14 @@ export class LocationService {
     return false;
   }
 
-  private cleanUrl(url: string): string {
+  private _cleanUrl(url: string): string {
     const path = environment.deployUrl.replace(window.location.origin, '');
     const result = url.replace(path, '');
     console.log('cleanUrl', result);
     return result;
   }
 
-  private stripSlashes(url: string): string {
+  private _stripSlashes(url: string): string {
     return url.replace(/^\/+/, '').replace(/\/+(\?|#|$)/, '$1');
   }
 }
