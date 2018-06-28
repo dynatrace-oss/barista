@@ -11,6 +11,22 @@
     $hover-color: dt-get-theme-color($palette, 'hover');
     $active-color: dt-get-theme-color($palette, 'active');
 
+    // Temporary fix to not make button color depend on theme.
+    // We only have to override the main color because the warning and
+    // cta colors are the same across all themes for now.
+    @if ($name == 'main') {
+      @if ($is-dark == true) {
+        $default-color: $turquoise-500;
+        $hover-color: $turquoise-400;
+        $active-color: $turquoise-300;
+      }
+      @else {
+        $default-color: $turquoise-600;
+        $hover-color: $turquoise-700;
+        $active-color: $turquoise-800;
+      }
+    }
+
     $namespace: '.dt-button';
     @if $name != $default-palette {
       $namespace: '.dt-button.dt-color-#{$name}';

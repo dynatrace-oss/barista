@@ -22,7 +22,7 @@ import {
   HasTabIndex,
   removeCssClass,
   addCssClass
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DtRadioGroup } from './radio-group';
 

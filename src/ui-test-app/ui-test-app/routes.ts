@@ -12,7 +12,7 @@ import { RadioUI } from '../radio/radio.ui';
 import { ShowMoreUI } from '../show-more/show-more-ui';
 import { CheckboxUI } from '../checkbox/checkbox-ui';
 import { SwitchUI } from '../switch/switch-ui';
-import { CopyClipboardUi } from '../copy-clipboard/copy-clipboard-ui';
+import { CopyToClipboardUI } from '../copy-to-clipboard/copy-to-clipboard-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -20,7 +20,7 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'button-group', component: ButtonGroupUi },
   { path: 'checkbox', component: CheckboxUI },
   { path: 'context-dialog', component: ContextDialogUI },
-  { path: 'copy-clipboard', component: CopyClipboardUi },
+  { path: 'copy-to-clipboard', component: CopyToClipboardUI },
   { path: 'expandable-panel', component: ExpandablePanelUi },
   { path: 'expandable-section', component: ExpandableSectionUi },
   { path: 'key-value-list', component: KeyValueListUI },

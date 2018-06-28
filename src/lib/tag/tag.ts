@@ -7,7 +7,7 @@ import {
 import {
   CanDisable,
   mixinDisabled,
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {DELETE} from '@angular/cdk/keycodes';
 

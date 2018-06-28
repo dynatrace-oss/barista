@@ -25,7 +25,7 @@ export * from './tile/index';
 export * from './card/index';
 export * from './context-dialog/index';
 export * from './tag/index';
-export * from './copy-clipboard/index';
+export * from './copy-to-clipboard/index';
 export * from './key-value-list/index';
 export * from './pagination/index';
 export * from './radio/index';
