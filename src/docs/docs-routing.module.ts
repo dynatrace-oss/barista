@@ -48,7 +48,7 @@ const routes: Routes = [
   { path: 'tile', component: DocsTileComponent },
   { path: 'tag', component: DocsTagComponent },
   { path: 'alert-component', component: DocsAlertComponent },
-  { path: 'copy-clipboard', component: DocsCopyToClipboardComponent },
+  { path: 'copy-to-clipboard', component: DocsCopyToClipboardComponent },
   { path: 'key-value-list', component: DocsKeyValueListComponent },
   { path: 'pagination', component: DocsPaginationComponent },
   { path: 'radio', component: DocsRadioComponent },

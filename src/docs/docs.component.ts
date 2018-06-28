@@ -15,7 +15,7 @@ export class Docs {
     {name: 'Chart', route: '/chart'},
     {name: 'Checkbox', route: '/checkbox'},
     {name: 'Context dialog', route: '/context-dialog'},
-    {name: 'Copy Clipboard', route: '/copy-clipboard'},
+    {name: 'Copy To Clipboard', route: '/copy-to-clipboard'},
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Inline Editor', route: '/inline-editor'},
