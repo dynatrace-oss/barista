@@ -1,10 +1,14 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation, Input, ChangeDetectorRef, Output, EventEmitter,
+  ViewEncapsulation,
+  Input,
+  ChangeDetectorRef,
+  Output,
+  EventEmitter,
+  OnInit,
 } from '@angular/core';
-import {OnInit} from '@angular/core/src/metadata/lifecycle_hooks';
-import {calculatePaginationState} from './pagination-state';
+import { calculatePaginationState } from './pagination-state';
 
 /* Component-internal data-structure */
 export interface PaginationNumberType {

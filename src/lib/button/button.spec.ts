@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtButtonModule } from './index';
-import { DtIconModule } from '../icon/index';
+import { DtButtonModule, DtIconModule } from '@dynatrace/angular-components';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtButton', () => {

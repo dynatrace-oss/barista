@@ -1,30 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { DtBreadcrumbsModule } from '../breadcrumbs-module';
+import { DtBreadcrumbsModule, DtBreadcrumbsItem } from '@dynatrace/angular-components';
 
 describe('DtBreadcrumbsItem', () => {
-
-  let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         DtBreadcrumbsModule,
-        RouterTestingModule.withRoutes([
-          {
-            path: 'test1',
-            children: [
-              {
-                path: 'test-current',
-                component: EmptyComponent,
-              },
-            ],
-          },
-        ]),
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [
         TestBreadcrumbsItem,
@@ -35,10 +21,6 @@ describe('DtBreadcrumbsItem', () => {
       ],
     });
     TestBed.compileComponents();
-
-    router = TestBed.get(Router);
-    router.initialNavigation();
-    router.navigateByUrl('/test1/test-current');
   }));
 
   it('should pass the ng-content through', () => {
@@ -131,25 +113,12 @@ describe('DtBreadcrumbsItem', () => {
     expect(linkElement.nativeElement.getAttribute('href')).toBe('http://google.com');
   });
 
-  it('should render span if the route is active', () => {
+  it('should render link _lastItem parameter is set to false', () => {
     const fixture = TestBed.createComponent(TestBreadcrumbsItem);
     const component = fixture.componentInstance;
 
     component.href = 'test1/test-current';
-    fixture.detectChanges();
-
-    const linkElement = fixture.debugElement.query(By.css('a'));
-    const spanElement = fixture.debugElement.query(By.css('span'));
-    expect(linkElement).toBeNull();
-    expect(spanElement).not.toBeNull();
-  });
-
-  it('should render link if the route is active but active parameter is set to false', () => {
-    const fixture = TestBed.createComponent(TestBreadcrumbsItem);
-    const component = fixture.componentInstance;
-
-    component.href = 'test1/test-current';
-    component.active = false;
+    component._lastItem = false;
     fixture.detectChanges();
 
     const linkElement = fixture.debugElement.query(By.css('a'));
@@ -158,23 +127,12 @@ describe('DtBreadcrumbsItem', () => {
     expect(spanElement).toBeNull();
   });
 
-  it('should render span if the route is not active but active parameter is set to true', () => {
+  it('should render span if the _lastItem parameter is set to true', () => {
     const fixture = TestBed.createComponent(TestBreadcrumbsItem);
     const component = fixture.componentInstance;
 
     component.href = 'test1/test2';
-    component.active = true;
-    fixture.detectChanges();
-
-    const linkElement = fixture.debugElement.query(By.css('a'));
-    const spanElement = fixture.debugElement.query(By.css('span'));
-    expect(linkElement).toBeNull();
-    expect(spanElement).not.toBeNull();
-  });
-
-  it('should render span if href is not set', () => {
-    const fixture = TestBed.createComponent(EmptyBreadcrumbsItem);
-
+    component._lastItem = true;
     fixture.detectChanges();
 
     const linkElement = fixture.debugElement.query(By.css('a'));
@@ -186,14 +144,19 @@ describe('DtBreadcrumbsItem', () => {
 });
 
 @Component({
-  template: `<dt-breadcrumbs-item [href]="href" [external]="external" [active]="active">{{ text }}</dt-breadcrumbs-item>`,
+  template: `<dt-breadcrumbs-item [href]="href" [external]="external">{{ text }}</dt-breadcrumbs-item>`,
 })
 class TestBreadcrumbsItem {
   text = '';
   // tslint:disable-next-line no-any
   href: string | any[] = '';
   external = false;
-  active: boolean | undefined = undefined;
+
+  @ViewChild(DtBreadcrumbsItem) item;
+
+  set _lastItem(value: boolean | undefined) {
+    this.item._lastItem = value;
+  }
 }
 
 @Component({

@@ -2,7 +2,7 @@
 import {async, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtProgressCircleModule} from './index';
+import {DtProgressCircleModule} from '@dynatrace/angular-components';
 
 describe('DtProgressCircle', () => {
   beforeEach(async(() => {
