@@ -1,8 +1,6 @@
-import {platformBrowser} from '@angular/platform-browser';
-import {UiTestAppModuleNgFactory} from './ui-test-app-module.ngfactory';
-import {enableProdMode} from '@angular/core';
-
-enableProdMode();
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { UiTestAppModule } from './ui-test-app-module';
+// import { enableProdMode } from '@angular/core';
 
 // tslint:disable-next-line:no-floating-promises
-platformBrowser().bootstrapModuleFactory(UiTestAppModuleNgFactory);
+platformBrowserDynamic().bootstrapModule(UiTestAppModule);
