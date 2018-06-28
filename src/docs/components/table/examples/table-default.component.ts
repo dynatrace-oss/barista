@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
+import { OriginalClassName } from '../../../core/decorators';
 
 const LOG: DtLogger = DtLoggerFactory.create('TableDefaultComponent');
 
@@ -32,6 +33,7 @@ const LOG: DtLogger = DtLoggerFactory.create('TableDefaultComponent');
 </dt-table>`,
   // tslint:enable
 })
+@OriginalClassName('TableDefaultComponent')
 export class TableDefaultComponent {
   dataSource1: object[] = [
     { host: 'et-demo-2-win4', cpu: '30 %', memory: '38 % of 5.83 GB', traffic: '98.7 Mbit/s' },
