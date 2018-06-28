@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -12,6 +13,7 @@ import { map } from 'rxjs/operators';
     </dt-breadcrumbs>
   `,
 })
+@OriginalClassName('ObservableBreadcrumbsExampleComponent')
 export class ObservableBreadcrumbsExampleComponent {
   private readonly interval = 5_000;
 
