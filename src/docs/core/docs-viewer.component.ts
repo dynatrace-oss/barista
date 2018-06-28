@@ -26,6 +26,12 @@ const initialDocViewerContent = initialDocViewerElement ? initialDocViewerElemen
 const LOG: DtLogger = DtLoggerFactory.create('DocsViewerComponent');
 
 export const NO_ANIMATIONS = 'no-animations';
+const exampleNotFoundTemplateFactory = (name: string) =>
+  `<p class="example-error">Example <code>${name}</code> not found. <br>See console for more informations.`;
+
+interface ExampleType<T> extends Type<T> {
+  originalClassName: string;
+}
 
 @Component({
   selector: 'docs-viewer',
@@ -56,7 +62,7 @@ export class DocsViewerComponent implements OnDestroy {
     // tslint:disable-next-line:no-any
     @Inject(EMBEDDED_COMPONENTS) private _embeddedComponents: Array<Type<any>>,
     // tslint:disable-next-line:no-any
-    @Inject(COMPONENT_EXAMPLES) private _componentExamples: Array<Array<Type<any>>>,
+    @Inject(COMPONENT_EXAMPLES) private _componentExamples: Array<Array<ExampleType<any>>>,
     elementRef: ElementRef,
     private titleService: Title,
     private _resolver: ComponentFactoryResolver,
@@ -103,7 +109,7 @@ export class DocsViewerComponent implements OnDestroy {
 
   protected async renderDemos(): Promise<void> {
     // tslint:disable-next-line:no-any
-    const examples: Array<Type<any>> = [];
+    const examples: Array<ExampleType<any>> = [];
     if (Array.isArray(this._componentExamples)) {
       this._componentExamples.forEach((components) => examples.push(...components));
     }
@@ -113,7 +119,7 @@ export class DocsViewerComponent implements OnDestroy {
       // tslint:disable-next-line:no-any
       for (const element of embeddedComponentElements as HTMLElement[]) {
         const name = element.getAttribute('example');
-        const componentType = examples.find((example) => example.name === name);
+        const componentType = examples.find((example) => example.originalClassName === name);
         if (componentType) {
           const portalHost = new DomPortalHost(element, this._resolver, this._appRef, this._injector);
           const examplePortal = new ComponentPortal(comp, this._viewContainerRef);
@@ -122,6 +128,14 @@ export class DocsViewerComponent implements OnDestroy {
           // ref.changeDetectorRef.detectChanges();
 
           this._portalHosts.push(portalHost);
+        } else {
+          element.innerHTML = exampleNotFoundTemplateFactory(name!);
+
+          // Console log here as we wanna know when an example has not been found
+          // but we do not wanna break the app with throwing an error.
+          // tslint:disable-next-line:no-console
+          LOG.warn(`Example "${name}" not found. Does it implement the static "exampleName" property` +
+            `and do you provide it in the modules EXAMPLES array?`);
         }
       }
     });
