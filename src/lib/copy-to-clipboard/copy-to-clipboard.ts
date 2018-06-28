@@ -1,20 +1,21 @@
 import {
-  Component,
-  ViewEncapsulation,
+  AfterContentInit,
   ChangeDetectionStrategy,
-  ContentChild,
-  Input,
-  Output,
-  EventEmitter,
-  ElementRef,
   ChangeDetectorRef,
-  ViewChild, AfterContentInit,
+  Component,
+  ContentChild,
+  ElementRef,
+  EventEmitter,
+  Input, OnDestroy,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 
-import { DtInput } from '@dynatrace/angular-components/input';
+import {DtInput} from '@dynatrace/angular-components/input';
 
-import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
-import { timer, Subscription } from 'rxjs';
+import {addCssClass, removeCssClass} from '@dynatrace/angular-components/core';
+import {Subscription, timer} from 'rxjs';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
 const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
@@ -32,7 +33,7 @@ const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtCopyToClipboard implements AfterContentInit {
+export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   constructor(public _cd: ChangeDetectorRef) {
   }
 
@@ -49,15 +50,15 @@ export class DtCopyToClipboard implements AfterContentInit {
   }
 
   private _disabled = false;
-  get disabled(): boolean {
-    return this._disabled;
-  }
 
   @Input() set disabled(value: boolean) {
     this._disabled = value;
     if (this.inputComponent) {
       this.inputComponent.disabled = value;
     }
+  }
+  get disabled(): boolean {
+    return this._disabled;
   }
 
   copyToClipboard(): void {
@@ -70,13 +71,11 @@ export class DtCopyToClipboard implements AfterContentInit {
         this.copyFailed.emit();
         return;
       }
-    }
-    this._showIcon = true;
-    if (this.input) {
+      this._showIcon = true;
       addCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
-    }
-    if (this.copyButtonRef) {
-      addCssClass(this.copyButtonRef.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+      if (this.copyButtonRef) {
+        addCssClass(this.copyButtonRef.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+      }
     }
 
     this._timer = timer(DT_COPY_CLIPBOARD_TIMER).subscribe((): void => {
@@ -88,9 +87,7 @@ export class DtCopyToClipboard implements AfterContentInit {
 
   private _resetCopyState(): void {
     this._showIcon = false;
-    if (this.input) {
-      removeCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
-    }
+    removeCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     if (this.copyButtonRef) {
       removeCssClass(this.copyButtonRef.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     }
@@ -101,6 +98,12 @@ export class DtCopyToClipboard implements AfterContentInit {
   ngAfterContentInit(): void {
     if (this.inputComponent) {
       this.inputComponent.readonly = true;
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this._timer) {
+      this._timer.unsubscribe();
     }
   }
 }
