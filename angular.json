@@ -118,6 +118,52 @@
           }
         }
       }
+    },
+    "ui-test-app": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "dt",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ui-test-app",
+            "index": "src/ui-test-app/index.html",
+            "main": "src/ui-test-app/main.ts",
+            "polyfills": "src/ui-test-app/polyfills.ts",
+            "tsConfig": "src/ui-test-app/tsconfig.json",
+            "assets": [
+              {
+                "glob": "**",
+                "input": "src/lib/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/assets/icons"
+              }
+            ],
+            "styles": [
+              "src/ui-test-app/main.scss"
+            ]
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ui-test-app:build"
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "test/protractor.conf.js",
+            "devServerTarget": "ui-test-app:serve"
+          }
+        }
+      }
     }
   },
   "defaultProject": "lib",
