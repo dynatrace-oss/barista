@@ -1,11 +1,35 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "..",
+    "declaration": false,
+    "noUnusedParameters": false,
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "outDir": "../../dist/ui-test-app",
+    "target": "es5",
+    "stripInternal": false,
+    "typeRoots": [
+      "../../node_modules/@types/!(node)"
+    ],
     "baseUrl": ".",
+    "rootDirs": [
+      ".",
+      "../../dist/ui-test-app"
+    ],
     "paths": {
+      "@dynatrace/angular-components": ["../lib"],
       "@dynatrace/angular-components/*": ["../lib/*"]
     }
   },
-  "include": ["./**/*.ts"]
+  "files": [
+    "../../typings.d.ts",
+    "./ui-test-app-module.ts",
+    "./polyfills.ts",
+    "./main.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": false,
+    "fullTemplateTypeCheck": false,
+    "preserveWhitespace": true
+  }
 }
