@@ -19,7 +19,7 @@ import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-circle';
 import { DtBreadcrumbsModule } from '@dynatrace/angular-components/breadcrumbs';
-import { DtCopyToClipboardModule } from "@dynatrace/angular-components/copy-to-clipboard";
+import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
 
 @Component({
   selector: 'dt-kitchen-sink',
