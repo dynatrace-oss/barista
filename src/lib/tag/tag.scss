@@ -18,6 +18,9 @@ $remove-icon-size: 16px;
 
   display: inline-flex;
   align-items: center;
+}
+
+:host.dt-tag-removable {
 
   &:focus {
     box-shadow:
