@@ -76,7 +76,9 @@ export class LocationService {
 
   private cleanUrl(url: string): string {
     const path = environment.deployUrl.replace(window.location.origin, '');
-    return url.replace(path, '');
+    const result = url.replace(path, '');
+    console.log('cleanUrl', result);
+    return result;
   }
 
   private stripSlashes(url: string): string {
