@@ -60,6 +60,7 @@ System.config({
     '@dynatrace/angular-components/inline-editor': 'dist/lib/bundles/dynatrace-angular-components-inline-editor.umd.js',
     '@dynatrace/angular-components/input': 'dist/lib/bundles/dynatrace-angular-components-input.umd.js',
     '@dynatrace/angular-components/key-value-list': 'dist/lib/bundles/dynatrace-angular-components-key-value-list.umd.js',
+    '@dynatrace/angular-components/copy-to-clipboard': 'dist/lib/bundles/dynatrace-angular-components-copy-to-clipboard.umd.js',
     '@dynatrace/angular-components/loading-distractor': 'dist/lib/bundles/dynatrace-angular-components-loading-distractor.umd.js',
     '@dynatrace/angular-components/pagination': 'dist/lib/bundles/dynatrace-angular-components-pagination.umd.js',
     '@dynatrace/angular-components/progress-circle': 'dist/lib/bundles/dynatrace-angular-components-progress-circle.umd.js',

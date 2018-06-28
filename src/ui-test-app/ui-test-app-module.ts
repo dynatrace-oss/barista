@@ -33,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
 import { CheckboxUI } from './checkbox/checkbox-ui';
 import { SwitchUI } from './switch/switch-ui';
+import {DtInputModule} from '@dynatrace/angular-components/input';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -41,6 +42,7 @@ import { SwitchUI } from './switch/switch-ui';
   exports: [
     DtButtonModule,
     DtButtonGroupModule,
+    DtInputModule,
     DtCopyToClipboardModule,
     DtCheckboxModule,
     DtExpandablePanelModule,
@@ -51,7 +53,6 @@ import { SwitchUI } from './switch/switch-ui';
     DtRadioModule,
     DtShowMoreModule,
     DtKeyValueListModule,
-    CopyToClipboardUI,
     DtSwitchModule,
   ],
 })
