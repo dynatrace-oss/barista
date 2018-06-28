@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject, interval, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { OriginalClassName } from '../../../core/decorators';
 
 const MAX_ROWS = 5;
 
@@ -36,6 +37,7 @@ const MAX_ROWS = 5;
   </dt-table>`
   // tslint:enable
 })
+@OriginalClassName('TableObservableComponent')
 export class TableObservableComponent {
   dataSource1 = new BehaviorSubject<object[]>([]);
 
