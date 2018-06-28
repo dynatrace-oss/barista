@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AllButtonExampleComponent } from './examples/button-all-example.component';
+import { DarkButtonExampleComponent } from './examples/button-dark-example.component';
 import { SimpleButtonExampleComponent } from './examples/button-simple-example.component';
 import { InteractionButtonExampleComponent } from './examples/button-interaction-example.component';
 import { VariantButtonExampleComponent } from './examples/button-variant-example.component';
@@ -24,6 +25,7 @@ export class DocsButtonComponent {
     color: ColorButtonExampleComponent,
     icons: IconsButtonExampleComponent,
     iconOnly: IconOnlyButtonExampleComponent,
+    dark: DarkButtonExampleComponent,
     all: AllButtonExampleComponent,
   };
 }

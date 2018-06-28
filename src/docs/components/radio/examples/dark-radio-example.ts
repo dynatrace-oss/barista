@@ -12,6 +12,6 @@ import { Component } from '@angular/core';
     </dt-radio-group>
   </div>
   `,
-  styles: ['dt-radio-button { display: block; } dt-radio-button + dt-radio-button { margin-top: 8px; }'],
+  styles: ['dt-radio-button { display: block; } dt-radio-button + dt-radio-button { margin-top: 20px; }'],
 })
 export class DarkRadioExample { }
