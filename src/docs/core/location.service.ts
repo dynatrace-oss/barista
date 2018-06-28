@@ -3,11 +3,11 @@ import { Location } from '@angular/common';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
+import { parseUrl } from './url-parser';
 
 @Injectable({ providedIn: 'root' })
 export class LocationService {
 
-  private readonly _urlParser = document.createElement('a');
   private _urlSubject = new ReplaySubject<string>(1);
 
   currentUrl = this._urlSubject.pipe(map((url) => this._stripSlashes(this._cleanUrl(url))));
@@ -63,10 +63,10 @@ export class LocationService {
 
     const { pathname, search, hash } = anchor;
     const relativeUrl = pathname + search + hash;
-    this._urlParser.href = relativeUrl;
+    const parsedUrl = parseUrl(relativeUrl);
 
     // don't navigate if external link or has extension
-    if (anchor.href !== this._urlParser.href || !/\/[^/.]*$/.test(pathname)) {
+    if (anchor.href !== parsedUrl.href || !/\/[^/.]*$/.test(pathname)) {
       return true;
     }
 
