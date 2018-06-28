@@ -34,6 +34,8 @@ enum SHOWDOWN_CLASS_MAP {
   a = 'dt-link',
 }
 
+const JENKINS_PR_URL_CHUNK = 'view/change-requests';
+
 @Injectable({ providedIn: 'root' })
 export class DocumentService {
 
@@ -56,8 +58,7 @@ export class DocumentService {
   }
 
   private getDocument(url: string): Observable<DocumentContents> {
-    const strippedDeploymentPath = parseUrl(environment.deployUrl).pathname.replace(/^\/|\/$/g, '');
-    const id = url.replace(new RegExp(`^\/?${strippedDeploymentPath}\/?`), '') || 'index';
+    const id = this.retrieveId(url);
     if (!this._cache.has(id)) {
       this._cache.set(id, this.fetchDocument(id));
     }
@@ -88,5 +89,18 @@ export class DocumentService {
       id: 'error',
       content: errorMessage,
     });
+  }
+
+  private retrieveId(url: string): string {
+    const deploymentPath = this.adjustPathToJenkins(parseUrl(environment.deployUrl).pathname);
+    const strippedDeploymentPath = deploymentPath.replace(/^\/|\/$/g, '');
+    return url.replace(new RegExp(`^\/?${strippedDeploymentPath}\/?`), '') || 'index';
+  }
+
+  private adjustPathToJenkins(path: string): string {
+    // hack for Jenkins which serves the docs under different URL depending from which view user entered...
+    return window.location.pathname.includes(JENKINS_PR_URL_CHUNK)
+      ? path.replace(/(job\/[^\/]+)\//, `$1/${JENKINS_PR_URL_CHUNK}/`)
+      : path;
   }
 }
