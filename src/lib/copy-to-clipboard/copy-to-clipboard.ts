@@ -66,8 +66,10 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
       return;
     }
     if (this.input) {
+
       this.input.nativeElement.select();
-      if (!document.execCommand('copy')) {
+      const copyResult = document.execCommand('copy');
+      if (!copyResult) {
         this.copyFailed.emit();
         return;
       }
