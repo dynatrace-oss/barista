@@ -16,6 +16,7 @@
     "@angular/core": "0.0.0-NG",
     "@angular/common": "0.0.0-NG",
     "@dynatrace/dt-iconpack": ">= 1.0.6 < 2",
+    "@types/highcharts": "^5.0.23",
     "highcharts": "^6.0.7"
   },
   "ngPackage": {

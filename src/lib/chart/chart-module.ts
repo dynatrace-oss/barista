@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DtChart } from './chart';
 import { CommonModule } from '@angular/common';
-import { DtLoadingDistractorModule } from '../loading-distractor/index';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 
 @NgModule({
   imports: [

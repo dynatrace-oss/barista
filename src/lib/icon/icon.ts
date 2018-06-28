@@ -15,7 +15,7 @@ import {
   DtThemePalette,
   setComponentColorClasses,
   DtLoggerFactory
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 
 export type DtIconColorPalette = DtThemePalette | 'light' | 'dark';
 

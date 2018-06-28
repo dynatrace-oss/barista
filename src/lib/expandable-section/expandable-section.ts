@@ -8,9 +8,9 @@ import {
   Output, ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {DtExpandablePanel} from '../expandable-panel/expandable-panel';
+import {DtExpandablePanel} from '@dynatrace/angular-components/expandable-panel';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import { CanDisable } from '../core/index';
+import { CanDisable } from '@dynatrace/angular-components/core';
 
 @Component({
   moduleId: module.id,

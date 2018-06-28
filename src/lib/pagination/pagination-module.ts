@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {DtPagination} from './pagination';
-import {DtIconModule} from '../icon/icon-module';
+import {DtIconModule} from '@dynatrace/angular-components/icon';
 import {CommonModule} from '@angular/common';
-import {DtButtonModule} from '../button/button-module';
+import {DtButtonModule} from '@dynatrace/angular-components/button';
 
 @NgModule({
   imports: [
@@ -12,7 +12,6 @@ import {DtButtonModule} from '../button/button-module';
   ],
   exports: [
     DtPagination,
-    DtIconModule,
   ],
   declarations: [
     DtPagination,

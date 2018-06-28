@@ -26,7 +26,7 @@ import { DocsKeyValueListModule } from './components/key-value-list/docs-key-val
 import { DocsPaginationModule } from './components/pagination/docs-pagination.module';
 import { DocsShowMoreModule } from './components/show-more/docs-show-more.module';
 import { FormsModule } from '@angular/forms';
-import { DocsCopyClipboardModule } from './components/copy-clipboard/docs-copy-clipboard.module';
+import { DocsCopyToClipboardModule } from './components/copy-to-clipboard/docs-copy-to-clipboard.module';
 import { DtIconModule, DtThemingModule } from '@dynatrace/angular-components';
 import { DocsRadioModule } from './components/radio/docs-radio.module';
 import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
@@ -66,7 +66,7 @@ import { environment } from './environments/environment';
     DocsPaginationModule,
     DocsShowMoreModule,
     DtThemingModule,
-    DocsCopyClipboardModule,
+    DocsCopyToClipboardModule,
     DocsRadioModule,
     DocsCheckboxModule,
     DocsProgressCircleModule,
