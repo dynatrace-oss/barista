@@ -5,6 +5,7 @@ import { catchError, switchMap, map } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { Converter, setFlavor } from 'showdown';
 import { environment } from '../environments/environment';
+import { parseUrl } from './url-parser';
 
 export const DOC_CONTENT_URL_PREFIX = `${environment.deployUrl.replace(/\/+$/, '')}/assets/doc/`;
 
@@ -55,8 +56,8 @@ export class DocumentService {
   }
 
   private getDocument(url: string): Observable<DocumentContents> {
-    const basePath = environment.deployUrl.replace(/^\/|\/$/g, '');
-    const id = url.replace(new RegExp(`^${basePath}`), '') || 'index';
+    const strippedDeploymentPath = parseUrl(environment.deployUrl).pathname.replace(/^\/|\/$/g, '');
+    const id = url.replace(new RegExp(`^\/?${strippedDeploymentPath}\/?`), '') || 'index';
     if (!this._cache.has(id)) {
       this._cache.set(id, this.fetchDocument(id));
     }
