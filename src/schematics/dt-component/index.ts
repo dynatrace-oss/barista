@@ -214,30 +214,6 @@ function addNavitemInUITestApp(options: DtComponentOptions): Rule {
   return (host: Tree) => addNavItem(host, options, path.join('src', 'ui-test-app', 'ui-test-app', 'ui-test-app.ts'));
 }
 
-/**
- * Adds mappings to the system config in the demo-app
- */
-function addMappingToSystemConfig(options: DtComponentOptions): Rule {
-  return (host: Tree) => {
-    const modulePath = path.join('src', 'ui-test-app', 'system-config.ts');
-    const systemConfig = getSourceFile(host, modulePath);
-    /**
-     * find last angular-components property declaration
-     */
-    const map = findNodes(systemConfig, ts.SyntaxKind.PropertyAssignment)
-      .find((node: ts.PropertyAssignment) => node.name.getText() === 'map') as ts.PropertyAssignment;
-    const initializer = map.initializer as ts.ObjectLiteralExpression;
-    const end = initializer.properties.end;
-    const indentation = getIndentation(initializer.properties);
-    const toInsert = `${indentation}'@dynatrace/angular-components/${options.name}':
-      'dist/lib/bundles/dynatrace-angular-components-${options.name}.umd.js',`;
-    const mapChange = new InsertChange(modulePath, end, toInsert);
-
-    const changes = [mapChange];
-    return commitChanges(host, changes, modulePath);
-  };
-}
-
 export default function(options: DtComponentOptions): Rule {
   options.moduleName = `Dt${strings.classify(options.name)}Module`;
   options.selector = `dt-${strings.dasherize(options.name)}`;
@@ -266,7 +242,6 @@ export default function(options: DtComponentOptions): Rule {
     addDeclarationsToDocsModule(options),
     addRouteInDocs(options),
     addNavitemInDocs(options),
-    addMappingToSystemConfig(options),
     options.universal ? chain([addDeclarationsToKitchenSink(options), addCompToKitchenSinkHtml(options)]) : noop(),
     options.uitest ? chain([
       mergeWith(uitestsTemplates),
