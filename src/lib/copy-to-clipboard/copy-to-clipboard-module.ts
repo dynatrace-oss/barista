@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { DtInputModule } from '@dynatrace/angular-components/input';
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {DtInputModule} from '@dynatrace/angular-components/input';
+import {DtButtonModule} from '@dynatrace/angular-components/button';
+import {DtIconModule} from '@dynatrace/angular-components/icon';
+import {CommonModule} from '@angular/common';
 import {
   DtCopyToClipboard,
 } from './copy-to-clipboard';
@@ -11,10 +11,11 @@ import {
 } from './copy-to-clipboard-label';
 
 @NgModule({
-  imports: [CommonModule,
-            DtInputModule,
-            DtButtonModule,
-            DtIconModule],
+  imports: [
+    CommonModule,
+    DtInputModule,
+    DtButtonModule,
+    DtIconModule],
   exports: [
     DtCopyToClipboard,
     DtCopyToClipboardLabel,
@@ -24,4 +25,5 @@ import {
     DtCopyToClipboardLabel,
   ],
 })
-export class DtCopyToClipboardModule { }
+export class DtCopyToClipboardModule {
+}
