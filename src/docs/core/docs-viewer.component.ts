@@ -134,8 +134,7 @@ export class DocsViewerComponent implements OnDestroy {
           // Console log here as we wanna know when an example has not been found
           // but we do not wanna break the app with throwing an error.
           // tslint:disable-next-line:no-console
-          LOG.warn(`Example "${name}" not found. Does it implement the static "exampleName" property` +
-            `and do you provide it in the modules EXAMPLES array?`);
+          LOG.warn(`Example "${name}" not found. Did you add the @OriginalClassName('${name}') decorator to the class?`);
         }
       }
     });
