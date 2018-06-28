@@ -14,7 +14,7 @@ import {
   encapsulation: ViewEncapsulation.Emulated,
   template: `<ng-content></ng-content>`,
   host: {
-    class: 'dt-copy-clipboard-label',
+    class: 'dt-copy-to-clipboard-label',
   },
 })
 export class DtCopyToClipboardLabel {

@@ -20,7 +20,7 @@ export class UIApp {
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Key-value-list', route: '/key-value-list'},
-    {name: 'Copy-Clipboard', route: '/copy-clipboard'},
+    {name: 'Copy-To-Clipboard', route: '/copy-to-clipboard'},
     {name: 'Pagination', route: '/pagination'},
     {name: 'Switch', route: '/switch'},
     {name: 'radio', route: '/radio'},
