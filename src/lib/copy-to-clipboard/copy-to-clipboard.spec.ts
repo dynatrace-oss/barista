@@ -1,24 +1,28 @@
 import {Component} from '@angular/core';
 import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import {DtCopyToClipboardModule, DtIconModule} from '@dynatrace/angular-components';
+import {DtButtonModule, DtCopyToClipboardModule, DtIconModule, DtInputModule} from '@dynatrace/angular-components';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('DtCopyToClipboard', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        DtInputModule,
+        DtButtonModule,
         DtCopyToClipboardModule,
         HttpClientTestingModule,
         DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
       ],
       declarations: [TestApp, TestApp2],
     });
-
     TestBed.compileComponents();
+    // tslint:disable-next-line:no-any
+    document.execCommand = (commandId: string, showUI?: boolean, value?: any): boolean => true;
   }));
 
   it('should trigger callback', fakeAsync((): void => {
+
     const fixture = TestBed.createComponent(TestApp);
     fixture.detectChanges();
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-to-clipboard-btn-button'));
@@ -30,7 +34,7 @@ describe('DtCopyToClipboard', () => {
 
   }));
 
-  it('should set checkmark to visible and visible afterwards', fakeAsync((): void => {
+  it('should set checkmark to visible and invisible afterwards', fakeAsync((): void => {
     const fixture = TestBed.createComponent(TestApp);
     fixture.detectChanges();
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-to-clipboard-btn-button'));
