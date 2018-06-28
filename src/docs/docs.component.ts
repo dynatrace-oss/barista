@@ -2,42 +2,40 @@ import { Component, HostListener } from '@angular/core';
 import { LocationService } from './core/location.service';
 import { DocumentService, DocumentContents } from './core/document.service';
 
-const NAV_ITEMS = [
-  { name: 'Alert', route: '/alert' },
-  { name: 'Breadcrumbs', route: '/breadcrumbs' },
-  { name: 'Button', route: '/button' },
-  { name: 'Button Group', route: '/button-group' },
-  { name: 'Card', route: '/card' },
-  { name: 'Chart', route: '/chart' },
-  { name: 'Checkbox', route: '/checkbox' },
-  { name: 'Context dialog', route: '/context-dialog' },
-  { name: 'Expandable panel', route: '/expandable-panel' },
-  { name: 'Expandable section', route: '/expandable-section' },
-  { name: 'Inline Editor', route: '/inline-editor' },
-  { name: 'Form field', route: '/form-field' },
-  { name: 'Icon', route: '/icon' },
-  { name: 'Input', route: '/input' },
-  { name: 'Key value list', route: '/key-value-list' },
-  { name: 'Link', route: '/style#link' },
-  { name: 'Loading distractor', route: '/loading-distractor' },
-  { name: 'Pagination', route: '/pagination' },
-  { name: 'Progress circle', route: '/progress-circle' },
-  { name: 'Radio', route: '/radio' },
-  { name: 'Show more', route: '/show-more' },
-  { name: 'Styles', route: '/style' },
-  { name: 'Switch', route: '/switch' },
-  { name: 'Table', route: '/table' },
-  { name: 'Tag', route: '/tag' },
-  { name: 'Tile', route: '/tile' },
-];
-
 @Component({
   selector: 'docs-app',
   styleUrls: ['docs.component.scss'],
   templateUrl: 'docs.component.html',
 })
 export class Docs {
-  navItems = NAV_ITEMS;
+  navItems = [
+    { name: 'Alert', route: '/alert' },
+    { name: 'Breadcrumbs', route: '/breadcrumbs' },
+    { name: 'Button', route: '/button' },
+    { name: 'Button Group', route: '/button-group' },
+    { name: 'Card', route: '/card' },
+    { name: 'Chart', route: '/chart' },
+    { name: 'Checkbox', route: '/checkbox' },
+    { name: 'Context dialog', route: '/context-dialog' },
+    { name: 'Expandable panel', route: '/expandable-panel' },
+    { name: 'Expandable section', route: '/expandable-section' },
+    { name: 'Inline Editor', route: '/inline-editor' },
+    { name: 'Form field', route: '/form-field' },
+    { name: 'Icon', route: '/icon' },
+    { name: 'Input', route: '/input' },
+    { name: 'Key value list', route: '/key-value-list' },
+    { name: 'Link', route: '/style#link' },
+    { name: 'Loading distractor', route: '/loading-distractor' },
+    { name: 'Pagination', route: '/pagination' },
+    { name: 'Progress circle', route: '/progress-circle' },
+    { name: 'Radio', route: '/radio' },
+    { name: 'Show more', route: '/show-more' },
+    { name: 'Styles', route: '/style' },
+    { name: 'Switch', route: '/switch' },
+    { name: 'Table', route: '/table' },
+    { name: 'Tag', route: '/tag' },
+    { name: 'Tile', route: '/tile' },
+  ];
   selectedTheme = 'turquoise';
 
   currentDocument: DocumentContents;
