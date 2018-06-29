@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `<dt-progress-bar [value]="45" [color]="color"></dt-progress-bar>
@@ -13,6 +14,7 @@ import { Component } from '@angular/core';
   </div>`,
   styles: ['dt-progress-bar {margin: 8px 0}'],
 })
+@OriginalClassName('WithColorProgressBarExampleComponent')
 export class WithColorProgressBarExampleComponent {
   color = 'error';
 

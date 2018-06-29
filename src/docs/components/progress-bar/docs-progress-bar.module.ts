@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DocsProgressBarComponent } from './docs-progress-bar.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtProgressBarModule, DtIconModule, DtButtonGroupModule, DtButtonModule } from '@dynatrace/angular-components';
 import { DefaultProgressBarExampleComponent } from './examples/default-progress-bar-example.component';
@@ -8,7 +7,7 @@ import { RightAlignedProgressBarExampleComponent } from './examples/right-aligne
 import { WithColorProgressBarExampleComponent } from './examples/with-color-progress-bar-example.component';
 import { ChangeProgressBarExampleComponent } from './examples/change-progress-bar-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultProgressBarExampleComponent,
   RightAlignedProgressBarExampleComponent,
   WithColorProgressBarExampleComponent,
@@ -26,13 +25,12 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsProgressBarComponent,
-  ],
-  exports: [
-    DocsProgressBarComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsProgressBarModule {
