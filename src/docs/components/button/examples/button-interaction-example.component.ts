@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
     <p>Counter: {{counter}}</p>
   `,
 })
+@OriginalClassName('InteractionButtonExampleComponent')
 export class InteractionButtonExampleComponent {
   counter = 0;
 }

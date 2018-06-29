@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -17,4 +18,5 @@ import { Component } from '@angular/core';
     </div>
   `,
 })
+@OriginalClassName('DefaultSwitchExampleComponent')
 export class DefaultSwitchExampleComponent { }

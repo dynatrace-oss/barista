@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `
@@ -9,5 +10,5 @@ import {Component} from '@angular/core';
       </dt-copy-to-clipboard>
     </section>`,
 })
-export class DarkCopyToClipboardExampleComponent {
-}
+@OriginalClassName('DarkCopyToClipboardExampleComponent')
+export class DarkCopyToClipboardExampleComponent {}

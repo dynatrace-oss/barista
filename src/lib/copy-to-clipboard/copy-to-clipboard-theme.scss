@@ -5,17 +5,28 @@
 @mixin dt-theme-copy-to-clipboard($theme) {
   $is-dark: map-get($dt-current-theme, 'is-dark');
   @if ($is-dark == true) {
+
+    $palette: dt-get-theme-palette($theme, 'recovered');
     :host {
       ::ng-deep .dt-input {
         background-color: black;
         color: $gray-400;
       }
-      ::ng-deep button.dt-button.dt-copy-to-clipboard-successful,
-      ::ng-deep button.dt-button.dt-copy-to-clipboard-successful:hover:not([disabled]) {
-        background-color: $green-500;
-        border: 1px solid $green-500;
-        box-shadow:none;
+
+      ::ng-deep .dt-button.dt-copy-to-clipboard-successful,
+      ::ng-deep .dt-button.dt-copy-to-clipboard-successful:hover:not([disabled]) {
+        background-color:  $green-500;
+        border: 1px solid white;
+        box-shadow: none;
+      }
+    }
+
+    .dt-context-dialog-content :host {
+      ::ng-deep .dt-input {
+        background-color: white;
+        color: $gray-700;
       }
     }
   }
+
 }

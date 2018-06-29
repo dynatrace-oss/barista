@@ -14,6 +14,7 @@ import { DtExpandablePanelModule } from '@dynatrace/angular-components/expandabl
 import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
 import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
+import { DtChartModule } from '@dynatrace/angular-components/chart';
 import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtRadioModule } from '@dynatrace/angular-components/radio';
@@ -34,6 +35,7 @@ import { ShowMoreUI } from './show-more/show-more-ui';
 import { CheckboxUI } from './checkbox/checkbox-ui';
 import { SwitchUI } from './switch/switch-ui';
 import {DtInputModule} from '@dynatrace/angular-components/input';
+import { ChartUI } from './chart/chart-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -54,6 +56,7 @@ import {DtInputModule} from '@dynatrace/angular-components/input';
     DtShowMoreModule,
     DtKeyValueListModule,
     DtSwitchModule,
+    DtChartModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -84,6 +87,7 @@ export class DynatraceAngularCompModule {}
     PaginationUI,
     ShowMoreUI,
     SwitchUI,
+    ChartUI,
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],

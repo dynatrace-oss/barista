@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   // @formatter:off
@@ -11,5 +12,6 @@ import { Component } from '@angular/core';
   `,
   // @formatter:on
 })
+@OriginalClassName('LinkDarkExampleComponent')
 export class LinkDarkExampleComponent {
 }
