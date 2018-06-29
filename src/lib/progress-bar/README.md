@@ -33,7 +33,7 @@ Progress bars should be given a meaningful label via aria-label or aria-labelled
 | `@Input() value` | `number` | `0` | Gets and sets the value on the progress-circle. |
 | `@Input() min` | `number` | `0` | Gets and sets the minimum value on the progress circle |
 | `@Input() max` | `number` | `100` | Gets and sets the maximum value on the progress circle |
-| `@Input() align` | `'left' | 'right'` | `left` | Gets and sets the maximum value on the progress circle |
+| `@Input() align` | `'start' | 'end'` | `start` | Sets the alignment of the progress element to the star or to the end. |
 | `@Ouput() valueChange` | `EventEmitter<{ oldValue: number, newValue: number }>` |  | Event emitted when the progress circle value changes. |
 | `percentage` | `number` |  | Gets the percentage used to render the progress |
 
