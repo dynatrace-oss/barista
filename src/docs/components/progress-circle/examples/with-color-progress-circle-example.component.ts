@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `<dt-progress-circle [value]="45" [color]="color"></dt-progress-circle>
@@ -12,6 +13,7 @@ import { Component } from '@angular/core';
   </dt-button-group>
   </div>`,
 })
+@OriginalClassName('WithColorProgressCircleExampleComponent')
 export class WithColorProgressCircleExampleComponent {
   color = 'error';
 
