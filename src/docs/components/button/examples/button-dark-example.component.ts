@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -30,4 +31,5 @@ import { Component } from '@angular/core';
     .dt-button + .dt-button { margin-left: 8px; }
   `],
 })
+@OriginalClassName('DarkButtonExampleComponent')
 export class DarkButtonExampleComponent { }
