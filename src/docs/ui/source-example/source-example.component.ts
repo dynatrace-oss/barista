@@ -15,7 +15,7 @@ export class SourceExampleComponent {
   portal: ComponentPortal<{}>;
 
   @Input()
-  set example(component: Type<{}>) {
+  set componentType(component: Type<{}>) {
     // tslint:disable-next-line:no-inferred-empty-object-type
     this.portal = new ComponentPortal(component);
     this.source = TemplateRetriever.fromComponent(component);

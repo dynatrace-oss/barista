@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -36,6 +37,7 @@ import { Component } from '@angular/core';
   </dt-table>`,
   // tslint:enable
 })
+@OriginalClassName('TableEmptyCustomStateComponent')
 export class TableEmptyCustomStateComponent {
   dataSource: object[] = [
     { host: 'et-demo-2-win4', cpu: '30 %', memory: '38 % of 5.83 GB', traffic: '98.7 Mbit/s' },
