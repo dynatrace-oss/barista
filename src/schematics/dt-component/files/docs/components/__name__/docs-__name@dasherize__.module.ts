@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Default<%= classify(name) %>ExampleComponent } from './examples/default-<%= dasherize(name) %>-example.component';
-import { <%= docsComponent %> } from './docs-<%= dasherize(name) %>.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { <%= moduleName %> } from '@dynatrace/angular-components';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   Default<%= classify(name) %>ExampleComponent,
 ];
 
@@ -17,13 +16,12 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    <%= docsComponent %>,
-  ],
-  exports: [
-    <%= docsComponent %>,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class Docs<%= classify(name) %>Module {

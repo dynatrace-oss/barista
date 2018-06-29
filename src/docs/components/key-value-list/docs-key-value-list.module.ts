@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import { DefaultKeyValueListExampleComponent } from './examples/default-key-value-list-example.component';
 import { MulticolumnKeyValueListExampleComponent } from './examples/multicolumn-key-value-list-example.component';
 import { LongtextKeyValueListExampleComponent } from './examples/longtext-key-value-list-example.component';
-import { DocsKeyValueListComponent } from './docs-key-value-list.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtKeyValueListModule } from '@dynatrace/angular-components';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultKeyValueListExampleComponent,
   MulticolumnKeyValueListExampleComponent,
   LongtextKeyValueListExampleComponent,
@@ -21,13 +20,12 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsKeyValueListComponent,
-  ],
-  exports: [
-    DocsKeyValueListComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsKeyValueListModule {

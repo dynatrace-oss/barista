@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -8,4 +9,5 @@ import { Component } from '@angular/core';
   `,
   styles: ['dt-radio-button { display: block; } dt-radio-button + dt-radio-button { margin-top: 20px; }'],
 })
+@OriginalClassName('NameGroupingRadioExample')
 export class NameGroupingRadioExample { }
