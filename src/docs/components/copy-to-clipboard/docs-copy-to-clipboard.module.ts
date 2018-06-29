@@ -6,15 +6,14 @@ import {
   DtInputModule,
   DtButtonModule,
   DtContextDialogModule } from '@dynatrace/angular-components';
-import { UiModule } from '../../ui/ui.module';
-import { DocsCopyToClipboardComponent } from './docs-copy-to-clipboard.component';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { DefaultCopyToClipboardExampleComponent } from './examples/default-copy-to-clipboard-example.component';
 import { CallbackCopyToClipboardExampleComponent } from './examples/callback-copy-to-clipboard-example.component';
 import { DisabledCopyToClipboardExampleComponent } from './examples/disabled-copy-to-clipboard-example.component';
 import { DarkCopyToClipboardExampleComponent } from './examples/dark-copy-to-clipboard-example.component';
-import {ContextCopyToClipboardExampleComponent} from './examples/context-copy-to-clipboard-example.component';
+import { ContextCopyToClipboardExampleComponent } from './examples/context-copy-to-clipboard-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultCopyToClipboardExampleComponent,
   CallbackCopyToClipboardExampleComponent,
   DisabledCopyToClipboardExampleComponent,
@@ -34,13 +33,12 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsCopyToClipboardComponent,
-  ],
-  exports: [
-    DocsCopyToClipboardComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsCopyToClipboardModule { }

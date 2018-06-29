@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -12,4 +13,5 @@ import { Component } from '@angular/core';
   Icons are not yet implemented - this is an example to showcase the icon placeholder
 </dt-card></div>`,
 })
+@OriginalClassName('IconCardExampleComponent')
 export class IconCardExampleComponent { }

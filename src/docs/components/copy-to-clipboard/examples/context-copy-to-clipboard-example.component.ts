@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `<dt-context-dialog #contextdialog color="cta">
@@ -8,6 +9,7 @@ import {Component} from '@angular/core';
     </dt-copy-to-clipboard>
   </dt-context-dialog>`,
 })
+@OriginalClassName('ContextCopyToClipboardExampleComponent')
 export class ContextCopyToClipboardExampleComponent {
 
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DtTag } from '@dynatrace/angular-components';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -19,6 +20,7 @@ import { DtTag } from '@dynatrace/angular-components';
 <button dt-button (click)="hasKey=!hasKey" [variant]="hasKey ? 'primary' : 'secondary'">Toggle key</button>
   `,
 })
+@OriginalClassName('InteractiveTagExampleComponent')
 export class InteractiveTagExampleComponent {
 
   value1 = 'My value 1';
