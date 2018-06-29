@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -8,4 +9,5 @@ import { Component } from '@angular/core';
   `,
   styles: ['.dt-button + .dt-button { margin-left: 8px; }'],
 })
-export class IconsButtonExampleComponent { }
+@OriginalClassName('IconsButtonExampleComponent')
+export class IconsButtonExampleComponent {}

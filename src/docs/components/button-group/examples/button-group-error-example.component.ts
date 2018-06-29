@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -8,4 +9,5 @@ import { Component } from '@angular/core';
   <dt-button-group-item color="error" value="error">Failure rate</dt-button-group-item>
 </dt-button-group>`,
 })
+@OriginalClassName('ButtonGroupErrorExampleComponent')
 export class ButtonGroupErrorExampleComponent { }

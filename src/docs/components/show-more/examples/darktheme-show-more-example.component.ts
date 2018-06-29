@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   <dt-show-more [showLess]="showLess" (changed)="showLess=!showLess">Toggle more/less</dt-show-more>
 </section>`,
 })
+@OriginalClassName('DarkThemeShowMoreExampleComponent')
 export class DarkThemeShowMoreExampleComponent {
   showLess = false;
 }

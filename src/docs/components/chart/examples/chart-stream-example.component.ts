@@ -3,10 +3,12 @@ import { Component } from '@angular/core';
 import { ChartService } from './docs-chart.service';
 import { IndividualSeriesOptions } from 'highcharts';
 import { Observable } from 'rxjs';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: '<dt-chart [options]="options" [series]="series$"></dt-chart>',
 })
+@OriginalClassName('ChartStreamExampleComponent')
 export class ChartStreamExampleComponent {
 
   options: Highcharts.Options = {

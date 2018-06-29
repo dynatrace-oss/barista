@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DocsChartComponent } from './docs-chart.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import {
   DtChartModule,
   DtButtonModule,
@@ -12,7 +11,7 @@ import { ChartStreamExampleComponent } from './examples/chart-stream-example.com
 import { ChartThemingExampleComponent } from './examples/chart-theming-example.component';
 import { ChartLoadingExampleComponent } from './examples/chart-loading-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   ChartDefaultExampleComponent,
   ChartStreamExampleComponent,
   ChartThemingExampleComponent,
@@ -27,17 +26,14 @@ const EXAMPLES = [
     DtButtonModule,
   ],
   declarations: [
-    DocsChartComponent,
     ...EXAMPLES,
-  ],
-  exports: [
-    DocsChartComponent,
-  ],
-  providers: [
-    ChartService,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
+    ChartService,
   ],
 })
 export class DocsChartModule {
