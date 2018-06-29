@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   <dt-alert severity="warning">{{text}}</dt-alert>
 </section>`,
 })
+@OriginalClassName('DarkAlertExampleComponent')
 export class DarkAlertExampleComponent {
   text = `This is a warning on dark background!`;
 }

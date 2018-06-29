@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -13,4 +14,5 @@ import { Component } from '@angular/core';
   The card is not an interactive element, therefore, there are no hover, active and disabled card.
 </dt-card></div>`,
 })
+@OriginalClassName('DarkThemeCardExampleComponent')
 export class DarkThemeCardExampleComponent { }

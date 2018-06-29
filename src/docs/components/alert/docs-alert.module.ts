@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DocsAlertComponent } from './docs-alert.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import {DtAlertModule, DtButtonModule, DtThemingModule} from '@dynatrace/angular-components';
 import {WarningAlertExampleComponent} from './examples/warning-alert-example.component';
@@ -8,7 +7,7 @@ import {ErrorAlertExampleComponent} from './examples/error-alert-example.compone
 import {InteractiveAlertExampleComponent} from './examples/interactive-alert-example.component';
 import {DarkAlertExampleComponent} from './examples/dark-alert-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   WarningAlertExampleComponent,
   ErrorAlertExampleComponent,
   InteractiveAlertExampleComponent,
@@ -25,13 +24,12 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsAlertComponent,
-  ],
-  exports: [
-    DocsAlertComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsAlertModule {
