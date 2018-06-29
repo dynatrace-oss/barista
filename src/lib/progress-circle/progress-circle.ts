@@ -2,13 +2,9 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter, ElementRef,
+
 } from '@angular/core';
-import {
-  DtProgressChange,
-  HasProgressValues,
-  mixinHasProgress
-} from '@dynatrace/angular-components/progress-base';
-import { mixinColor, CanColor } from '@dynatrace/angular-components/core';
+import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress } from '@dynatrace/angular-components/core';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */
 const CIRCLE_CIRCUMFERENCE = 328;
