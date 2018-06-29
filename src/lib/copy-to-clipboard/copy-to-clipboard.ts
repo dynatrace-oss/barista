@@ -34,32 +34,33 @@ const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
-  constructor(public _cd: ChangeDetectorRef) {
+  constructor(private _cd: ChangeDetectorRef) {
   }
 
-  private _timer: Subscription;
+  private _disabled = false;
+  @Input()
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(value: boolean) {
+    this._disabled = value;
+    if (this.inputComponent) {
+      this.inputComponent.disabled = value;
+    }
+  }
   @Output() copied: EventEmitter<void> = new EventEmitter();
   @Output() copyFailed: EventEmitter<void> = new EventEmitter();
-  @ContentChild(DtInput, {read: ElementRef}) input: ElementRef;
-  @ContentChild(DtInput) inputComponent: DtInput;
-  @ViewChild('copyButton', {read: ElementRef}) copyButtonRef: ElementRef;
+
   // tslint:disable-next-line:no-unused-variable
   private _showIcon = false;
   get showIcon(): boolean {
     return this._showIcon;
   }
 
-  private _disabled = false;
-
-  @Input() set disabled(value: boolean) {
-    this._disabled = value;
-    if (this.inputComponent) {
-      this.inputComponent.disabled = value;
-    }
-  }
-  get disabled(): boolean {
-    return this._disabled;
-  }
+  private _timer: Subscription;
+  @ContentChild(DtInput, {read: ElementRef}) private input: ElementRef;
+  @ContentChild(DtInput) private inputComponent: DtInput;
+  @ViewChild('copyButton', {read: ElementRef}) private copyButton: ElementRef;
 
   copyToClipboard(): void {
     if (this._disabled) {
@@ -75,8 +76,8 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
       }
       this._showIcon = true;
       addCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
-      if (this.copyButtonRef) {
-        addCssClass(this.copyButtonRef.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+      if (this.copyButton) {
+        addCssClass(this.copyButton.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
       }
     }
 
@@ -90,8 +91,8 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   private _resetCopyState(): void {
     this._showIcon = false;
     removeCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
-    if (this.copyButtonRef) {
-      removeCssClass(this.copyButtonRef.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+    if (this.copyButton) {
+      removeCssClass(this.copyButton.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     }
     this._cd.markForCheck();
     this._timer.unsubscribe();

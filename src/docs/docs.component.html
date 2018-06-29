@@ -1,5 +1,5 @@
 <div class="nav has-no-secondary">
-  <a class="nav__brand" routerLink="/">
+  <a class="nav__brand">
     <img class="nav__logo" src="http://assets.dynatrace.com/global/logos/dynatrace-logo.svg" alt="dynatrace logo"/>
   </a>
   <select class="theme-selector" [(ngModel)]="selectedTheme">
@@ -13,17 +13,13 @@
   <nav class="sidenav">
     <ul>
       <li *ngFor="let navItem of navItems">
-        <a routerLinkActive="router-link-active"
-          #routerLinkActiveInstance="routerLinkActive"
-          [attr.tabindex]="routerLinkActiveInstance.isActive ? -1 : 0"
-          [routerLink]="[navItem.route]">
-          {{navItem.name}}
-        </a>
+        <a href="{{navItem.route}}">{{navItem.name}}</a>
       </li>
     </ul>
   </nav>
 
   <div class="docs-content">
-    <router-outlet></router-outlet>
+    <docs-viewer [doc]="currentDocument">
+    </docs-viewer>
   </div>
 </div>

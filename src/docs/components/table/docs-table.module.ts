@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
-
-import { DocsTableComponent } from './docs-table.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtThemingModule, DtTableModule, DtLoadingDistractorModule } from '@dynatrace/angular-components';
 import { TableDefaultComponent } from './examples/table-default.component';
@@ -13,7 +11,7 @@ import { TableObservableComponent } from './examples/table-observable.component'
 import { TableLoadingComponent } from './examples/table-loading.component';
 import { TableDynamicColumnsComponent } from './examples/table-dynamic-columns.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   TableDefaultComponent,
   TableDifferentWidthComponent,
   TableMinWidthComponent,
@@ -32,15 +30,14 @@ const EXAMPLES = [
     DtTableModule,
     DtLoadingDistractorModule,
   ],
-  exports: [
-    DocsTableComponent,
-  ],
   declarations: [
     ...EXAMPLES,
-    DocsTableComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsTableModule { }

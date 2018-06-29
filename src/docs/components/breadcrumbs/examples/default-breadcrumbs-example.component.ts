@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `
@@ -10,5 +11,6 @@ import { Component } from '@angular/core';
     </dt-breadcrumbs>
   `,
 })
+@OriginalClassName('DefaultBreadcrumbsExampleComponent')
 export class DefaultBreadcrumbsExampleComponent {
 }

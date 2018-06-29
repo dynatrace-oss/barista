@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -10,5 +11,6 @@ import { Component } from '@angular/core';
 <button dt-button (click)="alert1.severity=undefined">Set undefined</button>
   `,
 })
+@OriginalClassName('InteractiveAlertExampleComponent')
 export class InteractiveAlertExampleComponent {
 }
