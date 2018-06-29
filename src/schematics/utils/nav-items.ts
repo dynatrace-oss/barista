@@ -13,7 +13,7 @@ export function addNavItem(host: Tree, options: DtComponentOptions, modulePath: 
   const routesDeclaration = findNodes(sourceFile, ts.SyntaxKind.PropertyDeclaration)
   .find((node: ts.PropertyDeclaration) => node.name.getText() === 'navItems') as ts.PropertyDeclaration;
   const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression).elements;
-  const toInsert = `{name: '${strings.capitalize(options.name)}', route: '/${strings.dasherize(options.name)}'},`;
+  const toInsert = `{ name: '${strings.capitalize(options.name)}', route: '/${strings.dasherize(options.name)}' },`;
   let navItemBefore = routes
     .filter((node: ts.Expression) => !node.getText().includes('route: \'/\''))
     .find((node: ts.Expression) => node.getText() > toInsert);

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
    <dt-key-value-list-item *ngFor="let entry of entries" [key]="entry.key" [value]="entry.value"></dt-key-value-list-item>
 </dt-key-value-list>`,
 })
+@OriginalClassName('DefaultKeyValueListExampleComponent')
 export class DefaultKeyValueListExampleComponent {
   entries: object[] = [
     { key : 'Temp', value : '28C' },

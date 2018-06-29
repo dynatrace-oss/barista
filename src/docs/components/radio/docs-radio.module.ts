@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { DefaultRadioExample } from './examples/default-radio-example';
-import { DocsRadioComponent } from './docs-radio.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtRadioModule, DtThemingModule } from '@dynatrace/angular-components';
 import { NameGroupingRadioExample } from './examples/name-grouping-radio-example';
 import { DarkRadioExample } from './examples/dark-radio-example';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultRadioExample,
   NameGroupingRadioExample,
   DarkRadioExample,
@@ -22,13 +21,12 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsRadioComponent,
-  ],
-  exports: [
-    DocsRadioComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsRadioModule {
