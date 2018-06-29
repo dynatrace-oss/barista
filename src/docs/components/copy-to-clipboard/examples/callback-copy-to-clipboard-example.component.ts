@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { timer } from 'rxjs';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `
@@ -12,6 +13,7 @@ import { timer } from 'rxjs';
       {{_copyHint}}
     </div>`,
 })
+@OriginalClassName('CallbackCopyToClipboardExampleComponent')
 export class CallbackCopyToClipboardExampleComponent {
   // tslint:disable-next-line:no-unused-variable
   _copyHint = 'Will change after copy';

@@ -13,11 +13,13 @@ import { ShowMoreUI } from '../show-more/show-more-ui';
 import { CheckboxUI } from '../checkbox/checkbox-ui';
 import { SwitchUI } from '../switch/switch-ui';
 import { CopyToClipboardUI } from '../copy-to-clipboard/copy-to-clipboard-ui';
+import { ChartUI } from 'chart/chart-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
   { path: 'button', component: ButtonUI },
   { path: 'button-group', component: ButtonGroupUi },
+  { path: 'chart', component: ChartUI },
   { path: 'checkbox', component: CheckboxUI },
   { path: 'context-dialog', component: ContextDialogUI },
   { path: 'copy-to-clipboard', component: CopyToClipboardUI },

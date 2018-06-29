@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-
+import { OriginalClassName } from '../../../core/decorators';
 @Component({
   template: `
     <dt-copy-to-clipboard #copyClipboard [disabled]="_toggleValue">
@@ -9,6 +9,7 @@ import {Component} from '@angular/core';
     <br/>
     <button dt-button (click)="_toggleValue = !_toggleValue">Toggle</button>`,
 })
+@OriginalClassName('DisabledCopyToClipboardExampleComponent')
 export class DisabledCopyToClipboardExampleComponent {
   _toggleValue = true;
 }
