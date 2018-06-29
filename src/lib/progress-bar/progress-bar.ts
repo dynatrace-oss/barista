@@ -4,9 +4,7 @@ import {
   ViewEncapsulation,
   Input, ChangeDetectorRef, Output, EventEmitter, ElementRef,
 } from '@angular/core';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import { DtProgressChange, HasProgressValues, mixinHasProgress} from '@dynatrace/angular-components/progress-base';
-import { mixinColor, CanColor } from '@dynatrace/angular-components/core';
+import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress } from '@dynatrace/angular-components/core';
 
 export type DtProgressBarChange = DtProgressChange;
 
@@ -25,7 +23,7 @@ export const _DtProgressBar = mixinHasProgress(mixinColor(DtProgressBarBase, 'ma
   host: {
     'class': 'dt-progress-bar',
     'role': 'progressbar',
-    '[class.dt-progress-bar-right]': 'rightAligned',
+    '[class.dt-progress-bar-end]': 'align == "end"',
     '[attr.aria-valuemin]': 'min',
     '[attr.aria-valuemax]': 'max',
     '[attr.aria-valuenow]': 'value',
@@ -36,17 +34,10 @@ export const _DtProgressBar = mixinHasProgress(mixinColor(DtProgressBarBase, 'ma
 })
 export class DtProgressBar extends _DtProgressBar implements CanColor, HasProgressValues {
 
-  /** If the progress bar element is aligned to the right */
-  @Input()
-  get rightAligned(): boolean { return this._rightAligned; }
-  set rightAligned(v: boolean) {
-    this._rightAligned = coerceBooleanProperty(v);
-  }
+  @Input() align: 'start' | 'end' = 'start';
 
   @Output()
   readonly valueChange = new EventEmitter<DtProgressBarChange>();
-
-  private _rightAligned = false;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, public _elementRef: ElementRef) {
     super(_elementRef);
