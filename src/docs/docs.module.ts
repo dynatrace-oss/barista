@@ -2,9 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DocsRoutingModule } from './docs-routing.module';
 import { Docs } from './docs.component';
-import { Home } from './docs-home/docs-home.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
 import { DocsButtonGroupModule } from './components/button-group/docs-button-group.module';
 import { DocsLinkModule } from './components/link/docs-link.module';
@@ -34,6 +32,8 @@ import { DocsBreadcrumbsModule } from './components/breadcrumbs/docs-breadcrumbs
 import { CoreModule } from './core/core.module';
 import { DocsSwitchModule } from './components/switch/docs-switch.module';
 import { environment } from './environments/environment';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { DocsViewerComponent } from './core/docs-viewer.component';
 
 @NgModule({
   imports: [
@@ -43,7 +43,6 @@ import { environment } from './environments/environment';
     FormsModule,
     CoreModule,
     DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
-    DocsRoutingModule,
     DocsButtonModule,
     DocsButtonGroupModule,
     DocsInputModule,
@@ -73,12 +72,19 @@ import { environment } from './environments/environment';
   ],
   declarations: [
     Docs,
-    Home,
+    DocsViewerComponent,
+  ],
+  exports: [
+    DocsViewerComponent,
   ],
   entryComponents: [
     Docs,
   ],
   bootstrap: [Docs],
+  providers: [
+    Location,
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+  ],
 })
 export class DocsModule {
 }

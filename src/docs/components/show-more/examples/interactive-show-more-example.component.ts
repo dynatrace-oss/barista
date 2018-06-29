@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 </dt-show-more>
 <button dt-button (click)="showLess=!showLess" [variant]="showLess ? 'primary' : 'secondary'">Toggle more</button>`,
 })
+@OriginalClassName('InteractiveShowMoreExampleComponent')
 export class InteractiveShowMoreExampleComponent {
   showLess = false;
 }
