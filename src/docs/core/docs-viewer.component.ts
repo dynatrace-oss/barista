@@ -125,8 +125,6 @@ export class DocsViewerComponent implements OnDestroy {
           const examplePortal = new ComponentPortal(comp, this._viewContainerRef);
           const ref = portalHost.attach(examplePortal);
           ref.instance.componentType = componentType;
-          // ref.changeDetectorRef.detectChanges();
-
           this._portalHosts.push(portalHost);
         } else {
           element.innerHTML = exampleNotFoundTemplateFactory(name!);
