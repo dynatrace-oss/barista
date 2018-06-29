@@ -1,4 +1,4 @@
-# Progress circle
+# Progress bar
 
 <docs-source-example example="DefaultProgressBarExampleComponent"></docs-source-example>
 
@@ -24,7 +24,7 @@ class MyModule {}
 
 ## Accessibility
 
-Prgoress circles should be given a meaningful label via aria-label or aria-labelledby.
+Progress bars should be given a meaningful label via aria-label or aria-labelledby.
 
 ## Options & Properties
 
