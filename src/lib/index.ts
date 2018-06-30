@@ -2,6 +2,7 @@
  * The exports need to use already existing modules or it's going to create new classes otherwise and break
  * the dependency injection in some cases
  */
+
 export * from '@dynatrace/angular-components/alert';
 export * from '@dynatrace/angular-components/core';
 export * from '@dynatrace/angular-components/form-field';
@@ -31,3 +32,4 @@ export * from '@dynatrace/angular-components/progress-bar';
 export * from '@dynatrace/angular-components/progress-circle';
 export * from '@dynatrace/angular-components/switch';
 export * from '@dynatrace/angular-components/breadcrumbs';
+export * from '@dynatrace/angular-components/tabs';
