@@ -36,6 +36,7 @@ export class Docs {
     {name: 'Styles', route: '/style' },
     {name: 'Switch', route: '/switch'},
     {name: 'Table', route: '/table'},
+    {name: 'Tabs', route: '/tabs'},
     {name: 'Tag', route: '/tag'},
     {name: 'Tile', route: '/tile'},
   ];
