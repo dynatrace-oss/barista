@@ -37,6 +37,7 @@ import { environment } from '@environments/environment';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DocsViewerComponent } from './core/docs-viewer.component';
 import { DocsProgressBarModule } from './components/progress-bar/docs-progress-bar.module';
+import { DocsTabsModule } from './components/tabs/docs-tabs.module';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
@@ -89,6 +90,7 @@ export class NoopRouteComponent {}
     DocsSwitchModule,
     DocsBreadcrumbsModule,
     DocsProgressBarModule,
+    DocsTabsModule,
   ],
   declarations: [
     Docs,
