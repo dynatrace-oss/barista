@@ -91,7 +91,12 @@ export class DtCell {
  */
 @Component({
   selector: 'dt-expandable-cell',
-  template: `<span [ngClass]="{'expanded': expanded}">V</span>`, // TODO add-icon, change expanded style
+  template: `
+    <span [ngClass]="{'expanded': expanded}">
+      <svg class="dropdown" viewBox="0 0 512 512" enable-background="new 0 0 512 512">
+	      <polygon points="403.07822,142.41222 256,289.49042 108.92179,142.41222 63.66695,187.66705 256,380.00009 448.33304,187.66705 "/>
+      </svg>
+    </span>`,
   styleUrls: ['./scss/expandable-cell.scss'],
   host: {
     class: 'dt-expandable-cell',
