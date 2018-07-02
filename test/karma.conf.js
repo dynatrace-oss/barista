@@ -61,7 +61,10 @@ module.exports = (config) => {
       sonarQubeVersion: 'LATEST',
       outputDir: 'dist/sonar-test-results/',
       outputFile: 'unit-tests.xml',
-      useBrowserName: false
+      useBrowserName: false,
+      overrideTestDescription: true,
+      testPaths: ['./src/lib'],
+      testFilePattern: '.spec.ts',
     },
 
     browserDisconnectTimeout: 20000,
