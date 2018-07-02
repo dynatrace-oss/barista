@@ -11,6 +11,7 @@ process.env.CHROME_BIN = chromeConfig.binary;
 
 const isOnCI = process.env.CI;
 const coverageReporters = isOnCI ? ['lcovonly', 'html'] : ['html'];
+const karmaReporters = isOnCI ? ['dots', 'junit', 'sonarqubeUnit'] : ['dots'];
 
 module.exports = (config) => {
 
@@ -42,7 +43,7 @@ module.exports = (config) => {
         }
       },
     },
-    reporters: ['dots','junit', 'sonarqubeUnit', ],
+    reporters: karmaReporters,
     autoWatch: true,
     singleRun: false,
     colors: !isOnCI,
@@ -50,11 +51,17 @@ module.exports = (config) => {
 
 
     junitReporter: {
-      outputDir: 'dist/testresults/',
+      outputDir: 'dist/test-results/',
       outputFile: 'unit-tests.xml',
       useBrowserName: false,
       suite: '',
       XMLconfigValue: true
+    },
+    sonarQubeUnitReporter: {
+      sonarQubeVersion: 'LATEST',
+      outputDir: 'dist/sonar-test-results/',
+      outputFile: 'unit-tests.xml',
+      useBrowserName: false
     },
 
     browserDisconnectTimeout: 20000,
