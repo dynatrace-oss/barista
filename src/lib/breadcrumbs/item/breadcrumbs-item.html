@@ -1,7 +1,4 @@
-<a *ngIf="external && !_lastItem" [href]="href" class="dt-breadcrumb-item dt-breadcrumb-link">
-  <ng-container *ngTemplateOutlet="content"></ng-container>
-</a>
-<a *ngIf="!external && !_lastItem" [routerLink]="href" queryParamsHandling="merge" class="dt-breadcrumb-item dt-breadcrumb-link">
+<a *ngIf="!_lastItem" [href]="calculatedHref()" class="dt-breadcrumb-item dt-breadcrumb-link">
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
 <span *ngIf="_lastItem" class="dt-breadcrumb-item dt-breadcrumb-non-clickable">
