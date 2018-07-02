@@ -4,6 +4,7 @@
 
 @import 'variables';
 
+/* stylelint-disable property-blacklist  */
 @mixin custom-font-styles($color: false, $font-weight: false,
                           $font-size: false, $line-height: false) {
 
@@ -55,3 +56,4 @@
 @mixin label-font($line-height: $default-line-height) {
   @include default-font(12px, $line-height);
 }
+/* stylelint-enable property-blacklist  */
