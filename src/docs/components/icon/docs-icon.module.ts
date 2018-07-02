@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtIconModule } from '@dynatrace/angular-components';
-import { DocsIconComponent } from './docs-icon.component';
-import { DefaultIconExample } from './examples/icon-default-example';
-import { AllIconExample, DocsAsyncIcon } from './examples/icon-all-example';
 import { HttpClientModule } from '@angular/common/http';
 
-const EXAMPLES = [
+import { DtIconModule } from '@dynatrace/angular-components';
+import { AllIconExample, DocsAsyncIcon } from './examples/icon-all-example';
+import { DefaultIconExample } from './examples/icon-default-example';
+
+export const EXAMPLES = [
   DefaultIconExample,
   AllIconExample,
   DocsAsyncIcon,
@@ -18,17 +18,16 @@ const EXAMPLES = [
     CommonModule,
     UiModule,
     HttpClientModule,
-    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
+    DtIconModule,
   ],
   declarations: [
     ...EXAMPLES,
-    DocsIconComponent,
-  ],
-  exports: [
-    DocsIconComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsIconModule {

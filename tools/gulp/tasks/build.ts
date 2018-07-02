@@ -1,7 +1,7 @@
 import { dest, src, task } from 'gulp';
 import { join } from 'path';
 import { buildConfig } from '../build-config';
-import * as through from 'through2';
+import { replaceInFile } from '../util/file-replacer';
 import { replaceVersionPlaceholders } from '../util/replace-version-placeholder';
 import { execNodeTask } from '../util/task-runner';
 import { sequenceTask } from '../util/sequence-task';
@@ -9,21 +9,9 @@ import { parseDir } from 'sass-graph';
 
 task('library:version-replace', replaceVersionPlaceholders);
 
-// module.id needs to be removed to work with the aot compiler
-const removeModuleId = () => through.obj((file, _, callback) => {
-  if (file.isNull()) {
-    callback(null);
-
-    return;
-  }
-  const contentStr = file.contents.toString('utf8');
-  file.contents = Buffer.from(contentStr.replace(/\s*moduleId:\s*module\.id\s*,?\s*/gm, ''));
-  callback(null, file);
-});
-
 task('library:removeModuleId', () =>
   src(join(buildConfig.libOutputDir, '/**/*.js'))
-  .pipe(removeModuleId())
+  .pipe(replaceInFile(/\s*moduleId:\s*module\.id\s*,?\s*/gm, ''))
   .pipe(dest(buildConfig.libOutputDir)));
 
 task('library:styles', () => {

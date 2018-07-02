@@ -47,6 +47,11 @@
       border-color: $gray-400;
     }
   }
+
+  // Removes the red outline in firefox
+  box-shadow:none;
+  &:-moz-placeholder,
+  &:focus { box-shadow:none !important; }
 }
 
 textarea.dt-input {

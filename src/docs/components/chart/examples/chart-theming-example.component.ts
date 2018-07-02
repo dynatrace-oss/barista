@@ -2,10 +2,12 @@
 
 import { Component } from '@angular/core';
 import { generateData } from './chart-data-utils';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `<div dtTheme="turquoise"><dt-chart [options]="options" [series]="series"></dt-chart></div>`,
 })
+@OriginalClassName('ChartThemingExampleComponent')
 export class ChartThemingExampleComponent {
 
   options: Highcharts.Options = {

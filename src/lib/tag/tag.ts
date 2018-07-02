@@ -7,7 +7,7 @@ import {
 import {
   CanDisable,
   mixinDisabled,
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {DELETE} from '@angular/cdk/keycodes';
 
@@ -36,6 +36,7 @@ export class DtTagKey { }
     '[attr.aria-disabled]': 'disabled.toString()',
     '[attr.tabindex]': 'removable && !disabled ? 0 : -1',
     '[class.dt-tag-disabled]': 'disabled',
+    '[class.dt-tag-removable]': 'removable && !disabled',
   },
   inputs: ['disabled'],
   preserveWhitespaces: false,

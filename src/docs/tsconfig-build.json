@@ -24,11 +24,13 @@
       "../../dist/docs"
     ],
     "paths": {
-      "@dynatrace/angular-components": ["../../dist/lib"]
+      "@dynatrace/angular-components": ["../../dist/lib"],
+      "@dynatrace/angular-components/*": ["../../dist/lib/*"]
     }
   },
   "files": [
     "../../typings.d.ts",
+    "./environments/environment.ts",
     "./docs.module.ts",
     "./main.ts",
     "./polyfills.ts"

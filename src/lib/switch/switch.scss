@@ -1,0 +1,93 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './switch-theme';
+
+:host:not(.dt-switch-disabled),
+:host:not(.dt-switch-disabled) .dt-switch-label {
+  cursor: pointer;
+}
+
+:host.dt-switch-disabled,
+:host.dt-switch-disabled .dt-switch-label {
+  cursor: default;
+}
+
+.dt-switch-input {
+  clip: rect(0 0 0 0);
+  position: absolute;
+}
+
+.dt-switch-bar {
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.dt-switch-content {
+  font-family: $mainfont;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.dt-switch-label {
+  position: relative;
+  padding-left: 8px;
+  padding-right: 20px;
+  user-select: none;
+}
+
+:host {
+  .dt-switch-label::before {
+    content: '';
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    box-sizing: border-box;
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    background-position: 21px 4px;
+    transition: background-color 100ms ease-out;
+    top: -1px;
+  }
+
+  &.dt-switch-focused:not(.dt-switch-disabled) {
+    .dt-switch-label::before {
+      @include dt-focus-style();
+    }
+  }
+
+  &.dt-switch-checked {
+    .dt-switch-label::before {
+      background-size: 8px 8px;
+      background-repeat: no-repeat;
+      background-position: 9px 5px;
+    }
+    .dt-switch-label::after {
+      left: 16px;
+    }
+  }
+
+  .dt-switch-label::after {
+    content: '';
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    transition: left 100ms ease-out, right 100ms ease-out;
+    margin-top: 3px;
+    margin-left: 4px;
+    box-sizing: border-box;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+  }
+}
+
+// Apply the switch theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-switch($dt-current-theme);
+}

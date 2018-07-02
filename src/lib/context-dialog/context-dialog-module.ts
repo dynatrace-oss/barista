@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { A11yModule } from '@angular/cdk/a11y';
-import { DtButtonModule, } from '../button/index';
-import { DtThemingModule } from '../theming/index';
+import { DtButtonModule, } from '@dynatrace/angular-components/button';
+import { DtThemingModule } from '@dynatrace/angular-components/theming';
 import { DtContextDialog } from './context-dialog';
 import { DtContextDialogTrigger } from './context-dialog-trigger';
-import { DtIconModule } from '../icon/index';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 
 const EXPORTED_DECLARATIONS = [
   DtContextDialog,
