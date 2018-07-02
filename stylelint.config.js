@@ -20,6 +20,9 @@ module.exports = {
     "number-leading-zero": "always",
     "number-no-trailing-zeros": true,
     "length-zero-no-unit": true,
+    "property-blacklist": [
+      "font-family"
+      ],
     "string-no-newline": true,
     "string-quotes": "single",
     "unit-case": "lower",
