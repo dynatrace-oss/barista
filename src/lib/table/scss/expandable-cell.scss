@@ -1,0 +1,10 @@
+@import '../../core/style/variables';
+@import 'base-cell';
+
+:host.dt-expandable-cell {
+  @extend %base-cell;
+
+  .expanded {
+    font-weight: bold;
+  }
+}
