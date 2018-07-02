@@ -10,6 +10,7 @@ const chromeConfig = require('./chrome.conf');
 process.env.CHROME_BIN = chromeConfig.binary;
 
 const isOnCI = process.env.CI;
+const coverageReporters = isOnCI ? ['lcovonly', 'html'] : ['html'];
 
 module.exports = (config) => {
 
@@ -21,6 +22,8 @@ module.exports = (config) => {
       require('karma-chrome-launcher'),
       require('karma-sourcemap-loader'),
       require('karma-junit-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('karma-sonarqube-unit-reporter'),
       require('@angular-devkit/build-angular/plugins/karma'),
     ],
     client: {
@@ -30,11 +33,16 @@ module.exports = (config) => {
       },
     },
     coverageIstanbulReporter: {
-      dir: path.join(__dirname, '../../coverage'),
-      reports: ['html', 'lcovonly'],
-      fixWebpackSourcePaths: true
+      dir: path.join(__dirname, '../dist/coverage-results'),
+      reports: coverageReporters,
+      fixWebpackSourcePaths: true,
+      'report-config': {
+        html: {
+          subdir: 'html'
+        }
+      },
     },
-    reporters: ['dots','junit'],
+    reporters: ['dots','junit', 'sonarqubeUnit', ],
     autoWatch: true,
     singleRun: false,
     colors: !isOnCI,
@@ -60,5 +68,6 @@ module.exports = (config) => {
         flags: chromeConfig.karmaFlags,
       }
     },
+
   });
 };
