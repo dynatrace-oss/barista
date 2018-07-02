@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { OriginalClassName } from '../../../core/decorators';
 const TIMEOUT_MS = 2000;
 
 @Component({
@@ -10,6 +11,7 @@ const TIMEOUT_MS = 2000;
       [onRemoteSave]="failingSaveFunction"></em>
   `,
 })
+@OriginalClassName('FailingInlineEditorExample')
 export class FailingInlineEditorExample {
   sampleModel = 'text content';
 

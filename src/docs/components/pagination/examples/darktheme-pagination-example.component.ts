@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -6,4 +7,5 @@ import { Component } from '@angular/core';
   <dt-pagination [maxPages]="11"></dt-pagination>
 </section>`,
 })
+@OriginalClassName('DarkThemePaginationExampleComponent')
 export class DarkThemePaginationExampleComponent { }

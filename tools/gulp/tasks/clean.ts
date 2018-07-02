@@ -15,7 +15,3 @@ src(dir, { read: false, allowEmpty: true } as SrcOptions)
 
 /** Deletes the dist/ directory. */
 task('clean:universal', () => cleanTask(buildConfig.universalAppOutputDir));
-
-task('clean:unit-test', () => cleanTask(buildConfig.unitTestOutputDir));
-
-task('clean:ui-test', () => cleanTask(buildConfig.uiTestAppOutputDir));

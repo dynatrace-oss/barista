@@ -14,13 +14,13 @@ import {
 import * as path from 'path';
 import * as ts from 'typescript';
 import {
-  addDynatraceAngularComponentsImport,
   addImport,
   findNodes,
   getIndentation,
   getSourceFile,
   getSourceNodes,
   addToNgModule,
+  addDynatraceSubPackageImport,
 } from '../utils/ast-utils';
 import { InsertChange, commitChanges } from '../utils/change';
 import { addNavItem } from '../utils/nav-items';
@@ -75,39 +75,6 @@ function addDeclarationsToDocsModule(options: DtComponentOptions): Rule {
 }
 
 /**
- * Adds a new route inside the docs routes
- */
-function addRouteInDocs(options: DtComponentOptions): Rule {
-  return (host: Tree) => {
-    const modulePath = path.join('src', 'docs', 'docs-routing.module.ts');
-    const sourceFile = getSourceFile(host, modulePath);
-
-    const importName = `Docs${strings.classify(options.name)}Component`;
-    const importLocation = `'./components/${strings.dasherize(options.name)}/docs-${strings.dasherize(options.name)}.component';`;
-    const importChange = addImport(modulePath, sourceFile, importName, importLocation);
-    const changes = [importChange];
-
-    /**
-     * find first routes property assignment
-     */
-    const routesDeclaration = findNodes(sourceFile, ts.SyntaxKind.VariableDeclaration)
-    .find((node: ts.VariableDeclaration) => node.name.getText() === 'routes') as ts.VariableDeclaration;
-    const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression).elements;
-    const wildcardroute = routes.filter((node: ts.Expression) => node.getText().includes('path: \'**\''));
-
-    if (wildcardroute.length > 0) {
-      const indentation = getIndentation(wildcardroute);
-      const toInsert = `{ path: '${strings.dasherize(options.name)}', component: ${importName} },${indentation}`;
-      const end = (wildcardroute.pop() as ts.Expression).getStart();
-      const routesChange = new InsertChange(modulePath, end, toInsert);
-      changes.push(routesChange);
-    }
-
-    return commitChanges(host, changes, modulePath);
-  };
-}
-
-/**
  * Adds a new navitem inside the docs navitems
  */
 function addNavitemInDocs(options: DtComponentOptions): Rule {
@@ -120,11 +87,7 @@ function addDeclarationsToKitchenSink(options: DtComponentOptions): Rule {
     const sourceFilePath = path.join('src', 'universal-app', 'kitchen-sink', 'kitchen-sink.ts');
     const sourceFile = getSourceFile(host, sourceFilePath);
 
-    const importChange = addDynatraceAngularComponentsImport(
-      sourceFile,
-      sourceFilePath,
-      options.moduleName
-    );
+    const importChange = addDynatraceSubPackageImport(sourceFilePath, sourceFile, options);
     const changes = [importChange];
 
     /**
@@ -162,11 +125,7 @@ function addComponentToUiTestModule(options: DtComponentOptions): Rule {
 
     const changes = [];
     /** @dynatrace/angular-component import */
-    changes.push(addDynatraceAngularComponentsImport(
-      sourceFile,
-      sourceFilePath,
-      options.moduleName
-    ));
+    changes.push(addDynatraceSubPackageImport(sourceFilePath, sourceFile, options));
 
     /**
      * relative <name>UI import
@@ -248,7 +207,6 @@ export default function(options: DtComponentOptions): Rule {
     mergeWith(templateSource),
     addExportToRootIndex(options),
     addDeclarationsToDocsModule(options),
-    addRouteInDocs(options),
     addNavitemInDocs(options),
     options.universal ? chain([addDeclarationsToKitchenSink(options), addCompToKitchenSinkHtml(options)]) : noop(),
     options.uitest ? chain([

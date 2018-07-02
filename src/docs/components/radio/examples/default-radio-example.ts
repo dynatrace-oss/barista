@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -10,6 +11,7 @@ import { Component } from '@angular/core';
     <dt-radio-button value="glenlivet">Glenlivet</dt-radio-button>
   </dt-radio-group>
   `,
-  styles: ['dt-radio-button { display: block; } dt-radio-button + dt-radio-button { margin-top: 8px; }'],
+  styles: ['dt-radio-button { display: block; } dt-radio-button + dt-radio-button { margin-top: 20px; }'],
 })
+@OriginalClassName('DefaultRadioExample')
 export class DefaultRadioExample { }

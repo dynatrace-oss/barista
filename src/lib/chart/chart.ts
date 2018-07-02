@@ -15,12 +15,13 @@ import {
   isDevMode,
   ViewEncapsulation,
   ChangeDetectorRef,
+  NgZone,
 } from '@angular/core';
 import { Options, IndividualSeriesOptions, ChartObject, chart, AxisOptions } from 'highcharts';
 import { Observable, Subscription } from 'rxjs';
-import { DtLogger, DtLoggerFactory, DtViewportResizer } from '../core/index';
+import { DtLogger, DtLoggerFactory, DtViewportResizer } from '@dynatrace/angular-components/core';
 import { delay } from 'rxjs/operators';
-import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '../theming/index';
+import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '@dynatrace/angular-components/theming';
 import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
@@ -69,6 +70,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
   set options(options: DtChartOptions) {
     this._options = options;
+    this._isTooltipWrapped = false;
     this._mergeOptions(options);
   }
 
@@ -99,7 +101,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   constructor(
     @Optional() private _viewportResizer: DtViewportResizer,
     @Optional() @SkipSelf() private _theme: DtTheme,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _ngZone: NgZone
   ) {
     if (this._viewportResizer) {
       this._viewportResizerSub = this._viewportResizer.change()
@@ -113,7 +116,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.series || changes._options) {
+    if (changes.series || changes.options) {
       this._update();
     }
   }
@@ -255,7 +258,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * Spins up the chart with correct colors applied
    */
   private _createChart(): void {
-    this._chartObject = chart(this.container.nativeElement, this.highchartsOptions);
+    this._chartObject = this._ngZone.runOutsideAngular(() => chart(this.container.nativeElement, this.highchartsOptions));
     this._setLoading();
   }
 
@@ -265,7 +268,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _update(redraw: boolean = true, oneToOne: boolean = true): void {
     if (this._chartObject) {
       this._setLoading();
-      this._chartObject.update(this.highchartsOptions, redraw, oneToOne);
+      this._ngZone.runOutsideAngular(() => {
+        this._chartObject.update(this.highchartsOptions, redraw, oneToOne);
+      });
       this.updated.emit();
     }
   }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
   {{ text }}
 </dt-expandable-section>`,
 })
+@OriginalClassName('OpenExpandableSectionExampleComponent')
 export class OpenExpandableSectionExampleComponent {
   text = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
   dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.

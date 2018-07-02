@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -7,12 +8,11 @@ import { Component } from '@angular/core';
       <dt-breadcrumbs>
         <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>
         <dt-breadcrumbs-item [href]="['first', 'second', {param: 123}]">Second view</dt-breadcrumbs-item>
-        <dt-breadcrumbs-item [href]="['first', 'second', {param: 123}, 'current']" [active]="true">
-          Current view
-        </dt-breadcrumbs-item>
+        <dt-breadcrumbs-item>Current view</dt-breadcrumbs-item>
       </dt-breadcrumbs>
     </div>
   `,
 })
+@OriginalClassName('DarkBreadcrumbsExampleComponent')
 export class DarkBreadcrumbsExampleComponent {
 }

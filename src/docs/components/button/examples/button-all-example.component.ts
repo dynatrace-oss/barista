@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -61,6 +62,7 @@ import { Component } from '@angular/core';
     .dt-button + .dt-button { margin-left: 8px; }
   `],
 })
+@OriginalClassName('AllButtonExampleComponent')
 export class AllButtonExampleComponent {
   colors = [
     { name: 'Default', key: null },

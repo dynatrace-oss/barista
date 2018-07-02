@@ -12,8 +12,9 @@ import {
   DtTableEmptyStateTitle,
   DtTableLoadingState,
   DtTableModule,
-} from './index';
-import { DtLoadingDistractor, DtLoadingDistractorModule } from '../loading-distractor/index';
+  DtLoadingDistractor,
+  DtLoadingDistractorModule,
+} from '@dynatrace/angular-components';
 
 describe('DtTable', () => {
 

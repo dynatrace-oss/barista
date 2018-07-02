@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { DocsPaginationComponent } from './docs-pagination.component';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import {DtPaginationModule, DtButtonModule, DtThemingModule} from '@dynatrace/angular-components';
 import { DefaultPaginationExampleComponent } from './examples/default-pagination-example.component';
 import {ManyPaginationExampleComponent} from './examples/many-pagination-example.component';
 import {DarkThemePaginationExampleComponent} from './examples/darktheme-pagination-example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultPaginationExampleComponent,
   ManyPaginationExampleComponent,
   DarkThemePaginationExampleComponent,
@@ -23,13 +22,12 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
-    DocsPaginationComponent,
-  ],
-  exports: [
-    DocsPaginationComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsPaginationModule {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -25,6 +26,7 @@ import { Component } from '@angular/core';
 </div>`,
   // @formatter:on
 })
+@OriginalClassName('ButtonGroupInteractiveExampleComponent')
 export class ButtonGroupInteractiveExampleComponent {
   groupValues: Array<{ key: string; name: string }> = [
     { key: 'perf', name: 'Performance' },

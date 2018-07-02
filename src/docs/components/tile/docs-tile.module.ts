@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { UiModule } from '../../ui/ui.module';
+import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { DtTileModule, DtThemingModule, DtIconModule } from '@dynatrace/angular-components';
-import { DocsTileComponent } from './docs-tile.component';
 import { DefaultTileExampleComponent } from './examples/default-tile-example.component';
 import { SmallTileExampleComponent } from './examples/small-tile-example.component';
 import { RecoveredTileExampleComponent } from './examples/recovered-tile-example.component';
@@ -11,7 +10,7 @@ import { ErrorTileExampleComponent } from './examples/error-tile-example.compone
 import { MainTileExampleComponent } from './examples/main-tile-example.component';
 import { DisabledTileExampleComponent } from './examples/disabled-tile.example.component';
 
-const EXAMPLES = [
+export const EXAMPLES = [
   DefaultTileExampleComponent,
   SmallTileExampleComponent,
   RecoveredTileExampleComponent,
@@ -27,17 +26,16 @@ const EXAMPLES = [
     DtTileModule,
     DtThemingModule,
     HttpClientModule,
-    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
+    DtIconModule,
   ],
   declarations: [
     ...EXAMPLES,
-    DocsTileComponent,
-  ],
-  exports: [
-    DocsTileComponent,
   ],
   entryComponents: [
     ...EXAMPLES,
+  ],
+  providers: [
+    { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
   ],
 })
 export class DocsTileModule {
