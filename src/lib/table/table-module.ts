@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
 import { DtTable } from './table';
 import { DtHeaderRow, DtHeaderRowDef, DtRow, DtRowDef } from './row';
-import { DtCell, DtCellDef, DtColumnDef, DtHeaderCell, DtHeaderCellDef } from './cell';
+import { DtCell, DtExpandableCell, DtCellDef, DtColumnDef, DtHeaderCell, DtHeaderCellDef } from './cell';
 import {
   DtTableEmptyState,
   DtTableEmptyStateImage,
@@ -12,6 +12,8 @@ import {
   DtTableEmptyStateDirective,
 } from './table-empty-state';
 import { DtTableLoadingState } from './table-loading-state';
+import { DtIconModule } from '../icon';
+import { DtExpandableRow } from './expandable-row';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
@@ -22,6 +24,8 @@ const EXPORTED_DECLARATIONS = [
   DtCell,
   DtCellDef,
   DtColumnDef,
+  DtExpandableCell,
+  DtExpandableRow,
   DtHeaderCell,
   DtHeaderCellDef,
   DtTableEmptyState,
@@ -36,6 +40,7 @@ const EXPORTED_DECLARATIONS = [
   imports: [
     CommonModule,
     CdkTableModule,
+    DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
   ],
   exports: [
     ...EXPORTED_DECLARATIONS,

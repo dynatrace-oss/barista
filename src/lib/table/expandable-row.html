@@ -1,0 +1,12 @@
+<div (click)="onClick()"
+     class="dt-expandable-row-base"
+     [ngClass]="{'dt-expandable-row-base-expanded': expanded}"
+     #dtExpandableRow>
+  <ng-container cdkCellOutlet></ng-container>
+</div>
+<div [ngClass]="{'dt-expandable-row-expanded': expanded}"
+     [@detailExpand]="expanded ? 'expanded' : 'collapsed'">
+  <div #dtExpandableContent>
+    <ng-content></ng-content>
+  </div>
+</div>
