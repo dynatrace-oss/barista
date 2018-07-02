@@ -1,8 +1,7 @@
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { DtTagModule } from './index';
-import { DtIconModule } from '../icon/index';
+import { DtTagModule, DtIconModule } from '@dynatrace/angular-components';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtTag', () => {

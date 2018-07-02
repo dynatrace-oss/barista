@@ -8,7 +8,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { mixinColor, CanColor } from '../core/index';
+import { mixinColor, CanColor } from '@dynatrace/angular-components/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */

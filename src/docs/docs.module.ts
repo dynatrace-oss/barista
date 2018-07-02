@@ -2,9 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DocsRoutingModule } from './docs-routing.module';
 import { Docs } from './docs.component';
-import { Home } from './docs-home/docs-home.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
 import { DocsButtonGroupModule } from './components/button-group/docs-button-group.module';
 import { DocsLinkModule } from './components/link/docs-link.module';
@@ -22,15 +20,20 @@ import { DocsFormFieldModule } from './components/form-field/docs-form-field-mod
 import { DocsTagModule } from './components/tag/docs-tag.module';
 import { DocsAlertModule } from './components/alert/docs-alert.module';
 import { DocsIconModule } from './components/icon/docs-icon.module';
+import { DocsKeyValueListModule } from './components/key-value-list/docs-key-value-list.module';
 import { DocsPaginationModule } from './components/pagination/docs-pagination.module';
 import { DocsShowMoreModule } from './components/show-more/docs-show-more.module';
 import { FormsModule } from '@angular/forms';
-import {DtThemingModule} from '@dynatrace/angular-components';
+import { DtIconModule, DtThemingModule } from '@dynatrace/angular-components';
 import { DocsRadioModule } from './components/radio/docs-radio.module';
 import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
 import { DocsProgressCircleModule } from './components/progress-circle/docs-progress-circle.module';
 import { DocsBreadcrumbsModule } from './components/breadcrumbs/docs-breadcrumbs.module';
 import { CoreModule } from './core/core.module';
+import { DocsSwitchModule } from './components/switch/docs-switch.module';
+import { environment } from './environments/environment';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { DocsViewerComponent } from './core/docs-viewer.component';
 
 @NgModule({
   imports: [
@@ -39,7 +42,7 @@ import { CoreModule } from './core/core.module';
     HttpClientModule,
     FormsModule,
     CoreModule,
-    DocsRoutingModule,
+    DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
     DocsButtonModule,
     DocsButtonGroupModule,
     DocsInputModule,
@@ -57,22 +60,31 @@ import { CoreModule } from './core/core.module';
     DocsFormFieldModule,
     DocsTagModule,
     DocsAlertModule,
+    DocsKeyValueListModule,
     DocsPaginationModule,
     DocsShowMoreModule,
     DtThemingModule,
     DocsRadioModule,
     DocsCheckboxModule,
     DocsProgressCircleModule,
+    DocsSwitchModule,
     DocsBreadcrumbsModule,
   ],
   declarations: [
     Docs,
-    Home,
+    DocsViewerComponent,
+  ],
+  exports: [
+    DocsViewerComponent,
   ],
   entryComponents: [
     Docs,
   ],
   bootstrap: [Docs],
+  providers: [
+    Location,
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+  ],
 })
 export class DocsModule {
 }

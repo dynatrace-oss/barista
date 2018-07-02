@@ -6,17 +6,19 @@ import {
   ElementRef,
   DoCheck,
   OnChanges,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
+import { AutofillMonitor } from '@angular/cdk/text-field';
 import {
   ErrorStateMatcher,
   mixinErrorState,
   CanUpdateErrorState
-} from '../core/index';
-import { DtFormFieldControl } from '../form-field/index';
+} from '@dynatrace/angular-components/core';
+import { DtFormFieldControl } from '@dynatrace/angular-components/form-field';
 import { Subject } from 'rxjs';
 
 let nextUniqueId = 0;
@@ -69,13 +71,16 @@ export const _DtInputMixinBase = mixinErrorState(DtInputBase);
   providers: [{provide: DtFormFieldControl, useExisting: DtInput}],
 })
 export class DtInput extends _DtInputMixinBase
-  implements DoCheck, OnChanges, OnDestroy, CanUpdateErrorState, DtFormFieldControl<string> {
+  implements DoCheck, OnInit, OnChanges, OnDestroy, CanUpdateErrorState, DtFormFieldControl<string> {
 
   /** Implemented as part of DtFormFieldControl. */
   focused = false;
 
   /** Implemented as part of DtFormFieldControl. */
   readonly stateChanges = new Subject<void>();
+
+  /** Implemented as part of DtFormFieldControl. */
+  autofilled = false;
 
   @Input()
   get id(): string { return this._id; }
@@ -140,7 +145,7 @@ export class DtInput extends _DtInputMixinBase
 
   /** Implemented as part of DtFormFieldControl. */
   get empty(): boolean {
-    return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput();
+    return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput() && !this.autofilled;
   }
 
   /** The aria-describedby attribute on the input for improved a11y. */
@@ -169,7 +174,8 @@ export class DtInput extends _DtInputMixinBase
     @Optional() @Self() public ngControl: NgControl,
     @Optional() _parentForm: NgForm,
     @Optional() _parentFormGroup: FormGroupDirective,
-    _defaultErrorStateMatcher: ErrorStateMatcher
+    _defaultErrorStateMatcher: ErrorStateMatcher,
+    private _autofillMonitor: AutofillMonitor
   ) {
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 
@@ -177,6 +183,13 @@ export class DtInput extends _DtInputMixinBase
     this.id = this.id;
 
     this._previousNativeValue = this.value;
+  }
+
+  ngOnInit(): void {
+    this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe((event) => {
+      this.autofilled = event.isAutofilled;
+      this.stateChanges.next();
+    });
   }
 
   ngOnChanges(): void {
@@ -199,6 +212,7 @@ export class DtInput extends _DtInputMixinBase
 
   ngOnDestroy(): void {
     this.stateChanges.complete();
+    this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
   }
 
   /** Focuses the input. */

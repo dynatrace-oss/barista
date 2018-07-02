@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation, Input, ElementRef, ChangeDetectorRef,
 } from '@angular/core';
-import {replaceCssClass} from '../core/index';
+import {replaceCssClass} from '@dynatrace/angular-components/core';
 
 export type DtAlertSeverity = 'error' | 'warning' | undefined;
 
