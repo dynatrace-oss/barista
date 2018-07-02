@@ -75,7 +75,7 @@
 .table thead th,
 .table thead td {
   text-align: left;
-  @include custom-font-size(12px);
+  @include label-font();
   position: relative;
   overflow: hidden;
   padding-top: 0;
