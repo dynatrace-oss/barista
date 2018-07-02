@@ -20,10 +20,15 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   private _expandedRow: DtExpandableRow | undefined;
 
   get isEmptyDataSource(): boolean {
-    const isEmptyArray = Array.isArray(this.dataSource) && !this.dataSource.length;
-    const isEmptyArrayLike = this.dataSource && !(this.dataSource as T[]).length;
+    return !(this._data.length);
+  }
 
-    return !this.dataSource || isEmptyArray || isEmptyArrayLike;
+  renderRows(): void {
+    super.renderRows();
+
+    if (this.isEmptyDataSource) {
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
   /** the expanded row of the table */

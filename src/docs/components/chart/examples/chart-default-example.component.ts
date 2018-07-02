@@ -3,10 +3,12 @@
 import { Component } from '@angular/core';
 import { Colors } from '@dynatrace/angular-components';
 import { generateData } from './chart-data-utils';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: '<dt-chart [options]="options" [series]="series"></dt-chart>',
 })
+@OriginalClassName('ChartDefaultExampleComponent')
 export class ChartDefaultExampleComponent {
   options: Highcharts.Options = {
     xAxis: {

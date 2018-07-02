@@ -6,8 +6,9 @@ import {
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
-} from './index';
-import { DtThemingModule, CHART_COLOR_PALETTES } from '../theming/index';
+  DtThemingModule,
+  CHART_COLOR_PALETTES,
+} from '@dynatrace/angular-components';
 import { BehaviorSubject } from 'rxjs';
 
 describe('DtChart', () => {
@@ -71,6 +72,62 @@ describe('DtChart', () => {
       const chartComponent = chartDebugElement.componentInstance;
       const ids = chartComponent.seriesIds;
       expect(ids).toBeUndefined();
+    });
+
+    it('should wrap the tooltip', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      fixture.detectChanges();
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
+      fixture.detectChanges();
+      const tooltip = chartComponent.highchartsOptions.tooltip;
+      expect(tooltip).toBeDefined();
+      // tslint:disable-next-line: no-unbound-method
+      expect(tooltip!.formatter).toBeDefined();
+      // bind dummy seriespoint to be able to call the formatter function
+      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual('<div class="dt-chart-tooltip">somename</div>');
+    });
+
+    it('should update the options at runtime', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      fixture.detectChanges();
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
+      const spy = jasmine.createSpy('chart updated spy');
+      chartComponent.updated.subscribe(spy);
+      expect(spy).not.toHaveBeenCalled();
+      fixture.componentInstance.lineOptions = {
+        chart: {
+          type: 'pie',
+        },
+      };
+      fixture.detectChanges();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should wrap the tooltip after changing the options at runtime', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      fixture.detectChanges();
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
+      const newOptions = {
+        chart: {
+          type: 'pie',
+        },
+        tooltip: {
+          formatter(): string | boolean {
+            return this.series.name;
+          },
+        },
+      };
+      fixture.componentInstance.lineOptions = newOptions;
+      fixture.detectChanges();
+      const tooltip = chartComponent.highchartsOptions.tooltip;
+      expect(tooltip).toBeDefined();
+      // tslint:disable-next-line: no-unbound-method
+      expect(tooltip!.formatter).toBeDefined();
+      // bind dummy seriespoint to be able to call the formatter function
+      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual('<div class="dt-chart-tooltip">somename</div>');
     });
   });
 
