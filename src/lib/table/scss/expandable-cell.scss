@@ -4,7 +4,21 @@
 :host.dt-expandable-cell {
   @extend %base-cell;
 
+  .dropdown {
+    width: 20px;
+    height: 20px;
+    fill: $turquoise-600;
+  }
+
+  > span {
+    width: 20px;
+    height: 20px;
+    transform: rotate(0deg);
+    transition: transform 400ms;
+  }
+
   .expanded {
-    font-weight: bold;
+    transform: rotate(180deg);
+    transition: transform 400ms;
   }
 }
