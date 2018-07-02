@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -36,6 +36,9 @@ import { environment } from './environments/environment';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DocsViewerComponent } from './core/docs-viewer.component';
 
+@Component({template: ''})
+export class NoopRouteComponent {}
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -43,7 +46,9 @@ import { DocsViewerComponent } from './core/docs-viewer.component';
     HttpClientModule,
     FormsModule,
     CoreModule,
-    RouterModule.forRoot([]),
+    RouterModule.forRoot([
+      { path: ':noop',  component: NoopRouteComponent },
+    ]),
     DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
     DocsButtonModule,
     DocsButtonGroupModule,
@@ -75,6 +80,7 @@ import { DocsViewerComponent } from './core/docs-viewer.component';
   declarations: [
     Docs,
     DocsViewerComponent,
+    NoopRouteComponent,
   ],
   exports: [
     DocsViewerComponent,

@@ -40,7 +40,7 @@ export class DtBreadcrumbsItem {
     }
   }
 
-  calculatedHref(): string | undefined {
+  _calculatedHref(): string | undefined {
     if (this.href === undefined) {
       return undefined;
     }
