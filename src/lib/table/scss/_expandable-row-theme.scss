@@ -15,6 +15,10 @@
       // if color not found, fallback to default color defined in expandable-row.scss
     }
 
+    .dt-expandable-row-base-expanded:hover {
+      border-top-color: $gray-500;
+    }
+
     .dt-expandable-row-expanded {
       border-bottom-color: $default-color;
     }
