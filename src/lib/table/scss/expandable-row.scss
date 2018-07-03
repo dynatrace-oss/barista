@@ -1,5 +1,7 @@
 @import '../../core/style/variables';
 @import 'base-row';
+@import '../../core/theming/theming';
+@import 'expandable-row-theme';
 
 :host.dt-expandable-row {
   &:nth-child(even) {
@@ -24,12 +26,17 @@
 }
 
 .dt-expandable-row-base-expanded {
-  border-top: $turquoise-200 solid 2px;
-  background-color: $turquoise-100;
+  border-top: $gray-700 solid 2px;
+  background-color: $gray-200;
 }
 
 .dt-expandable-row-expanded {
   background-color: #fff;
   padding: 16px 12px 16px 15px;
-  border-bottom: $turquoise-200 solid 2px;
+  border-bottom: $gray-700 solid 2px;
+}
+
+// Apply current theme
+@include dt-apply-theme() {
+  @include dt-theme-expandable-row($dt-current-theme, $dt-current-theme-name);
 }
