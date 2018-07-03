@@ -1,0 +1,22 @@
+@import '../../core/theming/theming';
+
+@mixin dt-theme-expandable-row($theme, $theme-name) {
+  $palette: dt-get-theme-palette($theme, 'main');
+  $default-color: dt-get-theme-color($palette, 'default');
+
+  :host {
+    .dt-expandable-row-base-expanded {
+      border-top-color: $default-color;
+
+      $bg-color: get-color($theme-name, 100);
+      @if ($bg-color) {
+        background-color: $bg-color;
+      }
+      // if color not found, fallback to default color defined in expandable-row.scss
+    }
+
+    .dt-expandable-row-expanded {
+      border-bottom-color: $default-color;
+    }
+  }
+}
