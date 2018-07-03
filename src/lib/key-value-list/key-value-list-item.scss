@@ -1,4 +1,5 @@
 @import '../core/style/variables';
+@import '../style/font-mixins';
 
 :host {
   width: 100%;
@@ -8,10 +9,8 @@
   overflow: hidden;
 }
 .dt-key-value-list-item-key {
-  font-family: $mainfont;
-  font-size: 12px;
+  @include label-font(28px);
   color: $gray-500;
-  line-height: 28px;
   text-align: left;
   float: left;
   position: relative;
@@ -29,10 +28,7 @@
   margin: 0;
   text-align: right;
   display:inline;
-  font-family: $mainfont;
-  font-size: 14px;
-  color: $gray-700;
-  line-height: 28px;
+  @include main-font(28px);
   padding-left: 24px;
   background-color: inherit;
   z-index: 1;
