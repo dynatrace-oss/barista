@@ -1,4 +1,4 @@
-import {AfterContentChecked, ChangeDetectionStrategy, Component, Input, ViewEncapsulation,} from '@angular/core';
+import {AfterContentChecked, ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
 import {CdkTable} from '@angular/cdk/table';
 import {DtExpandableRow} from './expandable-row';
 
