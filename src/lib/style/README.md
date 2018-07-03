@@ -1,5 +1,44 @@
 # Styling
 
+## Fonts
+
+### API
+
+#### Importing
+
+`font-mixins.scss` - set of mixins that can be used to apply defined font styles or introduce custom changes; import it to your stylesheet to be able to style your enclosed component or apply custom font styles (`@import "~@dynatrace/angular-components/style/font-mixins";`).
+
+`font-styles.scss` - stylesheet with rule-sets for all predefined use cases of font styles; import it to your stylesheet to have basic html tags styled automatically (`@import "~@dynatrace/angular-components/style/font-styles";`).
+
+
+#### Usage 
+
+To use certain mixin simply include it in your rule-set:
+
+`.example {` <br> `@include main-font();` <br> `}`
+
+##### Mixins for defined cases
+
+| Name | Arguments | Description | Values |
+| --- | --- | --- | --- |
+| `main-font()` | line-height (optional) | default, most basic font style | `font-family: "BerninaSansWeb";` <br> `font-size: 14px;` <br>  `font-weight: 400;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
+| `h1-font()` | line-height (optional) | style for headings 1 | `font-family: "BerninaSansWeb";` <br> `font-size: 24px;` <br>  `font-weight: 300;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
+| `h2-font()` | line-height (optional) | style for headings 2 | `font-family: "BerninaSansWeb";` <br> `font-size: 18px;` <br>  `font-weight: 300;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
+| `h3-font()` | line-height (optional) | style for headings 3 | `font-family: "BerninaSansWeb";` <br> `font-size: 16px;` <br>  `font-weight: 400;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
+| `label-font()` | line-height (optional) | style for labels | `font-family: "BerninaSansWeb";` <br> `font-size: 12px;` <br>  `font-weight: 400;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
+| `code-font()` | - | style for code snippets | `font-family: "VeraMonoWeb";` <br> `font-size: 14px;` <br>  `font-weight: 400;` <br> `line-height: 1.6;` <br> `color: #454646;` |
+
+
+##### Mixins for custom styling (use with caution)
+
+ | Name | Arguments | Purpose | Examples of use |
+ | --- | --- | --- | --- |
+ | `custom-font-size(...)` | font-size* <br> line-height*  | changing size-related properties | `custom-font-size(16px);` <br> `custom-font-size(false, 29px); ` <br> |
+ | `custom-font-styles(...)` | color* <br> font-weight* <br> font-size* <br> line-height*  | changing style-and-size-related properties | `custom-font-styles(#facade, 700);` <br> `custom-font-styles(#c0ffee, 700, 14px, 32px)` <br> `custom-font-styles(false, 300)` <br> |
+ 
+ 
+ \* - optional argument; **NOTE:** if not used but not last in order should be replaced by **false**.
+
 ## Link
 
 <docs-source-example example="LinkSimpleExampleComponent"></docs-source-example>

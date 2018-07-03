@@ -1,5 +1,6 @@
 $fonts-path: '/assets/fonts' !default;
 
+/* stylelint-disable property-blacklist  */
 @mixin icons-before($type) {
   //noinspection CssNoGenericFontName
   font-family: $type;
@@ -32,3 +33,4 @@ $fonts-path: '/assets/fonts' !default;
     @include icons-before($type);
   }
 }
+/* stylelint-enable property-blacklist  */
