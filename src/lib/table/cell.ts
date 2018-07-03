@@ -86,17 +86,13 @@ export class DtCell {
   }
 }
 
-/** Cell template that adds the right classes, role and static content for the details cell,
- *  which can be used to indicate that a table row is expandable.
+/**
+ * Cell template that adds the right classes, role and static content for the details cell,
+ * which can be used to indicate that a table row is expandable.
  */
 @Component({
   selector: 'dt-expandable-cell',
-  template: `
-    <span [ngClass]="{'expanded': expanded}">
-      <svg class="dropdown" viewBox="0 0 512 512" enable-background="new 0 0 512 512">
-	      <polygon points="403.07822,142.41222 256,289.49042 108.92179,142.41222 63.66695,187.66705 256,380.00009 448.33304,187.66705 "/>
-      </svg>
-    </span>`,
+  templateUrl: './expandable-cell.html',
   styleUrls: ['./scss/expandable-cell.scss'],
   host: {
     class: 'dt-expandable-cell',
@@ -107,7 +103,6 @@ export class DtCell {
   exportAs: 'dtExpandableCell',
 })
 export class DtExpandableCell extends DtCell {
-
   private _expanded = false;
 
   /** Property for tracking the expanded state */
