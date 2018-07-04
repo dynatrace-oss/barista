@@ -52,6 +52,7 @@ export class NoopRouteComponent {}
 
     // Changing the way we provide from `forRoot` to a custom provider, because there is an issue in AOT in Angular 6 listed below.
     // We can go back to `forRoot` once this is resolve.
+    // Jira issue: https://dev-jira.dynatrace.org/browse/***REMOVED***
     // Angular issue: https://github.com/angular/angular/issues/23609
     // DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
     DtIconModule,
