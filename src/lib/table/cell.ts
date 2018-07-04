@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Directive, ElementRef, Input, Renderer2, ViewEncapsulation} from '@angular/core';
 import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef} from '@angular/cdk/table';
-import {coerceBooleanProperty, coerceNumberProperty} from '@angular/cdk/coercion';
+import {coerceNumberProperty} from '@angular/cdk/coercion';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
@@ -102,17 +102,7 @@ export class DtCell {
   encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtExpandableCell',
 })
-export class DtExpandableCell extends DtCell {
-  private _expanded = false;
-
-  /** Property for tracking the expanded state */
-  get expanded(): boolean {
-    return this._expanded;
-  }
-  set expanded(value: boolean) {
-    this._expanded = coerceBooleanProperty(value);
-  }
-}
+export class DtExpandableCell extends DtCell {}
 
 const ALIGNMENT_CAST_MAP = new Map<DtTableColumnTypedAlign, DtTableColumnAlign>([
   ['icon', 'center'],
