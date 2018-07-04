@@ -27,7 +27,7 @@ export * from '@dynatrace/angular-components/pagination';
 export * from '@dynatrace/angular-components/radio';
 export * from '@dynatrace/angular-components/show-more';
 export * from '@dynatrace/angular-components/checkbox';
-export * from '@dynatrace/angular-components/progress-bar/index';
+export * from '@dynatrace/angular-components/progress-bar';
 export * from '@dynatrace/angular-components/progress-circle';
 export * from '@dynatrace/angular-components/switch';
 export * from '@dynatrace/angular-components/breadcrumbs';
