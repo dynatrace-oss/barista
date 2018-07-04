@@ -33,11 +33,13 @@ class MyModule {}
 | `dtColumnMinWidth` | Attribute | A CSS string describing the minimum width for the column `[dtColumnMinWidth]="'200px'"` means that this column will be at least 200px width |
 | `dt-header-cell` | Directive | Adds the right classes (the generic dt-header-cell and the cell specific dt-column-css_friendly_column_name) and role (so the browser knows how to parse it. In this case it makes it act as a column header in a native html table) |
 | `*dtHeaderCellDef` | Attribute | Captures the template of a column's header cell (the title for the column in the header) and as well as cell-specific properties so that the table can render the header properly.  |
-| `dt-cell` | Directive | Adds the right classes and role (so the browser knows how to parse it. In this case it makes it act as a grid cell in a native html table) |
+| `dt-cell` | Component | Adds the right classes and role (so the browser knows how to parse it. In this case it makes it act as a grid cell in a native html table) |
+| `dt-expandable-cell` | Component | Adds the right classes, role and content for the details cell in an expandable table |
 | `*dtCellDef` | Attribute | Exports the the row data and the same properties as an [*ngFor](https://angular.io/api/common/NgForOf) so that you can define what the cell should show. It also captures the template of the column's data row cell |
 | `dt-header-row` | Component | Placeholder for the header row. It is a container that contains the cell outlet. Adds the right class and role |
 | `*dtHeaderRowDef` | Attribute | Defines the visible columns in the header out of all the defined ones by receiving a columnName[] |
 | `dt-row` | Component | Placeholder for the data rows. It is a container that contains the cell outlet. Adds the right class and role |
+| `dt-expandable-row` | Component | Placeholder for the expandable data rows. It is a container that contains the cell outlet and an expandable section. Adds the right class and role |
 | `*dtRowDef` | Attribute | Defines the visible columns in each row by receiving a columnName[] and also exposes the same micro-syntax that the dt-cell but for event and property binding |
 | `dtTableEmptyState` | Directive | Placeholder for the content displayed when the table is empty |
 | `dt-table-empty-state` | Component | Placeholder for the formatted content displayed when the table is empty |
@@ -133,6 +135,27 @@ You can bind the column definitions to an array with a `*ngFor` directive
 <docs-source-example example="TableDynamicColumnsComponent"></docs-source-example>
 
 The DataSource type is an abstract class with two methods: connect and disconnect. Connect has to return an Observable that the table subscribes to. Disconnect does cleanup. Usin this class to wrap the data provided for the table allows for maximum flexibility and will be the responsible of a future sort, and filter functionalities
+
+## Expandable Table Rows
+
+Expandable rows can be defined using `dt-expandable-row`. An optional details cell can be added using `dt-expandable-cell`.
+
+<docs-source-example example="TableExpandableRowsComponent"></docs-source-example>
+
+### Multiple expandable rows
+
+Example with multiple expandable rows, without `dt-expandable-cell`.
+
+<docs-source-example example="TableMultipleExpandableRowsComponent"></docs-source-example>
+
+### Options & Properties of DtExpandableRow
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `@Ouput() openedChange` | `EventEmitter<DtExpandableRow>` |  | Event emitted when the expanded state changes. |
+| `@Input() dtExpandMultiple` | `boolean` | `false` | Sets the mode for expanding multiple rows at a time. |
+| `expanded` | `boolean` | `false` | Gets or sets the expanded state of a row. |
+| `expandable` | `ViewContainerRef` |  | Gets a reference to the expandable container for dynamically adding components. |
 
 ## Programmatic access
 
