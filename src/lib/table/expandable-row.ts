@@ -60,6 +60,9 @@ export class DtExpandableRow extends CdkRow {
   get expanded(): boolean {
     return this._expanded;
   }
+  set expanded(value: boolean) {
+    this.setExpanded(coerceBooleanProperty(value));
+  }
 
   /** ViewContainerRef to the expandable section */
   get expandable(): ViewContainerRef {
@@ -68,25 +71,20 @@ export class DtExpandableRow extends CdkRow {
 
   /** Click event handler */
   onClick(): void {
-    if (this._dtExpandMultiple) {
+    if (this._dtExpandMultiple) { // multiple rows can be expanded, just handle the current one
       this.setExpanded(!this._expanded);
-    } else {
-      if (this._dtExpandableTable.expandedRow !== undefined) {
-        if (this._dtExpandableTable.expandedRow === this) {
+    } else { // only one row can be expanded
+      if (this._dtExpandableTable.expandedRow !== undefined) { // a row is already expanded
+        if (this._dtExpandableTable.expandedRow === this) { // expanded row was clicked => collapse it
           this.setExpanded(false);
-        } else {
-          this._dtExpandableTable.expandedRow.toggle();
+        } else { // not the expanded row was clicked => collapse expanded, expand current row
+          this._dtExpandableTable.expandedRow.expanded = !this._dtExpandableTable.expandedRow.expanded;
           this.setExpanded(true);
         }
-      } else {
+      } else { // no row expanded yet, expand the current one
         this.setExpanded(true);
       }
     }
-  }
-
-  /** Toggles the expanded state of the row. */
-  toggle(): void {
-    return this._rowRef.nativeElement.click();
   }
 
   /** Sets the expanded state of the row, updates the expandable table and the expandable cell. */

@@ -10,6 +10,8 @@ import { TableEmptyCustomStateComponent } from './examples/table-empty-custom-st
 import { TableObservableComponent } from './examples/table-observable.component';
 import { TableLoadingComponent } from './examples/table-loading.component';
 import { TableDynamicColumnsComponent } from './examples/table-dynamic-columns.component';
+import {TableExpandableRowsComponent} from './examples/table-expandable-rows.component';
+import {TableMultipleExpandableRowsComponent} from './examples/table-multiple-expandable-rows.component';
 
 export const EXAMPLES = [
   TableDefaultComponent,
@@ -20,6 +22,8 @@ export const EXAMPLES = [
   TableObservableComponent,
   TableLoadingComponent,
   TableDynamicColumnsComponent,
+  TableExpandableRowsComponent,
+  TableMultipleExpandableRowsComponent,
 ];
 
 @NgModule({
