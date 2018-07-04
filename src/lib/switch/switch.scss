@@ -2,6 +2,7 @@
 @import '../core/style/interactive-common';
 @import '../core/theming/theming';
 @import './switch-theme';
+@import '../style/font-mixins';
 
 :host:not(.dt-switch-disabled),
 :host:not(.dt-switch-disabled) .dt-switch-label {
@@ -25,8 +26,7 @@
 }
 
 .dt-switch-content {
-  font-family: $mainfont;
-  font-size: 14px;
+  @include main-font();
   vertical-align: middle;
 }
 

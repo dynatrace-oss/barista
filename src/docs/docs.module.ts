@@ -1,7 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 import { Docs } from './docs.component';
 import { DocsButtonModule } from './components/button/docs-button.module';
 import { DocsButtonGroupModule } from './components/button-group/docs-button-group.module';
@@ -36,6 +37,9 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { DocsViewerComponent } from './core/docs-viewer.component';
 import { DocsProgressBarModule } from './components/progress-bar/docs-progress-bar.module';
 
+@Component({template: ''})
+export class NoopRouteComponent {}
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -43,6 +47,9 @@ import { DocsProgressBarModule } from './components/progress-bar/docs-progress-b
     HttpClientModule,
     FormsModule,
     CoreModule,
+    RouterModule.forRoot([
+      { path: ':noop',  component: NoopRouteComponent },
+    ]),
     DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
     DocsButtonModule,
     DocsButtonGroupModule,
@@ -75,6 +82,7 @@ import { DocsProgressBarModule } from './components/progress-bar/docs-progress-b
   declarations: [
     Docs,
     DocsViewerComponent,
+    NoopRouteComponent,
   ],
   exports: [
     DocsViewerComponent,
