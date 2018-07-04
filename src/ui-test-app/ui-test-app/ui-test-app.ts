@@ -22,6 +22,7 @@ export class UIApp {
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Key-value-list', route: '/key-value-list'},
     {name: 'Pagination', route: '/pagination'},
+    {name: 'Progress-bar', route: '/progress-bar'},
     {name: 'Switch', route: '/switch'},
     {name: 'radio', route: '/radio'},
     {name: 'Show-more', route: '/show-more'},

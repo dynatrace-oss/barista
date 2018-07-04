@@ -13,6 +13,7 @@ import { ShowMoreUI } from '../show-more/show-more-ui';
 import { CheckboxUI } from '../checkbox/checkbox-ui';
 import { SwitchUI } from '../switch/switch-ui';
 import { ChartUI } from 'chart/chart-ui';
+import { ProgressBarUI } from '../progress-bar/progress-bar-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -28,5 +29,6 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'radio', component: RadioUI },
   { path: 'show-more', component: ShowMoreUI },
   { path: 'switch', component: SwitchUI },
+  { path: 'progress-bar', component: ProgressBarUI },
   { path: 'tile', component: TileUI },
 ];
