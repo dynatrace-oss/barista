@@ -10,6 +10,8 @@ const chromeConfig = require('./chrome.conf');
 process.env.CHROME_BIN = chromeConfig.binary;
 
 const isOnCI = process.env.CI;
+const coverageReporters = isOnCI ? ['lcovonly', 'html'] : ['html'];
+const karmaReporters = isOnCI ? ['dots', 'junit', 'sonarqubeUnit'] : ['dots'];
 
 module.exports = (config) => {
 
@@ -21,6 +23,8 @@ module.exports = (config) => {
       require('karma-chrome-launcher'),
       require('karma-sourcemap-loader'),
       require('karma-junit-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('karma-sonarqube-unit-reporter'),
       require('@angular-devkit/build-angular/plugins/karma'),
     ],
     client: {
@@ -30,11 +34,16 @@ module.exports = (config) => {
       },
     },
     coverageIstanbulReporter: {
-      dir: path.join(__dirname, '../../coverage'),
-      reports: ['html', 'lcovonly'],
-      fixWebpackSourcePaths: true
+      dir: path.join(__dirname, '../dist/coverage-results'),
+      reports: coverageReporters,
+      fixWebpackSourcePaths: true,
+      'report-config': {
+        html: {
+          subdir: 'html'
+        }
+      },
     },
-    reporters: ['dots','junit'],
+    reporters: karmaReporters,
     autoWatch: true,
     singleRun: false,
     colors: !isOnCI,
@@ -42,11 +51,20 @@ module.exports = (config) => {
 
 
     junitReporter: {
-      outputDir: 'dist/testresults/',
+      outputDir: 'dist/test-results/',
       outputFile: 'unit-tests.xml',
       useBrowserName: false,
       suite: '',
       XMLconfigValue: true
+    },
+    sonarQubeUnitReporter: {
+      sonarQubeVersion: 'LATEST',
+      outputDir: 'dist/sonar-test-results/',
+      outputFile: 'unit-tests.xml',
+      useBrowserName: false,
+      overrideTestDescription: true,
+      testPaths: ['./src/lib'],
+      testFilePattern: '.spec.ts',
     },
 
     browserDisconnectTimeout: 20000,
@@ -60,5 +78,6 @@ module.exports = (config) => {
         flags: chromeConfig.karmaFlags,
       }
     },
+
   });
 };

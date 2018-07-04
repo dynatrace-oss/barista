@@ -6,139 +6,177 @@ import { DtBreadcrumbsModule, DtBreadcrumbsItem } from '@dynatrace/angular-compo
 
 describe('DtBreadcrumbsItem', () => {
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtBreadcrumbsModule,
-        RouterTestingModule.withRoutes([]),
-      ],
-      declarations: [
-        TestBreadcrumbsItem,
-        NonExternalBreadcrumbsItem,
-        ExternalBreadcrumbsItem,
-        EmptyBreadcrumbsItem,
-        EmptyComponent,
-      ],
-    });
-    TestBed.compileComponents();
-  }));
+  describe('Router provided', () => {
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          DtBreadcrumbsModule,
+          RouterTestingModule.withRoutes([]),
+        ],
+        declarations: [
+          TestBreadcrumbsItem,
+          NonExternalBreadcrumbsItem,
+          ExternalBreadcrumbsItem,
+          EmptyBreadcrumbsItem,
+          EmptyComponent,
+        ],
+      });
+      TestBed.compileComponents();
+    }));
 
-  it('should pass the ng-content through', () => {
-    const fixture = TestBed.createComponent(TestBreadcrumbsItem);
-    const component = fixture.componentInstance;
-
-    component.text = 'test label';
-    fixture.detectChanges();
-
-    const linkElement = fixture.debugElement.query(By.css('a'));
-    expect(linkElement.nativeElement.innerText).toBe('test label');
-  });
-
-  [
-    {
-      href: 'test1/test2',
-      expected: '/test1/test2',
-    },
-    {
-      href: '/test1/test2',
-      expected: '/test1/test2',
-    },
-    {
-      href: ['test1', 'test2'],
-      expected: '/test1/test2',
-    },
-    {
-      href: ['test1', { arg1: 'val1' }, 'test2'],
-      expected: '/test1;arg1=val1/test2',
-    },
-    {
-      href: 'http://google.com',
-      expected: '/http:/google.com',
-    },
-  ].forEach((testCase) => {
-    it(`should render internal link for href ${testCase.href} if external set to false`, () => {
+    it('should pass the ng-content through', () => {
       const fixture = TestBed.createComponent(TestBreadcrumbsItem);
       const component = fixture.componentInstance;
 
-      component.href = testCase.href;
+      component.text = 'test label';
       fixture.detectChanges();
 
       const linkElement = fixture.debugElement.query(By.css('a'));
-      expect(linkElement.nativeElement.getAttribute('href')).toBe(testCase.expected);
+      expect(linkElement.nativeElement.innerText).toBe('test label');
     });
-  });
 
-  [
-    {
-      href: 'http://google.com',
-      expected: 'http://google.com',
-    },
-    {
-      href: 'test1/test2',
-      expected: 'test1/test2',
-    },
-  ].forEach((testCase) => {
-    it(`should render external link for href ${testCase.href} if external set to true`, () => {
+    [
+      {
+        href: 'test1/test2',
+        expected: '/test1/test2',
+      },
+      {
+        href: '/test1/test2',
+        expected: '/test1/test2',
+      },
+      {
+        href: ['test1', 'test2'],
+        expected: '/test1/test2',
+      },
+      {
+        href: ['test1', { arg1: 'val1' }, 'test2'],
+        expected: '/test1;arg1=val1/test2',
+      },
+      {
+        href: 'http://google.com',
+        expected: '/http:',
+      },
+    ].forEach((testCase) => {
+      it(`should render internal link for href ${testCase.href} if external set to false`, () => {
+        const fixture = TestBed.createComponent(TestBreadcrumbsItem);
+        const component = fixture.componentInstance;
+
+        component.href = testCase.href;
+        fixture.detectChanges();
+
+        const linkElement = fixture.debugElement.query(By.css('a'));
+        expect(linkElement.nativeElement.getAttribute('href')).toBe(testCase.expected);
+      });
+    });
+
+    [
+      {
+        href: 'http://google.com',
+        expected: 'http://google.com',
+      },
+      {
+        href: 'test1/test2',
+        expected: 'test1/test2',
+      },
+    ].forEach((testCase) => {
+      it(`should render external link for href ${testCase.href} if external set to true`, () => {
+        const fixture = TestBed.createComponent(TestBreadcrumbsItem);
+        const component = fixture.componentInstance;
+
+        component.external = true;
+        component.href = testCase.href;
+        fixture.detectChanges();
+
+        const linkElement = fixture.debugElement.query(By.css('a'));
+        expect(linkElement.nativeElement.getAttribute('href')).toBe(testCase.expected);
+      });
+    });
+
+    it('should render internal link if no external parameter given', () => {
+      const fixture = TestBed.createComponent(NonExternalBreadcrumbsItem);
+      const component = fixture.componentInstance;
+
+      component.href = 'http://google.com';
+      fixture.detectChanges();
+
+      const linkElement = fixture.debugElement.query(By.css('a'));
+      expect(linkElement.nativeElement.getAttribute('href')).toBe('/http:');
+    });
+
+    it('should render external link if empty external parameter given', () => {
+      const fixture = TestBed.createComponent(ExternalBreadcrumbsItem);
+      const component = fixture.componentInstance;
+
+      component.href = 'http://google.com';
+      fixture.detectChanges();
+
+      const linkElement = fixture.debugElement.query(By.css('a'));
+      expect(linkElement.nativeElement.getAttribute('href')).toBe('http://google.com');
+    });
+
+    it('should render link _lastItem parameter is set to false', () => {
       const fixture = TestBed.createComponent(TestBreadcrumbsItem);
       const component = fixture.componentInstance;
 
-      component.external = true;
-      component.href = testCase.href;
+      component.href = 'test1/test-current';
+      component._lastItem = false;
       fixture.detectChanges();
 
       const linkElement = fixture.debugElement.query(By.css('a'));
-      expect(linkElement.nativeElement.getAttribute('href')).toBe(testCase.expected);
+      const spanElement = fixture.debugElement.query(By.css('span'));
+      expect(linkElement).not.toBeNull();
+      expect(spanElement).toBeNull();
+    });
+
+    it('should render span if the _lastItem parameter is set to true', () => {
+      const fixture = TestBed.createComponent(TestBreadcrumbsItem);
+      const component = fixture.componentInstance;
+
+      component.href = 'test1/test2';
+      component._lastItem = true;
+      fixture.detectChanges();
+
+      const linkElement = fixture.debugElement.query(By.css('a'));
+      const spanElement = fixture.debugElement.query(By.css('span'));
+      expect(linkElement).toBeNull();
+      expect(spanElement).not.toBeNull();
     });
   });
 
-  it('should render internal link if no external parameter given', () => {
-    const fixture = TestBed.createComponent(NonExternalBreadcrumbsItem);
-    const component = fixture.componentInstance;
+  describe('Router not provided', () => {
 
-    component.href = 'http://google.com';
-    fixture.detectChanges();
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          DtBreadcrumbsModule,
+        ],
+        declarations: [
+          NonExternalBreadcrumbsItem,
+          ExternalBreadcrumbsItem,
+        ],
+      });
+      TestBed.compileComponents();
+    }));
 
-    const linkElement = fixture.debugElement.query(By.css('a'));
-    expect(linkElement.nativeElement.getAttribute('href')).toBe('/http:/google.com');
-  });
+    it('should render external link if empty external parameter given', () => {
+      const fixture = TestBed.createComponent(ExternalBreadcrumbsItem);
+      const component = fixture.componentInstance;
 
-  it('should render exterrnal link if empty external parameter given', () => {
-    const fixture = TestBed.createComponent(ExternalBreadcrumbsItem);
-    const component = fixture.componentInstance;
+      component.href = 'http://google.com';
+      fixture.detectChanges();
 
-    component.href = 'http://google.com';
-    fixture.detectChanges();
+      const linkElement = fixture.debugElement.query(By.css('a'));
+      expect(linkElement.nativeElement.getAttribute('href')).toBe('http://google.com');
+    });
 
-    const linkElement = fixture.debugElement.query(By.css('a'));
-    expect(linkElement.nativeElement.getAttribute('href')).toBe('http://google.com');
-  });
+    it('should throw an error if no external parameter given', () => {
+      const fixture = TestBed.createComponent(NonExternalBreadcrumbsItem);
+      const component = fixture.componentInstance;
 
-  it('should render link _lastItem parameter is set to false', () => {
-    const fixture = TestBed.createComponent(TestBreadcrumbsItem);
-    const component = fixture.componentInstance;
+      component.href = 'http://google.com';
 
-    component.href = 'test1/test-current';
-    component._lastItem = false;
-    fixture.detectChanges();
-
-    const linkElement = fixture.debugElement.query(By.css('a'));
-    const spanElement = fixture.debugElement.query(By.css('span'));
-    expect(linkElement).not.toBeNull();
-    expect(spanElement).toBeNull();
-  });
-
-  it('should render span if the _lastItem parameter is set to true', () => {
-    const fixture = TestBed.createComponent(TestBreadcrumbsItem);
-    const component = fixture.componentInstance;
-
-    component.href = 'test1/test2';
-    component._lastItem = true;
-    fixture.detectChanges();
-
-    const linkElement = fixture.debugElement.query(By.css('a'));
-    const spanElement = fixture.debugElement.query(By.css('span'));
-    expect(linkElement).toBeNull();
-    expect(spanElement).not.toBeNull();
+      expect(() => fixture.detectChanges()).toThrow();
+    });
   });
 
 });
