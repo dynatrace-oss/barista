@@ -48,6 +48,7 @@ export class NoopRouteComponent {}
     CoreModule,
     RouterModule.forRoot([
       { path: ':noop',  component: NoopRouteComponent },
+      { path: 'job/angular-components/job/:noop/Docs',  component: NoopRouteComponent },
     ]),
     DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
     DocsButtonModule,
