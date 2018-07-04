@@ -9,15 +9,21 @@ This makes it easier to apply CSS styles to SVG icons.
 ## Imports
 
 You have to import the `DtIconModule` in your `AppModule`.
-**Note:** It needs a bit of configuration to work. Use the forRoot method and pass in the configuration object.
+**Note:** It needs a bit of configuration to work. Use the `DT_ICON_CONFIGURATION` token to provide the configuration object.
 See more in the [configuration section below](/icon#configuration).
 
 ```typescript
 
 @NgModule({
   imports: [
-    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
+    DtIconModule
   ],
+  providers: [
+    {
+      provide: DT_ICON_CONFIGURATION,
+      useValue: { svgIconLocation: `/path/to/your/icons/{{name}}.svg` },
+    },
+  ]
 })
 class MyModule {}
 
@@ -40,8 +46,14 @@ Just pass in the configuration object to the `forRoot` method:
 
 @NgModule({
   imports: [
-    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
+    DtIconModule
   ],
+  providers: [
+    {
+      provide: DT_ICON_CONFIGURATION,
+      useValue: { svgIconLocation: `/path/to/your/icons/{{name}}.svg` },
+    },
+  ]
 })
 class MyModule {}
 
