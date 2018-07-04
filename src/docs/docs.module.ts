@@ -35,6 +35,7 @@ import { DocsSwitchModule } from './components/switch/docs-switch.module';
 import { environment } from './environments/environment';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DocsViewerComponent } from './core/docs-viewer.component';
+import { DocsProgressBarModule } from './components/progress-bar/docs-progress-bar.module';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
@@ -76,6 +77,7 @@ export class NoopRouteComponent {}
     DocsProgressCircleModule,
     DocsSwitchModule,
     DocsBreadcrumbsModule,
+    DocsProgressBarModule,
   ],
   declarations: [
     Docs,
