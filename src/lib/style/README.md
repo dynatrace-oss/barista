@@ -17,19 +17,28 @@ To use certain mixin simply include it in your rule-set:
 
 `.example {` <br> `@include main-font();` <br> `}`
 
+##### Default values
+
+`$monospace-font-family: 'VeraMonoWeb'`
+`$default-font-family: 'BerninaSansWeb'`
+`$default-font-color: #454646`
+`$default-font-weight: normal`
+`$default-font-size: 14px`
+`$default-line-height: 1.6`
+
 ##### Mixins for defined cases
 
 | Name | Arguments | Description | Values |
 | --- | --- | --- | --- |
-| `main-font()` | line-height (optional) | default, most basic font style | `font-family: "BerninaSansWeb";` <br> `font-size: 14px;` <br>  `font-weight: 400;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
-| `h1-font()` | line-height (optional) | style for headings 1 | `font-family: "BerninaSansWeb";` <br> `font-size: 24px;` <br>  `font-weight: 300;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
-| `h2-font()` | line-height (optional) | style for headings 2 | `font-family: "BerninaSansWeb";` <br> `font-size: 18px;` <br>  `font-weight: 300;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
-| `h3-font()` | line-height (optional) | style for headings 3 | `font-family: "BerninaSansWeb";` <br> `font-size: 16px;` <br>  `font-weight: 400;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
-| `label-font()` | line-height (optional) | style for labels | `font-family: "BerninaSansWeb";` <br> `font-size: 12px;` <br>  `font-weight: 400;` <br> `line-height: 1.6;` (default value) <br> `color: #454646;` |
-| `code-font()` | - | style for code snippets | `font-family: "VeraMonoWeb";` <br> `font-size: 14px;` <br>  `font-weight: 400;` <br> `line-height: 1.6;` <br> `color: #454646;` |
+| `main-font()` | line-height (optional) | default, most basic font style | `font-family: $default-font-family;` <br> `font-size: $default-font-size;` <br>  `font-weight: $default-font-weight;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
+| `h1-font()` | line-height (optional) | style for headings 1 | `font-family: $default-font-family;` <br> `font-size: 24px;` <br>  `font-weight: 300;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
+| `h2-font()` | line-height (optional) | style for headings 2 | `font-family: $default-font-family;` <br> `font-size: 18px;` <br>  `font-weight: 300;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
+| `h3-font()` | line-height (optional) | style for headings 3 | `font-family: $default-font-family;` <br> `font-size: 16px;` <br>  `font-weight: $default-font-weight;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
+| `label-font()` | line-height (optional) | style for labels | `font-family: $default-font-family;` <br> `font-size: 12px;` <br>  `font-weight: $default-font-weight;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
+| `code-font()` | - | style for code snippets | `font-family: $monospace-font-family;` <br> `font-size: $default-font-size;` <br>  `font-weight: $default-font-weight;` <br> `line-height: $default-line-height;` <br> `color: $default-font-color;` |
 
 
-##### Mixins for custom styling (use with caution)
+##### Mixins for custom styling (not recommended)
 
  | Name | Arguments | Purpose | Examples of use |
  | --- | --- | --- | --- |
