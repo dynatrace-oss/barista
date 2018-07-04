@@ -6,7 +6,8 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild, ViewContainerRef,
+  ViewChild,
+  ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
 import { CdkRow } from '@angular/cdk/table';
@@ -99,10 +100,6 @@ export class DtExpandableRow extends CdkRow {
   /** Sets the style of the expandable cell. Somehow a hack, a better solution would be appreciated. */
   private setExpandableCell(expanded: boolean): void {
     const rowElement = this._rowRef.nativeElement as HTMLDivElement;
-
-    if (rowElement === undefined) {
-      return;
-    }
 
     for (let i = 0; i < rowElement.childNodes.length; i++) {
       const node = rowElement.childNodes.item(i);
