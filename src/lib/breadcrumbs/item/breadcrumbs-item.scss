@@ -9,7 +9,7 @@ $arrow-width: 8px;
 $arrow-padding: 2px;
 
 :host {
-  @include custom-font-size(14px, $height);
+  @include main-font($height);
   height: $height;
   display: inline-block;
   margin-top: 0;
