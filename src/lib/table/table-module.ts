@@ -13,6 +13,7 @@ import {
 } from './table-empty-state';
 import {DtTableLoadingState} from './table-loading-state';
 import {DtExpandableRow} from './expandable-row';
+import {DtIconModule} from '@dynatrace/angular-components/icon';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
@@ -39,8 +40,10 @@ const EXPORTED_DECLARATIONS = [
   imports: [
     CommonModule,
     CdkTableModule,
+    DtIconModule,
   ],
   exports: [
+    DtIconModule,
     ...EXPORTED_DECLARATIONS,
   ],
   declarations: [
