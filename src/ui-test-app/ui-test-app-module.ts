@@ -20,6 +20,7 @@ import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtRadioModule } from '@dynatrace/angular-components/radio';
 import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
+import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
 import { ButtonUI } from './button/button-ui';
 import { ButtonGroupUi } from './button-group/button-group-ui';
 import { ExpandableSectionUi } from './expandable-section/expandable-section-ui';
@@ -36,6 +37,7 @@ import { CheckboxUI } from './checkbox/checkbox-ui';
 import { SwitchUI } from './switch/switch-ui';
 import {DtInputModule} from '@dynatrace/angular-components/input';
 import { ChartUI } from './chart/chart-ui';
+import { ProgressBarUI } from './progress-bar/progress-bar-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -57,6 +59,7 @@ import { ChartUI } from './chart/chart-ui';
     DtKeyValueListModule,
     DtSwitchModule,
     DtChartModule,
+    DtProgressBarModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -88,6 +91,7 @@ export class DynatraceAngularCompModule {}
     ShowMoreUI,
     SwitchUI,
     ChartUI,
+    ProgressBarUI,
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],
