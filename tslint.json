@@ -1,12 +1,6 @@
 {
   "extends": [
-    "tslint:all",
-    "./codelyzer.json"
-  ],
-  "rulesDirectory": [
-    "./tools/tslint-rules/",
-    "node_modules/codelyzer",
-    "node_modules/rxjs-tslint"
+    "./node_modules/@dynatrace/angular-lint-rules/tslint/tslint.json"
   ],
   "rules": {
     "ban": [
@@ -14,26 +8,15 @@
       {"name": "Object.assign", "message": "Use the spread operator instead."}
     ],
     "class-name": true,
-    "comment-format": [
-      true,
-      "check-space"
-    ],
-    "completed-docs": false,
     "curly": true,
     "eofline": true,
-    "interface-name": [
-      true,
-      "never-prefix"
-    ],
     "indent": [
       true,
       "spaces"
     ],
-    "linebreak-style": [false],
     // this needs to be disabled since having multiple components/directives
     // in one file is sometimes suitable due to the size and sharing of small pieces of code
     "max-classes-per-file": false,
-    "max-line-length": [true, 132],
     // no implicit dependencies need to be false since we have cross references inside the modules which are not listed as a dependency
     "member-access": [true, "no-public"],
     "member-ordering": false,
@@ -41,9 +24,6 @@
     "newline-per-chained-call": false,
     // Changing it as it does also enforce this rule for very simple code
     "newline-before-return": false,
-    "no-implicit-dependencies": [
-      false
-    ],
     "no-arg": true,
     "no-bitwise": true,
     "no-duplicate-variable": true,
@@ -63,12 +43,10 @@
     // in callbacks instead of arrow functions
     "no-unnecessary-callback-wrapper": false,
     "no-null-keyword": false,
-    "no-parameter-properties": false,
     "no-shadowed-variable": true,
     "no-submodule-imports": false,
     "no-trailing-whitespace": true,
     "no-var-keyword": true,
-    "no-unsafe-any": false,
     "no-unused-expression": true,
     "no-unused-variable": true,
     "object-literal-sort-keys": false,
@@ -83,19 +61,9 @@
     ],
     // ordering is better to be logically grouped than alphabetical
     "ordered-imports": false,
-    "prefer-function-over-method": false,
     // Turning it off as it would enforce readonly on private properties set via DI in the constructor
     // It also has an issue within mixin classes.
     "prefer-readonly": false,
-    "quotemark": [
-      true,
-      "single",
-      "avoid-escape"
-    ],
-    "rxjs-collapse-imports": true,
-    "rxjs-pipeable-operators-only": true,
-    "rxjs-no-static-observable-methods": true,
-    "rxjs-proper-imports": true,
     "semicolon": true,
     // Turning it of so it does not throw on default value assertion like this: variant = value || defaultVariant
     // There is also an open issue on this one: https://github.com/palantir/tslint/issues/3279
@@ -148,7 +116,9 @@
     ],
 
     // Custom Rules
-    "ts-loader": true,
-    "dt-icon-names": true
-  }
+    "ts-loader": true
+  },
+  "rulesDirectory": [
+    "./tools/tslint-rules/"
+  ]
 }
