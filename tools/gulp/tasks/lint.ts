@@ -63,7 +63,10 @@ function executeStylelintOnCI(done: (err?: any) => void) {
 task('tslint', ['ensureOutDirectory'], execNodeTask(
   'tslint', outputToXML(
     isCi,
-    ['--project', 'tsconfig.json', tsGlob],
+    [
+      '--project', 'tsconfig.json',
+      tsGlob,
+    ],
     'checkstyle.xml'
   )
 ));
@@ -71,7 +74,11 @@ task('tslint', ['ensureOutDirectory'], execNodeTask(
 task('tslint:specs', ['ensureOutDirectory'], execNodeTask(
   'tslint', outputToXML(
     isCi,
-    ['--config', 'tslint.spec.json', '--project', 'tsconfig.json', tsSpecsGlob],
+    [
+      '--config', 'tslint.spec.json',
+      '--project', 'tsconfig.json',
+      tsSpecsGlob,
+    ],
     'checkstyle-spec.xml'
   )
 ));
@@ -79,7 +86,11 @@ task('tslint:specs', ['ensureOutDirectory'], execNodeTask(
 task('tslint:docs', ['ensureOutDirectory'], execNodeTask(
   'tslint', outputToXML(
     isCi,
-    ['--project', 'src/docs/tsconfig.json', tsDocs],
+    [
+      '--config', 'src/docs/tslint.json',
+      '--project', 'src/docs/tsconfig.json',
+      tsDocs,
+    ],
     'checkstyle-docs.xml'
   )
 ));
@@ -87,7 +98,10 @@ task('tslint:docs', ['ensureOutDirectory'], execNodeTask(
 task('tslint:ui-test-app', ['ensureOutDirectory'], execNodeTask(
   'tslint', outputToXML(
     isCi,
-    ['--project', 'src/ui-test-app/tsconfig.json', tsUiTestApp],
+    [
+      '--project', 'src/ui-test-app/tsconfig.json',
+      tsUiTestApp,
+    ],
     'checkstyle-ui-test-app.xml'
   )
 ));
@@ -95,7 +109,10 @@ task('tslint:ui-test-app', ['ensureOutDirectory'], execNodeTask(
 task('tslint:universal-app', ['ensureOutDirectory'], execNodeTask(
   'tslint', outputToXML(
     isCi,
-    ['--project', 'src/universal-app/tsconfig.json', tsUniversalApp],
+    [
+      '--project', 'src/universal-app/tsconfig.json',
+      tsUniversalApp,
+    ],
     'checkstyle-universal.xml'
   )
 ));
@@ -103,7 +120,11 @@ task('tslint:universal-app', ['ensureOutDirectory'], execNodeTask(
 task('tslint:ui-tests', ['ensureOutDirectory'], execNodeTask(
   'tslint', outputToXML(
     isCi,
-    ['--config', 'tslint.spec.json', '--project', 'ui-tests/tsconfig.json', tsUiSpecsGlob],
+    [
+      '--config', 'tslint.spec.json',
+      '--project', 'ui-tests/tsconfig.json',
+      tsUiSpecsGlob,
+    ],
     'checkstyle-ui-test.xml'
   )
 ));
