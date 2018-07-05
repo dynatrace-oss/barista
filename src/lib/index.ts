@@ -31,6 +31,7 @@ export * from './pagination/index';
 export * from './radio/index';
 export * from './show-more/index';
 export * from './checkbox/index';
+export * from './progress-bar/index';
 export * from './progress-circle/index';
 export * from './switch/index';
 export * from './breadcrumbs/index';

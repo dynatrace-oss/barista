@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OriginalClassName } from '../../../core/decorators';
@@ -17,9 +16,7 @@ import { OriginalClassName } from '../../../core/decorators';
 export class ObservableBreadcrumbsExampleComponent {
   private readonly interval = 5_000;
 
-  constructor(private readonly router: Router) {}
-
-  data$: Observable<Array<{label: string; href: string}>> = timer(0, this.interval)
+  data$: Observable<Array<{label: string; href?: string}>> = timer(0, this.interval)
     .pipe(
       map((i: number) => [
         {
@@ -33,7 +30,6 @@ export class ObservableBreadcrumbsExampleComponent {
         {
           // tslint:disable-next-line no-magic-numbers
           label: `Current view ${i + 2}`,
-          href: this.router.url,
         },
       ])
     );

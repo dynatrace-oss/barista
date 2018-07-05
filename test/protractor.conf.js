@@ -36,7 +36,7 @@ const config = {
 
       var junitReporter = new jasmineReporters.JUnitXmlReporter({
         consolidateAll: true,
-        savePath: 'dist/testresults',
+        savePath: 'dist/test-results',
         filePrefix: browserName + '-ui-test',
         modifySuiteName: function(generatedSuiteName, suite) {
           return 'ui-test.' + browserName + '.' + generatedSuiteName;
