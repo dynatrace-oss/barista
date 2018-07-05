@@ -7,13 +7,6 @@
       true,
       {"name": "Object.assign", "message": "Use the spread operator instead."}
     ],
-    "class-name": true,
-    "curly": true,
-    "eofline": true,
-    "indent": [
-      true,
-      "spaces"
-    ],
     // this needs to be disabled since having multiple components/directives
     // in one file is sometimes suitable due to the size and sharing of small pieces of code
     "max-classes-per-file": false,
@@ -24,16 +17,8 @@
     "newline-per-chained-call": false,
     // Changing it as it does also enforce this rule for very simple code
     "newline-before-return": false,
-    "no-arg": true,
-    "no-bitwise": true,
-    "no-duplicate-variable": true,
     // it is in some places essential for change detection
     "no-empty": false,
-    "no-eval": true,
-    "no-debugger": true,
-    "no-internal-module": true,
-    // Namespaces are not allowed, because of Closure compiler.
-    "no-namespace": true,
     // This is essential for specific checks where typescript has a hard time resolving the type of it.
     // This would the result in using checks (like instanceof) in some places that are slower.
     "no-non-null-assertion": false,
@@ -43,12 +28,7 @@
     // in callbacks instead of arrow functions
     "no-unnecessary-callback-wrapper": false,
     "no-null-keyword": false,
-    "no-shadowed-variable": true,
     "no-submodule-imports": false,
-    "no-trailing-whitespace": true,
-    "no-var-keyword": true,
-    "no-unused-expression": true,
-    "no-unused-variable": true,
     "object-literal-sort-keys": false,
     // Disabled otherwise normal functions like class mixins are not possible
     "only-arrow-functions": false,
@@ -64,7 +44,6 @@
     // Turning it off as it would enforce readonly on private properties set via DI in the constructor
     // It also has an issue within mixin classes.
     "prefer-readonly": false,
-    "semicolon": true,
     // Turning it of so it does not throw on default value assertion like this: variant = value || defaultVariant
     // There is also an open issue on this one: https://github.com/palantir/tslint/issues/3279
     "strict-boolean-expressions": false,
@@ -75,16 +54,6 @@
       // Removed as this could be result in a lot of pollution when piping RxJS operators and array functions
       // "arrow-parameter",
       "property-declaration"
-    ],
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      }
     ],
     "trailing-comma": [
       true,
