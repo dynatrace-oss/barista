@@ -21,6 +21,7 @@ export class UIApp {
     {name: 'Expandable panel', route: '/expandable-panel'},
     {name: 'Expandable section', route: '/expandable-section'},
     {name: 'Key-value-list', route: '/key-value-list'},
+    {name: 'Copy-To-Clipboard', route: '/copy-to-clipboard'},
     {name: 'Pagination', route: '/pagination'},
     {name: 'Progress-bar', route: '/progress-bar'},
     {name: 'Switch', route: '/switch'},
