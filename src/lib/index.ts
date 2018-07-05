@@ -1,37 +1,33 @@
 /*
- * The exports need to end with the filename without .ts extension due to
- * a bug in the compiler cli metadata bundler https://github.com/angular/angular/pull/22856
- * once resolved the index can be omited. Without this the metdata files only contain the last
- * barrel export and therefore break aot compilation with the library
- * export * from './core/index';
+ * The exports need to use already existing modules or it's going to create new classes otherwise and break
+ * the dependency injection in some cases
  */
-
-export * from './alert/index';
-export * from './core/index';
-export * from './form-field/index';
-export * from './input/index';
-export * from './expandable-panel/index';
-export * from './inline-editor/index';
-export * from './expandable-section/index';
-export * from './button-group/index';
-export * from './button/index';
-export * from './icon/index';
-export * from './loading-distractor/index';
-export * from './theming/index';
-export * from './table/index';
-export * from './chart/index';
-export * from './button/index';
-export * from './tile/index';
-export * from './card/index';
-export * from './context-dialog/index';
-export * from './tag/index';
-export * from './copy-to-clipboard/index';
-export * from './key-value-list/index';
-export * from './pagination/index';
-export * from './radio/index';
-export * from './show-more/index';
-export * from './checkbox/index';
-export * from './progress-bar/index';
-export * from './progress-circle/index';
-export * from './switch/index';
-export * from './breadcrumbs/index';
+export * from '@dynatrace/angular-components/alert';
+export * from '@dynatrace/angular-components/core';
+export * from '@dynatrace/angular-components/form-field';
+export * from '@dynatrace/angular-components/input';
+export * from '@dynatrace/angular-components/expandable-panel';
+export * from '@dynatrace/angular-components/inline-editor';
+export * from '@dynatrace/angular-components/expandable-section';
+export * from '@dynatrace/angular-components/button-group';
+export * from '@dynatrace/angular-components/button';
+export * from '@dynatrace/angular-components/icon';
+export * from '@dynatrace/angular-components/loading-distractor';
+export * from '@dynatrace/angular-components/theming';
+export * from '@dynatrace/angular-components/table';
+export * from '@dynatrace/angular-components/chart';
+export * from '@dynatrace/angular-components/button';
+export * from '@dynatrace/angular-components/tile';
+export * from '@dynatrace/angular-components/card';
+export * from '@dynatrace/angular-components/context-dialog';
+export * from '@dynatrace/angular-components/copy-to-clipboard';
+export * from '@dynatrace/angular-components/tag';
+export * from '@dynatrace/angular-components/key-value-list';
+export * from '@dynatrace/angular-components/pagination';
+export * from '@dynatrace/angular-components/radio';
+export * from '@dynatrace/angular-components/show-more';
+export * from '@dynatrace/angular-components/checkbox';
+export * from '@dynatrace/angular-components/progress-bar';
+export * from '@dynatrace/angular-components/progress-circle';
+export * from '@dynatrace/angular-components/switch';
+export * from '@dynatrace/angular-components/breadcrumbs';
