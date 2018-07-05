@@ -56,7 +56,7 @@ class TestApp {
 }
 
 @Component({
-    selector: 'dt-test-app2',
+    selector: 'dt-disabled-test-app',
     template: `<dt-key-value-list>
      <dt-key-value-list-item key="Temp" value="1"></dt-key-value-list-item>
      <dt-key-value-list-item key="Temp1" value="13"></dt-key-value-list-item>

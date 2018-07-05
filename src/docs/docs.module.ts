@@ -25,6 +25,7 @@ import { DocsKeyValueListModule } from './components/key-value-list/docs-key-val
 import { DocsPaginationModule } from './components/pagination/docs-pagination.module';
 import { DocsShowMoreModule } from './components/show-more/docs-show-more.module';
 import { FormsModule } from '@angular/forms';
+import { DocsCopyToClipboardModule } from './components/copy-to-clipboard/docs-copy-to-clipboard.module';
 import { DtIconModule, DtThemingModule, DT_ICON_CONFIGURATION } from '@dynatrace/angular-components';
 import { DocsRadioModule } from './components/radio/docs-radio.module';
 import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
@@ -81,6 +82,7 @@ export class NoopRouteComponent {}
     DocsPaginationModule,
     DocsShowMoreModule,
     DtThemingModule,
+    DocsCopyToClipboardModule,
     DocsRadioModule,
     DocsCheckboxModule,
     DocsProgressCircleModule,

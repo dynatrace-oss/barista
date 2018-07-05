@@ -2,7 +2,6 @@
  * The exports need to use already existing modules or it's going to create new classes otherwise and break
  * the dependency injection in some cases
  */
-
 export * from '@dynatrace/angular-components/alert';
 export * from '@dynatrace/angular-components/core';
 export * from '@dynatrace/angular-components/form-field';
@@ -21,6 +20,7 @@ export * from '@dynatrace/angular-components/button';
 export * from '@dynatrace/angular-components/tile';
 export * from '@dynatrace/angular-components/card';
 export * from '@dynatrace/angular-components/context-dialog';
+export * from '@dynatrace/angular-components/copy-to-clipboard';
 export * from '@dynatrace/angular-components/tag';
 export * from '@dynatrace/angular-components/key-value-list';
 export * from '@dynatrace/angular-components/pagination';

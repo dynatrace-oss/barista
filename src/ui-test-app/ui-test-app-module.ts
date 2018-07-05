@@ -7,6 +7,7 @@ import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
+import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
 import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
 import { DtExpandableSectionModule } from '@dynatrace/angular-components/expandable-section';
 import { DtExpandablePanelModule } from '@dynatrace/angular-components/expandable-panel';
@@ -27,12 +28,14 @@ import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { TileUI } from './tile/tile-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
 import { KeyValueListUI } from './key-value-list/key-value-list-ui';
+import { CopyToClipboardUI } from './copy-to-clipboard/copy-to-clipboard-ui';
 import { PaginationUI } from './pagination/pagination-ui';
 import { RadioUI } from './radio/radio.ui';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
 import { CheckboxUI } from './checkbox/checkbox-ui';
 import { SwitchUI } from './switch/switch-ui';
+import {DtInputModule} from '@dynatrace/angular-components/input';
 import { ChartUI } from './chart/chart-ui';
 import { ProgressBarUI } from './progress-bar/progress-bar-ui';
 
@@ -43,6 +46,8 @@ import { ProgressBarUI } from './progress-bar/progress-bar-ui';
   exports: [
     DtButtonModule,
     DtButtonGroupModule,
+    DtInputModule,
+    DtCopyToClipboardModule,
     DtCheckboxModule,
     DtExpandablePanelModule,
     DtExpandableSectionModule,
@@ -80,6 +85,7 @@ export class DynatraceAngularCompModule {}
     RadioUI,
     TileUI,
     ContextDialogUI,
+    CopyToClipboardUI,
     KeyValueListUI,
     PaginationUI,
     ShowMoreUI,
