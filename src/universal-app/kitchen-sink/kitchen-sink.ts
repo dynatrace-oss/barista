@@ -17,6 +17,7 @@ import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
 import { DtRadioModule } from '@dynatrace/angular-components/radio';
 import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
+import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
 import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-circle';
 import { DtBreadcrumbsModule } from '@dynatrace/angular-components/breadcrumbs';
 import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
@@ -55,6 +56,7 @@ export class KitchenSink {
     DtPaginationModule,
     DtSwitchModule,
     DtBreadcrumbsModule,
+    DtProgressBarModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],

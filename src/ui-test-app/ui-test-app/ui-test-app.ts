@@ -23,6 +23,7 @@ export class UIApp {
     {name: 'Key-value-list', route: '/key-value-list'},
     {name: 'Copy-To-Clipboard', route: '/copy-to-clipboard'},
     {name: 'Pagination', route: '/pagination'},
+    {name: 'Progress-bar', route: '/progress-bar'},
     {name: 'Switch', route: '/switch'},
     {name: 'radio', route: '/radio'},
     {name: 'Show-more', route: '/show-more'},
