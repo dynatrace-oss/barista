@@ -5,7 +5,6 @@
   $is-dark: map-get($theme, 'is-dark');
 
   @if ($is-dark == true) {
-
     :host {
       .dt-switch-content {
         color: #fff;
@@ -24,18 +23,20 @@
         }
       }
 
-      & .dt-switch-label::before {
-        background-image: radial-gradient(circle 5px,
-          transparent 0,
-          transparent 2px,
-          #fff 3px,
-          transparent 4px
-        );
+      .dt-switch-label::before {
+        background-image:
+          radial-gradient(
+            circle 5px,
+            transparent 0,
+            transparent 2px,
+            #fff 3px,
+            transparent 4px
+          );
         border-color: #fff;
         background-color: transparent;
       }
 
-      & .dt-switch-label::after {
+      .dt-switch-label::after {
         background-color: #fff;
       }
     }
@@ -64,12 +65,14 @@
 
     :host.dt-switch-disabled {
       .dt-switch-label::before {
-        background-image: radial-gradient(circle 5px,
-          transparent 0,
-          transparent 2px,
-          $gray-500 3px,
-          transparent 4px
-        );
+        background-image:
+          radial-gradient(
+            circle 5px,
+            transparent 0,
+            transparent 2px,
+            $gray-500 3px,
+            transparent 4px
+          );
         border-color: $gray-500;
         background-color: transparent;
       }
@@ -88,88 +91,89 @@
         border-color: $gray-500;
       }
     }
-  }
-
-  @else {
+  } @else {
     :host {
-      & .dt-switch-label::before {
+      .dt-switch-label::before {
         border: solid 1px $turquoise-600;
         background-color: transparent;
-        background-image: radial-gradient(circle 5px,
-          transparent 0,
-          transparent 2px,
-          $gray-700 3px,
-          transparent 4px
-        );
+        background-image:
+          radial-gradient(
+            circle 5px,
+            transparent 0,
+            transparent 2px,
+            $gray-700 3px,
+            transparent 4px
+          );
       }
 
-        &:not(.dt-switch-disabled, .dt-switch-checked):hover {
-          .dt-switch-label::before {
-            border: 1px solid $turquoise-700;
-            background-color: $gray-100;
-          }
+      &:not(.dt-switch-disabled, .dt-switch-checked):hover {
+        .dt-switch-label::before {
+          border: 1px solid $turquoise-700;
+          background-color: $gray-100;
         }
+      }
 
-        &:not(.dt-switch-checked, .dt-switch-disabled):active {
-          .dt-switch-label::before {
-            border: 1px solid $turquoise-800;
-            background-color: $gray-100;
-          }
+      &:not(.dt-switch-checked, .dt-switch-disabled):active {
+        .dt-switch-label::before {
+          border: 1px solid $turquoise-800;
+          background-color: $gray-100;
         }
+      }
 
-        &.dt-switch-checked {
-          .dt-switch-label::before {
-            background-color: $turquoise-600;
-            border-color: $turquoise-600;
-            background-image: linear-gradient(to right, #fff 1px, transparent 0);
-          }
+      &.dt-switch-checked {
+        .dt-switch-label::before {
+          background-color: $turquoise-600;
+          border-color: $turquoise-600;
+          background-image: linear-gradient(to right, #fff 1px, transparent 0);
         }
+      }
 
-        &.dt-switch-checked:hover {
-          .dt-switch-label::before {
-            background-color: $turquoise-700;
-            border-color: $turquoise-700;
-          }
+      &.dt-switch-checked:hover {
+        .dt-switch-label::before {
+          background-color: $turquoise-700;
+          border-color: $turquoise-700;
         }
+      }
 
-        &.dt-switch-checked:not(.dt-switch-disabled):active {
-          .dt-switch-label::before {
-            border: 1px solid $turquoise-800;
-            background-color: $turquoise-800;
-          }
+      &.dt-switch-checked:not(.dt-switch-disabled):active {
+        .dt-switch-label::before {
+          border: 1px solid $turquoise-800;
+          background-color: $turquoise-800;
         }
+      }
 
-        &.dt-switch-disabled {
-          .dt-switch-label::before {
-            border-color: $disabledcolor;
-            background-image: radial-gradient(circle 5px,
+      &.dt-switch-disabled {
+        .dt-switch-label::before {
+          border-color: $disabledcolor;
+          background-image:
+            radial-gradient(
+              circle 5px,
               transparent 0,
               transparent 2px,
               $disabledcolor 3px,
               transparent 4px
             );
-            background-color: transparent;
-          }
+          background-color: transparent;
         }
+      }
 
-        &.dt-switch-checked.dt-switch-disabled {
-          .dt-switch-label::before {
-            border-color: $disabledcolor;
-            background-image: linear-gradient(to right, $disabledcolor 1px, transparent 0);
-            background-color: transparent;
-          }
+      &.dt-switch-checked.dt-switch-disabled {
+        .dt-switch-label::before {
+          border-color: $disabledcolor;
+          background-image: linear-gradient(to right, $disabledcolor 1px, transparent 0);
+          background-color: transparent;
         }
+      }
 
-      & .dt-switch-label::after {
+      .dt-switch-label::after {
         background-color: $gray-700;
       }
 
-      &.dt-switch-disabled {
+      .dt-switch-disabled {
         .dt-switch-label::after {
           background-color: $disabledcolor;
         }
       }
     }
-
   }
 }

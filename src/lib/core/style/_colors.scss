@@ -103,6 +103,7 @@ $gray-900: #191919;
 
 $logolime: #b4dc00;
 
+// stylelint-disable value-list-max-empty-lines
 $full-color-palette: (
   'turquoise': (
     100: $turquoise-100,
@@ -224,6 +225,7 @@ $full-color-palette: (
     900: $gray-900,
   ),
 );
+// stylelint-enable
 
 @function get-color($color, $shade) {
   @return map-get(map-get($full-color-palette, $color), $shade);

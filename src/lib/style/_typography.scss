@@ -7,8 +7,9 @@ $monospace-font-path: '/bitstream/VeraMono-Web';
 /* stylelint-disable property-blacklist  */
 @mixin font-face($variant, $ff: $default-font-family, $fp: $default-font-path) {
   font-family: $ff;
-  src: url('#{$fonts-dir}#{$fp}-#{$variant}.woff') format('woff'),
-  url('#{$fonts-dir}#{$fp}-#{$variant}.ttf') format('truetype');
+  src:
+    url('#{$fonts-dir}#{$fp}-#{$variant}.woff') format('woff'),
+    url('#{$fonts-dir}#{$fp}-#{$variant}.ttf') format('truetype');
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }

@@ -4,7 +4,6 @@
 @import '../core/theming/theming';
 @import './radio-theme';
 
-
 $dt-radio-size: 20px;
 
 :host {
@@ -15,7 +14,8 @@ $dt-radio-size: 20px;
   cursor: pointer;
 }
 
-:host.dt-radio-disabled, :host.dt-radio-disabled .dt-radio-label {
+:host.dt-radio-disabled,
+:host.dt-radio-disabled .dt-radio-label {
   cursor: default;
 }
 
@@ -65,8 +65,8 @@ $dt-radio-size: 20px;
   top: 0;
   left: 0;
   display: block;
-  width:  $dt-radio-size;
-  height:  $dt-radio-size;
+  width: $dt-radio-size;
+  height: $dt-radio-size;
   border-radius: 50%;
   background-color: $turquoise-600;
   transition: transform ease 280ms, background-color ease 280ms;
@@ -93,7 +93,6 @@ $dt-radio-size: 20px;
     color: $disabledcolor;
   }
 }
-
 
 // Apply the radio theme to all theme definitions
 @include dt-apply-theme() {

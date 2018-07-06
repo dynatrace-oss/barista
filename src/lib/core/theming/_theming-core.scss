@@ -71,14 +71,18 @@
 
 // Registers and adds the provided light and dark theme to the list of theme definitions
 @mixin dt-register-theme($name, $light-theme, $dark-theme, $default: false) {
-  $dt-themes: map-merge($dt-themes, (
-    $name: (
-      name: $name,
-      light: $light-theme,
-      dark: $dark-theme,
-      default: $default
-    )
-  )) !global;
+  $dt-themes:
+    map-merge(
+      $dt-themes,
+      (
+        $name: (
+          name: $name,
+          light: $light-theme,
+          dark: $dark-theme,
+          default: $default
+        )
+      )
+    ) !global;
 }
 
 // Applies the components theme mixin to all registered themes
@@ -88,6 +92,7 @@
     $dark-theme: map-get($theme, dark);
     $default: map-get($theme, default);
 
+    // stylelint-disable scss/no-duplicate-dollar-variables
     $dt-current-theme-name: $name !global;
 
     @if $default == false {
@@ -100,8 +105,7 @@
         $dt-current-theme: $dark-theme !global;
         @content;
       }
-    }
-    @else {
+    } @else {
       $dt-current-theme: $light-theme !global;
       @content;
       .dt-theme-#{$name},
@@ -115,5 +119,6 @@
         @content;
       }
     }
+    // stylelint-enable
   }
 }
