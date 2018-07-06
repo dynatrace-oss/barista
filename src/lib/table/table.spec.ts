@@ -501,7 +501,6 @@ class TestDynamicApp {
 class TestAppExpandableTable {
   @Input() multiple = false;
   @ViewChildren(DtExpandableRow) private _expandableRows: QueryList<DtExpandableRow>;
-  @ViewChildren(DtExpandableCell) private _expandableCells: QueryList<DtExpandableCell>;
   private _expandedRow: DtExpandableRow | undefined;
   dataSource: object[] | null | undefined = [
     {col1: 'test 1', col2: 'test 2', details: 'details1'},
