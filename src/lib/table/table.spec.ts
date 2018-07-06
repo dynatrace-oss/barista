@@ -16,15 +16,24 @@ import {
   DtTableModule,
   DtLoadingDistractor,
   DtLoadingDistractorModule,
+  DtIconModule,
 } from '@dynatrace/angular-components';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 // tslint:disable:no-magic-numbers
 describe('DtTable', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, DtTableModule, DtLoadingDistractorModule, NoopAnimationsModule],
+      imports: [
+        CommonModule,
+        DtTableModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        DtLoadingDistractorModule,
+        HttpClientModule,
+        NoopAnimationsModule,
+      ],
       declarations: [TestApp, TestDynamicApp, TestAppExpandableTable],
     });
 
@@ -296,7 +305,7 @@ describe('DtTable', () => {
     it('should expand multiple rows at a time if dtExpandMultiple is set to true', () => {
       const fixture = TestBed.createComponent(TestAppExpandableTable);
       const table: TestAppExpandableTable = fixture.debugElement.componentInstance;
-      table.dtExpandMultiple = true;
+      table.multiple = true;
       fixture.detectChanges();
 
       const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
@@ -485,12 +494,12 @@ class TestDynamicApp {
       <dt-header-row *dtHeaderRowDef="['col1', 'col2', 'details']"></dt-header-row>
       <dt-expandable-row *dtRowDef="let row; columns: ['col1', 'col2', 'details']"
                          (openedChange)="onOpenedChange($event)"
-                         [dtExpandMultiple]="dtExpandMultiple">{{row.details}}</dt-expandable-row>
+                         [multiple]="multiple">{{row.details}}</dt-expandable-row>
     </dt-table>
   `,
 })
 class TestAppExpandableTable {
-  @Input() dtExpandMultiple = false;
+  @Input() multiple = false;
   @ViewChildren(DtExpandableRow) private _expandableRows: QueryList<DtExpandableRow>;
   @ViewChildren(DtExpandableCell) private _expandableCells: QueryList<DtExpandableCell>;
   private _expandedRow: DtExpandableRow | undefined;
@@ -502,10 +511,6 @@ class TestAppExpandableTable {
 
   get expandableRows(): DtExpandableRow[] {
     return this._expandableRows.toArray();
-  }
-
-  get expandableCells(): DtExpandableCell[] {
-    return this._expandableCells.toArray();
   }
 
   get expandedRow(): DtExpandableRow | undefined {
