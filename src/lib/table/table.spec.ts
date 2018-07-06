@@ -1,5 +1,16 @@
 import { CommonModule } from '@angular/common';
-import {Component, DebugElement, Input, QueryList, Renderer2, ViewChild, ViewChildren} from '@angular/core';
+import {
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  DebugElement,
+  Input,
+  NgModule,
+  QueryList,
+  Renderer2,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -33,8 +44,13 @@ describe('DtTable', () => {
         DtLoadingDistractorModule,
         HttpClientModule,
         NoopAnimationsModule,
+        TestExpandableComponentModule,
       ],
-      declarations: [TestApp, TestDynamicApp, TestAppExpandableTable],
+      declarations: [
+        TestApp,
+        TestDynamicApp,
+        TestAppExpandableTable,
+      ],
     });
 
     TestBed.compileComponents();
@@ -255,118 +271,118 @@ describe('DtTable', () => {
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       expect(expandableSections.length).toBe(3, 'Expected 3 expandable sections');
-      expect(expandableSections[0].children[1].children[0].innerHTML).toBe('details1');
-      expect(expandableSections[1].children[1].children[0].innerHTML).toBe('details2');
-      expect(expandableSections[2].children[1].children[0].innerHTML).toBe('details3');
+      expect(expandableSections[0].children[1].children[0].textContent).toBe('details1');
+      expect(expandableSections[1].children[1].children[0].textContent).toBe('details2');
+      expect(expandableSections[2].children[1].children[0].textContent).toBe('details3');
     });
 
     it('should expand only one row at a time if dtExpandMultiple is set to false (default)', () => {
       const fixture = TestBed.createComponent(TestAppExpandableTable);
       fixture.detectChanges();
 
-      const table = fixture.debugElement.componentInstance;
+      const testApp = fixture.debugElement.componentInstance;
       const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       // initially all rows collapsed
-      expect(table.expandableRows[0].expanded).toBeFalsy();
-      expect(table.expandableRows[1].expanded).toBeFalsy();
-      expect(table.expandableRows[2].expanded).toBeFalsy();
+      expect(testApp.expandableRows[0].expanded).toBeFalsy();
+      expect(testApp.expandableRows[1].expanded).toBeFalsy();
+      expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 1st row expanded
       expandableRowElements[0].click();
       fixture.detectChanges();
-      expect(table.expandableRows[0].expanded).toBeTruthy();
-      expect(table.expandableRows[1].expanded).toBeFalsy();
-      expect(table.expandableRows[2].expanded).toBeFalsy();
+      expect(testApp.expandableRows[0].expanded).toBeTruthy();
+      expect(testApp.expandableRows[1].expanded).toBeFalsy();
+      expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 2nd row expanded
       expandableRowElements[1].click();
       fixture.detectChanges();
-      expect(table.expandableRows[0].expanded).toBeFalsy();
-      expect(table.expandableRows[1].expanded).toBeTruthy();
-      expect(table.expandableRows[2].expanded).toBeFalsy();
+      expect(testApp.expandableRows[0].expanded).toBeFalsy();
+      expect(testApp.expandableRows[1].expanded).toBeTruthy();
+      expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 3rd row expanded
       expandableRowElements[2].click();
       fixture.detectChanges();
-      expect(table.expandableRows[0].expanded).toBeFalsy();
-      expect(table.expandableRows[1].expanded).toBeFalsy();
-      expect(table.expandableRows[2].expanded).toBeTruthy();
+      expect(testApp.expandableRows[0].expanded).toBeFalsy();
+      expect(testApp.expandableRows[1].expanded).toBeFalsy();
+      expect(testApp.expandableRows[2].expanded).toBeTruthy();
 
       // if 3rd row collapsed
       expandableRowElements[2].click();
       fixture.detectChanges();
-      expect(table.expandableRows[0].expanded).toBeFalsy();
-      expect(table.expandableRows[1].expanded).toBeFalsy();
-      expect(table.expandableRows[2].expanded).toBeFalsy();
+      expect(testApp.expandableRows[0].expanded).toBeFalsy();
+      expect(testApp.expandableRows[1].expanded).toBeFalsy();
+      expect(testApp.expandableRows[2].expanded).toBeFalsy();
     });
 
     it('should expand multiple rows at a time if dtExpandMultiple is set to true', () => {
       const fixture = TestBed.createComponent(TestAppExpandableTable);
-      const table: TestAppExpandableTable = fixture.debugElement.componentInstance;
-      table.multiple = true;
+      const testApp: TestAppExpandableTable = fixture.debugElement.componentInstance;
+      testApp.multiple = true;
       fixture.detectChanges();
 
       const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       // initially all rows collapsed
-      expect(table.expandableRows[0].expanded).toBeFalsy();
-      expect(table.expandableRows[1].expanded).toBeFalsy();
-      expect(table.expandableRows[2].expanded).toBeFalsy();
+      expect(testApp.expandableRows[0].expanded).toBeFalsy();
+      expect(testApp.expandableRows[1].expanded).toBeFalsy();
+      expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 1st row expanded
       expandableRowElements[0].click();
       fixture.detectChanges();
-      expect(table.expandableRows[0].expanded).toBeTruthy();
-      expect(table.expandableRows[1].expanded).toBeFalsy();
-      expect(table.expandableRows[2].expanded).toBeFalsy();
+      expect(testApp.expandableRows[0].expanded).toBeTruthy();
+      expect(testApp.expandableRows[1].expanded).toBeFalsy();
+      expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 2nd row expanded
       expandableRowElements[1].click();
       fixture.detectChanges();
-      expect(table.expandableRows[0].expanded).toBeTruthy();
-      expect(table.expandableRows[1].expanded).toBeTruthy();
-      expect(table.expandableRows[2].expanded).toBeFalsy();
+      expect(testApp.expandableRows[0].expanded).toBeTruthy();
+      expect(testApp.expandableRows[1].expanded).toBeTruthy();
+      expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 3rd row expanded
       expandableRowElements[2].click();
       fixture.detectChanges();
-      expect(table.expandableRows[0].expanded).toBeTruthy();
-      expect(table.expandableRows[1].expanded).toBeTruthy();
-      expect(table.expandableRows[2].expanded).toBeTruthy();
+      expect(testApp.expandableRows[0].expanded).toBeTruthy();
+      expect(testApp.expandableRows[1].expanded).toBeTruthy();
+      expect(testApp.expandableRows[2].expanded).toBeTruthy();
 
       // if all rows collapsed
       expandableRowElements[0].click();
       expandableRowElements[1].click();
       expandableRowElements[2].click();
       fixture.detectChanges();
-      expect(table.expandableRows[0].expanded).toBeFalsy();
-      expect(table.expandableRows[1].expanded).toBeFalsy();
-      expect(table.expandableRows[2].expanded).toBeFalsy();
+      expect(testApp.expandableRows[0].expanded).toBeFalsy();
+      expect(testApp.expandableRows[1].expanded).toBeFalsy();
+      expect(testApp.expandableRows[2].expanded).toBeFalsy();
     });
 
     it('should trigger openedChanged event on expand and on collapse', () => {
       const fixture = TestBed.createComponent(TestAppExpandableTable);
-      const table: TestAppExpandableTable = fixture.debugElement.componentInstance;
+      const testApp: TestAppExpandableTable = fixture.debugElement.componentInstance;
       fixture.detectChanges();
 
       const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       // on init
-      expect(table.expandedRow).toBe(undefined);
+      expect(testApp.expandedRow).toBe(undefined);
 
       // on expand
       expandableRowElements[1].click();
       fixture.detectChanges();
-      expect(table.expandedRow).toBe(table.expandableRows[1]);
+      expect(testApp.expandedRow).toBe(testApp.expandableRows[1]);
 
       // on collapse
       expandableRowElements[1].click();
       fixture.detectChanges();
-      expect(table.expandedRow).toBe(undefined);
+      expect(testApp.expandedRow).toBe(undefined);
     });
 
     it('should style dt-expandable-cell correctly on expand and on collapse', () => {
@@ -399,6 +415,28 @@ describe('DtTable', () => {
       expect(cellIconContainer1.className.indexOf('expanded')).toBe(-1);
       expect(cellIconContainer2.className.indexOf('expanded')).toBe(-1);
       expect(cellIconContainer3.className.indexOf('expanded')).toBe(-1);
+    });
+
+    it('should be able to dynamically add a component to an expandable row', () => {
+      const fixture = TestBed.createComponent(TestAppExpandableTable);
+      const testApp = fixture.componentInstance;
+      testApp.dynamicallyAddComponent = true;
+      fixture.detectChanges();
+
+      const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
+        (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
+
+      // on init
+      expect(testApp.expandableRows[0].contentViewContainer.element.nativeElement.nextElementSibling).toBeNull();
+      expect(testApp.expandableRows[1].contentViewContainer.element.nativeElement.nextElementSibling).toBeNull();
+      expect(testApp.expandableRows[2].contentViewContainer.element.nativeElement.nextElementSibling).toBeNull();
+
+      // on expand
+      expandableRowElements[2].click();
+      fixture.detectChanges();
+      const expandableContent =
+        testApp.expandableRows[2].contentViewContainer.element.nativeElement.nextElementSibling as HTMLElement;
+      expect(expandableContent.innerHTML).toEqual('<div>Test Component for expandable section</div>');
     });
   });
 });
@@ -494,12 +532,15 @@ class TestDynamicApp {
       <dt-header-row *dtHeaderRowDef="['col1', 'col2', 'details']"></dt-header-row>
       <dt-expandable-row *dtRowDef="let row; columns: ['col1', 'col2', 'details']"
                          (openedChange)="onOpenedChange($event)"
-                         [multiple]="multiple">{{row.details}}</dt-expandable-row>
+                         [multiple]="multiple">
+        <span *ngIf="!dynamicallyAddComponent">{{row.details}}</span>
+      </dt-expandable-row>
     </dt-table>
   `,
 })
 class TestAppExpandableTable {
   @Input() multiple = false;
+  @Input() dynamicallyAddComponent = false;
   @ViewChildren(DtExpandableRow) private _expandableRows: QueryList<DtExpandableRow>;
   private _expandedRow: DtExpandableRow | undefined;
   dataSource: object[] | null | undefined = [
@@ -516,7 +557,27 @@ class TestAppExpandableTable {
     return this._expandedRow;
   }
 
+  constructor(private resolver: ComponentFactoryResolver) {}
+
   onOpenedChange(row: DtExpandableRow): void {
     this._expandedRow = (row.expanded) ? row : undefined;
+
+    if (this.dynamicallyAddComponent) {
+      const factory: ComponentFactory<TestExpandableComponent> = this.resolver.resolveComponentFactory(TestExpandableComponent);
+      row.contentViewContainer.clear();
+      row.contentViewContainer.createComponent(factory);
+    }
   }
 }
+
+@Component({
+  template: '<div>Test Component for expandable section</div>',
+})
+class TestExpandableComponent {}
+
+@NgModule({
+  imports: [CommonModule],
+  declarations: [TestExpandableComponent],
+  entryComponents: [TestExpandableComponent],
+})
+export class TestExpandableComponentModule {}
