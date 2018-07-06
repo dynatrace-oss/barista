@@ -147,9 +147,9 @@ Expandable rows can be defined using `dt-expandable-row`. An optional details ce
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `@Ouput() openedChange` | `EventEmitter<DtExpandableRow>` |  | Event emitted when the expanded state changes. |
-| `@Input() dtExpandMultiple` | `boolean` | `false` | Sets the mode for expanding multiple rows at a time. NOTE: must not be used in Dynatrace UI! |
+| `@Input() multiple` | `boolean` | `false` | Sets the mode for expanding multiple rows at a time. NOTE: must not be used in Dynatrace UI! |
 | `expanded` | `boolean` | `false` | Gets or sets the expanded state of a row. |
-| `expandable` | `ViewContainerRef` |  | Gets a reference to the expandable container for dynamically adding components. |
+| `contentViewContainer` | `ViewContainerRef` |  | Gets a reference to the expandable container for dynamically adding components. |
 
 ## Programmatic access
 

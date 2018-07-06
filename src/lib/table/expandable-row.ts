@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Input,
   Output,
+  Renderer2,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation
@@ -13,6 +14,7 @@ import {
 import { CdkRow } from '@angular/cdk/table';
 import { DtTable } from './table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { addCssClass, removeCssClass } from '@dynatrace/angular-components';
 
 /**
  * Data row template container that contains the cell outlet and an expandable section.
@@ -23,7 +25,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
       state('expanded', style({ height: '*', visibility: 'visible' })),
-      transition('expanded <=> collapsed', animate('400ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
   moduleId: module.id,
@@ -41,19 +43,14 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 export class DtExpandableRow extends CdkRow {
   @Output() openedChange = new EventEmitter<DtExpandableRow>();
   @ViewChild('dtExpandableRow') private _rowRef: ElementRef;
-  @ViewChild('dtExpandableContent', { read: ViewContainerRef }) private _expandable: ViewContainerRef;
-  private _dtExpandMultiple = false;
+  @ViewChild('dtExpandableContent', { read: ViewContainerRef }) private _contentViewContainer: ViewContainerRef;
+  private _multiple = false;
   private _expanded = false;
-
-  // tslint:disable-next-line:no-any
-  constructor(private _dtExpandableTable: DtTable<any>) {
-    super();
-  }
 
   /** Multiple rows can be expanded at a time if set to true (default: false) */
   @Input()
-  set dtExpandMultiple(value: boolean) {
-    this._dtExpandMultiple = coerceBooleanProperty(value);
+  set multiple(value: boolean) {
+    this._multiple = coerceBooleanProperty(value);
   }
 
   /** The expanded state of the row */
@@ -61,50 +58,62 @@ export class DtExpandableRow extends CdkRow {
     return this._expanded;
   }
   set expanded(value: boolean) {
-    this.setExpanded(coerceBooleanProperty(value));
+    this._setExpanded(coerceBooleanProperty(value));
   }
 
   /** ViewContainerRef to the expandable section */
-  get expandable(): ViewContainerRef {
-    return this._expandable;
+  get contentViewContainer(): ViewContainerRef {
+    return this._contentViewContainer;
   }
 
-  /** Click event handler */
-  onClick(): void {
-    if (this._dtExpandMultiple) { // multiple rows can be expanded, just handle the current one
-      this.setExpanded(!this._expanded);
+  // tslint:disable-next-line:no-any
+  constructor(private _expandableTable: DtTable<any>, private _renderer2: Renderer2) {
+    super();
+  }
+
+  /**
+   * Toggles the expanded state of the row. If the row is already expanded it is collapsed, otherwise it is expanded.
+   * If the table does not allow multiple rows to be expanded at a time, which is the default behavior,
+   * the currently expanded row (if any) is collapsed.
+   */
+  toggle(): void {
+    if (this._multiple) { // multiple rows can be expanded, just handle the current one
+      this._setExpanded(!this._expanded);
     } else { // only one row can be expanded
-      if (this._dtExpandableTable.expandedRow !== undefined) { // a row is already expanded
-        if (this._dtExpandableTable.expandedRow === this) { // expanded row was clicked => collapse it
-          this.setExpanded(false);
+      if (this._expandableTable.expandedRow !== undefined) { // a row is already expanded
+        if (this._expandableTable.expandedRow === this) { // expanded row was clicked => collapse it
+          this._setExpanded(false);
         } else { // not the expanded row was clicked => collapse expanded, expand current row
-          this._dtExpandableTable.expandedRow.expanded = !this._dtExpandableTable.expandedRow.expanded;
-          this.setExpanded(true);
+          this._expandableTable.expandedRow.expanded = !this._expandableTable.expandedRow.expanded;
+          this._setExpanded(true);
         }
       } else { // no row expanded yet, expand the current one
-        this.setExpanded(true);
+        this._setExpanded(true);
       }
     }
   }
 
   /** Sets the expanded state of the row, updates the expandable table and the expandable cell. */
-  private setExpanded(expanded: boolean): void {
+  private _setExpanded(expanded: boolean): void {
     this._expanded = expanded;
-    this.setExpandableCell(expanded);
-    this._dtExpandableTable.expandedRow = expanded ? this : undefined;
+    this._setExpandableCell(expanded);
+    this._expandableTable.expandedRow = expanded ? this : undefined;
     this.openedChange.emit(this);
   }
 
   /** Sets the style of the expandable cell. Somehow a hack, a better solution would be appreciated. */
-  private setExpandableCell(expanded: boolean): void {
+  private _setExpandableCell(expanded: boolean): void {
     const rowElement = this._rowRef.nativeElement as HTMLDivElement;
 
     for (let i = 0; i < rowElement.childNodes.length; i++) {
       const node = rowElement.childNodes.item(i);
-      if (node.localName === 'dt-expandable-cell') {
+      if (node.localName && node.localName.toLowerCase() === 'dt-expandable-cell') {
         const expandableCell = node as HTMLElement;
-        const span = expandableCell.lastElementChild as HTMLSpanElement;
-        span.className = expanded ? 'expanded' : '';
+        if (expanded) {
+          addCssClass(expandableCell.firstElementChild, 'expanded', this._renderer2);
+        } else {
+          removeCssClass(expandableCell.firstElementChild, 'expanded', this._renderer2);
+        }
       }
     }
   }
