@@ -33,7 +33,6 @@ export const EXAMPLES = [
   ],
   providers: [
     { provide: COMPONENT_EXAMPLES, useValue: EXAMPLES, multi: true },
-    ChartService,
   ],
 })
 export class DocsChartModule {
