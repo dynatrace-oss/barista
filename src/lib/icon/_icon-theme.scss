@@ -7,20 +7,20 @@
 
   @each $name in $color-names {
     // default to light
+    // stylelint-disable scss/no-duplicate-dollar-variables
     $color: #fff;
     @if $is-dark == true {
       $color: #fff;
-    }
-    @else if $name == 'dark' {
+    } @else if $name == 'dark' {
       $color: #ccc;
-    }
-    @else if $name != 'light' {
+    } @else if $name != 'light' {
       $palette: dt-get-theme-palette($theme, $name);
       $color: dt-get-theme-color($palette, 'default');
     }
+    // stylelint-enable
+
     .dt-icon.dt-color-#{$name} svg {
       fill: $color;
     }
   }
-
 }
