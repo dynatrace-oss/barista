@@ -9,7 +9,7 @@
 @import 'link';
 
 @import '~@angular/cdk/overlay';
-@import '~@angular/cdk/_a11y';
+@import '~@angular/cdk/a11y';
 
 @include cdk-a11y();
 @include cdk-overlay();

@@ -5,9 +5,12 @@
 @import 'variables';
 
 /* stylelint-disable property-blacklist  */
-@mixin custom-font-styles($color: false, $font-weight: false,
-                          $font-size: false, $line-height: false) {
-
+@mixin custom-font-styles(
+  $color: false,
+  $font-weight: false,
+  $font-size: false,
+  $line-height: false
+) {
   @if $color { color: $color; }
   @if $font-weight { font-weight: $font-weight; }
   @if $font-size { font-size: $font-size; }
@@ -19,16 +22,20 @@
   @if $line-height { line-height: $line-height; }
 }
 
-@mixin default-font($font-size: $default-font-size, $line-height: $default-line-height,
-                    $font-weight: $default-font-weight) {
-
+@mixin default-font(
+  $font-size: $default-font-size,
+  $line-height: $default-line-height,
+  $font-weight: $default-font-weight
+) {
   font-family: $default-font-family;
   @include custom-font-styles($default-font-color, $font-weight, $font-size, $line-height);
 }
 
-@mixin monospace-font($font-size: $default-font-size, $line-height: $default-line-height,
-                      $font-weight: $default-font-weight) {
-
+@mixin monospace-font(
+  $font-size: $default-font-size,
+  $line-height: $default-line-height,
+  $font-weight: $default-font-weight
+) {
   font-family: $monospace-font-family;
   @include custom-font-styles($default-font-color, $font-weight, $font-size, $line-height);
 }

@@ -12,14 +12,15 @@
   display: block;
 }
 
-@media(min-width: 662px) {
-  :host[dt-column='2'], :host[dt-column='3'] {
+@media (min-width: 662px) {
+  :host[dt-column='2'],
+  :host[dt-column='3'] {
     columns: 280px 2;
     max-width: 1220px;
   }
 }
 
-@media(min-width: 920px) {
+@media (min-width: 920px) {
   :host[dt-column='3'] {
     columns: 280px 3;
     max-width: 1860px;

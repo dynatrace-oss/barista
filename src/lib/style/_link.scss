@@ -30,6 +30,7 @@ a.dt-link {
   }
 
   &.dt-external::after {
+    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
     @extend .fonticon-ExternalLink:before;
     @include icons-before('fonticons');
 

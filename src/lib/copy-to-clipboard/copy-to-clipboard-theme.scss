@@ -15,7 +15,7 @@
 
       ::ng-deep .dt-button.dt-copy-to-clipboard-successful,
       ::ng-deep .dt-button.dt-copy-to-clipboard-successful:hover:not([disabled]) {
-        background-color:  $green-500;
+        background-color: $green-500;
         border: 1px solid white;
         box-shadow: none;
       }
@@ -28,5 +28,4 @@
       }
     }
   }
-
 }
