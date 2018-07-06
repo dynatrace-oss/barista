@@ -5,7 +5,6 @@ import {
   DtButtonModule,
   DtThemingModule,
 } from '@dynatrace/angular-components';
-import { ChartService } from './examples/docs-chart.service';
 import { ChartDefaultExampleComponent } from './examples/chart-default-example.component';
 import { ChartStreamExampleComponent } from './examples/chart-stream-example.component';
 import { ChartThemingExampleComponent } from './examples/chart-theming-example.component';
