@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { DtChartSeries, Colors } from '@dynatrace/angular-components';
 import { generateData } from './chart-data-utils';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ChartService {
   getStreamedChartdata(): Observable<DtChartSeries> {
     return timer(1000, 5000)
