@@ -79,18 +79,22 @@ export class DtExpandableRow extends CdkRow {
   toggle(): void {
     if (this._multiple) { // multiple rows can be expanded, just handle the current one
       this._setExpanded(!this._expanded);
-    } else { // only one row can be expanded
-      if (this._expandableTable.expandedRow !== undefined) { // a row is already expanded
-        if (this._expandableTable.expandedRow === this) { // expanded row was clicked => collapse it
-          this._setExpanded(false);
-        } else { // not the expanded row was clicked => collapse expanded, expand current row
-          this._expandableTable.expandedRow.expanded = !this._expandableTable.expandedRow.expanded;
-          this._setExpanded(true);
-        }
-      } else { // no row expanded yet, expand the current one
-        this._setExpanded(true);
-      }
+      return;
     }
+
+    if (this._expandableTable.expandedRow === undefined) { // no expanded row yet
+      this._setExpanded(true);
+      return;
+    }
+
+    if (this._expandableTable.expandedRow === this) { // expanded row was clicked => collapse it
+      this._setExpanded(false);
+      return;
+    }
+
+    // not the expanded row was clicked => collapse expanded, expand current row
+    this._expandableTable.expandedRow.expanded = !this._expandableTable.expandedRow.expanded;
+    this._setExpanded(true);
   }
 
   /** Sets the expanded state of the row, updates the expandable table and the expandable cell. */
