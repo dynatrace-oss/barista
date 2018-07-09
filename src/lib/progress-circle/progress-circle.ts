@@ -1,29 +1,21 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
-  ElementRef,
-  ChangeDetectorRef,
-  Input,
-  Output,
-  EventEmitter,
+  ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter, ElementRef,
+
 } from '@angular/core';
-import { mixinColor, CanColor } from '@dynatrace/angular-components/core';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress } from '@dynatrace/angular-components/core';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */
 const CIRCLE_CIRCUMFERENCE = 328;
 
-export interface DtProgressCircleChange {
-  newValue: number;
-  oldValue: number;
-}
+export type DtProgressCircleChange = DtProgressChange;
 
-// Boilerplate for applying mixins to DtProgressCircle.
 export class DtProgressCircleBase {
   constructor(public _elementRef: ElementRef) { }
 }
-export const _DtProgressCircleMixinBase = mixinColor(DtProgressCircleBase, 'main');
+
+export const _DtProgressCircle = mixinHasProgress(mixinColor(DtProgressCircleBase, 'main'));
 
 @Component({
   moduleId: module.id,
@@ -38,86 +30,30 @@ export const _DtProgressCircleMixinBase = mixinColor(DtProgressCircleBase, 'main
     '[attr.aria-valuemax]': 'max',
     '[attr.aria-valuenow]': 'value',
   },
-  inputs: ['color'],
+  inputs: ['color', 'value', 'min', 'max'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtProgressCircle extends _DtProgressCircleMixinBase implements CanColor {
-  /** Value of the progress circle. */
-  @Input()
-  get value(): number {
-    // If the value needs to be read and it is still uninitialized,
-    // or if the value is smaller than the min set it to the min.
-    if (this._value === null || this._value < this._min) {
-      return this._min;
-    }
-    // Also check for the upper bound and set the value to the max
-    if (this._value > this._max) {
-      return this._max;
-    }
-    return this._value;
-  }
-  set value(v: number) {
-    if (clamp(v) !== this.value) {
-      this.valueChange.emit({
-        oldValue: coerceNumberProperty(this.value),
-        newValue: coerceNumberProperty(clamp(v)),
-      });
-      this._value = coerceNumberProperty(v);
-      this._calculateViewParams();
-    }
-  }
+export class DtProgressCircle extends _DtProgressCircle implements CanColor, HasProgressValues {
 
-  /** The maximum value that the progress circle can have. */
-  @Input()
-  get max(): number { return this._max; }
-  set max(v: number) {
-    this._max = coerceNumberProperty(v, this._max);
-    this._calculateViewParams();
-  }
-
-  /** The minimum value that the slider can have. */
-  @Input()
-  get min(): number { return this._min; }
-  set min(v: number) {
-    this._min = coerceNumberProperty(v, this._min);
-    this._calculateViewParams();
-  }
-
-  @Output() readonly valueChange = new EventEmitter<DtProgressCircleChange>();
-
-  /** The percentage of the progress circle that coincides with the value. */
-  get percent(): number { return clamp(this._percent); }
+  @Output()
+  readonly valueChange = new EventEmitter<DtProgressCircleChange>();
 
   /** Dash offset base on the values percentage */
   _dashOffset: number = CIRCLE_CIRCUMFERENCE;
 
-  private _value: number | null = null;
-  private _percent = 0;
-  private _min = 0;
-  private _max = 100;
-
-  constructor(
-    elementRef: ElementRef,
-    private _changeDetectorRef: ChangeDetectorRef
-  ) {
-      super(elementRef);
-    }
+  constructor(private _changeDetectorRef: ChangeDetectorRef, public _elementRef: ElementRef) {
+    super(_elementRef);
+  }
 
   /** Updates all view parameters */
-  private _calculateViewParams(): void {
-    this._percent = this._calculatePercentage(this.value);
-    this._dashOffset = this._calculateDashOffset(this._percent);
+  _updateValues(): void {
+    super._updateValues();
+    this._dashOffset = this._calculateDashOffset(this.percent);
 
     // Since this also modifies the percentage and dashOffset,
     // we need to let the change detection know.
     this._changeDetectorRef.markForCheck();
-  }
-
-  /** Calculates the percentage of the progress circle that a value is. */
-  private _calculatePercentage(value: number | null): number {
-    // tslint:disable-next-line: no-magic-numbers
-    return ((value || 0) - this.min) / (this.max - this.min) * 100;
   }
 
   /** Calculates the dash offset of the progress circle based on the calculated percent */
@@ -125,9 +61,8 @@ export class DtProgressCircle extends _DtProgressCircleMixinBase implements CanC
     // tslint:disable-next-line: no-magic-numbers
     return CIRCLE_CIRCUMFERENCE - (CIRCLE_CIRCUMFERENCE / 100 * percent);
   }
-}
 
-/** Clamps a value to be between two numbers, by default 0 and 100. */
-function clamp(v: number, min: number = 0, max: number = 100): number {
-  return Math.max(min, Math.min(max, v));
+  _emitValueChangeEvent(oldValue: number, newValue: number): void {
+    this.valueChange.emit({oldValue, newValue});
+  }
 }
