@@ -32,10 +32,6 @@ To apply the dynatrace alert component, use the `<dt-alert>` element. Example:
 
 ## Examples
 
-### Longer text
-
-<docs-source-example example="DefaultAlertExampleComponent"></docs-source-example>
-
 ### Error
 
 <docs-source-example example="ErrorAlertExampleComponent"></docs-source-example>
