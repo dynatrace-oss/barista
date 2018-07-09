@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, ViewEncapsulation, Component } from '@angular/core';
+import { TemplateRef, ViewContainerRef, Directive } from '@angular/core';
+import { CdkPortal } from '@angular/cdk/portal';
 
-@Component({
-  moduleId: module.id,
-  selector: 'dt-tab-label',
+@Directive({
+  selector: '[dt-tab-label]',
   exportAs: 'dtTabLabel',
-  template: '<ng-content></ng-content>',
   host: {
     class: 'dt-tab-label',
   },
-  preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTabLabel {}
+export class DtTabLabel extends CdkPortal {
+  constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef) {
+    super(templateRef, viewContainerRef);
+  }
+}
