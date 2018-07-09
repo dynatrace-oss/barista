@@ -28,6 +28,7 @@ To apply, add the `dt-inline-editor` attribute to the HTML element.
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `ngModel` | `string` | `` | The two-way data-binding to set the content and handle changes. |
+| `required` | `boolean` | `false` | To specify that the input field must be filled out |
 | `onRemoteSave` | `function` | `` | A callback returning an Observable that will be triggered when the (potentially async) saving of the new value has finished. The inline editor needs to be notified so it can go back to idle state if ok or stay in editing mode if failed. |
 
 ## Examples
@@ -35,6 +36,10 @@ To apply, add the `dt-inline-editor` attribute to the HTML element.
 ### JavaScript API
 
 <docs-source-example example="ApiInlineEditorExample"></docs-source-example>
+
+### Required field validation
+
+<docs-source-example example="RequiredInlineEditorExample"></docs-source-example>
 
 ### Successful asynchronous operation
 
