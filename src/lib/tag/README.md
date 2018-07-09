@@ -4,7 +4,7 @@
 
 You have to import the `DtTagModule` when you want to use the `dt-tag`:
 
-```typescript 
+```typescript
 @NgModule({
   imports: [
     DtTagModule,
