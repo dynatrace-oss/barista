@@ -1,6 +1,6 @@
 {
   "extends": [
     "./tslint.json",
-    "./node_modules/@dynatrace/angular-lint-rules/tslint/tslint.spec.json"
+    "@dynatrace/angular-lint-rules/tslint/spec"
   ]
 }

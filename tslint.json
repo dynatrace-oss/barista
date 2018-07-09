@@ -1,6 +1,6 @@
 {
   "extends": [
-    "./node_modules/@dynatrace/angular-lint-rules/tslint/tslint.json"
+    "@dynatrace/angular-lint-rules/tslint"
   ],
   "rules": {
     "ban": [
