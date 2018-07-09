@@ -6,7 +6,7 @@ import {
   ContentChildren,
   Output,
   EventEmitter,
-  AfterContentChecked,
+  AfterContentInit,
 } from '@angular/core';
 import { DtTab } from './tab';
 
@@ -30,7 +30,7 @@ export class DtTabChangeEvent<T> {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTabGroup<T> {
+export class DtTabGroup<T> implements AfterContentInit {
   @ContentChildren(DtTab) _tabs: QueryList<DtTab<T>>;
 
   /** Event emitted when the tab selection has changed. */
@@ -42,5 +42,9 @@ export class DtTabGroup<T> {
     if (!tab.disabled) {
       // this.selectedIndex = idx;
     }
+  }
+
+  ngAfterContentInit(): void {
+    console.log(this._tabs);
   }
 }

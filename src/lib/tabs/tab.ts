@@ -1,4 +1,4 @@
-import { Input, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, OnInit, TemplateRef, ContentChild, ViewContainerRef, ViewChild } from '@angular/core';
+import { Input, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, OnInit, TemplateRef, ContentChild, ViewContainerRef, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
 import { mixinColor, mixinDisabled } from '@dynatrace/angular-components/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DtTabLabel } from './tab-label';
@@ -25,12 +25,12 @@ export const _DtTabMixinBase = mixinDisabled(mixinColor(DtTabBase, defaultPalett
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTab<T> extends _DtTabMixinBase implements OnInit {
+export class DtTab<T> extends _DtTabMixinBase implements OnInit, AfterViewInit, AfterContentInit {
 
   @ViewChild(TemplateRef) _content: TemplateRef<any>;
 
   /** Content for the tab label */
-  @ContentChild(DtTabLabel, { read: TemplateRef }) label: DtTabLabel;
+  @ContentChild(DtTabLabel) label: DtTabLabel;
 
   @Input()
   get value(): T { return this._value; }
@@ -49,5 +49,13 @@ export class DtTab<T> extends _DtTabMixinBase implements OnInit {
     console.log('onInit', this._content);
     this._contentPortal = new TemplatePortal(
         this._content, this._viewContainerRef);
+  }
+
+  ngAfterContentInit(): void {
+    console.log('afterContentInit', this.label);
+  }
+
+  ngAfterViewInit(): void {
+    console.log('Afterviewinit', this._content);
   }
 }
