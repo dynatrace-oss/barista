@@ -14,7 +14,6 @@ import {
 
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { DtFormField } from '@dynatrace/angular-components';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -49,18 +48,11 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   private _mode = MODES.IDLE;
   private _value = '';
   private _saving: Subscription | null;
-  private _required = false;
 
   @ViewChild('input') inputReference: ElementRef;
   @ViewChild('edit') editButtonReference: ElementRef;
-  @ViewChild(DtFormField) formfield: DtFormField<Input>;
 
-  /** required field validation for dtInput */
-  @Input()
-  get required(): boolean { return this._required; }
-  set required(value: boolean) {
-    this._required = value;
-  }
+  @Input() required: false;
   @Input() onRemoteSave: (value: string) => Observable<void>;
   @Output() saved = new EventEmitter<string>();
   @Output() cancelled = new EventEmitter<string>();
@@ -96,7 +88,7 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   }
 
   saveAndQuitEditing(): void {
-    if (this.formfield._control.errorState) {
+    if (this._isInValidInput()) {
       return;
     }
 
@@ -169,5 +161,10 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
     } else {
       this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(fn);
     }
+  }
+
+  private _isInValidInput(): boolean {
+    const ngInvalidClass = 'ng-invalid';
+    return this.inputReference.nativeElement.classList.contains(ngInvalidClass);
   }
 }
