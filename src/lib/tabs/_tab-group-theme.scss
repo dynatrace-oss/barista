@@ -14,6 +14,12 @@
       $namespace: ':host .dt-color-#{$name}';
     }
 
+    @if $name != 'main' {
+      & #{$namespace}.dt-tab-label {
+        color: $default-color;
+      }
+    }
+
     & #{$namespace}.dt-tab-label:after {
       background-color: $default-color;
     }

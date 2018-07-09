@@ -1,5 +1,5 @@
 import { Constructor } from './constructor';
-import { ElementRef } from '@angular/core';
+import { ElementRef, Directive, NgModule } from '@angular/core';
 import { replaceCssClass } from '../util/platform-util';
 
 export interface CanColor {
@@ -48,29 +48,33 @@ export function setComponentColorClasses<T extends { color: string | undefined }
   component: T,
   color?: string
 ): void {
-  const changes = getComponentClassChanges(component, color);
-  if (changes) {
+
+  if (color !== component.color) {
     replaceCssClass(
       component._elementRef,
-      changes.oldClass,
-      changes.newClass);
+      component.color ? `dt-color-${component.color}` : null,
+      color ? `dt-color-${color}` : null);
   }
 }
 
-export interface ComponentClassChanges {
-  oldClass: string | null;
-  newClass: string | null;
+export class DtColorBase {
+  constructor(public _elementRef: ElementRef) { }
+}
+export const _DtColorMixinBase = mixinColor(DtColorBase);
+
+@Directive({
+  selector: '[dtColor]',
+  inputs: ['color'],
+  exportAs: 'dtColor',
+})
+export class DtColor extends _DtColorMixinBase implements CanColor {
+  constructor(elementRef: ElementRef) {
+    super(elementRef);
+  }
 }
 
-export function getComponentClassChanges<T extends { color: string | undefined} & HasElementRef>(
-  component: T,
-  color?: string
-): ComponentClassChanges | null {
-  if (color !== component.color) {
-    return ({
-      oldClass: component.color ? `dt-color-${component.color}` : null,
-      newClass: color ? `dt-color-${color}` : null,
-    });
-  }
-  return null;
-}
+@NgModule({
+  exports: [DtColor],
+  declarations: [DtColor],
+})
+export class DtColorModule { }

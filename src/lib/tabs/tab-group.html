@@ -3,12 +3,13 @@
     [class.dt-tab-label-active]="selectedIndex == i"
     (click)="_handleClick(tab, i)"
     [disabled]="tab.disabled"
-    [ngClass]="tab.colorClass"
+    dtColor
+    [color]="tab.color"
     >
     <ng-template [cdkPortalOutlet]="tab.label"></ng-template>
   </button>
 </div>
-<div class="dt-tab-body-wrapper" #tabBodyWrapper>
+<div class="dt-tab-body-wrapper">
   <div role="tabpanel" *ngFor="let tab of _tabs; let i = index">
     <ng-template [cdkPortalOutlet]="tab._content"></ng-template>
   </div>
