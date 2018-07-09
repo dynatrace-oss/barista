@@ -25,7 +25,8 @@ import { DocsKeyValueListModule } from './components/key-value-list/docs-key-val
 import { DocsPaginationModule } from './components/pagination/docs-pagination.module';
 import { DocsShowMoreModule } from './components/show-more/docs-show-more.module';
 import { FormsModule } from '@angular/forms';
-import { DtIconModule, DtThemingModule } from '@dynatrace/angular-components';
+import { DocsCopyToClipboardModule } from './components/copy-to-clipboard/docs-copy-to-clipboard.module';
+import { DtIconModule, DtThemingModule, DT_ICON_CONFIGURATION } from '@dynatrace/angular-components';
 import { DocsRadioModule } from './components/radio/docs-radio.module';
 import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
 import { DocsProgressCircleModule } from './components/progress-circle/docs-progress-circle.module';
@@ -35,6 +36,7 @@ import { DocsSwitchModule } from './components/switch/docs-switch.module';
 import { environment } from './environments/environment';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DocsViewerComponent } from './core/docs-viewer.component';
+import { DocsProgressBarModule } from './components/progress-bar/docs-progress-bar.module';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
@@ -48,8 +50,17 @@ export class NoopRouteComponent {}
     CoreModule,
     RouterModule.forRoot([
       { path: ':noop',  component: NoopRouteComponent },
+      { path: 'job/angular-components/job/:noop/Docs', component: NoopRouteComponent },
+      { path: 'job/angular-components/view/change-requests/job/:noop/Docs', component: NoopRouteComponent },
     ]),
-    DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
+
+    // Changing the way we provide from `forRoot` to a custom provider, because there is an issue in AOT in Angular 6 listed below.
+    // We can go back to `forRoot` once this is resolve.
+    // Jira issue: ***REMOVED***/***REMOVED***
+    // Angular issue: https://github.com/angular/angular/issues/23609
+    // DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
+    DtIconModule,
+
     DocsButtonModule,
     DocsButtonGroupModule,
     DocsInputModule,
@@ -71,11 +82,13 @@ export class NoopRouteComponent {}
     DocsPaginationModule,
     DocsShowMoreModule,
     DtThemingModule,
+    DocsCopyToClipboardModule,
     DocsRadioModule,
     DocsCheckboxModule,
     DocsProgressCircleModule,
     DocsSwitchModule,
     DocsBreadcrumbsModule,
+    DocsProgressBarModule,
   ],
   declarations: [
     Docs,
@@ -92,6 +105,12 @@ export class NoopRouteComponent {}
   providers: [
     Location,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
+
+    // Custom icon config provider for the Angular 6 AOT issue described above
+    {
+      provide: DT_ICON_CONFIGURATION,
+      useValue: { svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` },
+    },
   ],
 })
 export class DocsModule {

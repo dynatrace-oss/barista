@@ -40,7 +40,7 @@ function addExportToRootIndex(options: DtComponentOptions): Rule {
         lastExportPos = node.getEnd() + 1;
       }
     });
-    const toInsert = `export * from './${options.name}/index';\n`;
+    const toInsert = `export * from '@dynatrace/angular-components/${options.name}';\n`;
     const changes = [new InsertChange(modulePath, lastExportPos, toInsert)];
     return commitChanges(host, changes, modulePath);
   };
@@ -59,8 +59,12 @@ function addDeclarationsToDocsModule(options: DtComponentOptions): Rule {
     /**
      * add it to the imports declaration in the module
      */
-    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
-    const assignment = assignments[0] as ts.PropertyAssignment;
+    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment) as ts.PropertyAssignment[];
+    const assignment = assignments.find((a: ts.PropertyAssignment) => a.name.getText() === 'imports');
+    if (assignment === undefined) {
+      throw Error("No DocsModule 'imports' section found");
+    }
+
     const arrLiteral = assignment.initializer as ts.ArrayLiteralExpression;
     const importElements = arrLiteral.elements;
     const end = arrLiteral.elements.end;
