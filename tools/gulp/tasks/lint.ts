@@ -99,6 +99,7 @@ task('tslint:ui-test-app', ['ensureOutDirectory'], execNodeTask(
   'tslint', outputToXML(
     isCi,
     [
+      '--config', 'src/ui-test-app/tslint.json',
       '--project', 'src/ui-test-app/tsconfig.json',
       tsUiTestApp,
     ],
@@ -110,6 +111,7 @@ task('tslint:universal-app', ['ensureOutDirectory'], execNodeTask(
   'tslint', outputToXML(
     isCi,
     [
+      '--project', 'src/universal-app/tslint.json',
       '--project', 'src/universal-app/tsconfig.json',
       tsUniversalApp,
     ],
