@@ -25,16 +25,13 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
       state('false', style({
         height: '0px',
         visibility: 'hidden',
-        overflow: 'hidden',
       })),
       state('true', style({
         height: '*',
         visibility: 'visible',
+        overflow: 'visible',
       })),
       transition('true <=> false', [
-        style({
-          overflow: 'hidden',
-        }),
         animate('225ms cubic-bezier(0.4,0.0,0.2,1)'),
       ]),
     ]),
