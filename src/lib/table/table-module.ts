@@ -43,7 +43,6 @@ const EXPORTED_DECLARATIONS = [
     DtIconModule,
   ],
   exports: [
-    DtIconModule,
     ...EXPORTED_DECLARATIONS,
   ],
   declarations: [
