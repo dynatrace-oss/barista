@@ -27,10 +27,10 @@ export const _DtTabMixinBase = mixinDisabled(mixinColor(DtTabBase, defaultPalett
 })
 export class DtTab<T> extends _DtTabMixinBase implements OnInit, AfterViewInit, AfterContentInit {
 
-  @ViewChild(TemplateRef) _content: TemplateRef<any>;
-
   /** Content for the tab label */
   @ContentChild(DtTabLabel) label: DtTabLabel;
+
+  private _value: T;
 
   @Input()
   get value(): T { return this._value; }
@@ -39,14 +39,20 @@ export class DtTab<T> extends _DtTabMixinBase implements OnInit, AfterViewInit, 
   /** Portal that will be the hosted content of the tab */
   private _contentPortal: TemplatePortal | null = null;
 
-  _value: T;
+  /** @docs-private */
+  get content(): TemplatePortal | null {
+    return this._contentPortal;
+  }
+
+  /** Template inside the DtTab view that contains an `<ng-content>`. */
+  @ViewChild(TemplateRef) _content: TemplateRef<any>;
 
   constructor(public elementRef: ElementRef, private _viewContainerRef: ViewContainerRef) {
     super(elementRef);
   }
 
   ngOnInit(): void {
-    console.log('onInit', this._content);
+    console.log('onInit', this.content);
     this._contentPortal = new TemplatePortal(
         this._content, this._viewContainerRef);
   }

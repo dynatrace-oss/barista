@@ -2,7 +2,7 @@ import { TemplateRef, ViewContainerRef, Directive } from '@angular/core';
 import { CdkPortal } from '@angular/cdk/portal';
 
 @Directive({
-  selector: '[dt-tab-label]',
+  selector: '[dt-tab-label], [dtTabLabel]',
   exportAs: 'dtTabLabel',
   host: {
     class: 'dt-tab-label',
