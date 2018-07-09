@@ -14,6 +14,7 @@ import {
 
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { DtFormField } from '@dynatrace/angular-components';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -48,10 +49,18 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   private _mode = MODES.IDLE;
   private _value = '';
   private _saving: Subscription | null;
+  private _required = false;
 
   @ViewChild('input') inputReference: ElementRef;
   @ViewChild('edit') editButtonReference: ElementRef;
+  @ViewChild(DtFormField) formfield: DtFormField<Input>;
 
+  /** required field validation for dtInput */
+  @Input()
+  get required(): boolean { return this._required; }
+  set required(value: boolean) {
+    this._required = value;
+  }
   @Input() onRemoteSave: (value: string) => Observable<void>;
   @Output() saved = new EventEmitter<string>();
   @Output() cancelled = new EventEmitter<string>();
@@ -87,6 +96,10 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   }
 
   saveAndQuitEditing(): void {
+    if (this.formfield._control.errorState) {
+      return;
+    }
+
     const value = this.value;
 
     if (this.onRemoteSave) {
@@ -130,11 +143,6 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
     } else if (this._mode === MODES.IDLE && this.editButtonReference) {
       this.editButtonReference.nativeElement.focus();
     }
-  }
-
-  /** Handles the native input change */
-  _onInputChange(): void {
-    this._value = this.inputReference.nativeElement.value;
   }
 
   private _emitValue(value: string): void {

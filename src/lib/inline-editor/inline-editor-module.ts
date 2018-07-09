@@ -6,6 +6,7 @@ import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { DtIconModule } from '@dynatrace/angular-components/icon';
     DtInputModule,
     DtFormFieldModule,
     DtIconModule,
+    FormsModule,
   ],
   exports: [
     DtInlineEditor,
