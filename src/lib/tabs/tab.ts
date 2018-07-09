@@ -1,5 +1,5 @@
 import { Input, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, OnInit, TemplateRef, ContentChild, ViewContainerRef, ViewChild } from '@angular/core';
-import { mixinColor, mixinDisabled, CanDisable, CanColor, getComponentClassChanges, DtThemePalette } from '@dynatrace/angular-components/core';
+import { mixinColor, mixinDisabled, CanDisable, CanColor } from '@dynatrace/angular-components/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DtTabLabel } from './tab-label';
 
@@ -37,27 +37,7 @@ export class DtTab<T> extends _DtTabMixinBase implements OnInit, CanDisable, Can
   get value(): T { return this._value; }
   set value(val: T) { this._value = val; }
 
-  @Input()
-  get color(): Partial<DtThemePalette> { return this._color; }
-  set color(value: Partial<DtThemePalette>) {
-    const colorPalette = value || defaultPalette as Partial<DtThemePalette>;
-
-    if (colorPalette !== this._color) {
-      const changes = getComponentClassChanges(this, colorPalette);
-      if (changes) {
-        this._colorClass = changes.newClass;
-      }
-      this._color = colorPalette;
-    }
-  }
-
-  get colorClass(): string { return this._colorClass || ''; }
-
   private _value: T;
-
-  private _color: Partial<DtThemePalette>;
-
-  private _colorClass: string | null;
 
   /** Portal that will be the hosted content of the tab */
   private _contentPortal: TemplatePortal | null = null;
