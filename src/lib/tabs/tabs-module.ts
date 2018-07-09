@@ -4,11 +4,13 @@ import { DtTab } from './tab';
 import { DtTabLabel } from './tab-label';
 import { CommonModule } from '@angular/common';
 import { PortalModule } from '@angular/cdk/portal';
+import { DtColorModule } from '@dynatrace/angular-components/core';
 
 @NgModule({
   imports: [
     CommonModule,
     PortalModule,
+    DtColorModule,
   ],
   exports: [
     DtTabGroup,
