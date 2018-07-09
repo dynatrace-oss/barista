@@ -34,9 +34,12 @@
   border-top-color: $gray-500;
 }
 
-.dt-expandable-row-expanded {
+.dt-expandable-row-expandable {
   background-color: #fff;
-  padding: 16px 12px 16px 15px;
+  padding: 16px 12px 16px 14px;
+}
+
+.dt-expandable-row-expandable-expanded {
   border-bottom: 2px solid $gray-700;
 }
 
