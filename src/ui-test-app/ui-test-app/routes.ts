@@ -12,7 +12,9 @@ import { RadioUI } from '../radio/radio.ui';
 import { ShowMoreUI } from '../show-more/show-more-ui';
 import { CheckboxUI } from '../checkbox/checkbox-ui';
 import { SwitchUI } from '../switch/switch-ui';
+import { CopyToClipboardUI } from '../copy-to-clipboard/copy-to-clipboard-ui';
 import { ChartUI } from 'chart/chart-ui';
+import { ProgressBarUI } from '../progress-bar/progress-bar-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -21,6 +23,7 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'chart', component: ChartUI },
   { path: 'checkbox', component: CheckboxUI },
   { path: 'context-dialog', component: ContextDialogUI },
+  { path: 'copy-to-clipboard', component: CopyToClipboardUI },
   { path: 'expandable-panel', component: ExpandablePanelUi },
   { path: 'expandable-section', component: ExpandableSectionUi },
   { path: 'key-value-list', component: KeyValueListUI },
@@ -28,5 +31,6 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'radio', component: RadioUI },
   { path: 'show-more', component: ShowMoreUI },
   { path: 'switch', component: SwitchUI },
+  { path: 'progress-bar', component: ProgressBarUI },
   { path: 'tile', component: TileUI },
 ];

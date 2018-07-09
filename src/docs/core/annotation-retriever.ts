@@ -22,7 +22,7 @@ export class AnnotationRetriever {
 
     // API for metadata created by invoking the decorators.
     if (Reflect && Reflect.getOwnMetadata) {
-      return Array.from(Reflect.getOwnMetadata('annotations', typeOrFunc))[0];
+      return Array.from(Reflect.getOwnMetadata('annotations', typeOrFunc) || [])[0];
     }
 
     return undefined;
