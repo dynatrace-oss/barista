@@ -5,8 +5,35 @@ import {
   ComponentRef,
   ViewChild,
   EmbeddedViewRef,
+  Attribute,
+  Output,
+  EventEmitter,
 } from '@angular/core';
+import {
+  HasTabIndex,
+  DtLogger,
+  DtLoggerFactory,
+  mixinTabIndex,
+  mixinDisabled,
+} from '../core/index';
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
+
+// Logger
+const LOG: DtLogger = DtLoggerFactory.create('Overlay');
+
+// Boilerplate for applying mixins to DtOverlay.
+
+class BasePortal extends BasePortalOutlet {
+  attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
+    return {} as ComponentRef<T>;
+  }
+
+  attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
+    return {} as EmbeddedViewRef<C>;
+  }
+}
+
+export const _DtOverlayMixinBase = mixinTabIndex(mixinDisabled(BasePortal));
 
 @Component({
   moduleId: module.id,
@@ -17,28 +44,19 @@ import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } fr
     'class': 'dt-overlay-container',
     'attr.aria-hidden': 'true',
   },
+  inputs: ['tabIndex'],
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtOverlayContainer extends BasePortalOutlet {
+export class DtOverlayContainer extends _DtOverlayMixinBase implements HasTabIndex {
   @ViewChild(CdkPortalOutlet) _portalOutlet: CdkPortalOutlet;
-  // public _trigger: CdkOverlayOrigin;
 
-  // public isOpen: BehaviorSubject<boolean>;
-  // public hasBackdrop: boolean;
-  // private _subscription;
-  // private _backdrop: Subscription;
-  // public hasBackdrop: boolean;
-
-  constructor() {
+  constructor(
+    @Attribute('tabindex') tabIndex: string,
+  ) {
     super();
-    // this.isOpen = this._dtOverlayService.panelOpen;
-    // this._backdrop = _dtOverlayService.hasBackdrop.subscribe((value: boolean)=> {
-    //   console.log('backdrop subscription', value)
-    //   this.hasBackdrop = value;
-    //   this._changeDetectorRef.markForCheck();
-    // });
+    this.tabIndex = parseInt(tabIndex, 10) || 0;
   }
 
   /**

@@ -1,11 +1,11 @@
-import { OverlayConfig, CloseScrollStrategy, BlockScrollStrategy, RepositionScrollStrategy } from '@angular/cdk/overlay';
+import { OverlayConfig, CloseScrollStrategy, BlockScrollStrategy, RepositionScrollStrategy, ConnectedPosition } from '@angular/cdk/overlay';
 
-enum DtOverlayScrollStrategy { Block, Close, Reposition }
-enum DtOverlayCloseStrategy { Disable, Enable }
+export enum DtScrollStrategyType { Close = 'close', Block = 'block', Reposition = 'reposition' }
 
 export interface DtOverlayConfig extends OverlayConfig {
   scrollStrategy?: CloseScrollStrategy | BlockScrollStrategy | RepositionScrollStrategy;
+  scrollStrategyType?: DtScrollStrategyType;
   enableClick?: boolean;
-  enableMouseMove?: boolean;
   enableFocus?: boolean;
+  positions?: ConnectedPosition[];
 }
