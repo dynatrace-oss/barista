@@ -17,21 +17,19 @@
   @extend %row-base;
 
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
+}
 
-  &:not(.expanded):hover {
-    border: 2px solid $gray-500;
-    border-radius: 3px;
-  }
+.dt-expandable-row-base:not(.dt-expandable-row-base-expanded):hover {
+  border: 1px solid $gray-500;
 }
 
 .dt-expandable-row-base-expanded {
   border-top: 2px solid $gray-700;
+  border-bottom: hidden;
+  border-left: hidden;
+  border-right: hidden;
   background-color: $gray-200;
-}
-
-.dt-expandable-row-base-expanded:hover {
-  border-top-color: $gray-500;
 }
 
 .dt-expandable-row-expandable {

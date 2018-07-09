@@ -3,10 +3,16 @@
 @mixin dt-theme-expandable-row($theme, $theme-name) {
   $palette: dt-get-theme-palette($theme, 'main');
   $default-color: dt-get-theme-color($palette, 'default');
+  $border-color: get-color($theme-name, 500);
+
+  // if color not found, fallback to theme's default color
+  @if ($border-color == null) {
+    $border-color: $default-color;
+  }
 
   :host {
     .dt-expandable-row-base-expanded {
-      border-top-color: $default-color;
+      border-top-color: $border-color;
 
       $bg-color: get-color($theme-name, 100);
       @if ($bg-color) {
@@ -15,12 +21,8 @@
       // if color not found, fallback to default color defined in expandable-row.scss
     }
 
-    .dt-expandable-row-base-expanded:hover {
-      border-top-color: $gray-500;
-    }
-
     .dt-expandable-row-expandable-expanded {
-      border-bottom-color: $default-color;
+      border-bottom-color: $border-color;
     }
   }
 }
