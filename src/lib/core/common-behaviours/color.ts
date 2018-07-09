@@ -48,11 +48,29 @@ export function setComponentColorClasses<T extends { color: string | undefined }
   component: T,
   color?: string
 ): void {
-
-  if (color !== component.color) {
+  const changes = getComponentClassChanges(component, color);
+  if (changes) {
     replaceCssClass(
       component._elementRef,
-      component.color ? `dt-color-${component.color}` : null,
-      color ? `dt-color-${color}` : null);
+      changes.oldClass,
+      changes.newClass);
   }
+}
+
+export interface ComponentClassChanges {
+  oldClass: string | null;
+  newClass: string | null;
+}
+
+export function getComponentClassChanges<T extends { color: string | undefined} & HasElementRef>(
+  component: T,
+  color?: string
+): ComponentClassChanges | null {
+  if (color !== component.color) {
+    return ({
+      oldClass: component.color ? `dt-color-${component.color}` : null,
+      newClass: color ? `dt-color-${color}` : null,
+    });
+  }
+  return null;
 }

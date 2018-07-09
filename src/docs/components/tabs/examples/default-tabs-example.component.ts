@@ -6,12 +6,20 @@ import { OriginalClassName } from '../../../core/decorators';
   template: `
   <dt-tab-group>
     <dt-tab value="physical-cpu" disabled>
-      <ng-template dt-tab-label>Physical CPU</ng-template>
+      <ng-template dtTabLabel>Physical <em>CPU</em></ng-template>
       some content disabled
     </dt-tab>
+    <dt-tab value="cpu-ready-time">
+      <ng-template dtTabLabel>CPU ready time</ng-template>
+      <h1>some content</h1>
+    </dt-tab>
     <dt-tab value="cpu-ready-time" color="error">
-      <ng-template dt-tab-label>CPU ready time</ng-template>
-      some content
+      <ng-template dtTabLabel>CPU ready time</ng-template>
+      <h1>some content</h1>
+    </dt-tab>
+    <dt-tab value="cpu-ready-time" color="recovered">
+      <ng-template dtTabLabel>CPU ready time</ng-template>
+      <h1>some content</h1>
     </dt-tab>
   </dt-tab-group>
   `,
