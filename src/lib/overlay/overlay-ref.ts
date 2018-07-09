@@ -6,7 +6,7 @@ export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-overlay-no-pointer';
 export class DtOverlayRef {
 
   /** wether the overlay is pinned or not */
-  pinned = false;
+  public pinned: boolean = false;
 
   constructor(public overlayRef: OverlayRef) {}
 
@@ -14,10 +14,6 @@ export class DtOverlayRef {
     this.pinned = value;
     if (value) {
       removeCssClass(this.overlayRef.backdropElement, DT_OVERLAY_NO_POINTER_CLASS);
-      this.overlayRef.backdropClick().subscribe(() => {
-        this.overlayRef.detach();
-        this.overlayRef.dispose();
-      });
     } else {
       addCssClass(this.overlayRef.backdropElement, DT_OVERLAY_NO_POINTER_CLASS);
     }
