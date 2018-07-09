@@ -1,3 +1,60 @@
+@import '../style/font-mixins';
+@import '../core/style/variables';
+@import '../core/theming/theming';
+@import './tab-group-theme';
+
 :host {
+}
+
+:host .dt-tab-header-wrapper {
   display: flex;
+}
+
+:host .dt-tab-label {
+  font-family: $default-font-family;
+  @include custom-font-styles($gray-700, 600, 14px, 32px);
+  border: none;
+  background-color: transparent;
+  padding: 0 16px;
+  height: 32px;
+  flex: 1 1 100px;
+  vertical-align: middle;
+  text-align: center;
+  position: relative;
+
+  &:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+
+  &:after {
+    content: " ";
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: height 100ms ease-out;
+  }
+
+  &:hover:after {
+    height: 4px;
+  }
+
+  /** disabled */
+  &[disabled][disabled] {
+    color: $gray-300;
+    background-color: transparent;
+
+    &:after {
+      background-color: $gray-300;
+    }
+    &:hover:after {
+      height: 1px;
+    }
+  }
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-tabs($dt-current-theme);
 }
