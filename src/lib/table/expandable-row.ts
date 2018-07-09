@@ -14,7 +14,7 @@ import {
 import { CdkRow } from '@angular/cdk/table';
 import { DtTable } from './table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { addCssClass, removeCssClass } from '@dynatrace/angular-components';
+import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
 
 /**
  * Data row template container that contains the cell outlet and an expandable section.
