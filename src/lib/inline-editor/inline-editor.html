@@ -10,7 +10,7 @@
 <dt-form-field *ngIf="editing || saving">
   <input dtInput #input [required]="required" [disabled]="saving" [(ngModel)]="value" class="dt-form-field-input" />
 
-  <dt-error>Value cannot be empty!</dt-error>
+  <dt-error>{{ errorMessage ? errorMessage : 'Value cannot be empty!'  }}</dt-error>
 
   <button dt-icon-button dtSuffix variant="nested" aria-label="save" (click)="saveAndQuitEditing()" >
     <dt-icon name="checkmark"></dt-icon>

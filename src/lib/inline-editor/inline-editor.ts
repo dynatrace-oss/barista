@@ -53,6 +53,7 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   @ViewChild('edit') editButtonReference: ElementRef;
 
   @Input() required: false;
+  @Input() errorMessage: string;
   @Input() onRemoteSave: (value: string) => Observable<void>;
   @Output() saved = new EventEmitter<string>();
   @Output() cancelled = new EventEmitter<string>();
