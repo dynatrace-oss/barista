@@ -1,5 +1,5 @@
-import { Input, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, OnInit, TemplateRef, ContentChild, ViewContainerRef, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
-import { mixinColor, mixinDisabled } from '@dynatrace/angular-components/core';
+import { Input, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, OnInit, TemplateRef, ContentChild, ViewContainerRef, ViewChild } from '@angular/core';
+import { mixinColor, mixinDisabled, CanDisable, CanColor, getComponentClassChanges, DtThemePalette } from '@dynatrace/angular-components/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DtTabLabel } from './tab-label';
 
@@ -18,6 +18,7 @@ export const _DtTabMixinBase = mixinDisabled(mixinColor(DtTabBase, defaultPalett
   exportAs: 'dtTab',
   templateUrl: 'tab.html',
   styleUrls: ['tab.scss'],
+  inputs: ['disabled', 'color'],
   host: {
     class: 'dt-tab',
   },
@@ -25,43 +26,55 @@ export const _DtTabMixinBase = mixinDisabled(mixinColor(DtTabBase, defaultPalett
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTab<T> extends _DtTabMixinBase implements OnInit, AfterViewInit, AfterContentInit {
+export class DtTab<T> extends _DtTabMixinBase implements OnInit, CanDisable, CanColor {
 
   /** Content for the tab label */
   @ContentChild(DtTabLabel) label: DtTabLabel;
 
-  private _value: T;
+  @ViewChild(TemplateRef) _contentRef: TemplateRef<any>;
 
   @Input()
   get value(): T { return this._value; }
   set value(val: T) { this._value = val; }
 
+  @Input()
+  get color(): Partial<DtThemePalette> { return this._color; }
+  set color(value: Partial<DtThemePalette>) {
+    const colorPalette = value || defaultPalette as Partial<DtThemePalette>;
+
+    if (colorPalette !== this._color) {
+      const changes = getComponentClassChanges(this, colorPalette);
+      if (changes) {
+        this._colorClass = changes.newClass;
+      }
+      this._color = colorPalette;
+    }
+  }
+
+  get colorClass(): string { return this._colorClass || ''; }
+
+  private _value: T;
+
+  private _color: Partial<DtThemePalette>;
+
+  private _colorClass: string | null;
+
   /** Portal that will be the hosted content of the tab */
   private _contentPortal: TemplatePortal | null = null;
 
-  /** @docs-private */
-  get content(): TemplatePortal | null {
+  /** private only used in the tabgroup to get the content template portal */
+  get _content(): TemplatePortal | null {
     return this._contentPortal;
   }
 
-  /** Template inside the DtTab view that contains an `<ng-content>`. */
-  @ViewChild(TemplateRef) _content: TemplateRef<any>;
+  /** indicates wether the tab is active */
+  isActive = false;
 
   constructor(public elementRef: ElementRef, private _viewContainerRef: ViewContainerRef) {
     super(elementRef);
   }
 
   ngOnInit(): void {
-    console.log('onInit', this.content);
-    this._contentPortal = new TemplatePortal(
-        this._content, this._viewContainerRef);
-  }
-
-  ngAfterContentInit(): void {
-    console.log('afterContentInit', this.label);
-  }
-
-  ngAfterViewInit(): void {
-    console.log('Afterviewinit', this._content);
+    this._contentPortal = new TemplatePortal(this._contentRef, this._viewContainerRef);
   }
 }
