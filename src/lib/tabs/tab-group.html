@@ -1,8 +1,7 @@
 <div class="dt-tab-label" role="tab" *ngFor="let tab of _tabs; let i = index">
   <ng-template [cdkPortalOutlet]="tab.label"></ng-template>
 </div>
-
 <div class="dt-tab-body-wrapper" #tabBodyWrapper>
-  <div role="tabpanel" *ngFor="let tab of _tabs; let i = index">
-  </div>
+  <!-- <div role="tabpanel" *ngFor="let tab of _tabs; let i = index">
+  </div> -->
 </div>
