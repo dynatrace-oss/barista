@@ -1,5 +1,5 @@
 module.exports = {
-  'extends': './node_modules/@dynatrace/angular-lint-rules/stylelint/stylelint.config.js',
+  'extends': '@dynatrace/angular-lint-rules/stylelint',
   'rules': {
     'at-rule-empty-line-before': null,
     'rule-empty-line-before': null,
