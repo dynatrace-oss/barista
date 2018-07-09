@@ -4,9 +4,11 @@
      #dtExpandableRow>
   <ng-container cdkCellOutlet></ng-container>
 </div>
-<div [ngClass]="{'dt-expandable-row-expanded': expanded}"
-     [@detailExpand]="expanded ? 'expanded' : 'collapsed'">
-  <div #dtExpandableContent>
+<div [@detailExpand]="expanded ? 'expanded' : 'collapsed'">
+  <div class="dt-expandable-row-expandable"
+       [ngClass]="{'dt-expandable-row-expandable-expanded': expanded}"
+       #dtExpandableContent>
     <ng-content></ng-content>
   </div>
 </div>
+
