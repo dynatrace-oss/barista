@@ -33,7 +33,7 @@ import { DocsProgressCircleModule } from './components/progress-circle/docs-prog
 import { DocsBreadcrumbsModule } from './components/breadcrumbs/docs-breadcrumbs.module';
 import { CoreModule } from './core/core.module';
 import { DocsSwitchModule } from './components/switch/docs-switch.module';
-import { environment } from './environments/environment';
+import { environment } from '@environments/environment';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DocsViewerComponent } from './core/docs-viewer.component';
 import { DocsProgressBarModule } from './components/progress-bar/docs-progress-bar.module';
