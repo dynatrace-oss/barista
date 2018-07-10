@@ -25,7 +25,8 @@
     ],
     "paths": {
       "@dynatrace/angular-components": ["../../dist/lib"],
-      "@dynatrace/angular-components/*": ["../../dist/lib/*"]
+      "@dynatrace/angular-components/*": ["../../dist/lib/*"],
+      "@environments/*": ["./environments/*"]
     }
   },
   "files": [
