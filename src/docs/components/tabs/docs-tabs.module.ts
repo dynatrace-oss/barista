@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { DefaultTabsExampleComponent } from './examples/default-tabs-example.component';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtTabsModule } from '@dynatrace/angular-components';
+import { DtTabsModule, DtButtonModule } from '@dynatrace/angular-components';
 
 export const EXAMPLES = [
   DefaultTabsExampleComponent,
@@ -13,6 +13,7 @@ export const EXAMPLES = [
     CommonModule,
     UiModule,
     DtTabsModule,
+    DtButtonModule,
   ],
   declarations: [
     ...EXAMPLES,
