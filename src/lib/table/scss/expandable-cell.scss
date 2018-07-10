@@ -1,0 +1,24 @@
+@import '../../core/style/variables';
+@import 'base-cell';
+
+:host.dt-expandable-cell {
+  @extend %base-cell;
+
+  .dt-expandable-cell-dropdown {
+    width: 20px;
+    height: 20px;
+    fill: $turquoise-600;
+  }
+
+  > dt-icon {
+    width: 20px;
+    height: 20px;
+    transform: rotate(0deg);
+    transition: transform 225ms;
+  }
+
+  .dt-expandable-cell-expanded {
+    transform: rotate(180deg);
+    transition: transform 225ms;
+  }
+}
