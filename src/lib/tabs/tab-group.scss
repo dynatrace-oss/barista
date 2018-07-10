@@ -22,11 +22,6 @@
   text-align: center;
   position: relative;
 
-  &:focus {
-    outline: 0;
-    box-shadow: none;
-  }
-
   &:after {
     content: " ";
     height: 1px;
