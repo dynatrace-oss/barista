@@ -92,7 +92,7 @@ export class DtCell {
  */
 @Component({
   selector: 'dt-expandable-cell',
-  templateUrl: './expandable-cell.html',
+  template: '<dt-icon class="dt-expandable-cell-dropdown" name="dropdownopen"></dt-icon>',
   styleUrls: ['./scss/expandable-cell.scss'],
   host: {
     class: 'dt-expandable-cell',
