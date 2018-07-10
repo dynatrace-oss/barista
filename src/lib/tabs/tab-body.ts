@@ -1,5 +1,20 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, Input, Directive, OnInit, OnDestroy, ComponentFactoryResolver, ViewContainerRef, forwardRef, Inject, Output, EventEmitter } from '@angular/core';
-import { PortalHostDirective, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
+import { CdkPortalOutlet, PortalHostDirective, TemplatePortal } from '@angular/cdk/portal';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ComponentFactoryResolver,
+  Directive,
+  EventEmitter,
+  forwardRef,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 /**
@@ -10,7 +25,7 @@ import { Subscription } from 'rxjs';
   selector: '[dtTabBodyHost]',
 })
 export class DtTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestroy {
-  /** Subscription to events for when the tab active changes */
+  /** Subscription to events for when the active tab changes */
   private _activeChangedSub = Subscription.EMPTY;
 
   constructor(
@@ -24,12 +39,16 @@ export class DtTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestro
   /** Set initial visibility or set up subscription for changing visibility. */
   ngOnInit(): void {
     super.ngOnInit();
+    this._handleActiveTabChange(this._host.active);
 
-    this._activeChangedSub = this._host._activeChanged.subscribe((isActive) => {
-      if (isActive && !this.hasAttached()) {
-        this.attach(this._host.content);
-      }
-    });
+    this._activeChangedSub = this._host._activeChanged.subscribe((isActive) => { this._handleActiveTabChange(isActive); });
+  }
+
+  /** Attaches the content to the portaloutlet if necessary */
+  private _handleActiveTabChange(active: boolean): void {
+    if (active && !this.hasAttached()) {
+      this.attach(this._host.content);
+    }
   }
 
   /** Clean up subscription. */
@@ -42,6 +61,7 @@ export class DtTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestro
 
 /**
  * Wrapper for the contents of a tab.
+ * notifies the portaloutlet when the active input is changed to enable lazy loading
  * @internal
  */
 @Component({
@@ -63,14 +83,15 @@ export class DtTabBody {
   /** The tab body content to display. */
   @Input() content: TemplatePortal;
 
+  /** Input to be used in the tab-group to set the active tab */
   @Input()
   get active(): boolean { return this._isActive; }
   set active(value: boolean) {
     this._isActive = value;
     this._activeChanged.emit(value);
-    console.log('active setter called', value);
   }
 
+  /** emits events whenever the active input changes */
   @Output() readonly _activeChanged: EventEmitter<boolean> = new EventEmitter();
 
   private _isActive = false;
