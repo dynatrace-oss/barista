@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from '../environments/environment';
+import { environment } from '@environments/environment';
 import { parseUrl } from './url-parser';
 
 @Injectable({ providedIn: 'root' })
