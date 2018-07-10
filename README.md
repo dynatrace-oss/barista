@@ -1,3 +1,11 @@
+[![picture](***REMOVED***
+[![picture](***REMOVED***
+[![picture](***REMOVED***
+[![picture](***REMOVED***
+[![picture](***REMOVED***
+[![picture](***REMOVED***
+[![picture](***REMOVED***
+
 # Angular components library
 
 Angular module containing common, reusable UI components and helpers.
