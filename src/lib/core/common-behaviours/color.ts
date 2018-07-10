@@ -57,11 +57,19 @@ export function setComponentColorClasses<T extends { color: string | undefined }
   }
 }
 
+/**
+ * Base class that uses the mixinColor mixin
+ */
 export class DtColorBase {
   constructor(public _elementRef: ElementRef) { }
 }
 export const _DtColorMixinBase = mixinColor(DtColorBase);
 
+/**
+ * Directive to add color capabilities to element
+ * since the DtTab color input is set on the tab element, but the class needs to be applied to the portal outlet in the tab header
+ * we need to pipe the color input to the tabgroup and the tabgroup needs the directive to apply the correct css class
+ */
 @Directive({
   selector: '[dtColor]',
   inputs: ['color'],
@@ -73,6 +81,9 @@ export class DtColor extends _DtColorMixinBase implements CanColor {
   }
 }
 
+/**
+ * Module that exports and declares the DtColor Directive
+ */
 @NgModule({
   exports: [DtColor],
   declarations: [DtColor],
