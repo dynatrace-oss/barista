@@ -1,11 +1,6 @@
-import {
-  Component,
-  AfterContentChecked,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Input,
-} from '@angular/core';
-import { CdkTable } from '@angular/cdk/table';
+import {AfterContentChecked, ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
+import {CdkTable} from '@angular/cdk/table';
+import {DtExpandableRow} from './expandable-row';
 
 @Component({
   moduleId: module.id,
@@ -22,6 +17,7 @@ import { CdkTable } from '@angular/cdk/table';
 })
 export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   @Input() isLoading: boolean;
+  private _expandedRow: DtExpandableRow | undefined;
 
   get isEmptyDataSource(): boolean {
     return !(this._data.length);
@@ -33,5 +29,13 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
     if (this.isEmptyDataSource) {
       this._changeDetectorRef.markForCheck();
     }
+  }
+
+  /** the expanded row of the table */
+  get expandedRow(): DtExpandableRow | undefined {
+    return this._expandedRow;
+  }
+  set expandedRow(value: DtExpandableRow | undefined) {
+    this._expandedRow = value;
   }
 }
