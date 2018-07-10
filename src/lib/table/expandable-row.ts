@@ -114,9 +114,9 @@ export class DtExpandableRow extends CdkRow {
       if (node.localName && node.localName.toLowerCase() === 'dt-expandable-cell') {
         const expandableCell = node as HTMLElement;
         if (expanded) {
-          addCssClass(expandableCell.firstElementChild, 'expanded', this._renderer2);
+          addCssClass(expandableCell.firstElementChild, 'dt-expandable-cell-expanded', this._renderer2);
         } else {
-          removeCssClass(expandableCell.firstElementChild, 'expanded', this._renderer2);
+          removeCssClass(expandableCell.firstElementChild, 'dt-expandable-cell-expanded', this._renderer2);
         }
       }
     }
