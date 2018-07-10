@@ -8,6 +8,4 @@ import { TemplateRef, Directive } from '@angular/core';
   selector: '[dtTabContent]',
   exportAs: 'dtTabContent',
 })
-export class DtTabContent {
-  constructor(public template: TemplateRef<any>) { }
-}
+export class DtTabContent {}
