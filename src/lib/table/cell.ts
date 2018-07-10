@@ -1,6 +1,6 @@
-import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Renderer2, ElementRef } from '@angular/core';
-import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import {ChangeDetectionStrategy, Component, Directive, ElementRef, Input, Renderer2, ViewEncapsulation} from '@angular/core';
+import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef} from '@angular/cdk/table';
+import {coerceNumberProperty} from '@angular/cdk/coercion';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
@@ -85,6 +85,24 @@ export class DtCell {
     setColumnClass.bind(this)();
   }
 }
+
+/**
+ * Cell template that adds the right classes, role and static content for the details cell,
+ * which can be used to indicate that a table row is expandable.
+ */
+@Component({
+  selector: 'dt-expandable-cell',
+  template: '<dt-icon class="dt-expandable-cell-dropdown" name="dropdownopen"></dt-icon>',
+  styleUrls: ['./scss/expandable-cell.scss'],
+  host: {
+    class: 'dt-expandable-cell',
+    role: 'gridcell',
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
+  exportAs: 'dtExpandableCell',
+})
+export class DtExpandableCell extends DtCell {}
 
 const ALIGNMENT_CAST_MAP = new Map<DtTableColumnTypedAlign, DtTableColumnAlign>([
   ['icon', 'center'],
