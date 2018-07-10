@@ -2,6 +2,7 @@ import { Input, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrateg
 import { mixinColor, mixinDisabled, CanDisable, CanColor } from '@dynatrace/angular-components/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DtTabLabel } from './tab-label';
+import { DtTabContent } from './tab-content';
 
 export type TabThemePalette = 'main' | 'error' | 'recovered' | undefined;
 const defaultPalette: TabThemePalette = 'main';
@@ -31,7 +32,9 @@ export class DtTab<T> extends _DtTabMixinBase implements OnInit, CanDisable, Can
   /** Content for the tab label */
   @ContentChild(DtTabLabel) label: DtTabLabel;
 
-  @ViewChild(TemplateRef) _contentRef: TemplateRef<any>;
+  @ViewChild(TemplateRef) _eagerContentRef: TemplateRef<any>;
+
+  @ContentChild(DtTabContent, {read: TemplateRef}) _lazyContentRef: TemplateRef<any>;
 
   @Input()
   get value(): T { return this._value; }
@@ -55,6 +58,7 @@ export class DtTab<T> extends _DtTabMixinBase implements OnInit, CanDisable, Can
   }
 
   ngOnInit(): void {
-    this._contentPortal = new TemplatePortal(this._contentRef, this._viewContainerRef);
+    this._contentPortal = new TemplatePortal(
+      this._lazyContentRef || this._eagerContentRef, this._viewContainerRef);
   }
 }

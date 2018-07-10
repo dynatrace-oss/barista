@@ -11,15 +11,21 @@ import { OriginalClassName } from '../../../core/decorators';
     </dt-tab>
     <dt-tab value="cpu-ready-time">
       <ng-template dtTabLabel>CPU ready time</ng-template>
-      <h1>some content</h1>
+      <h1>CPU-ready-time</h1>
+      <button dt-button>initialize</button>
     </dt-tab>
-    <dt-tab value="cpu-ready-time" color="error">
+    <dt-tab value="cpu-ready-time-error" color="error">
       <ng-template dtTabLabel>CPU ready time</ng-template>
-      <h1>some content</h1>
+      <h1>cpu-ready-time-error</h1>
+      <button dt-button>initialize</button>
     </dt-tab>
-    <dt-tab value="cpu-ready-time" color="recovered">
+    <dt-tab value="cpu-ready-time-recovered" color="recovered">
       <ng-template dtTabLabel>CPU ready time</ng-template>
-      <h1>some content</h1>
+      <ng-template dtTabContent>
+        <h1>pu-ready-time-recovered</h1>
+        <button dt-button>initialize</button>
+        <input type="text" value="some">
+      </ng-template>
     </dt-tab>
   </dt-tab-group>
   `,
