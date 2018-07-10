@@ -28,3 +28,17 @@ describe('DtTabs', () => {
 class TestApp {
 
 }
+
+/**
+ * color on the button to be correct
+ */
+
+ /**
+  * throw error if no tab is active (e.g. all are disabled)
+  */
+
+  /**
+   * throw error if only one tab is inside the tabgroup
+   */
+
+  
