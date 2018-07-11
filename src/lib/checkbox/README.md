@@ -40,4 +40,4 @@ Checkboxes without text or labels should be given a meaningful label via `aria-l
 
 ### Dark
 
-<docs-source-example example="DarkCheckboxExample"></docs-source-example>
+<docs-source-example example="DarkCheckboxExample" themedark="true"></docs-source-example>

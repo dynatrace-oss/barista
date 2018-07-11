@@ -33,4 +33,4 @@ Switches without text or labels should be given a meaningful label via `aria-lab
 
 ### DarkTheme
 
-<docs-source-example example="DarkThemeSwitchExampleComponent"></docs-source-example>
+<docs-source-example example="DarkThemeSwitchExampleComponent" themedark="true"></docs-source-example>
