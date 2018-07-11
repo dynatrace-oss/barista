@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { LocationService } from './location.service';
 import { Converter, setFlavor } from 'showdown';
-import { environment } from '../environments/environment';
+import { environment } from '@environments/environment';
 import { parseUrl } from './url-parser';
 
 export const DOC_CONTENT_URL_PREFIX = `${environment.deployUrl.replace(/\/+$/, '')}/assets/doc/`;
