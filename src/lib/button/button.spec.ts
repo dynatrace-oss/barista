@@ -134,16 +134,6 @@ describe('DtButton', () => {
         .toContain('dt-button-secondary', 'Expected the element to have the "dt-button-secondary" class set');
     });
 
-    it('should pass the color to the icon', () => {
-      const fixture = TestBed.createComponent(TestApp);
-      fixture.detectChanges();
-
-      const iconElement = fixture.debugElement.query(By.css('dt-icon'));
-      const instance = iconElement.componentInstance;
-
-      instance.color = 'light';
-    });
-
     // it('should throw an error when trying to set variant nested on non icon buttons', async () => {
     //   const expectedError = wrappedErrorMessage(getDtButtonNestedVariantNotAllowedError());
     //   expect(() => {
