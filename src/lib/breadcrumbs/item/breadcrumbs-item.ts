@@ -111,6 +111,7 @@ export class DtBreadcrumbsItem {
       return true;
     }
 
+    // tslint:disable-next-line no-floating-promises
     ensureProvided(this._router).navigateByUrl(this._createUrlTree());
     return false;
   }
