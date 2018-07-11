@@ -3,7 +3,6 @@ import { DefaultButtonExampleComponent } from './examples/button-default-example
 import { InteractionButtonExampleComponent } from './examples/button-interaction-example.component';
 import { VariantButtonExampleComponent } from './examples/button-variant-example.component';
 import { ColorButtonExampleComponent } from './examples/button-color-example.component';
-import { AllButtonExampleComponent } from './examples/button-all-example.component';
 import { DarkButtonExampleComponent } from './examples/button-dark-example.component';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
@@ -21,7 +20,6 @@ export const EXAMPLES = [
   IconOnlyButtonExampleComponent,
   DisabledButtonExampleComponent,
   DarkButtonExampleComponent,
-  AllButtonExampleComponent,
 ];
 
 @NgModule({

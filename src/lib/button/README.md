@@ -91,7 +91,3 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 ### Dark
 
 <docs-source-example example="DarkButtonExampleComponent"></docs-source-example>
-
-### All combinations
-
-<docs-source-example example="AllButtonExampleComponent" fullwidth="true"></docs-source-example>
