@@ -4,14 +4,10 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   OnDestroy,
-  AfterContentInit,
   Input,
   Renderer2,
   ContentChildren,
   QueryList,
-  OnChanges,
-  SimpleChanges,
-  ChangeDetectorRef,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import {
@@ -23,7 +19,6 @@ import {
   replaceCssClass
 } from '@dynatrace/angular-components/core';
 import { DtIcon } from '@dynatrace/angular-components/icon';
-import { startWith } from 'rxjs/operators';
 import { Subscription, NEVER } from 'rxjs';
 
 export function getDtButtonNestedVariantNotAllowedError(): Error {
@@ -90,8 +85,7 @@ export class DtButton extends _DtButtonMixinBase implements OnDestroy, CanDisabl
   constructor(
     elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
-    private _renderer: Renderer2,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _renderer: Renderer2
   ) {
     super(elementRef);
 
@@ -117,18 +111,6 @@ export class DtButton extends _DtButtonMixinBase implements OnDestroy, CanDisabl
   /** Focuses the button. */
   focus(): void {
     this._getHostElement().focus();
-  }
-
-  /** Sets the icon colors according to the button variant. */
-  private _updateIconColors(): void {
-    if (this._icons) {
-      this._icons.forEach((icon) => {
-        // Only set the icon color if the user did not set it
-        if (!icon.color) {
-          icon.color = this.variant === 'primary' ? 'light' : this.color;
-        }
-      });
-    }
   }
 
   /** Retrieves the native element of the host. */
@@ -171,10 +153,9 @@ export class DtAnchor extends DtButton {
   constructor(
     elementRef: ElementRef,
     focusMonitor: FocusMonitor,
-    renderer: Renderer2,
-    changeDetectorRef: ChangeDetectorRef
+    renderer: Renderer2
   ) {
-    super(elementRef, focusMonitor, renderer, changeDetectorRef);
+    super(elementRef, focusMonitor, renderer);
   }
 
   _haltDisabledEvents(event: Event): void {
