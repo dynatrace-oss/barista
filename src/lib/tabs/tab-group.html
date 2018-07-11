@@ -1,7 +1,7 @@
 <div class="dt-tab-header-wrapper">
   <button class="dt-tab-label" role="tab" *ngFor="let tab of _tabs; let i = index"
-    [class.dt-tab-label-active]="selectedIndex == i"
-    (click)="_handleClick(tab, i)"
+    [class.dt-tab-label-active]="tab.selected"
+    (click)="tab._handleClick()"
     [disabled]="tab.disabled"
     dtColor
     [color]="tab.color">
@@ -12,7 +12,7 @@
   <div role="tabpanel" *ngFor="let tab of _tabs; let i = index">
     <dt-tab-body
       [content]="tab._content"
-      [active]="tab.isActive">
+      [active]="tab.selected">
     </dt-tab-body>
   </div>
 </div>
