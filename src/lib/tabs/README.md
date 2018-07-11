@@ -25,4 +25,10 @@ class MyModule {}
 
 ## Examples
 
+### Dynamic Tabs
+<docs-source-example example="DynamicTabsExampleComponent"></docs-source-example>
+
+### Interactive Tabs
+<docs-source-example example="InteractiveTabsExampleComponent"></docs-source-example>
+
 
