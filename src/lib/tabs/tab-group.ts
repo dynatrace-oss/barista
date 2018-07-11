@@ -10,18 +10,18 @@ import {
   Input,
   ElementRef,
   ChangeDetectorRef,
-  AfterContentChecked,
+  OnDestroy,
+  forwardRef,
 } from '@angular/core';
-import { DtTab } from './tab';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { mixinColor, mixinDisabled } from '@dynatrace/angular-components/core';
+import { DtTab, DtTabChange } from './tab';
+import { mixinColor, mixinDisabled, DtLoggerFactory, DtLogger } from '@dynatrace/angular-components/core';
+import { Subscription, merge } from 'rxjs';
 
-export class DtTabChangeEvent<T> {
-  /** Index of the currently-selected tab. */
-  index: number;
-  /** Reference to the currently-selected tab. */
-  tab: DtTab<T>;
-}
+export const DT_TABGROUP_SINGLE_TAB_ERROR = 'Only one single tab is not allowed inside a tabgroup';
+
+export const DT_TABGROUP_NO_ENABLED_TABS_ERROR = 'At least one tab must be enabled at all times';
+
+const LOG: DtLogger = DtLoggerFactory.create('DtTabGroup');
 
 export class DtTabGroupBase {
   constructor(public _elementRef: ElementRef) {}
@@ -45,100 +45,117 @@ let nextId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTabGroup<T> extends _DtTabGroupMixinBase implements AfterContentChecked, AfterContentInit {
-  @ContentChildren(DtTab) _tabs: QueryList<DtTab<T>>;
+export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit, OnDestroy {
+  // tslint:disable-next-line:no-forward-ref
+  @ContentChildren(forwardRef(() => DtTab)) _tabs: QueryList<DtTab>;
 
-  /** Event emitted when the tab selection has changed. */
-  @Output() readonly selectedTabChange: EventEmitter<DtTabChangeEvent<T>> =
-      new EventEmitter<DtTabChangeEvent<T>>(true);
+  /** Subscription to tabs being added/removed. */
+  private _tabsSubscription = Subscription.EMPTY;
 
-  /** The index of the active tab. */
+  /** Subscription to the state of a tab */
+  private _tabStateSubscription = Subscription.EMPTY;
+
+  private _selected: DtTab | null = null;
+  _groupId = `dt-tab-group-${++nextId}`;
+
   @Input()
-  get selectedIndex(): number | null { return this._selectedIndex; }
-  set selectedIndex(value: number | null) {
-    this._indexToSelect = coerceNumberProperty(value, null);
+  get selected(): DtTab | null { return this._selected; }
+  set selected(selected: DtTab | null) {
+    this._selected = selected;
+    this._setSelectedTab();
   }
-  private _selectedIndex: number | null = null;
 
-  /** The tab index that should be selected after the content has been checked. */
-  private _indexToSelect: number | null = null;
-
-  private _groupId: number;
+  // tslint:disable-next-line:no-output-named-after-standard-event
+  @Output() readonly change = new EventEmitter<DtTabChange>();
 
   constructor(elementRef: ElementRef, private _changeDetectorRef: ChangeDetectorRef) {
     super(elementRef);
-    this._groupId = nextId++;
-}
+  }
 
-  /** Handle click events, setting new selected index if appropriate. */
-  _handleClick(tab: DtTab<T>, idx: number): void {
-    if (!tab.disabled) {
-      this.selectedIndex = idx;
+  _setSelectedTab(): void {
+    if (this._selected && !this._selected.selected) {
+      this._selected.selected = true;
     }
   }
 
-  ngAfterContentChecked(): void {
-    let indexToSelect = this._indexToSelect;
-    if (this._indexToSelect === null) {
-      // get all indices of non disabled tabs
-      this._tabs.find((t: DtTab<T>, idx: number) => {
-        if (!t.disabled) {
-          indexToSelect = idx;
-          return true;
-        }
-        return false;
-      });
-      // no enabled tabs found so return
-      if (indexToSelect === undefined) { return; }
-    }
-
-    // set the first enabled tab to active
-    this._indexToSelect = indexToSelect;
-
-    if (this._selectedIndex !== indexToSelect && this._selectedIndex !== null) {
-      const tabChangeEvent = this._createChangeEvent(indexToSelect!);
-      this.selectedTabChange.emit(tabChangeEvent);
-    }
-
-    // Setup the active tab
-    this._tabs.forEach((tab: DtTab<T>, index: number) => {
-      tab.isActive = index === indexToSelect;
-    });
-
-    if (this._selectedIndex !== indexToSelect) {
-      this._selectedIndex = indexToSelect;
-      this._changeDetectorRef.markForCheck();
-    }
+  /** Dispatch change event with current selection */
+  _emitChangeEvent(): void {
+    this.change.emit({ source: this._selected!, index: 0 }); //TODO: set correct index
   }
 
   ngAfterContentInit(): void {
-    // this._subscribeToTabLabels();
-
+    /** subscribe to initial tab state changes */
+    this._subscribeToTabStateChanges();
+    this._selectFirstEnabledTab();
     // Subscribe to changes in the amount of tabs, in order to be
     // able to re-render the content as new tabs are added or removed.
-    // this._tabsSubscription = this._tabs.changes.subscribe(() => {
-    //   const tabs = this._tabs.toArray();
-
-    //   // Maintain the previously-selected tab if a new tab is added or removed.
-    //   for (let i = 0; i < tabs.length; i++) {
-    //     if (tabs[i].isActive) {
-    //       this._indexToSelect = i;
-    //       break;
-    //     }
-    //   }
-
-    //   // this._subscribeToTabLabels();
-    //   this._changeDetectorRef.markForCheck();
-    // });
+    this._tabsSubscription = this._tabs.changes.subscribe(() => {
+      if (this._tabs.length <= 1) {
+        LOG.error(DT_TABGROUP_SINGLE_TAB_ERROR);
+      }
+      // if selected tab got removed
+      if (!this._tabs.find((tab) => tab === this.selected)) {
+        this._selectFirstEnabledTab();
+      }
+      this._subscribeToTabStateChanges();
+      /** this is necessary so the loop with the portaloutlets gets rerendered */
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
-  private _createChangeEvent(index: number): DtTabChangeEvent<T> {
-    const event = new DtTabChangeEvent<T>();
-    event.index = index;
-    if (this._tabs && this._tabs.length) {
-      event.tab = this._tabs.toArray()[index];
+  ngOnDestroy(): void {
+    this._tabsSubscription.unsubscribe();
+  }
+
+  private _subscribeToTabStateChanges(): void {
+    if (this._tabStateSubscription) { this._tabStateSubscription.unsubscribe(); }
+    this._tabStateSubscription = merge(...this._tabs.map((tab) => tab.stateChanges))
+    .subscribe(() => {
+      console.log('state changes fired');
+      /** check if the selected tab is disabled now */
+      if (this.selected && this.selected.disabled) {
+        console.log('selected tab got disabled');
+        this._selected = null;
+        this._selectFirstEnabledTab();
+      }
+      this._changeDetectorRef.markForCheck();
+    });
+  }
+
+  /**
+   * Verifies that at least 2 tabs exist and at least one is enabled
+   */
+  private _verifyTabs(): void {
+    if (this._tabs.length <= 1) {
+      LOG.error(DT_TABGROUP_SINGLE_TAB_ERROR);
     }
-    return event;
   }
 
+  private _selectFirstEnabledTab(): void {
+    if (this._tabs) {
+      const hasEnabledTabs = this._tabs.filter((t) => !t.disabled).length > 0;
+      if (!hasEnabledTabs) {
+        LOG.error(DT_TABGROUP_NO_ENABLED_TABS_ERROR);
+      }
+      if (hasEnabledTabs && !this._tabs.find((t) => t === this.selected)) {
+        console.log('need to find first enabled tab');
+        const firstEnabled = this._findFirstEnabledTab();
+        if (firstEnabled) {
+          firstEnabled!.selected = true;
+        }
+      }
+    }
+  }
+
+  /**
+   * Returns the first enabled tab
+   */
+  private _findFirstEnabledTab(): DtTab | undefined {
+    return this._tabs.find((t: DtTab, idx: number) => {
+      if (!t.disabled) {
+        return true;
+      }
+      return false;
+    });
+  }
 }
