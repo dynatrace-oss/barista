@@ -8,6 +8,8 @@ import {
   Renderer2,
   ContentChildren,
   QueryList,
+  AfterContentInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import {
@@ -63,7 +65,7 @@ const defaultVariant = 'primary';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtButton extends _DtButtonMixinBase implements OnDestroy, CanDisable, CanColor, HasElementRef {
+export class DtButton extends _DtButtonMixinBase implements OnDestroy, AfterContentInit, CanDisable, CanColor, HasElementRef {
 
   @Input()
   get variant(): ButtonVariant { return this._variant; }
@@ -85,7 +87,8 @@ export class DtButton extends _DtButtonMixinBase implements OnDestroy, CanDisabl
   constructor(
     elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
-    private _renderer: Renderer2
+    private _renderer: Renderer2,
+    private _changeDetectorRef: ChangeDetectorRef
   ) {
     super(elementRef);
 
@@ -101,6 +104,14 @@ export class DtButton extends _DtButtonMixinBase implements OnDestroy, CanDisabl
     }
 
     this._focusMonitor.monitor(this._elementRef.nativeElement, true);
+  }
+
+  ngAfterContentInit(): void {
+    // We need to set markForCheck manually on every icons change
+    // so that the template can determine if the icon container
+    // should be shown or not
+    this._iconChangesSub = this._icons.changes
+      .subscribe(() => { this._changeDetectorRef.markForCheck(); });
   }
 
   ngOnDestroy(): void {
@@ -153,9 +164,10 @@ export class DtAnchor extends DtButton {
   constructor(
     elementRef: ElementRef,
     focusMonitor: FocusMonitor,
-    renderer: Renderer2
+    renderer: Renderer2,
+    changeDetectorRef: ChangeDetectorRef
   ) {
-    super(elementRef, focusMonitor, renderer);
+    super(elementRef, focusMonitor, renderer, changeDetectorRef);
   }
 
   _haltDisabledEvents(event: Event): void {
