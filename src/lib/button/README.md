@@ -64,10 +64,6 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 ## Examples
 
-### Simple example
-
-<docs-source-example example="SimpleButtonExampleComponent"></docs-source-example>
-
 ### Interaction
 
 <docs-source-example example="InteractionButtonExampleComponent"></docs-source-example>
@@ -80,10 +76,6 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 <docs-source-example example="ColorButtonExampleComponent"></docs-source-example>
 
-### Dark
-
-<docs-source-example example="DarkButtonExampleComponent"></docs-source-example>
-
 ### With Icons
 
 <docs-source-example example="IconsButtonExampleComponent"></docs-source-example>
@@ -91,6 +83,14 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 ### Icon only
 
 <docs-source-example example="IconOnlyButtonExampleComponent"></docs-source-example>
+
+### Disabled example
+
+<docs-source-example example="DisabledButtonExampleComponent"></docs-source-example>
+
+### Dark
+
+<docs-source-example example="DarkButtonExampleComponent"></docs-source-example>
 
 ### All combinations
 
