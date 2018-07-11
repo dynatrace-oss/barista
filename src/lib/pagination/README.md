@@ -39,4 +39,4 @@ To use the dynatrace pagination component, use the `<dt-pagination>` element.
 
 ### Dark theme
 
-<docs-source-example example="DarkThemePaginationExampleComponent"></docs-source-example>
+<docs-source-example example="DarkThemePaginationExampleComponent" themedark="true"></docs-source-example>

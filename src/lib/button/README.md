@@ -90,4 +90,4 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 ### Dark
 
-<docs-source-example example="DarkButtonExampleComponent"></docs-source-example>
+<docs-source-example example="DarkButtonExampleComponent" themedark="true"></docs-source-example>

@@ -61,7 +61,7 @@ To add a custom icon use the `<dt-button dt-icon-button></dt-button>` component 
 
 ### Context dialog on dark background
 
-<docs-source-example example="DarkContextDialogExampleComponent"></docs-source-example>
+<docs-source-example example="DarkContextDialogExampleComponent" themedark="true"></docs-source-example>
 
 ### Interactive
 

@@ -38,8 +38,8 @@ To ue the dynatrace key value list `<dt-key-value-list>` tag in conjuction with 
 
 ### Multiple columns
 
-<docs-source-example example="MulticolumnKeyValueListExampleComponent"></docs-source-example>
+<docs-source-example example="MulticolumnKeyValueListExampleComponent" fullwidth="true"></docs-source-example>
 
 ### Multiple columns with line breaks
 
-<docs-source-example example="LongtextKeyValueListExampleComponent"></docs-source-example>
+<docs-source-example example="LongtextKeyValueListExampleComponent" fullwidth="true"></docs-source-example>
