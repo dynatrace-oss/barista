@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { DtIconType } from '@dynatrace/dt-iconpack';
-import { environment } from '../../../environments/environment';
+import { environment } from '@environments/environment';
 import { Viewport } from './viewport';
 import { OriginalClassName } from '../../../core/decorators';
 
