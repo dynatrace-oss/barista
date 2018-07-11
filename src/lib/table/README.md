@@ -1,6 +1,6 @@
 # Table
 
-<docs-source-example example="TableDefaultComponent"></docs-source-example>
+<docs-source-example example="TableDefaultComponent" fullwidth="true"></docs-source-example>
 
 ## Description
 
@@ -97,42 +97,42 @@ See the source code of any of the examples in this page to see all the pieces in
 
 You can customize the column width proportion with `[dtColumnProportion]`
 
-<docs-source-example example="TableDifferentWidthComponent"></docs-source-example>
+<docs-source-example example="TableDifferentWidthComponent" fullwidth="true"></docs-source-example>
 
 ### Minimum Width
 
 You can customize the column minimun width with `[dtColumnWidth]`
 
-<docs-source-example example="TableMinWidthComponent"></docs-source-example>
+<docs-source-example example="TableMinWidthComponent" fullwidth="true"></docs-source-example>
 
 ### Empty state
 
 You can pass an empty state to the table to be displayed when there's no data displayed using the `dtTableEmptyState` directive
 The recommended approach to use it is using the following components: `<dt-table-empty-state>`, `<dt-table-empty-state-image>`, `<dt-table-empty-state-title>`, `<dt-table-empty-state-message>`
 
-<docs-source-example example="TableEmptyStateComponent"></docs-source-example>
+<docs-source-example example="TableEmptyStateComponent" fullwidth="true"></docs-source-example>
 
 Also you can pass custom content using the same `dtTableEmptyState`
 
-<docs-source-example example="TableEmptyCustomStateComponent"></docs-source-example>
+<docs-source-example example="TableEmptyCustomStateComponent" fullwidth="true"></docs-source-example>
 
 ### Loading state
 
 You can mark the Table as loading using `[isLoading]` and pass the content to display with `dtTableLoadingState` directive
 
-<docs-source-example example="TableLoadingComponent"></docs-source-example>
+<docs-source-example example="TableLoadingComponent" fullwidth="true"></docs-source-example>
 
 ### Observable as DataSource
 
 You can pass an Observable to the `[dataSource]` property
 
-<docs-source-example example="TableObservableComponent"></docs-source-example>
+<docs-source-example example="TableObservableComponent" fullwidth="true"></docs-source-example>
 
 ### Dynamic Columns
 
 You can bind the column definitions to an array with a `*ngFor` directive
 
-<docs-source-example example="TableDynamicColumnsComponent"></docs-source-example>
+<docs-source-example example="TableDynamicColumnsComponent" fullwidth="true"></docs-source-example>
 
 The DataSource type is an abstract class with two methods: connect and disconnect. Connect has to return an Observable that the table subscribes to. Disconnect does cleanup. Usin this class to wrap the data provided for the table allows for maximum flexibility and will be the responsible of a future sort, and filter functionalities
 
@@ -140,7 +140,7 @@ The DataSource type is an abstract class with two methods: connect and disconnec
 
 Expandable rows can be defined using `dt-expandable-row`. An optional details cell can be added using `dt-expandable-cell`.
 
-<docs-source-example example="TableExpandableRowsComponent"></docs-source-example>
+<docs-source-example example="TableExpandableRowsComponent" fullwidth="true"></docs-source-example>
 
 ### Options & Properties of DtExpandableRow
 

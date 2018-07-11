@@ -47,6 +47,6 @@ To apply the dynatrace show more component, use the `<dt-show-more>` element wit
 
 ### Dark theme
 
-<docs-source-example example="DarkThemeShowMoreExampleComponent"></docs-source-example>
+<docs-source-example example="DarkThemeShowMoreExampleComponent" themedark="true"></docs-source-example>
 
 

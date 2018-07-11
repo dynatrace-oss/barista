@@ -36,4 +36,4 @@ In addition to the custom content, the card can also hold some special sections:
 
 ### Darktheme
 
-<docs-source-example example="DarkThemeCardExampleComponent"></docs-source-example>
+<docs-source-example example="DarkThemeCardExampleComponent" themedark="true"></docs-source-example>
