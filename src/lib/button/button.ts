@@ -68,8 +68,7 @@ const defaultVariant = 'primary';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtButton extends _DtButtonMixinBase
-  implements OnDestroy, OnChanges, AfterContentInit, CanDisable, CanColor, HasElementRef {
+export class DtButton extends _DtButtonMixinBase implements OnDestroy, CanDisable, CanColor, HasElementRef {
 
   @Input()
   get variant(): ButtonVariant { return this._variant; }
@@ -108,21 +107,6 @@ export class DtButton extends _DtButtonMixinBase
     }
 
     this._focusMonitor.monitor(this._elementRef.nativeElement, true);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.color || changes.variant) {
-      this._updateIconColors();
-    }
-  }
-
-  ngAfterContentInit(): void {
-    this._iconChangesSub = this._icons.changes
-      .pipe(startWith(null))
-      .subscribe(() => {
-        this._updateIconColors();
-        this._changeDetectorRef.markForCheck();
-      });
   }
 
   ngOnDestroy(): void {
