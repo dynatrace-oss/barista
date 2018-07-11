@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DtBreadcrumbsModule, DtBreadcrumbsItem } from '@dynatrace/angular-components';
+import { identity } from 'rxjs';
 import { instance, mock, when } from 'ts-mockito';
 
 describe('DtBreadcrumbsItem', () => {
@@ -188,6 +189,7 @@ describe('DtBreadcrumbsItem', () => {
 
           // then
           expect(bubbled).toBeTruthy();
+          // tslint:disable-next-line no-unbound-method
           expect(router.navigateByUrl).not.toHaveBeenCalled();
         });
       });
@@ -208,6 +210,7 @@ describe('DtBreadcrumbsItem', () => {
 
         // then
         expect(bubbled).toBeTruthy();
+        // tslint:disable-next-line no-unbound-method
         expect(router.navigateByUrl).not.toHaveBeenCalled();
       });
 
@@ -226,6 +229,7 @@ describe('DtBreadcrumbsItem', () => {
 
         // then
         expect(bubbled).toBeFalsy();
+        // tslint:disable-next-line no-unbound-method
         expect(router.navigateByUrl).toHaveBeenCalled();
       });
     });
@@ -323,7 +327,7 @@ class EmptyComponent {
 
 const mockMouseEvent = (metaKey?: boolean, shiftKey?: boolean, ctrlKey?: boolean): MouseEvent => {
   const event = mock(MouseEvent);
-  when(event.button).thenReturn([metaKey, shiftKey, ctrlKey].filter((v: boolean) => v === true).length);
+  when(event.button).thenReturn([metaKey, shiftKey, ctrlKey].filter(identity).length);
   when(event.metaKey).thenReturn(metaKey || false);
   when(event.shiftKey).thenReturn(shiftKey || false);
   when(event.ctrlKey).thenReturn(ctrlKey || false);
