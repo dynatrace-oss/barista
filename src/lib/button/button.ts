@@ -4,13 +4,11 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   OnDestroy,
-  AfterContentInit,
   Input,
   Renderer2,
   ContentChildren,
   QueryList,
-  OnChanges,
-  SimpleChanges,
+  AfterContentInit,
   ChangeDetectorRef,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -23,7 +21,6 @@ import {
   replaceCssClass
 } from '@dynatrace/angular-components/core';
 import { DtIcon } from '@dynatrace/angular-components/icon';
-import { startWith } from 'rxjs/operators';
 import { Subscription, NEVER } from 'rxjs';
 
 export function getDtButtonNestedVariantNotAllowedError(): Error {
@@ -68,8 +65,7 @@ const defaultVariant = 'primary';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtButton extends _DtButtonMixinBase
-  implements OnDestroy, OnChanges, AfterContentInit, CanDisable, CanColor, HasElementRef {
+export class DtButton extends _DtButtonMixinBase implements OnDestroy, AfterContentInit, CanDisable, CanColor, HasElementRef {
 
   @Input()
   get variant(): ButtonVariant { return this._variant; }
@@ -110,19 +106,12 @@ export class DtButton extends _DtButtonMixinBase
     this._focusMonitor.monitor(this._elementRef.nativeElement, true);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.color || changes.variant) {
-      this._updateIconColors();
-    }
-  }
-
   ngAfterContentInit(): void {
+    // We need to set markForCheck manually on every icons change
+    // so that the template can determine if the icon container
+    // should be shown or not
     this._iconChangesSub = this._icons.changes
-      .pipe(startWith(null))
-      .subscribe(() => {
-        this._updateIconColors();
-        this._changeDetectorRef.markForCheck();
-      });
+      .subscribe(() => { this._changeDetectorRef.markForCheck(); });
   }
 
   ngOnDestroy(): void {
@@ -133,18 +122,6 @@ export class DtButton extends _DtButtonMixinBase
   /** Focuses the button. */
   focus(): void {
     this._getHostElement().focus();
-  }
-
-  /** Sets the icon colors according to the button variant. */
-  private _updateIconColors(): void {
-    if (this._icons) {
-      this._icons.forEach((icon) => {
-        // Only set the icon color if the user did not set it
-        if (!icon.color) {
-          icon.color = this.variant === 'primary' ? 'light' : this.color;
-        }
-      });
-    }
   }
 
   /** Retrieves the native element of the host. */
