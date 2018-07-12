@@ -8,9 +8,12 @@
 <dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
 <dt-form-field *ngIf="editing || saving">
-  <input dtInput #input [required]="required" [disabled]="saving" [(ngModel)]="value" class="dt-form-field-input" />
+  <input dtInput #input [required]="required" [disabled]="saving" [(ngModel)]="value" 
+  [errorStateMatcher]="errorStateMatcher" class="dt-form-field-input" />
 
-  <dt-error>{{ errorMessage ? errorMessage : 'Value cannot be empty!'  }}</dt-error>
+  <dt-error>
+      <ng-content select="ie-error"></ng-content>
+  </dt-error>
 
   <button dt-icon-button dtSuffix variant="nested" aria-label="save" (click)="saveAndQuitEditing()" >
     <dt-icon name="checkmark"></dt-icon>
