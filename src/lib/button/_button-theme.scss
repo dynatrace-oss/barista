@@ -14,7 +14,6 @@
     // Temporary fix to not make button color depend on theme.
     // We only have to override the main color because the warning and
     // cta colors are the same across all themes for now.
-    // stylelint-disable scss/no-duplicate-dollar-variables
     @if ($name == 'main') {
       @if ($is-dark == true) {
         $default-color: $turquoise-500;
@@ -26,9 +25,11 @@
         $active-color: $turquoise-800;
       }
     }
-    // stylelint-enable
 
-    $namespace: if($name != $default-palette, '.dt-button.dt-color-#{$name}', '.dt-button');
+    $namespace: '.dt-button';
+    @if $name != $default-palette {
+      $namespace: '.dt-button.dt-color-#{$name}';
+    }
 
     ////////////////////////////
     // PRIMARY

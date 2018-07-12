@@ -11,11 +11,18 @@
     $default-color: dt-get-theme-color($palette, 'default');
     $hover-color: dt-get-theme-color($palette, 'hover');
     $active-color: dt-get-theme-color($palette, 'active');
+    $background-color: $gray-100;
+    $border-color: $gray-300;
 
-    $background-color: if($is-dark, $gray-640, $gray-100);
-    $border-color: if($is-dark, #fff, $gray-300);
+    @if ($is-dark == true) {
+      $border-color: #fff;
+      $background-color: $gray-640;
+    }
 
-    $namespace: if($name != $default-palette, ':host.dt-color-#{$name}', ':host');
+    $namespace: ':host';
+    @if $name != $default-palette {
+      $namespace: ':host.dt-color-#{$name}';
+    }
 
     #{$namespace} {
       @include boxShadowSelected(1px, $border-color);

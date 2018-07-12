@@ -2,6 +2,9 @@
   "extends": [
     "@dynatrace/angular-lint-rules/tslint"
   ],
+  "rulesDirectory": [
+    "./tools/tslint-rules/"
+  ],
   "rules": {
     "ban": [
       true,
@@ -86,8 +89,5 @@
 
     // Custom Rules
     "ts-loader": true
-  },
-  "rulesDirectory": [
-    "./tools/tslint-rules/"
-  ]
+  }
 }

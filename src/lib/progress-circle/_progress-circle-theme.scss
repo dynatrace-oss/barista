@@ -9,7 +9,10 @@
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
 
-    $namespace: if($name != $default-palette, ':host.dt-color-#{$name}', ':host');
+    $namespace: ':host';
+    @if $name != $default-palette {
+      $namespace: ':host.dt-color-#{$name}';
+    }
 
     #{$namespace} .dt-progress-circle-progress {
       stroke: $default-color;

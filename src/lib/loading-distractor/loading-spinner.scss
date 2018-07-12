@@ -27,7 +27,7 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   fill: none;
   // stylelint-disable indentation
   -webkit-animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear infinite;
-  animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear infinite;
+          animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear infinite;
   // stylelint-enable
 
   .dt-loading-spinner-size-small & {
@@ -39,9 +39,9 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   stroke-dasharray: $dt-loading-spinner-offset;
   // stylelint-disable indentation
   -webkit-transform-origin: center;
-  transform-origin: center;
+          transform-origin: center;
   -webkit-animation: dt-loading-spinner-dash $dt-loading-spinner-duration $dt-loading-spinner-ease infinite;
-  animation: dt-loading-spinner-dash $dt-loading-spinner-duration $dt-loading-spinner-ease infinite;
+          animation: dt-loading-spinner-dash $dt-loading-spinner-duration $dt-loading-spinner-ease infinite;
   // stylelint-enable
 }
 
@@ -49,11 +49,11 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   // stylelint-disable indentation
   0% {
     -webkit-transform: rotate(0);
-    transform: rotate(0);
+            transform: rotate(0);
   }
   100% {
     -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+            transform: rotate(360deg);
   }
   // stylelint-enable
 }
@@ -62,11 +62,11 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   // stylelint-disable indentation
   0% {
     -webkit-transform: rotate(0);
-    transform: rotate(0);
+            transform: rotate(0);
   }
   100% {
     -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+            transform: rotate(360deg);
   }
   // stylelint-enable
 }
