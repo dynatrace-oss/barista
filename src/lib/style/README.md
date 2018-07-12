@@ -79,4 +79,4 @@ Link styles are automatically applied to any `<a>` tag.
 
 #### Dark theme
 
-<docs-source-example example="LinkDarkExampleComponent"></docs-source-example>
+<docs-source-example example="LinkDarkExampleComponent" themedark="true"></docs-source-example>
