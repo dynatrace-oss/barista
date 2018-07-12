@@ -55,17 +55,11 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
   /** Subscription to the state of a tab */
   private _tabStateSubscription = Subscription.EMPTY;
 
-  private _selected: DtTab | null = null;
-
+  get selected(): DtTab | null { return this._selected; }
+  
+  _selected: DtTab | null = null;
   /** internal only - used to notify only the tabs in the same tab-group */
   _groupId = `dt-tab-group-${++nextId}`;
-
-  @Input()
-  get selected(): DtTab | null { return this._selected; }
-  set selected(selected: DtTab | null) {
-    this._selected = selected;
-    this._setSelectedTab();
-  }
 
   // tslint:disable-next-line:no-output-named-after-standard-event
   @Output() readonly change = new EventEmitter<DtTabChange>();
@@ -85,7 +79,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
         LOG.error(DT_TABGROUP_SINGLE_TAB_ERROR);
       }
       // if selected tab got removed - select the first enabled again
-      if (!this._tabs.find((tab) => tab === this.selected)) {
+      if (!this._tabs.find((tab) => tab === this._selected)) {
         this._selectFirstEnabledTab();
       }
       // after tabs changed we need to subscribe again
@@ -101,7 +95,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
 
   /** internal - Dispatch change event with current selection - dispatched inside the tab */
   _emitChangeEvent(): void {
-    this.change.emit({ source: this._selected!, index: 0 }); // TODO: set correct index
+    this.change.emit({ source: this._selected! });
   }
 
   /** Sets the selected tab if necessary */
@@ -121,7 +115,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
     this._tabStateSubscription = merge(...this._tabs.map((tab) => tab.stateChanges))
     .subscribe(() => {
       /** check if the selected tab is disabled now */
-      if (this.selected && this.selected.disabled) {
+      if (this._selected && this._selected.disabled) {
         this._selected = null;
         this._selectFirstEnabledTab();
       }
@@ -135,7 +129,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
       if (!hasEnabledTabs) {
         LOG.error(DT_TABGROUP_NO_ENABLED_TABS_ERROR);
       }
-      if (hasEnabledTabs && !this._tabs.find((t) => t === this.selected)) {
+      if (hasEnabledTabs && !this._tabs.find((t) => t === this._selected)) {
         const firstEnabled = this._findFirstEnabledTab();
         if (firstEnabled) {
           firstEnabled.selected = true;
