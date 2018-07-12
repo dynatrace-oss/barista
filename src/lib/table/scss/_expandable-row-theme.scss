@@ -3,10 +3,12 @@
 @mixin dt-theme-expandable-row($theme, $theme-name) {
   $palette: dt-get-theme-palette($theme, 'main');
   $default-color: dt-get-theme-color($palette, 'default');
+  $border-color: get-color($theme-name, 500);
 
   // if color not found, fallback to theme's default color
-  $theme-border-color: get-color($theme-name, 500);
-  $border-color: if($theme-border-color != null, $theme-border-color, $default-color);
+  @if ($border-color == null) {
+    $border-color: $default-color;
+  }
 
   :host {
     .dt-expandable-row-base-expanded {
