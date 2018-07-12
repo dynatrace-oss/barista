@@ -8,8 +8,8 @@
 }
 
 :host .dt-tab-label {
-  font-family: $default-font-family;
-  @include custom-font-styles($gray-700, 600, 14px, 32px);
+  @include default-font(14px, 32px, 600);
+  color: $gray-700;
   border: none;
   background-color: transparent;
   padding: 0 16px;
@@ -19,8 +19,8 @@
   text-align: center;
   position: relative;
 
-  &:after {
-    content: " ";
+  &::after {
+    content: ' ';
     height: 1px;
     width: 100%;
     position: absolute;
@@ -29,7 +29,7 @@
     transition: height 100ms ease-out;
   }
 
-  &:hover:after {
+  &:hover::after {
     height: 4px;
   }
 
@@ -38,10 +38,10 @@
     color: $gray-300;
     background-color: transparent;
 
-    &:after {
+    &::after {
       background-color: $gray-300;
     }
-    &:hover:after {
+    &:hover::after {
       height: 1px;
     }
   }

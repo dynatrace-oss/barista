@@ -56,6 +56,8 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
   private _tabStateSubscription = Subscription.EMPTY;
 
   private _selected: DtTab | null = null;
+
+  /** internal only - used to notify only the tabs in the same tab-group */
   _groupId = `dt-tab-group-${++nextId}`;
 
   @Input()
@@ -72,17 +74,6 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
     super(elementRef);
   }
 
-  _setSelectedTab(): void {
-    if (this._selected && !this._selected.selected) {
-      this._selected.selected = true;
-    }
-  }
-
-  /** Dispatch change event with current selection */
-  _emitChangeEvent(): void {
-    this.change.emit({ source: this._selected!, index: 0 }); //TODO: set correct index
-  }
-
   ngAfterContentInit(): void {
     /** subscribe to initial tab state changes */
     this._subscribeToTabStateChanges();
@@ -93,10 +84,11 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
       if (this._tabs.length <= 1) {
         LOG.error(DT_TABGROUP_SINGLE_TAB_ERROR);
       }
-      // if selected tab got removed
+      // if selected tab got removed - select the first enabled again
       if (!this._tabs.find((tab) => tab === this.selected)) {
         this._selectFirstEnabledTab();
       }
+      // after tabs changed we need to subscribe again
       this._subscribeToTabStateChanges();
       /** this is necessary so the loop with the portaloutlets gets rerendered */
       this._changeDetectorRef.markForCheck();
@@ -107,28 +99,34 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
     this._tabsSubscription.unsubscribe();
   }
 
+  /** internal - Dispatch change event with current selection - dispatched inside the tab */
+  _emitChangeEvent(): void {
+    this.change.emit({ source: this._selected!, index: 0 }); // TODO: set correct index
+  }
+
+  /** Sets the selected tab if necessary */
+  private _setSelectedTab(): void {
+    if (this._selected && !this._selected.selected) {
+      this._selected.selected = true;
+    }
+  }
+
+  /**
+   * Subscribes to state changes of all tabs
+   * this is necessary so we get notified when the inputs of the tab change
+   * we need to trigger change detection on the group since the group needs to render the header again
+   */
   private _subscribeToTabStateChanges(): void {
     if (this._tabStateSubscription) { this._tabStateSubscription.unsubscribe(); }
     this._tabStateSubscription = merge(...this._tabs.map((tab) => tab.stateChanges))
     .subscribe(() => {
-      console.log('state changes fired');
       /** check if the selected tab is disabled now */
       if (this.selected && this.selected.disabled) {
-        console.log('selected tab got disabled');
         this._selected = null;
         this._selectFirstEnabledTab();
       }
       this._changeDetectorRef.markForCheck();
     });
-  }
-
-  /**
-   * Verifies that at least 2 tabs exist and at least one is enabled
-   */
-  private _verifyTabs(): void {
-    if (this._tabs.length <= 1) {
-      LOG.error(DT_TABGROUP_SINGLE_TAB_ERROR);
-    }
   }
 
   private _selectFirstEnabledTab(): void {
@@ -138,10 +136,9 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
         LOG.error(DT_TABGROUP_NO_ENABLED_TABS_ERROR);
       }
       if (hasEnabledTabs && !this._tabs.find((t) => t === this.selected)) {
-        console.log('need to find first enabled tab');
         const firstEnabled = this._findFirstEnabledTab();
         if (firstEnabled) {
-          firstEnabled!.selected = true;
+          firstEnabled.selected = true;
         }
       }
     }

@@ -22,7 +22,23 @@ describe('DtTabs', () => {
 @Component({
   selector: 'dt-test-app',
   template: `
-    <!-- insert your component testapp usage here -->
+  <dt-tab-group>
+  <dt-tab disabled>
+    <ng-template dtTabLabel>Physical <em>CPU</em></ng-template>
+    <ng-template dtTabContent>
+      <h1>pu-ready-time-recovered</h1>
+      <button dt-button>initialize</button>
+      <input type="text" value="some">
+    </ng-template>
+  </dt-tab>
+  <dt-tab>
+    <ng-template dtTabLabel>CPU ready time</ng-template>
+    <ng-template dtTabContent>
+      <h1>CPU-ready-time</h1>
+      <button dt-button>initialize</button>
+    </ng-template>
+  </dt-tab>
+</dt-tab-group>
   `,
 })
 class TestApp {
