@@ -74,4 +74,4 @@ Any `dt-error` and `dt-hint` are automatically added to the input's `aria-descri
 
 ### Dark
 
-<docs-source-example example="DarkInputExample"></docs-source-example>
+<docs-source-example example="DarkInputExample" themedark="true"></docs-source-example>

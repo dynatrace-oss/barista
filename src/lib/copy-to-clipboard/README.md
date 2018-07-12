@@ -47,7 +47,7 @@ class MyModule {}
 
 ### Dark theme
 
-<docs-source-example example="DarkCopyToClipboardExampleComponent"></docs-source-example>
+<docs-source-example example="DarkCopyToClipboardExampleComponent" themedark="true"></docs-source-example>
 ### Example withing context dialog
 
 <docs-source-example example="ContextCopyToClipboardExampleComponent"></docs-source-example>
