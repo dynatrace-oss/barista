@@ -34,11 +34,13 @@
     // PRIMARY
     ////////////////////////////
     #{$namespace}.dt-button-primary {
-        background: $default-color;
-        border-color: $default-color;
-        color: #fff;
+      background: $default-color;
+      border-color: $default-color;
+      color: #fff;
 
-        .dt-button-icon .dt-icon svg { fill: #fff; }
+      .dt-button-icon .dt-icon svg {
+        fill: #fff;
+      }
     }
     #{$namespace}.dt-button-primary:hover:not([disabled]) {
       background: $hover-color;
@@ -152,29 +154,28 @@
     // NESTED
     ////////////////////////////
     @if $is-dark == true {
-      & #{$namespace}.dt-button-nested,
-      & #{$namespace}.dt-button-nested:hover:not([disabled]),
-      & #{$namespace}.dt-button-nested:active:not([disabled]) {
+      #{$namespace}.dt-button-nested,
+      #{$namespace}.dt-button-nested:hover:not([disabled]),
+      #{$namespace}.dt-button-nested:active:not([disabled]) {
         .dt-button-icon .dt-icon svg { fill: #fff; }
       }
-      & #{$namespace}.dt-button-nested:hover:not([disabled]) {
+      #{$namespace}.dt-button-nested:hover:not([disabled]) {
         background: rgba(255, 255, 255, 0.2);
       }
-      & #{$namespace}.dt-button-nested[disabled] {
+      #{$namespace}.dt-button-nested[disabled] {
         .dt-button-icon .dt-icon svg { fill: rgba(255, 255, 255, 0.6); }
       }
-    }
-    @else {
-      & #{$namespace}.dt-button-nested {
+    } @else {
+      #{$namespace}.dt-button-nested {
         .dt-button-icon .dt-icon svg { fill: $default-color; }
       }
-      & #{$namespace}.dt-button-nested:hover:not([disabled]) {
+      #{$namespace}.dt-button-nested:hover:not([disabled]) {
         .dt-button-icon .dt-icon svg { fill: $hover-color; }
       }
-      & #{$namespace}.dt-button-nested:active:not([disabled]) {
+      #{$namespace}.dt-button-nested:active:not([disabled]) {
         .dt-button-icon .dt-icon svg { fill: $active-color; }
       }
-      & #{$namespace}.dt-button-nested[disabled] {
+      #{$namespace}.dt-button-nested[disabled] {
         .dt-button-icon .dt-icon svg { fill: $disabledcolor; }
       }
     }
