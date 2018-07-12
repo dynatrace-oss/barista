@@ -1,4 +1,4 @@
-import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
 import {DtExpandableRow, DtLogger, DtLoggerFactory} from '@dynatrace/angular-components';
 
@@ -42,20 +42,13 @@ const LOG: DtLogger = DtLoggerFactory.create('TableExpandableRowsComponent');
   // tslint:enable
 })
 @OriginalClassName('TableExpandableRowsComponent')
-export class TableExpandableRowsComponent implements OnInit {
-  @ViewChildren(DtExpandableRow) private dtExpandableRows: QueryList<DtExpandableRow>;
+export class TableExpandableRowsComponent {
   dataSource1: object[] = [
     { host: 'et-demo-2-win4', cpu: '30 %', memory: '38 % of 5.83 GB', traffic: '98.7 Mbit/s' },
     { host: 'et-demo-2-win3', cpu: '26 %', memory: '46 % of 6 GB', traffic: '625 Mbit/s' },
     { host: 'docker-host2', cpu: '25.4 %', memory: '38 % of 5.83 GB', traffic: '419 Mbit/s' },
     { host: 'et-demo-2-win1', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
   ];
-
-  ngOnInit(): void {
-    // this hack is just needed for the docs component in order to initially display the table correctly
-    // in a real application this is NOT needed
-    this.dtExpandableRows.forEach((expandableRow) => expandableRow.expanded = false);
-  }
 
   onOpenedChanged(row: DtExpandableRow, index: number): void {
     // tslint:disable-next-line
