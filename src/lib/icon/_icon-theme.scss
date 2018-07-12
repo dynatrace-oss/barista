@@ -7,7 +7,6 @@
 
   @each $name in $color-names {
     // default to light
-    // stylelint-disable scss/no-duplicate-dollar-variables
     $color: #fff;
     @if $is-dark == true {
       $color: #fff;
@@ -17,8 +16,6 @@
       $palette: dt-get-theme-palette($theme, $name);
       $color: dt-get-theme-color($palette, 'default');
     }
-    // stylelint-enable
-
     .dt-icon.dt-color-#{$name} svg {
       fill: $color;
     }
