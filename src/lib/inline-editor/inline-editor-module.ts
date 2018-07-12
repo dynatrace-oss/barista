@@ -7,6 +7,7 @@ import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading
 import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { FormsModule } from '@angular/forms';
+import { IeError } from './error';
 
 @NgModule({
   imports: [
@@ -20,9 +21,11 @@ import { FormsModule } from '@angular/forms';
   ],
   exports: [
     DtInlineEditor,
+    IeError,
   ],
   declarations: [
     DtInlineEditor,
+    IeError,
   ],
 })
 export class DtInlineEditorModule {}

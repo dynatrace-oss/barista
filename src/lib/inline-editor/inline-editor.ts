@@ -13,7 +13,10 @@ import {
   NgZone,
 
 } from '@angular/core';
+import { DtFormField } from '@dynatrace/angular-components/form-field';
+import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -48,12 +51,18 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   private _mode = MODES.IDLE;
   private _value = '';
   private _saving: Subscription | null;
+  private _required = false;
 
   @ViewChild('input') inputReference: ElementRef;
   @ViewChild('edit') editButtonReference: ElementRef;
+  @ViewChild(DtFormField) formField: DtFormField<Input>;
 
-  @Input() required: false;
-  @Input() errorMessage: string;
+  @Input()
+  get required(): boolean { return this._required; }
+  set required(value: boolean) { this._required = coerceBooleanProperty(value); }
+
+  /** An object used to control when error messages are shown. */
+  @Input() errorStateMatcher: ErrorStateMatcher;
   @Input() onRemoteSave: (value: string) => Observable<void>;
   @Output() saved = new EventEmitter<string>();
   @Output() cancelled = new EventEmitter<string>();
@@ -89,7 +98,7 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   }
 
   saveAndQuitEditing(): void {
-    if (this._isInValidInput()) {
+    if (this.formField._control.errorState) {
       return;
     }
 
@@ -162,10 +171,5 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
     } else {
       this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(fn);
     }
-  }
-
-  private _isInValidInput(): boolean {
-    const ngInvalidClass = 'ng-invalid';
-    return this.inputReference.nativeElement.classList.contains(ngInvalidClass);
   }
 }
