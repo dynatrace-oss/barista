@@ -42,4 +42,4 @@ To apply the dynatrace alert component, use the `<dt-alert>` element. Example:
 
 ### Dark mode
 
-<docs-source-example example="DarkAlertExampleComponent"></docs-source-example>
+<docs-source-example example="DarkAlertExampleComponent" themedark="true"></docs-source-example>
