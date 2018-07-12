@@ -1,5 +1,21 @@
-import { Input, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, OnInit, TemplateRef, ContentChild, ViewContainerRef, ViewChild, EventEmitter, Output, ChangeDetectorRef, OnDestroy, Optional, Inject, forwardRef } from '@angular/core';
-import { mixinColor, mixinDisabled, CanDisable, CanColor, DtThemePalette } from '@dynatrace/angular-components/core';
+import {
+  Input,
+  ElementRef,
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  OnInit,
+  TemplateRef,
+  ContentChild,
+  ViewContainerRef,
+  ViewChild,
+  ChangeDetectorRef,
+  OnDestroy,
+  Optional,
+  Inject,
+  forwardRef,
+} from '@angular/core';
+import { mixinDisabled, CanDisable } from '@dynatrace/angular-components/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DtTabLabel } from './tab-label';
 import { DtTabContent } from './tab-content';
@@ -42,14 +58,16 @@ export const _DtTabMixinBase = mixinDisabled(DtTabBase);
 })
 export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisable {
 
-  private _uniqueId = `dt-tab-${++nextUniqueId}`;
-  /**REMOVE */
-  id = this._uniqueId;
+  /** Unique id of the element. */
+  @Input()
+  get id(): string { return this._id; }
+  set id(value: string) {
+    this._id = value || this._uniqueId;
+    console.log(this._id);
+    this.stateChanges.next();
+  }
 
-  private _removeUniqueSelectionListener: () => void = () => {};
-  private _selected = false;
-  private _disabled = false;
-
+  /** Wether the tab is disabed */
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
@@ -67,7 +85,6 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   set selected(value: boolean) {
     const newSelectedState = coerceBooleanProperty(value);
 
-    console.log('select setter called', value, this.id);
     if (this._selected !== newSelectedState) {
       this._selected = newSelectedState;
 
@@ -77,20 +94,22 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
 
       if (newSelectedState) {
         // Notify all other tabs to un-check in the same group
-        this._tabDispatcher.notify(this._uniqueId, this._tabGroup._groupId);
+        this._tabDispatcher.notify(this.id, this._tabGroup._groupId);
       }
       this._changeDetectorRef.markForCheck();
     }
   }
 
-  private _color: TabThemePalette = defaultPalette;
-
+  /**
+   * Color of the tab
+   * mixinColor is not working here because the dt-tab does not get rendered to the dom this input is just a proxy
+   * so the color gets applied correctly with the dtColor directive on the header
+   */
   @Input()
   get color(): TabThemePalette { return this._color; }
   set color(value: TabThemePalette) {
     this._color = value;
     this.stateChanges.next();
-
   }
 
   /** Stream that emits whenever an input of a tab changes */
@@ -99,12 +118,23 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   /** Content for the tab label */
   @ContentChild(DtTabLabel) label: DtTabLabel;
 
+  /** ContentRef if the content is provided directly inside <dt-tab> tag */
+  // tslint:disable-next-line:no-any
   @ViewChild(TemplateRef) _eagerContentRef: TemplateRef<any>;
 
+  /** ContentRef if the content is provided inside a ng-template with a dtTabContent directive for lazy loading */
+  // tslint:disable-next-line:no-any
   @ContentChild(DtTabContent, {read: TemplateRef}) _lazyContentRef: TemplateRef<any>;
 
   /** Portal that will be the hosted content of the tab */
   private _contentPortal: TemplatePortal | null = null;
+
+  private _uniqueId = `dt-tab-${++nextUniqueId}`;
+  private _removeUniqueSelectionListener: () => void = () => {};
+  private _selected = false;
+  private _disabled = false;
+  private _color: TabThemePalette = defaultPalette;
+  private _id: string;
 
   /** private only used in the tabgroup to get the content template portal */
   get _content(): TemplatePortal | null {
@@ -120,6 +150,9 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     @Inject(forwardRef(() => DtTabGroup)) @Optional() private _tabGroup: DtTabGroup
   ) {
     super(elementRef);
+    // Force setter to be called in case id was not specified.
+    this.id = this.id;
+
     this._removeUniqueSelectionListener = _tabDispatcher.listen((id: string, groupid: string) => {
       if (id !== this._uniqueId && this._tabGroup._groupId === groupid) {
         this.selected = false;

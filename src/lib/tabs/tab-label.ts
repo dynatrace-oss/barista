@@ -9,6 +9,7 @@ import { CdkPortal } from '@angular/cdk/portal';
   exportAs: 'dtTabLabel',
 })
 export class DtTabLabel extends CdkPortal {
+  // tslint:disable-next-line:no-any
   constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef) {
     super(templateRef, viewContainerRef);
   }
