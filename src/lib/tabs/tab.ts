@@ -27,8 +27,6 @@ import { Subject } from 'rxjs';
 let nextUniqueId = 0;
 
 export class DtTabChange {
-  /** Index of the currently-selected tab. */
-  index: number;
   /** Reference to the currently-selected tab. */
   source: DtTab;
 }
@@ -58,13 +56,23 @@ export const _DtTabMixinBase = mixinDisabled(DtTabBase);
 })
 export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisable {
 
+  /** Content for the tab label */
+  @ContentChild(DtTabLabel) label: DtTabLabel;
+
+  /** ContentRef if the content is provided directly inside <dt-tab> tag */
+  // tslint:disable-next-line:no-any
+  @ViewChild(TemplateRef) _eagerContentRef: TemplateRef<any>;
+
+  /** ContentRef if the content is provided inside a ng-template with a dtTabContent directive for lazy loading */
+  // tslint:disable-next-line:no-any
+  @ContentChild(DtTabContent, {read: TemplateRef}) _lazyContentRef: TemplateRef<any>;
+
   /** Unique id of the element. */
   @Input()
   get id(): string { return this._id; }
   set id(value: string) {
     this._id = value || this._uniqueId;
-    console.log(this._id);
-    this.stateChanges.next();
+    this._stateChanges.next();
   }
 
   /** Wether the tab is disabed */
@@ -76,7 +84,7 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
       this._disabled = newDisabledState;
       this._changeDetectorRef.markForCheck();
     }
-    this.stateChanges.next();
+    this._stateChanges.next();
   }
 
   /** Whether tab is selected. */
@@ -89,12 +97,13 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
       this._selected = newSelectedState;
 
       if (newSelectedState && this._tabGroup && this._tabGroup.selected !== this) {
-        this._tabGroup.selected = this;
+        this._tabGroup._selected = this;
       }
 
       if (newSelectedState) {
         // Notify all other tabs to un-check in the same group
         this._tabDispatcher.notify(this.id, this._tabGroup._groupId);
+        this._tabGroup._emitChangeEvent();
       }
       this._changeDetectorRef.markForCheck();
     }
@@ -109,22 +118,11 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   get color(): TabThemePalette { return this._color; }
   set color(value: TabThemePalette) {
     this._color = value;
-    this.stateChanges.next();
+    this._stateChanges.next();
   }
 
   /** Stream that emits whenever an input of a tab changes */
-  readonly stateChanges = new Subject<void>();
-
-  /** Content for the tab label */
-  @ContentChild(DtTabLabel) label: DtTabLabel;
-
-  /** ContentRef if the content is provided directly inside <dt-tab> tag */
-  // tslint:disable-next-line:no-any
-  @ViewChild(TemplateRef) _eagerContentRef: TemplateRef<any>;
-
-  /** ContentRef if the content is provided inside a ng-template with a dtTabContent directive for lazy loading */
-  // tslint:disable-next-line:no-any
-  @ContentChild(DtTabContent, {read: TemplateRef}) _lazyContentRef: TemplateRef<any>;
+  readonly _stateChanges = new Subject<void>();
 
   /** Portal that will be the hosted content of the tab */
   private _contentPortal: TemplatePortal | null = null;
