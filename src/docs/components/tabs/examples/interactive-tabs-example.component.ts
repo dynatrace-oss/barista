@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import { timer, BehaviorSubject } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
@@ -38,10 +38,10 @@ export class InteractiveTabsExampleComponent {
     this.simulationRunning = true;
     // tslint:disable-next-line:no-magic-numbers
     timer(1000, 1000)
+    // tslint:disable-next-line:no-magic-numbers
     .pipe(take(2))
     .subscribe(
       () => {
-        console.log(this.simulatedColor);
         this.simulatedColor = this.simulatedColor === 'error' ? 'recovered' : 'main';
       },
       undefined,

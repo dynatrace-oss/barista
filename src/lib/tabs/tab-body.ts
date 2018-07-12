@@ -18,6 +18,45 @@ import {
 import { Subscription } from 'rxjs';
 
 /**
+ * Wrapper for the contents of a tab.
+ * notifies the portaloutlet when the active input is changed to enable lazy loading
+ * @internal
+ */
+@Component({
+  moduleId: module.id,
+  selector: 'dt-tab-body',
+  templateUrl: 'tab-body.html',
+  styleUrls: ['tab-body.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    'class': 'dt-tab-body',
+    '[class.dt-tab-body-active]': 'active',
+  },
+})
+export class DtTabBody {
+   /** The portal host inside of this container into which the tab body content will be loaded. */
+  @ViewChild(PortalHostDirective) _portalHost: PortalHostDirective;
+
+  /** The tab body content to display. */
+  @Input() content: TemplatePortal;
+
+  /** Input to be used in the tab-group to set the active tab */
+  @Input()
+  get active(): boolean { return this._isActive; }
+  set active(value: boolean) {
+    this._isActive = value;
+    this._activeChanged.emit(value);
+  }
+
+  /** emits events whenever the active input changes */
+  @Output() readonly _activeChanged: EventEmitter<boolean> = new EventEmitter();
+
+  private _isActive = false;
+
+}
+
+/**
  * The portal host directive for the contents of the tab.
  * @internal
  */
@@ -57,43 +96,4 @@ export class DtTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestro
     this.detach();
     this._activeChangedSub.unsubscribe();
   }
-}
-
-/**
- * Wrapper for the contents of a tab.
- * notifies the portaloutlet when the active input is changed to enable lazy loading
- * @internal
- */
-@Component({
-  moduleId: module.id,
-  selector: 'dt-tab-body',
-  templateUrl: 'tab-body.html',
-  styleUrls: ['tab-body.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    'class': 'dt-tab-body',
-    '[class.dt-tab-body-active]': 'active',
-  },
-})
-export class DtTabBody {
-   /** The portal host inside of this container into which the tab body content will be loaded. */
-  @ViewChild(PortalHostDirective) _portalHost: PortalHostDirective;
-
-  /** The tab body content to display. */
-  @Input() content: TemplatePortal;
-
-  /** Input to be used in the tab-group to set the active tab */
-  @Input()
-  get active(): boolean { return this._isActive; }
-  set active(value: boolean) {
-    this._isActive = value;
-    this._activeChanged.emit(value);
-  }
-
-  /** emits events whenever the active input changes */
-  @Output() readonly _activeChanged: EventEmitter<boolean> = new EventEmitter();
-
-  private _isActive = false;
-
 }
