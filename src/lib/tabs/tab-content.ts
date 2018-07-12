@@ -1,4 +1,4 @@
-import { TemplateRef, Directive } from '@angular/core';
+import { Directive } from '@angular/core';
 
 /**
  * Directive to identify ng-template as the content

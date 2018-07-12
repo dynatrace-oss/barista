@@ -4,7 +4,8 @@
     (click)="tab._handleClick()"
     [disabled]="tab.disabled"
     dtColor
-    [color]="tab.color">
+    [color]="tab.color"
+    [id]="tab.id">
     <ng-template [cdkPortalOutlet]="tab.label"></ng-template>
   </button>
 </div>

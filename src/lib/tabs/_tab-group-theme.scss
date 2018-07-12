@@ -20,7 +20,7 @@
       }
     }
 
-    & #{$namespace}.dt-tab-label:after {
+    & #{$namespace}.dt-tab-label::after {
       background-color: $default-color;
     }
 
