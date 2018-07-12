@@ -5,7 +5,7 @@ $dt-blue-theme-light:
   dt-theme-light(
     /* main */      dt-theme-palette($blue-600, $blue-700, $blue-800),
     /* accent */    dt-theme-palette($turquoise-600, $turquoise-700, $turquoise-800),
-    /* warning s*/   dt-theme-palette($yellow-600, $yellow-700, $yellow-800),
+    /* warning */   dt-theme-palette($yellow-600, $yellow-700, $yellow-800),
     /* error */     dt-theme-palette($red-600, $red-700, $red-800),
     /* recovered */ dt-theme-palette($green-600, $green-700, $green-800),
     /* cta */       dt-theme-palette($green-600, $green-700, $green-800)
