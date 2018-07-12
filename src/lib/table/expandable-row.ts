@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostBinding,
   Input,
   Output,
   Renderer2,
@@ -46,6 +47,9 @@ export class DtExpandableRow extends CdkRow {
   @ViewChild('dtExpandableContent', { read: ViewContainerRef }) private _contentViewContainer: ViewContainerRef;
   private _multiple = false;
   private _expanded = false;
+
+  @HostBinding('class.dt-expandable-row-initial')
+  _pristine = true;
 
   /** Multiple rows can be expanded at a time if set to true (default: false) */
   @Input()
@@ -100,6 +104,7 @@ export class DtExpandableRow extends CdkRow {
   /** Sets the expanded state of the row, updates the expandable table and the expandable cell. */
   private _setExpanded(expanded: boolean): void {
     this._expanded = expanded;
+    this._pristine = false;
     this._setExpandableCell(expanded);
     this._expandableTable.expandedRow = expanded ? this : undefined;
     this.openedChange.emit(this);
