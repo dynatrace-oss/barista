@@ -31,4 +31,4 @@ Radio button groups should be given a meaningful label via `aria-label` or `aria
 
 ### Dark Example
 
-<docs-source-example example="DarkRadioExample"></docs-source-example>
+<docs-source-example example="DarkRadioExample" themedark="true"></docs-source-example>

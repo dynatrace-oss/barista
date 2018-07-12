@@ -44,4 +44,4 @@ class MyModule {}
 
 ### Dark
 
-<docs-source-example example="DarkBreadcrumbsExampleComponent"></docs-source-example>
+<docs-source-example example="DarkBreadcrumbsExampleComponent" themedark="true"></docs-source-example>

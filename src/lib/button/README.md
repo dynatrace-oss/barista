@@ -78,7 +78,7 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 ### With Icons
 
-<docs-source-example example="IconsButtonExampleComponent"></docs-source-example>
+<docs-source-example example="IconsButtonExampleComponent" fullwidth="true"></docs-source-example>
 
 ### Icon only
 
@@ -86,8 +86,8 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 ### Disabled example
 
-<docs-source-example example="DisabledButtonExampleComponent"></docs-source-example>
+<docs-source-example example="DisabledButtonExampleComponent" fullwidth="true"></docs-source-example>
 
 ### Dark
 
-<docs-source-example example="DarkButtonExampleComponent"></docs-source-example>
+<docs-source-example example="DarkButtonExampleComponent" themedark="true" fullwidth="true"></docs-source-example>
