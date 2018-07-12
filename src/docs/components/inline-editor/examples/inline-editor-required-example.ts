@@ -5,8 +5,8 @@ import { OriginalClassName } from '../../../core/decorators';
   moduleId: module.id,
   template: `
     <em dt-inline-editor required
-      errorMessage='Empty value not accepted!'
       [(ngModel)]="sampleModel">
+      <ie-error>Empty value not accepted!</ie-error>
     </em>
     <span>model: <code>{{ sampleModel }}</code></span>
   `,

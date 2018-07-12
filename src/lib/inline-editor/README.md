@@ -42,6 +42,12 @@ To apply, add the `dt-inline-editor` attribute to the HTML element.
 
 <docs-source-example example="RequiredInlineEditorExample"></docs-source-example>
 
+Error messages can be shown under the form field by adding `<ie-error>` elements inside the inline editor.
+Errors are hidden initially and will be displayed on invalid form fields, after the user has interacted with the element or the parent form has been submitted.
+The errors will appear on top of the hint labels and will overlap them.
+
+If a form field can have more than one error state, it is up to the consumer to toggle which messages should be displayed. This can be done with `ngIf` or `ngSwitch`.
+
 ### Successful asynchronous operation
 
 <docs-source-example example="SuccessfulInlineEditorExample"></docs-source-example>
