@@ -41,6 +41,14 @@
   border-bottom: 2px solid $gray-700;
 }
 
+:host.dt-expandable-row-initial {
+  .dt-expandable-row-collapsible {
+    height: 0;
+    min-height: 0;
+    visibility: hidden;
+  }
+}
+
 // Apply current theme
 @include dt-apply-theme() {
   @include dt-theme-expandable-row($dt-current-theme, $dt-current-theme-name);
