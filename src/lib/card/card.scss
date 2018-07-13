@@ -10,14 +10,14 @@
   margin: 8px;
 }
 
-@media(min-width: 460px) {
+@media (min-width: 460px) {
 
   .dt-card {
     padding: 12px;
   }
 }
 
-@media(min-width: 992px) {
+@media (min-width: 992px) {
 
   .dt-card {
     padding: 16px;
@@ -25,7 +25,7 @@
   }
 }
 
-@media(min-width: 1200px) {
+@media (min-width: 1200px) {
 
   .dt-card {
     margin: 20px;
@@ -39,7 +39,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 
   .dt-icon {
     width: 44px;

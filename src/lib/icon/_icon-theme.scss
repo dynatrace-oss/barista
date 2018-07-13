@@ -10,11 +10,9 @@
     $color: #fff;
     @if $is-dark == true {
       $color: #fff;
-    }
-    @else if $name == 'dark' {
+    } @else if $name == 'dark' {
       $color: #ccc;
-    }
-    @else if $name != 'light' {
+    } @else if $name != 'light' {
       $palette: dt-get-theme-palette($theme, $name);
       $color: dt-get-theme-color($palette, 'default');
     }
@@ -22,5 +20,4 @@
       fill: $color;
     }
   }
-
 }

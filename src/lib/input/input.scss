@@ -49,9 +49,9 @@
   }
 
   // Removes the red outline in firefox
-  box-shadow:none;
+  box-shadow: none;
   &:-moz-placeholder,
-  &:focus { box-shadow:none !important; }
+  &:focus { box-shadow: none !important; }
 }
 
 textarea.dt-input {

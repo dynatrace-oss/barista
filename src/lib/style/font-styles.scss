@@ -21,9 +21,9 @@ h3 {
 }
 
 code {
-  @include code-font;
+  @include code-font();
 }
 
 label {
-  @include label-font;
+  @include label-font();
 }
