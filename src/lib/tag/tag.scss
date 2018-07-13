@@ -21,10 +21,8 @@ $remove-icon-size: 16px;
 }
 
 :host.dt-tag-removable {
-
   &:focus {
-    box-shadow:
-      0 0 0 2px $gray-300;
+    box-shadow: 0 0 0 2px $gray-300;
   }
 }
 

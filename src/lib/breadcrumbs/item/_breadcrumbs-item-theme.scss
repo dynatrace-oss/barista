@@ -8,7 +8,8 @@
 
   :host {
     .dt-breadcrumb-link {
-      &, &:visited {
+      &,
+      &:visited {
         background-color: $default-color;
 
         &::after {
@@ -35,10 +36,9 @@
 
     .dt-breadcrumb-non-clickable {
       $bg-color: get-color($theme-name, 500);
-      @if($bg-color) {
+      @if ($bg-color) {
         background-color: $bg-color;
-      }
-      @else {
+      } @else {
         // fallback if the color for the theme is not defined
         background-color: $default-color;
       }

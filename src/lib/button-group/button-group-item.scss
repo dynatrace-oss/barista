@@ -12,8 +12,7 @@
     0 $width 0 0 $color inset;
 }
 @mixin boxShadowFocus() {
-  box-shadow:
-    0 0 0 2px $gray-300;
+  box-shadow: 0 0 0 2px $gray-300;
 }
 @mixin boxShadowSelectedFocus($width, $color) {
   box-shadow:
@@ -41,8 +40,8 @@
   transition: box-shadow 0.1s;
 
   &:hover {
-    z-index:2;
-    position:relative;
+    z-index: 2;
+    position: relative;
   }
 
   &:first-child {

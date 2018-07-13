@@ -4,11 +4,11 @@
 @import './progress-bar-theme';
 
 :host {
-	display: flex;
-	align-items: stretch;
-	min-height: 8px;
-	background-color: $gray-200;
-	box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  min-height: 8px;
+  background-color: $gray-200;
+  box-sizing: border-box;
 }
 
 :host.dt-progress-bar-end {
@@ -16,7 +16,7 @@
 }
 
 .dt-progress-bar-progress {
-	transition: width ease-in-out 350ms;
+  transition: width ease-in-out 350ms;
 }
 
 @include dt-apply-theme() {

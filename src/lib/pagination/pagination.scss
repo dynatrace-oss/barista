@@ -11,17 +11,17 @@
   display: flex;
   align-items: center;
 
-  & .dt-pagination-arrow {
+  .dt-pagination-arrow {
     flex-shrink: 0;
   }
 
-  & .dt-pagination-arrow dt-icon {
+  .dt-pagination-arrow dt-icon {
     width: 20px;
     height: 20px;
     fill: $gray-300;
   }
 
-  & .dt-pagination-arrow:not(.dt-pagination-arrow-active) {
+  .dt-pagination-arrow:not(.dt-pagination-arrow-active) {
     pointer-events: none;
   }
 }
@@ -35,7 +35,7 @@
 
   display: flex;
 
-  & > * {
+  > * {
     /* TODO: eventually remove them after nested button improvements */
     min-width: 32px;
     padding: 0;
