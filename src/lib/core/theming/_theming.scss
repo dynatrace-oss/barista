@@ -10,7 +10,7 @@ $dt-current-theme: ();
 $dt-current-theme-name: ();
 
 @import './theming-core';
-@import './theme-definitions/_turquoise-theme';
-@import './theme-definitions/_blue-theme';
-@import './theme-definitions/_purple-theme';
-@import './theme-definitions/_royalblue-theme';
+@import './theme-definitions/turquoise-theme';
+@import './theme-definitions/blue-theme';
+@import './theme-definitions/purple-theme';
+@import './theme-definitions/royalblue-theme';

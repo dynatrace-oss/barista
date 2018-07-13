@@ -4,10 +4,11 @@
 :host {
   width: 100%;
   display: block;
-  position:relative;
+  position: relative;
   text-align: right;
   overflow: hidden;
 }
+
 .dt-key-value-list-item-key {
   @include label-font(28px);
   color: $gray-500;
@@ -15,10 +16,11 @@
   float: left;
   position: relative;
 }
+
 .dt-key-value-list-item-key::after {
   content: ' ';
-  position:absolute;
-  left:0;
+  position: absolute;
+  left: 0;
   bottom: 9px;
   width: 50000px;
   border-bottom: 1px dotted $gray-300;
@@ -27,7 +29,7 @@
 .dt-key-value-list-item-value {
   margin: 0;
   text-align: right;
-  display:inline;
+  display: inline;
   @include main-font(28px);
   padding-left: 24px;
   background-color: inherit;
@@ -36,7 +38,8 @@
   word-break: break-all;
 }
 
-.dt-key-value-list-item-value span, .dt-key-value-list-item-key span {
+.dt-key-value-list-item-value span,
+.dt-key-value-list-item-key span {
   background-color: white;
   z-index: 1;
   position: relative;

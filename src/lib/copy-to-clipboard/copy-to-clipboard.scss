@@ -12,7 +12,7 @@
     margin-right: 8px;
   }
 
-  ::ng-deep  .dt-copy-to-clipboard-successful.dt-input:not([disabled]) {
+  ::ng-deep .dt-copy-to-clipboard-successful.dt-input:not([disabled]) {
     border: 1px solid $green-500;
     box-shadow: none;
   }
@@ -25,7 +25,7 @@
   ::ng-deep button.dt-button.dt-copy-to-clipboard-successful:hover:not([disabled]) {
     background-color: $green-500;
     border: 1px solid $green-500;
-    box-shadow:none;
+    box-shadow: none;
   }
 }
 // Apply the button theme to all theme definitions
