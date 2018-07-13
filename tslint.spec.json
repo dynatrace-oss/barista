@@ -1,22 +1,6 @@
 {
   "extends": [
     "./tslint.json",
-    "./codelyzer.json"
-  ],
-  "rules": {
-    "ban": [
-      true,
-      ["fit"],
-      ["fdescribe"],
-      ["xit"],
-      ["xdescribe"],
-      {"name": "Object.assign", "message": "Use the spread operator instead."}
-    ],
-    "newline-per-chained-call": false,
-    "no-floating-promises": false,
-    "no-magic-numbers": false,
-    "no-use-before-declare": false,
-    "no-void-expression": false,
-    "no-empty": false
-  }
+    "@dynatrace/angular-lint-rules/tslint/spec"
+  ]
 }

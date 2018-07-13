@@ -14,9 +14,8 @@
       $namespace: ':host.dt-color-#{$name}';
     }
 
-    & #{$namespace} .dt-progress-circle-progress {
+    #{$namespace} .dt-progress-circle-progress {
       stroke: $default-color;
     }
-
   }
 }

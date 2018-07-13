@@ -14,9 +14,8 @@
       $namespace: ':host.dt-color-#{$name}';
     }
 
-    & #{$namespace} .dt-progress-bar-progress {
+    #{$namespace} .dt-progress-bar-progress {
       background-color: $default-color;
     }
-
   }
 }

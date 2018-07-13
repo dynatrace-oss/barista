@@ -6,11 +6,11 @@
   $namespace: ':host';
 
   @if ($is-dark == true) {
-    & #{$namespace}.dt-pagination .dt-pagination-numbers > * {
+    #{$namespace}.dt-pagination .dt-pagination-numbers > * {
       color: $gray-300;
     }
 
-    & #{$namespace}.dt-pagination .dt-pagination-numbers .dt-pagination-item-active {
+    #{$namespace}.dt-pagination .dt-pagination-numbers .dt-pagination-item-active {
       color: $gray-100;
     }
   }

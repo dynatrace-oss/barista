@@ -49,8 +49,8 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   /** Value of the radio button. */
   @Input()
-  get value():  T | null { return this._value; }
-  set value(newValue:  T | null) {
+  get value(): T | null { return this._value; }
+  set value(newValue: T | null) {
     if (this._value !== newValue) {
       this._value = newValue;
       this._updateSelectedRadioFromValue();

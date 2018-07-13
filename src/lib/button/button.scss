@@ -53,7 +53,7 @@
   // inner padding is applied when button receives active state.
   // This issue can only be fixed in IE11+
   // See: https://stackoverflow.com/questions/6744406/internet-explorer-buttonactive-inner-padding
-  & > span {
+  > span {
     position: relative;
   }
 
@@ -73,7 +73,8 @@
     background: $gray-100;
   }
 
-  sub, sup {
+  sub,
+  sup {
     // Zero out the line-height so that it doesn't
     // interfere with the positioning that follows
     line-height: 0;
