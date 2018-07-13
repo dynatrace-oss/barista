@@ -30,6 +30,8 @@ describe('DtInlineEditor', () => {
         TestApp,
         TestAppWithSuccessSave,
         TestAppWithFailureSave,
+        TestComponentWithRequiredValidation,
+        TestComponentWithWithCustomErrorStateMatcher,
       ],
       providers: [{
         provide: HttpXhrBackend,
@@ -120,6 +122,62 @@ describe('DtInlineEditor', () => {
       .toBe('content', 'Expected inner text to be changed');
   }));
 
+  it('should toggle aria-invalid accordingly if required state is set', fakeAsync(() => {
+    const fixture = TestBed.createComponent(TestComponentWithRequiredValidation);
+    fixture.detectChanges();
+
+    const instanceDebugElement = fixture.debugElement.query(By.directive(DtInlineEditor));
+    const instance = instanceDebugElement.injector.get<DtInlineEditor>(DtInlineEditor);
+
+    instance.enterEditing();
+    fixture.detectChanges();
+
+    const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
+
+    expect(inputElement.getAttribute('aria-required'))
+      .toBe('true', 'Expected aria-required to reflect required state');
+    expect(inputElement.getAttribute('aria-invalid'))
+      .toBe('false', 'Expected aria-invalid to be false');
+
+    inputElement.value = '';
+    dispatchFakeEvent(inputElement, 'input');
+    fixture.detectChanges();
+
+    expect(inputElement.getAttribute('aria-invalid'))
+      .toBe('true', 'Expected aria-invalid to be true');
+  }));
+
+  it('should displayerror message based on errorStateMatcher', fakeAsync(() => {
+    const fixture = TestBed.createComponent(TestComponentWithWithCustomErrorStateMatcher);
+    fixture.detectChanges();
+
+    const instanceDebugElement = fixture.debugElement.query(By.directive(DtInlineEditor));
+    const instance = instanceDebugElement.injector.get<DtInlineEditor>(DtInlineEditor);
+    const component = fixture.componentInstance;
+
+    instance.enterEditing();
+    fixture.detectChanges();
+
+    const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
+
+    expect(inputElement.getAttribute('aria-invalid'))
+      .toBe('false', 'Expected aria-invalid to be false');
+
+    expect(fixture.debugElement.nativeElement.querySelectorAll('dt-error').length)
+      .toBe(0, 'Expected zero error messages to have been rendered.');
+
+    component.errorState = true;
+    dispatchFakeEvent(inputElement, 'input');
+    fixture.detectChanges();
+
+    expect(inputElement.getAttribute('aria-invalid'))
+      .toBe('true', 'Expected aria-invalid to be true');
+
+    expect(fixture.debugElement.nativeElement.querySelectorAll('dt-error').length)
+      .toBe(1, 'Expected one error messages to have been rendered.');
+
+  }));
+
   it('should call save method and apply changes', fakeAsync(() => {
     const fixture = TestBed.createComponent(TestAppWithSuccessSave);
     fixture.detectChanges();
@@ -206,4 +264,25 @@ class TestAppWithFailureSave {
       observer.complete();
     });
   }
+}
+
+@Component({
+  template: `<em dt-inline-editor required [(ngModel)]="model"></em>`,
+})
+class TestComponentWithRequiredValidation {
+  model = 'content';
+}
+
+@Component({
+  template: `<em dt-inline-editor [errorStateMatcher]="customErrorStateMatcher" [(ngModel)]="model">
+                <ie-error>custom error message</ie-error>
+            </em>`,
+})
+class TestComponentWithWithCustomErrorStateMatcher {
+  model = 'content';
+  errorState = false;
+
+  customErrorStateMatcher = {
+    isErrorState: () => this.errorState,
+  };
 }
