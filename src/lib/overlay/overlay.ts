@@ -1,32 +1,21 @@
-import { Injectable, TemplateRef, ElementRef, Optional, Inject, isDevMode } from '@angular/core';
-import { DtScrollStrategyType, DtOverlayConfig } from './overlay-config';
-import { Overlay, OverlayRef, OverlayConfig, ConnectedPosition } from '@angular/cdk/overlay';
-import { ComponentPortal, ComponentType, TemplatePortal } from '@angular/cdk/portal';
+import { Injectable, TemplateRef, ElementRef, Optional, Inject, isDevMode, NgZone } from '@angular/core';
+import { DtOverlayConfig } from './overlay-config';
+import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
+import { ComponentPortal, ComponentType, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
 import { DOCUMENT } from '@angular/common';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
-import { FlexibleConnectedPositionStrategy, RepositionScrollStrategy, CloseScrollStrategy, BlockScrollStrategy } from '@angular/cdk/overlay';
+import { GlobalPositionStrategy, FlexibleConnectedPositionStrategy, RepositionScrollStrategy, CloseScrollStrategy, BlockScrollStrategy } from '@angular/cdk/overlay';
+import { ScrollDispatcher, ViewportRuler } from '@angular/cdk/scrolling';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtOverlayService');
-const DEFAULT_SCROLL_STRATEGY_TYPE: DtScrollStrategyType = DtScrollStrategyType.Close;
-
-const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [{
-  originX: 'center',
-  originY: 'bottom',
-  overlayX: 'start',
-  overlayY: 'top',
-}, {
-  originX: 'start',
-  originY: 'top',
-  overlayX: 'end',
-  overlayY: 'bottom',
-}]
 
 export const DEFAULT_DT_OVERLAY_CONFIG: DtOverlayConfig = {
-  enableClick: false,
+  enableClick: true,
   hasBackdrop: true,
+  enableMouseMove: true,
   backdropClass: ['cdk-overlay-transparent-backdrop', DT_OVERLAY_NO_POINTER_CLASS],
 };
 
@@ -50,47 +39,63 @@ export class DtOverlayService {
   constructor(
     private _overlay: Overlay,
     private _focusTrapFactory: FocusTrapFactory,
+    private _scrollDispatcher: ScrollDispatcher,
+    private _viewportRuler: ViewportRuler,
+    private _ngZone: NgZone,
     @Optional() @Inject(DOCUMENT) private _document: any
   ) {}
 
-  public create<T>(
-    origin: ElementRef,
-    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    c?: DtOverlayConfig,
-  ): DtOverlayRef {
+  public create<T>(origin: ElementRef, componentOrTemplateRef: ComponentType<T> | TemplateRef<T>, positionStrategyType: string, scrollPositionStrategyType: string, c?: DtOverlayConfig): DtOverlayRef {
 
-  const positions = c && c.positions || DEFAULT_DT_OVERLAY_POSITIONS;
-  const scrollStrategyType = c && c.scrollStrategyType || DEFAULT_SCROLL_STRATEGY_TYPE;
+    let positionStrategy: GlobalPositionStrategy | FlexibleConnectedPositionStrategy = this._overlay.position()
+          .flexibleConnectedTo(origin)
+          .withPositions([{
+            originX: 'center',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top',
+            offsetX: 5,
+            offsetY: 5
+          }, {
+            originX: 'end',
+            originY: 'center',
+            overlayX: 'start',
+            overlayY: 'top',
+            offsetX: 5,
+            offsetY: 5
+          }]);
 
-  let positionStrategy: FlexibleConnectedPositionStrategy = this._overlay.position()
-    .flexibleConnectedTo(origin)
-    .withPositions(positions);
+    console.log(c)
 
-  let scrollStrategy: CloseScrollStrategy | BlockScrollStrategy | RepositionScrollStrategy
-    = this._getStrategyType(scrollStrategyType);
+    if (positionStrategyType === 'global') {
+      positionStrategy = this._overlay.position()
+      .global()
+    }
 
-    const config = { ...DEFAULT_DT_OVERLAY_CONFIG, ...c, positionStrategy: positionStrategy, scrollStrategy: scrollStrategy };
+    let scrollPositionStrategy: RepositionScrollStrategy | BlockScrollStrategy | CloseScrollStrategy = this._overlay.scrollStrategies.close();
+
+    if(scrollPositionStrategyType === 'reposition') {
+      scrollPositionStrategy = this._overlay.scrollStrategies.reposition();
+    } else if (scrollPositionStrategyType === 'block') {
+      scrollPositionStrategy = this._overlay.scrollStrategies.block();
+    }
+
+    const config = { ...DEFAULT_DT_OVERLAY_CONFIG, positionStrategy: positionStrategy, scrollStrategy: scrollPositionStrategy, ...c };
 
     const overlayRef: OverlayRef = this._overlay.create(config as OverlayConfig);
     const overlayContainer = this._attachOverlayContainer(overlayRef);
     this._attachOverlayContent(componentOrTemplateRef, overlayContainer);
     this._overlayRef = new DtOverlayRef(overlayRef);
 
+    // console.log(overlayRef);
+   // this._overlay.scrollStrategies.close().enable();
+
+    //this._overlay.scrollStrategies.reposition().attach(overlayRef);
+
+    // console.log(scrollPositionStrategy)
+
+
     return this._overlayRef;
-  }
-
-  private _getStrategyType(scrollStrategyType: DtScrollStrategyType): CloseScrollStrategy | BlockScrollStrategy | RepositionScrollStrategy {
-    let scrollStrategy;
-
-    if(scrollStrategyType === DtScrollStrategyType.Close) {
-      scrollStrategy = this._overlay.scrollStrategies.close();
-    } else if (scrollStrategyType === DtScrollStrategyType.Reposition) {
-      scrollStrategy = this._overlay.scrollStrategies.reposition();
-    } else if (scrollStrategyType === DtScrollStrategyType.Block) {
-      scrollStrategy = this._overlay.scrollStrategies.block();
-    }
-
-    return scrollStrategy;
   }
 
   public close(): void {
@@ -98,25 +103,40 @@ export class DtOverlayService {
     if (ref) {
       ref.overlayRef.detach();
       ref.overlayRef.dispose();
+      // ref.focus();
       this._overlayRef = undefined;
       this.setFocus();
+      console.log('closing')
     }
   }
 
   public setFocus(): void {
+    console.log('setFocus')
     if (this._overlayRef) {
+      console.log('a')
       this._savePreviouslyFocusedElement();
     } else {
+      console.log('b')
       this._restoreFocus();
     }
   }
 
+  /** Focuses the context-dialog element. */
+  // focus(): void {
+  //   // this._overlayRef.nativeElement.focus();
+  //   if(this._overlayRef) {
+  //     this._overlayRef.overlayRef.overlayElement.focus();
+  //   }
+  // }
+
   /** Moves the focus inside the focus trap. */
   public trapFocus(): void {
-    const ref = this._overlayRef;
-    if (ref && !this._focusTrap) {
-      this._focusTrap = this._focusTrapFactory.create(ref.overlayRef.overlayElement);
-    } else if (ref && this._focusTrap) {
+    if (this._overlayRef && !this._focusTrap) {
+      // TODO: fix the duplicate overlayRef in the param train wreck
+      this._focusTrap = this._focusTrapFactory.create(this._overlayRef.overlayRef.overlayElement);
+      console.log('move focus on overlay')
+      focus();
+    } else if (this._overlayRef && this._focusTrap) {
       this._focusTrap.focusInitialElementWhenReady()
       .catch((error: Error) => {
         if (isDevMode()) {
@@ -129,6 +149,9 @@ export class DtOverlayService {
   /** Restores focus to the element that was focused before the overlay opened. */
   private _restoreFocus(): void {
     const toFocus = this._elementFocusedBeforeOverlayWasOpened;
+
+    console.log('restore focus to', toFocus)
+
     // We need the extra check, because IE can set the `activeElement` to null in some cases.
     // tslint:disable-next-line: strict-type-predicates no-unbound-method
     if (toFocus && typeof toFocus.focus === 'function') {
@@ -147,6 +170,7 @@ export class DtOverlayService {
   private _savePreviouslyFocusedElement(): void {
     if (this._document) {
       this._elementFocusedBeforeOverlayWasOpened = this._document.activeElement as HTMLElement;
+      console.log('save previously focused element', this._elementFocusedBeforeOverlayWasOpened)
     }
   }
 
