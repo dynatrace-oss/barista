@@ -45,51 +45,49 @@ export class DtOverlayService {
     @Optional() @Inject(DOCUMENT) private _document: any
   ) {}
 
-  public create<T>(origin: ElementRef, componentOrTemplateRef: ComponentType<T> | TemplateRef<T>, positionStrategyType: string, scrollPositionStrategyType: string, c?: DtOverlayConfig): DtOverlayRef {
+  create<T>(
+    origin: ElementRef,
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    scrollPositionStrategyType: string, c?: DtOverlayConfig
+  ): DtOverlayRef {
 
-    let positionStrategy: GlobalPositionStrategy | FlexibleConnectedPositionStrategy = this._overlay.position()
-          .flexibleConnectedTo(origin)
-          .withPositions([{
+    const positionStrategy: GlobalPositionStrategy | FlexibleConnectedPositionStrategy =
+      this._overlay.position()
+        .flexibleConnectedTo(origin)
+        .withPositions([
+          {
             originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top',
+          },
+          {
+            originX: 'end',
             originY: 'bottom',
             overlayX: 'start',
             overlayY: 'top',
           }]);
 
-    console.log(c)
+    let scrollPositionStrategy: RepositionScrollStrategy | BlockScrollStrategy | CloseScrollStrategy =
+      this._overlay.scrollStrategies.close();
 
-    // if (positionStrategyType === 'global') {
-    //   positionStrategy = this._overlay.position()
-    //   .global()
-    // }
-
-    let scrollPositionStrategy: RepositionScrollStrategy | BlockScrollStrategy | CloseScrollStrategy = this._overlay.scrollStrategies.close();
-
-    if(scrollPositionStrategyType === 'reposition') {
+    if (scrollPositionStrategyType === 'reposition') {
       scrollPositionStrategy = this._overlay.scrollStrategies.reposition();
     } else if (scrollPositionStrategyType === 'block') {
       scrollPositionStrategy = this._overlay.scrollStrategies.block();
     }
 
-    const config = { ...DEFAULT_DT_OVERLAY_CONFIG, positionStrategy: positionStrategy, scrollStrategy: scrollPositionStrategy, ...c };
+    const config = { ...DEFAULT_DT_OVERLAY_CONFIG, positionStrategy, scrollStrategy: scrollPositionStrategy, ...c };
 
     const overlayRef: OverlayRef = this._overlay.create(config as OverlayConfig);
     const overlayContainer = this._attachOverlayContainer(overlayRef);
     this._attachOverlayContent(componentOrTemplateRef, overlayContainer);
     this._overlayRef = new DtOverlayRef(overlayRef);
 
-    // console.log(overlayRef);
-   // this._overlay.scrollStrategies.close().enable();
-
-    //this._overlay.scrollStrategies.reposition().attach(overlayRef);
-
-    // console.log(scrollPositionStrategy)
-
-
     return this._overlayRef;
   }
 
-  public close(): void {
+  close(): void {
     const ref = this._overlayRef;
     if (ref) {
       ref.overlayRef.detach();
@@ -97,11 +95,11 @@ export class DtOverlayService {
       // ref.focus();
       this._overlayRef = undefined;
       this.setFocus();
-      console.log('closing')
+      console.log('closing');
     }
   }
 
-  public setFocus(): void {
+  setFocus(): void {
     console.log('setFocus')
     if (this._overlayRef) {
       console.log('a')
@@ -121,7 +119,7 @@ export class DtOverlayService {
   // }
 
   /** Moves the focus inside the focus trap. */
-  public trapFocus(): void {
+  trapFocus(): void {
     if (this._overlayRef && !this._focusTrap) {
       // TODO: fix the duplicate overlayRef in the param train wreck
       this._focusTrap = this._focusTrapFactory.create(this._overlayRef.overlayRef.overlayElement);
