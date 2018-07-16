@@ -45,7 +45,6 @@ export const _DtTabMixinBase = mixinDisabled(DtTabBase);
   selector: 'a[dt-tab], dt-tab',
   exportAs: 'dtTab',
   templateUrl: 'tab.html',
-  styleUrls: ['tab.scss'],
   inputs: ['disabled', 'color'],
   host: {
     class: 'dt-tab',

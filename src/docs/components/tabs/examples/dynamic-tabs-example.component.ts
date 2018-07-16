@@ -29,5 +29,5 @@ import { OriginalClassName } from '../../../core/decorators';
 })
 @OriginalClassName('DynamicTabsExampleComponent')
 export class DynamicTabsExampleComponent {
-  hasProblems: false;
+  hasProblems = false;
 }
