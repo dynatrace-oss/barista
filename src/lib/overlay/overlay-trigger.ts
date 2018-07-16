@@ -1,11 +1,11 @@
-import { Directive, Input, ElementRef, OnDestroy, TemplateRef, Renderer2, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Directive, Input, ElementRef, OnDestroy, TemplateRef, Renderer2, ViewChild, ChangeDetectorRef, DoCheck, NgZone } from '@angular/core';
 import { DtOverlayService, DEFAULT_DT_OVERLAY_CONFIG } from './overlay';
 import { DtOverlayConfig } from './overlay-config';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { filter } from 'rxjs/operators';
 import { DtOverlayRef } from './overlay-ref';
-import { GlobalPositionStrategy } from '@angular/cdk/overlay';
+// import { GlobalPositionStrategy } from '@angular/cdk/overlay';
 
 // '(mousemove)': '_handleMouseMove($event)',
 // '(mousemove)': '_handleMouseMove($event)',
@@ -16,14 +16,14 @@ import { GlobalPositionStrategy } from '@angular/cdk/overlay';
   host: {
     '(mouseenter)': '_handleMouseEnter($event)',
     '(mouseleave)': '_handleMouseLeave()',
-    '(mousemove)': '_handleMouseMove($event)',
+    // '(mousemove)': '_handleMouseMove($event)',
     '(click)': '_handleClick()',
   },
-  providers: [
-    GlobalPositionStrategy,
-  ]
+  // providers: [
+  //   GlobalPositionStrategy,
+  // ]
 })
-export class DtOverlayTrigger<T> {
+export class DtOverlayTrigger<T> implements DoCheck {
 
   private _content: TemplateRef<T>;
   private _config: DtOverlayConfig = DEFAULT_DT_OVERLAY_CONFIG;
@@ -46,26 +46,23 @@ export class DtOverlayTrigger<T> {
   constructor(
     protected dtOverlayService: DtOverlayService,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _globalPositionStrategy: GlobalPositionStrategy,
-    public elementRef: ElementRef) {
+    private _ngZone: NgZone,
+    public elementRef: ElementRef
+  ) {
+  }
+
+  ngDoCheck(): void {
+    console.log('change detection triggered');
   }
 
   _handleMouseEnter(event: MouseEvent): void {
-    // if (this.dtOverlayConfig.enableMouseMove) {
-      this._config.posX = event.pageX;
-      this._config.posY = event.pageY;
 
-      //TODO: add the strings global, block etc to the dtOvelrayConfig
-
-      this.dtOverlayService.create<T>(this.elementRef, this._content, 'global', '', this.dtOverlayConfig);
-      // this._globalPositionStrategy.dispose();
-
-      console.log(this.dtOverlayService.overlayRef)
-
-      this._changeDetectorRef.markForCheck();
-
-    // }
-    console.log('mouse enter')
+    this.dtOverlayService.create<T>(this.elementRef, this._content, 'global', '', this.dtOverlayConfig);
+    if (this.dtOverlayConfig.enableMouseMove) {
+      this._ngZone.runOutsideAngular(() => {
+        this.elementRef.nativeElement.addEventListener('mousemove', this._handleMouseMove.bind(this));
+      });
+    }
   }
 
   _handleMouseLeave(): void {
@@ -73,45 +70,31 @@ export class DtOverlayTrigger<T> {
     if (this.dtOverlayConfig.enableMouseMove && ref && !ref.pinned) {
       this.dtOverlayService.close();
     }
-    console.log('mouse leave')
+    this.elementRef.nativeElement.removeEventListener('mousemove', this._handleMouseMove);
   }
 
   // using "HTMLElement" type as MouseEvent interface doesn't have the target property
   _handleMouseMove(event: MouseEvent): void {
-    console.log('mouse move')
-    // const offsetWidth = this.elementRef.nativeElement.offsetWidth;
-    // const triggerWidth = Math.floor(offsetWidth / 2);
+    console.log('mouse move', event);
 
-    console.log(event.pageX, event.pageY);
+    if (this.dtOverlayService.overlayRef) {
 
-    this._globalPositionStrategy.left((10 + event.pageX).toString() + 'px');
-    this._globalPositionStrategy.top((10 + event.pageY).toString() + 'px');
-
-    if(this.dtOverlayService.overlayRef) {
-      this._globalPositionStrategy.dispose();
-      this._globalPositionStrategy.attach(this.dtOverlayService.overlayRef.overlayRef);
-      this.dtOverlayService.overlayRef.overlayRef.updatePosition();
-      this._globalPositionStrategy.apply();
-      // console.log(this.dtOverlayService.overlayRef.overlayRef)
+      this.dtOverlayService.overlayRef.overlayRef.overlayElement.style.transform =
+        `translate(${event.offsetX}px, ${event.offsetY}px)`;
     }
-
-    // this.dtOverlayService.overlayRef.overlayRef.updatePosition()
-
-    // this._overlayPane.offsetX = -(triggerWidth - event.offsetX) + 10;
-    // this._overlayPane.overlayRef.updatePosition();
-    this._changeDetectorRef.markForCheck();
-    // this._changeDetectorRef.detectChanges();
   }
 
   _handleClick(): void {
-    console.log('handle click')
+    console.log('handle click');
     if (this.dtOverlayConfig.enableClick) {
       // const dtOverlayRef: DtOverlayRef = this.dtOverlayService.overlayRef === undefined ?
-        // this.dtOverlayService.create<T>(this.elementRef, this._content, 'flexible', 'reposition', this.dtOverlayConfig) : this.dtOverlayService.overlayRef;
+      // this.dtOverlayService.create<T>(
+      //  this.elementRef, this._content, 'flexible', 'reposition', this.dtOverlayConfig) : this.dtOverlayService.overlayRef;
 
         this.dtOverlayService.close();
 
-        const dtOverlayRef: DtOverlayRef = this.dtOverlayService.create<T>(this.elementRef, this._content, 'flexible', 'close', this.dtOverlayConfig)
+        const dtOverlayRef: DtOverlayRef = this.dtOverlayService.create<T>(
+          this.elementRef, this._content, 'flexible', 'close', this.dtOverlayConfig);
 
         dtOverlayRef.overlayRef.backdropClick().subscribe(() => {
           this.dtOverlayService.close();
@@ -119,9 +102,9 @@ export class DtOverlayTrigger<T> {
         });
 
         dtOverlayRef.overlayRef.keydownEvents()
-          .pipe(filter(event => event.keyCode === ESCAPE && dtOverlayRef.pinned))
+          .pipe(filter((event) => event.keyCode === ESCAPE && dtOverlayRef.pinned))
           .subscribe(() => {
-            this.dtOverlayService.close()
+            this.dtOverlayService.close();
           });
 
         this.dtOverlayService.trapFocus();
