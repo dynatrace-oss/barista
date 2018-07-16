@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -71,7 +72,9 @@ export class DtExpandableRow extends CdkRow {
   }
 
   // tslint:disable-next-line:no-any
-  constructor(private _expandableTable: DtTable<any>, private _renderer2: Renderer2) {
+  constructor(private _expandableTable: DtTable<any>,
+              private _renderer2: Renderer2,
+              private _cdr: ChangeDetectorRef) {
     super();
   }
 
@@ -108,6 +111,7 @@ export class DtExpandableRow extends CdkRow {
     this._setExpandableCell(expanded);
     this._expandableTable.expandedRow = expanded ? this : undefined;
     this.openedChange.emit(this);
+    this._cdr.markForCheck();
   }
 
   /** Sets the style of the expandable cell. Somehow a hack, a better solution would be appreciated. */
