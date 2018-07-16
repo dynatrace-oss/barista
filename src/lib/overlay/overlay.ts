@@ -12,18 +12,20 @@ import { Platform } from '@angular/cdk/platform';
 const LOG: DtLogger = DtLoggerFactory.create('DtOverlayService');
 const DEFAULT_SCROLL_STRATEGY_TYPE: DtScrollStrategyType = DtScrollStrategyType.Close;
 
-const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [{
-  originX: 'start',
-  originY: 'bottom',
-  overlayX: 'start',
-  overlayY: 'top',
-},
-{
-  originX: 'end',
-  originY: 'bottom',
-  overlayX: 'start',
-  overlayY: 'top',
-}]
+const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
+  {
+    originX: 'start',
+    originY: 'bottom',
+    overlayX: 'start',
+    overlayY: 'top',
+  },
+  {
+    originX: 'end',
+    originY: 'bottom',
+    overlayX: 'start',
+    overlayY: 'top',
+  },
+];
 
 const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
@@ -101,18 +103,25 @@ export class DtOverlay {
     return this._dtOverlayRef;
   }
 
-  private _getStrategyType(scrollStrategyType: DtScrollStrategyType): CloseScrollStrategy | BlockScrollStrategy | RepositionScrollStrategy {
-    let scrollStrategy;
+  private _getStrategyType(scrollStrategyType: DtScrollStrategyType)
+    : CloseScrollStrategy | BlockScrollStrategy | RepositionScrollStrategy {
 
-    if(scrollStrategyType === DtScrollStrategyType.Close) {
-      scrollStrategy = this._overlay.scrollStrategies.close();
-    } else if (scrollStrategyType === DtScrollStrategyType.Reposition) {
-      scrollStrategy = this._overlay.scrollStrategies.reposition();
-    } else if (scrollStrategyType === DtScrollStrategyType.Block) {
-      scrollStrategy = this._overlay.scrollStrategies.block();
-    }
+      let scrollStrategy;
 
-    return scrollStrategy;
+      switch (scrollStrategyType) {
+        case DtScrollStrategyType.Reposition:
+          scrollStrategy = this._overlay.scrollStrategies.reposition();
+          break;
+
+        case DtScrollStrategyType.Block:
+          scrollStrategy = this._overlay.scrollStrategies.block();
+          break;
+
+        default:
+          scrollStrategy = this._overlay.scrollStrategies.close();
+      }
+
+      return scrollStrategy;
   }
 
   close(): void {
