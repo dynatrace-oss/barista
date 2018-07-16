@@ -13,7 +13,14 @@ import {
   forwardRef,
 } from '@angular/core';
 import { DtTab, DtTabChange } from './tab';
-import { mixinColor, mixinDisabled, DtLoggerFactory, DtLogger } from '@dynatrace/angular-components/core';
+import {
+  mixinColor,
+  mixinDisabled,
+  DtLoggerFactory,
+  DtLogger,
+  CanDisable,
+  CanColor,
+} from '@dynatrace/angular-components/core';
 import { Subscription, merge } from 'rxjs';
 
 export const DT_TABGROUP_SINGLE_TAB_ERROR = 'Only one single tab is not allowed inside a tabgroup';
@@ -44,7 +51,7 @@ let nextId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit, OnDestroy {
+export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit, OnDestroy, CanColor, CanDisable {
   // tslint:disable-next-line:no-forward-ref
   @ContentChildren(forwardRef(() => DtTab)) _tabs: QueryList<DtTab>;
 
