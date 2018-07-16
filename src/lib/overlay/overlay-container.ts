@@ -1,9 +1,8 @@
 import {
-  Component,
+  Attribute,
   ChangeDetectionStrategy,
   ViewEncapsulation,
   ComponentRef,
-  ViewChild,
   EmbeddedViewRef,
   Attribute,
   ElementRef,
