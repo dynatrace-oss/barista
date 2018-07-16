@@ -7,6 +7,7 @@ import { DtThemingModule } from '../theming/index';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayTrigger } from './overlay-trigger';
 import { PortalModule } from '@angular/cdk/portal';
+// import { RepositionScrollStrategy, CloseScrollStrategy, BlockScrollStrategy } from '@angular/cdk/overlay';
 
 const EXPORTED_DECLARATIONS = [
   DtOverlayContainer,
@@ -21,6 +22,11 @@ const EXPORTED_DECLARATIONS = [
     OverlayModule,
     PortalModule,
     A11yModule,
+  ],
+  providers: [
+    // RepositionScrollStrategy,
+    // CloseScrollStrategy,
+    // BlockScrollStrategy,
   ],
   exports: [
     ...EXPORTED_DECLARATIONS,

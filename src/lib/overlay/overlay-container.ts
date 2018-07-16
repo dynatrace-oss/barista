@@ -1,14 +1,19 @@
+import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { CdkConnectedOverlay, ConnectionPositionPair, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
   Component,
   ChangeDetectionStrategy,
+  isDevMode,
   ViewEncapsulation,
   ComponentRef,
   ViewChild,
   EmbeddedViewRef,
+  ElementRef,
   Attribute,
   Output,
   EventEmitter,
 } from '@angular/core';
+import { DtOverlayService } from './overlay';
 import {
   HasTabIndex,
   DtLogger,
@@ -17,13 +22,14 @@ import {
   mixinDisabled,
 } from '../core/index';
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
+import { debounceTime, filter, map, switchMap, switchMapTo, startWith, takeUntil } from 'rxjs/operators';
 
 // Logger
 const LOG: DtLogger = DtLoggerFactory.create('Overlay');
 
 // Boilerplate for applying mixins to DtOverlay.
 
-class BasePortal extends BasePortalOutlet {
+class X extends BasePortalOutlet {
   attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
     return {} as ComponentRef<T>;
   }
@@ -33,7 +39,7 @@ class BasePortal extends BasePortalOutlet {
   }
 }
 
-export const _DtOverlayMixinBase = mixinTabIndex(mixinDisabled(BasePortal));
+export const _DtOverlayMixinBase = mixinTabIndex(mixinDisabled(X));
 
 @Component({
   moduleId: module.id,
