@@ -10,6 +10,20 @@ import { MouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { Platform } from '@angular/cdk/platform';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtOverlayService');
+const DEFAULT_SCROLL_STRATEGY_TYPE: DtScrollStrategyType = DtScrollStrategyType.Close;
+
+const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [{
+  originX: 'start',
+  originY: 'bottom',
+  overlayX: 'start',
+  overlayY: 'top',
+},
+{
+  originX: 'end',
+  originY: 'bottom',
+  overlayX: 'start',
+  overlayY: 'top',
+}]
 
 const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
@@ -85,6 +99,20 @@ export class DtOverlay {
     this._dtOverlayRef = dtOverlayRef;
 
     return this._dtOverlayRef;
+  }
+
+  private _getStrategyType(scrollStrategyType: DtScrollStrategyType): CloseScrollStrategy | BlockScrollStrategy | RepositionScrollStrategy {
+    let scrollStrategy;
+
+    if(scrollStrategyType === DtScrollStrategyType.Close) {
+      scrollStrategy = this._overlay.scrollStrategies.close();
+    } else if (scrollStrategyType === DtScrollStrategyType.Reposition) {
+      scrollStrategy = this._overlay.scrollStrategies.reposition();
+    } else if (scrollStrategyType === DtScrollStrategyType.Block) {
+      scrollStrategy = this._overlay.scrollStrategies.block();
+    }
+
+    return scrollStrategy;
   }
 
   close(): void {

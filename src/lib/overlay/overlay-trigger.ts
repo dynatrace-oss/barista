@@ -32,6 +32,9 @@ export class DtOverlayTrigger<T> {
     this._config = value;
   }
 
+  /** Event emitted when the select has been opened. */
+  @Output() readonly overlayOpened: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(
     public elementRef: ElementRef,
     protected dtOverlayService: DtOverlay,
