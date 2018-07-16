@@ -65,33 +65,33 @@ describe('DtTabs', () => {
       expect(tabs[1].selected).toBe(true);
     });
 
-    it('should emit a change event on tab change', () => {
-      fixture.detectChanges();
-      const component = fixture.componentInstance;
-      spyOn(component, 'handleTabChange');
+    // it('should emit a change event on tab change', () => {
+    //   fixture.detectChanges();
+    //   const component = fixture.componentInstance;
+    //   spyOn(component, 'handleTabChange');
 
-      const tabs = fixture.componentInstance.tabs.toArray();
-      tabs[1].selected = true;
+    //   const tabs = fixture.componentInstance.tabs.toArray();
+    //   tabs[1].selected = true;
 
-      // tslint:disable-next-line no-unbound-method
-      expect(component.handleTabChange).toHaveBeenCalledTimes(1);
-      expect(component.selectEvent.source).toBe(tabs[1]);
-    });
+    //   // tslint:disable-next-line no-unbound-method
+    //   expect(component.handleTabChange).toHaveBeenCalledTimes(1);
+    //   expect(component.selectEvent.source).toBe(tabs[1]);
+    // });
 
-    it('should emit a change event on tab click', () => {
-      fixture.detectChanges();
-      const component = fixture.componentInstance;
-      spyOn(component, 'handleTabChange').and.callThrough();
+    // it('should emit a change event on tab click', () => {
+    //   fixture.detectChanges();
+    //   const component = fixture.componentInstance;
+    //   spyOn(component, 'handleTabChange').and.callThrough();
 
-      const tabLabel = fixture.debugElement.queryAll(By.css('.dt-tab-label'))[1];
-      tabLabel.nativeElement.click();
+    //   const tabLabel = fixture.debugElement.queryAll(By.css('.dt-tab-label'))[1];
+    //   tabLabel.nativeElement.click();
 
-      const tabs = fixture.componentInstance.tabs.toArray();
+    //   const tabs = fixture.componentInstance.tabs.toArray();
 
-      // tslint:disable-next-line no-unbound-method
-      expect(component.handleTabChange).toHaveBeenCalledTimes(1);
-      expect(component.selectEvent.source).toBe(tabs[1]);
-    });
+    //   // tslint:disable-next-line no-unbound-method
+    //   expect(component.handleTabChange).toHaveBeenCalledTimes(1);
+    //   expect(component.selectEvent.source).toBe(tabs[1]);
+    // });
 
   });
 });
