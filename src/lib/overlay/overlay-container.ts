@@ -9,15 +9,10 @@ import {
 } from '@angular/core';
 import {
   HasTabIndex,
-  DtLogger,
-  DtLoggerFactory,
   mixinTabIndex,
   mixinDisabled,
 } from '@dynatrace/angular-components/core';
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-
-// Logger
-const LOG: DtLogger = DtLoggerFactory.create('Overlay');
 
 // Boilerplate for applying mixins to DtOverlay.
 
