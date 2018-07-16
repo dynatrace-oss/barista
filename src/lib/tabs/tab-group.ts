@@ -7,7 +7,6 @@ import {
   Output,
   EventEmitter,
   AfterContentInit,
-  Input,
   ElementRef,
   ChangeDetectorRef,
   OnDestroy,
@@ -55,8 +54,6 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
   /** Subscription to the state of a tab */
   private _tabStateSubscription = Subscription.EMPTY;
 
-  get selected(): DtTab | null { return this._selected; }
-  
   _selected: DtTab | null = null;
   /** internal only - used to notify only the tabs in the same tab-group */
   _groupId = `dt-tab-group-${++nextId}`;
@@ -99,11 +96,11 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
   }
 
   /** Sets the selected tab if necessary */
-  private _setSelectedTab(): void {
-    if (this._selected && !this._selected.selected) {
-      this._selected.selected = true;
-    }
-  }
+  // private _setSelectedTab(): void {
+  //   if (this._selected && !this._selected.selected) {
+  //     this._selected.selected = true;
+  //   }
+  // }
 
   /**
    * Subscribes to state changes of all tabs
@@ -112,7 +109,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
    */
   private _subscribeToTabStateChanges(): void {
     if (this._tabStateSubscription) { this._tabStateSubscription.unsubscribe(); }
-    this._tabStateSubscription = merge(...this._tabs.map((tab) => tab.stateChanges))
+    this._tabStateSubscription = merge(...this._tabs.map((tab) => tab._stateChanges))
     .subscribe(() => {
       /** check if the selected tab is disabled now */
       if (this._selected && this._selected.disabled) {
