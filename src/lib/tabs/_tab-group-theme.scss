@@ -15,19 +15,18 @@
     }
 
     @if $name != 'main' {
-      & #{$namespace}.dt-tab-label {
+      #{$namespace}.dt-tab-label {
         color: $default-color;
       }
     }
 
-    & #{$namespace}.dt-tab-label::after {
+    #{$namespace}.dt-tab-label::after {
       background-color: $default-color;
     }
 
-    & #{$namespace}.dt-tab-label-active {
+    #{$namespace}.dt-tab-label-active {
       background-color: $default-color;
       color: #fff;
     }
-
   }
 }
