@@ -50,27 +50,18 @@ export class DtOverlayService {
     let positionStrategy: GlobalPositionStrategy | FlexibleConnectedPositionStrategy = this._overlay.position()
           .flexibleConnectedTo(origin)
           .withPositions([{
-            originX: 'center',
+            originX: 'start',
             originY: 'bottom',
             overlayX: 'start',
             overlayY: 'top',
-            offsetX: 5,
-            offsetY: 5
-          }, {
-            originX: 'end',
-            originY: 'center',
-            overlayX: 'start',
-            overlayY: 'top',
-            offsetX: 5,
-            offsetY: 5
           }]);
 
     console.log(c)
 
-    if (positionStrategyType === 'global') {
-      positionStrategy = this._overlay.position()
-      .global()
-    }
+    // if (positionStrategyType === 'global') {
+    //   positionStrategy = this._overlay.position()
+    //   .global()
+    // }
 
     let scrollPositionStrategy: RepositionScrollStrategy | BlockScrollStrategy | CloseScrollStrategy = this._overlay.scrollStrategies.close();
 
