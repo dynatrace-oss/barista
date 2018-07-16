@@ -121,7 +121,7 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     this._stateChanges.next();
   }
 
-  /** Stream that emits whenever an input of a tab changes */
+  /** Internal stream that emits whenever an input of a tab changes */
   readonly _stateChanges = new Subject<void>();
 
   /** Portal that will be the hosted content of the tab */
