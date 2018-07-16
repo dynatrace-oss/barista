@@ -156,7 +156,7 @@ export class DtButton extends _DtButtonMixinBase implements OnDestroy, AfterCont
   inputs: ['disabled', 'color'],
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
