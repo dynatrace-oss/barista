@@ -96,7 +96,7 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     if (this._selected !== newSelectedState) {
       this._selected = newSelectedState;
 
-      if (newSelectedState && this._tabGroup && this._tabGroup.selected !== this) {
+      if (newSelectedState && this._tabGroup && this._tabGroup._selected !== this) {
         this._tabGroup._selected = this;
       }
 
@@ -162,7 +162,7 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     this._contentPortal = new TemplatePortal(
       this._lazyContentRef || this._eagerContentRef, this._viewContainerRef);
     if (this._tabGroup) {
-      this.selected = this._tabGroup.selected === this;
+      this.selected = this._tabGroup._selected === this;
     }
   }
 
@@ -171,7 +171,7 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   }
 
   _handleClick(): void {
-    const groupSelectionChanged = this._tabGroup && this !== this._tabGroup.selected;
+    const groupSelectionChanged = this._tabGroup && this !== this._tabGroup._selected;
     this.selected = true;
 
     if (this._tabGroup && groupSelectionChanged) {
