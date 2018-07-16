@@ -73,6 +73,7 @@ describe('DtTabs', () => {
       const tabs = fixture.componentInstance.tabs.toArray();
       tabs[1].selected = true;
 
+      // tslint:disable-next-line no-unbound-method
       expect(component.handleTabChange).toHaveBeenCalledTimes(1);
       expect(component.selectEvent.source).toBe(tabs[1]);
     });
@@ -87,6 +88,7 @@ describe('DtTabs', () => {
 
       const tabs = fixture.componentInstance.tabs.toArray();
 
+      // tslint:disable-next-line no-unbound-method
       expect(component.handleTabChange).toHaveBeenCalledTimes(1);
       expect(component.selectEvent.source).toBe(tabs[1]);
     });
