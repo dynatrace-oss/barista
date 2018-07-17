@@ -17,7 +17,16 @@
   flex: 1 1 100px;
   vertical-align: middle;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   position: relative;
+  margin-right: 4px;
+  cursor: pointer;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
 
   &::after {
     content: ' ';
@@ -33,7 +42,10 @@
     height: 4px;
   }
 
-  /** disabled */
+  /** disabled
+  this needs the double selector because the themes ::after is more specific
+  otherwise we would need to ship the disabled style thats equal in every theme with the theme selector
+  */
   &[disabled][disabled] {
     color: $gray-300;
     background-color: transparent;

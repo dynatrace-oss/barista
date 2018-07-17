@@ -74,14 +74,13 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
 
   ngAfterContentInit(): void {
     /** subscribe to initial tab state changes */
+    this._validateTabs();
     this._subscribeToTabStateChanges();
     this._selectFirstEnabledTab();
     // Subscribe to changes in the amount of tabs, in order to be
     // able to re-render the content as new tabs are added or removed.
     this._tabsSubscription = this._tabs.changes.subscribe(() => {
-      if (this._tabs.length <= 1) {
-        LOG.error(DT_TABGROUP_SINGLE_TAB_ERROR);
-      }
+      this._validateTabs();
       // if selected tab got removed - select the first enabled again
       if (!this._tabs.find((tab) => tab === this._selected)) {
         this._selectFirstEnabledTab();
@@ -102,12 +101,10 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
     this.change.emit({ source: this._selected! });
   }
 
-  /** Sets the selected tab if necessary */
-  // private _setSelectedTab(): void {
-  //   if (this._selected && !this._selected.selected) {
-  //     this._selected.selected = true;
-  //   }
-  // }
+  /** Returns a unique id for each tab content element */
+  _getTabContentId(i: number): string {
+    return `dt-tab-content-${this._groupId}-${i}`;
+  }
 
   /**
    * Subscribes to state changes of all tabs
@@ -152,5 +149,12 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
       }
       return false;
     });
+  }
+
+  /** Check that more than one tab is available */
+  private _validateTabs(): void {
+    if (this._tabs.length <= 1) {
+      LOG.error(DT_TABGROUP_SINGLE_TAB_ERROR);
+    }
   }
 }
