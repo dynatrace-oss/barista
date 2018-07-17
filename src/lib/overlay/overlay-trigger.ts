@@ -56,9 +56,9 @@ export class DtOverlayTrigger<T> {
     event.stopPropagation();
     this._moveSub.unsubscribe();
 
-    const ref = this.dtOverlayService.overlayRef;
+    const ref = this._dtOverlayService.overlayRef;
     if (ref && !ref.pinned) {
-      this.dtOverlayService.close();
+      this._dtOverlayService.close();
     }
   }
 
