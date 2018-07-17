@@ -71,7 +71,7 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   get id(): string { return this._id; }
   set id(value: string) {
     this._id = value || this._uniqueId;
-    this._stateChanges.next();
+    this._addListenerForUniqueSelection();
   }
 
   /** Wether the tab is disabed */
@@ -97,9 +97,6 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
 
       if (newSelectedState && this._tabGroup && this._tabGroup._selected !== this) {
         this._tabGroup._selected = this;
-      }
-
-      if (newSelectedState) {
         // Notify all other tabs to un-check in the same group
         this._tabDispatcher.notify(this.id, this._tabGroup._groupId);
         this._tabGroup._emitChangeEvent();
@@ -149,12 +146,6 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     super(elementRef);
     // Force setter to be called in case id was not specified.
     this.id = this.id;
-
-    this._removeUniqueSelectionListener = _tabDispatcher.listen((id: string, groupid: string) => {
-      if (id !== this._uniqueId && this._tabGroup._groupId === groupid) {
-        this.selected = false;
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -170,11 +161,14 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   }
 
   _handleClick(): void {
-    const groupSelectionChanged = this._tabGroup && this !== this._tabGroup._selected;
     this.selected = true;
+  }
 
-    if (this._tabGroup && groupSelectionChanged) {
-      this._tabGroup._emitChangeEvent();
-    }
+  _addListenerForUniqueSelection(): void {
+    this._removeUniqueSelectionListener = this._tabDispatcher.listen((id: string, groupid: string) => {
+      if (id !== this._id && this._tabGroup._groupId === groupid && this.selected) {
+        this.selected = false;
+      }
+    });
   }
 }
