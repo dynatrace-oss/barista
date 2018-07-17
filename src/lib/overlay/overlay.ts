@@ -77,6 +77,7 @@ export class DtOverlay {
   }
 
   constructor(
+    protected _mouseStrategy: MouseFollowPositionStrategy,
     private _overlay: Overlay,
     private _viewportRuler: ViewportRuler,
     @Inject(DOCUMENT) private _document: any,
@@ -165,5 +166,9 @@ export class DtOverlay {
       new TemplatePortal<T>(templateRef, null!));
 
     return dtOverlayRef;
+  }
+
+  private _attachMouseStrategy(overlayRef: OverlayRef): void {
+    this._mouseStrategy.attach(overlayRef);
   }
 }
