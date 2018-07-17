@@ -23,12 +23,12 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     return document.documentElement.clientWidth;
   }
 
-  private _setPosition(el, offsetX): void {
+  private _setPosition(el: HTMLElement, offsetX: number): void {
     el.style.transform =
       `translate(${offsetX}px, 0)`;
   }
 
-  private _hasRemainingSpace (pageX, boundingBox): number {
+  private _hasRemainingSpace(pageX: number, boundingBox: ClientRect): number {
     // check if overlay fits to the right
     // TODO: check the position and add offsets if needed - e.g. originX is set to center substract half the width of the trigger
     const viewportWidth = this._getViewportWidth();
@@ -39,7 +39,8 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
 
   attach(overlayRef: OverlayRef): void {
     this._overlayRef = overlayRef;
-    this._boundingBox = overlayRef.overlayElement.getBoundingClientRect();
+    this._pane = overlayRef.overlayElement;
+    this._boundingBox = this._pane.getBoundingClientRect();
   }
 
   apply(): void {
@@ -58,7 +59,7 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     if (this._overlayRef && this._boundingBox) {
 
       if (this._hasRemainingSpace(event.pageX, this._boundingBox) > 0) {
-        this._setPosition(this._overlayRef.overlayElement, event.offsetX);
+        this._setPosition(this._pane, event.offsetX);
       }
 
       LOG.debug('mouse move', event);
