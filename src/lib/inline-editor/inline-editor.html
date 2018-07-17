@@ -8,12 +8,10 @@
 <dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
 <dt-form-field *ngIf="editing || saving">
-  <input dtInput #input [required]="required" [disabled]="saving" [(ngModel)]="value" 
-  [errorStateMatcher]="errorStateMatcher" class="dt-form-field-input" />
+  <input dtInput #input [required]="required" [disabled]="saving" [(ngModel)]="value"
+    [errorStateMatcher]="errorStateMatcher" class="dt-form-field-input" />
 
-  <dt-error>
-      <ng-content select="ie-error"></ng-content>
-  </dt-error>
+  <dt-error *ngFor="let error of _errorChildrenSource | async" [id]="error.id">{{error.message}}</dt-error>
 
   <button dt-icon-button dtSuffix variant="nested" aria-label="save" (click)="saveAndQuitEditing()" >
     <dt-icon name="checkmark"></dt-icon>
