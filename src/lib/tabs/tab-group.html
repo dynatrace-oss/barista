@@ -1,19 +1,24 @@
 <div class="dt-tab-header-wrapper">
   <button class="dt-tab-label" role="tab" *ngFor="let tab of _tabs; let i = index"
+    [id]="tab.id"
     [class.dt-tab-label-active]="tab.selected"
-    (click)="tab._handleClick()"
     [disabled]="tab.disabled"
     dtColor
     [color]="tab.color"
-    [id]="tab.id">
+    [attr.aria-posinset]="i + 1"
+    [attr.aria-setsize]="_tabs.length"
+    [attr.aria-controls]="_getTabContentId(i)"
+    [attr.aria-selected]="tab.selected"
+    [attr.aria-label]="tab.ariaLabel || null"
+    [attr.aria-labelledby]="(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null"
+    (click)="tab._handleClick()">
     <ng-template [cdkPortalOutlet]="tab.label"></ng-template>
   </button>
 </div>
 <div class="dt-tab-body-wrapper">
-  <div role="tabpanel" *ngFor="let tab of _tabs; let i = index">
-    <dt-tab-body
-      [content]="tab._content"
-      [active]="tab.selected">
-    </dt-tab-body>
-  </div>
+  <dt-tab-body role="tabpanel" *ngFor="let tab of _tabs; let i = index"
+    [id]="_getTabContentId(i)"
+    [content]="tab._content"
+    [active]="tab.selected">
+  </dt-tab-body>
 </div>
