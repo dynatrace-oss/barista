@@ -275,7 +275,7 @@ class TestComponentWithRequiredValidation {
 
 @Component({
   template: `<em dt-inline-editor [errorStateMatcher]="customErrorStateMatcher" [(ngModel)]="model">
-                <ie-error>custom error message</ie-error>
+                <dt-error>custom error message</dt-error>
             </em>`,
 })
 class TestComponentWithWithCustomErrorStateMatcher {
