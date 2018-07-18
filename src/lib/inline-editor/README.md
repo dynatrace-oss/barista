@@ -42,7 +42,7 @@ To apply, add the `dt-inline-editor` attribute to the HTML element.
 
 <docs-source-example example="RequiredInlineEditorExample"></docs-source-example>
 
-Error messages can be shown under the form field by adding `<ie-error>` elements inside the inline editor.
+Error messages can be shown under the form field by adding `<dt-error>` elements inside the inline editor.
 Errors are hidden initially and will be displayed on invalid form fields, after the user has interacted with the element or the parent form has been submitted.
 The errors will appear on top of the hint labels and will overlap them.
 
