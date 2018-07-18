@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, ElementRef } from '@angular/core';
 
 let nextUniqueId = 0;
 
@@ -13,4 +13,14 @@ let nextUniqueId = 0;
 })
 export class DtError {
   @Input() id = `dt-error-${nextUniqueId++}`;
+
+  constructor(private _elementRef: ElementRef) { }
+
+  /**
+   * Exposing message here so other components,
+   * like inline-editor can access and clone it
+   */
+  get message(): string {
+    return this._elementRef.nativeElement.textContent;
+  }
 }
