@@ -6,7 +6,7 @@ import { OriginalClassName } from '../../../core/decorators';
   template: `
     <em dt-inline-editor required
       [(ngModel)]="sampleModel">
-      <ie-error>Empty value not accepted!</ie-error>
+      <dt-error>Empty value not accepted!</dt-error>
     </em>
     <span>model: <code>{{ sampleModel }}</code></span>
   `,
