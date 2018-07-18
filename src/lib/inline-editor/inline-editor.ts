@@ -11,14 +11,17 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   NgZone,
+  ContentChildren,
+  QueryList,
+  AfterViewInit,
 
 } from '@angular/core';
-import { DtFormField } from '@dynatrace/angular-components/form-field';
+import { DtFormField, DtError } from '@dynatrace/angular-components/form-field';
 import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, map, startWith } from 'rxjs/operators';
 
 const enum MODES {
   IDLE,
@@ -43,7 +46,7 @@ const enum MODES {
       multi: true },
   ],
 })
-export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
+export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterViewInit {
 
   private _onChanged: (value: string) => void = () => {};
   private _onTouched: () => void = () => {};
@@ -52,10 +55,12 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   private _value = '';
   private _saving: Subscription | null;
   private _required = false;
+  _errorChildrenSource: Observable<DtError[]>;
 
-  @ViewChild('input') inputReference: ElementRef;
-  @ViewChild('edit') editButtonReference: ElementRef;
-  @ViewChild(DtFormField) formField: DtFormField<Input>;
+  @ViewChild('input') _inputReference: ElementRef;
+  @ViewChild('edit') _editButtonReference: ElementRef;
+  @ViewChild(DtFormField) _formField: DtFormField<Input>;
+  @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
 
   @Input()
   get required(): boolean { return this._required; }
@@ -82,6 +87,17 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _ngZone: NgZone) { }
 
+  ngAfterViewInit(): void {
+
+    // In angular it is not yet possible to pass components via ng-content
+    // multiple levels of components (in our case consumer -> inline-editor -> form-field)
+    // To solve this we take the dt-error components passed in via ng-content and create
+    // new onces (basically clone them) in the template.
+    this._errorChildrenSource = this._errorChildren.changes.pipe(
+      startWith(null),
+      map(() => this._errorChildren.toArray()));
+  }
+
   ngOnDestroy(): void {
     if (this._saving) {
       this._saving.unsubscribe();
@@ -98,7 +114,7 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   }
 
   saveAndQuitEditing(): void {
-    if (this.formField._control.errorState) {
+    if (this._formField._control.errorState) {
       return;
     }
 
@@ -140,10 +156,10 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy {
   }
 
   focus(): void {
-    if (this._mode === MODES.EDITING && this.inputReference) {
-      this.inputReference.nativeElement.focus();
-    } else if (this._mode === MODES.IDLE && this.editButtonReference) {
-      this.editButtonReference.nativeElement.focus();
+    if (this._mode === MODES.EDITING && this._inputReference) {
+      this._inputReference.nativeElement.focus();
+    } else if (this._mode === MODES.IDLE && this._editButtonReference) {
+      this._editButtonReference.nativeElement.focus();
     }
   }
 
