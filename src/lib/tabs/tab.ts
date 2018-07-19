@@ -8,14 +8,13 @@ import {
   TemplateRef,
   ContentChild,
   ViewContainerRef,
-  ViewChild,
   ChangeDetectorRef,
   OnDestroy,
   Optional,
   Inject,
   forwardRef,
 } from '@angular/core';
-import { mixinDisabled, CanDisable } from '@dynatrace/angular-components/core';
+import { mixinDisabled, CanDisable, mixinTabIndex, HasTabIndex } from '@dynatrace/angular-components/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DtTabLabel } from './tab-label';
 import { DtTabContent } from './tab-content';
@@ -23,6 +22,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DtTabGroup } from './tab-group';
 import { Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 let nextUniqueId = 0;
 
@@ -38,7 +38,7 @@ const defaultPalette: TabThemePalette = 'main';
 export class DtTabBase {
   constructor(public _elementRef: ElementRef) { }
 }
-export const _DtTabMixinBase = mixinDisabled(DtTabBase);
+export const _DtTabMixinBase = mixinTabIndex(mixinDisabled(DtTabBase));
 
 @Component({
   moduleId: module.id,
@@ -53,14 +53,10 @@ export const _DtTabMixinBase = mixinDisabled(DtTabBase);
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisable {
+export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisable, HasTabIndex {
 
   /** Content for the tab label */
   @ContentChild(DtTabLabel) label: DtTabLabel;
-
-  /** ContentRef if the content is provided directly inside <dt-tab> tag */
-  // tslint:disable-next-line:no-any
-  @ViewChild(TemplateRef) _eagerContentRef: TemplateRef<any>;
 
   /** ContentRef if the content is provided inside a ng-template with a dtTabContent directive for lazy loading */
   // tslint:disable-next-line:no-any
@@ -149,8 +145,10 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   }
 
   ngOnInit(): void {
-    this._contentPortal = new TemplatePortal(
-      this._lazyContentRef || this._eagerContentRef, this._viewContainerRef);
+    if (this._lazyContentRef) {
+      this._contentPortal = new TemplatePortal(
+        this._lazyContentRef, this._viewContainerRef);
+    }
     if (this._tabGroup) {
       this.selected = this._tabGroup._selected === this;
     }
@@ -164,7 +162,7 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     this.selected = true;
   }
 
-  _addListenerForUniqueSelection(): void {
+  private _addListenerForUniqueSelection(): void {
     this._removeUniqueSelectionListener = this._tabDispatcher.listen((id: string, groupid: string) => {
       if (id !== this._id && this._tabGroup._groupId === groupid && this.selected) {
         this.selected = false;

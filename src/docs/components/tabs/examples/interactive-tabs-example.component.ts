@@ -10,18 +10,15 @@ import { take } from 'rxjs/operators';
   <button dt-button [disabled]="simulationRunning" (click)="simulateError()">Simulate Error</button>
   <dt-tab-group>
     <dt-tab [disabled]="disableFirst">
-      <ng-template dtTabLabel>Physical <em>CPU</em></ng-template>
+      <ng-template dtTabLabel>Traffic</ng-template>
       <ng-template dtTabContent>
-        <h1>pu-ready-time-recovered</h1>
-        <button dt-button>initialize</button>
-        <input type="text" value="some">
+        <h1>Traffic</h1>
       </ng-template>
     </dt-tab>
     <dt-tab [color]="simulatedColor" selected>
-      <ng-template dtTabLabel>CPU ready time</ng-template>
+      <ng-template dtTabLabel>Connectivity {{connectivity}}</ng-template>
       <ng-template dtTabContent>
-        <h1>CPU-ready-time</h1>
-        <button dt-button>initialize</button>
+        <h1>Connectivity</h1>
       </ng-template>
     </dt-tab>
   </dt-tab-group>
@@ -32,10 +29,12 @@ export class InteractiveTabsExampleComponent {
   simulatedColor = 'main';
   simulationRunning = false;
   disableFirst = false;
+  connectivity = '100%';
 
   simulateError(): void {
     this.simulatedColor = 'error';
     this.simulationRunning = true;
+    this.connectivity = '30%';
     // tslint:disable-next-line:no-magic-numbers
     timer(1000, 1000)
     // tslint:disable-next-line:no-magic-numbers
@@ -43,10 +42,12 @@ export class InteractiveTabsExampleComponent {
     .subscribe(
       () => {
         this.simulatedColor = this.simulatedColor === 'error' ? 'recovered' : 'main';
+        this.connectivity = '80%';
       },
       undefined,
       () => {
         this.simulationRunning = false;
+        this.connectivity = '100%';
       });
   }
 }
