@@ -10,7 +10,12 @@ describe('DtTabs', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtTabsModule],
-      declarations: [SimpleTabsTestApp, DynamicTabsTestApp, LazyTabsTestApp, ErrorTabsTestApp],
+      declarations: [
+        SimpleTabsTestApp,
+        DynamicTabsTestApp,
+        LazyTabsTestApp,
+        ErrorTabsTestApp,
+      ],
     });
 
     TestBed.compileComponents();
