@@ -35,9 +35,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShowMoreUI } from './show-more/show-more-ui';
 import { CheckboxUI } from './checkbox/checkbox-ui';
 import { SwitchUI } from './switch/switch-ui';
-import {DtInputModule} from '@dynatrace/angular-components/input';
+import { DtInputModule } from '@dynatrace/angular-components/input';
 import { ChartUI } from './chart/chart-ui';
 import { ProgressBarUI } from './progress-bar/progress-bar-ui';
+import { DtTabsModule } from '@dynatrace/angular-components/tabs';
+import { TabsUI } from './tabs/tabs-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -60,6 +62,7 @@ import { ProgressBarUI } from './progress-bar/progress-bar-ui';
     DtSwitchModule,
     DtChartModule,
     DtProgressBarModule,
+    DtTabsModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -92,6 +95,7 @@ export class DynatraceAngularCompModule {}
     SwitchUI,
     ChartUI,
     ProgressBarUI,
+    TabsUI,
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],
