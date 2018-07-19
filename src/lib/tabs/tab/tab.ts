@@ -20,7 +20,7 @@ import { DtTabLabel } from './tab-label';
 import { DtTabContent } from './tab-content';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { DtTabGroup } from './tab-group';
+import { DtTabGroup } from '../tab-group';
 import { Subject } from 'rxjs';
 
 let nextUniqueId = 0;
