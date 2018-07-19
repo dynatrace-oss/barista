@@ -65,8 +65,8 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
   /** internal only - used to notify only the tabs in the same tab-group */
   _groupId = `dt-tab-group-${++nextId}`;
 
-  // tslint:disable-next-line:no-output-named-after-standard-event
-  @Output() readonly change = new EventEmitter<DtTabChange>();
+  /** Emits an event every time the selected tab changes */
+  @Output() readonly selectionChanged = new EventEmitter<DtTabChange>();
 
   constructor(elementRef: ElementRef, private _changeDetectorRef: ChangeDetectorRef) {
     super(elementRef);
@@ -98,7 +98,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
 
   /** internal - Dispatch change event with current selection - dispatched inside the tab */
   _emitChangeEvent(): void {
-    this.change.emit({ source: this._selected! });
+    this.selectionChanged.emit({ source: this._selected! });
   }
 
   /** Returns a unique id for each tab content element */

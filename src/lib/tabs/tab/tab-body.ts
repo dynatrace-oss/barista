@@ -27,6 +27,7 @@ import { Subscription } from 'rxjs';
   selector: 'dt-tab-body',
   templateUrl: 'tab-body.html',
   styleUrls: ['tab-body.scss'],
+  exportAs: 'dtTabBody',
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
