@@ -1,0 +1,64 @@
+@import '../style/font-mixins';
+@import '../core/style/variables';
+@import '../core/theming/theming';
+@import './tab-group-theme';
+
+:host .dt-tab-header-wrapper {
+  display: flex;
+}
+
+:host .dt-tab-label {
+  @include default-font(14px, 32px, 600);
+  border: none;
+  background-color: transparent;
+  padding: 0 16px;
+  height: 32px;
+  flex: 1 1 100px;
+  vertical-align: middle;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  margin-right: 4px;
+  cursor: pointer;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  &::after {
+    content: ' ';
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: height 100ms ease-out;
+  }
+
+  &:hover::after {
+    height: 4px;
+  }
+
+  /** disabled
+  this needs the double selector because the themes ::after is more specific
+  otherwise we would need to ship the disabled style thats equal in every theme with the theme selector
+  */
+  &[disabled][disabled] {
+    color: $gray-300;
+    background-color: transparent;
+    cursor: auto;
+
+    &::after {
+      background-color: $gray-300;
+    }
+    &:hover::after {
+      height: 1px;
+    }
+  }
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-tabs($dt-current-theme);
+}
