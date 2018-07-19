@@ -6,8 +6,6 @@ import { take } from 'rxjs/operators';
 @Component({
   moduleId: module.id,
   template: `
-  <button dt-button (click)="disableFirst=!disableFirst">Toggle disable for first tab</button>
-  <button dt-button [disabled]="simulationRunning" (click)="simulateError()">Simulate Error</button>
   <dt-tab-group>
     <dt-tab [disabled]="disableFirst">
       <ng-template dtTabLabel>Traffic</ng-template>
@@ -22,6 +20,8 @@ import { take } from 'rxjs/operators';
       </ng-template>
     </dt-tab>
   </dt-tab-group>
+  <button dt-button (click)="disableFirst=!disableFirst">Toggle disable for first tab</button>
+  <button dt-button [disabled]="simulationRunning" (click)="simulateError()">Simulate Error</button>
   `,
 })
 @OriginalClassName('InteractiveTabsExampleComponent')
