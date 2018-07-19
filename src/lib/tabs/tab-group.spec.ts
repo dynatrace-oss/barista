@@ -279,7 +279,7 @@ function checkLabelClass(expectedIndex: number, fixture: ComponentFixture<any>, 
 @Component({
   selector: 'dt-test-app',
   template: `
-  <dt-tab-group (change)="handleTabChange($event)">
+  <dt-tab-group (selectionChanged)="handleTabChange($event)">
     <dt-tab id="firstid">
       <ng-template dtTabLabel>Tab one label</ng-template>
       <ng-template dtTabContent>
@@ -310,7 +310,7 @@ class SimpleTabsTestApp {
 @Component({
   selector: 'dt-dynamic-test-app',
   template: `
-  <dt-tab-group (change)="handleTabChange($event)">
+  <dt-tab-group (selectionChanged)="handleTabChange($event)">
     <dt-tab>
       <ng-template dtTabLabel>Tab one label</ng-template>
       <ng-template dtTabContent>
