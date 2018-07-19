@@ -11,7 +11,6 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   forwardRef,
-  Optional,
 } from '@angular/core';
 import { DtTab, DtTabChange } from './tab';
 import {
