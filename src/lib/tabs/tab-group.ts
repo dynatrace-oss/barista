@@ -12,7 +12,7 @@ import {
   OnDestroy,
   forwardRef,
 } from '@angular/core';
-import { DtTab, DtTabChange } from './tab';
+import { DtTab, DtTabChange } from './tab/tab';
 import {
   mixinColor,
   mixinDisabled,
