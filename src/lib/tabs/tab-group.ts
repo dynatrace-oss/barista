@@ -11,6 +11,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   forwardRef,
+  Optional,
 } from '@angular/core';
 import { DtTab, DtTabChange } from './tab';
 import {
@@ -102,8 +103,8 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
   }
 
   /** Returns a unique id for each tab content element */
-  _getTabContentId(i: number): string {
-    return `dt-tab-content-${this._groupId}-${i}`;
+  _getTabContentId(tabId: string): string {
+    return `${this._groupId}-content-${tabId}`;
   }
 
   /**

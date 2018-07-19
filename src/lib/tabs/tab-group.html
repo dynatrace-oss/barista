@@ -7,17 +7,17 @@
     [color]="tab.color"
     [attr.aria-posinset]="i + 1"
     [attr.aria-setsize]="_tabs.length"
-    [attr.aria-controls]="_getTabContentId(i)"
+    [attr.aria-controls]="_getTabContentId(tab.id)"
     [attr.aria-selected]="tab.selected"
     [attr.aria-label]="tab.ariaLabel || null"
     [attr.aria-labelledby]="(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null"
     (click)="tab._handleClick()">
     <ng-template [cdkPortalOutlet]="tab.label"></ng-template>
-  </button>
+</button>
 </div>
 <div class="dt-tab-body-wrapper">
   <dt-tab-body role="tabpanel" *ngFor="let tab of _tabs; let i = index"
-    [id]="_getTabContentId(i)"
+    [id]="_getTabContentId(tab.id)"
     [content]="tab._content"
     [active]="tab.selected">
   </dt-tab-body>
