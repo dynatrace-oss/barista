@@ -48,6 +48,7 @@
   &[disabled][disabled] {
     color: $gray-300;
     background-color: transparent;
+    cursor: auto;
 
     &::after {
       background-color: $gray-300;
