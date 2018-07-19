@@ -35,7 +35,7 @@ To use the dynatrace tabs, add the following components/directives:
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `@Ouput() change` | `EventEmitter<DtTabChange>` |  | Event emitted when the selected tab changes, includes the selected tab instance |
+| `@Ouput() selectionChanged` | `EventEmitter<DtTabChange>` |  | Event emitted when the selected tab changes, includes the selected tab instance |
 
 ### DtTab
 
