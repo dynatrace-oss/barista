@@ -41,7 +41,7 @@ export const _DtTabMixinBase = mixinTabIndex(mixinDisabled(DtTabBase));
 
 @Component({
   moduleId: module.id,
-  selector: 'a[dt-tab], dt-tab',
+  selector: 'dt-tab',
   exportAs: 'dtTab',
   templateUrl: 'tab.html',
   inputs: ['disabled', 'color'],
@@ -137,7 +137,7 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   }
 
   constructor(
-    public elementRef: ElementRef,
+    elementRef: ElementRef,
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _tabDispatcher: UniqueSelectionDispatcher,
@@ -163,11 +163,12 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     this._removeUniqueSelectionListener();
   }
 
-  _handleClick(): void {
+  _select(): void {
     this.selected = true;
   }
 
   private _addListenerForUniqueSelection(): void {
+    this._removeUniqueSelectionListener();
     this._removeUniqueSelectionListener = this._tabDispatcher.listen((id: string, groupid: string) => {
       if (id !== this._id && this._tabGroup._groupId === groupid && this.selected) {
         this.selected = false;
