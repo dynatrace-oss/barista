@@ -127,7 +127,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
 
   private _selectFirstEnabledTab(): void {
     if (this._tabs) {
-      const hasEnabledTabs = this._tabs.filter((t) => !t.disabled).length > 0;
+      const hasEnabledTabs = this._tabs.some((t) => !t.disabled);
       if (!hasEnabledTabs) {
         LOG.error(DT_TABGROUP_NO_ENABLED_TABS_ERROR);
       }
@@ -144,12 +144,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
    * Returns the first enabled tab
    */
   private _findFirstEnabledTab(): DtTab | undefined {
-    return this._tabs.find((t: DtTab, idx: number) => {
-      if (!t.disabled) {
-        return true;
-      }
-      return false;
-    });
+    return this._tabs.find((t: DtTab, idx: number) => !t.disabled);
   }
 
   /** Check that more than one tab is available */
