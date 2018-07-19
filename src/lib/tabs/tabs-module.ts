@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { PortalModule } from '@angular/cdk/portal';
 import { DtColorModule } from '@dynatrace/angular-components/core';
 import { DtTabGroup } from './tab-group';
-import { DtTab } from './tab';
-import { DtTabLabel } from './tab-label';
-import { DtTabContent } from './tab-content';
-import { DtTabBody, DtTabBodyPortal } from './tab-body';
+import { DtTab } from './tab/tab';
+import { DtTabLabel } from './tab/tab-label';
+import { DtTabContent } from './tab/tab-content';
+import { DtTabBody, DtTabBodyPortal } from './tab/tab-body';
 
 @NgModule({
   imports: [
