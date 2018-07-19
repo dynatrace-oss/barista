@@ -21,7 +21,6 @@ export const EXAMPLES = [
     FormsModule,
     DtInlineEditorModule,
     UiModule,
-    DtInlineEditorModule,
   ],
   declarations: [
     ...EXAMPLES,

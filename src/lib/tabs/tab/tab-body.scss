@@ -1,0 +1,7 @@
+:host {
+  display: none;
+}
+
+:host.dt-tab-body-active {
+  display: block;
+}
