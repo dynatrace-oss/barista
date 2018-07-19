@@ -22,7 +22,6 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DtTabGroup } from './tab-group';
 import { Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 let nextUniqueId = 0;
 
@@ -112,6 +111,12 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     this._color = value;
     this._stateChanges.next();
   }
+
+  /** Aria label for the tab. */
+  @Input('aria-label') ariaLabel: string;
+
+  /** Reference to the element that the tab is labelled by. */
+  @Input('aria-labelledby') ariaLabelledby: string;
 
   /** Internal stream that emits whenever an input of a tab changes */
   readonly _stateChanges = new Subject<void>();

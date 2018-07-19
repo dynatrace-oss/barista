@@ -72,7 +72,6 @@ describe('DtTabs', () => {
     });
 
     it('should emit a change event on programmatic tab change', () => {
-      const component = fixture.componentInstance;
       spyOn(component, 'handleTabChange').and.callThrough();
 
       const tabs = fixture.componentInstance.tabs.toArray();
@@ -135,12 +134,10 @@ describe('DtTabs', () => {
 
   describe('dynamic behaviour', () => {
     let fixture: ComponentFixture<DynamicTabsTestApp>;
-    let element: HTMLElement;
     let component: DynamicTabsTestApp;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(DynamicTabsTestApp);
-      element = fixture.nativeElement;
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
@@ -188,6 +185,7 @@ describe('DtTabs', () => {
 
       component.dynamicTab = false;
       fixture.detectChanges();
+      // tslint:disable-next-line no-unbound-method
       expect(component.handleTabChange).toHaveBeenCalledTimes(2);
       expect(component.selectEvent.source).toBe(tabs[0]);
     });
@@ -271,6 +269,7 @@ function checkSelected(expectedIndex: number, fixture: ComponentFixture<any>): v
   expect(tabContentElement.classList.contains('dt-tab-body-active')).toBe(true, 'Expected "dt-tab-body-active" class to be there');
 }
 /** checks if the label at given index has the given class */
+// tslint:disable-next-line:no-any
 function checkLabelClass(expectedIndex: number, fixture: ComponentFixture<any>, cssClass: string): void {
   const tabLabelElement = fixture.debugElement
       .queryAll(By.css('.dt-tab-label'))[expectedIndex].nativeElement;
