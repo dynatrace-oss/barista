@@ -6,33 +6,27 @@ import { OriginalClassName } from '../../../core/decorators';
   template: `
   <dt-tab-group>
     <dt-tab disabled>
-      <ng-template dtTabLabel>Physical <em>CPU</em></ng-template>
+      <ng-template dtTabLabel>Traffic</ng-template>
       <ng-template dtTabContent>
-        <h1>pu-ready-time-recovered</h1>
-        <button dt-button>initialize</button>
-        <input type="text" value="some">
+        <h1>Traffic</h1>
       </ng-template>
     </dt-tab>
     <dt-tab>
-      <ng-template dtTabLabel>CPU ready time</ng-template>
+      <ng-template dtTabLabel>Packets</ng-template>
       <ng-template dtTabContent>
-        <h1>CPU-ready-time</h1>
-        <button dt-button>initialize</button>
+        <h1>Packets</h1>
       </ng-template>
     </dt-tab>
     <dt-tab color="error">
-      <ng-template dtTabLabel>CPU ready time</ng-template>
+      <ng-template dtTabLabel>Quality</ng-template>
       <ng-template dtTabContent>
-        <h1>cpu-ready-time-error</h1>
-        <button dt-button>initialize</button>
+        <h1>Quality</h1>
       </ng-template>
     </dt-tab>
     <dt-tab color="recovered">
-      <ng-template dtTabLabel>CPU ready time</ng-template>
+      <ng-template dtTabLabel>Connectivity</ng-template>
       <ng-template dtTabContent>
-        <h1>pu-ready-time-recovered</h1>
-        <button dt-button>initialize</button>
-        <input type="text" value="some">
+        <h1>Connectivity</h1>
       </ng-template>
     </dt-tab>
   </dt-tab-group>

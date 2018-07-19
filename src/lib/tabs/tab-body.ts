@@ -85,7 +85,7 @@ export class DtTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestro
 
   /**  Attaches the content to the portaloutlet if necessary */
   private _handleActiveTabChange(active: boolean): void {
-    if (active && !this.hasAttached()) {
+    if (active && !this.hasAttached() && this._host && this._host.content) {
       this.attach(this._host.content);
     }
   }
