@@ -33,3 +33,4 @@ export * from '@dynatrace/angular-components/progress-circle';
 export * from '@dynatrace/angular-components/switch';
 export * from '@dynatrace/angular-components/breadcrumbs';
 export * from '@dynatrace/angular-components/tabs';
+export * from '@dynatrace/angular-components/toast';

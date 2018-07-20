@@ -39,6 +39,7 @@ export class Docs {
     {name: 'Tabs', route: '/tabs'},
     {name: 'Tag', route: '/tag'},
     {name: 'Tile', route: '/tile'},
+    {name: 'Toast', route: '/toast'},
   ];
   selectedTheme = 'turquoise';
 
