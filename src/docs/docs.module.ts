@@ -38,6 +38,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { DocsViewerComponent } from './core/docs-viewer.component';
 import { DocsProgressBarModule } from './components/progress-bar/docs-progress-bar.module';
 import { DocsTabsModule } from './components/tabs/docs-tabs.module';
+import { DocsToastModule } from './components/toast/docs-toast.module';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
@@ -91,6 +92,7 @@ export class NoopRouteComponent {}
     DocsBreadcrumbsModule,
     DocsProgressBarModule,
     DocsTabsModule,
+    DocsToastModule,
   ],
   declarations: [
     Docs,
