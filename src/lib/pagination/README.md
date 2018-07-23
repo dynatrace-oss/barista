@@ -36,7 +36,3 @@ To use the dynatrace pagination component, use the `<dt-pagination>` element.
 ### Many pages
 
 <docs-source-example example="ManyPaginationExampleComponent"></docs-source-example>
-
-### Dark theme
-
-<docs-source-example example="DarkThemePaginationExampleComponent" themedark="true"></docs-source-example>

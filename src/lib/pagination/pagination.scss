@@ -1,7 +1,6 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/theming/theming';
-@import './pagination-theme';
 
 :host {
   @include main-font();
@@ -18,7 +17,6 @@
   .dt-pagination-arrow dt-icon {
     width: 20px;
     height: 20px;
-    fill: $gray-300;
   }
 
   .dt-pagination-arrow:not(.dt-pagination-arrow-active) {
@@ -54,9 +52,4 @@
   @include custom-font-size(false, 32px);
   text-align: center;
   color: $gray-300;
-}
-
-// Apply the button-group-item theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-pagination($dt-current-theme);
 }
