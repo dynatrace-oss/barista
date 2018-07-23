@@ -2,7 +2,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {DtToastModule, DtToastRef} from '@dynatrace/angular-components';
+import {DtToastModule, DtToastContainer} from '@dynatrace/angular-components';
 
 describe('DtToast', () => {
   beforeEach(async(() => {
