@@ -22,7 +22,7 @@
 
 .dt-expandable-row-base:not(.dt-expandable-row-base-expanded):hover {
   border: 1px solid $gray-500;
-  padding: 1px 9px 1px 9px;
+  padding: 1px 9px;
 }
 
 .dt-expandable-row-base-expanded {
@@ -30,7 +30,7 @@
   border-bottom: hidden;
   border-left: hidden;
   border-right: hidden;
-  padding: 0 10px 2px 10px;
+  padding: 0 10px 2px;
   background-color: $gray-200;
 }
 
