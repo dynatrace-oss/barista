@@ -1,51 +1,30 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Inject,
-  EventEmitter,
-  ChangeDetectorRef,
-} from '@angular/core';
-import { DT_TOAST_MESSAGE, DT_TOAST_FADE_TIME } from './toast';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { DtToastContainer } from './toast-container';
+import { OverlayRef } from '@angular/cdk/overlay';
+import { Subject } from 'rxjs';
 
-@Component({
-  moduleId: module.id,
-  selector: 'dt-toast',
-  exportAs: 'dtToast',
-  template: '{{message}}',
-  styleUrls: ['toast-ref.scss'],
-  host: {
-    'class': 'dt-toast',
-    '[@fade]': '_animationState',
-    '(@fade.done)': '_animationDone($event)',
-  },
-  preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated,
-  animations: [
-    trigger('fade', [
-      state('void', style({ opacity: 0 })),
-      transition('* => enter', [
-        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`, style({ opacity: 1 })),
-      ]),
-      transition('* => leave', [
-        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`, style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
-})
 export class DtToastRef {
-  animationDone: EventEmitter<void> = new EventEmitter<void>();
+  containerInstance: DtToastContainer;
 
-  animationState: 'void' | 'enter' | 'leave' = 'enter';
+  private _durationTimeoutId: number;
 
-  constructor(@Inject(DT_TOAST_MESSAGE) public message: string)  {}
+  _afterDismissed = new Subject<void>();
 
-  _animationDone(event: AnimationEvent): void {
-    if (event.toState === 'leave') {
-      this.animationDone.next();
-      this.animationDone.complete();
-    }
+  constructor(
+    containerInstance: DtToastContainer,
+    private _overlayRef: OverlayRef,
+    private _duration: number
+  ) {
+    this.containerInstance = containerInstance;
+    containerInstance._afterLeave.subscribe(() => {
+      console.log('afterleave triggered');
+      this._overlayRef.dispose();
+      this._afterDismissed.next();
+    });
+    this._durationTimeoutId = window.setTimeout(() => this._dismiss(), this._duration);
+  }
+
+  _dismiss(): void {
+    this._overlayRef.detach();
+    clearTimeout(this._durationTimeoutId);
   }
 }
