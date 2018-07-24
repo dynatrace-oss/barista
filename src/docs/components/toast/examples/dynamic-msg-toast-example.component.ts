@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
 import { DtToast, DtToastRef } from '@dynatrace/angular-components';
 import { timer, Observable } from 'rxjs';
-import { switchMap, map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 
 const TIMERINTERVAL = 50;
 

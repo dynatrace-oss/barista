@@ -47,6 +47,6 @@ export class DtToastRef {
   }
 
   _dismissAfterTimeout(): void {
-    this._durationTimeoutId = window.setTimeout(() => this.dismiss(), this.duration);
+    this._durationTimeoutId = window.setTimeout(() => { this.dismiss(); }, this.duration);
   }
 }
