@@ -35,9 +35,9 @@ create(message: string): DtToastRef
 creates a new toast with the given message and returns the ref to the created toast. The toast duration is calculated based on the message length and gets dismissed automatically after the time passed.
 
 ```typescript
-dismiss(ref: DtToastRef): void
+dismiss(): void
 ```
-Dismisses the toast for the given ref. Can be used if a toast needs to be dismissed before the calculated time passes.
+Dismisses the current open toast. Can be used if a toast needs to be dismissed before the calculated time passes.
 
 ## Examples
 
