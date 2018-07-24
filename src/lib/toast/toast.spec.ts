@@ -148,7 +148,7 @@ describe('DtToast', () => {
     fixture.detectChanges();
 
     // Wait for the toast open animation to finish.
-    tick(DT_TOAST_FADE_TIME)
+    tick(DT_TOAST_FADE_TIME);
     expect(toastRef.containerInstance._animationState)
     .toBe('enter', `Expected the animation state to be 'enter'.`);
     flush();

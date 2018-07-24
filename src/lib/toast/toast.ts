@@ -77,6 +77,6 @@ export class DtToast {
       toastRef.containerInstance.enter();
     }
 
-    toastRef.afterOpened().subscribe(() => toastRef._dismissAfterTimeout());
+    toastRef.afterOpened().subscribe(() => { toastRef._dismissAfterTimeout(); });
   }
 }
