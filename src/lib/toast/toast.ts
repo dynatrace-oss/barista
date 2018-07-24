@@ -1,20 +1,11 @@
 import { Injectable, Injector, InjectionToken } from '@angular/core';
 import { DtToastContainer } from './toast-container';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { DtToastRef } from './toast-ref';
+import { DT_TOAST_BOTTOM_SPACING, DT_TOAST_DEFAULT_CONFIG, DT_TOAST_PERCEIVE_TIME, DT_TOAST_CHAR_READ_TIME } from './toast-config';
 
-const DT_TOAST_BOTTOM_SPACING = 24;
-
-const DT_TOAST_DEFAULT_CONFIG: OverlayConfig = {
-  hasBackdrop: false,
-  minHeight: 52,
-};
-
-const DT_TOAST_PERCEIVE_TIME = 500;
-export const DT_TOAST_FADE_TIME = 150;
-const DT_TOAST_CHAR_READ_TIME = 50;
-
+/** Token for passing the message to the toast */
 export const DT_TOAST_MESSAGE = new InjectionToken<string>('DtToastMessage');
 
 @Injectable({providedIn: 'root'})
@@ -36,20 +27,19 @@ export class DtToast {
     const duration = this._calculateToastDuration(message);
     const toastRef = new DtToastRef(container, duration, overlayRef);
 
-    this._animateDtToastContainer(toastRef, duration);
+    this._animateDtToastContainer(toastRef);
     this._openedToastRef = toastRef;
     return this._openedToastRef;
   }
 
+  /** Dismiss the  */
   dismiss(): void {
     if (this._openedToastRef) {
       this._openedToastRef.dismiss();
     }
   }
 
-  /**
-   * Creates a new overlay
-   */
+  /** Creates a new overlay */
   private _createOverlay(): OverlayRef {
 
     const positionStrategy = this._overlay
@@ -61,12 +51,14 @@ export class DtToast {
     return this._overlay.create({ ...DT_TOAST_DEFAULT_CONFIG, positionStrategy });
   }
 
-  /** calculates the duration the toast is shown based on the message length */
+  /** Calculates the duration the toast is shown based on the message length */
   private _calculateToastDuration(message: string): number {
     return DT_TOAST_PERCEIVE_TIME + DT_TOAST_CHAR_READ_TIME * message.length;
   }
 
-  private _animateDtToastContainer(toastRef: DtToastRef, duration: number): void {
+  /** Animates the toast components and handles multiple toasts at the same time  */
+  private _animateDtToastContainer(toastRef: DtToastRef): void {
+    /** clean up reference when no new toast was created in the meantime */
     toastRef.afterDismissed().subscribe(() => {
       if (this._openedToastRef === toastRef) {
         this._openedToastRef = null;
@@ -85,6 +77,6 @@ export class DtToast {
       toastRef.containerInstance.enter();
     }
 
-    toastRef.afterOpened().subscribe(() => toastRef.dismissAfterTimeout());
+    toastRef.afterOpened().subscribe(() => toastRef._dismissAfterTimeout());
   }
 }
