@@ -4,7 +4,6 @@ import {
   ViewEncapsulation,
   Inject,
   OnDestroy,
-  ChangeDetectorRef,
   NgZone,
 } from '@angular/core';
 import { DT_TOAST_MESSAGE, DT_TOAST_FADE_TIME } from './toast';
@@ -19,7 +18,7 @@ import { take } from 'rxjs/operators';
   template: '{{message}}',
   styleUrls: ['toast-container.scss'],
   host: {
-    'class': 'dt-toast',
+    'class': 'dt-toast-container',
     '[@fade]': '_animationState',
     '(@fade.done)': '_animationDone($event)',
   },
@@ -28,43 +27,65 @@ import { take } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.Emulated,
   animations: [
     trigger('fade', [
-      state('void', style({ opacity: 0 })),
-      transition('void => enter', [
-        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`, style({ opacity: 1 })),
-      ]),
-      transition('enter => void', [
-        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`, style({ opacity: 0 })),
-      ]),
+      state('enter', style({opacity: 1})),
+      transition('enter => exit', animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`)),
+      transition('void => enter', animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`)),
     ]),
   ],
 })
 export class DtToastContainer implements OnDestroy {
   private _destroyed = false;
 
-  readonly _afterLeave = new Subject<void>();
+  readonly _onExit: Subject<void> = new Subject();
+
+  readonly _onEnter: Subject<void> = new Subject();
 
   _animationState = 'void';
 
-  constructor(@Inject(DT_TOAST_MESSAGE) public message: string, private _ngZone: NgZone)  {}
+  constructor(
+    @Inject(DT_TOAST_MESSAGE) public message: string,
+    private _ngZone: NgZone
+  )  {
+  }
 
   ngOnDestroy(): void {
     this._destroyed = true;
-    this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
-      this._afterLeave.next();
-      this._afterLeave.complete();
-    });
+    this._safeExit();
   }
 
   _animationDone(event: AnimationEvent): void {
-    if (event.fromState === 'enter' && event.toState === 'void') {
-      this._afterLeave.next();
-      this._afterLeave.complete();
+    const {fromState, toState} = event;
+
+    if ((toState === 'void' && fromState !== 'void') || toState === 'exit') {
+      this._safeExit();
+    }
+
+    if (toState === 'enter') {
+      // Note: we shouldn't use `this` inside the zone callback,
+      // because it can cause a memory leak.
+      const onEnter = this._onEnter;
+
+      this._ngZone.run(() => {
+        onEnter.next();
+        onEnter.complete();
+      });
     }
   }
 
-  _enter(): void {
+  enter(): void {
     if (!this._destroyed) {
       this._animationState = 'enter';
     }
+  }
+
+  exit(): void {
+    this._animationState = 'exit';
+  }
+
+  private _safeExit(): void {
+    this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
+      this._onExit.next();
+      this._onExit.complete();
+    });
   }
 }

@@ -1,0 +1,35 @@
+import { Component } from '@angular/core';
+import { OriginalClassName } from '../../../core/decorators';
+import { DtToast, DtToastRef } from '@dynatrace/angular-components';
+import { timer, Observable } from 'rxjs';
+import { switchMap, map, takeUntil } from 'rxjs/operators';
+
+const TIMERINTERVAL = 50;
+
+@Component({
+  moduleId: module.id,
+  template: `
+  <dt-form-field>
+    <dt-label>Message</dt-label>
+    <input type="text" dtInput [(ngModel)]="message" placeholder="Your message"/>
+  </dt-form-field>
+  <p>Current message: {{message}}</p>
+  <p *ngIf="elapsedTime">Time elapsed since opening: {{elapsedTime | async}}ms</p>
+  <button dt-button (click)="createToast()">Save</button>
+  `,
+})
+@OriginalClassName('DynamicMsgToastExampleComponent')
+export class DynamicMsgToastExampleComponent {
+  message = '';
+  toastRef: DtToastRef | null = null;
+  elapsedTime: Observable<number>;
+
+  constructor(private _toast: DtToast) {}
+
+  createToast(): void {
+    this.toastRef = this._toast.create(this.message);
+    this.elapsedTime = timer(0, TIMERINTERVAL).pipe(
+        takeUntil(this.toastRef.afterDismissed()),
+        map((count: number) => TIMERINTERVAL * count));
+  }
+}
