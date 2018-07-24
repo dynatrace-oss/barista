@@ -4,8 +4,10 @@ import { Subject, Observable } from 'rxjs';
 
 export class DtToastRef {
 
+  /** The instance for the toast-container that holds the message */
   containerInstance: DtToastContainer;
 
+  /** The duration the toastref will be displayed */
   duration: number;
 
   private _durationTimeoutId: number;
@@ -26,14 +28,17 @@ export class DtToastRef {
     });
   }
 
+  /** Observable that emits when the toast finished the dismissal */
   afterDismissed(): Observable<void> {
     return this._afterDismissed.asObservable();
   }
 
+  /** Observable that emits when the toast has finished the enter animation */
   afterOpened(): Observable<void> {
     return this.containerInstance._onEnter;
   }
 
+  /** Dismisses the toast */
   dismiss(): void {
     if (!this._afterDismissed.closed) {
       this.containerInstance.exit();
@@ -41,7 +46,7 @@ export class DtToastRef {
     clearTimeout(this._durationTimeoutId);
   }
 
-  dismissAfterTimeout(): void {
+  _dismissAfterTimeout(): void {
     this._durationTimeoutId = window.setTimeout(() => this.dismiss(), this.duration);
   }
 }

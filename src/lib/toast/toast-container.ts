@@ -6,7 +6,8 @@ import {
   OnDestroy,
   NgZone,
 } from '@angular/core';
-import { DT_TOAST_MESSAGE, DT_TOAST_FADE_TIME } from './toast';
+import { DT_TOAST_MESSAGE } from './toast';
+import { DT_TOAST_FADE_TIME } from './toast-config';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -19,6 +20,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['toast-container.scss'],
   host: {
     'class': 'dt-toast-container',
+    'role': 'alert',
     '[@fade]': '_animationState',
     '(@fade.done)': '_animationDone($event)',
   },
@@ -53,6 +55,7 @@ export class DtToastContainer implements OnDestroy {
     this._safeExit();
   }
 
+  /** Animation callback */
   _animationDone(event: AnimationEvent): void {
     const {fromState, toState} = event;
 
@@ -72,12 +75,14 @@ export class DtToastContainer implements OnDestroy {
     }
   }
 
+  /** Sets the animation state for entering */
   enter(): void {
     if (!this._destroyed) {
       this._animationState = 'enter';
     }
   }
 
+  /** Sets the animation state for exiting */
   exit(): void {
     this._animationState = 'exit';
   }
