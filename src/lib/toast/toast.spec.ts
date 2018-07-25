@@ -4,9 +4,9 @@ import {Component} from '@angular/core';
 import { DtToastModule, DtToast, DT_TOAST_FADE_TIME} from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { DT_TOAST_MIN_DURATION } from '@dynatrace/angular-components/toast/toast-config';
+import { DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT } from '@dynatrace/angular-components/toast/toast-config';
 
-describe('DtToast', () => {
+fdescribe('DtToast', () => {
   let dtToast: DtToast;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
@@ -56,6 +56,25 @@ describe('DtToast', () => {
     expect(messageElement.textContent)
         .toContain(simpleMessage, `Expected the toast message to be '${simpleMessage}'`);
   });
+
+  it('should cut of the message if it exceeds the limit and limit duration', fakeAsync(() => {
+    const longMsg = new Array(DT_TOAST_CHAR_LIMIT + 10).map(() => '.').join();
+    const toastRef = dtToast.create(longMsg);
+    const afterDismissSpy = jasmine.createSpy('after dismiss spy');
+    toastRef.afterDismissed().subscribe(afterDismissSpy);
+
+    fixture.detectChanges();
+
+    const messageElement = overlayContainerElement.querySelector('.dt-toast-container')!;
+    expect(messageElement.textContent!.length).toBe(DT_TOAST_CHAR_LIMIT);
+
+    tick(toastRef.duration / 2);
+    expect(afterDismissSpy).not.toHaveBeenCalled();
+
+    tick(toastRef.duration / 2);
+    fixture.detectChanges();
+    expect(afterDismissSpy).toHaveBeenCalled();
+  }));
 
   it('should dismiss the toast and remove itself from the view', fakeAsync(() => {
     const dismissCompleteSpy = jasmine.createSpy('dismiss complete spy');
