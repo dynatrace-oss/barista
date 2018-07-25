@@ -10,6 +10,7 @@ import { DocumentService, DocumentContents } from './core/document.service';
 export class Docs {
   navItems = [
     { name: 'Alert', route: '/alert' },
+    { name: 'Select', route: '/select' },
     {name: 'Breadcrumbs', route: '/breadcrumbs'},
     {name: 'Button', route: '/button'},
     {name: 'Button Group', route: '/button-group'},
