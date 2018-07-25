@@ -9,7 +9,8 @@ import {
   Optional,
   ChangeDetectorRef,
   AfterViewChecked,
-  OnDestroy
+  OnDestroy,
+  QueryList
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -209,4 +210,48 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
   private _emitSelectionChangeEvent(isUserInput: boolean = false): void {
     this.selectionChange.emit(new DtOptionSelectionChange(this, isUserInput));
   }
+}
+
+/** Counts the amount of option group labels that precede the specified option. */
+export function _countGroupLabelsBeforeOption<T>(
+  optionIndex: number,
+  options: QueryList<DtOption<T>>,
+  optionGroups: QueryList<DtOptgroup>
+): number {
+
+  if (optionGroups.length) {
+    const optionsArray = options.toArray();
+    const groups = optionGroups.toArray();
+    let groupCounter = 0;
+
+    for (let i = 0; i < optionIndex + 1; i++) {
+      if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
+        groupCounter++;
+      }
+    }
+
+    return groupCounter;
+  }
+
+  return 0;
+}
+
+/** Determines the position to which to scroll a panel in order for an option to be into view. */
+export function _getOptionScrollPosition(
+  optionIndex: number,
+  optionHeight: number,
+  currentScrollPosition: number,
+  panelHeight: number
+): number {
+  const optionOffset = optionIndex * optionHeight;
+
+  if (optionOffset < currentScrollPosition) {
+    return optionOffset;
+  }
+
+  if (optionOffset + optionHeight > currentScrollPosition + panelHeight) {
+    return Math.max(0, optionOffset - panelHeight + optionHeight);
+  }
+
+  return currentScrollPosition;
 }

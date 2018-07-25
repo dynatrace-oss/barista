@@ -2,6 +2,7 @@
   <div class="dt-form-field-container" (click)="_control.onContainerClick && _control.onContainerClick($event)">
     <label class="dt-form-field-label"
       *ngIf="!!this._labelChild"
+      [id]="_labelId"
       [attr.for]="_control.id"
       [attr.aria-owns]="_control.id">
       <ng-content select="dt-label"></ng-content>

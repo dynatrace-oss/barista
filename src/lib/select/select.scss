@@ -1,3 +1,66 @@
-.dt-select {
+@import '../style/font-mixins';
+@import '../core/style/variables';
+@import '../core/style/form-control';
+
+$dt-combobox-panel-max-height: 250px;
+
+:host {
+  display: inline-block;
+  box-sizing: border-box;
+  @include main-font();
+  @include dt-form-control();
+}
+
+.dt-select-trigger {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  padding-left: 12px;
+}
+
+.dt-select-value {
   display: block;
+  position: relative;
+  flex-shrink: 1;
+  flex-grow: 1;
+}
+
+:host .dt-select-arrow {
+  display: flex;
+  flex-shrink: 0;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(0);
+  transition: transform 150ms ease-out;
+  width: 30px;
+  height: 30px;
+
+  // Override the icon size to 16px as defined in the styleguide
+  ::ng-deep svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+:host.dt-select-open .dt-combobox-arrow {
+  transform: rotate(180deg);
+}
+
+.dt-select-panel {
+  width: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  border: 1px solid $disabledcolor;
+  border-radius: 0 0 3px 3px;
+  max-height: $dt-combobox-panel-max-height;
+
+  // Prevents the content from repainting on scroll.
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  // Makes sure the opening scale animation starts from the top
+  transform-origin: left top;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;   // for momentum scroll on mobile
 }
