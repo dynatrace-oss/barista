@@ -12,7 +12,7 @@ export const _DtOptgroupMixinBase = mixinDisabled(DtOptgroupBase);
   moduleId: module.id,
   selector: 'dt-optgroup',
   exportAs: 'dtOptgroup',
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
   inputs: ['disabled'],
   templateUrl: 'optgroup.html',
