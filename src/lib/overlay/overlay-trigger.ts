@@ -1,18 +1,15 @@
-import { Directive, Input, ElementRef, TemplateRef, ViewChild, ChangeDetectorRef, DoCheck, NgZone, Optional, Inject } from '@angular/core';
+import { Directive, Input, ElementRef, TemplateRef, ViewChild, DoCheck, NgZone, Optional, Inject } from '@angular/core';
 import { DtOverlayService, DEFAULT_DT_OVERLAY_CONFIG } from './overlay';
 import { DtOverlayConfig } from './overlay-config';
-import { CdkConnectedOverlay, CdkOverlayOrigin, ViewportRuler } from '@angular/cdk/overlay';
-import { ESCAPE } from '@angular/cdk/keycodes';
-import { filter } from 'rxjs/operators';
-import { DtOverlayRef } from './overlay-ref';
 import { DOCUMENT } from '@angular/common';
+import { DtOverlayRef } from './overlay-ref';
 
 @Directive({
   selector: '[dtOverlay]',
   exportAs: 'dtOverlayTrigger',
   host: {
-    '(mouseenter)': '_handleMouseEnter($event)',
-    '(mouseleave)': '_handleMouseLeave()',
+    '(mouseover)': '_onMouseOver($event)',
+    '(mouseout)': '_onMouseOut($event)',
     '(click)': '_handleClick()',
   },
 })
@@ -20,10 +17,9 @@ export class DtOverlayTrigger<T> implements DoCheck {
 
   private _content: TemplateRef<T>;
   private _config: DtOverlayConfig = DEFAULT_DT_OVERLAY_CONFIG;
+  private _dtOverlayRef: DtOverlayRef | null = null;
 
   /** Overlay pane containing the content */
-  @ViewChild(CdkConnectedOverlay) _overlayPane: CdkConnectedOverlay;
-  @ViewChild(CdkOverlayOrigin) _defaultTrigger: CdkOverlayOrigin;
 
   @Input('dtOverlay')
   set overlay(value: TemplateRef<T>) {
@@ -39,40 +35,35 @@ export class DtOverlayTrigger<T> implements DoCheck {
   constructor(
     public elementRef: ElementRef,
     protected dtOverlayService: DtOverlayService,
-    private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
     @Optional() @Inject(DOCUMENT) private _document: any,
-  ) {
-  }
+  ) {}
 
-  ngDoCheck(): void {
-    console.log('change detection triggered');
-  }
+  _onMouseOver(event: MouseEvent): void {
+    event.stopPropagation();
 
-  _handleMouseEnter(event: MouseEvent): void {
-
-    this.dtOverlayService.create<T>(this.elementRef, this._content, '', this.dtOverlayConfig);
+    this._dtOverlayRef = this.dtOverlayService.create<T>(this.elementRef, this._content, this.dtOverlayConfig);
     if (this.dtOverlayConfig.enableMouseMove) {
       this._ngZone.runOutsideAngular(() => {
-        this.elementRef.nativeElement.addEventListener('mousemove', this._handleMouseMove.bind(this));
+        this.elementRef.nativeElement.addEventListener('mousemove', this._onMouseMove.bind(this));
       });
     }
   }
 
-  _handleMouseLeave(): void {
+  _onMouseOut(event: MouseEvent): void {
+    event.stopPropagation();
+
     const ref = this.dtOverlayService.overlayRef;
     if (ref && !ref.pinned) {
       this.dtOverlayService.close();
     }
     if (this.dtOverlayConfig.enableMouseMove) {
-      this.elementRef.nativeElement.removeEventListener('mousemove', this._handleMouseMove);
+      this.elementRef.nativeElement.removeEventListener('mousemove', this._onMouseMove);
     }
   }
 
   // using "HTMLElement" type as MouseEvent interface doesn't have the target property
-  _handleMouseMove(event: MouseEvent): void {
-    console.log('mouse move', event);
-
+  _onMouseMove(event: MouseEvent): void {
     if (this.dtOverlayService.overlayRef) {
       // check if overlay fits to the right
       // TODO: check the position and add offsets if needed - e.g. originX is set to center substract half the width of the trigger
@@ -87,40 +78,29 @@ export class DtOverlayTrigger<T> implements DoCheck {
   }
 
   _handleClick(): void {
-    console.log('handle click');
-    if (this.dtOverlayConfig.enableClick) {
-      // const dtOverlayRef: DtOverlayRef = this.dtOverlayService.overlayRef === undefined ?
-      // this.dtOverlayService.create<T>(
-      //  this.elementRef, this._content, 'flexible', 'reposition', this.dtOverlayConfig) : this.dtOverlayService.overlayRef;
+    if (this.dtOverlayConfig.enableClick && this._dtOverlayRef) {
+        // this.dtOverlayService.close();
 
-        this.dtOverlayService.close();
+        // const dtOverlayRef: DtOverlayRef = this.dtOverlayService.create<T>(
+        //   this.elementRef, this._content, this.dtOverlayConfig);
 
-        const dtOverlayRef: DtOverlayRef = this.dtOverlayService.create<T>(
-          this.elementRef, this._content, 'close', this.dtOverlayConfig);
+        // dtOverlayRef.overlayRef.backdropClick().subscribe(() => {
+        //   this.dtOverlayService.close();
+        //   dtOverlayRef.pin(false);
+        // });
 
-        dtOverlayRef.overlayRef.backdropClick().subscribe(() => {
-          this.dtOverlayService.close();
-          dtOverlayRef.pin(false);
-        });
+        // dtOverlayRef.overlayRef.keydownEvents()
+        //   .pipe(filter((event) => event.keyCode === ESCAPE && dtOverlayRef.pinned))
+        //   .subscribe(() => {
+        //     this.dtOverlayService.close();
+        //   });
 
-        dtOverlayRef.overlayRef.keydownEvents()
-          .pipe(filter((event) => event.keyCode === ESCAPE && dtOverlayRef.pinned))
-          .subscribe(() => {
-            this.dtOverlayService.close();
-          });
+        // this.elementRef.nativeElement.focus();
 
-        this.dtOverlayService.trapFocus();
-        this.elementRef.nativeElement.focus();
-        this.dtOverlayService.setFocus();
+        this._dtOverlayRef.pin(true);
 
-        dtOverlayRef.pin(true);
-
-        this._changeDetectorRef.markForCheck();
+        // this._changeDetectorRef.markForCheck();
     }
-  }
-
-  private _getViewportWidth(): number {
-    return this._document.documentElement.clientWidth;
   }
 
   private _getViewportWidth(): number {
