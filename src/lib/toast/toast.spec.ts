@@ -4,6 +4,7 @@ import {Component} from '@angular/core';
 import { DtToastModule, DtToast, DT_TOAST_FADE_TIME} from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { DT_TOAST_MIN_DURATION } from '@dynatrace/angular-components/toast/toast-config';
 
 describe('DtToast', () => {
   let dtToast: DtToast;
@@ -193,6 +194,22 @@ describe('DtToast', () => {
 
     /** wait longer then the duration */
     tick(toastRef.duration * 2);
+    fixture.detectChanges();
+    tick();
+    expect(afterDismissSpy).toHaveBeenCalled();
+  }));
+
+  it('should clamp the duration to a minimum', fakeAsync(() => {
+    const toastRef = dtToast.create('1');
+    const afterDismissSpy = jasmine.createSpy('after dismiss spy');
+    toastRef.afterDismissed().subscribe(afterDismissSpy);
+
+    fixture.detectChanges();
+    tick(DT_TOAST_MIN_DURATION / 2);
+    expect(afterDismissSpy).not.toHaveBeenCalled();
+
+    /** wait longer then the duration */
+    tick(DT_TOAST_MIN_DURATION / 2);
     fixture.detectChanges();
     tick();
     expect(afterDismissSpy).toHaveBeenCalled();
