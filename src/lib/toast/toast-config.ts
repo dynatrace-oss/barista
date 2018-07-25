@@ -10,3 +10,4 @@ export const DT_TOAST_DEFAULT_CONFIG: OverlayConfig = {
 export const DT_TOAST_PERCEIVE_TIME = 500;
 export const DT_TOAST_CHAR_READ_TIME = 50;
 export const DT_TOAST_FADE_TIME = 150;
+export const DT_TOAST_MIN_DURATION = 2000;
