@@ -4,9 +4,11 @@ import { DocsOverlayComponent } from './docs-overlay.component';
 import { UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtOverlayModule } from '@dynatrace/angular-components';
+import { TimelineOverlayExampleComponent, TimelineComponent, TimelinePointComponent } from './examples/timeline-overlay-example.component';
 
 const EXAMPLES = [
   DefaultOverlayExampleComponent,
+  TimelineOverlayExampleComponent,
 ];
 
 @NgModule({
@@ -17,6 +19,8 @@ const EXAMPLES = [
   ],
   declarations: [
     ...EXAMPLES,
+    TimelinePointComponent,
+    TimelineComponent,
     DocsOverlayComponent,
   ],
   exports: [
