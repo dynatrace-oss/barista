@@ -3,7 +3,7 @@ import { DtToastContainer } from './toast-container';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { DtToastRef } from './toast-ref';
-import { DT_TOAST_BOTTOM_SPACING, DT_TOAST_DEFAULT_CONFIG, DT_TOAST_PERCEIVE_TIME, DT_TOAST_CHAR_READ_TIME } from './toast-config';
+import { DT_TOAST_BOTTOM_SPACING, DT_TOAST_DEFAULT_CONFIG, DT_TOAST_PERCEIVE_TIME, DT_TOAST_CHAR_READ_TIME, DT_TOAST_MIN_DURATION } from './toast-config';
 
 /** Token for passing the message to the toast */
 export const DT_TOAST_MESSAGE = new InjectionToken<string>('DtToastMessage');
@@ -53,7 +53,7 @@ export class DtToast {
 
   /** Calculates the duration the toast is shown based on the message length */
   private _calculateToastDuration(message: string): number {
-    return DT_TOAST_PERCEIVE_TIME + DT_TOAST_CHAR_READ_TIME * message.length;
+    return Math.max(DT_TOAST_PERCEIVE_TIME + DT_TOAST_CHAR_READ_TIME * message.length, DT_TOAST_MIN_DURATION);
   }
 
   /** Animates the toast components and handles multiple toasts at the same time  */
