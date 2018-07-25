@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef, TemplateRef, ViewChild, DoCheck, NgZone, Optional, Inject } from '@angular/core';
-import { DtOverlayService, DEFAULT_DT_OVERLAY_CONFIG } from './overlay';
+import { DtOverlay } from './overlay';
 import { DtOverlayConfig } from './overlay-config';
 import { DOCUMENT } from '@angular/common';
 import { DtOverlayRef } from './overlay-ref';
@@ -13,10 +13,10 @@ import { DtOverlayRef } from './overlay-ref';
     '(click)': '_handleClick()',
   },
 })
-export class DtOverlayTrigger<T> implements DoCheck {
+export class DtOverlayTrigger<T> {
 
   private _content: TemplateRef<T>;
-  private _config: DtOverlayConfig = DEFAULT_DT_OVERLAY_CONFIG;
+  private _config: DtOverlayConfig;
   private _dtOverlayRef: DtOverlayRef | null = null;
 
   /** Overlay pane containing the content */
@@ -29,12 +29,12 @@ export class DtOverlayTrigger<T> implements DoCheck {
   @Input()
   get dtOverlayConfig(): DtOverlayConfig { return this._config; }
   set dtOverlayConfig(value: DtOverlayConfig) {
-    this._config = { ...DEFAULT_DT_OVERLAY_CONFIG, ...value };
+    this._config = value;
   }
 
   constructor(
     public elementRef: ElementRef,
-    protected dtOverlayService: DtOverlayService,
+    protected dtOverlayService: DtOverlay,
     private _ngZone: NgZone,
     @Optional() @Inject(DOCUMENT) private _document: any,
   ) {}

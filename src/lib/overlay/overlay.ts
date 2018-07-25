@@ -1,15 +1,14 @@
 import { Injectable, TemplateRef, ElementRef } from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
-import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, OverlayConfig, PositionStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType, TemplatePortal } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
-import { GlobalPositionStrategy, FlexibleConnectedPositionStrategy, RepositionScrollStrategy, CloseScrollStrategy, BlockScrollStrategy } from '@angular/cdk/overlay';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtOverlayService');
 
-export const DEFAULT_DT_OVERLAY_CONFIG: DtOverlayConfig = {
+export const DT_OVERLAY_DEFAULT_CONFIG: DtOverlayConfig = {
   enableClick: true,
   hasBackdrop: true,
   enableMouseMove: true,
@@ -17,9 +16,8 @@ export const DEFAULT_DT_OVERLAY_CONFIG: DtOverlayConfig = {
 };
 
 @Injectable({ providedIn: 'root'})
-export class DtOverlayService {
+export class DtOverlay {
   private _dtOverlayRef: DtOverlayRef | undefined;
-
 
   get overlayRef(): DtOverlayRef | undefined {
     return this._dtOverlayRef;
@@ -32,36 +30,33 @@ export class DtOverlayService {
   create<T>(
     origin: ElementRef,
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    customConfig?: DtOverlayConfig
+    userConfig?: DtOverlayConfig
   ): DtOverlayRef {
     if (this._dtOverlayRef && this._dtOverlayRef.overlayRef) {
       console.log('dispose');
       this._dtOverlayRef.overlayRef.dispose();
     }
 
-    const positionStrategy: GlobalPositionStrategy | FlexibleConnectedPositionStrategy =
-      this._overlay.position()
-        .flexibleConnectedTo(origin)
-        .withPositions([
-          {
-            originX: 'start',
-            originY: 'bottom',
-            overlayX: 'start',
-            overlayY: 'top',
-          },
-          {
-            originX: 'end',
-            originY: 'bottom',
-            overlayX: 'start',
-            overlayY: 'top',
-          }]);
+    let positionStrategy = userConfig && userConfig.positionStrategy;
+    if (!positionStrategy) {
+      positionStrategy = this._overlay.position()
+      .flexibleConnectedTo(origin)
+      .withPositions([
+        {
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top',
+        },
+        {
+          originX: 'end',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top',
+        }]);
+    }
 
-    let scrollPositionStrategy: RepositionScrollStrategy | BlockScrollStrategy | CloseScrollStrategy =
-      this._overlay.scrollStrategies.close();
-
-    scrollPositionStrategy = this._overlay.scrollStrategies.reposition();
-
-    const config = { ...DEFAULT_DT_OVERLAY_CONFIG, positionStrategy, scrollStrategy: scrollPositionStrategy, ...customConfig };
+    const config = { ...DT_OVERLAY_DEFAULT_CONFIG, positionStrategy, ...userConfig };
 
     const overlayRef: OverlayRef = this._overlay.create(config as OverlayConfig);
     const overlayContainer = this._attachOverlayContainer(overlayRef);
