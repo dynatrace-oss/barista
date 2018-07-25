@@ -1,0 +1,21 @@
+@import '../../style/font-mixins';
+@import '../style/variables';
+
+:host {
+  @include main-font();
+  display: block;
+  padding: 0 11px;
+  font-size: 14px;
+  line-height: 28px;
+  cursor: default;
+
+  &:not(.dt-option-disabled):hover,
+  &:not(.dt-option-disabled).dt-option-active {
+    background-color: $turquoise-100;
+    cursor: pointer;
+  }
+
+  &.dt-option-selected {
+    font-weight: 700;
+  }
+}
