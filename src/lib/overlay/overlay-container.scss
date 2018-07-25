@@ -1,7 +1,6 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
 
-$panel-padding-btn: 38px;
 $panel-padding: 12px;
 $overlay-max-width: 620px;
 $overlay-min-width: 36px;
@@ -13,7 +12,7 @@ $overlay-min-width: 36px;
   border-radius: 4px;
   font-size: 14px;
   color: $gray-700;
-  padding: $panel-padding-btn $panel-padding $panel-padding $panel-padding;
+  padding: $panel-padding;
   display: inline-block;
   border-radius: 3px;
   position: relative;

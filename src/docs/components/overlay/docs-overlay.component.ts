@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DefaultOverlayExampleComponent } from './examples/default-overlay-example.component';
+import { TimelineOverlayExampleComponent } from './examples/timeline-overlay-example.component';
 
 @Component({
   moduleId: module.id,
@@ -10,5 +11,6 @@ import { DefaultOverlayExampleComponent } from './examples/default-overlay-examp
 export class DocsOverlayComponent {
   examples = {
     default: DefaultOverlayExampleComponent,
+    timeline: TimelineOverlayExampleComponent,
   };
 }
