@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT } from '@dynatrace/angular-components/toast/toast-config';
 
-fdescribe('DtToast', () => {
+describe('DtToast', () => {
   let dtToast: DtToast;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
