@@ -42,6 +42,14 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
   /** Subscription to viewport size changes. */
   private _resizeSubscription = Subscription.EMPTY;
 
+  private _transformOriginSelector: string;
+
+  /** Ordered list of preferred positions, from most to least desirable. */
+  _preferredPositions: OverlayPositions[] = [];
+
+  /** The last position to have been calculated as the best fit position. */
+  private _lastPosition: OverlayPositions | null;
+
   constructor(
     connectedTo: ElementRef | HTMLElement,
     private _viewportRuler: ViewportRuler,
@@ -52,6 +60,7 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
   }
 
   attach(overlayRef: OverlayRef): void {
+    console.log('attached');
     if (this._overlayRef && overlayRef !== this._overlayRef) {
       throw Error('This position strategy is already attached to an overlay');
     }
@@ -79,14 +88,18 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     const overlayRect = this._overlayRect;
     const viewportRect = this._viewportRect;
 
+    console.log('applied');
+
     // this._applyPosition(fallback!.position, fallback!.originPoint);
   }
 
   detach(): void {
+    console.log('detached');
     this._resizeSubscription.unsubscribe();
   }
 
   dispose(): void {
+    console.log('disposed');
     if (!this._isDisposed) {
       this.detach();
       this._boundingBox = null;
@@ -130,26 +143,40 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     return this;
   }
 
+  withPositions(positions: OverlayPositions[]): this {
+    this._preferredPositions = positions;
+
+    // If the last calculated position object isn't part of the positions anymore, clear
+    // it in order to avoid it being picked up if the consumer tries to re-apply.
+    if (positions.indexOf(this._lastPosition!) === -1) {
+      this._lastPosition = null;
+    }
+
+    // this._validatePositions();
+
+    return this;
+  }
+
   /**
    * Gets the (x, y) coordinate of a connection point on the origin based on a relative position.
    */
   private _getOriginPoint(originRect: ClientRect, pos: ConnectedPosition): Point {
     let x: number;
-    if (pos.originX == 'center') {
+    if (pos.originX === 'center') {
       // Note: when centering we should always use the `left`
       // offset, otherwise the position will be wrong in RTL.
       x = originRect.left + (originRect.width / 2);
     } else {
       const startX = originRect.left;
       const endX = originRect.right;
-      x = pos.originX == 'start' ? startX : endX;
+      x = pos.originX === 'start' ? startX : endX;
     }
 
     let y: number;
-    if (pos.originY == 'center') {
+    if (pos.originY === 'center') {
       y = originRect.top + (originRect.height / 2);
     } else {
-      y = pos.originY == 'top' ? originRect.top : originRect.bottom;
+      y = pos.originY === 'top' ? originRect.top : originRect.bottom;
     }
 
     return {x, y};
@@ -167,7 +194,7 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     // Calculate the (overlayStartX, overlayStartY), the start of the
     // potential overlay position relative to the origin point.
     let overlayStartX: number;
-    if (pos.overlayX == 'center') {
+    if (pos.overlayX === 'center') {
       overlayStartX = -overlayRect.width / 2;
     } else if (pos.overlayX === 'start') {
       overlayStartX = 0;
@@ -176,10 +203,10 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     }
 
     let overlayStartY: number;
-    if (pos.overlayY == 'center') {
+    if (pos.overlayY === 'center') {
       overlayStartY = -overlayRect.height / 2;
     } else {
-      overlayStartY = pos.overlayY == 'top' ? 0 : -overlayRect.height;
+      overlayStartY = pos.overlayY === 'top' ? 0 : -overlayRect.height;
     }
 
     // The (x, y) coordinates of the overlay.
@@ -196,8 +223,8 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
    */
   private _applyPosition(position: ConnectedPosition, originPoint: Point): void {
     this._setTransformOrigin(position);
-    this._setOverlayElementStyles(originPoint, position);
-    this._setBoundingBoxStyles(originPoint, position);
+    // this._setOverlayElementStyles(originPoint, position);
+    // this._setBoundingBoxStyles(originPoint, position);
   }
 
   /** Sets the transform origin based on the configured selector and the passed-in position.  */
@@ -279,63 +306,63 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     return {top, left, bottom, right, width, height};
   }
 
-  /** Resets the styles for the bounding box so that a new positioning can be computed. */
-  private _resetBoundingBoxStyles() {
-    extendStyles(this._boundingBox!.style, {
-      top: '0',
-      left: '0',
-      right: '0',
-      bottom: '0',
-      height: '',
-      width: '',
-      alignItems: '',
-      justifyContent: '',
-    } as CSSStyleDeclaration);
-  }
+  // /** Resets the styles for the bounding box so that a new positioning can be computed. */
+  // private _resetBoundingBoxStyles() {
+  //   extendStyles(this._boundingBox!.style, {
+  //     top: '0',
+  //     left: '0',
+  //     right: '0',
+  //     bottom: '0',
+  //     height: '',
+  //     width: '',
+  //     alignItems: '',
+  //     justifyContent: '',
+  //   } as CSSStyleDeclaration);
+  // }
 
-  /** Resets the styles for the overlay pane so that a new positioning can be computed. */
-  private _resetOverlayElementStyles() {
-    extendStyles(this._pane.style, {
-      top: '',
-      left: '',
-      bottom: '',
-      right: '',
-      position: '',
-    } as CSSStyleDeclaration);
-  }
+  // /** Resets the styles for the overlay pane so that a new positioning can be computed. */
+  // private _resetOverlayElementStyles() {
+  //   extendStyles(this._pane.style, {
+  //     top: '',
+  //     left: '',
+  //     bottom: '',
+  //     right: '',
+  //     position: '',
+  //   } as CSSStyleDeclaration);
+  // }
 
-  /** Sets positioning styles to the overlay element. */
-  private _setOverlayElementStyles(originPoint: Point, position: ConnectedPosition): void {
-    const styles = {} as CSSStyleDeclaration;
+  // /** Sets positioning styles to the overlay element. */
+  // private _setOverlayElementStyles(originPoint: Point, position: ConnectedPosition): void {
+  //   const styles = {} as CSSStyleDeclaration;
 
-    if (this._hasExactPosition()) {
-      extendStyles(styles, this._getExactOverlayY(position, originPoint));
-      extendStyles(styles, this._getExactOverlayX(position, originPoint));
-    } else {
-      styles.position = 'static';
-    }
+  //   if (this._hasExactPosition()) {
+  //     extendStyles(styles, this._getExactOverlayY(position, originPoint));
+  //     extendStyles(styles, this._getExactOverlayX(position, originPoint));
+  //   } else {
+  //     styles.position = 'static';
+  //   }
 
-    // Use a transform to apply the offsets. We do this because the `center` positions rely on
-    // being in the normal flex flow and setting a `top` / `left` at all will completely throw
-    // off the position. We also can't use margins, because they won't have an effect in some
-    // cases where the element doesn't have anything to "push off of". Finally, this works
-    // better both with flexible and non-flexible positioning.
-    let transformString = '';
-    let offsetX = this._getOffset(position, 'x');
-    let offsetY = this._getOffset(position, 'y');
+  //   // Use a transform to apply the offsets. We do this because the `center` positions rely on
+  //   // being in the normal flex flow and setting a `top` / `left` at all will completely throw
+  //   // off the position. We also can't use margins, because they won't have an effect in some
+  //   // cases where the element doesn't have anything to "push off of". Finally, this works
+  //   // better both with flexible and non-flexible positioning.
+  //   let transformString = '';
+  //   let offsetX = this._getOffset(position, 'x');
+  //   let offsetY = this._getOffset(position, 'y');
 
-    if (offsetX) {
-      transformString += `translateX(${offsetX}px) `;
-    }
+  //   if (offsetX) {
+  //     transformString += `translateX(${offsetX}px) `;
+  //   }
 
-    if (offsetY) {
-      transformString += `translateY(${offsetY}px)`;
-    }
+  //   if (offsetY) {
+  //     transformString += `translateY(${offsetY}px)`;
+  //   }
 
-    styles.transform = transformString.trim();
+  //   styles.transform = transformString.trim();
 
-    extendStyles(this._pane.style, styles);
-  }
+  //   extendStyles(this._pane.style, styles);
+  // }
 
   /** Narrows the given viewport rect by the current _viewportMargin. */
   private _getNarrowedViewportRect(): ClientRect {
@@ -358,17 +385,26 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     };
   }
 
-  /** Retrieves the offset of a position along the x or y axis. */
-  private _getOffset(position: ConnectedPosition, axis: 'x' | 'y') {
-    if (axis === 'x') {
-      // We don't do something like `position['offset' + axis]` in
-      // order to avoid breking minifiers that rename properties.
-      return position.offsetX == null ? this._offsetX : position.offsetX;
-    }
+  // /** Retrieves the offset of a position along the x or y axis. */
+  // private _getOffset(position: ConnectedPosition, axis: 'x' | 'y') {
+  //   if (axis === 'x') {
+  //     // We don't do something like `position['offset' + axis]` in
+  //     // order to avoid breking minifiers that rename properties.
+  //     return position.offsetX == null ? this._offsetX : position.offsetX;
+  //   }
 
-    return position.offsetY == null ? this._offsetY : position.offsetY;
-  }
+  //   return position.offsetY == null ? this._offsetY : position.offsetY;
+  // }
 
+}
+
+export interface OverlayPositions {
+  overlayX: 'start' | 'center' | 'end';
+  overlayY: 'top' | 'center' | 'bottom';
+
+  weight?: number;
+  offsetX?: number;
+  offsetY?: number;
 }
 
 /** A simple (x, y) coordinate. */
