@@ -99,7 +99,7 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
 
   ngAfterViewChecked(): void {
     // Since parent components could be using the option's label to display the selected values
-    // (e.g. `mat-select`) and they don't have a way of knowing if the option's label has changed
+    // (e.g. `dt-select`) and they don't have a way of knowing if the option's label has changed
     // we have to check for changes in the DOM ourselves and dispatch an event. These checks are
     // relatively cheap, however we still limit them only to selected options in order to avoid
     // hitting the DOM too often.
