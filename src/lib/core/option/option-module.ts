@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from 'node_modules/@angular/common';
+import { CommonModule } from '@angular/common';
 import { DtOption } from './option';
 import { DtOptgroup } from './optgroup';
 
