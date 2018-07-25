@@ -3,7 +3,10 @@ import { DtToastContainer } from './toast-container';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { DtToastRef } from './toast-ref';
-import { DT_TOAST_BOTTOM_SPACING, DT_TOAST_DEFAULT_CONFIG, DT_TOAST_PERCEIVE_TIME, DT_TOAST_CHAR_READ_TIME, DT_TOAST_MIN_DURATION } from './toast-config';
+import { DT_TOAST_BOTTOM_SPACING, DT_TOAST_DEFAULT_CONFIG, DT_TOAST_PERCEIVE_TIME, DT_TOAST_CHAR_READ_TIME, DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT } from './toast-config';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+
+const LOG: DtLogger = DtLoggerFactory.create('DtToast');
 
 /** Token for passing the message to the toast */
 export const DT_TOAST_MESSAGE = new InjectionToken<string>('DtToastMessage');
@@ -17,14 +20,16 @@ export class DtToast {
 
   /** Creates a new toast and dismisses the current one if one exists */
   create(message: string): DtToastRef {
+    const msg = this._fitMessage(message);
     const overlayRef = this._createOverlay();
     const injector = new PortalInjector(this._injector, new WeakMap<InjectionToken<string>, string>([
-      [DT_TOAST_MESSAGE, message],
+      [DT_TOAST_MESSAGE, msg],
     ]));
     const containerPortal = new ComponentPortal(DtToastContainer, null, injector);
     const containerRef = overlayRef.attach(containerPortal);
     const container = containerRef.instance;
-    const duration = this._calculateToastDuration(message);
+
+    const duration = this._calculateToastDuration(msg);
     const toastRef = new DtToastRef(container, duration, overlayRef);
 
     this._animateDtToastContainer(toastRef);
@@ -78,5 +83,14 @@ export class DtToast {
     }
 
     toastRef.afterOpened().subscribe(() => { toastRef._dismissAfterTimeout(); });
+  }
+
+  private _fitMessage(message: string): string {
+    if (message.length > DT_TOAST_CHAR_LIMIT) {
+      LOG.warn(`Maximum lenght for toast message exceeded for message: "${message}".
+        A maximum length of ${DT_TOAST_CHAR_LIMIT} character is allowed`);
+      return message.slice(0, DT_TOAST_CHAR_LIMIT);
+    }
+    return message;
   }
 }
