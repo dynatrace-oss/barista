@@ -4,16 +4,20 @@ import { CommonModule } from '@angular/common';
 import { DtSelectModule, DtCheckboxModule } from '@dynatrace/angular-components';
 import { DefaultSelectExampleComponent } from './examples/default-select-example.component';
 import { DisabledSelectExampleComponent } from './examples/disabled-select-example.component';
+import { FormsSelectExampleComponent } from './examples/forms-select-example.component';
+import { FormsModule } from '@angular/forms';
 
 export const EXAMPLES = [
   DefaultSelectExampleComponent,
   DisabledSelectExampleComponent,
+  FormsSelectExampleComponent,
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     UiModule,
+    FormsModule,
     DtSelectModule,
     DtCheckboxModule,
   ],
