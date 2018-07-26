@@ -78,14 +78,15 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
       addCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
       if (this.copyButton) {
         addCssClass(this.copyButton.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+        this.copyButton.nativeElement.focus();
       }
     }
 
     this._timer = timer(DT_COPY_CLIPBOARD_TIMER).subscribe((): void => {
       this._resetCopyState();
-    });
 
-    this.copied.emit();
+      this.copied.emit();
+    });
   }
 
   private _resetCopyState(): void {
