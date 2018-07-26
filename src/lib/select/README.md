@@ -28,3 +28,5 @@ class MyModule {}
 <docs-source-example example="DisabledSelectExampleComponent"></docs-source-example>
 
 <docs-source-example example="FormsSelectExampleComponent"></docs-source-example>
+
+<docs-source-example example="GroupsSelectExampleComponent"></docs-source-example>

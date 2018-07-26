@@ -4,10 +4,12 @@
 :host {
   @include main-font();
   display: block;
-  padding: 0 11px;
+  padding: 0 12px;
   font-size: 14px;
   line-height: 28px;
   cursor: default;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   &:not(.dt-option-disabled):hover,
   &:not(.dt-option-disabled).dt-option-active {
