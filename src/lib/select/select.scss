@@ -9,21 +9,21 @@ $dt-select-panel-min-width: 112px !default;
 :host {
   display: inline-block;
   box-sizing: border-box;
+  outline: none;
   @include main-font();
   @include dt-form-control();
 
-  &:hover:not(.gh-select-disabled) {
+  &:hover:not(.dt-select-disabled) {
     border-color: $gray-500;
     cursor: pointer;
   }
 
-  &[disabled],
-  &.gh-select-disabled {
+  &.dt-select-disabled {
     background-color: $gray-100;
     color: $disabledcolor;
   }
 
-  &:focus:not([disabled]) {
+  &:focus:not(.dt-select-disabled) {
     @include dt-focus-style();
   }
 
@@ -63,6 +63,9 @@ $dt-select-panel-min-width: 112px !default;
     width: 16px;
     height: 16px;
   }
+}
+:host.dt-select-disabled .dt-select-arrow ::ng-deep svg {
+  fill: $disabledcolor;
 }
 
 :host.dt-select-open .dt-select-arrow {

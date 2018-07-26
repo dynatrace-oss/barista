@@ -25,3 +25,4 @@ class MyModule {}
 
 ## Examples
 
+<docs-source-example example="DisabledSelectExampleComponent"></docs-source-example>

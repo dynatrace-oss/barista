@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
-import { DefaultSelectExampleComponent } from './examples/default-select-example.component';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtSelectModule } from '@dynatrace/angular-components';
+import { DtSelectModule, DtCheckboxModule } from '@dynatrace/angular-components';
+import { DefaultSelectExampleComponent } from './examples/default-select-example.component';
+import { DisabledSelectExampleComponent } from './examples/disabled-select-example.component';
 
 export const EXAMPLES = [
   DefaultSelectExampleComponent,
+  DisabledSelectExampleComponent,
 ];
 
 @NgModule({
@@ -13,6 +15,7 @@ export const EXAMPLES = [
     CommonModule,
     UiModule,
     DtSelectModule,
+    DtCheckboxModule,
   ],
   declarations: [
     ...EXAMPLES,
