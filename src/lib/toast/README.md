@@ -30,9 +30,9 @@ constructor(private _dtToast: DtToast) {}
 The `DtToast` service has the following two methods:
 
 ```typescript
-create(message: string): DtToastRef
+create(message: string): DtToastRef | null
 ```
-creates a new toast with the given message and returns the ref to the created toast. The toast duration is calculated based on the message length and gets dismissed automatically after the time passed.
+creates a new toast with the given message and returns the ref to the created toast. The toast duration is calculated based on the message length and gets dismissed automatically after the time passed. If the message is empty no toast will be created and `null` is returned
 
 ```typescript
 dismiss(): void
