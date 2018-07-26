@@ -1,0 +1,14 @@
+@import '../core/style/variables';
+@import '../style/font-mixins';
+
+:host() {
+  @include main-font();
+  display: block;
+  border-radius: 3px;
+  border: 1px solid $gray-640;
+  padding: 14px 32px;
+  color: #fff;
+  background-color: $gray-700;
+  opacity: 0;
+  margin: 0 24px;
+}
