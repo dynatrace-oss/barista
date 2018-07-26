@@ -27,6 +27,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { DOWN_ARROW, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, ENTER, SPACE, HOME, END } from '@angular/cdk/keycodes';
 import { Subject, Observable, merge, defer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import {
@@ -87,6 +88,7 @@ export const _DtSelectMixinBase = mixinTabIndex(mixinDisabled(mixinErrorState(Dt
     '[class.dt-select-disabled]': 'disabled',
     '[class.dt-select-invalid]': 'errorState',
     '[class.dt-select-required]': 'required',
+    '[class.dt-select-open]': '_panelOpen',
     '[attr.id]': 'id',
     '[attr.tabindex]': 'tabIndex',
     '[attr.aria-label]': '_getAriaLabel()',
@@ -154,13 +156,13 @@ export class DtSelect<T> extends _DtSelectMixinBase
   _positions = [
     {
       originX: 'start',
-      originY: 'top',
+      originY: 'bottom',
       overlayX: 'start',
       overlayY: 'top',
     },
     {
       originX: 'start',
-      originY: 'bottom',
+      originY: 'top',
       overlayX: 'start',
       overlayY: 'bottom',
     },
@@ -454,7 +456,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   /** Handles all keydown events on the select. */
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
-      // this.panelOpen ? this._handleOpenKeydown(event) : this._handleClosedKeydown(event);
+      this.panelOpen ? this._handleOpenKeydown(event) : this._handleClosedKeydown(event);
     }
   }
 
@@ -546,6 +548,43 @@ export class DtSelect<T> extends _DtSelectMixinBase
     this._onChange(valueToEmit);
     this.selectionChange.emit(new DtSelectChange(this, valueToEmit));
     this._changeDetectorRef.markForCheck();
+  }
+
+  /** Handles keyboard events while the select is closed. */
+  private _handleClosedKeydown(event: KeyboardEvent): void {
+    const keyCode = event.keyCode;
+    const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW ||
+      keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW;
+    const isOpenKey = keyCode === ENTER || keyCode === SPACE;
+
+    // Open the select on ALT + arrow key to match the native <select>
+    if (isOpenKey || (event.altKey && isArrowKey)) {
+      event.preventDefault(); // prevents the page from scrolling down when pressing space
+      this.open();
+    } else {
+      this._keyManager.onKeydown(event);
+    }
+  }
+
+  /** Handles keyboard events when the selected is open. */
+  private _handleOpenKeydown(event: KeyboardEvent): void {
+    const keyCode = event.keyCode;
+    const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
+    const manager = this._keyManager;
+
+    if (keyCode === HOME || keyCode === END) {
+      event.preventDefault();
+      keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
+    } else if (isArrowKey && event.altKey) {
+      // Close the select on ALT + arrow key to match the native <select>
+      event.preventDefault();
+      this.close();
+    } else if ((keyCode === ENTER || keyCode === SPACE) && manager.activeItem) {
+      event.preventDefault();
+      manager.activeItem._selectViaInteraction();
+    } else {
+      manager.onKeydown(event);
+    }
   }
 
   /** Sets up a key manager to listen to keyboard events on the overlay panel. */
