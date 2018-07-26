@@ -32,7 +32,8 @@ class MyModule {}
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `disabled` | `boolean` | `false` | If `true` (= default) the included button and textarea are disabled, no copy is possible |
-| `(copied)` | `event<void>` | `0` | Callback that is triggered after a successful copy |
+| `(copied)` | `event<void>` |  | Callback that is triggered after a successful copy |
+| `(afterCopy)` | `event<void>` |  | Callback that is triggered after a successful copy and after the copy animation is stopped |
 | `(copyFailed)` | `event<void>` | | Callback that is triggered after a failed copy |
 
 ## Examples
