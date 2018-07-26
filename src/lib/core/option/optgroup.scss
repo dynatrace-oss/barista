@@ -1,0 +1,23 @@
+@import '../../style/font-mixins';
+
+:host {
+  display: block;
+}
+
+.dt-optgroup + :host,
+.dt-option + :host {
+  margin-top: 16px;
+}
+
+.dt-optgroup-label {
+  @include label-font();
+  color: $gray-500;
+  padding: 0 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:host ::ng-deep .dt-option {
+  padding-left: 24px;
+  padding-right: 24px;
+}
