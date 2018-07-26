@@ -41,13 +41,8 @@ export class DtOverlayTrigger<T> {
 
   _onMouseOver(event: MouseEvent): void {
     event.stopPropagation();
-
-    this._dtOverlayRef = this.dtOverlayService.create<T>(this.elementRef, this._content, this.dtOverlayConfig);
-    if (this.dtOverlayConfig.enableMouseMove) {
-      this._ngZone.runOutsideAngular(() => {
-        this.elementRef.nativeElement.addEventListener('mousemove', this._onMouseMove.bind(this));
-      });
-    }
+    console.log(this._config);
+    this._dtOverlayRef = this.dtOverlayService.create<T>(this.elementRef, this._content, this._config);
   }
 
   _onMouseOut(event: MouseEvent): void {
@@ -56,9 +51,6 @@ export class DtOverlayTrigger<T> {
     const ref = this.dtOverlayService.overlayRef;
     if (ref && !ref.pinned) {
       this.dtOverlayService.close();
-    }
-    if (this.dtOverlayConfig.enableMouseMove) {
-      this.elementRef.nativeElement.removeEventListener('mousemove', this._onMouseMove);
     }
   }
 

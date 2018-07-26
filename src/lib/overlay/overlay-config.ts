@@ -1,17 +1,12 @@
 import {
   OverlayConfig,
-  CloseScrollStrategy,
-  BlockScrollStrategy,
-  RepositionScrollStrategy,
-  PositionStrategy,
 } from '@angular/cdk/overlay';
 
-export interface DtOverlayConfig extends OverlayConfig {
-  scrollStrategy?: CloseScrollStrategy | BlockScrollStrategy | RepositionScrollStrategy;
-  positionStrategy?: PositionStrategy;
-  enableClick?: boolean;
+export class DtOverlayConfig extends OverlayConfig {
   enableMouseMove?: boolean;
-  enableFocus?: boolean;
-  posX?: number;
-  posY?: number;
+  enablePin?: boolean;
+
+  constructor(config?: OverlayConfig) {
+    super(config);
+  }
 }
