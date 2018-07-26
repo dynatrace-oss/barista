@@ -4,7 +4,7 @@ import { OriginalClassName } from '../../../core/decorators';
 @Component({
   moduleId: module.id,
   template: `
-    <dt-select placeholder="Choose your coffee">
+    <dt-select placeholder="Select filter type">
       <dt-option value="Application">Application</dt-option>
       <dt-option value="Bounce">Bounce</dt-option>
       <dt-optgroup label="Browsers">
