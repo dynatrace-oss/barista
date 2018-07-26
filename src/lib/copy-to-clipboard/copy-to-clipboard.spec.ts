@@ -14,23 +14,37 @@ describe('DtCopyToClipboard', () => {
         HttpClientTestingModule,
         DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
       ],
-      declarations: [CallbackBehaviorTestApp, DisabledTestApp],
+      declarations: [CallbackBehaviorTestApp, DelayedCallbackBehaviorTestApp, DisabledTestApp],
     });
     TestBed.compileComponents();
     // tslint:disable-next-line:no-any
     document.execCommand = (commandId: string, showUI?: boolean, value?: any): boolean => true;
   }));
 
-  it('should trigger callback - at least 1 copy must be called', fakeAsync((): void => {
+  it('should trigger callback - at least 1 copy must be called', (): void => {
 
     const fixture = TestBed.createComponent(CallbackBehaviorTestApp);
     fixture.detectChanges();
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-to-clipboard-btn-button'));
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
-    tick(1200);
+
     fixture.detectChanges();
     expect(fixture.componentInstance.copyEventCount).toBeGreaterThan(0);
 
+  });
+
+  it('should trigger a delayed callback - at least 1 copy must be called', fakeAsync((): void => {
+    const fixture = TestBed.createComponent(DelayedCallbackBehaviorTestApp);
+    fixture.detectChanges();
+    const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-to-clipboard-btn-button'));
+    buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
+
+    fixture.detectChanges();
+    expect(fixture.componentInstance.copyEventCount).toEqual(0);
+
+    tick(1200);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.copyEventCount).toBeGreaterThan(0);
   }));
 
   it('should set checkmark to visible and invisible afterwards', fakeAsync((): void => {
@@ -68,6 +82,23 @@ describe('DtCopyToClipboard', () => {
     </dt-copy-to-clipboard>`,
 })
 class CallbackBehaviorTestApp {
+  copyEventCount = 0;
+
+  increaseEventCount(): void {
+    this.copyEventCount++;
+  }
+}
+
+/** Test component that contains an DtCopyComponent. */
+@Component({
+  selector: 'dt-delayed-test-app',
+  template: `
+    <dt-copy-to-clipboard (afterCopy)="increaseEventCount();">
+      <input dtInput value="https://context.dynatrace.com"/>
+      <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
+    </dt-copy-to-clipboard>`,
+})
+class DelayedCallbackBehaviorTestApp {
   copyEventCount = 0;
 
   increaseEventCount(): void {
