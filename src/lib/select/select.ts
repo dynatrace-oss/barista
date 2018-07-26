@@ -347,7 +347,6 @@ export class DtSelect<T> extends _DtSelectMixinBase
     this._initKeyManager();
 
     this._selectionModel.onChange!.pipe(takeUntil(this._destroy)).subscribe((event) => {
-      console.log(event);
       event.added.forEach((option) => option.select());
       event.removed.forEach((option) => option.deselect());
     });
@@ -622,7 +621,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     const correspondingOption = this.options.find((option: DtOption<T>) => {
       try {
         // Treat null as a special reset value.
-        return option.value != null && this._compareWith(option.value, value);
+        return isDefined(option.value) && this._compareWith(option.value, value);
       } catch (error) {
         // Notify developers of errors in their comparator.
         console.warn(error);
