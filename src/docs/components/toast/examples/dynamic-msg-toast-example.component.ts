@@ -28,8 +28,10 @@ export class DynamicMsgToastExampleComponent {
 
   createToast(): void {
     this.toastRef = this._toast.create(this.message);
-    this.elapsedTime = timer(0, TIMERINTERVAL).pipe(
-        takeUntil(this.toastRef.afterDismissed()),
-        map((count: number) => TIMERINTERVAL * count));
+    if (this.toastRef) {
+      this.elapsedTime = timer(0, TIMERINTERVAL).pipe(
+          takeUntil(this.toastRef.afterDismissed()),
+          map((count: number) => TIMERINTERVAL * count));
+    }
   }
 }
