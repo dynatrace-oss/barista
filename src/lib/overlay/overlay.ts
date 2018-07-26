@@ -8,12 +8,12 @@ import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtOverlayService');
 
-export const DT_OVERLAY_DEFAULT_CONFIG: DtOverlayConfig = {
-  enableClick: true,
-  hasBackdrop: true,
-  enableMouseMove: true,
-  backdropClass: ['cdk-overlay-transparent-backdrop', DT_OVERLAY_NO_POINTER_CLASS],
-};
+// export const DT_OVERLAY_DEFAULT_CONFIG: DtOverlayConfig = {
+//   enableClick: true,
+//   hasBackdrop: true,
+//   enableMouseMove: true,
+//   backdropClass: ['cdk-overlay-transparent-backdrop', DT_OVERLAY_NO_POINTER_CLASS],
+// };
 
 @Injectable({ providedIn: 'root'})
 export class DtOverlay {
@@ -37,31 +37,31 @@ export class DtOverlay {
       this._dtOverlayRef.overlayRef.dispose();
     }
 
-    let positionStrategy = userConfig && userConfig.positionStrategy;
-    if (!positionStrategy) {
-      positionStrategy = this._overlay.position()
-      .flexibleConnectedTo(origin)
-      .withPositions([
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top',
-        },
-        {
-          originX: 'end',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top',
-        }]);
-    }
+    // let positionStrategy = userConfig && userConfig.positionStrategy;
+    // if (!positionStrategy) {
+    //   positionStrategy = this._overlay.position()
+    //   .flexibleConnectedTo(origin)
+    //   .withPositions([
+    //     {
+    //       originX: 'start',
+    //       originY: 'bottom',
+    //       overlayX: 'start',
+    //       overlayY: 'top',
+    //     },
+    //     {
+    //       originX: 'end',
+    //       originY: 'bottom',
+    //       overlayX: 'start',
+    //       overlayY: 'top',
+    //     }]);
+    // }
 
-    const config = { ...DT_OVERLAY_DEFAULT_CONFIG, positionStrategy, ...userConfig };
+    const config = { ...new DtOverlayConfig(), ...userConfig };
 
     const overlayRef: OverlayRef = this._overlay.create(config as OverlayConfig);
     const overlayContainer = this._attachOverlayContainer(overlayRef);
     this._attachOverlayContent(componentOrTemplateRef, overlayContainer);
-    this._dtOverlayRef = new DtOverlayRef(overlayRef);
+    this._dtOverlayRef = new DtOverlayRef(overlayRef, overlayContainer);
 
     return this._dtOverlayRef;
   }

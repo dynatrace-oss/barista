@@ -12,7 +12,6 @@ import { DtOverlayConfig } from '@dynatrace/angular-components/overlay/overlay-c
   template: `
   <div class="timeline"
     [dtOverlay]="overlay"
-    [dtOverlayConfig]="config"
     (mouseover)="_onMouseOver($event)"
     (mouseout)="_onMouseOut($event)">
     <ng-content></ng-content>
@@ -37,22 +36,22 @@ export class TimelineComponent {
 
   duration = 90;
 
-  config: DtOverlayConfig = { positionStrategy: new MouseFollowPositionStrategy(
-    this.elementRef,
-    this._viewportRuler,
-    this._document,
-    this._platform,
-    this._overlayContainer)
-    .withPositions([
-      {
-        overlayX: 'start',
-        overlayY: 'top',
-      },
-      {
-        overlayX: 'start',
-        overlayY: 'top',
-      }]),
-  };
+  // config: DtOverlayConfig = { positionStrategy: new MouseFollowPositionStrategy(
+  //   this.elementRef,
+  //   this._viewportRuler,
+  //   this._document,
+  //   this._platform,
+  //   this._overlayContainer)
+  //   .withPositions([
+  //     {
+  //       overlayX: 'start',
+  //       overlayY: 'top',
+  //     },
+  //     {
+  //       overlayX: 'start',
+  //       overlayY: 'top',
+  //     }]),
+  // };
 
   private _moveSub = Subscription.EMPTY;
 
@@ -68,7 +67,7 @@ export class TimelineComponent {
     date.setMinutes(0);
     date.setSeconds(0);
     this.time = date;
-   }
+  }
 
   _onMouseOver(event: MouseEvent): void {
     this._ngZone.runOutsideAngular(() => {
@@ -107,7 +106,7 @@ export class TimelineComponent {
 @Component({
   selector: 'dt-timeline-point',
   template:
-  `<div class="point" [dtOverlay]="overlay" [ngStyle]="{\'transform\': _translation }"></div>
+  `<div class="point" [dtOverlay]="overlay" [dtOverlayConfig]="config" [ngStyle]="{\'transform\': _translation }"></div>
   <ng-template #overlay>
     <p>Page Load: page/orange.jsf</p>
     <a class="dt-link">Analyze</a>
@@ -149,7 +148,10 @@ export class TimelinePointComponent {
     return 'translate(0)';
   }
 
-  constructor(@Optional() @SkipSelf() private _timeline: TimelineComponent) {}
+  constructor(
+    private _elementRef: ElementRef,
+    private _overlay: Overlay,
+    @Optional() @SkipSelf() private _timeline: TimelineComponent) {}
 }
 
 @Component({
