@@ -19,7 +19,11 @@ export class DtToast {
   constructor(private _overlay: Overlay, private _injector: Injector) {}
 
   /** Creates a new toast and dismisses the current one if one exists */
-  create(message: string): DtToastRef {
+  create(message: string): DtToastRef | null {
+    if (message === '') {
+      LOG.warn('Message must not be null');
+      return null;
+    }
     const msg = this._fitMessage(message);
     const overlayRef = this._createOverlay();
     const injector = new PortalInjector(this._injector, new WeakMap<InjectionToken<string>, string>([
