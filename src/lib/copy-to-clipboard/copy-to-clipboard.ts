@@ -50,6 +50,7 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   }
   @Output() copied: EventEmitter<void> = new EventEmitter();
   @Output() copyFailed: EventEmitter<void> = new EventEmitter();
+  @Output() afterCopy: EventEmitter<void> = new EventEmitter();
 
   // tslint:disable-next-line:no-unused-variable
   private _showIcon = false;
@@ -78,13 +79,15 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
       addCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
       if (this.copyButton) {
         addCssClass(this.copyButton.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+        this.copyButton.nativeElement.focus();
       }
     }
 
     this._timer = timer(DT_COPY_CLIPBOARD_TIMER).subscribe((): void => {
       this._resetCopyState();
-    });
 
+      this.afterCopy.emit();
+    });
     this.copied.emit();
   }
 
