@@ -4,7 +4,7 @@ import { Platform } from '@angular/cdk/platform';
 import { Subscription } from 'rxjs';
 
 export class MouseFollowPositionStrategy implements PositionStrategy {
-  private _overlayRef: OverlayRef;
+  private _overlayRef: OverlayRef | null = null;
 
   /** Cached origin dimensions */
   private _originRect: ClientRect;
@@ -95,6 +95,7 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
 
   detach(): void {
     console.log('detached');
+    this._overlayRef = null;
     this._resizeSubscription.unsubscribe();
   }
 
