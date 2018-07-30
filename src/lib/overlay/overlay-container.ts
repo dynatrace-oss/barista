@@ -1,11 +1,12 @@
 import {
-  Attribute,
   ChangeDetectionStrategy,
   ViewEncapsulation,
   ComponentRef,
   EmbeddedViewRef,
-  Attribute,
   ElementRef,
+  Component,
+  ViewChild,
+  Attribute,
 } from '@angular/core';
 import {
   HasTabIndex,
@@ -15,20 +16,18 @@ import {
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 
 // Boilerplate for applying mixins to DtOverlay.
-
-export class DtOverlayBase extends BasePortalOutlet {
-  constructor() {
-    super();
-  }
+class BasePortal extends BasePortalOutlet {
   attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
-    throw new Error('Method not implemented.');
+    const compRef = {};
+    return compRef as ComponentRef<T>;
   }
   attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
-    throw new Error('Method not implemented.');
+    const compRef = {};
+    return compRef as EmbeddedViewRef<C>;
   }
 }
 
-export const _DtOverlayMixinBase = mixinTabIndex(mixinDisabled(DtOverlayBase));
+export const _DtOverlayMixinBase = mixinTabIndex(mixinDisabled(BasePortal));
 
 @Component({
   moduleId: module.id,
