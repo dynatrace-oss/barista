@@ -20,7 +20,6 @@ import {
   ContentChildren,
   QueryList,
   SimpleChanges,
-  isDevMode,
 } from '@angular/core';
 import { NgForm, FormGroupDirective, NgControl, ControlValueAccessor } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -44,10 +43,10 @@ import {
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition,
   DtLogger,
-  DtLoggerFactory
+  DtLoggerFactory,
+  isDefined
 } from '@dynatrace/angular-components/core';
 import { DtFormFieldControl, DtFormField } from '@dynatrace/angular-components/form-field';
-import { isDefined } from '@dynatrace/angular-components/core';
 
 let uniqueId = 0;
 
