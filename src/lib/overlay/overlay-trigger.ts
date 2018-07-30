@@ -32,18 +32,15 @@ export class DtOverlayTrigger<T> {
     this._config = value;
   }
 
-  /** Event emitted when the select has been opened. */
-  @Output() readonly overlayOpened: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   constructor(
-    public elementRef: ElementRef,
-    protected dtOverlayService: DtOverlay,
+    private elementRef: ElementRef,
+    private _dtOverlayService: DtOverlay,
     private _ngZone: NgZone
   ) {}
 
   _onMouseOver(event: MouseEvent): void {
     event.stopPropagation();
-    this._dtOverlayRef = this.dtOverlayService.create<T>(this.elementRef, this._content, this._config);
+    this._dtOverlayRef = this._dtOverlayService.create<T>(this.elementRef, this._content, this._config);
     this._ngZone.runOutsideAngular(() => {
       this._moveSub = fromEvent(this.elementRef.nativeElement, 'mousemove')
       .subscribe((ev: MouseEvent) => {
