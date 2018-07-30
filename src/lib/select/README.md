@@ -45,10 +45,24 @@ class MyModule {}
 | `@Input() disabled` | `boolean` | Whether the option is disabled. |
 | `@Output() selectionChange` | `EventEmitter<DtOptionSelectionChange<T>>` | Event emitted when the option is selected or deselected. |
 
-## Examples
+## Creating groups of options
+The `<dt-optgroup>` element can be used to group common options under a subheading. The name of the group can be set using the label property of `<dt-optgroup>`. Like individual `<dt-option>` elements, an entire `<dt-optgroup>` can be disabled or enabled by setting the disabled property on the group.
 
+## Form field
+The select component supports the `<dt-form-field>` and all of its features. These include error messages, hint text, prefix & suffix. For additional information about these features, see the form field documentation.
+
+*Example:*
+<docs-source-example example="GroupsSelectExampleComponent"></docs-source-example>
+
+## Disabling the select or individual options
+It is possible to disable the entire select or individual options in the select by using the disabled property on the `<dt-select>` and the `<dt-option>` components respectively.
+
+*Example:*
 <docs-source-example example="DisabledSelectExampleComponent"></docs-source-example>
 
-<docs-source-example example="FormsSelectExampleComponent"></docs-source-example>
+## Accessibility
+The select component without text or label should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
-<docs-source-example example="GroupsSelectExampleComponent"></docs-source-example>
+The select component has `role="listbox"` and options inside select have `role="option"`.
+
+<docs-source-example example="FormsSelectExampleComponent"></docs-source-example>
