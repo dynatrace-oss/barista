@@ -75,6 +75,10 @@ export class DtSelectBase {
 }
 export const _DtSelectMixinBase = mixinTabIndex(mixinDisabled(mixinErrorState(DtSelectBase)));
 
+export function getDtSelectNonFunctionValueError(): Error {
+  return Error('`compareWith` must be a function.');
+}
+
 @Component({
   moduleId: module.id,
   selector: 'dt-select',
@@ -218,7 +222,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   get compareWith(): (v1: T, v2: T) => boolean { return this._compareWith; }
   set compareWith(fn: (v1: T, v2: T) => boolean) {
     if (typeof fn !== 'function') {
-      // throw getDtSelectNonFunctionValueError();
+      throw getDtSelectNonFunctionValueError();
     }
     this._compareWith = fn;
     if (this._selectionModel) {

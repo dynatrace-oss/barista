@@ -65,6 +65,9 @@ The `<dt-optgroup>` element can be used to group common options under a subheadi
 ## Form field
 The select component supports the `<dt-form-field>` and all of its features. These include error messages, hint text, prefix & suffix. For additional information about these features, see the form field documentation.
 
+*Example:*
+<docs-source-example example="FormFieldSelectExampleComponent"></docs-source-example>
+
 ## Disabling the select or individual options
 It is possible to disable the entire select or individual options in the select by using the disabled property on the `<dt-select>` and the `<dt-option>` components respectively.
 
