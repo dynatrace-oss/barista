@@ -1,8 +1,8 @@
-import { Directive, Input, ElementRef, TemplateRef, ViewChild, DoCheck, NgZone, Optional, Inject } from '@angular/core';
+import { Directive, Input, ElementRef, TemplateRef, NgZone } from '@angular/core';
 import { DtOverlay } from './overlay';
 import { DtOverlayConfig } from './overlay-config';
-import { DOCUMENT } from '@angular/common';
 import { DtOverlayRef } from './overlay-ref';
+import { Subscription, fromEvent } from 'rxjs';
 
 @Directive({
   selector: '[dtOverlay]',
@@ -14,10 +14,10 @@ import { DtOverlayRef } from './overlay-ref';
   },
 })
 export class DtOverlayTrigger<T> {
-
   private _content: TemplateRef<T>;
-  private _config: DtOverlayConfig;
-  private _dtOverlayRef: DtOverlayRef | null = null;
+  private _config: DtOverlayConfig = new DtOverlayConfig();
+  private _dtOverlayRef: DtOverlayRef<T> | null = null;
+  private _moveSub = Subscription.EMPTY;
 
   /** Overlay pane containing the content */
 
@@ -35,18 +35,23 @@ export class DtOverlayTrigger<T> {
   constructor(
     public elementRef: ElementRef,
     protected dtOverlayService: DtOverlay,
-    private _ngZone: NgZone,
-    @Optional() @Inject(DOCUMENT) private _document: any,
+    private _ngZone: NgZone
   ) {}
 
   _onMouseOver(event: MouseEvent): void {
     event.stopPropagation();
-    console.log(this._config);
     this._dtOverlayRef = this.dtOverlayService.create<T>(this.elementRef, this._content, this._config);
+    this._ngZone.runOutsideAngular(() => {
+      this._moveSub = fromEvent(this.elementRef.nativeElement, 'mousemove')
+      .subscribe((ev: MouseEvent) => {
+        this._onMouseMove(ev);
+      });
+    });
   }
 
   _onMouseOut(event: MouseEvent): void {
     event.stopPropagation();
+    this._moveSub.unsubscribe();
 
     const ref = this.dtOverlayService.overlayRef;
     if (ref && !ref.pinned) {
@@ -54,48 +59,16 @@ export class DtOverlayTrigger<T> {
     }
   }
 
-  // using "HTMLElement" type as MouseEvent interface doesn't have the target property
   _onMouseMove(event: MouseEvent): void {
-    if (this.dtOverlayService.overlayRef) {
-      // check if overlay fits to the right
-      // TODO: check the position and add offsets if needed - e.g. originX is set to center substract half the width of the trigger
-      const viewportWidth = this._getViewportWidth();
-      const overlayBoundingClientRect = this.dtOverlayService.overlayRef.overlayRef.overlayElement.getBoundingClientRect();
-      const remainingSpaceToTheRight = viewportWidth - event.pageX - overlayBoundingClientRect.width;
-      if (remainingSpaceToTheRight > 0) {
-        this.dtOverlayService.overlayRef.overlayRef.overlayElement.style.transform =
-        `translate(${event.offsetX}px, 0)`;
+    if (this._dtOverlayRef && !this._dtOverlayRef.pinned) {
+      this._dtOverlayRef._updatePositionFromMouse(event.offsetX, event.offsetY);
     }
-      }
   }
 
   _handleClick(): void {
-    if (this.dtOverlayConfig.enableClick && this._dtOverlayRef) {
-        // this.dtOverlayService.close();
-
-        // const dtOverlayRef: DtOverlayRef = this.dtOverlayService.create<T>(
-        //   this.elementRef, this._content, this.dtOverlayConfig);
-
-        // dtOverlayRef.overlayRef.backdropClick().subscribe(() => {
-        //   this.dtOverlayService.close();
-        //   dtOverlayRef.pin(false);
-        // });
-
-        // dtOverlayRef.overlayRef.keydownEvents()
-        //   .pipe(filter((event) => event.keyCode === ESCAPE && dtOverlayRef.pinned))
-        //   .subscribe(() => {
-        //     this.dtOverlayService.close();
-        //   });
-
-        // this.elementRef.nativeElement.focus();
-
-        this._dtOverlayRef.pin(true);
-
-        // this._changeDetectorRef.markForCheck();
+    if (this._config.pinnable && this._dtOverlayRef) {
+      console.log('pinned');
+      this._dtOverlayRef.pin(true);
     }
-  }
-
-  private _getViewportWidth(): number {
-    return this._document.documentElement.clientWidth;
   }
 }
