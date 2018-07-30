@@ -15,7 +15,7 @@ import {
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
-import { DtOptgroup } from '@dynatrace/angular-components/core/option/optgroup';
+import { DtOptgroup } from './optgroup';
 
 let _uniqueId = 0;
 
