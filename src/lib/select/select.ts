@@ -42,12 +42,16 @@ import {
   DtOptionSelectionChange,
   DtOptgroup,
   _countGroupLabelsBeforeOption,
-  _getOptionScrollPosition
+  _getOptionScrollPosition,
+  DtLogger,
+  DtLoggerFactory
 } from '@dynatrace/angular-components/core';
 import { DtFormFieldControl, DtFormField } from '@dynatrace/angular-components/form-field';
 import { isDefined } from '@dynatrace/angular-components/core/util/type-util';
 
 let uniqueId = 0;
+
+const LOG: DtLogger = DtLoggerFactory.create('DtSelect');
 
 /** The height of the select items. */
 export const SELECT_ITEM_HEIGHT = 32;
@@ -628,7 +632,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
         return isDefined(option.value) && this._compareWith(option.value, value);
       } catch (error) {
         // Notify developers of errors in their comparator.
-        console.warn(error);
+        LOG.warn(error);
         return false;
       }
     });
