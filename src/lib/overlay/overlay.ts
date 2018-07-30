@@ -1,67 +1,88 @@
-import { Injectable, TemplateRef, ElementRef } from '@angular/core';
+import { Injectable, TemplateRef, ElementRef, Inject } from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
-import { Overlay, OverlayRef, OverlayConfig, PositionStrategy } from '@angular/cdk/overlay';
-import { ComponentPortal, ComponentType, TemplatePortal } from '@angular/cdk/portal';
+import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition } from '@angular/cdk/overlay';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+import { DOCUMENT } from '@angular/common';
+import { MouseFollowPositionStrategy } from './mouse-follow-position-strategy';
+import { Platform } from '@angular/cdk/platform';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtOverlayService');
 
-// export const DT_OVERLAY_DEFAULT_CONFIG: DtOverlayConfig = {
-//   enableClick: true,
-//   hasBackdrop: true,
-//   enableMouseMove: true,
-//   backdropClass: ['cdk-overlay-transparent-backdrop', DT_OVERLAY_NO_POINTER_CLASS],
-// };
+const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
+  {
+    originX: 'start',
+    originY: 'center',
+    overlayX: 'start',
+    overlayY: 'top',
+    offsetX: 12,
+    offsetY: 6,
+  },
+  {
+    originX: 'start',
+    originY: 'center',
+    overlayX: 'end',
+    overlayY: 'top',
+    offsetX: -6,
+    offsetY: 6,
+  },
+  {
+    originX: 'start',
+    originY: 'center',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    offsetX: 12,
+    offsetY: -6,
+  },
+  {
+    originX: 'start',
+    originY: 'center',
+    overlayX: 'end',
+    overlayY: 'bottom',
+    offsetX: -6,
+    offsetY: -6,
+  },
+  {
+    originX: 'center',
+    originY: 'center',
+    overlayX: 'center',
+    overlayY: 'top',
+  },
+];
 
 @Injectable({ providedIn: 'root'})
 export class DtOverlay {
-  private _dtOverlayRef: DtOverlayRef | undefined;
+  private _dtOverlayRef: DtOverlayRef<any> | null;
 
-  get overlayRef(): DtOverlayRef | undefined {
+  get overlayRef(): DtOverlayRef<any> | null {
     return this._dtOverlayRef;
   }
 
   constructor(
-    private _overlay: Overlay
+    private _overlay: Overlay,
+    private _viewportRuler: ViewportRuler,
+    @Inject(DOCUMENT) private _document: any,
+    private _platform: Platform
   ) {}
 
   create<T>(
     origin: ElementRef,
-    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    templateRef: TemplateRef<T>,
     userConfig?: DtOverlayConfig
-  ): DtOverlayRef {
-    if (this._dtOverlayRef && this._dtOverlayRef.overlayRef) {
-      console.log('dispose');
-      this._dtOverlayRef.overlayRef.dispose();
+  ): DtOverlayRef<T> {
+    if (this._dtOverlayRef) {
+      this._dtOverlayRef.close();
     }
-
-    // let positionStrategy = userConfig && userConfig.positionStrategy;
-    // if (!positionStrategy) {
-    //   positionStrategy = this._overlay.position()
-    //   .flexibleConnectedTo(origin)
-    //   .withPositions([
-    //     {
-    //       originX: 'start',
-    //       originY: 'bottom',
-    //       overlayX: 'start',
-    //       overlayY: 'top',
-    //     },
-    //     {
-    //       originX: 'end',
-    //       originY: 'bottom',
-    //       overlayX: 'start',
-    //       overlayY: 'top',
-    //     }]);
-    // }
 
     const config = { ...new DtOverlayConfig(), ...userConfig };
 
-    const overlayRef: OverlayRef = this._overlay.create(config as OverlayConfig);
+    const overlayRef: OverlayRef = this._createOverlay(config, origin);
     const overlayContainer = this._attachOverlayContainer(overlayRef);
-    this._attachOverlayContent(componentOrTemplateRef, overlayContainer);
-    this._dtOverlayRef = new DtOverlayRef(overlayRef, overlayContainer);
+    const dtOverlayRef = this._attachOverlayContent(templateRef, overlayContainer, overlayRef);
+
+    this._dtOverlayRef = dtOverlayRef;
 
     return this._dtOverlayRef;
   }
@@ -69,11 +90,22 @@ export class DtOverlay {
   close(): void {
     const ref = this._dtOverlayRef;
     if (ref) {
-      ref.overlayRef.detach();
-      ref.overlayRef.dispose();
+      ref.close();
 
-      this._dtOverlayRef = undefined;
+      this._dtOverlayRef = null;
     }
+  }
+
+  private _createOverlay(config: DtOverlayConfig, origin: ElementRef): OverlayRef {
+    const positionStrategy = new MouseFollowPositionStrategy(origin, this._viewportRuler, this._document, this._platform)
+    .withPositions(DEFAULT_DT_OVERLAY_POSITIONS);
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy,
+      backdropClass: DT_OVERLAY_NO_POINTER_CLASS,
+      hasBackdrop: true,
+    });
+    return this._overlay.create(overlayConfig);
   }
 
   private _attachOverlayContainer(overlay: OverlayRef): DtOverlayContainer {
@@ -85,15 +117,16 @@ export class DtOverlay {
   }
 
   private _attachOverlayContent<T>(
-    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    container: DtOverlayContainer): void {
+    templateRef: TemplateRef<T>,
+    container: DtOverlayContainer,
+    overlayRef: OverlayRef
+  ): DtOverlayRef<T> {
 
-    if (componentOrTemplateRef instanceof TemplateRef) {
-      container.attachTemplatePortal(
-        new TemplatePortal<T>(componentOrTemplateRef, null!));
-    } else {
-      container.attachComponentPortal<T>(
-          new ComponentPortal(componentOrTemplateRef));
-    }
+    const dtOverlayRef = new DtOverlayRef<T>(overlayRef, container);
+
+    container.attachTemplatePortal(
+      new TemplatePortal<T>(templateRef, null!));
+
+    return dtOverlayRef;
   }
 }

@@ -1,13 +1,14 @@
-import { OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
-import { addCssClass, removeCssClass } from '../core';
+import { OverlayRef } from '@angular/cdk/overlay';
+import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
 import { Subscription, Observable } from 'rxjs';
 import { DtOverlayContainer } from './overlay-container';
+import { MouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 
 /** Css class that is used to disable pointerevents on the backdrop */
 export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-overlay-no-pointer';
 
 export class DtOverlayRef<T> {
-  /** The instance of component opened into the dialog. */
+  /** The instance of component opened into the overlay. */
   componentInstance: T;
 
   /** Wether the overlay is pinned or not */
@@ -15,7 +16,7 @@ export class DtOverlayRef<T> {
 
   private _backDropClickSub = Subscription.EMPTY;
 
-  constructor(private _overlayRef: OverlayRef, public _containerInstance: DtOverlayContainer) {
+  constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer) {
     _overlayRef.detachments().subscribe(() => {
       this.componentInstance = null!;
       this._overlayRef.dispose();
@@ -45,11 +46,14 @@ export class DtOverlayRef<T> {
 
   /**
    * Updates the position of the overlay
-   * @param event? optional mouse event passed to the update position
    */
-  updatePosition(event?: MouseEvent): this {
+  _updatePositionFromMouse(offsetX?: number, offsetY?: number): this {
+    const config = this._overlayRef.getConfig();
+    (config.positionStrategy! as MouseFollowPositionStrategy)._withMouseOffset(offsetX, offsetY);
 
-    this._overlayRef.updatePosition();
+    if (this._isDefined(offsetX) || this._isDefined(offsetY)) {
+      this._overlayRef.updatePosition();
+    }
     return this;
   }
 
@@ -58,8 +62,9 @@ export class DtOverlayRef<T> {
     return this._overlayRef.backdropClick();
   }
 
-  /** Fetches the position strategy object from the overlay ref. */
-  private _getPositionStrategy(): PositionStrategy | undefined {
-    return this._overlayRef.getConfig().positionStrategy;
+  /** TODO: FFR: use core version as soon as dt-select is merged */
+  _isDefined(value: any): boolean {
+    return value !== undefined && value !== null;
   }
+
 }
