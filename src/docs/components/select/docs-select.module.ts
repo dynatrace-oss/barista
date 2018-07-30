@@ -6,11 +6,13 @@ import { DtSelectModule, DtCheckboxModule } from '@dynatrace/angular-components'
 import { DefaultSelectExampleComponent } from './examples/default-select-example.component';
 import { DisabledSelectExampleComponent } from './examples/disabled-select-example.component';
 import { FormsSelectExampleComponent } from './examples/forms-select-example.component';
+import { ValueSelectExampleComponent } from './examples/value-select-example.component';
 import { GroupsSelectExampleComponent } from './examples/groups-select-example.component';
 
 export const EXAMPLES = [
   DefaultSelectExampleComponent,
   DisabledSelectExampleComponent,
+  ValueSelectExampleComponent,
   FormsSelectExampleComponent,
   GroupsSelectExampleComponent,
 ];

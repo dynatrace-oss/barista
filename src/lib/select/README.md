@@ -45,14 +45,25 @@ class MyModule {}
 | `@Input() disabled` | `boolean` | Whether the option is disabled. |
 | `@Output() selectionChange` | `EventEmitter<DtOptionSelectionChange<T>>` | Event emitted when the option is selected or deselected. |
 
+Getting and setting the select value
+The `<dt-select>` supports 2-way binding to the value property without the need for Angular forms.
+
+*Example:*
+<docs-source-example example="ValueSelectExampleComponent"></docs-source-example>
+
+The `<dt-select>` also supports all of the form directives from the core FormsModule (NgModel) and ReactiveFormsModule (FormControl, FormGroup, etc.) As with native `<select>`, `<dt-select>` also supports a compareWith function. (Additional information about using a custom compareWith function can be found in the Angular forms documentation).
+
+*Example:*
+<docs-source-example example="FormsSelectExampleComponent"></docs-source-example>
+
 ## Creating groups of options
 The `<dt-optgroup>` element can be used to group common options under a subheading. The name of the group can be set using the label property of `<dt-optgroup>`. Like individual `<dt-option>` elements, an entire `<dt-optgroup>` can be disabled or enabled by setting the disabled property on the group.
 
-## Form field
-The select component supports the `<dt-form-field>` and all of its features. These include error messages, hint text, prefix & suffix. For additional information about these features, see the form field documentation.
-
 *Example:*
 <docs-source-example example="GroupsSelectExampleComponent"></docs-source-example>
+
+## Form field
+The select component supports the `<dt-form-field>` and all of its features. These include error messages, hint text, prefix & suffix. For additional information about these features, see the form field documentation.
 
 ## Disabling the select or individual options
 It is possible to disable the entire select or individual options in the select by using the disabled property on the `<dt-select>` and the `<dt-option>` components respectively.
@@ -64,5 +75,3 @@ It is possible to disable the entire select or individual options in the select 
 The select component without text or label should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
 The select component has `role="listbox"` and options inside select have `role="option"`.
-
-<docs-source-example example="FormsSelectExampleComponent"></docs-source-example>
