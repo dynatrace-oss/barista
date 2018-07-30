@@ -12,7 +12,6 @@ import { DtSelect } from './select';
     OverlayModule,
     DtIconModule,
     DtOptionModule,
-    DtFormFieldModule,
   ],
   exports: [
     DtFormFieldModule,
