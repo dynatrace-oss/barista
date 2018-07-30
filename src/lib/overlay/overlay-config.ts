@@ -1,12 +1,10 @@
-import {
-  OverlayConfig,
-} from '@angular/cdk/overlay';
+  // tslint:disable:no-inferrable-types
 
-export class DtOverlayConfig extends OverlayConfig {
-  enableMouseMove?: boolean;
-  enablePin?: boolean;
+export class DtOverlayConfig {
+  /** enables pinning the overlay */
+  pinnable?: boolean = false;
 
-  constructor(config?: OverlayConfig) {
-    super(config);
-  }
+  /** Constrains movement along an axis */
+  movementConstraint?: 'xAxis' | 'yAxis';
+
 }

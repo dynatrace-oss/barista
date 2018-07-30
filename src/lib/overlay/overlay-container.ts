@@ -6,6 +6,7 @@ import {
   ViewChild,
   EmbeddedViewRef,
   Attribute,
+  ElementRef,
 } from '@angular/core';
 import {
   HasTabIndex,
@@ -13,7 +14,7 @@ import {
   DtLoggerFactory,
   mixinTabIndex,
   mixinDisabled,
-} from '../core/index';
+} from '@dynatrace/angular-components/core';
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 
 // Logger
@@ -52,7 +53,7 @@ export const _DtOverlayMixinBase = mixinTabIndex(mixinDisabled(DtOverlayBase));
 export class DtOverlayContainer extends _DtOverlayMixinBase implements HasTabIndex {
   @ViewChild(CdkPortalOutlet) _portalOutlet: CdkPortalOutlet;
 
-  constructor(@Attribute('tabindex') tabIndex: string) {
+  constructor(@Attribute('tabindex') tabIndex: string, public elementRef: ElementRef) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
   }
