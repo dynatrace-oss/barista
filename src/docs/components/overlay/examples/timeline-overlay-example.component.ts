@@ -1,22 +1,24 @@
-import { ElementRef, Component, Input, Optional, SkipSelf, NgZone, ChangeDetectorRef, Inject } from '@angular/core';
+import { ElementRef, Component, Input, Optional, SkipSelf, NgZone, ViewChild } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { map, distinctUntilChanged } from 'rxjs/operators';
 import { Overlay, ViewportRuler, OverlayContainer } from '@angular/cdk/overlay';
-import { MouseFollowPositionStrategy } from '@dynatrace/angular-components/overlay/mousefollow-position-strategy';
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 import { DtOverlayConfig } from '@dynatrace/angular-components/overlay/overlay-config';
+import { MouseFollowPositionStrategy } from '@dynatrace/angular-components/overlay/mouse-follow-position-strategy';
 
 @Component({
   selector: 'dt-timeline',
   template: `
   <div class="timeline"
+    #timeline
     [dtOverlay]="overlay"
+    [dtOverlayConfig]="config"
     (mouseover)="_onMouseOver($event)"
     (mouseout)="_onMouseOut($event)">
     <ng-content></ng-content>
   </div>
-  <ng-template #overlay>{{time | date: 'mm:ss'}}</ng-template>`,
+  <ng-template #overlay><span>{{time | date: 'mm:ss'}}</span></ng-template>`,
   styles: [
     `:host() {
       display: block;
@@ -32,37 +34,22 @@ import { DtOverlayConfig } from '@dynatrace/angular-components/overlay/overlay-c
 })
 export class TimelineComponent {
 
+  @ViewChild('timeline', { read: ElementRef }) timeline: ElementRef;
+
+  config: DtOverlayConfig = {
+    pinnable: true,
+    movementConstraint: 'xAxis',
+  };
+
   time: Date;
 
   duration = 90;
-
-  // config: DtOverlayConfig = { positionStrategy: new MouseFollowPositionStrategy(
-  //   this.elementRef,
-  //   this._viewportRuler,
-  //   this._document,
-  //   this._platform,
-  //   this._overlayContainer)
-  //   .withPositions([
-  //     {
-  //       overlayX: 'start',
-  //       overlayY: 'top',
-  //     },
-  //     {
-  //       overlayX: 'start',
-  //       overlayY: 'top',
-  //     }]),
-  // };
 
   private _moveSub = Subscription.EMPTY;
 
   constructor(
     public elementRef: ElementRef,
-    private _viewportRuler: ViewportRuler,
-    @Inject(DOCUMENT) private _document: any,
-    private _platform: Platform,
-    private _overlayContainer: OverlayContainer,
-    private _ngZone: NgZone,
-    private _overlay: Overlay) {
+    private _ngZone: NgZone) {
     const date = new Date();
     date.setMinutes(0);
     date.setSeconds(0);
@@ -96,9 +83,7 @@ export class TimelineComponent {
 
   private _calculateTime(offset: number): number {
     const boundingBox = this.elementRef.nativeElement.getBoundingClientRect();
-    console.log(boundingBox.width);
     const secPerPixel = this.duration / boundingBox.width;
-    console.log(Math.floor(secPerPixel * offset));
     return Math.floor(secPerPixel * offset);
   }
 }
@@ -106,7 +91,7 @@ export class TimelineComponent {
 @Component({
   selector: 'dt-timeline-point',
   template:
-  `<div class="point" [dtOverlay]="overlay" [dtOverlayConfig]="config" [ngStyle]="{\'transform\': _translation }"></div>
+  `<div class="point" [dtOverlay]="overlay" [ngStyle]="{\'transform\': _translation }"></div>
   <ng-template #overlay>
     <p>Page Load: page/orange.jsf</p>
     <a class="dt-link">Analyze</a>
