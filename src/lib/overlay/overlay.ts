@@ -10,22 +10,6 @@ import { MouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { Platform } from '@angular/cdk/platform';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtOverlayService');
-const DEFAULT_SCROLL_STRATEGY_TYPE: DtScrollStrategyType = DtScrollStrategyType.Close;
-
-const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
-  {
-    originX: 'start',
-    originY: 'bottom',
-    overlayX: 'start',
-    overlayY: 'top',
-  },
-  {
-    originX: 'end',
-    originY: 'bottom',
-    overlayX: 'start',
-    overlayY: 'top',
-  },
-];
 
 const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
@@ -77,7 +61,6 @@ export class DtOverlay {
   }
 
   constructor(
-    protected _mouseStrategy: MouseFollowPositionStrategy,
     private _overlay: Overlay,
     private _viewportRuler: ViewportRuler,
     @Inject(DOCUMENT) private _document: any,
@@ -102,27 +85,6 @@ export class DtOverlay {
     this._dtOverlayRef = dtOverlayRef;
 
     return this._dtOverlayRef;
-  }
-
-  private _getStrategyType(scrollStrategyType: DtScrollStrategyType)
-    : CloseScrollStrategy | BlockScrollStrategy | RepositionScrollStrategy {
-
-      let scrollStrategy;
-
-      switch (scrollStrategyType) {
-        case DtScrollStrategyType.Reposition:
-          scrollStrategy = this._overlay.scrollStrategies.reposition();
-          break;
-
-        case DtScrollStrategyType.Block:
-          scrollStrategy = this._overlay.scrollStrategies.block();
-          break;
-
-        default:
-          scrollStrategy = this._overlay.scrollStrategies.close();
-      }
-
-      return scrollStrategy;
   }
 
   close(): void {
@@ -166,9 +128,5 @@ export class DtOverlay {
       new TemplatePortal<T>(templateRef, null!));
 
     return dtOverlayRef;
-  }
-
-  private _attachMouseStrategy(overlayRef: OverlayRef): void {
-    this._mouseStrategy.attach(overlayRef);
   }
 }

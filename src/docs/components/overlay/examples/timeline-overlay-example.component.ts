@@ -1,11 +1,9 @@
 import { ElementRef, Component, Input, Optional, SkipSelf, NgZone, ViewChild } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { map, distinctUntilChanged } from 'rxjs/operators';
-import { Overlay, ViewportRuler, OverlayContainer } from '@angular/cdk/overlay';
-import { DOCUMENT } from '@angular/common';
-import { Platform } from '@angular/cdk/platform';
-import { DtOverlayConfig } from '@dynatrace/angular-components/overlay/overlay-config';
-import { MouseFollowPositionStrategy } from '@dynatrace/angular-components/overlay/mouse-follow-position-strategy';
+import { Overlay } from '@angular/cdk/overlay';
+import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
+import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   selector: 'dt-timeline',
@@ -149,6 +147,7 @@ export class TimelinePointComponent {
   </dt-timeline>
   `,
 })
+@OriginalClassName('TimelineOverlayExampleComponent')
 export class TimelineOverlayExampleComponent {
 
 }
