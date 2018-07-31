@@ -3,6 +3,7 @@ import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core'
 import { Subscription, Observable } from 'rxjs';
 import { DtOverlayContainer } from './overlay-container';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
+import { DtOverlayConfig } from '@dynatrace/angular-components/overlay/overlay-config';
 
 /** Css class that is used to disable pointerevents on the backdrop */
 export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-overlay-no-pointer';
@@ -16,7 +17,7 @@ export class DtOverlayRef<T> {
 
   private _backDropClickSub = Subscription.EMPTY;
 
-  constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer) {
+  constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer, private _config: DtOverlayConfig) {
     _overlayRef.detachments().subscribe(() => {
       this.componentInstance = null!;
       this._overlayRef.dispose();
@@ -25,6 +26,9 @@ export class DtOverlayRef<T> {
 
   /** Pins the overlay */
   pin(value: boolean): void {
+    if (!this._config.pinnable) {
+      return;
+    }
     this.pinned = value;
     if (this._overlayRef.backdropElement) {
       if (value) {
@@ -63,6 +67,7 @@ export class DtOverlayRef<T> {
   }
 
   /** TODO: FFR: use core version as soon as dt-select is merged */
+  // tslint:disable-next-line:no-any
   _isDefined(value: any): boolean {
     return value !== undefined && value !== null;
   }

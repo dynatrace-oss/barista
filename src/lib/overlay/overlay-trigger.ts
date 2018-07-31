@@ -20,7 +20,6 @@ export class DtOverlayTrigger<T> {
   private _moveSub = Subscription.EMPTY;
 
   /** Overlay pane containing the content */
-
   @Input('dtOverlay')
   set overlay(value: TemplateRef<T>) {
     this._content = value;
@@ -67,7 +66,6 @@ export class DtOverlayTrigger<T> {
 
   _handleClick(): void {
     if (this._config.pinnable && this._dtOverlayRef) {
-      console.log('pinned');
       this._dtOverlayRef.pin(true);
     }
   }
