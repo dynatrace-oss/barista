@@ -4,7 +4,6 @@ import {ButtonGroupDisabledExampleComponent} from './examples/button-group-disab
 import {ButtonGroupItemDisabledExampleComponent} from './examples/button-group-item-disabled-example.component';
 import {ButtonGroupInteractiveExampleComponent} from './examples/button-group-interactive-example.component';
 import {ButtonGroupErrorExampleComponent} from './examples/button-group-error-example.component';
-import {ButtonGroupDarkExampleComponent} from './examples/button-group-dark-example.component';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtButtonModule, DtButtonGroupModule, DtThemingModule } from '@dynatrace/angular-components';
@@ -15,7 +14,6 @@ export const EXAMPLES = [
   ButtonGroupItemDisabledExampleComponent,
   ButtonGroupInteractiveExampleComponent,
   ButtonGroupErrorExampleComponent,
-  ButtonGroupDarkExampleComponent,
 ];
 
 @NgModule({
