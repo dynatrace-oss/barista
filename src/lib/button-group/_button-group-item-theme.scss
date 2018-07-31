@@ -6,18 +6,12 @@
   $default-palette: 'main';
 
   @each $name in $palette-names {
-    $is-dark: map-get($theme, 'is-dark');
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
     $hover-color: dt-get-theme-color($palette, 'hover');
     $active-color: dt-get-theme-color($palette, 'active');
     $background-color: $gray-100;
     $border-color: $gray-300;
-
-    @if ($is-dark == true) {
-      $border-color: #fff;
-      $background-color: $gray-640;
-    }
 
     $namespace: ':host';
     @if $name != $default-palette {
