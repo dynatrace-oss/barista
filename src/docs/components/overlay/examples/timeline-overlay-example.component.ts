@@ -36,8 +36,8 @@ export class TimelineComponent {
   @ViewChild('timeline', { read: ElementRef }) timeline: ElementRef;
 
   config: DtOverlayConfig = {
-    pinnable: true,
     movementConstraint: 'xAxis',
+    verticalAnchor: 'edge',
   };
 
   time: Date;
@@ -90,10 +90,10 @@ export class TimelineComponent {
 @Component({
   selector: 'dt-timeline-point',
   template:
-  `<div class="point" [dtOverlay]="overlay" [ngStyle]="{\'transform\': _translation }"></div>
+  `<div class="point" [dtOverlay]="overlay" [dtOverlayConfig]="config" [ngStyle]="{\'transform\': _translation }"></div>
   <ng-template #overlay>
     <p>Page Load: page/orange.jsf</p>
-    <a class="dt-link">Analyze</a>
+    <button dt-button>View highlight</button>
   </ng-template>`,
   styles: [
     `.point {
@@ -113,6 +113,10 @@ export class TimelineComponent {
   ],
 })
 export class TimelinePointComponent {
+
+  config: DtOverlayConfig = {
+    pinnable: true,
+  };
 
   @Input()
   id: number;

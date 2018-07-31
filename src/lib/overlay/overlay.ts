@@ -11,39 +11,39 @@ import { Platform } from '@angular/cdk/platform';
 const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
     originX: 'start',
-    originY: 'center',
+    originY: 'bottom',
     overlayX: 'start',
     overlayY: 'top',
-    offsetX: 12,
+    offsetX: 6,
     offsetY: 6,
   },
   {
     originX: 'start',
-    originY: 'center',
+    originY: 'bottom',
     overlayX: 'end',
     overlayY: 'top',
-    offsetX: -6,
+    offsetX: 6,
     offsetY: 6,
   },
   {
     originX: 'start',
-    originY: 'center',
+    originY: 'top',
     overlayX: 'start',
     overlayY: 'bottom',
-    offsetX: 12,
+    offsetX: 6,
     offsetY: -6,
   },
   {
     originX: 'start',
-    originY: 'center',
+    originY: 'top',
     overlayX: 'end',
     overlayY: 'bottom',
-    offsetX: -6,
+    offsetX: 6,
     offsetY: -6,
   },
   {
     originX: 'center',
-    originY: 'center',
+    originY: 'top',
     overlayX: 'center',
     overlayY: 'top',
   },
@@ -78,7 +78,7 @@ export class DtOverlay {
 
     const config = { ...new DtOverlayConfig(), ...userConfig };
 
-    const overlayRef: OverlayRef = this._createOverlay(origin);
+    const overlayRef: OverlayRef = this._createOverlay(origin, config);
     const overlayContainer = this._attachOverlayContainer(overlayRef);
     const dtOverlayRef = this._attachOverlayContent(templateRef, overlayContainer, overlayRef, config);
 
@@ -96,9 +96,22 @@ export class DtOverlay {
     }
   }
 
-  private _createOverlay(origin: ElementRef): OverlayRef {
+  private _createOverlay(origin: ElementRef, config: DtOverlayConfig): OverlayRef {
+    let positions = DEFAULT_DT_OVERLAY_POSITIONS;
+    if (config.verticalAnchor === 'center') {
+      positions = positions.map((pos) => {
+        const newPos = {...pos};
+        newPos.originY = 'center';
+        return newPos;
+      });
+    }
+
     const positionStrategy = new DtMouseFollowPositionStrategy(origin, this._viewportRuler, this._document, this._platform)
-    .withPositions(DEFAULT_DT_OVERLAY_POSITIONS);
+    .withPositions(positions);
+
+    if (config.movementConstraint) {
+      positionStrategy.withMovementContraint(config.movementConstraint);
+    }
 
     const overlayConfig = new OverlayConfig({
       positionStrategy,
