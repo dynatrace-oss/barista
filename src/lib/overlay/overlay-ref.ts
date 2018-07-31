@@ -3,7 +3,7 @@ import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core'
 import { Subscription, Observable } from 'rxjs';
 import { DtOverlayContainer } from './overlay-container';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
-import { DtOverlayConfig } from '@dynatrace/angular-components/overlay/overlay-config';
+import { DtOverlayConfig } from './overlay-config';
 
 /** Css class that is used to disable pointerevents on the backdrop */
 export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-overlay-no-pointer';
@@ -51,19 +51,13 @@ export class DtOverlayRef<T> {
   /**
    * Updates the position of the overlay
    */
-  _updatePositionFromMouse(offsetX?: number, offsetY?: number): this {
+  _updatePositionFromMouse(offsetX: number, offsetY: number): this {
     const config = this._overlayRef.getConfig();
-    (config.positionStrategy! as DtMouseFollowPositionStrategy)._withMouseOffset(offsetX, offsetY);
+    (config.positionStrategy! as DtMouseFollowPositionStrategy).withMouseOffset(offsetX, offsetY);
 
-    if (this._isDefined(offsetX) || this._isDefined(offsetY)) {
-      this._overlayRef.updatePosition();
-    }
+    this._overlayRef.updatePosition();
+
     return this;
-  }
-
-  /** Gets an observable that emits when the overlay's backdrop has been clicked. */
-  backdropClick(): Observable<MouseEvent> {
-    return this._overlayRef.backdropClick();
   }
 
   /** TODO: FFR: use core version as soon as dt-select is merged */
