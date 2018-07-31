@@ -11,6 +11,7 @@ import { Subscription, fromEvent } from 'rxjs';
     '(mouseover)': '_onMouseOver($event)',
     '(mouseout)': '_onMouseOut($event)',
     '(click)': '_handleClick()',
+    'class': 'dt-overlay-trigger',
   },
 })
 export class DtOverlayTrigger<T> {

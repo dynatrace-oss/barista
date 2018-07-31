@@ -8,38 +8,40 @@ import { DOCUMENT } from '@angular/common';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { Platform } from '@angular/cdk/platform';
 
+export const DT_OVERLAY_DEFAULT_OFFSET = 6;
+
 const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
     originX: 'start',
     originY: 'bottom',
     overlayX: 'start',
     overlayY: 'top',
-    offsetX: 6,
-    offsetY: 6,
+    offsetX: DT_OVERLAY_DEFAULT_OFFSET,
+    offsetY: DT_OVERLAY_DEFAULT_OFFSET,
   },
   {
     originX: 'start',
     originY: 'bottom',
     overlayX: 'end',
     overlayY: 'top',
-    offsetX: 6,
-    offsetY: 6,
+    offsetX: DT_OVERLAY_DEFAULT_OFFSET,
+    offsetY: DT_OVERLAY_DEFAULT_OFFSET,
   },
   {
     originX: 'start',
     originY: 'top',
     overlayX: 'start',
     overlayY: 'bottom',
-    offsetX: 6,
-    offsetY: -6,
+    offsetX: DT_OVERLAY_DEFAULT_OFFSET,
+    offsetY: -DT_OVERLAY_DEFAULT_OFFSET,
   },
   {
     originX: 'start',
     originY: 'top',
     overlayX: 'end',
     overlayY: 'bottom',
-    offsetX: 6,
-    offsetY: -6,
+    offsetX: DT_OVERLAY_DEFAULT_OFFSET,
+    offsetY: -DT_OVERLAY_DEFAULT_OFFSET,
   },
   {
     originX: 'center',
