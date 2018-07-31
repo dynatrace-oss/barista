@@ -39,9 +39,13 @@
   cursor: pointer;
   transition: box-shadow 0.1s;
 
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   &:hover {
     z-index: 2;
     position: relative;
+    background-color: $gray-100;
   }
 
   &:first-child {
