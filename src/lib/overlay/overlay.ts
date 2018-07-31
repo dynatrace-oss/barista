@@ -1,7 +1,7 @@
 import { Injectable, TemplateRef, ElementRef, Inject } from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
 import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition } from '@angular/cdk/overlay';
-import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal, ComponentType } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
 import { DOCUMENT } from '@angular/common';
@@ -69,7 +69,7 @@ export class DtOverlay {
 
   create<T>(
     origin: ElementRef,
-    templateRef: TemplateRef<T>,
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     userConfig?: DtOverlayConfig
   ): DtOverlayRef<T> {
     if (this._dtOverlayRef) {
@@ -80,7 +80,7 @@ export class DtOverlay {
 
     const overlayRef: OverlayRef = this._createOverlay(origin, config);
     const overlayContainer = this._attachOverlayContainer(overlayRef);
-    const dtOverlayRef = this._attachOverlayContent(templateRef, overlayContainer, overlayRef, config);
+    const dtOverlayRef = this._attachOverlayContent(componentOrTemplateRef, overlayContainer, overlayRef, config);
 
     this._dtOverlayRef = dtOverlayRef;
 
@@ -130,7 +130,7 @@ export class DtOverlay {
   }
 
   private _attachOverlayContent<T>(
-    templateRef: TemplateRef<T>,
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     container: DtOverlayContainer,
     overlayRef: OverlayRef,
     config: DtOverlayConfig
@@ -138,8 +138,12 @@ export class DtOverlay {
 
     const dtOverlayRef = new DtOverlayRef<T>(overlayRef, container, config);
 
-    container.attachTemplatePortal(
-      new TemplatePortal<T>(templateRef, null!));
+    if (componentOrTemplateRef instanceof TemplateRef) {
+      container.attachTemplatePortal(
+        new TemplatePortal<T>(componentOrTemplateRef, null!));
+    } else {
+      container.attachComponentPortal(new ComponentPortal<T>(componentOrTemplateRef));
+    }
 
     return dtOverlayRef;
   }
