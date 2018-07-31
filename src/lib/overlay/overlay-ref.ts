@@ -1,6 +1,6 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DtOverlayContainer } from './overlay-container';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { DtOverlayConfig } from './overlay-config';
@@ -18,8 +18,7 @@ export class DtOverlayRef<T> {
   private _backDropClickSub = Subscription.EMPTY;
 
   constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer, private _config: DtOverlayConfig) {
-    _overlayRef.detachments().subscribe(() => {
-      this.componentInstance = null!;
+    containerInstance._onExit.subscribe(() => {
       this._overlayRef.dispose();
     });
   }
@@ -45,7 +44,7 @@ export class DtOverlayRef<T> {
 
   /** Closes the overlay */
   close(): void {
-    this._overlayRef.dispose();
+    this.containerInstance.exit();
   }
 
   /**
