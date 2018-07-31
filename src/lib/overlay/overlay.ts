@@ -4,12 +4,9 @@ import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition } 
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
 import { DOCUMENT } from '@angular/common';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { Platform } from '@angular/cdk/platform';
-
-const LOG: DtLogger = DtLoggerFactory.create('DtOverlayService');
 
 const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
@@ -54,8 +51,10 @@ const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
 
 @Injectable({ providedIn: 'root'})
 export class DtOverlay {
+  // tslint:disable-next-line:no-any
   private _dtOverlayRef: DtOverlayRef<any> | null;
 
+  // tslint:disable-next-line:no-any
   get overlayRef(): DtOverlayRef<any> | null {
     return this._dtOverlayRef;
   }
@@ -63,6 +62,7 @@ export class DtOverlay {
   constructor(
     private _overlay: Overlay,
     private _viewportRuler: ViewportRuler,
+    // tslint:disable-next-line:no-any
     @Inject(DOCUMENT) private _document: any,
     private _platform: Platform
   ) {}
@@ -80,7 +80,7 @@ export class DtOverlay {
 
     const overlayRef: OverlayRef = this._createOverlay(origin);
     const overlayContainer = this._attachOverlayContainer(overlayRef);
-    const dtOverlayRef = this._attachOverlayContent(templateRef, overlayContainer, overlayRef);
+    const dtOverlayRef = this._attachOverlayContent(templateRef, overlayContainer, overlayRef, config);
 
     this._dtOverlayRef = dtOverlayRef;
 
@@ -119,10 +119,11 @@ export class DtOverlay {
   private _attachOverlayContent<T>(
     templateRef: TemplateRef<T>,
     container: DtOverlayContainer,
-    overlayRef: OverlayRef
+    overlayRef: OverlayRef,
+    config: DtOverlayConfig
   ): DtOverlayRef<T> {
 
-    const dtOverlayRef = new DtOverlayRef<T>(overlayRef, container);
+    const dtOverlayRef = new DtOverlayRef<T>(overlayRef, container, config);
 
     container.attachTemplatePortal(
       new TemplatePortal<T>(templateRef, null!));
