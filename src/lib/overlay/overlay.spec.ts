@@ -1,11 +1,11 @@
 
-import {ComponentFixture, TestBed, fakeAsync, inject} from '@angular/core/testing';
+import {ComponentFixture, TestBed, fakeAsync, inject, flush} from '@angular/core/testing';
 import { Component, ViewChild, ElementRef, TemplateRef, NgModule } from '@angular/core';
 import { DtOverlayModule, DtOverlay } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 
-fdescribe('DtOverlay', () => {
+describe('DtOverlay', () => {
   let dtOverlay: DtOverlay;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
@@ -55,6 +55,19 @@ fdescribe('DtOverlay', () => {
     expect(overlay).toBeDefined();
     expect(overlay.innerText.trim()).toEqual('dummy-overlay');
   });
+
+  it('should close the overlay correctly', fakeAsync(() => {
+    dtOverlay.create(fixture.componentInstance.trigger, fixture.componentInstance.overlay);
+    fixture.detectChanges();
+
+    let overlay = overlayContainerElement.querySelector('.dt-overlay-container');
+    expect(overlay).toBeDefined();
+    dtOverlay.close();
+    fixture.detectChanges();
+    flush();
+    overlay = overlayContainerElement.querySelector('.dt-overlay-container');
+    expect(overlay).toBeNull();
+  }));
 });
 
 /** dummy component */
@@ -64,6 +77,7 @@ fdescribe('DtOverlay', () => {
 })
 class TestComponent {
   @ViewChild('trigger') trigger: ElementRef;
+  // tslint:disable-next-line:no-any
   @ViewChild('overlay') overlay: TemplateRef<any>;
 }
 
