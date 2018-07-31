@@ -69,7 +69,3 @@ To apply the dynatrace button group, use the `<dt-button-group>` and `<dt-button
 ### Interactive example
 
 <docs-source-example example="ButtonGroupInteractiveExampleComponent"></docs-source-example>
-
-### Dark example
-
-<docs-source-example example="ButtonGroupDarkExampleComponent" themedark="true"></docs-source-example>
