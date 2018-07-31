@@ -1,9 +1,10 @@
 import { ElementRef, Component, Input, Optional, SkipSelf, NgZone, ViewChild } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { map, distinctUntilChanged } from 'rxjs/operators';
-import { Overlay } from '@angular/cdk/overlay';
 import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
 import { OriginalClassName } from '../../../core/decorators';
+
+// tslint:disable:no-magic-numbers
 
 @Component({
   selector: 'dt-timeline',
@@ -12,8 +13,8 @@ import { OriginalClassName } from '../../../core/decorators';
     #timeline
     [dtOverlay]="overlay"
     [dtOverlayConfig]="config"
-    (mouseover)="_onMouseOver($event)"
-    (mouseout)="_onMouseOut($event)">
+    (mouseover)="_onMouseOver()"
+    (mouseout)="_onMouseOut()">
     <ng-content></ng-content>
   </div>
   <ng-template #overlay><span>{{time | date: 'mm:ss'}}</span></ng-template>`,
@@ -54,7 +55,7 @@ export class TimelineComponent {
     this.time = date;
   }
 
-  _onMouseOver(event: MouseEvent): void {
+  _onMouseOver(): void {
     this._ngZone.runOutsideAngular(() => {
       this._moveSub = fromEvent(this.elementRef.nativeElement, 'mousemove')
       .pipe(
@@ -75,7 +76,7 @@ export class TimelineComponent {
     });
   }
 
-  _onMouseOut(event: MouseEvent): void {
+  _onMouseOut(): void {
     this._moveSub.unsubscribe();
   }
 
@@ -131,10 +132,7 @@ export class TimelinePointComponent {
     return 'translate(0)';
   }
 
-  constructor(
-    private _elementRef: ElementRef,
-    private _overlay: Overlay,
-    @Optional() @SkipSelf() private _timeline: TimelineComponent) {}
+  constructor(@Optional() @SkipSelf() private _timeline: TimelineComponent) {}
 }
 
 @Component({

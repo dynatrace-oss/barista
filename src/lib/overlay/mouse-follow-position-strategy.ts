@@ -11,6 +11,8 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
   private _mouseOffsetX: number;
   private _mouseOffsetY: number;
 
+  private _constraint: 'xAxis' | 'yAxis' | undefined;
+
   constructor(
     connectedTo: ElementRef | HTMLElement,
     _viewportRuler: ViewportRuler,
@@ -37,7 +39,7 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
   }
 
   withMovementContraint(constraint: 'xAxis' | 'yAxis'): DtMouseFollowPositionStrategy {
-    console.log('set constraint');
+    this._constraint = constraint;
     return this;
   }
 
@@ -63,8 +65,10 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
     if (this._relativePositions) {
       this._flexiblePositionStrategy.withPositions(this._relativePositions.map((pos: ConnectedPosition) => {
         const posWithOffset = { ...pos };
-        posWithOffset.offsetX = pos.offsetX ? pos.offsetX + this._mouseOffsetX : this._mouseOffsetX;
-        posWithOffset.offsetY = pos.offsetY ? pos.offsetY + this._mouseOffsetY : this._mouseOffsetY;
+        posWithOffset.offsetX = this._constraint === 'yAxis' ? pos.offsetX
+          : pos.offsetX ? pos.offsetX + this._mouseOffsetX : this._mouseOffsetX;
+        posWithOffset.offsetY = this._constraint === 'xAxis' ? pos.offsetY
+          : pos.offsetY ? pos.offsetY + this._mouseOffsetY : this._mouseOffsetY;
         return posWithOffset;
       }));
     }
