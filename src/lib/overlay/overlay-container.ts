@@ -10,7 +10,7 @@ import {
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Subject } from 'rxjs';
-import { HasNgZone, mixinMicrotaskEmpty } from '@dynatrace/angular-components/core';
+import { HasNgZone, mixinMicrotaskEmpty, CanNotifyOnExit } from '@dynatrace/angular-components/core';
 
 export const DT_OVERLAY_FADE_TIME = 150;
 export const DT_OVERLAY_DELAY = 100;
@@ -51,7 +51,7 @@ export const _DtOverlayContainerMixin = mixinMicrotaskEmpty(DtOverlayContainerBa
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtOverlayContainer extends _DtOverlayContainerMixin {
+export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanNotifyOnExit {
   @ViewChild(CdkPortalOutlet) _portalOutlet: CdkPortalOutlet;
 
   _animationState = 'void';
