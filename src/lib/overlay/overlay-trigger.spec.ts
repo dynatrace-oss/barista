@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchMouseEvent } from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
+import { DT_OVERLAY_DEFAULT_OFFSET } from '@dynatrace/angular-components/overlay/overlay';
 
 describe('DtOverlayTrigger', () => {
   let overlayContainer: OverlayContainer;
@@ -52,6 +53,25 @@ describe('DtOverlayTrigger', () => {
     expect(overlay).toBeNull();
   }));
 
+  it('should set the offset to the mouseposition and deal with initial offset', fakeAsync(() => {
+    const offset = 1;
+    dispatchMouseEvent(trigger, 'mouseover');
+    flush();
+    dispatchMouseEvent(
+      trigger,
+      'mousemove',
+      trigger.getBoundingClientRect().left + offset,
+      trigger.getBoundingClientRect().top + offset);
+    fixture.detectChanges();
+    flush();
+
+    const overlayPane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+    expect(overlayPane).toBeDefined();
+    expect(overlayPane.style.transform).toEqual(
+      `translateX(${DT_OVERLAY_DEFAULT_OFFSET + 1}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET + offset}px)`
+    );
+  }));
+
   it('should not be pinnable by default', fakeAsync(() => {
     dispatchMouseEvent(trigger, 'mouseover');
     fixture.detectChanges();
@@ -84,24 +104,47 @@ describe('DtOverlayTrigger', () => {
     expect(overlay).not.toBeNull();
   }));
 
-  // it('should set the offset to the mouseposition', fakeAsync(() => {
-  //   const offset = 10;
-  //   dispatchMouseEvent(trigger, 'mouseover');
-  //   flush();
-  //   dispatchMouseEvent(
-  //     trigger,
-  //     'mousemove',
-  //     trigger.getBoundingClientRect().left + offset,
-  //     trigger.getBoundingClientRect().top + offset);
-  //   fixture.detectChanges();
-  //   flush();
+  it('should lock movement to xAxis', fakeAsync(() => {
+    const offset = 1;
+    fixture.componentInstance.config = { movementConstraint: 'xAxis' };
+    fixture.detectChanges();
+    dispatchMouseEvent(trigger, 'mouseover');
+    flush();
+    dispatchMouseEvent(
+      trigger,
+      'mousemove',
+      trigger.getBoundingClientRect().left + offset,
+      trigger.getBoundingClientRect().top + offset);
+    fixture.detectChanges();
+    flush();
 
-  //   const overlayPane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
-  //   expect(overlayPane).toBeDefined();
-  //   expect(overlayPane.style.transform).toEqual(
-  //     `translateX(${offset}px) translateY(${offset}px)`
-  //   );
-  // }));
+    const overlayPane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+    expect(overlayPane).toBeDefined();
+    expect(overlayPane.style.transform).toEqual(
+      `translateX(${DT_OVERLAY_DEFAULT_OFFSET + offset}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET}px)`
+    );
+  }));
+
+  it('should lock movement to yAxis', fakeAsync(() => {
+    const offset = 1;
+    fixture.componentInstance.config = { movementConstraint: 'yAxis' };
+    fixture.detectChanges();
+    dispatchMouseEvent(trigger, 'mouseover');
+    flush();
+    dispatchMouseEvent(
+      trigger,
+      'mousemove',
+      trigger.getBoundingClientRect().left + offset,
+      trigger.getBoundingClientRect().top + offset);
+    fixture.detectChanges();
+    flush();
+
+    const overlayPane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+    expect(overlayPane).toBeDefined();
+    expect(overlayPane.style.transform).toEqual(
+      `translateX(${DT_OVERLAY_DEFAULT_OFFSET}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET + offset}px)`
+    );
+  }));
 
 });
 
