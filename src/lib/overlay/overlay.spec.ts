@@ -68,6 +68,24 @@ describe('DtOverlay', () => {
     overlay = overlayContainerElement.querySelector('.dt-overlay-container');
     expect(overlay).toBeNull();
   }));
+
+  it('should not be pinnable by default', fakeAsync(() => {
+    const dtOverlayRef = dtOverlay.create(fixture.componentInstance.trigger, fixture.componentInstance.overlay);
+    fixture.detectChanges();
+    dtOverlayRef.pin(true);
+    fixture.detectChanges();
+    flush();
+    expect(dtOverlayRef.pinned).toBeFalsy();
+  }));
+
+  it('should be pinnable if config is passed', fakeAsync(() => {
+    const dtOverlayRef = dtOverlay.create(fixture.componentInstance.trigger, fixture.componentInstance.overlay, { pinnable: true });
+    fixture.detectChanges();
+    dtOverlayRef.pin(true);
+    fixture.detectChanges();
+    flush();
+    expect(dtOverlayRef.pinned).toBeTruthy();
+  }));
 });
 
 /** dummy component */

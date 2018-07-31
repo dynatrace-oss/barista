@@ -1,7 +1,7 @@
 
 import {ComponentFixture, TestBed, fakeAsync, inject, flush} from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { DtOverlayModule, DtOverlay, DT_OVERLAY_DEFAULT_OFFSET, DtOverlayConfig } from '@dynatrace/angular-components';
+import { DtOverlayModule, DtOverlayConfig } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchMouseEvent } from '../../testing/dispatch-events';
@@ -52,6 +52,38 @@ describe('DtOverlayTrigger', () => {
     expect(overlay).toBeNull();
   }));
 
+  it('should not be pinnable by default', fakeAsync(() => {
+    dispatchMouseEvent(trigger, 'mouseover');
+    fixture.detectChanges();
+
+    dispatchMouseEvent(trigger, 'click');
+    fixture.detectChanges();
+    flush();
+
+    dispatchMouseEvent(trigger, 'mouseout');
+    flush();
+
+    const overlay = overlayContainerElement.querySelector('.dt-overlay-container') as HTMLElement;
+    expect(overlay).toBeNull();
+  }));
+
+  it('should be pinnable if configured', fakeAsync(() => {
+    fixture.componentInstance.config = { pinnable: true };
+    fixture.detectChanges();
+    dispatchMouseEvent(trigger, 'mouseover');
+    fixture.detectChanges();
+
+    dispatchMouseEvent(trigger, 'click');
+    fixture.detectChanges();
+    flush();
+
+    dispatchMouseEvent(trigger, 'mouseout');
+    flush();
+
+    const overlay = overlayContainerElement.querySelector('.dt-overlay-container') as HTMLElement;
+    expect(overlay).not.toBeNull();
+  }));
+
   // it('should set the offset to the mouseposition', fakeAsync(() => {
   //   const offset = 10;
   //   dispatchMouseEvent(trigger, 'mouseover');
@@ -76,7 +108,8 @@ describe('DtOverlayTrigger', () => {
 /** dummy component */
 @Component({
   selector: 'dt-test-component',
-  template: '<div [dtOverlay]="overlay">trigger</div><ng-template #overlay>overlay</ng-template>',
+  template: '<div [dtOverlay]="overlay" [dtOverlayConfig]="config">trigger</div><ng-template #overlay>overlay</ng-template>',
 })
 class TestComponent {
+  config: DtOverlayConfig = {};
 }
