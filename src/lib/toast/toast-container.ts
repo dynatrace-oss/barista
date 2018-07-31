@@ -10,7 +10,7 @@ import { DT_TOAST_MESSAGE } from './toast';
 import { DT_TOAST_FADE_TIME } from './toast-config';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Subject } from 'rxjs';
-import { HasNgZone, mixinMicrotaskEmpty } from '@dynatrace/angular-components/core';
+import { HasNgZone, mixinMicrotaskEmpty, CanNotifyOnExit } from '@dynatrace/angular-components/core';
 
 // Boilerplate for applying mixins to DtToastContainer.
 export class DtToastContainerBase implements HasNgZone {
@@ -41,7 +41,7 @@ export const _DtToastContainerMixin = mixinMicrotaskEmpty(DtToastContainerBase);
     ]),
   ],
 })
-export class DtToastContainer extends _DtToastContainerMixin implements OnDestroy {
+export class DtToastContainer extends _DtToastContainerMixin implements OnDestroy, CanNotifyOnExit {
   private _destroyed = false;
 
   readonly _onEnter: Subject<void> = new Subject();

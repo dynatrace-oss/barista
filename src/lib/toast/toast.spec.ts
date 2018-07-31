@@ -1,10 +1,9 @@
 
 import {ComponentFixture, TestBed, fakeAsync, inject, flush, tick} from '@angular/core/testing';
 import {Component} from '@angular/core';
-import { DtToastModule, DtToast, DT_TOAST_FADE_TIME} from '@dynatrace/angular-components';
+import { DtToastModule, DtToast, DT_TOAST_FADE_TIME, DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT} from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT } from '@dynatrace/angular-components/toast/toast-config';
 
 describe('DtToast', () => {
   let dtToast: DtToast;
