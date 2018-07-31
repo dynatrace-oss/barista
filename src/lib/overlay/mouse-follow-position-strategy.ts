@@ -2,11 +2,9 @@ import { FlexibleConnectedPositionStrategy, ViewportRuler, PositionStrategy, Ove
 import { ElementRef } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 
-export class MouseFollowPositionStrategy implements PositionStrategy {
+export class DtMouseFollowPositionStrategy implements PositionStrategy {
 
   private _flexiblePositionStrategy: FlexibleConnectedPositionStrategy;
-
-  private _overlayRef: OverlayRef;
 
   private _relativePositions: ConnectedPosition[];
 
@@ -17,15 +15,12 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     connectedTo: ElementRef | HTMLElement,
     _viewportRuler: ViewportRuler,
     _document: Document,
-    // @breaking-change 7.0.0 `_platform` and `_overlayContainer` parameters to be made required.
-    _platform?: Platform
+    _platform: Platform
   ) {
     this._flexiblePositionStrategy = new FlexibleConnectedPositionStrategy(connectedTo, _viewportRuler, _document, _platform);
   }
 
   attach(overlayRef: OverlayRef): void {
-    console.log('attach');
-    this._overlayRef = overlayRef;
     this._flexiblePositionStrategy.attach(overlayRef);
   }
 
@@ -41,17 +36,17 @@ export class MouseFollowPositionStrategy implements PositionStrategy {
     return this._relativePositions;
   }
 
-  withMovementContraint(constraint: 'xAxis' | 'yAxis'): MouseFollowPositionStrategy {
+  withMovementContraint(constraint: 'xAxis' | 'yAxis'): DtMouseFollowPositionStrategy {
     console.log('set constraint');
     return this;
   }
 
-  setOrigin(origin: ElementRef): MouseFollowPositionStrategy {
+  setOrigin(origin: ElementRef): DtMouseFollowPositionStrategy {
     this._flexiblePositionStrategy.setOrigin(origin);
     return this;
   }
 
-  withPositions(positions: ConnectedPosition[]): MouseFollowPositionStrategy {
+  withPositions(positions: ConnectedPosition[]): DtMouseFollowPositionStrategy {
     this._relativePositions = positions;
     this._flexiblePositionStrategy.withPositions(positions);
     return this;
