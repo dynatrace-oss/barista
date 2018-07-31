@@ -2,7 +2,7 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
 import { Subscription, Observable } from 'rxjs';
 import { DtOverlayContainer } from './overlay-container';
-import { MouseFollowPositionStrategy } from './mouse-follow-position-strategy';
+import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 
 /** Css class that is used to disable pointerevents on the backdrop */
 export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-overlay-no-pointer';
@@ -49,7 +49,7 @@ export class DtOverlayRef<T> {
    */
   _updatePositionFromMouse(offsetX?: number, offsetY?: number): this {
     const config = this._overlayRef.getConfig();
-    (config.positionStrategy! as MouseFollowPositionStrategy)._withMouseOffset(offsetX, offsetY);
+    (config.positionStrategy! as DtMouseFollowPositionStrategy)._withMouseOffset(offsetX, offsetY);
 
     if (this._isDefined(offsetX) || this._isDefined(offsetY)) {
       this._overlayRef.updatePosition();

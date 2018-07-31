@@ -6,7 +6,7 @@ import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
 import { DOCUMENT } from '@angular/common';
-import { MouseFollowPositionStrategy } from './mouse-follow-position-strategy';
+import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { Platform } from '@angular/cdk/platform';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtOverlayService');
@@ -78,7 +78,7 @@ export class DtOverlay {
 
     const config = { ...new DtOverlayConfig(), ...userConfig };
 
-    const overlayRef: OverlayRef = this._createOverlay(config, origin);
+    const overlayRef: OverlayRef = this._createOverlay(origin);
     const overlayContainer = this._attachOverlayContainer(overlayRef);
     const dtOverlayRef = this._attachOverlayContent(templateRef, overlayContainer, overlayRef);
 
@@ -96,8 +96,8 @@ export class DtOverlay {
     }
   }
 
-  private _createOverlay(config: DtOverlayConfig, origin: ElementRef): OverlayRef {
-    const positionStrategy = new MouseFollowPositionStrategy(origin, this._viewportRuler, this._document, this._platform)
+  private _createOverlay(origin: ElementRef): OverlayRef {
+    const positionStrategy = new DtMouseFollowPositionStrategy(origin, this._viewportRuler, this._document, this._platform)
     .withPositions(DEFAULT_DT_OVERLAY_POSITIONS);
 
     const overlayConfig = new OverlayConfig({
