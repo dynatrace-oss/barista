@@ -15,6 +15,6 @@ import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
 export class DefaultOverlayExampleComponent {
   config: DtOverlayConfig = {
     pinnable: true,
-    verticalAnchor: 'center',
+    originY: 'center',
   };
 }

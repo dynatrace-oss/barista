@@ -19,41 +19,42 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
     this._flexiblePositionStrategy = new FlexibleConnectedPositionStrategy(connectedTo, _viewportRuler, _document, _platform);
   }
 
+  /** attaches the strategy */
   attach(overlayRef: OverlayRef): void {
     this._flexiblePositionStrategy.attach(overlayRef);
   }
 
+  /** applies the strategy with given settings */
   apply(): void {
     this._flexiblePositionStrategy.apply();
   }
 
+  /** disposes strategy */
   dispose(): void {
     this._flexiblePositionStrategy.dispose();
   }
 
-  get positions(): ConnectedPosition[] {
-    return this._relativePositions;
-  }
-
+  /** sets the movement constraint */
   withMovementContraint(constraint: 'xAxis' | 'yAxis'): DtMouseFollowPositionStrategy {
     this._constraint = constraint;
     return this;
   }
 
+  /** sts the positions for the overlay */
   withPositions(positions: ConnectedPosition[]): DtMouseFollowPositionStrategy {
     this._relativePositions = positions;
     this._flexiblePositionStrategy.withPositions(positions);
     return this;
   }
 
-  /** applies mouseoffset to each given position */
-  withMouseOffset(mouseOffsetX: number, mouseOffsetY: number): this {
+  /** applies offset to each given position */
+  withOffset(offsetX: number, offsetY: number): this {
     if (this._relativePositions) {
       this._flexiblePositionStrategy.withPositions(this._relativePositions.map((pos: ConnectedPosition) => {
         const posWithOffset = { ...pos };
 
-        posWithOffset.offsetX = this._combineOffset(mouseOffsetX, pos.offsetX);
-        posWithOffset.offsetY = this._combineOffset(mouseOffsetY, pos.offsetY);
+        posWithOffset.offsetX = this._combineOffset(offsetX, pos.offsetX);
+        posWithOffset.offsetY = this._combineOffset(offsetY, pos.offsetY);
 
         if (this._constraint === 'yAxis') {
           posWithOffset.offsetX = pos.offsetX;
@@ -66,7 +67,7 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
     return this;
   }
 
-  _combineOffset(mouseOffset: number, offset?: number): number {
+  private _combineOffset(mouseOffset: number, offset?: number): number {
     return offset ? offset + mouseOffset : mouseOffset;
   }
 }
