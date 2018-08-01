@@ -14,6 +14,16 @@ describe('Overlay', () => {
       await browser.actions().mouseMove(await element(by.id('trigger'))).perform();
       expect(await browser.isElementPresent(by.css('.dt-overlay-container'))).toBeFalsy();
     });
+
+    it('should open the overlay on mouseover and close on mouseout', async () => {
+      await browser.actions().mouseMove(await element(by.id('trigger'))).perform();
+      expect(await browser.isElementPresent(by.css('.dt-overlay-container'))).toBeTruthy();
+      await browser.actions().mouseMove(await element(by.id('disable-toggle'))).perform();
+      // wait for the exit animation to finish
+      // tslint:disable-next-line:no-magic-numbers
+      await browser.sleep(150);
+      expect(await browser.isElementPresent(by.css('.dt-overlay-container'))).toBeFalsy();
+    });
   });
 
   describe('focus behaviour', () => {
