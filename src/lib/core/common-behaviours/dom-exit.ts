@@ -4,8 +4,8 @@ import { NgZone } from '@angular/core';
 import { take } from 'rxjs/operators';
 
 export interface CanNotifyOnExit {
-  readonly _onExit: Subject<void>;
-  _safeExit(): void;
+  readonly _onDomExit: Subject<void>;
+  _notifyDomExit(): void;
 }
 
 export interface HasNgZone {
@@ -13,14 +13,14 @@ export interface HasNgZone {
 }
 
 /** Mixin to augment a directive with a `disabled` property. */
-export function mixinMicrotaskEmpty<T extends Constructor<HasNgZone>>(base: T): Constructor<CanNotifyOnExit> & T {
+export function mixinNotifyDomExit<T extends Constructor<HasNgZone>>(base: T): Constructor<CanNotifyOnExit> & T {
   return class extends base {
-    _onExit = new Subject<void>();
+    _onDomExit = new Subject<void>();
 
-    _safeExit(): void {
+    _notifyDomExit(): void {
       this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
-        this._onExit.next();
-        this._onExit.complete();
+        this._onDomExit.next();
+        this._onDomExit.complete();
       });
     }
 

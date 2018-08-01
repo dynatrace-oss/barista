@@ -6,17 +6,17 @@ import {
   OnDestroy,
   NgZone,
 } from '@angular/core';
-import { DT_TOAST_MESSAGE } from './toast';
-import { DT_TOAST_FADE_TIME } from './toast-config';
+import { DT_TOAST_MESSAGE } from '@dynatrace/angular-components/toast/toast';
+import { DT_TOAST_FADE_TIME } from '@dynatrace/angular-components/toast/toast-config';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Subject } from 'rxjs';
-import { HasNgZone, mixinMicrotaskEmpty, CanNotifyOnExit } from '@dynatrace/angular-components/core';
+import { HasNgZone, mixinNotifyDomExit, CanNotifyOnExit } from '@dynatrace/angular-components/core';
 
 // Boilerplate for applying mixins to DtToastContainer.
 export class DtToastContainerBase implements HasNgZone {
   constructor(public _ngZone: NgZone) { }
 }
-export const _DtToastContainerMixin = mixinMicrotaskEmpty(DtToastContainerBase);
+export const _DtToastContainerMixin = mixinNotifyDomExit(DtToastContainerBase);
 
 @Component({
   moduleId: module.id,
@@ -57,7 +57,7 @@ export class DtToastContainer extends _DtToastContainerMixin implements OnDestro
 
   ngOnDestroy(): void {
     this._destroyed = true;
-    this._safeExit();
+    this._notifyDomExit();
   }
 
   /** Animation callback */
@@ -65,7 +65,7 @@ export class DtToastContainer extends _DtToastContainerMixin implements OnDestro
     const {fromState, toState} = event;
 
     if ((toState === 'void' && fromState !== 'void') || toState === 'exit') {
-      this._safeExit();
+      this._notifyDomExit();
     }
 
     if (toState === 'enter') {

@@ -1,4 +1,4 @@
-import { DtToastContainer } from './toast-container';
+import { DtToastContainer } from '@dynatrace/angular-components/toast/toast-container';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject, Observable } from 'rxjs';
 
@@ -21,7 +21,7 @@ export class DtToastRef {
   ) {
     this.containerInstance = containerInstance;
     this.duration = duration;
-    containerInstance._onExit.subscribe(() => {
+    containerInstance._onDomExit.subscribe(() => {
       this._overlayRef.dispose();
       this._afterDismissed.next();
       this._afterDismissed.complete();
