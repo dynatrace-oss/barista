@@ -95,7 +95,7 @@ export function getDtSelectNonFunctionValueError(): Error {
     '[class.dt-select-disabled]': 'disabled',
     '[class.dt-select-invalid]': 'errorState',
     '[class.dt-select-required]': 'required',
-    '[class.dt-select-open]': '_panelOpen',
+    '[class.dt-select-open]': 'panelOpen',
     '[attr.id]': 'id',
     '[attr.tabindex]': 'tabIndex',
     '[attr.aria-label]': '_getAriaLabel()',

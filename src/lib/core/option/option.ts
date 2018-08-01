@@ -40,7 +40,6 @@ export class DtOptionSelectionChange<T> {
     '[attr.aria-selected]': 'selected.toString()',
     '[attr.aria-disabled]': 'disabled.toString()',
     '[class.dt-option-selected]': 'selected',
-    '[class.dt-option-multiple]': 'multiple',
     '[class.dt-option-active]': 'active',
     '[class.dt-option-disabled]': 'disabled',
     '(click)': '_selectViaInteraction()',
