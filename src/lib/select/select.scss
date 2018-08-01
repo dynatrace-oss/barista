@@ -27,7 +27,7 @@ $dt-select-panel-min-width: 112px !default;
     @include dt-focus-style();
   }
 
-  &.dt-select-open{
+  &.dt-select-open {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }

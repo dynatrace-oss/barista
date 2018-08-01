@@ -4,8 +4,8 @@ import { Component, ViewChild, QueryList, ViewChildren, ChangeDetectionStrategy 
 import { By } from '@angular/platform-browser';
 import { DtSelectModule, DtSelect, DtFormFieldModule, DtOption, DtIconModule, DtOptionSelectionChange, getDtSelectNonFunctionValueError, ErrorStateMatcher } from '@dynatrace/angular-components';
 import { FormControl, FormsModule, ReactiveFormsModule, FormGroupDirective, FormGroup, Validators } from '@angular/forms';
-import { OverlayContainer, ViewportRuler, ScrollDispatcher } from '@angular/cdk/overlay';
-import { Subject, Subscription } from 'rxjs';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Subscription } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Platform } from '@angular/cdk/platform';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -17,14 +17,9 @@ import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 // tslint:disable:no-any i18n no-magic-numbers max-file-line-count
 
-const LETTER_KEY_DEBOUNCE_INTERVAL = 200;
-
-fdescribe('DtSelect', () => {
+describe('DtSelect', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
-  const scrolledSubject = new Subject();
-  // let viewportRuler: ViewportRuler;
-  // let platform: Platform;
 
   function configureDtSelectTestingModule(declarations: any[]): void {
     TestBed.configureTestingModule({
@@ -38,13 +33,6 @@ fdescribe('DtSelect', () => {
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations,
-      providers: [
-        {
-          provide: ScrollDispatcher, useFactory: () => ({
-            scrolled: () => scrolledSubject.asObservable(),
-          }),
-        },
-      ],
     }).compileComponents();
 
     inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
@@ -509,7 +497,7 @@ fdescribe('DtSelect', () => {
           trigger.click();
           fixture.detectChanges();
 
-          options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+          options = overlayContainerElement.querySelectorAll('dt-option');
         }));
 
         it('should set the role of dt-option to option', fakeAsync(() => {
@@ -567,7 +555,7 @@ fdescribe('DtSelect', () => {
           trigger = fixture.debugElement.query(By.css('.dt-select-trigger')).nativeElement;
           trigger.click();
           fixture.detectChanges();
-          groups = overlayContainerElement.querySelectorAll('dt-optgroup') as NodeListOf<HTMLElement>;
+          groups = overlayContainerElement.querySelectorAll('dt-optgroup');
         }));
 
         it('should set the appropriate role', fakeAsync(() => {
@@ -799,13 +787,11 @@ fdescribe('DtSelect', () => {
     describe('selection logic', () => {
       let fixture: ComponentFixture<BasicSelect>;
       let trigger: HTMLElement;
-      let formField: HTMLElement;
 
       beforeEach(fakeAsync(() => {
         fixture = TestBed.createComponent(BasicSelect);
         fixture.detectChanges();
         trigger = fixture.debugElement.query(By.css('.dt-select-trigger')).nativeElement;
-        formField = fixture.debugElement.query(By.css('.dt-form-field')).nativeElement;
       }));
 
       it('should focus the first option if no option is selected', fakeAsync(() => {
@@ -858,9 +844,9 @@ fdescribe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        let options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+        let options = overlayContainerElement.querySelectorAll('dt-option');
 
-        options[0].click();
+        (options[0] as HTMLElement).click();
         fixture.detectChanges();
         flush();
 
@@ -868,7 +854,7 @@ fdescribe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+        options = overlayContainerElement.querySelectorAll('dt-option');
         expect(options[1].classList).not.toContain('dt-option-selected');
         expect(options[2].classList).not.toContain('dt-option-selected');
 
@@ -885,9 +871,9 @@ fdescribe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        let options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+        let options = overlayContainerElement.querySelectorAll('dt-option');
 
-        options[0].click();
+        (options[0] as HTMLElement).click();
         fixture.detectChanges();
         flush();
 
@@ -898,7 +884,7 @@ fdescribe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+        options = overlayContainerElement.querySelectorAll('dt-option');
 
         expect(options[0].classList)
           .not.toContain('dt-option-selected', 'Expected first option to no longer be selected');
@@ -969,8 +955,8 @@ fdescribe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
-        options[8].click();
+        const options = overlayContainerElement.querySelectorAll('dt-option');
+        (options[8] as HTMLElement).click();
         fixture.detectChanges();
         flush();
 
@@ -995,8 +981,8 @@ fdescribe('DtSelect', () => {
         trigger.click();
         fixture.detectChanges();
 
-        const options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
-        options[2].click();
+        const options = overlayContainerElement.querySelectorAll('dt-option');
+        (options[2] as HTMLElement).click();
         fixture.detectChanges();
 
         expect(fixture.componentInstance.select.panelOpen).toBe(true);
@@ -1070,6 +1056,7 @@ fdescribe('DtSelect', () => {
 
         expect(spy).toHaveBeenCalledWith(jasmine.any(DtOptionSelectionChange));
 
+        // tslint:disable-next-line:no-unnecessary-type-assertion
         subscription!.unsubscribe();
       }));
     });
@@ -1097,7 +1084,7 @@ fdescribe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+        const options = overlayContainerElement.querySelectorAll('dt-option');
         expect(options[1].classList)
           .toContain('dt-option-selected', `Expected option with the control's initial value to be selected.`);
       }));
@@ -1117,7 +1104,7 @@ fdescribe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+        const options = overlayContainerElement.querySelectorAll('dt-option');
         expect(options[1].classList)
           .toContain('dt-option-selected', `Expected option with the control's new value to be selected.`);
       }));
@@ -1157,7 +1144,7 @@ fdescribe('DtSelect', () => {
         flush();
 
         const options =
-          overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+          overlayContainerElement.querySelectorAll('dt-option');
         expect(options[1].classList)
           .not.toContain('dt-option-selected', `Expected option w/ the old value not to be selected.`);
       }));
@@ -1180,7 +1167,7 @@ fdescribe('DtSelect', () => {
         flush();
 
         const options =
-          overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+          overlayContainerElement.querySelectorAll('dt-option');
         expect(options[1].classList)
           .not.toContain('dt-option-selected', `Expected option w/ the old value not to be selected.`);
       }));
@@ -1466,7 +1453,7 @@ fdescribe('DtSelect', () => {
     describe('comparing by value', () => {
 
       it('should have a selection', fakeAsync(() => {
-        const selectedOption = instance.select.selected as DtOption<any>;
+        const selectedOption = instance.select.selected;
         expect(selectedOption.value.value).toEqual('pizza-1');
       }));
 
@@ -1475,7 +1462,7 @@ fdescribe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const selectedOption = instance.select.selected as DtOption<any>;
+        const selectedOption = instance.select.selected;
         expect(instance.selectedFood.value).toEqual('tacos-2');
         expect(selectedOption.value.value).toEqual('tacos-2');
       }));
@@ -1489,6 +1476,7 @@ fdescribe('DtSelect', () => {
       }));
 
       it('should use the comparator', fakeAsync(() => {
+        // tslint:disable-next-line:no-unbound-method
         expect(instance.compareByReference).toHaveBeenCalled();
       }));
 
@@ -1620,6 +1608,7 @@ fdescribe('DtSelect', () => {
       errorFixture.detectChanges();
 
       expect(component.select.errorState).toBe(true);
+      // tslint:disable-next-line:no-unbound-method
       expect(errorStateMatcher.isErrorState).toHaveBeenCalled();
     }));
   });
@@ -1704,20 +1693,18 @@ fdescribe('DtSelect', () => {
 
     let fixture: ComponentFixture<ResetValuesSelect>;
     let trigger: HTMLElement;
-    let formField: HTMLElement;
     let options: NodeListOf<HTMLElement>;
 
     beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(ResetValuesSelect);
       fixture.detectChanges();
       trigger = fixture.debugElement.query(By.css('.dt-select-trigger')).nativeElement;
-      formField = fixture.debugElement.query(By.css('.dt-form-field')).nativeElement;
 
       trigger.click();
       fixture.detectChanges();
       flush();
 
-      options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+      options = overlayContainerElement.querySelectorAll('dt-option');
       options[0].click();
       fixture.detectChanges();
       flush();
@@ -2037,6 +2024,7 @@ class NgModelCompareWithSelect {
     { value: 'tacos-2', viewValue: 'Tacos' },
   ];
   selectedFood = { value: 'pizza-1', viewValue: 'Pizza' };
+  // tslint:disable-next-line:no-unbound-method
   comparator: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
 
   @ViewChild(DtSelect) select: DtSelect<any>;
@@ -2084,6 +2072,7 @@ class SelectEarlyAccessSibling { }
 class SelectInsideFormGroup {
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   @ViewChild(DtSelect) select: DtSelect<any>;
+  // tslint:disable-next-line:no-unbound-method
   formControl = new FormControl('', Validators.required);
   formGroup = new FormGroup({
     food: this.formControl,
