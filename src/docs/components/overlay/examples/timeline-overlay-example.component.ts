@@ -10,6 +10,7 @@ import { OriginalClassName } from '../../../core/decorators';
   selector: 'dt-timeline',
   template: `
   <div class="timeline"
+    tabindex="-1"
     #timeline
     [dtOverlay]="overlay"
     [dtOverlayConfig]="config"
@@ -37,7 +38,7 @@ export class TimelineComponent {
 
   config: DtOverlayConfig = {
     movementConstraint: 'xAxis',
-    verticalAnchor: 'edge',
+    originY: 'edge',
   };
 
   time: Date;
@@ -90,7 +91,8 @@ export class TimelineComponent {
 @Component({
   selector: 'dt-timeline-point',
   template:
-  `<div class="point" [dtOverlay]="overlay" [dtOverlayConfig]="config" [ngStyle]="{\'transform\': _translation }"></div>
+  `<div class="point" [dtOverlay]="overlay" [dtOverlayConfig]="config"
+    [ngStyle]="{\'transform\': _translation }"></div>
   <ng-template #overlay>
     <p>Page Load: page/orange.jsf</p>
     <button dt-button>View highlight</button>
