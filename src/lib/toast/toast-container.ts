@@ -6,8 +6,8 @@ import {
   OnDestroy,
   NgZone,
 } from '@angular/core';
-import { DT_TOAST_MESSAGE } from '@dynatrace/angular-components/toast/toast';
-import { DT_TOAST_FADE_TIME } from '@dynatrace/angular-components/toast/toast-config';
+import { DT_TOAST_MESSAGE } from './toast';
+import { DT_TOAST_FADE_TIME } from './toast-config';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { HasNgZone, mixinNotifyDomExit, CanNotifyOnExit } from '@dynatrace/angular-components/core';
