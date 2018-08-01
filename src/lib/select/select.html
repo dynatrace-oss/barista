@@ -27,10 +27,15 @@
 
   <div #panel
     class="dt-select-panel"
+    [class.dt-select-panel-done-animating]="_panelDoneAnimating"
     [ngClass]="panelClass"
+    [@transformPanel]="'showing'"
+    (@transformPanel.done)="_panelDoneAnimatingStream.next($event.toState)"
     (keydown)="_handleKeydown($event)">
 
-    <div class="dt-select-content">
+    <div class="dt-select-content"
+      [@fadeInContent]="'showing'"
+      (@fadeInContent.done)="_onFadeInDone()">
       <ng-content></ng-content>
     </div>
   </div>
