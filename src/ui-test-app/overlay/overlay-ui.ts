@@ -6,5 +6,5 @@ import {Component} from '@angular/core';
   templateUrl: 'overlay-ui.html',
 })
 export class OverlayUI {
-
+  disabled = false;
 }
