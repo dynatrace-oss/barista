@@ -1,7 +1,7 @@
-import { Injectable, TemplateRef, ElementRef, Inject } from '@angular/core';
+import { Injectable, TemplateRef, ElementRef, Inject, NgZone, Injector } from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
-import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition } from '@angular/cdk/overlay';
-import { ComponentPortal, TemplatePortal, ComponentType } from '@angular/cdk/portal';
+import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, CloseScrollStrategy, ScrollDispatcher } from '@angular/cdk/overlay';
+import { ComponentPortal, TemplatePortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
 import { DOCUMENT } from '@angular/common';
@@ -62,11 +62,14 @@ export class DtOverlay {
   }
 
   constructor(
+    private _injector: Injector,
     private _overlay: Overlay,
     private _viewportRuler: ViewportRuler,
     // tslint:disable-next-line:no-any
     @Inject(DOCUMENT) private _document: any,
-    private _platform: Platform
+    private _platform: Platform,
+    private _ngZone: NgZone,
+    private _scrollDispatcher: ScrollDispatcher
   ) {}
 
   create<T>(
@@ -75,13 +78,13 @@ export class DtOverlay {
     userConfig?: DtOverlayConfig
   ): DtOverlayRef<T> {
     if (this._dtOverlayRef) {
-      this._dtOverlayRef.close();
+      this._dtOverlayRef.dismiss();
     }
 
     const config = { ...new DtOverlayConfig(), ...userConfig };
 
     const overlayRef: OverlayRef = this._createOverlay(origin, config);
-    const overlayContainer = this._attachOverlayContainer(overlayRef);
+    const overlayContainer = this._attachOverlayContainer(overlayRef, config);
     const dtOverlayRef = this._attachOverlayContent(componentOrTemplateRef, overlayContainer, overlayRef, config);
 
     this._dtOverlayRef = dtOverlayRef;
@@ -89,10 +92,10 @@ export class DtOverlay {
     return this._dtOverlayRef;
   }
 
-  close(): void {
+  dismiss(): void {
     const ref = this._dtOverlayRef;
     if (ref) {
-      ref.close();
+      ref.dismiss();
 
       this._dtOverlayRef = null;
     }
@@ -100,7 +103,7 @@ export class DtOverlay {
 
   private _createOverlay(origin: ElementRef, config: DtOverlayConfig): OverlayRef {
     let positions = DEFAULT_DT_OVERLAY_POSITIONS;
-    if (config.verticalAnchor === 'center') {
+    if (config.originY === 'center') {
       positions = positions.map((pos) => {
         const newPos = {...pos};
         newPos.originY = 'center';
@@ -119,13 +122,17 @@ export class DtOverlay {
       positionStrategy,
       backdropClass: DT_OVERLAY_NO_POINTER_CLASS,
       hasBackdrop: true,
+      scrollStrategy: new CloseScrollStrategy(this._scrollDispatcher, this._ngZone, this._viewportRuler),
     });
     return this._overlay.create(overlayConfig);
   }
 
-  private _attachOverlayContainer(overlay: OverlayRef): DtOverlayContainer {
+  private _attachOverlayContainer(overlay: OverlayRef, config: DtOverlayConfig): DtOverlayContainer {
+    const injector = new PortalInjector(this._injector, new WeakMap([
+      [DtOverlayConfig, config],
+    ]));
     const containerPortal =
-        new ComponentPortal(DtOverlayContainer, null);
+        new ComponentPortal(DtOverlayContainer, null, injector);
     const containerRef = overlay.attach<DtOverlayContainer>(containerPortal);
 
     return containerRef.instance;

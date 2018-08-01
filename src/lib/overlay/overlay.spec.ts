@@ -56,13 +56,13 @@ describe('DtOverlay', () => {
     expect(overlay.innerText.trim()).toEqual('dummy-overlay');
   });
 
-  it('should close the overlay correctly', fakeAsync(() => {
+  it('should dismiss the overlay correctly', fakeAsync(() => {
     dtOverlay.create(fixture.componentInstance.trigger, fixture.componentInstance.overlay);
     fixture.detectChanges();
 
     let overlay = overlayContainerElement.querySelector('.dt-overlay-container');
     expect(overlay).toBeDefined();
-    dtOverlay.close();
+    dtOverlay.dismiss();
     fixture.detectChanges();
     flush();
     overlay = overlayContainerElement.querySelector('.dt-overlay-container');

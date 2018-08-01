@@ -1,12 +1,12 @@
 
 import {ComponentFixture, TestBed, fakeAsync, inject, flush} from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { DtOverlayModule, DtOverlayConfig } from '@dynatrace/angular-components';
+import { DtOverlayModule, DtOverlayConfig, DT_OVERLAY_DEFAULT_OFFSET } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { dispatchMouseEvent } from '../../testing/dispatch-events';
+import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
-import { DT_OVERLAY_DEFAULT_OFFSET } from '@dynatrace/angular-components/overlay/overlay';
+import { SPACE, ENTER, ESCAPE } from '@angular/cdk/keycodes';
 
 describe('DtOverlayTrigger', () => {
   let overlayContainer: OverlayContainer;
@@ -37,11 +37,11 @@ describe('DtOverlayTrigger', () => {
     overlayContainer.ngOnDestroy();
   });
 
-  it('should create an overlay on mouseover and close on mouseout', fakeAsync(() => {
+  it('should create an overlay on mouseover and dismiss on mouseout', fakeAsync(() => {
     dispatchMouseEvent(trigger, 'mouseover');
     fixture.detectChanges();
 
-    let overlay = overlayContainerElement.querySelector('.dt-overlay-container') as HTMLElement;
+    let overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeDefined();
     expect(overlay.innerText).toEqual('overlay');
 
@@ -49,7 +49,7 @@ describe('DtOverlayTrigger', () => {
     fixture.detectChanges();
     flush();
 
-    overlay = overlayContainerElement.querySelector('.dt-overlay-container') as HTMLElement;
+    overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeNull();
   }));
 
@@ -83,7 +83,7 @@ describe('DtOverlayTrigger', () => {
     dispatchMouseEvent(trigger, 'mouseout');
     flush();
 
-    const overlay = overlayContainerElement.querySelector('.dt-overlay-container') as HTMLElement;
+    const overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeNull();
   }));
 
@@ -100,7 +100,7 @@ describe('DtOverlayTrigger', () => {
     dispatchMouseEvent(trigger, 'mouseout');
     flush();
 
-    const overlay = overlayContainerElement.querySelector('.dt-overlay-container') as HTMLElement;
+    const overlay = getContainerElement(overlayContainerElement);
     expect(overlay).not.toBeNull();
   }));
 
@@ -119,7 +119,6 @@ describe('DtOverlayTrigger', () => {
     flush();
 
     const overlayPane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
-    expect(overlayPane).toBeDefined();
     expect(overlayPane.style.transform).toEqual(
       `translateX(${DT_OVERLAY_DEFAULT_OFFSET + offset}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET}px)`
     );
@@ -140,19 +139,75 @@ describe('DtOverlayTrigger', () => {
     flush();
 
     const overlayPane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
-    expect(overlayPane).toBeDefined();
     expect(overlayPane.style.transform).toEqual(
       `translateX(${DT_OVERLAY_DEFAULT_OFFSET}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET + offset}px)`
     );
   }));
 
+  it('should focus the trigger', () => {
+    expect(document.activeElement).not.toBe(trigger);
+
+    trigger.focus();
+    fixture.detectChanges();
+
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it('should open the overlay with space', () => {
+    dispatchKeyboardEvent(trigger, 'keydown', SPACE);
+    fixture.detectChanges();
+    const overlay = getContainerElement(overlayContainerElement);
+
+    expect(overlay).not.toBeNull();
+  });
+
+  it('should open the overlay with enter', () => {
+    dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+    fixture.detectChanges();
+    const overlay = getContainerElement(overlayContainerElement);
+
+    expect(overlay).not.toBeNull();
+  });
+
+  it('should close the overlay on escape', fakeAsync(() => {
+    dispatchMouseEvent(trigger, 'mouseover');
+    fixture.detectChanges();
+    flush();
+
+    let overlay = getContainerElement(overlayContainerElement);
+    expect(overlay).not.toBeNull();
+    dispatchKeyboardEvent(trigger, 'keydown', ESCAPE);
+    fixture.detectChanges();
+    flush();
+    overlay = getContainerElement(overlayContainerElement);
+
+    expect(overlay).toBeNull();
+  }));
+
+  it('should not open an overlay when disabled', fakeAsync(() => {
+    fixture.componentInstance.disabled = true;
+    fixture.detectChanges();
+
+    dispatchMouseEvent(trigger, 'mouseover');
+    fixture.detectChanges();
+    flush();
+
+    const overlay = getContainerElement(overlayContainerElement);
+    expect(overlay).toBeNull();
+  }));
 });
+
+function getContainerElement(overlayContainerElement: HTMLElement): HTMLElement {
+  return overlayContainerElement.querySelector('.dt-overlay-container') as HTMLElement;
+}
 
 /** dummy component */
 @Component({
   selector: 'dt-test-component',
-  template: '<div [dtOverlay]="overlay" [dtOverlayConfig]="config">trigger</div><ng-template #overlay>overlay</ng-template>',
+  template: `<div [dtOverlay]="overlay" [dtOverlayConfig]="config"
+    [disabled]="disabled">trigger</div><ng-template #overlay>overlay</ng-template>`,
 })
 class TestComponent {
   config: DtOverlayConfig = {};
+  disabled = false;
 }
