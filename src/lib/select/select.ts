@@ -26,9 +26,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { trigger, state, style, transition, animate, group, query, animateChild } from '@angular/animations';
 import { DOWN_ARROW, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, ENTER, SPACE, HOME, END } from '@angular/cdk/keycodes';
 import { Subject, Observable, merge, defer } from 'rxjs';
-import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
+import { take, switchMap, takeUntil, startWith, distinctUntilChanged } from 'rxjs/operators';
 import {
   ErrorStateMatcher,
   mixinTabIndex,
@@ -113,6 +114,32 @@ export function getDtSelectNonFunctionValueError(): Error {
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
+  animations: [
+    trigger('transformPanel', [
+      state('void', style({
+        transform: 'scaleY(0)',
+        opacity: 0,
+      })),
+      state('showing', style({
+        opacity: 1,
+        transform: 'scaleY(1)',
+      })),
+      transition('void => *', group([
+        query('@fadeInContent', animateChild()),
+        animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)'),
+      ])),
+      transition('* => void', [
+        animate('250ms 100ms linear', style({ opacity: 0 })),
+      ]),
+    ]),
+    trigger('fadeInContent', [
+      state('showing', style({ opacity: 1 })),
+      transition('void => showing', [
+        style({ opacity: 0 }),
+        animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+      ]),
+    ]),
+  ],
   providers: [
     { provide: DtFormFieldControl, useExisting: DtSelect },
   ],
@@ -174,6 +201,12 @@ export class DtSelect<T> extends _DtSelectMixinBase
       overlayY: 'bottom',
     },
   ];
+
+  /** Whether the panel's animation is done. */
+  _panelDoneAnimating = false;
+
+  /** Emits when the panel element is finished transforming in. */
+  _panelDoneAnimatingStream = new Subject<string>();
 
   /** Whether the select is focused. */
   get focused(): boolean {
@@ -336,19 +369,19 @@ export class DtSelect<T> extends _DtSelectMixinBase
     // We need `distinctUntilChanged` here, because some browsers will
     // fire the animation end event twice for the same animation. See:
     // https://github.com/angular/angular/issues/24084
-    // this._panelDoneAnimatingStream
-    //   .pipe(distinctUntilChanged(), takeUntil(this._destroy))
-    //   .subscribe(() => {
-    //     if (this.panelOpen) {
-    //       this._scrollTop = 0;
-    //       this.openedChange.emit(true);
-    //     } else {
-    //       this.openedChange.emit(false);
-    //       this._panelDoneAnimating = false;
-    //       this.overlayDir.offsetX = 0;
-    //       this._changeDetectorRef.markForCheck();
-    //     }
-    //   });
+    this._panelDoneAnimatingStream
+      .pipe(distinctUntilChanged(), takeUntil(this._destroy))
+      .subscribe(() => {
+        if (this.panelOpen) {
+          this._scrollTop = 0;
+          this.openedChange.emit(true);
+        } else {
+          this.openedChange.emit(false);
+          this._panelDoneAnimating = false;
+          // this.overlayDir.offsetX = 0;
+          this._changeDetectorRef.markForCheck();
+        }
+      });
   }
 
   ngAfterContentInit(): void {
@@ -498,6 +531,15 @@ export class DtSelect<T> extends _DtSelectMixinBase
       this._changeDetectorRef.detectChanges();
       this.panel.nativeElement.scrollTop = this._scrollTop;
     });
+  }
+
+  /**
+   * When the panel content is done fading in, the _panelDoneAnimating property is
+   * set so the proper class can be added to the panel.
+   */
+  _onFadeInDone(): void {
+    this._panelDoneAnimating = this.panelOpen;
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Returns the aria-label of the select component. */
