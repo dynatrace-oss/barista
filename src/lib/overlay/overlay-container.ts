@@ -14,10 +14,10 @@ import {
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Subject } from 'rxjs';
-import { HasNgZone, mixinMicrotaskEmpty, CanNotifyOnExit, DtLoggerFactory, DtLogger } from '@dynatrace/angular-components/core';
+import { HasNgZone, mixinNotifyDomExit, CanNotifyOnExit, DtLoggerFactory, DtLogger } from '@dynatrace/angular-components/core';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
-import { DtOverlayConfig } from './overlay-config';
+import { DtOverlayConfig } from '@dynatrace/angular-components/overlay/overlay-config';
 
 const LOG: DtLogger = DtLoggerFactory.create('OverlayContainer');
 
@@ -36,7 +36,7 @@ export class DtOverlayContainerBase extends BasePortalOutlet implements HasNgZon
     throw new Error('Method not implemented.');
   }
 }
-export const _DtOverlayContainerMixin = mixinMicrotaskEmpty(DtOverlayContainerBase);
+export const _DtOverlayContainerMixin = mixinNotifyDomExit(DtOverlayContainerBase);
 
 @Component({
   moduleId: module.id,
@@ -119,7 +119,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
 
     if ((toState === 'void' && fromState !== 'void') || toState === 'exit') {
       this._restoreFocus();
-      this._safeExit();
+      this._notifyDomExit();
     }
   }
 

@@ -21,7 +21,7 @@ describe('Overlay', () => {
       await browser.actions().mouseMove(await element(by.id('disable-toggle'))).perform();
       // wait for the exit animation to finish
       // tslint:disable-next-line:no-magic-numbers
-      await browser.sleep(150);
+      await browser.sleep(400);
       expect(await browser.isElementPresent(by.css('.dt-overlay-container'))).toBeFalsy();
     });
   });
