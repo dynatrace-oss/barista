@@ -1,6 +1,6 @@
 
 import { async, ComponentFixture, TestBed, inject, fakeAsync, flush, tick } from '@angular/core/testing';
-import { Component, ViewChild, QueryList, ViewChildren } from '@angular/core';
+import { Component, ViewChild, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DtSelectModule, DtSelect, DtFormFieldModule, DtOption, DtIconModule, DtOptionSelectionChange, getDtSelectNonFunctionValueError, ErrorStateMatcher } from '@dynatrace/angular-components';
 import { FormControl, FormsModule, ReactiveFormsModule, FormGroupDirective, FormGroup, Validators } from '@angular/forms';
@@ -1624,6 +1624,158 @@ fdescribe('DtSelect', () => {
     }));
   });
 
+  describe('with custom error behavior', () => {
+    beforeEach(async(() => configureDtSelectTestingModule([CustomErrorBehaviorSelect])));
+
+    it('should be able to override the error matching behavior via an @Input', fakeAsync(() => {
+      const fixture = TestBed.createComponent(CustomErrorBehaviorSelect);
+      const component = fixture.componentInstance;
+      const matcher = jasmine.createSpy('error state matcher').and.returnValue(true);
+
+      fixture.detectChanges();
+
+      expect(component.control.invalid).toBe(false);
+      expect(component.select.errorState).toBe(false);
+
+      fixture.componentInstance.errorStateMatcher = { isErrorState: matcher };
+      fixture.detectChanges();
+
+      expect(component.select.errorState).toBe(true);
+      expect(matcher).toHaveBeenCalled();
+    }));
+  });
+
+  describe('with preselected array values', () => {
+    beforeEach(async(() => configureDtSelectTestingModule([
+      SingleSelectWithPreselectedArrayValues,
+    ])));
+
+    it('should be able to preselect an array value in single-selection mode', fakeAsync(() => {
+      const fixture = TestBed.createComponent(SingleSelectWithPreselectedArrayValues);
+      fixture.detectChanges();
+      flush();
+      fixture.detectChanges();
+
+      const trigger = fixture.debugElement.query(By.css('.dt-select-trigger')).nativeElement;
+
+      expect(trigger.textContent).toContain('Pizza');
+      expect(fixture.componentInstance.options.toArray()[1].selected).toBe(true);
+    }));
+  });
+
+  describe('with OnPush', () => {
+    beforeEach(async(() => configureDtSelectTestingModule([
+      BasicSelectOnPush,
+      BasicSelectOnPushPreselected,
+    ])));
+
+    it('should set the trigger text based on the value when initialized', fakeAsync(() => {
+      const fixture = TestBed.createComponent(BasicSelectOnPushPreselected);
+
+      fixture.detectChanges();
+      flush();
+
+      const trigger = fixture.debugElement.query(By.css('.dt-select-trigger')).nativeElement;
+
+      fixture.detectChanges();
+
+      expect(trigger.textContent).toContain('Pizza');
+    }));
+
+    it('should update the trigger based on the value', fakeAsync(() => {
+      const fixture = TestBed.createComponent(BasicSelectOnPush);
+      fixture.detectChanges();
+      const trigger = fixture.debugElement.query(By.css('.dt-select-trigger')).nativeElement;
+
+      fixture.componentInstance.control.setValue('pizza-1');
+      fixture.detectChanges();
+
+      expect(trigger.textContent).toContain('Pizza');
+
+      fixture.componentInstance.control.reset();
+      fixture.detectChanges();
+
+      expect(trigger.textContent).not.toContain('Pizza');
+    }));
+  });
+
+  describe('when reseting the value by setting null or undefined', () => {
+    beforeEach(async(() => configureDtSelectTestingModule([ResetValuesSelect])));
+
+    let fixture: ComponentFixture<ResetValuesSelect>;
+    let trigger: HTMLElement;
+    let formField: HTMLElement;
+    let options: NodeListOf<HTMLElement>;
+
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(ResetValuesSelect);
+      fixture.detectChanges();
+      trigger = fixture.debugElement.query(By.css('.dt-select-trigger')).nativeElement;
+      formField = fixture.debugElement.query(By.css('.dt-form-field')).nativeElement;
+
+      trigger.click();
+      fixture.detectChanges();
+      flush();
+
+      options = overlayContainerElement.querySelectorAll('dt-option') as NodeListOf<HTMLElement>;
+      options[0].click();
+      fixture.detectChanges();
+      flush();
+    }));
+
+    it('should reset when an option with an undefined value is selected', fakeAsync(() => {
+      options[4].click();
+      fixture.detectChanges();
+      flush();
+
+      expect(fixture.componentInstance.control.value).toBeUndefined();
+      expect(fixture.componentInstance.select.selected).toBeFalsy();
+      expect(trigger.textContent).not.toContain('Undefined');
+    }));
+
+    it('should reset when an option with a null value is selected', fakeAsync(() => {
+      options[5].click();
+      fixture.detectChanges();
+      flush();
+
+      expect(fixture.componentInstance.control.value).toBeNull();
+      expect(fixture.componentInstance.select.selected).toBeFalsy();
+      expect(trigger.textContent).not.toContain('Null');
+    }));
+
+    it('should reset when a blank option is selected', fakeAsync(() => {
+      options[6].click();
+      fixture.detectChanges();
+      flush();
+
+      expect(fixture.componentInstance.control.value).toBeUndefined();
+      expect(fixture.componentInstance.select.selected).toBeFalsy();
+      expect(trigger.textContent).not.toContain('None');
+    }));
+
+    it('should not mark the reset option as selected ', fakeAsync(() => {
+      options[5].click();
+      fixture.detectChanges();
+      flush();
+
+      fixture.componentInstance.select.open();
+      fixture.detectChanges();
+      flush();
+
+      expect(options[5].classList).not.toContain('dt-option-selected');
+    }));
+
+    it('should not consider the reset values as selected when resetting the form control', fakeAsync(() => {
+      fixture.componentInstance.control.reset();
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance.control.value).toBeNull();
+      expect(fixture.componentInstance.select.selected).toBeFalsy();
+      expect(trigger.textContent).not.toContain('Null');
+      expect(trigger.textContent).not.toContain('Undefined');
+    }));
+  });
+
 });
 
 @Component({
@@ -1936,6 +2088,112 @@ class SelectInsideFormGroup {
   formGroup = new FormGroup({
     food: this.formControl,
   });
+}
+
+@Component({
+  template: `
+    <dt-select placeholder="Food" [formControl]="control" [errorStateMatcher]="errorStateMatcher">
+      <dt-option *ngFor="let food of foods" [value]="food.value">{{ food.viewValue }}</dt-option>
+    </dt-select>
+  `,
+})
+class CustomErrorBehaviorSelect {
+  @ViewChild(DtSelect) select: DtSelect<any>;
+  control = new FormControl();
+  foods: any[] = [
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+  ];
+  errorStateMatcher: ErrorStateMatcher;
+}
+
+@Component({
+  template: `
+    <dt-form-field>
+      <dt-select placeholder="Food" [(ngModel)]="selectedFoods">
+        <dt-option *ngFor="let food of foods" [value]="food.value">{{ food.viewValue }}</dt-option>
+      </dt-select>
+    </dt-form-field>
+  `,
+})
+class SingleSelectWithPreselectedArrayValues {
+  foods: any[] = [
+    { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
+    { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
+    { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' },
+  ];
+
+  selectedFoods = this.foods[1].value;
+
+  @ViewChild(DtSelect) select: DtSelect<any>;
+  @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
+}
+
+@Component({
+  selector: 'basic-select-on-push',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <dt-form-field>
+      <dt-select placeholder="Food" [formControl]="control">
+        <dt-option *ngFor="let food of foods" [value]="food.value">{{ food.viewValue }}</dt-option>
+      </dt-select>
+    </dt-form-field>
+  `,
+})
+class BasicSelectOnPush {
+  foods: any[] = [
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'tacos-2', viewValue: 'Tacos' },
+  ];
+  control = new FormControl();
+}
+
+@Component({
+  selector: 'basic-select-on-push-preselected',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <dt-form-field>
+      <dt-select placeholder="Food" [formControl]="control">
+        <dt-option *ngFor="let food of foods" [value]="food.value">{{ food.viewValue }}</dt-option>
+      </dt-select>
+    </dt-form-field>
+  `,
+})
+class BasicSelectOnPushPreselected {
+  foods: any[] = [
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'tacos-2', viewValue: 'Tacos' },
+  ];
+  control = new FormControl('pizza-1');
+}
+
+@Component({
+  selector: 'reset-values-select',
+  template: `
+    <dt-form-field>
+      <dt-select placeholder="Food" [formControl]="control">
+        <dt-option *ngFor="let food of foods" [value]="food.value">
+          {{ food.viewValue }}
+        </dt-option>
+        <dt-option>None</dt-option>
+      </dt-select>
+    </dt-form-field>
+  `,
+})
+class ResetValuesSelect {
+  foods: any[] = [
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'tacos-2', viewValue: 'Tacos' },
+    { value: false, viewValue: 'Falsy' },
+    { viewValue: 'Undefined' },
+    { value: null, viewValue: 'Null' },
+  ];
+  control = new FormControl();
+
+  @ViewChild(DtSelect) select: DtSelect<any>;
 }
 
 // tslint:enable:no-any i18n no-magic-numbers
