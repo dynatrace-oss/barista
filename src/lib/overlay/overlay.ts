@@ -83,7 +83,7 @@ export class DtOverlay {
 
     const config = { ...new DtOverlayConfig(), ...userConfig };
 
-    const overlayRef: OverlayRef = this._createOverlay(origin, config);
+    const overlayRef = this._createOverlay(origin, config);
     const overlayContainer = this._attachOverlayContainer(overlayRef, config);
     const dtOverlayRef = this._attachOverlayContent(componentOrTemplateRef, overlayContainer, overlayRef, config);
 

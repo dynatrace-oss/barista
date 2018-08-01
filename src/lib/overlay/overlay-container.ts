@@ -17,7 +17,7 @@ import { Subject } from 'rxjs';
 import { HasNgZone, mixinNotifyDomExit, CanNotifyOnExit, DtLoggerFactory, DtLogger } from '@dynatrace/angular-components/core';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
-import { DtOverlayConfig } from '@dynatrace/angular-components/overlay/overlay-config';
+import { DtOverlayConfig } from './overlay-config';
 
 const LOG: DtLogger = DtLoggerFactory.create('OverlayContainer');
 
@@ -41,6 +41,7 @@ export const _DtOverlayContainerMixin = mixinNotifyDomExit(DtOverlayContainerBas
 @Component({
   moduleId: module.id,
   selector: 'dt-overlay-container',
+  exportAs: 'dtOverlayContainer',
   templateUrl: 'overlay-container.html',
   styleUrls: ['overlay-container.scss'],
   host: {
@@ -154,13 +155,6 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
   private _savePreviouslyFocusedElement(): void {
     if (this._document) {
       this._elementFocusedBeforeDialogWasOpened = this._document.activeElement as HTMLElement;
-
-      // // Note that there is no focus method when rendering on the server.
-      // if (this._elementRef.nativeElement.focus) {
-      //   // Needs to be async, because the element
-      //   // may not be focusable immediately.
-      //   Promise.resolve().then(() => this._elementRef.nativeElement.focus()).catch();
-      // }
     }
   }
 }
