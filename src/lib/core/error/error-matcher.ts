@@ -1,5 +1,5 @@
-import {Provider, Injectable} from '@angular/core';
-import {FormGroupDirective, NgForm, FormControl} from '@angular/forms';
+import { Injectable } from '@angular/core';
+import { FormGroupDirective, NgForm, FormControl } from '@angular/forms';
 
 /** Error state matcher that matches when a control is invalid and dirty. */
 export class DefaultErrorStateMatcher {
@@ -20,7 +20,7 @@ export class DefaultErrorStateMatcher {
   }
 }
 
-@Injectable({providedIn: 'root', useClass: DefaultErrorStateMatcher})
+@Injectable({ providedIn: 'root', useClass: DefaultErrorStateMatcher })
 export abstract class ErrorStateMatcher {
   abstract isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean;
 }
