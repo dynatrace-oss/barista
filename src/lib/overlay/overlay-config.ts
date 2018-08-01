@@ -8,9 +8,9 @@ export class DtOverlayConfig {
   movementConstraint?: 'xAxis' | 'yAxis';
 
   /**
-   * Defines the anchor position of the origin element
-   * depending on the size of the element sometimes using the center as an anchor is better suited
-   * by default the bottom edge and top edge are used as the originY depending on where the overlay can be placed
+   * The originY defines the vertical attachment point for the overlay.
+   * By default `center` is set. `edge` defines that the vertical attachment point is set to the bottom edge
+   * if the overlay fits below the origin element and the top edge otherwise.
    */
-  verticalAnchor?: 'edge' | 'center' = 'center';
+  originY?: 'edge' | 'center' = 'center';
 }
