@@ -224,6 +224,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   @Input()
   get compareWith(): (v1: T, v2: T) => boolean { return this._compareWith; }
   set compareWith(fn: (v1: T, v2: T) => boolean) {
+    // tslint:disable-next-line:strict-type-predicates
     if (typeof fn !== 'function') {
       throw getDtSelectNonFunctionValueError();
     }
@@ -354,8 +355,8 @@ export class DtSelect<T> extends _DtSelectMixinBase
     this._initKeyManager();
 
     this._selectionModel.onChange!.pipe(takeUntil(this._destroy)).subscribe((event) => {
-      event.added.forEach((option) => option.select());
-      event.removed.forEach((option) => option.deselect());
+      event.added.forEach((option) => { option.select(); });
+      event.removed.forEach((option) => { option.deselect(); });
     });
 
     this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
@@ -386,7 +387,11 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
   /** Toggles the overlay panel open or closed. */
   toggle(): void {
-    this.panelOpen ? this.close() : this.open();
+    if (this.panelOpen) {
+      this.close();
+    } else {
+      this.open();
+    }
   }
 
   /** Opens the overlay panel. */
@@ -462,7 +467,11 @@ export class DtSelect<T> extends _DtSelectMixinBase
   /** Handles all keydown events on the select. */
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
-      this.panelOpen ? this._handleOpenKeydown(event) : this._handleClosedKeydown(event);
+      if (this.panelOpen) {
+        this._handleOpenKeydown(event);
+      } else {
+        this._handleClosedKeydown(event);
+      }
     }
   }
 
@@ -527,7 +536,11 @@ export class DtSelect<T> extends _DtSelectMixinBase
     const wasSelected = this._selectionModel.isSelected(option);
 
     if (isDefined(option.value)) {
-      option.selected ? this._selectionModel.select(option) : this._selectionModel.deselect(option);
+      if (option.selected) {
+        this._selectionModel.select(option);
+      } else {
+        this._selectionModel.deselect(option);
+      }
 
       if (isUserInput) {
         this._keyManager.setActiveItem(option);
@@ -578,9 +591,12 @@ export class DtSelect<T> extends _DtSelectMixinBase
     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
     const manager = this._keyManager;
 
-    if (keyCode === HOME || keyCode === END) {
+    if (keyCode === HOME) {
       event.preventDefault();
-      keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
+      manager.setFirstItemActive();
+    } else if (keyCode === END) {
+      event.preventDefault();
+      manager.setLastItemActive();
     } else if (isArrowKey && event.altKey) {
       // Close the select on ALT + arrow key to match the native <select>
       event.preventDefault();
@@ -619,6 +635,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   private _initializeSelection(): void {
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
+    // tslint:disable-next-line:no-floating-promises
     Promise.resolve().then(() => {
       this._setSelectionByValue(this.ngControl ? this.ngControl.value : this._value);
     });
@@ -704,10 +721,8 @@ export class DtSelect<T> extends _DtSelectMixinBase
   }
 
   private _getOptionIndex(option: DtOption<T>): number | undefined {
-    return this.options.reduce(
-      (result: number, current: DtOption<T>, index: number) =>
-        result === undefined ? (option === current ? index : undefined) : result,
-      undefined);
+    const result = this.options.toArray().findIndex((current: DtOption<T>) => option === current);
+    return result !== -1 ? result : undefined;
   }
 
   private _resetOptions(): void {

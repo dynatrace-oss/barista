@@ -139,6 +139,7 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
   focus(): void {
     const element = this._getHostElement();
 
+    // tslint:disable-next-line:strict-type-predicates no-unbound-method
     if (typeof element.focus === 'function') {
       element.focus();
     }
