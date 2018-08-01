@@ -29,7 +29,7 @@ export class DtOverlayRef<T> {
   private _backDropClickSub = Subscription.EMPTY;
 
   constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer, private _config: DtOverlayConfig) {
-    containerInstance._onExit.subscribe(() => {
+    containerInstance._onDomExit.subscribe(() => {
       this._overlayRef.dispose();
       this._afterExit.next();
     });
