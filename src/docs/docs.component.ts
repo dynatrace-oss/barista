@@ -10,28 +10,29 @@ import { DocumentService, DocumentContents } from './core/document.service';
 export class Docs {
   navItems = [
     { name: 'Alert', route: '/alert' },
-    {name: 'Breadcrumbs', route: '/breadcrumbs'},
-    {name: 'Button', route: '/button'},
-    {name: 'Button Group', route: '/button-group'},
-    {name: 'Card', route: '/card'},
-    {name: 'Chart', route: '/chart'},
-    {name: 'Checkbox', route: '/checkbox'},
-    {name: 'Context dialog', route: '/context-dialog'},
-    {name: 'Copy To Clipboard', route: '/copy-to-clipboard'},
-    {name: 'Expandable panel', route: '/expandable-panel'},
-    {name: 'Expandable section', route: '/expandable-section'},
-    {name: 'Font styling', route: '/style#fonts' },
-    {name: 'Form field', route: '/form-field'},
-    {name: 'Icon', route: '/icon'},
-    {name: 'Inline Editor', route: '/inline-editor' },
-    {name: 'Input', route: '/input'},
-    {name: 'Key value list', route: '/key-value-list' },
-    {name: 'Link', route: '/style#link' },
-    {name: 'Loading distractor', route: '/loading-distractor'},
-    {name: 'Pagination', route: '/pagination'},
-    {name: 'Progress circle', route: '/progress-circle'},
-    {name: 'Progress bar', route: '/progress-bar'},
-    {name: 'Radio', route: '/radio'},
+    { name: 'Breadcrumbs', route: '/breadcrumbs' },
+    { name: 'Button', route: '/button' },
+    { name: 'Button Group', route: '/button-group' },
+    { name: 'Card', route: '/card' },
+    { name: 'Chart', route: '/chart' },
+    { name: 'Checkbox', route: '/checkbox' },
+    { name: 'Context dialog', route: '/context-dialog' },
+    { name: 'Copy To Clipboard', route: '/copy-to-clipboard' },
+    { name: 'Expandable panel', route: '/expandable-panel' },
+    { name: 'Expandable section', route: '/expandable-section' },
+    { name: 'Font styling', route: '/style#fonts' },
+    { name: 'Form field', route: '/form-field' },
+    { name: 'Icon', route: '/icon' },
+    { name: 'Inline Editor', route: '/inline-editor' },
+    { name: 'Input', route: '/input' },
+    { name: 'Key value list', route: '/key-value-list' },
+    { name: 'Link', route: '/style#link' },
+    { name: 'Loading distractor', route: '/loading-distractor' },
+    { name: 'Pagination', route: '/pagination' },
+    { name: 'Progress circle', route: '/progress-circle' },
+    { name: 'Progress bar', route: '/progress-bar' },
+    { name: 'Radio', route: '/radio' },
+    { name: 'Select', route: '/select' },
     {name: 'Show more', route: '/show-more'},
     {name: 'Styles', route: '/style' },
     {name: 'Switch', route: '/switch'},
@@ -63,12 +64,12 @@ export class Docs {
       this._isFetchingTimeout = setTimeout(() => this.isFetching = true, 200);
     });
 
-}
+  }
 
   @HostListener('click', ['$event.target', '$event.button', '$event.ctrlKey', '$event.metaKey'])
   onClick(eventTarget: HTMLElement, button: number, ctrlKey: boolean, metaKey: boolean): boolean {
     // Deal with anchor clicks; climb DOM tree until anchor found (or null)
-    let target: HTMLElement|null = eventTarget;
+    let target: HTMLElement | null = eventTarget;
     while (target && !(target instanceof HTMLAnchorElement)) {
       target = target.parentElement;
     }

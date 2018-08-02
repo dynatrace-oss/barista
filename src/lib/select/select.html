@@ -1,0 +1,42 @@
+<div class="dt-select-trigger"
+  cdk-overlay-origin
+  aria-hidden="true"
+  (click)="toggle()"
+  #origin="cdkOverlayOrigin"
+  #trigger>
+  <div class="dt-select-value" [ngSwitch]="empty">
+    <span class="dt-select-placeholder" *ngSwitchCase="true">{{placeholder || '\u00A0'}}</span>
+    <span class="dt-select-value-text" *ngSwitchCase="false">{{triggerValue || '\u00A0'}}</span>
+  </div>
+
+  <dt-icon name="dropdownopen" color="main" class="dt-select-arrow"></dt-icon>
+</div>
+
+<ng-template
+  cdk-connected-overlay
+  cdkConnectedOverlayLockPosition
+  cdkConnectedOverlayHasBackdrop
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="panelOpen"
+  [cdkConnectedOverlayPositions]="_positions"
+  [cdkConnectedOverlayMinWidth]="_triggerRect?.width"
+  (backdropClick)="close()"
+  (attach)="_onAttached()"
+  (detach)="close()">
+
+  <div #panel
+    class="dt-select-panel"
+    [class.dt-select-panel-done-animating]="_panelDoneAnimating"
+    [ngClass]="panelClass"
+    [@transformPanel]="'showing'"
+    (@transformPanel.done)="_panelDoneAnimatingStream.next($event.toState)"
+    (keydown)="_handleKeydown($event)">
+
+    <div class="dt-select-content"
+      [@fadeInContent]="'showing'"
+      (@fadeInContent.done)="_onFadeInDone()">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</ng-template>
