@@ -74,6 +74,12 @@ It is possible to disable the entire select or individual options in the select 
 *Example:*
 <docs-source-example example="DisabledSelectExampleComponent"></docs-source-example>
 
+## Non string values
+The select component also supports non string, non basic value types.
+
+*Example:*
+<docs-source-example example="ComplexValueSelectExampleComponent"></docs-source-example>
+
 ## Accessibility
 The select component without text or label should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
