@@ -9,6 +9,7 @@ import { FormsSelectExampleComponent } from './examples/forms-select-example.com
 import { ValueSelectExampleComponent } from './examples/value-select-example.component';
 import { GroupsSelectExampleComponent } from './examples/groups-select-example.component';
 import { FormFieldSelectExampleComponent } from './examples/form-field-select-example.component';
+import { ComplexValueSelectExampleComponent } from './examples/complex-value-select-example.component';
 
 export const EXAMPLES = [
   DefaultSelectExampleComponent,
@@ -17,6 +18,7 @@ export const EXAMPLES = [
   FormsSelectExampleComponent,
   GroupsSelectExampleComponent,
   FormFieldSelectExampleComponent,
+  ComplexValueSelectExampleComponent,
 ];
 
 @NgModule({
