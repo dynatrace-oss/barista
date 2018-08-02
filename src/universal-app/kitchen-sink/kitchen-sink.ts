@@ -22,6 +22,7 @@ import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-c
 import { DtBreadcrumbsModule } from '@dynatrace/angular-components/breadcrumbs';
 import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
 import { DtTabsModule } from '@dynatrace/angular-components/tabs';
+import { DtSelectModule } from '@dynatrace/angular-components/select';
 
 @Component({
   selector: 'dt-kitchen-sink',
@@ -59,6 +60,7 @@ export class KitchenSink {
     DtBreadcrumbsModule,
     DtProgressBarModule,
     DtTabsModule,
+    DtSelectModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],

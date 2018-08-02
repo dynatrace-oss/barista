@@ -73,6 +73,9 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
   // Unique id for the hint label.
   _hintLabelId = `dt-hint-${nextUniqueId++}`;
 
+  // Unique id for the internal form field label.
+  _labelId = `dt-form-field-label-${nextUniqueId++}`;
+
   /** State of the dt-error animations. */
   _errorAnimationState: '' | 'enter' | 'enter-delayed' = '';
 

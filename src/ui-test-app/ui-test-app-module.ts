@@ -40,6 +40,7 @@ import { ChartUI } from './chart/chart-ui';
 import { ProgressBarUI } from './progress-bar/progress-bar-ui';
 import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { TabsUI } from './tabs/tabs-ui';
+import { DtSelectModule } from '@dynatrace/angular-components/select';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -63,6 +64,7 @@ import { TabsUI } from './tabs/tabs-ui';
     DtChartModule,
     DtProgressBarModule,
     DtTabsModule,
+    DtSelectModule,
   ],
 })
 export class DynatraceAngularCompModule {}
