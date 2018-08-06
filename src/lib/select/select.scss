@@ -12,6 +12,7 @@ $dt-select-panel-min-width: 112px !default;
   outline: none;
   @include main-font();
   @include dt-form-control();
+  background-color: #fff;
 
   &:hover:not(.dt-select-disabled) {
     border-color: $gray-500;
