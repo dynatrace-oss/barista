@@ -10,7 +10,13 @@ import { DT_TOAST_MESSAGE } from './toast';
 import { DT_TOAST_FADE_TIME } from './toast-config';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { HasNgZone, mixinNotifyDomExit, CanNotifyOnExit } from '@dynatrace/angular-components/core';
+
+// Boilerplate for applying mixins to DtToastContainer.
+export class DtToastContainerBase implements HasNgZone {
+  constructor(public _ngZone: NgZone) { }
+}
+export const _DtToastContainerMixin = mixinNotifyDomExit(DtToastContainerBase);
 
 @Component({
   moduleId: module.id,
@@ -35,10 +41,8 @@ import { take } from 'rxjs/operators';
     ]),
   ],
 })
-export class DtToastContainer implements OnDestroy {
+export class DtToastContainer extends _DtToastContainerMixin implements OnDestroy, CanNotifyOnExit {
   private _destroyed = false;
-
-  readonly _onExit: Subject<void> = new Subject();
 
   readonly _onEnter: Subject<void> = new Subject();
 
@@ -46,13 +50,14 @@ export class DtToastContainer implements OnDestroy {
 
   constructor(
     @Inject(DT_TOAST_MESSAGE) public message: string,
-    private _ngZone: NgZone
+    public _ngZone: NgZone
   )  {
+    super(_ngZone);
   }
 
   ngOnDestroy(): void {
     this._destroyed = true;
-    this._safeExit();
+    this._notifyDomExit();
   }
 
   /** Animation callback */
@@ -60,7 +65,7 @@ export class DtToastContainer implements OnDestroy {
     const {fromState, toState} = event;
 
     if ((toState === 'void' && fromState !== 'void') || toState === 'exit') {
-      this._safeExit();
+      this._notifyDomExit();
     }
 
     if (toState === 'enter') {
@@ -85,12 +90,5 @@ export class DtToastContainer implements OnDestroy {
   /** Sets the animation state for exiting */
   exit(): void {
     this._animationState = 'exit';
-  }
-
-  private _safeExit(): void {
-    this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
-      this._onExit.next();
-      this._onExit.complete();
-    });
   }
 }

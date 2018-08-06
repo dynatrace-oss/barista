@@ -27,6 +27,7 @@ import { DocsProgressCircleComponent } from './components/progress-circle/docs-p
 import { DocsSwitchComponent } from './components/switch/docs-switch.component';
 import { DocsBreadcrumbsComponent } from './components/breadcrumbs/docs-breadcrumbs.component';
 import { DocsProgressBarComponent } from './components/progress-bar/docs-progress-bar.component';
+import { DocsOverlayComponent } from './components/overlay/docs-overlay.component';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -57,6 +58,7 @@ const routes: Routes = [
   { path: 'switch', component: DocsSwitchComponent },
   { path: 'breadcrumbs', component: DocsBreadcrumbsComponent },
   { path: 'progress-bar', component: DocsProgressBarComponent },
+  { path: 'overlay', component: DocsOverlayComponent },
   { path: '**', redirectTo: '' },
 ];
 

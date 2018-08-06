@@ -24,6 +24,7 @@ import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-c
 import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { DtInputModule } from '@dynatrace/angular-components/input';
+import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 
 @Component({
   selector: 'dt-kitchen-sink',
@@ -63,6 +64,7 @@ export class KitchenSink {
     DtTabsModule,
     DtSelectModule,
     DtInputModule,
+    DtOverlayModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
