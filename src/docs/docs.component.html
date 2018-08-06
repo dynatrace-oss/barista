@@ -2,12 +2,9 @@
   <a class="nav__brand">
     <img class="nav__logo" src="http://assets.dynatrace.com/global/logos/dynatrace-logo.svg" alt="dynatrace logo"/>
   </a>
-  <select class="theme-selector" [(ngModel)]="selectedTheme">
-    <option [value]="'turquoise'">Turquoise</option>
-    <option [value]="'blue'">Blue</option>
-    <option [value]="'purple'">Purple</option>
-    <option [value]="'royalblue'">Royalblue</option>
-  </select>
+  <dt-select class="theme-selector" placeholder="Select a theme" [(ngModel)]="selectedTheme">
+    <dt-option *ngFor="let theme of themes" [value]="theme.value">{{theme.name}}</dt-option>
+  </dt-select>
 </div>
 <div class="content-wrapper" [dtTheme]="selectedTheme">
   <nav class="sidenav">

@@ -26,7 +26,7 @@ import { DocsPaginationModule } from './components/pagination/docs-pagination.mo
 import { DocsShowMoreModule } from './components/show-more/docs-show-more.module';
 import { FormsModule } from '@angular/forms';
 import { DocsCopyToClipboardModule } from './components/copy-to-clipboard/docs-copy-to-clipboard.module';
-import { DtIconModule, DtThemingModule, DT_ICON_CONFIGURATION } from '@dynatrace/angular-components';
+import { DtIconModule, DtThemingModule, DT_ICON_CONFIGURATION, DtSelectModule } from '@dynatrace/angular-components';
 import { DocsRadioModule } from './components/radio/docs-radio.module';
 import { DocsCheckboxModule } from './components/checkbox/docs-checkbox.module';
 import { DocsProgressCircleModule } from './components/progress-circle/docs-progress-circle.module';
@@ -63,6 +63,8 @@ export class NoopRouteComponent {}
     // Angular issue: https://github.com/angular/angular/issues/23609
     // DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
     DtIconModule,
+
+    DtSelectModule,
 
     DocsButtonModule,
     DocsButtonGroupModule,
