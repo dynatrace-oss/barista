@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Subject, Subscription, NEVER } from 'rxjs';
 import { DtLogger, DtLoggerFactory, replaceCssClass } from '@dynatrace/angular-components/core';
-import { getDtThemeNotValidError, getDtThemeVariantNotValidError } from './theming-errors';
+import { getDtThemeNotValidError, getDtThemeVariantNotValidError } from '@dynatrace/angular-components/theming/theming-errors';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtTheme');
 
