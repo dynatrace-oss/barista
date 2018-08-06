@@ -40,7 +40,7 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
     return this;
   }
 
-  /** sts the positions for the overlay */
+  /** sets the positions for the overlay */
   withPositions(positions: ConnectedPosition[]): DtMouseFollowPositionStrategy {
     this._relativePositions = positions;
     this._flexiblePositionStrategy.withPositions(positions);
