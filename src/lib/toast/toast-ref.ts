@@ -21,7 +21,7 @@ export class DtToastRef {
   ) {
     this.containerInstance = containerInstance;
     this.duration = duration;
-    containerInstance._onExit.subscribe(() => {
+    containerInstance._onDomExit.subscribe(() => {
       this._overlayRef.dispose();
       this._afterDismissed.next();
       this._afterDismissed.complete();
