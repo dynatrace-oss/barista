@@ -13,3 +13,7 @@
 
 @include cdk-a11y();
 @include cdk-overlay();
+
+.dt-overlay-no-pointer {
+  pointer-events: none;
+}
