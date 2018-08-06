@@ -43,6 +43,12 @@ export class Docs {
     {name: 'Toast', route: '/toast'},
   ];
   selectedTheme = 'turquoise';
+  themes = [
+    { value: 'turquoise', name: 'Turquoise' },
+    { value: 'blue', name: 'Blue' },
+    { value: 'purple', name: 'Purple' },
+    { value: 'royalblue', name: 'Royalblue' },
+  ];
 
   currentDocument: DocumentContents;
   currentPath: string;
