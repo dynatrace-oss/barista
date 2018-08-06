@@ -1,4 +1,4 @@
-import { DtToastContainer } from '@dynatrace/angular-components/toast/toast-container';
+import { DtToastContainer } from './toast-container';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject, Observable } from 'rxjs';
 
