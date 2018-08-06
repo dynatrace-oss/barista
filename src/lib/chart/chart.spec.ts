@@ -13,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CHART_COLOR_PALETTE_ORDERED } from '@dynatrace/angular-components/theming';
 import { IndividualSeriesOptions } from 'highcharts';
 
-fdescribe('DtChart', () => {
+describe('DtChart', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

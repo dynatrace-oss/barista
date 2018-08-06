@@ -1,7 +1,6 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { Colors } from '@dynatrace/angular-components';
 import { generateData } from './chart-data-utils';
 import { OriginalClassName } from '../../../core/decorators';
 
