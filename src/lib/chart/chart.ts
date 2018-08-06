@@ -12,14 +12,13 @@ import {
   SkipSelf,
   SimpleChanges,
   OnChanges,
-  isDevMode,
   ViewEncapsulation,
   ChangeDetectorRef,
   NgZone,
 } from '@angular/core';
 import { Options, IndividualSeriesOptions, ChartObject, chart, AxisOptions } from 'highcharts';
 import { Observable, Subscription, Subject } from 'rxjs';
-import { DtLogger, DtLoggerFactory, DtViewportResizer } from '@dynatrace/angular-components/core';
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
 import { delay, takeUntil } from 'rxjs/operators';
 import { DtTheme } from '@dynatrace/angular-components/theming';
 import { mergeOptions } from './chart-utils';
@@ -27,8 +26,6 @@ import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
 import { DEFAULT_CHART_OPTIONS, DEFAULT_CHART_AXIS_STYLES } from './chart-options';
 import { ChartColorizer } from './chart-colorizer';
-
-const LOG: DtLogger = DtLoggerFactory.create('DtChart');
 
 export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions[];
