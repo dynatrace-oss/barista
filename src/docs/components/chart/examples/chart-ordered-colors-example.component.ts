@@ -5,10 +5,10 @@ import { generateData } from './chart-data-utils';
 import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
-  template: `<div dtTheme="turquoise"><dt-chart [options]="options" [series]="series"></dt-chart></div>`,
+  template: `<dt-chart [options]="options" [series]="series"></dt-chart>`,
 })
-@OriginalClassName('ChartThemingExampleComponent')
-export class ChartThemingExampleComponent {
+@OriginalClassName('ChartOrderdColorsExampleComponent')
+export class ChartOrderdColorsExampleComponent {
 
   options: Highcharts.Options = {
     xAxis: {
@@ -63,6 +63,11 @@ export class ChartThemingExampleComponent {
     },
     {
       name: 'Failure rate',
+      type: 'line',
+      data: generateData(40, 0, 20, 1370304000000, 900000),
+    },
+    {
+      name: 'Failure rate new',
       type: 'line',
       data: generateData(40, 0, 20, 1370304000000, 900000),
     }];
