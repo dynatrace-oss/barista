@@ -2,11 +2,11 @@ import { Directive, Input, ElementRef, TemplateRef, NgZone, Attribute } from '@a
 import { DtOverlay } from './overlay';
 import { DtOverlayConfig } from './overlay-config';
 import { DtOverlayRef } from './overlay-ref';
-import { Subscription, fromEvent } from 'rxjs';
+import { Subscription, fromEvent, Subject } from 'rxjs';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinTabIndex, HasTabIndex, mixinDisabled, CanDisable } from '@dynatrace/angular-components/core';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 
 export class DtOverlayTriggerBase { }
 export const _DtOverlayTriggerMixin = mixinTabIndex(mixinDisabled(DtOverlayTriggerBase));
@@ -29,6 +29,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   private _config: DtOverlayConfig = new DtOverlayConfig();
   private _dtOverlayRef: DtOverlayRef<T> | null = null;
   private _moveSub = Subscription.EMPTY;
+  private _dismissed = new Subject<void>();
 
   /** Overlay pane containing the content */
   @Input('dtOverlay')
@@ -62,12 +63,10 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
     if (!this.disabled) {
       event.stopPropagation();
       this._createOverlay();
-      this._ngZone.runOutsideAngular(() => {
-        this._moveSub = fromEvent(this.elementRef.nativeElement, 'mousemove')
+      this._moveSub = this._ngZone.runOutsideAngular(() => fromEvent(this.elementRef.nativeElement, 'mousemove')
         .subscribe((ev: MouseEvent) => {
           this._onMouseMove(ev);
-        });
-      });
+        }));
     }
   }
 
@@ -78,6 +77,8 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
     const ref = this._dtOverlayService.overlayRef;
     if (ref && !ref.pinned) {
       this._dtOverlayService.dismiss();
+      this._dismissed.next();
+      this._dismissed.complete();
     }
   }
 
@@ -97,7 +98,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
       event.stopPropagation();
-      if (!this._dtOverlayRef && (event.keyCode === ENTER || event.keyCode === SPACE)) {
+      if (event.keyCode === ENTER || event.keyCode === SPACE) {
         event.preventDefault();
         this._createOverlay();
         this._dtOverlayRef!.pin(true);
@@ -107,7 +108,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
 
   private _createOverlay(): void {
     this._dtOverlayRef = this._dtOverlayService.create<T>(this.elementRef, this._content, this._config);
-    this._dtOverlayRef.afterExit().pipe(take(1)).subscribe(() => {
+    this._dtOverlayRef.afterExit().pipe(takeUntil(this._dismissed), take(1)).subscribe(() => {
       this._dtOverlayRef = null;
     });
   }
