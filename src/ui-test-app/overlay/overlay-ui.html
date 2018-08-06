@@ -1,0 +1,7 @@
+<button id="disable-toggle" (click)="disabled=!disabled">Disable</button>
+<span id="trigger" [dtOverlay]="overlay" [dtOverlayConfig]="{ pinnable: true }" [disabled]="disabled">Hover me</span>
+<ng-template #overlay>
+  <p>Overlay content</p>
+  <button dt-button>Focus me</button>
+  <button dt-button>Focus me next</button>
+</ng-template>

@@ -40,6 +40,7 @@ import { DocsProgressBarModule } from './components/progress-bar/docs-progress-b
 import { DocsTabsModule } from './components/tabs/docs-tabs.module';
 import { DocsToastModule } from './components/toast/docs-toast.module';
 import { DocsSelectModule } from './components/select/docs-select.module';
+import { DocsOverlayModule } from './components/overlay/docs-overlay.module';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
@@ -95,6 +96,7 @@ export class NoopRouteComponent {}
     DocsTabsModule,
     DocsToastModule,
     DocsSelectModule,
+    DocsOverlayModule,
   ],
   declarations: [
     Docs,
