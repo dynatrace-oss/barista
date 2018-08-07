@@ -181,7 +181,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     const options = this.highchartsOptions;
     options.series = series && series.map(((s) => ({...s})));
     if (options.series) {
-      ChartColorizer.apply(options.series, this._theme);
+      ChartColorizer.apply(options, options.series.length, this._theme);
     }
   }
 

@@ -188,22 +188,12 @@ describe('DtChart', () => {
       expect(chartComponent.highchartsOptions.series![1].color).toBe('#00ff00');
     });
 
-    it('should choose the first color from the colorpalette of the theme single series', () => {
-      const fixture = TestBed.createComponent(SeriesTheme);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtChart;
-
-      expect(chartComponent.highchartsOptions.series![0].color).toEqual(CHART_COLOR_PALETTES.purple[0]);
-    });
-
     it('should choose the colors from the colorpalette of the theme for up to 3 series', () => {
       const fixture = TestBed.createComponent(SeriesTheme);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      expect(chartComponent.highchartsOptions.series![0].color).toEqual(CHART_COLOR_PALETTES.purple[0]);
-      expect(chartComponent.highchartsOptions.series![1].color).toEqual(CHART_COLOR_PALETTES.purple[1]);
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.purple);
     });
 
     it('should choose the colors from the ordered palette for more than 3 series', () => {
@@ -211,23 +201,7 @@ describe('DtChart', () => {
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      chartComponent.highchartsOptions.series!.forEach((s, index) => {
-        expect(s.color).toEqual(CHART_COLOR_PALETTE_ORDERED[index]);
-      });
-    });
-
-    it('should rotate the colors if the number of series exceeds number of ordered colors', () => {
-      const fixture = TestBed.createComponent(SeriesMoreThanOrderedColors);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtChart;
-      chartComponent.highchartsOptions.series!.forEach((s, index) => {
-        if (index > CHART_COLOR_PALETTE_ORDERED.length - 1) {
-          expect(s.color).toEqual(CHART_COLOR_PALETTE_ORDERED[0]);
-        } else {
-          expect(s.color).toEqual(CHART_COLOR_PALETTE_ORDERED[index]);
-        }
-      });
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTE_ORDERED);
     });
 
     it('should update colors when the theme changes', () => {
@@ -235,10 +209,10 @@ describe('DtChart', () => {
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      expect(chartComponent.highchartsOptions.series![0].color).toEqual(CHART_COLOR_PALETTES.purple[0]);
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.purple);
       fixture.componentInstance.theme = 'royalblue';
       fixture.detectChanges();
-      expect(chartComponent.highchartsOptions.series![0].color).toEqual(CHART_COLOR_PALETTES.royalblue[0]);
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.royalblue);
     });
   });
 });
