@@ -9,12 +9,16 @@ import { ChartDefaultExampleComponent } from './examples/chart-default-example.c
 import { ChartStreamExampleComponent } from './examples/chart-stream-example.component';
 import { ChartOrderdColorsExampleComponent } from './examples/chart-ordered-colors-example.component';
 import { ChartLoadingExampleComponent } from './examples/chart-loading-example.component';
+import { ChartCategorizedExampleComponent } from './examples/chart-categorized-example.component';
+import { ChartPieExampleComponent } from './examples/chart-pie-example.component';
 
 export const EXAMPLES = [
   ChartDefaultExampleComponent,
   ChartStreamExampleComponent,
   ChartOrderdColorsExampleComponent,
   ChartLoadingExampleComponent,
+  ChartCategorizedExampleComponent,
+  ChartPieExampleComponent,
 ];
 
 @NgModule({
