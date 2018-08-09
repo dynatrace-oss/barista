@@ -40,7 +40,8 @@ To use the dynatrace chart, add the `<dt-chart options="myoptions" series="myser
 
 ## Theming
 
-The chart will take a chart color for the series data if no color is specified for the series. If no theme is set the default color palette used is "turquoise"
+The chart will take a chart color for the series data if no color is specified for the series. If no theme is set the default color palette is used. For charts within themes with no more than 3 series a theme palette is available.
+For charts with more than 3 series, an ordered list of chart colors for good contrast is used.
 
 *Example:*
 
@@ -59,14 +60,22 @@ ViewportResizer notifies the dt-chart component about Viewport changes that trig
 
 ## Examples
 
-### Stream example
+### Stream example with colors
 
-<docs-source-example example="ChartStreamExampleComponent" fullwidth="true"></docs-source-example>
+<!-- <docs-source-example example="ChartStreamExampleComponent" fullwidth="true"></docs-source-example> -->
 
-### Theming example
+### Chart with more than 3 series example
 
-<docs-source-example example="ChartThemingExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartOrderdColorsExampleComponent" fullwidth="true"></docs-source-example>
 
 ### Loading example
 
 <docs-source-example example="ChartLoadingExampleComponent" fullwidth="true"></docs-source-example>
+
+### Categorized
+
+<docs-source-example example="ChartCategorizedExampleComponent" fullwidth="true"></docs-source-example>
+
+### Pie chart
+
+<docs-source-example example="ChartPieExampleComponent" fullwidth="true"></docs-source-example>

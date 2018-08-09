@@ -7,14 +7,18 @@ import {
 } from '@dynatrace/angular-components';
 import { ChartDefaultExampleComponent } from './examples/chart-default-example.component';
 import { ChartStreamExampleComponent } from './examples/chart-stream-example.component';
-import { ChartThemingExampleComponent } from './examples/chart-theming-example.component';
+import { ChartOrderdColorsExampleComponent } from './examples/chart-ordered-colors-example.component';
 import { ChartLoadingExampleComponent } from './examples/chart-loading-example.component';
+import { ChartCategorizedExampleComponent } from './examples/chart-categorized-example.component';
+import { ChartPieExampleComponent } from './examples/chart-pie-example.component';
 
 export const EXAMPLES = [
   ChartDefaultExampleComponent,
   ChartStreamExampleComponent,
-  ChartThemingExampleComponent,
+  ChartOrderdColorsExampleComponent,
   ChartLoadingExampleComponent,
+  ChartCategorizedExampleComponent,
+  ChartPieExampleComponent,
 ];
 
 @NgModule({
