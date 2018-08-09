@@ -12,28 +12,24 @@ import {
   SkipSelf,
   SimpleChanges,
   OnChanges,
-  isDevMode,
   ViewEncapsulation,
   ChangeDetectorRef,
   NgZone,
 } from '@angular/core';
 import { Options, IndividualSeriesOptions, ChartObject, chart, AxisOptions } from 'highcharts';
-import { Observable, Subscription } from 'rxjs';
-import { DtLogger, DtLoggerFactory, DtViewportResizer } from '@dynatrace/angular-components/core';
-import { delay } from 'rxjs/operators';
-import { DtTheme, CHART_COLOR_PALETTES, ChartColorPalette } from '@dynatrace/angular-components/theming';
+import { Observable, Subscription, Subject } from 'rxjs';
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import { delay, takeUntil } from 'rxjs/operators';
+import { DtTheme } from '@dynatrace/angular-components/theming';
 import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
 import { DEFAULT_CHART_OPTIONS, DEFAULT_CHART_AXIS_STYLES } from './chart-options';
-
-const LOG: DtLogger = DtLoggerFactory.create('DtChart');
+import { ChartColorizer } from './chart-colorizer';
 
 export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions[];
 interface DtChartTooltip { (): string | boolean; iswrapped: boolean; }
-
-const defaultChartColorPalette = 'turquoise';
 
 // Override Highcharts prototypes
 configureLegendSymbols();
@@ -56,13 +52,13 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   _loading = false;
   private _series: Observable<DtChartSeries> | DtChartSeries | undefined;
+  private _currentSeries: IndividualSeriesOptions[] | undefined;
   private _options: DtChartOptions;
   private _chartObject: ChartObject;
   private _dataSub: Subscription | null = null;
-  private _colorPalette: ChartColorPalette;
   private _isTooltipWrapped = false;
   private _highchartsOptions: Options;
-  private _viewportResizerSub: Subscription;
+  private readonly _destroy = new Subject<void>();
 
   @Input()
   get options(): DtChartOptions {
@@ -105,13 +101,21 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     private _ngZone: NgZone
   ) {
     if (this._viewportResizer) {
-      this._viewportResizerSub = this._viewportResizer.change()
-        .pipe(delay(0))// delay to postpone the reflow to the next change detection cycle
+      this._viewportResizer.change()
+        .pipe(takeUntil(this._destroy), delay(0))// delay to postpone the reflow to the next change detection cycle
         .subscribe(() => {
           if (this._chartObject) {
             this._chartObject.reflow();
           }
         });
+    }
+    if (this._theme) {
+      this._theme._stateChanges.pipe(takeUntil(this._destroy)).subscribe(() => {
+        if (this._currentSeries) {
+          this._mergeSeries(this._currentSeries);
+          this._update();
+        }
+      });
     }
   }
 
@@ -126,14 +130,13 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
     if (this._chartObject) {
       this._chartObject.destroy();
     }
     if (this._dataSub) {
       this._dataSub.unsubscribe();
-    }
-    if (this._viewportResizerSub) {
-      this._viewportResizerSub.unsubscribe();
     }
   }
 
@@ -174,10 +177,11 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   /* merge series with the highcharts options internally */
   private _mergeSeries(series: DtChartSeries | undefined): void {
+    this._currentSeries = series;
     const options = this.highchartsOptions;
     options.series = series && series.map(((s) => ({...s})));
     if (options.series) {
-      this._applyColors(options.series);
+      ChartColorizer.apply(options, options.series.length, this._theme);
     }
   }
 
@@ -192,44 +196,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     } else {
       this._highchartsOptions[axis] = mergeOptions(DEFAULT_CHART_AXIS_STYLES, this._highchartsOptions[axis]);
     }
-  }
-
-  /**
-   * applies the colors from the theme to the series if no color for the series is set
-   */
-  private _applyColors(series: IndividualSeriesOptions[]): void {
-    this._colorPalette = this._theme && this._theme.name ?
-      CHART_COLOR_PALETTES[this._theme.name] : CHART_COLOR_PALETTES[defaultChartColorPalette];
-    if (series) {
-      series.forEach((s: IndividualSeriesOptions, index: number): void => {
-        this._applySeriesColor(s, index);
-      });
-    }
-  }
-
-  /**
-   * Applies a color to a series with the following rules
-   * 1. leave color if its passed in the series
-   * 2. if only one series is present choose the single color from the theme palette
-   * 3. choose the color from the themepalette that matches the index of the series
-   */
-  private _applySeriesColor(s: IndividualSeriesOptions, index: number): void {
-    // leave the color if there is already a color set
-    if (s.color) {
-      return;
-    }
-    // if there is one series apply the single property
-    if (this._highchartsOptions.series && this._highchartsOptions.series.length === 1) {
-      s.color = this._colorPalette.single;
-
-      return;
-    }
-    if (index >= this._colorPalette.multi.length && isDevMode()) {
-      LOG.error(`The number of series exceeds the number of chart colors in the theme ${this._theme.name}.
-        Please specify colors for your series.`);
-    }
-    // apply color for multi series
-    s.color = this._colorPalette.multi[index];
   }
 
   /**

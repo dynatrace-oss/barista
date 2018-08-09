@@ -10,13 +10,23 @@ import {
   CHART_COLOR_PALETTES,
 } from '@dynatrace/angular-components';
 import { BehaviorSubject } from 'rxjs';
+import { CHART_COLOR_PALETTE_ORDERED } from '@dynatrace/angular-components/theming';
+import { IndividualSeriesOptions } from 'highcharts';
 
 describe('DtChart', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtChartModule, DtThemingModule],
-      declarations: [TestApp],
+      declarations: [
+        SeriesSingle,
+        SeriesMulti,
+        NoSeries,
+        DynamicSeries,
+        SeriesColor,
+        SeriesTheme,
+        SeriesMoreThanTheme,
+        SeriesMoreThanOrderedColors],
     });
 
     TestBed.compileComponents();
@@ -24,9 +34,9 @@ describe('DtChart', () => {
 
   describe('Data', () => {
     it('should display static data', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(SeriesSingle);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
       fixture.detectChanges();
@@ -34,18 +44,18 @@ describe('DtChart', () => {
     });
 
     it('should display data from observable', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(DynamicSeries);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.dynamic'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const series = chartComponent.highchartsOptions.series;
       expect(series![0].data).toEqual([[1523972199774, 0], [1523972201622, 10]]);
     });
 
     it('should update the data if observable fires new data', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(DynamicSeries);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.dynamic'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const firstSeries = chartComponent.highchartsOptions.series;
       fixture.componentInstance.emitTestData();
@@ -57,27 +67,27 @@ describe('DtChart', () => {
     });
 
     it('provides an array of ids for the series', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(SeriesMulti);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.staticMulti'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const ids = chartComponent.seriesIds;
       expect(ids).toEqual(['someMetricId', 'someOtherMetricId']);
     });
 
     it('seriesIds returns undefined if there is no series data', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(NoSeries);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.noseries'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance;
       const ids = chartComponent.seriesIds;
       expect(ids).toBeUndefined();
     });
 
     it('should wrap the tooltip', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(SeriesSingle);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       fixture.detectChanges();
       const tooltip = chartComponent.highchartsOptions.tooltip;
@@ -89,14 +99,14 @@ describe('DtChart', () => {
     });
 
     it('should update the options at runtime', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(SeriesSingle);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const spy = jasmine.createSpy('chart updated spy');
       chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
-      fixture.componentInstance.lineOptions = {
+      fixture.componentInstance.options = {
         chart: {
           type: 'pie',
         },
@@ -106,9 +116,9 @@ describe('DtChart', () => {
     });
 
     it('should wrap the tooltip after changing the options at runtime', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(SeriesSingle);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const newOptions = {
         chart: {
@@ -120,7 +130,7 @@ describe('DtChart', () => {
           },
         },
       };
-      fixture.componentInstance.lineOptions = newOptions;
+      fixture.componentInstance.options = newOptions;
       fixture.detectChanges();
       const tooltip = chartComponent.highchartsOptions.tooltip;
       expect(tooltip).toBeDefined();
@@ -134,9 +144,9 @@ describe('DtChart', () => {
   describe('update event', () => {
 
     it('should fire updated after the data observable emits a new value', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(DynamicSeries);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.dynamic'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
       const spy = jasmine.createSpy('chart updated spy');
@@ -148,16 +158,16 @@ describe('DtChart', () => {
     });
 
     it('should fire updated after the static data is updated', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(SeriesSingle);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.static'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
       const spy = jasmine.createSpy('chart updated spy');
       chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
 
-      fixture.componentInstance.seriesStaticSingle = [{
+      fixture.componentInstance.series = [{
         name: 'Actions/min',
         id: 'someMetricId',
         data: [[1370304000000, 140], [1370390400000, 120]],
@@ -169,52 +179,53 @@ describe('DtChart', () => {
 
   describe('coloring', () => {
     it('should leave the color of series unchanged if provided', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = TestBed.createComponent(SeriesColor);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.staticWithColor'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
       expect(chartComponent.highchartsOptions.series![0].color).toBe('#ff0000');
       expect(chartComponent.highchartsOptions.series![1].color).toBe('#00ff00');
     });
 
-    it('should choose the single color from the colorpalette of the theme for single series', () => {
-      const fixture = TestBed.createComponent(TestApp);
+    it('should choose the colors from the colorpalette of the theme for up to 3 series', () => {
+      const fixture = TestBed.createComponent(SeriesTheme);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.themeSingle'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-
-      expect(chartComponent.highchartsOptions.series![0].color).toEqual(CHART_COLOR_PALETTES.purple.single);
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.purple);
     });
 
-    it('should choose the multi color from the colorpalette of the theme for multi series', () => {
-      const fixture = TestBed.createComponent(TestApp);
+    it('should choose the colors from the ordered palette for more than 3 series', () => {
+      const fixture = TestBed.createComponent(SeriesMoreThanTheme);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart.themeMulti'));
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      expect(chartComponent.highchartsOptions.series![0].color).toEqual(CHART_COLOR_PALETTES.purple.multi[0]);
-      expect(chartComponent.highchartsOptions.series![1].color).toEqual(CHART_COLOR_PALETTES.purple.multi[1]);
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTE_ORDERED);
+    });
+
+    it('should update colors when the theme changes', () => {
+      const fixture = TestBed.createComponent(SeriesTheme);
+      fixture.detectChanges();
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.purple);
+      fixture.componentInstance.theme = 'royalblue';
+      fixture.detectChanges();
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.royalblue);
     });
   });
 });
 
 /** Test component that contains an DtChart with static data */
 @Component({
-  selector: 'dt-test-app',
+  selector: 'dt-series-single',
   template: `
-    <dt-chart class="static" [series]="seriesStaticSingle" [options]="lineOptions"></dt-chart>
-    <dt-chart class="staticMulti" [series]="seriesStaticMulti" [options]="lineOptions"></dt-chart>
-    <dt-chart class="noseries" [options]="columnOptions"></dt-chart>
-    <dt-chart class="dynamic" [series]="seriesDynamic" [options]="columnOptions"></dt-chart>
-    <div dtTheme="purple">
-      <dt-chart class="staticWithColor" [series]="seriesStaticWithColor" [options]="lineOptions"></dt-chart>
-      <dt-chart class="themeSingle" [series]="seriesStaticSingle" [options]="lineOptions"></dt-chart>
-      <dt-chart class="themeMulti" [series]="seriesStaticMulti" [options]="lineOptions"></dt-chart>
-    </div>
+    <dt-chart [series]="series" [options]="options"></dt-chart>
   `,
 })
-class TestApp {
-  lineOptions: DtChartOptions = {
+class SeriesSingle {
+  options: DtChartOptions = {
     chart: {
       type: 'line',
     },
@@ -226,14 +237,35 @@ class TestApp {
       max: 200,
     },
   };
-  seriesStaticSingle: DtChartSeries = [
+  series: DtChartSeries = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
       data: [[1370304000000, 140], [1370390400000, 120]],
     },
   ];
-  seriesStaticMulti: DtChartSeries = [
+}
+
+@Component({
+  selector: 'dt-series-multi',
+  template: `
+  <dt-chart [series]="series" [options]="options"></dt-chart>
+  `,
+})
+class SeriesMulti {
+  options: DtChartOptions = {
+    chart: {
+      type: 'line',
+    },
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: {
+      min: 100,
+      max: 200,
+    },
+  };
+  series: DtChartSeries = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
@@ -245,7 +277,37 @@ class TestApp {
       data: [[1370304000000, 130], [1370390400000, 110]],
     },
   ];
-  columnOptions: DtChartOptions = {
+}
+
+@Component({
+  selector: 'dt-no-series',
+  template: `
+  <dt-chart [options]="options"></dt-chart>
+  `,
+})
+class NoSeries {
+  options: DtChartOptions = {
+    chart: {
+      type: 'line',
+    },
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: {
+      min: 100,
+      max: 200,
+    },
+  };
+}
+
+@Component({
+  selector: 'dt-dynamic-series',
+  template: `
+  <dt-chart [series]="series" [options]="options"></dt-chart>
+  `,
+})
+class DynamicSeries {
+  options: DtChartOptions = {
     chart: {
       type: 'column',
     },
@@ -258,7 +320,41 @@ class TestApp {
     },
   };
 
-  seriesStaticWithColor: DtChartSeries = [
+  series = new BehaviorSubject([{
+    name: 'Actions/min',
+    id: 'someid',
+    data: [[1523972199774, 0], [1523972201622, 10]],
+  }]);
+
+  emitTestData(): void {
+    this.series.next([{
+      name: 'Actions/min',
+      id: 'someid',
+      data: [[1523972199774, 20], [1523972201622, 30]],
+    }]);
+  }
+}
+
+@Component({
+  selector: 'dt-series-color',
+  template: `
+  <dt-chart [series]="series" [options]="options"></dt-chart>
+  `,
+})
+class SeriesColor {
+  options: DtChartOptions = {
+    chart: {
+      type: 'line',
+    },
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: {
+      min: 100,
+      max: 200,
+    },
+  };
+  series: DtChartSeries = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
@@ -271,18 +367,101 @@ class TestApp {
       color: '#00ff00',
       data: [[1370304000000, 130], [1370390400000, 110]],
     }];
+}
 
-  seriesDynamic = new BehaviorSubject([{
-    name: 'Actions/min',
-    id: 'someid',
-    data: [[1523972199774, 0], [1523972201622, 10]],
-  }]);
-
-  emitTestData(): void {
-    this.seriesDynamic.next([{
+@Component({
+  selector: 'dt-series-color',
+  template: `<div [dtTheme]="theme"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+})
+class SeriesTheme {
+  theme = 'purple';
+  options: DtChartOptions = {
+    chart: {
+      type: 'line',
+    },
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: {
+      min: 100,
+      max: 200,
+    },
+  };
+  series: DtChartSeries = [
+    {
       name: 'Actions/min',
-      id: 'someid',
-      data: [[1523972199774, 20], [1523972201622, 30]],
-    }]);
-  }
+      id: 'someMetricId',
+      data: [[1370304000000, 140], [1370390400000, 120]],
+    },
+    {
+      name: 'Requests/min',
+      id: 'someOtherMetricId',
+      data: [[1370304000000, 130], [1370390400000, 110]],
+    }];
+}
+
+@Component({
+  selector: 'dt-series-color',
+  template: `<div dtTheme="purple"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+})
+class SeriesMoreThanTheme {
+  options: DtChartOptions = {
+    chart: {
+      type: 'line',
+    },
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: {
+      min: 100,
+      max: 200,
+    },
+  };
+  series: DtChartSeries = [
+    {
+      name: 'Actions/min',
+      id: 'someMetricId',
+      data: [[1370304000000, 140], [1370390400000, 120]],
+    },
+    {
+      name: 'Requests/min',
+      id: 'someOtherMetricId',
+      data: [[1370304000000, 130], [1370390400000, 110]],
+    },
+    {
+      name: 'Failed requests',
+      id: 'testmetricId',
+      data: [[1370304000000, 140], [1370390400000, 120]],
+    },
+    {
+      name: 'Successful requests',
+      id: 'someOtherTestMetricId',
+      data: [[1370304000000, 140], [1370390400000, 120]],
+    },
+  ];
+}
+
+@Component({
+  selector: 'dt-series-color',
+  template: `<div dtTheme="purple"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+})
+class SeriesMoreThanOrderedColors {
+  options: DtChartOptions = {
+    chart: {
+      type: 'line',
+    },
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: {
+      min: 100,
+      max: 200,
+    },
+  };
+  series: DtChartSeries = Array.from(Array(CHART_COLOR_PALETTE_ORDERED.length + 1).keys())
+    .map((): IndividualSeriesOptions => ({
+      name: 'Actions/min',
+      id: 'someMetricId',
+      data: [[1370304000000, 140], [1370390400000, 120]],
+    }));
 }
