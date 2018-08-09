@@ -1,17 +1,16 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { generateData } from './chart-data-utils';
 import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: '<dt-chart [options]="options" [series]="series"></dt-chart>',
 })
-@OriginalClassName('ChartDefaultExampleComponent')
-export class ChartDefaultExampleComponent {
+@OriginalClassName('ChartCategorizedExampleComponent')
+export class ChartCategorizedExampleComponent {
   options: Highcharts.Options = {
     xAxis: {
-      type: 'datetime',
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     },
     yAxis: [
       {
@@ -20,14 +19,6 @@ export class ChartDefaultExampleComponent {
           format: '{value}',
         },
         tickInterval: 10,
-      },
-      {
-        title: null,
-        labels: {
-          format: '{value}/min',
-        },
-        opposite: true,
-        tickInterval: 50,
       },
     ],
     plotOptions: {
@@ -51,19 +42,7 @@ export class ChartDefaultExampleComponent {
     {
       name: 'Requests',
       type: 'column',
-      yAxis: 1,
-      data: generateData(40, 0, 200, 1370304000000, 900000),
-    },
-    {
-      name: 'Failed requests',
-      type: 'column',
-      yAxis: 1,
-      data: generateData(40, 0, 15, 1370304000000, 900000),
-    },
-    {
-      name: 'Failure rate',
-      type: 'line',
-      data: generateData(40, 0, 20, 1370304000000, 900000),
+      data: [100, 80, 130, 90, 80, 60, 120, 100, 30, 90, 110, 120],
     }];
 }
 

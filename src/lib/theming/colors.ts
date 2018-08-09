@@ -29,6 +29,7 @@ export enum Colors {
 
   YELLOW_200 = '#FFF29A',
   YELLOW_300 = '#FFEE7C',
+  YELLOW_500 = '#F5D30F',
   YELLOW_600 = '#E6BE00',
   YELLOW_700 = '#C9A999',
   YELLOW_800 = '#AB8300',
@@ -56,81 +57,47 @@ export enum Colors {
   GRAY_900 = '#191919',
 }
 
-/**
- * Interface that specifies the structure for the palettes in charts
- */
-export interface ChartColorPalette {
-  single: string;
-  multi: string[];
-}
+/** Chart colors for the purple theme up to 3 metrics */
+const purple: string[] = [
+  Colors.PURPLE_600,
+  Colors.PURPLE_200,
+  Colors.PURPLE_400,
+];
 
-const purple: ChartColorPalette = {
-  single: Colors.PURPLE_500,
-  multi: [
-    Colors.PURPLE_700,
-    Colors.PURPLE_600,
-    Colors.PURPLE_500,
-    Colors.PURPLE_400,
-    Colors.PURPLE_300,
-    Colors.PURPLE_200,
-  ],
-};
+/** Chart colors for the royalblue theme up to 3 metrics */
+const royalblue: string[] = [
+  Colors.ROYALBLUE_600,
+  Colors.ROYALBLUE_300,
+  Colors.ROYALBLUE_400,
+];
 
-const royalblue: ChartColorPalette = {
-  single: Colors.ROYALBLUE_500,
-  multi: [
-    Colors.ROYALBLUE_700,
-    Colors.ROYALBLUE_600,
-    Colors.ROYALBLUE_500,
-    Colors.ROYALBLUE_400,
-    Colors.ROYALBLUE_300,
-    Colors.ROYALBLUE_200,
-  ],
-};
+/** Chart colors for the blue theme up to 3 metrics */
+const blue: string[] = [
+  Colors.ROYALBLUE_600,
+  Colors.ROYALBLUE_200,
+  Colors.ROYALBLUE_400,
+];
 
-const turquoise: ChartColorPalette = {
-  single: Colors.TURQUOISE_500,
-  multi: [
-    Colors.TURQUOISE_900,
-    Colors.TURQUOISE_800,
-    Colors.TURQUOISE_700,
-    Colors.TURQUOISE_600,
-    Colors.TURQUOISE_500,
-    Colors.TURQUOISE_400,
-    Colors.TURQUOISE_300,
-    Colors.TURQUOISE_200,
-  ],
-};
-
-const yellow: ChartColorPalette = {
-  single: Colors.YELLOW_600,
-  multi: [
-    Colors.YELLOW_900,
-    Colors.YELLOW_800,
-    Colors.YELLOW_700,
-    Colors.YELLOW_600,
-    Colors.YELLOW_300,
-    Colors.YELLOW_200,
-  ],
-};
-
-const orange: ChartColorPalette = {
-  single: Colors.ORANGE_500,
-  multi: [
-    Colors.ORANGE_800,
-    Colors.ORANGE_700,
-    Colors.ORANGE_600,
-    Colors.ORANGE_500,
-    Colors.ORANGE_400,
-    Colors.ORANGE_300,
-    Colors.ORANGE_200,
-  ],
-};
+export const CHART_COLOR_PALETTE_ORDERED: string[] = [
+  Colors.PURPLE_600, /* 1 */
+  Colors.YELLOW_200, /* 2 */
+  Colors.TURQUOISE_400, /* 3 */
+  Colors.PURPLE_200, /* 4 */
+  Colors.ORANGE_500, /* 5 */
+  Colors.YELLOW_500, /* 6 */
+  Colors.ROYALBLUE_600, /* 7 */
+  Colors.ORANGE_300, /* 8 */
+  Colors.PURPLE_400, /* 9 */
+  Colors.ORANGE_200, /* 10 */
+  Colors.TURQUOISE_600, /* 11 */
+  Colors.ROYALBLUE_300, /* 12 */
+  Colors.YELLOW_700, /* 13 */
+  Colors.TURQUOISE_200, /* 14 */
+  Colors.ROYALBLUE_400, /* 15 */
+];
 
 export const CHART_COLOR_PALETTES = {
   purple,
   royalblue,
-  turquoise,
-  yellow,
-  orange,
+  blue,
 };
