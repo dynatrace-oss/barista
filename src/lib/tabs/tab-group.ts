@@ -70,16 +70,12 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
 
   _selected: DtTab | null = null;
   /** internal only - used to notify only the tabs in the same tab-group */
-  _groupId = `dt-tg-${++nextId}`;
+  _groupId = `dt-tab-group-${++nextId}`;
 
   /**
    * Emits an event every time the selected tab changes
-   * @deprecated Use selectionChange instead
    */
   @Output() readonly selectionChanged = new EventEmitter<DtTabChange>();
-
-  /** Emits an event every time the selected tab changes */
-  @Output() readonly selectionChange = new EventEmitter<DtTabChange>();
 
   constructor(
     elementRef: ElementRef,
@@ -120,8 +116,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
     if (this._tabs) {
       this._tabs.filter((tab) => tab !== selected).forEach((tab) => { tab._deselect(); });
     }
-    this.selectionChanged.emit({ source: this._selected!, isUserInteraction });
-    this.selectionChange.emit();
+    this.selectionChanged.emit({ source: this._selected, isUserInteraction });
     this._changeDetectorRef.markForCheck();
   }
 
