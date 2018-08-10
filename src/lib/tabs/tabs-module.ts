@@ -7,7 +7,7 @@ import { DtTab } from './tab/tab';
 import { DtTabLabel } from './tab/tab-label';
 import { DtTabContent } from './tab/tab-content';
 import { DtTabBody, DtTabBodyPortal } from './tab/tab-body';
-import { DtTabGroupNavigation } from './tab-group-navigation';
+import { DtTabGroupNavigation } from './navigation/tab-group-navigation';
 
 @NgModule({
   imports: [
