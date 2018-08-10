@@ -6,5 +6,4 @@ import {Component} from '@angular/core';
   templateUrl: 'tabs-ui.html',
 })
 export class TabsUI {
-
 }
