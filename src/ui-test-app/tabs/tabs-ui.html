@@ -1,4 +1,4 @@
-<dt-tab-group>
+<dt-tab-group dtTabGroupNavigation>
   <dt-tab id="traffic" disabled>
     <ng-template dtTabLabel>Traffic</ng-template>
     <ng-template dtTabContent>
@@ -11,10 +11,31 @@
       <h1>Packets</h1>
     </ng-template>
   </dt-tab>
-  <dt-tab id="quality">
+  <dt-tab id="quality" selected>
     <ng-template dtTabLabel>Quality</ng-template>
     <ng-template dtTabContent>
       <h1>Quality</h1>
+    </ng-template>
+  </dt-tab>
+</dt-tab-group>
+
+<dt-tab-group dtTabGroupNavigation>
+  <dt-tab id="cpu-usage">
+    <ng-template dtTabLabel>CPU Usage</ng-template>
+    <ng-template dtTabContent>
+      <h1>CPU Usage</h1>
+    </ng-template>
+  </dt-tab>
+  <dt-tab id="physical-cpu">
+    <ng-template dtTabLabel>Physical CPU</ng-template>
+    <ng-template dtTabContent>
+      <h1>Physical CPU</h1>
+    </ng-template>
+  </dt-tab>
+  <dt-tab id="cpu-ready-time">
+    <ng-template dtTabLabel>CPU ready time</ng-template>
+    <ng-template dtTabContent>
+      <h1>CPU ready time</h1>
     </ng-template>
   </dt-tab>
 </dt-tab-group>
