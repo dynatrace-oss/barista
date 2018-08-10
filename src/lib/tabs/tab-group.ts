@@ -37,13 +37,6 @@ export const _DtTabGroupMixinBase = mixinColor(mixinDisabled(DtTabGroupBase), 'm
 /** Used to generate unique ID's for each tab component */
 let nextId = 0;
 
-export class DtTabGroupChange {
-  /** Reference to the previously-selected tab. */
-  previous: DtTab;
-  /** Reference to the currently-selected tab. */
-  current: DtTab;
-}
-
 @Component({
   moduleId: module.id,
   selector: 'dt-tab-group',
