@@ -46,6 +46,7 @@ export class DtTabGroupNavigation implements DtTabGroupNavigationControl, OnDest
       const matchingTab = tabs.find((tab) => !!ids.find((id) => tab.id === id));
       if (matchingTab && !matchingTab.disabled) {
         tabs.forEach((tab) => {
+          // tslint:disable-next-line no-void-expression
           ids.includes(tab.id) ? tab._select(false) : tab._deselect();
         });
       } else {

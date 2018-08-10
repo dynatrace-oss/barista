@@ -1,3 +1,5 @@
+// tslint:disable no-unbound-method
+
 import { fakeAsync, TestBed, ComponentFixture, tick } from '@angular/core/testing';
 import { DtTabNavigationAdapter, DtTabsModule, DtTabRouterFragmentAdapter } from '@dynatrace/angular-components';
 import { Router, ActivatedRoute } from '@angular/router';
