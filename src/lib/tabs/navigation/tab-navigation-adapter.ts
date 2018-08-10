@@ -43,7 +43,7 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
     _route.fragment.pipe(filter((fragment) => !!fragment)).subscribe((fragmentText) => {
       const ids = fragmentText.split(',').map((id) => id.trim());
       this._tabIds = new Set(ids);
-      this._controls.forEach((control) => control._updateWithTabIds(ids));
+      this._controls.forEach((control) => { control._updateWithTabIds(ids); });
     });
   }
 
