@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UIApp, Home } from './ui-test-app/ui-test-app';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
@@ -40,7 +39,7 @@ import { SwitchUI } from './switch/switch-ui';
 import { DtInputModule } from '@dynatrace/angular-components/input';
 import { ChartUI } from './chart/chart-ui';
 import { ProgressBarUI } from './progress-bar/progress-bar-ui';
-import { DtTabsModule, DtTabNavigationAdapter, DtTabRouterFragmentAdapter } from '@dynatrace/angular-components/tabs';
+import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { TabsUI } from './tabs/tabs-ui';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { OverlayUI } from './overlay/overlay-ui';
@@ -103,9 +102,6 @@ export class DynatraceAngularCompModule {}
     ProgressBarUI,
     TabsUI,
     OverlayUI,
-  ],
-  providers: [
-    { provide: DtTabNavigationAdapter, useClass: DtTabRouterFragmentAdapter, deps: [Router, ActivatedRoute, Location] },
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],
