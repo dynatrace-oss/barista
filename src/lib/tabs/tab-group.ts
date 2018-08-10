@@ -65,15 +65,12 @@ export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit
   /** internal only - used to notify only the tabs in the same tab-group */
   _groupId = `dt-tab-group-${++nextId}`;
 
-  /**
-   * Emits an event every time the selected tab changes
-   */
+  /** Emits an event every time the selected tab changes */
   @Output() readonly selectionChanged = new EventEmitter<DtTabChange>();
 
   constructor(
     elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef
-    // @Self() @Optional() private _tabGroupNavigation: DtTabGroupNavigation
   ) {
     super(elementRef);
   }
