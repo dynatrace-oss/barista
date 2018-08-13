@@ -9,7 +9,6 @@ import {
   ContentChild,
   ViewContainerRef,
   ChangeDetectorRef,
-  OnDestroy,
   Optional,
   Inject,
   forwardRef,
@@ -19,7 +18,6 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { DtTabLabel } from './tab-label';
 import { DtTabContent } from './tab-content';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DtTabGroup } from '../tab-group';
 import { Subject } from 'rxjs';
 
@@ -28,6 +26,8 @@ let nextUniqueId = 0;
 export class DtTabChange {
   /** Reference to the currently-selected tab. */
   source: DtTab;
+  /** Wether the tab change occured due to a userInteraction */
+  isUserInteraction: boolean;
 }
 
 export type TabThemePalette = 'main' | 'error' | 'recovered' | undefined;
@@ -52,7 +52,7 @@ export const _DtTabMixinBase = mixinTabIndex(mixinDisabled(DtTabBase));
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisable, HasTabIndex {
+export class DtTab extends _DtTabMixinBase implements OnInit, CanDisable, HasTabIndex {
 
   /** Content for the tab label */
   @ContentChild(DtTabLabel) label: DtTabLabel;
@@ -66,7 +66,6 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   get id(): string { return this._id; }
   set id(value: string) {
     this._id = value || this._uniqueId;
-    this._addListenerForUniqueSelection();
   }
 
   /** Wether the tab is disabed */
@@ -86,16 +85,9 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   get selected(): boolean { return this._selected; }
   set selected(value: boolean) {
     const newSelectedState = coerceBooleanProperty(value);
-
     if (this._selected !== newSelectedState) {
       this._selected = newSelectedState;
-
-      if (newSelectedState && this._tabGroup && this._tabGroup._selected !== this) {
-        this._tabGroup._selected = this;
-        // Notify all other tabs to un-check in the same group
-        this._tabDispatcher.notify(this.id, this._tabGroup._groupId);
-        this._tabGroup._emitChangeEvent();
-      }
+      this._notifyTabGroup(false);
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -125,7 +117,6 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
   private _contentPortal: TemplatePortal | null = null;
 
   private _uniqueId = `dt-tab-${++nextUniqueId}`;
-  private _removeUniqueSelectionListener: () => void = () => {};
   private _selected = false;
   private _disabled = false;
   private _color: TabThemePalette = defaultPalette;
@@ -140,7 +131,6 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     elementRef: ElementRef,
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _tabDispatcher: UniqueSelectionDispatcher,
     // tslint:disable-next-line:no-forward-ref
     @Inject(forwardRef(() => DtTabGroup)) @Optional() private _tabGroup: DtTabGroup
   ) {
@@ -159,20 +149,19 @@ export class DtTab extends _DtTabMixinBase implements OnInit, OnDestroy, CanDisa
     }
   }
 
-  ngOnDestroy(): void {
-    this._removeUniqueSelectionListener();
+  _select(viaInteraction: boolean): void {
+    this._selected = true;
+    this._notifyTabGroup(viaInteraction);
+    this._changeDetectorRef.markForCheck();
   }
 
-  _select(): void {
-    this.selected = true;
+  _deselect(): void {
+    this._selected = false;
   }
 
-  private _addListenerForUniqueSelection(): void {
-    this._removeUniqueSelectionListener();
-    this._removeUniqueSelectionListener = this._tabDispatcher.listen((id: string, groupid: string) => {
-      if (id !== this._id && this._tabGroup._groupId === groupid && this.selected) {
-        this.selected = false;
-      }
-    });
+  private _notifyTabGroup(viaInteraction: boolean): void {
+    if (this._selected && this._tabGroup && this._tabGroup._selected !== this) {
+      this._tabGroup._tabChange(this, viaInteraction);
+    }
   }
 }
