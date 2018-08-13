@@ -7,6 +7,7 @@ import { DtTab } from './tab/tab';
 import { DtTabLabel } from './tab/tab-label';
 import { DtTabContent } from './tab/tab-content';
 import { DtTabBody, DtTabBodyPortal } from './tab/tab-body';
+import { DtTabGroupNavigation } from './navigation/tab-group-navigation';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { DtTabBody, DtTabBodyPortal } from './tab/tab-body';
     DtTab,
     DtTabLabel,
     DtTabContent,
+    DtTabGroupNavigation,
   ],
   declarations: [
     DtTabGroup,
@@ -27,6 +29,8 @@ import { DtTabBody, DtTabBodyPortal } from './tab/tab-body';
     DtTabContent,
     DtTabBody,
     DtTabBodyPortal,
+    DtTabGroupNavigation,
   ],
 })
-export class DtTabsModule {}
+export class DtTabsModule {
+}
