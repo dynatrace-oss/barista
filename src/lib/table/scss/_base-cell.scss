@@ -10,6 +10,7 @@ $dt-row-horizontal-padding: 4px;
   position: relative;
   justify-content: flex-start;
   padding-left: $dt-row-horizontal-padding;
+  font-variant: tabular-nums;
 
   &.dt-table-column-align-right {
     justify-content: flex-end;
