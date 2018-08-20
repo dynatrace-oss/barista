@@ -111,6 +111,9 @@ export class TimelineComponent {
       font-size: 14px;
       position: absolute;
       top: 0px;
+    }
+    p {
+     margin-top: 0;
     }`,
   ],
 })
