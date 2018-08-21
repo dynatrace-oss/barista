@@ -235,6 +235,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     if (this._chartObject) {
       this._setLoading();
       this._ngZone.runOutsideAngular(() => {
+        this._chartObject.update({ series: [] }, false, oneToOne);
         this._chartObject.update(this.highchartsOptions, redraw, oneToOne);
       });
       this.updated.emit();
