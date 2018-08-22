@@ -36,3 +36,4 @@ export * from '@dynatrace/angular-components/tabs';
 export * from '@dynatrace/angular-components/toast';
 export * from '@dynatrace/angular-components/select';
 export * from '@dynatrace/angular-components/overlay';
+export * from '@dynatrace/angular-components/formatters';
