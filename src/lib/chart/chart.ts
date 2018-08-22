@@ -58,7 +58,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _dataSub: Subscription | null = null;
   private _isTooltipWrapped = false;
   private _highchartsOptions: Options;
-  private _xAxisHasChanged: boolean;
+  private _xAxisHasChanged: boolean;   // Trigger a Series reset when xAxis has changed.
   private readonly _destroy = new Subject<void>();
 
   @Input()
@@ -66,6 +66,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     return this._options;
   }
   set options(options: DtChartOptions) {
+    // Mark for reset Series before updating chart.
     this._xAxisHasChanged = (options.xAxis !== this.highchartsOptions.xAxis);
     this._options = options;
     this._isTooltipWrapped = false;
@@ -239,6 +240,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       this._ngZone.runOutsideAngular(() => {
         if (this._xAxisHasChanged) {
           this._chartObject.update({ series: [] }, false, oneToOne);
+          this._xAxisHasChanged = false;
         }
         this._chartObject.update(this.highchartsOptions, redraw, oneToOne);
       });
