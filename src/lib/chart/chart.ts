@@ -58,7 +58,13 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _dataSub: Subscription | null = null;
   private _isTooltipWrapped = false;
   private _highchartsOptions: Options;
-  private _xAxisHasChanged: boolean;   // Trigger a Series reset when xAxis has changed.
+  /**
+   * This flag is necessary due to a bug in highcharts
+   * where the series need to be reset to have the
+   * correct xAxis categories displayed when the
+   * chart type is updated (f.i. xAxis.type = 'datetime' => 'category')
+   */
+  private _xAxisHasChanged: boolean;
   private readonly _destroy = new Subject<void>();
 
   @Input()
