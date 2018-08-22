@@ -1,9 +1,9 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormatterUtil } from '@dynatrace/angular-components/formatters/formatter-util';
-import { PercentPipe } from '@dynatrace/angular-components/formatters/percent/percent.pipe';
+import { FormatterUtil } from '../formatter-util';
+import { DtPercent } from './percent';
 
-describe('PercentPipe', () => {
+describe('DtPercentPipe', () => {
   interface TestCase {
     input: number;
     output: string;
@@ -18,7 +18,7 @@ describe('PercentPipe', () => {
           provide: FormatterUtil,
           useClass: FormatterUtil,
         },
-        PercentPipe,
+        DtPercent,
       ],
     });
   });
@@ -43,7 +43,7 @@ describe('PercentPipe', () => {
         output: '123 %',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} with adjusted precision`, inject([PercentPipe], (pipe: PercentPipe) => {
+      it(`should display ${testCase.input} with adjusted precision`, inject([DtPercent], (pipe: DtPercent) => {
         expect(pipe.transform(testCase.input).toString())
           .toEqual(testCase.output);
       }));
