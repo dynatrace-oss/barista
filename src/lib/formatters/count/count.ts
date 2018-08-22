@@ -1,24 +1,24 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Unit } from '@dynatrace/angular-components/formatters/unit';
-import { FormattedValue } from '@dynatrace/angular-components/formatters/formatted-value';
+import { DtUnit } from '../unit';
+import { FormattedValue } from '../formatted-value';
 import { _isNumberValue, coerceNumberProperty } from '@angular/cdk/coercion';
-import { FormatterUtil, Multiples } from '@dynatrace/angular-components/formatters/formatter-util';
+import { FormatterUtil, Multiples } from '../formatter-util';
 
 @Pipe({
   name: 'dtCount',
 })
-export class CountPipe implements PipeTransform {
+export class DtCount implements PipeTransform {
 
   private readonly THOUSAND = 'k';
   private readonly MILLION = 'mil';
   private readonly BILLION = 'bil';
   private readonly multiples: Multiples;
 
-  constructor(private readonly formatterUtil: FormatterUtil) {
-    this.multiples = this.formatterUtil.standardMultiples;
+  constructor(private readonly _formatterUtil: FormatterUtil) {
+    this.multiples = this._formatterUtil.standardMultiples;
   }
 
-  transform(input: number, inputUnit: string = Unit.COUNT, inputRateUnit?: string): FormattedValue {
+  transform(input: number, inputUnit: string = DtUnit.COUNT, inputRateUnit?: string): FormattedValue {
 
     const formattedValue = new FormattedValue(input, inputUnit, inputRateUnit);
     if (_isNumberValue(input)) {
@@ -26,9 +26,9 @@ export class CountPipe implements PipeTransform {
 
       formattedValue.displayValue = value >= this.multiples.lvl1
         ? this.abbreviate(value)
-        : this.formatterUtil.adjustPrecision(value);
+        : this._formatterUtil.adjustPrecision(value);
 
-      formattedValue.displayUnit = inputUnit !== Unit.COUNT
+      formattedValue.displayUnit = inputUnit !== DtUnit.COUNT
         ? inputUnit
         : undefined;
     }
@@ -43,20 +43,20 @@ export class CountPipe implements PipeTransform {
 
     if (value >= this.multiples.lvl3) {
       value =  value / this.multiples.lvl3;
-      formattedValue =  this.formatterUtil.adjustPrecision(value);
+      formattedValue =  this._formatterUtil.adjustPrecision(value);
 
       return `${formattedValue}${this.BILLION}`;
     }
 
     if (value >= this.multiples.lvl2) {
       value =  value / this.multiples.lvl2;
-      formattedValue =  this.formatterUtil.adjustPrecision(value);
+      formattedValue =  this._formatterUtil.adjustPrecision(value);
 
       return `${formattedValue}${this.MILLION}`;
     }
 
     value =  value / this.multiples.lvl1;
-    formattedValue =  this.formatterUtil.adjustPrecision(value);
+    formattedValue =  this._formatterUtil.adjustPrecision(value);
 
     return `${formattedValue}${this.THOUSAND}`;
   }

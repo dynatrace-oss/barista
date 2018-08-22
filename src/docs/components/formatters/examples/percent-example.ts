@@ -18,6 +18,6 @@ import { OriginalClassName } from '../../../core/decorators';
   `],
 })
 @OriginalClassName('PercentPipeExample')
-export class PercentPipeExample {
+export class PercentExample {
   exampleValue: number;
 }
