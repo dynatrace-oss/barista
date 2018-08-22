@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DtUnit } from '../unit';
 import { FormattedValue } from '../formatted-value';
-import { _isNumberValue, coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { FormatterUtil, Multiples } from '../formatter-util';
 
 @Pipe({
@@ -21,9 +21,8 @@ export class DtCount implements PipeTransform {
   transform(input: number, inputUnit: string = DtUnit.COUNT, inputRateUnit?: string): FormattedValue {
 
     const formattedValue = new FormattedValue(input, inputUnit, inputRateUnit);
-    if (_isNumberValue(input)) {
-      const value = (coerceNumberProperty(input));
-
+    const value = (coerceNumberProperty(input, NaN));
+    if (!isNaN(value)) {
       formattedValue.displayValue = value >= this.multiples.lvl1
         ? this.abbreviate(value)
         : this._formatterUtil.adjustPrecision(value);
