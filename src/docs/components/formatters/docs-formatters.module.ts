@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { COMPONENT_EXAMPLES, UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { CountPipeExample } from './examples/count-pipe-example';
-import { FormattersModule } from '@dynatrace/angular-components/formatters/formatters.module';
+import { CountExample } from './examples/count-example';
 import { DtInputModule } from '@dynatrace/angular-components';
 import { FormsModule } from '@angular/forms';
-import { PercentPipeExample } from './examples/percent-pipe-example';
+import { PercentExample } from './examples/percent-example';
+import { DtFormattersModule } from '@dynatrace/angular-components/formatters/formatters-module';
 
 export const EXAMPLES = [
-  CountPipeExample,
-  PercentPipeExample,
+  CountExample,
+  PercentExample,
 ];
 
 @NgModule({
@@ -18,7 +18,7 @@ export const EXAMPLES = [
     DtInputModule,
     FormsModule,
     UiModule,
-    FormattersModule,
+    DtFormattersModule,
   ],
   declarations: [
     ...EXAMPLES,

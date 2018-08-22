@@ -21,6 +21,6 @@ import { OriginalClassName } from '../../../core/decorators';
   `],
 })
 @OriginalClassName('CountPipeExample')
-export class CountPipeExample {
+export class CountExample {
   exampleValue: number;
 }
