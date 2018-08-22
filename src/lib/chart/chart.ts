@@ -58,6 +58,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _dataSub: Subscription | null = null;
   private _isTooltipWrapped = false;
   private _highchartsOptions: Options;
+  private _xAxisHasChanged: boolean;
   private readonly _destroy = new Subject<void>();
 
   @Input()
@@ -65,6 +66,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     return this._options;
   }
   set options(options: DtChartOptions) {
+    this._xAxisHasChanged = (options.xAxis !== this.highchartsOptions.xAxis);
     this._options = options;
     this._isTooltipWrapped = false;
     this._mergeOptions(options);
@@ -235,7 +237,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     if (this._chartObject) {
       this._setLoading();
       this._ngZone.runOutsideAngular(() => {
-        this._chartObject.update({ series: [] }, false, oneToOne);
+        if (this._xAxisHasChanged) {
+          this._chartObject.update({ series: [] }, false, oneToOne);
+        }
         this._chartObject.update(this.highchartsOptions, redraw, oneToOne);
       });
       this.updated.emit();
