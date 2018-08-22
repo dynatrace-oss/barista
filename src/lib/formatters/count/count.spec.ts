@@ -1,9 +1,9 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
-import { CountPipe } from '@dynatrace/angular-components/formatters/count/count.pipe';
-import { FormatterUtil } from '@dynatrace/angular-components/formatters/formatter-util';
+import { FormatterUtil } from '../formatter-util';
+import { DtCount } from './count';
 
-describe('CountPipe', () => {
+describe('DtCount', () => {
   interface TestCase {
     input: number;
     output: string;
@@ -18,7 +18,7 @@ describe('CountPipe', () => {
           provide: FormatterUtil,
           useClass: FormatterUtil,
         },
-        CountPipe,
+        DtCount,
       ],
     });
   });
@@ -59,7 +59,7 @@ describe('CountPipe', () => {
         output: '988',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} with adjusted precision`, inject([CountPipe], (pipe: CountPipe) => {
+      it(`should display ${testCase.input} with adjusted precision`, inject([DtCount], (pipe: DtCount) => {
         expect(pipe.transform(testCase.input).toString())
           .toEqual(testCase.output);
       }));
@@ -86,7 +86,7 @@ describe('CountPipe', () => {
         output: '1.11k',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} in abbreviated version`, inject([CountPipe], (pipe: CountPipe) => {
+      it(`should display ${testCase.input} in abbreviated version`, inject([DtCount], (pipe: DtCount) => {
         expect(pipe.transform(testCase.input).toString())
           .toEqual(testCase.output);
       }));

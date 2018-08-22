@@ -1,4 +1,4 @@
-export enum Unit {
+export enum DtUnit {
   PERCENT = '%',
   COUNT = 'count',
 }
