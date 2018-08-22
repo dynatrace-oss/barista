@@ -41,7 +41,7 @@ import { DocsTabsModule } from './components/tabs/docs-tabs.module';
 import { DocsToastModule } from './components/toast/docs-toast.module';
 import { DocsSelectModule } from './components/select/docs-select.module';
 import { DocsOverlayModule } from './components/overlay/docs-overlay.module';
-import { DocsFormattersModule } from './components/formatters/docs-formatters.module';
+import { DocsFormattersModule } from './components/formatters/docs-formatters-module';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
