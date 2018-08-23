@@ -58,6 +58,13 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _dataSub: Subscription | null = null;
   private _isTooltipWrapped = false;
   private _highchartsOptions: Options;
+  /**
+   * This flag is necessary due to a bug in highcharts
+   * where the series need to be reset to have the
+   * correct xAxis categories displayed when the
+   * chart type is updated (f.i. xAxis.type = 'datetime' => 'category')
+   */
+  private _xAxisHasChanged: boolean;
   private readonly _destroy = new Subject<void>();
 
   @Input()
@@ -65,6 +72,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     return this._options;
   }
   set options(options: DtChartOptions) {
+    // Mark for reset Series before updating chart.
+    this._xAxisHasChanged = (options.xAxis !== this.highchartsOptions.xAxis);
     this._options = options;
     this._isTooltipWrapped = false;
     this._mergeOptions(options);
@@ -235,6 +244,10 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     if (this._chartObject) {
       this._setLoading();
       this._ngZone.runOutsideAngular(() => {
+        if (this._xAxisHasChanged) {
+          this._chartObject.update({ series: [] }, false, oneToOne);
+          this._xAxisHasChanged = false;
+        }
         this._chartObject.update(this.highchartsOptions, redraw, oneToOne);
       });
       this.updated.emit();
