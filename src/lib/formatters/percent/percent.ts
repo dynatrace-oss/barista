@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DtFormattedValue } from '../formatted-value';
-import { formatPercent } from './percent-util';
+import { formatPercent } from './percent-formatter';
 
 @Pipe({
   name: 'dtPercent',

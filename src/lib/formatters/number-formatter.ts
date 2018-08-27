@@ -17,7 +17,7 @@ export function adjustNumber(value: number, abbreviate: boolean = false): string
     : adjustPrecision(value);
 }
 
-export function adjustPrecision(value: number): string {
+function adjustPrecision(value: number): string {
     // tslint:disable:no-magic-numbers
     let digits = 0;
     if (value < 1) {
@@ -32,7 +32,7 @@ export function adjustPrecision(value: number): string {
     return formatNumber(value, 'en-US', `0.0-${digits}`);
   }
 
-export function abbreviateNumber(sourceValue: number): string {
+function abbreviateNumber(sourceValue: number): string {
 
   let value = sourceValue;
   let formattedValue: string;
