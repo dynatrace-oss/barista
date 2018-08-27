@@ -1,4 +1,4 @@
-import { adjustNumber } from './formatter-util';
+import { adjustNumber } from './number-formatter';
 
 describe('FormatterUtil', () => {
 

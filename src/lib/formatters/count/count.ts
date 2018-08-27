@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DtUnit } from '../unit';
 import { DtFormattedValue } from '../formatted-value';
-import { formatCount } from './count-util';
+import { formatCount } from './count-formatter';
 
 @Pipe({
   name: 'dtCount',
