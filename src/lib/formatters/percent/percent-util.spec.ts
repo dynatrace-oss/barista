@@ -1,6 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormatterUtil } from '../formatter-util';
 import { DtPercent } from './percent';
 
 describe('DtPercentPipe', () => {
@@ -14,16 +13,12 @@ describe('DtPercentPipe', () => {
     TestBed.configureTestingModule({
       imports: [BrowserModule],
       providers: [
-        {
-          provide: FormatterUtil,
-          useClass: FormatterUtil,
-        },
         DtPercent,
       ],
     });
   });
 
-  describe('adjusted precision', () => {
+  describe('Transforming input', () => {
 
     [
       {
@@ -43,7 +38,7 @@ describe('DtPercentPipe', () => {
         output: '123 %',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} with adjusted precision`, inject([DtPercent], (pipe: DtPercent) => {
+      it(`should display ${testCase.input} with adjusted precision and % sign`, inject([DtPercent], (pipe: DtPercent) => {
         expect(pipe.transform(testCase.input).toString())
           .toEqual(testCase.output);
       }));
