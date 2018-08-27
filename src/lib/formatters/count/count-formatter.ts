@@ -1,7 +1,7 @@
-import { adjustNumber } from '../formatter-util';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtUnit } from '../unit';
 import { DtFormattedValue } from '../formatted-value';
+import { adjustNumber } from '../number-formatter';
 
 export function formatCount(input: number, inputUnit: DtUnit | string = DtUnit.COUNT, inputRateUnit?: string): DtFormattedValue {
 

@@ -19,7 +19,7 @@ export class DtFormattedValue {
     return this._sourceValue;
   }
 
-  get sourceUnit(): string {
+  get sourceUnit(): DtUnit | string {
     return this._sourceUnit;
   }
 
