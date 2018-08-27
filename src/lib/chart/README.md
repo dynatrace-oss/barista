@@ -29,7 +29,7 @@ To use the dynatrace chart, add the `<dt-chart options="myoptions" series="myser
 | --- | --- | --- | --- |
 | `@Input() options` | `DtChartOptions | undefined` | `undefined` | Sets options for the chart. DtChartOptions extends from Highcharts.Options, but removes the series property. The series property is passed as it's own input |
 | `@Input() series` | `Observable<Highcharts.IndividualSeriesOptions[]> | Highcharts.IndividualSeriesOptions[] | undefined` | `undefined` | Sets the series of the chart. The type can either be a stream of series data for continues updates or a static array. |
-| `@Output() updated` | `EventEmitter<void>` | Event emitted when the chart options or series are updated |
+| `@Output() updated` | `EventEmitter<void>` | | Event emitted when the chart options or series are updated |
 
 ## Methods
 
