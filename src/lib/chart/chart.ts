@@ -190,7 +190,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     const options = this.highchartsOptions;
     options.series = series && series.map(((s) => ({...s})));
     if (options.series) {
-      ChartColorizer.apply(options, options.series.length, this._theme);
+      this._colorizeChart(options);
     }
   }
 
@@ -257,5 +257,21 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   /** updates the loading status of the component */
   private _setLoading(): void {
     this._loading = !this._highchartsOptions.series;
+  }
+
+  private _colorizeChart(options: Options): void {
+    let nrOfMetrics;
+    if (
+      options.chart &&
+      options.chart.type === 'pie' &&
+      options.series &&
+      options.series.length === 1
+    ) {
+      const pieSeries = options.series[0];
+      nrOfMetrics = pieSeries.data && pieSeries.data.length;
+    } else {
+      nrOfMetrics = options.series && options.series.length;
+    }
+    ChartColorizer.apply(options, nrOfMetrics, this._theme);
   }
 }

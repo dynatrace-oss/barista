@@ -62,7 +62,7 @@ ViewportResizer notifies the dt-chart component about Viewport changes that trig
 
 ### Stream example with colors
 
-<!-- <docs-source-example example="ChartStreamExampleComponent" fullwidth="true"></docs-source-example> -->
+<docs-source-example example="ChartStreamExampleComponent" fullwidth="true"></docs-source-example>
 
 ### Chart with more than 3 series example
 
