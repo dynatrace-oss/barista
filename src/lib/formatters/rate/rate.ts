@@ -7,10 +7,10 @@ import { DtFormattedValue } from '../formatted-value';
 })
 export class DtRate implements PipeTransform {
 
-  constructor(private readonly rateFormatter: DtRateFormatter) {}
+  constructor(private readonly _rateFormatter: DtRateFormatter) {}
 
   transform(value: DtFormattedValue | number, rateUnit: string): DtFormattedValue {
-    return this.rateFormatter.formatRate(value, rateUnit);
+    return this._rateFormatter.formatRate(value, rateUnit);
   }
 
 }
