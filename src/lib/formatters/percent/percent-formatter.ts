@@ -1,4 +1,4 @@
-import { adjustPrecision } from './../formatter-util';
+import { adjustNumber } from '../number-formatter';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtFormattedValue } from './../formatted-value';
 import { DtUnit } from './../unit';
@@ -9,7 +9,7 @@ export function formatPercent(input: number): DtFormattedValue {
   const value = (coerceNumberProperty(input, NaN));
   if (!isNaN(value)) {
     formattedValue.transformedValue = value;
-    formattedValue.displayValue = adjustPrecision(value);
+    formattedValue.displayValue = adjustNumber(value);
     formattedValue.displayUnit = DtUnit.PERCENT;
   }
 

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { DtCount } from './count/count';
 import { DtPercent } from './percent/percent';
 import { DtRate } from './rate/rate';
-import { DtRateFormatter } from './rate/rate-formatter';
 
 @NgModule({
   declarations: [
@@ -18,9 +17,6 @@ import { DtRateFormatter } from './rate/rate-formatter';
   ],
   imports: [
     CommonModule,
-  ],
-  providers: [
-    DtRateFormatter,
   ],
 })
 export class DtFormattersModule {
