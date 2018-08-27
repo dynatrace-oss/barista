@@ -1,12 +1,17 @@
-export class FormattedValue {
+import { DtUnit } from './unit';
+
+export class DtFormattedValue {
 
   private readonly NO_DATA = '-';
+
+  useAbbreviation = false;
+  transformedValue: number | undefined;
   displayValue: string | undefined;
   displayUnit: string | undefined;
   displayRateUnit: string | undefined;
 
   constructor(private readonly _sourceValue: number,
-              private readonly _sourceUnit: string,
+              private readonly _sourceUnit: DtUnit | string,
               private readonly _sourceRateUnit?: string) {
   }
 
