@@ -40,3 +40,14 @@ It is possible to display (and style) value and unit separately - just inject pi
 | `input` | `number` | | numeric value to be transformed by the pipe |
 
 <docs-source-example example="PercentPipeExample"></docs-source-example>
+
+## Rate 
+
+`dtRate` provides a way to add a rate info to the value
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `input` | `number | FormattedValue` | | numeric value to be transformed by the pipe |
+| `rateUnit` | `string` | | rate unit |
+
+<docs-source-example example="RatePipeExample"></docs-source-example>

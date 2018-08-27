@@ -5,10 +5,12 @@ import { CountExample } from './examples/count-example';
 import { DtFormattersModule, DtInputModule } from '@dynatrace/angular-components';
 import { FormsModule } from '@angular/forms';
 import { PercentExample } from './examples/percent-example';
+import { RateExample } from './examples/rate-example';
 
 export const EXAMPLES = [
   CountExample,
   PercentExample,
+  RateExample,
 ];
 
 @NgModule({
