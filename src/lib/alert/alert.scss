@@ -4,7 +4,7 @@
 @import '../core/theming/theming';
 @import './alert-theme';
 
-$display-type: inline-flex;
+$display-type: flex;
 
 :host {
   @include main-font();
@@ -41,6 +41,7 @@ $display-type: inline-flex;
   border-left: 0 !important;
 
   padding: 10px 16px;
+  flex-grow: 1;
 }
 
 :host.dt-alert-warning {
