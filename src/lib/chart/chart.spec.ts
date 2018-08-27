@@ -26,7 +26,9 @@ describe('DtChart', () => {
         SeriesColor,
         SeriesTheme,
         SeriesMoreThanTheme,
-        SeriesMoreThanOrderedColors],
+        SeriesMoreThanOrderedColors,
+        PieChartThemeColors,
+        PieChartOrderedColors],
     });
 
     TestBed.compileComponents();
@@ -213,6 +215,22 @@ describe('DtChart', () => {
       fixture.componentInstance.theme = 'royalblue';
       fixture.detectChanges();
       expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.royalblue);
+    });
+
+    it('should choose the correct colors for pie charts with less than 4 data slices', () => {
+      const fixture = TestBed.createComponent(PieChartThemeColors);
+      fixture.detectChanges();
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.purple);
+    });
+
+    it('should choose the correct colors for pie charts with more than 3 data slices', () => {
+      const fixture = TestBed.createComponent(PieChartOrderedColors);
+      fixture.detectChanges();
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
+      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTE_ORDERED);
     });
   });
 });
@@ -464,4 +482,64 @@ class SeriesMoreThanOrderedColors {
       id: 'someMetricId',
       data: [[1370304000000, 140], [1370390400000, 120]],
     }));
+}
+
+@Component({
+  selector: 'dt-pie-color-theme',
+  template: `<div dtTheme="purple"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+})
+class PieChartThemeColors {
+  options: DtChartOptions = {
+    chart: {
+      type: 'pie',
+    },
+  };
+  series = [{
+    name: 'Browsers',
+    data: [
+      {
+        name: 'Chrome',
+        y: 60,
+      },
+      {
+        name: 'Firefox',
+        y: 25,
+      },
+      {
+        name: 'Edge',
+        y: 15,
+      }],
+    }];
+}
+
+@Component({
+  selector: 'dt-pie-color-theme',
+  template: `<div dtTheme="purple"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+})
+class PieChartOrderedColors {
+  options: DtChartOptions = {
+    chart: {
+      type: 'pie',
+    },
+  };
+  series = [{
+    name: 'Browsers',
+    data: [
+      {
+        name: 'Chrome',
+        y: 55,
+      },
+      {
+        name: 'Firefox',
+        y: 25,
+      },
+      {
+        name: 'Edge',
+        y: 15,
+      },
+      {
+        name: 'Others',
+        y: 5,
+      }],
+    }];
 }
