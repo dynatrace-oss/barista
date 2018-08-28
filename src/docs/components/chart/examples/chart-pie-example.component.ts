@@ -38,7 +38,7 @@ export class ChartPieExampleComponent {
     data: [
       {
         name: 'Chrome',
-        y: 60,
+        y: 55,
       },
       {
         name: 'Firefox',
