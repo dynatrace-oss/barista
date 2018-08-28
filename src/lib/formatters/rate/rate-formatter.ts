@@ -1,6 +1,6 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtUnit, DtRateUnit } from '../unit';
-import { DtFormattedValue } from '../formatted-value';
+import { DtFormattedValue, FormattedData } from '../formatted-value';
 import { formatCount } from '../count/count-formatter';
 import { adjustNumber } from '../number-formatter';
 
@@ -15,56 +15,51 @@ export function formatRate(source: DtFormattedValue | number, rateUnit: string):
     : addRateToNumber(source, rateUnit);
 }
 
-function addRateToNumber(value: number, rateUnit: string): DtFormattedValue {
+function addRateToNumber(input: number, rateUnit: string): DtFormattedValue {
 
-  const formatted = formatCount(value);
-  formatted.displayRateUnit = rateUnit;
+  const formattedValue = formatCount(input);
+  const formattedData = formattedValue.displayData;
+  formattedData.displayRateUnit = rateUnit;
 
-  return formatted;
+  return new DtFormattedValue(formattedValue.sourceData, formattedData);
 }
 
-function addRateToFormattedValue(formattedValue: DtFormattedValue, rateUnit: string): DtFormattedValue {
-  let formatted = formattedValue;
-
-  if (!notAcceptedUnits.has(formatted.sourceUnit)) {
-    const sourceRateUnit = formatted.sourceRateUnit;
-    if (sourceRateUnit !== undefined && sourceRateUnit !== rateUnit) {
-      formatted = recalculateValue(formatted, rateUnit);
-    }
-
-    formatted.displayRateUnit = rateUnit;
+function addRateToFormattedValue(input: DtFormattedValue, rateUnit: string): DtFormattedValue {
+  if (notAcceptedUnits.has(input.sourceData.unit)) {
+    return input;
   }
 
-  return formattedValue;
+  const sourceRateUnit = input.sourceData.rateUnit;
+  if (sourceRateUnit !== undefined && sourceRateUnit !== rateUnit) {
+    return recalculateValue(input, rateUnit);
+  }
+
+  const formattedData: FormattedData = input.displayData;
+  formattedData.displayRateUnit = rateUnit;
+
+  return new DtFormattedValue(input.sourceData, formattedData);
 }
 
-function recalculateValue(formatted: DtFormattedValue, rateUnit: string): DtFormattedValue {
+function recalculateValue(input: DtFormattedValue, rateUnit: DtRateUnit | string): DtFormattedValue {
   if (rateUnit === DtRateUnit.PER_SECOND) {
-    return toPerSecond(formatted);
+    return toRateUnit(input, rateUnit, DtRateUnit.PER_MINUTE, TIME_CONVERSION_FACTOR);
   } else if (rateUnit === DtRateUnit.PER_MINUTE) {
-    return toPerMinute(formatted);
+    return toRateUnit(input, rateUnit, DtRateUnit.PER_SECOND, 1 / TIME_CONVERSION_FACTOR);
   }
 
-  return formatted;
+  return input;
 }
 
-function toPerSecond(formatted: DtFormattedValue): DtFormattedValue {
-  const value = coerceNumberProperty(formatted.transformedValue, NaN);
+function toRateUnit(input: DtFormattedValue, rateUnit: DtRateUnit | string,
+                    fromUnit: DtRateUnit | string, ratio: number): DtFormattedValue {
+  const formattedData = input.displayData;
+  formattedData.displayRateUnit = rateUnit;
 
-  if (formatted.sourceRateUnit === DtRateUnit.PER_MINUTE && !isNaN(value)) {
-    formatted.transformedValue = coerceNumberProperty(value) / TIME_CONVERSION_FACTOR;
-    formatted.displayValue = adjustNumber(formatted.transformedValue, formatted.useAbbreviation);
+  const value = coerceNumberProperty(formattedData.transformedValue, NaN);
+  if (input.sourceData.rateUnit === fromUnit && !isNaN(value)) {
+    formattedData.transformedValue = value * ratio;
+    formattedData.displayValue = adjustNumber(formattedData.transformedValue, input.sourceData.useAbbreviation);
   }
 
-  return formatted;
-}
-
-function toPerMinute(formatted: DtFormattedValue): DtFormattedValue {
-  const value = coerceNumberProperty(formatted.transformedValue, NaN);
-  if (formatted.sourceRateUnit === DtRateUnit.PER_SECOND && !isNaN(value)) {
-    formatted.transformedValue = coerceNumberProperty(value) * TIME_CONVERSION_FACTOR;
-    formatted.displayValue = adjustNumber(formatted.transformedValue, formatted.useAbbreviation);
-  }
-
-  return formatted;
+  return new DtFormattedValue(input.sourceData, formattedData);
 }

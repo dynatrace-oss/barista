@@ -25,8 +25,8 @@ It is possible to display (and style) value and unit separately - just inject pi
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `input` | `number` | | numeric value to be transformed by the pipe |
-| `inputUnit` | `string` | `Unit.COUNT` | input unit, if not default - displayed together with the formatted value; does not yet support plurals and internationalization |
-| `inputRateUnit` | `boolean | undefined` | `undefined` | additional information about possible rate unit; does not cause rate to be displayed, value is used only as a reference in case an additional rate pipe is used |
+| `inputUnit` | `DtUnit | string` | `Unit.COUNT` | input unit, if not default - displayed together with the formatted value; does not yet support plurals and internationalization |
+| `inputRateUnit` | `DtRateUnit | string | undefined` | `undefined` | additional information about possible rate unit; does not cause rate to be displayed, value is used only as a reference in case an additional rate pipe is used |
 
 <docs-source-example example="CountPipeExample"></docs-source-example>
 
@@ -48,6 +48,6 @@ It is possible to display (and style) value and unit separately - just inject pi
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `input` | `number | FormattedValue` | | numeric value to be transformed by the pipe |
-| `rateUnit` | `string` | | rate unit |
+| `rateUnit` | `DtRateUnit | string` | | rate unit |
 
 <docs-source-example example="RatePipeExample"></docs-source-example>

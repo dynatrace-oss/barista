@@ -1,43 +1,44 @@
-import { DtUnit } from './unit';
+import { DtRateUnit, DtUnit } from './unit';
+
+export interface SourceData {
+  value: number;
+  unit: DtUnit | string;
+  rateUnit?: DtRateUnit | string;
+  useAbbreviation: boolean;
+}
+
+export interface FormattedData {
+  transformedValue?: number;
+  displayValue?: string;
+  displayUnit?: string;
+  displayRateUnit?: string;
+}
 
 export class DtFormattedValue {
 
   private readonly NO_DATA = '-';
 
-  useAbbreviation = false;
-  transformedValue: number | undefined;
-  displayValue: string | undefined;
-  displayUnit: string | undefined;
-  displayRateUnit: string | undefined;
+  constructor(private _sourceData: SourceData, private _formattedData: FormattedData) {}
 
-  constructor(private readonly _sourceValue: number,
-              private readonly _sourceUnit: DtUnit | string,
-              private readonly _sourceRateUnit?: string) {
+  get sourceData(): SourceData {
+    return this._sourceData;
   }
 
-  get sourceValue(): number {
-    return this._sourceValue;
-  }
-
-  get sourceUnit(): DtUnit | string {
-    return this._sourceUnit;
-  }
-
-  get sourceRateUnit(): string | undefined {
-    return this._sourceRateUnit;
+  get displayData(): FormattedData {
+    return this._formattedData;
   }
 
   toString(): string {
-    if (this.displayValue === undefined) {
+    if (this._formattedData.displayValue === undefined) {
       return this.NO_DATA;
     }
 
-    let text = `${this.displayValue}`;
-    if (this.displayUnit !== undefined) {
-      text = `${text} ${this.displayUnit}`;
+    let text = `${this._formattedData.displayValue}`;
+    if (this._formattedData.displayUnit !== undefined) {
+      text = `${text} ${this._formattedData.displayUnit}`;
     }
-    if (this.displayRateUnit !== undefined) {
-      text = `${text}/${this.displayRateUnit}`;
+    if (this._formattedData.displayRateUnit !== undefined) {
+      text = `${text}/${this._formattedData.displayRateUnit}`;
     }
 
     return text;
