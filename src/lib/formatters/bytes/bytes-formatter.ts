@@ -52,12 +52,12 @@ export function formatBytes(input: number, factor: number = KILO_MULTIPLIER, inp
   const value = coerceNumberProperty(inputData.value, NaN);
   if (!isNaN(value)) {
     const valueInBytes = convertToBytes(value, inputData.unit, factor);
-    const multiple = outputUnit
+    const conversion = outputUnit
       ? getFixedUnitConversion(valueInBytes, outputUnit, factor)
       : getAutoUnitConversion(valueInBytes, factor);
 
-    const convertedValue = multiple ? valueInBytes / multiple.multiplier : valueInBytes;
-    const convertedUnit = multiple ? multiple.unit : DtUnit.BYTES;
+    const convertedValue = conversion ? valueInBytes / conversion.multiplier : valueInBytes;
+    const convertedUnit = conversion ? conversion.unit : DtUnit.BYTES;
 
     formattedData = {
       transformedValue: convertedValue,
@@ -76,10 +76,10 @@ function getConversions(factor: number): Conversion[] {
 }
 
 function convertToBytes(input: number, inputUnit: string, factor: number): number {
-  const multiple = getConversions(factor).find((m) => m.unit === inputUnit);
+  const conversion = getConversions(factor).find((m) => m.unit === inputUnit);
 
-  return multiple !== undefined
-    ? input * multiple.multiplier
+  return conversion !== undefined
+    ? input * conversion.multiplier
     : input;
 }
 
