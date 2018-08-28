@@ -10,8 +10,14 @@ import { OriginalClassName } from '../../../core/decorators';
   <span>Formatted string:</span>
   {{ exampleValue | dtBytes }}
   <br><br>
-  <span>Formatted string:</span>
+  <span>1024:</span>
   {{ exampleValue | dtBytes:1024 }}
+  <br><br>
+  <span>kB:</span>
+  {{ exampleValue | dtKilobytes }}
+  <br><br>
+  <span>MB:</span>
+  {{ exampleValue | dtMegabytes }}
   `,
   styles: [`
     span, input {
