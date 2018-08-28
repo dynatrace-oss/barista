@@ -3,16 +3,28 @@ import { DtUnit, DtRateUnit } from '../unit';
 import { DtFormattedValue } from '../formatted-value';
 import { formatCount } from '../count/count-formatter';
 import { adjustNumber } from '../number-formatter';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
 
+const LOG: DtLogger = DtLoggerFactory.create('rate-formatter');
 const TIME_CONVERSION_FACTOR = 60;
 const notAcceptedUnits = new Set()
   .add(DtUnit.PERCENT);
 
-export function formatRate(source: DtFormattedValue | number, rateUnit: string): DtFormattedValue {
+/**
+ *
+ *  Returns DtFormattedValue
+ *    - toString() method returns basic string to be displayed;
+ *    - displayData contains value, unit and rate unit to be displayed separately;
+ *
+ * @param input - numeric value to be transformed
+ * @param rateUnit - rate unit connected and displayed with the value,
+ *    typically defined rate unit of type DtRateUnit, custom strings are also allowed
+ */
+export function formatRate(input: DtFormattedValue | number, rateUnit: DtRateUnit | string): DtFormattedValue {
 
-  return (source instanceof DtFormattedValue)
-    ? addRateToFormattedValue(source, rateUnit)
-    : addRateToNumber(source, rateUnit);
+  return (input instanceof DtFormattedValue)
+    ? addRateToFormattedValue(input, rateUnit)
+    : addRateToNumber(input, rateUnit);
 }
 
 function addRateToNumber(input: number, rateUnit: string): DtFormattedValue {
@@ -31,6 +43,7 @@ function addRateToNumber(input: number, rateUnit: string): DtFormattedValue {
 
 function addRateToFormattedValue(input: DtFormattedValue, rateUnit: string): DtFormattedValue {
   if (notAcceptedUnits.has(input.sourceData.unit)) {
+    LOG.error(`Formatting not possible for combination of units: ${input.sourceData.unit}/${rateUnit}`, input);
     return input;
   }
 
