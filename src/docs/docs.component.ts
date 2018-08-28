@@ -21,6 +21,7 @@ export class Docs {
     { name: 'Expandable panel', route: '/expandable-panel' },
     { name: 'Expandable section', route: '/expandable-section' },
     { name: 'Font styling', route: '/style#fonts' },
+    { name: 'Formatters', route: '/formatters' },
     { name: 'Form field', route: '/form-field' },
     { name: 'Icon', route: '/icon' },
     { name: 'Inline Editor', route: '/inline-editor' },
