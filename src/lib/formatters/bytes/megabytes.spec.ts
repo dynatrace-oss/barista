@@ -1,7 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { DtUnit } from '../unit';
-import { DtKilobytes } from './kilobytes';
 import { DtMegabytes } from './megabytes';
 
 describe('DtKilobytes', () => {
