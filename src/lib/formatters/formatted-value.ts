@@ -1,17 +1,17 @@
 import { DtRateUnit, DtUnit } from './unit';
 
 export interface SourceData {
-  value: number;
-  unit: DtUnit | string;
-  rateUnit?: DtRateUnit | string;
-  useAbbreviation: boolean;
+  readonly value: number;
+  readonly unit: DtUnit | string;
+  readonly rateUnit?: DtRateUnit | string;
+  readonly useAbbreviation: boolean;
 }
 
 export interface FormattedData {
-  transformedValue?: number;
-  displayValue?: string;
-  displayUnit?: string;
-  displayRateUnit?: string;
+  readonly transformedValue?: number;
+  readonly displayValue?: string;
+  readonly displayUnit?: string;
+  readonly displayRateUnit?: string;
 }
 
 export class DtFormattedValue {

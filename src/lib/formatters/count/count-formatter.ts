@@ -1,6 +1,6 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtRateUnit, DtUnit } from '../unit';
-import { DtFormattedValue, FormattedData, SourceData } from '../formatted-value';
+import { DtFormattedValue, SourceData } from '../formatted-value';
 import { adjustNumber } from '../number-formatter';
 
 export function formatCount(input: number, inputUnit: DtUnit | string = DtUnit.COUNT,
@@ -14,14 +14,13 @@ export function formatCount(input: number, inputUnit: DtUnit | string = DtUnit.C
   };
 
   const value = (coerceNumberProperty(input, NaN));
-  const formattedData: FormattedData = {};
-  if (!isNaN(value)) {
-    formattedData.transformedValue = value;
-    formattedData.displayValue = adjustNumber(value, inputData.useAbbreviation);
-    formattedData.displayUnit = inputUnit !== DtUnit.COUNT
-      ? inputUnit
-      : undefined;
-  }
+  const formattedData = (!isNaN(value))
+    ? {
+        transformedValue: value,
+        displayValue: adjustNumber(value, inputData.useAbbreviation),
+        displayUnit: inputUnit !== DtUnit.COUNT ? inputUnit : undefined,
+      }
+      : {};
 
   return new DtFormattedValue(inputData, formattedData);
 }
