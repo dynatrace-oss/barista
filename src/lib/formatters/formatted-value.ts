@@ -14,9 +14,9 @@ export interface FormattedData {
   readonly displayRateUnit?: string;
 }
 
-export class DtFormattedValue {
+const NO_DATA = '-';
 
-  private readonly NO_DATA = '-';
+export class DtFormattedValue {
 
   constructor(private _sourceData: SourceData, private _formattedData: FormattedData) {}
 
@@ -30,10 +30,10 @@ export class DtFormattedValue {
 
   toString(): string {
     if (this._formattedData.displayValue === undefined) {
-      return this.NO_DATA;
+      return NO_DATA;
     }
 
-    let text = `${this._formattedData.displayValue}`;
+    let text = this._formattedData.displayValue;
     if (this._formattedData.displayUnit !== undefined) {
       text = `${text} ${this._formattedData.displayUnit}`;
     }

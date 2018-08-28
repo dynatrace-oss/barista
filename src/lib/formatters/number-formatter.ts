@@ -11,6 +11,14 @@ const ABBREVIATION_LEVELS = [
 ];
 // tslint:enable:no-magic-numbers
 
+/**
+ *
+ *  Returns adjusted number as a string
+ *
+ * @param value - numeric value to be transformed
+ * @param abbreviate - defines whether to abbreviate big numbers or not (by adding appropriate postfixes); false by default
+ *
+ */
 export function adjustNumber(value: number, abbreviate: boolean = false): string {
   return abbreviate && value >= KILO_MULTIPLIER
     ? abbreviateNumber(value)
@@ -35,7 +43,6 @@ function adjustPrecision(value: number): string {
 function abbreviateNumber(sourceValue: number): string {
 
   let value = sourceValue;
-  let formattedValue: string;
   let postfix = '';
 
   const level = ABBREVIATION_LEVELS.find((m) => m.multiplier <= value);
@@ -44,7 +51,7 @@ function abbreviateNumber(sourceValue: number): string {
     value = value / level.multiplier;
     postfix = level.postfix;
   }
-  formattedValue = adjustPrecision(value);
+  const formattedValue = adjustPrecision(value);
 
   return `${formattedValue}${postfix}`;
 }

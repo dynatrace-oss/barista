@@ -2,8 +2,8 @@
 
 ## Output - FormattedValue
 
-Most formatters return `FormattedValue`.
-`FormattedValue` stores source values and also contains ready-to-display fields, which are described in a table below:
+Most formatters return `DtFormattedValue`.
+`DtFormattedValue` stores source values and also contains ready-to-display fields, which are described in a table below:
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -12,11 +12,9 @@ Most formatters return `FormattedValue`.
 | `displayRateUnit` | `string | undefined` | `undefined` | rate unit representation to be displayed |
 | `toString()` | `string` | `-` | method returning formatted combination of `displayValue`, `displayUnit` and `displayRateUnit`  |
 
-### Standard use (pipe in template)
-Using pipe in template does not require calling `toString()` method.
-
 ### Special uses (e.g. infographics, tiles)
-It is possible to display (and style) value and unit separately - just inject pipe in your `*.ts` file and use ready-to-display fields of returned `FormattedValue` in any way you need.  
+It is possible to display (and style) value and unit separately - just use appropriate formatter function that would return DtFormattedValue.
+You can either call toString() method to get simple string or get its `displayData` which contains ready-to-display fields that can be displayed separately.  
 
 ## Count formatter
 
