@@ -5,12 +5,12 @@ import { KILO_MULTIPLIER } from '../number-formatter';
 import { formatBytes } from './bytes-formatter';
 
 @Pipe({
-  name: 'dtBytes',
+  name: 'dtMegabytes',
 })
-export class DtBytes implements PipeTransform {
+export class DtMegabytes implements PipeTransform {
 
   transform(input: number, factor: number = KILO_MULTIPLIER, inputUnit: DtUnit = DtUnit.BYTES,
             inputRateUnit?: DtRateUnit | string): DtFormattedValue {
-    return formatBytes(input, factor, inputUnit, inputRateUnit);
+    return formatBytes(input, factor, inputUnit, inputRateUnit, DtUnit.MEGA_BYTES);
   }
 }

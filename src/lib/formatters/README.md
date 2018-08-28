@@ -41,7 +41,9 @@ You can either call toString() method to get simple string or get its `displayDa
 
 ## Bytes formatter
 
-`dtBytes` provides a way to display bytes 
+`dtBytes` provides a way to display bytes in auto units
+`dtKilobytes` provides a way to display bytes as kB 
+`dtMegabytes` provides a way to display bytes as MB  
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -49,7 +51,7 @@ You can either call toString() method to get simple string or get its `displayDa
 | `factor` | `number` | | determines whether to use KILO (default) or KIBI multiplier in calculations; does not affect displayed unit |
 | `inputUnit` | `DtUnit` | | input unit, typically defined unit of type DtUnit (DtUnit.BYTES by default) |
 | `inputRateUnit` | `DtRateUnit | string | undefined` | | additional information about possible rate unit (optional); value is used only as a reference in case an additional rate pipe is used |
-| `outputUnit` | `DtUnit | undefined` | | desired output unit, if undefined a reasonable unit is chosen automatically |
+| `outputUnit` | `DtUnit | undefined` | | util function only; desired output unit, if undefined a reasonable unit is chosen automatically |
 
 <docs-source-example example="BytesPipeExample"></docs-source-example>
 
