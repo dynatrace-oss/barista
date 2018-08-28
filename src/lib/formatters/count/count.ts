@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DtUnit } from '../unit';
+import { DtRateUnit, DtUnit } from '../unit';
 import { DtFormattedValue } from '../formatted-value';
 import { formatCount } from './count-formatter';
 
@@ -8,7 +8,7 @@ import { formatCount } from './count-formatter';
 })
 export class DtCount implements PipeTransform {
 
-  transform(input: number, inputUnit: DtUnit | string = DtUnit.COUNT, inputRateUnit?: string): DtFormattedValue {
+  transform(input: number, inputUnit: DtUnit | string = DtUnit.COUNT, inputRateUnit?: DtRateUnit | string): DtFormattedValue {
     return formatCount(input, inputUnit, inputRateUnit);
   }
 }
