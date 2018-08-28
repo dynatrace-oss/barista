@@ -2,7 +2,7 @@ import { adjustNumber } from '../number-formatter';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtFormattedValue } from './../formatted-value';
 import { DtUnit } from './../unit';
-import { FormattedData, SourceData } from '../formatted-value';
+import { SourceData } from '../formatted-value';
 
 export function formatPercent(input: number): DtFormattedValue {
 
@@ -13,12 +13,14 @@ export function formatPercent(input: number): DtFormattedValue {
   };
 
   const value = (coerceNumberProperty(input, NaN));
-  const formattedData: FormattedData = {};
-  if (!isNaN(value)) {
-    formattedData.transformedValue = value;
-    formattedData.displayValue = adjustNumber(value);
-    formattedData.displayUnit = DtUnit.PERCENT;
-  }
+
+  const formattedData = (!isNaN(value))
+    ? {
+      transformedValue: value,
+      displayValue: adjustNumber(value),
+      displayUnit: DtUnit.PERCENT,
+    }
+    : {};
 
   return new DtFormattedValue(inputData, formattedData);
 }

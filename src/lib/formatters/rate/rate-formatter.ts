@@ -1,6 +1,6 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtUnit, DtRateUnit } from '../unit';
-import { DtFormattedValue, FormattedData } from '../formatted-value';
+import { DtFormattedValue } from '../formatted-value';
 import { formatCount } from '../count/count-formatter';
 import { adjustNumber } from '../number-formatter';
 
@@ -18,8 +18,13 @@ export function formatRate(source: DtFormattedValue | number, rateUnit: string):
 function addRateToNumber(input: number, rateUnit: string): DtFormattedValue {
 
   const formattedValue = formatCount(input);
-  const formattedData = formattedValue.displayData;
-  formattedData.displayRateUnit = rateUnit;
+
+  const formattedData = {
+    transformedValue: formattedValue.displayData.transformedValue,
+    displayValue: formattedValue.displayData.displayValue,
+    displayUnit: formattedValue.displayData.displayUnit,
+    displayRateUnit: rateUnit,
+  };
 
   return new DtFormattedValue(formattedValue.sourceData, formattedData);
 }
@@ -34,8 +39,12 @@ function addRateToFormattedValue(input: DtFormattedValue, rateUnit: string): DtF
     return recalculateValue(input, rateUnit);
   }
 
-  const formattedData: FormattedData = input.displayData;
-  formattedData.displayRateUnit = rateUnit;
+  const formattedData = {
+    transformedValue: input.displayData.transformedValue,
+    displayValue: input.displayData.displayValue,
+    displayUnit: input.displayData.displayUnit,
+    displayRateUnit: rateUnit,
+  };
 
   return new DtFormattedValue(input.sourceData, formattedData);
 }
@@ -52,14 +61,22 @@ function recalculateValue(input: DtFormattedValue, rateUnit: DtRateUnit | string
 
 function toRateUnit(input: DtFormattedValue, rateUnit: DtRateUnit | string,
                     fromUnit: DtRateUnit | string, ratio: number): DtFormattedValue {
-  const formattedData = input.displayData;
-  formattedData.displayRateUnit = rateUnit;
 
-  const value = coerceNumberProperty(formattedData.transformedValue, NaN);
-  if (input.sourceData.rateUnit === fromUnit && !isNaN(value)) {
-    formattedData.transformedValue = value * ratio;
-    formattedData.displayValue = adjustNumber(formattedData.transformedValue, input.sourceData.useAbbreviation);
-  }
+  const value = coerceNumberProperty(input.displayData.transformedValue, NaN);
+
+  const formattedData = (input.sourceData.rateUnit === fromUnit && !isNaN(value))
+    ? {
+      transformedValue: value * ratio,
+      displayValue: adjustNumber(value * ratio, input.sourceData.useAbbreviation),
+      displayUnit: input.displayData.displayUnit,
+      displayRateUnit: rateUnit,
+    }
+    : {
+      transformedValue: input.displayData.transformedValue,
+      displayValue: input.displayData.displayValue,
+      displayUnit: input.displayData.displayUnit,
+      displayRateUnit: rateUnit,
+    };
 
   return new DtFormattedValue(input.sourceData, formattedData);
 }
