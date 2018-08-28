@@ -4,6 +4,14 @@ import { DtFormattedValue } from './../formatted-value';
 import { DtUnit } from './../unit';
 import { SourceData } from '../formatted-value';
 
+/**
+ *
+ *  Returns DtFormattedValue
+ *    - toString() method returns basic string to be displayed;
+ *    - displayData contains value, unit and rate unit to be displayed separately;
+ *
+ * @param input - numeric value to be transformed
+ */
 export function formatPercent(input: number): DtFormattedValue {
 
   const inputData: SourceData = {
@@ -12,13 +20,13 @@ export function formatPercent(input: number): DtFormattedValue {
     useAbbreviation: false,
   };
 
-  const value = (coerceNumberProperty(input, NaN));
+  const value = coerceNumberProperty(input, NaN);
 
-  const formattedData = (!isNaN(value))
+  const formattedData = !isNaN(value)
     ? {
       transformedValue: value,
       displayValue: adjustNumber(value),
-      displayUnit: DtUnit.PERCENT,
+      displayUnit: inputData.unit,
     }
     : {};
 
