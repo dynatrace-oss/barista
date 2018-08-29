@@ -6,8 +6,10 @@ import { DtFormattersModule, DtInputModule } from '@dynatrace/angular-components
 import { FormsModule } from '@angular/forms';
 import { PercentExample } from './examples/percent-example';
 import { RateExample } from './examples/rate-example';
+import { BytesExample } from './examples/bytes-example';
 
 export const EXAMPLES = [
+  BytesExample,
   CountExample,
   PercentExample,
   RateExample,
