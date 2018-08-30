@@ -38,7 +38,9 @@ export class DtFormattedValue {
       text = `${text} ${this._formattedData.displayUnit}`;
     }
     if (this._formattedData.displayRateUnit !== undefined) {
-      text = `${text}/${this._formattedData.displayRateUnit}`;
+      text = (this._formattedData.displayUnit !== undefined)
+        ? `${text}/${this._formattedData.displayRateUnit}`
+        : `${text} /${this._formattedData.displayRateUnit}`;
     }
 
     return text;
