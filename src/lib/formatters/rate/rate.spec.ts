@@ -25,17 +25,17 @@ describe('DtRate', () => {
       {
         input: 10000,
         rateUnit: DtRateUnit.PER_MINUTE,
-        output: '10k/min',
+        output: '10k /min',
       },
       {
         input: 20000000,
         rateUnit: DtRateUnit.PER_SECOND,
-        output: '20mil/s',
+        output: '20mil /s',
       },
       {
         input: 3000000000,
         rateUnit: 'request',
-        output: '3bil/request',
+        output: '3bil /request',
       },
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} without unit`, inject([DtRate], (pipe: DtRate) => {
