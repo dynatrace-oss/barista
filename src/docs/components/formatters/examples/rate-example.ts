@@ -13,6 +13,9 @@ import { OriginalClassName } from '../../../core/decorators';
   <span>per second:</span>
   {{ exampleValue | dtCount | dtRate:'s' }}
   <br><br>
+  <span>B/s:</span>
+  {{ exampleValue | dtBytes | dtRate:'s' }}
+  <br><br>
   <span>units type check:</span>
   {{ exampleValue | dtPercent | dtRate:'request' }}
   <br><br>
