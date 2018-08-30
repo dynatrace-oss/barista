@@ -28,7 +28,7 @@ import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core'
       state('collapsed', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
       state('expanded', style({ height: '*', visibility: 'visible' })),
       transition('collapsed => expanded', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)', keyframes([
-        style({ visibility: 'hidden', offset: 0 }),
+        style({ height: '*', visibility: 'hidden', offset: 0.95 }),
         style({ height: '*', visibility: 'visible', offset: 1 }),
       ]))),
       transition('expanded => collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)', keyframes([
