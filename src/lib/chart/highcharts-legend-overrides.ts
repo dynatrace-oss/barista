@@ -1,3 +1,5 @@
+// tslint:disable-next-line: no-any
+declare var require: any;
 // tslint:disable-next-line: no-require-imports no-var-requires
 const highcharts = require('highcharts');
 
@@ -6,7 +8,8 @@ const highcharts = require('highcharts');
  * this function needs to be self executing because uglify
  * drops the execution call when building an app with the --prod flag
  */
-export const configureLegendSymbols = (() => {
+// tslint:disable-next-line: no-void-expression
+export const configureLegendSymbols = ((): void => {
   // tslint:disable-next-line: no-any
   if (!highcharts.seriesTypes) {
     return;
