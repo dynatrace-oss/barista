@@ -31,8 +31,11 @@ export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions[];
 interface DtChartTooltip { (): string | boolean; iswrapped: boolean; }
 
+// tslint:disable-next-line:no-any
+declare const window: any;
 // Override Highcharts prototypes
-configureLegendSymbols();
+// added to the window so uglify does not drop this from the bundle
+window.configureLegendSymbols = configureLegendSymbols;
 
 @Component({
   moduleId: module.id,
