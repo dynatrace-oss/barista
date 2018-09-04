@@ -12,3 +12,5 @@ export * from './bytes/kilobytes';
 export * from './bytes/megabytes';
 export * from './rate/rate-formatter';
 export * from './rate/rate';
+export * from './bits/bits-formatter';
+export * from './bits/bits';

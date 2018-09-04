@@ -4,21 +4,13 @@ import { OriginalClassName } from '../../../core/decorators';
 @Component({
   moduleId: module.id,
   template: `
-  <span>Example value:</span>
-  <input dtInput #value [(ngModel)]="exampleValue"/>
-  <br><br>
-  <span>Formatted string:</span>
-  {{ exampleValue | dtCount }}
-  <br><br>
-  <span>Formatted string:</span>
-  {{ exampleValue | dtCount:'req.' }}
+  <dt-form-field>
+    <dt-label>Value to be transformed</dt-label>
+    <input dtInput #value [(ngModel)]="exampleValue"/>
+  </dt-form-field>
+  <p>Default: {{ exampleValue | dtCount }}</p>
+  <p>With unit: {{ exampleValue | dtCount:'req.' }}</p>
   `,
-  styles: [`
-    span, input {
-      width: 150px;
-      display: inline-block;
-    }
-  `],
 })
 @OriginalClassName('CountPipeExample')
 export class CountExample {
