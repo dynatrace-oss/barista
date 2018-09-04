@@ -1,9 +1,7 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { DtUnit } from '../unit';
 import { DtMegabytes } from './megabytes';
 
-describe('DtKilobytes', () => {
+describe('DtMegabytes', () => {
   interface TestCase {
     input: number;
     factor?: number;
@@ -11,17 +9,13 @@ describe('DtKilobytes', () => {
     output: string;
   }
 
-  beforeEach(() => {
+  let pipe: DtMegabytes;
 
-    TestBed.configureTestingModule({
-      imports: [BrowserModule],
-      providers: [
-        DtMegabytes,
-      ],
-    });
+  beforeEach(() => {
+    pipe = new DtMegabytes();
   });
 
-  describe('Transforming input ', () => {
+  describe('Transforming input', () => {
     [
       {
         input: 1000,
@@ -36,10 +30,10 @@ describe('DtKilobytes', () => {
         output: '1,000 MB',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display result converted to KB (${testCase.output})`, inject([DtMegabytes], (pipe: DtMegabytes) => {
+      it(`should display result converted to MB (${testCase.output})`, () => {
         expect(pipe.transform(testCase.input).toString())
           .toEqual(testCase.output);
-      }));
+      });
     });
   });
 

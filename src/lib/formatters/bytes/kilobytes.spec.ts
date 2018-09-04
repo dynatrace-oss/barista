@@ -1,5 +1,3 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { DtUnit } from '../unit';
 import { DtKilobytes } from './kilobytes';
 
@@ -11,14 +9,10 @@ describe('DtKilobytes', () => {
     output: string;
   }
 
-  beforeEach(() => {
+  let pipe: DtKilobytes;
 
-    TestBed.configureTestingModule({
-      imports: [BrowserModule],
-      providers: [
-        DtKilobytes,
-      ],
-    });
+  beforeEach(() => {
+    pipe = new DtKilobytes();
   });
 
   describe('Transforming input ', () => {
@@ -36,10 +30,10 @@ describe('DtKilobytes', () => {
         output: '100,000 kB',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display result converted to KB (${testCase.output})`, inject([DtKilobytes], (pipe: DtKilobytes) => {
+      it(`should display result converted to KB (${testCase.output})`, () => {
         expect(pipe.transform(testCase.input).toString())
           .toEqual(testCase.output);
-      }));
+      });
     });
   });
 

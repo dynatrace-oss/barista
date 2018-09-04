@@ -4,34 +4,15 @@ import { OriginalClassName } from '../../../core/decorators';
 @Component({
   moduleId: module.id,
   template: `
-  <span>Example value:</span>
-  <input dtInput #value [(ngModel)]="exampleValue"/>
-  <br><br>
-  <span>per request:</span>
-  {{ exampleValue | dtRate:'request' }}
-  <br><br>
-  <span>per second:</span>
-  {{ exampleValue | dtCount | dtRate:'s' }}
-  <br><br>
-  <span>B/s:</span>
-  {{ exampleValue | dtBytes | dtRate:'s' }}
-  <br><br>
-  <span>units type check:</span>
-  {{ exampleValue | dtPercent | dtRate:'request' }}
-  <br><br>
-  <span>per min / per s:</span>
-  {{ exampleValue | dtCount:'count':'min' | dtRate:'s' }}
-  <br><br>
-  <span>per s / per min:</span>
-  {{ exampleValue | dtCount:'count':'s' | dtRate:'min' }}
-  <br><br>
+  <dt-form-field>
+    <dt-label>Value to be transformed</dt-label>
+    <input dtInput #value [(ngModel)]="exampleValue"/>
+  </dt-form-field>
+  <p>per request: {{ exampleValue | dtRate:'request' }}</p>
+  <p>per second: {{ exampleValue | dtCount | dtRate:'s' }}</p>
+  <p>chaining bytes + rate: {{ exampleValue | dtBytes | dtRate:'s' }}</p>
+  <p>chaining count + rate: {{ exampleValue | dtCount | dtRate:'s' }}</p>
   `,
-  styles: [`
-    span, input {
-      width: 150px;
-      display: inline-block;
-    }
-  `],
 })
 @OriginalClassName('RatePipeExample')
 export class RateExample {
