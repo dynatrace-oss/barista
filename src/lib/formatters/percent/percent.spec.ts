@@ -1,5 +1,3 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { DtPercent } from './percent';
 
 describe('DtPercentPipe', () => {
@@ -8,14 +6,10 @@ describe('DtPercentPipe', () => {
     output: string;
   }
 
-  beforeEach(() => {
+  let pipe: DtPercent;
 
-    TestBed.configureTestingModule({
-      imports: [BrowserModule],
-      providers: [
-        DtPercent,
-      ],
-    });
+  beforeEach(() => {
+    pipe = new DtPercent();
   });
 
   describe('Transforming input', () => {
@@ -38,10 +32,10 @@ describe('DtPercentPipe', () => {
         output: '123 %',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} with adjusted precision and % sign`, inject([DtPercent], (pipe: DtPercent) => {
+      it(`should display ${testCase.input} with adjusted precision and % sign`, () => {
         expect(pipe.transform(testCase.input).toString())
           .toEqual(testCase.output);
-      }));
+      });
     });
   });
 

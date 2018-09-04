@@ -4,27 +4,15 @@ import { OriginalClassName } from '../../../core/decorators';
 @Component({
   moduleId: module.id,
   template: `
-  <span>Example value:</span>
-  <input dtInput #value [(ngModel)]="exampleValue"/>
-  <br><br>
-  <span>Formatted string:</span>
-  {{ exampleValue | dtBytes }}
-  <br><br>
-  <span>1024:</span>
-  {{ exampleValue | dtBytes:1024 }}
-  <br><br>
-  <span>kB:</span>
-  {{ exampleValue | dtKilobytes }}
-  <br><br>
-  <span>MB:</span>
-  {{ exampleValue | dtMegabytes }}
+  <dt-form-field>
+    <dt-label>Value to be transformed</dt-label>
+    <input dtInput #value [(ngModel)]="exampleValue"/>
+  </dt-form-field>
+  <p>Default: {{ exampleValue | dtBytes }}</p>
+  <p>Factor 1024: {{ exampleValue | dtBytes: 1024 }}</p>
+  <p>kB: {{ exampleValue | dtKilobytes }}</p>
+  <p>MB: {{ exampleValue | dtMegabytes }}</p>
   `,
-  styles: [`
-    span, input {
-      width: 150px;
-      display: inline-block;
-    }
-  `],
 })
 @OriginalClassName('BytesPipeExample')
 export class BytesExample {

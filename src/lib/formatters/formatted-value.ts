@@ -1,7 +1,7 @@
 import { DtRateUnit, DtUnit } from './unit';
 
 export interface SourceData {
-  readonly value: number;
+  readonly input: number;
   readonly unit: DtUnit | string;
   readonly rateUnit?: DtRateUnit | string;
   readonly useAbbreviation: boolean;
@@ -16,18 +16,24 @@ export interface FormattedData {
 
 const NO_DATA = '-';
 
+/**
+ * Class used in formatting functions and pipes
+ */
 export class DtFormattedValue {
 
   constructor(private _sourceData: SourceData, private _formattedData: FormattedData) {}
 
+  /** Source data containing value, unit, rate unit and abbreviation settings */
   get sourceData(): SourceData {
     return this._sourceData;
   }
 
+  /** Display data containing the transformed values, units and rate units */
   get displayData(): FormattedData {
     return this._formattedData;
   }
 
+  /** @return the string as a combination of the display data */
   toString(): string {
     if (this._formattedData.displayValue === undefined) {
       return NO_DATA;

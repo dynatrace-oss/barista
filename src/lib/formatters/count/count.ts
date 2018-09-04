@@ -7,8 +7,11 @@ import { formatCount } from './count-formatter';
   name: 'dtCount',
 })
 export class DtCount implements PipeTransform {
-
-  transform(input: number, inputUnit: DtUnit | string = DtUnit.COUNT, inputRateUnit?: DtRateUnit | string): DtFormattedValue {
-    return formatCount(input, inputUnit, inputRateUnit);
+  /**
+   * @param input - The number to be formatted as an abbreviation
+   * @param inputUnit - The unit for the input number. Default is DtUnit.COUNT
+   */
+  transform(input: number, inputUnit: DtUnit | string = DtUnit.COUNT): DtFormattedValue {
+    return formatCount(input, inputUnit);
   }
 }

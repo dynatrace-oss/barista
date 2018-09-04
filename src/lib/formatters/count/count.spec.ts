@@ -1,5 +1,3 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { DtCount } from './count';
 import { DtUnit } from '../unit';
 
@@ -10,14 +8,10 @@ describe('DtCount', () => {
     output: string;
   }
 
-  beforeEach(() => {
+  let pipe: DtCount;
 
-    TestBed.configureTestingModule({
-      imports: [BrowserModule],
-      providers: [
-        DtCount,
-      ],
-    });
+  beforeEach(() => {
+    pipe = new DtCount();
   });
 
   describe('Transforming input with default input unit', () => {
@@ -38,10 +32,10 @@ describe('DtCount', () => {
         output: '3bil',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} without unit`, inject([DtCount], (pipe: DtCount) => {
+      it(`should display ${testCase.input} without unit`, () => {
         expect(pipe.transform(testCase.input, testCase.inputUnit).toString())
           .toEqual(testCase.output);
-      }));
+      });
     });
   });
 
@@ -63,10 +57,10 @@ describe('DtCount', () => {
         output: '3bil u.',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} together with custom unit`, inject([DtCount], (pipe: DtCount) => {
+      it(`should display ${testCase.input} together with custom unit`, () => {
         expect(pipe.transform(testCase.input, testCase.inputUnit).toString())
           .toEqual(testCase.output);
-      }));
+      });
     });
   });
 

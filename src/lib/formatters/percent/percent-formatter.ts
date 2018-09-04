@@ -5,17 +5,14 @@ import { DtUnit } from './../unit';
 import { SourceData } from '../formatted-value';
 
 /**
- *
- *  Returns DtFormattedValue
- *    - toString() method returns basic string to be displayed;
- *    - displayData contains value, unit and rate unit to be displayed separately;
+ * Util function that adds percent formatting to any number
  *
  * @param input - numeric value to be transformed
  */
 export function formatPercent(input: number): DtFormattedValue {
 
   const inputData: SourceData = {
-    value: input,
+    input,
     unit: DtUnit.PERCENT,
     useAbbreviation: false,
   };
