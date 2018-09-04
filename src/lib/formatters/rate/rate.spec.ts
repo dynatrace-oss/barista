@@ -1,77 +1,108 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { DtRateUnit } from '../unit';
 import { DtRate } from './rate';
 import { DtBytes } from '../bytes/bytes';
 
-describe('DtRate', () => {
+fdescribe('DtRate', () => {
   interface TestCase {
     input: number;
     rateUnit: DtRateUnit | string;
+    inputRateUnit?: DtRateUnit;
     output: string;
   }
 
-  beforeEach(() => {
+  let ratePipe: DtRate;
+  let bytePipe: DtBytes;
 
-    TestBed.configureTestingModule({
-      imports: [BrowserModule],
-      providers: [
-        DtRate,
-        DtBytes,
-      ],
-    });
+  beforeEach(() => {
+    ratePipe = new DtRate();
+    bytePipe = new DtBytes();
   });
 
   describe('Transforming input of type number', () => {
     [
       {
-        input: 10000,
+        input: 10,
         rateUnit: DtRateUnit.PER_MINUTE,
-        output: '10k /min',
+        output: '10 /min',
       },
       {
-        input: 20000000,
+        input: 200,
         rateUnit: DtRateUnit.PER_SECOND,
-        output: '20mil /s',
+        output: '200 /s',
       },
       {
-        input: 3000000000,
+        input: 3000,
         rateUnit: 'request',
-        output: '3bil /request',
+        output: '3k /request',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} without unit`, inject([DtRate], (pipe: DtRate) => {
-        expect(pipe.transform(testCase.input, testCase.rateUnit).toString())
+      it(`should display ${testCase.input} without unit`, () => {
+        expect(ratePipe.transform(testCase.input, testCase.rateUnit).toString())
           .toEqual(testCase.output);
-      }));
+      });
     });
   });
 
   describe('Transforming input of type DtFormattedValue', () => {
     [
       {
-        input: 10000,
+        input: 10,
         rateUnit: DtRateUnit.PER_MINUTE,
-        output: '10 kB/min',
+        output: '10 B/min',
       },
       {
-        input: 20000000,
+        input: 200,
         rateUnit: DtRateUnit.PER_SECOND,
-        output: '20 MB/s',
+        output: '200 B/s',
       },
       {
-        input: 3000000000,
+        input: 3000,
         rateUnit: 'request',
-        output: '3 GB/request',
+        output: '3k B/request',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} orignal unit together with rate`,
-         inject([DtRate, DtBytes], (pipe: DtRate, otherPipe: DtBytes) => {
-        const formattedValue = otherPipe.transform(testCase.input);
-        expect(pipe.transform(formattedValue, testCase.rateUnit).toString())
+      it(`should display ${testCase.input} orignal unit together with rate`, () => {
+        const formattedValue = bytePipe.transform(testCase.input);
+        expect(ratePipe.transform(formattedValue, testCase.rateUnit).toString())
           .toEqual(testCase.output);
-      }));
+      });
     });
+
+  });
+
+  describe('converting rates', () => {
+    [
+      {
+        input: 60,
+        rateUnit: DtRateUnit.PER_SECOND,
+        inputRateUnit: DtRateUnit.PER_MINUTE,
+        output: '1 /s',
+      },
+      {
+        input: 1,
+        rateUnit: DtRateUnit.PER_DAY,
+        inputRateUnit: DtRateUnit.PER_MINUTE,
+        output: '1.44k /d',
+      },
+      {
+        input: 2,
+        rateUnit: 'request',
+        inputRateUnit: DtRateUnit.PER_DAY,
+        output: '2 /request',
+      },
+      {
+        input: 2,
+        rateUnit: DtRateUnit.PER_WEEK,
+        inputRateUnit: DtRateUnit.PER_DAY,
+        output: '14 /w',
+      },
+    ].forEach((testCase: TestCase) => {
+      it(`should display ${testCase.input} orignal unit together with rate`, () => {
+        expect(ratePipe.transform(testCase.input, testCase.rateUnit, testCase.inputRateUnit).toString())
+          .toEqual(testCase.output);
+      });
+    });
+
   });
 
 });

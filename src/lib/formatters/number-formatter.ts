@@ -1,8 +1,15 @@
 import { formatNumber } from '@angular/common';
+import { DtUnit } from './unit';
 
 // tslint:disable:no-magic-numbers
 export const KILO_MULTIPLIER = 1000;
 export const KIBI_MULTIPLIER = 1024;
+
+export interface DtNumberFormatOptions {
+  inputUnit: DtUnit | string;
+  outputUnit?: DtUnit | string;
+  factor: number;
+}
 
 const ABBREVIATION_LEVELS = [
   { multiplier: Math.pow(KILO_MULTIPLIER, 3), postfix: 'bil'},
@@ -12,8 +19,8 @@ const ABBREVIATION_LEVELS = [
 // tslint:enable:no-magic-numbers
 
 /**
- *
- *  Returns adjusted number as a string
+ * Helper function that adjusts a given number by abbreviating or adjusting the precision
+ * Returns adjusted number as a string
  *
  * @param value - numeric value to be transformed
  * @param abbreviate - defines whether to abbreviate big numbers or not (by adding appropriate postfixes); false by default

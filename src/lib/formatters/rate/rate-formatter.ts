@@ -1,95 +1,75 @@
-import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtUnit, DtRateUnit } from '../unit';
-import { DtFormattedValue } from '../formatted-value';
+import { DtFormattedValue, FormattedData } from '../formatted-value';
 import { formatCount } from '../count/count-formatter';
-import { adjustNumber } from '../number-formatter';
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
-
-const LOG: DtLogger = DtLoggerFactory.create('rate-formatter');
-const TIME_CONVERSION_FACTOR = 60;
-const notAcceptedUnits = new Set()
-  .add(DtUnit.PERCENT);
 
 /**
+ * Util function that adds rate formatting
  *
- *  Returns DtFormattedValue
- *    - toString() method returns basic string to be displayed;
- *    - displayData contains value, unit and rate unit to be displayed separately;
- *
- * @param input - numeric value to be transformed
+ * @param input - numeric value or DtFormattedValue to be transformed
  * @param rateUnit - rate unit connected and displayed with the value,
  *    typically defined rate unit of type DtRateUnit, custom strings are also allowed
  */
-export function formatRate(input: DtFormattedValue | number, rateUnit: DtRateUnit | string): DtFormattedValue {
+export function formatRate(
+  input: DtFormattedValue | number,
+  rateUnit: DtRateUnit | string,
+  inputRate?: DtRateUnit
+): DtFormattedValue {
+  const sourceData = input instanceof DtFormattedValue ?
+    input.sourceData :
+    { input, unit: DtUnit.COUNT, useAbbreviation: true };
+  let transformedValue = sourceData.input;
+  if (inputRate && isDtRateUnit(rateUnit)) {
+    transformedValue = convertRates(sourceData.input, inputRate, rateUnit as DtRateUnit);
+  }
 
-  return (input instanceof DtFormattedValue)
-    ? addRateToFormattedValue(input, rateUnit)
-    : addRateToNumber(input, rateUnit);
-}
-
-function addRateToNumber(input: number, rateUnit: string): DtFormattedValue {
-
-  const formattedValue = formatCount(input);
-
-  const formattedData = {
-    transformedValue: formattedValue.displayData.transformedValue,
-    displayValue: formattedValue.displayData.displayValue,
-    displayUnit: formattedValue.displayData.displayUnit,
+  const formattedData: FormattedData = {
+    transformedValue,
     displayRateUnit: rateUnit,
+    displayUnit: sourceData.unit !== DtUnit.COUNT ? sourceData.unit : undefined,
+    displayValue: formatCount(transformedValue).displayData.displayValue,
   };
 
-  return new DtFormattedValue(formattedValue.sourceData, formattedData);
+  return new DtFormattedValue(sourceData, formattedData);
 }
 
-function addRateToFormattedValue(input: DtFormattedValue, rateUnit: string): DtFormattedValue {
-  if (notAcceptedUnits.has(input.sourceData.unit)) {
-    LOG.error(`Formatting not possible for combination of units: ${input.sourceData.unit}/${rateUnit}`, input);
-    return input;
+export function getFactorToMs(rate: DtRateUnit): number {
+  let factor = 1;
+
+  if (rate === DtRateUnit.PER_MILLISECOND) {
+    return factor;
   }
-
-  const sourceRateUnit = input.sourceData.rateUnit;
-  if (sourceRateUnit !== undefined && sourceRateUnit !== rateUnit) {
-    return recalculateValue(input, rateUnit);
+  factor = factor * 1000;
+  if (rate === DtRateUnit.PER_SECOND) {
+    return factor;
   }
-
-  const formattedData = {
-    transformedValue: input.displayData.transformedValue,
-    displayValue: input.displayData.displayValue,
-    displayUnit: input.displayData.displayUnit,
-    displayRateUnit: rateUnit,
-  };
-
-  return new DtFormattedValue(input.sourceData, formattedData);
+  factor = factor * 60;
+  if (rate === DtRateUnit.PER_MINUTE) {
+    return factor;
+  }
+  factor = factor * 60;
+  if (rate === DtRateUnit.PER_HOUR) {
+    return factor;
+  }
+  factor = factor * 24;
+  if (rate === DtRateUnit.PER_DAY) {
+    return factor;
+  }
+  factor = factor * 7;
+  if (rate === DtRateUnit.PER_WEEK) {
+    return factor;
+  }
+  factor = factor * 30;
+  if (rate === DtRateUnit.PER_MONTH) {
+    return factor;
+  }
+  return factor * 12;
 }
 
-function recalculateValue(input: DtFormattedValue, rateUnit: DtRateUnit | string): DtFormattedValue {
-  if (rateUnit === DtRateUnit.PER_SECOND) {
-    return toRateUnit(input, rateUnit, DtRateUnit.PER_MINUTE, TIME_CONVERSION_FACTOR);
-  } else if (rateUnit === DtRateUnit.PER_MINUTE) {
-    return toRateUnit(input, rateUnit, DtRateUnit.PER_SECOND, 1 / TIME_CONVERSION_FACTOR);
-  }
-
-  return input;
+export function convertRates(input: number, fromRate: DtRateUnit, toRate: DtRateUnit): number {
+  const fromInMs = input / getFactorToMs(fromRate);
+  return fromInMs * getFactorToMs(toRate);
 }
 
-function toRateUnit(input: DtFormattedValue, rateUnit: DtRateUnit | string,
-                    fromUnit: DtRateUnit | string, ratio: number): DtFormattedValue {
-
-  const value = coerceNumberProperty(input.displayData.transformedValue, NaN);
-
-  const formattedData = (input.sourceData.rateUnit === fromUnit && !isNaN(value))
-    ? {
-      transformedValue: value * ratio,
-      displayValue: adjustNumber(value * ratio, input.sourceData.useAbbreviation),
-      displayUnit: input.displayData.displayUnit,
-      displayRateUnit: rateUnit,
-    }
-    : {
-      transformedValue: input.displayData.transformedValue,
-      displayValue: input.displayData.displayValue,
-      displayUnit: input.displayData.displayUnit,
-      displayRateUnit: rateUnit,
-    };
-
-  return new DtFormattedValue(input.sourceData, formattedData);
+function isDtRateUnit(unit: DtRateUnit | string): boolean {
+  return Object.values(DtRateUnit).includes(unit);
 }

@@ -2,17 +2,19 @@ import { NgModule } from '@angular/core';
 import { COMPONENT_EXAMPLES, UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { CountExample } from './examples/count-example';
-import { DtFormattersModule, DtInputModule } from '@dynatrace/angular-components';
+import { DtFormattersModule, DtInputModule, DtFormFieldModule } from '@dynatrace/angular-components';
 import { FormsModule } from '@angular/forms';
 import { PercentExample } from './examples/percent-example';
 import { RateExample } from './examples/rate-example';
 import { BytesExample } from './examples/bytes-example';
+import { BitsExample } from './examples/bits-example';
 
 export const EXAMPLES = [
   BytesExample,
   CountExample,
   PercentExample,
   RateExample,
+  BitsExample,
 ];
 
 @NgModule({
@@ -22,6 +24,7 @@ export const EXAMPLES = [
     FormsModule,
     UiModule,
     DtFormattersModule,
+    DtFormFieldModule,
   ],
   declarations: [
     ...EXAMPLES,

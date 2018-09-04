@@ -6,10 +6,12 @@ import { DtRate } from './rate/rate';
 import { DtBytes } from './bytes/bytes';
 import { DtKilobytes } from './bytes/kilobytes';
 import { DtMegabytes } from './bytes/megabytes';
+import { DtBits } from './bits/bits';
 
 @NgModule({
   declarations: [
     DtBytes,
+    DtBits,
     DtKilobytes,
     DtMegabytes,
     DtCount,
@@ -18,6 +20,7 @@ import { DtMegabytes } from './bytes/megabytes';
   ],
   exports: [
     DtBytes,
+    DtBits,
     DtKilobytes,
     DtMegabytes,
     DtCount,
