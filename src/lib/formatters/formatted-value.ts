@@ -4,7 +4,6 @@ export interface SourceData {
   readonly input: number;
   readonly unit: DtUnit | string;
   readonly rateUnit?: DtRateUnit | string;
-  readonly useAbbreviation: boolean;
 }
 
 export interface FormattedData {

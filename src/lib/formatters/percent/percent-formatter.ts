@@ -14,7 +14,6 @@ export function formatPercent(input: number): DtFormattedValue {
   const inputData: SourceData = {
     input,
     unit: DtUnit.PERCENT,
-    useAbbreviation: false,
   };
 
   const value = coerceNumberProperty(input, NaN);
