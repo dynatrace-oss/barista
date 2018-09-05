@@ -11,9 +11,10 @@ import { DtRateUnit } from '@dynatrace/angular-components';
   </dt-form-field>
   <!--<p>per request: {{ exampleValue | dtRate:'request' }}</p>
   <p>per second: {{ exampleValue | dtCount | dtRate:'s' }}</p>-->
+  <p>Chaining rate + bytes: {{ exampleValue | dtRate:'s' | dtBytes }}</p>
   <p>Chaining bytes + rate: {{ exampleValue | dtBytes | dtRate:'s' }}</p>
 
-  <!--<p>Convert between 2 rates (input is 'ms' but display in per 's'): {{ exampleValue | dtRate:'s':'ms' }}</p>
+  <p>Convert between 2 rates (input is 'ms' but display in per 's'): {{ exampleValue | dtRate:'s':'ms' }}</p>
   <dt-form-field>
     <dt-label>Chaning rate with a binding:</dt-label>
     <dt-select [(ngModel)]="rate">
@@ -27,7 +28,7 @@ import { DtRateUnit } from '@dynatrace/angular-components';
       <dt-option value="y">Per year</dt-option>
     </dt-select>
   </dt-form-field>
-  <p>per {{rate}}: {{ exampleValue | dtCount | dtRate: rate }}</p>-->
+  <p>per {{rate}}: {{ exampleValue | dtCount | dtRate: rate }}</p>
   `,
 })
 @OriginalClassName('RatePipeExample')

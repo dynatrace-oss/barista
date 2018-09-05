@@ -1,9 +1,8 @@
-import { DtRateUnit, DtUnit } from './unit';
+import { DtUnit } from './unit';
 
 export interface SourceData {
   readonly input: number;
   readonly unit: DtUnit | string;
-  readonly rateUnit?: DtRateUnit | string;
 }
 
 export interface FormattedData {
@@ -22,7 +21,7 @@ export class DtFormattedValue {
 
   constructor(private _sourceData: SourceData, private _formattedData: FormattedData) {}
 
-  /** Source data containing value, unit, rate unit and abbreviation settings */
+  /** Source data containing value, unit, rate unit */
   get sourceData(): SourceData {
     return this._sourceData;
   }

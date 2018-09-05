@@ -12,8 +12,8 @@ export class DtRate implements PipeTransform {
    * @param input - The number or DtFomrattedValue to be formatted with a rate
    * @param rateUnit - The unit for the rate of the input
    */
-  transform(input: DtFormattedValue | number, rateUnit: DtRateUnit | string, inputRate?: DtRateUnit): DtFormattedValue {
-    return formatRate(input, rateUnit, inputRate);
+  transform(input: DtFormattedValue | number, rateUnit: DtRateUnit | string): DtFormattedValue {
+    return formatRate(input, rateUnit);
   }
 
 }

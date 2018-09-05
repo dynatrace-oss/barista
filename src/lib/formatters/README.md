@@ -32,7 +32,7 @@ The `dtMegabytes` pipe provides a way to display bytes as MB
 
 ### Rate 
 
-The `dtRate` pipe provides a way to add a rate info to the value - Note: the dtRate pipe should always be the last in the chain.
+The `dtRate` pipe provides a way to add a rate info to the value
 
 <docs-source-example example="RatePipeExample"></docs-source-example>
 

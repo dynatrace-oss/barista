@@ -29,7 +29,7 @@ const KIBI_CONVERSIONS = [
 /**
  * Util function that formats given number as bytes
  */
-export function formatBytes(input: number, options?: DtNumberFormatOptions): DtFormattedValue {
+export function formatBytes(input: DtFormattedValue | number, options?: DtNumberFormatOptions): DtFormattedValue {
 
   const mergedOptions: DtNumberFormatOptions = { ...DEFAULT_BYTES_OPTIONS, ...options };
   const conversions = getConversions(mergedOptions.factor);
