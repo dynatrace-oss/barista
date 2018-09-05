@@ -7,26 +7,29 @@ import { formatCount } from '../count/count-formatter';
  *
  * @param input - numeric value or DtFormattedValue to be transformed
  * @param rateUnit - rate unit connected and displayed with the value,
- *    typically defined rate unit of type DtRateUnit, custom strings are also allowed
+ *  typically defined rate unit of type DtRateUnit, custom strings are also allowed
+ * @param inputRate - rate for the input - used to convert to rateUnit
+ *  e.g. if input value is per second but you want to display per millisecond
  */
 export function formatRate(
   input: DtFormattedValue | number,
   rateUnit: DtRateUnit | string,
   inputRate?: DtRateUnit
 ): DtFormattedValue {
-  const sourceData = input instanceof DtFormattedValue ?
-    input.sourceData :
-    { input, unit: DtUnit.COUNT, useAbbreviation: true };
-  let transformedValue = sourceData.input;
-  if (inputRate && isDtRateUnit(rateUnit)) {
-    transformedValue = convertRates(sourceData.input, inputRate, rateUnit as DtRateUnit);
-  }
 
+  const sourceData = input instanceof DtFormattedValue ?
+  input.sourceData :
+  { input, unit: DtUnit.COUNT };
+  let transformedValue = sourceData.input;
+
+  if (inputRate && isDtRateUnit(rateUnit) && transformedValue !== undefined) {
+    transformedValue = convertRates(transformedValue, inputRate, rateUnit as DtRateUnit);
+  }
   const formattedData: FormattedData = {
     transformedValue,
-    displayRateUnit: rateUnit,
-    displayUnit: sourceData.unit !== DtUnit.COUNT ? sourceData.unit : undefined,
-    displayValue: formatCount(transformedValue).displayData.displayValue,
+    displayRateUnit: !isNaN(transformedValue) ? rateUnit : undefined,
+    displayUnit: sourceData.unit !== DtUnit.COUNT && !isNaN(transformedValue) ? sourceData.unit : undefined,
+    displayValue: transformedValue !== undefined ? transformedValue.toString() : undefined,
   };
 
   return new DtFormattedValue(sourceData, formattedData);

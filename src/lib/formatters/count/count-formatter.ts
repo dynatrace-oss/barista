@@ -15,7 +15,6 @@ export function formatCount(input: number, inputUnit: DtUnit | string = DtUnit.C
   const inputData: SourceData = {
     input,
     unit: inputUnit,
-    useAbbreviation: true,
   };
 
   const value = coerceNumberProperty(input, NaN);

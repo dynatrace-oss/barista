@@ -33,7 +33,7 @@ fdescribe('DtRate', () => {
       {
         input: 3000,
         rateUnit: 'request',
-        output: '3k /request',
+        output: '3000 /request',
       },
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} without unit`, () => {
@@ -58,7 +58,7 @@ fdescribe('DtRate', () => {
       {
         input: 3000,
         rateUnit: 'request',
-        output: '3k B/request',
+        output: '3000 B/request',
       },
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} orignal unit together with rate`, () => {
@@ -82,7 +82,7 @@ fdescribe('DtRate', () => {
         input: 1,
         rateUnit: DtRateUnit.PER_DAY,
         inputRateUnit: DtRateUnit.PER_MINUTE,
-        output: '1.44k /d',
+        output: '1440 /d',
       },
       {
         input: 2,

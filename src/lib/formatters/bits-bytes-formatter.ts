@@ -17,7 +17,6 @@ export function formatToBitsBytes(
   const inputData: SourceData = {
     input,
     unit: options.inputUnit,
-    useAbbreviation: false,
   };
 
   let formattedData: FormattedData = {};

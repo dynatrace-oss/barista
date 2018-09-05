@@ -2,6 +2,8 @@
 
 ## Pipes
 
+We provide various different pipes for formatting input within your templates. Every pipe has a single responsibility and they can be chained together to achieve combined formats.
+
 ### Count
 
 The `dtCount` pipe provides a way to display numbers in common way, abbreviating big numbers and adjusting precision
@@ -30,7 +32,7 @@ The `dtMegabytes` pipe provides a way to display bytes as MB
 
 ### Rate 
 
-The `dtRate` pipe provides a way to add a rate info to the value.
+The `dtRate` pipe provides a way to add a rate info to the value - Note: the dtRate pipe should always be the last in the chain.
 
 <docs-source-example example="RatePipeExample"></docs-source-example>
 
@@ -46,7 +48,7 @@ These functions return `DtFormattedValue`.
 | `displayValue` | `string | undefined` | `undefined` | value to be displayed |
 | `displayUnit` | `string | undefined` | `undefined` | unit representation to be displayed |
 | `displayRateUnit` | `string | undefined` | `undefined` | rate unit representation to be displayed |
-| `toString()` | `string` | `-` | method returning formatted combination of `displayValue`, `displayUnit` and `displayRateUnit`  |
+| `toString()` |  | `-` | method returning formatted combination of `displayValue`, `displayUnit` and `displayRateUnit`  |
 
 ### Count
 
@@ -78,6 +80,7 @@ The function takes the following parameters:
 You can specify the following properties on your options:
 
 | Name | Type | Default | Description |
+| --- | --- | --- | --- |
 | `factor` | `number` | 1000 | determines whether to use KILO (default) or KIBI multiplier in calculations; does not affect displayed unit |
 | `inputUnit` | `DtUnit` | `DtUnit.Bits` | input unit, typically defined unit of type DtUnit (DtUnit.BITS by default) |
 | `outputUnit` | `DtUnit` | | defines the unit used in the output. e.g. if you pass 10 000 000 bits and choose kilobits as the outputUnit - 10 000 kbits |
