@@ -11,7 +11,7 @@ export class DtCount implements PipeTransform {
    * @param input - The number to be formatted as an abbreviation
    * @param inputUnit - The unit for the input number. Default is DtUnit.COUNT
    */
-  transform(input: number, inputUnit: DtUnit | string = DtUnit.COUNT): DtFormattedValue {
+  transform(input: DtFormattedValue | number, inputUnit: DtUnit | string = DtUnit.COUNT): DtFormattedValue {
     return formatCount(input, inputUnit);
   }
 }

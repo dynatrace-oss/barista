@@ -1,5 +1,5 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { DtRateUnit, DtUnit } from '../unit';
+import { DtUnit } from '../unit';
 import { DtFormattedValue, SourceData } from '../formatted-value';
 import { adjustNumber } from '../number-formatter';
 
@@ -10,21 +10,22 @@ import { adjustNumber } from '../number-formatter';
  * @param inputUnit - input unit, typically defined unit of type DtUnit (DtUnit.COUNT by default), custom strings are also allowed
  *    value is used only as a reference in case an additional rate pipe is used
  */
-export function formatCount(input: number, inputUnit: DtUnit | string = DtUnit.COUNT): DtFormattedValue {
+export function formatCount(input: DtFormattedValue | number, inputUnit: DtUnit | string = DtUnit.COUNT): DtFormattedValue {
 
-  const inputData: SourceData = {
+  const sourceData: SourceData = input instanceof DtFormattedValue ? input.sourceData : {
     input,
     unit: inputUnit,
   };
 
-  const value = coerceNumberProperty(input, NaN);
+  const value = coerceNumberProperty(sourceData.input, NaN);
   const formattedData = !isNaN(value)
     ? {
         transformedValue: value,
         displayValue: adjustNumber(value, true),
         displayUnit: inputUnit !== DtUnit.COUNT ? inputUnit : undefined,
+        displayRateUnit: input instanceof DtFormattedValue ? input.displayData.displayRateUnit : undefined,
       }
       : {};
 
-  return new DtFormattedValue(inputData, formattedData);
+  return new DtFormattedValue(sourceData, formattedData);
 }

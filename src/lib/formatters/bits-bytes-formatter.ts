@@ -10,19 +10,20 @@ export interface DtUnitConversion {
 
 /** Util function used to format a number to either Bits or Bytes */
 export function formatToBitsBytes(
-  input: number,
+  input: DtFormattedValue | number,
   conversions: DtUnitConversion[],
   options: DtNumberFormatOptions
 ): DtFormattedValue {
-  const inputData: SourceData = {
+
+  const sourceData: SourceData = input instanceof DtFormattedValue ? input.sourceData : {
     input,
     unit: options.inputUnit,
   };
 
   let formattedData: FormattedData = {};
-  const value = coerceNumberProperty(inputData.input, NaN);
+  const value = coerceNumberProperty(sourceData.input, NaN);
   if (!isNaN(value)) {
-    const valueInUnit = convertToUnit(value, conversions, inputData.unit);
+    const valueInUnit = convertToUnit(value, conversions, sourceData.unit);
     const conversion = options.outputUnit
       ? getFixedUnitConversion(conversions, options.outputUnit)
       : getAutoUnitConversion(conversions, valueInUnit);
@@ -33,10 +34,11 @@ export function formatToBitsBytes(
       transformedValue: convertedValue,
       displayValue: adjustNumber(convertedValue),
       displayUnit: convertedUnit,
+      displayRateUnit: input instanceof DtFormattedValue ? input.displayData.displayRateUnit : undefined,
     };
   }
 
-  return new DtFormattedValue(inputData, formattedData);
+  return new DtFormattedValue(sourceData, formattedData);
 }
 
 /** Converts number to given unit by applying the corect conversionrate */
