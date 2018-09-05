@@ -15,7 +15,7 @@ export class DtBits implements PipeTransform {
    * @param inputUnit - The unit for the input number. Default is DtUnit.BITS
    */
   transform(
-    input: number,
+    input: DtFormattedValue | number,
     factor: number = KILO_MULTIPLIER,
     inputUnit: DtUnit = DtUnit.BITS
   ): DtFormattedValue {

@@ -31,7 +31,7 @@ const KIBI_CONVERSIONS = [
  * @param input - value that gets formatted
  * @param [options] - options that allow more granular formatting
  */
-export function formatBits(input: number, options?: DtNumberFormatOptions): DtFormattedValue {
+export function formatBits(input: DtFormattedValue | number, options?: DtNumberFormatOptions): DtFormattedValue {
 
   const mergedOptions: DtNumberFormatOptions = { ...DEFAULT_BITS_OPTIONS, ...options };
   const conversions = getConversions(mergedOptions.factor);
