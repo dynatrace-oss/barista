@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { COMPONENT_EXAMPLES, UiModule } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { CountExample } from './examples/count-example';
-import { DtFormattersModule, DtInputModule, DtFormFieldModule } from '@dynatrace/angular-components';
+import { DtFormattersModule, DtInputModule, DtFormFieldModule, DtSelectModule } from '@dynatrace/angular-components';
 import { FormsModule } from '@angular/forms';
 import { PercentExample } from './examples/percent-example';
 import { RateExample } from './examples/rate-example';
@@ -25,6 +25,7 @@ export const EXAMPLES = [
     UiModule,
     DtFormattersModule,
     DtFormFieldModule,
+    DtSelectModule,
   ],
   declarations: [
     ...EXAMPLES,
