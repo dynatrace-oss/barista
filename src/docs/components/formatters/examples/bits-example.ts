@@ -8,9 +8,15 @@ import { OriginalClassName } from '../../../core/decorators';
     <dt-label>Value to be transformed</dt-label>
     <input dtInput #value [(ngModel)]="exampleValue"/>
   </dt-form-field>
-  <p>Default: {{ exampleValue | dtPercent }}</p>`,
+  <p>
+    Default: {{ exampleValue | dtBits }}
+  </p>
+  <p>
+    Factor 1024: {{ exampleValue | dtBits: 1024 }}
+  </p>
+  `,
 })
-@OriginalClassName('PercentPipeExample')
-export class PercentExample {
-  exampleValue: number;
+@OriginalClassName('BitsPipeExample')
+export class BitsExample {
+  exampleValue: string;
 }

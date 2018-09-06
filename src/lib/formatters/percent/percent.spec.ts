@@ -1,6 +1,5 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { DtPercent } from './percent';
+import { NO_DATA } from '../formatted-value';
 
 describe('DtPercentPipe', () => {
   interface TestCase {
@@ -8,14 +7,10 @@ describe('DtPercentPipe', () => {
     output: string;
   }
 
-  beforeEach(() => {
+  let pipe: DtPercent;
 
-    TestBed.configureTestingModule({
-      imports: [BrowserModule],
-      providers: [
-        DtPercent,
-      ],
-    });
+  beforeEach(() => {
+    pipe = new DtPercent();
   });
 
   describe('Transforming input', () => {
@@ -38,11 +33,42 @@ describe('DtPercentPipe', () => {
         output: '123 %',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} with adjusted precision and % sign`, inject([DtPercent], (pipe: DtPercent) => {
+      it(`should display ${testCase.input} with adjusted precision and % sign`, () => {
         expect(pipe.transform(testCase.input).toString())
           .toEqual(testCase.output);
-      }));
+      });
+    });
+  });
+  describe('Empty values / Invalid values', () => {
+    it(`should return '${NO_DATA}' for empty values`, () => {
+      expect(pipe.transform('')).toEqual(NO_DATA);
+      expect(pipe.transform(null)).toEqual(NO_DATA);
+      expect(pipe.transform(undefined)).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
+      class A { }
+      expect(pipe.transform({})).toEqual(NO_DATA);
+      expect(pipe.transform([])).toEqual(NO_DATA);
+      expect(pipe.transform(() => {})).toEqual(NO_DATA);
+      expect(pipe.transform(A)).toEqual(NO_DATA);
+      expect(pipe.transform(new A())).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for combined strings`, () => {
+      expect(pipe.transform('123test').toString()).toEqual(NO_DATA);
     });
   });
 
+  describe('Valid input types', () => {
+    it('should handle numbers as strings', () => {
+      expect(pipe.transform('123').toString()).toEqual('123 %');
+      expect(pipe.transform('1234').toString()).toEqual('1,234 %');
+    });
+
+    it('should handle 0', () => {
+      expect(pipe.transform('0').toString()).toEqual('0 %');
+      expect(pipe.transform(0).toString()).toEqual('0 %');
+    });
+  });
 });
