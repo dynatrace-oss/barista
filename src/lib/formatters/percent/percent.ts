@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DtFormattedValue } from '../formatted-value';
+import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { formatPercent } from './percent-formatter';
+import { isEmpty, isNumber } from '@dynatrace/angular-components/core';
 
 /** Pipe used to add percent formatting */
 @Pipe({
@@ -8,9 +9,17 @@ import { formatPercent } from './percent-formatter';
 })
 export class DtPercent implements PipeTransform {
   /**
-   * @param input - The number to be formatted as a percentage
+   * @param input - The value to be formatted as a percentage
    */
-  transform(input: number): DtFormattedValue {
-    return formatPercent(input);
+  // tslint:disable-next-line:no-any
+  transform(input: any): DtFormattedValue | string {
+    if (isEmpty(input)) {
+      return NO_DATA;
+    }
+    if (isNumber(input)) {
+      return formatPercent(input);
+    }
+
+    return NO_DATA;
   }
 }

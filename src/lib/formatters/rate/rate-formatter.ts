@@ -14,20 +14,16 @@ export function formatRate(
 ): DtFormattedValue {
 
   const sourceData = input instanceof DtFormattedValue ? input.sourceData : { input, unit: DtUnit.COUNT };
-  let displayValue;
-  if (input instanceof DtFormattedValue) {
-    displayValue = input.displayData.displayValue;
-  } else if (input !== undefined) {
-    displayValue = input;
-  }
+  const displayValue = input instanceof DtFormattedValue ? input.displayData.displayValue : input.toString();
   let displayUnit;
+  // TODO: write differently
   if (input instanceof DtFormattedValue) {
     displayUnit = input.displayData.displayUnit;
   }
 
   const formattedData: FormattedData = {
     transformedValue: sourceData.input,
-    displayRateUnit: sourceData.input !== undefined && !isNaN(sourceData.input) ? rateUnit : undefined,
+    displayRateUnit: rateUnit,
     displayUnit,
     displayValue,
   };

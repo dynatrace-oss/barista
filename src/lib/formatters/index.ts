@@ -1,6 +1,6 @@
 export * from './formatters-module';
 export * from './unit';
-export * from './formatted-value';
+export { DtFormattedValue, FormattedData, SourceData } from './formatted-value';
 export * from './number-formatter';
 export * from './percent/percent-formatter';
 export * from './count/count-formatter';

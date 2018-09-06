@@ -56,7 +56,7 @@ The `formatCount` function provides a way to format numbers as abbreviations out
 The function takes the following parameters: 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `input` | `number` | | numeric value to be transformed by the pipe |
+| `input` | `DtFormattedValue | number` | | numeric value to be transformed by the pipe |
 | `inputUnit` | `DtUnit | string` | `Unit.COUNT` | input unit, if not default - displayed together with the formatted value; does not yet support plurals and internationalization |
 
 ### Percent
@@ -74,7 +74,7 @@ Optional options for the function can be passed as a `DtNumberFormaterOption`. T
 The function takes the following parameters:
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `input` | `number` | | numeric value to be transformed by the pipe |
+| `input` | `DtFormattedValue | number` | | numeric value to be transformed by the pipe |
 | `options` | `DtNumberFormatterOption` | | options for the util function
 
 You can specify the following properties on your options:
@@ -92,7 +92,7 @@ Optional options for the function can be passed as a `DtNumberFormaterOption`. T
 The function takes the following parameters:
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `input` | `number` | | numeric value to be transformed by the pipe |
+| `input` | `DtFormattedValue | number` | | numeric value to be transformed by the pipe |
 | `factor` | `number` | | determines whether to use KILO (default) or KIBI multiplier in calculations; does not affect displayed unit |
 | `inputUnit` | `DtUnit` | | input unit, typically defined unit of type DtUnit (DtUnit.BYTES by default) |
 
@@ -110,7 +110,7 @@ The `formatRate` function enables you to format a number or a FormattedValue fro
 The function takes the following parameters:
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `input` | `number | FormattedValue` | | numeric value to be transformed by the pipe |
+| `input` | `DtFormattedValue | number` | | numeric value to be transformed by the pipe |
 | `rateUnit` | `DtRateUnit | string` | | rate unit |
 
 ## Special uses (e.g. infographics, tiles)

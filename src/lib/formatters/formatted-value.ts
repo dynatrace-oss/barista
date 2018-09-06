@@ -12,7 +12,7 @@ export interface FormattedData {
   readonly displayRateUnit?: string;
 }
 
-const NO_DATA = '-';
+export const NO_DATA = '-';
 
 /**
  * Class used in formatting functions and pipes
