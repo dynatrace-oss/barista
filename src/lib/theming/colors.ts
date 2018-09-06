@@ -59,21 +59,21 @@ export enum Colors {
 
 /** Chart colors for the purple theme up to 3 metrics */
 const purple: string[] = [
-  Colors.PURPLE_600,
+  Colors.PURPLE_700,
   Colors.PURPLE_200,
   Colors.PURPLE_400,
 ];
 
 /** Chart colors for the royalblue theme up to 3 metrics */
 const royalblue: string[] = [
-  Colors.ROYALBLUE_600,
-  Colors.ROYALBLUE_300,
+  Colors.ROYALBLUE_800,
+  Colors.ROYALBLUE_200,
   Colors.ROYALBLUE_400,
 ];
 
 /** Chart colors for the blue theme up to 3 metrics */
 const blue: string[] = [
-  Colors.ROYALBLUE_600,
+  Colors.ROYALBLUE_700,
   Colors.ROYALBLUE_200,
   Colors.ROYALBLUE_400,
 ];
