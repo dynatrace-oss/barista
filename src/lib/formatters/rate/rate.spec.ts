@@ -1,6 +1,7 @@
 import { DtRateUnit } from '../unit';
 import { DtRate } from './rate';
 import { DtBytes } from '../bytes/bytes';
+import { NO_DATA } from '../formatted-value';
 
 describe('DtRate', () => {
   interface TestCase {
@@ -67,5 +68,38 @@ describe('DtRate', () => {
       });
     });
 
+  });
+
+  describe('Empty values / Invalid values', () => {
+    it(`should return '${NO_DATA}' for empty values`, () => {
+      expect(ratePipe.transform('', DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
+      expect(ratePipe.transform(null, DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
+      expect(ratePipe.transform(undefined, DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
+      class A { }
+      expect(ratePipe.transform({}, DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
+      expect(ratePipe.transform([], DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
+      expect(ratePipe.transform(() => {}, DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
+      expect(ratePipe.transform(A, DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
+      expect(ratePipe.transform(new A(), DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for combined strings`, () => {
+      expect(ratePipe.transform('123test', DtRateUnit.PER_SECOND).toString()).toEqual(NO_DATA);
+    });
+  });
+
+  describe('Valid input types', () => {
+    it('should handle numbers as strings', () => {
+      expect(ratePipe.transform('123', DtRateUnit.PER_SECOND).toString()).toEqual('123 /s');
+      expect(ratePipe.transform('1234', DtRateUnit.PER_SECOND).toString()).toEqual('1234 /s');
+    });
+
+    it('should handle 0', () => {
+      expect(ratePipe.transform('0', DtRateUnit.PER_SECOND).toString()).toEqual('0 /s');
+      expect(ratePipe.transform(0, DtRateUnit.PER_SECOND).toString()).toEqual('0 /s');
+    });
   });
 });

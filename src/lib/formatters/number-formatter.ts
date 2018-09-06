@@ -5,6 +5,7 @@ import { DtUnit } from './unit';
 export const KILO_MULTIPLIER = 1000;
 export const KIBI_MULTIPLIER = 1024;
 
+// TODO: remove interface
 export interface DtNumberFormatOptions {
   inputUnit: DtUnit | string;
   outputUnit?: DtUnit | string;
