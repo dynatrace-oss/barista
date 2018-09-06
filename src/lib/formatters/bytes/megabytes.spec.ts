@@ -1,9 +1,8 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { DtUnit } from '../unit';
 import { DtMegabytes } from './megabytes';
+import { NO_DATA } from '../formatted-value';
 
-describe('DtKilobytes', () => {
+describe('DtMegabytes', () => {
   interface TestCase {
     input: number;
     factor?: number;
@@ -11,17 +10,13 @@ describe('DtKilobytes', () => {
     output: string;
   }
 
-  beforeEach(() => {
+  let pipe: DtMegabytes;
 
-    TestBed.configureTestingModule({
-      imports: [BrowserModule],
-      providers: [
-        DtMegabytes,
-      ],
-    });
+  beforeEach(() => {
+    pipe = new DtMegabytes();
   });
 
-  describe('Transforming input ', () => {
+  describe('Transforming input', () => {
     [
       {
         input: 1000,
@@ -36,10 +31,42 @@ describe('DtKilobytes', () => {
         output: '1,000 MB',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display result converted to KB (${testCase.output})`, inject([DtMegabytes], (pipe: DtMegabytes) => {
+      it(`should display result converted to MB (${testCase.output})`, () => {
         expect(pipe.transform(testCase.input).toString())
           .toEqual(testCase.output);
-      }));
+      });
+    });
+  });
+  describe('Empty values / Invalid values', () => {
+    it(`should return '${NO_DATA}' for empty values`, () => {
+      expect(pipe.transform('')).toEqual(NO_DATA);
+      expect(pipe.transform(null)).toEqual(NO_DATA);
+      expect(pipe.transform(undefined)).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
+      class A { }
+      expect(pipe.transform({})).toEqual(NO_DATA);
+      expect(pipe.transform([])).toEqual(NO_DATA);
+      expect(pipe.transform(() => {})).toEqual(NO_DATA);
+      expect(pipe.transform(A)).toEqual(NO_DATA);
+      expect(pipe.transform(new A())).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for combined strings`, () => {
+      expect(pipe.transform('123test').toString()).toEqual(NO_DATA);
+    });
+  });
+
+  describe('Valid input types', () => {
+    it('should handle numbers as strings', () => {
+      expect(pipe.transform('123000000').toString()).toEqual('123 MB');
+      expect(pipe.transform('123400').toString()).toEqual('0.123 MB');
+    });
+
+    it('should handle 0', () => {
+      expect(pipe.transform('0').toString()).toEqual('0 MB');
+      expect(pipe.transform(0).toString()).toEqual('0 MB');
     });
   });
 
