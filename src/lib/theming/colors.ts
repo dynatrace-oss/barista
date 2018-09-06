@@ -17,6 +17,7 @@ export enum Colors {
   ROYALBLUE_500 = '#526cff',
   ROYALBLUE_600 = '#4556d7',
   ROYALBLUE_700 = '#393db0',
+  ROYALBLUE_800 = '#31339c',
 
   TURQUOISE_200 = '#aeebf0',
   TURQUOISE_300 = '#74dee6',
