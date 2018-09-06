@@ -15,11 +15,7 @@ export function formatRate(
 
   const sourceData = input instanceof DtFormattedValue ? input.sourceData : { input, unit: DtUnit.COUNT };
   const displayValue = input instanceof DtFormattedValue ? input.displayData.displayValue : input.toString();
-  let displayUnit;
-  // TODO: write differently
-  if (input instanceof DtFormattedValue) {
-    displayUnit = input.displayData.displayUnit;
-  }
+  const displayUnit = input instanceof DtFormattedValue ? input.displayData.displayUnit : undefined;
 
   const formattedData: FormattedData = {
     transformedValue: sourceData.input,
