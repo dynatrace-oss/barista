@@ -9,10 +9,10 @@ import { OriginalClassName } from '../../../core/decorators';
     <input dtInput #value [(ngModel)]="exampleValue"/>
   </dt-form-field>
   <p>
-    Default: {{ exampleValue | dtBytes }}
+    Default: {{ exampleValue | dtBits }}
   </p>
   <p>
-    Factor 1024: {{ 'asdasd' | dtBytes: 1024 }}
+    Factor 1024: {{ exampleValue | dtBits: 1024 }}
   </p>
   `,
 })
