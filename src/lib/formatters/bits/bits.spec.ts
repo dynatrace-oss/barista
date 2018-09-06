@@ -1,9 +1,9 @@
 import { DtUnit } from '../unit';
-import { DtBytes } from './bytes';
+import { DtBits } from './bits';
 import { KILO_MULTIPLIER } from '../number-formatter';
 import { NO_DATA } from '../formatted-value';
 
-describe('DtBytes', () => {
+describe('DtBits', () => {
   interface TestCase {
     input: number;
     factor?: number;
@@ -11,89 +11,84 @@ describe('DtBytes', () => {
     output: string;
   }
 
-  let pipe: DtBytes;
+  let pipe: DtBits;
 
   beforeEach(() => {
-    pipe = new DtBytes();
+    pipe = new DtBits();
   });
 
   describe('Transforming input without defined outputUnit', () => {
     [
       {
         input: 0,
-        output: '0 B',
+        output: '0 bit',
       },
       {
         input: 1,
-        output: '1 B',
+        output: '1 bit',
       },
       {
         input: 1000,
-        output: '1 kB',
+        output: '1 kbit',
       },
       {
         input: 20000000,
-        output: '20 MB',
+        output: '20 Mbit',
       },
       {
         input: 12500000000,
-        output: '12.5 GB',
+        output: '12.5 Gbit',
       },
       {
         input: 1250000000000,
-        output: '1.25 TB',
+        output: '1.25 Tbit',
       },
       {
         input: 7121000000000000,
-        output: '7.12 PB',
+        output: '7.12 Pbit',
       },
+
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} converted to auto unit`, () => {
-        expect(pipe.transform(testCase.input).toString())
-          .toEqual(testCase.output);
+        expect(pipe.transform(testCase.input).toString()).toEqual(testCase.output);
       });
     });
   });
 
   describe('Transforming input with different input unit', () => {
-    [
+    const testCases: TestCase[] = [
       {
         input: 1000,
         factor: KILO_MULTIPLIER,
-        inputUnit: DtUnit.BYTES,
-        output: '1 kB',
+        inputUnit: DtUnit.BITS,
+        output: '1 kbit',
       },
       {
         input: 1000,
         factor: KILO_MULTIPLIER,
-        inputUnit: DtUnit.KILO_BYTES,
-        output: '1 MB',
+        inputUnit: DtUnit.KILO_BITS,
+        output: '1 Mbit',
       },
       {
         input: 1000,
         factor: KILO_MULTIPLIER,
-        inputUnit: DtUnit.MEGA_BYTES,
-        output: '1 GB',
+        inputUnit: DtUnit.MEGA_BITS,
+        output: '1 Gbit',
       },
       {
         input: 1000,
         factor: KILO_MULTIPLIER,
-        inputUnit: DtUnit.GIGA_BYTES,
-        output: '1 TB',
+        inputUnit: DtUnit.GIGA_BITS,
+        output: '1 Tbit',
       },
       {
         input: 1000,
         factor: KILO_MULTIPLIER,
-        inputUnit: DtUnit.TERA_BYTES,
-        output: '1 PB',
+        inputUnit: DtUnit.TERA_BITS,
+        output: '1 Pbit',
       },
-      {
-        input: 1000,
-        factor: KILO_MULTIPLIER,
-        inputUnit: DtUnit.PETA_BYTES,
-        output: '1,000 PB',
-      },
-    ].forEach((testCase: TestCase) => {
+    ];
+    testCases.forEach((testCase: TestCase) => {
       it(`should display different result (${testCase.output})`, () => {
         expect(pipe.transform(testCase.input, testCase.factor, testCase.inputUnit).toString())
           .toEqual(testCase.output);
@@ -124,14 +119,12 @@ describe('DtBytes', () => {
 
   describe('Valid input types', () => {
     it('should handle numbers as strings', () => {
-      expect(pipe.transform('123').toString()).toEqual('123 B');
-      expect(pipe.transform('1234').toString()).toEqual('1.23 kB');
+      expect(pipe.transform('123').toString()).toEqual('123 bit');
     });
 
     it('should handle 0', () => {
-      expect(pipe.transform('0').toString()).toEqual('0 B');
-      expect(pipe.transform(0).toString()).toEqual('0 B');
+      expect(pipe.transform('0').toString()).toEqual('0 bit');
+      expect(pipe.transform(0).toString()).toEqual('0 bit');
     });
   });
-
 });

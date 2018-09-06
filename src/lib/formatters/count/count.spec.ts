@@ -1,7 +1,6 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { DtCount } from './count';
 import { DtUnit } from '../unit';
+import { NO_DATA } from '../formatted-value';
 
 describe('DtCount', () => {
   interface TestCase {
@@ -10,14 +9,10 @@ describe('DtCount', () => {
     output: string;
   }
 
-  beforeEach(() => {
+  let pipe: DtCount;
 
-    TestBed.configureTestingModule({
-      imports: [BrowserModule],
-      providers: [
-        DtCount,
-      ],
-    });
+  beforeEach(() => {
+    pipe = new DtCount();
   });
 
   describe('Transforming input with default input unit', () => {
@@ -38,10 +33,10 @@ describe('DtCount', () => {
         output: '3bil',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} without unit`, inject([DtCount], (pipe: DtCount) => {
+      it(`should display ${testCase.input} without unit`, () => {
         expect(pipe.transform(testCase.input, testCase.inputUnit).toString())
           .toEqual(testCase.output);
-      }));
+      });
     });
   });
 
@@ -63,11 +58,43 @@ describe('DtCount', () => {
         output: '3bil u.',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should display ${testCase.input} together with custom unit`, inject([DtCount], (pipe: DtCount) => {
+      it(`should display ${testCase.input} together with custom unit`, () => {
         expect(pipe.transform(testCase.input, testCase.inputUnit).toString())
           .toEqual(testCase.output);
-      }));
+      });
     });
   });
 
+  describe('Empty values / Invalid values', () => {
+    it(`should return '${NO_DATA}' for empty values`, () => {
+      expect(pipe.transform('')).toEqual(NO_DATA);
+      expect(pipe.transform(null)).toEqual(NO_DATA);
+      expect(pipe.transform(undefined)).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
+      class A { }
+      expect(pipe.transform({})).toEqual(NO_DATA);
+      expect(pipe.transform([])).toEqual(NO_DATA);
+      expect(pipe.transform(() => {})).toEqual(NO_DATA);
+      expect(pipe.transform(A)).toEqual(NO_DATA);
+      expect(pipe.transform(new A())).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for combined strings`, () => {
+      expect(pipe.transform('123test').toString()).toEqual(NO_DATA);
+    });
+  });
+
+  describe('Valid input types', () => {
+    it('should handle numbers as strings', () => {
+      expect(pipe.transform('123').toString()).toEqual('123');
+      expect(pipe.transform('1234').toString()).toEqual('1.23k');
+    });
+
+    it('should handle 0', () => {
+      expect(pipe.transform('0').toString()).toEqual('0');
+      expect(pipe.transform(0).toString()).toEqual('0');
+    });
+  });
 });
