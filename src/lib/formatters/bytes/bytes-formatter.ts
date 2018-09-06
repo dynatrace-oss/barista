@@ -28,8 +28,14 @@ const KIBI_CONVERSIONS = [
 
 /**
  * Util function that formats given number as bytes
+ * @param input - value that gets formatted
+ * @param [options] - includes factor for conversion, inputUnit and outputUnit
+ * these options are merged with default options (factor: 1000, inputUnit: bytes)
+ * if no outputUnit is specified, the outputUnit is adjusted dynamically
+ * if you specify an outputUnit like kilobytes - the input will be presented in kilobytes regardless how big the input is
  */
-export function formatBytes(input: DtFormattedValue | number, options?: DtNumberFormatOptions): DtFormattedValue {
+// tslint:disable-next-line:no-any
+export function formatBytes(input: any, options?: DtNumberFormatOptions): DtFormattedValue {
 
   const mergedOptions: DtNumberFormatOptions = { ...DEFAULT_BYTES_OPTIONS, ...options };
   const conversions = getConversions(mergedOptions.factor);

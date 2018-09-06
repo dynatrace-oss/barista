@@ -3,7 +3,6 @@ import { DtFormattedValue } from '../formatted-value';
 import { KIBI_MULTIPLIER, KILO_MULTIPLIER, DtNumberFormatOptions } from '../number-formatter';
 import { formatToBitsBytes, DtUnitConversion } from '../bits-bytes-formatter';
 
-/** Default options for the bit formatter */
 const DEFAULT_BITS_OPTIONS: DtNumberFormatOptions = {
   factor: KILO_MULTIPLIER,
   inputUnit: DtUnit.BITS,
@@ -29,9 +28,16 @@ const KIBI_CONVERSIONS = [
 /**
  * Util function that formats given number as bits
  * @param input - value that gets formatted
- * @param [options] - options that allow more granular formatting
+ * @param [options] - includes factor for conversion, inputUnit and outputUnit
+ * these options are merged with default options (factor: 1000, inputUnit: bits)
+ * if no outputUnit is specified, the outputUnit is adjusted dynamically
+ * if you specify an outputUnit like kilobits - the input will be presented in kilobits regardless how big the input is
  */
-export function formatBits(input: DtFormattedValue | number, options?: DtNumberFormatOptions): DtFormattedValue {
+export function formatBits(
+  // tslint:disable-next-line:no-any
+  input: any,
+  options?: DtNumberFormatOptions
+): DtFormattedValue {
 
   const mergedOptions: DtNumberFormatOptions = { ...DEFAULT_BITS_OPTIONS, ...options };
   const conversions = getConversions(mergedOptions.factor);

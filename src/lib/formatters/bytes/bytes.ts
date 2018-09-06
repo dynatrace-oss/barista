@@ -1,8 +1,10 @@
-import { DtFormattedValue } from '../formatted-value';
+import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { Pipe, PipeTransform } from '@angular/core';
-import { DtNumberFormatOptions, KILO_MULTIPLIER } from '../number-formatter';
+import { KILO_MULTIPLIER } from '../number-formatter';
 import { formatBytes } from './bytes-formatter';
-import { DtUnit, DtRateUnit } from '../unit';
+import { DtUnit } from '../unit';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { isNumber, isEmpty } from '@dynatrace/angular-components/core';
 
 /**
  * Pipe for formatting a given number to Bytes
@@ -17,10 +19,21 @@ export class DtBytes implements PipeTransform {
    * @param inputUnit - The unit for the input number. Default is DtUnit.BYTES
    */
   transform(
-    input: DtFormattedValue | number,
+    // tslint:disable-next-line:no-any
+    input: any,
     factor: number = KILO_MULTIPLIER,
     inputUnit: DtUnit = DtUnit.BYTES
-  ): DtFormattedValue {
-    return formatBytes(input, { factor, inputUnit });
+  ): DtFormattedValue | string {
+    if (isEmpty(input)) {
+      return NO_DATA;
+    }
+    if (input instanceof DtFormattedValue) {
+      return formatBytes(input, {factor, inputUnit});
+    }
+    if (isNumber(input)) {
+      return formatBytes(coerceNumberProperty(input), {factor, inputUnit});
+    }
+
+    return NO_DATA;
   }
 }

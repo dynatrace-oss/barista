@@ -12,11 +12,11 @@ import { OriginalClassName } from '../../../core/decorators';
     Default: {{ exampleValue | dtBytes }}
   </p>
   <p>
-    Factor 1024: {{ exampleValue | dtBytes: 1024 }}
+    Factor 1024: {{ 'asdasd' | dtBytes: 1024 }}
   </p>
   `,
 })
 @OriginalClassName('BitsPipeExample')
 export class BitsExample {
-  exampleValue: number;
+  exampleValue: string;
 }

@@ -1,6 +1,7 @@
 import { DtUnit } from '../unit';
 import { DtBits } from './bits';
 import { KILO_MULTIPLIER } from '../number-formatter';
+import { NO_DATA } from '../formatted-value';
 
 describe('DtBits', () => {
   interface TestCase {
@@ -92,6 +93,38 @@ describe('DtBits', () => {
         expect(pipe.transform(testCase.input, testCase.factor, testCase.inputUnit).toString())
           .toEqual(testCase.output);
       });
+    });
+  });
+
+  describe('Empty values / Invalid values', () => {
+    it(`should return '${NO_DATA}' for empty values`, () => {
+      expect(pipe.transform('')).toEqual(NO_DATA);
+      expect(pipe.transform(null)).toEqual(NO_DATA);
+      expect(pipe.transform(undefined)).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
+      class A { }
+      expect(pipe.transform({})).toEqual(NO_DATA);
+      expect(pipe.transform([])).toEqual(NO_DATA);
+      expect(pipe.transform(() => {})).toEqual(NO_DATA);
+      expect(pipe.transform(A)).toEqual(NO_DATA);
+      expect(pipe.transform(new A())).toEqual(NO_DATA);
+    });
+
+    it(`should return '${NO_DATA}' for combined strings`, () => {
+      expect(pipe.transform('123test').toString()).toEqual(NO_DATA);
+    });
+  });
+
+  describe('Valid input types', () => {
+    it('should handle numbers as strings', () => {
+      expect(pipe.transform('123').toString()).toEqual('123 bit');
+    });
+
+    it('should handle 0', () => {
+      expect(pipe.transform('0').toString()).toEqual('0 bit');
+      expect(pipe.transform(0).toString()).toEqual('0 bit');
     });
   });
 });
