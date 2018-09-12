@@ -2,12 +2,14 @@
 @import '../core/style/variables';
 @import '../core/theming/theming';
 @import './tab-group-theme';
+@import '../core/style/interactive-common';
 
 :host .dt-tab-header-wrapper {
   display: flex;
 }
 
 :host .dt-tab-label {
+  @include dt-interactive-reset();
   @include default-font(14px, 32px, 600);
   border: none;
   background-color: transparent;
@@ -39,6 +41,10 @@
 
   &:hover::after {
     height: 4px;
+  }
+
+  &:focus:not([disabled]) {
+    @include dt-focus-style();
   }
 
   /** disabled
