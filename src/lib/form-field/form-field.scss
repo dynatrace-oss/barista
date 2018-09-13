@@ -39,6 +39,7 @@ $dt-form-field-default-infix-width: 180px !default;
   flex: none;
   position: relative;
   display: flex;
+  align-items: center;
 }
 
 .dt-form-field-infix {
@@ -60,18 +61,25 @@ $dt-form-field-default-infix-width: 180px !default;
 }
 
 .dt-prefix {
-  margin-right: 2px;
+  &:first-child:not(.dt-button) {
+    margin-left: 12px;
+  }
+  + .dt-prefix {
+    margin-left: 2px;
+  }
 }
 
 .dt-suffix {
-  margin-left: 2px;
+  &:last-child:not(.dt-button) {
+    margin-right: 12px;
+  }
+  + .dt-suffix {
+    margin-left: 2px;
+  }
 }
 
-// Every prefix or suffix element has to be at least 30px wide
-// This solves the issue with single characters as prefix or suffix.
 .dt-prefix,
 .dt-suffix {
-  min-width: 30px;
   text-align: center;
 }
 
@@ -90,6 +98,8 @@ $dt-form-field-default-infix-width: 180px !default;
 .dt-icon.dt-suffix {
   width: 30px;
   height: 30px;
+  display: flex;
+  align-items: center;
   svg {
     width: 20px;
     height: 20px;
