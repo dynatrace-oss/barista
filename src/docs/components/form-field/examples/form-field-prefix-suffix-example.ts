@@ -7,6 +7,7 @@ import { OriginalClassName } from '../../../core/decorators';
     <dt-form-field>
       <input type="text" dtInput placeholder="Please insert amout"/>
       <dt-icon dtPrefix name="filter">$</dt-icon>
+      <dt-loading-spinner dtPrefix></dt-loading-spinner>
       <button dt-icon-button dtSuffix variant="nested">
         <dt-icon name="checkmark"></dt-icon>
       </button>
