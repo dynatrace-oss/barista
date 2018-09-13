@@ -8,9 +8,11 @@
 
 <docs-source-example example="SpinnerLoadingDistractorExampleComponent"></docs-source-example>
 
-**NOTE:**
+## Inside a Form-field
 
-Spinner inside input field will be supported once input fields are in place.
+When a `<dt-loading-spinner>` is placed as a prefix or suffix inside a `<dt-form-field>` the color and size adjust automatically.
+
+<docs-source-example example="InputLoadingDistractorExampleComponent"></docs-source-example>
 
 ## Progress distractor
 
