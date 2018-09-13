@@ -64,7 +64,7 @@ $dt-form-field-default-infix-width: 180px !default;
   &:first-child:not(.dt-button) {
     margin-left: 12px;
   }
-  & + .dt-prefix {
+  + .dt-prefix {
     margin-left: 2px;
   }
 }
@@ -73,7 +73,7 @@ $dt-form-field-default-infix-width: 180px !default;
   &:last-child:not(.dt-button) {
     margin-right: 12px;
   }
-  & + .dt-suffix {
+  + .dt-suffix {
     margin-left: 2px;
   }
 }
