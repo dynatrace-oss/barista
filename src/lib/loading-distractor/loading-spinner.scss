@@ -10,15 +10,18 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   display: inline-block;
   width: $dt-loading-spinner-default-size;
   height: $dt-loading-spinner-default-size;
+}
 
-  &.dt-loading-spinner-size-small {
-    width: $dt-loading-spinner-small-size;
-    height: $dt-loading-spinner-small-size;
-  }
+// There is an issue in angular with the combination of :host ans :host-context.
+// As a workaround you have to move the :host-context after the :host selector
+:host :host-context(.dt-form-field) {
+  width: $dt-loading-spinner-small-size;
+  height: $dt-loading-spinner-small-size;
+  min-width: $dt-loading-spinner-small-size; // This overrides the min-with requirement for prefix/suffix
 }
 
 .dt-loading-spinner-svg {
-  display: inline-block;
+  display: block;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -29,10 +32,9 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   -webkit-animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear infinite;
           animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear infinite;
   // stylelint-enable
-
-  .dt-loading-spinner-size-small & {
-    stroke: $gray-500;
-  }
+}
+:host-context(.dt-form-field) .dt-loading-spinner-svg {
+  stroke: $gray-500;
 }
 
 .dt-loading-spinner-path {
