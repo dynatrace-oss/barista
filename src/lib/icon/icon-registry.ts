@@ -1,5 +1,4 @@
-import { Optional, Inject, Injectable } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Optional, Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
@@ -43,11 +42,14 @@ export class DtIconRegistry {
   /** In-progress icon fetches. Used to coalesce multiple requests to the same URL. */
   private _inProgressUrlFetches = new Map<string, Observable<string>>();
 
+  private _renderer: Renderer2;
+
   constructor(
+    private _rendererFactory: RendererFactory2,
     @Optional() @Inject(DT_ICON_CONFIGURATION) private _config: DtIconConfiguration,
-    @Optional() private _httpClient: HttpClient,
-    // tslint:disable-next-line:no-any
-    @Optional() @Inject(DOCUMENT) private _document?: any) { }
+    @Optional() private _httpClient: HttpClient) {
+      this._renderer = this._rendererFactory.createRenderer(null, null);
+    }
 
   /**
    * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name.
@@ -123,8 +125,10 @@ export class DtIconRegistry {
   /** Creates a DOM element from the given SVG string, and adds default attributes. */
   private _createSvgElementForSingleIcon(responseText: string): SVGElement {
     // Creating a DOM element from the given SVG string.
-    const div = this._document.createElement('div');
-    div.innerHTML = responseText;
+    const div = this._renderer.createElement('div');
+    const sanitized = responseText.replace(/<script.*?>[\s\S]*?<\/script>/gm, '');
+    // tslint:disable-next-line dt-ban-inner-html
+    div.innerHTML = sanitized;
     const svg = div.querySelector('svg') as SVGElement;
 
     if (!svg) {
