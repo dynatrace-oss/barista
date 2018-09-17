@@ -15,6 +15,10 @@ import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 export const FAKE_SVGS = {
   cat: '<svg><path id="meow" name="meow"></path></svg>',
   dog: '<svg><path id="woof" name="woof"></path></svg>',
+  xss: '<svg><script>alert("123")</script><path id="xss" name="xss"></path></svg>',
+  xssType: '<svg><script type="text/javascript">alert("123")</script><path id="xss" name="xss"></path></svg>',
+  xssMulti: `<svg><script>alert("123")</script><path id="xss" name="xss"></path><script>alert("123")</script></svg>`,
+  xssInter: `<svg><scr<script>ipt>alert("123")</scr</script>ipt><path id="xss" name="xss"></path></svg>`,
 };
 
 /**
@@ -28,7 +32,7 @@ function verifyAndGetSingleSvgChild(element: SVGElement): SVGElement {
   return svgChild;
 }
 
-describe('DtIcon', () => {
+fdescribe('DtIcon', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -130,6 +134,58 @@ describe('DtIcon', () => {
     fixture.detectChanges();
 
     expect(iconElement.querySelector('svg')).toBeFalsy();
+  });
+
+  it('should remove script tags without type from the svg node', () => {
+    const fixture = TestBed.createComponent(IconWithName);
+
+    fixture.componentInstance.iconName = 'xss';
+    fixture.detectChanges();
+    http.expectOne('xss.svg').flush(FAKE_SVGS.xss);
+
+    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const svgElement = verifyAndGetSingleSvgChild(iconElement);
+
+    expect(svgElement.querySelector('script')).toBeNull();
+  });
+
+  it('should remove script tags with type from the svg node', () => {
+    const fixture = TestBed.createComponent(IconWithName);
+
+    fixture.componentInstance.iconName = 'xssType';
+    fixture.detectChanges();
+    http.expectOne('xssType.svg').flush(FAKE_SVGS.xssType);
+
+    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const svgElement = verifyAndGetSingleSvgChild(iconElement);
+
+    expect(svgElement.querySelector('script')).toBeNull();
+  });
+
+  it('should remove multiple script tags from the svg node', () => {
+    const fixture = TestBed.createComponent(IconWithName);
+
+    fixture.componentInstance.iconName = 'xssMulti';
+    fixture.detectChanges();
+    http.expectOne('xssMulti.svg').flush(FAKE_SVGS.xssMulti);
+
+    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const svgElement = verifyAndGetSingleSvgChild(iconElement);
+
+    expect(svgElement.querySelector('script')).toBeNull();
+  });
+
+  it('should remove script tags from the svg node that are in tags', () => {
+    const fixture = TestBed.createComponent(IconWithName);
+
+    fixture.componentInstance.iconName = 'xssInter';
+    fixture.detectChanges();
+    http.expectOne('xssInter.svg').flush(FAKE_SVGS.xssMulti);
+
+    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const svgElement = verifyAndGetSingleSvgChild(iconElement);
+
+    expect(svgElement.querySelector('script')).toBeNull();
   });
 });
 
