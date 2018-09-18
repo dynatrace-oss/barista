@@ -1,9 +1,7 @@
 import { sanitizeSvg } from './sanitize-svg';
 import { async, TestBed } from '@angular/core/testing';
-import { Renderer2, Component } from '@angular/core';
+import { Component } from '@angular/core';
 describe('sanitizeSvg', () => {
-
-  let renderer: Renderer2;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -11,9 +9,6 @@ describe('sanitizeSvg', () => {
     });
 
     TestBed.compileComponents();
-    const fixture = TestBed.createComponent(TestApp);
-    const testComponent = fixture.debugElement.componentInstance;
-    renderer = testComponent.renderer;
   }));
 
   it('should remove script tag inside svg strings', () => {
@@ -44,5 +39,5 @@ describe('sanitizeSvg', () => {
 })
 class TestApp {
 
-  constructor(public renderer: Renderer2) {}
+  constructor() {}
 }
