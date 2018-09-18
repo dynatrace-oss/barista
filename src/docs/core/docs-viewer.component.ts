@@ -10,7 +10,8 @@ import {
   Inject,
   Type,
   ViewContainerRef,
-  ApplicationRef
+  ApplicationRef,
+  Renderer2
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
@@ -45,8 +46,8 @@ export class DocsViewerComponent implements OnDestroy {
   private _docContents$ = new EventEmitter<DocumentContents>();
   private _portalHosts: DomPortalHost[] = [];
 
-  protected currViewContainer: HTMLElement = document.createElement('div');
-  protected nextViewContainer: HTMLElement = document.createElement('div');
+  protected currViewContainer: HTMLElement = this._renderer.createElement('div');
+  protected nextViewContainer: HTMLElement = this._renderer.createElement('div');
 
   @Input()
   set doc(newDoc: DocumentContents) {
@@ -68,9 +69,11 @@ export class DocsViewerComponent implements OnDestroy {
     private _resolver: ComponentFactoryResolver,
     private _injector: Injector,
     private _viewContainerRef: ViewContainerRef,
-    private _appRef: ApplicationRef
+    private _appRef: ApplicationRef,
+    private _renderer: Renderer2
   ) {
     this._hostElement = elementRef.nativeElement;
+    // tslint:disable-next-line:dt-ban-inner-html
     this._hostElement.innerHTML = initialDocViewerContent;
 
     if (this._hostElement.firstElementChild) {
@@ -92,6 +95,7 @@ export class DocsViewerComponent implements OnDestroy {
 
   protected render(doc: DocumentContents): Observable<void> {
     return this._void$.pipe(
+      // tslint:disable-next-line:dt-ban-inner-html
       tap(() => this.nextViewContainer.innerHTML = doc.content || ''),
       tap(() => { this.prepareTitle(doc.id); }),
       tap(() => { this.clearDemos(); }),
@@ -127,6 +131,7 @@ export class DocsViewerComponent implements OnDestroy {
           ref.instance.componentType = componentType;
           this._portalHosts.push(portalHost);
         } else {
+          // tslint:disable-next-line:dt-ban-inner-html
           element.innerHTML = exampleNotFoundTemplateFactory(name!);
 
           // Console log here as we wanna know when an example has not been found
@@ -168,6 +173,7 @@ export class DocsViewerComponent implements OnDestroy {
         const prevViewContainer = this.currViewContainer;
         this.currViewContainer = this.nextViewContainer;
         this.nextViewContainer = prevViewContainer;
+        // tslint:disable-next-line:dt-ban-inner-html
         this.nextViewContainer.innerHTML = '';  // Empty to release memory.
       })
     );
