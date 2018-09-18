@@ -6,7 +6,7 @@ import { finalize, share, map, tap } from 'rxjs/operators';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
 import { DtIconType } from '@dynatrace/dt-iconpack';
-import { sanitizeSvg } from '@dynatrace/angular-components/core/util/sanitize-svg';
+import { sanitizeSvg } from '@dynatrace/angular-components/core';
 
 interface SvgIconConfig {
   name: DtIconType;
