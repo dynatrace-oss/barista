@@ -21,6 +21,7 @@ export class SnippetDirective implements AfterViewInit {
   ngAfterViewInit(): void {
     const highlightResult = hljs.highlightAuto(this.snippet || this.element.nativeElement.innerHTML, this.getLanguagesSubset());
 
+    // tslint:disable-next-line:dt-ban-inner-html
     this.element.nativeElement.innerHTML = highlightResult.value;
     this.renderer.addClass(this.element.nativeElement, highlightResult.language);
   }
