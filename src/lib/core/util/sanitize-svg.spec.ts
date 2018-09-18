@@ -2,15 +2,6 @@ import { sanitizeSvg } from './sanitize-svg';
 import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 describe('sanitizeSvg', () => {
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [TestApp],
-    });
-
-    TestBed.compileComponents();
-  }));
-
   it('should remove script tag inside svg strings', () => {
     expect(sanitizeSvg('<svg><script>alert(1)</script></svg>').outerHTML).toBe('<svg></svg>');
   });
@@ -32,12 +23,3 @@ describe('sanitizeSvg', () => {
     expect(() => sanitizeSvg('')).toThrow(new Error('<svg> tag not found'));
   });
 });
-
-@Component({
-  selector: 'dt-test-app',
-  template: '',
-})
-class TestApp {
-
-  constructor() {}
-}
