@@ -42,7 +42,7 @@
     "@angular/platform-browser-dynamic": "~6.0.2",
     "@angular/platform-server": "~6.0.2",
     "@angular/router": "~6.0.2",
-    "@dynatrace/angular-lint-rules": "^0.0.1",
+    "@dynatrace/angular-lint-rules": "^0.2.6",
     "@dynatrace/dt-iconpack": "^1.0.6",
     "@types/chalk": "^0.4.31",
     "@types/cross-spawn": "^6.0.0",
