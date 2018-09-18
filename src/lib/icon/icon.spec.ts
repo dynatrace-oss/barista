@@ -32,7 +32,7 @@ function verifyAndGetSingleSvgChild(element: SVGElement): SVGElement {
   return svgChild;
 }
 
-fdescribe('DtIcon', () => {
+describe('DtIcon', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
