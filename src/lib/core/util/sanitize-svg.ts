@@ -1,5 +1,3 @@
-import { Renderer2 } from '@angular/core';
-
 /** function that sanitizes svg input as string - it removes script tags within */
 export function sanitizeSvg(svgString: string): SVGElement {
   // tslint:disable-next-line ban
