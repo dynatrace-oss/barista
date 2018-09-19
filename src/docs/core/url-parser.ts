@@ -1,5 +1,6 @@
 export const parseUrl = (url: string): ParsedUrl => {
   // [IE11] - to be replaced with URL class when support for ie11 is finally dropped
+  // tslint:disable-next-line:ban
   const el = document.createElement('a');
   el.href = url;
 
