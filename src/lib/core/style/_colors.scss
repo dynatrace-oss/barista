@@ -103,7 +103,6 @@ $gray-900: #191919;
 
 $logolime: #b4dc00;
 
-// stylelint-disable value-list-max-empty-lines
 $full-color-palette: (
   'turquoise': (
     100: $turquoise-100,
@@ -116,7 +115,6 @@ $full-color-palette: (
     800: $turquoise-800,
     900: $turquoise-900,
   ),
-
   'green': (
     100: $green-100,
     200: $green-200,
@@ -128,7 +126,6 @@ $full-color-palette: (
     800: $green-800,
     900: $green-900,
   ),
-
   'blue': (
     100: $blue-100,
     200: $blue-200,
@@ -140,7 +137,6 @@ $full-color-palette: (
     800: $blue-800,
     900: $blue-900,
   ),
-
   'royalblue': (
     100: $royalblue-100,
     200: $royalblue-200,
@@ -152,7 +148,6 @@ $full-color-palette: (
     800: $royalblue-800,
     900: $royalblue-900,
   ),
-
   'purple': (
     100: $purple-100,
     200: $purple-200,
@@ -164,7 +159,6 @@ $full-color-palette: (
     800: $purple-800,
     900: $purple-900,
   ),
-
   'red': (
     100: $red-100,
     200: $red-200,
@@ -176,7 +170,6 @@ $full-color-palette: (
     800: $red-800,
     900: $red-900,
   ),
-
   'orange': (
     100: $orange-100,
     200: $orange-200,
@@ -188,7 +181,6 @@ $full-color-palette: (
     800: $orange-800,
     900: $orange-900,
   ),
-
   'yellow': (
     100: $yellow-100,
     200: $yellow-200,
@@ -200,7 +192,6 @@ $full-color-palette: (
     800: $yellow-800,
     900: $yellow-900,
   ),
-
   'shamrockgreen': (
     100: $shamrockgreen-100,
     200: $shamrockgreen-200,
@@ -212,7 +203,6 @@ $full-color-palette: (
     800: $shamrockgreen-800,
     900: $shamrockgreen-900,
   ),
-
   'gray': (
     100: $gray-100,
     200: $gray-200,
@@ -225,7 +215,6 @@ $full-color-palette: (
     900: $gray-900,
   ),
 );
-// stylelint-enable
 
 @function get-color($color, $shade) {
   @return map-get(map-get($full-color-palette, $color), $shade);

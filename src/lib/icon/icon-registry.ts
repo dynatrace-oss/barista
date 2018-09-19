@@ -1,5 +1,4 @@
 import { Optional, Inject, Injectable } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
@@ -7,6 +6,7 @@ import { finalize, share, map, tap } from 'rxjs/operators';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
 import { DtIconType } from '@dynatrace/dt-iconpack';
+import { sanitizeSvg } from '@dynatrace/angular-components/core';
 
 interface SvgIconConfig {
   name: DtIconType;
@@ -45,9 +45,8 @@ export class DtIconRegistry {
 
   constructor(
     @Optional() @Inject(DT_ICON_CONFIGURATION) private _config: DtIconConfiguration,
-    @Optional() private _httpClient: HttpClient,
-    // tslint:disable-next-line:no-any
-    @Optional() @Inject(DOCUMENT) private _document?: any) { }
+    @Optional() private _httpClient: HttpClient) {
+    }
 
   /**
    * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name.
@@ -122,14 +121,7 @@ export class DtIconRegistry {
 
   /** Creates a DOM element from the given SVG string, and adds default attributes. */
   private _createSvgElementForSingleIcon(responseText: string): SVGElement {
-    // Creating a DOM element from the given SVG string.
-    const div = this._document.createElement('div');
-    div.innerHTML = responseText;
-    const svg = div.querySelector('svg') as SVGElement;
-
-    if (!svg) {
-      throw Error('<svg> tag not found');
-    }
+    const svg = sanitizeSvg(responseText);
 
     // Setting the default attributes for an SVG element to be used as an icon.
     svg.setAttribute('fit', '');
