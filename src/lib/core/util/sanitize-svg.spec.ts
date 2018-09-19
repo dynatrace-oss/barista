@@ -1,6 +1,5 @@
 import { sanitizeSvg } from './sanitize-svg';
-import { async, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+
 describe('sanitizeSvg', () => {
   it('should remove script tag inside svg strings', () => {
     expect(sanitizeSvg('<svg><script>alert(1)</script></svg>').outerHTML).toBe('<svg></svg>');
