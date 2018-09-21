@@ -10,140 +10,89 @@
 
 Angular module containing common, reusable UI components and helpers.
 
-## Usage
+## Getting started
 
-Install library using yarn
+### Step 1: Install the angular-components and Angular CDK
+This library is available in our internal Artifactory. To make it installable via `npm` or `yarn` add the following lines to your `.npmrc` or `.yarnrc` (you might need to create this file if it is not already there)
 ```
-yarn add @dynatrace/angular-components
-```
-Or if you are using npm
-```
-npm install @dynatrace/angular-components
+registry "***REMOVED***
+"@dynatrace:registry" "***REMOVED***
 ```
 
-## Documentation
+Now you are able to install the library
 
-Documentation is available by starting a local server at <http://localhost:4200>
+`npm install --save @dynatrace/angular-components @angular/cdk`    
+or      
+`yarn add @dynatrace/angular-components @angular/cdk`
 
-##### Using Yarn
-   1. Meet NodeJS prerequisites (see `Development -> Prerequisites` section)
-   1. Install dependencies - `yarn install`
-   1. Start documentation server - `yarn docs` 
+### Step 2: Animations
+Some angular-components components depend on the Angular animations module.
+If you want these animations to work in your app, you have to install the `@angular/animations` module and include the `BrowserAnimationsModule` in your app.    
 
-##### Using gradle
-   1. Install JDK
-   1. Run gradle task - `./gradlew startDocs`
+`npm install --save @angular/animations`    
+or      
+`yarn add @angular/animations`
+
+```ts
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+@NgModule({
+  ...
+  imports: [BrowserAnimationsModule],
+  ...
+})
+export class AppModule { }
+```
+
+If you don't want to add another dependency to your project, you can use the NoopAnimationsModule.
+
+```ts
+import {NoopAnimationsModule} from '@dynatrace/angular-components';
+
+@NgModule({
+  ...
+  imports: [NoopAnimationsModule],
+  ...
+})
+export class AppModule { }
+```
+
+**Note:** @angular/animations uses the WebAnimation API that isn't supported by all browsers yet. If you want to support animations in these browsers, you'll have to [include a polyfill](https://github.com/web-animations/web-animations-js).
+
+### Step 3: Import the component modules
+
+Import the NgModule for each component you want to use:
+```ts
+import {DTButtonModule, DTSelectModule} from '@dynatrace/angular-components';
+
+@NgModule({
+  ...
+  imports: [DTButtonModule, DTSelectModule],
+  ...
+})
+export class PizzaPartyAppModule { }
+```
+
+Alternatively, you can create a separate NgModule that imports all of the angular-components components that you will use in your application. You can then include this module wherever you'd like to use the components.
+
+**Note:** Whichever approach you use, be sure to import the angular-components modules after Angular's BrowserModule, as the import order matters for NgModules.
+
+#### Step 4: Include a the styles
+
+This library ships with two different variants for including styles.
+You can either import the core styles that are **required** to use the angular-components.
+These core styles are just the bare minimum for the component and do not change the global styling of your app.
+*main.scss*
+```scss
+@import '~@dynatrace/angular-components/style/main';`
+```
+
+You can also import the second variant, which include in addition to the core style also general styling for headlines, text-formatting, ...
+*main.scss*
+```scss
+@import '~@dynatrace/angular-components/style/index';`
+```
 
 ## Development
 
-### Prerequisites
-
-1. NodeJS 7.10.0+
-1. Yarn
-   ```
-   npm install -g yarn
-   ```
-Alternatively, you can use gradle (see instructions below), which automatically sets up local NodeJS environment,
-but on the other hand, requires JVM. 
-
-### Building
-1. Install NPM dependencies
-   ```
-   yarn install
-   ```
-1. Building the library
-   ```
-   yarn build
-   ```
-
-### Developing
-Developing with the docs app
-```
-yarn docs
-```
-
-### Running tests and style lint
-Unit tests:
-```
-yarn test
-```
-
-Unit tests with watcher for local testing:
-```
-yarn test:watch
-```
-
-UI Tests
-```
-yarn ui-tests
-```
-
-Universal build
-```
-yarn universal
-```
-
-Stylelint
-```
-yarn lint
-```
-
-Pre-commit sanity check (runs all tests + linting)
-```
-./gradlew completeBuild
-```
-
-### Using local version for development
-
-1. Build development version
-1. Create an NPM link
-   1. In the library output directory `dist/lib`:
-      ```
-      yarn link
-      ```
-   1. In the other project directory:
-      ```
-      yarn link @dynatrace/angular-components
-      ```
-1. Any further build will be automatically updated in the project referencing the link.
-
-To unlink development version:
-```
-yarn unlink @dynatrace/angular-components
-yarn install
-```
-
-### Using Gradle build
-
-Gradle build is meant for CI servers and does not require NodeJS installed upfront. 
-Instead, it downloads NodeJS binaries locally from Arifactory and runs any yarn task with that node version.
-
-Gradle tasks look very similar to the NPM ones, e.g.:
-```
-./gradlew yarn_install
-./gradlew test
-./gradlew lint
-./gradlew compile
-``` 
-To see complete list of gradlew builds, run:
-```
-./gradlew tasks
-```
-
-### Versioning
-
-#### Git repository version
-
-Version in package.json is hardcoded to match x.x.0-dev pattern. 
-Specific patch versions are bumped by CI but not commited to the repository.
-
-#### Master branch versions
-
-Each CI build from master branch bumps patch version (e.g. `0.1.4 -> 0.1.5`)
-
-#### Incrementing major/minor version
-
-Angular components are stil in 0.x version and major part should not be increased for now.
-Minor version should be bumped if breaking changes are introduced and it has to be done manually. 
-To do it, open `package.json` and increase minor number by one.
-Remember to leave patch and suffix section unchanged (e.g. `0.5.0-dev -> 0.6.0-dev`, `1.6.0-dev -> 2.0.0-dev`)
+See DEVELOPMENT.md
