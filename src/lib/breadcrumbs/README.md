@@ -30,7 +30,6 @@ class MyModule {}
 | `<ng-content>` | `html` | | HTML to be rendered as item content |
 | `[href]` | `string` | any[] | Value passed to the `routerLink` attribute underneath, accepts the same values as the directive. Element will be item as active automatically if the href attribute matches the current route. |
 | `[external]` | `boolean | undefined` | false | If empty or truthy parameter given, the `href` attribute will not be interpreted as internal router link but rather as en external href |
-| `[active]` |`boolean | undefined` | undefined | Renders a text or a link if the parameter is true or false, respectively. If the parameter is not set, `dt-breadcrumbs-item` automatically determines, whether it should be rendered as an active by comparing the passed href value with the current route. |
 
 ## Examples
 
