@@ -77,7 +77,7 @@ Alternatively, you can create a separate NgModule that imports all of the angula
 
 **Note:** Whichever approach you use, be sure to import the angular-components modules after Angular's BrowserModule, as the import order matters for NgModules.
 
-### Step 4: Include a the styles
+### Step 4: Include the styles
 
 This library ships with two different variants for including styles.
 You can either import the core styles that are **required** to use the angular-components.
