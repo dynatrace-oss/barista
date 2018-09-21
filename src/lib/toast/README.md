@@ -4,7 +4,8 @@
 
 ## Imports
 
-You have to import the `DtToastModule` when you want to use the `DtToast` service:
+You have to import the `DtToastModule` when you want to use the `DtToast` service.
+The `DtToast` service component also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see *Step 2: Animations* in the Getting started Guide.
 
 ```typescript
 @NgModule({

@@ -8,7 +8,8 @@ The directive can be used inside the template with a templateRef as the content 
 
 ## Imports
 
-You have to import the `DtOverlayModule` when you want to use the `DtOverlay` service or the `DtOverlayTrigger`directive
+You have to import the `DtOverlayModule` when you want to use the `DtOverlay` service or the `DtOverlayTrigger`directive..
+The `DtOverlay` service also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see *Step 2: Animations* in the Getting started Guide.
 
 ```typescript
 @NgModule({
