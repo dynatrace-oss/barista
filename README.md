@@ -82,13 +82,11 @@ Alternatively, you can create a separate NgModule that imports all of the angula
 This library ships with two different variants for including styles.
 You can either import the core styles that are **required** to use the angular-components.
 These core styles are just the bare minimum for the component and do not change the global styling of your app.
-*main.scss*
 ```scss
 @import '~@dynatrace/angular-components/style/main';`
 ```
 
 You can also import the second variant, which include in addition to the core style also general styling for headlines, text-formatting, ...
-*main.scss*
 ```scss
 @import '~@dynatrace/angular-components/style/index';`
 ```
