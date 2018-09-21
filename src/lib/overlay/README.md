@@ -8,11 +8,16 @@ The directive can be used inside the template with a templateRef as the content 
 
 ## Imports
 
-You have to import the `DtOverlayModule` when you want to use the `DtOverlay` service or the `DtOverlayTrigger`directive
+You have to import the `DtOverlayModule` when you want to use the `DtOverlay` service or the `DtOverlayTrigger`directive..
+The `DtOverlay` service also requires Angular's Animation Module.
 
 ```typescript
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DtOverlayModule } from '@dyntrace/angular-components';
+
 @NgModule({
   imports: [
+    BrowserAnimationsModule,
     DtOverlayModule,
   ],
 })

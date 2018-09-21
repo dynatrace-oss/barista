@@ -4,11 +4,16 @@
 
 ## Imports
 
-You have to import the `DtToastModule` when you want to use the `DtToast` service:
+You have to import the `DtToastModule` when you want to use the `DtToast` service.
+The `DtToast` service component also requires Angular's Animation Module.
 
 ```typescript
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DtToastModule } from '@dyntrace/angular-components';
+
 @NgModule({
   imports: [
+    BrowserAnimationsModule,
     DtToastModule,
   ],
 })

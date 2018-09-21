@@ -4,6 +4,26 @@
 
 `<dt-form-field>` is a component that wraps form input components like `dtInput` and provides functionality for a label (`<dt-label>`), errors (`<dt-error>`) and hints (`<dt-hint>`).
 
+## Imports
+
+You have to import the `DtFormFieldModule` when you want to use the `dt-form-field`.
+The `dt-form-field` component component also requires Angular's Animation Module.
+
+```typescript
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DtFormFieldModule } from '@dyntrace/angular-components';
+
+@NgModule({
+  
+  imports: [
+    BrowserAnimationsModule,
+    DtFormFieldModule,
+  ],
+})
+class MyModule {}
+
+```
+
 ## Label
 
 A label can be applied by adding a `<dt-label>` element.
