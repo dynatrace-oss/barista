@@ -10,16 +10,11 @@ to provide the animations module, too.
 ## Imports
 
 You have to import the `DtExpandablePanelModule` when you want to use the `dt-expandable-panel`.
-The `dt-expandable-panel` component also requires Angular's Animation Module.
+The `dt-expandable-panel` component also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see *Step 2: Animations* in the Getting started Guide.
 
 ```typescript
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DtExpandablePanelModule } from '@dyntrace/angular-components';
-
 @NgModule({
-  
   imports: [
-    BrowserAnimationsModule,
     DtExpandablePanelModule,
   ],
 })
