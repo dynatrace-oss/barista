@@ -6,7 +6,8 @@
 
 ## Imports
 
-You have to import the `DtSelectModule` when you want to use the `<dt-select>`:
+You have to import the `DtSelectModule` when you want to use the `<dt-select>`.
+The `<dt-select>` component also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see *Step 2: Animations* in the Getting started Guide.
 
 ```typescript
 @NgModule({
