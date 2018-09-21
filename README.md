@@ -100,6 +100,8 @@ Install `@dynatrace/angular-lint-rules` to use the additional recommended angula
 or      
 `yarn add @dynatrace/angular-lint-rules`
 
+You can find more information in the [angular-lint-rules repo](***REMOVED***
+
 ## Development
 
 See DEVELOPMENT.md
