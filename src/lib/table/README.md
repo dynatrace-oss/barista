@@ -9,13 +9,16 @@ Styleguide: [Table Style Guide](***REMOVED***
 
 ## Imports
 
-You have to import the `DtTableModule` when you want to use the `dt-table`:
+You have to import the `DtTableModule` when you want to use the `dt-table`.
+If you want to use the `dt-expandable-cell` component, Angular's Angular's `BrowserAnimationsModule`  is also required for animations. For more details on this see *Step 2: Animations* in the Getting started Guide.
 
 ```typescript
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DtTableModule } from '@dyntrace/angular-components';
 
 @NgModule({
   imports: [
-    ...
+    BrowserAnimationsModule
     DtTableModule,
   ],
 })
