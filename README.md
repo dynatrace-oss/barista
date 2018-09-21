@@ -21,9 +21,9 @@ registry "***REMOVED***
 
 Now you are able to install the library
 
-`npm install --save @dynatrace/angular-components @angular/cdk`    
+`npm install --save @dynatrace/angular-components @angular/cdk highcharts @types/highcharts @dynatrace/dt-iconpack`    
 or      
-`yarn add @dynatrace/angular-components @angular/cdk`
+`yarn add @dynatrace/angular-components @angular/cdk highcharts @types/highcharts @dynatrace/dt-iconpack`
 
 ### Step 2: Animations
 Some angular-components components depend on the Angular animations module.
@@ -77,7 +77,7 @@ Alternatively, you can create a separate NgModule that imports all of the angula
 
 **Note:** Whichever approach you use, be sure to import the angular-components modules after Angular's BrowserModule, as the import order matters for NgModules.
 
-#### Step 4: Include a the styles
+### Step 4: Include a the styles
 
 This library ships with two different variants for including styles.
 You can either import the core styles that are **required** to use the angular-components.
@@ -92,6 +92,13 @@ You can also import the second variant, which include in addition to the core st
 ```scss
 @import '~@dynatrace/angular-components/style/index';`
 ```
+
+### Step 5: Optional - Install linting rules
+
+Install `@dynatrace/angular-lint-rules` to use the additional recommended angular linting rules:
+`npm install --save @dynatrace/angular-lint-rules`    
+or      
+`yarn add @dynatrace/angular-lint-rules`
 
 ## Development
 
