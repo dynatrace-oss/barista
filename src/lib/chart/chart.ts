@@ -21,11 +21,11 @@ import { Observable, Subscription, Subject } from 'rxjs';
 import { DtViewportResizer } from '@dynatrace/angular-components/core';
 import { delay, takeUntil } from 'rxjs/operators';
 import { DtTheme } from '@dynatrace/angular-components/theming';
-import { mergeOptions } from './chart-utils';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
 import { DEFAULT_CHART_OPTIONS, DEFAULT_CHART_AXIS_STYLES } from './chart-options';
 import { ChartColorizer } from './chart-colorizer';
+import merge from 'lodash/merge';
 
 export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions[];
@@ -181,7 +181,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   /* merge options with internal highcharts options and defaultoptions */
   private _mergeOptions(options: DtChartOptions): void {
-    const merged = mergeOptions(DEFAULT_CHART_OPTIONS, options) as Options;
+    const merged = merge({}, DEFAULT_CHART_OPTIONS, options) as Options;
     merged.series = this.highchartsOptions.series;
     this._wrapTooltip(merged);
     this._highchartsOptions = merged;
@@ -204,9 +204,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
     if (Array.isArray(this._highchartsOptions[axis])) {
       this._highchartsOptions[axis] = this._highchartsOptions[axis]
-        .map((a) => mergeOptions(DEFAULT_CHART_AXIS_STYLES, a) as AxisOptions[]);
+        .map((a) => merge({}, DEFAULT_CHART_AXIS_STYLES, a) as AxisOptions[]);
     } else {
-      this._highchartsOptions[axis] = mergeOptions(DEFAULT_CHART_AXIS_STYLES, this._highchartsOptions[axis]);
+      this._highchartsOptions[axis] = merge({}, DEFAULT_CHART_AXIS_STYLES, this._highchartsOptions[axis]);
     }
   }
 
