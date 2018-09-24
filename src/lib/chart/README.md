@@ -79,3 +79,7 @@ ViewportResizer notifies the dt-chart component about Viewport changes that trig
 ### Pie chart
 
 <docs-source-example example="ChartPieExampleComponent" fullwidth="true"></docs-source-example>
+
+### AreaRange chart
+
+<docs-source-example example="ChartAreaRangeExampleComponent" fullwidth="true"></docs-source-example>
