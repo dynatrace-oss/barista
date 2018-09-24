@@ -11,6 +11,7 @@ import { ChartOrderdColorsExampleComponent } from './examples/chart-ordered-colo
 import { ChartLoadingExampleComponent } from './examples/chart-loading-example.component';
 import { ChartCategorizedExampleComponent } from './examples/chart-categorized-example.component';
 import { ChartPieExampleComponent } from './examples/chart-pie-example.component';
+import { ChartAreaRangeExampleComponent } from './examples/chart-arearange-example.component';
 
 export const EXAMPLES = [
   ChartDefaultExampleComponent,
@@ -19,6 +20,7 @@ export const EXAMPLES = [
   ChartLoadingExampleComponent,
   ChartCategorizedExampleComponent,
   ChartPieExampleComponent,
+  ChartAreaRangeExampleComponent,
 ];
 
 @NgModule({
