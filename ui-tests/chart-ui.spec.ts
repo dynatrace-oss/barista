@@ -1,6 +1,15 @@
 import { browser, by, element } from 'protractor';
+import { getConsoleErrors } from './utils/console-errors';
 
 describe('chart', () => {
+  describe('Highcharts Setup', () => {
+    beforeEach(async () => browser.get('/chart/highcharts'));
+
+    it('should allow arearange as chart type', async () => {
+      expect(await getConsoleErrors().then((errors) => errors.find((err) => err.message.includes('Error: Highcharts error #17'))))
+      .toBeFalsy();
+    });
+  });
   describe('change detection', () => {
     beforeEach(async () => browser.get('/chart'));
 
