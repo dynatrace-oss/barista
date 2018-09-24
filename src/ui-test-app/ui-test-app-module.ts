@@ -43,6 +43,7 @@ import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { TabsUI } from './tabs/tabs-ui';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { OverlayUI } from './overlay/overlay-ui';
+import { ChartHighchartsUI } from './chart/chart-highcharts-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -99,6 +100,7 @@ export class DynatraceAngularCompModule {}
     ShowMoreUI,
     SwitchUI,
     ChartUI,
+    ChartHighchartsUI,
     ProgressBarUI,
     TabsUI,
     OverlayUI,
