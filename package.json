@@ -54,6 +54,7 @@
     "@types/highcharts": "^5.0.20",
     "@types/highlight.js": "^9.12.2",
     "@types/jasmine": "^2.8.5",
+    "@types/lodash": "^4.14.116",
     "@types/sass-graph": "^2.1.2",
     "@types/showdown": "^1.7.4",
     "@types/stylelint": "^7.11.0",
