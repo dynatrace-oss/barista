@@ -1,14 +1,15 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, Optional, SkipSelf, ViewEncapsulation
 } from '@angular/core';
-import { DataPoint, IndividualSeriesOptions} from 'highcharts';
-import {DtChartOptions, DtChartSeries, DtTheme, DtViewportResizer} from '@dynatrace/angular-components';
-import {DtChart} from '../chart';
+import { DataPoint, IndividualSeriesOptions } from 'highcharts';
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import { DtChart, DtChartOptions, DtChartSeries } from '../chart';
 import {
   DEFAULT_CHART_MICROCHART_OPTIONS, DEFAULT_MAX_DATAPOINT_OPTIONS, DEFAULT_MIN_DATAPOINT_OPTIONS,
   DEFAULT_MINMAX_DATAPOINT_OPTIONS
 } from './micro-chart-options';
-import {merge} from 'lodash';
+import { merge } from 'lodash';
+import { DtTheme } from '@dynatrace/angular-components/theming';
 
 @Component({
   moduleId: module.id,
@@ -60,6 +61,8 @@ export class DtMicroChart extends DtChart {
 
       merge(dataPoints[minIndex], DEFAULT_MINMAX_DATAPOINT_OPTIONS, DEFAULT_MIN_DATAPOINT_OPTIONS);
       merge(dataPoints[maxIndex], DEFAULT_MINMAX_DATAPOINT_OPTIONS, DEFAULT_MAX_DATAPOINT_OPTIONS);
+
+      currentSeries.data = dataPoints;
     });
   }
 
