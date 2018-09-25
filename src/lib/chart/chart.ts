@@ -32,7 +32,7 @@ import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
 import { DEFAULT_CHART_OPTIONS, DEFAULT_CHART_AXIS_STYLES } from './chart-options';
 import { ChartColorizer } from './chart-colorizer';
-import {merge} from 'lodash';
+import { merge } from 'lodash';
 
 export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions[];

@@ -1,5 +1,5 @@
 import {DataPoint} from 'highcharts';
-import {DtChartOptions} from '@dynatrace/angular-components';
+import {DtChartOptions} from '../chart';
 
 export const DEFAULT_CHART_MICROCHART_OPTIONS: DtChartOptions = {
   chart: {
