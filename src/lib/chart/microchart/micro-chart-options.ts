@@ -37,11 +37,13 @@ export const DEFAULT_MINMAX_DATAPOINT_OPTIONS: DataPoint = {
 export const DEFAULT_MIN_DATAPOINT_OPTIONS: DataPoint = {
   dataLabels: {
     verticalAlign: 'top',
+    y: 3,
   },
 };
 
 export const DEFAULT_MAX_DATAPOINT_OPTIONS: DataPoint = {
   dataLabels: {
     verticalAlign: 'bottom',
+    y: -3,
   },
 };
