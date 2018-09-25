@@ -63,6 +63,7 @@ $dt-select-panel-min-width: 112px !default;
   ::ng-deep svg {
     width: 16px;
     height: 16px;
+    fill: $turquoise-600;
   }
 }
 :host.dt-select-disabled .dt-select-arrow ::ng-deep svg {
