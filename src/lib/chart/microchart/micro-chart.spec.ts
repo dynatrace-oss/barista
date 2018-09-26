@@ -1,17 +1,12 @@
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  DtChartModule,
-  DtChartOptions,
-  DtChartSeries,
-  DtThemingModule,
-  CHART_COLOR_PALETTES,
-} from '@dynatrace/angular-components';
+import { DtChartModule, DtChartOptions, DtChartSeries, DtThemingModule } from '@dynatrace/angular-components';
 import { BehaviorSubject } from 'rxjs';
 import { CHART_COLOR_PALETTE_ORDERED } from 'theming/index';
 import { IndividualSeriesOptions } from 'highcharts';
-import {DtMicroChart} from './micro-chart';
+import { DtMicroChart } from './micro-chart';
+import { MICROCHART_PALETTES } from '@dynatrace/angular-components/chart/microchart/micro-chart-colorizer';
 
 // tslint:disable:no-magic-numbers
 
@@ -53,7 +48,9 @@ describe('DtMicroChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
       const series = chartComponent.highchartsOptions.series;
-      expect(series![0].data).toEqual([[1523972199774, 0], [1523972201622, 10]]);
+
+      expect(series![0].data![0]).toEqual(jasmine.objectContaining({x: 1523972199774, y: 0}));
+      expect(series![0].data![1]).toEqual(jasmine.objectContaining({x: 1523972201622, y: 10}));
     });
 
     it('should update the data if observable fires new data', () => {
@@ -197,7 +194,7 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.purple);
+      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
     });
 
     it('should choose the colors from the ordered palette for more than 3 series', () => {
@@ -205,7 +202,7 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTE_ORDERED);
+      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
     });
 
     it('should update colors when the theme changes', () => {
@@ -213,10 +210,10 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.purple);
+      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
       fixture.componentInstance.theme = 'royalblue';
       fixture.detectChanges();
-      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.royalblue);
+      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.royalblue.primary]);
     });
 
     it('should choose the correct colors for pie charts with less than 4 data slices', () => {
@@ -224,7 +221,7 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTES.purple);
+      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
     });
 
     it('should choose the correct colors for pie charts with more than 3 data slices', () => {
@@ -232,7 +229,7 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTE_ORDERED);
+      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
     });
   });
 });
@@ -240,9 +237,7 @@ describe('DtMicroChart', () => {
 /** Test component that contains an DtChart with static data */
 @Component({
   selector: 'dt-series-single',
-  template: `
-    <dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>
-  `,
+  template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
 class SeriesSingle {
   options: DtChartOptions = {
@@ -268,9 +263,7 @@ class SeriesSingle {
 
 @Component({
   selector: 'dt-series-multi',
-  template: `
-  <dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>
-  `,
+  template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
 class SeriesMulti {
   options: DtChartOptions = {
@@ -301,9 +294,7 @@ class SeriesMulti {
 
 @Component({
   selector: 'dt-no-series',
-  template: `
-  <dt-micro-chart [options]="options"></dt-micro-chart>
-  `,
+  template: '<dt-micro-chart [options]="options"></dt-micro-chart>',
 })
 class NoSeries {
   options: DtChartOptions = {
@@ -355,9 +346,7 @@ class DynamicSeries {
 
 @Component({
   selector: 'dt-series-color',
-  template: `
-  <dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>
-  `,
+  template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
 class SeriesColor {
   options: DtChartOptions = {
@@ -389,7 +378,7 @@ class SeriesColor {
 
 @Component({
   selector: 'dt-series-color',
-  template: `<div [dtTheme]="theme"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>`,
+  template: '<div [dtTheme]="theme"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
 })
 class SeriesTheme {
   theme = 'purple';
@@ -420,7 +409,7 @@ class SeriesTheme {
 
 @Component({
   selector: 'dt-series-color',
-  template: `<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>`,
+  template: '<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
 })
 class SeriesMoreThanTheme {
   options: DtChartOptions = {
@@ -461,7 +450,7 @@ class SeriesMoreThanTheme {
 
 @Component({
   selector: 'dt-series-color',
-  template: `<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>`,
+  template: '<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
 })
 class SeriesMoreThanOrderedColors {
   options: DtChartOptions = {
@@ -486,7 +475,7 @@ class SeriesMoreThanOrderedColors {
 
 @Component({
   selector: 'dt-pie-color-theme',
-  template: `<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>`,
+  template: '<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
 })
 class PieChartThemeColors {
   options: DtChartOptions = {
@@ -514,7 +503,7 @@ class PieChartThemeColors {
 
 @Component({
   selector: 'dt-pie-color-theme',
-  template: `<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>`,
+  template: '<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
 })
 class PieChartOrderedColors {
   options: DtChartOptions = {
