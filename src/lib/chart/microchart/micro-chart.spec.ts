@@ -3,8 +3,6 @@ import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtChartModule, DtChartOptions, DtChartSeries, DtThemingModule } from '@dynatrace/angular-components';
 import { BehaviorSubject } from 'rxjs';
-import { CHART_COLOR_PALETTE_ORDERED } from 'theming/index';
-import { IndividualSeriesOptions } from 'highcharts';
 import { DtMicroChart } from './micro-chart';
 import { MICROCHART_PALETTES } from '@dynatrace/angular-components/chart/microchart/micro-chart-colorizer';
 
@@ -21,9 +19,7 @@ describe('DtMicroChart', () => {
         NoSeries,
         DynamicSeries,
         SeriesColor,
-        SeriesTheme,
-        SeriesMoreThanTheme,
-        SeriesMoreThanOrderedColors],
+        SeriesTheme],
     });
 
     TestBed.compileComponents();
@@ -202,14 +198,6 @@ describe('DtMicroChart', () => {
       expect(chartComponent.highchartsOptions.series![0].color).toBe('#ff0000');
     });
 
-    it('should choose the colors from the colorpalette of the theme for up to 3 series', () => {
-      const fixture = TestBed.createComponent(SeriesTheme);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
-    });
-
     it('should update colors when the theme changes', () => {
       const fixture = TestBed.createComponent(SeriesTheme);
       fixture.detectChanges();
@@ -383,70 +371,4 @@ class SeriesTheme {
       id: 'someMetricId',
       data: [[1370304000000, 140], [1370390400000, 120]],
     }];
-}
-
-@Component({
-  selector: 'dt-series-color',
-  template: '<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
-})
-class SeriesMoreThanTheme {
-  options: DtChartOptions = {
-    chart: {
-      type: 'line',
-    },
-    xAxis: {
-      type: 'datetime',
-    },
-    yAxis: {
-      min: 100,
-      max: 200,
-    },
-  };
-  series: DtChartSeries = [
-    {
-      name: 'Actions/min',
-      id: 'someMetricId',
-      data: [[1370304000000, 140], [1370390400000, 120]],
-    },
-    {
-      name: 'Requests/min',
-      id: 'someOtherMetricId',
-      data: [[1370304000000, 130], [1370390400000, 110]],
-    },
-    {
-      name: 'Failed requests',
-      id: 'testmetricId',
-      data: [[1370304000000, 140], [1370390400000, 120]],
-    },
-    {
-      name: 'Successful requests',
-      id: 'someOtherTestMetricId',
-      data: [[1370304000000, 140], [1370390400000, 120]],
-    },
-  ];
-}
-
-@Component({
-  selector: 'dt-series-color',
-  template: '<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
-})
-class SeriesMoreThanOrderedColors {
-  options: DtChartOptions = {
-    chart: {
-      type: 'line',
-    },
-    xAxis: {
-      type: 'datetime',
-    },
-    yAxis: {
-      min: 100,
-      max: 200,
-    },
-  };
-  series: DtChartSeries = Array.from(Array(CHART_COLOR_PALETTE_ORDERED.length + 1).keys())
-    .map((): IndividualSeriesOptions => ({
-      name: 'Actions/min',
-      id: 'someMetricId',
-      data: [[1370304000000, 140], [1370390400000, 120]],
-    }));
 }
