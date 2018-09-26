@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, Optional, SkipSelf, ViewEncapsulation
 } from '@angular/core';
-import { DataPoint, IndividualSeriesOptions } from 'highcharts';
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import { DataPoint } from 'highcharts';
+import { DtViewportResizer} from '@dynatrace/angular-components/core';
 import { DtChart, DtChartOptions, DtChartSeries } from '../chart';
 import {
   DEFAULT_CHART_MICROCHART_OPTIONS, DEFAULT_MAX_DATAPOINT_OPTIONS, DEFAULT_MIN_DATAPOINT_OPTIONS,
@@ -11,6 +11,9 @@ import {
 import { merge } from 'lodash';
 import { DtTheme } from '@dynatrace/angular-components/theming';
 import { MicroChartColorizer } from '@dynatrace/angular-components/chart/microchart/micro-chart-colorizer';
+
+const SUPPORTED_CHART_TYPES = ['line', 'bar', 'column', 'series'];
+const SUPPORTED_NUM_SERIES = 1;
 
 @Component({
   moduleId: module.id,
@@ -26,15 +29,6 @@ import { MicroChartColorizer } from '@dynatrace/angular-components/chart/microch
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtMicroChart extends DtChart {
-  protected _mergeOptions(options: DtChartOptions): void {
-    super._mergeOptions(merge({}, DEFAULT_CHART_MICROCHART_OPTIONS, options));
-  }
-
-  protected _mergeSeries(series: DtChartSeries | undefined): void {
-    this._transformSeries(series);
-    super._mergeSeries(series);
-  }
-
   constructor(@Optional() _viewportResizer: DtViewportResizer,
               @Optional() @SkipSelf() _theme: DtTheme,
               _changeDetectorRef: ChangeDetectorRef,
@@ -42,42 +36,60 @@ export class DtMicroChart extends DtChart {
     super(_viewportResizer, _theme, _changeDetectorRef, _ngZone);
   }
 
-  private _transformSeries(series: DtChartSeries | undefined): void {
+  protected _mergeOptions(options: DtChartOptions): void {
+    super._mergeOptions(merge({}, DEFAULT_CHART_MICROCHART_OPTIONS, options));
+  }
 
-    if (series === undefined) {
+  protected _mergeSeries(series: DtChartSeries | undefined): void {
+    DtMicroChart._throwUnsupported(series);
+    DtMicroChart._transformSeries(series);
+
+    super._mergeSeries(series);
+  }
+
+  protected _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
+    this._mergeAxisWithOptions(axis, { visible: false });
+    super._mergeAxis(axis);
+  }
+
+  protected _colorizeChart(options: DtChartOptions): void {
+    MicroChartColorizer.apply(options, this._theme);
+  }
+
+  private static _transformSeries(series: DtChartSeries | undefined): void {
+
+    if (series === undefined || series.length === 0) {
       return;
     }
 
-    // Return if there is no data
-    if (series.length === 0) {
+    // We only support one series. This has already been checked.
+    const singleSeries = series[0];
+    if (singleSeries.data === undefined || singleSeries.data.length === 0) {
       return;
     }
 
-    series.forEach((currentSeries: IndividualSeriesOptions) => {
-      const dataPoints = DtMicroChart._normalizedData(currentSeries.data);
-      const values = dataPoints.map((point: DataPoint) => point.y) as number[];
+    const dataPoints = DtMicroChart._normalizedData(singleSeries.data);
+    const values = dataPoints.map((point: DataPoint) => point.y) as number[];
 
-      const minIndex = values.lastIndexOf(Math.min(...values));
-      const maxIndex = values.lastIndexOf(Math.max(...values));
+    const minIndex = values.lastIndexOf(Math.min(...values));
+    const maxIndex = values.lastIndexOf(Math.max(...values));
 
-      merge(dataPoints[minIndex], DEFAULT_MINMAX_DATAPOINT_OPTIONS, DEFAULT_MIN_DATAPOINT_OPTIONS);
-      merge(dataPoints[maxIndex], DEFAULT_MINMAX_DATAPOINT_OPTIONS, DEFAULT_MAX_DATAPOINT_OPTIONS);
+    merge(dataPoints[minIndex], DEFAULT_MINMAX_DATAPOINT_OPTIONS, DEFAULT_MIN_DATAPOINT_OPTIONS);
+    merge(dataPoints[maxIndex], DEFAULT_MINMAX_DATAPOINT_OPTIONS, DEFAULT_MAX_DATAPOINT_OPTIONS);
 
-      currentSeries.data = dataPoints;
-    });
+    singleSeries.data = dataPoints;
   }
 
   /**
    * Converts a series to {@link DataPoint[]}
    */
-  private static _normalizedData(seriesData: Array<number | [number, number] | [string, number] | DataPoint> | undefined):
-    DataPoint[] {
-    if (!seriesData || seriesData.length === 0) {
+  private static _normalizedData(seriesData: Array<number | [number, number] | [string, number] | DataPoint>): DataPoint[] {
+    if (seriesData.length === 0) {
       return [];
     }
 
     // Convert (number | [number, number] | [string, number]) to DataPoint
-    // In case of another data structure, we simply ignore it.
+    // In case of another data structure we can ignore it, since an error should already be thrown for unsupported charts.
     const firstDataValue = seriesData[0];
 
     if (typeof firstDataValue === 'number') { // Case 'number'
@@ -95,12 +107,16 @@ export class DtMicroChart extends DtChart {
     return [];
   }
 
-  protected _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
-    this._mergeAxisWithOptions(axis, { visible: false });
-    super._mergeAxis(axis);
-  }
+  private static _throwUnsupported(series: DtChartSeries | undefined): void {
+    if (series === undefined || series.length === 0) { return; }
 
-  protected _colorizeChart(options: DtChartOptions): void {
-    MicroChartColorizer.apply(options, this._theme);
+    if (series.length > SUPPORTED_NUM_SERIES) {
+      throw new Error(`You are using ${series.length} series. Supported number of series: ${SUPPORTED_NUM_SERIES}`);
+    }
+
+    const type = series[0].type;
+    if (type !== undefined && SUPPORTED_CHART_TYPES.indexOf(type) === -1) {
+      throw new Error(`Series type unsupported: ${type}`);
+    }
   }
 }
