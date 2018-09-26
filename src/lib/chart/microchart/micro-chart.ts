@@ -36,15 +36,16 @@ export class DtMicroChart extends DtChart {
     super(_viewportResizer, _theme, _changeDetectorRef, _ngZone);
   }
 
-  protected _mergeOptions(options: DtChartOptions): void {
-    super._mergeOptions(merge({}, DEFAULT_CHART_MICROCHART_OPTIONS, options));
-  }
-
   protected _mergeSeries(series: DtChartSeries | undefined): void {
-    DtMicroChart._throwUnsupported(series);
+    DtMicroChart._checkUnsupportedSeries(series);
     DtMicroChart._transformSeries(series);
 
     super._mergeSeries(series);
+  }
+
+  protected _mergeOptions(options: DtChartOptions): void {
+    DtMicroChart._checkUnsupportedOptions(options);
+    super._mergeOptions(merge({}, DEFAULT_CHART_MICROCHART_OPTIONS, options));
   }
 
   protected _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
@@ -107,15 +108,24 @@ export class DtMicroChart extends DtChart {
     return [];
   }
 
-  private static _throwUnsupported(series: DtChartSeries | undefined): void {
+  private static _checkUnsupportedSeries(series: DtChartSeries | undefined): void {
     if (series === undefined || series.length === 0) { return; }
 
     if (series.length > SUPPORTED_NUM_SERIES) {
       throw new Error(`You are using ${series.length} series. Supported number of series: ${SUPPORTED_NUM_SERIES}`);
     }
 
-    const type = series[0].type;
-    if (type !== undefined && SUPPORTED_CHART_TYPES.indexOf(type) === -1) {
+    DtMicroChart._checkUnsupportedType(series[0].type);
+  }
+
+  private static _checkUnsupportedOptions(options: DtChartOptions): void {
+    if (options.chart) {
+      DtMicroChart._checkUnsupportedType(options.chart.type);
+    }
+  }
+
+  private static _checkUnsupportedType(type: string | undefined): void {
+    if (type && SUPPORTED_CHART_TYPES.indexOf(type) === -1) {
       throw new Error(`Series type unsupported: ${type}`);
     }
   }

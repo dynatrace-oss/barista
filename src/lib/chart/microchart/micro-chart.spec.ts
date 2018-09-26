@@ -23,9 +23,7 @@ describe('DtMicroChart', () => {
         SeriesColor,
         SeriesTheme,
         SeriesMoreThanTheme,
-        SeriesMoreThanOrderedColors,
-        PieChartThemeColors,
-        PieChartOrderedColors],
+        SeriesMoreThanOrderedColors],
     });
 
     TestBed.compileComponents();
@@ -67,13 +65,29 @@ describe('DtMicroChart', () => {
       expect(firstSeries![0].data).not.toEqual(secondSeries![0].data);
     });
 
+    it('should throw an error with multiple series', () => {
+      expect(() => {
+        const fixture = TestBed.createComponent(SeriesMulti);
+        fixture.detectChanges();
+      }).toThrow(new Error('You are using 2 series. Supported number of series: 1'));
+    });
+
+    it('should throw an error with unsupported series', () => {
+      expect(() => {
+        const fixture = TestBed.createComponent(SeriesSingle);
+        fixture.detectChanges();
+        fixture.componentInstance.options = { chart: { type: 'pie' }};
+        fixture.detectChanges();
+      }).toThrow(new Error('Series type unsupported: pie'));
+    });
+
     it('provides an array of ids for the series', () => {
-      const fixture = TestBed.createComponent(SeriesMulti);
+      const fixture = TestBed.createComponent(SeriesSingle);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
       const ids = chartComponent.seriesIds;
-      expect(ids).toEqual(['someMetricId', 'someOtherMetricId']);
+      expect(ids).toEqual(['someMetricId']);
     });
 
     it('seriesIds returns undefined if there is no series data', () => {
@@ -109,7 +123,7 @@ describe('DtMicroChart', () => {
       expect(spy).not.toHaveBeenCalled();
       fixture.componentInstance.options = {
         chart: {
-          type: 'pie',
+          type: 'column',
         },
       };
       fixture.detectChanges();
@@ -123,7 +137,7 @@ describe('DtMicroChart', () => {
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
       const newOptions = {
         chart: {
-          type: 'pie',
+          type: 'column',
         },
         tooltip: {
           formatter(): string | boolean {
@@ -186,19 +200,10 @@ describe('DtMicroChart', () => {
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
 
       expect(chartComponent.highchartsOptions.series![0].color).toBe('#ff0000');
-      expect(chartComponent.highchartsOptions.series![1].color).toBe('#00ff00');
     });
 
     it('should choose the colors from the colorpalette of the theme for up to 3 series', () => {
       const fixture = TestBed.createComponent(SeriesTheme);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
-    });
-
-    it('should choose the colors from the ordered palette for more than 3 series', () => {
-      const fixture = TestBed.createComponent(SeriesMoreThanTheme);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
@@ -214,22 +219,6 @@ describe('DtMicroChart', () => {
       fixture.componentInstance.theme = 'royalblue';
       fixture.detectChanges();
       expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.royalblue.primary]);
-    });
-
-    it('should choose the correct colors for pie charts with less than 4 data slices', () => {
-      const fixture = TestBed.createComponent(PieChartThemeColors);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
-    });
-
-    it('should choose the correct colors for pie charts with more than 3 data slices', () => {
-      const fixture = TestBed.createComponent(PieChartOrderedColors);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
     });
   });
 });
@@ -367,12 +356,6 @@ class SeriesColor {
       id: 'someMetricId',
       color: '#ff0000',
       data: [[1370304000000, 140], [1370390400000, 120]],
-    },
-    {
-      name: 'Requests/min',
-      id: 'someOtherMetricId',
-      color: '#00ff00',
-      data: [[1370304000000, 130], [1370390400000, 110]],
     }];
 }
 
@@ -399,11 +382,6 @@ class SeriesTheme {
       name: 'Actions/min',
       id: 'someMetricId',
       data: [[1370304000000, 140], [1370390400000, 120]],
-    },
-    {
-      name: 'Requests/min',
-      id: 'someOtherMetricId',
-      data: [[1370304000000, 130], [1370390400000, 110]],
     }];
 }
 
@@ -471,64 +449,4 @@ class SeriesMoreThanOrderedColors {
       id: 'someMetricId',
       data: [[1370304000000, 140], [1370390400000, 120]],
     }));
-}
-
-@Component({
-  selector: 'dt-pie-color-theme',
-  template: '<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
-})
-class PieChartThemeColors {
-  options: DtChartOptions = {
-    chart: {
-      type: 'pie',
-    },
-  };
-  series = [{
-    name: 'Browsers',
-    data: [
-      {
-        name: 'Chrome',
-        y: 60,
-      },
-      {
-        name: 'Firefox',
-        y: 25,
-      },
-      {
-        name: 'Edge',
-        y: 15,
-      }],
-    }];
-}
-
-@Component({
-  selector: 'dt-pie-color-theme',
-  template: '<div dtTheme="purple"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
-})
-class PieChartOrderedColors {
-  options: DtChartOptions = {
-    chart: {
-      type: 'pie',
-    },
-  };
-  series = [{
-    name: 'Browsers',
-    data: [
-      {
-        name: 'Chrome',
-        y: 55,
-      },
-      {
-        name: 'Firefox',
-        y: 25,
-      },
-      {
-        name: 'Edge',
-        y: 15,
-      },
-      {
-        name: 'Others',
-        y: 5,
-      }],
-    }];
 }
