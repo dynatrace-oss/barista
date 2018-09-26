@@ -5,17 +5,33 @@ export const DEFAULT_CHART_MICROCHART_OPTIONS: DtChartOptions = {
   chart: {
     height: 150,
     plotBorderWidth: 0,
+    marginTop: 15,
+    marginBottom: 15,
+    spacingBottom: 0,
+    spacingTop: 0,
   },
   plotOptions: {
     series: {
+      allowPointSelect: true,
       marker: {
-        enabled: false,
+        enabled: true,
+        states: {
+          hover: {
+            lineWidth: 0,
+            lineWidthPlus: 0,
+          },
+        },
       },
       dataLabels: {
         crop: false,
         overflow: 'none',
         style: {
           fontWeight: 'normal',
+        },
+      },
+      states: {
+        hover: {
+          halo: false,
         },
       },
     },
@@ -31,6 +47,7 @@ export const DEFAULT_MINMAX_DATAPOINT_OPTIONS: DataPoint = {
   },
   marker: {
     enabled: true,
+    radius: 7,
   },
 };
 

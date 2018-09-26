@@ -10,6 +10,7 @@ import {
 } from './micro-chart-options';
 import { merge } from 'lodash';
 import { DtTheme } from '@dynatrace/angular-components/theming';
+import { MicroChartColorizer } from '@dynatrace/angular-components/chart/microchart/micro-chart-colorizer';
 
 @Component({
   moduleId: module.id,
@@ -97,5 +98,9 @@ export class DtMicroChart extends DtChart {
   protected _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
     this._mergeAxisWithOptions(axis, { visible: false });
     super._mergeAxis(axis);
+  }
+
+  protected _colorizeChart(options: DtChartOptions): void {
+    MicroChartColorizer.apply(options, this._theme);
   }
 }
