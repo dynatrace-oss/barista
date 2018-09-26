@@ -115,7 +115,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   constructor(
     @Optional() private _viewportResizer: DtViewportResizer,
-    @Optional() @SkipSelf() private _theme: DtTheme,
+    @Optional() @SkipSelf() protected _theme: DtTheme,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone
   ) {
@@ -273,7 +273,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     this._loading = !this._highchartsOptions.series;
   }
 
-  private _colorizeChart(options: Options): void {
+  protected _colorizeChart(options: Options): void {
     let nrOfMetrics;
     if (
       options.chart &&
