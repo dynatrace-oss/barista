@@ -11,12 +11,14 @@ import { IndividualSeriesOptions, Options } from 'highcharts';
 @OriginalClassName('MicroChartDefaultExampleComponent')
 export class MicroChartDefaultExampleComponent {
   options: Options = {
+    tooltip: {
+      formatter(): string | boolean {
+        return `${this.series.name}&nbsp${this.y}`;
+      },
+    },
     xAxis: {
       type: 'datetime',
     },
-    yAxis: [
-      {},
-    ],
   };
 
   series: IndividualSeriesOptions[] = [{
