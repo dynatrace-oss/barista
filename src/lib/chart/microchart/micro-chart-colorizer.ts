@@ -2,7 +2,7 @@ import { Colors, DtTheme } from '@dynatrace/angular-components/theming';
 import { DtChartOptions } from '../chart';
 import { merge } from 'lodash';
 
-interface MicroChartColorPalette {
+export interface MicroChartColorPalette {
   primary: string;
   secondary: string;
 }
