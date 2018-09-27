@@ -28,7 +28,9 @@ describe('DtChart', () => {
         SeriesMoreThanTheme,
         SeriesMoreThanOrderedColors,
         PieChartThemeColors,
-        PieChartOrderedColors],
+        PieChartOrderedColors,
+        EmptySeries,
+      ],
     });
 
     TestBed.compileComponents();
@@ -140,6 +142,17 @@ describe('DtChart', () => {
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
       expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual('<div class="dt-chart-tooltip">somename</div>');
+    });
+
+    it('should work with empty series array', () => {
+      expect(() => {
+        const fixture = TestBed.createComponent(EmptySeries);
+        fixture.detectChanges();
+      }).not.toThrowError('Cannot convert undefined or null to object');
+      expect(() => {
+        const fixture = TestBed.createComponent(EmptySeries);
+        fixture.detectChanges();
+      }).not.toThrow(TypeError);
     });
   });
 
@@ -542,4 +555,17 @@ class PieChartOrderedColors {
         y: 5,
       }],
     }];
+}
+
+@Component({
+  selector: 'dt-empty-series',
+  template: `<dt-chart [series]="series" [options]="options"></dt-chart>`,
+})
+class EmptySeries {
+  options: DtChartOptions = {
+    title: {
+      text: 'some String',
+    },
+  };
+  series = [];
 }
