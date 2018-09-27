@@ -27,7 +27,7 @@ task('library:assets', () =>
     .pipe(dest(join(buildConfig.libOutputDir, 'assets')))
 );
 
-task('library:compile', execNodeTask('@angular/cli', 'ng', ['build', 'lib', '--prod']));
+task('library:compile', execNodeTask('@angular/cli', 'ng', ['build', 'lib', '--prod'], {}, ['--max_old_space_size=8192']));
 
 task('library:fix-metadata', () => {
   src(join(buildConfig.libOutputDir, 'dynatrace-angular-components.metadata.json'))
