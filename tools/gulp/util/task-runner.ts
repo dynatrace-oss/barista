@@ -55,7 +55,7 @@ export function execTask(binPath: string, args: string[], options: ExecTaskOptio
  * from the package. Examples are typescript, ngc and gulp itself.
  */
 export function execNodeTask(packageName: string, executable: string | string[], args?: string[],
-                             options: ExecTaskOptions = {}) {
+                             options: ExecTaskOptions = {}, nodeOptions: string[] = []) {
   if (!args) {
     args = executable as string[];
     executable = '';
@@ -69,7 +69,7 @@ export function execNodeTask(packageName: string, executable: string | string[],
         // Execute the node binary within a new child process using spawn.
         // The binary needs to be `node` because on Windows the shell cannot determine the correct
         // interpreter from the shebang.
-        execTask('node', [binPath].concat(args!), options)(done);
+        execTask('node', nodeOptions.concat([binPath]).concat(args!), options)(done);
       }
     });
   };
