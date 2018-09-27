@@ -12,7 +12,8 @@ import { ChartLoadingExampleComponent } from './examples/chart-loading-example.c
 import { ChartCategorizedExampleComponent } from './examples/chart-categorized-example.component';
 import { ChartPieExampleComponent } from './examples/chart-pie-example.component';
 import { ChartAreaRangeExampleComponent } from './examples/chart-arearange-example.component';
-import {MicroChartExampleComponent} from './examples/microchart-example.component';
+import { MicroChartDefaultExampleComponent } from './examples/micro-chart-default-example.component';
+import { MicroChartColumnsExampleComponent } from './examples/micro-chart-columns-example.component';
 
 export const EXAMPLES = [
   ChartDefaultExampleComponent,
@@ -22,7 +23,8 @@ export const EXAMPLES = [
   ChartCategorizedExampleComponent,
   ChartPieExampleComponent,
   ChartAreaRangeExampleComponent,
-  MicroChartExampleComponent,
+  MicroChartColumnsExampleComponent,
+  MicroChartDefaultExampleComponent,
 ];
 
 @NgModule({
