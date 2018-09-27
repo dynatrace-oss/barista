@@ -3,13 +3,13 @@
 import { Component } from '@angular/core';
 import { generateData } from './chart-data-utils';
 import { OriginalClassName } from '../../../core/decorators';
-import {IndividualSeriesOptions, Options} from 'highcharts';
+import { IndividualSeriesOptions, Options } from 'highcharts';
 
 @Component({
   template: '<dt-micro-chart [options]="options" [series]="series"></dt-micro-chart>',
 })
-@OriginalClassName('MicroChartExampleComponent')
-export class MicroChartExampleComponent {
+@OriginalClassName('MicroChartDefaultExampleComponent')
+export class MicroChartDefaultExampleComponent {
   options: Options = {
     xAxis: {
       type: 'datetime',
@@ -19,13 +19,8 @@ export class MicroChartExampleComponent {
     ],
   };
 
-  series: IndividualSeriesOptions[] = [
-    {
-      name: 'Requests',
-      type: 'line',
-      data: generateData(40, 1000, 2000, 1370304000000, 900000),
-    }];
-
+  series: IndividualSeriesOptions[] = [{
+    name: 'Requests',
+    data: generateData(40, 1000, 2000, 1370304000000, 900000),
+  }];
 }
-
-// tslint:enable:no-magic-numbers

@@ -2,22 +2,22 @@ import { Colors, DtTheme } from '@dynatrace/angular-components/theming';
 import { DtChartOptions } from '@dynatrace/angular-components';
 import { merge } from 'lodash';
 
-interface MicrochartColorPalette {
+interface MicroChartColorPalette {
   primary: string;
   secondary: string;
 }
 
-const purple: MicrochartColorPalette = {
+const purple: MicroChartColorPalette = {
   primary: Colors.PURPLE_400,
   secondary: Colors.PURPLE_700,
 };
 
-const blue: MicrochartColorPalette = {
+const blue: MicroChartColorPalette = {
   primary: Colors.ROYALBLUE_400,
   secondary: Colors.ROYALBLUE_700,
 };
 
-const royalblue: MicrochartColorPalette = {
+const royalblue: MicroChartColorPalette = {
   primary: Colors.ROYALBLUE_400,
   secondary: Colors.ROYALBLUE_800,
 };
@@ -32,9 +32,19 @@ export class MicroChartColorizer {
   static apply(options: DtChartOptions, theme: DtTheme): void {
     const palette = theme && theme.name && MICROCHART_PALETTES[theme.name] ? MICROCHART_PALETTES[theme.name] : purple;
 
-    const colorOptions: DtChartOptions = {
+    const colorOptions = {
       colors: [palette.primary],
       plotOptions: {
+        column: {
+          states: {
+            hover: {
+              color: palette.secondary,
+            },
+            select: {
+              color: palette.primary,
+            },
+          },
+        },
         series: {
           marker: {
             states: {
