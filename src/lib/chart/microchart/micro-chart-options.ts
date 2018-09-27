@@ -41,6 +41,8 @@ export const DEFAULT_CHART_MICROCHART_OPTIONS: DtChartOptions = {
   legend: {
     enabled: false,
   },
+  xAxis: {},
+  yAxis: [{}],
 };
 
 export const DEFAULT_MINMAX_DATAPOINT_OPTIONS: DataPoint = {
