@@ -19,12 +19,6 @@ export class MicroChartColumnsExampleComponent {
         return `${this.series.name}&nbsp${this.y}`;
       },
     },
-    xAxis: {
-      type: 'datetime',
-    },
-    yAxis: [
-      {},
-    ],
   };
 
   series: IndividualSeriesOptions[] = [{
