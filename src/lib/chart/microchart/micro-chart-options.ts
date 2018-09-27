@@ -6,11 +6,14 @@ export const DEFAULT_CHART_MICROCHART_OPTIONS: DtChartOptions = {
     height: 150,
     plotBorderWidth: 0,
     marginTop: 15,
-    marginBottom: 15,
+    marginBottom: 30,
     spacingBottom: 0,
     spacingTop: 0,
   },
   plotOptions: {
+    column: {
+
+    },
     series: {
       allowPointSelect: true,
       marker: {
