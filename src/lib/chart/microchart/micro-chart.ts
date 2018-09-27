@@ -10,9 +10,9 @@ import {
 } from './micro-chart-options';
 import { merge } from 'lodash';
 import { DtTheme } from '@dynatrace/angular-components/theming';
-import { MicroChartColorizer } from '@dynatrace/angular-components/chart/microchart/micro-chart-colorizer';
+import { MicroChartColorizer } from './micro-chart-colorizer';
 
-const SUPPORTED_CHART_TYPES = ['line', 'bar', 'column', 'series'];
+const SUPPORTED_CHART_TYPES = ['line', 'column', 'series'];
 const SUPPORTED_NUM_SERIES = 1;
 
 @Component({
@@ -69,7 +69,7 @@ export class DtMicroChart extends DtChart {
       return;
     }
 
-    const dataPoints = DtMicroChart._normalizedData(singleSeries.data);
+    const dataPoints = DtMicroChart._normalizeData(singleSeries.data);
     const values = dataPoints.map((point: DataPoint) => point.y) as number[];
 
     const minIndex = values.lastIndexOf(Math.min(...values));
@@ -84,7 +84,7 @@ export class DtMicroChart extends DtChart {
   /**
    * Converts a series to {@link DataPoint[]}
    */
-  private static _normalizedData(seriesData: Array<number | [number, number] | [string, number] | DataPoint>): DataPoint[] {
+  private static _normalizeData(seriesData: Array<number | [number, number] | [string, number] | DataPoint>): DataPoint[] {
     if (seriesData.length === 0) {
       return [];
     }
@@ -93,15 +93,15 @@ export class DtMicroChart extends DtChart {
     // In case of another data structure we can ignore it, since an error should already be thrown for unsupported charts.
     const firstDataValue = seriesData[0];
 
-    if (typeof firstDataValue === 'number') { // Case 'number'
+    if (typeof firstDataValue === 'number') {
       return (seriesData as number[])
         .map((value: number, index: number) => ({x: index, y: value}));
 
-    } else if (firstDataValue instanceof Array) { // Case '[any, number]'
+    } else if (firstDataValue instanceof Array) {
       const numberArraySeries = seriesData as Array<[number, number]>;
       return numberArraySeries.map((value: [number, number]) => ({x: value[0], y: value[1]}));
 
-    } else if ('y' in firstDataValue) { // Case 'DataPoint'
+    } else if ('y' in firstDataValue) {
       return seriesData as DataPoint[];
     }
 

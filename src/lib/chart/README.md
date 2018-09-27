@@ -87,4 +87,8 @@ ViewportResizer notifies the dt-chart component about Viewport changes that trig
 
 ### Micro chart
 
-<docs-source-example example="MicroChartExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="MicroChartDefaultExampleComponent" fullwidth="true"></docs-source-example>
+
+### Micro chart with bars
+
+<docs-source-example example="MicroChartColumnsExampleComponent" fullwidth="true"></docs-source-example>
