@@ -15,7 +15,6 @@ export const DEFAULT_CHART_MICROCHART_OPTIONS: DtChartOptions = {
 
     },
     series: {
-      allowPointSelect: true,
       marker: {
         enabled: true,
         states: {
