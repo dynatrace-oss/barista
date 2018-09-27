@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtChartModule, DtChartOptions, DtChartSeries, DtThemingModule } from '@dynatrace/angular-components';
+import { DtChartOptions, DtChartSeries } from '../chart';
 import { BehaviorSubject } from 'rxjs';
 import { DtMicroChart } from './micro-chart';
-import { MICROCHART_PALETTES } from '@dynatrace/angular-components/chart/microchart/micro-chart-colorizer';
+import { MICROCHART_PALETTES } from './micro-chart-colorizer';
+import { DtThemingModule} from '@dynatrace/angular-components/theming';
+import { DtChartModule } from '../chart-module';
 
 // tslint:disable:no-magic-numbers
 
