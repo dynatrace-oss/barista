@@ -35,7 +35,7 @@ import { ChartColorizer } from './chart-colorizer';
 import { merge } from 'lodash';
 
 export type DtChartOptions = Options & { series?: undefined };
-export type DtChartSeries = IndividualSeriesOptions[];
+export type DtChartSeries = IndividualSeriesOptions;
 interface DtChartTooltip { (): string | boolean; iswrapped: boolean; }
 
 // tslint:disable-next-line:no-any
@@ -61,13 +61,14 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('container') container: ElementRef;
 
   _loading = false;
-  protected _series: Observable<DtChartSeries> | DtChartSeries | undefined;
+  private _series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
   private _currentSeries: IndividualSeriesOptions[] | undefined;
   protected _options: DtChartOptions;
   private _chartObject: ChartObject;
   private _dataSub: Subscription | null = null;
   private _isTooltipWrapped = false;
   private _highchartsOptions: Options;
+  private _handleColors = true;
   /**
    * This flag is necessary due to a bug in highcharts
    * where the series need to be reset to have the
@@ -86,20 +87,21 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     this._xAxisHasChanged = (options.xAxis !== this.highchartsOptions.xAxis);
     this._options = options;
     this._isTooltipWrapped = false;
+    this._handleColors = options.colors === undefined;
     this._mergeOptions(options);
   }
 
   @Input()
-  get series(): Observable<DtChartSeries> | DtChartSeries | undefined {
+  get series(): Observable<DtChartSeries[]> | DtChartSeries[] | undefined {
     return this._series;
   }
-  set series(series: Observable<DtChartSeries> | DtChartSeries | undefined) {
+  set series(series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined) {
     if (this._dataSub) {
       this._dataSub.unsubscribe();
       this._dataSub = null;
     }
     if (series instanceof Observable) {
-      this._dataSub = series.subscribe((s: DtChartSeries) => {
+      this._dataSub = series.subscribe((s: DtChartSeries[]) => {
         this._mergeSeries(s);
         this._update();
         this._changeDetectorRef.markForCheck();
@@ -195,7 +197,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /* merge series with the highcharts options internally */
-  protected _mergeSeries(series: DtChartSeries | undefined): void {
+  private _mergeSeries(series: DtChartSeries[] | undefined): void {
     this._currentSeries = series;
     const options = this.highchartsOptions;
     options.series = series && series.map(((s) => ({...s})));
@@ -205,19 +207,15 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /* merge default axis options to all axis */
-  protected _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
-    this._mergeAxisWithOptions(axis, DEFAULT_CHART_AXIS_STYLES);
-  }
-
-  protected _mergeAxisWithOptions(axis: 'xAxis' | 'yAxis' | 'zAxis', options: AxisOptions): void {
+  private _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
     if (!this._highchartsOptions[axis]) {
       return;
     }
     if (Array.isArray(this._highchartsOptions[axis])) {
       this._highchartsOptions[axis] = this._highchartsOptions[axis]
-        .map((a) => merge({}, options, a) as AxisOptions[]);
+        .map((a) => merge({}, DEFAULT_CHART_AXIS_STYLES, a) as AxisOptions[]);
     } else {
-      this._highchartsOptions[axis] = merge({}, options, this._highchartsOptions[axis]);
+      this._highchartsOptions[axis] = merge({}, DEFAULT_CHART_AXIS_STYLES, this._highchartsOptions[axis]);
     }
   }
 
@@ -273,19 +271,21 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     this._loading = !this._highchartsOptions.series;
   }
 
-  protected _colorizeChart(options: Options): void {
-    let nrOfMetrics;
-    if (
-      options.chart &&
-      options.chart.type === 'pie' &&
-      options.series &&
-      options.series.length === 1
-    ) {
-      const pieSeries = options.series[0];
-      nrOfMetrics = pieSeries.data && pieSeries.data.length;
-    } else {
-      nrOfMetrics = options.series && options.series.length;
+  private _colorizeChart(options: Options): void {
+    if (this._handleColors) {
+      let nrOfMetrics;
+      if (
+        options.chart &&
+        options.chart.type === 'pie' &&
+        options.series &&
+        options.series.length === 1
+      ) {
+        const pieSeries = options.series[0];
+        nrOfMetrics = pieSeries.data && pieSeries.data.length;
+      } else {
+        nrOfMetrics = options.series && options.series.length;
+      }
+      ChartColorizer.apply(options, nrOfMetrics, this._theme);
     }
-    ChartColorizer.apply(options, nrOfMetrics, this._theme);
   }
 }
