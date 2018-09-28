@@ -15,6 +15,14 @@ import { OriginalClassName } from '../../../core/decorators';
       Overload prevention:<br/>
       <a class="dt-link">View overload prevention</a>
     </dt-chart-heatfield>
+    <dt-chart-tooltip>
+      <ng-template let-series>
+        <dt-key-value-list style="min-width: 100px">
+          <dt-key-value-list-item *ngFor="let data of series.points" [key]="data.series.name" [value]="data.point.y">
+          </dt-key-value-list-item>
+        </dt-key-value-list>
+      </ng-template>
+    </dt-chart-tooltip>
   </dt-chart>`,
 })
 @OriginalClassName('ChartHeatfieldMultipleExampleComponent')
@@ -46,11 +54,6 @@ export class ChartHeatfieldMultipleExampleComponent {
         marker: {
           enabled: false,
         },
-      },
-    },
-    tooltip: {
-      formatter(): string | boolean {
-        return `${this.series.name}&nbsp${this.x}`;
       },
     },
   };
