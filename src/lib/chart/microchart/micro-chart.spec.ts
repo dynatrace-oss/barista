@@ -1,7 +1,7 @@
 import { Component, Type} from '@angular/core';
-import { async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtChartOptions, DtChartSeries} from '../chart';
+import { DtChartOptions, DtChartSeries } from '../chart';
 import { DtMicroChart } from './micro-chart';
 import { Colors, DtThemingModule } from '@dynatrace/angular-components/theming';
 import { DtChartModule } from '../chart-module';
@@ -17,7 +17,16 @@ describe('DtMicroChart', () => {
     TestBed.configureTestingModule({
       imports: [DtChartModule, DtThemingModule],
       declarations: [
-        Series, DefinedAxis, DefinedAxisArray, ThemeDynamic, ThemeFixed, NoOptions, NoSeries, Nothing, DynamicSeries,
+        Series,
+        DefinedAxis,
+        DefinedAxisArray,
+        DefinedAxisEmptyArray,
+        ThemeDynamic,
+        ThemeFixed,
+        NoOptions,
+        NoSeries,
+        Nothing,
+        DynamicSeries,
       ],
     }).compileComponents();
   }));
@@ -70,19 +79,6 @@ describe('DtMicroChart', () => {
       expect((options.xAxis as AxisOptions[])[0].visible).toBe(false);
       expect((options.yAxis as AxisOptions[])[0].visible).toBe(false);
     });
-
-    it('if defined as empty array', () => {
-      const {fixture, microChartComponent} = setupTestCase(DefinedAxisArray);
-      fixture.detectChanges();
-
-      const options = microChartComponent.highchartsOptions;
-
-      expect(options.xAxis).toBeDefined();
-      expect(options.yAxis).toBeDefined();
-      expect((options.xAxis as AxisOptions[])[0].visible).toBe(false);
-      expect((options.yAxis as AxisOptions[])[0].visible).toBe(false);
-    });
-
   });
 
   describe('chart is colored', () => {
@@ -148,7 +144,7 @@ describe('DtMicroChart', () => {
       const {fixture, microChartComponent} = setupTestCase(Series);
       fixture.detectChanges();
 
-      const data = microChartComponent.highchartsOptions.series![0]!.data as DataPoint[];
+      const data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
 
       expect(data[0].dataLabels).toEqual(objectContaining({verticalAlign: 'bottom', enabled: true}));
       expect(data[1].dataLabels).toEqual(objectContaining({verticalAlign: 'top', enabled: true}));
