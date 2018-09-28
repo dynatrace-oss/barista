@@ -3,7 +3,8 @@
 import { Component } from '@angular/core';
 import { generateData } from './chart-data-utils';
 import { OriginalClassName } from '../../../core/decorators';
-import { IndividualSeriesOptions, Options } from 'highcharts';
+import { Options } from 'highcharts';
+import {DtChartSeries} from '@dynatrace/angular-components';
 
 @Component({
   template: '<dt-micro-chart [options]="options" [series]="series"></dt-micro-chart>',
@@ -17,9 +18,8 @@ export class MicroChartDefaultExampleComponent {
       },
     },
   };
-
-  series: IndividualSeriesOptions[] = [{
+  series: DtChartSeries = {
     name: 'Requests',
     data: generateData(40, 1000, 2000, 1370304000000, 900000),
-  }];
+  };
 }
