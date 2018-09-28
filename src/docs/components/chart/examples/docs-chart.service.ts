@@ -31,7 +31,6 @@ export class ChartService {
       .pipe(map(() => ({
           name: 'Requests',
           type: 'column',
-          color: Colors.PURPLE_400,
           data: generateData(40, 0, 200, 1370304000000, 900000),
         })));
   }
