@@ -40,35 +40,33 @@ export class MicroChartColorizer {
   static apply(options: DtChartOptions, theme: DtTheme | undefined): void {
     const palette = MicroChartColorizer.getPalette(theme);
 
+    options.colors = [palette.primary];
+
     const colorOptions = {
-      colors: [palette.primary],
-      plotOptions: {
-        column: {
-          states: {
-            hover: {
-              color: palette.secondary,
-            },
-            select: {
-              color: palette.primary,
-            },
+      column: {
+        states: {
+          hover: {
+            color: palette.tertiary,
+          },
+          select: {
+            color: palette.secondary,
           },
         },
-        series: {
-          marker: {
-            states: {
-              hover: {
-                fillColor: palette.secondary,
-              },
-              select: {
-                lineColor: palette.secondary,
-                fillColor: palette.primary,
-              },
+      },
+      series: {
+        marker: {
+          states: {
+            hover: {
+              fillColor: palette.tertiary,
+            },
+            select: {
+              fillColor: palette.secondary,
             },
           },
         },
       },
     };
 
-    merge(options, colorOptions);
+    merge(options.plotOptions, colorOptions);
   }
 }
