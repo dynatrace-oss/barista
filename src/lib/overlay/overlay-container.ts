@@ -10,6 +10,7 @@ import {
   Inject,
   ElementRef,
   isDevMode,
+  ViewContainerRef,
 } from '@angular/core';
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
@@ -79,6 +80,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
     public _ngZone: NgZone,
     private _elementRef: ElementRef,
     private _focusTrapFactory: FocusTrapFactory,
+    private _viewContainerRef: ViewContainerRef,
     // tslint:disable-next-line:no-any
     @Optional() @Inject(DOCUMENT) private _document: any,
     public _config: DtOverlayConfig) {
@@ -106,6 +108,9 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
     }
     this._animationState = 'enter';
     this._savePreviouslyFocusedElement();
+    if (!portal.viewContainerRef) {
+      portal.viewContainerRef = this._viewContainerRef;
+    }
     return this._portalOutlet.attachTemplatePortal(portal);
   }
 

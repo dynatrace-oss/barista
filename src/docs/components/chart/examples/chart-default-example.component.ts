@@ -5,7 +5,17 @@ import { generateData } from './chart-data-utils';
 import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
-  template: '<dt-chart [options]="options" [series]="series"></dt-chart>',
+  template: `
+  <dt-chart [options]="options" [series]="series">
+    <dt-chart-tooltip>
+      <ng-template let-series>
+        <dt-key-value-list style="min-width: 100px">
+          <dt-key-value-list-item *ngFor="let data of series.points" [key]="data.series.name" [value]="data.point.y">
+          </dt-key-value-list-item>
+        </dt-key-value-list>
+      </ng-template>
+    </dt-chart-tooltip>
+  </dt-chart>`,
 })
 @OriginalClassName('ChartDefaultExampleComponent')
 export class ChartDefaultExampleComponent {
@@ -38,11 +48,6 @@ export class ChartDefaultExampleComponent {
         marker: {
           enabled: false,
         },
-      },
-    },
-    tooltip: {
-      formatter(): string | boolean {
-        return `${this.series.name}&nbsp${this.y}`;
       },
     },
   };
