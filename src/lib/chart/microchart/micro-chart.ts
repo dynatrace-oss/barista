@@ -8,7 +8,7 @@ import {
   Output, SkipSelf,
   ViewChild
 } from '@angular/core';
-import {AxisOptions, DataPoint, Options} from 'highcharts';
+import { AxisOptions, DataPoint, Options } from 'highcharts';
 import { DtChart, DtChartOptions, DtChartSeries } from '../chart';
 import {
   COLUMN_MINMAX_DATAPOINT_OPTIONS,

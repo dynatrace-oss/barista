@@ -13,8 +13,6 @@ import { BehaviorSubject } from 'rxjs';
 import { CHART_COLOR_PALETTE_ORDERED } from '@dynatrace/angular-components/theming';
 import { IndividualSeriesOptions } from 'highcharts';
 
-// tslint:disable:no-magic-numbers
-
 describe('DtChart', () => {
 
   beforeEach(async(() => {

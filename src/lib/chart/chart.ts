@@ -63,7 +63,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   _loading = false;
   private _series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
   private _currentSeries: IndividualSeriesOptions[] | undefined;
-  protected _options: DtChartOptions;
+  private _options: DtChartOptions;
   private _chartObject: ChartObject;
   private _dataSub: Subscription | null = null;
   private _isTooltipWrapped = false;
@@ -117,7 +117,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   constructor(
     @Optional() private _viewportResizer: DtViewportResizer,
-    @Optional() @SkipSelf() protected _theme: DtTheme,
+    @Optional() @SkipSelf() private _theme: DtTheme,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone
   ) {
@@ -189,7 +189,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /* merge options with internal highcharts options and defaultoptions */
-  protected _mergeOptions(options: DtChartOptions): void {
+  private _mergeOptions(options: DtChartOptions): void {
     const merged = merge({}, DEFAULT_CHART_OPTIONS, options) as Options;
     merged.series = this.highchartsOptions.series;
     this._wrapTooltip(merged);
