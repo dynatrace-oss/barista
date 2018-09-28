@@ -4,7 +4,13 @@ import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
-  template: '<dt-chart [options]="options" [series]="series"></dt-chart>',
+  template: `<dt-chart [options]="options" [series]="series">
+  <dt-chart-tooltip>
+      <ng-template let-series>
+        {{series.x}} {{series.point.colorIndex}}
+      </ng-template>
+    </dt-chart-tooltip>
+  </dt-chart>`,
 })
 @OriginalClassName('ChartPieExampleComponent')
 export class ChartPieExampleComponent {
