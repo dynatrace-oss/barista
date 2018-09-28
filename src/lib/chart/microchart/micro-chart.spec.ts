@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { Component, Type} from '@angular/core';
+import { async, ComponentFixture, TestBed} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtChartOptions, DtChartSeries } from '../chart';
-import { BehaviorSubject } from 'rxjs';
+import { DtChartOptions, DtChartSeries} from '../chart';
 import { DtMicroChart } from './micro-chart';
-import { MICROCHART_PALETTES } from './micro-chart-colorizer';
-import { DtThemingModule} from '@dynatrace/angular-components/theming';
+import { Colors, DtThemingModule } from '@dynatrace/angular-components/theming';
 import { DtChartModule } from '../chart-module';
+import objectContaining = jasmine.objectContaining;
+import { AxisOptions, DataPoint } from 'highcharts';
+import { BehaviorSubject } from 'rxjs';
 
 // tslint:disable:no-magic-numbers
 
@@ -16,259 +17,288 @@ describe('DtMicroChart', () => {
     TestBed.configureTestingModule({
       imports: [DtChartModule, DtThemingModule],
       declarations: [
-        SeriesSingle,
-        SeriesMulti,
-        NoSeries,
-        DynamicSeries,
-        SeriesColor,
-        SeriesTheme],
-    });
-
-    TestBed.compileComponents();
+        Series, DefinedAxis, DefinedAxisArray, ThemeDynamic, ThemeFixed, NoOptions, NoSeries, Nothing, DynamicSeries,
+      ],
+    }).compileComponents();
   }));
 
-  describe('Data', () => {
-    it('should display static data', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
+  const setupTestCase = <T>(componentType: Type<T>):
+    { fixture: ComponentFixture<T>; microChartComponent: DtMicroChart } => {
+    const fixture = TestBed.createComponent(componentType);
+    const microChartDebugElement = fixture.debugElement.query(By.directive(DtMicroChart));
+    const microChartComponent = microChartDebugElement.componentInstance as DtMicroChart;
 
+    return {
+      fixture,
+      microChartComponent,
+    };
+  };
+
+  describe('axis are not visible', () => {
+    it('if not defined', () => {
+      const {fixture, microChartComponent} = setupTestCase(Series);
       fixture.detectChanges();
-      expect((chartComponent.series as DtChartSeries).length).toBe(1);
+
+      const options = microChartComponent.highchartsOptions;
+
+      expect(options.xAxis).toBeDefined();
+      expect(options.yAxis).toBeDefined();
+      expect((options.xAxis as AxisOptions).visible).toBe(false);
+      expect((options.yAxis as AxisOptions).visible).toBe(false);
     });
 
-    it('should display data from observable', () => {
-      const fixture = TestBed.createComponent(DynamicSeries);
+    it('if defined', () => {
+      const {fixture, microChartComponent} = setupTestCase(DefinedAxis);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      const series = chartComponent.highchartsOptions.series;
 
-      expect(series![0].data![0]).toEqual(jasmine.objectContaining({x: 1523972199774, y: 0}));
-      expect(series![0].data![1]).toEqual(jasmine.objectContaining({x: 1523972201622, y: 10}));
+      const options = microChartComponent.highchartsOptions;
+
+      expect(options.xAxis).toBeDefined();
+      expect(options.yAxis).toBeDefined();
+      expect((options.xAxis as AxisOptions).visible).toBe(false);
+      expect((options.yAxis as AxisOptions).visible).toBe(false);
     });
 
-    it('should update the data if observable fires new data', () => {
-      const fixture = TestBed.createComponent(DynamicSeries);
+    it('if defined as array', () => {
+      const {fixture, microChartComponent} = setupTestCase(DefinedAxisArray);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      const firstSeries = chartComponent.highchartsOptions.series;
-      fixture.componentInstance.emitTestData();
-      fixture.detectChanges();
-      const secondSeries = chartComponent.highchartsOptions.series;
-      expect(firstSeries![0].data).toBeDefined();
-      expect(secondSeries![0].data).toBeDefined();
-      expect(firstSeries![0].data).not.toEqual(secondSeries![0].data);
+
+      const options = microChartComponent.highchartsOptions;
+
+      expect(options.xAxis).toBeDefined();
+      expect(options.yAxis).toBeDefined();
+      expect((options.xAxis as AxisOptions[])[0].visible).toBe(false);
+      expect((options.yAxis as AxisOptions[])[0].visible).toBe(false);
     });
 
-    it('should throw an error with multiple series', () => {
-      expect(() => {
-        const fixture = TestBed.createComponent(SeriesMulti);
-        fixture.detectChanges();
-      }).toThrow(new Error('You are using 2 series. Supported number of series: 1'));
+    it('if defined as empty array', () => {
+      const {fixture, microChartComponent} = setupTestCase(DefinedAxisArray);
+      fixture.detectChanges();
+
+      const options = microChartComponent.highchartsOptions;
+
+      expect(options.xAxis).toBeDefined();
+      expect(options.yAxis).toBeDefined();
+      expect((options.xAxis as AxisOptions[])[0].visible).toBe(false);
+      expect((options.yAxis as AxisOptions[])[0].visible).toBe(false);
     });
 
-    it('should throw an error with unsupported series', () => {
-      expect(() => {
-        const fixture = TestBed.createComponent(SeriesSingle);
-        fixture.detectChanges();
-        fixture.componentInstance.options = { chart: { type: 'pie' }};
-        fixture.detectChanges();
-      }).toThrow(new Error('Series type unsupported: pie'));
+  });
+
+  describe('chart is colored', () => {
+    it('sets default colors if no theme on parent is given', () => {
+      const {fixture, microChartComponent} = setupTestCase(Series);
+      fixture.detectChanges();
+
+      expect(microChartComponent.highchartsOptions.colors).toBeDefined();
     });
 
-    it('provides an array of ids for the series', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
+    it('sets colors based on the current theme', () => {
+      const {fixture, microChartComponent} = setupTestCase(ThemeFixed);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      const ids = chartComponent.seriesIds;
-      expect(ids).toEqual(['someMetricId']);
+
+      const colors = microChartComponent.highchartsOptions.colors;
+
+      expect(colors).toBeDefined();
+      expect(colors).toEqual([Colors.ROYALBLUE_400]);
     });
 
-    it('seriesIds returns undefined if there is no series data', () => {
-      const fixture = TestBed.createComponent(NoSeries);
+    it('sets colors after theme update', () => {
+      const {fixture, microChartComponent} = setupTestCase(ThemeDynamic);
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance;
-      const ids = chartComponent.seriesIds;
-      expect(ids).toBeUndefined();
-    });
 
-    it('should wrap the tooltip', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
+      fixture.componentInstance.theme = 'purple';
       fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      fixture.detectChanges();
-      const tooltip = chartComponent.highchartsOptions.tooltip;
-      expect(tooltip).toBeDefined();
-      // tslint:disable-next-line: no-unbound-method
-      expect(tooltip!.formatter).toBeDefined();
-      // bind dummy seriespoint to be able to call the formatter function
-      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual('<div class="dt-chart-tooltip">somename</div>');
-    });
-
-    it('should update the options at runtime', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      const spy = jasmine.createSpy('chart updated spy');
-      chartComponent.updated.subscribe(spy);
-      expect(spy).not.toHaveBeenCalled();
-      fixture.componentInstance.options = {
-        chart: {
-          type: 'column',
-        },
-      };
-      fixture.detectChanges();
-      expect(spy).toHaveBeenCalled();
-    });
-
-    it('should wrap the tooltip after changing the options at runtime', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      const newOptions = {
-        chart: {
-          type: 'column',
-        },
-        tooltip: {
-          formatter(): string | boolean {
-            return this.series.name;
-          },
-        },
-      };
-      fixture.componentInstance.options = newOptions;
-      fixture.detectChanges();
-      const tooltip = chartComponent.highchartsOptions.tooltip;
-      expect(tooltip).toBeDefined();
-      // tslint:disable-next-line: no-unbound-method
-      expect(tooltip!.formatter).toBeDefined();
-      // bind dummy seriespoint to be able to call the formatter function
-      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual('<div class="dt-chart-tooltip">somename</div>');
+      const colors = microChartComponent.highchartsOptions.colors;
+      expect(colors).toBeDefined();
+      expect(colors).toEqual([Colors.PURPLE_400]);
     });
   });
 
-  describe('update event', () => {
-
-    it('should fire updated after the data observable emits a new value', () => {
-      const fixture = TestBed.createComponent(DynamicSeries);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-
-      const spy = jasmine.createSpy('chart updated spy');
-      chartComponent.updated.subscribe(spy);
-      expect(spy).not.toHaveBeenCalled();
-
-      fixture.componentInstance.emitTestData();
-      expect(spy).toHaveBeenCalled();
+  describe('data', () => {
+    it('renders without options given', () => {
+      const {fixture} = setupTestCase(NoOptions);
+      expect(fixture.componentInstance).toBeTruthy();
     });
 
-    it('should fire updated after the static data is updated', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
+    it('does not crash without series', () => {
+      const {fixture} = setupTestCase(NoSeries);
+      expect(fixture.componentInstance).toBeTruthy();
+    });
 
-      const spy = jasmine.createSpy('chart updated spy');
-      chartComponent.updated.subscribe(spy);
-      expect(spy).not.toHaveBeenCalled();
+    it('does not crash with nothing', () => {
+      const {fixture} = setupTestCase(Nothing);
+      expect(fixture.componentInstance).toBeTruthy();
+    });
 
-      fixture.componentInstance.series = [{
-        name: 'Actions/min',
-        id: 'someMetricId',
-        data: [[1370304000000, 140], [1370390400000, 120]],
-      }];
+    it('should convert static data', () => {
+      const {fixture, microChartComponent} = setupTestCase(Series);
       fixture.detectChanges();
-      expect(spy).toHaveBeenCalled();
+
+      const series = microChartComponent.highchartsOptions.series as DtChartSeries[];
+
+      expect(series.length).toEqual(1);
+      expect(series[0].data).toBeDefined();
+      expect(series[0].data!.length).toBe(2);
+      expect(series[0].data![0]).toEqual(objectContaining({x: 1, y: 140}));
+      expect(series[0].data![1]).toEqual(objectContaining({x: 2, y: 120}));
+    });
+
+    it('does mark highest and lowest point', () => {
+      const {fixture, microChartComponent} = setupTestCase(Series);
+      fixture.detectChanges();
+
+      const data = microChartComponent.highchartsOptions.series![0]!.data as DataPoint[];
+
+      expect(data[0].dataLabels).toEqual(objectContaining({verticalAlign: 'bottom', enabled: true}));
+      expect(data[1].dataLabels).toEqual(objectContaining({verticalAlign: 'top', enabled: true}));
+    });
+
+    it('fetches metric ids', () => {
+      const {fixture, microChartComponent} = setupTestCase(Series);
+      fixture.detectChanges();
+
+      expect(microChartComponent.seriesIds).toEqual(['someMetricId']);
+    });
+
+    it('converts dynamic data', () => {
+      const {fixture, microChartComponent} = setupTestCase(DynamicSeries);
+      let data;
+
+      fixture.detectChanges();
+      expect(microChartComponent.seriesIds).toEqual(['someId']);
+      data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
+      expect(data[0]).toEqual(objectContaining({x: 1, y: 0}));
+      expect(data[1]).toEqual(objectContaining({x: 2, y: 10}));
+
+      fixture.componentInstance.emitTestData();
+      expect(microChartComponent.seriesIds).toEqual(['someOtherId']);
+      data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
+      expect(data[0]).toEqual(objectContaining({x: 1, y: 20}));
+      expect(data[1]).toEqual(objectContaining({x: 2, y: 30}));
     });
   });
 
-  describe('coloring', () => {
-    it('should leave the color of series unchanged if provided', () => {
-      const fixture = TestBed.createComponent(SeriesColor);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
+  describe('validation', () => {
+    it('rejects not allowed types', () => {
+      const {fixture} = setupTestCase(Series);
+      const options = fixture.componentInstance.options;
+      options.chart = {};
+      const cases = [ 'pie', 'funnel', 'bar', 'arearange' ];
 
-      expect(chartComponent.highchartsOptions.series![0].color).toBe('#ff0000');
+      cases.forEach((type) => {
+        options.chart!.type = type;
+        expect(() => {
+          fixture.detectChanges();
+        }).toThrowError();
+      });
     });
 
-    it('should update colors when the theme changes', () => {
-      const fixture = TestBed.createComponent(SeriesTheme);
-      fixture.detectChanges();
-      const chartDebugElement = fixture.debugElement.query(By.css('dt-micro-chart'));
-      const chartComponent = chartDebugElement.componentInstance as DtMicroChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.purple.primary]);
-      fixture.componentInstance.theme = 'royalblue';
-      fixture.detectChanges();
-      expect(chartComponent.highchartsOptions.colors).toEqual([MICROCHART_PALETTES.royalblue.primary]);
+    it('allowed types do not throw an error', () => {
+      const {fixture} = setupTestCase(Series);
+      const options = fixture.componentInstance.options;
+      options.chart = {};
+      const cases = ['line', 'column', undefined];
+
+      cases.forEach((type) => {
+        options.chart!.type = type;
+        expect(() => {
+          fixture.detectChanges();
+        }).not.toThrowError();
+      });
     });
   });
 });
 
-/** Test component that contains an DtChart with static data */
 @Component({
   selector: 'dt-series-single',
   template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
-class SeriesSingle {
-  options: DtChartOptions = {
-    chart: {
-      type: 'line',
-    },
-    xAxis: {
-      type: 'datetime',
-    },
-    yAxis: {
-      min: 100,
-      max: 200,
-    },
+class Series {
+  options: DtChartOptions = {};
+  series: DtChartSeries = {
+    name: 'Actions/min',
+    id: 'someMetricId',
+    data: [[1, 140], [2, 120]],
   };
-  series: DtChartSeries = [
-    {
-      name: 'Actions/min',
-      id: 'someMetricId',
-      data: [[1370304000000, 140], [1370390400000, 120]],
-    },
-  ];
 }
 
 @Component({
-  selector: 'dt-series-multi',
+  selector: 'dt-defined-axis',
   template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
-class SeriesMulti {
-  options: DtChartOptions = {
-    chart: {
-      type: 'line',
-    },
-    xAxis: {
-      type: 'datetime',
-    },
-    yAxis: {
-      min: 100,
-      max: 200,
-    },
+class DefinedAxis {
+  options: DtChartOptions = {xAxis: {}, yAxis: {}};
+  series: DtChartSeries = {
+    name: 'Actions/min',
+    id: 'someMetricId',
+    data: [[1, 140], [2, 120]],
   };
-  series: DtChartSeries = [
-    {
-      name: 'Actions/min',
-      id: 'someMetricId',
-      data: [[1370304000000, 140], [1370390400000, 120]],
-    },
-    {
-      name: 'Requests/min',
-      id: 'someOtherMetricId',
-      data: [[1370304000000, 130], [1370390400000, 110]],
-    },
-  ];
+}
+
+@Component({
+  selector: 'dt-defined-axis-array',
+  template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
+})
+class DefinedAxisArray {
+  options: DtChartOptions = {xAxis: [{}], yAxis: [{}]};
+  series: DtChartSeries = {
+    name: 'Actions/min',
+    id: 'someMetricId',
+    data: [[1, 140], [2, 120]],
+  };
+}
+
+@Component({
+  selector: 'dt-defined-axis-array',
+  template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
+})
+class DefinedAxisEmptyArray {
+  options: DtChartOptions = {xAxis: [], yAxis: []};
+  series: DtChartSeries = {
+    name: 'Actions/min',
+    id: 'someMetricId',
+    data: [[1, 140], [2, 120]],
+  };
+}
+
+@Component({
+  selector: 'dt-theme-dynamic',
+  template: '<div [dtTheme]="theme"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
+})
+class ThemeDynamic {
+  theme = 'blue';
+  options: DtChartOptions = {};
+  series: DtChartSeries = {
+    name: 'Actions/min',
+    id: 'someMetricId',
+    data: [[1, 140], [2, 120]],
+  };
+}
+
+@Component({
+  selector: 'dt-theme-fixed',
+  template: '<div dtTheme="blue"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
+})
+class ThemeFixed {
+  options: DtChartOptions = {};
+  series: DtChartSeries = {
+    name: 'Actions/min',
+    id: 'someMetricId',
+    data: [[1, 140], [2, 120]],
+  };
+}
+
+@Component({
+  selector: 'dt-no-options',
+  template: '<dt-micro-chart [series]="series"></dt-micro-chart>',
+})
+class NoOptions {
+  series: DtChartSeries = {
+    name: 'Actions/min',
+    id: 'someMetricId',
+    data: [[1, 140], [2, 120]],
+  };
 }
 
 @Component({
@@ -276,101 +306,31 @@ class SeriesMulti {
   template: '<dt-micro-chart [options]="options"></dt-micro-chart>',
 })
 class NoSeries {
-  options: DtChartOptions = {
-    chart: {
-      type: 'line',
-    },
-    xAxis: {
-      type: 'datetime',
-    },
-    yAxis: {
-      min: 100,
-      max: 200,
-    },
-  };
+  options = {};
 }
+
+@Component({
+  selector: 'dt-nothing',
+  template: '<dt-micro-chart></dt-micro-chart>',
+})
+class Nothing {}
 
 @Component({
   selector: 'dt-dynamic-series',
-  template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
+  template: '<dt-micro-chart [series]="series"></dt-micro-chart>',
 })
 class DynamicSeries {
-  options: DtChartOptions = {
-    chart: {
-      type: 'column',
-    },
-    xAxis: {
-      type: 'datetime',
-    },
-    yAxis: {
-      min: 0,
-      max: 20,
-    },
-  };
-
-  series = new BehaviorSubject([{
+  series = new BehaviorSubject({
     name: 'Actions/min',
-    id: 'someid',
-    data: [[1523972199774, 0], [1523972201622, 10]],
-  }]);
+    id: 'someId',
+    data: [[1, 0], [2, 10]],
+  });
 
   emitTestData(): void {
-    this.series.next([{
+    this.series.next({
       name: 'Actions/min',
-      id: 'someid',
-      data: [[1523972199774, 20], [1523972201622, 30]],
-    }]);
+      id: 'someOtherId',
+      data: [[1, 20], [2, 30]],
+    });
   }
-}
-
-@Component({
-  selector: 'dt-series-color',
-  template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
-})
-class SeriesColor {
-  options: DtChartOptions = {
-    chart: {
-      type: 'line',
-    },
-    xAxis: {
-      type: 'datetime',
-    },
-    yAxis: {
-      min: 100,
-      max: 200,
-    },
-  };
-  series: DtChartSeries = [
-    {
-      name: 'Actions/min',
-      id: 'someMetricId',
-      color: '#ff0000',
-      data: [[1370304000000, 140], [1370390400000, 120]],
-    }];
-}
-
-@Component({
-  selector: 'dt-series-color',
-  template: '<div [dtTheme]="theme"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
-})
-class SeriesTheme {
-  theme = 'purple';
-  options: DtChartOptions = {
-    chart: {
-      type: 'line',
-    },
-    xAxis: {
-      type: 'datetime',
-    },
-    yAxis: {
-      min: 100,
-      max: 200,
-    },
-  };
-  series: DtChartSeries = [
-    {
-      name: 'Actions/min',
-      id: 'someMetricId',
-      data: [[1370304000000, 140], [1370390400000, 120]],
-    }];
 }

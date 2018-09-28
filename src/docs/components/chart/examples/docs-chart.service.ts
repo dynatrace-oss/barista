@@ -8,23 +8,32 @@ import { generateData } from './chart-data-utils';
 
 @Injectable({providedIn: 'root'})
 export class ChartService {
-  getStreamedChartdata(): Observable<DtChartSeries> {
+  getStreamedChartdata(): Observable<DtChartSeries[]> {
     return timer(1000, 5000)
-    .pipe(map(() =>
-      [
-        {
+      .pipe(map(() =>
+        [
+          {
+            name: 'Requests',
+            type: 'column',
+            color: Colors.PURPLE_400,
+            data: generateData(40, 0, 200, 1370304000000, 900000),
+          },
+          {
+            name: 'Failed requests',
+            type: 'column',
+            color: Colors.PURPLE_700,
+            data: generateData(40, 0, 15, 1370304000000, 900000),
+          },
+        ]));
+  }
+  getSingleStreamedChartdata(): Observable<DtChartSeries> {
+    return timer(1000, 5000)
+      .pipe(map(() => ({
           name: 'Requests',
           type: 'column',
           color: Colors.PURPLE_400,
           data: generateData(40, 0, 200, 1370304000000, 900000),
-        },
-        {
-          name: 'Failed requests',
-          type: 'column',
-          color: Colors.PURPLE_700,
-          data: generateData(40, 0, 15, 1370304000000, 900000),
-        },
-      ]));
+        })));
   }
 }
 
