@@ -12,7 +12,14 @@ export const DEFAULT_CHART_MICROCHART_OPTIONS: DtChartOptions = {
   },
   plotOptions: {
     column: {
-
+      allowPointSelect: true,
+    },
+    line: {
+      states: {
+        hover: {
+          halo: false,
+        },
+      },
     },
     series: {
       marker: {
@@ -31,21 +38,16 @@ export const DEFAULT_CHART_MICROCHART_OPTIONS: DtChartOptions = {
           fontWeight: 'normal',
         },
       },
-      states: {
-        hover: {
-          halo: false,
-        },
-      },
     },
   },
   legend: {
     enabled: false,
   },
   xAxis: {},
-  yAxis: [{}],
+  yAxis: {},
 };
 
-export const DEFAULT_MINMAX_DATAPOINT_OPTIONS: DataPoint = {
+export const MINMAX_DATAPOINT_OPTIONS: DataPoint = {
   dataLabels: {
     enabled: true,
   },
@@ -55,16 +57,23 @@ export const DEFAULT_MINMAX_DATAPOINT_OPTIONS: DataPoint = {
   },
 };
 
-export const DEFAULT_MIN_DATAPOINT_OPTIONS: DataPoint = {
+export const LINE_MIN_DATAPOINT_OPTIONS: DataPoint = {
   dataLabels: {
     verticalAlign: 'top',
     y: 3,
   },
 };
 
-export const DEFAULT_MAX_DATAPOINT_OPTIONS: DataPoint = {
+export const LINE_MAX_DATAPOINT_OPTIONS: DataPoint = {
   dataLabels: {
     verticalAlign: 'bottom',
     y: -3,
   },
+};
+
+export const COLUMN_MINMAX_DATAPOINT_OPTIONS = {
+  dataLabels: {
+    verticalAlign: 'bottom',
+  },
+  borderWidth: 2,
 };
