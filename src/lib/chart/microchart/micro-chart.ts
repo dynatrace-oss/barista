@@ -3,23 +3,28 @@ import {
   Component,
   EventEmitter,
   forwardRef,
-  Input, OnDestroy,
+  Input,
+  OnDestroy,
   Optional,
-  Output, SkipSelf,
-  ViewChild
+  Output,
+  SkipSelf,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
-import { AxisOptions, DataPoint, Options } from 'highcharts';
-import { DtChart, DtChartOptions, DtChartSeries } from '../chart';
+import {AxisOptions, DataPoint, Options} from 'highcharts';
+import {DtChart, DtChartOptions, DtChartSeries} from '../chart';
 import {
-  COLUMN_MINMAX_DATAPOINT_OPTIONS,
-  DEFAULT_CHART_MICROCHART_OPTIONS, LINE_MAX_DATAPOINT_OPTIONS, LINE_MIN_DATAPOINT_OPTIONS,
-  MINMAX_DATAPOINT_OPTIONS
+  _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS,
+  _DT_MICROCHART_DEFAULT_OPTIONS,
+  _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS,
+  _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS,
+  _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS
 } from './micro-chart-options';
 import { merge } from 'lodash';
 import { DtTheme } from '@dynatrace/angular-components/theming';
-import { MicroChartColorizer } from './micro-chart-colorizer';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { colorizeOptions, getPalette } from '@dynatrace/angular-components/chart/microchart/dt-micro-chart-colorizer';
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
@@ -29,50 +34,49 @@ const SUPPORTED_CHART_TYPES = ['line', 'column'];
   template: '<dt-chart (updated)="updated.emit()"></dt-chart>',
   exportAs: 'dtMicroChart',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
+  preserveWhitespaces: false,
 })
 export class DtMicroChart implements OnDestroy {
   @ViewChild(forwardRef(() => DtChart)) private _dtChart: DtChart;
 
   private _series: Observable<DtChartSeries> | DtChartSeries | undefined;
-  private _subscription = Subscription.EMPTY;
+  private _themeStateChangeSub = Subscription.EMPTY;
   private _options: DtChartOptions;
 
   private _columnSeries: boolean;
   private _minDataPoint: DataPoint;
   private _maxDataPoint: DataPoint;
 
-  constructor(@Optional() @SkipSelf() private readonly _theme: DtTheme) {
-    if (this._theme) {
-      this._subscription = this._theme._stateChanges.subscribe(() => {
-        if (this._options) {
-          this._colorizeChart(this._options);
-          this._colorizeMinMaxDataPoints();
-          this._dtChart.options = merge({}, this._options);
-        }
-      });
-    }
-  }
-
   @Input()
   set options(options: DtChartOptions) {
-    DtMicroChart._checkUnsupportedOptions(options);
-    this._options = merge({}, DEFAULT_CHART_MICROCHART_OPTIONS, options);
-    this._transformAxis(this._options);
-    this._colorizeChart(this._options);
+    checkUnsupportedOptions(options);
+    this._options = merge({}, _DT_MICROCHART_DEFAULT_OPTIONS, options);
+    transformAxis(this._options);
+    colorizeOptions(this._options, this._theme);
     this._dtChart.options = this._options;
   }
+
   get options(): DtChartOptions {
     return this._dtChart.options;
   }
-
   @Input()
   set series(series: Observable<DtChartSeries> | DtChartSeries | undefined) {
-    this._updateSeries(series);
-  }
+    let transformed: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
+
+    if (series instanceof Observable) {
+      transformed = series.pipe(map((s) => this._transformSeries(s)));
+    } else if (series !== undefined) {
+      transformed = this._transformSeries(series);
+    }
+
+    this._series = series;
+    this._dtChart.series = transformed;
+    }
+
   get series(): Observable<DtChartSeries> | DtChartSeries | undefined {
     return this._series;
   }
-
   @Output() readonly updated: EventEmitter<void> = new EventEmitter<void>();
 
   get seriesIds(): Array<string | undefined> | undefined {
@@ -83,45 +87,20 @@ export class DtMicroChart implements OnDestroy {
     return this._dtChart.highchartsOptions;
   }
 
-  ngOnDestroy(): void {
-    this._subscription.unsubscribe();
-  }
-
-  private _updateSeries(series: Observable<DtChartSeries> | DtChartSeries | undefined): void {
-    let transformed: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
-
-    if (series === undefined) {
-      transformed = undefined;
-    } else if (series instanceof Observable) {
-      transformed = series.pipe(map((s) => this._transformSeries(s)));
-    } else {
-      transformed = this._transformSeries(series);
-    }
-
-    this._series = series;
-    this._dtChart.series = transformed;
-  }
-
-  private _colorizeChart(options: DtChartOptions): void {
-    MicroChartColorizer.apply(options, this._theme);
-  }
-
-  private _transformAxis(options: DtChartOptions): void {
-    if (options.xAxis) { DtMicroChart._mergeAxis(options.xAxis); }
-    if (options.yAxis) { DtMicroChart._mergeAxis(options.yAxis); }
-  }
-
-  private static _mergeAxis(options: AxisOptions | AxisOptions[]): void {
-    if (!options) {
-      return;
-    }
-    if (Array.isArray(options)) {
-      options.forEach((a) => {
-        merge(a, {visible: false});
+  constructor(@Optional() @SkipSelf() private readonly _theme: DtTheme) {
+    if (this._theme) {
+      this._themeStateChangeSub = this._theme._stateChanges.subscribe(() => {
+        if (this._options) {
+          colorizeOptions(this._options, this._theme);
+          this._colorizeMinMaxDataPoints();
+          this._dtChart.options = merge({}, this._options);
+        }
       });
-    } else {
-       merge(options, {visible: false});
     }
+  }
+
+  ngOnDestroy(): void {
+    this._themeStateChangeSub.unsubscribe();
   }
 
   private _transformSeries(series: DtChartSeries): DtChartSeries[] {
@@ -133,7 +112,7 @@ export class DtMicroChart implements OnDestroy {
     this._columnSeries =
       series.type === 'column' || this.highchartsOptions.chart !== undefined && this.highchartsOptions.chart.type === 'column';
 
-    const dataPoints = DtMicroChart._normalizeData(series.data);
+    const dataPoints = normalizeData(series.data);
     const values = dataPoints.map((point: DataPoint) => point.y) as number[];
 
     const minIndex = values.lastIndexOf(Math.min(...values));
@@ -150,18 +129,18 @@ export class DtMicroChart implements OnDestroy {
 
   private _decorateMinMaxDataPoints(): void {
     if (this._columnSeries) {
-      merge(this._minDataPoint, MINMAX_DATAPOINT_OPTIONS, COLUMN_MINMAX_DATAPOINT_OPTIONS);
-      merge(this._maxDataPoint, MINMAX_DATAPOINT_OPTIONS, COLUMN_MINMAX_DATAPOINT_OPTIONS);
+      merge(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
+      merge(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
     } else {
-      merge(this._minDataPoint, MINMAX_DATAPOINT_OPTIONS, LINE_MIN_DATAPOINT_OPTIONS);
-      merge(this._maxDataPoint, MINMAX_DATAPOINT_OPTIONS, LINE_MAX_DATAPOINT_OPTIONS);
+      merge(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS);
+      merge(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS);
     }
 
     this._colorizeMinMaxDataPoints();
   }
 
   private _colorizeMinMaxDataPoints(): void {
-    const palette = MicroChartColorizer.getPalette(this._theme);
+    const palette = getPalette(this._theme);
     if (this._columnSeries) {
       merge(this._minDataPoint, { borderColor: palette.secondary });
       merge(this._maxDataPoint, { borderColor: palette.secondary });
@@ -181,43 +160,71 @@ export class DtMicroChart implements OnDestroy {
       merge(this._maxDataPoint, options);
     }
   }
+}
 
-  /**
-   * Converts a series to {@link DataPoint[]}
-   */
-  private static _normalizeData(seriesData: Array<number | [number, number] | [string, number] | DataPoint>): DataPoint[] {
-    if (seriesData.length === 0) {
-      return [];
-    }
+/* Merges the passed options into all defined axis */
+function transformAxis(options: DtChartOptions): void {
+  if (options.xAxis) {
+    mergeAxis(options.xAxis);
+  }
 
-    // Convert (number | [number, number] | [string, number]) to DataPoint
-    // In case of another data structure we can ignore it, since an error should already be thrown for unsupported charts.
-    const firstDataValue = seriesData[0];
+  if (options.yAxis) {
+    mergeAxis(options.yAxis);
+  }
+}
 
-    if (typeof firstDataValue === 'number') {
-      return (seriesData as number[])
-        .map((value: number, index: number) => ({x: index, y: value}));
+function mergeAxis(options: AxisOptions | AxisOptions[]): void {
+  if (!options) {
+    return;
+  }
+  if (Array.isArray(options)) {
+    options.forEach((a) => {
+      merge(a, {visible: false});
+    });
+  } else {
+    merge(options, {visible: false});
+  }
+}
 
-    } else if (firstDataValue instanceof Array) {
-      const numberArraySeries = seriesData as Array<[number, number]>;
-      return numberArraySeries.map((value: [number, number]) => ({x: value[0], y: value[1]}));
-
-    } else if ('y' in firstDataValue) {
-      return seriesData as DataPoint[];
-    }
-
+/**
+ * Converts a series to {@link DataPoint[]}
+ */
+function normalizeData(seriesData: Array<number | [number, number] | [string, number] | DataPoint>): DataPoint[] {
+  if (seriesData.length === 0) {
     return [];
   }
 
-  private static _checkUnsupportedOptions(options: DtChartOptions): void {
-    if (options.chart) {
-      DtMicroChart._checkUnsupportedType(options.chart.type);
-    }
+  // Convert (number | [number, number] | [string, number]) to DataPoint
+  // In case of another data structure we can ignore it, since an error should already be thrown for unsupported charts.
+  const firstDataValue = seriesData[0];
+
+  if (typeof firstDataValue === 'number') {
+    return (seriesData as number[])
+      .map((value: number, index: number) => ({x: index, y: value}));
+
+  } else if (Array.isArray(firstDataValue)) {
+    const numberArraySeries = seriesData as Array<[number, number]>;
+    return numberArraySeries.map((value: [number, number]) => ({x: value[0], y: value[1]}));
+
+  } else if ('y' in firstDataValue) {
+    return seriesData as DataPoint[];
   }
 
-  private static _checkUnsupportedType(type: string | undefined): void {
-    if (type && SUPPORTED_CHART_TYPES.indexOf(type) === -1) {
-      throw new Error(`Series type unsupported: ${type}`);
-    }
+  return [];
+}
+
+function checkUnsupportedType(type: string | undefined): void {
+  if (type && SUPPORTED_CHART_TYPES.indexOf(type) === -1) {
+    throw getDtMicroChartUnsupportedChartTypeError(type);
   }
+}
+
+function checkUnsupportedOptions(options: DtChartOptions): void {
+  if (options.chart) {
+    checkUnsupportedType(options.chart.type);
+  }
+}
+
+function getDtMicroChartUnsupportedChartTypeError(type: string): Error {
+  return Error(`Series type unsupported: ${type}`);
 }
