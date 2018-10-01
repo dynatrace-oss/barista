@@ -3,7 +3,7 @@ import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import {
   DtChartModule,
   DtButtonModule,
-  DtThemingModule,
+  DtThemingModule, DtMicroChartModule,
 } from '@dynatrace/angular-components';
 import { ChartDefaultExampleComponent } from './examples/chart-default-example.component';
 import { ChartStreamExampleComponent } from './examples/chart-stream-example.component';
@@ -35,6 +35,7 @@ export const EXAMPLES = [
     DtChartModule,
     DtThemingModule,
     DtButtonModule,
+    DtMicroChartModule,
   ],
   declarations: [
     ...EXAMPLES,
