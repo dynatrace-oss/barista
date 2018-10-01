@@ -1,7 +1,7 @@
 import { DataPoint } from 'highcharts';
 import { DtChartOptions } from '../chart';
 
-export const DEFAULT_CHART_MICROCHART_OPTIONS: DtChartOptions = {
+export const _DT_MICROCHART_DEFAULT_OPTIONS: DtChartOptions = {
   chart: {
     height: 150,
     plotBorderWidth: 0,
@@ -44,7 +44,7 @@ export const DEFAULT_CHART_MICROCHART_OPTIONS: DtChartOptions = {
   yAxis: {},
 };
 
-export const MINMAX_DATAPOINT_OPTIONS: DataPoint = {
+export const _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS: DataPoint = {
   dataLabels: {
     enabled: true,
   },
@@ -55,21 +55,21 @@ export const MINMAX_DATAPOINT_OPTIONS: DataPoint = {
   },
 };
 
-export const LINE_MIN_DATAPOINT_OPTIONS: DataPoint = {
+export const _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS: DataPoint = {
   dataLabels: {
     verticalAlign: 'top',
     y: 3,
   },
 };
 
-export const LINE_MAX_DATAPOINT_OPTIONS: DataPoint = {
+export const _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS: DataPoint = {
   dataLabels: {
     verticalAlign: 'bottom',
     y: -3,
   },
 };
 
-export const COLUMN_MINMAX_DATAPOINT_OPTIONS = {
+export const _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS = {
   dataLabels: {
     verticalAlign: 'bottom',
   },
