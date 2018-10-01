@@ -24,7 +24,7 @@ export class ChartUI implements DoCheck {
       max: 200,
     },
   };
-  series: DtChartSeries = [
+  series: DtChartSeries[] = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
