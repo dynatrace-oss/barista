@@ -4,10 +4,12 @@ import { By } from '@angular/platform-browser';
 import { DtChartOptions, DtChartSeries } from '../chart/chart';
 import { DtMicroChart } from './micro-chart';
 import { Colors, DtThemingModule } from 'theming/index';
-import { DtChartModule } from '../chart/chart-module';
 import objectContaining = jasmine.objectContaining;
 import { AxisOptions, DataPoint } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
+import {DtMicroChartModule} from '@dynatrace/angular-components';
+import {getDtMicroChartUnsupportedChartTypeError} from './micro-chart-errors';
+import {merge} from 'lodash';
 
 // tslint:disable:no-magic-numbers
 
@@ -15,7 +17,7 @@ describe('DtMicroChart', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtChartModule, DtThemingModule],
+      imports: [DtMicroChartModule, DtThemingModule],
       declarations: [
         Series,
         DefinedAxis,
@@ -112,6 +114,15 @@ describe('DtMicroChart', () => {
   });
 
   describe('data', () => {
+    it('returns the original options unchanged passed into the chart', () => {
+      const {fixture, microChartComponent} = setupTestCase(DefinedAxis);
+      const optionsClone = merge({}, fixture.componentInstance.options);
+      fixture.detectChanges();
+
+      expect(microChartComponent.options).toBe(fixture.componentInstance.options);
+      expect(microChartComponent.options).toEqual(optionsClone);
+    });
+
     it('renders without options given', () => {
       const {fixture} = setupTestCase(NoOptions);
       expect(fixture.componentInstance).toBeTruthy();
@@ -154,7 +165,7 @@ describe('DtMicroChart', () => {
       const {fixture, microChartComponent} = setupTestCase(Series);
       fixture.detectChanges();
 
-      expect(microChartComponent.seriesIds).toEqual(['someMetricId']);
+      expect(microChartComponent.seriesId).toEqual('someMetricId');
     });
 
     it('converts dynamic data', () => {
@@ -162,13 +173,13 @@ describe('DtMicroChart', () => {
       let data;
 
       fixture.detectChanges();
-      expect(microChartComponent.seriesIds).toEqual(['someId']);
+      expect(microChartComponent.seriesId).toEqual('someId');
       data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
       expect(data[0]).toEqual(objectContaining({x: 1, y: 0}));
       expect(data[1]).toEqual(objectContaining({x: 2, y: 10}));
 
       fixture.componentInstance.emitTestData();
-      expect(microChartComponent.seriesIds).toEqual(['someOtherId']);
+      expect(microChartComponent.seriesId).toEqual('someOtherId');
       data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
       expect(data[0]).toEqual(objectContaining({x: 1, y: 20}));
       expect(data[1]).toEqual(objectContaining({x: 2, y: 30}));
@@ -176,6 +187,12 @@ describe('DtMicroChart', () => {
   });
 
   describe('validation', () => {
+    it('the correct error message is thrown', () => {
+      expect(() => {
+        throw getDtMicroChartUnsupportedChartTypeError('pie');
+      }).toThrowError('Series type unsupported: pie');
+    });
+
     it('rejects not allowed types', () => {
       const {fixture} = setupTestCase(Series);
       const options = fixture.componentInstance.options;
