@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DtChartSeries } from '@dynatrace/angular-components';
-import {generateData} from '../../chart/examples/chart-data-utils';
+import { generateData } from '../../chart/examples/chart-data-utils';
 
 @Injectable({providedIn: 'root'})
 export class MicroChartService {
