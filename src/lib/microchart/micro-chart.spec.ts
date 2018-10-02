@@ -1,10 +1,10 @@
 import { Component, Type} from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtChartOptions, DtChartSeries } from '../chart';
+import { DtChartOptions, DtChartSeries } from '../chart/chart';
 import { DtMicroChart } from './micro-chart';
-import { Colors, DtThemingModule } from '@dynatrace/angular-components/theming';
-import { DtChartModule } from '../chart-module';
+import { Colors, DtThemingModule } from 'theming/index';
+import { DtChartModule } from '../chart/chart-module';
 import objectContaining = jasmine.objectContaining;
 import { AxisOptions, DataPoint } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
