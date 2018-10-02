@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DtMicroChart } from './micro-chart';
 import { DtChartModule } from '@dynatrace/angular-components/chart';
+import { DtMicroChart } from './micro-chart';
 
 @NgModule({
   imports: [
-    CommonModule,
     DtChartModule,
   ],
   exports: [

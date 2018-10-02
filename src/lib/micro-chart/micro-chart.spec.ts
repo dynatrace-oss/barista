@@ -1,15 +1,15 @@
 import { Component, Type} from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtChartOptions, DtChartSeries } from '../chart/chart';
+import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
+import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 import { DtMicroChart } from './micro-chart';
 import { Colors, DtThemingModule } from 'theming/index';
 import objectContaining = jasmine.objectContaining;
 import { AxisOptions, DataPoint } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
-import {DtMicroChartModule} from '@dynatrace/angular-components';
-import {getDtMicroChartUnsupportedChartTypeError} from './micro-chart-errors';
-import {merge} from 'lodash';
+import { DtMicroChartModule } from '@dynatrace/angular-components';
+import { merge } from 'lodash';
 
 // tslint:disable:no-magic-numbers
 

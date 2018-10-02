@@ -3,7 +3,8 @@ import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import {
   DtChartModule,
   DtButtonModule,
-  DtThemingModule, DtMicroChartModule,
+  DtThemingModule,
+  DtMicroChartModule,
 } from '@dynatrace/angular-components';
 import { ChartDefaultExampleComponent } from './examples/chart-default-example.component';
 import { ChartStreamExampleComponent } from './examples/chart-stream-example.component';
