@@ -25,6 +25,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { colorizeOptions, getPalette } from './micro-chart-colorizer';
 import { DtTheme } from '@dynatrace/angular-components/theming';
+import {getDtMicroChartUnsupportedChartTypeError} from "@dynatrace/angular-components/microchart/micro-chart-errors";
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
@@ -225,8 +226,4 @@ function checkUnsupportedOptions(options: DtChartOptions): void {
   if (options.chart) {
     checkUnsupportedType(options.chart.type);
   }
-}
-
-function getDtMicroChartUnsupportedChartTypeError(type: string): Error {
-  return Error(`Series type unsupported: ${type}`);
 }
