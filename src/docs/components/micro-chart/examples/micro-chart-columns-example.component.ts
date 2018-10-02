@@ -1,10 +1,10 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { generateData } from './chart-data-utils';
 import { OriginalClassName } from '../../../core/decorators';
 import { Options } from 'highcharts';
 import {DtChartSeries} from '@dynatrace/angular-components';
+import {generateData} from "../../chart/examples/chart-data-utils";
 
 @Component({
   template: '<dt-micro-chart [options]="options" [series]="series"></dt-micro-chart>',
