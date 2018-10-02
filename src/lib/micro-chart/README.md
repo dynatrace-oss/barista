@@ -2,7 +2,7 @@
 
 <docs-source-example example="MicroChartDefaultExampleComponent" fullwidth="true"></docs-source-example>
 
-This components wraps the chart component, so for theming and reflow see [DtChart](../chart)
+This components wraps the chart component, so for theming and reflow see [DtChart](../chart).
 
 ## Imports
 
