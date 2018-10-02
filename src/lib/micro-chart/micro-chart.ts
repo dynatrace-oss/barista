@@ -25,7 +25,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { colorizeOptions, getPalette } from './micro-chart-colorizer';
 import { DtTheme } from '@dynatrace/angular-components/theming';
-import {getDtMicroChartUnsupportedChartTypeError} from "@dynatrace/angular-components/micro-chart/micro-chart-errors";
+import { getDtMicroChartUnsupportedChartTypeError } from '@dynatrace/angular-components/micro-chart/micro-chart-errors';
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
@@ -45,7 +45,8 @@ export class DtMicroChart implements OnDestroy {
 
   private _series: DtMicroChartSeries;
   private _themeStateChangeSub = Subscription.EMPTY;
-  private _options: DtChartOptions;
+  private _originalOptions: DtChartOptions;
+  private _transformedOptions: DtChartOptions;
 
   private _columnSeries: boolean;
   private _minDataPoint: DataPoint;
@@ -54,15 +55,16 @@ export class DtMicroChart implements OnDestroy {
   @Input()
   set options(options: DtChartOptions) {
     checkUnsupportedOptions(options);
-    this._options = merge({}, _DT_MICROCHART_DEFAULT_OPTIONS, options);
-    transformAxis(this._options);
-    colorizeOptions(this._options, this._theme);
-    this._dtChart.options = this._options;
+    this._transformedOptions = merge({}, _DT_MICROCHART_DEFAULT_OPTIONS, options);
+    transformAxis(this._transformedOptions);
+    colorizeOptions(this._transformedOptions, this._theme);
+    this._dtChart.options = this._transformedOptions;
+    this._originalOptions = options;
+  }
+  get options(): DtChartOptions {
+    return this._originalOptions;
   }
 
-  get options(): DtChartOptions {
-    return this._dtChart.options;
-  }
   @Input()
   set series(series: DtMicroChartSeries) {
     let transformed: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
@@ -82,8 +84,8 @@ export class DtMicroChart implements OnDestroy {
 
   @Output() readonly updated: EventEmitter<void> = new EventEmitter<void>();
 
-  get seriesIds(): Array<string | undefined> | undefined {
-    return this._dtChart.seriesIds;
+  get seriesId(): string | undefined {
+    return this._dtChart.seriesIds === undefined ? undefined : this._dtChart.seriesIds[0];
   }
 
   get highchartsOptions(): Options {
@@ -93,10 +95,10 @@ export class DtMicroChart implements OnDestroy {
   constructor(@Optional() @SkipSelf() private readonly _theme: DtTheme) {
     if (this._theme) {
       this._themeStateChangeSub = this._theme._stateChanges.subscribe(() => {
-        if (this._options) {
-          colorizeOptions(this._options, this._theme);
+        if (this._transformedOptions) {
+          colorizeOptions(this._transformedOptions, this._theme);
           this._colorizeMinMaxDataPoints();
-          this._dtChart.options = merge({}, this._options);
+          this._dtChart.options = merge({}, this._transformedOptions);
         }
       });
     }
