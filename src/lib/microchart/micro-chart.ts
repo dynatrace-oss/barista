@@ -28,6 +28,8 @@ import { DtTheme } from '@dynatrace/angular-components/theming';
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
+export type DtMicroChartSeries = Observable<DtChartSeries> | DtChartSeries | undefined;
+
 @Component({
   moduleId: module.id,
   selector: 'dt-micro-chart',
@@ -40,7 +42,7 @@ const SUPPORTED_CHART_TYPES = ['line', 'column'];
 export class DtMicroChart implements OnDestroy {
   @ViewChild(forwardRef(() => DtChart)) private _dtChart: DtChart;
 
-  private _series: Observable<DtChartSeries> | DtChartSeries | undefined;
+  private _series: DtMicroChartSeries;
   private _themeStateChangeSub = Subscription.EMPTY;
   private _options: DtChartOptions;
 
@@ -61,7 +63,7 @@ export class DtMicroChart implements OnDestroy {
     return this._dtChart.options;
   }
   @Input()
-  set series(series: Observable<DtChartSeries> | DtChartSeries | undefined) {
+  set series(series: DtMicroChartSeries) {
     let transformed: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
 
     if (series instanceof Observable) {
@@ -72,11 +74,11 @@ export class DtMicroChart implements OnDestroy {
 
     this._series = series;
     this._dtChart.series = transformed;
-    }
-
-  get series(): Observable<DtChartSeries> | DtChartSeries | undefined {
+  }
+  get series(): DtMicroChartSeries {
     return this._series;
   }
+
   @Output() readonly updated: EventEmitter<void> = new EventEmitter<void>();
 
   get seriesIds(): Array<string | undefined> | undefined {
