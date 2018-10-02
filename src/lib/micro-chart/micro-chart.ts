@@ -25,7 +25,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { colorizeOptions, getPalette } from './micro-chart-colorizer';
 import { DtTheme } from '@dynatrace/angular-components/theming';
-import { getDtMicroChartUnsupportedChartTypeError } from '@dynatrace/angular-components/micro-chart/micro-chart-errors';
+import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
