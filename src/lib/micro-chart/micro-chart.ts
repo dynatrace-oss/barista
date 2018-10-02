@@ -9,16 +9,16 @@ import {
   Output,
   SkipSelf,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import {AxisOptions, DataPoint, Options} from 'highcharts';
-import {DtChart, DtChartOptions, DtChartSeries} from '@dynatrace/angular-components/chart/chart';
+import { AxisOptions, DataPoint, Options } from 'highcharts';
+import { DtChart, DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
 import {
   _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS,
   _DT_MICROCHART_DEFAULT_OPTIONS,
   _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS,
   _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS,
-  _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS
+  _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS,
 } from './micro-chart-options';
 import { merge } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
@@ -82,7 +82,7 @@ export class DtMicroChart implements OnDestroy {
     return this._series;
   }
 
-  @Output() readonly updated: EventEmitter<void> = new EventEmitter<void>();
+  @Output() readonly updated = new EventEmitter<void>();
 
   get seriesId(): string | undefined {
     return this._dtChart.seriesIds === undefined ? undefined : this._dtChart.seriesIds[0];
