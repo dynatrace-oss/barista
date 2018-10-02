@@ -1,5 +1,5 @@
 import { Colors, DtTheme } from '@dynatrace/angular-components/theming';
-import { DtChartOptions } from '../chart';
+import { DtChartOptions } from '@dynatrace/angular-components/chart/chart';
 import { merge } from 'lodash';
 
 export interface DtMicroChartColorPalette {

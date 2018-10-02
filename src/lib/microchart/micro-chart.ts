@@ -12,7 +12,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {AxisOptions, DataPoint, Options} from 'highcharts';
-import {DtChart, DtChartOptions, DtChartSeries} from '../chart';
+import {DtChart, DtChartOptions, DtChartSeries} from '@dynatrace/angular-components/chart/chart';
 import {
   _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS,
   _DT_MICROCHART_DEFAULT_OPTIONS,
@@ -21,10 +21,10 @@ import {
   _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS
 } from './micro-chart-options';
 import { merge } from 'lodash';
-import { DtTheme } from '@dynatrace/angular-components/theming';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { colorizeOptions, getPalette } from '@dynatrace/angular-components/chart/microchart/dt-micro-chart-colorizer';
+import { colorizeOptions, getPalette } from './micro-chart-colorizer';
+import { DtTheme } from '@dynatrace/angular-components/theming';
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 

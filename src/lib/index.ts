@@ -37,4 +37,4 @@ export * from '@dynatrace/angular-components/toast';
 export * from '@dynatrace/angular-components/select';
 export * from '@dynatrace/angular-components/overlay';
 export * from '@dynatrace/angular-components/formatters';
-export * from '@dynatrace/angular-components/chart/microchart';
+export * from '@dynatrace/angular-components/microchart';
