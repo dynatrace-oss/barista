@@ -3,7 +3,7 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
 import {IndividualSeriesOptions, Options} from 'highcharts';
-import {ChartService} from './docs-chart.service';
+import {MicroChartService} from './docs-chart.service';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class MicroChartStreamExampleComponent {
   };
   series$: Observable<IndividualSeriesOptions>;
 
-  constructor(private _chartService: ChartService) {
+  constructor(private _chartService: MicroChartService) {
     this.series$ = this._chartService.getSingleStreamedChartdata();
   }
 }
