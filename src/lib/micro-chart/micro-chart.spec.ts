@@ -8,7 +8,7 @@ import { Colors, DtThemingModule } from 'theming/index';
 import objectContaining = jasmine.objectContaining;
 import { AxisOptions, DataPoint } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
-import { DtMicroChartModule } from '@dynatrace/angular-components';
+import { DtMicroChartModule} from '@dynatrace/angular-components';
 import { merge } from 'lodash';
 
 // tslint:disable:no-magic-numbers
@@ -110,6 +110,18 @@ describe('DtMicroChart', () => {
       const colors = microChartComponent.highchartsOptions.colors;
       expect(colors).toBeDefined();
       expect(colors).toEqual([Colors.PURPLE_400]);
+    });
+
+    it('updates minmax datapoint colors after theme update', () => {
+      const {fixture, microChartComponent} = setupTestCase(ThemeDynamic);
+      fixture.detectChanges();
+      const data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
+      expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.ROYALBLUE_700}));
+
+      fixture.componentInstance.theme = 'purple';
+      fixture.detectChanges();
+
+      expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.PURPLE_700}));
     });
   });
 
@@ -228,7 +240,7 @@ describe('DtMicroChart', () => {
   template: '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
 class Series {
-  options: DtChartOptions = {};
+  options: DtChartOptions = {chart: {type: 'line' }};
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
