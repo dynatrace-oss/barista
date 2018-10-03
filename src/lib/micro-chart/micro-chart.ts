@@ -20,10 +20,10 @@ import {
   _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS,
   _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS,
 } from './micro-chart-options';
-import { merge } from 'lodash';
+import { merge, assign } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { colorizeOptions, getPalette } from './micro-chart-colorizer';
+import { colorizeDataPoint, colorizeOptions } from './micro-chart-colorizer';
 import { DtTheme } from '@dynatrace/angular-components/theming';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 
@@ -57,8 +57,7 @@ export class DtMicroChart implements OnDestroy {
     checkUnsupportedOptions(options);
     this._transformedOptions = merge({}, _DT_MICROCHART_DEFAULT_OPTIONS, options);
     transformAxis(this._transformedOptions);
-    colorizeOptions(this._transformedOptions, this._theme);
-    this._dtChart.options = this._transformedOptions;
+    this._dtChart.options = colorizeOptions(this._transformedOptions, this._theme);
     this._originalOptions = options;
   }
   get options(): DtChartOptions {
@@ -96,9 +95,8 @@ export class DtMicroChart implements OnDestroy {
     if (this._theme) {
       this._themeStateChangeSub = this._theme._stateChanges.subscribe(() => {
         if (this._transformedOptions) {
-          colorizeOptions(this._transformedOptions, this._theme);
-          this._colorizeMinMaxDataPoints();
-          this._dtChart.options = merge({}, this._transformedOptions);
+          this._decorateMinMaxDataPoints();
+          this._dtChart.options = merge({},  colorizeOptions(this._transformedOptions, this._theme));
         }
       });
     }
@@ -134,36 +132,15 @@ export class DtMicroChart implements OnDestroy {
 
   private _decorateMinMaxDataPoints(): void {
     if (this._columnSeries) {
-      merge(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
-      merge(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
+      assign(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
+      assign(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
     } else {
-      merge(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS);
-      merge(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS);
+      assign(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS);
+      assign(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS);
     }
 
-    this._colorizeMinMaxDataPoints();
-  }
-
-  private _colorizeMinMaxDataPoints(): void {
-    const palette = getPalette(this._theme);
-    if (this._columnSeries) {
-      merge(this._minDataPoint, { borderColor: palette.secondary });
-      merge(this._maxDataPoint, { borderColor: palette.secondary });
-    } else {
-      const options: DataPoint = {
-        marker: {
-          lineColor: palette.secondary,
-          states: {
-            hover: {
-              lineColor: palette.secondary,
-              fillColor: palette.tertiary,
-            },
-          },
-        },
-      };
-      merge(this._minDataPoint, options);
-      merge(this._maxDataPoint, options);
-    }
+    colorizeDataPoint(this._minDataPoint, this._theme);
+    colorizeDataPoint(this._maxDataPoint, this._theme);
   }
 }
 
