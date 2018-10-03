@@ -5,26 +5,26 @@ import { DataPoint } from 'highcharts';
 
 interface MicroChartColorPalette {
   primary: string;
-  secondary: string;
-  tertiary: string;
+  darker: string;
+  lighter: string;
 }
 
 const purple: MicroChartColorPalette = {
   primary: Colors.PURPLE_400,
-  secondary: Colors.PURPLE_700,
-  tertiary: Colors.PURPLE_200,
+  darker:  Colors.PURPLE_700,
+  lighter: Colors.PURPLE_200,
 };
 
 const blue: MicroChartColorPalette = {
   primary: Colors.ROYALBLUE_400,
-  secondary: Colors.ROYALBLUE_700,
-  tertiary: Colors.ROYALBLUE_200,
+  darker:  Colors.ROYALBLUE_700,
+  lighter: Colors.ROYALBLUE_200,
 };
 
 const royalblue: MicroChartColorPalette = {
   primary: Colors.ROYALBLUE_400,
-  secondary: Colors.ROYALBLUE_800,
-  tertiary: Colors.ROYALBLUE_200,
+  darker:  Colors.ROYALBLUE_800,
+  lighter: Colors.ROYALBLUE_200,
 };
 
 const MICROCHART_PALETTES = {
@@ -35,8 +35,8 @@ const MICROCHART_PALETTES = {
 
 export const enum DtMicroChartColorPlaceholder {
   PRIMARY = '!color:primary',
-  SECONDARY = '!color:secondary',
-  TERTIARY = '!color:tertiary',
+  DARKER  = '!color:darker',
+  LIGHTER = '!color:lighter',
 }
 
 function getPalette(theme: DtTheme | undefined): MicroChartColorPalette {
@@ -50,10 +50,10 @@ function applyColors(options: object, palette: MicroChartColorPalette): void {
 
     if (value === DtMicroChartColorPlaceholder.PRIMARY) {
       options[key] = palette.primary;
-    } else if (value === DtMicroChartColorPlaceholder.SECONDARY) {
-      options[key] = palette.secondary;
-    } else if (value === DtMicroChartColorPlaceholder.TERTIARY) {
-      options[key] = palette.tertiary;
+    } else if (value === DtMicroChartColorPlaceholder.DARKER) {
+      options[key] = palette.darker;
+    } else if (value === DtMicroChartColorPlaceholder.LIGHTER) {
+      options[key] = palette.lighter;
     } else if (isPlainObject(value) || isArray(value)) {
       applyColors(value, palette);
     }
