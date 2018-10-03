@@ -46,7 +46,6 @@ export class DtMicroChart implements OnDestroy {
   private _series: DtMicroChartSeries;
   private _themeStateChangeSub = Subscription.EMPTY;
   private _originalOptions: DtChartOptions;
-  private _transformedOptions: DtChartOptions;
 
   private _columnSeries: boolean;
   private _minDataPoint: DataPoint;
@@ -55,10 +54,8 @@ export class DtMicroChart implements OnDestroy {
   @Input()
   set options(options: DtChartOptions) {
     checkUnsupportedOptions(options);
-    this._transformedOptions = merge({}, _DT_MICROCHART_DEFAULT_OPTIONS, options);
-    transformAxis(this._transformedOptions);
-    this._dtChart.options = colorizeOptions(this._transformedOptions, this._theme);
     this._originalOptions = options;
+    this._dtChart.options = this.transformedOptions();
   }
   get options(): DtChartOptions {
     return this._originalOptions;
@@ -94,12 +91,20 @@ export class DtMicroChart implements OnDestroy {
   constructor(@Optional() @SkipSelf() private readonly _theme: DtTheme) {
     if (this._theme) {
       this._themeStateChangeSub = this._theme._stateChanges.subscribe(() => {
-        if (this._transformedOptions) {
+        if (this._originalOptions) {
           this._decorateMinMaxDataPoints();
-          this._dtChart.options = merge({},  colorizeOptions(this._transformedOptions, this._theme));
+          this._dtChart.options = this.transformedOptions();
         }
       });
     }
+  }
+
+  private transformedOptions(): DtChartOptions {
+    const transformed = merge({}, _DT_MICROCHART_DEFAULT_OPTIONS, this._originalOptions);
+
+    transformAxis(transformed);
+
+    return colorizeOptions(transformed, this._theme);
   }
 
   ngOnDestroy(): void {
@@ -107,6 +112,8 @@ export class DtMicroChart implements OnDestroy {
   }
 
   private _transformSeries(series: DtChartSeries): DtChartSeries[] {
+    checkUnsupportedType(series.type);
+
     // We only support one series. This has already been checked.
     if (!series.data) {
       return [series];
