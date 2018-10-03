@@ -20,7 +20,7 @@ import {
   _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS,
   _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS,
 } from './micro-chart-options';
-import { merge, assign } from 'lodash';
+import { merge } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { colorizeDataPoint, colorizeOptions } from './micro-chart-colorizer';
@@ -132,11 +132,11 @@ export class DtMicroChart implements OnDestroy {
 
   private _decorateMinMaxDataPoints(): void {
     if (this._columnSeries) {
-      assign(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
-      assign(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
+      merge(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
+      merge(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
     } else {
-      assign(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS);
-      assign(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS);
+      merge(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS);
+      merge(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS);
     }
 
     colorizeDataPoint(this._minDataPoint, this._theme);
