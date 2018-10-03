@@ -16,10 +16,10 @@ export const _DT_MICROCHART_DEFAULT_OPTIONS: DtChartOptions = {
     column: {
       states: {
         hover: {
-          color: DtMicroChartColorPlaceholder.TERTIARY,
+          color: DtMicroChartColorPlaceholder.LIGHTER,
         },
         select: {
-          color: DtMicroChartColorPlaceholder.SECONDARY,
+          color: DtMicroChartColorPlaceholder.DARKER,
         },
       },
     },
@@ -28,7 +28,7 @@ export const _DT_MICROCHART_DEFAULT_OPTIONS: DtChartOptions = {
         enabled: true,
         states: {
           hover: {
-            fillColor: DtMicroChartColorPlaceholder.TERTIARY,
+            fillColor: DtMicroChartColorPlaceholder.LIGHTER,
             radius: 7,
             halo: false,
             lineWidth: 2,
@@ -37,13 +37,12 @@ export const _DT_MICROCHART_DEFAULT_OPTIONS: DtChartOptions = {
           },
           select: {
             radius: 7,
-            fillColor: DtMicroChartColorPlaceholder.SECONDARY,
+            fillColor: DtMicroChartColorPlaceholder.DARKER,
           },
         },
       },
     },
     series: {
-      allowPointSelect: true,
       dataLabels: {
         crop: false,
         overflow: 'none',
@@ -70,14 +69,14 @@ export const _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS: DataPoint = {
     enabled: true,
   },
   marker: {
-    lineColor: DtMicroChartColorPlaceholder.SECONDARY,
+    lineColor: DtMicroChartColorPlaceholder.DARKER,
     enabled: true,
     radius: 7,
     lineWidth: 2,
     states: {
       hover: {
-        lineColor: DtMicroChartColorPlaceholder.SECONDARY,
-        fillColor: DtMicroChartColorPlaceholder.TERTIARY,
+        lineColor: DtMicroChartColorPlaceholder.DARKER,
+        fillColor: DtMicroChartColorPlaceholder.LIGHTER,
       },
     },
   },
@@ -98,7 +97,7 @@ export const _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS = {
 };
 
 export const _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS = {
-  borderColor: DtMicroChartColorPlaceholder.SECONDARY,
+  borderColor: DtMicroChartColorPlaceholder.DARKER,
   dataLabels: {
     verticalAlign: 'bottom',
   },
