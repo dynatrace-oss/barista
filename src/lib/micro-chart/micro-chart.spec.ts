@@ -29,6 +29,7 @@ describe('DtMicroChart', () => {
         NoSeries,
         Nothing,
         DynamicSeries,
+        UnsupportedSeriesType,
       ],
     }).compileComponents();
   }));
@@ -232,6 +233,13 @@ describe('DtMicroChart', () => {
         }).not.toThrowError();
       });
     });
+
+    it('throws an error if a series has an unallowed type', () => {
+        const {fixture} = setupTestCase(UnsupportedSeriesType);
+        expect(() => {
+          fixture.detectChanges();
+        }).toThrowError();
+    });
   });
 });
 
@@ -358,4 +366,17 @@ class DynamicSeries {
       data: [[1, 20], [2, 30]],
     });
   }
+}
+
+@Component({
+  selector: 'dt-unsupported-series-type',
+  template: '<dt-micro-chart [series]="series"></dt-micro-chart>',
+})
+class UnsupportedSeriesType {
+  series = {
+    name: 'Actions/min',
+    id: 'someId',
+    type: 'pie',
+    data: [[1, 0], [2, 10]],
+  };
 }
