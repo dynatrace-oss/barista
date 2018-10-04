@@ -11,6 +11,7 @@ import { DocsExpandablePanelComponent } from './components/expandable-panel/docs
 import { DocsExpandableSectionComponent } from './components/expandable-section/docs-expandable-section.component';
 import { DocsTableComponent } from './components/table/docs-table.component';
 import { DocsChartComponent } from './components/chart/docs-chart.component';
+import { DocsMicroChartComponent } from './components/micro-chart/docs-micro-chart.component';
 import { DocsTileComponent } from './components/tile/docs-tile.component';
 import { DocsCardComponent } from './components/card/docs-card.component';
 import { DocsContextDialogComponent } from './components/context-dialog/docs-context-dialog.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'button-group', component: DocsButtonGroupComponent },
   { path: 'card', component: DocsCardComponent },
   { path: 'chart', component: DocsChartComponent },
+  { path: 'micro-chart', component: DocsMicroChartComponent },
   { path: 'context-dialog', component: DocsContextDialogComponent },
   { path: 'input', component: DocsInputComponent },
   { path: 'expandable-panel', component: DocsExpandablePanelComponent },

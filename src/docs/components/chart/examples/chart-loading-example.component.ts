@@ -32,7 +32,7 @@ export class ChartLoadingExampleComponent {
     },
   };
 
-  series: DtChartSeries | null;
+  series: DtChartSeries[] | null;
 
   toggleData(): void {
     const dummyData = [{

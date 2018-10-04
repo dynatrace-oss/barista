@@ -44,7 +44,7 @@ describe('DtChart', () => {
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
       fixture.detectChanges();
-      expect((chartComponent.series as DtChartSeries).length).toBe(1);
+      expect((chartComponent.series as DtChartSeries[]).length).toBe(1);
     });
 
     it('should display data from observable', () => {
@@ -268,7 +268,7 @@ class SeriesSingle {
       max: 200,
     },
   };
-  series: DtChartSeries = [
+  series: DtChartSeries[] = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
@@ -296,7 +296,7 @@ class SeriesMulti {
       max: 200,
     },
   };
-  series: DtChartSeries = [
+  series: DtChartSeries[] = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
@@ -385,7 +385,7 @@ class SeriesColor {
       max: 200,
     },
   };
-  series: DtChartSeries = [
+  series: DtChartSeries[] = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
@@ -418,7 +418,7 @@ class SeriesTheme {
       max: 200,
     },
   };
-  series: DtChartSeries = [
+  series: DtChartSeries[] = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
@@ -448,7 +448,7 @@ class SeriesMoreThanTheme {
       max: 200,
     },
   };
-  series: DtChartSeries = [
+  series: DtChartSeries[] = [
     {
       name: 'Actions/min',
       id: 'someMetricId',
@@ -489,7 +489,7 @@ class SeriesMoreThanOrderedColors {
       max: 200,
     },
   };
-  series: DtChartSeries = Array.from(Array(CHART_COLOR_PALETTE_ORDERED.length + 1).keys())
+  series: DtChartSeries[] = Array.from(Array(CHART_COLOR_PALETTE_ORDERED.length + 1).keys())
     .map((): IndividualSeriesOptions => ({
       name: 'Actions/min',
       id: 'someMetricId',
