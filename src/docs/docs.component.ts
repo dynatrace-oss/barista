@@ -29,6 +29,7 @@ export class Docs {
     { name: 'Key value list', route: '/key-value-list' },
     { name: 'Link', route: '/style#link' },
     { name: 'Loading distractor', route: '/loading-distractor' },
+    { name: 'Micro Chart', route: '/micro-chart' },
     { name: 'Overlay', route: '/overlay' },
     { name: 'Pagination', route: '/pagination' },
     { name: 'Progress circle', route: '/progress-circle' },

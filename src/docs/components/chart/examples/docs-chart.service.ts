@@ -8,7 +8,7 @@ import { generateData } from './chart-data-utils';
 
 @Injectable({providedIn: 'root'})
 export class ChartService {
-  getStreamedChartdata(): Observable<DtChartSeries> {
+  getStreamedChartdata(): Observable<DtChartSeries[]> {
     return timer(1000, 5000)
     .pipe(map(() =>
       [
