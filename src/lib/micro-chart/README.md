@@ -35,8 +35,8 @@ To use the dynatrace chart, add the `<dt-micro-chart options="myoptions" series=
 
 | Name | Description | Return value |
 | --- | --- | --- |
-| `seriesId` | Gets the series currently used in the chart | `DtChartSeries` |
-| `highchartsOptions` | returns highchart options unsed in the chart | `string` |
+| `seriesId` | Gets series id of the series currently used in the chart | `DtChartSeries` |
+| `highchartsOptions` | returns highchart options which are used in the chart | `string` |
 
 ## Examples
 
