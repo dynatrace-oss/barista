@@ -19,11 +19,6 @@ import {
 import { Options, IndividualSeriesOptions, ChartObject, chart, AxisOptions } from 'highcharts';
 // tslint:disable-next-line:no-duplicate-imports
 import * as Highcharts from 'highcharts';
-// tslint:disable-next-line:no-any
-declare var require: any;
-// tslint:disable-next-line:no-var-requires no-require-imports
-const highchartsMore = require('highcharts/highcharts-more');
-highchartsMore(Highcharts);
 import { Observable, Subscription, Subject } from 'rxjs';
 import { DtViewportResizer } from '@dynatrace/angular-components/core';
 import { delay, takeUntil } from 'rxjs/operators';
@@ -40,8 +35,14 @@ interface DtChartTooltip { (): string | boolean; iswrapped: boolean; }
 
 // tslint:disable-next-line:no-any
 declare const window: any;
+// tslint:disable-next-line:no-any
+declare var require: any;
 // Override Highcharts prototypes
 // added to the window so uglify does not drop this from the bundle
+// tslint:disable-next-line:no-var-requires no-require-imports
+window.highchartsMore = require('highcharts/highcharts-more');
+window.highchartsMore(Highcharts);
+
 window.configureLegendSymbols = configureLegendSymbols;
 
 @Component({
