@@ -30,7 +30,7 @@ class DocsImportRuleWalker extends RuleWalker {
 }
 
 /**
- * Implementation of the no-inner-html rule.
+ * Implementation of the dt-docs-import-barista rule.
  */
 // tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
