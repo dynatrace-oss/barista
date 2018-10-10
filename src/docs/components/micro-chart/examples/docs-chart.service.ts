@@ -4,7 +4,24 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DtChartSeries } from '@dynatrace/angular-components';
-import { generateData } from '../../chart/examples/chart-data-utils';
+
+export function randomize(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+export function generateData(
+    amount: number,
+    min: number,
+    max: number,
+    timestampStart: number,
+    timestampTick: number
+  ): Array<[number, number]> {
+    return Array.from(Array(amount).keys())
+      .map((v) => [
+        timestampStart + (timestampTick * v),
+        randomize(min, max),
+      ] as [number, number]);
+}
 
 @Injectable({providedIn: 'root'})
 export class MicroChartService {
