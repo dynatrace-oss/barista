@@ -3,7 +3,7 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
 import { DtChartOptions, DtMicroChartSeries } from '@dynatrace/angular-components';
-import { generateData } from '../../chart/examples/chart-data-utils';
+import { generateData } from './docs-micro-chart.service';
 
 @Component({
   template: '<dt-micro-chart [options]="options" [series]="series"></dt-micro-chart>',
