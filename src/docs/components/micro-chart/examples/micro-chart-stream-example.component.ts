@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import { MicroChartService } from './docs-chart.service';
+import { MicroChartService } from './docs-micro-chart.service';
 import { DtChartOptions, DtMicroChartSeries } from '@dynatrace/angular-components';
 
 @Component({
