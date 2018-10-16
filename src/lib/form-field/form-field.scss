@@ -130,6 +130,9 @@ $dt-form-field-default-infix-width: 180px !default;
   border-bottom-right-radius: 3px;
   transform-origin: top left;
 
+  // Make sure the error is not overlapped by other elements
+  z-index: 1;
+
   &::before {
     content: '';
     display: block;
