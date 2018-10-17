@@ -15,6 +15,7 @@ import { DocsMicroChartComponent } from './components/micro-chart/docs-micro-cha
 import { DocsTileComponent } from './components/tile/docs-tile.component';
 import { DocsCardComponent } from './components/card/docs-card.component';
 import { DocsContextDialogComponent } from './components/context-dialog/docs-context-dialog.component';
+import { DocsFilterField } from './components/form-field/docs-form-field';
 import { DocsFormField } from 'components/form-field/docs-form-field';
 import { DocsTagComponent } from './components/tag/docs-tag.component';
 import { DocsAlertComponent } from './components/alert/docs-alert.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'inline-editor', component: DocsInlineEditorComponent },
   { path: 'expandable-section', component: DocsExpandableSectionComponent },
   { path: 'input', component: DocsInputComponent },
+  { path: 'filter-field', component: DocsFilterField },
   { path: 'form-field', component: DocsFormField },
   { path: 'icon', component: DocsIconComponent },
   { path: 'loading-distractor', component: DocsLoadingDistractorComponent },
