@@ -1,0 +1,89 @@
+@import '../core/style/variables';
+@import '../style/font-mixins';
+@import '../core/style/form-control';
+@import '../core/style/interactive-common';
+
+$dt-filter-field-inner-height: 30px;
+
+:host {
+  display: block;
+  @include dt-form-control();
+
+  // We need to set overflow visible to prevent the outline
+  // of inner interactive elements (like buttons) to be cut off
+  overflow: visible;
+
+  .dt-focused & {
+    @include dt-focus-style();
+  }
+}
+
+.dt-filter-field-body {
+  display: flex;
+  width: 100%;
+
+  // Do not set `align-items` as it breaks SVGs baseline alignment
+  // align-items: baseline;
+  box-sizing: border-box;
+}
+
+.dt-filter-field-label,
+.dt-filter-field-prefix,
+.dt-filter-field-suffix {
+  white-space: nowrap;
+  flex: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dt-filter-field-infix {
+  display: block;
+  position: relative;
+  flex: auto;
+  min-width: 0;
+  width: 100%;
+}
+
+.dt-filter-field-label {
+  margin: 0 8px;
+}
+
+.dt-filter-field-icon {
+  width: 16px;
+  height: $dt-filter-field-inner-height;
+  display: flex;
+  align-items: center;
+  ::ng-deep svg {
+    width: 16px;
+    height: 16px;
+    fill: $gray-500;
+  }
+}
+
+.dt-filter-field-label-text {
+  display: inline-block;
+  @include main-font();
+  height: $dt-filter-field-inner-height;
+  line-height: $dt-filter-field-inner-height;
+  color: $gray-500;
+  margin-left: 8px;
+}
+
+.dt-filter-field-input {
+  display: block;
+  width: 100%;
+  position: relative;
+  @include main-font();
+  appearance: none;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: none;
+  height: $dt-filter-field-inner-height;
+  line-height: $dt-filter-field-inner-height;
+  line-height: -moz-block-height;
+  outline: none;
+  background: transparent;
+  z-index: 1;
+}
