@@ -4,10 +4,10 @@
     <span class="dt-filter-field-label-text">Filter by</span>
   </div>
   <div class="dt-filter-field-prefix">
-
+    <dt-filter-field-tag>First name: Thomas</dt-filter-field-tag>
   </div>
   <div class="dt-filter-field-infix">
-    <input type="text" class="dt-filter-field-input">
+    <input #input type="text" class="dt-filter-field-input" (keyup)="_handleInputKeyUp($event)">
   </div>
   <div class="dt-filter-field-suffix"></div>
 </div>
