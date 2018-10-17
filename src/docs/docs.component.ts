@@ -23,6 +23,7 @@ export class Docs {
     { name: 'Expandable section', route: '/expandable-section' },
     { name: 'Font styling', route: '/style#fonts' },
     { name: 'Formatters', route: '/formatters' },
+    { name: 'Filter field', route: '/filter-field' },
     { name: 'Form field', route: '/form-field' },
     { name: 'Icon', route: '/icon' },
     { name: 'Inline Editor', route: '/inline-editor' },
