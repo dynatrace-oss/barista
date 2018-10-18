@@ -9,6 +9,7 @@ import {
   ChangeDetectorRef,
   AfterContentChecked,
   AfterViewInit,
+  ElementRef,
 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { startWith } from 'rxjs/operators';
@@ -86,7 +87,7 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
   @ContentChildren(DtPrefix) _prefixChildren: QueryList<DtPrefix>;
   @ContentChildren(DtSuffix) _suffixChildren: QueryList<DtSuffix>;
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private _changeDetectorRef: ChangeDetectorRef, public _elementRef: ElementRef) { }
 
   ngAfterContentInit(): void {
     this._validateControlChild();
@@ -125,6 +126,14 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
     // Avoid animations on load.
     this._errorAnimationState = 'enter';
     this._changeDetectorRef.detectChanges();
+  }
+
+  /**
+   * Gets an ElementRef for the element that a overlay attached to the form-field should be
+   * positioned relative to.
+   */
+  getConnectedOverlayOrigin(): ElementRef {
+    return this._elementRef;
   }
 
   /** Determines whether a class from the NgControl should be forwarded to the host element. */

@@ -25,7 +25,7 @@ let _uniqueIdCounter = 0;
 export class DtAutocompleteSelectedEvent<T> {
   constructor(
     /** Reference to the autocomplete panel that emitted the event. */
-    public source: DtAutocomplete,
+    public source: DtAutocomplete<T>,
     /** Option that was selected. */
     public option: DtOption<T>) { }
 }
@@ -86,6 +86,15 @@ export class DtAutocomplete<T> implements AfterContentInit {
   }
   _classList: {[key: string]: boolean} = {};
 
+  /**
+   * Specify the width of the autocomplete panel.  Can be any CSS sizing value, otherwise it will
+   * match the width of its host.
+   */
+  @Input() panelWidth: string | number;
+
+  /** Function that maps an option's control value to its display value in the trigger. */
+  @Input() displayWith: ((value: T) => string) | null = null;
+
   /** Event that is emitted whenever an option from the list is selected. */
   @Output() readonly optionSelected = new EventEmitter<DtAutocompleteSelectedEvent<T>>();
 
@@ -106,7 +115,7 @@ export class DtAutocomplete<T> implements AfterContentInit {
   _keyManager: ActiveDescendantKeyManager<DtOption<T>>;
 
   /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
-  id = `mat-autocomplete-${_uniqueIdCounter++}`;
+  id = `dt-autocomplete-${_uniqueIdCounter++}`;
 
   // tslint:disable-next-line:no-any
   @ViewChild(TemplateRef) template: TemplateRef<any>;
