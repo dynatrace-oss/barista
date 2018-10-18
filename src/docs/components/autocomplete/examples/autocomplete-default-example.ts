@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import { COUNTRIES, countryCompareWithFn, CountryOption } from './countries';
 
 @Component({
   moduleId: module.id,
   template: `
-  <input dtInput placeholder="Country" [dtAutocomplete]="auto" [(ngModel)]="value" >
+  <input dtInput [dtAutocomplete]="auto" [(ngModel)]="value" placeholder="Start typing">
   <dt-autocomplete #auto="dtAutocomplete">
-    <dt-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</dt-option>
+    <dt-option *ngFor="let option of options" [value]="option">{{option}}</dt-option>
   </dt-autocomplete>
   `,
 })
@@ -15,8 +14,5 @@ import { COUNTRIES, countryCompareWithFn, CountryOption } from './countries';
 export class DefaultAutocompleteExample {
 
   value: string;
-
-  get countries(): CountryOption[] {
-    return COUNTRIES.filter((country) => this.value ? countryCompareWithFn(country, this.value) : true);
-  }
+  options: string[] = ['One', 'Two', 'Three'];
 }
