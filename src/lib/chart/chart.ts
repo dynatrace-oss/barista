@@ -37,12 +37,11 @@ interface DtChartTooltip { (): string | boolean; iswrapped: boolean; }
 declare const window: any;
 // tslint:disable-next-line:no-any
 declare var require: any;
+/* DANGER ZONE - this function needs to be self executing so uglify does not drop the call */
+// tslint:disable-next-line:no-var-requires no-require-imports
+window.highchartsMore = require('highcharts/highcharts-more')(Highcharts);
 // Override Highcharts prototypes
 // added to the window so uglify does not drop this from the bundle
-// tslint:disable-next-line:no-var-requires no-require-imports
-window.highchartsMore = require('highcharts/highcharts-more');
-window.highchartsMore(Highcharts);
-
 window.configureLegendSymbols = configureLegendSymbols;
 
 @Component({
