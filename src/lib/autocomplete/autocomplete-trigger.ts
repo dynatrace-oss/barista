@@ -16,6 +16,7 @@ import { DOCUMENT } from '@angular/common';
 /** Provider that allows the autocomplete to register as a ControlValueAccessor. */
 export const DT_AUTOCOMPLETE_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
+  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => DtAutocompleteTrigger),
   multi: true,
 };
@@ -165,7 +166,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   }
 
   ngOnDestroy(): void {
-    this._disposableFns.forEach((fn) => fn());
+    this._disposableFns.forEach((fn) => { fn(); });
     this._viewportSubscription.unsubscribe();
     this._componentDestroyed = true;
     this._destroyPanel();
@@ -388,7 +389,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   private _subscribeToClosingActions(): Subscription {
     const firstStable = this._zone.onStable.asObservable().pipe(take(1));
     const optionChanges = this.autocomplete.options.changes.pipe(
-      tap(() => this._positionStrategy.reapplyLastPosition()),
+      tap(() => { this._positionStrategy.reapplyLastPosition(); }),
       // Defer emitting to the stream until the next tick, because changing
       // bindings in here will cause "changed after checked" errors.
       delay(0)
@@ -413,7 +414,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
         take(1)
       )
       // set the value, close the panel, and complete.
-      .subscribe((event) => this._setValueAndClose(event));
+      .subscribe((event) => { this._setValueAndClose(event); });
   }
 
   /** Stream of clicks outside of the autocomplete panel. */
@@ -510,7 +511,8 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   // Implemented as part of ControlValueAccessor.
   writeValue(value: T): void {
-    Promise.resolve(null).then(() => this._setTriggerValue(value));
+    // tslint:disable-next-line:no-floating-promises
+    Promise.resolve(null).then(() => { this._setTriggerValue(value); });
   }
 
   // Implemented as part of ControlValueAccessor.
