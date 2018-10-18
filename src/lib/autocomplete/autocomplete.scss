@@ -1,0 +1,24 @@
+@import '../core/style/variables';
+
+$dt-autocomplete-panel-max-height: 256px;
+$dt-autocomplete-panel-min-width: 112px !default;
+
+.dt-autocomplete-panel {
+  width: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  border: 1px solid $disabledcolor;
+  border-radius: 0 0 3px 3px;
+  max-height: $dt-autocomplete-panel-max-height;
+  min-width: $dt-autocomplete-panel-min-width;
+  margin-top: -1px;
+
+  // Prevents the content from repainting on scroll.
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  // Makes sure the opening scale animation starts from the top
+  transform-origin: left top;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;   // for momentum scroll on mobile
+}
