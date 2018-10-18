@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import { COUNTRIES, countryCompareWithFn } from './countries';
+import { COUNTRIES, countryCompareWithFn, CountryOption } from './countries';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +16,7 @@ export class DefaultAutocompleteExample {
 
   value: string;
 
-  get countries(): any[] {
+  get countries(): CountryOption[] {
     return COUNTRIES.filter((country) => this.value ? countryCompareWithFn(country, this.value) : true);
   }
 }
