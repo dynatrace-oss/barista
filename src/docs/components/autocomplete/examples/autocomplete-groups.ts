@@ -9,6 +9,11 @@ export interface StateGroup {
   names: string[];
 }
 
+export const _filter = (opt: string[], value: string): string[] => {
+  const filterValue = value.toLowerCase();
+
+  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);
+};
 
 @Component({
   moduleId: module.id,
@@ -85,9 +90,3 @@ export class GroupsAutocompleteExample implements OnInit {
     return this.stateGroups;
   }
 }
-
-export const _filter = (opt: string[], value: string): string[] => {
-  const filterValue = value.toLowerCase();
-
-  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);
-};
