@@ -25,6 +25,7 @@ import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { DtInputModule } from '@dynatrace/angular-components/input';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
+import { DtAutocompleteModule } from '@dynatrace/angular-components/autocomplete';
 
 @Component({
   selector: 'dt-kitchen-sink',
@@ -43,6 +44,7 @@ export class KitchenSink {
     BrowserModule.withServerTransition({appId: 'kitchen-sink'}),
     RouterModule.forRoot([]),
     DtAlertModule,
+    DtAutocompleteModule,
     DtButtonModule,
     DtCheckboxModule,
     DtTableModule,
