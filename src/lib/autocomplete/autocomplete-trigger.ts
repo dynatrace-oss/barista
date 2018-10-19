@@ -528,6 +528,6 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   // Implemented as part of ControlValueAccessor.
   setDisabledState(isDisabled: boolean): void {
-    // this._element.nativeElement.disabled = isDisabled;
+    this._element.nativeElement.disabled = isDisabled;
   }
 }
