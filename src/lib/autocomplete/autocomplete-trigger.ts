@@ -100,7 +100,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     ).pipe(map((event) => event instanceof DtOptionSelectionChange ? event : null));
   }
 
-  /** The currently active option, coerced to MatOption type. */
+  /** The currently active option, coerced to DtOption type. */
   get activeOption(): DtOption<T> | null {
     if (this.autocomplete && this.autocomplete._keyManager) {
       return this.autocomplete._keyManager.activeItem;
@@ -157,6 +157,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     // tslint:disable-next-line:no-any
     @Optional() @Inject(DOCUMENT) private _document: any
   ) {
+    // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
       _zone.runOutsideAngular(() => {
         this._disposableFns.push(this._renderer.listen(window, 'blur', () => {

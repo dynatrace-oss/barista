@@ -4,6 +4,19 @@ The autocomplete is a normal text input enhanced by a panel of suggested options
 
 <docs-source-example example="DefaultAutocompleteExample"></docs-source-example>
 
+## Imports
+
+You have to import the `DtAutocompleteModule` when you want to use `dt-autocomplete` and `dtAutocompleteTrigger`.
+
+```typescript
+@NgModule({
+  imports: [
+    DtAutocompleteModule,
+  ],
+})
+class MyModule {}
+```
+
 ## Custom filter
 If we want our options to filter when we type, we need to add a custom filter. You can filter the options in any way you like based on the text input*
 
@@ -20,7 +33,7 @@ To make this work, create a function on your component class that maps the contr
 <docs-source-example example="ControlValuesAutocompleteExample"></docs-source-example>
 
 ## Automatically highlighting the first option
-If your use case requires for the first autocomplete option to be highlighted when the user opens the panel, you can do so by setting the `autoActiveFirstOption` input on the `dt-autocomplete` component. This behavior can be configured globally using the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` injection token.
+If your use case requires for the first autocomplete option to be highlighted when the user opens the panel, you can do so by setting the `autoActiveFirstOption` input on the `dt-autocomplete` component. This behavior can be configured globally using the `DT_AUTOCOMPLETE_DEFAULT_OPTIONS` injection token.
 
 <docs-source-example example="HighlightFirstOptionAutocompleteExample"></docs-source-example>
 
