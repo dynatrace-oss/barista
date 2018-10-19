@@ -57,7 +57,7 @@ export function DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): DtAutocompleteDefault
     class: 'dt-autocomplete',
   },
   preserveWhitespaces: false,
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtAutocomplete<T> implements AfterContentInit {
@@ -72,19 +72,6 @@ export class DtAutocomplete<T> implements AfterContentInit {
     this._autoActiveFirstOption = coerceBooleanProperty(value);
   }
   private _autoActiveFirstOption: boolean;
-
-  /**
-   * Takes classes set on the host dt-autocomplete element and applies them to the panel
-   * inside the overlay container to allow for easy styling.
-   */
-  @Input('class')
-  set classList(value: string) {
-    if (value && value.length) {
-      value.split(' ').forEach((className) => this._classList[className.trim()] = true);
-      this._elementRef.nativeElement.className = '';
-    }
-  }
-  _classList: {[key: string]: boolean} = {};
 
   /**
    * Specify the width of the autocomplete panel.  Can be any CSS sizing value, otherwise it will
@@ -106,6 +93,18 @@ export class DtAutocomplete<T> implements AfterContentInit {
 
   /** Whether the autocomplete panel should be visible, depending on option length. */
   showPanel = false;
+
+  /**
+   * Takes classes set on the host dt-autocomplete element and applies them to the panel
+   * inside the overlay container.
+   */
+  set classList(value: string) {
+    if (value && value.length) {
+      value.split(' ').forEach((className) => this._classList[className.trim()] = true);
+      this._elementRef.nativeElement.className = '';
+    }
+  }
+  _classList: {[key: string]: boolean} = {};
 
   /** Whether the autocomplete panel is open. */
   get isOpen(): boolean { return this._isOpen && this.showPanel; }
