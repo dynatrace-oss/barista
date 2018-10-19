@@ -157,12 +157,16 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     // tslint:disable-next-line:no-any
     @Optional() @Inject(DOCUMENT) private _document: any
   ) {
-    this._disposableFns.push(this._renderer.listen(window, 'blur', () => {
-      // If the user blurred the window while the autocomplete is focused, it means that it'll be
-      // refocused when they come back. In this case we want to skip the first focus event, if the
-      // pane was closed, in order to avoid reopening it unintentionally.
-      this._canOpenOnNextFocus = document.activeElement !== this._element.nativeElement || this.panelOpen;
-    }));
+    if (typeof window !== 'undefined') {
+      _zone.runOutsideAngular(() => {
+        this._disposableFns.push(this._renderer.listen(window, 'blur', () => {
+          // If the user blurred the window while the autocomplete is focused, it means that it'll be
+          // refocused when they come back. In this case we want to skip the first focus event, if the
+          // pane was closed, in order to avoid reopening it unintentionally.
+          this._canOpenOnNextFocus = document.activeElement !== this._element.nativeElement || this.panelOpen;
+        }));
+      });
+    }
   }
 
   ngOnDestroy(): void {
