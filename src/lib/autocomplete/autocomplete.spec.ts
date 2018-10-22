@@ -1100,8 +1100,7 @@ describe('DtAutocomplete', () => {
       expect(componentOptions[0].selected)
         .toBe(true, `Clicked option should be selected.`);
 
-      options =
-        overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
       options[1].click();
       fixture.detectChanges();
 
@@ -1117,6 +1116,18 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
       fixture.detectChanges();
+
+      expect(overlayContainerElement.querySelectorAll('dt-option')[0].classList)
+        .toContain('dt-option-active', 'Expected first option to be highlighted.');
+    }));
+
+    it('should be able to preselect the first option on focus', fakeAsync(() => {
+      const input = fixture.debugElement.query(By.css('input')).nativeElement;
+      fixture.componentInstance.trigger.autocomplete.autoActiveFirstOption = true;
+      fixture.detectChanges();
+
+      dispatchFakeEvent(input, 'focusin');
+      zone.simulateZoneExit();
 
       expect(overlayContainerElement.querySelectorAll('dt-option')[0].classList)
         .toContain('dt-option-active', 'Expected first option to be highlighted.');
