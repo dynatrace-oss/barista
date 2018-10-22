@@ -29,9 +29,11 @@ import { DocsSwitchComponent } from './components/switch/docs-switch.component';
 import { DocsBreadcrumbsComponent } from './components/breadcrumbs/docs-breadcrumbs.component';
 import { DocsProgressBarComponent } from './components/progress-bar/docs-progress-bar.component';
 import { DocsOverlayComponent } from './components/overlay/docs-overlay.component';
+import { DocsAutocompleteComponent } from './components/autocomplete/docs-autocomplete.component';
 
 const routes: Routes = [
   { path: '', component: Home },
+  { path: 'autocomplete', component: DocsAutocompleteComponent },
   { path: 'button', component: DocsButtonComponent },
   { path: 'button-group', component: DocsButtonGroupComponent },
   { path: 'card', component: DocsCardComponent },
