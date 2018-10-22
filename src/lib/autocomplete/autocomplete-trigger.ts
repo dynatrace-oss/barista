@@ -405,12 +405,18 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
       .pipe(
         // create a new stream of panelClosingActions, replacing any previous streams
         // that were created, and flatten it so our stream only emits closing events...
-        switchMap(() => {
+        switchMap((optionChange) => {
           this._resetActiveItem();
           this.autocomplete._setVisibility();
 
           if (this.panelOpen) {
             this._overlayRef!.updatePosition();
+          }
+
+          // TODO @thomas.pink: Remove/Rework once angular material issue has been resolved
+          // https://github.com/angular/material2/issues/13734
+          if (!optionChange) {
+            this._changeDetectorRef.detectChanges();
           }
 
           return this.panelClosingActions;
