@@ -143,6 +143,7 @@ export class DtSelectionArea {
 
   /** Attach eventlisteners to the origin */
   private _attachEventListeners(): void {
+    this._detachMousedownFn();
     this._detachMousedownFn = this._renderer.listen(this._origin, 'mousedown', this._handleMousedown);
   }
 
