@@ -177,6 +177,7 @@ export class DtSelectionArea {
 
   /** Handle mousedown on the origin */
   private _handleMousedown = (ev: MouseEvent) => {
+    this._isBoxVisible = true;
     this._touching = true;
     this._applyPointerEvents(true);
     this._attachWindowEventListeners();
