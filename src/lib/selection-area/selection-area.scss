@@ -1,0 +1,85 @@
+@import '../core/style/variables';
+
+/* chart interactions */
+$selection-area-border-width: 2px;
+$selection-area-border-color: $turquoise-600;
+$selection-area-overlay-spacing: 4px;
+
+:host {
+  position: absolute;
+  pointer-events: auto;
+}
+
+:host, .dt-selection-area-box {
+  &.dt-no-interaction {
+    pointer-events: none;
+  }
+}
+
+// :host, .dt-chart-event-layer, .dt-selection-area {
+//   &.dt-no-interaction {
+//     pointer-events: none;
+//   }
+// }
+
+// .dt-chart-event-layer {
+//   height: 100%;
+//   position: absolute;
+//   width: 100%;
+//   top: 0;
+//   pointer-events: auto;
+
+//   &.dt-grabbing {
+//     cursor: grabbing;
+//   }
+// }
+
+.dt-selection-area-box {
+  background-color: rgba($color: $turquoise-600, $alpha: 0.1);
+  display: flex;
+  justify-content: space-between;
+  cursor: move; // fallback for IE
+  cursor: grab;
+  height: 100%;
+  position: absolute;
+  pointer-events: auto;
+  visibility: hidden;
+
+  &.dt-grabbing {
+    cursor: grabbing;
+  }
+}
+
+.dt-selection-area-handle {
+  width: $selection-area-border-width;
+  height: 100%;
+  background-color: $selection-area-border-color;
+  cursor: col-resize;
+}
+
+.dt-selection-area-overlay {
+  // TODO: create overlay mixin to reuse styles from overlay component
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid $turquoise-600;
+  border-radius: 4px;
+  pointer-events: auto;
+}
+
+.dt-selection-area-overlay-wrapper {
+  display: flex;
+}
+
+.dt-selection-area-content {
+  flex: 1 1 auto;
+}
+
+.dt-selection-area-close {
+  padding-left: $selection-area-overlay-spacing;
+}
+
+.dt-selection-area-actions {
+  text-align: right;
+  padding-top: $selection-area-overlay-spacing;
+  flex: 1 100%;
+}

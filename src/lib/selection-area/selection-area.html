@@ -1,0 +1,23 @@
+<div class="dt-selection-area-box" [style.visibility]="_isBoxVisible ? 'visible' : 'hidden'" #box (mousedown)="_handleBoxMouseDown($event)" #overlayOrigin="cdkOverlayOrigin" cdk-overlay-origin>
+  <div class="dt-selection-area-handle" (mousedown)="_handleLeftHandleMouseDown($event)"></div>
+  <div class="dt-selection-area-handle" (mousedown)="_handleRightHandleMouseDown($event)"></div>
+</div>
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="overlayOrigin"
+  [cdkConnectedOverlayOpen]="_isBoxVisible"
+  [cdkConnectedOverlayPositions]="_positions">
+<div class="dt-selection-area-overlay">
+  <div class="dt-selection-area-overlay-wrapper">
+    <section class="dt-selection-area-content">
+      <ng-content></ng-content>
+    </section>
+    <aside class="dt-selection-area-close">
+      <button dt-icon-button variant="nested" (click)="_handleClose($event)"><dt-icon name="abort"></dt-icon></button>
+    </aside>
+  </div>
+  <section class="dt-selection-area-actions">
+    <ng-content select="dt-selection-area-actions, [dt-selection-area-actions], [dtSelectionAreaActions]"></ng-content>
+  </section>
+</div>
+</ng-template>
