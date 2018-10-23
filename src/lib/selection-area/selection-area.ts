@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, NgZone, Directive } from '@angular/core';
+import { Component, EventEmitter, Output, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, NgZone, Directive, TemplateRef } from '@angular/core';
 import { addCssClass, clamp, removeCssClass, DtViewportResizer } from '@dynatrace/angular-components/core';
 import { take } from 'rxjs/operators';
-import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { EMPTY, Subscription } from 'rxjs';
+import { DtOverlay, DtOverlayRef } from '@dynatrace/angular-components/overlay';
+import { ConnectedPosition } from '@angular/cdk/overlay';
 
 /** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaChange {
@@ -45,13 +46,13 @@ export class DtSelectionArea {
   /** The box that gets created by the users action */
   @ViewChild('box') _box: ElementRef;
   /** The overlay adjascent to the box */
-  @ViewChild(CdkConnectedOverlay) _overlay: CdkConnectedOverlay;
+  @ViewChild('overlay') _overlay: TemplateRef<void>;
 
   /** Indicates if the box is visible */
   _isBoxVisible = false;
 
   /** Positions for the overlay that gets created */
-  _positions = [
+  _positions: ConnectedPosition[] = [
     {
       originX: 'center',
       originY: 'top',
@@ -95,6 +96,8 @@ export class DtSelectionArea {
   /** Subscription to the viewport changes */
   private _viewportSub: Subscription = EMPTY.subscribe();
 
+  private _overlayRef: DtOverlayRef<void>;
+
   /** The origin the selection is created within */
   @Input()
   get origin(): ElementRef | HTMLElement {
@@ -123,7 +126,8 @@ export class DtSelectionArea {
     private _renderer: Renderer2,
     private _zone: NgZone,
     private _viewport: DtViewportResizer,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _overlayService: DtOverlay
   ) {
     this._viewportSub = this._viewport.change().subscribe(() => {
       this._reset();
@@ -173,13 +177,17 @@ export class DtSelectionArea {
 
   /** Handle mousedown on the origin */
   private _handleMousedown = (ev: MouseEvent) => {
-    this._isBoxVisible = true;
     this._touching = true;
     this._applyPointerEvents(true);
     this._attachWindowEventListeners();
     this._eventTarget = 'origin';
     this._startX = this._calculateRelativeXPos(ev);
     this._left = this._startX;
+    this._overlayRef = this._overlayService.create(
+      this._box,
+      this._overlay,
+      { _positions: this._positions, originY: 'edge', _dismissOnScroll: false, _hasFocusTrap: false }
+    );
     // Call update to trigger reflecting the changes to the element
     this._update();
     this._changeDetectorRef.markForCheck();
@@ -247,6 +255,7 @@ export class DtSelectionArea {
 
   /** Handles mouseup */
   private _handleMouseup = (ev: MouseEvent) => {
+    console.log('mouseup');
     ev.preventDefault();
     removeCssClass(this._box.nativeElement, 'dt-grabbing');
     this._touching = false;
@@ -322,7 +331,7 @@ export class DtSelectionArea {
       this._box.nativeElement.style.left = '';
       this._box.nativeElement.style.right = `${this._right}px`;
     }
-    this._overlay.overlayRef.updatePosition();
+    this._overlayRef.updatePosition(0, 0);
   }
 
   /** Sets and removes the pointer events on the box */
@@ -371,6 +380,9 @@ export class DtSelectionArea {
     this._left = null;
     this._isBoxVisible = false;
     this._applyBoundaries(this._origin);
+    if (this._overlayRef) {
+      this._overlayRef.dismiss();
+    }
     this._changeDetectorRef.markForCheck();
   }
 

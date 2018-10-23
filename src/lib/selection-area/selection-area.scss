@@ -57,15 +57,6 @@ $selection-area-overlay-spacing: 4px;
   cursor: col-resize;
 }
 
-.dt-selection-area-overlay {
-  // TODO: create overlay mixin to reuse styles from overlay component
-  padding: 12px;
-  background-color: #fff;
-  border: 1px solid $turquoise-600;
-  border-radius: 4px;
-  pointer-events: auto;
-}
-
 .dt-selection-area-overlay-wrapper {
   display: flex;
 }
