@@ -45,6 +45,7 @@ import { DocsFormattersModule } from './components/formatters/docs-formatters-mo
 import { DocsMicroChartModule } from './components/micro-chart/docs-micro-chart.module';
 import { DocsAutocompleteModule } from './components/autocomplete/docs-autocomplete.module';
 import { DocsFilterFieldModule } from './components/filter-field/docs-filter-field-module';
+import { DocsSelectionAreaModule } from './components/selection-area/docs-selection-area.module';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
@@ -107,6 +108,7 @@ export class NoopRouteComponent {}
     DocsToastModule,
     DocsSelectModule,
     DocsOverlayModule,
+    DocsSelectionAreaModule,
   ],
   declarations: [
     Docs,
