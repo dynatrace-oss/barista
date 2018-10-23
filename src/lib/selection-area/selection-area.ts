@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, Host, NgZone, Directive } from '@angular/core';
+import { Component, EventEmitter, Output, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, NgZone, Directive } from '@angular/core';
 import { addCssClass, clamp, removeCssClass, DtViewportResizer } from '@dynatrace/angular-components/core';
 import { take } from 'rxjs/operators';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { EMPTY, Subscription } from 'rxjs';
 
-/** Change event object emitted by DtCheckbox */
+/** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaChange {
   source: DtSelectionArea;
   left: number;
@@ -11,9 +12,12 @@ export interface DtSelectionAreaChange {
   right: number;
 }
 
+/** Name of the css class used to disable pointer events */
 export const DT_NO_INTERACTION_CSS_CLASS = 'dt-no-interaction';
-export const DT_CHART_INTERACTION_OVERLAY_SPACING = 10;
+/** Vertical distance between the overlay and the selection area */
+export const DT_SELECTION_AREA_OVERLAY_SPACING = 10;
 
+/** Eventtarget for the mouse events on the selection area */
 export type DtSelectionAreaEventTarget = 'box' | 'left-handle' | 'right-handle' | 'origin';
 
 /** Action area in the overlay, needed as it's used as a selector in the API. */
@@ -38,42 +42,60 @@ export class DtSelectionAreaActions { }
 
 export class DtSelectionArea {
 
+  /** The box that gets created by the users action */
+  @ViewChild('box') _box: ElementRef;
+  /** The overlay adjascent to the box */
+  @ViewChild(CdkConnectedOverlay) _overlay: CdkConnectedOverlay;
+
+  /** Indicates if the box is visible */
   _isBoxVisible = false;
 
+  /** Positions for the overlay that gets created */
   _positions = [
     {
       originX: 'center',
       originY: 'top',
       overlayX: 'center',
       overlayY: 'bottom',
-      offsetY: -DT_CHART_INTERACTION_OVERLAY_SPACING,
+      offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
     },
     {
       originX: 'center',
       originY: 'bottom',
       overlayX: 'center',
       overlayY: 'top',
-      offsetY: DT_CHART_INTERACTION_OVERLAY_SPACING,
+      offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
     },
   ];
 
   /** Indicator if its being touched */
   private _touching: boolean;
+  /** Horizontal start position of an operation */
   private _startX: number;
+  /** Start width when performing an operation */
   private _startWidth: number;
+  /** The origin html element that the selection area gets attached to */
   private _origin: HTMLElement;
+  /** The width of the box */
   private _width = 0;
+  /** The horizontal offset is needed when grabbing the entire box to calculate the new position correctly */
   private _offsetX = 0;
+  /** The distance from the left edge of the box to the edge of the origin element */
   private _left: number | null;
+  /** The distance from the right edge of the box to the edge of the origin element */
   private _right: number | null;
+  /** The boundaries of the origin element - are used to position the selection area correctly and for movement constriants */
   private _boundaries: ClientRect;
+  /** The target of the mousedown event - is needed to differentiate what part of the box is targeted */
   private _eventTarget: DtSelectionAreaEventTarget;
+  /** Function to unregister the eventlistener on the origin */
   private _detachMousedownFn: () => void = () => {};
+  /** Array of unregister functions on the window */
   private _detachFns: Array<() => void> = [];
+  /** Subscription to the viewport changes */
+  private _viewportSub: Subscription = EMPTY.subscribe();
 
-  @ViewChild('box') _box: ElementRef;
-  @ViewChild(CdkConnectedOverlay) _overlay: CdkConnectedOverlay;
-
+  /** The origin the selection is created within */
   @Input()
   get origin(): ElementRef | HTMLElement {
     return this._origin;
@@ -88,9 +110,11 @@ export class DtSelectionArea {
     this._applyBoundaries(this._origin);
   }
 
+  /** Emits when the box changes position or size */
   @Output()
   readonly changed: EventEmitter<DtSelectionAreaChange> = new EventEmitter();
 
+  /** Emits when the box is closed */
   @Output()
   readonly closed: EventEmitter<void> = new EventEmitter();
 
@@ -101,7 +125,7 @@ export class DtSelectionArea {
     private _viewport: DtViewportResizer,
     private _changeDetectorRef: ChangeDetectorRef
   ) {
-    this._viewport.change().subscribe(() => {
+    this._viewportSub = this._viewport.change().subscribe(() => {
       this._reset();
     });
   }
@@ -109,12 +133,20 @@ export class DtSelectionArea {
   ngOnDestroy(): void {
     this._detachEventListeners();
     this._detachWindowListeners();
+    this._viewportSub.unsubscribe();
   }
 
+  /** Closes and destroys the box */
+  close(): void {
+    this._reset();
+  }
+
+  /** Attach eventlisteners to the origin */
   private _attachEventListeners(): void {
     this._detachMousedownFn = this._renderer.listen(this._origin, 'mousedown', this._handleMousedown);
   }
 
+  /** Attaches the eventlisteners to the window */
   private _attachWindowEventListeners(): void {
     this._detachWindowListeners();
     // tslint:disable-next-line:strict-type-predicates
@@ -126,16 +158,19 @@ export class DtSelectionArea {
     }
   }
 
+  /** Detaches the window listeners */
   private _detachWindowListeners(): void {
     this._detachFns.forEach((fn) => fn());
     this._detachFns = [];
   }
 
+  /** Detaches the eventlisteners on the origin */
   private _detachEventListeners(): void {
     this._detachMousedownFn();
     this._detachMousedownFn = () => {};
   }
 
+  /** Handle mousedown on the origin */
   private _handleMousedown = (ev: MouseEvent) => {
     this._isBoxVisible = true;
     this._touching = true;
@@ -149,13 +184,13 @@ export class DtSelectionArea {
     this._changeDetectorRef.markForCheck();
   }
 
+  /** Handles position and width calculation on mousedown */
   private _handleMousemove = (ev: MouseEvent) => {
     ev.preventDefault();
     const deltaX = this._calculateRelativeXPos(ev) - this._startX;
     let left: number | null;
     let right: number | null;
     let width = this._width;
-    /** Check if an eventtarget is available - if not it is the creation interaction */
     switch (this._eventTarget) {
       case 'box':
         const newleft = this._startX + deltaX - this._offsetX;
@@ -209,33 +244,35 @@ export class DtSelectionArea {
     this._right = right;
   }
 
+  /** Handles mouseup */
   private _handleMouseup = (ev: MouseEvent) => {
     ev.preventDefault();
     removeCssClass(this._box.nativeElement, 'dt-grabbing');
     this._touching = false;
     this._applyPointerEvents(false);
-    this._detachFns.forEach((fn) => fn());
+    this._detachWindowListeners();
   }
 
-  /** handle mousedown on the left handle */
+  /** Handle mousedown on the left handle */
   _handleLeftHandleMouseDown(event: MouseEvent): void {
     this._handleBoxEvent(event, 'left-handle');
     this._startWidth = this._width;
   }
 
-  /** handle mousedown on the right handle */
+  /** Handle mousedown on the right handle */
   _handleRightHandleMouseDown(event: MouseEvent): void {
     this._handleBoxEvent(event, 'right-handle');
     this._startWidth = this._width;
   }
 
-  /** handle mousedown on the area */
+  /** Handle mousedown on the area */
   _handleBoxMouseDown(event: MouseEvent): void {
     this._handleBoxEvent(event, 'box');
-    this._offsetX = this._calculateRelativeXPosToArea(event);
+    this._offsetX = this._calculateRelativeXPosToBox(event);
     addCssClass(this._origin, 'dt-grabbing');
   }
 
+  /** Handles the closing action on the selection area */
   _handleClose(event: MouseEvent): void {
     event.preventDefault();
     this._reset();
@@ -243,6 +280,7 @@ export class DtSelectionArea {
     this.closed.complete();
   }
 
+  /** Shared event handling for mousedown events on the box */
   private _handleBoxEvent(event: MouseEvent, target: DtSelectionAreaEventTarget): void {
     event.preventDefault();
     event.stopPropagation();
@@ -254,6 +292,7 @@ export class DtSelectionArea {
     this._update();
   }
 
+  /** Update function that applies calculated width and position to the box dom element */
   private _update(): void {
     requestAnimationFrame(() => {
       if (!this._touching) {
@@ -272,6 +311,7 @@ export class DtSelectionArea {
     });
   }
 
+  /** Applies the properties to the box dom element */
   private _applySizeAndPosition(): void {
     this._box.nativeElement.style.width = `${this._width}px`;
     if (this._left !== null) {
@@ -284,6 +324,7 @@ export class DtSelectionArea {
     this._overlay.overlayRef.updatePosition();
   }
 
+  /** Sets and removes the pointer events on the box */
   private _applyPointerEvents(touching: boolean): void {
     if (touching) {
       addCssClass(this._box.nativeElement, DT_NO_INTERACTION_CSS_CLASS);
@@ -292,6 +333,7 @@ export class DtSelectionArea {
     }
   }
 
+  /** Apply boundaries to the host element ref to match the origin */
   private _applyBoundaries(origin: HTMLElement | null): void {
     /**
      * This needs to be run after zone is stable because we need to wait until the origin is actually rendered
@@ -300,23 +342,27 @@ export class DtSelectionArea {
     if (origin) {
       this._zone.onStable.pipe(take(1)).subscribe(() => {
         this._boundaries = origin.getBoundingClientRect();
+        const scrollY = typeof window !== undefined ? window.scrollY : 0;
         this._ref.nativeElement.style.left = `${this._boundaries.left}px`;
-        this._ref.nativeElement.style.top = `${this._boundaries.top}px`;
+        this._ref.nativeElement.style.top = `${this._boundaries.top + scrollY}px`;
         this._ref.nativeElement.style.width = `${this._boundaries.width}px`;
         this._ref.nativeElement.style.height = `${this._boundaries.height}px`;
       });
     }
   }
 
+  /** Calculates the horizontal position relative to the boundaries */
   private _calculateRelativeXPos(ev: MouseEvent): number {
     return ev.clientX - this._boundaries.left;
   }
 
-  private _calculateRelativeXPosToArea(ev: MouseEvent): number {
+  /** Calculates the relative horizontal position to the box  */
+  private _calculateRelativeXPosToBox(ev: MouseEvent): number {
     const targetBoundingClientRect = this._box.nativeElement.getBoundingClientRect();
     return ev.clientX - targetBoundingClientRect.left;
   }
 
+  /** Resets the box and all properties */
   private _reset(): void {
     this._box.nativeElement.style.width = '0px';
     removeCssClass(this._box.nativeElement, DT_NO_INTERACTION_CSS_CLASS);
