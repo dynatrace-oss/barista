@@ -1,6 +1,6 @@
 import { Injectable, TemplateRef, ElementRef, Inject, NgZone, Injector } from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
-import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, CloseScrollStrategy, ScrollDispatcher } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, CloseScrollStrategy, ScrollDispatcher, NoopScrollStrategy, RepositionScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
@@ -102,7 +102,7 @@ export class DtOverlay {
   }
 
   private _createOverlay(origin: ElementRef, config: DtOverlayConfig): OverlayRef {
-    let positions = DEFAULT_DT_OVERLAY_POSITIONS;
+    let positions = config._positions || DEFAULT_DT_OVERLAY_POSITIONS;
     if (config.originY === 'center') {
       positions = positions.map((pos) => {
         const newPos = {...pos};
@@ -122,8 +122,11 @@ export class DtOverlay {
       positionStrategy,
       backdropClass: DT_OVERLAY_NO_POINTER_CLASS,
       hasBackdrop: true,
-      scrollStrategy: new CloseScrollStrategy(this._scrollDispatcher, this._ngZone, this._viewportRuler),
+      scrollStrategy: new RepositionScrollStrategy(this._scrollDispatcher, this._viewportRuler, this._ngZone),
     });
+    if (config._dismissOnScroll) {
+      overlayConfig.scrollStrategy = new CloseScrollStrategy(this._scrollDispatcher, this._ngZone, this._viewportRuler);
+    }
     return this._overlay.create(overlayConfig);
   }
 
