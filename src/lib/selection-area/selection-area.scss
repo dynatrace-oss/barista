@@ -1,4 +1,6 @@
 @import '../core/style/variables';
+@import '../core/style/interactive-common';
+@import '../core/style/overlay';
 
 /* chart interactions */
 $selection-area-border-width: 2px;
@@ -15,24 +17,6 @@ $selection-area-overlay-spacing: 4px;
     pointer-events: none;
   }
 }
-
-// :host, .dt-chart-event-layer, .dt-selection-area {
-//   &.dt-no-interaction {
-//     pointer-events: none;
-//   }
-// }
-
-// .dt-chart-event-layer {
-//   height: 100%;
-//   position: absolute;
-//   width: 100%;
-//   top: 0;
-//   pointer-events: auto;
-
-//   &.dt-grabbing {
-//     cursor: grabbing;
-//   }
-// }
 
 .dt-selection-area-box {
   background-color: rgba($color: $turquoise-600, $alpha: 0.1);
@@ -73,4 +57,8 @@ $selection-area-overlay-spacing: 4px;
   text-align: right;
   padding-top: $selection-area-overlay-spacing;
   flex: 1 100%;
+}
+
+.dt-selection-area-overlay-pane {
+  @include dt-overlay-container();
 }

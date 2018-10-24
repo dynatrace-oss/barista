@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Output, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, NgZone, Directive, TemplateRef } from '@angular/core';
-import { addCssClass, clamp, removeCssClass, DtViewportResizer } from '@dynatrace/angular-components/core';
+import { addCssClass, clamp, removeCssClass, DtViewportResizer, isDefined } from '@dynatrace/angular-components/core';
 import { take } from 'rxjs/operators';
 import { EMPTY, Subscription } from 'rxjs';
 import { DtOverlay, DtOverlayRef } from '@dynatrace/angular-components/overlay';
-import { ConnectedPosition } from '@angular/cdk/overlay';
+import { ConnectedPosition, ScrollDispatcher, CdkConnectedOverlay, Overlay } from '@angular/cdk/overlay';
 
 /** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaChange {
@@ -46,7 +46,7 @@ export class DtSelectionArea {
   /** The box that gets created by the users action */
   @ViewChild('box') _box: ElementRef;
   /** The overlay adjascent to the box */
-  @ViewChild('overlay') _overlay: TemplateRef<void>;
+  @ViewChild(CdkConnectedOverlay) _overlay: CdkConnectedOverlay;
 
   /** Indicates if the box is visible */
   _isBoxVisible = false;
@@ -107,7 +107,11 @@ export class DtSelectionArea {
     this._detachEventListeners();
     this._detachWindowListeners();
     this._origin = val instanceof ElementRef ? val.nativeElement : val;
-
+    /** make it tabable */
+    if (!this._origin.getAttribute('tabIndex')) {
+      this._renderer.setAttribute(this._origin, 'tabIndex', '0');
+      addCssClass(this._origin, 'dt-selection-area-origin');
+    }
     // apply eventlisteners
     this._attachEventListeners();
     this._applyBoundaries(this._origin);
@@ -126,8 +130,7 @@ export class DtSelectionArea {
     private _renderer: Renderer2,
     private _zone: NgZone,
     private _viewport: DtViewportResizer,
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _overlayService: DtOverlay
+    private _changeDetectorRef: ChangeDetectorRef
   ) {
     this._viewportSub = this._viewport.change().subscribe(() => {
       this._reset();
@@ -177,6 +180,7 @@ export class DtSelectionArea {
 
   /** Handle mousedown on the origin */
   private _handleMousedown = (ev: MouseEvent) => {
+    this._reset();
     this._isBoxVisible = true;
     this._touching = true;
     this._applyPointerEvents(true);
@@ -184,11 +188,6 @@ export class DtSelectionArea {
     this._eventTarget = 'origin';
     this._startX = this._calculateRelativeXPos(ev);
     this._left = this._startX;
-    this._overlayRef = this._overlayService.create(
-      this._box,
-      this._overlay,
-      { _positions: this._positions, originY: 'edge', _dismissOnScroll: false, _hasFocusTrap: false }
-    );
     // Call update to trigger reflecting the changes to the element
     this._update();
     this._changeDetectorRef.markForCheck();
@@ -256,9 +255,8 @@ export class DtSelectionArea {
 
   /** Handles mouseup */
   private _handleMouseup = (ev: MouseEvent) => {
-    console.log('mouseup');
     ev.preventDefault();
-    removeCssClass(this._box.nativeElement, 'dt-grabbing');
+    removeCssClass(this._origin, 'dt-cursor-grabbing');
     this._touching = false;
     this._applyPointerEvents(false);
     this._detachWindowListeners();
@@ -280,7 +278,7 @@ export class DtSelectionArea {
   _handleBoxMouseDown(event: MouseEvent): void {
     this._handleBoxEvent(event, 'box');
     this._offsetX = this._calculateRelativeXPosToBox(event);
-    addCssClass(this._origin, 'dt-grabbing');
+    addCssClass(this._origin, 'dt-cursor-grabbing');
   }
 
   /** Handles the closing action on the selection area */
@@ -332,7 +330,7 @@ export class DtSelectionArea {
       this._box.nativeElement.style.left = '';
       this._box.nativeElement.style.right = `${this._right}px`;
     }
-    this._overlayRef.updatePosition(0, 0);
+    this._overlay.overlayRef.updatePosition();
   }
 
   /** Sets and removes the pointer events on the box */
@@ -375,16 +373,27 @@ export class DtSelectionArea {
 
   /** Resets the box and all properties */
   private _reset(): void {
+    if (this._overlayRef) {
+      this._overlayRef.dismiss();
+    }
     this._box.nativeElement.style.width = '0px';
     removeCssClass(this._box.nativeElement, DT_NO_INTERACTION_CSS_CLASS);
     this._width = 0;
     this._left = null;
     this._isBoxVisible = false;
     this._applyBoundaries(this._origin);
-    if (this._overlayRef) {
-      this._overlayRef.dismiss();
-    }
     this._changeDetectorRef.markForCheck();
   }
 
+}
+
+export function isElementScrolledOutsideView(element: ClientRect, scrollContainers: ClientRect[]): boolean {
+  return scrollContainers.some((containerBounds) => {
+    const outsideAbove = element.bottom < containerBounds.top;
+    const outsideBelow = element.top > containerBounds.bottom;
+    const outsideLeft = element.right < containerBounds.left;
+    const outsideRight = element.left > containerBounds.right;
+
+    return outsideAbove || outsideBelow || outsideLeft || outsideRight;
+  });
 }
