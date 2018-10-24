@@ -1,13 +1,19 @@
 <div class="dt-filter-field-body">
   <div class="dt-filter-field-label">
     <dt-icon name="filter" class="dt-filter-field-icon"></dt-icon>
-    <span class="dt-filter-field-label-text">Filter by</span>
+    <span class="dt-filter-field-label-text">Filter by{{_filterByLabel}}</span>
   </div>
   <div class="dt-filter-field-prefix">
-    <dt-filter-field-tag>First name: Thomas</dt-filter-field-tag>
+    <dt-filter-field-tag *ngFor="let node of _prefixNodes">{{node.properties[0].viewValue}}: {{node.properties[1].viewValue}}</dt-filter-field-tag>
   </div>
   <div class="dt-filter-field-infix">
-    <input #input type="text" class="dt-filter-field-input" (keyup)="_handleInputKeyUp($event)">
+    <input #input
+      type="text"
+      class="dt-filter-field-input"
+      [dtAutocomplete]="_autocomplete || noopAutocomplete"
+      (keyup)="_handleInputKeyUp($event)">
+    <ng-content select="dt-autocomplete"></ng-content>
   </div>
   <div class="dt-filter-field-suffix"></div>
 </div>
+<dt-autocomplete #noopAutocomplete="dtAutocomplete"></dt-autocomplete>
