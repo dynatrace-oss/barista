@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtOverlayModule } from '../overlay';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { DtOverlayModule } from '../overlay';
     DtIconModule,
     DtButtonModule,
     DtOverlayModule,
+    OverlayModule,
   ],
   exports: [
     DtSelectionArea,
