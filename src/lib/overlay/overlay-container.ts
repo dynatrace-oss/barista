@@ -126,24 +126,19 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
 
   /** Moves the focus inside the focus trap. */
   _trapFocus(): void {
-    if (this._config._hasFocusTrap) {
-      if (!this._focusTrap) {
-        this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-      }
-      this._focusTrap.focusInitialElementWhenReady()
-      .catch((error: Error) => {
-        if (isDevMode()) {
-          LOG.debug('Error when trying to set initial focus', error);
-        }
-      });
+    if (!this._focusTrap) {
+      this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
     }
+    this._focusTrap.focusInitialElementWhenReady()
+    .catch((error: Error) => {
+      if (isDevMode()) {
+        LOG.debug('Error when trying to set initial focus', error);
+      }
+    });
   }
 
   /** Restores focus to the element that was focused before the overlay opened. */
   private _restoreFocus(): void {
-    if (!this._config._hasFocusTrap) {
-      return;
-    }
     const toFocus = this._elementFocusedBeforeDialogWasOpened;
 
     // tslint:disable-next-line: strict-type-predicates no-unbound-method
