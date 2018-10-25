@@ -1,6 +1,6 @@
-<div class="dt-selection-area-box" [style.visibility]="_isBoxVisible ? 'visible' : 'hidden'" #box (mousedown)="_handleBoxMouseDown($event)" #originBox="cdkOverlayOrigin" cdk-overlay-origin>
-  <div class="dt-selection-area-handle" (mousedown)="_handleLeftHandleMouseDown($event)"></div>
-  <div class="dt-selection-area-handle" (mousedown)="_handleRightHandleMouseDown($event)"></div>
+<div class="dt-selection-area-box" tabindex="0" [style.visibility]="_isBoxVisible ? 'visible' : 'hidden'" #box (mousedown)="_handleBoxMouseDown($event)" #originBox="cdkOverlayOrigin" cdk-overlay-origin (keyup)="_handleBoxKeyup($event)">
+  <div class="dt-selection-area-handle" tabindex="0" (mousedown)="_handleLeftHandleMouseDown($event)" (keyup)="_handleLeftHandleKeyup($event)"></div>
+  <div class="dt-selection-area-handle" tabindex="0" (mousedown)="_handleRightHandleMouseDown($event)" (keyup)="_handleRightHandleKeyup($event)"></div>
 </div>
 <ng-template
 cdkConnectedOverlay

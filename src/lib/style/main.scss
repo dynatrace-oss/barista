@@ -14,7 +14,7 @@
 @include cdk-a11y();
 @include cdk-overlay();
 
-.dt-overlay-no-pointer {
+.dt-no-pointer {
   pointer-events: none;
 }
 
@@ -25,6 +25,12 @@
   @include dt-focus-style();
 }
 
+svg .dt-selection-area-origin:focus {
+  /** this override is needed since on svg elements like rect we cannot use a box-shadow */
+  outline: 2px solid $focuscolor;
+}
+
 .dt-cursor-grabbing {
   cursor: grabbing;
 }
+

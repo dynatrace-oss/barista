@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, NgZone, Directive, TemplateRef } from '@angular/core';
-import { addCssClass, clamp, removeCssClass, DtViewportResizer, isDefined } from '@dynatrace/angular-components/core';
+import { addCssClass, clamp, removeCssClass, DtViewportResizer, DT_NO_POINTER_CSS_CLASS } from '@dynatrace/angular-components/core';
 import { take } from 'rxjs/operators';
 import { EMPTY, Subscription } from 'rxjs';
-import { DtOverlay, DtOverlayRef } from '@dynatrace/angular-components/overlay';
-import { ConnectedPosition, ScrollDispatcher, CdkConnectedOverlay, Overlay } from '@angular/cdk/overlay';
+import { DtOverlayRef } from '@dynatrace/angular-components/overlay';
+import { ConnectedPosition, CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { LEFT_ARROW, RIGHT_ARROW, ENTER } from '@angular/cdk/keycodes';
 
 /** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaChange {
@@ -13,8 +14,6 @@ export interface DtSelectionAreaChange {
   right: number;
 }
 
-/** Name of the css class used to disable pointer events */
-export const DT_NO_INTERACTION_CSS_CLASS = 'dt-no-interaction';
 /** Vertical distance between the overlay and the selection area */
 export const DT_SELECTION_AREA_OVERLAY_SPACING = 10;
 
@@ -35,7 +34,7 @@ export class DtSelectionAreaActions { }
   templateUrl: 'selection-area.html',
   styleUrls: ['selection-area.scss'],
   host: {
-    class: 'dt-selection-area, dt-no-interaction',
+    class: 'dt-selection-area, dt-no-pointer',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -89,8 +88,8 @@ export class DtSelectionArea {
   private _boundaries: ClientRect;
   /** The target of the mousedown event - is needed to differentiate what part of the box is targeted */
   private _eventTarget: DtSelectionAreaEventTarget;
-  /** Function to unregister the eventlistener on the origin */
-  private _detachMousedownFn: () => void = () => {};
+  /** Array to unregister the eventlisteners on the origin */
+  private _detachOriginListenerFns: Array<() => void> = [];
   /** Array of unregister functions on the window */
   private _detachFns: Array<() => void> = [];
   /** Subscription to the viewport changes */
@@ -108,8 +107,8 @@ export class DtSelectionArea {
     this._detachWindowListeners();
     this._origin = val instanceof ElementRef ? val.nativeElement : val;
     /** make it tabable */
-    if (!this._origin.getAttribute('tabIndex')) {
-      this._renderer.setAttribute(this._origin, 'tabIndex', '0');
+    if (!this._origin.getAttribute('tabindex')) {
+      this._renderer.setAttribute(this._origin, 'tabindex', '0');
       addCssClass(this._origin, 'dt-selection-area-origin');
     }
     // apply eventlisteners
@@ -150,8 +149,9 @@ export class DtSelectionArea {
 
   /** Attach eventlisteners to the origin */
   private _attachEventListeners(): void {
-    this._detachMousedownFn();
-    this._detachMousedownFn = this._renderer.listen(this._origin, 'mousedown', this._handleMousedown);
+    this._detachEventListeners();
+    this._detachOriginListenerFns.push(this._renderer.listen(this._origin, 'mousedown', this._handleMousedown));
+    this._detachOriginListenerFns.push(this._renderer.listen(this._origin, 'keyup', this._handleKeyup));
   }
 
   /** Attaches the eventlisteners to the window */
@@ -174,23 +174,37 @@ export class DtSelectionArea {
 
   /** Detaches the eventlisteners on the origin */
   private _detachEventListeners(): void {
-    this._detachMousedownFn();
-    this._detachMousedownFn = () => {};
+    this._detachOriginListenerFns.forEach((fn) => fn());
+    this._detachOriginListenerFns = [];
   }
 
-  /** Handle mousedown on the origin */
-  private _handleMousedown = (ev: MouseEvent) => {
+  private _create(): void {
     this._reset();
     this._isBoxVisible = true;
     this._touching = true;
     this._applyPointerEvents(true);
     this._attachWindowEventListeners();
     this._eventTarget = 'origin';
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Handle mousedown on the origin */
+  private _handleMousedown = (ev: MouseEvent) => {
     this._startX = this._calculateRelativeXPos(ev);
     this._left = this._startX;
+    this._create();
     // Call update to trigger reflecting the changes to the element
     this._update();
-    this._changeDetectorRef.markForCheck();
+  }
+
+  private _handleKeyup = (event: KeyboardEvent) => {
+    if (event.keyCode === ENTER) {
+      this._left = this._boundaries.width * 0.45;
+      this._create();
+      this._width = 200;
+      this._right = null;
+      Promise.resolve().then(() => this._applySizeAndPosition());
+    }
   }
 
   /** Handles position and width calculation on mousedown */
@@ -281,6 +295,25 @@ export class DtSelectionArea {
     addCssClass(this._origin, 'dt-cursor-grabbing');
   }
 
+  _handleLeftHandleKeyup(event: KeyboardEvent): void {
+    console.log(event);
+    switch(event.keyCode) {
+      case LEFT_ARROW:
+        break;
+      case RIGHT_ARROW:
+      default:
+    }
+    this._handleBoxEvent(event, 'left-handle');
+  }
+
+  _handleRightHandleKeyup(event: KeyboardEvent): void {
+    this._handleBoxEvent(event, 'right-handle');
+  }
+
+  _handleBoxKeyup(event: KeyboardEvent): void {
+    this._handleBoxEvent(event, 'box');
+  }
+
   /** Handles the closing action on the selection area */
   _handleClose(event: MouseEvent): void {
     event.preventDefault();
@@ -290,14 +323,16 @@ export class DtSelectionArea {
   }
 
   /** Shared event handling for mousedown events on the box */
-  private _handleBoxEvent(event: MouseEvent, target: DtSelectionAreaEventTarget): void {
+  private _handleBoxEvent(event: MouseEvent | KeyboardEvent, target: DtSelectionAreaEventTarget): void {
     event.preventDefault();
     event.stopPropagation();
     this._touching = true;
     this._applyPointerEvents(true);
     this._eventTarget = target;
     this._attachWindowEventListeners();
-    this._startX = this._calculateRelativeXPos(event);
+    if (event instanceof MouseEvent) {
+      this._startX = this._calculateRelativeXPos(event);
+    }
     this._update();
   }
 
@@ -308,14 +343,6 @@ export class DtSelectionArea {
         return;
       }
       this._applySizeAndPosition();
-      const left = this._left !== null ? this._left : this._boundaries.width - this._right! - this._width;
-      const right = this._right !== null ? this._right : this._boundaries.width - this._left! - this._width;
-      this.changed.emit({
-        left,
-        right,
-        width: this._width,
-        source: this,
-      });
       this._update();
     });
   }
@@ -331,14 +358,23 @@ export class DtSelectionArea {
       this._box.nativeElement.style.right = `${this._right}px`;
     }
     this._overlay.overlayRef.updatePosition();
+
+    const left = this._left !== null ? this._left : this._boundaries.width - this._right! - this._width;
+    const right = this._right !== null ? this._right : this._boundaries.width - this._left! - this._width;
+    this.changed.emit({
+      left,
+      right,
+      width: this._width,
+      source: this,
+    });
   }
 
   /** Sets and removes the pointer events on the box */
   private _applyPointerEvents(touching: boolean): void {
     if (touching) {
-      addCssClass(this._box.nativeElement, DT_NO_INTERACTION_CSS_CLASS);
+      addCssClass(this._box.nativeElement, DT_NO_POINTER_CSS_CLASS);
     } else {
-      removeCssClass(this._box.nativeElement, DT_NO_INTERACTION_CSS_CLASS);
+      removeCssClass(this._box.nativeElement, DT_NO_POINTER_CSS_CLASS);
     }
   }
 
@@ -377,7 +413,7 @@ export class DtSelectionArea {
       this._overlayRef.dismiss();
     }
     this._box.nativeElement.style.width = '0px';
-    removeCssClass(this._box.nativeElement, DT_NO_INTERACTION_CSS_CLASS);
+    removeCssClass(this._box.nativeElement, DT_NO_POINTER_CSS_CLASS);
     this._width = 0;
     this._left = null;
     this._isBoxVisible = false;
