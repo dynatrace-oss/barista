@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
+import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldNodeValue } from '@dynatrace/angular-components';
+
+type State = {name: string; value: string; cities?: string[]};
 
 const STATES = [
   {
@@ -45,21 +48,49 @@ const STATES = [
 @Component({
   moduleId: module.id,
   template: `
-    <dt-filter-field (inputChange)="_handleInputChange($event)">
-      <dt-autocomplete [displayWith]="optionsDisplayFn">
-        <dt-option *ngFor="let category of categories" [value]="category">{{category.name}}</dt-option>
+    {{filteredStates ? filteredStates!.length : "0"}} {{filteredCities ? filteredCities!.length : "0"}}
+    <dt-filter-field (inputChange)="_handleInputChange($event)" (activeFilterChange)="_handleActiveFilterChange($event)">
+      <dt-autocomplete *ngIf="filteredStates" [displayWith]="stateDisplayFn" autoActiveFirstOption>
+        <dt-option *ngFor="let state of filteredStates" [value]="state">{{state.name}}</dt-option>
+      </dt-autocomplete>
+      <dt-autocomplete *ngIf="filteredCities" autoActiveFirstOption>
+        <dt-option *ngFor="let city of filteredCities" [value]="city">{{city}}</dt-option>
       </dt-autocomplete>
     </dt-filter-field>
   `,
 })
 @OriginalClassName('DefaultFilterFieldExample')
 export class DefaultFilterFieldExample {
-  categories: any[] | null = STATES;
+  private _inputValue = '';
 
-  optionsDisplayFn = (value: any) => value.name;
+  private _states: State[] | null = STATES;
+  private _cities : string[] | null = null;
+
+  get filteredStates(): State[] | null {
+    const value = this._inputValue.toUpperCase();
+    return this._states && value.length ?
+      this._states.filter((state) => state.name.toUpperCase().indexOf(value) !== -1) : this._states;
+  }
+
+  get filteredCities(): string[] | null {
+    const value = this._inputValue.toUpperCase();
+    return this._cities && value.length ? this._cities.filter((city) => city.toUpperCase().indexOf(value) !== -1) : this._cities;
+  }
+
+  stateDisplayFn = (value: State) => value.name;
 
   _handleInputChange(value: string): void {
-    console.log(value);
+    this._inputValue = value;
+  }
+
+  _handleActiveFilterChange(event: DtActiveFilterChangeEvent): void {
+    const activeNode = event.activeNode as DtFilterFieldFilterNode;
+    const item = (activeNode.properties[0] as DtFilterFieldNodeValue<State>).value;
+    if (item.cities) {
+      this._cities = item.cities;
+      this._states = null;
+    }
+    this._inputValue = '';
   }
 
   constructor() {
