@@ -3,10 +3,11 @@ import { DtOverlayConfig } from './overlay-config';
 import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, CloseScrollStrategy, ScrollDispatcher, NoopScrollStrategy, RepositionScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
-import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
+import { DtOverlayRef } from './overlay-ref';
 import { DOCUMENT } from '@angular/common';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { Platform } from '@angular/cdk/platform';
+import { DT_NO_POINTER_CSS_CLASS } from '@dynatrace/angular-components/core';
 
 export const DT_OVERLAY_DEFAULT_OFFSET = 6;
 
@@ -102,7 +103,7 @@ export class DtOverlay {
   }
 
   private _createOverlay(origin: ElementRef, config: DtOverlayConfig): OverlayRef {
-    let positions = config._positions || DEFAULT_DT_OVERLAY_POSITIONS;
+    let positions = DEFAULT_DT_OVERLAY_POSITIONS;
     if (config.originY === 'center') {
       positions = positions.map((pos) => {
         const newPos = {...pos};
@@ -120,13 +121,10 @@ export class DtOverlay {
 
     const overlayConfig = new OverlayConfig({
       positionStrategy,
-      backdropClass: DT_OVERLAY_NO_POINTER_CLASS,
+      backdropClass: DT_NO_POINTER_CSS_CLASS,
       hasBackdrop: true,
-      scrollStrategy: new RepositionScrollStrategy(this._scrollDispatcher, this._viewportRuler, this._ngZone),
+      scrollStrategy: this._overlay.scrollStrategies.close(),
     });
-    if (config._dismissOnScroll) {
-      overlayConfig.scrollStrategy = new CloseScrollStrategy(this._scrollDispatcher, this._ngZone, this._viewportRuler);
-    }
     return this._overlay.create(overlayConfig);
   }
 
