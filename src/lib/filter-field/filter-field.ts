@@ -15,9 +15,23 @@ import {
 } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import { DtAutocomplete, DtAutocompleteSelectedEvent } from '@dynatrace/angular-components/autocomplete';
-import { DtFilterFieldNode, DtFilterFieldNodeValue, DtFilterFieldNodeProperty } from './nodes/filter-field-node';
+import {
+  DtFilterFieldNode,
+  DtFilterFieldNodeValue,
+  DtFilterFieldFilterNode,
+  DtFilterFieldGroup,
+  getParents as getParentsForNode,
+} from './nodes/filter-field-node';
 import { switchMap, map, takeUntil, filter, startWith } from 'rxjs/operators';
-import { of, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+
+export class DtActiveFilterChangeEvent {
+  constructor(
+    public rootNodes: DtFilterFieldNode[],
+    public activeNode: DtFilterFieldNode,
+    public path: DtFilterFieldGroup[] = []
+  ) { }
+}
 
 @Component({
   moduleId: module.id,
@@ -32,6 +46,8 @@ import { of, Subject } from 'rxjs';
 export class DtFilterField implements AfterContentInit, OnDestroy {
 
   @Output() inputChange = new EventEmitter<string>();
+  @Output() activeFilterChange = new EventEmitter<DtActiveFilterChangeEvent>();
+  @Output() change = new EventEmitter<void>();
 
   @ViewChild('input') _inputEl: ElementRef;
   @ContentChildren(DtAutocomplete) _autocompletes: QueryList<DtAutocomplete<any>>;
@@ -50,7 +66,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   }
 
   _rootNodes: DtFilterFieldNode[] = [];
-  _currentNode: DtFilterFieldNode | null = null;
+  _currentNode: DtFilterFieldFilterNode | null = null;
   // tslint:disable-next-line:no-any
   _autocomplete: DtAutocomplete<any> | null = null;
 
@@ -63,6 +79,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     if (this._autocompletes) {
+      console.log(this._autocompletes);
       const autocomplete$ = this._autocompletes.changes.pipe(
         startWith(null),
         map(() => this._autocompletes.length ? this._autocompletes.first : null));
@@ -104,11 +121,14 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     const property = new DtFilterFieldNodeValue(event.option.value, event.option.viewValue);
     let currentNode = this._currentNode;
     if (!currentNode) {
-      currentNode = new DtFilterFieldNode();
+      // TODO @thomas.pink: Handle non root nodes (parents, path)
+      currentNode = new DtFilterFieldFilterNode();
       this._currentNode = currentNode;
       this._rootNodes.push(currentNode);
     }
     currentNode.properties.push(property);
+    this.activeFilterChange.emit(
+      new DtActiveFilterChangeEvent(this._rootNodes, currentNode, getParentsForNode(currentNode)));
     this._restetInput();
     this._changeDetectorRef.markForCheck();
   }
