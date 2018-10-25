@@ -1365,6 +1365,38 @@ describe('DtAutocomplete', () => {
       expect(fixture.componentInstance.selectedValue).toBe(1337);
     }));
 
+    it('should work when dynamically changing the autocomplete', () => {
+      const fixture = createComponent(DynamicallyChangingAutocomplete);
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('input')).nativeElement;
+
+      dispatchFakeEvent(input, 'focusin');
+      fixture.detectChanges();
+
+      expect(overlayContainerElement.textContent)
+        .toContain('First', `Expected panel to display the option of the first autocomplete.`);
+      expect(overlayContainerElement.textContent)
+        .not.toContain('Second', `Expected panel to not display the option of the second autocomplete.`);
+
+      // close overlay
+      dispatchFakeEvent(document, 'click');
+      fixture.detectChanges();
+
+      // Switch to sectond autocomplete
+      fixture.componentInstance.selected = 1;
+      fixture.detectChanges();
+
+      // reopen agian
+      dispatchFakeEvent(input, 'focusin');
+      fixture.detectChanges();
+
+      expect(overlayContainerElement.textContent)
+        .not.toContain('First', `Expected panel to not display the option of the first autocomplete.`);
+      expect(overlayContainerElement.textContent)
+        .toContain('Second', `Expected panel to display the option of the second autocomplete.`);
+
+    });
+
   });
 });
 
@@ -1600,6 +1632,22 @@ class AutocompleteWithoutPanel {
 class AutocompleteWithNumberInputAndNgModel {
   selectedValue: number;
   values = [1, 2, 3];
+}
+
+@Component({
+  template: `
+    <input type="number" dtInput [dtAutocomplete]="selected ? auto1 : auto0" [(ngModel)]="selectedValue">
+    <dt-autocomplete #auto0="dtAutocomplete">
+      <dt-option [value]="0">First</dt-option>
+    </dt-autocomplete>
+
+    <dt-autocomplete #auto1="dtAutocomplete">
+      <dt-option [value]="1">Second</dt-option>
+    </dt-autocomplete>
+  `,
+})
+class DynamicallyChangingAutocomplete {
+  selected = 0;
 }
 
 // tslint:enabule:no-any no-magic-numbers max-file-line-count

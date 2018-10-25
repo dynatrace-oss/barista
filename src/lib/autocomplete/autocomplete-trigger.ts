@@ -1,4 +1,18 @@
-import { Provider, forwardRef, Directive, Input, ElementRef, Renderer2, OnDestroy, ChangeDetectorRef, ViewContainerRef, Host, Optional, NgZone, Inject } from '@angular/core';
+import {
+  Provider,
+  forwardRef,
+  Directive,
+  Input,
+  ElementRef,
+  Renderer2,
+  OnDestroy,
+  ChangeDetectorRef,
+  ViewContainerRef,
+  Host,
+  Optional,
+  NgZone,
+  Inject
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { OverlayRef, Overlay, FlexibleConnectedPositionStrategy, PositionStrategy, OverlayConfig } from '@angular/cdk/overlay';
@@ -281,8 +295,15 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
       throw getDtAutocompleteMissingPanelError();
     }
 
-    if (!this._overlayRef) {
+    if (!this._portal || this._portal.templateRef !== this.autocomplete.template) {
       this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
+
+      if (this._overlayRef && this._overlayRef.hasAttached()) {
+        this._overlayRef.detach();
+      }
+    }
+
+    if (!this._overlayRef) {
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
 
       this._overlayRef.keydownEvents().subscribe((event) => {
