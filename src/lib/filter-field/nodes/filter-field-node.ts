@@ -1,28 +1,14 @@
-// enum DtFilterFieldTextNodeType {
-//   KeyValue,
-//   FreeText,
-// }
+export class DtFilterFieldNode {
+  constructor(public parent: DtFilterFieldGroup | null = null) {}
+}
 
-// interface DtFilterFieldTextNode {
-//   type: DtFilterFieldTextNodeType;
-//   label: string;
-//   value: string;
-// }
-
-// interface DtFilterFieldNodeList {
-//   nodes: any[];
-// }
-
-// enum DtFilterFieldOperatorNodeType {
-//   AND = 'AND',
-//   OR = 'OR',
-//   NOT = 'NOT',
-//   IN = 'IN',
-// }
-
-// interface DtFilterFieldOperatorNode {
-//   type: DtFilterFieldOperatorNodeType;
-// }
+export class DtFilterFieldGroup extends DtFilterFieldNode {
+  constructor(
+    public nodes: DtFilterFieldNode,
+    parent?: DtFilterFieldGroup | null) {
+    super(parent);
+  }
+}
 
 export class DtFilterFieldNodeValue<T> {
   constructor(public value: T, public viewValue: string) {}
@@ -35,6 +21,20 @@ export class DtFilterFieldNodeText {
 // tslint:disable-next-line:no-any
 export type DtFilterFieldNodeProperty = DtFilterFieldNodeValue<any> | DtFilterFieldNodeText;
 
-export class DtFilterFieldNode {
-  constructor(public properties: DtFilterFieldNodeProperty[] = []) {}
+export class DtFilterFieldFilterNode extends DtFilterFieldNode {
+  constructor(
+    public properties: DtFilterFieldNodeProperty[] = [],
+    parent?: DtFilterFieldGroup | null) {
+    super(parent);
+  }
+}
+
+export function getParents(node: DtFilterFieldNode): DtFilterFieldGroup[] {
+  let currentNode = node;
+  const path: DtFilterFieldGroup[] = [];
+  while (currentNode.parent) {
+    path.unshift(currentNode.parent);
+    currentNode = currentNode.parent;
+  }
+  return path;
 }
