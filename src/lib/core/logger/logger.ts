@@ -16,7 +16,7 @@ export class DtLogger {
   }
 
   warn(message: string, param?: DtLogEntryParam): void {
-    this._log(DtLogLevel.WARN, message, param);
+    this._log(DtLogLevel.WARNING, message, param);
   }
 
   info(message: string, param?: DtLogEntryParam): void {
