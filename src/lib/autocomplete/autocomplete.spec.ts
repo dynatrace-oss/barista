@@ -569,9 +569,42 @@ describe('DtAutocomplete', () => {
 
       dispatchFakeEvent(input, 'blur');
       fixture.detectChanges();
+      fixture.componentInstance.trigger.closePanel();
+      fixture.detectChanges();
 
       expect(fixture.componentInstance.stateCtrl.touched)
         .toBe(true, `Expected control to become touched on blur.`);
+    });
+
+    it('should mark the autocomplete control as touched on blur if the panel is closed', () => {
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(false, 'Expected control to start out untouched.');
+
+      dispatchFakeEvent(input, 'blur');
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(true, `Expected control to become touched on blur.`);
+    });
+
+    it('should not mark the autocomplete control as touched if the input was blurred while the panel is open', () => {
+      fixture.componentInstance.trigger.openPanel();
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(false, 'Expected control to start out untouched.');
+
+      dispatchFakeEvent(input, 'blur');
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(false, 'Expected control to remain untouched.');
+
+      fixture.componentInstance.trigger.closePanel();
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(true, 'Expected control to be touched once the panel is closed.');
     });
 
     it('should disable the input when used with a value accessor and without `dtInput`', () => {
@@ -1365,6 +1398,37 @@ describe('DtAutocomplete', () => {
       expect(fixture.componentInstance.selectedValue).toBe(1337);
     }));
 
+    it('should work when dynamically changing the autocomplete', () => {
+      const fixture = createComponent(DynamicallyChangingAutocomplete);
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('input')).nativeElement;
+
+      dispatchFakeEvent(input, 'focusin');
+      fixture.detectChanges();
+
+      expect(overlayContainerElement.textContent)
+        .toContain('First', `Expected panel to display the option of the first autocomplete.`);
+      expect(overlayContainerElement.textContent)
+        .not.toContain('Second', `Expected panel to not display the option of the second autocomplete.`);
+
+      // close overlay
+      dispatchFakeEvent(document, 'click');
+      fixture.detectChanges();
+
+      // Switch to second autocomplete
+      fixture.componentInstance.trigger.autocomplete = fixture.componentInstance.autoTow;
+      fixture.detectChanges();
+
+      // reopen agian
+      dispatchFakeEvent(input, 'focusin');
+      fixture.detectChanges();
+
+      expect(overlayContainerElement.textContent)
+        .not.toContain('First', `Expected panel to not display the option of the first autocomplete.`);
+      expect(overlayContainerElement.textContent)
+        .toContain('Second', `Expected panel to display the option of the second autocomplete.`);
+    });
+
   });
 });
 
@@ -1600,6 +1664,23 @@ class AutocompleteWithoutPanel {
 class AutocompleteWithNumberInputAndNgModel {
   selectedValue: number;
   values = [1, 2, 3];
+}
+
+@Component({
+  template: `
+    <input type="number" dtInput [dtAutocomplete]="autoOne">
+    <dt-autocomplete #autoOne>
+      <dt-option [value]="0">First</dt-option>
+    </dt-autocomplete>
+     <dt-autocomplete #autoTow>
+      <dt-option [value]="1">Second</dt-option>
+    </dt-autocomplete>
+  `,
+})
+class DynamicallyChangingAutocomplete {
+  @ViewChild('autoOne') autoOne: DtAutocomplete<any>;
+  @ViewChild('autoTow') autoTow: DtAutocomplete<any>;
+  @ViewChild(DtAutocompleteTrigger) trigger: DtAutocompleteTrigger<any>;
 }
 
 // tslint:enabule:no-any no-magic-numbers max-file-line-count
