@@ -68,11 +68,8 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   get autocomplete(): DtAutocomplete<T> { return this._autocomplete; }
   set autocomplete(value: DtAutocomplete<T>) {
     this._autocomplete = value;
-    if (this._overlayRef) {
-      this._overlayRef.detach();
+    this._detachOverlay();
     }
-    this._closingActionsSubscription.unsubscribe();
-  }
 
   /** autocomplete` attribute to be set on the input element. */
   @Input('autocomplete') autocompleteAttribute = 'off';
@@ -212,12 +209,8 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
       this.autocomplete.closed.emit();
     }
 
-    this.autocomplete._isOpen = this._overlayAttached = false;
-
-    if (this._overlayRef && this._overlayRef.hasAttached()) {
-      this._overlayRef.detach();
-      this._closingActionsSubscription.unsubscribe();
-    }
+    this.autocomplete._isOpen = false;
+    this._detachOverlay();
 
     // Note that in some cases this can end up being called after the component is destroyed.
     // Add a check to ensure that we don't try to run change detection on a destroyed view.
@@ -347,6 +340,14 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     // autocomplete won't be shown if there are no options.
     if (this.panelOpen && wasOpen !== this.panelOpen) {
       this.autocomplete.opened.emit();
+    }
+  }
+
+  private _detachOverlay(): void {
+    this._overlayAttached = false;
+    this._closingActionsSubscription.unsubscribe();
+    if (this._overlayRef) {
+      this._overlayRef.detach();
     }
   }
 

@@ -4,7 +4,6 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   ElementRef,
-  ContentChild,
   ContentChildren,
   AfterContentInit,
   QueryList,
@@ -14,7 +13,7 @@ import {
   Output,
 } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
-import { DtAutocomplete, DtAutocompleteSelectedEvent } from '@dynatrace/angular-components/autocomplete';
+import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
 import {
   DtFilterFieldNode,
   DtFilterFieldNodeValue,
@@ -32,7 +31,7 @@ export class DtActiveFilterChangeEvent {
     public path: DtFilterFieldGroup[] = []
   ) { }
 }
-
+// tslint:disable:no-any
 @Component({
   moduleId: module.id,
   selector: 'dt-filter-field',
@@ -49,7 +48,9 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   @Output() activeFilterChange = new EventEmitter<DtActiveFilterChangeEvent>();
   @Output() change = new EventEmitter<void>();
 
-  @ViewChild('input') _inputEl: ElementRef;
+  @ViewChild('autocompleteInput') _autocompleteInputEl: ElementRef;
+  @ViewChild('freeTextInput') _freeTextInputEl: ElementRef;
+  @ViewChild(DtAutocompleteTrigger) _autocompleteTrigger: DtAutocompleteTrigger<any>;
   @ContentChildren(DtAutocomplete) _autocompletes: QueryList<DtAutocomplete<any>>;
 
   get _prefixNodes(): DtFilterFieldNode[] {
@@ -73,20 +74,32 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
 
-  private _inputValue = '';
+  /**
+   * @internal
+   * Whether the autocomplete input field is focused.
+   */
+  _isAutocompleteFocused = false;
+
+  /**
+   * @internal
+   * Value of the internal input elements.
+   */
+  _inputValue = '';
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) { }
 
   ngAfterContentInit(): void {
     if (this._autocompletes) {
-      console.log(this._autocompletes);
       const autocomplete$ = this._autocompletes.changes.pipe(
         startWith(null),
         map(() => this._autocompletes.length ? this._autocompletes.first : null));
 
       autocomplete$.pipe(takeUntil(this._destroy)).subscribe((autocomplete) => {
         this._autocomplete = autocomplete;
-        this._changeDetectorRef.markForCheck();
+        this._changeDetectorRef.detectChanges();
+        if (this._isAutocompleteFocused) {
+          this._autocompleteTrigger.openPanel();
+        }
       });
 
       autocomplete$.pipe(
@@ -104,19 +117,35 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     this._destroy.complete();
   }
 
-  _handleInputKeyUp(event: KeyboardEvent): void {
-    const value = this._inputEl.nativeElement.value;
-    const keyCode = event.keyCode;
-    if (keyCode === ENTER && !this._autocomplete) {
-      event.preventDefault();
-      this._handleInputSubmitted(value);
-    } else if (this._inputValue !== value) {
+  /**
+   * @internal
+   * Keep track of the values in the input fields. Write the current value to the _inputValue property
+   */
+  _handleInputChange(event: Event): void {
+    const value = event.srcElement instanceof HTMLInputElement ? event.srcElement.value : this._inputValue;
+    if (value !== this._inputValue) {
       this._inputValue = value;
-      this.inputChange.emit(value);
+      this._changeDetectorRef.markForCheck();
     }
   }
 
-  // tslint:disable-next-line:no-any
+  // _handleInputKeyUp(event: KeyboardEvent): void {
+  //   const value = event.srcElement instanceof HTMLInputElement ? event.srcElement.value : this._inputValue;
+  //   const keyCode = event.keyCode;
+
+  //   if (this._inputValue !== value) {
+  //     console.log('setting input value', value);
+  //     this._inputValue = value;
+  //     this.inputChange.emit(value);
+  //   }
+
+  //   this._changeDetectorRef.markForCheck();
+  //   // if (keyCode === ENTER && !this._autocomplete) {
+  //   //   event.preventDefault();
+  //   //   this._handleInputSubmitted(value);
+  //   // } else
+  // }
+
   private _handleAutocompleteSelected(event: DtAutocompleteSelectedEvent<any>): void {
     const property = new DtFilterFieldNodeValue(event.option.value, event.option.viewValue);
     let currentNode = this._currentNode;
@@ -127,11 +156,16 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       this._rootNodes.push(currentNode);
     }
     currentNode.properties.push(property);
+
+    // Reset input value to empty string after handling the value provided by the autocomplete.
+    // Otherwise the value of the autocomplete would be in the input elements.
+    this._writeInputValue('');
+
     this.activeFilterChange.emit(
       new DtActiveFilterChangeEvent(this._rootNodes, currentNode, getParentsForNode(currentNode)));
-    this._restetInput();
+
     this._changeDetectorRef.markForCheck();
-  }
+    }
 
   private _handleInputSubmitted(value: string): void {
 
@@ -141,12 +175,15 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     this._currentNode = null;
   }
 
-  private _restetInput(): void {
-    const currentValue = this._inputEl.nativeElement.value;
-    if (currentValue !== '') {
-      this._inputEl.nativeElement.value = '';
-      this._inputValue = '';
-      this.inputChange.emit('');
+  /** Write a value to the native input elements and set _inputValue property  */
+  private _writeInputValue(value: string): void {
+    // tslint:disable:no-unused-expression
+    this._autocompleteInputEl && (this._autocompleteInputEl.nativeElement.value = value);
+    this._freeTextInputEl && (this._freeTextInputEl.nativeElement.value = value);
+    // tslint:enable:no-unused-expression
+    if (this._inputValue !== value) {
+      this._inputValue = value;
+      this._changeDetectorRef.markForCheck();
     }
   }
 }
