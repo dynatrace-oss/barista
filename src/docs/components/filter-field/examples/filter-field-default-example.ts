@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldNodeValue } from '@dynatrace/angular-components';
+import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldNodeValue, DtFilterFieldNode } from '@dynatrace/angular-components';
 
 type State = {name: string; value: string; cities?: string[]};
 
@@ -48,7 +48,8 @@ const STATES = [
 @Component({
   moduleId: module.id,
   template: `
-    <dt-filter-field (inputChange)="_handleInputChange($event)" (activeFilterChange)="_handleActiveFilterChange($event)">
+  {{_inputValue}}
+    <dt-filter-field (inputChange)="_inputValue = $event" (activeFilterChange)="_handleActiveFilterChange($event)">
       <dt-autocomplete *ngIf="filteredStates" [displayWith]="stateDisplayFn" autoActiveFirstOption>
         <dt-option *ngFor="let state of filteredStates" [value]="state">{{state.name}}</dt-option>
       </dt-autocomplete>
@@ -60,10 +61,10 @@ const STATES = [
 })
 @OriginalClassName('DefaultFilterFieldExample')
 export class DefaultFilterFieldExample {
-  private _inputValue = '';
+  _inputValue = '';
 
   private _states: State[] | null = STATES;
-  private _cities : string[] | null = null;
+  private _cities: string[] | null = null;
 
   get filteredStates(): State[] | null {
     const value = this._inputValue.toUpperCase();
@@ -78,21 +79,18 @@ export class DefaultFilterFieldExample {
 
   stateDisplayFn = (value: State) => value.name;
 
-  change(): void {
-    console.log('LALALALALA');
-  }
-
   _handleActiveFilterChange(event: DtActiveFilterChangeEvent): void {
     const activeNode = event.activeNode as DtFilterFieldFilterNode;
-    const item = (activeNode.properties[0] as DtFilterFieldNodeValue<State>).value;
-    if (item.cities) {
-      this._cities = item.cities;
-      this._states = null;
+    if (activeNode.properties.length === 1) {
+      const item = (activeNode.properties[0] as DtFilterFieldNodeValue<State>).value;
+      if (item.cities) {
+        this._cities = item.cities;
+        this._states = null;
+        return;
+      }
     }
-    this._inputValue = '';
-  }
-
-  constructor() {
-
+    event.submitActiveFilter();
+    this._cities = null;
+    this._states = STATES;
   }
 }
