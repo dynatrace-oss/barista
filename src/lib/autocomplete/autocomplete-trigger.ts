@@ -16,7 +16,6 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { OverlayRef, Overlay, FlexibleConnectedPositionStrategy, PositionStrategy, OverlayConfig } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { DtFormField } from '@dynatrace/angular-components/form-field';
 import { DtAutocomplete } from './autocomplete';
 import { getDtAutocompleteMissingPanelError } from './autocomplete-errors';
@@ -59,15 +58,22 @@ export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
   providers: [DT_AUTOCOMPLETE_VALUE_ACCESSOR],
 })
 export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy {
-
+  private _autocomplete: DtAutocomplete<T>;
   private _autocompleteDisabled = false;
   private _overlayRef: OverlayRef | null;
-  private _portal: TemplatePortal;
   private _componentDestroyed = false;
   private _overlayAttached = false;
 
   /** The autocomplete panel to be attached to this trigger. */
-  @Input('dtAutocomplete') autocomplete: DtAutocomplete<T>;
+  @Input('dtAutocomplete')
+  get autocomplete(): DtAutocomplete<T> { return this._autocomplete; }
+  set autocomplete(value: DtAutocomplete<T>) {
+    this._autocomplete = value;
+    if (this._overlayRef) {
+      this._overlayRef.detach();
+    }
+    this._closingActionsSubscription.unsubscribe();
+  }
 
   /** autocomplete` attribute to be set on the input element. */
   @Input('autocomplete') autocompleteAttribute = 'off';
@@ -164,7 +170,6 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     private _renderer: Renderer2,
     private _overlay: Overlay,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _viewContainerRef: ViewContainerRef,
     private _viewportResizer: DtViewportResizer,
     private _zone: NgZone,
     @Optional() @Host() private _formField: DtFormField<string>,
@@ -295,14 +300,6 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
       throw getDtAutocompleteMissingPanelError();
     }
 
-    if (!this._portal || this._portal.templateRef !== this.autocomplete.template) {
-      this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
-
-      if (this._overlayRef && this._overlayRef.hasAttached()) {
-        this._overlayRef.detach();
-      }
-    }
-
     if (!this._overlayRef) {
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
 
@@ -328,7 +325,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     }
 
     if (this._overlayRef && !this._overlayRef.hasAttached()) {
-      this._overlayRef.attach(this._portal);
+      this._overlayRef.attach(this._autocomplete._portal);
       this._closingActionsSubscription = this._subscribeToClosingActions();
     }
 

@@ -13,11 +13,14 @@ import {
   ViewChild,
   TemplateRef,
   ContentChildren,
-  QueryList
+  QueryList,
+  AfterViewInit,
+  ViewContainerRef
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DtOption, DtOptgroup } from '@dynatrace/angular-components/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { TemplatePortal } from '@angular/cdk/portal';
 
 let _uniqueIdCounter = 0;
 
@@ -60,7 +63,7 @@ export function DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): DtAutocompleteDefault
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtAutocomplete<T> implements AfterContentInit {
+export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
 
   /**
    * Whether the first option should be highlighted when the autocomplete panel is opened.
@@ -110,8 +113,14 @@ export class DtAutocomplete<T> implements AfterContentInit {
   get isOpen(): boolean { return this._isOpen && this.showPanel; }
   _isOpen = false;
 
-  /** Manages active item in option list based on key events. */
+  /**
+   * @internal
+   * Manages active item in option list based on key events.
+   */
   _keyManager: ActiveDescendantKeyManager<DtOption<T>>;
+
+  /** @internal */
+  _portal: TemplatePortal;
 
   /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
   id = `dt-autocomplete-${_uniqueIdCounter++}`;
@@ -125,8 +134,13 @@ export class DtAutocomplete<T> implements AfterContentInit {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
+    private _viewContainerRef: ViewContainerRef,
     @Inject(DT_AUTOCOMPLETE_DEFAULT_OPTIONS) defaults: DtAutocompleteDefaultOptions) {
     this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
+  }
+
+  ngAfterViewInit(): void {
+    this._portal = new TemplatePortal(this.template, this._viewContainerRef);
   }
 
   ngAfterContentInit(): void {
@@ -135,7 +149,10 @@ export class DtAutocomplete<T> implements AfterContentInit {
     this._setVisibility();
   }
 
-  /** Panel should hide itself when the option list is empty. */
+  /**
+   * @internal
+   * Panel should hide itself when the option list is empty.
+   */
   _setVisibility(): void {
     this.showPanel = !!this.options.length;
     this._classList['dt-autocomplete-visible'] = this.showPanel;
@@ -144,6 +161,7 @@ export class DtAutocomplete<T> implements AfterContentInit {
   }
 
   /**
+   * @internal
    * Sets the panel scrollTop. This allows us to manually scroll to display options
    * above or below the fold, as they are not actually being focused when active.
    */
@@ -153,12 +171,18 @@ export class DtAutocomplete<T> implements AfterContentInit {
     }
   }
 
-  /** Returns the panel's scrollTop. */
+  /**
+   * @internal
+   * Returns the panel's scrollTop.
+   */
   _getScrollTop(): number {
     return this.panel ? this.panel.nativeElement.scrollTop : 0;
   }
 
-  /** Emits the `select` event. */
+  /**
+   * @internal
+   * Emits the `select` event.
+   */
   _emitSelectEvent(option: DtOption<T>): void {
     const event = new DtAutocompleteSelectedEvent(this, option);
     this.optionSelected.emit(event);
