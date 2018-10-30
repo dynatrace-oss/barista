@@ -1382,8 +1382,8 @@ describe('DtAutocomplete', () => {
       dispatchFakeEvent(document, 'click');
       fixture.detectChanges();
 
-      // Switch to sectond autocomplete
-      fixture.componentInstance.selected = 1;
+      // Switch to second autocomplete
+      fixture.componentInstance.trigger.autocomplete = fixture.componentInstance.autoTow;
       fixture.detectChanges();
 
       // reopen agian
@@ -1394,7 +1394,6 @@ describe('DtAutocomplete', () => {
         .not.toContain('First', `Expected panel to not display the option of the first autocomplete.`);
       expect(overlayContainerElement.textContent)
         .toContain('Second', `Expected panel to display the option of the second autocomplete.`);
-
     });
 
   });
@@ -1636,18 +1635,19 @@ class AutocompleteWithNumberInputAndNgModel {
 
 @Component({
   template: `
-    <input type="number" dtInput [dtAutocomplete]="selected ? auto1 : auto0" [(ngModel)]="selectedValue">
-    <dt-autocomplete #auto0="dtAutocomplete">
+    <input type="number" matInput [dtAutocomplete]="autoOne">
+    <dt-autocomplete #autoOne>
       <dt-option [value]="0">First</dt-option>
     </dt-autocomplete>
-
-    <dt-autocomplete #auto1="dtAutocomplete">
+     <dt-autocomplete #autoTow>
       <dt-option [value]="1">Second</dt-option>
     </dt-autocomplete>
   `,
 })
 class DynamicallyChangingAutocomplete {
-  selected = 0;
+  @ViewChild('autoOne') autoOne: DtAutocomplete<any>;
+  @ViewChild('autoTow') autoTow: DtAutocomplete<any>;
+  @ViewChild(DtAutocompleteTrigger) trigger: DtAutocompleteTrigger<any>;
 }
 
 // tslint:enabule:no-any no-magic-numbers max-file-line-count
