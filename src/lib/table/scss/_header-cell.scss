@@ -2,7 +2,7 @@
 @import '../../core/style/variables';
 @import 'base-cell';
 
-:host.dt-header-cell {
+::ng-deep .dt-header-cell {
   @include label-font();
   word-wrap: normal;
   white-space: nowrap;
