@@ -7,7 +7,6 @@ import {
   Renderer2,
   OnDestroy,
   ChangeDetectorRef,
-  ViewContainerRef,
   Host,
   Optional,
   NgZone,
@@ -23,7 +22,7 @@ import { DtAutocompleteOrigin } from './autocomplete-origin';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { Subject, EMPTY, Subscription, merge, Observable, of as observableOf, defer, fromEvent } from 'rxjs';
 import { DtViewportResizer, DtOptionSelectionChange, isDefined, DtOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from '@dynatrace/angular-components/core';
-import { tap, take, delay, switchMap, filter, map } from 'rxjs/operators';
+import { tap, take, delay, switchMap, filter, map, takeUntil } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 
 /** Provider that allows the autocomplete to register as a ControlValueAccessor. */
@@ -51,7 +50,7 @@ export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
     '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
     '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
     '(focusin)': '_handleFocus()',
-    '(blur)': '_onTouched()',
+    '(blur)': '_handleBlur()',
     '(input)': '_handleInput($event)',
     '(keydown)': '_handleKeydown($event)',
   },
@@ -237,6 +236,16 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     } else if (this._canOpen()) {
       this._previousValue = this._element.nativeElement.value;
       this.openPanel();
+    }
+  }
+
+  _handleBlur(): void {
+    if (this.panelOpen) {
+      this.autocomplete.closed
+        .pipe(take(1), takeUntil(this.autocomplete.opened.asObservable()))
+        .subscribe(() => { this._onTouched(); });
+    } else {
+      this._onTouched();
     }
   }
 
