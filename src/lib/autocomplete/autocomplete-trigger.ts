@@ -95,10 +95,10 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   /** `View -> model callback called when value changes` */
   // tslint:disable-next-line:no-any
-  _onChange: (value: any) => void = () => { };
+  private _onChange: (value: any) => void = () => { };
 
   /** `View -> model callback called when autocomplete has been touched` */
-  _onTouched = () => { };
+  private _onTouched = () => { };
 
   /** Whether or not the autocomplete panel is open. */
   get panelOpen(): boolean {
