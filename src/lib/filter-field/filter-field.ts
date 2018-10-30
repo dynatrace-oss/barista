@@ -28,8 +28,14 @@ export class DtActiveFilterChangeEvent {
   constructor(
     public rootNodes: DtFilterFieldNode[],
     public activeNode: DtFilterFieldNode,
-    public path: DtFilterFieldGroup[] = []
+    public path: DtFilterFieldGroup[] = [],
+    public source: DtFilterField
   ) { }
+
+  submitActiveFilter(viewValue?: string): void {
+    this.activeNode.viewValue = viewValue;
+    this.source._finishCurrentNode();
+  }
 }
 // tslint:disable:no-any
 @Component({
@@ -117,6 +123,12 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     this._destroy.complete();
   }
 
+  _finishCurrentNode(): void {
+    if (this._currentNode) {
+      this._currentNode = null;
+    }
+  }
+
   /**
    * @internal
    * Keep track of the values in the input fields. Write the current value to the _inputValue property
@@ -125,6 +137,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     const value = event.srcElement instanceof HTMLInputElement ? event.srcElement.value : this._inputValue;
     if (value !== this._inputValue) {
       this._inputValue = value;
+      this.inputChange.emit(value);
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -161,18 +174,17 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     // Otherwise the value of the autocomplete would be in the input elements.
     this._writeInputValue('');
 
-    this.activeFilterChange.emit(
-      new DtActiveFilterChangeEvent(this._rootNodes, currentNode, getParentsForNode(currentNode)));
-
+    this.activeFilterChange.emit(new DtActiveFilterChangeEvent(
+      this._rootNodes,
+      currentNode,
+      getParentsForNode(currentNode),
+      this
+    ));
     this._changeDetectorRef.markForCheck();
     }
 
   private _handleInputSubmitted(value: string): void {
 
-  }
-
-  private _finishCurrentNode<T>(): void {
-    this._currentNode = null;
   }
 
   /** Write a value to the native input elements and set _inputValue property  */
@@ -183,6 +195,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     // tslint:enable:no-unused-expression
     if (this._inputValue !== value) {
       this._inputValue = value;
+      this.inputChange.emit(value);
       this._changeDetectorRef.markForCheck();
     }
   }
