@@ -201,6 +201,10 @@ The table will always
 
 The table styling depends on the theme the component is in. You can set a theme on an area of the app by using the `dtTheme` directive.
 
+## Sorting
+
+<docs-source-example example="TableSortingComponent" fullwidth="true"></docs-source-example>
+
 **NOTE:**
 
 Right now only setting the light or dark mode is available. Full theming functionality will be added in a later stage.
@@ -212,7 +216,6 @@ This version does not yet allow for any of the following capabilities that Dynat
 * two lines per row tables.
 * on hover reaction of any type (ex: on hover tool tips for icons)
 * Filtering
-* Sorting
 * Pagination
 * Problem/Warning indicators
 * Edit mode
