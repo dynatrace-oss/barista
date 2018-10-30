@@ -7,13 +7,20 @@
     <dt-filter-field-tag *ngFor="let node of _prefixNodes">{{node.properties[0].viewValue}}: {{node.properties[1].viewValue}}</dt-filter-field-tag>
   </div>
   <div class="dt-filter-field-infix">
-    <input #input
+    <!-- <input #inputFreeText *ngIf="!_autocomplete"
       type="text"
-      class="dt-filter-field-input"
-      [dtAutocomplete]="_autocomplete || noopAutocomplete"
-      (keyup)="_handleInputKeyUp($event)">
+      class="dt-filter-field-input dt-filter-field-free-text"
+      (keyup)="_handleInputKeyUp($event)"
+      [value]="_inputValue"> -->
+    <input *ngIf="_autocomplete" #autocompleteInput
+      type="text"
+      class="dt-filter-field-input dt-filter-field-autocomplete"
+      [dtAutocomplete]="_autocomplete"
+      (input)="_handleInputChange($event)"
+      (focus)="_isAutocompleteFocused = true"
+      (blur)="_isAutocompleteFocused = false"
+      [value]="_inputValue">
     <ng-content select="dt-autocomplete"></ng-content>
   </div>
   <div class="dt-filter-field-suffix"></div>
 </div>
-<dt-autocomplete #noopAutocomplete="dtAutocomplete"></dt-autocomplete>
