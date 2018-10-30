@@ -569,9 +569,42 @@ describe('DtAutocomplete', () => {
 
       dispatchFakeEvent(input, 'blur');
       fixture.detectChanges();
+      fixture.componentInstance.trigger.closePanel();
+      fixture.detectChanges();
 
       expect(fixture.componentInstance.stateCtrl.touched)
         .toBe(true, `Expected control to become touched on blur.`);
+    });
+
+    it('should mark the autocomplete control as touched on blur if the panel is closed', () => {
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(false, 'Expected control to start out untouched.');
+
+      dispatchFakeEvent(input, 'blur');
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(true, `Expected control to become touched on blur.`);
+    });
+
+    it('should not mark the autocomplete control as touched if the input was blurred while the panel is open', () => {
+      fixture.componentInstance.trigger.openPanel();
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(false, 'Expected control to start out untouched.');
+
+      dispatchFakeEvent(input, 'blur');
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(false, 'Expected control to remain untouched.');
+
+      fixture.componentInstance.trigger.closePanel();
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance.stateCtrl.touched)
+        .toBe(true, 'Expected control to be touched once the panel is closed.');
     });
 
     it('should disable the input when used with a value accessor and without `dtInput`', () => {
@@ -1635,7 +1668,7 @@ class AutocompleteWithNumberInputAndNgModel {
 
 @Component({
   template: `
-    <input type="number" matInput [dtAutocomplete]="autoOne">
+    <input type="number" dtInput [dtAutocomplete]="autoOne">
     <dt-autocomplete #autoOne>
       <dt-option [value]="0">First</dt-option>
     </dt-autocomplete>
