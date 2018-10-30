@@ -48,7 +48,6 @@ const STATES = [
 @Component({
   moduleId: module.id,
   template: `
-    {{filteredStates ? filteredStates!.length : "0"}} {{filteredCities ? filteredCities!.length : "0"}}
     <dt-filter-field (inputChange)="_handleInputChange($event)" (activeFilterChange)="_handleActiveFilterChange($event)">
       <dt-autocomplete *ngIf="filteredStates" [displayWith]="stateDisplayFn" autoActiveFirstOption>
         <dt-option *ngFor="let state of filteredStates" [value]="state">{{state.name}}</dt-option>
@@ -79,8 +78,8 @@ export class DefaultFilterFieldExample {
 
   stateDisplayFn = (value: State) => value.name;
 
-  _handleInputChange(value: string): void {
-    this._inputValue = value;
+  change(): void {
+    console.log('LALALALALA');
   }
 
   _handleActiveFilterChange(event: DtActiveFilterChangeEvent): void {
