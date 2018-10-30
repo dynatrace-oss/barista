@@ -1,8 +1,20 @@
-import { Provider, forwardRef, Directive, Input, ElementRef, Renderer2, OnDestroy, ChangeDetectorRef, ViewContainerRef, Host, Optional, NgZone, Inject } from '@angular/core';
+import {
+  Provider,
+  forwardRef,
+  Directive,
+  Input,
+  ElementRef,
+  Renderer2,
+  OnDestroy,
+  ChangeDetectorRef,
+  Host,
+  Optional,
+  NgZone,
+  Inject
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { OverlayRef, Overlay, FlexibleConnectedPositionStrategy, PositionStrategy, OverlayConfig } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { DtFormField } from '@dynatrace/angular-components/form-field';
 import { DtAutocomplete } from './autocomplete';
 import { getDtAutocompleteMissingPanelError } from './autocomplete-errors';
@@ -10,7 +22,7 @@ import { DtAutocompleteOrigin } from './autocomplete-origin';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { Subject, EMPTY, Subscription, merge, Observable, of as observableOf, defer, fromEvent } from 'rxjs';
 import { DtViewportResizer, DtOptionSelectionChange, isDefined, DtOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from '@dynatrace/angular-components/core';
-import { tap, take, delay, switchMap, filter, map } from 'rxjs/operators';
+import { tap, take, delay, switchMap, filter, map, takeUntil } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 
 /** Provider that allows the autocomplete to register as a ControlValueAccessor. */
@@ -38,22 +50,29 @@ export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
     '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
     '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
     '(focusin)': '_handleFocus()',
-    '(blur)': '_onTouched()',
+    '(blur)': '_handleBlur()',
     '(input)': '_handleInput($event)',
     '(keydown)': '_handleKeydown($event)',
   },
   providers: [DT_AUTOCOMPLETE_VALUE_ACCESSOR],
 })
 export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy {
-
+  private _autocomplete: DtAutocomplete<T>;
   private _autocompleteDisabled = false;
   private _overlayRef: OverlayRef | null;
-  private _portal: TemplatePortal;
   private _componentDestroyed = false;
   private _overlayAttached = false;
 
   /** The autocomplete panel to be attached to this trigger. */
-  @Input('dtAutocomplete') autocomplete: DtAutocomplete<T>;
+  @Input('dtAutocomplete')
+  get autocomplete(): DtAutocomplete<T> { return this._autocomplete; }
+  set autocomplete(value: DtAutocomplete<T>) {
+    this._autocomplete = value;
+    if (this._overlayRef) {
+      this._overlayRef.detach();
+    }
+    this._closingActionsSubscription.unsubscribe();
+  }
 
   /** autocomplete` attribute to be set on the input element. */
   @Input('autocomplete') autocompleteAttribute = 'off';
@@ -76,10 +95,10 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   /** `View -> model callback called when value changes` */
   // tslint:disable-next-line:no-any
-  _onChange: (value: any) => void = () => { };
+  private _onChange: (value: any) => void = () => { };
 
   /** `View -> model callback called when autocomplete has been touched` */
-  _onTouched = () => { };
+  private _onTouched = () => { };
 
   /** Whether or not the autocomplete panel is open. */
   get panelOpen(): boolean {
@@ -150,7 +169,6 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     private _renderer: Renderer2,
     private _overlay: Overlay,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _viewContainerRef: ViewContainerRef,
     private _viewportResizer: DtViewportResizer,
     private _zone: NgZone,
     @Optional() @Host() private _formField: DtFormField<string>,
@@ -221,6 +239,16 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     }
   }
 
+  _handleBlur(): void {
+    if (this.panelOpen) {
+      this.autocomplete.closed
+        .pipe(take(1), takeUntil(this.autocomplete.opened.asObservable()))
+        .subscribe(() => { this._onTouched(); });
+    } else {
+      this._onTouched();
+    }
+  }
+
   _handleInput(event: KeyboardEvent): void {
     const target = event.target as HTMLInputElement;
     let value: number | string | null = target.value;
@@ -282,7 +310,6 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     }
 
     if (!this._overlayRef) {
-      this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
 
       this._overlayRef.keydownEvents().subscribe((event) => {
@@ -307,7 +334,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     }
 
     if (this._overlayRef && !this._overlayRef.hasAttached()) {
-      this._overlayRef.attach(this._portal);
+      this._overlayRef.attach(this._autocomplete._portal);
       this._closingActionsSubscription = this._subscribeToClosingActions();
     }
 
