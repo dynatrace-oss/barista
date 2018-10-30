@@ -1,0 +1,12 @@
+<div class="dt-sort-header-container"
+     [class.dt-sort-header-sorted]="_isSorted()">
+  <button class="dt-sort-header-button" type="button"
+          [attr.disabled]="_isDisabled() || null"
+          [attr.aria-label]="ariaLabel">
+    <ng-content></ng-content>
+  </button>
+
+  <div class="dt-sort-header-arrow" *ngIf="!_isDisabled()">
+    <dt-icon *ngIf="_sortIconName !== ''" [name]="_sortIconName"></dt-icon>
+  </div>
+</div>
