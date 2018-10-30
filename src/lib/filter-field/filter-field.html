@@ -4,7 +4,7 @@
     <span class="dt-filter-field-label-text">Filter by{{_filterByLabel}}</span>
   </div>
   <div class="dt-filter-field-prefix">
-    <dt-filter-field-tag *ngFor="let node of _prefixNodes">{{node.properties[0].viewValue}}: {{node.properties[1].viewValue}}</dt-filter-field-tag>
+    <dt-filter-field-tag *ngFor="let node of _prefixNodes">{{node.toString()}}</dt-filter-field-tag>
   </div>
   <div class="dt-filter-field-infix">
     <!-- <input #inputFreeText *ngIf="!_autocomplete"
