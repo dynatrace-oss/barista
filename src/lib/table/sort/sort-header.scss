@@ -1,0 +1,35 @@
+$dt-sort-header-arrow-margin: 4px;
+$dt-sort-header-arrow-container-size: 8px;
+
+.dt-sort-header-container {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+
+  .dt-sort-header-disabled & {
+    cursor: default;
+  }
+}
+
+.dt-sort-header-button {
+  border: none;
+  background: 0 0;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  cursor: inherit;
+  outline: 0;
+  font: inherit;
+}
+
+.dt-sort-header-sorted {
+  font-weight: 600;
+}
+
+.dt-sort-header-arrow {
+  width: $dt-sort-header-arrow-container-size;
+  min-width: $dt-sort-header-arrow-container-size;
+  position: relative;
+  display: flex;
+  margin: 0 0 0 $dt-sort-header-arrow-margin;
+}

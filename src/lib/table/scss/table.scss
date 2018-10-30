@@ -1,5 +1,6 @@
 @import '../../style/font-mixins';
 @import '../../core/style/variables';
+@import 'header-cell';
 
 :host.dt-table {
   // To display at least one column with the entire width

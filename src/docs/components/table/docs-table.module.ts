@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtThemingModule, DtTableModule, DtLoadingDistractorModule } from '@dynatrace/angular-components';
+import { DtThemingModule, DtTableModule, DtLoadingDistractorModule, DtFormattersModule } from '@dynatrace/angular-components';
 import { TableDefaultComponent } from './examples/table-default.component';
 import { TableDifferentWidthComponent } from './examples/table-different-width.component';
 import { TableMinWidthComponent } from './examples/table-min-width.component';
@@ -11,6 +11,7 @@ import { TableObservableComponent } from './examples/table-observable.component'
 import { TableLoadingComponent } from './examples/table-loading.component';
 import { TableDynamicColumnsComponent } from './examples/table-dynamic-columns.component';
 import {TableExpandableRowsComponent} from './examples/table-expandable-rows.component';
+import { TableSortingComponent } from './examples/table-sorting.component';
 
 export const EXAMPLES = [
   TableDefaultComponent,
@@ -22,6 +23,7 @@ export const EXAMPLES = [
   TableLoadingComponent,
   TableDynamicColumnsComponent,
   TableExpandableRowsComponent,
+  TableSortingComponent,
 ];
 
 @NgModule({
@@ -31,6 +33,7 @@ export const EXAMPLES = [
     DtThemingModule,
     DtTableModule,
     DtLoadingDistractorModule,
+    DtFormattersModule,
   ],
   declarations: [
     ...EXAMPLES,
