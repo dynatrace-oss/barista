@@ -13,6 +13,8 @@ $dt-filter-field-inner-height: 30px;
   // of inner interactive elements (like buttons) to be cut off
   overflow: visible;
 
+  cursor: text;
+
   .dt-focused & {
     @include dt-focus-style();
   }
@@ -22,6 +24,7 @@ $dt-filter-field-inner-height: 30px;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  padding: 0 8px 0 0;
 
   // Do not set `align-items` as it breaks SVGs baseline alignment
   // align-items: baseline;
@@ -40,9 +43,9 @@ $dt-filter-field-inner-height: 30px;
 }
 
 .dt-filter-field-icon {
+  display: flex;
   width: 16px;
   height: $dt-filter-field-inner-height;
-  display: flex;
   align-items: center;
   margin-right: 8px;
   ::ng-deep svg {
@@ -56,13 +59,17 @@ $dt-filter-field-inner-height: 30px;
   display: flex;
   flex-grow: 1;
   flex-shrink: 1;
+  margin-left: 8px;
 }
 
 .dt-filter-field-category {
   display: block;
   flex-grow: 0;
   flex-shrink: 0;
-  padding-left: 8px;
+  padding-right: 8px;
+  @include main-font();
+  line-height: $dt-filter-field-inner-height;
+  color: $gray-500;
 }
 
 .dt-filter-field-input {
@@ -74,7 +81,7 @@ $dt-filter-field-inner-height: 30px;
   @include main-font();
   appearance: none;
   box-sizing: border-box;
-  padding: 0 8px;
+  padding: 0;
   margin: 0;
   border: none;
   height: $dt-filter-field-inner-height;

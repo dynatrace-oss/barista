@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldNodeValue, DtFilterFieldNode } from '@dynatrace/angular-components';
+import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldNodeValue } from '@dynatrace/angular-components';
 
-type State = {name: string; value: string; cities?: string[]};
+interface State { name: string; value: string; cities?: string[]; }
 
 const STATES = [
   {
