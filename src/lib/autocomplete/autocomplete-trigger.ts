@@ -322,8 +322,9 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
         });
       }
     } else {
-      // Update the panel width in case anything has changed.
+      // Update the panel width and position in case anything has changed.
       this._overlayRef.updateSize({ width: this._getPanelWidth() });
+      this._overlayRef.updatePosition();
     }
 
     if (this._overlayRef && !this._overlayRef.hasAttached()) {
