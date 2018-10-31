@@ -1,12 +1,11 @@
 <div class="dt-filter-field-body">
-  <div class="dt-filter-field-label">
-    <dt-icon name="filter" class="dt-filter-field-icon"></dt-icon>
-    <span class="dt-filter-field-label-text">Filter by{{_filterByLabel}}</span>
-  </div>
-  <div class="dt-filter-field-prefix">
-    <dt-filter-field-tag *ngFor="let node of _prefixNodes">{{node.toString()}}</dt-filter-field-tag>
-  </div>
+
+  <div class="dt-filter-field-label"><dt-icon name="filter" class="dt-filter-field-icon"></dt-icon>Filter by</div>
+
+  <dt-filter-field-tag *ngFor="let node of _prefixNodes">{{node.toString()}}</dt-filter-field-tag>
+
   <div class="dt-filter-field-infix">
+    <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{_filterByLabel}}</span>
     <!-- <input #inputFreeText *ngIf="!_autocomplete"
       type="text"
       class="dt-filter-field-input dt-filter-field-free-text"
@@ -22,5 +21,7 @@
       [value]="_inputValue">
     <ng-content select="dt-autocomplete"></ng-content>
   </div>
+
+
   <div class="dt-filter-field-suffix"></div>
 </div>

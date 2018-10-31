@@ -72,7 +72,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   get _filterByLabel(): string {
     const lastProperty = this._currentNode && this._currentNode.properties.length ?
       this._currentNode.properties[this._currentNode.properties.length - 1] : null;
-    return lastProperty ? ` ${(lastProperty as DtFilterFieldNodeValue<any>).viewValue}:` : '';
+    return lastProperty ? ` ${(lastProperty as DtFilterFieldNodeValue<any>).toString()}:` : '';
   }
 
   _rootNodes: DtFilterFieldNode[] = [];

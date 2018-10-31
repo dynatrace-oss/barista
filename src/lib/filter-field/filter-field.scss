@@ -20,6 +20,7 @@ $dt-filter-field-inner-height: 30px;
 
 .dt-filter-field-body {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 
   // Do not set `align-items` as it breaks SVGs baseline alignment
@@ -27,30 +28,15 @@ $dt-filter-field-inner-height: 30px;
   box-sizing: border-box;
 }
 
-.dt-filter-field-label,
-.dt-filter-field-prefix,
-.dt-filter-field-suffix {
+.dt-filter-field-label {
   white-space: nowrap;
-  flex: none;
   position: relative;
   display: flex;
   align-items: center;
-}
-
-.dt-filter-field-infix {
-  display: block;
-  position: relative;
-  flex: auto;
-  min-width: 0;
-  width: 100%;
-}
-
-.dt-filter-field-label {
-  margin: 0 8px;
-}
-
-.dt-filter-field-prefix {
-  margin-right: 8px;
+  margin: 0 0 0 8px;
+  @include main-font();
+  line-height: $dt-filter-field-inner-height;
+  color: $gray-500;
 }
 
 .dt-filter-field-icon {
@@ -58,6 +44,7 @@ $dt-filter-field-inner-height: 30px;
   height: $dt-filter-field-inner-height;
   display: flex;
   align-items: center;
+  margin-right: 8px;
   ::ng-deep svg {
     width: 16px;
     height: 16px;
@@ -65,23 +52,29 @@ $dt-filter-field-inner-height: 30px;
   }
 }
 
-.dt-filter-field-label-text {
-  display: inline-block;
-  @include main-font();
-  height: $dt-filter-field-inner-height;
-  line-height: $dt-filter-field-inner-height;
-  color: $gray-500;
-  margin-left: 8px;
+.dt-filter-field-infix {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.dt-filter-field-category {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding-left: 8px;
 }
 
 .dt-filter-field-input {
   display: block;
-  width: 100%;
+  min-width: 112px; // Minimum with of the autocomplete
+  flex-grow: 1;
+  flex-shrink: 1;
   position: relative;
   @include main-font();
   appearance: none;
   box-sizing: border-box;
-  padding: 0;
+  padding: 0 8px;
   margin: 0;
   border: none;
   height: $dt-filter-field-inner-height;
@@ -92,6 +85,8 @@ $dt-filter-field-inner-height: 30px;
   z-index: 1;
 }
 
-dt-filter-field-tag + dt-filter-field-tag {
+dt-filter-field-tag {
+  margin-top: ($dt-filter-field-inner-height - 24) / 2;
+  margin-bottom: ($dt-filter-field-inner-height - 24) / 2;
   margin-left: 8px;
 }
