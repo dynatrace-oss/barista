@@ -5,7 +5,7 @@ import { DtOptionModule } from '@dynatrace/angular-components/core';
 import { DtAutocompleteModule } from '@dynatrace/angular-components/autocomplete';
 import { DtFilterField } from './filter-field';
 import { DtFilterFieldOptions } from './filter-field-options';
-import { _DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
+import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
@@ -20,12 +20,12 @@ import { CommonModule } from '@angular/common';
     DtAutocompleteModule,
     DtOptionModule,
     DtFilterField,
-    _DtFilterFieldTag,
+    DtFilterFieldTag,
     DtFilterFieldOptions,
   ],
   declarations: [
     DtFilterField,
-    _DtFilterFieldTag,
+    DtFilterFieldTag,
     DtFilterFieldOptions,
   ],
 })

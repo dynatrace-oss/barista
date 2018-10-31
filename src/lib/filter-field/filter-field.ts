@@ -18,17 +18,19 @@ import {
   DtFilterFieldNode,
   DtFilterFieldNodeValue,
   DtFilterFieldFilterNode,
-  DtFilterFieldGroup,
+  DtFilterFieldNodeGroup,
   getParents as getParentsForNode,
-} from './nodes/filter-field-node';
+} from './nodes/filter-field-nodes';
 import { switchMap, map, takeUntil, filter, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { DtFilterFieldTagEvent } from '@dynatrace/angular-components/filter-field/filter-field-tag/filter-field-tag';
+import { DtFilterFieldNodesHost } from '@dynatrace/angular-components/filter-field/nodes/filter-field-nodes-host';
 
 export class DtActiveFilterChangeEvent {
   constructor(
     public rootNodes: DtFilterFieldNode[],
     public activeNode: DtFilterFieldNode,
-    public path: DtFilterFieldGroup[] = [],
+    public path: DtFilterFieldNodeGroup[] = [],
     public source: DtFilterField
   ) { }
 
@@ -65,10 +67,12 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   @ContentChildren(DtAutocomplete) _autocompletes: QueryList<DtAutocomplete<any>>;
 
   get _prefixNodes(): DtFilterFieldNode[] {
-    return this._rootNodes.slice(0, this._currentNode ? this._rootNodes.indexOf(this._currentNode) : undefined);
+    const rootNodes = this._nodesHost.rootNodes;
+    return rootNodes.slice(0, this._currentNode ? rootNodes.indexOf(this._currentNode) : undefined);
   }
   get _suffixNodes(): DtFilterFieldNode[] {
-    return this._currentNode ? this._rootNodes.slice(this._rootNodes.indexOf(this._currentNode) + 1) : [];
+    const rootNodes = this._nodesHost.rootNodes;
+    return this._currentNode ? rootNodes.slice(rootNodes.indexOf(this._currentNode) + 1) : [];
   }
 
   get _filterByLabel(): string {
@@ -77,7 +81,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     return lastProperty ? ` ${(lastProperty as DtFilterFieldNodeValue<any>).toString()}:` : '';
   }
 
-  _rootNodes: DtFilterFieldNode[] = [];
+  _nodesHost = new DtFilterFieldNodesHost();
   _currentNode: DtFilterFieldFilterNode | null = null;
   // tslint:disable-next-line:no-any
   _autocomplete: DtAutocomplete<any> | null = null;
@@ -174,6 +178,23 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     }
   }
 
+  _handleTagRemove(event: DtFilterFieldTagEvent): void {
+    if (event.node) {
+      this._nodesHost.removeNode(event.node);
+    }
+  }
+
+  _handleTagEdit(event: DtFilterFieldTagEvent): void {
+    if (event.node) {
+      if (this._currentNode) {
+        // TODO @thomas.pink: What to do here????
+        throw new Error(`Can not edit tag, because there is currently another tag edited or a new on in creation`);
+      }
+      this._currentNode = event.node as DtFilterFieldFilterNode;
+      this.focus();
+    }
+  }
+
   // _handleInputKeyUp(event: KeyboardEvent): void {
   //   const value = event.srcElement instanceof HTMLInputElement ? event.srcElement.value : this._inputValue;
   //   const keyCode = event.keyCode;
@@ -198,7 +219,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       // TODO @thomas.pink: Handle non root nodes (parents, path)
       currentNode = new DtFilterFieldFilterNode();
       this._currentNode = currentNode;
-      this._rootNodes.push(currentNode);
+      this._nodesHost.addNode(currentNode);
     }
     currentNode.properties.push(property);
 
@@ -212,7 +233,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     });
 
     this.activeFilterChange.emit(new DtActiveFilterChangeEvent(
-      this._rootNodes,
+      this._nodesHost.rootNodes,
       currentNode,
       getParentsForNode(currentNode),
       this
