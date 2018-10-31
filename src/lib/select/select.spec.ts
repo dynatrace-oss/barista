@@ -53,6 +53,7 @@ describe('DtSelect', () => {
         SelectWithGroups,
         SelectWithGroupsAndNgContainer,
         SelectWithFormFieldLabel,
+        SelectWithOptionValueZero,
       ]);
     }));
 
@@ -1058,6 +1059,52 @@ describe('DtSelect', () => {
 
         // tslint:disable-next-line:no-unnecessary-type-assertion
         subscription!.unsubscribe();
+      }));
+    });
+
+    describe('valueChange events', () => {
+      it('should emit `valueChange` when an option was selected', fakeAsync(() => {
+        const fixture = TestBed.createComponent(BasicSelect);
+        fixture.detectChanges();
+        const trigger = fixture.debugElement.query(By.css('.dt-select-trigger')).nativeElement;
+
+        trigger.click();
+        fixture.detectChanges();
+        flush();
+
+        const spy = jasmine.createSpy('value change spy');
+        const subscription = fixture.componentInstance.select.valueChange.subscribe(spy);
+
+        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        option.click();
+        fixture.detectChanges();
+        flush();
+
+        expect(spy).toHaveBeenCalledTimes(1);
+
+        subscription.unsubscribe();
+      }));
+
+      it('should emit `valueChange` when an option was selected', fakeAsync(() => {
+        const fixture = TestBed.createComponent(SelectWithOptionValueZero);
+        fixture.detectChanges();
+        const trigger = fixture.debugElement.query(By.css('.dt-select-trigger')).nativeElement;
+
+        trigger.click();
+        fixture.detectChanges();
+        flush();
+
+        const spy = jasmine.createSpy('value change spy');
+        const subscription = fixture.componentInstance.select.valueChange.subscribe(spy);
+
+        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        option.click();
+        fixture.detectChanges();
+        flush();
+
+        expect(spy).toHaveBeenCalledWith(0);
+
+        subscription.unsubscribe();
       }));
     });
 
@@ -2182,6 +2229,17 @@ class ResetValuesSelect {
   ];
   control = new FormControl();
 
+  @ViewChild(DtSelect) select: DtSelect<any>;
+}
+
+@Component({
+  template: `
+    <dt-select>
+      <dt-option [value]="0">Zero</dt-option>
+    </dt-select>
+  `,
+})
+class SelectWithOptionValueZero {
   @ViewChild(DtSelect) select: DtSelect<any>;
 }
 
