@@ -1,13 +1,13 @@
 export class DtFilterFieldNode {
-  constructor(public parent: DtFilterFieldGroup | null = null, public viewValue?: string) {}
+  constructor(public parent: DtFilterFieldNodeGroup | null = null, public viewValue?: string) {}
   toString(): string { return this.viewValue || ''; }
 }
 
-export class DtFilterFieldGroup extends DtFilterFieldNode {
+export class DtFilterFieldNodeGroup extends DtFilterFieldNode {
   constructor(
-    public nodes: DtFilterFieldNode,
+    public nodes: DtFilterFieldNode[],
     viewValue?: string,
-    parent?: DtFilterFieldGroup | null) {
+    parent?: DtFilterFieldNodeGroup | null) {
     super(parent, viewValue);
   }
 }
@@ -29,7 +29,7 @@ export class DtFilterFieldFilterNode extends DtFilterFieldNode {
   constructor(
     public properties: DtFilterFieldNodeProperty[] = [],
     viewValue?: string,
-    parent?: DtFilterFieldGroup | null) {
+    parent?: DtFilterFieldNodeGroup | null) {
     super(parent, viewValue);
   }
 
@@ -42,9 +42,9 @@ export class DtFilterFieldFilterNode extends DtFilterFieldNode {
   }
 }
 
-export function getParents(node: DtFilterFieldNode): DtFilterFieldGroup[] {
+export function getParents(node: DtFilterFieldNode): DtFilterFieldNodeGroup[] {
   let currentNode = node;
-  const path: DtFilterFieldGroup[] = [];
+  const path: DtFilterFieldNodeGroup[] = [];
   while (currentNode.parent) {
     path.unshift(currentNode.parent);
     currentNode = currentNode.parent;
