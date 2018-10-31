@@ -17,8 +17,8 @@
       class="dt-filter-field-input dt-filter-field-autocomplete"
       [dtAutocomplete]="_autocomplete"
       (input)="_handleInputChange($event)"
-      (focus)="_isAutocompleteFocused = true"
-      (blur)="_isAutocompleteFocused = false"
+      (focus)="_isAutocompleteTriggerFocused = true"
+      (blur)="_isAutocompleteTriggerFocused = false"
       [value]="_inputValue">
     <ng-content select="dt-autocomplete"></ng-content>
   </div>
