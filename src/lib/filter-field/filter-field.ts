@@ -11,6 +11,7 @@ import {
   OnDestroy,
   EventEmitter,
   Output,
+  NgZone,
 } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
@@ -23,6 +24,7 @@ import {
 } from './nodes/filter-field-node';
 import { switchMap, map, takeUntil, filter, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ConnectedPosition } from '@angular/cdk/overlay';
 
 export class DtActiveFilterChangeEvent {
   constructor(
@@ -37,6 +39,7 @@ export class DtActiveFilterChangeEvent {
     this.source._finishCurrentNode();
   }
 }
+
 // tslint:disable:no-any
 @Component({
   moduleId: module.id,
@@ -84,7 +87,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
    * @internal
    * Whether the autocomplete input field is focused.
    */
-  _isAutocompleteFocused = false;
+  _isAutocompleteTriggerFocused = false;
 
   /**
    * @internal
@@ -92,7 +95,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
    */
   _inputValue = '';
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private _changeDetectorRef: ChangeDetectorRef, private _zone: NgZone) { }
 
   ngAfterContentInit(): void {
     if (this._autocompletes) {
@@ -102,10 +105,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
 
       autocomplete$.pipe(takeUntil(this._destroy)).subscribe((autocomplete) => {
         this._autocomplete = autocomplete;
-        this._changeDetectorRef.detectChanges();
-        if (this._isAutocompleteFocused) {
-          this._autocompleteTrigger.openPanel();
-        }
+        this._changeDetectorRef.markForCheck();
       });
 
       autocomplete$.pipe(
@@ -116,6 +116,15 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
         // tslint:disable-next-line:no-any
         .subscribe((event: DtAutocompleteSelectedEvent<any>) => this._handleAutocompleteSelected(event));
     }
+
+    // When the autocomplete closes after the user has selected an option we need to reopen the autocomplete panel
+    // if the input field is still focused.
+    // The reopen can be done once all microtasks have been finished (the zone is stable) and the rendering has been finished.
+    this._zone.onStable.pipe(takeUntil(this._destroy)).subscribe(() => {
+      if (this._isAutocompleteTriggerFocused && this._autocomplete && !this._autocomplete.isOpen && this._autocompleteTrigger) {
+        this._autocompleteTrigger.openPanel();
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -174,6 +183,11 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     // Otherwise the value of the autocomplete would be in the input elements.
     this._writeInputValue('');
 
+    // Clear any previous selected option.
+    this._autocomplete!.options.forEach((option) => {
+      if (option.selected) { option.deselect(); }
+    });
+
     this.activeFilterChange.emit(new DtActiveFilterChangeEvent(
       this._rootNodes,
       currentNode,
@@ -181,7 +195,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       this
     ));
     this._changeDetectorRef.markForCheck();
-    }
+  }
 
   private _handleInputSubmitted(value: string): void {
 
