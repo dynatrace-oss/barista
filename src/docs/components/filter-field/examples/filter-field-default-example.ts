@@ -48,7 +48,6 @@ const STATES = [
 @Component({
   moduleId: module.id,
   template: `
-  {{_inputValue}}
     <dt-filter-field (inputChange)="_inputValue = $event" (activeFilterChange)="_handleActiveFilterChange($event)">
       <dt-autocomplete *ngIf="filteredStates" [displayWith]="stateDisplayFn" autoActiveFirstOption>
         <dt-option *ngFor="let state of filteredStates" [value]="state">{{state.name}}</dt-option>
