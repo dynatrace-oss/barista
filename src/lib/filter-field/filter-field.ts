@@ -13,7 +13,6 @@ import {
   Output,
   NgZone,
 } from '@angular/core';
-import { ENTER } from '@angular/cdk/keycodes';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
 import {
   DtFilterFieldNode,
@@ -24,7 +23,6 @@ import {
 } from './nodes/filter-field-node';
 import { switchMap, map, takeUntil, filter, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ConnectedPosition } from '@angular/cdk/overlay';
 
 export class DtActiveFilterChangeEvent {
   constructor(
@@ -47,6 +45,10 @@ export class DtActiveFilterChangeEvent {
   exportAs: 'dtFilterField',
   templateUrl: 'filter-field.html',
   styleUrls: ['filter-field.scss'],
+  host: {
+    'class': 'dt-filter-field',
+    '(click)': '_handleHostClick($event)',
+  },
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -112,9 +114,9 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
         takeUntil(this._destroy),
         filter((autocomplete) => autocomplete !== null),
         // tslint:disable-next-line:no-any
-        switchMap((autocomplete: DtAutocomplete<any>) => autocomplete.optionSelected!))
+        switchMap((autocomplete: DtAutocomplete<any>) => autocomplete.optionSelected))
         // tslint:disable-next-line:no-any
-        .subscribe((event: DtAutocompleteSelectedEvent<any>) => this._handleAutocompleteSelected(event));
+        .subscribe((event: DtAutocompleteSelectedEvent<any>) => { this._handleAutocompleteSelected(event); });
     }
 
     // When the autocomplete closes after the user has selected an option we need to reopen the autocomplete panel
@@ -132,10 +134,31 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     this._destroy.complete();
   }
 
+  focus(): void {
+    if (this._autocompleteInputEl) {
+      this._autocompleteInputEl.nativeElement.focus();
+    } else if (this._freeTextInputEl) {
+      this._freeTextInputEl.nativeElement.focus();
+    }
+  }
+
   _finishCurrentNode(): void {
     if (this._currentNode) {
       this._currentNode = null;
     }
+  }
+
+  /**
+   * @internal
+   * Handle click on the host element, prevent the event from bubbling up and open the autocomplete, range inputs, ...
+   */
+  _handleHostClick(event: MouseEvent): void {
+    // Stop propagation so it does not bubble up and trigger an outside click
+    // of the autocomplete which would close the autocomplete panel immediately
+    event.stopImmediatePropagation();
+
+    // This will not only focus the input, it will also trigger the autocomplete to open
+    this.focus();
   }
 
   /**
@@ -195,10 +218,6 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       this
     ));
     this._changeDetectorRef.markForCheck();
-  }
-
-  private _handleInputSubmitted(value: string): void {
-
   }
 
   /** Write a value to the native input elements and set _inputValue property  */
