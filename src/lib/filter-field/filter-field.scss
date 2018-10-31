@@ -91,3 +91,7 @@ $dt-filter-field-inner-height: 30px;
   background: transparent;
   z-index: 1;
 }
+
+dt-filter-field-tag + dt-filter-field-tag {
+  margin-left: 8px;
+}

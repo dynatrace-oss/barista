@@ -17,10 +17,6 @@
     background-color: #fff;
     color: $gray-300;
   }
-
-  + ::ng-deep .dt-filter-field {
-    margin-left: 8px;
-  }
 }
 
 ::ng-deep .dt-button.dt-button-nested {
