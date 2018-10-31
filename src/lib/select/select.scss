@@ -14,6 +14,9 @@ $dt-select-panel-min-width: 112px !default;
   @include dt-form-control();
   background-color: #fff;
 
+  // Do not allow it to grow outside its wrapper
+  max-width: 100%;
+
   &:hover:not(.dt-select-disabled) {
     border-color: $gray-500;
     cursor: pointer;
@@ -46,6 +49,17 @@ $dt-select-panel-min-width: 112px !default;
   position: relative;
   flex-shrink: 1;
   flex-grow: 1;
+
+  // Setting boundaries for it so it does not grow outside its container
+  max-width: 94%;
+  max-width: calc(100% - 30px);
+}
+
+.dt-select-value-text {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 :host .dt-select-arrow {
