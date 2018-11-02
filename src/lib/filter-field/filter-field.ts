@@ -185,13 +185,17 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   }
 
   _handleTagEdit(event: DtFilterFieldTagEvent): void {
-    if (event.node) {
+    const node = event.node as DtFilterFieldFilterNode;
+    if (node) {
       if (this._currentNode) {
         // TODO @thomas.pink: What to do here????
         throw new Error(`Can not edit tag, because there is currently another tag edited or a new on in creation`);
       }
-      this._currentNode = event.node as DtFilterFieldFilterNode;
+      node.properties = [node.properties[0]];
+      this._currentNode = node;
       this.focus();
+      this._emitChangeEvent();
+      this._changeDetectorRef.markForCheck();
     }
   }
 
@@ -232,12 +236,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       if (option.selected) { option.deselect(); }
     });
 
-    this.activeFilterChange.emit(new DtActiveFilterChangeEvent(
-      this._nodesHost.rootNodes,
-      currentNode,
-      getParentsForNode(currentNode),
-      this
-    ));
+    this._emitChangeEvent();
     this._changeDetectorRef.markForCheck();
   }
 
@@ -252,5 +251,15 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       this.inputChange.emit(value);
       this._changeDetectorRef.markForCheck();
     }
+  }
+
+  private _emitChangeEvent(node?: DtFilterFieldNode): void {
+    const nodeToEmit = node || this._currentNode;
+    this.activeFilterChange.emit(new DtActiveFilterChangeEvent(
+      this._nodesHost.rootNodes,
+      nodeToEmit!,
+      getParentsForNode(nodeToEmit!),
+      this
+    ));
   }
 }
