@@ -602,12 +602,11 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
   /** Emits change event to set the model value. */
   private _propagateChanges(fallbackValue?: T): void {
-    const valueToEmit = this.selected && this.selected.value || fallbackValue;
-
-    this._value = valueToEmit;
+    const valueToEmit = this.selected ? this.selected.value : fallbackValue;
+    this._value = valueToEmit!;
     this.valueChange.emit(valueToEmit);
-    this._onChange(valueToEmit);
-    this.selectionChange.emit(new DtSelectChange(this, valueToEmit));
+    this._onChange(valueToEmit!);
+    this.selectionChange.emit(new DtSelectChange(this, valueToEmit!));
     this._changeDetectorRef.markForCheck();
   }
 
