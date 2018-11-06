@@ -16,18 +16,19 @@ import {
   ChangeDetectorRef,
   NgZone,
 } from '@angular/core';
-import { Options, IndividualSeriesOptions, ChartObject, chart, AxisOptions } from 'highcharts';
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import { DtTheme } from '@dynatrace/angular-components/theming';
 // tslint:disable-next-line:no-duplicate-imports
 import * as Highcharts from 'highcharts';
-import { Observable, Subscription, Subject } from 'rxjs';
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
+// tslint:disable-next-line:no-duplicate-imports
+import { AxisOptions, chart, ChartObject, IndividualSeriesOptions, Options, setOptions } from 'highcharts';
+import { merge } from 'lodash';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
-import { DtTheme } from '@dynatrace/angular-components/theming';
+import { ChartColorizer } from './chart-colorizer';
+import { DEFAULT_CHART_AXIS_STYLES, DEFAULT_CHART_OPTIONS, DEFAULT_GLOBAL_OPTIONS } from './chart-options';
 import { defaultTooltipFormatter } from './chart-tooltip';
 import { configureLegendSymbols } from './highcharts-legend-overrides';
-import { DEFAULT_CHART_OPTIONS, DEFAULT_CHART_AXIS_STYLES } from './chart-options';
-import { ChartColorizer } from './chart-colorizer';
-import { merge } from 'lodash';
 
 export type DtChartOptions = Options & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions;
@@ -245,7 +246,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * Spins up the chart with correct colors applied
    */
   private _createChart(): void {
-    this._chartObject = this._ngZone.runOutsideAngular(() => chart(this.container.nativeElement, this.highchartsOptions));
+    const globalOptions = this._ngZone.runOutsideAngular(() => setOptions(DEFAULT_GLOBAL_OPTIONS));
+    this._chartObject = this._ngZone.runOutsideAngular(() =>
+      chart(this.container.nativeElement, merge({}, globalOptions, this.highchartsOptions)));
     this._setLoading();
   }
 
