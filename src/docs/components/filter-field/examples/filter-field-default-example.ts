@@ -55,17 +55,19 @@ export class DefaultFilterFieldExample {
 
   _handleActiveFilterChange(event: DtActiveFilterChangeEvent): void {
     const activeNode = event.activeNode as DtFilterFieldFilterNode;
-    if (activeNode.properties.length) {
-      const item = (activeNode.properties[activeNode.properties.length - 1] as DtFilterFieldNodeValue<ItemType>).value;
-      if (isAutocomplete(item)) {
-        this._currentItem = item;
-        return;
-      } else if (isFreeText(item)) {
-        this._currentItem = item;
-        return;
+    if (activeNode) {
+      if (activeNode.properties.length) {
+        const item = (activeNode.properties[activeNode.properties.length - 1] as DtFilterFieldNodeValue<ItemType>).value;
+        if (isAutocomplete(item)) {
+          this._currentItem = item;
+          return;
+        } else if (isFreeText(item)) {
+          this._currentItem = item;
+          return;
+        }
       }
+      event.submitActiveFilter();
     }
-    event.submitActiveFilter();
     this._currentItem = FILTER_FIELD_EXAMPLE_DATA;
   }
 }

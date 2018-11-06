@@ -27,19 +27,21 @@ import { switchMap, map, takeUntil, filter, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DtFilterFieldTagEvent } from '@dynatrace/angular-components/filter-field/filter-field-tag/filter-field-tag';
 import { DtFilterFieldNodesHost } from '@dynatrace/angular-components/filter-field/nodes/filter-field-nodes-host';
-import { ENTER } from '@angular/cdk/keycodes';
+import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
 
 export class DtActiveFilterChangeEvent {
   constructor(
     public rootNodes: DtFilterFieldNode[],
-    public activeNode: DtFilterFieldNode,
+    public activeNode: DtFilterFieldNode | null,
     public path: DtFilterFieldNodeGroup[] = [],
     public source: DtFilterField
   ) { }
 
   submitActiveFilter(viewValue?: string): void {
-    this.activeNode.viewValue = viewValue;
-    this.source._finishCurrentNode();
+    if (this.activeNode) {
+      this.activeNode.viewValue = viewValue;
+      this.source._finishCurrentNode();
+    }
   }
 }
 
@@ -132,7 +134,8 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
         // When the autocomplete closes after the user has selected an option we need to reopen the autocomplete panel
         // if the input field is still focused.
         // The reopen can be done once all microtasks have been finished (the zone is stable) and the rendering has been finished.
-        if (this._autocomplete && !this._autocomplete.isOpen && this._autocompleteTrigger) {
+        // Note: Also trigger openPanel if it already open, so it does a reposition and resize
+        if (this._autocomplete && this._autocompleteTrigger) {
           this._autocompleteTrigger.openPanel();
         }
         this.focus();
@@ -188,14 +191,25 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
 
   _handleInputKeyUp(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
-    if (keyCode === ENTER && this._inputValue.length) {
-      const property = new DtFilterFieldNodeText(this._inputValue);
-      this._addPropertyToCurrentFilterNode(property);
+    if (keyCode === ENTER && this._inputValue.length && this._freeTextInputEl) {
+      // TODO @thomas.pin: Clean Up
+     this._handleFreeTextSubmited();
+    } else if (keyCode === BACKSPACE) {
+      let emitChange = false;
+      if (this._currentNode) {
+        this._nodesHost.removeNode(this._currentNode);
+        this._currentNode = null;
+        emitChange = true;
+      } else if (this._prefixNodes.length) {
+        const node = this._prefixNodes[this._prefixNodes.length - 1];
+        this._nodesHost.removeNode(node);
+        emitChange = true;
+      }
 
-      this._shouldFocusWhenStable = true;
-      this._writeInputValue('');
-      this._emitChangeEvent();
-      this._changeDetectorRef.markForCheck();
+      if (emitChange) {
+        this._shouldFocusWhenStable = true;
+        this._emitChangeEvent();
+      }
     }
   }
 
@@ -238,6 +252,16 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
+  private _handleFreeTextSubmited(): void {
+    const property = new DtFilterFieldNodeText(this._inputValue);
+    this._addPropertyToCurrentFilterNode(property);
+
+    this._shouldFocusWhenStable = true;
+    this._writeInputValue('');
+    this._emitChangeEvent();
+    this._changeDetectorRef.markForCheck();
+  }
+
   /** Write a value to the native input elements and set _inputValue property  */
   private _writeInputValue(value: string): void {
     // tslint:disable:no-unused-expression
@@ -252,11 +276,11 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   }
 
   private _emitChangeEvent(node?: DtFilterFieldNode): void {
-    const nodeToEmit = node || this._currentNode;
+    const nodeToEmit = node || this._currentNode || null;
     this.activeFilterChange.emit(new DtActiveFilterChangeEvent(
       this._nodesHost.rootNodes,
       nodeToEmit!,
-      getParentsForNode(nodeToEmit!),
+      nodeToEmit ? getParentsForNode(nodeToEmit) : [],
       this
     ));
   }
