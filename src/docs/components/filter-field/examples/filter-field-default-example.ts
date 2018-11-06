@@ -21,7 +21,10 @@ function filterItems(items: AutocompleteItemType[], needle: string): Autocomplet
 @Component({
   moduleId: module.id,
   template: `
-    <dt-filter-field (inputChange)="_inputValue = $event" (activeFilterChange)="_handleActiveFilterChange($event)">
+    <dt-filter-field
+      (inputChange)="_inputValue = $event"
+      (activeFilterChange)="_handleActiveFilterChange($event)"
+      label="Filter by">
       <dt-autocomplete *ngIf="filteredAutocompleteItems" [displayWith]="displayFn" autoActiveFirstOption>
         <ng-container *ngFor="let item of filteredAutocompleteItems">
           <dt-optgroup *ngIf="item.group; else options" [label]="item.name">
