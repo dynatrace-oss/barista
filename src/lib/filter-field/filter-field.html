@@ -22,6 +22,7 @@
       class="dt-filter-field-input dt-filter-field-autocomplete"
       [dtAutocomplete]="_autocomplete"
       (input)="_handleInputChange($event)"
+      (keyup)="_handleInputKeyUp($event)"
       [value]="_inputValue">
     <ng-content select="dt-autocomplete"></ng-content>
   </div>
