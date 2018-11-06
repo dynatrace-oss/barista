@@ -20,11 +20,14 @@ import {
   DtFilterFieldFilterNode,
   DtFilterFieldNodeGroup,
   getParents as getParentsForNode,
+  DtFilterFieldNodeText,
+  DtFilterFieldNodeProperty,
 } from './nodes/filter-field-nodes';
 import { switchMap, map, takeUntil, filter, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DtFilterFieldTagEvent } from '@dynatrace/angular-components/filter-field/filter-field-tag/filter-field-tag';
 import { DtFilterFieldNodesHost } from '@dynatrace/angular-components/filter-field/nodes/filter-field-nodes-host';
+import { ENTER } from '@angular/cdk/keycodes';
 
 export class DtActiveFilterChangeEvent {
   constructor(
@@ -91,9 +94,9 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
 
   /**
    * @internal
-   * Whether the autocomplete input field is focused.
+   * Whether the input fields should be focused once the component is stable again.
    */
-  _isAutocompleteTriggerFocused = false;
+  _shouldFocusWhenStable = false;
 
   /**
    * @internal
@@ -123,12 +126,16 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
         .subscribe((event: DtAutocompleteSelectedEvent<any>) => { this._handleAutocompleteSelected(event); });
     }
 
-    // When the autocomplete closes after the user has selected an option we need to reopen the autocomplete panel
-    // if the input field is still focused.
-    // The reopen can be done once all microtasks have been finished (the zone is stable) and the rendering has been finished.
     this._zone.onStable.pipe(takeUntil(this._destroy)).subscribe(() => {
-      if (this._isAutocompleteTriggerFocused && this._autocomplete && !this._autocomplete.isOpen && this._autocompleteTrigger) {
-        this._autocompleteTrigger.openPanel();
+      // If the autocomplete was previously focused but we swiched now to free text, change focus to the free texte input
+      if (this._shouldFocusWhenStable) {
+        // When the autocomplete closes after the user has selected an option we need to reopen the autocomplete panel
+        // if the input field is still focused.
+        // The reopen can be done once all microtasks have been finished (the zone is stable) and the rendering has been finished.
+        if (this._autocomplete && !this._autocomplete.isOpen && this._autocompleteTrigger) {
+          this._autocompleteTrigger.openPanel();
+        }
+        this.focus();
       }
     });
   }
@@ -139,6 +146,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   }
 
   focus(): void {
+    this._shouldFocusWhenStable = false;
     if (this._autocompleteInputEl) {
       this._autocompleteInputEl.nativeElement.focus();
     } else if (this._freeTextInputEl) {
@@ -178,6 +186,19 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     }
   }
 
+  _handleInputKeyUp(event: KeyboardEvent): void {
+    const keyCode = event.keyCode;
+    if (keyCode === ENTER && this._inputValue.length) {
+      const property = new DtFilterFieldNodeText(this._inputValue);
+      this._addPropertyToCurrentFilterNode(property);
+
+      this._shouldFocusWhenStable = true;
+      this._writeInputValue('');
+      this._emitChangeEvent();
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
   _handleTagRemove(event: DtFilterFieldTagEvent): void {
     if (event.node) {
       this._nodesHost.removeNode(event.node);
@@ -199,33 +220,9 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     }
   }
 
-  // _handleInputKeyUp(event: KeyboardEvent): void {
-  //   const value = event.srcElement instanceof HTMLInputElement ? event.srcElement.value : this._inputValue;
-  //   const keyCode = event.keyCode;
-
-  //   if (this._inputValue !== value) {
-  //     console.log('setting input value', value);
-  //     this._inputValue = value;
-  //     this.inputChange.emit(value);
-  //   }
-
-  //   this._changeDetectorRef.markForCheck();
-  //   // if (keyCode === ENTER && !this._autocomplete) {
-  //   //   event.preventDefault();
-  //   //   this._handleInputSubmitted(value);
-  //   // } else
-  // }
-
   private _handleAutocompleteSelected(event: DtAutocompleteSelectedEvent<any>): void {
     const property = new DtFilterFieldNodeValue(event.option.value, event.option.viewValue);
-    let currentNode = this._currentNode;
-    if (!currentNode) {
-      // TODO @thomas.pink: Handle non root nodes (parents, path)
-      currentNode = new DtFilterFieldFilterNode();
-      this._currentNode = currentNode;
-      this._nodesHost.addNode(currentNode);
-    }
-    currentNode.properties.push(property);
+    this._addPropertyToCurrentFilterNode(property);
 
     // Reset input value to empty string after handling the value provided by the autocomplete.
     // Otherwise the value of the autocomplete would be in the input elements.
@@ -236,6 +233,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       if (option.selected) { option.deselect(); }
     });
 
+    this._shouldFocusWhenStable = true;
     this._emitChangeEvent();
     this._changeDetectorRef.markForCheck();
   }
@@ -261,5 +259,24 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       getParentsForNode(nodeToEmit!),
       this
     ));
+  }
+
+  private _peekCurrentNode(): DtFilterFieldNode {
+    let currentNode = this._currentNode;
+    if (!currentNode) {
+      // TODO @thomas.pink: Handle non root nodes (parents, path)
+      currentNode = new DtFilterFieldFilterNode();
+      this._currentNode = currentNode;
+      this._nodesHost.addNode(currentNode);
+    }
+    return currentNode;
+  }
+
+  private _addPropertyToCurrentFilterNode(property: DtFilterFieldNodeProperty): void {
+    const currentNode = this._peekCurrentNode();
+    if (!(currentNode instanceof DtFilterFieldFilterNode)) {
+      throw new Error(`Cannot add property to current node because the node's type is not DtFilterFieldFilterNode`);
+    }
+    currentNode.properties.push(property);
   }
 }

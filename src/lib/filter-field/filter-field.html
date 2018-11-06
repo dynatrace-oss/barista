@@ -11,18 +11,17 @@
 
   <div class="dt-filter-field-infix">
     <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{_filterByLabel}}</span>
-    <!-- <input #inputFreeText *ngIf="!_autocomplete"
+    <input #freeTextInput *ngIf="!_autocomplete"
       type="text"
       class="dt-filter-field-input dt-filter-field-free-text"
+      (input)="_handleInputChange($event)"
       (keyup)="_handleInputKeyUp($event)"
-      [value]="_inputValue"> -->
-    <input *ngIf="_autocomplete" #autocompleteInput
+      [value]="_inputValue">
+    <input #autocompleteInput *ngIf="_autocomplete"
       type="text"
       class="dt-filter-field-input dt-filter-field-autocomplete"
       [dtAutocomplete]="_autocomplete"
       (input)="_handleInputChange($event)"
-      (focus)="_isAutocompleteTriggerFocused = true"
-      (blur)="_isAutocompleteTriggerFocused = false"
       [value]="_inputValue">
     <ng-content select="dt-autocomplete"></ng-content>
   </div>
