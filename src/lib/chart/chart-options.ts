@@ -1,6 +1,6 @@
-import { DtChartOptions } from './chart';
 import { Colors } from '@dynatrace/angular-components/theming';
-import { AxisOptions } from 'highcharts';
+import { AxisOptions, GlobalOptions } from 'highcharts';
+import { DtChartOptions } from './chart';
 
 // tslint:disable:no-magic-numbers
 /** Custom highcharts easing function */
@@ -75,4 +75,10 @@ export const DEFAULT_CHART_AXIS_STYLES: AxisOptions = {
   },
   tickWidth: 1,
   tickLength: 4,
+};
+
+export const DEFAULT_GLOBAL_OPTIONS: GlobalOptions = {
+  lang: {
+    numericSymbols: ['k', 'mil', 'bil'],
+  },
 };
