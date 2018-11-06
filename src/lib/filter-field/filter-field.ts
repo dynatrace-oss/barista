@@ -12,7 +12,11 @@ import {
   EventEmitter,
   Output,
   NgZone,
+  Input,
 } from '@angular/core';
+import { switchMap, map, takeUntil, filter, startWith } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
 import {
   DtFilterFieldNode,
@@ -23,11 +27,8 @@ import {
   DtFilterFieldNodeText,
   DtFilterFieldNodeProperty,
 } from './nodes/filter-field-nodes';
-import { switchMap, map, takeUntil, filter, startWith } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { DtFilterFieldTagEvent } from '@dynatrace/angular-components/filter-field/filter-field-tag/filter-field-tag';
-import { DtFilterFieldNodesHost } from '@dynatrace/angular-components/filter-field/nodes/filter-field-nodes-host';
-import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
+import { DtFilterFieldNodesHost } from './nodes/filter-field-nodes-host';
+import { DtFilterFieldTagEvent } from './filter-field-tag/filter-field-tag';
 
 export class DtActiveFilterChangeEvent {
   constructor(
@@ -61,6 +62,9 @@ export class DtActiveFilterChangeEvent {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtFilterField implements AfterContentInit, OnDestroy {
+
+  /** Label for the filter field. Will be placed next to the filter icon. */
+  @Input() label = '';
 
   @Output() inputChange = new EventEmitter<string>();
   @Output() activeFilterChange = new EventEmitter<DtActiveFilterChangeEvent>();
