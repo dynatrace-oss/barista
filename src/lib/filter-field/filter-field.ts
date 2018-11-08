@@ -193,12 +193,9 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     }
   }
 
-  _handleInputKeyUp(event: KeyboardEvent): void {
+  _handleInputKeyDown(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
-    if (keyCode === ENTER && this._inputValue.length && this._freeTextInputEl) {
-      // TODO @thomas.pin: Clean Up
-     this._handleFreeTextSubmited();
-    } else if (keyCode === BACKSPACE) {
+    if (keyCode === BACKSPACE && !this._inputValue.length) {
       let emitChange = false;
       if (this._currentNode) {
         this._nodesHost.removeNode(this._currentNode);
@@ -214,6 +211,13 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
         this._shouldFocusWhenStable = true;
         this._emitChangeEvent();
       }
+    }
+  }
+
+  _handleInputKeyUp(event: KeyboardEvent): void {
+    const keyCode = event.keyCode;
+    if (keyCode === ENTER && this._inputValue.length && this._freeTextInputEl) {
+     this._handleFreeTextSubmited();
     }
   }
 
