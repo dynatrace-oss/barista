@@ -44,6 +44,8 @@ window.highchartsMore = require('highcharts/highcharts-more')(Highcharts);
 // Override Highcharts prototypes
 // added to the window so uglify does not drop this from the bundle
 window.configureLegendSymbols = configureLegendSymbols;
+// Highcharts global options, set outside component so its not set everytime a chart is created
+setOptions(DEFAULT_GLOBAL_OPTIONS);
 
 @Component({
   moduleId: module.id,
@@ -139,7 +141,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
         }
       });
     }
-    this._setGlobalOptions();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -208,10 +209,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
   }
 
-  private _setGlobalOptions(): void {
-    setOptions(DEFAULT_GLOBAL_OPTIONS);
-  }
-
   /* merge default axis options to all axis */
   private _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
     if (!this._highchartsOptions[axis]) {
@@ -251,8 +248,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * Spins up the chart with correct colors applied
    */
   private _createChart(): void {
-    this._chartObject = this._ngZone.runOutsideAngular(() =>
-      chart(this.container.nativeElement, this.highchartsOptions));
+    this._chartObject = this._ngZone.runOutsideAngular(() => chart(this.container.nativeElement, this.highchartsOptions));
     this._setLoading();
   }
 
