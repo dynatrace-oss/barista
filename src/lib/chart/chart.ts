@@ -139,6 +139,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
         }
       });
     }
+    this._setGlobalOptions();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -207,6 +208,10 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
   }
 
+  private _setGlobalOptions(): void {
+    setOptions(DEFAULT_GLOBAL_OPTIONS);
+  }
+
   /* merge default axis options to all axis */
   private _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
     if (!this._highchartsOptions[axis]) {
@@ -246,9 +251,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
    * Spins up the chart with correct colors applied
    */
   private _createChart(): void {
-    const globalOptions = this._ngZone.runOutsideAngular(() => setOptions(DEFAULT_GLOBAL_OPTIONS));
     this._chartObject = this._ngZone.runOutsideAngular(() =>
-      chart(this.container.nativeElement, merge({}, globalOptions, this.highchartsOptions)));
+      chart(this.container.nativeElement, this.highchartsOptions));
     this._setLoading();
   }
 
