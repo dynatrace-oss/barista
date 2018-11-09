@@ -69,7 +69,7 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
       merge(_sort.sortChange, _sort._stateChanges)
         .subscribe(() => {
           this._updateSorterIcon();
-          _changeDetectorRef.markForCheck();
+          this._changeDetectorRef.markForCheck();
         });
   }
 
