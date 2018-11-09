@@ -21,7 +21,7 @@ export interface HasInitialized {
 }
 
 /** Mixin to augment a directive with an initialized property that will emits when ngOnInit ends. */
-export function mixinInitialized<T extends Constructor<{}>>(base: T):
+export function mixinInitialized<T extends Constructor<HasInitialized>>(base: T):
     Constructor<HasInitialized> & T {
   return class extends base {
     /** Whether this directive has been marked as initialized. */
@@ -49,7 +49,9 @@ export function mixinInitialized<T extends Constructor<{}>>(base: T):
     });
 
     // tslint:disable-next-line:no-any
-    constructor(...args: any[]) { super(...args); }
+    constructor(...args: any[]) {
+      super(...args);
+    }
 
     /**
      * Marks the state as initialized and notifies pending subscribers. Should be called at the end
@@ -68,7 +70,7 @@ export function mixinInitialized<T extends Constructor<{}>>(base: T):
     }
 
     /** Emits and completes the subscriber stream (should only emit once). */
-    _notifySubscriber(subscriber: Subscriber<void>): void {
+    _notifySubscriber = (subscriber: Subscriber<void>): void => {
       subscriber.next();
       subscriber.complete();
     }

@@ -227,7 +227,10 @@ function testSingleColumnSortDirectionSequence(fixture: ComponentFixture<DtTable
   expect(component.dtSort.direction).toBe(expectedSequence[0]);
 }
 
+// tslint:disable-next-line:no-any
 class FakeDataSource extends DataSource<any> {
+
+  // tslint:disable-next-line:no-any
   connect(collectionViewer: CollectionViewer): Observable<any[]> {
     return collectionViewer.viewChange.pipe(map(() => []));
   }
