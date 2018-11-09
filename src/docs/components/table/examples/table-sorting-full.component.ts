@@ -6,7 +6,15 @@ import { DtSortEvent } from '@dynatrace/angular-components';
   moduleId: module.id,
   // tslint:disable
   template: `
-  <dt-table [dataSource]="dataSource" dtSort (dtSortChange)="sortData($event)">
+  <button dt-button (click)="toggleDisableAll()">Toggle disable sorting for all columns</button>
+  <dt-table
+    [dataSource]="dataSource"
+    dtSort
+    (dtSortChange)="sortData($event)"
+    [dtSortDisabled]="disableAll"
+    [dtSortActive]="'cpu'"
+    dtSortStart="asc"
+    dtSortDirection="desc">
     <ng-container dtColumnDef="host" dtColumnAlign="text">
       <th dtHeaderCell *dtHeaderCellDef dt-sort-header sort-aria-label="Change sort order for hosts">Host</th>
       <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
@@ -23,7 +31,7 @@ import { DtSortEvent } from '@dynatrace/angular-components';
     </ng-container>
 
     <ng-container dtColumnDef="traffic" dtColumnAlign="control">
-      <th dtHeaderCell *dtHeaderCellDef dt-sort-header sort-aria-label="Change sort order for network traffic">Network traffic</th>
+      <th dtHeaderCell *dtHeaderCellDef disabled dt-sort-header sort-aria-label="Change sort order for network traffic">Network traffic</th>
       <dt-cell *dtCellDef="let row">{{row.traffic | dtBytes | dtRate: 's' }}</dt-cell>
     </ng-container>
 
@@ -33,12 +41,14 @@ import { DtSortEvent } from '@dynatrace/angular-components';
 `,
   // tslint:enable
 })
-@OriginalClassName('TableSortingComponent')
-export class TableSortingComponent {
+@OriginalClassName('TableSortingFullComponent')
+export class TableSortingFullComponent {
+
+  disableAll = false;
 
   dataSource: Array<{ host: string; cpu: number; memoryPerc: number; memoryTotal: number; traffic: number }> = [
-    { host: 'et-demo-2-win3', cpu: 26, memoryPerc: 46, memoryTotal: 6000000000, traffic: 62500000 },
     { host: 'et-demo-2-win4', cpu: 30, memoryPerc: 38, memoryTotal: 5830000000, traffic: 98700000 },
+    { host: 'et-demo-2-win3', cpu: 26, memoryPerc: 46, memoryTotal: 6000000000, traffic: 62500000 },
     { host: 'docker-host2', cpu: 25.4, memoryPerc: 35, memoryTotal: 5810000000, traffic: 41900000 },
     { host: 'et-demo-2-win1', cpu: 23, memoryPerc: 7.86, memoryTotal: 5820000000, traffic: 98700000 },
   ];
@@ -60,5 +70,9 @@ export class TableSortingComponent {
 
   compare(a: number | string, b: number | string, isAsc: boolean): number {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  toggleDisableAll(): void {
+    this.disableAll = !this.disableAll;
   }
 }
