@@ -7,6 +7,8 @@
   word-wrap: normal;
   white-space: nowrap;
   text-overflow: ellipsis;
+  // this padding is necessary to have the focus outline and the table not jumping when focusing on sorting headers
+  padding: $focus-outline-width;
 
   @extend %base-cell;
 

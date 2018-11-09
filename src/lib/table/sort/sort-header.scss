@@ -1,3 +1,6 @@
+@import '../../core/style/variables';
+@import '../../core/style/interactive-common';
+
 $dt-sort-header-arrow-margin: 4px;
 $dt-sort-header-arrow-container-size: 8px;
 
@@ -20,6 +23,10 @@ $dt-sort-header-arrow-container-size: 8px;
   cursor: inherit;
   outline: 0;
   font: inherit;
+
+  &:focus {
+    @include dt-focus-style();
+  }
 }
 
 .dt-sort-header-sorted {
