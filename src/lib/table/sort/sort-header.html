@@ -4,9 +4,8 @@
           [attr.disabled]="_isDisabled() || null"
           [attr.aria-label]="ariaLabel">
     <ng-content></ng-content>
+    <div class="dt-sort-header-arrow" *ngIf="!_isDisabled() && _isSorted()">
+      <dt-icon *ngIf="_sortIconName !== ''" [name]="_sortIconName"></dt-icon>
+    </div>
   </button>
-
-  <div class="dt-sort-header-arrow" *ngIf="!_isDisabled() && _isSorted()">
-    <dt-icon *ngIf="_sortIconName !== ''" [name]="_sortIconName"></dt-icon>
-  </div>
 </div>
