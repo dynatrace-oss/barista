@@ -6,7 +6,7 @@ import {Constructor} from './constructor';
  * value once markInitialized has been called, which should be done during the ngOnInit function.
  * If the subscription is made after it has already been marked as initialized, then it will trigger
  * an emit immediately.
- * @docs-private
+ * @internal
  */
 export interface HasInitialized {
   /** Stream that emits once during the directive/component's ngOnInit. */
@@ -15,13 +15,13 @@ export interface HasInitialized {
   /**
    * Sets the state as initialized and must be called during ngOnInit to notify subscribers that
    * the directive has been initialized.
-   * @docs-private
+   * @internal
    */
   _markInitialized(): void;
 }
 
 /** Mixin to augment a directive with an initialized property that will emits when ngOnInit ends. */
-export function mixinInitialized<T extends Constructor<HasInitialized>>(base: T):
+export function mixinInitialized<T extends Constructor<{}>>(base: T):
     Constructor<HasInitialized> & T {
   return class extends base {
     /** Whether this directive has been marked as initialized. */
@@ -48,10 +48,8 @@ export function mixinInitialized<T extends Constructor<HasInitialized>>(base: T)
       }
     });
 
-    // tslint:disable-next-line:no-any
-    constructor(...args: any[]) {
-      super(...args);
-    }
+    // tslint:disable-next-line
+    constructor(...args: any[]) { super(...args); }
 
     /**
      * Marks the state as initialized and notifies pending subscribers. Should be called at the end
