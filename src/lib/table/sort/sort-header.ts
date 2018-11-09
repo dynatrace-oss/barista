@@ -86,7 +86,7 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   }
 
   /** Whether this DtSortHeader is currently sorted in either ascending or descending order. */
-  private _isSorted(): boolean {
+  _isSorted(): boolean {
     const sorted = this._sort.active === this._id &&
     (this._sort.direction === 'asc' || this._sort.direction === 'desc');
     return sorted;
