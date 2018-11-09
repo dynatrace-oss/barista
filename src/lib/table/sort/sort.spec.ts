@@ -1,21 +1,17 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DtIconModule, DtSort, DtSortDirection, DtSortEvent, DtSortHeader } from '@dynatrace/angular-components';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {
-  getSortHeaderNotContainedWithinSortError,
-  getSortInvalidDirectionError,
-} from './sort-errors';
-import { DtTableModule } from '../table-module';
-import { DtSort, DtSortEvent, DtSortDirection, DtSortHeader, DtIconModule } from '@dynatrace/angular-components';
-import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
+import { DtTableModule } from '../table-module';
+import { getSortHeaderNotContainedWithinSortError } from './sort-errors';
 
-fdescribe('DtSort', () => {
+describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;
 
   let component: DtTableSortApp;
@@ -43,7 +39,7 @@ fdescribe('DtSort', () => {
   });
 
   it('should have the sort headers register and deregister themselves', () => {
-    const sortables = component.dtSort.sortables;
+    const sortables = component.dtSort._sortables;
     expect(sortables.size).toBe(3);
     expect(sortables.get('column_a')).toBe(component.sortHeaderA);
     expect(sortables.get('column_b')).toBe(component.sortHeaderB);
@@ -67,7 +63,7 @@ fdescribe('DtSort', () => {
     beforeEach(() => {
       // Starting state for the view and directions
       expectedStates = new Map<string, { iconName: string }>([
-        ['column_a', { iconName: 'sorter-down' }],
+        ['column_a', { iconName: '' }],
         ['column_b', { iconName: '' }],
         ['column_c', { iconName: '' }],
       ]);
@@ -85,7 +81,7 @@ fdescribe('DtSort', () => {
       expectedStates.set('column_a', { iconName: 'sorter-up' });
       component.expectIconStates(expectedStates);
 
-      // // Sorting again will remove the sort and animate away the view
+      // Sorting again continue the cycle
       component.dispatchMouseEvent('column_a', 'click');
       expectedStates.set('column_a', { iconName: 'sorter-down' });
       component.expectIconStates(expectedStates);
@@ -161,52 +157,36 @@ fdescribe('DtSort', () => {
     expect(component.dtSort.direction).toBe('asc');
   });
 
-  // it('should throw an error if an MatSortable is not contained within an MatSort directive', () => {
-  //   expect(() => TestBed.createComponent(DtSortHeaderMissingSortApp).detectChanges())
-  //       .toThrowError(wrappedErrorMessage(getSortHeaderNotContainedWithinSortError()));
-  // });
+  it('should throw an error if an DtSortable is not contained within an DtSort directive', () => {
+    expect(() => TestBed.createComponent(DtSortHeaderMissingSortApp).detectChanges())
+        .toThrowError(wrappedErrorMessage(getSortHeaderNotContainedWithinSortError()));
+  });
 
-  // it('should throw an error if the provided direction is invalid', () => {
-  //   expect(() => TestBed.createComponent(DtSortableInvalidDirection).detectChanges())
-  //       .toThrowError(wrappedErrorMessage(getSortInvalidDirectionError('invalid')));
-  // });
+  it('should allow let DtSortable override the default sort parameters', () => {
+    testSingleColumnSortDirectionSequence(fixture, ['desc', 'asc'], 'column_c');
+  });
 
-  // it('should allow let DtSortable override the default sort parameters', () => {
-  //   testSingleColumnSortDirectionSequence(
-  //       fixture, ['asc', 'desc']);
-  // });
+  it('should apply the aria-labels to the button', () => {
+    const button = fixture.nativeElement.querySelector('#column_b button');
+    expect(button.getAttribute('aria-label')).toBe('Sort column b');
+  });
 
-  // it('should apply the aria-labels to the button', () => {
-  //   const button = fixture.nativeElement.querySelector('#column_a button');
-  //   expect(button.getAttribute('aria-label')).toBe('Change sorting for defaultA');
-  // });
+  it('should apply the aria-sort label to the header when sorted', () => {
+    const sortHeaderElement = fixture.nativeElement.querySelector('#column_a');
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe(null);
 
-  // it('should apply the aria-sort label to the header when sorted', () => {
-  //   const sortHeaderElement = fixture.nativeElement.querySelector('#defaultA');
-  //   expect(sortHeaderElement.getAttribute('aria-sort')).toBe(null);
+    component.sort('column_a');
+    fixture.detectChanges();
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe('ascending');
 
-  //   component.sort('column_a');
-  //   fixture.detectChanges();
-  //   expect(sortHeaderElement.getAttribute('aria-sort')).toBe('ascending');
+    component.sort('column_a');
+    fixture.detectChanges();
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe('descending');
 
-  //   component.sort('column_a');
-  //   fixture.detectChanges();
-  //   expect(sortHeaderElement.getAttribute('aria-sort')).toBe('descending');
-
-  //   component.sort('column_a');
-  //   fixture.detectChanges();
-  //   expect(sortHeaderElement.getAttribute('aria-sort')).toBe(null);
-  // });
-
-  // it('should re-render when the i18n labels have changed', () => {
-  //   const header = fixture.debugElement.query(By.directive(DtSortHeader)).nativeElement;
-  //   const button = header.querySelector('.dt-sort-header-button');
-
-  //   component.sortAriaLabel = 'Sort all of the things';
-  //   fixture.detectChanges();
-
-  //   expect(button.getAttribute('aria-label')).toBe('Sort all of the things');
-  // });
+    component.sort('column_a');
+    fixture.detectChanges();
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe('ascending');
+  });
 });
 
 /**
@@ -230,14 +210,14 @@ function testSingleColumnSortDirectionSequence(fixture: ComponentFixture<DtTable
   const actualSequence = expectedSequence.map(() => {
     component.sort(id);
 
-    // Check that the sort event's active sort is consistent with the MatSort
+    // Check that the sort event's active sort is consistent with the DtSort
     expect(component.dtSort.active).toBe(id);
     if (component.latestSortEvent !== null) {
       expect(component.latestSortEvent.active).toBe(id);
       expect(component.dtSort.direction).toBe(component.latestSortEvent.direction);
     }
 
-    // Check that the sort event's direction is consistent with the MatSort
+    // Check that the sort event's direction is consistent with the DtSort
     return component.dtSort.direction;
   });
   expect(actualSequence).toEqual(expectedSequence);
@@ -254,26 +234,37 @@ class FakeDataSource extends DataSource<any> {
   disconnect(): void {}
 }
 
-/** Column IDs of the SimpleMatSortApp for typing of function params in the component (e.g. sort) */
+/** Column IDs of the SimpleSortApp for typing of function params in the component (e.g. sort) */
 type DtSortAppColumnIds = 'column_a' | 'column_b' | 'column_c';
 
 @Component({
   template: `
-    <dt-table [dataSource]="dataSource" dtSort [dtSortDisabled]="disableAllSort">
+    <dt-table [dataSource]="dataSource"
+      dtSort
+      [dtSortDisabled]="disableAllSort"
+      [dtSortActive]="active"
+      [dtSortStart]="start"
+      [dtSortDirection]="direction">
       <ng-container dtColumnDef="column_a">
-        <dt-header-cell id="column_a" *dtHeaderCellDef #sortHeaderA dt-sort-header [disabled]="disabledColumnSort" start="asc">Column A</dt-header-cell>
+        <dt-header-cell id="column_a"
+          *dtHeaderCellDef
+          #sortHeaderA
+          dt-sort-header
+          [disabled]="disabledColumnSort">
+          Column A
+        </dt-header-cell>
         <dt-cell *dtCellDef="let row"> {{row.a}} </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="column_b">
-        <dt-header-cell id="column_b" *dtHeaderCellDef #sortHeaderB dt-sort-header [dt-sort-header-aria-label]="sortAriaLabel">
+        <dt-header-cell id="column_b" *dtHeaderCellDef #sortHeaderB dt-sort-header [sort-aria-label]="sortAriaLabel">
           Column B
         </dt-header-cell>
         <dt-cell *dtCellDef="let row"> {{row.b}} </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="column_c">
-        <dt-header-cell id="column_c" *dtHeaderCellDef #sortHeaderC dt-sort-header>Column C</dt-header-cell>
+        <dt-header-cell id="column_c" *dtHeaderCellDef #sortHeaderC dt-sort-header start="desc">Column C</dt-header-cell>
         <dt-cell *dtCellDef="let row"> {{row.c}} </dt-cell>
       </ng-container>
 
@@ -286,6 +277,9 @@ class DtTableSortApp {
   latestSortEvent: DtSortEvent | null;
   disabledColumnSort = false;
   disableAllSort = false;
+  active: string;
+  start: DtSortDirection = 'asc';
+  direction: DtSortDirection = '';
   sortAriaLabel = 'Sort column b';
 
   @ViewChild(DtSort) dtSort: DtSort;
@@ -307,24 +301,23 @@ class DtTableSortApp {
     dispatchMouseEvent(sortElement, event);
   }
 
-  expectIconStates(
-    viewStates: Map<string, {iconName: string}>): void {
-  const sortHeaders = new Map([
-    ['column_a', this.sortHeaderA],
-    ['column_b', this.sortHeaderB],
-    ['column_c', this.sortHeaderC],
-  ]);
+  expectIconStates(viewStates: Map<string, {iconName: string}>): void {
+    const sortHeaders = new Map([
+      ['column_a', this.sortHeaderA],
+      ['column_b', this.sortHeaderB],
+      ['column_c', this.sortHeaderC],
+    ]);
 
-  viewStates.forEach((viewState, id) => {
-    expect(sortHeaders.get(id)!._sortIconName).toEqual(viewState.iconName);
-  });
-}
+    viewStates.forEach((viewState, id) => {
+      expect(sortHeaders.get(id)!._sortIconName).toEqual(viewState.iconName);
+    });
+  }
 }
 
 @Component({
   template: `<dt-table [dataSource]="dataSource">
   <ng-container dtColumnDef="column_a">
-    <dt-header-cell *dtHeaderCellDefdt-sort-header>Column A</dt-header-cell>
+    <dt-header-cell *dtHeaderCellDef dt-sort-header>Column A</dt-header-cell>
     <dt-cell *dtCellDef="let row"> {{row.a}} </dt-cell>
   </ng-container>
   <dt-header-row *dtHeaderRowDef="columnsToRender"></dt-header-row>
