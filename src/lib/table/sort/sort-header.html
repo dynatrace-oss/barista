@@ -6,7 +6,7 @@
     <ng-content></ng-content>
   </button>
 
-  <div class="dt-sort-header-arrow" *ngIf="!_isDisabled()">
+  <div class="dt-sort-header-arrow" *ngIf="!_isDisabled() && _isSorted()">
     <dt-icon *ngIf="_sortIconName !== ''" [name]="_sortIconName"></dt-icon>
   </div>
 </div>

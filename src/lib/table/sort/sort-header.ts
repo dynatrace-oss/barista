@@ -1,31 +1,15 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  Optional,
-  ViewEncapsulation
-} from '@angular/core';
-import { CanDisable, mixinDisabled, isEmpty } from '@dynatrace/angular-components/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional, ViewEncapsulation } from '@angular/core';
+import { CanDisable, isEmpty, mixinDisabled } from '@dynatrace/angular-components/core';
 import { merge, Subscription } from 'rxjs';
-import { DtSort, DtSortable } from './sort';
-// import { matSortAnimations } from './sort-animations';
+import { DtColumnDef } from '../cell';
+import { DtSort } from './sort';
 import { DtSortDirection } from './sort-direction';
 import { getSortHeaderNotContainedWithinSortError } from './sort-errors';
-import { DtColumnDef } from '../cell';
-// import { MatSortHeaderIntl } from './sort-header-intl';
 
-// Boilerplate for applying mixins to the sort header.
-/** @internal */
+/**
+ * Boilerplate for applying mixins to the sort header.
+ * @internal
+ */
 export class DtSortHeaderBase {}
 export const _DtSortHeaderMixinBase = mixinDisabled(DtSortHeaderBase);
 
@@ -35,9 +19,6 @@ export type DtSortIconName = 'sorter-down' | 'sorter-up' | '';
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
- *
- * If used on header cells in a CdkTable, it will automatically default its id from its containing
- * column definition.
  */
 @Component({
   moduleId: module.id,
@@ -55,23 +36,23 @@ export type DtSortIconName = 'sorter-down' | 'sorter-up' | '';
   inputs: ['disabled'],
 })
 export class DtSortHeader extends _DtSortHeaderMixinBase
-    implements CanDisable, DtSortable, OnDestroy, OnInit {
+    implements CanDisable, OnDestroy, OnInit {
   private _rerenderSubscription: Subscription;
 
   /** The direction the arrow should be facing according to the current state. */
   _sortIconName: DtSortIconName = '';
 
-  @Input() start: DtSortDirection = '';
-  /**
-   * ID of this sort header. The name of the dtColumnDef is used as the id
-   */
+  /** Overrides the sort start value of the containing DtSort */
+  @Input() start: DtSortDirection;
+
+  /** ID of this sort header. The name of the dtColumnDef is used as the id */
   private _id: string;
 
   /** Returns the internal id */
   get id(): string { return this._id; }
 
   /** Aria label for the sort header */
-  @Input('dt-sort-header-aria-label') ariaLabel: string;
+  @Input('sort-aria-label') ariaLabel: string;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -106,14 +87,15 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
 
   /** Whether this DtSortHeader is currently sorted in either ascending or descending order. */
   private _isSorted(): boolean {
-    return this._sort.active === this._id &&
-        (this._sort.direction === 'asc' || this._sort.direction === 'desc');
+    const sorted = this._sort.active === this._id &&
+    (this._sort.direction === 'asc' || this._sort.direction === 'desc');
+    return sorted;
   }
 
   /** Updates the icon used for the sorter */
   private _updateSorterIcon(): void {
     const sorting = this._isSorted() ?
-        this._sort.direction : this.start;
+        this._sort.direction || this.start : '';
     this._sortIconName = isEmpty(sorting) ? this._sortIconName = '' : sorting === 'asc' ? 'sorter-down' : 'sorter-up';
   }
 
