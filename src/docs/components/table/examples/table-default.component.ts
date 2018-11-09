@@ -9,22 +9,22 @@ const LOG: DtLogger = DtLoggerFactory.create('TableDefaultComponent');
   // tslint:disable
   template: `<dt-table [dataSource]="dataSource1">
   <ng-container dtColumnDef="host" dtColumnAlign="text">
-    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+    <th dtHeaderCell *dtHeaderCellDef>Host</th>
     <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
   </ng-container>
 
   <ng-container dtColumnDef="cpu" dtColumnAlign="text">
-    <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
+    <th dtHeaderCell *dtHeaderCellDef>CPU</th>
     <dt-cell *dtCellDef="let row; index as i; count as c; first as f; last as l; even as e; odd as o">Row {{i}}/{{c}} {{e ? 'even' : 'odd'}}: {{row.cpu}} {{f ? 'first': ''}} {{l ? 'last' : ''}}</dt-cell>
   </ng-container>
 
   <ng-container dtColumnDef="memory" dtColumnAlign="number">
-    <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
+    <th dtHeaderCell *dtHeaderCellDef>Memory</th>
     <dt-cell *dtCellDef="let row">{{row.memory}}</dt-cell>
   </ng-container>
 
   <ng-container dtColumnDef="traffic" dtColumnAlign="control">
-    <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
+    <th dtHeaderCell *dtHeaderCellDef>Network traffic</th>
     <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
   </ng-container>
 

@@ -9,42 +9,42 @@ import { OriginalClassName } from '../../../core/decorators';
 
   <dt-table [dataSource]="dataSource1">
     <ng-container dtColumnDef="usersId" dtColumnAlign="text">
-      <dt-header-cell *dtHeaderCellDef>Users ID</dt-header-cell>
+      <th dtHeaderCell *dtHeaderCellDef>Users ID</th>
       <dt-cell *dtCellDef="let row">{{row.usersId}}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="sessionCount" dtColumnAlign="number">
-      <dt-header-cell *dtHeaderCellDef>Session count</dt-header-cell>
+      <th dtHeaderCell *dtHeaderCellDef>Session count</th>
       <dt-cell *dtCellDef="let row">{{row.sessionCount}}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="averageDuration" dtColumnAlign="number">
-      <dt-header-cell *dtHeaderCellDef>Average duration</dt-header-cell>
+      <th dtHeaderCell *dtHeaderCellDef>Average duration</th>
       <dt-cell *dtCellDef="let row">{{row.averageDuration}}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="errors" dtColumnAlign="number">
-      <dt-header-cell *dtHeaderCellDef>Errors</dt-header-cell>
+      <th dtHeaderCell *dtHeaderCellDef>Errors</th>
       <dt-cell *dtCellDef="let row">{{row.errors}}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="country" dtColumnAlign="text">
-      <dt-header-cell *dtHeaderCellDef>Country</dt-header-cell>
+      <th dtHeaderCell *dtHeaderCellDef>Country</th>
       <dt-cell *dtCellDef="let row">{{row.country}}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="city" dtColumnAlign="text">
-      <dt-header-cell *dtHeaderCellDef>City</dt-header-cell>
+      <th dtHeaderCell *dtHeaderCellDef>City</th>
       <dt-cell *dtCellDef="let row">{{row.city}}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="browserFamily" dtColumnAlign="text">
-      <dt-header-cell *dtHeaderCellDef>Browser Family</dt-header-cell>
+      <th dtHeaderCell *dtHeaderCellDef>Browser Family</th>
       <dt-cell *dtCellDef="let row">{{row.browserFamily}}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="device" dtColumnAlign="text">
-      <dt-header-cell *dtHeaderCellDef>Device</dt-header-cell>
+      <th dtHeaderCell *dtHeaderCellDef>Device</th>
       <dt-cell *dtCellDef="let row">{{row.device}}</dt-cell>
     </ng-container>
 

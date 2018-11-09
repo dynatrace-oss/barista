@@ -34,7 +34,7 @@ class MyModule {}
 | `dtColumnAlign` | Attribute | Type for the column (to be used in the alignment and for future versions add pipes and masks), possibles types are left-alignment `['left', 'text', 'id'],` center-alignment `['center', 'icon', 'control'],` right-alignment `['right', 'number', 'date', 'ip']` |
 | `dtColumnProportion` | Attribute | A number describing the width proportion for the column `[dtColumnProportion]=2` means that this column will be double width as the regular ones |
 | `dtColumnMinWidth` | Attribute | A CSS string describing the minimum width for the column `[dtColumnMinWidth]="'200px'"` means that this column will be at least 200px width |
-| `dt-header-cell` | Directive | Adds the right classes (the generic dt-header-cell and the cell specific dt-column-css_friendly_column_name) and role (so the browser knows how to parse it. In this case it makes it act as a column header in a native html table) |
+| `dtHeaderCell` | Directive | Adds the right classes (the generic dt-header-cell and the cell specific dt-column-css_friendly_column_name) and role (so the browser knows how to parse it. In this case it makes it act as a column header in a native html table) |
 | `*dtHeaderCellDef` | Attribute | Captures the template of a column's header cell (the title for the column in the header) and as well as cell-specific properties so that the table can render the header properly.  |
 | `dt-cell` | Component | Adds the right classes and role (so the browser knows how to parse it. In this case it makes it act as a grid cell in a native html table) |
 | `dt-expandable-cell` | Component | Adds the right classes, role and content for the details cell in an expandable table |
@@ -65,12 +65,12 @@ There are no outputs at this stage. The table is totally passive.
 The cdk table stablishes a very different approach on how to define the table template. It does not use the native HTML table. So there is no td, tr, th involved.
 Instead, you need to define all possible columns that the table may show (depending on the data available) and then define the table header and body by selecting from the column definitions, which subset of columns you will show.
 
-Each column definition is created with dt-header-cell and dt-cell inside an [ng-container](https://angular.io/guide/structural-directives#ngcontainer) structural directive with a dtColumDef attribute directive applied to it.
+Each column definition is created with dtHeaderCell and dt-cell inside an [ng-container](https://angular.io/guide/structural-directives#ngcontainer) structural directive with a dtColumDef attribute directive applied to it.
 
 ```html
 
 <ng-container dtColumnDef="username">
-  <dt-header-cell *dtHeaderCellDef> User name </dt-header-cell>
+  <th dtHeaderCell *dtHeaderCellDef> User name </th>
   <dt-cell *dtCellDef="let row"><span ngNonBindable>{{row.a}}</dt-cell>
 </ng-container>
 
@@ -204,6 +204,70 @@ The table styling depends on the theme the component is in. You can set a theme 
 ## Sorting
 
 <docs-source-example example="TableSortingComponent" fullwidth="true"></docs-source-example>
+
+The `DtSort` and `dt-sort-header` are used to add sorting functionality to the table.
+
+To add sorting capabilities to your tables add the `dtSort` directive to the `dt-table` component. For each column that should be sortable by the user add `dt-sort-header` to the `dtHeaderCell`. The `dt-sort-header` registers itself with the id given to the `dtColumnDef` with the `DtSort` directive.
+
+```html
+<dt-table ... dtSort ...>
+```
+
+And use the `dt-sort-header` component for the header cells.
+
+```html
+<th dtHeaderCell dt-sort-header ...>
+```
+
+### DtSort
+
+You can set the following inputs and outputs on the `dtSort` directive. 
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `@Input() dtSortActive` | `string` | | The id of the most recent active column |
+| `@Input() dtSortDirection` | `DtSortDirection` | `asc` | The sort direction of the currently active column |
+| `@Input() dtSortDisabled` | `boolean` | `false` | Wether sorting is disabled for the entire table |
+| `@Input() dtSortStart` | `DtSortDirection` | | Whe direction to set when an DtSortHeader is initially sorted. May be overriden by the DtSortHeader's sort start. |
+| `@Output('dtSortChange') sortChange` | `EventEmitter<DtSortEvent>` | | Event emmited when the user changes either the active sort or the sorting direction.
+
+
+#### Methods
+
+| Name | Description | Parameters | Return value |
+| --- | --- | --- |
+| `sort` | Sets the active sort id and new sort direction | `sortable: DtSortHeader` | `void` |
+
+### DtSortHeader
+
+You can set the following inputs and outputs on the `dt-sort-header` component. 
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `@Input() disabled` | `boolean` | | Wether sorting is disabled for this sort header |
+| `@Input()  start` | `DtSortDirection` | `asc` | Overrides the sort start value of the containing `DtSort`. |
+| `@Input()  sort-aria-label` | `string` | | Sets the aria label for the button used for sorting |
+
+#### Accessibility 
+
+Please provide a `sort-aria-label` for each `dt-sort-header` to make the sorting experience accessible for all users. E.g. `Change sort order for column hosts`.
+
+### DtSortDirection
+
+The type used for the sort direction either `asc` or `desc`
+
+### DtSortEvent
+
+The event emitted when the user changes either the active sort or the sorting direction. The event contains the following properties.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `active` | `string` | the id of the currently active column |
+| `direction` | `DtSortDirection` | The direction for the currently active column |
+
+To see a combination with initial sort direction and active column and disabling behaviour - please see the following complex example.
+
+<docs-source-example example="TableSortingFullComponent" fullwidth="true"></docs-source-example>
 
 **NOTE:**
 
