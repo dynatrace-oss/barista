@@ -22,7 +22,8 @@ export class ConsoleAppender {
   private _log(level: DtLogLevel, message: string | DtLogEntryParam): void {
     switch (level) {
       case DtLogLevel.ERROR: console.error(message); break;
-      case DtLogLevel.WARN: console.warn(message); break;
+      case DtLogLevel.WARN:
+      case DtLogLevel.WARNING: console.warn(message); break;
       case DtLogLevel.INFO: console.info(message); break;
       case DtLogLevel.DEBUG: console.log(message); break;
       default: console.log(message);
