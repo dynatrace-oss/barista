@@ -35,10 +35,13 @@ export class DtFilterFieldFilterNode extends DtFilterFieldNode {
 
   toString(): string {
     // tslint:disable-next-line:no-magic-numbers
-    const lastNodes = this.properties.slice(-2);
+    const lastProperties = this.properties.slice(-2);
     return this.viewValue ? this. viewValue :
-      (lastNodes.length ?
-        (lastNodes.length > 1 ? `${lastNodes[0].toString()}: ${lastNodes[1].toString()}` : lastNodes[0].toString()) : '');
+      (lastProperties.length ?
+        (lastProperties.length > 1 ?
+          `${lastProperties[0].toString()}: ${lastProperties[1].toString()}` :
+          lastProperties[0].toString()
+        ) : '');
   }
 }
 
