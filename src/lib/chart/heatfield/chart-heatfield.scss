@@ -1,0 +1,33 @@
+@import '../../core/style/variables';
+@import '../../core/style/overlay';
+@import './chart-heatfield-theme';
+
+.dt-chart-heatfield-marker {
+  height: 8px;
+  outline: 2px solid #fff;
+  border-radius: 3px;
+  margin-bottom: 2px;
+  position: absolute;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  display: block;
+  z-index: 1;
+}
+
+.dt-chart-heatfield-marker.dt-chart-heatfield-active {
+  height: 12px;
+}
+
+.dt-chart-heatfield-backdrop {
+  position: absolute;
+}
+
+.dt-chart-heatfield-overlay {
+  @include dt-overlay-container();
+}
+
+// Apply the heatfield theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-chart-heatfield($dt-current-theme);
+}

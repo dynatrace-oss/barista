@@ -20,11 +20,12 @@
 }
 
 // Creates a theme color palette containting the default, hover and active color
-@function dt-theme-palette($default, $hover, $active) {
+@function dt-theme-palette($default, $hover, $active, $background) {
   $result: (
     default: $default,
     hover: $hover,
     active: $active,
+    background: $background,
   );
   @return $result;
 }
