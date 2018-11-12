@@ -11,9 +11,11 @@ import {
   DtTableEmptyStateMessage,
   DtTableEmptyStateDirective,
 } from './table-empty-state';
-import {DtTableLoadingState} from './table-loading-state';
-import {DtExpandableRow} from './expandable-row';
-import {DtIconModule} from '@dynatrace/angular-components/icon';
+import { DtTableLoadingState } from './table-loading-state';
+import { DtExpandableRow } from './expandable-row';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtSortHeader } from './sort/sort-header';
+import { DtSort } from './sort/sort';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
@@ -34,6 +36,8 @@ const EXPORTED_DECLARATIONS = [
   DtTableEmptyStateTitle,
   DtTableEmptyStateMessage,
   DtTableLoadingState,
+  DtSort,
+  DtSortHeader,
 ];
 
 @NgModule({

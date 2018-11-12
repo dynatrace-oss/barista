@@ -201,6 +201,74 @@ The table will always
 
 The table styling depends on the theme the component is in. You can set a theme on an area of the app by using the `dtTheme` directive.
 
+## Sorting
+
+<docs-source-example example="TableSortingComponent" fullwidth="true"></docs-source-example>
+
+The `DtSort` and `dt-sort-header` are used to add sorting functionality to the table.
+
+To add sorting capabilities to your tables add the `dtSort` directive to the `dt-table` component. For each column that should be sortable by the user add `dt-sort-header` to the `dt-header-cell`. The `dt-sort-header` registers itself with the id given to the `dtColumnDef` with the `DtSort` directive.
+
+```html
+<dt-table ... dtSort ...>
+```
+
+And use the `dt-sort-header` component for the header cells.
+
+```html
+<dt-header-cell dt-sort-header ...>
+```
+
+### DtSort
+
+You can set the following inputs and outputs on the `dtSort` directive. 
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `@Input() dtSortActive` | `string` | | The id of the most recent active column |
+| `@Input() dtSortDirection` | `DtSortDirection` | `asc` | The sort direction of the currently active column |
+| `@Input() dtSortDisabled` | `boolean` | `false` | Wether sorting is disabled for the entire table |
+| `@Input() dtSortStart` | `DtSortDirection` | | Whe direction to set when an DtSortHeader is initially sorted. May be overriden by the DtSortHeader's sort start. |
+| `@Output('dtSortChange') sortChange` | `EventEmitter<DtSortEvent>` | | Event emmited when the user changes either the active sort or the sorting direction.
+
+
+#### Methods
+
+| Name | Description | Parameters | Return value |
+| --- | --- | --- |
+| `sort` | Sets the active sort id and new sort direction | `sortable: DtSortHeader` | `void` |
+
+### DtSortHeader
+
+You can set the following inputs and outputs on the `dt-sort-header` component. 
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `@Input() disabled` | `boolean` | | Wether sorting is disabled for this sort header |
+| `@Input()  start` | `DtSortDirection` | `asc` | Overrides the sort start value of the containing `DtSort`. |
+| `@Input()  sort-aria-label` | `string` | | Sets the aria label for the button used for sorting |
+
+#### Accessibility 
+
+Please provide a `sort-aria-label` for each `dt-sort-header` to make the sorting experience accessible for all users. E.g. `Change sort order for column hosts`.
+
+### DtSortDirection
+
+The type used for the sort direction either `asc` or `desc`
+
+### DtSortEvent
+
+The event emitted when the user changes either the active sort or the sorting direction. The event contains the following properties.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `active` | `string` | the id of the currently active column |
+| `direction` | `DtSortDirection` | The direction for the currently active column |
+
+To see a combination with initial sort direction and active column and disabling behaviour - please see the following complex example.
+
+<docs-source-example example="TableSortingFullComponent" fullwidth="true"></docs-source-example>
+
 **NOTE:**
 
 Right now only setting the light or dark mode is available. Full theming functionality will be added in a later stage.
@@ -212,7 +280,6 @@ This version does not yet allow for any of the following capabilities that Dynat
 * two lines per row tables.
 * on hover reaction of any type (ex: on hover tool tips for icons)
 * Filtering
-* Sorting
 * Pagination
 * Problem/Warning indicators
 * Edit mode
