@@ -6,10 +6,11 @@ import { ColorButtonExampleComponent } from './examples/button-color-example.com
 import { DarkButtonExampleComponent } from './examples/button-dark-example.component';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtButtonModule, DtThemingModule, DtIconModule } from '@dynatrace/angular-components';
+import { DtButtonModule, DtThemingModule, DtIconModule, DtLoadingDistractorModule } from '@dynatrace/angular-components';
 import { IconsButtonExampleComponent } from './examples/button-icons-example.component';
 import { IconOnlyButtonExampleComponent } from './examples/button-icon-only-example.component';
 import { DisabledButtonExampleComponent } from './examples/button-disabled-example.component';
+import { LoadingSpinnerButtonExampleComponent } from './examples/button-loading-spinner-example.component';
 
 export const EXAMPLES = [
   DefaultButtonExampleComponent,
@@ -20,6 +21,7 @@ export const EXAMPLES = [
   IconOnlyButtonExampleComponent,
   DisabledButtonExampleComponent,
   DarkButtonExampleComponent,
+  LoadingSpinnerButtonExampleComponent,
 ];
 
 @NgModule({
@@ -29,6 +31,7 @@ export const EXAMPLES = [
     DtButtonModule,
     DtThemingModule,
     DtIconModule,
+    DtLoadingDistractorModule,
   ],
   declarations: [
     ...EXAMPLES,

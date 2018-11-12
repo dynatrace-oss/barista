@@ -1,3 +1,6 @@
+<span class="dt-button-spinner" *ngIf="_hasLoadingSpinner">
+  <ng-content select="dt-loading-spinner"></ng-content>
+</span>
 <span class="dt-button-icon" *ngIf="_icons.length">
   <ng-content select="dt-icon"></ng-content>
 </span>
