@@ -22,6 +22,7 @@ import {
 } from '@dynatrace/angular-components/core';
 import { DtIcon } from '@dynatrace/angular-components/icon';
 import { Subscription, NEVER } from 'rxjs';
+import { DtLoadingSpinner } from '../loading-distractor';
 
 export function getDtButtonNestedVariantNotAllowedError(): Error {
   return Error(`The nested button variant is only allowed on dt-icon-button`);
@@ -34,6 +35,7 @@ export function getDtButtonNestedVariantNotAllowedError(): Error {
 const BUTTON_HOST_ATTRIBUTES = [
   'dt-button',
   'dt-icon-button',
+  'dt-loading-button',
 ];
 
 // Boilerplate for applying mixins to DtButton.
@@ -50,7 +52,7 @@ const defaultVariant = 'primary';
  */
 @Component({
   moduleId: module.id,
-  selector: `button[dt-button], button[dt-icon-button]`,
+  selector: `button[dt-button], button[dt-icon-button], button[dt-loading-button]`,
   exportAs: 'dtButton',
   host: {
     'class': 'dt-button',
@@ -83,6 +85,8 @@ export class DtButton extends _DtButtonMixinBase implements OnDestroy, AfterCont
   private _iconChangesSub: Subscription = NEVER.subscribe();
 
   @ContentChildren(DtIcon) _icons: QueryList<DtIcon>;
+
+  @ContentChildren(DtLoadingSpinner) _hasLoadingSpinner: QueryList<DtLoadingSpinner>;
 
   constructor(
     elementRef: ElementRef,
