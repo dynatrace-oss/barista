@@ -1,6 +1,8 @@
 export enum DtLogLevel {
   ERROR = 'ERROR',
-  WARN = 'WARN',
+  // @deprecated @breaking-change
+  WARN = 'WARNING',
+  WARNING = 'WARNING',
   INFO = 'INFO',
   DEBUG = 'DEBUG',
 }
