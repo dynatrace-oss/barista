@@ -8,7 +8,7 @@ import { OriginalClassName } from '../../../core/decorators';
   <dt-table [dataSource]="dataSource1" [isLoading]="tableLoading">
 
     <ng-container *ngFor="let column of columnsDef;" [dtColumnDef]="column.id" [dtColumnAlign]="column.type">
-      <th dtHeaderCell *dtHeaderCellDef>{{ column.title }}</th>
+      <dt-header-cell *dtHeaderCellDef>{{ column.title }}</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{ row[column.id] }}</dt-cell>
     </ng-container>
 

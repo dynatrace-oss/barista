@@ -1,8 +1,8 @@
-import { Directive, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
-import { CanDisable, HasInitialized, mixinDisabled, mixinInitialized } from '@dynatrace/angular-components/core';
+import { Directive, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, Output } from '@angular/core';
+import { CanDisable, mixinDisabled } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
 import { DtSortDirection } from './sort-direction';
-import { getSortInvalidDirectionError } from './sort-errors';
+import { getDtSortInvalidDirectionError } from './sort-errors';
 import { DtSortHeader } from './sort-header';
 
 /** The current sort state. */
@@ -19,7 +19,7 @@ export interface DtSortEvent {
  * @internal
  */
 export class DtSortBase {}
-export const _DtSortMixinBase = mixinInitialized(mixinDisabled(DtSortBase));
+export const _DtSortMixinBase = mixinDisabled(DtSortBase);
 
 /** Container for DtSortHeaders to manage the sort state and provide default sort parameters. */
 @Directive({
@@ -28,11 +28,12 @@ export const _DtSortMixinBase = mixinInitialized(mixinDisabled(DtSortBase));
   inputs: ['disabled: dtSortDisabled'],
 })
 export class DtSort extends _DtSortMixinBase
-    implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
-  /** Collection of all registered sort headers that this directive manages. */
-  _sortables = new Map<string, DtSortHeader>();
+    implements CanDisable, OnChanges, OnDestroy {
 
-  /** Used to notify any child components listening to state changes. */
+  /**
+   * Used to notify any child components listening to state changes.
+   * @internal
+   */
   readonly _stateChanges = new Subject<void>();
 
   /** The id of the most recently sorted DtSortHeader. */
@@ -49,7 +50,7 @@ export class DtSort extends _DtSortMixinBase
   get direction(): DtSortDirection { return this._direction; }
   set direction(direction: DtSortDirection) {
     if (isDevMode() && direction && direction !== 'asc' && direction !== 'desc') {
-      throw getSortInvalidDirectionError(direction);
+      throw getDtSortInvalidDirectionError(direction);
     }
     this._direction = direction;
   }
@@ -57,22 +58,6 @@ export class DtSort extends _DtSortMixinBase
 
   /** Event emitted when the user changes either the active sort or sort direction. */
   @Output('dtSortChange') readonly sortChange: EventEmitter<DtSortEvent> = new EventEmitter<DtSortEvent>();
-
-  /**
-   * Register function to be used by the contained DtSortHeader. Adds the DtSortHeader to the
-   * collection of DtSortHeader.
-   */
-  register(sortable: DtSortHeader): void {
-    this._sortables.set(sortable.id, sortable);
-  }
-
-  /**
-   * Unregister function to be used by the contained DtSortHeader. Removes the DtSortHeader from the
-   * collection of contained DtSortHeaders.
-   */
-  deregister(sortable: DtSortHeader): void {
-    this._sortables.delete(sortable.id);
-  }
 
   /** Sets the active sort id and determines the new sort direction. */
   sort(sortable: DtSortHeader): void {
@@ -95,10 +80,6 @@ export class DtSort extends _DtSortMixinBase
     let nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
     if (nextDirectionIndex >= sortDirectionCycle.length) { nextDirectionIndex = 0; }
     return sortDirectionCycle[nextDirectionIndex];
-  }
-
-  ngOnInit(): void {
-    this._markInitialized();
   }
 
   ngOnChanges(): void {

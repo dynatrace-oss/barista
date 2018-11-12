@@ -48,7 +48,7 @@ export class DtColumnDef extends CdkColumnDef {
 
 /** Header cell template container that adds the right classes and role. */
 @Directive({
-  selector: 'dt-header-cell, th[dtHeaderCell]',
+  selector: 'dt-header-cell',
   host: {
     class: 'dt-header-cell',
     role: 'columnheader',
