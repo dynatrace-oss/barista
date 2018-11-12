@@ -25,6 +25,10 @@
   padding: 1px 9px;
 }
 
+.dt-expandable-row-base + .dt-expandable-row-collapsible {
+  overflow: hidden;
+}
+
 .dt-expandable-row-base-expanded {
   border-top: 2px solid $gray-700;
   border-bottom: hidden;
