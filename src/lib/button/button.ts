@@ -35,7 +35,6 @@ export function getDtButtonNestedVariantNotAllowedError(): Error {
 const BUTTON_HOST_ATTRIBUTES = [
   'dt-button',
   'dt-icon-button',
-  'dt-loading-button',
 ];
 
 // Boilerplate for applying mixins to DtButton.
@@ -52,7 +51,7 @@ const defaultVariant = 'primary';
  */
 @Component({
   moduleId: module.id,
-  selector: `button[dt-button], button[dt-icon-button], button[dt-loading-button]`,
+  selector: `button[dt-button], button[dt-icon-button]`,
   exportAs: 'dtButton',
   host: {
     'class': 'dt-button',
@@ -85,8 +84,6 @@ export class DtButton extends _DtButtonMixinBase implements OnDestroy, AfterCont
   private _iconChangesSub: Subscription = NEVER.subscribe();
 
   @ContentChildren(DtIcon) _icons: QueryList<DtIcon>;
-
-  @ContentChildren(DtLoadingSpinner) _hasLoadingSpinner: QueryList<DtLoadingSpinner>;
 
   constructor(
     elementRef: ElementRef,
