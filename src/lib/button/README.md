@@ -82,6 +82,8 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 ### With loading spinner
 
+The loading spinner button can only be used within a disabled button.
+
 <docs-source-example example="LoadingSpinnerButtonExampleComponent"></docs-source-example>
 
 ### Icon only

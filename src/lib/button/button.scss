@@ -94,11 +94,6 @@
   }
 }
 
-.dt-loading-button .dt-button-spinner {
-  vertical-align: -webkit-baseline-middle;
-  margin-right: 8px;
-}
-
 // Apply the button theme to all theme definitions
 @include dt-apply-theme() {
   @include dt-theme-button($dt-current-theme);
