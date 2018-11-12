@@ -27,8 +27,9 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
     plotBorderColor: Colors.GRAY_300,
     plotBorderWidth: 1,
     spacingBottom: 12,
-    spacingTop: 12,
+    spacingTop: 16,
     animation: false,
+    backgroundColor: 'transparent',
   },
   plotOptions: {
     series: {
