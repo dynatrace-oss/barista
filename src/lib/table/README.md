@@ -34,7 +34,7 @@ class MyModule {}
 | `dtColumnAlign` | Attribute | Type for the column (to be used in the alignment and for future versions add pipes and masks), possibles types are left-alignment `['left', 'text', 'id'],` center-alignment `['center', 'icon', 'control'],` right-alignment `['right', 'number', 'date', 'ip']` |
 | `dtColumnProportion` | Attribute | A number describing the width proportion for the column `[dtColumnProportion]=2` means that this column will be double width as the regular ones |
 | `dtColumnMinWidth` | Attribute | A CSS string describing the minimum width for the column `[dtColumnMinWidth]="'200px'"` means that this column will be at least 200px width |
-| `dtHeaderCell` | Directive | Adds the right classes (the generic dt-header-cell and the cell specific dt-column-css_friendly_column_name) and role (so the browser knows how to parse it. In this case it makes it act as a column header in a native html table) |
+| `dt-header-cell` | Directive | Adds the right classes (the generic dt-header-cell and the cell specific dt-column-css_friendly_column_name) and role (so the browser knows how to parse it. In this case it makes it act as a column header in a native html table) |
 | `*dtHeaderCellDef` | Attribute | Captures the template of a column's header cell (the title for the column in the header) and as well as cell-specific properties so that the table can render the header properly.  |
 | `dt-cell` | Component | Adds the right classes and role (so the browser knows how to parse it. In this case it makes it act as a grid cell in a native html table) |
 | `dt-expandable-cell` | Component | Adds the right classes, role and content for the details cell in an expandable table |
@@ -65,12 +65,12 @@ There are no outputs at this stage. The table is totally passive.
 The cdk table stablishes a very different approach on how to define the table template. It does not use the native HTML table. So there is no td, tr, th involved.
 Instead, you need to define all possible columns that the table may show (depending on the data available) and then define the table header and body by selecting from the column definitions, which subset of columns you will show.
 
-Each column definition is created with dtHeaderCell and dt-cell inside an [ng-container](https://angular.io/guide/structural-directives#ngcontainer) structural directive with a dtColumDef attribute directive applied to it.
+Each column definition is created with dt-header-cell and dt-cell inside an [ng-container](https://angular.io/guide/structural-directives#ngcontainer) structural directive with a dtColumDef attribute directive applied to it.
 
 ```html
 
 <ng-container dtColumnDef="username">
-  <th dtHeaderCell *dtHeaderCellDef> User name </th>
+  <dt-header-cell *dtHeaderCellDef> User name </dt-header-cell>
   <dt-cell *dtCellDef="let row"><span ngNonBindable>{{row.a}}</dt-cell>
 </ng-container>
 
@@ -207,7 +207,7 @@ The table styling depends on the theme the component is in. You can set a theme 
 
 The `DtSort` and `dt-sort-header` are used to add sorting functionality to the table.
 
-To add sorting capabilities to your tables add the `dtSort` directive to the `dt-table` component. For each column that should be sortable by the user add `dt-sort-header` to the `dtHeaderCell`. The `dt-sort-header` registers itself with the id given to the `dtColumnDef` with the `DtSort` directive.
+To add sorting capabilities to your tables add the `dtSort` directive to the `dt-table` component. For each column that should be sortable by the user add `dt-sort-header` to the `dt-header-cell`. The `dt-sort-header` registers itself with the id given to the `dtColumnDef` with the `DtSort` directive.
 
 ```html
 <dt-table ... dtSort ...>
@@ -216,7 +216,7 @@ To add sorting capabilities to your tables add the `dtSort` directive to the `dt
 And use the `dt-sort-header` component for the header cells.
 
 ```html
-<th dtHeaderCell dt-sort-header ...>
+<dt-header-cell dt-sort-header ...>
 ```
 
 ### DtSort
