@@ -216,8 +216,8 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
 
   _handleInputKeyUp(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
-    if (keyCode === ENTER && this._inputValue.length && this._freeTextInputEl) {
-     this._handleFreeTextSubmited();
+    if (keyCode === ENTER && this._inputValue.length) {
+     this._handleFreeTextSubmitted();
     }
   }
 
@@ -260,7 +260,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  private _handleFreeTextSubmited(): void {
+  private _handleFreeTextSubmitted(): void {
     const property = new DtFilterFieldNodeText(this._inputValue);
     this._addPropertyToCurrentFilterNode(property);
 
