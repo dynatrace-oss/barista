@@ -22,7 +22,6 @@ import {
 } from '@dynatrace/angular-components/core';
 import { DtIcon } from '@dynatrace/angular-components/icon';
 import { Subscription, NEVER } from 'rxjs';
-import { DtLoadingSpinner } from '../loading-distractor';
 
 export function getDtButtonNestedVariantNotAllowedError(): Error {
   return Error(`The nested button variant is only allowed on dt-icon-button`);
