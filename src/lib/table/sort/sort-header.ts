@@ -4,7 +4,7 @@ import { merge, Subscription } from 'rxjs';
 import { DtColumnDef } from '../cell';
 import { DtSort } from './sort';
 import { DtSortDirection } from './sort-direction';
-import { getSortHeaderNotContainedWithinSortError } from './sort-errors';
+import { getDtSortHeaderNotContainedWithinSortError } from './sort-errors';
 
 /**
  * Boilerplate for applying mixins to the sort header.
@@ -29,7 +29,7 @@ export type DtSortIconName = 'sorter-down' | 'sorter-up' | '';
   host: {
     '(click)': '_handleClick()',
     '[attr.aria-sort]': '_getAriaSortAttribute()',
-    '[class.dt-sort-header-disabled]': '_isDisabled()',
+    '[class.dt-sort-header-disabled]': '_isDisabled',
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,7 +42,10 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   /** The direction the arrow should be facing according to the current state. */
   _sortIconName: DtSortIconName = '';
 
-  /** Overrides the sort start value of the containing DtSort */
+  /**
+   * Overrides the sort start value of the containing DtSort
+   * @internal
+   */
   @Input() start: DtSortDirection;
 
   /** ID of this sort header. The name of the dtColumnDef is used as the id */
@@ -54,15 +57,33 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   /** Aria label for the sort header */
   @Input('sort-aria-label') ariaLabel: string;
 
+  /**
+   * Wether the entire table sorting is disabled or the column is disabled
+   * @internal
+   */
+  get _isDisabled(): boolean {
+    return this._sort.disabled || this.disabled;
+  }
+
+  /**
+   * Whether this DtSortHeader is currently sorted in either ascending or descending order.
+   * @internal
+   */
+  get _isSorted(): boolean {
+    const sorted = this._sort.active === this._id &&
+    (this._sort.direction === 'asc' || this._sort.direction === 'desc');
+    return sorted;
+  }
+
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _dtColumnDef: DtColumnDef,
-    @Optional() public _sort: DtSort) {
+    @Optional() private _sort: DtSort) {
 
     super();
 
     if (!_sort) {
-      throw getSortHeaderNotContainedWithinSortError();
+      throw getDtSortHeaderNotContainedWithinSortError();
     }
 
     this._rerenderSubscription =
@@ -76,39 +97,27 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   ngOnInit(): void {
     this._id = this._dtColumnDef.name;
     this._updateSorterIcon();
-
-    this._sort.register(this);
   }
 
   ngOnDestroy(): void {
-    this._sort.deregister(this);
     this._rerenderSubscription.unsubscribe();
-  }
-
-  /** Whether this DtSortHeader is currently sorted in either ascending or descending order. */
-  _isSorted(): boolean {
-    const sorted = this._sort.active === this._id &&
-    (this._sort.direction === 'asc' || this._sort.direction === 'desc');
-    return sorted;
   }
 
   /** Updates the icon used for the sorter */
   private _updateSorterIcon(): void {
-    const sorting = this._isSorted() ?
+    const sorting = this._isSorted ?
         this._sort.direction || this.start : '';
     this._sortIconName = isEmpty(sorting) ? this._sortIconName = '' : sorting === 'asc' ? 'sorter-down' : 'sorter-up';
   }
 
-  /** Triggers the sort on this sort header */
+  /**
+   * Triggers the sort on this sort header
+   * @internal
+   */
   _handleClick(): void {
-    if (this._isDisabled()) { return; }
+    if (this._isDisabled) { return; }
 
     this._sort.sort(this);
-  }
-
-  /** Wether the entire table sorting is disabled or the column is disabled */
-  _isDisabled(): boolean {
-    return this._sort.disabled || this.disabled;
   }
 
   /**
@@ -116,9 +125,10 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    * is not sorted, returns null so that the attribute is removed from the host element. Aria spec
    * says that the aria-sort property should only be present on one header at a time, so removing
    * ensures this is true.
+   * @internal
    */
   _getAriaSortAttribute(): string | null {
-    if (!this._isSorted()) { return null; }
+    if (!this._isSorted) { return null; }
 
     return this._sort.direction === 'asc' ? 'ascending' : 'descending';
   }

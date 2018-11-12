@@ -1,7 +1,7 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtIconModule, DtSort, DtSortDirection, DtSortEvent, DtSortHeader } from '@dynatrace/angular-components';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
 import { DtTableModule } from '../table-module';
-import { getSortHeaderNotContainedWithinSortError } from './sort-errors';
+import { getDtSortHeaderNotContainedWithinSortError } from './sort-errors';
 
 describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;
@@ -37,25 +37,6 @@ describe('DtSort', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-  it('should have the sort headers register and deregister themselves', () => {
-    const sortables = component.dtSort._sortables;
-    expect(sortables.size).toBe(3);
-    expect(sortables.get('column_a')).toBe(component.sortHeaderA);
-    expect(sortables.get('column_b')).toBe(component.sortHeaderB);
-    expect(sortables.get('column_c')).toBe(component.sortHeaderC);
-
-    fixture.destroy();
-    expect(sortables.size).toBe(0);
-  });
-
-  it('should mark itself as initialized', fakeAsync(() => {
-    let isMarkedInitialized = false;
-    component.dtSort.initialized.subscribe(() => isMarkedInitialized = true);
-
-    tick();
-    expect(isMarkedInitialized).toBeTruthy();
-  }));
 
   describe('checking correct icon for its various states', () => {
     let expectedStates: Map<string, { iconName: string }>;
@@ -159,7 +140,7 @@ describe('DtSort', () => {
 
   it('should throw an error if an DtSortable is not contained within an DtSort directive', () => {
     expect(() => TestBed.createComponent(DtSortHeaderMissingSortApp).detectChanges())
-        .toThrowError(wrappedErrorMessage(getSortHeaderNotContainedWithinSortError()));
+        .toThrowError(wrappedErrorMessage(getDtSortHeaderNotContainedWithinSortError()));
   });
 
   it('should allow let DtSortable override the default sort parameters', () => {
