@@ -2,11 +2,13 @@
 @import '../../core/style/variables';
 @import 'base-cell';
 
-:host.dt-header-cell {
+::ng-deep .dt-header-cell {
   @include label-font();
   word-wrap: normal;
   white-space: nowrap;
   text-overflow: ellipsis;
+  // this padding is necessary to have the focus outline and the table not jumping when focusing on sorting headers
+  padding: $focus-outline-width;
 
   @extend %base-cell;
 

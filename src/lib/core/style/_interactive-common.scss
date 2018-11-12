@@ -1,7 +1,9 @@
+@import 'variables';
+
 // Mixin overriding default focus styles and setting our own
 @mixin dt-focus-style() {
   outline: none;
-  box-shadow: 0 0 0 2px $focuscolor;
+  box-shadow: 0 0 0 $focus-outline-width $focuscolor;
 }
 
 // Mixin overriding default styles for interactive elements (button, ..)
