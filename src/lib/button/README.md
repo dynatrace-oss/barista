@@ -80,6 +80,10 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 <docs-source-example example="IconsButtonExampleComponent" fullwidth="true"></docs-source-example>
 
+### With loading spinner
+
+<docs-source-example example="LoadingSpinnerButtonExampleComponent"></docs-source-example>
+
 ### Icon only
 
 <docs-source-example example="IconOnlyButtonExampleComponent"></docs-source-example>
