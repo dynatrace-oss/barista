@@ -12,6 +12,8 @@ import { ChartLoadingExampleComponent } from './examples/chart-loading-example.c
 import { ChartCategorizedExampleComponent } from './examples/chart-categorized-example.component';
 import { ChartPieExampleComponent } from './examples/chart-pie-example.component';
 import { ChartAreaRangeExampleComponent } from './examples/chart-arearange-example.component';
+import { ChartHeatfieldExampleComponent } from './examples/chart-heatfield-example.component';
+import { ChartHeatfieldMultipleExampleComponent } from './examples/chart-heatfield-multiple-example.component';
 
 export const EXAMPLES = [
   ChartDefaultExampleComponent,
@@ -21,6 +23,8 @@ export const EXAMPLES = [
   ChartCategorizedExampleComponent,
   ChartPieExampleComponent,
   ChartAreaRangeExampleComponent,
+  ChartHeatfieldExampleComponent,
+  ChartHeatfieldMultipleExampleComponent,
 ];
 
 @NgModule({
