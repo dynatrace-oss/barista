@@ -16,22 +16,22 @@ import { DtSortEvent } from '@dynatrace/angular-components';
     dtSortStart="asc"
     dtSortDirection="desc">
     <ng-container dtColumnDef="host" dtColumnAlign="text">
-      <th dtHeaderCell *dtHeaderCellDef dt-sort-header sort-aria-label="Change sort order for hosts">Host</th>
+      <dt-header-cell *dtHeaderCellDef dt-sort-header sort-aria-label="Change sort order for hosts">Host</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="cpu" dtColumnAlign="text">
-      <th dtHeaderCell *dtHeaderCellDef dt-sort-header sort-aria-label="Change sort order for cpus">CPU</th>
+      <dt-header-cell *dtHeaderCellDef dt-sort-header sort-aria-label="Change sort order for cpus">CPU</dt-header-cell>
       <dt-cell *dtCellDef="let row; index as i; count as c; first as f; last as l; even as e; odd as o">{{row.cpu | dtPercent}}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="memory" dtColumnAlign="number">
-      <th dtHeaderCell *dtHeaderCellDef dt-sort-header start="desc" sort-aria-label="Change sort order for memory">Memory</th>
+      <dt-header-cell *dtHeaderCellDef dt-sort-header start="desc" sort-aria-label="Change sort order for memory">Memory</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.memoryPerc | dtPercent}} of {{row.memoryTotal | dtBytes }}</dt-cell>
     </ng-container>
 
     <ng-container dtColumnDef="traffic" dtColumnAlign="control">
-      <th dtHeaderCell *dtHeaderCellDef disabled dt-sort-header sort-aria-label="Change sort order for network traffic">Network traffic</th>
+      <dt-header-cell *dtHeaderCellDef disabled dt-sort-header sort-aria-label="Change sort order for network traffic">Network traffic</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.traffic | dtBytes | dtRate: 's' }}</dt-cell>
     </ng-container>
 

@@ -9,27 +9,27 @@ const LOG: DtLogger = DtLoggerFactory.create('TableExpandableRowsComponent');
   // tslint:disable
   template: `<dt-table [dataSource]="dataSource1">
   <ng-container dtColumnDef="host" dtColumnAlign="text">
-    <th dtHeaderCell *dtHeaderCellDef>Host</th>
+    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
   </ng-container>
 
   <ng-container dtColumnDef="cpu" dtColumnAlign="text">
-    <th dtHeaderCell *dtHeaderCellDef>CPU</th>
+    <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.cpu}}</dt-cell>
   </ng-container>
 
   <ng-container dtColumnDef="memory" dtColumnAlign="number">
-    <th dtHeaderCell *dtHeaderCellDef>Memory</th>
+    <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.memory}}</dt-cell>
   </ng-container>
 
   <ng-container dtColumnDef="traffic" dtColumnAlign="control">
-    <th dtHeaderCell *dtHeaderCellDef>Network traffic</th>
+    <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
   </ng-container>
     
   <ng-container dtColumnDef="details" dtColumnAlign="number">
-    <th dtHeaderCell *dtHeaderCellDef>Details</th>
+    <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
     <dt-expandable-cell *dtCellDef></dt-expandable-cell>
   </ng-container>
 
