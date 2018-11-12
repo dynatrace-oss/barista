@@ -393,10 +393,17 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
       .withPush(false)
       .withPositions([
         {
-          originX: 'end',
+          originX: 'start',
           originY: 'bottom',
-          overlayX: 'end',
+          overlayX: 'start',
           overlayY: 'top',
+        },
+        {
+          originX: 'start',
+          originY: 'top',
+          overlayX: 'start',
+          overlayY: 'bottom',
+          panelClass: 'dt-autocomplete-panel-above',
         },
       // tslint:disable-next-line:no-any
       ] as any[]);
