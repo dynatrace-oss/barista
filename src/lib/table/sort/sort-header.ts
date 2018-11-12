@@ -22,7 +22,7 @@ export type DtSortIconName = 'sorter-down' | 'sorter-up' | '';
  */
 @Component({
   moduleId: module.id,
-  selector: 'dt-header-cell[dt-sort-header], th[dtHeaderCell][dt-sort-header]',
+  selector: 'dt-header-cell[dt-sort-header]',
   exportAs: 'dtSortHeader',
   templateUrl: 'sort-header.html',
   styleUrls: ['sort-header.scss'],
@@ -39,7 +39,10 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
     implements CanDisable, OnDestroy, OnInit {
   private _rerenderSubscription: Subscription;
 
-  /** The direction the arrow should be facing according to the current state. */
+  /**
+   * The direction the arrow should be facing according to the current state.
+   * @internal
+   */
   _sortIconName: DtSortIconName = '';
 
   /**
