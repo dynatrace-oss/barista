@@ -98,6 +98,7 @@
     "tsickle": "^0.27.3",
     "tslint": "^5.8.0",
     "typescript": "~2.7.2",
+    "typescript-tslint-plugin": "^0.0.5",
     "uglify-js": "^2.8.14",
     "web-animations-js": "^2.3.1"
   }
