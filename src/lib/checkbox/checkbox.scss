@@ -36,6 +36,10 @@ $dt-checkbox-size: 20px;
   border: solid 2px $turquoise-600;
   margin-right: 8px;
 
+  // Box sizing is required here so we do not inherit the value
+  // and therefore can not predict the way the size of the container
+  box-sizing: border-box;
+
   :host.dt-checkbox-disabled & {
     border-color: $disabledcolor;
   }
