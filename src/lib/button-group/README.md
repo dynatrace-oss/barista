@@ -2,7 +2,7 @@
 
 <docs-source-example example="ButtonGroupDefaultExampleComponent"></docs-source-example>
 
-This component create a button group elements with Dynatrace styling.
+This component creates a button group element with Dynatrace styling.
 
 ## Imports
 
@@ -21,14 +21,14 @@ class MyModule {}
 
 ## Initialization
 
-To apply the dynatrace button group, use the `<dt-button-group>` and `<dt-button-group-item>` elements.
+To apply the Dynatrace button group, use the `<dt-button-group>` and `<dt-button-group-item>` elements.
 
 *Example:*
 
-| Attribute               | Description                                                                                                                |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `dt-button-group`       | Indicate the outer element of the button group. The group element can contain multiple `<dt-button-group-item>` elements.  |
-| `dt-button-group-item`  | The element of an individual button.                                                                                       |
+| Attribute | Description |
+| --- | --- |
+| `dt-button-group` | Indicate the outer element of the button group. The group element can contain multiple `<dt-button-group-item>` elements. |
+| `dt-button-group-item` | The element of an individual button. |
 
 ## Options & Properties
 
