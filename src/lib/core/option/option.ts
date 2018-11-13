@@ -42,7 +42,7 @@ export class DtOptionSelectionChange<T> {
     '[class.dt-option-selected]': 'selected',
     '[class.dt-option-active]': 'active',
     '[class.dt-option-disabled]': 'disabled',
-    '(click)': '_selectViaInteraction()',
+    '(click)': '_handleClick($event)',
     '(keydown)': '_handleKeydown($event)',
     'class': 'dt-option',
   },
@@ -182,6 +182,14 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
       // Prevent the page from scrolling down and form submits.
       event.preventDefault();
     }
+  }
+
+  _handleClick(event: MouseEvent): void {
+    // Prevent the event from reaching parent elements, which causes components,
+    // like filter-field to close the autocomplete because it detected an outside click
+    event.stopImmediatePropagation();
+
+    this._selectViaInteraction();
   }
 
   /**

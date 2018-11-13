@@ -1,0 +1,38 @@
+<div class="dt-filter-field-body">
+
+  <div class="dt-filter-field-label"><dt-icon name="filter" class="dt-filter-field-icon"></dt-icon><span>{{label}}</span></div>
+
+  <dt-filter-field-tag
+    *ngFor="let node of _prefixNodes"
+    [node]="node"
+    (remove)="_handleTagRemove($event)"
+    (edit)="_handleTagEdit($event)"
+    >{{node.toString()}}</dt-filter-field-tag>
+
+  <div class="dt-filter-field-infix">
+    <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{_filterByLabel}}</span>
+    <input #freeTextInput *ngIf="!_autocomplete"
+      type="text"
+      class="dt-filter-field-input dt-filter-field-free-text"
+      (input)="_handleInputChange($event)"
+      (keyup)="_handleInputKeyUp($event)"
+      (keydown)="_handleInputKeyDown($event)"
+      [value]="_inputValue">
+    <input #autocompleteInput *ngIf="_autocomplete"
+      type="text"
+      class="dt-filter-field-input dt-filter-field-autocomplete"
+      [dtAutocomplete]="_autocomplete"
+      (input)="_handleInputChange($event)"
+      (keydown)="_handleInputKeyDown($event)"
+      [value]="_inputValue">
+    <ng-content select="dt-autocomplete"></ng-content>
+  </div>
+
+  <dt-filter-field-tag
+    *ngFor="let node of _suffixNodes"
+    [node]="node"
+    (remove)="_handleTagRemove($event)"
+    (edit)="_handleTagEdit($event)"
+    >{{node.toString()}}</dt-filter-field-tag>
+
+</div>

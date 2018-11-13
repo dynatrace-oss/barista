@@ -44,6 +44,7 @@ import { DocsOverlayModule } from './components/overlay/docs-overlay.module';
 import { DocsFormattersModule } from './components/formatters/docs-formatters-module';
 import { DocsMicroChartModule } from './components/micro-chart/docs-micro-chart.module';
 import { DocsAutocompleteModule } from './components/autocomplete/docs-autocomplete.module';
+import { DocsFilterFieldModule } from './components/filter-field/docs-filter-field-module';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
@@ -86,6 +87,7 @@ export class NoopRouteComponent {}
     DocsTileModule,
     DocsCardModule,
     DocsContextDialogModule,
+    DocsFilterFieldModule,
     DocsFormFieldModule,
     DocsTagModule,
     DocsAlertModule,
