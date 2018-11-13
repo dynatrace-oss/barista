@@ -12,10 +12,6 @@ In addition to the custom content, the card can also hold some special sections:
 
 ## Examples
 
-### Content only
-
-<docs-source-example example="ContentOnlyCardExampleComponent"></docs-source-example>
-
 ### Title
 
 <docs-source-example example="TitleCardExampleComponent"></docs-source-example>
