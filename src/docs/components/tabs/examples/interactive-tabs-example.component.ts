@@ -10,13 +10,13 @@ import { take } from 'rxjs/operators';
     <dt-tab [disabled]="disableFirst">
       <ng-template dtTabLabel>Traffic</ng-template>
       <ng-template dtTabContent>
-        <h1>Traffic</h1>
+        <h3>Traffic</h3>
       </ng-template>
     </dt-tab>
     <dt-tab [color]="simulatedColor" selected>
       <ng-template dtTabLabel>Connectivity {{connectivity}}</ng-template>
       <ng-template dtTabContent>
-        <h1>Connectivity</h1>
+        <h3>Connectivity</h3>
       </ng-template>
     </dt-tab>
   </dt-tab-group>

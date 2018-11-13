@@ -8,19 +8,19 @@ import { OriginalClassName } from '../../../core/decorators';
     <dt-tab>
       <ng-template dtTabLabel>Physical <em>CPU</em></ng-template>
       <ng-template dtTabContent>
-        <h1>Physical CPUs content</h1>
+        <h3>Physical CPUs content</h3>
       </ng-template>
     </dt-tab>
     <dt-tab>
       <ng-template dtTabLabel>CPU ready time</ng-template>
       <ng-template dtTabContent>
-        <h1>cpu-ready-time content</h1>
+        <h3>cpu-ready-time content</h3>
       </ng-template>
     </dt-tab>
     <dt-tab *ngIf="hasProblems" color="error">
       <ng-template dtTabLabel>11 problems</ng-template>
       <ng-template dtTabContent>
-        <h1>Housten we have 11 problems!</h1>
+        <h3>Housten we have 11 problems!</h3>
       </ng-template>
     </dt-tab>
   </dt-tab-group>
