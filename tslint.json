@@ -46,6 +46,8 @@
     // Turning it of so it does not throw on default value assertion like this: variant = value || defaultVariant
     // There is also an open issue on this one: https://github.com/palantir/tslint/issues/3279
     "strict-boolean-expressions": false,
+    // tslint:all defaults to file-name-casing camel-case which does is not compliant with angular's file namings
+    "file-name-casing": false,
     "typedef": [
       true,
       "call-signature",

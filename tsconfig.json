@@ -38,6 +38,17 @@
     "strictNullChecks": true,
     "typeRoots": [
       "node_modules/@types"
+    ],
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "alwaysShowRuleFailuresAsWarnings": false,
+        "ignoreDefinitionFiles": true,
+        "configFile": "./tslint.json",
+        "disableNoUnusedVariableRule": false,
+        "suppressWhileTypeErrorsPresent": false,
+        "mockTypeScriptVersion": false
+        }
     ]
   },
   "exclude": [
