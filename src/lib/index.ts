@@ -6,6 +6,7 @@
 export * from '@dynatrace/angular-components/alert';
 export * from '@dynatrace/angular-components/autocomplete';
 export * from '@dynatrace/angular-components/core';
+export * from '@dynatrace/angular-components/filter-field';
 export * from '@dynatrace/angular-components/form-field';
 export * from '@dynatrace/angular-components/input';
 export * from '@dynatrace/angular-components/expandable-panel';
