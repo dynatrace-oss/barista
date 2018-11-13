@@ -1,0 +1,14 @@
+<button dt-button
+  variant="nested"
+  class="dt-filter-field-tag-label"
+  [disabled]="disabled"
+  (click)="_handleEdit($event)">
+  <ng-content></ng-content>
+</button>
+<button dt-icon-button
+  variant="nested"
+  class="dt-filter-field-tag-button"
+  [disabled]="disabled"
+  (click)="_handleRemove($event)">
+  <dt-icon name="abort" class="dt-filter-field-tag-icon"></dt-icon>
+</button>
