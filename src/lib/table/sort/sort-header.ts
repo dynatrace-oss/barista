@@ -110,7 +110,7 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   private _updateSorterIcon(): void {
     const sorting = this._isSorted ?
         this._sort.direction || this.start : '';
-    this._sortIconName = isEmpty(sorting) ? this._sortIconName = '' : sorting === 'asc' ? 'sorter-down' : 'sorter-up';
+    this._sortIconName = isEmpty(sorting) ? this._sortIconName = '' : sorting === 'asc' ? 'sorter-up' : 'sorter-down';
   }
 
   /**
