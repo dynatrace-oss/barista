@@ -31,3 +31,13 @@ export function removeCssClass(el: any, name: string, renderer?: Renderer2): voi
     el.classList.remove(name);
   }
 }
+
+/**
+ * Reads the key code from a keyboard event.
+ * It is needed because event.keyCode is deprecated an will lead to multiple tslint errors.
+ * This function will move the the event.keyKode to a single point where we disable the tslint rule.
+ */
+export function readKeyCode(event: KeyboardEvent): number {
+  // tslint:disable-next-line:deprecation
+  return event.keyCode;
+}

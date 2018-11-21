@@ -35,6 +35,8 @@ export function createTouchEvent(type: string, pageX: number = 0, pageY: number 
   // the touch details.
   Object.defineProperties(event, {
     touches: {value: [touchDetails]},
+    targetTouches: {value: [touchDetails]},
+    changedTouches: {value: [touchDetails]}
   });
 
   return event;
@@ -44,11 +46,14 @@ export function createTouchEvent(type: string, pageX: number = 0, pageY: number 
 export function createKeyboardEvent(type: string, keyCode: number, target?: Element, key?: string): KeyboardEvent {
   // tslint:disable-next-line:no-any
   const event = document.createEvent('KeyboardEvent') as any;
-  // Firefox does not support `initKeyboardEvent`, but supports `initKeyEvent`.
-  const initEventFn = (event.initKeyEvent || event.initKeyboardEvent).bind(event);
   const originalPreventDefault = event.preventDefault;
 
-  initEventFn(type, true, true, window, 0, 0, 0, 0, 0, keyCode);
+  // Firefox does not support `initKeyboardEvent`, but supports `initKeyEvent`.
+  if (event.initKeyEvent) {
+    event.initKeyEvent(type, true, true, window, 0, 0, 0, 0, 0, keyCode);
+  } else {
+    event.initKeyboardEvent(type, true, true, window, 0, key, 0, '', false);
+  }
 
   // Webkit Browsers don't set the keyCode when calling the init function.
   // See related bug https://bugs.webkit.org/show_bug.cgi?id=16735
