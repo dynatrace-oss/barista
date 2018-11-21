@@ -29,6 +29,7 @@ import {
 } from './nodes/filter-field-nodes';
 import { DtFilterFieldNodesHost } from './nodes/filter-field-nodes-host';
 import { DtFilterFieldTagEvent } from './filter-field-tag/filter-field-tag';
+import { readKeyCode } from '@dynatrace/angular-components/core';
 
 export class DtActiveFilterChangeEvent {
   constructor(
@@ -194,7 +195,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   }
 
   _handleInputKeyDown(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
+    const keyCode = readKeyCode(event);
     if (keyCode === BACKSPACE && !this._inputValue.length) {
       let emitChange = false;
       if (this._currentNode) {
@@ -215,7 +216,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   }
 
   _handleInputKeyUp(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
+    const keyCode = readKeyCode(event);
     if (keyCode === ENTER && this._inputValue.length) {
      this._handleFreeTextSubmitted();
     }

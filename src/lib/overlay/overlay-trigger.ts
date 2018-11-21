@@ -5,7 +5,7 @@ import { DtOverlayRef } from './overlay-ref';
 import { Subscription, fromEvent, Subject } from 'rxjs';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { mixinTabIndex, HasTabIndex, mixinDisabled, CanDisable } from '@dynatrace/angular-components/core';
+import { mixinTabIndex, HasTabIndex, mixinDisabled, CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
 import { take, takeUntil } from 'rxjs/operators';
 
 export class DtOverlayTriggerBase { }
@@ -98,7 +98,8 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
       event.stopPropagation();
-      if (event.keyCode === ENTER || event.keyCode === SPACE) {
+      const keyCode = readKeyCode(event);
+      if (keyCode === ENTER || keyCode === SPACE) {
         event.preventDefault();
         this._createOverlay();
         this._dtOverlayRef!.pin(true);

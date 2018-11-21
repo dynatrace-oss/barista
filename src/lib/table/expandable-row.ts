@@ -5,13 +5,12 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
   Output,
   Renderer2,
   ViewChild,
   ViewContainerRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { CdkRow } from '@angular/cdk/table';
 import { DtTable } from './table';
@@ -42,8 +41,9 @@ import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core'
   templateUrl: './expandable-row.html',
   styleUrls: ['./scss/expandable-row.scss'],
   host: {
-    class: 'dt-expandable-row',
-    role: 'row',
+    'role': 'row',
+    'class': 'dt-expandable-row',
+    'class.dt-expandable-row-initial': '_pristine',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
@@ -56,7 +56,6 @@ export class DtExpandableRow extends CdkRow {
   private _multiple = false;
   private _expanded = false;
 
-  @HostBinding('class.dt-expandable-row-initial')
   _pristine = true;
 
   /** Multiple rows can be expanded at a time if set to true (default: false) */
@@ -121,20 +120,10 @@ export class DtExpandableRow extends CdkRow {
     this._cdr.markForCheck();
   }
 
-  /** Sets the style of the expandable cell. Somehow a hack, a better solution would be appreciated. */
+  /** Sets the style of the expandable cell. */
   private _setExpandableCell(expanded: boolean): void {
-    const rowElement = this._rowRef.nativeElement as HTMLDivElement;
-
-    for (let i = 0; i < rowElement.childNodes.length; i++) {
-      const node = rowElement.childNodes.item(i);
-      if (node.localName && node.localName.toLowerCase() === 'dt-expandable-cell') {
-        const expandableCell = node as HTMLElement;
-        if (expanded) {
-          addCssClass(expandableCell.firstElementChild, 'dt-expandable-cell-expanded', this._renderer2);
-        } else {
-          removeCssClass(expandableCell.firstElementChild, 'dt-expandable-cell-expanded', this._renderer2);
-        }
-      }
-    }
+    // Somehow a hack, a better solution would be appreciated.
+    const cells = (this._rowRef.nativeElement as HTMLDivElement).querySelectorAll('dt-expandable-cell');
+    cells.forEach((cell) => { (expanded ? addCssClass : removeCssClass)(cell, 'dt-expandable-cell-expanded', this._renderer2); });
   }
 }

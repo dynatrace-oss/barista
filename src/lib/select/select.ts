@@ -45,7 +45,8 @@ import {
   _getOptionScrollPosition,
   DtLogger,
   DtLoggerFactory,
-  isDefined
+  isDefined,
+  readKeyCode
 } from '@dynatrace/angular-components/core';
 import { DtFormFieldControl, DtFormField } from '@dynatrace/angular-components/form-field';
 
@@ -387,7 +388,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   ngAfterContentInit(): void {
     this._initKeyManager();
 
-    this._selectionModel.onChange!.pipe(takeUntil(this._destroy)).subscribe((event) => {
+    this._selectionModel.changed.pipe(takeUntil(this._destroy)).subscribe((event) => {
       event.added.forEach((option) => { option.select(); });
       event.removed.forEach((option) => { option.deselect(); });
     });
@@ -612,7 +613,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
   /** Handles keyboard events while the select is closed. */
   private _handleClosedKeydown(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
+    const keyCode = readKeyCode(event);
     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW ||
       keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW;
     const isOpenKey = keyCode === ENTER || keyCode === SPACE;
@@ -628,7 +629,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
   /** Handles keyboard events when the selected is open. */
   private _handleOpenKeydown(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
+    const keyCode = readKeyCode(event);
     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
     const manager = this._keyManager;
 
