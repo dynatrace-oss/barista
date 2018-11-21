@@ -393,28 +393,28 @@ describe('DtTable', () => {
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       const expandableCells = fixture.debugElement.queryAll(By.directive(DtExpandableCell));
-      const cellIconContainer1 = expandableCells[0].query(By.css('dt-icon')).nativeElement as HTMLElement;
-      const cellIconContainer2 = expandableCells[1].query(By.css('dt-icon')).nativeElement as HTMLElement;
-      const cellIconContainer3 = expandableCells[2].query(By.css('dt-icon')).nativeElement as HTMLElement;
+      const cell1 = expandableCells[0].nativeElement;
+      const cell2 = expandableCells[1].nativeElement;
+      const cell3 = expandableCells[2].nativeElement;
 
       // on init
-      expect(cellIconContainer1.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
-      expect(cellIconContainer2.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
-      expect(cellIconContainer3.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
+      expect(cell1.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
+      expect(cell2.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
+      expect(cell3.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
 
       // on expand
       expandableRowElements[0].click();
       fixture.detectChanges();
-      expect(cellIconContainer1.className.indexOf('dt-expandable-cell-expanded')).toBeGreaterThan(-1);
-      expect(cellIconContainer2.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
-      expect(cellIconContainer3.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
+      expect(cell1.className.indexOf('dt-expandable-cell-expanded')).toBeGreaterThan(-1);
+      expect(cell2.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
+      expect(cell3.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
 
       // on collapse
       expandableRowElements[0].click();
       fixture.detectChanges();
-      expect(cellIconContainer1.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
-      expect(cellIconContainer2.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
-      expect(cellIconContainer3.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
+      expect(cell1.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
+      expect(cell2.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
+      expect(cell3.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
     });
 
     it('should be able to dynamically add a component to an expandable row', () => {
