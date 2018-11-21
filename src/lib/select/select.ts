@@ -388,7 +388,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   ngAfterContentInit(): void {
     this._initKeyManager();
 
-    this._selectionModel.onChange!.pipe(takeUntil(this._destroy)).subscribe((event) => {
+    this._selectionModel.changed.pipe(takeUntil(this._destroy)).subscribe((event) => {
       event.added.forEach((option) => { option.select(); });
       event.removed.forEach((option) => { option.deselect(); });
     });
