@@ -16,6 +16,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
 import { DtOptgroup } from './optgroup';
+import { readKeyCode } from '@dynatrace/angular-components/core';
 
 let _uniqueId = 0;
 
@@ -176,7 +177,8 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
 
   /** Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
-    if (event.keyCode === ENTER || event.keyCode === SPACE) {
+    const keyCode = readKeyCode(event);
+    if (keyCode === ENTER || keyCode === SPACE) {
       this._selectViaInteraction();
 
       // Prevent the page from scrolling down and form submits.

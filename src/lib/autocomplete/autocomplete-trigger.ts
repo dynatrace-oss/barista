@@ -21,7 +21,15 @@ import { getDtAutocompleteMissingPanelError } from './autocomplete-errors';
 import { DtAutocompleteOrigin } from './autocomplete-origin';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { Subject, EMPTY, Subscription, merge, Observable, of as observableOf, defer, fromEvent } from 'rxjs';
-import { DtViewportResizer, DtOptionSelectionChange, isDefined, DtOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from '@dynatrace/angular-components/core';
+import {
+  DtViewportResizer,
+  DtOptionSelectionChange,
+  isDefined,
+  DtOption,
+  _countGroupLabelsBeforeOption,
+  _getOptionScrollPosition,
+  readKeyCode
+} from '@dynatrace/angular-components/core';
 import { tap, take, delay, switchMap, filter, map, takeUntil } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 
@@ -267,7 +275,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   }
 
   _handleKeydown(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
+    const keyCode = readKeyCode(event);
 
     // Prevent the default action on all escape key presses. This is here primarily to bring IE
     // in line with other browsers. By default, pressing escape on IE will cause it to revert
@@ -306,9 +314,10 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
 
       this._overlayRef.keydownEvents().subscribe((event) => {
+        const keyCode = readKeyCode(event);
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
         // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-        if (event.keyCode === ESCAPE || (event.keyCode === UP_ARROW && event.altKey)) {
+        if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
           this._resetActiveItem();
           this._closeKeyEventStream.next();
         }
