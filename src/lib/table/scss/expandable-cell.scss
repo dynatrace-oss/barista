@@ -8,16 +8,11 @@
     width: 20px;
     height: 20px;
     fill: $turquoise-600;
-  }
-
-  > dt-icon {
-    width: 20px;
-    height: 20px;
     transform: rotate(0deg);
     transition: transform 225ms;
   }
 
-  .dt-expandable-cell-expanded {
+  &.dt-expandable-cell-expanded .dt-expandable-cell-dropdown {
     transform: rotate(180deg);
     transition: transform 225ms;
   }

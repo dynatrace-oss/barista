@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import {DtExpandableRow, DtLogger, DtLoggerFactory} from '@dynatrace/angular-components';
-
-const LOG: DtLogger = DtLoggerFactory.create('TableExpandableRowsComponent');
 
 @Component({
   moduleId: module.id,
@@ -27,15 +24,14 @@ const LOG: DtLogger = DtLoggerFactory.create('TableExpandableRowsComponent');
     <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
   </ng-container>
-    
+
   <ng-container dtColumnDef="details" dtColumnAlign="number">
     <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
     <dt-expandable-cell *dtCellDef></dt-expandable-cell>
   </ng-container>
 
   <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic', 'details']"></dt-header-row>
-  <dt-expandable-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic', 'details']; let rowIndex=index" 
-                     (openedChange)="onOpenedChanged($event, rowIndex)">
+  <dt-expandable-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic', 'details']; let rowIndex=index">
     Expandable section for {{row.name}}
   </dt-expandable-row>
 </dt-table>`,
@@ -49,9 +45,4 @@ export class TableExpandableRowsComponent {
     { host: 'docker-host2', cpu: '25.4 %', memory: '38 % of 5.83 GB', traffic: '419 Mbit/s' },
     { host: 'et-demo-2-win1', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
   ];
-
-  onOpenedChanged(row: DtExpandableRow, index: number): void {
-    // tslint:disable-next-line
-    LOG.debug(`row ${index}: expanded=${row.expanded}`, row);
-  }
 }
