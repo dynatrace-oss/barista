@@ -12,7 +12,7 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { CdkRow, CdkCellOutlet } from '@angular/cdk/table';
+import { CdkRow } from '@angular/cdk/table';
 import { DtTable } from './table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
@@ -57,8 +57,6 @@ export class DtExpandableRow extends CdkRow {
   private _expanded = false;
 
   _pristine = true;
-
-  @ViewChild(CdkCellOutlet) _cellOutlet: CdkCellOutlet;
 
   /** Multiple rows can be expanded at a time if set to true (default: false) */
   @Input()
