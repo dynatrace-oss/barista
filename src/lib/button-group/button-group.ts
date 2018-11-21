@@ -21,6 +21,7 @@ import {
   mixinColor,
   mixinDisabled,
   mixinTabIndex,
+  readKeyCode,
 } from '@dynatrace/angular-components/core';
 
 export class DtButtonGroupBase { }
@@ -229,7 +230,8 @@ implements CanDisable, CanColor, HasTabIndex, AfterContentInit {
 
   /** Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
-    if (event.keyCode === ENTER || event.keyCode === SPACE) {
+    const keyCode = readKeyCode(event);
+    if (keyCode === ENTER || keyCode === SPACE) {
       this._onSelect(event);
 
       // Prevent the page from scrolling down and form submits.
