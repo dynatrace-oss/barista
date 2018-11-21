@@ -5,7 +5,7 @@ import { DtOverlayRef } from './overlay-ref';
 import { Subscription, fromEvent, Subject } from 'rxjs';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { mixinTabIndex, HasTabIndex, mixinDisabled, CanDisable } from '@dynatrace/angular-components/core';
+import { mixinTabIndex, HasTabIndex, mixinDisabled, CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
 import { take, takeUntil } from 'rxjs/operators';
 
 export class DtOverlayTriggerBase { }
