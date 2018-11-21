@@ -8,7 +8,7 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 import {
   CanDisable,
-  mixinDisabled, mixinTabIndex, HasTabIndex
+  mixinDisabled, mixinTabIndex, HasTabIndex, readKeyCode
 } from '@dynatrace/angular-components/core';
 
 @Directive({
@@ -59,14 +59,15 @@ export class DtShowMore extends _DtShowMore implements CanDisable, HasTabIndex {
   _handleKeydown(event: KeyboardEvent): void {
     // The default browser behaviour for SPACE is to scroll the page. We
     // want to prevent this.
-    if (event.keyCode === SPACE) {
+    if (readKeyCode(event) === SPACE) {
       event.preventDefault();
     }
   }
 
   @HostListener('keyup', ['$event'])
   _handleKeyup(event: KeyboardEvent): void {
-    if (event.keyCode === ENTER || event.keyCode === SPACE) {
+    const keyCode = readKeyCode(event);
+    if (keyCode === ENTER || keyCode === SPACE) {
       this._fireChange();
     }
   }
