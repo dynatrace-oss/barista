@@ -7,6 +7,7 @@ import {
 import {
   CanDisable,
   mixinDisabled,
+  readKeyCode,
 } from '@dynatrace/angular-components/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {DELETE} from '@angular/cdk/keycodes';
@@ -64,7 +65,7 @@ export class DtTag<T> extends _DtTagMixinBase implements CanDisable {
 
   @HostListener('keyup', ['$event'])
   _doDelete(event?: KeyboardEvent): void {
-    if (!this.disabled && (event === undefined || event.keyCode === DELETE)) {
+    if (!this.disabled && (event === undefined || readKeyCode(event) === DELETE)) {
       this.removed.emit(this.value);
     }
   }

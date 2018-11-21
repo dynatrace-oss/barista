@@ -1,5 +1,5 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
+import { addCssClass, removeCssClass, readKeyCode } from '@dynatrace/angular-components/core';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { DtOverlayContainer } from './overlay-container';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
@@ -35,7 +35,7 @@ export class DtOverlayRef<T> {
     });
 
     _overlayRef.keydownEvents()
-      .pipe(filter((event: KeyboardEvent) => event.keyCode === ESCAPE))
+      .pipe(filter((event: KeyboardEvent) => readKeyCode(event) === ESCAPE))
       .subscribe(() => { this.dismiss(); });
   }
 

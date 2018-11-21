@@ -9,7 +9,7 @@ import {
   Input, OnDestroy
 } from '@angular/core';
 import { DtExpandablePanel } from './expandable-panel';
-import { CanDisable } from '@dynatrace/angular-components/core';
+import { CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
 import { Subscription } from 'rxjs';
 
 @Directive({
@@ -77,7 +77,7 @@ export class DtExpandablePanelTrigger implements CanDisable, AfterContentInit, O
   @HostListener('keydown', ['$event'])
   // tslint:disable-next-line:no-unused-variable
   _handleKeydown(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
+    const keyCode = readKeyCode(event);
     const isAltKey = event.altKey;
     if (keyCode === ENTER || keyCode === SPACE) {
       this._expandable.toggle();

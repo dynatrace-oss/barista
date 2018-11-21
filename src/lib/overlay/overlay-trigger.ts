@@ -98,7 +98,8 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
       event.stopPropagation();
-      if (event.keyCode === ENTER || event.keyCode === SPACE) {
+      const keyCode = readKeyCode(event);
+      if (keyCode === ENTER || keyCode === SPACE) {
         event.preventDefault();
         this._createOverlay();
         this._dtOverlayRef!.pin(true);
