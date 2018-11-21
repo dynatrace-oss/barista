@@ -31,3 +31,9 @@ export function removeCssClass(el: any, name: string, renderer?: Renderer2): voi
     el.classList.remove(name);
   }
 }
+
+/** Reads the  */
+export function readKeyCode(event: KeyboardEvent): number {
+  // tslint:disable-next-line:deprecation
+  return event.keyCode;
+}
