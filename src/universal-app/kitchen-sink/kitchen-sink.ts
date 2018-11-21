@@ -1,7 +1,6 @@
 import {Component, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {ServerModule} from '@angular/platform-server';
-import { RouterModule } from '@angular/router';
 import { DtAlertModule } from '@dynatrace/angular-components/alert';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
@@ -19,9 +18,7 @@ import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
 import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-circle';
-import { DtBreadcrumbsModule } from '@dynatrace/angular-components/breadcrumbs';
 import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
-import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { DtInputModule } from '@dynatrace/angular-components/input';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
@@ -42,7 +39,6 @@ export class KitchenSink {
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({appId: 'kitchen-sink'}),
-    RouterModule.forRoot([]),
     DtAlertModule,
     DtAutocompleteModule,
     DtButtonModule,
@@ -61,16 +57,13 @@ export class KitchenSink {
     DtProgressCircleModule,
     DtPaginationModule,
     DtSwitchModule,
-    DtBreadcrumbsModule,
     DtProgressBarModule,
-    DtTabsModule,
     DtSelectModule,
     DtInputModule,
     DtOverlayModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
-  entryComponents: [KitchenSink],
 })
 export class KitchenSinkClientModule { }
 
@@ -80,6 +73,5 @@ export class KitchenSinkClientModule { }
     ServerModule,
   ],
   bootstrap: [KitchenSink],
-  entryComponents: [KitchenSink],
 })
 export class KitchenSinkServerModule { }
