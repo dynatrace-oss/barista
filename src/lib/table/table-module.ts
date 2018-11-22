@@ -16,6 +16,7 @@ import { DtExpandableRow } from './expandable-row';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtSortHeader } from './sort/sort-header';
 import { DtSort } from './sort/sort';
+import { DtTableProblem } from './table-problem';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
@@ -38,6 +39,7 @@ const EXPORTED_DECLARATIONS = [
   DtTableLoadingState,
   DtSort,
   DtSortHeader,
+  DtTableProblem,
 ];
 
 @NgModule({

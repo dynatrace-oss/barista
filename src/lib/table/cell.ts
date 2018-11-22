@@ -1,6 +1,10 @@
-import {ChangeDetectionStrategy, Component, Directive, ElementRef, Input, Renderer2, ViewEncapsulation} from '@angular/core';
-import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef} from '@angular/cdk/table';
+import {ChangeDetectionStrategy, Component, Directive, ElementRef, Input, Renderer2, ViewEncapsulation, ContentChildren, QueryList, ViewContainerRef, Injector, InjectionToken, EmbeddedViewRef } from '@angular/core';
+import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef, RowContext, CdkRow, CdkRowDef } from '@angular/cdk/table';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
+import { DtTableProblem } from './table-problem';
+import { DtRow } from './row';
+import { Subject } from 'rxjs';
+import { isDefined, addCssClass } from '@dynatrace/angular-components/core';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
@@ -57,10 +61,12 @@ export class DtColumnDef extends CdkColumnDef {
 })
 export class DtHeaderCell {
   // tslint:disable-next-line:no-unused-variable
-  constructor(private _columnDef: DtColumnDef, private _renderer: Renderer2, private _elem: ElementRef) {
-    setColumnClass.bind(this)();
+  constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
+    updateColumnStyles(columnDef, elem, renderer);
   }
 }
+
+type ProblemType = 'error' | 'warning';
 
 /** Cell template container that adds the right classes and role. */
 @Component({
@@ -76,9 +82,36 @@ export class DtHeaderCell {
   exportAs: 'dtCell',
 })
 export class DtCell {
+  @ContentChildren(DtTableProblem, { descendants: true }) _problems: QueryList<DtTableProblem>;
+
+  get hasError(): boolean { return this._hasProblem('error'); }
+
+  get hasWarning(): boolean { return this._hasProblem('warning'); }
+
+  _stateChanges = new Subject<void>();
+  _row: DtRow;
+
   // tslint:disable-next-line:no-unused-variable
-  constructor(private _columnDef: DtColumnDef, private _renderer: Renderer2, private _elem: ElementRef) {
-    setColumnClass.bind(this)();
+  constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
+    updateColumnStyles(columnDef, elem, renderer);
+    if (DtRow.mostRecentRow) {
+      this._row = DtRow.mostRecentRow;
+      this._row._registerCell(this);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this._problems.changes.subscribe(() => { this._stateChanges.next(); });
+    Promise.resolve().then(() => { this._stateChanges.next(); });
+  }
+
+  ngOnDestroy(): void {
+    this._stateChanges.complete();
+    this._row._unregisterCell(this);
+  }
+
+  private _hasProblem(problemType: ProblemType): boolean {
+    return this._problems && isDefined(this._problems.find((problem) => problem.color === problemType));
   }
 }
 
@@ -119,24 +152,19 @@ function coerceAlignment(value: DtTableColumnAlign | DtTableColumnTypedAlign): D
 }
 
 /** Set classes name and styles props for columns. */
-// TODO: change this function to a cell mixin.
-function setColumnClass(): void {
-  const { align, proportion, minWidth, cssClassFriendlyName } = this._columnDef;
-  const { nativeElement } = this._elem;
+function updateColumnStyles(columnDef: DtColumnDef, elem: ElementRef, renderer: Renderer2): void {
+  const { align, proportion, minWidth, cssClassFriendlyName } = columnDef;
+  const { nativeElement } = elem;
   const cssAlignmentClass = coerceAlignment(align);
 
-  this._renderer.addClass(nativeElement, `dt-table-column-${cssClassFriendlyName}`);
-  this._renderer.addClass(nativeElement, `dt-table-column-align-${cssAlignmentClass}`);
+  addCssClass(nativeElement, `dt-table-column-${cssClassFriendlyName}`, renderer);
+  addCssClass(nativeElement, `dt-table-column-align-${cssAlignmentClass}`, renderer);
 
   const setProportion = coerceNumberProperty(proportion);
   if (setProportion > 0) {
-    this._renderer.setStyle(nativeElement, 'flex-grow', setProportion);
-    this._renderer.setStyle(nativeElement, 'flex-shrink', setProportion);
+    renderer.setStyle(nativeElement, 'flex-grow', setProportion);
+    renderer.setStyle(nativeElement, 'flex-shrink', setProportion);
   }
 
-  if (minWidth !== undefined) {
-    const setMinWidth = coerceNumberProperty(minWidth) ? `${minWidth}px` : minWidth;
-
-    this._renderer.setStyle(nativeElement, 'min-width', setMinWidth);
-  }
+  renderer.setStyle(nativeElement, 'min-width', `${coerceNumberProperty(minWidth)}px`);
 }
