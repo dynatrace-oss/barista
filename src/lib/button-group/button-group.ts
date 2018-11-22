@@ -87,7 +87,6 @@ export class DtButtonGroup<T> extends _DtButtonGroup
     if (this._items && this._items.length > 0) {
       // find if there is a selection
       // defer to next CD run - this is needed because we cannot update the item right away when there is no value set
-      // tslint:disable-next-line no-floating-promises
       Promise.resolve().then(() => {
         const selected = this._items.find((item) => item.selected);
         if (this.value === null) {
