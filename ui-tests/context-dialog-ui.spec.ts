@@ -1,17 +1,17 @@
 import {browser, by, element, Key } from 'protractor';
 
 describe('context-dialog', () => {
-  beforeEach(() => browser.get('/context-dialog'));
+  beforeEach(async () => browser.get('/context-dialog'));
 
   describe('disabling behavior', () => {
 
     it('should open the context dialog when not disabled', async () => {
-      element(by.id('context-dialog')).click();
+      await element(by.id('context-dialog')).click();
       expect(await browser.isElementPresent(by.css('.dt-context-dialog-panel'))).toBeTruthy();
     });
 
     it('should not execute click handlers when disabled', async () => {
-      element(by.id('disable-toggle')).click();
+      await element(by.id('disable-toggle')).click();
       await element(by.id('context-dialog')).click();
       expect(await browser.isElementPresent(by.css('.dt-context-dialog-panel'))).toBeFalsy();
     });
@@ -19,7 +19,7 @@ describe('context-dialog', () => {
 
   describe('focus behaviour', () => {
     it('should trap the focus inside the overlay', async () => {
-      element(by.id('context-dialog')).click();
+      await element(by.id('context-dialog')).click();
       await browser.isElementPresent(by.css('.dt-context-dialog-panel'));
       expect(await browser.driver.switchTo().activeElement().getAttribute('aria-label'))
         .toEqual('close');
@@ -34,7 +34,7 @@ describe('context-dialog', () => {
 
   describe('close behaviour', () => {
     it('should open and close the context dialog', async () => {
-      element(by.id('context-dialog')).click();
+      await element(by.id('context-dialog')).click();
       await browser.isElementPresent(by.css('.dt-context-dialog-panel'));
       await element(by.css('.dt-context-dialog-close-trigger')).click();
       expect(await browser.isElementPresent(by.css('.dt-context-dialog-panel'))).toBeFalsy();
