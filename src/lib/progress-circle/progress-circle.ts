@@ -4,18 +4,21 @@ import {
   ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter, ElementRef,
 
 } from '@angular/core';
-import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress } from '@dynatrace/angular-components/core';
+import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress, Constructor } from '@dynatrace/angular-components/core';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */
 const CIRCLE_CIRCUMFERENCE = 328;
 
 export type DtProgressCircleChange = DtProgressChange;
 
+export type DtProgressCircleThemePalette = 'main' | 'accent' | 'warning' | 'recovered' | 'error';
+
 export class DtProgressCircleBase {
   constructor(public _elementRef: ElementRef) { }
 }
 
-export const _DtProgressCircle = mixinHasProgress(mixinColor(DtProgressCircleBase, 'main'));
+export const _DtProgressCircle =
+  mixinHasProgress(mixinColor<Constructor<DtProgressCircleBase>, DtProgressCircleThemePalette>(DtProgressCircleBase, 'main'));
 
 @Component({
   moduleId: module.id,
@@ -34,7 +37,7 @@ export const _DtProgressCircle = mixinHasProgress(mixinColor(DtProgressCircleBas
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtProgressCircle extends _DtProgressCircle implements CanColor, HasProgressValues {
+export class DtProgressCircle extends _DtProgressCircle implements CanColor<DtProgressCircleThemePalette>, HasProgressValues {
 
   @Output()
   readonly valueChange = new EventEmitter<DtProgressCircleChange>();
