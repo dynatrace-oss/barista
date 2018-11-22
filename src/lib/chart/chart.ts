@@ -185,7 +185,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   ngAfterContentInit(): void {
     this._heatfieldSelectionModel = new SelectionModel<DtChartHeatfield>();
-    this._heatfieldSelectionModel.onChange!.pipe(takeUntil(this._destroy)).subscribe((event) => {
+    this._heatfieldSelectionModel.changed.pipe(takeUntil(this._destroy)).subscribe((event) => {
       event.added.forEach((heatfield) => { heatfield.active = true; });
       event.removed.forEach((heatfield) => { heatfield.active = false; });
     });
