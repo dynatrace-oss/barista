@@ -1,0 +1,21 @@
+@import '../../style/font-mixins';
+@import 'variables';
+
+$overlay-container-padding: 12px;
+$overlay-max-width: 620px;
+$overlay-min-width: 36px;
+
+@mixin dt-overlay-container() {
+  @include main-font();
+  background-color: white;
+  border: 1px solid $turquoise-600;
+  border-radius: 4px;
+  font-size: 14px;
+  color: $gray-700;
+  padding: $overlay-container-padding;
+  display: inline-block;
+  position: relative;
+  transform-origin: top right;
+  max-width: $overlay-max-width;
+  min-width: $overlay-min-width;
+}

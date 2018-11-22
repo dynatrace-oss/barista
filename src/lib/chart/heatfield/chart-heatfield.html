@@ -1,0 +1,23 @@
+<button
+  class="dt-chart-heatfield-marker"
+  [class.dt-chart-heatfield-active]="active"
+  #marker="cdkOverlayOrigin"
+  cdk-overlay-origin (click)="_toggleActive()" (keydown)="_handleKeydown($event)"
+  [attr.aria-label]="ariaLabel"
+></button>
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="marker"
+  [cdkConnectedOverlayOpen]="_isValidStartEndRange && active"
+  [cdkConnectedOverlayPositions]="_positions">
+  <div class="dt-chart-heatfield-overlay">
+    <ng-content></ng-content>
+  </div>
+</ng-template>
+
+<div
+  class="dt-chart-heatfield-backdrop"
+  #backdrop
+  [style.visibility]="_isValidStartEndRange && active ? 'visible' : 'hidden'"
+  [style.height.px]="_plotBackgroundBoundingBox && _plotBackgroundBoundingBox.height"
+></div>
