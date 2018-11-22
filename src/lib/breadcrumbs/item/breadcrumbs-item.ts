@@ -51,7 +51,6 @@ export class DtBreadcrumbsItem {
   set _lastItem(value: boolean) {
     if (this._isLastItem !== value) {
       this._isLastItem = value;
-      // tslint:disable-next-line:no-floating-promises
       Promise.resolve().then(() => {
         this._changeDetectorRef.markForCheck();
       });
@@ -111,7 +110,6 @@ export class DtBreadcrumbsItem {
       return true;
     }
 
-    // tslint:disable-next-line no-floating-promises
     ensureProvided(this._router).navigateByUrl(this._createUrlTree());
     return false;
   }
