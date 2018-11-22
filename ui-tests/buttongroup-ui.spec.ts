@@ -2,20 +2,20 @@ import { browser, by, element } from 'protractor';
 
 describe('button-group', () => {
   describe('disabling behavior', () => {
-    beforeEach(() => browser.get('/button-group'));
+    beforeEach(async () => browser.get('/button-group'));
 
     it('should execute click handlers when not disabled', async () => {
-      element(by.id('group-1-item-1')).click();
+      await element(by.id('group-1-item-1')).click();
       expect(await element(by.id('lblGroup-1')).getText()).toEqual('Value 1');
-      element(by.id('group-1-item-0')).click();
+      await element(by.id('group-1-item-0')).click();
       expect(await element(by.id('lblGroup-1')).getText()).toEqual('Value 0');
     });
     it('should have styles', async () => {
-      element(by.id('group-1-item-0')).click();
+      await element(by.id('group-1-item-0')).click();
       expect(await element(by.id('group-1-item-0')).getAttribute('class')).toContain('dt-button-group-item-selected');
       expect(await element(by.id('group-1-item-1')).getAttribute('class')).not.toContain('dt-button-group-item-selected');
 
-      element(by.id('group-1-item-1')).click();
+      await element(by.id('group-1-item-1')).click();
       expect(await element(by.id('group-1-item-0')).getAttribute('class')).not.toContain('dt-button-group-item-selected');
       expect(await element(by.id('group-1-item-1')).getAttribute('class')).toContain('dt-button-group-item-selected');
     });
