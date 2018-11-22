@@ -18,7 +18,8 @@ import {
   HasElementRef,
   mixinDisabled,
   CanDisable,
-  replaceCssClass
+  replaceCssClass,
+  Constructor
 } from '@dynatrace/angular-components/core';
 import { DtIcon } from '@dynatrace/angular-components/icon';
 import { Subscription, NEVER } from 'rxjs';
@@ -36,11 +37,14 @@ const BUTTON_HOST_ATTRIBUTES = [
   'dt-icon-button',
 ];
 
+export type DtButtonThemePalette = 'main' | 'warning' | 'cta';
+
 // Boilerplate for applying mixins to DtButton.
 export class DtButtonBase {
   constructor(public _elementRef: ElementRef) { }
 }
-export const _DtButtonMixinBase = mixinDisabled(mixinColor(DtButtonBase, 'main'));
+export const _DtButtonMixinBase =
+  mixinDisabled(mixinColor<Constructor<DtButtonBase>, DtButtonThemePalette>(DtButtonBase, 'main'));
 
 export type ButtonVariant = 'primary' | 'secondary' | 'nested';
 const defaultVariant = 'primary';
@@ -65,7 +69,8 @@ const defaultVariant = 'primary';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtButton extends _DtButtonMixinBase implements OnDestroy, AfterContentInit, CanDisable, CanColor, HasElementRef {
+export class DtButton extends _DtButtonMixinBase
+  implements OnDestroy, AfterContentInit, CanDisable, CanColor<DtButtonThemePalette>, HasElementRef {
 
   @Input()
   get variant(): ButtonVariant { return this._variant; }
