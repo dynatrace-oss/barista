@@ -1,0 +1,15 @@
+@mixin dt-theme-table-problem($theme) {
+  $palette-names: 'error', 'warning';
+  $default-palette: 'error';
+
+  @each $name in $palette-names {
+    $palette: dt-get-theme-palette($theme, $name);
+    $default-color: dt-get-theme-color($palette, 'default');
+
+    $namespace: ':host';
+    @if $name != $default-palette {
+      $namespace: '.dt-button.dt-color-#{$name}';
+    }
+
+  }
+}
