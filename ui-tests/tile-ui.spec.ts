@@ -2,10 +2,10 @@ import {browser, by, element } from 'protractor';
 
 describe('tile', () => {
   describe('disabling behavior', () => {
-    beforeEach(() => browser.get('/tile'));
+    beforeEach(async () => browser.get('/tile'));
 
     it('should execute click handlers when not disabled', async () => {
-      element(by.id('test-tile')).click();
+      await element(by.id('test-tile')).click();
       expect(await element(by.id('click-counter')).getText()).toEqual('1');
     });
 

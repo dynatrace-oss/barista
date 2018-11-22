@@ -677,7 +677,6 @@ export class DtSelect<T> extends _DtSelectMixinBase
   private _initializeSelection(): void {
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
-    // tslint:disable-next-line:no-floating-promises
     Promise.resolve().then(() => {
       this._setSelectionByValue(this.ngControl ? this.ngControl.value : this._value);
     });
