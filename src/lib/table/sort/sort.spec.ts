@@ -54,17 +54,17 @@ describe('DtSort', () => {
     it('should be correct when cycling through a default sort header', () => {
       // Sort the header to set it to the active start state
       component.sort('column_a');
-      expectedStates.set('column_a', { iconName: 'sorter-down' });
+      expectedStates.set('column_a', { iconName: 'sorter-up' });
       component.expectIconStates(expectedStates);
 
       // Sorting again will reverse its direction
       component.dispatchMouseEvent('column_a', 'click');
-      expectedStates.set('column_a', { iconName: 'sorter-up' });
+      expectedStates.set('column_a', { iconName: 'sorter-down' });
       component.expectIconStates(expectedStates);
 
       // Sorting again continue the cycle
       component.dispatchMouseEvent('column_a', 'click');
-      expectedStates.set('column_a', { iconName: 'sorter-down' });
+      expectedStates.set('column_a', { iconName: 'sorter-up' });
       component.expectIconStates(expectedStates);
     });
 
