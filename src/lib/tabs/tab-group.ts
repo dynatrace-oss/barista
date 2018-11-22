@@ -20,6 +20,7 @@ import {
   DtLogger,
   CanDisable,
   CanColor,
+  Constructor,
 } from '@dynatrace/angular-components/core';
 import { Subscription, merge } from 'rxjs';
 
@@ -29,10 +30,13 @@ export const DT_TABGROUP_NO_ENABLED_TABS_ERROR = 'At least one tab must be enabl
 
 const LOG: DtLogger = DtLoggerFactory.create('DtTabGroup');
 
+export type DtTabGroupThemePalette = 'main' | 'recovered' | 'error';
+
 export class DtTabGroupBase {
   constructor(public _elementRef: ElementRef) {}
 }
-export const _DtTabGroupMixinBase = mixinColor(mixinDisabled(DtTabGroupBase), 'main');
+export const _DtTabGroupMixinBase =
+mixinDisabled(mixinColor<Constructor<DtTabGroupBase>, DtTabGroupThemePalette>(DtTabGroupBase, 'main'));
 
 /** Used to generate unique ID's for each tab component */
 let nextId = 0;
@@ -51,7 +55,8 @@ let nextId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTabGroup extends _DtTabGroupMixinBase implements AfterContentInit, OnDestroy, CanColor, CanDisable {
+export class DtTabGroup extends _DtTabGroupMixinBase
+  implements AfterContentInit, OnDestroy, CanColor<DtTabGroupThemePalette>, CanDisable {
   // tslint:disable-next-line:no-forward-ref
   @ContentChildren(forwardRef(() => DtTab)) _tabs: QueryList<DtTab>;
 

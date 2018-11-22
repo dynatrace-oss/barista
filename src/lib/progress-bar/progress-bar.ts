@@ -4,15 +4,18 @@ import {
   ViewEncapsulation,
   Input, ChangeDetectorRef, Output, EventEmitter, ElementRef,
 } from '@angular/core';
-import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress } from '@dynatrace/angular-components/core';
+import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress, Constructor } from '@dynatrace/angular-components/core';
 
 export type DtProgressBarChange = DtProgressChange;
+
+export type DtProgressBarThemePalette = 'main' | 'accent' | 'warning' | 'recovered' | 'error';
 
 export class DtProgressBarBase {
   constructor(public _elementRef: ElementRef) { }
 }
 
-export const _DtProgressBar = mixinHasProgress(mixinColor(DtProgressBarBase, 'main'));
+export const _DtProgressBar =
+  mixinHasProgress(mixinColor<Constructor<DtProgressBarBase>, DtProgressBarThemePalette>(DtProgressBarBase, 'main'));
 
 @Component({
   moduleId: module.id,
@@ -32,7 +35,7 @@ export const _DtProgressBar = mixinHasProgress(mixinColor(DtProgressBarBase, 'ma
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtProgressBar extends _DtProgressBar implements CanColor, HasProgressValues {
+export class DtProgressBar extends _DtProgressBar implements CanColor<DtProgressBarThemePalette>, HasProgressValues {
 
   @Input() align: 'start' | 'end' = 'start';
 

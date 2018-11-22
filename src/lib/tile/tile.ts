@@ -13,7 +13,8 @@ import {
   mixinTabIndex,
   HasElementRef,
   CanColor,
-  mixinColor
+  mixinColor,
+  Constructor,
 } from '@dynatrace/angular-components/core';
 
 /** Title of a tile, needed as it's used as a selector in the API. */
@@ -44,11 +45,13 @@ export class DtTileIcon {
 })
 export class DtTileSubtitle { }
 
+export type DtTileThemePalette = 'main' | 'error' | 'recovered';
+
 // Boilerplate for applying mixins to DtTile.
 export class DtTileBase {
   constructor(public _elementRef: ElementRef) { }
 }
-export const _DtTileMixinBase = mixinTabIndex(mixinDisabled(mixinColor(DtTileBase)));
+export const _DtTileMixinBase = mixinTabIndex(mixinDisabled(mixinColor<Constructor<DtTileBase>, DtTileThemePalette>(DtTileBase)));
 
 @Component({
   moduleId: module.id,
@@ -72,7 +75,7 @@ export const _DtTileMixinBase = mixinTabIndex(mixinDisabled(mixinColor(DtTileBas
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtTile extends _DtTileMixinBase
-  implements CanDisable, HasElementRef, CanColor, HasTabIndex {
+  implements CanDisable, HasElementRef, CanColor<DtTileThemePalette>, HasTabIndex {
 
   @ContentChild(DtTileSubtitle) _subTitle: DtTileSubtitle;
   @ContentChild(DtTileIcon) _icon: DtTileIcon;
