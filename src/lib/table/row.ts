@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation, ContentChildren, QueryList, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef } from '@angular/cdk/table';
+import { DtCell } from './cell';
+import { DtTable } from './table';
+import { merge, Subscription } from 'rxjs';
 
 /**
  * Header row definition for the dt-table.
@@ -18,6 +21,7 @@ export class DtHeaderRowDef extends CdkHeaderRowDef { }
  * a when predicate that describes when this row should be used.
  */
 @Directive({
+  exportAs: 'dtRowDef',
   selector: '[dtRowDef]',
   providers: [{provide: CdkRowDef, useExisting: DtRowDef}],
   inputs: ['columns: dtRowDefColumns', 'when: dtRowDefWhen'],
@@ -49,9 +53,53 @@ export class DtHeaderRow extends CdkHeaderRow { }
   host: {
     class: 'dt-row',
     role: 'row',
+    '[class.error]': '_hasProblem === "error"',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtRow',
 })
-export class DtRow extends CdkRow { }
+export class DtRow extends CdkRow implements OnDestroy {
+
+  static mostRecentRow: DtRow | null = null;
+
+  private _cells = new Set<DtCell>();
+  private _cellStateChangesSub = Subscription.EMPTY;
+
+  _hasProblem: 'error' | 'warning' | null = null;
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {
+    super();
+    DtRow.mostRecentRow = this;
+  }
+
+  ngOnDestroy(): void {
+    if (DtRow.mostRecentRow === this) {
+      DtRow.mostRecentRow = null;
+    }
+    this._cellStateChangesSub.unsubscribe();
+  }
+
+  _registerCell(cell: DtCell): void {
+    this._cells.add(cell);
+    this._listenForStateChanges();
+  }
+
+  _unregisterCell(cell: DtCell): void {
+    this._cells.delete(cell);
+    this._listenForStateChanges();
+  }
+
+  private _listenForStateChanges(): void{
+    this._cellStateChangesSub.unsubscribe();
+    const cells = Array.from(this._cells.values());
+    this._cellStateChangesSub = merge(...(cells.map((cell) => cell._stateChanges))).subscribe(() => {
+      const problems = cells.filter((cell) => cell.hasError || cell.hasWarning);
+      const hasError = !!problems.find((cell) => cell.hasError);
+      const hasWarning = !!problems.find((cell) => cell.hasWarning);
+      this._hasProblem = hasError ? 'error' : (hasWarning ? 'warning' : null);
+      console.log(hasError);
+      this._changeDetectorRef.markForCheck();
+    });
+  }
+}
