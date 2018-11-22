@@ -2,11 +2,11 @@ import {browser, by, element, ExpectedConditions} from 'protractor';
 
 describe('switch', () => {
   describe('disabling behavior', () => {
-    beforeEach(() => browser.get('/switch'));
+    beforeEach(async () => browser.get('/switch'));
 
     it('should be checked when clicked', async () => {
 
-      element(by.id('switch')).click();
+      await element(by.id('switch')).click();
 
       expect(element(by.id('switch')).getAttribute('class')).toContain('dt-switch-checked');
 
@@ -14,8 +14,8 @@ describe('switch', () => {
     });
 
     it('should not click when disabled', async () => {
-      element(by.id('disable-toggle')).click();
-      element(by.id('switch')).click();
+      await element(by.id('disable-toggle')).click();
+      await element(by.id('switch')).click();
 
       expect(element(by.id('switch')).getAttribute('class')).toContain('dt-switch-disabled');
 

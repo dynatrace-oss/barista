@@ -32,7 +32,6 @@ task('lint', [
   'stylelint',
   'tslint',
   'tslint:specs',
-  'tslint:docs',
   'tslint:ui-test-app',
   'tslint:universal-app',
   'tslint:ui-tests',
@@ -46,7 +45,7 @@ task('ensureOutDirectory', () => {
 task('stylelint', ['ensureOutDirectory'],
      isCi ? executeStylelintOnCI : execNodeTask('stylelint', stylelintArgs));
 
-function executeStylelintOnCI(done: (err?: any) => void) {
+function executeStylelintOnCI(done: (err?: any) => void): void {
   const file = createWriteStream(stylelintOutFile);
   execNodeTask(
     'stylelint', ciStylelintArgs, undefined, {
@@ -80,18 +79,6 @@ task('tslint:specs', ['ensureOutDirectory'], execNodeTask(
       tsSpecsGlob,
     ],
     'checkstyle-spec.xml'
-  )
-));
-
-task('tslint:docs', ['ensureOutDirectory'], execNodeTask(
-  'tslint', outputToXML(
-    isCi,
-    [
-      '--config', 'src/docs/tslint.json',
-      '--project', 'src/docs/tsconfig.json',
-      tsDocs,
-    ],
-    'checkstyle-docs.xml'
   )
 ));
 
