@@ -560,7 +560,6 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   // Implemented as part of ControlValueAccessor.
   writeValue(value: T): void {
-    // tslint:disable-next-line:no-floating-promises
     Promise.resolve(null).then(() => { this._setTriggerValue(value); });
   }
 
