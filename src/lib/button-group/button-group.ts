@@ -22,10 +22,10 @@ import {
   mixinDisabled,
   mixinTabIndex,
   readKeyCode,
+  Constructor,
 } from '@dynatrace/angular-components/core';
 
 export class DtButtonGroupBase { }
-
 export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));
 
 @Component({
@@ -127,16 +127,13 @@ export interface DtButtonGroupItemSelectionChange<T> {
   value: T | null;
 }
 
+export type DtButtonGroupThemePalette = 'main' | 'error';
 export class DtButtonGroupItemBase {
   disabled: boolean;
   constructor(public _elementRef: ElementRef) { }
 }
-
-export type ButtonGroupThemePalette = 'main' | 'error' | undefined;
-const defaultPalette: ButtonGroupThemePalette = 'main';
-
 export const _DtButtonGroupItem =
-  mixinTabIndex(mixinColor(DtButtonGroupItemBase, defaultPalette));
+  mixinTabIndex(mixinColor<Constructor<DtButtonGroupItemBase>, DtButtonGroupThemePalette>(DtButtonGroupItemBase, 'main'));
 
 @Component({
   moduleId: module.id,
@@ -162,7 +159,7 @@ export const _DtButtonGroupItem =
 })
 
 export class DtButtonGroupItem<T> extends _DtButtonGroupItem
-implements CanDisable, CanColor, HasTabIndex, AfterContentInit {
+implements CanDisable, CanColor<DtButtonGroupThemePalette>, HasTabIndex, AfterContentInit {
 
   private _selected = false;
   private _value: T;
