@@ -3,22 +3,22 @@
 
 $dt-blue-theme-light:
   dt-theme-light(
-    /* main */      dt-theme-palette($blue-600, $blue-700, $blue-800),
-    /* accent */    dt-theme-palette($turquoise-600, $turquoise-700, $turquoise-800),
-    /* warning */   dt-theme-palette($yellow-600, $yellow-700, $yellow-800),
-    /* error */     dt-theme-palette($red-600, $red-700, $red-800),
-    /* recovered */ dt-theme-palette($green-600, $green-700, $green-800),
-    /* cta */       dt-theme-palette($green-600, $green-700, $green-800)
+    /* main */      dt-theme-palette($blue-600, $blue-700, $blue-800, $blue-100),
+    /* accent */    dt-theme-palette($turquoise-600, $turquoise-700, $turquoise-800, $turquoise-100),
+    /* warning */   dt-theme-palette($yellow-600, $yellow-700, $yellow-800, $yellow-100),
+    /* error */     dt-theme-palette($red-600, $red-700, $red-800, $red-100),
+    /* recovered */ dt-theme-palette($green-600, $green-700, $green-800, $green-100),
+    /* cta */       dt-theme-palette($green-600, $green-700, $green-800, $green-100)
   );
 
 $dt-blue-theme-dark:
   dt-theme-dark(
-    /* main */      dt-theme-palette($blue-500, $blue-400, $blue-300),
-    /* accent */    dt-theme-palette($turquoise-500, $turquoise-400, $turquoise-300),
-    /* warning */   dt-theme-palette($yellow-600, $yellow-500, $yellow-400),
-    /* error */     dt-theme-palette($red-500, $red-400, $red-300),
-    /* recovered */ dt-theme-palette($green-500, $green-400, $green-300),
-    /* cta */       dt-theme-palette($green-500, $green-400, $green-300)
+    /* main */      dt-theme-palette($blue-500, $blue-400, $blue-300, $blue-100),
+    /* accent */    dt-theme-palette($turquoise-500, $turquoise-400, $turquoise-300, $turquoise-100),
+    /* warning */   dt-theme-palette($yellow-600, $yellow-500, $yellow-400, $yellow-100),
+    /* error */     dt-theme-palette($red-500, $red-400, $red-300, $red-100),
+    /* recovered */ dt-theme-palette($green-500, $green-400, $green-300, $green-100),
+    /* cta */       dt-theme-palette($green-500, $green-400, $green-300, $green-100)
   );
 
 @include dt-register-theme('blue', $dt-blue-theme-light, $dt-blue-theme-dark, false);

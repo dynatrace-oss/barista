@@ -1,0 +1,34 @@
+@import '../../core/style/variables';
+@import '../../core/theming/theming';
+
+@mixin dt-theme-chart-heatfield($theme) {
+  $palette-names: 'main', 'error';
+  $default-palette: 'error';
+
+  @each $name in $palette-names {
+    $palette: dt-get-theme-palette($theme, $name);
+    $default-color: dt-get-theme-color($palette, 'default');
+    $hover-color: dt-get-theme-color($palette, 'hover');
+    $active-color: dt-get-theme-color($palette, 'active');
+    $background-color: dt-get-theme-color($palette, 'background');
+
+    $namespace: ':host.dt-color-#{$name}';
+
+    #{$namespace} .dt-chart-heatfield-marker {
+      background-color: $default-color;
+    }
+
+    #{$namespace} .dt-chart-heatfield-marker.dt-chart-heatfield-active {
+      background-color: $active-color;
+    }
+
+    #{$namespace} .dt-chart-heatfield-marker:hover,
+    #{$namespace} .dt-chart-heatfield-marker:focus {
+      background-color: $hover-color;
+    }
+
+    #{$namespace} .dt-chart-heatfield-backdrop {
+      background-color: $background-color;
+    }
+  }
+}
