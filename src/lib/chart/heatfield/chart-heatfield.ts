@@ -1,7 +1,7 @@
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnDestroy, Output, SkipSelf, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
-import { CanColor, isDefined, mixinColor, readKeyCode } from '@dynatrace/angular-components/core';
+import { CanColor, isDefined, mixinColor, readKeyCode, Constructor } from '@dynatrace/angular-components/core';
 import { clamp, round } from 'lodash';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -43,11 +43,14 @@ export class DtChartHeatfieldActiveChange {
   ) { }
 }
 
+export type DtChartHeatfieldThemePalette = 'main' | 'error';
+
 // Boilerplate for applying mixins to DtHeatfield.
 export class DtHeatfieldBase {
   constructor(public _elementRef: ElementRef) { }
 }
-export const _DtHeatfieldMixinBase = mixinColor(DtHeatfieldBase, 'error');
+export const _DtHeatfieldMixinBase =
+  mixinColor<Constructor<DtHeatfieldBase>, DtChartHeatfieldThemePalette>(DtHeatfieldBase, 'error');
 
 @Component({
   selector: 'dt-chart-heatfield',
@@ -60,7 +63,8 @@ export const _DtHeatfieldMixinBase = mixinColor(DtHeatfieldBase, 'error');
   inputs: ['color'],
 })
 
-export class DtChartHeatfield extends _DtHeatfieldMixinBase implements CanColor, OnDestroy, AfterViewInit {
+export class DtChartHeatfield extends _DtHeatfieldMixinBase
+  implements CanColor<DtChartHeatfieldThemePalette>, OnDestroy, AfterViewInit {
 
   /** Event emitted when the option is selected or deselected. */
   @Output() readonly activeChange = new EventEmitter<DtChartHeatfieldActiveChange>();
