@@ -2,9 +2,9 @@ import { Constructor } from './constructor';
 import { ElementRef, Directive, NgModule } from '@angular/core';
 import { replaceCssClass } from '../util/platform-util';
 
-export interface CanColor {
+export interface CanColor<P extends Partial<DtThemePalette>> {
   /** Theme color palette for the component. */
-  color: Partial<DtThemePalette>;
+  color: P;
 }
 
 export interface HasElementRef {
@@ -12,15 +12,15 @@ export interface HasElementRef {
 }
 
 /** Possible color palette values. */
-export type DtThemePalette = 'main' | 'accent' | 'warning' | 'error' | 'cta' | undefined;
+export type DtThemePalette = 'main' | 'accent' | 'warning' | 'error' | 'cta' | 'recovered' | undefined;
 
 /** Mixin to augment a directive with a `color` property. */
 export function mixinColor<T extends Constructor<HasElementRef>>(
-  base: T, defaultColor?: DtThemePalette): Constructor<CanColor> & T;
+  base: T, defaultColor?: DtThemePalette): Constructor<CanColor<DtThemePalette>> & T;
 export function mixinColor<T extends Constructor<HasElementRef>, P extends Partial<DtThemePalette>>(
-  base: T, defaultColor?: P): Constructor<CanColor> & T;
+  base: T, defaultColor?: P): Constructor<CanColor<P>> & T;
 export function mixinColor<T extends Constructor<HasElementRef>, P extends Partial<DtThemePalette>>(
-  base: T, defaultColor?: P): Constructor<CanColor> & T {
+  base: T, defaultColor?: P): Constructor<CanColor<P>> & T {
   return class extends base {
     private _color: P;
 
@@ -75,7 +75,7 @@ export const _DtColorMixinBase = mixinColor(DtColorBase);
   inputs: ['color'],
   exportAs: 'dtColor',
 })
-export class DtColor extends _DtColorMixinBase implements CanColor {
+export class DtColor extends _DtColorMixinBase implements CanColor<DtThemePalette> {
   constructor(elementRef: ElementRef) {
     super(elementRef);
   }
