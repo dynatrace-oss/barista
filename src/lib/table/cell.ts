@@ -1,10 +1,9 @@
 import {ChangeDetectionStrategy, Component, Directive, ElementRef, Input, Renderer2, ViewEncapsulation, ContentChildren, QueryList, ViewContainerRef, Injector, InjectionToken, EmbeddedViewRef } from '@angular/core';
 import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef, RowContext, CdkRow, CdkRowDef } from '@angular/cdk/table';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
-import { DtTableProblem } from './table-problem';
 import { DtRow } from './row';
 import { Subject } from 'rxjs';
-import { isDefined, addCssClass } from '@dynatrace/angular-components/core';
+import { isDefined, addCssClass, DtIndicator } from '@dynatrace/angular-components/core';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
@@ -66,7 +65,7 @@ export class DtHeaderCell {
   }
 }
 
-type ProblemType = 'error' | 'warning';
+type IndicatorType = 'error' | 'warning';
 
 /** Cell template container that adds the right classes and role. */
 @Component({
@@ -82,11 +81,11 @@ type ProblemType = 'error' | 'warning';
   exportAs: 'dtCell',
 })
 export class DtCell {
-  @ContentChildren(DtTableProblem, { descendants: true }) _problems: QueryList<DtTableProblem>;
+  @ContentChildren(DtIndicator, { descendants: true }) _indicators: QueryList<DtIndicator>;
 
-  get hasError(): boolean { return this._hasProblem('error'); }
+  get hasError(): boolean { return this._hasIndicator('error'); }
 
-  get hasWarning(): boolean { return this._hasProblem('warning'); }
+  get hasWarning(): boolean { return this._hasIndicator('warning'); }
 
   _stateChanges = new Subject<void>();
   _row: DtRow;
@@ -101,7 +100,7 @@ export class DtCell {
   }
 
   ngAfterContentInit(): void {
-    this._problems.changes.subscribe(() => { this._stateChanges.next(); });
+    this._indicators.changes.subscribe(() => { this._stateChanges.next(); });
     Promise.resolve().then(() => { this._stateChanges.next(); });
   }
 
@@ -110,8 +109,8 @@ export class DtCell {
     this._row._unregisterCell(this);
   }
 
-  private _hasProblem(problemType: ProblemType): boolean {
-    return this._problems && isDefined(this._problems.find((problem) => problem.color === problemType));
+  private _hasIndicator(indicatorType: IndicatorType): boolean {
+    return this._indicators && isDefined(this._indicators.find((indicator) => indicator.color === indicatorType));
   }
 }
 
