@@ -33,11 +33,11 @@ export interface TableData {
     <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
     <dt-cell *dtCellDef="let row">
       <ng-container [ngSwitch]="metricHasProblem(row, 'memoryPerc')">
-        <dt-table-problem *ngSwitchCase="true">{{row.memoryPerc | dtPercent }}</dt-table-problem>
+        <span dtIndicator color="warning" *ngSwitchCase="true">{{row.memoryPerc | dtPercent }}</span>
         <span *ngSwitchDefault>{{row.memoryPerc | dtPercent }}</span>
       </ng-container>&nbsp;of&nbsp; 
       <ng-container [ngSwitch]="metricHasProblem(row, 'memoryTotal')">
-        <dt-table-problem *ngSwitchCase="true">{{row.memoryTotal | dtBytes}}</dt-table-problem>
+        <span dtIndicator *ngSwitchCase="true">{{row.memoryTotal | dtBytes}}</span>
         <span *ngSwitchDefault>{{row.memoryTotal | dtBytes }}</span>
       </ng-container>
     </dt-cell>
@@ -60,7 +60,7 @@ export interface TableData {
 @OriginalClassName('TableProblemComponent')
 export class TableProblemComponent {
   dataSource1: TableData[] = [
-    { name: 'et-demo-2-win4', cpuUsage: 30, memoryPerc: 38, memoryTotal: 5830000000, traffic: 987000000, problems: ['memoryTotal'] },
+    { name: 'et-demo-2-win4', cpuUsage: 30, memoryPerc: 38, memoryTotal: 5830000000, traffic: 987000000, problems: ['memoryPerc'] },
     { name: 'et-demo-2-win3', cpuUsage: 26, memoryPerc: 46, memoryTotal: 6000000000, traffic: 6250000000 },
     { name: 'docker-host2', cpuUsage: 25.4, memoryPerc: 38, memoryTotal: 5250000000, traffic: 4190000000 },
     { name: 'et-demo-2-win1', cpuUsage: 23, memoryPerc: 7.86, memoryTotal: 16000000000, traffic: 987000000 },
