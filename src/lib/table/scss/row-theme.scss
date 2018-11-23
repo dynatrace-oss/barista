@@ -1,4 +1,6 @@
-@mixin dt-theme-table-problem($theme) {
+@import '../../core/theming/theming';
+
+@mixin dt-theme-row($theme) {
   $palette-names: 'error', 'warning';
   $default-palette: 'error';
 
@@ -6,10 +8,9 @@
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
 
-    $namespace: ':host';
-    @if $name != $default-palette {
-      $namespace: '.dt-button.dt-color-#{$name}';
+    :host.dt-table-row-indicator.dt-color-#{$name}:before {
+      background-color: $default-color;
     }
-
   }
+
 }
