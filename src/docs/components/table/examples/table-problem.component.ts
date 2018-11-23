@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
 import { OriginalClassName } from '../../../core/decorators';
 
 export interface TableData {
@@ -7,8 +6,9 @@ export interface TableData {
   cpuUsage: number;
   memoryPerc: number;
   memoryTotal: number;
-  problems?: string[];
   traffic: number;
+  errors?: string[];
+  warnings?: string[];
 }
 
 @Component({
@@ -26,20 +26,16 @@ export interface TableData {
 
   <ng-container dtColumnDef="cpu" dtColumnAlign="text">
     <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
-    <dt-cell *dtCellDef="let row">{{row.cpuUsage | dtPercent }}</dt-cell>
+    <dt-cell [dtIndicator]="metricHasProblem(row, 'cpuUsage')" [dtIndicatorColor]="metricIndicatorColor(row, 'cpuUsage')" *dtCellDef="let row">
+      {{row.cpuUsage | dtPercent }}
+    </dt-cell>
   </ng-container>
 
   <ng-container dtColumnDef="memory" dtColumnAlign="number">
     <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
     <dt-cell *dtCellDef="let row">
-      <ng-container [ngSwitch]="metricHasProblem(row, 'memoryPerc')">
-        <span dtIndicator color="warning" *ngSwitchCase="true">{{row.memoryPerc | dtPercent }}</span>
-        <span *ngSwitchDefault>{{row.memoryPerc | dtPercent }}</span>
-      </ng-container>&nbsp;of&nbsp; 
-      <ng-container [ngSwitch]="metricHasProblem(row, 'memoryTotal')">
-        <span dtIndicator *ngSwitchCase="true">{{row.memoryTotal | dtBytes}}</span>
-        <span *ngSwitchDefault>{{row.memoryTotal | dtBytes }}</span>
-      </ng-container>
+      <span [dtIndicator]="metricHasProblem(row, 'memoryPerc')" [dtIndicatorColor]="metricIndicatorColor(row, 'memoryPerc')">{{row.memoryPerc | dtPercent }}</span>&nbsp;of&nbsp;
+      <span [dtIndicator]="metricHasProblem(row, 'memoryTotal')" [dtIndicatorColor]="metricIndicatorColor(row, 'memoryTotal')">{{row.memoryTotal | dtBytes}}</span>
     </dt-cell>
   </ng-container>
 
@@ -60,13 +56,25 @@ export interface TableData {
 @OriginalClassName('TableProblemComponent')
 export class TableProblemComponent {
   dataSource1: TableData[] = [
-    { name: 'et-demo-2-win4', cpuUsage: 30, memoryPerc: 38, memoryTotal: 5830000000, traffic: 987000000, problems: ['memoryPerc'] },
+    { name: 'et-demo-2-win4', cpuUsage: 30, memoryPerc: 38, memoryTotal: 5830000000, traffic: 987000000, warnings: ['memoryPerc'], errors: ['cpuUsage'] },
     { name: 'et-demo-2-win3', cpuUsage: 26, memoryPerc: 46, memoryTotal: 6000000000, traffic: 6250000000 },
-    { name: 'docker-host2', cpuUsage: 25.4, memoryPerc: 38, memoryTotal: 5250000000, traffic: 4190000000 },
+    { name: 'docker-host2', cpuUsage: 25.4, memoryPerc: 38, memoryTotal: 5250000000, traffic: 4190000000, warnings: ['cpuUsage'] },
     { name: 'et-demo-2-win1', cpuUsage: 23, memoryPerc: 7.86, memoryTotal: 16000000000, traffic: 987000000 },
   ];
 
   metricHasProblem(rowData: TableData, metricName: string): boolean {
-    return rowData.problems !== undefined && rowData.problems.includes(metricName);
+    return this._metricHasError(rowData, metricName) || this._metricHasWarning(rowData, metricName);
+  }
+
+  metricIndicatorColor(rowData: TableData, metricName: string): 'error' | 'warning' | null {
+    return this._metricHasError(rowData, metricName) ? 'error' : this._metricHasWarning(rowData, metricName) ? 'warning' : null;
+  }
+
+  private _metricHasError(rowData: TableData, metricName: string): boolean {
+    return rowData.errors !== undefined && rowData.errors.includes(metricName);
+  }
+
+  private _metricHasWarning(rowData: TableData, metricName: string): boolean {
+    return rowData.warnings !== undefined && rowData.warnings.includes(metricName);
   }
 }

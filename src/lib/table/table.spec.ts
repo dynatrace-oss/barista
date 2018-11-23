@@ -439,6 +439,10 @@ describe('DtTable', () => {
         testApp.expandableRows[2].contentViewContainer.element.nativeElement.nextElementSibling as HTMLElement;
       expect(expandableContent.innerHTML).toEqual('<div>Test Component for expandable section</div>');
     });
+
+    it('should set a dt-indicator class on the cell', () => {
+      
+    });
   });
 
   describe('Sticky Header', () => {
