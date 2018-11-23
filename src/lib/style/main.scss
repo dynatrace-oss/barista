@@ -17,3 +17,6 @@
 .dt-overlay-no-pointer {
   pointer-events: none;
 }
+
+// indicator styles import because the indicator is a directive and cannot be shipped with styles
+@import '../core/indicator/indicator';

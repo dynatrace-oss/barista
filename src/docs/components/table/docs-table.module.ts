@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtThemingModule, DtTableModule, DtLoadingDistractorModule, DtFormattersModule, DtButtonModule, DtChartModule } from '@dynatrace/angular-components';
+import { DtThemingModule, DtTableModule, DtLoadingDistractorModule, DtFormattersModule, DtButtonModule, DtChartModule, DtCoreModule } from '@dynatrace/angular-components';
 import { TableDefaultComponent } from './examples/table-default.component';
 import { TableDifferentWidthComponent } from './examples/table-different-width.component';
 import { TableMinWidthComponent } from './examples/table-min-width.component';
@@ -42,6 +42,7 @@ export const EXAMPLES = [
     DtFormattersModule,
     DtButtonModule,
     DtChartModule,
+    DtCoreModule,
   ],
   declarations: [
     ...EXAMPLES,
