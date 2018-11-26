@@ -6,13 +6,13 @@ This directive was introduced to add indicators in the `dt-table`, but can be us
 
 ## Imports
 
-You have to import the `DtCoreModule` when you want to use the `dtIndicator` directive:
+You have to import the `DtIndicatorModule` when you want to use the `dtIndicator` directive:
 
 ```typescript
 
 @NgModule({
   imports: [
-    DtCoreModule,
+    DtIndicatorModule,
   ],
 })
 class MyModule {}
