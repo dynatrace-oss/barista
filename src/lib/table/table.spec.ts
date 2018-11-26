@@ -50,6 +50,7 @@ describe('DtTable', () => {
         TestApp,
         TestDynamicApp,
         TestAppExpandableTable,
+        TestStickyHeader,
       ],
     });
 
@@ -439,6 +440,15 @@ describe('DtTable', () => {
       expect(expandableContent.innerHTML).toEqual('<div>Test Component for expandable section</div>');
     });
   });
+
+  describe('Sticky Header', () => {
+    it('should add the sticky class to the header', () => {
+      const fixture = TestBed.createComponent(TestStickyHeader);
+      fixture.detectChanges();
+      const headerRow = fixture.debugElement.query(By.css('dt-header-row')).nativeElement;
+      expect(headerRow.classList.contains('dt-table-sticky')).toBe(true);
+    });
+  });
 });
 
 /** Test component that contains a DtTable. */
@@ -507,6 +517,25 @@ class TestDynamicApp {
   @ViewChild(DtTable) tableComponent: DtTable<object[]>;
   columns = ['col1', 'col2', 'col3'];
   dataSource: object[] = [];
+}
+
+@Component({
+  selector: 'dt-test-table-sticky',
+  template: `
+    <dt-table [dataSource]="dataSource1">
+    <ng-container dtColumnDef="host" dtColumnAlign="text">
+      <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+      <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
+    </ng-container>
+
+    <dt-header-row *dtHeaderRowDef="['host']; sticky: true"></dt-header-row>
+    <dt-row *dtRowDef="let row; columns: ['host']"></dt-row>
+  </dt-table>`,
+})
+export class TestStickyHeader {
+  dataSource1: object[] = [
+    { host: 'et-demo-2-win4' },
+  ];
 }
 
 /** Test component that contains expandable table */
