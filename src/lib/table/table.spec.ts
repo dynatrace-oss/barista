@@ -28,7 +28,7 @@ import {
   DtLoadingDistractor,
   DtLoadingDistractorModule,
   DtIconModule,
-  DtCoreModule,
+  DtIndicatorModule,
 } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -46,7 +46,7 @@ describe('DtTable', () => {
         HttpClientModule,
         NoopAnimationsModule,
         TestExpandableComponentModule,
-        DtCoreModule,
+        DtIndicatorModule,
       ],
       declarations: [
         TestApp,

@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtCoreModule, DtIndicator } from '@dynatrace/angular-components';
+import { DtIndicatorModule, DtIndicator } from '@dynatrace/angular-components';
 
 describe('DtIndicator without table', () => {
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        DtCoreModule,
+        DtIndicatorModule,
       ],
       declarations: [
         DtIndicatorBasic,
