@@ -20,11 +20,11 @@ import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
 import {
   DtFilterFieldNode,
-  DtFilterFieldNodeValue,
+  DtFilterFieldValueProperty,
   DtFilterFieldFilterNode,
-  DtFilterFieldNodeGroup,
+  DtFilterFieldGroupNode,
   getParents as getParentsForNode,
-  DtFilterFieldNodeText,
+  DtFilterFieldTextProperty,
   DtFilterFieldNodeProperty,
 } from './nodes/filter-field-nodes';
 import { DtFilterFieldNodesHost } from './nodes/filter-field-nodes-host';
@@ -35,7 +35,7 @@ export class DtActiveFilterChangeEvent {
   constructor(
     public rootNodes: DtFilterFieldNode[],
     public activeNode: DtFilterFieldNode | null,
-    public path: DtFilterFieldNodeGroup[] = [],
+    public path: DtFilterFieldGroupNode[] = [],
     public source: DtFilterField
   ) { }
 
@@ -69,7 +69,6 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
 
   @Output() inputChange = new EventEmitter<string>();
   @Output() activeFilterChange = new EventEmitter<DtActiveFilterChangeEvent>();
-  @Output() change = new EventEmitter<void>();
 
   @ViewChild('autocompleteInput') _autocompleteInputEl: ElementRef;
   @ViewChild('freeTextInput') _freeTextInputEl: ElementRef;
@@ -88,7 +87,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   get _filterByLabel(): string {
     const lastProperty = this._currentNode && this._currentNode.properties.length ?
       this._currentNode.properties[this._currentNode.properties.length - 1] : null;
-    return lastProperty ? ` ${(lastProperty as DtFilterFieldNodeValue<any>).toString()}:` : '';
+    return lastProperty ? ` ${(lastProperty as DtFilterFieldValueProperty<any>).toString()}:` : '';
   }
 
   _nodesHost = new DtFilterFieldNodesHost();
@@ -194,6 +193,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     }
   }
 
+  /** @internal */
   _handleInputKeyDown(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
     if (keyCode === BACKSPACE && !this._inputValue.length) {
@@ -244,7 +244,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   }
 
   private _handleAutocompleteSelected(event: DtAutocompleteSelectedEvent<any>): void {
-    const property = new DtFilterFieldNodeValue(event.option.value, event.option.viewValue);
+    const property = new DtFilterFieldValueProperty(event.option.value, event.option.viewValue);
     this._addPropertyToCurrentFilterNode(property);
 
     // Reset input value to empty string after handling the value provided by the autocomplete.
@@ -262,7 +262,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   }
 
   private _handleFreeTextSubmitted(): void {
-    const property = new DtFilterFieldNodeText(this._inputValue);
+    const property = new DtFilterFieldTextProperty(this._inputValue);
     this._addPropertyToCurrentFilterNode(property);
 
     this._shouldFocusWhenStable = true;
