@@ -8,7 +8,7 @@
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
 
-    .dt-indicator.dt-color-#{$name} {
+    .dt-indicator-active.dt-color-#{$name} {
       color: $default-color;
     }
   }

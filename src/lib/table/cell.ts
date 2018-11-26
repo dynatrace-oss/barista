@@ -1,9 +1,10 @@
 import {ChangeDetectionStrategy, Component, Directive, ElementRef, Input, Renderer2, ViewEncapsulation, ContentChildren, QueryList, ViewContainerRef, Injector, InjectionToken, EmbeddedViewRef } from '@angular/core';
-import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef, RowContext, CdkRow, CdkRowDef } from '@angular/cdk/table';
+import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
 import { DtRow } from './row';
-import { Subject } from 'rxjs';
+import { Subject, merge } from 'rxjs';
 import { isDefined, addCssClass, DtIndicator } from '@dynatrace/angular-components/core';
+import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
@@ -90,6 +91,8 @@ export class DtCell {
   _stateChanges = new Subject<void>();
   _row: DtRow;
 
+  private _destroy = new Subject<void>();
+
   // tslint:disable-next-line:no-unused-variable
   constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
     updateColumnStyles(columnDef, elem, renderer);
@@ -100,17 +103,28 @@ export class DtCell {
   }
 
   ngAfterContentInit(): void {
-    this._indicators.changes.subscribe(() => { this._stateChanges.next(); });
+    this._indicators.changes.pipe(takeUntil(this._destroy)).subscribe(() => { this._stateChanges.next(); });
+
+    this._indicators.changes.pipe(
+      startWith(null),
+      takeUntil(this._destroy),
+      filter(() => !!this._indicators.length),
+      switchMap(() => merge(...this._indicators.map((indicator) => indicator._stateChanges))))
+    .subscribe(() => { this._stateChanges.next(); });
+
     Promise.resolve().then(() => { this._stateChanges.next(); });
   }
 
   ngOnDestroy(): void {
     this._stateChanges.complete();
-    this._row._unregisterCell(this);
+    if (this._row) {
+      this._row._unregisterCell(this);
+    }
   }
 
   private _hasIndicator(indicatorType: IndicatorType): boolean {
-    return this._indicators && isDefined(this._indicators.find((indicator) => indicator.color === indicatorType));
+    return this._indicators && isDefined(this._indicators
+      .find((indicator) => indicator.active && indicator.color === indicatorType));
   }
 }
 

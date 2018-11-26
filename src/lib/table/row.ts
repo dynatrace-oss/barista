@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation, OnDestroy, ElementRef } from '@angular/core';
 import { CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef } from '@angular/cdk/table';
 import { DtCell } from './cell';
 import { merge, Subscription } from 'rxjs';
+import { replaceCssClass, addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
 
 /**
  * Header row definition for the dt-table.
@@ -50,11 +51,8 @@ export class DtHeaderRow extends CdkHeaderRow { }
   template: CDK_ROW_TEMPLATE,
   styleUrls: ['./scss/row.scss'],
   host: {
-    'class': 'dt-row',
-    'role': 'row',
-    '[class.dt-table-row-indicator]': '_indicator !== null',
-    '[class.dt-color-error]': '_indicator === "error"',
-    '[class.dt-color-warning]': '_indicator === "warning"',
+    class: 'dt-row',
+    role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
@@ -67,9 +65,7 @@ export class DtRow extends CdkRow implements OnDestroy {
   private _cells = new Set<DtCell>();
   private _cellStateChangesSub = Subscription.EMPTY;
 
-  _indicator: 'error' | 'warning' | null = null;
-
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {
+  constructor(private _elementRef: ElementRef) {
     super();
     DtRow.mostRecentRow = this;
   }
@@ -91,15 +87,34 @@ export class DtRow extends CdkRow implements OnDestroy {
     this._listenForStateChanges();
   }
 
-  private _listenForStateChanges(): void{
+  private _listenForStateChanges(): void {
     this._cellStateChangesSub.unsubscribe();
     const cells = Array.from(this._cells.values());
     this._cellStateChangesSub = merge(...(cells.map((cell) => cell._stateChanges))).subscribe(() => {
-      const indicators = cells.filter((cell) => cell.hasError || cell.hasWarning);
-      const hasError = !!indicators.find((cell) => cell.hasError);
-      const hasWarning = !!indicators.find((cell) => cell.hasWarning);
-      this._indicator = hasError ? 'error' : (hasWarning ? 'warning' : null);
-      this._changeDetectorRef.markForCheck();
+      this._applyCssClasses(cells);
     });
+  }
+
+  private _applyCssClasses(cells: DtCell[]): void {
+    const hasError = !!cells.find((cell) => cell.hasError);
+    const hasWarning = !!cells.find((cell) => cell.hasWarning);
+    const hasIndicator = hasError || hasWarning;
+    if (hasIndicator) {
+      addCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
+    } else {
+      removeCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
+    }
+
+    if (hasWarning) {
+      replaceCssClass(this._elementRef.nativeElement, 'dt-color-error', 'dt-color-warning');
+    } else {
+      removeCssClass(this._elementRef.nativeElement, 'dt-color-warning');
+    }
+
+    if (hasError) {
+      replaceCssClass(this._elementRef.nativeElement, 'dt-color-warning', 'dt-color-error');
+    } else {
+      removeCssClass(this._elementRef.nativeElement, 'dt-color-error');
+    }
   }
 }
