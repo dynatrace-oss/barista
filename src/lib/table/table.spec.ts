@@ -705,6 +705,6 @@ class TestIndicatorApp {
   dataSource: object[] = [
     {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
   ];
-  color: any = 'error';
+  color: 'error' | 'warning' = 'error';
   active = true;
 }

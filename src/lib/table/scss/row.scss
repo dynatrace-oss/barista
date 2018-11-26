@@ -16,10 +16,10 @@
   }
 }
 
-:host.dt-table-row-indicator:before {
+:host.dt-table-row-indicator::before {
   width: 2px;
   height: calc(100% - 8px);
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   left: 4px;
