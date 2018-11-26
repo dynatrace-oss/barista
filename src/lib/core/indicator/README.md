@@ -27,4 +27,5 @@ To apply the dynatrace indicator, add the `dtIndicator` directive to any compone
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `color` | `string | undefined` | `error` | Sets color. Possible options: <ul><li><code>error</code> (default)</li><li><code>warning</code></li></ul> |
+| `dtIndicator` | `boolean` | `true` | Wether the indicator is active | 
+| `dtIndicatorColor` | `string | undefined` | `error` | Sets color. Possible options: <ul><li><code>error</code></li><li><code>warning</code></li></ul> |

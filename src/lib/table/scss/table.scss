@@ -8,6 +8,7 @@
   flex-flow: column nowrap;
   min-width: 100%;
   position: relative;
+  overflow: hidden;
   @include main-font();
 
   .floatLoading {

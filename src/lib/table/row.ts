@@ -11,7 +11,7 @@ import { replaceCssClass, addCssClass, removeCssClass } from '@dynatrace/angular
 @Directive({
   selector: '[dtHeaderRowDef]',
   providers: [{provide: CdkHeaderRowDef, useExisting: DtHeaderRowDef}],
-  inputs: ['columns: dtHeaderRowDef', 'sticky: dtHeaderRowDefSticky'],
+  inputs: ['columns: dtHeaderRowDef'],
 })
 export class DtHeaderRowDef extends CdkHeaderRowDef { }
 
