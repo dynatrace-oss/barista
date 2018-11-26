@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldNodeValue } from '@dynatrace/angular-components';
+import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldValueProperty } from '@dynatrace/angular-components';
 import { FILTER_FIELD_EXAMPLE_DATA, ComplexType, isAutocomplete, getViewValue, AutocompleteItemType, isGroup, ItemType, isFreeText } from './data';
 
 function filterItems(items: AutocompleteItemType[], needle: string): AutocompleteItemType[] {
@@ -60,7 +60,7 @@ export class DefaultFilterFieldExample {
     const activeNode = event.activeNode as DtFilterFieldFilterNode;
     if (activeNode) {
       if (activeNode.properties.length) {
-        const item = (activeNode.properties[activeNode.properties.length - 1] as DtFilterFieldNodeValue<ItemType>).value;
+        const item = (activeNode.properties[activeNode.properties.length - 1] as DtFilterFieldValueProperty<ItemType>).value;
         if (isAutocomplete(item)) {
           this._currentItem = item;
           return;
