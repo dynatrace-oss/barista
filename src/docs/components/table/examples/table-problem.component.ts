@@ -18,7 +18,7 @@ export interface TableData {
     '.example-container { overflow: auto; height: 300px; }'
   ],
   template: `
-  <dt-table [dataSource]="dataSource1">
+  <dt-table [dataSource]="_dataSource">
   <ng-container dtColumnDef="host" dtColumnAlign="text">
     <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{row.name}}</dt-cell>
@@ -50,12 +50,14 @@ export interface TableData {
 
   <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"></dt-header-row>
   <dt-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"></dt-row>
-</dt-table>`,
+</dt-table>
+<button dt-button (click)="_toggleProblem()">Toggle problem</button>
+`,
   // tslint:enable
 })
 @OriginalClassName('TableProblemComponent')
 export class TableProblemComponent {
-  dataSource1: TableData[] = [
+  _dataSource: TableData[] = [
     { name: 'et-demo-2-win4', cpuUsage: 30, memoryPerc: 38, memoryTotal: 5830000000, traffic: 987000000, warnings: ['memoryPerc'], errors: ['cpuUsage'] },
     { name: 'et-demo-2-win3', cpuUsage: 26, memoryPerc: 46, memoryTotal: 6000000000, traffic: 6250000000 },
     { name: 'docker-host2', cpuUsage: 25.4, memoryPerc: 38, memoryTotal: 5250000000, traffic: 4190000000, warnings: ['cpuUsage'] },
@@ -76,5 +78,13 @@ export class TableProblemComponent {
 
   private _metricHasWarning(rowData: TableData, metricName: string): boolean {
     return rowData.warnings !== undefined && rowData.warnings.includes(metricName);
+  }
+
+  _toggleProblem(): void {
+    if (this._dataSource[0].errors) {
+      delete this._dataSource[0].errors;
+    } else {
+      this._dataSource[0].errors = ['cpuUsage'];
+    }
   }
 }
