@@ -8,7 +8,7 @@ import { CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef } fr
 @Directive({
   selector: '[dtHeaderRowDef]',
   providers: [{provide: CdkHeaderRowDef, useExisting: DtHeaderRowDef}],
-  inputs: ['columns: dtHeaderRowDef'],
+  inputs: ['columns: dtHeaderRowDef', 'sticky: dtHeaderRowDefSticky'],
 })
 export class DtHeaderRowDef extends CdkHeaderRowDef { }
 
