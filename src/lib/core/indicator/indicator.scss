@@ -1,7 +1,7 @@
 @import './indicator-theme';
 @import '../theming/theming';
 
-// Apply the button theme to all theme definitions
+// Apply the indicator theme to all theme definitions
 @include dt-apply-theme() {
   @include dt-theme-indicator($dt-current-theme);
 }
