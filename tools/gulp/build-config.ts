@@ -51,5 +51,5 @@ export const buildConfig: BuildConfig = {
   universalAppOutputDir: join(projectRoot, 'dist', 'universal-app'),
   /* Angular Version that is required for the library.
    * This will be used as the version for the angular peer dependencies */
-  angularVersion: '^6.0.0',
+  angularVersion: '^7.0.0',
 } ;
