@@ -8,9 +8,8 @@
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
 
-    :host.dt-table-row-indicator.dt-color-#{$name}:before {
+    :host.dt-table-row-indicator.dt-color-#{$name}::before {
       background-color: $default-color;
     }
   }
-
 }
