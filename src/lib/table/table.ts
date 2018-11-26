@@ -38,4 +38,6 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   set expandedRow(value: DtExpandableRow | undefined) {
     this._expandedRow = value;
   }
+
+  protected stickyCssClass = 'dt-table-sticky';
 }

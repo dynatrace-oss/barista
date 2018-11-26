@@ -85,6 +85,12 @@ The table header is defined next with a dt-header-row component and a dtHeaderRo
 
 ```
 
+If you want to make the header sticky you can add the `dtHeaderRowDefSticky` input to the `dtHeaderRowDef` directive. 
+
+```html
+<dt-header-row *dtHeaderRowDef="['username', 'age', 'title']; sticky"><dt-header-row>
+```
+
 And finally the table row is defined with a dt-row component and a dtRowDef directive:
 
 ```html
@@ -200,6 +206,12 @@ The table will always
 ## Theming
 
 The table styling depends on the theme the component is in. You can set a theme on an area of the app by using the `dtTheme` directive.
+
+### Sticky header
+
+To apply a sticky header to the table set the `sticky` input on the `dtHeaderRowDef` directive.
+
+<docs-source-example example="TableStickyHeaderComponent" fullwidth="true"></docs-source-example>
 
 ## Sorting
 
