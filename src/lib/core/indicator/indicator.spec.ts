@@ -3,7 +3,7 @@ import { fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtCoreModule, DtIndicator } from '@dynatrace/angular-components';
 
-fdescribe('DtIndicator without table', () => {
+describe('DtIndicator without table', () => {
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
