@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DtIndicator } from './indicator/indicator';
+import { DtIndicator } from './indicator';
 
 @NgModule({
   exports: [
@@ -9,4 +9,4 @@ import { DtIndicator } from './indicator/indicator';
     DtIndicator,
   ],
 })
-export class DtCoreModule { }
+export class DtIndicatorModule { }
