@@ -178,6 +178,7 @@ function updateColumnStyles(columnDef: DtColumnDef, elem: ElementRef, renderer: 
     renderer.setStyle(nativeElement, 'flex-grow', setProportion);
     renderer.setStyle(nativeElement, 'flex-shrink', setProportion);
   }
-
-  renderer.setStyle(nativeElement, 'min-width', `${coerceNumberProperty(minWidth)}px`);
+  if (minWidth > 0) {
+    renderer.setStyle(nativeElement, 'min-width', `${coerceNumberProperty(minWidth)}px`);
+  }
 }
