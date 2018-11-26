@@ -13,6 +13,7 @@ import { TableDynamicColumnsComponent } from './examples/table-dynamic-columns.c
 import {TableExpandableRowsComponent} from './examples/table-expandable-rows.component';
 import { TableSortingComponent } from './examples/table-sorting.component';
 import { TableSortingFullComponent } from './examples/table-sorting-full.component';
+import { TableStickyHeaderComponent } from './examples/table-sticky-header.component';
 
 export const EXAMPLES = [
   TableDefaultComponent,
@@ -26,6 +27,7 @@ export const EXAMPLES = [
   TableExpandableRowsComponent,
   TableSortingComponent,
   TableSortingFullComponent,
+  TableStickyHeaderComponent,
 ];
 
 @NgModule({
