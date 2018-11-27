@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dist/lib",
+    "rootDir": ".",
+    "rootDirs": [
+      ".",
+      "../../dist/lib"
+    ],
+    "paths": {
+      "@dynatrace/angular-components": ["../../dist/lib"],
+      "@dynatrace/angular-components/*": ["../../dist/lib/*"],
+      "highcharts": ["../../node_modules/highcharts"]
+    },
+    "typeRoots": ["../../node_modules/@types"],
+  },
+}
