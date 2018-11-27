@@ -78,6 +78,7 @@ The `start` and `end` inputs are the numerical/time values on the x axis of the 
 | `@Input() end` | `number` | | The end numerical/date value on the x axis of the chart | 
 | `@Input() active` | `boolean` | `false` | Wether the heatfield is active |
 | `@Input() aria-label` | `string` |  | The aria label used for the heatfield button |
+| `@Input() loading-text` | `string` |  | The loading text of the loading distractor |
 | `@Input() color` | `'error' | 'main'` | `'error'` | The aria label used for the heatfield button |
 | `@Output() activeChange` | `Eventemitter<DtChartHeatfieldActiveChange>` |  | Fires every time when the active state changes |
 

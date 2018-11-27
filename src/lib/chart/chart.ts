@@ -130,6 +130,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     this._setLoading();
   }
 
+  /** The loading text of the loading distractor. */
+  @Input('loading-text') loadingText: string;
+
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
 
   private readonly _heatfieldActiveChanges: Observable<DtChartHeatfieldActiveChange> = defer(() => {
@@ -329,7 +332,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   /** updates the loading status of the component */
   private _setLoading(): void {
-    this._loading = !this._highchartsOptions.series;
+    this._loading = !this._highchartsOptions.series || !this._highchartsOptions.series.length;
   }
 
   private _colorizeChart(options: Options): void {
