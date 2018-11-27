@@ -84,10 +84,16 @@ type IndicatorType = 'error' | 'warning';
 export class DtCell {
   @ContentChildren(DtIndicator, { descendants: true }) _indicators: QueryList<DtIndicator>;
 
+  /** Whether the cell has an erro */
   get hasError(): boolean { return this._hasIndicator('error'); }
 
+  /** Whether the cell has a warning */
   get hasWarning(): boolean { return this._hasIndicator('warning'); }
 
+  /**
+   * @internal
+   * Emits whenever the indicators change or one of the inputs on the indicators changes
+   */
   _stateChanges = new Subject<void>();
   _row: DtRow;
 
@@ -105,6 +111,7 @@ export class DtCell {
   ngAfterContentInit(): void {
     this._indicators.changes.pipe(takeUntil(this._destroy)).subscribe(() => { this._stateChanges.next(); });
 
+    // Emits whenever one of the indicator's inputs changes
     this._indicators.changes.pipe(
       startWith(null),
       takeUntil(this._destroy),
