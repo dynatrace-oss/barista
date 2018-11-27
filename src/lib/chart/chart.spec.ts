@@ -249,7 +249,7 @@ describe('DtChart', () => {
     });
   });
 
-  fdescribe('loading', () => {
+  describe('loading', () => {
     it('should display the loading indicator if no series has been provided', () => {
       const fixture = TestBed.createComponent(Loading);
       fixture.detectChanges();
@@ -639,6 +639,7 @@ class EmptySeries {
   template: `<dt-chart [series]="series"></dt-chart>`,
 })
 class Loading {
+  // tslint:disable-next-line:no-any
   series: any[] | undefined;
 }
 
