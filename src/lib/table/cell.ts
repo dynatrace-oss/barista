@@ -84,7 +84,7 @@ type IndicatorType = 'error' | 'warning';
 export class DtCell {
   @ContentChildren(DtIndicator, { descendants: true }) _indicators: QueryList<DtIndicator>;
 
-  /** Whether the cell has an erro */
+  /** Whether the cell has an error */
   get hasError(): boolean { return this._hasIndicator('error'); }
 
   /** Whether the cell has a warning */
@@ -95,6 +95,10 @@ export class DtCell {
    * Emits whenever the indicators change or one of the inputs on the indicators changes
    */
   _stateChanges = new Subject<void>();
+  /**
+   * @internal
+   * The parent row
+   */
   _row: DtRow;
 
   private _destroy = new Subject<void>();

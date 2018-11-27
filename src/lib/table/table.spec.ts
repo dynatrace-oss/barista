@@ -520,7 +520,7 @@ describe('DtTable', () => {
       fixture.detectChanges();
       const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
 
-      expect(row.registeredCells.length).toBe(2);
+      expect(row._registeredCells.length).toBe(2);
     });
 
     it('should register a cell with the row when the cell is generated at runtime', () => {
@@ -530,7 +530,7 @@ describe('DtTable', () => {
       fixture.componentInstance.columns = ['col1', 'col2', 'col3'];
       fixture.detectChanges();
       const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
-      expect(row.registeredCells.length).toBe(3);
+      expect(row._registeredCells.length).toBe(3);
     });
 
     it('should unregister a cell when a column is removed', () => {
@@ -540,7 +540,7 @@ describe('DtTable', () => {
       fixture.componentInstance.columns = ['col1'];
       fixture.detectChanges();
       const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
-      expect(row.registeredCells.length).toBe(1);
+      expect(row._registeredCells.length).toBe(1);
     });
 
     it('should unregister each cell with the row after destroy', () => {
