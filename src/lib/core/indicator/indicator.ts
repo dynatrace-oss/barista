@@ -30,7 +30,10 @@ export class DtIndicator extends _DtIndicatorMixinBase implements CanColor<DtInd
    */
   _stateChanges = new Subject<void>();
 
-  /** Whether the indicator is active */
+  /**
+   * Whether the indicator is active.
+   * This in input can be used for convenience to enable / disable the indicator without the need for a wrapping element
+   */
   @Input('dtIndicator')
   get active(): boolean { return this._active; }
   set active(value: boolean) {
