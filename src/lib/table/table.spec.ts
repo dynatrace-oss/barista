@@ -513,24 +513,44 @@ describe('DtTable', () => {
     }));
   });
 
-  fdescribe('Cell - Row communication', () => {
+  fdescribe('Cell - Row registraion', () => {
 
-    it('should register a cell with the row after creation', fakeAsync(() => {
+    it('should register a cell with the row after creation', () => {
       const fixture = TestBed.createComponent(TestIndicatorApp);
-      const row = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
-      spyOn(row, '_registerCell');
       fixture.detectChanges();
-      expect(row._registerCell).toHaveBeenCalledTimes(1);
-    }));
+      const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
 
-    it('should unregister a tabgroup with the adapter after destroy', fakeAsync(() => {
+      expect(row.registeredCells.length).toBe(2);
+    });
+
+    it('should register a cell with the row when the cell is generated at runtime', () => {
       const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+
+      fixture.componentInstance.columns = ['col1', 'col2', 'col3'];
+      fixture.detectChanges();
+      const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
+      expect(row.registeredCells.length).toBe(3);
+    });
+
+    it('should unregister a cell when a column is removed', () => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+
+      fixture.componentInstance.columns = ['col1'];
+      fixture.detectChanges();
+      const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
+      expect(row.registeredCells.length).toBe(1);
+    });
+
+    it('should unregister each cell with the row after destroy', () => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
       const row = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
       spyOn(row, '_unregisterCell');
-      fixture.detectChanges();
       fixture.destroy();
-      expect(row._unregisterCell).toHaveBeenCalledTimes(1);
-    }));
+      expect(row._unregisterCell).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('Sticky Header', () => {
@@ -720,7 +740,7 @@ export class TestExpandableComponentModule {}
 })
 class TestIndicatorApp {
   @ViewChild(DtTable) tableComponent: DtTable<object[]>;
-  columns = ['col1', 'col2', 'col3'];
+  columns = ['col1', 'col2'];
   dataSource: object[] = [
     {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
   ];
