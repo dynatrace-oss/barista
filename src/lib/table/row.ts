@@ -69,8 +69,11 @@ export class DtRow extends CdkRow implements OnDestroy {
   private _cells = new Set<DtCell>();
   private _cellStateChangesSub = Subscription.EMPTY;
 
-  /** Returns the array of registered cells */
-  get registeredCells(): DtCell[] {
+  /**
+   * @internal
+   * Returns the array of registered cells
+   */
+  get _registeredCells(): DtCell[] {
     return Array.from(this._cells);
   }
 
