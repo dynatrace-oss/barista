@@ -6,9 +6,8 @@ $dark-link-hover-bg: rgba(255, 255, 255, 0.2);
 $dark-link-active-bg: rgba(255, 255, 255, 0.3);
 
 a.dt-link {
-  @include main-font();
+  @include custom-font-styles($turquoise-600, $default-font-weight, 'inherit', 'inherit');
   cursor: pointer;
-  color: $turquoise-600;
   text-decoration: none;
 
   &:hover {

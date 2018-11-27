@@ -80,3 +80,9 @@ Link styles are automatically applied to any `<a>` tag.
 #### Dark theme
 
 <docs-source-example example="LinkDarkExampleComponent" themedark="true"></docs-source-example>
+
+#### Notification
+
+The link can be used in any context and inherits the font size.
+
+<docs-source-example example="LinkNotificationExampleComponent"></docs-source-example>
