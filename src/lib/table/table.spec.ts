@@ -11,7 +11,7 @@ import {
   ViewChild,
   ViewChildren
 } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { async, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtCell,
@@ -28,6 +28,7 @@ import {
   DtLoadingDistractor,
   DtLoadingDistractorModule,
   DtIconModule,
+  DtIndicatorModule,
 } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,12 +46,14 @@ describe('DtTable', () => {
         HttpClientModule,
         NoopAnimationsModule,
         TestExpandableComponentModule,
+        DtIndicatorModule,
       ],
       declarations: [
         TestApp,
         TestDynamicApp,
         TestAppExpandableTable,
         TestStickyHeader,
+        TestIndicatorApp,
       ],
     });
 
@@ -439,6 +442,115 @@ describe('DtTable', () => {
         testApp.expandableRows[2].contentViewContainer.element.nativeElement.nextElementSibling as HTMLElement;
       expect(expandableContent.innerHTML).toEqual('<div>Test Component for expandable section</div>');
     });
+
+    it('should set a dt-indicator class on the cell', () => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+      const cell = fixture.debugElement.query(By.css('.dt-cell'));
+      expect(cell.nativeElement.classList.contains('dt-indicator')).toBeTruthy();
+    });
+
+    it('should complete the `stateChanges` stream for the dtCells on destroy', () => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+
+      const instance: DtCell =
+        fixture.debugElement.query(By.directive(DtCell)).componentInstance;
+      const completeSpy = jasmine.createSpy('complete spy');
+      const subscription = instance._stateChanges.subscribe(undefined, undefined, completeSpy);
+
+      fixture.destroy();
+      expect(completeSpy).toHaveBeenCalled();
+      subscription.unsubscribe();
+    });
+
+    it('should have the correct values for hasError and hasWarning', () => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+
+      const instance: DtCell =
+        fixture.debugElement.query(By.directive(DtCell)).componentInstance;
+
+      expect(instance.hasError).toBeTruthy('hasError to be true');
+      expect(instance.hasWarning).toBeFalsy('hasWarning to be false');
+
+      fixture.componentInstance.color = 'warning';
+      fixture.detectChanges();
+
+      expect(instance.hasError).toBeFalsy('hasError to be false');
+      expect(instance.hasWarning).toBeTruthy('hasWarning to be true');
+
+    });
+
+    it('should have the correct classes on the row', fakeAsync(() => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+      tick();
+      let rowNative = fixture.debugElement.query(By.directive(DtRow)).nativeElement;
+
+      expect(rowNative.classList.contains('dt-table-row-indicator')).toBeTruthy();
+      expect(rowNative.classList.contains('dt-color-error')).toBeTruthy();
+      expect(rowNative.classList.contains('dt-color-warning')).toBeFalsy();
+
+      fixture.componentInstance.active = false;
+      fixture.detectChanges();
+      tick();
+
+      rowNative = fixture.debugElement.query(By.directive(DtRow)).nativeElement;
+
+      expect(rowNative.classList.contains('dt-table-row-indicator')).toBeFalsy();
+
+      fixture.componentInstance.active = true;
+      fixture.componentInstance.color = 'warning';
+      fixture.detectChanges();
+      tick();
+
+      rowNative = fixture.debugElement.query(By.directive(DtRow)).nativeElement;
+
+      expect(rowNative.classList.contains('dt-table-row-indicator')).toBeTruthy();
+      expect(rowNative.classList.contains('dt-color-error')).toBeFalsy();
+      expect(rowNative.classList.contains('dt-color-warning')).toBeTruthy();
+    }));
+  });
+
+  describe('Cell - Row registraion', () => {
+
+    it('should register a cell with the row after creation', () => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+      const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
+
+      expect(row._registeredCells.length).toBe(2);
+    });
+
+    it('should register a cell with the row when the cell is generated at runtime', () => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+
+      fixture.componentInstance.columns = ['col1', 'col2', 'col3'];
+      fixture.detectChanges();
+      const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
+      expect(row._registeredCells.length).toBe(3);
+    });
+
+    it('should unregister a cell when a column is removed', () => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+
+      fixture.componentInstance.columns = ['col1'];
+      fixture.detectChanges();
+      const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
+      expect(row._registeredCells.length).toBe(1);
+    });
+
+    it('should unregister each cell with the row after destroy', () => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      fixture.detectChanges();
+      const row = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
+      spyOn(row, '_unregisterCell');
+      fixture.destroy();
+      expect(row._unregisterCell).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('Sticky Header', () => {
@@ -610,3 +722,28 @@ class TestExpandableComponent {}
   entryComponents: [TestExpandableComponent],
 })
 export class TestExpandableComponentModule {}
+
+/** Test component that contains a dtIndicator DtTable. */
+@Component({
+  selector: 'dt-test-app',
+  template: `
+  <dt-table [dataSource]="dataSource">
+    <ng-container *ngFor="let column of columns;" [dtColumnDef]="column">
+      <dt-header-cell *dtHeaderCellDef>{{ column }}</dt-header-cell>
+      <dt-cell *dtCellDef="let row" [dtIndicator]="active" [dtIndicatorColor]="color">{{ row[column] }}</dt-cell>
+    </ng-container>
+
+    <dt-header-row *dtHeaderRowDef="columns"></dt-header-row>
+    <dt-row *dtRowDef="let row; columns: columns"></dt-row>
+  </dt-table>
+  `,
+})
+class TestIndicatorApp {
+  @ViewChild(DtTable) tableComponent: DtTable<object[]>;
+  columns = ['col1', 'col2'];
+  dataSource: object[] = [
+    {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
+  ];
+  color: 'error' | 'warning' = 'error';
+  active = true;
+}

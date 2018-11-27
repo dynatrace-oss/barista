@@ -1,9 +1,12 @@
 @import '../../core/style/variables';
+@import '../../core/theming/theming';
 @import 'base-row';
+@import './row-theme';
 
-:host.dt-row {
+:host {
   min-height: $dt-row-height;
   @extend %row-base;
+  position: relative;
 
   &:nth-child(even) {
     background-color: #fff;
@@ -11,4 +14,18 @@
   &:nth-child(odd) {
     background-color: $gray-100;
   }
+}
+
+:host.dt-table-row-indicator::before {
+  width: 2px;
+  height: calc(100% - 8px);
+  content: '';
+  display: block;
+  position: absolute;
+  left: 4px;
+}
+
+// Apply the row theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-row($dt-current-theme);
 }

@@ -1,0 +1,15 @@
+@import '../theming/theming';
+
+@mixin dt-theme-indicator($theme) {
+  $palette-names: 'error', 'warning';
+  $default-palette: 'error';
+
+  @each $name in $palette-names {
+    $palette: dt-get-theme-palette($theme, $name);
+    $default-color: dt-get-theme-color($palette, 'default');
+
+    .dt-indicator-active.dt-color-#{$name} {
+      color: $default-color;
+    }
+  }
+}

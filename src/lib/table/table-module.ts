@@ -14,6 +14,7 @@ import {
 import { DtTableLoadingState } from './table-loading-state';
 import { DtExpandableRow } from './expandable-row';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 import { DtSortHeader } from './sort/sort-header';
 import { DtSort } from './sort/sort';
 
@@ -45,9 +46,11 @@ const EXPORTED_DECLARATIONS = [
     CommonModule,
     CdkTableModule,
     DtIconModule,
+    DtIndicatorModule,
   ],
   exports: [
     ...EXPORTED_DECLARATIONS,
+    DtIndicatorModule,
   ],
   declarations: [
     ...EXPORTED_DECLARATIONS,
