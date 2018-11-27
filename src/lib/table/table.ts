@@ -1,6 +1,6 @@
-import {AfterContentChecked, ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
-import {CdkTable} from '@angular/cdk/table';
-import {DtExpandableRow} from './expandable-row';
+import { AfterContentChecked, ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { CdkTable } from '@angular/cdk/table';
+import { DtExpandableRow } from './expandable-row';
 
 @Component({
   moduleId: module.id,
@@ -40,4 +40,5 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   }
 
   protected stickyCssClass = 'dt-table-sticky';
+
 }
