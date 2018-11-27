@@ -39,4 +39,6 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
     this._expandedRow = value;
   }
 
+  protected stickyCssClass = 'dt-table-sticky';
+
 }
