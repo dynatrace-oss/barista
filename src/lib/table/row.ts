@@ -11,7 +11,7 @@ import { replaceCssClass, addCssClass, removeCssClass } from '@dynatrace/angular
 @Directive({
   selector: '[dtHeaderRowDef]',
   providers: [{provide: CdkHeaderRowDef, useExisting: DtHeaderRowDef}],
-  inputs: ['columns: dtHeaderRowDef'],
+  inputs: ['columns: dtHeaderRowDef', 'sticky: dtHeaderRowDefSticky'],
 })
 export class DtHeaderRowDef extends CdkHeaderRowDef { }
 
@@ -68,6 +68,11 @@ export class DtRow extends CdkRow implements OnDestroy {
 
   private _cells = new Set<DtCell>();
   private _cellStateChangesSub = Subscription.EMPTY;
+
+  /** Returns the array of registered cells */
+  get registeredCells(): DtCell[] {
+    return Array.from(this._cells);
+  }
 
   constructor(private _elementRef: ElementRef) {
     super();
