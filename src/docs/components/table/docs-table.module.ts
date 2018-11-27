@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
-import { DtThemingModule, DtTableModule, DtLoadingDistractorModule, DtFormattersModule, DtButtonModule } from '@dynatrace/angular-components';
+import { DtThemingModule, DtTableModule, DtLoadingDistractorModule, DtFormattersModule, DtButtonModule, DtChartModule, DtIndicatorModule } from '@dynatrace/angular-components';
 import { TableDefaultComponent } from './examples/table-default.component';
 import { TableDifferentWidthComponent } from './examples/table-different-width.component';
 import { TableMinWidthComponent } from './examples/table-min-width.component';
@@ -10,10 +10,11 @@ import { TableEmptyCustomStateComponent } from './examples/table-empty-custom-st
 import { TableObservableComponent } from './examples/table-observable.component';
 import { TableLoadingComponent } from './examples/table-loading.component';
 import { TableDynamicColumnsComponent } from './examples/table-dynamic-columns.component';
-import {TableExpandableRowsComponent} from './examples/table-expandable-rows.component';
+import { TableExpandableRowsComponent } from './examples/table-expandable-rows.component';
 import { TableSortingComponent } from './examples/table-sorting.component';
 import { TableSortingFullComponent } from './examples/table-sorting-full.component';
 import { TableStickyHeaderComponent } from './examples/table-sticky-header.component';
+import { TableProblemComponent } from './examples/table-problem.component';
 
 export const EXAMPLES = [
   TableDefaultComponent,
@@ -28,6 +29,7 @@ export const EXAMPLES = [
   TableSortingComponent,
   TableSortingFullComponent,
   TableStickyHeaderComponent,
+  TableProblemComponent,
 ];
 
 @NgModule({
@@ -39,6 +41,8 @@ export const EXAMPLES = [
     DtLoadingDistractorModule,
     DtFormattersModule,
     DtButtonModule,
+    DtChartModule,
+    DtIndicatorModule,
   ],
   declarations: [
     ...EXAMPLES,

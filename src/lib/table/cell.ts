@@ -1,6 +1,10 @@
-import {ChangeDetectionStrategy, Component, Directive, ElementRef, Input, Renderer2, ViewEncapsulation} from '@angular/core';
-import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef} from '@angular/cdk/table';
+import {ChangeDetectionStrategy, Component, Directive, ElementRef, Input, Renderer2, ViewEncapsulation, ContentChildren, QueryList, ViewContainerRef, Injector, InjectionToken, EmbeddedViewRef } from '@angular/core';
+import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
+import { DtRow } from './row';
+import { Subject, merge } from 'rxjs';
+import { isDefined, addCssClass, DtIndicator } from '@dynatrace/angular-components/core';
+import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
@@ -57,10 +61,12 @@ export class DtColumnDef extends CdkColumnDef {
 })
 export class DtHeaderCell {
   // tslint:disable-next-line:no-unused-variable
-  constructor(private _columnDef: DtColumnDef, private _renderer: Renderer2, private _elem: ElementRef) {
-    setColumnClass.bind(this)();
+  constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
+    updateColumnStyles(columnDef, elem, renderer);
   }
 }
+
+type IndicatorType = 'error' | 'warning';
 
 /** Cell template container that adds the right classes and role. */
 @Component({
@@ -76,9 +82,60 @@ export class DtHeaderCell {
   exportAs: 'dtCell',
 })
 export class DtCell {
+  @ContentChildren(DtIndicator, { descendants: true }) _indicators: QueryList<DtIndicator>;
+
+  /** Whether the cell has an error */
+  get hasError(): boolean { return this._hasIndicator('error'); }
+
+  /** Whether the cell has a warning */
+  get hasWarning(): boolean { return this._hasIndicator('warning'); }
+
+  /**
+   * @internal
+   * Emits whenever the indicators change or one of the inputs on the indicators changes
+   */
+  _stateChanges = new Subject<void>();
+  /**
+   * @internal
+   * The parent row
+   */
+  _row: DtRow;
+
+  private _destroy = new Subject<void>();
+
   // tslint:disable-next-line:no-unused-variable
-  constructor(private _columnDef: DtColumnDef, private _renderer: Renderer2, private _elem: ElementRef) {
-    setColumnClass.bind(this)();
+  constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
+    updateColumnStyles(columnDef, elem, renderer);
+    if (DtRow.mostRecentRow) {
+      this._row = DtRow.mostRecentRow;
+      this._row._registerCell(this);
+    }
+  }
+
+  ngAfterContentInit(): void {
+    this._indicators.changes.pipe(takeUntil(this._destroy)).subscribe(() => { this._stateChanges.next(); });
+
+    // Emits whenever one of the indicator's inputs changes
+    this._indicators.changes.pipe(
+      startWith(null),
+      takeUntil(this._destroy),
+      filter(() => !!this._indicators.length),
+      switchMap(() => merge(...this._indicators.map((indicator) => indicator._stateChanges))))
+    .subscribe(() => { this._stateChanges.next(); });
+
+    Promise.resolve().then(() => { this._stateChanges.next(); });
+  }
+
+  ngOnDestroy(): void {
+    this._stateChanges.complete();
+    if (this._row) {
+      this._row._unregisterCell(this);
+    }
+  }
+
+  private _hasIndicator(indicatorType: IndicatorType): boolean {
+    return this._indicators && isDefined(this._indicators
+      .find((indicator) => indicator.active && indicator.color === indicatorType));
   }
 }
 
@@ -119,24 +176,20 @@ function coerceAlignment(value: DtTableColumnAlign | DtTableColumnTypedAlign): D
 }
 
 /** Set classes name and styles props for columns. */
-// TODO: change this function to a cell mixin.
-function setColumnClass(): void {
-  const { align, proportion, minWidth, cssClassFriendlyName } = this._columnDef;
-  const { nativeElement } = this._elem;
+function updateColumnStyles(columnDef: DtColumnDef, elem: ElementRef, renderer: Renderer2): void {
+  const { align, proportion, minWidth, cssClassFriendlyName } = columnDef;
+  const { nativeElement } = elem;
   const cssAlignmentClass = coerceAlignment(align);
 
-  this._renderer.addClass(nativeElement, `dt-table-column-${cssClassFriendlyName}`);
-  this._renderer.addClass(nativeElement, `dt-table-column-align-${cssAlignmentClass}`);
+  addCssClass(nativeElement, `dt-table-column-${cssClassFriendlyName}`, renderer);
+  addCssClass(nativeElement, `dt-table-column-align-${cssAlignmentClass}`, renderer);
 
   const setProportion = coerceNumberProperty(proportion);
   if (setProportion > 0) {
-    this._renderer.setStyle(nativeElement, 'flex-grow', setProportion);
-    this._renderer.setStyle(nativeElement, 'flex-shrink', setProportion);
+    renderer.setStyle(nativeElement, 'flex-grow', setProportion);
+    renderer.setStyle(nativeElement, 'flex-shrink', setProportion);
   }
-
-  if (minWidth !== undefined) {
-    const setMinWidth = coerceNumberProperty(minWidth) ? `${minWidth}px` : minWidth;
-
-    this._renderer.setStyle(nativeElement, 'min-width', setMinWidth);
+  if (minWidth > 0) {
+    renderer.setStyle(nativeElement, 'min-width', `${coerceNumberProperty(minWidth)}px`);
   }
 }
