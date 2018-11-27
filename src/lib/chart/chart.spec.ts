@@ -30,6 +30,8 @@ describe('DtChart', () => {
         PieChartThemeColors,
         PieChartOrderedColors,
         EmptySeries,
+        Loading,
+        LoadingText,
       ],
     });
 
@@ -244,6 +246,68 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(CHART_COLOR_PALETTE_ORDERED);
+    });
+  });
+
+  fdescribe('loading', () => {
+    it('should display the loading indicator if no series has been provided', () => {
+      const fixture = TestBed.createComponent(Loading);
+      fixture.detectChanges();
+      const loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+
+      expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
+      expect(loadingDebugElement.nativeElement).toBeDefined('Loading indicater should be visible');
+    });
+
+    it('should display the loading indicator if the series array is empty', () => {
+      const fixture = TestBed.createComponent(Loading);
+      fixture.componentInstance.series = [];
+      fixture.detectChanges();
+      const loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+
+      expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
+      expect(loadingDebugElement.nativeElement).toBeDefined('Loading indicater should be visible');
+    });
+
+    it('should not display the loading indicator if a series has been provided', () => {
+      const fixture = TestBed.createComponent(Loading);
+      fixture.componentInstance.series = [{}];
+      fixture.detectChanges();
+      const loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+
+      expect(loadingDebugElement).toBeNull('Loading indicator should be hidden');
+    });
+
+    it('should hide the loading indicator once a series has been provided', () => {
+      const fixture = TestBed.createComponent(Loading);
+      fixture.detectChanges();
+
+      let loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+      expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
+      expect(loadingDebugElement.nativeElement).toBeDefined('Loading indicater should be visible');
+
+      fixture.componentInstance.series = [{}];
+      fixture.detectChanges();
+
+      loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+      expect(loadingDebugElement).toBeNull('Loading indicator should be hidden');
+    });
+
+    it('should not have a loading text as default', () => {
+      const fixture = TestBed.createComponent(LoadingText);
+      fixture.detectChanges();
+
+      const loadingElement: HTMLElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator')).nativeElement;
+      expect(loadingElement.textContent).toBe('');
+    });
+
+    it('should able to set a loading text', () => {
+      const fixture = TestBed.createComponent(LoadingText);
+      fixture.componentInstance.loadingText = 'Loading';
+      fixture.detectChanges();
+
+      const loadingElement: HTMLElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator')).nativeElement;
+      expect(loadingElement.textContent).toBe('Loading');
     });
   });
 });
@@ -568,4 +632,20 @@ class EmptySeries {
     },
   };
   series = [];
+}
+
+@Component({
+  selector: 'dt-empty-series',
+  template: `<dt-chart [series]="series"></dt-chart>`,
+})
+class Loading {
+  series: any[] | undefined;
+}
+
+@Component({
+  selector: 'dt-empty-series',
+  template: `<dt-chart [loading-text]="loadingText" [series]="[]"></dt-chart>`,
+})
+class LoadingText {
+  loadingText: string;
 }
