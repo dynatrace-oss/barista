@@ -281,6 +281,19 @@ To see a combination with initial sort direction and active column and disabling
 
 <docs-source-example example="TableSortingFullComponent" fullwidth="true"></docs-source-example>
 
+## Problem & Warning Indicator
+
+To get an error or warning indicator use the `dtIndicator` directive inside your `dt-cell` components on any html element or on your `dt-cell` component directly. The `dt-row` will pick up if any `dtIndicator` was used inside the row's `dt-cell` and show the correct indicator. If one indicator has color `error` set the indicator on the row is an error indicator. Error trumps warning.
+You can control the active state of the indicator by using the input named the same as `dtIndicator`.
+
+```html
+<dt-cell [dtIndicator]="active" ...>
+```
+
+The full example below shows both usages - single metric inside a cell and the entire cell enhanced with the dtIndicator
+
+<docs-source-example example="TableProblemComponent" fullwidth="true"></docs-source-example>
+
 **NOTE:**
 
 Right now only setting the light or dark mode is available. Full theming functionality will be added in a later stage.
