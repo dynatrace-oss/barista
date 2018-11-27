@@ -60,6 +60,10 @@ export class DtHeaderRow extends CdkHeaderRow { }
 })
 export class DtRow extends CdkRow implements OnDestroy {
 
+  /**
+   * @internal
+   * Necessary due to the fact that we cannot get the DtRow via normal DI
+   */
   static mostRecentRow: DtRow | null = null;
 
   private _cells = new Set<DtCell>();
@@ -77,11 +81,19 @@ export class DtRow extends CdkRow implements OnDestroy {
     this._cellStateChangesSub.unsubscribe();
   }
 
+  /**
+   * @internal
+   * The cell registers here and the listeners is added to apply the correct css clases
+   */
   _registerCell(cell: DtCell): void {
     this._cells.add(cell);
     this._listenForStateChanges();
   }
 
+  /**
+   * @internal
+   * The cell unregisters here and the listeners are updated
+   */
   _unregisterCell(cell: DtCell): void {
     this._cells.delete(cell);
     this._listenForStateChanges();
