@@ -513,7 +513,7 @@ describe('DtTable', () => {
     }));
   });
 
-  fdescribe('Cell - Row registraion', () => {
+  describe('Cell - Row registraion', () => {
 
     it('should register a cell with the row after creation', () => {
       const fixture = TestBed.createComponent(TestIndicatorApp);
