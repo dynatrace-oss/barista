@@ -445,7 +445,6 @@ describe('DtTable', () => {
 
     it('should set a dt-indicator class on the cell', () => {
       const fixture = TestBed.createComponent(TestIndicatorApp);
-      // const instance = fixture.componentInstance;
       fixture.detectChanges();
       const cell = fixture.debugElement.query(By.css('.dt-cell'));
       expect(cell.nativeElement.classList.contains('dt-indicator')).toBeTruthy();
@@ -511,6 +510,26 @@ describe('DtTable', () => {
       expect(rowNative.classList.contains('dt-table-row-indicator')).toBeTruthy();
       expect(rowNative.classList.contains('dt-color-error')).toBeFalsy();
       expect(rowNative.classList.contains('dt-color-warning')).toBeTruthy();
+    }));
+  });
+
+  fdescribe('Cell - Row communication', () => {
+
+    it('should register a cell with the row after creation', fakeAsync(() => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      const row = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
+      spyOn(row, '_registerCell');
+      fixture.detectChanges();
+      expect(row._registerCell).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should unregister a tabgroup with the adapter after destroy', fakeAsync(() => {
+      const fixture = TestBed.createComponent(TestIndicatorApp);
+      const row = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
+      spyOn(row, '_unregisterCell');
+      fixture.detectChanges();
+      fixture.destroy();
+      expect(row._unregisterCell).toHaveBeenCalledTimes(1);
     }));
   });
 
