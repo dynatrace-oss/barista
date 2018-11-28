@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Alert
 
 ## Imports

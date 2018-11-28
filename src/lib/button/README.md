@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Button
 
 <docs-source-example example="DefaultButtonExampleComponent"></docs-source-example>

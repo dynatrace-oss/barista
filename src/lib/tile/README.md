@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Tile
 
 <docs-source-example example="DefaultTileExampleComponent"></docs-source-example>

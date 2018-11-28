@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Chart
 
 <docs-source-example example="ChartDefaultExampleComponent" fullwidth="true"></docs-source-example>
