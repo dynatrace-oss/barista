@@ -4,16 +4,16 @@ import { By } from '@angular/platform-browser';
 import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 import { DtMicroChart } from './micro-chart';
-import { Colors, DtThemingModule } from 'theming/index';
+import { Colors, DtThemingModule } from '@dynatrace/angular-components/theming';
 import objectContaining = jasmine.objectContaining;
 import { AxisOptions, DataPoint } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
-import { DtMicroChartModule} from '@dynatrace/angular-components';
+import { DtMicroChartModule } from '@dynatrace/angular-components/micro-chart';
 import { merge } from 'lodash';
 
 // tslint:disable:no-magic-numbers
 
-describe('DtMicroChart', () => {
+fdescribe('DtMicroChart', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

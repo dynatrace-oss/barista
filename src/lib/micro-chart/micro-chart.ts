@@ -10,31 +10,30 @@ import {
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
+  isDevMode,
 } from '@angular/core';
-import { AxisOptions, DataPoint, Options } from 'highcharts';
+import { DataPoint, Options } from 'highcharts';
 import { DtChart, DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
 import {
-  _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS,
-  _DT_MICROCHART_DEFAULT_OPTIONS,
   _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS,
   _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS,
-  _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS,
+  createDtMicrochartMinMaxDataPointOptions,
+  createDtMicrochartDefaultOptions,
+  createDtMicrochartDefaultColumnDataPointOption,
 } from './micro-chart-options';
-import { merge } from 'lodash';
+import { merge as lodashMerge } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { colorizeDataPoint, colorizeOptions } from './micro-chart-colorizer';
+import { getDtMicrochartColorPalette } from './micro-chart-colors';
 import { DtTheme } from '@dynatrace/angular-components/theming';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
-export type DtMicroChartSeries = Observable<DtChartSeries> | DtChartSeries | undefined;
-
 @Component({
   moduleId: module.id,
   selector: 'dt-micro-chart',
-  template: '<dt-chart (updated)="updated.emit()"></dt-chart>',
+  template: '<dt-chart [options]="_transformedOptions" [series]="_transformedSeries" (updated)="updated.emit()"></dt-chart>',
   exportAs: 'dtMicroChart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
@@ -43,39 +42,32 @@ export type DtMicroChartSeries = Observable<DtChartSeries> | DtChartSeries | und
 export class DtMicroChart implements OnDestroy {
   @ViewChild(forwardRef(() => DtChart)) private _dtChart: DtChart;
 
-  private _series: DtMicroChartSeries;
   private _themeStateChangeSub = Subscription.EMPTY;
-  private _originalOptions: DtChartOptions;
+  private _options: DtChartOptions;
+  private _series: Observable<DtChartSeries[]> | Observable<DtChartSeries> | DtChartSeries[] | DtChartSeries;
+  private _currentSeries: DtChartSeries;
 
-  private _columnSeries: boolean;
-  private _minDataPoint: DataPoint;
-  private _maxDataPoint: DataPoint;
+  _transformedOptions: DtChartOptions;
+  _transformedSeries: Observable<DtChartSeries[]> | DtChartSeries[];
 
   @Input()
+  get options(): DtChartOptions { return this._options; }
   set options(options: DtChartOptions) {
-    checkUnsupportedOptions(options);
-    this._originalOptions = options;
-    this._dtChart.options = this.transformedOptions();
-  }
-  get options(): DtChartOptions {
-    return this._originalOptions;
+    if (isDevMode()) {
+      checkUnsupportedOptions(options);
+    }
+    this._options = options;
+    this._transformedOptions = this._transformOptions(options);
   }
 
   @Input()
-  set series(series: DtMicroChartSeries) {
-    let transformed: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
-
-    if (series instanceof Observable) {
-      transformed = series.pipe(map((s) => this._transformSeries(s)));
-    } else if (series !== undefined) {
-      transformed = this._transformSeries(series);
-    }
-
+  get series(): Observable<DtChartSeries[]> | Observable<DtChartSeries> | DtChartSeries[] | DtChartSeries { return this._series; }
+  set series(series: Observable<DtChartSeries[]> | Observable<DtChartSeries> | DtChartSeries[] | DtChartSeries) {
+    this._transformedSeries = series instanceof Observable ?
+      (series as Observable<DtChartSeries[] | DtChartSeries>)
+        .pipe(map((s: DtChartSeries[] | DtChartSeries) => this._transformSeries(s))) :
+      (series && this._transformSeries(series));
     this._series = series;
-    this._dtChart.series = transformed;
-  }
-  get series(): DtMicroChartSeries {
-    return this._series;
   }
 
   @Output() readonly updated = new EventEmitter<void>();
@@ -91,115 +83,86 @@ export class DtMicroChart implements OnDestroy {
   constructor(@Optional() @SkipSelf() private readonly _theme: DtTheme) {
     if (this._theme) {
       this._themeStateChangeSub = this._theme._stateChanges.subscribe(() => {
-        if (this._originalOptions) {
-          this._decorateMinMaxDataPoints();
-          this._dtChart.options = this.transformedOptions();
-        }
+        this._transformedOptions = this._transformOptions(this._options);
+        this._transformedSeries = this._transformSeries(this._currentSeries);
       });
     }
-  }
-
-  private transformedOptions(): DtChartOptions {
-    const transformed = merge({}, _DT_MICROCHART_DEFAULT_OPTIONS, this._originalOptions);
-
-    transformAxis(transformed);
-
-    return colorizeOptions(transformed, this._theme);
   }
 
   ngOnDestroy(): void {
     this._themeStateChangeSub.unsubscribe();
   }
 
-  private _transformSeries(series: DtChartSeries): DtChartSeries[] {
-    checkUnsupportedType(series.type);
-
-    // We only support one series. This has already been checked.
-    if (!series.data) {
-      return [series];
-    }
-
-    this._columnSeries =
-      series.type === 'column' || this.highchartsOptions.chart !== undefined && this.highchartsOptions.chart.type === 'column';
-
-    const dataPoints = normalizeData(series.data);
-    const values = dataPoints.map((point: DataPoint) => point.y) as number[];
-
-    const minIndex = values.lastIndexOf(Math.min(...values));
-    const maxIndex = values.lastIndexOf(Math.max(...values));
-
-    this._minDataPoint = dataPoints[minIndex];
-    this._maxDataPoint = dataPoints[maxIndex];
-
-    this._decorateMinMaxDataPoints();
-
-    series.data = dataPoints;
-    return [series];
+  private _transformOptions(options: DtChartOptions): DtChartOptions {
+    const palette = getDtMicrochartColorPalette(this._theme);
+    const defaultOptions = createDtMicrochartDefaultOptions(palette);
+    const transformed = lodashMerge({}, defaultOptions, options);
+    return hideChartAxis(transformed);
   }
 
-  private _decorateMinMaxDataPoints(): void {
-    if (this._columnSeries) {
-      merge(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
-      merge(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_COLUMN_MINMAX_DATAPOINT_OPTIONS);
-    } else {
-      merge(this._minDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS);
-      merge(this._maxDataPoint, _DT_MICROCHART_MINMAX_DATAPOINT_OPTIONS, _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS);
+  private _transformSeries(series: DtChartSeries[] | DtChartSeries): DtChartSeries[] {
+    const singleSeries: DtChartSeries = Array.isArray(series) ? series[0] : series;
+
+    if (isDevMode()) {
+      checkUnsupportedType(singleSeries.type);
     }
 
-    colorizeDataPoint(this._minDataPoint, this._theme);
-    colorizeDataPoint(this._maxDataPoint, this._theme);
+    this._currentSeries = singleSeries;
+
+    const isColumnSeries =
+      singleSeries.type === 'column' || !!this.highchartsOptions.chart && this.highchartsOptions.chart.type === 'column';
+    const dataPoints = convertToDataPoints(singleSeries.data || [singleSeries]);
+    const {min, max} = getMinMaxDataPoints(dataPoints);
+    applyMinMaxOptions(min, max, isColumnSeries, this._theme);
+
+    singleSeries.data = dataPoints;
+    return [singleSeries];
   }
 }
 
 /* Merges the passed options into all defined axis */
-function transformAxis(options: DtChartOptions): void {
-  if (options.xAxis) {
-    mergeAxis(options.xAxis);
-  }
-
-  if (options.yAxis) {
-    mergeAxis(options.yAxis);
-  }
+function hideChartAxis(options: DtChartOptions): DtChartOptions {
+  ['xAxis', 'yAxis'].forEach((axisType) => {
+    const axis = options[axisType];
+    if (Array.isArray(axis)) {
+      axis.forEach((a) => { lodashMerge(a, {visible: false}); });
+    } else {
+      lodashMerge(axis, {visible: false});
+    }
+  });
+  return options;
 }
 
-function mergeAxis(options: AxisOptions | AxisOptions[]): void {
-  if (!options) {
-    return;
-  }
-  if (Array.isArray(options)) {
-    options.forEach((a) => {
-      merge(a, {visible: false});
-    });
-  } else {
-    merge(options, {visible: false});
-  }
+/** Converts a series to a list of data points */
+function convertToDataPoints(seriesData: Array<number | [number, number] | [string, number] | DataPoint>): DataPoint[] {
+  return seriesData.map((dataPoint, index) => {
+    if (typeof dataPoint === 'number') {
+      return {x: index, y: dataPoint};
+    } else if (Array.isArray(dataPoint)) {
+      return {x: typeof dataPoint[0] === 'string' ? index : dataPoint[0], y: dataPoint[1]};
+    }
+    return lodashMerge({}, dataPoint);
+  });
 }
 
-/**
- * Converts a series to {@link DataPoint[]}
- */
-function normalizeData(seriesData: Array<number | [number, number] | [string, number] | DataPoint>): DataPoint[] {
-  if (seriesData.length === 0) {
-    return [];
-  }
+/** Find minium and maximum data points */
+function getMinMaxDataPoints(dataPoints: DataPoint[]): { min: DataPoint; max: DataPoint } {
+  // tslint:disable:align
+  return dataPoints.reduce((accumulator, currentDataPoint) => ({
+      min: currentDataPoint.y! < accumulator.min.y ? currentDataPoint : accumulator.min,
+      max: currentDataPoint.y! > accumulator.max.y ? currentDataPoint : accumulator.max,
+  }), {min: {y: Infinity}, max: {y: 0}});
+  // tslint:enable:align
+}
 
-  // Convert (number | [number, number] | [string, number]) to DataPoint
-  // In case of another data structure we can ignore it, since an error should already be thrown for unsupported charts.
-  const firstDataValue = seriesData[0];
-
-  if (typeof firstDataValue === 'number') {
-    return (seriesData as number[])
-      .map((value: number, index: number) => ({x: index, y: value}));
-
-  } else if (Array.isArray(firstDataValue)) {
-    const numberArraySeries = seriesData as Array<[number, number]>;
-    return numberArraySeries.map((value: [number, number]) => ({x: value[0], y: value[1]}));
-
-  } else if ('y' in firstDataValue) {
-    return seriesData as DataPoint[];
-  }
-
-  return [];
+/** Apply default micro chart options to min & max data points */
+function applyMinMaxOptions(min: DataPoint, max: DataPoint, isColumnSeries: boolean, theme?: DtTheme): void {
+  const palette = getDtMicrochartColorPalette(theme);
+  const typeOptions = isColumnSeries ?
+    createDtMicrochartDefaultColumnDataPointOption(palette) : _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS;
+  const minMaxDefaultOptions = createDtMicrochartMinMaxDataPointOptions(palette);
+  lodashMerge(min, minMaxDefaultOptions, typeOptions);
+  lodashMerge(max, minMaxDefaultOptions, typeOptions);
 }
 
 function checkUnsupportedType(type: string | undefined): void {
