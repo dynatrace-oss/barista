@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # ButtonGroup
 
 <docs-source-example example="ButtonGroupDefaultExampleComponent"></docs-source-example>

@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Expandable section
 
 This Angular component provides basic expand/collapse functionality with a header.

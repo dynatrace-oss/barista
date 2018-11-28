@@ -1,8 +1,27 @@
+---
+type: "component"
+---
+
 # Switch
 
 <docs-source-example example="DefaultSwitchExampleComponent"></docs-source-example>
 
-`<dt-swtich>` is an on/off control that can be toggled via clicking. The switch behaves similarly to a checkbox, though it does not support an indeterminate state.
+`<dt-switch>` is an on/off control that can be toggled via clicking. The switch behaves similarly to a checkbox, though it does not support an indeterminate state.
+
+## Imports
+
+You have to import the `DtSwitchModule` when you want to use the `dt-switch`:
+
+```typescript
+
+@NgModule({
+  imports: [
+    DtSwitchModule,
+  ],
+})
+class MyModule {}
+
+```
 
 ## Options & Properties
 

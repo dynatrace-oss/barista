@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Input & Textarea
 
 <docs-source-example example="DefaultInputExample"></docs-source-example>

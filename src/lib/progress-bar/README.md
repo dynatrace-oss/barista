@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Progress bar
 
 <docs-source-example example="DefaultProgressBarExampleComponent"></docs-source-example>

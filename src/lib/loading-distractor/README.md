@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Loading distractor & loading spinner
 
 <docs-source-example example="DefaultLoadingDistractorExampleComponent"></docs-source-example>
