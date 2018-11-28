@@ -19,25 +19,25 @@ import {
   ContentChildren,
   forwardRef,
 } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
 import { DtViewportResizer } from '@dynatrace/angular-components/core';
 import { DtTheme } from '@dynatrace/angular-components/theming';
+
 // tslint:disable-next-line:no-duplicate-imports
 import * as Highcharts from 'highcharts';
 // tslint:disable-next-line:no-duplicate-imports
-import { AxisOptions, chart, ChartObject, IndividualSeriesOptions, Options, setOptions, addEvent as addHighchartsEvent } from 'highcharts';
+import { chart, ChartObject, IndividualSeriesOptions, Options as HighchartsOptions, setOptions, addEvent as addHighchartsEvent } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import { Observable, Subject, Subscription, defer, merge } from 'rxjs';
 import { delay, takeUntil, take, switchMap } from 'rxjs/operators';
-import { ChartColorizer } from './chart-colorizer';
-import { DEFAULT_CHART_AXIS_STYLES, DEFAULT_CHART_OPTIONS, DEFAULT_GLOBAL_OPTIONS } from './chart-options';
-import { defaultTooltipFormatter } from './chart-tooltip';
-import { configureLegendSymbols } from './highcharts-legend-overrides';
-import { DtChartHeatfield, DtChartHeatfieldActiveChange } from './heatfield/chart-heatfield';
-import { SelectionModel } from '@angular/cdk/collections';
 
-export type DtChartOptions = Options & { series?: undefined };
+import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
+import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides';
+import { DtChartHeatfield, DtChartHeatfieldActiveChange } from './heatfield/chart-heatfield';
+import { createHighchartOptions, applyHighchartsColorOptions } from './highcharts/highcharts-util';
+
+export type DtChartOptions = HighchartsOptions & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions;
-interface DtChartTooltip { (): string | boolean; iswrapped: boolean; }
 
 // tslint:disable-next-line:no-any
 declare const window: any;
@@ -50,7 +50,7 @@ window.highchartsMore = require('highcharts/highcharts-more')(Highcharts);
 // added to the window so uglify does not drop this from the bundle
 window.configureLegendSymbols = configureLegendSymbols;
 // Highcharts global options, set outside component so its not set everytime a chart is created
-setOptions(DEFAULT_GLOBAL_OPTIONS);
+setOptions(DT_CHART_DEFAULT_GLOBAL_OPTIONS);
 
 @Component({
   moduleId: module.id,
@@ -76,8 +76,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _options: DtChartOptions;
   private _dataSub: Subscription | null = null;
   private _isTooltipWrapped = false;
-  private _highchartsOptions: Options;
-  private _handleColors = true;
+  private _highchartsOptions: HighchartsOptions;
+
   /**
    * This flag is necessary due to a bug in highcharts
    * where the series need to be reset to have the
@@ -87,31 +87,26 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _xAxisHasChanged: boolean;
   private readonly _destroy = new Subject<void>();
 
+  /** @internal Emits when highcharts finishes rendering. */
   readonly _afterRender = new Subject<void>();
 
-  /**
-   * The highcharts chart object
-   * @internal
-   */
+  /** @internal The highcharts chart object */
   _chartObject: ChartObject;
 
+  /** Options to configure the chart. */
   @Input()
-  get options(): DtChartOptions {
-    return this._options;
-  }
+  get options(): DtChartOptions { return this._options; }
   set options(options: DtChartOptions) {
-    // Mark for reset Series before updating chart.
+    // Check if x Axis type has changes (e.g. numeric -> category)
     this._xAxisHasChanged = (options.xAxis !== this.highchartsOptions.xAxis);
-    this._options = options;
     this._isTooltipWrapped = false;
-    this._handleColors = options.colors === undefined;
-    this._mergeOptions(options);
+    this._options = options;
+    this._changeDetectorRef.markForCheck();
   }
 
+  /** Series of data points or a stream rendered in this chart */
   @Input()
-  get series(): Observable<DtChartSeries[]> | DtChartSeries[] | undefined {
-    return this._series;
-  }
+  get series(): Observable<DtChartSeries[]> | DtChartSeries[] | undefined { return this._series; }
   set series(series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined) {
     if (this._dataSub) {
       this._dataSub.unsubscribe();
@@ -119,21 +114,40 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
     if (series instanceof Observable) {
       this._dataSub = series.subscribe((s: DtChartSeries[]) => {
-        this._mergeSeries(s);
+        this._currentSeries = s;
         this._update();
-        this._changeDetectorRef.markForCheck();
       });
     } else {
-      this._mergeSeries(series);
+      this._currentSeries = series;
     }
     this._series = series;
-    this._setLoading();
+    this._changeDetectorRef.markForCheck();
   }
 
   /** The loading text of the loading distractor. */
   @Input('loading-text') loadingText: string;
 
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
+
+  /** returns an array of ids for the series data */
+  get seriesIds(): Array<string | undefined> | undefined {
+    return this._highchartsOptions.series && this._highchartsOptions.series.map((s: IndividualSeriesOptions) => s.id);
+  }
+
+  /**
+   * Returns the combined highcharts options for the chart
+   * combines series and options passed, merged with the defaultOptions
+   */
+  get highchartsOptions(): HighchartsOptions {
+    // To make sure the consumer cannot modify the internal highcharts options
+    // (which could result in a broken state) the object will be cloned.
+    return this._highchartsOptions ? lodashMerge({}, this._highchartsOptions) : {};
+  }
+
+  /** @internal Whether the loading distractor should be shown. */
+  get _isLoading(): boolean {
+    return this._highchartsOptions && (!this._highchartsOptions.series || !this._highchartsOptions.series.length);
+  }
 
   private readonly _heatfieldActiveChanges: Observable<DtChartHeatfieldActiveChange> = defer(() => {
     if (this._heatfields) {
@@ -165,9 +179,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
     if (this._theme) {
       this._theme._stateChanges.pipe(takeUntil(this._destroy)).subscribe(() => {
-        if (this._currentSeries) {
-          this._mergeSeries(this._currentSeries);
-          this._update();
+        if (this._currentSeries && this._highchartsOptions) {
+          this._updateColorOptions();
+          this._updateChart();
         }
       });
     }
@@ -183,7 +197,13 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this._createChart();
+    this._updateColorOptions();
+    // Creating a new highcharts chart.
+    // This needs to be done outside the ngZone so the events, hightcharts listens to, do not polute our change detection.
+    this._chartObject = this._ngZone.runOutsideAngular(() => chart(this.container.nativeElement, this.highchartsOptions));
+
+    addHighchartsEvent(this._chartObject, 'redraw', () => { this._afterRender.next(); });
+    this._afterRender.next();
   }
 
   ngAfterContentInit(): void {
@@ -206,6 +226,14 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     this._afterRender.complete();
   }
 
+  /** @internal Creates new highcharts options and applies it to the chart. */
+  _update(): void {
+    const highchartsOptions = createHighchartOptions(this._options, this._currentSeries);
+    this._highchartsOptions = highchartsOptions;
+    this._updateChart();
+    this._changeDetectorRef.markForCheck();
+  }
+
   /** Invoked when an heatfield is activated. */
   private _onHeatfieldActivate(heatfield: DtChartHeatfield): void {
     const wasActive = this._heatfieldSelectionModel.isSelected(heatfield);
@@ -221,135 +249,21 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     }
   }
 
-  /** returns an array of ids for the series data */
-  get seriesIds(): Array<string | undefined> | undefined {
-    if (this._highchartsOptions.series) {
-
-      return this._highchartsOptions.series.map((s: IndividualSeriesOptions) => s.id);
-    }
-
-    return undefined;
-  }
-
-  /**
-   * returns the combined highcharts options for the chart
-   * combines series and options passed, merged with the defaultOptions
-   */
-  get highchartsOptions(): Options {
-    if (!this._highchartsOptions) {
-      this._highchartsOptions = DEFAULT_CHART_OPTIONS;
-    }
-    if (this._highchartsOptions.xAxis) {
-      this._mergeAxis('xAxis');
-    }
-    if (this._highchartsOptions.yAxis) {
-      this._mergeAxis('yAxis');
-    }
-    return this._highchartsOptions;
-  }
-
-  /* merge options with internal highcharts options and defaultoptions */
-  private _mergeOptions(options: DtChartOptions): void {
-    const merged = lodashMerge({}, DEFAULT_CHART_OPTIONS, options) as Options;
-    merged.series = this.highchartsOptions.series;
-    this._wrapTooltip(merged);
-    this._highchartsOptions = merged;
-  }
-
-  /* merge series with the highcharts options internally */
-  private _mergeSeries(series: DtChartSeries[] | undefined): void {
-    this._currentSeries = series;
-    const options = this.highchartsOptions;
-    options.series = series && series.map(((s) => ({...s})));
-    if (options.series) {
-      this._colorizeChart(options);
-    }
-  }
-
-  /* merge default axis options to all axis */
-  private _mergeAxis(axis: 'xAxis' | 'yAxis' | 'zAxis'): void {
-    if (!this._highchartsOptions[axis]) {
-      return;
-    }
-    if (Array.isArray(this._highchartsOptions[axis])) {
-      this._highchartsOptions[axis] = this._highchartsOptions[axis]
-        .map((a) => lodashMerge({}, DEFAULT_CHART_AXIS_STYLES, a) as AxisOptions[]);
-    } else {
-      this._highchartsOptions[axis] = lodashMerge({}, DEFAULT_CHART_AXIS_STYLES, this._highchartsOptions[axis]);
-    }
-  }
-
-  /**
-   * Wraps the options.tooltip.formatter function passed into a div.dt-chart-tooltip
-   * to enable correct styling for the tooltip
-   */
-  private _wrapTooltip(highchartsOptions: Options): void {
-
-    if (!this._isTooltipWrapped) {
-      let tooltipFormatterFunc = defaultTooltipFormatter;
-      if (this.options && this.options.tooltip && this.options.tooltip.formatter) {
-        tooltipFormatterFunc = this.options.tooltip.formatter;
-      }
-
-      highchartsOptions.tooltip!.formatter = function(): string | boolean {
-        const tooltipFormatterFuncBound = tooltipFormatterFunc.bind(this);
-
-        return `<div class="dt-chart-tooltip">${tooltipFormatterFuncBound()}</div>`;
-      } as DtChartTooltip;
-
-      this._isTooltipWrapped = true;
-    }
-  }
-
-  /**
-   * Spins up the chart with correct colors applied
-   */
-  private _createChart(): void {
-    this._chartObject = this._ngZone.runOutsideAngular(() => chart(this.container.nativeElement, this.highchartsOptions));
-    addHighchartsEvent(this._chartObject, 'redraw', (event) => {
-      this._afterRender.next();
-    });
-    this._setLoading();
-    this._afterRender.next();
-  }
-
-  /**
-   * Update function to apply new data to the chart
-   */
-  private _update(redraw: boolean = true, oneToOne: boolean = true): void {
+  /** Updates the chart with current options and series. */
+  private _updateChart(redraw: boolean = true, oneToOne: boolean = true): void {
     if (this._chartObject) {
-      this._setLoading();
       this._ngZone.runOutsideAngular(() => {
         if (this._xAxisHasChanged) {
           this._chartObject.update({ series: [] }, false, oneToOne);
           this._xAxisHasChanged = false;
         }
-        this._chartObject.update(this.highchartsOptions, redraw, oneToOne);
+        this._chartObject.update(this._highchartsOptions, redraw, oneToOne);
       });
       this.updated.emit();
     }
   }
 
-  /** updates the loading status of the component */
-  private _setLoading(): void {
-    this._loading = !this._highchartsOptions.series || !this._highchartsOptions.series.length;
-  }
-
-  private _colorizeChart(options: Options): void {
-    if (this._handleColors) {
-      let nrOfMetrics;
-      if (
-        options.chart &&
-        options.chart.type === 'pie' &&
-        options.series &&
-        options.series.length === 1
-      ) {
-        const pieSeries = options.series[0];
-        nrOfMetrics = pieSeries.data && pieSeries.data.length;
-      } else {
-        nrOfMetrics = options.series && options.series.length;
-      }
-      ChartColorizer.apply(options, nrOfMetrics, this._theme);
-    }
+  private _updateColorOptions(): void {
+    this._highchartsOptions = applyHighchartsColorOptions(this._highchartsOptions, this._theme);
   }
 }
