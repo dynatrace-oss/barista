@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Show More
 
 This component create a show more pagination widget.

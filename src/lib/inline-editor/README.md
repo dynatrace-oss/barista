@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Inline Editor
 
 <docs-source-example example="DefaultInlineEditorExample"></docs-source-example>
