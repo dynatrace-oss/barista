@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Overlay
 
 <docs-source-example example="DefaultOverlayExampleComponent"></docs-source-example>

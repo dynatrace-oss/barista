@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Form field
 
 <docs-source-example example="DefaultFormFieldExample"></docs-source-example>

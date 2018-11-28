@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Progress circle
 
 <docs-source-example example="DefaultProgressCircleExampleComponent"></docs-source-example>
