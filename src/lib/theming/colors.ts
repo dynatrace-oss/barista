@@ -1,7 +1,7 @@
 /**
  * Colors Enumeration used in typescript (only charts for now)
  */
-export enum Colors {
+export enum DtColors {
   WHITE = '#ffffff',
 
   PURPLE_200 = '#debbf3',
@@ -58,47 +58,7 @@ export enum Colors {
   GRAY_900 = '#191919',
 }
 
-/** Chart colors for the purple theme up to 3 metrics */
-const purple: string[] = [
-  Colors.PURPLE_700,
-  Colors.PURPLE_200,
-  Colors.PURPLE_400,
-];
-
-/** Chart colors for the royalblue theme up to 3 metrics */
-const royalblue: string[] = [
-  Colors.ROYALBLUE_800,
-  Colors.ROYALBLUE_200,
-  Colors.ROYALBLUE_400,
-];
-
-/** Chart colors for the blue theme up to 3 metrics */
-const blue: string[] = [
-  Colors.ROYALBLUE_700,
-  Colors.ROYALBLUE_200,
-  Colors.ROYALBLUE_400,
-];
-
-export const CHART_COLOR_PALETTE_ORDERED: string[] = [
-  Colors.PURPLE_600, /* 1 */
-  Colors.YELLOW_200, /* 2 */
-  Colors.TURQUOISE_400, /* 3 */
-  Colors.PURPLE_200, /* 4 */
-  Colors.ORANGE_500, /* 5 */
-  Colors.YELLOW_500, /* 6 */
-  Colors.ROYALBLUE_600, /* 7 */
-  Colors.ORANGE_300, /* 8 */
-  Colors.PURPLE_400, /* 9 */
-  Colors.ORANGE_200, /* 10 */
-  Colors.TURQUOISE_600, /* 11 */
-  Colors.ROYALBLUE_300, /* 12 */
-  Colors.YELLOW_700, /* 13 */
-  Colors.TURQUOISE_200, /* 14 */
-  Colors.ROYALBLUE_400, /* 15 */
-];
-
-export const CHART_COLOR_PALETTES = {
-  purple,
-  royalblue,
-  blue,
-};
+// @deprecated Use `DtColors` instead.
+// @breaking-change To be changed to `DtColors`
+// tslint:disable-next-line:variable-name
+export const Colors = DtColors;
