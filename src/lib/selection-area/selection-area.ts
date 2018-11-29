@@ -14,11 +14,11 @@ export interface DtSelectionAreaChange {
   right: number;
 }
 
-/** Vertical distance between the overlay and the selection area */
-export const DT_SELECTION_AREA_OVERLAY_SPACING = 10;
+/** @internal Vertical distance between the overlay and the selection area */
+const DT_SELECTION_AREA_OVERLAY_SPACING = 10;
 
-/** Eventtarget for the mouse events on the selection area */
-export type DtSelectionAreaEventTarget = 'box' | 'left-handle' | 'right-handle' | 'origin';
+/** @internal Eventtarget for the mouse events on the selection area */
+type DtSelectionAreaEventTarget = 'box' | 'left-handle' | 'right-handle' | 'origin';
 
 /** Action area in the overlay, needed as it's used as a selector in the API. */
 @Directive({
@@ -42,12 +42,12 @@ export class DtSelectionAreaActions { }
 
 export class DtSelectionArea {
 
-  /** The box that gets created by the users action */
+  /** @internal The box that gets created by the users action */
   @ViewChild('box') _box: ElementRef;
-  /** The overlay adjascent to the box */
+  /** @internal The overlay adjascent to the box */
   @ViewChild(CdkConnectedOverlay) _overlay: CdkConnectedOverlay;
 
-  /** Indicates if the box is visible */
+  /** @internal Indicates if the box is visible */
   _isBoxVisible = false;
 
   /** Positions for the overlay that gets created */
@@ -95,9 +95,10 @@ export class DtSelectionArea {
   /** Subscription to the viewport changes */
   private _viewportSub: Subscription = EMPTY.subscribe();
 
+  /** The ref to the DtOverlay */
   private _overlayRef: DtOverlayRef<void>;
 
-  /** The origin the selection is created within */
+  /** The origin the selection area is created within */
   @Input()
   get origin(): ElementRef | HTMLElement {
     return this._origin;
@@ -178,6 +179,7 @@ export class DtSelectionArea {
     this._detachOriginListenerFns = [];
   }
 
+  /** Creates the selection area */
   private _create(): void {
     this._reset();
     this._isBoxVisible = true;
@@ -197,15 +199,15 @@ export class DtSelectionArea {
     this._update();
   }
 
-  private _handleKeyup = (event: KeyboardEvent) => {
-    if (event.keyCode === ENTER) {
-      this._left = this._boundaries.width * 0.45;
-      this._create();
-      this._width = 200;
-      this._right = null;
-      Promise.resolve().then(() => this._applySizeAndPosition());
-    }
-  }
+  // private _handleKeyup = (event: KeyboardEvent) => {
+  //   if (event.keyCode === ENTER) {
+  //     this._left = this._boundaries.width * 0.45;
+  //     this._create();
+  //     this._width = 200;
+  //     this._right = null;
+  //     Promise.resolve().then(() => this._applySizeAndPosition());
+  //   }
+  // }
 
   /** Handles position and width calculation on mousedown */
   private _handleMousemove = (ev: MouseEvent) => {
@@ -296,7 +298,6 @@ export class DtSelectionArea {
   }
 
   _handleLeftHandleKeyup(event: KeyboardEvent): void {
-    console.log(event);
     switch(event.keyCode) {
       case LEFT_ARROW:
         break;
@@ -387,6 +388,7 @@ export class DtSelectionArea {
     if (origin) {
       this._zone.onStable.pipe(take(1)).subscribe(() => {
         this._boundaries = origin.getBoundingClientRect();
+        // tslint:disable-next-line:strict-type-predicates
         const scrollY = typeof window !== undefined ? window.scrollY : 0;
         this._ref.nativeElement.style.left = `${this._boundaries.left}px`;
         this._ref.nativeElement.style.top = `${this._boundaries.top + scrollY}px`;
