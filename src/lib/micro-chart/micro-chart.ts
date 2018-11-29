@@ -31,6 +31,10 @@ import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
+// @deprecated Use `Observable<DtChartSeries[]> | Observable<DtChartSeries> | DtChartSeries[] | DtChartSeries` instead.
+// @breaking-change To be removed
+export type DtMicroChartSeries = Observable<DtChartSeries[]> | Observable<DtChartSeries> | DtChartSeries[] | DtChartSeries;
+
 @Component({
   moduleId: module.id,
   selector: 'dt-micro-chart',

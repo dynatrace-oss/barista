@@ -35,6 +35,7 @@ function mergeAxis(options: HighchartsOptions): HighchartsOptions {
       axis = Array.isArray(axis) ?
         axis.map((a) => lodashMerge({}, DT_CHART_DEFAULT_AXIS_STYLES, a)) :
         lodashMerge({}, DT_CHART_DEFAULT_AXIS_STYLES, axis);
+      options[axisType] = axis;
     }
   });
   return options;

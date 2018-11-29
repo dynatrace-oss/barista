@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import { DtChartOptions, DtMicroChartSeries } from '@dynatrace/angular-components';
+import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components';
 import { generateData } from './docs-micro-chart.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class MicroChartDefaultExampleComponent {
       },
     },
   };
-  series: DtMicroChartSeries = {
+  series: DtChartSeries = {
     name: 'Requests',
     data: generateData(40, 1000, 2000, 1370304000000, 900000),
   };

@@ -282,37 +282,37 @@ describe('DtChart', () => {
       expect(loadingDebugElement).toBeNull('Loading indicator should be hidden');
     });
 
-    // it('should hide the loading indicator once a series has been provided', () => {
-    //   const fixture = TestBed.createComponent(Loading);
-    //   fixture.detectChanges();
+    it('should hide the loading indicator once a series has been provided', () => {
+      const fixture = TestBed.createComponent(Loading);
+      fixture.detectChanges();
 
-    //   let loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
-    //   expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
-    //   expect(loadingDebugElement.nativeElement).toBeDefined('Loading indicater should be visible');
+      let loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+      expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
+      expect(loadingDebugElement.nativeElement).toBeDefined('Loading indicater should be visible');
 
-    //   fixture.componentInstance.series = [{}];
-    //   fixture.detectChanges();
+      fixture.componentInstance.series = [{}];
+      fixture.detectChanges();
 
-    //   loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
-    //   expect(loadingDebugElement).toBeNull('Loading indicator should be hidden');
-    // });
+      loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+      expect(loadingDebugElement).toBeNull('Loading indicator should be hidden');
+    });
 
-    // it('should not have a loading text as default', () => {
-    //   const fixture = TestBed.createComponent(LoadingText);
-    //   fixture.detectChanges();
+    it('should not have a loading text as default', () => {
+      const fixture = TestBed.createComponent(LoadingText);
+      fixture.detectChanges();
 
-    //   const loadingElement: HTMLElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator')).nativeElement;
-    //   expect(loadingElement.textContent).toBe('');
-    // });
+      const loadingElement: HTMLElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator')).nativeElement;
+      expect(loadingElement.textContent).toBe('');
+    });
 
-    // it('should able to set a loading text', () => {
-    //   const fixture = TestBed.createComponent(LoadingText);
-    //   fixture.componentInstance.loadingText = 'Loading';
-    //   fixture.detectChanges();
+    it('should able to set a loading text', () => {
+      const fixture = TestBed.createComponent(LoadingText);
+      fixture.componentInstance.loadingText = 'Loading';
+      fixture.detectChanges();
 
-    //   const loadingElement: HTMLElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator')).nativeElement;
-    //   expect(loadingElement.textContent).toBe('Loading');
-    // });
+      const loadingElement: HTMLElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator')).nativeElement;
+      expect(loadingElement.textContent).toBe('Loading');
+    });
   });
 });
 
