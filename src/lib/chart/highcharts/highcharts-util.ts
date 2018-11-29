@@ -1,5 +1,5 @@
 import { DtTheme } from '@dynatrace/angular-components/theming';
-import { Options as HighchartsOptions } from 'highcharts';
+import { Options as HighchartsOptions, AxisOptions } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import { DT_CHART_DEFAULT_OPTIONS, DT_CHART_DEFAULT_AXIS_STYLES } from '../chart-options';
 import { defaultTooltipFormatter } from '../chart-tooltip';
@@ -30,7 +30,7 @@ export function applyHighchartsColorOptions(options: HighchartsOptions, theme: D
 function mergeAxis(options: HighchartsOptions): HighchartsOptions {
   const axisTypes = ['xAxis', 'yAxis'];
   axisTypes.forEach((axisType) => {
-    let axis = options[axisType];
+    let axis: AxisOptions | AxisOptions[] = options[axisType];
     if (axis) {
       axis = Array.isArray(axis) ?
         axis.map((a) => lodashMerge({}, DT_CHART_DEFAULT_AXIS_STYLES, a)) :
@@ -42,9 +42,7 @@ function mergeAxis(options: HighchartsOptions): HighchartsOptions {
 
 /** Wraps the highcharts tooltip formatter function into a custom one, to apply a wrapper element for styling. */
 function wrapTooltipFormatterFn(
-  options: HighchartsOptions,
-  formatterFn: () => string | boolean = defaultTooltipFormatter
-): HighchartsOptions {
+  options: HighchartsOptions, formatterFn: () => string | boolean = defaultTooltipFormatter): HighchartsOptions {
   options.tooltip!.formatter = function(): string | boolean {
     const tooltipFormatterFuncBound = formatterFn.bind(this);
     return `<div class="dt-chart-tooltip">${tooltipFormatterFuncBound()}</div>`;

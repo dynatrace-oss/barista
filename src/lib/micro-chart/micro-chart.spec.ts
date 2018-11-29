@@ -1,10 +1,10 @@
-import { Component, Type} from '@angular/core';
+import { Component, Type, ViewChild} from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 import { DtMicroChart } from './micro-chart';
-import { Colors, DtThemingModule } from '@dynatrace/angular-components/theming';
+import { Colors, DtThemingModule, DtTheme } from '@dynatrace/angular-components/theming';
 import objectContaining = jasmine.objectContaining;
 import { AxisOptions, DataPoint } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
@@ -13,7 +13,7 @@ import { merge } from 'lodash';
 
 // tslint:disable:no-magic-numbers
 
-fdescribe('DtMicroChart', () => {
+describe('DtMicroChart', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,8 +46,8 @@ fdescribe('DtMicroChart', () => {
     };
   };
 
-  describe('axis are not visible', () => {
-    it('if not defined', () => {
+  describe('hidden axis', () => {
+    it('should not render axis if no axis have been defined', () => {
       const {fixture, microChartComponent} = setupTestCase(Series);
       fixture.detectChanges();
 
@@ -59,7 +59,7 @@ fdescribe('DtMicroChart', () => {
       expect((options.yAxis as AxisOptions).visible).toBe(false);
     });
 
-    it('if defined', () => {
+    it('should not render axis if axis have been defined', () => {
       const {fixture, microChartComponent} = setupTestCase(DefinedAxis);
       fixture.detectChanges();
 
@@ -71,7 +71,7 @@ fdescribe('DtMicroChart', () => {
       expect((options.yAxis as AxisOptions).visible).toBe(false);
     });
 
-    it('if defined as array', () => {
+    it('should not render axis if axis have been defined as an array', () => {
       const {fixture, microChartComponent} = setupTestCase(DefinedAxisArray);
       fixture.detectChanges();
 
@@ -84,15 +84,15 @@ fdescribe('DtMicroChart', () => {
     });
   });
 
-  describe('chart is colored', () => {
-    it('sets default colors if no theme on parent is given', () => {
+  describe('coloring', () => {
+    it('should set default colors if no theme on parent is given', () => {
       const {fixture, microChartComponent} = setupTestCase(Series);
       fixture.detectChanges();
 
       expect(microChartComponent.highchartsOptions.colors).toBeDefined();
     });
 
-    it('sets colors based on the current theme', () => {
+    it('should set colors based on the current theme', () => {
       const {fixture, microChartComponent} = setupTestCase(ThemeFixed);
       fixture.detectChanges();
 
@@ -102,32 +102,35 @@ fdescribe('DtMicroChart', () => {
       expect(colors).toEqual([Colors.ROYALBLUE_400]);
     });
 
-    it('sets colors after theme update', () => {
+    it('should set colors after theme update', () => {
       const {fixture, microChartComponent} = setupTestCase(ThemeDynamic);
       fixture.detectChanges();
 
       fixture.componentInstance.theme = 'purple';
       fixture.detectChanges();
+
       const colors = microChartComponent.highchartsOptions.colors;
       expect(colors).toBeDefined();
       expect(colors).toEqual([Colors.PURPLE_400]);
     });
 
-    it('updates minmax datapoint colors after theme update', () => {
+    it('should update minmax datapoint colors after theme update', () => {
       const {fixture, microChartComponent} = setupTestCase(ThemeDynamic);
       fixture.detectChanges();
-      const data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
+
+      let data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
       expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.ROYALBLUE_700}));
 
       fixture.componentInstance.theme = 'purple';
       fixture.detectChanges();
 
+      data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
       expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.PURPLE_700}));
     });
   });
 
   describe('data', () => {
-    it('returns the original options unchanged passed into the chart', () => {
+    it('should return the original options unchanged passed into the chart', () => {
       const {fixture, microChartComponent} = setupTestCase(DefinedAxis);
       const optionsClone = merge({}, fixture.componentInstance.options);
       fixture.detectChanges();
@@ -136,17 +139,17 @@ fdescribe('DtMicroChart', () => {
       expect(microChartComponent.options).toEqual(optionsClone);
     });
 
-    it('renders without options given', () => {
+    it('should render without options given', () => {
       const {fixture} = setupTestCase(NoOptions);
       expect(fixture.componentInstance).toBeTruthy();
     });
 
-    it('does not crash without series', () => {
+    it('should not crash without series', () => {
       const {fixture} = setupTestCase(NoSeries);
       expect(fixture.componentInstance).toBeTruthy();
     });
 
-    it('does not crash with nothing', () => {
+    it('should not crash with nothing provided to the chart', () => {
       const {fixture} = setupTestCase(Nothing);
       expect(fixture.componentInstance).toBeTruthy();
     });
@@ -164,7 +167,7 @@ fdescribe('DtMicroChart', () => {
       expect(series[0].data![1]).toEqual(objectContaining({x: 2, y: 120}));
     });
 
-    it('does mark highest and lowest point', () => {
+    it('should mark highest and lowest point', () => {
       const {fixture, microChartComponent} = setupTestCase(Series);
       fixture.detectChanges();
 
@@ -174,20 +177,19 @@ fdescribe('DtMicroChart', () => {
       expect(data[1].dataLabels).toEqual(objectContaining({verticalAlign: 'top', enabled: true}));
     });
 
-    it('fetches metric ids', () => {
+    it('should fetch metric ids', () => {
       const {fixture, microChartComponent} = setupTestCase(Series);
       fixture.detectChanges();
 
       expect(microChartComponent.seriesId).toEqual('someMetricId');
     });
 
-    it('converts dynamic data', () => {
+    it('should convert dynamic data', () => {
       const {fixture, microChartComponent} = setupTestCase(DynamicSeries);
-      let data;
 
       fixture.detectChanges();
       expect(microChartComponent.seriesId).toEqual('someId');
-      data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
+      let data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
       expect(data[0]).toEqual(objectContaining({x: 1, y: 0}));
       expect(data[1]).toEqual(objectContaining({x: 2, y: 10}));
 
@@ -206,7 +208,7 @@ fdescribe('DtMicroChart', () => {
       }).toThrowError('Series type unsupported: pie');
     });
 
-    it('rejects not allowed types', () => {
+    it('should reject not allowed types', () => {
       const {fixture} = setupTestCase(Series);
       const options = fixture.componentInstance.options;
       options.chart = {};
@@ -220,7 +222,7 @@ fdescribe('DtMicroChart', () => {
       });
     });
 
-    it('allowed types do not throw an error', () => {
+    it('should not throw an error with allowed types', () => {
       const {fixture} = setupTestCase(Series);
       const options = fixture.componentInstance.options;
       options.chart = {};
@@ -234,7 +236,7 @@ fdescribe('DtMicroChart', () => {
       });
     });
 
-    it('throws an error if a series has an unallowed type', () => {
+    it('should throw an error if a series has an unallowed type', () => {
         const {fixture} = setupTestCase(UnsupportedSeriesType);
         expect(() => {
           fixture.detectChanges();
@@ -300,6 +302,10 @@ class DefinedAxisEmptyArray {
   template: '<div [dtTheme]="theme"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
 })
 class ThemeDynamic {
+
+  @ViewChild(DtTheme) dtTheme: DtTheme;
+  @ViewChild(DtMicroChart) chart: DtMicroChart;
+
   theme = 'blue';
   options: DtChartOptions = {};
   series: DtChartSeries = {
