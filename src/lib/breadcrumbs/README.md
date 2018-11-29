@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Breadcrumbs
 
 <docs-source-example example="DefaultBreadcrumbsExampleComponent"></docs-source-example>

@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Radio
 
 <docs-source-example example="DefaultRadioExample"></docs-source-example>

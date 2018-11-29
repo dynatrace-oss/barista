@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Context dialog
 
 <docs-source-example example="DefaultContextDialogExampleComponent"></docs-source-example>
