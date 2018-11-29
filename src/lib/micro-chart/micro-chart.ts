@@ -11,9 +11,10 @@ import {
   ViewChild,
   ViewEncapsulation,
   isDevMode,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { DataPoint, Options } from 'highcharts';
-import { DtChart, DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
+import { DtChart, DtChartOptions, DtChartSeries, DT_CHART_CONFIG } from '@dynatrace/angular-components/chart';
 import {
   _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS,
   _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS,
@@ -38,6 +39,7 @@ const SUPPORTED_CHART_TYPES = ['line', 'column'];
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
+  providers: [{ provide: DT_CHART_CONFIG, useValue: { shouldUpdateColors: false }}],
 })
 export class DtMicroChart implements OnDestroy {
   @ViewChild(forwardRef(() => DtChart)) private _dtChart: DtChart;
@@ -80,11 +82,14 @@ export class DtMicroChart implements OnDestroy {
     return this._dtChart.highchartsOptions;
   }
 
-  constructor(@Optional() @SkipSelf() private readonly _theme: DtTheme) {
-    if (this._theme) {
-      this._themeStateChangeSub = this._theme._stateChanges.subscribe(() => {
+  constructor(@Optional() @SkipSelf() private readonly _theme: DtTheme, private _changeDetectorRef: ChangeDetectorRef) {
+    if (_theme) {
+      _theme._stateChanges.subscribe(() => {
         this._transformedOptions = this._transformOptions(this._options);
-        this._transformedSeries = this._transformSeries(this._currentSeries);
+        if (this._currentSeries) {
+          this._transformedSeries = this._transformSeries(this._currentSeries);
+        }
+        _changeDetectorRef.markForCheck();
       });
     }
   }
@@ -158,11 +163,12 @@ function getMinMaxDataPoints(dataPoints: DataPoint[]): { min: DataPoint; max: Da
 /** Apply default micro chart options to min & max data points */
 function applyMinMaxOptions(min: DataPoint, max: DataPoint, isColumnSeries: boolean, theme?: DtTheme): void {
   const palette = getDtMicrochartColorPalette(theme);
-  const typeOptions = isColumnSeries ?
-    createDtMicrochartDefaultColumnDataPointOption(palette) : _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS;
+  const columnOptions = createDtMicrochartDefaultColumnDataPointOption(palette);
+  const minOptions = isColumnSeries ? columnOptions : _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS;
+  const maxOptions = isColumnSeries ? columnOptions : _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS;
   const minMaxDefaultOptions = createDtMicrochartMinMaxDataPointOptions(palette);
-  lodashMerge(min, minMaxDefaultOptions, typeOptions);
-  lodashMerge(max, minMaxDefaultOptions, typeOptions);
+  lodashMerge(min, minMaxDefaultOptions, minOptions);
+  lodashMerge(max, minMaxDefaultOptions, maxOptions);
 }
 
 function checkUnsupportedType(type: string | undefined): void {
