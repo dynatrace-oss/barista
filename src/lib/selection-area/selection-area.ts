@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, NgZone, Directive, TemplateRef } from '@angular/core';
-import { addCssClass, clamp, removeCssClass, DtViewportResizer, DT_NO_POINTER_CSS_CLASS } from '@dynatrace/angular-components/core';
+import { Component, EventEmitter, Output, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, NgZone, Directive, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { addCssClass, clamp, removeCssClass, DtViewportResizer, DT_NO_POINTER_CSS_CLASS, readKeyCode } from '@dynatrace/angular-components/core';
 import { take } from 'rxjs/operators';
 import { EMPTY, Subscription } from 'rxjs';
 import { DtOverlayRef } from '@dynatrace/angular-components/overlay';
@@ -17,6 +17,12 @@ export interface DtSelectionAreaChange {
 /** @internal Vertical distance between the overlay and the selection area */
 const DT_SELECTION_AREA_OVERLAY_SPACING = 10;
 
+/** @internal The size factor to the origin width the selection area is created with when created by keyboard */
+const DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE = 0.5;
+
+/** @internal The position the selection area is created at when created by keyboard */
+const DT_SELECTION_AREA_KEYBOARD_DEFAULT_START = 0.25;
+
 /** @internal Eventtarget for the mouse events on the selection area */
 type DtSelectionAreaEventTarget = 'box' | 'left-handle' | 'right-handle' | 'origin';
 
@@ -26,11 +32,13 @@ type DtSelectionAreaEventTarget = 'box' | 'left-handle' | 'right-handle' | 'orig
   host: {
     class: 'dt-selection-area-actions',
   },
+  exportAs: 'dtSelectionAreaActions',
 })
 export class DtSelectionAreaActions { }
 
 @Component({
   selector: 'dt-selection-area',
+  exportAs: 'dtSelectionArea',
   templateUrl: 'selection-area.html',
   styleUrls: ['selection-area.scss'],
   host: {
@@ -38,6 +46,7 @@ export class DtSelectionAreaActions { }
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
 })
 
 export class DtSelectionArea {
@@ -130,7 +139,7 @@ export class DtSelectionArea {
     private _renderer: Renderer2,
     private _zone: NgZone,
     private _viewport: DtViewportResizer,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     this._viewportSub = this._viewport.change().subscribe(() => {
       this._reset();
@@ -192,32 +201,35 @@ export class DtSelectionArea {
 
   /** Handle mousedown on the origin */
   private _handleMousedown = (ev: MouseEvent) => {
+    this._create();
     this._startX = this._calculateRelativeXPos(ev);
     this._left = this._startX;
-    this._create();
+    console.log('creating...', this._left);
     // Call update to trigger reflecting the changes to the element
     this._update();
   }
 
-  // private _handleKeyup = (event: KeyboardEvent) => {
-  //   if (event.keyCode === ENTER) {
-  //     this._left = this._boundaries.width * 0.45;
-  //     this._create();
-  //     this._width = 200;
-  //     this._right = null;
-  //     Promise.resolve().then(() => this._applySizeAndPosition());
-  //   }
-  // }
+  private _handleKeyup = (event: KeyboardEvent) => {
+    if (readKeyCode(event) === ENTER) {
+      this._left = this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_START;
+      this._create();
+      this._width = this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE;
+      this._right = null;
+      Promise.resolve().then(() => { this._applySizeAndPosition(); });
+    }
+  }
 
   /** Handles position and width calculation on mousedown */
   private _handleMousemove = (ev: MouseEvent) => {
     ev.preventDefault();
     const deltaX = this._calculateRelativeXPos(ev) - this._startX;
+    console.log('delta');
     let left: number | null;
     let right: number | null;
     let width = this._width;
     switch (this._eventTarget) {
       case 'box':
+        console.log('box');
         const newleft = this._startX + deltaX - this._offsetX;
         left = clamp(newleft, 0, this._boundaries.width - width);
         right = null;
@@ -292,13 +304,14 @@ export class DtSelectionArea {
 
   /** Handle mousedown on the area */
   _handleBoxMouseDown(event: MouseEvent): void {
+    console.log('box mousedown');
     this._handleBoxEvent(event, 'box');
     this._offsetX = this._calculateRelativeXPosToBox(event);
     addCssClass(this._origin, 'dt-cursor-grabbing');
   }
 
   _handleLeftHandleKeyup(event: KeyboardEvent): void {
-    switch(event.keyCode) {
+    switch (readKeyCode(event)) {
       case LEFT_ARROW:
         break;
       case RIGHT_ARROW:
@@ -340,6 +353,7 @@ export class DtSelectionArea {
   /** Update function that applies calculated width and position to the box dom element */
   private _update(): void {
     requestAnimationFrame(() => {
+      console.log('requestAnimationFrame triggered');
       if (!this._touching) {
         return;
       }
@@ -351,6 +365,7 @@ export class DtSelectionArea {
   /** Applies the properties to the box dom element */
   private _applySizeAndPosition(): void {
     this._box.nativeElement.style.width = `${this._width}px`;
+
     if (this._left !== null) {
       this._box.nativeElement.style.left = `${this._left}px`;
       this._box.nativeElement.style.right = '';
@@ -358,7 +373,9 @@ export class DtSelectionArea {
       this._box.nativeElement.style.left = '';
       this._box.nativeElement.style.right = `${this._right}px`;
     }
-    this._overlay.overlayRef.updatePosition();
+    if (this._overlay && this._overlayRef) {
+      this._overlay.overlayRef.updatePosition();
+    }
 
     const left = this._left !== null ? this._left : this._boundaries.width - this._right! - this._width;
     const right = this._right !== null ? this._right : this._boundaries.width - this._left! - this._width;
@@ -389,7 +406,7 @@ export class DtSelectionArea {
       this._zone.onStable.pipe(take(1)).subscribe(() => {
         this._boundaries = origin.getBoundingClientRect();
         // tslint:disable-next-line:strict-type-predicates
-        const scrollY = typeof window !== undefined ? window.scrollY : 0;
+        const scrollY = typeof window !== 'undefined' ? window.scrollY : 0;
         this._ref.nativeElement.style.left = `${this._boundaries.left}px`;
         this._ref.nativeElement.style.top = `${this._boundaries.top + scrollY}px`;
         this._ref.nativeElement.style.width = `${this._boundaries.width}px`;
