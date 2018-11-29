@@ -1,13 +1,29 @@
-<div class="dt-selection-area-box" tabindex="0" [style.visibility]="_isBoxVisible ? 'visible' : 'hidden'" #box (mousedown)="_handleBoxMouseDown($event)" #originBox="cdkOverlayOrigin" cdk-overlay-origin (keyup)="_handleBoxKeyup($event)">
-  <div class="dt-selection-area-handle" tabindex="0" (mousedown)="_handleLeftHandleMouseDown($event)" (keyup)="_handleLeftHandleKeyup($event)"></div>
-  <div class="dt-selection-area-handle" tabindex="0" (mousedown)="_handleRightHandleMouseDown($event)" (keyup)="_handleRightHandleKeyup($event)"></div>
+<div
+  class="dt-selection-area-box"
+  tabindex="0" 
+  [style.visibility]="_isBoxVisible ? 'visible' : 'hidden'"
+  #box
+  #originBox="cdkOverlayOrigin"
+  cdk-overlay-origin
+  (mousedown)="_handleBoxMouseDown($event)"
+  (keyup)="_handleBoxKeyup($event)">
+  <button
+    class="dt-selection-area-handle"
+    (mousedown)="_handleLeftHandleMouseDown($event)"
+    (keyup)="_handleLeftHandleKeyup($event)"
+  ></button>
+  <button
+    class="dt-selection-area-handle"
+    (mousedown)="_handleRightHandleMouseDown($event)"
+    (keyup)="_handleRightHandleKeyup($event)"
+  ></button>
 </div>
 <ng-template
 cdkConnectedOverlay
 [cdkConnectedOverlayOrigin]="originBox"
 [cdkConnectedOverlayOpen]="_isBoxVisible"
-[cdkConnectedOverlayPositions]="_positions">
-<!-- TODO: ffr change to cdkConnectedOverlayPanelClass when cdk version is updated-->
+[cdkConnectedOverlayPositions]="_positions"
+>
 <div class="dt-selection-area-overlay-pane">
   <div class="dt-selection-area-overlay-wrapper">
     <section class="dt-selection-area-content">
