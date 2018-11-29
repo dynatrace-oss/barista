@@ -18,6 +18,7 @@ import {
   QueryList,
   ContentChildren,
   forwardRef,
+  Inject,
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DtViewportResizer } from '@dynatrace/angular-components/core';
@@ -35,6 +36,7 @@ import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
 import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides';
 import { DtChartHeatfield, DtChartHeatfieldActiveChange } from './heatfield/chart-heatfield';
 import { createHighchartOptions, applyHighchartsColorOptions } from './highcharts/highcharts-util';
+import { DT_CHART_CONFIG, DtChartConfig, DT_CHART_DEFAULT_CONFIG } from './chart-config';
 
 export type DtChartOptions = HighchartsOptions & { series?: undefined };
 export type DtChartSeries = IndividualSeriesOptions;
@@ -77,14 +79,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _dataSub: Subscription | null = null;
   private _isTooltipWrapped = false;
   private _highchartsOptions: HighchartsOptions;
-
-  /**
-   * This flag is necessary due to a bug in highcharts
-   * where the series need to be reset to have the
-   * correct xAxis categories displayed when the
-   * chart type is updated (f.i. xAxis.type = 'datetime' => 'category')
-   */
-  private _xAxisHasChanged: boolean;
   private readonly _destroy = new Subject<void>();
 
   /** @internal Emits when highcharts finishes rendering. */
@@ -97,8 +91,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @Input()
   get options(): DtChartOptions { return this._options; }
   set options(options: DtChartOptions) {
-    // Check if x Axis type has changes (e.g. numeric -> category)
-    this._xAxisHasChanged = (options.xAxis !== this.highchartsOptions.xAxis);
     this._isTooltipWrapped = false;
     this._options = options;
     this._changeDetectorRef.markForCheck();
@@ -163,11 +155,14 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
 
   constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _ngZone: NgZone,
     @Optional() private _viewportResizer: DtViewportResizer,
     @Optional() @SkipSelf() private _theme: DtTheme,
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _ngZone: NgZone
+    @Optional() @SkipSelf() @Inject(DT_CHART_CONFIG) private _config: DtChartConfig
   ) {
+    this._config = this._config || DT_CHART_DEFAULT_CONFIG;
+
     if (this._viewportResizer) {
       this._viewportResizer.change()
         .pipe(takeUntil(this._destroy), delay(0))// delay to postpone the reflow to the next change detection cycle
@@ -181,7 +176,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       this._theme._stateChanges.pipe(takeUntil(this._destroy)).subscribe(() => {
         if (this._currentSeries && this._highchartsOptions) {
           this._updateColorOptions();
-          this._updateChart();
+          this._updateChart(false);
         }
       });
     }
@@ -229,8 +224,12 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal Creates new highcharts options and applies it to the chart. */
   _update(): void {
     const highchartsOptions = createHighchartOptions(this._options, this._currentSeries);
+
+    // Check if x Axis type has changes (e.g. numeric -> category)
+    const xAxisHasChanged = (highchartsOptions.xAxis !== this.highchartsOptions.xAxis);
+
     this._highchartsOptions = highchartsOptions;
-    this._updateChart();
+    this._updateChart(xAxisHasChanged);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -250,20 +249,21 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /** Updates the chart with current options and series. */
-  private _updateChart(redraw: boolean = true, oneToOne: boolean = true): void {
+  private _updateChart(xAxisHasChanged: boolean): void {
     if (this._chartObject) {
       this._ngZone.runOutsideAngular(() => {
-        if (this._xAxisHasChanged) {
-          this._chartObject.update({ series: [] }, false, oneToOne);
-          this._xAxisHasChanged = false;
+        if (xAxisHasChanged) {
+          this._chartObject.update({ series: [] }, false, true);
         }
-        this._chartObject.update(this._highchartsOptions, redraw, oneToOne);
+        this._chartObject.update(this._highchartsOptions, true, true);
       });
       this.updated.emit();
     }
   }
 
   private _updateColorOptions(): void {
-    this._highchartsOptions = applyHighchartsColorOptions(this._highchartsOptions, this._theme);
+    if (this._config.shouldUpdateColors) {
+      this._highchartsOptions = applyHighchartsColorOptions(this._highchartsOptions, this._theme);
+    }
   }
 }
