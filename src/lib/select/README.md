@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Select
 
 <docs-source-example example="DefaultSelectExampleComponent"></docs-source-example>
