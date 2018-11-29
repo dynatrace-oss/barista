@@ -8,6 +8,8 @@
 @import '../input/input';
 @import 'link';
 
+@import '../core/style/overlay';
+
 @import '~@angular/cdk/overlay';
 @import '~@angular/cdk/a11y';
 
@@ -20,6 +22,11 @@
 
 // indicator styles import because the indicator is a directive and cannot be shipped with styles
 @import '../core/indicator/indicator';
+
+.dt-selection-area-overlay-pane {
+  @include dt-overlay-container();
+  position: inherit;
+}
 
 .dt-selection-area-origin:focus {
   @include dt-focus-style();
