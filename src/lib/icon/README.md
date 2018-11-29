@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Icon
 
 <docs-source-example example="DefaultIconExample"></docs-source-example>

@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Copy to clipboard
 
 The `<dt-copy-to-clipboard>` creates a container including a textarea, input or a label ready to be copied to the clipboard. It is possible to disable the entire copy clipboard container.

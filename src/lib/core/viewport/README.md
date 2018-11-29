@@ -1,3 +1,7 @@
+---
+type: "service"
+---
+
 # ViewportResizer
 
 The `ViewportResizer` is an abstract class that specifies a `change` function that returns a stream that fires every time a window resize event is triggered or `emit` is called. 

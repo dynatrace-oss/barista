@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Key Value List
 
 This component creates a key value list with Dynatrace styling. It splits the provided elements automatically into 2 columns.

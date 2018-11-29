@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # MicroChart
 
 <docs-source-example example="MicroChartDefaultExampleComponent" fullwidth="true"></docs-source-example>
