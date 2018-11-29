@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Card
 
 <docs-source-example example="DefaultCardExampleComponent"></docs-source-example>

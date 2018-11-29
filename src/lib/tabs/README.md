@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Tabs
 
 <docs-source-example example="DefaultTabsExampleComponent"></docs-source-example>

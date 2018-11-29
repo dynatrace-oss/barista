@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Filter field (Experimental)
 
 DO NOT USE IN PRODUCTION!    

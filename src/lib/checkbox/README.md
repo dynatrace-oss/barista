@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Checkbox
 
 <docs-source-example example="DefaultCheckboxExampleComponent"></docs-source-example>

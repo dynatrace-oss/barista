@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Expandable panel
 
 This Angular component provides basic expand/collapse functionality without any styling.

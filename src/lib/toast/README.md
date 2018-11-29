@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Toast
 
 <docs-source-example example="DefaultToastExampleComponent"></docs-source-example>
