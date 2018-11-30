@@ -1,0 +1,18 @@
+<dt-card>
+  <dt-card-title>
+    <ng-content select="dt-cta-card-title"></ng-content>
+  </dt-card-title>
+
+  <div class="dt-cta-card-flex-container">
+    <div class="dt-cta-card-illustration">
+      <ng-content select="dt-cta-card-image">
+      </ng-content>
+    </div>
+    <div class="dt-cta-card-flex-box">
+      <p class="dt-cta-card-text-wrapper">
+        <ng-content></ng-content>
+      </p>
+      <ng-content select="dt-cta-card-action"></ng-content>
+    </div>
+  </div>
+</dt-card>
