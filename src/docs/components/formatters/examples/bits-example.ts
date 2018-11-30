@@ -16,7 +16,7 @@ import { OriginalClassName } from '../../../core/decorators';
   </p>
   `,
 })
-@OriginalClassName('BitsPipeExample')
+@OriginalClassName('BitsExample')
 export class BitsExample {
   exampleValue: string;
 }
