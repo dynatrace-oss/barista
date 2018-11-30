@@ -1,4 +1,4 @@
-import { async, TestBed, fakeAsync, flush, ComponentFixture, tick } from '@angular/core/testing';
+import { async, TestBed, fakeAsync, flush, ComponentFixture, inject } from '@angular/core/testing';
 import { DtSelectionAreaModule, DtIconModule } from '@dynatrace/angular-components';
 import { Component, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { DtButtonModule } from '../button';
@@ -7,8 +7,12 @@ import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtSelectionArea } from './selection-area';
 import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 fdescribe('DtSelectionArea', () => {
+
+  let overlayContainer: OverlayContainer;
+  let overlayContainerElement: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,7 +29,16 @@ fdescribe('DtSelectionArea', () => {
     });
 
     TestBed.compileComponents();
+
+    inject([OverlayContainer], (oc: OverlayContainer) => {
+      overlayContainer = oc;
+      overlayContainerElement = oc.getContainerElement();
+    })();
   }));
+
+  afterEach(() => {
+    overlayContainer.ngOnDestroy();
+  });
 
   describe('origin', () => {
     it('should make the origin tabable when a selection area is attached and the element has no tabindex', () => {
@@ -53,183 +66,367 @@ fdescribe('DtSelectionArea', () => {
     });
   });
 
-  describe('mouse interaction', () => {
+  describe('creation', () => {
     let fixture: ComponentFixture<any>;
     let origin: HTMLElement;
-    let originMargin: number;
-    let originWidth: number;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(BasicTest);
       fixture.detectChanges();
       origin = fixture.componentInstance.origin.nativeElement;
-      originMargin = origin.getBoundingClientRect().left;
-      originWidth = origin.getBoundingClientRect().width;
     });
 
-    describe('creation', () => {
-      it('should create the selection area at the mouseposition', fakeAsync(() => {
-        dispatchMouseEvent(origin, 'mousedown', 10, 10);
-        fixture.detectChanges();
-        flush();
-        tickRequestAnimationFrame();
-        const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
-        expect(box.nativeElement.style.left).toEqual(`${10 - originMargin}px`);
-      }));
+    it('should create the selection area at the mouseposition', fakeAsync(() => {
+      dispatchMouseEvent(origin, 'mousedown', 100, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
+      const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
+      expect(box.nativeElement.style.left).toEqual('90px');
+    }));
 
-      it('should scale the selection area on mousemove', fakeAsync(() => {
-        dispatchMouseEvent(origin, 'mousedown', 10, 10);
-        fixture.detectChanges();
-        flush();
-        tickRequestAnimationFrame();
+    it('should scale the selection area on mousemove', fakeAsync(() => {
+      dispatchMouseEvent(origin, 'mousedown', 100, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
 
-        dispatchMouseEvent(window, 'mousemove', 20, 10);
-        flush();
-        tickRequestAnimationFrame();
-        const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
-        expect(box.nativeElement.style.left).toEqual(`${10 - originMargin}px`);
-        expect(box.nativeElement.style.width).toEqual('10px');
-      }));
+      dispatchMouseEvent(window, 'mousemove', 200, 10);
+      flush();
+      tickRequestAnimationFrame();
+      const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
+      expect(box.nativeElement.style.left).toEqual('90px');
+      expect(box.nativeElement.style.width).toEqual('100px');
+    }));
 
-      it('should scale the selection area correctly when the mouse is moved to the left of the creation point', fakeAsync(() => {
-        dispatchMouseEvent(origin, 'mousedown', 20, 10);
-        fixture.detectChanges();
-        flush();
-        tickRequestAnimationFrame();
+    it('should scale the selection area correctly when the mouse is moved to the left of the creation point', fakeAsync(() => {
+      dispatchMouseEvent(origin, 'mousedown', 200, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
 
-        dispatchMouseEvent(window, 'mousemove', 10, 10);
-        flush();
-        tickRequestAnimationFrame();
-        const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
-        expect(box.nativeElement.style.right).toEqual(`${originWidth + originMargin - 20}px`);
-        expect(box.nativeElement.style.width).toEqual('10px');
-      }));
+      dispatchMouseEvent(window, 'mousemove', 100, 10);
+      flush();
+      tickRequestAnimationFrame();
+      const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
+      expect(box.nativeElement.style.right).toEqual('210px');
+      expect(box.nativeElement.style.width).toEqual('100px');
+    }));
 
-      it('should scale the selection area correctly when the mouse is moved to the left and then to the right', fakeAsync(() => {
-        dispatchMouseEvent(origin, 'mousedown', 20, 10);
-        fixture.detectChanges();
-        flush();
-        tickRequestAnimationFrame();
+    it('should scale the selection area correctly when the mouse is moved to the left and then to the right', fakeAsync(() => {
+      dispatchMouseEvent(origin, 'mousedown', 200, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
 
-        dispatchMouseEvent(window, 'mousemove', 10, 10);
-        flush();
-        tickRequestAnimationFrame();
+      dispatchMouseEvent(window, 'mousemove', 100, 10);
+      flush();
+      tickRequestAnimationFrame();
 
-        dispatchMouseEvent(window, 'mousemove', 30, 10);
-        flush();
-        tickRequestAnimationFrame();
-        const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
-        expect(box.nativeElement.style.left).toEqual(`${20 - originMargin}px`);
-        expect(box.nativeElement.style.width).toEqual('10px');
-      }));
+      dispatchMouseEvent(window, 'mousemove', 300, 10);
+      flush();
+      tickRequestAnimationFrame();
+      const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
+      expect(box.nativeElement.style.left).toEqual('190px');
+      expect(box.nativeElement.style.width).toEqual('100px');
+    }));
 
-      it('should constrain the position to the origin\'s left edge', fakeAsync(() => {
-        dispatchMouseEvent(origin, 'mousedown', 20, 10);
-        fixture.detectChanges();
-        flush();
-        tickRequestAnimationFrame();
+    it('should constrain the position to the origin\'s left edge', fakeAsync(() => {
+      dispatchMouseEvent(origin, 'mousedown', 210, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
 
-        dispatchMouseEvent(window, 'mousemove', 0, 10);
-        flush();
-        tickRequestAnimationFrame();
-        const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
-        expect(box.nativeElement.style.right).toEqual(`${originWidth + originMargin - 20}px`);
-        expect(box.nativeElement.style.width).toEqual('10px');
-      }));
+      dispatchMouseEvent(window, 'mousemove', 0, 10);
+      flush();
+      tickRequestAnimationFrame();
+      const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
+      expect(box.nativeElement.style.right).toEqual('200px');
+      expect(box.nativeElement.style.width).toEqual('200px');
+    }));
 
-      it('should constrain the position to the origin\'s right edge', fakeAsync(() => {
-        dispatchMouseEvent(origin, 'mousedown', 20, 10);
-        fixture.detectChanges();
-        flush();
-        tickRequestAnimationFrame();
+    it('should constrain the position to the origin\'s right edge', fakeAsync(() => {
+      dispatchMouseEvent(origin, 'mousedown', 20, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
 
-        dispatchMouseEvent(window, 'mousemove', 420, 10);
-        flush();
-        tickRequestAnimationFrame();
-        const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
-        expect(box.nativeElement.style.left).toEqual('10px');
-        expect(box.nativeElement.style.width).toEqual('390px');
-      }));
-    });
+      dispatchMouseEvent(window, 'mousemove', 420, 10);
+      flush();
+      tickRequestAnimationFrame();
+      const box = fixture.debugElement.query(By.css('.dt-selection-area-box'));
+      expect(box.nativeElement.style.left).toEqual('10px');
+      expect(box.nativeElement.style.width).toEqual('390px');
+    }));
 
-    describe('moving the box', () => {
+    it('should create an overlay on creation', fakeAsync(() => {
+      dispatchMouseEvent(origin, 'mousedown', 100, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
+
+      dispatchMouseEvent(window, 'mousemove', 200, 10);
+      flush();
+      tickRequestAnimationFrame();
+      const overlayNative = overlayContainerElement.querySelector('.dt-selection-area-overlay-pane');
+      expect(overlayNative).not.toBeNull();
+    }));
+  });
+
+  describe('mouse interaction', () => {
+    let fixture: ComponentFixture<BasicTest>;
+    let origin: HTMLElement;
+
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(BasicTest);
+      fixture.detectChanges();
+      origin = fixture.componentInstance.origin.nativeElement;
+
+      dispatchMouseEvent(origin, 'mousedown', 110, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
+
+      dispatchMouseEvent(window, 'mousemove', 210, 10);
+      flush();
+      tickRequestAnimationFrame();
+      dispatchMouseEvent(window, 'mouseup');
+      flush();
+      tickRequestAnimationFrame();
+    }));
+
+    describe('on the box', () => {
+      let boxNative: HTMLElement;
+
       beforeEach(fakeAsync(() => {
-        dispatchMouseEvent(origin, 'mousedown', 10, 10);
-        fixture.detectChanges();
-        flush();
-        tickRequestAnimationFrame();
-
-        dispatchMouseEvent(window, 'mousemove', 20, 10);
-        flush();
-        tickRequestAnimationFrame();
-        dispatchMouseEvent(window, 'mouseup');
-        flush();
-        tickRequestAnimationFrame();
-
-        // position after this creation ignorign the margin
-        // left 10
-        // width 10
+         boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        // position after this creation
+        // left 100
+        // width 100
+        //     box
+        //  | ----- |
+        // 100     200
       }));
 
-      it('should move the box to the right', fakeAsync(() => {
-        let boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
-        // mousedown on the box
-        dispatchMouseEvent(boxNative, 'mousedown', 15, 10);
+      it('should move the box 100px to the right', fakeAsync(() => {
+        dispatchMouseEvent(boxNative, 'mousedown', 150, 10);
         fixture.detectChanges();
         flush();
         tickRequestAnimationFrame();
-        // move box 10 px to the right
-        dispatchMouseEvent(window, 'mousemove', 25, 10);
+        dispatchMouseEvent(window, 'mousemove', 250, 10);
         flush();
         tickRequestAnimationFrame();
         boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
-        // since start is 10 it should now be 20
-        expect(boxNative.style.left).toEqual(`${20 - originMargin}px`);
-        expect(boxNative.style.width).toEqual('10px');
+        expect(boxNative.style.left).toEqual('200px');
+        expect(boxNative.style.width).toEqual('100px');
       }));
 
-      it('should move the box to the left', fakeAsync(() => {
-        let boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
-        // mousedown on the box
-        dispatchMouseEvent(boxNative, 'mousedown', 15, 10);
+      it('should move the box 50px to the left', fakeAsync(() => {
+        dispatchMouseEvent(boxNative, 'mousedown', 150, 10);
         fixture.detectChanges();
         flush();
         tickRequestAnimationFrame();
-        // move box 10 px to the right
-        dispatchMouseEvent(window, 'mousemove', 5, 10);
+        dispatchMouseEvent(window, 'mousemove', 100, 10);
         flush();
         tickRequestAnimationFrame();
         boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
-        // since start is 10 it should now be 20
-        expect(boxNative.style.left).toEqual('0px');
-        expect(boxNative.style.width).toEqual('10px');
+        expect(boxNative.style.left).toEqual('50px');
+        expect(boxNative.style.width).toEqual('100px');
       }));
 
       it('should constrain the box to the origin', fakeAsync(() => {
-        let boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
-        // mousedown on the box
-        dispatchMouseEvent(boxNative, 'mousedown', 15, 10);
+        dispatchMouseEvent(boxNative, 'mousedown', 150, 10);
         fixture.detectChanges();
         flush();
         tickRequestAnimationFrame();
-        // move box 10 px to the right
+        // move the mouse to the edge of the window
         dispatchMouseEvent(window, 'mousemove', 0, 10);
         flush();
         tickRequestAnimationFrame();
         boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
-        // since start is 10 it should now be 20
         expect(boxNative.style.left).toEqual('0px');
-        expect(boxNative.style.width).toEqual('10px');
+        expect(boxNative.style.width).toEqual('100px');
 
+        // move the mouse over the edge of the origin
         dispatchMouseEvent(window, 'mousemove', 420, 10);
         flush();
         tickRequestAnimationFrame();
         boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
-        // since start is 10 it should now be 20
-        expect(boxNative.style.left).toEqual(`${400 - originMargin}px`);
-        expect(boxNative.style.width).toEqual('10px');
+        expect(boxNative.style.left).toEqual('300px');
+        expect(boxNative.style.width).toEqual('100px');
       }));
     });
+
+    describe('on the left handle', () => {
+      let handleNative: HTMLButtonElement;
+      beforeEach(fakeAsync(() => {
+        handleNative = fixture.debugElement.query(By.css('.dt-selection-area-handle-left')).nativeElement;
+
+        // box position after this creation inside the host
+        // left 100
+        // width 100
+        //     box
+        //  | ----- |
+        // 100     200
+      }));
+
+      it('should move the handle 25px to the left', fakeAsync(() => {
+        let boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        dispatchMouseEvent(handleNative, 'mousedown', 110, 10);
+        fixture.detectChanges();
+        flush();
+        tickRequestAnimationFrame();
+        dispatchMouseEvent(window, 'mousemove', 85, 10);
+        flush();
+        tickRequestAnimationFrame();
+        boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        expect(boxNative.style.right).toEqual('200px');
+        expect(boxNative.style.width).toEqual('125px');
+      }));
+
+      it('should move the handle 50px to the right but not over the right handle', fakeAsync(() => {
+        let boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        dispatchMouseEvent(handleNative, 'mousedown', 110, 10);
+        fixture.detectChanges();
+        flush();
+        tickRequestAnimationFrame();
+        dispatchMouseEvent(window, 'mousemove', 160, 10);
+        flush();
+        tickRequestAnimationFrame();
+        boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        expect(boxNative.style.right).toEqual('200px');
+        expect(boxNative.style.left).toEqual('');
+        expect(boxNative.style.width).toEqual('50px');
+      }));
+
+      it('should move the handle 150px to the right so over the right handle', fakeAsync(() => {
+        let boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        dispatchMouseEvent(handleNative, 'mousedown', 110, 10);
+        fixture.detectChanges();
+        flush();
+        tickRequestAnimationFrame();
+        dispatchMouseEvent(window, 'mousemove', 260, 10);
+        flush();
+        tickRequestAnimationFrame();
+        boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        expect(boxNative.style.left).toEqual('200px');
+        expect(boxNative.style.width).toEqual('50px');
+      }));
+    });
+
+    describe('on the right handle', () => {
+      let handleNative: HTMLButtonElement;
+      beforeEach(fakeAsync(() => {
+        handleNative = fixture.debugElement.query(By.css('.dt-selection-area-handle-right')).nativeElement;
+
+        // box position after this creation inside the host
+        // left 100
+        // width 100
+        //     box
+        //  | ----- |
+        // 100     200
+      }));
+
+      it('should move the handle 50px to the right', fakeAsync(() => {
+        let boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        dispatchMouseEvent(handleNative, 'mousedown', 210, 10);
+        fixture.detectChanges();
+        flush();
+        tickRequestAnimationFrame();
+        dispatchMouseEvent(window, 'mousemove', 260, 10);
+        flush();
+        tickRequestAnimationFrame();
+        boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        expect(boxNative.style.left).toEqual('100px');
+        expect(boxNative.style.right).toEqual('');
+        expect(boxNative.style.width).toEqual('150px');
+      }));
+
+      it('should move the handle 50 to the left but not over the left handle', fakeAsync(() => {
+        let boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        dispatchMouseEvent(handleNative, 'mousedown', 210, 10);
+        fixture.detectChanges();
+        flush();
+        tickRequestAnimationFrame();
+        dispatchMouseEvent(window, 'mousemove', 160, 10);
+        flush();
+        tickRequestAnimationFrame();
+        boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        expect(boxNative.style.left).toEqual('100px');
+        expect(boxNative.style.width).toEqual('50px');
+      }));
+
+      it('should move the handle 150 to the left, so over the left handle', fakeAsync(() => {
+        let boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        dispatchMouseEvent(handleNative, 'mousedown', 210, 10);
+        fixture.detectChanges();
+        flush();
+        tickRequestAnimationFrame();
+        dispatchMouseEvent(window, 'mousemove', 60, 10);
+        flush();
+        tickRequestAnimationFrame();
+        boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+        expect(boxNative.style.right).toEqual('300px');
+        expect(boxNative.style.width).toEqual('50px');
+      }));
+    });
+  });
+
+  describe('overlay', () => {
+    let fixture: ComponentFixture<BasicTest>;
+    let origin: HTMLElement;
+    let box: HTMLElement;
+    let closeButton: HTMLButtonElement | null;
+
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(BasicTest);
+      fixture.detectChanges();
+      origin = fixture.componentInstance.origin.nativeElement;
+      dispatchMouseEvent(origin, 'mousedown', 100, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
+
+      dispatchMouseEvent(window, 'mousemove', 200, 10);
+      flush();
+      tickRequestAnimationFrame();
+
+      dispatchMouseEvent(window, 'mouseup');
+
+      fixture.detectChanges();
+      box = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+      closeButton = overlayContainerElement.querySelector('.dt-selection-area-close button');
+    }));
+
+    it('should dismiss the overlay and hide the box when closed', fakeAsync(() => {
+      expect(closeButton).not.toBeNull();
+      closeButton!.click();
+      fixture.detectChanges();
+      expect(overlayContainerElement.children.length).toBe(0);
+      expect(box.style.visibility).toBe('hidden');
+    }));
+
+    it('should fire a closed event when closing by clicking the button', fakeAsync(() => {
+      const selectionArea = fixture.debugElement.query(By.directive(DtSelectionArea)).componentInstance;
+      const closeSpy = jasmine.createSpy('onCloseObservable');
+
+      selectionArea.closed.subscribe(closeSpy);
+      expect(closeSpy).not.toHaveBeenCalled();
+      closeButton!.click();
+      fixture.detectChanges();
+      expect(closeSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should fire a closed event when closing programmatically', fakeAsync(() => {
+      const selectionArea: DtSelectionArea = fixture.debugElement.query(By.directive(DtSelectionArea)).componentInstance;
+      const closeSpy = jasmine.createSpy('onCloseObservable');
+
+      selectionArea.closed.subscribe(closeSpy);
+      expect(closeSpy).not.toHaveBeenCalled();
+      selectionArea.close();
+      fixture.detectChanges();
+      expect(closeSpy).toHaveBeenCalledTimes(1);
+    }));
   });
 });
 
