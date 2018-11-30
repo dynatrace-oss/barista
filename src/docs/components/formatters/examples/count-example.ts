@@ -12,7 +12,7 @@ import { OriginalClassName } from '../../../core/decorators';
   <p>With unit: {{ exampleValue | dtCount:'req.' }}</p>
   `,
 })
-@OriginalClassName('CountPipeExample')
+@OriginalClassName('CountExample')
 export class CountExample {
   exampleValue: number;
 }
