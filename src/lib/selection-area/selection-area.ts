@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, NgZone, Directive, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { addCssClass, clamp, removeCssClass, DtViewportResizer, DT_NO_POINTER_CSS_CLASS, readKeyCode } from '@dynatrace/angular-components/core';
+import { addCssClass, clamp, removeCssClass, DtViewportResizer, DT_NO_POINTER_CSS_CLASS, readKeyCode, isDefined } from '@dynatrace/angular-components/core';
 import { take } from 'rxjs/operators';
 import { EMPTY, Subscription } from 'rxjs';
 import { DtOverlayRef } from '@dynatrace/angular-components/overlay';
 import { ConnectedPosition, CdkConnectedOverlay } from '@angular/cdk/overlay';
-import { LEFT_ARROW, RIGHT_ARROW, ENTER } from '@angular/cdk/keycodes';
+import { LEFT_ARROW, RIGHT_ARROW, ENTER, TAB, UP_ARROW, DOWN_ARROW, PAGE_UP, PAGE_DOWN, HOME, END } from '@angular/cdk/keycodes';
 
 /** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaChange {
@@ -22,6 +22,9 @@ const DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE = 0.5;
 
 /** @internal The position the selection area is created at when created by keyboard */
 const DT_SELECTION_AREA_KEYBOARD_DEFAULT_START = 0.25;
+
+/** @internal The step size for the keyboard interaction on PAGE UP and PAGE DOWN */
+const DT_SELECTION_AREA_BIG_STEP = 10;
 
 /** @internal Eventtarget for the mouse events on the selection area */
 type DtSelectionAreaEventTarget = 'box' | 'left-handle' | 'right-handle' | 'origin';
@@ -51,10 +54,41 @@ export class DtSelectionAreaActions { }
 
 export class DtSelectionArea {
 
+  /** The origin the selection area is created within */
+  @Input()
+  get origin(): ElementRef | HTMLElement {
+    return this._origin;
+  }
+  set origin(val: ElementRef | HTMLElement) {
+    this._detachEventListeners();
+    this._detachWindowListeners();
+    this._origin = val instanceof ElementRef ? val.nativeElement : val;
+    /** make it tabable */
+    if (!this._origin.getAttribute('tabindex')) {
+      this._renderer.setAttribute(this._origin, 'tabindex', '0');
+      addCssClass(this._origin, 'dt-selection-area-origin');
+    }
+    // apply eventlisteners
+    this._attachEventListeners();
+    this._applyBoundaries(this._origin);
+  }
+
+  /** Emits when the box changes position or size */
+  @Output()
+  readonly changed: EventEmitter<DtSelectionAreaChange> = new EventEmitter();
+
+  /** Emits when the box is closed */
+  @Output()
+  readonly closed: EventEmitter<void> = new EventEmitter();
+
   /** @internal The box that gets created by the users action */
   @ViewChild('box') _box: ElementRef;
   /** @internal The overlay adjascent to the box */
   @ViewChild(CdkConnectedOverlay) _overlay: CdkConnectedOverlay;
+  /** @internal The left handle of the box */
+  @ViewChild('lefthandle') _lefthandle: ElementRef;
+  /** @internal The right handle of the box */
+  @ViewChild('righthandle') _rigthandle: ElementRef;
 
   /** @internal Indicates if the box is visible */
   _isBoxVisible = false;
@@ -107,39 +141,12 @@ export class DtSelectionArea {
   /** The ref to the DtOverlay */
   private _overlayRef: DtOverlayRef<void>;
 
-  /** The origin the selection area is created within */
-  @Input()
-  get origin(): ElementRef | HTMLElement {
-    return this._origin;
-  }
-  set origin(val: ElementRef | HTMLElement) {
-    this._detachEventListeners();
-    this._detachWindowListeners();
-    this._origin = val instanceof ElementRef ? val.nativeElement : val;
-    /** make it tabable */
-    if (!this._origin.getAttribute('tabindex')) {
-      this._renderer.setAttribute(this._origin, 'tabindex', '0');
-      addCssClass(this._origin, 'dt-selection-area-origin');
-    }
-    // apply eventlisteners
-    this._attachEventListeners();
-    this._applyBoundaries(this._origin);
-  }
-
-  /** Emits when the box changes position or size */
-  @Output()
-  readonly changed: EventEmitter<DtSelectionAreaChange> = new EventEmitter();
-
-  /** Emits when the box is closed */
-  @Output()
-  readonly closed: EventEmitter<void> = new EventEmitter();
-
   constructor(
     private _ref: ElementRef,
     private _renderer: Renderer2,
     private _zone: NgZone,
     private _viewport: DtViewportResizer,
-    private _changeDetectorRef: ChangeDetectorRef,
+    private _changeDetectorRef: ChangeDetectorRef
   ) {
     this._viewportSub = this._viewport.change().subscribe(() => {
       this._reset();
@@ -155,6 +162,8 @@ export class DtSelectionArea {
   /** Closes and destroys the box */
   close(): void {
     this._reset();
+    this.closed.next();
+    this.closed.complete();
   }
 
   /** Attach eventlisteners to the origin */
@@ -178,25 +187,14 @@ export class DtSelectionArea {
 
   /** Detaches the window listeners */
   private _detachWindowListeners(): void {
-    this._detachFns.forEach((fn) => fn());
+    this._detachFns.forEach((fn) => { fn(); });
     this._detachFns = [];
   }
 
   /** Detaches the eventlisteners on the origin */
   private _detachEventListeners(): void {
-    this._detachOriginListenerFns.forEach((fn) => fn());
+    this._detachOriginListenerFns.forEach((fn) => { fn(); });
     this._detachOriginListenerFns = [];
-  }
-
-  /** Creates the selection area */
-  private _create(): void {
-    this._reset();
-    this._isBoxVisible = true;
-    this._touching = true;
-    this._applyPointerEvents(true);
-    this._attachWindowEventListeners();
-    this._eventTarget = 'origin';
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Handle mousedown on the origin */
@@ -204,7 +202,6 @@ export class DtSelectionArea {
     this._create();
     this._startX = this._calculateRelativeXPos(ev);
     this._left = this._startX;
-    console.log('creating...', this._left);
     // Call update to trigger reflecting the changes to the element
     this._update();
   }
@@ -219,17 +216,12 @@ export class DtSelectionArea {
     }
   }
 
-  /** Handles position and width calculation on mousedown */
-  private _handleMousemove = (ev: MouseEvent) => {
-    ev.preventDefault();
-    const deltaX = this._calculateRelativeXPos(ev) - this._startX;
-    console.log('delta');
+  private _calculatePosition(deltaX: number): void {
     let left: number | null;
     let right: number | null;
     let width = this._width;
     switch (this._eventTarget) {
       case 'box':
-        console.log('box');
         const newleft = this._startX + deltaX - this._offsetX;
         left = clamp(newleft, 0, this._boundaries.width - width);
         right = null;
@@ -281,10 +273,18 @@ export class DtSelectionArea {
     this._right = right;
   }
 
+  /** Handles position and width calculation on mousedown */
+  private _handleMousemove = (ev: MouseEvent) => {
+    ev.preventDefault();
+    const deltaX = this._calculateRelativeXPos(ev) - this._startX;
+    this._calculatePosition(deltaX);
+  }
+
   /** Handles mouseup */
   private _handleMouseup = (ev: MouseEvent) => {
     ev.preventDefault();
     removeCssClass(this._origin, 'dt-cursor-grabbing');
+    this._offsetX = 0;
     this._touching = false;
     this._applyPointerEvents(false);
     this._detachWindowListeners();
@@ -304,36 +304,90 @@ export class DtSelectionArea {
 
   /** Handle mousedown on the area */
   _handleBoxMouseDown(event: MouseEvent): void {
-    console.log('box mousedown');
     this._handleBoxEvent(event, 'box');
     this._offsetX = this._calculateRelativeXPosToBox(event);
     addCssClass(this._origin, 'dt-cursor-grabbing');
   }
 
-  _handleLeftHandleKeyup(event: KeyboardEvent): void {
-    switch (readKeyCode(event)) {
+  _handleBoxKeyDown(event: KeyboardEvent): void {
+    const keyCode = readKeyCode(event);
+    this._eventTarget = 'box';
+    this._startX = this._left !== null ? this._left : (this._boundaries.width - (this._right! + this._width));
+    const offset = this._moveByKeycode(keyCode);
+    if (isDefined(offset)) {
+      event.preventDefault();
+      event.stopPropagation();
+      this._applySizeAndPosition();
+    }
+  }
+
+  _handleLeftHandleKeyDown(event: KeyboardEvent): void {
+    const keyCode = readKeyCode(event);
+    this._eventTarget = 'left-handle';
+    this._startWidth = this._width;
+    this._startX = this._left !== null ? this._left : (this._boundaries.width - (this._right! + this._width));
+    const offset = this._moveByKeycode(keyCode);
+    if (isDefined(offset)) {
+      event.preventDefault();
+      event.stopPropagation();
+      this._applySizeAndPosition();
+      if (this._width < offset!) {
+        this._rigthandle.nativeElement.focus();
+      }
+    }
+  }
+
+  _handleRightHandleKeyDown(event: KeyboardEvent): void {
+    const keyCode = readKeyCode(event);
+    this._eventTarget = 'right-handle';
+    this._startWidth = this._width;
+    this._startX = this._left !== null ? (this._left + this._width) : (this._boundaries.width - this._right!);
+    const offset = this._moveByKeycode(keyCode);
+    if (isDefined(offset)) {
+      event.preventDefault();
+      event.stopPropagation();
+      this._applySizeAndPosition();
+      if (offset! < 1 && this._width < Math.abs(offset!)) {
+        this._lefthandle.nativeElement.focus();
+      }
+    }
+  }
+
+  private _moveByKeycode(keyCode: number): number | undefined {
+    let offset;
+    switch (keyCode) {
       case LEFT_ARROW:
+      case UP_ARROW:
+        offset = -1;
         break;
       case RIGHT_ARROW:
+      case DOWN_ARROW:
+        offset = 1;
+        break;
+      case PAGE_UP:
+        offset = -DT_SELECTION_AREA_BIG_STEP;
+        break;
+      case PAGE_DOWN:
+        offset = DT_SELECTION_AREA_BIG_STEP;
+        break;
+      case HOME:
+        offset = -(this._boundaries.width + this._width);
+        break;
+      case END:
+        offset = this._boundaries.width + this._width;
+        break;
       default:
     }
-    this._handleBoxEvent(event, 'left-handle');
-  }
-
-  _handleRightHandleKeyup(event: KeyboardEvent): void {
-    this._handleBoxEvent(event, 'right-handle');
-  }
-
-  _handleBoxKeyup(event: KeyboardEvent): void {
-    this._handleBoxEvent(event, 'box');
+    if (isDefined(offset)) {
+      this._calculatePosition(offset);
+    }
+    return offset;
   }
 
   /** Handles the closing action on the selection area */
   _handleClose(event: MouseEvent): void {
     event.preventDefault();
-    this._reset();
-    this.closed.next();
-    this.closed.complete();
+    this.close();
   }
 
   /** Shared event handling for mousedown events on the box */
@@ -350,10 +404,20 @@ export class DtSelectionArea {
     this._update();
   }
 
+  /** Creates the selection area */
+  private _create(): void {
+    this._reset();
+    this._isBoxVisible = true;
+    this._touching = true;
+    this._applyPointerEvents(true);
+    this._attachWindowEventListeners();
+    this._eventTarget = 'origin';
+    this._changeDetectorRef.markForCheck();
+  }
+
   /** Update function that applies calculated width and position to the box dom element */
   private _update(): void {
     requestAnimationFrame(() => {
-      console.log('requestAnimationFrame triggered');
       if (!this._touching) {
         return;
       }
@@ -373,7 +437,7 @@ export class DtSelectionArea {
       this._box.nativeElement.style.left = '';
       this._box.nativeElement.style.right = `${this._right}px`;
     }
-    if (this._overlay && this._overlayRef) {
+    if (this._overlay && this._overlay.overlayRef) {
       this._overlay.overlayRef.updatePosition();
     }
 
