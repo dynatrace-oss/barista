@@ -16,6 +16,7 @@ import { DocsTableModule } from './components/table/docs-table.module';
 import { DocsChartModule } from './components/chart/docs-chart.module';
 import { DocsTileModule } from './components/tile/docs-tile.module';
 import { DocsCardModule } from './components/card/docs-card.module';
+import { DocsCtaCardModule } from './components/cta-card/docs-cta-card.module';
 import { DocsContextDialogModule } from './components/context-dialog/docs-context-dialog.module';
 import { DocsFormFieldModule } from './components/form-field/docs-form-field-module';
 import { DocsTagModule } from './components/tag/docs-tag.module';
@@ -86,6 +87,7 @@ export class NoopRouteComponent {}
     DocsMicroChartModule,
     DocsTileModule,
     DocsCardModule,
+    DocsCtaCardModule,
     DocsContextDialogModule,
     DocsFilterFieldModule,
     DocsFormFieldModule,
