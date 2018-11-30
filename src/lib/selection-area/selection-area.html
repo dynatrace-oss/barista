@@ -6,16 +6,21 @@
   #originBox="cdkOverlayOrigin"
   cdk-overlay-origin
   (mousedown)="_handleBoxMouseDown($event)"
-  (keyup)="_handleBoxKeyup($event)">
+  (keydown)="_handleBoxKeyDown($event)"
+  cdkMonitorSubtreeFocus
+  (onFocusChange)="_boxFocusChange($event)"
+  >
   <button
-    class="dt-selection-area-handle"
+    #lefthandle
+    class="dt-selection-area-handle dt-selection-area-handle-left"
     (mousedown)="_handleLeftHandleMouseDown($event)"
-    (keyup)="_handleLeftHandleKeyup($event)"
+    (keydown)="_handleLeftHandleKeyDown($event)"
   ></button>
   <button
-    class="dt-selection-area-handle"
+    #righthandle
+    class="dt-selection-area-handle dt-selection-area-handle-right"
     (mousedown)="_handleRightHandleMouseDown($event)"
-    (keyup)="_handleRightHandleKeyup($event)"
+    (keydown)="_handleRightHandleKeyDown($event)"
   ></button>
 </div>
 <ng-template
