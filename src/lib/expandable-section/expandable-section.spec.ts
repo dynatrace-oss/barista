@@ -1,13 +1,22 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { async, TestBed, ComponentFixture, flushMicrotasks, fakeAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtExpandableSection, DtExpandableSectionModule } from '@dynatrace/angular-components';
+import { DtExpandableSection, DtExpandableSectionModule, DtIconModule } from '@dynatrace/angular-components';
+
+// TODO @thomas.pink @fabian.friedl: ***REMOVED***
+// Rework tests!!!
 
 describe('DtExpandableSection', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtExpandableSectionModule, NoopAnimationsModule],
+      imports: [
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        DtExpandableSectionModule,
+      ],
       declarations: [TestApp],
     });
     TestBed.compileComponents();
@@ -15,13 +24,15 @@ describe('DtExpandableSection', () => {
 
   describe('dt-expandable-section', () => {
 
-    let fixture;
+    let fixture: ComponentFixture<TestApp>;
+    let testComponent: TestApp;
     let instanceDebugElement: DebugElement;
     let instanceElement: HTMLElement;
     let instance: DtExpandableSection;
 
     beforeEach(async(() => {
       fixture = TestBed.createComponent(TestApp);
+      testComponent = fixture.componentInstance;
       fixture.detectChanges();
       instanceDebugElement = fixture.debugElement.query(By.directive(DtExpandableSection));
       instanceElement = instanceDebugElement.nativeElement;
@@ -55,8 +66,7 @@ describe('DtExpandableSection', () => {
     });
 
     it('should have correct styles applied', () => {
-      expect(instanceElement.classList).not.toContain(
-        'dt-expandable-section-opened');
+      expect(instanceElement.classList).not.toContain('dt-expandable-section-opened');
 
       expect(instance.toggle()).toBe(true);
       fixture.detectChanges();
@@ -70,15 +80,28 @@ describe('DtExpandableSection', () => {
       instance.open();
       expect(instance.opened).toBe(false);
     });
+
+    it('should emit an openedChange event when it opens', fakeAsync(() => {
+      const spy = jasmine.createSpy('option selection spy');
+      const subscription = instance.openedChange.subscribe(spy);
+
+      instance.open();
+      fixture.detectChanges();
+      flushMicrotasks();
+
+      expect(spy).toHaveBeenCalled();
+      subscription.unsubscribe();
+    }));
   });
 });
 
 @Component({
   selector: 'dt-test-app',
-  template: `<dt-expandable-section>
-    <dt-expandable-section-header>Header</dt-expandable-section-header>
-    text
-    </dt-expandable-section>`,
+  template: `
+    <dt-expandable-section>
+      <dt-expandable-section-header>Header</dt-expandable-section-header>
+      text
+    </dt-expandable-section>
+  `,
 })
-class TestApp {
-}
+class TestApp { }

@@ -13,7 +13,7 @@
   position: relative;
   @include label-font();
 
-  svg {
+  .dt-expandable-section-arrow {
     width: 16px;
     height: 16px;
     margin-left: -2px;
@@ -37,7 +37,7 @@
 .dt-expandable-section-header-trigger:hover {
   color: $gray-700;
 
-  svg {
+  .dt-expandable-section-arrow ::ng-deep svg {
     fill: $turquoise-700;
   }
 }
@@ -65,7 +65,7 @@
 
     color: $gray-300;
 
-    svg {
+    .dt-expandable-section-arrow ::ng-deep svg {
       fill: $gray-300;
     }
   }
@@ -75,7 +75,7 @@
   }
 }
 
-:host.dt-expandable-section-opened .dt-expandable-section-header svg {
+:host.dt-expandable-section-opened .dt-expandable-section-header .dt-expandable-section-arrow {
   transform: rotate(0deg);
 }
 
