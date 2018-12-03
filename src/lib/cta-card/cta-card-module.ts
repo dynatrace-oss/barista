@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
-  DtCtaCardAction,
   DtCtaCard,
+  DtCtaCardAction,
+  DtCtaCardTitleAction,
   DtCtaCardTitle,
   DtCtaCardImage,
-  DtCtaCardTitleAction,
 } from './cta-card';
 import { DtCardModule } from '../card/';
 

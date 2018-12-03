@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # Cta Card
 
 <docs-source-example example="DefaultCtaCardExampleComponent"></docs-source-example>
