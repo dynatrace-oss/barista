@@ -15,6 +15,7 @@ export class Docs {
     { name: 'Button', route: '/button' },
     { name: 'Button Group', route: '/button-group' },
     { name: 'Card', route: '/card' },
+    { name: 'Cta card', route: '/cta-card' },
     { name: 'Chart', route: '/chart' },
     { name: 'Checkbox', route: '/checkbox' },
     { name: 'Context dialog', route: '/context-dialog' },
