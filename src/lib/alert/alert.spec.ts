@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CommonModule } from '@angular/common';
 import { DtAlert, DtAlertModule } from '@dynatrace/angular-components';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 
 describe('DtAlert', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtAlertModule],
+      imports: [
+        HttpClientTestingModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        DtAlertModule,
+      ],
       declarations: [TestApp, TestAppEmpty],
     });
 
