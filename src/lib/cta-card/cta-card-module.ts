@@ -2,23 +2,23 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
   DtCtaCardAction,
-  DtCtaCardComponent,
+  DtCtaCard,
   DtCtaCardTitle,
   DtCtaCardImage,
   DtCtaCardTitleAction,
 } from './cta-card';
-import {DtCardModule} from '../card';
+import { DtCardModule } from '../card/';
 
 @NgModule({
   declarations: [
-    DtCtaCardComponent,
+    DtCtaCard,
     DtCtaCardAction,
     DtCtaCardTitleAction,
     DtCtaCardTitle,
     DtCtaCardImage,
   ],
   exports: [
-    DtCtaCardComponent,
+    DtCtaCard,
     DtCtaCardAction,
     DtCtaCardTitleAction,
     DtCtaCardTitle,
