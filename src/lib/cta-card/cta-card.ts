@@ -27,6 +27,15 @@ export class DtCtaCardImage { }
 })
 export class DtCtaCardAction { }
 
+/** The action button that is placed on the top right corner of the cta card (must be one cta styled secondary button with icon) */
+@Directive({
+  host: {
+    class: 'dt-cta-card-title-action',
+  },
+  selector: 'dt-cta-card-title-action',
+})
+export class DtCtaCardTitleAction { }
+
 @Component({
   moduleId: module.id,
   selector: 'dt-cta-card',

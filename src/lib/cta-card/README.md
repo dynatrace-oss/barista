@@ -8,3 +8,9 @@ In addition to the custom content, the cta card can hold some special sections:
 * `<dt-cta-card-title>` - The title of the cta card
 * `<dt-cta-card-image>` - Image to be shown within the illustration region of the cta card
 * `<dt-cta-card-action>` - The action button. Has to be a primary cta styled dt-button  
+
+## Examples
+
+### Closable
+
+<docs-source-example example="ClosableCtaCardExampleComponent"></docs-source-example>
