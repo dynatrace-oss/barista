@@ -1,14 +1,7 @@
-<div class="dt-alert-icon-container" [ngSwitch]="severity">
-  <svg viewBox="0 0 512 512" *ngSwitchCase="'warning'">
-    <path d="M256,44.0001L32.22363,431.60214h447.55273L256,44.0001z M284,396.00009h-56v-56.00195h56V396.00009z
-       M228,288.00009v-132h56v132H228z"/>
-  </svg>
-  <svg viewBox="0 0 512 512" *ngSwitchCase="'error'">
-    <path d="M335.53101,64.0001H176.4729L64.00201,176.47568v159.0542L176.4729,448.00009h159.05811l112.46698-112.47021
-      v-159.0542L335.53101,64.0001z M283.99994,376.00009h-56v-56.00244h56V376.00009z M284.00006,268.00009h-56v-132h56V268.00009z"/>
-  </svg>
+<!-- @breaking-change Remove ngIf when undefined as a severity type has been removed -->
+<div class="dt-alert-icon-container" *ngIf="severity === 'warning' || severity === 'error'">
+  <dt-icon class="dt-alert-icon" [name]="severity === 'warning' ? 'incident' : 'criticalevent'"></dt-icon>
 </div>
-
 <div class="dt-alert-text-container">
   <ng-content></ng-content>
 </div>
