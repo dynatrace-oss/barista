@@ -4,6 +4,9 @@ import { By } from '@angular/platform-browser';
 import { DtExpandablePanelModule, DtExpandablePanel } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+// TODO @thomas.pink @fabian.friedl: ***REMOVED***
+// Rework tests!!!
+
 describe('DtExpandablePanel', () => {
 
   beforeEach(async(() => {
