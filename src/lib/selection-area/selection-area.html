@@ -8,20 +8,19 @@
   (mousedown)="_handleBoxMouseDown($event)"
   (keydown)="_handleBoxKeyDown($event)"
   cdkMonitorSubtreeFocus
-  (onFocusChange)="_boxFocusChange($event)"
-  >
+  (onFocusChange)="_boxFocusChange($event)">
   <button
     #lefthandle
     class="dt-selection-area-handle dt-selection-area-handle-left"
     (mousedown)="_handleLeftHandleMouseDown($event)"
-    (keydown)="_handleLeftHandleKeyDown($event)"
-  ></button>
+    (keydown)="_handleLeftHandleKeyDown($event)">
+  </button>
   <button
     #righthandle
     class="dt-selection-area-handle dt-selection-area-handle-right"
     (mousedown)="_handleRightHandleMouseDown($event)"
-    (keydown)="_handleRightHandleKeyDown($event)"
-  ></button>
+    (keydown)="_handleRightHandleKeyDown($event)">
+  </button>
 </div>
 <ng-template
 cdkConnectedOverlay
