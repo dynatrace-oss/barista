@@ -14,6 +14,21 @@ In addition to the custom content, the cta card can hold some special sections:
 * `<dt-cta-card-footer-actions>` - Action buttons, displayed below the text. For the regular cases there should only be one primary cta styled dt-button.  
 * `<dt-cta-card-title-actions>` - Buttons displayed next to the title. Should be a secondary styled dt-button showing an image.  
 
+## Imports
+
+You have to import the `DtCtaCardModule` when you want to use the `dt-cta-card`:
+
+```typescript
+
+@NgModule({
+  imports: [
+    DtCtaCardModule,
+  ],
+})
+class MyModule {}
+
+```
+
 ## Examples
 
 ### Closable
