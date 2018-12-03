@@ -7,11 +7,7 @@ import { OriginalClassName } from '../../../core/decorators';
     <dt-cta-card>
     <dt-cta-card-title i18n>Start monitoring your Cloud Foundry foundation VMs</dt-cta-card-title>
     <dt-cta-card-footer-actions>
-      <a target="_blank"
-         dt-button
-         color="cta"
-         uitestid="viewReleaseLink"
-         i18n>View release</a>
+      <a dt-button color="cta" i18n>View release</a>
     </dt-cta-card-footer-actions>
     <dt-cta-card-image><img src="/assets/cta-noagent.svg"></dt-cta-card-image>
     <span i18n>
