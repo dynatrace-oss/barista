@@ -1,0 +1,19 @@
+.dt-cta-card-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+:host ::ng-deep img {
+  max-width: 152px;
+  max-height: 128px;
+  margin-right: 20px;
+}
+
+.dt-cta-card-flex-box {
+  flex: 1 1 180px;
+}
+
+.dt-cta-card-text-wrapper {
+  max-width: 580px;
+  margin: 0 0 20px;
+}
