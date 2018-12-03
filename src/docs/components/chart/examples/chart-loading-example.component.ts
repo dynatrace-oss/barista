@@ -7,7 +7,7 @@ import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `<button dt-button (click)="toggleData()">toggle data</button>
-  <dt-chart [options]="options" [series]="series"></dt-chart>`,
+  <dt-chart [options]="options" [series]="series" loading-text="Loading..."></dt-chart>`,
 })
 @OriginalClassName('ChartLoadingExampleComponent')
 export class ChartLoadingExampleComponent {
