@@ -24,20 +24,10 @@ const DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE = 0.5;
 const DT_SELECTION_AREA_KEYBOARD_DEFAULT_START = 0.25;
 
 /** @internal The step size for the keyboard interaction on PAGE UP and PAGE DOWN */
-const DT_SELECTION_AREA_BIG_STEP = 10;
+const DT_SELECTION_AREA_KEYBOARD_BIG_STEP = 10;
 
 /** @internal Eventtarget for the mouse events on the selection area */
 type DtSelectionAreaEventTarget = 'box' | 'left-handle' | 'right-handle' | 'origin';
-
-/** Action area in the overlay, needed as it's used as a selector in the API. */
-@Directive({
-  selector: `dt-selection-area-actions, [dt-selection-area-actions], [dtSelectionAreaActions]`,
-  host: {
-    class: 'dt-selection-area-actions',
-  },
-  exportAs: 'dtSelectionAreaActions',
-})
-export class DtSelectionAreaActions { }
 
 @Component({
   selector: 'dt-selection-area',
@@ -290,25 +280,26 @@ export class DtSelectionArea {
     this._detachWindowListeners();
   }
 
-  /** Handle mousedown on the left handle */
+  /** @internal Handle mousedown on the left handle */
   _handleLeftHandleMouseDown(event: MouseEvent): void {
     this._handleBoxEvent(event, 'left-handle');
     this._startWidth = this._width;
   }
 
-  /** Handle mousedown on the right handle */
+  /** @internal Handle mousedown on the right handle */
   _handleRightHandleMouseDown(event: MouseEvent): void {
     this._handleBoxEvent(event, 'right-handle');
     this._startWidth = this._width;
   }
 
-  /** Handle mousedown on the area */
+  /** @internal Handle mousedown on the area */
   _handleBoxMouseDown(event: MouseEvent): void {
     this._handleBoxEvent(event, 'box');
     this._offsetX = this._calculateRelativeXPosToBox(event);
     addCssClass(this._origin, 'dt-cursor-grabbing');
   }
 
+  /** @internal Handle keyboard interaction on keydown on the box */
   _handleBoxKeyDown(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
     this._eventTarget = 'box';
@@ -321,6 +312,7 @@ export class DtSelectionArea {
     }
   }
 
+  /** @internal Handle keyboard interaction on keydown on the left handle */
   _handleLeftHandleKeyDown(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
     this._eventTarget = 'left-handle';
@@ -337,6 +329,7 @@ export class DtSelectionArea {
     }
   }
 
+  /** Handle keyboard interaction on keydown for the right handle */
   _handleRightHandleKeyDown(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
     this._eventTarget = 'right-handle';
@@ -353,6 +346,7 @@ export class DtSelectionArea {
     }
   }
 
+  /** Sets the correct offset for a given keycode and calculates the new position and width */
   private _moveByKeycode(keyCode: number): number | undefined {
     let offset;
     switch (keyCode) {
@@ -365,10 +359,10 @@ export class DtSelectionArea {
         offset = 1;
         break;
       case PAGE_UP:
-        offset = -DT_SELECTION_AREA_BIG_STEP;
+        offset = -DT_SELECTION_AREA_KEYBOARD_BIG_STEP;
         break;
       case PAGE_DOWN:
-        offset = DT_SELECTION_AREA_BIG_STEP;
+        offset = DT_SELECTION_AREA_KEYBOARD_BIG_STEP;
         break;
       case HOME:
         offset = -(this._boundaries.width + this._width);

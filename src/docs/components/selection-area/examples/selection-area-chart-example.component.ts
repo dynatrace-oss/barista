@@ -81,10 +81,10 @@ export class SelectionAreaChartExample implements AfterViewInit {
     }];
 
   ngAfterViewInit(): void {
-    // this.chart._loaded.subscribe(() => {
-    //   const plotbackground = this.chart.container.nativeElement.querySelector('.highcharts-plot-background');
-    //   this.selectionArea.origin = plotbackground;
-    // });
+    this.chart._loaded.subscribe(() => {
+      const plotbackground = this.chart.container.nativeElement.querySelector('.highcharts-plot-background');
+      this.selectionArea.origin = plotbackground;
+    });
   }
   handleChange(ev: DtSelectionAreaChange): void {
     if (this.chart.highchartsOptions.tooltip!.enabled !== false) {
