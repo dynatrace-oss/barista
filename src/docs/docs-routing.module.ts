@@ -14,6 +14,7 @@ import { DocsChartComponent } from './components/chart/docs-chart.component';
 import { DocsMicroChartComponent } from './components/micro-chart/docs-micro-chart.component';
 import { DocsTileComponent } from './components/tile/docs-tile.component';
 import { DocsCardComponent } from './components/card/docs-card.component';
+import { DocsCtaCardComponent } from './components/cta-card/docs-cta-card.component';
 import { DocsContextDialogComponent } from './components/context-dialog/docs-context-dialog.component';
 import { DocsFilterField } from './components/form-field/docs-form-field';
 import { DocsFormField } from 'components/form-field/docs-form-field';
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'autocomplete', component: DocsAutocompleteComponent },
   { path: 'button', component: DocsButtonComponent },
   { path: 'button-group', component: DocsButtonGroupComponent },
+  { path: 'cta-card', component: DocsCtaCardComponent },
   { path: 'card', component: DocsCardComponent },
   { path: 'chart', component: DocsChartComponent },
   { path: 'micro-chart', component: DocsMicroChartComponent },

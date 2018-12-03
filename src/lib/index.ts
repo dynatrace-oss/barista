@@ -21,6 +21,7 @@ export * from '@dynatrace/angular-components/table';
 export * from '@dynatrace/angular-components/chart';
 export * from '@dynatrace/angular-components/button';
 export * from '@dynatrace/angular-components/tile';
+export * from '@dynatrace/angular-components/cta-card';
 export * from '@dynatrace/angular-components/card';
 export * from '@dynatrace/angular-components/context-dialog';
 export * from '@dynatrace/angular-components/copy-to-clipboard';
