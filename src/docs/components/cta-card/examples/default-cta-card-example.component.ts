@@ -6,13 +6,13 @@ import { OriginalClassName } from '../../../core/decorators';
   template: `<div class="demo-card">
     <dt-cta-card>
     <dt-cta-card-title i18n>Start monitoring your Cloud Foundry foundation VMs</dt-cta-card-title>
-    <dt-cta-card-action>
+    <dt-cta-card-footer-actions>
       <a target="_blank"
          dt-button
          color="cta"
          uitestid="viewReleaseLink"
          i18n>View release</a>
-    </dt-cta-card-action>
+    </dt-cta-card-footer-actions>
     <dt-cta-card-image><img src="/assets/cta-noagent.svg"></dt-cta-card-image>
     <span i18n>
       Deploy Dynatrace OneAgent via the Dynatrace OneAgent BOSH release to your Cloud Foundry foundation VMs. 
