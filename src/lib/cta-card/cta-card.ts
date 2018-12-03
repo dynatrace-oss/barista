@@ -1,4 +1,10 @@
-import {ChangeDetectionStrategy, Component, ContentChild, Directive, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  Directive,
+  ContentChild
+} from '@angular/core';
 
 /** Title of the cta card */
 @Directive({
@@ -52,6 +58,6 @@ export class DtCtaCardTitleAction { }
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtCtaCardComponent {
+export class DtCtaCard {
   @ContentChild(DtCtaCardTitle) _title: DtCtaCardTitle;
 }
