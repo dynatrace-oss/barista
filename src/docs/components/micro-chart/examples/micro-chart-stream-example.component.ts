@@ -2,8 +2,9 @@
 
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
+import { Observable } from 'rxjs';
+import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components';
 import { MicroChartService } from './docs-micro-chart.service';
-import { DtChartOptions, DtMicroChartSeries } from '@dynatrace/angular-components';
 
 @Component({
   template: '<dt-micro-chart [options]="options" [series]="series$"></dt-micro-chart>',
@@ -17,7 +18,7 @@ export class MicroChartStreamExampleComponent {
       },
     },
   };
-  series$: DtMicroChartSeries;
+  series$: Observable<DtChartSeries>;
 
   constructor(private _chartService: MicroChartService) {
     this.series$ = this._chartService.getSingleStreamedChartdata();
