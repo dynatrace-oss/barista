@@ -7,7 +7,7 @@ import {
   DtCtaCardTitle,
   DtCtaCardImage,
 } from './cta-card';
-import { DtCardModule } from '../card/';
+import { DtCardModule } from '@dynatrace/angular-components/card';
 
 @NgModule({
   declarations: [
