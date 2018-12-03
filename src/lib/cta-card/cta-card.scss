@@ -3,13 +3,10 @@
   flex-wrap: wrap;
 }
 
-.dt-cta-card-image {
-  margin-right: 20px;
-}
-
 :host ::ng-deep img {
   max-width: 152px;
   max-height: 128px;
+  margin-right: 20px;
 }
 
 .dt-cta-card-flex-box {
