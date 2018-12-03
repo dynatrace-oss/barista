@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import {
   DtCtaCardAction,
   DtCtaCardComponent,
   DtCtaCardTitle,
   DtCtaCardImage,
+  DtCtaCardTitleAction,
 } from './cta-card';
 import {DtCardModule} from '../card';
 
@@ -13,19 +13,20 @@ import {DtCardModule} from '../card';
   declarations: [
     DtCtaCardComponent,
     DtCtaCardAction,
+    DtCtaCardTitleAction,
     DtCtaCardTitle,
     DtCtaCardImage,
   ],
   exports: [
     DtCtaCardComponent,
     DtCtaCardAction,
+    DtCtaCardTitleAction,
     DtCtaCardTitle,
     DtCtaCardImage,
   ],
   imports: [
     CommonModule,
     DtCardModule,
-    RouterModule,
   ],
 })
 export class DtCtaCardModule { }

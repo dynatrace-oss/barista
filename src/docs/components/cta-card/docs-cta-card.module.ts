@@ -3,9 +3,11 @@ import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtCtaCardModule, DtCardModule, DtButtonModule, DtThemingModule, DtIconModule, } from '@dynatrace/angular-components';
 import { DefaultCtaCardExampleComponent } from './examples/default-cta-card-example.component';
+import { ClosableCtaCardExampleComponent } from './examples/closable-cta-card-example.component';
 
 export const EXAMPLES = [
   DefaultCtaCardExampleComponent,
+  ClosableCtaCardExampleComponent,
 ];
 
 @NgModule({
