@@ -3,7 +3,6 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   Directive,
-  ContentChild
 } from '@angular/core';
 
 /** Title of the cta card */
@@ -27,20 +26,20 @@ export class DtCtaCardImage { }
 /** The action button that is placed below the text of the cta card (must be one cta styled primary button) */
 @Directive({
   host: {
-    class: 'dt-cta-card-action',
+    class: 'dt-cta-card-footer-actions',
   },
-  selector: 'dt-cta-card-action',
+  selector: 'dt-cta-card-footer-actions',
 })
-export class DtCtaCardAction { }
+export class DtCtaCardFooterActions { }
 
 /** The action button that is placed on the top right corner of the cta card (must be one cta styled secondary button with icon) */
 @Directive({
   host: {
-    class: 'dt-cta-card-title-action',
+    class: 'dt-cta-card-title-actions',
   },
-  selector: 'dt-cta-card-title-action',
+  selector: 'dt-cta-card-title-actions',
 })
-export class DtCtaCardTitleAction { }
+export class DtCtaCardTitleActions { }
 
 @Component({
   moduleId: module.id,
@@ -48,16 +47,9 @@ export class DtCtaCardTitleAction { }
   exportAs: 'dtCtaCard',
   templateUrl: 'cta-card.html',
   styleUrls: ['cta-card.scss'],
-  host: {
-    'class': 'dt-cta-card',
-    // We know that a header is present when the cta card has at least a title
-    '[class.dt-cta-card-has-header]': '!!_title',
-  },
-  // tslint:disable-next-line: use-view-encapsulation
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtCtaCard {
-  @ContentChild(DtCtaCardTitle) _title: DtCtaCardTitle;
 }
