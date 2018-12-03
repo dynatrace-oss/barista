@@ -15,7 +15,7 @@ import { DtRateUnit } from '@dynatrace/angular-components';
   <p>Chaining bytes + rate: {{ exampleValue | dtBytes | dtRate:'s' }}</p>
   `,
 })
-@OriginalClassName('RatePipeExample')
+@OriginalClassName('RateExample')
 export class RateExample {
   exampleValue: number;
   rate = DtRateUnit.PER_MILLISECOND;
