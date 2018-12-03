@@ -14,7 +14,7 @@ import { OriginalClassName } from '../../../core/decorators';
   <p>MB: {{ exampleValue | dtMegabytes }}</p>
   `,
 })
-@OriginalClassName('BytesPipeExample')
+@OriginalClassName('BytesExample')
 export class BytesExample {
   exampleValue: number;
 }

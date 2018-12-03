@@ -10,7 +10,7 @@ import { OriginalClassName } from '../../../core/decorators';
   </dt-form-field>
   <p>Default: {{ exampleValue | dtPercent }}</p>`,
 })
-@OriginalClassName('PercentPipeExample')
+@OriginalClassName('PercentExample')
 export class PercentExample {
   exampleValue: number;
 }
