@@ -1,9 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
   DtCtaCard,
-  DtCtaCardAction,
-  DtCtaCardTitleAction,
+  DtCtaCardFooterActions,
+  DtCtaCardTitleActions,
   DtCtaCardTitle,
   DtCtaCardImage,
 } from './cta-card';
@@ -12,20 +11,19 @@ import { DtCardModule } from '@dynatrace/angular-components/card';
 @NgModule({
   declarations: [
     DtCtaCard,
-    DtCtaCardAction,
-    DtCtaCardTitleAction,
+    DtCtaCardFooterActions,
+    DtCtaCardTitleActions,
     DtCtaCardTitle,
     DtCtaCardImage,
   ],
   exports: [
     DtCtaCard,
-    DtCtaCardAction,
-    DtCtaCardTitleAction,
+    DtCtaCardFooterActions,
+    DtCtaCardTitleActions,
     DtCtaCardTitle,
     DtCtaCardImage,
   ],
   imports: [
-    CommonModule,
     DtCardModule,
   ],
 })

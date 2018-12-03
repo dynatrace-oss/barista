@@ -11,7 +11,8 @@ In addition to the custom content, the cta card can hold some special sections:
 
 * `<dt-cta-card-title>` - The title of the cta card
 * `<dt-cta-card-image>` - Image to be shown within the illustration region of the cta card
-* `<dt-cta-card-action>` - The action button. Has to be a primary cta styled dt-button  
+* `<dt-cta-card-footer-actions>` - Action buttons, displayed below the text. For the regular cases there should only be one primary cta styled dt-button.  
+* `<dt-cta-card-title-actions>` - Buttons displayed next to the title. Should be a secondary styled dt-button showing an image.  
 
 ## Examples
 

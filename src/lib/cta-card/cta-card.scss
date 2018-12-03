@@ -7,7 +7,7 @@
   margin-right: 20px;
 }
 
-.dt-cta-card-image img {
+:host ::ng-deep img {
   max-width: 152px;
   max-height: 128px;
 }
