@@ -4,7 +4,7 @@ import { DtChartOptions } from './chart';
 
 // tslint:disable:no-magic-numbers
 /** Custom highcharts easing function */
-const DT_EASEINOUT = (pos: number): number => {
+const DT_CHART_EASEINOUT = (pos: number): number => {
   if (pos === 0) {
     return 0;
   }
@@ -18,7 +18,7 @@ const DT_EASEINOUT = (pos: number): number => {
 };
 // tslint:enable:no-magic-numbers
 
-export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
+export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
   chart: {
     style: {
       fontFamily: 'BerninaSansWeb',
@@ -36,7 +36,7 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
       animation: {
         duration: 1000,
         // tslint:disable-next-line:no-any
-        easing: DT_EASEINOUT as any, // As any to bypass highcharts types
+        easing: DT_CHART_EASEINOUT as any, // As any to bypass highcharts types
       },
     },
   },
@@ -67,7 +67,7 @@ export const DEFAULT_CHART_OPTIONS: DtChartOptions = {
   },
 };
 
-export const DEFAULT_CHART_AXIS_STYLES: AxisOptions = {
+export const DT_CHART_DEFAULT_AXIS_STYLES: AxisOptions = {
   labels: {
     style: {
       fontSize: '12px',
@@ -78,7 +78,7 @@ export const DEFAULT_CHART_AXIS_STYLES: AxisOptions = {
   tickLength: 4,
 };
 
-export const DEFAULT_GLOBAL_OPTIONS: GlobalOptions = {
+export const DT_CHART_DEFAULT_GLOBAL_OPTIONS: GlobalOptions = {
   lang: {
     numericSymbols: ['k', 'mil', 'bil'],
   },

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
-  template: '<dt-chart [options]="options" [series]="series$"></dt-chart>',
+  template: '<dt-chart [options]="options" [series]="series$" loading-text="Loading..."></dt-chart>',
 })
 @OriginalClassName('ChartStreamExampleComponent')
 export class ChartStreamExampleComponent {
