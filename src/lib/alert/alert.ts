@@ -5,6 +5,13 @@ import {
 } from '@angular/core';
 import {replaceCssClass} from '@dynatrace/angular-components/core';
 
+/**
+ * Defines the alert severity levels.
+ * @deprecated Use 'error' | 'warning' instead
+ * @breaking-change To be removed
+ */
+export type DtAlertSeverity = 'error' | 'warning' | undefined;
+
 @Component({
   moduleId: module.id,
   selector: 'dt-alert',
