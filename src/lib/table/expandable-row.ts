@@ -1,4 +1,4 @@
-import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -25,13 +25,13 @@ import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core'
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
-      state('expanded', style({ height: '*', visibility: 'visible' })),
+      state('expanded', style({ height: 'auto', visibility: 'visible' })),
       transition('collapsed => expanded', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)', keyframes([
-        style({ height: '*', visibility: 'hidden', offset: 0.95 }),
-        style({ height: '*', visibility: 'visible', offset: 1 }),
+        style({ height: 'auto', visibility: 'hidden', offset: 0.95 }),
+        style({ height: 'auto', visibility: 'visible', offset: 1 }),
       ]))),
       transition('expanded => collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)', keyframes([
-        style({ visibility: 'hidden', offset: 0 }),
+        style({ height: 'auto', visibility: 'hidden', offset: 0 }),
         style({ height: '0px', minHeight: '0', visibility: 'hidden', offset: 1 }),
       ]))),
     ]),
@@ -124,6 +124,9 @@ export class DtExpandableRow extends CdkRow {
   private _setExpandableCell(expanded: boolean): void {
     // Somehow a hack, a better solution would be appreciated.
     const cells = (this._rowRef.nativeElement as HTMLDivElement).querySelectorAll('dt-expandable-cell');
-    cells.forEach((cell) => { (expanded ? addCssClass : removeCssClass)(cell, 'dt-expandable-cell-expanded', this._renderer2); });
+    [].slice.call(cells)
+      .forEach((cell) => {
+        (expanded ? addCssClass : removeCssClass)(cell, 'dt-expandable-cell-expanded', this._renderer2);
+      });
   }
 }
