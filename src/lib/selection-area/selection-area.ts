@@ -23,13 +23,17 @@ import {
   removeCssClass,
 } from '@dynatrace/angular-components/core';
 import { DtOverlayRef } from '@dynatrace/angular-components/overlay';
+import { Subject } from 'rxjs';
 
 /** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaChange {
   source: DtSelectionArea;
+  /** The position for the left edge - either in px or the xAxis unit of the chart when used with the dt-chart */
   left: number;
-  width: number;
+  /** The position for the right edge - either in px or the xAxis unit of the chart when used with the dt-chart */
   right: number;
+  /** The width of the selection area in px */
+  widthPx: number;
 }
 
 /** @internal Vertical distance between the overlay and the selection area */
@@ -100,6 +104,8 @@ export class DtSelectionArea {
     },
   ];
 
+  _grabbingChange = new Subject<boolean>();
+
   /** Indicator if its being touched */
   private _touching: boolean;
   /** Horizontal start position of an operation */
@@ -127,6 +133,13 @@ export class DtSelectionArea {
   /** The focus trap inside the overlay */
   private _overlayFocusTrap: FocusTrap;
 
+  /**
+   * @internal
+   * Default interpolation function that just returns the px value
+   * can be overwritten in the create function to pass a custom one
+   */
+  _interpolateFn: (pxValue: number) => number = (pxValue: number) => pxValue;
+
   /** @internal The focus trap for the box */
   @ViewChild(CdkTrapFocus) _boxFocusTrap: CdkTrapFocus;
 
@@ -144,13 +157,13 @@ export class DtSelectionArea {
       this._overlayFocusTrap.destroy();
     }
     this.close();
+    this.closed.complete();
   }
 
   /** Closes and destroys the box */
   close(): void {
     this._reset();
     this.closed.next();
-    this.closed.complete();
   }
 
   /** Sets the focus to the selection area */
@@ -245,7 +258,7 @@ export class DtSelectionArea {
   /** Handles mouseup */
   private _handleMouseup = (ev: MouseEvent) => {
     ev.preventDefault();
-    // removeCssClass(this._origin, 'dt-cursor-grabbing');
+    this._grabbingChange.next(false);
     this._offsetX = 0;
     this._touching = false;
     this._togglePointerEvents(false);
@@ -255,21 +268,21 @@ export class DtSelectionArea {
 
   /** @internal Handle mousedown on the left handle */
   _handleLeftHandleMouseDown(event: MouseEvent): void {
-    this._handleBoxEvent(event, 'left-handle');
+    this._handleMouseBoxEvent(event, 'left-handle');
     this._startWidth = this._width;
   }
 
   /** @internal Handle mousedown on the right handle */
   _handleRightHandleMouseDown(event: MouseEvent): void {
-    this._handleBoxEvent(event, 'right-handle');
+    this._handleMouseBoxEvent(event, 'right-handle');
     this._startWidth = this._width;
   }
 
   /** @internal Handle mousedown on the area */
   _handleBoxMouseDown(event: MouseEvent): void {
-    this._handleBoxEvent(event, 'box');
+    this._handleMouseBoxEvent(event, 'box');
     this._offsetX = this._calculateRelativeXPosToBox(event);
-    // addCssClass(this._origin, 'dt-cursor-grabbing');
+    this._grabbingChange.next(true);
   }
 
   /** @internal Handle keyboard interaction on keydown on the box */
@@ -396,7 +409,7 @@ export class DtSelectionArea {
   }
 
   /** Shared event handling for mousedown events on the box */
-  private _handleBoxEvent(event: MouseEvent | KeyboardEvent, target: DtSelectionAreaEventTarget): void {
+  private _handleMouseBoxEvent(event: MouseEvent, target: DtSelectionAreaEventTarget): void {
     event.preventDefault();
     event.stopPropagation();
     this._touching = true;
@@ -406,11 +419,12 @@ export class DtSelectionArea {
     if (event instanceof MouseEvent) {
       this._startX = this._calculateRelativeXPos(event.clientX);
     }
+    this._grabbingChange.next(true);
     this._update();
   }
 
   /** @internal Creates the selection area */
-  _create(posX?: number): void {
+  _create(posX: number): void {
     this._reset();
     if (this._boundaries) {
       this._isBoxVisible = true;
@@ -464,11 +478,11 @@ export class DtSelectionArea {
     }
 
     const left = this._left !== null ? this._left : this._boundaries.width - this._right! - this._width;
-    const right = this._right !== null ? this._right : this._boundaries.width - this._left! - this._width;
+    const right = this._right !== null ? this._boundaries.width - this._right : this._left! + this._width;
     this.changed.emit({
-      left,
-      right,
-      width: this._width,
+      left: this._interpolateFn(left),
+      right: this._interpolateFn(right),
+      widthPx: this._width,
       source: this,
     });
   }
