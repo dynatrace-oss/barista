@@ -4,19 +4,24 @@
 @import './progress-bar-theme';
 
 :host {
-  display: flex;
-  align-items: stretch;
-  min-height: 8px;
+  display: block;
+  height: 8px;
   background-color: $gray-200;
   box-sizing: border-box;
-}
-
-:host.dt-progress-bar-end {
-  justify-content: flex-end;
+  position: relative;
 }
 
 .dt-progress-bar-progress {
   transition: width ease-in-out 350ms;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 8px;
+}
+
+:host.dt-progress-bar-end .dt-progress-bar-progress {
+  left: auto;
+  right: 0;
 }
 
 @include dt-apply-theme() {
