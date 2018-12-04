@@ -4,8 +4,8 @@ import { DtSelectionAreaChange } from '@dynatrace/angular-components';
 
 @Component({
   template: `
-  <div class="origin" #origin></div>
-  <dt-selection-area [origin]="origin" (changed)="handleChange($event)">
+  <div class="origin" [dtSelectionArea]="area"></div>
+  <dt-selection-area #area="dtSelectionArea" (changed)="handleChange($event)">
     {{dynamic}} static
     <dt-selection-area-actions>
       <button dt-button>Zoom in</button>
