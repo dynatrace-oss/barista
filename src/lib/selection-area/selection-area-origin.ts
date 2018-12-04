@@ -1,8 +1,8 @@
-import { Directive, Input, NgZone, ElementRef, AfterViewInit, OnDestroy, Attribute } from '@angular/core';
+import { Directive, Input, NgZone, ElementRef, AfterViewInit, OnDestroy, Attribute, SimpleChanges } from '@angular/core';
 import { DtSelectionArea } from './selection-area';
-import { mixinTabIndex, mixinDisabled, DtViewportResizer, readKeyCode } from '@dynatrace/angular-components/core';
-import { take } from 'rxjs/operators';
-import { Subscription, EMPTY } from 'rxjs';
+import { mixinTabIndex, mixinDisabled, DtViewportResizer, readKeyCode, addCssClass, removeCssClass, HasTabIndex, CanDisable } from '@dynatrace/angular-components/core';
+import { take, takeUntil } from 'rxjs/operators';
+import { Subscription, Subject } from 'rxjs';
 import { ENTER } from '@angular/cdk/keycodes';
 
 export class DtSelectionAreaOriginBase { }
@@ -19,7 +19,8 @@ export const _DtSelectionAreaOriginMixin = mixinTabIndex(mixinDisabled(DtSelecti
   },
   inputs: ['tabIndex'],
 })
-export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin implements OnDestroy, AfterViewInit {
+export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
+  implements OnDestroy, AfterViewInit, HasTabIndex, CanDisable {
 
   @Input('dtSelectionArea')
   get selectionArea(): DtSelectionArea {
@@ -29,15 +30,17 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin implement
     this._selectionArea = value;
   }
 
-  private _selectionArea: DtSelectionArea;
+  protected _selectionArea: DtSelectionArea;
 
-  /** Subscription to the viewport changes */
-  private _viewportSub: Subscription = EMPTY.subscribe();
+  private _selectionAreaGrabbingSub = Subscription.EMPTY;
+
+  /** Emits when the component is destroyed */
+  protected _destroy = new Subject<void>();
 
   constructor(
-    private _zone: NgZone,
-    private _elementRef: ElementRef,
-    private _viewport: DtViewportResizer,
+    protected _zone: NgZone,
+    protected _elementRef: ElementRef,
+    protected _viewport: DtViewportResizer,
     @Attribute('tabindex') tabIndex: string
   ) {
     super();
@@ -45,15 +48,28 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin implement
     this.tabIndex = parseInt(tabIndex, 10) || 0;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.selectionArea) {
+      this._selectionAreaGrabbingSub.unsubscribe();
+      this._selectionArea._grabbingChange.pipe(takeUntil(this._destroy)).subscribe((isGrabbing) => {
+        if (isGrabbing) {
+          addCssClass(this._elementRef.nativeElement, 'dt-selection-area-cursor-grabbing');
+        } else {
+          removeCssClass(this._elementRef.nativeElement, 'dt-selection-area-cursor-grabbing');
+        }
+      });
+    }
+  }
+
   /** @internal Handle mousedown on the origin */
-  _handleMousedown(ev: MouseEvent): void {
+  protected _handleMousedown(ev: MouseEvent): void {
     if (this._selectionArea) {
       this._selectionArea._create(ev.clientX);
     }
   }
 
   /** @internal Handle keydown on the origin */
-  _handleKeyDown(event: KeyboardEvent): void {
+  protected _handleKeyDown(event: KeyboardEvent): void {
     if (readKeyCode(event) === ENTER) {
       if (this._selectionArea) {
         this._selectionArea._create(0);
@@ -70,20 +86,21 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin implement
       this._applyBoundariesToSelectionArea();
     });
 
-    this._viewportSub = this._viewport.change().subscribe(() => {
+    this._viewport.change().pipe(takeUntil(this._destroy)).subscribe(() => {
       this._applyBoundariesToSelectionArea();
     });
   }
 
   ngOnDestroy(): void {
-    this._viewportSub.unsubscribe();
+    this._destroy.next();
+    this._destroy.complete();
   }
 
   focus(): void {
     this._elementRef.nativeElement.focus();
   }
 
-  private _applyBoundariesToSelectionArea(): void {
+  protected _applyBoundariesToSelectionArea(): void {
     if (this._selectionArea) {
       const boundaries = this._elementRef.nativeElement.getBoundingClientRect();
       this._selectionArea._applyBoundaries(boundaries);

@@ -20,6 +20,6 @@ import { DtSelectionAreaChange } from '@dynatrace/angular-components';
 export class SelectionAreaDefaultExample {
   dynamic = '';
   handleChange(ev: DtSelectionAreaChange): void {
-    this.dynamic = `${ev.left}, ${ev.right} yeah so dynamic - ${ev.width}`;
+    this.dynamic = `${ev.left}, ${ev.right} yeah so dynamic - ${ev.widthPx}`;
   }
 }

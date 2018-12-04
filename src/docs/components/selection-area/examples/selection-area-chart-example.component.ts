@@ -4,9 +4,9 @@ import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angu
 
 @Component({
   template: `
-  <dt-chart [options]="options" [series]="series"></dt-chart>
-  <dt-selection-area (changed)="handleChange($event)">
-    {{dynamic}} static
+  <dt-chart [options]="options" [series]="series" [dtChartSelectionArea]="area"></dt-chart>
+  <dt-selection-area #area="dtSelectionArea" (changed)="handleChange($event)">
+    {{left | date: 'MMM d, y - HH:mm':'GMT' }} - {{right | date: 'MMM d, y - HH:mm':'GMT'}}
     <dt-selection-area-actions>
       <button dt-button>Zoom in</button>
     </dt-selection-area-actions>
@@ -17,15 +17,18 @@ import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angu
   ],
 })
 @OriginalClassName('SelectionAreaChartExample')
-export class SelectionAreaChartExample implements AfterViewInit {
+export class SelectionAreaChartExample {
   @ViewChild(DtChart) chart: DtChart;
   @ViewChild(DtSelectionArea) selectionArea: DtSelectionArea;
 
-  dynamic = '';
+  left: number;
+  right: number;
 
   options: Highcharts.Options = {
     xAxis: {
       type: 'datetime',
+      min: 1370302200000,
+      startOnTick: true,
     },
     yAxis: [
       {
@@ -63,6 +66,11 @@ export class SelectionAreaChartExample implements AfterViewInit {
 
   series: Highcharts.IndividualSeriesOptions[] = [
     {
+      name: 'Failure rate',
+      type: 'line',
+      data: generateData(40, 0, 20, 1370304000000, 900000),
+    },
+    {
       name: 'Requests',
       type: 'column',
       yAxis: 1,
@@ -73,24 +81,11 @@ export class SelectionAreaChartExample implements AfterViewInit {
       type: 'column',
       yAxis: 1,
       data: generateData(40, 0, 15, 1370304000000, 900000),
-    },
-    {
-      name: 'Failure rate',
-      type: 'line',
-      data: generateData(40, 0, 20, 1370304000000, 900000),
     }];
 
-  ngAfterViewInit(): void {
-    // this.chart._loaded.subscribe(() => {
-    //   const plotbackground = this.chart.container.nativeElement.querySelector('.highcharts-plot-background');
-    //   this.selectionArea.origin = plotbackground;
-    // });
-  }
   handleChange(ev: DtSelectionAreaChange): void {
-    if (this.chart.highchartsOptions.tooltip!.enabled !== false) {
-      // this.chart._toggleTooltip(false);
-    }
-    this.dynamic = `${ev.left}, ${ev.right} yeah so dynamic - ${ev.width}`;
+    this.left = ev.left;
+    this.right = ev.right;
   }
 
 }

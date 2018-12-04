@@ -26,6 +26,7 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
     height: 230,
     plotBorderColor: Colors.GRAY_300,
     plotBorderWidth: 1,
+    plotBackgroundColor: 'transparent',
     spacingBottom: 12,
     spacingTop: 16,
     animation: false,
