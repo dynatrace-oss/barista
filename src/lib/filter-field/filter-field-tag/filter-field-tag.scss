@@ -19,7 +19,7 @@
   }
 }
 
-::ng-deep .dt-button.dt-button-nested {
+:host ::ng-deep .dt-button.dt-button-nested {
   height: 22px;
   line-height: 22px;
   padding-left: 8px;
@@ -43,8 +43,10 @@
   }
 }
 
-::ng-deep .dt-button.dt-icon-button.dt-filter-field-tag-button {
+:host ::ng-deep .dt-button.dt-icon-button.dt-filter-field-tag-button {
   width: 22px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .dt-filter-field-tag-icon {
