@@ -1,13 +1,14 @@
-import { async, TestBed, fakeAsync, flush, ComponentFixture, inject } from '@angular/core/testing';
+import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick, flushMicrotasks } from '@angular/core/testing';
 import { DtSelectionAreaModule, DtIconModule } from '@dynatrace/angular-components';
 import { Component, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { DtButtonModule } from '../button';
-import { dispatchMouseEvent } from '../../testing/dispatch-events';
+import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtSelectionArea } from './selection-area';
 import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { ENTER, TAB, LEFT_ARROW, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, PAGE_DOWN, PAGE_UP, HOME, END } from '@angular/cdk/keycodes';
 
 fdescribe('DtSelectionArea', () => {
 
@@ -372,6 +373,195 @@ fdescribe('DtSelectionArea', () => {
     });
   });
 
+  describe('keyboard interaction', () => {
+    let fixture: ComponentFixture<BasicTest>;
+    let origin: HTMLElement;
+    let boxNative: HTMLDivElement;
+
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(BasicTest);
+      fixture.detectChanges();
+      origin = fixture.componentInstance.origin.nativeElement;
+      dispatchKeyboardEvent(origin, 'keydown', ENTER);
+      flush();
+      fixture.detectChanges();
+      boxNative = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+    }));
+
+    it('should create the box on ENTER', () => {
+      expect(boxNative.style.left).toEqual('100px');
+      expect(boxNative.style.width).toEqual('200px');
+    });
+
+    describe('on the box', () => {
+
+      it('should move the box to the left when LEFT_ARROW or UP_ARROW is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(boxNative, 'keydown', LEFT_ARROW);
+        flush();
+        expect(boxNative.style.left).toEqual('99px');
+
+        dispatchKeyboardEvent(boxNative, 'keydown', UP_ARROW);
+        flush();
+        expect(boxNative.style.left).toEqual('98px');
+      }));
+
+      it('should move the box to the right when DOWN_ARROW or RIGHT_ARROW is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(boxNative, 'keydown', RIGHT_ARROW);
+        flush();
+        expect(boxNative.style.left).toEqual('101px');
+
+        dispatchKeyboardEvent(boxNative, 'keydown', DOWN_ARROW);
+        flush();
+        expect(boxNative.style.left).toEqual('102px');
+      }));
+
+      it('should move the box 10px to the left when PAGE_UP is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(boxNative, 'keydown', PAGE_UP);
+        flush();
+        expect(boxNative.style.left).toEqual('90px');
+      }));
+
+      it('should move the box 10px to the left when PAGE_DOWN is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(boxNative, 'keydown', PAGE_DOWN);
+        flush();
+        expect(boxNative.style.left).toEqual('110px');
+      }));
+
+      it('should move the box to start when HOME is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(boxNative, 'keydown', HOME);
+        flush();
+        expect(boxNative.style.left).toEqual('0px');
+      }));
+
+      it('should move the box to start when END is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(boxNative, 'keydown', END);
+        flush();
+        expect(boxNative.style.left).toEqual('200px');
+      }));
+    });
+
+    describe('on the left-handle', () => {
+      let leftHandle;
+
+      beforeEach(() => {
+        leftHandle = fixture.debugElement.query(By.css('.dt-selection-area-handle-left')).nativeElement;
+      });
+
+      it('should move it to the left when LEFT_ARROW or UP_ARROW is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(leftHandle, 'keydown', LEFT_ARROW);
+        flush();
+        expect(boxNative.style.right).toEqual('100px');
+        expect(boxNative.style.width).toEqual('201px');
+
+        dispatchKeyboardEvent(leftHandle, 'keydown', UP_ARROW);
+        flush();
+        expect(boxNative.style.right).toEqual('100px');
+        expect(boxNative.style.width).toEqual('202px');
+      }));
+
+      it('should move it to the right when DOWN_ARROW or RIGHT_ARROW is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(leftHandle, 'keydown', RIGHT_ARROW);
+        flush();
+        expect(boxNative.style.right).toEqual('100px');
+        expect(boxNative.style.width).toEqual('199px');
+
+        dispatchKeyboardEvent(leftHandle, 'keydown', DOWN_ARROW);
+        flush();
+        expect(boxNative.style.right).toEqual('100px');
+        expect(boxNative.style.width).toEqual('198px');
+      }));
+
+      it('should move it 10px to the left when PAGE_UP is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(leftHandle, 'keydown', PAGE_UP);
+        flush();
+        expect(boxNative.style.right).toEqual('100px');
+        expect(boxNative.style.width).toEqual('210px');
+      }));
+
+      it('should move the box 10px to the left when PAGE_DOWN is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(leftHandle, 'keydown', PAGE_DOWN);
+        flush();
+        expect(boxNative.style.right).toEqual('100px');
+        expect(boxNative.style.width).toEqual('190px');
+      }));
+
+      it('should move the box to start when HOME is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(leftHandle, 'keydown', HOME);
+        flush();
+        expect(boxNative.style.right).toEqual('100px');
+        expect(boxNative.style.width).toEqual('300px');
+      }));
+
+      it('should move the box to start when END is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(leftHandle, 'keydown', END);
+        flush();
+        expect(boxNative.style.left).toEqual('300px');
+        expect(boxNative.style.width).toEqual('100px');
+      }));
+    });
+
+    describe('on the right-handle', () => {
+      let rightHandle;
+
+      beforeEach(() => {
+        rightHandle = fixture.debugElement.query(By.css('.dt-selection-area-handle-right')).nativeElement;
+      });
+
+      it('should move it to the left when LEFT_ARROW or UP_ARROW is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(rightHandle, 'keydown', LEFT_ARROW);
+        flush();
+        expect(boxNative.style.left).toEqual('100px');
+        expect(boxNative.style.width).toEqual('199px');
+
+        dispatchKeyboardEvent(rightHandle, 'keydown', UP_ARROW);
+        flush();
+        expect(boxNative.style.left).toEqual('100px');
+        expect(boxNative.style.width).toEqual('198px');
+      }));
+
+      it('should move it to the right when DOWN_ARROW or RIGHT_ARROW is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(rightHandle, 'keydown', RIGHT_ARROW);
+        flush();
+        expect(boxNative.style.left).toEqual('100px');
+        expect(boxNative.style.width).toEqual('201px');
+
+        dispatchKeyboardEvent(rightHandle, 'keydown', DOWN_ARROW);
+        flush();
+        expect(boxNative.style.left).toEqual('100px');
+        expect(boxNative.style.width).toEqual('202px');
+      }));
+
+      it('should move it 10px to the left when PAGE_UP is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(rightHandle, 'keydown', PAGE_UP);
+        flush();
+        expect(boxNative.style.left).toEqual('100px');
+        expect(boxNative.style.width).toEqual('190px');
+      }));
+
+      it('should move the box 10px to the left when PAGE_DOWN is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(rightHandle, 'keydown', PAGE_DOWN);
+        flush();
+        expect(boxNative.style.left).toEqual('100px');
+        expect(boxNative.style.width).toEqual('210px');
+      }));
+
+      it('should move the box to start when HOME is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(rightHandle, 'keydown', HOME);
+        flush();
+        expect(boxNative.style.right).toEqual('300px');
+        expect(boxNative.style.width).toEqual('100px');
+      }));
+
+      it('should move the box to start when END is pressed', fakeAsync(() => {
+        dispatchKeyboardEvent(rightHandle, 'keydown', END);
+        flush();
+        expect(boxNative.style.left).toEqual('100px');
+        expect(boxNative.style.width).toEqual('300px');
+      }));
+    });
+
+  });
+
   describe('overlay', () => {
     let fixture: ComponentFixture<BasicTest>;
     let origin: HTMLElement;
@@ -432,8 +622,8 @@ fdescribe('DtSelectionArea', () => {
 
 @Component({
   template: `
-  <div class="origin" #origin></div>
-  <dt-selection-area [origin]="origin">
+  <div class="origin" #origin [dtSelectionArea]="area"></div>
+  <dt-selection-area #area="dtSelectionArea">
     Some basic overlay content 
     <dt-selection-area-actions>
       <button dt-button>Zoom in</button>
@@ -452,8 +642,8 @@ export class BasicTest {
 
 @Component({
   template: `
-  <div class="origin" #origin tabindex="10"></div>
-  <dt-selection-area [origin]="origin">
+  <div class="origin" #origin [dtSelectionArea]="area" tabindex="10"></div>
+  <dt-selection-area #area="dtSelectionArea">
     Some basic overlay content 
   </dt-selection-area>
   `,

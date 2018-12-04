@@ -8,7 +8,8 @@
   (mousedown)="_handleBoxMouseDown($event)"
   (keydown)="_handleBoxKeyDown($event)"
   cdkMonitorSubtreeFocus
-  (onFocusChange)="_boxFocusChange($event)">
+  (onFocusChange)="_boxFocusChange($event)"
+  cdkTrapFocus>
   <button
     #lefthandle
     class="dt-selection-area-handle dt-selection-area-handle-left"
@@ -23,22 +24,23 @@
   </button>
 </div>
 <ng-template
-cdkConnectedOverlay
-[cdkConnectedOverlayOrigin]="originBox"
-[cdkConnectedOverlayOpen]="_isBoxVisible"
-[cdkConnectedOverlayPositions]="_positions"
->
-<div class="dt-selection-area-overlay-pane">
-  <div class="dt-selection-area-overlay-wrapper">
-    <section class="dt-selection-area-content">
-      <ng-content></ng-content>
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="originBox"
+  [cdkConnectedOverlayOpen]="_isBoxVisible"
+  [cdkConnectedOverlayPositions]="_positions"
+  (attach)="_onOverlayAttached()"
+  (detach)="_onOverlayDetach()">
+  <div class="dt-selection-area-overlay-pane">
+    <div class="dt-selection-area-overlay-wrapper">
+      <section class="dt-selection-area-content">
+        <ng-content></ng-content>
+      </section>
+      <aside class="dt-selection-area-close">
+        <button dt-icon-button variant="nested" (click)="_handleClose($event)"><dt-icon name="abort"></dt-icon></button>
+      </aside>
+    </div>
+    <section class="dt-selection-area-actions">
+      <ng-content select="dt-selection-area-actions, [dt-selection-area-actions], [dtSelectionAreaActions]"></ng-content>
     </section>
-    <aside class="dt-selection-area-close">
-      <button dt-icon-button variant="nested" (click)="_handleClose($event)"><dt-icon name="abort"></dt-icon></button>
-    </aside>
   </div>
-  <section class="dt-selection-area-actions">
-    <ng-content select="dt-selection-area-actions, [dt-selection-area-actions], [dtSelectionAreaActions]"></ng-content>
-  </section>
-</div>
 </ng-template>

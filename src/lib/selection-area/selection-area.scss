@@ -68,3 +68,12 @@ $selection-area-overlay-spacing: 4px;
 .dt-selection-area-overlay-pane {
   @include dt-overlay-container();
 }
+
+// origin
+.dt-selection-area-origin:focus {
+  @include dt-focus-style();
+}
+
+.dt-cursor-grabbing {
+  cursor: grabbing;
+}
