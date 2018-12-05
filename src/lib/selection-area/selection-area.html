@@ -7,20 +7,32 @@
   cdk-overlay-origin
   (mousedown)="_handleBoxMouseDown($event)"
   (keydown)="_handleBoxKeyDown($event)"
-  cdkMonitorSubtreeFocus
-  (onFocusChange)="_boxFocusChange($event)"
-  cdkTrapFocus>
+  cdkTrapFocus
+  aria-role="slider"
+  [attr.aria-label]="ariaLabelBox"
+  >
   <button
     #lefthandle
     class="dt-selection-area-handle dt-selection-area-handle-left"
     (mousedown)="_handleLeftHandleMouseDown($event)"
-    (keydown)="_handleLeftHandleKeyDown($event)">
+    (keydown)="_handleLeftHandleKeyDown($event)"
+    aria-role="slider"
+    aria-role="slider"
+    [attr.aria-valuemax]="_ariaValueMaxLeftHandle"
+    [attr.aria-valuemin]="_ariaValueMinLeftHandle"
+    [attr.aria-valuenow]="_ariaValueNowLeftHandle"
+    [attr.aria-label]="ariaLabelLeftHandle">
   </button>
   <button
     #righthandle
     class="dt-selection-area-handle dt-selection-area-handle-right"
     (mousedown)="_handleRightHandleMouseDown($event)"
-    (keydown)="_handleRightHandleKeyDown($event)">
+    (keydown)="_handleRightHandleKeyDown($event)"
+    aria-role="slider"
+    [attr.aria-valuemax]="_ariaValueMaxRightHandle"
+    [attr.aria-valuemin]="_ariaValueMinRightHandle"
+    [attr.aria-valuenow]="_ariaValueNowRightHandle"
+    [attr.aria-label]="ariaLabelRightHandle">
   </button>
 </div>
 <ng-template
@@ -36,7 +48,7 @@
         <ng-content></ng-content>
       </section>
       <aside class="dt-selection-area-close">
-        <button dt-icon-button variant="nested" (click)="_handleClose($event)"><dt-icon name="abort"></dt-icon></button>
+        <button dt-icon-button variant="nested" (click)="_handleClose($event)" [attr.aria-label]="ariaLabelClose"><dt-icon name="abort"></dt-icon></button>
       </aside>
     </div>
     <section class="dt-selection-area-actions">

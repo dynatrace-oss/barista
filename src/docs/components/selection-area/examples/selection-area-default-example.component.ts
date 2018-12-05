@@ -6,7 +6,7 @@ import { DtSelectionAreaChange } from '@dynatrace/angular-components';
   template: `
   <div class="origin" [dtSelectionArea]="area"></div>
   <dt-selection-area #area="dtSelectionArea" (changed)="handleChange($event)">
-    {{dynamic}} static
+    {{overlayContent}}
     <dt-selection-area-actions>
       <button dt-button>Zoom in</button>
     </dt-selection-area-actions>
@@ -18,8 +18,8 @@ import { DtSelectionAreaChange } from '@dynatrace/angular-components';
 })
 @OriginalClassName('SelectionAreaDefaultExample')
 export class SelectionAreaDefaultExample {
-  dynamic = '';
+  overlayContent = '';
   handleChange(ev: DtSelectionAreaChange): void {
-    this.dynamic = `${ev.left}, ${ev.right} yeah so dynamic - ${ev.widthPx}`;
+    this.overlayContent = `Left: ${ev.left}, Right: ${ev.right}, Width: ${ev.widthPx}`;
   }
 }

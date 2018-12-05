@@ -1,0 +1,7 @@
+<dt-chart [options]="options" [series]="series" [dtChartSelectionArea]="area"></dt-chart>
+<dt-selection-area #area="dtSelectionArea" (changed)="handleChange($event)">
+  {{left | date: 'MMM d, y - HH:mm':'GMT' }} - {{right | date: 'MMM d, y - HH:mm':'GMT'}}
+  <dt-selection-area-actions>
+    <button dt-button>Zoom in</button>
+  </dt-selection-area-actions>
+</dt-selection-area>
