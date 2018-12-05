@@ -3,14 +3,16 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   EventEmitter,
-  HostBinding,
   Input,
   Output, ViewChild,
   ViewEncapsulation,
+  NgZone,
 } from '@angular/core';
 import {DtExpandablePanel} from '@dynatrace/angular-components/expandable-panel';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import { CanDisable } from '@dynatrace/angular-components/core';
+import { Observable, defer } from 'rxjs';
+import { take, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
@@ -30,38 +32,25 @@ export class DtExpandableSectionHeader { }
   templateUrl: 'expandable-section.html',
   styleUrls: ['expandable-section.scss'],
   host: {
-    class: 'dt-expandable-section',
+    'class': 'dt-expandable-section',
+    '[class.dt-expandable-section-opened]': 'opened',
+    '[class.dt-expandable-section-disabled]': 'disabled',
+    '[attr.aria-disabled]': 'disabled',
   },
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtExpandableSection implements AfterViewInit, CanDisable {
+export class DtExpandableSection implements CanDisable {
 
-  private _disabled = false;
-
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {
-  }
-
-  @ViewChild(DtExpandablePanel)
-  private _panel: DtExpandablePanel;
-
+  /** Whether the expandable is open (expanded). */
   @Input()
-  @HostBinding('class.dt-expandable-section-opened')
-  get opened(): boolean {
-    return this._panel.opened && !this.disabled;
-  }
-  set opened(value: boolean) {
-    this._panel.opened = coerceBooleanProperty(value);
-  }
+  get opened(): boolean { return this._panel.opened && !this.disabled; }
+  set opened(value: boolean) { this._panel.opened = coerceBooleanProperty(value); }
 
+  /** Whether the expandable is disabled. When set to false it will also close. */
   @Input()
-  @HostBinding('attr.aria-disabled')
-  @HostBinding('class.dt-expandable-section-disabled')
-  get disabled(): boolean {
-    return this._disabled;
-  }
-
+  get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     if (this._disabled) {
@@ -69,14 +58,23 @@ export class DtExpandableSection implements AfterViewInit, CanDisable {
     }
     this._changeDetectorRef.markForCheck();
   }
+  private _disabled = false;
 
-  @Output() readonly openedChange = new EventEmitter<boolean>();
+  /** Emits when the expandable opens or closes  */
+  @Output() readonly openedChange: Observable<boolean> = defer(() => {
+    if (this._panel) {
+      return this._panel.openedChange.asObservable();
+    }
 
-  ngAfterViewInit(): void {
-    this._panel.openedChange.subscribe((event: boolean) => {
-      this.openedChange.emit(event);
-    });
-  }
+    return this._ngZone.onStable
+      .asObservable()
+      .pipe(take(1), switchMap(() => this.openedChange));
+  });
+
+  @ViewChild(DtExpandablePanel)
+  private _panel: DtExpandablePanel;
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef, private _ngZone: NgZone) { }
 
   toggle(): boolean {
     if (!this.disabled) {
