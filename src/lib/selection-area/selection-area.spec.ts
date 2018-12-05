@@ -1,4 +1,4 @@
-import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick, flushMicrotasks } from '@angular/core/testing';
+import { async, TestBed, fakeAsync, flush, ComponentFixture, inject } from '@angular/core/testing';
 import { DtSelectionAreaModule, DtIconModule } from '@dynatrace/angular-components';
 import { Component, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { DtButtonModule } from '../button';
@@ -8,9 +8,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtSelectionArea } from './selection-area';
 import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { ENTER, TAB, LEFT_ARROW, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, PAGE_DOWN, PAGE_UP, HOME, END } from '@angular/cdk/keycodes';
+import { ENTER, LEFT_ARROW, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, PAGE_DOWN, PAGE_UP, HOME, END } from '@angular/cdk/keycodes';
 
-fdescribe('DtSelectionArea', () => {
+describe('DtSelectionArea', () => {
 
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
@@ -618,12 +618,84 @@ fdescribe('DtSelectionArea', () => {
       expect(closeSpy).toHaveBeenCalledTimes(1);
     }));
   });
+
+  fdescribe('a11y', () => {
+    let fixture: ComponentFixture<BasicTest>;
+    let origin: HTMLElement;
+    let box: HTMLElement;
+    let closeButton: HTMLButtonElement | null;
+
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(BasicTest);
+      fixture.detectChanges();
+      origin = fixture.componentInstance.origin.nativeElement;
+      dispatchMouseEvent(origin, 'mousedown', 110, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
+
+      dispatchMouseEvent(window, 'mousemove', 210, 10);
+      flush();
+      tickRequestAnimationFrame();
+
+      dispatchMouseEvent(window, 'mouseup');
+
+      fixture.detectChanges();
+      box = fixture.debugElement.query(By.css('.dt-selection-area-box')).nativeElement;
+      closeButton = overlayContainerElement.querySelector('.dt-selection-area-close button');
+    }));
+
+    it('should set the aria-label on the box', () => {
+      expect(box.getAttribute('aria-label')).toBe('aria box');
+    });
+
+    it('should set the aria-label on the left handle', () => {
+      const handle = fixture.debugElement.query(By.css('.dt-selection-area-handle-left')).nativeElement;
+      expect(handle.getAttribute('aria-label')).toBe('aria left');
+    });
+
+    it('should set the aria-label on the box', () => {
+      const handle = fixture.debugElement.query(By.css('.dt-selection-area-handle-right')).nativeElement;
+      expect(handle.getAttribute('aria-label')).toBe('aria right');
+    });
+
+    it('should set the aria-label on the box', () => {
+      expect(closeButton!.getAttribute('aria-label')).toBe('aria close');
+    });
+
+    it('should have the role slider', () => {
+      const left = fixture.debugElement.query(By.css('.dt-selection-area-handle-left')).nativeElement;
+      const right = fixture.debugElement.query(By.css('.dt-selection-area-handle-right')).nativeElement;
+      expect(box.getAttribute('aria-role')).toBe('slider');
+      expect(left.getAttribute('aria-role')).toBe('slider');
+      expect(right.getAttribute('aria-role')).toBe('slider');
+    });
+
+    it('should have the correct values for valuemin valuemax valuenow on the left handle', () => {
+      const left = fixture.debugElement.query(By.css('.dt-selection-area-handle-left')).nativeElement;
+      expect(left.getAttribute('aria-valuemin')).toBe('0');
+      expect(left.getAttribute('aria-valuemax')).toBe('200');
+      expect(left.getAttribute('aria-valuenow')).toBe('100');
+    });
+
+    it('should have the correct values for valuemin valuemax valuenow on the right handle', () => {
+      const right = fixture.debugElement.query(By.css('.dt-selection-area-handle-right')).nativeElement;
+      expect(right.getAttribute('aria-valuemin')).toBe('100');
+      expect(right.getAttribute('aria-valuemax')).toBe('400');
+      expect(right.getAttribute('aria-valuenow')).toBe('200');
+    });
+  });
 });
 
 @Component({
   template: `
   <div class="origin" #origin [dtSelectionArea]="area"></div>
-  <dt-selection-area #area="dtSelectionArea">
+  <dt-selection-area
+    #area="dtSelectionArea"
+    aria-label-box="aria box"
+    aria-label-left-handle="aria left"
+    aria-label-right-handle="aria right"
+    aria-label-close-button="aria close">
     Some basic overlay content 
     <dt-selection-area-actions>
       <button dt-button>Zoom in</button>
@@ -638,6 +710,7 @@ fdescribe('DtSelectionArea', () => {
 })
 export class BasicTest {
   @ViewChild('origin') origin: ElementRef;
+  @ViewChild(DtSelectionArea) selectionArea: DtSelectionArea;
 }
 
 @Component({

@@ -44,6 +44,8 @@ import { TabsUI } from './tabs/tabs-ui';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { OverlayUI } from './overlay/overlay-ui';
 import { ChartHighchartsUI } from './chart/chart-highcharts-ui';
+import { DtSelectionAreaModule } from '@dynatrace/angular-components';
+import { ChartSelectionAreaUI } from './chart/chart-selection-area-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -69,6 +71,7 @@ import { ChartHighchartsUI } from './chart/chart-highcharts-ui';
     DtTabsModule,
     DtSelectModule,
     DtOverlayModule,
+    DtSelectionAreaModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -101,6 +104,7 @@ export class DynatraceAngularCompModule {}
     SwitchUI,
     ChartUI,
     ChartHighchartsUI,
+    ChartSelectionAreaUI,
     ProgressBarUI,
     TabsUI,
     OverlayUI,

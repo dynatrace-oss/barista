@@ -1,1 +1,6 @@
 @import '../lib/style/index';
+
+// this reset is needed because protractor ignores a margin on the body when asking for a location of an element
+body {
+  margin: 0;
+}
