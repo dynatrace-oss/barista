@@ -6,7 +6,6 @@ import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtSelectionArea } from './selection-area';
 import { DtSelectionAreaActions } from './selection-area-actions';
-import { DtOverlayModule } from '../overlay';
 import { DtSelectionAreaOrigin } from './selection-area-origin';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { DtSelectionAreaOrigin } from './selection-area-origin';
     CommonModule,
     DtIconModule,
     DtButtonModule,
-    DtOverlayModule,
     OverlayModule,
     A11yModule,
   ],
