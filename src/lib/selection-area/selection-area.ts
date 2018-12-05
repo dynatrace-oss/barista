@@ -1,6 +1,6 @@
 import { CdkTrapFocus, FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
+import { DOWN_ARROW, END, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
+import { CdkConnectedOverlay, ConnectedPosition, OverlayRef } from '@angular/cdk/overlay';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -22,7 +22,6 @@ import {
   readKeyCode,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
-import { DtOverlayRef } from '@dynatrace/angular-components/overlay';
 import { Subject } from 'rxjs';
 
 /** Change event object emitted by DtSelectionArea */
@@ -66,7 +65,7 @@ const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
 ];
 
 /** @internal Eventtarget for the mouse events on the selection area */
-type DtSelectionAreaEventTarget = 'box' | 'left-handle' | 'right-handle' | 'origin';
+export type DtSelectionAreaEventTarget = 'box' | 'left-handle' | 'right-handle' | 'origin';
 
 @Component({
   selector: 'dt-selection-area',
@@ -133,7 +132,7 @@ export class DtSelectionArea {
   private _detachFns: Array<() => void> = [];
 
   /** The ref to the DtOverlay */
-  private _overlayRef: DtOverlayRef<void>;
+  private _overlayRef: OverlayRef;
 
   /** The focus trap inside the overlay */
   private _overlayFocusTrap: FocusTrap;
@@ -578,7 +577,7 @@ export class DtSelectionArea {
   /** Resets the box and all properties */
   private _reset(): void {
     if (this._overlayRef) {
-      this._overlayRef.dismiss();
+      this._overlayRef.dispose();
     }
     this._hideAndResetBox();
   }
