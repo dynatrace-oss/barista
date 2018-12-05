@@ -68,6 +68,7 @@ describe('DtSelectionArea', () => {
   });
 
   describe('creation', () => {
+    // tslint:disable-next-line:no-any
     let fixture: ComponentFixture<any>;
     let origin: HTMLElement;
 
@@ -619,7 +620,7 @@ describe('DtSelectionArea', () => {
     }));
   });
 
-  fdescribe('a11y', () => {
+  describe('a11y', () => {
     let fixture: ComponentFixture<BasicTest>;
     let origin: HTMLElement;
     let box: HTMLElement;
@@ -696,7 +697,7 @@ describe('DtSelectionArea', () => {
     aria-label-left-handle="aria left"
     aria-label-right-handle="aria right"
     aria-label-close-button="aria close">
-    Some basic overlay content 
+    Some basic overlay content
     <dt-selection-area-actions>
       <button dt-button>Zoom in</button>
     </dt-selection-area-actions>
@@ -717,7 +718,7 @@ export class BasicTest {
   template: `
   <div class="origin" #origin [dtSelectionArea]="area" tabindex="10"></div>
   <dt-selection-area #area="dtSelectionArea">
-    Some basic overlay content 
+    Some basic overlay content
   </dt-selection-area>
   `,
 })

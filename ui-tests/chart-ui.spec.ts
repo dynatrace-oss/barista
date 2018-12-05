@@ -1,7 +1,7 @@
 import { browser, by, element } from 'protractor';
 import { getConsoleErrors } from './utils/console-errors';
 
-fdescribe('chart', () => {
+describe('chart', () => {
   describe('Highcharts Setup', () => {
     beforeEach(async () => browser.get('/chart/highcharts'));
 
@@ -20,7 +20,7 @@ fdescribe('chart', () => {
     });
   });
 
-  fdescribe('selection-area', () => {
+  describe('selection-area', () => {
     beforeEach(async () => browser.get('/chart/selection-area'));
 
     it('should make the plotbackground focusable', async () => {
