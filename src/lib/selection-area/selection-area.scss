@@ -12,7 +12,8 @@ $selection-area-overlay-spacing: 4px;
   pointer-events: auto;
 }
 
-:host, .dt-selection-area-box {
+:host,
+.dt-selection-area-box {
   &.dt-no-pointer {
     pointer-events: none;
   }
@@ -43,7 +44,8 @@ $selection-area-overlay-spacing: 4px;
   cursor: col-resize;
 }
 
-.dt-selection-area-box:focus, .dt-selection-area-handle:focus {
+.dt-selection-area-box:focus,
+.dt-selection-area-handle:focus {
   @include dt-focus-style();
 }
 
