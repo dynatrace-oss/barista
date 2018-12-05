@@ -5,6 +5,11 @@ import {
 } from '@angular/core';
 import {replaceCssClass} from '@dynatrace/angular-components/core';
 
+/**
+ * Defines the alert severity levels.
+ * @deprecated Use 'error' | 'warning' instead
+ * @breaking-change To be removed
+ */
 export type DtAlertSeverity = 'error' | 'warning' | undefined;
 
 @Component({
@@ -21,23 +26,23 @@ export type DtAlertSeverity = 'error' | 'warning' | undefined;
 })
 export class DtAlert {
 
-  constructor(private _el: ElementRef,
-              private _changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private _el: ElementRef, private _changeDetectorRef: ChangeDetectorRef) { }
 
-  private _severity: DtAlertSeverity;
+  private _severity: 'error' | 'warning' | undefined;
 
+  /**
+   * The severity type of the alert.
+   * @breaking-change Remove undefined as a severity type. Use ngIf instead.
+   */
   @Input()
-  get severity(): DtAlertSeverity {
-    return this._severity;
-  }
-
-  set severity(newValue: DtAlertSeverity) {
-    replaceCssClass(this._el, this._calcCssClass(this._severity), this._calcCssClass(newValue));
-    this._severity = newValue;
+  get severity(): 'error' | 'warning' | undefined { return this._severity; }
+  set severity(value: 'error' | 'warning' | undefined) {
+    replaceCssClass(this._el, this._calcCssClass(this._severity), this._calcCssClass(value));
+    this._severity = value;
     this._changeDetectorRef.markForCheck();
   }
 
-  private _calcCssClass(severity: DtAlertSeverity): string | undefined {
+  private _calcCssClass(severity: 'error' | 'warning' | undefined): string | undefined {
     return severity !== undefined ? `dt-alert-${severity.toString()}` : undefined;
   }
 }
