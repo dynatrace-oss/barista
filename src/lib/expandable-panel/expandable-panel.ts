@@ -45,7 +45,7 @@ export class DtExpandablePanel {
   @Input()
   @HostBinding('class.dt-expandable-panel-opened')
   get opened(): boolean { return this._opened; }
-  set opened(value: boolean) { this._opened = coerceBooleanProperty(value); }
+  set opened(value: boolean) { this._openClose(coerceBooleanProperty(value)); }
 
   /** Event emitted when the select has been opened. */
   @Output() readonly openedChange = new EventEmitter<boolean>();
