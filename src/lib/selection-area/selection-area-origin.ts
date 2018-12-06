@@ -22,25 +22,17 @@ export const _DtSelectionAreaOriginMixin = mixinTabIndex(mixinDisabled(DtSelecti
 export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
   implements OnDestroy, AfterViewInit, HasTabIndex, CanDisable {
 
-  @Input('dtSelectionArea')
-  get selectionArea(): DtSelectionArea {
-    return this._selectionArea;
-  }
-  set selectionArea(value: DtSelectionArea) {
-    this._selectionArea = value;
-  }
-
-  protected _selectionArea: DtSelectionArea;
+  @Input('dtSelectionArea') selectionArea: DtSelectionArea;
 
   private _selectionAreaGrabbingSub = Subscription.EMPTY;
 
-  /** Emits when the component is destroyed */
+  /** @internal Emits when the component is destroyed */
   protected _destroy = new Subject<void>();
 
   constructor(
-    protected _zone: NgZone,
-    protected _elementRef: ElementRef,
-    protected _viewport: DtViewportResizer,
+    private _zone: NgZone,
+    private _elementRef: ElementRef,
+    private _viewport: DtViewportResizer,
     @Attribute('tabindex') tabIndex: string
   ) {
     super();
@@ -51,31 +43,13 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectionArea) {
       this._selectionAreaGrabbingSub.unsubscribe();
-      this._selectionArea._grabbingChange.pipe(takeUntil(this._destroy)).subscribe((isGrabbing) => {
+      this.selectionArea._grabbingChange.pipe(takeUntil(this._destroy)).subscribe((isGrabbing) => {
         if (isGrabbing) {
           addCssClass(this._elementRef.nativeElement, 'dt-selection-area-cursor-grabbing');
         } else {
           removeCssClass(this._elementRef.nativeElement, 'dt-selection-area-cursor-grabbing');
         }
       });
-    }
-  }
-
-  /** @internal Handle mousedown on the origin */
-  protected _handleMousedown(ev: MouseEvent): void {
-    if (this._selectionArea) {
-      this._selectionArea._create(ev.clientX);
-    }
-  }
-
-  /** @internal Handle keydown on the origin */
-  protected _handleKeyDown(event: KeyboardEvent): void {
-    if (readKeyCode(event) === ENTER) {
-      if (this._selectionArea) {
-        this._selectionArea._create(0);
-      }
-
-      this._zone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => { this.focus(); });
     }
   }
 
@@ -96,14 +70,33 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
     this._destroy.complete();
   }
 
+  /** Focuses the origin for the selection area */
   focus(): void {
     this._elementRef.nativeElement.focus();
   }
 
+  /** @internal Handle mousedown on the origin */
+  protected _handleMousedown(ev: MouseEvent): void {
+    if (this.selectionArea) {
+      this.selectionArea._create(ev.clientX);
+    }
+  }
+
+  /** @internal Handle keydown on the origin */
+  protected _handleKeyDown(event: KeyboardEvent): void {
+    if (readKeyCode(event) === ENTER) {
+      if (this.selectionArea) {
+        this.selectionArea._create(0);
+      }
+
+      this._zone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => { this.focus(); });
+    }
+  }
+
   protected _applyBoundariesToSelectionArea(): void {
-    if (this._selectionArea) {
+    if (this.selectionArea) {
       const boundaries = this._elementRef.nativeElement.getBoundingClientRect();
-      this._selectionArea._applyBoundaries(boundaries);
+      this.selectionArea._applyBoundaries(boundaries);
     }
   }
 }
