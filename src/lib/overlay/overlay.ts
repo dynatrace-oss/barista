@@ -7,7 +7,6 @@ import { DtOverlayRef } from './overlay-ref';
 import { DOCUMENT } from '@angular/common';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { Platform } from '@angular/cdk/platform';
-import { DT_NO_POINTER_CSS_CLASS } from '@dynatrace/angular-components/core';
 
 export const DT_OVERLAY_DEFAULT_OFFSET = 6;
 
@@ -121,7 +120,7 @@ export class DtOverlay {
 
     const overlayConfig = new OverlayConfig({
       positionStrategy,
-      backdropClass: DT_NO_POINTER_CSS_CLASS,
+      backdropClass: 'dt-no-pointer',
       hasBackdrop: true,
       scrollStrategy: this._overlay.scrollStrategies.close(),
     });
