@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import {
-  DtSelectionAreaModule, DtChartModule, DtButtonModule,
+  DtSelectionAreaModule, DtChartModule, DtButtonModule, DtIconModule,
 } from '@dynatrace/angular-components';
 import { SelectionAreaDefaultExample } from './examples/selection-area-default-example.component';
 import { SelectionAreaChartExample } from './examples/selection-area-chart-example.component';
@@ -18,6 +18,7 @@ export const EXAMPLES = [
     DtSelectionAreaModule,
     DtChartModule,
     DtButtonModule,
+    DtIconModule,
     CommonModule,
   ],
   declarations: [
