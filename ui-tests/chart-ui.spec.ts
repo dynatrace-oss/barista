@@ -29,8 +29,8 @@ describe('chart', () => {
 
     it('should be able to create a selection area on a chart', async () => {
       await createSelectionArea();
-      const boxSize = await element(by.css('.dt-selection-area-box')).getSize();
-      const boxLeft = await element(by.css('.dt-selection-area-box')).getCssValue('left');
+      const boxSize = await element(by.css('.dt-selection-area-selected-area')).getSize();
+      const boxLeft = await element(by.css('.dt-selection-area-selected-area')).getCssValue('left');
       expect(boxSize.width).toBe(100);
       expect(boxLeft).toBeDefined();
     });
