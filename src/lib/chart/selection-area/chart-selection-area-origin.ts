@@ -17,13 +17,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   implements OnDestroy, OnChanges, HasTabIndex, CanDisable {
 
   /** The selection area instance to be connected to this origin  */
-  @Input('dtChartSelectionArea')
-  get selectionArea(): DtSelectionArea {
-    return this._selectionArea;
-  }
-  set selectionArea(value: DtSelectionArea) {
-    this._selectionArea = value;
-  }
+  @Input('dtChartSelectionArea') selectionArea: DtSelectionArea;
 
   /** The plotbackground that is used as the origin */
   private _plotBackground: SVGRectElement;
@@ -33,9 +27,9 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   private _selectionAreaClosedSub = Subscription.EMPTY;
 
   constructor(
-    protected _zone: NgZone,
-    protected _elementRef: ElementRef,
-    protected _viewport: DtViewportResizer,
+    _zone: NgZone,
+    _elementRef: ElementRef,
+    _viewport: DtViewportResizer,
     private _renderer: Renderer2,
     @Host() private _chart: DtChart,
     @Attribute('tabindex') tabIndex: string
@@ -68,7 +62,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
     if (changes.selectionArea) {
       this._setInterpolateFnOnSelectionArea();
       this._selectionAreaClosedSub.unsubscribe();
-      this._selectionArea.closed.pipe(takeUntil(this._destroy)).subscribe(() => {
+      this.selectionArea.closed.pipe(takeUntil(this._destroy)).subscribe(() => {
         this._chart._toggleTooltip(true);
       });
     }
@@ -87,15 +81,15 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   }
 
   protected _applyBoundariesToSelectionArea(): void {
-    if (this._selectionArea && this._plotBackground) {
+    if (this.selectionArea && this._plotBackground) {
       const boundaries = this._plotBackground.getBoundingClientRect();
-      this._selectionArea._applyBoundaries(boundaries);
+      this.selectionArea._applyBoundaries(boundaries);
     }
   }
 
   private _setInterpolateFnOnSelectionArea(): void {
-    if (this._chart._chartObject && this._selectionArea) {
-      this._selectionArea._interpolateFn = (pxValue: number) => this._chart._chartObject.xAxis[0].toValue(pxValue, true);
+    if (this._chart._chartObject && this.selectionArea) {
+      this.selectionArea._interpolateFn = (pxValue: number) => this._chart._chartObject.xAxis[0].toValue(pxValue, true);
     }
   }
 }
