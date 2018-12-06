@@ -13,13 +13,13 @@ $selection-area-overlay-spacing: 4px;
 }
 
 :host,
-.dt-selection-area-box {
+.dt-selection-area-selected-area {
   &.dt-no-pointer {
     pointer-events: none;
   }
 }
 
-.dt-selection-area-box {
+.dt-selection-area-selected-area {
   background-color: rgba($color: $turquoise-600, $alpha: 0.1);
   display: flex;
   justify-content: space-between;
@@ -44,7 +44,7 @@ $selection-area-overlay-spacing: 4px;
   cursor: col-resize;
 }
 
-.dt-selection-area-box:focus,
+.dt-selection-area-selected-area:focus,
 .dt-selection-area-handle:focus {
   @include dt-focus-style();
 }
