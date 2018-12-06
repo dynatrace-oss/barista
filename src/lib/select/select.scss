@@ -53,7 +53,10 @@ $dt-select-panel-min-width: 112px !default;
   // Setting boundaries for it so it does not grow outside its container
   // max-width: 94% is for brosers not accepting calc
   max-width: 94%;
-  max-width: calc(100% - 30px);
+
+  // 29px to give the text a bit more room to breath. Safari breaks line with
+  // 30 px (30px is the trigger size)
+  max-width: calc(100% - 29px);
 }
 
 .dt-select-value-text {
