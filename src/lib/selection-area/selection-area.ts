@@ -15,7 +15,6 @@ import {
 } from '@angular/core';
 import {
   addCssClass,
-  DT_NO_POINTER_CSS_CLASS,
   isDefined,
   readKeyCode,
   removeCssClass,
@@ -405,9 +404,9 @@ export class DtSelectionArea {
   /** Sets and removes the pointer events on the selected area */
   private _togglePointerEvents(touching: boolean): void {
     if (touching) {
-      addCssClass(this._selectedArea.nativeElement, DT_NO_POINTER_CSS_CLASS);
+      addCssClass(this._selectedArea.nativeElement, 'dt-no-pointer');
     } else {
-      removeCssClass(this._selectedArea.nativeElement, DT_NO_POINTER_CSS_CLASS);
+      removeCssClass(this._selectedArea.nativeElement, 'dt-no-pointer');
     }
   }
 
@@ -440,7 +439,7 @@ export class DtSelectionArea {
   private _hideAndResetSelectedArea(): void {
     if (this._isSelectedAreaVisible) {
       this._selectedArea.nativeElement.style.width = '0px';
-      removeCssClass(this._selectedArea.nativeElement, DT_NO_POINTER_CSS_CLASS);
+      removeCssClass(this._selectedArea.nativeElement, 'dt-no-pointer');
       this._width = 0;
       this._left = 0;
       this._isSelectedAreaVisible = false;
