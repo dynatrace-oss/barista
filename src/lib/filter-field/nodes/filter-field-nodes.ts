@@ -1,35 +1,35 @@
-export class DtFilterFieldNode {
-  constructor(public parent: DtFilterFieldNodeGroup | null = null, public viewValue?: string) {}
-  toString(): string { return this.viewValue || ''; }
-}
-
-export class DtFilterFieldNodeGroup extends DtFilterFieldNode {
-  constructor(
-    public nodes: DtFilterFieldNode[],
-    viewValue?: string,
-    parent?: DtFilterFieldNodeGroup | null) {
-    super(parent, viewValue);
-  }
-}
-
-export class DtFilterFieldNodeValue<T> {
+export class DtFilterFieldValueProperty<T> {
   constructor(public value: T, public viewValue: string) {}
   toString(): string { return this.viewValue; }
 }
 
-export class DtFilterFieldNodeText {
+export class DtFilterFieldTextProperty {
   constructor(public value: string) {}
   toString(): string { return `"${this.value}"`; }
 }
 
 // tslint:disable-next-line:no-any
-export type DtFilterFieldNodeProperty = DtFilterFieldNodeValue<any> | DtFilterFieldNodeText;
+export type DtFilterFieldNodeProperty = DtFilterFieldValueProperty<any> | DtFilterFieldTextProperty;
+
+export class DtFilterFieldNode {
+  constructor(public parent: DtFilterFieldGroupNode | null = null, public viewValue?: string) {}
+  toString(): string { return this.viewValue || ''; }
+}
+
+export class DtFilterFieldGroupNode extends DtFilterFieldNode {
+  constructor(
+    public nodes: DtFilterFieldNode[],
+    viewValue?: string,
+    parent?: DtFilterFieldGroupNode | null) {
+    super(parent, viewValue);
+  }
+}
 
 export class DtFilterFieldFilterNode extends DtFilterFieldNode {
   constructor(
     public properties: DtFilterFieldNodeProperty[] = [],
     viewValue?: string,
-    parent?: DtFilterFieldNodeGroup | null) {
+    parent?: DtFilterFieldGroupNode | null) {
     super(parent, viewValue);
   }
 
@@ -45,9 +45,9 @@ export class DtFilterFieldFilterNode extends DtFilterFieldNode {
   }
 }
 
-export function getParents(node: DtFilterFieldNode): DtFilterFieldNodeGroup[] {
+export function getParents(node: DtFilterFieldNode): DtFilterFieldGroupNode[] {
   let currentNode = node;
-  const path: DtFilterFieldNodeGroup[] = [];
+  const path: DtFilterFieldGroupNode[] = [];
   while (currentNode.parent) {
     path.unshift(currentNode.parent);
     currentNode = currentNode.parent;
