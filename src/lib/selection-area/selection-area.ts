@@ -20,7 +20,7 @@ import {
   removeCssClass,
 } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
-import { getOffsetForKeyCode, DtSelectionAreaEventTarget, calculatePosition, calculateDeltaX } from './positioning-utils';
+import { getOffsetForKeyCode, DtSelectionAreaEventTarget, calculatePosition } from './positioning-utils';
 
 /** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaChange {
@@ -315,7 +315,7 @@ export class DtSelectionArea {
       (event.clientX > this._boundaries.right && this._left + this._width > this._boundaries.width)) {
       return;
     }
-    const deltaX = calculateDeltaX(lastMoustPosition, relativeX);
+    const deltaX = relativeX - lastMoustPosition;
     if (deltaX) {
       this._calculateNewPosition(deltaX);
     }

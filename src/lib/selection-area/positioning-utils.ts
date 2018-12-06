@@ -34,6 +34,10 @@ export function getOffsetForKeyCode(keyCode: number, boundaryWidth: number): num
   }
 }
 
+/**
+ * Calculates the new position based on the old position, the delta since the last update and
+ * the target that is calling the function
+ */
 export function calculatePosition(
   target: DtSelectionAreaEventTarget,
   deltaX: number,
@@ -66,20 +70,19 @@ export function calculatePosition(
       return { left, width, nextTarget };
     case DtSelectionAreaEventTarget.RightHandle:
       if (selectedAreaWidth + deltaX < 0) {
+        // right handle is moved over the left handle
         left = clamp(selectedAreaLeft + selectedAreaWidth + deltaX, 0, boundaryWidth);
         width = selectedAreaLeft - left;
         nextTarget = DtSelectionAreaEventTarget.LeftHandle;
       } else {
+        // right handle is moved right of the left handle
         left = selectedAreaLeft;
         width = clamp(selectedAreaWidth + deltaX, 0, boundaryWidth - selectedAreaLeft);
       }
       return { left, width, nextTarget };
     case DtSelectionAreaEventTarget.Origin:
+      // initial event on the origin
       nextTarget = deltaX >= 0 ? DtSelectionAreaEventTarget.RightHandle : DtSelectionAreaEventTarget.LeftHandle;
       return calculatePosition(nextTarget, deltaX, selectedAreaLeft, selectedAreaWidth, boundaryWidth);
   }
-}
-
-export function calculateDeltaX(oldX: number, newX: number): number {
-  return newX - oldX;
 }
