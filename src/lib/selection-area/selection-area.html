@@ -1,33 +1,29 @@
 <div
-  class="dt-selection-area-box"
+  class="dt-selection-area-selected-area"
   tabindex="0" 
-  [style.visibility]="_isBoxVisible ? 'visible' : 'hidden'"
-  #box
-  #originBox="cdkOverlayOrigin"
+  [style.visibility]="_isSelectedAreaVisible ? 'visible' : 'hidden'"
+  #selectedArea
+  #originSelectedArea="cdkOverlayOrigin"
   cdk-overlay-origin
-  (mousedown)="_handleBoxMouseDown($event)"
-  (keydown)="_handleBoxKeyDown($event)"
+  (mousedown)="_handleSelectedAreaMouseDown($event)"
+  (keydown)="_handleKeyDown($event, 'SelectedArea')"
   cdkTrapFocus
   aria-role="slider"
-  [attr.aria-label]="ariaLabelBox"
+  [attr.aria-label]="ariaLabelSelectedArea"
   >
   <button
     #lefthandle
-    class="dt-selection-area-handle dt-selection-area-handle-left"
+    class="dt-selection-area-handle dt-selection-area-left-handle"
     (mousedown)="_handleLeftHandleMouseDown($event)"
-    (keydown)="_handleLeftHandleKeyDown($event)"
+    (keydown)="_handleKeyDown($event, 'LeftHandle')"
     aria-role="slider"
-    aria-role="slider"
-    [attr.aria-valuemax]="_ariaValueMaxLeftHandle"
-    [attr.aria-valuemin]="_ariaValueMinLeftHandle"
-    [attr.aria-valuenow]="_ariaValueNowLeftHandle"
     [attr.aria-label]="ariaLabelLeftHandle">
   </button>
   <button
     #righthandle
-    class="dt-selection-area-handle dt-selection-area-handle-right"
+    class="dt-selection-area-handle dt-selection-area-right-handle"
     (mousedown)="_handleRightHandleMouseDown($event)"
-    (keydown)="_handleRightHandleKeyDown($event)"
+    (keydown)="_handleKeyDown($event, 'RightHandle')"
     aria-role="slider"
     [attr.aria-valuemax]="_ariaValueMaxRightHandle"
     [attr.aria-valuemin]="_ariaValueMinRightHandle"
@@ -37,8 +33,8 @@
 </div>
 <ng-template
   cdkConnectedOverlay
-  [cdkConnectedOverlayOrigin]="originBox"
-  [cdkConnectedOverlayOpen]="_isBoxVisible"
+  [cdkConnectedOverlayOrigin]="originSelectedArea"
+  [cdkConnectedOverlayOpen]="_isSelectedAreaVisible"
   [cdkConnectedOverlayPositions]="_positions"
   (attach)="_onOverlayAttached()"
   (detach)="_onOverlayDetach()">
@@ -48,7 +44,7 @@
         <ng-content></ng-content>
       </section>
       <aside class="dt-selection-area-close">
-        <button dt-icon-button variant="nested" (click)="_handleClose($event)" [attr.aria-label]="ariaLabelClose"><dt-icon name="abort"></dt-icon></button>
+        <button dt-icon-button variant="nested" (click)="close()" [attr.aria-label]="ariaLabelClose"><dt-icon name="abort"></dt-icon></button>
       </aside>
     </div>
     <section class="dt-selection-area-actions">
