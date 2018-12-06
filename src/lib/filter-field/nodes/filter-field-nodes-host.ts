@@ -1,4 +1,4 @@
-import { DtFilterFieldNode, DtFilterFieldNodeGroup } from './filter-field-nodes';
+import { DtFilterFieldNode, DtFilterFieldGroupNode } from './filter-field-nodes';
 import {
   getDtFilterFieldChildNodeRemoveError,
   getDtFilterFieldNodeAddParentAlreadySetError,
@@ -14,7 +14,7 @@ export class DtFilterFieldNodesHost {
     this._rootNodes = new Set<DtFilterFieldNode>(nodes);
   }
 
-  addNode(node: DtFilterFieldNode, parent?: DtFilterFieldNodeGroup): void {
+  addNode(node: DtFilterFieldNode, parent?: DtFilterFieldGroupNode): void {
     if (!node.parent) {
       if (parent) {
         if (this._rootNodes.has(node)) {
