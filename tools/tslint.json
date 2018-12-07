@@ -8,6 +8,7 @@
     "no-var-requires": false,
     "no-object-literal-type-assertion": false,
     "no-unnecessary-callback-wrapper": false,
+    "no-magic-numbers": false,
     "only-arrow-functions": false,
     "no-parameter-reassignment": false,
     "no-import-side-effect": false
