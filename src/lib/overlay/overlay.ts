@@ -1,9 +1,9 @@
 import { Injectable, TemplateRef, ElementRef, Inject, NgZone, Injector } from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
-import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, CloseScrollStrategy, ScrollDispatcher } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, CloseScrollStrategy, ScrollDispatcher, NoopScrollStrategy, RepositionScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
-import { DtOverlayRef, DT_OVERLAY_NO_POINTER_CLASS } from './overlay-ref';
+import { DtOverlayRef } from './overlay-ref';
 import { DOCUMENT } from '@angular/common';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { Platform } from '@angular/cdk/platform';
@@ -120,9 +120,9 @@ export class DtOverlay {
 
     const overlayConfig = new OverlayConfig({
       positionStrategy,
-      backdropClass: DT_OVERLAY_NO_POINTER_CLASS,
+      backdropClass: 'dt-no-pointer',
       hasBackdrop: true,
-      scrollStrategy: new CloseScrollStrategy(this._scrollDispatcher, this._ngZone, this._viewportRuler),
+      scrollStrategy: this._overlay.scrollStrategies.close(),
     });
     return this._overlay.create(overlayConfig);
   }

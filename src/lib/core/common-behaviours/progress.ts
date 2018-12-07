@@ -1,5 +1,6 @@
-import {coerceNumberProperty} from '@angular/cdk/coercion';
-import {Constructor} from './constructor';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { Constructor } from './constructor';
+import { clamp } from '../util/number-util';
 
 export interface DtProgressChange {
   newValue: number;
@@ -88,9 +89,4 @@ export function mixinHasProgress<T extends Constructor<{}>>(base: T): Constructo
 
     _emitValueChangeEvent(oldValue: number, newValue: number): void { }
   };
-}
-
-/** Clamps a value to be between two numbers, by default 0 and 100. */
-function clamp(v: number, min: number = 0, max: number = 100): number {
-  return Math.max(min, Math.min(max, v));
 }
