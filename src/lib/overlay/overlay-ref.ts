@@ -69,7 +69,9 @@ export class DtOverlayRef<T> {
    */
   updatePosition(offsetX: number, offsetY: number): void {
     const config = this._overlayRef.getConfig();
-    (config.positionStrategy! as DtMouseFollowPositionStrategy).withOffset(offsetX, offsetY);
+    if (config.positionStrategy && config.positionStrategy instanceof DtMouseFollowPositionStrategy) {
+      config.positionStrategy.withOffset(offsetX, offsetY);
+    }
 
     this._overlayRef.updatePosition();
   }

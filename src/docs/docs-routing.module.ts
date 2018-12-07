@@ -32,6 +32,7 @@ import { DocsBreadcrumbsComponent } from './components/breadcrumbs/docs-breadcru
 import { DocsProgressBarComponent } from './components/progress-bar/docs-progress-bar.component';
 import { DocsOverlayComponent } from './components/overlay/docs-overlay.component';
 import { DocsAutocompleteComponent } from './components/autocomplete/docs-autocomplete.component';
+import { DocsSelectionAreaComponent } from './components/selection-area/docs-selection-area.component';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -60,6 +61,7 @@ const routes: Routes = [
   { path: 'key-value-list', component: DocsKeyValueListComponent },
   { path: 'pagination', component: DocsPaginationComponent },
   { path: 'radio', component: DocsRadioComponent },
+  { path: 'selection-area', component: DocsSelectionAreaComponent },
   { path: 'show-more', component: DocsShowMoreComponent },
   { path: 'checkbox', component: DocsCheckboxComponent },
   { path: 'progress-circle', component: DocsProgressCircleComponent },

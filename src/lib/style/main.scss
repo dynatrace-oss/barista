@@ -8,13 +8,15 @@
 @import '../input/input';
 @import 'link';
 
+@import '../core/style/overlay';
+
 @import '~@angular/cdk/overlay';
 @import '~@angular/cdk/a11y';
 
 @include cdk-a11y();
 @include cdk-overlay();
 
-.dt-overlay-no-pointer {
+.dt-no-pointer {
   pointer-events: none;
 }
 

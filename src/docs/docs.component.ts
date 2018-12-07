@@ -39,6 +39,7 @@ export class Docs {
     { name: 'Progress bar', route: '/progress-bar' },
     { name: 'Radio', route: '/radio' },
     { name: 'Select', route: '/select' },
+    { name: 'Selection area', route: '/selection-area' },
     { name: 'Show more', route: '/show-more' },
     { name: 'Styles', route: '/style' },
     { name: 'Switch', route: '/switch' },
