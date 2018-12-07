@@ -233,6 +233,14 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     this._changeDetectorRef.markForCheck();
   }
 
+  /** @internal toggles the tooltip and updates the chart with the new settings */
+  _toggleTooltip(enabled: boolean): void {
+    if (this._highchartsOptions.tooltip!.enabled !== enabled) {
+      this._highchartsOptions.tooltip!.enabled = enabled;
+      this._updateChart(false);
+    }
+  }
+
   /** Invoked when an heatfield is activated. */
   private _onHeatfieldActivate(heatfield: DtChartHeatfield): void {
     const wasActive = this._heatfieldSelectionModel.isSelected(heatfield);

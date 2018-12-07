@@ -1,0 +1,51 @@
+<div
+  class="dt-selection-area-selected-area"
+  tabindex="0" 
+  [style.visibility]="_isSelectedAreaVisible ? 'visible' : 'hidden'"
+  #selectedArea
+  #originSelectedArea="cdkOverlayOrigin"
+  cdk-overlay-origin
+  (mousedown)="_handleMouseDown($event, 'SelectedArea')"
+  (keydown)="_handleKeyDown($event, 'SelectedArea')"
+  cdkTrapFocus
+  aria-role="slider"
+  [attr.aria-label]="ariaLabelSelectedArea"
+  >
+  <button
+    #lefthandle
+    class="dt-selection-area-handle dt-selection-area-left-handle"
+    (mousedown)="_handleMouseDown($event, 'LeftHandle')"
+    (keydown)="_handleKeyDown($event, 'LeftHandle')"
+    aria-role="slider"
+    [attr.aria-label]="ariaLabelLeftHandle">
+  </button>
+  <button
+    #righthandle
+    class="dt-selection-area-handle dt-selection-area-right-handle"
+    (mousedown)="_handleMouseDown($event, 'RightHandle')"
+    (keydown)="_handleKeyDown($event, 'RightHandle')"
+    aria-role="slider"
+    [attr.aria-label]="ariaLabelRightHandle">
+  </button>
+</div>
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="originSelectedArea"
+  [cdkConnectedOverlayOpen]="_isSelectedAreaVisible"
+  [cdkConnectedOverlayPositions]="_positions"
+  (attach)="_onOverlayAttached()"
+  (detach)="_onOverlayDetach()">
+  <div class="dt-selection-area-overlay-pane">
+    <div class="dt-selection-area-overlay-wrapper">
+      <section class="dt-selection-area-content">
+        <ng-content></ng-content>
+      </section>
+      <aside class="dt-selection-area-close">
+        <button dt-icon-button variant="nested" (click)="close()" [attr.aria-label]="ariaLabelClose"><dt-icon name="abort"></dt-icon></button>
+      </aside>
+    </div>
+    <section class="dt-selection-area-actions">
+      <ng-content select="dt-selection-area-actions, [dt-selection-area-actions], [dtSelectionAreaActions]"></ng-content>
+    </section>
+  </div>
+</ng-template>

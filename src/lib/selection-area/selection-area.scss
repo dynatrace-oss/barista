@@ -1,0 +1,86 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+@import '../core/style/overlay';
+
+/* chart interactions */
+$selection-area-border-width: 2px;
+$selection-area-border-color: $turquoise-600;
+$selection-area-overlay-spacing: 4px;
+
+:host {
+  position: absolute;
+  pointer-events: auto;
+}
+
+:host,
+.dt-selection-area-selected-area {
+  &.dt-no-pointer {
+    pointer-events: none;
+  }
+}
+
+.dt-selection-area-selected-area {
+  background-color: rgba($color: $turquoise-600, $alpha: 0.1);
+  display: flex;
+  justify-content: space-between;
+  cursor: move; // fallback for IE
+  cursor: grab;
+  height: 100%;
+  position: absolute;
+  pointer-events: auto;
+  visibility: hidden;
+
+  &.dt-grabbing {
+    cursor: grabbing;
+  }
+}
+
+.dt-selection-area-handle {
+  width: $selection-area-border-width;
+  padding: 0;
+  border: none;
+  height: 100%;
+  background-color: $selection-area-border-color;
+  cursor: col-resize;
+}
+
+.dt-selection-area-selected-area:focus,
+.dt-selection-area-handle:focus {
+  @include dt-focus-style();
+}
+
+.dt-selection-area-overlay-wrapper {
+  display: flex;
+}
+
+.dt-selection-area-content {
+  flex: 1 1 auto;
+}
+
+.dt-selection-area-close {
+  padding-left: $selection-area-overlay-spacing;
+}
+
+.dt-selection-area-actions {
+  text-align: right;
+  padding-top: $selection-area-overlay-spacing;
+  flex: 1 100%;
+}
+
+.dt-selection-area-overlay-pane {
+  @include dt-overlay-container();
+}
+
+// origin
+::ng-deep .dt-selection-area-origin:focus {
+  @include dt-focus-style();
+}
+
+::ng-deep svg .dt-selection-area-origin:focus {
+  /** this override is needed since on svg elements like rect we cannot use a box-shadow */
+  outline: 2px solid $focuscolor;
+}
+
+::ng-deep .dt-selection-area-cursor-grabbing {
+  cursor: grabbing;
+}
