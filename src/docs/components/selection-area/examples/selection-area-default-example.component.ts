@@ -20,6 +20,6 @@ import { DtSelectionAreaChange } from '@dynatrace/angular-components';
 export class SelectionAreaDefaultExample {
   overlayContent = '';
   handleChange(ev: DtSelectionAreaChange): void {
-    this.overlayContent = `Left: ${ev.left}, Right: ${ev.right}, Width: ${ev.widthPx}`;
+    this.overlayContent = `Left: ${ev.left}, Right: ${ev.right}`;
   }
 }
