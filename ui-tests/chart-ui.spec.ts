@@ -19,4 +19,36 @@ describe('chart', () => {
       expect(await element(by.id('change-detection-counter')).getText()).toBe('1');
     });
   });
+
+  describe('selection-area', () => {
+    beforeEach(async () => browser.get('/chart/selection-area'));
+
+    it('should make the plotbackground focusable', async () => {
+      expect(await element(by.css('.highcharts-plot-background')).getAttribute('tabindex')).toBe('0');
+    });
+
+    it('should be able to create a selection area on a chart', async () => {
+      await createSelectionArea();
+      const boxSize = await element(by.css('.dt-selection-area-selected-area')).getSize();
+      const boxLeft = await element(by.css('.dt-selection-area-selected-area')).getCssValue('left');
+      expect(boxSize.width).toBe(100);
+      expect(boxLeft).toBeDefined();
+    });
+
+    it('should interpolate to the x Axis value and show it in the overlay', async () => {
+      await createSelectionArea();
+      const overlayText = await element(by.css('.dt-selection-area-content')).getText();
+      expect(overlayText).toContain('Jun 4, 2013 -');
+    });
+  });
 });
+
+async function createSelectionArea(): Promise<void> {
+  const chartLocation = await element(by.css('.highcharts-plot-background')).getLocation();
+  await browser.actions()
+    .mouseMove(element(by.css('.dt-chart')), { x: chartLocation.x + 100, y: 100 })
+    .mouseDown()
+    .mouseMove(element(by.css('.dt-chart')), { x: chartLocation.x + 200, y: 100 })
+    .mouseUp()
+    .perform();
+}

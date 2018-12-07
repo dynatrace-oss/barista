@@ -18,6 +18,7 @@ import { ChartHighchartsUI } from '../chart/chart-highcharts-ui';
 import { ProgressBarUI } from '../progress-bar/progress-bar-ui';
 import { TabsUI } from '../tabs/tabs-ui';
 import { OverlayUI } from '../overlay/overlay-ui';
+import { ChartSelectionAreaUI } from '../chart/chart-selection-area-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -26,6 +27,7 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'chart', children: [
      { path: '', component: ChartUI },
      { path: 'highcharts', component: ChartHighchartsUI },
+     { path: 'selection-area', component: ChartSelectionAreaUI },
     ],
   },
   { path: 'checkbox', component: CheckboxUI },
