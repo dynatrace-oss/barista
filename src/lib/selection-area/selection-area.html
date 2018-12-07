@@ -5,7 +5,7 @@
   #selectedArea
   #originSelectedArea="cdkOverlayOrigin"
   cdk-overlay-origin
-  (mousedown)="_handleSelectedAreaMouseDown($event)"
+  (mousedown)="_handleMouseDown($event, 'SelectedArea')"
   (keydown)="_handleKeyDown($event, 'SelectedArea')"
   cdkTrapFocus
   aria-role="slider"
@@ -14,7 +14,7 @@
   <button
     #lefthandle
     class="dt-selection-area-handle dt-selection-area-left-handle"
-    (mousedown)="_handleLeftHandleMouseDown($event)"
+    (mousedown)="_handleMouseDown($event, 'LeftHandle')"
     (keydown)="_handleKeyDown($event, 'LeftHandle')"
     aria-role="slider"
     [attr.aria-label]="ariaLabelLeftHandle">
@@ -22,7 +22,7 @@
   <button
     #righthandle
     class="dt-selection-area-handle dt-selection-area-right-handle"
-    (mousedown)="_handleRightHandleMouseDown($event)"
+    (mousedown)="_handleMouseDown($event, 'RightHandle')"
     (keydown)="_handleKeyDown($event, 'RightHandle')"
     aria-role="slider"
     [attr.aria-valuemax]="_ariaValueMaxRightHandle"

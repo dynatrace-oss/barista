@@ -29,8 +29,6 @@ export interface DtSelectionAreaChange {
   left: number;
   /** The position for the right edge - either in px or the xAxis unit of the chart when used with the dt-chart */
   right: number;
-  /** The width of the selection area in px */
-  widthPx: number;
 }
 
 /** Vertical distance between the overlay and the selection area */
@@ -126,19 +124,6 @@ export class DtSelectionArea {
 
   /** @internal Default interpolation function that just returns the px value */
   _interpolateFn: (pxValue: number) => number = (pxValue) => pxValue;
-
-  get _ariaValueMaxRightHandle(): string {
-    return '';
-    // return this._boundaries ? this._interpolateFn(this._boundaries.width).toString() : '';
-  }
-  get _ariaValueMinRightHandle(): string {
-    return '';
-    // return this._interpolateFn(this._left).toString();
-  }
-  get _ariaValueNowRightHandle(): string {
-    return '';
-    // return this._interpolateFn(this._right).toString();
-  }
 
   /** @internal The focus trap for the selectedArea */
   @ViewChild(CdkTrapFocus) _selectedAreaFocusTrap: CdkTrapFocus;
@@ -244,6 +229,20 @@ export class DtSelectionArea {
     this._changeDetectorRef.markForCheck();
   }
 
+  /** @internal Apply boundaries to the host element ref to match the origin */
+  _applyBoundaries(boundaries: ClientRect): void {
+    // TODO: FFR improvement - recalculate here on newly given boundaries so we dont have to destroy the selection area every time
+    this._reset();
+
+    // tslint:disable-next-line:strict-type-predicates
+    const scrollY = isDefined(window) ? window.scrollY : 0;
+    this._ref.nativeElement.style.left = `${boundaries.left}px`;
+    this._ref.nativeElement.style.top = `${boundaries.top + scrollY}px`;
+    this._ref.nativeElement.style.width = `${boundaries.width}px`;
+    this._ref.nativeElement.style.height = `${boundaries.height}px`;
+    this._boundaries = boundaries;
+  }
+
   /** Update function that applies calculated width and position to the selected area dom element */
   private _update(): void {
     requestAnimationFrame(() => {
@@ -278,24 +277,8 @@ export class DtSelectionArea {
   }
 
   /** @internal Handle mousedown on the left handle */
-  _handleLeftHandleMouseDown(event: MouseEvent): void {
-    this._eventTarget = DtSelectionAreaEventTarget.LeftHandle;
-    event.preventDefault();
-    event.stopPropagation();
-    this._startUpdating(event.clientX);
-  }
-
-  /** @internal Handle mousedown on the right handle */
-  _handleRightHandleMouseDown(event: MouseEvent): void {
-    this._eventTarget = DtSelectionAreaEventTarget.RightHandle;
-    event.preventDefault();
-    event.stopPropagation();
-    this._startUpdating(event.clientX);
-  }
-
-  /** @internal Handle mousedown on the area */
-  _handleSelectedAreaMouseDown(event: MouseEvent): void {
-    this._eventTarget = DtSelectionAreaEventTarget.SelectedArea;
+  _handleMouseDown(event: MouseEvent, target: string): void {
+    this._eventTarget = DtSelectionAreaEventTarget[target];
     event.preventDefault();
     event.stopPropagation();
     this._startUpdating(event.clientX);
@@ -372,17 +355,24 @@ export class DtSelectionArea {
     }
   }
 
+  /** Applies the aria values to the left and right handle */
   private _applyAriaValues(): void {
     const right = this._left + this._width;
-    this._leftHandle.nativeElement.setAttribute('aria-valuemin', this._interpolateFn(0));
-    this._leftHandle.nativeElement.setAttribute('aria-valuenow', this._interpolateFn(this._left));
-    this._leftHandle.nativeElement.setAttribute('aria-valuemax', this._interpolateFn(right));
+    const leftHandle = this._leftHandle.nativeElement;
+    leftHandle.setAttribute('aria-valuemin', this._interpolateFn(0));
+    leftHandle.setAttribute('aria-valuenow', this._interpolateFn(this._left));
+    leftHandle.setAttribute('aria-valuemax', this._interpolateFn(right));
 
-    this._rightHandle.nativeElement.setAttribute('aria-valuemin', this._interpolateFn(this._left));
-    this._rightHandle.nativeElement.setAttribute('aria-valuenow', this._interpolateFn(right));
-    this._rightHandle.nativeElement.setAttribute('aria-valuemax', this._interpolateFn(this._boundaries.width));
+    const rightHandle = this._rightHandle.nativeElement;
+    rightHandle.setAttribute('aria-valuemin', this._interpolateFn(this._left));
+    rightHandle.setAttribute('aria-valuenow', this._interpolateFn(right));
+    rightHandle.setAttribute('aria-valuemax', this._interpolateFn(this._boundaries.width));
   }
 
+  /**
+   * Calculates the new position based on the delta, assigns the left and width values and the next event target
+   * and calls the emit change event
+   */
   private _calculateNewPosition(deltaX: number): void {
     const { left, width, nextTarget } =
       calculatePosition(this._eventTarget, deltaX, this._left, this._width, this._boundaries.width);
@@ -392,11 +382,11 @@ export class DtSelectionArea {
     this._emitChange();
   }
 
+  /** Emits the change event  */
   private _emitChange(): void {
     this.changed.emit({
       left: this._interpolateFn(this._left),
       right: this._interpolateFn(this._left + this._width),
-      widthPx: this._width,
       source: this,
     });
   }
@@ -410,25 +400,11 @@ export class DtSelectionArea {
     }
   }
 
-  /** @internal Apply boundaries to the host element ref to match the origin */
-  _applyBoundaries(boundaries: ClientRect): void {
-    // TODO: FFR improvement - recalculate here on newly given boundaries so we dont have to destroy the selection area every time
-    this._reset();
-
-    // tslint:disable-next-line:strict-type-predicates
-    const scrollY = isDefined(window) ? window.scrollY : 0;
-    this._ref.nativeElement.style.left = `${boundaries.left}px`;
-    this._ref.nativeElement.style.top = `${boundaries.top + scrollY}px`;
-    this._ref.nativeElement.style.width = `${boundaries.width}px`;
-    this._ref.nativeElement.style.height = `${boundaries.height}px`;
-    this._boundaries = boundaries;
-  }
-
   /** Calculates the horizontal position relative to the boundaries */
   private _calculateRelativeXPos(posX: number): number {
     return posX - this._boundaries.left;
   }
-  /** Resets the selected area and all properties */
+  /** Resets the selected area and the overlay */
   private _reset(): void {
     if (this._overlayRef) {
       this._overlayRef.dispose();
@@ -436,6 +412,7 @@ export class DtSelectionArea {
     this._hideAndResetSelectedArea();
   }
 
+  /** Hides and resets the selected area */
   private _hideAndResetSelectedArea(): void {
     if (this._isSelectedAreaVisible) {
       this._selectedArea.nativeElement.style.width = '0px';
