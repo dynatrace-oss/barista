@@ -1,10 +1,11 @@
 import { join } from 'path';
-import { cyan, italic, red, green, bold } from 'chalk';
+import { cyan, italic, red, green, bold, yellow } from 'chalk';
 import { readFileSync, existsSync, writeFileSync } from 'fs';
 import { promptForNewVersion } from './new-version-prompt';
 import { Version, parseVersionName } from './parse-version';
 import { GitClient } from './git-client';
 import { promptAndGenerateChangelog } from './changelog';
+import { prompt } from 'inquirer';
 
 /** Default filename for the changelog. */
 const CHANGELOG_FILE_NAME = 'CHANGELOG.md';
@@ -59,6 +60,33 @@ class StageReleaseTask {
     console.log();
 
     await promptAndGenerateChangelog(join(this.projectDir, CHANGELOG_FILE_NAME), `Version ${newVersionName}`);
+
+    console.log();
+    console.log(green(`  ✓   Updated the changelog in "${bold(CHANGELOG_FILE_NAME)}"`));
+    console.log(yellow(
+      `  ⚠   Please review CHANGELOG.md and ensure that the log contains only ` +
+      `changes that apply to the public library release. When done, proceed to the prompt below.`));
+    console.log();
+
+    const { shouldContinue } = await prompt<{ shouldContinue: boolean }>({
+      type: 'confirm',
+      name: 'shouldContinue',
+      message: 'Do you want to proceed and commit the changes?',
+    });
+
+    if (!shouldContinue) {
+      console.log();
+      console.log(yellow('Aborting release staging...'));
+      process.exit(1);
+    }
+
+    this.git.stageAllChanges();
+    this.git.createNewCommit(`chore: bump version to ${newVersionName} w/ changelog`);
+
+    console.info();
+    console.info(green(`  ✓   Created the staging commit for: "${newVersionName}".`));
+    console.info(green(`  ✓   Please push the changes and submit a PR on GitHub.`));
+    console.info();
   }
 
   /** Updates the version of the project package.json and writes the changes to disk. */
