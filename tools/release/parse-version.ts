@@ -27,15 +27,10 @@ export class Version {
  */
 export function parseVersionName(version: string): Version | null {
   const matches = version.match(versionNameRegex);
-
-  if (!matches) {
-    return null;
-  }
-
-  return new Version(
+  return matches ? new Version(
     Number(matches[1]),
     Number(matches[2]),
-    Number(matches[3]));
+    Number(matches[3])) : null;
 }
 
 /** Serializes the specified version into a string. */

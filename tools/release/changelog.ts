@@ -15,11 +15,7 @@ export async function promptAndGenerateChangelog(changelogPath: string, releaseN
   await prependChangelogFromLatestTag(changelogPath, releaseName);
 }
 
-/**
- * Writes the changelog from the latest Semver tag to the current HEAD.
- * @param changelogPath Path to the changelog file.
- * @param releaseName Name of the release that should show up in the changelog.
- */
+/** Writes the changelog from the latest Semver tag to the current HEAD. */
 export async function prependChangelogFromLatestTag(changelogPath: string, releaseName: string): Promise<any> {
   const outputStream: Readable = conventionalChangelog(
     { config: preset }, // dynatrace preset
