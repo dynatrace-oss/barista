@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { readFile, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import * as Q from 'q';
 import * as compareFunc from 'compare-func';
 
@@ -8,21 +8,20 @@ export default Q.all([
   readFileSync(resolve(__dirname, './templates/header.hbs'), { encoding: 'utf-8' }),
   readFileSync(resolve(__dirname, './templates/commit.hbs'), { encoding: 'utf-8' }),
   readFileSync(resolve(__dirname, './templates/footer.hbs'), { encoding: 'utf-8' }),
-])
-  .spread((template, header, commit, footer) => {
-    const writerOpts = getWriterOpts() as any;
+]).spread((template, header, commit, footer) => {
+  const writerOpts = getWriterOpts() as any;
 
-    writerOpts.mainTemplate = template;
-    writerOpts.headerPartial = header;
-    writerOpts.commitPartial = commit;
-    writerOpts.footerPartial = footer;
+  writerOpts.mainTemplate = template;
+  writerOpts.headerPartial = header;
+  writerOpts.commitPartial = commit;
+  writerOpts.footerPartial = footer;
 
-    return writerOpts;
-  });
+  return writerOpts;
+});
 
 function getWriterOpts() {
   return {
-    transform: (commit, context) => {
+    transform: (commit) => {
       let discard = true;
       const issues = [];
 
@@ -62,21 +61,10 @@ function getWriterOpts() {
       if (typeof commit.hash === 'string') {
         commit.hash = commit.hash.substring(0, 7);
       }
-
-      if (typeof commit.subject === 'string') {
-        let url = context.repository ? `${context.host}/${context.owner}/${context.repository}` : context.repoUrl;
-        if (url) {
-          url = `${url}/issues/`;
-          // Issue URLs.
-          commit.subject = commit.subject.replace(/#([0-9]+)/g, (_, issue) => {
-            issues.push(issue);
-            return `[#${issue}](${url}${issue})`;
-          });
-        }
-        if (context.host) {
-          // User URLs.
-          commit.subject = commit.subject.replace(/\B@([a-z0-9](?:-?[a-z0-9]){0,38})/g, `[@$1](${context.host}/$1)`)
-        }
+      if (typeof commit.issue === 'string') {
+        const issue = commit.issue;
+        const url = '***REMOVED***/';
+        commit.issue = `[${issue}](${url}${issue})`;
       }
 
       // remove references that already appear in the subject
