@@ -50,12 +50,19 @@ class StageReleaseTask {
     console.log();
 
     this.verifyPublishBranch('master');
-    this.verifyLocalCommitsMatchUpstream('master');
+    this.verifyLocalCommitsMatchUpstream(this.git.getCurrentBranch());
     this.verifyNoUncommittedChanges();
 
     const newVersionName = newVersion.format();
+    const stagingBranch = `release-stage/${newVersionName}`;
+
+    if (!this.git.checkoutNewBranch(stagingBranch)) {
+      console.error(red(`Could not create release staging branch: ${stagingBranch}. Aborting...`));
+      process.exit(1);
+    }
 
     this.updatePackageJsonVersion(newVersionName);
+
     console.log(green(`  ✓   Updated the version to "${bold(newVersionName)}" inside of the ${italic('package.json')}`));
     console.log();
 
