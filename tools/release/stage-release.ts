@@ -92,7 +92,15 @@ class StageReleaseTask {
 
     console.info();
     console.info(green(`  ✓   Created the staging commit for: "${newVersionName}".`));
-    console.info(green(`  ✓   Please push the changes and submit a PR on GitHub.`));
+    console.info();
+
+    this.git.pushBranchToRemote(stagingBranch);
+
+    if (!this.git.pushBranchToRemote(stagingBranch)) {
+      console.error(red(`Could not push release staging branch "${stagingBranch}" to remote`));
+      process.exit(1);
+    }
+    console.info(green(`  ✓   Pushed release staging branch "${stagingBranch}" to remote`));
     console.info();
   }
 
