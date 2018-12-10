@@ -8,6 +8,7 @@ export function createNewVersion(currentVersion: Version, releaseType: ReleaseTy
   // Clone the version object in order to keep the original version info un-modified.
   const newVersion = currentVersion.clone();
 
+  // tslint:disable-next-line:prefer-switch
   if (releaseType === 'major') {
     newVersion.major++;
     newVersion.minor = 0;
