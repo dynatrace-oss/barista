@@ -3,7 +3,7 @@
 ## Found an Issue?
 If you find a bug/issue in the source code or a mistake in the documentation, you can help us by [submitting a Jira issue](https://dev-jira.dynatrace.org/secure/CreateIssue!default.jspa). Please provide an issue reproduction. Screenshots are also helpful.
 
-Jira issues should be find under the "Dynatrace (APM)" project and tagged with "Angular Components". It is also possible to assign them directly to @thomas.pink or @fabian.friedl.
+Jira issues should be filed under the "Dynatrace (APM)" project and tagged with "Angular Components". It is also possible to assign them directly to @thomas.pink or @fabian.friedl.
 
 You can help the team even more and [submit a Pull Request](#submitting-a-pull-request) with a fix.
 
