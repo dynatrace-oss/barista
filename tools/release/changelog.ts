@@ -1,8 +1,8 @@
 import { prompt } from 'inquirer';
 import { Readable } from 'stream';
-import { readFileSync, createReadStream, createWriteStream } from 'fs';
+import { readFileSync, createReadStream, createWriteStream, ReadStream } from 'fs';
 import { grey } from 'chalk';
-import changelogConfig from './conventional-changelog-preset';
+import preset from './conventional-changelog-preset';
 
 // These imports lack type definitions.
 // tslint:disable:no-var-requires no-require-imports
@@ -22,7 +22,7 @@ export async function promptAndGenerateChangelog(changelogPath: string, releaseN
  */
 export async function prependChangelogFromLatestTag(changelogPath: string, releaseName: string): Promise<any> {
   const outputStream: Readable = conventionalChangelog(
-    { changelogConfig }, // core options
+    { config: preset }, // dynatrace preset
     { title: releaseName }, // context options
     null, // raw-commits options
     null, // commit parser options
@@ -36,7 +36,7 @@ export async function prependChangelogFromLatestTag(changelogPath: string, relea
     // Sequentially merge the changelog output and the previous changelog stream, so that
     // the new changelog section comes before the existing versions. Afterwards, pipe into the
     // changelog file, so that the changes are reflected on file system.
-    const mergedCompleteChangelog = merge2(outputStream, previousChangelogStream);
+    const mergedCompleteChangelog: ReadStream = merge2(outputStream, previousChangelogStream);
 
     // Wait for the previous changelog to be completely read because otherwise we would
     // read and write from the same source which causes the content to be thrown off.
@@ -45,7 +45,6 @@ export async function prependChangelogFromLatestTag(changelogPath: string, relea
         .once('error', (error: any) => { reject(error); })
         .once('finish', () => { resolve(); });
     });
-
   });
 }
 
@@ -76,6 +75,6 @@ function createDedupeWriterOptions(changelogPath: string) {
         });
       });
       return context;
-    }
+    },
   };
 }

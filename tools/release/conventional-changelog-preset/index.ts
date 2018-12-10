@@ -5,5 +5,7 @@ import conventionalChangelog from './conventional-changelog';
 import recommendedBumpOpts from './conventional-recommended-bump';
 
 export default Q.all([conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts])
-  .spread((conventionalCL, parserOptions, recommendedBumpOptions, writerOptions) =>
-    ({ conventionalCL, parserOptions, recommendedBumpOptions, writerOptions }));
+  // Do not rename the params, conventional-changelog does need these exact names
+  // tslint:disable:no-shadowed-variable
+  .spread((conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts) =>
+    ({ conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts }));
