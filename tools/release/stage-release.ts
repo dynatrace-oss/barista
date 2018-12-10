@@ -48,9 +48,9 @@ class StageReleaseTask {
 
     console.log();
 
-    // this.verifyPublishBranch('master');
-    // this.verifyLocalCommitsMatchUpstream('master');
-    // this.verifyNoUncommittedChanges();
+    this.verifyPublishBranch('master');
+    this.verifyLocalCommitsMatchUpstream('master');
+    this.verifyNoUncommittedChanges();
 
     const newVersionName = newVersion.format();
 
