@@ -1,5 +1,4 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angular-components';
 
 @Component({

@@ -1,7 +1,6 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components';
 import { generateData } from './docs-micro-chart.service';
 

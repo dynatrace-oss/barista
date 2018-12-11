@@ -2,7 +2,6 @@ import { ElementRef, Component, Input, Optional, SkipSelf, NgZone, ViewChild } f
 import { fromEvent, Subscription } from 'rxjs';
 import { map, distinctUntilChanged } from 'rxjs/operators';
 import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
-import { OriginalClassName } from '../../../core/decorators';
 
 // tslint:disable:no-magic-numbers
 

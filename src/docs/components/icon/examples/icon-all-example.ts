@@ -5,7 +5,6 @@ import { Observable, Subscription } from 'rxjs';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import { environment } from '@environments/environment';
 import { Viewport } from './viewport';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,

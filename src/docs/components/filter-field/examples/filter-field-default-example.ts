@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldValueProperty } from '@dynatrace/angular-components';
 import { FILTER_FIELD_EXAMPLE_DATA, ComplexType, isAutocomplete, getViewValue, AutocompleteItemType, isGroup, ItemType, isFreeText } from './data';
 

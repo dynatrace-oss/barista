@@ -2,11 +2,11 @@ import { Tree } from '@angular-devkit/schematics';
 import { getSourceFile, findNodes, getIndentation } from './ast-utils';
 import { InsertChange, commitChanges } from './change';
 import { strings } from '@angular-devkit/core';
-import * as path from 'path';
 import * as ts from 'typescript';
 import { DtComponentOptions } from '../dt-component/schema';
+import { DtDemoOptions } from '../dt-demo/schema';
 
-export function addNavItem(host: Tree, options: DtComponentOptions, modulePath: string): Tree {
+export function addNavItem(host: Tree, options: DtComponentOptions | DtDemoOptions, modulePath: string): Tree {
   const sourceFile = getSourceFile(host, modulePath);
   const changes: InsertChange[] = [];
 

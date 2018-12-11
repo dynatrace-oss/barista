@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { DtCheckboxChange } from '@dynatrace/angular-components';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
