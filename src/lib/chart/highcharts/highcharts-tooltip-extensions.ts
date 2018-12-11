@@ -53,6 +53,7 @@ export const addTooltipEvents = ((): void => {
     highcharts.fireEvent(this.chart, 'tooltipClosed');
   });
 
+  // tslint:disable-next-line:no-any
   highcharts.wrap(highcharts.Tooltip.prototype, 'refresh', function(proceed: any): void {
     const args = Array.prototype.slice.call(arguments, 1);
     proceed.apply(this, args);
