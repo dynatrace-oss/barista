@@ -4,6 +4,7 @@ import {
   DtChartModule,
   DtButtonModule,
   DtThemingModule,
+  DtKeyValueListModule,
 } from '@dynatrace/angular-components';
 import { ChartDefaultExampleComponent } from './examples/chart-default-example.component';
 import { ChartStreamExampleComponent } from './examples/chart-stream-example.component';
@@ -14,6 +15,7 @@ import { ChartPieExampleComponent } from './examples/chart-pie-example.component
 import { ChartAreaRangeExampleComponent } from './examples/chart-arearange-example.component';
 import { ChartHeatfieldExampleComponent } from './examples/chart-heatfield-example.component';
 import { ChartHeatfieldMultipleExampleComponent } from './examples/chart-heatfield-multiple-example.component';
+import { CommonModule } from '@angular/common';
 
 export const EXAMPLES = [
   ChartDefaultExampleComponent,
@@ -29,8 +31,10 @@ export const EXAMPLES = [
 
 @NgModule({
   imports: [
+    CommonModule,
     UiModule,
     DtChartModule,
+    DtKeyValueListModule,
     DtThemingModule,
     DtButtonModule,
   ],
