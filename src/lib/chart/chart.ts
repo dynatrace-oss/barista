@@ -56,6 +56,8 @@ window.configureLegendSymbols = configureLegendSymbols;
 // Highcharts global options, set outside component so its not set everytime a chart is created
 setOptions(DT_CHART_DEFAULT_GLOBAL_OPTIONS);
 
+window.addTooltipEvents = addTooltipEvents;
+
 @Component({
   moduleId: module.id,
   selector: 'dt-chart',
@@ -75,11 +77,13 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<DtChartHeatfield>;
 
   private _series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
+  private _tooltipOpen = false;
   private _currentSeries: IndividualSeriesOptions[] | undefined;
   private _options: DtChartOptions;
   private _dataSub: Subscription | null = null;
   private _highchartsOptions: HighchartsOptions;
   private readonly _destroy = new Subject<void>();
+  private readonly _tooltipRefreshed: Subject<DtChartTooltipEvent | null> = new Subject();
 
   /** @internal Emits when highcharts finishes rendering. */
   readonly _afterRender = new Subject<void>();
@@ -118,6 +122,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   /** The loading text of the loading distractor. */
   @Input('loading-text') loadingText: string;
 
+  /** Eventemitter that fires everytime the chart is updated */
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
   /** Eventemitter that fires everytime the tooltip opens or closes */
   @Output() readonly tooltipOpenChange: EventEmitter<boolean> = new EventEmitter();
