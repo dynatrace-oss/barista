@@ -3,19 +3,19 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "docs": {
-      "root": "",
+    "dev-app": {
+      "root": "src/dev-app",
       "sourceRoot": "src",
       "projectType": "application",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/docs",
-            "index": "src/docs/index.html",
-            "main": "src/docs/main.ts",
-            "tsConfig": "src/docs/tsconfig.json",
-            "polyfills": "src/docs/polyfills.ts",
+            "outputPath": "dist/dev-app",
+            "index": "src/dev-app/index.html",
+            "main": "src/dev-app/main.ts",
+            "tsConfig": "src/dev-app/tsconfig.json",
+            "polyfills": "src/dev-app/polyfills.ts",
             "assets": [
               {
                 "glob": "**",
@@ -23,18 +23,8 @@
                 "output": "/assets"
               },
               {
-                "glob": "*/README.md",
-                "input": "src/lib/",
-                "output": "/assets/doc"
-              },
-              {
-                "glob": "README.md",
-                "input": "src/docs/docs-home",
-                "output": "/assets/doc/index"
-              },
-              {
                 "glob": "**",
-                "input": "src/docs/assets",
+                "input": "src/dev-app/assets",
                 "output": "/assets"
               },
               {
@@ -49,15 +39,12 @@
               }
             ],
             "styles": [
-              "src/docs/main.scss"
-            ],
-            "scripts": [
-              "node_modules/highlight.js/lib/highlight.js"
+              "src/dev-app/main.scss"
             ]
           },
           "configurations": {
             "production": {
-              "tsConfig": "src/docs/tsconfig-build.json",
+              "tsConfig": "src/dev-app/tsconfig-build.json",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -67,7 +54,7 @@
               "statsJson": true
             },
             "production-aot": {
-              "tsConfig": "src/docs/tsconfig-build.json",
+              "tsConfig": "src/dev-app/tsconfig-build.json",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -82,7 +69,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "docs:build",
+            "browserTarget": "dev-app:build",
             "host": "0.0.0.0"
           },
           "configurations": {}
@@ -90,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "docs:build"
+            "browserTarget": "dev-app:build"
           }
         },
         "lint": {

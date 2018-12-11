@@ -2,7 +2,6 @@
 
 import { Component } from '@angular/core';
 import { generateData } from './chart-data-utils';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `

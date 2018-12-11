@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 import { DtRateUnit } from '@dynatrace/angular-components';
 
 @Component({

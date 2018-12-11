@@ -1,7 +1,6 @@
 {
   "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    // Create a component
     "dt-component": {
       "description": "Create a component with a demo",
       "factory": "./dt-component/index",
@@ -13,6 +12,12 @@
       "factory": "./dt-example/index",
       "schema": "./dt-example/schema.json",
       "aliases": [ "dte" ]
+    },
+    "dt-demo": {
+      "description": "Create a new demo in dev-app",
+      "factory": "./dt-demo/index",
+      "schema": "./dt-demo/schema.json",
+      "aliases": [ "dtd" ]
     }
   }
 }

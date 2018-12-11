@@ -1,0 +1,37 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "noUnusedParameters": false,
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "outDir": "../../dist/dev-app",
+    "target": "es5",
+    "stripInternal": false,
+    "typeRoots": [
+      "../../node_modules/@types/!(node)"
+    ],
+    "baseUrl": ".",
+    "rootDirs": [
+      ".",
+      "../../dist/dev-app"
+    ],
+    "paths": {
+      "@dynatrace/angular-components": ["../../src/lib"],
+      "@dynatrace/angular-components/*": ["../../src/lib/*"],
+      "@environments/*": ["./environments/*"]
+    }
+  },
+  "files": [
+    "../../typings.d.ts",
+    "./environments/environment.ts",
+    "./app.module.ts",
+    "./main.ts",
+    "./polyfills.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": false,
+    "fullTemplateTypeCheck": false,
+    "preserveWhitespace": true
+  }
+}

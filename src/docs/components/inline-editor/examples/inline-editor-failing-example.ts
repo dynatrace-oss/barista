@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { OriginalClassName } from '../../../core/decorators';
+
 const TIMEOUT_MS = 2000;
 
 @Component({

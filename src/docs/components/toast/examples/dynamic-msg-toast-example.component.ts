@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 import { DtToast, DtToastRef } from '@dynatrace/angular-components';
 import { timer, Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
