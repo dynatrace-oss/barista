@@ -119,6 +119,10 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @Input('loading-text') loadingText: string;
 
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
+  /** Eventemitter that fires everytime the tooltip opens or closes */
+  @Output() readonly tooltipOpenChange: EventEmitter<boolean> = new EventEmitter();
+  /** Eventemitter that fires everytime the data inside the chart tooltip changes */
+  @Output() readonly tooltipDataChange: EventEmitter<DtChartTooltipEvent | null> = new EventEmitter();
 
   /** returns an array of ids for the series data */
   get seriesIds(): Array<string | undefined> | undefined {
@@ -212,7 +216,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     // adds eventlistener to highcharts custom event for tooltip closed
     addHighchartsEvent(this._chartObject, 'tooltipClosed', () => {
       this._tooltipOpen = false;
-      this.tooltipOpenedChange.next(false);
+      this.tooltipOpenChange.next(false);
       this._tooltipRefreshed.next(null);
     });
     // Adds eventlistener to highcharts custom event for tooltip refreshed closed */
@@ -221,7 +225,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     addHighchartsEvent(this._chartObject, 'tooltipRefreshed', (event: any) => {
       if (!this._tooltipOpen) {
         this._tooltipOpen = true;
-        this.tooltipOpenedChange.next(true);
+        this.tooltipOpenChange.next(true);
       }
       this._tooltipRefreshed.next({ data: (event as DtHcTooltipEventPayload).data , chart: this._chartObject });
     });
