@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "outDir": "../../dist/dev-app",
+    "sourceMap": true,
+    "target": "es5",
+    "stripInternal": false,
+    "typeRoots": [
+      "../../node_modules/@types/!(node)"
+    ],
+    "baseUrl": ".",
+    "rootDirs": [
+      ".",
+      "../../dist/dev-app"
+    ],
+    "paths": {
+      "@dynatrace/angular-components": ["../../dist/lib"],
+      "@dynatrace/angular-components/*": ["../../dist/lib/*"],
+      "@environments/*": ["./environments/*"]
+    }
+  },
+  "files": [
+    "../../typings.d.ts",
+    "./environments/environment.ts",
+    "./app.module.ts",
+    "./main.ts",
+    "./polyfills.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": false,
+    "fullTemplateTypeCheck": false,
+    "preserveWhitespace": true
+  }
+}

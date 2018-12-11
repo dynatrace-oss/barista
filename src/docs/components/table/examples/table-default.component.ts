@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
-import { OriginalClassName } from '../../../core/decorators';
 
 const LOG: DtLogger = DtLoggerFactory.create('TableDefaultComponent');
 

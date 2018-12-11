@@ -1,5 +1,4 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 import { DtOverlay } from '@dynatrace/angular-components/overlay';
 
 @Component({

@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { DtButton, DtContextDialog } from '@dynatrace/angular-components';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
