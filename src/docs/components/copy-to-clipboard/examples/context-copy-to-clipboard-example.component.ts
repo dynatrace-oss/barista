@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `<dt-context-dialog #contextdialog color="cta">

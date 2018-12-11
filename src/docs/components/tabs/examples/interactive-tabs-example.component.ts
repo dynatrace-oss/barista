@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 

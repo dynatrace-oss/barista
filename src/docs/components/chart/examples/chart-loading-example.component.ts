@@ -3,7 +3,6 @@
 import { Component } from '@angular/core';
 import { Colors, DtChartSeries } from '@dynatrace/angular-components';
 import { generateData } from './chart-data-utils';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `<button dt-button (click)="toggleData()">toggle data</button>

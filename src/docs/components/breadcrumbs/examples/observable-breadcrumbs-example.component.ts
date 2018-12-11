@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
