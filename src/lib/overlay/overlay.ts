@@ -73,7 +73,7 @@ export class DtOverlay {
   ) {}
 
   create<T>(
-    origin: ElementRef,
+    origin: ElementRef | HTMLElement,
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     userConfig?: DtOverlayConfig
   ): DtOverlayRef<T> {
@@ -149,7 +149,8 @@ export class DtOverlay {
 
     if (componentOrTemplateRef instanceof TemplateRef) {
       container.attachTemplatePortal(
-        new TemplatePortal<T>(componentOrTemplateRef, null!));
+        // tslint:disable-next-line:no-any
+        new TemplatePortal<any>(componentOrTemplateRef, null!, { $implicit: config.data }));
     } else {
       container.attachComponentPortal(new ComponentPortal<T>(componentOrTemplateRef));
     }
