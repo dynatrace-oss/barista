@@ -75,7 +75,7 @@ describe('DtChartTooltip', () => {
     expect(overlayContainerElement.innerHTML).toEqual('');
   }));
 
-  fit('should dismiss the overlay when the tooltip data event is called but has no data for the point', fakeAsync(() => {
+  it('should dismiss the overlay when the tooltip data event is called but has no data for the point', fakeAsync(() => {
     const newData = DUMMY_TOOLTIP_DATA;
     newData.points = undefined;
     chartComponent.tooltipDataChange.next({ data: newData });
