@@ -47,12 +47,6 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
   credits: {
     enabled: false,
   },
-  tooltip: {
-    useHTML: true,
-    backgroundColor: 'transparent',
-    borderWidth: 0,
-    shadow: false,
-  },
   legend: {
     itemStyle: {
       fontWeight: 'normal',

@@ -1,3 +1,5 @@
+import { ConnectedPosition } from '@angular/cdk/overlay';
+
   // tslint:disable:no-inferrable-types
 
 export class DtOverlayConfig {
