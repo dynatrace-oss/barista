@@ -101,9 +101,9 @@ export class DtOverlay {
     }
   }
 
-  private _createOverlay(origin: ElementRef, config: DtOverlayConfig): OverlayRef {
-    let positions = DEFAULT_DT_OVERLAY_POSITIONS;
-    if (config.originY === 'center') {
+  private _createOverlay(origin: ElementRef | HTMLElement, config: DtOverlayConfig): OverlayRef {
+    let positions = config._positions || DEFAULT_DT_OVERLAY_POSITIONS;
+    if (!config._positions && config.originY === 'center') {
       positions = positions.map((pos) => {
         const newPos = {...pos};
         newPos.originY = 'center';

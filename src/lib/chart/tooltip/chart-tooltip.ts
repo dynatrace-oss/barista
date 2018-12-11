@@ -86,7 +86,7 @@ export class DtChartTooltip<T> implements OnDestroy {
     this._dtOverlayRef = this._dtOverlay.create<T>(
       origin,
       this.overlay,
-      { data, positions: DEFAULT_DT_CHART_TOOLTIP_POSITIONS });
+      { data, _positions: DEFAULT_DT_CHART_TOOLTIP_POSITIONS });
     this._dtOverlayRef.updatePosition(0, posY);
   }
 
