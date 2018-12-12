@@ -1,6 +1,6 @@
 <dt class="dt-key-value-list-item-key">
-	<span>{{key}}</span>
+	<span>{{key}}<ng-content select="[key]" *ngIf="!key"></ng-content></span>
 </dt>
 <dd class="dt-key-value-list-item-value">
-	<span>{{value}}</span>
+	<span>{{value}}<ng-content select="[value]" *ngIf="!value"></ng-content></span>
 </dd>
