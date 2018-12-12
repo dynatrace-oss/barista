@@ -32,6 +32,8 @@ Use the Dynatrace key value list `<dt-key-value-list>` tag in conjunction with t
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
+| `<ng-content key>` | `string` | | Gets the key content that should be displayed |
+| `<ng-content value>` | `string` | | Gets the value content that should be displayed |
 | `[key]` | `string` | | Gets the key label that should be displayed |
 | `[value]` | `string` | | Gets the value label that should be displayed |
 
@@ -48,3 +50,7 @@ Use the Dynatrace key value list `<dt-key-value-list>` tag in conjunction with t
 ### Multiple columns with line breaks
 
 <docs-source-example example="LongtextKeyValueListExampleComponent" fullwidth="true"></docs-source-example>
+
+### HTML values
+
+<docs-source-example example="HtmlKeyValueListExampleComponent"></docs-source-example>
