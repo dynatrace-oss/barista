@@ -9,5 +9,4 @@ import { Component } from '@angular/core';
   This is some generic content
 </dt-card></div>`,
 })
-@OriginalClassName('SubtitleCardExampleComponent')
 export class SubtitleCardExampleComponent { }

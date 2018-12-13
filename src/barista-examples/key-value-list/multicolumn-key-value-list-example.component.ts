@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
   </dt-key-value-list-item>
 </dt-key-value-list>`,
 })
-@OriginalClassName('MulticolumnKeyValueListExampleComponent')
 export class MulticolumnKeyValueListExampleComponent {
   entries: object[] = [
     { key : 'Temp', value : '28C' },

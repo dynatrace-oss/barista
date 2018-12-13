@@ -4,5 +4,4 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: '<dt-tag disabled>Disabled tag</dt-tag>',
 })
-@OriginalClassName('DisabledTagExampleComponent')
 export class DisabledTagExampleComponent { }

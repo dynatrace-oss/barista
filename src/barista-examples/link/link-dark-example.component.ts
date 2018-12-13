@@ -11,6 +11,5 @@ import { Component } from '@angular/core';
   `,
   // @formatter:on
 })
-@OriginalClassName('LinkDarkExampleComponent')
 export class LinkDarkExampleComponent {
 }

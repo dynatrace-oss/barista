@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
     </dt-select>
   `,
 })
-@OriginalClassName('ValueSelectExampleComponent')
 export class ValueSelectExampleComponent {
   selectedValue: string;
 }

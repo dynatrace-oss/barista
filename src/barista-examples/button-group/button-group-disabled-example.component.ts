@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
   <dt-button-group-item>Failure rate</dt-button-group-item>
 </dt-button-group>`,
 })
-@OriginalClassName('ButtonGroupDisabledExampleComponent')
 export class ButtonGroupDisabledExampleComponent { }

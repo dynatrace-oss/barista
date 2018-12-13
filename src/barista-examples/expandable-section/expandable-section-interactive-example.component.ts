@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
   <button dt-button (click)="section1.toggle()">Toggle</button>
   <button dt-button (click)="section1disabled = !section1disabled">Disabled / Enable</button>`,
 })
-@OriginalClassName('InteractiveExpandableSectionExampleComponent')
 export class InteractiveExpandableSectionExampleComponent {
   text = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
   dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.

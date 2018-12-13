@@ -9,5 +9,4 @@ import { Component } from '@angular/core';
     </dt-form-field>
   `,
 })
-@OriginalClassName('DefaultFormFieldExample')
 export class DefaultFormFieldExample { }

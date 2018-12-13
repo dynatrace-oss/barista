@@ -13,7 +13,6 @@ import { Component } from '@angular/core';
   `,
   styles: ['dt-progress-bar {margin: 8px 0}'],
 })
-@OriginalClassName('ChangeProgressBarExampleComponent')
 export class ChangeProgressBarExampleComponent {
   oldValue: number | null = null;
   newValue: number | null = null;

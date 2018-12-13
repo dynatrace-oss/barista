@@ -13,5 +13,4 @@ import { Component } from '@angular/core';
     </dt-context-dialog>
   </div>`,
 })
-@OriginalClassName('DarkContextDialogExampleComponent')
 export class DarkContextDialogExampleComponent { }

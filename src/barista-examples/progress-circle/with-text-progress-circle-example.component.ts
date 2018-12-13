@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   {{value}}/{{max}}
   </dt-progress-circle>`,
 })
-@OriginalClassName('WithTextProgressCircleExampleComponent')
 export class WithTextProgressCircleExampleComponent {
   value = 300;
   max = 1500;

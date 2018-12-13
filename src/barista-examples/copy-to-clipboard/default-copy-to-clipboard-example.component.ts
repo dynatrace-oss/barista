@@ -7,6 +7,5 @@ import {Component} from '@angular/core';
       <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
     </dt-copy-to-clipboard>`,
 })
-@OriginalClassName('DefaultCopyToClipboardExampleComponent')
 export class DefaultCopyToClipboardExampleComponent {
 }

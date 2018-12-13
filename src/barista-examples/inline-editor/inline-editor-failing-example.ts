@@ -11,7 +11,6 @@ const TIMEOUT_MS = 2000;
       [onRemoteSave]="failingSaveFunction"></em>
   `,
 })
-@OriginalClassName('FailingInlineEditorExample')
 export class FailingInlineEditorExample {
   sampleModel = 'text content';
 

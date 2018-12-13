@@ -9,5 +9,4 @@ import { Component } from '@angular/core';
     </dt-form-field>
   `,
 })
-@OriginalClassName('InputLoadingDistractorExampleComponent')
 export class InputLoadingDistractorExampleComponent { }

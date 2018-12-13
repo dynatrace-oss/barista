@@ -11,5 +11,4 @@ Toggle trigger (<span *ngIf="trigger1.opened">Close</span><span *ngIf="!trigger1
 </div>`,
   styles: [`.dt-expandable-panel-trigger span {color: green} .dt-expandable-panel-trigger-open span {color: #ddd}`],
 })
-@OriginalClassName('TriggerExpandablePanelExampleComponent')
 export class TriggerExpandablePanelExampleComponent {}

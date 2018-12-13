@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 @Component({
   template: '<dt-chart [options]="options" [series]="series"></dt-chart>',
 })
-@OriginalClassName('ChartCategorizedExampleComponent')
 export class ChartCategorizedExampleComponent {
   options: Highcharts.Options = {
     xAxis: {

@@ -4,5 +4,4 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: `<textarea dtInput placeholder="Please insert text"></textarea>`,
 })
-@OriginalClassName('TextareaInputExample')
 export class TextareaInputExample { }

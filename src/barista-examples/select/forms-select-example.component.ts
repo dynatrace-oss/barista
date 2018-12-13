@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
     </dt-select>
   `,
 })
-@OriginalClassName('FormsSelectExampleComponent')
 export class FormsSelectExampleComponent {
   selectedValue: string;
   coffees = [
