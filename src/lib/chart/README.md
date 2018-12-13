@@ -62,6 +62,20 @@ For charts with more than 3 series, an ordered list of chart colors for good con
 The chart needs the **ViewportResizer** provider.
 ViewportResizer notifies the dt-chart component about Viewport changes that trigger a reflow of the dt-chart.
 
+## Tooltip
+
+The chart supports adding a tooltip that works with angular components inside. The `dt-chart` component takes a `dt-chart-tooltip` component as a content child. The `dt-chart-tooltip` component needs a `ng-template` as a content child. This `ng-template` receives the same object passed to the context as the "normal" highcharts tooltip formatter function would receive. Don't forget to declare the variable for the implicit context on the ng-template.
+
+```html
+  <dt-chart ... >
+    <dt-chart-tooltip>
+      <ng-template let-tooltipdata>
+        {{tooltipdata.point.y}}
+      </ng-template>
+    </dt-chart-tooltip>
+  </dt-chart>
+```
+
 ## Heatfield
 
 The chart supports adding heatfields. The `dt-chart` component takes `dt-chart-heatfield` components as content children. The `dt-chart-heatfield` component is themeable. By setting the `color` to `main` you can use the heatfield for overload prevention usecases.  
@@ -71,8 +85,6 @@ The chart supports adding heatfields. The `dt-chart` component takes `dt-chart-h
     <dt-chart-heatfield [start]="start" [end]="end"></dt-chart-heatfield>
   </dt-chart>
 ```
-
-The `start` and `end` inputs are the numerical/time values on the x axis of the chart the heatfield should start and end. Note that a `dt-chart-heatfield` does not work with charts that have category x axis. The `dt-chart-heatfield` component throws an exception whenever it is used within a chart with a category x axis. Only one heatfield can be active at a time. Please make sure to set the proper aria-label on the heatfield to make the heatfield more accessible.
 
 ### Options & Properties
 
@@ -111,6 +123,10 @@ The `start` and `end` inputs are the numerical/time values on the x axis of the 
 ### AreaRange chart
 
 <docs-source-example example="ChartAreaRangeExampleComponent" fullwidth="true"></docs-source-example>
+
+### Tooltip example
+
+<docs-source-example example="ChartTooltipExampleComponent" fullwidth="true"></docs-source-example>
 
 ### Heatfield & Overload prevention
 
