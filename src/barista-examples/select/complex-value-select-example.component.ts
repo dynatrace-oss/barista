@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
     </dt-select>
   `,
 })
-@OriginalClassName('ComplexValueSelectExampleComponent')
 export class ComplexValueSelectExampleComponent {
   selectedValue: { value: string;  viewValue: string };
   coffees = [

@@ -4,5 +4,4 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: `<dt-loading-distractor>Loading …</dt-loading-distractor>`,
 })
-@OriginalClassName('DefaultLoadingDistractorExampleComponent')
 export class DefaultLoadingDistractorExampleComponent { }

@@ -10,5 +10,4 @@ import { Component } from '@angular/core';
   The card is not an interactive element, therefore, there are no hover, active and disabled card.
 </dt-card></div>`,
 })
-@OriginalClassName('DefaultCardExampleComponent')
 export class DefaultCardExampleComponent { }

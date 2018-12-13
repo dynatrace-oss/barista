@@ -153,7 +153,6 @@ export class TimelinePointComponent {
   </dt-timeline>
   `,
 })
-@OriginalClassName('TimelineOverlayExampleComponent')
 export class TimelineOverlayExampleComponent {
 
 }

@@ -10,6 +10,5 @@ import { Component } from '@angular/core';
 <button dt-button (click)="alert1.severity=undefined">Set undefined</button>
   `,
 })
-@OriginalClassName('InteractiveAlertExampleComponent')
 export class InteractiveAlertExampleComponent {
 }

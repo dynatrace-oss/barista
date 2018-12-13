@@ -9,5 +9,4 @@ import {Component} from '@angular/core';
       </dt-copy-to-clipboard>
     </section>`,
 })
-@OriginalClassName('DarkCopyToClipboardExampleComponent')
 export class DarkCopyToClipboardExampleComponent {}

@@ -8,7 +8,6 @@ import {Component} from '@angular/core';
     </dt-copy-to-clipboard>
   </dt-context-dialog>`,
 })
-@OriginalClassName('ContextCopyToClipboardExampleComponent')
 export class ContextCopyToClipboardExampleComponent {
 
 }

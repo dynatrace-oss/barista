@@ -12,7 +12,6 @@ import { Component } from '@angular/core';
   </dt-button-group>
   </div>`,
 })
-@OriginalClassName('WithColorProgressCircleExampleComponent')
 export class WithColorProgressCircleExampleComponent {
   color = 'error';
 

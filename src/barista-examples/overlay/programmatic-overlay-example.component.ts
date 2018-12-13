@@ -15,7 +15,6 @@ export class DummyOverlay {}
   <p><span #origin>An overlay will be created here</span></p>
   `,
 })
-@OriginalClassName('ProgrammaticOverlayExampleComponent')
 export class ProgrammaticOverlayExampleComponent {
   @ViewChild('origin') origin: ElementRef;
 

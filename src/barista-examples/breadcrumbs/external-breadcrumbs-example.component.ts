@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
     </dt-breadcrumbs>
   `,
 })
-@OriginalClassName('ExternalBreadcrumbsExampleComponent')
 export class ExternalBreadcrumbsExampleComponent {
 }

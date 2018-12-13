@@ -11,7 +11,6 @@ import { map } from 'rxjs/operators';
     </dt-breadcrumbs>
   `,
 })
-@OriginalClassName('ObservableBreadcrumbsExampleComponent')
 export class ObservableBreadcrumbsExampleComponent {
   private readonly interval = 5_000;
 

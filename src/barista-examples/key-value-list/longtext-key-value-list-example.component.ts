@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
   </dt-key-value-list-item>
 </dt-key-value-list>`,
 })
-@OriginalClassName('LongtextKeyValueListExampleComponent')
 export class LongtextKeyValueListExampleComponent {
   entries: object[] = [
     { key : 'Hostanem in Amazon AWS Region EU-West 1 (public access)', value : 'ec25217103181.eu-west1.compute.amazon-aws.com' },

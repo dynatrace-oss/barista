@@ -19,5 +19,4 @@ import { Component } from '@angular/core';
     </div>
   `,
 })
-@OriginalClassName('DarkThemeSwitchExampleComponent')
 export class DarkThemeSwitchExampleComponent { }

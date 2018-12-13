@@ -16,7 +16,6 @@ import { Component } from '@angular/core';
     </dt-form-field>
   `,
 })
-@OriginalClassName('FormFieldSelectExampleComponent')
 export class FormFieldSelectExampleComponent {
   selectedValue: string;
 }

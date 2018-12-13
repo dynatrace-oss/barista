@@ -18,7 +18,6 @@ import { Viewport } from './viewport';
   styles: ['dt-icon { display: inline-block; width: 3rem; height: 3rem; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-@OriginalClassName('DocsAsyncIcon')
 export class DocsAsyncIcon implements OnDestroy {
   @Input() name: DtIconType;
 
@@ -56,7 +55,6 @@ export class DocsAsyncIcon implements OnDestroy {
     '.icon { display: inline-block; padding: 1.5rem; text-align: center; }',
   ],
 })
-@OriginalClassName('AllIconExample')
 export class AllIconExample {
 
   icons$: Observable<string[]>;
