@@ -1,6 +1,13 @@
-import { AfterContentChecked, ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+  AfterContentChecked,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewEncapsulation
+} from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 import { DtExpandableRow } from './expandable-row';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 @Component({
   moduleId: module.id,
@@ -12,12 +19,22 @@ import { DtExpandableRow } from './expandable-row';
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   host: {
-    class: 'dt-table',
+    'class': 'dt-table',
+    '[class.dt-table-interactive-rows]': 'interactiveRows',
   },
 })
 export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   @Input() isLoading: boolean;
+  private _interactiveRows: boolean;
   private _expandedRow: DtExpandableRow | undefined;
+
+  @Input()
+  set interactiveRows(value: boolean) {
+    this._interactiveRows = coerceBooleanProperty(value);
+  }
+  get interactiveRows(): boolean {
+    return this._interactiveRows;
+  }
 
   get isEmptyDataSource(): boolean {
     return !(this._data.length);
