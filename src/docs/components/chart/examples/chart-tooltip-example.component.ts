@@ -8,9 +8,9 @@ import { OriginalClassName } from '../../../core/decorators';
   template: `
   <dt-chart [options]="options" [series]="series">
     <dt-chart-tooltip>
-      <ng-template let-series>
+      <ng-template let-tooltip>
         <dt-key-value-list style="min-width: 100px">
-          <dt-key-value-list-item *ngFor="let data of series.points" [key]="data.series.name" [value]="data.point.y">
+          <dt-key-value-list-item *ngFor="let data of tooltip.points" [key]="data.series.name" [value]="data.point.y">
           </dt-key-value-list-item>
         </dt-key-value-list>
       </ng-template>

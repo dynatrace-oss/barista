@@ -108,6 +108,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
     }
     this._animationState = 'enter';
     this._savePreviouslyFocusedElement();
+    // set the viewcontainerRef manually due to the fact that the portal does not set itself when using a templatePortal
     if (!portal.viewContainerRef) {
       portal.viewContainerRef = this._viewContainerRef;
     }
