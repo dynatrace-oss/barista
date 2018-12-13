@@ -217,6 +217,12 @@ To apply a sticky header to the table set the `sticky` input on the `dtHeaderRow
 
 <docs-source-example example="TableStickyHeaderComponent" fullwidth="true"></docs-source-example>
 
+### Table hover
+
+To apply the hover effect for the table add interactiveRows on the `dt-table` component.
+
+<docs-source-example example="TableHoverComponent" fullwidth="true"></docs-source-example>
+
 ## Sorting
 
 <docs-source-example example="TableSortingComponent" fullwidth="true"></docs-source-example>
