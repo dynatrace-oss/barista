@@ -40,6 +40,7 @@ describe('DtChartTooltip', () => {
     const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
     chartComponent = chartDebugElement.componentInstance;
 
+    // this fakes a new tooltip being created
     chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA });
     fixture.detectChanges();
   }));
