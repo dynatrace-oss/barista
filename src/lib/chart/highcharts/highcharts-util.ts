@@ -2,7 +2,6 @@ import { DtTheme } from '@dynatrace/angular-components/theming';
 import { Options as HighchartsOptions, AxisOptions } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import { DT_CHART_DEFAULT_OPTIONS, DT_CHART_DEFAULT_AXIS_STYLES } from '../chart-options';
-import { defaultTooltipFormatter } from '../chart-tooltip';
 import { DT_CHART_COLOR_PALETTES, DT_CHART_COLOR_PALETTE_ORDERED } from '../chart-colors';
 import { DtChartSeries, DtChartOptions } from '../chart';
 
@@ -14,7 +13,7 @@ export function createHighchartOptions(options: DtChartOptions = {}, series?: Dt
   const mergedSeries = series ? lodashMerge([], series) : undefined;
   let mergedOptions = lodashMerge({ series: mergedSeries }, DT_CHART_DEFAULT_OPTIONS, options) as HighchartsOptions;
   mergedOptions = mergeAxis(mergedOptions);
-  mergedOptions = wrapTooltipFormatterFn(mergedOptions, options && options.tooltip && options.tooltip.formatter);
+  mergedOptions = wrapTooltipFormatterFn(mergedOptions);
   if (theme) {
     mergedOptions = mergeHighchartsColorOptions(mergedOptions, theme);
   }
@@ -41,12 +40,14 @@ function mergeAxis(options: HighchartsOptions): HighchartsOptions {
   return options;
 }
 
-/** Wraps the highcharts tooltip formatter function into a custom one, to apply a wrapper element for styling. */
-function wrapTooltipFormatterFn(
-  options: HighchartsOptions, formatterFn: () => string | boolean = defaultTooltipFormatter): HighchartsOptions {
+/**
+ * Ensures that a formatter function is set and returns false
+ * this is needed because we use a custom event inside the refresh function of Highcharts
+ * to receive the data everytime the formatter function is called by highcharts
+ */
+function wrapTooltipFormatterFn(options: HighchartsOptions): HighchartsOptions {
   options.tooltip!.formatter = function(): string | boolean {
-    const tooltipFormatterFuncBound = formatterFn.bind(this);
-    return `<div class="dt-chart-tooltip">${tooltipFormatterFuncBound()}</div>`;
+    return false;
   };
   return options;
 }
