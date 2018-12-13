@@ -3,14 +3,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExamplesAppExamplesModule } from './examples.module';
+import { ExamplesAppDynatraceModule } from './dt.module';
 import { App } from './app.component';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { DtIconModule } from '@dynatrace/angular-components';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
+    RouterModule.forRoot([]),
     ExamplesAppExamplesModule,
+    ExamplesAppDynatraceModule,
   ],
   declarations: [
     App,
@@ -19,16 +27,6 @@ import { App } from './app.component';
     App,
   ],
   bootstrap: [App],
-  // providers: [
-  //   Location,
-  //   { provide: LocationStrategy, useClass: PathLocationStrategy },
-
-  //   // Custom icon config provider for the Angular 6 AOT issue described above
-  //   {
-  //     provide: DT_ICON_CONFIGURATION,
-  //     useValue: { svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` },
-  //   },
-  // ],
 })
 export class AppModule {
 }

@@ -1,0 +1,18 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'barista-examples',
+  styleUrls: ['app.component.scss'],
+  templateUrl: 'app.component.html',
+})
+export class App {
+  componentItems = ${routeSetup};
+
+  selectedTheme = 'turquoise';
+  themes = [
+    { value: 'turquoise', name: 'Turquoise' },
+    { value: 'blue', name: 'Blue' },
+    { value: 'purple', name: 'Purple' },
+    { value: 'royalblue', name: 'Royalblue' },
+  ];
+}
