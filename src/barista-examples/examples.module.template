@@ -4,6 +4,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ExamplesAppDynatraceModule } from './dt.module';
 ${imports}
 
 const EXAMPLES = ${examples};
@@ -16,6 +17,7 @@ const EXAMPLES = ${examples};
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ExamplesAppDynatraceModule,
   ],
   declarations: [
     ...EXAMPLES,

@@ -6,10 +6,15 @@
 <div class="content-wrapper" [dtTheme]="selectedTheme">
   <nav class="sidenav">
     <ul>
-      <li *ngFor="let navItem of navItems">
-        <a [routerLink]="[navItem.route]" routerLinkActive
-        #routerLinkActiveInstance="routerLinkActive"
-        [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1">{{navItem.name}}</a>
+      <li *ngFor="let component of componentItems">
+        {{component.name}}
+        <ul>
+          <li *ngFor="let example of component.examples">
+              <a [routerLink]="[example.route]" routerLinkActive
+              #routerLinkActiveInstance="routerLinkActive"
+              [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1">{{example.name}}</a>
+          </li>
+        </ul>
       </li>
     </ul>
   </nav>
