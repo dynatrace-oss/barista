@@ -15,6 +15,7 @@ import { TableSortingComponent } from './examples/table-sorting.component';
 import { TableSortingFullComponent } from './examples/table-sorting-full.component';
 import { TableStickyHeaderComponent } from './examples/table-sticky-header.component';
 import { TableProblemComponent } from './examples/table-problem.component';
+import {TableHoverComponent} from "./examples/table-hover.component";
 
 export const EXAMPLES = [
   TableDefaultComponent,
@@ -23,6 +24,7 @@ export const EXAMPLES = [
   TableEmptyStateComponent,
   TableEmptyCustomStateComponent,
   TableObservableComponent,
+  TableHoverComponent,
   TableLoadingComponent,
   TableDynamicColumnsComponent,
   TableExpandableRowsComponent,
