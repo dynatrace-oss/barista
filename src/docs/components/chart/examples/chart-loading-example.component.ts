@@ -25,11 +25,6 @@ export class ChartLoadingExampleComponent {
         tickInterval: 10,
       },
     ],
-    tooltip: {
-      formatter(): string | boolean {
-        return `${this.series.name}&nbsp${this.y}`;
-      },
-    },
   };
 
   series: DtChartSeries[] | null;

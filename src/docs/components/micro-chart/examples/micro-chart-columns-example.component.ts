@@ -14,11 +14,6 @@ export class MicroChartColumnsExampleComponent {
     chart: {
       type: 'column',
     },
-    tooltip: {
-      formatter(): string | boolean {
-        return `${this.series.name}&nbsp${this.y}`;
-      },
-    },
   };
 
   series: DtChartSeries = {

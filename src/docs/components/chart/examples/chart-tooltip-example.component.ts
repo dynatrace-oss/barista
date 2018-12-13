@@ -1,20 +1,12 @@
 // tslint:disable:no-magic-numbers
 
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { generateData } from './chart-data-utils';
 import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `
   <dt-chart [options]="options" [series]="series">
-    <dt-chart-heatfield [start]="10000" [end]="20000">
-      Problem 1:<br/>
-      <a class="dt-link">View problem details</a>
-    </dt-chart-heatfield>
-    <dt-chart-heatfield [start]="40000" [end]="60000" color="main">
-      Overload prevention:<br/>
-      <a class="dt-link">View overload prevention</a>
-    </dt-chart-heatfield>
     <dt-chart-tooltip>
       <ng-template let-tooltip>
         <dt-key-value-list style="min-width: 100px">
@@ -25,25 +17,28 @@ import { OriginalClassName } from '../../../core/decorators';
     </dt-chart-tooltip>
   </dt-chart>`,
 })
-@OriginalClassName('ChartHeatfieldMultipleExampleComponent')
-export class ChartHeatfieldMultipleExampleComponent {
+@OriginalClassName('ChartTooltipExampleComponent')
+export class ChartTooltipExampleComponent {
+
   options: Highcharts.Options = {
-    chart: {
-      spacingLeft: 100,
-      spacingRight: 100,
-    },
     xAxis: {
       type: 'datetime',
-      min: 0,
-      max: 100000,
     },
     yAxis: [
       {
         title: null,
         labels: {
-          enabled: false,
+          format: '{value}',
         },
-        tickLength: 0,
+        tickInterval: 10,
+      },
+      {
+        title: null,
+        labels: {
+          format: '{value}/min',
+        },
+        opposite: true,
+        tickInterval: 50,
       },
     ],
     plotOptions: {
@@ -61,8 +56,20 @@ export class ChartHeatfieldMultipleExampleComponent {
   series: Highcharts.IndividualSeriesOptions[] = [
     {
       name: 'Requests',
+      type: 'column',
+      yAxis: 1,
+      data: generateData(40, 0, 200, 1370304000000, 900000),
+    },
+    {
+      name: 'Failed requests',
+      type: 'column',
+      yAxis: 1,
+      data: generateData(40, 0, 15, 1370304000000, 900000),
+    },
+    {
+      name: 'Failure rate',
       type: 'line',
-      data: generateData(11, 0, 200, 0, 10000),
+      data: generateData(40, 0, 20, 1370304000000, 900000),
     }];
 }
 

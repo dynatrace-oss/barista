@@ -63,7 +63,8 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "vendorChunk": false
+              "vendorChunk": false,
+              "statsJson": true
             },
             "production-aot": {
               "tsConfig": "src/docs/tsconfig-build.json",

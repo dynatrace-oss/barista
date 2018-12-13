@@ -30,15 +30,17 @@ import * as Highcharts from 'highcharts';
 import { chart, ChartObject, IndividualSeriesOptions, Options as HighchartsOptions, setOptions, addEvent as addHighchartsEvent } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import { Observable, Subject, Subscription, defer, merge } from 'rxjs';
-import { delay, takeUntil, take, switchMap } from 'rxjs/operators';
+import { delay, takeUntil, take, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
 import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides';
+import { addTooltipEvents, DtHcTooltipEventPayload } from './highcharts/highcharts-tooltip-extensions';
 import { DtChartHeatfield, DtChartHeatfieldActiveChange } from './heatfield/chart-heatfield';
 import { createHighchartOptions, applyHighchartsColorOptions } from './highcharts/highcharts-util';
 import { DT_CHART_CONFIG, DtChartConfig, DT_CHART_DEFAULT_CONFIG } from './chart-config';
+import { DtChartTooltipEvent } from './highcharts/highcharts-tooltip-types';
 
-export type DtChartOptions = HighchartsOptions & { series?: undefined };
+export type DtChartOptions = HighchartsOptions & { series?: undefined; tooltip?: { shared: boolean } };
 export type DtChartSeries = IndividualSeriesOptions;
 
 // tslint:disable-next-line:no-any
@@ -53,6 +55,8 @@ window.highchartsMore = require('highcharts/highcharts-more')(Highcharts);
 window.configureLegendSymbols = configureLegendSymbols;
 // Highcharts global options, set outside component so its not set everytime a chart is created
 setOptions(DT_CHART_DEFAULT_GLOBAL_OPTIONS);
+// added to the window so uglify does not drop this from the bundle
+window.addTooltipEvents = addTooltipEvents;
 
 @Component({
   moduleId: module.id,
@@ -72,14 +76,14 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<DtChartHeatfield>;
 
-  _loading = false;
   private _series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
+  private _tooltipOpen = false;
   private _currentSeries: IndividualSeriesOptions[] | undefined;
   private _options: DtChartOptions;
   private _dataSub: Subscription | null = null;
-  private _isTooltipWrapped = false;
   private _highchartsOptions: HighchartsOptions;
   private readonly _destroy = new Subject<void>();
+  private readonly _tooltipRefreshed: Subject<DtChartTooltipEvent | null> = new Subject();
 
   /** @internal Emits when highcharts finishes rendering. */
   readonly _afterRender = new Subject<void>();
@@ -91,7 +95,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   @Input()
   get options(): DtChartOptions { return this._options; }
   set options(options: DtChartOptions) {
-    this._isTooltipWrapped = false;
     this._options = options;
     this._changeDetectorRef.markForCheck();
   }
@@ -119,7 +122,12 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   /** The loading text of the loading distractor. */
   @Input('loading-text') loadingText: string;
 
+  /** Eventemitter that fires everytime the chart is updated */
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
+  /** Eventemitter that fires everytime the tooltip opens or closes */
+  @Output() readonly tooltipOpenChange: EventEmitter<boolean> = new EventEmitter();
+  /** Eventemitter that fires everytime the data inside the chart tooltip changes */
+  @Output() readonly tooltipDataChange: EventEmitter<DtChartTooltipEvent | null> = new EventEmitter();
 
   /** returns an array of ids for the series data */
   get seriesIds(): Array<string | undefined> | undefined {
@@ -183,6 +191,16 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     this._heatfieldActiveChanges.pipe(takeUntil(this._destroy)).subscribe((event) => {
       this._onHeatfieldActivate(event.source);
     });
+    this._tooltipRefreshed.pipe(
+      takeUntil(this._destroy),
+      distinctUntilChanged((a, b) => {
+        if (a && b) {
+          return a.data.x === b.data.x && a.data.y === b.data.y;
+        }
+        return false;
+      })
+    )
+    .subscribe((ev) => { this.tooltipDataChange.next(ev); });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -199,6 +217,23 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
     addHighchartsEvent(this._chartObject, 'redraw', () => { this._afterRender.next(); });
     this._afterRender.next();
+
+    // adds eventlistener to highcharts custom event for tooltip closed
+    addHighchartsEvent(this._chartObject, 'tooltipClosed', () => {
+      this._tooltipOpen = false;
+      this.tooltipOpenChange.next(false);
+      this._tooltipRefreshed.next(null);
+    });
+    // Adds eventlistener to highcharts custom event for tooltip refreshed closed */
+    // We cannot type the event param, because the types for highcharts are incorrect
+    // tslint:disable-next-line:no-any
+    addHighchartsEvent(this._chartObject, 'tooltipRefreshed', (event: any) => {
+      if (!this._tooltipOpen) {
+        this._tooltipOpen = true;
+        this.tooltipOpenChange.next(true);
+      }
+      this._tooltipRefreshed.next({ data: (event as DtHcTooltipEventPayload).data , chart: this._chartObject });
+    });
   }
 
   ngAfterContentInit(): void {
