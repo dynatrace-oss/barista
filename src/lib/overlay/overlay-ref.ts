@@ -4,7 +4,7 @@ import { Subscription, Observable, Subject } from 'rxjs';
 import { DtOverlayContainer } from './overlay-container';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { DtOverlayConfig } from './overlay-config';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
@@ -22,8 +22,6 @@ export class DtOverlayRef<T> {
     return coerceBooleanProperty(this._config.pinnable);
   }
 
-  private _domExitSub = Subscription.EMPTY;
-
   /** Subject for notifying the user that the overlay has finished exiting. */
   private readonly _afterExit = new Subject<void>();
 
@@ -31,10 +29,9 @@ export class DtOverlayRef<T> {
   private _backDropClickSub = Subscription.EMPTY;
 
   constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer, private _config: DtOverlayConfig) {
-    this._domExitSub = containerInstance._onDomExit.subscribe(() => {
+    containerInstance._onDomExit.pipe(take(1)).subscribe(() => {
       this._overlayRef.dispose();
       this._afterExit.next();
-      this._domExitSub.unsubscribe();
     });
 
     _overlayRef.keydownEvents()

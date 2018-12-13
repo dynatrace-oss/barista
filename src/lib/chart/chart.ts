@@ -55,7 +55,7 @@ window.highchartsMore = require('highcharts/highcharts-more')(Highcharts);
 window.configureLegendSymbols = configureLegendSymbols;
 // Highcharts global options, set outside component so its not set everytime a chart is created
 setOptions(DT_CHART_DEFAULT_GLOBAL_OPTIONS);
-
+// added to the window so uglify does not drop this from the bundle
 window.addTooltipEvents = addTooltipEvents;
 
 @Component({
