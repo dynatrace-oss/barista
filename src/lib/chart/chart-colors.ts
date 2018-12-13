@@ -38,9 +38,9 @@ const DT_COLOR_PALETTE_ROYALBLUE: string[] = [
 
 /** Chart colors for the blue theme up to 3 metrics */
 const DT_COLOR_PALETTE_BLUE: string[] = [
-  DtColors.ROYALBLUE_700,
-  DtColors.ROYALBLUE_200,
-  DtColors.ROYALBLUE_400,
+  DtColors.BLUE_700,
+  DtColors.BLUE_200,
+  DtColors.BLUE_400,
 ];
 
 export const DT_CHART_COLOR_PALETTES = {
