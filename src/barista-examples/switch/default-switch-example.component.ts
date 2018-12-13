@@ -17,5 +17,4 @@ import { Component } from '@angular/core';
     </div>
   `,
 })
-@OriginalClassName('DefaultSwitchExampleComponent')
 export class DefaultSwitchExampleComponent { }

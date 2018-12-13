@@ -170,6 +170,63 @@
           }
         }
       }
+    },
+    "barista-examples": {
+      "root": "src/barista-examples",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/barista-examples",
+            "index": "src/barista-examples/index.html",
+            "main": "src/barista-examples/main.ts",
+            "tsConfig": "src/barista-examples/tsconfig.json",
+            "polyfills": "src/barista-examples/polyfills.ts",
+            "assets": [
+              {
+                "glob": "**",
+                "input": "src/lib/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "src/barista-examples/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "metadata.json",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/assets/icons"
+              }
+            ],
+            "styles": [
+              "src/barista-examples/main.scss"
+            ]
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "barista-examples:build",
+            "host": "0.0.0.0"
+          },
+          "configurations": {}
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [],
+            "exclude": []
+          }
+        }
+      }
     }
   },
   "defaultProject": "lib",

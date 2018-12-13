@@ -19,10 +19,12 @@
     "paths": {
       "@dynatrace/angular-components": ["../../src/lib"],
       "@dynatrace/angular-components/*": ["../../src/lib/*"],
+      "@environments/*": ["./environments/*"]
     }
   },
   "files": [
     "../../typings.d.ts",
+    "./environments/environment.ts",
     "./app.module.ts",
     "./main.ts",
     "./polyfills.ts"

@@ -18,5 +18,4 @@ import { Component } from '@angular/core';
     }
   `],
 })
-@OriginalClassName('DarkCheckboxExample')
 export class DarkCheckboxExample { }

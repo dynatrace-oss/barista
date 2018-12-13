@@ -12,6 +12,5 @@ import { Component } from '@angular/core';
     </div>
   `,
 })
-@OriginalClassName('DarkBreadcrumbsExampleComponent')
 export class DarkBreadcrumbsExampleComponent {
 }

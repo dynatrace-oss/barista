@@ -12,7 +12,6 @@ import { Component } from '@angular/core';
   <p *ngIf="oldValue!==null">Event: OldValue: {{oldValue}}<br>NewValue: {{newValue}}</p>
   `,
 })
-@OriginalClassName('ChangeProgressCircleExampleComponent')
 export class ChangeProgressCircleExampleComponent {
   oldValue: number | null = null;
   newValue: number | null = null;

@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
     <p><dt-checkbox checked (change)="disabled = !disabled">Disabled</dt-checkbox></p>
   `,
 })
-@OriginalClassName('DisabledSelectExampleComponent')
 export class DisabledSelectExampleComponent {
   disabled = true;
 }

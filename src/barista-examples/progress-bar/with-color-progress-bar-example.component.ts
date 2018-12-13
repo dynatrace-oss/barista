@@ -13,7 +13,6 @@ import { Component } from '@angular/core';
   </div>`,
   styles: ['dt-progress-bar {margin: 8px 0}'],
 })
-@OriginalClassName('WithColorProgressBarExampleComponent')
 export class WithColorProgressBarExampleComponent {
   color = 'error';
 

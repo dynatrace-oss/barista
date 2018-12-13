@@ -5,7 +5,6 @@ import { DtToast } from '@dynatrace/angular-components';
   moduleId: module.id,
   template: '<button dt-button (click)="createToast()">Save</button>',
 })
-@OriginalClassName('DefaultToastExampleComponent')
 export class DefaultToastExampleComponent {
   constructor(private _toast: DtToast) {}
 

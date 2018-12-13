@@ -18,7 +18,6 @@ import { Component } from '@angular/core';
     <button dt-button (click)="customTrigger=!customTrigger">Toggle custom trigger</button>
     `,
 })
-@OriginalClassName('InteractiveContextDialogExampleComponent')
 export class InteractiveContextDialogExampleComponent {
   interactiveDialogDisabled = false;
   customTrigger = false;

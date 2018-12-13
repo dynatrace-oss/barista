@@ -13,5 +13,4 @@ import { Component } from '@angular/core';
     </dt-form-field>
   `,
 })
-@OriginalClassName('PrefixSuffixFormFieldExample')
 export class PrefixSuffixFormFieldExample { }

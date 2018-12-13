@@ -13,5 +13,4 @@ import { Component } from '@angular/core';
 </dt-card></div>`,
   styles: ['.dt-button + .dt-button { margin-left: 8px;}; }'],
 })
-@OriginalClassName('TitleCardExampleComponent')
 export class TitleCardExampleComponent { }

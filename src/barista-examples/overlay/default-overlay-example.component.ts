@@ -10,7 +10,6 @@ import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
   </ng-template>
   `,
 })
-@OriginalClassName('DefaultOverlayExampleComponent')
 export class DefaultOverlayExampleComponent {
   config: DtOverlayConfig = {
     pinnable: true,

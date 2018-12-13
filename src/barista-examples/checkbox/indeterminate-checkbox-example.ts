@@ -22,7 +22,6 @@ import { DtCheckboxChange } from '@dynatrace/angular-components';
     }
   `],
 })
-@OriginalClassName('IndeterminateCheckboxExampleComponent')
 export class IndeterminateCheckboxExampleComponent {
 
   _checkbox1 = true;
