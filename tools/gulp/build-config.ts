@@ -24,6 +24,10 @@ export interface BuildConfig {
   universalAppOutputDir: string;
   /* Version for angular peer dependencies */
   angularVersion: string;
+  /* Path to the barista examples */
+  examplesDir: string;
+  /* Path to the barista examples output dir */
+  examplesOutputDir: string;
 }
 
 const projectRoot = join(__dirname, '../..');
@@ -49,6 +53,10 @@ export const buildConfig: BuildConfig = {
   universalAppDir: join(projectRoot, 'src', 'universal-app'),
   /* Path where the output of the universal app is stored */
   universalAppOutputDir: join(projectRoot, 'dist', 'universal-app'),
+  /* Path to the barista examples */
+  examplesDir: join(projectRoot, 'src', 'barista-examples'),
+  /* Path to the barista examples output dir */
+  examplesOutputDir: join(projectRoot, 'dist', 'barista-examples'),
   /* Angular Version that is required for the library.
    * This will be used as the version for the angular peer dependencies */
   angularVersion: '^7.0.0',

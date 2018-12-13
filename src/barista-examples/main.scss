@@ -1,0 +1,19 @@
+@import '../lib/style/index';
+
+* { box-sizing: border-box; }
+
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

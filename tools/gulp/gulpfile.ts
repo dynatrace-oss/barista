@@ -5,3 +5,4 @@ import './tasks/universal';
 import './tasks/schematics';
 import './tasks/docs';
 import './tasks/breaking-changes';
+import './tasks/barista-examples';
