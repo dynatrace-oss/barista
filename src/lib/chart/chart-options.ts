@@ -48,10 +48,7 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
     enabled: false,
   },
   tooltip: {
-    useHTML: true,
-    backgroundColor: 'transparent',
-    borderWidth: 0,
-    shadow: false,
+    shared: true,
   },
   legend: {
     itemStyle: {

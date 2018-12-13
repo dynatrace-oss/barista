@@ -73,7 +73,7 @@ export class DtOverlay {
   ) {}
 
   create<T>(
-    origin: ElementRef,
+    origin: ElementRef | HTMLElement,
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     userConfig?: DtOverlayConfig
   ): DtOverlayRef<T> {
@@ -101,9 +101,9 @@ export class DtOverlay {
     }
   }
 
-  private _createOverlay(origin: ElementRef, config: DtOverlayConfig): OverlayRef {
-    let positions = DEFAULT_DT_OVERLAY_POSITIONS;
-    if (config.originY === 'center') {
+  private _createOverlay(origin: ElementRef | HTMLElement, config: DtOverlayConfig): OverlayRef {
+    let positions = config._positions || DEFAULT_DT_OVERLAY_POSITIONS;
+    if (!config._positions && config.originY === 'center') {
       positions = positions.map((pos) => {
         const newPos = {...pos};
         newPos.originY = 'center';
@@ -149,7 +149,8 @@ export class DtOverlay {
 
     if (componentOrTemplateRef instanceof TemplateRef) {
       container.attachTemplatePortal(
-        new TemplatePortal<T>(componentOrTemplateRef, null!));
+        // tslint:disable-next-line:no-any
+        new TemplatePortal<any>(componentOrTemplateRef, null!, { $implicit: config.data }));
     } else {
       container.attachComponentPortal(new ComponentPortal<T>(componentOrTemplateRef));
     }

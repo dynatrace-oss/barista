@@ -90,7 +90,7 @@ describe('DtChart', () => {
       expect(ids).toBeUndefined();
     });
 
-    it('should wrap the tooltip', () => {
+    it('should always return false for the tooltip wrapper fn', () => {
       const fixture = TestBed.createComponent(SeriesSingle);
       fixture.detectChanges();
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
@@ -101,7 +101,7 @@ describe('DtChart', () => {
       // tslint:disable-next-line: no-unbound-method
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
-      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual('<div class="dt-chart-tooltip">somename</div>');
+      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual(false);
     });
 
     it('should update the options at runtime', () => {
@@ -130,11 +130,6 @@ describe('DtChart', () => {
         chart: {
           type: 'pie',
         },
-        tooltip: {
-          formatter(): string | boolean {
-            return this.series.name;
-          },
-        },
       };
       fixture.componentInstance.options = newOptions;
       fixture.detectChanges();
@@ -143,7 +138,7 @@ describe('DtChart', () => {
       // tslint:disable-next-line: no-unbound-method
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
-      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual('<div class="dt-chart-tooltip">somename</div>');
+      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual(false);
     });
 
     it('should work with empty series array', () => {

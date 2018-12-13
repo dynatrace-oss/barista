@@ -6,6 +6,7 @@ import { DtChartHeatfield } from './heatfield/chart-heatfield';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { DtChartSelectionAreaOrigin } from './selection-area/chart-selection-area-origin';
 import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
+import { DtChartTooltip } from './tooltip/chart-tooltip';
 
 @NgModule({
   imports: [
@@ -18,11 +19,13 @@ import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-a
     DtChart,
     DtChartHeatfield,
     DtChartSelectionAreaOrigin,
+    DtChartTooltip,
   ],
   declarations: [
     DtChart,
     DtChartHeatfield,
     DtChartSelectionAreaOrigin,
+    DtChartTooltip,
   ],
 })
 export class DtChartModule { }

@@ -4,7 +4,7 @@ import { Subscription, Observable, Subject } from 'rxjs';
 import { DtOverlayContainer } from './overlay-container';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { DtOverlayConfig } from './overlay-config';
-import { filter } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
@@ -29,7 +29,7 @@ export class DtOverlayRef<T> {
   private _backDropClickSub = Subscription.EMPTY;
 
   constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer, private _config: DtOverlayConfig) {
-    containerInstance._onDomExit.subscribe(() => {
+    containerInstance._onDomExit.pipe(take(1)).subscribe(() => {
       this._overlayRef.dispose();
       this._afterExit.next();
     });
