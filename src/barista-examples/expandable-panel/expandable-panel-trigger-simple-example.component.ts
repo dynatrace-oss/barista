@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
 <br>
 <div [dtExpandablePanel]="panel1">Toggle</div>`,
 })
-@OriginalClassName('TriggerSimpleExpandablePanelExampleComponent')
 export class TriggerSimpleExpandablePanelExampleComponent {}

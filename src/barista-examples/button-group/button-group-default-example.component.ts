@@ -7,5 +7,4 @@ import { Component } from '@angular/core';
   <dt-button-group-item>Connectivity</dt-button-group-item>
 </dt-button-group>`,
 })
-@OriginalClassName('ButtonGroupDefaultExampleComponent')
 export class ButtonGroupDefaultExampleComponent { }

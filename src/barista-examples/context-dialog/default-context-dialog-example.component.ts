@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
   </dt-context-dialog>
   `,
 })
-@OriginalClassName('DefaultContextDialogExampleComponent')
 export class DefaultContextDialogExampleComponent {}

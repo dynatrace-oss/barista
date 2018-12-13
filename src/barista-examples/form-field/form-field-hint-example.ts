@@ -10,5 +10,4 @@ import { Component } from '@angular/core';
     </dt-form-field>
   `,
 })
-@OriginalClassName('HintFormFieldExample')
 export class HintFormFieldExample { }

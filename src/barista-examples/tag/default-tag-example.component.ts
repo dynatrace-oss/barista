@@ -4,5 +4,4 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: '<dt-tag>Hello tag</dt-tag>',
 })
-@OriginalClassName('DefaultTagExampleComponent')
 export class DefaultTagExampleComponent { }

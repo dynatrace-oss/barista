@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
     </dt-form-field>
   `,
 })
-@OriginalClassName('ErrorFormFieldExample')
 export class ErrorFormFieldExample {
   textValue: string;
 }

@@ -7,5 +7,4 @@ import { Component } from '@angular/core';
   <dt-icon name="agent"></dt-icon>
   </dt-progress-circle>`,
 })
-@OriginalClassName('WithIconProgressCircleExampleComponent')
 export class WithIconProgressCircleExampleComponent { }

@@ -9,7 +9,6 @@ import {Component} from '@angular/core';
     <br/>
     <button dt-button (click)="_toggleValue = !_toggleValue">Toggle</button>`,
 })
-@OriginalClassName('DisabledCopyToClipboardExampleComponent')
 export class DisabledCopyToClipboardExampleComponent {
   _toggleValue = true;
 }

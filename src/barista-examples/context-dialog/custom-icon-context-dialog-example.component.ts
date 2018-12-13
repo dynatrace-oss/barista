@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
   </dt-context-dialog>
    `,
 })
-@OriginalClassName('CustomIconContextDialogExampleComponent')
 export class CustomIconContextDialogExampleComponent {
 }

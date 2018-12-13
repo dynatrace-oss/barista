@@ -19,5 +19,4 @@ import { Component } from '@angular/core';
     </dt-select>
   `,
 })
-@OriginalClassName('GroupsSelectExampleComponent')
 export class GroupsSelectExampleComponent { }

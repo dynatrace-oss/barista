@@ -10,6 +10,7 @@
     "strictNullChecks": true,
     "noEmitOnError": true,
     "noImplicitAny": true,
+    "downlevelIteration": true,
     "target": "es5",
     "types": [
       "node"

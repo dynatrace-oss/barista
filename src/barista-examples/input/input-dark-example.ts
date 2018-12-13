@@ -12,5 +12,4 @@ import { Component } from '@angular/core';
     </section>`,
   styles: ['textarea { margin-top: 8px; }'],
 })
-@OriginalClassName('DarkInputExample')
 export class DarkInputExample { }

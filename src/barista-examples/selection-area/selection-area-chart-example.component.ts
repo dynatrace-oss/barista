@@ -15,7 +15,6 @@ import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angu
     '.origin { width: 100%; height: 400px; border: 1px solid #e6e6e6; }',
   ],
 })
-@OriginalClassName('SelectionAreaChartExample')
 export class SelectionAreaChartExample {
   @ViewChild(DtChart) chart: DtChart;
   @ViewChild(DtSelectionArea) selectionArea: DtSelectionArea;

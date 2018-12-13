@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   <dt-alert severity="warning">{{text}}</dt-alert>
 </section>`,
 })
-@OriginalClassName('DarkAlertExampleComponent')
 export class DarkAlertExampleComponent {
   text = `This is a warning on dark background!`;
 }

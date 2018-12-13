@@ -10,5 +10,4 @@ import { Component } from '@angular/core';
   Network traffic
 </dt-tile>`,
 })
-@OriginalClassName('RecoveredTileExampleComponent')
 export class RecoveredTileExampleComponent { }

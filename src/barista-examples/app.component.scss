@@ -1,0 +1,61 @@
+@import '../lib/style/font-mixins';
+
+// replace this with nav component as soon as it is ready - if there is one
+.nav {
+  display: block;
+  height: 2.75rem;
+  background-color: #242424;
+  position: relative;
+}
+
+.theme-selector {
+  display: block;
+  float: right;
+  margin: 6px 10px;
+}
+
+.content-wrapper {
+  display: flex;
+}
+
+.main {
+  flex: 1 1 auto;
+  padding: 20px;
+}
+
+// // replace this with the sidenav component as soon as this is ready
+.sidenav {
+  background-color: #f2f2f2;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    @include default-font(15px, 60px);
+    display: block;
+    height: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    &:hover {
+      color: #00a1b2;
+    }
+  }
+
+  li + li {
+    border-top: 1px solid #e6e6e6;
+  }
+
+  .router-link-active {
+    border-left: 6px solid #525252;
+    padding-left: 14px;
+  }
+}
+
