@@ -52,16 +52,16 @@ export class DtChartTooltip<T> implements OnDestroy {
     if (this._parentChart) {
       this._parentChart.tooltipDataChange.pipe(takeUntil(this._destroy))
       .subscribe((event) => {
-        // create the overlay here when the tooltip should be open
-        // because we need to have the event information to attach the overlay to the correct element
-        if (event && event.data && checkHasPointData(event.data)) {
-          this._ngZone.run(() => {
-            this._createOverlay(event.data);
-          });
-        } else {
-          // dismiss if no data is given
-          this._dismiss();
-        }
+        this._ngZone.run(() => {
+          // create the overlay here when the tooltip should be open
+          // because we need to have the event information to attach the overlay to the correct element
+          if (event && event.data && checkHasPointData(event.data)) {
+              this._createOverlay(event.data);
+          } else {
+            // dismiss if no data is given
+            this._dismiss();
+          }
+        });
       });
       // handle dismissing an existing overlay when the overlay already exists and should be closed
       this._parentChart.tooltipOpenChange.pipe(takeUntil(this._destroy))
@@ -82,12 +82,12 @@ export class DtChartTooltip<T> implements OnDestroy {
 
   /** Create a new overlay for the tooltip */
   private _createOverlay(data: DtChartTooltipData): void {
-    const { origin, posY } = processHcTooltipEventData(data);
+    const { origin, overlayPosY } = getOverlayPosYAndOrigin(data);
     this._dtOverlayRef = this._dtOverlay.create<T>(
       origin,
       this.overlay,
       { data, _positions: DEFAULT_DT_CHART_TOOLTIP_POSITIONS });
-    this._dtOverlayRef.updatePosition(0, posY);
+    this._dtOverlayRef.updatePosition(0, overlayPosY);
   }
 
   /** Dismisses the overlay and cleans up the ref */
@@ -100,7 +100,7 @@ export class DtChartTooltip<T> implements OnDestroy {
 }
 
 /** processes the event data of highcharts and returns the information */
-function processHcTooltipEventData(data: DtChartTooltipData): { posY: number; origin: HTMLElement } {
+function getOverlayPosYAndOrigin(data: DtChartTooltipData): { overlayPosY: number; origin: HTMLElement } {
   const hasMultiplePoints = !!data.points;
   let origin: HTMLElement;
   let posY: number;
@@ -114,7 +114,7 @@ function processHcTooltipEventData(data: DtChartTooltipData): { posY: number; or
     origin = data.point!.point.graphic.element;
   }
 
-  return { posY, origin };
+  return { overlayPosY: posY, origin };
 }
 
 function checkHasPointData(data: DtChartTooltipData): boolean {

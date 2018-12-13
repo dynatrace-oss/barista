@@ -6,8 +6,8 @@ import { OriginalClassName } from '../../../core/decorators';
 @Component({
   template: `<dt-chart [options]="options" [series]="series">
   <dt-chart-tooltip>
-      <ng-template let-series>
-        {{series.x}} {{series.point.colorIndex}}
+      <ng-template let-tooltip>
+        {{tooltip.x}} {{tooltip.point.colorIndex}}
       </ng-template>
     </dt-chart-tooltip>
   </dt-chart>`,
