@@ -5,10 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { DevAppRoutingModule } from './devapp-routing.module';
 import { FormsModule } from '@angular/forms';
-import { DtIconModule, DtThemingModule, DT_ICON_CONFIGURATION, DtSelectModule } from '@dynatrace/angular-components';
 import { environment } from '@environments/environment';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DevApp } from './devapp.component';
+import { DevAppDynatraceModule } from './dt-components.module';
 import { AlertDemo } from './alert/alert-demo.component';
 import { AutocompleteDemo } from './autocomplete/autocomplete-demo.component';
 import { BreadcrumbsDemo } from './breadcrumbs/breadcrumbs-demo.component';
@@ -45,6 +45,7 @@ import { TabsDemo } from './tabs/tabs-demo.component';
 import { TagDemo } from './tag/tag-demo.component';
 import { TileDemo } from './tile/tile-demo.component';
 import { ToastDemo } from './toast/toast-demo.component';
+import { DT_ICON_CONFIGURATION } from '@dynatrace/angular-components/icon';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
@@ -67,10 +68,7 @@ export class NoopRouteComponent {}
     // Jira issue: https://dev-jira.dynatrace.org/browse/***REMOVED***
     // Angular issue: https://github.com/angular/angular/issues/23609
     // DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
-    DtIconModule,
-
-    DtSelectModule,
-    DtThemingModule,
+    DevAppDynatraceModule,
   ],
   declarations: [
     DevApp,
