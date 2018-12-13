@@ -1,11 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
+import { strings } from '@angular-devkit/core';
 import { sync as glob } from 'glob';
 import { task } from 'gulp';
 import { buildConfig } from '../build-config';
 
-const { examplesDir, examplesOutputDir } = buildConfig;
+const { examplesDir } = buildConfig;
 
 interface ExampleMetadata {
   component: string;
@@ -47,16 +48,12 @@ function populateExampleModuleTemplate(parsedData: ExampleMetadata[]): string {
   const exampleImports = parsedData.map((m) => buildImportsTemplate(m)).join('\n');
   const exampleList = parsedData.map((m) => m.component);
 
-  return fs.readFileSync(require.resolve('./examples.module.template'), 'utf8')
+  return fs.readFileSync(path.join(examplesDir, './examples.module.template'), 'utf8')
     .replace('${imports}', exampleImports)
     .replace('${examples}', `[\n  ${exampleList.join(',\n  ')},\n]`);
 }
 
-/**
- * Generates the example module from the given source files and writes it to a specified output
- * file.
- */
-function generateExampleModule(sourceFiles: string[], outputFile: string, baseDir: string): void {
+function getExampleMetadata(sourceFiles: string[]): ExampleMetadata[] {
   const parsedData: Set<ExampleMetadata> = new Set();
   sourceFiles.forEach((sourceFilePath) => {
     const content = fs.readFileSync(sourceFilePath, { encoding: 'utf-8' });
@@ -69,7 +66,15 @@ function generateExampleModule(sourceFiles: string[], outputFile: string, baseDi
       };
       parsedData.add(metadata);
     })
-  })
+  });
+  return [...parsedData];
+}
+
+/**
+ * Generates the example module from the given source files and writes it to a specified output
+ * file.
+ */
+function generateExampleModule(parsedData: ExampleMetadata[], outputFile: string, baseDir: string): void {
   const generatedModuleFile = populateExampleModuleTemplate([...parsedData]);
   const generatedFilePath = path.join(baseDir, outputFile);
   if (!fs.existsSync(path.dirname(generatedFilePath))) {
@@ -78,9 +83,32 @@ function generateExampleModule(sourceFiles: string[], outputFile: string, baseDi
   fs.writeFileSync(generatedFilePath, generatedModuleFile);
 }
 
+interface AppComponentRouteSetup {
+  name: string;
+  examples: Array<{ name: string; route: string }>;
+}
+
+function generateAppComponent(parsedData: ExampleMetadata[]): void {
+  const routeSetup = parsedData.reduce((aggr: AppComponentRouteSetup[], val) => {
+    const componentName = path.dirname(val.sourcePath);
+    let index = aggr.findIndex((item) => item.name === componentName);
+    if (index === -1) {
+      index = aggr.push({ name: componentName, examples: [] }) - 1;
+    }
+    const dasherized = strings.dasherize(val.component);
+    aggr[index].examples.push({ name: strings.dasherize(val.component), route: `/${componentName}/${dasherized}` });
+    return aggr;
+  }, [] as AppComponentRouteSetup[])
+  const content = fs.readFileSync(path.join(examplesDir, 'app.component.template'), { encoding: 'utf8' })
+    .replace('${routeSetup}', JSON.stringify(routeSetup, null, '\t'));
+  fs.writeFileSync(path.join(examplesDir, 'app.component.ts'), content, { encoding: 'utf8' });
+}
+
 /**
  * Creates the examples module
  */
-task('build-examples-module', () => {
-  generateExampleModule(glob(path.join(examplesDir, '*/*.ts')), 'examples.module.ts', examplesOutputDir);
+task('build-barista-example', () => {
+  const metadata = getExampleMetadata(glob(path.join(examplesDir, '*/*.ts')));
+  generateExampleModule(metadata, 'examples.module.ts', examplesDir);
+  generateAppComponent(metadata);
 });
