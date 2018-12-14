@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DtKeyValueList } from './key-value-list';
-import { DtKeyValueListItem } from './key-value-list-item';
+import { DtKeyValueListItem, DtKeyValueListKey, DtKeyValueListValue } from './key-value-list-item';
 
 @NgModule({
   imports: [
@@ -10,10 +10,14 @@ import { DtKeyValueListItem } from './key-value-list-item';
   exports: [
     DtKeyValueList,
     DtKeyValueListItem,
+    DtKeyValueListKey,
+    DtKeyValueListValue,
   ],
   declarations: [
     DtKeyValueList,
     DtKeyValueListItem,
+    DtKeyValueListKey,
+    DtKeyValueListValue,
   ],
 })
 export class DtKeyValueListModule {}
