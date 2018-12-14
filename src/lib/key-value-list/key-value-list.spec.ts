@@ -99,6 +99,17 @@ describe('DtKeyValueList', () => {
       expect(getKeyElement(items[3])!.textContent).toBe('4th item content key');
       expect(getValueElement(items[3])!.textContent).toBe('4th item attribute value');
     });
+
+    it('should support [dt-key-value-list-key],[dt-key-value-list-value] and display 5nd item data properly', () => {
+      expect(getKeyElement(items[4])!.textContent).toBe('5th item content key');
+      expect(getValueElement(items[4])!.textContent).toBe('5th item content value');
+    });
+
+    it('should support [dtKeyValueListKey] [dtKeyValueListValue] and display 6nd item data properly', () => {
+      expect(getKeyElement(items[5])!.textContent).toBe('6th item content key');
+      expect(getValueElement(items[5])!.textContent).toBe('6th item content value');
+    });
+
   });
 
 });
@@ -190,6 +201,14 @@ class TestApp3 {
        <dt-key-value-list-key>4th item content key</dt-key-value-list-key>
        <dt-key-value-list-value>4th item content value</dt-key-value-list-value>
      </dt-key-value-list-item>
+      <dt-key-value-list-item>
+        <a dt-key-value-list-key>5th item content key</a>
+        <span dt-key-value-list-value>5th item content value</span>
+      </dt-key-value-list-item>
+      <dt-key-value-list-item>
+        <a dtKeyValueListKey>6th item content key</a>
+        <span dtKeyValueListValue>6th item content value</span>
+      </dt-key-value-list-item>
   </dt-key-value-list>
     `,
   })
