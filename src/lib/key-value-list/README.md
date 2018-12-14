@@ -26,16 +26,16 @@ class MyModule {}
 Use the Dynatrace key value list `<dt-key-value-list>` tag in conjunction with the `<dt-key-value-list-item>` tag.
 
 * The `<dt-key-value-list>` tag itself to create the component and
-* The `<dt-key-value-list-item>` to create a separate entry for each item. The attributes `key` and `value` define the labels to be displayed.
+* The `<dt-key-value-list-item>` to create a separate entry for each item and
+* The `<dt-key-value-list-key>` or `[dt-key-value-list-key]` or `[dtKeyValueListKey]` to define left label to be displayed and
+* The `<dt-key-value-list-value>` or `[dt-key-value-list-value]` or `[dtKeyValueListValue]` to define right label to be displayed.
 
 ## Options & Properties
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `<ng-content key>` | `string` | | Gets the key content that should be displayed |
-| `<ng-content value>` | `string` | | Gets the value content that should be displayed |
-| `[key]` | `string` | | Gets the key label that should be displayed |
-| `[value]` | `string` | | Gets the value label that should be displayed |
+| `[key]` DEPRECATED | `string` | | Gets the key label that should be displayed |
+| `[value]` DEPRECATED | `string` | | Gets the value label that should be displayed |
 
 ## Examples
 

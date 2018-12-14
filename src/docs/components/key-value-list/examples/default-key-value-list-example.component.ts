@@ -4,7 +4,10 @@ import { OriginalClassName } from '../../../core/decorators';
 @Component({
   moduleId: module.id,
   template: `<dt-key-value-list>
-   <dt-key-value-list-item *ngFor="let entry of entries" [key]="entry.key" [value]="entry.value"></dt-key-value-list-item>
+  <dt-key-value-list-item *ngFor="let entry of entries">
+    <dt-key-value-list-key>{{ entry.key }}</dt-key-value-list-key>
+    <dt-key-value-list-value>{{ entry.value }}</dt-key-value-list-value>
+  </dt-key-value-list-item>
 </dt-key-value-list>`,
 })
 @OriginalClassName('DefaultKeyValueListExampleComponent')
