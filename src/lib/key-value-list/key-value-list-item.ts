@@ -8,15 +8,15 @@ import {
 
 /** Key of a keyValueList, needed as it's used as a selector in the API. */
 @Directive({
-  selector: `dt-key-value-list-key`,
+  selector: `dt-key-value-list-key, [dtKeyValueListKey]`,
 })
-export class DtKeyValueListKey { }
+export class DtKeyValueListKey {}
 
 /** Value of a keyValueList, needed as it's used as a selector in the API. */
 @Directive({
-  selector: `dt-key-value-list-value`,
+  selector: `dt-key-value-list-value, [dtKeyValueListValue]`,
 })
-export class DtKeyValueListValue { }
+export class DtKeyValueListValue {}
 
 @Component({
   moduleId: module.id,
@@ -33,15 +33,13 @@ export class DtKeyValueListValue { }
 })
 export class DtKeyValueListItem {
   /**
-   * @since 2018-12-13
    * @deprecated please use dt-key-value-list-key
    * @breaking-change To be removed
    */
   @Input() key;
 
   /**
-   * @since 2018-12-13
-   * @deprecated please use dt-key-value-list-key
+   * @deprecated please use dt-key-value-list-value
    * @breaking-change To be removed
    */
   @Input() value;
