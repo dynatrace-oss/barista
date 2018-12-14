@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # DtIndicator
 
 The `dtIndicator` directive adds the capability to add styling to indicate a warning or an error. 
