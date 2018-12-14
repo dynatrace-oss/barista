@@ -30,13 +30,6 @@ Use the Dynatrace key value list `<dt-key-value-list>` tag in conjunction with t
 * The `<dt-key-value-list-key>` or `[dt-key-value-list-key]` or `[dtKeyValueListKey]` to define left label to be displayed and
 * The `<dt-key-value-list-value>` or `[dt-key-value-list-value]` or `[dtKeyValueListValue]` to define right label to be displayed.
 
-## Options & Properties
-
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `[key]` DEPRECATED | `string` | | Gets the key label that should be displayed |
-| `[value]` DEPRECATED | `string` | | Gets the value label that should be displayed |
-
 ## Examples
 
 ### Single column
