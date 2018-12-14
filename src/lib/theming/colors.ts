@@ -4,6 +4,15 @@
 export enum DtColors {
   WHITE = '#ffffff',
 
+  BLUE_200 = '#b4e5f9',
+  BLUE_300 = '#74cff7',
+  BLUE_400 = '#2ab6f4',
+  BLUE_500 = '#14a8f5',
+  BLUE_600 = '#008cdb',
+  BLUE_700 = '#006bba',
+  BLUE_800 = '#004999',
+  BLUE_900 = '#003a8a',
+
   PURPLE_200 = '#debbf3',
   PURPLE_300 = '#c396e0',
   PURPLE_400 = '#a972cc',
