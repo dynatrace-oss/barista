@@ -1,4 +1,3 @@
-
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
 import {DtKeyValueListModule} from '@dynatrace/angular-components';
@@ -176,20 +175,20 @@ class TestApp3 {
     selector: 'dt-test-content',
     template: `<dt-key-value-list>
      <dt-key-value-list-item>
-       <ng-container key>1st item content key</ng-container>
-       <ng-container value>1st item content value</ng-container>
+       <dt-key-value-list-key>1st item content key</dt-key-value-list-key>
+       <dt-key-value-list-value>1st item content value</dt-key-value-list-value>
      </dt-key-value-list-item>
      <dt-key-value-list-item>
-       <ng-container key>2nd item content key</ng-container>
-       <ng-container value>2nd item content value</ng-container>
+       <dt-key-value-list-key>2nd item content key</dt-key-value-list-key>
+       <dt-key-value-list-value>2nd item content value</dt-key-value-list-value>
      </dt-key-value-list-item>
      <dt-key-value-list-item key="3rd item attribute key">
-       <ng-container key>3rd item content key</ng-container>
-       <ng-container value>3rd item content value</ng-container>
+       <dt-key-value-list-key>3rd item content key</dt-key-value-list-key>
+       <dt-key-value-list-value>3rd item content value</dt-key-value-list-value>
      </dt-key-value-list-item>
      <dt-key-value-list-item value="4th item attribute value">
-       <ng-container key>4th item content key</ng-container>
-       <ng-container value>4th item content value</ng-container>
+       <dt-key-value-list-key>4th item content key</dt-key-value-list-key>
+       <dt-key-value-list-value>4th item content value</dt-key-value-list-value>
      </dt-key-value-list-item>
   </dt-key-value-list>
     `,

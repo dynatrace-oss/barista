@@ -4,7 +4,10 @@ import { OriginalClassName } from '../../../core/decorators';
 @Component({
   moduleId: module.id,
   template: `<dt-key-value-list>
-      <dt-key-value-list-item *ngFor="let entry of entries" [key]="entry.key" [value]="entry.value"></dt-key-value-list-item>
+  <dt-key-value-list-item *ngFor="let entry of entries">
+    <strong dtKeyValueListKey>{{ entry.key }}</strong>
+    <samp dtKeyValueListValue>{{ entry.value }}</samp>
+  </dt-key-value-list-item>
 </dt-key-value-list>`,
 })
 @OriginalClassName('MulticolumnKeyValueListExampleComponent')
