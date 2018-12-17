@@ -124,10 +124,6 @@ The chart supports adding heatfields. The `dt-chart` component takes `dt-chart-h
 
 <docs-source-example example="ChartAreaRangeExampleComponent" fullwidth="true"></docs-source-example>
 
-### Tooltip example
-
-<docs-source-example example="ChartTooltipExampleComponent" fullwidth="true"></docs-source-example>
-
 ### Heatfield & Overload prevention
 
 <docs-source-example example="ChartHeatfieldExampleComponent" fullwidth="true"></docs-source-example>
