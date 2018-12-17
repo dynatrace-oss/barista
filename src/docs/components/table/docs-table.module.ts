@@ -15,6 +15,7 @@ import { TableSortingComponent } from './examples/table-sorting.component';
 import { TableSortingFullComponent } from './examples/table-sorting-full.component';
 import { TableStickyHeaderComponent } from './examples/table-sticky-header.component';
 import { TableProblemComponent } from './examples/table-problem.component';
+import { TableExpandableProblemComponent } from './examples/table-expandable-problem.component';
 import {TableHoverComponent} from "./examples/table-hover.component";
 
 export const EXAMPLES = [
@@ -32,6 +33,7 @@ export const EXAMPLES = [
   TableSortingFullComponent,
   TableStickyHeaderComponent,
   TableProblemComponent,
+  TableExpandableProblemComponent,
 ];
 
 @NgModule({
