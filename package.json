@@ -7,6 +7,7 @@
     "docs:build": "gulp docs:build",
     "build": "gulp library:build",
     "stage-release": "ts-node --project tools/release/ tools/release/stage-release.ts",
+    "breaking-changes": "gulp breaking-changes",
     "test": "ng test lib --watch=false",
     "test:watch": "ng test lib",
     "ui-test": "ng e2e --project ui-test-app",
