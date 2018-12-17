@@ -12,6 +12,9 @@ describe('DtProgressBar', () => {
         BasicProgressBar,
         ValueProgressBar,
         ColorProgressBar,
+        DescriptionProgressBar,
+        CountProgressBar,
+        DescriptionAndCountProgressBar,
       ],
     });
   }));
@@ -139,6 +142,56 @@ describe('DtProgressBar', () => {
 
     expect(spy).toHaveBeenCalledWith({ oldValue: 0, newValue: 80 });
   });
+
+  it('should render a description when defined', () => {
+    const fixture = TestBed.createComponent(DescriptionProgressBar);
+    fixture.detectChanges();
+
+    const descriptionElement = fixture.debugElement.query(By.css('dt-progress-bar-description'));
+    expect(descriptionElement).toBeDefined();
+  });
+
+  it('should render a count when defined', () => {
+    const fixture = TestBed.createComponent(CountProgressBar);
+    fixture.detectChanges();
+
+    const countElement = fixture.debugElement.query(By.css('dt-progress-bar-count'));
+    expect(countElement).toBeDefined();
+  });
+
+  it('should render a description and count when defined', () => {
+    const fixture = TestBed.createComponent(DescriptionAndCountProgressBar);
+    fixture.detectChanges();
+
+    const descriptionElement = fixture.debugElement.query(By.css('dt-progress-bar-count'));
+    const countElement = fixture.debugElement.query(By.css('dt-progress-bar-count'));
+    expect(descriptionElement).toBeDefined();
+    expect(countElement).toBeDefined();
+  });
+
+  it('should add the wrapper class to the wrapping element if a description is set', () => {
+    const fixture = TestBed.createComponent(DescriptionProgressBar);
+    fixture.detectChanges();
+
+    const wrapperElement = fixture.debugElement.query(By.css('dt-progress-bar-descriptionwrapper'));
+    expect(wrapperElement).toBeDefined();
+  });
+
+  it('should add the wrapper class to the wrapping element if a count is set', () => {
+    const fixture = TestBed.createComponent(CountProgressBar);
+    fixture.detectChanges();
+
+    const wrapperElement = fixture.debugElement.query(By.css('dt-progress-bar-descriptionwrapper'));
+    expect(wrapperElement).toBeDefined();
+  });
+
+  it('should add the wrapper class to the wrapping element if a description and count are set', () => {
+    const fixture = TestBed.createComponent(DescriptionAndCountProgressBar);
+    fixture.detectChanges();
+
+    const wrapperElement = fixture.debugElement.query(By.css('dt-progress-bar-descriptionwrapper'));
+    expect(wrapperElement).toBeDefined();
+  });
 });
 
 @Component({template: '<dt-progress-bar></dt-progress-bar>'})
@@ -157,3 +210,28 @@ class ValueProgressBar {
 class ColorProgressBar {
   color = 'main';
 }
+
+@Component({
+  template: `
+  <dt-progress-bar [value]="75">
+  <dt-progress-bar-description>We found more than 100 results.</dt-progress-bar-description>
+  </dt-progress-bar>`,
+})
+class DescriptionProgressBar { }
+
+@Component({
+  template: `
+  <dt-progress-bar [value]="75">
+  <dt-progress-bar-count>80/100 days</dt-progress-bar-count>
+  </dt-progress-bar>`,
+})
+class CountProgressBar { }
+
+@Component({
+  template: `
+  <dt-progress-bar [value]="75">
+  <dt-progress-bar-description>We found more than 100 results.</dt-progress-bar-description>
+  <dt-progress-bar-count>80/100 days</dt-progress-bar-count>
+  </dt-progress-bar>`,
+})
+class DescriptionAndCountProgressBar { }

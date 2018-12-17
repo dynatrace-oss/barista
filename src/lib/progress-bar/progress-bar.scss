@@ -5,10 +5,15 @@
 
 :host {
   display: block;
-  height: 8px;
-  background-color: $gray-200;
   box-sizing: border-box;
   position: relative;
+}
+
+// Bar styling.
+.dt-progress-bar-progresswrapper {
+  position: relative;
+  height: 8px;
+  background-color: $gray-200;
 }
 
 .dt-progress-bar-progress {
@@ -19,6 +24,25 @@
   height: 8px;
 }
 
+// Progress description.
+.dt-progress-bar-descriptionwrapper {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+// clearfix for floating description elements.
+.dt-progress-bar-descriptionwrapper::after {
+  content: ' ';
+  display: table;
+  width: 100%;
+}
+
+::ng-deep .dt-progress-bar-count {
+  float: right;
+  white-space: nowrap;
+}
+
+// Styles to right align the progressbar.
 :host.dt-progress-bar-end .dt-progress-bar-progress {
   left: auto;
   right: 0;
