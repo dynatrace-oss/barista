@@ -13,6 +13,7 @@
 }
 
 .dt-expandable-row-base {
+  position: relative;
   min-height: $dt-row-height;
   @extend %row-base;
 
@@ -20,7 +21,7 @@
   border: 2px solid transparent;
 }
 
-.dt-expandable-row-base:not(.dt-expandable-row-base-expanded):hover {
+.dt-expandable-row-base-collapsed:hover {
   border: 1px solid $gray-500;
   padding: 1px 9px;
 }
@@ -53,6 +54,25 @@
     min-height: 0;
     visibility: hidden;
   }
+}
+
+:host.dt-table-row-indicator .dt-expandable-row-base::before {
+  width: 2px;
+  height: calc(100% - 4px);
+  content: '';
+  display: block;
+  position: absolute;
+  left: 2px;
+}
+
+:host.dt-table-row-indicator .dt-expandable-row-base-collapsed:hover::before {
+  height: calc(100% - 6px);
+  left: 3px;
+}
+
+:host.dt-table-row-indicator .dt-expandable-row-base-expanded::before {
+  height: calc(100% - 6px);
+  left: 4px;
 }
 
 // Apply current theme

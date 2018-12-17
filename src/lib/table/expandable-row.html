@@ -1,6 +1,6 @@
 <div (click)="toggle()"
      class="dt-expandable-row-base"
-     [ngClass]="{'dt-expandable-row-base-expanded': expanded}"
+     [ngClass]="expanded ? 'dt-expandable-row-base-expanded' : 'dt-expandable-row-base-collapsed'"
      #dtExpandableRow>
   <ng-container cdkCellOutlet></ng-container>
 </div>
