@@ -6,7 +6,7 @@ type: "component"
 
 <docs-source-example example="DefaultProgressBarExampleComponent"></docs-source-example>
 
-The `<dt-progress-progressbar>` creates a simple progress bar.
+The `<dt-progress-bar>` creates a simple progress bar.
 It is possible to set the value for the progress bars as well as setting a min and max value.
 The color property can be set to specify the color of the progress. The color depends on the theme the progress bars is in.
 The value will be clamped between the min and max values.
@@ -24,6 +24,27 @@ You have to import the `DtProgressBarModule` when you want to use the `dt-progre
 })
 class MyModule {}
 
+```
+
+## Progress bar description
+
+The `<dt-progress-bar-description>` component lets you add a description to the progress-bar. It utilises ng-content selection within the `<dt-progress-bar>` component
+to position the description correctly. 
+
+```html
+<dt-progress-bar ...>
+  <dt-progress-bar-description>Rich text describing the progress...</dt-progress-bar-description>
+<dt-progress-bar>
+```
+
+## Progress bar count
+
+The `<dt-progress-bar-count>` component lets you add a count to the progressbar which usually is a textual representation of the progress displayed (i.e. 80/100 days). It utilises ng-contnet selection within the `<dt-progress-bar>` component to position the count data correctly. Any values passed to the progress-bar-count are not affected by the progress-bar component min/max values.
+
+```html
+<dt-progress-bar ...>
+  <dt-progress-bar-count>80/100 days</dt-progress-bar-count>
+<dt-progress-bar>
 ```
 
 ## Accessibility
@@ -54,3 +75,20 @@ Progress bars should be given a meaningful label via aria-label or aria-labelled
 ### Progress bar alignment
 
 <docs-source-example example="RightAlignedProgressBarExampleComponent"></docs-source-example>
+
+### Progress bar with description
+
+<docs-source-example example="WithDescriptionProgressBarExampleComponent"></docs-source-example>
+
+### Progress bar with counter
+
+<docs-source-example example="WithCountDescriptionProgressBarComponent"></docs-source-example>
+
+### Progress bar with description and counter
+
+<docs-source-example example="WithCountAndTextDescriptionProgressBarComponent"></docs-source-example>
+
+### Progress bar with description and counter - Uses dt-indicator above 75/100 days
+
+<docs-source-example example="WithCountAndTextDescriptionIndicatorProgressBarComponent"></docs-source-example>
+

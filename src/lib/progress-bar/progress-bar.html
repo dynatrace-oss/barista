@@ -1,1 +1,9 @@
-<div class="dt-progress-bar-progress" [style.width.%]="percent"></div>
+<div>
+  <div [class.dt-progress-bar-descriptionwrapper]="_hasDescriptionOrCount">
+    <ng-content select="dt-progress-bar-description"></ng-content>
+    <ng-content select="dt-progress-bar-count"></ng-content>
+  </div>
+  <div class="dt-progress-bar-progresswrapper">
+    <div class="dt-progress-bar-progress" [style.width.%]="percent"></div>
+  </div>
+</div>
