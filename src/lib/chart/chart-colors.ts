@@ -19,7 +19,7 @@ export const DT_CHART_COLOR_PALETTE_ORDERED: string[] = [
 ];
 
 // @deprecated Use `DT_CHART_COLOR_PALETTE_ORDERED` instead.
-// @breaking-change To be changed to `DT_CHART_COLOR_PALETTE_ORDERED`
+// @breaking-change 2.0.0 To be changed to `DT_CHART_COLOR_PALETTE_ORDERED`
 export const CHART_COLOR_PALETTE_ORDERED = DT_CHART_COLOR_PALETTE_ORDERED;
 
 /** Chart colors for the purple theme up to 3 metrics */
@@ -50,5 +50,5 @@ export const DT_CHART_COLOR_PALETTES = {
 };
 
 // @deprecated Use `DT_CHART_COLOR_PALETTES` instead.
-// @breaking-change To be changed to `DT_CHART_COLOR_PALETTES`
+// @breaking-change 2.0.0 To be changed to `DT_CHART_COLOR_PALETTES`
 export const CHART_COLOR_PALETTES = DT_CHART_COLOR_PALETTES;

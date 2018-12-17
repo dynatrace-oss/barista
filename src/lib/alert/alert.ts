@@ -8,7 +8,7 @@ import {replaceCssClass} from '@dynatrace/angular-components/core';
 /**
  * Defines the alert severity levels.
  * @deprecated Use 'error' | 'warning' instead
- * @breaking-change To be removed
+ * @breaking-change 2.0.0 To be removed
  */
 export type DtAlertSeverity = 'error' | 'warning' | undefined;
 
@@ -32,7 +32,7 @@ export class DtAlert {
 
   /**
    * The severity type of the alert.
-   * @breaking-change Remove undefined as a severity type. Use ngIf instead.
+   * @breaking-change 2.0.0 Remove undefined as a severity type. Use ngIf instead.
    */
   @Input()
   get severity(): 'error' | 'warning' | undefined { return this._severity; }
