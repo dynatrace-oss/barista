@@ -2,9 +2,16 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewEncapsulation,
-  Input, ChangeDetectorRef, Output, EventEmitter, ElementRef,
+  Input,
+  ChangeDetectorRef,
+  Output,
+  EventEmitter,
+  ElementRef,
+  ContentChild,
 } from '@angular/core';
-import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress, Constructor } from '@dynatrace/angular-components/core';
+import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress, Constructor, isDefined } from '@dynatrace/angular-components/core';
+import { DtProgressBarDescription } from './progress-bar-description';
+import { DtProgressBarCount } from './progress-bar-count';
 
 export type DtProgressBarChange = DtProgressChange;
 
@@ -42,6 +49,10 @@ export class DtProgressBar extends _DtProgressBar implements CanColor<DtProgress
   @Output()
   readonly valueChange = new EventEmitter<DtProgressBarChange>();
 
+  /** Contentchildren reference to the description and count sub-components */
+  @ContentChild(DtProgressBarDescription) _description: DtProgressBarDescription;
+  @ContentChild(DtProgressBarCount) _count: DtProgressBarCount;
+
   constructor(private _changeDetectorRef: ChangeDetectorRef, public _elementRef: ElementRef) {
     super(_elementRef);
   }
@@ -52,7 +63,13 @@ export class DtProgressBar extends _DtProgressBar implements CanColor<DtProgress
     this._changeDetectorRef.markForCheck();
   }
 
+  /** Emits valueChange event if the value of the progressbar is updated */
   _emitValueChangeEvent(oldValue: number, newValue: number): void {
     this.valueChange.emit({oldValue, newValue});
+  }
+
+  /** Getter that returns true if either description or count are defined as contentchildren. */
+  get _hasDescriptionOrCount(): boolean {
+    return isDefined(this._description) || isDefined(this._count);
   }
 }
