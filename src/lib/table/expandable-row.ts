@@ -12,10 +12,10 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { CdkRow } from '@angular/cdk/table';
 import { DtTable } from './table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
+import { DtRow } from './row';
 
 /**
  * Data row template container that contains the cell outlet and an expandable section.
@@ -49,7 +49,7 @@ import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core'
   encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtExpandableRow',
 })
-export class DtExpandableRow extends CdkRow {
+export class DtExpandableRow extends DtRow {
   @Output() openedChange = new EventEmitter<DtExpandableRow>();
   @ViewChild('dtExpandableRow') private _rowRef: ElementRef;
   @ViewChild('dtExpandableContent', { read: ViewContainerRef }) private _contentViewContainer: ViewContainerRef;
@@ -80,8 +80,9 @@ export class DtExpandableRow extends CdkRow {
   // tslint:disable-next-line:no-any
   constructor(private _expandableTable: DtTable<any>,
               private _renderer2: Renderer2,
-              private _cdr: ChangeDetectorRef) {
-    super();
+              private _cdr: ChangeDetectorRef,
+              _elementRef: ElementRef) {
+    super(_elementRef);
   }
 
   /**
