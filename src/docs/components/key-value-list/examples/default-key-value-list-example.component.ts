@@ -8,6 +8,10 @@ import { OriginalClassName } from '../../../core/decorators';
     <dt-key-value-list-key>{{ entry.key }}</dt-key-value-list-key>
     <dt-key-value-list-value>{{ entry.value }}</dt-key-value-list-value>
   </dt-key-value-list-item>
+    <dt-key-value-list-item>
+      <a dtKeyValueListKey href="https://www.dynatrace.com/" class="dt-link" target="_blank">Please visit dynatrace.com for more information</a>
+      <a dtKeyValueListValue href="https://www.dynatrace.com/" class="dt-link" target="_blank">dynatrace.com</a>
+    </dt-key-value-list-item>
 </dt-key-value-list>`,
 })
 @OriginalClassName('DefaultKeyValueListExampleComponent')

@@ -43,7 +43,3 @@ Use the Dynatrace key value list `<dt-key-value-list>` tag in conjunction with t
 ### Multiple columns with line breaks
 
 <docs-source-example example="LongtextKeyValueListExampleComponent" fullwidth="true"></docs-source-example>
-
-### HTML values
-
-<docs-source-example example="HtmlKeyValueListExampleComponent"></docs-source-example>
