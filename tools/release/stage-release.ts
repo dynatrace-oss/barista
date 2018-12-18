@@ -96,9 +96,9 @@ class StageReleaseTask {
     console.info(green(`  ✓   Created the staging commit for: "${newVersionName}".`));
     console.info();
 
-    this.git.pushBranchToRemote(stagingBranch);
+    this.git.pushBranchOrTagToRemote(stagingBranch);
 
-    if (!this.git.pushBranchToRemote(stagingBranch)) {
+    if (!this.git.pushBranchOrTagToRemote(stagingBranch)) {
       console.error(red(`Could not push release staging branch "${stagingBranch}" to remote`));
       process.exit(1);
     }
