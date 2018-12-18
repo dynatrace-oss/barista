@@ -1,10 +1,14 @@
 # Releasing
 
 ## Breaking changes
-TODO @thomas.pink
-
-## Planed Releases
-TODO @thomas.pink
+Breaking changes can not always be avoided, so if you have to do one, consider the following guidelines:
+* If possible, deprecate and mark as a breaking change for the next (future) major release. Example:
+  ```
+    // @deprecated Use `DT_SOME_OTHER_OPTION` instead.
+    // @breaking-change 2.0.0 To be changed to `DT_SOME_OTHER_OPTION`
+    export const DT_SOME_OPTION = {};
+  ```
+* If you cannot deprecate, apply this breaking change, and commit it with the `BREAKING CHANGE` label (all uppercase) in the commit message!
 
 ## How to Release
 Note: Releasing should only be done by the maintainers of the angular-components.
@@ -25,5 +29,5 @@ Note: Releasing should only be done by the maintainers of the angular-components
 * Please review CHANGELOG.md and ensure that the log contains only changes that apply to the public library release.
 * When done, proceed by confirming the prompt.
 * The new changelog and the version bump will automatically be commited, and pushed to the remote.
-* A new PR including this version bumb will be created.
+* Create a new PR from this branch against the master.
 * Once all required tests in the PR have successfully been run and you have clicked the merge button, this version will be released.
