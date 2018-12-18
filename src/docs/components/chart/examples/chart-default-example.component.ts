@@ -19,38 +19,57 @@ import { OriginalClassName } from '../../../core/decorators';
 })
 @OriginalClassName('ChartDefaultExampleComponent')
 export class ChartDefaultExampleComponent {
-  options = {
-    chart: {
-      type: 'line',
-      height: 150,
-      marginBottom: 30,
-      marginTop: 15,
-      plotBorderWidth: 0,
-      spacingBottom: 0,
-      spacingTop: 0,
+  options: Highcharts.Options = {
+    xAxis: {
+      type: 'datetime',
     },
-    legend: {
-      enabled: false,
-    },
+    yAxis: [
+      {
+        title: null,
+        labels: {
+          format: '{value}',
+        },
+        tickInterval: 10,
+      },
+      {
+        title: null,
+        labels: {
+          format: '{value}/min',
+        },
+        opposite: true,
+        tickInterval: 50,
+      },
+    ],
     plotOptions: {
+      column: {
+        stacking: 'normal',
+      },
       series: {
         marker: {
           enabled: false,
         },
       },
     },
-    yAxis: {
-      visible: false,
-    },
   };
 
-  series = [{
-    data: [
-      [1536747600000, 2.6],
-      [1536748500000, 2.2],
-    ],
-    name: 'Avg. fetch states duration',
-  }];
+  series: Highcharts.IndividualSeriesOptions[] = [
+    {
+      name: 'Requests',
+      type: 'column',
+      yAxis: 1,
+      data: generateData(40, 0, 200, 1370304000000, 900000),
+    },
+    {
+      name: 'Failed requests',
+      type: 'column',
+      yAxis: 1,
+      data: generateData(40, 0, 15, 1370304000000, 900000),
+    },
+    {
+      name: 'Failure rate',
+      type: 'line',
+      data: generateData(40, 0, 20, 1370304000000, 900000),
+    }];
 }
 
 // tslint:enable:no-magic-numbers
