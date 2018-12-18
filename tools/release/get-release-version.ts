@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { red, italic } from 'chalk'
 import { GitClient } from './git-client';
 import { verifyPublishBranch } from './publish-branch';
@@ -11,7 +11,7 @@ export function getReleaseCommit(version: string): string {
 
 /**
  * Evaluates if the current commit is a release and returns its version.
- * Otherwise it returns no-release.
+ * Otherwise it returns "no-release".
  */
 export function getReleaseVersion(projectDir: string, repositoryName: string): string | 'no-release' {
   const packageJsonPath = join(projectDir, 'package.json');
@@ -38,7 +38,13 @@ export function getReleaseVersion(projectDir: string, repositoryName: string): s
   return 'no-release';
 }
 
+/** Writes the determined release version to a .version file */
+export function writeReleaseVersion(projectDir: string) {
+  const releaseVersion = getReleaseVersion(projectDir, 'angular-components');
+  writeFileSync(join(projectDir, 'dist/.version'), releaseVersion, 'utf-8');
+}
+
 /** Entry-point for the release version determination script. */
 if (require.main === module) {
-  console.log(getReleaseVersion(join(__dirname, '../../'), 'angular-components'));
+  writeReleaseVersion(join(__dirname, '../../'));
 }
