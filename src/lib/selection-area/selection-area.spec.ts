@@ -1,6 +1,6 @@
 import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick, flushMicrotasks } from '@angular/core/testing';
 import { DtSelectionAreaModule, DtIconModule } from '@dynatrace/angular-components';
-import { Component, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, ElementRef, ViewEncapsulation, NgZone } from '@angular/core';
 import { DtButtonModule } from '../button';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
@@ -9,11 +9,13 @@ import { DtSelectionArea } from './selection-area';
 import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ENTER, LEFT_ARROW, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, PAGE_DOWN, PAGE_UP, HOME, END } from '@angular/cdk/keycodes';
+import { MockNgZone } from '../../testing/mock-ng-zone';
 
 describe('DtSelectionArea', () => {
 
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
+  let zone: MockNgZone;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,6 +28,9 @@ describe('DtSelectionArea', () => {
       declarations: [
         BasicTest,
         BasicTestWithInitialTabIndex,
+      ],
+      providers: [
+        { provide: NgZone, useFactory: () => zone = new MockNgZone() },
       ],
     });
 
@@ -59,7 +64,7 @@ describe('DtSelectionArea', () => {
       fixture.detectChanges();
       const origin = fixture.componentInstance.origin;
       const originDomRect = origin.nativeElement.getBoundingClientRect();
-      const globalSelectionAreaContainer = getGlobalSelectionAreaHost(fixture);
+      const globalSelectionAreaContainer = getGlobalSelectionAreaHost();
       fixture.detectChanges();
       const selectionArea: HTMLElement | null = globalSelectionAreaContainer!.querySelector('dt-selection-area-container');
       expect(selectionArea!.style.left).toEqual(`${originDomRect.left}px`);
@@ -563,7 +568,7 @@ describe('DtSelectionArea', () => {
 
   });
 
-  fdescribe('overlay', () => {
+  describe('overlay', () => {
     let fixture: ComponentFixture<BasicTest>;
     let origin: HTMLElement;
     let selectedArea: HTMLElement;
@@ -602,6 +607,7 @@ describe('DtSelectionArea', () => {
       const closeSpy = jasmine.createSpy('onCloseObservable');
 
       selectionArea.closed.subscribe(closeSpy);
+      zone.simulateZoneExit();
       expect(closeSpy).not.toHaveBeenCalled();
       closeButton!.click();
       fixture.detectChanges();
@@ -613,6 +619,7 @@ describe('DtSelectionArea', () => {
       const closeSpy = jasmine.createSpy('onCloseObservable');
 
       selectionArea.closed.subscribe(closeSpy);
+      zone.simulateZoneExit();
       expect(closeSpy).not.toHaveBeenCalled();
       selectionArea.close();
       fixture.detectChanges();
@@ -655,12 +662,12 @@ describe('DtSelectionArea', () => {
       expect(handle.getAttribute('aria-label')).toBe('aria left');
     });
 
-    it('should set the aria-label on the selected-area', () => {
+    it('should set the aria-label on the right handle', () => {
       const handle = fixture.debugElement.query(By.css('.dt-selection-area-right-handle')).nativeElement;
       expect(handle.getAttribute('aria-label')).toBe('aria right');
     });
 
-    it('should set the aria-label on the selected-area', () => {
+    it('should set the aria-label on the close button', () => {
       expect(closeButton!.getAttribute('aria-label')).toBe('aria close');
     });
 
@@ -688,7 +695,7 @@ describe('DtSelectionArea', () => {
   });
 });
 
-function getGlobalSelectionAreaHost(fixture: ComponentFixture<any>): HTMLElement | null {
+function getGlobalSelectionAreaHost(): HTMLElement | null {
   return document.body.querySelector('.dt-selection-area-global-container');
 }
 

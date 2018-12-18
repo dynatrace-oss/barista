@@ -1,24 +1,16 @@
 import { CdkTrapFocus, FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { CdkConnectedOverlay, ConnectedPosition, OverlayRef } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   NgZone,
   Output,
   Renderer2,
   ViewChild,
   ViewEncapsulation,
-  ComponentFactoryResolver,
-  Injector,
-  ApplicationRef,
-  TemplateRef,
-  ViewContainerRef,
-  ViewChildren,
-  QueryList,
 } from '@angular/core';
 import {
   addCssClass,
@@ -31,10 +23,9 @@ import {
 } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
 import { getOffsetForKeyCode, DtSelectionAreaEventTarget, calculatePosition } from './positioning-utils';
-import { DtSelectionAreaOrigin } from './selection-area-origin';
 import { ENTER } from '@angular/cdk/keycodes';
 import { take } from 'rxjs/operators';
-import { CdkPortalOutlet, Portal } from '@angular/cdk/portal';
+import { Portal } from '@angular/cdk/portal';
 
 /** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaContainerChange {
@@ -95,6 +86,12 @@ export const _DtSelectionAreaContainerMixin = mixinTabIndex(mixinDisabled(DtSele
 })
 export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin implements HasTabIndex {
 
+  /** Emits when the selected area changes position or size */
+  @Output() changed = new EventEmitter<DtSelectionAreaContainerChange>();
+
+  /** Emits everytime the selected area and the overlay are closed */
+  @Output() closed = new EventEmitter<void>();
+
   /** @internal Indicates if the selected area is visible */
   _isSelectedAreaVisible = false;
 
@@ -103,6 +100,23 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
 
   /** @internal Emits every time the grabbing status changes */
   _grabbingChange = new Subject<boolean>();
+
+  /** @internal The portal that contains the content for the overlay */
+// tslint:disable-next-line: no-any
+  _overlayContentPortal: Portal<any>;
+
+  /** @internal The portal that contains the actions */
+// tslint:disable-next-line: no-any
+  _overlayActionsPortal: Portal<any>;
+
+  /** @internal The aria label used for the selected area */
+  _ariaLabelSelectedArea: string;
+  /** @internal The aria label used for the left handle */
+  _ariaLabelLeftHandle: string;
+  /** @internal The aria label used for the right handle */
+  _ariaLabelRightHandle: string;
+  /** @internal The aria label used for the close button */
+  _ariaLabelClose: string;
 
   /** Indicator if its being touched */
   private _touching = false;
@@ -119,14 +133,8 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   /** Array of unregister functions on the window */
   private _detachFns: Array<() => void> = [];
 
-  /** The ref to the DtOverlay */
-  private _overlayRef: OverlayRef;
-
   /** The focus trap inside the overlay */
   private _overlayFocusTrap: FocusTrap;
-
-  /** @internal the origin instance */
-  _origin: DtSelectionAreaOrigin;
 
   /** @internal Default interpolation function that just returns the px value */
   _interpolateFn: (pxValue: number) => number = (pxValue) => pxValue;
@@ -142,21 +150,6 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   @ViewChild('lefthandle') _leftHandle: ElementRef;
   /** @internal The right handle of the selectedArea */
   @ViewChild('righthandle') _rightHandle: ElementRef;
-
-  @ViewChildren(CdkPortalOutlet) _overlayContentOutlet: QueryList<CdkPortalOutlet>;
-
-  @Output() changed = new EventEmitter<DtSelectionAreaContainerChange>();
-
-  @Output() closed = new EventEmitter<void>();
-
-  _overlayContentPortal: Portal<any>;
-
-  _overlayActionsPortal: Portal<any>;
-
-  _ariaLabelSelectedArea: string;
-  _ariaLabelLeftHandle: string;
-  _ariaLabelRightHandle: string;
-  _ariaLabelClose: string;
 
   constructor(
     private _elementRef: ElementRef,
@@ -179,7 +172,6 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
 
   /** Closes and destroys the selected area */
   close(): void {
-    console.log('close on the container called');
     this._reset();
     this._changeDetectorRef.markForCheck();
     this.closed.next();
@@ -448,8 +440,8 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   }
   /** Resets the selected area and the overlay */
   private _reset(): void {
-    if (this._overlayRef) {
-      this._overlayRef.dispose();
+    if (this._overlay.overlayRef) {
+      this._overlay.overlayRef.dispose();
     }
     this._hideAndResetSelectedArea();
   }
