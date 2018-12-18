@@ -12,6 +12,9 @@ import {
   ViewChild,
   TemplateRef,
   SimpleChanges,
+  AfterViewInit,
+  OnChanges,
+  OnDestroy,
 } from '@angular/core';
 import {
   addCssClass,
@@ -19,7 +22,7 @@ import {
 import { Observable, BehaviorSubject } from 'rxjs';
 import { DomPortalOutlet, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { DtSelectionAreaContainer, DtSelectionAreaContainerChange, DtSelectionAreaContainerAriaLabels } from './selection-area-container';
-import { map, take, switchMap } from 'rxjs/operators';
+import { map, take, switchMap, tap } from 'rxjs/operators';
 
 /** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaChange extends DtSelectionAreaContainerChange {
@@ -37,7 +40,7 @@ export interface DtSelectionAreaChange extends DtSelectionAreaContainerChange {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtSelectionArea {
+export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy {
 
   /** The aria label used for the selected area of the selection area */
   @Input('aria-label-selected-area') ariaLabelSelectedArea: string;
@@ -62,8 +65,10 @@ export class DtSelectionArea {
   /** @internal Emits whenever the grabbing state changes */
   readonly _grabbingChange: Observable<boolean> = this._deferContainerEvent<boolean>('_grabbingChange');
 
+  /** The portal outlet used to render the container to the body to properly position the selection area container */
   private _portalOutlet: DomPortalOutlet;
 
+  /** The instance of the container that is dynamically generated in the outlet */
   private _containerInstance: DtSelectionAreaContainer;
 
   /**
@@ -74,8 +79,10 @@ export class DtSelectionArea {
    */
   _boundariesChanged: BehaviorSubject<ClientRect | null> = new BehaviorSubject(null);
 
+// tslint:disable-next-line: no-any
   @ViewChild('content', { read: TemplateRef }) _overlayContent: TemplateRef<any>;
 
+// tslint:disable-next-line: no-any
   @ViewChild('actions', { read: TemplateRef }) _overlayActions: TemplateRef<any>;
 
   constructor(
@@ -129,23 +136,33 @@ export class DtSelectionArea {
     this._containerInstance.focus();
   }
 
+  /** @internal creates the selected area on the container with the given position */
   _createSelectedArea(posX: number): void {
     this._containerInstance._create(posX);
   }
 
-  /** @internal Apply boundaries to the container element to match the origin */
+  /** @internal Passes the interpolateFn from the origin to the container */
+  _setInterpolateFnOnContainer(fn: (pxValue: number) => number): void {
+    if (this._containerInstance) {
+      this._containerInstance._interpolateFn = fn;
+    }
+  }
+
+  /** Apply boundaries to the container element to match the origin */
   private _applyBoundariesToContainer(boundaries: ClientRect): void {
     if (this._containerInstance) {
       this._containerInstance._applyBoundaries(boundaries);
     }
   }
 
+  /** Defers the container events until the zone is stable and the container is ready */
   private _deferContainerEvent<T>(eventName: string): Observable<T> {
     return this._containerInstance ? this._containerInstance[eventName] : this._ngZone.onStable
       .asObservable()
       .pipe(take(1), switchMap(() => this._deferContainerEvent(eventName)));
   }
 
+  /** Creates the container and the host element in the domportal on the body */
   private _createContainer(): DtSelectionAreaContainer | null {
     if (document) {
       const portal = new ComponentPortal(DtSelectionAreaContainer, this._viewContainerRef, null, this._componentFactoryResolver);
@@ -168,8 +185,10 @@ export class DtSelectionArea {
     return host;
   }
 
+  /** @internal The global container that holds all selection area containers */
   static _globalContainerElement: HTMLElement;
 
+  /** Creates a new global container holds all selection area containers if needed and returns it */
   getGlobalContainerElement(): HTMLElement {
     if (!DtSelectionArea._globalContainerElement) { this._createGlobalContainerInBody(); }
     return DtSelectionArea._globalContainerElement;
@@ -185,12 +204,5 @@ export class DtSelectionArea {
     addCssClass(container, 'dt-selection-area-global-container');
     this._renderer.appendChild(document.body, container);
     DtSelectionArea._globalContainerElement = container;
-  }
-
-  /** Passes the interpolateFn from the origin to the container */
-  _setInterpolateFnOnContainer(fn: (pxValue: number) => number): void {
-    if (this._containerInstance) {
-      this._containerInstance._interpolateFn = fn;
-    }
   }
 }

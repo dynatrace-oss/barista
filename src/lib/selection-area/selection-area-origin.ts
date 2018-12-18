@@ -1,8 +1,26 @@
-import { Directive, Input, NgZone, ElementRef, OnDestroy, Attribute, SimpleChanges } from '@angular/core';
+import {
+  Directive,
+  Input,
+  NgZone,
+  ElementRef,
+  OnDestroy,
+  Attribute,
+  SimpleChanges,
+  OnChanges,
+} from '@angular/core';
 import { DtSelectionArea } from './selection-area';
-import { mixinDisabled, DtViewportResizer, CanDisable, mixinTabIndex, HasTabIndex, readKeyCode, addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
+import {
+  mixinDisabled,
+  DtViewportResizer,
+  CanDisable,
+  mixinTabIndex,
+  HasTabIndex,
+  readKeyCode,
+  addCssClass,
+  removeCssClass,
+} from '@dynatrace/angular-components/core';
 import { take, takeUntil } from 'rxjs/operators';
-import { Subscription, Subject, merge, Observable } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { ENTER } from '@angular/cdk/keycodes';
 
 export class DtSelectionAreaOriginBase { }
@@ -20,8 +38,9 @@ export const _DtSelectionAreaOriginMixin = mixinTabIndex(mixinDisabled(DtSelecti
   inputs: ['tabIndex'],
 })
 export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
-implements OnDestroy, HasTabIndex, CanDisable {
+implements OnDestroy, OnChanges, HasTabIndex, CanDisable {
 
+  /** The selection area connected to this origin */
   @Input('dtSelectionArea') selectionArea: DtSelectionArea;
 
   private _selectionAreaGrabbingSub = Subscription.EMPTY;
@@ -91,6 +110,7 @@ implements OnDestroy, HasTabIndex, CanDisable {
     });
   }
 
+  /** Emits the boundariesChanged on the selection area */
   private _emitBoundariesChangedOnSelectionArea(): void {
     this.selectionArea._boundariesChanged.next(this._elementRef.nativeElement.getBoundingClientRect());
   }
