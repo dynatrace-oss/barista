@@ -38,7 +38,7 @@ export function getReleaseVersion(projectDir: string, repositoryName: string): s
   return 'no-release';
 }
 
-/** Entry-point for the release staging script. */
+/** Entry-point for the release version determination script. */
 if (require.main === module) {
   console.log(getReleaseVersion(join(__dirname, '../../'), 'angular-components'));
 }
