@@ -21,7 +21,7 @@ Note: Releasing should only be done by the maintainers of the angular-components
 * Start the release Wizard by entering `yarn stage-release` in your command line tool.
 * The Wizard will now prompt you for the new version number. You can select between a `patch`, `minor` and `major` release. The Wizard will also recommend you the version bumb based on the commits between now and the last release.
 * Based on the version you have selected, a new state-release branch will be created (e.g. `release-stage/2.0.0`) and the version in the package json will be set.
-* A changelog based on the commits will no been created and attached to the CHANGELOG.md file.
+* A changelog based on the commits going to be created and attached to the CHANGELOG.md file.
 * Please review CHANGELOG.md and ensure that the log contains only changes that apply to the public library release.
 * When done, proceed by confirming the prompt.
 * The new changelog and the version bump will automatically be commited, and pushed to the remote.
