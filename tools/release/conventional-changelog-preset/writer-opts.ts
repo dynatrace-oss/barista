@@ -7,14 +7,12 @@ export default Q.all([
   readFileSync(resolve(__dirname, './templates/template.hbs'), { encoding: 'utf-8' }),
   readFileSync(resolve(__dirname, './templates/header.hbs'), { encoding: 'utf-8' }),
   readFileSync(resolve(__dirname, './templates/commit.hbs'), { encoding: 'utf-8' }),
-  readFileSync(resolve(__dirname, './templates/footer.hbs'), { encoding: 'utf-8' }),
 ]).spread((template, header, commit, footer) => {
   const writerOpts = getWriterOpts() as any;
 
   writerOpts.mainTemplate = template;
   writerOpts.headerPartial = header;
   writerOpts.commitPartial = commit;
-  writerOpts.footerPartial = footer;
 
   return writerOpts;
 });
