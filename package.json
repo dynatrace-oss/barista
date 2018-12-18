@@ -8,6 +8,7 @@
     "build": "gulp library:build",
     "stage-release": "ts-node --project tools/release/ tools/release/stage-release.ts",
     "get-release-version": "ts-node --project tools/release/ tools/release/get-release-version.ts",
+    "create-tag": "ts-node --project tools/release/ tools/release/create-tag.ts",
     "breaking-changes": "gulp breaking-changes",
     "test": "ng test lib --watch=false",
     "test:watch": "ng test lib",
