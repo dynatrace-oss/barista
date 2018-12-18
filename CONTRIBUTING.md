@@ -22,10 +22,10 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 * Test your changes with our supported browsers
 * Run unit, ui and universal tests, as described in the [developer documentation](DEVELOPMENT.md), and ensure that all tests pass.
 * Commit your changes using a descriptive commit message that follows our [commit message conventions](#commit-message-guidelines).
-* Push your branch to Bitbucket:
+* Push your branch to Bitbucket.
 * Create a new Pull Request from your branch against the master
 * If you want to create a PR that is not ready for review, mark it as "WIP" in the title.
-* The PR must be reviewed by @thomas.pink and/or @fabian.fiedl. Other reviewers can also be specified but optional.
+* The PR must be reviewed by @thomas.pink and/or @fabian.fiedl. Other reviewers can be added optionally.
 * If we suggest changes then:
   * Make the required updates.
   * Re-run all tests to make sure they are still passing.
@@ -35,12 +35,10 @@ Before you submit your Pull Request (PR) consider the following guidelines:
     git push -f
     ```
 
-Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
-
 ## Commit Message Guidelines
 
 ***Commit Message Format***
-Each commit message consists of an `issue`, a `type`, `scope` and `subject` (message).
+Each commit message consists of an `issue`, a `type`, `scope` and `subject` (message).   
 The `issue`, `type` and `subject` are mandatory, the `scope` can be optional in some specific cases.
 Format: `<issue> <type>(<scope>): <subject>`
 
