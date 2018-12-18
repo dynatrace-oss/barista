@@ -16,11 +16,10 @@ import {
 import { DataPoint, Options } from 'highcharts';
 import { DtChart, DtChartOptions, DtChartSeries, DT_CHART_CONFIG } from '@dynatrace/angular-components/chart';
 import {
-  _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS,
-  _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS,
+  _DT_MICROCHART_MAX_DATAPOINT_OPTIONS,
+  _DT_MICROCHART_MIN_DATAPOINT_OPTIONS,
   createDtMicrochartMinMaxDataPointOptions,
   createDtMicrochartDefaultOptions,
-  createDtMicrochartDefaultColumnDataPointOption,
 } from './micro-chart-options';
 import { merge as lodashMerge } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
@@ -76,6 +75,14 @@ export class DtMicroChart implements OnDestroy {
     this._series = series;
   }
 
+  private _labelFormatter = (input: number) => input.toString();
+  @Input()
+  get labelFormatter(): (input: number) => string { return this._labelFormatter; }
+  set labelFormatter(formatter: (input: number) => string) {
+    this._labelFormatter = formatter;
+    this._updateChart();
+  }
+
   @Output() readonly updated = new EventEmitter<void>();
 
   get seriesId(): string | undefined {
@@ -87,13 +94,12 @@ export class DtMicroChart implements OnDestroy {
   }
 
   constructor(@Optional() @SkipSelf() private readonly _theme: DtTheme, private _changeDetectorRef: ChangeDetectorRef) {
+    this._transformedOptions = this._transformOptions({});
+
     if (_theme) {
       _theme._stateChanges.subscribe(() => {
         this._transformedOptions = this._transformOptions(this._options);
-        if (this._currentSeries) {
-          this._transformedSeries = this._transformSeries(this._currentSeries);
-        }
-        _changeDetectorRef.markForCheck();
+        this._updateChart();
       });
     }
   }
@@ -117,15 +123,19 @@ export class DtMicroChart implements OnDestroy {
     }
 
     this._currentSeries = singleSeries;
-
-    const isColumnSeries =
-      singleSeries.type === 'column' || !!this.highchartsOptions.chart && this.highchartsOptions.chart.type === 'column';
     const dataPoints = convertToDataPoints(singleSeries.data || [singleSeries]);
     const {min, max} = getMinMaxDataPoints(dataPoints);
-    applyMinMaxOptions(min, max, isColumnSeries, this._theme);
+    applyMinMaxOptions(min, max, this.labelFormatter, this._theme);
 
     singleSeries.data = dataPoints;
     return [singleSeries];
+  }
+
+  private _updateChart(): void {
+    if (this._currentSeries) {
+      this._transformedSeries = this._transformSeries(this._currentSeries);
+    }
+    this._changeDetectorRef.markForCheck();
   }
 }
 
@@ -165,14 +175,13 @@ function getMinMaxDataPoints(dataPoints: DataPoint[]): { min: DataPoint; max: Da
 }
 
 /** Apply default micro chart options to min & max data points */
-function applyMinMaxOptions(min: DataPoint, max: DataPoint, isColumnSeries: boolean, theme?: DtTheme): void {
+function applyMinMaxOptions(min: DataPoint, max: DataPoint, labelFormatter: (input: number) => string, theme?: DtTheme): void {
   const palette = getDtMicrochartColorPalette(theme);
-  const columnOptions = createDtMicrochartDefaultColumnDataPointOption(palette);
-  const minOptions = isColumnSeries ? columnOptions : _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS;
-  const maxOptions = isColumnSeries ? columnOptions : _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS;
   const minMaxDefaultOptions = createDtMicrochartMinMaxDataPointOptions(palette);
-  lodashMerge(min, minMaxDefaultOptions, minOptions);
-  lodashMerge(max, minMaxDefaultOptions, maxOptions);
+  lodashMerge(min, minMaxDefaultOptions, _DT_MICROCHART_MIN_DATAPOINT_OPTIONS);
+  lodashMerge(max, minMaxDefaultOptions, _DT_MICROCHART_MAX_DATAPOINT_OPTIONS);
+  addDataLabelFormatter(min, labelFormatter);
+  addDataLabelFormatter(max, labelFormatter);
 }
 
 function checkUnsupportedType(type: string | undefined): void {
@@ -184,5 +193,12 @@ function checkUnsupportedType(type: string | undefined): void {
 function checkUnsupportedOptions(options: DtChartOptions): void {
   if (options.chart) {
     checkUnsupportedType(options.chart.type);
+  }
+}
+
+/** Apply count formatter to value to be displayed in data label */
+function addDataLabelFormatter(dataPoint: DataPoint, formatter: (input: number) => string): void {
+  if (dataPoint && dataPoint.dataLabels) {
+    dataPoint.dataLabels.formatter = () => (dataPoint.y) ? formatter(dataPoint.y) : '';
   }
 }

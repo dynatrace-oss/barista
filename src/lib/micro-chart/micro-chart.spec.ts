@@ -23,6 +23,7 @@ describe('DtMicroChart', () => {
         DefinedAxis,
         DefinedAxisArray,
         DefinedAxisEmptyArray,
+        Formatter,
         ThemeDynamic,
         ThemeFixed,
         NoOptions,
@@ -177,6 +178,16 @@ describe('DtMicroChart', () => {
       expect(data[1].dataLabels).toEqual(objectContaining({verticalAlign: 'top', enabled: true}));
     });
 
+    it('should apply a formatter function for formatting minmax datapoint labels', () => {
+      const {fixture, microChartComponent} = setupTestCase(Formatter);
+      fixture.detectChanges();
+
+      const data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
+
+      expect(microChartComponent.labelFormatter).toEqual(fixture.componentInstance.formatterFn);
+      expect(fixture.componentInstance.formatterInvocations).toEqual(2);
+    });
+
     it('should fetch metric ids', () => {
       const {fixture, microChartComponent} = setupTestCase(Series);
       fixture.detectChanges();
@@ -256,6 +267,26 @@ class Series {
     id: 'someMetricId',
     data: [[1, 140], [2, 120]],
   };
+}
+
+@Component({
+  selector: 'dt-formatter',
+  template: `<dt-micro-chart [series]="series" [options]="options" [labelFormatter]="formatterFn"></dt-micro-chart>`,
+})
+class Formatter {
+  options: DtChartOptions = {chart: {type: 'line' }};
+  series: DtChartSeries = {
+    name: 'Actions/min',
+    id: 'someMetricId',
+    data: [[1, 140], [2, 120], [3, 150], [4, 200]],
+  };
+
+  formatterInvocations = 0;
+
+  formatterFn = (input: number) => {
+    this.formatterInvocations++;
+    input.toString();
+  }
 }
 
 @Component({
