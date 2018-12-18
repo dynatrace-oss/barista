@@ -108,10 +108,13 @@ function getOverlayPosYAndOrigin(data: DtChartTooltipData): { overlayPosY: numbe
     const sumY = data.points!.map((d) => d.point.plotY).reduce((sum: number, value: number) => sum + value, 0);
     const avgClientY = sumY / data.points!.length;
     posY = avgClientY - data.points![0].point.plotY;
+    // unforunately highcharts gives a completely different structure for the tooltip data
+    // when only one metric is passed thats why we need this check
     origin = data.points![0].point.graphic ?
       data.points![0].point.graphic.element : data.points![0].series.stateMarkerGraphic.element;
   } else {
     posY = data.y;
+    // unforunately highcharts gives a completely different structure for the tooltip data when only one metric is passed
     origin = data.point!.point.graphic ?
       data.point!.point.graphic.element : data.point!.series.stateMarkerGraphic.element;
   }
