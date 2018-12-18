@@ -1,4 +1,4 @@
-import { async, TestBed, fakeAsync, flush, ComponentFixture, inject } from '@angular/core/testing';
+import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick, flushMicrotasks } from '@angular/core/testing';
 import { DtSelectionAreaModule, DtIconModule } from '@dynatrace/angular-components';
 import { Component, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { DtButtonModule } from '../button';
@@ -54,17 +54,19 @@ describe('DtSelectionArea', () => {
       const origin = fixture.componentInstance.origin;
       expect(origin.nativeElement.getAttribute('tabindex')).toBe('10');
     });
-    it('should position the selection-area over to the origin', () => {
+    it('should position the selection-area over to the origin', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicTest);
       fixture.detectChanges();
       const origin = fixture.componentInstance.origin;
       const originDomRect = origin.nativeElement.getBoundingClientRect();
-      const selectionArea = fixture.debugElement.query(By.directive(DtSelectionArea)).nativeElement;
-      expect(selectionArea.style.left).toEqual(`${originDomRect.left}px`);
-      expect(selectionArea.style.top).toEqual(`${originDomRect.top}px`);
-      expect(selectionArea.style.width).toEqual(`${originDomRect.width}px`);
-      expect(selectionArea.style.height).toEqual(`${originDomRect.height}px`);
-    });
+      const globalSelectionAreaContainer = getGlobalSelectionAreaHost(fixture);
+      fixture.detectChanges();
+      const selectionArea: HTMLElement | null = globalSelectionAreaContainer!.querySelector('dt-selection-area-container');
+      expect(selectionArea!.style.left).toEqual(`${originDomRect.left}px`);
+      expect(selectionArea!.style.top).toEqual(`${originDomRect.top}px`);
+      expect(selectionArea!.style.width).toEqual(`${originDomRect.width}px`);
+      expect(selectionArea!.style.height).toEqual(`${originDomRect.height}px`);
+    }));
   });
 
   describe('creation', () => {
@@ -561,7 +563,7 @@ describe('DtSelectionArea', () => {
 
   });
 
-  describe('overlay', () => {
+  fdescribe('overlay', () => {
     let fixture: ComponentFixture<BasicTest>;
     let origin: HTMLElement;
     let selectedArea: HTMLElement;
@@ -685,6 +687,10 @@ describe('DtSelectionArea', () => {
     });
   });
 });
+
+function getGlobalSelectionAreaHost(fixture: ComponentFixture<any>): HTMLElement | null {
+  return document.body.querySelector('.dt-selection-area-global-container');
+}
 
 @Component({
   template: `
