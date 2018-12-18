@@ -33,6 +33,7 @@ To use the dynatrace chart, add the `<dt-micro-chart options="myoptions" series=
 | --- | --- | --- | --- |
 | `@Input() options` | `DtChartOptions | undefined` | `undefined` | Sets options for the chart. DtChartOptions extends from Highcharts.Options, but removes the series property. The series property is passed as it's own input |
 | `@Input() series` | `Observable<DtChartSeries> | DtChartSeries | undefined` | `undefined` | Sets the series of the chart. The type can either be a stream of series data for continues updates or a static array. |
+| `@Input() labelFormatter` | `(input: number) => string | undefined` | `undefined` | Sets the label formatter function for the min and max data point. |
 | `@Output() updated` | `EventEmitter<void>` | | Event emitted when the chart options or series are updated |
 
 ## Getter

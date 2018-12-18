@@ -1,6 +1,7 @@
 import { DataPoint } from 'highcharts';
 import { DtChartOptions } from '@dynatrace/angular-components/chart';
 import { DtMicroChartColorPalette } from './micro-chart-colors';
+import { Colors } from '@dynatrace/angular-components/theming';
 
 export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalette): DtChartOptions {
   return {
@@ -17,6 +18,8 @@ export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalet
       column: {
         states: {
           hover: {
+            borderColor: palette.primary,
+            borderWidth: 2,
             color: palette.lighter,
           },
           select: {
@@ -68,7 +71,11 @@ export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalet
 
 export function createDtMicrochartMinMaxDataPointOptions(palette: DtMicroChartColorPalette): DataPoint {
   return {
+    borderColor: palette.darker,
+    borderWidth: 2,
     dataLabels: {
+      align: 'center',
+      color: Colors.GRAY_500,
       enabled: true,
     },
     marker: {
@@ -83,30 +90,20 @@ export function createDtMicrochartMinMaxDataPointOptions(palette: DtMicroChartCo
         },
       },
     },
-  };
+  // tslint:disable-next-line:no-any
+  } as any;
 }
 
-export const _DT_MICROCHART_LINE_MIN_DATAPOINT_OPTIONS = {
+export const _DT_MICROCHART_MIN_DATAPOINT_OPTIONS = {
   dataLabels: {
     verticalAlign: 'top',
     y: 3,
   },
 };
 
-export const _DT_MICROCHART_LINE_MAX_DATAPOINT_OPTIONS = {
+export const _DT_MICROCHART_MAX_DATAPOINT_OPTIONS = {
   dataLabels: {
     verticalAlign: 'bottom',
     y: -3,
   },
 };
-
-export function createDtMicrochartDefaultColumnDataPointOption(palette: DtMicroChartColorPalette): DataPoint {
-  return {
-    borderColor: palette.darker,
-    dataLabels: {
-      verticalAlign: 'bottom',
-    },
-    borderWidth: 2,
-  // tslint:disable-next-line:no-any
-  } as any;
-}
