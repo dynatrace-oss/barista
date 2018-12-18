@@ -5,13 +5,11 @@ import { LongtextKeyValueListExampleComponent } from './examples/longtext-key-va
 import { UiModule, COMPONENT_EXAMPLES } from '../../ui/ui.module';
 import { CommonModule } from '@angular/common';
 import { DtKeyValueListModule } from '@dynatrace/angular-components';
-import {HtmlKeyValueListExampleComponent} from "./examples/html-key-value-list-example.component";
 
 export const EXAMPLES = [
   DefaultKeyValueListExampleComponent,
   MulticolumnKeyValueListExampleComponent,
   LongtextKeyValueListExampleComponent,
-  HtmlKeyValueListExampleComponent,
 ];
 
 @NgModule({
