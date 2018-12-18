@@ -40,9 +40,6 @@ describe('DtChartTooltip', () => {
     const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
     chartComponent = chartDebugElement.componentInstance;
 
-    // this fakes a new tooltip being created
-    chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA });
-    fixture.detectChanges();
   }));
 
   afterEach(inject([OverlayContainer], (currentOverlayContainer: OverlayContainer) => {
@@ -52,39 +49,58 @@ describe('DtChartTooltip', () => {
     overlayContainer.ngOnDestroy();
   }));
 
-  it('should render a key value list with the data inside the tooltip', () => {
-    expect(overlayContainerElement.innerText).toContain('Actions/min');
-    expect(overlayContainerElement.innerText).toContain('12345');
-    expect(overlayContainerElement.innerHTML).toContain('dt-key-value-list');
+  describe('Multiple metrics', () => {
+    beforeEach(() => {
+      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA });
+      fixture.detectChanges();
+    });
+
+    it('should render a key value list with the data inside the tooltip', () => {
+      expect(overlayContainerElement.innerText).toContain('Actions/min');
+      expect(overlayContainerElement.innerText).toContain('12345');
+      expect(overlayContainerElement.innerHTML).toContain('dt-key-value-list');
+    });
+
+    it('should update the tooltip with new data', () => {
+      const newData = DUMMY_TOOLTIP_DATA;
+      newData.points![0].point.y = 54321;
+
+      chartComponent.tooltipDataChange.next({ data: newData });
+      fixture.detectChanges();
+      expect(overlayContainerElement.innerText).not.toContain('12345');
+      expect(overlayContainerElement.innerText).toContain('54321');
+    });
+
+    it('should dismiss the overlay when the tooltip close event is called', fakeAsync(() => {
+      chartComponent.tooltipOpenChange.next(false);
+      fixture.detectChanges();
+      tick();
+      flush();
+      expect(overlayContainerElement.innerHTML).toEqual('');
+    }));
+
+    it('should dismiss the overlay when the tooltip data event is called but has no data for the point', fakeAsync(() => {
+      const newData = DUMMY_TOOLTIP_DATA;
+      newData.points = undefined;
+      chartComponent.tooltipDataChange.next({ data: newData });
+      fixture.detectChanges();
+      tick();
+      flush();
+      expect(overlayContainerElement.innerHTML).toEqual('');
+    }));
   });
 
-  it('should update the tooltip with new data', () => {
-    const newData = DUMMY_TOOLTIP_DATA;
-    newData.points![0].point.y = 54321;
-
-    chartComponent.tooltipDataChange.next({ data: newData });
-    fixture.detectChanges();
-    expect(overlayContainerElement.innerText).not.toContain('12345');
-    expect(overlayContainerElement.innerText).toContain('54321');
+  describe('Single metric', () => {
+    it('should render a key value list with data inside the tooltip', () => {
+      // this fakes a new tooltip being created
+      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA_SINGLE_METRIC });
+      fixture.detectChanges();
+      expect(overlayContainerElement.innerText).toContain('Actions/min');
+      expect(overlayContainerElement.innerText).toContain('12345');
+      expect(overlayContainerElement.innerHTML).toContain('dt-key-value-list');
+    });
   });
 
-  it('should dismiss the overlay when the tooltip close event is called', fakeAsync(() => {
-    chartComponent.tooltipOpenChange.next(false);
-    fixture.detectChanges();
-    tick();
-    flush();
-    expect(overlayContainerElement.innerHTML).toEqual('');
-  }));
-
-  it('should dismiss the overlay when the tooltip data event is called but has no data for the point', fakeAsync(() => {
-    const newData = DUMMY_TOOLTIP_DATA;
-    newData.points = undefined;
-    chartComponent.tooltipDataChange.next({ data: newData });
-    fixture.detectChanges();
-    tick();
-    flush();
-    expect(overlayContainerElement.innerHTML).toEqual('');
-  }));
 });
 
 @Component({
@@ -154,6 +170,42 @@ const DUMMY_TOOLTIP_DATA: DtChartTooltipData = {
       },
       series: {
         name: 'Actions/min',
+      },
+      key: 0,
+    },
+  ],
+};
+
+const DUMMY_TOOLTIP_DATA_SINGLE_METRIC: DtChartTooltipData = {
+  x: 0,
+  y: 0,
+  points: [
+    {
+      x: 0,
+      y: 0,
+      total: 1,
+      color: '#ffffff',
+      colorIndex: 0,
+      percentage: 0,
+      point: {
+        y: 12345,
+      },
+      series: {
+        name: 'Actions/min',
+        stateMarkerGraphic: {
+          element: {
+            getBoundingClientRect: () => ({
+              x: 0,
+              y: 0,
+              height: 0,
+              width: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              top: 0,
+            }),
+          },
+        },
       },
       key: 0,
     },
