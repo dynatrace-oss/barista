@@ -11,7 +11,7 @@ Breaking changes can not always be avoided, so if you have to do one, consider t
 * If you cannot deprecate, apply this breaking change, and commit it with the `BREAKING CHANGE` label (all uppercase) in the commit message!
 
 ## How to Release
-Note: Releasing should only be done by the maintainers of the angular-components.
+**Note: Releasing should only be done by the maintainers of the angular-components.**
 
 * Make sure you are on the `master` branch.
 * If you wanna do a major release run `yarn  breaking-changes` which will get you a list of breaking changes for the next major versions.
