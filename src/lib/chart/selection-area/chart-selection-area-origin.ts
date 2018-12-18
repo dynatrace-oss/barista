@@ -2,8 +2,8 @@ import { Directive, Input, NgZone, ElementRef, OnDestroy, Attribute, Host, Rende
 import { DtViewportResizer, addCssClass, HasTabIndex, CanDisable } from '@dynatrace/angular-components/core';
 import { DtSelectionArea, DtSelectionAreaOrigin } from '@dynatrace/angular-components/selection-area';
 import { DtChart } from '../chart';
-import { takeUntil } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { takeUntil, map, filter } from 'rxjs/operators';
+import { Subscription, Observable, BehaviorSubject } from 'rxjs';
 
 @Directive({
   selector: 'dt-chart[dtChartSelectionArea]',
@@ -42,7 +42,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
       this._plotBackground = this._chart.container.nativeElement.querySelector('.highcharts-plot-background');
       addCssClass(this._plotBackground, 'dt-selection-area-origin');
       this._plotBackground.setAttribute('tabindex', this.tabIndex.toString());
-      this._applyBoundariesToSelectionArea();
+      this.selectionArea._boundariesChanged.next(this._getPlotBackgroundClientRect());
       this._setInterpolateFnOnSelectionArea();
 
       if (!this._detachFns.length) {
@@ -80,16 +80,17 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
     }
   }
 
-  protected _applyBoundariesToSelectionArea(): void {
-    if (this.selectionArea && this._plotBackground) {
-      const boundaries = this._plotBackground.getBoundingClientRect();
-      this.selectionArea._applyBoundaries(boundaries);
+  private _getPlotBackgroundClientRect(): DOMRect | null {
+    if (this._plotBackground) {
+      return this._plotBackground.getBoundingClientRect() as DOMRect;
     }
+    return null;
   }
 
   private _setInterpolateFnOnSelectionArea(): void {
     if (this._chart._chartObject && this.selectionArea) {
-      this.selectionArea._interpolateFn = (pxValue: number) => this._chart._chartObject.xAxis[0].toValue(pxValue, true);
+      this.selectionArea._setInterpolateFnOnContainer(
+        (pxValue: number) => this._chart._chartObject.xAxis[0].toValue(pxValue, true));
     }
   }
 }
