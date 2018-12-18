@@ -1,4 +1,15 @@
-import { Component, SkipSelf, Inject, forwardRef, TemplateRef, ContentChild, NgZone, OnDestroy, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  SkipSelf,
+  Inject,
+  forwardRef,
+  TemplateRef,
+  ContentChild,
+  NgZone,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+} from '@angular/core';
 import { DtChart } from '../chart';
 import { DtOverlay, DtOverlayRef } from '@dynatrace/angular-components/overlay';
 import { takeUntil } from 'rxjs/operators';
