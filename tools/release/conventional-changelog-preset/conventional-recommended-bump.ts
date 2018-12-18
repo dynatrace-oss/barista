@@ -9,8 +9,8 @@ export default {
     let features = 0;
 
     commits.forEach((commit) => {
-      if (commit.notes.length > 0) {
-        breakings += commit.notes.length;
+      if (commit.subject && commit.subject.indexOf('BREAKING CHANGE') !== -1) {
+        breakings += 1;
         level = 0;
       } else if (commit.type === `feat`) {
         features += 1;
