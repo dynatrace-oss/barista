@@ -48,9 +48,7 @@ export async function prependChangelogFromLatestTag(changelogPath: string, relea
  * Creates changelog writer options which ensure that commits are not showing up multiple times.
  * Commits can show up multiple times if a changelog has been generated on a publish branch
  * and has been cherry-picked into "master". In that case, the changelog will already contain
- * commits from master which might be added to the changelog again. This is because usually
- * patch and minor releases are tagged from the publish branches and therefore
- * conventional-changelog tries to build the changelog from last major version to master's HEAD.
+ * commits from master which might be added to the changelog again.
  */
 function createDedupeWriterOptions(changelogPath: string) {
   const existingChangelogContent = readFileSync(changelogPath, 'utf8');
