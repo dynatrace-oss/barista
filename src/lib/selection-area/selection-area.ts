@@ -29,6 +29,10 @@ export interface DtSelectionAreaChange extends DtSelectionAreaContainerChange {
   source: DtSelectionArea;
 }
 
+// We need this annotation so ngc does not complain when building the bundle for aot,
+// because ngc interprets the static globalContainer as something to bootstrap a ngmodule which is not the case here.
+// https://github.com/angular/angular/issues/18867 for explanation
+// @dynamic
 @Component({
   selector: 'dt-selection-area',
   exportAs: 'dtSelectionArea',
