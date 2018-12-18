@@ -12,7 +12,7 @@ import { OriginalClassName } from '../../../core/decorators';
 
   <ng-container dtColumnDef="cpu" dtColumnAlign="text">
     <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
-    <dt-cell *dtCellDef="let row" dtIndicator="true" dtIndicatorColor="error">{{row.cpu}}</dt-cell>
+    <dt-cell *dtCellDef="let row">{{row.cpu}}</dt-cell>
   </ng-container>
 
   <ng-container dtColumnDef="memory" dtColumnAlign="number">
