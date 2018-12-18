@@ -22,7 +22,7 @@ export function getReleaseVersion(projectDir: string, repositoryName: string): s
       `There must be a ${italic('package.json')} file in the project directory.`));
   } else {
     // Releasing is only allowed on master
-    if (!verifyPublishBranch('master', this.git)) {
+    if (!verifyPublishBranch('master', git)) {
       return 'no-release';
     }
 
