@@ -49,12 +49,17 @@ export class GitClient {
   }
 
   /** Push commited changes to remote */
-  pushBranchToRemote(branchName: string): boolean {
-    return spawnSync('git', ['push', this.remoteGitUrl, branchName], {cwd: this.projectDir}).status === 0;
+  pushBranchOrTagToRemote(branchOrTagName: string): boolean {
+    return spawnSync('git', ['push', this.remoteGitUrl, branchOrTagName], {cwd: this.projectDir}).status === 0;
   }
 
   /** Gets the last commit on the current branch. */
   getLastCommit(): string {
     return spawnSync('git', ['log', '-1'], {cwd: this.projectDir}).stdout.toString().trim();
+  }
+
+  /** Creates a new tag on the current branch. */
+  createTag(tagName: string): boolean {
+    return spawnSync('git', ['tag', tagName], {cwd: this.projectDir}).status === 0;
   }
 }
