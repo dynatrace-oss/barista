@@ -6,6 +6,8 @@ import { Version, parseVersionName } from './parse-version';
 import { GitClient } from './git-client';
 import { promptAndGenerateChangelog } from './changelog';
 import { prompt } from 'inquirer';
+import { getReleaseCommit } from './get-release-version';
+import { verifyPublishBranch } from './publish-branch';
 
 /** Default filename for the changelog. */
 const CHANGELOG_FILE_NAME = 'CHANGELOG.md';
@@ -88,7 +90,7 @@ class StageReleaseTask {
     }
 
     this.git.stageAllChanges();
-    this.git.createNewCommit(`chore: bump version to ${newVersionName} w/ changelog`);
+    this.git.createNewCommit(getReleaseCommit(newVersionName));
 
     console.info();
     console.info(green(`  ✓   Created the staging commit for: "${newVersionName}".`));
@@ -112,13 +114,7 @@ class StageReleaseTask {
 
   /** Verifies that the user is on the specified publish branch. */
   private verifyPublishBranch(expectedPublishBranch: string): void {
-    const currentBranchName = this.git.getCurrentBranch();
-
-    // Check if current branch matches the expected publish branch.
-    if (expectedPublishBranch !== currentBranchName) {
-      console.error(red(
-        `  ✘ Cannot stage release from "${italic(currentBranchName)}". Please ` +
-        `stage the release from "${bold(expectedPublishBranch)}".`));
+    if (!verifyPublishBranch(expectedPublishBranch, this.git)) {
       process.exit(1);
     }
   }
