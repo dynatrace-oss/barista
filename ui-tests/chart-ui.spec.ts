@@ -27,14 +27,6 @@ describe('chart', () => {
       expect(await element(by.css('.highcharts-plot-background')).getAttribute('tabindex')).toBe('0');
     });
 
-    it('should be able to create a selection area on a chart', async () => {
-      await createSelectionArea();
-      const boxSize = await element(by.css('.dt-selection-area-selected-area')).getSize();
-      const boxLeft = await element(by.css('.dt-selection-area-selected-area')).getCssValue('left');
-      expect(boxSize.width).toBe(100);
-      expect(boxLeft).toBeDefined();
-    });
-
     it('should interpolate to the x Axis value and show it in the overlay', async () => {
       await createSelectionArea();
       const overlayText = await element(by.css('.dt-selection-area-content')).getText();
