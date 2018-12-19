@@ -166,6 +166,9 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     if (this._overlayFocusTrap) {
       this._overlayFocusTrap.destroy();
     }
+    if (this._overlay.overlayRef) {
+      this._overlay.overlayRef.dispose();
+    }
     this.close();
     this.closed.complete();
   }
@@ -191,12 +194,6 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
       this._overlayFocusTrap = this._focusTrapFactory.create(this._overlay.overlayRef.overlayElement);
       this._attachFocusTrapListeners();
     }
-  }
-
-  /** @internal Callback that is invoked when the overlay panel has been detached - is called when ESCAPE is pressed */
-  _onOverlayDetach(): void {
-    this._reset();
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Attacheds the eventlisteners for the focus traps connected to each other */
@@ -243,6 +240,21 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
       }
     }
     this._changeDetectorRef.markForCheck();
+  }
+
+  /** @internal Hides and resets the selected area */
+  _reset(): void {
+    if (this._isSelectedAreaVisible) {
+      this._selectedArea.nativeElement.style.width = '0px';
+      removeCssClass(this._selectedArea.nativeElement, 'dt-no-pointer');
+      this._width = 0;
+      this._left = 0;
+      this._isSelectedAreaVisible = false;
+      if (this._overlay.overlayRef) {
+        this._overlay.overlayRef.detach();
+      }
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
   /** @internal Apply boundaries to the host element to match the origin */
@@ -437,24 +449,5 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   /** Calculates the horizontal position relative to the boundaries */
   private _calculateRelativeXPos(posX: number): number {
     return posX - this._boundaries.left;
-  }
-  /** Resets the selected area and the overlay */
-  private _reset(): void {
-    if (this._overlay.overlayRef) {
-      this._overlay.overlayRef.dispose();
-    }
-    this._hideAndResetSelectedArea();
-  }
-
-  /** Hides and resets the selected area */
-  private _hideAndResetSelectedArea(): void {
-    if (this._isSelectedAreaVisible) {
-      this._selectedArea.nativeElement.style.width = '0px';
-      removeCssClass(this._selectedArea.nativeElement, 'dt-no-pointer');
-      this._width = 0;
-      this._left = 0;
-      this._isSelectedAreaVisible = false;
-      this._changeDetectorRef.markForCheck();
-    }
   }
 }

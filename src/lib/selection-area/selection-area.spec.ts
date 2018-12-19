@@ -598,7 +598,8 @@ describe('DtSelectionArea', () => {
       expect(closeButton).not.toBeNull();
       closeButton!.click();
       fixture.detectChanges();
-      expect(overlayContainerElement.children.length).toBe(0);
+      tick();
+      expect(overlayContainerElement.querySelector('.dt-selection-area-overlay-pane')).toBeNull();
       expect(selectedArea.style.visibility).toBe('hidden');
     }));
 
