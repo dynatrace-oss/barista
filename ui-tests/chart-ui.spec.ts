@@ -44,11 +44,10 @@ describe('chart', () => {
 });
 
 async function createSelectionArea(): Promise<void> {
-  const chartLocation = await element(by.css('.highcharts-plot-background')).getLocation();
   await browser.actions()
-    .mouseMove(element(by.css('.dt-chart')), { x: chartLocation.x + 100, y: 100 })
+    .mouseMove(element(by.css('.dt-chart')), { x: 170, y: 100 })
     .mouseDown()
-    .mouseMove(element(by.css('.dt-chart')), { x: chartLocation.x + 200, y: 100 })
+    .mouseMove(element(by.css('.dt-chart')), { x: 340, y: 100 })
     .mouseUp()
     .perform();
 }

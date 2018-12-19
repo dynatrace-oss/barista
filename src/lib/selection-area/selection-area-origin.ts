@@ -7,6 +7,7 @@ import {
   Attribute,
   SimpleChanges,
   OnChanges,
+  AfterViewInit,
 } from '@angular/core';
 import { DtSelectionArea } from './selection-area';
 import {
@@ -20,7 +21,7 @@ import {
   removeCssClass,
 } from '@dynatrace/angular-components/core';
 import { take, takeUntil } from 'rxjs/operators';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription, Subject, merge } from 'rxjs';
 import { ENTER } from '@angular/cdk/keycodes';
 
 export class DtSelectionAreaOriginBase { }
@@ -38,7 +39,7 @@ export const _DtSelectionAreaOriginMixin = mixinTabIndex(mixinDisabled(DtSelecti
   inputs: ['tabIndex'],
 })
 export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
-implements OnDestroy, OnChanges, HasTabIndex, CanDisable {
+implements OnDestroy, OnChanges, AfterViewInit, HasTabIndex, CanDisable {
 
   /** The selection area connected to this origin */
   @Input('dtSelectionArea') selectionArea: DtSelectionArea;
@@ -56,7 +57,10 @@ implements OnDestroy, OnChanges, HasTabIndex, CanDisable {
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
-    this._viewport.change().pipe(takeUntil(this._destroy)).subscribe(() => {
+  }
+
+  ngAfterViewInit(): void {
+    merge(this._viewport.change(), this._zone.onStable).pipe(takeUntil(this._destroy)).subscribe(() => {
       if (this.selectionArea) {
         this._emitBoundariesChangedOnSelectionArea();
       }
