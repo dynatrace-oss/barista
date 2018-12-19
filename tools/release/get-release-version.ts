@@ -21,11 +21,6 @@ export function getReleaseVersion(projectDir: string, repositoryName: string): s
     console.error(red(`The specified directory is not referring to a project directory. ` +
       `There must be a ${italic('package.json')} file in the project directory.`));
   } else {
-    // Releasing is only allowed on master
-    if (!verifyPublishBranch('master', git)) {
-      return 'no-release';
-    }
-
     const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
     const packageJsonVersion = packageJson.version;
     const commit = git.getLastCommit();
