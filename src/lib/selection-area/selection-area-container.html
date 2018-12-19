@@ -34,14 +34,18 @@
   [cdkConnectedOverlayOpen]="_isSelectedAreaVisible"
   [cdkConnectedOverlayPositions]="_positions"
   (attach)="_onOverlayAttached()"
-  (detach)="_onOverlayDetach()">
+  (detach)="_reset()">
   <div class="dt-selection-area-overlay-pane">
     <div class="dt-selection-area-overlay-wrapper">
-      <section class="dt-selection-area-content" [cdkPortalOutlet]="_overlayContentPortal"></section>
+      <section class="dt-selection-area-content">
+        <ng-container [cdkPortalOutlet]="_overlayContentPortal"></ng-container>
+      </section>
       <aside class="dt-selection-area-close">
         <button dt-icon-button variant="nested" (click)="close()" [attr.aria-label]="_ariaLabelClose"><dt-icon name="abort"></dt-icon></button>
       </aside>
     </div>
-    <section class="dt-selection-area-actions" [cdkPortalOutlet]="_overlayActionsPortal"></section>
+    <section class="dt-selection-area-actions">
+        <ng-container [cdkPortalOutlet]="_overlayActionsPortal"></ng-container>
+    </section>
   </div>
 </ng-template>
