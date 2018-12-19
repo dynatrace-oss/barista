@@ -28,11 +28,9 @@ import { map, take, switchMap, tap } from 'rxjs/operators';
 export interface DtSelectionAreaChange extends DtSelectionAreaContainerChange {
   source: DtSelectionArea;
 }
+/** The global container that holds all selection area containers */
+let globalContainerElement: HTMLElement | null = null;
 
-// We need this annotation so ngc does not complain when building the bundle for aot,
-// because ngc interprets the static globalContainer as something to bootstrap a ngmodule which is not the case here.
-// https://github.com/angular/angular/issues/18867 for explanation
-// @dynamic
 @Component({
   selector: 'dt-selection-area',
   exportAs: 'dtSelectionArea',
@@ -189,13 +187,10 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy {
     return host;
   }
 
-  /** @internal The global container that holds all selection area containers */
-  static _globalContainerElement: HTMLElement;
-
   /** Creates a new global container holds all selection area containers if needed and returns it */
   getGlobalContainerElement(): HTMLElement {
-    if (!DtSelectionArea._globalContainerElement) { this._createGlobalContainerInBody(); }
-    return DtSelectionArea._globalContainerElement;
+    if (!globalContainerElement) { this._createGlobalContainerInBody(); }
+    return globalContainerElement!;
   }
 
   /**
@@ -207,6 +202,6 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy {
 
     addCssClass(container, 'dt-selection-area-global-container');
     this._renderer.appendChild(document.body, container);
-    DtSelectionArea._globalContainerElement = container;
+    globalContainerElement = container;
   }
 }

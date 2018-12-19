@@ -42,7 +42,10 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
       this._plotBackground = this._chart.container.nativeElement.querySelector('.highcharts-plot-background');
       addCssClass(this._plotBackground, 'dt-selection-area-origin');
       this._plotBackground.setAttribute('tabindex', this.tabIndex.toString());
-      this.selectionArea._boundariesChanged.next(this._getPlotBackgroundClientRect());
+      // this needs to be done after the zone is stable because only
+      // when its stable we get a correct clientrect with the correct bounds
+      _zone.onStable.pipe(takeUntil(this._destroy))
+        .subscribe(() => { this.selectionArea._boundariesChanged.next(this._getPlotBackgroundClientRect()); });
       this._setInterpolateFnOnSelectionArea();
 
       if (!this._detachFns.length) {
