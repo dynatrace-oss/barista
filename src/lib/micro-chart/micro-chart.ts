@@ -80,7 +80,7 @@ export class DtMicroChart implements OnDestroy {
   get labelFormatter(): (input: number) => string { return this._labelFormatter; }
   set labelFormatter(formatter: (input: number) => string) {
     this._labelFormatter = formatter;
-    this._updateChart();
+    this._updateTransformedSeries();
   }
 
   @Output() readonly updated = new EventEmitter<void>();
@@ -99,7 +99,7 @@ export class DtMicroChart implements OnDestroy {
     if (_theme) {
       _theme._stateChanges.subscribe(() => {
         this._transformedOptions = this._transformOptions(this._options);
-        this._updateChart();
+        this._updateTransformedSeries();
       });
     }
   }
@@ -131,7 +131,7 @@ export class DtMicroChart implements OnDestroy {
     return [singleSeries];
   }
 
-  private _updateChart(): void {
+  private _updateTransformedSeries(): void {
     if (this._currentSeries) {
       this._transformedSeries = this._transformSeries(this._currentSeries);
     }
