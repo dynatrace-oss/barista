@@ -85,7 +85,7 @@ function generateExampleModule(parsedData: ExampleMetadata[], outputFile: string
 
 interface AppComponentRouteSetup {
   name: string;
-  examples: Array<{ name: string; route: string }>;
+  examples: Array<{ name: string; route: string; className: string }>;
 }
 
 function generateAppComponent(parsedData: ExampleMetadata[]): void {
@@ -96,11 +96,22 @@ function generateAppComponent(parsedData: ExampleMetadata[]): void {
       index = aggr.push({ name: componentName, examples: [] }) - 1;
     }
     const dasherized = strings.dasherize(val.component);
-    aggr[index].examples.push({ name: strings.dasherize(val.component), route: `/${componentName}/${dasherized}` });
+    aggr[index].examples.push(
+      {
+        name: strings.dasherize(val.component),
+        route: `/${componentName}/${dasherized}`,
+        className: val.component,
+      }
+    );
     return aggr;
   }, [] as AppComponentRouteSetup[])
   const content = fs.readFileSync(path.join(examplesDir, 'app.component.template'), { encoding: 'utf8' })
     .replace('${routeSetup}', JSON.stringify(routeSetup, null, '\t'));
+
+
+  // const routes = routeSetup.reduce((aggr: AppComponentRouteSetup) => {
+  //   return data.examples
+  // });
   fs.writeFileSync(path.join(examplesDir, 'app.component.ts'), content, { encoding: 'utf8' });
 }
 
