@@ -21,7 +21,7 @@ import {
 } from '@dynatrace/angular-components/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { DomPortalOutlet, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { DtSelectionAreaContainer, DtSelectionAreaContainerChange, DtSelectionAreaContainerAriaLabels } from './selection-area-container';
+import { DtSelectionAreaContainer, DtSelectionAreaContainerChange } from './selection-area-container';
 import { map, take, switchMap, tap } from 'rxjs/operators';
 
 /** Change event object emitted by DtSelectionArea */
@@ -113,14 +113,14 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this._containerInstance) {
-      const ariaLabels: DtSelectionAreaContainerAriaLabels = {
-        ariaLabelSelectedArea: this.ariaLabelSelectedArea,
-        ariaLabelLeftHandle: this.ariaLabelLeftHandle,
-        ariaLabelRightHandle: this.ariaLabelRightHandle,
-        ariaLabelClose: this.ariaLabelClose,
-      };
-      this._containerInstance._updateAriaLabels(ariaLabels);
+    if (changes && this._containerInstance &&
+      (changes.ariaLabelSelectedArea || changes.ariaLabelLeftHandle || changes.ariaLabelRightHandle || changes.ariaLabelClose)
+    ) {
+      this._containerInstance._updateAriaLabels(
+        this.ariaLabelSelectedArea,
+        this.ariaLabelLeftHandle,
+        this.ariaLabelRightHandle,
+        this.ariaLabelClose);
     }
   }
 
@@ -183,12 +183,12 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy {
    */
   private _createHostElement(): HTMLElement {
     const host = this._renderer.createElement('div');
-    this._renderer.appendChild(this.getGlobalContainerElement(), host);
+    this._renderer.appendChild(this._getGlobalContainerElement(), host);
     return host;
   }
 
   /** Creates a new global container holds all selection area containers if needed and returns it */
-  getGlobalContainerElement(): HTMLElement {
+  private _getGlobalContainerElement(): HTMLElement {
     if (!globalContainerElement) { this._createGlobalContainerInBody(); }
     return globalContainerElement!;
   }
