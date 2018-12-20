@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+${imports}
+
+export const ROUTES = ${routes};
 
 @Component({
   selector: 'barista-examples',
@@ -6,7 +9,7 @@ import { Component } from '@angular/core';
   templateUrl: 'app.component.html',
 })
 export class App {
-  componentItems = ${routeSetup};
+  componentItems = ${navItems};
 
   selectedTheme = 'turquoise';
   themes = [
@@ -16,5 +19,3 @@ export class App {
     { value: 'royalblue', name: 'Royalblue' },
   ];
 }
-
-export const ROUTES = ${routes};
