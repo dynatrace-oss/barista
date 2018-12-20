@@ -5,7 +5,6 @@ import { strings } from '@angular-devkit/core';
 import { sync as glob } from 'glob';
 import { task } from 'gulp';
 import { buildConfig } from '../build-config';
-import { Route } from '@angular/router';
 
 const { examplesDir } = buildConfig;
 
@@ -97,14 +96,12 @@ function generateRouteMetadata(parsedData: ExampleMetadata[]): AppComponentRoute
       index = aggr.push({ name: componentName, examples: [] }) - 1;
     }
     const dasherized = strings.dasherize(val.component);
-    const locationRelativeToAppRoot = path.join(
-      path.dirname(val.sourcePath), path.basename(val.sourcePath, path.extname(val.sourcePath)));
     aggr[index].examples.push(
       {
         name: dasherized,
         route: `/${componentName}/${dasherized}`,
         className: val.component,
-        import: `import ${val.component} from './${locationRelativeToAppRoot}'`,
+        import: buildImportsTemplate(val),
       }
     );
     return aggr;
@@ -115,8 +112,7 @@ function generateImports(content: string, routeMetadata: AppComponentRouteSetup[
   let imports = '';
   routeMetadata.forEach((metadata) => {
     metadata.examples.forEach((example) => {
-      imports = `${imports};
-      ${example.import}`;
+      imports = `${imports}\n${example.import}`;
     });
   });
   return content.replace('${imports}', imports);
