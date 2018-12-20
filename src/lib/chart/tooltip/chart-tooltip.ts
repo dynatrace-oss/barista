@@ -54,7 +54,7 @@ export class DtChartTooltip<T> implements OnDestroy {
 
   private readonly _destroy = new Subject<void>();
   private _dtOverlayRef: DtOverlayRef<T> | null;
-  private _origin: SVGCircleElement | null;
+  private _origin: HTMLElement | null;
 
   constructor(
     private _dtOverlay: DtOverlay,
@@ -120,8 +120,9 @@ function checkHasPointData(data: DtChartTooltipData): boolean {
   return !!data.points || !!data.point;
 }
 
-function createOriginPoint(chart: DtChart, renderer: Renderer2, data: DtChartTooltipData): SVGCircleElement {
-  const circle: SVGCircleElement = renderer.createElement('circle', 'svg');
+/** Creates a dummy origin point that can be used to position the tooltip */
+function createOriginPoint(chart: DtChart, renderer: Renderer2, data: DtChartTooltipData): HTMLElement {
+  const circle: HTMLElement = renderer.createElement('circle', 'svg');
   const xAxis = data.points ? data.points[0].series.xAxis : data.point!.series.xAxis;
   const yAxis = data.points ? data.points[0].series.yAxis : data.point!.series.yAxis;
   const x = data.points ? data.points[0].x : data.point!.x;
