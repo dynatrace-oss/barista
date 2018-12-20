@@ -73,7 +73,7 @@ export class DtOverlay {
   ) {}
 
   create<T>(
-    origin: ElementRef | HTMLElement | SVGElement,
+    origin: ElementRef | HTMLElement,
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     userConfig?: DtOverlayConfig
   ): DtOverlayRef<T> {
@@ -101,7 +101,7 @@ export class DtOverlay {
     }
   }
 
-  private _createOverlay(origin: ElementRef | HTMLElement | SVGElement, config: DtOverlayConfig): OverlayRef {
+  private _createOverlay(origin: ElementRef | HTMLElement, config: DtOverlayConfig): OverlayRef {
     let positions = config._positions || DEFAULT_DT_OVERLAY_POSITIONS;
     if (!config._positions && config.originY === 'center') {
       positions = positions.map((pos) => {
