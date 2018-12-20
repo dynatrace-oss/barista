@@ -16,11 +16,14 @@ export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalet
     },
     plotOptions: {
       column: {
+        borderWidth: 1,
+        borderColor: palette.primary,
+        color: palette.primary,
         states: {
           hover: {
             borderColor: palette.primary,
-            borderWidth: 2,
-            color: palette.lighter,
+            borderWidth: 4,
+            color: palette.primary,
           },
           select: {
             color: palette.darker,
@@ -28,16 +31,18 @@ export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalet
         },
       },
       line: {
+        lineWidth: 2,
         marker: {
+          radius: 4,
           enabled: true,
           states: {
             hover: {
-              fillColor: palette.lighter,
-              radius: 7,
-              halo: false,
+              radius: 4,
               lineWidth: 2,
+              halo: false,
               lineWidthPlus: 0,
               lineColor: palette.primary,
+              fillColor: palette.primary,
             },
             select: {
               radius: 7,
@@ -71,25 +76,35 @@ export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalet
 
 export function createDtMicrochartMinMaxDataPointOptions(palette: DtMicroChartColorPalette): DataPoint {
   return {
-    borderColor: palette.darker,
-    borderWidth: 2,
-    dataLabels: {
-      align: 'center',
-      color: Colors.GRAY_500,
-      enabled: true,
-    },
-    marker: {
-      lineColor: palette.darker,
-      enabled: true,
-      radius: 7,
-      lineWidth: 2,
+      color: palette.darker,
+      borderColor: palette.darker,
+      borderWidth: 2,
       states: {
         hover: {
-          lineColor: palette.darker,
-          fillColor: palette.lighter,
+          color: palette.darker,
+          borderColor: palette.darker,
+          borderWidth: 4,
         },
       },
-    },
+      dataLabels: {
+        align: 'center',
+        color: Colors.GRAY_500,
+        enabled: true,
+      },
+      marker: {
+        fillColor: palette.darker,
+        lineColor: palette.darker,
+        enabled: true,
+        radius: 5,
+        lineWidth: 2,
+        states: {
+          hover: {
+            fillColor: palette.darker,
+            lineColor: palette.darker,
+            radius: 6,
+          },
+        },
+      },
   // tslint:disable-next-line:no-any
   } as any;
 }
