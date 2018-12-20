@@ -54,10 +54,12 @@ export class DtChartTooltip<T> implements OnDestroy {
 
   private readonly _destroy = new Subject<void>();
   private _dtOverlayRef: DtOverlayRef<T> | null;
+  private _origin: SVGCircleElement | null;
 
   constructor(
     private _dtOverlay: DtOverlay,
     private _ngZone: NgZone,
+    private _renderer: Renderer2,
     @Inject(forwardRef(() => DtChart)) @SkipSelf() private _parentChart: DtChart
   ) {
     if (this._parentChart) {
@@ -93,12 +95,16 @@ export class DtChartTooltip<T> implements OnDestroy {
 
   /** Create a new overlay for the tooltip */
   private _createOverlay(data: DtChartTooltipData): void {
-    const { origin, overlayPosY } = getOverlayPosYAndOrigin(data);
+    if (this._origin) {
+      this._renderer.removeChild(this._origin.parentNode, this._origin);
+      this._origin = null;
+    }
+    this._origin = createOriginPoint(this._parentChart, this._renderer, data);
     this._dtOverlayRef = this._dtOverlay.create<T>(
-      origin,
+      this._origin,
       this.overlay,
       { data, _positions: DEFAULT_DT_CHART_TOOLTIP_POSITIONS });
-    this._dtOverlayRef.updatePosition(0, overlayPosY);
+    this._dtOverlayRef.updatePosition(0, 0);
   }
 
   /** Dismisses the overlay and cleans up the ref */
@@ -110,29 +116,32 @@ export class DtChartTooltip<T> implements OnDestroy {
   }
 }
 
-/** processes the event data of highcharts and returns the information */
-function getOverlayPosYAndOrigin(data: DtChartTooltipData): { overlayPosY: number; origin: HTMLElement } {
-  const hasMultiplePoints = !!data.points;
-  let origin: HTMLElement;
-  let posY: number;
-  if (hasMultiplePoints) {
-    const sumY = data.points!.map((d) => d.point.plotY).reduce((sum: number, value: number) => sum + value, 0);
-    const avgClientY = sumY / data.points!.length;
-    posY = avgClientY - data.points![0].point.plotY;
-    // unforunately highcharts gives a completely different structure for the tooltip data
-    // when only one metric is passed thats why we need this check
-    origin = data.points![0].point.graphic ?
-      data.points![0].point.graphic.element : data.points![0].series.stateMarkerGraphic.element;
-  } else {
-    posY = data.y;
-    // unforunately highcharts gives a completely different structure for the tooltip data when only one metric is passed
-    origin = data.point!.point.graphic ?
-      data.point!.point.graphic.element : data.point!.series.stateMarkerGraphic.element;
-  }
-
-  return { overlayPosY: posY, origin };
-}
-
 function checkHasPointData(data: DtChartTooltipData): boolean {
   return !!data.points || !!data.point;
+}
+
+function createOriginPoint(chart: DtChart, renderer: Renderer2, data: DtChartTooltipData): SVGCircleElement {
+  const circle: SVGCircleElement = renderer.createElement('circle', 'svg');
+  const xAxis = data.points ? data.points[0].series.xAxis : data.point!.series.xAxis;
+  const yAxis = data.points ? data.points[0].series.yAxis : data.point!.series.yAxis;
+  const x = data.points ? data.points[0].x : data.point!.x;
+  const y = data.points ? data.points[0].y : data.point!.y;
+  let xPixel;
+  let yPixel;
+  if (xAxis) {
+    xPixel = xAxis.toPixels(x);
+    yPixel = yAxis.toPixels(y);
+  } else {
+    // is Pie chart
+    const tooltipPos = data.point!.point.tooltipPos;
+    xPixel = tooltipPos[0];
+    yPixel = tooltipPos[1];
+  }
+  renderer.setAttribute(circle, 'class', 'dt-tooltip-position-marker');
+  renderer.setAttribute(circle, 'cx', xPixel.toString());
+  renderer.setAttribute(circle, 'cy', yPixel.toString());
+  renderer.setAttribute(circle, 'r', '1');
+  renderer.setAttribute(circle, 'fill', 'transparent');
+  renderer.appendChild(chart._chartObject.container.querySelector('svg'), circle);
+  return circle;
 }
