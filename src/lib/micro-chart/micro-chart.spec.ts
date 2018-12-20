@@ -100,7 +100,7 @@ describe('DtMicroChart', () => {
       const colors = microChartComponent.highchartsOptions.colors;
 
       expect(colors).toBeDefined();
-      expect(colors).toEqual([Colors.ROYALBLUE_400]);
+      expect(colors).toEqual([Colors.BLUE_400]);
     });
 
     it('should set colors after theme update', () => {
@@ -120,13 +120,13 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
 
       let data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
-      expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.ROYALBLUE_700}));
+      expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.BLUE_600}));
 
       fixture.componentInstance.theme = 'purple';
       fixture.detectChanges();
 
       data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
-      expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.PURPLE_700}));
+      expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.PURPLE_600}));
     });
   });
 
