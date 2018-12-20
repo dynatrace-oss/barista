@@ -1,11 +1,24 @@
-## 1.1.0 (2018-12-20)
+## 1.2.0 (2018-12-20)
 
+### Bug Fixes
+
+* **chart:** make tooltip positioning more resilient to highcharts ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **micro-chart:** improved highcharts default options ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **micro-chart:** improved colors and fixed theming ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Features
+* **micro-chart:** added possibility to format labels ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Special Thanks  
+Alexander Lagler, Manfred Del Fabro
+
+
+## 1.1.0 (2018-12-20)
 
 ### Bug Fixes
 
 * **chart:** fixes issue where tooltip did not work with single metric data from highcharts ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
 * **selection-area:** fixes positioning of the selection area element if a parent has position relative([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
-
 
 ### Features
 
@@ -18,7 +31,6 @@ Bartosz Bobin, Thomas Heller, Luca Liguori
 
 
 ## 1.0.0 (2018-12-18)
-
 
 ### Bug Fixes
 
