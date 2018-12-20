@@ -62,13 +62,6 @@ const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
   },
 ];
 
-export interface DtSelectionAreaContainerAriaLabels {
-  ariaLabelSelectedArea: string;
-  ariaLabelLeftHandle: string;
-  ariaLabelRightHandle: string;
-  ariaLabelClose: string;
-}
-
 export class DtSelectionAreaContainerBase { }
 export const _DtSelectionAreaContainerMixin = mixinTabIndex(mixinDisabled(DtSelectionAreaContainerBase));
 
@@ -269,14 +262,19 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     this._boundaries = boundaries;
   }
 
-  _updateAriaLabels(labels: DtSelectionAreaContainerAriaLabels): void {
-    this._ariaLabelSelectedArea = labels.ariaLabelSelectedArea;
-    this._ariaLabelLeftHandle = labels.ariaLabelLeftHandle;
-    this._ariaLabelRightHandle = labels.ariaLabelRightHandle;
-    this._ariaLabelClose = labels.ariaLabelClose;
+  /** @internal Updates all aria labels */
+  _updateAriaLabels(areaLabel: string, leftLabel: string, rightLabel: string, closeBtnLabel: string): void {
+    this._ariaLabelSelectedArea = areaLabel;
+    this._ariaLabelLeftHandle = leftLabel;
+    this._ariaLabelRightHandle = rightLabel;
+    this._ariaLabelClose = closeBtnLabel;
+    this._changeDetectorRef.markForCheck();
   }
 
-  /** Update function that applies calculated width and position to the selected area dom element */
+  /**
+   * Executed on every animation frame when the user is dragging/touching.
+   * Will reflect updated width and position values to the selected area in the DOM
+   */
   private _update(): void {
     requestAnimationFrame(() => {
       if (!this._touching) {
