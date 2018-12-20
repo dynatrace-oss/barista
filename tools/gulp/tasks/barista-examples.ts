@@ -5,6 +5,7 @@ import { strings } from '@angular-devkit/core';
 import { sync as glob } from 'glob';
 import { task } from 'gulp';
 import { buildConfig } from '../build-config';
+import { Route } from '@angular/router';
 
 const { examplesDir } = buildConfig;
 
@@ -85,35 +86,71 @@ function generateExampleModule(parsedData: ExampleMetadata[], outputFile: string
 
 interface AppComponentRouteSetup {
   name: string;
-  examples: Array<{ name: string; route: string; className: string }>;
+  examples: Array<{ name: string; route: string; className: string, import: string }>;
 }
 
-function generateAppComponent(parsedData: ExampleMetadata[]): void {
-  const routeSetup = parsedData.reduce((aggr: AppComponentRouteSetup[], val) => {
+function generateRouteMetadata(parsedData: ExampleMetadata[]): AppComponentRouteSetup[] {
+  return parsedData.reduce((aggr: AppComponentRouteSetup[], val) => {
     const componentName = path.dirname(val.sourcePath);
     let index = aggr.findIndex((item) => item.name === componentName);
     if (index === -1) {
       index = aggr.push({ name: componentName, examples: [] }) - 1;
     }
     const dasherized = strings.dasherize(val.component);
+    const locationRelativeToAppRoot = path.join(
+      path.dirname(val.sourcePath), path.basename(val.sourcePath, path.extname(val.sourcePath)));
     aggr[index].examples.push(
       {
-        name: strings.dasherize(val.component),
+        name: dasherized,
         route: `/${componentName}/${dasherized}`,
         className: val.component,
+        import: `import ${val.component} from './${locationRelativeToAppRoot}'`,
       }
     );
     return aggr;
-  }, [] as AppComponentRouteSetup[])
-  const content = fs.readFileSync(path.join(examplesDir, 'app.component.template'), { encoding: 'utf8' })
-    .replace('${routeSetup}', JSON.stringify(routeSetup, null, '\t'));
+  }, [])
+}
+
+function generateImports(content: string, routeMetadata: AppComponentRouteSetup[]): string {
+  let imports = '';
+  routeMetadata.forEach((metadata) => {
+    metadata.examples.forEach((example) => {
+      imports = `${imports};
+      ${example.import}`;
+    });
+  });
+  return content.replace('${imports}', imports);
+}
 
 
-  // const routes = routeSetup.reduce((aggr: AppComponentRouteSetup) => {
-  //   return data.examples
-  // });
+function generateNavItems(content: string, routeMetadata: AppComponentRouteSetup[]): string {
+  const navItems = routeMetadata.map((metadata) => {
+    const exampleData = metadata.examples.map((example) => ({ name: example.name, route: example.route }));
+    return { name: metadata.name, examples: exampleData };
+  });
+  return content.replace('${navItems}', JSON.stringify(navItems, null, '\t'));
+}
+
+function generateRoutes(content: string, routeMetadata: AppComponentRouteSetup[]): string {
+  let routeString = '';
+  routeMetadata.forEach((metadata: AppComponentRouteSetup) => {
+    metadata.examples.forEach((example) => {
+      routeString = `${routeString},
+      { path: '${example.route}', component: ${example.className}}`;
+    });
+  });
+  return content.replace('${routes}', `[${routeString}]`);
+}
+
+function generateAppComponent(parsedData: ExampleMetadata[]): void {
+  const routeMetadata = generateRouteMetadata(parsedData);
+  let content = fs.readFileSync(path.join(examplesDir, 'app.component.template'), { encoding: 'utf8' });
+  content = generateImports(content, routeMetadata);
+  content = generateNavItems(content, routeMetadata);
+  content = generateRoutes(content, routeMetadata);
   fs.writeFileSync(path.join(examplesDir, 'app.component.ts'), content, { encoding: 'utf8' });
 }
+
 
 /**
  * Creates the examples module
