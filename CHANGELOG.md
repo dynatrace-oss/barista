@@ -1,4 +1,4 @@
-# 1.1.0 (2018-12-20)
+## 1.1.0 (2018-12-20)
 
 
 ### Bug Fixes
@@ -17,7 +17,7 @@
 Bartosz Bobin, Thomas Heller, Luca Liguori
 
 
-# 1.0.0 (2018-12-18)
+## 1.0.0 (2018-12-18)
 
 
 ### Bug Fixes
