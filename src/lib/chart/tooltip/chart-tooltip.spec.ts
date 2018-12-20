@@ -14,7 +14,7 @@ import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 
-fdescribe('DtChartTooltip', () => {
+describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   let chartComponent: DtChart;
@@ -171,10 +171,10 @@ const DUMMY_TOOLTIP_DATA: DtChartTooltipData = {
       series: {
         name: 'Actions/min',
         xAxis: {
-          toPixels: () => 1
+          toPixels: () => 1,
         },
         yAxis: {
-          toPixels: () => 1
+          toPixels: () => 1,
         },
       },
       key: 0,
