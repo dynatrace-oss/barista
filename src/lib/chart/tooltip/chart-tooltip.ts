@@ -9,6 +9,7 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   ViewEncapsulation,
+  Renderer2,
 } from '@angular/core';
 import { DtChart } from '../chart';
 import { DtOverlay, DtOverlayRef } from '@dynatrace/angular-components/overlay';
