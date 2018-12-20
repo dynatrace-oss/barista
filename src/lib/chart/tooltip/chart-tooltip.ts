@@ -125,8 +125,8 @@ function createOriginPoint(chart: DtChart, renderer: Renderer2, data: DtChartToo
   const circle: HTMLElement = renderer.createElement('circle', 'svg');
   const xAxis = data.points ? data.points[0].series.xAxis : data.point!.series.xAxis;
   const yAxis = data.points ? data.points[0].series.yAxis : data.point!.series.yAxis;
-  const x = data.points ? data.points[0].x : data.point!.x;
-  const y = data.points ? data.points[0].y : data.point!.y;
+  const x = data.points ? data.points[0].x : data.point!.point.x;
+  const y = data.points ? data.points[0].y : data.point!.point.y;
   let xPixel;
   let yPixel;
   if (xAxis) {
