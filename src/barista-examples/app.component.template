@@ -16,3 +16,5 @@ export class App {
     { value: 'royalblue', name: 'Royalblue' },
   ];
 }
+
+export const ROUTES = ${routes};
