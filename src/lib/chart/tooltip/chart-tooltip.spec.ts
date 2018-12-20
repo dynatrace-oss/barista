@@ -198,6 +198,12 @@ const DUMMY_TOOLTIP_DATA_SINGLE_METRIC: DtChartTooltipData = {
       },
       series: {
         name: 'Actions/min',
+        xAxis: {
+          toPixels: () => 1,
+        },
+        yAxis: {
+          toPixels: () => 1,
+        },
         stateMarkerGraphic: {
           element: {
             getBoundingClientRect: () => ({
