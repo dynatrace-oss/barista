@@ -3,25 +3,26 @@ import { Colors, DtTheme } from '@dynatrace/angular-components/theming';
 export interface DtMicroChartColorPalette {
   primary: string;
   darker: string;
-  lighter: string;
 }
 
 const purple: DtMicroChartColorPalette = {
   primary: Colors.PURPLE_400,
-  darker:  Colors.PURPLE_700,
-  lighter: Colors.PURPLE_200,
+  darker:  Colors.PURPLE_600,
 };
 
 const blue: DtMicroChartColorPalette = {
-  primary: Colors.ROYALBLUE_400,
-  darker:  Colors.ROYALBLUE_700,
-  lighter: Colors.ROYALBLUE_200,
+  primary: Colors.BLUE_400,
+  darker:  Colors.BLUE_600,
 };
 
 const royalblue: DtMicroChartColorPalette = {
   primary: Colors.ROYALBLUE_400,
-  darker:  Colors.ROYALBLUE_800,
-  lighter: Colors.ROYALBLUE_200,
+  darker:  Colors.ROYALBLUE_600,
+};
+
+const turquoise: DtMicroChartColorPalette = {
+  primary: Colors.TURQUOISE_400,
+  darker:  Colors.TURQUOISE_600,
 };
 
 const MICROCHART_PALETTES = {
@@ -29,6 +30,7 @@ const MICROCHART_PALETTES = {
   purple,
   blue,
   royalblue,
+  turquoise,
 };
 
 export function getDtMicrochartColorPalette(theme?: DtTheme): DtMicroChartColorPalette {
