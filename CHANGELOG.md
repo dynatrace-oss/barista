@@ -1,3 +1,22 @@
+# 1.1.0 (2018-12-20)
+
+
+### Bug Fixes
+
+* **chart:** fixes issue where tooltip did not work with single metric data from highcharts ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **selection-area:** fixes positioning of the selection area element if a parent has position relative([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
+### Features
+
+* **key-value-list:** Added possibility to use html for key and value ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **progressbar:** Added description and count capabilities ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table:** Added interactiveRows property to table which makes the rows interactive(hover) ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Special Thanks  
+Bartosz Bobin, Thomas Heller, Luca Liguori
+
+
 # 1.0.0 (2018-12-18)
 
 
