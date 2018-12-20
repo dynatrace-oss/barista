@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { OriginalClassName } from '../../../core/decorators';
-import { DtChartOptions, DtChartSeries, formatCount } from '@dynatrace/angular-components';
+import { DtChartSeries, formatCount } from '@dynatrace/angular-components';
 import { generateData } from './docs-micro-chart.service';
 
 @Component({
