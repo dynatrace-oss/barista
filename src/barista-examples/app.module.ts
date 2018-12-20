@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExamplesAppExamplesModule } from './examples.module';
 import { ExamplesAppDynatraceModule } from './dt.module';
-import { App } from './app.component';
+import { App, ROUTES } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DtIconModule } from '@dynatrace/angular-components';
@@ -16,7 +16,7 @@ import { DtIconModule } from '@dynatrace/angular-components';
     HttpClientModule,
     FormsModule,
     DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
-    RouterModule.forRoot([]),
+    RouterModule.forRoot(ROUTES),
     ExamplesAppExamplesModule,
     ExamplesAppDynatraceModule,
   ],
