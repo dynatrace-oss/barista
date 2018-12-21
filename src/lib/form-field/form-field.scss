@@ -141,7 +141,7 @@ $dt-form-field-default-infix-width: 180px !default;
     left: -1px;
     right: -1px;
     height: 2px;
-    background-color: $red-500;
+    background-color: $error-color;
   }
 }
 
@@ -174,5 +174,5 @@ $dt-form-field-default-infix-width: 180px !default;
 }
 
 .dt-error {
-  color: $red-500;
+  color: $error-color;
 }
