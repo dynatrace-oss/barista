@@ -5,6 +5,7 @@
   $error-color: dt-get-theme-color($error-palette, default);
   $warning-palette: dt-get-theme-palette($theme, warning);
   $warning-color: dt-get-theme-color($warning-palette, default);
+  $is-dark: map-get($theme, 'is-dark');
 
   :host.dt-alert-warning {
     .dt-alert-icon-container {
@@ -21,6 +22,15 @@
     }
     .dt-alert-text-container {
       border: 1px solid $error-color;
+    }
+  }
+
+  @if ($is-dark == true) {
+    :host.dt-alert-warning,
+    :host.dt-alert-error {
+      .dt-alert-text-container {
+        border: 1px solid transparent;
+      }
     }
   }
 }
