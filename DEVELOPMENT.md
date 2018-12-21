@@ -48,7 +48,7 @@ yarn test:watch
 
 UI Tests
 ```
-yarn ui-tests
+yarn ui-test
 ```
 
 Universal build
