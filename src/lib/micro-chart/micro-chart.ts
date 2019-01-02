@@ -35,9 +35,16 @@ const SUPPORTED_CHART_TYPES = ['line', 'column'];
 // @breaking-change 2.0.0 To be removed
 export type DtMicroChartSeries = Observable<DtChartSeries[]> | Observable<DtChartSeries> | DtChartSeries[] | DtChartSeries;
 
-/** Factory to resolve the chart instance for the microchart */
-export const DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY: (microChart: DtMicroChart) => DtChartResolver =
-  (microChart: DtMicroChart) => () => microChart._dtChart;
+/**
+ * @internal
+ * Factory to resolve the chart instance for the microchart
+ * this needs to be written as below without lambda expressions due to a compiler bug,
+ * see https://github.com/angular/angular/issues/23629 for further information
+ */
+export function DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY(microChart: DtMicroChart): DtChartResolver {
+  const resolver = () => microChart._dtChart;
+  return resolver;
+}
 
 @Component({
   moduleId: module.id,
@@ -52,7 +59,7 @@ export const DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY: (microChart: DtMicroC
   preserveWhitespaces: false,
   providers: [
     { provide: DT_CHART_CONFIG, useValue: { shouldUpdateColors: false }},
-    { provide: DT_CHART_RESOLVER, useFactory: DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY, deps: [[new Self(), DtMicroChart]] }
+    { provide: DT_CHART_RESOLVER, useFactory: DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY, deps: [[new Self(), DtMicroChart]] },
   ],
 })
 export class DtMicroChart implements OnDestroy {
