@@ -26,6 +26,7 @@
 // // replace this with the sidenav component as soon as this is ready
 .sidenav {
   background-color: #f2f2f2;
+  font-family: 'Bernina-Sans';
 
   ul {
     list-style: none;
@@ -33,20 +34,8 @@
     padding: 0;
   }
 
-  a {
-    @include default-font(15px, 60px);
-    display: block;
-    height: 60px;
-    padding-left: 20px;
-    padding-right: 20px;
-    width: 100%;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    overflow: hidden;
-
-    &:hover {
-      color: #00a1b2;
-    }
+  & > ul > li {
+    
   }
 
   li + li {
