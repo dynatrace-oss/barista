@@ -17,3 +17,30 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.demo-card {
+  background-color: #f2f2f2;
+  border: 1px solid #f2f2f2;
+}
+
+.demo-card.dark {
+  padding: 0;
+}
+
+.dark {
+  background-color: #2d2d2d;
+  color: #fff;
+  padding: 16px;
+}
+
+.example-error {
+  padding: 10px 16px;
+  border: 1px solid $yellow-600;
+  border-radius: 3px;
+  max-width: 380px;
+
+  code {
+    background: #eee;
+    padding: 0 4px;
+  }
+}
