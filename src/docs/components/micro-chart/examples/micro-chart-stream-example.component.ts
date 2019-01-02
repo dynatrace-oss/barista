@@ -7,7 +7,14 @@ import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components';
 import { MicroChartService } from './docs-micro-chart.service';
 
 @Component({
-  template: '<dt-micro-chart [options]="options" [series]="series$"></dt-micro-chart>',
+  template: `
+  <dt-micro-chart [options]="options" [series]="series$">
+    <dt-chart-tooltip>
+      <ng-template let-tooltip>
+        {{tooltip.y | dtCount}}
+      </ng-template>
+    </dt-chart-tooltip>
+  </dt-micro-chart>`,
 })
 @OriginalClassName('MicroChartStreamExampleComponent')
 export class MicroChartStreamExampleComponent {

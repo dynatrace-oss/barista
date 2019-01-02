@@ -10,8 +10,9 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   Renderer2,
+  Optional,
 } from '@angular/core';
-import { DtChart } from '../chart';
+import { DtChart, DT_CHART_RESOLVER, DtChartResolver } from '../chart';
 import { DtOverlay, DtOverlayRef } from '@dynatrace/angular-components/overlay';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -61,24 +62,28 @@ export class DtChartTooltip<T> implements OnDestroy {
     private _dtOverlay: DtOverlay,
     private _ngZone: NgZone,
     private _renderer: Renderer2,
-    @Inject(forwardRef(() => DtChart)) @SkipSelf() private _parentChart: DtChart
+    @Inject(DT_CHART_RESOLVER) @Optional() @SkipSelf() private _resolveParentChart: DtChartResolver,
   ) {
-    if (this._parentChart) {
-      this._parentChart.tooltipDataChange.pipe(takeUntil(this._destroy))
-      .subscribe((event) => {
-        this._ngZone.run(() => {
-          // create the overlay here when the tooltip should be open
-          // because we need to have the event information to attach the overlay to the correct element
-          if (event && event.data && checkHasPointData(event.data)) {
-              this._createOverlay(event.data);
-          } else {
-            // dismiss if no data is given
-            this._dismiss();
-          }
+  }
+
+  ngAfterViewInit(): void {
+    const parentChart = this._resolveParentChart();
+    if (parentChart) {
+      parentChart.tooltipDataChange.pipe(takeUntil(this._destroy))
+        .subscribe((event) => {
+          this._ngZone.run(() => {
+            // create the overlay here when the tooltip should be open
+            // because we need to have the event information to attach the overlay to the correct element
+            if (event && event.data && checkHasPointData(event.data)) {
+                this._createOverlay(event.data, parentChart);
+            } else {
+              // dismiss if no data is given
+              this._dismiss();
+            }
+          });
         });
-      });
       // handle dismissing an existing overlay when the overlay already exists and should be closed
-      this._parentChart.tooltipOpenChange.pipe(takeUntil(this._destroy))
+      parentChart.tooltipOpenChange.pipe(takeUntil(this._destroy))
       .subscribe((opened) => {
         this._ngZone.run(() => {
           if (!opened) {
@@ -95,12 +100,12 @@ export class DtChartTooltip<T> implements OnDestroy {
   }
 
   /** Create a new overlay for the tooltip */
-  private _createOverlay(data: DtChartTooltipData): void {
+  private _createOverlay(data: DtChartTooltipData, parentChart: DtChart): void {
     if (this._origin) {
       this._renderer.removeChild(this._origin.parentNode, this._origin);
       this._origin = null;
     }
-    this._origin = createOriginPoint(this._parentChart, this._renderer, data);
+    this._origin = createOriginPoint(parentChart, this._renderer, data);
     this._dtOverlayRef = this._dtOverlay.create<T>(
       this._origin,
       this.overlay,

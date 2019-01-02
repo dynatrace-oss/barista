@@ -12,9 +12,10 @@ import {
   ViewEncapsulation,
   isDevMode,
   ChangeDetectorRef,
+  Self,
 } from '@angular/core';
 import { DataPoint, Options } from 'highcharts';
-import { DtChart, DtChartOptions, DtChartSeries, DT_CHART_CONFIG } from '@dynatrace/angular-components/chart';
+import { DtChart, DtChartOptions, DtChartSeries, DT_CHART_CONFIG, DT_CHART_RESOLVER, DtChartResolver } from '@dynatrace/angular-components/chart';
 import {
   _DT_MICROCHART_MAX_DATAPOINT_OPTIONS,
   _DT_MICROCHART_MIN_DATAPOINT_OPTIONS,
@@ -34,18 +35,30 @@ const SUPPORTED_CHART_TYPES = ['line', 'column'];
 // @breaking-change 2.0.0 To be removed
 export type DtMicroChartSeries = Observable<DtChartSeries[]> | Observable<DtChartSeries> | DtChartSeries[] | DtChartSeries;
 
+/** Factory to resolve the chart instance for the microchart */
+export const DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY: (microChart: DtMicroChart) => DtChartResolver =
+  (microChart: DtMicroChart) => () => microChart._dtChart;
+
 @Component({
   moduleId: module.id,
   selector: 'dt-micro-chart',
-  template: '<dt-chart [options]="_transformedOptions" [series]="_transformedSeries" (updated)="updated.emit()"></dt-chart>',
+  template: `
+  <dt-chart [options]="_transformedOptions" [series]="_transformedSeries" (updated)="updated.emit()">
+    <ng-content select="dt-chart-tooltip"></ng-content>
+  </dt-chart>`,
   exportAs: 'dtMicroChart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
-  providers: [{ provide: DT_CHART_CONFIG, useValue: { shouldUpdateColors: false }}],
+  providers: [
+    { provide: DT_CHART_CONFIG, useValue: { shouldUpdateColors: false }},
+    { provide: DT_CHART_RESOLVER, useFactory: DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY, deps: [[new Self(), DtMicroChart]] }
+  ],
 })
 export class DtMicroChart implements OnDestroy {
-  @ViewChild(forwardRef(() => DtChart)) private _dtChart: DtChart;
+
+  /** @internal TODO DOcs */
+  @ViewChild(forwardRef(() => DtChart)) _dtChart: DtChart;
 
   private _themeStateChangeSub = Subscription.EMPTY;
   private _options: DtChartOptions;
