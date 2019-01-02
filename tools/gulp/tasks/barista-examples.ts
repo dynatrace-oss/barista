@@ -99,7 +99,7 @@ function generateRouteMetadata(parsedData: ExampleMetadata[]): AppComponentRoute
     aggr[index].examples.push(
       {
         name: dasherized,
-        route: `/${componentName}/${dasherized}`,
+        route: `${componentName}/${dasherized}`,
         className: val.component,
         import: buildImportsTemplate(val),
       }
@@ -131,10 +131,13 @@ function generateRoutes(content: string, routeMetadata: AppComponentRouteSetup[]
   let routeString = '';
   routeMetadata.forEach((metadata: AppComponentRouteSetup) => {
     metadata.examples.forEach((example) => {
-      routeString = `${routeString},
-      { path: '${example.route}', component: ${example.className}}`;
+      routeString = `${routeString}
+      { path: '${example.route}', component: ${example.className}},`;
     });
   });
+  if (routeString.endsWith(',')) {
+    routeString = routeString.slice(0, -1);
+  }
   return content.replace('${routes}', `[${routeString}]`);
 }
 
