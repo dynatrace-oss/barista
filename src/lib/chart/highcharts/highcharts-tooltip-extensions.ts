@@ -39,8 +39,7 @@ export function prepareTooltipData(pointOrPoints: any | any[]): DtChartTooltipDa
 /**
  * Wraps the reset function of the pointer class to have events that we can listen to
  */
-// tslint:disable-next-line: no-void-expression
-export const addTooltipEvents = ((): void => {
+export function addTooltipEvents(): boolean {
   // tslint:disable-next-line: no-any
   highcharts.wrap(highcharts.Pointer.prototype, 'reset', function(proceed: any): void {
 
@@ -68,4 +67,8 @@ export const addTooltipEvents = ((): void => {
     const eventPayload: DtHcTooltipEventPayload = { data };
     highcharts.fireEvent(this.chart, 'tooltipRefreshed', eventPayload);
   });
-})();
+
+  // this has to return something otherwise when running a build with the prod flag enabled
+  // uglify throws away this code because it does not produce sideeffects
+  return true;
+}

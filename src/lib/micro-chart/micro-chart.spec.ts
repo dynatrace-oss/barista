@@ -256,7 +256,7 @@ describe('DtMicroChart', () => {
     });
   });
 
-  fdescribe('tooltip', () => {
+  describe('tooltip', () => {
     it('should not throw an error when using the tooltip inside the microchart', () => {
       expect(() => {
         const { fixture } = setupTestCase(TooltipTest);
