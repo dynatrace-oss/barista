@@ -6,7 +6,15 @@ import { DtChartSeries, formatCount } from '@dynatrace/angular-components';
 import { generateData } from './docs-micro-chart.service';
 
 @Component({
-  template: '<dt-micro-chart [series]="series" [labelFormatter]="_formatterFn"></dt-micro-chart>',
+  template: `
+  <dt-micro-chart [series]="series" [labelFormatter]="_formatterFn">
+    <dt-chart-tooltip>
+      <ng-template let-tooltip>
+        {{tooltip.y | dtCount}}
+      </ng-template>
+    </dt-chart-tooltip>
+  </dt-micro-chart>
+  `,
 })
 @OriginalClassName('MicroChartDefaultExampleComponent')
 export class MicroChartDefaultExampleComponent {
