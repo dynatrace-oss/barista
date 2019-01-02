@@ -64,7 +64,7 @@ export function DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY(microChart: DtMicro
 })
 export class DtMicroChart implements OnDestroy {
 
-  /** @internal TODO DOcs */
+  /** @internal DtChart instance that is needed for the tooltip */
   @ViewChild(forwardRef(() => DtChart)) _dtChart: DtChart;
 
   private _themeStateChangeSub = Subscription.EMPTY;
