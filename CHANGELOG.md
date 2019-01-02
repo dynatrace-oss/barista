@@ -1,3 +1,11 @@
+## 1.2.1 (2019-01-02)
+
+### Bug Fixes
+
+* **microchart:** fixes dt-tooltip with microchart ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **chart, microchart:** fixes dt-tooltip not working when used in an app built with the prod flag ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
 ## 1.2.0 (2018-12-20)
 
 ### Bug Fixes
