@@ -23,7 +23,7 @@
   padding: 20px;
 }
 
-// // replace this with the sidenav component as soon as this is ready
+// replace this with the sidenav component as soon as this is ready
 .sidenav {
   background-color: #f2f2f2;
   font-family: 'Bernina-Sans';
@@ -35,16 +35,52 @@
   }
 
   & > ul > li {
-    
+    @include default-font(14px, 32px);
   }
 
-  li + li {
-    border-top: 1px solid #e6e6e6;
+  .expandable-item {
+    border-top: 1px solid $gray-300;
+    border-bottom: 1px solid $gray-300;
+    background-color: $gray-200;
   }
 
-  .router-link-active {
-    border-left: 6px solid #525252;
-    padding-left: 14px;
+  .expandable-item + .expandable-item {
+    border-top: none;
+  }
+
+  .expandable-item + .expandable-item-open {
+    border-top: 2px solid $turquoise-600;
+    border-bottom: 2px solid $turquoise-600;
+  }
+
+  .expandable-item-open + .expandable-item-open {
+    border-top: none;
+  }
+
+  .item-entry {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .dt-expandable-panel-trigger ::ng-deep svg {
+    transition: transform 150ms ease-in-out;
+    fill: $turquoise-600;
+  }
+
+  .dt-expandable-panel-trigger-open ::ng-deep svg {
+    transform: rotate(180deg)
+  }
+
+  dt-icon {
+    flex: 0 1 20px;
+    height: 20px;
+  }
+
+  .expandable-item ul li {
+    padding-left: 28px;
   }
 }
 
