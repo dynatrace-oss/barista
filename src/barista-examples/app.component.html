@@ -4,17 +4,24 @@
   </dt-select>
 </nav>
 <div class="content-wrapper" [dtTheme]="selectedTheme">
+
+  <!-- TODO replace with sidebar component when available -->
   <nav class="sidenav">
     <ul>
-      <li *ngFor="let component of componentItems">
-        {{component.name}}
-        <ul>
-          <li *ngFor="let example of component.examples">
-              <a [routerLink]="[example.route]" routerLinkActive
-              #routerLinkActiveInstance="routerLinkActive"
-              [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1">{{example.name}}</a>
-          </li>
-        </ul>
+      <li *ngFor="let component of componentItems" class="expandable-item" [class.expandable-item-open]="panel.opened">
+        <div class="item-entry" [dtExpandablePanel]="panel">
+          <span>{{component.name}}</span>
+          <dt-icon name="dropdownopen"></dt-icon>
+        </div>
+        <dt-expandable-panel #panel>
+          <ul>
+            <li *ngFor="let example of component.examples">
+                <a class="dt-link" [routerLink]="[example.route]" routerLinkActive
+                #routerLinkActiveInstance="routerLinkActive"
+                [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1">{{example.name}}</a>
+            </li>
+          </ul>
+        </dt-expandable-panel>
       </li>
     </ul>
   </nav>
