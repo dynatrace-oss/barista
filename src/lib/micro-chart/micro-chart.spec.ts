@@ -1,7 +1,7 @@
 import { Component, Type, ViewChild} from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
+import { DtChartOptions, DtChartSeries, DtChartModule } from '@dynatrace/angular-components/chart';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 import { DtMicroChart } from './micro-chart';
 import { Colors, DtThemingModule, DtTheme } from '@dynatrace/angular-components/theming';
@@ -17,7 +17,7 @@ describe('DtMicroChart', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtMicroChartModule, DtThemingModule],
+      imports: [DtMicroChartModule, DtThemingModule, DtChartModule],
       declarations: [
         Series,
         DefinedAxis,
@@ -31,6 +31,7 @@ describe('DtMicroChart', () => {
         Nothing,
         DynamicSeries,
         UnsupportedSeriesType,
+        TooltipTest,
       ],
     }).compileComponents();
   }));
@@ -254,6 +255,15 @@ describe('DtMicroChart', () => {
         }).toThrowError();
     });
   });
+
+  fdescribe('tooltip', () => {
+    it('should not throw an error when using the tooltip inside the microchart', () => {
+      expect(() => {
+        const { fixture } = setupTestCase(TooltipTest);
+        fixture.detectChanges();
+      }).not.toThrowError();
+    });
+  });
 });
 
 @Component({
@@ -415,5 +425,25 @@ class UnsupportedSeriesType {
     id: 'someId',
     type: 'pie',
     data: [[1, 0], [2, 10]],
+  };
+}
+
+@Component({
+  selector: 'dt-micro-tooltip',
+  template: `
+  <dt-micro-chart [series]="series" [options]="options">
+    <dt-chart-tooltip>
+      <ng-template>
+        tooltip
+      </ng-template>
+    </dt-chart-tooltip>
+  </dt-micro-chart>`,
+})
+class TooltipTest {
+  options: DtChartOptions = {chart: {type: 'line' }};
+  series: DtChartSeries = {
+    name: 'Actions/min',
+    id: 'someMetricId',
+    data: [[1, 140], [2, 120]],
   };
 }

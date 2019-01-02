@@ -4,6 +4,8 @@ import {
   DtMicroChartModule,
   DtButtonModule,
   DtThemingModule,
+  DtChartModule,
+  DtFormattersModule,
 } from '@dynatrace/angular-components';
 import { MicroChartDefaultExampleComponent } from './examples/micro-chart-default-example.component';
 import { MicroChartColumnsExampleComponent } from './examples/micro-chart-columns-example.component';
@@ -20,7 +22,9 @@ export const EXAMPLES = [
     UiModule,
     DtThemingModule,
     DtButtonModule,
+    DtChartModule,
     DtMicroChartModule,
+    DtFormattersModule,
   ],
   declarations: [
     ...EXAMPLES,
