@@ -62,7 +62,7 @@ export class DtChartTooltip<T> implements OnDestroy {
     private _dtOverlay: DtOverlay,
     private _ngZone: NgZone,
     private _renderer: Renderer2,
-    @Inject(DT_CHART_RESOLVER) @Optional() @SkipSelf() private _resolveParentChart: DtChartResolver,
+    @Inject(DT_CHART_RESOLVER) @Optional() @SkipSelf() private _resolveParentChart: DtChartResolver
   ) {
   }
 

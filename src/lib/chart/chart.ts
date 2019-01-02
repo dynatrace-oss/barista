@@ -58,7 +58,7 @@ window.configureLegendSymbols = configureLegendSymbols;
 // Highcharts global options, set outside component so its not set everytime a chart is created
 setOptions(DT_CHART_DEFAULT_GLOBAL_OPTIONS);
 // added to the window so uglify does not drop this from the bundle
-window.addTooltipEvents = addTooltipEvents;
+window.highchartsTooltipEventsAdded = addTooltipEvents();
 
 /** Injection token used to get the instance of the dt-chart instance  */
 export const DT_CHART_RESOLVER = new InjectionToken<() => DtChart>('dt-chart-resolver');
@@ -69,8 +69,16 @@ export const DT_CHART_RESOLVER = new InjectionToken<() => DtChart>('dt-chart-res
  */
 export type DtChartResolver = () => DtChart;
 
-/** @internal Factory used to get the DtChartResolver */
-export const DT_CHART_RESOVER_PROVIDER_FACTORY: (chart: DtChart) => DtChartResolver = (chart) => () => chart;
+/**
+ * @internal
+ * Factory used to get the DtChartResolver
+ * this needs to be written as below without lambda expressions due to a compiler bug,
+ * see https://github.com/angular/angular/issues/23629 for further information
+ */
+export function DT_CHART_RESOVER_PROVIDER_FACTORY(c: DtChart): DtChartResolver {
+    const resolver = () => c;
+    return resolver;
+  }
 
 @Component({
   moduleId: module.id,
@@ -85,7 +93,7 @@ export const DT_CHART_RESOVER_PROVIDER_FACTORY: (chart: DtChart) => DtChartResol
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    { provide: DT_CHART_RESOLVER, useFactory: DT_CHART_RESOVER_PROVIDER_FACTORY, deps: [[new Self(), DtChart]] }
+    { provide: DT_CHART_RESOLVER, useFactory: DT_CHART_RESOVER_PROVIDER_FACTORY, deps: [[new Self(), DtChart]] },
   ],
 })
 export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
