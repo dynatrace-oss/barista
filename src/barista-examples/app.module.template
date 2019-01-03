@@ -1,26 +1,34 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ExamplesAppDynatraceModule } from './dt.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ExamplesAppExamplesModule } from './examples.module';
-import { ExamplesAppDynatraceModule } from './dt.module';
 import { App, ROUTES } from './app.component';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DtIconModule } from '@dynatrace/angular-components';
+${imports}
 
+const EXAMPLES = ${examples};
+
+/**
+ * NgModule that includes all example components
+ */
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
     RouterModule.forRoot(ROUTES),
-    ExamplesAppExamplesModule,
     ExamplesAppDynatraceModule,
   ],
   declarations: [
+    ...EXAMPLES,
     App,
   ],
   entryComponents: [
@@ -28,5 +36,5 @@ import { DtIconModule } from '@dynatrace/angular-components';
   ],
   bootstrap: [App],
 })
-export class AppModule {
-}
+export class AppModule { }
+
