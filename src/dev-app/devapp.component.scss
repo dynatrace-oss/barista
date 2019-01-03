@@ -36,13 +36,10 @@
   a {
     @include default-font(15px, 60px);
     display: block;
-    height: 60px;
     padding-left: 20px;
     padding-right: 20px;
-    width: 100%;
     text-decoration: none;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    white-space: nowrap;
 
     &:hover {
       color: #00a1b2;
