@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 
 export interface TableData {
   name: string;
@@ -55,7 +54,6 @@ export interface TableData {
 `,
   // tslint:enable
 })
-@OriginalClassName('TableExpandableProblemComponent')
 export class TableExpandableProblemComponent {
   _dataSource: TableData[] = [
     { name: 'et-demo-2-win4', cpuUsage: 30, memoryPerc: 38, memoryTotal: 5830000000, traffic: 987000000, warnings: ['memoryPerc'], errors: ['cpuUsage'] },
