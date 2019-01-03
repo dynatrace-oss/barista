@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'alert-demo',
+  selector: 'tag-demo',
   templateUrl: './tag-demo.component.html',
   styleUrls: ['./tag-demo.component.scss'],
 })

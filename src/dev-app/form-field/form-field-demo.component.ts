@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'alert-demo',
+  selector: 'form-field-demo',
   templateUrl: './form-field-demo.component.html',
   styleUrls: ['./form-field-demo.component.scss'],
 })
