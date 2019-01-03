@@ -13,12 +13,6 @@
 2. Install dependencies - `yarn install`
 3. Start documentation server - `yarn docs` 
 
-##### Using gradle
-1. Install JDK
-2. Run gradle task - `./gradlew startDocs`
-Alternatively, you can use gradle (see instructions below), which automatically sets up local NodeJS environment,
-but on the other hand, requires JVM. 
-
 ### Building
 1. Install NPM dependencies
    ```
