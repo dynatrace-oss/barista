@@ -207,7 +207,8 @@
               }
             ],
             "styles": [
-              "src/barista-examples/main.scss"
+              "src/barista-examples/main.scss",
+              "src/lib/style/index.scss"
             ]
           }
         },
