@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'alert-demo',
+  selector: '<%=dasherize(name)%>-demo',
   templateUrl: './<%= name %>-demo.component.html',
   styleUrls: ['./<%= name %>-demo.component.scss'],
 })

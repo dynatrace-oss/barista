@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'alert-demo',
+  selector: 'formatters-demo',
   templateUrl: './formatters-demo.component.html',
   styleUrls: ['./formatters-demo.component.scss'],
 })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'alert-demo',
+  selector: 'loading-distractor-demo',
   templateUrl: './loading-distractor-demo.component.html',
   styleUrls: ['./loading-distractor-demo.component.scss'],
 })

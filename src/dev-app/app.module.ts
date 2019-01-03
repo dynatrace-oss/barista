@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { DevAppRoutingModule } from './devapp-routing.module';
 import { FormsModule } from '@angular/forms';
 import { environment } from '@environments/environment';
@@ -15,6 +14,7 @@ import { BreadcrumbsDemo } from './breadcrumbs/breadcrumbs-demo.component';
 import { ButtonDemo } from './button/button-demo.component';
 import { ButtonGroupDemo } from './button-group/button-group-demo.component';
 import { CardDemo } from './card/card-demo.component';
+import { ChartDemo } from './chart/chart-demo.component';
 import { CheckboxDemo } from './checkbox/checkbox-demo.component';
 import { ContextDialogDemo } from './context-dialog/context-dialog-demo.component';
 import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.component';
@@ -79,6 +79,7 @@ export class NoopRouteComponent {}
     ButtonDemo,
     ButtonGroupDemo,
     CardDemo,
+    ChartDemo,
     CheckboxDemo,
     ContextDialogDemo,
     CopyToClipboardDemo,
@@ -110,9 +111,6 @@ export class NoopRouteComponent {}
     TileDemo,
     ToastDemo,
   ],
-  // exports: [
-  //   DocsViewerComponent,
-  // ],
   entryComponents: [
     DevApp,
   ],

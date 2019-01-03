@@ -48,9 +48,12 @@
     border-top: none;
   }
 
+  .expandable-item-open {
+    border-bottom: 2px solid $turquoise-600;
+  }
+
   .expandable-item + .expandable-item-open {
     border-top: 2px solid $turquoise-600;
-    border-bottom: 2px solid $turquoise-600;
   }
 
   .expandable-item-open + .expandable-item-open {

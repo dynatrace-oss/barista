@@ -1,9 +1,10 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components';
-import { MicroChartService } from './docs-micro-chart.service';
+import { Observable, timer } from 'rxjs';
+import { DtChartSeries, DtChartOptions } from '@dynatrace/angular-components';
+import { map } from 'rxjs/operators';
+import { generateData } from './data';
 
 @Component({
   template: `
@@ -21,9 +22,10 @@ export class MicroChartStreamExampleComponent {
       type: 'column',
     },
   };
-  series$: Observable<DtChartSeries>;
-
-  constructor(private _chartService: MicroChartService) {
-    this.series$ = this._chartService.getSingleStreamedChartdata();
-  }
+  series$: Observable<DtChartSeries> = timer(1000, 5000)
+    .pipe(map(() => ({
+      name: 'Requests',
+      type: 'column',
+      data: generateData(40, 0, 200, 1370304000000, 900000),
+    })));
 }
