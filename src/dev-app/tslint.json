@@ -1,6 +1,8 @@
 {
   "extends": "../../tslint.json",
   "rules": {
-    "i18n": false
+    "i18n": false,
+    "no-magic-numbers": false,
+    "no-console": false,
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angular-components';
 
 @Component({
@@ -11,9 +11,6 @@ import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angu
     </dt-selection-area-actions>
   </dt-selection-area>
   `,
-  styles: [
-    '.origin { width: 100%; height: 400px; border: 1px solid #e6e6e6; }',
-  ],
 })
 export class SelectionAreaChartExample {
   @ViewChild(DtChart) chart: DtChart;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'alert-demo',
+  selector: 'expandable-section-demo',
   templateUrl: './expandable-section-demo.component.html',
   styleUrls: ['./expandable-section-demo.component.scss'],
 })

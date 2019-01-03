@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'alert-demo',
+  selector: 'input-demo',
   templateUrl: './input-demo.component.html',
   styleUrls: ['./input-demo.component.scss'],
 })

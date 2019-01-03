@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components';
-import { generateData } from './docs-micro-chart.service';
+import { generateData } from './data';
 
 @Component({
   template: `
