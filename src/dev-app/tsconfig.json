@@ -17,14 +17,13 @@
       "../../dist/dev-app"
     ],
     "paths": {
-      "@dynatrace/angular-components": ["../../src/lib"],
-      "@dynatrace/angular-components/*": ["../../src/lib/*"],
+      "@dynatrace/angular-components": ["../lib"],
+      "@dynatrace/angular-components/*": ["../lib/*"],
       "@environments/*": ["./environments/*"]
     }
   },
   "files": [
     "../../typings.d.ts",
-    "./environments/environment.ts",
     "./app.module.ts",
     "./main.ts",
     "./polyfills.ts"
