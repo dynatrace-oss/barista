@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  template: '<dt-button></dt-button>',
+  template: '<button dt-button></button>',
 })
 export class PureButtonExampleComponent { }
