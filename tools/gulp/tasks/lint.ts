@@ -35,6 +35,8 @@ task('lint', [
   'tslint:ui-test-app',
   'tslint:universal-app',
   'tslint:ui-tests',
+  'tslint:dev-app',
+  'tslint:barista-examples',
 ]);
 
 task('ensureOutDirectory', () => {
@@ -115,5 +117,29 @@ task('tslint:ui-tests', ['ensureOutDirectory'], execNodeTask(
       tsUiSpecsGlob,
     ],
     'checkstyle-ui-test.xml'
+  )
+));
+
+task('tslint:dev-app', ['ensureOutDirectory'], execNodeTask(
+  'tslint', outputToXML(
+    isCi,
+    [
+      '--config', 'tslint.json',
+      '--project', 'src/dev-app/tsconfig.json',
+      tsUiSpecsGlob,
+    ],
+    'checkstyle-dev-app.xml'
+  )
+));
+
+task('tslint:barista-examples', ['ensureOutDirectory'], execNodeTask(
+  'tslint', outputToXML(
+    isCi,
+    [
+      '--config', 'tslint.json',
+      '--project', 'src/barista-examples/tsconfig.json',
+      tsUiSpecsGlob,
+    ],
+    'checkstyle-barista-examples.xml'
   )
 ));
