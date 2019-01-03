@@ -1,0 +1,15 @@
+<dt-filter-field
+  (inputChange)="_inputValue = $event"
+  (activeFilterChange)="_handleActiveFilterChange($event)"
+  label="Filter by">
+  <dt-autocomplete *ngIf="filteredAutocompleteItems" [displayWith]="displayFn" autoActiveFirstOption>
+    <ng-container *ngFor="let item of filteredAutocompleteItems">
+      <dt-optgroup *ngIf="item.group; else options" [label]="item.name">
+        <dt-option *ngFor="let groupItem of item.group" [value]="groupItem">{{displayFn(groupItem)}}</dt-option>
+      </dt-optgroup>
+      <ng-template #options>
+        <dt-option [value]="item">{{displayFn(item)}}</dt-option>
+      </ng-template>
+    </ng-container>
+  </dt-autocomplete>
+</dt-filter-field>

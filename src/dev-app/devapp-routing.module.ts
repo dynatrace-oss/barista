@@ -75,7 +75,6 @@ const routes: Routes = [
   { path: 'tag', component: TagDemo },
   { path: 'tile', component: TileDemo },
   { path: 'toast', component: ToastDemo },
-  { path: '', component: DevApp },
 ];
 
 @NgModule({
