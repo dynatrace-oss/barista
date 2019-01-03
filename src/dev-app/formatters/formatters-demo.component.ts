@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./formatters-demo.component.scss'],
 })
 export class FormattersDemo {
-
+  exampleValue: number;
 }
