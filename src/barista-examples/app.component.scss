@@ -1,4 +1,7 @@
-@import '../lib/style/font-mixins';
+// redeclare variables since the barista build cannot deal with a relative reference to the lib folder here
+$gray-200: #e6e6e6;
+$gray-300: #ccc;
+$turquoise-600: #00a1b2;
 
 // replace this with nav component as soon as it is ready - if there is one
 .nav {
@@ -26,7 +29,6 @@
 // replace this with the sidenav component as soon as this is ready
 .sidenav {
   background-color: #f2f2f2;
-  font-family: 'Bernina-Sans';
 
   ul {
     list-style: none;
@@ -35,7 +37,8 @@
   }
 
   & > ul > li {
-    @include default-font(14px, 32px);
+    font-size: 14px;
+    line-height: 32px;
   }
 
   .expandable-item {

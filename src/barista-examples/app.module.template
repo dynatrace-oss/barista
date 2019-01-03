@@ -27,6 +27,9 @@ const EXAMPLES = ${examples};
     RouterModule.forRoot(ROUTES),
     ExamplesAppDynatraceModule,
   ],
+  exports: [
+    ExamplesAppDynatraceModule,
+  ],
   declarations: [
     ...EXAMPLES,
     App,
