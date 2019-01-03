@@ -24,13 +24,13 @@ const getDeployUrl = () => {
   return deployUrl;
 };
 
-task('docs:generate-environment', () => {
+task('dev:set-env', () => {
   const deployUrl = getDeployUrl();
   return src(join(environmentsDir, 'environment.ts'))
     .pipe(deployUrl ? replaceInFile(/deployUrl:[^,]+,/gm, `deployUrl: '${deployUrl}',`) : through.obj())
     .pipe(dest(environmentsDir));
 });
 
-task('docs:compile', execNodeTask('@angular/cli', 'ng', ['build', 'docs', ...args]));
+task('dev:build', execNodeTask('@angular/cli', 'ng', ['build', 'dev-app', ...args]));
 
-task('docs:build', sequenceTask('docs:generate-environment', 'docs:compile'));
+task('dev:generate-app', sequenceTask('dev:set-env', 'dev:build'));

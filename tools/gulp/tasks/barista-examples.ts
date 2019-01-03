@@ -13,7 +13,30 @@ interface ExampleMetadata {
   sourcePath: string;
 }
 
-/** Parse the AST of the given source file and collect Angular component metadata. */
+interface AppComponentRouteSetup {
+  name: string;
+  examples: Array<{ name: string; route: string; className: string, import: string }>;
+}
+
+/** Parses the examples and collects all data */
+function getExampleMetadata(sourceFiles: string[]): ExampleMetadata[] {
+  const parsedData: Set<ExampleMetadata> = new Set();
+  sourceFiles.forEach((sourceFilePath) => {
+    const content = fs.readFileSync(sourceFilePath, { encoding: 'utf-8' });
+    const fileName = path.basename(sourceFilePath);
+    const components = retrieveExampleClassNames(fileName, content);
+    components.forEach((component) => {
+      const metadata: ExampleMetadata = {
+        component,
+        sourcePath: path.relative(examplesDir, sourceFilePath),
+      };
+      parsedData.add(metadata);
+    })
+  });
+  return [...parsedData];
+}
+
+/** Parse the AST of the given source file and collects Angular component metadata. */
 export function retrieveExampleClassNames(fileName: string, content: string): string[] {
   const sourceFile = ts.createSourceFile(fileName, content, ts.ScriptTarget.Latest, false);
   const componentClassNames: string[] = [];
@@ -43,33 +66,6 @@ function buildImportsTemplate(data: ExampleMetadata): string {
   return `import { ${data.component} } from './${relativeSrcPath}';`;
 }
 
-/** Inlines the example module template with the specified parsed data. */
-function populateExampleModuleTemplate(parsedData: ExampleMetadata[]): string {
-  const exampleImports = parsedData.map((m) => buildImportsTemplate(m)).join('\n');
-  const exampleList = parsedData.map((m) => m.component);
-
-  return fs.readFileSync(path.join(examplesDir, './examples.module.template'), 'utf8')
-    .replace('${imports}', exampleImports)
-    .replace('${examples}', `[\n  ${exampleList.join(',\n  ')},\n]`);
-}
-
-function getExampleMetadata(sourceFiles: string[]): ExampleMetadata[] {
-  const parsedData: Set<ExampleMetadata> = new Set();
-  sourceFiles.forEach((sourceFilePath) => {
-    const content = fs.readFileSync(sourceFilePath, { encoding: 'utf-8' });
-    const fileName = path.basename(sourceFilePath);
-    const components = retrieveExampleClassNames(fileName, content);
-    components.forEach((component) => {
-      const metadata: ExampleMetadata = {
-        component,
-        sourcePath: path.relative(examplesDir, sourceFilePath),
-      };
-      parsedData.add(metadata);
-    })
-  });
-  return [...parsedData];
-}
-
 /**
  * Generates the example module from the given source files and writes it to a specified output
  * file.
@@ -83,11 +79,17 @@ function generateExampleModule(parsedData: ExampleMetadata[], outputFile: string
   fs.writeFileSync(generatedFilePath, generatedModuleFile);
 }
 
-interface AppComponentRouteSetup {
-  name: string;
-  examples: Array<{ name: string; route: string; className: string, import: string }>;
+/** Inlines the example module template with the specified parsed data. */
+function populateExampleModuleTemplate(parsedData: ExampleMetadata[]): string {
+  const exampleImports = parsedData.map((m) => buildImportsTemplate(m)).join('\n');
+  const exampleList = parsedData.map((m) => m.component);
+
+  return fs.readFileSync(path.join(examplesDir, './examples.module.template'), 'utf8')
+    .replace('${imports}', exampleImports)
+    .replace('${examples}', `[\n  ${exampleList.join(',\n  ')},\n]`);
 }
 
+/** Generates the meta information for each route */
 function generateRouteMetadata(parsedData: ExampleMetadata[]): AppComponentRouteSetup[] {
   return parsedData.reduce((aggr: AppComponentRouteSetup[], val) => {
     const componentName = path.dirname(val.sourcePath);
@@ -108,7 +110,8 @@ function generateRouteMetadata(parsedData: ExampleMetadata[]): AppComponentRoute
   }, [])
 }
 
-function generateImports(content: string, routeMetadata: AppComponentRouteSetup[]): string {
+/** Generates the imports for each example file */
+function generateImportsForExamples(content: string, routeMetadata: AppComponentRouteSetup[]): string {
   let imports = '';
   routeMetadata.forEach((metadata) => {
     metadata.examples.forEach((example) => {
@@ -118,7 +121,7 @@ function generateImports(content: string, routeMetadata: AppComponentRouteSetup[
   return content.replace('${imports}', imports);
 }
 
-
+/** Generates the nav items list used to render the sidebar */
 function generateNavItems(content: string, routeMetadata: AppComponentRouteSetup[]): string {
   const navItems = routeMetadata.map((metadata) => {
     const exampleData = metadata.examples.map((example) => ({ name: example.name, route: example.route }));
@@ -127,6 +130,7 @@ function generateNavItems(content: string, routeMetadata: AppComponentRouteSetup
   return content.replace('${navItems}', JSON.stringify(navItems, null, '\t'));
 }
 
+/** Generates the route definitions */
 function generateRoutes(content: string, routeMetadata: AppComponentRouteSetup[]): string {
   let routeString = '';
   routeMetadata.forEach((metadata: AppComponentRouteSetup) => {
@@ -141,19 +145,17 @@ function generateRoutes(content: string, routeMetadata: AppComponentRouteSetup[]
   return content.replace('${routes}', `[${routeString}]`);
 }
 
+/** Generates the app component */
 function generateAppComponent(parsedData: ExampleMetadata[]): void {
   const routeMetadata = generateRouteMetadata(parsedData);
   let content = fs.readFileSync(path.join(examplesDir, 'app.component.template'), { encoding: 'utf8' });
-  content = generateImports(content, routeMetadata);
+  content = generateImportsForExamples(content, routeMetadata);
   content = generateNavItems(content, routeMetadata);
   content = generateRoutes(content, routeMetadata);
   fs.writeFileSync(path.join(examplesDir, 'app.component.ts'), content, { encoding: 'utf8' });
 }
 
-
-/**
- * Creates the examples module
- */
+/** Creates the examples module */
 task('build-barista-example', () => {
   const metadata = getExampleMetadata(glob(path.join(examplesDir, '*/*.ts')));
   generateExampleModule(metadata, 'examples.module.ts', examplesDir);

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FILTER_FIELD_EXAMPLE_DATA, ComplexType, isAutocomplete, getViewValue, AutocompleteItemType, isGroup, ItemType, isFreeText } from './data';
+import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldValueProperty } from '@dynatrace/angular-components/filter-field';
 
 function filterItems(items: AutocompleteItemType[], needle: string): AutocompleteItemType[] {
   if (needle.length) {

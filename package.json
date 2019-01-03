@@ -3,9 +3,10 @@
   "version": "1.2.1",
   "description": "",
   "scripts": {
-    "barista-examples": "gulp build-barista-example && ng serve barista-examples",
-    "docs:build": "gulp docs:build",
-    "docs": "ng serve docs",
+    "barista-examples:serve": "gulp build-barista-example && ng serve barista-examples",
+    "barista-examples:build": "gulp build-barista-example",
+    "dev": "ng serve dev-app",
+    "dev:generate": "gulp dev:generate-app",
     "build": "gulp library:build",
     "stage-release": "ts-node --project tools/release/ tools/release/stage-release.ts",
     "get-release-version": "ts-node --project tools/release/ tools/release/get-release-version.ts",

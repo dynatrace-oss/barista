@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
 
 @Component({
   selector: 'overlay-demo',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./overlay-demo.component.scss'],
 })
 export class OverlayDemo {
-
+  config: DtOverlayConfig = {
+    pinnable: true,
+    originY: 'center',
+  };
 }
