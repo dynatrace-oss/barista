@@ -67,11 +67,11 @@ function buildImportsTemplate(data: ExampleMetadata): string {
 }
 
 /**
- * Generates the example module from the given source files and writes it to a specified output
+ * Generates the app module from the given source files and writes it to a specified output
  * file.
  */
-function generateExampleModule(parsedData: ExampleMetadata[], outputFile: string, baseDir: string): void {
-  const generatedModuleFile = populateExampleModuleTemplate([...parsedData]);
+function generateAppModule(parsedData: ExampleMetadata[], outputFile: string, baseDir: string): void {
+  const generatedModuleFile = populateAppModuleTemplate([...parsedData]);
   const generatedFilePath = path.join(baseDir, outputFile);
   if (!fs.existsSync(path.dirname(generatedFilePath))) {
     fs.mkdirSync(path.dirname(generatedFilePath));
@@ -79,12 +79,12 @@ function generateExampleModule(parsedData: ExampleMetadata[], outputFile: string
   fs.writeFileSync(generatedFilePath, generatedModuleFile);
 }
 
-/** Inlines the example module template with the specified parsed data. */
-function populateExampleModuleTemplate(parsedData: ExampleMetadata[]): string {
+/** Inlines the app module template with the specified parsed data. */
+function populateAppModuleTemplate(parsedData: ExampleMetadata[]): string {
   const exampleImports = parsedData.map((m) => buildImportsTemplate(m)).join('\n');
   const exampleList = parsedData.map((m) => m.component);
 
-  return fs.readFileSync(path.join(examplesDir, './examples.module.template'), 'utf8')
+  return fs.readFileSync(path.join(examplesDir, './app.module.template'), 'utf8')
     .replace('${imports}', exampleImports)
     .replace('${examples}', `[\n  ${exampleList.join(',\n  ')},\n]`);
 }
@@ -158,6 +158,6 @@ function generateAppComponent(parsedData: ExampleMetadata[]): void {
 /** Creates the examples module */
 task('build-barista-example', () => {
   const metadata = getExampleMetadata(glob(path.join(examplesDir, '*/*.ts')));
-  generateExampleModule(metadata, 'examples.module.ts', examplesDir);
+  generateAppModule(metadata, 'app.module.ts', examplesDir);
   generateAppComponent(metadata);
 });
