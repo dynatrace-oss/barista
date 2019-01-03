@@ -1,16 +1,10 @@
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `
   <dt-progress-bar (valueChange)="changed($event)" [value]="value">
-  <dt-progress-bar-description>
-    We found more than 100 results. This may take a while, consider narrowing your search.
-  </dt-progress-bar-description>
   <dt-progress-bar-count>
-  <strong>
-    <span [dtIndicator]="metricHasProblem(value)" dtIndicatorColor="error">{{value}}</span>/{{max}} days
-  </strong>
+  <strong>{{value}}/{{max}} days</strong>
   </dt-progress-bar-count>
   </dt-progress-bar>
   <div>
@@ -21,20 +15,14 @@ import { OriginalClassName } from '../../../core/decorators';
   `,
   styles: ['dt-progress-bar {margin: 8px 0}'],
 })
-@OriginalClassName('WithCountAndTextDescriptionIndicatorProgressBarComponent')
-export class WithCountAndTextDescriptionIndicatorProgressBarComponent {
+export class WithCountDescriptionProgressBarComponent {
   oldValue: number | null = null;
   newValue: number | null = null;
-  value = 70;
+  value = 0;
   max = 100;
-  limit = 75;
 
   changed($event: { oldValue: number; newValue: number }): void {
     this.oldValue = $event.oldValue;
     this.newValue = $event.newValue;
-  }
-
-  metricHasProblem(value: number): boolean {
-    return value > this.limit;
   }
 }
