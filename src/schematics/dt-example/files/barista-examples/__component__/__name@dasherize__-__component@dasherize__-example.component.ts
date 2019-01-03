@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  template: '<dt-<%= dasherize(component) %>></dt-<%= dasherize(component) %>>',
+  template: '',
 })
 export class <%=classify(exampleComponentName) %> { }

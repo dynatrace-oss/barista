@@ -23,7 +23,6 @@
   },
   "files": [
     "../../typings.d.ts",
-    "./environments/environment.ts",
     "./app.module.ts",
     "./main.ts",
     "./polyfills.ts"
