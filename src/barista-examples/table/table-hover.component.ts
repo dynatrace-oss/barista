@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -30,7 +29,6 @@ import { OriginalClassName } from '../../../core/decorators';
 </dt-table>`,
   // tslint:enable
 })
-@OriginalClassName('TableHoverComponent')
 export class TableHoverComponent {
   dataSource1: object[] = [
     { host: 'et-demo-2-win4', cpu: '30 %', memory: '38 % of 5.83 GB', traffic: '98.7 Mbit/s' },

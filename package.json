@@ -3,7 +3,7 @@
   "version": "1.2.1",
   "description": "",
   "scripts": {
-    "barista-examples:serve": "gulp build-barista-example && ng serve barista-examples",
+    "barista-examples": "gulp build-barista-example && ng serve barista-examples",
     "barista-examples:build": "gulp build-barista-example",
     "dev": "ng serve dev-app",
     "dev:generate": "gulp dev:generate-app",

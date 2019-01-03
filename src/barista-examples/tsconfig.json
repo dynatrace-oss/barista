@@ -17,8 +17,8 @@
       "../../dist/barista-examples"
     ],
     "paths": {
-      "@dynatrace/angular-components": ["../../src/lib"],
-      "@dynatrace/angular-components/*": ["../../src/lib/*"],
+      "@dynatrace/angular-components": ["../lib"],
+      "@dynatrace/angular-components/*": ["../lib/*"],
       "@environments/*": ["./environments/*"]
     }
   },

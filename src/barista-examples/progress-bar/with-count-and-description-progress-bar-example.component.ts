@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   template: `
@@ -19,7 +18,6 @@ import { OriginalClassName } from '../../../core/decorators';
   `,
   styles: ['dt-progress-bar {margin: 8px 0}'],
 })
-@OriginalClassName('WithCountAndTextDescriptionProgressBarComponent')
 export class WithCountAndTextDescriptionProgressBarComponent {
   oldValue: number | null = null;
   newValue: number | null = null;

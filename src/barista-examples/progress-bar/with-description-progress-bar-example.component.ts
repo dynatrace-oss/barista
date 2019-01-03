@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { OriginalClassName } from '../../../core/decorators';
 
 @Component({
   moduleId: module.id,
@@ -10,5 +9,4 @@ import { OriginalClassName } from '../../../core/decorators';
   </dt-progress-bar-description>
   </dt-progress-bar>`,
 })
-@OriginalClassName('WithDescriptionProgressBarExampleComponent')
 export class WithDescriptionProgressBarExampleComponent { }
