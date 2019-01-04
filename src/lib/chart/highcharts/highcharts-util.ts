@@ -2,11 +2,8 @@ import { DtTheme } from '@dynatrace/angular-components/theming';
 import { Options as HighchartsOptions, AxisOptions } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import { DT_CHART_DEFAULT_OPTIONS, DT_CHART_DEFAULT_AXIS_STYLES } from '../chart-options';
-import { DT_CHART_COLOR_PALETTES, DT_CHART_COLOR_PALETTE_ORDERED } from '../chart-colors';
 import { DtChartSeries, DtChartOptions } from '../chart';
-
-// Threshold to determine the color palette used
-const DT_CHART_THEME_COLOR_MAX_LENGTH = 3;
+import {getColorsPalette} from '../chart-colors';
 
 /** Create a pure highcharts options out of provided chart options and/or series. */
 export function createHighchartOptions(options: DtChartOptions = {}, series?: DtChartSeries[], theme?: DtTheme): HighchartsOptions {
@@ -63,10 +60,8 @@ function mergeHighchartsColorOptions(options: HighchartsOptions, theme: DtTheme)
     nrOfMetrics = options.series ? options.series.length : 0;
   }
 
-  const palette = theme && theme.name && DT_CHART_COLOR_PALETTES[theme.name] ?
-  DT_CHART_COLOR_PALETTES[theme.name] : DT_CHART_COLOR_PALETTE_ORDERED;
+  options.colors = getColorsPalette(nrOfMetrics, theme);
 
-  options.colors = nrOfMetrics <= DT_CHART_THEME_COLOR_MAX_LENGTH ? palette : DT_CHART_COLOR_PALETTE_ORDERED;
   return options;
 }
 
