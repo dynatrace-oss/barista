@@ -1,5 +1,5 @@
 /**
- * Colors Enumeration used in typescript (only charts for now)
+ * Colors Enumeration used in typescript
  */
 export enum DtColors {
   WHITE = '#ffffff',
@@ -52,6 +52,33 @@ export enum DtColors {
   ORANGE_600 = '#C95218',
   ORANGE_700 = '#B64915',
   ORANGE_800 = '#8D380F',
+
+  RED_200 = '#F9ACAF',
+  RED_300 = '#F28289',
+  RED_400 = '#E74D59',
+  RED_500 = '#DC172A',
+  RED_600 = '#C41425',
+  RED_700 = '#AB0C17',
+  RED_800 = '#93060E',
+  RED_900 = '#7A0004',
+
+  GREEN_200 = '#D2EFBE',
+  GREEN_300 = '#BEE5A3',
+  GREEN_400 = '#9CD575',
+  GREEN_500 = '#7DC540',
+  GREEN_600 = '#5EAD35',
+  GREEN_700 = '#3F962A',
+  GREEN_800 = '#1F7E1E',
+  GREEN_900 = '#006613',
+
+  SHAMROCKGREEN_200 = '#BBEAC0',
+  SHAMROCKGREEN_300 = '#99DEA8',
+  SHAMROCKGREEN_400 = '#6BCB8B',
+  SHAMROCKGREEN_500 = '#54C27D',
+  SHAMROCKGREEN_600 = '#2AB06F',
+  SHAMROCKGREEN_700 = '#009E60',
+  SHAMROCKGREEN_800 = '#048855',
+  SHAMROCKGREEN_900 = '#087249',
 
   GRAY_100 = '#f8f8f8',
   GRAY_130 = '#f2f2f2',
