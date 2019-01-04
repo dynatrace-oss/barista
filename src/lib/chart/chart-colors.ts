@@ -1,4 +1,7 @@
-import { DtColors } from '@dynatrace/angular-components/theming';
+import {DtColors, DtTheme} from '@dynatrace/angular-components/theming';
+
+// Threshold to determine the color palette used
+const DT_CHART_THEME_COLOR_MAX_LENGTH = 3;
 
 export const DT_CHART_COLOR_PALETTE_ORDERED: string[] = [
   DtColors.PURPLE_600, /* 1 */
@@ -48,6 +51,17 @@ export const DT_CHART_COLOR_PALETTES = {
   royalblue: DT_COLOR_PALETTE_ROYALBLUE,
   blue: DT_COLOR_PALETTE_BLUE,
 };
+
+/** Return correct color palette depending on the number of metrics */
+export function getColorsPalette(nrOfMetrics: number, theme?: DtTheme): string[] {
+  let palette = DT_CHART_COLOR_PALETTE_ORDERED;
+
+  if (theme && theme.name && DT_CHART_COLOR_PALETTES[theme.name]) {
+    palette = DT_CHART_COLOR_PALETTES[theme.name];
+  }
+
+  return nrOfMetrics <= DT_CHART_THEME_COLOR_MAX_LENGTH ? palette : DT_CHART_COLOR_PALETTE_ORDERED;
+}
 
 // @deprecated Use `DT_CHART_COLOR_PALETTES` instead.
 // @breaking-change 2.0.0 To be changed to `DT_CHART_COLOR_PALETTES`
