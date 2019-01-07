@@ -3,7 +3,7 @@ import { Options as HighchartsOptions, AxisOptions } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import { DT_CHART_DEFAULT_OPTIONS, DT_CHART_DEFAULT_AXIS_STYLES } from '../chart-options';
 import { DtChartSeries, DtChartOptions } from '../chart';
-import {getColorsPalette} from '../chart-colors';
+import {getDtChartColorPalette} from '../chart-colors';
 
 /** Create a pure highcharts options out of provided chart options and/or series. */
 export function createHighchartOptions(options: DtChartOptions = {}, series?: DtChartSeries[], theme?: DtTheme): HighchartsOptions {
@@ -60,7 +60,7 @@ function mergeHighchartsColorOptions(options: HighchartsOptions, theme: DtTheme)
     nrOfMetrics = options.series ? options.series.length : 0;
   }
 
-  options.colors = getColorsPalette(nrOfMetrics, theme);
+  options.colors = getDtChartColorPalette(nrOfMetrics, theme);
 
   return options;
 }
