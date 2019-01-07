@@ -18,12 +18,14 @@
     ],
     "paths": {
       "@dynatrace/angular-components": ["../lib"],
-      "@dynatrace/angular-components/*": ["../lib/*"]
+      "@dynatrace/angular-components/*": ["../lib/*"],
+      "@environments/*": ["./environments/*"]
     }
   },
   "files": [
     "../../typings.d.ts",
     "./app.module.ts",
+    "./environments/environment.ts",
     "./main.ts",
     "./polyfills.ts"
   ],

@@ -11,7 +11,7 @@
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitAny": true,
-    "outDir": "../../dist/dev-app",
+    "outDir": "../../dist/barista-examples",
     "sourceMap": true,
     "target": "es5",
     "stripInternal": false,
@@ -21,7 +21,7 @@
     "baseUrl": ".",
     "rootDirs": [
       ".",
-      "../../dist/dev-app"
+      "../../dist/barista-examples"
     ],
     "paths": {
       "@dynatrace/angular-components": ["../../dist/lib"],

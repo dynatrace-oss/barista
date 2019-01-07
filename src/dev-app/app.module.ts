@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DevAppRoutingModule } from './devapp-routing.module';
 import { FormsModule } from '@angular/forms';
-import { environment } from '@environments/environment';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DevApp } from './devapp.component';
 import { DevAppDynatraceModule } from './dt-components.module';
@@ -45,7 +44,7 @@ import { TabsDemo } from './tabs/tabs-demo.component';
 import { TagDemo } from './tag/tag-demo.component';
 import { TileDemo } from './tile/tile-demo.component';
 import { ToastDemo } from './toast/toast-demo.component';
-import { DT_ICON_CONFIGURATION } from '@dynatrace/angular-components/icon';
+import { DtIconModule } from '@dynatrace/angular-components';
 
 @Component({template: ''})
 export class NoopRouteComponent {}
@@ -57,17 +56,7 @@ export class NoopRouteComponent {}
     HttpClientModule,
     FormsModule,
     DevAppRoutingModule,
-    // RouterModule.forRoot([
-    //   { path: ':noop',  component: NoopRouteComponent },
-    //   { path: 'job/angular-components/job/:noop/DevApp', component: NoopRouteComponent },
-    //   { path: 'job/angular-components/view/change-requests/job/:noop/DevApp', component: NoopRouteComponent },
-    // ]),
-
-    // Changing the way we provide from `forRoot` to a custom provider, because there is an issue in AOT in Angular 6 listed below.
-    // We can go back to `forRoot` once this is resolve.
-    // Jira issue: ***REMOVED***/***REMOVED***
-    // Angular issue: https://github.com/angular/angular/issues/23609
-    // DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
+    DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
     DevAppDynatraceModule,
   ],
   declarations: [
@@ -118,12 +107,6 @@ export class NoopRouteComponent {}
   providers: [
     Location,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
-
-    // Custom icon config provider for the Angular 6 AOT issue described above
-    {
-      provide: DT_ICON_CONFIGURATION,
-      useValue: { svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` },
-    },
   ],
 })
 export class AppModule {
