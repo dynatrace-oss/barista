@@ -6,6 +6,8 @@
     "./tools/tslint-rules/"
   ],
   "rules": {
+    // Disabled so i++ is possible
+    "increment-decrement": false,
     // this needs to be disabled since having multiple components/directives
     // in one file is sometimes suitable due to the size and sharing of small pieces of code
     "max-classes-per-file": false,
