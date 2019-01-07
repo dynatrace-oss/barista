@@ -41,29 +41,6 @@
             "styles": [
               "src/dev-app/main.scss"
             ]
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "src/dev-app/tsconfig-build.json",
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "vendorChunk": false,
-              "statsJson": true
-            },
-            "production-aot": {
-              "tsConfig": "src/dev-app/tsconfig-build.json",
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "aot": true
-            }
           }
         },
         "serve": {
@@ -210,6 +187,29 @@
               "src/barista-examples/main.scss",
               "src/lib/style/index.scss"
             ]
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "src/barista-examples/tsconfig-build.json",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "statsJson": true
+            },
+            "production-aot": {
+              "tsConfig": "src/barista-examples/tsconfig-build.json",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "aot": true
+            }
           }
         },
         "serve": {
