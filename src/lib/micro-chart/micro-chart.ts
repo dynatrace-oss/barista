@@ -173,7 +173,7 @@ function hideChartAxis(options: DtChartOptions): DtChartOptions {
 }
 
 /** Converts a series to a list of data points */
-function convertToDataPoints(seriesData: Array<number | [number, number] | [string, number] | DataPoint>): DataPoint[] {
+function convertToDataPoints(seriesData: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>): DataPoint[] {
   return seriesData.map((dataPoint, index) => {
     if (typeof dataPoint === 'number') {
       return {x: index, y: dataPoint};
