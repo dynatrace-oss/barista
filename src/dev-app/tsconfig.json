@@ -19,7 +19,6 @@
     "paths": {
       "@dynatrace/angular-components": ["../lib"],
       "@dynatrace/angular-components/*": ["../lib/*"],
-      "@environments/*": ["./environments/*"]
     }
   },
   "files": [
