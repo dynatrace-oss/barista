@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   template: '<em dt-inline-editor [(ngModel)]="sampleModel"></em>',
 })
 export class PureInlineEditorExample {
+  sampleModel = 'test';
 }
