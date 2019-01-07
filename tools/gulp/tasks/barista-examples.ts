@@ -8,6 +8,7 @@ import { buildConfig } from '../build-config';
 import { replaceInFile } from '../util/file-replacer';
 import { sequenceTask } from '../util/sequence-task';
 import * as through from 'through2';
+import { execNodeTask } from '../util/task-runner';
 
 const ARGS_TO_OMIT = 3;
 const DEPLOY_URL_ARG = 'deploy-url';
@@ -17,6 +18,7 @@ const environmentsDir = join(projectRoot, 'src', 'barista-examples', 'environmen
 const args = process.argv.splice(ARGS_TO_OMIT);
 
 const getDeployUrl = () => {
+  console.log(args);
   const deployUrlArg = args.find((arg) => arg.startsWith(`--${DEPLOY_URL_ARG}=`));
 
   if (!deployUrlArg) {
@@ -187,10 +189,13 @@ task('barista-example:generate', () => {
 /** Sets the deployUrl depending on the environment */
 task('barista-examples:set-env', () => {
   const deployUrl = getDeployUrl();
+  console.log('deployUrl', deployUrl)
   return src(join(environmentsDir, 'environment.ts'))
     .pipe(deployUrl ? replaceInFile(/deployUrl:[^,]+,/gm, `deployUrl: '${deployUrl}',`) : through.obj())
     .pipe(dest(environmentsDir));
 });
 
+task('barista-examples:compile', execNodeTask('@angular/cli', 'ng', ['build', 'barista-examples', ...args]));
+
 /** Combines both tasks the set env and the build tasks */
-task('barista-example:build', sequenceTask('barista-examples:set-env', 'barista-example:generate'));
+task('barista-examples:build', sequenceTask('barista-examples:set-env', 'barista-example:generate', 'barista-examples:compile'));
