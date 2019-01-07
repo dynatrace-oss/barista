@@ -1,10 +1,32 @@
 import * as fs from 'fs';
-import * as path from 'path';
+import { join, basename, relative, dirname } from 'path';
 import * as ts from 'typescript';
 import { strings } from '@angular-devkit/core';
 import { sync as glob } from 'glob';
-import { task } from 'gulp';
+import { task, src, dest } from 'gulp';
 import { buildConfig } from '../build-config';
+import { replaceInFile } from '../util/file-replacer';
+import { sequenceTask } from '../util/sequence-task';
+import * as through from 'through2';
+
+const ARGS_TO_OMIT = 3;
+const DEPLOY_URL_ARG = 'deploy-url';
+
+const projectRoot = join(__dirname, '../../..');
+const environmentsDir = join(projectRoot, 'src', 'barista-examples', 'environments');
+const args = process.argv.splice(ARGS_TO_OMIT);
+
+const getDeployUrl = () => {
+  const deployUrlArg = args.find((arg) => arg.startsWith(`--${DEPLOY_URL_ARG}=`));
+
+  if (!deployUrlArg) {
+    return undefined;
+  }
+
+  // tslint:disable-next-line no-magic-numbers
+  const [, deployUrl] = deployUrlArg.split('=', 2);
+  return deployUrl;
+};
 
 const { examplesDir } = buildConfig;
 
@@ -23,12 +45,12 @@ function getExampleMetadata(sourceFiles: string[]): ExampleMetadata[] {
   const parsedData: Set<ExampleMetadata> = new Set();
   sourceFiles.forEach((sourceFilePath) => {
     const content = fs.readFileSync(sourceFilePath, { encoding: 'utf-8' });
-    const fileName = path.basename(sourceFilePath);
+    const fileName = basename(sourceFilePath);
     const components = retrieveExampleClassNames(fileName, content);
     components.forEach((component) => {
       const metadata: ExampleMetadata = {
         component,
-        sourcePath: path.relative(examplesDir, sourceFilePath),
+        sourcePath: relative(examplesDir, sourceFilePath),
       };
       parsedData.add(metadata);
     })
@@ -72,9 +94,9 @@ function buildImportsTemplate(data: ExampleMetadata): string {
  */
 function generateAppModule(parsedData: ExampleMetadata[], outputFile: string, baseDir: string): void {
   const generatedModuleFile = populateAppModuleTemplate([...parsedData]);
-  const generatedFilePath = path.join(baseDir, outputFile);
-  if (!fs.existsSync(path.dirname(generatedFilePath))) {
-    fs.mkdirSync(path.dirname(generatedFilePath));
+  const generatedFilePath = join(baseDir, outputFile);
+  if (!fs.existsSync(dirname(generatedFilePath))) {
+    fs.mkdirSync(dirname(generatedFilePath));
   }
   fs.writeFileSync(generatedFilePath, generatedModuleFile);
 }
@@ -84,7 +106,7 @@ function populateAppModuleTemplate(parsedData: ExampleMetadata[]): string {
   const exampleImports = parsedData.map((m) => buildImportsTemplate(m)).join('\n');
   const exampleList = parsedData.map((m) => m.component);
 
-  return fs.readFileSync(path.join(examplesDir, './app.module.template'), 'utf8')
+  return fs.readFileSync(join(examplesDir, './app.module.template'), 'utf8')
     .replace('${imports}', exampleImports)
     .replace('${examples}', `[\n  ${exampleList.join(',\n  ')},\n]`);
 }
@@ -92,7 +114,7 @@ function populateAppModuleTemplate(parsedData: ExampleMetadata[]): string {
 /** Generates the meta information for each route */
 function generateRouteMetadata(parsedData: ExampleMetadata[]): AppComponentRouteSetup[] {
   return parsedData.reduce((aggr: AppComponentRouteSetup[], val) => {
-    const componentName = path.dirname(val.sourcePath);
+    const componentName = dirname(val.sourcePath);
     let index = aggr.findIndex((item) => item.name === componentName);
     if (index === -1) {
       index = aggr.push({ name: componentName, examples: [] }) - 1;
@@ -148,16 +170,27 @@ function generateRoutes(content: string, routeMetadata: AppComponentRouteSetup[]
 /** Generates the app component */
 function generateAppComponent(parsedData: ExampleMetadata[]): void {
   const routeMetadata = generateRouteMetadata(parsedData);
-  let content = fs.readFileSync(path.join(examplesDir, 'app.component.template'), { encoding: 'utf8' });
+  let content = fs.readFileSync(join(examplesDir, 'app.component.template'), { encoding: 'utf8' });
   content = generateImportsForExamples(content, routeMetadata);
   content = generateNavItems(content, routeMetadata);
   content = generateRoutes(content, routeMetadata);
-  fs.writeFileSync(path.join(examplesDir, 'app.component.ts'), content, { encoding: 'utf8' });
+  fs.writeFileSync(join(examplesDir, 'app.component.ts'), content, { encoding: 'utf8' });
 }
 
 /** Creates the examples module */
-task('build-barista-example', () => {
-  const metadata = getExampleMetadata(glob(path.join(examplesDir, '*/*.ts')));
+task('barista-example:generate', () => {
+  const metadata = getExampleMetadata(glob(join(examplesDir, '*/*.ts')));
   generateAppModule(metadata, 'app.module.ts', examplesDir);
   generateAppComponent(metadata);
 });
+
+/** Sets the deployUrl depending on the environment */
+task('barista-examples:set-env', () => {
+  const deployUrl = getDeployUrl();
+  return src(join(environmentsDir, 'environment.ts'))
+    .pipe(deployUrl ? replaceInFile(/deployUrl:[^,]+,/gm, `deployUrl: '${deployUrl}',`) : through.obj())
+    .pipe(dest(environmentsDir));
+});
+
+/** Combines both tasks the set env and the build tasks */
+task('barista-example:build', sequenceTask('barista-examples:set-env', 'barista-example:generate'));
