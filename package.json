@@ -42,6 +42,7 @@
     "@angular/cli": "^7.0.5",
     "@angular/compiler": "~7.0.4",
     "@angular/compiler-cli": "~7.0.4",
+    "@angular/http": "~7.0.4",
     "@angular/platform-browser-dynamic": "~7.0.4",
     "@angular/platform-server": "~7.0.4",
     "@angular/router": "~7.0.4",
