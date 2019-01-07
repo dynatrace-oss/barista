@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "barista-examples": "gulp barista-example:build && ng serve barista-examples",
-    "barista-examples:build": "gulp barista-example:build",
+    "barista-examples:build": "gulp barista-example:build && ng build barista-examples",
     "dev": "ng serve dev-app",
     "build": "gulp library:build",
     "stage-release": "ts-node --project tools/release/ tools/release/stage-release.ts",
@@ -31,7 +31,6 @@
     "core-js": "^2.5.7",
     "lodash": "^4.17.11",
     "rxjs": "^6.3.3",
-    "showdown": "^1.8.6",
     "tslib": "^1.9.3",
     "zone.js": "^0.8.26"
   },
@@ -56,7 +55,6 @@
     "@types/gulp": "^3.8.36",
     "@types/gulp-sass": "0.0.31",
     "@types/highcharts": "^5.0.20",
-    "@types/highlight.js": "^9.12.2",
     "@types/inquirer": "^0.0.43",
     "@types/jasmine": "^2.8.5",
     "@types/lodash": "^4.14.116",
@@ -74,7 +72,6 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "highcharts": "^6.0.7",
-    "highlight.js": "^9.12.0",
     "inquirer": "^6.2.1",
     "jasmine-core": "^2.9.1",
     "jasmine-reporters": "^2.3.1",
