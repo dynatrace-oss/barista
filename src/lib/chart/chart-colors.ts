@@ -53,7 +53,7 @@ export const DT_CHART_COLOR_PALETTES = {
 };
 
 /** Return correct color palette depending on the number of metrics */
-export function getColorsPalette(nrOfMetrics: number, theme?: DtTheme): string[] {
+export function getDtChartColorPalette(nrOfMetrics: number, theme?: DtTheme): string[] {
   let palette = DT_CHART_COLOR_PALETTE_ORDERED;
 
   if (theme && theme.name && DT_CHART_COLOR_PALETTES[theme.name]) {
