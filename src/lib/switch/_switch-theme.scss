@@ -84,11 +84,13 @@
     :host.dt-switch-checked.dt-switch-disabled {
       .dt-switch-label::before {
         background-image: linear-gradient(to right, $gray-500 1px, transparent 0);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.2);
       }
 
       &:hover .dt-switch-label::before {
-        background-color: transparent;
-        border-color: $gray-500;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.2);
       }
     }
   } @else {
@@ -160,8 +162,12 @@
       &.dt-switch-checked.dt-switch-disabled {
         .dt-switch-label::before {
           border-color: $disabledcolor;
-          background-image: linear-gradient(to right, $disabledcolor 1px, transparent 0);
-          background-color: transparent;
+          background-image: linear-gradient(to right, #fff 1px, transparent 0);
+          background-color: $disabledcolor;
+        }
+
+        .dt-switch-label::after {
+          background-color: #fff;
         }
       }
 
