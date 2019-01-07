@@ -26,6 +26,7 @@ const EXAMPLES = ${examples};
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(ROUTES),
+    DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
     ExamplesAppDynatraceModule,
   ],
   exports: [
@@ -37,13 +38,6 @@ const EXAMPLES = ${examples};
   ],
   entryComponents: [
     App,
-  ],
-  providers: [
-    // Custom icon config provider for the Angular 6 AOT issue described above
-    {
-      provide: DT_ICON_CONFIGURATION,
-      useValue: { svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` },
-    },
   ],
   bootstrap: [App],
 })
