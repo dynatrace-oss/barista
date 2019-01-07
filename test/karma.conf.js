@@ -21,7 +21,6 @@ module.exports = (config) => {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
-      require('karma-sourcemap-loader'),
       require('karma-junit-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('karma-sonarqube-unit-reporter'),
