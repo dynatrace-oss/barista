@@ -18,7 +18,6 @@ const environmentsDir = join(projectRoot, 'src', 'barista-examples', 'environmen
 const args = process.argv.splice(ARGS_TO_OMIT);
 
 const getDeployUrl = () => {
-  console.log(args);
   const deployUrlArg = args.find((arg) => arg.startsWith(`--${DEPLOY_URL_ARG}=`));
 
   if (!deployUrlArg) {
@@ -189,7 +188,6 @@ task('barista-example:generate', () => {
 /** Sets the deployUrl depending on the environment */
 task('barista-examples:set-env', () => {
   const deployUrl = getDeployUrl();
-  console.log('deployUrl', deployUrl)
   return src(join(environmentsDir, 'environment.ts'))
     .pipe(deployUrl ? replaceInFile(/deployUrl:[^,]+,/gm, `deployUrl: '${deployUrl}',`) : through.obj())
     .pipe(dest(environmentsDir));
