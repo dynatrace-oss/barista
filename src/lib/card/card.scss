@@ -64,8 +64,13 @@
   display: block;
 }
 
-.dt-card-actions {
+.dt-card-actions,
+.dt-card-footer-actions {
   display: block;
+}
+
+.dt-card-footer-actions {
+  text-align: right;
 }
 
 .dt-theme-dark {
