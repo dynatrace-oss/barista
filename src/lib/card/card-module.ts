@@ -6,6 +6,7 @@ import {
   DtCardSubtitle,
   DtCardIcon,
   DtCardActions,
+  DtCardFooterActions
 } from './card';
 
 @NgModule({
@@ -16,6 +17,7 @@ import {
     DtCardSubtitle,
     DtCardIcon,
     DtCardActions,
+    DtCardFooterActions,
   ],
   declarations: [
     DtCard,
@@ -23,6 +25,7 @@ import {
     DtCardSubtitle,
     DtCardIcon,
     DtCardActions,
+    DtCardFooterActions,
   ],
 })
 export class DtCardModule { }
