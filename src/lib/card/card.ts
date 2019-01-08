@@ -42,6 +42,14 @@ export class DtCardSubtitle { }
 })
 export class DtCardActions { }
 
+@Directive({
+  host: {
+    class: 'dt-card-footer-actions',
+  },
+  selector: 'dt-card-footer-actions',
+})
+export class DtCardFooterActions { }
+
 @Component({
   moduleId: module.id,
   selector: 'dt-card',
