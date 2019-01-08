@@ -1,15 +1,22 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtIconModule, DtSort, DtSortDirection, DtSortEvent, DtSortHeader } from '@dynatrace/angular-components';
+import {
+  DtIconModule,
+  DtSort,
+  DtSortDirection,
+  DtSortEvent,
+  DtSortHeader,
+  DtCell,
+  DtTableModule,
+  getDtSortHeaderNotContainedWithinSortError,
+} from '@dynatrace/angular-components';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
-import { DtTableModule } from '../table-module';
-import { getDtSortHeaderNotContainedWithinSortError } from './sort-errors';
 
 describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;
@@ -76,6 +83,52 @@ describe('DtSort', () => {
       component.dispatchMouseEvent('column_a', 'click');
       component.expectIconStates(expectedStates);
     });
+  });
+
+  describe('checking if sorted items have bold class', () => {
+
+    it('should set the isSorted property to true on each cell in a sorted column', () => {
+      component.dataSource = DATA_SOURCE;
+      fixture.detectChanges();
+
+      // ensure that we have cells
+      expect(component.cells.length).toBeGreaterThan(0);
+      // all cells unsorted
+      expect(checkCellsSorted(component.cells, false)).toBeTruthy();
+
+      component.sort('column_a');
+      fixture.detectChanges();
+
+      // now the col column_a should have sorted cells
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+
+      // now sort according to column_b so column a should not have isSorted property
+      component.sort('column_b');
+      fixture.detectChanges();
+
+      expect(checkCellsSorted(component.cells, false, 'column_a')).toBeTruthy();
+      expect(checkCellsSorted(component.cells, true, 'column_b')).toBeTruthy();
+      expect(checkCellsSorted(component.cells, false, 'column_c')).toBeTruthy();
+    });
+
+    it('should apply the isSorted to appended rows as well', () => {
+      component.dataSource = DATA_SOURCE;
+
+      component.sort('column_a');
+      fixture.detectChanges();
+
+      // every cell in the col should be active;
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+
+      component.dataSource.push({a: 'new entry', b: 30, c: 40});
+      fixture.detectChanges();
+
+      // new pushed cell in column should be active as well
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+      expect(checkCellsSorted(component.cells, false, 'column_b')).toBeTruthy();
+      expect(checkCellsSorted(component.cells, false, 'column_c')).toBeTruthy();
+    });
+
   });
 
   it('should be able to cycle from asc -> desc from either start point', () => {
@@ -170,6 +223,14 @@ describe('DtSort', () => {
   });
 });
 
+function checkCellsSorted(cells: QueryList<DtCell>, sorted: boolean = false, colName?: string): boolean {
+
+  const filteredCells = colName ?
+    cells.filter((cell) => cell._columnDef.name === colName) :
+    cells.toArray();
+
+  return filteredCells.every((cell) => cell._isSorted === sorted);
+}
 /**
  * Performs a sequence of sorting on a single column to see if the sort directions are
  * consistent with expectations. Detects any changes in the fixture to reflect any changes in
@@ -217,6 +278,13 @@ class FakeDataSource extends DataSource<any> {
   }
   disconnect(): void {}
 }
+
+const DATA_SOURCE = [
+  { a: 'et-demo-2-win3', b: 26, c: 46 },
+  { a: 'et-demo-2-win4', b: 30, c: 38 },
+  { a: 'docker-host2', b: 25.4, c: 35 },
+  { a: 'et-demo-2-win1', b: 23, c: 7.86 },
+];
 
 /** Column IDs of the SimpleSortApp for typing of function params in the component (e.g. sort) */
 type DtSortAppColumnIds = 'column_a' | 'column_b' | 'column_c';
@@ -271,7 +339,11 @@ class DtTableSortApp {
   @ViewChild('sortHeaderB') sortHeaderB: DtSortHeader;
   @ViewChild('sortHeaderC') sortHeaderC: DtSortHeader;
 
-  dataSource = new FakeDataSource();
+  @ViewChildren(DtCell) cells: QueryList<DtCell>;
+
+  // tslint:disable-next-line:no-any
+  dataSource: FakeDataSource | any[] = new FakeDataSource();
+
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
   constructor(public elementRef: ElementRef) { }

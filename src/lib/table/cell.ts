@@ -1,10 +1,23 @@
-import {ChangeDetectionStrategy, Component, Directive, ElementRef, Input, Renderer2, ViewEncapsulation, ContentChildren, QueryList, ViewContainerRef, Injector, InjectionToken, EmbeddedViewRef } from '@angular/core';
-import {CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
-import {coerceNumberProperty} from '@angular/cdk/coercion';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  ElementRef,
+  Input,
+  Renderer2,
+  ViewEncapsulation,
+  ContentChildren,
+  QueryList,
+  Optional,
+  SkipSelf,
+} from '@angular/core';
+import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtRow } from './row';
-import { Subject, merge } from 'rxjs';
+import { Subject, merge, Subscription } from 'rxjs';
 import { isDefined, addCssClass, DtIndicator } from '@dynatrace/angular-components/core';
-import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
+import { switchMap, filter, takeUntil, startWith, map } from 'rxjs/operators';
+import { DtSort, DtSortEvent } from './sort/sort';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
@@ -74,8 +87,9 @@ type IndicatorType = 'error' | 'warning';
   template: '<ng-content></ng-content>',
   styleUrls: ['./scss/cell.scss'],
   host: {
-    class: 'dt-cell',
-    role: 'gridcell',
+    'class': 'dt-cell',
+    'role': 'gridcell',
+    '[class.dt-cell-sorted]': '_isSorted',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
@@ -101,11 +115,30 @@ export class DtCell {
    */
   _row: DtRow;
 
+  /**
+   * @internal
+   * indicates if a cell is sorted, used for displaying a bold value
+   */
+  _isSorted = false;
+
+  private _sortChangeSubscription: Subscription = Subscription.EMPTY;
   private _destroy = new Subject<void>();
 
   // tslint:disable-next-line:no-unused-variable
-  constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
-    updateColumnStyles(columnDef, elem, renderer);
+  constructor(
+    public _columnDef: DtColumnDef,
+    renderer: Renderer2,
+    elem: ElementRef,
+    @Optional() @SkipSelf() dtSortable: DtSort
+  ) {
+
+    if (dtSortable) {
+      this._sortChangeSubscription = dtSortable.sortChange.subscribe((sort: DtSortEvent) => {
+        this._isSorted = sort.active === this._columnDef.name;
+      });
+    }
+
+    updateColumnStyles(this._columnDef, elem, renderer);
     if (DtRow.mostRecentRow) {
       this._row = DtRow.mostRecentRow;
       this._row._registerCell(this);
@@ -128,6 +161,7 @@ export class DtCell {
 
   ngOnDestroy(): void {
     this._stateChanges.complete();
+    this._sortChangeSubscription.unsubscribe();
     if (this._row) {
       this._row._unregisterCell(this);
     }
