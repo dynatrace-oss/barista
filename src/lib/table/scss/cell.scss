@@ -4,3 +4,7 @@
 :host.dt-cell {
   @extend %base-cell;
 }
+
+:host.dt-cell-sorted {
+  font-weight: 600;
+}
