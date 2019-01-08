@@ -113,6 +113,7 @@ describe('DtSort', () => {
 
     it('should apply the isSorted to appended rows as well', () => {
       component.dataSource = DATA_SOURCE;
+      fixture.detectChanges();
 
       component.sort('column_a');
       fixture.detectChanges();
@@ -121,7 +122,6 @@ describe('DtSort', () => {
       expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
 
       component.dataSource.push({a: 'new entry', b: 30, c: 40});
-      fixture.detectChanges();
 
       // new pushed cell in column should be active as well
       expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
