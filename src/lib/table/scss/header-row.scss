@@ -1,7 +1,11 @@
-@import 'base-row';
+@import 'table-mixins';
 
-:host.dt-header-row {
-  @extend %row-base;
+:host-context(.dt-table).dt-header-row {
+  @include dt-base-row();
+}
+
+:host-context(.dt-tree-table).dt-header-row {
+  display: table-row;
 }
 
 :host.dt-header-row.dt-table-sticky {

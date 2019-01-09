@@ -10,7 +10,7 @@ import { replaceCssClass, addCssClass, removeCssClass } from '@dynatrace/angular
  */
 @Directive({
   selector: '[dtHeaderRowDef]',
-  providers: [{provide: CdkHeaderRowDef, useExisting: DtHeaderRowDef}],
+  providers: [{ provide: CdkHeaderRowDef, useExisting: DtHeaderRowDef }],
   inputs: ['columns: dtHeaderRowDef', 'sticky: dtHeaderRowDefSticky'],
 })
 export class DtHeaderRowDef extends CdkHeaderRowDef { }
@@ -23,7 +23,7 @@ export class DtHeaderRowDef extends CdkHeaderRowDef { }
 @Directive({
   exportAs: 'dtRowDef',
   selector: '[dtRowDef]',
-  providers: [{provide: CdkRowDef, useExisting: DtRowDef}],
+  providers: [{ provide: CdkRowDef, useExisting: DtRowDef }],
   inputs: ['columns: dtRowDefColumns', 'when: dtRowDefWhen'],
 })
 export class DtRowDef<T> extends CdkRowDef<T> { }
@@ -31,8 +31,8 @@ export class DtRowDef<T> extends CdkRowDef<T> { }
 /** Header template container that contains the cell outlet. Adds the right class and role. */
 @Component({
   moduleId: module.id,
-  selector: 'dt-header-row',
-  template: CDK_ROW_TEMPLATE,
+  selector: 'dt-header-row, tr[dt-header-row]',
+  template: '<ng-container cdkCellOutlet></ng-container>',
   styleUrls: ['./scss/header-row.scss'],
   host: {
     class: 'dt-header-row',
@@ -66,7 +66,7 @@ export class DtRow extends CdkRow implements OnDestroy {
    */
   static mostRecentRow: DtRow | null = null;
 
-  private _cells = new Set<DtCell>();
+  protected _cells = new Set<DtCell>();
   private _cellStateChangesSub = Subscription.EMPTY;
 
   /**
@@ -77,7 +77,7 @@ export class DtRow extends CdkRow implements OnDestroy {
     return Array.from(this._cells);
   }
 
-  constructor(private _elementRef: ElementRef) {
+  constructor(protected _elementRef: ElementRef) {
     super();
     DtRow.mostRecentRow = this;
   }

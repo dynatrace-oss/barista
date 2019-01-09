@@ -57,7 +57,7 @@ export class DtColumnDef extends CdkColumnDef {
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnDef') name: string;
   // tslint:disable-next-line:no-input-rename
-  @Input('dtColumnAlign') align: DtTableColumnTypedAlign | DtTableColumnAlign;
+  @Input('dtColumnAlign') align: DtTableColumnTypedAlign | DtTableColumnAlign = 'left';
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnProportion') proportion: number;
   // tslint:disable-next-line:no-input-rename
@@ -66,7 +66,7 @@ export class DtColumnDef extends CdkColumnDef {
 
 /** Header cell template container that adds the right classes and role. */
 @Directive({
-  selector: 'dt-header-cell',
+  selector: 'dt-header-cell, th[dt-header-cell]',
   host: {
     class: 'dt-header-cell',
     role: 'columnheader',
@@ -76,7 +76,7 @@ export class DtColumnDef extends CdkColumnDef {
 export class DtHeaderCell {
   // tslint:disable-next-line:no-unused-variable
   constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
-    updateColumnStyles(columnDef, elem, renderer);
+    updateDtColumnStyles(columnDef, elem, renderer);
   }
 }
 
@@ -84,7 +84,7 @@ type IndicatorType = 'error' | 'warning';
 
 /** Cell template container that adds the right classes and role. */
 @Component({
-  selector: 'dt-cell',
+  selector: 'dt-cell, td[dt-cell]',
   template: '<ng-content></ng-content>',
   styleUrls: ['./scss/cell.scss'],
   host: {
@@ -131,7 +131,7 @@ export class DtCell {
     public _changeDetectorRef: ChangeDetectorRef,
     renderer: Renderer2,
     elem: ElementRef,
-    @Optional() @SkipSelf() dtSortable: DtSort
+    @Optional() @SkipSelf() dtSortable?: DtSort
   ) {
 
     if (dtSortable) {
@@ -141,7 +141,7 @@ export class DtCell {
       });
     }
 
-    updateColumnStyles(this._columnDef, elem, renderer);
+    updateDtColumnStyles(this._columnDef, elem, renderer);
     if (DtRow.mostRecentRow) {
       this._row = DtRow.mostRecentRow;
       this._row._registerCell(this);
@@ -159,7 +159,7 @@ export class DtCell {
       switchMap(() => merge(...this._indicators.map((indicator) => indicator._stateChanges))))
     .subscribe(() => { this._stateChanges.next(); });
 
-    Promise.resolve().then(() => { this._stateChanges.next(); });
+    Promise.resolve(true).then(() => { this._stateChanges.next(); });
   }
 
   ngOnDestroy(): void {
@@ -212,21 +212,25 @@ function coerceAlignment(value: DtTableColumnAlign | DtTableColumnTypedAlign): D
   return ALIGNMENT_CAST_MAP.get(value as DtTableColumnTypedAlign) || value as DtTableColumnAlign;
 }
 
-/** Set classes name and styles props for columns. */
-function updateColumnStyles(columnDef: DtColumnDef, elem: ElementRef, renderer: Renderer2): void {
-  const { align, proportion, minWidth, cssClassFriendlyName } = columnDef;
-  const { nativeElement } = elem;
+/** @internal Sets the css classes on a DtColumn */
+export function _setDtColumnCssClasses(columnDef: DtColumnDef, elementRef: ElementRef): void {
+  const { align, cssClassFriendlyName } = columnDef;
   const cssAlignmentClass = coerceAlignment(align);
 
-  addCssClass(nativeElement, `dt-table-column-${cssClassFriendlyName}`, renderer);
-  addCssClass(nativeElement, `dt-table-column-align-${cssAlignmentClass}`, renderer);
+  addCssClass(elementRef.nativeElement, `dt-table-column-${cssClassFriendlyName}`);
+  addCssClass(elementRef.nativeElement, `dt-table-column-align-${cssAlignmentClass}`);
+}
 
+/** Set classes name and styles props for columns. */
+function updateDtColumnStyles(columnDef: DtColumnDef, elementRef: ElementRef, renderer: Renderer2): void {
+  _setDtColumnCssClasses(columnDef, elementRef);
+  const { proportion, minWidth } = columnDef;
   const setProportion = coerceNumberProperty(proportion);
   if (setProportion > 0) {
-    renderer.setStyle(nativeElement, 'flex-grow', setProportion);
-    renderer.setStyle(nativeElement, 'flex-shrink', setProportion);
+    renderer.setStyle(elementRef.nativeElement, 'flex-grow', setProportion);
+    renderer.setStyle(elementRef.nativeElement, 'flex-shrink', setProportion);
   }
   if (minWidth > 0) {
-    renderer.setStyle(nativeElement, 'min-width', `${coerceNumberProperty(minWidth)}px`);
+    renderer.setStyle(elementRef.nativeElement, 'min-width', `${coerceNumberProperty(minWidth)}px`);
   }
 }

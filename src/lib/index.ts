@@ -44,3 +44,4 @@ export * from '@dynatrace/angular-components/micro-chart';
 export * from '@dynatrace/angular-components/selection-area';
 export * from '@dynatrace/angular-components/bar-indicator';
 export * from '@dynatrace/angular-components/drawer';
+export * from '@dynatrace/angular-components/tree-table';
