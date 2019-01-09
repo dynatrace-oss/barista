@@ -1,3 +1,24 @@
+## 1.3.0 (2019-01-09)
+
+### Bug Fixes
+
+* **button:** added active style for nested buttons in the dark theme ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **switch:** fixes switch styles to fit the styleguide ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **colors:** add missing colors definition (red, green, shamrockgreen) to DtColors ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Features
+
+* **card:** added card footer actions ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **charts:** added function for selecting color palette based on nrOfMetrics and Theme ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Deprecations
+
+* **card:** `dt-card-actions` has been replaced with `dt-card-title-actions`
+
+### Special Thanks 
+Katrin Freihofner, Thomas Heller, Bartosz Bobin
+
+
 ## 1.2.1 (2019-01-02)
 
 ### Bug Fixes
