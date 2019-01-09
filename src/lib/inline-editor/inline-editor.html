@@ -9,7 +9,7 @@
 
 <dt-form-field *ngIf="editing || saving">
   <input dtInput #input [required]="required" [disabled]="saving" [(ngModel)]="value"
-    [errorStateMatcher]="errorStateMatcher" class="dt-form-field-input" />
+    [errorStateMatcher]="errorStateMatcher" (keydown)="onKeyDown($event)" class="dt-form-field-input" />
 
   <dt-error *ngFor="let error of _errorChildrenSource | async" [id]="error.id">{{error.message}}</dt-error>
 
