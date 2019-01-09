@@ -2,11 +2,14 @@ import * as ts from 'typescript';
 import {
   Tree,
   SchematicsException,
+  Rule,
 } from '@angular-devkit/schematics';
-import { InsertChange } from './change';
+import { InsertChange, commitChanges } from './change';
 import { strings } from '@angular-devkit/core';
 import { DtComponentOptions } from '../dt-component/schema';
 import { dasherize } from '@angular-devkit/core/src/utils/strings';
+import { join } from 'path';
+import { addNavItem } from './nav-items';
 
 export function getSourceFile(host: Tree, path: string): ts.SourceFile {
   const buffer = host.read(path);
@@ -162,4 +165,43 @@ export function addToNgModule(
   const indentation = getIndentation(importSyntaxLists);
   const toInsert = `${indentation}${name},`;
   return new InsertChange(sourcePath, importSyntaxLists[0].end, toInsert);
+}
+
+/**
+ * Adds the declarations
+ */
+export function addDeclarationsToDevAppModule(name: string): Rule {
+  return (host: Tree) => {
+    const modulePath = join('src', 'dev-app', 'app.module.ts');
+    const sourceFile = getSourceFile(host, modulePath);
+    const importName = `${strings.classify(name)}Demo`;
+    const importLocation = `'./${name}/${name}-demo.component';`;
+    const importChange = addImport(modulePath, sourceFile, importName, importLocation);
+    /**
+     * add it to the declarations in the module
+     */
+    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment) as ts.PropertyAssignment[];
+    const assignment = assignments.find((a: ts.PropertyAssignment) => a.name.getText() === 'declarations');
+    if (assignment === undefined) {
+      throw Error("No AppModule 'declarations' section found");
+    }
+
+    const arrLiteral = assignment.initializer as ts.ArrayLiteralExpression;
+    const elements = arrLiteral.elements;
+    const end = arrLiteral.elements.end;
+
+    const indentation = getIndentation(elements);
+    const toInsert = `${indentation}${strings.classify(name)}Demo,`;
+    const importsChange = new InsertChange(modulePath, end, toInsert);
+
+    const changes = [importChange, importsChange];
+    return commitChanges(host, changes, modulePath);
+  };
+}
+
+/**
+ * Adds a new navitem inside the navitems
+ */
+export function addNavitemToDevApp(name: string): Rule {
+  return (host: Tree) => addNavItem(host, { name }, join('src', 'dev-app', 'devapp.component.ts'));
 }
