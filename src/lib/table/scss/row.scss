@@ -1,11 +1,11 @@
 @import '../../core/style/variables';
 @import '../../core/theming/theming';
-@import 'base-row';
-@import './row-theme';
+@import 'table-mixins';
+@import 'row-theme';
 
 :host {
   min-height: $dt-row-height;
-  @extend %row-base;
+  @include dt-base-row();
   position: relative;
 
   &:nth-child(even) {

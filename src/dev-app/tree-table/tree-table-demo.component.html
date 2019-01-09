@@ -1,0 +1,51 @@
+<dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl" interactiveRows>
+  <ng-container dtColumnDef="name">
+    <dt-tree-table-header-cell *dtHeaderCellDef>Name</dt-tree-table-header-cell>
+    <dt-tree-table-toggle-cell *dtCellDef="let row">
+      <dt-info-group-cell>
+        <dt-info-group-cell-icon><dt-icon [name]="row.icon"></dt-icon></dt-info-group-cell-icon>
+        <dt-info-group-cell-title>{{row.name}}</dt-info-group-cell-title>
+        {{row.threadlevel}}
+      </dt-info-group-cell>
+    </dt-tree-table-toggle-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="total">
+    <dt-tree-table-header-cell *dtHeaderCellDef>Total time consumption</dt-tree-table-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <dt-progress-bar class="thread-progress" [value]="row.blocked" [max]="row.totalTimeConsumption"></dt-progress-bar>
+      <dt-progress-bar class="thread-progress" [value]="row.waiting" [max]="row.totalTimeConsumption"></dt-progress-bar>
+      <dt-progress-bar class="thread-progress" [value]="row.running" [max]="row.totalTimeConsumption"></dt-progress-bar>
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="blocked" dtColumnAlign="right">
+    <dt-tree-table-header-cell *dtHeaderCellDef>Blocked</dt-tree-table-header-cell>
+    <dt-cell dtIndicator dtIndicatorColor="error" *dtCellDef="let row">{{row.blocked}}ms</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="running" dtColumnAlign="center">
+    <dt-tree-table-header-cell *dtHeaderCellDef>Running</dt-tree-table-header-cell>
+    <dt-cell *dtCellDef="let row">{{row.running}}ms</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="waiting">
+    <dt-tree-table-header-cell *dtHeaderCellDef>Waiting</dt-tree-table-header-cell>
+    <dt-cell *dtCellDef="let row">{{row.waiting}}ms</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="actions">
+    <dt-tree-table-header-cell *dtHeaderCellDef>Actions</dt-tree-table-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <button dt-icon-button variant="nested"><dt-icon name="filter"></dt-icon></button>
+      <button dt-icon-button variant="nested" [dtContextDialogTrigger]="dialog"><dt-icon name="more"></dt-icon></button>
+      <dt-context-dialog #dialog>
+        {{row.name}} context dialog
+      </dt-context-dialog>
+    </dt-cell>
+  </ng-container>
+
+
+  <dt-header-row *dtHeaderRowDef="['name', 'total', 'blocked', 'running', 'waiting', 'actions']"></dt-header-row>
+  <dt-tree-table-row *dtRowDef="let row; columns: ['name', 'total', 'blocked', 'running', 'waiting', 'actions'];" [data]="row"></dt-tree-table-row>
+</dt-tree-table>

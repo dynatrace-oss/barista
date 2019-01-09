@@ -1,0 +1,67 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+@import 'tree-table-row-theme';
+
+//TODO: move to core
+$dt-row-height: 40px;
+
+:host {
+  display: table-row;
+  position: relative;
+  min-height: $dt-row-height;
+
+  &:nth-child(even) ::ng-deep .dt-cell {
+    background-color: #fff;
+    border-top: solid 1px #fff;
+    border-bottom: solid 1px #fff;
+
+    &:last-child {
+      border-right: solid 1px #fff;
+    }
+  }
+
+  &:nth-child(even) ::ng-deep .dt-tree-toggle-cell {
+    border-left: solid 1px #fff;
+  }
+
+  &:nth-child(odd) ::ng-deep .dt-cell {
+    background-color: $gray-100;
+    border-top: solid 1px $gray-100;
+    border-bottom: solid 1px $gray-100;
+
+    &:last-child {
+      border-right: solid 1px $gray-100;
+    }
+  }
+
+  &:nth-child(odd) ::ng-deep .dt-tree-toggle-cell {
+    border-left: solid 1px $gray-100;
+  }
+}
+
+:host.dt-table-row-indicator ::ng-deep .dt-tree-table-toggle-cell-wrap::before {
+  width: 2px;
+  height: 100%;
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+}
+
+:host-context(.dt-table-interactive-rows):hover ::ng-deep .dt-cell {
+  border-top: solid 1px $gray-500;
+  border-bottom: solid 1px $gray-500;
+
+  &:last-child {
+    border-right-color: $gray-500;
+  }
+}
+:host-context(.dt-table-interactive-rows):hover ::ng-deep .dt-tree-toggle-cell {
+  border-left: solid 1px $gray-500;
+}
+
+// Apply the row theme to all theme definitions
+// TODO use when moved to core
+@include dt-apply-theme() {
+  @include dt-theme-tree-table-row($dt-current-theme);
+}
