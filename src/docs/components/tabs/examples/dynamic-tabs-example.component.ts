@@ -6,7 +6,7 @@ import { OriginalClassName } from '../../../core/decorators';
   template: `
   <dt-tab-group>
     <dt-tab>
-      <ng-template dtTabLabel>Physical <em>CPU</em></ng-template>
+      <ng-template dtTabLabel>Physical CPU</ng-template>
       <ng-template dtTabContent>
         <h3>Physical CPUs content</h3>
       </ng-template>
