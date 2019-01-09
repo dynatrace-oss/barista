@@ -11,7 +11,7 @@
 ##### Using Yarn
 1. Meet NodeJS prerequisites
 2. Install dependencies - `yarn install`
-3. Start documentation server - `yarn docs` 
+3. Start dev app - `yarn dev-app` 
 
 ### Building
 1. Install NPM dependencies
@@ -24,9 +24,9 @@
    ```
 
 ## Developing
-Developing with the docs app
+Developing with the dev-app
 ```
-yarn docs
+yarn dev-app
 ```
 
 ## Running tests and style lint
@@ -58,6 +58,14 @@ yarn lint
 Pre-commit sanity check (runs all tests + linting)
 ```
 ./gradlew completeBuild
+```
+
+## Running the barista examples
+
+To run the barista examples app with all examples that will be used inside barista run
+
+```
+yarn barista-examples
 ```
 
 ## Using local version for development

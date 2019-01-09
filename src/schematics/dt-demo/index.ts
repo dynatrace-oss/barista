@@ -16,49 +16,11 @@ import {
   findNodes,
   getIndentation,
   getSourceFile,
+  addNavitemToDevApp,
+  addDeclarationsToDevAppModule,
 } from '../utils/ast-utils';
 import { InsertChange, commitChanges } from '../utils/change';
-import { addNavItem } from '../utils/nav-items';
 import { DtDemoOptions } from './schema';
-
-/**
- * Adds the declarations for the lib module inside the docs-module
- */
-function addDeclarationsToModule(options: DtDemoOptions): Rule {
-  return (host: Tree) => {
-    const modulePath = path.join('src', 'dev-app', 'app.module.ts');
-    const sourceFile = getSourceFile(host, modulePath);
-    const importName = `${strings.classify(options.name)}Demo`;
-    const importLocation = `'./${options.name}/${options.name}-demo.component';`;
-    const importChange = addImport(modulePath, sourceFile, importName, importLocation);
-    /**
-     * add it to the declarations in the module
-     */
-    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment) as ts.PropertyAssignment[];
-    const assignment = assignments.find((a: ts.PropertyAssignment) => a.name.getText() === 'declarations');
-    if (assignment === undefined) {
-      throw Error("No AppModule 'declarations' section found");
-    }
-
-    const arrLiteral = assignment.initializer as ts.ArrayLiteralExpression;
-    const elements = arrLiteral.elements;
-    const end = arrLiteral.elements.end;
-
-    const indentation = getIndentation(elements);
-    const toInsert = `${indentation}${strings.classify(options.name)}Demo,`;
-    const importsChange = new InsertChange(modulePath, end, toInsert);
-
-    const changes = [importChange, importsChange];
-    return commitChanges(host, changes, modulePath);
-  };
-}
-
-/**
- * Adds a new navitem inside the navitems
- */
-function addNavitem(options: DtDemoOptions): Rule {
-  return (host: Tree) => addNavItem(host, options, path.join('src', 'dev-app', 'devapp.component.ts'));
-}
 
 /**
  * Adds a new route inside the ui-test routes
@@ -99,8 +61,8 @@ export default function(options: DtDemoOptions): Rule {
 
   return chain([
     mergeWith(templateSource),
-    addDeclarationsToModule(options),
+    addDeclarationsToDevAppModule(options.name),
     addRoute(options),
-    addNavitem(options),
+    addNavitemToDevApp(options.name),
   ]);
 }
