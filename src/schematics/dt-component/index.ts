@@ -21,10 +21,12 @@ import {
   getSourceNodes,
   addToNgModule,
   addDynatraceSubPackageImport,
+  addDeclarationsToDevAppModule,
+  addNavitemToDevApp,
 } from '../utils/ast-utils';
 import { InsertChange, commitChanges } from '../utils/change';
-import { addNavItem } from '../utils/nav-items';
 import { DtComponentOptions } from './schema';
+import { addNavItem } from '../utils/nav-items';
 
 /**
  * Adds the export to the index in the lib root
@@ -44,45 +46,6 @@ function addExportToRootIndex(options: DtComponentOptions): Rule {
     const changes = [new InsertChange(modulePath, lastExportPos, toInsert)];
     return commitChanges(host, changes, modulePath);
   };
-}
-
-/**
- * Adds the declarations for the lib module inside the docs-module
- */
-function addDeclarationsToDocsModule(options: DtComponentOptions): Rule {
-  return (host: Tree) => {
-    const modulePath = path.join('src', 'docs', 'docs.module.ts');
-    const sourceFile = getSourceFile(host, modulePath);
-    const importName = `Docs${strings.classify(options.name)}Module`;
-    const importLocation = `'./components/${strings.dasherize(options.name)}/docs-${strings.dasherize(options.name)}.module';`;
-    const importChange = addImport(modulePath, sourceFile, importName, importLocation);
-    /**
-     * add it to the imports declaration in the module
-     */
-    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment) as ts.PropertyAssignment[];
-    const assignment = assignments.find((a: ts.PropertyAssignment) => a.name.getText() === 'imports');
-    if (assignment === undefined) {
-      throw Error("No DocsModule 'imports' section found");
-    }
-
-    const arrLiteral = assignment.initializer as ts.ArrayLiteralExpression;
-    const importElements = arrLiteral.elements;
-    const end = arrLiteral.elements.end;
-
-    const indentation = getIndentation(importElements);
-    const toInsert = `${indentation}Docs${strings.classify(options.name)}Module,`;
-    const importsChange = new InsertChange(modulePath, end, toInsert);
-
-    const changes = [importChange, importsChange];
-    return commitChanges(host, changes, modulePath);
-  };
-}
-
-/**
- * Adds a new navitem inside the docs navitems
- */
-function addNavitemInDocs(options: DtComponentOptions): Rule {
-  return (host: Tree) => addNavItem(host, options, path.join('src', 'docs', 'docs.component.ts'));
 }
 
 /** Adds import and declaration to universal */
@@ -210,8 +173,8 @@ export default function(options: DtComponentOptions): Rule {
   return chain([
     mergeWith(templateSource),
     addExportToRootIndex(options),
-    addDeclarationsToDocsModule(options),
-    addNavitemInDocs(options),
+    addDeclarationsToDevAppModule(options.name),
+    addNavitemToDevApp(options.name),
     options.universal ? chain([addDeclarationsToKitchenSink(options), addCompToKitchenSinkHtml(options)]) : noop(),
     options.uitest ? chain([
       mergeWith(uitestsTemplates),

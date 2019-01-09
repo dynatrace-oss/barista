@@ -7,7 +7,7 @@ ng g @dynatrace/components-schematics:dtc --name=my-new-component
 ```
 
 - Adds new component to the library with the correct exports
-- Adds docs page with default example
+- Adds dev-app page with default example
 - Optional: Adds the component to the universal kitchensink - defaults to true
 - Optional: Adds the component to the ui-tests-app and creates a ui-test spec file. - defaults to false
 
