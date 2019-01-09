@@ -128,7 +128,7 @@ export class DtCell {
   // tslint:disable-next-line:no-unused-variable
   constructor(
     public _columnDef: DtColumnDef,
-    public _cDRef: ChangeDetectorRef,
+    public _changeDetectorRef: ChangeDetectorRef,
     renderer: Renderer2,
     elem: ElementRef,
     @Optional() @SkipSelf() dtSortable: DtSort
@@ -137,7 +137,7 @@ export class DtCell {
     if (dtSortable) {
       this._sortChangeSubscription = dtSortable.sortChange.subscribe((sort: DtSortEvent) => {
         this._isSorted = sort.active === this._columnDef.name;
-        this._cDRef.detectChanges();
+        this._changeDetectorRef.detectChanges();
       });
     }
 
