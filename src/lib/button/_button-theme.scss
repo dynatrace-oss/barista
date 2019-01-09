@@ -163,6 +163,9 @@
       #{$namespace}.dt-button-nested:hover:not([disabled]) {
         background: rgba(255, 255, 255, 0.2);
       }
+      #{$namespace}.dt-button-nested:active:not([disabled]) {
+        background: rgba(255, 255, 255, 0.3);
+      }
       #{$namespace}.dt-button-nested[disabled] {
         .dt-button-icon .dt-icon svg { fill: rgba(255, 255, 255, 0.6); }
       }
