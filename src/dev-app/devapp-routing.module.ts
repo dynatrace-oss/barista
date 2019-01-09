@@ -34,6 +34,7 @@ import { SelectionAreaDemo } from './selection-area/selection-area-demo.componen
 import { ShowMoreDemo } from './show-more/show-more-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
+import { TreeTableDemo } from './tree-table/tree-table-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
 import { TagDemo } from './tag/tag-demo.component';
 import { TileDemo } from './tile/tile-demo.component';
@@ -75,6 +76,7 @@ const routes: Routes = [
   { path: 'show-more', component: ShowMoreDemo },
   { path: 'switch', component: SwitchDemo },
   { path: 'table', component: TableDemo },
+  { path: 'tree-table', component: TreeTableDemo },
   { path: 'tabs', component: TabsDemo },
   { path: 'tag', component: TagDemo },
   { path: 'tile', component: TileDemo },

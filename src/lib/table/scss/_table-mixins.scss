@@ -1,0 +1,89 @@
+@import '../../style/font-mixins';
+
+
+// Row
+$dt-row-height: 40px;
+$dt-row-padding: 8px;
+$dt-row-horizontal-padding: 4px;
+
+@mixin dt-base-row() {
+  align-items: center;
+  border: 0;
+  box-sizing: border-box;
+  display: flex;
+  padding-left: $dt-row-padding;
+  padding-right: $dt-row-padding;
+
+  // Workaround for https://goo.gl/pFmjJD in IE 11. Adds a pseudo
+  // element that will stretch the row the correct height. See:
+  // https://connect.microsoft.com/IE/feedback/details/802625
+  &::after {
+    display: inline-block;
+    min-height: inherit;
+    content: '';
+  }
+}
+
+// Cell
+$dt-cell-padding: 4px;
+
+
+@mixin dt-base-cell() {
+  overflow: hidden;
+  word-wrap: break-word;
+  position: relative;
+  font-variant: tabular-nums;
+  padding-left: $dt-cell-padding;
+
+  &.dt-column-sorted {
+    @include custom-font-styles($gray-900, 700);
+  }
+}
+
+@mixin dt-base-cell-flex() {
+
+  @include dt-base-cell();
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: $dt-cell-padding;
+  padding-bottom: $dt-cell-padding;
+  
+  &.dt-table-column-align-right {
+    padding-left: 0;
+    justify-content: flex-end;
+  }
+
+  &.dt-table-column-align-center {
+    padding-left: 0;
+    justify-content: center;
+  }
+
+}
+
+@mixin dt-base-cell-table() {
+  @include dt-base-cell();
+  display: table-cell;
+
+  &.dt-table-column-align-right {
+    padding-left: 0;
+    padding-right: $dt-cell-padding;
+    text-align: right;
+  }
+
+  &.dt-table-column-align-center {
+    padding-left: 0;
+    text-align: center;
+  }
+}
+
+// Header
+@mixin dt-header-bottom-line() {
+  content: ' ';
+  height: 1px;
+  background-color: $gray-200;
+  display: inline-block;
+  position: relative;
+  bottom: -3px;
+}

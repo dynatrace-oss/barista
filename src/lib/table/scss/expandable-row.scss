@@ -1,5 +1,5 @@
 @import '../../core/style/variables';
-@import 'base-row';
+@import 'table-mixins';
 @import '../../core/theming/theming';
 @import 'expandable-row-theme';
 
@@ -15,7 +15,7 @@
 .dt-expandable-row-base {
   position: relative;
   min-height: $dt-row-height;
-  @extend %row-base;
+  @include dt-base-row();
 
   cursor: pointer;
   border: 2px solid transparent;

@@ -1,10 +1,14 @@
 @import '../../core/style/variables';
-@import 'base-cell';
-
-:host.dt-cell {
-  @extend %base-cell;
-}
+@import 'table-mixins';
 
 :host.dt-cell-sorted {
   font-weight: 600;
+}
+
+:host-context(.dt-table).dt-cell {
+  @include dt-base-cell-flex();
+}
+
+:host-context(.dt-tree-table).dt-cell {
+  @include dt-base-cell-table();
 }
