@@ -14,14 +14,14 @@ import {
   ContentChildren,
   QueryList,
   AfterViewInit,
-
 } from '@angular/core';
 import { DtFormField, DtError } from '@dynatrace/angular-components/form-field';
-import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
+import { ErrorStateMatcher, readKeyCode } from '@dynatrace/angular-components/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, Subscription } from 'rxjs';
 import { take, map, startWith } from 'rxjs/operators';
+import { ESCAPE, ENTER } from '@angular/cdk/keycodes';
 
 const enum MODES {
   IDLE,
@@ -101,6 +101,14 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
   ngOnDestroy(): void {
     if (this._saving) {
       this._saving.unsubscribe();
+    }
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    // tslint:disable-next-line:switch-default
+    switch (readKeyCode(event)) {
+      case ESCAPE: this.cancelAndQuitEditing();
+      case ENTER: this.saveAndQuitEditing();
     }
   }
 
