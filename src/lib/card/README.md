@@ -12,7 +12,7 @@ In addition to the custom content, the card can also hold some special sections:
 * `<dt-card-title>` - The title of this card, needs to be defined to show the card's header
 * `<dt-card-subtitle>` - Right below the title, a subtitle can be placed.
 * `<dt-card-icon>` - An icon in the top left corner of the card. **not ready yet:**Use `<dt-icon>` for it as soon as it is ready
-* `<dt-card-action>` - Your place to add action buttons. Will be displayed in the top right corner. Use the buttons `secondary` variant.
+* `<dt-card-title-actions>` - Your place to add action buttons. Will be displayed in the top right corner. Use the buttons `secondary` variant.
 * `<dt-card-footer-actions>` - Action buttons, displayed below the text. For the regular cases there should only be one primary cta styled dt-button.  
 
 
