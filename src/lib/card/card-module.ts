@@ -6,6 +6,7 @@ import {
   DtCardSubtitle,
   DtCardIcon,
   DtCardActions,
+  DtCardTitleActions,
   DtCardFooterActions
 } from './card';
 
@@ -16,7 +17,9 @@ import {
     DtCardTitle,
     DtCardSubtitle,
     DtCardIcon,
+    // tslint:disable-next-line:deprecation
     DtCardActions,
+    DtCardTitleActions,
     DtCardFooterActions,
   ],
   declarations: [
@@ -24,7 +27,9 @@ import {
     DtCardTitle,
     DtCardSubtitle,
     DtCardIcon,
+    // tslint:disable-next-line:deprecation
     DtCardActions,
+    DtCardTitleActions,
     DtCardFooterActions,
   ],
 })

@@ -12,6 +12,7 @@ import { OriginalClassName } from '../../../core/decorators';
     <button dt-button variant="primary">Details</button>
   </dt-card-footer-actions>
 </dt-card></div>`,
+  styles: ['.dt-button + .dt-button { margin-left: 8px;}; }'],
 })
 @OriginalClassName('TitleCardExampleComponent')
 export class TitleCardExampleComponent { }
