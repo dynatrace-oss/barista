@@ -1,8 +1,8 @@
 @import '../../core/style/variables';
-@import 'base-cell';
+@import 'table-mixins';
 
 :host.dt-expandable-cell {
-  @extend %base-cell;
+  @include dt-base-cell-flex();
 
   .dt-expandable-cell-dropdown {
     width: 20px;

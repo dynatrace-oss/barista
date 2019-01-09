@@ -3,11 +3,22 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
+  ContentChildren,
+  QueryList,
+  ViewRef,
+  IterableDiffers,
+  ChangeDetectorRef,
+  ElementRef,
+  Attribute,
 } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 import { DtExpandableRow } from './expandable-row';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import { DtRow } from './row';
+import { Subject } from 'rxjs';
+import { HasInteractiveRows, mixinHasInteractiveRows } from './interactive-rows';
+
+export const _DtTableMixinBase = mixinHasInteractiveRows<any>(CdkTable);
 
 @Component({
   moduleId: module.id,
@@ -22,27 +33,31 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
     'class': 'dt-table',
     '[class.dt-table-interactive-rows]': 'interactiveRows',
   },
+  inputs: ['interactiveRows'],
 })
-export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
+export class DtTable<T> extends _DtTableMixinBase implements AfterContentChecked, HasInteractiveRows {
   @Input() isLoading: boolean;
-  private _interactiveRows: boolean;
   private _expandedRow: DtExpandableRow | undefined;
 
-  @Input()
-  set interactiveRows(value: boolean) {
-    this._interactiveRows = coerceBooleanProperty(value);
-  }
-  get interactiveRows(): boolean {
-    return this._interactiveRows;
-  }
+  _stateChanges = new Subject<void>();
+
+  _outletViews: ViewRef[] = [];
 
   get isEmptyDataSource(): boolean {
-    return !(this._data.length);
+    return !(this._data && this._data.length);
+  }
+
+  constructor(
+    differs: IterableDiffers,
+    changeDetectorRef: ChangeDetectorRef,
+    elementRef: ElementRef,
+    @Attribute('role') role: string,
+  ) {
+    super(differs, changeDetectorRef, elementRef, role);
   }
 
   renderRows(): void {
     super.renderRows();
-
     if (this.isEmptyDataSource) {
       this._changeDetectorRef.markForCheck();
     }
@@ -57,5 +72,7 @@ export class DtTable<T> extends CdkTable<T> implements AfterContentChecked {
   }
 
   protected stickyCssClass = 'dt-table-sticky';
+
+  @ContentChildren(DtRow) _rows: QueryList<DtRow>;
 
 }

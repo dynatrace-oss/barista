@@ -1,6 +1,6 @@
 @import '../../style/font-mixins';
 @import '../../core/style/variables';
-@import 'base-cell';
+@import 'table-mixins';
 
 ::ng-deep .dt-header-cell {
   @include label-font();
@@ -9,17 +9,16 @@
   text-overflow: ellipsis;
   // this padding is necessary to have the focus outline and the table not jumping when focusing on sorting headers
   padding: $focus-outline-width;
-
-  @extend %base-cell;
+  overflow: hidden;
 
   &::after {
-    @extend %bottom-line;
+    @include dt-header-bottom-line();
     width: 100%;
     margin-left: $dt-row-horizontal-padding;
   }
 
   &.dt-table-column-align-right::before {
-    @extend %bottom-line;
+    @include dt-header-bottom-line();
     width: 100%;
     margin-right: $dt-row-horizontal-padding;
   }
@@ -29,27 +28,24 @@
   }
 
   &.dt-table-column-align-center::before {
-    @extend %bottom-line;
+    @include dt-header-bottom-line();
     width: 50%;
     margin-right: $dt-row-horizontal-padding;
   }
 
   &.dt-table-column-align-center::after {
-    @extend %bottom-line;
+    @include dt-header-bottom-line();
     width: 50%;
     margin-left: $dt-row-horizontal-padding;
   }
+}
+
+:host-context(.dt-table) ::ng-deep .dt-header-cell {
+  @include dt-base-cell-flex();
 }
 
 :host-context(.dt-table-interactive-rows):hover {
   color: $gray-900;
 }
 
-%bottom-line {
-  content: ' ';
-  height: 1px;
-  background-color: $gray-200;
-  display: inline-block;
-  position: relative;
-  bottom: -3px;
-}
+
