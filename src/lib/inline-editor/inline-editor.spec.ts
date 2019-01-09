@@ -12,7 +12,8 @@ import {
   DtIconModule,
 } from '@dynatrace/angular-components';
 import { Observable } from 'rxjs';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 
 describe('DtInlineEditor', () => {
   beforeEach(() => {
@@ -227,6 +228,43 @@ describe('DtInlineEditor', () => {
     instance.saveAndQuitEditing();
     fixture.detectChanges();
     expect(instance.editing).toBeTruthy();
+  });
+
+  it('should call the save method and quit editing when pressing the Enter key', () => {
+    const fixture = TestBed.createComponent(TestApp);
+    const instanceDebugElement = fixture.debugElement.query(By.directive(DtInlineEditor));
+    const instance = instanceDebugElement.injector.get<DtInlineEditor>(DtInlineEditor);
+    spyOn(instance, 'saveAndQuitEditing');
+
+    instance.enterEditing();
+    fixture.detectChanges();
+
+    const inputReferenceElement = fixture.debugElement.query(By.css('input')).nativeElement;
+
+    dispatchKeyboardEvent(inputReferenceElement, 'keydown', ENTER);
+    fixture.detectChanges();
+
+    // tslint:disable-next-line:no-unbound-method
+    expect(instance.saveAndQuitEditing)
+      .toHaveBeenCalled();
+  });
+
+  it('should call the cancel method and quit editing when pressing the ESC key', () => {
+    const fixture = TestBed.createComponent(TestApp);
+    const instanceDebugElement = fixture.debugElement.query(By.directive(DtInlineEditor));
+    const instance = instanceDebugElement.injector.get<DtInlineEditor>(DtInlineEditor);
+    spyOn(instance, 'cancelAndQuitEditing');
+
+    instance.enterEditing();
+    fixture.detectChanges();
+
+    const inputReferenceElement = fixture.debugElement.query(By.css('input')).nativeElement;
+
+    dispatchKeyboardEvent(inputReferenceElement, 'keydown', ESCAPE);
+
+    // tslint:disable-next-line:no-unbound-method
+    expect(instance.cancelAndQuitEditing)
+      .toHaveBeenCalled();
   });
 });
 
