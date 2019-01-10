@@ -8,6 +8,7 @@ import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading
 import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { DtCardModule } from '@dynatrace/angular-components/card';
 import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
+import { DtDrawerModule } from '@dynatrace/angular-components/drawer';
 import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
 import { DtTableModule } from '@dynatrace/angular-components/table';
 import { DtTagModule } from '@dynatrace/angular-components/tag';
@@ -49,6 +50,7 @@ export class KitchenSink {
     DtTagModule,
     DtCardModule,
     DtContextDialogModule,
+    DtDrawerModule,
     DtCopyToClipboardModule,
     DtButtonGroupModule,
     DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),

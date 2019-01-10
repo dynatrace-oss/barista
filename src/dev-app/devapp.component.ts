@@ -18,6 +18,7 @@ export class DevApp {
     { name: 'Context-dialog', route: '/context-dialog' },
     { name: 'Copy-to-clipboard', route: '/copy-to-clipboard' },
     { name: 'Cta-card', route: '/cta-card' },
+    { name: 'Drawer', route: '/drawer' },
     { name: 'Expandable-panel', route: '/expandable-panel' },
     { name: 'Expandable-section', route: '/expandable-section' },
     { name: 'Filter-field', route: '/filter-field' },
