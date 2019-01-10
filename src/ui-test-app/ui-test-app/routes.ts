@@ -19,6 +19,7 @@ import { ProgressBarUI } from '../progress-bar/progress-bar-ui';
 import { TabsUI } from '../tabs/tabs-ui';
 import { OverlayUI } from '../overlay/overlay-ui';
 import { ChartSelectionAreaUI } from '../chart/chart-selection-area-ui';
+import { DrawerUI } from '../drawer/drawer-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -32,6 +33,7 @@ export const UI_TEST_APP_ROUTES: Routes = [
   },
   { path: 'checkbox', component: CheckboxUI },
   { path: 'context-dialog', component: ContextDialogUI },
+  { path: 'drawer', component: DrawerUI },
   { path: 'copy-to-clipboard', component: CopyToClipboardUI },
   { path: 'expandable-panel', component: ExpandablePanelUi },
   { path: 'expandable-section', component: ExpandableSectionUi },

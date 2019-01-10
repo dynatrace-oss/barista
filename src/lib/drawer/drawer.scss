@@ -1,0 +1,28 @@
+@import '../core/style/variables';
+
+:host {
+  background: #ffffff;
+  border-right: 1px solid $gray-300;
+  box-sizing: border-box;
+  padding-right: 20px;
+  position: relative;
+  transform: translate3d(-100%, 0, 0);
+  will-change: transform;
+  z-index: 2;
+
+  &.dt-drawer-end {
+    right: 0;
+    order: 2;
+    border-right: none;
+    border-left: 1px solid $gray-300;
+    padding-right: 0;
+    padding-left: 20px;
+    // Translate3d is faster than translateX because it uses hardware acceleration
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+.dt-drawer-body {
+  height: 100%;
+  width: 100%;
+}

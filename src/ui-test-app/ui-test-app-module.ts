@@ -15,6 +15,7 @@ import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
 import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
 import { DtChartModule } from '@dynatrace/angular-components/chart';
+import { DtDrawerModule } from '@dynatrace/angular-components/drawer';
 import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtRadioModule } from '@dynatrace/angular-components/radio';
@@ -46,32 +47,34 @@ import { OverlayUI } from './overlay/overlay-ui';
 import { ChartHighchartsUI } from './chart/chart-highcharts-ui';
 import { DtSelectionAreaModule } from '@dynatrace/angular-components';
 import { ChartSelectionAreaUI } from './chart/chart-selection-area-ui';
+import { DrawerUI } from './drawer/drawer-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
  */
 @NgModule({
   exports: [
-    DtButtonModule,
     DtButtonGroupModule,
-    DtInputModule,
-    DtCopyToClipboardModule,
+    DtButtonModule,
+    DtChartModule,
     DtCheckboxModule,
+    DtContextDialogModule,
+    DtCopyToClipboardModule,
+    DtDrawerModule,
     DtExpandablePanelModule,
     DtExpandableSectionModule,
-    DtTileModule,
-    DtContextDialogModule,
-    DtPaginationModule,
-    DtRadioModule,
-    DtShowMoreModule,
+    DtInputModule,
     DtKeyValueListModule,
-    DtSwitchModule,
-    DtChartModule,
-    DtProgressBarModule,
-    DtTabsModule,
-    DtSelectModule,
     DtOverlayModule,
+    DtPaginationModule,
+    DtProgressBarModule,
+    DtRadioModule,
     DtSelectionAreaModule,
+    DtSelectModule,
+    DtShowMoreModule,
+    DtSwitchModule,
+    DtTabsModule,
+    DtTileModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -87,27 +90,28 @@ export class DynatraceAngularCompModule {}
     DtIconModule.forRoot({svgIconLocation: '/assets/icons/{{name}}.svg'}),
   ],
   declarations: [
-    UIApp,
-    Home,
-    ButtonUI,
     ButtonGroupUi,
-    CheckboxUI,
-    ExpandablePanelUi,
-    ExpandableSectionUi,
-    RadioUI,
-    TileUI,
-    ContextDialogUI,
-    CopyToClipboardUI,
-    KeyValueListUI,
-    PaginationUI,
-    ShowMoreUI,
-    SwitchUI,
-    ChartUI,
+    ButtonUI,
     ChartHighchartsUI,
     ChartSelectionAreaUI,
-    ProgressBarUI,
-    TabsUI,
+    ChartUI,
+    CheckboxUI,
+    ContextDialogUI,
+    CopyToClipboardUI,
+    DrawerUI,
+    ExpandablePanelUi,
+    ExpandableSectionUi,
+    Home,
+    KeyValueListUI,
     OverlayUI,
+    PaginationUI,
+    ProgressBarUI,
+    RadioUI,
+    ShowMoreUI,
+    SwitchUI,
+    TabsUI,
+    TileUI,
+    UIApp,
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],
