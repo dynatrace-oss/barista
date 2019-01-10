@@ -38,6 +38,7 @@ import { TabsDemo } from './tabs/tabs-demo.component';
 import { TagDemo } from './tag/tag-demo.component';
 import { TileDemo } from './tile/tile-demo.component';
 import { ToastDemo } from './toast/toast-demo.component';
+import { DrawerDemo } from './drawer/drawer-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'context-dialog', component: ContextDialogDemo },
   { path: 'copy-to-clipboard', component: CopyToClipboardDemo },
   { path: 'cta-card', component: CtaCardDemo },
+  { path: 'drawer', component: DrawerDemo },
   { path: 'expandable-panel', component: ExpandablePanelDemo },
   { path: 'expandable-section', component: ExpandableSectionDemo },
   { path: 'filter-field', component: FilterFieldDemo },

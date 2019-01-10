@@ -1,0 +1,158 @@
+<h3>position start</h3>
+
+<dt-drawer-container>
+  <dt-drawer
+    #drawer
+    mode="side"
+    position="start"
+    opened>
+    Drawer Content
+  </dt-drawer>
+
+  The main content follows here.
+
+  <button (click)="drawer.toggle()">Toggle drawer</button>
+</dt-drawer-container>
+
+<h3>position start not opened</h3>
+
+<dt-drawer-container>
+  <dt-drawer
+    #drawerNotOpen
+    mode="side"
+    position="start">
+    Drawer Content
+  </dt-drawer>
+
+  The main content follows here.
+
+  <button (click)="drawerNotOpen.toggle()">Toggle drawer</button>
+</dt-drawer-container>
+
+<h3>position end</h3>
+
+<dt-drawer-container>
+  <dt-drawer
+    #drawer2
+    mode="side"
+    position="end"
+    opened>
+    <img src="http://placehold.it/400x400"/>
+  </dt-drawer>
+
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+</dt-drawer-container>
+<br>
+
+<button (click)="drawer2.toggle()">Toggle drawer</button>
+
+<h3>Over mode</h3>
+
+<dt-drawer-container>
+  <dt-drawer
+    #drawer3
+    mode="over">
+    I am in the over mode 👽
+  </dt-drawer>
+
+  Hey I am the main content of this spacy over mode
+</dt-drawer-container>
+<br>
+
+<button (click)="drawer3.toggle()">Toggle drawer</button>
+
+<h3>Over mode opened</h3>
+
+<dt-drawer-container>
+  <dt-drawer
+    #overModeOpened
+    mode="over"
+    opened>
+    I am in the over mode 👽
+  </dt-drawer>
+
+  Hey I am the main content of this spacy over mode
+</dt-drawer-container>
+<br>
+
+<button (click)="overModeOpened.toggle()">Toggle drawer</button>
+
+
+<h3>Nested</h3>
+
+<dt-drawer-container>
+  <dt-drawer
+    #drawerNestedOuter
+    mode="side">
+    I am in the over mode 👽
+  </dt-drawer>
+
+  <dt-drawer-container>
+    <dt-drawer
+      #drawerNestedInner
+      mode="over"
+      position="end">
+      I am the nested drawer
+    </dt-drawer>
+
+    Hey I am the nested content
+    <button (click)="drawerNestedInner.toggle()">Toggle drawer</button>
+  </dt-drawer-container>
+  <br>
+</dt-drawer-container>
+<br>
+
+<button (click)="drawerNestedOuter.toggle()">Toggle drawer</button>
+
+
+
+<h3>Nested</h3>
+
+<dt-drawer-container>
+  <dt-drawer
+    #drawerOver1
+    mode="over">
+    I am in the over mode 👽
+  </dt-drawer>
+
+  <dt-drawer
+    #drawerOver2
+    mode="over"
+    position="end">
+    I am the second over drawer
+  </dt-drawer>
+
+  I am the content
+  <br>
+</dt-drawer-container>
+<br>
+
+<button (click)="drawerOver1.toggle()">Toggle 1 over</button>
+<button (click)="drawerOver2.toggle()">Toggle 2 over</button>
+
+
+
+<h3>Add dynamic drawer</h3>
+
+<dt-drawer-container>
+  <dt-drawer
+    #dynamicdrawerOver1
+    mode="side"
+    position="end">
+    normal drawer
+  </dt-drawer>
+
+  <dt-drawer
+    *ngIf="dynamicallyAdded"
+    mode="side"
+    position="start"
+    opened>
+    I am the second over drawer
+  </dt-drawer>
+
+  Main content
+</dt-drawer-container>
+<br>
+
+<button (click)="dynamicdrawerOver1.toggle()">Toggle 1 over</button>
+<button (click)="addDrawer()">add a drawer</button>

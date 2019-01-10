@@ -106,3 +106,14 @@
 <input type="text" dtInput placeholder="Something">
 <input [dtAutocomplete]="auto"/>
 <dt-autocomplete #auto="dtAutocomplete"></dt-autocomplete>
+
+
+<dt-drawer-container class="drawer">
+  <dt-drawer
+    #drawer
+    opened>
+    Drawer Content</dt-drawer>
+  Main content
+</dt-drawer-container>
+
+<button dt-button (click)="drawer.toggle()">toggle drawer</button>

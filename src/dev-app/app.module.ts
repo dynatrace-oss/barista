@@ -18,6 +18,7 @@ import { CheckboxDemo } from './checkbox/checkbox-demo.component';
 import { ContextDialogDemo } from './context-dialog/context-dialog-demo.component';
 import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.component';
 import { CtaCardDemo } from './cta-card/cta-card-demo.component';
+import { DrawerDemo } from './drawer/drawer-demo.component';
 import { ExpandablePanelDemo } from './expandable-panel/expandable-panel-demo.component';
 import { ExpandableSectionDemo } from './expandable-section/expandable-section-demo.component';
 import { FilterFieldDemo } from './filter-field/filter-field-demo.component';
@@ -73,6 +74,7 @@ export class NoopRouteComponent {}
     ContextDialogDemo,
     CopyToClipboardDemo,
     CtaCardDemo,
+    DrawerDemo,
     ExpandablePanelDemo,
     ExpandableSectionDemo,
     FilterFieldDemo,
