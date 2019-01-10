@@ -11,7 +11,7 @@
 ##### Using Yarn
 1. Meet NodeJS prerequisites
 2. Install dependencies - `yarn install`
-3. Start dev app - `yarn dev-app` 
+3. Start dev app - `yarn dev` 
 
 ### Building
 1. Install NPM dependencies
@@ -26,7 +26,7 @@
 ## Developing
 Developing with the dev-app
 ```
-yarn dev-app
+yarn dev
 ```
 
 ## Running tests and style lint
