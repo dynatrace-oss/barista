@@ -1,0 +1,8 @@
+
+$card-actions-spacing: 4px;
+
+@mixin dt-card-actions-spacing() {
+  > .dt-button + .dt-button {
+    margin-left: $card-actions-spacing;
+  }
+}
