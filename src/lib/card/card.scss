@@ -1,5 +1,6 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
+@import '../core/style/card';
 
 .dt-card {
   @include main-font();
@@ -67,6 +68,8 @@
 .dt-card-title-actions,
 .dt-card-footer-actions {
   display: block;
+
+  @include dt-card-actions-spacing();
 }
 
 .dt-card-footer-actions {
