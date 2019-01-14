@@ -5,6 +5,7 @@ import {
   Inject,
   OnDestroy,
   NgZone,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { DT_TOAST_MESSAGE } from './toast';
 import { DT_TOAST_FADE_TIME } from './toast-config';
@@ -50,7 +51,8 @@ export class DtToastContainer extends _DtToastContainerMixin implements OnDestro
 
   constructor(
     @Inject(DT_TOAST_MESSAGE) public message: string,
-    public _ngZone: NgZone
+    public _ngZone: NgZone,
+    private _changeDetectorRef: ChangeDetectorRef
   )  {
     super(_ngZone);
   }
@@ -84,6 +86,7 @@ export class DtToastContainer extends _DtToastContainerMixin implements OnDestro
   enter(): void {
     if (!this._destroyed) {
       this._animationState = 'enter';
+      this._changeDetectorRef.detectChanges();
     }
   }
 
