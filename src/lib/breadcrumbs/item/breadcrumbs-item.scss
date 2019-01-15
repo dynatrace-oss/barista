@@ -54,7 +54,7 @@ $arrow-padding: 2px;
   &,
   &:visited {
     @include dt-interactive-reset();
-    color: #fff;
+    color: #ffffff;
     display: block;
     height: $height;
     overflow: hidden;
@@ -70,7 +70,7 @@ $arrow-padding: 2px;
 
   &:focus,
   &:hover {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
   }
 
@@ -80,7 +80,7 @@ $arrow-padding: 2px;
 }
 
 .dt-breadcrumb-non-clickable {
-  color: #fff;
+  color: #ffffff;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: block;

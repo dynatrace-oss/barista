@@ -5,7 +5,7 @@
 .dt-card {
   @include main-font();
   display: block;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 3px;
   padding: 8px;
 }
@@ -80,18 +80,18 @@
 .dt-theme-dark {
 
   .dt-card {
-    color: #fff;
+    color: #ffffff;
     background: rgba(255, 255, 255, 0.2);
   }
   .dt-card-icon svg {
-    fill: #fff;
+    fill: #ffffff;
   }
 
   .dt-card-title {
-    color: #fff;
+    color: #ffffff;
   }
 
   .dt-card-subtitle {
-    color: #fff;
+    color: #ffffff;
   }
 }
