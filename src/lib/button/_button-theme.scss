@@ -37,28 +37,28 @@
     #{$namespace}.dt-button-primary {
       background: $default-color;
       border-color: $default-color;
-      color: #fff;
+      color: #ffffff;
 
       .dt-button-icon .dt-icon svg {
-        fill: #fff;
+        fill: #ffffff;
       }
     }
     #{$namespace}.dt-button-primary:hover:not([disabled]) {
       background: $hover-color;
       border-color: $hover-color;
-      color: #fff;
+      color: #ffffff;
     }
     #{$namespace}.dt-button-primary:active:not([disabled]) {
       background: $active-color;
       border-color: $active-color;
-      color: #fff;
+      color: #ffffff;
     }
 
     @if ($is-dark == true) {
       #{$namespace}.dt-button-primary,
       #{$namespace}.dt-button-primary:hover:not([disabled]),
       #{$namespace}.dt-button-primary:active:not([disabled]) {
-        border-color: #fff;
+        border-color: #ffffff;
       }
       #{$namespace}.dt-button-primary[disabled] {
         background: rgba(255, 255, 255, 0.2);
@@ -71,9 +71,9 @@
       #{$namespace}.dt-button-primary[disabled] {
         background: $disabledcolor;
         border-color: $disabledcolor;
-        color: #fff;
+        color: #ffffff;
 
-        .dt-button-icon .dt-icon svg { fill: #fff; }
+        .dt-button-icon .dt-icon svg { fill: #ffffff; }
       }
     }
 
@@ -106,21 +106,21 @@
       #{$namespace}.dt-button-secondary,
       #{$namespace}.dt-button-secondary[disabled] {
         background: transparent;
-        color: #fff;
+        color: #ffffff;
 
-        .dt-button-icon .dt-icon svg { fill: #fff; }
+        .dt-button-icon .dt-icon svg { fill: #ffffff; }
       }
       #{$namespace}.dt-button-secondary:hover:not([disabled]) {
         background: rgba(255, 255, 255, 0.2);
-        color: #fff;
+        color: #ffffff;
 
-        .dt-button-icon .dt-icon svg { fill: #fff; }
+        .dt-button-icon .dt-icon svg { fill: #ffffff; }
       }
       #{$namespace}.dt-button-secondary:active:not([disabled]) {
         background: rgba(255, 255, 255, 0.3);
-        color: #fff;
+        color: #ffffff;
 
-        .dt-button-icon .dt-icon svg { fill: #fff; }
+        .dt-button-icon .dt-icon svg { fill: #ffffff; }
       }
       #{$namespace}.dt-button-secondary[disabled] {
         border-color: rgba(255, 255, 255, 0.2);
@@ -133,17 +133,17 @@
       @if $name == 'main' {
         #{$namespace}.dt-button-secondary,
         #{$namespace}.dt-button-secondary:hover:not([disabled]) {
-          border-color: #fff;
+          border-color: #ffffff;
           color: $gray-100;
         }
         #{$namespace}.dt-button-secondary:active:not([disabled]) {
-          border-color: #fff;
-          color: #fff;
+          border-color: #ffffff;
+          color: #ffffff;
         }
       }
     } @else {
       #{$namespace}.dt-button-secondary[disabled] {
-        background: #fff;
+        background: #ffffff;
         border-color: $disabledcolor;
         color: $disabledcolor;
 
@@ -158,7 +158,7 @@
       #{$namespace}.dt-button-nested,
       #{$namespace}.dt-button-nested:hover:not([disabled]),
       #{$namespace}.dt-button-nested:active:not([disabled]) {
-        .dt-button-icon .dt-icon svg { fill: #fff; }
+        .dt-button-icon .dt-icon svg { fill: #ffffff; }
       }
       #{$namespace}.dt-button-nested:hover:not([disabled]) {
         background: rgba(255, 255, 255, 0.2);
