@@ -6,6 +6,8 @@ module.exports = {
     'selector-type-no-unknown': null,
     'no-descending-specificity': null,
     'color-hex-case': 'lower',
+    'color-no-invalid-hex': true,
+    'color-hex-length': 'long',
     'scss/no-duplicate-dollar-variables': null,
   },
 };

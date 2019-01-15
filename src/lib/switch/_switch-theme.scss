@@ -7,7 +7,7 @@
   @if ($is-dark == true) {
     :host {
       .dt-switch-content {
-        color: #fff;
+        color: #ffffff;
       }
 
       &:not(.dt-switch-checked, .dt-switch-disabled):hover {
@@ -18,7 +18,7 @@
 
       &:not(.dt-switch-checked, .dt-switch-disabled):active {
         .dt-switch-label::before {
-          border: 1px solid #fff;
+          border: 1px solid #ffffff;
           background-color: rgba(255, 255, 255, 0.3);
         }
       }
@@ -29,21 +29,21 @@
             circle 5px,
             transparent 0,
             transparent 2px,
-            #fff 3px,
+            #ffffff 3px,
             transparent 4px
           );
-        border-color: #fff;
+        border-color: #ffffff;
         background-color: transparent;
       }
 
       .dt-switch-label::after {
-        background-color: #fff;
+        background-color: #ffffff;
       }
     }
 
     :host.dt-switch-checked {
       .dt-switch-label::before {
-        background-image: linear-gradient(to right, #fff 1px, transparent 0);
+        background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
         border-color: $turquoise-600;
         background-color: $turquoise-600;
       }
@@ -126,7 +126,7 @@
         .dt-switch-label::before {
           background-color: $turquoise-600;
           border-color: $turquoise-600;
-          background-image: linear-gradient(to right, #fff 1px, transparent 0);
+          background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
         }
       }
 

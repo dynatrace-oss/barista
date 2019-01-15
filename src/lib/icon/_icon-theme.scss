@@ -7,11 +7,11 @@
 
   @each $name in $color-names {
     // default to light
-    $color: #fff;
+    $color: #ffffff;
     @if $is-dark == true {
-      $color: #fff;
+      $color: #ffffff;
     } @else if $name == 'dark' {
-      $color: #ccc;
+      $color: #cccccc;
     } @else if $name != 'light' {
       $palette: dt-get-theme-palette($theme, $name);
       $color: dt-get-theme-color($palette, 'default');

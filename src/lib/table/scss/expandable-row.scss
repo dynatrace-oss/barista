@@ -5,7 +5,7 @@
 
 :host.dt-expandable-row {
   &:nth-child(even) {
-    background-color: #fff;
+    background-color: #ffffff;
   }
   &:nth-child(odd) {
     background-color: $gray-100;
@@ -40,7 +40,7 @@
 }
 
 .dt-expandable-row-expandable {
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 16px 12px 16px 14px;
 }
 

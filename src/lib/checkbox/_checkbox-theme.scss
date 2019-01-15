@@ -6,10 +6,10 @@
 
   @if ($is-dark == true) {
     :host .dt-checkbox-container {
-      border-color: #fff;
+      border-color: #ffffff;
     }
     :host .dt-checkbox-icon svg {
-      stroke: #fff;
+      stroke: #ffffff;
     }
     :host.dt-checkbox-disabled {
       .dt-checkbox-container {
@@ -24,7 +24,7 @@
     }
 
     :host:not(.dt-checkbox-disabled) .dt-checkbox-caption {
-      color: #fff;
+      color: #ffffff;
     }
   }
 }

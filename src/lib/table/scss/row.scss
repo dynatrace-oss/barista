@@ -9,8 +9,8 @@
   position: relative;
 
   &:nth-child(even) {
-    background-color: #fff;
-    border: solid 1px #fff;
+    background-color: #ffffff;
+    border: solid 1px #ffffff;
   }
   &:nth-child(odd) {
     background-color: $gray-100;
