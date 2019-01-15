@@ -29,12 +29,12 @@ $display-type: flex;
   position: absolute;
   top: calc(50% - 10px);
 
-  fill: white;
+  fill: #ffffff;
   margin: 0 8px;
 }
 
 .dt-alert-text-container {
-  background-color: white;
+  background-color: #ffffff;
 
   border-top-right-radius: $border-radius;
   border-bottom-right-radius: $border-radius;

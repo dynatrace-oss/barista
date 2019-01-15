@@ -9,21 +9,21 @@
     $palette: dt-get-theme-palette($theme, 'recovered');
     :host {
       ::ng-deep .dt-input {
-        background-color: black;
+        background-color: #000000;
         color: $gray-400;
       }
 
       ::ng-deep .dt-button.dt-copy-to-clipboard-successful,
       ::ng-deep .dt-button.dt-copy-to-clipboard-successful:hover:not([disabled]) {
         background-color: $green-500;
-        border: 1px solid white;
+        border: 1px solid #ffffff;
         box-shadow: none;
       }
     }
 
     .dt-context-dialog-content :host {
       ::ng-deep .dt-input {
-        background-color: white;
+        background-color: #ffffff;
         color: $gray-700;
       }
     }

@@ -7,7 +7,7 @@ $overlay-min-width: 36px;
 
 @mixin dt-overlay-container() {
   @include main-font();
-  background-color: white;
+  background-color: #ffffff;
   border: 1px solid $turquoise-600;
   border-radius: 4px;
   font-size: 14px;
