@@ -3,7 +3,6 @@
  */
 export enum DtColors {
   WHITE = '#ffffff',
-  BLACK = '#000000',
 
   BLUE_100 = '#e0f4fc',
   BLUE_200 = '#b4e5f9',
