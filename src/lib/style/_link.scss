@@ -42,17 +42,17 @@ a.dt-link {
 
 .dt-theme-dark a.dt-link,
 a.dt-link.dt-theme-dark {
-  color: white;
+  color: #ffffff;
   text-decoration: underline;
 
   &:hover {
-    color: white;
+    color: #ffffff;
     text-decoration: underline;
     background-color: $dark-link-hover-bg;
   }
 
   &:active {
-    color: white;
+    color: #ffffff;
     text-decoration: underline;
     background-color: $dark-link-active-bg;
   }

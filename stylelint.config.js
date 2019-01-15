@@ -8,6 +8,7 @@ module.exports = {
     'color-hex-case': 'lower',
     'color-no-invalid-hex': true,
     'color-hex-length': 'long',
+    'color-named': 'never',
     'scss/no-duplicate-dollar-variables': null,
   },
 };
