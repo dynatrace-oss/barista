@@ -126,8 +126,9 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
-    if (value !== this.disabled) {
-      this._disabled = value;
+    const coerced = coerceBooleanProperty(value);
+    if (coerced !== this.disabled) {
+      this._disabled = coerced;
       this._changeDetectorRef.markForCheck();
     }
   }

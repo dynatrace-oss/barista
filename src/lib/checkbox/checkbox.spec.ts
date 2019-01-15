@@ -26,6 +26,7 @@ describe('DtCheckbox', () => {
         CheckboxWithoutLabel,
         CheckboxWithTabindexAttr,
         CheckboxUsingViewChild,
+        CheckboxDisabledAttribute,
       ],
     });
 
@@ -752,6 +753,17 @@ describe('DtCheckbox', () => {
       expect(inputElement.disabled).toBe(false);
     });
   });
+
+  it('should work with just a disabled attribute', () => {
+    fixture = TestBed.createComponent(CheckboxDisabledAttribute);
+    fixture.detectChanges();
+
+    const checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+    const checkboxInstance = checkboxDebugElement.componentInstance;
+    const checkboxNativeElement = checkboxDebugElement.nativeElement;
+    expect(checkboxInstance.disabled).toBe(true);
+    expect(checkboxNativeElement.classList).toContain('dt-checkbox-disabled');
+  });
 });
 
 /** Simple component for testing a single checkbox. */
@@ -888,3 +900,9 @@ class CheckboxWithoutLabel {
   template: `<dt-checkbox tabindex="5"></dt-checkbox>`,
 })
 class CheckboxWithTabindexAttr { }
+
+/** Test component with the native tabindex attribute. */
+@Component({
+  template: `<dt-checkbox disabled></dt-checkbox>`,
+})
+class CheckboxDisabledAttribute { }
