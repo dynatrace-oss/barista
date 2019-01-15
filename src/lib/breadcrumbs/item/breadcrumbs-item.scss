@@ -43,7 +43,7 @@ $arrow-padding: 2px;
     width: $arrow-width * 2;
     height: $height;
     box-sizing: border-box;
-    border-color: transparent transparent transparent white;
+    border-color: transparent transparent transparent #ffffff;
     border-style: solid;
     border-width: #{$height / 2} $arrow-width;
     z-index: 1;
