@@ -162,12 +162,12 @@
       &.dt-switch-checked.dt-switch-disabled {
         .dt-switch-label::before {
           border-color: $disabledcolor;
-          background-image: linear-gradient(to right, #fff 1px, transparent 0);
+          background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
           background-color: $disabledcolor;
         }
 
         .dt-switch-label::after {
-          background-color: #fff;
+          background-color: #ffffff;
         }
       }
 
