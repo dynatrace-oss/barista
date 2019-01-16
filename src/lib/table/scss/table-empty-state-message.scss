@@ -2,5 +2,5 @@
 
 :host.dt-table-empty-state-message {
   display: block;
-  @include custom-font-styles(false, 300);
+  @include custom-font-styles();
 }
