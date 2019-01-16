@@ -1,3 +1,23 @@
+## 1.4.0 (2019-01-16)
+
+### Bug Fixes
+
+* **btn-group:** fixes broken responsive behavior on small screen ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **card, cta-card:** fixes spacing between action buttons ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **checkbox:** fixes issue when disabled attribute is set without a value ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** fixes sorted cells not beeing bold like in the header cell ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **toast:** fixes subsequent toasts not being shown immidiately after the previous toast disappears ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+
+### Features
+
+* **colors:** added missing colors definition to DtColors ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **inline-editor:** added keyboard support for save and cancel ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Special Thanks 
+Ramon Arenal, Bartosz Bobin, Lukas Holzer, Katrin Freihofner
+
+
 ## 1.3.0 (2019-01-09)
 
 ### Bug Fixes
