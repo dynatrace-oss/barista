@@ -44,16 +44,27 @@
   @include default-font(14px, $line-height);
 }
 
+@mixin fluid-font-size($min-font-size, $max-font-size, $min-screen-size, $max-screen-size) {
+  /* stylelint-disable max-line-length  */
+  font-size: calc(#{$min-font-size + 'px'} + (#{$max-font-size} - #{$min-font-size}) * (100vw - #{$min-screen-size + 'px'}) / (#{$max-screen-size} - #{$min-screen-size}));
+  /* stylelint-enable max-line-length */
+
+  @media (min-width: $max-screen-size + 'px') {
+    font-size: $max-font-size * 1px;
+  }
+}
+
 @mixin h1-font($line-height: $default-line-height) {
-  @include default-font(24px, $line-height, 300);
+  @include default-font(24px, $line-height, 600);
+  @include fluid-font-size(24, 28, 360, 1920);
 }
 
 @mixin h2-font($line-height: $default-line-height) {
-  @include default-font(18px, $line-height, 300);
+  @include default-font(20px, $line-height, 600);
 }
 
 @mixin h3-font($line-height: $default-line-height) {
-  @include default-font(16px, $line-height);
+  @include default-font(18px, $line-height);
 }
 
 @mixin code-font {

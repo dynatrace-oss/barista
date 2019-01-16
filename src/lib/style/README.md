@@ -31,9 +31,9 @@ To use certain mixin simply include it in your rule-set:
 | Name | Arguments | Description | Values |
 | --- | --- | --- | --- |
 | `main-font()` | line-height (optional) | default, most basic font style | `font-family: $default-font-family;` <br> `font-size: $default-font-size;` <br>  `font-weight: $default-font-weight;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
-| `h1-font()` | line-height (optional) | style for headings 1 | `font-family: $default-font-family;` <br> `font-size: 24px;` <br>  `font-weight: 300;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
-| `h2-font()` | line-height (optional) | style for headings 2 | `font-family: $default-font-family;` <br> `font-size: 18px;` <br>  `font-weight: 300;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
-| `h3-font()` | line-height (optional) | style for headings 3 | `font-family: $default-font-family;` <br> `font-size: 16px;` <br>  `font-weight: $default-font-weight;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
+| `h1-font()` | line-height (optional) | style for headings 1 | `font-family: $default-font-family;` <br> `font-size: fluid` <br> - screen size 360px: `24px;` <br> - screen size 1280px: `26.4px;` <br> - screen size 1920px: `28px;`  <br>  `font-weight: 300;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
+| `h2-font()` | line-height (optional) | style for headings 2 | `font-family: $default-font-family;` <br> `font-size: 20px;` <br>  `font-weight: 600;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
+| `h3-font()` | line-height (optional) | style for headings 3 | `font-family: $default-font-family;` <br> `font-size: 18px;` <br>  `font-weight: $default-font-weight;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
 | `label-font()` | line-height (optional) | style for labels | `font-family: $default-font-family;` <br> `font-size: 12px;` <br>  `font-weight: $default-font-weight;` <br> `line-height: $default-line-height;` (default value) <br> `color: $default-font-color;` |
 | `code-font()` | - | style for code snippets | `font-family: $monospace-font-family;` <br> `font-size: $default-font-size;` <br>  `font-weight: $default-font-weight;` <br> `line-height: $default-line-height;` <br> `color: $default-font-color;` |
 
