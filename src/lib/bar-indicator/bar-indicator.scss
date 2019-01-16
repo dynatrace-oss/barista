@@ -1,0 +1,28 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+@import './bar-indicator-theme';
+
+:host {
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  height: 8px;
+}
+
+.dt-bar-indicator__bar {
+  transition: width ease-in-out 350ms;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 8px;
+}
+
+// Styles to right align the bar-indicator.
+:host.dt-bar-indicator-end .dt-bar-indicator__bar {
+  left: auto;
+  right: 0;
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-bar-indicator($dt-current-theme);
+}

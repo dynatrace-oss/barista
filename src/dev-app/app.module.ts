@@ -44,8 +44,8 @@ import { TabsDemo } from './tabs/tabs-demo.component';
 import { TagDemo } from './tag/tag-demo.component';
 import { TileDemo } from './tile/tile-demo.component';
 import { ToastDemo } from './toast/toast-demo.component';
+import { BarIndicatorDemo } from './bar-indicator/bar-indicator-demo.component';
 import { DtIconModule } from '@dynatrace/angular-components';
-
 @Component({template: ''})
 export class NoopRouteComponent {}
 
@@ -99,6 +99,7 @@ export class NoopRouteComponent {}
     TagDemo,
     TileDemo,
     ToastDemo,
+    BarIndicatorDemo,
   ],
   entryComponents: [
     DevApp,
