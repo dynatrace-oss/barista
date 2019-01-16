@@ -1,3 +1,23 @@
+## 1.4.0 (2019-01-16)
+
+### Bug Fixes
+
+* **btn-group:** fixes broken responsive behavior on small screen ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **card, cta-card:** fixes spacing between action buttons ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **checkbox:** fixes issue when disabled attribute is set without a value ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table:** fixes sorted cells not beeing bold like in the header cell ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **toast:** fixes subsequent toasts not being shown immidiately after the previous toast disappears ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
+### Features
+
+* **colors:** added missing colors definition to DtColors ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **inline-editor:** added keyboard support for save and cancel ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Special Thanks 
+Ramon Arenal, Bartosz Bobin, Lukas Holzer, Katrin Freihofner
+
+
 ## 1.3.0 (2019-01-09)
 
 ### Bug Fixes
