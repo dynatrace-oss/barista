@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {
   DtAlertModule,
   DtAutocompleteModule,
+  DtBarIndicatorModule,
   DtBreadcrumbsModule,
   DtButtonGroupModule,
   DtButtonModule,
@@ -46,6 +47,7 @@ import {
   exports: [
     DtAlertModule,
     DtAutocompleteModule,
+    DtBarIndicatorModule,
     DtBreadcrumbsModule,
     DtButtonModule,
     DtButtonGroupModule,

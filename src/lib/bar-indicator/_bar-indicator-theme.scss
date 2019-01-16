@@ -1,0 +1,20 @@
+@import '../core/theming/theming';
+
+@mixin dt-theme-bar-indicator($theme) {
+  $palette-names: 'main', 'recovered', 'error';
+  $default-palette: 'main';
+
+  @each $name in $palette-names {
+    $palette: dt-get-theme-palette($theme, $name);
+    $default-color: dt-get-theme-color($palette, 'default');
+
+    $namespace: ':host';
+    @if $name != $default-palette {
+      $namespace: ':host.dt-color-#{$name}';
+    }
+
+    #{$namespace} .dt-bar-indicator__bar {
+      background-color: $default-color;
+    }
+  }
+}
