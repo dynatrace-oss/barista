@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {
   DtAlertModule,
   DtAutocompleteModule,
+  DtBarIndicatorModule,
   DtBreadcrumbsModule,
   DtButtonGroupModule,
   DtButtonModule,
@@ -42,6 +43,7 @@ import {
 const DT_MODULES = [
   DtAlertModule,
   DtAutocompleteModule,
+  DtBarIndicatorModule,
   DtBreadcrumbsModule,
   DtButtonModule,
   DtButtonGroupModule,
