@@ -9,6 +9,7 @@ export class DevApp {
   navItems = [
     { name: 'Alert', route: '/alert' },
     { name: 'Autocomplete', route: '/autocomplete' },
+    { name: 'Bar indicator', route: '/bar-indicator' },
     { name: 'Breadcrumbs', route: '/breadcrumbs' },
     { name: 'Button', route: '/button' },
     { name: 'Button-group', route: '/button-group' },

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DevApp } from './devapp.component';
 import { AlertDemo } from './alert/alert-demo.component';
 import { AutocompleteDemo } from './autocomplete/autocomplete-demo.component';
+import { BarIndicatorDemo } from './bar-indicator/bar-indicator-demo.component';
 import { BreadcrumbsDemo } from './breadcrumbs/breadcrumbs-demo.component';
 import { ButtonDemo } from './button/button-demo.component';
 import { ButtonGroupDemo } from './button-group/button-group-demo.component';
@@ -41,6 +42,7 @@ import { ToastDemo } from './toast/toast-demo.component';
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
   { path: 'autocomplete', component: AutocompleteDemo },
+  { path: 'bar-indicator', component: BarIndicatorDemo },
   { path: 'breadcrumbs', component: BreadcrumbsDemo },
   { path: 'button', component: ButtonDemo },
   { path: 'button-group', component: ButtonGroupDemo },
