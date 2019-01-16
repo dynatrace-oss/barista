@@ -2,6 +2,6 @@
 
 :host.dt-table-empty-state-title {
   display: block;
-  @include custom-font-styles(false, 300);
-  @include default-font(24px, $default-line-height, 300);
+  @include custom-font-styles();
+  @include default-font(24px, $default-line-height);
 }
