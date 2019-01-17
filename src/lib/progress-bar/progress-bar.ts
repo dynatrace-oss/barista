@@ -53,8 +53,8 @@ export class DtProgressBar extends _DtProgressBar implements CanColor<DtProgress
   @ContentChild(DtProgressBarDescription) _description: DtProgressBarDescription;
   @ContentChild(DtProgressBarCount) _count: DtProgressBarCount;
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef, public _elementRef: ElementRef) {
-    super(_elementRef);
+  constructor(private _changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef) {
+    super(elementRef);
   }
 
   /** Updates all view parameters */
