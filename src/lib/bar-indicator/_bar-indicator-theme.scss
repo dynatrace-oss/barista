@@ -13,7 +13,7 @@
       $namespace: ':host.dt-color-#{$name}';
     }
 
-    #{$namespace} .dt-bar-indicator__bar {
+    #{$namespace} .dt-bar-indicator-bar {
       background-color: $default-color;
     }
   }
