@@ -147,6 +147,7 @@ export class DtButton extends _DtButtonMixinBase
 
 /**
  * Dynatrace design button.
+ * @design-unrelated
  */
 @Component({
   moduleId: module.id,
