@@ -44,21 +44,21 @@
     :host.dt-switch-checked {
       .dt-switch-label::before {
         background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
-        border-color: $turquoise-600;
-        background-color: $turquoise-600;
+        border-color: #ffffff;
+        background-color: $turquoise-500;
       }
 
       &:not(.dt-switch-label-disabled):hover {
         .dt-switch-label::before {
-          border-color: $turquoise-700;
-          background-color: $turquoise-700;
+          border-color: #ffffff;
+          background-color: $turquoise-400;
         }
       }
 
       &:not(.dt-switch-disabled):active {
         .dt-switch-label::before {
-          border: 1px solid $turquoise-800;
-          background-color: $turquoise-800;
+          border-color: #ffffff;
+          background-color: $turquoise-300;
         }
       }
     }
