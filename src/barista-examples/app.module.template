@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { App, ROUTES } from './app.component';
 import { RouterModule } from '@angular/router';
 import { DtIconModule } from '@dynatrace/angular-components';
-import { environment } from '@environments/environment';
+import { environment } from './environments/environment';
 import { DT_ICON_CONFIGURATION } from '@dynatrace/angular-components/icon';
 ${imports}
 
