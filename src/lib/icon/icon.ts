@@ -22,6 +22,7 @@ export type DtIconColorPalette = DtThemePalette | 'light' | 'dark';
 const iconLogger = DtLoggerFactory.create('DtIcon');
 
 /**
+ * TODO: lukas.holzer, thomas.pink rethink naming of props (UX-8947)
  * @no-design-combinations
  */
 @Component({
