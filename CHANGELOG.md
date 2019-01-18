@@ -1,3 +1,21 @@
+## 1.5.0 (2019-01-18)
+
+### Bug Fixes
+
+* **switch:** fixes colors on dark background ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** fixes font weight for table's empty state ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **typography:** updated styles for h1-h3 headlines ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+
+### Features
+
+* **bar-indicator:** added bar-indicator component ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **drawer:** added basic drawer component ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Special Thanks 
+Katrin Freihofner, Thomas Heller, Lara Aigmueller, Lukas Holzer
+
+
 ## 1.4.0 (2019-01-16)
 
 ### Bug Fixes
