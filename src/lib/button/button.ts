@@ -147,7 +147,7 @@ export class DtButton extends _DtButtonMixinBase
 
 /**
  * Dynatrace design button.
- * TODO: lukas.holzer rething naming (UX-8947)
+ * TODO: lukas.holzer, thomas.pink rethink naming of props (UX-8947)
  * @design-unrelated
  */
 @Component({
