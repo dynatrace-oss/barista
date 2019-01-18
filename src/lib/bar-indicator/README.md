@@ -50,7 +50,7 @@ Bar-indicator in different color variations.
 <docs-source-example example="ColorBarIndicatorExampleComponent"></docs-source-example>
 
 Bar-indicator with alignment set to end
-<docs-source-example example="RightAlignedBarIndicatorExampleComponent"></docs-source-example>
+<docs-source-example example="AlignmentBarIndicatorExampleComponent"></docs-source-example>
 
 Bar-indicator with variable `min`, `max` and `value` bindings.
 
