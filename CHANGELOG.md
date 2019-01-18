@@ -1,3 +1,21 @@
+## 1.5.0 (2019-01-18)
+
+### Bug Fixes
+
+* **switch:** fixes colors on dark background ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table:** fixes font weight for table's empty state ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **typography:** updated styles for h1-h3 headlines ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
+### Features
+
+* **bar-indicator:** added bar-indicator component ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **drawer:** added basic drawer component ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Special Thanks 
+Katrin Freihofner, Thomas Heller, Lara Aigmueller, Lukas Holzer
+
+
 ## 1.4.0 (2019-01-16)
 
 ### Bug Fixes
