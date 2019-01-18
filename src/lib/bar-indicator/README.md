@@ -45,13 +45,9 @@ Bar-indicator set to a fixed value.
 
 <docs-source-example example="DefaultBarIndicatorExampleComponent"></docs-source-example>
 
-Bar-indicator in case of an error state.
+Bar-indicator in different color variations.
 
-<docs-source-example example="ErrorStateBarIndicatorExampleComponent"></docs-source-example>
-
-Bar-indicator in case of an recovered state.
-
-<docs-source-example example="RecoveredStateBarIndicatorExampleComponent"></docs-source-example>
+<docs-source-example example="ColorBarIndicatorExampleComponent"></docs-source-example>
 
 Bar-indicator with alignment set to end
 <docs-source-example example="RightAlignedBarIndicatorExampleComponent"></docs-source-example>
