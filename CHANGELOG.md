@@ -1,3 +1,9 @@
+## 1.5.1 (2019-01-21)
+
+### Bug Fixes
+
+* **bar-indicator:** fixes broken internal styling ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 1.5.0 (2019-01-18)
 
 ### Bug Fixes
