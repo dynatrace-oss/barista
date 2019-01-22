@@ -13,7 +13,7 @@ describe('DtButton', () => {
         HttpClientTestingModule,
         DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
       ],
-      declarations: [TestApp],
+      declarations: [TestApp, IconOnlyButton],
     });
 
     TestBed.compileComponents();
@@ -134,14 +134,17 @@ describe('DtButton', () => {
         .toContain('dt-button-secondary', 'Expected the element to have the "dt-button-secondary" class set');
     });
 
-    // it('should throw an error when trying to set variant nested on non icon buttons', async () => {
-    //   const expectedError = wrappedErrorMessage(getDtButtonNestedVariantNotAllowedError());
-    //   expect(() => {
-    //     const fixture = TestBed.createComponent(TestApp);
-    //     fixture.componentInstance.variant = 'nested';
-    //     fixture.detectChanges();
-    //   }).toThrowError(expectedError);
-    // });
+    it('should apply a specific class when button is icon only', () => {
+      const fixture = TestBed.createComponent(IconOnlyButton);
+      fixture.detectChanges();
+      const buttonElement = fixture.debugElement.query(By.css('button'));
+      const anchorElement = fixture.debugElement.query(By.css('a'));
+
+      expect(buttonElement.nativeElement.classList)
+        .toContain('dt-icon-button', 'Expected the element to have "dt-icon-button" set.');
+      expect(anchorElement.nativeElement.classList)
+        .toContain('dt-icon-button', 'Expected the element to have "dt-icon-button" set.');
+    });
   });
 
   // Anchor button tests
@@ -229,3 +232,13 @@ class TestApp {
     this.clickCount++;
   }
 }
+
+/** Test component that contains an DtButton. */
+@Component({
+  selector: 'dt-icon-only-button',
+  template: `
+    <button dt-icon-button type="button"><dt-icon name="agent"></dt-icon></button>
+    <a href="#" dt-icon-button type="button"><dt-icon name="agent"></dt-icon></a>
+  `,
+})
+class IconOnlyButton { }
