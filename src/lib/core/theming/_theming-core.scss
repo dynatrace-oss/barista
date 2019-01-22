@@ -37,7 +37,8 @@
   $warning-palette,
   $error-palette,
   $recovered-palette,
-  $cta-palette
+  $cta-palette,
+  $neutral-palette
 ) {
   @return (
     main: $main-palette,
@@ -46,6 +47,7 @@
     error: $error-palette,
     recovered: $recovered-palette,
     cta: $cta-palette,
+    neutral: $neutral-palette,
     is-dark: false
   );
 }
@@ -57,7 +59,8 @@
   $warning-palette,
   $error-palette,
   $recovered-palette,
-  $cta-palette
+  $cta-palette,
+  $neutral-palette
 ) {
   @return (
     main: $main-palette,
@@ -66,6 +69,7 @@
     error: $error-palette,
     recovered: $recovered-palette,
     cta: $cta-palette,
+    neutral: $neutral-palette,
     is-dark: true
   );
 }
