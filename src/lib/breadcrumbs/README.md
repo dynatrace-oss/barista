@@ -25,7 +25,12 @@ class MyModule {}
 
 ### dt-breadcrumbs
 
-`dt-breadcrumbs` element has no configuration options. It's just a wrapper for the `dt-breadcrumbs-item` elements.
+`dt-breadcrumbs` component accepts a `color` property to define the color version of the breadcrumbs. It's a wrapper for the `dt-breadcrumbs-item` elements.
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `@Input() color` | `'main' | 'error' | 'neutral'` | `main` | Current variation of the theme color which is applied to the color of the breadcrumbs.|
+
 
 ### dt-breadcrumbs-item
 
@@ -48,3 +53,8 @@ class MyModule {}
 ### Dark
 
 <docs-source-example example="DarkBreadcrumbsExampleComponent" themedark="true"></docs-source-example>
+
+
+### Colors
+
+<docs-source-example example="ColorBreadcrumbsExampleComponent"></docs-source-example>
