@@ -12,7 +12,7 @@ export interface HasElementRef {
 }
 
 /** Possible color palette values. */
-export type DtThemePalette = 'main' | 'accent' | 'warning' | 'error' | 'cta' | 'recovered' | undefined;
+export type DtThemePalette = 'main' | 'accent' | 'warning' | 'error' | 'cta' | 'recovered' | 'neutral' | undefined;
 
 /** Mixin to augment a directive with a `color` property. */
 export function mixinColor<T extends Constructor<HasElementRef>>(
