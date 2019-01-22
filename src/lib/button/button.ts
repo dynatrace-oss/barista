@@ -28,15 +28,6 @@ export function getDtButtonNestedVariantNotAllowedError(): Error {
   return Error(`The nested button variant is only allowed on dt-icon-button`);
 }
 
-/**
- * List of classes to add to DtButton instances based on host attributes to
- * style as different variants.
- */
-const BUTTON_HOST_ATTRIBUTES = [
-  'dt-button',
-  'dt-icon-button',
-];
-
 export type DtButtonThemePalette = 'main' | 'warning' | 'cta';
 
 // Boilerplate for applying mixins to DtButton.
@@ -58,6 +49,7 @@ const defaultVariant = 'primary';
   exportAs: 'dtButton',
   host: {
     'class': 'dt-button',
+    '[class.dt-icon-button]': '_isIconButton',
     '[disabled]': 'disabled || null',
   },
   templateUrl: 'button.html',
@@ -77,9 +69,6 @@ export class DtButton extends _DtButtonMixinBase
   set variant(value: ButtonVariant) {
     const variant = value || defaultVariant;
     if (variant !== this._variant) {
-      if (variant === 'nested' && !this._hasHostAttributes('dt-icon-button')) {
-        // throw getDtButtonNestedVariantNotAllowedError();
-      }
       this._replaceCssClass(variant, this._variant);
       this._variant = variant;
     }
@@ -88,6 +77,9 @@ export class DtButton extends _DtButtonMixinBase
   private _iconChangesSub: Subscription = NEVER.subscribe();
 
   @ContentChildren(DtIcon) _icons: QueryList<DtIcon>;
+
+  /** @internal Whether the button is icon only. */
+  _isIconButton = false;
 
   constructor(
     elementRef: ElementRef,
@@ -100,13 +92,7 @@ export class DtButton extends _DtButtonMixinBase
     // Set the default variant to trigger the setters.
     this.variant = defaultVariant;
 
-    // For each of the variant selectors that is prevent in the button's host
-    // attributes, add the correct corresponding class.
-    for (const attr of BUTTON_HOST_ATTRIBUTES) {
-      if (this._hasHostAttributes(attr)) {
-        (elementRef.nativeElement as HTMLElement).classList.add(attr);
-      }
-    }
+    this._isIconButton = this._getHostElement().hasAttribute('dt-icon-button');
 
     this._focusMonitor.monitor(this._elementRef.nativeElement, true);
   }
@@ -134,11 +120,6 @@ export class DtButton extends _DtButtonMixinBase
     return this._elementRef.nativeElement;
   }
 
-  /** Gets whether the button has one of the given attributes. */
-  private _hasHostAttributes(...attributes: string[]): boolean {
-    return attributes.some((attribute) => this._getHostElement().hasAttribute(attribute));
-  }
-
   private _replaceCssClass(newClass?: string, oldClass?: string): void {
     replaceCssClass(this._elementRef, `dt-button-${oldClass}`, `dt-button-${newClass}`, this._renderer);
   }
@@ -152,9 +133,11 @@ export class DtButton extends _DtButtonMixinBase
  */
 @Component({
   moduleId: module.id,
-  selector: `a[dt-button]`,
+  selector: `a[dt-button], a[dt-icon-button]`,
   exportAs: 'dtButton, dtAnchor',
   host: {
+    'class': 'dt-button',
+    '[class.dt-icon-button]': '_isIconButton',
     '[attr.tabindex]': 'disabled ? -1 : 0',
     '[attr.disabled]': 'disabled || null',
     '[attr.aria-disabled]': 'disabled.toString()',
@@ -177,6 +160,10 @@ export class DtAnchor extends DtButton {
     super(elementRef, focusMonitor, renderer, changeDetectorRef);
   }
 
+  /**
+   * @internal Halts all events when the button is disable.
+   * This is required because otherwise the anchor would redirect to it's href
+   */
   _haltDisabledEvents(event: Event): void {
     // A disabled button shouldn't apply any actions
     if (this.disabled) {
