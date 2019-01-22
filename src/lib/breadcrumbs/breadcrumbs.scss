@@ -1,4 +1,11 @@
+@import '../core/theming/theming';
+@import 'breadcrumbs-theme';
+
 :host {
   display: flex;
   background-color: #ffffff;
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-breadcrumbs($dt-current-theme, $dt-current-theme-name);
 }

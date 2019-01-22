@@ -1,8 +1,6 @@
 @import '../../core/style/variables';
 @import '../../core/style/interactive-common';
 @import '../../style/font-mixins';
-@import '../../core/theming/theming';
-@import 'breadcrumbs-item-theme';
 
 $height: 32px;
 $arrow-width: 8px;
@@ -88,8 +86,4 @@ $arrow-padding: 2px;
   &::after {
     display: none;
   }
-}
-
-@include dt-apply-theme() {
-  @include dt-theme-breadcrumbs-item($dt-current-theme, $dt-current-theme-name);
 }

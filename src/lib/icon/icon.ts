@@ -12,7 +12,6 @@ import { take } from 'rxjs/operators';
 import { DtIconRegistry } from './icon-registry';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import {
-  DtThemePalette,
   setComponentColorClasses,
   DtLoggerFactory
 } from '@dynatrace/angular-components/core';
