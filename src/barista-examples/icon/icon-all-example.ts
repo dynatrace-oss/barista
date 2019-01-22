@@ -42,7 +42,7 @@ export class DocsAsyncIcon implements OnDestroy {
 @Component({
   moduleId: module.id,
   template: `<div class="all-icons-container">
-    <docs-async-icon *ngFor="let name of icons$ | async" [name]="name" class="icon"></docs-async-icon>
+    <docs-async-icon *ngFor="let name of icons$ | async" [name]="name"></docs-async-icon>
   </div>`,
   styles: [
     `.all-icons-container {
@@ -51,7 +51,7 @@ export class DocsAsyncIcon implements OnDestroy {
       grid-gap: 10px;
       grid-template-columns: repeat(auto-fill, minmax(min-content, 200px));
     }`,
-    '.icon { display: inline-block; padding: 1.5rem; text-align: center; }',
+    'docs-async-icon { display: inline-block; padding: 1.5rem; text-align: center; }',
   ],
 })
 export class AllIconExample {
