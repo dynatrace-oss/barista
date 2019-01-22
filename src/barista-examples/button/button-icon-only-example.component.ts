@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: `
     <button dt-icon-button><dt-icon name="agent"></dt-icon></button>
+    <a dt-icon-button href="#"><dt-icon name="proxy"></dt-icon></a>
     <button dt-icon-button variant="secondary"><dt-icon name="agent"></dt-icon></button>
     <button dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></button>
     <button dt-icon-button color="warning"><dt-icon name="agent"></dt-icon></button>
