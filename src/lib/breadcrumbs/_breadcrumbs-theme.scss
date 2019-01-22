@@ -1,0 +1,46 @@
+@mixin dt-theme-breadcrumbs($theme, $theme-name) {
+
+  $palette-names: 'main', 'error', 'neutral';
+  $default-palette: 'main';
+
+  @each $name in $palette-names {
+    $palette: dt-get-theme-palette($theme, $name);
+    $default-color: dt-get-theme-color($palette, 'default');
+    $hover-color: dt-get-theme-color($palette, 'hover');
+    $active-color: dt-get-theme-color($palette, 'active');
+
+    $namespace: ':host';
+    @if ($name != $default-palette) {
+      $namespace: ':host.dt-color-#{$name}';
+    }
+
+    #{$namespace} ::ng-deep .dt-breadcrumb-link,
+    #{$namespace} ::ng-deep .dt-breadcrumb-link:visited {
+      background-color: $active-color;
+
+      &::after {
+        border-left-color: $active-color;
+      }
+    }
+
+    #{$namespace} ::ng-deep .dt-breadcrumb-link:hover {
+      background-color: $hover-color;
+
+      &::after {
+        border-left-color: $hover-color;
+      }
+    }
+
+    #{$namespace} ::ng-deep .dt-breadcrumb-link:active {
+      background-color: $active-color;
+
+      &::after {
+        border-left-color: $active-color;
+      }
+    }
+
+    #{$namespace} ::ng-deep .dt-breadcrumb-non-clickable {
+      background-color: $default-color;
+    }
+  }
+}
