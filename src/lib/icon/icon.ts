@@ -17,7 +17,7 @@ import {
   DtLoggerFactory
 } from '@dynatrace/angular-components/core';
 
-export type DtIconColorPalette = DtThemePalette | 'light' | 'dark';
+export type DtIconColorPalette = 'main' | 'accent' | 'warning' | 'error' | 'cta' | 'recovered' | 'light' | 'dark';
 
 const iconLogger = DtLoggerFactory.create('DtIcon');
 
