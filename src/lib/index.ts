@@ -43,5 +43,9 @@ export * from '@dynatrace/angular-components/micro-chart';
 export * from '@dynatrace/angular-components/selection-area';
 export * from '@dynatrace/angular-components/bar-indicator';
 export * from '@dynatrace/angular-components/drawer';
+<<<<<<< HEAD
 export * from '@dynatrace/angular-components/tree-table';
 export * from '@dynatrace/angular-components/toggle-button-group';
+=======
+export * from '@dynatrace/angular-components/info-group';
+>>>>>>> ***REMOVED*** feat(info-group): init info group component
