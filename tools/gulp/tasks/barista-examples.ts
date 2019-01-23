@@ -29,10 +29,15 @@ const getDeployUrl = () => {
   return deployUrl;
 };
 
-const { examplesDir } = buildConfig;
+const { examplesDir, libDir } = buildConfig;
 
 interface ExampleMetadata {
   component: string;
+  sourcePath: string;
+}
+
+interface InvalidExampleReferences {
+  name: string;
   sourcePath: string;
 }
 
@@ -178,6 +183,41 @@ function generateAppComponent(parsedData: ExampleMetadata[]): void {
   fs.writeFileSync(join(examplesDir, 'app.component.ts'), content, { encoding: 'utf8' });
 }
 
+/** Checks the content of given source files for invalid example names and returns them. */
+function getInvalidExampleReferences(sourceFiles: string[], exampleNames: string[]): InvalidExampleReferences[] {
+  const invalidRefs: InvalidExampleReferences[] = [];
+  sourceFiles.forEach((sourceFilePath) => {
+    const content = fs.readFileSync(sourceFilePath, { encoding: 'utf-8' });
+    const regex = /<docs-source-example example=\"(.+?)\"(.*?)><\/docs-source-example>/g;
+    let matches;
+    // tslint:disable-next-line no-conditional-assignment
+    while ((matches = regex.exec(content)) !== null) {
+      if (!exampleNames.includes(matches[1])) {
+        const exampleRef = {
+          name: matches[1],
+          sourcePath: sourceFilePath,
+        };
+        invalidRefs.push(exampleRef);
+      }
+    }
+  });
+  return invalidRefs;
+}
+
+/** Validates Barista example names used in lib readme files. */
+task('barista-examples:validate', (done) => {
+  const exampleNames = getExampleMetadata(glob(join(examplesDir, '*/*.ts')))
+    .map((metadata) => metadata.component);
+  const invalidExampleRefs = getInvalidExampleReferences(glob(join(libDir, '**/README.md')), exampleNames);
+  if (invalidExampleRefs.length > 0) {
+    const errors = invalidExampleRefs.map((ref) => `Invalid example name "${ref.name}" found in ${ref.sourcePath}.`);
+    const errorMsg = errors.join('\n');
+    done(errorMsg);
+    return;
+  }
+  done();
+});
+
 /** Creates the examples module */
 task('barista-example:generate', () => {
   const metadata = getExampleMetadata(glob(join(examplesDir, '*/*.ts')));
@@ -196,4 +236,9 @@ task('barista-examples:set-env', () => {
 task('barista-examples:compile', execNodeTask('@angular/cli', 'ng', ['build', 'barista-examples', ...args]));
 
 /** Combines both tasks the set env and the build tasks */
-task('barista-examples:build', sequenceTask('barista-examples:set-env', 'barista-example:generate', 'barista-examples:compile'));
+task('barista-examples:build', sequenceTask(
+  'barista-examples:validate',
+  'barista-examples:set-env',
+  'barista-example:generate',
+  'barista-examples:compile'
+));
