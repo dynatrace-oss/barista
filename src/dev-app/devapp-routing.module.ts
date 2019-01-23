@@ -18,6 +18,7 @@ import { FilterFieldDemo } from './filter-field/filter-field-demo.component';
 import { FormFieldDemo } from './form-field/form-field-demo.component';
 import { FormattersDemo } from './formatters/formatters-demo.component';
 import { IconDemo } from './icon/icon-demo.component';
+import { InfoGroupDemo } from './info-group/info-group-demo.component';
 import { InlineEditorDemo } from './inline-editor/inline-editor-demo.component';
 import { InputDemo } from './input/input-demo.component';
 import { KeyValueListDemo } from './key-value-list/key-value-list-demo.component';
@@ -61,6 +62,7 @@ const routes: Routes = [
   { path: 'form-field', component: FormFieldDemo },
   { path: 'formatters', component: FormattersDemo },
   { path: 'icon', component: IconDemo },
+  { path: 'info-group', component: InfoGroupDemo },
   { path: 'inline-editor', component: InlineEditorDemo },
   { path: 'input', component: InputDemo },
   { path: 'key-value-list', component: KeyValueListDemo },
