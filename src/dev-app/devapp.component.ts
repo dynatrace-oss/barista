@@ -25,6 +25,7 @@ export class DevApp {
     { name: 'Form-field', route: '/form-field' },
     { name: 'Formatters', route: '/formatters' },
     { name: 'Icon', route: '/icon' },
+    { name: 'Info-group', route: '/info-group' },
     { name: 'Inline-editor', route: '/inline-editor' },
     { name: 'Input', route: '/input' },
     { name: 'Key-value-list', route: '/key-value-list' },
