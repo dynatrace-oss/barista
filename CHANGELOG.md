@@ -1,3 +1,17 @@
+## 1.6.0 (2019-01-24)
+
+### Bug Fixes
+
+* **button:** fixes icon button not working with anchor tags ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **card, cta-card:** fixes spacing issue between content and footer actions ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **radio:** fixes underlying label not expanding to width of radio button 
+
+### Features
+
+* **breadcrumbs:** added color input to breadcrumbs, they now accept `main`, `error` or `neutral`. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **theming:** added neutral variation to themes ([***REMOVED***](***REMOVED***/***REMOVED***)
+
+
 ## 1.5.1 (2019-01-21)
 
 ### Bug Fixes
