@@ -1,3 +1,17 @@
+## 1.6.0 (2019-01-24)
+
+### Bug Fixes
+
+* **button:** fixes icon button not working with anchor tags ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **card, cta-card:** fixes spacing issue between content and footer actions ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **radio:** fixes underlying label not expanding to width of radio button 
+
+### Features
+
+* **breadcrumbs:** added color input to breadcrumbs, they now accept `main`, `error` or `neutral`. ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **theming:** added neutral variation to themes ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***)
+
+
 ## 1.5.1 (2019-01-21)
 
 ### Bug Fixes
