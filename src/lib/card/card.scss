@@ -75,6 +75,7 @@
 .dt-card-footer-actions {
   display: flex;
   justify-content: flex-end;
+  margin-top: $card-footer-actions-spacing;
 }
 
 .dt-theme-dark {
