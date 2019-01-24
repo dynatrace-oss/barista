@@ -14,8 +14,7 @@
       $namespace: ':host.dt-color-#{$name}';
     }
 
-    #{$namespace} ::ng-deep .dt-breadcrumb-link,
-    #{$namespace} ::ng-deep .dt-breadcrumb-link:visited {
+    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link {
       background-color: $active-color;
 
       &::after {
@@ -23,7 +22,7 @@
       }
     }
 
-    #{$namespace} ::ng-deep .dt-breadcrumb-link:hover {
+    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link:hover {
       background-color: $hover-color;
 
       &::after {
@@ -31,7 +30,7 @@
       }
     }
 
-    #{$namespace} ::ng-deep .dt-breadcrumb-link:active {
+    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link:active {
       background-color: $active-color;
 
       &::after {
@@ -39,7 +38,7 @@
       }
     }
 
-    #{$namespace} ::ng-deep .dt-breadcrumb-non-clickable {
+    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-non-clickable {
       background-color: $default-color;
     }
   }
