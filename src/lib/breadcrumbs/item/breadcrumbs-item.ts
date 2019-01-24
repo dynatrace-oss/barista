@@ -23,6 +23,9 @@ const ensureProvided = <T extends Router | LocationStrategy | ActivatedRoute>(va
   exportAs: 'dtBreadcrumbsItem',
   templateUrl: './breadcrumbs-item.html',
   styleUrls: ['./breadcrumbs-item.scss'],
+  host: {
+    class: 'dt-breadcrumbs-item',
+  },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
