@@ -17,7 +17,7 @@
 
 .dt-cta-card-text-wrapper {
   max-width: 580px;
-  margin: 0 0 20px;
+  margin: 0 0 $card-footer-actions-spacing;
 }
 
 :host ::ng-deep .dt-cta-card-title-actions,
