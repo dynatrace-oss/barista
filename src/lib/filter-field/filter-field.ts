@@ -244,6 +244,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   _handleTagRemove(event: DtFilterFieldTagEvent): void {
     if (event.node) {
       this._nodesHost.removeNode(event.node);
+      this._emitChangeEvent();
     }
   }
 
