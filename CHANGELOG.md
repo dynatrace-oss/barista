@@ -1,3 +1,11 @@
+## 1.6.1 (2019-01-25)
+
+
+### Bug Fixes
+
+* **breadcrumbs:** fixes issue where arrow is not styled correctly 
+* **filter-field:** fixes change event not beeing emitted when removing node ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 1.6.0 (2019-01-24)
 
 ### Bug Fixes
