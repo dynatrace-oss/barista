@@ -44,6 +44,7 @@ export class DevApp {
     { name: 'Tabs', route: '/tabs' },
     { name: 'Tag', route: '/tag' },
     { name: 'Tile', route: '/tile' },
+    { name: 'Toggle-button-group', route: '/toggle-button-group' },
     { name: 'Toast', route: '/toast' },
     { name: 'TreeTable', route: '/tree-table' },
   ];

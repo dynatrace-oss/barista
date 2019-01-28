@@ -40,6 +40,7 @@ import { TagDemo } from './tag/tag-demo.component';
 import { TileDemo } from './tile/tile-demo.component';
 import { ToastDemo } from './toast/toast-demo.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
+import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
@@ -81,6 +82,7 @@ const routes: Routes = [
   { path: 'tile', component: TileDemo },
   { path: 'toast', component: ToastDemo },
   { path: 'tree-table', component: TreeTableDemo },
+  { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
 ];
 
 @NgModule({
