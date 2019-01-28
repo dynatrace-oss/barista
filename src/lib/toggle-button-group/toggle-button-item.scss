@@ -1,0 +1,59 @@
+@import '../core/style/variables';
+@import '../style/font-mixins';
+@import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './toggle-button-item-theme';
+
+:host {
+  @include main-font();
+  appearance: none;
+  display: inline-flex;
+  position: relative;
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+  align-items: center;
+  cursor: pointer;
+
+  border-radius: 3px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $gray-200;
+}
+
+:host:not([disabled]):focus {
+  @include dt-focus-style();
+}
+
+:host.dt-toggle-button-item-disabled ::ng-deep .dt-toggle-button-item-icon {
+  background-color: $gray-300;
+}
+
+.dt-toggle-button-item-content {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/** Left icon */
+:host ::ng-deep .dt-toggle-button-item-icon {
+  height: 52px;
+  width: 52px;
+  display: flex;
+  margin-top: -1px;
+  margin-left: -1px;
+  margin-bottom: -1px;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+:host ::ng-deep .dt-icon {
+  fill: #ffffff;
+  width: 32px;
+  height: 32px;
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-toggle-button-item($dt-current-theme);
+}
