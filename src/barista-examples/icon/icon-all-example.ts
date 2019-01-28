@@ -5,7 +5,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnDestroy,
-  OnInit,
   ViewChild,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -52,11 +51,10 @@ export class DocsAsyncIcon implements OnDestroy {
 
 @Component({
   moduleId: module.id,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <input #input type="text" dtInput placeholder="Filter by" (input)="deferUpdateSubscription()"/>
+    <input #input type="text" dtInput placeholder="Filter by" (input)="_onInputChange($event)"/>
     <div class="all-icons-container">
-      <docs-async-icon *ngFor="let name of icons; let i = index" [name]="name" [show]="i < 25"></docs-async-icon>
+      <docs-async-icon *ngFor="let name of _icons; let i = index" [name]="name" [show]="i < 25"></docs-async-icon>
     </div>`,
   styles: [
     `.all-icons-container {
@@ -69,36 +67,41 @@ export class DocsAsyncIcon implements OnDestroy {
     'docs-async-icon { display: inline-block; padding: 1.5rem; text-align: center; }',
   ],
 })
-export class AllIconExample implements OnInit {
+export class AllIconExample implements OnDestroy {
 
   @ViewChild('input') _inputEl: ElementRef;
+  _icons: string[];
+
+  private _iconData: string[];
   private _iconSubscription: Subscription = Subscription.EMPTY;
-  private _timeout: number;
-  @Input() icons: string[];
+
   constructor(private _httpClient: HttpClient, private changeDetector: ChangeDetectorRef) {
-  }
-
-  ngOnInit(): void {
-    this.updateSubscription();
-  }
-
-  deferUpdateSubscription(): void {
-    clearTimeout(this._timeout);
-    // tslint:disable-next-line: no-magic-numbers
-    this._timeout = setTimeout(() => this.updateSubscription(), 200);
-  }
-
-  private updateSubscription(): void {
-    const filterText = this._inputEl.nativeElement.value || '';
-    this._iconSubscription.unsubscribe();
     this._iconSubscription = this._httpClient
       .get('/assets/icons/metadata.json')
       .pipe(
         map((res: { icons: string[] }) => res.icons)
       )
       .subscribe((icons: string[]) => {
-        this.icons = icons.filter((value: string) => filterText === '' || value.indexOf(filterText) !== -1);
-        this.changeDetector.detectChanges();
+        this._iconData = icons;
+        this._applyFilter();
       });
+  }
+
+  ngOnDestroy(): void {
+    this._iconSubscription.unsubscribe();
+  }
+
+  _onInputChange(event: Event): void {
+    // We always have to stop propagation on the change event.
+    // Otherwise the change event, from the input element, will bubble up and
+    // emit its event object to the `change` output.
+    event.stopPropagation();
+    this._applyFilter();
+  }
+
+  private _applyFilter(): void {
+    const filterText = this._inputEl.nativeElement.value || '';
+    this._icons = this._iconData.filter((value: string) => filterText === '' || value.indexOf(filterText) !== -1)
+    this.changeDetector.detectChanges();
   }
 }
