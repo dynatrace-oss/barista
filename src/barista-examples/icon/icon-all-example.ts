@@ -73,7 +73,7 @@ export class AllIconExample implements OnInit {
 
   @ViewChild('input') _inputEl: ElementRef;
   private _iconSubscription: Subscription = Subscription.EMPTY;
-  private _timeout;
+  private _timeout: number;
   @Input() icons: string[];
   constructor(private _httpClient: HttpClient, private changeDetector: ChangeDetectorRef) {
   }
