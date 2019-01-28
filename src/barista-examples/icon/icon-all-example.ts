@@ -82,7 +82,7 @@ export class AllIconExample implements OnInit {
     this.updateSubscription();
   }
 
-  private deferUpdateSubscription(): void {
+  deferUpdateSubscription(): void {
     clearTimeout(this._timeout);
     // tslint:disable-next-line: no-magic-numbers
     this._timeout = setTimeout(() => this.updateSubscription(), 200);
