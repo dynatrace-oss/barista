@@ -27,6 +27,7 @@ import { DtAutocompleteModule } from '@dynatrace/angular-components/autocomplete
 import { DtTreeControl, DtTreeFlattener, DtTreeDataSource } from '@dynatrace/angular-components/core';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
+import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
 
 const TESTDATA: ThreadNode[] = [
   {
@@ -201,6 +202,7 @@ export class KitchenSink {
     DtInputModule,
     DtOverlayModule,
     DtTreeTableModule,
+    DtToggleButtonGroupModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],

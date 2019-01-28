@@ -48,6 +48,7 @@ import { ChartHighchartsUI } from './chart/chart-highcharts-ui';
 import { DtSelectionAreaModule } from '@dynatrace/angular-components';
 import { ChartSelectionAreaUI } from './chart/chart-selection-area-ui';
 import { DrawerUI } from './drawer/drawer-ui';
+import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.

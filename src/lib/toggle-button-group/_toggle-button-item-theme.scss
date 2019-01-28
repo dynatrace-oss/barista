@@ -1,0 +1,38 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+
+@mixin dt-theme-toggle-button-item($theme) {
+  $palette: dt-get-theme-palette($theme, 'main');
+  $default-color: dt-get-theme-color($palette, 'default');
+  $hover-color: dt-get-theme-color($palette, 'hover');
+  $active-color: dt-get-theme-color($palette, 'active');
+
+  $namespace: ':host';
+
+  #{$namespace} ::ng-deep .dt-toggle-button-item-icon {
+    background-color: $default-color;
+  }
+
+  /* Hover state */
+  #{$namespace}:hover ::ng-deep .dt-toggle-button-item-icon,
+  #{$namespace}:hover.dt-toggle-button-item-selected ::ng-deep .dt-toggle-button-item-icon {
+    background-color: $hover-color;
+  }
+
+  /* Active state */
+  #{$namespace}.dt-toggle-button-item-selected {
+    border-color: $active-color;
+  }
+  #{$namespace}.dt-toggle-button-item-selected ::ng-deep .dt-toggle-button-item-icon {
+    background-color: $active-color;
+  }
+
+  /* Disabled state */
+  #{$namespace}.dt-toggle-button-item-disabled {
+    color: $gray-300;
+  }
+
+  #{$namespace}.dt-toggle-button-item-disabled ::ng-deep .dt-toggle-button-item-icon {
+    background-color: $gray-300;
+  }
+}
