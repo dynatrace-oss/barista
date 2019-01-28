@@ -1,0 +1,106 @@
+
+<h2>Default toggle button group</h2>
+<p>|{{ group1.value }}|</p>
+<div>
+  <dt-toggle-button-group #group1 (change)="handleSelectionChange($event)">
+    <button dt-toggle-button-item value="1">
+      One
+      <dt-toggle-button-item-icon>
+        <dt-icon name="agent"></dt-icon>
+      </dt-toggle-button-item-icon>
+    </button>
+    <button dt-toggle-button-item value="2">
+      Two
+      <dt-toggle-button-item-icon>
+        <dt-icon name="agent"></dt-icon>
+      </dt-toggle-button-item-icon>
+    </button>
+    <button dt-toggle-button-item value="3">
+      Three
+      <dt-toggle-button-item-icon>
+        <dt-icon name="agent"></dt-icon>
+      </dt-toggle-button-item-icon>
+    </button>
+  </dt-toggle-button-group>
+</div>
+
+<h2>Toggle button group with preset selected and disabled</h2>
+<div>
+  <dt-toggle-button-group>
+    <button dt-toggle-button-item value="1" selected>
+      One
+      <dt-toggle-button-item-icon>
+        <dt-icon name="agent"></dt-icon>
+      </dt-toggle-button-item-icon>
+    </button>
+    <button dt-toggle-button-item value="2" disabled>
+      Two
+      <dt-toggle-button-item-icon>
+        <dt-icon name="agent"></dt-icon>
+      </dt-toggle-button-item-icon>
+    </button>
+    <button dt-toggle-button-item value="3">
+      Three
+      <dt-toggle-button-item-icon>
+        <dt-icon name="agent"></dt-icon>
+      </dt-toggle-button-item-icon>
+    </button>
+  </dt-toggle-button-group>
+</div>
+
+<h2>Toggle button group with selected and disabled preset to the same item</h2>
+<p>|{{ group3.value }}|</p>
+<div>
+  <dt-toggle-button-group #group3>
+    <button dt-toggle-button-item value="1" selected disabled>
+      One
+      <dt-toggle-button-item-icon>
+        <dt-icon name="agent"></dt-icon>
+      </dt-toggle-button-item-icon>
+    </button>
+    <button dt-toggle-button-item value="2">
+      Two
+      <dt-toggle-button-item-icon>
+        <dt-icon name="agent"></dt-icon>
+      </dt-toggle-button-item-icon>
+    </button>
+    <button dt-toggle-button-item value="3">
+      Three
+      <dt-toggle-button-item-icon>
+        <dt-icon name="agent"></dt-icon>
+      </dt-toggle-button-item-icon>
+    </button>
+  </dt-toggle-button-group>
+</div>
+
+<h2>Toggle button group with dynamic items</h2>
+<dt-toggle-button-group #group4>
+  <button dt-toggle-button-item *ngFor="let item of items" [value]="item">
+    <dt-toggle-button-item-icon>
+      <dt-icon name="agent"></dt-icon>
+    </dt-toggle-button-item-icon>
+    {{item}}
+  </button>
+</dt-toggle-button-group>
+<div style="margin-top: 16px;">
+  <button dt-button (click)="addItem()">Add item</button>
+  <button dt-button (click)="removeItem()">Remove item</button>
+</div>
+<div style="margin-top: 16px;">Current value: "{{group4.value}}"</div>
+
+
+<h2>Toggle button group in a grid with load more</h2>
+
+<dt-toggle-button-group #group5 class="dt-toggle-button-grid">
+  <button dt-toggle-button-item *ngFor="let item of loadMoreItems" [value]="item">
+    <dt-toggle-button-item-icon>
+      <dt-icon name="agent"></dt-icon>
+    </dt-toggle-button-item-icon>
+    {{item}}
+  </button>
+  <div class="loadmorecontainer" *ngIf="hasMoreItems">
+    <a class="dt-link" (click)="handleLoadMoreItems()">Show more</a>
+  </div>
+</dt-toggle-button-group>
+
+<div style="margin-top: 16px;">Current value: "{{group5.value}}"</div>
