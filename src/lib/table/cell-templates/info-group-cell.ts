@@ -12,7 +12,7 @@ export class DtInfoGroupCellIcon {}
   selector: 'dt-info-group-cell-title',
   host: {
     class: 'dt-info-group-cell-title',
-  }
+  },
 })
 export class DtInfoGroupCellTitle {}
 

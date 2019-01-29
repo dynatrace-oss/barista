@@ -31,8 +31,8 @@ export class DtRowDef<T> extends CdkRowDef<T> { }
 /** Header template container that contains the cell outlet. Adds the right class and role. */
 @Component({
   moduleId: module.id,
-  selector: 'dt-header-row, tr[dt-header-row]',
-  template: '<ng-container cdkCellOutlet></ng-container>',
+  selector: 'dt-header-row',
+  template: CDK_ROW_TEMPLATE,
   styleUrls: ['./scss/header-row.scss'],
   host: {
     class: 'dt-header-row',

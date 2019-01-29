@@ -1,10 +1,11 @@
 @import '../core/style/variables';
+@import '../style/font-mixins';
+@import '../table/scss/table-mixins';
 
 :host {
   display: table-cell;
 
-  // TOOD: move to mixin
-  font-size: 12px;
+  @include label-font();
   vertical-align: bottom;
   overflow: hidden;
   border-right: 2px solid transparent;
@@ -34,36 +35,12 @@
   border-right-width: 12px;
 }
 
- .dt-tree-table-header-cell-wrap:before {
-  content: "";
-  width: 100vw;
-  position: absolute;
+.dt-tree-table-header-cell-wrap::before {
   right: 100%;
-  bottom: 4px;
-  margin: 0 3px;
-  border-bottom: 1px solid $gray-200;
+  @include dt-header-bottom-line-table();
 }
 
-:host.dt-table-column-align-right, :host.dt-table-column-align-center { 
-  .dt-tree-table-header-cell-wrap:before {
-    content: "";
-    width: 100vw;
-    position: absolute;
-    right: 100%;
-    bottom: 4px;
-    margin: 0 3px;
-    border-bottom: 1px solid $gray-200;
-  }
-}
-
-:host, :host.dt-table-column-align-center {
-  .dt-tree-table-header-cell-wrap:after {
-    content: "";
-    width: 100vw;
-    position: absolute;
-    left: 100%;
-    bottom: 4px;
-    margin: 0 3px;
-    border-bottom: 1px solid $gray-200;
-  }
+.dt-tree-table-header-cell-wrap::after {
+  left: 100%;
+  @include dt-header-bottom-line-table();
 }

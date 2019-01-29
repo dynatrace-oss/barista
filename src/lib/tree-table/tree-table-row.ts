@@ -1,9 +1,6 @@
-import { Component, ElementRef, Input, SkipSelf, NgZone } from '@angular/core';
+import { Component, ElementRef, Input, SkipSelf } from '@angular/core';
 import { DtRow } from '@dynatrace/angular-components/table';
 import { CdkRow } from '@angular/cdk/table';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { readKeyCode } from '@dynatrace/angular-components/core';
-import { ENTER } from '@angular/cdk/keycodes';
 import { DtTreeTable } from './tree-table';
 
 @Component({
@@ -31,30 +28,19 @@ export class DtTreeTableRow<T> extends DtRow {
     this._data = data;
   }
 
+  /** @internal Wether the row is expanded/collapsed */
   get _isExpanded(): boolean {
     return this._treeTable.treeControl.isExpanded(this._data);
   }
 
+  /** @internal The level for the row */
   get _level(): number {
     return this._treeTable.treeControl.getLevel(this._data);
   }
 
   private _data: T;
 
-  private _hasFocus = false;
-
-  constructor(elementRef: ElementRef, private _focusMonitor: FocusMonitor, private _ngZone: NgZone, @SkipSelf() private _treeTable: DtTreeTable<T>) {
+  constructor(elementRef: ElementRef, @SkipSelf() private _treeTable: DtTreeTable<T>) {
     super(elementRef);
-  }
-
-  ngOnInit(): void {
-    this._focusMonitor.monitor(this._elementRef).subscribe(() => {
-      this._ngZone.run(() => {
-        this._hasFocus = true;
-      })});
-  }
-
-  ngOnDestroy(): void {
-    this._focusMonitor.stopMonitoring(this._elementRef);
   }
 }

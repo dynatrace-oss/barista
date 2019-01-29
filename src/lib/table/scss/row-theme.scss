@@ -1,21 +1,14 @@
 @import '../../core/theming/theming';
 
 @mixin dt-theme-row($theme) {
-  $indicator-palette-names: 'error', 'warning';
+  $palette-names: 'error', 'warning';
 
-  @each $name in $indicator-palette-names {
+  @each $name in $palette-names {
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
 
     :host.dt-table-row-indicator.dt-color-#{$name}::before {
       background-color: $default-color;
     }
-  }
-
-  $selectable-palette: dt-get-theme-palette($theme, 'main');
-  $default-color: dt-get-theme-color($selectable-palette, 'default');
-
-  :host-context(.dt-color-main.dt-table-selectable-rows) ::ng-deep .dt-table-row {
-    border: 1px solid $default-color;
   }
 }
