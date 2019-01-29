@@ -4,19 +4,17 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   ElementRef,
-  ContentChildren,
-  AfterContentInit,
-  QueryList,
   ChangeDetectorRef,
   OnDestroy,
   EventEmitter,
   Output,
   NgZone,
   Input,
+  AfterViewInit,
 } from '@angular/core';
-import { switchMap, map, takeUntil, filter, startWith } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
 import { readKeyCode, isDefined } from '@dynatrace/angular-components/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -31,19 +29,28 @@ import {
 } from './nodes/filter-field-nodes';
 import { DtFilterFieldNodesHost } from './nodes/filter-field-nodes-host';
 import { DtFilterFieldTagEvent } from './filter-field-tag/filter-field-tag';
+import {
+  DtFilterFieldDataSource,
+  DtFilterFieldViewer,
+  DtFilterFieldData,
+  DtFilterFieldAutocompleteGroup,
+  DtFilterFieldAutocompleteOption,
+  isDtFilterFieldAutocompleteData,
+  isDtFilterFieldFreeTextData
+} from './data-source/filter-field-data-source';
 
 export class DtActiveFilterChangeEvent {
   constructor(
     public rootNodes: DtFilterFieldNode[],
     public activeNode: DtFilterFieldNode | null,
     public path: DtFilterFieldGroupNode[] = [],
-    public source: DtFilterField
+    // tslint:disable-next-line: no-any
+    public source: DtFilterField<any>
   ) { }
 
   submitActiveFilter(viewValue?: string): void {
     if (this.activeNode) {
-      this.activeNode.viewValue = viewValue;
-      this.source._finishCurrentNode();
+      this.source.submitFilter(viewValue);
     }
   }
 }
@@ -63,10 +70,22 @@ export class DtActiveFilterChangeEvent {
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtFilterField implements AfterContentInit, OnDestroy {
+export class DtFilterField<T> implements AfterViewInit, OnDestroy, DtFilterFieldViewer<T> {
 
   /** Label for the filter field. Will be placed next to the filter icon. */
   @Input() label = '';
+
+  @Input()
+  get dataSource(): DtFilterFieldDataSource<T> { return this._dataSource; }
+  set dataSource(dataSource: DtFilterFieldDataSource<T>) {
+    if (this._dataSource !== dataSource) {
+      this._switchDataSource(dataSource);
+    }
+  }
+  private _dataSource: DtFilterFieldDataSource<T>;
+
+  /** Current partial/slice of the whole data object in the data source */
+  _data: DtFilterFieldData;
 
   /** Emits an event with the current value of the input field everytime the user types. */
   @Output() inputChange = new EventEmitter<string>();
@@ -77,6 +96,8 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
    */
   @Output() activeFilterChange = new EventEmitter<DtActiveFilterChangeEvent>();
 
+  dataStateChanges = new Subject<any>();
+
   /** @internal Reference to the internal input element */
   @ViewChild('input') _inputEl: ElementRef;
 
@@ -84,7 +105,10 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   @ViewChild(DtAutocompleteTrigger) _autocompleteTrigger: DtAutocompleteTrigger<any>;
 
   /** @internal Querylist of the autocompletes provided by ng-content */
-  @ContentChildren(DtAutocomplete) _autocompletes: QueryList<DtAutocomplete<any>>;
+  @ViewChild(DtAutocomplete) _autocomplete: DtAutocomplete<any>;
+
+  /** Data subscription */
+  private _dataSubscription: Subscription | null;
 
   /** @internal Filter nodes that are rendered _before_ the input element. */
   get _prefixNodes(): DtFilterFieldNode[] {
@@ -104,10 +128,13 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     return lastProperty ? ` ${(lastProperty as DtFilterFieldValueProperty<any>).toString()}:` : '';
   }
 
+  get _autocompleteOptionsOrGroups(): Array<DtFilterFieldAutocompleteGroup | DtFilterFieldAutocompleteOption> {
+    return isDtFilterFieldAutocompleteData(this._data) ? this._data.optionsOrGroups :
+      (isDtFilterFieldFreeTextData(this._data) ? this._data.suggestions || [] : []);
+  }
+
   _nodesHost = new DtFilterFieldNodesHost();
   _currentNode: DtFilterFieldFilterNode | null = null;
-  // tslint:disable-next-line:no-any
-  _autocomplete: DtAutocomplete<any> | null = null;
 
   /** @internal Value of the input element. */
   _inputValue = '';
@@ -125,42 +152,22 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     private _elementRef: ElementRef
   ) { }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     // Monitoring the host element and every focusable child element on focus an blur events.
     // This is necessary so we can detect and restore focus after the input type has been changed.
     this._focusMonitor.monitor(this._elementRef.nativeElement, true)
       .pipe(takeUntil(this._destroy))
       .subscribe((origin) => { this._isFocused = isDefined(origin); });
 
-    // There should always be only one autocomplete active/provided at a time.
-    // If there are more we will take the first one.
-    // Note: We could of course use @ContentChild for this use-case, but when using
-    // @ContentChildren it is more easily for us to track the autocomplete changes.
-    const autocomplete$ = this._autocompletes.changes.pipe(
-      startWith(null),
-      map(() => this._autocompletes.length ? this._autocompletes.first : null));
-
-    autocomplete$.pipe(takeUntil(this._destroy)).subscribe((autocomplete) => {
-      if (this._autocomplete !== autocomplete) {
-        this._autocomplete = autocomplete;
-        this._changeDetectorRef.markForCheck();
-      }
-    });
-
-    // Subscribing to the optionSelected events of the provided and active autocomplete
-    autocomplete$.pipe(
-      takeUntil(this._destroy),
-      filter((autocomplete) => autocomplete !== null),
-      // tslint:disable-next-line:no-any
-      switchMap((autocomplete: DtAutocomplete<any>) => autocomplete.optionSelected))
-      // tslint:disable-next-line:no-any
+    // tslint:disable-next-line:no-any
+    this._autocomplete.optionSelected
       .subscribe((event: DtAutocompleteSelectedEvent<any>) => { this._handleAutocompleteSelected(event); });
 
     this._zone.onStable.pipe(takeUntil(this._destroy)).subscribe(() => {
       if (this._isFocused) {
-        if (this._autocomplete && this._autocompleteTrigger) {
+        if (this._data && this._data.dataType === 'autocomplete') {
           // When the autocomplete closes after the user has selected an option
-          // or a new autocomplete has been provided we need to open it.
+          // and the new data is also displayed in an autocomlete we need to open it again.
           // Note: Also trigger openPanel if it already open, so it does a reposition and resize
           this._autocompleteTrigger.openPanel();
         }
@@ -175,6 +182,16 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+
+    if (this._dataSource) {
+      this._dataSource.disconnect();
+    }
+
+    if (this._dataSubscription) {
+      this._dataSubscription.unsubscribe();
+      this._dataSubscription = null;
+    }
+
     this._destroy.next();
     this._destroy.complete();
   }
@@ -187,9 +204,11 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     }
   }
 
-  /** @internal */
-  _finishCurrentNode(): void {
+  submitFilter(viewValue?: string): void {
     if (this._currentNode) {
+      if (typeof viewValue === 'string') {
+        this._currentNode.viewValue = viewValue;
+      }
       this._currentNode = null;
     }
   }
@@ -209,10 +228,15 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
 
   /** @internal Keep track of the values in the input fields. Write the current value to the _inputValue property */
   _handleInputChange(event: Event): void {
-    const value = event.srcElement instanceof HTMLInputElement ? event.srcElement.value : this._inputValue;
+    const value = event.target instanceof HTMLInputElement ? event.target.value : this._inputValue;
     if (value !== this._inputValue) {
       this._inputValue = value;
       this.inputChange.emit(value);
+
+      if (this._dataSource) {
+        this._dataSource.autocompleteFilter = value;
+      }
+
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -224,10 +248,12 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       if (this._currentNode) {
         this._nodesHost.removeNode(this._currentNode);
         this._currentNode = null;
+        this._resetDataSource();
         this._emitChangeEvent();
       } else if (this._prefixNodes.length) {
         const node = this._prefixNodes[this._prefixNodes.length - 1];
         this._nodesHost.removeNode(node);
+        this._resetDataSource();
         this._emitChangeEvent();
       }
     }
@@ -236,14 +262,15 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
   /** @internal */
   _handleInputKeyUp(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
-    if (keyCode === ENTER && this._inputValue.length && !this._autocomplete) {
-     this._handleFreeTextSubmitted();
+    if (keyCode === ENTER && this._inputValue.length) {
+      this._handleFreeTextSubmitted();
     }
   }
 
   _handleTagRemove(event: DtFilterFieldTagEvent): void {
     if (event.node) {
       this._nodesHost.removeNode(event.node);
+      this._resetDataSource();
       this._emitChangeEvent();
     }
   }
@@ -272,10 +299,11 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     this._writeInputValue('');
 
     // Clear any previous selected option.
-    this._autocomplete!.options.forEach((option) => {
+    this._autocomplete.options.forEach((option) => {
       if (option.selected) { option.deselect(); }
     });
 
+    this.dataStateChanges.next(event.option.value);
     this._emitChangeEvent();
     this._changeDetectorRef.markForCheck();
   }
@@ -285,6 +313,7 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     this._addPropertyToCurrentFilterNode(property);
 
     this._writeInputValue('');
+    this._resetDataSource();
     this._emitChangeEvent();
     this._changeDetectorRef.markForCheck();
   }
@@ -295,6 +324,9 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
     this._inputEl && (this._inputEl.nativeElement.value = value);
     if (this._inputValue !== value) {
       this._inputValue = value;
+      if (this._dataSource) {
+        this._dataSource.autocompleteFilter = value;
+      }
       this.inputChange.emit(value);
       this._changeDetectorRef.markForCheck();
     }
@@ -327,5 +359,31 @@ export class DtFilterField implements AfterContentInit, OnDestroy {
       throw new Error(`Cannot add property to current node because the node's type is not DtFilterFieldFilterNode`);
     }
     currentNode.properties.push(property);
+  }
+
+  private _switchDataSource(dataSource: DtFilterFieldDataSource<T>): void {
+    if (this._dataSource) {
+      this._dataSource.disconnect();
+    }
+
+    if (this._dataSubscription) {
+      this._dataSubscription.unsubscribe();
+      this._dataSubscription = null;
+    }
+
+    this._dataSource = dataSource;
+    const dataStream = this._dataSource.connect(this);
+
+    this._dataSubscription = dataStream.pipe(takeUntil(this._destroy)).subscribe((data) => {
+      this._data = data;
+      this._changeDetectorRef.markForCheck();
+    });
+  }
+
+  private _resetDataSource(): void {
+    if (this._dataSource) {
+      // Send an empty object to data source so it does a reset and falls back to the all data object.
+      this.dataStateChanges.next({});
+    }
   }
 }

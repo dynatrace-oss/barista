@@ -1,4 +1,4 @@
-import { isDefined, isEmpty, isNumber } from './type-util';
+import { isDefined, isEmpty, isNumber, isObject } from './type-util';
 
 describe('TypeUtil', () => {
 
@@ -106,6 +106,44 @@ describe('TypeUtil', () => {
       expect(isNumber(() => {})).toBeFalsy();
       expect(isNumber(A)).toBeFalsy();
       expect(isNumber(new A())).toBeFalsy();
+    });
+  });
+
+  fdescribe('isObject', () => {
+    it('should be true if the value is an Object', () => {
+      expect(isObject({})).toBeTruthy();
+      expect(isObject(new Object())).toBeTruthy();
+      // tslint:disable-next-line: prefer-object-spread
+      expect(isObject(Object.assign({}))).toBeTruthy();
+    });
+    it('should be false if the value is an array', () => {
+      expect(isObject(new Array(1))).toBeFalsy();
+      expect(isObject([])).toBeFalsy();
+    });
+    it('should be false if the value is undefined or null', () => {
+      expect(isObject(void 0)).toBeFalsy();
+      expect(isObject(undefined)).toBeFalsy();
+      expect(isObject(null)).toBeFalsy();
+    });
+    it('should be false if the value is a number', () => {
+      expect(isObject(-1)).toBeFalsy();
+      expect(isObject(0)).toBeFalsy();
+      expect(isObject(1)).toBeFalsy();
+    });
+    it('should be false if the value is a string', () => {
+      expect(isObject('')).toBeFalsy();
+      expect(isObject('0')).toBeFalsy();
+      expect(isObject('random')).toBeFalsy();
+    });
+    it('should be false if the value is a symbol', () => {
+      expect(isObject(Symbol('foo'))).toBeFalsy();
+    });
+    it('should be false if the value is a boolean', () => {
+      expect(isObject(true)).toBeFalsy();
+      expect(isObject(false)).toBeFalsy();
+    });
+    it('should be false if the value is a symbol', () => {
+      expect(isEmpty(Symbol('foo'))).toBeFalsy();
     });
   });
 });

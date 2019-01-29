@@ -1,21 +1,9 @@
 import { Component } from '@angular/core';
-import { FILTER_FIELD_EXAMPLE_DATA, ComplexType, isAutocomplete, getViewValue, AutocompleteItemType, isGroup, ItemType, isFreeText } from './data';
-import { DtActiveFilterChangeEvent, DtFilterFieldFilterNode, DtFilterFieldValueProperty } from '@dynatrace/angular-components/filter-field';
+import { EXAMPLE_DATA } from './data';
+import { KUBERNETES_DATA } from './kubernetes-data';
+import { DtActiveFilterChangeEvent, DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components';
 
-function filterItems(items: AutocompleteItemType[], needle: string): AutocompleteItemType[] {
-  if (needle.length) {
-    const neeldeUC = needle.toLocaleUpperCase();
-    return items
-      .map((item: AutocompleteItemType) => isGroup(item) ? {
-        name: item.name,
-        // tslint:disable-next-line:no-any
-        group: filterItems(item.group, needle) as any[],
-      } : item)
-      .filter((item: AutocompleteItemType) =>
-        (isGroup(item) ? !!item.group.length : getViewValue(item).toUpperCase().indexOf(neeldeUC) !== -1));
-  }
-  return items;
-}
+const DATA_SETS = new Map<string, any>([['EXAMPLE_DATA', EXAMPLE_DATA],['KUBERNETES_DATA', KUBERNETES_DATA]])
 
 @Component({
   selector: 'filter-field-demo',
@@ -23,37 +11,16 @@ function filterItems(items: AutocompleteItemType[], needle: string): Autocomplet
   styleUrls: ['./filter-field-demo.component.scss'],
 })
 export class FilterFieldDemo {
-  _inputValue = '';
 
-  private _currentItem: ComplexType | null = FILTER_FIELD_EXAMPLE_DATA;
+  get dataSourceNames(): string[] { return Array.from(DATA_SETS.keys()); }
 
-  get filteredAutocompleteItems(): AutocompleteItemType[] | null {
-    if (isAutocomplete(this._currentItem)) {
-      return filterItems(this._currentItem.autocomplete, this._inputValue);
-    } else if (isFreeText(this._currentItem) && this._currentItem.suggestions.length) {
-      return filterItems(this._currentItem.suggestions, this._inputValue);
-    }
-    return null;
+  get activeDataSourceName(): string { return this._activeDataSourceName; }
+  set activeDataSourceName(value: string) {
+    this._dataSource.data = DATA_SETS.get(value);
+    this._activeDataSourceName = value;
   }
+  private _activeDataSourceName = 'EXAMPLE_DATA';
 
-  // tslint:disable-next-line:no-any
-  displayFn = (value: any) => getViewValue(value);
+  _dataSource = new DtFilterFieldDefaultDataSource(EXAMPLE_DATA);
 
-  _handleActiveFilterChange(event: DtActiveFilterChangeEvent): void {
-    const activeNode = event.activeNode as DtFilterFieldFilterNode;
-    if (activeNode) {
-      if (activeNode.properties.length) {
-        const item = (activeNode.properties[activeNode.properties.length - 1] as DtFilterFieldValueProperty<ItemType>).value;
-        if (isAutocomplete(item)) {
-          this._currentItem = item;
-          return;
-        } else if (isFreeText(item)) {
-          this._currentItem = item;
-          return;
-        }
-      }
-      event.submitActiveFilter();
-    }
-    this._currentItem = FILTER_FIELD_EXAMPLE_DATA;
-  }
 }
