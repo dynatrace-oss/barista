@@ -14,13 +14,23 @@
     <input #input
       type="text"
       class="dt-filter-field-input"
-      [dtAutocomplete]="_autocomplete"
-      [dtAutocompleteDisabled]="!_autocomplete"
+      [disabled]="_data === null"
+      [dtAutocomplete]="autocomplete"
+      [dtAutocompleteDisabled]="!_data || _data!.dataType !== 'autocomplete'"
       (input)="_handleInputChange($event)"
       (keydown)="_handleInputKeyDown($event)"
       (keyup)="_handleInputKeyUp($event)"
       [value]="_inputValue">
-    <ng-content select="dt-autocomplete"></ng-content>
+    <dt-autocomplete #autocomplete="dtAutocomplete" [autoActiveFirstOption]="_data && _data!.dataType === 'autocomplete'">
+      <ng-container *ngFor="let optionOrGroup of _autocompleteOptionsOrGroups">
+        <dt-optgroup *ngIf="$any(optionOrGroup).options; else options" [label]="optionOrGroup.viewValue">
+          <dt-option *ngFor="let option of $any(optionOrGroup).options" [value]="option.data">{{option.viewValue}}</dt-option>
+        </dt-optgroup>
+        <ng-template #options>
+          <dt-option [value]=" $any(optionOrGroup).data">{{ optionOrGroup.viewValue}}</dt-option>
+        </ng-template>
+      </ng-container>
+    </dt-autocomplete>
   </div>
 
   <dt-filter-field-tag
