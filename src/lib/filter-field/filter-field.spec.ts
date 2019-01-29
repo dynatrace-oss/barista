@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TestBed, async, ComponentFixture, flushMicrotasks, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ENTER } from '@angular/cdk/keycodes';
-import { DtFilterFieldModule, DtFilterField, DtIconModule, DtAutocomplete } from '@dynatrace/angular-components';
+import { DtFilterFieldModule, DtFilterField, DtIconModule } from '@dynatrace/angular-components';
 import { typeInElement } from '../../testing/type-in-element';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 
@@ -135,9 +135,9 @@ describe('DtFilterField', () => {
     }));
 
     it('should open the autocomplete if filter field is focused', () => {
-      expect(fixture.componentInstance.autocomplete.first.isOpen).toBe(false);
+      expect(fixture.componentInstance.filterField._autocomplete.isOpen).toBe(false);
       fixture.componentInstance.filterField.focus();
-      expect(fixture.componentInstance.autocomplete.first.isOpen).toBe(true);
+      expect(fixture.componentInstance.filterField._autocomplete.isOpen).toBe(true);
     });
 
     it('should emit the inputChange event when typing into the input field with autocomplete', () => {
@@ -219,7 +219,7 @@ describe('DtFilterField', () => {
       flushMicrotasks();
 
       expect(document.activeElement).toBe(inputEl, 'input element should be focused again');
-      expect(fixture.componentInstance.autocomplete.first.isOpen).toBe(true);
+      expect(fixture.componentInstance.filterField._autocomplete.isOpen).toBe(true);
     }));
 
     it('should focus and open autocomplete after submitting a free text (freetext -> autocomplete)', fakeAsync(() => {
@@ -237,7 +237,7 @@ describe('DtFilterField', () => {
       fixture.detectChanges();
 
       expect(document.activeElement).toBe(inputEl, 'input element should be focused again');
-      expect(fixture.componentInstance.autocomplete.first.isOpen).toBe(true);
+      expect(fixture.componentInstance.filterField._autocomplete.isOpen).toBe(true);
     }));
 
     it('should focus the input element after selecting an option in autocomplete (autocomplete -> freetext)', fakeAsync(() => {
@@ -268,7 +268,7 @@ describe('DtFilterField', () => {
 })
 class DtFormFieldBasic {
   label = '';
-  @ViewChild(DtFilterField) filterField: DtFilterField;
+  @ViewChild(DtFilterField) filterField: DtFilterField<any>;
 }
 
 @Component({
@@ -281,8 +281,7 @@ class DtFormFieldBasic {
   `,
 })
 class DtFormFieldWithAutocomplete {
-  @ViewChild(DtFilterField) filterField: DtFilterField;
-  @ViewChildren(DtAutocomplete) autocomplete: QueryList<DtAutocomplete<number>>;
+  @ViewChild(DtFilterField) filterField: DtFilterField<any>;
 
   showAutocomplete = true;
 

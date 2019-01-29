@@ -1,38 +1,15 @@
-export interface ComplexType { name: string; value: string; }
-export type AutocompleteItemType = ItemType | ComplexType | string | GroupType;
-export interface AutocompleteType extends ComplexType { autocomplete: AutocompleteItemType[]; }
-export interface FreeTextType extends ComplexType { suggestions: AutocompleteItemType[]; }
-export interface GroupType { name: string; group: AutocompleteItemType[]; }
-export type ItemType = AutocompleteType | FreeTextType;
 
-// tslint:disable:no-any
-export function isAutocomplete(item: any | null): item is AutocompleteType {
-  return !!item &&  (typeof item === 'object' && Array.isArray((item as AutocompleteType).autocomplete));
-}
-
-export function isFreeText(item: any | null): item is FreeTextType {
-  return !!item &&  (typeof item === 'object' && Array.isArray((item as FreeTextType).suggestions));
-}
-
-export function isGroup(item: any | null): item is GroupType {
-  return !!item &&  (typeof item === 'object' && Array.isArray((item as GroupType).group));
-}
-// tslint:enable:no-any
-
-export function getViewValue(item: AutocompleteItemType): string {
-  return typeof item === 'string' ? item : item.name;
-}
-
-export const FILTER_FIELD_EXAMPLE_DATA: AutocompleteType = {
+export const EXAMPLE_DATA = {
   name: 'Category',
   value: 'category',
   autocomplete: [
     {
       name: 'Locations',
-      group: [
+      options: [
         {
           name: 'State',
           value: 'state',
+          distinct: true,
           autocomplete: [
             {
               name: 'Oberösterreich',
@@ -83,7 +60,7 @@ export const FILTER_FIELD_EXAMPLE_DATA: AutocompleteType = {
     },
     {
       name: 'Browsers',
-      group: [
+      options: [
         {
           name: 'Internet Explorer',
           value: 'IE',
@@ -92,12 +69,12 @@ export const FILTER_FIELD_EXAMPLE_DATA: AutocompleteType = {
         {
           name: 'Edge',
           value: 'IE',
-          autocomplete: ['12', '13', { name: 'Custom', value: 'custom-edge-version', suggestions: []}],
+          autocomplete: ['12', '13', { name: 'Custom', suggestions: []}],
         },
         {
           name: 'Chrome',
           value: 'IE',
-          autocomplete: ['Latest', { name: 'Custom', value: 'custom-chrome-version', suggestions: []}],
+          autocomplete: ['Latest', { name: 'Custom', suggestions: []}],
         },
       ],
     },
