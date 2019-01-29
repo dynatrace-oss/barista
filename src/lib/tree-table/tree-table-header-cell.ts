@@ -9,7 +9,6 @@ import { DtColumnDef, _setDtColumnCssClasses } from '@dynatrace/angular-componen
     class: 'dt-tree-table-header-cell',
   },
 })
-
 export class DtTreeTableHeaderCell {
   constructor(private _columnDef: DtColumnDef, private _elementRef: ElementRef) {
     _setDtColumnCssClasses(this._columnDef, this._elementRef);

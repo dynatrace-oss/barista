@@ -1,5 +1,6 @@
 @import '../../style/font-mixins';
 @import '../../core/style/variables';
+@import '../../core/style/table';
 @import 'table-mixins';
 
 ::ng-deep .dt-header-cell {
@@ -47,5 +48,3 @@
 :host-context(.dt-table-interactive-rows):hover {
   color: $gray-900;
 }
-
-

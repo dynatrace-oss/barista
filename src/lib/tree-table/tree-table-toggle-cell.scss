@@ -1,12 +1,12 @@
+:host {
+  display: table-cell;
+  padding-left: 4px;
+}
+
 .dt-tree-table-toggle {
   margin-right: 4px;
   margin-left: 4px;
   min-width: 32px;
-}
-
-:host {
-  display: table-cell;
-  padding-left: 4px;
 }
 
 .dt-tree-table-toggle-cell-wrap {
