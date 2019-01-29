@@ -4,9 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import {
   DtTreeTable,
   DtTreeTableModule,
-  DtTreeControl,
 } from '@dynatrace/angular-components/tree-table';
-import { DtTreeDataSource, DtTreeFlattener, DtIndicatorModule } from '@dynatrace/angular-components/core';
+import { DtTreeDataSource, DtTreeControl, DtTreeFlattener, DtIndicatorModule } from '@dynatrace/angular-components/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
