@@ -1,7 +1,7 @@
 import { DtCell, DtColumnDef } from '@dynatrace/angular-components/table';
 import { ChangeDetectionStrategy, ViewEncapsulation, Renderer2, ElementRef, SkipSelf, Component, ChangeDetectorRef, Input } from '@angular/core';
 import { DtTreeTableRow } from './tree-table-row';
-import { DtTreeControl } from './tree-table-control';
+import { DtTreeControl } from '@dynatrace/angular-components/core';
 import { DtTreeTable } from './tree-table';
 
 /** Cell template container that adds the right classes, role, and handles indentation */
@@ -19,6 +19,7 @@ import { DtTreeTable } from './tree-table';
   exportAs: 'dtTreeTableToggleCell',
 })
 export class DtTreeTableToggleCell<T> extends DtCell {
+  /** The aria label for the toggle button */
   @Input('aria-label') ariaLabel: string;
 
   /** @internal Wether the row is expanded */
@@ -30,23 +31,27 @@ export class DtTreeTableToggleCell<T> extends DtCell {
     return this._treeControl.isExpandable((this._row as DtTreeTableRow<T>).data);
   }
 
+  /** @internal the treecontrol registered on the tree-table */
   get _treeControl(): DtTreeControl<T> {
     return this._treeTable.treeControl;
   }
 
+  /** @internal The rowdata for the parent row */
   get _rowData(): T {
     return (this._row as DtTreeTableRow<T>).data;
   }
 
-  private _indent = 16;
+  /** @internal the padding for the cell */
   _padding: number | null;
+
+  private _indent = 16;
 
   constructor(
     _columnDef: DtColumnDef,
     _changeDetectorRef: ChangeDetectorRef,
     _renderer: Renderer2,
-    _elementRef: ElementRef<any>,
-    @SkipSelf() private _treeTable: DtTreeTable<T>,
+    _elementRef: ElementRef,
+    @SkipSelf() private _treeTable: DtTreeTable<T>
   ) {
     super(_columnDef, _changeDetectorRef, _renderer, _elementRef);
     // We need this settimeout here because we dont have the information about the row right away.
@@ -68,6 +73,4 @@ export class DtTreeTableToggleCell<T> extends DtCell {
     this._padding = this._paddingIndent();
     this._changeDetectorRef.markForCheck();
   }
-
-  
 }

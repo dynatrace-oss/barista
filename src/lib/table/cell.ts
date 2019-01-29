@@ -66,7 +66,7 @@ export class DtColumnDef extends CdkColumnDef {
 
 /** Header cell template container that adds the right classes and role. */
 @Directive({
-  selector: 'dt-header-cell, th[dt-header-cell]',
+  selector: 'dt-header-cell',
   host: {
     class: 'dt-header-cell',
     role: 'columnheader',
@@ -84,7 +84,7 @@ type IndicatorType = 'error' | 'warning';
 
 /** Cell template container that adds the right classes and role. */
 @Component({
-  selector: 'dt-cell, td[dt-cell]',
+  selector: 'dt-cell',
   template: '<ng-content></ng-content>',
   styleUrls: ['./scss/cell.scss'],
   host: {
@@ -159,7 +159,7 @@ export class DtCell {
       switchMap(() => merge(...this._indicators.map((indicator) => indicator._stateChanges))))
     .subscribe(() => { this._stateChanges.next(); });
 
-    Promise.resolve(true).then(() => { this._stateChanges.next(); });
+    Promise.resolve().then(() => { this._stateChanges.next(); });
   }
 
   ngOnDestroy(): void {

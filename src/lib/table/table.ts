@@ -18,6 +18,7 @@ import { DtRow } from './row';
 import { Subject } from 'rxjs';
 import { HasInteractiveRows, mixinHasInteractiveRows } from './interactive-rows';
 
+// tslint:disable-next-line:no-any
 export const _DtTableMixinBase = mixinHasInteractiveRows<any>(CdkTable);
 
 @Component({
@@ -51,7 +52,7 @@ export class DtTable<T> extends _DtTableMixinBase implements AfterContentChecked
     differs: IterableDiffers,
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
-    @Attribute('role') role: string,
+    @Attribute('role') role: string
   ) {
     super(differs, changeDetectorRef, elementRef, role);
   }
@@ -72,7 +73,5 @@ export class DtTable<T> extends _DtTableMixinBase implements AfterContentChecked
   }
 
   protected stickyCssClass = 'dt-table-sticky';
-
-  @ContentChildren(DtRow) _rows: QueryList<DtRow>;
 
 }

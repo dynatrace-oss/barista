@@ -1,9 +1,7 @@
 @import '../core/style/variables';
+@import '../core/style/table';
 @import '../core/theming/theming';
 @import 'tree-table-row-theme';
-
-//TODO: move to core
-$dt-row-height: 40px;
 
 :host {
   display: table-row;
@@ -11,31 +9,31 @@ $dt-row-height: 40px;
   min-height: $dt-row-height;
 
   &:nth-child(even) ::ng-deep .dt-cell {
-    background-color: #fff;
-    border-top: solid 1px #fff;
-    border-bottom: solid 1px #fff;
+    background-color: $row-color-even;
+    border-top: solid 1px $row-color-even;
+    border-bottom: solid 1px $row-color-even;
 
     &:last-child {
-      border-right: solid 1px #fff;
+      border-right: solid 1px $row-color-even;
     }
   }
 
   &:nth-child(even) ::ng-deep .dt-tree-toggle-cell {
-    border-left: solid 1px #fff;
+    border-left: solid 1px $row-color-even;
   }
 
   &:nth-child(odd) ::ng-deep .dt-cell {
-    background-color: $gray-100;
-    border-top: solid 1px $gray-100;
-    border-bottom: solid 1px $gray-100;
+    background-color: $row-color-odd;
+    border-top: solid 1px $row-color-odd;
+    border-bottom: solid 1px $row-color-odd;
 
     &:last-child {
-      border-right: solid 1px $gray-100;
+      border-right: solid 1px $row-color-odd;
     }
   }
 
   &:nth-child(odd) ::ng-deep .dt-tree-toggle-cell {
-    border-left: solid 1px $gray-100;
+    border-left: solid 1px $row-color-odd;
   }
 }
 
