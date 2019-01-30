@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, ViewEncapsulation, Renderer2, ElementRef, Skip
 import { DtTreeTableRow } from './tree-table-row';
 import { DtTreeControl } from '@dynatrace/angular-components/core';
 import { DtTreeTable } from './tree-table';
-// tslint:disable:dt-icon-names
 
 /** Cell template container that adds the right classes, role, and handles indentation */
 @Component({
