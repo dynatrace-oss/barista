@@ -20,8 +20,9 @@ export class Viewport {
     return this._change();
   }
 
-  refresh(): void {
-    this._refresher.next();
+  /** Recalculates the elements' visibility states and emit to corresponding streams */
+  refresh(el?: Element | ElementRef): void {
+    this._refresher.next(el);
   }
 
   /** Stream that emits when the element enters or leaves the viewport */
