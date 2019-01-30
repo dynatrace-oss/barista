@@ -1,4 +1,4 @@
-<div class="dt-tree-table-toggle-cell-wrap" [style.padding-left.px]="_padding">
+<div class="dt-tree-table-toggle-cell-wrap" #wrapper>
   <button class="dt-tree-table-toggle" dt-icon-button variant="nested" [disabled]="!_expandable" (click)="_treeControl.toggle(_rowData);" [attr.aria-label]="ariaLabel">
     <dt-icon *ngIf="_expandable" [name]="_isExpanded ? 'dropdownopen' : 'dropdownclosed'"></dt-icon>
     <dt-icon *ngIf="!_expandable"></dt-icon>
