@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { App, ROUTES } from './app.component';
+import { BaristaSideNav } from './side-nav.component';
 import { RouterModule } from '@angular/router';
 import { DtIconModule } from '@dynatrace/angular-components';
 import { environment } from './environments/environment';
@@ -35,6 +36,7 @@ const EXAMPLES = ${examples};
   declarations: [
     ...EXAMPLES,
     App,
+    BaristaSideNav,
   ],
   entryComponents: [
     App,
