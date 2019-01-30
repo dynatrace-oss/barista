@@ -93,6 +93,7 @@
 
     // Custom Rules
     "ts-loader": true,
-    "dt-docs-import-barista": true
+    "dt-docs-import-barista": true,
+    "dt-icon-names": false
   }
 }
