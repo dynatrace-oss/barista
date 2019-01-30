@@ -23,6 +23,7 @@ import { Viewport } from './viewport';
     </ng-container>
   `,
   styles: ['dt-icon { display: inline-block; width: 3rem; height: 3rem; }'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocsAsyncIcon implements OnDestroy {
   @Input() name: DtIconType;
