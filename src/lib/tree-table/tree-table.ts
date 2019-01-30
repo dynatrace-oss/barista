@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ChangeDetectorRef, ElementRef, Attribute, IterableDiffers, Optional } from '@angular/core';
 import { CdkTable } from '@angular/cdk/table';
 import { DtTreeControl } from '@dynatrace/angular-components/core';
-import { Directionality } from '@angular/cdk/bidi';
 import { mixinHasInteractiveRows, HasInteractiveRows } from '@dynatrace/angular-components/table';
 
 // tslint:disable-next-line:no-any
@@ -18,7 +17,7 @@ export const _DtTreeTableMixinBase = mixinHasInteractiveRows<any>(CdkTable);
     'role': 'treegrid',
     '[attr.aria-label]': 'ariaLabel',
   },
-  inputs: ['trackBy', 'interactiveRows'],
+  inputs: ['trackBy', 'interactiveRows', 'dataSource'],
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,

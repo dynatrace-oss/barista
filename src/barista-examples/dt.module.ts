@@ -39,6 +39,7 @@ import {
   DtThemingModule,
   DtTileModule,
   DtToastModule,
+  DtTreeTableModule,
 } from '@dynatrace/angular-components';
 
 const DT_MODULES = [
@@ -81,6 +82,7 @@ const DT_MODULES = [
   DtThemingModule,
   DtTileModule,
   DtToastModule,
+  DtTreeTableModule,
 ];
 
 /**
