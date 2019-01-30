@@ -1,8 +1,9 @@
 import { DtCell, DtColumnDef } from '@dynatrace/angular-components/table';
-import { ChangeDetectionStrategy, ViewEncapsulation, Renderer2, ElementRef, SkipSelf, Component, ChangeDetectorRef, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ViewEncapsulation, Renderer2, ElementRef, SkipSelf, Component, ChangeDetectorRef, Input, ViewChild } from '@angular/core';
 import { DtTreeTableRow } from './tree-table-row';
 import { DtTreeControl } from '@dynatrace/angular-components/core';
 import { DtTreeTable } from './tree-table';
+// tslint:disable:dt-icon-names
 
 /** Cell template container that adds the right classes, role, and handles indentation */
 @Component({
@@ -41,22 +42,22 @@ export class DtTreeTableToggleCell<T> extends DtCell {
     return (this._row as DtTreeTableRow<T>).data;
   }
 
-  /** @internal the padding for the cell */
-  _padding: number | null;
-
   private _indent = 16;
 
+  @ViewChild('wrapper') wrapperElement: ElementRef;
+
   constructor(
-    _columnDef: DtColumnDef,
-    _changeDetectorRef: ChangeDetectorRef,
-    _renderer: Renderer2,
-    _elementRef: ElementRef,
+    public _columnDef: DtColumnDef,
+    public _changeDetectorRef: ChangeDetectorRef,
+    private _renderer: Renderer2,
+    private _elementRef: ElementRef,
     @SkipSelf() private _treeTable: DtTreeTable<T>
   ) {
     super(_columnDef, _changeDetectorRef, _renderer, _elementRef);
-    // We need this settimeout here because we dont have the information about the row right away.
-    // So we need to wait for the next cycle to do the indentation
-    setTimeout(() => { this._setPadding(); });
+  }
+
+  ngAfterViewInit(): void {
+    this._setPadding();
   }
 
   /** The padding indent value for the tree node. Returns a padding left and a padding right value */
@@ -70,7 +71,7 @@ export class DtTreeTableToggleCell<T> extends DtCell {
   }
   /** Sets the padding on the cell */
   private _setPadding(): void {
-    this._padding = this._paddingIndent();
-    this._changeDetectorRef.markForCheck();
+    const padding = this._paddingIndent();
+    this._renderer.setStyle(this.wrapperElement.nativeElement, 'padding-left', `${padding}px`);
   }
 }
