@@ -17,13 +17,12 @@ import { Viewport } from './viewport';
   moduleId: module.id,
   selector: 'docs-async-icon',
   template: `
-    <ng-container *ngIf="_show">
-      <dt-icon [name]="name"></dt-icon>
+    <ng-container>
+      <dt-icon [name]="name" *ngIf="_show"></dt-icon>
       <p>{{name}}</p>
     </ng-container>
   `,
   styles: ['dt-icon { display: inline-block; width: 3rem; height: 3rem; }'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DocsAsyncIcon implements OnDestroy {
   @Input() name: DtIconType;
@@ -52,14 +51,13 @@ export class DocsAsyncIcon implements OnDestroy {
   template: `
     <input #input type="text" dtInput placeholder="Filter by" (input)="_onInputChange($event)"/>
     <div class="all-icons-container">
-      <docs-async-icon *ngFor="let name of _icons | async; let i = index" [name]="name"></docs-async-icon>
+      <docs-async-icon *ngFor="let name of _icons$ | async" [name]="name"></docs-async-icon>
     </div>`,
   styles: [
     `.all-icons-container {
       display: grid;
       grid-auto-columns: max-content;
       grid-gap: 10px;
-      max-width: 800px;
       grid-template-columns: repeat(auto-fill, minmax(min-content, 200px));
     }`,
     'docs-async-icon { display: inline-block; padding: 1.5rem; text-align: center; }',
@@ -70,11 +68,11 @@ export class DocsAsyncIcon implements OnDestroy {
 export class AllIconExample {
 
   @ViewChild('input') _inputEl: ElementRef;
-  _icons: Observable<string[]>;
+  _icons$: Observable<string[]>;
   private _filterValue = new BehaviorSubject<string>('');
 
   constructor(private _httpClient: HttpClient, viewport: Viewport) {
-    this._icons = combineLatest(
+    this._icons$ = combineLatest(
       this._httpClient
         .get('/assets/icons/metadata.json')
         .pipe(map((res: { icons: string[] }) => res.icons || [])),
