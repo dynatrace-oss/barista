@@ -8,8 +8,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, take } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { map, take, debounceTime, tap } from 'rxjs/operators';
+import { Subscription, BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import { Viewport } from './viewport';
 
@@ -17,7 +17,7 @@ import { Viewport } from './viewport';
   moduleId: module.id,
   selector: 'docs-async-icon',
   template: `
-    <ng-container *ngIf="show">
+    <ng-container *ngIf="_show">
       <dt-icon [name]="name"></dt-icon>
       <p>{{name}}</p>
     </ng-container>
@@ -27,19 +27,17 @@ import { Viewport } from './viewport';
 })
 export class DocsAsyncIcon implements OnDestroy {
   @Input() name: DtIconType;
-  @Input() show: boolean;
+  _show = false;
 
   private _viewportEnterSub: Subscription;
 
   constructor(viewport: Viewport, el: ElementRef, changeDetector: ChangeDetectorRef) {
-    if (!this.show) {
-      this._viewportEnterSub = viewport.elementEnter(el)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.show = true;
-          changeDetector.detectChanges();
-        });
-    }
+    this._viewportEnterSub = viewport.elementEnter(el)
+      .pipe(take(1))
+      .subscribe(() => {
+        this._show = true;
+        changeDetector.detectChanges();
+      });
   }
 
   ngOnDestroy(): void {
@@ -54,7 +52,7 @@ export class DocsAsyncIcon implements OnDestroy {
   template: `
     <input #input type="text" dtInput placeholder="Filter by" (input)="_onInputChange($event)"/>
     <div class="all-icons-container">
-      <docs-async-icon *ngFor="let name of _icons; let i = index" [name]="name" [show]="i < 25"></docs-async-icon>
+      <docs-async-icon *ngFor="let name of _icons | async; let i = index" [name]="name"></docs-async-icon>
     </div>`,
   styles: [
     `.all-icons-container {
@@ -66,29 +64,30 @@ export class DocsAsyncIcon implements OnDestroy {
     }`,
     'docs-async-icon { display: inline-block; padding: 1.5rem; text-align: center; }',
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [Viewport],
 })
-export class AllIconExample implements OnDestroy {
+export class AllIconExample {
 
   @ViewChild('input') _inputEl: ElementRef;
-  _icons: string[];
+  _icons: Observable<string[]>;
+  private _filterValue = new BehaviorSubject<string>('');
 
-  private _iconData: string[];
-  private _iconSubscription: Subscription = Subscription.EMPTY;
-
-  constructor(private _httpClient: HttpClient, private changeDetector: ChangeDetectorRef) {
-    this._iconSubscription = this._httpClient
-      .get('/assets/icons/metadata.json')
-      .pipe(
-        map((res: { icons: string[] }) => res.icons)
-      )
-      .subscribe((icons: string[]) => {
-        this._iconData = icons;
-        this._applyFilter();
-      });
+  constructor(private _httpClient: HttpClient, viewport: Viewport) {
+    this._icons = combineLatest(
+      this._httpClient
+        .get('/assets/icons/metadata.json')
+        .pipe(map((res: { icons: string[] }) => res.icons || [])),
+      this._filterValue.pipe(debounceTime(200), map((value) => value.toUpperCase()))
+    ).pipe(
+      map(([icons, filterValue]) =>
+        icons.filter((icon) => filterValue === '' || icon.toUpperCase().indexOf(filterValue) !== -1)),
+      tap(() => { setTimeout(() => { viewport.refresh(); }, 0); })
+    );
   }
 
   ngOnDestroy(): void {
-    this._iconSubscription.unsubscribe();
+    this._filterValue.complete();
   }
 
   _onInputChange(event: Event): void {
@@ -96,12 +95,6 @@ export class AllIconExample implements OnDestroy {
     // Otherwise the change event, from the input element, will bubble up and
     // emit its event object to the `change` output.
     event.stopPropagation();
-    this._applyFilter();
-  }
-
-  private _applyFilter(): void {
-    const filterText = this._inputEl.nativeElement.value || '';
-    this._icons = this._iconData.filter((value: string) => filterText === '' || value.indexOf(filterText) !== -1)
-    this.changeDetector.detectChanges();
+    this._filterValue.next(this._inputEl.nativeElement.value || '');
   }
 }
