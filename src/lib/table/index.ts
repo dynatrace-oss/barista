@@ -13,4 +13,4 @@ export * from './sort/sort-errors';
 
 export * from './interactive-rows';
 
-export * from './cell-templates/info-group-cell';
+export * from './info-group-cell/info-group-cell';
