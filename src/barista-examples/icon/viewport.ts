@@ -1,6 +1,6 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { ScrollDispatcher, ViewportRuler } from '@angular/cdk/scrolling';
-import { map, filter, distinctUntilChanged } from 'rxjs/operators';
+import { map, filter, distinctUntilChanged, tap, startWith } from 'rxjs/operators';
 import { Subject, Observable, merge } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -20,13 +20,17 @@ export class Viewport {
     return this._change();
   }
 
+  refresh(): void {
+    this._refresher.next();
+  }
+
   /** Stream that emits when the element enters or leaves the viewport */
   elementVisibility(el: Element | ElementRef): Observable<boolean> {
     const element = asElement(el);
-    const change$ = this._change(element);
-    return change$
-      .pipe(map((viewportRect) => isElementVisible(element, viewportRect)))
-      .pipe(distinctUntilChanged());
+    return this._change(element).pipe(
+        map((viewportRect) => isElementVisible(element, viewportRect)),
+        distinctUntilChanged()
+      );
   }
 
   /** Stream that emits when the element enters the viewport */
@@ -47,7 +51,7 @@ export class Viewport {
   private _change(context?: any): Observable<ClientRect> {
     return merge(
       this._scrollDispatcher.scrolled(),
-      this._viewportRuler.change(),
+      this._viewportRuler.change(200),
       this._refresher.pipe(filter(((ctx) => !ctx || asElement(context) === asElement(ctx))))
     ).pipe(map(() => this._viewportRuler.getViewportRect()));
   }
