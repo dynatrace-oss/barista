@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import { DtTreeDataSource, DtTreeFlattener, DtTreeControl } from '@dynatrace/angular-components';
-import { BehaviorSubject } from 'rxjs';
 
 const TESTDATA: ThreadNode[] = [{
   name: 'hz.hzInstance_1_cluster.thread',
@@ -40,7 +39,7 @@ const TESTDATA: ThreadNode[] = [{
   totalTimeConsumption: 150,
   waiting: 123,
   running: 20,
-  blocked: 0,
+  blocked: 10,
   children: [
     {
       name: 'jetty-422',
@@ -49,7 +48,7 @@ const TESTDATA: ThreadNode[] = [{
       totalTimeConsumption: 150,
       waiting: 123,
       running: 20,
-      blocked: 0,
+      blocked: 10,
     },
     {
       name: 'jetty-423',
@@ -105,45 +104,68 @@ export class ThreadFlatNode {
 }
 
 @Component({
-  selector: 'tree-table-demo',
-  templateUrl: 'tree-table-demo.component.html',
-  styleUrls: ['tree-table-demo.component.scss'],
+  selector: 'tree-table-problem',
+  template: `
+  <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
+    <ng-container dtColumnDef="name">
+      <dt-tree-table-header-cell *dtHeaderCellDef>Name</dt-tree-table-header-cell>
+      <dt-tree-table-toggle-cell *dtCellDef="let row">
+        <dt-info-group-cell>
+          <dt-info-group-cell-icon><dt-icon [name]="row.icon"></dt-icon></dt-info-group-cell-icon>
+          <dt-info-group-cell-title>{{row.name}}</dt-info-group-cell-title>
+          {{row.threadlevel}}
+        </dt-info-group-cell>
+      </dt-tree-table-toggle-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="blocked" dtColumnAlign="right">
+      <dt-tree-table-header-cell *dtHeaderCellDef>Blocked</dt-tree-table-header-cell>
+      <dt-cell *dtCellDef="let row" [dtIndicator]="row.blocked > 0" dtIndicatorColor="error">{{row.blocked}}ms</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="running" dtColumnAlign="center">
+      <dt-tree-table-header-cell *dtHeaderCellDef>Running</dt-tree-table-header-cell>
+      <dt-cell *dtCellDef="let row">{{row.running}}ms</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="waiting">
+      <dt-tree-table-header-cell *dtHeaderCellDef>Waiting</dt-tree-table-header-cell>
+      <dt-cell *dtCellDef="let row">{{row.waiting}}ms</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="actions">
+      <dt-tree-table-header-cell *dtHeaderCellDef>Actions</dt-tree-table-header-cell>
+      <dt-cell *dtCellDef="let row">
+        <button dt-icon-button variant="nested"><dt-icon name="filter"></dt-icon></button>
+        <button dt-icon-button variant="nested" [dtContextDialogTrigger]="dialog"><dt-icon name="more"></dt-icon></button>
+        <dt-context-dialog #dialog>
+          {{row.name}} context dialog
+        </dt-context-dialog>
+      </dt-cell>
+    </ng-container>
+
+
+    <dt-header-row *dtHeaderRowDef="['name', 'blocked', 'running', 'waiting', 'actions']"></dt-header-row>
+    <dt-tree-table-row *dtRowDef="let row; columns: ['name','blocked', 'running', 'waiting', 'actions'];" [data]="row"></dt-tree-table-row>
+  </dt-tree-table>
+  `,
 })
-export class TreeTableDemo {
-  /** Map from flat node to nested node. This helps us finding the nested node to be modified */
-  flatNodeMap = new Map<ThreadFlatNode, ThreadNode>();
-
-  /** Map from nested node to flattened node. This helps us to keep the same object for selection */
-  nestedNodeMap = new Map<ThreadNode, ThreadFlatNode>();
-
+export class ProblemIndicatorTreeTableExample {
   treeControl: FlatTreeControl<ThreadFlatNode>;
   treeFlattener: DtTreeFlattener<ThreadNode, ThreadFlatNode>;
   dataSource: DtTreeDataSource<ThreadNode, ThreadFlatNode>;
-
-  get data(): ThreadNode[] {
-    return this.dataChange.value;
-  }
-
-  dataChange = new BehaviorSubject<ThreadNode[]>([]);
 
   constructor() {
     this.treeControl = new DtTreeControl<ThreadFlatNode>(this._getLevel, this._isExpandable);
     this.treeFlattener =  new DtTreeFlattener(this.transformer, this._getLevel, this._isExpandable, this._getChildren);
     this.dataSource = new DtTreeDataSource(this.treeControl, this.treeFlattener);
-    this.dataChange.next(TESTDATA);
-
-    this.dataChange.subscribe(data => {
-      this.dataSource.data = data;
-    });
+    this.dataSource.data = TESTDATA;
   }
 
   hasChild = (_: number, _nodeData: ThreadFlatNode) => _nodeData.expandable;
 
   transformer = (node: ThreadNode, level: number): ThreadFlatNode => {
-    const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = existingNode && existingNode.name === node.name
-        ? existingNode
-        : new ThreadFlatNode();
+    const flatNode = new ThreadFlatNode();
     flatNode.name = node.name;
     flatNode.level = level;
     flatNode.threadlevel = node.threadlevel;
@@ -153,8 +175,6 @@ export class TreeTableDemo {
     flatNode.waiting = node.waiting;
     flatNode.totalTimeConsumption = node.totalTimeConsumption;
     flatNode.icon = node.icon;
-    this.flatNodeMap.set(flatNode, node);
-    this.nestedNodeMap.set(node, flatNode);
     return flatNode;
   }
 
