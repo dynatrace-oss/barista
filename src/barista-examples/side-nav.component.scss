@@ -1,0 +1,69 @@
+// redeclare variables since the barista build cannot deal with a relative reference to the lib folder here
+$gray-200: #e6e6e6;
+$gray-300: #ccc;
+$turquoise-600: #00a1b2;
+
+// replace this with the sidenav component as soon as this is ready
+.barista-side-nav {
+  background-color: #f2f2f2;
+  font-family: 'BerninaSansWeb';
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & > nav > ul > li {
+    font-size: 14px;
+    line-height: 32px;
+  }
+
+  .expandable-item {
+    border-top: 1px solid $gray-300;
+    border-bottom: 1px solid $gray-300;
+    background-color: $gray-200;
+  }
+
+  .expandable-item + .expandable-item {
+    border-top: none;
+  }
+
+  .expandable-item-open {
+    border-bottom: 2px solid $turquoise-600;
+  }
+
+  .expandable-item + .expandable-item-open {
+    border-top: 2px solid $turquoise-600;
+  }
+
+  .expandable-item-open + .expandable-item-open {
+    border-top: none;
+  }
+
+  .item-entry {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .dt-expandable-panel-trigger ::ng-deep svg {
+    transition: transform 150ms ease-in-out;
+    fill: $turquoise-600;
+  }
+
+  .dt-expandable-panel-trigger-open ::ng-deep svg {
+    transform: rotate(180deg)
+  }
+
+  dt-icon {
+    flex: 0 1 20px;
+    height: 20px;
+  }
+
+  .expandable-item ul li {
+    padding-left: 28px;
+  }
+}
