@@ -29,8 +29,7 @@ a.dt-link {
   }
 
   &.dt-external::after {
-    // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
-    @extend .fonticon-ExternalLink:before;
+    content: '\e686';
     @include icons-before('fonticons');
 
     display: inline-block;
