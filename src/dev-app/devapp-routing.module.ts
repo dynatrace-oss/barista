@@ -76,11 +76,11 @@ const routes: Routes = [
   { path: 'show-more', component: ShowMoreDemo },
   { path: 'switch', component: SwitchDemo },
   { path: 'table', component: TableDemo },
-  { path: 'tree-table', component: TreeTableDemo },
   { path: 'tabs', component: TabsDemo },
   { path: 'tag', component: TagDemo },
   { path: 'tile', component: TileDemo },
   { path: 'toast', component: ToastDemo },
+  { path: 'tree-table', component: TreeTableDemo },
 ];
 
 @NgModule({
