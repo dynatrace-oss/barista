@@ -157,6 +157,8 @@ export class ThreadFlatNode {
     <dt-header-row *dtHeaderRowDef="['name', 'total', 'blocked', 'running', 'waiting', 'actions']"></dt-header-row>
     <dt-tree-table-row *dtRowDef="let row; columns: ['name', 'total', 'blocked', 'running', 'waiting', 'actions'];" [data]="row"></dt-tree-table-row>
   </dt-tree-table>
+  <button dt-button (click)="treeControl.expandAll()">Expand all</button>
+  <button dt-button (click)="treeControl.collapseAll()">Collapse all</button>
   `,
   styles: [
     `
@@ -168,7 +170,8 @@ export class ThreadFlatNode {
       max-width: 400px;
       width: 400px;
     }
-    `
+    `,
+    '.dt-button + .dt-button { margin-right: 4px }',
   ],
 })
 export class DefaultTreeTableExample {
