@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 
-fdescribe('DtTreeTable', () => {
+describe('DtTreeTable', () => {
   let treeTableElement: HTMLElement;
   let underlyingDataSource: FakeDataSource;
 
