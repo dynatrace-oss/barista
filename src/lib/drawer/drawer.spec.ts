@@ -2,9 +2,13 @@ import { Component, ViewChild, ElementRef, Type, Injectable } from '@angular/cor
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { async, TestBed, tick, fakeAsync, flush, ComponentFixture, inject } from '@angular/core/testing';
-import { DtDrawer } from './drawer';
-import { DtDrawerModule } from './drawer-module';
-import { DT_DRAWER_OPEN_CLASS, DtDrawerContainer, getDtDuplicateDrawerError } from '@dynatrace/angular-components';
+import {
+  DT_DRAWER_OPEN_CLASS,
+  DtDrawerContainer,
+  getDtDuplicateDrawerError,
+  DtDrawer,
+  DtDrawerModule,
+} from '@dynatrace/angular-components';
 import { BreakpointObserver, MediaMatcher, LayoutModule } from '@angular/cdk/layout';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -195,7 +199,6 @@ describe('DtDrawer', () => {
       expect(instance.drawer2.opened).toBeFalsy();
       expect(containerEl.classList.contains(DT_DRAWER_OPEN_CLASS)).toBeFalsy();
     }));
-
   });
 
   describe('container behaviors', () => {
@@ -334,6 +337,10 @@ describe('DtDrawer screen sizes', () => {
       mediaMatcher = mm;
     }
   ));
+
+  afterEach(() => {
+    mediaMatcher.clear();
+  });
 
   it('should change the side mode to an over mode at a screen size less than 1024px', fakeAsync(() => {
     const { instance, fixture } = createFixture<BasicTestApp>(BasicTestApp);
@@ -492,6 +499,9 @@ export class FakeMediaQueryList {
   addListener(callback: (mql: MediaQueryListEvent) => void): void {
     this.addListenerCallback = callback;
   }
+
+  // Noop removal method for testing.
+  removeListener() { }
 }
 
 @Injectable()
