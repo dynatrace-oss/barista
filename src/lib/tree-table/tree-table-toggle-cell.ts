@@ -1,8 +1,11 @@
 import { DtCell, DtColumnDef } from '@dynatrace/angular-components/table';
-import { ChangeDetectionStrategy, ViewEncapsulation, Renderer2, ElementRef, SkipSelf, Component, ChangeDetectorRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ViewEncapsulation, Renderer2, ElementRef, SkipSelf, Component, ChangeDetectorRef, Input, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { DtTreeTableRow } from './tree-table-row';
 import { DtTreeControl } from '@dynatrace/angular-components/core';
 import { DtTreeTable } from './tree-table';
+import { filter } from 'rxjs/operators';
+import { SelectionChange } from '@angular/cdk/collections';
+import { Subscription } from 'rxjs';
 
 /** Cell template container that adds the right classes, role, and handles indentation */
 @Component({
@@ -18,7 +21,7 @@ import { DtTreeTable } from './tree-table';
   preserveWhitespaces: false,
   exportAs: 'dtTreeTableToggleCell',
 })
-export class DtTreeTableToggleCell<T> extends DtCell {
+export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, AfterViewInit {
   /** The aria label for the toggle button */
   @Input('aria-label') ariaLabel: string;
 
@@ -43,6 +46,8 @@ export class DtTreeTableToggleCell<T> extends DtCell {
 
   private _indent = 16;
 
+  private _expansionSub = Subscription.EMPTY;
+
   @ViewChild('wrapper') wrapperElement: ElementRef;
 
   constructor(
@@ -53,10 +58,20 @@ export class DtTreeTableToggleCell<T> extends DtCell {
     @SkipSelf() private _treeTable: DtTreeTable<T>
   ) {
     super(_columnDef, _changeDetectorRef, _renderer, _elementRef);
+    // subscribe to changes in the expansionmodel and check if 
+    this._expansionSub = this._treeControl.expansionModel.changed.pipe(
+      filter((changed: SelectionChange<T>) => changed.added.includes(this._rowData) || changed.removed.includes(this._rowData)))
+      .subscribe(() => {
+        this._changeDetectorRef.markForCheck();
+      });
   }
 
   ngAfterViewInit(): void {
     this._setPadding();
+  }
+
+  ngOnDestroy(): void {
+    this._expansionSub.unsubscribe();
   }
 
   /** The padding indent value for the tree node. Returns a padding left and a padding right value */
