@@ -1,5 +1,5 @@
 import { Component, ViewChild, Type } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, async, tick, flush } from '@angular/core/testing';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   DtTreeTable,
@@ -9,6 +9,7 @@ import { DtTreeDataSource, DtTreeControl, DtTreeFlattener, DtIndicatorModule } f
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { dispatchMouseEvent } from '../../testing/dispatch-events';
 
 describe('DtTreeTable', () => {
   let treeTableElement: HTMLElement;
@@ -28,7 +29,7 @@ describe('DtTreeTable', () => {
     }).compileComponents();
   }
 
-  describe('should initialize', () => {
+  describe('initialization', () => {
     let fixture: ComponentFixture<SimpleDtTreeTableApp>;
     let component: SimpleDtTreeTableApp;
 
@@ -84,7 +85,7 @@ describe('DtTreeTable', () => {
         ]);
     });
 
-    it('should expand/collapse the node', fakeAsync(() => {
+    fit('should expand/collapse the node', () => {
       expect(underlyingDataSource.data.length).toBe(3);
 
       expect(component.treeControl.expansionModel.selected.length)
@@ -103,11 +104,9 @@ describe('DtTreeTable', () => {
           { cells: ['topping_2', 'cheese_2'], level: 0 },
           { cells: ['topping_3', 'cheese_3'], level: 0 },
         ]);
+      fixture.detectChanges();
 
       (getToggles(treeTableElement)[2] as HTMLElement).click();
-      // We need to run changeDetection twice because the padding is only going to be  in the next cycle
-      fixture.detectChanges();
-      flush();
       fixture.detectChanges();
 
       expect(component.treeControl.expansionModel.selected.length)
@@ -122,9 +121,6 @@ describe('DtTreeTable', () => {
         ]);
 
       (getToggles(treeTableElement)[3] as HTMLElement).click();
-      // We need to run changeDetection twice because the padding is only going to be set in the next cycle
-      fixture.detectChanges();
-      flush();
       fixture.detectChanges();
 
       expect(component.treeControl.expansionModel.selected.length)
@@ -140,9 +136,6 @@ describe('DtTreeTable', () => {
         ]);
 
       (getToggles(treeTableElement)[2] as HTMLElement).click();
-      // We need to run changeDetection twice because the padding is only going to be set in the next cycle
-      fixture.detectChanges();
-      flush();
       fixture.detectChanges();
 
       expectTreeTableToMatch(
@@ -152,7 +145,7 @@ describe('DtTreeTable', () => {
           { cells: ['topping_2', 'cheese_2'], level: 0 },
           { cells: ['topping_3', 'cheese_3'], level: 0 },
         ]);
-    }));
+    });
 
     it('with dtIndicator', fakeAsync(() => {
       fixture.detectChanges();
