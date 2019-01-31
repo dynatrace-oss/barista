@@ -34,7 +34,7 @@ export const _DtTableMixinBase = mixinHasInteractiveRows<any>(CdkTable);
     'class': 'dt-table',
     '[class.dt-table-interactive-rows]': 'interactiveRows',
   },
-  inputs: ['interactiveRows'],
+  inputs: ['interactiveRows', 'dataSource', 'trackBy'],
 })
 export class DtTable<T> extends _DtTableMixinBase implements AfterContentChecked, HasInteractiveRows {
   @Input() isLoading: boolean;
