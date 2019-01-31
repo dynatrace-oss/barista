@@ -1,3 +1,9 @@
+## 1.6.2 (2019-01-31)
+
+### Bug Fixes
+
+* **link:** removes extend-dependency in styles for better compatibility with newer sass versions ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 1.6.1 (2019-01-25)
 
 
