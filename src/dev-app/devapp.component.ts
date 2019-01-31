@@ -41,11 +41,11 @@ export class DevApp {
     { name: 'Show-more', route: '/show-more' },
     { name: 'Switch', route: '/switch' },
     { name: 'Table', route: '/table' },
-    { name: 'TreeTable', route: '/tree-table' },
     { name: 'Tabs', route: '/tabs' },
     { name: 'Tag', route: '/tag' },
     { name: 'Tile', route: '/tile' },
     { name: 'Toast', route: '/toast' },
+    { name: 'TreeTable', route: '/tree-table' },
   ];
   selectedTheme = 'turquoise';
   themes = [
