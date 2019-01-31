@@ -1,5 +1,5 @@
 import { Component, ViewChild, Type } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, async, tick, flush } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, async } from '@angular/core/testing';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   DtTreeTable,
@@ -9,9 +9,8 @@ import { DtTreeDataSource, DtTreeControl, DtTreeFlattener, DtIndicatorModule } f
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { dispatchMouseEvent } from '../../testing/dispatch-events';
 
-describe('DtTreeTable', () => {
+fdescribe('DtTreeTable', () => {
   let treeTableElement: HTMLElement;
   let underlyingDataSource: FakeDataSource;
 
@@ -59,42 +58,12 @@ describe('DtTreeTable', () => {
       });
     });
 
-    it('with the right data', () => {
-      expect(underlyingDataSource.data.length).toBe(3);
-
-      const data = underlyingDataSource.data;
-      expectTreeTableToMatch(
-        treeTableElement,
-        [
-          { cells: ['topping_1', 'cheese_1'], level: 0 },
-          { cells: ['topping_2', 'cheese_2'], level: 0 },
-          { cells: ['topping_3', 'cheese_3'], level: 0 },
-        ]
-      );
-
-      underlyingDataSource.addChild(data[2]);
-      fixture.detectChanges();
-
-      expectTreeTableToMatch(
-        treeTableElement,
-        [
-          { cells: ['topping_1', 'cheese_1'], level: 0 },
-          { cells: ['topping_2', 'cheese_2'], level: 0 },
-          { cells: ['topping_3', 'cheese_3'], level: 0 },
-          { cells: ['topping_4', 'cheese_4'], level: 1 },
-        ]);
-    });
-
     it('should expand/collapse the node', () => {
       expect(underlyingDataSource.data.length).toBe(3);
 
       expect(component.treeControl.expansionModel.selected.length)
       .toBe(0, `Expect no expanded node`);
 
-      const data = underlyingDataSource.data;
-
-      const child = underlyingDataSource.addChild(data[2]);
-      underlyingDataSource.addChild(child);
       fixture.detectChanges();
 
       expectTreeTableToMatch(
@@ -245,6 +214,8 @@ class FakeDataSource {
     for (let i = 0; i < 3; i++) {
       this.addData();
     }
+    const child = this.addChild(this.data[2]);
+    this.addChild(child);
   }
 
   addChild(parent: TestData, isSpecial: boolean = false): TestData {
