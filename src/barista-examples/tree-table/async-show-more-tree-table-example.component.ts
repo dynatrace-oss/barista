@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FlatTreeControl } from '@angular/cdk/tree';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import { DtTreeDataSource, DtTreeFlattener, DtTreeControl } from '@dynatrace/angular-components';
 
@@ -170,7 +169,7 @@ export class AsyncShowMoreTreeTable {
   /** Map from nested node to flattened node. This helps us to keep the same object for selection */
   nestedNodeMap = new Map<ThreadNode, ThreadFlatNode>();
 
-  treeControl: FlatTreeControl<ThreadFlatNode>;
+  treeControl: DtTreeControl<ThreadFlatNode>;
   treeFlattener: DtTreeFlattener<ThreadNode, ThreadFlatNode>;
   dataSource: DtTreeDataSource<ThreadNode, ThreadFlatNode>;
 
