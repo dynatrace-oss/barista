@@ -85,7 +85,7 @@ describe('DtTreeTable', () => {
         ]);
     });
 
-    fit('should expand/collapse the node', () => {
+    it('should expand/collapse the node', () => {
       expect(underlyingDataSource.data.length).toBe(3);
 
       expect(component.treeControl.expansionModel.selected.length)
