@@ -501,7 +501,7 @@ export class FakeMediaQueryList {
   }
 
   // Noop removal method for testing.
-  removeListener() { }
+  removeListener(): void { }
 }
 
 @Injectable()
