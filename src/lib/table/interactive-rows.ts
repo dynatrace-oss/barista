@@ -10,7 +10,7 @@ export interface HasInteractiveRows {
 /** Mixin to augment a directive with a `interactiveRows` property. */
 export function mixinHasInteractiveRows<T>(base: Constructor<CdkTable<T>>): Constructor<HasInteractiveRows & CdkTable<T>> {
   return class extends base {
-    private _interactiveRows: boolean;
+    private _interactiveRows = false;
 
     get interactiveRows(): boolean { return this._interactiveRows; }
     set interactiveRows(value: boolean) { this._interactiveRows = coerceBooleanProperty(value); }

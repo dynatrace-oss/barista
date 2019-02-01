@@ -1,11 +1,11 @@
 @import 'colors';
 
 // Row
-$dt-row-height: 40px;
-$dt-row-padding: 8px;
-$dt-row-horizontal-padding: 4px;
-$row-color-even: #ffffff;
-$row-color-odd: $gray-100;
+$dt-table-row-height: 40px;
+$dt-table-row-padding: 8px;
+$dt-table-row-horizontal-padding: 4px;
+$dt-table-row-color-even: #ffffff;
+$dt-table-row-color-odd: $gray-100;
 
 // Cell
-$dt-cell-padding: 4px;
+$dt-table-cell-padding: 4px;

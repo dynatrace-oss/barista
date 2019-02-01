@@ -15,13 +15,13 @@
   &::after {
     @include dt-header-bottom-line();
     width: 100%;
-    margin-left: $dt-row-horizontal-padding;
+    margin-left: $dt-table-row-horizontal-padding;
   }
 
   &.dt-table-column-align-right::before {
     @include dt-header-bottom-line();
     width: 100%;
-    margin-right: $dt-row-horizontal-padding;
+    margin-right: $dt-table-row-horizontal-padding;
   }
 
   &.dt-table-column-align-right::after {
@@ -31,13 +31,13 @@
   &.dt-table-column-align-center::before {
     @include dt-header-bottom-line();
     width: 50%;
-    margin-right: $dt-row-horizontal-padding;
+    margin-right: $dt-table-row-horizontal-padding;
   }
 
   &.dt-table-column-align-center::after {
     @include dt-header-bottom-line();
     width: 50%;
-    margin-left: $dt-row-horizontal-padding;
+    margin-left: $dt-table-row-horizontal-padding;
   }
 }
 

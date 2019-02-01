@@ -29,13 +29,14 @@ export class DtTreeTable<T> extends _DtTreeTableMixinBase implements HasInteract
   @Input('aria-label') ariaLabel: string;
 
   constructor(
-    readonly _differs: IterableDiffers,
-    readonly _changeDetectorRef: ChangeDetectorRef,
-    readonly _elementRef: ElementRef,
+    differs: IterableDiffers,
+    changeDetectorRef: ChangeDetectorRef,
+    elementRef: ElementRef,
     @Attribute('role') role: string
   ) {
-    super(_differs, _changeDetectorRef, _elementRef, role);
+    super(differs, changeDetectorRef, elementRef, role);
     if (!role) {
+      // We need this setAttribute here to override the attribute set in the constructor of the cdkTable
       this._elementRef.nativeElement.setAttribute('role', 'treegrid');
     }
   }

@@ -5,17 +5,17 @@
 @import 'row-theme';
 
 :host {
-  min-height: $dt-row-height;
+  min-height: $dt-table-row-height;
   @include dt-base-row();
   position: relative;
 
   &:nth-child(even) {
-    background-color: $row-color-even;
-    border: solid 1px $row-color-even;
+    background-color: $dt-table-row-color-even;
+    border: solid 1px $dt-table-row-color-even;
   }
   &:nth-child(odd) {
-    background-color: $row-color-odd;
-    border: solid 1px $row-color-odd;
+    background-color: $dt-table-row-color-odd;
+    border: solid 1px $dt-table-row-color-odd;
   }
 }
 
