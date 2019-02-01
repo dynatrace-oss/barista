@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CdkTreeModule } from '@angular/cdk/tree';
 import { CdkTableModule } from '@angular/cdk/table';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
@@ -12,7 +11,6 @@ import { DtTreeTableHeaderCell } from './tree-table-header-cell';
 
 @NgModule({
   imports: [
-    CdkTreeModule,
     CdkTableModule,
     CommonModule,
     DtButtonModule,

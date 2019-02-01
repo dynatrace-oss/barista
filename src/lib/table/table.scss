@@ -1,6 +1,6 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
-@import './cell/header-cell';
+@import './scss/header-cell';
 
 :host.dt-table {
   // To display at least one column with the entire width
@@ -10,7 +10,7 @@
   position: relative;
   @include main-font();
 
-  .floatLoading {
+  .dt-table-float-loading {
     position: absolute;
     top: 0;
     display: flex;

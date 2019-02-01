@@ -17,7 +17,7 @@ class MyModule {}
 
 ## Description
 
-The `<dt-tree-table>` provides the functionality of a tree displayed in a grid/table. The api is very similar to the `<dt-table>` component. You define the different columns and then the rows and choose which columns should be rendered inside each row. It is also possible to have multiple different row templates that can be switched when a row should have a special behavior e.g. a show more row for lazily loading more rows.
+The `<dt-tree-table>` provides the functionality of a tree displayed in a grid/table. The api is very similar to the `<dt-table>` component. You define the different columns and rows and choose which columns should be rendered inside each row. It is also possible to have multiple different row templates that can be switched when a row should have a special behavior e.g. a show more row for lazily loading more rows.
 
 ## Usage
 
@@ -132,7 +132,7 @@ You want to add the table header by adding a `<dt-header-row>` inside the `<dt-t
 <dt-header-row *dtHeaderRowDef="['name', 'total', 'blocked', 'running', 'waiting', 'actions']"></dt-header-row>
 ```
 
-And now the row for the content of the table. You can do this by adding the `<dt-tree-table-row>` inside the `<dt-tree-table>` tag. You can specify the columns that should be rendered and don't forget to bind the row's data to the `<dt-tree-table-row>`s data input `[data]="row"`.
+The next step is to add the row where the columns get rendered. You can do this by adding the `<dt-tree-table-row>` inside the `<dt-tree-table>` tag. You can specify the columns that should be rendered and don't forget to bind the row's data to the `<dt-tree-table-row>`s data input `[data]="row"`.
 
 ```html
 <dt-tree-table-row *dtRowDef="let row; columns: ['name', 'total', 'blocked', 'running', 'waiting', 'actions'];" [data]="row"></dt-tree-table-row>
