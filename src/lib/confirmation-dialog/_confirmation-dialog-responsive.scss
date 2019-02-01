@@ -1,0 +1,8 @@
+@mixin dt-confirmation-dialog-responsive {
+  flex-wrap: wrap;
+  height: 122px;
+  @media (min-width: 662px) {
+    flex-wrap: nowrap;
+    height: 56px;
+  }
+}

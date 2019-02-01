@@ -9,6 +9,7 @@ import { ButtonDemo } from './button/button-demo.component';
 import { CardDemo } from './card/card-demo.component';
 import { ChartDemo } from './chart/chart-demo.component';
 import { CheckboxDemo } from './checkbox/checkbox-demo.component';
+import { ConfirmationDialogDemo } from './confirmation-dialog/confirmation-dialog-demo.component';
 import { ConsumptionDemo } from './consumption/consumption-demo.component';
 import { ContextDialogDemo } from './context-dialog/context-dialog-demo.component';
 import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.component';
@@ -61,6 +62,7 @@ const routes: Routes = [
   { path: 'checkbox', component: CheckboxDemo },
   { path: 'consumption', component: ConsumptionDemo },
   { path: 'context-dialog', component: ContextDialogDemo },
+  { path: 'confirmation-dialog', component: ConfirmationDialogDemo },
   { path: 'copy-to-clipboard', component: CopyToClipboardDemo },
   { path: 'cta-card', component: CtaCardDemo },
   { path: 'drawer', component: DrawerDemo },
