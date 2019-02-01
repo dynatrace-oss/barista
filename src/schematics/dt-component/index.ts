@@ -23,6 +23,7 @@ import {
   addDynatraceSubPackageImport,
   addDeclarationsToDevAppModule,
   addNavitemToDevApp,
+  addDynatraceAngularComponentsImport,
 } from '../utils/ast-utils';
 import { InsertChange, commitChanges } from '../utils/change';
 import { DtComponentOptions } from './schema';
@@ -148,6 +149,47 @@ function addNavitemInUITestApp(options: DtComponentOptions): Rule {
   return (host: Tree) => addNavItem(host, options, path.join('src', 'ui-test-app', 'ui-test-app', 'ui-test-app.ts'));
 }
 
+/**
+ * Adds a new route inside the ui-test routes
+ */
+function addRouteToDevApp(options: DtComponentOptions): Rule {
+  return (host: Tree) => {
+    const modulePath = path.join('src', 'dev-app', 'devapp-routing.module.ts');
+    const sourceFile = getSourceFile(host, modulePath);
+    const importName = `${strings.classify(options.name)}Demo`;
+    const importLocation = `'./${strings.dasherize(options.name)}/${strings.dasherize(options.name)}-demo.component';`;
+
+    const importChange = addImport(modulePath, sourceFile, importName, importLocation);
+
+    /**
+     * find last route and add new route
+     */
+    const routesDeclaration = findNodes(sourceFile, ts.SyntaxKind.VariableDeclaration)
+    .find((node: ts.VariableDeclaration) => node.name.getText() === 'routes') as ts.VariableDeclaration;
+    const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression).elements;
+    const end = (routes[routes.length - 1] as ts.Expression).getStart();
+    const indentation = getIndentation(routes);
+    const toInsert = `{ path: '${strings.dasherize(options.name)}', component: ${importName} },${indentation}`;
+    const routesChange = new InsertChange(modulePath, end, toInsert);
+
+    return commitChanges(host, [importChange, routesChange], modulePath);
+  };
+}
+
+function addReferenceToDevAppDtComponentsModule(options: DtComponentOptions): Rule {
+  return (host: Tree) => {
+    const sourceFilePath = path.join('src', 'dev-app', 'dt-components.module.ts');
+    const sourceFile = getSourceFile(host, sourceFilePath);
+
+    const changes: InsertChange[] = [];
+    const importName = `Dt${strings.classify(options.name)}Module`;
+
+    changes.push(addDynatraceAngularComponentsImport(sourceFile, sourceFilePath, importName))
+    changes.push(addToNgModule(sourceFilePath, sourceFile, importName, 'exports'));
+    return commitChanges(host, changes, sourceFilePath);
+  }
+}
+
 export default function(options: DtComponentOptions): Rule {
   options.moduleName = `Dt${strings.classify(options.name)}Module`;
   options.selector = `dt-${strings.dasherize(options.name)}`;
@@ -175,6 +217,8 @@ export default function(options: DtComponentOptions): Rule {
     addExportToRootIndex(options),
     addDeclarationsToDevAppModule(options.name),
     addNavitemToDevApp(options.name),
+    addRouteToDevApp(options),
+    addReferenceToDevAppDtComponentsModule(options),
     options.universal ? chain([addDeclarationsToKitchenSink(options), addCompToKitchenSinkHtml(options)]) : noop(),
     options.uitest ? chain([
       mergeWith(uitestsTemplates),
