@@ -24,7 +24,7 @@ export const _DtTableMixinBase = mixinHasInteractiveRows<any>(CdkTable);
 @Component({
   moduleId: module.id,
   selector: 'dt-table',
-  styleUrls: ['./scss/table.scss'],
+  styleUrls: ['./table.scss'],
   templateUrl: './table.html',
   exportAs: 'dtTable',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,10 +40,7 @@ export class DtTable<T> extends _DtTableMixinBase implements AfterContentChecked
   @Input() isLoading: boolean;
   private _expandedRow: DtExpandableRow | undefined;
 
-  _stateChanges = new Subject<void>();
-
-  _outletViews: ViewRef[] = [];
-
+  /** Wether the datasource is empty */
   get isEmptyDataSource(): boolean {
     return !(this._data && this._data.length);
   }

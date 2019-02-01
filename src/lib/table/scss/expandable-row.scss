@@ -15,7 +15,7 @@
 
 .dt-expandable-row-base {
   position: relative;
-  min-height: $dt-row-height;
+  min-height: $dt-table-row-height;
   @include dt-base-row();
 
   cursor: pointer;

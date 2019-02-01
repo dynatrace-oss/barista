@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Directive } from '@angular/core';
 
 @Directive({
-  selector: 'dt-info-group-cell-icon',
+  selector: 'dt-info-group-cell-icon, [dt-info-group-cell-icon], [dtInfoGroupCellIcon]',
   host: {
     class: 'dt-info-group-cell-icon',
   },
@@ -9,7 +9,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Directive } from
 export class DtInfoGroupCellIcon {}
 
 @Directive({
-  selector: 'dt-info-group-cell-title',
+  selector: 'dt-info-group-cell-title, [dt-info-group-cell-title], [dtInfoGroupCellTitle]',
   host: {
     class: 'dt-info-group-cell-title',
   },

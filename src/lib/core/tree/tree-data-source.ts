@@ -2,6 +2,7 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { FlatTreeControl, TreeControl } from '@angular/cdk/tree';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { isDefined } from '../util';
 
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
@@ -45,17 +46,17 @@ export class DtTreeFlattener<T, F> {
               private getChildren: (node: T) =>
                   Observable<T[]> | T[] | undefined | null) {}
 
-  _flattenNode(node: T, level: number, resultNodes: F[], parentMap: boolean[]): F[] {
+  private _flattenNode(node: T, level: number, resultNodes: F[], parentMap: boolean[]): F[] {
     const flatNode = this.transformFunction(node, level);
     resultNodes.push(flatNode);
 
     if (this.isExpandable(flatNode)) {
       const childrenNodes = this.getChildren(node);
-      if (childrenNodes) {
+      if (isDefined(childrenNodes)) {
         if (Array.isArray(childrenNodes)) {
           this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
         } else {
-          childrenNodes.pipe(take(1)).subscribe((children) => {
+          childrenNodes!.pipe(take(1)).subscribe((children) => {
             this._flattenChildren(children, level, resultNodes, parentMap);
           });
         }
@@ -64,8 +65,7 @@ export class DtTreeFlattener<T, F> {
     return resultNodes;
   }
 
-  _flattenChildren(children: T[], level: number,
-                   resultNodes: F[], parentMap: boolean[]): void {
+  private _flattenChildren(children: T[], level: number, resultNodes: F[], parentMap: boolean[]): void {
     children.forEach((child, index) => {
       const childParentMap: boolean[] = parentMap.slice();
       childParentMap.push(index !== children.length - 1);
@@ -122,6 +122,7 @@ export class DtTreeDataSource<T, F> extends DataSource<F> {
   _expandedData = new BehaviorSubject<F[]>([]);
 
   _data: BehaviorSubject<T[]>;
+  /** The data for the datasource */
   get data(): T[] { return this._data.value; }
   set data(value: T[]) {
     this._data.next(value);
@@ -136,6 +137,7 @@ export class DtTreeDataSource<T, F> extends DataSource<F> {
     this._data = new BehaviorSubject<T[]>(initialData);
   }
 
+  /** Connects the datasource */
   connect(collectionViewer: CollectionViewer): Observable<F[]> {
     const changes = [
       collectionViewer.viewChange,
@@ -149,5 +151,6 @@ export class DtTreeDataSource<T, F> extends DataSource<F> {
     }));
   }
 
+  /** Noop */
   disconnect(): void { }
 }
