@@ -23,6 +23,18 @@
    yarn build
    ```
 
+## Structure
+
+The angular components library has the following structure: 
+
+- barista-examples: The preview app that includes all examples that get compiled and bundled for the barista design system.
+- dev-app: local development app to test components
+- lib: The library's source code
+- schematics: Includes schematics to speed up creation of new components/examples
+- testing: Contains util classes/methods for testing
+- ui-test-app: A testapp used to run ui-tests
+- universal-app A testapp to verify that the components can be used in a serverside rendered context
+
 ## Developing
 Developing with the dev-app
 ```
