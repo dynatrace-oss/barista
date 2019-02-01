@@ -6,8 +6,8 @@
   border: 0;
   box-sizing: border-box;
   display: flex;
-  padding-left: $dt-row-padding;
-  padding-right: $dt-row-padding;
+  padding-left: $dt-table-row-padding;
+  padding-right: $dt-table-row-padding;
 
   // Workaround for https://goo.gl/pFmjJD in IE 11. Adds a pseudo
   // element that will stretch the row the correct height. See:
@@ -24,7 +24,7 @@
   word-wrap: break-word;
   position: relative;
   font-variant: tabular-nums;
-  padding-left: $dt-cell-padding;
+  padding-left: $dt-table-cell-padding;
 
   &.dt-column-sorted {
     @include custom-font-styles($gray-900, 700);
@@ -32,14 +32,13 @@
 }
 
 @mixin dt-base-cell-flex() {
-
   @include dt-base-cell();
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-top: $dt-cell-padding;
-  padding-bottom: $dt-cell-padding;
+  padding-top: $dt-table-cell-padding;
+  padding-bottom: $dt-table-cell-padding;
 
   &.dt-table-column-align-right {
     padding-left: 0;
@@ -58,7 +57,7 @@
 
   &.dt-table-column-align-right {
     padding-left: 0;
-    padding-right: $dt-cell-padding;
+    padding-right: $dt-table-cell-padding;
     text-align: right;
   }
 

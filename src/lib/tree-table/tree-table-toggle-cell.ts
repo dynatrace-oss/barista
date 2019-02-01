@@ -7,6 +7,9 @@ import { filter } from 'rxjs/operators';
 import { SelectionChange } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
 
+/** The indentation in px for a level in the tree-table */
+const DT_TREE_TABLE_INDENT_PX = 16;
+
 /** Cell template container that adds the right classes, role, and handles indentation */
 @Component({
   selector: 'dt-tree-table-toggle-cell',
@@ -44,11 +47,10 @@ export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, After
     return (this._row as DtTreeTableRow<T>).data;
   }
 
-  private _indent = 16;
-
   private _expansionSub = Subscription.EMPTY;
 
-  @ViewChild('wrapper') wrapperElement: ElementRef;
+  /** @internal wrapper element that gets the indentation applied */
+  @ViewChild('wrapper') _wrapperElement: ElementRef;
 
   constructor(
     public _columnDef: DtColumnDef,
@@ -67,7 +69,7 @@ export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, After
   }
 
   ngAfterViewInit(): void {
-    this._setPadding();
+    this._setIndent();
   }
 
   ngOnDestroy(): void {
@@ -81,11 +83,11 @@ export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, After
     const nodeLevel = (row.data && treeControl.getLevel)
       ? treeControl.getLevel(row.data)
       : null;
-    return nodeLevel ? nodeLevel * this._indent : null;
+    return nodeLevel ? nodeLevel * DT_TREE_TABLE_INDENT_PX : null;
   }
   /** Sets the padding on the cell */
-  private _setPadding(): void {
+  private _setIndent(): void {
     const padding = this._paddingIndent();
-    this._renderer.setStyle(this.wrapperElement.nativeElement, 'padding-left', `${padding}px`);
+    this._renderer.setStyle(this._wrapperElement.nativeElement, 'padding-left', `${padding}px`);
   }
 }
