@@ -8,6 +8,7 @@ import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtCardModule } from '@dynatrace/angular-components/card';
 import { DtChartModule } from '@dynatrace/angular-components/chart';
 import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
+import { DtConfirmationDialogModule } from '@dynatrace/angular-components/confirmation-dialog';
 import { DtConsumptionModule } from '@dynatrace/angular-components/consumption';
 import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
 import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
@@ -58,6 +59,7 @@ const DT_MODULES = [
   DtCardModule,
   DtChartModule,
   DtCheckboxModule,
+  DtConfirmationDialogModule,
   DtContextDialogModule,
   DtConsumptionModule,
   DtCopyToClipboardModule,

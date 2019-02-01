@@ -39,12 +39,14 @@
   <dt-option value="Yuanyang">Yuanyang</dt-option>
 </dt-select>
 
-<dt-select placeholder="Aggregation">
+<dt-select placeholder="Aggregation" #median>
   <dt-option value="90th percentile">
     90th percentile
   </dt-option>
   <dt-option value="95th percentile">95th percentile</dt-option>
   <dt-option value="Sum">Sum</dt-option>
   <dt-option value="Average">Average</dt-option>
-  <dt-option value="Median">Median</dt-option>
+  <dt-option *ngIf="hasMedian" value="Median">Median</dt-option>
 </dt-select>
+
+<button dt-button (click)="changeToMedian()">switch to median</button>
