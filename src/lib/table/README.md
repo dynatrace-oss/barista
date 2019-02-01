@@ -112,6 +112,12 @@ You can customize the column width proportion with `[dtColumnProportion]`
 
 <docs-source-example example="TableDifferentWidthComponent" fullwidth="true"></docs-source-example>
 
+### Tables with two lines per row
+
+ If you want to have 2 lines of text and maybe an icon inside a row you can use the `<dt-info-group-cell>` component. You can also take a look at the `<dt-info-group-cell>` component's page for further information.
+
+<docs-source-example example="TableWithInfoGroupCellComponent" fullwidth="true"></docs-source-example>
+
 ### Minimum Width
 
 You can customize the column minimun width with `[dtColumnWidth]`

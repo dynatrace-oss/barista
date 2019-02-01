@@ -3,6 +3,7 @@
   padding-top: 4px;
   padding-bottom: 4px;
   overflow: hidden;
+  width: 100%;
 }
 
 .dt-info-group-cell-container {
@@ -24,6 +25,8 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  flex: 1 0;
+  font-size: 14px;
 }
 
 ::ng-deep .dt-info-group-cell-title {
@@ -31,4 +34,5 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 16px;
 }
