@@ -1,0 +1,55 @@
+<dt-form-field>
+  <dt-label>An important setting</dt-label>
+  <input
+    (keyup)="update($event)"
+    [value]="textValue"
+    type="text"
+    dtInput
+    placeholder="Please insert text"
+  />
+</dt-form-field>
+<div>
+  <a (click)="preventNavIfDirty($event)" href="#"
+    >Go somewhere else (you will be stopped if changes are pending).</a
+  >
+</div>
+
+<dt-select [(ngModel)]="dialogState">
+  <dt-option value="dirty">Dirty</dt-option>
+  <dt-option value="success">Success</dt-option>
+  <dt-option value="dynamic">Dynamic</dt-option>
+</dt-select>
+
+<button dt-button (click)="dynamic = !dynamic">Add Dynamic</button>
+<button dt-button (click)="changeToDynamic()">Switch to dynamic</button>
+<dt-confirmation-dialog
+  [state]="dialogState"
+  [showBackdrop]="showBackdrop"
+  aria-label="Confirmation dialog for pending changes in the form"
+>
+  <!-- markup to show in dirty state -->
+  <dt-confirmation-dialog-state name="dirty">
+    <span class="message-text">You have pending changes.</span>
+    <dt-confirmation-dialog-actions>
+      <button
+        dt-button
+        variant="secondary"
+        (click)="clear()"
+        role="button"
+        type="button"
+      >
+        <span>Clear</span>
+      </button>
+      <button dt-button (click)="save()" role="button" type="button">
+        <span>Save</span>
+      </button>
+    </dt-confirmation-dialog-actions>
+  </dt-confirmation-dialog-state>
+  <!-- markup to show in success state -->
+  <dt-confirmation-dialog-state name="success">
+    <span class="message-text">Saved successfully!</span>
+  </dt-confirmation-dialog-state>
+  <dt-confirmation-dialog-state *ngIf="dynamic" name="dynamic">
+    <span class="message-text">Dynamic successfully!</span>
+  </dt-confirmation-dialog-state>
+</dt-confirmation-dialog>

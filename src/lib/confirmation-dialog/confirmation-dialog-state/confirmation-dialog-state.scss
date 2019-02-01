@@ -1,0 +1,38 @@
+@import '../../core/theming/theming';
+@import '../confirmation-dialog-responsive';
+
+.dt-confirmation-dialog-state-container {
+  @include dt-confirmation-dialog-responsive();
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 16px 0 0;
+}
+
+.dt-confirmation-dialog-state-container
+  ::ng-deep
+  .dt-confirmation-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 0 0 20px;
+  width: 100%; // forces the actions to wrap to bottom.
+}
+
+.dt-confirmation-dialog-state-container
+  ::ng-deep
+  .dt-confirmation-dialog-actions
+  .dt-button
+  + .dt-button {
+  margin: 0 0 0 8px;
+}
+
+@media (min-width: 662px) {
+  .dt-confirmation-dialog-state-container
+    ::ng-deep
+    .dt-confirmation-dialog-actions {
+    width: auto;
+  }
+}

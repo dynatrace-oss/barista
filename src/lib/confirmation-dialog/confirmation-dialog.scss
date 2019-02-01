@@ -1,0 +1,12 @@
+@import '../core/style/variables';
+@import './confirmation-dialog-responsive';
+
+.dt-confirmation-dialog-container {
+  @include dt-confirmation-dialog-responsive();
+  position: absolute;
+  background-color: $gray-700;
+  color: #ffffff;
+  width: 100%;
+  vertical-align: middle;
+  bottom: 0;
+}
