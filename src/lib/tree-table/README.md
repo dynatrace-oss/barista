@@ -1,6 +1,6 @@
 # TreeTable
 
-<docs-source-example example="DefaultTreeTableComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="DefaultTreeTableExample" fullwidth="true"></docs-source-example>
 
 ## Imports
 
