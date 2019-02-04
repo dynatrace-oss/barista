@@ -1,6 +1,6 @@
 # ToggleButtonGroup
 
-<docs-source-example example="DefaultToggleButtonGroupExampleComponent"></docs-source-example>
+<docs-source-example example="DefaultToggleButtonExampleComponent"></docs-source-example>
 
 ## Imports
 
