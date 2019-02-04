@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # <%= classify(name) %>
 
 <docs-source-example example="Default<%= classify(name) %>ExampleComponent"></docs-source-example>
