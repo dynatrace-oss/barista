@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # TreeTable
 
 <docs-source-example example="DefaultTreeTableExample" fullwidth="true"></docs-source-example>

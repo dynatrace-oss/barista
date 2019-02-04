@@ -1,3 +1,7 @@
+---
+type: "other"
+---
+
 # Styling
 
 ## Fonts

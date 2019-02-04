@@ -1,3 +1,7 @@
+---
+type: "component"
+---
+
 # ToggleButtonGroup
 
 <docs-source-example example="DefaultToggleButtonExampleComponent"></docs-source-example>
