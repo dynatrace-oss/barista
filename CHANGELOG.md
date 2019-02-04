@@ -1,3 +1,17 @@
+## 1.7.0 (2019-02-04)
+
+
+### Bug Fixes
+
+* **schematics:** fixes dt-component schematic to fit new lib structure ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+
+### Features
+
+* **table, info-group-cell:** adds info-group-cell component that provides proper styling for two lines and an icon inside a table cell ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **toggle-button-group:** add toggle-button-group ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **tree-table:** add tree table component ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 1.6.2 (2019-01-31)
 
 ### Bug Fixes
