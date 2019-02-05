@@ -19,7 +19,6 @@ export * from '@dynatrace/angular-components/loading-distractor';
 export * from '@dynatrace/angular-components/theming';
 export * from '@dynatrace/angular-components/table';
 export * from '@dynatrace/angular-components/chart';
-export * from '@dynatrace/angular-components/button';
 export * from '@dynatrace/angular-components/tile';
 export * from '@dynatrace/angular-components/cta-card';
 export * from '@dynatrace/angular-components/card';
