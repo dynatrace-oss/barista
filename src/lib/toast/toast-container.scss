@@ -1,7 +1,7 @@
 @import '../core/style/variables';
 @import '../style/font-mixins';
 
-:host() {
+:host {
   @include main-font();
   display: block;
   border-radius: 3px;

@@ -90,6 +90,7 @@
     "resolve-bin": "^0.4.0",
     "run-sequence": "^2.2.1",
     "rxjs-tslint": "0.1.5",
+    "sass": "^1.17.0",
     "sass-graph": "^2.2.4",
     "stylelint": "^9.5.0",
     "stylelint-checkstyle-formatter": "^0.1.1",
