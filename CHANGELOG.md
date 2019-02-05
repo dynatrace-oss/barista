@@ -1,5 +1,11 @@
-## 1.7.0 (2019-02-04)
+## 1.7.1 (2019-02-05)
 
+### Bug Fixes
+
+* **table, tree-table:** fixes issue where table or tree-table is not fully rendered in AOT mode 
+
+
+## 1.7.0 (2019-02-04)
 
 ### Bug Fixes
 
