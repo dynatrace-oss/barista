@@ -3,9 +3,9 @@
 
 $dt-sort-header-arrow-margin: 4px;
 $dt-sort-header-arrow-container-size: 8px;
+$dt-sort-header-arrow-container-height: 15px;
 
 .dt-sort-header-container {
-  display: flex;
   cursor: pointer;
   align-items: center;
 
@@ -39,6 +39,7 @@ $dt-sort-header-arrow-container-size: 8px;
 .dt-sort-header-arrow {
   width: $dt-sort-header-arrow-container-size;
   min-width: $dt-sort-header-arrow-container-size;
+  height: $dt-sort-header-arrow-container-height;
   position: relative;
   display: flex;
   margin: 0 0 0 $dt-sort-header-arrow-margin;
