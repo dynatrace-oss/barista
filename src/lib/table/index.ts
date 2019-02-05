@@ -11,6 +11,6 @@ export * from './sort/sort-direction';
 export * from './sort/sort-header';
 export * from './sort/sort-errors';
 
-export * from './interactive-rows';
+export * from './base-table';
 
 export * from './info-group-cell/info-group-cell';
