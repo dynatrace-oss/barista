@@ -1,25 +1,15 @@
 import {
-  AfterContentChecked,
   ChangeDetectionStrategy,
   Component,
   Input,
   ViewEncapsulation,
-  ContentChildren,
-  QueryList,
-  ViewRef,
   IterableDiffers,
   ChangeDetectorRef,
   ElementRef,
   Attribute,
 } from '@angular/core';
-import { CdkTable } from '@angular/cdk/table';
 import { DtExpandableRow } from './expandable-row';
-import { DtRow } from './row';
-import { Subject } from 'rxjs';
-import { HasInteractiveRows, mixinHasInteractiveRows } from './interactive-rows';
-
-// tslint:disable-next-line:no-any
-export const _DtTableMixinBase = mixinHasInteractiveRows<any>(CdkTable);
+import { _DtTableBase} from './base-table';
 
 @Component({
   moduleId: module.id,
@@ -34,9 +24,8 @@ export const _DtTableMixinBase = mixinHasInteractiveRows<any>(CdkTable);
     'class': 'dt-table',
     '[class.dt-table-interactive-rows]': 'interactiveRows',
   },
-  inputs: ['interactiveRows', 'dataSource', 'trackBy'],
 })
-export class DtTable<T> extends _DtTableMixinBase implements AfterContentChecked, HasInteractiveRows {
+export class DtTable<T> extends _DtTableBase<T> {
   @Input() isLoading: boolean;
   private _expandedRow: DtExpandableRow | undefined;
 
