@@ -14,9 +14,10 @@ import {
   ChangeDetectorRef,
   Self,
 } from '@angular/core';
-import { DataPoint, Options } from 'highcharts';
+import { ColumnChartSeriesOptions, DataPoint, LineChartSeriesOptions, Options } from 'highcharts';
 import { DtChart, DtChartOptions, DtChartSeries, DT_CHART_CONFIG, DT_CHART_RESOLVER, DtChartResolver } from '@dynatrace/angular-components/chart';
 import {
+  _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS,
   _DT_MICROCHART_MAX_DATAPOINT_OPTIONS,
   _DT_MICROCHART_MIN_DATAPOINT_OPTIONS,
   createDtMicrochartMinMaxDataPointOptions,
@@ -28,6 +29,7 @@ import { map } from 'rxjs/operators';
 import { getDtMicrochartColorPalette } from './micro-chart-colors';
 import { DtTheme } from '@dynatrace/angular-components/theming';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
+import { extractColumnGapDataPoints, extractLineGapDataPoints } from './micro-chart-util';
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
@@ -145,9 +147,14 @@ export class DtMicroChart implements OnDestroy {
     this._currentSeries = singleSeries;
     const dataPoints = convertToDataPoints(singleSeries.data || [singleSeries]);
     const {min, max} = getMinMaxDataPoints(dataPoints);
-    applyMinMaxOptions(min, max, this.labelFormatter, this._theme);
+    applyMinMaxOptions(min, max, this.labelFormatter, this._theme, this._transformedOptions.chart!.type);
 
     singleSeries.data = dataPoints;
+
+    if (this._transformedOptions.interpolateGaps) {
+      return [singleSeries, extractGapSeries(singleSeries, this._transformedOptions)];
+    }
+
     return [singleSeries];
   }
 
@@ -192,16 +199,27 @@ function getMinMaxDataPoints(dataPoints: DataPoint[]): { min: DataPoint; max: Da
   return dataPoints.reduce((accumulator, currentDataPoint) => ({
       min: currentDataPoint.y! < accumulator.min.y ? currentDataPoint : accumulator.min,
       max: currentDataPoint.y! > accumulator.max.y ? currentDataPoint : accumulator.max,
-  }), {min: {y: Infinity}, max: {y: 0}});
+  }), {min: {y: Infinity}, max: {y: -Infinity}});
   // tslint:enable:align
 }
 
-/** Apply default micro chart options to min & max data points */
-function applyMinMaxOptions(min: DataPoint, max: DataPoint, labelFormatter: (input: number) => string, theme?: DtTheme): void {
+/** Apply default micro chart options to min & max data points, taking into account the given chart type */
+function applyMinMaxOptions(
+  min: DataPoint,
+  max: DataPoint,
+  labelFormatter: (input: number) => string,
+  theme?: DtTheme,
+  chartType?: string
+): void {
   const palette = getDtMicrochartColorPalette(theme);
   const minMaxDefaultOptions = createDtMicrochartMinMaxDataPointOptions(palette);
-  lodashMerge(min, minMaxDefaultOptions, _DT_MICROCHART_MIN_DATAPOINT_OPTIONS);
-  lodashMerge(max, minMaxDefaultOptions, _DT_MICROCHART_MAX_DATAPOINT_OPTIONS);
+  if (chartType === 'column') {
+    lodashMerge(min, minMaxDefaultOptions, _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS);
+    lodashMerge(max, minMaxDefaultOptions, _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS);
+  } else {
+    lodashMerge(min, minMaxDefaultOptions, _DT_MICROCHART_MIN_DATAPOINT_OPTIONS);
+    lodashMerge(max, minMaxDefaultOptions, _DT_MICROCHART_MAX_DATAPOINT_OPTIONS);
+  }
   addDataLabelFormatter(min, labelFormatter);
   addDataLabelFormatter(max, labelFormatter);
 }
@@ -221,6 +239,45 @@ function checkUnsupportedOptions(options: DtChartOptions): void {
 /** Apply count formatter to value to be displayed in data label */
 function addDataLabelFormatter(dataPoint: DataPoint, formatter: (input: number) => string): void {
   if (dataPoint && dataPoint.dataLabels) {
-    dataPoint.dataLabels.formatter = () => (dataPoint.y) ? formatter(dataPoint.y) : '';
+    dataPoint.dataLabels.formatter = () => (dataPoint.y !== undefined) ? formatter(dataPoint.y) : '';
+  }
+}
+
+/**
+ * Extracts a series of data points from the given series that contains data points interpolating missing data. The
+ * interpolation is done differently for line and column charts, and is based on the chart type of the given options.
+ * @param series The DtChartSeries containing data points with or without gaps
+ * @param options The DtChartOptions containing information about the chart type and coloring
+ */
+function extractGapSeries(series: DtChartSeries, options: DtChartOptions):
+  LineChartSeriesOptions | ColumnChartSeriesOptions {
+  const data = series.data as DataPoint[];
+
+  switch (options.chart && options.chart.type) {
+    case 'column':
+      return {
+        type: 'column',
+        linkedTo: ':previous',
+        data: extractColumnGapDataPoints(data),
+        dashStyle: 'Dash',
+        color: 'transparent',
+        borderColor: options.colors && options.colors[0],
+        enableMouseTracking: false,
+      };
+    case 'line':
+    default:
+      return {
+        type: 'line',
+        linkedTo: ':previous',
+        data: extractLineGapDataPoints(data),
+        dashStyle: 'Dash',
+        color: options.colors && options.colors[0],
+        lineWidth: 1,
+        marker: {
+          enabled: false,
+        },
+        zIndex: -1,
+        enableMouseTracking: false,
+      };
   }
 }

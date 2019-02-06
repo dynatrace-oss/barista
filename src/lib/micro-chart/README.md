@@ -52,3 +52,11 @@ To use the dynatrace chart, add the `<dt-micro-chart options="myoptions" series=
 ### Streamed values example
 
 <docs-source-example example="MicroChartStreamExampleComponent" fullwidth="true"></docs-source-example>
+
+### Interpolated values example
+
+<docs-source-example example="MicroChartInterpolatedExampleComponent" fullwidth="true"></docs-source-example>
+
+### Columns interpolated values example
+
+<docs-source-example example="MicroChartColumnsInterpolatedExampleComponent" fullwidth="true"></docs-source-example>

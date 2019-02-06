@@ -18,7 +18,10 @@ export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalet
       column: {
         borderWidth: 1,
         borderColor: palette.primary,
+        clip: false,
         color: palette.primary,
+        minPointLength: 1,
+        stacking: 'normal',
         states: {
           hover: {
             borderColor: palette.primary,
@@ -120,5 +123,12 @@ export const _DT_MICROCHART_MAX_DATAPOINT_OPTIONS = {
   dataLabels: {
     verticalAlign: 'bottom',
     y: -3,
+  },
+};
+
+export const _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS = {
+  dataLabels: {
+    verticalAlign: 'bottom',
+    inside: false,
   },
 };
