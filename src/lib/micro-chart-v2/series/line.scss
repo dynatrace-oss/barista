@@ -1,0 +1,20 @@
+@import '../../core/theming/theming';
+@import 'line-theme';
+
+.dt-micro-chart-line {
+  fill: none;
+  stroke-width: 2;
+}
+
+.dt-microchart-point {
+  transition: fill 150ms;
+}
+
+.dt-microchart-point:hover {
+  stroke-width: 2;
+}
+
+// Apply the line-series theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-line-series($dt-current-theme);
+}

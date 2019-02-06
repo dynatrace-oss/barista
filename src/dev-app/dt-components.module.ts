@@ -85,6 +85,7 @@ import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
     DtKeyValueListModule,
     DtLoadingDistractorModule,
     DtMicroChartModule,
+    DtMicroChartV2Module,
     DtOverlayModule,
     DtPaginationModule,
     DtProgressBarModule,

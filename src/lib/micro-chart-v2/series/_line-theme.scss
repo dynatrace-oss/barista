@@ -1,0 +1,38 @@
+@import '../../core/theming/theming';
+
+@mixin dt-theme-line-series($theme) {
+  $palette-names: 'main';
+  $default-palette: 'main';
+
+  @each $name in $palette-names {
+    $palette: dt-get-theme-palette($theme, $name);
+    $default-color: dt-get-theme-color($palette, 'default');
+    $hover-color: dt-get-theme-color($palette, 'hover');
+    $active-color: dt-get-theme-color($palette, 'active');
+
+    $namespace: ':host ';
+    @if $name != $default-palette {
+      $namespace: ':host-context(.dt-color-#{$name}) :host ';
+    }
+
+    #{$namespace} .dt-micro-chart-line {
+      stroke: $default-color;
+    }
+
+    #{$namespace} ::ng-deep .dt-microchart-point {
+      fill: $default-color;
+    }
+    
+    #{$namespace} ::ng-deep .dt-microchart-point:hover {
+      fill: $hover-color;
+      stroke: $active-color;
+      stroke-width: 2;
+    }
+
+    #{$namespace} ::ng-deep .dt-microchart-point.dt-microchart-extreme {
+      stroke: $hover-color; // 700
+      fill: none;
+      stroke-width: 2;
+    }
+  }
+}

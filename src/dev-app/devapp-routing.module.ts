@@ -35,6 +35,7 @@ import { LinkDemo } from './link/link-demo.component';
 import { LoadingDistractorDemo } from './loading-distractor/loading-distractor-demo.component';
 import { MenuDemo } from './menu/menu-demo';
 import { MicroChartDemo } from './micro-chart/micro-chart-demo.component';
+import { MicroChartV2Demo } from './micro-chart-v2/micro-chart-v2-demo.component';
 import { OverlayDemo } from './overlay/overlay-demo.component';
 import { PaginationDemo } from './pagination/pagination-demo.component';
 import { ProgressBarDemo } from './progress-bar/progress-bar-demo.component';
@@ -84,6 +85,7 @@ const routes: Routes = [
   { path: 'link', component: LinkDemo },
   { path: 'loading-distractor', component: LoadingDistractorDemo },
   { path: 'micro-chart', component: MicroChartDemo },
+  { path: 'micro-chart-v2', component: MicroChartV2Demo },
   { path: 'overlay', component: OverlayDemo },
   { path: 'pagination', component: PaginationDemo },
   { path: 'progress-bar', component: ProgressBarDemo },

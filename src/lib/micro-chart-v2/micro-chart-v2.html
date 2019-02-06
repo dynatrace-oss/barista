@@ -1,0 +1,9 @@
+<svg [attr.width]="_widthWithPixels" [attr.viewBox]="_viewbox">
+  <svg:g [attr.transform]="_plotAreaTransform">
+    <svg:g *ngFor="let series of _allSeriesExternal" [ngSwitch]="series.type">
+
+      <svg:g *ngSwitchCase="'line'" dt-micro-chart-line-series [data]="series.data"></svg:g>
+
+    </svg:g>
+  </svg:g>
+</svg>

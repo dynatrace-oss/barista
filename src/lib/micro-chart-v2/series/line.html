@@ -1,0 +1,2 @@
+<svg:path class="dt-micro-chart-line" [attr.d]="_path"></svg:path>
+<svg:g dt-micro-chart-point *ngFor="let point of data" [value]="point[1]" [x]="_getXValue(point)" [y]="_getYValue(point)" [min]="_isMin(point)" [max]="_isMax(point)"></svg:g>
