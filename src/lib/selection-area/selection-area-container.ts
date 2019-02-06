@@ -213,6 +213,8 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     });
   }
 
+  private _firstMouseMove: boolean;
+
   /** @internal Creates the selection area */
   _create(posX: number): void {
     this._reset();
@@ -223,6 +225,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
       if (posX) {
         this._width = 0;
         this._left = this._calculateRelativeXPos(posX);
+        this._firstMouseMove = true;
         this._startUpdating(posX);
       } else {
         // Create area at defaut position if no position has been provided
@@ -232,7 +235,6 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
         this._reflectValuesToDom();
       }
     }
-    this._changeDetectorRef.markForCheck();
   }
 
   /** @internal Hides and resets the selected area */
@@ -243,9 +245,6 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
       this._width = 0;
       this._left = 0;
       this._isSelectedAreaVisible = false;
-      if (this._overlay.overlayRef) {
-        this._overlay.overlayRef.detach();
-      }
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -335,6 +334,13 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     const lastMoustPosition = this._lastRelativeXPosition;
     const relativeX = this._calculateRelativeXPos(event.clientX);
 
+    // We need to trigger CD on first mousemove event since we cannot trigger it right away on mousedown,
+    // because we dont know if the mousedown is part of a click or a down-move-up like drag event
+    if (this._firstMouseMove) {
+      this._changeDetectorRef.markForCheck();
+      this._firstMouseMove = false;
+    }
+
     // Do not store relative positions outside the boundries
     this._lastRelativeXPosition = Math.min(Math.max(relativeX, 0), this._boundaries.width);
 
@@ -357,6 +363,10 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     this._togglePointerEvents(false);
     this._detachWindowListeners();
     this._selectedAreaFocusTrap.focusTrap.focusFirstTabbableElement();
+    // if the width is 0 then the mouse didnt move between mousedown and mouseup
+    if (this._width === 0) {
+      this._reset();
+    }
     this._changeDetectorRef.markForCheck();
   }
 
