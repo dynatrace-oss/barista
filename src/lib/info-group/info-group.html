@@ -4,6 +4,8 @@
     [dt-info-group-icon],
     [dtInfoGroupIcon]">
   </ng-content>
-  <ng-content select="dt-info-group-title, [dt-info-group-title], [dtInfoGroupTitle]"></ng-content>
-  <ng-content></ng-content>
+  <div class="dt-info-group-content">
+    <ng-content select="dt-info-group-title, [dt-info-group-title], [dtInfoGroupTitle]"></ng-content>
+    <ng-content></ng-content>
+  </div>
 </div>

@@ -1,10 +1,11 @@
 @import '../style/font-mixins';
-@import '../core/style/variables';
 @import '../core/theming/theming';
 @import './info-group-theme';
 
 .dt-info-group {
-  display: block;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
@@ -18,27 +19,36 @@
   overflow: hidden;
 }
 
+.dt-info-group-content {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 12px;
+}
+
 .dt-info-group-title {
-  @include h2-font();
+  @include default-font(20px, 24px, 400);
   display: block;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .dt-info-group-icon {
-  width: 52px;
-  height: 52px;
-  background-color: $gray-700;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 
-  svg {
-    fill: #ffffff;
-  }
-
   .dt-icon {
     width: 32px;
     height: 32px;
   }
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-info-group($dt-current-theme);
 }
