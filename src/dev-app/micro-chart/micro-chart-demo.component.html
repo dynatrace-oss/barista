@@ -1,1 +1,11 @@
 <dt-micro-chart [series]="series"></dt-micro-chart>
+
+<dt-micro-chart [series]="seriesWithGaps"></dt-micro-chart>
+
+<dt-micro-chart [series]="seriesWithGaps" [options]="{interpolateGaps: true}"></dt-micro-chart>
+
+<dt-micro-chart [series]="series" [options]="{chart: {type: 'column'}}"></dt-micro-chart>
+
+<dt-micro-chart [series]="seriesWithGaps" [options]="{chart: {type: 'column'}}"></dt-micro-chart>
+
+<dt-micro-chart [series]="seriesWithGaps" [options]="{chart: {type: 'column'}, interpolateGaps: true}"></dt-micro-chart>
