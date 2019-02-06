@@ -42,7 +42,7 @@ import { createHighchartOptions, applyHighchartsColorOptions } from './highchart
 import { DT_CHART_CONFIG, DtChartConfig, DT_CHART_DEFAULT_CONFIG } from './chart-config';
 import { DtChartTooltipEvent } from './highcharts/highcharts-tooltip-types';
 
-export type DtChartOptions = HighchartsOptions & { series?: undefined; tooltip?: { shared: boolean } };
+export type DtChartOptions = HighchartsOptions & { series?: undefined; tooltip?: { shared: boolean }; interpolateGaps?: boolean };
 export type DtChartSeries = IndividualSeriesOptions;
 
 // tslint:disable-next-line:no-any
