@@ -49,11 +49,11 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
       this._setInterpolateFnOnSelectionArea();
 
       if (!this._detachFns.length) {
-        this._detachFns.push(this._renderer.listen(this._plotBackground, 'mousedown', (ev) => {
+        this._detachFns.push(this._renderer.listen(_elementRef.nativeElement, 'mousedown', (ev) => {
           this._chart._toggleTooltip(false);
           this._handleMousedown(ev);
         }));
-        this._detachFns.push(this._renderer.listen(this._plotBackground, 'keydown', (ev) => {
+        this._detachFns.push(this._renderer.listen(_elementRef.nativeElement, 'keydown', (ev) => {
           this._chart._toggleTooltip(false);
           this._handleKeyDown(ev);
         }));
