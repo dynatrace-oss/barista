@@ -1,16 +1,17 @@
 @import '../core/theming/theming';
 
 @mixin dt-theme-info-group($theme) {
+  $palette-names: 'main';
   $default-palette: 'main';
 
   .dt-info-group {
-    $palette: dt-get-theme-palette($theme, $name);
-    $default-color: dt-get-theme-color($palette, 'default');
+    @each $name in $palette-names {
+      $palette: dt-get-theme-palette($theme, $name);
+      $default-color: dt-get-theme-color($palette, 'default');
 
-    &.dt-color-#{$name} {
-      .dt-info-group-icon {
-        background-color: $default-color;
-      }
+        .dt-info-group-icon svg {
+          fill: $default-color;
+        }
     }
   }
 }
