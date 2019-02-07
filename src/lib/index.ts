@@ -9,6 +9,7 @@ export * from '@dynatrace/angular-components/core';
 export * from '@dynatrace/angular-components/filter-field';
 export * from '@dynatrace/angular-components/form-field';
 export * from '@dynatrace/angular-components/input';
+export * from '@dynatrace/angular-components/info-group';
 export * from '@dynatrace/angular-components/expandable-panel';
 export * from '@dynatrace/angular-components/inline-editor';
 export * from '@dynatrace/angular-components/expandable-section';
@@ -43,9 +44,5 @@ export * from '@dynatrace/angular-components/micro-chart';
 export * from '@dynatrace/angular-components/selection-area';
 export * from '@dynatrace/angular-components/bar-indicator';
 export * from '@dynatrace/angular-components/drawer';
-<<<<<<< HEAD
 export * from '@dynatrace/angular-components/tree-table';
 export * from '@dynatrace/angular-components/toggle-button-group';
-=======
-export * from '@dynatrace/angular-components/info-group';
->>>>>>> ***REMOVED*** feat(info-group): init info group component
