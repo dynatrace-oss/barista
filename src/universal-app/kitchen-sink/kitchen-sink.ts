@@ -13,6 +13,7 @@ import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group'
 import { DtTableModule } from '@dynatrace/angular-components/table';
 import { DtTagModule } from '@dynatrace/angular-components/tag';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtInfoGroupModule } from '@dynatrace/angular-components/info-group';
 import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
 import { DtRadioModule } from '@dynatrace/angular-components/radio';
 import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
@@ -28,7 +29,6 @@ import { DtTreeControl, DtTreeFlattener, DtTreeDataSource } from '@dynatrace/ang
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
-import { DtInfoGroupModule } from '@dynatrace/angular-components/info-group';
 
 const TESTDATA: ThreadNode[] = [
   {
