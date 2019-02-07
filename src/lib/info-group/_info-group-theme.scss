@@ -9,9 +9,9 @@
       $palette: dt-get-theme-palette($theme, $name);
       $default-color: dt-get-theme-color($palette, 'default');
 
-        .dt-info-group-icon svg {
-          fill: $default-color;
-        }
+      .dt-info-group-icon svg {
+        fill: $default-color;
+      }
     }
   }
 }
