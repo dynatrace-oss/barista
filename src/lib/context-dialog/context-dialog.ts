@@ -115,6 +115,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   /** Panel that holds the content */
   @ViewChild('panel') _panel: ElementRef;
 
+// tslint:disable-next-line: no-any
   @ViewChild(TemplateRef) _overlayTemplate: TemplateRef<any>;
 
   @ViewChild(CdkOverlayOrigin) _defaultTrigger: CdkOverlayOrigin;
