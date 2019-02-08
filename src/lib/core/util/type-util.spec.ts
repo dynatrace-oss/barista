@@ -109,7 +109,7 @@ describe('TypeUtil', () => {
     });
   });
 
-  fdescribe('isObject', () => {
+  describe('isObject', () => {
     it('should be true if the value is an Object', () => {
       expect(isObject({})).toBeTruthy();
       expect(isObject(new Object())).toBeTruthy();

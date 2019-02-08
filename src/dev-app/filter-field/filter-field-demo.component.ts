@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
-import { EXAMPLE_DATA } from './data';
+import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components';
+import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
-import { DtActiveFilterChangeEvent, DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components';
+import { TEST_DATA } from './testdata';
 
-const DATA_SETS = new Map<string, any>([['EXAMPLE_DATA', EXAMPLE_DATA],['KUBERNETES_DATA', KUBERNETES_DATA]])
+const DATA_SETS = new Map<string, any>([
+  ['TEST_DATA', TEST_DATA],
+  ['KUBERNETES_DATA', KUBERNETES_DATA],
+  ['COMPLEX_DATA', COMPLEX_DATA]
+]);
 
 @Component({
   selector: 'filter-field-demo',
@@ -19,8 +24,8 @@ export class FilterFieldDemo {
     this._dataSource.data = DATA_SETS.get(value);
     this._activeDataSourceName = value;
   }
-  private _activeDataSourceName = 'EXAMPLE_DATA';
+  private _activeDataSourceName = 'TEST_DATA';
 
-  _dataSource = new DtFilterFieldDefaultDataSource(EXAMPLE_DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
 
 }

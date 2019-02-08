@@ -3,41 +3,43 @@
   <div class="dt-filter-field-label"><dt-icon name="filter" class="dt-filter-field-icon"></dt-icon><span>{{label}}</span></div>
 
   <dt-filter-field-tag
-    *ngFor="let node of _prefixNodes"
-    [node]="node"
+    *ngFor="let filterData of _prefixFilters"
+    [data]="filterData"
+    [viewValues]="filterData.viewValues"
     (remove)="_handleTagRemove($event)"
-    (edit)="_handleTagEdit($event)"
-    >{{node.toString()}}</dt-filter-field-tag>
+    (edit)="_handleTagEdit($event)">
+  </dt-filter-field-tag>
 
   <div class="dt-filter-field-infix">
     <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{_filterByLabel}}</span>
     <input #input
       type="text"
       class="dt-filter-field-input"
-      [disabled]="_data === null"
+      [disabled]="_currentRenderNode === null"
       [dtAutocomplete]="autocomplete"
-      [dtAutocompleteDisabled]="!_data || _data!.dataType !== 'autocomplete'"
+      [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length"
       (input)="_handleInputChange($event)"
       (keydown)="_handleInputKeyDown($event)"
       (keyup)="_handleInputKeyUp($event)"
       [value]="_inputValue">
-    <dt-autocomplete #autocomplete="dtAutocomplete" [autoActiveFirstOption]="_data && _data!.dataType === 'autocomplete'">
-      <ng-container *ngFor="let optionOrGroup of _autocompleteOptionsOrGroups">
-        <dt-optgroup *ngIf="$any(optionOrGroup).options; else options" [label]="optionOrGroup.viewValue">
-          <dt-option *ngFor="let option of $any(optionOrGroup).options" [value]="option.data">{{option.viewValue}}</dt-option>
+    <dt-autocomplete #autocomplete="dtAutocomplete" [autoActiveFirstOption]="_currentRenderNode && !!_currentRenderNode.autocomplete">
+      <ng-container *ngFor="let optionOrGroupData of _autocompleteOptionsOrGroups">
+        <dt-optgroup *ngIf="optionOrGroupData.group; else options" [label]="optionOrGroupData.group!.label">
+          <dt-option *ngFor="let optionData of optionOrGroupData.group!.options" [value]="optionData">{{optionData.option.viewValue}}</dt-option>
         </dt-optgroup>
         <ng-template #options>
-          <dt-option [value]=" $any(optionOrGroup).data">{{ optionOrGroup.viewValue}}</dt-option>
+          <dt-option [value]="optionOrGroupData">{{ optionOrGroupData.option!.viewValue}}</dt-option>
         </ng-template>
       </ng-container>
     </dt-autocomplete>
   </div>
 
   <dt-filter-field-tag
-    *ngFor="let node of _suffixNodes"
-    [node]="node"
+    *ngFor="let filterData of _suffixFilters"
+    [data]="filterData"
+    [viewValues]="filterData.viewValues"
     (remove)="_handleTagRemove($event)"
-    (edit)="_handleTagEdit($event)"
-    >{{node.toString()}}</dt-filter-field-tag>
+    (edit)="_handleTagEdit($event)">
+  </dt-filter-field-tag>
 
 </div>
