@@ -36,7 +36,7 @@ $dialog-max-width: 328px;
   left: 0;
 }
 
-::ng-deep.dt-context-dialog-panel-bottom .dt-context-dialog-panel{
+::ng-deep.dt-context-dialog-panel-bottom .dt-context-dialog-panel {
   transform-origin: bottom right;
   padding: $panel-padding $panel-padding $panel-padding-btn $panel-padding;
 }
