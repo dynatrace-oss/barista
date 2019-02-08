@@ -33,7 +33,7 @@ describe('DtContextDialog', () => {
     overlayContainer.ngOnDestroy();
   });
 
-  fdescribe('core', () => {
+  describe('core', () => {
     beforeEach(async(() => {
       configureDtContextDialogTestingModule([
         BasicContextDialog,
