@@ -1,6 +1,6 @@
-import { Injectable, TemplateRef, ElementRef, Inject, NgZone, Injector } from '@angular/core';
+import { Injectable, TemplateRef, ElementRef, Inject, Injector } from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
-import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, CloseScrollStrategy, ScrollDispatcher, NoopScrollStrategy, RepositionScrollStrategy } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef } from './overlay-ref';
@@ -67,9 +67,7 @@ export class DtOverlay {
     private _viewportRuler: ViewportRuler,
     // tslint:disable-next-line:no-any
     @Inject(DOCUMENT) private _document: any,
-    private _platform: Platform,
-    private _ngZone: NgZone,
-    private _scrollDispatcher: ScrollDispatcher
+    private _platform: Platform
   ) {}
 
   create<T>(
