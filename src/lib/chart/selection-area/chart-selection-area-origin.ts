@@ -2,12 +2,9 @@ import { Directive, Input, NgZone, ElementRef, OnDestroy, Attribute, Host, Rende
 import { DtViewportResizer, addCssClass, HasTabIndex, CanDisable, hasCssClass } from '@dynatrace/angular-components/core';
 import { DtSelectionArea, DtSelectionAreaOrigin } from '@dynatrace/angular-components/selection-area';
 import { DtChart } from '../chart';
-import { takeUntil } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { takeUntil, switchMap, take, tap } from 'rxjs/operators';
+import { Subscription, Observable } from 'rxjs';
 import { getDtChartSelectionAreaDateTimeAxisError } from './chart-selection-area-errors';
-
-const DT_SELECTION_AREA_MIN_WIDTH_PX = 40;
-const DT_SELECTION_AREA_MIN_WIDTH_TIME = 300000;
 
 @Directive({
   selector: 'dt-chart[dtChartSelectionArea]',
@@ -30,6 +27,8 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   /** The Subscription for the close observable */
   private _selectionAreaClosedSub = Subscription.EMPTY;
 
+  private _afterChartRender: Observable<void>;
+
   constructor(
     _zone: NgZone,
     _elementRef: ElementRef,
@@ -42,7 +41,9 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
 
     this.tabIndex = parseInt(tabIndex, 10) || 0;
 
-    this._chart._afterRender.pipe(takeUntil(this._destroy)).subscribe(() => {
+    this._afterChartRender = this._chart._afterRender.pipe(takeUntil(this._destroy));
+
+    this._afterChartRender.subscribe(() => {
       const xAxis = this._chart._chartObject.xAxis[0];
       // tslint:disable-next-line:no-any
       if (!(xAxis as any).isDatetimeAxis) {
@@ -50,15 +51,12 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
       }
 
       this._applyAttributesAndClassesToPlotBackground();
-      // this needs to be done after the zone is stable because only
-      // when its stable we get a correct clientrect with the correct bounds
-      _zone.onStable.pipe(takeUntil(this._destroy))
-        .subscribe(() => { this.selectionArea._boundariesChanged.next(this._getPlotBackgroundClientRect()); });
+
       this._setInterpolateFnOnSelectionArea();
 
       if (!this._detachFns.length) {
         this._detachFns.push(this._renderer.listen(_elementRef.nativeElement, 'mousedown', (ev: MouseEvent) => {
-          const hitElements = document.elementsFromPoint(ev.pageX, ev.pageY);
+          const hitElements = document.elementsFromPoint(ev.clientX, ev.clientY);
           const clickIsInsidePlotBackground = hitElements.some((el) => hasCssClass(el, 'highcharts-plot-background'));
           if (clickIsInsidePlotBackground) {
             this._chart._toggleTooltip(false);
@@ -71,6 +69,12 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
         }));
       }
     });
+
+    // this needs to be done after the zone is stable because only
+    // when its stable we get a correct clientrect with the correct bounds
+    this._afterChartRender.pipe(switchMap(() => _zone.onStable.pipe(take(1))))
+      .subscribe(() => { this.selectionArea._boundariesChanged.next(this._getPlotBackgroundClientRect()); });
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -98,7 +102,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
 
   protected _handleMousedown(ev: MouseEvent): void {
     if (this.selectionArea) {
-      this.selectionArea._createSelectedArea(ev.clientX - parseFloat(this._plotBackground.getAttribute('x')!));
+      this.selectionArea._createSelectedArea(ev.clientX);
     }
   }
 
