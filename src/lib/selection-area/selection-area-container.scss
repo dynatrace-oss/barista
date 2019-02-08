@@ -55,6 +55,7 @@ $selection-area-overlay-spacing: 4px;
 
 .dt-selection-area-content {
   flex: 1 1 auto;
+  line-height: 32px;
 }
 
 .dt-selection-area-close {
@@ -72,6 +73,14 @@ $selection-area-overlay-spacing: 4px;
 }
 
 // origin
+::ng-deep .dt-selection-area-origin-cursor {
+  cursor: crosshair;
+}
+
+::ng-deep .dt-selection-area-origin .highcharts-series-group {
+  cursor: crosshair;
+}
+
 ::ng-deep .dt-selection-area-origin:focus {
   @include dt-focus-style();
 }
@@ -81,7 +90,8 @@ $selection-area-overlay-spacing: 4px;
   outline: 2px solid $focuscolor;
 }
 
-::ng-deep .dt-selection-area-cursor-grabbing {
+::ng-deep .dt-selection-area-cursor-grabbing,
+::ng-deep .dt-selection-area-cursor-grabbing .dt-selection-area-origin-cursor {
   cursor: grabbing;
 }
 

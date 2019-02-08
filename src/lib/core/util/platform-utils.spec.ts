@@ -1,7 +1,7 @@
 
 import { ElementRef, Renderer2, Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
-import { replaceCssClass } from './platform-util';
+import { replaceCssClass, hasCssClass } from './platform-util';
 
 describe('PlatformUtil', () => {
 
@@ -64,6 +64,32 @@ describe('PlatformUtil', () => {
       expect(testComponent.testElement.className).toBe('new-class');
     });
   });
+
+  describe('hasClass', () => {
+    it('should return true on html element that has the class', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      const testComponent = fixture.debugElement.componentInstance;
+      expect(hasCssClass(testComponent.testElement, 'old-class')).toBeTruthy();
+    });
+
+    it('should return false on html element that doesnt the class', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      const testComponent = fixture.debugElement.componentInstance;
+      expect(hasCssClass(testComponent.testElement, 'new-class')).toBeFalsy();
+    });
+
+    it('should return true on svg element that has the class', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      const testComponent = fixture.debugElement.componentInstance;
+      expect(hasCssClass(testComponent.testSvgElement, 'old-class')).toBeTruthy();
+    });
+
+    it('should return false on svg element that doesnt the class', () => {
+      const fixture = TestBed.createComponent(TestApp);
+      const testComponent = fixture.debugElement.componentInstance;
+      expect(hasCssClass(testComponent.testSvgElement, 'new-class')).toBeFalsy();
+    });
+  });
 });
 
 @Component({
@@ -72,9 +98,12 @@ describe('PlatformUtil', () => {
 })
 class TestApp {
   testElement: HTMLElement = document.createElement('div');
+// tslint:disable-next-line: ban
+  testSvgElement: SVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   elementRef = new ElementRef(this.testElement);
 
   constructor(public renderer: Renderer2) {
     this.testElement.className = 'old-class';
+    this.testSvgElement.setAttribute('class', 'old-class');
   }
 }
