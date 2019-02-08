@@ -18,8 +18,6 @@ export class SelectionAreaDemo {
   options: Highcharts.Options = {
     xAxis: {
       type: 'datetime',
-      min: 1370302200000,
-      startOnTick: true,
     },
     yAxis: [
       {
@@ -59,19 +57,19 @@ export class SelectionAreaDemo {
     {
       name: 'Failure rate',
       type: 'line',
-      data: generateData(40, 0, 20, 1370304000000, 900000),
+      data: generateData(40, 0, 20, 1370304000000, 10000),
     },
     {
       name: 'Requests',
       type: 'column',
       yAxis: 1,
-      data: generateData(40, 0, 200, 1370304000000, 900000),
+      data: generateData(40, 0, 200, 1370304000000, 10000),
     },
     {
       name: 'Failed requests',
       type: 'column',
       yAxis: 1,
-      data: generateData(40, 0, 15, 1370304000000, 900000),
+      data: generateData(40, 0, 15, 1370304000000, 10000),
     }];
 
   handleChange(ev: DtSelectionAreaChange): void {

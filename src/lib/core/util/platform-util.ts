@@ -32,6 +32,12 @@ export function removeCssClass(el: any, name: string, renderer?: Renderer2): voi
   }
 }
 
+// tslint:disable-next-line:no-any
+export function hasCssClass(el: any, name: string): boolean {
+  const classes = el.getAttribute('class') || '';
+  return classes.split(' ').includes(name);
+}
+
 /**
  * Reads the key code from a keyboard event.
  * It is needed because event.keyCode is deprecated an will lead to multiple tslint errors.

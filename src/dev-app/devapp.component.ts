@@ -14,6 +14,7 @@ export class DevApp {
     { name: 'Button', route: '/button' },
     { name: 'Button-group', route: '/button-group' },
     { name: 'Card', route: '/card' },
+    { name: 'Chart', route: '/chart' },
     { name: 'Checkbox', route: '/checkbox' },
     { name: 'Context-dialog', route: '/context-dialog' },
     { name: 'Copy-to-clipboard', route: '/copy-to-clipboard' },

@@ -25,7 +25,7 @@ export function getOffsetForKeyCode(keyCode: number, boundaryWidth: number): num
       return -DT_SELECTION_AREA_KEYBOARD_BIG_STEP;
     case PAGE_DOWN:
       return DT_SELECTION_AREA_KEYBOARD_BIG_STEP;
-    case HOME:
+      case HOME:
       return -boundaryWidth;
     case END:
       return boundaryWidth;
@@ -57,7 +57,7 @@ export function calculatePosition(
       if (selectedAreaLeft + deltaX >= selectedAreaLeft + selectedAreaWidth) {
         // left handle is moved over the right handle
         left = selectedAreaLeft + selectedAreaWidth;
-        width = left >= boundaryWidth ? 0 : left - selectedAreaLeft;
+        width = left >= boundaryWidth ? 0 : clamp(left - selectedAreaLeft, 0, boundaryWidth - left);
         nextTarget = DtSelectionAreaEventTarget.RightHandle;
       } else {
         // left handle is moved left of the right handle

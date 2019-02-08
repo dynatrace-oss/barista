@@ -42,6 +42,7 @@ import { TileDemo } from './tile/tile-demo.component';
 import { ToastDemo } from './toast/toast-demo.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
+import { ChartDemo } from 'chart/chart-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'button', component: ButtonDemo },
   { path: 'button-group', component: ButtonGroupDemo },
   { path: 'card', component: CardDemo },
+  { path: 'chart', component: ChartDemo },
   { path: 'checkbox', component: CheckboxDemo },
   { path: 'context-dialog', component: ContextDialogDemo },
   { path: 'copy-to-clipboard', component: CopyToClipboardDemo },
