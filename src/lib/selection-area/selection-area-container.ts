@@ -213,25 +213,22 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     });
   }
 
-  private _firstMouseMove: boolean;
-
   /** @internal Creates the selection area */
   _create(posX: number): void {
     this._reset();
     if (this._boundaries) {
-      this._isSelectedAreaVisible = true;
       this._eventTarget = DtSelectionAreaEventTarget.Origin;
 
       if (posX) {
         this._width = 0;
         this._left = this._calculateRelativeXPos(posX);
-        this._firstMouseMove = true;
         this._startUpdating(posX);
       } else {
         // Create area at defaut position if no position has been provided
         // no need to use request animation frame here since this is done for keyboard events
         this._left = this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_START;
         this._width = this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE;
+        this._isSelectedAreaVisible = true;
         this._reflectValuesToDom();
         this._emitChange();
         this._changeDetectorRef.markForCheck();
@@ -322,7 +319,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     }
   }
 
-  /** @internal Handle mousedown on the left handle */
+  /** @internal Handle mousedown on the selection area and handles */
   _handleMouseDown(event: MouseEvent, target: string): void {
     this._eventTarget = DtSelectionAreaEventTarget[target];
     event.preventDefault();
@@ -335,12 +332,13 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     event.preventDefault();
     const lastMoustPosition = this._lastRelativeXPosition;
     const relativeX = this._calculateRelativeXPos(event.clientX);
+    this._grabbingChange.next(true);
 
     // We need to trigger CD on first mousemove event since we cannot trigger it right away on mousedown,
     // because we dont know if the mousedown is part of a click or a down-move-up like drag event
-    if (this._firstMouseMove) {
+    if (!this._isSelectedAreaVisible) {
+      this._isSelectedAreaVisible = true;
       this._changeDetectorRef.markForCheck();
-      this._firstMouseMove = false;
       this._grabbingChange.next(true);
     }
 

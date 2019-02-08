@@ -25,7 +25,7 @@ export function getOffsetForKeyCode(keyCode: number, boundaryWidth: number): num
       return -DT_SELECTION_AREA_KEYBOARD_BIG_STEP;
     case PAGE_DOWN:
       return DT_SELECTION_AREA_KEYBOARD_BIG_STEP;
-      case HOME:
+    case HOME:
       return -boundaryWidth;
     case END:
       return boundaryWidth;
