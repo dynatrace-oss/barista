@@ -1,5 +1,5 @@
 
-export const EXAMPLE_DATA = {
+export const COMPLEX_DATA = {
   name: 'Category',
   value: 'category',
   autocomplete: [
