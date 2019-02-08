@@ -233,6 +233,8 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
         this._left = this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_START;
         this._width = this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE;
         this._reflectValuesToDom();
+        this._emitChange();
+        this._changeDetectorRef.markForCheck();
       }
     }
   }
@@ -339,6 +341,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     if (this._firstMouseMove) {
       this._changeDetectorRef.markForCheck();
       this._firstMouseMove = false;
+      this._grabbingChange.next(true);
     }
 
     // Do not store relative positions outside the boundries
@@ -394,7 +397,6 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     // activate
     this._togglePointerEvents(true);
     this._attachWindowEventListeners();
-    this._grabbingChange.next(true);
     const relativeX = this._calculateRelativeXPos(posX);
     this._lastRelativeXPosition = relativeX;
     this._update();
