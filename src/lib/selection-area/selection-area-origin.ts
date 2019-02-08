@@ -20,7 +20,7 @@ import {
   addCssClass,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
-import { take, takeUntil } from 'rxjs/operators';
+import { take, takeUntil, switchMap } from 'rxjs/operators';
 import { Subscription, Subject, merge } from 'rxjs';
 import { ENTER } from '@angular/cdk/keycodes';
 
@@ -60,7 +60,7 @@ implements OnDestroy, OnChanges, AfterViewInit, HasTabIndex, CanDisable {
   }
 
   ngAfterViewInit(): void {
-    merge(this._viewport.change(), this._zone.onStable).pipe(takeUntil(this._destroy)).subscribe(() => {
+    this._viewport.change().pipe(takeUntil(this._destroy), switchMap(() => this._zone.onStable.pipe(take(1)))).subscribe(() => {
       if (this.selectionArea) {
         this._emitBoundariesChangedOnSelectionArea();
       }
@@ -69,7 +69,7 @@ implements OnDestroy, OnChanges, AfterViewInit, HasTabIndex, CanDisable {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectionArea) {
-      this._emitBoundariesChangedOnSelectionArea();
+      this._zone.onStable.pipe(take(1)).subscribe(() => { this._emitBoundariesChangedOnSelectionArea(); });
       this._handleGrabbingChange();
     }
   }
