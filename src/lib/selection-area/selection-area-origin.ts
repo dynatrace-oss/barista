@@ -51,7 +51,7 @@ implements OnDestroy, OnChanges, AfterViewInit, HasTabIndex, CanDisable {
 
   constructor(
     private _zone: NgZone,
-    private _elementRef: ElementRef,
+    protected _elementRef: ElementRef,
     private _viewport: DtViewportResizer,
     @Attribute('tabindex') tabIndex: string
   ) {

@@ -1,15 +1,18 @@
 import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick, flushMicrotasks } from '@angular/core/testing';
-import { DtSelectionAreaModule, DtIconModule } from '@dynatrace/angular-components';
+import { DtSelectionAreaModule, DtIconModule, DtChart, DtChartOptions } from '@dynatrace/angular-components';
 import { Component, ViewChild, ElementRef, ViewEncapsulation, NgZone } from '@angular/core';
 import { DtButtonModule } from '../button';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DtSelectionArea } from './selection-area';
+import { DtSelectionArea, DtSelectionAreaChange } from './selection-area';
 import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ENTER, LEFT_ARROW, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, PAGE_DOWN, PAGE_UP, HOME, END } from '@angular/cdk/keycodes';
 import { MockNgZone } from '../../testing/mock-ng-zone';
+import { Subject } from 'rxjs';
+import { DtChartSelectionAreaOrigin, getDtChartSelectionAreaDateTimeAxisError } from '@dynatrace/angular-components/chart';
+import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 describe('DtSelectionArea', () => {
 
@@ -28,6 +31,9 @@ describe('DtSelectionArea', () => {
       declarations: [
         BasicTest,
         BasicTestWithInitialTabIndex,
+        DummyChart,
+        ChartTest,
+        DtChartSelectionAreaOrigin,
       ],
       providers: [
         { provide: NgZone, useFactory: () => zone = new MockNgZone() },
@@ -175,6 +181,7 @@ describe('DtSelectionArea', () => {
       tickRequestAnimationFrame();
 
       dispatchMouseEvent(window, 'mousemove', 200, 10);
+      fixture.detectChanges();
       flush();
       tickRequestAnimationFrame();
       const overlayNative = overlayContainerElement.querySelector('.dt-selection-area-overlay-pane');
@@ -388,6 +395,7 @@ describe('DtSelectionArea', () => {
       fixture = TestBed.createComponent(BasicTest);
       fixture.detectChanges();
       origin = fixture.componentInstance.origin.nativeElement;
+      zone.simulateZoneExit();
       dispatchKeyboardEvent(origin, 'keydown', ENTER);
       flush();
       fixture.detectChanges();
@@ -398,6 +406,11 @@ describe('DtSelectionArea', () => {
       expect(selectedAreaNative.style.left).toEqual('100px');
       expect(selectedAreaNative.style.width).toEqual('200px');
     });
+
+    it('should fire the change event once on ENTER', fakeAsync(() => {
+      fixture.detectChanges();
+      expect(fixture.componentInstance.counter).toEqual(1);
+    }));
 
     describe('on the selectedArea', () => {
 
@@ -439,10 +452,11 @@ describe('DtSelectionArea', () => {
         expect(selectedAreaNative.style.left).toEqual('0px');
       }));
 
-      it('should move the selectedArea to start when END is pressed', fakeAsync(() => {
+      it('should move the selectedArea to end when END is pressed', fakeAsync(() => {
         dispatchKeyboardEvent(selectedAreaNative, 'keydown', END);
         flush();
         expect(selectedAreaNative.style.left).toEqual('200px');
+        expect(selectedAreaNative.style.width).toEqual('200px');
       }));
     });
 
@@ -498,11 +512,11 @@ describe('DtSelectionArea', () => {
         expect(selectedAreaNative.style.width).toEqual('300px');
       }));
 
-      it('should move the selectedArea to start when END is pressed', fakeAsync(() => {
+      it('should move the selectedArea to end when END is pressed', fakeAsync(() => {
         dispatchKeyboardEvent(leftHandle, 'keydown', END);
         flush();
         expect(selectedAreaNative.style.left).toEqual('300px');
-        expect(selectedAreaNative.style.width).toEqual('200px');
+        expect(selectedAreaNative.style.width).toEqual('100px');
       }));
     });
 
@@ -694,6 +708,24 @@ describe('DtSelectionArea', () => {
       expect(right.getAttribute('aria-valuenow')).toBe('200');
     });
   });
+
+  describe('origin being a chart', () => {
+    let fixture: ComponentFixture<ChartTest>;
+
+    it('should throw an error when the axis is not a datetime axis', fakeAsync(() => {
+      expect(() => {
+        fixture = TestBed.createComponent(ChartTest);
+        fixture.detectChanges();
+      }).not.toThrowError();
+
+      expect(() => {
+        fixture.componentInstance.chart.fakeDateTimeAxis();
+        fixture.detectChanges();
+        fixture.componentInstance.chart._afterRender.next();
+        flush();
+      }).toThrowError(wrappedErrorMessage(getDtChartSelectionAreaDateTimeAxisError()));
+    }));
+  });
 });
 
 function getGlobalSelectionAreaHost(): HTMLElement | null {
@@ -708,7 +740,7 @@ function getGlobalSelectionAreaHost(): HTMLElement | null {
     aria-label-selected-area="aria selected-area"
     aria-label-left-handle="aria left"
     aria-label-right-handle="aria right"
-    aria-label-close-button="aria close">
+    aria-label-close-button="aria close" (changed)="handleChange($event)">
     Some basic overlay content
     <dt-selection-area-actions>
       <button dt-button>Zoom in</button>
@@ -724,6 +756,11 @@ function getGlobalSelectionAreaHost(): HTMLElement | null {
 export class BasicTest {
   @ViewChild('origin') origin: ElementRef;
   @ViewChild(DtSelectionArea) selectionArea: DtSelectionArea;
+  counter = 0;
+
+  handleChange(event: DtSelectionAreaChange): void {
+    this.counter += 1;
+  }
 }
 
 @Component({
@@ -736,4 +773,57 @@ export class BasicTest {
 })
 export class BasicTestWithInitialTabIndex {
   @ViewChild('origin') origin: ElementRef;
+}
+
+/** Test component that fakes a dt-chart so we can test without highcharts */
+@Component({
+  selector: 'dt-chart',
+  template: `
+  <div #container>
+    <svg [attr.width]="width" height="250" [attr.viewBox]="viewbox">
+      <svg:rect class="highcharts-plot-background" [attr.x]="x" y="16" [attr.width]="plotWidth" height="200"></rect>
+    </svg>
+  </div>
+  `,
+  providers: [
+    { provide: DtChart, useExisting: DummyChart },
+  ],
+})
+class DummyChart {
+  _afterRender = new Subject<boolean>();
+  _chartObject = {
+    xAxis: [{
+      isDatetimeAxis: true,
+    }],
+  };
+
+  @ViewChild('container') container;
+
+// tslint:disable-next-line: no-any
+  options: any;
+
+  ngAfterViewInit(): void {
+    this._afterRender.next(true);
+  }
+
+  ngOnDestroy(): void {
+    this._afterRender.complete();
+  }
+
+  fakeDateTimeAxis(): void {
+    this._chartObject.xAxis[0].isDatetimeAxis = false;
+  }
+}
+
+@Component({
+  template: `
+  <dt-chart #origin [dtChartSelectionArea]="area"></dt-chart>
+  <dt-selection-area #area="dtSelectionArea">
+    Some basic overlay content
+  </dt-selection-area>
+  `,
+})
+export class ChartTest {
+  @ViewChild('origin') origin: ElementRef;
+  @ViewChild('origin') chart: DummyChart;
 }
