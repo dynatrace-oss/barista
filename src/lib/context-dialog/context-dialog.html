@@ -9,16 +9,7 @@
   class="dt-context-dialog-trigger">
   <dt-icon name="more"></dt-icon>
 </button>
-<ng-template
-  cdkConnectedOverlay
-  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
-  cdkConnectedOverlayHasBackdrop
-  (backdropClick)="close()"
-  (attach)="_onAttached()"
-  (detach)="close()"
-  [cdkConnectedOverlayOrigin]="trigger"
-  [cdkConnectedOverlayOpen]="isPanelOpen"
-  [cdkConnectedOverlayPositions]="_positions">
+<ng-template>
   <div
     class="dt-context-dialog-panel"
     [attr.aria-labelledby]="ariaLabel"

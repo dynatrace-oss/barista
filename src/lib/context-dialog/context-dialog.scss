@@ -32,13 +32,16 @@ $dialog-max-width: 328px;
     background-color: $gray-700;
   }
 }
+::ng-deep.dt-context-dialog-panel-right .dt-context-dialog-close-trigger {
+  left: 0;
+}
 
-.dt-context-dialog-panel-bottom {
+::ng-deep.dt-context-dialog-panel-bottom .dt-context-dialog-panel{
   transform-origin: bottom right;
   padding: $panel-padding $panel-padding $panel-padding-btn $panel-padding;
 }
 
-.dt-context-dialog-panel-bottom .dt-context-dialog-close-trigger {
+::ng-deep.dt-context-dialog-panel-bottom [dt-icon-button].dt-context-dialog-close-trigger {
   top: auto;
   bottom: 0;
 }

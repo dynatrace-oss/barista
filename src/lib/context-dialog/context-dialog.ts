@@ -1,5 +1,5 @@
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { CdkConnectedOverlay, ConnectionPositionPair, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ConnectionPositionPair, CdkOverlayOrigin, ConnectedPosition, Overlay, OverlayRef, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
   Attribute,
@@ -17,6 +17,8 @@ import {
   ViewEncapsulation,
   isDevMode,
   AfterViewInit,
+  TemplateRef,
+  ViewContainerRef,
 } from '@angular/core';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import {
@@ -26,11 +28,15 @@ import {
   DtLoggerFactory,
   mixinTabIndex,
   mixinDisabled,
+  readKeyCode,
 } from '@dynatrace/angular-components/core';
 import { DtContextDialogTrigger} from './context-dialog-trigger';
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { Subject } from 'rxjs';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialogue');
-const OVERLAY_POSITIONS = [
+const OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
     originX: 'end',
     originY: 'top',
@@ -42,6 +48,21 @@ const OVERLAY_POSITIONS = [
     originY: 'bottom',
     overlayX: 'end',
     overlayY: 'bottom',
+    panelClass: 'dt-context-dialog-panel-bottom',
+  },
+  {
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'top',
+    panelClass: 'dt-context-dialog-panel-right',
+  },
+  {
+    originX: 'start',
+    originY: 'bottom',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    panelClass: ['dt-context-dialog-panel-right', 'dt-context-dialog-panel-bottom'],
   },
 ];
 
@@ -69,9 +90,6 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
-  /** Last emitted position of the overlay */
-  private _lastOverlayPosition: ConnectionPositionPair;
-
   /** The class that traps and manages focus within the overlay. */
   private _focusTrap: FocusTrap | null;
 
@@ -83,6 +101,10 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   private  _trigger: CdkOverlayOrigin;
 
+  private _overlayRef: OverlayRef;
+
+  private _destroy = new Subject<void>();
+
   /** Aria label of the context-dialog. */
   // tslint:disable-next-line:no-input-rename
   @Input('aria-label') ariaLabel = '';
@@ -90,11 +112,10 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   /** Event emitted when the select has been opened. */
   @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  /** Overlay pane containing the content */
-  @ViewChild(CdkConnectedOverlay) _overlayDir: CdkConnectedOverlay;
-
   /** Panel that holds the content */
   @ViewChild('panel') _panel: ElementRef;
+
+  @ViewChild(TemplateRef) _overlayTemplate: TemplateRef<any>;
 
   @ViewChild(CdkOverlayOrigin) _defaultTrigger: CdkOverlayOrigin;
 
@@ -114,6 +135,8 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   _positions = OVERLAY_POSITIONS;
 
   constructor(
+    private _overlay: Overlay,
+    private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _focusTrapFactory: FocusTrapFactory,
     @Attribute('tabindex') tabIndex: string,
@@ -131,6 +154,19 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     }
   }
 
+  /** Hook that trigger right before the component will be destroyed. */
+  ngOnDestroy(): void {
+    if (this._panelOpen) {
+      this._restoreFocus();
+      this.openedChange.emit(false);
+    }
+    if (this.hasCustomTrigger) {
+      (this._trigger as DtContextDialogTrigger)._unregisterFromDialog();
+    }
+    this._destroy.next();
+    this._destroy.complete();
+  }
+
   open(): void {
     if (!this.disabled) {
       this._setOpen(true);
@@ -146,7 +182,9 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     this.openedChange.emit(open);
     if (this._panelOpen) {
       this._savePreviouslyFocusedElement();
+      this._createOverlay();
     } else {
+      this._overlayRef.detach();
       this._restoreFocus();
     }
     this._changeDetectorRef.markForCheck();
@@ -160,7 +198,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   /** Moves the focus inside the focus trap. */
   private _trapFocus(): void {
     if (!this._focusTrap) {
-      this._focusTrap = this._focusTrapFactory.create(this._overlayDir.overlayRef.overlayElement);
+      this._focusTrap = this._focusTrapFactory.create(this._overlayRef.overlayElement);
     }
     this._focusTrap.focusInitialElementWhenReady()
     .catch((error: Error) => {
@@ -195,6 +233,34 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     }
   }
 
+  private _createOverlay(): void {
+    const positionStrategy = this._overlay.position()
+      .flexibleConnectedTo(this._trigger.elementRef)
+      .withPositions(OVERLAY_POSITIONS)
+      .setOrigin(this._trigger.elementRef)
+      .withFlexibleDimensions(false)
+      .withPush(false)
+      .withGrowAfterOpen(false)
+      .withViewportMargin(0)
+      .withLockedPosition(false);
+    this._overlayRef = this._overlay.create({
+      positionStrategy,
+      scrollStrategy: this._overlay.scrollStrategies.reposition(),
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+      hasBackdrop: true,
+    });
+    this._overlayRef.backdropClick().pipe(takeUntil(this._destroy)).subscribe(() => { this.close(); });
+    this._overlayRef.attach(new TemplatePortal(this._overlayTemplate, this._viewContainerRef));
+    this._trapFocus();
+
+    this._overlayRef.keydownEvents().pipe(takeUntil(this._destroy)).subscribe((event: KeyboardEvent) => {
+
+      if (readKeyCode(event) === ESCAPE) {
+        this._overlayRef.detach();
+      }
+    });
+  }
+
   _registerTrigger(trigger: DtContextDialogTrigger): void {
     if (this.hasCustomTrigger) {
       LOG.debug('Already has a custom trigger registered');
@@ -209,44 +275,5 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     }
     this._trigger = this._defaultTrigger;
     this._changeDetectorRef.markForCheck();
-  }
-
-  /** Callback that is invoked when the overlay panel has been attached. */
-  _onAttached(): void {
-    /** trap focus within the overlay */
-    this._trapFocus();
-
-    const positionChange = this._overlayDir.positionChange;
-
-    // Set classes depending on the position of the overlay
-    positionChange
-      // Stop listening when the component will be destroyed
-      // or the overlay closes
-      .pipe(takeUntil(
-        this.openedChange.pipe(filter((o) => !o))
-      ))
-      // Map the change event to the provided ConnectionPositionPair
-      .pipe(map((change) => change.connectionPair))
-      .subscribe((connectionPair) => {
-        // Set the classes to indicate the position of the overlay
-        if (this._lastOverlayPosition) {
-          this._panel.nativeElement.classList
-            .remove(`dt-context-dialog-panel-${this._lastOverlayPosition.originY}`);
-        }
-        this._panel.nativeElement.classList
-          .add(`dt-context-dialog-panel-${connectionPair.originY}`);
-        this._lastOverlayPosition = connectionPair;
-      });
-  }
-
-  /** Hook that trigger right before the component will be destroyed. */
-  ngOnDestroy(): void {
-    if (this._panelOpen) {
-      this._restoreFocus();
-      this.openedChange.emit(false);
-    }
-    if (this.hasCustomTrigger) {
-      (this._trigger as DtContextDialogTrigger)._unregisterFromDialog();
-    }
   }
 }
