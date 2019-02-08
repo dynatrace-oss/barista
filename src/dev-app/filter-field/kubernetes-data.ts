@@ -7,18 +7,17 @@ export const KUBERNETES_DATA = {
           name: 'beta.kubernetes.io/arch',
           value: 'beta.kubernetes.io/arch',
           autocomplete: ['amd64', 'amd32'],
-          distinct: true,
+          distinct: true
         },
         {
           name: 'beta.kubernetes.io/os',
           value: 'beta.kubernetes.io/os',
           autocomplete: ['linux', 'windows'],
-          distinct: true,
+          distinct: true
         },
         {
           name: 'node-role.kubernetes.io/master (simple label)',
           value: 'node-role.kubernetes.io/master',
-          distinct: true,
         },
       ],
     },

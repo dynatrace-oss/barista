@@ -7,10 +7,10 @@ import {
   Input
 } from '@angular/core';
 import { mixinDisabled, CanDisable } from '@dynatrace/angular-components/core';
-import { DtFilterFieldNode } from '../nodes/filter-field-nodes';
+import { NodeData, FilterData, getNodeDataViewValue, isFreeTextData, FilterDataViewValues } from '../types';
 
 export class DtFilterFieldTagEvent {
-  constructor(public source: DtFilterFieldTag, public node: DtFilterFieldNode) { }
+  constructor(public source: DtFilterFieldTag, public data: FilterData) { }
 }
 
 // tslint:disable:class-name
@@ -38,7 +38,8 @@ export const _DtFilterFieldTagMixinBase = mixinDisabled(_DtFilterFieldTagBase);
 })
 export class DtFilterFieldTag extends _DtFilterFieldTagMixinBase implements CanDisable {
 
-  @Input() node: DtFilterFieldNode;
+  @Input() data: FilterData;
+  @Input() viewValues: FilterDataViewValues;
 
   @Output() readonly remove = new EventEmitter<DtFilterFieldTagEvent>();
   @Output() readonly edit = new EventEmitter<DtFilterFieldTagEvent>();
@@ -48,7 +49,7 @@ export class DtFilterFieldTag extends _DtFilterFieldTagMixinBase implements CanD
     event.stopImmediatePropagation();
 
     if (!this.disabled) {
-      this.remove.emit(new DtFilterFieldTagEvent(this, this.node));
+      this.remove.emit(new DtFilterFieldTagEvent(this, this.data));
     }
   }
 
@@ -57,7 +58,7 @@ export class DtFilterFieldTag extends _DtFilterFieldTagMixinBase implements CanD
     event.stopImmediatePropagation();
 
     if (!this.disabled) {
-      this.edit.emit(new DtFilterFieldTagEvent(this, this.node));
+      this.edit.emit(new DtFilterFieldTagEvent(this, this.data));
     }
   }
 }
