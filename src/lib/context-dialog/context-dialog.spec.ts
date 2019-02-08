@@ -33,7 +33,7 @@ describe('DtContextDialog', () => {
     overlayContainer.ngOnDestroy();
   });
 
-  describe('core', () => {
+  fdescribe('core', () => {
     beforeEach(async(() => {
       configureDtContextDialogTestingModule([
         BasicContextDialog,
@@ -171,14 +171,14 @@ describe('DtContextDialog', () => {
         fixture = TestBed.createComponent(BasicContextDialog);
         fixture.detectChanges();
       }));
-      it('should close the context dialog on blur', fakeAsync(() => {
+      it('should close the context dialog on backrop click', fakeAsync(() => {
         const contextDialog = fixture.componentInstance.contextDialog;
         contextDialog.open();
         fixture.detectChanges();
         tick();
-        const backdrop = contextDialog._overlayDir.overlayRef;
-        expect(backdrop.backdropElement).toBeDefined();
-        (backdrop.backdropElement as HTMLElement).click();
+        const backdrop = overlayContainer.getContainerElement().querySelector('.cdk-overlay-backdrop');
+        expect(backdrop).not.toBeNull();
+        (backdrop! as HTMLElement).click();
         fixture.detectChanges();
         flush();
         expect(contextDialog.isPanelOpen).toBeFalsy();
