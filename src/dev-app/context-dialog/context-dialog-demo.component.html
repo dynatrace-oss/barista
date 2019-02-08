@@ -3,3 +3,8 @@
   <button dt-button variant="secondary">Second button</button>
   <button dt-button variant="secondary">Third button</button>
 </dt-context-dialog>
+
+<button dt-icon-button [dtContextDialogTrigger]="dialog"><dt-icon name="agent"></dt-icon></button>
+<dt-context-dialog #dialog>
+  <p>Your dashboard "real user monitoring" is only visible to you</p>
+</dt-context-dialog>
