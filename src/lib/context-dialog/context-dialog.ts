@@ -1,5 +1,5 @@
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { CdkConnectedOverlay, ConnectionPositionPair, CdkOverlayOrigin, ConnectedPosition, Overlay, OverlayRef, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
+import { CdkOverlayOrigin, ConnectedPosition, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
   Attribute,
@@ -20,7 +20,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { filter, map, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import {
   HasTabIndex,
   CanDisable,
