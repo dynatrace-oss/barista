@@ -1,3 +1,21 @@
+## 1.8.0 (2019-02-12)
+
+### Bug Fixes
+
+* **chart:** fixes rendering issue in highcharts ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **context-dialog:** fixes issue where context dialog only opens to the left ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **select:** fixes size of select in IE11 ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table-with-sorting:** fixes IE11 not displaying sort header correctly ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Features
+
+* **info-group:** adds new info group component ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **micro-chart:** add option to interpolate data gaps and show it with a different visual style ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Special Thanks 
+Dominik Messner, Rene Panzar
+
+
 ## 1.7.1 (2019-02-05)
 
 ### Bug Fixes
