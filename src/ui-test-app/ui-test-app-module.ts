@@ -49,8 +49,6 @@ import { DtSelectionAreaModule } from '@dynatrace/angular-components';
 import { ChartSelectionAreaUI } from './chart/chart-selection-area-ui';
 import { DrawerUI } from './drawer/drawer-ui';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
-import { DtInfoGroupModule } from '@dynatrace/angular-components/info-group';
-import { InfoGroupUI } from './info-group/info-group-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -81,7 +79,6 @@ import { InfoGroupUI } from './info-group/info-group-ui';
     DtSelectModule,
     DtOverlayModule,
     DtSelectionAreaModule,
-    DtInfoGroupModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -120,7 +117,6 @@ export class DynatraceAngularCompModule {}
     TileUI,
     UIApp,
     OverlayUI,
-    InfoGroupUI,
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],
