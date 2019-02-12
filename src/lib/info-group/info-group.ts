@@ -3,15 +3,7 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   Directive,
-  ElementRef,
 } from '@angular/core';
-
-import {
-  CanColor,
-  mixinColor,
-  Constructor,
-  HasElementRef,
-} from '@dynatrace/angular-components/core';
 
 @Directive({
   selector: `dt-info-group-title, [dt-info-group-title], [dtInfoGroupTitle]`,
@@ -32,15 +24,6 @@ export class DtInfoGroupTitle {
 export class DtInfoGroupIcon {
 }
 
-export type DtInfoGroupThemePalette = 'main';
-
-// Boilerplate for applying mixins to DtInfoGroup.
-export class DtInfoGroupBase {
-  constructor(public _elementRef: ElementRef) { }
-}
-
-export const _DtInfoGroupMixinBase = mixinColor<Constructor<DtInfoGroupBase>, DtInfoGroupThemePalette>(DtInfoGroupBase);
-
 @Component({
   moduleId: module.id,
   selector: 'dt-info-group',
@@ -55,6 +38,6 @@ export const _DtInfoGroupMixinBase = mixinColor<Constructor<DtInfoGroupBase>, Dt
   encapsulation: ViewEncapsulation.Emulated,
 })
 
-export class DtInfoGroup extends _DtInfoGroupMixinBase implements HasElementRef, CanColor<DtInfoGroupThemePalette> {
+export class DtInfoGroup {
 
 }
