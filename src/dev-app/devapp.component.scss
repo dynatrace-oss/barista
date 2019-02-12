@@ -21,11 +21,13 @@
 .main {
   flex: 1 1 auto;
   padding: 20px;
+  max-width: calc(100vw - 240px);
 }
 
-// // replace this with the sidenav component as soon as this is ready
+// replace this with the sidenav component as soon as this is ready
 .sidenav {
   background-color: #f2f2f2;
+  width: 240px;
 
   ul {
     list-style: none;
