@@ -4,7 +4,6 @@ import {
   ViewEncapsulation,
   Directive,
   ElementRef,
-  ContentChild,
 } from '@angular/core';
 
 import {
@@ -53,14 +52,9 @@ export const _DtInfoGroupMixinBase = mixinColor<Constructor<DtInfoGroupBase>, Dt
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
 })
 
 export class DtInfoGroup extends _DtInfoGroupMixinBase implements HasElementRef, CanColor<DtInfoGroupThemePalette> {
 
-  @ContentChild(DtInfoGroupIcon) _icon: DtInfoGroupIcon;
-
-  constructor(elementRef: ElementRef) {
-    super(elementRef);
-  }
 }

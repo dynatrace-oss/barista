@@ -20,7 +20,6 @@ import { TabsUI } from '../tabs/tabs-ui';
 import { OverlayUI } from '../overlay/overlay-ui';
 import { ChartSelectionAreaUI } from '../chart/chart-selection-area-ui';
 import { DrawerUI } from '../drawer/drawer-ui';
-import { InfoGroupUI } from '../info-group/info-group-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -46,6 +45,5 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'progress-bar', component: ProgressBarUI },
   { path: 'tabs', component: TabsUI },
   { path: 'overlay', component: OverlayUI },
-  { path: 'info-group', component: InfoGroupUI },
   { path: 'tile', component: TileUI },
 ];

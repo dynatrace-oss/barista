@@ -2,7 +2,7 @@
 @import '../core/theming/theming';
 @import './info-group-theme';
 
-.dt-info-group {
+:host {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -27,7 +27,7 @@
   margin-left: 12px;
 }
 
-.dt-info-group-title {
+::ng-deep .dt-info-group-title {
   @include default-font(20px, 24px, 400);
   display: block;
   white-space: nowrap;
@@ -35,7 +35,7 @@
   text-overflow: ellipsis;
 }
 
-.dt-info-group-icon {
+::ng-deep .dt-info-group-icon {
   width: 32px;
   height: 32px;
   display: flex;
