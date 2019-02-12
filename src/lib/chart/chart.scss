@@ -1,5 +1,9 @@
 @import '../core/style/variables';
 
+:host {
+  display: block;
+}
+
 .dt-chart-container {
   position: relative;
 }
