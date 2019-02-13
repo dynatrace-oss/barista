@@ -9,7 +9,7 @@
     $palette: dt-get-theme-palette($theme, 'recovered');
     :host {
       ::ng-deep .dt-input {
-        background-color: #000000;
+        background-color: $gray-900;
         color: $gray-400;
       }
 
@@ -23,7 +23,7 @@
 
     .dt-context-dialog-content :host {
       ::ng-deep .dt-input {
-        background-color: #ffffff;
+        background-color: $gray-900;
         color: $gray-700;
       }
     }
