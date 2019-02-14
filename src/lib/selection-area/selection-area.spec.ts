@@ -187,6 +187,32 @@ describe('DtSelectionArea', () => {
       const overlayNative = overlayContainerElement.querySelector('.dt-selection-area-overlay-pane');
       expect(overlayNative).not.toBeNull();
     }));
+
+    it('should not create a selection-area without a mousemove', fakeAsync(() => {
+      dispatchMouseEvent(origin, 'mousedown', 100, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
+      dispatchMouseEvent(window, 'mouseup', 100, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
+      const selectedArea = fixture.debugElement.query(By.css('.dt-selection-area-selected-area'));
+      expect(selectedArea.nativeElement.style.visibility).toBe('hidden');
+      const overlayNative = overlayContainerElement.querySelector('.dt-selection-area-overlay-pane');
+      expect(overlayNative).toBeNull();
+    }));
+
+    it('should not create a selection-area on click', fakeAsync(() => {
+      dispatchMouseEvent(origin, 'click', 100, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
+      const selectedArea = fixture.debugElement.query(By.css('.dt-selection-area-selected-area'));
+      expect(selectedArea.nativeElement.style.visibility).toBe('hidden');
+      const overlayNative = overlayContainerElement.querySelector('.dt-selection-area-overlay-pane');
+      expect(overlayNative).toBeNull();
+    }));
   });
 
   describe('mouse interaction', () => {
