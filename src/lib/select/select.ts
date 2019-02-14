@@ -201,6 +201,20 @@ export class DtSelect<T> extends _DtSelectMixinBase
       overlayX: 'start',
       overlayY: 'bottom',
     },
+    {
+      originX: 'end',
+      originY: 'bottom',
+      overlayX: 'end',
+      overlayY: 'top',
+      offsetX: 2,
+    },
+    {
+      originX: 'end',
+      originY: 'top',
+      overlayX: 'end',
+      overlayY: 'bottom',
+      offsetX: 2,
+    },
   ];
 
   /** Whether the panel's animation is done. */
