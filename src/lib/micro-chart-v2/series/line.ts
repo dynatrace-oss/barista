@@ -1,5 +1,5 @@
 import { Input, SkipSelf, Inject, ChangeDetectorRef, ChangeDetectionStrategy, Directive, Component } from '@angular/core';
-import { DtMicroChartSeriesInternal } from './series';
+import { DtMicroChartSeriesSVG } from './series';
 import { DtMicroChartConfig } from '../micro-chart-config';
 import { getMinMaxValues } from '../helper-functions';
 import { line } from 'd3-shape';
@@ -14,9 +14,9 @@ import { DtMicroChartSeriesType } from '../public-api';
   templateUrl: './line.html',
   styleUrls: ['line.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: DtMicroChartSeriesInternal, useExisting: DtMicroChartLineSeriesInternal }],
+  providers: [{ provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartLineSeriesSVG }],
 })
-export class DtMicroChartLineSeriesInternal extends DtMicroChartSeriesInternal {
+export class DtMicroChartLineSeriesSVG extends DtMicroChartSeriesSVG {
   readonly type: DtMicroChartSeriesType = 'line';
   private _data: Array<[number, number]> = [];
   private _scales: D3LineSeriesScales;

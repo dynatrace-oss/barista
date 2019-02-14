@@ -23,7 +23,7 @@ import { trigger, transition, style, state, animate } from '@angular/animations'
     ]),
   ],
 })
-export class DtMicroChartPoint {
+export class DtMicroChartPointSVG {
   @Input() x: number;
 
   @Input() y: number;
@@ -39,7 +39,7 @@ export class DtMicroChartPoint {
   }
 
   get _radius(): number {
-    return  this._isExtreme ? 8 : 4;
+    return this._isExtreme ? 8 : 4;
   }
 
   _isHovered = false;

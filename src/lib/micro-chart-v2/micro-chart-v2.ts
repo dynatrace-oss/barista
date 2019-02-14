@@ -5,7 +5,7 @@ import { takeUntil, startWith } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { DtMicroChartConfig } from './micro-chart-config';
 import { DtMicroChartSeries } from './public-api';
-import { DtMicroChartSeriesInternal } from './series';
+import { DtMicroChartSeriesSVG } from './series';
 
 /** Injection token that can be used to specify default micro-chart options. */
 export const DT_MICRO_CHART_DEFAULT_OPTIONS =
@@ -37,7 +37,7 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
   private readonly _destroy = new Subject<void>();
 
   @ContentChildren(DtMicroChartSeries) _allSeriesExternal: QueryList<DtMicroChartSeries>;
-  @ViewChildren(DtMicroChartSeriesInternal) _allSeriesInternal: QueryList<DtMicroChartSeriesInternal>;
+  @ViewChildren(DtMicroChartSeriesSVG) _allSeriesSVG: QueryList<DtMicroChartSeriesSVG>;
 
   get _viewbox(): string {
     return `0 0 ${this._width} ${this._config.height}`;
@@ -69,7 +69,7 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
   }
 
   ngAfterViewInit(): void {
-    this._allSeriesInternal.forEach((series) => {
+    this._allSeriesSVG.forEach((series) => {
       series._config = this._config;
     });
     // We need to do this in the next cycle since we need to wait for the dom
@@ -86,7 +86,7 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
 
   private _reflow(): void {
     this._width = this._elementRef.nativeElement.getBoundingClientRect().width;
-    this._allSeriesInternal.forEach((series) => series._reflow(this._width));
+    this._allSeriesSVG.forEach((series) => series._reflow(this._width));
     this._changeDetectorRef.markForCheck();
   }
 }

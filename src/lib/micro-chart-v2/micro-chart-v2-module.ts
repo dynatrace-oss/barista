@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { DtChartModule } from '@dynatrace/angular-components/chart';
 import { DtMicroChartV2 } from './micro-chart-v2';
 import { CommonModule } from '@angular/common';
-import { DtMicroChartPoint } from './micro-chart-point';
+import { DtMicroChartPointSVG } from './micro-chart-point';
 import { DtFormattersModule } from '../formatters';
-import { DtMicroChartLineSeriesInternal } from './series';
-import { DtMicroChartLineSeries } from './public-api';
+import { DtMicroChartLineSeriesSVG , DtMicroChartColumnSeriesSVG } from './series';
+import { DtMicroChartLineSeries, DtMicroChartColumnSeries } from './public-api';
 
 @NgModule({
   imports: [
@@ -16,14 +16,15 @@ import { DtMicroChartLineSeries } from './public-api';
   exports: [
     DtMicroChartV2,
     DtMicroChartLineSeries,
-    // DtMicroChartColumnSeries,
+    DtMicroChartColumnSeries,
   ],
   declarations: [
     DtMicroChartV2,
     DtMicroChartLineSeries,
-    // DtMicroChartColumnSeries,
-    DtMicroChartPoint,
-    DtMicroChartLineSeriesInternal,
+    DtMicroChartColumnSeries,
+    DtMicroChartPointSVG,
+    DtMicroChartLineSeriesSVG,
+    DtMicroChartColumnSeriesSVG,
   ],
 })
 export class DtMicroChartV2Module { }

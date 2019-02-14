@@ -3,6 +3,7 @@
     <svg:g *ngFor="let series of _allSeriesExternal" [ngSwitch]="series.type">
 
       <svg:g *ngSwitchCase="'line'" dt-micro-chart-line-series [data]="series.data"></svg:g>
+      <svg:g *ngSwitchCase="'column'" dt-micro-chart-column-series [data]="series.data"></svg:g>
 
     </svg:g>
   </svg:g>
