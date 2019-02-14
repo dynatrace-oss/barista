@@ -1,5 +1,5 @@
-import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick, flushMicrotasks } from '@angular/core/testing';
-import { DtSelectionAreaModule, DtIconModule, DtChart, DtChartOptions } from '@dynatrace/angular-components';
+import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick } from '@angular/core/testing';
+import { DtSelectionAreaModule, DtIconModule, DtChart } from '@dynatrace/angular-components';
 import { Component, ViewChild, ElementRef, ViewEncapsulation, NgZone } from '@angular/core';
 import { DtButtonModule } from '../button';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
@@ -71,6 +71,7 @@ describe('DtSelectionArea', () => {
       const origin = fixture.componentInstance.origin;
       const originDomRect = origin.nativeElement.getBoundingClientRect();
       const globalSelectionAreaContainer = getGlobalSelectionAreaHost();
+      zone.simulateZoneExit();
       fixture.detectChanges();
       const selectionArea: HTMLElement | null = globalSelectionAreaContainer!.querySelector('dt-selection-area-container');
       expect(selectionArea!.style.left).toEqual(`${originDomRect.left}px`);
@@ -85,17 +86,23 @@ describe('DtSelectionArea', () => {
     let fixture: ComponentFixture<any>;
     let origin: HTMLElement;
 
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(BasicTest);
       fixture.detectChanges();
+      zone.simulateZoneExit();
       origin = fixture.componentInstance.origin.nativeElement;
-    });
+    }));
 
-    it('should create the selection area at the mouseposition', fakeAsync(() => {
+    it('should create the selection area at the mouseposition on first mousemove', fakeAsync(() => {
       dispatchMouseEvent(origin, 'mousedown', 100, 10);
       fixture.detectChanges();
       flush();
       tickRequestAnimationFrame();
+      dispatchMouseEvent(origin, 'mousemove', 100, 10);
+      fixture.detectChanges();
+      flush();
+      tickRequestAnimationFrame();
+      fixture.detectChanges();
       const selectedArea = fixture.debugElement.query(By.css('.dt-selection-area-selected-area'));
       expect(selectedArea.nativeElement.style.left).toEqual('90px');
     }));
@@ -222,6 +229,7 @@ describe('DtSelectionArea', () => {
     beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(BasicTest);
       fixture.detectChanges();
+      zone.simulateZoneExit();
       origin = fixture.componentInstance.origin.nativeElement;
 
       dispatchMouseEvent(origin, 'mousedown', 110, 10);
@@ -617,6 +625,7 @@ describe('DtSelectionArea', () => {
     beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(BasicTest);
       fixture.detectChanges();
+      zone.simulateZoneExit();
       origin = fixture.componentInstance.origin.nativeElement;
       dispatchMouseEvent(origin, 'mousedown', 100, 10);
       fixture.detectChanges();
@@ -677,6 +686,7 @@ describe('DtSelectionArea', () => {
     beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(BasicTest);
       fixture.detectChanges();
+      zone.simulateZoneExit();
       origin = fixture.componentInstance.origin.nativeElement;
       dispatchMouseEvent(origin, 'mousedown', 110, 10);
       fixture.detectChanges();
