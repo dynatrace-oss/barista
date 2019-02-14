@@ -36,6 +36,7 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
 
   private readonly _destroy = new Subject<void>();
 
+  // TODO: check for new or removed children -> maybe subscribe and trigger CD
   @ContentChildren(DtMicroChartSeries) _allSeriesExternal: QueryList<DtMicroChartSeries>;
   @ViewChildren(DtMicroChartSeriesSVG) _allSeriesSVG: QueryList<DtMicroChartSeriesSVG>;
 
