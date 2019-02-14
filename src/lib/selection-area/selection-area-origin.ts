@@ -21,7 +21,7 @@ import {
   removeCssClass,
 } from '@dynatrace/angular-components/core';
 import { take, takeUntil, switchMap } from 'rxjs/operators';
-import { Subscription, Subject, merge } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { ENTER } from '@angular/cdk/keycodes';
 
 export class DtSelectionAreaOriginBase { }
