@@ -3,6 +3,6 @@
   "rules": {
     "i18n": false,
     "no-magic-numbers": false,
-    "no-console": false,
+    "no-console": false
   }
 }
