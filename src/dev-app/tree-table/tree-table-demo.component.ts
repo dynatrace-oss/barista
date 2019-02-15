@@ -4,7 +4,8 @@ import { DtIconType } from '@dynatrace/dt-iconpack';
 import { DtTreeDataSource, DtTreeFlattener, DtTreeControl } from '@dynatrace/angular-components';
 import { BehaviorSubject } from 'rxjs';
 
-const TESTDATA: ThreadNode[] = [{
+const TESTDATA: ThreadNode[] = [
+{
   name: 'hz.hzInstance_1_cluster.thread',
   icon: 'apache-tomcat',
   threadlevel: 'S0',
@@ -30,8 +31,8 @@ const TESTDATA: ThreadNode[] = [{
       waiting: 130,
       running: 0,
       blocked: 0,
-    }
-  ]
+    },
+  ],
 },
 {
   name: 'jetty',
@@ -68,8 +69,8 @@ const TESTDATA: ThreadNode[] = [{
       waiting: 130,
       running: 0,
       blocked: 0,
-    }
-  ]
+    },
+  ],
 },
 {
   name: 'Downtime timer',
@@ -132,7 +133,7 @@ export class TreeTableDemo {
     this.dataSource = new DtTreeDataSource(this.treeControl, this.treeFlattener);
     this.dataChange.next(TESTDATA);
 
-    this.dataChange.subscribe(data => {
+    this.dataChange.subscribe((data) => {
       this.dataSource.data = data;
     });
   }
