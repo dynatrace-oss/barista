@@ -11,5 +11,6 @@ import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@a
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaristaSideNav {
+  // tslint:disable-next-line: no-any
   @Input() componentItems: any;
 }

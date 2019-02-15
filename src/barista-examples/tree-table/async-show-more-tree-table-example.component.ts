@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import { DtTreeDataSource, DtTreeFlattener, DtTreeControl } from '@dynatrace/angular-components';
 
-const TESTDATA: ThreadNode[] = [{
+const TESTDATA: ThreadNode[] = [
+{
   name: 'hz.hzInstance_1_cluster.thread',
   icon: 'apache-tomcat',
   threadlevel: 'S0',
@@ -28,8 +29,8 @@ const TESTDATA: ThreadNode[] = [{
       waiting: 130,
       running: 0,
       blocked: 0,
-    }
-  ]
+    },
+  ],
 },
 {
   name: 'jetty',
@@ -58,7 +59,7 @@ const TESTDATA: ThreadNode[] = [{
       blocked: 0,
       isShowMore: true,
     },
-  ]
+  ],
 },
 {
   name: 'Downtime timer',
@@ -157,8 +158,12 @@ export class ThreadFlatNode {
 
 
     <dt-header-row *dtHeaderRowDef="['name', 'total', 'blocked', 'running', 'waiting', 'actions']"></dt-header-row>
-    <dt-tree-table-row *dtRowDef="let row; columns: ['name', 'total', 'blocked', 'running', 'waiting', 'actions'];" [data]="row"></dt-tree-table-row>
-    <dt-tree-table-row *dtRowDef="let row; columns: ['showMore', 'total', 'blocked', 'running', 'waiting', 'actions']; when: isShowMore" [data]="row"></dt-tree-table-row>
+    <dt-tree-table-row
+      *dtRowDef="let row; columns: ['name', 'total', 'blocked', 'running', 'waiting', 'actions'];"
+      [data]="row"></dt-tree-table-row>
+    <dt-tree-table-row
+      *dtRowDef="let row; columns: ['showMore', 'total', 'blocked', 'running', 'waiting', 'actions']; when: isShowMore"
+      [data]="row"></dt-tree-table-row>
   </dt-tree-table>
   `,
 })
@@ -175,7 +180,7 @@ export class AsyncShowMoreTreeTable {
 
   constructor() {
     this.treeControl = new DtTreeControl<ThreadFlatNode>(this._getLevel, this._isExpandable);
-    this.treeFlattener =  new DtTreeFlattener(this.transformer, this._getLevel, this._isExpandable, this._getChildren);
+    this.treeFlattener = new DtTreeFlattener(this.transformer, this._getLevel, this._isExpandable, this._getChildren);
     this.dataSource = new DtTreeDataSource(this.treeControl, this.treeFlattener);
     this.dataSource.data = TESTDATA;
   }
@@ -185,8 +190,8 @@ export class AsyncShowMoreTreeTable {
   transformer = (row: ThreadNode, level: number): ThreadFlatNode => {
     const existingNode = this.nestedNodeMap.get(row);
     const flatNode = existingNode && existingNode.name === row.name
-        ? existingNode
-        : new ThreadFlatNode();
+      ? existingNode
+      : new ThreadFlatNode();
     flatNode.name = row.name;
     flatNode.level = level;
     flatNode.threadlevel = row.threadlevel;
@@ -223,7 +228,7 @@ export class AsyncShowMoreTreeTable {
         waiting: 123,
         running: 20,
         blocked: 0,
-      },
+      }
     );
     TESTDATA[1].children!.push(
       {
@@ -234,7 +239,7 @@ export class AsyncShowMoreTreeTable {
         waiting: 103,
         running: 20,
         blocked: 20,
-      },
+      }
     );
     this.dataSource.data = TESTDATA;
   }
