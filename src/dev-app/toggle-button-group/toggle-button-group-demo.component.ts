@@ -4,7 +4,7 @@ import { DtToggleButtonChange } from '@dynatrace/angular-components';
 @Component({
   moduleId: module.id,
   templateUrl: './toggle-button-group-demo.component.html',
-  styleUrls: ['./toggle-button-group-demo.component.scss']
+  styleUrls: ['./toggle-button-group-demo.component.scss'],
 })
 export class ToggleButtonGroupDemo {
   items: number[] = [1, 2, 3];
@@ -18,9 +18,9 @@ export class ToggleButtonGroupDemo {
     'lr-co-cf40007v.dynatrace.vmta',
     'lr-co-cf40008v.dynatrace.vmta',
   ];
-  hasMoreItems: boolean = true;
+  hasMoreItems = true;
 
-  handleSelectionChange(change: DtToggleButtonChange<string>) {
+  handleSelectionChange(change: DtToggleButtonChange<string>): void {
     console.log(change);
   }
 
@@ -42,7 +42,7 @@ export class ToggleButtonGroupDemo {
       'lr-co-cf400010v.dynatrace.vmta',
       'lr-co-cf400011v.dynatrace.vmta',
       'lr-co-cf400012v.dynatrace.vmta',
-      'lr-co-cf400013v.dynatrace.vmta',
+      'lr-co-cf400013v.dynatrace.vmta'
     );
     this.hasMoreItems = false;
   }
