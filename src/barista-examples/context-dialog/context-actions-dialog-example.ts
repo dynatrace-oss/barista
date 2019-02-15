@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
     .dt-button + .dt-button {
       margin-top: 8px;
     }
-    `
+    `,
   ],
 })
 export class ContextActionsDialogExampleComponent {
