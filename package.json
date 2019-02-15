@@ -18,7 +18,7 @@
     "universal": "gulp universal",
     "precommit": "yarn lint && yarn test && yarn ui-test && yarn universal",
     "schematics:build": "gulp schematics:build",
-    "postinstall": "gulp schematics:build"
+    "postinstall": "gulp schematics:build && gulp barista-example:generate"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",

@@ -56,6 +56,7 @@ export interface TableData {
 })
 export class TableExpandableProblemComponent {
   _dataSource: TableData[] = [
+    // tslint:disable-next-line: max-line-length
     { name: 'et-demo-2-win4', cpuUsage: 30, memoryPerc: 38, memoryTotal: 5830000000, traffic: 987000000, warnings: ['memoryPerc'], errors: ['cpuUsage'] },
     { name: 'et-demo-2-win3', cpuUsage: 26, memoryPerc: 46, memoryTotal: 6000000000, traffic: 6250000000 },
     { name: 'docker-host2', cpuUsage: 25.4, memoryPerc: 38, memoryTotal: 5250000000, traffic: 4190000000, warnings: ['cpuUsage'] },

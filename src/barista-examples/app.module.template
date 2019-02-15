@@ -1,3 +1,5 @@
+// tslint:disable: no-duplicate-imports max-file-line-count
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,4 +46,3 @@ const EXAMPLES = ${examples};
   bootstrap: [App],
 })
 export class AppModule { }
-
