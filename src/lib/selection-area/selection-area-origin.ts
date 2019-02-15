@@ -69,7 +69,10 @@ implements OnDestroy, OnChanges, AfterViewInit, HasTabIndex, CanDisable {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectionArea) {
-      this._zone.onStable.pipe(take(1)).subscribe(() => { this._emitBoundariesChangedOnSelectionArea(); });
+      this._zone.onStable.pipe(
+        takeUntil(this._destroy),
+        take(1)
+      ).subscribe(() => { this._emitBoundariesChangedOnSelectionArea(); });
       this._handleGrabbingChange();
     }
   }
