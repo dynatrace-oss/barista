@@ -3,8 +3,7 @@
 @import './scss/header-cell';
 
 :host.dt-table {
-  // To display at least one column with the entire width
-  display: inline-flex;
+  display: flex;
   flex-flow: column nowrap;
   min-width: 100%;
   position: relative;
