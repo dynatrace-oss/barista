@@ -4,18 +4,17 @@ import {buildConfig} from '../build-config';
 import {join} from 'path';
 import {createWriteStream} from 'fs';
 import {ensureDirSync} from 'fs-extra';
-import { sequenceTask } from '../util/sequence-task';
 
 /** Glob that matches all SCSS or CSS files that should be linted. */
 const stylesGlob = 'src/lib/**/!(*.bundle).+(css|scss)';
 
 const tsGlob = 'src/lib/**/!(*.spec).ts';
 const tsSpecsGlob = 'src/lib/**/*.spec.ts';
-// const tsDocs = 'src/docs/**/!(*.spec).ts';
 const tsUiTestApp = 'src/ui-test-app/**/!(*.spec).ts';
 const tsUniversalApp = 'src/universal-app/**/!(*.spec).ts';
 const tsUiSpecsGlob = 'ui-tests/**/*.spec.ts';
-const tsBaristaExamplesGlob = 'src/barista-examples/**/*.ts';
+const tsDev = 'src/dev-app/**/!(*.spec).ts';
+const tsBaristaExamplesGlob = 'src/barista-examples/**/!(*.spec).ts';
 
 const lintOutDir = join(buildConfig.outputDir, 'checkstyle');
 const stylelintOutFile = join(lintOutDir, 'stylelint.xml');
@@ -126,9 +125,9 @@ task('tslint:dev-app', ['ensureOutDirectory'], execNodeTask(
   'tslint', outputToXML(
     isCi,
     [
-      '--config', 'tslint.json',
+      '--config', 'src/dev-app/tslint.json',
       '--project', 'src/dev-app/tsconfig.json',
-      tsUiSpecsGlob,
+      tsDev,
     ],
     'checkstyle-dev-app.xml'
   )

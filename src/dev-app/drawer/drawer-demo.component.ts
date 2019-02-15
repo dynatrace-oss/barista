@@ -8,7 +8,7 @@ export class DrawerDemo {
 
   dynamicallyAdded = false;
 
-  addDrawer() {
+  addDrawer(): void {
     this.dynamicallyAdded = !this.dynamicallyAdded;
   }
 }

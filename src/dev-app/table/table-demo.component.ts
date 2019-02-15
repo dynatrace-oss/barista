@@ -18,6 +18,9 @@ export class TableDemo {
   }
 
   addRow(): void {
-    this.dataSource = [...this.dataSource, { host: 'et-demo-2-win5', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },]
+    this.dataSource = [
+      ...this.dataSource,
+      { host: 'et-demo-2-win5', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
+    ];
   }
 }
