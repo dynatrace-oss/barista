@@ -8,13 +8,15 @@ import { Component } from '@angular/core';
     <dt-key-value-list-value>{{ entry.value }}</dt-key-value-list-value>
   </dt-key-value-list-item>
     <dt-key-value-list-item>
-      <a dtKeyValueListKey href="https://www.dynatrace.com/" class="dt-link" target="_blank">Please visit dynatrace.com for more information</a>
+      <a dtKeyValueListKey href="https://www.dynatrace.com/" class="dt-link" target="_blank">
+        Please visit dynatrace.com for more information
+      </a>
       <a dtKeyValueListValue href="https://www.dynatrace.com/" class="dt-link" target="_blank">dynatrace.com</a>
     </dt-key-value-list-item>
 </dt-key-value-list>`,
 })
 export class DefaultKeyValueListExampleComponent {
-  entries: object[] = [
+  entries: Array<{key: string; value: string}> = [
     { key : 'Temp', value : '28C' },
     { key : 'Temp1', value : '27C' },
     { key : 'Temp2', value : '24C' },
