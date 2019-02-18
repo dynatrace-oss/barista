@@ -1,3 +1,18 @@
+## 1.8.1 (2019-02-18)
+
+### Bug Fixes
+
+* **chart:** adds default options for no utc time and marker disabling ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **copy-to-clipboard:** fixes background color for copy to clipboard input field on dark background ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **loading-distractor:** fixes font-weight of loading distractor label ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **selection-area:** fixes cursor not being correct ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **selection-area:** fixes issue that events where captured on plotbackground rather than an eventlayer on top ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **selection-area:** fixes issue that overlay was not pushing itself on the screen horizontally ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **selection-area:** fixes issue that selection area was created on mousedown rather than on mousemove ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table, chart:** fixes chart not shrinking in expandable table row ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **select:** fixes overlay positioning when opening to the right and sticking outside of the screen ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+
 ## 1.8.0 (2019-02-12)
 
 ### Bug Fixes
