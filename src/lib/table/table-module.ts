@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
 import { DtTable } from './table';
 import { DtHeaderRow, DtHeaderRowDef, DtRow, DtRowDef } from './row';
-import { DtCell, DtExpandableCell, DtCellDef, DtColumnDef, DtHeaderCell, DtHeaderCellDef } from './cell';
+import { DtCell, DtCellDef, DtColumnDef, DtHeaderCell, DtHeaderCellDef } from './cell';
 import {
   DtTableEmptyState,
   DtTableEmptyStateImage,
@@ -13,6 +13,7 @@ import {
 } from './table-empty-state';
 import { DtTableLoadingState } from './table-loading-state';
 import { DtExpandableRow } from './expandable-row';
+import { DtExpandableCell } from './expandable-cell';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 import { DtSortHeader } from './sort/sort-header';
