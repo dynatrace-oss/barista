@@ -32,8 +32,13 @@ export function removeCssClass(el: any, name: string, renderer?: Renderer2): voi
   }
 }
 
+/**
+ * Helper function to safely check if an element has a class
+ * Also works with elements in svgs
+ */
 // tslint:disable-next-line:no-any
 export function hasCssClass(el: any, name: string): boolean {
+  // classList cant be used safely for elements in svgs - thats why we are using getAttribute
   const classes = el.getAttribute('class') || '';
   return classes.split(' ').includes(name);
 }
