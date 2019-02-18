@@ -157,7 +157,7 @@ The DataSource type is an abstract class with two methods: connect and disconnec
 
 ## Expandable Table Rows
 
-Expandable rows can be defined using `dt-expandable-row`. An optional details cell can be added using `dt-expandable-cell`.
+Expandable rows can be defined using `dt-expandable-row`. An expandable row **has to** contain a column with a details cell. A details cell can be added using `dt-expandable-cell`.
 
 <docs-source-example example="TableExpandableRowsComponent" fullwidth="true"></docs-source-example>
 
@@ -169,6 +169,21 @@ Expandable rows can be defined using `dt-expandable-row`. An optional details ce
 | `@Input() multiple` | `boolean` | `false` | Sets the mode for expanding multiple rows at a time. NOTE: must not be used in Dynatrace UI! |
 | `expanded` | `boolean` | `false` | Gets or sets the expanded state of a row. |
 | `contentViewContainer` | `ViewContainerRef` |  | Gets a reference to the expandable container for dynamically adding components. |
+
+### Options and Properties of DtExpandableCell
+
+Expandable rows have to contain one column definition which contains a `dt-expandable-cell`. A sample column definition for the details column could look like this: 
+
+```html
+<ng-container dtColumnDef="details" dtColumnAlign="number">
+  <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
+  <dt-expandable-cell *dtCellDef ariaLabel="Expand the row"></dt-expandable-cell>
+</ng-container>
+```
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `@Input() ariaLabel` | `string` |  | Aria label that describes the action of toggling the state of the expandble-row. |
 
 ## Programmatic access
 

@@ -18,7 +18,6 @@
   min-height: $dt-table-row-height;
   @include dt-base-row();
 
-  cursor: pointer;
   border: 2px solid transparent;
 }
 
