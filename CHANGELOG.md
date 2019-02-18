@@ -1,3 +1,18 @@
+## 1.8.1 (2019-02-18)
+
+### Bug Fixes
+
+* **chart:** adds default options for no utc time and marker disabling ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **copy-to-clipboard:** fixes background color for copy to clipboard input field on dark background ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **loading-distractor:** fixes font-weight of loading distractor label ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **selection-area:** fixes cursor not being correct ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **selection-area:** fixes issue that events where captured on plotbackground rather than an eventlayer on top ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **selection-area:** fixes issue that overlay was not pushing itself on the screen horizontally ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **selection-area:** fixes issue that selection area was created on mousedown rather than on mousemove ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table, chart:** fixes chart not shrinking in expandable table row ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **select:** fixes overlay positioning when opening to the right and sticking outside of the screen ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
 ## 1.8.0 (2019-02-12)
 
 ### Bug Fixes
