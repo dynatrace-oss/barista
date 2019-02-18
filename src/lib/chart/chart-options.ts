@@ -39,6 +39,14 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
         // tslint:disable-next-line:no-any
         easing: DT_CHART_EASEINOUT as any, // As any to bypass highcharts types
       },
+      marker: {
+        enabled: false,
+        states: {
+          hover: {
+            enabled: false,
+          },
+        },
+      },
     },
   },
   title: {
@@ -62,6 +70,9 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
     itemHiddenStyle: {
       color: Colors.GRAY_300,
     },
+  },
+  time: {
+    useUTC: false,
   },
 };
 
