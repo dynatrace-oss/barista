@@ -178,24 +178,6 @@ export class DtCell {
   }
 }
 
-/**
- * Cell template that adds the right classes, role and static content for the details cell,
- * which can be used to indicate that a table row is expandable.
- */
-@Component({
-  selector: 'dt-expandable-cell',
-  template: '<dt-icon class="dt-expandable-cell-dropdown" name="dropdownopen"></dt-icon>',
-  styleUrls: ['./scss/expandable-cell.scss'],
-  host: {
-    class: 'dt-expandable-cell',
-    role: 'gridcell',
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated,
-  exportAs: 'dtExpandableCell',
-})
-export class DtExpandableCell extends DtCell {}
-
 const ALIGNMENT_CAST_MAP = new Map<DtTableColumnTypedAlign, DtTableColumnAlign>([
   ['icon', 'center'],
   ['control', 'center'],
