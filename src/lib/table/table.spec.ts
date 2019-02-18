@@ -287,6 +287,8 @@ describe('DtTable', () => {
       const testApp = fixture.debugElement.componentInstance;
       const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
+      const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
+        (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       // initially all rows collapsed
       expect(testApp.expandableRows[0].expanded).toBeFalsy();
@@ -294,28 +296,28 @@ describe('DtTable', () => {
       expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 1st row expanded
-      expandableRowElements[0].click();
+      expandableRowTriggerElements[0].click();
       fixture.detectChanges();
       expect(testApp.expandableRows[0].expanded).toBeTruthy();
       expect(testApp.expandableRows[1].expanded).toBeFalsy();
       expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 2nd row expanded
-      expandableRowElements[1].click();
+      expandableRowTriggerElements[1].click();
       fixture.detectChanges();
       expect(testApp.expandableRows[0].expanded).toBeFalsy();
       expect(testApp.expandableRows[1].expanded).toBeTruthy();
       expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 3rd row expanded
-      expandableRowElements[2].click();
+      expandableRowTriggerElements[2].click();
       fixture.detectChanges();
       expect(testApp.expandableRows[0].expanded).toBeFalsy();
       expect(testApp.expandableRows[1].expanded).toBeFalsy();
       expect(testApp.expandableRows[2].expanded).toBeTruthy();
 
       // if 3rd row collapsed
-      expandableRowElements[2].click();
+      expandableRowTriggerElements[2].click();
       fixture.detectChanges();
       expect(testApp.expandableRows[0].expanded).toBeFalsy();
       expect(testApp.expandableRows[1].expanded).toBeFalsy();
@@ -328,7 +330,7 @@ describe('DtTable', () => {
       testApp.multiple = true;
       fixture.detectChanges();
 
-      const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
+      const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       // initially all rows collapsed
@@ -337,30 +339,30 @@ describe('DtTable', () => {
       expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 1st row expanded
-      expandableRowElements[0].click();
+      expandableRowTriggerElements[0].click();
       fixture.detectChanges();
       expect(testApp.expandableRows[0].expanded).toBeTruthy();
       expect(testApp.expandableRows[1].expanded).toBeFalsy();
       expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 2nd row expanded
-      expandableRowElements[1].click();
+      expandableRowTriggerElements[1].click();
       fixture.detectChanges();
       expect(testApp.expandableRows[0].expanded).toBeTruthy();
       expect(testApp.expandableRows[1].expanded).toBeTruthy();
       expect(testApp.expandableRows[2].expanded).toBeFalsy();
 
       // if 3rd row expanded
-      expandableRowElements[2].click();
+      expandableRowTriggerElements[2].click();
       fixture.detectChanges();
       expect(testApp.expandableRows[0].expanded).toBeTruthy();
       expect(testApp.expandableRows[1].expanded).toBeTruthy();
       expect(testApp.expandableRows[2].expanded).toBeTruthy();
 
       // if all rows collapsed
-      expandableRowElements[0].click();
-      expandableRowElements[1].click();
-      expandableRowElements[2].click();
+      expandableRowTriggerElements[0].click();
+      expandableRowTriggerElements[1].click();
+      expandableRowTriggerElements[2].click();
       fixture.detectChanges();
       expect(testApp.expandableRows[0].expanded).toBeFalsy();
       expect(testApp.expandableRows[1].expanded).toBeFalsy();
@@ -372,19 +374,19 @@ describe('DtTable', () => {
       const testApp: TestAppExpandableTable = fixture.debugElement.componentInstance;
       fixture.detectChanges();
 
-      const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
+      const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       // on init
       expect(testApp.expandedRow).toBe(undefined);
 
       // on expand
-      expandableRowElements[1].click();
+      expandableRowTriggerElements[1].click();
       fixture.detectChanges();
       expect(testApp.expandedRow).toBe(testApp.expandableRows[1]);
 
       // on collapse
-      expandableRowElements[1].click();
+      expandableRowTriggerElements[1].click();
       fixture.detectChanges();
       expect(testApp.expandedRow).toBe(undefined);
     });
@@ -393,7 +395,7 @@ describe('DtTable', () => {
       const fixture = TestBed.createComponent(TestAppExpandableTable);
       fixture.detectChanges();
 
-      const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
+      const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       const expandableCells = fixture.debugElement.queryAll(By.directive(DtExpandableCell));
@@ -407,14 +409,14 @@ describe('DtTable', () => {
       expect(cell3.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
 
       // on expand
-      expandableRowElements[0].click();
+      expandableRowTriggerElements[0].click();
       fixture.detectChanges();
       expect(cell1.className.indexOf('dt-expandable-cell-expanded')).toBeGreaterThan(-1);
       expect(cell2.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
       expect(cell3.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
 
       // on collapse
-      expandableRowElements[0].click();
+      expandableRowTriggerElements[0].click();
       fixture.detectChanges();
       expect(cell1.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
       expect(cell2.className.indexOf('dt-expandable-cell-expanded')).toBe(-1);
@@ -427,7 +429,7 @@ describe('DtTable', () => {
       testApp.dynamicallyAddComponent = true;
       fixture.detectChanges();
 
-      const expandableRowElements = fixture.debugElement.queryAll(By.css('.dt-expandable-row-base')).map(
+      const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
 
       // on init
@@ -436,7 +438,7 @@ describe('DtTable', () => {
       expect(testApp.expandableRows[2].contentViewContainer.element.nativeElement.nextElementSibling).toBeNull();
 
       // on expand
-      expandableRowElements[2].click();
+      expandableRowTriggerElements[2].click();
       fixture.detectChanges();
       const expandableContent =
         testApp.expandableRows[2].contentViewContainer.element.nativeElement.nextElementSibling as HTMLElement;

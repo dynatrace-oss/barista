@@ -47,8 +47,13 @@ export interface TableData {
     <dt-cell *dtCellDef="let row" >This is empty</dt-cell>
   </ng-container>
 
-  <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"></dt-header-row>
-  <dt-expandable-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"></dt-expandable-row>
+  <ng-container dtColumnDef="details" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
+    <dt-expandable-cell *dtCellDef ariaLabel="Expand the row to see problem details"></dt-expandable-cell>
+  </ng-container>
+
+  <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic', 'details']"></dt-header-row>
+  <dt-expandable-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic', 'details']"></dt-expandable-row>
 </dt-table>
 <button dt-button (click)="_toggleProblem()">Toggle problem</button>
 `,

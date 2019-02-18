@@ -26,7 +26,7 @@ import { Component } from '@angular/core';
 
   <ng-container dtColumnDef="details" dtColumnAlign="number">
     <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
-    <dt-expandable-cell *dtCellDef></dt-expandable-cell>
+    <dt-expandable-cell *dtCellDef ariaLabel="Expand the row"></dt-expandable-cell>
   </ng-container>
 
   <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic', 'details']"></dt-header-row>
