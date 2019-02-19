@@ -1,8 +1,8 @@
 <svg:rect
-  *ngFor="let point of data" 
-  [attr.x]="_getXValue(point)"
-  [attr.y]="_getYValue(point)"
-  [attr.width]="_getWidth()"
-  [attr.height]="_getHeight(point)"
+  *ngFor="let point of points" 
+  [attr.x]="points.x"
+  [attr.y]="points.y"
+  [attr.width]="points.width"
+  [attr.height]="points.height"
   class="dt-micro-chart-column"
 ></svg:rect>

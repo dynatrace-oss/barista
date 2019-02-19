@@ -10,6 +10,17 @@ import { generateData } from './micro-chart-v2-data';
 export class MicroChartV2Demo {
   series: DtChartSeries = {
     name: 'Requests',
-    data: generateData(40, 900, 2000, 1370304000000, 900000),
+    data: [75, 150, 50, 50]
   };
+
+  series2 = {
+    data: [1000, 75, 0, 100]
+  }
+
+  toggleSeries = false;
+
+
+  updateData(): void {
+    this.series.data = [1, 100, 20, 30, 50, 10, 70, 80, 90, 15.5].reverse();
+  }
 }

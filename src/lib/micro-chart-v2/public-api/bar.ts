@@ -2,17 +2,17 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ChangeDet
 import { DtMicroChartSeries, DtMicroChartSeriesType } from './series';
 
 @Component({
-  selector: 'dt-micro-chart-column-series',
+  selector: 'dt-micro-chart-bar-series',
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
-  exportAs: 'dtMicroChartColumnSeries',
+  exportAs: 'dtMicroChartBarSeries',
   inputs: ['stacked'],
-  providers: [{ provide: DtMicroChartSeries, useExisting: DtMicroChartColumnSeries }],
+  providers: [{ provide: DtMicroChartSeries, useExisting: DtMicroChartBarSeries }],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtMicroChartColumnSeries extends DtMicroChartSeries implements OnChanges, OnDestroy {
-  readonly type: DtMicroChartSeriesType = 'column';
+export class DtMicroChartBarSeries extends DtMicroChartSeries implements OnChanges, OnDestroy {
+  readonly type: DtMicroChartSeriesType = 'bar';
 
   @Input() data: number[];
 

@@ -1,8 +1,22 @@
+<div style="width: 300px">
 <dt-micro-chart-v2>
   <dt-micro-chart-line-series [data]="series.data"></dt-micro-chart-line-series>
+  <dt-micro-chart-line-series *ngIf="toggleSeries" [data]="series2.data"></dt-micro-chart-line-series>
 </dt-micro-chart-v2>
+</div>
 
-<dt-micro-chart-v2>
+<button dt-button (click)="updateData()">Update data</button>
+<button dt-button (click)="toggleSeries = !toggleSeries">ToggleSeries</button>
+
+<div style="width: 300px">
+    <dt-micro-chart-v2>
+      <dt-micro-chart-line-series [data]="series.data"></dt-micro-chart-line-series>
+      <dt-micro-chart-column-series [data]="series.data"></dt-micro-chart-column-series>
+    </dt-micro-chart-v2>
+    </div>
+    
+
+<!-- <dt-micro-chart-v2>
   <dt-micro-chart-line-series [data]="series.data" markers="true"></dt-micro-chart-line-series>
 </dt-micro-chart-v2>
 
@@ -12,4 +26,13 @@
 
 <dt-micro-chart-v2>
   <dt-micro-chart-column-series [data]="series.data"></dt-micro-chart-column-series>
+</dt-micro-chart-v2> -->
+
+<!-- <dt-micro-chart-v2>
+  <dt-micro-chart-bar-series [data]="[[0, 10], [1, 30], [2, 20]]"></dt-micro-chart-bar-series>
+  <dt-micro-chart-bar-series [data]="[20, 20, 20]"></dt-micro-chart-bar-series>
+  <dt-micro-chart-bar-series [data]="[30, 10, 20]"></dt-micro-chart-bar-series>
+  <dt-micro-chart-bar-series *ngIf="includeStackedSeries" stacked [data]="[30, 10, 20]"></dt-micro-chart-bar-series>
 </dt-micro-chart-v2>
+
+<button (click)="includeStackedSeries = !includeStackedSeries">Toggle stacked series</button> -->
