@@ -17,7 +17,7 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtRow } from './row';
 import { Subject, merge, Subscription } from 'rxjs';
 import { isDefined, addCssClass, DtIndicator } from '@dynatrace/angular-components/core';
-import { switchMap, filter, takeUntil, startWith, map } from 'rxjs/operators';
+import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
 import { DtSort, DtSortEvent } from './sort/sort';
 
 /** Custom Types for Cell alignments */
@@ -135,7 +135,9 @@ export class DtCell {
   ) {
 
     if (dtSortable) {
-      this._sortChangeSubscription = dtSortable.sortChange.subscribe((sort: DtSortEvent) => {
+      this._sortChangeSubscription = dtSortable.sortChange
+      .pipe(startWith({ active: dtSortable.active }))
+      .subscribe((sort: DtSortEvent) => {
         this._isSorted = sort.active === this._columnDef.name;
         this._changeDetectorRef.detectChanges();
       });
