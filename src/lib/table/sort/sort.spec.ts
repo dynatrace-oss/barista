@@ -129,6 +129,32 @@ describe('DtSort', () => {
       expect(checkCellsSorted(component.cells, false, 'column_c')).toBeTruthy();
     });
 
+    it('should have the isSorted set initial if sorting is active by default', () => {
+      component.dataSource = DATA_SOURCE;
+      component.start = 'asc';
+      component.active = 'column_a';
+      fixture.detectChanges();
+
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+    });
+
+    it('should keep all cells sorted if there are new rows added dynamically', () => {
+      component.dataSource = DATA_SOURCE;
+      component.start = 'asc';
+      component.active = 'column_a';
+      fixture.detectChanges();
+
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+
+      component.dataSource = [...DATA_SOURCE, DATA_SOURCE[0]];
+      fixture.detectChanges();
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+
+      component.dataSource = [...DATA_SOURCE, DATA_SOURCE[1]];
+      fixture.detectChanges();
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+    });
+
   });
 
   it('should be able to cycle from asc -> desc from either start point', () => {
