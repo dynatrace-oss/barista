@@ -67,6 +67,14 @@ export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalet
             halo: false,
           },
         },
+        marker: {
+          enabled: true,
+          states: {
+            hover: {
+              enabled: true,
+            },
+          },
+        },
       },
     },
     legend: {
