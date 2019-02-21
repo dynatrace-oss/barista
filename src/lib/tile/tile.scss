@@ -16,8 +16,6 @@
   cursor: pointer;
   line-height: -moz-block-height;
   border: 1px solid $gray-200;
-  white-space: nowrap;
-  overflow: hidden;
   width: 100%;
   padding: 0;
   text-align: left;
@@ -42,7 +40,11 @@
   display: flex;
   background-color: $gray-100;
   height: 52px;
-  border-bottom: none;
+
+  // Borders for the header element and bottom
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-bottom: 1px solid $gray-200;
   width: 100%;
 
   .dt-tile-small & {
@@ -51,21 +53,25 @@
 }
 
 .dt-tile-icon {
-  width: 52px;
-  height: 52px;
+  width: 53px;
+  height: 53px;
   background-color: $gray-700;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  // Icon should be "above" the tile border
+  margin-left: -1px;
+  margin-top: -1px;
+  border-top-left-radius: 3px;
 
   svg {
     fill: #ffffff;
   }
 
   .dt-tile-small & {
-    width: 36px;
-    height: 36px;
+    width: 37px;
+    height: 37px;
   }
 
   .dt-icon {
@@ -113,7 +119,7 @@
 }
 
 .dt-tile-disabled .dt-tile-title,
-.dt-tile-disabled .dt-tile-subtitle, {
+.dt-tile-disabled .dt-tile-subtitle {
   color: $gray-300;
 }
 
