@@ -320,14 +320,13 @@ As per the style guide: "The table component can be either a static or an intera
 This version of the core table component just addresses a static data table. No user interaction with it allowed. So just groundhog's standard and responsive tables (equivalent to classes `.table .table–responsive`).
 This version does not yet allow for any of the following capabilities that Dynatrace's data tables need
 
-* two lines per row tables.
-* on hover reaction of any type (ex: on hover tool tips for icons)
-* Filtering
-* Pagination
-* Problem/Warning indicators
+### Responsive table
+
+Since some tables might have a lot of data in them and screen space is very limited especially on devices with smaller screens you might want to switch between a table with expandable rows and normal rows. The example below shows a very simple approach how this might be done.
+
+<docs-source-example example="TableResponsiveComponent" fullwidth="true"></docs-source-example>
+
 * Edit mode
-* Add/Remove/Delete rows
 * Move Up/Down
-* Buttons or Charts as content
 
 All pending functionality will be progressively addressed by future versions
