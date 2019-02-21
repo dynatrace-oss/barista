@@ -117,7 +117,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   readonly _afterRender = new Subject<void>();
 
   /** @internal The highcharts chart object */
-  _chartObject: ChartObject;
+  _chartObject: ChartObject | null;
 
   /** Options to configure the chart. */
   @Input()
@@ -204,7 +204,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
         .pipe(takeUntil(this._destroy), delay(0))// delay to postpone the reflow to the next change detection cycle
         .subscribe(() => {
           if (this._chartObject) {
-            this._ngZone.runOutsideAngular(() => { this._chartObject.reflow(); });
+            this._ngZone.runOutsideAngular(() => { this._chartObject!.reflow(); });
           }
         });
     }
@@ -260,7 +260,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
         this._tooltipOpen = true;
         this.tooltipOpenChange.next(true);
       }
-      this._tooltipRefreshed.next({ data: (event as DtHcTooltipEventPayload).data , chart: this._chartObject });
+      this._tooltipRefreshed.next({ data: (event as DtHcTooltipEventPayload).data , chart: this._chartObject! });
     });
   }
 
@@ -277,6 +277,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     this._destroy.complete();
     if (this._chartObject) {
       this._chartObject.destroy();
+      // Cleanup reference here so we dont trigger more things afterwards
+      this._chartObject = null;
     }
     if (this._dataSub) {
       this._dataSub.unsubscribe();
@@ -324,9 +326,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     if (this._chartObject) {
       this._ngZone.runOutsideAngular(() => {
         if (xAxisHasChanged) {
-          this._chartObject.update({ series: [] }, false, true);
+          this._chartObject!.update({ series: [] }, false, true);
         }
-        this._chartObject.update(this._highchartsOptions, true, true);
+        this._chartObject!.update({ ...this._highchartsOptions }, true, true);
       });
       this.updated.emit();
     }

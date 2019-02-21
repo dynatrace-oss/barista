@@ -6,6 +6,39 @@ import { Component } from '@angular/core';
   styleUrls: ['./chart-demo.component.scss'],
 })
 export class ChartDemo {
+
+  options: Highcharts.Options = {
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: [
+      {
+        title: null,
+        labels: {
+          format: '{value}',
+        },
+        tickInterval: 10,
+      },
+      {
+        title: null,
+        labels: {
+          format: '{value}/min',
+        },
+        opposite: true,
+        tickInterval: 50,
+      },
+    ],
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+      },
+      series: {
+        marker: {
+          enabled: false,
+        },
+      },
+    },
+  };
   series: Highcharts.IndividualSeriesOptions[] = [
     {
       name: 'Requests',
