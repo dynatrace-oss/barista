@@ -42,7 +42,7 @@ import { TileDemo } from './tile/tile-demo.component';
 import { ToastDemo } from './toast/toast-demo.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
-import { ChartDemo } from 'chart/chart-demo.component';
+import { ChartDemo } from './chart/chart-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
