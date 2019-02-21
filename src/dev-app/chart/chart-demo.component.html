@@ -1,8 +1,10 @@
-<div class="demo-card">
-  <dt-card>
-    <dt-card-title>Top 3 JavaScript errors</dt-card-title>
-    <dt-card-subtitle>Some subtitle</dt-card-subtitle>
-    <dt-card-actions><button dt-button variant="secondary">Some Action</button></dt-card-actions>
-    The card is not an interactive element, therefore, there are no hover, active and disabled card.
-  </dt-card>
-</div>
+<dt-chart [options]="options" [series]="series">
+  <dt-chart-tooltip>
+    <ng-template let-tooltip>
+      <dt-key-value-list>
+        <dt-key-value-list-item *ngFor="let data of tooltip.points" [key]="data.series.name" [value]="data.point.y">
+        </dt-key-value-list-item>
+      </dt-key-value-list>
+    </ng-template>
+  </dt-chart-tooltip>
+</dt-chart>
