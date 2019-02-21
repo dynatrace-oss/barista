@@ -135,8 +135,8 @@ export class DtCell {
   ) {
 
     if (dtSortable) {
+      this._isSorted = dtSortable.active === this._columnDef.name;
       this._sortChangeSubscription = dtSortable.sortChange
-      .pipe(startWith({ active: dtSortable.active }))
       .subscribe((sort: DtSortEvent) => {
         this._isSorted = sort.active === this._columnDef.name;
         this._changeDetectorRef.detectChanges();
