@@ -41,8 +41,11 @@ const EXPORTED_DECLARATIONS = [
   DtTableLoadingState,
   DtSort,
   DtSortHeader,
+// tslint:disable-next-line: deprecation
   DtInfoGroupCell,
+// tslint:disable-next-line: deprecation
   DtInfoGroupCellIcon,
+// tslint:disable-next-line: deprecation
   DtInfoGroupCellTitle,
 ];
 
