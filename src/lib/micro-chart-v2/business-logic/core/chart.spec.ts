@@ -1,6 +1,6 @@
 import { unifySeriesData } from './chart';
 
-fdescribe('DtMicroChart - Core', () => {
+describe('DtMicroChart - Core', () => {
   let simpleLineSeries;
   beforeEach(() => {
     simpleLineSeries = {
