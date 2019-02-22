@@ -17,8 +17,11 @@ export class MicroChartV2Demo {
     data: [1000, 75, 0, 100, 90],
   };
 
-  toggleSeries = false;
+  timeseries = {
+    data: generateData(5, 15, 2700, Date.now(), 5),
+  };
 
+  toggleSeries = false;
 
   updateData(): void {
     this.series.data = [1, 100, 20, 30, 50, 10, 70, 80, 90, 15.5].reverse();

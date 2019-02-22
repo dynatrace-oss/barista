@@ -15,10 +15,10 @@ export function handleChartColumnSeries(width: number, series: DtMicroChartColum
   const { x, y } = getScales(width, domains, config);
   const transformedData = {
     type: series.type,
-    points: series.data.map((dp, index) => ({
+    points: series._transformedData.map((dp, index) => ({
       x: x(index.toString()) as number,
-      y: (y(domains.y.min) - y(dp)) > 0 ? y(dp) : y(dp) - 1,
-      height: (y(domains.y.min) - y(dp)) > 0 ? y(domains.y.min) - y(dp) : 1,
+      y: (y(domains.y.min) - y(dp[1])) > 0 ? y(dp[1]) : y(dp[1]) - 1,
+      height: (y(domains.y.min) - y(dp[1])) > 0 ? y(domains.y.min) - y(dp[1]) : 1,
       width: x.bandwidth(),
     })),
     scales: {
@@ -32,6 +32,7 @@ export function handleChartColumnSeries(width: number, series: DtMicroChartColum
 function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): { x: ScaleBand<number>; y: ScaleLinear<number, number> } {
   const x = scaleBand<number>().range([0, width - config.marginLeft - config.marginRight]);
   // map for distinct x values.
+  x.paddingInner(0.2)
   x.domain(new Array(domains.x.numberOfPoints).fill(1).map((_, i) => i));
   const y = scaleLinear().range([config.height - config.marginTop - config.marginBottom, 0]);
   y.domain([domains.y.min, domains.y.max]);

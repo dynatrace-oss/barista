@@ -15,7 +15,7 @@ export function handleChartLineSeries(width: number, series: DtMicroChartLineSer
   const { x, y } = getScales(width, domains, config);
   const transformedData = {
     type: series.type,
-    points: series.data.map((dp, index) => ({ x: x(index), y: y(dp) })),
+    points: series._transformedData.map((dp) => ({ x: x(dp[0]), y: y(dp[1]) })),
     scales: {
       x,
       y,
@@ -26,7 +26,7 @@ export function handleChartLineSeries(width: number, series: DtMicroChartLineSer
 
 function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): { x: ScaleLinear<number, number>; y: ScaleLinear<number, number> } {
   const x =  scaleLinear().range([0, width - config.marginLeft - config.marginRight]);
-  x.domain([0, domains.x.numberOfPoints - 1]);
+  x.domain([domains.x.min, domains.x.max]);
 
   const y = scaleLinear().range([config.height - config.marginTop - config.marginBottom, 0]);
   y.domain([domains.y.min, domains.y.max]);

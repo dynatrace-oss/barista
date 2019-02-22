@@ -102,7 +102,7 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
             switch (data.type) {
               case 'column':
                 return this._chartRenderer.createColumnSeriesRenderData(data);
-              case 'line': 
+              case 'line':
               default:
                 return this._chartRenderer.createLineSeriesRenderData(data);
             }
@@ -118,12 +118,12 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
   }
 }
 
-export function extractDataFromSeries(series: DtMicroChartSeries[]): Array<{ type: DtMicroChartSeriesType; data: number[]; }> {
-  return series.map((s) => {
-    switch(s.type) {
-      case 'line':
-      default:
-        return { type: s.type, data: s.data };
-    }
-  });
-}
+// export function extractDataFromSeries(series: DtMicroChartSeries[]): Array<{ type: DtMicroChartSeriesType; data: number[]; }> {
+//   return series.map((s) => {
+//     switch(s.type) {
+//       case 'line':
+//       default:
+//         return { type: s.type, data: s.data };
+//     }
+//   });
+// }

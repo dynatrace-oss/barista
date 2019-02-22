@@ -1,20 +1,44 @@
+<h2>Simple data</h2>
 <div style="width: 300px">
-<dt-micro-chart-v2>
-  <dt-micro-chart-line-series [data]="series.data"></dt-micro-chart-line-series>
-  <dt-micro-chart-line-series *ngIf="toggleSeries" [data]="series2.data"></dt-micro-chart-line-series>
-</dt-micro-chart-v2>
+  <dt-micro-chart-v2>
+    <dt-micro-chart-line-series [data]="series.data"></dt-micro-chart-line-series>
+    <dt-micro-chart-line-series *ngIf="toggleSeries" [data]="series2.data"></dt-micro-chart-line-series>
+  </dt-micro-chart-v2>
 </div>
 
 <button dt-button (click)="updateData()">Update data</button>
 <button dt-button (click)="toggleSeries = !toggleSeries">ToggleSeries</button>
 
+<h2>Simple data with multiple series</h2>
 <div style="width: 300px">
   <dt-micro-chart-v2>
-    <dt-micro-chart-line-series [data]="series.data"></dt-micro-chart-line-series>
     <dt-micro-chart-column-series [data]="series.data"></dt-micro-chart-column-series>
+    <dt-micro-chart-line-series [data]="series.data"></dt-micro-chart-line-series>
   </dt-micro-chart-v2>
 </div>
-    
+
+
+<h2>Timeseries data - Line</h2>
+<div style="width: 300px">
+  <dt-micro-chart-v2>
+    <dt-micro-chart-line-series [data]="timeseries.data"></dt-micro-chart-line-series>
+  </dt-micro-chart-v2>
+</div>
+
+<h2>Timeseries data - Column</h2>
+<div style="width: 300px">
+  <dt-micro-chart-v2>
+    <dt-micro-chart-column-series [data]="timeseries.data"></dt-micro-chart-column-series>
+  </dt-micro-chart-v2>
+</div>
+  
+<h2>Timeseries data - Line and column</h2>
+<div style="width: 300px">
+  <dt-micro-chart-v2>
+    <dt-micro-chart-line-series [data]="timeseries.data"></dt-micro-chart-line-series>
+    <dt-micro-chart-column-series [data]="timeseries.data"></dt-micro-chart-column-series>
+  </dt-micro-chart-v2>
+</div>
 
 <!-- <dt-micro-chart-v2>
   <dt-micro-chart-line-series [data]="series.data" markers="true"></dt-micro-chart-line-series>

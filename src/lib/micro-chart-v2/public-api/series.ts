@@ -6,7 +6,13 @@ export type DtMicroChartSeriesType = 'line' | 'column' | 'bar';
 export abstract class DtMicroChartSeries {
   readonly type: DtMicroChartSeriesType;
 
-  data: any;
+  data: Array<number|null> | Array<Array<number|null>>;
+
+  /**
+   * @internal
+   * Stores the transformed series data to unify datastream.
+   */
+  _transformedData: Array<Array<number|null>>;
 
   /**
    * @internal

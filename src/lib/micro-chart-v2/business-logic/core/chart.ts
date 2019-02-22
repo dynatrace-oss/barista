@@ -1,5 +1,4 @@
 import { DtMicroChartSeries, DtMicroChartLineSeries, DtMicroChartSeriesType, DtMicroChartColumnSeries } from '../../public-api';
-import { ScaleLinear, ScaleBand, scaleBand, scaleLinear } from 'd3-scale';
 import { extent } from 'd3-array';
 import { handleChartLineSeries } from './line';
 import { DtMicroChartConfig } from '../../micro-chart-config';
@@ -20,7 +19,16 @@ export interface DtMicroChartSeriesData {
   };
 }
 
-function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, series: DtMicroChartSeries, index?: number): DtMicroChartDomains {
+export function unifySeriesData(series: DtMicroChartSeries): DtMicroChartSeries {
+  const data = series.data;
+  const transform = data && data.length && !(data[0] instanceof Array);
+  series._transformedData = transform ?
+    (data as number[]).map((dataPoint, index) => [index, dataPoint]) :
+    (data as number[][]).slice(0);
+  return series;
+}
+
+export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, series: DtMicroChartSeries): DtMicroChartDomains {
   let xMin = aggregator.x.min;
   let xMax = aggregator.x.max;
   let yMin = aggregator.y.min;
@@ -28,10 +36,9 @@ function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, series: DtM
   let xMaxNrOfPoints = aggregator.x.numberOfPoints;
   let yMaxNrOfPoints = aggregator.y.numberOfPoints;
 
-  // TODO: Handle xMin/Max differently when we work with [number, number][]
-  const [seriesXMin, seriesXMax] = [0, series.data.length];
-  const [seriesYMin, seriesYMax] = extent(series.data);
-
+  const data = series._transformedData;
+  const [seriesXMin, seriesXMax] = extent(data, (d) => d[0]);
+  const [seriesYMin, seriesYMax] = extent(data, (d) => d[1]);
   // TODO: find distinct x Values
 
   // Find extents over all series provided
@@ -48,12 +55,12 @@ function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, series: DtM
     yMax = seriesYMax;
   }
 
-  if (xMaxNrOfPoints < series.data.length) {
-    xMaxNrOfPoints = series.data.length;
+  if (xMaxNrOfPoints < data.length) {
+    xMaxNrOfPoints = data.length;
   }
 
-  if (yMaxNrOfPoints < series.data.length) {
-    yMaxNrOfPoints = series.data.length;
+  if (yMaxNrOfPoints < data.length) {
+    yMaxNrOfPoints = data.length;
   }
 
   return {
@@ -84,14 +91,9 @@ export function handleChartData(width: number, series: DtMicroChartSeries[], con
       numberOfPoints: -Infinity,
     },
   };
-  const domains: DtMicroChartDomains = series.reduce(reduceSeriesToChartDomains, standardDomain);
-  // const domains: DtMicroChartDomains = series.reduce(
-  //   (aggr, val) => {
-  //     aggr.x = getDomain([0, val.data.length - 1], aggr.x);
-  //     aggr.y = getDomain([0, max(val.data)], aggr.y);
-  //     return aggr;
-  //   },
-  //   { x: [], y: [] } as DtMicroChartDomains);
+  const domains: DtMicroChartDomains = series
+    .map((s) => unifySeriesData(s))
+    .reduce(reduceSeriesToChartDomains, standardDomain);
   return series.map((s) => handleChartSeries(width, s, domains, config));
 }
 
@@ -104,14 +106,3 @@ export function handleChartSeries(width: number, series: DtMicroChartSeries, dom
       return handleChartLineSeries(width, series as DtMicroChartLineSeries, domains, config);
   }
 }
-
-// function getDomain(data: number[], prevData: number[]): number[] {
-//   const maxPrev = max(prevData);
-//   const maxData = max(data);
-//   const newMax = maxPrev && maxPrev > maxData ? maxPrev : maxData;
-
-//   const minPrev = min(prevData);
-//   const minData = min(data);
-//   const newMin = minPrev && minPrev > minData ? minPrev : minData;
-//   return [newMin, newMax];
-// }
