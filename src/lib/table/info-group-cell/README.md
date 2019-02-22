@@ -2,7 +2,7 @@
 type: "component"
 ---
 
-# DtInfoGroupCell
+# DtInfoGroupCell (deprecated)
 
 This component is **deprecated**, please use the `dt-info-group` component instead. The `<dt-info-group-cell>` components handles the styles and alignment for cells that have 2 rows and an icon.
 
