@@ -18,6 +18,7 @@ import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 import { DtSortHeader } from './sort/sort-header';
 import { DtSort } from './sort/sort';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
+import { DtInfoGroupCell, DtInfoGroupCellIcon, DtInfoGroupCellTitle } from './info-group-cell/info-group-cell';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
@@ -40,6 +41,9 @@ const EXPORTED_DECLARATIONS = [
   DtTableLoadingState,
   DtSort,
   DtSortHeader,
+  DtInfoGroupCell,
+  DtInfoGroupCellIcon,
+  DtInfoGroupCellTitle,
 ];
 
 @NgModule({
