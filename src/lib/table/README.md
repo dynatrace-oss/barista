@@ -114,7 +114,7 @@ You can customize the column width proportion with `[dtColumnProportion]`
 
 ### Tables with two lines per row
 
- If you want to have 2 lines of text and maybe an icon inside a row you can use the `<dt-info-group-cell>` component. You can also take a look at the `<dt-info-group-cell>` component's page for further information.
+ If you want to have 2 lines of text and maybe an icon inside a row you can use the `<dt-info-group>` component. You can also take a look at the `<dt-info-group>` component's page for further information.
 
 <docs-source-example example="TableWithInfoGroupCellComponent" fullwidth="true"></docs-source-example>
 
