@@ -17,8 +17,8 @@ export function handleChartColumnSeries(width: number, series: DtMicroChartColum
     type: series.type,
     points: series.data.map((dp, index) => ({
       x: x(index.toString()) as number,
-      y: y(dp),
-      height: y(0) - y(dp),
+      y: (y(domains.y.min) - y(dp)) > 0 ? y(dp) : y(dp) - 1,
+      height: (y(domains.y.min) - y(dp)) > 0 ? y(domains.y.min) - y(dp) : 1,
       width: x.bandwidth(),
     })),
     scales: {
@@ -26,17 +26,14 @@ export function handleChartColumnSeries(width: number, series: DtMicroChartColum
       y,
     },
   };
-  console.log(transformedData);
   return transformedData;
 }
 
-function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): { x: ScaleBand<string>; y: ScaleLinear<number, number> } {
-  const x =  scaleBand<string>().range([0, width - config.marginLeft - config.marginRight]);
-  console.log(domains.x.map((v) => v.toString()));
-  // x.domain(domains.x.map((v) => v.toString()));
-  x.domain(new Array(4).fill(''));
-
+function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): { x: ScaleBand<number>; y: ScaleLinear<number, number> } {
+  const x = scaleBand<number>().range([0, width - config.marginLeft - config.marginRight]);
+  // map for distinct x values.
+  x.domain(new Array(domains.x.numberOfPoints).fill(1).map((_, i) => i));
   const y = scaleLinear().range([config.height - config.marginTop - config.marginBottom, 0]);
-  y.domain(domains.y);
+  y.domain([domains.y.min, domains.y.max]);
   return { x, y };
 }

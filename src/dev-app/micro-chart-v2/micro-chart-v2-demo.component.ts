@@ -10,12 +10,12 @@ import { generateData } from './micro-chart-v2-data';
 export class MicroChartV2Demo {
   series: DtChartSeries = {
     name: 'Requests',
-    data: [75, 150, 50, 50]
+    data: [75, 150, 50, 50, 90],
   };
 
   series2 = {
-    data: [1000, 75, 0, 100]
-  }
+    data: [1000, 75, 0, 100, 90],
+  };
 
   toggleSeries = false;
 

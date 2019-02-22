@@ -30,7 +30,6 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
   }
 
   createColumnSeriesRenderData(data: DtMicroChartColumnSeriesData): DtMicroChartColumnSeriesSvgData {
-    console.log(data.points);
     return {
       type: 'column',
       points: data.points,

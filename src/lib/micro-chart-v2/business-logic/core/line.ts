@@ -21,15 +21,14 @@ export function handleChartLineSeries(width: number, series: DtMicroChartLineSer
       y,
     },
   };
-  console.log(transformedData);
   return transformedData;
 }
 
 function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): { x: ScaleLinear<number, number>; y: ScaleLinear<number, number> } {
   const x =  scaleLinear().range([0, width - config.marginLeft - config.marginRight]);
-  x.domain(domains.x);
+  x.domain([0, domains.x.numberOfPoints - 1]);
 
   const y = scaleLinear().range([config.height - config.marginTop - config.marginBottom, 0]);
-  y.domain(domains.y);
+  y.domain([domains.y.min, domains.y.max]);
   return { x, y };
 }
