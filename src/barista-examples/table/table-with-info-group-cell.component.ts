@@ -10,10 +10,11 @@ const LOG: DtLogger = DtLoggerFactory.create('TableDefaultComponent');
   <ng-container dtColumnDef="service">
     <dt-header-cell *dtHeaderCellDef>Service</dt-header-cell>
     <dt-cell *dtCellDef="let row">
-      <dt-info-group-cell>
-        <dt-info-group-cell-title>{{row.service}}</dt-info-group-cell-title>
-        on {{row.location}}
-      </dt-info-group-cell>
+      <dt-info-group>
+        <dt-info-group-icon><dt-icon name="agent"></dt-icon></dt-info-group-icon>
+        <dt-info-group-title>{{row.service}}</dt-info-group-title>
+        {{row.location}}
+      </dt-info-group>
     </dt-cell>
   </ng-container>
 
