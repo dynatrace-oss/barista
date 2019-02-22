@@ -19,3 +19,17 @@
     width: 100%;
   }
 }
+
+::ng-deep .dt-cell .dt-info-group {
+  align-items: center;
+  padding: 4px 0;
+
+  .dt-info-group-content {
+    line-height: 22px;
+  }
+
+  .dt-info-group-title {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
