@@ -1,3 +1,16 @@
+## 1.8.2 (2019-02-25)
+
+### Bug Fixes
+
+* **info-group:** adds support for being used inside a dt-table ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **micro-chart:** fixes `markers` default option for micro-charts ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** fixes styling for sorting when rows are added dynamically ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **tile:** fixes border styling to fully fit design specifications ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Deprecations
+**info-group-cell**: Use info-group instead ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+
 ## 1.8.1 (2019-02-18)
 
 ### Bug Fixes
