@@ -4,6 +4,7 @@
       
       <svg:g *ngSwitchCase="'line'" dt-micro-chart-line-series [points]="renderSeries.points" [path]="renderSeries.path"></svg:g>
       <svg:g *ngSwitchCase="'column'" dt-micro-chart-column-series [points]="renderSeries.points"></svg:g>
+      <svg:g *ngSwitchCase="'bar'" dt-micro-chart-bar-series [points]="renderSeries.points"></svg:g>
 
     </svg:g>
   </svg:g>

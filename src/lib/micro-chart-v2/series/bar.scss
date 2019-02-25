@@ -1,0 +1,7 @@
+@import '../../core/theming/theming';
+@import 'bar-theme';
+
+// Apply the column-series theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-bar-series($dt-current-theme);
+}

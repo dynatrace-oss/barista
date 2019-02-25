@@ -102,6 +102,8 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
             switch (data.type) {
               case 'column':
                 return this._chartRenderer.createColumnSeriesRenderData(data);
+              case 'bar':
+                return this._chartRenderer.createBarSeriesRenderData(data);
               case 'line':
               default:
                 return this._chartRenderer.createLineSeriesRenderData(data);

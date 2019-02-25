@@ -1,8 +1,9 @@
-import { DtMicroChartSeries, DtMicroChartLineSeries, DtMicroChartSeriesType, DtMicroChartColumnSeries } from '../../public-api';
+import { DtMicroChartSeries, DtMicroChartLineSeries, DtMicroChartSeriesType, DtMicroChartColumnSeries, DtMicroChartBarSeries } from '../../public-api';
 import { extent } from 'd3-array';
-import { handleChartLineSeries } from './line';
 import { DtMicroChartConfig } from '../../micro-chart-config';
+import { handleChartLineSeries } from './line';
 import { handleChartColumnSeries } from './column';
+import { handleChartBarSeries } from './bar';
 
 // TODO: adjust datastructure to find eventually shared scales (multiple axis, ...)
 export interface DtMicroChartDomains {
@@ -101,6 +102,8 @@ export function handleChartSeries(width: number, series: DtMicroChartSeries, dom
   switch (series.type) {
     case 'column':
       return handleChartColumnSeries(width, series as DtMicroChartColumnSeries, domains, config);
+    case 'bar':
+      return handleChartBarSeries(width, series as DtMicroChartBarSeries, domains, config);
     case 'line':
     default:
       return handleChartLineSeries(width, series as DtMicroChartLineSeries, domains, config);

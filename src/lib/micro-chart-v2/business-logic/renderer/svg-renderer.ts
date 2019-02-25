@@ -3,6 +3,7 @@ import { line } from 'd3-shape';
 import { DtMicroChartRenderer } from './base';
 import { DtMicroChartSeriesType } from '../../public-api';
 import { DtMicroChartColumnSeriesData } from '../core/column';
+import { DtMicroChartBarSeriesData } from '../core/bar';
 
 export interface DtMicroChartLineSeriesSvgData {
   type: DtMicroChartSeriesType;
@@ -11,6 +12,11 @@ export interface DtMicroChartLineSeriesSvgData {
 }
 
 export interface DtMicroChartColumnSeriesSvgData {
+  type: DtMicroChartSeriesType;
+  points: { x: number; y: number; height: number; width: number; }[];
+}
+
+export interface DtMicroChartBarSeriesSvgData {
   type: DtMicroChartSeriesType;
   points: { x: number; y: number; height: number; width: number; }[];
 }
@@ -32,6 +38,13 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
   createColumnSeriesRenderData(data: DtMicroChartColumnSeriesData): DtMicroChartColumnSeriesSvgData {
     return {
       type: 'column',
+      points: data.points,
+    };
+  }
+
+  createBarSeriesRenderData(data: DtMicroChartBarSeriesData): DtMicroChartBarSeriesSvgData {
+    return {
+      type: 'bar',
       points: data.points,
     };
   }
