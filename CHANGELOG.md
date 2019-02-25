@@ -1,3 +1,16 @@
+## 1.8.2 (2019-02-25)
+
+### Bug Fixes
+
+* **info-group:** adds support for being used inside a dt-table ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **micro-chart:** fixes `markers` default option for micro-charts ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table:** fixes styling for sorting when rows are added dynamically ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **tile:** fixes border styling to fully fit design specifications ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Deprecations
+**info-group-cell**: Use info-group instead ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
 ## 1.8.1 (2019-02-18)
 
 ### Bug Fixes
