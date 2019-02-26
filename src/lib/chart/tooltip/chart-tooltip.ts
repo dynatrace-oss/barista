@@ -105,12 +105,14 @@ export class DtChartTooltip<T> implements OnDestroy {
       this._renderer.removeChild(this._origin.parentNode, this._origin);
       this._origin = null;
     }
-    this._origin = createOriginPoint(parentChart, this._renderer, data);
-    this._dtOverlayRef = this._dtOverlay.create<T>(
-      this._origin,
-      this.overlay,
-      { data, _positions: DEFAULT_DT_CHART_TOOLTIP_POSITIONS });
-    this._dtOverlayRef.updatePosition(0, 0);
+    if (parentChart._chartObject) {
+      this._origin = createOriginPoint(parentChart, this._renderer, data);
+      this._dtOverlayRef = this._dtOverlay.create<T>(
+        this._origin,
+        this.overlay,
+        { data, _positions: DEFAULT_DT_CHART_TOOLTIP_POSITIONS });
+      this._dtOverlayRef.updatePosition(0, 0);
+    }
   }
 
   /** Dismisses the overlay and cleans up the ref */
@@ -149,6 +151,6 @@ function createOriginPoint(chart: DtChart, renderer: Renderer2, data: DtChartToo
   renderer.setAttribute(circle, 'cy', yPixel.toString());
   renderer.setAttribute(circle, 'r', '1');
   renderer.setAttribute(circle, 'fill', 'transparent');
-  renderer.appendChild(chart._chartObject.container.querySelector('svg'), circle);
+  renderer.appendChild(chart._chartObject!.container.querySelector('svg'), circle);
   return circle;
 }

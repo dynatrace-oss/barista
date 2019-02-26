@@ -54,9 +54,37 @@ const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
     offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
   },
   {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'bottom',
+    offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+  {
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+  {
     originX: 'center',
     originY: 'bottom',
     overlayX: 'center',
+    overlayY: 'top',
+    offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+  {
+    originX: 'end',
+    originY: 'bottom',
+    overlayX: 'end',
+    overlayY: 'top',
+    offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+  {
+    originX: 'start',
+    originY: 'bottom',
+    overlayX: 'start',
     overlayY: 'top',
     offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
   },
@@ -148,7 +176,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     private _elementRef: ElementRef,
     private _renderer: Renderer2,
     private _zone: NgZone,
-    private _changeDetectorRef: ChangeDetectorRef,
+    public _changeDetectorRef: ChangeDetectorRef,
     private _focusTrapFactory: FocusTrapFactory
   ) {
     super();
@@ -162,7 +190,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     if (this._overlay.overlayRef) {
       this._overlay.overlayRef.dispose();
     }
-    this.close();
+    this.closed.next();
     this.closed.complete();
   }
 

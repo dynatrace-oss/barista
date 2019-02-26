@@ -15,6 +15,7 @@ import {
   AfterViewInit,
   OnChanges,
   OnDestroy,
+  DoCheck,
 } from '@angular/core';
 import {
   addCssClass,
@@ -42,7 +43,7 @@ let globalContainerElement: HTMLElement | null = null;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy {
+export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy, DoCheck {
 
   /** The aria label used for the selected area of the selection area */
   @Input('aria-label-selected-area') ariaLabelSelectedArea: string;
@@ -121,6 +122,15 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy {
         this.ariaLabelLeftHandle,
         this.ariaLabelRightHandle,
         this.ariaLabelClose);
+    }
+  }
+
+  ngDoCheck(): void {
+    // We need to trigger CD manually here, because we had to remove the container component from the embedded views
+    // of the selection area. Therefore the containers CD would never run. With this construct we would trigger
+    // CD on the container the same way as if it would still be in the tree under the selection area
+    if (this._containerInstance) {
+      this._containerInstance._changeDetectorRef.detectChanges();
     }
   }
 
