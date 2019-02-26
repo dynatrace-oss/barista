@@ -4,11 +4,14 @@ import { DtViewportResizer, Constructor, mixinColor, CanColor, isDefined } from 
 import { takeUntil, switchMap, startWith, filter, map, take } from 'rxjs/operators';
 import { Subject, combineLatest, merge, defer } from 'rxjs';
 import { DtMicroChartConfig } from './micro-chart-config';
-import { DtMicroChartSeries, DtMicroChartBarSeries, DtMicroChartColumnSeries, DtMicroChartSeriesType } from './public-api';
+import { DtMicroChartSeries, DtMicroChartBarSeries, DtMicroChartColumnSeries, DtMicroChartSeriesType, DtMicroChartLineSeries } from './public-api';
 import { DtMicroChartSeriesSVG } from './series';
-import { handleChartData } from './business-logic/core/chart';
+import { handleChartData, createChartDomains, DtMicroChartSeriesData, DtMicroChartIdentification } from './business-logic/core/chart';
 import { DT_MICRO_CHART_RENDERER, DtMicroChartRenderer } from './business-logic/renderer/base';
 import { DtMicroChartSvgRenderer, DtMicroChartLineSeriesSvgData, DtMicroChartColumnSeriesSvgData } from './business-logic/renderer/svg-renderer';
+import { handleChartLineSeries } from './business-logic/core/line';
+import { handleChartBarSeries } from './business-logic/core/bar';
+import { handleChartColumnSeries } from './business-logic/core/column';
 
 /** Injection token that can be used to specify default micro-chart options. */
 export const DT_MICRO_CHART_DEFAULT_OPTIONS =
@@ -96,19 +99,32 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
     ).subscribe(([width, series]) => {
       Promise.resolve().then(() => {
         this._width = width;
-        const transformedData = handleChartData(width, series, this._config);
-        this._renderData.next(transformedData.map(
-          (data) => {
-            switch (data.type) {
-              case 'column':
-                return this._chartRenderer.createColumnSeriesRenderData(data);
-              case 'bar':
-                return this._chartRenderer.createBarSeriesRenderData(data);
-              case 'line':
-              default:
-                return this._chartRenderer.createLineSeriesRenderData(data);
+        // generate Domains for all series.
+        const domains = createChartDomains(series);
+        const nextRenderData: Array<DtMicroChartSeriesData & DtMicroChartIdentification> = [];
+        // iterate over the series and collect renderdata.
+        for (const s of series) {
+          let rendererData;
+          switch (s.type) {
+            case 'column': {
+              const data = handleChartColumnSeries(width, s._transformedData, domains, this._config);
+              rendererData = this._chartRenderer.createColumnSeriesRenderData(data);
+              break;
             }
-          }));
+            case 'bar': {
+              const data = handleChartBarSeries(width, s._transformedData, domains, this._config);
+              rendererData = this._chartRenderer.createBarSeriesRenderData(data);
+              break;
+            }
+            case 'line':
+            default: {
+              const data = handleChartLineSeries(width, s._transformedData, domains, this._config);
+              rendererData = this._chartRenderer.createLineSeriesRenderData(data);
+            }
+          }
+          nextRenderData.push({ ...s._renderData, ...rendererData, });
+        }
+        this._renderData.next(nextRenderData);
         this._changeDetectorRef.markForCheck();
       });
     });

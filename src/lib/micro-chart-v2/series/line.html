@@ -1,2 +1,5 @@
 <svg:path class="dt-micro-chart-line" [attr.d]="path"></svg:path>
 <svg:g dt-micro-chart-point *ngFor="let point of points" [x]="point.x" [y]="point.y"></svg:g>
+
+<svg:text #minOutlet><ng-container [cdkPortalOutlet]="minPortal"></ng-container></svg:text>
+<svg:text #maxOutlet><ng-container [cdkPortalOutlet]="maxPortal"></ng-container></svg:text>

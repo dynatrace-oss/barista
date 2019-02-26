@@ -5,20 +5,22 @@ import { DtMicroChartSeriesType } from '../../public-api';
 import { DtMicroChartColumnSeriesData } from '../core/column';
 import { DtMicroChartBarSeriesData } from '../core/bar';
 
-export interface DtMicroChartLineSeriesSvgData {
+export interface DtMicroChartBaseSeriesSvgData {
+  publicSeriesId: number;
   type: DtMicroChartSeriesType;
-  points: { x: number; y: number; }[];
+}
+
+export interface DtMicroChartLineSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
+  points: Array<{ x: number; y: number }>;
   path: string;
 }
 
-export interface DtMicroChartColumnSeriesSvgData {
-  type: DtMicroChartSeriesType;
-  points: { x: number; y: number; height: number; width: number; }[];
+export interface DtMicroChartColumnSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
+  points: Array<{ x: number; y: number; height: number; width: number }>;
 }
 
-export interface DtMicroChartBarSeriesSvgData {
-  type: DtMicroChartSeriesType;
-  points: { x: number; y: number; height: number; width: number; }[];
+export interface DtMicroChartBarSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
+  points: Array<{ x: number; y: number; height: number; width: number }>;
 }
 
 export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
@@ -30,6 +32,7 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
     const path = lineGenerator(data.points) || '';
     return {
       type: 'line',
+      publicSeriesId: data.publicSeriesId,
       points: data.points,
       path,
     };
@@ -38,6 +41,7 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
   createColumnSeriesRenderData(data: DtMicroChartColumnSeriesData): DtMicroChartColumnSeriesSvgData {
     return {
       type: 'column',
+      publicSeriesId: data.publicSeriesId,
       points: data.points,
     };
   }
@@ -45,6 +49,7 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
   createBarSeriesRenderData(data: DtMicroChartBarSeriesData): DtMicroChartBarSeriesSvgData {
     return {
       type: 'bar',
+      publicSeriesId: data.publicSeriesId,
       points: data.points,
     };
   }

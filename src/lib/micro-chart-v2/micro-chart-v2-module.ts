@@ -5,21 +5,24 @@ import { CommonModule } from '@angular/common';
 import { DtMicroChartPointSVG } from './micro-chart-point';
 import { DtFormattersModule } from '../formatters';
 import { DtMicroChartLineSeriesSVG , DtMicroChartColumnSeriesSVG, DtMicroChartBarSeriesSVG } from './series';
-import { DtMicroChartLineSeries, DtMicroChartColumnSeries, DtMicroChartBarSeries } from './public-api';
+import { DtMicroChartLineSeries, DtMicroChartColumnSeries, DtMicroChartBarSeries, DtMicroChartMinLabel } from './public-api';
 import { DT_MICRO_CHART_RENDERER } from './business-logic/renderer/base';
 import { DtMicroChartSvgRenderer } from './business-logic/renderer/svg-renderer';
+import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
   imports: [
     DtChartModule,
     CommonModule,
     DtFormattersModule,
+    PortalModule,
   ],
   exports: [
     DtMicroChartV2,
     DtMicroChartLineSeries,
     DtMicroChartColumnSeries,
     DtMicroChartBarSeries,
+    DtMicroChartMinLabel,
   ],
   declarations: [
     DtMicroChartV2,
@@ -30,6 +33,7 @@ import { DtMicroChartSvgRenderer } from './business-logic/renderer/svg-renderer'
     DtMicroChartLineSeriesSVG,
     DtMicroChartColumnSeriesSVG,
     DtMicroChartBarSeriesSVG,
+    DtMicroChartMinLabel,
   ],
   providers: [
     {

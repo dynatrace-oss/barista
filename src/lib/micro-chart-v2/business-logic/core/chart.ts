@@ -1,9 +1,8 @@
-import { DtMicroChartSeries, DtMicroChartLineSeries, DtMicroChartSeriesType, DtMicroChartColumnSeries, DtMicroChartBarSeries } from '../../public-api';
+import { DtMicroChartSeries, DtMicroChartSeriesType } from '../../public-api';
 import { extent } from 'd3-array';
 import { DtMicroChartConfig } from '../../micro-chart-config';
-import { handleChartLineSeries } from './line';
-import { handleChartColumnSeries } from './column';
-import { handleChartBarSeries } from './bar';
+
+export type DtMicroChartUnifiedInputData = Array<Array<number|null>>;
 
 // TODO: adjust datastructure to find eventually shared scales (multiple axis, ...)
 export interface DtMicroChartDomains {
@@ -11,8 +10,12 @@ export interface DtMicroChartDomains {
   y: { min: number; max: number; numberOfPoints: number };
 }
 
-export interface DtMicroChartSeriesData {
+export interface DtMicroChartIdentification {
+  publicSeriesId: number;
   type: DtMicroChartSeriesType;
+}
+
+export interface DtMicroChartSeriesData {
   points: any[];
   scales: {
     x: any;
@@ -20,13 +23,11 @@ export interface DtMicroChartSeriesData {
   };
 }
 
-export function unifySeriesData(series: DtMicroChartSeries): DtMicroChartSeries {
-  const data = series.data;
+export function unifySeriesData(data: Array<number|null> | DtMicroChartUnifiedInputData): DtMicroChartUnifiedInputData {
   const transform = data && data.length && !(data[0] instanceof Array);
-  series._transformedData = transform ?
+  return transform ?
     (data as number[]).map((dataPoint, index) => [index, dataPoint]) :
     (data as number[][]).slice(0);
-  return series;
 }
 
 export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, series: DtMicroChartSeries): DtMicroChartDomains {
@@ -78,7 +79,7 @@ export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, seri
   };
 }
 
-export function handleChartData(width: number, series: DtMicroChartSeries[], config: DtMicroChartConfig): DtMicroChartSeriesData[] {
+export function createChartDomains(series: DtMicroChartSeries[]): DtMicroChartDomains {
   // TODO: this needs some smarts
   const standardDomain: DtMicroChartDomains = {
     x: {
@@ -92,20 +93,6 @@ export function handleChartData(width: number, series: DtMicroChartSeries[], con
       numberOfPoints: -Infinity,
     },
   };
-  const domains: DtMicroChartDomains = series
-    .map((s) => unifySeriesData(s))
+  return series
     .reduce(reduceSeriesToChartDomains, standardDomain);
-  return series.map((s) => handleChartSeries(width, s, domains, config));
-}
-
-export function handleChartSeries(width: number, series: DtMicroChartSeries, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartSeriesData {
-  switch (series.type) {
-    case 'column':
-      return handleChartColumnSeries(width, series as DtMicroChartColumnSeries, domains, config);
-    case 'bar':
-      return handleChartBarSeries(width, series as DtMicroChartBarSeries, domains, config);
-    case 'line':
-    default:
-      return handleChartLineSeries(width, series as DtMicroChartLineSeries, domains, config);
-  }
 }

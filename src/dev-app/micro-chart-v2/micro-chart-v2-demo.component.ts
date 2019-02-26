@@ -22,6 +22,7 @@ export class MicroChartV2Demo {
   };
 
   toggleSeries = false;
+  toggleExtremes = true;
 
   updateData(): void {
     this.series.data = [1, 100, 20, 30, 50, 10, 70, 80, 90, 15.5].reverse();

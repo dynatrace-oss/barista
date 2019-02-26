@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ChangeDetectorRef, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnChanges, OnDestroy } from '@angular/core';
 import { DtMicroChartSeries, DtMicroChartSeriesType } from './series';
 
 @Component({
@@ -13,7 +13,5 @@ import { DtMicroChartSeries, DtMicroChartSeriesType } from './series';
 })
 export class DtMicroChartColumnSeries extends DtMicroChartSeries implements OnChanges, OnDestroy {
   readonly type: DtMicroChartSeriesType = 'column';
-
-  @Input() data: number[];
 
 }

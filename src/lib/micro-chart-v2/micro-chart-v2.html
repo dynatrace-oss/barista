@@ -2,7 +2,14 @@
   <svg:g [attr.transform]="_plotAreaTransform">
     <svg:g *ngFor="let renderSeries of _renderData | async" [ngSwitch]="renderSeries.type">
       
-      <svg:g *ngSwitchCase="'line'" dt-micro-chart-line-series [points]="renderSeries.points" [path]="renderSeries.path"></svg:g>
+      <svg:g  
+        *ngSwitchCase="'line'"
+        dt-micro-chart-line-series
+        [points]="renderSeries.points"
+        [path]="renderSeries.path"
+        [highlightExtremes]="renderSeries.highlightExtremes"
+        [minTemplate]="renderSeries._minLabelTemplate"
+        [maxTemplate]="renderSeries._maxLabelTemplate"></svg:g>
       <svg:g *ngSwitchCase="'column'" dt-micro-chart-column-series [points]="renderSeries.points"></svg:g>
       <svg:g *ngSwitchCase="'bar'" dt-micro-chart-bar-series [points]="renderSeries.points"></svg:g>
 
