@@ -1,5 +1,6 @@
 
 <h2>With chart</h2>
+<dt-card *ngIf="!destroyed">
 <dt-chart [options]="options" [series]="series" [dtChartSelectionArea]="areaChart">
   <dt-chart-tooltip>
     <ng-template let-tooltip>
@@ -16,6 +17,7 @@
     <button dt-button>Zoom in</button>
   </dt-selection-area-actions>
 </dt-selection-area>
+</dt-card>
 
 <h2>Without chart</h2>
 <div class="originWithoutChart" #origin [dtSelectionArea]="area"></div>
