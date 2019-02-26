@@ -44,10 +44,12 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
     this._afterChartRender = this._chart._afterRender.pipe(takeUntil(this._destroy));
 
     this._afterChartRender.subscribe(() => {
-      const xAxis = this._chart._chartObject.xAxis[0];
-      // tslint:disable-next-line:no-any
-      if (!(xAxis as any).isDatetimeAxis) {
-        throw getDtChartSelectionAreaDateTimeAxisError();
+      if (this._chart._chartObject) {
+        const xAxis = this._chart._chartObject.xAxis[0];
+        // tslint:disable-next-line:no-any
+        if (!(xAxis as any).isDatetimeAxis) {
+          throw getDtChartSelectionAreaDateTimeAxisError();
+        }
       }
 
       this._applyAttributesAndClassesToPlotBackground();
@@ -76,6 +78,10 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
       .subscribe(() => { this.selectionArea._boundariesChanged.next(this._getPlotBackgroundClientRect()); });
 
   }
+
+  // We need to override this lifecycle hook here since the base component
+  // has this lifecycle hook as well and would trigger a wrong event
+  ngAfterViewInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectionArea) {
@@ -123,7 +129,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   private _setInterpolateFnOnSelectionArea(): void {
     if (this._chart._chartObject && this.selectionArea) {
       this.selectionArea._setInterpolateFnOnContainer(
-        (pxValue: number) => this._chart._chartObject.xAxis[0].toValue(pxValue, true));
+        (pxValue: number) => this._chart._chartObject!.xAxis[0].toValue(pxValue, true));
     }
   }
 }
