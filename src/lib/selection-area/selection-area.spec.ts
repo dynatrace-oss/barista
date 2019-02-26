@@ -1,5 +1,5 @@
 import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick } from '@angular/core/testing';
-import { DtSelectionAreaModule, DtIconModule, DtChart } from '@dynatrace/angular-components';
+import { DtSelectionAreaModule, DtIconModule, DtChart, DtCardModule } from '@dynatrace/angular-components';
 import { Component, ViewChild, ElementRef, ViewEncapsulation, NgZone } from '@angular/core';
 import { DtButtonModule } from '../button';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
@@ -27,6 +27,7 @@ describe('DtSelectionArea', () => {
         DtButtonModule,
         HttpClientTestingModule,
         DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+        DtCardModule,
       ],
       declarations: [
         BasicTest,
@@ -34,6 +35,7 @@ describe('DtSelectionArea', () => {
         DummyChart,
         ChartTest,
         DtChartSelectionAreaOrigin,
+        ProjectedTest,
       ],
       providers: [
         { provide: NgZone, useFactory: () => zone = new MockNgZone() },
@@ -762,6 +764,17 @@ describe('DtSelectionArea', () => {
       }).toThrowError(wrappedErrorMessage(getDtChartSelectionAreaDateTimeAxisError()));
     }));
   });
+
+  describe('globalContainer', () => {
+
+    fit('should render the selection-area-container component inside the globalcontainer', () => {
+      const fixture = TestBed.createComponent(ProjectedTest);
+      fixture.detectChanges();
+      const globalContainer = getGlobalSelectionAreaHost();
+      expect(globalContainer).toBeDefined();
+      expect(globalContainer!.querySelector('dt-selection-area-container')).not.toBeNull();
+    });
+  });
 });
 
 function getGlobalSelectionAreaHost(): HTMLElement | null {
@@ -809,6 +822,21 @@ export class BasicTest {
 })
 export class BasicTestWithInitialTabIndex {
   @ViewChild('origin') origin: ElementRef;
+}
+
+
+@Component({
+  template: `
+  <dt-card>
+    <div class="origin" [dtSelectionArea]="area" tabindex="10"></div>
+    <dt-selection-area #area="dtSelectionArea">
+      Some basic overlay content
+    </dt-selection-area>
+  </dt-card>
+  `,
+})
+export class ProjectedTest {
+
 }
 
 /** Test component that fakes a dt-chart so we can test without highcharts */
