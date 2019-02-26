@@ -22,7 +22,7 @@ import {
 import { Observable, BehaviorSubject } from 'rxjs';
 import { DomPortalOutlet, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { DtSelectionAreaContainer, DtSelectionAreaContainerChange } from './selection-area-container';
-import { map, take, switchMap, tap } from 'rxjs/operators';
+import { map, take, switchMap } from 'rxjs/operators';
 
 /** Change event object emitted by DtSelectionArea */
 export interface DtSelectionAreaChange extends DtSelectionAreaContainerChange {
@@ -167,7 +167,9 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy {
   /** Creates the container and the host element in the domportal on the body */
   private _createContainer(): DtSelectionAreaContainer | null {
     if (document) {
-      const portal = new ComponentPortal(DtSelectionAreaContainer, this._viewContainerRef, null, this._componentFactoryResolver);
+      // the viewContainerRef as a parameter to the component portal needs to be null so we dont create an
+      // embedded view
+      const portal = new ComponentPortal(DtSelectionAreaContainer, null, null, this._componentFactoryResolver);
       this._portalOutlet = new DomPortalOutlet(
         this._createHostElement(), this._componentFactoryResolver, this._appRef, this._viewContainerRef.injector);
       const componentRef = this._portalOutlet.attachComponentPortal(portal);
