@@ -6,12 +6,22 @@
   stroke-width: 2;
 }
 
-.dt-microchart-point {
+.dt-micro-chart-point {
   transition: fill 150ms;
 }
 
-.dt-microchart-point:hover {
+.dt-micro-chart-point:hover {
   stroke-width: 2;
+}
+
+.dt-micro-chart-line-extreme {
+  stroke-width: 2;
+  fill: transparent;
+}
+
+.dt-micro-chart-line-extremelabel {
+  font-size: 12px;
+  fill: $gray-500;
 }
 
 // Apply the line-series theme to all theme definitions

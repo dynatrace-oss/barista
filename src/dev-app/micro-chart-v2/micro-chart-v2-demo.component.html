@@ -3,18 +3,18 @@
   <dt-micro-chart-v2>
     <dt-micro-chart-line-series [data]="series.data" [highlightExtremes]="toggleExtremes">
       <ng-template dtMicroChartMinLabel let-min>
-        Min: {{min}}
+        Very long min that should fit: {{min}}
       </ng-template>
       <ng-template dtMicroChartMaxLabel let-max>
-        Max: {{max}}
+        Very long max that should fit: {{max}}
       </ng-template>
     </dt-micro-chart-line-series>
     <dt-micro-chart-line-series *ngIf="toggleSeries" [data]="series2.data"></dt-micro-chart-line-series>
   </dt-micro-chart-v2>
 </div>
 
-<button dt-button (click)="updateData()">Update data</button>
-<button dt-button (click)="toggleSeries = !toggleSeries">Toggle Series</button>
+<button dt-button (click)="updateData()">Update data</button>&nbsp;
+<button dt-button (click)="toggleSeries = !toggleSeries">Toggle Series</button>&nbsp;
 <button dt-button (click)="toggleExtremes = !toggleExtremes">Toggle Extremes</button>
 
 <!-- <h2>Simple data - Line</h2>

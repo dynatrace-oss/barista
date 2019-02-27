@@ -4,6 +4,7 @@ import { unifySeriesData, DtMicroChartUnifiedInputData } from '../business-logic
 
 export type DtMicroChartSeriesType = 'line' | 'column' | 'bar';
 export interface DtMicroChartRenderDataBase {
+  type: DtMicroChartSeriesType;
   publicSeriesId: number;
   data: Array<number|null> | DtMicroChartUnifiedInputData;
 }
@@ -49,6 +50,7 @@ export abstract class DtMicroChartSeries {
   /** @internal */
   get _renderData(): DtMicroChartRenderDataBase {
     return {
+      type: this.type,
       publicSeriesId: this._id,
       data: this.data,
     };

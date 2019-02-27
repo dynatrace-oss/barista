@@ -1,5 +1,43 @@
 <svg:path class="dt-micro-chart-line" [attr.d]="path"></svg:path>
-<svg:g dt-micro-chart-point *ngFor="let point of points" [x]="point.x" [y]="point.y"></svg:g>
+<svg:circle
+  *ngFor="let point of points"
+  class="dt-micro-chart-point"
+  [attr.cx]="point.x"
+  [attr.cy]="point.y"
+  [attr.r]="_markerRadius"
+></svg:circle>
 
-<svg:text #minOutlet><ng-container [cdkPortalOutlet]="minPortal"></ng-container></svg:text>
-<svg:text #maxOutlet><ng-container [cdkPortalOutlet]="maxPortal"></ng-container></svg:text>
+<ng-container *ngIf="highlightExtremes">
+  <svg:circle
+    [attr.cx]="extremes.min.x"
+    [attr.cy]="extremes.min.y"
+    [attr.r]="_extremeRadius"
+    class="dt-micro-chart-line-extreme dt-micro-chart-line-extreme-min"
+  ></svg:circle>
+  <svg:text
+    [attr.x]="extremes.min.x"
+    [attr.y]="extremes.min.y"
+    class="dt-micro-chart-line-extremelabel dt-micro-chart-line-extremelabel-min"
+    #minLabel
+  >
+    <svg:tspan baseline-shift="-20">
+      <ng-container [cdkPortalOutlet]="minPortal" ></ng-container>
+    </svg:tspan>
+  </svg:text>
+  <svg:circle
+    [attr.cx]="extremes.max.x"
+    [attr.cy]="extremes.max.y"
+    [attr.r]="_extremeRadius"
+    class="dt-micro-chart-line-extreme dt-micro-chart-line-extreme-max"
+  ></svg:circle>
+  <svg:text
+    [attr.x]="extremes.max.x"
+    [attr.y]="extremes.max.y"
+    class="dt-micro-chart-line-extremelabel dt-micro-chart-line-extremelabel-max"
+    #maxLabel
+  >
+    <svg:tspan baseline-shift="10">
+      <ng-container [cdkPortalOutlet]="maxPortal"></ng-container>
+    </svg:tspan>
+  </svg:text>
+</ng-container>

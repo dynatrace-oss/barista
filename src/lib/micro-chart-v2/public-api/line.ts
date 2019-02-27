@@ -13,7 +13,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtMicroChartLineSeries extends DtMicroChartSeries implements OnChanges, OnDestroy {
-  private _highlightExtremes = false;
+  private _highlightExtremes;
   readonly type: DtMicroChartSeriesType = 'line';
 
   @ContentChild(DtMicroChartMinLabel, { read: TemplateRef }) _minLabelTemplate: TemplateRef<any>;
@@ -31,6 +31,7 @@ export class DtMicroChartLineSeries extends DtMicroChartSeries implements OnChan
 
   get _renderData(): DtMicroChartRenderDataBase & DtMicroChartRenderDataExtremes {
     return {
+      type: this.type,
       publicSeriesId: this._id,
       data: this.data,
       highlightExtremes: this._highlightExtremes,

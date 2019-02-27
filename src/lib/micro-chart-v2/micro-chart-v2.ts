@@ -2,12 +2,12 @@
 import { Component, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, OnDestroy, InjectionToken, Inject, ContentChildren, QueryList, ViewChildren, Renderer2, NgZone } from '@angular/core';
 import { DtViewportResizer, Constructor, mixinColor, CanColor, isDefined } from '@dynatrace/angular-components/core';
 import { takeUntil, switchMap, startWith, filter, map, take } from 'rxjs/operators';
-import { Subject, combineLatest, merge, defer } from 'rxjs';
+import { Subject, combineLatest } from 'rxjs';
 import { DtMicroChartConfig } from './micro-chart-config';
-import { DtMicroChartSeries, DtMicroChartBarSeries, DtMicroChartColumnSeries, DtMicroChartSeriesType, DtMicroChartLineSeries } from './public-api';
+import { DtMicroChartSeries } from './public-api';
 import { DtMicroChartSeriesSVG } from './series';
-import { handleChartData, createChartDomains, DtMicroChartSeriesData, DtMicroChartIdentification } from './business-logic/core/chart';
-import { DT_MICRO_CHART_RENDERER, DtMicroChartRenderer } from './business-logic/renderer/base';
+import { createChartDomains, DtMicroChartSeriesData, DtMicroChartIdentification } from './business-logic/core/chart';
+import { DT_MICRO_CHART_RENDERER } from './business-logic/renderer/base';
 import { DtMicroChartSvgRenderer, DtMicroChartLineSeriesSvgData, DtMicroChartColumnSeriesSvgData } from './business-logic/renderer/svg-renderer';
 import { handleChartLineSeries } from './business-logic/core/line';
 import { handleChartBarSeries } from './business-logic/core/bar';
@@ -84,7 +84,7 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
       startWith(null),
       filter(() => !!this._allSeriesExternal.length),
       switchMap(() => combineLatest(...this._allSeriesExternal.map((seriesExt) => seriesExt._stateChanges))),
-      // TODO figure it out - prevent multiple emissions when data changes
+      // TODO: figure it out - prevent multiple emissions when data changes
       // switchMap((series) => this._zone.onMicrotaskEmpty.pipe(take(1), map(() => series)))
     );
 
@@ -122,7 +122,7 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
               rendererData = this._chartRenderer.createLineSeriesRenderData(data);
             }
           }
-          nextRenderData.push({ ...s._renderData, ...rendererData, });
+          nextRenderData.push({ ...s._renderData, ...rendererData, width, });
         }
         this._renderData.next(nextRenderData);
         this._changeDetectorRef.markForCheck();
@@ -135,13 +135,3 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
     this._destroy.complete();
   }
 }
-
-// export function extractDataFromSeries(series: DtMicroChartSeries[]): Array<{ type: DtMicroChartSeriesType; data: number[]; }> {
-//   return series.map((s) => {
-//     switch(s.type) {
-//       case 'line':
-//       default:
-//         return { type: s.type, data: s.data };
-//     }
-//   });
-// }

@@ -19,17 +19,17 @@
       stroke: $default-color;
     }
 
-    #{$namespace} ::ng-deep .dt-microchart-point {
+    #{$namespace} .dt-micro-chart-point {
       fill: $default-color;
     }
     
-    #{$namespace} ::ng-deep .dt-microchart-point:hover {
+    #{$namespace} .dt-micro-chart-point:hover {
       fill: $hover-color;
       stroke: $active-color;
       stroke-width: 2;
     }
 
-    #{$namespace} ::ng-deep .dt-microchart-point.dt-microchart-extreme {
+    #{$namespace} .dt-micro-chart-line-extreme {
       stroke: $hover-color; // 700
       fill: none;
       stroke-width: 2;

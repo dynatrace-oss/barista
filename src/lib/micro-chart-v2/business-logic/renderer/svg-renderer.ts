@@ -1,4 +1,4 @@
-import { DtMicroChartLineSeriesData } from '../core/line';
+import { DtMicroChartLineSeriesData, DtMicroChartLineDataPoint, DtMicroChartLineExtremes } from '../core/line';
 import { line } from 'd3-shape';
 import { DtMicroChartRenderer } from './base';
 import { DtMicroChartSeriesType } from '../../public-api';
@@ -6,12 +6,12 @@ import { DtMicroChartColumnSeriesData } from '../core/column';
 import { DtMicroChartBarSeriesData } from '../core/bar';
 
 export interface DtMicroChartBaseSeriesSvgData {
-  publicSeriesId: number;
-  type: DtMicroChartSeriesType;
+
 }
 
 export interface DtMicroChartLineSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
-  points: Array<{ x: number; y: number }>;
+  points: DtMicroChartLineDataPoint[];
+  extremes: DtMicroChartLineExtremes;
   path: string;
 }
 
@@ -31,25 +31,20 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
         .y((d) => d.y);
     const path = lineGenerator(data.points) || '';
     return {
-      type: 'line',
-      publicSeriesId: data.publicSeriesId,
       points: data.points,
+      extremes: data.extremes,
       path,
     };
   }
 
   createColumnSeriesRenderData(data: DtMicroChartColumnSeriesData): DtMicroChartColumnSeriesSvgData {
     return {
-      type: 'column',
-      publicSeriesId: data.publicSeriesId,
       points: data.points,
     };
   }
 
   createBarSeriesRenderData(data: DtMicroChartBarSeriesData): DtMicroChartBarSeriesSvgData {
     return {
-      type: 'bar',
-      publicSeriesId: data.publicSeriesId,
       points: data.points,
     };
   }
