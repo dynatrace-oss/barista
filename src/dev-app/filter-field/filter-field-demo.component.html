@@ -1,5 +1,6 @@
 <dt-filter-field
   [dataSource]="_dataSource"
+  (filterChanges)="filterChanges($event)"
   label="Filter by">
 </dt-filter-field>
 <dt-radio-group class="dev-group" [(ngModel)]="activeDataSourceName">

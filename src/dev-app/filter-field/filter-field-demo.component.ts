@@ -4,10 +4,12 @@ import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
 import { TEST_DATA } from './testdata';
 
-const DATA_SETS = new Map<string, any>([
+// tslint:disable:no-any
+
+const DATA_SETS = new Map<string>([
   ['TEST_DATA', TEST_DATA],
   ['KUBERNETES_DATA', KUBERNETES_DATA],
-  ['COMPLEX_DATA', COMPLEX_DATA]
+  ['COMPLEX_DATA', COMPLEX_DATA],
 ]);
 
 @Component({
@@ -28,4 +30,7 @@ export class FilterFieldDemo {
 
   _dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
 
+  filterChanges(event: any): void {
+    console.log(event);
+  }
 }

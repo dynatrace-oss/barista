@@ -22,7 +22,7 @@
       (keydown)="_handleInputKeyDown($event)"
       (keyup)="_handleInputKeyUp($event)"
       [value]="_inputValue">
-    <dt-autocomplete #autocomplete="dtAutocomplete" [autoActiveFirstOption]="_currentRenderNode && !!_currentRenderNode.autocomplete">
+    <dt-autocomplete #autocomplete="dtAutocomplete" [autoActiveFirstOption]="_currentRenderNode && !!_currentRenderNode.autocomplete" class="dt-filter-field-panel">
       <ng-container *ngFor="let optionOrGroupData of _autocompleteOptionsOrGroups">
         <dt-optgroup *ngIf="optionOrGroupData.group; else options" [label]="optionOrGroupData.group!.label">
           <dt-option *ngFor="let optionData of optionOrGroupData.group!.options" [value]="optionData">{{optionData.option.viewValue}}</dt-option>

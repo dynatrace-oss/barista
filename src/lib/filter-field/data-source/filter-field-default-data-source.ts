@@ -1,15 +1,8 @@
-import { BehaviorSubject, Observable, merge, of as observableOf, combineLatest, of } from 'rxjs';
-import { map, switchMap, tap, filter, share } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { isObject } from '@dynatrace/angular-components/core';
-import {
-  DtFilterFieldDataSource,
-} from './filter-field-data-source';
-import {
-  getDtFilterFieldDataSourceUnkownOptionOrGroupTypeError,
-  getDtFilterFieldDataSourceUnkownOptionTypeError,
-  getDtFilterFieldDataSourceUnknowdDataTypeError
-} from './filter-field-data-source-errors';
-import { NodeDef, autocompleteDef, optionDef, groupDef, NodeFlags, isAutocompleteDef, isGroupDef } from '../types';
+import { DtFilterFieldDataSource } from './filter-field-data-source';
+import { DtNodeDef, dtAutocompleteDef, dtOptionDef, dtGroupDef, isDtAutocompleteDef, isDtGroupDef, dtFreeTextDef } from '../types';
 
 /** Shape of an object to be usable as a option in an autocomplete */
 type Option = { name: string } | string;
@@ -58,7 +51,7 @@ function isFreeText(data: any): data is FreeText {
 // tslint:disable: no-bitwise
 
 /**
- * DataSource that accepts a client side data object with a specific structure (descibed below)
+ * DataSource that accepts a client side data object with a specific structure (described below)
  * and includes support for filtering autocomplete options and groups, as well as suggestions for free text fields.
  * It also allows for customizing the predicate function which will be used to filter options and groups.
  *
@@ -106,53 +99,18 @@ function isFreeText(data: any): data is FreeText {
  *  }
  * ```
  */
-export class DtFilterFieldDefaultDataSource<T>{
+export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSource {
 
-  private readonly _data: BehaviorSubject<T>;
-  private readonly _autocompleteFilter = new BehaviorSubject<string>('');
-
-  private _distinctValues = new Set<string>();
-  private _distinctValuesFromRoot = '';
-  private _isDistinct = false;
+  private readonly _data$: BehaviorSubject<T>;
 
   /** Structure of data that is used, transformed and rendered by the filter-field. */
-  get data(): T { return this._data.value; }
+  get data(): T { return this._data$.value; }
   set data(data: T) {
-    this._data.next(data);
-  }
-
-  /**
-   * Used by the DtFilterField. Filter term that should be used to filter out objects from the autocomplete
-   * data array.
-   * To override how data objects match to this filter string, provide a custom function for autocompleteFilterPredicate.
-   */
-  get autocompleteFilter(): string { return this._autocompleteFilter.value; }
-  set autocompleteFilter(filter: string) { this._autocompleteFilter.next(filter); }
-
-  /**
-   * Used by the DtFilterField.
-   * Checks if an autocomplete option or group object matches the data source's filter string.
-   */
-  autocompleteFilterPredicate
-  = (optionOrGroup: NodeDef, filter: string): boolean => {
-    // if (isDtFilterFieldAutocompleteGroup(optionOrGroup)) {
-    //   return !!optionOrGroup.options.length;
-    // }
-
-    // // Transform the data into a lowercase string of all property values.
-    // const dataStr = Object.keys(optionOrGroup.data).reduce(
-    //   // tslint:disable-next-line: arrow-return-shorthand prefer-template restrict-plus-operands
-    //   (currentTerm: string, key: string) => currentTerm + optionOrGroup.data[key] + DELIMITER, '').toLowerCase();
-
-    // // Transform the filter and viewValue by converting it to lowercase and removing whitespace.
-    // const transformedFilter = filter.trim().toLowerCase();
-    // const transformedViewValue = optionOrGroup.viewValue.trim().toLowerCase();
-    // return transformedViewValue.indexOf(transformedFilter) !== -1 || dataStr.indexOf(transformedFilter) !== -1;
-    return true;
+    this._data$.next(data);
   }
 
   constructor(initialData: T = null as unknown as T) {
-    this._data = new BehaviorSubject<T>(initialData);
+    this._data$ = new BehaviorSubject<T>(initialData);
   }
 
   /**
@@ -160,41 +118,41 @@ export class DtFilterFieldDefaultDataSource<T>{
    * Should return a stream of data that will be transformed, filtered and
    * displayed by the DtFilterFieldViewer (filter-field)
    */
-  connect(): Observable<NodeDef | null> {
-    return this._data.pipe(map((data) => this._transformObject(data)));
+  connect(): Observable<DtNodeDef | null> {
+    return this._data$.pipe(map((data) => this._transformObject(data)));
   }
 
   /** Used by the DtFilterField. Called when it is destroyed. No-op. */
-  disconnect(): void {
-    this._distinctValues.clear();
-  }
+  disconnect(): void { }
 
   /** Transforms the provided data into an internal data structure that can be used by the filter-field. */
   // tslint:disable-next-line: no-any
-  private _transformObject(data: any | null, parent: NodeDef | null = null): NodeDef | null {
-    this._isDistinct = false;
-    let def: NodeDef | null = null;
+  private _transformObject(data: any | null, parent: DtNodeDef | null = null): DtNodeDef | null {
+    let def: DtNodeDef | null = null;
     if (isAutocomplete(data)) {
-      def = autocompleteDef([], !!data.distinct, data, null);
+      def = dtAutocompleteDef([], !!data.distinct, data, null);
       def.autocomplete!.optionsOrGroups = this._transformList(data.autocomplete, def);
     } else if (isFreeText(data)) {
+      def = dtFreeTextDef([], data, null);
+      def.freeText!.suggestions = this._transformList(data.suggestions, def);
     }
 
-    let parentAutocomplete = isAutocompleteDef(parent) ? parent as NodeDef : null;
+    let parentAutocomplete = isDtAutocompleteDef(parent) ? parent as DtNodeDef : null;
     if (isGroup(data)) {
-      def = groupDef(data.name, [], data, def, parentAutocomplete);
+      def = dtGroupDef(data.name, [], data, def, parentAutocomplete);
       def.group!.options = this._transformList(data.options, def);
     } else if (isOption(data)) {
-      const parentGroup = isGroupDef(parent) ? parent : null;
+      const parentGroup = isDtGroupDef(parent) ? parent : null;
       parentAutocomplete = parentAutocomplete || (parentGroup && parentGroup.group.parentAutocomplete || null);
-      def = optionDef(typeof data === 'string' ? data : data.name, data, def, parentAutocomplete, parentGroup);
+      def = dtOptionDef(typeof data === 'string' ? data : data.name, data, def, parentAutocomplete, parentGroup);
     }
     return def;
   }
 
+  /** Transforms the provided list of data objects into an internal data structure that can be used by the filter field. */
   // tslint:disable-next-line: no-any
-  private _transformList(list: any[], parent: NodeDef | null = null): NodeDef[] {
+  private _transformList(list: any[], parent: DtNodeDef | null = null): DtNodeDef[] {
     return list.map((item) => this._transformObject(item, parent))
-      .filter((item) => item !== null) as NodeDef[];
+      .filter((item) => item !== null) as DtNodeDef[];
   }
 }

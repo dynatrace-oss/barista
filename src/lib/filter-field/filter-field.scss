@@ -97,3 +97,8 @@ dt-filter-field-tag {
   margin-bottom: ($dt-filter-field-inner-height - 24) / 2;
   margin-left: 8px;
 }
+
+// We need to double the class to get a better specificity than the original autocomplete panel selector
+::ng-deep .dt-autocomplete-panel.dt-filter-field-panel.dt-filter-field-panel {
+  margin-top: 0;
+}
