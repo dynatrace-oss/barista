@@ -56,7 +56,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Loading-distractor', route: '/loading-distractor' },
     { name: 'Menu', route: '/menu' },
     { name: 'Micro-chart', route: '/micro-chart' },
-    { name: 'Micro-chart-v2', route: '/micro-chart-v2' },
+    { name: 'Micro-chart2', route: '/micro-chart2' },
     { name: 'Overlay', route: '/overlay' },
     { name: 'Pagination', route: '/pagination' },
     { name: 'Progress-bar', route: '/progress-bar' },

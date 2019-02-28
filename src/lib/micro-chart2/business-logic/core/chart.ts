@@ -1,6 +1,5 @@
 import { DtMicroChartSeries, DtMicroChartSeriesType } from '../../public-api';
 import { extent } from 'd3-array';
-import { DtMicroChartConfig } from '../../micro-chart-config';
 
 export type DtMicroChartUnifiedInputData = Array<Array<number|null>>;
 

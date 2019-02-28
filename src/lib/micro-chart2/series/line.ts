@@ -81,7 +81,6 @@ export class DtMicroChartLineSeriesSVG extends DtMicroChartSeriesSVG {
   /** Calculate exteme label position */
   private _setExtremeLabelPosition(): void {
     if (this.minLabelElementRef && this.extremes && this.extremes.min && isDefined(this.extremes.min.x)) {
-      console.log('Setting min label');
       const minLabelLength = this.minLabelElementRef.nativeElement.getComputedTextLength();
       this.minLabelElementRef.nativeElement
         .setAttribute('text-anchor', calculateLabelPosition(this.extremes.min.x!, minLabelLength, this.width));

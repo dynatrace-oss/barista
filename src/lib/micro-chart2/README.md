@@ -2,7 +2,7 @@
 type: "component"
 ---
 
-# MicroChart v2
+# MicroChart2
 
 <docs-source-example example="MicroChartDefaultExampleComponent" fullwidth="true"></docs-source-example>
 

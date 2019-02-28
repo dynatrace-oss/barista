@@ -7,7 +7,7 @@ import { Colors, DtThemingModule, DtTheme } from '@dynatrace/angular-components/
 import objectContaining = jasmine.objectContaining;
 import { AxisOptions, DataPoint } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
-import { DtMicroChartV2Module } from '@dynatrace/angular-components/micro-chart-v2';
+import { DtMicroChart2Module } from '@dynatrace/angular-components/micro-chart2';
 import { merge } from 'lodash';
 
 // tslint:disable:no-magic-numbers

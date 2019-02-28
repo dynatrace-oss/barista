@@ -48,7 +48,7 @@ import { LinkDemo } from './link/link-demo.component';
 import { LoadingDistractorDemo } from './loading-distractor/loading-distractor-demo.component';
 import { MenuDemo } from './menu/menu-demo';
 import { MicroChartDemo } from './micro-chart/micro-chart-demo.component';
-import { MicroChartV2Demo } from './micro-chart-v2/micro-chart-v2-demo.component';
+import { MicroChart2Demo } from './micro-chart2/micro-chart2-demo.component';
 import { OverlayDemo } from './overlay/overlay-demo.component';
 import { PaginationDemo } from './pagination/pagination-demo.component';
 import { ProgressBarDemo } from './progress-bar/progress-bar-demo.component';
@@ -110,7 +110,7 @@ export class NoopRouteComponent {}
     LinkDemo,
     LoadingDistractorDemo,
     MicroChartDemo,
-    MicroChartV2Demo,
+    MicroChart2Demo,
     OverlayDemo,
     PaginationDemo,
     ProgressBarDemo,

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnChanges, OnDestroy } from '@angular/core';
 import { DtMicroChartSeries, DtMicroChartSeriesType } from './series';
 
 @Component({

@@ -1,5 +1,4 @@
 import { ScaleLinear, scaleLinear, ScaleBand, scaleBand } from 'd3-scale';
-import { DtMicroChartBarSeries } from '../../public-api';
 import { DtMicroChartSeriesData, DtMicroChartDomains, DtMicroChartUnifiedInputData } from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
 

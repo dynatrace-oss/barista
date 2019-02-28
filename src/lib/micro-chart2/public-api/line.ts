@@ -1,4 +1,13 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnDestroy, OnChanges, AfterViewInit, ContentChild, TemplateRef, ViewChild, AfterContentInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  Input,
+  OnDestroy,
+  OnChanges,
+  ContentChild,
+  TemplateRef,
+} from '@angular/core';
 import { DtMicroChartSeries, DtMicroChartSeriesType, DtMicroChartRenderDataBase, DtMicroChartRenderDataExtremes } from './series';
 import { DtMicroChartMinLabel, DtMicroChartMaxLabel } from './extreme-label';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';

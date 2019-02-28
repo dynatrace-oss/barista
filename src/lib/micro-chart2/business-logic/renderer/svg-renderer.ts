@@ -1,7 +1,6 @@
 import { DtMicroChartLineSeriesData, DtMicroChartLineDataPoint, DtMicroChartLineExtremes } from '../core/line';
 import { line } from 'd3-shape';
 import { DtMicroChartRenderer } from './base';
-import { DtMicroChartSeriesType } from '../../public-api';
 import { DtMicroChartColumnSeriesData } from '../core/column';
 import { DtMicroChartBarSeriesData } from '../core/bar';
 

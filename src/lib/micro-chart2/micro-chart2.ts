@@ -1,7 +1,21 @@
 
-import { Component, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterViewInit, ChangeDetectorRef, OnDestroy, InjectionToken, Inject, ContentChildren, QueryList, ViewChildren, Renderer2, NgZone } from '@angular/core';
-import { DtViewportResizer, Constructor, mixinColor, CanColor, isDefined } from '@dynatrace/angular-components/core';
-import { takeUntil, switchMap, startWith, filter, map, take } from 'rxjs/operators';
+import {
+  Component,
+  ElementRef,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  AfterViewInit,
+  ChangeDetectorRef,
+  OnDestroy,
+  InjectionToken,
+  Inject,
+  ContentChildren,
+  QueryList,
+  ViewChildren,
+  NgZone,
+} from '@angular/core';
+import { DtViewportResizer, Constructor, mixinColor, CanColor } from '@dynatrace/angular-components/core';
+import { takeUntil, switchMap, startWith, filter, map } from 'rxjs/operators';
 import { Subject, combineLatest } from 'rxjs';
 import { DtMicroChartConfig } from './micro-chart-config';
 import { DtMicroChartSeries } from './public-api';
@@ -17,28 +31,28 @@ import { handleChartColumnSeries } from './business-logic/core/column';
 export const DT_MICRO_CHART_DEFAULT_OPTIONS =
     new InjectionToken<DtMicroChartConfig>(
       'dt-micro-chart-default-options',
-      { providedIn: 'root', factory: DT_MICRO_CHART_DEFAULT_OPTIONS_FACTORY_V2 });
+      { providedIn: 'root', factory: DT_MICRO_CHART_DEFAULT_OPTIONS_FACTORY2 });
 
-export function DT_MICRO_CHART_DEFAULT_OPTIONS_FACTORY_V2(): DtMicroChartConfig {
+export function DT_MICRO_CHART_DEFAULT_OPTIONS_FACTORY2(): DtMicroChartConfig {
   return new DtMicroChartConfig();
 }
 
-export type DtMicroChartThemePaletteV2 = 'main';
+export type DtMicroChartThemePalette2 = 'main';
 
 // Boilerplate for applying mixins to DtMicroChart
-export class DtMicroChartBaseV2 { constructor(public _elementRef: ElementRef) { } }
-export const _DtMicroChartBaseV2 =
-  mixinColor<Constructor<DtMicroChartBaseV2>, DtMicroChartThemePaletteV2>(DtMicroChartBaseV2, 'main');
+export class DtMicroChartBase2 { constructor(public _elementRef: ElementRef) { } }
+export const _DtMicroChartBase2 =
+  mixinColor<Constructor<DtMicroChartBase2>, DtMicroChartThemePalette2>(DtMicroChartBase2, 'main');
 
 @Component({
-  selector: 'dt-micro-chart-v2',
-  templateUrl: './micro-chart-v2.html',
-  styleUrls: ['./micro-chart-v2.scss'],
+  selector: 'dt-micro-chart2',
+  templateUrl: './micro-chart2.html',
+  styleUrls: ['./micro-chart2.scss'],
   inputs: ['color'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMicroChartThemePaletteV2>, AfterViewInit, OnDestroy {
+export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicroChartThemePalette2>, AfterViewInit, OnDestroy {
 
   private readonly _destroy = new Subject<void>();
 
@@ -65,7 +79,6 @@ export class DtMicroChartV2 extends _DtMicroChartBaseV2 implements CanColor<DtMi
     _elementRef: ElementRef<HTMLElement>,
     private _viewportResizer: DtViewportResizer,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _zone: NgZone,
     @Inject(DT_MICRO_CHART_RENDERER) private _chartRenderer: DtMicroChartSvgRenderer,
     @Inject(DT_MICRO_CHART_DEFAULT_OPTIONS) private _config: DtMicroChartConfig
   ) {

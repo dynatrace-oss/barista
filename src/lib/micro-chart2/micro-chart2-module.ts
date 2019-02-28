@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { DtChartModule } from '@dynatrace/angular-components/chart';
-import { DtMicroChartV2 } from './micro-chart-v2';
+import { DtMicroChart2 } from './micro-chart2';
 import { CommonModule } from '@angular/common';
 import { DtFormattersModule } from '../formatters';
 import { DtMicroChartLineSeriesSVG , DtMicroChartColumnSeriesSVG, DtMicroChartBarSeriesSVG } from './series';
@@ -17,7 +17,7 @@ import { PortalModule } from '@angular/cdk/portal';
     PortalModule,
   ],
   exports: [
-    DtMicroChartV2,
+    DtMicroChart2,
     DtMicroChartLineSeries,
     DtMicroChartColumnSeries,
     DtMicroChartBarSeries,
@@ -25,7 +25,7 @@ import { PortalModule } from '@angular/cdk/portal';
     DtMicroChartMaxLabel,
   ],
   declarations: [
-    DtMicroChartV2,
+    DtMicroChart2,
     DtMicroChartLineSeries,
     DtMicroChartColumnSeries,
     DtMicroChartBarSeries,
@@ -41,4 +41,4 @@ import { PortalModule } from '@angular/cdk/portal';
     },
   ],
 })
-export class DtMicroChartV2Module { }
+export class DtMicroChart2Module { }
