@@ -101,11 +101,21 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
    * Takes classes set on the host dt-autocomplete element and applies them to the panel
    * inside the overlay container.
    */
+  @Input('class')
   set classList(value: string) {
     if (value && value.length) {
-      value.split(' ').forEach((className) => this._classList[className.trim()] = true);
-      this._elementRef.nativeElement.className = '';
+      this._classList = value.split(' ').reduce(
+      (classList, className) => {
+        classList[className.trim()] = true;
+        return classList;
+      },
+      // tslint:disable-next-line: no-object-literal-type-assertion
+      {} as {[key: string]: boolean});
+    } else {
+      this._classList = {};
     }
+    this._setVisibilityClasses(this._classList);
+    this._elementRef.nativeElement.className = '';
   }
   _classList: {[key: string]: boolean} = {};
 
@@ -155,8 +165,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
    */
   _setVisibility(): void {
     this.showPanel = !!this.options.length;
-    this._classList['dt-autocomplete-visible'] = this.showPanel;
-    this._classList['dt-autocomplete-hidden'] = !this.showPanel;
+    this._setVisibilityClasses(this._classList);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -186,5 +195,11 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   _emitSelectEvent(option: DtOption<T>): void {
     const event = new DtAutocompleteSelectedEvent(this, option);
     this.optionSelected.emit(event);
+  }
+
+  /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
+  private _setVisibilityClasses(classList: {[key: string]: boolean}): void {
+    classList['dt-autocomplete-visible'] = this.showPanel;
+    classList['dt-autocomplete-hidden'] = !this.showPanel;
   }
 }
