@@ -142,8 +142,5 @@ describe('TypeUtil', () => {
       expect(isObject(true)).toBeFalsy();
       expect(isObject(false)).toBeFalsy();
     });
-    it('should be false if the value is a symbol', () => {
-      expect(isEmpty(Symbol('foo'))).toBeFalsy();
-    });
   });
 });

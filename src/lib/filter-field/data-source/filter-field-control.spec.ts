@@ -1,5 +1,7 @@
 import { filterDistinctDefPredicate, generateDtFilterFieldDistinctId } from './filter-field-control';
-import { autocompleteDef, optionDef, groupDef } from '../types';
+import { dtAutocompleteDef, dtOptionDef, dtGroupDef } from '../types';
+
+// tslint:disable:no-magic-numbers
 
 // ROOT
 // - AUT (distinct)
@@ -10,26 +12,28 @@ import { autocompleteDef, optionDef, groupDef } from '../types';
 // - - - - Steyr
 // - - Wien
 
-const cities = groupDef('Cities', [
-  optionDef('Linz', 'Linz', null, null, null),
-  optionDef('Wels', 'Wels', null, null, null),
-  optionDef('Steyr', 'Steyr', null, null, null),
-], {}, null, null);
-let uA = autocompleteDef([cities], true, {}, null);
-uA = optionDef('OÖ', {}, uA, null, null);
+const cities = dtGroupDef(
+  'Cities', [
+    dtOptionDef('Linz', 'Linz', null, null, null),
+    dtOptionDef('Wels', 'Wels', null, null, null),
+    dtOptionDef('Steyr', 'Steyr', null, null, null),
+  ],
+  {}, null, null);
+let uA = dtAutocompleteDef([cities], true, {}, null);
+uA = dtOptionDef('OÖ', {}, uA, null, null);
 
 cities.group!.options.forEach((city) => {
   city.option!.parentGroup = cities;
   city.option!.parentAutocomplete = uA;
 });
 
-const wien = optionDef('Wien', 'Wien', null, null, null);
-let aut = autocompleteDef([uA, wien], true, {}, null);
-aut = optionDef('AUT', {}, aut, null, null);
+const wien = dtOptionDef('Wien', 'Wien', null, null, null);
+let aut = dtAutocompleteDef([uA, wien], true, {}, null);
+aut = dtOptionDef('AUT', {}, aut, null, null);
 wien.option!.parentAutocomplete = aut;
 uA.option!.parentAutocomplete = aut;
 
-const root = autocompleteDef([aut], false, {}, null);
+const root = dtAutocompleteDef([aut], false, {}, null);
 aut.option!.parentAutocomplete = root;
 
 aut.option!.distinctId = generateDtFilterFieldDistinctId(aut, '');

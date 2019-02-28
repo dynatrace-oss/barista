@@ -3,16 +3,7 @@
   class="dt-filter-field-tag-label"
   [disabled]="disabled"
   (click)="_handleEdit($event)">
-  <ng-container *ngIf="viewValues?.key">
-    <span class="dt-filter-field-tag-key">{{viewValues.key}}</span>
-    <ng-container *ngIf="viewValues.separator; else defaultSeparator">&nbsp;{{viewValues.separator}}</ng-container>
-    <ng-template #defaultSeparator>:</ng-template>
-    <!--
-      This single whitespace needs to be in a tag. Otherwise this whole ng-container needs to be in one line
-      to get the correct ammout of whitespaces (even with preserveWhitespaces set to false)
-    -->
-    <span>&nbsp;</span>
-  </ng-container>
+  <span *ngIf="viewValues?.key" class="dt-filter-field-tag-key" [attr.data-separator]="viewValues.separator ? viewValues.separator! : ':'">{{viewValues.key}}</span>
   <span class="dt-filter-field-tag-value" *ngIf="viewValues?.value">{{viewValues.value}}</span>
 </button>
 <button dt-icon-button

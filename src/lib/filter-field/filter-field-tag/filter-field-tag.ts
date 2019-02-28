@@ -7,10 +7,10 @@ import {
   Input
 } from '@angular/core';
 import { mixinDisabled, CanDisable } from '@dynatrace/angular-components/core';
-import { NodeData, FilterData, getNodeDataViewValue, isFreeTextData, FilterDataViewValues } from '../types';
+import { DtNodeData, DtFilterData, getDtNodeDataViewValue, isDtFreeTextData, DtFilterDataViewValues } from '../types';
 
 export class DtFilterFieldTagEvent {
-  constructor(public source: DtFilterFieldTag, public data: FilterData) { }
+  constructor(public source: DtFilterFieldTag, public data: DtFilterData) { }
 }
 
 // tslint:disable:class-name
@@ -38,8 +38,8 @@ export const _DtFilterFieldTagMixinBase = mixinDisabled(_DtFilterFieldTagBase);
 })
 export class DtFilterFieldTag extends _DtFilterFieldTagMixinBase implements CanDisable {
 
-  @Input() data: FilterData;
-  @Input() viewValues: FilterDataViewValues;
+  @Input() data: DtFilterData;
+  @Input() viewValues: DtFilterDataViewValues;
 
   @Output() readonly remove = new EventEmitter<DtFilterFieldTagEvent>();
   @Output() readonly edit = new EventEmitter<DtFilterFieldTagEvent>();
