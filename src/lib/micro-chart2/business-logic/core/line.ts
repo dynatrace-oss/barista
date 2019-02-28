@@ -1,5 +1,5 @@
 import { ScaleLinear, scaleLinear } from 'd3-scale';
-import { DtMicroChartSeriesData, DtMicroChartDomains, DtMicroChartUnifiedInputData } from './chart';
+import { DtMicroChartSeriesData, DtMicroChartDomains, DtMicroChartUnifiedInputData, DtMicroChartExtremes } from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
 import { findExtremes } from '../../helper-functions';
 
@@ -13,17 +13,10 @@ export interface DtMicroChartLineDataPoint {
   y: number | null;
 }
 
-export interface DtMicroChartLineExtremes {
-  min: DtMicroChartLineDataPoint;
-  minValue: number | null;
-  max: DtMicroChartLineDataPoint;
-  maxValue: number | null;
-}
-
 export interface DtMicroChartLineSeriesData extends DtMicroChartSeriesData {
   points: DtMicroChartLineDataPoint[];
   scales: DtMicroChartLineScales;
-  extremes: DtMicroChartLineExtremes;
+  extremes: DtMicroChartExtremes<DtMicroChartLineDataPoint>;
 }
 
 export function handleChartLineSeries(width: number, data: DtMicroChartUnifiedInputData, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartLineSeriesData {
@@ -37,8 +30,10 @@ export function handleChartLineSeries(width: number, data: DtMicroChartUnifiedIn
     },
     extremes: {
       min: { x: x(min[0]), y: y(min[1]), },
+      minAnchor: { x: x(min[0]), y: y(min[1]), },
       minValue: min[1],
       max: { x: x(max[0]), y: y(max[1]), },
+      maxAnchor: { x: x(max[0]), y: y(max[1]), },
       maxValue: max[1],
     },
   };

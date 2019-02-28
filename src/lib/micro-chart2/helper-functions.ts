@@ -66,22 +66,28 @@ export function findMaximum<T>(values: T[], accessor?: (arg0: T) => number | nul
  * Iterate over the passed values and find the minimum and maximum values. If the values iterable is a complex one,
  * the accessor function can be used to access a compareable number within this complex object.
  */
-export function findExtremes<T>(values: T[], accessor?: (arg0: T) => number | null): { min: number | T; max: number | T } {
+export function findExtremes<T>(values: T[], accessor?: (arg0: T) => number | null): { min: number | T; max: number | T; minIndex: number; maxIndex: number; } {
   let minValue;
   let min;
   let maxValue;
   let max;
+  let minIndex;
+  let maxIndex;
 
+  let index = 0;
   if (accessor === undefined) {
     for (const value of values) {
       if (value !== null && value >= value && (min === undefined || min < value)) {
         minValue = value;
         min = value;
+        minIndex = index;
       }
       if (value !== null && value >= value && (max === undefined || max < value)) {
         maxValue = value;
         max = value;
+        maxIndex = index;
       }
+      index += 1;
     }
   } else {
     for (const value of values) {
@@ -89,16 +95,21 @@ export function findExtremes<T>(values: T[], accessor?: (arg0: T) => number | nu
       if (compareValue !== null && compareValue >= compareValue && (minValue === undefined || minValue > compareValue)) {
         minValue = compareValue;
         min = value;
+        minIndex = index;
       }
       if (compareValue !== null && compareValue >= compareValue && (maxValue === undefined || maxValue < compareValue)) {
         maxValue = compareValue;
         max = value;
+        maxIndex = index;
       }
+      index += 1;
     }
   }
   return {
     min,
     max,
+    minIndex,
+    maxIndex,
   };
 }
 

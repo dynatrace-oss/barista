@@ -1,6 +1,20 @@
 @import '../../core/theming/theming';
 @import 'column-theme';
 
+
+.dt-micro-chart-column-extreme {
+  stroke-width: 2;
+  fill: transparent;
+  ry: 3;
+  rx: 3;
+}
+
+.dt-micro-chart-column-extremelabel {
+  font-size: 12px;
+  fill: $gray-500;
+}
+
+
 // Apply the column-series theme to all theme definitions
 @include dt-apply-theme() {
   @include dt-theme-column-series($dt-current-theme);

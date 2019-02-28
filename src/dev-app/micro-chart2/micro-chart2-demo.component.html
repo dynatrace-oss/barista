@@ -28,8 +28,13 @@
 <h2>Simple data - Column</h2>
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-column-series [data]="series.data" >
-
+    <dt-micro-chart-column-series [data]="series.data" [highlightExtremes]="toggleExtremes">
+      <ng-template dtMicroChartMinLabel let-min>
+          Very long min that should fit: {{min}}
+      </ng-template>
+      <ng-template dtMicroChartMaxLabel let-max>
+        Very long max that should fit: {{max}}
+      </ng-template>
     </dt-micro-chart-column-series>
   </dt-micro-chart2>
 </div>

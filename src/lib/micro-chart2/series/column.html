@@ -6,3 +6,41 @@
   [attr.height]="point.height"
   class="dt-micro-chart-column"
 ></svg:rect>
+
+<ng-container *ngIf="highlightExtremes">
+  <svg:rect
+    [attr.x]="minHighlightRectangle.x"
+    [attr.y]="minHighlightRectangle.y"
+    [attr.width]="minHighlightRectangle.width"
+    [attr.height]="minHighlightRectangle.height"
+    class="dt-micro-chart-column-extreme dt-micro-chart-column-extreme-min"
+  ></svg:rect>
+  <svg:text
+    [attr.x]="extremes.minAnchor.x"
+    [attr.y]="extremes.minAnchor.y"
+    class="dt-micro-chart-column-extremelabel dt-micro-chart-column-extremelabel-min"
+    #minLabel
+  >
+    <svg:tspan baseline-shift="-20">
+      <ng-container [cdkPortalOutlet]="minPortal"></ng-container>
+    </svg:tspan>
+  </svg:text>
+
+  <svg:rect
+    [attr.x]="maxHighlightRectangle.x"
+    [attr.y]="maxHighlightRectangle.y"
+    [attr.width]="maxHighlightRectangle.width"
+    [attr.height]="maxHighlightRectangle.height"
+    class="dt-micro-chart-column-extreme dt-micro-chart-column-extreme-max"
+  ></svg:rect>
+  <svg:text
+    [attr.x]="extremes.maxAnchor.x"
+    [attr.y]="extremes.maxAnchor.y"
+    class="dt-micro-chart-column-extremelabel dt-micro-chart-column-extremelabel-max"
+    #maxLabel
+  >
+    <svg:tspan baseline-shift="10">
+      <ng-container [cdkPortalOutlet]="maxPortal"></ng-container>
+    </svg:tspan>
+  </svg:text>
+</ng-container>

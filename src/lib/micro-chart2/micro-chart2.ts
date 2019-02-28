@@ -114,7 +114,7 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
         this._width = width;
         // generate Domains for all series.
         const domains = createChartDomains(series);
-        const nextRenderData: Array<DtMicroChartSeriesData & DtMicroChartIdentification> = [];
+        const nextRenderData: any[] = [];
         // iterate over the series and collect renderdata.
         for (const s of series) {
           let rendererData;
@@ -135,8 +135,9 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
               rendererData = this._chartRenderer.createLineSeriesRenderData(data);
             }
           }
-          nextRenderData.push({ ...s._renderData, ...rendererData, width, });
+          nextRenderData.push({ ...s._renderData, ...rendererData, width, plotOffsetX: this._config.marginLeft });
         }
+        console.log(nextRenderData);
         this._renderData.next(nextRenderData);
         this._changeDetectorRef.markForCheck();
       });

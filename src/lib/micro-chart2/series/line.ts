@@ -5,18 +5,20 @@ import {
   ViewChild,
   TemplateRef,
   ViewContainerRef,
-  ChangeDetectorRef,
   SimpleChanges,
   ElementRef,
   NgZone,
+  OnChanges,
+  OnDestroy,
 } from '@angular/core';
 import { DtMicroChartSeriesSVG } from './series';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { DtMicroChartLineExtremes } from '../business-logic/core/line';
+import { DtMicroChartExtremes } from '../business-logic/core/chart';
 import { take, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { calculateLabelPosition } from '../helper-functions';
 import { isDefined } from '@dynatrace/angular-components/core';
+import { DtMicroChartLineDataPoint } from '../business-logic/core/line';
 
 export type SVGTextAnchor = 'start' | 'middle' | 'end';
 
@@ -32,15 +34,16 @@ export type SVGTextAnchor = 'start' | 'middle' | 'end';
     { provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartLineSeriesSVG },
   ],
 })
-export class DtMicroChartLineSeriesSVG extends DtMicroChartSeriesSVG {
+export class DtMicroChartLineSeriesSVG extends DtMicroChartSeriesSVG implements OnChanges, OnDestroy{
 
   private _destroy = new Subject();
 
   @Input() points: Array<{ x: number; y: number }>;
   @Input() width: number;
   @Input() path: string;
-  @Input() highlightExtremes = true;
-  @Input() extremes: DtMicroChartLineExtremes;
+  @Input() plotOffsetX = 0;
+  @Input() highlightExtremes = false;
+  @Input() extremes: DtMicroChartExtremes<DtMicroChartLineDataPoint>;
   @Input() minTemplate: TemplateRef<any>;
   @Input() maxTemplate: TemplateRef<any>;
   minPortal: TemplatePortal<any>;
@@ -80,15 +83,15 @@ export class DtMicroChartLineSeriesSVG extends DtMicroChartSeriesSVG {
 
   /** Calculate exteme label position */
   private _setExtremeLabelPosition(): void {
-    if (this.minLabelElementRef && this.extremes && this.extremes.min && isDefined(this.extremes.min.x)) {
+    if (this.minLabelElementRef && this.extremes && this.extremes.minAnchor && isDefined(this.extremes.minAnchor.x)) {
       const minLabelLength = this.minLabelElementRef.nativeElement.getComputedTextLength();
-      this.minLabelElementRef.nativeElement
-        .setAttribute('text-anchor', calculateLabelPosition(this.extremes.min.x!, minLabelLength, this.width));
+      const minLabelTextAnchor = calculateLabelPosition(this.extremes.minAnchor.x! + this.plotOffsetX, minLabelLength, this.width);
+      this.minLabelElementRef.nativeElement.setAttribute('text-anchor', minLabelTextAnchor);
     }
-    if (this.maxLabelElementRef && this.extremes && this.extremes.max && isDefined(this.extremes.min.x)) {
+    if (this.maxLabelElementRef && this.extremes && this.extremes.maxAnchor && isDefined(this.extremes.maxAnchor.x)) {
       const maxLabelLength = this.maxLabelElementRef.nativeElement.getComputedTextLength();
-      this.maxLabelElementRef.nativeElement
-        .setAttribute('text-anchor', calculateLabelPosition(this.extremes.max.x!, maxLabelLength, this.width));
+      const maxLabelTextAnchor = calculateLabelPosition(this.extremes.maxAnchor.x! + this.plotOffsetX, maxLabelLength, this.width);
+      this.maxLabelElementRef.nativeElement.setAttribute('text-anchor', maxLabelTextAnchor);
     }
   }
 }

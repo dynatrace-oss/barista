@@ -10,7 +10,7 @@ import { generateData } from './micro-chart2-data';
 export class MicroChart2Demo {
   series: DtChartSeries = {
     name: 'Requests',
-    data: [40, 20, 400, 50, 50, 200],
+    data: [240, 350, 400, 150, 150, 200],
   };
 
   series2 = {
@@ -25,7 +25,7 @@ export class MicroChart2Demo {
   toggleExtremes = true;
 
   updateData(): void {
-    const data = [...this.series.data || []];
+    const data = [...(this.series.data || [])];
     const value = data.shift() as number;
     data.push(value);
     this.series.data = data;

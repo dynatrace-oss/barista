@@ -17,6 +17,10 @@
 
     #{$namespace} .dt-micro-chart-column {
       fill: $default-color;
-    }  
+    }
+
+    #{$namespace} .dt-micro-chart-column-extreme {
+      stroke: $default-color;
+    }
   }
 }

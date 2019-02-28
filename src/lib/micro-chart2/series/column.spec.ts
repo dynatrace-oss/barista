@@ -5,11 +5,11 @@ import { By } from '@angular/platform-browser';
 import objectContaining = jasmine.objectContaining;
 import { CommonModule } from '@angular/common';
 import { PortalModule } from '@angular/cdk/portal';
-import { DtMicroChartLineSeriesSVG } from './line';
+import { DtMicroChartColumnSeriesSVG } from './column';
 
 // tslint:disable:no-magic-numbers
 
-describe('DtMicroChartLineSvg', () => {
+describe('DtMicroChartColumnSvg', () => {
   let zone: MockNgZone;
 
   beforeEach(async(() => {
@@ -19,8 +19,8 @@ describe('DtMicroChartLineSvg', () => {
         PortalModule,
       ],
       declarations: [
-        SimpleLineSeries,
-        DtMicroChartLineSeriesSVG,
+        SimpleColumnSeries,
+        DtMicroChartColumnSeriesSVG,
       ],
       providers: [
         { provide: NgZone, useFactory: () => zone = new MockNgZone() },
@@ -29,10 +29,10 @@ describe('DtMicroChartLineSvg', () => {
   }));
 
   describe('initial state', () => {
-    let fixture: ComponentFixture<SimpleLineSeries>;
+    let fixture: ComponentFixture<SimpleColumnSeries>;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(SimpleLineSeries);
+      fixture = TestBed.createComponent(SimpleColumnSeries);
       fixture.detectChanges();
     }));
 
@@ -40,43 +40,49 @@ describe('DtMicroChartLineSvg', () => {
       expect(fixture).toBeTruthy();
     });
 
-    it('should render a line with the path', () => {
-      const line = fixture.debugElement.query(By.css('.dt-micro-chart-line'));
-      const path = line.nativeElement.getAttribute('d');
-      expect(path).toBe(fixture.componentInstance.path);
+    it('should render columns ', () => {
+      const column = fixture.debugElement.query(By.css('.dt-micro-chart-column'));
+      const x = column.nativeElement.getAttribute('x');
+      const y = column.nativeElement.getAttribute('y');
+      const width = column.nativeElement.getAttribute('width');
+      const height = column.nativeElement.getAttribute('height');
+      expect(x).toBe('0');
+      expect(y).toBe('64');
+      expect(width).toBe('24');
+      expect(height).toBe('36');
     });
 
     it('should render extreme highlights', () => {
-      const highlightMarker = fixture.debugElement.queryAll(By.css('.dt-micro-chart-line-extreme'));
+      const highlightMarker = fixture.debugElement.queryAll(By.css('.dt-micro-chart-column-extreme'));
       expect(highlightMarker.length).toBe(2);
     });
 
     it('should have the initial min template applied', () => {
       fixture.detectChanges();
-      const minOutlet = fixture.debugElement.query(By.css('.dt-micro-chart-line-extremelabel'));
+      const minOutlet = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel'));
       expect(minOutlet.nativeElement.textContent.trim()).toBe('Min template 60');
     });
 
     it('should have two extreme labels at the right position', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
-      const minLabel = fixture.debugElement.query(By.css('.dt-micro-chart-line-extremelabel-min'));
-      expect(minLabel.nativeElement.getAttribute('x')).toBe('270');
-      expect(minLabel.nativeElement.getAttribute('y')).toBe('60');
-      expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
+      const minLabel = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel-min'));
+      expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
+      expect(minLabel.nativeElement.getAttribute('y')).toBe('64');
+      expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
 
-      const maxLabel = fixture.debugElement.query(By.css('.dt-micro-chart-line-extremelabel-max'));
-      expect(maxLabel.nativeElement.getAttribute('x')).toBe('135');
-      expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
+      const maxLabel = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel-max'));
+      expect(maxLabel.nativeElement.getAttribute('x')).toBe('147');
+      expect(maxLabel.nativeElement.getAttribute('y')).toBe('99');
       expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('middle');
     });
   });
 
   describe('changed state', () => {
-    let fixture: ComponentFixture<SimpleLineSeries>;
+    let fixture: ComponentFixture<SimpleColumnSeries>;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(SimpleLineSeries);
+      fixture = TestBed.createComponent(SimpleColumnSeries);
       fixture.detectChanges();
     }));
 
@@ -90,27 +96,27 @@ describe('DtMicroChartLineSvg', () => {
     it('should have update min template', () => {
       fixture.componentInstance.minTemplate = fixture.componentInstance.updatedMinTemplate;
       fixture.detectChanges();
-      const minOutlet = fixture.debugElement.query(By.css('.dt-micro-chart-line-extremelabel'));
+      const minOutlet = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel'));
       expect(minOutlet.nativeElement.textContent.trim()).toBe('Updated template 60');
     });
 
     it('should update label positions after updating extremes', () => {
       fixture.componentInstance.extremes = {
-        min: { x: 0, y: 50 },
+        min: { x: 0, y: 50, height: 36, width: 24 },
         minAnchor: { x: 0, y: 50 },
         minValue: 50,
-        max: { x: 270, y: 100 },
+        max: { x: 270, y: 100, height: 36, width: 24 },
         maxAnchor: { x: 270, y: 100 },
         maxValue: 100,
       };
       fixture.detectChanges();
       zone.simulateZoneExit();
-      const minLabel = fixture.debugElement.query(By.css('.dt-micro-chart-line-extremelabel-min'));
+      const minLabel = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel-min'));
       expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
       expect(minLabel.nativeElement.getAttribute('y')).toBe('50');
       expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
 
-      const maxLabel = fixture.debugElement.query(By.css('.dt-micro-chart-line-extremelabel-max'));
+      const maxLabel = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel-max'));
       expect(maxLabel.nativeElement.getAttribute('x')).toBe('270');
       expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
       expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
@@ -119,14 +125,16 @@ describe('DtMicroChartLineSvg', () => {
 });
 
 @Component({
-  selector: 'dt-simple-line-series',
+  selector: 'dt-simple-column-series',
   template: `
     <svg>
       <svg:g
-        dt-micro-chart-line-series
+        dt-micro-chart-column-series
         [points]="points"
-        [path]="path"
         [highlightExtremes]="highlightExtremes"
+        [minHighlightRectangle]="minHighlightRectangle"
+        [maxHighlightRectangle]="maxHighlightRectangle"
+        [extremes]="extremes"
         [minTemplate]="minTemplate"
         [maxTemplate]="maxTemplate"
         [extremes]="extremes"
@@ -142,29 +150,30 @@ describe('DtMicroChartLineSvg', () => {
     </svg>
   `,
 })
-class SimpleLineSeries {
+class SimpleColumnSeries {
   points = [
-    { x: 0, y: 75 },
-    { x: 67.5, y: 0 },
-    { x: 135, y: 100 },
-    { x: 202.5, y: 100 },
-    { x: 270, y: 60 },
+    { x: 0, y: 64, height: 36, width: 24 },
+    { x: 49, y: 20, height: 80, width: 24 },
+    { x: 98, y: 0, height: 100, width: 24 },
+    { x: 147, y: 99, height: 1, width: 24 },
+    { x: 196, y: 99, height: 1, width: 24 },
+    { x: 245, y: 80, height: 20, width: 24 },
   ];
 
   minTemplate: TemplateRef<any>;
   @ViewChild('initialMinTemplate') initialMinTemplate: TemplateRef<any>;
   @ViewChild('updatedMinTemplate') updatedMinTemplate: TemplateRef<any>;
 
-  path = 'M0,75L67.5,0L135,100L202.5,100L270,60';
-
   highlightExtremes = true;
+  minHighlightRectangle = { x: 144, y: 96, width: 30, height: 7 };
+  maxHighlightRectangle = { x: 95, y: -3, width: 30, height: 106 };
 
   extremes = {
-    min: { x: 270, y: 60 },
-    minAnchor: { x: 270, y: 60 },
+    min: { x: 0, y: 64, height: 36, width: 24 },
+    minAnchor: { x: 0, y: 64 },
     minValue: 60,
-    max: { x: 135, y: 100 },
-    maxAnchor: { x: 135, y: 100 },
+    max: { x: 147, y: 99, height: 1, width: 24 },
+    maxAnchor: { x: 147, y: 99 },
     maxValue: 100,
   };
 

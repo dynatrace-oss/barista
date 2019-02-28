@@ -33,8 +33,8 @@ export class DtMicroChartLineSeries extends DtMicroChartSeries implements OnChan
    * act as a regular input and the user won't be able to open the panel.
    */
   @Input('highlightExtremes')
-  get autocompleteDisabled(): boolean { return this._highlightExtremes; }
-  set autocompleteDisabled(value: boolean) {
+  get hightlightExtremes(): boolean { return this._highlightExtremes; }
+  set hightlightExtremes(value: boolean) {
     this._highlightExtremes = coerceBooleanProperty(value);
   }
 

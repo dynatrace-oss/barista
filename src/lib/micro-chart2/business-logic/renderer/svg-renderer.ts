@@ -1,8 +1,9 @@
-import { DtMicroChartLineSeriesData, DtMicroChartLineDataPoint, DtMicroChartLineExtremes } from '../core/line';
+import { DtMicroChartLineSeriesData, DtMicroChartLineDataPoint } from '../core/line';
 import { line } from 'd3-shape';
 import { DtMicroChartRenderer } from './base';
-import { DtMicroChartColumnSeriesData } from '../core/column';
+import { DtMicroChartColumnSeriesData, DtMicroChartColumnDataPoint } from '../core/column';
 import { DtMicroChartBarSeriesData } from '../core/bar';
+import { DtMicroChartExtremes } from '../core/chart';
 
 export interface DtMicroChartBaseSeriesSvgData {
 
@@ -10,12 +11,15 @@ export interface DtMicroChartBaseSeriesSvgData {
 
 export interface DtMicroChartLineSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
   points: DtMicroChartLineDataPoint[];
-  extremes: DtMicroChartLineExtremes;
+  extremes: DtMicroChartExtremes<DtMicroChartLineDataPoint>;
   path: string;
 }
 
 export interface DtMicroChartColumnSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
-  points: Array<{ x: number; y: number; height: number; width: number }>;
+  points: DtMicroChartColumnDataPoint[];
+  extremes: DtMicroChartExtremes<DtMicroChartColumnDataPoint>;
+  minHighlightRectangle: DtMicroChartColumnDataPoint;
+  maxHighlightRectangle: DtMicroChartColumnDataPoint;
 }
 
 export interface DtMicroChartBarSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
@@ -37,8 +41,24 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
   }
 
   createColumnSeriesRenderData(data: DtMicroChartColumnSeriesData): DtMicroChartColumnSeriesSvgData {
+    const offset = 3;
+    const minHighlightRectangle = {
+      x: data.extremes.min.x! - offset,
+      y: data.extremes.min.y! - offset,
+      width: data.extremes.min.width + (offset * 2),
+      height: data.extremes.min.height + (offset * 2),
+    };
+    const maxHighlightRectangle = {
+      x: data.extremes.max.x! - offset,
+      y: data.extremes.max.y! - offset,
+      width: data.extremes.max.width + (offset * 2),
+      height: data.extremes.max.height + (offset * 2),
+    };
     return {
       points: data.points,
+      extremes: data.extremes,
+      minHighlightRectangle,
+      maxHighlightRectangle,
     };
   }
 

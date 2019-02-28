@@ -15,8 +15,8 @@
     class="dt-micro-chart-line-extreme dt-micro-chart-line-extreme-min"
   ></svg:circle>
   <svg:text
-    [attr.x]="extremes.min.x"
-    [attr.y]="extremes.min.y"
+    [attr.x]="extremes.minAnchor.x"
+    [attr.y]="extremes.minAnchor.y"
     class="dt-micro-chart-line-extremelabel dt-micro-chart-line-extremelabel-min"
     #minLabel
   >
@@ -24,6 +24,7 @@
       <ng-container [cdkPortalOutlet]="minPortal" ></ng-container>
     </svg:tspan>
   </svg:text>
+ 
   <svg:circle
     [attr.cx]="extremes.max.x"
     [attr.cy]="extremes.max.y"
@@ -31,8 +32,8 @@
     class="dt-micro-chart-line-extreme dt-micro-chart-line-extreme-max"
   ></svg:circle>
   <svg:text
-    [attr.x]="extremes.max.x"
-    [attr.y]="extremes.max.y"
+    [attr.x]="extremes.maxAnchor.x"
+    [attr.y]="extremes.maxAnchor.y"
     class="dt-micro-chart-line-extremelabel dt-micro-chart-line-extremelabel-max"
     #maxLabel
   >
