@@ -5,9 +5,9 @@ import { DtMicroChartColumnSeriesData, DtMicroChartColumnDataPoint } from '../co
 import { DtMicroChartBarSeriesData } from '../core/bar';
 import { DtMicroChartExtremes } from '../core/chart';
 
-export interface DtMicroChartBaseSeriesSvgData {
+export type SVGTextAnchor = 'start' | 'middle' | 'end';
 
-}
+export interface DtMicroChartBaseSeriesSvgData { }
 
 export interface DtMicroChartLineSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
   points: DtMicroChartLineDataPoint[];

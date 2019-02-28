@@ -21,7 +21,7 @@
     #minLabel
   >
     <svg:tspan baseline-shift="-20">
-      <ng-container [cdkPortalOutlet]="minPortal" ></ng-container>
+      <ng-container [cdkPortalOutlet]="_minPortal" ></ng-container>
     </svg:tspan>
   </svg:text>
  
@@ -38,7 +38,7 @@
     #maxLabel
   >
     <svg:tspan baseline-shift="10">
-      <ng-container [cdkPortalOutlet]="maxPortal"></ng-container>
+      <ng-container [cdkPortalOutlet]="_maxPortal"></ng-container>
     </svg:tspan>
   </svg:text>
 </ng-container>

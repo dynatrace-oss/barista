@@ -1,4 +1,4 @@
-import { SVGTextAnchor } from './series';
+import { SVGTextAnchor } from './business-logic/renderer/svg-renderer';
 
 export function getMinMaxValues(numbers: number[]): { min: number; max: number } {
   return {

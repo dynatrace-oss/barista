@@ -8,7 +8,6 @@ export interface DtMicroChartDomains {
   x: { min: number; max: number; numberOfPoints: number };
   y: { min: number; max: number; numberOfPoints: number };
 }
-
 export interface DtMicroChartExtremes<T> {
   min: T;
   minValue: number | null;
@@ -17,7 +16,6 @@ export interface DtMicroChartExtremes<T> {
   maxValue: number | null;
   maxAnchor: { x: number; y: number };
 }
-
 export interface DtMicroChartIdentification {
   publicSeriesId: number;
   type: DtMicroChartSeriesType;
