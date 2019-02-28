@@ -38,19 +38,16 @@ const DELIMITER = '◬';
 export class DtFilterFieldControl {
 
   private _distinctIds = new Set<string>();
-  private _currentDistinctReference = '';
+  private _currentDistinctId = '';
   private _dataSourceDef = new BehaviorSubject<NodeDef | null>(null);
-
-  _currentDef = new Subject<NodeDef>();
+  private _currentDef = new BehaviorSubject<NodeDef| null>(null);
 
   get changes(): Observable<NodeData | null> {
     const currentDef$ = this._currentDef.pipe(
-      tap((currentDef) => { this._distinctIds.add(peekDistinctId(currentDef, this._currentDistinctReference)); }),
       switchMap((currentDef) => currentDef && currentDef.nodeFlags & NodeFlags.RenderTypes ?
-        observableOf(currentDef).pipe(
-          tap((def) => { this._currentDistinctReference += currentDef.option!.distinctId; })) :
+        observableOf(currentDef).pipe(tap(() => { this._currentDistinctId += currentDef.option!.distinctId; })) :
         this._dataSourceDef.pipe(tap(() => {
-          this._currentDistinctReference = '';
+          this._currentDistinctId = '';
           this._viewer.submitFilter();
         })))
     );
@@ -65,12 +62,22 @@ export class DtFilterFieldControl {
   constructor(dataSource: DtFilterFieldDataSource, private _viewer: DtFilterFieldViewer) {
     dataSource.connect().subscribe((def) => { this._dataSourceDef.next(def); });
     _viewer._filterNodesChanges.subscribe((event) => {
-      if (event.added && isAutocompleteData(event.added) && isOptionData(event.added.autocomplete.selectedOption)) {
-        this._currentDef.next(event.added.autocomplete.selectedOption.def);
-      }
+      let shouldEmit = false;
       if (event.removed) {
         event.removed.forEach((nodeData) => {
+          if (isAutocompleteData(nodeData) && nodeData.autocomplete.selectedOption &&
+            nodeData.autocomplete.selectedOption.def.option!.distinctId) {
+            this._distinctIds.delete(nodeData.autocomplete.selectedOption.def.option!.distinctId);
+            shouldEmit = true;
+          }
         });
+      }
+      if (event.added && isAutocompleteData(event.added) && isOptionData(event.added.autocomplete.selectedOption)) {
+        const def = event.added.autocomplete.selectedOption.def;
+        this._distinctIds.add(peekDistinctId(def, this._currentDistinctId));
+        this._currentDef.next(def);
+      } else if (shouldEmit) {
+        this._currentDef.next(this._currentDef.value);
       }
     });
   }
