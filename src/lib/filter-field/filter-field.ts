@@ -22,26 +22,14 @@ import { DtFilterFieldTagEvent } from './filter-field-tag/filter-field-tag';
 import {
   DtFilterFieldDataSource,
 } from './data-source/filter-field-data-source';
-import { NodeDef, NodeFlags, NodeData, isAutocompleteData, isFreeTextData, FilterData, filterData, isOptionData, getNodeDataViewValue } from './types';
+import { DtNodeDef, DtNodeFlags, DtNodeData, isDtAutocompleteData, isDtFreeTextData, DtFilterData, dtFilterData, isDtOptionData, getDtNodeDataViewValue } from './types';
 import { DtFilterFieldControl, DtFilterFieldViewer, DtFilterNodesChangesEvent } from './data-source/filter-field-control';
 
 // tslint:disable:no-bitwise
 
-// export class DtActiveFilterChangeEvent {
-//   constructor(
-//     public rootNodes: DtFilterFieldNode[],
-//     public activeNode: DtFilterFieldNode | null,
-//     public path: DtFilterFieldGroupNode[] = [],
-//     // tslint:disable-next-line: no-any
-//     public source: DtFilterField<any>
-//   ) { }
-
-//   // submitActiveFilter(viewValue?: string): void {
-//   //   if (this.activeNode) {
-//   //     this.source.submitFilter(viewValue);
-//   //   }
-//   // }
-// }
+export class DtFilterChangeEvent {
+  constructor(public added: DtFilterData[], public removed: DtFilterData[]) { }
+}
 
 // tslint:disable:no-any
 @Component({
@@ -60,7 +48,7 @@ import { DtFilterFieldControl, DtFilterFieldViewer, DtFilterNodesChangesEvent } 
 })
 export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldViewer {
 
-  /** Label for the filter field. Will be placed next to the filter icon. */
+  /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';
 
   @Input()
@@ -72,59 +60,58 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
   }
   private _dataSource: DtFilterFieldDataSource;
   private _dataControl: DtFilterFieldControl;
-
-  /** Data subscription */
   private _dataSubscription: Subscription | null;
-
-  _currentRenderNode: NodeData | null;
-  _filters: FilterData[] = [];
-  _currentFilter: FilterData | null = null;
 
   /** Emits an event with the current value of the input field everytime the user types. */
   @Output() inputChange = new EventEmitter<string>();
 
-  /**
-   * Emits an active-filter-change event when a free text has been submitted,
-   * an autocomplete option has been selected or a range has been defined
-   */
-  @Output() activeFilterChange = new EventEmitter<void>();
+  /** Emits when a new filter has been added or removed. */
+  @Output() filterChanges = new EventEmitter<DtFilterChangeEvent>();
 
-  // dataStateChanges = new Subject<DtFilterFieldDataStateChanges<any>>();
+  /** @internal Current NodeData that renders as an autocomplete, a free-text, ... */
+  _currentRenderNode: DtNodeData | null;
+
+  /** @internal Holds all currently applied filters */
+  _filters: DtFilterData[] = [];
+
+  /** @internal Filter where options, free texts, ... are applied by the user */
+  _currentFilter: DtFilterData | null = null;
 
   /** @internal Reference to the internal input element */
   @ViewChild('input') _inputEl: ElementRef;
 
   /** @internal The autocomplete trigger that is placed on the input element */
-  @ViewChild(DtAutocompleteTrigger) _autocompleteTrigger: DtAutocompleteTrigger<NodeDef>;
+  @ViewChild(DtAutocompleteTrigger) _autocompleteTrigger: DtAutocompleteTrigger<DtNodeDef>;
 
   /** @internal Querylist of the autocompletes provided by ng-content */
-  @ViewChild(DtAutocomplete) _autocomplete: DtAutocomplete<NodeDef>;
+  @ViewChild(DtAutocomplete) _autocomplete: DtAutocomplete<DtNodeDef>;
 
+  /** @internal Part of DtFilterFieldViewer. Emits when a node is added or removed from the current filter object. */
   _filterNodesChanges = new Subject<DtFilterNodesChangesEvent>();
 
   /** @internal Filter nodes to be rendered _before_ the input element. */
-  get _prefixFilters(): FilterData[] {
+  get _prefixFilters(): DtFilterData[] {
     return this._filters.slice(0, this._currentFilter ? this._filters.indexOf(this._currentFilter) : undefined);
   }
 
   /** @internal Filter nodes to be rendered _after_ the input element. */
-  get _suffixFilters(): FilterData[] {
+  get _suffixFilters(): DtFilterData[] {
     return this._currentFilter ? this._filters.slice(this._filters.indexOf(this._currentFilter) + 1) : [];
   }
 
-  get _filterByLabel(): string {
-    return '';
-    // const lastProperty = this._currentNode && this._currentNode.properties.length ?
-    //   this._currentNode.properties[this._currentNode.properties.length - 1] : null;
-    // return lastProperty ? ` ${(lastProperty as DtFilterFieldValueProperty<any>).toString()}:` : '';
-  }
-
-  get _autocompleteOptionsOrGroups(): NodeData[] {
+  get _autocompleteOptionsOrGroups(): DtNodeData[] {
     const def = this._currentRenderNode ? this._currentRenderNode.def :  null;
     return def && (
-      (def.nodeFlags & NodeFlags.TypeAutocomplete && this._currentRenderNode!.autocomplete!.optionsOrGroups) ||
-      (def.nodeFlags & NodeFlags.TypeFreeText && this._currentRenderNode!.freeText!.suggestions)
+      (def.nodeFlags & DtNodeFlags.TypeAutocomplete && this._currentRenderNode!.autocomplete!.optionsOrGroups) ||
+      (def.nodeFlags & DtNodeFlags.TypeFreeText && this._currentRenderNode!.freeText!.suggestions)
     ) || [];
+  }
+
+  get _filterByLabel(): string {
+    return this._currentFilter && this._currentFilter.nodes.length &&
+      isDtAutocompleteData(this._currentFilter.nodes[0]) &&
+      this._currentFilter.nodes[0].autocomplete!.selectedOption &&
+      this._currentFilter.nodes[0].autocomplete!.selectedOption!.option!.viewValue || '';
   }
 
   /** @internal Value of the input element. */
@@ -156,7 +143,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
 
     this._zone.onStable.pipe(takeUntil(this._destroy)).subscribe(() => {
       if (this._isFocused) {
-        if (this._currentRenderNode && this._currentRenderNode.def.nodeFlags & NodeFlags.TypeAutocomplete) {
+        if (this._currentRenderNode && this._currentRenderNode.def.nodeFlags & DtNodeFlags.TypeAutocomplete) {
           // When the autocomplete closes after the user has selected an option
           // and the new data is also displayed in an autocomlete we need to open it again.
           // Note: Also trigger openPanel if it already open, so it does a reposition and resize
@@ -195,8 +182,10 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     }
   }
 
+  /** Submits and finishes the current filter. */
   submitFilter(): void {
     if (this._currentFilter) {
+      this.filterChanges.emit(new DtFilterChangeEvent([this._currentFilter], []));
       this._currentFilter = null;
     }
   }
@@ -221,69 +210,47 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
       this._inputValue = value;
       this.inputChange.emit(value);
 
-      // if (this._dataSource) {
-      //   this._dataSource.autocompleteFilter = value;
-      // }
-
       this._changeDetectorRef.markForCheck();
     }
   }
 
   /** @internal */
   _handleInputKeyDown(event: KeyboardEvent): void {
-    // const keyCode = readKeyCode(event);
-    // if (keyCode === BACKSPACE && !this._inputValue.length) {
-    //   if (this._currentNode) {
-    //     this._nodesHost.removeNode(this._currentNode);
-    //     this._currentNode = null;
-    //     this._resetDataSource();
-    //     this._emitChangeEvent();
-    //   } else if (this._prefixNodes.length) {
-    //     const node = this._prefixNodes[this._prefixNodes.length - 1];
-    //     this._nodesHost.removeNode(node);
-    //     this._resetDataSource();
-    //     this._emitChangeEvent();
-    //   }
-    // }
+    const keyCode = readKeyCode(event);
+    if (keyCode === BACKSPACE && !this._inputValue.length) {
+      if (this._currentFilter) {
+        this._removeFilter(this._currentFilter);
+      } else if (this._prefixFilters.length) {
+        this._removeFilter(this._prefixFilters[this._prefixFilters.length - 1]);
+      }
+    }
   }
 
   /** @internal */
   _handleInputKeyUp(event: KeyboardEvent): void {
-    // const keyCode = readKeyCode(event);
-    // if (keyCode === ENTER && this._inputValue.length && this._currentDef && this._currentDef.dataType === 'free-text') {
-    //   this._handleFreeTextSubmitted();
-    // }
-  }
-
-  _handleTagRemove(event: DtFilterFieldTagEvent): void {
-    const removableIndex = this._filters.indexOf(event.data);
-    if (removableIndex !== -1) {
-      this._filters.splice(removableIndex, 1);
-      this._emitFilterNodeChanges(null, event.data.nodes);
+    const keyCode = readKeyCode(event);
+    if (keyCode === ENTER && this._inputValue.length && isDtFreeTextData(this._currentRenderNode)) {
+      this._handleFreeTextSubmitted();
     }
   }
 
-  _handleTagEdit(event: DtFilterFieldTagEvent): void {
-    // const node = event.node as DtFilterFieldFilterNode;
-    // if (node) {
-    //   if (this._currentNode) {
-    //     // TODO @thomas.pink: What to do here????
-    //     throw new Error(`Can not edit tag, because there is currently another tag edited or a new on in creation`);
-    //   }
-    //   node.properties = [node.properties[0]];
-    //   this._currentNode = node;
-    //   this.focus();
-    //   this._emitChangeEvent();
-    //   this._changeDetectorRef.markForCheck();
-    // }
+  _handleTagRemove(event: DtFilterFieldTagEvent): void {
+    this._removeFilter(event.data);
   }
 
-  private _handleAutocompleteSelected(event: DtAutocompleteSelectedEvent<NodeData>): void {
+  _handleTagEdit(event: DtFilterFieldTagEvent): void {
+    const nodesToRemove = event.data.nodes.splice(1);
+    this._currentFilter = event.data;
+    this._emitFilterNodeChanges(event.data.nodes[0], nodesToRemove);
+    this.focus();
+    this._changeDetectorRef.markForCheck();
+  }
 
+  private _handleAutocompleteSelected(event: DtAutocompleteSelectedEvent<DtNodeData>): void {
     if (this._currentRenderNode) {
-      if (isAutocompleteData(this._currentRenderNode)) {
+      if (isDtAutocompleteData(this._currentRenderNode)) {
         this._currentRenderNode.autocomplete.selectedOption = event.option.value;
-      } else if (isFreeTextData(this._currentRenderNode)) {
+      } else if (isDtFreeTextData(this._currentRenderNode)) {
         this._currentRenderNode.freeText.selectedSuggestion = event.option.value;
         this._currentRenderNode.freeText.textValue = event.option.viewValue;
       }
@@ -302,14 +269,11 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     });
 
     this._emitFilterNodeChanges(this._currentRenderNode);
-    // this._dataControl.currentDef = event.option.value.def;
-
-    // this._emitChangeEvent();
     this._changeDetectorRef.markForCheck();
   }
 
   private _handleFreeTextSubmitted(): void {
-    if (isFreeTextData(this._currentRenderNode)) {
+    if (isDtFreeTextData(this._currentRenderNode)) {
       this._currentRenderNode.freeText.textValue = this._inputValue;
       const filter = this._peekCurrentFilter();
       filter.nodes.push(this._currentRenderNode);
@@ -317,8 +281,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     }
 
     this._writeInputValue('');
-    // this._resetDataSource();
-    // this._emitChangeEvent();
+    this._emitFilterNodeChanges(this._currentRenderNode);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -336,20 +299,10 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     }
   }
 
-  private _emitChangeEvent(): void {
-    // const nodeToEmit = node || this._currentNode || null;
-    // this.activeFilterChange.emit(new DtActiveFilterChangeEvent(
-    //   this._nodesHost.rootNodes,
-    //   nodeToEmit!,
-    //   nodeToEmit ? getParentsForNode(nodeToEmit) : [],
-    //   this
-    // ));
-  }
-
-  private _peekCurrentFilter(): FilterData {
+  private _peekCurrentFilter(): DtFilterData {
     let filter = this._currentFilter;
     if (!filter) {
-      filter = filterData([]);
+      filter = dtFilterData([]);
       this._currentFilter = filter;
       this._filters.push(filter);
     }
@@ -359,18 +312,31 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     return filter;
   }
 
-  private _updateFilterDataViewValues(data: FilterData): FilterData {
+  private _removeFilter(filter: DtFilterData): void {
+    const removableIndex = this._filters.indexOf(filter);
+    if (filter === this._currentFilter) {
+      this._currentFilter = null;
+    }
+    if (removableIndex !== -1) {
+      this._filters.splice(removableIndex, 1);
+      this._emitFilterNodeChanges(null, filter.nodes);
+      this.filterChanges.emit(new DtFilterChangeEvent([], [filter]));
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  private _updateFilterDataViewValues(data: DtFilterData): DtFilterData {
     const nodes = data.nodes || [];
     let key: string | null = null;
     let value: string | null = null;
     let separator: string | null = null;
     if (nodes.length) {
       if (nodes.length > 1) {
-        key = getNodeDataViewValue(nodes[0]);
+        key = getDtNodeDataViewValue(nodes[0]);
       }
       const lastNode = nodes[nodes.length - 1];
-      value = getNodeDataViewValue(lastNode);
-      if (isFreeTextData(lastNode)) {
+      value = getDtNodeDataViewValue(lastNode);
+      if (isDtFreeTextData(lastNode)) {
         value = `"${value}"`;
         separator = '~';
       }
@@ -379,7 +345,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     return data;
   }
 
-  private _emitFilterNodeChanges(added: NodeData | null = null, removed: NodeData[] | null = null): void {
+  private _emitFilterNodeChanges(added: DtNodeData | null = null, removed: DtNodeData[] | null = null): void {
     this._filterNodesChanges.next({ added, removed });
   }
 

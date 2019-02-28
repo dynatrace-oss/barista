@@ -1,19 +1,19 @@
 export const KUBERNETES_DATA = {
   autocomplete: [
     {
-      name: "Kubernetes Labels",
+      name: 'Kubernetes Labels',
       options: [
         {
           name: 'beta.kubernetes.io/arch',
           value: 'beta.kubernetes.io/arch',
           autocomplete: ['amd64', 'amd32'],
-          distinct: true
+          distinct: true,
         },
         {
           name: 'beta.kubernetes.io/os',
           value: 'beta.kubernetes.io/os',
           autocomplete: ['linux', 'windows'],
-          distinct: true
+          distinct: true,
         },
         {
           name: 'node-role.kubernetes.io/master (simple label)',
@@ -33,6 +33,6 @@ export const KUBERNETES_DATA = {
           suggestions: [],
         },
       ],
-    }
-  ]
-}
+    },
+  ],
+};
