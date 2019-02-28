@@ -1429,6 +1429,24 @@ describe('DtAutocomplete', () => {
         .toContain('Second', `Expected panel to display the option of the second autocomplete.`);
     });
 
+    it('should transfer the dt-autocomplete classes to the panel element', fakeAsync(() => {
+      const fixture = createComponent(SimpleAutocomplete);
+      fixture.detectChanges();
+
+      fixture.componentInstance.trigger.openPanel();
+      tick();
+      fixture.detectChanges();
+
+      const autocomplete = fixture.debugElement.nativeElement.querySelector('dt-autocomplete');
+      const panel = overlayContainerElement.querySelector('.dt-autocomplete-panel')!;
+
+      expect(autocomplete.classList).not.toContain('class-one');
+      expect(autocomplete.classList).not.toContain('class-two');
+
+      expect(panel.classList).toContain('class-one');
+      expect(panel.classList).toContain('class-two');
+    }));
+
   });
 });
 
