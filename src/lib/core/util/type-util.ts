@@ -22,7 +22,7 @@ export function isNumber(value: any): boolean {
   return typeof value !== 'symbol' && !isNaN(parseFloat(value)) && !isNaN(Number(value));
 }
 
-/** Checks if the provided value is of type object but not an array. */
+/** Checks if the provided value is a real object. */
 // tslint:disable-next-line: no-any
 export function isObject(value: any): boolean {
   return isDefined(value) && typeof value === 'object' && !Array.isArray(value);

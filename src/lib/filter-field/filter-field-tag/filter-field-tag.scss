@@ -54,6 +54,14 @@
   width: 16px;
 }
 
+.dt-filter-field-tag-key::after {
+  content: ' ' attr(data-separator) ' ';
+}
+
+.dt-filter-field-tag-key[data-separator=':']::after {
+  content: attr(data-separator) ' ';
+}
+
 .dt-filter-field-tag-value {
   color: $turquoise-600;
 }

@@ -12,15 +12,15 @@ export const TEST_DATA = {
               options: [
                 'Linz',
                 'Wels',
-                'Steyr'
-              ]
-            }
-          ]
+                'Steyr',
+              ],
+            },
+          ],
         },
         {
-          name: 'Wien'
-        }
-      ]
+          name: 'Wien',
+        },
+      ],
     },
     {
       name: 'USA',
@@ -29,10 +29,10 @@ export const TEST_DATA = {
           name: 'California',
           autocomplete: [
             'Los Angeles',
-            'San Fran'
-          ]
-        }
-      ]
-    }
-  ]
-}
+            'San Fran',
+          ],
+        },
+      ],
+    },
+  ],
+};
