@@ -3,8 +3,20 @@ import { DtChartModule } from '@dynatrace/angular-components/chart';
 import { DtMicroChart2 } from './micro-chart2';
 import { CommonModule } from '@angular/common';
 import { DtFormattersModule } from '../formatters';
-import { DtMicroChartLineSeriesSVG , DtMicroChartColumnSeriesSVG, DtMicroChartBarSeriesSVG } from './series';
-import { DtMicroChartLineSeries, DtMicroChartColumnSeries, DtMicroChartBarSeries, DtMicroChartMinLabel, DtMicroChartMaxLabel } from './public-api';
+import {
+  DtMicroChartLineSeriesSVG,
+  DtMicroChartColumnSeriesSVG,
+  DtMicroChartBarSeriesSVG,
+} from './series';
+import {
+  DtMicroChartLineSeries,
+  DtMicroChartColumnSeries,
+  DtMicroChartBarSeries,
+  DtMicroChartMinLabel,
+  DtMicroChartMaxLabel,
+  DtMicroChartXAxis,
+  DtMicroChartYAxis,
+} from './public-api';
 import { DT_MICRO_CHART_RENDERER } from './business-logic/renderer/base';
 import { DtMicroChartSvgRenderer } from './business-logic/renderer/svg-renderer';
 import { PortalModule } from '@angular/cdk/portal';
@@ -23,6 +35,8 @@ import { PortalModule } from '@angular/cdk/portal';
     DtMicroChartBarSeries,
     DtMicroChartMinLabel,
     DtMicroChartMaxLabel,
+    DtMicroChartXAxis,
+    DtMicroChartYAxis,
   ],
   declarations: [
     DtMicroChart2,
@@ -34,6 +48,8 @@ import { PortalModule } from '@angular/cdk/portal';
     DtMicroChartBarSeriesSVG,
     DtMicroChartMinLabel,
     DtMicroChartMaxLabel,
+    DtMicroChartXAxis,
+    DtMicroChartYAxis,
   ],
   providers: [
     {

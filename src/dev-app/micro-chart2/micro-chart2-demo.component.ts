@@ -23,6 +23,9 @@ export class MicroChart2Demo {
 
   toggleSeries = false;
   toggleExtremes = true;
+  toggleAxis = true;
+
+  yAxisMin = 0;
 
   updateData(): void {
     const data = [...(this.series.data || [])];

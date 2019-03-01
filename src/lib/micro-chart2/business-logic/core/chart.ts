@@ -1,4 +1,8 @@
-import { DtMicroChartSeries, DtMicroChartSeriesType } from '../../public-api';
+import {
+  DtMicroChartSeries,
+  DtMicroChartSeriesType,
+  DtMicroChartAxis,
+} from '../../public-api';
 import { extent } from 'd3-array';
 
 export type DtMicroChartUnifiedInputData = Array<Array<number|null>>;
@@ -29,6 +33,7 @@ export interface DtMicroChartSeriesData {
   };
 }
 
+/** Unify the series data to a number[][]. */
 export function unifySeriesData(data: Array<number|null> | DtMicroChartUnifiedInputData): DtMicroChartUnifiedInputData {
   const transform = data && data.length && !(data[0] instanceof Array);
   return transform ?
@@ -85,6 +90,7 @@ export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, seri
   };
 }
 
+/** Create chart domains for all combined series. */
 export function createChartDomains(series: DtMicroChartSeries[]): DtMicroChartDomains {
   // TODO: this needs some smarts
   const standardDomain: DtMicroChartDomains = {
@@ -101,4 +107,45 @@ export function createChartDomains(series: DtMicroChartSeries[]): DtMicroChartDo
   };
   return series
     .reduce(reduceSeriesToChartDomains, standardDomain);
+}
+
+/** Axis can move the chart domains. Calculate the extents of the configured axis and apply it to the domains. */
+export function applyAxesExtentsToDomain(axes: DtMicroChartAxis[], domains: DtMicroChartDomains): DtMicroChartDomains {
+  let xAxisMin;
+  let xAxisMax;
+  let yAxisMin;
+  let yAxisMax;
+
+  // Iterate the axis and determine the minimum and maximum values for each axis.
+  for (const axis of axes) {
+    if (axis._orientation === 'x') {
+      if (axis.min !== undefined && (axis.min < xAxisMin || xAxisMin === undefined)) {
+        xAxisMin = axis.min;
+      }
+      if (axis.max !== undefined && (axis.max < xAxisMax || xAxisMax === undefined)) {
+        xAxisMax = axis.max;
+      }
+    }
+    if (axis._orientation === 'y') {
+      if (axis.min !== undefined && (axis.min < yAxisMin || yAxisMin === undefined)) {
+        yAxisMin = axis.min;
+      }
+      if (axis.max !== undefined && (axis.max < yAxisMax || yAxisMax === undefined)) {
+        yAxisMax = axis.max;
+      }
+    }
+  }
+
+  return {
+    x: {
+      min: xAxisMin !== undefined ? xAxisMin : domains.x.min,
+      max: xAxisMax !== undefined ? xAxisMax : domains.x.max,
+      numberOfPoints: domains.x.numberOfPoints,
+    },
+    y: {
+      min: yAxisMin !== undefined ? yAxisMin : domains.y.min,
+      max: yAxisMax !== undefined ? yAxisMax : domains.y.max,
+      numberOfPoints: domains.y.numberOfPoints,
+    },
+  };
 }

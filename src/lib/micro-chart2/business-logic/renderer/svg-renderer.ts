@@ -9,6 +9,7 @@ export type SVGTextAnchor = 'start' | 'middle' | 'end';
 
 export interface DtMicroChartBaseSeriesSvgData { }
 
+
 export interface DtMicroChartLineSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
   points: DtMicroChartLineDataPoint[];
   extremes: DtMicroChartExtremes<DtMicroChartLineDataPoint>;
@@ -25,6 +26,11 @@ export interface DtMicroChartColumnSeriesSvgData extends DtMicroChartBaseSeriesS
 export interface DtMicroChartBarSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
   points: Array<{ x: number; y: number; height: number; width: number }>;
 }
+
+export type DtMicroChartRendererSeriesData =
+  DtMicroChartLineSeriesSvgData |
+  DtMicroChartColumnSeriesSvgData |
+  DtMicroChartBarSeriesSvgData;
 
 export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
 
@@ -45,13 +51,17 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
     const minHighlightRectangle = {
       x: data.extremes.min.x! - offset,
       y: data.extremes.min.y! - offset,
+      // tslint:disable-next-line:no-magic-numbers
       width: data.extremes.min.width + (offset * 2),
+      // tslint:disable-next-line:no-magic-numbers
       height: data.extremes.min.height + (offset * 2),
     };
     const maxHighlightRectangle = {
       x: data.extremes.max.x! - offset,
       y: data.extremes.max.y! - offset,
+      // tslint:disable-next-line:no-magic-numbers
       width: data.extremes.max.width + (offset * 2),
+      // tslint:disable-next-line:no-magic-numbers
       height: data.extremes.max.height + (offset * 2),
     };
     return {
