@@ -24,7 +24,7 @@ export interface DtMicroChartColumnSeriesSvgData extends DtMicroChartBaseSeriesS
 }
 
 export interface DtMicroChartBarSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
-  points: Array<{ x: number; y: number; height: number; width: number }>;
+  points: DtMicroChartColumnDataPoint[];
 }
 
 export type DtMicroChartRendererSeriesData =

@@ -191,6 +191,7 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
           }
           nextRenderData.push({ ...s._renderData, ...rendererData, width, plotOffsetX: this._config.marginLeft });
         }
+        console.log(nextRenderData);
         this._renderData.next(nextRenderData);
         this._changeDetectorRef.markForCheck();
       });
