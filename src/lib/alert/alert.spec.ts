@@ -25,7 +25,7 @@ describe('DtAlert', () => {
     fixture.detectChanges();
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
-    expect(tileNativeElement.classList.contains('dt-alert-error'))
+    expect(tileNativeElement.classList.contains('dt-alert'))
       .toBeTruthy();
   });
 

@@ -1,7 +1,7 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { Colors, DtChartSeries } from '@dynatrace/angular-components';
+import { DtColors, DtChartSeries } from '@dynatrace/angular-components';
 import { generateData } from './chart-data-utils';
 
 @Component({
@@ -31,7 +31,7 @@ export class ChartLoadingExampleComponent {
     const dummyData = [{
       name: 'Failure rate',
       type: 'line',
-      color: Colors.ROYALBLUE_700,
+      color: DtColors.ROYALBLUE_700,
       data: generateData(40, 0, 20, 1370304000000, 900000),
     }];
     this.series = !this.series ? dummyData : null;

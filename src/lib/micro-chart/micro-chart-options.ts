@@ -1,7 +1,7 @@
 import { DataPoint } from 'highcharts';
 import { DtChartOptions } from '@dynatrace/angular-components/chart';
 import { DtMicroChartColorPalette } from './micro-chart-colors';
-import { Colors } from '@dynatrace/angular-components/theming';
+import { DtColors } from '@dynatrace/angular-components/theming';
 
 export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalette): DtChartOptions {
   return {
@@ -99,7 +99,7 @@ export function createDtMicrochartMinMaxDataPointOptions(palette: DtMicroChartCo
       },
       dataLabels: {
         align: 'center',
-        color: Colors.GRAY_500,
+        color: DtColors.GRAY_500,
         enabled: true,
       },
       marker: {
