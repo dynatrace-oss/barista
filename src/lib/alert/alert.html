@@ -1,5 +1,4 @@
-<!-- @breaking-change Remove ngIf when undefined as a severity type has been removed -->
-<div class="dt-alert-icon-container" *ngIf="severity">
+<div class="dt-alert-icon-container">
   <dt-icon class="dt-alert-icon" [name]="severity === 'warning' ? 'incident' : 'criticalevent'"></dt-icon>
 </div>
 <div class="dt-alert-text-container">
