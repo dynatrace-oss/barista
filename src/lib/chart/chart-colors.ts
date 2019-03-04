@@ -21,10 +21,6 @@ export const DT_CHART_COLOR_PALETTE_ORDERED: string[] = [
   DtColors.ROYALBLUE_400, /* 15 */
 ];
 
-// @deprecated Use `DT_CHART_COLOR_PALETTE_ORDERED` instead.
-// @breaking-change 2.0.0 To be changed to `DT_CHART_COLOR_PALETTE_ORDERED`
-export const CHART_COLOR_PALETTE_ORDERED = DT_CHART_COLOR_PALETTE_ORDERED;
-
 /** Chart colors for the purple theme up to 3 metrics */
 const DT_COLOR_PALETTE_PURPLE: string[] = [
   DtColors.PURPLE_700,
