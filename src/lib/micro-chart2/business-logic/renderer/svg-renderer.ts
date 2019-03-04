@@ -9,7 +9,6 @@ export type SVGTextAnchor = 'start' | 'middle' | 'end';
 
 export interface DtMicroChartBaseSeriesSvgData { }
 
-
 export interface DtMicroChartLineSeriesSvgData extends DtMicroChartBaseSeriesSvgData {
   points: DtMicroChartLineDataPoint[];
   extremes: DtMicroChartExtremes<DtMicroChartLineDataPoint>;
@@ -35,10 +34,9 @@ export type DtMicroChartRendererSeriesData =
 export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
 
   createLineSeriesRenderData(data: DtMicroChartLineSeriesData): DtMicroChartLineSeriesSvgData {
-    const lineGenerator = line()
-        .x((d) => d.x)
-        .y((d) => d.y);
-    const path = lineGenerator(data.points) || '';
+    const lineGenerator = line();
+    const linePoints = data.points.map((dp) => [dp.x, dp.y] as [number, number]);
+    const path = lineGenerator(linePoints) || '';
     return {
       points: data.points,
       extremes: data.extremes,

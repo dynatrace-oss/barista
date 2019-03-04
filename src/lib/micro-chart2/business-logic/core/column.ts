@@ -4,13 +4,13 @@ import { DtMicroChartConfig } from '../../micro-chart-config';
 import { findExtremes } from '../../helper-functions';
 
 export interface DtMicroChartColumnScales {
-  x: ScaleBand<string>;
+  x: ScaleBand<number>;
   y: ScaleLinear<number, number>;
 }
 
 export interface DtMicroChartColumnDataPoint {
-  x: number | null;
-  y: number | null;
+  x: number;
+  y: number;
   width: number;
   height: number;
 }
@@ -22,9 +22,9 @@ export interface DtMicroChartColumnSeriesData extends DtMicroChartSeriesData {
 }
 
 /** Helper function to calculate a datapoint based on scales and domains. */
-function calculatePoint(index: number,  dataPoint: number | null, domains: DtMicroChartDomains, scales: DtMicroChartColumnScales): DtMicroChartColumnDataPoint {
+function calculatePoint(index: number,  dataPoint: number, domains: DtMicroChartDomains, scales: DtMicroChartColumnScales): DtMicroChartColumnDataPoint {
   // Bandwidth x is a unique string identifier.
-  const x = scales.x(index.toString()) as number;
+  const x = scales.x(index) as number;
   // If the y resulting y value is 0, move the indicator up by one to accomodate for minimum height of 1.
   const y = (scales.y(domains.y.min) - scales.y(dataPoint)) > 0 ?
     scales.y(dataPoint) :
@@ -51,12 +51,14 @@ export function handleChartColumnSeries(width: number, data: DtMicroChartUnified
     extremes: {
       min: minPoint,
       minAnchor: {
+        // tslint:disable-next-line:no-magic-numbers
         x: minPoint.x! + (minPoint.width / 2),
         y: minPoint.y! + minPoint.height,
       },
       minValue: min[1],
       max: maxPoint,
       maxAnchor: {
+        // tslint:disable-next-line:no-magic-numbers
         x: maxPoint!.x! + (maxPoint.width / 2),
         y: maxPoint.y as number,
       },

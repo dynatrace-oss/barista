@@ -9,8 +9,8 @@ export interface DtMicroChartLineScales {
 }
 
 export interface DtMicroChartLineDataPoint {
-  x: number | null;
-  y: number | null;
+  x: number;
+  y: number;
 }
 
 export interface DtMicroChartLineSeriesData extends DtMicroChartSeriesData {

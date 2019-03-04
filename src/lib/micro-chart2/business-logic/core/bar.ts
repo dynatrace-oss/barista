@@ -7,8 +7,15 @@ export interface DtMicroChartBarScales {
   y: ScaleBand<number>;
 }
 
+export interface DtMicroChartBarDataPoint {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 export interface DtMicroChartBarSeriesData extends DtMicroChartSeriesData {
-  points: Array<{ x: number; y: number; width: number; height: number}>;
+  points: DtMicroChartBarDataPoint[];
   scales: DtMicroChartBarScales;
 }
 
@@ -17,7 +24,7 @@ export function handleChartBarSeries(width: number, data: DtMicroChartUnifiedInp
   const transformedData = {
     points: data.map((dp, index) => ({
       x: x(domains.y.min),
-      y: y(index.toString()) as number,
+      y: y(index) as number,
       width: x(dp[1]) > 0 ? x(dp[1]) : 1,
       height: y.bandwidth(),
     })),

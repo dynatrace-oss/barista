@@ -5,7 +5,7 @@ import {
 } from '../../public-api';
 import { extent } from 'd3-array';
 
-export type DtMicroChartUnifiedInputData = Array<Array<number|null>>;
+export type DtMicroChartUnifiedInputData = number[][];
 
 // TODO: adjust datastructure to find eventually shared scales (multiple axis, ...)
 export interface DtMicroChartDomains {
@@ -55,16 +55,16 @@ export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, seri
   // TODO: find distinct x Values
 
   // Find extents over all series provided
-  if (seriesXMin < xMin) {
+  if (seriesXMin !== undefined && seriesXMin < xMin) {
     xMin = seriesXMin;
   }
-  if (seriesXMax > xMax) {
+  if (seriesXMax !== undefined && seriesXMax > xMax) {
     xMax = seriesXMax;
   }
-  if (seriesYMin < yMin) {
+  if (seriesYMin !== undefined && seriesYMin < yMin) {
     yMin = seriesYMin;
   }
-  if (seriesYMax > yMax) {
+  if (seriesYMax !== undefined && seriesYMax > yMax) {
     yMax = seriesYMax;
   }
 

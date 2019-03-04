@@ -46,7 +46,7 @@ export function mixinStackedSeries<T extends Constructor<DtMicroChartSeries>>(ba
 }
 
 export function canStackSeries(series: DtMicroChartSeries): boolean {
-  switch(series.constructor) {
+  switch (series.constructor) {
     case DtMicroChartBarSeries:
     case DtMicroChartColumnSeries:
       return true;
