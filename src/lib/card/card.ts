@@ -33,19 +33,6 @@ export class DtCardIcon { }
 })
 export class DtCardSubtitle { }
 
-/**
- * @deprecated Use `DtCardTitleActions` instead.
- * @breaking-change 2.0.0 To be changed to `DtCardTitleActions`
- * Title actions of a card, needed as it's used as a selector in the API.
- */
-@Directive({
-  selector: `dt-card-actions, [dt-card-actions], [dtCardctions]`,
-  host: {
-    class: 'dt-card-actions, dt-card-title-actions',
-  },
-})
-export class DtCardActions { }
-
 /** Title actions of a card, needed as it's used as a selector in the API. */
 @Directive({
   selector: `dt-card-title-actions, [dt-card-title-actions], [dtCardTitleActions]`,
