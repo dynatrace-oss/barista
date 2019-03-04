@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 </div>
 <button dt-button (click)="alert1.severity='warning'">Set Warning</button>
 <button dt-button (click)="alert1.severity='error'">Set Error</button>
-<button dt-button (click)="alert1.severity=undefined">Set undefined</button>
   `,
 })
 export class InteractiveAlertExampleComponent {

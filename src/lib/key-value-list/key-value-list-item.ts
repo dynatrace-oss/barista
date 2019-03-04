@@ -31,10 +31,4 @@ export class DtKeyValueListValue {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtKeyValueListItem {
-  /**
-   * @deprecated please use dt-key-value-list-value
-   * @breaking-change To be removed
-   */
-  @Input() value;
-}
+export class DtKeyValueListItem { }
