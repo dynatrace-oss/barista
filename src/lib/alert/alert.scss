@@ -4,13 +4,11 @@
 @import '../core/theming/theming';
 @import './alert-theme';
 
-$display-type: flex;
-
 :host {
   @include main-font();
   box-sizing: border-box;
 
-  display: none; // is overriden in the severity-types
+  display: flex;
   align-items: stretch;
 }
 
@@ -39,17 +37,11 @@ $display-type: flex;
   border-top-right-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
   border-left: 0 !important;
+  border-width: 1px;
+  border-style: solid;
 
   padding: 10px 16px;
   flex-grow: 1;
-}
-
-:host.dt-alert-warning {
-  display: $display-type;
-}
-
-:host.dt-alert-error {
-  display: $display-type;
 }
 
 // Apply the alert theme to all theme definitions

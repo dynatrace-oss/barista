@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DtChartOptions, DtChartSeries, DtChartModule } from '@dynatrace/angular-components/chart';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 import { DtMicroChart } from './micro-chart';
-import { Colors, DtThemingModule, DtTheme } from '@dynatrace/angular-components/theming';
+import { DtColors, DtThemingModule, DtTheme } from '@dynatrace/angular-components/theming';
 import objectContaining = jasmine.objectContaining;
 import { AxisOptions, DataPoint } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
@@ -101,7 +101,7 @@ describe('DtMicroChart', () => {
       const colors = microChartComponent.highchartsOptions.colors;
 
       expect(colors).toBeDefined();
-      expect(colors).toEqual([Colors.BLUE_400]);
+      expect(colors).toEqual([DtColors.BLUE_400]);
     });
 
     it('should set colors after theme update', () => {
@@ -113,7 +113,7 @@ describe('DtMicroChart', () => {
 
       const colors = microChartComponent.highchartsOptions.colors;
       expect(colors).toBeDefined();
-      expect(colors).toEqual([Colors.PURPLE_400]);
+      expect(colors).toEqual([DtColors.PURPLE_400]);
     });
 
     it('should update minmax datapoint colors after theme update', () => {
@@ -121,13 +121,13 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
 
       let data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
-      expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.BLUE_600}));
+      expect(data[0].marker).toEqual(objectContaining({lineColor: DtColors.BLUE_600}));
 
       fixture.componentInstance.theme = 'purple';
       fixture.detectChanges();
 
       data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
-      expect(data[0].marker).toEqual(objectContaining({lineColor: Colors.PURPLE_600}));
+      expect(data[0].marker).toEqual(objectContaining({lineColor: DtColors.PURPLE_600}));
     });
   });
 
