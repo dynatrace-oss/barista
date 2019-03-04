@@ -62,7 +62,3 @@ export function getDtChartColorPalette(nrOfMetrics: number, theme?: DtTheme): st
 
   return nrOfMetrics <= DT_CHART_THEME_COLOR_MAX_LENGTH ? palette : DT_CHART_COLOR_PALETTE_ORDERED;
 }
-
-// @deprecated Use `DT_CHART_COLOR_PALETTES` instead.
-// @breaking-change 2.0.0 To be changed to `DT_CHART_COLOR_PALETTES`
-export const CHART_COLOR_PALETTES = DT_CHART_COLOR_PALETTES;
