@@ -1,4 +1,4 @@
-import { Colors } from '@dynatrace/angular-components/theming';
+import { DtColors } from '@dynatrace/angular-components/theming';
 import { AxisOptions, GlobalOptions } from 'highcharts';
 import { DtChartOptions } from './chart';
 
@@ -24,7 +24,7 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
       fontFamily: 'BerninaSansWeb',
     },
     height: 230,
-    plotBorderColor: Colors.GRAY_300,
+    plotBorderColor: DtColors.GRAY_300,
     plotBorderWidth: 1,
     plotBackgroundColor: 'transparent',
     spacingBottom: 12,
@@ -62,13 +62,13 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
     itemStyle: {
       fontWeight: 'normal',
       fontSize: '12px',
-      color: Colors.GRAY_700,
+      color: DtColors.GRAY_700,
     },
     itemHoverStyle: {
-      color: Colors.GRAY_900,
+      color: DtColors.GRAY_900,
     },
     itemHiddenStyle: {
-      color: Colors.GRAY_300,
+      color: DtColors.GRAY_300,
     },
   },
   time: {
@@ -80,7 +80,7 @@ export const DT_CHART_DEFAULT_AXIS_STYLES: AxisOptions = {
   labels: {
     style: {
       fontSize: '12px',
-      color: Colors.GRAY_700,
+      color: DtColors.GRAY_700,
     },
   },
   tickWidth: 1,
