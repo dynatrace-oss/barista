@@ -106,8 +106,3 @@ export enum DtColors {
   GRAY_860 = '#242424',
   GRAY_900 = '#191919',
 }
-
-// @deprecated Use `DtColors` instead.
-// @breaking-change 2.0.0 To be changed to `DtColors`
-// tslint:disable-next-line:variable-name
-export const Colors = DtColors;
