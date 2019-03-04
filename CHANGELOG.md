@@ -1,3 +1,13 @@
+## 1.8.3 (2019-03-04)
+
+### Bug Fixes
+
+* **autocomplete:** fixes custom panel classes are not set 
+* **chart, selection-area:** fixes an issue where the highcharts instance would be updated after it has been destroyed ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **selection-area:** fixes an issue where the position of the selection area on the chart was not correct ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **selection-area:** fixes an issue where the selection-area-container was moved to the content of the parent component, if the parent used ng-content ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **selection-area:** fixes the issue that the overlay of the selection area pushed itself on the screen ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 1.8.2 (2019-02-25)
 
 ### Bug Fixes
