@@ -28,21 +28,18 @@ export class DtAlert {
 
   constructor(private _el: ElementRef, private _changeDetectorRef: ChangeDetectorRef) { }
 
-  private _severity: 'error' | 'warning' | undefined;
+  private _severity: 'error' | 'warning';
 
-  /**
-   * The severity type of the alert.
-   * @breaking-change 2.0.0 Remove undefined as a severity type. Use ngIf instead.
-   */
+  /** The severity type of the alert. */
   @Input()
-  get severity(): 'error' | 'warning' | undefined { return this._severity; }
-  set severity(value: 'error' | 'warning' | undefined) {
+  get severity(): 'error' | 'warning' { return this._severity; }
+  set severity(value: 'error' | 'warning') {
     replaceCssClass(this._el, this._calcCssClass(this._severity), this._calcCssClass(value));
     this._severity = value;
     this._changeDetectorRef.markForCheck();
   }
 
-  private _calcCssClass(severity: 'error' | 'warning' | undefined): string | undefined {
-    return severity !== undefined ? `dt-alert-${severity.toString()}` : undefined;
+  private _calcCssClass(severity: 'error' | 'warning'): string | undefined {
+    return `dt-alert-${severity.toString()}`;
   }
 }
