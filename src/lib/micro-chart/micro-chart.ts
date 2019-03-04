@@ -33,10 +33,6 @@ import { extractColumnGapDataPoints, extractLineGapDataPoints } from './micro-ch
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
-// @deprecated Use `Observable<DtChartSeries[]> | Observable<DtChartSeries> | DtChartSeries[] | DtChartSeries` instead.
-// @breaking-change 2.0.0 To be removed
-export type DtMicroChartSeries = Observable<DtChartSeries[]> | Observable<DtChartSeries> | DtChartSeries[] | DtChartSeries;
-
 /**
  * @internal
  * Factory to resolve the chart instance for the microchart
