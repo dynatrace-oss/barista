@@ -33,12 +33,6 @@ export class DtKeyValueListValue {}
 })
 export class DtKeyValueListItem {
   /**
-   * @deprecated please use dt-key-value-list-key
-   * @breaking-change To be removed
-   */
-  @Input() key;
-
-  /**
    * @deprecated please use dt-key-value-list-value
    * @breaking-change To be removed
    */
