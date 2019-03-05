@@ -1,5 +1,5 @@
-@import '../../style/font-mixins';
-@import '../../core/style/table';
+@import '../style/font-mixins';
+@import '../core/style/table';
 
 @mixin dt-base-row() {
   align-items: center;

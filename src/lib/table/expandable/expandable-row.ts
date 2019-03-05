@@ -12,10 +12,10 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { DtTable } from './table';
+import { DtTable } from '../table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
-import { DtRow } from './row';
+import { DtRow } from '../row';
 
 /**
  * Data row template container that contains the cell outlet and an expandable section.
@@ -39,7 +39,7 @@ import { DtRow } from './row';
   moduleId: module.id,
   selector: 'dt-expandable-row',
   templateUrl: './expandable-row.html',
-  styleUrls: ['./scss/expandable-row.scss'],
+  styleUrls: ['./expandable-row.scss'],
   host: {
     'role': 'row',
     'class': 'dt-expandable-row',

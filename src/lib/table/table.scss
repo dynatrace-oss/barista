@@ -1,6 +1,6 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
-@import './scss/header-cell';
+@import './header/header-cell';
 
 :host.dt-table {
   display: flex;

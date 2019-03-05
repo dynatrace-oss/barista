@@ -1,5 +1,5 @@
 @import '../../core/style/variables';
-@import 'table-mixins';
+@import '../table-mixins';
 
 :host.dt-expandable-cell {
   @include dt-base-cell-flex();

@@ -2,24 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
 import { DtTable } from './table';
-import { DtHeaderRow, DtHeaderRowDef, DtRow, DtRowDef } from './row';
-import { DtCell, DtCellDef, DtColumnDef, DtHeaderCell, DtHeaderCellDef } from './cell';
-import {
-  DtTableEmptyState,
-  DtTableEmptyStateImage,
-  DtTableEmptyStateTitle,
-  DtTableEmptyStateMessage,
-  DtTableEmptyStateDirective,
-} from './table-empty-state';
-import { DtTableLoadingState } from './table-loading-state';
-import { DtExpandableRow } from './expandable-row';
-import { DtExpandableCell } from './expandable-cell';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 import { DtSortHeader } from './sort/sort-header';
 import { DtSort } from './sort/sort';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtInfoGroupCell, DtInfoGroupCellIcon, DtInfoGroupCellTitle } from './info-group-cell/info-group-cell';
+import { DtHeaderRow, DtHeaderRowDef, DtHeaderCell, DtHeaderCellDef } from './header/index';
+import { DtRow, DtRowDef } from './row';
+import { DtCell, DtCellDef, DtColumnDef } from './cell';
+import { DtExpandableCell, DtExpandableRow } from './expandable/index';
+import { DtTableEmptyState, DtTableEmptyStateDirective, DtTableEmptyStateImage, DtTableEmptyStateTitle, DtTableEmptyStateMessage, DtTableLoadingState } from './states/index';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
