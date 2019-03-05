@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
-import { DtCell } from './cell';
+import { DtCell } from '../cell';
 import { DtExpandableRow } from './expandable-row';
 
 /**
@@ -9,7 +9,7 @@ import { DtExpandableRow } from './expandable-row';
 @Component({
   selector: 'dt-expandable-cell',
   templateUrl: './expandable-cell.html',
-  styleUrls: ['./scss/expandable-cell.scss'],
+  styleUrls: ['./expandable-cell.scss'],
   host: {
     class: 'dt-expandable-cell',
     role: 'gridcell',

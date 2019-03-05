@@ -1,7 +1,7 @@
 @import '../../core/style/variables';
 @import '../../core/style/table';
 @import '../../core/theming/theming';
-@import 'table-mixins';
+@import '../table-mixins';
 @import 'expandable-row-theme';
 
 :host.dt-expandable-row {
