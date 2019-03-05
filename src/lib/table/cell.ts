@@ -35,16 +35,6 @@ export type DtTableColumnTypedAlign = 'text' | 'id' | 'icon' | 'control' | 'numb
 export class DtCellDef extends CdkCellDef { }
 
 /**
- * Header cell definition for the dt-table.
- * Captures the template of a column's header cell and as well as cell-specific properties.
- */
-@Directive({
-  selector: '[dtHeaderCellDef]',
-  providers: [{provide: CdkHeaderCellDef, useExisting: DtHeaderCellDef}],
-})
-export class DtHeaderCellDef extends CdkHeaderCellDef { }
-
-/**
  * Column definition for the dt-table.
  * Defines a set of cells available for a table column.
  */
@@ -64,29 +54,13 @@ export class DtColumnDef extends CdkColumnDef {
   @Input('dtColumnMinWidth') minWidth: string | number;
 }
 
-/** Header cell template container that adds the right classes and role. */
-@Directive({
-  selector: 'dt-header-cell',
-  host: {
-    class: 'dt-header-cell',
-    role: 'columnheader',
-  },
-  exportAs: 'dtHeaderCell',
-})
-export class DtHeaderCell {
-  // tslint:disable-next-line:no-unused-variable
-  constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
-    updateDtColumnStyles(columnDef, elem, renderer);
-  }
-}
-
 type IndicatorType = 'error' | 'warning';
 
 /** Cell template container that adds the right classes and role. */
 @Component({
   selector: 'dt-cell',
   template: '<ng-content></ng-content>',
-  styleUrls: ['./scss/cell.scss'],
+  styleUrls: ['./cell.scss'],
   host: {
     'class': 'dt-cell',
     'role': 'gridcell',
@@ -143,7 +117,7 @@ export class DtCell {
       });
     }
 
-    updateDtColumnStyles(this._columnDef, elem, renderer);
+    _updateDtColumnStyles(this._columnDef, elem, renderer);
     if (DtRow.mostRecentRow) {
       this._row = DtRow.mostRecentRow;
       this._row._registerCell(this);
@@ -205,8 +179,8 @@ export function _setDtColumnCssClasses(columnDef: DtColumnDef, elementRef: Eleme
   addCssClass(elementRef.nativeElement, `dt-table-column-align-${cssAlignmentClass}`);
 }
 
-/** Set classes name and styles props for columns. */
-function updateDtColumnStyles(columnDef: DtColumnDef, elementRef: ElementRef, renderer: Renderer2): void {
+/** @internal Set classes name and styles props for columns. */
+export function _updateDtColumnStyles(columnDef: DtColumnDef, elementRef: ElementRef, renderer: Renderer2): void {
   _setDtColumnCssClasses(columnDef, elementRef);
   const { proportion, minWidth } = columnDef;
   const setProportion = coerceNumberProperty(proportion);

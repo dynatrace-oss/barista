@@ -1,7 +1,7 @@
 @import '../../style/font-mixins';
 @import '../../core/style/variables';
 @import '../../core/style/table';
-@import 'table-mixins';
+@import '../table-mixins';
 
 ::ng-deep .dt-header-cell {
   @include label-font();
