@@ -1,3 +1,36 @@
+## 2.0.0 (2019-03-05)
+
+### Breaking Changes
+
+* **alert:** Uniontype `DtAlertSeverity` is no longer available for input severity. Use `'error'` or `'warning'` instead.
+* **alert:** Input severity no longer takes `undefined` as a value for hiding the alert. Use `'error'` or `'warning'` for severity values and `*ngIf` to show or hide it. 
+```html
+<dt-alert *ngIf="isVisible" severity="warning">...</dt-alert>
+```
+* **card:**: The `<dt-card-actions>` component is no longer available. Use `<dt-card-title-actions>` instead.
+* **chart:** The constant `CHART_COLOR_PALETTE_ORDERED` has been renamed to `DT_CHART_COLOR_PALETTE_ORDERED`.
+* **chart:** The constant `CHART_COLOR_PALETTES` has been renamed to `DT_CHART_COLOR_PALETTES`.
+* **core:** The enum `Colors` has been renamed to `DtColors`
+* **key-value-list:** The key and value inputs on the item have been removed. Use the `dt-key-value-list-key` and `dt-key-value-list-value` elements instead.
+```html
+<dt-key-value-list>
+  <dt-key-value-list-item *ngFor="let entry of entries">
+    <dt-key-value-list-key>{{ entry.key }}</dt-key-value-list-key>
+    <dt-key-value-list-value>{{ entry.value }}</dt-key-value-list-value>
+  </dt-key-value-list-item>
+<dt-key-value-list>
+```
+* **logger:** The value `WARN` for the enum DtLogLevel has been renamed to `WARNING`.
+* **micro-chart:** Uniontype `DtMicroChartSeries` is no longer available for the series input. Use `Observable<DtChartSeries[]>`, `Observable<DtChartSeries>`, `DtChartSeries[]` or `DtChartSeries` instead.
+* **table:** `<dt-expandable-cell>` is now required if you use a `<dt-expandable-row>`.
+
+### Features
+
+* **filter-field:** Added DataSource as main API entry point ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **filter-field:** Added support for distinct values in default data source ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** Expandable row trigger moved to dt-expandable-cell instead of whole row ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+
 ## 1.8.3 (2019-03-04)
 
 ### Bug Fixes
