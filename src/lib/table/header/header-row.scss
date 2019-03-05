@@ -1,4 +1,4 @@
-@import 'table-mixins';
+@import '../table-mixins';
 
 :host-context(.dt-table).dt-header-row {
   @include dt-base-row();

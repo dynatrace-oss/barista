@@ -8,7 +8,7 @@ import {
   ElementRef,
   Attribute,
 } from '@angular/core';
-import { DtExpandableRow } from './expandable-row';
+import { DtExpandableRow } from './expandable/expandable-row';
 import { _DtTableBase} from './base-table';
 
 @Component({
