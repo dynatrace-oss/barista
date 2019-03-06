@@ -34,9 +34,9 @@ To apply the dynatrace show more component, use the `<dt-show-more>` element wit
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `<ng-content>` |   |   | The (optional) text which gets displayed above the arrow |
+| `<ng-content>` |   |   | The (optional) text which gets displayed above the arrow. |
 | `[showLess]` | `boolean` | `true` | The property which stores the expanded state of the component. If the value is `true`, then the arrow of the component is pointing downwards. |
-| `[tabIndex]` | `number` | `0` | Sets and gets the tabIndex property |
+| `[tabIndex]` | `number` | `0` | Sets and gets the tabIndex property. |
 | `(changed)` | `event<void>` | | The event which gets fired when the state changes. The event is fired when the user clicks on the component, as well as using SPACE or ENTER keys. |
 
 ## Examples
