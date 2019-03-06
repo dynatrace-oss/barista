@@ -4,6 +4,9 @@
 :host.dt-expandable-cell {
   @include dt-base-cell-flex();
 
+  // make enough room for the focus state to be displayed
+  padding-right: 2px;
+
   .dt-expandable-cell-dropdown {
     width: 20px;
     height: 20px;
