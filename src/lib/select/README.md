@@ -22,9 +22,6 @@ The `<dt-select>` component also requires Angular's `BrowserAnimationsModule` fo
 class MyModule {}
 ```
 
-## Initialization
-
-
 ## Options & Properties
 
 ### DtSelect (`<dt-select>`)
