@@ -78,7 +78,7 @@ export class DtIcon implements OnChanges {
           (svg) => { this._setSvgElement(svg); },
           // We do not break the app when an icon could not be loaded
           // so do only a log here
-          (err: Error) => { iconLogger.error(`Error retrieving icon: ${this.name} ${err.message}`); }
+          (err: Error) => { iconLogger.warn(`Error retrieving icon: ${this.name} ${err.message}`); }
         );
       } else {
         this._clearSvgElement();
