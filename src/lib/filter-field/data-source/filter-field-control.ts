@@ -77,10 +77,17 @@ export class DtFilterFieldControl {
           } else {
             this._switchToRootData();
           }
+          shouldEmit = false;
         } else if (isDtRenderTypeData(event.added)) {
           this._switchToRootData();
-        } else if (shouldEmit) {
+          shouldEmit = false;
+        }
+      }
+      if (shouldEmit) {
+        if (this._currendDef) {
           this._renderDef$.next(this._currendDef);
+        } else {
+          this._switchToRootData();
         }
       }
     });

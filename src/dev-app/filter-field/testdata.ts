@@ -1,4 +1,5 @@
 export const TEST_DATA = {
+  distinct: true,
   autocomplete: [
     {
       name: 'AUT',
