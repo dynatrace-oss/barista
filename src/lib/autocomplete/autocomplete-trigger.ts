@@ -30,7 +30,7 @@ import {
   _getOptionScrollPosition,
   readKeyCode
 } from '@dynatrace/angular-components/core';
-import { tap, take, delay, switchMap, filter, map, takeUntil } from 'rxjs/operators';
+import { tap, take, delay, switchMap, filter, map, takeUntil, startWith } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 
 /** Provider that allows the autocomplete to register as a ControlValueAccessor. */
@@ -132,10 +132,15 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     return null;
   }
 
-  /** Stream of autocomplete option selections. */
+  /** Stream of changes to the selection state of the autocomplete options. */
   readonly optionSelections: Observable<DtOptionSelectionChange<T>> = defer(() => {
-    if (this.autocomplete && this.autocomplete.options) {
-      return merge(...this.autocomplete.options.map((option) => option.selectionChange));
+    const options = this.autocomplete ? this.autocomplete.options : null;
+
+    if (options) {
+      return options.changes.pipe(
+        startWith(options),
+        switchMap(() => merge(...options.map((option) => option.selectionChange)))
+      );
     }
 
     // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
