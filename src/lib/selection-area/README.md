@@ -17,7 +17,6 @@ To connect the selection area and the chart you have to use the `dtChartSelectio
 
 ```
 
-
 Inside the `dt-selection-area` tags you can specify the content of the overlay that gets created when creating the selected area. A special outlet for the action button is available called `dt-selection-area-actions`. 
 
 ```html
@@ -61,7 +60,7 @@ class MyModule {}
 
 ## Accessibility
 
-Selection areas should be given meaningful labels via `aria-label-selected-area`, `aria-label-left-handle`, `aria-label-right-handle` and `aria-label-close-button`, because all those interactive elements dont have a text.
+Selection areas should be given meaningful labels via `aria-label-selected-area`, `aria-label-left-handle`, `aria-label-right-handle` and `aria-label-close-button`, because all those interactive elements don't have a text.
 
 ## Options & Properties
 
@@ -70,17 +69,17 @@ Selection areas should be given meaningful labels via `aria-label-selected-area`
 | `@Input('aria-label-selected-area') ariaLabelselectedArea` | `string` |  | Aria label of the selected area that is created and can be moved.|
 | `@Input('aria-label-left-handle') ariaLabelLeftHandle` | `string` | | Aria label of the left handle of the selected area. |
 | `@Input('aria-label-right-handle') ariaLabelRightHandle` | `string` |  | Aria label of the right handle of the selected area. |
-| `@Input('aria-label-close-button') ariaLabelCloseButton` | `string` |  | Aria label of the close button inside the overlay |
-| `@Ouput() changed` | `EventEmitter<DtSelectionAreaChange>` |  | Event emitted when the position or width of the selected area changes |
-| `@Ouput() closed` | `EventEmitter<void>` |  | Event emitted when the selected area is closed |
+| `@Input('aria-label-close-button') ariaLabelCloseButton` | `string` |  | Aria label of the close button inside the overlay. |
+| `@Ouput() changed` | `EventEmitter<DtSelectionAreaChange>` |  | Event emitted when the position or width of the selected area changes. |
+| `@Ouput() closed` | `EventEmitter<void>` |  | Event emitted when the selected area is closed. |
 
 
 ## Methods
 
 | Name | Description | Return value |
 | --- | --- | --- |
-| `close` | closes the selection area's selected area |  |
-| `focus` | focuses the selected area if one is available |  |
+| `close` | Closes the selection area's selected area. |  |
+| `focus` | Focuses the selected area if one is available. |  |
 
 ## Examples
 
