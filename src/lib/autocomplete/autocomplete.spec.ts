@@ -1211,6 +1211,34 @@ describe('DtAutocomplete', () => {
       expect(spy).toHaveBeenCalledWith(jasmine.any(DtOptionSelectionChange));
       subscription.unsubscribe();
     }));
+
+    it('should emit to `optionSelections` if the list of options changes', fakeAsync(() => {
+      const spy = jasmine.createSpy('option selection spy');
+      const subscription = fixture.componentInstance.trigger.optionSelections.subscribe(spy);
+      const openAndSelectFirstOption = () => {
+        fixture.detectChanges();
+        fixture.componentInstance.trigger.openPanel();
+        fixture.detectChanges();
+        zone.simulateZoneExit();
+        (overlayContainerElement.querySelector('dt-option') as HTMLElement).click();
+        fixture.detectChanges();
+        zone.simulateZoneExit();
+      };
+
+      fixture.componentInstance.states = [{code: 'OR', name: 'Oregon'}];
+      fixture.detectChanges();
+
+      openAndSelectFirstOption();
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      fixture.componentInstance.states = [{code: 'WV', name: 'West Virginia'}];
+      fixture.detectChanges();
+
+      openAndSelectFirstOption();
+      expect(spy).toHaveBeenCalledTimes(2);
+
+      subscription.unsubscribe();
+    }));
   });
 
   describe('panel closing', () => {
