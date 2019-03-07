@@ -8,6 +8,7 @@ import { Injectable, EventEmitter, NgZone } from '@angular/core';
 export class MockNgZone extends NgZone {
   // tslint:disable-next-line:no-any
   onStable: EventEmitter<any> = new EventEmitter(false);
+  onMicrotaskEmpty: EventEmitter<any> = new EventEmitter(false);
 
   constructor() {
     super({enableLongStackTrace: false});
@@ -25,5 +26,9 @@ export class MockNgZone extends NgZone {
 
   simulateZoneExit(): void {
     this.onStable.emit(null);
+  }
+
+  simulateMicrotasksEmpty(): void {
+    this.onMicrotaskEmpty.emit(null);
   }
 }
