@@ -15,6 +15,18 @@ In addition to the custom content, the card can also hold some special sections:
 * `<dt-card-title-actions>` - Your place to add action buttons. Will be displayed in the top right corner. Use the buttons `secondary` variant.
 * `<dt-card-footer-actions>` - Action buttons, displayed below the text. For the regular cases there should only be one primary cta styled dt-button.  
 
+## Imports
+
+You have to import the `DtCardModule` when you want to use the `dt-card`:
+
+```typescript
+@NgModule({
+  imports: [
+    DtCardModule,
+  ],
+})
+class MyModule {}
+```
 
 ## Examples
 
