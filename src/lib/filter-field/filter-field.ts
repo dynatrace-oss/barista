@@ -29,7 +29,7 @@ import { DtFilterFieldControl, DtFilterFieldViewer, DtFilterNodesChangesEvent } 
 // tslint:disable:no-bitwise
 
 export class DtFilterChangeEvent {
-  constructor(public added: DtFilterData[], public removed: DtFilterData[]) { }
+  constructor(public added: DtFilterData[], public removed: DtFilterData[], public filters: DtFilterData[]) { }
 }
 
 // tslint:disable:no-any
@@ -197,7 +197,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
   /** Submits and finishes the current filter. */
   submitFilter(): void {
     if (this._currentFilter) {
-      this.filterChanges.emit(new DtFilterChangeEvent([this._currentFilter], []));
+      this.filterChanges.emit(new DtFilterChangeEvent([this._currentFilter], [], this._filters));
       this._currentFilter = null;
     }
   }
@@ -332,7 +332,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     if (removableIndex !== -1) {
       this._filters.splice(removableIndex, 1);
       this._emitFilterNodeChanges(null, filter.nodes);
-      this.filterChanges.emit(new DtFilterChangeEvent([], [filter]));
+      this.filterChanges.emit(new DtFilterChangeEvent([], [filter], this._filters));
       this.focus();
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
