@@ -8,6 +8,19 @@ type: "component"
 
 `<dt-checkbox>` provides the same functionality as a native enhanced with styling and animations.
 
+## Imports
+
+You have to import the `DtCheckboxModule` when you want to use the `dt-checkbox`:
+
+```typescript
+@NgModule({
+  imports: [
+    DtCheckboxModule,
+  ],
+})
+class MyModule {}
+```
+
 ## Options & Properties
 
 | Name | Type | Description |

@@ -8,6 +8,19 @@ type: "component"
 
 `<dt-loading-spinner>` and `<dt-loading-distractor>` are a circular indicators of activity (eg. loading).
 
+## Imports
+
+You have to import the `DtLoadingDistractorModule` when you want to use the `dt-loading-distractor` or `dt-loading-spinner`:
+
+```typescript
+@NgModule({
+  imports: [
+    DtLoadingDistractorModule,
+  ],
+})
+class MyModule {}
+```
+
 ## Progress spinner
 
 <docs-source-example example="SpinnerLoadingDistractorExampleComponent"></docs-source-example>
