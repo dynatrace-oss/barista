@@ -461,7 +461,6 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
           if (!optionChange) {
             this._changeDetectorRef.detectChanges();
           }
-
           return this.panelClosingActions;
         }),
         // when the first closing event occurs...
