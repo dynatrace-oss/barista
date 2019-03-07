@@ -38,6 +38,19 @@ class MyModule {}
 | `focus` | `function` |  | Let's you set the focus on this radio element. |
 
 
+## Imports
+
+You have to import the `DtRadioModule` when you want to use the `dt-radio-group` and `dt-radio-button`:
+
+```typescript
+@NgModule({
+  imports: [
+    DtRadioModule,
+  ],
+})
+class MyModule {}
+```
+
 ## Grouping
 
 ### Radio groups
