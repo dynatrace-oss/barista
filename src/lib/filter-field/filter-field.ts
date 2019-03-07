@@ -11,8 +11,9 @@ import {
   NgZone,
   Input,
   AfterViewInit,
+  SimpleChanges,
 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap, take } from 'rxjs/operators';
 import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
 import { Subject, Subscription } from 'rxjs';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
@@ -61,6 +62,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
   private _dataSource: DtFilterFieldDataSource;
   private _dataControl: DtFilterFieldControl;
   private _dataSubscription: Subscription | null;
+  private _stateChanges = new Subject<void>();
 
   /** Emits an event with the current value of the input field everytime the user types. */
   @Output() inputChange = new EventEmitter<string>();
@@ -128,22 +130,13 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     private _zone: NgZone,
     private _focusMonitor: FocusMonitor,
     private _elementRef: ElementRef
-  ) { }
-
-  ngAfterViewInit(): void {
-    // Monitoring the host element and every focusable child element on focus an blur events.
-    // This is necessary so we can detect and restore focus after the input type has been changed.
-    this._focusMonitor.monitor(this._elementRef.nativeElement, true)
-      .pipe(takeUntil(this._destroy))
-      .subscribe((origin) => { this._isFocused = isDefined(origin); });
-
-    // tslint:disable-next-line:no-any
-    this._autocomplete.optionSelected
-      .subscribe((event: DtAutocompleteSelectedEvent<any>) => { this._handleAutocompleteSelected(event); });
-
-    this._zone.onStable.pipe(takeUntil(this._destroy)).subscribe(() => {
+  ) {
+    this._stateChanges.pipe(
+      switchMap(() => this._zone.onMicrotaskEmpty.pipe(take(1)))
+    ).subscribe(() => {
       if (this._isFocused) {
         if (this._currentRenderNode && this._currentRenderNode.def.nodeFlags & DtNodeFlags.TypeAutocomplete) {
+          // console.log('openPanel');
           // When the autocomplete closes after the user has selected an option
           // and the new data is also displayed in an autocomlete we need to open it again.
           // Note: Also trigger openPanel if it already open, so it does a reposition and resize
@@ -158,8 +151,27 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.label) {
+      this._stateChanges.next();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // Monitoring the host element and every focusable child element on focus an blur events.
+    // This is necessary so we can detect and restore focus after the input type has been changed.
+    this._focusMonitor.monitor(this._elementRef.nativeElement, true)
+      .pipe(takeUntil(this._destroy))
+      .subscribe((origin) => { this._isFocused = isDefined(origin); });
+
+    // tslint:disable-next-line:no-any
+    this._autocomplete.optionSelected
+      .subscribe((event: DtAutocompleteSelectedEvent<any>) => { this._handleAutocompleteSelected(event); });
+  }
+
   ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+    this._stateChanges.complete();
 
     if (this._dataSource) {
       this._dataSource.disconnect();
@@ -321,6 +333,8 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
       this._filters.splice(removableIndex, 1);
       this._emitFilterNodeChanges(null, filter.nodes);
       this.filterChanges.emit(new DtFilterChangeEvent([], [filter]));
+      this.focus();
+      this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -364,6 +378,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
 
     this._dataSubscription = this._dataControl.changes.pipe(takeUntil(this._destroy)).subscribe((dataNode) => {
       this._currentRenderNode = dataNode;
+      this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
     });
   }
