@@ -15,7 +15,7 @@
     "@angular/cdk": "0.0.0-NG" ,
     "@angular/core": "0.0.0-NG",
     "@angular/common": "0.0.0-NG",
-    "@dynatrace/dt-iconpack": ">= 1.0.6 < 2",
+    "@dynatrace/dt-iconpack": ">= 1.0.6 < 3",
     "@types/highcharts": "^5.0.23",
     "highcharts": "^6.0.7"
   },
