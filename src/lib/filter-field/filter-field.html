@@ -15,7 +15,7 @@
     <input #input
       type="text"
       class="dt-filter-field-input"
-      [disabled]="_currentRenderNode === null"
+      [readonly]="_currentRenderNode === null"
       [dtAutocomplete]="autocomplete"
       [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length"
       (input)="_handleInputChange($event)"
