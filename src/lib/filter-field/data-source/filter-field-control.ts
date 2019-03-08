@@ -63,6 +63,9 @@ export class DtFilterFieldControl {
             nodeData.autocomplete.selectedOption.def.option!.distinctId) {
             this._distinctIds.delete(nodeData.autocomplete.selectedOption.def.option!.distinctId!);
             shouldEmit = true;
+            if (nodeData.autocomplete.selectedOption.def === this._currendDef) {
+              this._currendDef = null;
+            }
           }
         });
       }
