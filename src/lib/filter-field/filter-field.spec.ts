@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, inject, fakeAsync } from '@angular/core/testing';
+import { TestBed, ComponentFixture, inject, fakeAsync, flushMicrotasks, flush, tick, discardPeriodicTasks } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtFilterFieldModule, DtFilterFieldDefaultDataSource, DtFilterField } from '@dynatrace/angular-components/filter-field';
@@ -175,7 +175,7 @@ fdescribe('DtFilterField', () => {
       expect(document.activeElement).toBe(inputEl, 'input element should be focused again');
     }));
 
-    it('should fire a filterChanges and create a tag after an option that has no children is clicked', fakeAsync(() => {
+    it('should fire filterChanges and create a tag after an option that has no children is clicked', fakeAsync(() => {
       const spy = jasmine.createSpy('filterChange spy');
       const subscription = filterField.filterChanges.subscribe(spy);
       filterField.focus();
@@ -210,7 +210,7 @@ fdescribe('DtFilterField', () => {
       subscription.unsubscribe();
     }));
 
-    it('should switch to free text and on enter fire a filterChanges and create a tag', fakeAsync(() => {
+    it('should switch to free text and on enter fire a filterChanges event and create a tag', fakeAsync(() => {
       const spy = jasmine.createSpy('filterChange spy');
       const subscription = filterField.filterChanges.subscribe(spy);
       filterField.focus();
@@ -251,13 +251,15 @@ fdescribe('DtFilterField', () => {
       zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
 
-      const inputEl = getInput(fixture);
-      dispatchKeyboardEvent(inputEl, 'keyup', BACKSPACE);
+      zone.simulateZoneExit();
 
-      zone.simulateMicrotasksEmpty();
+      const inputEl = getInput(fixture);
+      dispatchKeyboardEvent(inputEl, 'keydown', BACKSPACE);
+      tick();
       fixture.detectChanges();
 
-      zone.simulateZoneExit();
+      flush();
+      fixture.detectChanges();
 
       const tags = getFilterTags(fixture);
       expect(tags.length).toBe(0);
@@ -285,7 +287,6 @@ fdescribe('DtFilterField', () => {
       fixture.detectChanges();
 
       zone.simulateZoneExit();
-
       options = getOptions(overlayContainerElement);
       const viennaOption = options[0];
       expect(viennaOption.innerText).toBe('Vienna');
@@ -302,203 +303,92 @@ fdescribe('DtFilterField', () => {
       expect(tags[0].value).toBe('Vienna');
 
       tags[0].removeButton.click();
+
+      zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
 
       options = getOptions(overlayContainerElement);
       expect(options[0].innerText).toBe('AUT');
+      // we need to discard the periodic task here
+      // because we have a delay for an observable and this causes some issues in fakeAsync tests
+      discardPeriodicTasks();
+    }));
+
+    it('should switch back from root after deleting a unfinished freetext filter with BACKSPACE', fakeAsync(() => {
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+
+      const freeTextOpt = options[2];
+      freeTextOpt.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      zone.simulateZoneExit();
+
+      const inputEl = getInput(fixture);
+      dispatchKeyboardEvent(inputEl, 'keydown', BACKSPACE);
+      tick();
+      fixture.detectChanges();
+
+      flush();
+      fixture.detectChanges();
+
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      const tags = getFilterTags(fixture);
+      expect(tags.length).toBe(0);
+
+      options = getOptions(overlayContainerElement);
+      expect(options[0].innerText).toBe('AUT');
+      expect(options[1].innerText).toBe('USA');
+      expect(options[2].innerText).toBe('Free');
+    }));
+
+    it('should remove an option from an autocomplete if it is distinct and the option was previously selected', fakeAsync(() => {
+      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_DISTINCT;
+      fixture.detectChanges();
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+
+      let autOption = options[0];
+      autOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      zone.simulateZoneExit();
+
+      options = getOptions(overlayContainerElement);
+      const viennaOption = options[0];
+      expect(viennaOption.innerText).toBe('Vienna');
+
+      viennaOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      zone.simulateZoneExit();
+
+      options = getOptions(overlayContainerElement);
+      autOption = options[0];
+      autOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      zone.simulateZoneExit();
+
+      options = getOptions(overlayContainerElement);
+      const linzOption = options[0];
+      expect(options.length).toBe(1);
+      expect(linzOption.innerText).toBe('Linz');
     }));
   });
 });
-
-//   // tslint:disable-next-line:no-any
-//   function configureDtSelectTestingModule(declarations: any[]): void {
-//     TestBed.configureTestingModule({
-//       imports: [
-//         HttpClientModule,
-//         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-//         DtFilterFieldModule,
-//       ],
-//       declarations,
-//     }).compileComponents();
-//   }
-
-//   describe('core', () => {
-//     let fixture: ComponentFixture<DtFormFieldBasic>;
-//     let filterFieldEl: HTMLElement;
-//     let inputEl: HTMLInputElement;
-
-//     it('should focus the input field when focusing the host', () => {
-//       const input = fixture.debugElement.query(By.css('.dt-filter-field-input')).nativeElement;
-//       fixture.componentInstance.filterField.focus();
-//       expect(document.activeElement).toBe(input);
-//     });
-
-//     it('should not emit an activeFilterChange when focusing the filter field', () => {
-//       const spy = jasmine.createSpy('active filter spy');
-//       const subscription = fixture.componentInstance.filterField.activeFilterChange.subscribe(spy);
-
-//       fixture.componentInstance.filterField.focus();
-
-//       expect(spy).not.toHaveBeenCalled();
-//       subscription.unsubscribe();
-//     });
-
-//     it('should emit the inputChange event when typing into the input field', () => {
-//       const spy = jasmine.createSpy('filter input spy');
-//       const subscription = fixture.componentInstance.filterField.inputChange.subscribe(spy);
-
-//       typeInElement('x', inputEl);
-//       fixture.detectChanges();
-
-//       expect(spy).toHaveBeenCalledWith('x');
-
-//       typeInElement('xy', inputEl);
-//       fixture.detectChanges();
-
-//       expect(spy).toHaveBeenCalledWith('xy');
-//       subscription.unsubscribe();
-//     });
-//   });
-
-//   describe('with free text', () => {
-//     let fixture: ComponentFixture<DtFormFieldBasic>;
-//     let inputEl: HTMLInputElement;
-
-//     beforeEach(async(() => {
-//       configureDtSelectTestingModule([
-//         DtFormFieldBasic,
-//       ]);
-//       fixture = TestBed.createComponent(DtFormFieldBasic);
-//       fixture.detectChanges();
-//       inputEl = fixture.debugElement.query(By.css('.dt-filter-field-input')).nativeElement;
-//     }));
-
-//     it('should emit an activeFilterChange event when hitting enter on a filled input field', () => {
-//       const spy = jasmine.createSpy('active filter spy');
-//       const subscription = fixture.componentInstance.filterField.activeFilterChange.subscribe(spy);
-
-//       typeInElement('x', inputEl);
-//       dispatchKeyboardEvent(inputEl, 'keyup', ENTER);
-
-//       expect(spy).toHaveBeenCalledTimes(1);
-//       subscription.unsubscribe();
-//     });
-//   });
-
-
-//   describe('with changing input types (free text, autocomplete)', () => {
-//     let fixture: ComponentFixture<DtFormFieldWithAutocomplete>;
-//     let inputEl: HTMLInputElement;
-
-//     beforeEach(async(() => {
-//       configureDtSelectTestingModule([
-//         DtFormFieldWithAutocomplete,
-//       ]);
-//       fixture = TestBed.createComponent(DtFormFieldWithAutocomplete);
-//       fixture.detectChanges();
-//       inputEl = fixture.debugElement.query(By.css('.dt-filter-field-input')).nativeElement;
-//     }));
-
-//     it('should focus the input again after submitting a free text', () => {
-//       fixture.componentInstance.showAutocomplete = false;
-//       fixture.detectChanges();
-
-//       fixture.componentInstance.filterField.focus();
-//       fixture.detectChanges();
-
-//       typeInElement('x', inputEl);
-//       dispatchKeyboardEvent(inputEl, 'keyup', ENTER);
-//       fixture.detectChanges();
-
-//       expect(document.activeElement).toBe(inputEl, 'input element should be focused again');
-//     });
-
-//     it('should focus and open autocomplete again when selecting an option in autocomplete (autocomplete -> autocomplete)',
-//        fakeAsync(() => {
-//       fixture.componentInstance.filterField.focus();
-//       fixture.detectChanges();
-
-//       const firstOption = fixture.debugElement.query(By.css('.dt-option')).nativeElement;
-//       firstOption.click();
-//       fixture.detectChanges();
-//       flushMicrotasks();
-
-//       expect(document.activeElement).toBe(inputEl, 'input element should be focused again');
-//       expect(fixture.componentInstance.filterField._autocomplete.isOpen).toBe(true);
-//     }));
-
-//     it('should focus and open autocomplete after submitting a free text (freetext -> autocomplete)', fakeAsync(() => {
-//       fixture.componentInstance.showAutocomplete = false;
-//       fixture.detectChanges();
-
-//       fixture.componentInstance.filterField.focus();
-//       fixture.detectChanges();
-
-//       typeInElement('x', inputEl);
-//       dispatchKeyboardEvent(inputEl, 'keyup', ENTER);
-
-//       // switching to autocomplete
-//       fixture.componentInstance.showAutocomplete = true;
-//       fixture.detectChanges();
-
-//       expect(document.activeElement).toBe(inputEl, 'input element should be focused again');
-//       expect(fixture.componentInstance.filterField._autocomplete.isOpen).toBe(true);
-//     }));
-
-//     it('should focus the input element after selecting an option in autocomplete (autocomplete -> freetext)', fakeAsync(() => {
-//       fixture.componentInstance.filterField.focus();
-//       fixture.detectChanges();
-
-//       const firstOption = fixture.debugElement.query(By.css('.dt-option')).nativeElement;
-//       firstOption.click();
-//       fixture.detectChanges();
-//       flushMicrotasks();
-
-//       // switching to free text
-//       fixture.componentInstance.showAutocomplete = false;
-//       fixture.detectChanges();
-
-//       expect(document.activeElement).toBe(inputEl, 'input element should be focused again');
-//     }));
-//   });
-// });
-
-// // tslint:enable:no-use-before-declare
-
-// @Component({
-//   template: `
-//     <dt-filter-field [label]="label">
-//     </dt-filter-field>
-//   `,
-// })
-// class DtFormFieldBasic {
-//   label = '';
-//   @ViewChild(DtFilterField) filterField: DtFilterField;
-// }
-
-// @Component({
-//   template: `
-//     <dt-filter-field>
-//       <dt-autocomplete *ngIf="showAutocomplete">
-//         <dt-option *ngFor="let option of options" [value]="option">{{option.name}}</dt-option>
-//       </dt-autocomplete>
-//     </dt-filter-field>
-//   `,
-// })
-// class DtFormFieldWithAutocomplete {
-//   @ViewChild(DtFilterField) filterField: DtFilterField;
-
-//   showAutocomplete = true;
-
-//   // tslint:disable-next-line:no-magic-numbers
-//   options = [
-//     { name: 'Option 1', value: 1 },
-//     { name: 'Option 2', value: 2 },
-//     { name: 'Option 3', value: 3 },
-//     { name: 'Option 4', value: 4 },
-//     { name: 'Option 5', value: 5 },
-//   ];
-// }
 
 function getOptions(overlayContainerElement: HTMLElement): HTMLElement[] {
   return Array.from(overlayContainerElement.querySelectorAll('.dt-option'));
@@ -574,6 +464,9 @@ const TEST_DATA_SINGLE_DISTINCT = {
       autocomplete: [
         {
           name: 'Vienna',
+        },
+        {
+          name: 'Linz',
         },
       ],
     },
