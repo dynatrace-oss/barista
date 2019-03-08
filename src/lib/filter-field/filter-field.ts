@@ -334,7 +334,6 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
       this._emitFilterNodeChanges(null, filter.nodes);
       this.filterChanges.emit(new DtFilterChangeEvent([], [filter], this._filters));
       this.focus();
-      this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
   }
