@@ -10,7 +10,7 @@ import { MockNgZone } from '../../testing/mock-ng-zone';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
 
-fdescribe('DtFilterField', () => {
+describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
@@ -29,7 +29,7 @@ fdescribe('DtFilterField', () => {
       ],
       providers: [
         { provide: NgZone, useFactory: () => zone = new MockNgZone() },
-      ]
+      ],
     }).compileComponents();
 
     inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -166,7 +166,7 @@ fdescribe('DtFilterField', () => {
       zone.simulateZoneExit();
       fixture.detectChanges();
 
-      let options = getOptions(overlayContainerElement);
+      const options = getOptions(overlayContainerElement);
       options[0].click();
       zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
@@ -397,9 +397,9 @@ function getOptions(overlayContainerElement: HTMLElement): HTMLElement[] {
 function getOptionGroups(overlayContainerElement: HTMLElement): HTMLElement[] {
   return Array.from(overlayContainerElement.querySelectorAll('.dt-optgroup'));
 }
-
+// tslint:disable-next-line:no-any
 function getFilterTags(fixture: ComponentFixture<any>):
-  Array<{ key: string; separator: string; value: string; removeButton: HTMLElement; }> {
+  Array<{ key: string; separator: string; value: string; removeButton: HTMLElement }> {
   return Array.from(fixture.debugElement.queryAll(By.css('.dt-filter-field-tag'))).map((ele) => {
     const key: HTMLElement = ele.nativeElement.querySelector('.dt-filter-field-tag-key');
     const separator = key && key.getAttribute('data-separator') ? key.getAttribute('data-separator')! : '';
@@ -414,6 +414,7 @@ function getFilterTags(fixture: ComponentFixture<any>):
   });
 }
 
+// tslint:disable-next-line:no-any
 function getInput(fixture: ComponentFixture<any>): HTMLInputElement {
   return fixture.debugElement.query(By.css('.dt-filter-field-input')).nativeElement;
 }
