@@ -121,8 +121,7 @@ describe('DtFilterField', () => {
       expect(options[2].innerText).toBe('Free');
     });
 
-    it('should switch to the next autocomplete if the selected option is also an autocomplete', fakeAsync(() => {
-
+    it('should switch to the next autocomplete if the selected option is also an autocomplete', () => {
       filterField.focus();
       zone.simulateZoneExit();
       fixture.detectChanges();
@@ -159,21 +158,19 @@ describe('DtFilterField', () => {
       expect(options[0].innerText).toBe('Linz');
       expect(options[1].innerText).toBe('Wels');
       expect(options[2].innerText).toBe('Steyr');
-    }));
+    });
 
-    it('should focus the input element after selecting an option in autocomplete (autocomplete -> autocomplete)', fakeAsync(() => {
+    it('should focus the input element after selecting an option in autocomplete (autocomplete -> autocomplete)', () => {
       filterField.focus();
-      zone.simulateZoneExit();
       fixture.detectChanges();
 
       const options = getOptions(overlayContainerElement);
       options[0].click();
-      zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
       const inputEl = getInput(fixture);
 
       expect(document.activeElement).toBe(inputEl, 'input element should be focused again');
-    }));
+    });
 
     it('should fire filterChanges and create a tag after an option that has no children is clicked', fakeAsync(() => {
       const spy = jasmine.createSpy('filterChange spy');
@@ -239,26 +236,18 @@ describe('DtFilterField', () => {
       subscription.unsubscribe();
     }));
 
-    it('should switch back to root if unfinished filter is deleted with BACKSPACE', fakeAsync(() => {
+    it('should switch back to root if unfinished filter is deleted with BACKSPACE', () => {
       filterField.focus();
-      zone.simulateZoneExit();
       fixture.detectChanges();
 
       let options = getOptions(overlayContainerElement);
 
       const autOption = options[0];
       autOption.click();
-      zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
-
-      zone.simulateZoneExit();
 
       const inputEl = getInput(fixture);
       dispatchKeyboardEvent(inputEl, 'keydown', BACKSPACE);
-      tick();
-      fixture.detectChanges();
-
-      flush();
       fixture.detectChanges();
 
       const tags = getFilterTags(fixture);
@@ -269,9 +258,9 @@ describe('DtFilterField', () => {
       expect(options[1].innerText).toBe('USA');
       expect(options[2].innerText).toBe('Free');
 
-    }));
+    });
 
-    it('should show option again after adding all possible options and removing this option from the filters', fakeAsync(() => {
+    it('should show option again after adding all possible options and removing this option from the filters', () => {
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
 
@@ -309,12 +298,9 @@ describe('DtFilterField', () => {
 
       options = getOptions(overlayContainerElement);
       expect(options[0].innerText).toBe('AUT');
-      // we need to discard the periodic task here
-      // because we have a delay for an observable and this causes some issues in fakeAsync tests
-      discardPeriodicTasks();
-    }));
+    });
 
-    it('should switch back from root after deleting a unfinished freetext filter with BACKSPACE', fakeAsync(() => {
+    it('should switch back from root after deleting a unfinished freetext filter with BACKSPACE', () => {
       filterField.focus();
       zone.simulateZoneExit();
       fixture.detectChanges();
@@ -330,12 +316,6 @@ describe('DtFilterField', () => {
 
       const inputEl = getInput(fixture);
       dispatchKeyboardEvent(inputEl, 'keydown', BACKSPACE);
-      tick();
-      fixture.detectChanges();
-
-      flush();
-      fixture.detectChanges();
-
       zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
 
@@ -346,9 +326,9 @@ describe('DtFilterField', () => {
       expect(options[0].innerText).toBe('AUT');
       expect(options[1].innerText).toBe('USA');
       expect(options[2].innerText).toBe('Free');
-    }));
+    });
 
-    it('should remove an option from an autocomplete if it is distinct and the option was previously selected', fakeAsync(() => {
+    it('should remove an option from an autocomplete if it is distinct and the option was previously selected', () => {
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
       filterField.focus();
@@ -386,7 +366,7 @@ describe('DtFilterField', () => {
       const linzOption = options[0];
       expect(options.length).toBe(1);
       expect(linzOption.innerText).toBe('Linz');
-    }));
+    });
   });
 });
 
