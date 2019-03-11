@@ -23,8 +23,8 @@ import { DtFilterFieldTagEvent } from './filter-field-tag/filter-field-tag';
 import {
   DtFilterFieldDataSource,
 } from './data-source/filter-field-data-source';
-import { DtNodeDef, DtNodeFlags, DtNodeData, isDtAutocompleteData, isDtFreeTextData, DtFilterData, dtFilterData, isDtOptionData, getDtNodeDataViewValue } from './types';
-import { DtFilterFieldControl, DtFilterFieldViewer, DtFilterNodesChangesEvent } from './data-source/filter-field-control';
+import { DtNodeDef, DtNodeFlags, DtNodeData, isDtAutocompleteData, isDtFreeTextData, DtFilterData, dtFilterData, getDtNodeDataViewValue } from './types';
+import { DtFilterFieldControl, DtFilterFieldViewer } from './data-source/filter-field-control';
 
 // tslint:disable:no-bitwise
 
@@ -87,9 +87,6 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
 
   /** @internal Querylist of the autocompletes provided by ng-content */
   @ViewChild(DtAutocomplete) _autocomplete: DtAutocomplete<DtNodeDef>;
-
-  /** @internal Part of DtFilterFieldViewer. Emits when a node is added or removed from the current filter object. */
-  _filterNodesChanges = new Subject<DtFilterNodesChangesEvent>();
 
   /** @internal Filter nodes to be rendered _before_ the input element. */
   get _prefixFilters(): DtFilterData[] {
@@ -220,6 +217,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     const value = event.target instanceof HTMLInputElement ? event.target.value : this._inputValue;
     if (value !== this._inputValue) {
       this._inputValue = value;
+      this._dataControl.filterInputChanges(value);
       this.inputChange.emit(value);
 
       this._changeDetectorRef.markForCheck();
@@ -303,9 +301,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     this._inputEl && (this._inputEl.nativeElement.value = value);
     if (this._inputValue !== value) {
       this._inputValue = value;
-      // if (this._dataSource) {
-      //   this._dataSource.autocompleteFilter = value;
-      // }
+      this._dataControl.filterInputChanges(value);
       this.inputChange.emit(value);
       this._changeDetectorRef.markForCheck();
     }
@@ -359,12 +355,14 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
   }
 
   private _emitFilterNodeChanges(added: DtNodeData | null = null, removed: DtNodeData[] | null = null): void {
-    this._filterNodesChanges.next({ added, removed });
+    if (this._dataControl) {
+      this._dataControl.filterNodeChanges({ added, removed });
+    }
   }
 
   private _switchDataSource(dataSource: DtFilterFieldDataSource): void {
-    if (this._dataSource) {
-      this._dataSource.disconnect();
+    if (this._dataControl) {
+      this._dataControl.disconnect();
     }
 
     if (this._dataSubscription) {
@@ -375,7 +373,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     this._dataSource = dataSource;
     this._dataControl = new DtFilterFieldControl(dataSource, this);
 
-    this._dataSubscription = this._dataControl.changes.pipe(takeUntil(this._destroy)).subscribe((dataNode) => {
+    this._dataSubscription = this._dataControl.connect().pipe(takeUntil(this._destroy)).subscribe((dataNode) => {
       this._currentRenderNode = dataNode;
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();

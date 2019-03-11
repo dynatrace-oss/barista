@@ -123,7 +123,9 @@ export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSourc
   }
 
   /** Used by the DtFilterField. Called when it is destroyed. No-op. */
-  disconnect(): void { }
+  disconnect(): void {
+    this._data$.complete();
+  }
 
   /** Transforms the provided data into an internal data structure that can be used by the filter-field. */
   // tslint:disable-next-line: no-any

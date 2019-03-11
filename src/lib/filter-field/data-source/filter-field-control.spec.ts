@@ -1,4 +1,4 @@
-import { filterDistinctDefPredicate, generateDtFilterFieldDistinctId } from './filter-field-control';
+import { defDistinctPredicate, generateDtFilterFieldDistinctId } from './filter-field-control';
 import { dtAutocompleteDef, dtOptionDef, dtGroupDef } from '../types';
 
 // tslint:disable:no-magic-numbers
@@ -36,7 +36,7 @@ uA.option!.parentAutocomplete = aut;
 const root = dtAutocompleteDef([aut], false, {}, null);
 aut.option!.parentAutocomplete = root;
 
-aut.option!.distinctId = generateDtFilterFieldDistinctId(aut, '');
+aut.option!.distinctId = generateDtFilterFieldDistinctId(aut);
 uA.option!.distinctId = generateDtFilterFieldDistinctId(uA, aut.option!.distinctId!);
 cities.group!.options.forEach((city) => {
   city.option!.distinctId = generateDtFilterFieldDistinctId(city, uA.option!.distinctId!);
@@ -45,23 +45,23 @@ wien.option!.distinctId = generateDtFilterFieldDistinctId(wien, aut.option!.dist
 
 describe('filterDistinctDefPredicate', () => {
   it('should return true for all levels when providing no distinct ids', () => {
-    expect(filterDistinctDefPredicate(cities.group!.options[0], new Set())).toBe(true);
-    expect(filterDistinctDefPredicate(cities, new Set())).toBe(true);
-    expect(filterDistinctDefPredicate(uA, new Set())).toBe(true);
-    expect(filterDistinctDefPredicate(wien, new Set())).toBe(true);
-    expect(filterDistinctDefPredicate(aut, new Set())).toBe(true);
-    expect(filterDistinctDefPredicate(root, new Set())).toBe(true);
+    expect(defDistinctPredicate(cities.group!.options[0], new Set())).toBe(true);
+    expect(defDistinctPredicate(cities, new Set())).toBe(true);
+    expect(defDistinctPredicate(uA, new Set())).toBe(true);
+    expect(defDistinctPredicate(wien, new Set())).toBe(true);
+    expect(defDistinctPredicate(aut, new Set())).toBe(true);
+    expect(defDistinctPredicate(root, new Set())).toBe(true);
   });
 
   it('should filter out leaf option (Linz) if its distinct id is listed in the set', () => {
     const distinctIds = new Set([cities.group!.options[0].option!.distinctId!]);
-    expect(filterDistinctDefPredicate(cities.group!.options[0], distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(cities.group!.options[1], distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(cities, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(uA, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(wien, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(aut, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(root, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities.group!.options[0], distinctIds)).toBe(false);
+    expect(defDistinctPredicate(cities.group!.options[1], distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(uA, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(wien, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(aut, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(root, distinctIds)).toBe(true);
   });
 
   it('should filter out parent option (OÖ) and group (cities) if all children are removed', () => {
@@ -70,14 +70,14 @@ describe('filterDistinctDefPredicate', () => {
       cities.group!.options[1].option!.distinctId!,
       cities.group!.options[2].option!.distinctId!,
     ]);
-    expect(filterDistinctDefPredicate(cities.group!.options[0], distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(cities.group!.options[1], distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(cities.group!.options[2], distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(cities, distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(uA, distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(wien, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(aut, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(root, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities.group!.options[0], distinctIds)).toBe(false);
+    expect(defDistinctPredicate(cities.group!.options[1], distinctIds)).toBe(false);
+    expect(defDistinctPredicate(cities.group!.options[2], distinctIds)).toBe(false);
+    expect(defDistinctPredicate(cities, distinctIds)).toBe(false);
+    expect(defDistinctPredicate(uA, distinctIds)).toBe(false);
+    expect(defDistinctPredicate(wien, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(aut, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(root, distinctIds)).toBe(true);
   });
 
   it('should NOT filter out parent options and groups if all children are removed and autocomplete distinct flag is false', () => {
@@ -87,14 +87,14 @@ describe('filterDistinctDefPredicate', () => {
       cities.group!.options[2].option!.distinctId!,
     ]);
     uA.autocomplete!.distinct = false;
-    expect(filterDistinctDefPredicate(cities.group!.options[0], distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(cities.group!.options[1], distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(cities.group!.options[2], distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(cities, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(uA, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(wien, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(aut, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(root, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities.group!.options[0], distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities.group!.options[1], distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities.group!.options[2], distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(uA, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(wien, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(aut, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(root, distinctIds)).toBe(true);
   });
 
   it('should filter out all parent options and groups if all children at all levels are remvoed', () => {
@@ -105,14 +105,14 @@ describe('filterDistinctDefPredicate', () => {
       wien.option!.distinctId!,
     ]);
     uA.autocomplete!.distinct = true;
-    expect(filterDistinctDefPredicate(cities.group!.options[0], distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(cities.group!.options[1], distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(cities.group!.options[2], distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(cities, distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(uA, distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(wien, distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(aut, distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(root, distinctIds)).toBe(false);
+    expect(defDistinctPredicate(cities.group!.options[0], distinctIds)).toBe(false);
+    expect(defDistinctPredicate(cities.group!.options[1], distinctIds)).toBe(false);
+    expect(defDistinctPredicate(cities.group!.options[2], distinctIds)).toBe(false);
+    expect(defDistinctPredicate(cities, distinctIds)).toBe(false);
+    expect(defDistinctPredicate(uA, distinctIds)).toBe(false);
+    expect(defDistinctPredicate(wien, distinctIds)).toBe(false);
+    expect(defDistinctPredicate(aut, distinctIds)).toBe(false);
+    expect(defDistinctPredicate(root, distinctIds)).toBe(false);
   });
 
   it('should NOT filter out parent options and groups if only some children are removed', () => {
@@ -123,13 +123,13 @@ describe('filterDistinctDefPredicate', () => {
       wien.option!.distinctId!,
     ]);
     uA.autocomplete!.distinct = false;
-    expect(filterDistinctDefPredicate(cities.group!.options[0], distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(cities.group!.options[1], distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(cities.group!.options[2], distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(cities, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(uA, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(wien, distinctIds)).toBe(false);
-    expect(filterDistinctDefPredicate(aut, distinctIds)).toBe(true);
-    expect(filterDistinctDefPredicate(root, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities.group!.options[0], distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities.group!.options[1], distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities.group!.options[2], distinctIds)).toBe(true);
+    expect(defDistinctPredicate(cities, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(uA, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(wien, distinctIds)).toBe(false);
+    expect(defDistinctPredicate(aut, distinctIds)).toBe(true);
+    expect(defDistinctPredicate(root, distinctIds)).toBe(true);
   });
 });
