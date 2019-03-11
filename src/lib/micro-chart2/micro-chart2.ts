@@ -62,7 +62,7 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
 
   // TODO: check for new or removed children -> maybe subscribe and trigger CD
   /** @internal A QueryList of all public series configured by the consumer. */
-  @ContentChildren(DtMicroChartSeries) _allSeriesExternal: QueryList<DtMicroChartSeries>;
+  @ContentChildren(DtMicroChartSeries, { descendants: true }) _allSeriesExternal: QueryList<DtMicroChartSeries>;
 
   /** @internal A QueryList of all public x-axis configure by the consumer. */
   @ContentChildren(DtMicroChartXAxis) _allXAxesExternal: QueryList<DtMicroChartXAxis>;

@@ -1,7 +1,9 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnChanges, OnDestroy, ContentChild, TemplateRef, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnChanges, OnDestroy, ContentChild, TemplateRef, Input, Optional, SkipSelf } from '@angular/core';
 import { DtMicroChartSeries, DtMicroChartSeriesType, DtMicroChartRenderDataBase, DtMicroChartRenderDataExtremes } from './series';
 import { DtMicroChartMinLabel, DtMicroChartMaxLabel } from './extreme-label';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { DtMicroChartStackedContainer } from './stacked-container';
+import { isDefined } from '@dynatrace/angular-components/core';
 
 @Component({
   selector: 'dt-micro-chart-column-series',
@@ -29,6 +31,14 @@ export class DtMicroChartColumnSeries extends DtMicroChartSeries implements OnCh
   get hightlightExtremes(): boolean { return this._highlightExtremes; }
   set hightlightExtremes(value: boolean) {
     this._highlightExtremes = coerceBooleanProperty(value);
+  }
+
+  get _isStacked(): boolean {
+    return isDefined(this._stackedContainer);
+  }
+
+  constructor(@Optional() @SkipSelf() private _stackedContainer: DtMicroChartStackedContainer) {
+    super();
   }
 
   get _renderData(): DtMicroChartRenderDataBase & DtMicroChartRenderDataExtremes {

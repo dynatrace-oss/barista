@@ -16,6 +16,7 @@ import {
   DtMicroChartMaxLabel,
   DtMicroChartXAxis,
   DtMicroChartYAxis,
+  DtMicroChartStackedContainer,
 } from './public-api';
 import { DT_MICRO_CHART_RENDERER } from './business-logic/renderer/base';
 import { DtMicroChartSvgRenderer } from './business-logic/renderer/svg-renderer';
@@ -37,6 +38,7 @@ import { PortalModule } from '@angular/cdk/portal';
     DtMicroChartMaxLabel,
     DtMicroChartXAxis,
     DtMicroChartYAxis,
+    DtMicroChartStackedContainer,
   ],
   declarations: [
     DtMicroChart2,
@@ -50,6 +52,7 @@ import { PortalModule } from '@angular/cdk/portal';
     DtMicroChartMaxLabel,
     DtMicroChartXAxis,
     DtMicroChartYAxis,
+    DtMicroChartStackedContainer,
   ],
   providers: [
     {

@@ -99,3 +99,13 @@
     <dt-micro-chart-column-series [data]="timeseries.data"></dt-micro-chart-column-series>
   </dt-micro-chart2>
 </div>
+
+<h2>Stacked</h2>
+<div style="width: 300px">
+  <dt-micro-chart2>
+    <dt-micro-chart-stacked-container>
+      <dt-micro-chart-column-series [data]="series.data"></dt-micro-chart-column-series>
+      <dt-micro-chart-column-series [data]="series.data"></dt-micro-chart-column-series>
+    </dt-micro-chart-stacked-container>
+  </dt-micro-chart2>
+</div>
