@@ -19,6 +19,10 @@ import { Component } from '@angular/core';
   Current value: "{{group1.value}}"
   </div>
   `,
+  styles: [
+    '.dt-toggle-button-item { margin-right: 16px; }',
+    '.dt-toggle-button-item:last-of-type { margin-right: 0; }',
+  ],
 })
 export class DynamicItemsToggleButtonExampleComponent {
 

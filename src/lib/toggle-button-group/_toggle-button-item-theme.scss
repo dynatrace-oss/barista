@@ -18,13 +18,16 @@
   #{$namespace}:hover.dt-toggle-button-item-selected ::ng-deep .dt-toggle-button-item-icon {
     background-color: $hover-color;
   }
+  #{$namespace}.dt-toggle-button-item-selected:hover {
+    border-color: $hover-color;
+  }
 
   /* Active state */
   #{$namespace}.dt-toggle-button-item-selected {
-    border-color: $active-color;
+    border-color: $default-color;
   }
   #{$namespace}.dt-toggle-button-item-selected ::ng-deep .dt-toggle-button-item-icon {
-    background-color: $active-color;
+    background-color: $default-color;
   }
 
   /* Disabled state */

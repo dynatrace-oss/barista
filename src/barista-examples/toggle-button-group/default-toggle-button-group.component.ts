@@ -23,5 +23,10 @@ import { Component } from '@angular/core';
       Three
     </button>
   </dt-toggle-button-group>`,
+  styles: [
+    '.dt-toggle-button-item { margin-right: 16px; }',
+    '.dt-toggle-button-item:last-of-type { margin-right: 0; }',
+  ],
+  preserveWhitespaces: false,
 })
 export class DefaultToggleButtonExampleComponent { }
