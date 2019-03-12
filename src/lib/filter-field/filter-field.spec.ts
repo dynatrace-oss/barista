@@ -1,7 +1,7 @@
 import { TestBed, ComponentFixture, inject, fakeAsync, flushMicrotasks, flush, tick, discardPeriodicTasks } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtFilterFieldModule, DtFilterFieldDefaultDataSource, DtFilterField } from '@dynatrace/angular-components/filter-field';
+import { DtFilterFieldModule, DtFilterFieldDefaultDataSource, DtFilterField, DT_FILTER_FIELD_TYPING_DEBOUNCE } from '@dynatrace/angular-components/filter-field';
 import { Component, NgZone } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -90,22 +90,24 @@ describe('DtFilterField', () => {
       expect(filterField._autocomplete.isOpen).toBe(true);
     });
 
-    it('should emit the inputChange event when typing into the input field with autocomplete', () => {
+    it('should emit the inputChange event when typing into the input field with autocomplete', fakeAsync(() => {
       const spy = jasmine.createSpy('autocomplete input spy');
       const subscription = filterField.inputChange.subscribe(spy);
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 
       typeInElement('x', inputEl);
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
       fixture.detectChanges();
 
       expect(spy).toHaveBeenCalledWith('x');
 
       typeInElement('xy', inputEl);
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
       fixture.detectChanges();
 
       expect(spy).toHaveBeenCalledWith('xy');
       subscription.unsubscribe();
-    });
+    }));
 
     it('should create the correct options and option groups', () => {
       filterField.focus();
@@ -223,6 +225,8 @@ describe('DtFilterField', () => {
 
       const inputEl = getInput(fixture);
       typeInElement('abc', inputEl);
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
+
       fixture.detectChanges();
       dispatchKeyboardEvent(inputEl, 'keyup', ENTER);
       fixture.detectChanges();
