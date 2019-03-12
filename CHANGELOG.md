@@ -1,3 +1,25 @@
+## 2.1.0 (2019-03-12)
+
+
+### Bug Fixes
+
+* **autocomplete:** Fixes optionSelections not being emitted when the list of options changes 
+* **bundle:** Bumped peer dependency version for dt-iconpack 
+* **card:** Fixes card title and card-subtitle sizing 
+* **filter-field:** Added missing filters property in filter changes event 
+* **filter-field:** Fixes an issue where the filter field was not reset correctly when a filter was removed ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **filter-field:** Fixes an issue where the filters could not be removed if all options were already selected ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **filter-field:** Fixes an issue where the input reset would trigger to early and stop further progress 
+* **filter-field:** Fixes issues with streams inside the filter field ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **icon:** Downgrades icon error to warning ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table:** Expandable trigger focus no longer gets cut off ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **toggle-button-group:** Fixed hover and active color on toggle-button-group-items ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
+### Features
+
+* **filter-field:** Added possibility to filter autocomplete options by their view value 
+
 ## 2.0.0 (2019-03-05)
 
 ### Breaking Changes
