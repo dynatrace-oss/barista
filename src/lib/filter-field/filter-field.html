@@ -17,7 +17,6 @@
       class="dt-filter-field-input"
       [dtAutocomplete]="autocomplete"
       [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length"
-      (input)="_handleInputChange($event)"
       (keydown)="_handleInputKeyDown($event)"
       (keyup)="_handleInputKeyUp($event)"
       [value]="_inputValue">
