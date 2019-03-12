@@ -133,7 +133,7 @@ export class DtFilterFieldControl {
   }
 
   /**
-   * Transforms a provided autocomplete definintion into a data object with a filtered options or groups list.
+   * Transforms a provided autocomplete definition into a data object with a filtered options or groups list.
    * Returns null if there are no more options or groups left after filtering.
    */
   private _transformAutocompleteData(def: DtNodeDef, distinctIds: Set<string>, filterText?: string): DtNodeData | null {
