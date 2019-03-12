@@ -13,9 +13,9 @@ import {
   AfterViewInit,
   SimpleChanges,
 } from '@angular/core';
-import { takeUntil, switchMap, take } from 'rxjs/operators';
+import { takeUntil, switchMap, take, debounceTime } from 'rxjs/operators';
 import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, fromEvent } from 'rxjs';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
 import { readKeyCode, isDefined } from '@dynatrace/angular-components/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -23,7 +23,16 @@ import { DtFilterFieldTagEvent } from './filter-field-tag/filter-field-tag';
 import {
   DtFilterFieldDataSource,
 } from './data-source/filter-field-data-source';
-import { DtNodeDef, DtNodeFlags, DtNodeData, isDtAutocompleteData, isDtFreeTextData, DtFilterData, dtFilterData, getDtNodeDataViewValue } from './types';
+import {
+  DtNodeDef,
+  DtNodeFlags,
+  DtNodeData,
+  isDtAutocompleteData,
+  isDtFreeTextData,
+  DtFilterData,
+  dtFilterData,
+  getDtNodeDataViewValue
+} from './types';
 import { DtFilterFieldControl, DtFilterFieldViewer } from './data-source/filter-field-control';
 
 // tslint:disable:no-bitwise
@@ -31,6 +40,8 @@ import { DtFilterFieldControl, DtFilterFieldViewer } from './data-source/filter-
 export class DtFilterChangeEvent {
   constructor(public added: DtFilterData[], public removed: DtFilterData[], public filters: DtFilterData[]) { }
 }
+
+const FILTER_TYPING_DEBOUNCE = 200;
 
 // tslint:disable:no-any
 @Component({
@@ -133,7 +144,6 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     ).subscribe(() => {
       if (this._isFocused) {
         if (this._currentRenderNode && this._currentRenderNode.def.nodeFlags & DtNodeFlags.TypeAutocomplete) {
-          // console.log('openPanel');
           // When the autocomplete closes after the user has selected an option
           // and the new data is also displayed in an autocomlete we need to open it again.
           // Note: Also trigger openPanel if it already open, so it does a reposition and resize
@@ -164,6 +174,11 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     // tslint:disable-next-line:no-any
     this._autocomplete.optionSelected
       .subscribe((event: DtAutocompleteSelectedEvent<any>) => { this._handleAutocompleteSelected(event); });
+
+    // Using fromEvent instead of an html binding so we get a stream and can easily do a debounce
+    fromEvent(this._inputEl.nativeElement, 'input')
+      .pipe(takeUntil(this._destroy), debounceTime(FILTER_TYPING_DEBOUNCE))
+      .subscribe(() => { this._handleInputChange(); });
   }
 
   ngOnDestroy(): void {
@@ -213,8 +228,8 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
   }
 
   /** @internal Keep track of the values in the input fields. Write the current value to the _inputValue property */
-  _handleInputChange(event: Event): void {
-    const value = event.target instanceof HTMLInputElement ? event.target.value : this._inputValue;
+  _handleInputChange(): void {
+    const value = this._inputEl.nativeElement.value;
     if (value !== this._inputValue) {
       this._inputValue = value;
       this._dataControl.filterInputChanges(value);
@@ -269,6 +284,8 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
       this._updateFilterDataViewValues(filter);
     }
 
+    this._emitFilterNodeChanges(this._currentRenderNode);
+
     // Reset input value to empty string after handling the value provided by the autocomplete.
     // Otherwise the value of the autocomplete would be in the input elements.
     this._writeInputValue('');
@@ -278,7 +295,6 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
       if (option.selected) { option.deselect(); }
     });
 
-    this._emitFilterNodeChanges(this._currentRenderNode);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -290,8 +306,8 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
       this._updateFilterDataViewValues(filter);
     }
 
-    this._writeInputValue('');
     this._emitFilterNodeChanges(this._currentRenderNode);
+    this._writeInputValue('');
     this._changeDetectorRef.markForCheck();
   }
 
