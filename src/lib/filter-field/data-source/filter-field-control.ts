@@ -132,6 +132,10 @@ export class DtFilterFieldControl {
     return null;
   }
 
+  /**
+   * Transforms a provided autocomplete definintion into a data object with a filtered options or groups list.
+   * Returns null if there are no more options or groups left after filtering.
+   */
   private _transformAutocompleteData(def: DtNodeDef, distinctIds: Set<string>, filterText?: string): DtNodeData | null {
     const optionsOrGroups = def.autocomplete!.optionsOrGroups
       .map((optionOrGroup) => isDtGroupDef(optionOrGroup) ?
@@ -141,12 +145,14 @@ export class DtFilterFieldControl {
     return optionsOrGroups.length ? dtAutocompleteData(def, optionsOrGroups) : null;
   }
 
+  /** Transforms a provided free text definition into a data object with a filtered suggestion list. */
   private _transformFreeTextData(def: DtNodeDef): DtNodeData {
     const suggestions = def.freeText!.suggestions ?
       def.freeText!.suggestions.map((option) => this._transformOptionData(option) as DtNodeData) : [];
     return dtFreeTextData(def, suggestions);
   }
 
+  /** Transforms a provided group definition into a data object or null if is should not be in the resulting options array. */
   private _transformGroupData(def: DtNodeDef, distinctIds: Set<string>, filterText?: string): DtNodeData | null {
     const options = def.group!.options.filter((option) =>
       defDistinctPredicate(option, distinctIds) &&  optionFilterTextPredicate(option, filterText || ''))
@@ -154,6 +160,7 @@ export class DtFilterFieldControl {
     return options.length ? dtGroupData(def, options) : null;
   }
 
+  /** Transforms a provided option definition into a data object or null if is should not be in the resulting options array. */
   private _transformOptionData(def: DtNodeDef, distinctIds?: Set<string>, filterText?: string): DtNodeData | null {
     return optionFilterTextPredicate(def, filterText || '') &&
       (!distinctIds || defDistinctPredicate(def, distinctIds)) ? dtOptionData(def) : null;
@@ -179,6 +186,7 @@ export function defDistinctPredicate(def: DtNodeDef, distinctIds: Set<string>): 
   return true;
 }
 
+/** Predicate function for filtering options based on their distinct id. */
 function optionDistinctPredicate(def: DtNodeDef, distinctIds: Set<string>): boolean {
   return !(def.option!.distinctId &&
     distinctIds.has(def.option!.distinctId!) &&
@@ -186,6 +194,7 @@ function optionDistinctPredicate(def: DtNodeDef, distinctIds: Set<string>): bool
     def.option!.parentAutocomplete!.autocomplete!.distinct);
 }
 
+/** Predicate function for filtering options based on the view value and the text inserted by the user. */
 function optionFilterTextPredicate(def: DtNodeDef, filterText: string): boolean {
   // Transform the filter and viewValue by converting it to lowercase and removing whitespace.
   const transformedFilter = filterText.trim().toLowerCase();
