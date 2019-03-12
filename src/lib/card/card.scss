@@ -53,7 +53,7 @@
 }
 
 .dt-card-title {
-  @include h1-font();
+  @include h2-font();
   display: block;
   white-space: nowrap;
   overflow: hidden;
@@ -61,7 +61,7 @@
 }
 
 .dt-card-subtitle {
-  @include h2-font();
+  @include h3-font();
   display: block;
 }
 
