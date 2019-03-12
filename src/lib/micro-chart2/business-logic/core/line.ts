@@ -40,6 +40,41 @@ export function handleChartLineSeries(width: number, data: DtMicroChartUnifiedIn
   return transformedData;
 }
 
+// export function handleChartLineSeries(width: number, data: DtMicroChartUnifiedInputData, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartLineSeriesData {
+//   const { x, y } = getScales(width, domains, config);
+//   const { min, max, minIndex, maxIndex } = findExtremes(data);
+
+//   const points: DtMicroChartLineDataPoint[]  = [];
+//   let index = 0;
+//   const iterator = data.entries();
+//   let result = iterator.next();
+//   while (!result.done) {
+//     const [key, value] = result.value;
+//     points.push({
+//       x: x(key),
+//       y: y(value!),
+//     });
+//     index++;
+//     result = iterator.next();
+//   }
+//   const transformedData = {
+//     points,
+//     scales: {
+//       x,
+//       y,
+//     },
+//     extremes: {
+//       min: { x: x(minIndex), y: y(min), },
+//       minAnchor: { x: x(minIndex), y: y(min), },
+//       minValue: min,
+//       max: { x: x(maxIndex), y: y(max), },
+//       maxAnchor: { x: x(maxIndex), y: y(max), },
+//       maxValue: max,
+//     },
+//   };
+//   return transformedData;
+// }
+
 function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartLineScales {
   const x = scaleLinear()
     .range([0, width - config.marginLeft - config.marginRight])

@@ -8,7 +8,6 @@ import { DtMicroChartSeriesSVG } from './series';
   },
   templateUrl: './bar.html',
   styleUrls: ['bar.scss'],
-  inputs: ['stacked'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartBarSeriesSVG }],
 })

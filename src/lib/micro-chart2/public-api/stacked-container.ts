@@ -1,7 +1,19 @@
 import { Directive } from '@angular/core';
+import { CanDisable, mixinDisabled } from '@dynatrace/angular-components/core';
+
+let stackId = 0;
+
+// Boilerplate for applying mixins to DtMicroChartStackedContainer.
+export class DtMicroChartStackContainerBase {}
+
+export const _DtMicroChartStackContainerBase =
+  mixinDisabled(DtMicroChartStackContainerBase);
 
 @Directive({
-  selector: 'dt-micro-chart-stacked-container',
-  exportAs: 'dtMicroChartStackedContainer',
+  selector: 'dt-micro-chart-stack-container',
+  exportAs: 'dtMicroChartStackContainer',
+  inputs: ['disabled'],
 })
-export class DtMicroChartStackedContainer { }
+export class DtMicroChartStackContainer extends _DtMicroChartStackContainerBase implements CanDisable {
+  readonly _stackId = stackId++;
+}

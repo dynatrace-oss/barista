@@ -5,7 +5,7 @@
   [attr.width]="point.width"
   [attr.height]="point.height"
   class="dt-micro-chart-column"
-></svg:rect>
+>      {{id}}</svg:rect>
 
 <ng-container *ngIf="highlightExtremes">
   <svg:rect
@@ -22,6 +22,7 @@
     #minLabel
   >
     <svg:tspan baseline-shift="-20">
+
       <ng-container [cdkPortalOutlet]="_minPortal"></ng-container>
     </svg:tspan>
   </svg:text>

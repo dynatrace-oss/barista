@@ -36,6 +36,34 @@ export function handleChartBarSeries(width: number, data: DtMicroChartUnifiedInp
   return transformedData;
 }
 
+// export function handleChartBarSeries(width: number, data: DtMicroChartUnifiedInputData, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartBarSeriesData {
+//   const { x, y } = getScales(width, domains, config);
+
+//   const points: DtMicroChartBarDataPoint[]  = [];
+//   const iterator = data.entries();
+//   let result = iterator.next();
+//   while (!result.done) {
+//     const [key, value] = result.value;
+//     points.push({
+//       x: x(domains.y.min),
+//       y: y(key) as number,
+//       // TODO: check for null correctly
+//       width: x(value!) > 0 ? x(value!) : 1,
+//       height: y.bandwidth(),
+//     });
+//     result = iterator.next();
+//   }
+
+//   const transformedData = {
+//     points,
+//     scales: {
+//       x,
+//       y,
+//     },
+//   };
+//   return transformedData;
+// }
+
 function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartBarScales {
   const x = scaleLinear()
     .range([0, width - config.marginLeft - config.marginRight])

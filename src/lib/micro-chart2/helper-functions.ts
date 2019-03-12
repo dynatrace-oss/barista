@@ -62,10 +62,43 @@ export function findMaximum<T>(values: T[], accessor?: (arg0: T) => number | nul
   return max;
 }
 
-/**
- * Iterate over the passed values and find the minimum and maximum values. If the values iterable is a complex one,
- * the accessor function can be used to access a compareable number within this complex object.
- */
+// /**
+//  * Iterate over the passed values and find the minimum and maximum values.
+//  */
+// export function findExtremes(values: Map<number, number | null>): { min: number; max: number; minIndex: number; maxIndex: number } {
+//   let minValue;
+//   let min;
+//   let maxValue;
+//   let max;
+//   let minIndex;
+//   let maxIndex;
+
+//   let index = 0;
+//   const iterator = values.entries();
+//   let result = iterator.next();
+//   while (!result.done) {
+//     const [_, value] = result.value;
+//     if (value !== null && (min === undefined || min > value)) {
+//       minValue = value;
+//       min = value;
+//       minIndex = index;
+//     }
+//     if (value !== null && (max === undefined || max < value)) {
+//       maxValue = value;
+//       max = value;
+//       maxIndex = index;
+//     }
+//     index += 1;
+//     result = iterator.next();
+//   }
+//   return {
+//     min,
+//     max,
+//     minIndex,
+//     maxIndex,
+//   };
+// }
+
 export function findExtremes<T>(values: T[], accessor?: (arg0: T) => number | null): { min: number | T; max: number | T; minIndex: number; maxIndex: number; } {
   let minValue;
   let min;
@@ -131,4 +164,15 @@ export function calculateLabelPosition(pointX: number, textLength: number, chart
     return 'end';
   }
   return 'middle';
+}
+
+export function sumNullable(a: number | null, b: number | null): number | null {
+  if (a !== null && b !== null) {
+    return a + b;
+  } else if (a !== null) {
+    return a;
+  } else if (b !== null) {
+    return b;
+  }
+  return null;
 }

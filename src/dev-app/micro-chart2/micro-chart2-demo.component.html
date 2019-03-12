@@ -9,7 +9,7 @@
   <button dt-button (click)="yAxisMin = yAxisMin + 10">Y Axis Min +10</button>&nbsp;
 </p>
 <h2>Micro chart demos</h2>
-<div style="width: 300px">
+<!-- <div style="width: 300px">
   <dt-micro-chart2>
     <dt-micro-chart-line-series [data]="series.data" [highlightExtremes]="toggleExtremes">
       <ng-template dtMicroChartMinLabel let-min>
@@ -48,7 +48,7 @@
 </div>
 
 <h2>Simple data - Column</h2>
-<div style="width: 300px">
+<div>
   <dt-micro-chart2>
     <dt-micro-chart-column-series [data]="series.data" [highlightExtremes]="toggleExtremes">
       <ng-template dtMicroChartMinLabel let-min>
@@ -98,14 +98,14 @@
     <dt-micro-chart-line-series [data]="timeseries.data"></dt-micro-chart-line-series>
     <dt-micro-chart-column-series [data]="timeseries.data"></dt-micro-chart-column-series>
   </dt-micro-chart2>
-</div>
+</div> -->
 
 <h2>Stacked</h2>
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-stacked-container>
+    <dt-micro-chart-stack-container>
       <dt-micro-chart-column-series [data]="series.data"></dt-micro-chart-column-series>
-      <dt-micro-chart-column-series [data]="series.data"></dt-micro-chart-column-series>
-    </dt-micro-chart-stacked-container>
+      <dt-micro-chart-column-series [data]="series3.data"></dt-micro-chart-column-series>
+    </dt-micro-chart-stack-container>
   </dt-micro-chart2>
 </div>

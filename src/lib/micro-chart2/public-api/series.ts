@@ -1,12 +1,13 @@
 import { SimpleChanges, Input, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { unifySeriesData, DtMicroChartUnifiedInputData } from '../business-logic/core/chart';
+import { DtMicroChartStackContainer } from './stacked-container';
 
 export type DtMicroChartSeriesType = 'line' | 'column' | 'bar';
 export interface DtMicroChartRenderDataBase {
   type: DtMicroChartSeriesType;
-  publicSeriesId: number;
-  data: Array<number|null> | DtMicroChartUnifiedInputData;
+  publicSeriesId: string;
+  data: Array<number|null> | number[][];
 }
 
 export interface DtMicroChartRenderDataExtremes {
@@ -20,12 +21,12 @@ let uniqueId = 1;
 export abstract class DtMicroChartSeries {
   readonly type: DtMicroChartSeriesType;
 
-  private _data: Array<number|null> | DtMicroChartUnifiedInputData;
+  private _data: Array<number|null> | number[][];
   @Input()
-  get data(): Array<number|null> | DtMicroChartUnifiedInputData {
+  get data(): Array<number|null> | number[][] {
     return this._data;
   }
-  set data(value: Array<number|null> | DtMicroChartUnifiedInputData) {
+  set data(value: Array<number|null> | number[][]) {
     if (value) {
       this._transformedData = unifySeriesData(value);
     }
@@ -33,7 +34,7 @@ export abstract class DtMicroChartSeries {
   }
 
   /** @internal Assign unique id to the series. */
-  _id = uniqueId++;
+  _id = `series${uniqueId++}`;
 
   /**
    * @internal
@@ -62,5 +63,13 @@ export abstract class DtMicroChartSeries {
 
   ngOnDestroy(): void {
     this._stateChanges.complete();
+  }
+}
+
+export abstract class DtMicroChartStackableSeries extends DtMicroChartSeries {
+  get isStacked(): boolean { return !!this._stackedContainer && !this._stackedContainer.disabled; }
+
+  constructor(public _stackedContainer: DtMicroChartStackContainer) {
+    super();
   }
 }

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnChanges, OnDestroy, Optional, SkipSelf } from '@angular/core';
-import { DtMicroChartSeries, DtMicroChartSeriesType } from './series';
-import { DtMicroChartStackedContainer } from './stacked-container';
+import { DtMicroChartSeries, DtMicroChartSeriesType, DtMicroChartStackableSeries } from './series';
+import { DtMicroChartStackContainer } from './stacked-container';
 import { isDefined } from '@dynatrace/angular-components/core';
 
 @Component({
@@ -9,18 +9,17 @@ import { isDefined } from '@dynatrace/angular-components/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   exportAs: 'dtMicroChartBarSeries',
-  inputs: ['stacked'],
   providers: [{ provide: DtMicroChartSeries, useExisting: DtMicroChartBarSeries }],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtMicroChartBarSeries extends DtMicroChartSeries implements OnChanges, OnDestroy {
+export class DtMicroChartBarSeries extends DtMicroChartStackableSeries implements OnChanges, OnDestroy {
   readonly type: DtMicroChartSeriesType = 'bar';
 
   get _isStacked(): boolean {
     return isDefined(this._stackedContainer);
   }
 
-  constructor(@Optional() @SkipSelf() private _stackedContainer: DtMicroChartStackedContainer) {
-    super();
+  constructor(@Optional() @SkipSelf() public _stackedContainer: DtMicroChartStackContainer) {
+    super(_stackedContainer);
   }
 }

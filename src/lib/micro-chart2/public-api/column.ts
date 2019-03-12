@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnChanges, OnDestroy, ContentChild, TemplateRef, Input, Optional, SkipSelf } from '@angular/core';
-import { DtMicroChartSeries, DtMicroChartSeriesType, DtMicroChartRenderDataBase, DtMicroChartRenderDataExtremes } from './series';
+import { DtMicroChartSeries, DtMicroChartSeriesType, DtMicroChartRenderDataBase, DtMicroChartRenderDataExtremes, DtMicroChartStackableSeries } from './series';
 import { DtMicroChartMinLabel, DtMicroChartMaxLabel } from './extreme-label';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { DtMicroChartStackedContainer } from './stacked-container';
+import { DtMicroChartStackContainer } from './stacked-container';
 import { isDefined } from '@dynatrace/angular-components/core';
 
 @Component({
@@ -11,11 +11,10 @@ import { isDefined } from '@dynatrace/angular-components/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   exportAs: 'dtMicroChartColumnSeries',
-  inputs: ['stacked'],
   providers: [{ provide: DtMicroChartSeries, useExisting: DtMicroChartColumnSeries }],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtMicroChartColumnSeries extends DtMicroChartSeries implements OnChanges, OnDestroy {
+export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries implements OnChanges, OnDestroy {
   private _highlightExtremes;
 
   readonly type: DtMicroChartSeriesType = 'column';
@@ -37,8 +36,8 @@ export class DtMicroChartColumnSeries extends DtMicroChartSeries implements OnCh
     return isDefined(this._stackedContainer);
   }
 
-  constructor(@Optional() @SkipSelf() private _stackedContainer: DtMicroChartStackedContainer) {
-    super();
+  constructor(@Optional() @SkipSelf() public _stackedContainer: DtMicroChartStackContainer) {
+    super(_stackedContainer);
   }
 
   get _renderData(): DtMicroChartRenderDataBase & DtMicroChartRenderDataExtremes {

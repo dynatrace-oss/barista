@@ -18,7 +18,7 @@ import { DtViewportResizer, Constructor, mixinColor, CanColor } from '@dynatrace
 import { takeUntil, switchMap, startWith, filter, map } from 'rxjs/operators';
 import { Subject, combineLatest, of, iif, merge } from 'rxjs';
 import { DtMicroChartConfig } from './micro-chart-config';
-import { DtMicroChartSeries, DtMicroChartAxis, DtMicroChartXAxis, DtMicroChartYAxis } from './public-api';
+import { DtMicroChartSeries, DtMicroChartAxis, DtMicroChartXAxis, DtMicroChartYAxis, DtMicroChartColumnSeries, DtMicroChartStackContainer } from './public-api';
 import { DtMicroChartSeriesSVG } from './series';
 import { createChartDomains, DtMicroChartSeriesData, DtMicroChartIdentification, applyAxesExtentsToDomain } from './business-logic/core/chart';
 import { DT_MICRO_CHART_RENDERER } from './business-logic/renderer/base';
@@ -26,6 +26,7 @@ import { DtMicroChartSvgRenderer, DtMicroChartLineSeriesSvgData, DtMicroChartCol
 import { handleChartLineSeries } from './business-logic/core/line';
 import { handleChartBarSeries } from './business-logic/core/bar';
 import { handleChartColumnSeries } from './business-logic/core/column';
+import { createStack, extendDomainForStack } from './business-logic/core/stacks';
 
 /** Injection token that can be used to specify default micro-chart options. */
 export const DT_MICRO_CHART_DEFAULT_OPTIONS =
@@ -72,6 +73,8 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
 
   /** @internal A QueryList of all rendered internal series. */
   @ViewChildren(DtMicroChartSeriesSVG) _allSeriesSVG: QueryList<DtMicroChartSeriesSVG>;
+
+  @ViewChildren(DtMicroChartStackContainer) _stackContainer: DtMicroChartStackContainer;
 
   /** @internal Returns a viewbox string for the micro-chart2 svg container. */
   get _viewbox(): string {
@@ -159,6 +162,8 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
         // apply the new width.
         this._width = width;
 
+
+
         // generate Domains for all series.
         let domains = createChartDomains(series);
 
@@ -166,6 +171,14 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
         if (xAxes !== null || yAxes !== null) {
           domains = applyAxesExtentsToDomain([...(xAxes || []), ...(yAxes || [])], domains);
         }
+        console.log('BEFORESTACK', domains);
+
+        if (this._stackContainer) {
+          const stack = createStack(series);
+          domains = extendDomainForStack(domains, stack);
+          console.log('STACK', domains);
+        }
+        // for now we can only have one stack
 
         const nextRenderData: DtMicroChartRendererSeriesData[] = [];
 
@@ -174,7 +187,7 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
           let rendererData;
           switch (s.type) {
             case 'column': {
-              const data = handleChartColumnSeries(width, s._transformedData, domains, this._config);
+              const data = handleChartColumnSeries(width, (s as DtMicroChartColumnSeries), domains, this._config);
               rendererData = this._chartRenderer.createColumnSeriesRenderData(data);
               break;
             }
