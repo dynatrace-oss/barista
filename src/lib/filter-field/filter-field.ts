@@ -41,7 +41,7 @@ export class DtFilterChangeEvent {
   constructor(public added: DtFilterData[], public removed: DtFilterData[], public filters: DtFilterData[]) { }
 }
 
-const FILTER_TYPING_DEBOUNCE = 200;
+export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
 
 // tslint:disable:no-any
 @Component({
@@ -177,7 +177,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
 
     // Using fromEvent instead of an html binding so we get a stream and can easily do a debounce
     fromEvent(this._inputEl.nativeElement, 'input')
-      .pipe(takeUntil(this._destroy), debounceTime(FILTER_TYPING_DEBOUNCE))
+      .pipe(takeUntil(this._destroy), debounceTime(DT_FILTER_FIELD_TYPING_DEBOUNCE))
       .subscribe(() => { this._handleInputChange(); });
   }
 
