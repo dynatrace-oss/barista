@@ -3,8 +3,8 @@
 ### Step 1: Install the angular-components and Angular CDK
 This library is available in our internal Artifactory. To make it installable via `npm` or `yarn` add the following lines to your `.npmrc` or `.yarnrc` (you might need to create this file if it is not already there)
 ```
-registry "***REMOVED***
-"@dynatrace:registry" "***REMOVED***
+registry="***REMOVED***
+"@dynatrace:registry"="***REMOVED***
 ```
 
 Now you are able to install the library
@@ -87,3 +87,19 @@ or
 `yarn add @dynatrace/angular-lint-rules`
 
 You can find more information in the [angular-lint-rules repo](***REMOVED***
+
+### Step 6: Optional - Add fonts and icon files to your assets
+
+Add this section to the `assets` array in your projects architect in the angular.json. This will copy all svgs from the iconpack and all fonts shipped with the angular-components-library to your dist package and will make angular aware of the file dependencies.
+
+```json
+{
+  "glob": "*.svg",
+  "input": "node_modules/@dynatrace/dt-iconpack",
+  "output": "/assets/icons"
+},{
+  "glob": "**/*",
+  "input": "node_modules/@dynatrace/angular-components/assets/fonts",
+  "output": "/assets/fonts"
+}
+```
