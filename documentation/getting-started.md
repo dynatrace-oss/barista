@@ -103,3 +103,14 @@ Add this section to the `assets` array in your projects architect in the angular
   "output": "/assets/fonts"
 }
 ```
+
+To provide the configuration to the application, you will need to add this to the providers of your app module.
+
+```ts
+providers: [
+  {
+    provide: DT_ICON_CONFIGURATION,
+    useValue: { svgIconLocation: `/assets/icons/{{name}}.svg` },
+  },
+],
+```
