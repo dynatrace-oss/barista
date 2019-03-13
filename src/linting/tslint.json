@@ -3,5 +3,7 @@
     "./rules"
   ],
   "rules": {
+    "dt-a11y-text-alternatives": false,
+    "dt-button": false
   }
 }
