@@ -278,7 +278,7 @@ You can set the following inputs and outputs on the `dtSort` directive.
 #### Methods
 
 | Name | Description | Parameters | Return value |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | `sort` | Sets the active sort id and new sort direction | `sortable: DtSortHeader` | `void` |
 
 ### DtSortHeader
