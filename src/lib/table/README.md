@@ -18,7 +18,7 @@ If you want to use the `dt-expandable-cell` component, Angular's Angular's `Brow
 
 ```typescript
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DtTableModule } from '@dyntrace/angular-components';
+import { DtTableModule } from '@dynatrace/angular-components';
 
 @NgModule({
   imports: [
