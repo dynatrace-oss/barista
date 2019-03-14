@@ -7,44 +7,6 @@ interface FailureStrings {
   [key: string]: string;
 }
 
-/**
- * The dtA11yTextAlternativesRule ensures that text alternatives are given when needed.
- *
- * The following examples pass the a11y lint checks:
- * <button dt-icon-button variant="nested" aria-label="Install agent"><dt-icon name="agent"></dt-icon></button>
- *
- * For the following examples the linter throws errors:
- * <a dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></a>, no text alternative given
- */
-export class Rule extends Rules.AbstractRule {
-
-  static readonly ELEMENTS = ['a', 'button'];
-  static readonly FAILURE_STRINGS: FailureStrings = {
-    a: 'An icon-button link must have an aria-label or an aria-labelledby attribute.',
-    button: 'An icon-button must have an aria-label or an aria-labelledby attribute.',
-  };
-
-  static readonly metadata: IRuleMetadata = {
-    // tslint:disable-next-line max-line-length
-    description: 'Ensures that text alternatives are given for elements that require alt, aria-label or aria-labelledby attributes.',
-    // tslint:disable-next-line no-null-keyword
-    options: null,
-    optionsDescription: 'Not configurable.',
-    rationale: 'Elements without a text content need additional attributes to provide text alternatives.',
-    ruleName: 'dt-a11y-text-alternatives',
-    type: 'maintainability',
-    typescriptOnly: true,
-  };
-
-  apply(sourceFile: SourceFile): RuleFailure[] {
-    return this.applyWithWalker(
-      new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: DtA11yTextAlternativesVisitor, // tslint:disable-line no-use-before-declare
-      }),
-    );
-  }
-}
-
 // tslint:disable-next-line:max-classes-per-file
 class DtA11yTextAlternativesVisitor extends BasicTemplateAstVisitor {
 
@@ -127,5 +89,43 @@ class DtA11yTextAlternativesVisitor extends BasicTemplateAstVisitor {
     const endOffset = element.sourceSpan.end.offset;
 
     this.addFailureFromStartToEnd(startOffset, endOffset, Rule.FAILURE_STRINGS[elementName]);
+  }
+}
+
+/**
+ * The dtA11yTextAlternativesRule ensures that text alternatives are given when needed.
+ *
+ * The following examples pass the a11y lint checks:
+ * <button dt-icon-button variant="nested" aria-label="Install agent"><dt-icon name="agent"></dt-icon></button>
+ *
+ * For the following examples the linter throws errors:
+ * <a dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></a>, no text alternative given
+ */
+export class Rule extends Rules.AbstractRule {
+
+  static readonly ELEMENTS = ['a', 'button'];
+  static readonly FAILURE_STRINGS: FailureStrings = {
+    a: 'An icon-button link must have an aria-label or an aria-labelledby attribute.',
+    button: 'An icon-button must have an aria-label or an aria-labelledby attribute.',
+  };
+
+  static readonly metadata: IRuleMetadata = {
+    // tslint:disable-next-line max-line-length
+    description: 'Ensures that text alternatives are given for elements that require alt, aria-label or aria-labelledby attributes.',
+    // tslint:disable-next-line no-null-keyword
+    options: null,
+    optionsDescription: 'Not configurable.',
+    rationale: 'Elements without a text content need additional attributes to provide text alternatives.',
+    ruleName: 'dt-a11y-text-alternatives',
+    type: 'maintainability',
+    typescriptOnly: true,
+  };
+
+  apply(sourceFile: SourceFile): RuleFailure[] {
+    return this.applyWithWalker(
+      new NgWalker(sourceFile, this.getOptions(), {
+        templateVisitorCtrl: DtA11yTextAlternativesVisitor,
+      }),
+    );
   }
 }
