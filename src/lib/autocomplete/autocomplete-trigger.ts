@@ -392,10 +392,11 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
   }
 
+  // TODO: reconsider if this config should be providable
   private _getOverlayConfig(): OverlayConfig {
     return new OverlayConfig({
       positionStrategy: this._getOverlayPosition(),
-      scrollStrategy: this._overlay.scrollStrategies.reposition(),
+      scrollStrategy: this._overlay.scrollStrategies.block(),
       width: this._getPanelWidth(),
     });
   }
