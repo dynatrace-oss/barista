@@ -127,7 +127,7 @@ export class DtFilterFieldControl {
       return this._transformAutocompleteData(def, this._distinctIds, this._inputText$.value);
     }
     if (isDtFreeTextDef(def)) {
-      return this._transformFreeTextData(def);
+      return this._transformFreeTextData(def, this._inputText$.value);
     }
     return null;
   }
@@ -146,9 +146,11 @@ export class DtFilterFieldControl {
   }
 
   /** Transforms a provided free text definition into a data object with a filtered suggestion list. */
-  private _transformFreeTextData(def: DtNodeDef): DtNodeData {
+  private _transformFreeTextData(def: DtNodeDef, filterText?: string): DtNodeData {
     const suggestions = def.freeText!.suggestions ?
-      def.freeText!.suggestions.map((option) => this._transformOptionData(option) as DtNodeData) : [];
+      (def.freeText!.suggestions
+      .map((option) => this._transformOptionData(option, undefined, filterText || ''))
+      .filter((optionsOrGroup) => optionsOrGroup !== null) as DtNodeData[]) : [];
     return dtFreeTextData(def, suggestions);
   }
 
