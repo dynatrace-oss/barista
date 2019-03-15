@@ -36,6 +36,7 @@ class MyModule {}
 ## Options & Properties
 
 | Name | Type | Default | Description |
+| --- | --- | --- | --- |
 | `name` | `string` | `-` | The name of the icon. 
 
 ## Configuration
