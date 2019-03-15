@@ -5,7 +5,8 @@
   [attr.width]="point.width"
   [attr.height]="point.height"
   class="dt-micro-chart-column"
->      {{id}}</svg:rect>
+  [attr.fill]="color"
+></svg:rect>
 
 <ng-container *ngIf="highlightExtremes">
   <svg:rect
@@ -14,6 +15,7 @@
     [attr.width]="minHighlightRectangle.width"
     [attr.height]="minHighlightRectangle.height"
     class="dt-micro-chart-column-extreme dt-micro-chart-column-extreme-min"
+    [attr.stroke]="color"
   ></svg:rect>
   <svg:text
     [attr.x]="extremes.minAnchor.x"
@@ -33,6 +35,7 @@
     [attr.width]="maxHighlightRectangle.width"
     [attr.height]="maxHighlightRectangle.height"
     class="dt-micro-chart-column-extreme dt-micro-chart-column-extreme-max"
+    [attr.stroke]="color"
   ></svg:rect>
   <svg:text
     [attr.x]="extremes.maxAnchor.x"

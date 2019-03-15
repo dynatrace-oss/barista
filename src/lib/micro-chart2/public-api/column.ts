@@ -11,6 +11,7 @@ import { isDefined } from '@dynatrace/angular-components/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   exportAs: 'dtMicroChartColumnSeries',
+  inputs: ['data', 'color'],
   providers: [{ provide: DtMicroChartSeries, useExisting: DtMicroChartColumnSeries }],
   encapsulation: ViewEncapsulation.Emulated,
 })
@@ -32,10 +33,6 @@ export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries implem
     this._highlightExtremes = coerceBooleanProperty(value);
   }
 
-  get _isStacked(): boolean {
-    return isDefined(this._stackedContainer);
-  }
-
   constructor(@Optional() @SkipSelf() public _stackedContainer: DtMicroChartStackContainer) {
     super(_stackedContainer);
   }
@@ -44,6 +41,7 @@ export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries implem
     return {
       type: this.type,
       publicSeriesId: this._id,
+      color: this.color,
       data: this.data,
       highlightExtremes: this._highlightExtremes,
       _minLabelTemplate: this._minLabelTemplate,

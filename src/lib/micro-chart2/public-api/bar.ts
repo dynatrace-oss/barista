@@ -9,15 +9,12 @@ import { isDefined } from '@dynatrace/angular-components/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   exportAs: 'dtMicroChartBarSeries',
+  inputs: ['data', 'color'],
   providers: [{ provide: DtMicroChartSeries, useExisting: DtMicroChartBarSeries }],
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtMicroChartBarSeries extends DtMicroChartStackableSeries implements OnChanges, OnDestroy {
   readonly type: DtMicroChartSeriesType = 'bar';
-
-  get _isStacked(): boolean {
-    return isDefined(this._stackedContainer);
-  }
 
   constructor(@Optional() @SkipSelf() public _stackedContainer: DtMicroChartStackContainer) {
     super(_stackedContainer);

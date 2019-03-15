@@ -19,6 +19,7 @@ let uniqueId = 0;
   },
   templateUrl: 'column.html',
   styleUrls: ['column.scss'],
+  inputs: ['color'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartColumnSeriesSVG },

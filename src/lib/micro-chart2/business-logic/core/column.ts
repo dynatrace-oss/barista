@@ -3,6 +3,8 @@ import { DtMicroChartSeriesData, DtMicroChartDomains, DtMicroChartUnifiedInputDa
 import { DtMicroChartConfig } from '../../micro-chart-config';
 import { findExtremes } from '../../helper-functions';
 import { DtMicroChartColumnSeries } from '../../public-api';
+import { Series } from 'd3-shape';
+import { isDefined } from '@dynatrace/angular-components/core';
 
 export interface DtMicroChartColumnScales {
   x: ScaleBand<number>;
@@ -25,63 +27,87 @@ export interface DtMicroChartColumnSeriesData extends DtMicroChartSeriesData {
 /** Helper function to calculate a datapoint based on scales and domains. */
 function calculatePoint(
   index: number,
-  dataPoint: number,
+  dp: number,
   domains: DtMicroChartDomains,
   scales: DtMicroChartColumnScales,
-  isStacked: boolean = false
+  dpStacked?: number
 ): DtMicroChartColumnDataPoint {
   // Bandwidth x is a unique string identifier.
   const x = scales.x(index) as number;
   let y;
-  if (!isStacked) {
+  let height;
+
+  // tslint:disable-next-line:prefer-conditional-expression
+  if (!dpStacked) {
     // If the y resulting y value is 0, move the indicator up by one to accomodate for minimum height of 1.
-    y =
-    scales.y(domains.y.min) - scales.y(dataPoint) > 0
-      ? scales.y(dataPoint)
-      : scales.y(dataPoint) - 1;
+    y = scales.y(domains.y.min) - scales.y(dp) > 0 ? scales.y(dp) : scales.y(dp) - 1;
+    // Fall back to a minimum height of 1.
+    height = scales.y(domains.y.min) - scales.y(dp) > 0 ? scales.y(domains.y.min) - scales.y(dp) : 1;
   } else {
-    y = scales.y(dataPoint);
+    y = scales.y(dpStacked);
+    height = scales.y(domains.y.min) - scales.y(dp);
   }
   const width = scales.x.bandwidth();
-  // Fall back to a minimum height of 1.
-  const height =
-    scales.y(domains.y.min) - scales.y(dataPoint) > 0
-      ? scales.y(domains.y.min) - scales.y(dataPoint)
-      : 1;
 
   return { x, y, height, width };
 }
 
-export function handleChartColumnSeries(width: number, series: DtMicroChartColumnSeries, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartColumnSeriesData {
+export function handleChartColumnSeries(
+  width: number,
+  series: DtMicroChartColumnSeries,
+  domains: DtMicroChartDomains,
+  config: DtMicroChartConfig,
+  stack?: Array<Series<{ [key: string]: number }, string>>
+): DtMicroChartColumnSeriesData {
   const scales = getScales(width, domains, config);
   const data = series._transformedData;
   // Calculate Min and Max values
-  const { min, minIndex, max, maxIndex } = findExtremes<Array<number|null>>(data, (d) => d[1]);
+  const { min, minIndex, max, maxIndex } = findExtremes<Array<number | null>>(
+    data,
+    (d) => d[1]
+  );
   const minPoint = calculatePoint(minIndex, min[1], domains, scales);
   const maxPoint = calculatePoint(maxIndex, max[1], domains, scales);
 
-  const isStacked = false;
-
-  const transformedData = {
-    points: data.map((dp, index) => calculatePoint(index, dp[1], domains, scales, isStacked)),
+  let transformedData: DtMicroChartColumnSeriesData = {
     scales,
-    extremes: {
-      min: minPoint,
-      minAnchor: {
-        // tslint:disable-next-line:no-magic-numbers
-        x: minPoint.x + (minPoint.width / 2),
-        y: minPoint.y + minPoint.height,
-      },
-      minValue: min[1],
-      max: maxPoint,
-      maxAnchor: {
-        // tslint:disable-next-line:no-magic-numbers
-        x: maxPoint.x + (maxPoint.width / 2),
-        y: maxPoint.y,
-      },
-      maxValue: max[1],
-    },
+    points: [],
   };
+
+  if (stack) {
+    const stackData = stack.find((stackedSeries) => stackedSeries.key === series._id);
+    if (stackData) {
+      transformedData.points = stackData.map((d, index) => {
+        const d0 = d[0];
+        const d1 = !isNaN(d[1]) ? d[1] : 0;
+        return calculatePoint(index, d1 - d0, domains, scales, d1);
+      });
+    } else {
+      throw new Error(`Stack data was not found for series: ${series._id}`);
+    }
+  } else {
+
+    transformedData = {
+      ...transformedData,
+      points: data.map((dp, index) => calculatePoint(index, dp[1], domains, scales)),
+      extremes: {
+        min: minPoint,
+        minAnchor: {
+          // tslint:disable-next-line:no-magic-numbers
+          x: minPoint.x + minPoint.width / 2,
+          y: minPoint.y + minPoint.height,
+        },
+        minValue: min[1],
+        max: maxPoint,
+        maxAnchor: {
+          // tslint:disable-next-line:no-magic-numbers
+          x: maxPoint.x + maxPoint.width / 2,
+          y: maxPoint.y,
+        },
+        maxValue: max[1],
+      }
+    };
+  }
   return transformedData;
 }
 

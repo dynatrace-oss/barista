@@ -4,7 +4,7 @@ import {
 } from '../../public-api';
 import { stack as d3Stack, Series } from 'd3-shape';
 import { DtMicroChartDomains } from './chart';
-import { max } from 'd3-array';
+import { max, min } from 'd3-array';
 
 /**
  * Create stack
@@ -45,8 +45,7 @@ export function createStack(
   const stackedSeries = series.filter(
     (s) =>
       s instanceof DtMicroChartStackableSeries &&
-      s.isStacked &&
-      !s._stackedContainer.disabled
+      s.isStacked
   );
 
   stackedSeries.forEach((s) => {
@@ -68,6 +67,21 @@ export function extendDomainForStack(
   domains: DtMicroChartDomains,
   stack: Array<Series<{ [key: string]: number }, string>>
 ): DtMicroChartDomains {
+  if (!stack.length) {
+    return domains;
+  }
   const stackMax = max(stack, (y) => max(y, (d) => d[1]));
-  return { ...domains, y: { ...domains.y, max: stackMax ? stackMax : domains.y.max }};
+  // if we have a NaN for the first series (happens when the first series has lesser datapoints than another stacked series)
+  // somewhere for a stack we need to set the stackMin to 0
+  // otherwise the stacking is off
+  const firstSeries = stack[0];
+  const stackMin = firstSeries.some((d) => isNaN(d[1])) ? 0 : min(stack, (y) => min(y, (d) => d[1]));
+  return {
+    ...domains,
+    y: {
+      ...domains.y,
+      max: stackMax !== undefined && stackMax > domains.y.max ? stackMax : domains.y.max,
+      min: stackMin !== undefined && stackMin < domains.y.min ? stackMin : domains.y.min,
+    },
+  };
 }

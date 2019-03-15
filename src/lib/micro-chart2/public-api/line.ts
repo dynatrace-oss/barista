@@ -18,6 +18,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   exportAs: 'dtMicroChartLineSeries',
+  inputs: ['data', 'color'],
   providers: [{ provide: DtMicroChartSeries, useExisting: DtMicroChartLineSeries }],
   encapsulation: ViewEncapsulation.Emulated,
 })
@@ -42,6 +43,7 @@ export class DtMicroChartLineSeries extends DtMicroChartSeries implements OnChan
     return {
       type: this.type,
       publicSeriesId: this._id,
+      color: this.color,
       data: this.data,
       highlightExtremes: this._highlightExtremes,
       _minLabelTemplate: this._minLabelTemplate,

@@ -15,9 +15,9 @@ export interface DtMicroChartLineSeriesSvgData {
 
 export interface DtMicroChartColumnSeriesSvgData {
   points: DtMicroChartColumnDataPoint[];
-  extremes: DtMicroChartExtremes<DtMicroChartColumnDataPoint>;
-  minHighlightRectangle: DtMicroChartColumnDataPoint;
-  maxHighlightRectangle: DtMicroChartColumnDataPoint;
+  extremes?: DtMicroChartExtremes<DtMicroChartColumnDataPoint>;
+  minHighlightRectangle?: DtMicroChartColumnDataPoint;
+  maxHighlightRectangle?: DtMicroChartColumnDataPoint;
 }
 
 export interface DtMicroChartBarSeriesSvgData {
@@ -44,28 +44,35 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
 
   createColumnSeriesRenderData(data: DtMicroChartColumnSeriesData): DtMicroChartColumnSeriesSvgData {
     const offset = 3;
-    const minHighlightRectangle = {
-      x: data.extremes.min.x - offset,
-      y: data.extremes.min.y - offset,
-      // tslint:disable-next-line:no-magic-numbers
-      width: data.extremes.min.width + (offset * 2),
-      // tslint:disable-next-line:no-magic-numbers
-      height: data.extremes.min.height + (offset * 2),
-    };
-    const maxHighlightRectangle = {
-      x: data.extremes.max.x - offset,
-      y: data.extremes.max.y - offset,
-      // tslint:disable-next-line:no-magic-numbers
-      width: data.extremes.max.width + (offset * 2),
-      // tslint:disable-next-line:no-magic-numbers
-      height: data.extremes.max.height + (offset * 2),
-    };
-    return {
+    let renderData: DtMicroChartColumnSeriesSvgData = {
       points: data.points,
-      extremes: data.extremes,
-      minHighlightRectangle,
-      maxHighlightRectangle,
     };
+    if (data.extremes) {
+      const minHighlightRectangle = {
+        x: data.extremes.min.x - offset,
+        y: data.extremes.min.y - offset,
+        // tslint:disable-next-line:no-magic-numbers
+        width: data.extremes.min.width + (offset * 2),
+        // tslint:disable-next-line:no-magic-numbers
+        height: data.extremes.min.height + (offset * 2),
+      };
+      const maxHighlightRectangle = {
+        x: data.extremes.max.x - offset,
+        y: data.extremes.max.y - offset,
+        // tslint:disable-next-line:no-magic-numbers
+        width: data.extremes.max.width + (offset * 2),
+        // tslint:disable-next-line:no-magic-numbers
+        height: data.extremes.max.height + (offset * 2),
+      };
+      renderData = {
+        ...renderData,
+        extremes: data.extremes,
+        minHighlightRectangle,
+        maxHighlightRectangle,
+      };
+    }
+
+    return renderData;
   }
 
   createBarSeriesRenderData(data: DtMicroChartBarSeriesData): DtMicroChartBarSeriesSvgData {

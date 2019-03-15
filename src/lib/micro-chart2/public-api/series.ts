@@ -7,6 +7,7 @@ export type DtMicroChartSeriesType = 'line' | 'column' | 'bar';
 export interface DtMicroChartRenderDataBase {
   type: DtMicroChartSeriesType;
   publicSeriesId: string;
+  color: string;
   data: Array<number|null> | number[][];
 }
 
@@ -22,7 +23,7 @@ export abstract class DtMicroChartSeries {
   readonly type: DtMicroChartSeriesType;
 
   private _data: Array<number|null> | number[][];
-  @Input()
+
   get data(): Array<number|null> | number[][] {
     return this._data;
   }
@@ -32,6 +33,9 @@ export abstract class DtMicroChartSeries {
     }
     this._data = value;
   }
+
+  /** This might be temporary */
+  color: string;
 
   /** @internal Assign unique id to the series. */
   _id = `series${uniqueId++}`;
@@ -52,6 +56,7 @@ export abstract class DtMicroChartSeries {
   get _renderData(): DtMicroChartRenderDataBase {
     return {
       type: this.type,
+      color: this.color,
       publicSeriesId: this._id,
       data: this.data,
     };

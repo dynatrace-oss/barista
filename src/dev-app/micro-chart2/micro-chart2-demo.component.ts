@@ -47,4 +47,3 @@ export class MicroChart2Demo {
     console.log(generateData(5, 15, 2700, Date.now(), 5));
   }
 }
-
