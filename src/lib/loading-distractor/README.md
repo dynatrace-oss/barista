@@ -4,9 +4,7 @@ type: "component"
 
 # Loading distractor & loading spinner
 
-<docs-source-example example="DefaultLoadingDistractorExampleComponent"></docs-source-example>
-
-`<dt-loading-spinner>` and `<dt-loading-distractor>` are a circular indicators of activity (eg. loading).
+The `<dt-loading-spinner>` and `<dt-loading-distractor>` are circular indicators of activity (e.g. loading of data).
 
 ## Imports
 
@@ -21,19 +19,23 @@ You have to import the `DtLoadingDistractorModule` when you want to use the `dt-
 class MyModule {}
 ```
 
-## Progress spinner
+## Loading spinner
+
+The loading spinner consists of an anmiated SVG circle and can be used in combination with other components, e.g. a form field.
 
 <docs-source-example example="SpinnerLoadingDistractorExampleComponent"></docs-source-example>
 
-## Inside a Form-field
+### Inside a form field
 
 When a `<dt-loading-spinner>` is placed as a prefix or suffix inside a `<dt-form-field>` the color and size adjust automatically.
 
 <docs-source-example example="InputLoadingDistractorExampleComponent"></docs-source-example>
 
-## Progress distractor
+## Loading distractor
 
 The `<dt-loading-distractor>` wraps the spinner and adds a label next to it.
+
+<docs-source-example example="DefaultLoadingDistractorExampleComponent"></docs-source-example>
 
 ### Options & Properties
 
@@ -44,4 +46,4 @@ The `<dt-loading-distractor>` wraps the spinner and adds a label next to it.
 ## Accessibility
 
 Each `<dt-loading-spinner>` should be given a meaningful label via `aria-label` or `aria-labelledby`.
-`<dt-loading-distractor>` will set the aria-labelledby attributes automatically.
+The `aria-labelledby` attribute of the `<dt-loading-distractor>` is set automatically based on the given content.
