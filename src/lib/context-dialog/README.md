@@ -14,32 +14,37 @@ The closing button inside the context dialog will get the focus, when the contex
 
 ## Imports
 
-You have to import the `DtContextDialogModule` when you want to use the `dt-context-dialog`:
+You have to import the `DtContextDialogModule` when you want to use the `<dt-context-dialog>`:
 
 ```typescript
 
 @NgModule({
   imports: [
-  DtContextDialogModule,
+    DtContextDialogModule,
   ],
 })
 class MyModule {}
 
 ```
 
-## Accessibility
-
-Context dialogs should be given a meaningful label via aria-label, because the button does not have a text.
-
-## Options & Properties
+## Inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `@Input() tabIndex` | `number` | `0` | Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex |
-| `@Input() disabled` | `boolean` | `false` | Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled |
-| `@Input() aria-label` | `string` |  | Aria label of the context dialog trigger button. |
-| `@Ouput() openedChanged` | `EventEmitter<boolean>` |  | Event emitted when the context dialog opens or closes. |
-| `isPanelOpen` | `boolean` |  | Returns wether or not the panel is open |
+| `tabIndex` | `number` | `0` | Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex |
+| `disabled` | `boolean` | `false` | Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled |
+| `aria-label` | `string` | | Aria label of the context dialog trigger button. |
+
+## Properties
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `isPanelOpen` | `boolean` | Returns wether or not the panel is open |
+
+## Outputs
+| Name | Type | Description |
+| --- | --- | --- |
+| `openedChanged` | `EventEmitter<boolean>` |  | Event emitted when the context dialog opens or closes. |
 
 ## Methods
 
@@ -48,6 +53,10 @@ Context dialogs should be given a meaningful label via aria-label, because the b
 | `open` | Opens the context dialog | `void` |
 | `close` | Closes the context dialog | `void` |
 | `focus` | Focuses the context dialog | `void` |
+
+## Accessibility
+
+Context dialogs should be given a meaningful label via `aria-label`, because the button does not have a text.
 
 ## Examples
 

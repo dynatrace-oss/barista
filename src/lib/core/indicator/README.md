@@ -27,9 +27,9 @@ class MyModule {}
 
 To apply the dynatrace indicator, add the `dtIndicator` directive to any component or html element.
 
-## Options & Properties
+## Inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `dtIndicator` | `boolean` | `true` | Wether the indicator is active | 
-| `dtIndicatorColor` | `string | undefined` | `error` | Sets color. Possible options: <ul><li><code>error</code></li><li><code>warning</code></li></ul> |
+| `dtIndicatorColor` | `string` \| `undefined` | `error` | Sets color. Possible options: `error` \| `warning`  |
