@@ -26,7 +26,9 @@ export class DtMicroChartLineSeries extends DtMicroChartSeries implements OnChan
   private _highlightExtremes;
   readonly type: DtMicroChartSeriesType = 'line';
 
+  // tslint:disable-next-line:no-any
   @ContentChild(DtMicroChartMinLabel, { read: TemplateRef }) _minLabelTemplate: TemplateRef<any>;
+  // tslint:disable-next-line:no-any
   @ContentChild(DtMicroChartMaxLabel, { read: TemplateRef }) _maxLabelTemplate: TemplateRef<any>;
 
   /**

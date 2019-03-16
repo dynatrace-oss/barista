@@ -3,7 +3,6 @@ import { DtMicroChartSeries, DtMicroChartSeriesType, DtMicroChartRenderDataBase,
 import { DtMicroChartMinLabel, DtMicroChartMaxLabel } from './extreme-label';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DtMicroChartStackContainer } from './stacked-container';
-import { isDefined } from '@dynatrace/angular-components/core';
 
 @Component({
   selector: 'dt-micro-chart-column-series',
@@ -20,7 +19,9 @@ export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries implem
 
   readonly type: DtMicroChartSeriesType = 'column';
 
+  // tslint:disable-next-line:no-any
   @ContentChild(DtMicroChartMinLabel, { read: TemplateRef }) _minLabelTemplate: TemplateRef<any>;
+  // tslint:disable-next-line:no-any
   @ContentChild(DtMicroChartMaxLabel, { read: TemplateRef }) _maxLabelTemplate: TemplateRef<any>;
 
   /**

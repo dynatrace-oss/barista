@@ -150,9 +150,11 @@ class SimpleLineSeries {
     { x: 202.5, y: 100 },
     { x: 270, y: 60 },
   ];
-
+  // tslint:disable-next-line:no-any
   minTemplate: TemplateRef<any>;
+  // tslint:disable-next-line:no-any
   @ViewChild('initialMinTemplate') initialMinTemplate: TemplateRef<any>;
+  // tslint:disable-next-line:no-any
   @ViewChild('updatedMinTemplate') updatedMinTemplate: TemplateRef<any>;
 
   path = 'M0,75L67.5,0L135,100L202.5,100L270,60';

@@ -29,12 +29,10 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG imple
   @Input() maxTemplate: TemplateRef<any>;
 
   /** Template portals for the minimum label content projection. */
-  // tslint:disable-next-line:no-any
-  _minPortal: TemplatePortal<any>;
+  _minPortal: TemplatePortal;
 
   /** Template portals for the maximum label content projection. */
-  // tslint:disable-next-line:no-any
-  _maxPortal: TemplatePortal<any>;
+  _maxPortal: TemplatePortal;
 
   /** @internal Element reference for the minimum Label. Needed for rendering the label into the svg */
   @ViewChild('minLabel') _minLabelElementRef: ElementRef;
@@ -57,7 +55,7 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG imple
       this._zone.onStable.pipe(
           takeUntil(this._destroy),
           take(1)
-        ).subscribe(() => this._setExtremeLabelPosition());
+        ).subscribe(() => { this._setExtremeLabelPosition(); });
     }
   }
 
@@ -65,13 +63,13 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG imple
   private _setExtremeLabelPosition(): void {
     if (this._minLabelElementRef && this.extremes && this.extremes.minAnchor && isDefined(this.extremes.minAnchor.x)) {
       const minLabelLength = this._minLabelElementRef.nativeElement.getComputedTextLength();
-      const minLabelTextAnchor = calculateLabelPosition(this.extremes.minAnchor.x! + this.plotOffsetX, minLabelLength, this.width);
+      const minLabelTextAnchor = calculateLabelPosition(this.extremes.minAnchor.x + this.plotOffsetX, minLabelLength, this.width);
       // We set the text-anchor attribute directly on the element to prevent an additional ChangeDetection cycle.
       this._minLabelElementRef.nativeElement.setAttribute('text-anchor', minLabelTextAnchor);
     }
     if (this._maxLabelElementRef && this.extremes && this.extremes.maxAnchor && isDefined(this.extremes.maxAnchor.x)) {
       const maxLabelLength = this._maxLabelElementRef.nativeElement.getComputedTextLength();
-      const maxLabelTextAnchor = calculateLabelPosition(this.extremes.maxAnchor.x! + this.plotOffsetX, maxLabelLength, this.width);
+      const maxLabelTextAnchor = calculateLabelPosition(this.extremes.maxAnchor.x + this.plotOffsetX, maxLabelLength, this.width);
       // We set the text-anchor attribute directly on the element to prevent an additional ChangeDetection cycle.
       this._maxLabelElementRef.nativeElement.setAttribute('text-anchor', maxLabelTextAnchor);
     }

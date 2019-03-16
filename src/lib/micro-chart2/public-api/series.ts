@@ -13,7 +13,9 @@ export interface DtMicroChartRenderDataBase {
 
 export interface DtMicroChartRenderDataExtremes {
   highlightExtremes: boolean;
+  // tslint:disable-next-line:no-any
   _minLabelTemplate: TemplateRef<any>;
+  // tslint:disable-next-line:no-any
   _maxLabelTemplate: TemplateRef<any>;
 }
 

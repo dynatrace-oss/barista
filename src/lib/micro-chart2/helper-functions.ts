@@ -62,44 +62,13 @@ export function findMaximum<T>(values: T[], accessor?: (arg0: T) => number | nul
   return max;
 }
 
-// /**
-//  * Iterate over the passed values and find the minimum and maximum values.
-//  */
-// export function findExtremes(values: Map<number, number | null>): { min: number; max: number; minIndex: number; maxIndex: number } {
-//   let minValue;
-//   let min;
-//   let maxValue;
-//   let max;
-//   let minIndex;
-//   let maxIndex;
-
-//   let index = 0;
-//   const iterator = values.entries();
-//   let result = iterator.next();
-//   while (!result.done) {
-//     const [_, value] = result.value;
-//     if (value !== null && (min === undefined || min > value)) {
-//       minValue = value;
-//       min = value;
-//       minIndex = index;
-//     }
-//     if (value !== null && (max === undefined || max < value)) {
-//       maxValue = value;
-//       max = value;
-//       maxIndex = index;
-//     }
-//     index += 1;
-//     result = iterator.next();
-//   }
-//   return {
-//     min,
-//     max,
-//     minIndex,
-//     maxIndex,
-//   };
-// }
-
-export function findExtremes<T>(values: T[], accessor?: (arg0: T) => number | null): { min: number | T; max: number | T; minIndex: number; maxIndex: number; } {
+/**
+ * Iterate over the passed values and find the minimum and maximum values.
+ */
+export function findExtremes<T>(
+  values: T[],
+  accessor?: (arg0: T) => number | null
+): { min: number | T; max: number | T; minIndex: number; maxIndex: number } {
   let minValue;
   let min;
   let maxValue;
@@ -110,12 +79,20 @@ export function findExtremes<T>(values: T[], accessor?: (arg0: T) => number | nu
   let index = 0;
   if (accessor === undefined) {
     for (const value of values) {
-      if (value !== null && value >= value && (min === undefined || min < value)) {
+      if (
+        value !== null &&
+        value >= value &&
+        (min === undefined || min < value)
+      ) {
         minValue = value;
         min = value;
         minIndex = index;
       }
-      if (value !== null && value >= value && (max === undefined || max < value)) {
+      if (
+        value !== null &&
+        value >= value &&
+        (max === undefined || max < value)
+      ) {
         maxValue = value;
         max = value;
         maxIndex = index;
@@ -125,12 +102,20 @@ export function findExtremes<T>(values: T[], accessor?: (arg0: T) => number | nu
   } else {
     for (const value of values) {
       const compareValue = accessor(value);
-      if (compareValue !== null && compareValue >= compareValue && (minValue === undefined || minValue > compareValue)) {
+      if (
+        compareValue !== null &&
+        compareValue >= compareValue &&
+        (minValue === undefined || minValue > compareValue)
+      ) {
         minValue = compareValue;
         min = value;
         minIndex = index;
       }
-      if (compareValue !== null && compareValue >= compareValue && (maxValue === undefined || maxValue < compareValue)) {
+      if (
+        compareValue !== null &&
+        compareValue >= compareValue &&
+        (maxValue === undefined || maxValue < compareValue)
+      ) {
         maxValue = compareValue;
         max = value;
         maxIndex = index;

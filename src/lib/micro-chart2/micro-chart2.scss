@@ -1,7 +1,9 @@
+@import '../core/style/variables';
+
 :host {
   display: block;
 }
 
 svg {
-  border: 1px solid red;
+  border: 1px solid $gray-500;
 }

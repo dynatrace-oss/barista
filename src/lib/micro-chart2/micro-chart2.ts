@@ -16,13 +16,12 @@ import {
 } from '@angular/core';
 import { DtViewportResizer, Constructor, mixinColor, CanColor } from '@dynatrace/angular-components/core';
 import { takeUntil, switchMap, startWith, filter, map } from 'rxjs/operators';
-import { Subject, combineLatest, of, iif, merge } from 'rxjs';
+import { Subject, combineLatest, of } from 'rxjs';
 import { DtMicroChartConfig } from './micro-chart-config';
-import { DtMicroChartSeries, DtMicroChartAxis, DtMicroChartXAxis, DtMicroChartYAxis, DtMicroChartColumnSeries, DtMicroChartStackContainer, DtMicroChartBarSeries } from './public-api';
+import { DtMicroChartSeries, DtMicroChartXAxis, DtMicroChartYAxis, DtMicroChartColumnSeries, DtMicroChartStackContainer, DtMicroChartBarSeries } from './public-api';
 import { DtMicroChartSeriesSVG } from './series';
-import { createChartDomains, DtMicroChartSeriesData, DtMicroChartIdentification, applyAxesExtentsToDomain } from './business-logic/core/chart';
-import { DT_MICRO_CHART_RENDERER } from './business-logic/renderer/base';
-import { DtMicroChartSvgRenderer, DtMicroChartLineSeriesSvgData, DtMicroChartColumnSeriesSvgData, DtMicroChartRendererSeriesData } from './business-logic/renderer/svg-renderer';
+import { createChartDomains, applyAxesExtentsToDomain } from './business-logic/core/chart';
+import { DtMicroChartSvgRenderer, DtMicroChartRendererSeriesData } from './business-logic/renderer/svg-renderer';
 import { handleChartLineSeries } from './business-logic/core/line';
 import { handleChartBarSeries } from './business-logic/core/bar';
 import { handleChartColumnSeries } from './business-logic/core/column';

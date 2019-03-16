@@ -159,9 +159,11 @@ class SimpleColumnSeries {
     { x: 196, y: 99, height: 1, width: 24 },
     { x: 245, y: 80, height: 20, width: 24 },
   ];
-
+  // tslint:disable-next-line:no-any
   minTemplate: TemplateRef<any>;
+  // tslint:disable-next-line:no-any
   @ViewChild('initialMinTemplate') initialMinTemplate: TemplateRef<any>;
+  // tslint:disable-next-line:no-any
   @ViewChild('updatedMinTemplate') updatedMinTemplate: TemplateRef<any>;
 
   highlightExtremes = true;

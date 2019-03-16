@@ -1,5 +1,5 @@
 import { ScaleLinear, scaleLinear, ScaleBand, scaleBand } from 'd3-scale';
-import { DtMicroChartSeriesData, DtMicroChartDomains, DtMicroChartUnifiedInputData } from './chart';
+import { DtMicroChartDomains } from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
 import { Series } from 'd3-shape';
 import { DtMicroChartBarSeries } from '../../public-api';
@@ -16,7 +16,7 @@ export interface DtMicroChartBarDataPoint {
   height: number;
 }
 
-export interface DtMicroChartBarSeriesData extends DtMicroChartSeriesData {
+export interface DtMicroChartBarSeriesData {
   points: DtMicroChartBarDataPoint[];
   scales: DtMicroChartBarScales;
 }
@@ -63,34 +63,6 @@ export function handleChartBarSeries(
   return transformedData;
 }
 
-// export function handleChartBarSeries(width: number, data: DtMicroChartUnifiedInputData, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartBarSeriesData {
-//   const { x, y } = getScales(width, domains, config);
-
-//   const points: DtMicroChartBarDataPoint[]  = [];
-//   const iterator = data.entries();
-//   let result = iterator.next();
-//   while (!result.done) {
-//     const [key, value] = result.value;
-//     points.push({
-//       x: x(domains.y.min),
-//       y: y(key) as number,
-//       // TODO: check for null correctly
-//       width: x(value!) > 0 ? x(value!) : 1,
-//       height: y.bandwidth(),
-//     });
-//     result = iterator.next();
-//   }
-
-//   const transformedData = {
-//     points,
-//     scales: {
-//       x,
-//       y,
-//     },
-//   };
-//   return transformedData;
-// }
-
 function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartBarScales {
   const x = scaleLinear()
     .range([0, width - config.marginLeft - config.marginRight])
@@ -98,6 +70,7 @@ function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroC
 
   const y = scaleBand<number>()
     .range([0, config.height - config.marginTop - config.marginBottom])
+    // tslint:disable-next-line:no-magic-numbers
     .paddingInner(0.2)
     .domain(new Array(domains.x.numberOfPoints).fill(1).map((_, i) => i));
   return { x, y };
