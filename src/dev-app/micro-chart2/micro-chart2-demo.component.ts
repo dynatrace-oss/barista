@@ -42,8 +42,4 @@ export class MicroChart2Demo {
     data.push(value);
     this.series.data = data;
   }
-
-  constructor() {
-    console.log(generateData(5, 15, 2700, Date.now(), 5));
-  }
 }
