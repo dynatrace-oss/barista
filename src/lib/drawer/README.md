@@ -6,13 +6,11 @@ type: "component"
 
 <docs-source-example example="DefaultDrawerExampleComponent"></docs-source-example>
 
-## Description
-
 The Dynatrace Drawer is a component designed to add collapsible side content *(often navigation, though it can be any content)* alongside some primary content.
 
 ## Imports
 
-You have to import the `DtDrawerModule` when you want to use the `dt-drawer` and `dt-drawer-container`, to have animations available you need Angular's `BrowserAnimationsModule`.
+You have to import the `DtDrawerModule` when you want to use the `<dt-drawer>` and `<dt-drawer-container>`, note that you need Angular's `BrowserAnimationsModule` if you want to have animations or the `NoopAnimationsModule` if you don't.
 
 ```typescript
 
@@ -29,15 +27,9 @@ class MyModule {}
 
 ```
 
-## Usage in the template
-
 To use the drawer in your template there are two tags. First of all you need the `<dt-drawer-container>` that wraps your drawer and the main content. Inside this container you can put the `<dt-drawer>` tag. Inside the drawer tag you can put the content that should be pushed to off-canvas.
 
-## Inputs & Outputs
-
-The following inputs and outputs are on the `<dt-drawer>` element.
-
-### Inputs
+## Inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -45,10 +37,10 @@ The following inputs and outputs are on the `<dt-drawer>` element.
 | `position` | `'start' | 'end'` | `'start'` | Defines if the drawer is on the left or right side in a container. *(A drawer container can only have one drawer per position)* |
 | `opened` | `boolean` | `false` | The actual open state of the drawer. |
 
-### Outputs
+## Outputs
 
 | Name | Type | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | `opened` | `Observable<void>` | Event emitted when the drawer has been opened.  |
 | `closed` | `Observable<void>` | Event emitted when the drawer has been closed. |
 | `openChange` | `EventEmitter<boolean>` | Emits when the drawer open state changes. Emits a boolean value for the open sate *(true for open, false for close)*. |
