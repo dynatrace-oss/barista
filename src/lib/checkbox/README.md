@@ -6,7 +6,7 @@ type: "component"
 
 <docs-source-example example="DefaultCheckboxExampleComponent"></docs-source-example>
 
-`<dt-checkbox>` provides the same functionality as a native enhanced with styling and animations.
+The `<dt-checkbox>` provides the same functionality as a native checkbox enhanced with styling and animations.
 
 ## Imports
 
@@ -38,6 +38,13 @@ class MyModule {}
 | `@Input() aria-labelledby` | `string` | Is read after the element's label and field type |
 | `@Output() change` | `DtCheckboxChange<T>` | Callen everytime the checkbox gets checked or uncheced |
 
+## Methods
+
+| Name | Description | Return value |
+| --- | --- | --- |
+| `focus` | Focuses the checkbox | `void` |
+| `toggle` | Toggles the checkbox's state between checked and unchecked programmatically | `void` |
+
 ## Indeterminate state
 
 `<dt-checkbox>` supports an indeterminate state, similar to the native `<input type="checkbox">`.
@@ -46,7 +53,7 @@ Any interaction with the checkbox by a user (i.e., clicking) will remove the ind
 
 <docs-source-example example="IndeterminateCheckboxExampleComponent"></docs-source-example>
 
-Angular forms `<dt-checkbox>` is compatible with @angular/forms and supports both FormsModule and ReactiveFormsModule.
+The `<dt-checkbox>` is compatible with @angular/forms and supports both FormsModule and ReactiveFormsModule.
 
 ## Accessibility
 
