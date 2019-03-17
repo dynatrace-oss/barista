@@ -4,6 +4,8 @@ type: "component"
 
 # Overlay
 
+The overlay component is used to display additional context information or to analyze charts, tags or tiles. The overlay's content should be reduced to a minimal amount of necessary components to display further information and actions.
+
 There are two ways to create overlays: using the `DtOverlay` service or the `DtOverlayTrigger` directive. The service can be used to apply overlays programatically or to pass components into the overlay. The directive can be used inside the template with a `templateRef` as the content of the overlay. The following basic example uses the `DtOverlay` service and passes an optional configuration (find details below) to the overlay.
 
 <docs-source-example example="DefaultOverlayExampleComponent"></docs-source-example>
