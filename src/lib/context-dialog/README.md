@@ -29,28 +29,28 @@ class MyModule {}
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `tabIndex` | `number` | `0` | Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex |
-| `disabled` | `boolean` | `false` | Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled |
+| `tabIndex` | `number` | `0` | Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex. |
+| `disabled` | `boolean` | `false` | Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled. |
 | `aria-label` | `string` | | Aria label of the context dialog trigger button. |
 
 ## Properties
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `isPanelOpen` | `boolean` | Returns wether or not the panel is open |
+| `isPanelOpen` | `boolean` | Returns wether or not the panel is open. |
 
 ## Outputs
 | Name | Type | Description |
 | --- | --- | --- |
-| `openedChanged` | `EventEmitter<boolean>` |  | Event emitted when the context dialog opens or closes. |
+| `openedChanged` | `EventEmitter<boolean>` | Event emitted when the context dialog opens or closes. |
 
 ## Methods
 
 | Name | Description | Return value |
 | --- | --- | --- |
-| `open()` | Opens the context dialog | `void` |
-| `close()` | Closes the context dialog | `void` |
-| `focus()` | Focuses the context dialog | `void` |
+| `open()` | Opens the context dialog. | `void` |
+| `close()` | Closes the context dialog. | `void` |
+| `focus()` | Focuses the context dialog. | `void` |
 
 ## Accessibility
 
