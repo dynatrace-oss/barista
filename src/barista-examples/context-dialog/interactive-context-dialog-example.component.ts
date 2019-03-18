@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <div>
       <button *ngIf="customTrigger" dt-icon-button [dtContextDialogTrigger]="interactiveDialog"
               [disabled]="interactiveDialogDisabled" variant="secondary"
-              aria-label="A example button containing an icon">
+              aria-label="An example button containing an icon">
         <dt-icon name="agent"></dt-icon>
       </button>
       <dt-context-dialog #interactiveDialog [disabled]="interactiveDialogDisabled">
