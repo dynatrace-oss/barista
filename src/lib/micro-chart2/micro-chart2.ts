@@ -27,6 +27,7 @@ import { handleChartBarSeries } from './business-logic/core/bar';
 import { handleChartColumnSeries } from './business-logic/core/column';
 import { createStack, extendDomainForStack } from './business-logic/core/stacks';
 import { Series } from 'd3-shape';
+import { DT_MICRO_CHART_RENDERER } from './business-logic/renderer/base';
 
 /** Injection token that can be used to specify default micro-chart options. */
 export const DT_MICRO_CHART_DEFAULT_OPTIONS =

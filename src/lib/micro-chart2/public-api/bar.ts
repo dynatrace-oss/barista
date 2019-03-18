@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnChanges, OnDestroy, Optional, SkipSelf } from '@angular/core';
 import { DtMicroChartSeries, DtMicroChartSeriesType, DtMicroChartStackableSeries } from './series';
 import { DtMicroChartStackContainer } from './stacked-container';
-import { isDefined } from '@dynatrace/angular-components/core';
 
 @Component({
   selector: 'dt-micro-chart-bar-series',
