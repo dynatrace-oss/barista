@@ -19,14 +19,12 @@ In addition to the custom content, the cta card can hold some special sections:
 You have to import the `DtCtaCardModule` when you want to use the `dt-cta-card`:
 
 ```typescript
-
 @NgModule({
   imports: [
     DtCtaCardModule,
   ],
 })
 class MyModule {}
-
 ```
 
 Please note that you should not use the cta-card's elements like title to hold any arbitrary content just for spacing purposes, make sure to put only the cards title inside the `<dt-cta-card-title>` element and not controls like buttons.

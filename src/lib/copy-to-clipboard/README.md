@@ -21,7 +21,6 @@ You have to import the `DtCopyToClipboardModule` when you want to use the `dt-co
   ],
 })
 class MyModule {}
-
 ```
 
 ## Inputs
@@ -42,7 +41,7 @@ class MyModule {}
 
 | Name | Description | Return value |
 | --- | --- | --- |
-| `copyToClipboard` | triggers copy to clipboard programmatically | `void` |
+| `copyToClipboard()` | triggers copy to clipboard programmatically | `void` |
 
 ## Examples
 
