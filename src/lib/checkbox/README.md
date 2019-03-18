@@ -40,7 +40,7 @@ class MyModule {}
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `change` | `DtCheckboxChange<T>` | Called everytime the checkbox gets checked or unchecked |
+| `change` | `DtCheckboxChange<T>` | Called everytime the checkbox gets checked or unchecked. |
 
 ## Methods
 
