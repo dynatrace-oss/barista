@@ -6,7 +6,7 @@ type: "component"
 
 <docs-source-example example="DefaultCheckboxExampleComponent"></docs-source-example>
 
-The `<dt-checkbox>` provides the same functionality as a native checkbox enhanced with styling and animations.
+The `<dt-checkbox>` provides the same functionality as a native checkbox enhanced with styling and animations. You can set the label as the `ng-content` of the `<dt-checkbox>` component.
 
 ## Imports
 
@@ -21,29 +21,33 @@ You have to import the `DtCheckboxModule` when you want to use the `dt-checkbox`
 class MyModule {}
 ```
 
-## Options & Properties
+## Inputs
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `ng-content` | `string` | Text will be set as the label. |
-| `@Input() checked` | `boolean` | Whether or not the checkbox is checked. |
-| `@Input() id` | `string` | Unique id of the element. |
-| `@Input() required` | `boolean` | Whether the checkbox is required. |
-| `@Input() indeterminate` | `boolean` | Whether the element is in indeterminate state also known as mixed mode. |
-| `@Input() disabled` | `boolean` | Whether the element is disabled. |
-| `@Input() tabIndex` | `number` | The elements tab index. |
-| `@Input() name` | `string` | The elements tab index. |
-| `@Input() value` | `<T>` | The value attribute of the native input element |
-| `@Input() aria-label` | `string` | Takes precedence as the element's text alternative. |
-| `@Input() aria-labelledby` | `string` | Is read after the element's label and field type |
-| `@Output() change` | `DtCheckboxChange<T>` | Callen everytime the checkbox gets checked or uncheced |
+| `checked` | `boolean` | Whether or not the checkbox is checked. |
+| `id` | `string` | Unique id of the element. |
+| `required` | `boolean` | Whether the checkbox is required. |
+| `indeterminate` | `boolean` | Whether the element is in indeterminate state also known as mixed mode. |
+| `disabled` | `boolean` | Whether the element is disabled. |
+| `tabIndex` | `number` | The elements tab index. |
+| `name` | `string` | The elements tab index. |
+| `value` | `<T>` | The value attribute of the native input element |
+| `aria-label` | `string` | Takes precedence as the element's text alternative. |
+| `aria-labelledby` | `string` | Is read after the element's label and field type |
+
+## Outputs
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `change` | `DtCheckboxChange<T>` | Callen everytime the checkbox gets checked or uncheced |
 
 ## Methods
 
 | Name | Description | Return value |
 | --- | --- | --- |
-| `focus` | Focuses the checkbox | `void` |
-| `toggle` | Toggles the checkbox's state between checked and unchecked programmatically | `void` |
+| `focus()` | Focuses the checkbox | `void` |
+| `toggle()` | Toggles the checkbox's state between checked and unchecked programmatically | `void` |
 
 ## Indeterminate state
 
