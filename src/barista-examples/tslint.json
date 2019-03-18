@@ -1,7 +1,12 @@
 {
-  "extends": "../../tslint.json",
+  "extends": [
+    "../../tslint.json",
+    "../linting"
+  ],
   "rules": {
     "i18n": false,
-    "no-magic-numbers": false
+    "no-magic-numbers": false,
+    "dt-a11y-text-alternatives": true,
+    "dt-button": true
   }
 }
