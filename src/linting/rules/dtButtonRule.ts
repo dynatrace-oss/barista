@@ -1,4 +1,4 @@
-import { AttrAst, ElementAst, TextAst } from '@angular/compiler';
+import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
@@ -57,10 +57,9 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     }
 
     if (isButton) {
-      const textAstChildren = element.children.filter((child) => child instanceof TextAst) as TextAst[];
-      if (!textAstChildren.some((child) => child.value.trim().length > 0)) {
+      if (element.children.length < 1) {
         // tslint:disable-next-line max-line-length
-        this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-button must always contain text.');
+        this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-button must always contain text. Make sure that this is the case even if you use nested components to render text.');
       }
     }
   }
