@@ -32,22 +32,22 @@ class MyModule {}
 | `disabled` | `boolean` | Whether the element is disabled. |
 | `tabIndex` | `number` | The elements tab index. |
 | `name` | `string` | The elements tab index. |
-| `value` | `<T>` | The value attribute of the native input element |
+| `value` | `<T>` | The value attribute of the native input element. |
 | `aria-label` | `string` | Takes precedence as the element's text alternative. |
-| `aria-labelledby` | `string` | Is read after the element's label and field type |
+| `aria-labelledby` | `string` | Is read after the element's label and field type. |
 
 ## Outputs
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `change` | `DtCheckboxChange<T>` | Callen everytime the checkbox gets checked or uncheced |
+| `change` | `DtCheckboxChange<T>` | Called everytime the checkbox gets checked or unchecked |
 
 ## Methods
 
 | Name | Description | Return value |
 | --- | --- | --- |
-| `focus()` | Focuses the checkbox | `void` |
-| `toggle()` | Toggles the checkbox's state between checked and unchecked programmatically | `void` |
+| `focus()` | Focuses the checkbox. | `void` |
+| `toggle()` | Toggles the checkbox's state between checked and unchecked programmatically. | `void` |
 
 ## Indeterminate state
 
