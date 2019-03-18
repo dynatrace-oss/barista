@@ -17,14 +17,12 @@ The closing button inside the context dialog will get the focus, when the contex
 You have to import the `DtContextDialogModule` when you want to use the `<dt-context-dialog>`:
 
 ```typescript
-
 @NgModule({
   imports: [
     DtContextDialogModule,
   ],
 })
 class MyModule {}
-
 ```
 
 ## Inputs
@@ -50,9 +48,9 @@ class MyModule {}
 
 | Name | Description | Return value |
 | --- | --- | --- |
-| `open` | Opens the context dialog | `void` |
-| `close` | Closes the context dialog | `void` |
-| `focus` | Focuses the context dialog | `void` |
+| `open()` | Opens the context dialog | `void` |
+| `close()` | Closes the context dialog | `void` |
+| `focus()` | Focuses the context dialog | `void` |
 
 ## Accessibility
 
