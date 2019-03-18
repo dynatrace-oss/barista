@@ -1,3 +1,17 @@
+## 2.2.0 (2019-03-18)
+
+### Bug Fixes
+
+* **filter-field:** Fixes an issue where the suggestion list could not be filtered and stayed visible even without suggestions ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **filter-field:** Fixes an issue where the autocomplete could overlap other parts of the page although the filter field input was not visible. Page level scrolling is now blocked when the filter field's autocomplete is open ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Features
+
+* **linting:** Adds setup to ship angular-components specific a11y and usage linting rules ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Special Thanks
+Bernd Farka
+
 ## 2.1.0 (2019-03-12)
 
 
