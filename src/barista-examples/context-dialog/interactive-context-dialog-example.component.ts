@@ -5,12 +5,13 @@ import { Component } from '@angular/core';
   template: `
     <div>
       <button *ngIf="customTrigger" dt-icon-button [dtContextDialogTrigger]="interactiveDialog"
-              [disabled]="interactiveDialogDisabled" variant="secondary">
-      <dt-icon name="agent"></dt-icon>
-    </button>
-    <dt-context-dialog #interactiveDialog [disabled]="interactiveDialogDisabled">
-      <p>Your dashboard "real user monitoring"<br> is only visible to you</p>
-    </dt-context-dialog>
+              [disabled]="interactiveDialogDisabled" variant="secondary"
+              aria-label="A example button containing an icon">
+        <dt-icon name="agent"></dt-icon>
+      </button>
+      <dt-context-dialog #interactiveDialog [disabled]="interactiveDialogDisabled">
+        <p>Your dashboard "real user monitoring"<br> is only visible to you</p>
+      </dt-context-dialog>
     </div>
     <button dt-button (click)="interactiveDialog.open()">Open</button>
     <button dt-button (click)="interactiveDialog.close()">Close</button>

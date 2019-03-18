@@ -147,8 +147,10 @@ export class ThreadFlatNode {
       <dt-tree-table-header-cell *dtHeaderCellDef>Actions</dt-tree-table-header-cell>
       <dt-cell *dtCellDef="let row">
         <ng-container *ngIf="!row.isShowMore">
-          <button dt-icon-button variant="nested"><dt-icon name="filter"></dt-icon></button>
-          <button dt-icon-button variant="nested" [dtContextDialogTrigger]="dialog"><dt-icon name="more"></dt-icon></button>
+          <button dt-icon-button variant="nested" aria-label="Filter results"><dt-icon name="filter"></dt-icon></button>
+          <button dt-icon-button variant="nested" [dtContextDialogTrigger]="dialog" aria-label="Show more data">
+            <dt-icon name="more"></dt-icon>
+          </button>
           <dt-context-dialog #dialog>
             {{row.name}} context dialog
           </dt-context-dialog>
