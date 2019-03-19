@@ -3,8 +3,7 @@ type: "component"
 ---
 
 # Filter field (Experimental)
-
-DO NOT USE IN PRODUCTION!    
-This component is WIP and therefore experimental.
+  
+This component is WIP and therefore experimental. API documentation will follow soon.
 
 <docs-source-example example="DefaultFilterFieldExample"></docs-source-example>
