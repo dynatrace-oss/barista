@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
     <dt-context-dialog>
       <button dt-button variant="secondary">Edit</button>
     </dt-context-dialog>
-    <button dt-icon-button [dtContextDialogTrigger]="darkIcondialog" variant="secondary" aria-label="An example button containing an agent icon">
+    <button dt-icon-button [dtContextDialogTrigger]="darkIcondialog" variant="secondary" aria-label="Open context dialog">
       <dt-icon name="agent"></dt-icon>
     </button>
     <dt-context-dialog #darkIcondialog>
