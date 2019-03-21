@@ -6,7 +6,7 @@ type: "component"
 
 ## Imports
 
-You have to import the `DtAlertModule` when you want to use the `dt-alert`:
+You have to import the `DtAlertModule` to use the `dt-alert`:
 
 ```typescript
 @NgModule({
@@ -23,11 +23,9 @@ To apply the dynatrace alert component, use the `<dt-alert>` element. Example:
 
 <docs-source-example example="WarningAlertExampleComponent"></docs-source-example>
 
-| Attribute        | Description    |
-| ---------------- | -------------- |
-| `dt-alert`       | The component  |
-
 ## Options & Properties
+
+The alert component is a wrapper component that holds a `dt-icon` and some text.
 
 | Name  | Type | Default | Description |
 | --- | --- | --- | --- |

@@ -24,7 +24,7 @@ class MyModule {}
 
 ## Initialization
 
-To use the dynatrace tabs, add the following components/directives:
+To use the Dynatrace tabs, add the following components/directives:
 
 | Attribute                   | Description                                           |
 | --------------------------- | ----------------------------------------------------- |
@@ -37,11 +37,15 @@ To use the dynatrace tabs, add the following components/directives:
 
 ### DtTabGroup
 
+#### Outputs
+
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `@Ouput() selectionChanged` | `EventEmitter<DtTabChange>` |  | Event emitted when the selected tab changes, includes the selected tab instance |
+| `selectionChanged` | `EventEmitter<DtTabChange>` |  | Event emitted when the selected tab changes, includes the selected tab instance |
 
 ### DtTab
+
+#### Inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
