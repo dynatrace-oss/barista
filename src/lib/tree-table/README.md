@@ -21,7 +21,7 @@ class MyModule {}
 
 ## Description
 
-The `<dt-tree-table>` provides the functionality of a tree displayed in a grid/table. The api is very similar to the `<dt-table>` component. You define the different columns and rows and choose which columns should be rendered inside each row. It is also possible to have multiple different row templates that can be switched when a row should have a special behavior e.g. a show more row for lazily loading more rows.
+The `<dt-tree-table>` provides the functionality of a tree displayed in a grid/table. The api is very similar to the `<dt-table>` component. You define the different columns and rows and choose which columns should be rendered inside each row. It is also possible to have multiple different row templates that can be switched when a row should have a special behavior e.g. a show more row for lazy loading more rows.
 
 ## Usage
 
@@ -128,7 +128,7 @@ A normal column could like the following example
 
 After adding all column definitions the next step is to add the row definitions.
 
-### Adding the rows
+### Adding rows
 
 You want to add the table header by adding a `<dt-header-row>` inside the `<dt-tree-table>` tag. 
 
@@ -157,19 +157,26 @@ You can use the `DtIndicator` directive the same way as in the `<dt-table>` to i
 ## Options & Properties & Methods
 
 ### DtTreeTable
+
+#### Inputs
+
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `@Input() treeControl` | `DtTreeControl<T>` | - | Input for the treeControl that handles expand/collapse of rows |
-| `@Input('aria-label') ariaLabel` | `string` | '' | Input for the aria label of the treetable |
-| `@Input() hasInteractiveRows` | `boolean` | `false` | Input wether the tree-table should have interactive rows - results in a hover effect |
-| `@Input() trackBy` | `Fn(index, T)` |  | Tracking function that will be used to check the differences in data changes. Used similarly to ngFor trackBy function. |
+| `treeControl` | `DtTreeControl<T>` | - | Input for the treeControl that handles expand/collapse of rows |
+| `ariaLabel` | `string` | '' | Input for the aria label of the treetable |
+| `hasInteractiveRows` | `boolean` | `false` | Input wether the tree-table should have interactive rows - results in a hover effect |
+| `trackBy` | `Fn(index, T)` |  | Tracking function that will be used to check the differences in data changes. Used similarly to ngFor trackBy function. |
 
 ### DtTreeTableRow
+
+#### Inputs
+
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `@Input() data` | - | The data for the row. Note that this might be removed rather soon and made obsolete due to a feature request on the underlying cdk table |
+| `data` | - | The data for the row. Note that this might be removed rather soon and made obsolete due to a feature request on the underlying cdk table |
 
 ### DtTreeControl
+
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `dataNodes` | `T[]` |  | Saved row data for expandAll action |
@@ -179,6 +186,7 @@ You can use the `DtIndicator` directive the same way as in the `<dt-table>` to i
 | `isExpandable` | `(dataNode: T) => boolean` | | function that returns wether a node is expandable |
 
 #### Methods
+
 | Name | Return value | Description |
 | --- | --- | --- |
 | `collapse(row: T)` | `void` | collapses one single row |
@@ -193,6 +201,7 @@ You can use the `DtIndicator` directive the same way as in the `<dt-table>` to i
 | `toggleDescendants(row: T)` | `void` | Toggles descendants of a row |
 
 ### DtTreeFlattener<T, F>
+
 | `getChildren` | `(row: T) => (Observable<T[]> | T[] | undefined | null)` |  | function that returns an observable containing the child rows, the child rows, undefined or null |
 | `getLevel` | `(row: T) => number` |  | accessor fn for the level of the row |
 | `isExpandable` | `(row: T) => boolean` | | function that returns wether a node is expandable |
