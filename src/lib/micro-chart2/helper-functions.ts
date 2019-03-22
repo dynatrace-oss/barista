@@ -150,14 +150,3 @@ export function calculateLabelPosition(pointX: number, textLength: number, chart
   }
   return 'middle';
 }
-
-export function sumNullable(a: number | null, b: number | null): number | null {
-  if (a !== null && b !== null) {
-    return a + b;
-  } else if (a !== null) {
-    return a;
-  } else if (b !== null) {
-    return b;
-  }
-  return null;
-}

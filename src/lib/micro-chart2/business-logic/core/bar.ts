@@ -41,6 +41,8 @@ export function handleChartBarSeries(
     if (stackData) {
       transformedData.points = stackData.map((d, index) => {
         const d0 = d[0];
+        // we need this isNaN check because if you have one series with a datapoint for the first x value and another without
+        // the stacked value for the one without will be NaN
         const d1 = !isNaN(d[1]) ? d[1] : 0;
         return {
           x: x(d0),

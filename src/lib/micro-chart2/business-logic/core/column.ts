@@ -92,14 +92,14 @@ export function handleChartColumnSeries(
         min: minPoint,
         minAnchor: {
           // tslint:disable-next-line:no-magic-numbers
-          x: minPoint.x + minPoint.width / 2,
+          x: minPoint.x + (minPoint.width / 2),
           y: minPoint.y + minPoint.height,
         },
         minValue: min[1],
         max: maxPoint,
         maxAnchor: {
           // tslint:disable-next-line:no-magic-numbers
-          x: maxPoint.x + maxPoint.width / 2,
+          x: maxPoint.x + (maxPoint.width / 2),
           y: maxPoint.y,
         },
         maxValue: max[1],
