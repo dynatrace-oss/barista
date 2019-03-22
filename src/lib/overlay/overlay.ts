@@ -8,6 +8,9 @@ import { DOCUMENT } from '@angular/common';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { Platform } from '@angular/cdk/platform';
 
+// TODO: FlexibleConnectedPositionStrategyOrigin is not exported by cdk/overlay
+// https://github.com/angular/material2/blob/master/src/cdk/overlay/position/flexible-connected-position-strategy.ts#L33
+export type DtOverlayOrigin = ElementRef | HTMLElement | { x: number; y: number };
 export const DT_OVERLAY_DEFAULT_OFFSET = 6;
 
 const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
@@ -71,7 +74,7 @@ export class DtOverlay {
   ) {}
 
   create<T>(
-    origin: ElementRef | HTMLElement,
+    origin: DtOverlayOrigin,
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     userConfig?: DtOverlayConfig
   ): DtOverlayRef<T> {
@@ -99,7 +102,7 @@ export class DtOverlay {
     }
   }
 
-  private _createOverlay(origin: ElementRef | HTMLElement, config: DtOverlayConfig): OverlayRef {
+  private _createOverlay(origin: DtOverlayOrigin, config: DtOverlayConfig): OverlayRef {
     let positions = config._positions || DEFAULT_DT_OVERLAY_POSITIONS;
     if (!config._positions && config.originY === 'center') {
       positions = positions.map((pos) => {
