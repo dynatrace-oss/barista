@@ -16,6 +16,9 @@ import { DtTable } from '../table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
 import { DtRow } from '../row';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+
+let nextUniqueId = 0;
 
 /**
  * Data row template container that contains the cell outlet and an expandable section.
@@ -50,27 +53,55 @@ import { DtRow } from '../row';
   exportAs: 'dtExpandableRow',
 })
 export class DtExpandableRow extends DtRow {
-  @Output() openedChange = new EventEmitter<DtExpandableRow>();
-  @ViewChild('dtExpandableRow') private _rowRef: ElementRef;
-  @ViewChild('dtExpandableContent', { read: ViewContainerRef }) private _contentViewContainer: ViewContainerRef;
-  private _multiple = false;
-  private _expanded = false;
-
-  _pristine = true;
-
-  /** Multiple rows can be expanded at a time if set to true (default: false) */
+  /**
+   * @deprecated Please use the multiExpand Input of the dt-table instead.
+   * @breaking-change To be removed with 3.0.
+   * Multiple rows can be expanded at a time if set to true (default: false)
+   */
   @Input()
   set multiple(value: boolean) {
-    this._multiple = coerceBooleanProperty(value);
+    const coercedValue = coerceBooleanProperty(value);
+    if (!this._table._multiExpand && coercedValue) {
+      this._table._multiExpand = coercedValue;
+    }
   }
 
   /** The expanded state of the row */
+  @Input()
   get expanded(): boolean {
     return this._expanded;
   }
   set expanded(value: boolean) {
-    this._setExpanded(coerceBooleanProperty(value));
+    const coercedValue = coerceBooleanProperty(value);
+    this._expanded = coercedValue;
+    this._pristine = false;
+    this._setExpandableCell(this._expanded);
+    // @breaking-change Remove with 3.0
+    this._table.expandedRow = this._expanded ? this : undefined;
+    this.openedChange.emit(this);
+    if (this._expanded) {
+      this.opened.emit(this);
+      this._expansionDispatcher.notify(this._uniqueId, this._table._uniqueId);
+    } else {
+      this.closed.emit(this);
+    }
+    this._cdr.markForCheck();
   }
+
+  /**
+   * @deprecated Please use separate opened and closed outputs instead.
+   * @breaking-change To be removed with 3.0
+   */
+  @Output() openedChange = new EventEmitter<DtExpandableRow>();
+  @Output() opened = new EventEmitter<DtExpandableRow>();
+  @Output() closed = new EventEmitter<DtExpandableRow>();
+
+  @ViewChild('dtExpandableRow') private _rowRef: ElementRef;
+  @ViewChild('dtExpandableContent', { read: ViewContainerRef }) private _contentViewContainer: ViewContainerRef;
+  private _expanded = false;
+  private _uniqueId = `dt-expandable-row-${nextUniqueId++}`;
+
+  _pristine = true;
 
   /** ViewContainerRef to the expandable section */
   get contentViewContainer(): ViewContainerRef {
@@ -78,47 +109,26 @@ export class DtExpandableRow extends DtRow {
   }
 
   // tslint:disable-next-line:no-any
-  constructor(private _expandableTable: DtTable<any>,
+  constructor(private _table: DtTable<any>,
               private _renderer2: Renderer2,
               private _cdr: ChangeDetectorRef,
+              private _expansionDispatcher: UniqueSelectionDispatcher,
               _elementRef: ElementRef) {
     super(_elementRef);
+    _expansionDispatcher.listen((rowId, tableId) => {
+      /**
+       * If the table does not allow multiple rows to be expanded at a time,
+       * the currently expanded row is collapsed.
+       */
+      if (this._table && !this._table._multiExpand &&
+        this._table._uniqueId === tableId && this._uniqueId !== rowId) {
+        this.expanded = false;
+      }
+    });
   }
 
-  /**
-   * Toggles the expanded state of the row. If the row is already expanded it is collapsed, otherwise it is expanded.
-   * If the table does not allow multiple rows to be expanded at a time, which is the default behavior,
-   * the currently expanded row (if any) is collapsed.
-   */
   toggle(): void {
-    if (this._multiple) { // multiple rows can be expanded, just handle the current one
-      this._setExpanded(!this._expanded);
-      return;
-    }
-
-    if (this._expandableTable.expandedRow === undefined) { // no expanded row yet
-      this._setExpanded(true);
-      return;
-    }
-
-    if (this._expandableTable.expandedRow === this) { // expanded row was clicked => collapse it
-      this._setExpanded(false);
-      return;
-    }
-
-    // not the expanded row was clicked => collapse expanded, expand current row
-    this._expandableTable.expandedRow.expanded = !this._expandableTable.expandedRow.expanded;
-    this._setExpanded(true);
-  }
-
-  /** Sets the expanded state of the row, updates the expandable table and the expandable cell. */
-  private _setExpanded(expanded: boolean): void {
-    this._expanded = expanded;
-    this._pristine = false;
-    this._setExpandableCell(expanded);
-    this._expandableTable.expandedRow = expanded ? this : undefined;
-    this.openedChange.emit(this);
-    this._cdr.markForCheck();
+    this.expanded = !this.expanded;
   }
 
   /** Sets the style of the expandable cell. */
