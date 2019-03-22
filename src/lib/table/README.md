@@ -57,10 +57,11 @@ class MyModule {}
 
 ## Inputs & Outputs
 
-| Name | Direction | Type | Default | Description |
+| Name  | Type | Default | Description |
 | --- | --- | --- | --- | --- |
-| `dataSource` | input | `object[] | Observable | DataSource ` | `undefined` | Data to be shown in the table |
-| `isLoading` | input | `boolean` | `false` | Whether the Table is loading or not |
+| `@Input() dataSource` | `object[] | Observable | DataSource ` | `undefined` | Data to be shown in the table |
+| `@Input() isLoading` | `boolean` | `false` | Whether the table is loading or not |
+| `@Input() multiExpand` | `boolean` | `false` | Whether the table allows multiple rows to be expanded at a time. |
 
 There are no outputs at this stage. The table is totally passive.
 
@@ -165,10 +166,12 @@ Expandable rows can be defined using `dt-expandable-row`. An expandable row **ha
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `@Ouput() openedChange` | `EventEmitter<DtExpandableRow>` |  | Event emitted when the expanded state changes. |
-| `@Input() multiple` | `boolean` | `false` | Sets the mode for expanding multiple rows at a time. NOTE: must not be used in Dynatrace UI! |
-| `expanded` | `boolean` | `false` | Gets or sets the expanded state of a row. |
+| `@Ouput() openedChange` | `EventEmitter<DtExpandableRow>` | - | **DEPRECATED - will be removed with 3.0.** Event emitted when the expanded state changes. |
+| `@Output() opened` | `EventEmitter<DtExpandableRow>` | - | Event emitted when the row is opened/expanded. |
+| `@Output() closed` | `EventEmitter<DtExpandableRow>` | - | Event emitted when the row is closed/collapsed. |
+| `@Input() expanded` | `boolean` | `false` | Gets or sets the expanded state of a row. |
 | `contentViewContainer` | `ViewContainerRef` |  | Gets a reference to the expandable container for dynamically adding components. |
+| `@Input() multiple` | `boolean` | `false` | **DEPRECATED - will be removed with 3.0.** Sets the mode for expanding multiple rows at a time. NOTE: must not be used in Dynatrace UI! |
 
 ### Options and Properties of DtExpandableCell
 

@@ -10,7 +10,9 @@ import {
 } from '@angular/core';
 import { DtExpandableRow } from './expandable/expandable-row';
 import { _DtTableBase} from './base-table';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
+let nextUniqueId = 0;
 @Component({
   moduleId: module.id,
   selector: 'dt-table',
@@ -28,8 +30,18 @@ import { _DtTableBase} from './base-table';
 export class DtTable<T> extends _DtTableBase<T> {
   @Input() isLoading: boolean;
   private _expandedRow: DtExpandableRow | undefined;
+  _uniqueId = `dt-table-${nextUniqueId++}`;
+  _multiExpand: boolean;
 
-  /** Wether the datasource is empty */
+  @Input()
+  get multiExpand(): boolean {
+    return this._multiExpand;
+  }
+  set multiExpand(value: boolean) {
+    this._multiExpand = coerceBooleanProperty(value);
+  }
+
+  /** Whether the datasource is empty */
   get isEmptyDataSource(): boolean {
     return !(this._data && this._data.length);
   }
@@ -50,7 +62,11 @@ export class DtTable<T> extends _DtTableBase<T> {
     }
   }
 
-  /** the expanded row of the table */
+  /**
+   * @deprecated Please use openedChange Output of dt-expandable-row instead.
+   * @breaking-change To be removed with 3.0.
+   * the expanded row of the table
+   */
   get expandedRow(): DtExpandableRow | undefined {
     return this._expandedRow;
   }
@@ -59,5 +75,4 @@ export class DtTable<T> extends _DtTableBase<T> {
   }
 
   protected stickyCssClass = 'dt-table-sticky';
-
 }
