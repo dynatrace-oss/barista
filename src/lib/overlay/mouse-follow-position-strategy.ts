@@ -1,6 +1,6 @@
 import { FlexibleConnectedPositionStrategy, ViewportRuler, PositionStrategy, OverlayRef, ConnectedPosition } from '@angular/cdk/overlay';
-import { ElementRef } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
+import { DtOverlayOrigin } from './overlay';
 
 export class DtMouseFollowPositionStrategy implements PositionStrategy {
 
@@ -11,7 +11,7 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
   private _constraint: 'xAxis' | 'yAxis' | undefined;
 
   constructor(
-    connectedTo: ElementRef | HTMLElement,
+    connectedTo: DtOverlayOrigin,
     _viewportRuler: ViewportRuler,
     _document: Document,
     _platform: Platform

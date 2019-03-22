@@ -107,8 +107,9 @@ export class DtChartTooltip<T> implements OnDestroy {
     }
     if (parentChart._chartObject) {
       this._origin = createOriginPoint(parentChart, this._renderer, data);
+      const originPoint = this._origin.getBoundingClientRect();
       this._dtOverlayRef = this._dtOverlay.create<T>(
-        this._origin,
+        { x: originPoint.left, y: originPoint.top },
         this.overlay,
         { data, _positions: DEFAULT_DT_CHART_TOOLTIP_POSITIONS });
       this._dtOverlayRef.updatePosition(0, 0);
