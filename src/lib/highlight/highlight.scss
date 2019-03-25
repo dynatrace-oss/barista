@@ -1,0 +1,23 @@
+.dt-highlight-source {
+  display: none;
+}
+
+::ng-deep .dt-highlight-mark {
+  background-color: yellow;
+
+  &::before,
+  &::after {
+    content: " [highlight start] ";
+    clip-path: inset(100%);
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  &::after {
+    content: " [highlight end] ";
+  }
+}
