@@ -29,6 +29,7 @@ import { DtTreeControl, DtTreeFlattener, DtTreeDataSource } from '@dynatrace/ang
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
+import { DtHighlightModule } from '@dynatrace/angular-components/highlight';
 
 const TESTDATA: ThreadNode[] = [
   {
@@ -205,6 +206,7 @@ export class KitchenSink {
     DtTreeTableModule,
     DtToggleButtonGroupModule,
     DtInfoGroupModule,
+    DtHighlightModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
