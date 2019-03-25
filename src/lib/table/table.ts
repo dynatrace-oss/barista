@@ -8,7 +8,7 @@ import {
   ElementRef,
   Attribute,
 } from '@angular/core';
-import { DtExpandableRow } from './expandable/expandable-row';
+import { DtExpandableRow, DtExpandableRowChangeEvent } from './expandable/expandable-row';
 import { _DtTableBase} from './base-table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
@@ -28,23 +28,44 @@ let nextUniqueId = 0;
   },
 })
 export class DtTable<T> extends _DtTableBase<T> {
-  @Input() isLoading: boolean;
-  private _expandedRow: DtExpandableRow | undefined;
+  private _expandableRows = new Set<DtExpandableRow>();
+  private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
+  private _loading: boolean;
   _uniqueId = `dt-table-${nextUniqueId++}`;
-  _multiExpand: boolean;
 
+  /** Whether the loading state should be displayed. */
   @Input()
-  get multiExpand(): boolean {
-    return this._multiExpand;
-  }
-  set multiExpand(value: boolean) {
-    this._multiExpand = coerceBooleanProperty(value);
-  }
+  get loading(): boolean { return this._loading; }
+  set loading(value: boolean) { this._loading = coerceBooleanProperty(value); }
 
-  /** Whether the datasource is empty */
+  /**
+   * @deprecated Use loading instead.
+   * @breaking-change To be removed with 3.0.0.
+   */
+  @Input()
+  get isLoading(): boolean { return this._loading; }
+  set isLoading(value: boolean) { this._loading = coerceBooleanProperty(value); }
+
+  /** Whether multiple rows can be expanded at a time. */
+  @Input()
+  get multiExpand(): boolean { return this._multiExpand; }
+  set multiExpand(value: boolean) { this._multiExpand = coerceBooleanProperty(value); }
+
+  /** Whether the datasource is empty. */
   get isEmptyDataSource(): boolean {
     return !(this._data && this._data.length);
   }
+
+  /**
+   * @deprecated Please use openedChange Output of dt-expandable-row instead.
+   * @breaking-change To be removed with 3.0.0.
+   * the expanded row of the table
+   */
+  get expandedRow(): DtExpandableRow | undefined {
+    return Array.from(this._expandableRows)
+      .filter((row) => row.expanded)[0];
+  }
+  set expandedRow(value: DtExpandableRow | undefined) { }
 
   constructor(
     differs: IterableDiffers,
@@ -62,16 +83,12 @@ export class DtTable<T> extends _DtTableBase<T> {
     }
   }
 
-  /**
-   * @deprecated Please use openedChange Output of dt-expandable-row instead.
-   * @breaking-change To be removed with 3.0.
-   * the expanded row of the table
-   */
-  get expandedRow(): DtExpandableRow | undefined {
-    return this._expandedRow;
+  _registerExpandableRow(row: DtExpandableRow): void {
+    this._expandableRows.add(row);
   }
-  set expandedRow(value: DtExpandableRow | undefined) {
-    this._expandedRow = value;
+
+  _unregisterExpandableRow(row: DtExpandableRow): void {
+    this._expandableRows.delete(row);
   }
 
   protected stickyCssClass = 'dt-table-sticky';
