@@ -21,24 +21,27 @@ You have to import the `DtBreadcrumbsModule` when you want to use `dt-breadcrumb
 class MyModule {}
 ```
 
-## Options & Properties
 
-### dt-breadcrumbs
+## dt-breadcrumbs
 
 `dt-breadcrumbs` component accepts a `color` property to define the color version of the breadcrumbs. It's a wrapper for the `dt-breadcrumbs-item` elements.
 
+### Inputs
+
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `@Input() color` | `'main' | 'error' | 'neutral'` | `main` | Current variation of the theme color which is applied to the color of the breadcrumbs.|
+| `color` | `'main' | 'error' | 'neutral'` | `main` | Current variation of the theme color which is applied to the color of the breadcrumbs.|
 
 
-### dt-breadcrumbs-item
+## dt-breadcrumbs-item
+
+### Inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `<ng-content>` | `html` | | HTML to be rendered as item content |
-| `[href]` | `string` | any[] | Value passed to the `routerLink` attribute underneath, accepts the same values as the directive. Element will be item as active automatically if the href attribute matches the current route. |
-| `[external]` | `boolean | undefined` | false | If empty or truthy parameter given, the `href` attribute will not be interpreted as internal router link but rather as en external href |
+| `href` | `string` | any[] | Value passed to the `routerLink` attribute underneath, accepts the same values as the directive. Element will be item as active automatically if the href attribute matches the current route. |
+| `external` | `boolean | undefined` | false | If empty or truthy parameter given, the `href` attribute will not be interpreted as internal router link but rather as en external href |
 
 ## Examples
 

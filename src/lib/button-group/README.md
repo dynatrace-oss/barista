@@ -27,34 +27,39 @@ class MyModule {}
 
 To apply the Dynatrace button group, use the `<dt-button-group>` and `<dt-button-group-item>` elements.
 
-*Example:*
-
 | Attribute | Description |
 | --- | --- |
-| `dt-button-group` | Indicate the outer element of the button group. The group element can contain multiple `<dt-button-group-item>` elements. |
-| `dt-button-group-item` | The element of an individual button. |
+| `dt-button-group` | Wrapper element for the button group. It can contain multiple `<dt-button-group-item>` elements. |
+| `dt-button-group-item` | The individual button elements. |
 
-## Options & Properties
+## Button group
 
-### Button group
-
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `[value]` | `T | undefined` | `undefined` | Gets sets the current value |
-| `[disabled]` | `boolean | undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined |
-| `[tabIndex]` | `number` | `0` | Sets and gets the tabIndex property |
-| `(valueChange)` | `event<T>` |   | Emits an event when the user selects an other button. |
-
-#### Button group item
+### Inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `<ng-content>` |   |   | The content/text which is displayed inside of the item |
-| `[value]` | `T | undefined` | `undefined` | The associated value of this item |
-| `[disabled]` | `boolean | undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined |
-| `[tabIndex]` | `number` | `0` | Sets and gets the tabIndex property |
-| `[selected]` | `boolean` | `false` | Sets or gets the selected state of this item |
-| `[color]` | `string | undefined` | `undefined` | Sets color. Possible options: <ul><li><code>main</code> (default)</li><li><code>error</code></li></ul> |
+| `value` | `T | undefined` | `undefined` | Gets and sets the current value |
+| `disabled` | `boolean | undefined` | `undefined` | Sets disabled state if property is set and the value is truthy or undefined |
+| `tabIndex` | `number` | `0` | Sets and gets the tabIndex property |
+
+### Outputs
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `valueChange` | `event<T>` | Emits an event when the user selects another button. |
+
+## Button group item
+
+### Inputs
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `<ng-content>` |   |   | The content which is displayed inside of the item. This should only be text. |
+| `value` | `T | undefined` | `undefined` | The associated value of this item |
+| `disabled` | `boolean | undefined` | `undefined` | Sets disabled state if property is set and the value is truthy or undefined |
+| `tabIndex` | `number` | `0` | Sets and gets the tabIndex property |
+| `selected` | `boolean` | `false` | Sets or gets the selected state of this item |
+| `color` | `'main' | 'error'` | `main` | Sets color. Possible options: <ul><li><code>main</code> (default)</li><li><code>error</code></li></ul> |
 
 ## Examples
 
