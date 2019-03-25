@@ -17,8 +17,12 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
 import { DtRow } from '../row';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { map, filter } from 'rxjs/operators';
 
 let nextUniqueId = 0;
+export class DtExpandableRowChangeEvent {
+  constructor(public row: DtExpandableRow) {}
+}
 
 /**
  * Data row template container that contains the cell outlet and an expandable section.
@@ -53,82 +57,123 @@ let nextUniqueId = 0;
   exportAs: 'dtExpandableRow',
 })
 export class DtExpandableRow extends DtRow {
+  private _expanded = false;
+  private _uniqueId = `dt-expandable-row-${nextUniqueId++}`;
+
   /**
    * @deprecated Please use the multiExpand Input of the dt-table instead.
-   * @breaking-change To be removed with 3.0.
+   * @breaking-change To be removed with 3.0.0.
    * Multiple rows can be expanded at a time if set to true (default: false)
    */
   @Input()
   set multiple(value: boolean) {
     const coercedValue = coerceBooleanProperty(value);
-    if (!this._table._multiExpand && coercedValue) {
-      this._table._multiExpand = coercedValue;
+    if (!this._table.multiExpand && coercedValue) {
+      this._table.multiExpand = coercedValue;
     }
   }
 
-  /** The expanded state of the row */
+  /** The expanded state of the row. */
   @Input()
   get expanded(): boolean {
     return this._expanded;
   }
   set expanded(value: boolean) {
     const coercedValue = coerceBooleanProperty(value);
-    this._expanded = coercedValue;
-    this._pristine = false;
-    this._setExpandableCell(this._expanded);
-    // @breaking-change Remove with 3.0
-    this._table.expandedRow = this._expanded ? this : undefined;
-    this.openedChange.emit(this);
-    if (this._expanded) {
-      this.opened.emit(this);
-      this._expansionDispatcher.notify(this._uniqueId, this._table._uniqueId);
+    if (coercedValue) {
+      this.expand();
     } else {
-      this.closed.emit(this);
+      this.collapse();
     }
-    this._cdr.markForCheck();
   }
 
+  @Output() readonly expandChange = new EventEmitter<DtExpandableRowChangeEvent>();
+
+  @Output('expanded') readonly _expandedStream = this.expandChange.pipe(filter((changeEvent) => changeEvent.row.expanded));
+  @Output('collapsed') readonly _collapsedStream = this.expandChange.pipe(filter((changeEvent) => !changeEvent.row.expanded));
+
   /**
-   * @deprecated Please use separate opened and closed outputs instead.
-   * @breaking-change To be removed with 3.0
+   * @deprecated Please use expanded, collapsed or expandChange instead.
+   * @breaking-change To be removed with 3.0.0.
    */
-  @Output() openedChange = new EventEmitter<DtExpandableRow>();
-  @Output() opened = new EventEmitter<DtExpandableRow>();
-  @Output() closed = new EventEmitter<DtExpandableRow>();
+  @Output() openedChange = this.expandChange.pipe(map((changeEvent) => changeEvent.row));
 
   @ViewChild('dtExpandableRow') private _rowRef: ElementRef;
   @ViewChild('dtExpandableContent', { read: ViewContainerRef }) private _contentViewContainer: ViewContainerRef;
-  private _expanded = false;
-  private _uniqueId = `dt-expandable-row-${nextUniqueId++}`;
 
-  _pristine = true;
-
-  /** ViewContainerRef to the expandable section */
+  /**
+   * @deprecated To be removed
+   * @breaking-change 3.0.0 To be removed
+   * ViewContainerRef to the expandable section
+   */
   get contentViewContainer(): ViewContainerRef {
     return this._contentViewContainer;
   }
 
   // tslint:disable-next-line:no-any
-  constructor(private _table: DtTable<any>,
-              private _renderer2: Renderer2,
-              private _cdr: ChangeDetectorRef,
-              private _expansionDispatcher: UniqueSelectionDispatcher,
-              _elementRef: ElementRef) {
+  constructor(
+    private _table: DtTable<any>,
+    private _renderer2: Renderer2,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _expansionDispatcher: UniqueSelectionDispatcher,
+    _elementRef: ElementRef
+  ) {
     super(_elementRef);
-    _expansionDispatcher.listen((rowId, tableId) => {
+    this._table._registerExpandableRow(this);
+    this._expansionDispatcher.listen((rowId, tableId) => {
       /**
        * If the table does not allow multiple rows to be expanded at a time,
        * the currently expanded row is collapsed.
        */
-      if (this._table && !this._table._multiExpand &&
+      if (this._table && !this._table.multiExpand &&
         this._table._uniqueId === tableId && this._uniqueId !== rowId) {
-        this.expanded = false;
+        this.collapse();
       }
     });
   }
 
+  ngOnDestroy(): void {
+    this._table._unregisterExpandableRow(this);
+  }
+
+  expand(): void {
+    if (!this._expanded) {
+      this._expanded = true;
+      this._setExpandableCell(true);
+      this.expandChange.emit(new DtExpandableRowChangeEvent(this));
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  collapse(): void {
+    if (this._expanded) {
+      this._expanded = false;
+      this._setExpandableCell(false);
+      this.expandChange.emit(new DtExpandableRowChangeEvent(this));
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  /**
+   * @deprecated To be removed
+   * @breaking-change 3.0.0 To be removed
+   */
   toggle(): void {
-    this.expanded = !this.expanded;
+    if (this._expanded) {
+      this.collapse();
+    } else {
+      this.expand();
+    }
+  }
+
+  _expandViaInteraction(): void {
+    if (!this._expanded) {
+      this._expanded = true;
+      this._setExpandableCell(true);
+      this._expansionDispatcher.notify(this._uniqueId, this._table._uniqueId);
+      this.expandChange.emit(new DtExpandableRowChangeEvent(this));
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
   /** Sets the style of the expandable cell. */
