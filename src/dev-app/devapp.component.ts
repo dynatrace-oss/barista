@@ -25,6 +25,7 @@ export class DevApp {
     { name: 'Filter-field', route: '/filter-field' },
     { name: 'Form-field', route: '/form-field' },
     { name: 'Formatters', route: '/formatters' },
+    { name: 'Highlight', route: '/highlight' },
     { name: 'Icon', route: '/icon' },
     { name: 'Info-group', route: '/info-group' },
     { name: 'Inline-editor', route: '/inline-editor' },

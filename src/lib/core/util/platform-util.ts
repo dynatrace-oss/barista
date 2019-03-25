@@ -33,6 +33,17 @@ export function removeCssClass(el: any, name: string, renderer?: Renderer2): voi
 }
 
 /**
+ * Helper function to remove all children of a parent node.
+ * This can be every dom element.
+ */
+export function removeNodeChildren(parent: Element): void {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
+
+/**
  * Helper function to safely check if an element has a class
  * Also works with elements in svgs
  */
