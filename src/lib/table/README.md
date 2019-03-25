@@ -163,6 +163,10 @@ Expandable rows can be defined using `dt-expandable-row`. An expandable row **ha
 
 <docs-source-example example="TableExpandableRowsComponent" fullwidth="true"></docs-source-example>
 
+Multiple rows can be expanded at a time. The expanded state of each row can be set programmatically.
+
+<docs-source-example example="TableMultiExpandableRowsComponent" fullwidth="true"></docs-source-example>
+
 ### Options & Properties of DtExpandableRow
 
 | Name | Type | Default | Description |
