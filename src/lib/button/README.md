@@ -6,10 +6,7 @@ type: "component"
 
 <docs-source-example example="DefaultButtonExampleComponent"></docs-source-example>
 
-This Angular button enhances native `<button>` and `<a>` elements with Dynatrace styling.
-Make sure to always use `<button>` or `<a>` tags to provide the accessible experience for the user.
-A `<button>` element should be used whenever some action is performed.
-An `<a>` element should be used whenever the user will navigate to another view.
+This Angular button enhances native `<button>` and `<a>` elements with Dynatrace styling. Make sure to always use `<button>` or `<a>` tags to provide an accessible experience for the user. While a `<button>` element should be used whenever some action is performed, `<a>` elements should be used when the user will navigate to another view.
 
 ## Imports
 
@@ -35,7 +32,7 @@ To apply the dynatrace button, add one of the following attributes to the `<butt
 | `dt-button`       | Regular button, with text and an optional icon  |
 | `dt-icon-button`  | Icon only button, no text allowed               |
 
-## Options & Properties
+## Inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -45,9 +42,8 @@ To apply the dynatrace button, add one of the following attributes to the `<butt
 
 ## Theming
 
-The button styling depends on the theme the component is in. You can set a theme on an area of the app by using the `dtTheme` directive.
+The button styling depends on the theme the component is used in. You can set a theme on an area of the app by using the `dtTheme` directive.
 
-*Example:*
 
 ```html
 
@@ -57,14 +53,9 @@ The button styling depends on the theme the component is in. You can set a theme
 
 ```
 
-**NOTE:**
-Right now only setting the light or dark mode is available.
-Full theming functionality will be added in a later stage.
-
 ## Accessibility
 
-By using native `<button>` or `<a>` elements accessibility is ensured per default.
-Buttons or links containing only icons (`dt-icon-button`) should be given a meaningful label via `aria-label` or `aria-labelledby`.
+By using native `<button>` or `<a>` elements, accessibility is ensured per default. Buttons or links containing only icons (`dt-icon-button`) should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
 ## Examples
 
@@ -86,7 +77,7 @@ Buttons or links containing only icons (`dt-icon-button`) should be given a mean
 
 ### With loading spinner
 
-The loading spinner button can only be used within a disabled button.
+The loading spinner can only be used within a disabled button.
 
 <docs-source-example example="LoadingSpinnerButtonExampleComponent"></docs-source-example>
 
