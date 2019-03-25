@@ -50,6 +50,8 @@ import { TreeTableDemo } from './tree-table/tree-table-demo.component';
 import { DtIconModule } from '@dynatrace/angular-components';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { InfoGroupDemo } from './info-group/info-group-demo.component';
+import { HighlightDemo } from './highlight/highlight-demo.component';
+
 @Component({template: ''})
 export class NoopRouteComponent {}
 
@@ -108,6 +110,7 @@ export class NoopRouteComponent {}
     TreeTableDemo,
     ToggleButtonGroupDemo,
     InfoGroupDemo,
+    HighlightDemo,
   ],
   entryComponents: [
     DevApp,

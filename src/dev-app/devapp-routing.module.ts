@@ -43,14 +43,15 @@ import { ToastDemo } from './toast/toast-demo.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { ChartDemo } from './chart/chart-demo.component';
+import { HighlightDemo } from './highlight/highlight-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
   { path: 'autocomplete', component: AutocompleteDemo },
   { path: 'bar-indicator', component: BarIndicatorDemo },
   { path: 'breadcrumbs', component: BreadcrumbsDemo },
-  { path: 'button', component: ButtonDemo },
   { path: 'button-group', component: ButtonGroupDemo },
+  { path: 'button', component: ButtonDemo },
   { path: 'card', component: CardDemo },
   { path: 'chart', component: ChartDemo },
   { path: 'checkbox', component: CheckboxDemo },
@@ -63,6 +64,7 @@ const routes: Routes = [
   { path: 'filter-field', component: FilterFieldDemo },
   { path: 'form-field', component: FormFieldDemo },
   { path: 'formatters', component: FormattersDemo },
+  { path: 'highlight', component: HighlightDemo },
   { path: 'icon', component: IconDemo },
   { path: 'info-group', component: InfoGroupDemo },
   { path: 'inline-editor', component: InlineEditorDemo },
@@ -85,8 +87,8 @@ const routes: Routes = [
   { path: 'tag', component: TagDemo },
   { path: 'tile', component: TileDemo },
   { path: 'toast', component: ToastDemo },
-  { path: 'tree-table', component: TreeTableDemo },
   { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
+  { path: 'tree-table', component: TreeTableDemo },
 ];
 
 @NgModule({
