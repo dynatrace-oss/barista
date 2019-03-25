@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   // tslint:disable
   template: `
   <button (click)="toggleLoading()">Toggle loading property</button>
-  <dt-table [dataSource]="dataSource1" [isLoading]="tableLoading">
+  <dt-table [dataSource]="dataSource1" [loading]="tableLoading">
     <ng-container dtColumnDef="host" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>

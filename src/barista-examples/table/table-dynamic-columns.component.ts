@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   // tslint:disable
   template: `
-  <dt-table [dataSource]="dataSource1" [isLoading]="tableLoading">
+  <dt-table [dataSource]="dataSource1">
 
     <ng-container *ngFor="let column of columnsDef;" [dtColumnDef]="column.id" [dtColumnAlign]="column.type">
       <dt-header-cell *dtHeaderCellDef>{{ column.title }}</dt-header-cell>
@@ -25,7 +25,7 @@ export class TableDynamicColumnsComponent {
     },
     {
       id: 'cpu',
-      title: 'Cpu',
+      title: 'CPU',
       type: 'text',
     },
     {
@@ -47,10 +47,4 @@ export class TableDynamicColumnsComponent {
     { host: 'docker-host2', cpu: '25.4 %', memory: '38 % of 5.83 GB', traffic: '419 Mbit/s' },
     { host: 'et-demo-2-win1', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
   ];
-  tableLoading = true;
-
-  toggleLoading(): void {
-    this.tableLoading = !this.tableLoading;
-  }
-
 }
