@@ -87,9 +87,11 @@ export class DtExpandableRow extends DtRow {
     }
   }
 
+  /** Event emitted when the row's expandable state changes. */
   @Output() readonly expandChange = new EventEmitter<DtExpandableRowChangeEvent>();
-
+  /** Event emitted when the row is expanded. */
   @Output('expanded') readonly _expandedStream = this.expandChange.pipe(filter((changeEvent) => changeEvent.row.expanded));
+  /** Event emitted when the row is collapsed. */
   @Output('collapsed') readonly _collapsedStream = this.expandChange.pipe(filter((changeEvent) => !changeEvent.row.expanded));
 
   /**
@@ -116,9 +118,9 @@ export class DtExpandableRow extends DtRow {
     private _renderer2: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef,
     private _expansionDispatcher: UniqueSelectionDispatcher,
-    _elementRef: ElementRef
+    elementRef: ElementRef
   ) {
-    super(_elementRef);
+    super(elementRef);
     this._table._registerExpandableRow(this);
     this._expansionDispatcher.listen((rowId, tableId) => {
       /**
