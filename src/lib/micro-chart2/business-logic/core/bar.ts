@@ -10,7 +10,7 @@ export interface DtMicroChartBarScales {
 }
 
 export interface DtMicroChartBarDataPoint {
-  x: number;
+  x: number | null;
   y: number;
   width: number;
   height: number;
@@ -21,6 +21,35 @@ export interface DtMicroChartBarSeriesData {
   scales: DtMicroChartBarScales;
 }
 
+function calculatePoint(
+  index: number,
+  dp: number | null,
+  domains: DtMicroChartDomains,
+  scales: DtMicroChartBarScales,
+  dpStacked?: number
+): DtMicroChartBarDataPoint {
+
+  const y = scales.y(index) as number;
+  const height = scales.y.bandwidth();
+  let x;
+  let width;
+
+  if (dp === null) {
+    x = null;
+  } else {
+    if (dpStacked === undefined) {
+      // If the y resulting x value is 0, move the indicator up by one to accomodate for minimum width of 1.
+      x = scales.x(domains.y.min);
+      // Fall back to a minimum width of 1.
+      width = scales.x(dp) > 0 ? scales.x(dp) : 1;
+    } else {
+      x = scales.x(dp);
+      width = scales.x(dpStacked - dp);
+    }
+  }
+  return { x, y, height, width };
+}
+
 export function handleChartBarSeries(
   width: number,
   series: DtMicroChartBarSeries,
@@ -28,11 +57,11 @@ export function handleChartBarSeries(
   config: DtMicroChartConfig,
   stack?: Array<Series<{ [key: string]: number }, string>>
 ): DtMicroChartBarSeriesData {
-  const { x, y } = getScales(width, domains, config);
+  const scales = getScales(width, domains, config);
   const data = series._transformedData;
 
   const transformedData: DtMicroChartBarSeriesData = {
-    scales: { x, y },
+    scales,
     points: [],
   };
 
@@ -44,23 +73,13 @@ export function handleChartBarSeries(
         // we need this isNaN check because if you have one series with a datapoint for the first x value and another without
         // the stacked value for the one without will be NaN
         const d1 = !isNaN(d[1]) ? d[1] : 0;
-        return {
-          x: x(d0),
-          y: y(index) as number,
-          width: x(d1 - d0),
-          height: y.bandwidth(),
-        };
+        return calculatePoint(index, d0, domains, scales, d1);
       });
     } else {
       throw new Error(`Stack data was not found for series: ${series._id}`);
     }
   } else {
-    transformedData.points = data.map((dp, index) => ({
-      x: x(domains.y.min),
-      y: y(index) as number,
-      width: x(dp[1]) > 0 ? x(dp[1]) : 1,
-      height: y.bandwidth(),
-    }));
+    transformedData.points = data.map((dp, index) => calculatePoint(index, dp.y, domains, scales));
   }
   return transformedData;
 }

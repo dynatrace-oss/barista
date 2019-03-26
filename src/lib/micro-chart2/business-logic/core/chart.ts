@@ -5,7 +5,7 @@ import {
 } from '../../public-api';
 import { extent } from 'd3-array';
 
-export type DtMicroChartUnifiedInputData = number[][];
+export type DtMicroChartUnifiedInputData = Array<[number, number|null]>;
 
 // TODO: adjust datastructure to find eventually shared scales (multiple axis, ...)
 export interface DtMicroChartDomains {
@@ -25,12 +25,18 @@ export interface DtMicroChartIdentification {
   type: DtMicroChartSeriesType;
 }
 
+export interface DtMicroChartDataPoint {
+  x: number;
+  y: number | null;
+  interpolated?: boolean;
+}
+
 /** Unify the series data to a map where the x value is the key and the y value is the value in the map. */
-export function unifySeriesData(data: Array<number|null> | number[][]): number[][] {
+export function unifySeriesData(data: Array<number|null> | Array<[number, number|null]>): DtMicroChartDataPoint[] {
   const transform = data && data.length && !(data[0] instanceof Array);
   return transform ?
-    (data as number[]).map((dataPoint, index) => [index, dataPoint]) :
-    (data as number[][]).slice(0);
+    (data as Array<number|null>).map((dataPoint, index) => ({x: index, y: dataPoint})) :
+    (data as Array<[number, number|null]>).map(([x, y]) => ({ x, y }));
 }
 
 export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, series: DtMicroChartSeries): DtMicroChartDomains {
@@ -42,8 +48,8 @@ export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, seri
   let yMaxNrOfPoints = aggregator.y.numberOfPoints;
 
   const data = series._transformedData;
-  const [seriesXMin, seriesXMax] = extent(data, (d) => d[0]);
-  const [seriesYMin, seriesYMax] = extent(data, (d) => d[1]);
+  const [seriesXMin, seriesXMax] = extent(data, (d) => d.x);
+  const [seriesYMin, seriesYMax] = extent(data, (d) => d.y);
   // TODO: find distinct x Values
 
   // Find extents over all series provided

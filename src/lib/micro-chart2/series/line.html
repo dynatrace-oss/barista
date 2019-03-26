@@ -1,12 +1,19 @@
-<svg:path class="dt-micro-chart-line" [attr.d]="path"></svg:path>
-<svg:circle
-  *ngFor="let point of points"
-  class="dt-micro-chart-point"
-  [attr.cx]="point.x"
-  [attr.cy]="point.y"
-  [attr.r]="_markerRadius"
-></svg:circle>
+<!-- Interpolated path -->
+<svg:path class="dt-micro-chart-line dt-micro-chart-interpolated-line" [attr.d]="interpolatedPath"></svg:path>
 
+<!-- -->
+<svg:path class="dt-micro-chart-line" [attr.d]="path"></svg:path>
+<ng-container *ngFor="let point of points">
+  <svg:circle
+    *ngIf="point.y !== null"
+    class="dt-micro-chart-point"
+    [attr.cx]="point.x"
+    [attr.cy]="point.y"
+    [attr.r]="_markerRadius"
+  ></svg:circle>
+</ng-container>
+
+<!-- Hightlight extremes container -->
 <ng-container *ngIf="highlightExtremes">
   <svg:circle
     [attr.cx]="extremes.min.x"

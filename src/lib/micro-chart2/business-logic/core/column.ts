@@ -1,5 +1,5 @@
 import { ScaleLinear, scaleLinear, ScaleBand, scaleBand } from 'd3-scale';
-import { DtMicroChartDomains, DtMicroChartExtremes } from './chart';
+import { DtMicroChartDomains, DtMicroChartExtremes, DtMicroChartDataPoint } from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
 import { findExtremes } from '../../helper-functions';
 import { DtMicroChartColumnSeries } from '../../public-api';
@@ -12,21 +12,25 @@ export interface DtMicroChartColumnScales {
 
 export interface DtMicroChartColumnDataPoint {
   x: number;
-  y: number;
+  y: number | null;
   width: number;
   height: number;
+}
+
+export interface DtMicroChartColumnExtremePoint extends DtMicroChartColumnDataPoint {
+  y: number;
 }
 
 export interface DtMicroChartColumnSeriesData {
   points: DtMicroChartColumnDataPoint[];
   scales: DtMicroChartColumnScales;
-  extremes?: DtMicroChartExtremes<DtMicroChartColumnDataPoint>;
+  extremes?: DtMicroChartExtremes<DtMicroChartColumnExtremePoint>;
 }
 
 /** Helper function to calculate a datapoint based on scales and domains. */
 function calculatePoint(
   index: number,
-  dp: number,
+  dp: number | null,
   domains: DtMicroChartDomains,
   scales: DtMicroChartColumnScales,
   dpStacked?: number
@@ -36,14 +40,18 @@ function calculatePoint(
   let y;
   let height;
 
-  if (!dpStacked) {
-    // If the y resulting y value is 0, move the indicator up by one to accomodate for minimum height of 1.
-    y = scales.y(domains.y.min) - scales.y(dp) > 0 ? scales.y(dp) : scales.y(dp) - 1;
-    // Fall back to a minimum height of 1.
-    height = scales.y(domains.y.min) - scales.y(dp) > 0 ? scales.y(domains.y.min) - scales.y(dp) : 1;
+  if (dp === null) {
+    y = null;
   } else {
-    y = scales.y(dpStacked);
-    height = scales.y(domains.y.min) - scales.y(dp);
+    if (dpStacked === undefined) {
+      // If the y resulting y value is 0, move the indicator up by one to accomodate for minimum height of 1.
+      y = scales.y(domains.y.min) - scales.y(dp) > 0 ? scales.y(dp) : scales.y(dp) - 1;
+      // Fall back to a minimum height of 1.
+      height = scales.y(domains.y.min) - scales.y(dp) > 0 ? scales.y(domains.y.min) - scales.y(dp) : 1;
+    } else {
+      y = scales.y(dpStacked);
+      height = scales.y(domains.y.min) - scales.y(dp);
+    }
   }
   const width = scales.x.bandwidth();
 
@@ -60,12 +68,12 @@ export function handleChartColumnSeries(
   const scales = getScales(width, domains, config);
   const data = series._transformedData;
   // Calculate Min and Max values
-  const { min, minIndex, max, maxIndex } = findExtremes<Array<number | null>>(
+  const { min, minIndex, max, maxIndex } = findExtremes<DtMicroChartDataPoint>(
     data,
-    (d) => d[1]
+    (d) => d.y
   );
-  const minPoint = calculatePoint(minIndex, min[1], domains, scales);
-  const maxPoint = calculatePoint(maxIndex, max[1], domains, scales);
+  const minPoint = calculatePoint(minIndex, min.y, domains, scales) as DtMicroChartColumnExtremePoint;
+  const maxPoint = calculatePoint(maxIndex, max.y, domains, scales) as DtMicroChartColumnExtremePoint;
 
   let transformedData: DtMicroChartColumnSeriesData = {
     scales,
@@ -87,7 +95,7 @@ export function handleChartColumnSeries(
 
     transformedData = {
       ...transformedData,
-      points: data.map((dp, index) => calculatePoint(index, dp[1], domains, scales)),
+      points: data.map((dp, index) => calculatePoint(index, dp.y, domains, scales)),
       extremes: {
         min: minPoint,
         minAnchor: {
@@ -95,14 +103,14 @@ export function handleChartColumnSeries(
           x: minPoint.x + (minPoint.width / 2),
           y: minPoint.y + minPoint.height,
         },
-        minValue: min[1],
+        minValue: min.y,
         max: maxPoint,
         maxAnchor: {
           // tslint:disable-next-line:no-magic-numbers
           x: maxPoint.x + (maxPoint.width / 2),
           y: maxPoint.y,
         },
-        maxValue: max[1],
+        maxValue: max.y,
       },
     };
   }

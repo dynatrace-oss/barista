@@ -1,5 +1,6 @@
 import { Input, ChangeDetectionStrategy, Component } from '@angular/core';
 import { DtMicroChartSeriesSVG } from './series';
+import { DtMicroChartBarDataPoint } from '../business-logic/core/bar';
 
 @Component({
   selector: 'g[dt-micro-chart-bar-series]',
@@ -12,5 +13,5 @@ import { DtMicroChartSeriesSVG } from './series';
   providers: [{ provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartBarSeriesSVG }],
 })
 export class DtMicroChartBarSeriesSVG extends DtMicroChartSeriesSVG {
-  @Input() points: Array<{ x: number; y: number; height: number; width: number }>;
+  @Input() points: DtMicroChartBarDataPoint[];
 }

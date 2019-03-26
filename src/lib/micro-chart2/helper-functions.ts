@@ -1,4 +1,5 @@
 import { SVGTextAnchor } from './business-logic/renderer/svg-renderer';
+import { DtMicroChartUnifiedInputData } from './business-logic/core/chart';
 
 export function getMinMaxValues(numbers: number[]): { min: number; max: number } {
   return {
@@ -68,7 +69,7 @@ export function findMaximum<T>(values: T[], accessor?: (arg0: T) => number | nul
 export function findExtremes<T>(
   values: T[],
   accessor?: (arg0: T) => number | null
-): { min: number | T; max: number | T; minIndex: number; maxIndex: number } {
+): { min: T; max: T; minIndex: number; maxIndex: number } {
   let minValue;
   let min;
   let maxValue;
@@ -149,4 +150,46 @@ export function calculateLabelPosition(pointX: number, textLength: number, chart
     return 'end';
   }
   return 'middle';
+}
+
+/**
+ * Linear interpolation function
+ */
+function linearInterpolation(start: number, end: number, steps: number, step: number): number {
+  const diff = start - end;
+  const part = diff / steps;
+  return start + (part * step);
+}
+
+/**
+ * Interpolate null value data.
+ */
+export function interpolateNullValues(data: DtMicroChartUnifiedInputData): DtMicroChartUnifiedInputData {
+  let isInterpolating = false;
+  let lastKnownValue: number | undefined;
+  let lastKnownIndex = 0;
+
+  const max = data.length;
+  for (let i = 0; i < max; i += 1) {
+    const value = data[i][1];
+    // switching from distinct to interpolated mode
+    if (value === null && !isInterpolating) {
+      isInterpolating = true;
+      continue;
+    }
+    // switching from interpolated mode to distinct
+    if (value !== null && isInterpolating) {
+      const interpolationSpread = i - lastKnownIndex;
+      for (let j = lastKnownIndex; j > lastKnownIndex; j -= 1) {
+        data[j][1] = linearInterpolation(lastKnownValue!, value, interpolationSpread, i - j);
+      }
+    }
+    // continually go through distinct values
+    if (value !== null && !isInterpolating) {
+      lastKnownValue = value;
+      lastKnownIndex = i;
+      continue;
+    }
+  }
+  return data;
 }

@@ -47,12 +47,13 @@ export function createStack(
   stackedSeries.forEach((s) => {
     for (const dp of s._transformedData) {
       const stackedDataMap: { [key: string]: number } = stackMap.has(
-        dp[0].toString()
+        dp.x.toString()
       )
-        ? stackMap.get(dp[0].toString())!
+        ? stackMap.get(dp.x.toString())!
         : {};
-      stackedDataMap[s._id] = dp[1];
-      stackMap.set(dp[0].toString(), stackedDataMap);
+      // Fall back to 0 value if the dataPoint is null.
+      stackedDataMap[s._id] = dp.y || 0;
+      stackMap.set(dp.x.toString(), stackedDataMap);
     }
   });
 

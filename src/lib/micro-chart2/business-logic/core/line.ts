@@ -1,17 +1,16 @@
 import { ScaleLinear, scaleLinear } from 'd3-scale';
-import { DtMicroChartDomains, DtMicroChartUnifiedInputData, DtMicroChartExtremes } from './chart';
+import { DtMicroChartDomains, DtMicroChartExtremes, DtMicroChartDataPoint } from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
-import { findExtremes } from '../../helper-functions';
+import { findExtremes, interpolateNullValues } from '../../helper-functions';
+import { DtMicroChartLineSeries } from '../../public-api';
 
 export interface DtMicroChartLineScales {
   x: ScaleLinear<number, number>;
   y: ScaleLinear<number, number>;
 }
 
-export interface DtMicroChartLineDataPoint {
-  x: number;
-  y: number;
-}
+// tslint:disable-next-line: no-empty-interface
+export interface DtMicroChartLineDataPoint extends DtMicroChartDataPoint {}
 
 export interface DtMicroChartLineSeriesData {
   points: DtMicroChartLineDataPoint[];
@@ -21,25 +20,38 @@ export interface DtMicroChartLineSeriesData {
 
 export function handleChartLineSeries(
   width: number,
-  data: DtMicroChartUnifiedInputData,
+  series: DtMicroChartLineSeries,
   domains: DtMicroChartDomains,
   config: DtMicroChartConfig
 ): DtMicroChartLineSeriesData {
   const { x, y } = getScales(width, domains, config);
-  const { min, max } = findExtremes<Array<number | null>>(data, (d) => d[1]);
+  let data = series._transformedData;
+
+  // interpolate null values
+  // if (!series.skipNullValues) {
+  //   data = interpolateNullValues(data);
+  // }
+
+  const { min, max } = findExtremes<DtMicroChartLineDataPoint>(data, (d) => d.y);
+
+  const points = data.map((dp) => ({
+    x: x(dp.x),
+    y: dp.y === null ? null : y(dp.y),
+  }));
+
   const transformedData = {
-    points: data.map((dp) => ({ x: x(dp[0]), y: y(dp[1]) })),
+    points,
     scales: {
       x,
       y,
     },
     extremes: {
-      min: { x: x(min[0]), y: y(min[1]) },
-      minAnchor: { x: x(min[0]), y: y(min[1]) },
-      minValue: min[1],
-      max: { x: x(max[0]), y: y(max[1]) },
-      maxAnchor: { x: x(max[0]), y: y(max[1]) },
-      maxValue: max[1],
+      min: { x: x(min.x), y: y(min.y!) },
+      minAnchor: { x: x(min.x), y: y(min.y!) },
+      minValue: min.y,
+      max: { x: x(max.x), y: y(max.y!) },
+      maxAnchor: { x: x(max.x), y: y(max.y!) },
+      maxValue: max.y,
     },
   };
   return transformedData;

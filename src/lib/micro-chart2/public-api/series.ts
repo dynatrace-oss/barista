@@ -1,6 +1,6 @@
 import { SimpleChanges, Input, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { unifySeriesData, DtMicroChartUnifiedInputData } from '../business-logic/core/chart';
+import { unifySeriesData, DtMicroChartUnifiedInputData, DtMicroChartDataPoint } from '../business-logic/core/chart';
 import { DtMicroChartStackContainer } from './stacked-container';
 
 export type DtMicroChartSeriesType = 'line' | 'column' | 'bar';
@@ -8,7 +8,7 @@ export interface DtMicroChartRenderDataBase {
   type: DtMicroChartSeriesType;
   publicSeriesId: string;
   color: string;
-  data: Array<number|null> | number[][];
+  data: Array<number|null> | Array<[number, number|null]>;
 }
 
 export interface DtMicroChartRenderDataExtremes {
@@ -24,12 +24,12 @@ let uniqueId = 1;
 export abstract class DtMicroChartSeries {
   readonly type: DtMicroChartSeriesType;
 
-  private _data: Array<number|null> | number[][];
+  private _data: Array<number|null> | Array<[number, number|null]>;
 
-  get data(): Array<number|null> | number[][] {
+  get data(): Array<number|null> | Array<[number, number|null]> {
     return this._data;
   }
-  set data(value: Array<number|null> | number[][]) {
+  set data(value: Array<number|null> | Array<[number, number|null]>) {
     if (value) {
       this._transformedData = unifySeriesData(value);
     }
@@ -46,7 +46,7 @@ export abstract class DtMicroChartSeries {
    * @internal
    * Stores the transformed series data to unify datastream.
    */
-  _transformedData: DtMicroChartUnifiedInputData;
+  _transformedData: DtMicroChartDataPoint[];
 
   /**
    * @internal

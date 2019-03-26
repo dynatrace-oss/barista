@@ -18,7 +18,7 @@ import { DtViewportResizer, Constructor, mixinColor, CanColor } from '@dynatrace
 import { takeUntil, switchMap, startWith, filter, map } from 'rxjs/operators';
 import { Subject, combineLatest, of } from 'rxjs';
 import { DtMicroChartConfig } from './micro-chart-config';
-import { DtMicroChartSeries, DtMicroChartXAxis, DtMicroChartYAxis, DtMicroChartColumnSeries, DtMicroChartStackContainer, DtMicroChartBarSeries } from './public-api';
+import { DtMicroChartSeries, DtMicroChartXAxis, DtMicroChartYAxis, DtMicroChartColumnSeries, DtMicroChartStackContainer, DtMicroChartBarSeries, DtMicroChartLineSeries } from './public-api';
 import { DtMicroChartSeriesSVG } from './series';
 import { createChartDomains, applyAxesExtentsToDomain } from './business-logic/core/chart';
 import { DtMicroChartSvgRenderer, DtMicroChartRendererSeriesData } from './business-logic/renderer/svg-renderer';
@@ -196,7 +196,7 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
             }
             case 'line':
             default: {
-              const data = handleChartLineSeries(width, s._transformedData, domains, this._config);
+              const data = handleChartLineSeries(width, (s as DtMicroChartLineSeries), domains, this._config);
               rendererData = this._chartRenderer.createLineSeriesRenderData(data);
             }
           }

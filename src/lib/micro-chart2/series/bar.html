@@ -1,9 +1,11 @@
-<svg:rect
-  *ngFor="let point of points" 
-  [attr.x]="point.x"
-  [attr.y]="point.y"
-  [attr.width]="point.width"
-  [attr.height]="point.height"
-  class="dt-micro-chart-bar"
-  [attr.fill]="color"
-></svg:rect>
+<ng-container *ngFor="let point of points" >
+  <svg:rect
+    *ngIf="point.x !== null"
+    [attr.x]="point.x"
+    [attr.y]="point.y"
+    [attr.width]="point.width"
+    [attr.height]="point.height"
+    class="dt-micro-chart-bar"
+    [attr.fill]="color"
+  ></svg:rect>
+</ng-container>

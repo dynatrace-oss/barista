@@ -6,6 +6,11 @@
   stroke-width: 2;
 }
 
+.dt-micro-chart-interpolated-line {
+  stroke-dasharray: 10, 10;
+  stroke: red;
+}
+
 .dt-micro-chart-point {
   transition: fill 150ms;
 }
