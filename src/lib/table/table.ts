@@ -28,6 +28,10 @@ let nextUniqueId = 0;
   },
 })
 export class DtTable<T> extends _DtTableBase<T> {
+  /**
+   * _expandableRows are used by expandedRow() getter.
+   * @breaking-change To be removed with 3.0.0.
+   */
   private _expandableRows = new Set<DtExpandableRow>();
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
@@ -83,10 +87,18 @@ export class DtTable<T> extends _DtTableBase<T> {
     }
   }
 
+  /**
+   * _expandableRows are used by expandedRow() getter.
+   * @breaking-change To be removed with 3.0.0.
+   */
   _registerExpandableRow(row: DtExpandableRow): void {
     this._expandableRows.add(row);
   }
 
+  /**
+   * _expandableRows are used by expandedRow() getter.
+   * @breaking-change To be removed with 3.0.0.
+   */
   _unregisterExpandableRow(row: DtExpandableRow): void {
     this._expandableRows.delete(row);
   }
