@@ -50,8 +50,8 @@ const routes: Routes = [
   { path: 'autocomplete', component: AutocompleteDemo },
   { path: 'bar-indicator', component: BarIndicatorDemo },
   { path: 'breadcrumbs', component: BreadcrumbsDemo },
-  { path: 'button-group', component: ButtonGroupDemo },
   { path: 'button', component: ButtonDemo },
+  { path: 'button-group', component: ButtonGroupDemo },
   { path: 'card', component: CardDemo },
   { path: 'chart', component: ChartDemo },
   { path: 'checkbox', component: CheckboxDemo },
@@ -87,8 +87,8 @@ const routes: Routes = [
   { path: 'tag', component: TagDemo },
   { path: 'tile', component: TileDemo },
   { path: 'toast', component: ToastDemo },
-  { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
   { path: 'tree-table', component: TreeTableDemo },
+  { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
 ];
 
 @NgModule({

@@ -1,0 +1,70 @@
+<p dt-highlight term="s">
+  Some <b>text where</b> a part should be highlighted
+</p>
+<hr>
+
+<p dt-highlight term="wher">Some text where a part should be highlighted</p>
+<hr>
+
+<span dt-highlight term="s">Some text where some parts should be highlighted</span>
+<hr>
+
+<button dt-button (click)="caseSensitive = !caseSensitive">Toggle caseSensitive</button><br>
+
+<span dt-highlight term="Some" [caseSensitive]="caseSensitive">
+  Case sensetiv Some text where some parts should be highlighted
+</span>
+<hr>
+
+<p dt-highlight term="wher">
+  asdf Some <b>text where</b> a part should be highlighted
+</p>
+<hr>
+
+<div dt-highlight term="wher">
+  <p>DIV text where a part should be highlighted</p>
+</div>
+<hr>
+
+<p dt-highlight term="wher">
+  Some text where a part should <em>be</em> highlighted
+</p>
+<hr>
+
+<p dt-highlight term="">
+  NO highlight text where a part should <em>be</em> highlighted
+</p>
+<hr>
+
+<dt-highlight term="pa">
+  NO highlight text where a part should <em>be</em> highlighted
+</dt-highlight>
+<hr>
+
+<dt-highlight [term]="search.value">
+  Lorem ipsum dolor sit amet, accumsan eligendi his ex. Ea eum invidunt lucilius, an duo officiis interesset.
+  Nobis aeterno maiorum sed in. Facilis iracundia temporibus ei ius, voluptaria appellantur te eos, ad civibus omnesque mel.
+</dt-highlight>
+<br>
+
+<input type="text" dtInput value="Dy" #search (keyup)="0"/>
+<dt-highlight [term]="search.value" caseSensitive>Dynatrace system Monitoring</dt-highlight>
+<hr>
+
+<dt-highlight term="Jane">
+  We welcome {{name}} to this event.
+</dt-highlight>
+
+
+<div dtTheme=":dark" class="dark">
+  <p dt-highlight term="s">
+    Some <b>text where</b> a part should be highlighted
+  </p>
+  <hr>
+
+  <p dt-highlight term="wher">Some text where a part should be highlighted</p>
+  <hr>
+
+  <span dt-highlight term="s">Some text where some parts should be highlighted</span>
+  <hr>
+</div>
