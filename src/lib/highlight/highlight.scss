@@ -1,13 +1,18 @@
+@import '../core/style/variables';
+@import 'highlight-theme';
+
 .dt-highlight-source {
   display: none;
 }
 
 ::ng-deep .dt-highlight-mark {
-  background-color: yellow;
+  background-color: $turquoise-100;
+  text-decoration: underline;
+  color: currentColor;
 
   &::before,
   &::after {
-    content: " [highlight start] ";
+    content: ' [highlight start] ';
     clip-path: inset(100%);
     clip: rect(1px, 1px, 1px, 1px);
     height: 1px;
@@ -18,6 +23,11 @@
   }
 
   &::after {
-    content: " [highlight end] ";
+    content: ' [highlight end] ';
   }
+}
+
+// Apply the highlight theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-highlight($dt-current-theme);
 }
