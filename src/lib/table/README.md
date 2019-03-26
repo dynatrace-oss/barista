@@ -176,7 +176,7 @@ Multiple rows can be expanded at a time. The expanded state of each row can be s
 | `@Output() expanded` | `EventEmitter<DtExpandableRow>` | - | Event emitted when the row is expanded. |
 | `@Output() collapsed` | `EventEmitter<DtExpandableRow>` | - | Event emitted when the row is collapsed. |
 | `@Input() expanded` | `boolean` | `false` | Gets or sets the expanded state of a row. |
-| `contentViewContainer` | `ViewContainerRef` | - | Gets a reference to the expandable container for dynamically adding components. |
+| `contentViewContainer` | `ViewContainerRef` | - | **DEPRECATED - will be removed with 3.0.0** Gets a reference to the expandable container for dynamically adding components. |
 | `@Input() multiple` | `boolean` | `false` | **DEPRECATED - will be removed with 3.0.0** Sets the mode for expanding multiple rows at a time. NOTE: must not be used in Dynatrace UI! |
 
 ### Options and Properties of DtExpandableCell

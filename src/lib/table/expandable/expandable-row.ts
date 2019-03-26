@@ -81,9 +81,9 @@ export class DtExpandableRow extends DtRow {
   set expanded(value: boolean) {
     const coercedValue = coerceBooleanProperty(value);
     if (coercedValue) {
-      this.expand();
+      this._expand();
     } else {
-      this.collapse();
+      this._collapse();
     }
   }
 
@@ -110,8 +110,8 @@ export class DtExpandableRow extends DtRow {
     return this._contentViewContainer;
   }
 
-  // tslint:disable-next-line:no-any
   constructor(
+    // tslint:disable-next-line:no-any
     private _table: DtTable<any>,
     private _renderer2: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef,
@@ -127,7 +127,7 @@ export class DtExpandableRow extends DtRow {
        */
       if (this._table && !this._table.multiExpand &&
         this._table._uniqueId === tableId && this._uniqueId !== rowId) {
-        this.collapse();
+        this._collapse();
       }
     });
   }
@@ -136,7 +136,7 @@ export class DtExpandableRow extends DtRow {
     this._table._unregisterExpandableRow(this);
   }
 
-  expand(): void {
+  private _expand(): void {
     if (!this._expanded) {
       this._expanded = true;
       this._setExpandableCell(true);
@@ -145,7 +145,7 @@ export class DtExpandableRow extends DtRow {
     }
   }
 
-  collapse(): void {
+  _collapse(): void {
     if (this._expanded) {
       this._expanded = false;
       this._setExpandableCell(false);
@@ -160,9 +160,9 @@ export class DtExpandableRow extends DtRow {
    */
   toggle(): void {
     if (this._expanded) {
-      this.collapse();
+      this._collapse();
     } else {
-      this.expand();
+      this._expand();
     }
   }
 
