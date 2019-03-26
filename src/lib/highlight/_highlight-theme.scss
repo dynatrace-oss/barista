@@ -1,0 +1,13 @@
+@import '../core/style/variables';
+@import '../core/theming/theming';
+
+@mixin dt-theme-highlight($theme) {
+  $is-dark: map-get($theme, 'is-dark');
+
+  @if ($is-dark == true) {
+
+    :host ::ng-deep .dt-highlight-mark {
+      background-color: $gray-700;
+    }
+  }
+}

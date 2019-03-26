@@ -19,16 +19,17 @@ function getVisibility(element: HTMLElement): boolean {
   return right + offsetX > width;
 }
 
-function createFixture<T>(component: Type<T>): {
+export function createFixture<T>(component: Type<T>, selector?: string): {
   fixture: ComponentFixture<T>;
   instance: T;
   containerEl: HTMLElement;
 } {
   const fixture = TestBed.createComponent(component);
+  const container = selector ? fixture.debugElement.query(By.css(selector)).nativeElement : undefined;
   return {
     fixture,
     instance: fixture.debugElement.componentInstance,
-    containerEl: fixture.debugElement.query(By.css('dt-drawer-container')).nativeElement,
+    containerEl: container,
   };
 }
 
@@ -91,7 +92,7 @@ describe('DtDrawer', () => {
     }));
 
     it('should open the drawer by calling its open function programmatically', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp);
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
       fixture.detectChanges();
       flush();
 
@@ -104,7 +105,7 @@ describe('DtDrawer', () => {
     }));
 
     it('should be able to open the drawer by clicking a button', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp);
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
       fixture.detectChanges();
 
       fixture.debugElement.query(By.css('.open')).nativeElement.click();
@@ -115,7 +116,7 @@ describe('DtDrawer', () => {
     }));
 
     it('should close the drawer by calling its close function programmatically', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<TestAppDrawerOpened>(TestAppDrawerOpened);
+      const { instance, containerEl, fixture } = createFixture<TestAppDrawerOpened>(TestAppDrawerOpened, 'dt-drawer-container');
       fixture.detectChanges();
       flush();
 
@@ -128,7 +129,7 @@ describe('DtDrawer', () => {
     }));
 
     it('should be able to close the drawer by clicking a button', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp);
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
       instance.drawer.open();
       fixture.detectChanges();
       flush();
@@ -144,7 +145,7 @@ describe('DtDrawer', () => {
 
   describe('drawer behaviors', () => {
     it('should move the drawer outside the content area with a transform when it is not visible', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp);
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
       const drawer = fixture.debugElement.query(By.css('dt-drawer'));
       fixture.detectChanges();
       flush();
@@ -179,7 +180,8 @@ describe('DtDrawer', () => {
     }));
 
     it('should close all drawers when the close function is called on the container', fakeAsync(() => {
-      const { instance, fixture, containerEl } = createFixture<TestAppWithOverAndSideMode>(TestAppWithOverAndSideMode);
+      const { instance, fixture, containerEl } =
+        createFixture<TestAppWithOverAndSideMode>(TestAppWithOverAndSideMode, 'dt-drawer-container');
       fixture.detectChanges();
       flush();
 
@@ -203,7 +205,7 @@ describe('DtDrawer', () => {
 
   describe('container behaviors', () => {
     it('should have a backdrop element if it is in over mode', fakeAsync(() => {
-      const { containerEl, fixture } = createFixture<TestAppOverMode>(TestAppOverMode);
+      const { containerEl, fixture } = createFixture<TestAppOverMode>(TestAppOverMode, 'dt-drawer-container');
       fixture.detectChanges();
       flush();
 
@@ -224,7 +226,7 @@ describe('DtDrawer', () => {
     }));
 
     it('should close over mode when click on backdrop area', fakeAsync(() => {
-      const { containerEl, fixture } = createFixture<TestAppOverMode>(TestAppOverMode);
+      const { containerEl, fixture } = createFixture<TestAppOverMode>(TestAppOverMode, 'dt-drawer-container');
       fixture.detectChanges();
       flush();
 
@@ -244,7 +246,7 @@ describe('DtDrawer', () => {
     }));
 
     it('should close when pressing escape', fakeAsync(() => {
-      const { instance, fixture, containerEl } = createFixture<BasicTestApp>(BasicTestApp);
+      const { instance, fixture, containerEl } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
       const drawer = instance.drawer;
       fixture.detectChanges();
 
@@ -266,7 +268,7 @@ describe('DtDrawer', () => {
 
   describe('accessibility', () => {
     it('should have an aria-hidden on the drawer when it is not shown', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp);
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
       fixture.detectChanges();
       flush();
 

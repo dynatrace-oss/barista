@@ -41,8 +41,8 @@ import {
   DtThemingModule,
   DtTileModule,
   DtToastModule,
-  DtToggleButtonGroupModule,
   DtTreeTableModule,
+  DtToggleButtonGroupModule,
 } from '@dynatrace/angular-components';
 
 /**
@@ -54,8 +54,8 @@ import {
     DtAutocompleteModule,
     DtBarIndicatorModule,
     DtBreadcrumbsModule,
-    DtButtonGroupModule,
     DtButtonModule,
+    DtButtonGroupModule,
     DtCardModule,
     DtChartModule,
     DtCheckboxModule,
@@ -66,8 +66,8 @@ import {
     DtExpandablePanelModule,
     DtExpandableSectionModule,
     DtFilterFieldModule,
-    DtFormattersModule,
     DtFormFieldModule,
+    DtFormattersModule,
     DtHighlightModule,
     DtIconModule,
     DtInfoGroupModule,
@@ -81,8 +81,8 @@ import {
     DtProgressBarModule,
     DtProgressCircleModule,
     DtRadioModule,
-    DtSelectionAreaModule,
     DtSelectModule,
+    DtSelectionAreaModule,
     DtShowMoreModule,
     DtSwitchModule,
     DtTableModule,
@@ -91,8 +91,8 @@ import {
     DtThemingModule,
     DtTileModule,
     DtToastModule,
-    DtToggleButtonGroupModule,
     DtTreeTableModule,
+    DtToggleButtonGroupModule,
   ],
 })
 export class DevAppDynatraceModule { }
