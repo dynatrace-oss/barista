@@ -14,7 +14,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { takeUntil, switchMap, take, debounceTime } from 'rxjs/operators';
-import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
+import { ENTER, BACKSPACE, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
 import { Subject, Subscription, fromEvent } from 'rxjs';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
 import { readKeyCode, isDefined } from '@dynatrace/angular-components/core';
@@ -248,6 +248,8 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
       } else if (this._prefixFilters.length) {
         this._removeFilter(this._prefixFilters[this._prefixFilters.length - 1]);
       }
+    } else if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
+      this._autocompleteTrigger.closePanel();
     }
   }
 

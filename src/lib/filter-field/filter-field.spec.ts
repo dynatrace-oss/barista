@@ -2,13 +2,13 @@ import { TestBed, ComponentFixture, inject, fakeAsync, flushMicrotasks, flush, t
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtFilterFieldModule, DtFilterFieldDefaultDataSource, DtFilterField, DT_FILTER_FIELD_TYPING_DEBOUNCE } from '@dynatrace/angular-components/filter-field';
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { typeInElement } from '../../testing/type-in-element';
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
-import { ENTER, BACKSPACE } from '@angular/cdk/keycodes';
+import { ENTER, BACKSPACE, ESCAPE } from '@angular/cdk/keycodes';
 
 describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;
@@ -371,6 +371,25 @@ describe('DtFilterField', () => {
       expect(options.length).toBe(1);
       expect(linzOption.innerText).toBe('Linz');
     });
+
+    it('should close the panel when pressing escape', fakeAsync(() => {
+      const trigger = filterField._autocompleteTrigger;
+      const input = getInput(fixture);
+
+      input.focus();
+      flush();
+      fixture.detectChanges();
+
+      expect(document.activeElement).toBe(input);
+      expect(trigger.panelOpen).toBe(true);
+
+      dispatchKeyboardEvent(input, 'keydown', ESCAPE);
+      flush();
+      fixture.detectChanges();
+
+      expect(document.activeElement).toBe(input);
+      expect(trigger.panelOpen).toBe(false);
+    }));
   });
 });
 
@@ -472,4 +491,6 @@ export class TestApp {
   dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
 
   label = 'Filter by';
+
+  @ViewChild(DtFilterField) filterField: DtFilterField;
 }
