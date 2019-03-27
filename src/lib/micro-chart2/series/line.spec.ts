@@ -41,7 +41,7 @@ describe('DtMicroChartLineSvg', () => {
     });
 
     it('should render a line with the path', () => {
-      const line = fixture.debugElement.query(By.css('.dt-micro-chart-line'));
+      const line = fixture.debugElement.query(By.css('.dt-micro-chart-line:not(.dt-micro-chart-interpolated-line)'));
       const path = line.nativeElement.getAttribute('d');
       expect(path).toBe(fixture.componentInstance.path);
     });

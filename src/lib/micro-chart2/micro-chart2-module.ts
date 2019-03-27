@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { DtChartModule } from '@dynatrace/angular-components/chart';
 import { DtMicroChart2 } from './micro-chart2';
 import { CommonModule } from '@angular/common';
-import { DtFormattersModule } from '../formatters';
+import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
 import {
   DtMicroChartLineSeriesSVG,
   DtMicroChartColumnSeriesSVG,

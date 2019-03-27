@@ -43,7 +43,7 @@ export * from '@dynatrace/angular-components/select';
 export * from '@dynatrace/angular-components/overlay';
 export * from '@dynatrace/angular-components/formatters';
 export * from '@dynatrace/angular-components/micro-chart';
-export * from '@dynatrace/angular-components/micro-chart2';
+// export * from '@dynatrace/angular-components/micro-chart2';
 export * from '@dynatrace/angular-components/selection-area';
 export * from '@dynatrace/angular-components/bar-indicator';
 export * from '@dynatrace/angular-components/drawer';

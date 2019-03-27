@@ -10,7 +10,7 @@ export interface DtMicroChartBarScales {
   y: ScaleBand<number>;
 }
 
-export interface DtMicroChartBarDataPoint extends DtMicroChartDataPoint{
+export interface DtMicroChartBarDataPoint extends DtMicroChartDataPoint {
   width: number;
   height: number;
 }

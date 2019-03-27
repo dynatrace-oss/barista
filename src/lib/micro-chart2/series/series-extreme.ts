@@ -4,7 +4,7 @@ import { DtMicroChartExtremes } from '../business-logic/core/chart';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { takeUntil, take } from 'rxjs/operators';
 import { calculateLabelPosition } from '../helper-functions';
-import { isDefined } from '../../core';
+import { isDefined } from '@dynatrace/angular-components/core';
 
 /** Class that extends the DtMicroChartSeries and extends the possibility to add Highlighting of extremes */
 export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG implements OnChanges, OnDestroy {
