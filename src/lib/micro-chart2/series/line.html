@@ -1,11 +1,11 @@
 <!-- Interpolated path -->
 <svg:path class="dt-micro-chart-line dt-micro-chart-interpolated-line" [attr.d]="interpolatedPath"></svg:path>
 
-<!-- -->
+<!-- Distinct line -->
 <svg:path class="dt-micro-chart-line" [attr.d]="path"></svg:path>
 <ng-container *ngFor="let point of points">
   <svg:circle
-    *ngIf="point.y !== null"
+    *ngIf="point.y !== null && !point.interpolated"
     class="dt-micro-chart-point"
     [attr.cx]="point.x"
     [attr.cy]="point.y"

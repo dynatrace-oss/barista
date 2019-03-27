@@ -1,7 +1,7 @@
 import { ScaleLinear, scaleLinear, ScaleBand, scaleBand } from 'd3-scale';
 import { DtMicroChartDomains, DtMicroChartExtremes, DtMicroChartDataPoint } from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
-import { findExtremes } from '../../helper-functions';
+import { findExtremes, interpolateNullValues } from '../../helper-functions';
 import { DtMicroChartColumnSeries } from '../../public-api';
 import { Series } from 'd3-shape';
 
@@ -10,9 +10,7 @@ export interface DtMicroChartColumnScales {
   y: ScaleLinear<number, number>;
 }
 
-export interface DtMicroChartColumnDataPoint {
-  x: number;
-  y: number | null;
+export interface DtMicroChartColumnDataPoint extends DtMicroChartDataPoint {
   width: number;
   height: number;
 }
@@ -66,7 +64,7 @@ export function handleChartColumnSeries(
   stack?: Array<Series<{ [key: string]: number }, string>>
 ): DtMicroChartColumnSeriesData {
   const scales = getScales(width, domains, config);
-  const data = series._transformedData;
+  let data = series._transformedData;
   // Calculate Min and Max values
   const { min, minIndex, max, maxIndex } = findExtremes<DtMicroChartDataPoint>(
     data,
@@ -92,10 +90,16 @@ export function handleChartColumnSeries(
       throw new Error(`Stack data was not found for series: ${series._id}`);
     }
   } else {
-
+    // interpolate null values
+    if (!series.skipNullValues) {
+      data = interpolateNullValues(data);
+    }
     transformedData = {
       ...transformedData,
-      points: data.map((dp, index) => calculatePoint(index, dp.y, domains, scales)),
+      points: data.map((dp, index) => ({
+        ...calculatePoint(index, dp.y, domains, scales),
+        interpolated: dp.interpolated,
+      })),
       extremes: {
         min: minPoint,
         minAnchor: {

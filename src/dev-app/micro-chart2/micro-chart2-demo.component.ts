@@ -18,7 +18,8 @@ export class MicroChart2Demo {
 
   series3 = {
     name: 'Requests',
-    data: [240, null, 400, null, 150, 200],
+    // data: [240, null, 400, null, 150, 200],
+    data: [null, null, 350, null, 150, 200],
   };
 
   series4 = {
@@ -33,6 +34,7 @@ export class MicroChart2Demo {
   toggleSeries = false;
   toggleExtremes = true;
   toggleAxis = true;
+  skipNullValues = true;
 
   yAxisMin = 0;
 

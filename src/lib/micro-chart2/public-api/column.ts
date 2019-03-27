@@ -16,6 +16,7 @@ import { DtMicroChartStackContainer } from './stacked-container';
 })
 export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries implements OnChanges, OnDestroy {
   private _highlightExtremes;
+  private _skipNullValues: boolean;
 
   readonly type: DtMicroChartSeriesType = 'column';
 
@@ -32,6 +33,16 @@ export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries implem
   get hightlightExtremes(): boolean { return this._highlightExtremes; }
   set hightlightExtremes(value: boolean) {
     this._highlightExtremes = coerceBooleanProperty(value);
+  }
+
+  /**
+   * Whether the autocomplete is disabled. When disabled, the element will
+   * act as a regular input and the user won't be able to open the panel.
+   */
+  @Input('skipNullValues')
+  get skipNullValues(): boolean { return this._skipNullValues; }
+  set skipNullValues(value: boolean) {
+    this._skipNullValues = coerceBooleanProperty(value);
   }
 
   constructor(@Optional() @SkipSelf() public _stackedContainer: DtMicroChartStackContainer) {

@@ -5,8 +5,6 @@ import {
 } from '../../public-api';
 import { extent } from 'd3-array';
 
-export type DtMicroChartUnifiedInputData = Array<[number, number|null]>;
-
 // TODO: adjust datastructure to find eventually shared scales (multiple axis, ...)
 export interface DtMicroChartDomains {
   x: { min: number; max: number; numberOfPoints: number };

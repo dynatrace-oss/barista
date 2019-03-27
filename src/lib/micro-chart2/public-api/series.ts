@@ -1,6 +1,6 @@
 import { SimpleChanges, Input, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { unifySeriesData, DtMicroChartUnifiedInputData, DtMicroChartDataPoint } from '../business-logic/core/chart';
+import { unifySeriesData, DtMicroChartDataPoint } from '../business-logic/core/chart';
 import { DtMicroChartStackContainer } from './stacked-container';
 
 export type DtMicroChartSeriesType = 'line' | 'column' | 'bar';

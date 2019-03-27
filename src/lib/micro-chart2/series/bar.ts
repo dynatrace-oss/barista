@@ -8,6 +8,7 @@ import { DtMicroChartBarDataPoint } from '../business-logic/core/bar';
     class: 'dt-micro-chart-series, dt-micro-chart-bar-series',
   },
   templateUrl: './bar.html',
+  styleUrls: ['./bar.scss'],
   inputs: ['color'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartBarSeriesSVG }],

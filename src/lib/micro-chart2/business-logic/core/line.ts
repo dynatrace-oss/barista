@@ -28,15 +28,15 @@ export function handleChartLineSeries(
   let data = series._transformedData;
 
   // interpolate null values
-  // if (!series.skipNullValues) {
-  //   data = interpolateNullValues(data);
-  // }
-
+  if (!series.skipNullValues) {
+    data = interpolateNullValues(data);
+  }
   const { min, max } = findExtremes<DtMicroChartLineDataPoint>(data, (d) => d.y);
 
   const points = data.map((dp) => ({
     x: x(dp.x),
     y: dp.y === null ? null : y(dp.y),
+    interpolated: dp.interpolated,
   }));
 
   const transformedData = {

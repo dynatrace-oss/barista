@@ -1,17 +1,16 @@
 import { ScaleLinear, scaleLinear, ScaleBand, scaleBand } from 'd3-scale';
-import { DtMicroChartDomains } from './chart';
+import { DtMicroChartDomains, DtMicroChartDataPoint } from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
 import { Series } from 'd3-shape';
 import { DtMicroChartBarSeries } from '../../public-api';
+import { interpolateNullValues } from '../../helper-functions';
 
 export interface DtMicroChartBarScales {
   x: ScaleLinear<number, number>;
   y: ScaleBand<number>;
 }
 
-export interface DtMicroChartBarDataPoint {
-  x: number | null;
-  y: number;
+export interface DtMicroChartBarDataPoint extends DtMicroChartDataPoint{
   width: number;
   height: number;
 }
@@ -58,7 +57,7 @@ export function handleChartBarSeries(
   stack?: Array<Series<{ [key: string]: number }, string>>
 ): DtMicroChartBarSeriesData {
   const scales = getScales(width, domains, config);
-  const data = series._transformedData;
+  let data = series._transformedData;
 
   const transformedData: DtMicroChartBarSeriesData = {
     scales,
@@ -79,7 +78,14 @@ export function handleChartBarSeries(
       throw new Error(`Stack data was not found for series: ${series._id}`);
     }
   } else {
-    transformedData.points = data.map((dp, index) => calculatePoint(index, dp.y, domains, scales));
+    // interpolate null values
+    if (!series.skipNullValues) {
+      data = interpolateNullValues(data);
+    }
+    transformedData.points = data.map((dp, index) => ({
+      ...calculatePoint(index, dp.y, domains, scales),
+      interpolated: dp.interpolated,
+    }));
   }
   return transformedData;
 }

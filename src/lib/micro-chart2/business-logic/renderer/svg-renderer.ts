@@ -41,7 +41,12 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
 
     // Interpolated path
     const interpolatedLineGenerator = line()
-      .defined((dp, index) => data.points[index].interpolated === true);
+      .defined((dp, index) => {
+        const isInterpolated = data.points[index].interpolated === true;
+        const nextIsInterpolated = data.points[index + 1] && data.points[index + 1].interpolated === true;
+        const previousIsInterpolated = data.points[index - 1] && data.points[index - 1].interpolated === true;
+        return isInterpolated || nextIsInterpolated || previousIsInterpolated;
+      });
     const interpolatedPath = interpolatedLineGenerator(linePoints) || '';
 
     return {
@@ -74,8 +79,7 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
         // tslint:disable-next-line:no-magic-numbers
         height: data.extremes.max.height + (offset * 2),
       };
-      console.log(maxHighlightRectangle);
-      
+
       renderData = {
         ...renderData,
         extremes: data.extremes,

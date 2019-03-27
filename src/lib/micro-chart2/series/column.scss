@@ -11,3 +11,10 @@
   font-size: 12px;
   fill: $gray-500;
 }
+
+.dt-micro-chart-column-interpolated {
+  fill: transparent;
+  stroke: black;
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+}

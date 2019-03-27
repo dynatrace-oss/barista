@@ -1,5 +1,5 @@
 import { SVGTextAnchor } from './business-logic/renderer/svg-renderer';
-import { DtMicroChartUnifiedInputData } from './business-logic/core/chart';
+import { DtMicroChartDataPoint } from './business-logic/core/chart';
 
 export function getMinMaxValues(numbers: number[]): { min: number; max: number } {
   return {
@@ -154,35 +154,51 @@ export function calculateLabelPosition(pointX: number, textLength: number, chart
 
 /**
  * Linear interpolation function
+ * https://en.wikipedia.org/wiki/Linear_interpolation
  */
 function linearInterpolation(start: number, end: number, steps: number, step: number): number {
-  const diff = start - end;
-  const part = diff / steps;
-  return start + (part * step);
+  const t = 1 - (step / steps);
+  return (1 - t) * start + (t * end);
 }
 
 /**
  * Interpolate null value data.
  */
-export function interpolateNullValues(data: DtMicroChartUnifiedInputData): DtMicroChartUnifiedInputData {
+export function interpolateNullValues(data: DtMicroChartDataPoint[]): DtMicroChartDataPoint[] {
+  // Make a copy to not mutate the original
+  const copiedData = data.map((datapoint) => ({ ...datapoint }));
+  // Initialize state variables
   let isInterpolating = false;
   let lastKnownValue: number | undefined;
   let lastKnownIndex = 0;
 
-  const max = data.length;
+  const max = copiedData.length;
   for (let i = 0; i < max; i += 1) {
-    const value = data[i][1];
-    // switching from distinct to interpolated mode
+    const value = copiedData[i].y;
+    // Switching from distinct to interpolated mode
     if (value === null && !isInterpolating) {
       isInterpolating = true;
       continue;
     }
-    // switching from interpolated mode to distinct
+
+    // Switching from interpolated mode to distinct
     if (value !== null && isInterpolating) {
-      const interpolationSpread = i - lastKnownIndex;
-      for (let j = lastKnownIndex; j > lastKnownIndex; j -= 1) {
-        data[j][1] = linearInterpolation(lastKnownValue!, value, interpolationSpread, i - j);
+
+      // If the value has never been defined, fill the start with the current value
+      if (lastKnownValue === undefined) {
+        for (let j = i - 1; j >= lastKnownIndex; j -= 1) {
+          copiedData[j].y = value;
+          copiedData[j].interpolated = true;
+        }
+      } else {
+        // Iterate over the null value range and fill values with interpolation
+        const interpolationSpread = i - lastKnownIndex;
+        for (let j = i - 1; j > lastKnownIndex; j -= 1) {
+          copiedData[j].y = linearInterpolation(lastKnownValue, value, interpolationSpread, i - j);
+          copiedData[j].interpolated = true;
+        }
       }
+      isInterpolating = false;
     }
     // continually go through distinct values
     if (value !== null && !isInterpolating) {
@@ -191,5 +207,13 @@ export function interpolateNullValues(data: DtMicroChartUnifiedInputData): DtMic
       continue;
     }
   }
-  return data;
+
+  // if the end of the copiedData is reached and we need to fill interpolated copiedData
+  if (isInterpolating && lastKnownValue) {
+    for (let j = max - 1; j > lastKnownIndex; j -= 1) {
+      copiedData[j].y = lastKnownValue;
+      copiedData[j].interpolated = true;
+    }
+  }
+  return copiedData;
 }
