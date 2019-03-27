@@ -1,5 +1,5 @@
 
-import {ComponentFixture, TestBed, fakeAsync, inject, flush} from '@angular/core/testing';
+import {ComponentFixture, TestBed, fakeAsync, inject, flush, tick, flushMicrotasks} from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { DtOverlayModule, DtOverlayConfig, DT_OVERLAY_DEFAULT_OFFSET } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,13 +37,12 @@ describe('DtOverlayTrigger', () => {
     overlayContainer.ngOnDestroy();
   });
 
-  it('should create an overlay on mouseover and dismiss on mouseout', fakeAsync(() => {
-    dispatchMouseEvent(trigger, 'mouseover');
-    fixture.detectChanges();
+  it('should create an overlay on mouseover and move and dismiss on mouseout', fakeAsync(() => {
+    initOverlay(fixture, trigger);
 
     let overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeDefined();
-    expect(overlay.innerText).toEqual('overlay');
+    expect(overlay.innerText).toEqual('overlayfocusme');
 
     dispatchMouseEvent(trigger, 'mouseout');
     fixture.detectChanges();
@@ -55,8 +54,9 @@ describe('DtOverlayTrigger', () => {
 
   it('should set the offset to the mouseposition and deal with initial offset', fakeAsync(() => {
     const offset = 1;
-    dispatchMouseEvent(trigger, 'mouseover');
-    flush();
+
+    initOverlay(fixture, trigger);
+
     dispatchMouseEvent(
       trigger,
       'mousemove',
@@ -73,8 +73,7 @@ describe('DtOverlayTrigger', () => {
   }));
 
   it('should not be pinnable by default', fakeAsync(() => {
-    dispatchMouseEvent(trigger, 'mouseover');
-    fixture.detectChanges();
+    initOverlay(fixture, trigger);
 
     dispatchMouseEvent(trigger, 'click');
     fixture.detectChanges();
@@ -90,8 +89,7 @@ describe('DtOverlayTrigger', () => {
   it('should be pinnable if configured', fakeAsync(() => {
     fixture.componentInstance.config = { pinnable: true };
     fixture.detectChanges();
-    dispatchMouseEvent(trigger, 'mouseover');
-    fixture.detectChanges();
+    initOverlay(fixture, trigger);
 
     dispatchMouseEvent(trigger, 'click');
     fixture.detectChanges();
@@ -104,12 +102,37 @@ describe('DtOverlayTrigger', () => {
     expect(overlay).not.toBeNull();
   }));
 
+  it('should stay pinned on subsequent mouseover', fakeAsync(() => {
+    fixture.componentInstance.config = { pinnable: true };
+    fixture.detectChanges();
+    initOverlay(fixture, trigger);
+
+    dispatchMouseEvent(trigger, 'click');
+    fixture.detectChanges();
+    flush();
+
+    dispatchMouseEvent(trigger, 'mouseout');
+    fixture.detectChanges();
+
+    let overlay = getOverlayPane(overlayContainerElement);
+
+    dispatchMouseEvent(trigger, 'mouseover');
+    dispatchMouseEvent(
+      trigger,
+      'mousemove');
+    fixture.detectChanges();
+    flush();
+
+    overlay = getOverlayPane(overlayContainerElement);
+
+    expect(overlay).not.toBeNull();
+  }));
+
   it('should lock movement to xAxis', fakeAsync(() => {
     const offset = 1;
     fixture.componentInstance.config = { movementConstraint: 'xAxis' };
     fixture.detectChanges();
-    dispatchMouseEvent(trigger, 'mouseover');
-    flush();
+    initOverlay(fixture, trigger);
     dispatchMouseEvent(
       trigger,
       'mousemove',
@@ -128,8 +151,7 @@ describe('DtOverlayTrigger', () => {
     const offset = 1;
     fixture.componentInstance.config = { movementConstraint: 'yAxis' };
     fixture.detectChanges();
-    dispatchMouseEvent(trigger, 'mouseover');
-    flush();
+    initOverlay(fixture, trigger);
     dispatchMouseEvent(
       trigger,
       'mousemove',
@@ -153,6 +175,25 @@ describe('DtOverlayTrigger', () => {
     expect(document.activeElement).toBe(trigger);
   });
 
+  it('should not change the focus if the overlay is not pinned', fakeAsync(() => {
+    const previouslyFocused = document.activeElement;
+    initOverlay(fixture, trigger);
+    expect(document.activeElement).toBe(previouslyFocused);
+  }));
+
+  fit('should change the focus if the overlay pinned', fakeAsync(() => {
+    const previouslyFocused = document.activeElement;
+    fixture.componentInstance.config = { pinnable: true };
+    fixture.detectChanges();
+    initOverlay(fixture, trigger);
+
+    dispatchMouseEvent(trigger, 'click');
+    fixture.detectChanges();
+    flush();
+
+    expect(document.activeElement).not.toBe(previouslyFocused);
+  }));
+
   it('should open the overlay with space', () => {
     dispatchKeyboardEvent(trigger, 'keydown', SPACE);
     fixture.detectChanges();
@@ -170,9 +211,7 @@ describe('DtOverlayTrigger', () => {
   });
 
   it('should close the overlay on escape', fakeAsync(() => {
-    dispatchMouseEvent(trigger, 'mouseover');
-    fixture.detectChanges();
-    flush();
+    initOverlay(fixture, trigger);
 
     let overlay = getContainerElement(overlayContainerElement);
     expect(overlay).not.toBeNull();
@@ -188,24 +227,34 @@ describe('DtOverlayTrigger', () => {
     fixture.componentInstance.disabled = true;
     fixture.detectChanges();
 
-    dispatchMouseEvent(trigger, 'mouseover');
-    fixture.detectChanges();
-    flush();
+    initOverlay(fixture, trigger);
 
     const overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeNull();
   }));
 });
 
+function initOverlay(fixture: ComponentFixture<TestComponent>, trigger: HTMLElement): void {
+  dispatchMouseEvent(trigger, 'mouseover');
+  dispatchMouseEvent(
+    trigger,
+    'mousemove');
+  fixture.detectChanges();
+  flush();
+}
+
 function getContainerElement(overlayContainerElement: HTMLElement): HTMLElement {
   return overlayContainerElement.querySelector('.dt-overlay-container') as HTMLElement;
+}
+function getOverlayPane(overlayContainerElement: HTMLElement): HTMLElement {
+  return overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
 }
 
 /** dummy component */
 @Component({
   selector: 'dt-test-component',
   template: `<div [dtOverlay]="overlay" [dtOverlayConfig]="config"
-    [disabled]="disabled">trigger</div><ng-template #overlay>overlay</ng-template>`,
+    [disabled]="disabled">trigger</div><ng-template #overlay>overlay<button>focusme</button></ng-template>`,
 })
 class TestComponent {
   config: DtOverlayConfig = {};
