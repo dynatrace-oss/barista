@@ -2,7 +2,7 @@ import { ScaleLinear, scaleLinear } from 'd3-scale';
 import { DtMicroChartDomains, DtMicroChartExtremes, DtMicroChartDataPoint } from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
 import { findExtremes, interpolateNullValues } from '../../helper-functions';
-import { DtMicroChartLineSeries } from '../../public-api';
+import { DtMicroChartLineSeries } from '../../public-api/line';
 
 export interface DtMicroChartLineScales {
   x: ScaleLinear<number, number>;

@@ -2,7 +2,7 @@ import { ScaleLinear, scaleLinear, ScaleBand, scaleBand } from 'd3-scale';
 import { DtMicroChartDomains, DtMicroChartExtremes, DtMicroChartDataPoint } from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
 import { findExtremes, interpolateNullValues } from '../../helper-functions';
-import { DtMicroChartColumnSeries } from '../../public-api';
+import { DtMicroChartColumnSeries } from '../../public-api/column';
 import { Series } from 'd3-shape';
 
 export interface DtMicroChartColumnScales {

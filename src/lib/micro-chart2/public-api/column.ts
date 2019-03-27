@@ -1,5 +1,22 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnChanges, OnDestroy, ContentChild, TemplateRef, Input, Optional, SkipSelf } from '@angular/core';
-import { DtMicroChartSeries, DtMicroChartSeriesType, DtMicroChartRenderDataBase, DtMicroChartRenderDataExtremes, DtMicroChartStackableSeries } from './series';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  OnChanges,
+  OnDestroy,
+  ContentChild,
+  TemplateRef,
+  Input,
+  Optional,
+  SkipSelf,
+} from '@angular/core';
+import {
+  DtMicroChartSeries,
+  DtMicroChartSeriesType,
+  DtMicroChartRenderDataBase,
+  DtMicroChartRenderDataExtremes,
+  DtMicroChartStackableSeries,
+} from './series';
 import { DtMicroChartMinLabel, DtMicroChartMaxLabel } from './extreme-label';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DtMicroChartStackContainer } from './stacked-container';

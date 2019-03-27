@@ -1,9 +1,7 @@
-import {
-  DtMicroChartSeries,
-  DtMicroChartSeriesType,
-  DtMicroChartAxis,
-} from '../../public-api';
+
 import { extent } from 'd3-array';
+import { DtMicroChartSeriesType, DtMicroChartSeries } from '../../public-api/series';
+import { DtMicroChartAxis } from '../../public-api/axes';
 
 // TODO: adjust datastructure to find eventually shared scales (multiple axis, ...)
 export interface DtMicroChartDomains {

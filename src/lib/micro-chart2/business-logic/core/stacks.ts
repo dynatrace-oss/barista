@@ -1,10 +1,8 @@
-import {
-  DtMicroChartStackableSeries,
-  DtMicroChartSeries
-} from '../../public-api';
+
 import { stack as d3Stack, Series } from 'd3-shape';
 import { DtMicroChartDomains } from './chart';
 import { max } from 'd3-array';
+import { DtMicroChartSeries, DtMicroChartStackableSeries } from '../../public-api/series';
 
 /**
  * Create stack

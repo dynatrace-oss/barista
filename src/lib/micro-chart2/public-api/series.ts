@@ -1,4 +1,4 @@
-import { SimpleChanges, Input, TemplateRef } from '@angular/core';
+import { SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { unifySeriesData, DtMicroChartDataPoint } from '../business-logic/core/chart';
 import { DtMicroChartStackContainer } from './stacked-container';

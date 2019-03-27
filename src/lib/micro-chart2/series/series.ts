@@ -1,5 +1,5 @@
 import { DtMicroChartConfig } from '../micro-chart-config';
-import { DtMicroChartSeries } from '../public-api';
+import { DtMicroChartSeries } from '../public-api/series';
 import { Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 

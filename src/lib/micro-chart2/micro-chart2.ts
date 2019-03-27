@@ -18,8 +18,13 @@ import { DtViewportResizer, Constructor, mixinColor, CanColor } from '@dynatrace
 import { takeUntil, switchMap, startWith, filter, map } from 'rxjs/operators';
 import { Subject, combineLatest, of } from 'rxjs';
 import { DtMicroChartConfig } from './micro-chart-config';
-import { DtMicroChartSeries, DtMicroChartXAxis, DtMicroChartYAxis, DtMicroChartColumnSeries, DtMicroChartStackContainer, DtMicroChartBarSeries, DtMicroChartLineSeries } from './public-api';
-import { DtMicroChartSeriesSVG } from './series';
+import { DtMicroChartSeries } from './public-api/series';
+import { DtMicroChartXAxis, DtMicroChartYAxis } from './public-api/axes';
+import { DtMicroChartStackContainer } from './public-api/stacked-container';
+import { DtMicroChartColumnSeries } from './public-api/column';
+import { DtMicroChartBarSeries } from './public-api/bar';
+import { DtMicroChartLineSeries } from './public-api/line';
+import { DtMicroChartSeriesSVG } from './series/series';
 import { createChartDomains, applyAxesExtentsToDomain } from './business-logic/core/chart';
 import { DtMicroChartSvgRenderer, DtMicroChartRendererSeriesData } from './business-logic/renderer/svg-renderer';
 import { handleChartLineSeries } from './business-logic/core/line';
