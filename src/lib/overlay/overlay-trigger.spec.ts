@@ -181,7 +181,7 @@ describe('DtOverlayTrigger', () => {
     expect(document.activeElement).toBe(previouslyFocused);
   }));
 
-  fit('should change the focus if the overlay pinned', fakeAsync(() => {
+  it('should change the focus if the overlay pinned', fakeAsync(() => {
     const previouslyFocused = document.activeElement;
     fixture.componentInstance.config = { pinnable: true };
     fixture.detectChanges();
