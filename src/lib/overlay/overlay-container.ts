@@ -95,7 +95,6 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
       throw Error('already attached');
     }
     this._animationState = 'enter';
-    this._savePreviouslyFocusedElement();
     return this._portalOutlet.attachComponentPortal(portal);
   }
 
@@ -107,7 +106,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
       throw Error('already attached');
     }
     this._animationState = 'enter';
-    this._savePreviouslyFocusedElement();
+
     // set the viewcontainerRef manually due to the fact that the portal does not set itself when using a templatePortal
     if (!portal.viewContainerRef) {
       portal.viewContainerRef = this._viewContainerRef;
@@ -132,6 +131,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
 
   /** Moves the focus inside the focus trap. */
   _trapFocus(): void {
+    this._savePreviouslyFocusedElement();
     if (!this._focusTrap) {
       this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
     }
