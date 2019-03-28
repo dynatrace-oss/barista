@@ -3,7 +3,9 @@
     "./rules"
   ],
   "rules": {
-    "dt-a11y-text-alternatives": false,
-    "dt-button": false
+    "dt-button-no-empty": false,
+    "dt-icon-button-alt-text": false,
+    "dt-icon-button-needs-icon": false,
+    "dt-nested-button-is-icon-button": false
   }
 }
