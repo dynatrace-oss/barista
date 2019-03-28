@@ -6,7 +6,9 @@
   "rules": {
     "i18n": false,
     "no-magic-numbers": false,
-    "dt-a11y-text-alternatives": true,
-    "dt-button": true
+    "dt-button-no-empty": true,
+    "dt-icon-button-alt-text": true,
+    "dt-icon-button-needs-icon": true,
+    "dt-nested-button-is-icon-button": true
   }
 }
