@@ -2,13 +2,14 @@ import { AttrAst, BoundElementPropertyAst, ElementAst } from '@angular/compiler'
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
+import { isButtonElement } from '../helpers';
 
 interface FailureStrings {
   [key: string]: string;
 }
 
 // tslint:disable-next-line:max-classes-per-file
-class DtA11yTextAlternativesVisitor extends BasicTemplateAstVisitor {
+class DtButtonVisitor extends BasicTemplateAstVisitor {
 
   // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
@@ -64,41 +65,30 @@ class DtA11yTextAlternativesVisitor extends BasicTemplateAstVisitor {
     return false;
   }
 
-  private isElementValid(element: ElementAst): boolean {
-    switch (element.name) {
-      case 'button':
-      case 'a':
-        return this.isButtonValid(element);
-      default:
-        return true;
-    }
-  }
-
   // tslint:disable-next-line no-any
   private validateElement(element: ElementAst): any {
-    const elementName = element.name;
-    if (Rule.ELEMENTS.indexOf(elementName) === -1) {
+    if (!isButtonElement(element)) {
       return;
     }
 
-    if (this.isElementValid(element)) {
+    if (this.isButtonValid(element)) {
       return;
     }
 
     const startOffset = element.sourceSpan.start.offset;
     const endOffset = element.sourceSpan.end.offset;
 
-    this.addFailureFromStartToEnd(startOffset, endOffset, Rule.FAILURE_STRINGS[elementName]);
+    this.addFailureFromStartToEnd(startOffset, endOffset, Rule.FAILURE_STRINGS[element.name]);
   }
 }
 
 /**
- * The dtA11yTextAlternativesRule ensures that text alternatives are given when needed.
+ * The dtIconButtonAltTextRule ensures that text alternatives are given for icon buttons.
  *
- * The following examples pass the a11y lint checks:
+ * The following example passes the lint checks:
  * <button dt-icon-button variant="nested" aria-label="Install agent"><dt-icon name="agent"></dt-icon></button>
  *
- * For the following examples the linter throws errors:
+ * For the following example the linter throws errors:
  * <a dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></a>, no text alternative given
  */
 export class Rule extends Rules.AbstractRule {
@@ -111,12 +101,12 @@ export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     // tslint:disable-next-line max-line-length
-    description: 'Ensures that text alternatives are given for elements that require alt, aria-label or aria-labelledby attributes.',
+    description: 'Ensures that text alternatives are given for icon buttons.',
     // tslint:disable-next-line no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'Elements without a text content need additional attributes to provide text alternatives.',
-    ruleName: 'dt-a11y-text-alternatives',
+    rationale: 'Buttons without a text content need additional attributes to provide text alternatives.',
+    ruleName: 'dt-icon-button-alt-text',
     type: 'maintainability',
     typescriptOnly: true,
   };
@@ -124,7 +114,7 @@ export class Rule extends Rules.AbstractRule {
   apply(sourceFile: SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: DtA11yTextAlternativesVisitor,
+        templateVisitorCtrl: DtButtonVisitor,
       }),
     );
   }
