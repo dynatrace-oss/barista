@@ -8,12 +8,12 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 
   // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
-    this.validateElement(element);
+    this._validateElement(element);
     super.visitElement(element, context);
   }
 
   // tslint:disable-next-line no-any
-  private validateElement(element: ElementAst): any {
+  private _validateElement(element: ElementAst): any {
     if (!isButtonElement(element)) {
       return;
     }
@@ -27,7 +27,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 
     // dt-icon-button attribute required for nested buttons
     if (isNestedVariant && !isIconButton) {
-      this.addFailureFromStartToEnd(startOffset, endOffset, 'The dt-icon-button attribute is required for nested buttons.');
+      this.addFailureFromStartToEnd(startOffset, endOffset, 'A nested button variant must always be a dt-icon-button.');
     }
   }
 }
