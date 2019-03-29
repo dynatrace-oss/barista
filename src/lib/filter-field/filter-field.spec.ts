@@ -1,7 +1,9 @@
-import { TestBed, ComponentFixture, inject, fakeAsync, flushMicrotasks, flush, tick, discardPeriodicTasks } from '@angular/core/testing';
+// tslint:disable:no-use-before-declare i18n newline-per-chained-call no-floating-promises no-magic-numbers
+
+import { TestBed, ComponentFixture, inject, fakeAsync, tick, flush } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtFilterFieldModule, DtFilterFieldDefaultDataSource, DtFilterField, DT_FILTER_FIELD_TYPING_DEBOUNCE } from '@dynatrace/angular-components/filter-field';
+import { DtFilterFieldModule, DtFilterFieldDefaultDataSource, DtFilterField, DT_FILTER_FIELD_TYPING_DEBOUNCE, DtFilterChangeEvent } from '@dynatrace/angular-components/filter-field';
 import { Component, NgZone, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -9,6 +11,65 @@ import { typeInElement } from '../../testing/type-in-element';
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { ENTER, BACKSPACE, ESCAPE } from '@angular/cdk/keycodes';
+
+const TEST_DATA = {
+  autocomplete: [
+    {
+      name: 'AUT',
+      autocomplete: [
+        {
+          name: 'Upper Austria',
+          distinct: true,
+          autocomplete: [
+            {
+              name: 'Cities',
+              options: [
+                'Linz',
+                'Wels',
+                'Steyr',
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Vienna',
+        },
+      ],
+    },
+    {
+      name: 'USA',
+      autocomplete: [
+        'Los Angeles',
+        'San Fran',
+      ],
+    },
+    {
+      name: 'Free',
+      suggestions: [],
+    },
+  ],
+};
+
+const TEST_DATA_SINGLE_DISTINCT = {
+  autocomplete: [
+    {
+      name: 'AUT',
+      distinct: true,
+      autocomplete: [
+        {
+          name: 'Vienna',
+        },
+        {
+          name: 'Linz',
+        },
+      ],
+    },
+  ],
+};
+
+const TEST_DATA_SINGLE_OPTION = {
+  autocomplete: ['option'],
+};
 
 describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;
@@ -207,6 +268,59 @@ describe('DtFilterField', () => {
 
       expect(spy).toHaveBeenCalledTimes(1);
       subscription.unsubscribe();
+    }));
+
+    it('should fire a DtFilterChangeEvent when adding an option', fakeAsync(() => {
+      let filterChangeEvent: DtFilterChangeEvent | undefined;
+
+      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
+      const sub = filterField.filterChanges.subscribe((ev) => filterChangeEvent = ev);
+
+      fixture.detectChanges();
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      const options = getOptions(overlayContainerElement);
+      options[0].click();
+
+      tick();
+
+      expect(filterChangeEvent).toBeDefined();
+      expect(filterChangeEvent!.added.length).toBe(1);
+      expect(filterChangeEvent!.removed.length).toBe(0);
+      expect(filterChangeEvent!.filters.length).toBe(1);
+
+      sub.unsubscribe();
+    }));
+
+    it('should fire a DtFilterChangeEvent when removing an option', fakeAsync(() => {
+      let filterChangeEvent: DtFilterChangeEvent | undefined;
+
+      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
+      const sub = filterField.filterChanges.subscribe((ev) => filterChangeEvent = ev);
+
+      fixture.detectChanges();
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      const options = getOptions(overlayContainerElement);
+      options[0].click();
+
+      tick();
+
+      const tags = getFilterTags(fixture);
+      tags[0].removeButton.click();
+
+      tick();
+
+      expect(filterChangeEvent).toBeDefined();
+      expect(filterChangeEvent!.added.length).toBe(0);
+      expect(filterChangeEvent!.removed.length).toBe(1);
+      expect(filterChangeEvent!.filters.length).toBe(0);
+
+      sub.unsubscribe();
     }));
 
     it('should switch to free text and on enter fire a filterChanges event and create a tag', fakeAsync(() => {
@@ -422,61 +536,6 @@ function getInput(fixture: ComponentFixture<any>): HTMLInputElement {
   return fixture.debugElement.query(By.css('.dt-filter-field-input')).nativeElement;
 }
 
-const TEST_DATA = {
-  autocomplete: [
-    {
-      name: 'AUT',
-      autocomplete: [
-        {
-          name: 'Upper Austria',
-          distinct: true,
-          autocomplete: [
-            {
-              name: 'Cities',
-              options: [
-                'Linz',
-                'Wels',
-                'Steyr',
-              ],
-            },
-          ],
-        },
-        {
-          name: 'Vienna',
-        },
-      ],
-    },
-    {
-      name: 'USA',
-      autocomplete: [
-        'Los Angeles',
-        'San Fran',
-      ],
-    },
-    {
-      name: 'Free',
-      suggestions: [],
-    },
-  ],
-};
-
-const TEST_DATA_SINGLE_DISTINCT = {
-  autocomplete: [
-    {
-      name: 'AUT',
-      distinct: true,
-      autocomplete: [
-        {
-          name: 'Vienna',
-        },
-        {
-          name: 'Linz',
-        },
-      ],
-    },
-  ],
-};
-
 @Component({
   selector: 'test-app',
   template: `
@@ -488,7 +547,8 @@ const TEST_DATA_SINGLE_DISTINCT = {
 })
 export class TestApp {
 
-  dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
+  // tslint:disable-next-line:no-any
+  dataSource = new DtFilterFieldDefaultDataSource<any>(TEST_DATA);
 
   label = 'Filter by';
 
