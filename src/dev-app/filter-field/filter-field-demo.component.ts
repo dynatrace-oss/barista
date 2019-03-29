@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components';
+import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { DtFilterFieldDefaultDataSource, DtFilterField, DtFilterFieldTag } from '@dynatrace/angular-components';
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
 import { TEST_DATA } from './testdata';
+import { Subscription } from 'rxjs';
 
 // tslint:disable:no-any
 
@@ -17,7 +18,7 @@ const DATA_SETS = new Map<string>([
   templateUrl: './filter-field-demo.component.html',
   styleUrls: ['./filter-field-demo.component.scss'],
 })
-export class FilterFieldDemo {
+export class FilterFieldDemo implements AfterViewInit, OnDestroy {
 
   get dataSourceNames(): string[] { return Array.from(DATA_SETS.keys()); }
 
@@ -26,11 +27,32 @@ export class FilterFieldDemo {
     this._dataSource.data = DATA_SETS.get(value);
     this._activeDataSourceName = value;
   }
+
+  @ViewChild(DtFilterField) filterField: DtFilterField;
+
   private _activeDataSourceName = 'TEST_DATA';
+  private _tagChangesSub = Subscription.EMPTY;
+  _firstTag: DtFilterFieldTag;
 
   _dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
 
+  ngAfterViewInit(): void {
+    this._tagChangesSub = this.filterField.tags.changes.subscribe(() => {
+      this._firstTag = this.filterField.tags.first;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._tagChangesSub.unsubscribe();
+  }
+
   filterChanges(event: any): void {
     console.log(event);
+  }
+
+  toggledDisableFirstTag(): void {
+    if (this._firstTag) {
+      this._firstTag.disabled = !this._firstTag.disabled;
+    }
   }
 }

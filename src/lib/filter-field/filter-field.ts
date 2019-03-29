@@ -12,6 +12,8 @@ import {
   Input,
   AfterViewInit,
   SimpleChanges,
+  ViewChildren,
+  QueryList,
 } from '@angular/core';
 import { takeUntil, switchMap, take, debounceTime } from 'rxjs/operators';
 import { ENTER, BACKSPACE, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
@@ -19,7 +21,7 @@ import { Subject, Subscription, fromEvent } from 'rxjs';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
 import { readKeyCode, isDefined } from '@dynatrace/angular-components/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { DtFilterFieldTagEvent } from './filter-field-tag/filter-field-tag';
+import { DtFilterFieldTagEvent, DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
 import {
   DtFilterFieldDataSource,
 } from './data-source/filter-field-data-source';
@@ -38,7 +40,14 @@ import { DtFilterFieldControl, DtFilterFieldViewer } from './data-source/filter-
 // tslint:disable:no-bitwise
 
 export class DtFilterChangeEvent {
-  constructor(public added: DtFilterData[], public removed: DtFilterData[], public filters: DtFilterData[]) { }
+  constructor(
+    /** Filter data objects added */
+    public added: DtFilterData[],
+    /** Filter data objects removed. */
+    public removed: DtFilterData[],
+    /** Current state of filter data objects. */
+    public filters: DtFilterData[]
+  ) { }
 }
 
 export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
@@ -80,6 +89,12 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
 
   /** Emits when a new filter has been added or removed. */
   @Output() filterChanges = new EventEmitter<DtFilterChangeEvent>();
+
+  /**
+   * List of tags that are the visual representation for selected nodes.
+   * This can be used to disable certain tags or change their labeling.
+   */
+  @ViewChildren(DtFilterFieldTag) tags: QueryList<DtFilterFieldTag>;
 
   /** @internal Current NodeData that renders as an autocomplete, a free-text, ... */
   _currentRenderNode: DtNodeData | null;
@@ -209,7 +224,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
   /** Submits and finishes the current filter. */
   submitFilter(): void {
     if (this._currentFilter) {
-      this.filterChanges.emit(new DtFilterChangeEvent([this._currentFilter], [], this._filters));
+      this._emitFilterChanges([this._currentFilter], []);
       this._currentFilter = null;
     }
   }
@@ -346,7 +361,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     if (removableIndex !== -1) {
       this._filters.splice(removableIndex, 1);
       this._emitFilterNodeChanges(null, filter.nodes);
-      this.filterChanges.emit(new DtFilterChangeEvent([], [filter], this._filters));
+      this._emitFilterChanges([], [filter]);
       this.focus();
       this._changeDetectorRef.markForCheck();
     }
@@ -376,6 +391,10 @@ export class DtFilterField implements AfterViewInit, OnDestroy, DtFilterFieldVie
     if (this._dataControl) {
       this._dataControl.filterNodeChanges({ added, removed });
     }
+  }
+
+  private _emitFilterChanges(added: DtFilterData[], removed: DtFilterData[]): void {
+    this.filterChanges.emit(new DtFilterChangeEvent(added, removed, this._filters));
   }
 
   private _switchDataSource(dataSource: DtFilterFieldDataSource): void {
