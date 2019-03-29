@@ -26,7 +26,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     if (isButton) {
       if (element.children.length < 1) {
         // tslint:disable-next-line max-line-length
-        this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-button must always contain text. Make sure that this is the case even if you use nested components to render text.');
+        this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.');
       }
     }
   }
