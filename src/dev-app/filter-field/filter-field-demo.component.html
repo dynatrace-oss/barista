@@ -6,3 +6,5 @@
 <dt-radio-group class="dev-group" [(ngModel)]="activeDataSourceName">
   <dt-radio-button *ngFor="let name of dataSourceNames" class="dev-radio-button" [value]="name">{{name}}</dt-radio-button>
 </dt-radio-group>
+
+<button dt-button class="disable-tag-button" variant="secondary" [disabled]="!_firstTag"  (click)="toggledDisableFirstTag()">Toggle disabled on first tag</button>

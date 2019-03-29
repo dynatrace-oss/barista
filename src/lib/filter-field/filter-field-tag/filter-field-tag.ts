@@ -4,10 +4,11 @@ import {
   ChangeDetectionStrategy,
   EventEmitter,
   Output,
-  Input
+  Input,
+  ChangeDetectorRef
 } from '@angular/core';
-import { mixinDisabled, CanDisable } from '@dynatrace/angular-components/core';
-import { DtNodeData, DtFilterData, getDtNodeDataViewValue, isDtFreeTextData, DtFilterDataViewValues } from '../types';
+import { DtFilterData, DtFilterDataViewValues } from '../types';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 export class DtFilterFieldTagEvent {
   constructor(public source: DtFilterFieldTag, public data: DtFilterData) { }
@@ -15,18 +16,12 @@ export class DtFilterFieldTagEvent {
 
 // tslint:disable:class-name
 
-// Boilerplate for applying mixins to DtButton.
-export class _DtFilterFieldTagBase { }
-export const _DtFilterFieldTagMixinBase = mixinDisabled(_DtFilterFieldTagBase);
-// tslint:enable:class-name
-
 @Component({
   moduleId: module.id,
   selector: 'dt-filter-field-tag',
   exportAs: 'dtFilterFieldTag',
   templateUrl: 'filter-field-tag.html',
   styleUrls: ['filter-field-tag.scss'],
-  inputs: ['disabled'],
   host: {
     '[attr.role]': `'option'`,
     'class': 'dt-filter-field-tag',
@@ -36,13 +31,25 @@ export const _DtFilterFieldTagMixinBase = mixinDisabled(_DtFilterFieldTagBase);
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtFilterFieldTag extends _DtFilterFieldTagMixinBase implements CanDisable {
+export class DtFilterFieldTag {
 
   @Input() data: DtFilterData;
   @Input() viewValues: DtFilterDataViewValues;
 
   @Output() readonly remove = new EventEmitter<DtFilterFieldTagEvent>();
   @Output() readonly edit = new EventEmitter<DtFilterFieldTagEvent>();
+
+  /** Whether the tag is disabled. */
+  // Note: The disabled mixin can not be used here because the CD needs to be triggerd after it has been set
+  // to reflect the state when programatically setting the property.
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    this._disabled = coerceBooleanProperty(value);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _disabled = false;
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
   _handleRemove(event: MouseEvent): void {
     // Prevent click from bubbling up, so it does not interfere with autocomplete
