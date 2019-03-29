@@ -2,7 +2,7 @@ import { AttrAst, BoundElementPropertyAst, ElementAst } from '@angular/compiler'
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isButtonElement } from '../helpers';
+import { isButtonElement, isIconButtonAttr } from '../helpers';
 
 interface FailureStrings {
   [key: string]: string;
@@ -13,7 +13,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 
   // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
-    this.validateElement(element);
+    this._validateElement(element);
     super.visitElement(element, context);
   }
 
@@ -23,7 +23,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
    * @param inputs element inputs / attribute bindings
    * @returns true if aria-label attribute or binding is set, false otherwise.
    */
-  private hasAriaLabel(attrs: AttrAst[], inputs: BoundElementPropertyAst[]): boolean {
+  private _hasAriaLabel(attrs: AttrAst[], inputs: BoundElementPropertyAst[]): boolean {
     const hasAriaLabelAttr = attrs.some((attr) => attr.name === 'aria-label' && attr.value.trim().length > 0);
     const hasAriaLabelInput = inputs.some((input) => input.name === 'aria-label');
 
@@ -36,7 +36,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
    * @param inputs element inputs / attribute bindings.
    * @returns true if aria-labelledby attribute or binding is set, false otherwise.
    */
-  private hasAriaLabelledby(attrs: AttrAst[], inputs: BoundElementPropertyAst[]): boolean {
+  private _hasAriaLabelledby(attrs: AttrAst[], inputs: BoundElementPropertyAst[]): boolean {
     const hasAriaLabelledbyAttr = attrs.some((attr) => attr.name === 'aria-labelledby' && attr.value.trim().length > 0);
     const hasAriaLabelledbyInput = inputs.some((input) => input.name === 'aria-labelledby');
     // TODO: check reference if aria-labelledby given
@@ -44,40 +44,25 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     return hasAriaLabelledbyAttr || hasAriaLabelledbyInput;
   }
 
-  /**
-   * Checks if button has text alternatives when required.
-   * @param element button or link element.
-   * @returns True if button is valid, false otherwise.
-   */
-  private isButtonValid(element: ElementAst): boolean {
-    const attrs: AttrAst[] = element.attrs;
-    const inputs: BoundElementPropertyAst[] = element.inputs;
-
-    const isIconButton = attrs.some((attr) => attr.name === 'dt-icon-button');
-    if (!isIconButton) {
-      return true;
-    }
-
-    if (this.hasAriaLabel(attrs, inputs) || this.hasAriaLabelledby(attrs, inputs)) {
-      return true;
-    }
-
-    return false;
-  }
-
   // tslint:disable-next-line no-any
-  private validateElement(element: ElementAst): any {
+  private _validateElement(element: ElementAst): any {
     if (!isButtonElement(element)) {
       return;
     }
 
-    if (this.isButtonValid(element)) {
+    const attrs: AttrAst[] = element.attrs;
+    const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
+    if (!isIconButton) {
+      return;
+    }
+
+    const inputs: BoundElementPropertyAst[] = element.inputs;
+    if (this._hasAriaLabel(attrs, inputs) || this._hasAriaLabelledby(attrs, inputs)) {
       return;
     }
 
     const startOffset = element.sourceSpan.start.offset;
     const endOffset = element.sourceSpan.end.offset;
-
     this.addFailureFromStartToEnd(startOffset, endOffset, Rule.FAILURE_STRINGS[element.name]);
   }
 }
