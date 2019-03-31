@@ -1,8 +1,14 @@
-import { AttrAst, ElementAst, TextAst, TemplateAst } from '@angular/compiler';
+import {
+  AttrAst,
+  ElementAst,
+  EmbeddedTemplateAst,
+  TemplateAst,
+  TextAst,
+} from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isIconButtonAttr, isButtonElement } from '../helpers';
+import { isButtonElement, isIconButtonAttr } from '../helpers';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
@@ -25,6 +31,11 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     return true;
   }
 
+  // Checks if the given element is a dt-icon element.
+  private _isDtIconElement(element: TemplateAst): boolean {
+    return element instanceof ElementAst && element.name === 'dt-icon';
+  }
+
   // tslint:disable-next-line no-any
   private _validateElement(element: ElementAst): any {
     if (!isButtonElement(element)) {
@@ -34,32 +45,48 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     const attrs: AttrAst[] = element.attrs;
     const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
 
-    // icon buttons must have exactly one dt-icon child element
     if (isIconButton) {
-      const elementChildren = element.children.filter((child) => this._filterWhitespaceElements(child));
-      if (
-        elementChildren.length === 1 &&
-        (elementChildren[0] instanceof ElementAst) &&
-        (elementChildren[0] as ElementAst).name === 'dt-icon'
-      ) {
+      const hasOnlyDtIconChildren = element.children
+        .filter((child) => this._filterWhitespaceElements(child))
+        .every((child) => {
+          if (this._isDtIconElement(child)) {
+            return true;
+          }
+
+          if (child instanceof EmbeddedTemplateAst) {
+            const allChildrenAreDtIcons = (child as EmbeddedTemplateAst).children
+              .every((grandchild) => {
+                return (this._isDtIconElement(grandchild));
+              });
+            return allChildrenAreDtIcons;
+          }
+
+          return false;
+        });
+
+      if (hasOnlyDtIconChildren) {
         return;
       }
 
       const startOffset = element.sourceSpan.start.offset;
       const endOffset = element.sourceSpan.end.offset;
-      this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-icon-button must contain one dt-icon element only. No other nested elements are allowed.');
+      this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.');
     }
   }
 }
 
 /**
- * The dtIconButtonNeedsIconRule ensures that an icon button only contains one icon element.
+ * The dtIconButtonNeedsIconRule ensures that an icon button only contains dt-icon elements.
  *
- * The following example passes the button lint checks:
+ * The following examples pass the button lint checks:
  * <button dt-icon-button variant="secondary"><dt-icon name="agent"></dt-icon></button>
+ * <button dt-icon-button variant="primary">
+ *  <dt-icon name="dont-watch" *ngIf="isExpanded"></dt-icon>
+ *  <dt-icon name="overview" *ngIf="!isExpanded"></dt-icon>
+ * </button>
  *
  * For the following example the linter throws an error:
- * <button dt-icon-button variant="secondary"><dt-icon name="agent"></dt-icon> icon button</button>, only icon content is allowed
+ * <button dt-icon-button variant="secondary"><dt-icon name="agent"></dt-icon> icon button</button>, only dt-icon child elements allowed
  * <button dt-icon-button variant="secondary">icon button</button>, icon content required
  * <button dt-icon-button variant="secondary"></button>, icon content required
  */
@@ -68,11 +95,11 @@ export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     // tslint:disable-next-line max-line-length
-    description: 'Ensures that an icon button contains only one dt-icon component.',
+    description: 'Ensures that an icon button contains only dt-icon components.',
     // tslint:disable-next-line no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'An icon button must only contain one dt-icon component.',
+    rationale: 'An icon button must only contain dt-icon components.',
     ruleName: 'dt-icon-button-needs-icon',
     type: 'maintainability',
     typescriptOnly: true,
