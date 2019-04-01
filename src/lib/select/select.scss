@@ -12,7 +12,6 @@ $dt-select-panel-min-width: 112px !default;
   outline: none;
   @include main-font();
   @include dt-form-control();
-  background-color: #ffffff;
 
   // Do not allow it to grow outside its wrapper
   max-width: 100%;
