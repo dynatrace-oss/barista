@@ -1,3 +1,15 @@
+## 2.3.0 (2019-04-01)
+
+### Bug Fixes
+
+* **filter-field:** Fixes an issue where autocomplete panel is not closed when pressing the escape key ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **overlay:** Fixes an issue where the DtOverlay could no longer handle SVG elements as origins due to a `@angular/cdk` update and instance checks. Note this forces us to increase the peerDependency to at least 7.3.0 of the `@angular/cdk` package.
+* **overlay:** Fixes an issue where the overlay would refocus an element. This caused a scrolling issue with elements that were focused outside the viewport ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table:** Moved multi expand property from row to table and deprecated `multi` property on expandable row ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Features
+* **table:** Expand state of a row can be set programmatically ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 2.2.0 (2019-03-18)
 
 ### Bug Fixes
