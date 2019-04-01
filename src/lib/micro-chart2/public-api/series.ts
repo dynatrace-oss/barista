@@ -1,7 +1,8 @@
-import { SimpleChanges, TemplateRef } from '@angular/core';
+import { SimpleChanges, TemplateRef, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { unifySeriesData, DtMicroChartDataPoint } from '../business-logic/core/chart';
 import { DtMicroChartStackContainer } from './stacked-container';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 export type DtMicroChartSeriesType = 'line' | 'column' | 'bar';
 export interface DtMicroChartRenderDataBase {
@@ -26,6 +27,7 @@ export abstract class DtMicroChartSeries {
 
   private _data: Array<number|null> | Array<[number, number|null]>;
 
+  @Input()
   get data(): Array<number|null> | Array<[number, number|null]> {
     return this._data;
   }
@@ -36,7 +38,19 @@ export abstract class DtMicroChartSeries {
     this._data = value;
   }
 
+  private _skipNullValues = false;
+
+  /**
+   * Whether null values should be skipped or interpolated. Defaults to false.
+   */
+  @Input()
+  get skipNullValues(): boolean { return this._skipNullValues; }
+  set skipNullValues(value: boolean) {
+    this._skipNullValues = coerceBooleanProperty(value);
+  }
+
   /** This might be temporary */
+  @Input()
   color: string;
 
   /** @internal Assign unique id to the series. */
