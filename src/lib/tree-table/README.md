@@ -171,9 +171,9 @@ You can use the `DtIndicator` directive the same way as in the `<dt-table>` to i
 
 #### Inputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `data` | - | The data for the row. Note that this might be removed rather soon and made obsolete due to a feature request on the underlying cdk table |
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `T` |  The data for the row. Note that this might be removed rather soon and made obsolete due to a feature request on the underlying cdk table |
 
 ### DtTreeControl
 
@@ -202,9 +202,11 @@ You can use the `DtIndicator` directive the same way as in the `<dt-table>` to i
 
 ### DtTreeFlattener<T, F>
 
-| `getChildren` | `(row: T) => (Observable<T[]> | T[] | undefined | null)` |  | function that returns an observable containing the child rows, the child rows, undefined or null |
-| `getLevel` | `(row: T) => number` |  | accessor fn for the level of the row |
-| `isExpandable` | `(row: T) => boolean` | | function that returns wether a node is expandable |
-| `transformFunction` | `(row: T, level: number) => F` | | function that transforms from type T to flat type F |
+| Parameters | Type | Description |
+| --- | --- | --- |
+| `getChildren` | `(row: T) => (Observable<T[]> | T[] | undefined | null)` | function that returns an observable containing the child rows, the child rows, undefined or null |
+| `getLevel` | `(row: T) => number` | accessor fn for the level of the row |
+| `isExpandable` | `(row: T) => boolean` | function that returns wether a node is expandable |
+| `transformFunction` | `(row: T, level: number) => F` | function that transforms from type T to flat type F |
 
 <docs-source-example example="AsyncShowMoreTreeTable" fullwidth="true"></docs-source-example>

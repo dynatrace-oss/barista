@@ -43,10 +43,10 @@ class MyModule {}
 | --- | --- | --- | --- |
 | `valueChange` | `EventEmitter<DtBarIndicatorChange>` | | Event emitted when the value of the bar-indicator cahnges. |
 
-
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `percentage`| `number`| | Percentage value for the current `value` between `min` and `max`. Inherited from `HasProgressValues`. |
+## Properties
+| Name | Type | Description |
+| --- | --- | --- |
+| `percent`| `number`| Returns the percentage value for the current `value` between `min` and `max`. Inherited from `HasProgressValues`. |
 
 ## Examples
 
