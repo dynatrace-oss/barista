@@ -5,6 +5,7 @@
   border: 1px solid $disabledcolor;
   border-radius: 3px;
   min-height: 32px;
+  background-color: #ffffff;
   // Strangely setting the lineheight to 29 instead of 30
   // centers the text more consistent
   @include custom-font-size(false, 29px);
