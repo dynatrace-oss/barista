@@ -2,15 +2,10 @@ import { AttrAst, BoundElementPropertyAst, ElementAst } from '@angular/compiler'
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isButtonElement, isIconButtonAttr } from '../helpers';
 import { hasAriaLabel, hasAriaLabelledby } from '../helpers';
 
-interface FailureStrings {
-  [key: string]: string;
-}
-
 // tslint:disable-next-line:max-classes-per-file
-class DtButtonVisitor extends BasicTemplateAstVisitor {
+class DtCheckboxVisitor extends BasicTemplateAstVisitor {
 
   // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
@@ -20,16 +15,19 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 
   // tslint:disable-next-line no-any
   private _validateElement(element: ElementAst): any {
-    if (!isButtonElement(element)) {
+    if (element.name !== 'dt-checkbox') {
       return;
     }
 
+    // Children can be anything, i.e. a text node or another element that renders text,
+    // so we can only check the existence of children in general.
+    if (element.children && element.children.length > 0) {
+      return;
+    }
+
+    // If the checkbox element does not have any children, check if there is
+    // an aria-label or an aria-labelledby attribute.
     const attrs: AttrAst[] = element.attrs;
-    const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
-    if (!isIconButton) {
-      return;
-    }
-
     const inputs: BoundElementPropertyAst[] = element.inputs;
     if (hasAriaLabel(attrs, inputs) || hasAriaLabelledby(attrs, inputs)) {
       return;
@@ -37,35 +35,30 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 
     const startOffset = element.sourceSpan.start.offset;
     const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, Rule.FAILURE_STRINGS[element.name]);
+    this.addFailureFromStartToEnd(startOffset, endOffset, 'When a dt-checkbox does not contain any content it must have an aria-label or an aria-labelledby attribute.');
   }
 }
 
 /**
- * The dtIconButtonAltTextRule ensures that text alternatives are given for icon buttons.
+ * The dtCheckboxAltTextRule ensures that a checkbox always has a text or an aria-label as alternative.
  *
  * The following example passes the lint checks:
- * <button dt-icon-button variant="nested" aria-label="Install agent"><dt-icon name="agent"></dt-icon></button>
+ * <dt-checkbox>Subscribe to newsletter</dt-checkbox>
+ * <dt-checkbox aria-label="When checked you agree to subscribe to our newsletter."></dt-checkbox>
  *
  * For the following example the linter throws errors:
- * <a dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></a>, no text alternative given
+ * <dt-checkbox></dt-checkbox>
  */
 export class Rule extends Rules.AbstractRule {
 
-  static readonly ELEMENTS = ['a', 'button'];
-  static readonly FAILURE_STRINGS: FailureStrings = {
-    a: 'An icon-button link must have an aria-label or an aria-labelledby attribute.',
-    button: 'An icon-button must have an aria-label or an aria-labelledby attribute.',
-  };
-
   static readonly metadata: IRuleMetadata = {
     // tslint:disable-next-line max-line-length
-    description: 'Ensures that text alternatives are given for icon buttons.',
+    description: 'Ensures that a checkbox always contains content or an aria-label as alternative.',
     // tslint:disable-next-line no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'Buttons without a text content need additional attributes to provide text alternatives.',
-    ruleName: 'dt-icon-button-alt-text',
+    rationale: 'A checkbox without content must have an aria-label or aria-labelledby attribute.',
+    ruleName: 'dt-checkbox-alt-text',
     type: 'maintainability',
     typescriptOnly: true,
   };
@@ -73,7 +66,7 @@ export class Rule extends Rules.AbstractRule {
   apply(sourceFile: SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: DtButtonVisitor,
+        templateVisitorCtrl: DtCheckboxVisitor,
       }),
     );
   }
