@@ -1,0 +1,88 @@
+import { ElementAst, TextAst } from '@angular/compiler';
+import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
+import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
+import { SourceFile } from 'typescript';
+import { hasTextContent } from '../helpers';
+
+class DtCardVisitor extends BasicTemplateAstVisitor {
+
+  // tslint:disable-next-line no-any
+  visitElement(element: ElementAst, context: any): any {
+    this._validateElement(element);
+    super.visitElement(element, context);
+  }
+  
+  // tslint:disable-next-line no-any
+  private _validateElement(element: ElementAst): any {
+    if (element.name !== 'dt-card') {
+      return;
+    }
+
+    const cardChildren = [
+      'dt-card-title',
+      'dt-card-subtitle',
+      'dt-card-icon',
+      'dt-card-title-actions',
+      'dt-card-footer-actions',
+    ];
+
+    const hasContent = element.children.some((el) => {
+      if (el instanceof TextAst) {
+        return hasTextContent(el);
+      } else if (el instanceof ElementAst && cardChildren.includes(el.name)) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    if (hasContent) {
+      return;
+    }
+
+    const startOffset = element.sourceSpan.start.offset;
+    const endOffset = element.sourceSpan.end.offset;
+    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-card must always contain content apart from tilte, subtitle, actions and icon.');
+  }
+}
+
+/**
+ * The dtCardContentRequiredRule ensures that a dt-card always contains content
+ * apart from a title, subtitle, actions etc.
+ *
+ * The following example passes the check:
+ * <dt-card>
+ *   <dt-card-title>Top 3 JavaScript errors</dt-card-title>
+ *   <dt-card-subtitle>Detailed information about JavaScript errors</dt-card-subtitle>
+ *   <p>This is some card content, and there is more to come.</p>
+ *   // ...
+ * </dt-card>
+ *
+ * For the following example the linter throws an error:
+ * <dt-card>
+ *   <dt-card-title>Top 3 JavaScript errors</dt-card-title>
+ *   <dt-card-subtitle>Detailed information about JavaScript errors</dt-card-subtitle>
+ * </dt-card>
+ */
+// tslint:disable-next-line:max-classes-per-file
+export class Rule extends Rules.AbstractRule {
+
+  static readonly metadata: IRuleMetadata = {
+    description: 'Ensures that a dt-card always contains content.',
+    // tslint:disable-next-line no-null-keyword
+    options: null,
+    optionsDescription: 'Not configurable.',
+    rationale: 'A dt-card must always contain content apart from title, subtitle, actions, etc.',
+    ruleName: 'dt-card-needs-content',
+    type: 'maintainability',
+    typescriptOnly: true,
+  };
+
+  apply(sourceFile: SourceFile): RuleFailure[] {
+    return this.applyWithWalker(
+      new NgWalker(sourceFile, this.getOptions(), {
+        templateVisitorCtrl: DtCardVisitor,
+      }),
+    );
+  }
+}
