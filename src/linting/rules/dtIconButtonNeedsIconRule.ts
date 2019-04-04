@@ -8,7 +8,7 @@ import {
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isButtonElement, isIconButtonAttr } from '../helpers';
+import { isButtonElement, isIconButtonAttr, hasTextContent } from '../helpers';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
@@ -21,12 +21,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
   // Filters TextAst elements that only contain whitespace characters.
   private _filterWhitespaceElements(element: TemplateAst): boolean {
     if (element instanceof TextAst) {
-      const nonWhitespaceCharacters = element.value.match(/\S/g);
-      if (nonWhitespaceCharacters !== null && nonWhitespaceCharacters.length > 1) {
-        return true;
-      } else {
-        return false;
-      }
+      return hasTextContent(element);
     }
     return true;
   }
