@@ -10,6 +10,7 @@
     "dt-card-needs-title": false,
     "dt-card-needs-content": false,
     "dt-checkbox-alt-text": false,
+    "dt-radio-button-alt-text": false,
     "dt-info-group-needs-title-and-icon": false
   }
 }
