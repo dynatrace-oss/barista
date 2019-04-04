@@ -11,7 +11,7 @@ import {
   NgZone,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { addCssClass } from '@dynatrace/angular-components/core';
+import { addCssClass, isDefined } from '@dynatrace/angular-components/core';
 import { take } from 'rxjs/operators';
 
 const HIGHLIGHTED_CLASS = 'dt-highlight-mark';
@@ -100,6 +100,7 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
 
   /** The highlight function triggers the highlighting process if we are in a browser context. */
   private _highlight(content?: string): void {
+
     const textContent = content || this._getTextContent();
     // clear the transformed element output
     removeNodeChildren(this._transformedElement.nativeElement);
@@ -149,7 +150,7 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
    */
   private _transformAndDisplay(content: string): void {
     // Generate the textTokens to match
-    const textTokens = this.term.length
+    const textTokens = (this.term && this.term.length)
       ? this._getTextTokens(content)
       : [content];
 
@@ -158,7 +159,7 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
       const node = textTokens[i];
       const text = this._renderer.createText(node);
 
-      if (node.toLowerCase() === this.term.toLowerCase()) {
+      if (node.toLowerCase() === (this.term && this.term.toLowerCase())) {
         const span = this._renderer.createElement(HIGHLIGHTED_ELEMENT);
         addCssClass(span, HIGHLIGHTED_CLASS);
         // append the created span with the class
