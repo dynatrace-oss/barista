@@ -8,6 +8,7 @@
     "dt-icon-button-needs-icon": false,
     "dt-nested-button-is-icon-button": false,
     "dt-card-needs-title": false,
-    "dt-card-needs-content": false
+    "dt-card-needs-content": false,
+    "dt-checkbox-alt-text": false
   }
 }
