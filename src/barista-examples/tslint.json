@@ -10,6 +10,7 @@
     "dt-icon-button-alt-text": true,
     "dt-icon-button-needs-icon": true,
     "dt-nested-button-is-icon-button": true,
-    "dt-card-needs-title": true
+    "dt-card-needs-title": true,
+    "dt-card-needs-content": true
   }
 }
