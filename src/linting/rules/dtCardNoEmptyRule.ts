@@ -42,12 +42,12 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
 
     const startOffset = element.sourceSpan.start.offset;
     const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-card must always contain content apart from tilte, subtitle, actions and icon.');
+    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-card must always contain content apart from tilte, subtitle, icon and actions.');
   }
 }
 
 /**
- * The dtCardContentRequiredRule ensures that a dt-card always contains content
+ * The dtCardNoEmptyRule ensures that a dt-card always contains content
  * apart from a title, subtitle, actions etc.
  *
  * The following example passes the check:
@@ -68,11 +68,11 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a dt-card always contains content.',
+    description: 'Ensures that a dt-card always contains content apart from title, subtitle, icon and actions.',
     // tslint:disable-next-line no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A dt-card must always contain content apart from title, subtitle, actions, etc.',
+    rationale: 'A dt-card must always contain content apart from title, subtitle, icon and actions.',
     ruleName: 'dt-card-no-empty',
     type: 'maintainability',
     typescriptOnly: true,
