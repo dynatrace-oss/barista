@@ -2,7 +2,7 @@ import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isButtonAttr, isButtonElement } from '../helpers';
+import { hasChildren, isButtonAttr, isButtonElement } from '../helpers';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
@@ -20,14 +20,16 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 
     const attrs: AttrAst[] = element.attrs;
     const isButton = attrs.some((attr) => isButtonAttr(attr));
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
 
     if (isButton) {
-      if (element.children.length < 1) {
-        // tslint:disable-next-line max-line-length
-        this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.');
+      if (hasChildren(element)) {
+        return;
       }
+
+      const startOffset = element.sourceSpan.start.offset;
+      const endOffset = element.sourceSpan.end.offset;
+      // tslint:disable-next-line max-line-length
+      this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.');
     }
   }
 }
