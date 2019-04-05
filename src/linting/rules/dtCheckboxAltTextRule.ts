@@ -2,7 +2,7 @@ import { AttrAst, BoundElementPropertyAst, ElementAst } from '@angular/compiler'
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasAriaLabel, hasAriaLabelledby } from '../helpers';
+import { hasAriaLabel, hasAriaLabelledby, hasChildren } from '../helpers';
 
 // tslint:disable-next-line:max-classes-per-file
 class DtCheckboxVisitor extends BasicTemplateAstVisitor {
@@ -21,7 +21,7 @@ class DtCheckboxVisitor extends BasicTemplateAstVisitor {
 
     // Children can be anything, i.e. a text node or another element that renders text,
     // so we can only check the existence of children in general.
-    if (element.children && element.children.length > 0) {
+    if (hasChildren(element)) {
       return;
     }
 
