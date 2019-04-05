@@ -1,8 +1,8 @@
-import { ElementAst, TextAst } from '@angular/compiler';
+import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasTextContent } from '../helpers';
+import { hasContentApartFrom } from '../helpers';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
 
@@ -26,17 +26,7 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
       'dt-card-footer-actions',
     ];
 
-    const hasContent = element.children.some((el) => {
-      if (el instanceof TextAst) {
-        return hasTextContent(el);
-      } else if (el instanceof ElementAst && cardChildren.includes(el.name)) {
-        return false;
-      } else {
-        return true;
-      }
-    });
-
-    if (hasContent) {
+    if (hasContentApartFrom(element, cardChildren)) {
       return;
     }
 
