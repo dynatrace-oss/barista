@@ -9,10 +9,13 @@ import {
   AfterContentChecked,
   OnChanges,
   NgZone,
+  PLATFORM_ID,
+  Inject,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { addCssClass, isDefined } from '@dynatrace/angular-components/core';
+import { addCssClass } from '@dynatrace/angular-components/core';
 import { take } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
 
 const HIGHLIGHTED_CLASS = 'dt-highlight-mark';
 const HIGHLIGHTED_ELEMENT = 'mark';
@@ -68,7 +71,10 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
   /** @internal */
   @ViewChild('transformed') _transformedElement: ElementRef<HTMLElement>;
 
-  constructor(private _renderer: Renderer2, private _zone: NgZone) {}
+  constructor(
+    private _renderer: Renderer2,
+    private _zone: NgZone,
+    @Inject(PLATFORM_ID) private _platformId: string) {}
 
   /** Highlight if either the term or the caseSensitive input changes. */
   ngOnChanges(): void {
@@ -92,10 +98,10 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
   /** Get the textContent of the highlight component. */
   private _getTextContent(): string | undefined {
     // check if we are in a browser context
-    if (!document) {
-      return undefined;
+    if (isPlatformBrowser(this._platformId)) {
+      return this._sourceElement.nativeElement.innerHTML.trim();
     }
-    return this._sourceElement.nativeElement.innerHTML.trim();
+    return undefined;
   }
 
   /** The highlight function triggers the highlighting process if we are in a browser context. */

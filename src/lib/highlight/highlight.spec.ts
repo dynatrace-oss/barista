@@ -8,6 +8,7 @@ describe('DtHighlight', () => {
     TestBed.configureTestingModule({
       imports: [DtHighlightModule],
       declarations: [
+        TestComponentWithoutTerm,
         TestComponentWithHtmlInText,
         TestComponentWithStaticQueryAndStaticText,
         TestComponentWithMultipleHighlights,
@@ -21,6 +22,15 @@ describe('DtHighlight', () => {
     TestBed.compileComponents();
   }));
   describe('with initial behaviour', () => {
+
+    it('should show the original text if no term is given', () => {
+      const fixture = TestBed.createComponent(TestComponentWithoutTerm);
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+
+      fixture.detectChanges();
+      const transformed = containerEl.lastChild as HTMLElement;
+      expect(transformed.innerHTML).toMatch('Original text where nothing should be highlighted');
+    });
 
     it('should contain one container for the original source and one for the escaped text', () => {
       const fixture = TestBed.createComponent(TestComponentWithHtmlInText);
@@ -230,6 +240,11 @@ describe('DtHighlight', () => {
   });
 
 });
+
+@Component({
+  template: `<p dt-highlight>Original text where nothing should be highlighted</p>`,
+})
+class TestComponentWithoutTerm {}
 
 @Component({
   template: `<p dt-highlight term="">Some <b>text where</b> with html characters</p>`,
