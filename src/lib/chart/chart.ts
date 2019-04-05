@@ -23,7 +23,7 @@ import {
   Self,
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DtViewportResizer, DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
 import { DtTheme } from '@dynatrace/angular-components/theming';
 
 // tslint:disable-next-line:no-duplicate-imports
@@ -41,7 +41,7 @@ import { DtChartHeatfield, DtChartHeatfieldActiveChange } from './heatfield/char
 import { createHighchartOptions, applyHighchartsColorOptions } from './highcharts/highcharts-util';
 import { DT_CHART_CONFIG, DtChartConfig, DT_CHART_DEFAULT_CONFIG } from './chart-config';
 import { DtChartTooltipEvent } from './highcharts/highcharts-tooltip-types';
-const logger: DtLogger = DtLoggerFactory.create('DtChart');
+import { applyHighchartsErrorHandler } from './highcharts/highcharts-errors';
 
 export type DtChartOptions = HighchartsOptions & { series?: undefined; tooltip?: { shared: boolean }; interpolateGaps?: boolean };
 export type DtChartSeries = IndividualSeriesOptions;
@@ -61,14 +61,8 @@ setOptions(DT_CHART_DEFAULT_GLOBAL_OPTIONS);
 // added to the window so uglify does not drop this from the bundle
 window.highchartsTooltipEventsAdded = addTooltipEvents();
 
-// tslint:disable-next-line:no-any
-(Highcharts as any).error = function(code: number, stop: boolean): void {
-  const message = `HighCharts Error: www.highcharts.com/errors/${code}`;
-  logger.error(message);
-  if (stop) {
-    throw new Error(message);
-  }
-};
+// add global higcharts error handler for server side logging
+applyHighchartsErrorHandler();
 
 /** Injection token used to get the instance of the dt-chart instance  */
 export const DT_CHART_RESOLVER = new InjectionToken<() => DtChart>('dt-chart-resolver');
