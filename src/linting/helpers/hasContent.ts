@@ -17,5 +17,29 @@ export function hasContent(element: ElementAst): boolean {
       return hasTextContent(child);
     }
     return true;
-  })
+  });
+}
+
+/**
+ * Check if the element has any content (see above).
+ * Child nodes whose name can be found in exclude do not count as content.
+ * @param element - The element to check.
+ * @param exclude - Array of node names that do not count as content.
+ */
+export function hasContentApartFrom(element: ElementAst, exclude: string[]): boolean {
+  if (!element.children) {
+    return false;
+  }
+
+  return element.children.some((child) => {
+    if (child instanceof TextAst) {
+      return hasTextContent(child);
+    }
+
+    if (child instanceof ElementAst && exclude.includes(child.name)) {
+      return false;
+    }
+
+    return true;
+  });
 }
