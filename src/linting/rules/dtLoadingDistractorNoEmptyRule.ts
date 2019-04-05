@@ -4,7 +4,7 @@ import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
 import { hasContent } from '../helpers';
 
-class DtCardVisitor extends BasicTemplateAstVisitor {
+class DtLoadingDistractorVisitor extends BasicTemplateAstVisitor {
 
   // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
@@ -53,7 +53,7 @@ export class Rule extends Rules.AbstractRule {
   apply(sourceFile: SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: DtCardVisitor,
+        templateVisitorCtrl: DtLoadingDistractorVisitor,
       }),
     );
   }

@@ -1,9 +1,8 @@
-import { AttrAst, BoundElementPropertyAst, ElementAst } from '@angular/compiler';
+import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isButtonElement, isIconButtonAttr } from '../helpers';
-import { hasAriaLabel, hasAriaLabelledby } from '../helpers';
+import { isButtonElement, isIconButtonAttr, hasTextContentAlternative } from '../helpers';
 
 interface FailureStrings {
   [key: string]: string;
@@ -30,8 +29,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const inputs: BoundElementPropertyAst[] = element.inputs;
-    if (hasAriaLabel(attrs, inputs) || hasAriaLabelledby(attrs, inputs)) {
+    if (hasTextContentAlternative(element)) {
       return;
     }
 

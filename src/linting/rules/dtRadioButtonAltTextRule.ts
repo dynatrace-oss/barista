@@ -1,8 +1,8 @@
-import { AttrAst, BoundElementPropertyAst, ElementAst } from '@angular/compiler';
+import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasAriaLabel, hasAriaLabelledby, hasContent } from '../helpers';
+import { hasContent, hasTextContentAlternative } from '../helpers';
 
 // tslint:disable-next-line:max-classes-per-file
 class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
@@ -19,15 +19,10 @@ class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    if (hasContent(element)) {
-      return;
-    }
-
-    // If the checkbox element does not have any children, check if there is
-    // an aria-label or an aria-labelledby attribute.
-    const attrs: AttrAst[] = element.attrs;
-    const inputs: BoundElementPropertyAst[] = element.inputs;
-    if (hasAriaLabel(attrs, inputs) || hasAriaLabelledby(attrs, inputs)) {
+    if (
+      hasContent(element) ||
+      hasTextContentAlternative(element)
+    ) {
       return;
     }
 
