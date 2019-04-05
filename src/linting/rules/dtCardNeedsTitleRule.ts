@@ -2,6 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
+import { isDirectChild } from '../helpers';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
 
@@ -13,14 +14,10 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
   
   // tslint:disable-next-line no-any
   private _validateElement(element: ElementAst): any {
-    if (element.name !== 'dt-card') {
-      return;
-    }
-
-    const hasDtCardTitle = element.children
-      .some((child) => child instanceof ElementAst && child.name === 'dt-card-title');
-    
-    if (hasDtCardTitle) {
+    if (
+      element.name !== 'dt-card' ||
+      isDirectChild(element, 'dt-card-title')
+    ) {
       return;
     }
 
@@ -32,6 +29,7 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
 
 /**
  * The dtCardNeedsTitleRule ensures that a card always contains a title.
+ * The title must be a direct child of the dt-card.
  *
  * The following example passes the lint checks:
  * <dt-card>
@@ -50,11 +48,11 @@ export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     // tslint:disable-next-line max-line-length
-    description: 'Ensures that a card always has a title.',
+    description: 'Ensures that a card always has a title, that is a direct child of dt-card.',
     // tslint:disable-next-line no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A card must always contain a dt-card-title.',
+    rationale: 'A card must always contain a dt-card-title, that is a direct child of dt-card.',
     ruleName: 'dt-card-needs-title',
     type: 'maintainability',
     typescriptOnly: true,
