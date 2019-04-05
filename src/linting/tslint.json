@@ -11,6 +11,7 @@
     "dt-card-no-empty": false,
     "dt-checkbox-alt-text": false,
     "dt-radio-button-alt-text": false,
-    "dt-info-group-needs-title-and-icon": false
+    "dt-info-group-needs-title-and-icon": false,
+    "dt-loading-distractor-no-empty": false
   }
 }
