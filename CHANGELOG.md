@@ -1,3 +1,17 @@
+## 2.4.0 (2019-04-05)
+
+### Bug Fixes
+
+* **chart:** Fixes missing highcharts logs on server for dt-chart ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **filter-field, input-field:** Fixes missing background color ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Fixes issue where more than one dt-icon elements are not allowed in a dt-icon-button ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Fixes issue where dt-button linting rule does only allow text but no child components ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **toggle-button:** Fixes wrong border width ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Features
+
+* **highlight:** Added dt-highlight component for marking terms in text ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 2.3.0 (2019-04-01)
 
 ### Bug Fixes
