@@ -11,7 +11,7 @@
     "dt-icon-button-needs-icon": true,
     "dt-nested-button-is-icon-button": true,
     "dt-card-needs-title": true,
-    "dt-card-needs-content": true,
+    "dt-card-no-empty": true,
     "dt-checkbox-alt-text": true,
     "dt-radio-button-alt-text": true,
     "dt-info-group-needs-title-and-icon": true

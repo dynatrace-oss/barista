@@ -73,7 +73,7 @@ export class Rule extends Rules.AbstractRule {
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A dt-card must always contain content apart from title, subtitle, actions, etc.',
-    ruleName: 'dt-card-needs-content',
+    ruleName: 'dt-card-no-empty',
     type: 'maintainability',
     typescriptOnly: true,
   };
