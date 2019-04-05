@@ -1,6 +1,6 @@
 {
   "name": "@dynatrace/angular-components",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "",
   "scripts": {
     "barista-examples": "gulp barista-example:generate && ng serve barista-examples",
