@@ -35,7 +35,7 @@ import { ESCAPE } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
-const LOG: DtLogger = DtLoggerFactory.create('ContextDialogue');
+const LOG: DtLogger = DtLoggerFactory.create('ContextDialog');
 const OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
     originX: 'end',
