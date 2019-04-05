@@ -2,7 +2,7 @@ import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasChildren, isButtonAttr, isButtonElement } from '../helpers';
+import { hasContent, isButtonAttr, isButtonElement } from '../helpers';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
@@ -22,7 +22,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     const isButton = attrs.some((attr) => isButtonAttr(attr));
 
     if (isButton) {
-      if (hasChildren(element)) {
+      if (hasContent(element)) {
         return;
       }
 
@@ -42,7 +42,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
  * <button dt-button><my-text-component></my-text-component></button>
  *
  * For the following example the linter throws an error:
- * <button dt-button></button>, content required
+ * <button dt-button> </button>, content required
  */
 // tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
