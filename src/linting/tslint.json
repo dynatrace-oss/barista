@@ -7,8 +7,9 @@
     "dt-icon-button-alt-text": false,
     "dt-icon-button-needs-icon": false,
     "dt-nested-button-is-icon-button": false,
-    "dt-card-needs-title": false,
     "dt-card-no-empty": false,
+    "dt-card-needs-title": false,
+    "dt-card-direct-children": false,
     "dt-checkbox-no-empty": false,
     "dt-radio-button-alt-text": false,
     "dt-info-group-needs-title-and-icon": false,
@@ -18,6 +19,7 @@
     "dt-tag-no-empty": false,
     "dt-tile-no-empty": false,
     "dt-tile-needs-title": false,
-    "dt-tile-needs-icon": false
+    "dt-tile-needs-icon": false,
+    "dt-tile-direct-children": false
   }
 }
