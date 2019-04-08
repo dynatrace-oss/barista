@@ -1,4 +1,4 @@
-import { ElementAst, BoundElementPropertyAst, AttrAst } from '@angular/compiler';
+import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
