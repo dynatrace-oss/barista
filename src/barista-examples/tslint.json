@@ -10,8 +10,9 @@
     "dt-icon-button-alt-text": true,
     "dt-icon-button-needs-icon": true,
     "dt-nested-button-is-icon-button": true,
-    "dt-card-needs-title": true,
     "dt-card-no-empty": true,
+    "dt-card-needs-title": true,
+    "dt-card-direct-children": true,
     "dt-checkbox-no-empty": true,
     "dt-radio-button-alt-text": true,
     "dt-info-group-needs-title-and-icon": true,
@@ -21,6 +22,7 @@
     "dt-tag-no-empty": true,
     "dt-tile-no-empty": true,
     "dt-tile-needs-title": true,
-    "dt-tile-needs-icon": true
+    "dt-tile-needs-icon": true,
+    "dt-tile-direct-children": true
   }
 }
