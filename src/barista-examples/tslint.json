@@ -19,6 +19,8 @@
     "dt-show-more-no-empty": true,
     "dt-switch-no-empty": true,
     "dt-tag-no-empty": true,
-    "dt-tile-no-empty": true
+    "dt-tile-no-empty": true,
+    "dt-tile-needs-title": true,
+    "dt-tile-needs-icon": true
   }
 }
