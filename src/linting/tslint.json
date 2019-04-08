@@ -9,7 +9,7 @@
     "dt-nested-button-is-icon-button": false,
     "dt-card-needs-title": false,
     "dt-card-no-empty": false,
-    "dt-checkbox-alt-text": false,
+    "dt-checkbox-no-empty": false,
     "dt-radio-button-alt-text": false,
     "dt-info-group-needs-title-and-icon": false,
     "dt-loading-distractor-no-empty": false,
