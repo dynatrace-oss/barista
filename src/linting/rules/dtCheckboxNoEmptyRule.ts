@@ -33,7 +33,7 @@ class DtCheckboxVisitor extends BasicTemplateAstVisitor {
 }
 
 /**
- * The dtCheckboxAltTextRule ensures that a checkbox always has a text or an aria-label as alternative.
+ * The dtCheckboxNoEmptyRule ensures that a checkbox always has a text or an aria-label as alternative.
  *
  * The following example passes the lint checks:
  * <dt-checkbox>Subscribe to newsletter</dt-checkbox>
@@ -51,7 +51,7 @@ export class Rule extends Rules.AbstractRule {
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A checkbox without content must have an aria-label or aria-labelledby attribute.',
-    ruleName: 'dt-checkbox-alt-text',
+    ruleName: 'dt-checkbox-no-empty',
     type: 'maintainability',
     typescriptOnly: true,
   };
