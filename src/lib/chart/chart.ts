@@ -242,7 +242,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this._updateColorOptions();
     // Creating a new highcharts chart.
     // This needs to be done outside the ngZone so the events, hightcharts listens to, do not polute our change detection.
     this._chartObject = this._ngZone.runOutsideAngular(() => chart(this.container.nativeElement, this.highchartsOptions));
@@ -298,6 +297,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     const xAxisHasChanged = (highchartsOptions.xAxis !== this.highchartsOptions.xAxis);
 
     this._highchartsOptions = highchartsOptions;
+    this._updateColorOptions();
     this._updateChart(xAxisHasChanged);
     this._changeDetectorRef.markForCheck();
   }
