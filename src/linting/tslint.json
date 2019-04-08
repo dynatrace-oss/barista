@@ -20,6 +20,8 @@
     "dt-tile-no-empty": false,
     "dt-tile-needs-title": false,
     "dt-tile-needs-icon": false,
-    "dt-tile-direct-children": false
+    "dt-tile-direct-children": false,
+    "dt-copy-to-clipboard-no-empty": false,
+    "dt-toggle-button-group-item-is-button": false
   }
 }
