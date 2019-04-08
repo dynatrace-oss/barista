@@ -13,6 +13,9 @@
     "dt-radio-button-alt-text": false,
     "dt-info-group-needs-title-and-icon": false,
     "dt-loading-distractor-no-empty": false,
-    "dt-show-more-no-empty": false
+    "dt-show-more-no-empty": false,
+    "dt-switch-no-empty": false,
+    "dt-tag-no-empty": false,
+    "dt-tile-no-empty": false
   }
 }
