@@ -23,6 +23,8 @@
     "dt-tile-no-empty": true,
     "dt-tile-needs-title": true,
     "dt-tile-needs-icon": true,
-    "dt-tile-direct-children": true
+    "dt-tile-direct-children": true,
+    "dt-copy-to-clipboard-no-empty": true,
+    "dt-toggle-button-group-item-is-button": true
   }
 }
