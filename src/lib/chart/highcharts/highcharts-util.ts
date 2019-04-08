@@ -6,14 +6,11 @@ import { DtChartSeries, DtChartOptions } from '../chart';
 import {getDtChartColorPalette} from '../chart-colors';
 
 /** Create a pure highcharts options out of provided chart options and/or series. */
-export function createHighchartOptions(options: DtChartOptions = {}, series?: DtChartSeries[], theme?: DtTheme): HighchartsOptions {
+export function createHighchartOptions(options: DtChartOptions = {}, series?: DtChartSeries[]): HighchartsOptions {
   const mergedSeries = series ? lodashMerge([], series) : undefined;
   let mergedOptions = lodashMerge({ series: mergedSeries }, DT_CHART_DEFAULT_OPTIONS, options) as HighchartsOptions;
   mergedOptions = mergeAxis(mergedOptions);
   mergedOptions = wrapTooltipFormatterFn(mergedOptions);
-  if (theme) {
-    mergedOptions = mergeHighchartsColorOptions(mergedOptions, theme);
-  }
   return mergedOptions;
 }
 
