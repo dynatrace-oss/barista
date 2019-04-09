@@ -1,6 +1,6 @@
-import { Directive, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, Output } from '@angular/core';
+import { Directive, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, Output, OnInit } from '@angular/core';
 import { CanDisable, mixinDisabled } from '@dynatrace/angular-components/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { DtSortDirection } from './sort-direction';
 import { getDtSortInvalidDirectionError } from './sort-errors';
 import { DtSortHeader } from './sort-header';
@@ -28,13 +28,16 @@ export const _DtSortMixinBase = mixinDisabled(DtSortBase);
   inputs: ['disabled: dtSortDisabled'],
 })
 export class DtSort extends _DtSortMixinBase
-    implements CanDisable, OnChanges, OnDestroy {
+    implements CanDisable, OnChanges, OnInit, OnDestroy {
 
   /**
    * Used to notify any child components listening to state changes.
    * @internal
    */
   readonly _stateChanges = new Subject<void>();
+
+  /** @internal Initialized subject that fires on initialization and completes on destroy. */
+  readonly _initialized = new BehaviorSubject<boolean>(false);
 
   /** The id of the most recently sorted DtSortHeader. */
   @Input('dtSortActive') active: string;
@@ -67,7 +70,6 @@ export class DtSort extends _DtSortMixinBase
     } else {
       this.direction = this.getNextSortDirection(sortable);
     }
-
     this.sortChange.emit({active: this.active, direction: this.direction});
   }
 
@@ -82,12 +84,17 @@ export class DtSort extends _DtSortMixinBase
     return sortDirectionCycle[nextDirectionIndex];
   }
 
+  ngOnInit(): void {
+    this._initialized.next(true);
+  }
+
   ngOnChanges(): void {
     this._stateChanges.next();
   }
 
   ngOnDestroy(): void {
     this._stateChanges.complete();
+    this._initialized.complete();
   }
 }
 

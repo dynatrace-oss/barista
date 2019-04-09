@@ -103,10 +103,8 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   }
 
   ngOnDestroy(): void {
-    /*
-     * When a sorted header is being destroyed at runtime, we need to update the dtSort
-     * to unset the current sorting state.
-     */
+    // When a sorted header is being destroyed at runtime, we need to update the dtSort
+    // to unset the current sorting state.
     if (this._isSorted) {
       this._id = '';
       this._sort.sort(this);
@@ -127,7 +125,6 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    */
   _handleClick(): void {
     if (this._isDisabled) { return; }
-
     this._sort.sort(this);
   }
 
