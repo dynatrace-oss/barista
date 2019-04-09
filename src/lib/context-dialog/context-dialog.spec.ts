@@ -71,10 +71,20 @@ describe('DtContextDialog', () => {
           expect(contextDialogPanel.classList.contains('dt-theme-dark')).toEqual(true);
         }));
 
-        it('should support setting a custom aria-label', fakeAsync(() => {
+        it('should support setting a custom aria-label for the trigger button', fakeAsync(() => {
           fixture.componentInstance.ariaLabel = 'Custom Label';
           fixture.detectChanges();
           expect(contextDialogDefaultTrigger.getAttribute('aria-label')).toEqual('Custom Label');
+        }));
+
+        it('should support setting a custom aria-label for the close button', fakeAsync(() => {
+          fixture.componentInstance.ariaLabelClose = 'Close context dialog';
+          fixture.componentInstance.contextDialog.open();
+          fixture.detectChanges();
+          tick();
+          const contextDialogCloseTrigger = fixture.debugElement
+            .query(By.css('.dt-context-dialog-close-trigger')).nativeElement;
+          expect(contextDialogCloseTrigger.getAttribute('aria-label')).toEqual('Close context dialog');
         }));
 
         it('should set the tabindex of the trigger to 0 by default', fakeAsync(() => {
@@ -197,7 +207,12 @@ describe('DtContextDialog', () => {
     <button *ngIf="customTrigger" dt-icon-button [dtContextDialogTrigger]="dialog" variant="secondary">
       <dt-icon name="agent"></dt-icon>
     </button>
-    <dt-context-dialog #dialog [aria-label]="ariaLabel" [tabIndex]="tabIndexOverride" [disabled]="disabled">
+    <dt-context-dialog #dialog
+      [aria-label]="ariaLabel"
+      [aria-label-close-button]="ariaLabelClose"
+      [tabIndex]="tabIndexOverride"
+      [disabled]="disabled"
+    >
       <p>Some cool content</p>
     </dt-context-dialog>
   `,
@@ -205,6 +220,7 @@ describe('DtContextDialog', () => {
 class BasicContextDialog {
   tabIndexOverride: number;
   ariaLabel: string;
+  ariaLabelClose: string;
   disabled: boolean;
   customTrigger = false;
 
