@@ -106,8 +106,10 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   private _destroy = new Subject<void>();
 
   /** Aria label of the context-dialog. */
-  // tslint:disable-next-line:no-input-rename
-  @Input('aria-label') ariaLabel = '';
+  @Input('aria-label') ariaLabel: string;
+
+  /** Aria label of the context-dialog's close button. */
+  @Input('aria-label-close-button') ariaLabelClose: string;
 
   /** Event emitted when the select has been opened. */
   @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();

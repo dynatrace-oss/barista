@@ -12,7 +12,6 @@
 <ng-template>
   <div
     class="dt-context-dialog-panel"
-    [attr.aria-labelledby]="ariaLabel"
     #panel
     role="dialog"
     dtTheme=":dark"
@@ -25,7 +24,7 @@
       variant="secondary"
       class="dt-context-dialog-close-trigger"
       (click)="close()"
-      aria-label="close"
+      [attr.aria-label]="ariaLabelClose"
       cdkFocusInitial>
       <dt-icon name="abort"></dt-icon>
     </button>
