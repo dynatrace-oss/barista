@@ -31,7 +31,8 @@ class MyModule {}
 | --- | --- | --- | --- |
 | `tabIndex` | `number` | `0` | Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex. |
 | `disabled` | `boolean` | `false` | Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled. |
-| `aria-label` | `string` | | Aria label of the context dialog trigger button. |
+| `aria-label` | `string` | | ARIA label of the context dialog trigger button. |
+| `aria-label-close-button` | `string` | | ARIA label of the context dialog close button. |
 
 ## Properties
 
@@ -54,7 +55,7 @@ class MyModule {}
 
 ## Accessibility
 
-Context dialogs should be given a meaningful label via `aria-label`, because the button does not have a text.
+Context dialogs should be given a meaningful label via `aria-label` for the open trigger and via `aria-label-close-button` for the close trigger, because the buttons do not contain text.
 
 ## Examples
 
