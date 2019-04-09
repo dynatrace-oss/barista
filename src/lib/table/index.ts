@@ -5,6 +5,8 @@ export * from './cell';
 export * from './expandable/index';
 export * from './states/index';
 export * from './header/index';
+export * from './simple-columns/index';
+export * from './table-data-source';
 
 /** sorting */
 export * from './sort/sort';

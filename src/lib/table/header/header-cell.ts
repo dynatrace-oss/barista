@@ -24,8 +24,8 @@ export class DtHeaderCellDef extends CdkHeaderCellDef { }
   exportAs: 'dtHeaderCell',
 })
 export class DtHeaderCell implements OnDestroy {
-  /** @internal destroy subject which will fire when the component gets destroyed. */
-  _destroy = new Subject<void>();
+  /** Destroy subject which will fire when the component gets destroyed. */
+  private _destroy = new Subject<void>();
 
   // tslint:disable-next-line:no-unused-variable
   constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {

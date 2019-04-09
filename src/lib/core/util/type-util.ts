@@ -27,3 +27,9 @@ export function isNumber(value: any): boolean {
 export function isObject(value: any): boolean {
   return isDefined(value) && typeof value === 'object' && !Array.isArray(value);
 }
+
+/** Helper function which evaluates if the passed value is a string. */
+// tslint:disable-next-line: no-any
+export function isString(value: any): boolean {
+  return typeof value === 'string';
+}

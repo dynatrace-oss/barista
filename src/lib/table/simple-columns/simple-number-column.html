@@ -1,0 +1,7 @@
+<ng-container [dtColumnDef]="name" dtColumnAlign="number">
+  <ng-container *dtHeaderCellDef>
+    <dt-header-cell *ngIf="!sortable" >{{ label || name }}</dt-header-cell>   
+    <dt-header-cell *ngIf="sortable" dt-sort-header start="desc">{{ label || name }}</dt-header-cell>   
+  </ng-container>
+  <dt-cell *dtCellDef="let data" [dtIndicator]="_getIndicator(data)" [dtIndicatorColor]="_getIndicator(data)">{{ _getData(data) }}</dt-cell>
+</ng-container>
