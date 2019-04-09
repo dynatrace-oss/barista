@@ -336,3 +336,84 @@ Since some tables might have a lot of data in them and screen space is very limi
 <docs-source-example example="TableResponsiveComponent" fullwidth="true"></docs-source-example>
 
 All pending functionality will be progressively addressed by future versions
+
+## Simple Columns
+
+The `dtSimpleColumn` are an abstraction layer to the full fledged table implementation to make usage of recurring-patterns easier and to reduce boiler plate code that needs to be written to generate a simple table. 
+
+### Inputs
+
+The `dtSimpleColumn` provides a couple of inputs, which give the user easy access to certain functionality of the `dtTable` like sorting, formatting, error/warning indicators. 
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `name` | `string` | - | The name of the `dtSimpleColumn` refers to the name of the column which it uses to register itself at the table. This name can be used to reference the column in the `dt-row`. The name input is the only **required** input on the simple column. |
+| `label` | `string` | - | The label defines the string rendered into the header-cell of the given column. If no label is given, the `name` of the cell is being used. _(Optional)_ | 
+| `sortable` | `boolean` | `true` | The sortable input defines whether the column should be sortable. If a sortable `dtSimpleColumn` is used within a table, the table needs the `dtSort` directive. |
+| `displayAccessor<T>` | `(data: T, name: string) => any` | - | The displayAccessor function can be used to extract the displayable data from any row data. The name property passes the currently rendered column name, which can be used for more generic functions. If no `displayAccessor` is given, the `dtSimpleColumn` tries to extract a displayable data from `rowData[name]`. _(Optional)_ |
+| `sortAccessor<T>` | `(data: T, name: string) => string|number` | - | The sortAccessor function can be used to extract sortable data from any row data. The name property passes the currently rendered column name, which can be used for more generic functions. This sortAccessor function will be used by the dataSource to access sortable values from the row data. _(Optional)_ |
+| `formatter` | `(displayValue: any) => string|DtFormattedValue` |  - | The formatter function can be used to fomat the displayed value, with either prepared DtFormatter functions or custom functions. Can be used on top of the displayAccessor function or standalone. The function gets passed either the output from the displayAccessor or the fallback data. _(Optional)_ |
+| `hasProblem<T>` | `(data: T, name: string) => DtIndicatorThemePalette` | - | The hasProblem function can be used to evaluate if a cell should add the `dtIndicator` and if it should display `error` or `warning`. The function gets passed the row data and the name of the current column, which allows for more generic functions. The function needs to return either `error` or `warning` if a problem should be active. _(Optional)_ |
+
+### Versions
+
+Currently there are two predefined versions of the `dtSimpleColumn` exposed: `dt-simple-number-column` and `dt-simple-text-column`. There are only small differences between the number and text column:
+
+**dt-simple-text-column** 
+
+* When sorting this column, the sort direction will start ascending, e.g. A -> Z
+* Column alignment is set to `text` -> left
+
+**dt-simple-number-column** 
+
+* When sorting this column, the sort direction will start descending, e.g. 100 -> 0
+* Column alignemnt is set to `number` -> right
+* When no formatter is given, the `dtCount` formatter will automatically be applied, e.g. 1000 -> 1k
+
+### Example
+
+<docs-source-example example="TableSimpleColumnsComponent" fullwidth="true"></docs-source-example>
+
+### Sorting, paging and filtering out of the box with DtTableDataSource
+
+`dtSimpleColumns` integrate out of the box with the `DtTableDataSource`. Unified sorting (locale-aware for strings, null/undefined value treatment) is possible when using the DtTableDataSource. To do this, create a new `DtTableDataSource` instance with the data. You will have to connect the input instances for `dtSort` to the `DtTableDataSource`. 
+
+```ts
+@Component({
+  moduleId: module.id,
+  template: `<dt-table [dataSource]="dataSource" dtSort #sortable>
+    [... column and row definitions]
+  </dt-table>`,
+})
+export class TableComponent implements AfterViewInit {
+  // Get the viewChild to pass the sorter reference to the datasource.
+  @ViewChild('sortable', { read: DtSort }) sortable: DtSort;
+
+  // Create the Datasource instanciate it.
+  dataSource: DtTableDataSource<object>;
+  constructor() {
+    this.dataSource = new DtTableDataSource(this.data);
+  }
+
+  // Connect the `dtSort` instance to the DtTableDataSource
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sortable;
+  }
+}
+```
+
+<!-- TODO: Examples for paging and filtering once @lukas.holzer -->
+
+### Extending DtSimpleColumn
+
+Of course you can extend from the simpleColumn to create your own predefined simplecolumn. To do this, simply extend from the `DtSimpleColumnBase<T>` abstract class and implement the deviation that suits your needs. A basic template for the simpleColumn could look like this (example from the `dt-simple-number-column`).
+
+```html
+<ng-container [dtColumnDef]="name" dtColumnAlign="number">
+  <ng-container *dtHeaderCellDef>
+    <dt-header-cell *ngIf="!sortable" >{{ label || name }}</dt-header-cell>   
+    <dt-header-cell *ngIf="sortable" dt-sort-header start="desc">{{ label || name }}</dt-header-cell>
+  </ng-container>
+  <dt-cell *dtCellDef="let data" [dtIndicator]="_getIndicator(data, name)" [dtIndicatorColor]="_getIndicator(data, name)">{{ _getData(data) }}</dt-cell>
+</ng-container>
+```

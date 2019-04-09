@@ -12,7 +12,16 @@ import { DtHeaderRow, DtHeaderRowDef, DtHeaderCell, DtHeaderCellDef } from './he
 import { DtRow, DtRowDef } from './row';
 import { DtCell, DtCellDef, DtColumnDef } from './cell';
 import { DtExpandableCell, DtExpandableRow } from './expandable/index';
-import { DtTableEmptyState, DtTableEmptyStateDirective, DtTableEmptyStateImage, DtTableEmptyStateTitle, DtTableEmptyStateMessage, DtTableLoadingState } from './states/index';
+import {
+  DtTableEmptyState,
+  DtTableEmptyStateDirective,
+  DtTableEmptyStateImage,
+  DtTableEmptyStateTitle,
+  DtTableEmptyStateMessage,
+  DtTableLoadingState,
+} from './states/index';
+import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
+import { DtSimpleNumberColumn, DtSimpleTextColumn } from './simple-columns/index';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
@@ -41,6 +50,8 @@ const EXPORTED_DECLARATIONS = [
   DtInfoGroupCellIcon,
 // tslint:disable-next-line: deprecation
   DtInfoGroupCellTitle,
+  DtSimpleTextColumn,
+  DtSimpleNumberColumn,
 ];
 
 @NgModule({
@@ -50,6 +61,7 @@ const EXPORTED_DECLARATIONS = [
     DtIconModule,
     DtButtonModule,
     DtIndicatorModule,
+    DtFormattersModule,
   ],
   exports: [
     ...EXPORTED_DECLARATIONS,

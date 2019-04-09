@@ -7,10 +7,27 @@ import {
   ChangeDetectorRef,
   ElementRef,
   Attribute,
+  QueryList,
+  ContentChildren,
+  OnDestroy,
+  NgZone,
 } from '@angular/core';
-import { DtExpandableRow, DtExpandableRowChangeEvent } from './expandable/expandable-row';
+import { DtExpandableRow } from './expandable/expandable-row';
 import { _DtTableBase} from './base-table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
+  DtSimpleColumnBase,
+  DtSimpleColumnDisplayAccessorFunction,
+  DtSimpleColumnSortAccessorFunction,
+} from './simple-columns/simple-column-base';
+import { takeUntil, take, switchMap, startWith, map } from 'rxjs/operators';
+import { Subject, Observable, defer } from 'rxjs';
+import { isDefined } from '@dynatrace/angular-components/core';
+
+interface SimpleColumnsAccessorMaps<T> {
+  displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
+  sortAccessorMap: Map<string, DtSimpleColumnSortAccessorFunction<T>>;
+}
 
 let nextUniqueId = 0;
 @Component({
@@ -27,7 +44,7 @@ let nextUniqueId = 0;
     '[class.dt-table-interactive-rows]': 'interactiveRows',
   },
 })
-export class DtTable<T> extends _DtTableBase<T> {
+export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   /**
    * _expandableRows are used by expandedRow() getter.
    * @breaking-change To be removed with 3.0.0.
@@ -35,6 +52,7 @@ export class DtTable<T> extends _DtTableBase<T> {
   private _expandableRows = new Set<DtExpandableRow>();
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
+  private _destroy$ = new Subject<void>();
   _uniqueId = `dt-table-${nextUniqueId++}`;
 
   /** Whether the loading state should be displayed. */
@@ -71,13 +89,57 @@ export class DtTable<T> extends _DtTableBase<T> {
   }
   set expandedRow(value: DtExpandableRow | undefined) { }
 
+  /** @internal List of all simpleColumns within the table. */
+  // tslint:disable-next-line: no-any
+  @ContentChildren(DtSimpleColumnBase) _simpleColumns: QueryList<DtSimpleColumnBase<any>>;
+  /** @internal Stream of all simple dataAccessor functions for all SimpleColumns */
+  readonly _dataAccessors: Observable<SimpleColumnsAccessorMaps<T>> = defer(() => {
+    if (this._simpleColumns) {
+      return this._simpleColumns.changes.pipe(
+        takeUntil(this._destroy$),
+        startWith(null),
+        map(() => {
+          const simpleColumnsArray = this._simpleColumns.toArray();
+          /*
+           * Map to a simpleColumns array, filter out all without an accessor function;
+           * then create a map of accessor functions.
+           */
+          const displayAccessorMap = new Map<string, DtSimpleColumnDisplayAccessorFunction<T>>();
+          simpleColumnsArray
+            .filter((sc) => isDefined(sc.displayAccessor))
+            .forEach((sc) => displayAccessorMap.set(sc.name, sc.displayAccessor));
+
+          /*
+           * Map to a simpleColumns array, filter out all without an accessor function;
+           * then create a map of accessor functions.
+           */
+          const sortAccessorMap = new Map<string, DtSimpleColumnSortAccessorFunction<T>>();
+          simpleColumnsArray
+            .filter((sc) => isDefined(sc.sortAccessor))
+            .forEach((sc) => sortAccessorMap.set(sc.name, sc.sortAccessor));
+
+          return { displayAccessorMap, sortAccessorMap };
+        })
+      );
+    }
+    return this._ngZone.onStable
+      .asObservable()
+      .pipe(take(1), switchMap(() => this._dataAccessors));
+  });
+
   constructor(
     differs: IterableDiffers,
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
-    @Attribute('role') role: string
+    @Attribute('role') role: string,
+    private _ngZone: NgZone
   ) {
     super(differs, changeDetectorRef, elementRef, role);
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   renderRows(): void {
