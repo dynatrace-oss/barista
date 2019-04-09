@@ -11,6 +11,7 @@ import {
   Optional,
   SkipSelf,
   ChangeDetectorRef,
+  OnChanges,
 } from '@angular/core';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
@@ -42,7 +43,7 @@ export class DtCellDef extends CdkCellDef { }
   selector: '[dtColumnDef]',
   providers: [{provide: CdkColumnDef, useExisting: DtColumnDef}],
 })
-export class DtColumnDef extends CdkColumnDef {
+export class DtColumnDef extends CdkColumnDef implements OnChanges {
   /** Unique name for this column. */
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnDef') name: string;
@@ -52,6 +53,13 @@ export class DtColumnDef extends CdkColumnDef {
   @Input('dtColumnProportion') proportion: number;
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnMinWidth') minWidth: string | number;
+
+  /** @internal Alignment subject which fires with changes to the alignment input. */
+  _stateChanges = new Subject<void>();
+
+  ngOnChanges(): void {
+    this._stateChanges.next();
+  }
 }
 
 type IndicatorType = 'error' | 'warning';
@@ -107,7 +115,6 @@ export class DtCell {
     elem: ElementRef,
     @Optional() @SkipSelf() dtSortable?: DtSort
   ) {
-
     if (dtSortable) {
       this._isSorted = dtSortable.active === this._columnDef.name;
       this._sortChangeSubscription = dtSortable.sortChange
@@ -117,7 +124,13 @@ export class DtCell {
       });
     }
 
-    _updateDtColumnStyles(this._columnDef, elem, renderer);
+    this._columnDef._stateChanges.pipe(
+      startWith(null),
+      takeUntil(this._destroy)
+    ).subscribe(() => {
+      _updateDtColumnStyles(this._columnDef, elem, renderer);
+    });
+
     if (DtRow.mostRecentRow) {
       this._row = DtRow.mostRecentRow;
       this._row._registerCell(this);
