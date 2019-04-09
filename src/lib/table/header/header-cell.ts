@@ -1,6 +1,8 @@
 import { DtColumnDef, _updateDtColumnStyles } from '../cell';
-import { Renderer2, ElementRef, Directive } from '@angular/core';
+import { Renderer2, ElementRef, Directive, OnDestroy } from '@angular/core';
 import { CdkHeaderCellDef } from '@angular/cdk/table';
+import { Subject } from 'rxjs';
+import { takeUntil, startWith } from 'rxjs/operators';
 
 /**
  * Header cell definition for the dt-table.
@@ -21,9 +23,24 @@ export class DtHeaderCellDef extends CdkHeaderCellDef { }
   },
   exportAs: 'dtHeaderCell',
 })
-export class DtHeaderCell {
+export class DtHeaderCell implements OnDestroy {
+  /** @internal destroy subject which will fire when the component gets destroyed. */
+  _destroy = new Subject<void>();
+
   // tslint:disable-next-line:no-unused-variable
   constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
-    _updateDtColumnStyles(columnDef, elem, renderer);
+    columnDef._stateChanges
+    .pipe(
+      startWith(null),
+      takeUntil(this._destroy)
+    )
+    .subscribe(() => {
+      _updateDtColumnStyles(columnDef, elem, renderer);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._destroy.next();
+    this._destroy.complete();
   }
 }
