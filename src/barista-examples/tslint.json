@@ -14,7 +14,7 @@
     "dt-card-needs-title": true,
     "dt-card-direct-children": true,
     "dt-checkbox-no-empty": true,
-    "dt-radio-button-alt-text": true,
+    "dt-radio-button-no-empty": true,
     "dt-info-group-needs-title-and-icon": true,
     "dt-loading-distractor-no-empty": true,
     "dt-show-more-no-empty": true,

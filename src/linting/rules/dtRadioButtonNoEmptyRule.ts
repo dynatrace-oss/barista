@@ -51,7 +51,7 @@ export class Rule extends Rules.AbstractRule {
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A radio button without content must have an aria-label or aria-labelledby attribute.',
-    ruleName: 'dt-radio-button-alt-text',
+    ruleName: 'dt-radio-button-no-empty',
     type: 'maintainability',
     typescriptOnly: true,
   };
