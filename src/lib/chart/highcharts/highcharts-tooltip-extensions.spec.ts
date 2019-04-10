@@ -13,7 +13,7 @@ describe('highcharts-tooltip-extensions', () => {
     colorIndex: 0,
     category: 0,
     percentage: 0,
-    point: {},
+    point: { x: 0, y: 0 },
     series: {},
     key: 0,
   };
@@ -25,7 +25,7 @@ describe('highcharts-tooltip-extensions', () => {
     colorIndex: 0,
     category: 0,
     percentage: 0,
-    point: {},
+    point: { x: 0, y: 0 },
     series: {},
     key: 0,
   };
@@ -55,7 +55,7 @@ describe('highcharts-tooltip-extensions', () => {
         color: '#ffffff',
         colorIndex: 0,
         percentage: 0,
-        point: {},
+        point: { x: 0, y: 0 },
         series: {},
         key: 0,
       }),
@@ -72,7 +72,7 @@ describe('highcharts-tooltip-extensions', () => {
       color: '#ffffff',
       colorIndex: 0,
       percentage: 0,
-      point: {},
+      point: { x: 0, y: 0 },
       series: {},
       key: 0,
     });
