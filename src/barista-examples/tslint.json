@@ -14,6 +14,7 @@
     "dt-card-needs-title": true,
     "dt-card-direct-children": true,
     "dt-checkbox-no-empty": true,
+    "dt-copy-to-clipboard-no-empty": true,
     "dt-radio-button-no-empty": true,
     "dt-info-group-needs-title-and-icon": true,
     "dt-loading-distractor-no-empty": true,
@@ -24,7 +25,7 @@
     "dt-tile-needs-title": true,
     "dt-tile-needs-icon": true,
     "dt-tile-direct-children": true,
-    "dt-copy-to-clipboard-no-empty": true,
+    "dt-selection-area-alt-text": true,
     "dt-toggle-button-group-item-is-button": true
   }
 }
