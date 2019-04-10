@@ -11,6 +11,7 @@
     "dt-card-needs-title": false,
     "dt-card-direct-children": false,
     "dt-checkbox-no-empty": false,
+    "dt-copy-to-clipboard-no-empty": false,
     "dt-radio-button-no-empty": false,
     "dt-info-group-needs-title-and-icon": false,
     "dt-loading-distractor-no-empty": false,
@@ -21,7 +22,7 @@
     "dt-tile-needs-title": false,
     "dt-tile-needs-icon": false,
     "dt-tile-direct-children": false,
-    "dt-copy-to-clipboard-no-empty": false,
+    "dt-selection-area-alt-text": false,
     "dt-toggle-button-group-item-is-button": false
   }
 }
