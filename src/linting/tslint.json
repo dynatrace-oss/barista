@@ -23,6 +23,7 @@
     "dt-tile-needs-icon": false,
     "dt-tile-direct-children": false,
     "dt-selection-area-alt-text": false,
+    "dt-tab-content-no-empty": false,
     "dt-toggle-button-group-item-is-button": false
   }
 }
