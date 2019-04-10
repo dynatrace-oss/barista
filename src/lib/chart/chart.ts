@@ -31,7 +31,7 @@ import * as Highcharts from 'highcharts';
 // tslint:disable-next-line:no-duplicate-imports
 import { chart, ChartObject, IndividualSeriesOptions, Options as HighchartsOptions, setOptions, addEvent as addHighchartsEvent } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
-import { Observable, Subject, Subscription, defer, merge } from 'rxjs';
+import { Observable, Subject, Subscription, defer, merge, BehaviorSubject } from 'rxjs';
 import { delay, takeUntil, take, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
@@ -194,6 +194,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
   /** Deals with the selection logic. */
   private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
 
+  /** @internal stream that emits everytime the plotbackgroud changes */
+  _plotBackground$ = new BehaviorSubject<SVGRectElement | null>(null);
+
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
@@ -246,8 +249,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
     // This needs to be done outside the ngZone so the events, hightcharts listens to, do not polute our change detection.
     this._chartObject = this._ngZone.runOutsideAngular(() => chart(this.container.nativeElement, this.highchartsOptions));
 
-    addHighchartsEvent(this._chartObject, 'redraw', () => { this._afterRender.next(); });
-    this._afterRender.next();
+    addHighchartsEvent(this._chartObject, 'redraw', () => { this._notifyAfterRender(); });
+    this._notifyAfterRender();
 
     // adds eventlistener to highcharts custom event for tooltip closed
     addHighchartsEvent(this._chartObject, 'tooltipClosed', () => {
@@ -308,6 +311,12 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
       this._highchartsOptions.tooltip!.enabled = enabled;
       this._updateChart(false);
     }
+  }
+
+  private _notifyAfterRender(): void {
+    this._afterRender.next();
+    const plotBackground = this.container.nativeElement.querySelector('.highcharts-plot-background');
+    this._plotBackground$.next(plotBackground);
   }
 
   /** Invoked when an heatfield is activated. */

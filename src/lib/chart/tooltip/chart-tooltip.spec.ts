@@ -1,5 +1,7 @@
+// tslint:disable:no-use-before-declare no-magic-numbers
+
 import { Component } from '@angular/core';
-import { async, TestBed, inject, fakeAsync, flush, tick } from '@angular/core/testing';
+import { async, TestBed, inject, fakeAsync, flush, tick, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtChart,
@@ -18,13 +20,13 @@ describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   let chartComponent: DtChart;
-  let fixture;
+  let fixture: ComponentFixture<ChartTest>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtChartModule, DtThemingModule, DtKeyValueListModule, DtOverlayModule, NoopAnimationsModule],
       declarations: [
-        Chart,
+        ChartTest,
       ],
     });
 
@@ -35,7 +37,7 @@ describe('DtChartTooltip', () => {
       overlayContainerElement = oc.getContainerElement();
     })();
 
-    fixture = TestBed.createComponent(Chart);
+    fixture = TestBed.createComponent(ChartTest);
     fixture.detectChanges();
     const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
     chartComponent = chartDebugElement.componentInstance;
@@ -49,55 +51,115 @@ describe('DtChartTooltip', () => {
     overlayContainer.ngOnDestroy();
   }));
 
-  describe('Multiple metrics', () => {
-    beforeEach(() => {
-      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA });
-      fixture.detectChanges();
-    });
+  it('should dismiss the overlay when the tooltip close event is called', fakeAsync(() => {
+    chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA_LINE_SERIES });
+    fixture.detectChanges();
+    chartComponent.tooltipOpenChange.next(false);
+    fixture.detectChanges();
+    tick();
+    flush();
+    expect(overlayContainerElement.innerHTML).toEqual('');
+  }));
 
-    it('should render a key value list with the data inside the tooltip', () => {
+  it('should dismiss the overlay when the tooltip data event is called but has no data for the point', fakeAsync(() => {
+    const newData: DtChartTooltipData = {...DUMMY_TOOLTIP_DATA_LINE_SERIES};
+    newData.points = undefined;
+    chartComponent.tooltipDataChange.next({ data: newData });
+    fixture.detectChanges();
+    tick();
+    flush();
+    expect(overlayContainerElement.innerHTML).toEqual('');
+  }));
+
+  describe('content', () => {
+    beforeEach(fakeAsync(() => {
+      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA_LINE_SERIES });
+      fixture.detectChanges();
+    }));
+
+    it('should be a key value list with the data', () => {
       expect(overlayContainerElement.innerText).toContain('Actions/min');
-      expect(overlayContainerElement.innerText).toContain('12345');
+      expect(overlayContainerElement.innerText).toContain('1000');
       expect(overlayContainerElement.innerHTML).toContain('dt-key-value-list');
     });
 
-    it('should update the tooltip with new data', () => {
-      const newData = DUMMY_TOOLTIP_DATA;
+    it('should be updated with new data', () => {
+      const newData: DtChartTooltipData = {...DUMMY_TOOLTIP_DATA_LINE_SERIES};
       newData.points![0].point.y = 54321;
 
       chartComponent.tooltipDataChange.next({ data: newData });
       fixture.detectChanges();
-      expect(overlayContainerElement.innerText).not.toContain('12345');
+      expect(overlayContainerElement.innerText).not.toContain('1000');
       expect(overlayContainerElement.innerText).toContain('54321');
     });
-
-    it('should dismiss the overlay when the tooltip close event is called', fakeAsync(() => {
-      chartComponent.tooltipOpenChange.next(false);
-      fixture.detectChanges();
-      tick();
-      flush();
-      expect(overlayContainerElement.innerHTML).toEqual('');
-    }));
-
-    it('should dismiss the overlay when the tooltip data event is called but has no data for the point', fakeAsync(() => {
-      const newData = DUMMY_TOOLTIP_DATA;
-      newData.points = undefined;
-      chartComponent.tooltipDataChange.next({ data: newData });
-      fixture.detectChanges();
-      tick();
-      flush();
-      expect(overlayContainerElement.innerHTML).toEqual('');
-    }));
   });
 
-  describe('Single metric', () => {
-    it('should render a key value list with data inside the tooltip', () => {
-      // this fakes a new tooltip being created
-      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA_SINGLE_METRIC });
+  describe('positioning', () => {
+    let plotBackgroundMarginLeft: number;
+    let plotBackgroundVerticalCenter: number;
+
+    beforeEach(() => {
+      const plotBackground = fixture.debugElement.nativeElement.querySelector('.highcharts-plot-background');
+      plotBackgroundMarginLeft = parseInt(plotBackground.getAttribute('x'), 10);
+      plotBackgroundVerticalCenter =
+        parseInt(plotBackground.getAttribute('y'), 10) + (parseInt(plotBackground.getAttribute('height'), 10) / 2);
+    });
+
+    it('should be correct for category axis', () => {
+      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA_CATEGORY });
       fixture.detectChanges();
-      expect(overlayContainerElement.innerText).toContain('Actions/min');
-      expect(overlayContainerElement.innerText).toContain('12345');
-      expect(overlayContainerElement.innerHTML).toContain('dt-key-value-list');
+
+      const positionMarker: SVGCircleElement = fixture.debugElement.nativeElement.querySelector('.dt-tooltip-position-marker');
+      const expectedPos = {
+        x: plotBackgroundMarginLeft + DUMMY_TOOLTIP_DATA_CATEGORY.points![0].point.tooltipPos![0],
+        y: plotBackgroundVerticalCenter,
+      };
+      expect(positionMarker).toBeDefined();
+      expect(positionMarker.getAttribute('cx')).toBe(expectedPos.x.toString());
+      expect(positionMarker.getAttribute('cy')).toBe(expectedPos.y.toString());
+    });
+
+    it('should be correct for area series', () => {
+      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA_AREA_SERIES });
+      fixture.detectChanges();
+
+      const positionMarker: SVGCircleElement = fixture.debugElement.nativeElement.querySelector('.dt-tooltip-position-marker');
+      const expectedPos = {
+        x: 300, // 3 * 100 from the toPixels function that takes the margin into account already
+        y: plotBackgroundVerticalCenter,
+      };
+      expect(positionMarker).toBeDefined();
+      expect(positionMarker.getAttribute('cx')).toBe(expectedPos.x.toString());
+      expect(positionMarker.getAttribute('cy')).toBe(expectedPos.y.toString());
+    });
+
+    it('should be correct for pie charts', () => {
+      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_PIE_DATA });
+      fixture.detectChanges();
+
+      const positionMarker: SVGCircleElement = fixture.debugElement.nativeElement.querySelector('.dt-tooltip-position-marker');
+      const tooltipPos = DUMMY_TOOLTIP_PIE_DATA.point!.point.tooltipPos!;
+      const expectedPos = {
+        x: tooltipPos[0],
+        y: tooltipPos[1],
+      };
+      expect(positionMarker).toBeDefined();
+      expect(positionMarker.getAttribute('cx')).toBe(expectedPos.x.toString());
+      expect(positionMarker.getAttribute('cy')).toBe(expectedPos.y.toString());
+    });
+
+    it('should be correct for line/column series', () => {
+      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA_LINE_SERIES });
+      fixture.detectChanges();
+
+      const positionMarker: SVGCircleElement = fixture.debugElement.nativeElement.querySelector('.dt-tooltip-position-marker');
+      const expectedPos = {
+        x: plotBackgroundMarginLeft + DUMMY_TOOLTIP_DATA_LINE_SERIES.points![0].point.tooltipPos![0],
+        y: plotBackgroundVerticalCenter,
+      };
+      expect(positionMarker).toBeDefined();
+      expect(positionMarker.getAttribute('cx')).toBe(expectedPos.x.toString());
+      expect(positionMarker.getAttribute('cy')).toBe(expectedPos.y.toString());
     });
   });
 
@@ -120,7 +182,7 @@ describe('DtChartTooltip', () => {
     </dt-chart>
   `,
 })
-class Chart {
+class ChartTest {
   options: DtChartOptions = {
     chart: {
       type: 'line',
@@ -142,7 +204,7 @@ class Chart {
   ];
 }
 
-const DUMMY_TOOLTIP_DATA: DtChartTooltipData = {
+const DUMMY_TOOLTIP_DATA_LINE_SERIES: DtChartTooltipData = {
   x: 0,
   y: 0,
   points: [
@@ -154,29 +216,17 @@ const DUMMY_TOOLTIP_DATA: DtChartTooltipData = {
       colorIndex: 0,
       percentage: 0,
       point: {
-        y: 12345,
-        graphic: {
-          element: {
-            getBoundingClientRect: () => ({
-              x: 0,
-              y: 0,
-              height: 0,
-              width: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              top: 0,
-            }),
-          },
-        },
+        x: 1,
+        y: 1000,
+        tooltipPos: [1, 2, 3],
       },
       series: {
         name: 'Actions/min',
         xAxis: {
-          toPixels: () => 1,
+          toPixels: (x) => x * 2,
         },
         yAxis: {
-          toPixels: () => 1,
+          toPixels: (y) => y * 2,
         },
       },
       key: 0,
@@ -184,7 +234,7 @@ const DUMMY_TOOLTIP_DATA: DtChartTooltipData = {
   ],
 };
 
-const DUMMY_TOOLTIP_DATA_SINGLE_METRIC: DtChartTooltipData = {
+const DUMMY_TOOLTIP_DATA_AREA_SERIES: DtChartTooltipData = {
   x: 0,
   y: 0,
   points: [
@@ -196,32 +246,69 @@ const DUMMY_TOOLTIP_DATA_SINGLE_METRIC: DtChartTooltipData = {
       colorIndex: 0,
       percentage: 0,
       point: {
-        y: 12345,
+        x: 3,
+        y: 1000,
       },
       series: {
         name: 'Actions/min',
         xAxis: {
-          toPixels: () => 1,
+          toPixels: (x) => x * 100,
         },
         yAxis: {
-          toPixels: () => 1,
-        },
-        stateMarkerGraphic: {
-          element: {
-            getBoundingClientRect: () => ({
-              x: 0,
-              y: 0,
-              height: 0,
-              width: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              top: 0,
-            }),
-          },
+          toPixels: (y) => y * 2,
         },
       },
       key: 0,
     },
   ],
+};
+
+const DUMMY_TOOLTIP_DATA_CATEGORY: DtChartTooltipData = {
+  x: 0,
+  y: 0,
+  points: [
+    {
+      x: 0,
+      y: 0,
+      total: 1,
+      color: '#ffffff',
+      colorIndex: 0,
+      percentage: 0,
+      point: {
+        x: 'Apr',
+        y: 1000,
+        tooltipPos: [1, 2, 3],
+      },
+      series: {
+        name: 'Actions/min',
+        xAxis: {
+          toPixels: (x) => NaN,
+        },
+        yAxis: {
+          toPixels: (y) => y * 2,
+        },
+      },
+      key: 0,
+    },
+  ],
+};
+
+const DUMMY_TOOLTIP_PIE_DATA: DtChartTooltipData = {
+  x: 0,
+  y: 0,
+  point: {
+    x: 0,
+    y: 0,
+    total: 1,
+    color: '#ffffff',
+    colorIndex: 0,
+    percentage: 0,
+    point: {
+      x: 0,
+      y: 1000,
+      tooltipPos: [123, 234],
+    },
+    series: {},
+    key: 0,
+  },
 };
