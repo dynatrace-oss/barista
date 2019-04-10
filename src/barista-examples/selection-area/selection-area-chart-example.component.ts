@@ -3,13 +3,19 @@ import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angu
 
 @Component({
   template: `
-  <dt-chart [options]="options" [series]="series" [dtChartSelectionArea]="area"></dt-chart>
-  <dt-selection-area #area="dtSelectionArea" (changed)="handleChange($event)">
-    {{left | date: 'MMM d, y - HH:mm':'GMT' }} - {{right | date: 'MMM d, y - HH:mm':'GMT'}}
-    <dt-selection-area-actions>
-      <button dt-button>Zoom in</button>
-    </dt-selection-area-actions>
-  </dt-selection-area>
+<dt-chart [options]="options" [series]="series" [dtChartSelectionArea]="area"></dt-chart>
+<dt-selection-area #area="dtSelectionArea"
+  (changed)="handleChange($event)"
+  aria-label-selected-area="Text that describes the content of the selection area."
+  aria-label-left-handle="Resize selection area to the left."
+  aria-label-right-handle="Resize selection area to the right."
+  aria-label-close-button="Close the selection area."
+>
+  {{left | date: 'MMM d, y - HH:mm':'GMT' }} - {{right | date: 'MMM d, y - HH:mm':'GMT'}}
+  <dt-selection-area-actions>
+    <button dt-button>Zoom in</button>
+  </dt-selection-area-actions>
+</dt-selection-area>
   `,
 })
 export class SelectionAreaChartExample {
