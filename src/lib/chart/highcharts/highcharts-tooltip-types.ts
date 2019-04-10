@@ -2,7 +2,7 @@ import { ChartObject } from 'highcharts';
 
 /** Interface for chart tooltip points inside the tooltip */
 export interface DtChartTooltipPoint {
-  x: number;
+  x: number | string;
   y: number;
   total: number;
   color: string;
@@ -12,7 +12,11 @@ export interface DtChartTooltipPoint {
   // Unfortunately the types for highcharts are not matching version 6 therefore the types are not assignable here
   // TODO: update highcharts types as soon as the are available
   // tslint:disable-next-line:no-any
-  point: any;
+  point: {
+    x: number | string;
+    y: number;
+    tooltipPos?: number[];
+  };
   // tslint:disable-next-line:no-any
   series: any;
 }
