@@ -1,55 +1,44 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
-@import '../core/theming/theming';
 
-:host {
+$margin-arrow: 8px;
+
+.dt-pagination-list {
   @include main-font();
-  box-sizing: border-box;
-  height: 26px;
-
   display: flex;
-  align-items: center;
+  margin: 0;
 
-  .dt-pagination-arrow {
-    flex-shrink: 0;
-  }
-
-  .dt-pagination-arrow dt-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .dt-pagination-arrow:not(.dt-pagination-arrow-active) {
-    pointer-events: none;
+  li {
+    list-style-type: none;
   }
 }
 
-.dt-pagination-arrow-left dt-icon {
-  transform: scale(-1, 1);
+.dt-pagination-previous {
+  margin-right: $margin-arrow;
+
+  dt-icon {
+    transform: scale(-1, 1); // flips the icon on the y-axis
+  }
 }
 
-.dt-pagination-numbers {
-  margin: 0 8px;
+.dt-pagination-next {
+  margin-left: $margin-arrow;
+}
 
-  display: flex;
+.dt-pagination-item {
 
-  > * {
-    /* TODO: eventually remove them after nested button improvements */
+  span,
+  button {
+    color: $gray-600;
+    display: inline-block;
+    line-height: 32px;
     min-width: 32px;
     padding: 0;
-    color: $gray-600;
-
     text-align: center;
     user-select: none;
   }
-}
 
-.dt-pagination-numbers .dt-pagination-item-active {
-  @include custom-font-styles($gray-900, 700, 14px, 32px);
-}
-
-.dt-pagination-item-ellipsis {
-  @include custom-font-size(false, 32px);
-  text-align: center;
-  color: $gray-300;
+  [aria-current] {
+    @include custom-font-styles($gray-900, 700, 14px, 32px);
+  }
 }
