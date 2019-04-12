@@ -1,28 +1,59 @@
-<button dt-icon-button variant="nested" class="dt-pagination-arrow dt-pagination-arrow-left" [class.dt-pagination-arrow-active]="_leftArrowActive" [disabled]="!_leftArrowActive" (click)="_handleArrowClick(true)">
-  <dt-icon name="dropdownclosed" [color]="_leftArrowActive ? 'accent' : 'undefined'"></dt-icon>
-</button>
+<ol
+  role="navigation"
+  class="dt-pagination-list"
+  [attr.aria-label]="ariaLabel">
 
-<div class="dt-pagination-numbers">
-  <ng-container *ngFor="let number of _numbers" >
-    <ng-container *ngIf="number.state === 'normal'; else elseBlock">
-      <button dt-button variant="nested" (click)="_handleNumberClick(number)">
-        {{number.page}}
+  <li
+    class="dt-pagination-previous">
+      <button
+        dt-icon-button
+        variant="nested"
+        color="accent"
+        [attr.aria-label]="ariaPreviousLabel"
+        [attr.aria-disabled]="_isFirstPage()"
+        [disabled]="_isFirstPage()"
+        (click)="previous()">
+        <dt-icon name="dropdownclosed"></dt-icon>
       </button>
-    </ng-container>
-    <ng-template #elseBlock>
-      <span
-        [class.dt-pagination-item-ellipsis]="number.state === 'ellipsis'"
-        [class.dt-pagination-item-active]="number.state === 'active'"
-        [attr.aria-current]="number.state === 'active' ? true : undefined"
-      >
-        {{number.state === 'ellipsis' ? '&hellip;' : number.page}}
-      </span>
-    </ng-template>
-  </ng-container>
-</div>
+  </li>
 
-<button dt-icon-button variant="nested" class="dt-pagination-arrow" [class.dt-pagination-arrow-active]="_rightArrowActive" [disabled]="!_rightArrowActive" (click)="_handleArrowClick(false)">
-  <dt-icon name="dropdownclosed" [color]="_rightArrowActive ? 'accent' : 'undefined'"></dt-icon>
-</button>
+  <li
+    *ngFor="let page of _pages"
+    class="dt-pagination-item">
 
+    <button
+      *ngIf="!_isEllipsis(page) && page !== currentPage"
+      dt-button
+      variant="nested"
+      [attr.aria-label]="ariaPageLabel + ' ' + page"
+      (click)="currentPage = page">
+      {{page}}
+    </button>
 
+    <span
+      *ngIf="_isEllipsis(page)"
+      [attr.aria-label]="ariaLabelEllipses">
+      {{page}}
+    </span>
+
+    <span
+      *ngIf="page === currentPage"
+      [attr.aria-current]="currentPage === page"
+      [attr.aria-label]="ariaCurrentLabel + ' ' + page">
+      {{page}}
+    </span>
+  </li>
+
+  <li class="dt-pagination-next">
+    <button
+      dt-icon-button
+      variant="nested"
+      color="accent"
+      [attr.aria-label]="ariaNextLabel"
+      [attr.aria-disabled]="_isLastPage()"
+      [disabled]="_isLastPage()"
+      (click)="next()">
+      <dt-icon name="dropdownclosed"></dt-icon>
+    </button>
+  </li>
+</ol>
