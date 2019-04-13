@@ -2,7 +2,8 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasContentApartFrom, isElementWithName } from '../helpers';
+import { addFailure, hasContentApartFrom, isElementWithName } from '../../utils';
+import { cardChildren } from './cardUtils';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
 
@@ -15,14 +16,6 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
     if (!isElementWithName(element, 'dt-card')) {
       return;
     }
-
-    const cardChildren = [
-      'dt-card-title',
-      'dt-card-subtitle',
-      'dt-card-icon',
-      'dt-card-title-actions',
-      'dt-card-footer-actions',
-    ];
 
     if (hasContentApartFrom(element, cardChildren)) {
       return;

@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasContentApartFrom, isElementWithName } from '../helpers';
+import { addFailure, hasContentApartFrom, isElementWithName } from '../utils';
 
 class DtTagVisitor extends BasicTemplateAstVisitor {
 

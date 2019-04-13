@@ -2,7 +2,7 @@ import { EmbeddedTemplateAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasContent } from '../helpers';
+import { addFailure, hasContent } from '../../utils';
 
 class DtTabVisitor extends BasicTemplateAstVisitor {
 
@@ -12,7 +12,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: EmbeddedTemplateAst): any {
-    if (!this._isTabLabel(element)) {
+    if (!this._isTabContent(element)) {
       return;
     }
 
@@ -20,33 +20,36 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.');
+    addFailure(this, element, 'A dtTabContent must always contain content.');
   }
 
-  private _isTabLabel(element: EmbeddedTemplateAst): boolean {
+  private _isTabContent(element: EmbeddedTemplateAst): boolean {
     return element.attrs &&
-      element.attrs.some((attr) => attr.name === 'dtTabLabel');
+      element.attrs.some((attr) => attr.name === 'dtTabContent');
   }
 }
 
 /**
- * The dtTabLabelNoEmptyRule ensures that a dtTabLabel always contains content
+ * The dtTabContentNoEmptyRule ensures that a dtTabContent always contains content
  *
  * The following example passes the check:
- * <ng-template dtTabLabel>Traffic</ng-template>
+ * <ng-template dtTabContent>
+ *   <h3>Traffic</h3>
+ * </ng-template>
  *
  * For the following example the linter throws an error:
- * <ng-template dtTabLabel> </ng-template>
+ * <ng-template dtTabContent>
+ * </ng-template>
  */
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a dtTabLabel always contains text content.',
+    description: 'Ensures that a dtTabContent always contains content.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.',
-    ruleName: 'dt-tab-label-no-empty',
+    rationale: 'A dtTabContent must always contain content.',
+    ruleName: 'dt-tab-content-no-empty',
     type: 'maintainability',
     typescriptOnly: true,
   };

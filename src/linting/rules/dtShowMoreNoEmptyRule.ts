@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasContentApartFrom, hasTextContentAlternative, isElementWithName } from '../helpers';
+import { addFailure, hasContentApartFrom, hasTextContentAlternative, isElementWithName } from '../utils';
 
 class DtShowMoreVisitor extends BasicTemplateAstVisitor {
 
