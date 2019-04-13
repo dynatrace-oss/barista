@@ -1,6 +1,10 @@
 {
   "rulesDirectory": [
-    "./rules"
+    "./rules",
+    "./rules/button",
+    "./rules/card",
+    "./rules/tabs",
+    "./rules/tile"
   ],
   "rules": {
     "dt-button-no-empty": false,

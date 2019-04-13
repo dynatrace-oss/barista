@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, isDirectChild, isElementWithName } from '../helpers';
+import { addFailure, isDirectChild, isElementWithName } from '../../utils';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
 

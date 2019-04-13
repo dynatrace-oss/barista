@@ -7,7 +7,7 @@ import {
   isButtonElement,
   isIconButtonAttr,
   hasTextContentAlternative
-} from '../helpers';
+} from '../../utils';
 
 interface FailureStrings {
   [key: string]: string;
