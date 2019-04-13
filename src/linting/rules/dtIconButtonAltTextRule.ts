@@ -2,7 +2,12 @@ import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isButtonElement, isIconButtonAttr, hasTextContentAlternative } from '../helpers';
+import {
+  addFailure,
+  isButtonElement,
+  isIconButtonAttr,
+  hasTextContentAlternative
+} from '../helpers';
 
 interface FailureStrings {
   [key: string]: string;
@@ -30,10 +35,8 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
     // tslint:disable-next-line:no-use-before-declare
-    this.addFailureFromStartToEnd(startOffset, endOffset, Rule.FAILURE_STRINGS[element.name]);
+    addFailure(this, element, Rule.FAILURE_STRINGS[element.name]);
   }
 }
 

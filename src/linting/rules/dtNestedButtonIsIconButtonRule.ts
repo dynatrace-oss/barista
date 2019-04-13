@@ -2,7 +2,7 @@ import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isIconButtonAttr, isButtonElement } from '../helpers';
+import { addFailure, isIconButtonAttr, isButtonElement } from '../helpers';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
@@ -20,12 +20,9 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     const isNestedVariant = attrs.some((attr) => attr.name === 'variant' && attr.value === 'nested');
     const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-
     // dt-icon-button attribute required for nested buttons
     if (isNestedVariant && !isIconButton) {
-      this.addFailureFromStartToEnd(startOffset, endOffset, 'A nested button variant must always be a dt-icon-button.');
+      addFailure(this, element, 'A nested button variant must always be a dt-icon-button.');
     }
   }
 }

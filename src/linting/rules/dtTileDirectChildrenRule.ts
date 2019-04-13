@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { ChildNode, findChild } from '../helpers';
+import { addFailure, ChildNode, findChild, isElementWithName } from '../helpers';
 
 class DtTileVisitor extends BasicTemplateAstVisitor {
 
@@ -12,7 +12,7 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-    if (element.name !== 'dt-tile') {
+    if (!isElementWithName(element, 'dt-tile')) {
       return;
     }
 
@@ -37,9 +37,7 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
 
     const childrenNames = Array.from(new Set(filteredChildren));
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, `The following elements must be direct children of a dt-tile: ${childrenNames.join(', ')}`);
+    addFailure(this, element, `The following elements must be direct children of a dt-tile: ${childrenNames.join(', ')}`);
   }
 }
 

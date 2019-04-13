@@ -2,7 +2,7 @@ import { EmbeddedTemplateAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasContent } from '../helpers';
+import { addFailure, hasContent } from '../helpers';
 
 class DtTabVisitor extends BasicTemplateAstVisitor {
 
@@ -20,9 +20,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.');
+    addFailure(this, element, 'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.');
   }
 
   private _isTabLabel(element: EmbeddedTemplateAst): boolean {
