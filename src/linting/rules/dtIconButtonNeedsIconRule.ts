@@ -3,12 +3,18 @@ import {
   ElementAst,
   EmbeddedTemplateAst,
   TemplateAst,
-  TextAst,
+  TextAst
 } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isButtonElement, isIconButtonAttr, hasTextContent } from '../helpers';
+import { addFailure,
+  hasContent,
+  hasTextContent,
+  isButtonElement,
+  isElementWithName,
+  isIconButtonAttr
+} from '../helpers';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
@@ -25,11 +31,6 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     return true;
   }
 
-  // Checks if the given element is a dt-icon element.
-  private _isDtIconElement(element: TemplateAst): boolean {
-    return element instanceof ElementAst && element.name === 'dt-icon';
-  }
-
   private _validateElement(element: ElementAst): any {
     if (!isButtonElement(element)) {
       return;
@@ -38,17 +39,21 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     const attrs: AttrAst[] = element.attrs;
     const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
 
+    if (isIconButton && !hasContent(element)) {
+      addFailure(this, element, 'A dt-icon-button must not be empty, but must contain a dt-icon element.');
+    }
+
     if (isIconButton) {
       const hasOnlyDtIconChildren = element.children
         .filter((child) => this._filterWhitespaceElements(child))
         .every((child) => {
-          if (this._isDtIconElement(child)) {
+          if (isElementWithName(child, 'dt-icon')) {
             return true;
           }
 
           if (child instanceof EmbeddedTemplateAst) {
             return child.children
-              .every((grandchild) => this._isDtIconElement(grandchild));
+              .every((grandchild) => isElementWithName(grandchild, 'dt-icon'));
           }
 
           return false;
@@ -58,9 +63,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
         return;
       }
 
-      const startOffset = element.sourceSpan.start.offset;
-      const endOffset = element.sourceSpan.end.offset;
-      this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.');
+      addFailure(this, element, 'A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.');
     }
   }
 }

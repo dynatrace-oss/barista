@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isDirectChild } from '../helpers';
+import { addFailure, isDirectChild, isElementWithName } from '../helpers';
 
 class DtCopyToClipboardVisitor extends BasicTemplateAstVisitor {
 
@@ -13,15 +13,13 @@ class DtCopyToClipboardVisitor extends BasicTemplateAstVisitor {
 
   private _validateElement(element: ElementAst): any {
     if (
-      element.name !== 'dt-copy-to-clipboard' ||
+      !isElementWithName(element, 'dt-copy-to-clipboard') ||
       isDirectChild(element, 'dt-copy-to-clipboard-label')
     ) {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-copy-to-clipboard must contain a dt-copy-to-clipboard-label element, that must be a direct child.');
+    addFailure(this, element, 'A dt-copy-to-clipboard must contain a dt-copy-to-clipboard-label element, that must be a direct child.');
   }
 }
 
