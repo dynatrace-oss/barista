@@ -2,7 +2,8 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, ChildNode, findChild, isElementWithName } from '../helpers';
+import { addFailure, ChildNode, findChild, isElementWithName } from '../../utils';
+import { cardChildren } from './cardUtils';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
 
@@ -16,16 +17,8 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const directChildren = [
-      'dt-card-title',
-      'dt-card-subtitle',
-      'dt-card-icon',
-      'dt-card-title-actions',
-      'dt-card-footer-actions',
-    ];
-
     const childNodes: ChildNode[] = [];
-    directChildren.forEach((childName) => {
+    cardChildren.forEach((childName) => {
       findChild(element, childName, 0, childNodes);
     });
 
@@ -38,7 +31,6 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
     }
 
     const childrenNames = Array.from(new Set(filteredChildren));
-
     addFailure(this, element, `The following elements must be direct children of a dt-card: ${childrenNames.join(', ')}`);
   }
 }

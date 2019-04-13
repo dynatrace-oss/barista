@@ -14,7 +14,7 @@ import { addFailure,
   isButtonElement,
   isElementWithName,
   isIconButtonAttr
-} from '../helpers';
+} from '../../utils';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
