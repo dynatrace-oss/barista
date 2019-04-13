@@ -10,8 +10,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
     this._validateElement(template);
     super.visitEmbeddedTemplate(template, context);
   }
-  
-  // tslint:disable-next-line no-any
+
   private _validateElement(element: EmbeddedTemplateAst): any {
     if (!this._isTabLabel(element)) {
       return;
@@ -26,7 +25,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
     this.addFailureFromStartToEnd(startOffset, endOffset, 'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.');
   }
 
-  private _isTabLabel(element: EmbeddedTemplateAst) {
+  private _isTabLabel(element: EmbeddedTemplateAst): boolean {
     return element.attrs &&
       element.attrs.some((attr) => attr.name === 'dtTabLabel');
   }
@@ -41,12 +40,11 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
  * For the following example the linter throws an error:
  * <ng-template dtTabLabel> </ng-template>
  */
-// tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a dtTabLabel always contains text content.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.',
@@ -59,7 +57,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtTabVisitor,
-      }),
+      })
     );
   }
 }

@@ -7,7 +7,7 @@ import { hasTextContent } from './hasTextContent';
  * @param element - The element to check.
  * @returns Whether the given element contains any content.
  */
-export function hasContent(element: ElementAst | EmbeddedTemplateAst): boolean {
+export function hasContent(element: ElementAst | EmbeddedTemplateAst): boolean {
   if (!element.children) {
     return false;
   }
