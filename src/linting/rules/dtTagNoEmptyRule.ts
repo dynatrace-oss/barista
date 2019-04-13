@@ -4,16 +4,13 @@ import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
 import { hasContentApartFrom } from '../helpers';
 
-// tslint:disable-next-line:max-classes-per-file
 class DtTagVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
   }
 
-  // tslint:disable-next-line no-any
   private _validateElement(element: ElementAst): any {
     if (element.name !== 'dt-tag') {
       return;
@@ -48,7 +45,7 @@ export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a tag is never empty.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A tag must always contain text or another component that renders text.',
@@ -61,7 +58,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtTagVisitor,
-      }),
+      })
     );
   }
 }

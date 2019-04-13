@@ -8,16 +8,13 @@ interface FailureStrings {
   [key: string]: string;
 }
 
-// tslint:disable-next-line:max-classes-per-file
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
   }
 
-  // tslint:disable-next-line no-any
   private _validateElement(element: ElementAst): any {
     if (!isButtonElement(element)) {
       return;
@@ -35,6 +32,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 
     const startOffset = element.sourceSpan.start.offset;
     const endOffset = element.sourceSpan.end.offset;
+    // tslint:disable-next-line:no-use-before-declare
     this.addFailureFromStartToEnd(startOffset, endOffset, Rule.FAILURE_STRINGS[element.name]);
   }
 }
@@ -57,9 +55,8 @@ export class Rule extends Rules.AbstractRule {
   };
 
   static readonly metadata: IRuleMetadata = {
-    // tslint:disable-next-line max-line-length
     description: 'Ensures that text alternatives are given for icon buttons.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'Buttons without a text content need additional attributes to provide text alternatives.',
@@ -72,7 +69,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtButtonVisitor,
-      }),
+      })
     );
   }
 }
