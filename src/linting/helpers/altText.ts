@@ -6,7 +6,7 @@ import { AttrAst, BoundElementPropertyAst, ElementAst } from '@angular/compiler'
  * @param inputs element inputs / attribute bindings.
  * @returns true if aria-labelledby attribute or binding is set, false otherwise.
  */
-function hasAttributeValue(name: string, attrs: AttrAst[], inputs: BoundElementPropertyAst[]) {
+function hasAttributeValue(name: string, attrs: AttrAst[], inputs: BoundElementPropertyAst[]): boolean {
   const hasAttr = attrs.some((attr) => attr.name === name && attr.value.trim().length > 0);
   const hasInput = inputs.some((input) => input.name === name);
   // TODO: check reference if aria-labelledby given?
@@ -26,7 +26,7 @@ export function hasTextContentAlternative(element: ElementAst, attribute?: strin
   const inputs: BoundElementPropertyAst[] = element.inputs;
 
   if (attribute === undefined) {
-    return hasAttributeValue('aria-label', attrs, inputs) || hasAttributeValue('aria-labelledby', attrs, inputs);
+    return hasAttributeValue('aria-label', attrs, inputs) || hasAttributeValue('aria-labelledby', attrs, inputs);
   }
 
   return hasAttributeValue(attribute, attrs, inputs);

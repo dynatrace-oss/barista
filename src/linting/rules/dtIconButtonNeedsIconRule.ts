@@ -12,7 +12,6 @@ import { isButtonElement, isIconButtonAttr, hasTextContent } from '../helpers';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -31,7 +30,6 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     return element instanceof ElementAst && element.name === 'dt-icon';
   }
 
-  // tslint:disable-next-line no-any
   private _validateElement(element: ElementAst): any {
     if (!isButtonElement(element)) {
       return;
@@ -49,11 +47,8 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
           }
 
           if (child instanceof EmbeddedTemplateAst) {
-            const allChildrenAreDtIcons = (child as EmbeddedTemplateAst).children
-              .every((grandchild) => {
-                return (this._isDtIconElement(grandchild));
-              });
-            return allChildrenAreDtIcons;
+            return child.children
+              .every((grandchild) => this._isDtIconElement(grandchild));
           }
 
           return false;
@@ -85,13 +80,11 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
  * <button dt-icon-button variant="secondary">icon button</button>, icon content required
  * <button dt-icon-button variant="secondary"></button>, icon content required
  */
-// tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
-    // tslint:disable-next-line max-line-length
     description: 'Ensures that an icon button contains only dt-icon components.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'An icon button must only contain dt-icon components.',
@@ -104,7 +97,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtButtonVisitor,
-      }),
+      })
     );
   }
 }

@@ -6,13 +6,11 @@ import { isDirectChild } from '../helpers';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
   }
-  
-  // tslint:disable-next-line no-any
+
   private _validateElement(element: ElementAst): any {
     if (
       element.name !== 'dt-card' ||
@@ -43,13 +41,11 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
  *   // ...
  * </dt-card>
  */
-// tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
-    // tslint:disable-next-line max-line-length
     description: 'Ensures that a card always has a title, that is a direct child of dt-card.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A card must always contain a dt-card-title, that is a direct child of dt-card.',
@@ -62,7 +58,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtCardVisitor,
-      }),
+      })
     );
   }
 }

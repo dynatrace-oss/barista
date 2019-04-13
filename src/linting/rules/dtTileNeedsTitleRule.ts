@@ -6,13 +6,11 @@ import { isDirectChild } from '../helpers';
 
 class DtTileVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
   }
-  
-  // tslint:disable-next-line no-any
+
   private _validateElement(element: ElementAst): any {
     if (
       element.name !== 'dt-tile' ||
@@ -46,12 +44,11 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
  *   Network traffic
  * </dt-tile>
  */
-// tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a tile always has a title, that is a direct child of dt-tile.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A tile must always contain a dt-tile-title, that is a direct child of dt-tile.',
@@ -64,7 +61,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtTileVisitor,
-      }),
+      })
     );
   }
 }

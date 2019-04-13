@@ -15,6 +15,7 @@ const tsUniversalApp = 'src/universal-app/**/!(*.spec).ts';
 const tsUiSpecsGlob = 'ui-tests/**/*.spec.ts';
 const tsDev = 'src/dev-app/**/!(*.spec).ts';
 const tsBaristaExamplesGlob = 'src/barista-examples/**/!(*.spec).ts';
+const tsLintingGlob = 'src/linting/**/!(*.spec).ts';
 
 const lintOutDir = join(buildConfig.outputDir, 'checkstyle');
 const stylelintOutFile = join(lintOutDir, 'stylelint.xml');
@@ -38,6 +39,7 @@ task('lint', [
   'tslint:ui-tests',
   'tslint:dev-app',
   'tslint:barista-examples',
+  'tslint:linting',
 ]);
 
 task('ensureOutDirectory', () => {
@@ -142,5 +144,17 @@ task('tslint:barista-examples', ['barista-examples:validate', 'barista-example:g
       tsBaristaExamplesGlob,
     ],
     'checkstyle-barista-examples.xml'
+  )
+));
+
+task('tslint:linting', ['ensureOutDirectory'], execNodeTask(
+  'tslint', outputToXML(
+    isCi,
+    [
+      '--config', 'src/linting/tslint-self.json',
+      '--project', 'src/linting/tsconfig.json',
+      tsLintingGlob,
+    ],
+    'checkstyle-linting.xml'
   )
 ));

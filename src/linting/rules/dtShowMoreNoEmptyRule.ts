@@ -6,20 +6,18 @@ import { hasContentApartFrom, hasTextContentAlternative } from '../helpers';
 
 class DtShowMoreVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
   }
-  
-  // tslint:disable-next-line no-any
+
   private _validateElement(element: ElementAst): any {
     if (element.name !== 'dt-show-more') {
       return;
     }
 
     const showMoreChildren = [
-      'dt-show-less-label'
+      'dt-show-less-label',
     ];
 
     if (
@@ -50,12 +48,11 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
  *   <dt-show-less-label>Show less</dt-show-less-label>
  * </dt-show-more>
  */
-// tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a dt-show-more always contains content or a text alternative.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A dt-show-more must always contain content apart from the dt-show-less-label or a text alternative.',
@@ -68,7 +65,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtShowMoreVisitor,
-      }),
+      })
     );
   }
 }

@@ -6,7 +6,7 @@ function checkElement(element: TemplateAst, name: string): boolean {
 
 /**
  * Checks if the given element has a child element with the given name.
- * If directives (like *ngIf) are set, the element's child becomes a EmbeddedTemplateAst 
+ * If directives (like *ngIf) are set, the element's child becomes a EmbeddedTemplateAst
  * and the name of the element can be found when looking at its children.
  * @param element - The parent element.
  * @param childName - The name of the child element.

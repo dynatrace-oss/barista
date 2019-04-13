@@ -6,13 +6,11 @@ import { isIconButtonAttr, isButtonElement } from '../helpers';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
   }
 
-  // tslint:disable-next-line no-any
   private _validateElement(element: ElementAst): any {
     if (!isButtonElement(element)) {
       return;
@@ -41,13 +39,11 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
  * For the following example the linter throws errors:
  * <button dt-button variant="nested">...</button>, dt-icon-button attribute required
  */
-// tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
-    // tslint:disable-next-line max-line-length
     description: 'Ensures that a nested button is always an icon button.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A nested button must always be an icon button.',
@@ -60,7 +56,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtButtonVisitor,
-      }),
+      })
     );
   }
 }
