@@ -2,17 +2,15 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { childNode, findChild } from '../helpers';
+import { ChildNode, findChild } from '../helpers';
 
 class DtTileVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
   }
-  
-  // tslint:disable-next-line no-any
+
   private _validateElement(element: ElementAst): any {
     if (element.name !== 'dt-tile') {
       return;
@@ -24,7 +22,7 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
       'dt-tile-icon',
     ];
 
-    let childNodes: childNode[] = [];
+    const childNodes: ChildNode[] = [];
     directChildren.forEach((childName) => {
       findChild(element, childName, 0, childNodes);
     });
@@ -32,7 +30,7 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
     const filteredChildren: string[] = childNodes
       .filter((el) => el.level > 1)
       .map((el) => el.name);
-    
+
     if (filteredChildren.length < 1) {
       return;
     }
@@ -65,12 +63,11 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
  *   // ...
  * </dt-tile>
  */
-// tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a tile\'s child components are direct children of a dt-tile.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A tile\'s child components (title, subtitle, icon) must always be direct children of the dt-tile.',
@@ -83,7 +80,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtTileVisitor,
-      }),
+      })
     );
   }
 }

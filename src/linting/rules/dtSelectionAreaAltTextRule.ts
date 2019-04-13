@@ -4,16 +4,13 @@ import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
 import { hasTextContentAlternative } from '../helpers';
 
-// tslint:disable-next-line:max-classes-per-file
 class DtSelectionAreaVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
   }
 
-  // tslint:disable-next-line no-any
   private _validateElement(element: ElementAst): any {
     if (element.name !== 'dt-selection-area') {
       return;
@@ -58,7 +55,7 @@ export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that text alternatives are given for handles, the close button and the area of the selection area.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'Handles, the close button and the area of the selection area need additional attributes to provide text alternatives.',
@@ -71,7 +68,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtSelectionAreaVisitor,
-      }),
+      })
     );
   }
 }

@@ -10,8 +10,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
     this._validateElement(template);
     super.visitEmbeddedTemplate(template, context);
   }
-  
-  // tslint:disable-next-line no-any
+
   private _validateElement(element: EmbeddedTemplateAst): any {
     if (!this._isTabContent(element)) {
       return;
@@ -26,7 +25,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
     this.addFailureFromStartToEnd(startOffset, endOffset, 'A dtTabContent must always contain content.');
   }
 
-  private _isTabContent(element: EmbeddedTemplateAst) {
+  private _isTabContent(element: EmbeddedTemplateAst): boolean {
     return element.attrs &&
       element.attrs.some((attr) => attr.name === 'dtTabContent');
   }
@@ -44,12 +43,11 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
  * <ng-template dtTabContent>
  * </ng-template>
  */
-// tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a dtTabContent always contains content.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A dtTabContent must always contain content.',
@@ -62,7 +60,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtTabVisitor,
-      }),
+      })
     );
   }
 }

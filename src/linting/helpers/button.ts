@@ -1,4 +1,4 @@
-import { AttrAst, ElementAst } from "@angular/compiler";
+import { AttrAst, ElementAst } from '@angular/compiler';
 
 export function isIconButtonAttr(attr: AttrAst): boolean {
   return attr.name === 'dt-icon-button';

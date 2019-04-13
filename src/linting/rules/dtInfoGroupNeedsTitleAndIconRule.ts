@@ -6,13 +6,11 @@ import { isDirectChild } from '../helpers';
 
 class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
 
-  // tslint:disable-next-line no-any
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
   }
-  
-  // tslint:disable-next-line no-any
+
   private _validateElement(element: ElementAst): any {
     if (element.name !== 'dt-info-group') {
       return;
@@ -47,13 +45,11 @@ class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
  *   Session duration
  * </dt-info-group>
  */
-// tslint:disable-next-line:max-classes-per-file
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
-    // tslint:disable-next-line max-line-length
     description: 'Ensures that an info group always has a title and an icon.',
-    // tslint:disable-next-line no-null-keyword
+    // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'An info group must always contain a dt-info-group-title and a dt-info-group-icon.',
@@ -66,7 +62,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtInfoGroupVisitor,
-      }),
+      })
     );
   }
 }
