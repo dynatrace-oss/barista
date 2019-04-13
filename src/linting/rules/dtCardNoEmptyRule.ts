@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasContentApartFrom } from '../helpers';
+import { addFailure, hasContentApartFrom, isElementWithName } from '../helpers';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
 
@@ -12,7 +12,7 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-    if (element.name !== 'dt-card') {
+    if (!isElementWithName(element, 'dt-card')) {
       return;
     }
 
@@ -28,9 +28,7 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-card must always contain content apart from title, subtitle, icon and actions.');
+    addFailure(this, element, 'A dt-card must always contain content apart from title, subtitle, icon and actions.');
   }
 }
 

@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasContent } from '../helpers';
+import { addFailure, hasContent, isElementWithName } from '../helpers';
 
 class DtLoadingDistractorVisitor extends BasicTemplateAstVisitor {
 
@@ -13,15 +13,13 @@ class DtLoadingDistractorVisitor extends BasicTemplateAstVisitor {
 
   private _validateElement(element: ElementAst): any {
     if (
-      element.name !== 'dt-loading-distractor' ||
+      !isElementWithName(element, 'dt-loading-distractor') ||
       hasContent(element)
     ) {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-loading-distractor must always contain text. Make sure this is the case even if you use nested components to render text.');
+    addFailure(this, element, 'A dt-loading-distractor must always contain text. Make sure this is the case even if you use nested components to render text.');
   }
 }
 

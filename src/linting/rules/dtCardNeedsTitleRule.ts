@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isDirectChild } from '../helpers';
+import { addFailure, isDirectChild, isElementWithName } from '../helpers';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
 
@@ -13,15 +13,13 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
 
   private _validateElement(element: ElementAst): any {
     if (
-      element.name !== 'dt-card' ||
+      !isElementWithName(element, 'dt-card') ||
       isDirectChild(element, 'dt-card-title')
     ) {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-card must contain a dt-card-title element, that must be a direct child.');
+    addFailure(this, element, 'A dt-card must contain a dt-card-title element, that must be a direct child.');
   }
 }
 

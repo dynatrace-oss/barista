@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { isDirectChild } from '../helpers';
+import { addFailure, isDirectChild, isElementWithName } from '../helpers';
 
 class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
 
@@ -12,7 +12,7 @@ class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-    if (element.name !== 'dt-info-group') {
+    if (!isElementWithName(element, 'dt-info-group')) {
       return;
     }
 
@@ -23,9 +23,7 @@ class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-info-group must always contain a dt-info-group-title and a dt-info-group-icon as direct children.');
+    addFailure(this, element, 'A dt-info-group must always contain a dt-info-group-title and a dt-info-group-icon as direct children.');
   }
 }
 

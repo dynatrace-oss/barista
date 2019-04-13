@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasContent, hasTextContentAlternative } from '../helpers';
+import { addFailure, hasContent, hasTextContentAlternative, isElementWithName } from '../helpers';
 
 class DtSwitchVisitor extends BasicTemplateAstVisitor {
 
@@ -12,7 +12,7 @@ class DtSwitchVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-    if (element.name !== 'dt-switch') {
+    if (!isElementWithName(element, 'dt-switch')) {
       return;
     }
 
@@ -23,9 +23,7 @@ class DtSwitchVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'When a dt-switch does not contain any content it must have an aria-label or an aria-labelledby attribute.');
+    addFailure(this, element, 'When a dt-switch does not contain any content it must have an aria-label or an aria-labelledby attribute.');
   }
 }
 

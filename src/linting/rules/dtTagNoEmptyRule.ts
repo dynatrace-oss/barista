@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasContentApartFrom } from '../helpers';
+import { addFailure, hasContentApartFrom, isElementWithName } from '../helpers';
 
 class DtTagVisitor extends BasicTemplateAstVisitor {
 
@@ -12,7 +12,7 @@ class DtTagVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-    if (element.name !== 'dt-tag') {
+    if (!isElementWithName(element, 'dt-tag')) {
       return;
     }
 
@@ -24,9 +24,7 @@ class DtTagVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-tag must always contain text. Make sure this is the case even if you use nested components to render text.');
+    addFailure(this, element, 'A dt-tag must always contain text. Make sure this is the case even if you use nested components to render text.');
   }
 }
 

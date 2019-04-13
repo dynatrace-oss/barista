@@ -1,5 +1,16 @@
 import { ElementAst, TextAst, EmbeddedTemplateAst } from '@angular/compiler';
-import { hasTextContent } from './hasTextContent';
+
+/**
+ * Check if element contains text apart from whitespace characters.
+ * @param element – The element to check.
+ */
+export function hasTextContent(element: TextAst): boolean {
+  const nonWhitespaceCharacters = element.value.match(/\S/g);
+  if (nonWhitespaceCharacters !== null && nonWhitespaceCharacters.length > 1) {
+    return true;
+  }
+  return false;
+}
 
 /**
  * Check if the element has any content. If children only contain text nodes

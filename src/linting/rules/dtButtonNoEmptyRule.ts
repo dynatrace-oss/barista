@@ -2,7 +2,7 @@ import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasContent, isButtonAttr, isButtonElement } from '../helpers';
+import { addFailure, hasContent, isButtonAttr, isButtonElement } from '../helpers';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
 
@@ -24,9 +24,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
         return;
       }
 
-      const startOffset = element.sourceSpan.start.offset;
-      const endOffset = element.sourceSpan.end.offset;
-      this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.');
+      addFailure(this, element, 'A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.');
     }
   }
 }
