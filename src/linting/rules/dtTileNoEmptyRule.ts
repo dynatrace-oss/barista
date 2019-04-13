@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasContentApartFrom } from '../helpers';
+import { addFailure, hasContentApartFrom, isElementWithName } from '../helpers';
 
 class DtTileVisitor extends BasicTemplateAstVisitor {
 
@@ -12,7 +12,7 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-    if (element.name !== 'dt-tile') {
+    if (!isElementWithName(element, 'dt-tile')) {
       return;
     }
 
@@ -26,9 +26,7 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-tile must always contain content apart from title, subtitle and icon.');
+    addFailure(this, element, 'A dt-tile must always contain content apart from title, subtitle and icon.');
   }
 }
 

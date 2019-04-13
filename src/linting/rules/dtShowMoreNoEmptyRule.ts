@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasContentApartFrom, hasTextContentAlternative } from '../helpers';
+import { addFailure, hasContentApartFrom, hasTextContentAlternative, isElementWithName } from '../helpers';
 
 class DtShowMoreVisitor extends BasicTemplateAstVisitor {
 
@@ -12,7 +12,7 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-    if (element.name !== 'dt-show-more') {
+    if (!isElementWithName(element, 'dt-show-more')) {
       return;
     }
 
@@ -27,9 +27,7 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A dt-show-more must always contain text or an aria-label/aria-labelledby attribute.');
+    addFailure(this, element, 'A dt-show-more must always contain text or an aria-label/aria-labelledby attribute.');
   }
 }
 

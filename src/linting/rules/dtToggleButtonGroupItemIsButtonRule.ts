@@ -2,6 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
+import { addFailure, isElementWithName } from '../helpers';
 
 class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
 
@@ -20,13 +21,11 @@ class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    if (element.name === 'button') {
+    if (isElementWithName(element, 'button')) {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A toggle button group item must always be a button.');
+    addFailure(this, element, 'A toggle button group item must always be a button.');
   }
 }
 

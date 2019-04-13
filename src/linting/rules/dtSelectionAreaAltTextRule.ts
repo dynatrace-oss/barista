@@ -2,7 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { hasTextContentAlternative } from '../helpers';
+import { addFailure, hasTextContentAlternative, isElementWithName } from '../helpers';
 
 class DtSelectionAreaVisitor extends BasicTemplateAstVisitor {
 
@@ -12,7 +12,7 @@ class DtSelectionAreaVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-    if (element.name !== 'dt-selection-area') {
+    if (!isElementWithName(element, 'dt-selection-area')) {
       return;
     }
 
@@ -25,9 +25,7 @@ class DtSelectionAreaVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const startOffset = element.sourceSpan.start.offset;
-    const endOffset = element.sourceSpan.end.offset;
-    this.addFailureFromStartToEnd(startOffset, endOffset, 'A selection area must provide alternative texts for both handles, the selected area and the close button.');
+    addFailure(this, element, 'A selection area must provide alternative texts for both handles, the selected area and the close button.');
   }
 }
 
