@@ -1,6 +1,20 @@
+import { EmbeddedTemplateAst } from '@angular/compiler';
+
 export interface ChildNode {
   name: string;
   level: number;
+}
+
+/**
+ * Increases level if element is not instance of EmbeddedTemplateAst.
+ * @param element - Element to check.
+ * @param level – Current level.
+ */
+function increaseLevel(element: any, level: number): number {
+  if (element instanceof EmbeddedTemplateAst) {
+    return level;
+  }
+  return level + 1;
 }
 
 /**
@@ -15,7 +29,7 @@ export function findChild(element: any, childName: string, level: number, foundC
   }
 
   if (element.children && element.children.length > 0) {
-    const newLevel = level + 1;
+    const newLevel = increaseLevel(element, level);
     const noOfChildren = element.children.length;
     for (let i = 0; i < noOfChildren; i++) {
       findChild(element.children[i], childName, newLevel, foundChildren);
