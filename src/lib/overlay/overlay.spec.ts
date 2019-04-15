@@ -4,6 +4,8 @@ import { Component, ViewChild, ElementRef, TemplateRef, NgModule } from '@angula
 import { DtOverlayModule, DtOverlay } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import { ESCAPE } from '@angular/cdk/keycodes';
 
 describe('DtOverlay', () => {
   let dtOverlay: DtOverlay;
@@ -85,6 +87,36 @@ describe('DtOverlay', () => {
     fixture.detectChanges();
     flush();
     expect(dtOverlayRef.pinned).toBeTruthy();
+  }));
+
+  it('should close the overlay when pinned and backdrop is clicked', fakeAsync(() => {
+    const dtOverlayRef = dtOverlay.create(fixture.componentInstance.trigger, fixture.componentInstance.overlay, { pinnable: true });
+    fixture.detectChanges();
+    dtOverlayRef.pin(true);
+    fixture.detectChanges();
+    flush();
+    const backdrop = overlayContainerElement.querySelector('.cdk-overlay-backdrop');
+    expect(backdrop).not.toBeNull();
+    dispatchMouseEvent(backdrop!, 'click');
+    fixture.detectChanges();
+    flush();
+    expect(dtOverlayRef.pinned).toBeFalsy();
+    const overlay = overlayContainerElement.querySelector('.dt-overlay-container');
+    expect(overlay).toBeNull();
+  }));
+
+  it('should close the overlay when pinned and ESC is pressed', fakeAsync(() => {
+    const dtOverlayRef = dtOverlay.create(fixture.componentInstance.trigger, fixture.componentInstance.overlay, { pinnable: true });
+    fixture.detectChanges();
+    dtOverlayRef.pin(true);
+    fixture.detectChanges();
+    flush();
+    dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
+    fixture.detectChanges();
+    flush();
+    expect(dtOverlayRef.pinned).toBeFalsy();
+    const overlay = overlayContainerElement.querySelector('.dt-overlay-container');
+    expect(overlay).toBeNull();
   }));
 });
 
