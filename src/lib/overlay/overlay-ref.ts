@@ -7,9 +7,7 @@ import { DtOverlayConfig } from './overlay-config';
 import { filter, take } from 'rxjs/operators';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-
-/** Css class that is used to disable pointerevents on the backdrop */
-export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-overlay-no-pointer';
+import { DT_OVERLAY_NO_POINTER_CLASS } from './overlay';
 
 export class DtOverlayRef<T> {
   /** The instance of component opened into the overlay. */
@@ -31,6 +29,7 @@ export class DtOverlayRef<T> {
   constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer, private _config: DtOverlayConfig) {
     containerInstance._onDomExit.pipe(take(1)).subscribe(() => {
       this._overlayRef.dispose();
+      this._pinned = false;
       this._afterExit.next();
     });
 
@@ -50,7 +49,7 @@ export class DtOverlayRef<T> {
         this.containerInstance._trapFocus();
         removeCssClass(this._overlayRef.backdropElement, DT_OVERLAY_NO_POINTER_CLASS);
         this._overlayRef.backdropClick().subscribe(() => {
-          this._overlayRef.dispose();
+          this.dismiss();
         });
       } else {
         addCssClass(this._overlayRef.backdropElement, DT_OVERLAY_NO_POINTER_CLASS);

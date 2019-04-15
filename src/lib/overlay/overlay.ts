@@ -54,6 +54,12 @@ const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
   },
 ];
 
+/**
+ * Css class that is used to disable pointerevents on the backdrop
+ * @internal
+ */
+export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-no-pointer';
+
 @Injectable({ providedIn: 'root'})
 export class DtOverlay {
   // tslint:disable-next-line:no-any
@@ -121,7 +127,7 @@ export class DtOverlay {
 
     const overlayConfig = new OverlayConfig({
       positionStrategy,
-      backdropClass: 'dt-no-pointer',
+      backdropClass: DT_OVERLAY_NO_POINTER_CLASS,
       hasBackdrop: true,
       scrollStrategy: this._overlay.scrollStrategies.close(),
     });
