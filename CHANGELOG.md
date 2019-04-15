@@ -1,3 +1,32 @@
+## 2.5.0 (2019-04-15)
+
+### Bug Fixes
+
+* **chart:** Fixes an issue with tooltip flickering ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **chart:** Fixes an issue that the tooltip was not positioned correctly for category axis, correctly positions tooltip now vertically centered for all chart types except pie charts ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **chart:** Fixes chart changing colors on second render sometimes ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **context-dialog:** The close button's ARIA label can now be set as input ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **overlay:** Fixes an issue where the overlay was not closed when backdrop was clicked in pinned mode ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **overlay:** Fixes an issue where the CD was not triggered correctly when mousevents were handled on the trigger ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Features
+
+* **filter-field:** Filter tags can now be accessed and disabled. 
+* **linting:** Add a dt-checkbox-alt-text rule ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add copy-to-clipboard and toggle-button-item rules ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add dt-card-needs-content rule ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add dt-card-needs-title rule ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add dt-info-group-needs-title-and-icon rule ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add dt-loading-distractor-no-empty rule ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add dt-radio-button-alt-text rule ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add dt-show-more-no-empty rule and refactor text alternative check ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add dt-tab-content-no-empty rule ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add dt-tab-label-no-empty rule ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add no-empty rules for switch, tag and tile components ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add rules to ensure that a dt-tile contains all required content elements ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add rules to find direct children of dt-card and dt-tile ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Add text alternative rule for selection area ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 2.4.0 (2019-04-05)
 
 ### Bug Fixes
