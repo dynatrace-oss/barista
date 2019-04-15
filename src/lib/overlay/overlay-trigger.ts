@@ -73,7 +73,6 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   _onMouseOut(event: MouseEvent): void {
     event.stopPropagation();
     this._moveSub.unsubscribe();
-
     const ref = this._dtOverlayService.overlayRef;
     if (ref && !ref.pinned) {
       this._dtOverlayService.dismiss();
@@ -82,7 +81,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
 
   _onMouseMove(event: MouseEvent): void {
     if (this._dtOverlayRef === null) {
-      this._createOverlay();
+      this._ngZone.run(() => { this._createOverlay(); });
     }
     if (this._dtOverlayRef && !this._dtOverlayRef.pinned) {
       this._dtOverlayRef.updatePosition(event.offsetX, event.offsetY);
@@ -109,9 +108,10 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   }
 
   private _createOverlay(): void {
-    this._dtOverlayRef = this._dtOverlayService.create<T>(this.elementRef, this._content, this._config);
-    this._dtOverlayRef.afterExit().pipe(take(1)).subscribe(() => {
+    const ref = this._dtOverlayService.create<T>(this.elementRef, this._content, this._config);
+    ref.afterExit().pipe(take(1)).subscribe(() => {
       this._dtOverlayRef = null;
     });
+    this._dtOverlayRef = ref;
   }
 }
