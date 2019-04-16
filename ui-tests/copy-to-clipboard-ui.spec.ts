@@ -12,7 +12,7 @@ describe('CopyToClipboard UI Test', () => {
 
     const targetTextarea = element(by.id('copytarget'));
     targetTextarea.click();
-    targetTextarea.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, 'v'));
+    targetTextarea.sendKeys(protractor.Key.chord(protractor.Key.SHIFT, protractor.Key.INSERT));
     targetTextarea.getWebElement().getAttribute('value').then((attr: string): void => {
       expect(attr).toBe('www.dynatrace.com');
     });
