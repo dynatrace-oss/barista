@@ -1,6 +1,7 @@
+<button dt-button (click)="addItem()">Add item</button>
 <dt-key-value-list>
-   <dt-key-value-list-item *ngFor="let entry of entries">
-      <dt-key-value-list-key>{{entry.key}}</dt-key-value-list-key>
-      <dt-key-value-list-value>{{entry.value}}</dt-key-value-list-value>
+   <dt-key-value-list-item *ngFor="let entry of entries; let i = index">
+      <dt-key-value-list-key>{{i}}</dt-key-value-list-key>
+      <dt-key-value-list-value>{{i}}</dt-key-value-list-value>
    </dt-key-value-list-item>
 </dt-key-value-list>

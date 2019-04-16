@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, tick, fakeAsync} from '@angular/core/testing';
 import {Component} from '@angular/core';
 import {DtKeyValueListModule} from '@dynatrace/angular-components';
 
@@ -10,7 +10,8 @@ describe('DtKeyValueList', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtKeyValueListModule],
-      declarations: [TestAppSingleColumn, TestAppTwoColumns, TestAppThreeColumns],
+      declarations: [TestAppSingleColumn, TestAppTwoColumns, TestAppThreeColumns,
+                     TestAppSixColumns, TestAppTenColumns, TestAppFloatColumns, TestAppNegativColumns],
     });
 
     TestBed.compileComponents();
@@ -42,6 +43,64 @@ describe('DtKeyValueList', () => {
         expect(tileNativeElement.getAttribute('dt-column') === '3')
           .toBeTruthy('Key Value list must contain 3 columns');
       });
+
+    it('six columns should be used', () => {
+      const fixture = TestBed.createComponent(TestAppSixColumns);
+      const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
+      fixture.detectChanges(); // trigger initial data binding
+      expect(tileNativeElement).toBeDefined('Element not found');
+      expect(tileNativeElement.getAttribute('dt-column') === '6')
+        .toBeTruthy('Key Value list must contain 6 columns');
+    });
+
+    it('six columns should be used although columns is set to 10', () => {
+      const fixture = TestBed.createComponent(TestAppTenColumns);
+      const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
+      fixture.detectChanges(); // trigger initial data binding
+      expect(tileNativeElement).toBeDefined('Element not found');
+      expect(tileNativeElement.getAttribute('dt-column') === '6')
+        .toBeTruthy('Key Value list must contain 6 columns');
+    });
+
+    it('three columns should be used although columns is set to 3.3', () => {
+      const fixture = TestBed.createComponent(TestAppFloatColumns);
+      const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
+      fixture.detectChanges(); // trigger initial data binding
+      expect(tileNativeElement).toBeDefined('Element not found');
+      expect(tileNativeElement.getAttribute('dt-column') === '3')
+        .toBeTruthy('Key Value list must contain 3 columns');
+    });
+
+    it('single column should be used although columns is set to -6', () => {
+      const fixture = TestBed.createComponent(TestAppNegativColumns);
+      const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
+      fixture.detectChanges(); // trigger initial data binding
+      expect(tileNativeElement).toBeDefined('Element not found');
+      expect(tileNativeElement.getAttribute('dt-column') === '1')
+        .toBeTruthy('Key Value list must contain 1 column');
+    });
+
+    it('is changed during runtime to two columns', () => {
+      const fixture = TestBed.createComponent(TestAppSixColumns);
+      const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
+      fixture.detectChanges(); // trigger initial data binding
+      fixture.componentInstance.colNo = 2;
+      fixture.detectChanges(); // trigger initial data binding
+      expect(tileNativeElement.getAttribute('dt-column') === '2')
+        .toBeTruthy('Key Value list must contain 2 columns');
+    });
+
+    it('is changed during runtime to two columns', () => {
+      const fixture = TestBed.createComponent(TestAppTwoColumns);
+      const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
+      fixture.detectChanges(); // trigger initial data binding
+      expect(tileNativeElement.getAttribute('dt-column') === '2')
+        .toBeTruthy('Key Value list must contain 2 columns');
+      fixture.componentInstance.items = new Array(20);
+      fixture.detectChanges(); // trigger initial data binding
+      expect(tileNativeElement.getAttribute('dt-column') === '3')
+      .toBeTruthy('Key Value list must contain 3 columns');
+    });
   });
 
   describe('content key value', () => {
@@ -96,58 +155,14 @@ class TestAppSingleColumn {
 @Component({
     selector: 'dt-disabled-test-app',
     template: `<dt-key-value-list>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp</dt-key-value-list-key><dt-key-value-list-value>1</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp1</dt-key-value-list-key><dt-key-value-list-value>13</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp2</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp3</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp4</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp5</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp6</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp7</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp8</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp9</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp10</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp11</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp12</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp13</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp14</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
-     </dt-key-value-list-item>
-     <dt-key-value-list-item>
-      <dt-key-value-list-key>Temp15</dt-key-value-list-key><dt-key-value-list-value>28</dt-key-value-list-value>
+     <dt-key-value-list-item *ngFor="let item of items; let i = index">
+      <dt-key-value-list-key>{{i}}</dt-key-value-list-key><dt-key-value-list-value>{{i}}</dt-key-value-list-value>
      </dt-key-value-list-item>
   </dt-key-value-list>
     `,
   })
 class TestAppTwoColumns {
+  items = new Array(15);
 }
 
 @Component({
@@ -220,4 +235,145 @@ class TestAppTwoColumns {
     `,
   })
 class TestAppThreeColumns {
+}
+
+@Component({
+  selector: 'dt-test-app4',
+  template: `<dt-key-value-list [columns]="colNo">
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp<dt-key-value-list-value>1</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp1<dt-key-value-list-value>13</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp2<dt-key-value-list-value>24</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp3<dt-key-value-list-value>28</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp4<dt-key-value-list-value>25</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp5<dt-key-value-list-value>28</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp6<dt-key-value-list-value>20</dt-key-value-list-value>
+   </dt-key-value-list-item>
+</dt-key-value-list>
+  `,
+})
+class TestAppSixColumns {
+  colNo = 6;
+}
+
+@Component({
+  selector: 'dt-test-app5',
+  template: `<dt-key-value-list columns="10">
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp<dt-key-value-list-value>1</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp1<dt-key-value-list-value>13</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp2<dt-key-value-list-value>24</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp3<dt-key-value-list-value>28</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp4<dt-key-value-list-value>25</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp5<dt-key-value-list-value>28</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp6<dt-key-value-list-value>20</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp7<dt-key-value-list-value>24</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp8<dt-key-value-list-value>22</dt-key-value-list-value>
+   </dt-key-value-list-item>
+</dt-key-value-list>
+  `,
+})
+class TestAppTenColumns {
+
+}
+
+@Component({
+  selector: 'dt-test-app6',
+  template: `<dt-key-value-list columns="3.3">
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp<dt-key-value-list-value>1</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp1<dt-key-value-list-value>13</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp2<dt-key-value-list-value>24</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp3<dt-key-value-list-value>28</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp4<dt-key-value-list-value>25</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp5<dt-key-value-list-value>28</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp6<dt-key-value-list-value>20</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp7<dt-key-value-list-value>24</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp8<dt-key-value-list-value>22</dt-key-value-list-value>
+   </dt-key-value-list-item>
+</dt-key-value-list>
+  `,
+})
+class TestAppFloatColumns {
+
+}
+@Component({
+  selector: 'dt-test-app7',
+  template: `<dt-key-value-list columns="-6">
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp<dt-key-value-list-value>1</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp1<dt-key-value-list-value>13</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp2<dt-key-value-list-value>24</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp3<dt-key-value-list-value>28</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp4<dt-key-value-list-value>25</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp5<dt-key-value-list-value>28</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp6<dt-key-value-list-value>20</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp7<dt-key-value-list-value>24</dt-key-value-list-value>
+   </dt-key-value-list-item>
+   <dt-key-value-list-item>
+    <dt-key-value-list-key></dt-key-value-list-key>Temp8<dt-key-value-list-value>22</dt-key-value-list-value>
+   </dt-key-value-list-item>
+</dt-key-value-list>
+  `,
+})
+class TestAppNegativColumns {
+
 }

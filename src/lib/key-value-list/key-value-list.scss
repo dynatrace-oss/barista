@@ -21,8 +21,24 @@
 }
 
 @media (min-width: 920px) {
-  :host[dt-column='3'] {
+
+  :host[dt-column='3'],
+  :host[dt-column='4'],
+  :host[dt-column='5'] {
     columns: 280px 3;
     max-width: 1860px;
+  }
+
+  :host[dt-column='4'] {
+    columns: 280px 4;
+  }
+
+  :host[dt-column='5'] {
+    columns: 280px 5;
+  }
+
+  :host[dt-column='6'] {
+    columns: 280px 6;
+    max-width: 1980px;
   }
 }

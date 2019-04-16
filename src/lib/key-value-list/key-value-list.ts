@@ -4,20 +4,27 @@ import {
   QueryList,
   ChangeDetectionStrategy,
   ViewEncapsulation,
+  Input,
+  ChangeDetectorRef,
 } from '@angular/core';
 import {
   DtKeyValueListItem
 } from './key-value-list-item';
+import { startWith } from 'rxjs/operators';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { Subscription } from 'rxjs';
+import { isDefined } from '@dynatrace/angular-components/core';
 
-const keyValueListThreeColumnsLayoutMinItems = 18;
-const keyValueListTwoColumnsLayoutMinItems = 12;
+const DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS  = 12;
+const DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS = 18;
+const DT_KEY_VALUE_LIST_MAX_COLUMNS = 6;
 
 @Component({
   moduleId: module.id,
   selector: 'dt-key-value-list',
   host : {
     'class': 'dt-key-value-list',
-    '[attr.dt-column]': 'columns',
+    '[attr.dt-column]': '_calculatedColumns',
   },
   templateUrl: 'key-value-list.html',
   styleUrls: ['key-value-list.scss'],
@@ -29,15 +36,48 @@ const keyValueListTwoColumnsLayoutMinItems = 12;
 export class DtKeyValueList {
   @ContentChildren(DtKeyValueListItem) items: QueryList<DtKeyValueListItem>;
 
-  // tslint:disable:no-any no-magic-numbers
-  get columns(): number {
+  /** @internal */
+  _calculatedColumns = 1;
+  private _itemsChangeSub = Subscription.EMPTY;
 
-    if (this.items.length > keyValueListThreeColumnsLayoutMinItems) {
-        return 3;
-    } else if (this.items.length > keyValueListTwoColumnsLayoutMinItems) {
-        return 2;
-    } else {
-        return 1;
+  /** If not set programatically, columns are calclated depending on the number of items. */
+  @Input()
+  get columns(): number {
+    // @breaking-change 3.0.0 changed to this._columns.
+    return this._calculatedColumns;
+  }
+  set columns(newValue: number) {
+    const coerced = coerceNumberProperty(newValue);
+    this._columns = coerced;
+    this._calculatedColumns = Math.min(Math.max(Math.floor(coerced), 1), DT_KEY_VALUE_LIST_MAX_COLUMNS);
+    this._itemsChangeSub.unsubscribe();
+    this._itemsChangeSub = Subscription.EMPTY;
+    this._changeDetectorRef.markForCheck();
+  }
+  private _columns: number;
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+
+  ngAfterContentInit(): void {
+    if (!isDefined(this._columns)) {
+      this._itemsChangeSub = this.items.changes
+      .pipe(startWith(null))
+      .subscribe(() => {
+        if (this.items.length > DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS) {
+          // tslint:disable:no-any no-magic-numbers
+          this._calculatedColumns = 3;
+        } else if (this.items.length > DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS) {
+          // tslint:disable:no-any no-magic-numbers
+          this._calculatedColumns = 2;
+        } else {
+          this._calculatedColumns = 1;
+        }
+        this._changeDetectorRef.markForCheck();
+      });
     }
+  }
+
+  ngOnDestroy(): void {
+    this._itemsChangeSub.unsubscribe();
   }
 }
