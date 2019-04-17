@@ -6,14 +6,11 @@ import {
   ChangeDetectorRef,
   Output,
   EventEmitter,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { calculatePages } from './pagination-calculate-pages';
 import {
   DEFAULT_PAGE_SIZE,
-  ELLIPSIS_CHARACTER,
   ARIA_DEFAULT_PREVIOUS_LABEL,
   ARIA_DEFAULT_NEXT_LABEL,
   ARIA_DEFAULT_LABEL,
@@ -34,21 +31,9 @@ export interface PaginationNumberType {
   state: 'normal' | 'active' | 'ellipsis';
 }
 
-/**
- * Change event object that is emitted when the user selects a
- * different page size or navigates to another page.
- */
-export class DtPageEvent {
-  /** The current page index. */
-  currentPage: number;
-  /** The current page size */
-  pageSize: number;
-  /** The current total number of items being paged */
-  length: number;
-}
-
 @Component({
   moduleId: module.id,
+  exportAs: 'dtPagination',
   selector: 'dt-pagination',
   templateUrl: 'pagination.html',
   styleUrls: ['pagination.scss'],
@@ -59,24 +44,21 @@ export class DtPageEvent {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtPagination implements OnChanges {
+export class DtPagination {
 
   /** Event that gets fired if the pagination changes the current page */
   @Output()
   readonly changed: EventEmitter<number> = new EventEmitter<number>();
 
-  /** Event emitted when the pagination changes the page size or page index. */
-  @Output()
-  readonly page: EventEmitter<DtPageEvent> = new EventEmitter<DtPageEvent>();
-
   /** The length of the total number of items that are being paginated. Defaulted to 0. */
   @Input()
   get length(): number { return this._length; }
   set length(value: number) {
-    if (isNumber(value)) {
-      this._length = coerceNumberProperty(value);
+    const length = coerceNumberProperty(value);
+    if (isNumber(value) && this._length !== length) {
+      this._length = length;
+      this._updateItems();
       this._changeDetectorRef.markForCheck();
-      this._emitPageChange();
     }
   }
   private _length = 0;
@@ -85,10 +67,11 @@ export class DtPagination implements OnChanges {
   @Input()
   get pageSize(): number { return this._pageSize; }
   set pageSize(value: number) {
-    if (isNumber(value)) {
-      this._pageSize = coerceNumberProperty(value);
+    const pageSize = coerceNumberProperty(value);
+    if (isNumber(value) && this._pageSize !== pageSize) {
+      this._pageSize = pageSize;
+      this._updateItems();
       this._changeDetectorRef.markForCheck();
-      this._emitPageChange();
     }
   }
   private _pageSize: number = DEFAULT_PAGE_SIZE;
@@ -98,10 +81,11 @@ export class DtPagination implements OnChanges {
    * @breaking-change To be removed with 3.0.0.
    */
   @Input()
-  get maxPages(): number | undefined { return this.getNumberOfPages(); }
+  get maxPages(): number | undefined { return this._maxPages; }
   set maxPages(value: number | undefined) {
-    if (this._maxPages !== value) {
-      this._maxPages = coerceNumberProperty(value);
+    const maxPages = coerceNumberProperty(value);
+    if (isNumber(value) && this._maxPages !== maxPages) {
+      this._maxPages = maxPages;
       this._updateItems();
       this._changeDetectorRef.markForCheck();
     }
@@ -112,14 +96,10 @@ export class DtPagination implements OnChanges {
   @Input()
   get currentPage(): number { return this._currentPage; }
   set currentPage(value: number) {
-    const current = isNumber(value)
-      ? coerceNumberProperty(value)
-      : 1;
-
-    if (this._currentPage !== current) {
-      this._currentPage = current;
-      this.changed.emit(this._currentPage);
-      this._emitPageChange();
+    const currentPage = coerceNumberProperty(value);
+    if (isNumber(value) && this._currentPage !== currentPage) {
+      this._currentPage = currentPage;
+      this._updateItems();
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -138,77 +118,59 @@ export class DtPagination implements OnChanges {
   /** Aria label for the current page button. Defaults to "You are currently on page" */
   @Input('aria-label-current') ariaCurrentLabel = ARIA_DEFAULT_CURRENT_LABEL;
 
-  /* @internal Array of the pages to be displayed includes the ellipsis character as string */
-  _pages: Array<string | number> = [];
+  /** The number of pages by the provided page size and the length of all items */
+  get numberOfPages(): number { return this._numberOfPages; }
+  private _numberOfPages = 0;
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+  /* @internal Array of the pages to be displayed */
+  _pages: number[][] = [];
 
-  ngOnChanges(change: SimpleChanges): void {
+  /** @internal Whether the current page is the first page */
+  _isFirstPage: boolean;
+
+  /** @internal Whether the current page is last page */
+  _isLastPage: boolean;
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {
     this._updateItems();
-  }
-
-  /**
-   * Calculates the number of pages by the provided page size
-   * and the length of all items
-   */
-  getNumberOfPages(): number {
-    if (!this.pageSize) {
-      return 0;
-    }
-    return Math.ceil(this.length / this.pageSize);
   }
 
   /** sets the previous page as current page */
   previous(): void {
-    if (this.currentPage > 1) {
-      this.currentPage = this.currentPage - 1;
+    if (!this._isFirstPage) {
+      this._setPage(this.currentPage - 1);
     }
   }
 
   /** sets the next page as current page */
   next(): void {
-    /** TODO: @breaking-change 3.0.0 – remove the next line */
-    const numberOfPages = !!this._maxPages ? this._maxPages : this.getNumberOfPages();
-    if (this.currentPage < numberOfPages) {
-      this.currentPage = this.currentPage + 1;
+    if (!this._isLastPage) {
+      this._setPage(this.currentPage + 1);
     }
   }
 
-  /** @internal Check if the current page is the first page */
-  _isFirstPage(): boolean {
-    return this.currentPage === 1;
-  }
-
-  /** @internal Returns true if current page is last page */
-  _isLastPage(): boolean {
-    /** TODO: @breaking-change 3.0.0 – change to this.pageSize */
-    const numberOfPages = !!this._maxPages ? this._maxPages : this.getNumberOfPages();
-    // we use greater equals in case that if there are no pages it defaults to one
-    // but the number of pages would be zero.
-    return this.currentPage >= numberOfPages;
-  }
-
-  /** @internal Checks if the value is an ellipsis character */
-  _isEllipsis(value: string | number): boolean {
-    if (value === ELLIPSIS_CHARACTER) { return true; }
-    return false;
+  /**
+   * @internal
+   * sets the current page and emits the changed event with the current page
+   * only triggered by user interaction.
+   */
+  _setPage(page: number): void {
+    this.currentPage = page;
+    this.changed.emit(page);
   }
 
   /** Calculates the pages that should be displayed by the pagination */
   private _updateItems(): void {
-    /** TODO: @breaking-change 3.0.0 – refactor to `const numberOfPages = this.getNumberOfPages();` */
-    const numberOfPages = !!this._maxPages ? this._maxPages : this.getNumberOfPages();
+    /** TODO: @breaking-change 3.0.0 – remove this._maxPages */
+    this._numberOfPages = !!this._maxPages
+      ? this._maxPages
+      : this._pageSize > 0
+        ? Math.ceil(this.length / this.pageSize)
+        : 0;
 
-    this._pages = calculatePages(numberOfPages, this.currentPage);
-  }
+    this._isFirstPage = this._currentPage <= 1;
+    this._isLastPage =  this._currentPage >= this._numberOfPages;
 
-  /** Emits an event notifying that a change of the pagination's properties has been triggered */
-  private _emitPageChange(): void {
-    this._updateItems();
-    this.page.emit({
-      currentPage: this.currentPage,
-      pageSize: this.pageSize,
-      length: this.length,
-    });
+    this._pages = calculatePages(this._numberOfPages, this._currentPage);
   }
 }

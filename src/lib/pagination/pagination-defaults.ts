@@ -4,8 +4,6 @@ export const DEFAULT_PAGE_SIZE = 50;
 export const BOUND = 3;
 /** @internal The maximum amount of pages that are displayed in a row */
 export const MAX_PAGINATION_ITEMS = 7;
-/** @internal The character that is used for the ellipsis */
-export const ELLIPSIS_CHARACTER = '...';
 
 /** @internal Aria label for the previous page Button. */
 export const ARIA_DEFAULT_PREVIOUS_LABEL = 'Previous page';

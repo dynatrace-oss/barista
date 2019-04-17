@@ -10,39 +10,42 @@
         variant="nested"
         color="accent"
         [attr.aria-label]="ariaPreviousLabel"
-        [attr.aria-disabled]="_isFirstPage()"
-        [disabled]="_isFirstPage()"
+        [attr.aria-disabled]="_isFirstPage"
+        [disabled]="_isFirstPage"
         (click)="previous()">
         <dt-icon name="dropdownclosed"></dt-icon>
       </button>
   </li>
 
-  <li
-    *ngFor="let page of _pages"
-    class="dt-pagination-item">
+  <ng-container *ngFor="let block of _pages; let i = index">
 
-    <button
-      *ngIf="!_isEllipsis(page) && page !== currentPage"
-      dt-button
-      variant="nested"
-      [attr.aria-label]="ariaPageLabel + ' ' + page"
-      (click)="currentPage = page">
-      {{page}}
-    </button>
+    <li
+      *ngIf="_pages.length > 1 && i > 0"
+      class="dt-pagination-item">
+      <span [attr.aria-label]="ariaLabelEllipses">…</span>
+    </li>
 
-    <span
-      *ngIf="_isEllipsis(page)"
-      [attr.aria-label]="ariaLabelEllipses">
-      {{page}}
-    </span>
+    <li
+      *ngFor="let page of block"
+      class="dt-pagination-item">
+      <button
+        *ngIf="page !== currentPage"
+        dt-button
+        variant="nested"
+        [attr.aria-label]="ariaPageLabel + ' ' + page"
+        (click)="currentPage = page">
+        {{page}}
+      </button>
 
-    <span
-      *ngIf="page === currentPage"
-      [attr.aria-current]="currentPage === page"
-      [attr.aria-label]="ariaCurrentLabel + ' ' + page">
-      {{page}}
-    </span>
-  </li>
+      <span
+        *ngIf="page === currentPage"
+        aria-current
+        [attr.aria-label]="ariaCurrentLabel + ' ' + page">
+        {{page}}
+      </span>
+    </li>
+
+  </ng-container>
 
   <li class="dt-pagination-next">
     <button
@@ -50,8 +53,8 @@
       variant="nested"
       color="accent"
       [attr.aria-label]="ariaNextLabel"
-      [attr.aria-disabled]="_isLastPage()"
-      [disabled]="_isLastPage()"
+      [attr.aria-disabled]="_isLastPage"
+      [disabled]="_isLastPage"
       (click)="next()">
       <dt-icon name="dropdownclosed"></dt-icon>
     </button>
