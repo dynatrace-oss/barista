@@ -1,4 +1,4 @@
-import { MAX_PAGINATION_ITEMS, BOUND, ELLIPSIS_CHARACTER } from './pagination-defaults';
+import { MAX_PAGINATION_ITEMS, BOUND } from './pagination-defaults';
 
 /**
  * @internal
@@ -7,14 +7,14 @@ import { MAX_PAGINATION_ITEMS, BOUND, ELLIPSIS_CHARACTER } from './pagination-de
  * @param numberOfPages the number of pages that should be displayed
  * @param currentPage the number of the current page (starts with 1)
  */
-export function calculatePages(numberOfPages: number, currentPage: number): Array<string | number> {
+export function calculatePages(numberOfPages: number, currentPage: number): number[][] {
   if (currentPage > numberOfPages || currentPage < 1) {
     return [];
   }
 
   if (numberOfPages < MAX_PAGINATION_ITEMS) {
     // create an Array with the length of numberOfPages that starts with one and ends with n
-    return Array.from({length: numberOfPages}, (v, index) => index + 1);
+    return [Array.from({length: numberOfPages}, (v, index) => index + 1)];
   }
 
   const start = new Set<number>(Array.from({length: BOUND}, (v, index) => index + 1));
@@ -36,13 +36,13 @@ export function calculatePages(numberOfPages: number, currentPage: number): Arra
   const endArray = Array.from(end).sort((a, b) => a - b);
 
   if (middle.has(currentPage)) {
-    return [startArray[0], ELLIPSIS_CHARACTER, ...middleArray, ELLIPSIS_CHARACTER, endArray[endArray.length - 1]];
+    return [[startArray[0]], middleArray, [endArray[endArray.length - 1]]];
   }
 
   if (start.has(currentPage)) {
-    return [...startArray, ELLIPSIS_CHARACTER, ...endArray.slice(startArray.length - MAX_PAGINATION_ITEMS + 1)];
+    return [startArray, endArray.slice(startArray.length - MAX_PAGINATION_ITEMS + 1)];
   }
 
   // current is in the end
-  return [...startArray.splice(0, MAX_PAGINATION_ITEMS - endArray.length - 1), ELLIPSIS_CHARACTER, ...endArray];
+  return [startArray.splice(0, MAX_PAGINATION_ITEMS - endArray.length - 1), endArray];
 }
