@@ -1,37 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit, Injectable, OnDestroy } from '@angular/core';
+import { DtTableDataSource, DtPagination, DtShowMore, DtTab } from '@dynatrace/angular-components';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subscription, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+interface HostUnit {
+  host: string;
+  cpu: string;
+  memory: string;
+  traffic: string;
+}
 
 @Component({
   selector: 'table-demo',
   templateUrl: './table-demo.component.html',
   styleUrls: ['./table-demo.component.scss'],
 })
-export class TableDemo {
-  dataSource: object[] = [
+export class TableDemo implements OnInit, OnDestroy {
+
+  pageSize = 3;
+  dataSource: DtTableDataSource<HostUnit> = new DtTableDataSource();
+  private subscription: Subscription;
+
+  @ViewChild(DtPagination) pagination: DtPagination;
+
+  ngOnInit(): void {
+    this.subscription = of(this.dataSource1)
+      .subscribe((data: HostUnit[]) => {
+        this.dataSource.data = data;
+        this.dataSource.pagination = this.pagination;
+        this.dataSource.pageSize = this.pageSize;
+      });
+  }
+
+  dataSource1: HostUnit[] = [
     { host: 'et-demo-2-win4', cpu: '30 %', memory: '38 % of 5.83 GB', traffic: '98.7 Mbit/s' },
     { host: 'et-demo-2-win3', cpu: '26 %', memory: '46 % of 6 GB', traffic: '625 Mbit/s' },
     { host: 'docker-host2', cpu: '25.4 %', memory: '38 % of 5.83 GB', traffic: '419 Mbit/s' },
     { host: 'et-demo-2-win1', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
+    { host: 'et-demo-2-win8', cpu: '78 %', memory: '21 % of 10 TB', traffic: '918.7 Mbit/s' },
+    { host: 'et-demo-2-macOS', cpu: '21 %', memory: '34 % of 1.45 GB', traffic: '12 Mbit/s' },
+    { host: 'kyber-host6', cpu: '12.3 %', memory: '12 % of 6.2 GB', traffic: '45 Mbit/s' },
+    { host: 'dev-demo-5-macOS', cpu: '24 %', memory: '8,6 % of 7 GB', traffic: '32.7 Mbit/s' },
   ];
 
-  rowClicked(row: object, index: number, count: number): void {
-    console.log(row, index, count);
-  }
-
-  addRow(): void {
-    this.dataSource = [
-      ...this.dataSource,
-      { host: 'et-demo-2-win5', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
-    ];
-  }
-
-  dataSource1: object[] = [
-    { host: 'et-demo-2-win4', cpu: '30 %', memory: '38 % of 5.83 GB', traffic: '98.7 Mbit/s' },
-    { host: 'et-demo-2-win3', cpu: '26 %', memory: '46 % of 6 GB', traffic: '625 Mbit/s' },
-    { host: 'docker-host2', cpu: '25.4 %', memory: '38 % of 5.83 GB', traffic: '419 Mbit/s' },
-    { host: 'et-demo-2-win1', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
-  ];
-
-  dataSource2: object[] = [
+  dataSource2: HostUnit[] = [
     { host: 'et-demo-2-win4', cpu: '30', memory: '38 % of 5.83 GB', traffic: '98.7' },
     { host: 'et-demo-2-win3', cpu: '26', memory: '46 % of 6 GB', traffic: '625' },
     { host: 'docker-host2', cpu: '25.4', memory: '38 % of 5.83 GB', traffic: '419' },
@@ -85,4 +98,8 @@ export class TableDemo {
         [1370339100000, 74],
       ],
     }];
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

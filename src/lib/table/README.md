@@ -32,7 +32,7 @@ class MyModule {}
 ### Component and attribute directives for the table:
 
 | Component/Attribute | Type | Description |
-| --- | --- | --- | 
+| --- | --- | --- |
 | `dtColumnDef` | Attribute | Name for the column (to be used in the header and row definitions)  |
 | `dtColumnAlign` | Attribute | Type for the column (to be used in the alignment and for future versions add pipes and masks), possible values are: left-alignment `['left', 'text', 'id'],` center-alignment `['center', 'icon', 'control'],` right-alignment `['right', 'number', 'date', 'ip']` |
 | `dtColumnProportion` | Attribute | A number describing the width proportion for the column. `[dtColumnProportion]=2` means that this column's width will be doubled compared to the regular ones |
@@ -402,7 +402,7 @@ export class TableComponent implements AfterViewInit {
 }
 ```
 
-<!-- TODO: Examples for paging and filtering once @lukas.holzer -->
+<docs-source-example example="TablePaginationComponent" fullwidth="true"></docs-source-example>
 
 ### Extending DtSimpleColumn
 

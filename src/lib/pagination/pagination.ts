@@ -6,6 +6,7 @@ import {
   ChangeDetectorRef,
   Output,
   EventEmitter,
+  OnInit,
 } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { calculatePages } from './pagination-calculate-pages';
@@ -19,6 +20,7 @@ import {
   ARIA_DEFAULT_CURRENT_LABEL,
 } from './pagination-defaults';
 import { isNumber } from '@dynatrace/angular-components/core';
+import { AsyncSubject } from 'rxjs';
 
 /**
  * @internal
@@ -44,7 +46,7 @@ export interface PaginationNumberType {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtPagination {
+export class DtPagination implements OnInit {
 
   /** Event that gets fired if the pagination changes the current page */
   @Output()
@@ -122,6 +124,13 @@ export class DtPagination {
   get numberOfPages(): number { return this._numberOfPages; }
   private _numberOfPages = 0;
 
+  /**
+   * The initialized subject is needed when the pagination is consumed via a ViewChild in an
+   * ngOnInit. In this case the ViewChild provides the instance of the DtPagination but the pagination is not
+   * completely initialized this AsyncSubject emits the last value even if it has completed.
+   */
+  initialized = new AsyncSubject<boolean>();
+
   /* @internal Array of the pages to be displayed */
   _pages: number[][] = [];
 
@@ -133,6 +142,11 @@ export class DtPagination {
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
     this._updateItems();
+  }
+
+  ngOnInit(): void {
+    this.initialized.next(true);
+    this.initialized.complete();
   }
 
   /** sets the previous page as current page */
