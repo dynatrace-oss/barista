@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import {
   DtPaginationModule,
   DtPagination,
-  DtPageEvent,
   DtIconModule,
 } from '@dynatrace/angular-components';
 import { Component, ViewChild } from '@angular/core';
@@ -15,7 +14,6 @@ import {
   ARIA_DEFAULT_PREVIOUS_LABEL,
   ARIA_DEFAULT_CURRENT_LABEL,
   ARIA_DEFAULT_ELLIPSES,
-  ELLIPSIS_CHARACTER
 } from './pagination-defaults';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 
@@ -73,7 +71,7 @@ describe('DtPagination', () => {
       const instance = fixture.componentInstance;
       fixture.detectChanges();
 
-      expect(instance.pagination._pages).toEqual([1, 2, 3, ELLIPSIS_CHARACTER, 8, 9, 10]);
+      expect(instance.pagination._pages).toEqual([[1, 2, 3], [8, 9, 10]]);
       expect(instance.pagination.currentPage).toBe(1);
 
       dispatchFakeEvent(nextButton, 'click');
@@ -83,7 +81,7 @@ describe('DtPagination', () => {
       dispatchFakeEvent(nextButton, 'click');
       fixture.detectChanges();
       expect(instance.pagination.currentPage).toBe(3);
-      expect(instance.pagination._pages).toEqual([1, 2, 3, 4, ELLIPSIS_CHARACTER, 9, 10]);
+      expect(instance.pagination._pages).toEqual([[1, 2, 3, 4], [9, 10]]);
 
     });
   });
@@ -124,7 +122,7 @@ describe('DtPagination', () => {
       fixture.detectChanges();
 
       expect(instance.pagination.currentPage).toBe(1);
-      expect(instance.pagination.getNumberOfPages()).toBe(12);
+      expect(instance.pagination.numberOfPages).toBe(12);
 
       instance.pagination.next();
       fixture.detectChanges();
@@ -208,41 +206,6 @@ describe('DtPagination', () => {
       expect(buttons[1].getAttribute('aria-disabled')).toBeTruthy();
     });
 
-    it('should fire an event if the page or size changes', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
-      const instance = fixture.componentInstance;
-      instance.length = 120;
-      instance.pageSize = 10;
-
-      fixture.detectChanges();
-
-      instance.pagination.next();
-      fixture.detectChanges();
-      expect(instance.page).toEqual({
-        currentPage: 2,
-        length: 120,
-        pageSize: 10,
-      });
-
-      instance.length = 50;
-      fixture.detectChanges();
-
-      expect(instance.page).toEqual({
-        currentPage: 2,
-        length: 50,
-        pageSize: 10,
-      });
-
-      instance.currentPage = 4;
-      fixture.detectChanges();
-
-      expect(instance.page).toEqual({
-        currentPage: 4,
-        length: 50,
-        pageSize: 10,
-      });
-    });
-
     it('should fire an event if the currentPage changes that emits tha new page number', () => {
       const fixture = TestBed.createComponent(PaginationTestComponent);
       const instance = fixture.componentInstance;
@@ -254,12 +217,15 @@ describe('DtPagination', () => {
       expect(instance.pagination.currentPage).toBe(1);
       fixture.detectChanges();
 
-      instance.pagination.next();
+      const previous = fixture.debugElement.nativeElement.querySelector('.dt-pagination-previous button');
+      const next = fixture.debugElement.nativeElement.querySelector('.dt-pagination-next button');
+
+      dispatchFakeEvent(next, 'click');
       fixture.detectChanges();
       expect(instance.currentSelection).toBe(2);
       expect(instance.firedEvents).toBe(1);
 
-      instance.pagination.previous();
+      dispatchFakeEvent(previous, 'click');
       fixture.detectChanges();
       expect(instance.currentSelection).toBe(1);
       expect(instance.firedEvents).toBe(2);
@@ -281,11 +247,11 @@ describe('DtPagination', () => {
       dispatchFakeEvent(nextButton, 'click');
       fixture.detectChanges();
       expect(instance.pagination.currentPage).toBe(3);
-      expect(instance.pagination._pages).toEqual([1, 2, 3, 4, ELLIPSIS_CHARACTER, 9, 10]);
+      expect(instance.pagination._pages).toEqual([[1, 2, 3, 4], [9, 10]]);
       dispatchFakeEvent(nextButton, 'click');
       fixture.detectChanges();
       expect(instance.pagination.currentPage).toBe(4);
-      expect(instance.pagination._pages).toEqual([1, ELLIPSIS_CHARACTER, 3, 4, 5, ELLIPSIS_CHARACTER, 10]);
+      expect(instance.pagination._pages).toEqual([[1], [3, 4, 5], [10]]);
     });
   });
 
@@ -305,7 +271,7 @@ describe('DtPagination', () => {
       expect(next.getAttribute('aria-label')).toBe(ARIA_DEFAULT_NEXT_LABEL);
 
       expect(items[0].getAttribute('aria-label')).toBe(`${ARIA_DEFAULT_CURRENT_LABEL} 1`);
-      expect(items[0].getAttribute('aria-current')).toBeTruthy();
+      expect(items[0].getAttribute('aria-current')).toBe('');
       expect(items[1].getAttribute('aria-label')).toBe(`${ARIA_DEFAULT_PAGE_LABEL} 2`);
       expect(items[2].getAttribute('aria-label')).toBe(`${ARIA_DEFAULT_PAGE_LABEL} 3`);
       expect(items[3].getAttribute('aria-label')).toBe(ARIA_DEFAULT_ELLIPSES);
@@ -342,7 +308,7 @@ describe('DtPagination', () => {
       expect(previous.getAttribute('aria-label')).toBe('pagina anterior');
       expect(next.getAttribute('aria-label')).toBe('siguiente página');
       expect(items[0].getAttribute('aria-label')).toBe('estas en la pagina 1');
-      expect(items[0].getAttribute('aria-current')).toBeTruthy();
+      expect(items[0].getAttribute('aria-current')).toBe('');
       expect(items[1].getAttribute('aria-label')).toBe('página 2');
       expect(items[3].getAttribute('aria-label')).toBe('las siguientes paginas son elipses');
       expect(items[6].getAttribute('aria-label')).toBe('página 10');
@@ -386,8 +352,7 @@ export class DefaultPagination {
               [aria-label-ellipses]="ariaEllipses"
               [aria-label-page]="ariaPageLabel"
               [aria-label-current]="ariaCurrentLabel"
-              (changed)="onChange($event)"
-              (page)="pageEvent($event)"></dt-pagination>`,
+              (changed)="onChange($event)"></dt-pagination>`,
 })
 export class PaginationTestComponent {
   @ViewChild('pagination') pagination: DtPagination;
@@ -403,12 +368,6 @@ export class PaginationTestComponent {
 
   firedEvents = 0;
   currentSelection = 0;
-
-  page: DtPageEvent;
-
-  pageEvent(event: DtPageEvent): void {
-    this.page = event;
-  }
 
   onChange(value: number): void {
     this.firedEvents++;
