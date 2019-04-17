@@ -1,7 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation, Input, HostListener, Output, EventEmitter, Directive, ContentChild,
+  ViewEncapsulation, Input, HostListener, Output, EventEmitter, Directive, ContentChild, OnInit,
 } from '@angular/core';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
@@ -10,6 +10,7 @@ import {
   CanDisable,
   mixinDisabled, mixinTabIndex, HasTabIndex, readKeyCode
 } from '@dynatrace/angular-components/core';
+import { AsyncSubject } from 'rxjs';
 
 @Directive({
   selector: `dt-show-less-label`,
@@ -37,7 +38,15 @@ export const _DtShowMore =
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtShowMore extends _DtShowMore implements CanDisable, HasTabIndex {
+export class DtShowMore extends _DtShowMore implements CanDisable, HasTabIndex, OnInit {
+
+
+  /**
+   * The initialized subject is needed when the pagination is consumed via a ViewChild in an
+   * ngOnInit. In this case the ViewChild provides the instance of the DtPagination but the pagination is not
+   * completely initialized this AsyncSubject emits the last value even if it has completed.
+   */
+  initialized = new AsyncSubject<boolean>();
 
   @Output() readonly changed = new EventEmitter<void>();
 
@@ -75,6 +84,11 @@ export class DtShowMore extends _DtShowMore implements CanDisable, HasTabIndex {
   @HostListener('click')
   _handleClick(): void {
     this._fireChange();
+  }
+
+  ngOnInit(): void {
+    this.initialized.next(true);
+    this.initialized.complete();
   }
 
   private _fireChange(): void {
