@@ -76,7 +76,7 @@ export class DtPagination implements OnChanges {
     if (isNumber(value)) {
       this._length = coerceNumberProperty(value);
       this._changeDetectorRef.markForCheck();
-      this._emitPageEvent();
+      this._emitPageChange();
     }
   }
   private _length = 0;
@@ -88,7 +88,7 @@ export class DtPagination implements OnChanges {
     if (isNumber(value)) {
       this._pageSize = coerceNumberProperty(value);
       this._changeDetectorRef.markForCheck();
-      this._emitPageEvent();
+      this._emitPageChange();
     }
   }
   private _pageSize: number = DEFAULT_PAGE_SIZE;
@@ -102,6 +102,7 @@ export class DtPagination implements OnChanges {
   set maxPages(value: number | undefined) {
     if (this._maxPages !== value) {
       this._maxPages = coerceNumberProperty(value);
+      this._updateItems();
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -118,12 +119,9 @@ export class DtPagination implements OnChanges {
     if (this._currentPage !== current) {
       this._currentPage = current;
       this.changed.emit(this._currentPage);
-      this._emitPageEvent();
+      this._emitPageChange();
+      this._changeDetectorRef.markForCheck();
     }
-    // next() and previous() is setting the currentPage @Input and therefore we need
-    // to call the update function.
-    this._updateItems();
-    this._changeDetectorRef.markForCheck();
   }
   private _currentPage = 1;
 
@@ -205,7 +203,8 @@ export class DtPagination implements OnChanges {
   }
 
   /** Emits an event notifying that a change of the pagination's properties has been triggered */
-  private _emitPageEvent(): void {
+  private _emitPageChange(): void {
+    this._updateItems();
     this.page.emit({
       currentPage: this.currentPage,
       pageSize: this.pageSize,
