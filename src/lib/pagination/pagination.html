@@ -33,7 +33,7 @@
         dt-button
         variant="nested"
         [attr.aria-label]="ariaPageLabel + ' ' + page"
-        (click)="currentPage = page">
+        (click)="_setPage(page)">
         {{page}}
       </button>
 
