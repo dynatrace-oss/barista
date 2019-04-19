@@ -106,6 +106,7 @@
   },
   "browserslist": [
     "last 1 year",
+    "Firefox ESR",
     "safari >= 10",
     "ie 11"
   ]
