@@ -9,9 +9,6 @@
 // Mixin overriding default styles for interactive elements (button, ..)
 // like the gray background, the border, and the outline.
 @mixin dt-interactive-reset() {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   cursor: pointer;
   outline: none;

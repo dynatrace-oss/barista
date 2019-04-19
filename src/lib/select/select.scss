@@ -99,7 +99,6 @@ $dt-select-panel-min-width: 112px !default;
   margin-left: -1px;
 
   // Prevents the content from repainting on scroll.
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 
   // Makes sure the opening scale animation starts from the top
