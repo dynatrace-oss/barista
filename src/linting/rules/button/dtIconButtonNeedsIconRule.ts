@@ -1,18 +1,14 @@
 import {
   AttrAst,
   ElementAst,
-  EmbeddedTemplateAst,
-  TemplateAst,
-  TextAst
 } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
 import { addFailure,
   hasContent,
-  hasTextContent,
+  hasOnlyDtIconChildren,
   isButtonElement,
-  isElementWithName,
   isIconButtonAttr
 } from '../../utils';
 
@@ -21,14 +17,6 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
     super.visitElement(element, context);
-  }
-
-  // Filters TextAst elements that only contain whitespace characters.
-  private _filterWhitespaceElements(element: TemplateAst): boolean {
-    if (element instanceof TextAst) {
-      return hasTextContent(element);
-    }
-    return true;
   }
 
   private _validateElement(element: ElementAst): any {
@@ -44,22 +32,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     }
 
     if (isIconButton) {
-      const hasOnlyDtIconChildren = element.children
-        .filter((child) => this._filterWhitespaceElements(child))
-        .every((child) => {
-          if (isElementWithName(child, 'dt-icon')) {
-            return true;
-          }
-
-          if (child instanceof EmbeddedTemplateAst) {
-            return child.children
-              .every((grandchild) => isElementWithName(grandchild, 'dt-icon'));
-          }
-
-          return false;
-        });
-
-      if (hasOnlyDtIconChildren) {
+      if(hasOnlyDtIconChildren(element)) {
         return;
       }
 

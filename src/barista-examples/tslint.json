@@ -24,6 +24,7 @@
     "dt-tile-no-empty": true,
     "dt-tile-needs-title": true,
     "dt-tile-needs-icon": true,
+    "dt-tile-icon-needs-icon": true,
     "dt-tile-direct-children": true,
     "dt-selection-area-alt-text": true,
     "dt-tab-content-no-empty": true,
