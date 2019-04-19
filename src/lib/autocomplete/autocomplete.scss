@@ -14,7 +14,6 @@ $dt-autocomplete-panel-min-width: 112px !default;
   margin-top: -1px;
 
   // Prevents the content from repainting on scroll.
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 
   // Makes sure the opening scale animation starts from the top
