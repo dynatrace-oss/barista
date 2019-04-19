@@ -10,7 +10,7 @@ function filterWhitespaceElements(element: TemplateAst): boolean {
   return true;
 }
 
-export function hasOnlyDtIconChildren(element: ElementAst) {
+export function hasOnlyDtIconChildren(element: ElementAst): boolean {
   return element.children
     .filter((child) => filterWhitespaceElements(child))
     .every((child) => {

@@ -24,7 +24,7 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
       addFailure(this, element, 'A dt-tile-icon must not be empty, but must contain a dt-icon element.');
     }
 
-    if(hasOnlyDtIconChildren(element)) {
+    if (hasOnlyDtIconChildren(element)) {
       return;
     }
 
