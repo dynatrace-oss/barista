@@ -103,5 +103,10 @@
     "typescript": "~3.1.1",
     "typescript-tslint-plugin": "^0.0.5",
     "web-animations-js": "^2.3.1"
-  }
+  },
+  "browserslist": [
+    "last 1 year",
+    "safari >= 10",
+    "ie 11"
+  ]
 }
