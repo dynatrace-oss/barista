@@ -26,6 +26,7 @@
     "dt-tab-label-no-empty": { "severity": "warning" },
     "dt-tag-no-empty": { "severity": "warning" },
     "dt-tile-direct-children": { "severity": "warning" },
+    "dt-tile-icon-needs-icon": { "severity": "warning" },
     "dt-tile-needs-title": { "severity": "warning" },
     "dt-tile-needs-icon": { "severity": "warning" },
     "dt-tile-no-empty": { "severity": "warning" },
