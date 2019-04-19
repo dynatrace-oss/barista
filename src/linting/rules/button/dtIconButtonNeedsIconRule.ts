@@ -32,7 +32,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     }
 
     if (isIconButton) {
-      if(hasOnlyDtIconChildren(element)) {
+      if (hasOnlyDtIconChildren(element)) {
         return;
       }
 
