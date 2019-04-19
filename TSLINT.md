@@ -27,6 +27,7 @@ We provide a set of custom TSLint rules to help you using the Angular components
 | `dt-tab-label-no-empty` | A dtTabLabelContent must always contain text content or a component that renders text. |
 | `dt-tag-no-empty` | A tag must always contain text content or a component that renders text apart from the `dt-tag-key` child component. |
 | `dt-tile-direct-children` | All predefined child components of a `dt-tile`, i.e. `dt-tile-title`, `dt-tile-subtitle` and `dt-tile-icon` must be direct children of the `dt-tile`. |
+| `dt-tile-icon-needs-icon` | The content of a tile icon (`dt-tile-icon`) must always be an icon component (`<dt-icon>`). |
 | `dt-tile-needs-title` | A `dt-tile-title` is a required child element of a `dt-tile`. |
 | `dt-tile-needs-icon` | A `dt-tile-icon` is a required child element of a `dt-tile`. |
 | `dt-tile-no-empty` | A tile must contain content apart from the predefined child components `dt-tile-title`, `dt-tile-subtitle` and `dt-tile-icon`. |
