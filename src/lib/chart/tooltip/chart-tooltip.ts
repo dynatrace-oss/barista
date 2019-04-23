@@ -11,6 +11,7 @@ import {
   Renderer2,
   Optional,
   ViewContainerRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { DtChart, DT_CHART_RESOLVER, DtChartResolver } from '../chart';
 import { takeUntil, filter } from 'rxjs/operators';
@@ -77,6 +78,7 @@ export class DtChartTooltip<T> implements OnDestroy {
     private _ngZone: NgZone,
     private _renderer: Renderer2,
     private _viewContainerRef: ViewContainerRef,
+    private _changeDetectorRef: ChangeDetectorRef,
     @Inject(DT_CHART_RESOLVER) @Optional() @SkipSelf() private _resolveParentChart: DtChartResolver
   ) {
   }
@@ -161,6 +163,7 @@ export class DtChartTooltip<T> implements OnDestroy {
         .flexibleConnectedTo(this._createTooltipMarker(parentChart, this._renderer, data))
         .withPositions(DEFAULT_DT_CHART_TOOLTIP_POSITIONS);
       this._overlayRef.updatePositionStrategy(positionStrategy);
+      this._changeDetectorRef.markForCheck();
     }
   }
 
