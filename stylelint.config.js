@@ -10,5 +10,8 @@ module.exports = {
     'color-hex-length': 'long',
     'color-named': 'never',
     'scss/no-duplicate-dollar-variables': null,
+    "property-no-vendor-prefix": true,
+    "value-no-vendor-prefix": true,
+    "selector-no-vendor-prefix": true,
   },
 };
