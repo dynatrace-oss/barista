@@ -1,3 +1,21 @@
+## 2.6.0 (2019-04-23)
+
+### Bug Fixes
+
+* **chart:** Fixes issue where tooltip was not updated if parent was set to onPush 
+* **table:** Fixes an issue where cells were not reacting to sortable columns being removed 
+
+### Features
+
+* **key-value-list:** Added input to enable specifying number of columns ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **pagination:** Added possibility to setup pagination based on item count and page size ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **pagination:** Improved a11y
+* **table:** Added a DtTableDatasource and DtSimpleColumn types for easier table usage ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Special Thanks
+Dorota Zaranska
+
+
 ## 2.5.0 (2019-04-15)
 
 ### Bug Fixes
