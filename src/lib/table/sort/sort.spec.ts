@@ -54,9 +54,9 @@ describe('DtSort', () => {
     beforeEach(() => {
       // Starting state for the view and directions
       expectedStates = new Map<string, { iconName: string }>([
-        ['column_a', { iconName: '' }],
-        ['column_b', { iconName: '' }],
-        ['column_c', { iconName: '' }],
+        ['column_a', { iconName: 'sorter-down' }],
+        ['column_b', { iconName: 'sorter-down' }],
+        ['column_c', { iconName: 'sorter-down' }],
       ]);
       component.expectIconStates(expectedStates);
     });
