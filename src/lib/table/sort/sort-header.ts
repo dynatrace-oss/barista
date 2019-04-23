@@ -13,9 +13,6 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 export class DtSortHeaderBase {}
 export const _DtSortHeaderMixinBase = mixinDisabled(DtSortHeaderBase);
 
-/** @internal */
-export type DtSortIconName = 'sorter-down' | 'sorter-up' | '';
-
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -43,7 +40,7 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    * The direction the arrow should be facing according to the current state.
    * @internal
    */
-  _sortIconName: DtSortIconName = '';
+  _sortIconName: 'sorter-down' | 'sorter-up' = 'sorter-down';
 
   /**
    * Enables sorting on the dt-sort-header by applying the directive or not.
@@ -123,9 +120,8 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
 
   /** Updates the icon used for the sorter */
   private _updateSorterIcon(): void {
-    const sorting = this._isSorted ?
-        this._sort.direction || this.start : '';
-    this._sortIconName = isEmpty(sorting) ? this._sortIconName = '' : sorting === 'asc' ? 'sorter-up' : 'sorter-down';
+    const sorting = this._isSorted ? this._sort.direction : this.start;
+    this._sortIconName = sorting === 'asc' ? 'sorter-up' : 'sorter-down';
   }
 
   /**
