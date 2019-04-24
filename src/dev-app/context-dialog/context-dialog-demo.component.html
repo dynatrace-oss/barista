@@ -8,3 +8,35 @@
 <dt-context-dialog #dialog>
   <p>Your dashboard "real user monitoring" is only visible to you</p>
 </dt-context-dialog>
+
+
+<dt-table [dataSource]="dataSource" interactiveRows>
+  <ng-container dtColumnDef="host" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <dt-info-group>
+        <dt-info-group-icon><dt-icon name="agent"></dt-icon></dt-info-group-icon>
+        <dt-info-group-title>{{row.host}}</dt-info-group-title>
+        Subtitle
+      </dt-info-group>
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="cpu" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
+    <dt-cell *dtCellDef="let row;">{{row.cpu}}</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="details">
+    <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
+    <dt-cell *dtCellDef="let row;">
+      <button dt-icon-button [dtContextDialogTrigger]="dialog" variant="nested"><dt-icon name="more"></dt-icon></button>
+      <dt-context-dialog #dialog>
+        <button dt-button variant="secondary" (click)="removeRow(row)">Remove row</button>  
+      </dt-context-dialog>
+    </dt-cell>
+  </ng-container>
+
+  <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'details']"></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: ['host', 'cpu', 'details'];"></dt-row>
+</dt-table>

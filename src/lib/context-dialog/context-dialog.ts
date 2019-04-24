@@ -161,6 +161,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   ngOnDestroy(): void {
     if (this._panelOpen) {
       this._restoreFocus();
+      this._overlayRef.dispose();
       this.openedChange.emit(false);
     }
     if (this.hasCustomTrigger) {
@@ -277,6 +278,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
       LOG.debug('Trying to unregister a trigger that is not assigned');
     }
     this._trigger = this._defaultTrigger;
+    this.close();
     this._changeDetectorRef.markForCheck();
   }
 }
