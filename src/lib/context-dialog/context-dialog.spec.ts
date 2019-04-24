@@ -172,6 +172,26 @@ describe('DtContextDialog', () => {
           expect(fixture.componentInstance.contextDialog.trigger)
             .toBe(contextDialogDefaultTriggerComponent, 'Expected context Dialog default trigger to be assigned.');
         }));
+
+        it('should close the overlay when a custom trigger gets destroyed', () => {
+          fixture.componentInstance.customTrigger = true;
+          fixture.detectChanges();
+          fixture.componentInstance.contextDialog.open();
+          let panel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-panel');
+          expect(panel).toBeDefined();
+          fixture.componentInstance.customTrigger = false;
+          fixture.detectChanges();
+          panel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-panel');
+          expect(panel).toBeNull();
+        });
+        it('should dispose the overlay when the context dialog is destroyed', () => {
+          fixture.componentInstance.contextDialog.open();
+          let panel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-panel');
+          expect(panel).toBeDefined();
+          fixture.destroy();
+          panel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-panel');
+          expect(panel).toBeNull();
+        });
       });
     });
     describe('blur behaviour for context-dialog', () => {
