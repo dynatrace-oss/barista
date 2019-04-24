@@ -101,7 +101,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   private  _trigger: CdkOverlayOrigin;
 
-  private _overlayRef: OverlayRef;
+  private _overlayRef: OverlayRef | null;
 
   private _destroy = new Subject<void>();
 
@@ -161,7 +161,9 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   ngOnDestroy(): void {
     if (this._panelOpen) {
       this._restoreFocus();
-      this._overlayRef.dispose();
+      if (this._overlayRef) {
+        this._overlayRef.dispose();
+      }
       this.openedChange.emit(false);
     }
     if (this.hasCustomTrigger) {
@@ -184,11 +186,15 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   private _setOpen(open: boolean): void {
     this._panelOpen = open;
     this.openedChange.emit(open);
-    if (this._panelOpen) {
+    if (this._panelOpen && !this._overlayRef) {
       this._savePreviouslyFocusedElement();
       this._createOverlay();
-    } else {
-      this._overlayRef.detach();
+    }
+    if (!this._panelOpen) {
+      if (this._overlayRef) {
+        this._overlayRef.detach();
+        this._overlayRef = null;
+      }
       this._restoreFocus();
     }
     this._changeDetectorRef.markForCheck();
@@ -201,15 +207,15 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   /** Moves the focus inside the focus trap. */
   private _trapFocus(): void {
-    if (!this._focusTrap) {
+    if (!this._focusTrap && this._overlayRef) {
       this._focusTrap = this._focusTrapFactory.create(this._overlayRef.overlayElement);
+      this._focusTrap.focusInitialElementWhenReady()
+      .catch((error: Error) => {
+        if (isDevMode()) {
+          LOG.debug('Error when trying to set initial focus', error);
+        }
+      });
     }
-    this._focusTrap.focusInitialElementWhenReady()
-    .catch((error: Error) => {
-      if (isDevMode()) {
-        LOG.debug('Error when trying to set initial focus', error);
-      }
-    });
   }
 
   /** Restores focus to the element that was focused before the overlay opened. */
@@ -259,7 +265,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
     this._overlayRef.keydownEvents().pipe(takeUntil(this._destroy)).subscribe((event: KeyboardEvent) => {
 
-      if (readKeyCode(event) === ESCAPE) {
+      if (readKeyCode(event) === ESCAPE && this._overlayRef) {
         this._overlayRef.detach();
       }
     });
