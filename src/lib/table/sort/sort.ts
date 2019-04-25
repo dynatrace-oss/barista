@@ -36,6 +36,13 @@ export class DtSort extends _DtSortMixinBase
    */
   readonly _stateChanges = new Subject<void>();
 
+  /**
+   * Used to notify any child components listening on sortable changes.
+   * Used to primarly update styles in cells if header sortable state changes.
+   * @internal
+   */
+  readonly _unregisterSortable = new Subject<DtSortHeader>();
+
   /** @internal Initialized subject that fires on initialization and completes on destroy. */
   readonly _initialized = new BehaviorSubject<boolean>(false);
 
@@ -70,7 +77,21 @@ export class DtSort extends _DtSortMixinBase
     } else {
       this.direction = this.getNextSortDirection(sortable);
     }
+
     this.sortChange.emit({active: this.active, direction: this.direction});
+  }
+
+  /**
+   * Function to be used if a sortheader is being destroyed.
+   * @internal
+   */
+  _unregister(sortable: DtSortHeader): void {
+    // If the currently unregistered sortable header is the currently activley sorted one
+    // we need to reset the sort.
+    if (this.active === sortable.id) {
+      this.active = '';
+    }
+    this._unregisterSortable.next(sortable);
   }
 
   /** Returns the next sort direction of the active sortable. */
