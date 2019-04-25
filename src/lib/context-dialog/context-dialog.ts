@@ -87,8 +87,6 @@ export const _DtContextDialogMixinBase = mixinTabIndex(mixinDisabled(DtContextDi
 })
 export class DtContextDialog extends _DtContextDialogMixinBase
   implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit {
-  /** Whether or not the overlay panel is open. */
-  private _panelOpen = false;
 
   /** The class that traps and manages focus within the overlay. */
   private _focusTrap: FocusTrap | null;
@@ -124,13 +122,15 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   /** Whether or not the overlay panel is open. */
   get isPanelOpen(): boolean {
-    return this._panelOpen;
+    return !!this._overlayRef;
   }
 
+  /** Retuns the trigger that is currently attached with context dialog */
   get trigger(): CdkOverlayOrigin | DtContextDialogTrigger {
     return this._trigger;
   }
 
+  /** Whether a context dialog has a custom trigger attached */
   get hasCustomTrigger(): boolean {
     return this._trigger && this._trigger !== this._defaultTrigger;
   }
@@ -159,12 +159,9 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   /** Hook that trigger right before the component will be destroyed. */
   ngOnDestroy(): void {
-    if (this._panelOpen) {
+    if (this._overlayRef) {
       this._restoreFocus();
-      if (this._overlayRef) {
-        this._overlayRef.dispose();
-      }
-      this.openedChange.emit(false);
+      this._overlayRef.dispose();
     }
     if (this.hasCustomTrigger) {
       (this._trigger as DtContextDialogTrigger)._unregisterFromDialog();
@@ -173,31 +170,25 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     this._destroy.complete();
   }
 
+  /** Opens the context dialog */
   open(): void {
-    if (!this.disabled) {
-      this._setOpen(true);
-    }
-  }
-
-  close(): void {
-    this._setOpen(false);
-  }
-
-  private _setOpen(open: boolean): void {
-    this._panelOpen = open;
-    this.openedChange.emit(open);
-    if (this._panelOpen && !this._overlayRef) {
+    if (!this.disabled && !this._overlayRef) {
       this._savePreviouslyFocusedElement();
       this._createOverlay();
+      this.openedChange.emit(true);
+      this._changeDetectorRef.markForCheck();
     }
-    if (!this._panelOpen) {
-      if (this._overlayRef) {
-        this._overlayRef.detach();
-        this._overlayRef = null;
-      }
+  }
+
+  /** Closes the context dialog */
+  close(): void {
+    if (this._overlayRef) {
+      this._overlayRef.detach();
+      this._overlayRef = null;
       this._restoreFocus();
+      this.openedChange.emit(false);
+      this._changeDetectorRef.markForCheck();
     }
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Focuses the context-dialog element. */

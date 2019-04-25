@@ -201,7 +201,7 @@ describe('DtContextDialog', () => {
         fixture = TestBed.createComponent(BasicContextDialog);
         fixture.detectChanges();
       }));
-      it('should close the context dialog on backrop click', fakeAsync(() => {
+      it('should close the context dialog on backdrop click', fakeAsync(() => {
         const contextDialog = fixture.componentInstance.contextDialog;
         contextDialog.open();
         fixture.detectChanges();
