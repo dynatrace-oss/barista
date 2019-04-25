@@ -128,8 +128,10 @@ export class DtCell {
       dtSortable._unregisterSortable
         .pipe(takeUntil(this._destroy))
         .subscribe((sort: DtSortHeader) => {
-          this._isSorted = false;
-          this._changeDetectorRef.detectChanges();
+          if (sort.id === this._columnDef.name) {
+            this._isSorted = false;
+            this._changeDetectorRef.detectChanges();
+          }
         });
     }
 
