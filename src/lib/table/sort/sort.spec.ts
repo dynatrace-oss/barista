@@ -247,6 +247,18 @@ describe('DtSort', () => {
     fixture.detectChanges();
     expect(sortHeaderElement.getAttribute('aria-sort')).toBe('ascending');
   });
+
+  it('should not emit an invalid sort event when destroyed', () => {
+    const spy = jasmine.createSpy('Sort event');
+
+    component.sort('column_a');
+    fixture.detectChanges();
+    const subscription = component.dtSort.sortChange.subscribe(spy);
+
+    fixture.destroy();
+    expect(spy).not.toHaveBeenCalled();
+    subscription.unsubscribe();
+  });
 });
 
 function checkCellsSorted(cells: QueryList<DtCell>, sorted: boolean = false, colName?: string): boolean {
