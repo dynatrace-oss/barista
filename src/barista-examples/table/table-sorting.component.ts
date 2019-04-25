@@ -43,7 +43,6 @@ export class TableSortingComponent {
 
   sortData(event: DtSortEvent): void {
     const data = this.dataSource.slice();
-
     this.dataSource = data.sort((a, b) => {
       const isAsc = event.direction === 'asc';
       switch (event.active) {

@@ -20,6 +20,7 @@ import { Subject, merge, Subscription } from 'rxjs';
 import { isDefined, addCssClass, DtIndicator } from '@dynatrace/angular-components/core';
 import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
 import { DtSort, DtSortEvent } from './sort/sort';
+import { DtSortHeader } from './sort/sort-header';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
@@ -117,11 +118,19 @@ export class DtCell {
   ) {
     if (dtSortable) {
       this._isSorted = dtSortable.active === this._columnDef.name;
-      this._sortChangeSubscription = dtSortable.sortChange
-      .subscribe((sort: DtSortEvent) => {
-        this._isSorted = sort.active === this._columnDef.name;
-        this._changeDetectorRef.detectChanges();
-      });
+      dtSortable.sortChange
+        .pipe(takeUntil(this._destroy))
+        .subscribe((sort: DtSortEvent) => {
+          // If event is void, it is being unregisterd.
+          this._isSorted = sort.active === this._columnDef.name;
+          this._changeDetectorRef.detectChanges();
+        });
+      dtSortable._unregisterSortable
+        .pipe(takeUntil(this._destroy))
+        .subscribe((sort: DtSortHeader) => {
+          this._isSorted = false;
+          this._changeDetectorRef.detectChanges();
+        });
     }
 
     this._columnDef._stateChanges.pipe(
@@ -154,6 +163,8 @@ export class DtCell {
   ngOnDestroy(): void {
     this._stateChanges.complete();
     this._sortChangeSubscription.unsubscribe();
+    this._destroy.next();
+    this._destroy.complete();
     if (this._row) {
       this._row._unregisterCell(this);
     }
