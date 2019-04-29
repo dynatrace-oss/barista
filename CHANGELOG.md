@@ -1,3 +1,13 @@
+## 2.6.1 (2019-04-29)
+
+### Bug Fixes
+
+* **context-dialog:** Fixes an issue where multiple overlays could be created ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **context-dialog:** Fixes an issue where the context dialog's overlay was not destroyed correctly when the context dialog was destroyed ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **context-dialog:** Fixes an issue where the context dialog overlay was not closed when a custom trigger was destroyed ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** Fixes an issue that unstyled sorted cells when a sortable header unregistered ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** Fixes an issue where a dtSortEvent was emitted when the table was destroyed ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 2.6.0 (2019-04-23)
 
 ### Bug Fixes
