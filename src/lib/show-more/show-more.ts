@@ -1,26 +1,20 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation, Input, HostListener, Output, EventEmitter, Directive, ContentChild, OnInit,
+  ViewEncapsulation,
+  Input,
+  Output,
+  EventEmitter,
+  Directive,
+  ContentChild,
+  ChangeDetectorRef,
 } from '@angular/core';
-import {ENTER, SPACE} from '@angular/cdk/keycodes';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
-
-import {
-  CanDisable,
-  mixinDisabled, mixinTabIndex, HasTabIndex, readKeyCode
-} from '@dynatrace/angular-components/core';
-import { AsyncSubject } from 'rxjs';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Directive({
-  selector: `dt-show-less-label`,
+  selector: 'dt-show-less-label',
 })
 export class DtShowLessLabel { }
-
-export class DtShowMoreBase {
-}
-export const _DtShowMore =
-  mixinTabIndex(mixinDisabled(DtShowMoreBase));
 
 @Component({
   moduleId: module.id,
@@ -28,70 +22,44 @@ export const _DtShowMore =
   exportAs: 'dtShowMore',
   templateUrl: 'show-more.html',
   styleUrls: ['show-more.scss'],
-  inputs: ['disabled', 'tabIndex'],
   host: {
     'class': 'dt-show-more',
-    '[attr.tabindex]': 'tabIndex',
+    '[class.dt-show-more-disabled]': 'disabled',
     '[class.dt-show-more-show-less]': 'showLess',
+    '(click)': '_fireChange()',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtShowMore extends _DtShowMore implements CanDisable, HasTabIndex, OnInit {
+export class DtShowMore {
 
+  /** Whether the show-more is disabled. Not focus and clickable anymore */
+  @Input()
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) {
+    this._disabled = coerceBooleanProperty(value);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _disabled = false;
 
-  /**
-   * The initialized subject is needed when the pagination is consumed via a ViewChild in an
-   * ngOnInit. In this case the ViewChild provides the instance of the DtPagination but the pagination is not
-   * completely initialized this AsyncSubject emits the last value even if it has completed.
-   */
-  initialized = new AsyncSubject<boolean>();
-
+  /** Emits when the show more element was clicked */
   @Output() readonly changed = new EventEmitter<void>();
 
-  @ContentChild(DtShowLessLabel)
-  _lessLabel: DtShowLessLabel;
-
-  private _showLess = false;
+  /** @internal */
+  @ContentChild(DtShowLessLabel) _lessLabel: DtShowLessLabel;
 
   @Input()
-  get showLess(): boolean {
-    return this._showLess;
-  }
-
+  get showLess(): boolean { return this._showLess; }
   set showLess(value: boolean) {
     this._showLess = coerceBooleanProperty(value);
   }
+  private _showLess = false;
 
-  @HostListener('keydown', ['$event'])
-  _handleKeydown(event: KeyboardEvent): void {
-    // The default browser behaviour for SPACE is to scroll the page. We
-    // want to prevent this.
-    if (readKeyCode(event) === SPACE) {
-      event.preventDefault();
-    }
-  }
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
-  @HostListener('keyup', ['$event'])
-  _handleKeyup(event: KeyboardEvent): void {
-    const keyCode = readKeyCode(event);
-    if (keyCode === ENTER || keyCode === SPACE) {
-      this._fireChange();
-    }
-  }
-
-  @HostListener('click')
-  _handleClick(): void {
-    this._fireChange();
-  }
-
-  ngOnInit(): void {
-    this.initialized.next(true);
-    this.initialized.complete();
-  }
-
-  private _fireChange(): void {
+  /** @internal emits the change */
+  _fireChange(): void {
     this.changed.emit();
   }
 }

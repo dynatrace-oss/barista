@@ -1,10 +1,11 @@
 import { DataSource } from '@angular/cdk/table';
-import { DtPagination, DtSort, DtSortEvent } from '@dynatrace/angular-components';
+import { DtPagination } from '@dynatrace/angular-components/pagination';
 import { BehaviorSubject, Observable, merge, of, combineLatest, Subscription, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { isNumber, compareValues } from '@dynatrace/angular-components/core';
 import { DtTable } from './table';
 import { DtSimpleColumnDisplayAccessorFunction, DtSimpleColumnSortAccessorFunction } from './simple-columns/simple-column-base';
+import { DtSort, DtSortEvent } from './sort/sort';
 
 const DEFAULT_PAGE_SIZE = 10;
 export class DtTableDataSource<T> extends DataSource<T> {
@@ -89,7 +90,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
 
     this._pageSize = pageSize;
 
-    if (this._pagination && this._pagination instanceof DtPagination) {
+    if (!!this._pagination) {
       this._pagination.pageSize = pageSize;
       this._internalPageChanges.next();
     }
@@ -200,7 +201,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
 
     const pageChange: Observable<boolean|number|null|void> = this._pagination
     ? merge(
-      this._pagination.initialized,
+      this._pagination._initialized,
       this._internalPageChanges,
       this._pagination.changed
       ) as Observable<boolean|number|null|void>
@@ -278,11 +279,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
    */
   private _updatePagination(filteredDataLength: number): void {
     // if no pagination is set or the pagination is not a DtPagination return
-    if (
-      !this._pagination ||
-      this._pagination &&
-      this._pagination.constructor !== DtPagination
-    ) { return; }
+    if (!this._pagination) { return; }
 
     Promise.resolve().then(() => {
       const pagination = this._pagination as DtPagination;
