@@ -125,11 +125,11 @@ export class DtPagination implements OnInit {
   private _numberOfPages = 0;
 
   /**
-   * The initialized subject is needed when the pagination is consumed via a ViewChild in an
-   * ngOnInit. In this case the ViewChild provides the instance of the DtPagination but the pagination is not
-   * completely initialized this AsyncSubject emits the last value even if it has completed.
+   * @internal
+   * The async subject is used to get the last value, even it has completed.
+   * Used to detect when the pagination is ready.
    */
-  initialized = new AsyncSubject<boolean>();
+  _initialized = new AsyncSubject<boolean>();
 
   /* @internal Array of the pages to be displayed */
   _pages: number[][] = [];
@@ -145,8 +145,8 @@ export class DtPagination implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initialized.next(true);
-    this.initialized.complete();
+    this._initialized.next(true);
+    this._initialized.complete();
   }
 
   /** sets the previous page as current page */

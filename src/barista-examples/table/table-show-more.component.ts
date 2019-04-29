@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { DtTableDataSource, formatPercent, formatBytes, formatRate, DtShowMore } from '@dynatrace/angular-components';
-import { Observable, from, Subscription } from 'rxjs';
-import { take, takeLast } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
@@ -22,13 +22,28 @@ import { take, takeLast } from 'rxjs/operators';
   // tslint:enable
 })
 export class TableShowMoreComponent implements OnInit, OnDestroy {
-  data: Observable<Array<{host: string; cpu: number; memory: number; traffic: number}>> = from([
-    [
-      { host: 'et-demo-2-win4', cpu: 30, memory: 38, memoryTotal: 5830000000, traffic: 98700000 },
-      { host: 'et-demo-2-win3', cpu: 26, memory: 46, memoryTotal: 6000000000, traffic: 62500000 },
-      { host: 'docker-host2', cpu: 25.4, memory: 35, memoryTotal: 5810000000, traffic: 41900000 },
-    ],
-    [
+
+  percentageFormatter = formatPercent;
+  dataSource: DtTableDataSource<{host: string; cpu: number; memory: number; traffic: number}> = new DtTableDataSource();
+  @ViewChild(DtShowMore) showMore: DtShowMore;
+  private destroy$ = new Subject<void>();
+  // tslint:disable-next-line:max-line-length
+  private fakeBackend = new BehaviorSubject<Array<{host: string; cpu: number; memory: number; memoryTotal: number; traffic: number}>>([
+    { host: 'et-demo-2-win4', cpu: 30, memory: 38, memoryTotal: 5830000000, traffic: 98700000 },
+    { host: 'et-demo-2-win3', cpu: 26, memory: 46, memoryTotal: 6000000000, traffic: 62500000 },
+    { host: 'docker-host2', cpu: 25.4, memory: 35, memoryTotal: 5810000000, traffic: 41900000 },
+  ]);
+
+  ngOnInit(): void {
+    this.fakeBackend.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((data: Array<{host: string; cpu: number; memory: number; traffic: number}>) => {
+      this.dataSource.data = data;
+    });
+  }
+
+  loadMore(): void {
+    this.fakeBackend.next([
       { host: 'et-demo-2-win4', cpu: 30, memory: 38, memoryTotal: 5830000000, traffic: 98700000 },
       { host: 'et-demo-2-win3', cpu: 26, memory: 46, memoryTotal: 6000000000, traffic: 62500000 },
       { host: 'docker-host2', cpu: 25.4, memory: 35, memoryTotal: 5810000000, traffic: 41900000 },
@@ -37,34 +52,14 @@ export class TableShowMoreComponent implements OnInit, OnDestroy {
       { host: 'et-demo-2-macOS', cpu: 21, memory: 34, memoryTotal: 3200000000, traffic: 1200000 },
       { host: 'kyber-host6', cpu: 12.3, memory: 12, memoryTotal: 2120000000, traffic: 4500000 },
       { host: 'dev-demo-5-macOS', cpu: 24, memory: 8.6, memoryTotal: 4670000000, traffic: 3270000 },
-    ],
-  ]);
+    ]);
 
-  @ViewChild(DtShowMore) showMore: DtShowMore;
-
-  subscription: Subscription;
-  percentageFormatter = formatPercent;
-  dataSource: DtTableDataSource<{host: string; cpu: number; memory: number; traffic: number}> = new DtTableDataSource();
-
-  ngOnInit(): void {
-    this.subscription = this.data
-    .pipe(take(1))
-    .subscribe((data: Array<{host: string; cpu: number; memory: number; traffic: number}>) => {
-      this.dataSource.data = data;
-    });
-  }
-
-  loadMore(): void {
-    this.subscription = this.data
-    .pipe(takeLast(1))
-    .subscribe((data: Array<{host: string; cpu: number; memory: number; traffic: number}>) => {
-      this.dataSource.data = data;
-      this.showMore.disabled = true;
-    });
+    this.showMore.disabled = true;
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   trafficFormatter = (value: number) =>

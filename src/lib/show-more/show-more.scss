@@ -1,15 +1,29 @@
 @import '../style/font-mixins';
+@import '../core/style/interactive-common';
 @import '../core/style/variables';
 
 :host {
   box-sizing: border-box;
-  @include main-font();
+  cursor: pointer;
   display: block;
   text-align: center;
-  color: $turquoise-600;
-  cursor: pointer;
-  margin-top: 10px;
-  padding: 5px 5px 0;
+
+  button {
+    @include main-font();
+    border: 0;
+    box-sizing: border-box;
+    color: $turquoise-600;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+    outline: none;
+    padding: 0;
+    padding: 5px 5px 0;
+    text-align: center;
+    width: 100%;
+    background: none;
+    appearance: none;
+  }
 
   > dt-icon {
     display: inline-block;
@@ -20,12 +34,15 @@
     transition: transform 400ms;
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px $gray-300 inset;
+  &.dt-show-more-disabled dt-icon ::ng-deep svg {
+    fill: $disabledcolor;
   }
 
-  &:hover {
+  &:focus:not(.dt-show-more-disabled) {
+    @include dt-focus-style();
+  }
+
+  &:hover:not(.dt-show-more-disabled) {
     color: $turquoise-700;
 
     dt-icon {
