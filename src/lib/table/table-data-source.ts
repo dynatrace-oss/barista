@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/table';
-import { DtPagination, DtShowMore, DtSort, DtSortEvent } from '@dynatrace/angular-components';
+import { DtPagination, DtSort, DtSortEvent } from '@dynatrace/angular-components';
 import { BehaviorSubject, Observable, merge, of, combineLatest, Subscription, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { isNumber, compareValues } from '@dynatrace/angular-components/core';
@@ -75,12 +75,12 @@ export class DtTableDataSource<T> extends DataSource<T> {
    * Note that the data source uses the pagination's properties to calculate which page of data
    * should be displayed.
    */
-  get pagination(): DtPagination | DtShowMore | null { return this._pagination; }
-  set pagination(pagination: DtPagination | DtShowMore | null) {
+  get pagination(): DtPagination | null { return this._pagination; }
+  set pagination(pagination: DtPagination | null) {
     this._pagination = pagination;
     this._updateChangeSubscription();
   }
-  private _pagination: DtPagination | DtShowMore | null = null;
+  private _pagination: DtPagination | null = null;
 
   /** Number of items to display on a page. By default set to 50. */
   get pageSize(): number { return this._pageSize; }
@@ -265,15 +265,9 @@ export class DtTableDataSource<T> extends DataSource<T> {
   private _pageData(data: T[]): T[] {
     if (!this._pagination) { return data; }
 
-    let startIndex = 0;
-    let pageSize = this._pageSize;
-
-    if (this._pagination instanceof DtPagination) {
       // -1 in case that the currentPage starts with 1
-      pageSize = this._pagination.pageSize;
-      startIndex = (this._pagination.currentPage - 1) * pageSize;
-    }
-
+    const pageSize = this._pagination.pageSize;
+    const startIndex = (this._pagination.currentPage - 1) * pageSize;
     return data.slice().splice(startIndex, pageSize);
   }
 
@@ -291,7 +285,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
     ) { return; }
 
     Promise.resolve().then(() => {
-      const pagination = this.pagination as DtPagination;
+      const pagination = this._pagination as DtPagination;
 
       pagination.length = filteredDataLength;
 
