@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit, OnInit, Injectable, OnDestroy } from '@angular/core';
 import { DtTableDataSource, DtPagination, DtShowMore, DtTab } from '@dynatrace/angular-components';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, of, EMPTY } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 interface HostUnit {
@@ -20,7 +20,7 @@ export class TableDemo implements OnInit, OnDestroy {
 
   pageSize = 3;
   dataSource: DtTableDataSource<HostUnit> = new DtTableDataSource();
-  private subscription: Subscription;
+  private subscription: Subscription = Subscription.EMPTY;
 
   @ViewChild(DtPagination) pagination: DtPagination;
 

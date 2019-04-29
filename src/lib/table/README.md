@@ -402,7 +402,17 @@ export class TableComponent implements AfterViewInit {
 }
 ```
 
+### Pagination
+
 <docs-source-example example="TablePaginationComponent" fullwidth="true"></docs-source-example>
+
+### Show more
+
+<docs-source-example example="TableShowMoreComponent" fullwidth="true"></docs-source-example>
+
+### Filtering with highlight of the filtered value
+
+<docs-source-example example="TableFilteringComponent" fullwidth="true"></docs-source-example>
 
 ### Extending DtSimpleColumn
 
