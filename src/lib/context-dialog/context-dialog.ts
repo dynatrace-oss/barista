@@ -125,7 +125,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     return !!this._overlayRef;
   }
 
-  /** Retuns the trigger that is currently attached with context dialog */
+  /** Returns the trigger that is currently attached with context dialog */
   get trigger(): CdkOverlayOrigin | DtContextDialogTrigger {
     return this._trigger;
   }
