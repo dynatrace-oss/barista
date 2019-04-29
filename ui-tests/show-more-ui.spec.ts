@@ -19,9 +19,9 @@ describe('show-more', () => {
 
     it('should change on key events', async () => {
       expect(await element(by.id('show-more-1')).getAttribute('class')).not.toContain('dt-show-more-show-less');
-      await element(by.id('show-more-1')).sendKeys(protractor.Key.ENTER);
+      await element(by.css('#show-more-1 button')).sendKeys(protractor.Key.ENTER);
       expect(await element(by.id('show-more-1')).getAttribute('class')).toContain('dt-show-more-show-less');
-      await element(by.id('show-more-1')).sendKeys(protractor.Key.SPACE);
+      await element(by.css('#show-more-1 button')).sendKeys(protractor.Key.SPACE);
       expect(await element(by.id('show-more-1')).getAttribute('class')).not.toContain('dt-show-more-show-less');
     });
 

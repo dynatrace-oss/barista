@@ -5,6 +5,7 @@ import {DtShowMoreModule, DtShowMore, DtIconModule} from '@dynatrace/angular-com
 import {HttpClientModule, HttpXhrBackend} from '@angular/common/http';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 
 describe('DtShowMore', () => {
   beforeEach(async(() => {
@@ -58,43 +59,6 @@ describe('DtShowMore', () => {
 
       expect(testComponent.eventsFired).toBe(1);
     });
-
-    it('should fire events with keys', () => {
-      expect(testComponent.eventsFired).toBe(0);
-
-      const event = new KeyboardEvent('keyup', {
-        key: 'Enter',
-      });
-
-      // tslint:disable-next-line:no-any
-      const anyEvent = event as any;
-      delete anyEvent.keyCode;
-      Object.defineProperty(anyEvent, 'keyCode', {value: ENTER});
-
-      instanceElement.dispatchEvent(event);
-
-      expect(testComponent.eventsFired).toBe(1);
-    });
-
-    it('should prevent space key', () => {
-      expect(testComponent.eventsFired).toBe(0);
-
-      const event = new KeyboardEvent('keydown', {
-        key: 'Space',
-      });
-      spyOn(event, 'preventDefault');
-
-      // tslint:disable-next-line:no-any
-      const anyEvent = event as any;
-      delete anyEvent.keyCode;
-      Object.defineProperty(anyEvent, 'keyCode', {value: SPACE});
-
-      instanceElement.dispatchEvent(event);
-
-      // tslint:disable-next-line:no-unbound-method
-      expect(event.preventDefault).toHaveBeenCalled();
-    });
-
   });
 });
 
