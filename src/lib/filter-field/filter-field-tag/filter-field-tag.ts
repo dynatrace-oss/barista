@@ -7,12 +7,8 @@ import {
   Input,
   ChangeDetectorRef
 } from '@angular/core';
-import { DtFilterData, DtFilterDataViewValues } from '../types';
+import { DtFilterFieldTagData } from '../types';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-
-export class DtFilterFieldTagEvent {
-  constructor(public source: DtFilterFieldTag, public data: DtFilterData) { }
-}
 
 // tslint:disable:class-name
 
@@ -33,11 +29,10 @@ export class DtFilterFieldTagEvent {
 })
 export class DtFilterFieldTag {
 
-  @Input() data: DtFilterData;
-  @Input() viewValues: DtFilterDataViewValues;
+  @Input() data: DtFilterFieldTagData;
 
-  @Output() readonly remove = new EventEmitter<DtFilterFieldTagEvent>();
-  @Output() readonly edit = new EventEmitter<DtFilterFieldTagEvent>();
+  @Output() readonly remove = new EventEmitter<DtFilterFieldTag>();
+  @Output() readonly edit = new EventEmitter<DtFilterFieldTag>();
 
   /** Whether the tag is disabled. */
   // Note: The disabled mixin can not be used here because the CD needs to be triggerd after it has been set
@@ -56,7 +51,7 @@ export class DtFilterFieldTag {
     event.stopImmediatePropagation();
 
     if (!this.disabled) {
-      this.remove.emit(new DtFilterFieldTagEvent(this, this.data));
+      this.remove.emit(this);
     }
   }
 
@@ -65,7 +60,7 @@ export class DtFilterFieldTag {
     event.stopImmediatePropagation();
 
     if (!this.disabled) {
-      this.edit.emit(new DtFilterFieldTagEvent(this, this.data));
+      this.edit.emit(this);
     }
   }
 }

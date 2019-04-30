@@ -1,6 +1,6 @@
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import { Observable, merge, BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, takeUntil } from 'rxjs/operators';
 import {
   DtNodeDef,
   DtNodeData,
@@ -42,33 +42,42 @@ export class DtFilterFieldControl {
   private _inputText$ = new BehaviorSubject('');
   private _distinctIds = new Set<string>();
   private _currentDistinctId = '';
-  private _dataSourceDef$ = new BehaviorSubject<DtNodeDef | null>(null);
-  private _renderDef$ = new Subject<DtNodeDef |  null>();
-  private _currendDef: DtNodeDef | null;
-  private _dataSourceSub: Subscription;
-  private _changes = merge(
-      this._dataSourceDef$,
-      this._renderDef$,
-      this._inputText$.pipe(map(() => this._currendDef))
-    ).pipe(
-      tap((def) => { this._currendDef = def || null; }),
-      map((def) => def ? this._transformData(def) : null));
+
+  private _currentDef$ = new BehaviorSubject<DtNodeDef | null>(null);
+  private _rootDef: DtNodeDef | null = null;
+
+  /**  */
+  private _disconnect = new Subject<void>();
+
+  // private _renderDefOrInputChanges$ = merge(
+  //     this._renderDef$,
+  //     this._inputText$.pipe(map(() => this._currendDef))
+  //   ).pipe(map((def) => def ? this._transformData(def) : null));
+
+  // _dataSourceData$ = this._dataSourceDef$.pipe(
+  //   map((def) => def ? this._transformData(def) : null));
+
+  // _changes = merge(this._dataSourceData$, this._renderDefOrInputChanges$)
+  //   .pipe(tap((data) => { this._currendDef = data ? data.def : null; }));
 
   constructor(private _dataSource: DtFilterFieldDataSource, private _viewer: DtFilterFieldViewer) {
-   this._dataSourceSub = this._dataSource.connect().subscribe((def) => { this._dataSourceDef$.next(def); });
+   this._dataSource.connect()
+    .pipe(takeUntil(this._disconnect))
+    .subscribe((def) => { this._currentDef$.next(def); });
   }
 
   connect(): Observable<DtNodeData | null> {
-    return this._changes;
+    return this._currentDef$.pipe(map((def) => def ? this._transformData(def) : null));
   }
 
   disconnect(): void {
-    this._dataSourceDef$.complete();
-    this._renderDef$.complete();
     this._inputText$.complete();
-    this._currendDef = null;
+
     this._distinctIds.clear();
-    this._dataSourceSub.unsubscribe();
+
+    this._disconnect.next();
+    this._disconnect.complete();
+
     this._dataSource.disconnect();
   }
 
@@ -80,8 +89,10 @@ export class DtFilterFieldControl {
           nodeData.autocomplete.selectedOption.def.option!.distinctId) {
           this._distinctIds.delete(nodeData.autocomplete.selectedOption.def.option!.distinctId!);
           shouldEmit = true;
-          if (nodeData.autocomplete.selectedOption.def === this._currendDef) {
-            this._currendDef = null;
+          if (nodeData.autocomplete.selectedOption.def === this._currentDef$.value) {
+            this._switchToRootData();
+          } else {
+            this._currentDef$.next(this._currentDef$.value);
           }
         }
       });
@@ -93,7 +104,7 @@ export class DtFilterFieldControl {
         this._distinctIds.add(peekDistinctId(def, this._currentDistinctId));
         if (isDtRenderTypeData(option)) {
           this._currentDistinctId += def.option!.distinctId || '';
-          this._renderDef$.next(def);
+          this._currentDef$.next(def);
         } else {
           this._switchToRootData();
         }
@@ -101,13 +112,6 @@ export class DtFilterFieldControl {
       } else if (isDtRenderTypeData(changes.added)) {
         this._switchToRootData();
         shouldEmit = false;
-      }
-    }
-    if (shouldEmit) {
-      if (this._currendDef) {
-        this._renderDef$.next(this._currendDef);
-      } else {
-        this._switchToRootData();
       }
     }
   }
@@ -118,7 +122,7 @@ export class DtFilterFieldControl {
 
   private _switchToRootData(): void {
     this._currentDistinctId = '';
-    this._dataSourceDef$.next(this._dataSourceDef$.value);
+    this._currentDef$.next(this._rootDef);
     this._viewer.submitFilter();
   }
 
