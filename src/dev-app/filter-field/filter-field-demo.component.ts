@@ -38,7 +38,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._tagChangesSub = this.filterField.tags.changes.subscribe(() => {
-      this._firstTag = this.filterField.tags.first;
+      Promise.resolve().then(() => this._firstTag = this.filterField.tags.first);
     });
   }
 
@@ -48,11 +48,23 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
 
   filterChanges(event: any): void {
     console.log(event);
+    console.log(this.filterField.filters);
   }
 
   toggledDisableFirstTag(): void {
     if (this._firstTag) {
       this._firstTag.disabled = !this._firstTag.disabled;
+    }
+  }
+
+  setValues(): void {
+    if (this._dataSource.data === TEST_DATA) {
+      const filter1 = [
+        TEST_DATA.autocomplete[0],
+        TEST_DATA.autocomplete[0].autocomplete[0],
+        (TEST_DATA.autocomplete[0].autocomplete[0].autocomplete![0] as any).options[0],
+      ];
+      this.filterField.filters = [filter1];
     }
   }
 }
