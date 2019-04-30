@@ -300,11 +300,28 @@ export function dtFilterData(nodes: DtNodeData[]): DtFilterData {
 }
 
 /** Returns the view value of a provided NodeData object. */
-export function getDtNodeDataViewValue(data: DtNodeData): string | null {
-  if (isDtAutocompleteData(data)) {
-    return data.autocomplete.selectedOption && data.autocomplete.selectedOption.option!.viewValue || null;
-  } else if (isDtFreeTextData(data)) {
-    return data.freeText.textValue || null;
+export function getDtNodeDefViewValue(def: DtNodeDef): string | null {
+  if (isDtOptionDef(def)) {
+    return def.option.viewValue || null;
+  } else if (isDtFreeTextData(def)) {
+    return def.freeText.textValue || null;
   }
   return null;
+}
+
+export function _getDtNodeDataValue(data: DtNodeData): any | string | null {
+  if (isDtAutocompleteData(data)) { return data.autocomplete.selectedOption!.def.data; }
+  if (isDtFreeTextData(data)) { return data.freeText.textValue; }
+  return null;
+}
+
+// TODO: rename to something useful
+export type DtFilterFieldSource = string | any;
+
+export class DtFilterFieldTagData {
+  constructor(
+    public key: string | null,
+    public value: string | null,
+    public separator: string | null,
+    public source: DtFilterFieldSource) {}
 }

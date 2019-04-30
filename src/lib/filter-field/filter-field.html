@@ -3,9 +3,8 @@
   <div class="dt-filter-field-label"><dt-icon name="filter" class="dt-filter-field-icon"></dt-icon><span>{{label}}</span></div>
 
   <dt-filter-field-tag
-    *ngFor="let filterData of _prefixFilters"
-    [data]="filterData"
-    [viewValues]="filterData.viewValues"
+    *ngFor="let tagData of _prefixTagData"
+    [data]="tagData"
     (remove)="_handleTagRemove($event)"
     (edit)="_handleTagEdit($event)">
   </dt-filter-field-tag>
@@ -20,22 +19,21 @@
       (keydown)="_handleInputKeyDown($event)"
       (keyup)="_handleInputKeyUp($event)"
       [value]="_inputValue">
-    <dt-autocomplete #autocomplete="dtAutocomplete" [autoActiveFirstOption]="_currentRenderNode && !!_currentRenderNode.autocomplete" class="dt-filter-field-panel">
-      <ng-container *ngFor="let optionOrGroupData of _autocompleteOptionsOrGroups">
-        <dt-optgroup *ngIf="optionOrGroupData.group; else options" [label]="optionOrGroupData.group!.label">
-          <dt-option *ngFor="let optionData of optionOrGroupData.group!.options" [value]="optionData">{{optionData.option.viewValue}}</dt-option>
+    <dt-autocomplete #autocomplete="dtAutocomplete" [autoActiveFirstOption]="_currentDef && !!_currentDef.autocomplete" class="dt-filter-field-panel">
+      <ng-container *ngFor="let optionOrGroupDef of _autocompleteOptionsOrGroups">
+        <dt-optgroup *ngIf="optionOrGroupDef.group; else options" [label]="optionOrGroupDef.group!.label">
+          <dt-option *ngFor="let optionDef of optionOrGroupDef.group!.options" [value]="optionDef">{{optionDef.option.viewValue}}</dt-option>
         </dt-optgroup>
         <ng-template #options>
-          <dt-option [value]="optionOrGroupData">{{ optionOrGroupData.option!.viewValue}}</dt-option>
+          <dt-option [value]="optionOrGroupDef">{{ optionOrGroupDef.option!.viewValue}}</dt-option>
         </ng-template>
       </ng-container>
     </dt-autocomplete>
   </div>
 
   <dt-filter-field-tag
-    *ngFor="let filterData of _suffixFilters"
-    [data]="filterData"
-    [viewValues]="filterData.viewValues"
+    *ngFor="let tagData of _suffixTagData"
+    [data]="tagData"
     (remove)="_handleTagRemove($event)"
     (edit)="_handleTagEdit($event)">
   </dt-filter-field-tag>
