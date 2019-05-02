@@ -1,0 +1,18 @@
+/**
+ * Test file for testing the dt-button-no-empty rule.
+ * A dt-button must always contain text or a component that renders text.
+ * A dt-button without content or only whitespace content won't pass the lint rule.
+ */
+
+@Component({
+  template: `
+    <button dt-button>      </button>
+    ~~~~~~~~~~~~~~~~~~  [A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.]
+    <a href="#" dt-button></a>
+    ~~~~~~~~~~~~~~~~~~~~~~  [A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.]
+    <button></button>
+    <button dt-button>Button text</button>
+    <button dt-button><my-text-component></my-text-component></button>
+  `,
+})
+class TestClass { }
