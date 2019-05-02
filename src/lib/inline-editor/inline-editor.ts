@@ -66,6 +66,11 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
   get required(): boolean { return this._required; }
   set required(value: boolean) { this._required = coerceBooleanProperty(value); }
 
+  /** Aria label of the inline-editor's save button. */
+  @Input('aria-label-save') ariaLabelSave: string;
+  /** Aria label of the inline-editor's cancel button. */
+  @Input('aria-label-cancel') ariaLabelCancel: string;
+
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;
   @Input() onRemoteSave: (value: string) => Observable<void>;
