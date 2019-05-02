@@ -15,6 +15,7 @@
     "test:watch": "ng test lib",
     "ui-test": "ng e2e --project ui-test-app",
     "lint": "gulp lint",
+    "tslint:test": "tslint --rules-dir ./dist/lib/tslint/rules/** --test src/linting/test/rules/**/tslint.json",
     "universal": "gulp universal",
     "precommit": "yarn lint && yarn test && yarn ui-test && yarn universal",
     "schematics:build": "gulp schematics:build",
