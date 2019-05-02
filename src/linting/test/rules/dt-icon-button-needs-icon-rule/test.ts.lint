@@ -1,0 +1,23 @@
+/**
+ * Test file for testing the dt-icon-button-needs-icon rule.
+ * A dt-icon-button must contain a dt-icon element.
+ * No other content is allowed.
+ */
+
+@Component({
+  template: `
+    <button dt-icon-button variant="secondary"><dt-icon name="agent"></dt-icon></button>
+    <button dt-icon-button variant="primary">
+      <dt-icon name="dont-watch" *ngIf="isExpanded"></dt-icon>
+      <dt-icon name="overview" *ngIf="!isExpanded"></dt-icon>
+    </button>
+
+    <button dt-icon-button variant="secondary"><dt-icon name="agent"></dt-icon> icon button</button>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.]
+    <button dt-icon-button variant="secondary">icon button</button>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.]
+    <button dt-icon-button variant="secondary"></button>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A dt-icon-button must not be empty, but must contain a dt-icon element.]
+  `,
+})
+class TestClass { }

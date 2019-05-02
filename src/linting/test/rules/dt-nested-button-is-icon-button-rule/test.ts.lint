@@ -1,0 +1,13 @@
+/**
+ * Test file for testing the dt-nested-button-is-icon-button rule.
+ * A nested button must always be a dt-icon-button.
+ */
+
+@Component({
+  template: `
+    <button dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></button>
+    <button dt-button variant="nested"><dt-icon name="agent"></dt-icon></button>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [A nested button variant must always be a dt-icon-button.]
+  `,
+})
+class TestClass { }
