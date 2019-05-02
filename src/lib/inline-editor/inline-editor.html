@@ -13,11 +13,11 @@
 
   <dt-error *ngFor="let error of _errorChildrenSource | async" [id]="error.id">{{error.message}}</dt-error>
 
-  <button dt-icon-button dtSuffix variant="nested" aria-label="save" (click)="saveAndQuitEditing()" >
+  <button dt-icon-button dtSuffix variant="nested" [attr.aria-label]="ariaLabelSave" (click)="saveAndQuitEditing()" >
     <dt-icon name="checkmark"></dt-icon>
   </button>
 
-  <button dt-icon-button dtSuffix variant="nested" aria-label="cancel" (click)="cancelAndQuitEditing()">
+  <button dt-icon-button dtSuffix variant="nested" [attr.aria-label]="ariaLabelCancel" (click)="cancelAndQuitEditing()">
     <dt-icon name="abort"></dt-icon>
   </button>
 
