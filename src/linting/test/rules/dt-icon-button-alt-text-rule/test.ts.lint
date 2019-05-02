@@ -1,0 +1,20 @@
+/**
+ * Test file for testing the dt-icon-button-alt-text rule.
+ * A dt-icon-button must always provide a text alternative in form of an aria-label
+ * or aria-labelledby attribute.
+ */
+
+@Component({
+  template: `
+    <button dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></button>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  [An icon-button must have an aria-label or an aria-labelledby attribute.]
+    <a dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></a>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  [An icon-button link must have an aria-label or an aria-labelledby attribute.]
+    <button dt-icon-button variant="nested" aria-label="Install agent"><dt-icon name="agent"></dt-icon></button>
+    <a dt-icon-button variant="nested" aria-label="Install agent"><dt-icon name="agent"></dt-icon></a>
+    <button dt-icon-button variant="nested" aria-labelledby="description"><dt-icon name="agent"></dt-icon></button>
+    <a dt-icon-button variant="nested" aria-labelledby="description"><dt-icon name="agent"></dt-icon></a>
+    <p id="description">Install agent</p>
+  `,
+})
+class TestClass { }
