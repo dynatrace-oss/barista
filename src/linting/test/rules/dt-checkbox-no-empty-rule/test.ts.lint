@@ -1,0 +1,20 @@
+/**
+ * Test file for testing the dt-checkbox-no-empty rule.
+ * A dt-checkbox must always contain (text) content or an
+ * aria-label or aria-labelledby attribute if no content is given.
+ */
+
+@Component({
+  template: `
+    <dt-checkbox>Subscribe to newsletter</dt-checkbox>
+    <dt-checkbox><my-text-element></my-text-element></dt-checkbox>
+    <dt-checkbox aria-label="When checked you agree to subscribe to our newsletter."></dt-checkbox>
+    <dt-checkbox aria-labelledby="description"></dt-checkbox>
+    <p id="description">When checked you agree to subscribe to our newsletter.</p>
+    <dt-checkbox>   </dt-checkbox>
+    ~~~~~~~~~~~~~   [When a dt-checkbox does not contain any content it must have an aria-label or an aria-labelledby attribute.]
+    <dt-checkbox></dt-checkbox>
+    ~~~~~~~~~~~~~   [When a dt-checkbox does not contain any content it must have an aria-label or an aria-labelledby attribute.]
+  `,
+})
+class TestClass { }

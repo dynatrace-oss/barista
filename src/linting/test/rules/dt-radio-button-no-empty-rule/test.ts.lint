@@ -1,0 +1,20 @@
+/**
+ * Test file for testing the dt-radio-button-no-empty rule.
+ * A dt-radio-button must always contain (text) content or an
+ * aria-label or aria-labelledby attribute if no content is given.
+ */
+
+@Component({
+  template: `
+    <dt-radio-button>Subscribe to newsletter</dt-radio-button>
+    <dt-radio-button><my-text-element></my-text-element></dt-radio-button>
+    <dt-radio-button aria-label="When checked you agree to subscribe to our newsletter."></dt-radio-button>
+    <dt-radio-button aria-labelledby="description"></dt-radio-button>
+    <p id="description">When checked you agree to subscribe to our newsletter.</p>
+    <dt-radio-button>   </dt-radio-button>
+    ~~~~~~~~~~~~~~~~~   [When a dt-radio-button does not contain any content it must have an aria-label or an aria-labelledby attribute.]
+    <dt-radio-button></dt-radio-button>
+    ~~~~~~~~~~~~~~~~~   [When a dt-radio-button does not contain any content it must have an aria-label or an aria-labelledby attribute.]
+  `,
+})
+class TestClass { }
