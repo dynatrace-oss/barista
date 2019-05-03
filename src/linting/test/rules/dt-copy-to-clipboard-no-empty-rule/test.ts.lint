@@ -1,0 +1,28 @@
+/**
+ * Test file for testing the dt-copy-to-clipboard-no-empty rule.
+ * The dt-copy-to-clipboard component must have a label as direct child.
+ */
+
+@Component({
+  template: `
+    <dt-copy-to-clipboard>
+      <textarea dtInput>https://defaultcopy.dynatrace.com/</textarea>
+      <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
+    </dt-copy-to-clipboard>
+
+    <dt-copy-to-clipboard>
+    ~~~~~~~~~~~~~~~~~~~~~~  [A dt-copy-to-clipboard must contain a dt-copy-to-clipboard-label element, that must be a direct child.]
+      <textarea dtInput>https://defaultcopy.dynatrace.com/</textarea>
+      Copy
+    </dt-copy-to-clipboard>
+
+    <dt-copy-to-clipboard>
+    ~~~~~~~~~~~~~~~~~~~~~~  [A dt-copy-to-clipboard must contain a dt-copy-to-clipboard-label element, that must be a direct child.]
+      <textarea dtInput>https://defaultcopy.dynatrace.com/</textarea>
+      <div>
+        <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
+      </div>
+    </dt-copy-to-clipboard>
+  `,
+})
+class TestClass { }

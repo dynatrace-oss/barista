@@ -1,0 +1,18 @@
+/**
+ * Test file for testing the dt-tag-no-empty rule.
+ * A dt-tag must always contain text or a component that renders text.
+ */
+
+@Component({
+  template: `
+    <dt-tag>Tag content</dt-tag>
+    <dt-tag><my-text-component></my-text-component></dt-tag>
+    <dt-tag><dt-tag-key>[My key]:</dt-tag-key>My value</dt-tag>
+
+    <dt-tag> </dt-tag>
+    ~~~~~~~~  [A dt-tag must always contain text. Make sure this is the case even if you use nested components to render text.]
+    <dt-tag><dt-tag-key>[My key]:</dt-tag-key></dt-tag>
+    ~~~~~~~~  [A dt-tag must always contain text. Make sure this is the case even if you use nested components to render text.]
+  `,
+})
+class TestClass { }

@@ -1,0 +1,23 @@
+/**
+ * Test file for testing the dt-toggle-button-group-item-is-button rule.
+ * A toggle-button-group-item must always be a button. No other elements are allowed.
+ */
+
+@Component({
+  template: `
+    <button dt-toggle-button-item value="1">
+      button text
+    </button>
+
+    <a dt-toggle-button-item value="2">
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A toggle button group item must always be a button.]
+      button text
+    </a>
+
+    <span dt-toggle-button-item value="3">
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A toggle button group item must always be a button.]
+      button text
+    </span>
+  `,
+})
+class TestClass { }

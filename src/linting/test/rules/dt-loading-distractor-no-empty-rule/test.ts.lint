@@ -1,0 +1,14 @@
+/**
+ * Test file for testing the dt-loading-distractor-no-empty rule.
+ * A dt-loading-distractor must always contain text or a component
+ * that renders text.
+ */
+
+@Component({
+  template: `
+    <dt-loading-distractor>Loading …</dt-loading-distractor>
+    <dt-loading-distractor> </dt-loading-distractor>
+    ~~~~~~~~~~~~~~~~~~~~~~~   [A dt-loading-distractor must always contain text. Make sure this is the case even if you use nested components to render text.]
+  `,
+})
+class TestClass { }
