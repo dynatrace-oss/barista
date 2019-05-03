@@ -1,0 +1,14 @@
+/**
+ * Test file for testing the dt-tab-label-no-empty rule.
+ * Every tab label must contain content.
+ */
+
+@Component({
+  template: `
+  <ng-template dtTabLabel>Traffic</ng-template>
+  <ng-template dtTabLabel><my-text-element></my-text-element></ng-template>
+  <ng-template dtTabLabel> </ng-template>
+  ~~~~~~~~~~~~~~~~~~~~~~~~  [A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.]
+  `,
+})
+class TestClass { }

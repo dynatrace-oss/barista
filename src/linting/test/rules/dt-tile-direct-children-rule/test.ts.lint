@@ -1,0 +1,32 @@
+/**
+ * Test file for testing the dt-tile-direct-children rule.
+ * Title, subtitle and icon must be direct children of the dt-tile.
+ */
+
+@Component({
+  template: `
+    <dt-tile>
+      <dt-tile-icon><dt-icon name="agent"></dt-icon></dt-tile-icon>
+      <dt-tile-title>L-W8-64-APMDay3</dt-tile-title>
+    </dt-tile>
+  
+    <dt-tile>
+    ~~~~~~~~~ [The following elements must be direct children of a dt-tile: dt-tile-subtitle]
+      <dt-tile-icon><dt-icon name="agent"></dt-icon></dt-tile-icon>
+      <dt-tile-title>L-W8-64-APMDay3</dt-tile-title>
+      <div>
+        <dt-tile-subtitle>Linux (x84, 64-bit)</dt-tile-subtitle>
+      </div>
+    </dt-tile>
+
+    <dt-tile>
+    ~~~~~~~~~ [The following elements must be direct children of a dt-tile: dt-tile-title, dt-tile-subtitle]
+      <dt-tile-icon><dt-icon name="agent"></dt-icon></dt-tile-icon>
+      <div class="tile-header">
+        <dt-tile-title>L-W8-64-APMDay3</dt-tile-title>
+        <dt-tile-subtitle>Linux (x84, 64-bit)</dt-tile-subtitle>
+      </div>
+    </dt-tile>
+  `,
+})
+class TestClass { }
