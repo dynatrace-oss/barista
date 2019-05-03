@@ -1,0 +1,57 @@
+/**
+ * Test file for testing the dt-card-direct-children rule.
+ * The following elements must always be direct children of a dt-card:
+ * dt-card-title, dt-card-subtitle, dt-card-title-actions, dt-card-footer-actions.
+ */
+
+@Component({
+  template: `
+    <dt-card>
+      <dt-card-title>Top 3 JavaScript errors</dt-card-title>
+      <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+      <dt-card-title-actions><button dt-button variant="secondary">Some Action</button></dt-card-title-actions>
+      The card is not an interactive element, therefore there are no hover, active or disabled states.
+    </dt-card>
+
+    <dt-card>
+    ~~~~~~~~~   [The following elements must be direct children of a dt-card: dt-card-subtitle, dt-card-title-actions]
+      <dt-card-title>Top 3 JavaScript errors</dt-card-title>
+      <div class="card-meta">
+        <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+        <dt-card-title-actions><button dt-button variant="secondary">Some Action</button></dt-card-title-actions>
+      </div>
+      The card is not an interactive element, therefore there are no hover, active or disabled states.
+    </dt-card>
+
+    <dt-card>
+    ~~~~~~~~~   [The following elements must be direct children of a dt-card: dt-card-title, dt-card-subtitle]
+      <div class="card-header">
+        <dt-card-title>Top 3 JavaScript errors</dt-card-title>
+        <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+      </div>
+      <div class="card-content">
+        The card is not an interactive element, therefore there are no hover, active or disabled states.
+      </div>
+    </dt-card>
+
+    <dt-card [id]="clusterUtilizationId">
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [The following elements must be direct children of a dt-card: dt-card-subtitle]
+      <dt-card-title uitestid="cu-card-title" i18n>Cluster utilization
+        <span *ngIf="totalNodeCount !== undefined">
+          ({{totalNodeCount | dtCount}} {totalNodeCount, plural, =1 {cluster node} other {cluster nodes}})
+        </span>
+      </dt-card-title>
+      <div class="utilizations">
+        <div class="cpu">
+          <dt-card-subtitle uitestid="titleCpu" [id]="cpuChartId" i18n>CPU {{mode | lowercase}}</dt-card-subtitle>
+          <utilization-cpu-chart class="chart" [mode]="mode" [data]="cpuData"></utilization-cpu-chart>
+        </div>
+        <div class="memory">
+          <dt-card-subtitle uitestid="titleMemory" [id]="memoryChartId" i18n>Memory {{mode | lowercase}}</dt-card-subtitle>
+          <utilization-memory-chart class="chart" [mode]="mode" [data]="memoryData"></utilization-memory-chart>
+        </div>
+      </div>
+    </dt-card>
+  `,
+})
+class TestClass { }
