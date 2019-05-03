@@ -1,0 +1,52 @@
+/**
+ * Test file for testing the dt-info-group-needs-title-and-icon rule.
+ * An info group must always contain a title and an icon.
+ */
+
+@Component({
+  template: `
+    <dt-info-group>
+      <dt-info-group-icon><dt-icon name="agent"></dt-icon></dt-info-group-icon>
+      <dt-info-group-title>5 min 30 s</dt-info-group-title>
+      Session duration
+    </dt-info-group>
+
+    <dt-info-group>
+      <dt-info-group-icon><dt-icon name="rss"></dt-icon></dt-info-group-icon>
+      <dt-info-group-title>Another info group</dt-info-group-title>
+    </dt-info-group>
+
+    <dt-info-group>
+      <dt-info-group-icon>
+        <dt-icon [name]="getIcon(row)"></dt-icon>
+      </dt-info-group-icon>
+      <dt-info-group-title>
+        <a class="dt-link" [gwtLink]="getService(row.serviceId)">
+          {{row.name}}
+        </a>
+      </dt-info-group-title>
+      {{row.name}}
+    </dt-info-group>
+   
+    <dt-info-group>
+    ~~~~~~~~~~~~~~~   [A dt-info-group must always contain a dt-info-group-title and a dt-info-group-icon as direct children.]
+      <dt-info-group-title>5 min 30 s</dt-info-group-title>
+      Session duration
+    </dt-info-group>
+
+    <dt-info-group>
+    ~~~~~~~~~~~~~~~   [A dt-info-group must always contain a dt-info-group-title and a dt-info-group-icon as direct children.]
+      <dt-info-group-icon><dt-icon name="agent"></dt-icon></dt-info-group-icon>
+    </dt-info-group>
+
+    <dt-info-group>
+    ~~~~~~~~~~~~~~~   [A dt-info-group must always contain a dt-info-group-title and a dt-info-group-icon as direct children.]
+      <div>
+        <dt-info-group-icon><dt-icon name="agent"></dt-icon></dt-info-group-icon>
+        <dt-info-group-title>5 min 30 s</dt-info-group-title>
+      </div>
+      Session duration
+    </dt-info-group>
+  `,
+})
+class TestClass { }

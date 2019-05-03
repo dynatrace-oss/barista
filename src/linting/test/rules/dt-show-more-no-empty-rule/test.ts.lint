@@ -1,0 +1,25 @@
+/**
+ * Test file for testing the dt-show-more-no-empty rule.
+ * The dt-show-more element must always contain content.
+ * If no text content is given, an aria-label or aria-labelledby attribute must be given.
+ */
+
+@Component({
+  template: `
+    <dt-show-more ...>
+      Show more
+      <dt-show-less-label>Show less</dt-show-less-label>
+    </dt-show-more>
+
+    <dt-show-more ... aria-label="Show more data"></dt-show-more>
+
+    <dt-show-more ... aria-labelledby="description"></dt-show-more>
+    <p id="description">Clicking on the button shows more data that is currently hidden.</p>
+
+    <dt-show-more>
+    ~~~~~~~~~~~~~~  [A dt-show-more must always contain text or an aria-label/aria-labelledby attribute.]
+      <dt-show-less-label>Show less</dt-show-less-label>
+    </dt-show-more>
+  `,
+})
+class TestClass { }
