@@ -1,0 +1,65 @@
+@import '../core/style/overlay';
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+@import './consumption-theme';
+
+:host {
+  display: block;
+  overflow: auto;
+  box-sizing: border-box;
+  @include dt-default-font();
+
+  &:focus {
+    outline: none;
+  }
+
+  &.dt-consumption-focusable:focus {
+    @include dt-focus-style();
+  }
+}
+
+::ng-deep {
+  .dt-consumption-icon {
+    margin-top: -4px;
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+  }
+
+  .dt-consumption-title {
+    display: block;
+    @include dt-h3-font();
+  }
+
+  .dt-consumption-subtitle {
+    display: block;
+    color: $gray-500;
+  }
+
+  .dt-consumption-label {
+    display: block;
+    @include dt-label-font();
+    color: $gray-500;
+  }
+
+  // styles for the CDK overlay need to be applied outside of the component's context
+  .dt-consumption-overlay-panel {
+    @include dt-overlay-container();
+  }
+}
+
+.dt-consumption-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dt-consumption-progress-bar {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-consumption($dt-current-theme);
+}

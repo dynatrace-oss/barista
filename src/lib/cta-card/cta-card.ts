@@ -1,8 +1,8 @@
 import {
-  Component,
-  ViewEncapsulation,
   ChangeDetectionStrategy,
+  Component,
   Directive,
+  ViewEncapsulation,
 } from '@angular/core';
 
 /** Title of the cta card */

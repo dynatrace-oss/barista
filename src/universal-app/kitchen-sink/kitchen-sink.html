@@ -149,4 +149,44 @@
 
 <dt-highlight term="text">Test text to be highlighted</dt-highlight>
 
+<dt-consumption min="0" max="25" value="5">
+  <dt-consumption-icon aria-label="Host">
+    <dt-icon name="host"></dt-icon>
+  </dt-consumption-icon>
+  <dt-consumption-title>
+    Host units
+  </dt-consumption-title>
+
+  <dt-consumption-count>
+    5/5
+  </dt-consumption-count>
+
+  <dt-consumption-label>
+    Restricted host unit hours
+  </dt-consumption-label>
+
+  <dt-consumption-overlay>
+    <dt-consumption [min]="0" [max]="100000000" [value]="100000000">
+      <dt-consumption-title>
+        Host units
+      </dt-consumption-title>
+      <dt-consumption-subtitle>
+        Quota
+      </dt-consumption-subtitle>
+      <dt-consumption-count>
+        5/25
+      </dt-consumption-count>
+    </dt-consumption>
+
+    <dt-consumption [min]="0" [max]="5" [value]="0">
+      <dt-consumption-subtitle>
+        Free credits (Exp. 20. Mar 2019)
+      </dt-consumption-subtitle>
+      <dt-consumption-count>
+        0/5
+      </dt-consumption-count>
+    </dt-consumption>
+  </dt-consumption-overlay>
+</dt-consumption>
+
 <dt-filter-field></dt-filter-field>

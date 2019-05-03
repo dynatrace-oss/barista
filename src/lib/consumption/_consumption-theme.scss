@@ -1,0 +1,12 @@
+@import '../core/theming/theming';
+
+@mixin dt-theme-consumption($theme) {
+  $palette-name: 'error';
+  $palette: dt-get-theme-palette($theme, $palette-name);
+  $default-color: dt-get-theme-color($palette, 'default');
+  $namespace: ':host.dt-color-#{$palette-name}';
+
+  #{$namespace}::ng-deep .dt-consumption-count {
+    color: $default-color;
+  }
+}

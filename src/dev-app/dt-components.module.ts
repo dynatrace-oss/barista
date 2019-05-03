@@ -9,6 +9,7 @@ import {
   DtCardModule,
   DtChartModule,
   DtCheckboxModule,
+  DtConsumptionModule,
   DtContextDialogModule,
   DtCopyToClipboardModule,
   DtCtaCardModule,
@@ -41,8 +42,8 @@ import {
   DtThemingModule,
   DtTileModule,
   DtToastModule,
-  DtTreeTableModule,
   DtToggleButtonGroupModule,
+  DtTreeTableModule,
 } from '@dynatrace/angular-components';
 
 /**
@@ -93,6 +94,7 @@ import {
     DtToastModule,
     DtTreeTableModule,
     DtToggleButtonGroupModule,
+    DtConsumptionModule,
   ],
 })
 export class DevAppDynatraceModule { }
