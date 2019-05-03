@@ -56,3 +56,13 @@ To enable (or disable) TSLint rules, add the following to your `tslint.json` fil
 ```
 
 When set to `true`, the TSLint rule is enabled and will throw an error when violated. When set to `{ "severity": "warning" }`, a warning is shown but linting does not fail. When set to `false` the rule is disabled.
+
+
+## Testing TSLint rules
+
+Every TSLint rule comes with a set of tests to guarantee that rules pass and fail as expected. All test files can be found in `src/linting/test/rules/**`. Build the TSLint rules and run tests by using the following commands:
+
+```
+yarn tslint:build
+yarn tslint:test
+```
