@@ -2,35 +2,40 @@ import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServerModule } from '@angular/platform-server';
 import { DtAlertModule } from '@dynatrace/angular-components/alert';
+import { DtAutocompleteModule } from '@dynatrace/angular-components/autocomplete';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
-import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
-import { DtTileModule } from '@dynatrace/angular-components/tile';
-import { DtCardModule } from '@dynatrace/angular-components/card';
-import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
-import { DtDrawerModule } from '@dynatrace/angular-components/drawer';
 import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
-import { DtTableModule } from '@dynatrace/angular-components/table';
-import { DtTagModule } from '@dynatrace/angular-components/tag';
+import { DtCardModule } from '@dynatrace/angular-components/card';
+import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
+import { DtConsumptionModule } from '@dynatrace/angular-components/consumption';
+import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
+import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
+import {
+  DtTreeControl,
+  DtTreeDataSource,
+  DtTreeFlattener
+} from '@dynatrace/angular-components/core';
+import { DtDrawerModule } from '@dynatrace/angular-components/drawer';
+import { DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
+import { DtHighlightModule } from '@dynatrace/angular-components/highlight';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtInfoGroupModule } from '@dynatrace/angular-components/info-group';
+import { DtInputModule } from '@dynatrace/angular-components/input';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
+import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
-import { DtRadioModule } from '@dynatrace/angular-components/radio';
-import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
-import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
 import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-circle';
-import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
+import { DtRadioModule } from '@dynatrace/angular-components/radio';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
-import { DtInputModule } from '@dynatrace/angular-components/input';
-import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
-import { DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
-import { DtAutocompleteModule } from '@dynatrace/angular-components/autocomplete';
-import { DtTreeControl, DtTreeFlattener, DtTreeDataSource } from '@dynatrace/angular-components/core';
-import { DtIconType } from '@dynatrace/dt-iconpack';
-import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
+import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
+import { DtSwitchModule } from '@dynatrace/angular-components/switch';
+import { DtTableModule } from '@dynatrace/angular-components/table';
+import { DtTagModule } from '@dynatrace/angular-components/tag';
+import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
-import { DtHighlightModule } from '@dynatrace/angular-components/highlight';
+import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
+import { DtIconType } from '@dynatrace/dt-iconpack';
 
 const TESTDATA: ThreadNode[] = [
   {
@@ -208,6 +213,7 @@ export class KitchenSink {
     DtToggleButtonGroupModule,
     DtInfoGroupModule,
     DtHighlightModule,
+    DtConsumptionModule,
     DtFilterFieldModule,
   ],
   bootstrap: [KitchenSink],

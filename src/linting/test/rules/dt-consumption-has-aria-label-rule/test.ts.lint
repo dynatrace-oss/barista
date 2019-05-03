@@ -1,0 +1,44 @@
+/**
+ * Test file for testing the dt-consumption-icon-has-aria-label rule.
+ * dt-consumption-icon must always provide an aria-label.
+ */
+
+@Component({
+  template: `
+    <dt-consumption [min]="min" [max]="max" [value]="value">
+      <dt-consumption-icon>
+      ~~~~~~~~~~~~~~~~~~~~~ [A dt-consumption-icon must have an aria-label.]
+        <dt-icon name="host"></dt-icon>
+      </dt-consumption-icon>
+      <dt-consumption-title>
+        Host units
+      </dt-consumption-title>
+
+      <dt-consumption-count>
+        {{ value }}/{{ max }}
+      </dt-consumption-count>
+
+      <dt-consumption-label>
+        Restricted host unit hours
+      </dt-consumption-label>
+    </dt-consumption>
+
+    <dt-consumption [min]="min" [max]="max" [value]="value">
+      <dt-consumption-icon aria-label="Host">
+        <dt-icon name="host"></dt-icon>
+      </dt-consumption-icon>
+      <dt-consumption-title>
+        Host units
+      </dt-consumption-title>
+
+      <dt-consumption-count>
+        {{ value }}/{{ max }}
+      </dt-consumption-count>
+
+      <dt-consumption-label>
+        Restricted host unit hours
+      </dt-consumption-label>
+    </dt-consumption>
+  `,
+})
+class TestClass { }

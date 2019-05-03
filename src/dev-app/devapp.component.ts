@@ -16,6 +16,7 @@ export class DevApp {
     { name: 'Card', route: '/card' },
     { name: 'Chart', route: '/chart' },
     { name: 'Checkbox', route: '/checkbox' },
+    { name: 'Consumption', route: '/consumption' },
     { name: 'Context-dialog', route: '/context-dialog' },
     { name: 'Copy-to-clipboard', route: '/copy-to-clipboard' },
     { name: 'Cta-card', route: '/cta-card' },

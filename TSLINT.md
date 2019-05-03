@@ -14,6 +14,7 @@ We provide a set of custom TSLint rules to help you using the Angular components
 | `dt-card-needs-title` | A `dt-card-title` is a required child element of a `dt-card`. |
 | `dt-card-no-empty` | A card must contain content apart from the predefined child components `dt-card-title`, `dt-card-subtitle`, `dt-card-icon`, `dt-card-title-actions` and `dt-card-footer-actions`. |
 | `dt-checkbox-no-empty` | A checkbox must always contain text content or a component that renders text. If no content is given, an `aria-label` or `aria-labelledby` attribute is required. |
+| `dt-consumption-icon-alt-text` | A `dt-consumption-icon` must have an `aria-label` that describes the icon. |
 | `dt-context-dialog-alt-text` | The open and the close button need additional attributes to provide text alternatives using the following inputs: `aria-label` and `aria-label-close-button` |
 | `dt-copy-to-clipboard-no-empty` | The copy-to-clipboard component must always contain a `dt-copy-to-clipboard-label`, that is a direct child of `dt-copy-to-clipboard`. |
 | `dt-icon-button-alt-text` | An icon-only button must always have an alternative text in form of an `aria-label` or `aria-labelledby` attribute. |

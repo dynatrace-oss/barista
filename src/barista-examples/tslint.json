@@ -12,6 +12,7 @@
     "dt-card-needs-title": true,
     "dt-card-no-empty": true,
     "dt-checkbox-no-empty": true,
+    "dt-consumption-icon-alt-text": true,
     "dt-context-dialog-alt-text": true,
     "dt-copy-to-clipboard-no-empty": true,
     "dt-icon-button-alt-text": true,

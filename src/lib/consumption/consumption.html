@@ -1,0 +1,33 @@
+<div class="dt-consumption-header">
+  <ng-content
+    select="dt-consumption-icon, [dt-consumption-icon], [dtConsumptionIcon]"
+  ></ng-content>
+
+  <ng-content
+    select="dt-consumption-title, [dt-consumption-title], [dtConsumptionTitle]"
+  ></ng-content>
+</div>
+
+<ng-content
+  select="dt-consumption-subtitle, [dt-consumption-subtitle], [dtConsumptionSubtitle]"
+></ng-content>
+
+<dt-progress-bar
+  [value]="value"
+  [min]="min"
+  [max]="max"
+  [color]="color"
+  class="dt-consumption-progress-bar"
+></dt-progress-bar>
+
+<ng-content
+  select="dt-consumption-count, [dt-consumption-count], [dtConsumptionCount]"
+></ng-content>
+
+<ng-content
+  select="dt-consumption-label, [dt-consumption-label], [dtConsumptionLabel]"
+></ng-content>
+
+<ng-content
+  select="dt-consumption-overlay, [dt-consumption-overlay], [dtConsumptionOverlay]"
+></ng-content>
