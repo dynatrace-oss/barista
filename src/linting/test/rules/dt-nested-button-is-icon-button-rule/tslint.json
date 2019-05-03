@@ -1,4 +1,5 @@
 {
+  "rulesDirectory": "../../../../../dist/lib/tslint/rules/button",
   "rules": {
     "dt-nested-button-is-icon-button": true
   }

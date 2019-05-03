@@ -1,4 +1,5 @@
 {
+  "rulesDirectory": "../../../../../dist/lib/tslint/rules/button",
   "rules": {
     "dt-button-no-empty": true
   }
