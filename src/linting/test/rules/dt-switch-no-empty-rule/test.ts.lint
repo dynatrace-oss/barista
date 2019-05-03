@@ -1,0 +1,20 @@
+/**
+ * Test file for testing the dt-switch-no-empty rule.
+ * A dt-switch must always contain (text) content or an
+ * aria-label or aria-labelledby attribute if no content is given.
+ */
+
+@Component({
+  template: `
+    <dt-switch>Subscribe to newsletter</dt-switch>
+    <dt-switch><my-text-element></my-text-element></dt-switch>
+    <dt-switch aria-label="When checked you agree to subscribe to our newsletter."></dt-switch>
+    <dt-switch aria-labelledby="description"></dt-switch>
+    <p id="description">When checked you agree to subscribe to our newsletter.</p>
+    <dt-switch>   </dt-switch>
+    ~~~~~~~~~~~   [When a dt-switch does not contain any content it must have an aria-label or an aria-labelledby attribute.]
+    <dt-switch></dt-switch>
+    ~~~~~~~~~~~   [When a dt-switch does not contain any content it must have an aria-label or an aria-labelledby attribute.]
+  `,
+})
+class TestClass { }

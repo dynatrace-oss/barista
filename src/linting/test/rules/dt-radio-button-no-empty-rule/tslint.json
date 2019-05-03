@@ -1,0 +1,5 @@
+{
+  "rules": {
+    "dt-radio-button-no-empty": true
+  }
+}
