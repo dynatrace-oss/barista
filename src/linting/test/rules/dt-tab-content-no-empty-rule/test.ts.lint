@@ -1,0 +1,24 @@
+/**
+ * Test file for testing the dt-tab-content-no-empty rule.
+ * Every tab content element must contain content.
+ */
+
+@Component({
+  template: `
+    <ng-template dtTabContent>
+      <h3>Traffic</h3>
+    </ng-template>
+ 
+    <ng-template dtTabContent>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~  [A dtTabContent must always contain content.]
+    </ng-template>
+
+    <ng-template dtTabContent>
+      <last-time-frame-selector
+        uitestid="definedTimeOptionsPanel"
+        (openChange)="close()">
+      </last-time-frame-selector>
+    </ng-template>
+  `,
+})
+class TestClass { }
