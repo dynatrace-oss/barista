@@ -1,0 +1,6 @@
+{
+  "rulesDirectory": "../../../../../dist/lib/tslint/rules/tabs",
+  "rules": {
+    "dt-tab-content-no-empty": true
+  }
+}

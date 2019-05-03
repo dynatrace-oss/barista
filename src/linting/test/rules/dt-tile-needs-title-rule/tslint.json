@@ -1,0 +1,6 @@
+{
+  "rulesDirectory": "../../../../../dist/lib/tslint/rules/tile",
+  "rules": {
+    "dt-tile-needs-title": true
+  }
+}
