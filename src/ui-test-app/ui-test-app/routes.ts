@@ -1,25 +1,26 @@
 import { Routes } from '@angular/router';
-import { Home } from './ui-test-app';
-import { ButtonUI } from '../button/button-ui';
 import { ButtonGroupUi } from '../button-group/button-group-ui';
-import { ExpandableSectionUi } from '../expandable-section/expandable-section-ui';
-import { ExpandablePanelUi } from '../expandable-panel/expandable-panel-ui';
-import { TileUI } from '../tile/tile-ui';
+import { ButtonUI } from '../button/button-ui';
+import { ChartHighchartsUI } from '../chart/chart-highcharts-ui';
+import { ChartSelectionAreaUI } from '../chart/chart-selection-area-ui';
+import { ChartUI } from '../chart/chart-ui';
+import { CheckboxUI } from '../checkbox/checkbox-ui';
+import { ConsumptionUI } from '../consumption/consumption-ui';
 import { ContextDialogUI } from '../context-dialog/context-dialog-ui';
+import { CopyToClipboardUI } from '../copy-to-clipboard/copy-to-clipboard-ui';
+import { DrawerUI } from '../drawer/drawer-ui';
+import { ExpandablePanelUi } from '../expandable-panel/expandable-panel-ui';
+import { ExpandableSectionUi } from '../expandable-section/expandable-section-ui';
 import { KeyValueListUI } from '../key-value-list/key-value-list-ui';
+import { OverlayUI } from '../overlay/overlay-ui';
 import { PaginationUI } from '../pagination/pagination-ui';
+import { ProgressBarUI } from '../progress-bar/progress-bar-ui';
 import { RadioUI } from '../radio/radio.ui';
 import { ShowMoreUI } from '../show-more/show-more-ui';
-import { CheckboxUI } from '../checkbox/checkbox-ui';
 import { SwitchUI } from '../switch/switch-ui';
-import { CopyToClipboardUI } from '../copy-to-clipboard/copy-to-clipboard-ui';
-import { ChartUI } from '../chart/chart-ui';
-import { ChartHighchartsUI } from '../chart/chart-highcharts-ui';
-import { ProgressBarUI } from '../progress-bar/progress-bar-ui';
 import { TabsUI } from '../tabs/tabs-ui';
-import { OverlayUI } from '../overlay/overlay-ui';
-import { ChartSelectionAreaUI } from '../chart/chart-selection-area-ui';
-import { DrawerUI } from '../drawer/drawer-ui';
+import { TileUI } from '../tile/tile-ui';
+import { Home } from './ui-test-app';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -45,5 +46,6 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'progress-bar', component: ProgressBarUI },
   { path: 'tabs', component: TabsUI },
   { path: 'overlay', component: OverlayUI },
+  { path: 'consumption', component: ConsumptionUI },
   { path: 'tile', component: TileUI },
 ];

@@ -1,0 +1,24 @@
+<dt-consumption [min]="min" [max]="max" [value]="value" id="test-consumption">
+  <dt-consumption-icon aria-label="Host">
+    <dt-icon name="host"></dt-icon>
+  </dt-consumption-icon>
+  <dt-consumption-title>
+    Host units
+  </dt-consumption-title>
+
+  <dt-consumption-count>
+    {{ value }}/{{ max }}
+  </dt-consumption-count>
+
+  <dt-consumption-label>
+    Restricted host unit hours
+  </dt-consumption-label>
+
+  <dt-consumption-overlay>
+    <div id="dummy-content">
+      Dummy content.
+    </div>
+  </dt-consumption-overlay>
+</dt-consumption>
+
+<div id="mouseout-area">Lorem ipsum.</div>

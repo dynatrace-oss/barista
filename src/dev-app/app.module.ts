@@ -4,7 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DevAppRoutingModule } from './devapp-routing.module';
 import { FormsModule } from '@angular/forms';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {
+  Location,
+  LocationStrategy,
+  PathLocationStrategy
+} from '@angular/common';
 import { DevApp } from './devapp.component';
 import { DevAppDynatraceModule } from './dt-components.module';
 import { AlertDemo } from './alert/alert-demo.component';
@@ -51,6 +55,7 @@ import { DtIconModule } from '@dynatrace/angular-components';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { InfoGroupDemo } from './info-group/info-group-demo.component';
 import { HighlightDemo } from './highlight/highlight-demo.component';
+import { ConsumptionDemo } from './consumption/consumption-demo.component';
 
 // tslint:disable-next-line: use-component-selector
 @Component({template: ''})
@@ -112,6 +117,7 @@ export class NoopRouteComponent {}
     ToggleButtonGroupDemo,
     InfoGroupDemo,
     HighlightDemo,
+    ConsumptionDemo,
   ],
   entryComponents: [
     DevApp,
