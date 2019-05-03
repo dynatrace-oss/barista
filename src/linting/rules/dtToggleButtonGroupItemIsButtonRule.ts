@@ -30,7 +30,7 @@ class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
 }
 
 /**
- * The dtToggleButtonGroupItemButton ensures that a button always contains text/content.
+ * The dtToggleButtonGroupItemButton ensures that a toggle button group item is always a btuton.
  *
  * The following examples pass the lint checks:
  * <button dt-toggle-button-item value="1">

@@ -1,0 +1,35 @@
+/**
+ * Test file for testing the dt-selection-area-alt-text rule.
+ * Text alternatives must be given for the selection area's handles, close button and area.
+ */
+
+@Component({
+  template: `
+    <dt-selection-area #area="dtSelectionArea"
+      (changed)="handleChange($event)"
+      aria-label-selected-area="Text that describes the content of the selection area."
+      aria-label-left-handle="Resize selection area to the left."
+      aria-label-right-handle="Resize selection area to the right."
+      aria-label-close-button="Close the selection area."
+    >
+      <my-content-element></my-content-element>
+    </dt-selection-area>
+
+    <dt-selection-area #area="dtSelectionArea" (changed)="handleChange($event)">
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  [A selection area must provide alternative texts for both handles, the selected area and the close button.]
+      <my-content-element></my-content-element>
+    </dt-selection-area>
+
+    <dt-selection-area #area="dtSelectionArea" (changed)="handleChange($event)"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      aria-label-selected-area="Text that describes the content of the selection area."
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      aria-label-close-button="Close the selection area."
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    >
+~~~~~ [A selection area must provide alternative texts for both handles, the selected area and the close button.]
+      <my-content-element></my-content-element>
+    </dt-selection-area>
+  `,
+})
+class TestClass { }
