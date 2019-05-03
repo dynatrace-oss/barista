@@ -19,7 +19,11 @@ task(':ts-linting-rules:clean', () =>
 
 /** Runs copy tasks */
 task(':ts-linting-rules:copy', () =>
-  src([join(LINTING_ROOT, '**/*.json'), join(LINTING_ROOT, 'index.js')])
+  src([
+    join(LINTING_ROOT, '**/*.json'),
+    join(LINTING_ROOT, 'index.js'),
+    `!${join(LINTING_ROOT, 'test/**')}`,
+  ])
   .pipe(dest(LINTING_OUTDIR)));
 
 /** Runs tsc compilation */
