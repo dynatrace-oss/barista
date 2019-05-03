@@ -1,0 +1,23 @@
+/**
+ * Test file for testing the dt-card-needs-title rule.
+ * Every card must contain a dt-card-title, that must be a direct child.
+ */
+
+@Component({
+  template: `
+    <dt-card>
+    ~~~~~~~~~ [A dt-card must contain a dt-card-title element, that must be a direct child.]
+      <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+      <dt-card-title-actions><button dt-button variant="secondary">Some Action</button></dt-card-title-actions>
+      The card is not an interactive element, therefore there are no hover, active or disabled states.
+    </dt-card>
+
+    <dt-card>
+      <dt-card-title>This is a title</dt-card-title>
+      <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+      <dt-card-title-actions><button dt-button variant="secondary">Some Action</button></dt-card-title-actions>
+      The card is not an interactive element, therefore there are no hover, active or disabled states.
+    </dt-card>
+  `,
+})
+class TestClass { }

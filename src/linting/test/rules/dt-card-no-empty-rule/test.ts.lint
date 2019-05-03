@@ -1,0 +1,28 @@
+/**
+ * Test file for testing the dt-card-no-empty rule.
+ * Every card must contain content apart from the title,
+ * subtitle and card actions.
+ */
+
+@Component({
+  template: `
+    <dt-card>
+    ~~~~~~~~~ [A dt-card must always contain content apart from title, subtitle, icon and actions.]
+      <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+      <dt-card-title-actions><button dt-button variant="secondary">Some Action</button></dt-card-title-actions>
+    </dt-card>
+
+    <dt-card *ngSwitchDefault>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~  [A dt-card must always contain content apart from title, subtitle, icon and actions.]
+      <dt-card-title uitestid="debug-name" i18n>No events</dt-card-title>
+    </dt-card>
+
+    <dt-card>
+      <dt-card-title>This is a title</dt-card-title>
+      <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+      <dt-card-title-actions><button dt-button variant="secondary">Some Action</button></dt-card-title-actions>
+      The card is not an interactive element, therefore there are no hover, active or disabled states.
+    </dt-card>
+  `,
+})
+class TestClass { }
