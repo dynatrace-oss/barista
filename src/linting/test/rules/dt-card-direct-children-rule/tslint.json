@@ -1,0 +1,6 @@
+{
+  "rulesDirectory": "../../../../../dist/lib/tslint/rules/card",
+  "rules": {
+    "dt-card-direct-children": true
+  }
+}
