@@ -1,0 +1,311 @@
+<div class="consumption-demo">
+  <div class="demo-component">
+    <dt-consumption
+      [min]="min"
+      [max]="max"
+      [value]="value"
+      [color]="color"
+      class="default-consumption"
+    >
+      <dt-consumption-icon aria-label="Host">
+        <dt-icon name="host"></dt-icon>
+      </dt-consumption-icon>
+      <dt-consumption-title>
+        Host units
+      </dt-consumption-title>
+
+      <dt-consumption-count>
+        {{ value | dtCount }}/{{ max | dtCount }}
+      </dt-consumption-count>
+
+      <dt-consumption-label>
+        Restricted host unit hours
+      </dt-consumption-label>
+
+      <dt-consumption-overlay>
+        <dt-consumption
+          [min]="0"
+          [max]="100000000"
+          [value]="100000000"
+          class="overlay-value-panel"
+        >
+          <dt-consumption-title>
+            Host units
+          </dt-consumption-title>
+          <dt-consumption-subtitle>
+            Quota
+          </dt-consumption-subtitle>
+          <dt-consumption-count>
+            {{ value | dtCount }}/{{ max | dtCount }}
+          </dt-consumption-count>
+        </dt-consumption>
+
+        <div class="overlay-value-panel">
+          <div>Consumption breakdown</div>
+          <dt-key-value-list>
+            <dt-key-value-list-item *ngFor="let entry of defaultBreakdown">
+              <dt-key-value-list-key>{{ entry.name }}</dt-key-value-list-key>
+              <dt-key-value-list-value>
+                {{ entry.value | dtCount }}
+              </dt-key-value-list-value>
+            </dt-key-value-list-item>
+          </dt-key-value-list>
+        </div>
+
+        <dt-consumption
+          [min]="0"
+          [max]="5"
+          [value]="0"
+          class="overlay-value-panel"
+        >
+          <dt-consumption-subtitle>
+            Free credits (Exp. 20. Mar 2019)
+          </dt-consumption-subtitle>
+          <dt-consumption-count>
+            {{ 0 | dtCount }}/{{ 5 | dtCount }}
+          </dt-consumption-count>
+        </dt-consumption>
+      </dt-consumption-overlay>
+    </dt-consumption>
+  </div>
+  <div class="demo-settings">
+    <dl>
+      <dt>Min:</dt>
+      <dd><input type="number" [(ngModel)]="min" /></dd>
+
+      <dt>Max:</dt>
+      <dd><input type="number" [(ngModel)]="max" /></dd>
+
+      <dt>Value:</dt>
+      <dd><input type="number" [(ngModel)]="value" /></dd>
+
+      <dt>Color:</dt>
+      <dd>
+        <select [(ngModel)]="color">
+          <option value="main" selected>Main</option>
+          <option value="warning">Warning</option>
+          <option value="error">Error</option>
+        </select>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="demo-component">
+    <dt-consumption
+      [min]="warningMin"
+      [max]="warningMax"
+      [value]="warningValue"
+      [color]="warningColor"
+      class="warning-consumption"
+    >
+      <dt-consumption-icon aria-label="User Group">
+        <dt-icon name="usergroup"></dt-icon>
+      </dt-consumption-icon>
+      <dt-consumption-title>
+        DEM units
+      </dt-consumption-title>
+
+      <dt-consumption-count>
+        {{ warningValue | dtCount }}/{{ warningMax | dtCount }}
+      </dt-consumption-count>
+
+      <dt-consumption-label>
+        Flexible overages
+      </dt-consumption-label>
+
+      <dt-consumption-overlay>
+        <dt-consumption
+          [min]="0"
+          [max]="100000000"
+          [value]="100000000"
+          color="warning"
+          class="overlay-value-panel"
+        >
+          <dt-consumption-title>
+            DEM units
+          </dt-consumption-title>
+          <dt-consumption-subtitle>
+            Quota
+          </dt-consumption-subtitle>
+          <dt-consumption-count>
+            {{ 100000000 | dtCount }}/{{ 100000000 | dtCount }}
+          </dt-consumption-count>
+        </dt-consumption>
+
+        <dt-consumption
+          [min]="0"
+          [max]="10500000"
+          [value]="10500000"
+          color="warning"
+          class="overlay-value-panel"
+        >
+          <dt-consumption-subtitle>
+            Flexible overages
+          </dt-consumption-subtitle>
+          <dt-consumption-count>
+            {{ 10500000 | dtCount }}/unlimited
+          </dt-consumption-count>
+        </dt-consumption>
+
+        <div class="overlay-value-panel">
+          <div>Consumption breakdown</div>
+          <dt-key-value-list>
+            <dt-key-value-list-item *ngFor="let entry of warningBreakdown">
+              <dt-key-value-list-key>{{ entry.name }}</dt-key-value-list-key>
+              <dt-key-value-list-value>
+                {{ entry.value | dtCount }}
+              </dt-key-value-list-value>
+            </dt-key-value-list-item>
+          </dt-key-value-list>
+        </div>
+
+        <dt-consumption
+          [min]="0"
+          [max]="20000000"
+          [value]="20000000"
+          color="warning"
+          class="overlay-value-panel"
+        >
+          <dt-consumption-subtitle>
+            Free (Exp. 20. Mar 2019)
+          </dt-consumption-subtitle>
+          <dt-consumption-count>
+            {{ 20000000 | dtCount }}/{{ 20000000 | dtCount }}
+          </dt-consumption-count>
+        </dt-consumption>
+      </dt-consumption-overlay>
+    </dt-consumption>
+  </div>
+  <div class="demo-settings">
+    <dl>
+      <dt>Min:</dt>
+      <dd><input type="number" [(ngModel)]="warningMin" /></dd>
+
+      <dt>Max:</dt>
+      <dd><input type="number" [(ngModel)]="warningMax" /></dd>
+
+      <dt>Value:</dt>
+      <dd><input type="number" [(ngModel)]="warningValue" /></dd>
+
+      <dt>Color:</dt>
+      <dd>
+        <select [(ngModel)]="warningColor">
+          <option value="main">Main</option>
+          <option value="warning" selected>Warning</option>
+          <option value="error">Error</option>
+        </select>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="demo-component">
+    <dt-consumption
+      [min]="errorMin"
+      [max]="errorMax"
+      [value]="errorValue"
+      [color]="errorColor"
+      class="error-consumption"
+    >
+      <dt-consumption-icon aria-label="Log file">
+        <dt-icon name="logfile"></dt-icon>
+      </dt-consumption-icon>
+      <dt-consumption-title>
+        Log analytics
+      </dt-consumption-title>
+
+      <dt-consumption-count>
+        {{ errorValue | dtMegabytes }}/{{ errorMax | dtMegabytes }}
+      </dt-consumption-count>
+
+      <dt-consumption-label>
+        Restricted host unit hours
+      </dt-consumption-label>
+
+      <dt-consumption-overlay>
+        <dt-consumption
+          [min]="0"
+          [max]="errorMax"
+          [value]="errorValue"
+          color="error"
+        >
+          <dt-consumption-title>
+            Log analytics
+          </dt-consumption-title>
+          <dt-consumption-subtitle>
+            Quota
+          </dt-consumption-subtitle>
+          <dt-consumption-count>
+            {{ errorValue | dtMegabytes }}/{{ errorMax | dtMegabytes }}
+          </dt-consumption-count>
+        </dt-consumption>
+      </dt-consumption-overlay>
+    </dt-consumption>
+  </div>
+  <div class="demo-settings">
+    <dl>
+      <dt>Min:</dt>
+      <dd><input type="number" [(ngModel)]="errorMin" /></dd>
+
+      <dt>Max:</dt>
+      <dd><input type="number" [(ngModel)]="errorMax" /></dd>
+
+      <dt>Value:</dt>
+      <dd><input type="number" [(ngModel)]="errorValue" /></dd>
+
+      <dt>Color:</dt>
+      <dd>
+        <select [(ngModel)]="errorColor">
+          <option value="main">Main</option>
+          <option value="warning">Warning</option>
+          <option value="error" selected>Error</option>
+        </select>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="demo-component">
+    <dt-consumption
+      [min]="noOverlayMin"
+      [max]="noOverlayMax"
+      [value]="noOverlayValue"
+      [color]="noOverlayColor"
+      class="no-overlay-consumption"
+    >
+      <dt-consumption-icon aria-label="Chart">
+        <dt-icon name="chart"></dt-icon>
+      </dt-consumption-icon>
+      <dt-consumption-title>
+        Custom metrics
+      </dt-consumption-title>
+
+      <dt-consumption-count>
+        {{ noOverlayValue | dtCount }}/{{ noOverlayMax | dtCount }}
+      </dt-consumption-count>
+
+      <dt-consumption-label>
+        Restricted overages
+      </dt-consumption-label>
+    </dt-consumption>
+  </div>
+  <div class="demo-settings">
+    <dl>
+      <dt>Min:</dt>
+      <dd><input type="number" [(ngModel)]="noOverlayMin" /></dd>
+
+      <dt>Max:</dt>
+      <dd><input type="number" [(ngModel)]="noOverlayMax" /></dd>
+
+      <dt>Value:</dt>
+      <dd><input type="number" [(ngModel)]="noOverlayValue" /></dd>
+
+      <dt>Color:</dt>
+      <dd>
+        <select [(ngModel)]="noOverlayColor">
+          <option value="main" selected>Main</option>
+          <option value="warning">Warning</option>
+          <option value="error">Error</option>
+        </select>
+      </dd>
+    </dl>
+  </div>
+</div>

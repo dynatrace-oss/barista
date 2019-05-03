@@ -13,6 +13,7 @@ export class Home { }
 export class UIApp {
   navItems = [
     { name: 'Start', route: '/' },
+    { name: 'Consumption', route: '/consumption' },
     { name: 'Tabs', route: '/tabs' },
     { name: 'Button', route: '/button' },
     { name: 'ButtonGroup', route: '/button-group' },

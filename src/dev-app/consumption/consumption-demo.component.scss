@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  box-sizing: content-box;
+}
+
+.overlay-value-panel {
+  margin-bottom: 16px;
+}
+
+.default-consumption,
+.warning-consumption,
+.error-consumption,
+.no-overlay-consumption {
+  margin-bottom: 32px;
+}
+
+.consumption-demo {
+  display: grid;
+  grid-template-columns: auto 240px;
+}
+
+.demo-component {
+  padding-right: 12px;
+}
+
+.demo-settings {
+  padding-left: 12px;
+}
+
+.demo-component,
+.demo-settings {
+  padding-top: 12px;
+  border-bottom: 2px solid #ccc;
+}
