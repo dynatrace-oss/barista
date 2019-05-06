@@ -30,7 +30,8 @@ export const _DtBreadcrumbMixinBase =
   templateUrl: 'breadcrumbs.html',
   styleUrls: ['breadcrumbs.scss'],
   host: {
-    class: 'dt-breadcrumbs',
+    'class': 'dt-breadcrumbs',
+    '[attr.aria-label]': 'ariaLabel',
   },
   inputs: [ 'color' ],
   preserveWhitespaces: false,
@@ -38,7 +39,8 @@ export const _DtBreadcrumbMixinBase =
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtBreadcrumbs extends _DtBreadcrumbMixinBase implements AfterContentInit, OnDestroy {
-
+  /** Aria label for the breadcrumbs */
+  @Input('aria-label') ariaLabel: string;
   @ContentChildren(DtBreadcrumbsItem) private _items: QueryList<DtBreadcrumbsItem>;
 
   private _itemChangesSub = NEVER.subscribe();

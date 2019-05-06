@@ -31,6 +31,7 @@ class MyModule {}
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `color` | `'main' | 'error' | 'neutral'` | `main` | Current variation of the theme color which is applied to the color of the breadcrumbs.|
+| `aria-label` | `string` | - | Takes precedence as the element's text alternative.|
 
 
 ## dt-breadcrumbs-item

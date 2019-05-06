@@ -1,7 +1,7 @@
 <a *ngIf="!_lastItem" [href]="_calculatedHref()" (click)="_linkClicked($event)" class="dt-breadcrumb-item dt-breadcrumb-link">
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
-<span *ngIf="_lastItem" class="dt-breadcrumb-item dt-breadcrumb-non-clickable">
+<span *ngIf="_lastItem" class="dt-breadcrumb-item dt-breadcrumb-non-clickable" aria-current="page">
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </span>
 
