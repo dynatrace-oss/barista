@@ -151,7 +151,7 @@ export class ThreadFlatNode {
           <button dt-icon-button variant="nested" [dtContextDialogTrigger]="dialog" aria-label="Show more data">
             <dt-icon name="more"></dt-icon>
           </button>
-          <dt-context-dialog #dialog>
+          <dt-context-dialog #dialog aria-label="Show more data" aria-label-close-button="Close context dialog">
             {{row.name}} context dialog
           </dt-context-dialog>
         </ng-container>

@@ -12,6 +12,7 @@
     "dt-card-needs-title": { "severity": "warning" },
     "dt-card-no-empty": { "severity": "warning" },
     "dt-checkbox-no-empty": { "severity": "warning" },
+    "dt-context-dialog-alt-text": { "severity": "warning" },
     "dt-copy-to-clipboard-no-empty": { "severity": "warning" },
     "dt-icon-button-alt-text": { "severity": "warning" },
     "dt-icon-button-needs-icon": { "severity": "warning" },

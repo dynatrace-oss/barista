@@ -9,7 +9,11 @@ import { Component } from '@angular/core';
               aria-label="Open context dialog">
         <dt-icon name="agent"></dt-icon>
       </button>
-      <dt-context-dialog #interactiveDialog [disabled]="interactiveDialogDisabled">
+      <dt-context-dialog #interactiveDialog
+        [disabled]="interactiveDialogDisabled"
+        aria-label="Show more details"
+        aria-label-close-button="Close context dialog"
+      >
         <p>Your dashboard "real user monitoring"<br> is only visible to you</p>
       </dt-context-dialog>
     </div>
