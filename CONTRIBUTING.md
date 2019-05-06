@@ -20,7 +20,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 * Make your changes in a new git branch: `git checkout -b my-fix-branch master`
 * Create your patch/fix/feature including appropriate test.
 * Test your changes with our supported browsers
-* Run unit, ui and universal tests, as described in the [developer documentation](DEVELOPMENT.md), and ensure that all tests pass.
+* Run unit, ui and universal tests, as described in the [developer documentation](***REMOVED*** and ensure that all tests pass.
 * Commit your changes using a descriptive commit message that follows our [commit message conventions](#commit-message-guidelines).
 * Push your branch to Bitbucket.
 * Create a new Pull Request from your branch against the master
