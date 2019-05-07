@@ -46,12 +46,12 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
 /**
  * The dtContextDialogAltTextRule ensures that text alternatives are given for
  * the open and the close button of a context dialog.
- * 
+ *
  * The following example passes the lint checks:
  * <dt-context-dialog aria-label="Open more options" aria-label-close-button="Close context dialog">
  *   <p>Your dashboard "real user monitoring" is only visible to you</p>
  * </dt-context-dialog>
- * 
+ *
  * For the following example the linter throws errors:
  * <dt-context-dialog>
  *   <p>Your dashboard "real user monitoring" is only visible to you</p>
