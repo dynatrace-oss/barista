@@ -13,7 +13,6 @@ import {
 @NgModule({
   imports: [
     CommonModule,
-    DtInputModule,
     DtButtonModule,
     DtIconModule],
   exports: [

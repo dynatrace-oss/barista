@@ -24,31 +24,29 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
 import {
   DtFilterFieldDataSource,
-} from './data-source/filter-field-data-source';
+} from './filter-field-data-source';
 import {
   DtNodeDef,
-  _getDtNodeDataValue,
-  DtFilterFieldSource,
   isDtAutocompleteDef,
   isDtFreeTextDef,
-  DtFilterFieldTagData
+  DtFilterFieldTagData,
+  isDtOptionDef
 } from './types';
-import { filterAutocompleteDef, filterFreeTextDef, transformSourceToTagData } from './filter-field-util';
+import { filterAutocompleteDef, filterFreeTextDef, transformSourceToTagData, findDefForSourceObj, peekOptionId } from './filter-field-util';
 
 // tslint:disable:no-any
 
-// tslint:disable:no-bitwise
-
-// export class DtFilterChangeEvent {
-//   constructor(
-//     /** Filter data objects added */
-//     public added: DtFilterData[],
-//     /** Filter data objects removed. */
-//     public removed: DtFilterData[],
-//     /** Current state of filter data objects. */
-//     public filters: DtFilterData[]
-//   ) { }
-// }
+export class DtFilterFieldChangeEvent {
+  constructor(
+    public source: DtFilterField,
+    /** Filter data objects added */
+    public added: any[],
+    /** Filter data objects removed. */
+    public removed: any[],
+    /** Current state of filter data objects. */
+    public filters: any[]
+  ) { }
+}
 
 export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
 
@@ -82,33 +80,27 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
   private _dataSubscription: Subscription | null;
   private _stateChanges = new Subject<void>();
 
+  /** Currently applied filters */
+  @Input()
+  get filters(): any[][] { return this._filters; }
+  set filters(value: any[][]) {
+    this._filters = value;
+    this._switchToRootDef(false);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _filters: any[][] = [];
+
   /** Emits an event with the current value of the input field everytime the user types. */
   @Output() inputChange = new EventEmitter<string>();
 
   /** Emits when a new filter has been added or removed. */
-  // @Output() filterChanges = new EventEmitter<DtFilterChangeEvent>();
+  @Output() filterChanges = new EventEmitter<DtFilterFieldChangeEvent>();
 
   /**
    * List of tags that are the visual representation for selected nodes.
    * This can be used to disable certain tags or change their labeling.
    */
   @ViewChildren(DtFilterFieldTag) tags: QueryList<DtFilterFieldTag>;
-
-  _rootDef: DtNodeDef | null = null;
-  _currentDef: DtNodeDef | null = null;
-  _autocompleteOptionsOrGroups: DtNodeDef[] = [];
-
-  /** Currently applied filters */
-  get filters(): DtFilterFieldSource[][] { return this._filters; }
-  set filters(value: DtFilterFieldSource[][]) {
-    this._filters = value;
-    this._currentFilterSources = null;
-    this._updateTagData();
-    this._changeDetectorRef.markForCheck();
-  }
-  _filters: DtFilterFieldSource[][] = [];
-
-  _currentFilterSources: DtFilterFieldSource[] | null = null;
 
   /** @internal Reference to the internal input element */
   @ViewChild('input') _inputEl: ElementRef;
@@ -119,19 +111,26 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
   /** @internal Querylist of the autocompletes provided by ng-content */
   @ViewChild(DtAutocomplete) _autocomplete: DtAutocomplete<DtNodeDef>;
 
+  /** @internal List of sources of the filter that the user currently works on. */
+  _currentFilterSources: any[] | null = null;
+
+  /** @internal The root NodeDef. The filter field will always switch to this def once the user completes a filter. */
+  _rootDef: DtNodeDef | null = null;
+
+  /** @internal The current NodeDef that will be displayed (autocomplete, free-text, ...) */
+  _currentDef: DtNodeDef | null = null;
+
+  /** @internal Holds the list of options and groups for displaying it in the autocomplete */
+  _autocompleteOptionsOrGroups: DtNodeDef[] = [];
+
   /** @internal Filter nodes to be rendered _before_ the input element. */
   _prefixTagData: DtFilterFieldTagData[] = [];
 
   /** @internal Filter nodes to be rendered _after_ the input element. */
   _suffixTagData: DtFilterFieldTagData[] = [];
 
-  get _filterByLabel(): string {
-    return '!!!TODO!!!';
-    // return this._currentFilter && this._currentFilter.nodes.length &&
-    //   isDtAutocompleteData(this._currentFilter.nodes[0]) &&
-    //   this._currentFilter.nodes[0].autocomplete!.selectedOption &&
-    //   this._currentFilter.nodes[0].autocomplete!.selectedOption!.option!.viewValue || '';
-  }
+  /** @internal Holds the view value of the filter by label. Will be set when the first part of a filter has been selected. */
+  _filterByLabel = '';
 
   /** @internal Value of the input element. */
   _inputValue = '';
@@ -141,6 +140,12 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
 
   /** Whether the filter field or one of it's child elements is focused. */
   private _isFocused = false;
+
+  /** Holds a complete list of all the ids of options that have been selected over time. */
+  private _selectedOptionIds = new Set<string>();
+
+  /** Holds the id of the currently selected option. */
+  private _currentSelectedOptionId = '';
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -215,17 +220,9 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
     }
   }
 
-  /** Submits and finishes the current filter. */
-  submitFilter(): void {
-    // if (this._currentFilter) {
-    //   this._emitFilterChanges([this._currentFilter], []);
-    //   this._currentFilter = null;
-    // }
-  }
-
   /**
    * @internal
-   * Handle click on the host element, prevent the event from bubbling up and open the autocomplete, range inputs, ...
+   * Handles the click on the host element. Prevent the event from bubbling up and open the autocomplete, range inputs, ...
    */
   _handleHostClick(event: MouseEvent): void {
     // Stop propagation so it does not bubble up and trigger an outside click
@@ -241,6 +238,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
     const value = this._inputEl.nativeElement.value;
     if (value !== this._inputValue) {
       this._inputValue = value;
+      this._updateAutocompleteOptionsOrGroups();
       this.inputChange.emit(value);
 
       this._changeDetectorRef.markForCheck();
@@ -249,46 +247,78 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
 
   /** @internal */
   _handleInputKeyDown(event: KeyboardEvent): void {
-    // const keyCode = readKeyCode(event);
-    // if (keyCode === BACKSPACE && !this._inputValue.length) {
-    //   if (this._currentFilter) {
-    //     this._removeFilter(this._currentFilter);
-    //   } else if (this._prefixFilters.length) {
-    //     this._removeFilter(this._prefixFilters[this._prefixFilters.length - 1]);
-    //   }
-    // } else if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
-    //   this._autocompleteTrigger.closePanel();
-    // }
+    const keyCode = readKeyCode(event);
+    if (keyCode === BACKSPACE && !this._inputValue.length) {
+      if (this._currentFilterSources) {
+        this._removeFilter(this._currentFilterSources);
+      } else if (this._prefixTagData.length) {
+        this._removeFilter(this._prefixTagData[this._prefixTagData.length - 1].filterSources);
+      }
+    } else if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
+      this._autocompleteTrigger.closePanel();
+    }
   }
 
   /** @internal */
   _handleInputKeyUp(event: KeyboardEvent): void {
-    // const keyCode = readKeyCode(event);
-    // if (keyCode === ENTER && this._inputValue.length && isDtFreeTextData(this._currentRenderNode)) {
-    //   this._handleFreeTextSubmitted();
-    // }
+    const keyCode = readKeyCode(event);
+    if (keyCode === ENTER && this._inputValue.length && isDtFreeTextDef(this._currentDef)) {
+      this._handleFreeTextSubmitted();
+    }
   }
 
+  /**
+   * @internal
+   * Handles removing a filter from the filters list.
+   * Called when the user clicks on the remove button of a filter tag.
+   */
   _handleTagRemove(event: DtFilterFieldTag): void {
-    // this._removeFilter(event.data);
+    this._removeFilter(event.data.filterSources);
+    this.focus();
   }
 
+  /**
+   * @internal
+   * Handles switching a filter to the edit mode.
+   * Usually called when the user clicks the edit button of a filter.
+   */
   _handleTagEdit(event: DtFilterFieldTag): void {
-    // const nodesToRemove = event.data.nodes.splice(1);
-    // this._currentFilter = event.data;
-    // this._emitFilterNodeChanges(event.data.nodes[0], nodesToRemove);
-    // this.focus();
-    // this._changeDetectorRef.markForCheck();
+    if (this._rootDef && !this._currentFilterSources) {
+      const def = findDefForSourceObj(event.data.filterSources[0], this._rootDef);
+      if (def) {
+        const removed = event.data.filterSources.splice(1);
+        this._currentFilterSources = event.data.filterSources;
+        this._currentDef = def;
+
+        this._removeSelectedOptionIdsOfSources(removed, def, this._currentSelectedOptionId);
+        this._currentSelectedOptionId = peekOptionId(def, this._currentSelectedOptionId);
+
+        this._updateAutocompleteOptionsOrGroups();
+        this._updateFilterByLabel();
+        this._updateTagData();
+        this.focus();
+        this._changeDetectorRef.markForCheck();
+      }
+    }
   }
 
+  /** Handles selecting an option from the autocomplete. */
   private _handleAutocompleteSelected(event: DtAutocompleteSelectedEvent<DtNodeDef>): void {
-
+    const optionDef = event.option.value;
     const sources = this._peekCurrentFilterSources();
-    sources.push(event.option.value.data);
+    sources.push(optionDef.data);
 
-    this._updateTagData();
+    const optionId = peekOptionId(optionDef, this._currentSelectedOptionId);
+    this._selectedOptionIds.add(optionId);
 
-    // this._emitFilterNodeChanges(this._currentRenderNode);
+    if (isDtAutocompleteDef(optionDef) || isDtFreeTextDef(optionDef)) {
+      this._currentDef = optionDef;
+      this._currentSelectedOptionId = optionId;
+      this._updateFilterByLabel();
+      this._updateAutocompleteOptionsOrGroups();
+    } else {
+      this._switchToRootDef(true);
+    }
 
     // Reset input value to empty string after handling the value provided by the autocomplete.
     // Otherwise the value of the autocomplete would be in the input elements.
@@ -299,20 +329,22 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
       if (option.selected) { option.deselect(); }
     });
 
+    this._stateChanges.next();
     this._changeDetectorRef.markForCheck();
   }
 
+  /**
+   * Handles submitting the free text field.
+   * Usually called when the user hits enter in the input field when a free text is set.
+   */
   private _handleFreeTextSubmitted(): void {
-    // if (isDtFreeTextData(this._currentRenderNode)) {
-    //   this._currentRenderNode.freeText.textValue = this._inputValue;
-    //   const filter = this._peekCurrentFilter();
-    //   filter.nodes.push(this._currentRenderNode);
-    //   this._updateFilterDataViewValues(filter);
-    // }
+    const sources = this._peekCurrentFilterSources();
+    sources.push(this._inputValue);
 
-    // this._emitFilterNodeChanges(this._currentRenderNode);
-    // this._writeInputValue('');
-    // this._changeDetectorRef.markForCheck();
+    this._writeInputValue('');
+    this._switchToRootDef(true);
+    this._stateChanges.next();
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Write a value to the native input elements and set _inputValue property  */
@@ -326,7 +358,11 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
     }
   }
 
-  private _peekCurrentFilterSources(): DtFilterFieldSource[] {
+  /**
+   * Returns the currentFilterSources. If no currentFilterSources are available, a new one is created.
+   * These sources will also be added to the global list of filters if they are not already part of it.
+   */
+  private _peekCurrentFilterSources(): any[] {
     let sources = this._currentFilterSources;
     if (!sources) {
       sources = [];
@@ -338,50 +374,41 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
     return sources;
   }
 
-  private _removeFilter(): void {
-    // const removableIndex = this._filters.indexOf(filter);
-    // if (filter === this._currentFilter) {
-    //   this._currentFilter = null;
-    // }
-    // if (removableIndex !== -1) {
-    //   this._filters.splice(removableIndex, 1);
-    //   this._emitFilterNodeChanges(null, filter.nodes);
-    //   this._emitFilterChanges([], [filter]);
-    //   this.focus();
-    //   this._changeDetectorRef.markForCheck();
-    // }
+  /**
+   * Removes a filter (a list of sources) from the list of current selected ones.
+   * I usually called when the user clicks the remove button of a filter
+   */
+  private _removeFilter(sources: any[]): void {
+    const removableIndex = this._filters.indexOf(sources);
+    if (removableIndex !== -1 && this._rootDef) {
+      this._filters.splice(removableIndex, 1);
+      this._removeSelectedOptionIdsOfSources(sources, this._rootDef);
+      if (sources === this._currentFilterSources) {
+        this._switchToRootDef(false);
+      } else {
+        this._updateTagData();
+        this._updateAutocompleteOptionsOrGroups();
+        this._filterByLabel = '';
+      }
+      this._emitFilterChanges([], [...sources]);
+      this._stateChanges.next();
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
-  // private _updateFilterDataViewValues(data: DtFilterData): DtFilterData {
-  //   const nodes = data.nodes || [];
-  //   let key: string | null = null;
-  //   let value: string | null = null;
-  //   let separator: string | null = null;
-  //   if (nodes.length) {
-  //     if (nodes.length > 1) {
-  //       key = getDtNodeDataViewValue(nodes[0]);
-  //     }
-  //     const lastNode = nodes[nodes.length - 1];
-  //     value = getDtNodeDataViewValue(lastNode);
-  //     if (isDtFreeTextData(lastNode)) {
-  //       value = `"${value}"`;
-  //       separator = '~';
-  //     }
-  //   }
-  //   data.viewValues = { key, value, separator };
-  //   return data;
-  // }
+  /**
+   * Emits a DtFilterFieldChangeEvent with a cloned filters array
+   * so the consumer can not override it from the outside.
+   */
+  private _emitFilterChanges(added: any[], removed: any[]): void {
+    const cloned = this._filters.map((sources) => [...sources]);
+    this.filterChanges.emit(new DtFilterFieldChangeEvent(this, added, removed, cloned));
+  }
 
-  // private _emitFilterNodeChanges(added: DtNodeData | null = null, removed: DtNodeData[] | null = null): void {
-  //   if (this._dataControl) {
-  //     this._dataControl.filterNodeChanges({ added, removed });
-  //   }
-  // }
-
-  // private _emitFilterChanges(added: DtFilterData[], removed: DtFilterData[]): void {
-  //   this.filterChanges.emit(new DtFilterChangeEvent(added, removed, this._filters));
-  // }
-
+  /**
+   * Takes a new Datasource and switches the filter date to the provided one.
+   * Handles all the disconnecting and data switching.
+   */
   private _switchDataSource(dataSource: DtFilterFieldDataSource): void {
     if (this._dataSource) {
       this._dataSource.disconnect();
@@ -405,30 +432,76 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
       });
   }
 
-  private _updateTagData(): void {
-    debugger;
-    if (this._rootDef) {
-      this._prefixTagData =
-        this._filters.slice(0, this._currentFilterSources ? this._filters.indexOf(this._currentFilterSources) : undefined)
-        .map((sources) => transformSourceToTagData(sources, this._rootDef!))
-        .filter((tagData) => tagData !== null) as DtFilterFieldTagData[];
-      this._suffixTagData = this._currentFilterSources ?
-        this._filters.slice(this._filters.indexOf(this._currentFilterSources) + 1)
-          .map((sources) => transformSourceToTagData(sources, this._rootDef!))
-          .filter((tagData) => tagData !== null) as DtFilterFieldTagData[] : [];
+  /**
+   * Switches current def back to the root, updates all properties for the view and emits a filter change.
+   * Is usually called when the user finishes a filter.
+   */
+  private _switchToRootDef(shouldEmit: boolean = false): void {
+    this._currentDef = this._rootDef;
+    let sourcesToEmit: any[] = [];
+    if (this._currentFilterSources) {
+      sourcesToEmit = [...this._currentFilterSources];
+    }
+    this._currentFilterSources = null;
+    this._filterByLabel = '';
+    this._currentSelectedOptionId = '';
+    this._updateTagData();
+    this._updateAutocompleteOptionsOrGroups();
+    if (shouldEmit && sourcesToEmit.length) {
+      this._emitFilterChanges(sourcesToEmit, []);
     }
   }
 
+  /** Updates prefix and suffix tag data for displaying filter tags. */
+  private _updateTagData(): void {
+    if (this._rootDef) {
+      this._prefixTagData =
+        this._filters.slice(0, this._currentFilterSources ? this._filters.indexOf(this._currentFilterSources) : undefined)
+        .map((sources, i) => transformSourceToTagData(sources, this._rootDef!) || this._prefixTagData[i] || null);
+
+      this._suffixTagData = this._currentFilterSources ?
+        this._filters.slice(this._filters.indexOf(this._currentFilterSources) + 1)
+          .map((sources, i) => transformSourceToTagData(sources, this._rootDef!) || this._suffixTagData[i] || null)
+          .filter((tag: DtFilterFieldTagData | null) => tag !== null) : [];
+    }
+  }
+
+  /** Updates the list of options or groups displayed in the autocomplete overlay */
   private _updateAutocompleteOptionsOrGroups(): void {
     const currentDef = this._currentDef;
-    const distinctIds = new Set();
 
     if (isDtAutocompleteDef(currentDef)) {
-      const def = filterAutocompleteDef(currentDef, distinctIds, this._inputValue);
+      const def = filterAutocompleteDef(currentDef, this._selectedOptionIds, this._inputValue);
       this._autocompleteOptionsOrGroups = def ? def.autocomplete!.optionsOrGroups : [];
     } else if (isDtFreeTextDef(currentDef)) {
       const def = filterFreeTextDef(currentDef, this._inputValue);
       this._autocompleteOptionsOrGroups = def ? def.freeText!.suggestions : [];
     }
+  }
+
+  /** Updates the filterByLabel with the view value of the first currently active filter source. */
+  private _updateFilterByLabel(): void {
+    const currentFilterSources = this._currentFilterSources;
+    if (this._rootDef && currentFilterSources && currentFilterSources.length) {
+      const def = findDefForSourceObj(currentFilterSources[0], this._rootDef);
+      if (isDtOptionDef(def)) {
+        this._filterByLabel = def.option.viewValue;
+      }
+    }
+  }
+
+  /** Tries to remove all the ids from the selectedOptionsids list based on the provided sources array. */
+  private _removeSelectedOptionIdsOfSources(sources: any[], rootDef: DtNodeDef, currentSelectedOptionId?: string): void {
+    let def: DtNodeDef | null = rootDef;
+    let selectedId = isDtOptionDef(def) ? peekOptionId(def, currentSelectedOptionId) : (currentSelectedOptionId || '');
+    sources.forEach((source) => {
+      def = findDefForSourceObj(source, def!);
+      if (def !== null) {
+        selectedId = peekOptionId(def, selectedId);
+        this._selectedOptionIds.delete(selectedId);
+      } else {
+        return;
+      }
+    });
   }
 }

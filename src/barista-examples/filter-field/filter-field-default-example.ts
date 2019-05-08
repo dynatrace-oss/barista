@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DtFilterFieldDefaultDataSource, DtFilterChangeEvent } from '@dynatrace/angular-components/filter-field';
+import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/filter-field';
 
 @Component({
   moduleId: module.id,

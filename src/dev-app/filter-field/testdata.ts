@@ -1,39 +1,38 @@
 export const TEST_DATA = {
-  distinct: true,
   autocomplete: [
     {
       name: 'AUT',
+      distinct: true,
       autocomplete: [
         {
-          name: 'Upper Austria',
-          distinct: true,
-          autocomplete: [
-            {
-              name: 'Cities',
-              options: [
-                'Linz',
-                'Wels',
-                'Steyr',
-              ],
-            },
-          ],
+          name: 'Vienna',
         },
         {
-          name: 'Wien',
+          name: 'Linz',
+        },
+        {
+          name: 'custom',
+          suggestions: [],
         },
       ],
     },
     {
-      name: 'USA',
+      name: 'US',
       autocomplete: [
         {
-          name: 'California',
-          autocomplete: [
-            'Los Angeles',
-            'San Fran',
-          ],
+          name: 'a',
+        },
+        {
+          name: 'b',
+        },
+        {
+          name: 'custom',
+          suggestions: [],
         },
       ],
     },
   ],
 };
+
+// selectedIds
+// AUT, AUT-Vienna, US, US-b

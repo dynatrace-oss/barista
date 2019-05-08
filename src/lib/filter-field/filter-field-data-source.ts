@@ -1,8 +1,19 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isObject } from '@dynatrace/angular-components/core';
-import { DtFilterFieldDataSource } from './filter-field-data-source';
-import { DtNodeDef, dtAutocompleteDef, dtOptionDef, dtGroupDef, isDtAutocompleteDef, isDtGroupDef, dtFreeTextDef } from '../types';
+import { DtNodeDef, dtAutocompleteDef, dtOptionDef, dtGroupDef, isDtAutocompleteDef, isDtGroupDef, dtFreeTextDef } from './types';
+
+export abstract class DtFilterFieldDataSource {
+  /**
+   * Used by the DtFilterFieldControl. Called when it connects to the data source.
+   * Should return a stream of data that will be transformed, filtered and
+   * displayed by the DtFilterField and the DtFilterFieldControl.
+   */
+  abstract connect(): Observable<DtNodeDef | null>;
+
+  /** Used by the DtFilterField. Called when it is destroyed. */
+  abstract disconnect(): void;
+}
 
 /** Shape of an object to be usable as a option in an autocomplete */
 type Option = { name: string } | string;
@@ -146,7 +157,7 @@ export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSourc
     } else if (isOption(data)) {
       const parentGroup = isDtGroupDef(parent) ? parent : null;
       parentAutocomplete = parentAutocomplete || (parentGroup && parentGroup.group.parentAutocomplete || null);
-      def = dtOptionDef(typeof data === 'string' ? data : data.name, data, def, parentAutocomplete, parentGroup);
+      def = dtOptionDef(typeof data === 'string' ? data : data.name, data, null, def, parentAutocomplete, parentGroup);
     }
     return def;
   }
