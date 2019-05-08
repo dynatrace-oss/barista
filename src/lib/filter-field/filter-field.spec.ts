@@ -1,16 +1,22 @@
 // tslint:disable:no-use-before-declare i18n newline-per-chained-call no-floating-promises no-magic-numbers
 
-import { TestBed, ComponentFixture, inject, fakeAsync, tick, flush } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtFilterFieldModule, DtFilterFieldDefaultDataSource, DtFilterField, DT_FILTER_FIELD_TYPING_DEBOUNCE, DtFilterChangeEvent } from '@dynatrace/angular-components/filter-field';
 import { Component, NgZone, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { ENTER, BACKSPACE, ESCAPE } from '@angular/cdk/keycodes';
+import { TestBed, ComponentFixture, inject, fakeAsync, tick, flush } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import {
+  DtFilterFieldModule,
+  DtFilterFieldDefaultDataSource,
+  DtFilterField,
+  DT_FILTER_FIELD_TYPING_DEBOUNCE,
+  DtFilterFieldChangeEvent
+} from '@dynatrace/angular-components/filter-field';
 import { typeInElement } from '../../testing/type-in-element';
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
-import { ENTER, BACKSPACE, ESCAPE } from '@angular/cdk/keycodes';
 
 const TEST_DATA = {
   autocomplete: [
@@ -270,8 +276,8 @@ describe('DtFilterField', () => {
       subscription.unsubscribe();
     }));
 
-    it('should fire a DtFilterChangeEvent when adding an option', fakeAsync(() => {
-      let filterChangeEvent: DtFilterChangeEvent | undefined;
+    it('should emit filterChanges when adding an option', fakeAsync(() => {
+      let filterChangeEvent: DtFilterFieldChangeEvent | undefined;
 
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe((ev) => filterChangeEvent = ev);
@@ -294,8 +300,8 @@ describe('DtFilterField', () => {
       sub.unsubscribe();
     }));
 
-    it('should fire a DtFilterChangeEvent when removing an option', fakeAsync(() => {
-      let filterChangeEvent: DtFilterChangeEvent | undefined;
+    it('should emit filterChanges when removing an option', fakeAsync(() => {
+      let filterChangeEvent: DtFilterFieldChangeEvent | undefined;
 
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe((ev) => filterChangeEvent = ev);
@@ -411,6 +417,7 @@ describe('DtFilterField', () => {
 
       tags[0].removeButton.click();
 
+      filterField.focus();
       zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
 
@@ -446,7 +453,7 @@ describe('DtFilterField', () => {
       expect(options[2].innerText).toBe('Free');
     });
 
-    it('should remove an option from an autocomplete if it is distinct and the option was previously selected', () => {
+    it('should remove a parent from an autocomplete if it is distinct and an option has been selected', () => {
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
       filterField.focus();
@@ -455,7 +462,7 @@ describe('DtFilterField', () => {
 
       let options = getOptions(overlayContainerElement);
 
-      let autOption = options[0];
+      const autOption = options[0];
       autOption.click();
       zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
@@ -473,17 +480,7 @@ describe('DtFilterField', () => {
       zone.simulateZoneExit();
 
       options = getOptions(overlayContainerElement);
-      autOption = options[0];
-      autOption.click();
-      zone.simulateMicrotasksEmpty();
-      fixture.detectChanges();
-
-      zone.simulateZoneExit();
-
-      options = getOptions(overlayContainerElement);
-      const linzOption = options[0];
-      expect(options.length).toBe(1);
-      expect(linzOption.innerText).toBe('Linz');
+      expect(options.length).toBe(0);
     });
 
     it('should close the panel when pressing escape', fakeAsync(() => {
