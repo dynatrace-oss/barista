@@ -28,6 +28,10 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     this._activeDataSourceName = value;
   }
 
+  get canSetValues(): boolean {
+    return this._dataSource.data === TEST_DATA;
+  }
+
   @ViewChild(DtFilterField) filterField: DtFilterField;
 
   private _activeDataSourceName = 'TEST_DATA';
@@ -48,7 +52,6 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
 
   filterChanges(event: any): void {
     console.log(event);
-    console.log(this.filterField.filters);
   }
 
   toggledDisableFirstTag(): void {
@@ -61,8 +64,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     if (this._dataSource.data === TEST_DATA) {
       const filter1 = [
         TEST_DATA.autocomplete[0],
-        TEST_DATA.autocomplete[0].autocomplete[0],
-        (TEST_DATA.autocomplete[0].autocomplete[0].autocomplete![0] as any).options[0],
+        (TEST_DATA as any).autocomplete[0].autocomplete[0],
       ];
       this.filterField.filters = [filter1];
     }

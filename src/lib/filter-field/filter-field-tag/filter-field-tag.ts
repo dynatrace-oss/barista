@@ -29,9 +29,13 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 })
 export class DtFilterFieldTag {
 
+  /** Tag data object that contains view values for displaying (like key, value and separator) and the original source. */
   @Input() data: DtFilterFieldTagData;
 
+  /** Emits when the filter should be removed (usually by clicking the remove button). */
   @Output() readonly remove = new EventEmitter<DtFilterFieldTag>();
+
+  /** Emits when the filter should be made editable (usually by clicking the edit button). */
   @Output() readonly edit = new EventEmitter<DtFilterFieldTag>();
 
   /** Whether the tag is disabled. */
@@ -46,6 +50,7 @@ export class DtFilterFieldTag {
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
+  /** @internal Called when the remove button has been clicked. Emits the remove output. */
   _handleRemove(event: MouseEvent): void {
     // Prevent click from bubbling up, so it does not interfere with autocomplete
     event.stopImmediatePropagation();
@@ -55,6 +60,7 @@ export class DtFilterFieldTag {
     }
   }
 
+  /** @internal Called when the edit button has been clicked. Emits the edit output. */
   _handleEdit(event: MouseEvent): void {
     // Prevent click from bubbling up, so it does not interfere with autocomplete
     event.stopImmediatePropagation();

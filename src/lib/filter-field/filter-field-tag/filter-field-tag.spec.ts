@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TestBed, fakeAsync, ComponentFixture, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DtFilterFieldTag, DtFilterFieldModule, DtIconModule } from '@dynatrace/angular-components';
+import { DtFilterFieldTag, DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 
 describe('DtFilterFieldTag', () => {
   let fixture: ComponentFixture<TestApp>;
