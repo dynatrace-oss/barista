@@ -1,5 +1,20 @@
-import { DtNodeDef, isDtGroupDef, isDtOptionDef, isDtAutocompleteDef, dtGroupDef, dtAutocompleteDef, dtFreeTextData, dtFreeTextDef, DtFilterFieldSource, DtFilterFieldTagData, isDtFreeTextDef } from './types';
+import {
+  DtNodeDef,
+  isDtGroupDef,
+  isDtOptionDef,
+  isDtAutocompleteDef,
+  dtGroupDef,
+  dtAutocompleteDef,
+  dtFreeTextDef,
+  DtFilterFieldTagData,
+  isDtFreeTextDef,
+  isDtRenderType
+} from './types';
 
+/**
+ * Either returns the provided autocomplete def or null on whether the autocomplete still contains
+ * options or groups after filtering them based on the predicate functions below.
+ */
 export function filterAutocompleteDef(def: DtNodeDef, distinctIds: Set<string>, filterText?: string): DtNodeDef | null {
   const optionsOrGroups = def.autocomplete!.optionsOrGroups
     .map((optionOrGroup) => isDtGroupDef(optionOrGroup) ?
@@ -8,57 +23,90 @@ export function filterAutocompleteDef(def: DtNodeDef, distinctIds: Set<string>, 
   return optionsOrGroups.length ? dtAutocompleteDef(optionsOrGroups, def.autocomplete!.distinct, def.data, def) : null;
 }
 
+/** Filters the list of suggestions (options) based on the predicate functions below. */
 export function filterFreeTextDef(def: DtNodeDef, filterText?: string): DtNodeDef {
   const suggestions = def.freeText!.suggestions ?
     def.freeText!.suggestions.filter((option) => filterOptionDef(option, new Set(), filterText)) : [];
   return dtFreeTextDef(suggestions, def.data, def);
 }
 
-function filterGroupDef(def: DtNodeDef, distinctIds: Set<string>, filterText?: string): DtNodeDef | null {
-  const options = def.group!.options.filter((option) => filterOptionDef(option, distinctIds, filterText));
+/**
+ * Either returns the provided group def or null on whether the group still contains options
+ * after filtering them based on the predicate functions below.
+ */
+export function filterGroupDef(def: DtNodeDef, selectedOptionIds: Set<string>, filterText?: string): DtNodeDef | null {
+  const options = def.group!.options.filter((option) => filterOptionDef(option, selectedOptionIds, filterText));
   return options.length ? dtGroupDef(def.group!.label, options, def.data, def, def.group!.parentAutocomplete) : null;
 }
 
-function filterOptionDef(def: DtNodeDef, distinctIds: Set<string>, filterText?: string): DtNodeDef | null  {
-  return defDistinctPredicate(def, distinctIds) &&  optionFilterTextPredicate(def, filterText || '') ? def : null;
+/** Either returns the provided option def or null based on the predicate functions below. */
+export function filterOptionDef(def: DtNodeDef, selectedOptionIds: Set<string>, filterText?: string): DtNodeDef | null {
+  return defDistinctPredicate(
+    def,
+    selectedOptionIds,
+    !!def.option!.parentAutocomplete && def.option!.parentAutocomplete!.autocomplete!.distinct
+  ) && optionFilterTextPredicate(def, filterText || '') ? def : null;
 }
 
 /** Predicate function to check whether the provided node def should be in the filtered result. */
-function defDistinctPredicate(def: DtNodeDef, distinctIds: Set<string>): boolean {
+export function defDistinctPredicate(def: DtNodeDef, selectedOptionIds: Set<string>, isDistinct: boolean): boolean {
   if (isDtGroupDef(def)) {
-    return def.group.options.some((option) => defDistinctPredicate(option, distinctIds));
+    return optionOrGroupListFilteredPredicate(def.group.options, selectedOptionIds, isDistinct);
   }
 
-  // Check whether option should be filtered out
-  // (when its distinct value is listed in the distinctIds and the parent autocomplete is marked as distinct)
-  if (isDtOptionDef(def) && !optionDistinctPredicate(def, distinctIds)) {
+  if (isDtOptionDef(def) && !optionOrGroupFilteredPredicate(def, selectedOptionIds, isDistinct)) {
     return false;
   }
 
   if (isDtAutocompleteDef(def)) {
-    return def.autocomplete.optionsOrGroups.some((optionOrGroup) =>
-      defDistinctPredicate(optionOrGroup, distinctIds));
+    return optionOrGroupListFilteredPredicate(def.autocomplete.optionsOrGroups, selectedOptionIds, def.autocomplete.distinct);
   }
   return true;
 }
 
-/** Predicate function for filtering options based on their distinct id. */
-function optionDistinctPredicate(def: DtNodeDef, distinctIds: Set<string>): boolean {
-  return !(def.option!.distinctId &&
-    distinctIds.has(def.option!.distinctId!) &&
-    isDtAutocompleteDef(def.option!.parentAutocomplete) &&
-    def.option!.parentAutocomplete!.autocomplete!.distinct);
+/** Whether a filtered list of options or groups contains items. */
+export function optionOrGroupListFilteredPredicate(
+  optionsOrGroups: DtNodeDef[],
+  selectedOptionIds: Set<string>,
+  isDistinct: boolean
+): boolean {
+  if (isDistinct) {
+    return !optionsOrGroups.some((optionOrGroup) => !optionOrGroupFilteredPredicate(optionOrGroup, selectedOptionIds, isDistinct));
+  } else {
+    return optionsOrGroups.some((optionOrGroup) => optionOrGroupFilteredPredicate(optionOrGroup, selectedOptionIds, isDistinct));
+  }
+}
+
+/** Whether an option or Group is filtered (visible) */
+export function optionOrGroupFilteredPredicate(
+  optionOrGroup: DtNodeDef,
+  selectedOptionIds: Set<string>,
+  isDistinct: boolean
+): boolean {
+  return isDtGroupDef(optionOrGroup) ?
+    optionOrGroupListFilteredPredicate(optionOrGroup.group.options, selectedOptionIds, isDistinct) :
+    optionSelectedPredicate(optionOrGroup, selectedOptionIds, isDistinct);
+}
+
+/** Predicate function for filtering options based on their id. */
+export function optionSelectedPredicate(def: DtNodeDef, selectedIds: Set<string>, isDistinct: boolean): boolean {
+  return !(def.option!.uid && selectedIds.has(def.option!.uid!) && (!isDtRenderType(def) || isDistinct));
 }
 
 /** Predicate function for filtering options based on the view value and the text inserted by the user. */
-function optionFilterTextPredicate(def: DtNodeDef, filterText: string): boolean {
+export function optionFilterTextPredicate(def: DtNodeDef, filterText: string): boolean {
   // Transform the filter and viewValue by converting it to lowercase and removing whitespace.
   const transformedFilter = filterText.trim().toLowerCase();
   const transformedViewValue = def.option!.viewValue.trim().toLowerCase();
   return !transformedFilter.length || transformedViewValue.indexOf(transformedFilter) !== -1;
 }
 
-export function transformSourceToTagData(sources: DtFilterFieldSource[], rootDef: DtNodeDef): DtFilterFieldTagData | null {
+/**
+ * Transforms a list of sources to TagData, looks up view values, ...
+ * Used for displaying filters as tags.
+ */
+// tslint:disable-next-line:no-any
+export function transformSourceToTagData(sources: any[], rootDef: DtNodeDef): DtFilterFieldTagData | null {
   let def = rootDef;
   let key: string | null = null;
   let value: string | null = null;
@@ -67,26 +115,36 @@ export function transformSourceToTagData(sources: DtFilterFieldSource[], rootDef
   for (let i = 0; i < sources.length; i++) {
     const source = sources[i];
     const newDef = findDefForSourceObj(source, def);
-    if (newDef === null) {
-      return null;
+
+    if (newDef === null && isDtAutocompleteDef(def)) {
+      break;
     }
-    def = newDef;
-    if (i === 0 && sources.length > 1) {
-      key = typeof source === 'string' ? source : def.option!.viewValue;
+
+    if (isDtFreeTextDef(def) && typeof source === 'string') {
+      value = `"${source}"`;
+      if (sources.length > 1) {
+        separator = '~';
+      }
+      break;
     }
-    value = typeof source === 'string' ? source : def.option!.viewValue;
+
+    if (newDef !== null) {
+      def = newDef;
+      if (i === 0 && sources.length > 1) {
+        key = typeof source === 'string' ? source : def.option!.viewValue;
+      }
+      value = typeof source === 'string' ? source : def.option!.viewValue;
+    } else {
+      break;
+    }
   }
 
-  if (isDtFreeTextDef(def)) {
-    value = `"${value}"`;
-    if (sources.length > 1) {
-      separator = '~';
-    }
-  }
-  return sources.length ? new DtFilterFieldTagData(key, value, separator, sources[0]) : null;
+  return sources.length && value !== null ? new DtFilterFieldTagData(key, value, separator, sources) : null;
 }
 
-function findDefForSourceObj(source: DtFilterFieldSource, def: DtNodeDef): DtNodeDef | null {
+/** Tries to find a definition for the provided source. It will start the lookup at the provided def. */
+// tslint:disable-next-line:no-any
+export function findDefForSourceObj(source: any, def: DtNodeDef): DtNodeDef | null {
   if (isDtAutocompleteDef(def)) {
     for (const optionOrGroup of def.autocomplete.optionsOrGroups) {
       if (isDtOptionDef(optionOrGroup) && optionOrGroup.data === source) {
@@ -101,4 +159,25 @@ function findDefForSourceObj(source: DtFilterFieldSource, def: DtNodeDef): DtNod
     }
   }
   return null;
+}
+
+// Use an obscure Unicode character to delimit the words in the concatenated string.
+// This avoids matches where the values of two columns combined will match the user's query
+// (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
+// that has a very low chance of being typed in by somebody in a text field. This one in
+// particular is "White up-pointing triangle with dot" from
+// https://en.wikipedia.org/wiki/List_of_Unicode_characters
+export const DELIMITER = '◬';
+
+/** Peeks into a option node definition and returns its distinct id or creates a new one. */
+export function peekOptionId(def: DtNodeDef, prefix?: string): string {
+  const id = def.option!.uid ? def.option!.uid! : generateOptionId(def, prefix);
+  def.option!.uid = id;
+  return id;
+}
+
+/** Generates a new option id for the provided node def. */
+export function generateOptionId(def: DtNodeDef, prefix: string = ''): string {
+  const groupRef = def.option!.parentGroup ? `${def.option!.parentGroup!.group!.label}${DELIMITER}` : '';
+  return `${prefix}${groupRef}${def.option!.viewValue}${DELIMITER}`;
 }

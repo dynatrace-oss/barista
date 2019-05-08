@@ -24,6 +24,7 @@ import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-c
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { DtInputModule } from '@dynatrace/angular-components/input';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
+import { DtFilterFieldModule} from '@dynatrace/angular-components/filter-field';
 import { DtAutocompleteModule } from '@dynatrace/angular-components/autocomplete';
 import { DtTreeControl, DtTreeFlattener, DtTreeDataSource } from '@dynatrace/angular-components/core';
 import { DtIconType } from '@dynatrace/dt-iconpack';
@@ -207,6 +208,7 @@ export class KitchenSink {
     DtToggleButtonGroupModule,
     DtInfoGroupModule,
     DtHighlightModule,
+    DtFilterFieldModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
