@@ -7,6 +7,7 @@
 @Component({
   template: `
     <button dt-button>      </button>
+    ~~~~~~~~~~~~~~~~~~  [A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.]
     <a href="#" dt-button></a>
     ~~~~~~~~~~~~~~~~~~~~~~  [A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.]
     <button></button>
