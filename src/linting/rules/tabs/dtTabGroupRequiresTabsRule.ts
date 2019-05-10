@@ -2,9 +2,9 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, isElementWithName, findChild, ChildNode } from '../utils';
+import { addFailure, isElementWithName, findChild, ChildNode } from '../../utils';
 
-class DtTableVisitor extends BasicTemplateAstVisitor {
+class DtTabGroupVisitor extends BasicTemplateAstVisitor {
 
   visitElement(element: ElementAst, context: any): any {
     this._validateElement(element);
@@ -63,7 +63,7 @@ export class Rule extends Rules.AbstractRule {
   apply(sourceFile: SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: DtTableVisitor,
+        templateVisitorCtrl: DtTabGroupVisitor,
       })
     );
   }
