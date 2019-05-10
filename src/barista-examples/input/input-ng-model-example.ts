@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
     <input dtInput
       required
       placeholder="Enter Text"
+      aria-label="Enter text"
       [(ngModel)]="textValue"
       #textControl="ngModel" />
     <p>Output: <em>{{textValue || 'none'}}</em></p>

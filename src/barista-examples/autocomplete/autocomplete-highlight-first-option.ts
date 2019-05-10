@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   moduleId: module.id,
   template: `
-  <input dtInput [dtAutocomplete]="auto" [formControl]="myControl" placeholder="Start typing">
+  <input dtInput [dtAutocomplete]="auto" [formControl]="myControl" placeholder="Start typing" aria-label="Start typing">
   <dt-autocomplete #auto="dtAutocomplete" autoActiveFirstOption>
     <dt-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</dt-option>
   </dt-autocomplete>

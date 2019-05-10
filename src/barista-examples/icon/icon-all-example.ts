@@ -50,7 +50,7 @@ export class DocsAsyncIcon implements OnDestroy {
 @Component({
   moduleId: module.id,
   template: `
-    <input #input type="text" dtInput placeholder="Filter by" (input)="_onInputChange($event)"/>
+    <input #input type="text" dtInput placeholder="Filter by" (input)="_onInputChange($event)" aria-label="Filter icons"/>
     <div class="all-icons-container">
       <docs-async-icon *ngFor="let name of _icons$ | async" [name]="name"></docs-async-icon>
     </div>`,
