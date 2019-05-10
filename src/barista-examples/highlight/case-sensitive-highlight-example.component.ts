@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   styles: ['input { margin-bottom: 20px; }'],
   template: `
-    <input type="text" dtInput value="Dy" #search />
+    <input type="text" dtInput value="Dy" #search aria-label="Insert the text that should be highlighted in the example below." />
     <dt-highlight [term]="search.value" caseSensitive>Dynatrace system Monitoring</dt-highlight>
   `,
 })

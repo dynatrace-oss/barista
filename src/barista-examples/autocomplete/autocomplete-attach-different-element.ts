@@ -10,7 +10,8 @@ import { FormControl } from '@angular/forms';
     <input dtInput
       [dtAutocomplete]="auto" [dtAutocompleteConnectedTo]="origin"
       [formControl]="myControl"
-      placeholder="Start typing">
+      placeholder="Start typing"
+      aria-label="Start typing">
     <span>Some text to make the wrapper bigger</span>
   </div>
   <dt-autocomplete #auto="dtAutocomplete">
