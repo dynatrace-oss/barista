@@ -19,7 +19,14 @@ export const _filter = (opt: string[], value: string): string[] => {
   template: `
   <form [formGroup]="stateForm">
   <dt-form-field>
-    <input type="text" dtInput placeholder="States Group" formControlName="stateGroup" [dtAutocomplete]="autoGroup">
+    <input
+      type="text"
+      dtInput
+      placeholder="States Group"
+      aria-label="States group"
+      formControlName="stateGroup"
+      [dtAutocomplete]="autoGroup"
+    >
       <dt-autocomplete #autoGroup="dtAutocomplete">
         <dt-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
           <dt-option *ngFor="let name of group.names" [value]="name">

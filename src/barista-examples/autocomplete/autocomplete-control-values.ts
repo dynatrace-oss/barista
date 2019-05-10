@@ -7,7 +7,7 @@ import { COUNTRIES, countryCompareWithFn, CountryOption } from './countries';
 @Component({
   moduleId: module.id,
   template: `
-  <input dtInput [dtAutocomplete]="auto" [formControl]="myControl" placeholder="Search a country">
+  <input dtInput [dtAutocomplete]="auto" [formControl]="myControl" placeholder="Search a country" aria-label="Search a country">
   <dt-autocomplete #auto="dtAutocomplete" [displayWith]="displayFn">
     <dt-option *ngFor="let option of filteredOptions | async" [value]="option">{{option.name}}</dt-option>
   </dt-autocomplete>
