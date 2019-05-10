@@ -53,7 +53,7 @@ class DtSelectVisitor extends BasicTemplateAstVisitor {
  *   <dt-option value="Affogato">Affogato</dt-option>
  * // ...
  * </dt-select>
- * 
+ *
  * <dt-form-field>
  *   <dt-label>Your Coffee:</dt-label>
  *   <dt-select placeholder="Choose your coffee" required [(ngModel)]="selectedValue">
