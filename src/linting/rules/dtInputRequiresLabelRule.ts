@@ -11,7 +11,7 @@ import { addFailure,
   ParentElement,
 } from '../utils';
 
-class DtFormControlVisitor extends BasicTemplateAstVisitor {
+class DtInputVisitor extends BasicTemplateAstVisitor {
 
   formFields: ParentElement[] = [];
 
@@ -23,7 +23,8 @@ class DtFormControlVisitor extends BasicTemplateAstVisitor {
   private _validateElement(element: ElementAst): any {
     // If the element is a form field, remember it.
     if (isElementWithName(element, 'dt-form-field')) {
-      this.formFields = addParentElement(element, this.formFields);
+      this.formFields = addParentElement(element, this.formFields, element.name);
+      return;
     }
 
     if (getAttribute(element, 'dtInput') === undefined) {
@@ -45,13 +46,18 @@ class DtFormControlVisitor extends BasicTemplateAstVisitor {
 }
 
 /**
- * The dtInputLabelRule ensures that a label or text alternatives are given for a dtInput.
+ * The dtInputRequiresLabelRule ensures that a label or text alternatives are given for a dtInput.
  *
  * The following example passes the lint checks:
-
+ * <dt-form-field>
+ *   <dt-label>Some text</dt-label>
+ *   <input type="text" dtInput placeholder="Please insert text"/>
+ * </dt-form-field>
+ *
+ * <input type="text" dtInput placeholder="Please insert text" aria-label="Please insert text"/>
  *
  * For the following example the linter throws errors:
-
+ * <input type="text" dtInput placeholder="Please insert text"/>
  */
 export class Rule extends Rules.AbstractRule {
 
@@ -61,7 +67,7 @@ export class Rule extends Rules.AbstractRule {
     options: null,
     optionsDescription: 'Not configurable.',
     rationale: 'A dtInput must have a label when used with the form field component or an aria-label or aria-labelledby attribute.',
-    ruleName: 'dt-input-label',
+    ruleName: 'dt-input-requires-label',
     type: 'maintainability',
     typescriptOnly: true,
   };
@@ -69,7 +75,7 @@ export class Rule extends Rules.AbstractRule {
   apply(sourceFile: SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: DtFormControlVisitor,
+        templateVisitorCtrl: DtInputVisitor,
       })
     );
   }
