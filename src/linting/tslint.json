@@ -35,6 +35,8 @@
     "dt-tile-needs-icon": { "severity": "warning" },
     "dt-tile-no-empty": { "severity": "warning" },
     "dt-toggle-button-group-item-is-button": { "severity": "warning" },
-    "dt-tab-group-requires-tabs": { "severity": "warning" }
+    "dt-tab-group-requires-tabs": { "severity": "warning" },
+    "dt-tab-requires-label": { "severity": "warning" },
+    "dt-tab-requires-content": { "severity": "warning" }
   }
 }
