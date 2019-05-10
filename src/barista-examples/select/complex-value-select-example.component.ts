@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: `
     <p>Selected Value label: <i>{{selectedValue?.viewValue || 'No value selected'}}</i></p>
-    <dt-select placeholder="Choose your coffee" [(ngModel)]="selectedValue">
+    <dt-select placeholder="Choose your coffee" [(ngModel)]="selectedValue" aria-label="Choose your coffee">
       <dt-option *ngFor="let coffee of coffees" [value]="coffee">
         {{coffee.viewValue}}
       </dt-option>

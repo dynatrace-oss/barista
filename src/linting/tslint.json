@@ -22,6 +22,7 @@
     "dt-nested-button-is-icon-button": { "severity": "warning" },
     "dt-radio-button-requires-name": { "severity": "warning" },
     "dt-radio-button-no-empty": { "severity": "warning" },
+    "dt-select-requires-label": { "severity": "warning" },
     "dt-selection-area-alt-text": { "severity": "warning" },
     "dt-show-more-no-empty": { "severity": "warning" },
     "dt-switch-no-empty": { "severity": "warning" },
