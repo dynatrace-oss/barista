@@ -4,7 +4,7 @@ import { timer } from 'rxjs';
 @Component({
   template: `
     <dt-copy-to-clipboard (copied)="copyCallback()">
-      <textarea dtInput>https://copyexample.dynatrace.com/</textarea>
+      <textarea dtInput aria-label="Text that is copied to clipboard">https://copyexample.dynatrace.com/</textarea>
       <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
     </dt-copy-to-clipboard>
     <br/>

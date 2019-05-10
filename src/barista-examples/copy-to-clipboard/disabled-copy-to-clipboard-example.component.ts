@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   template: `
     <dt-copy-to-clipboard #copyClipboard [disabled]="_toggleValue">
-      <textarea dtInput>https://inzx79.dynatrace.com/</textarea>
+      <textarea dtInput aria-label="Text that is copied to clipboard">https://inzx79.dynatrace.com/</textarea>
       <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
     </dt-copy-to-clipboard>
     <br/>
