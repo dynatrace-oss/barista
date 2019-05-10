@@ -33,6 +33,7 @@
     "dt-selection-area-alt-text": true,
     "dt-tab-content-no-empty": true,
     "dt-tab-label-no-empty": true,
-    "dt-toggle-button-group-item-is-button": true
+    "dt-toggle-button-group-item-is-button": true,
+    "dt-tab-group-requires-tabs": true
   }
 }
