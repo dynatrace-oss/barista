@@ -34,6 +34,8 @@
     "dt-tab-content-no-empty": true,
     "dt-tab-label-no-empty": true,
     "dt-toggle-button-group-item-is-button": true,
-    "dt-tab-group-requires-tabs": true
+    "dt-tab-group-requires-tabs": true,
+    "dt-tab-requires-label": true,
+    "dt-tab-requires-content": true
   }
 }
