@@ -9,8 +9,12 @@
 }
 
 .dt-progress-circle-body {
-  display: inline-block;
+  display: block;
   position: relative;
+
+  svg {
+    display: block;
+  }
 }
 
 .dt-progress-circle-background,
@@ -35,6 +39,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  line-height: 1.6;
+  width: calc(100% - 16px);
+  text-align: center;
 
   /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
   ::ng-deep .dt-icon {
