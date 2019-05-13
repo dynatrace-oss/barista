@@ -38,7 +38,7 @@ export function findChild(element: any, childName: string, level: number, foundC
 }
 
 export function findChildByAttribute(element: any, attrName: string, level: number, foundChildren: ChildNode[]): void {
-  if (element.attrs && (element.attrs as AttrAst[]).find(attr => attr.name === attrName)) {
+  if (element.attrs && (element.attrs as AttrAst[]).find((attr) => attr.name === attrName)) {
     foundChildren.push({
       name: attrName,
       level,
