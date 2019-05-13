@@ -6,7 +6,7 @@ import { addFailure, hasContent, isElementWithName } from '../utils';
 
 class DtLoadingDistractorVisitor extends BasicTemplateAstVisitor {
 
-  visitElement(element: ElementAst, context: any): any {
+  visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
   }

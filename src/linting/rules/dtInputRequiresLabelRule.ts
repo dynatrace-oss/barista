@@ -3,7 +3,7 @@ import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
 import { addFailure,
-  addParentElement,
+  getParentElement,
   getAttribute,
   hasFormFieldParentWithLabel,
   hasTextContentAlternative,
@@ -15,7 +15,7 @@ class DtInputVisitor extends BasicTemplateAstVisitor {
 
   formFields: ParentElement[] = [];
 
-  visitElement(element: ElementAst, context: any): any {
+  visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
   }
@@ -23,7 +23,15 @@ class DtInputVisitor extends BasicTemplateAstVisitor {
   private _validateElement(element: ElementAst): any {
     // If the element is a form field, remember it.
     if (isElementWithName(element, 'dt-form-field')) {
-      this.formFields = addParentElement(element, this.formFields, element.name);
+      const parentElement = getParentElement(element, element.name);
+      if (parentElement === undefined) {
+        return;
+      }
+      this.formFields.push(parentElement);
+      // Sort by start line for later checks.
+      if (this.formFields.length > 1) {
+        this.formFields.sort((a, b) => a.startLine - b.startLine);
+      }
       return;
     }
 
