@@ -1,6 +1,6 @@
 /**
- * Test file for testing the dt-info-group-needs-title-and-icon rule.
- * An info group must always contain a title and an icon.
+ * Test file for testing the dt-info-group-nrequires-icon rule.
+ * An info group must always contain an icon.
  */
 
 @Component({
@@ -29,18 +29,13 @@
     </dt-info-group>
    
     <dt-info-group>
-    ~~~~~~~~~~~~~~~   [A dt-info-group must always contain a dt-info-group-title and a dt-info-group-icon as direct children.]
+    ~~~~~~~~~~~~~~~   [A dt-info-group must always contain a dt-info-group-icon as direct child.]
       <dt-info-group-title>5 min 30 s</dt-info-group-title>
       Session duration
     </dt-info-group>
 
     <dt-info-group>
-    ~~~~~~~~~~~~~~~   [A dt-info-group must always contain a dt-info-group-title and a dt-info-group-icon as direct children.]
-      <dt-info-group-icon><dt-icon name="agent"></dt-icon></dt-info-group-icon>
-    </dt-info-group>
-
-    <dt-info-group>
-    ~~~~~~~~~~~~~~~   [A dt-info-group must always contain a dt-info-group-title and a dt-info-group-icon as direct children.]
+    ~~~~~~~~~~~~~~~   [A dt-info-group must always contain a dt-info-group-icon as direct child.]
       <div>
         <dt-info-group-icon><dt-icon name="agent"></dt-icon></dt-info-group-icon>
         <dt-info-group-title>5 min 30 s</dt-info-group-title>

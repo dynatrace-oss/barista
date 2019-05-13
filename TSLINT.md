@@ -17,7 +17,8 @@ We provide a set of custom TSLint rules to help you using the Angular components
 | `dt-copy-to-clipboard-no-empty` | The copy-to-clipboard component must always contain a `dt-copy-to-clipboard-label`, that is a direct child of `dt-copy-to-clipboard`. |
 | `dt-icon-button-alt-text` | An icon-only button must always have an alternative text in form of an `aria-label` or `aria-labelledby` attribute. |
 | `dt-icon-button-needs-icon` | The content of an icon button (`dt-icon-button`) must always be an icon component (`<dt-icon>`). |
-| `dt-info-group-needs-title-and-icon` | The `dt-info-group-title` and `dt-info-group-icon` are required child elements of the `dt-info-group` and must be direct children. |
+| `dt-info-group-requires-icon` | The `dt-info-group-icon` is a required child element of the `dt-info-group` and must be a direct child. |
+| `dt-info-group-requires-title` | The `dt-info-group-title` is a required child element of the `dt-info-group` and must be a direct child. |
 | `dt-input-requires-label` | A dtInput must have a dt-label when wrapped in a dt-form-field or an `aria-label` or `aria-labelledby` attribute. |
 | `dt-loading-distractor-no-empty` | A loading distractor must always contain text content or a component that renders text. |
 | `dt-nested-button-is-icon-button` | Every nested button (`variant="nested"`) must be an icon button (`dt-icon-button`). |
