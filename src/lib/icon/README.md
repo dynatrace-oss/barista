@@ -109,4 +109,4 @@ Based on this, `<dt-icon>` is marked as `aria-hidden="true"` by default, but thi
 
 Below you can see all icons that are currently shipped within the `@dynatrace/dt-iconpack` package. You can use these names as the name property for the dt-icon component
 
-<docs-source-example example="AllIconExample"></docs-source-example>
+<docs-source-example example="AllIconExample" fullwidth="true"></docs-source-example>
