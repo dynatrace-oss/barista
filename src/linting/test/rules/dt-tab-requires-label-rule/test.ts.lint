@@ -1,0 +1,23 @@
+/**
+ * Test file for testing the dt-tab-requires-label rule.
+ * A dt-tab must always have a label.
+ */
+
+@Component({
+  template: `
+  <dt-tab>
+    <ng-template dtTabLabel>Packets</ng-template>
+    <ng-template dtTabContent>
+      <h3>Packets</h3>
+    </ng-template>
+  </dt-tab>
+
+  <dt-tab>
+  ~~~~~~~~  [A dt-tab must always contain a dtTabLabel.]
+    <ng-template dtTabContent>
+      <h3>Packets</h3>
+    </ng-template>
+  </dt-tab>
+  `,
+})
+class TestClass { }

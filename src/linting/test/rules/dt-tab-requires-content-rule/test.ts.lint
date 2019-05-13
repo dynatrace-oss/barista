@@ -1,0 +1,21 @@
+/**
+ * Test file for testing the dt-tab-requires-content rule.
+ * A dt-tab must always have content.
+ */
+
+@Component({
+  template: `
+  <dt-tab>
+    <ng-template dtTabLabel>Packets</ng-template>
+    <ng-template dtTabContent>
+      <h3>Packets</h3>
+    </ng-template>
+  </dt-tab>
+
+  <dt-tab>
+  ~~~~~~~~  [A dt-tab must always contain a dtTabContent.]
+    <ng-template dtTabLabel>Packets</ng-template>
+  </dt-tab>
+  `,
+})
+class TestClass { }

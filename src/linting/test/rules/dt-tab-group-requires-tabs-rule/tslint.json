@@ -1,0 +1,6 @@
+{
+  "rulesDirectory": "../../../../../dist/lib/tslint/rules/tabs",
+  "rules": {
+    "dt-tab-group-requires-tabs": true
+  }
+}
