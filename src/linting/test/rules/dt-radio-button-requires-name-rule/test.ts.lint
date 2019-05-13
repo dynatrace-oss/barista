@@ -1,0 +1,19 @@
+/**
+ * Test file for testing the dt-radio-button-requires-name rule.
+ * A radio button must have a name attribute when not used within a radio button group.
+ */
+
+@Component({
+  template: `
+  <dt-radio-group name="group0">
+    <dt-radio-button value="aberfeldy">Aberfeldy</dt-radio-button>
+    <dt-radio-button value="dalmore">Dalmore</dt-radio-button>
+  </dt-radio-group>
+
+  <dt-radio-button value="dalmore" name="group">Dalmore</dt-radio-button>
+
+  <dt-radio-button value="myValue">Radio button value</dt-radio-button>
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [When a dt-radio-button is not part of a dt-radio group it must have a name attribute.]
+  `,
+})
+class TestClass { }

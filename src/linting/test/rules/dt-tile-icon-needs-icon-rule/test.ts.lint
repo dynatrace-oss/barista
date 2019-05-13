@@ -1,0 +1,32 @@
+/**
+ * Test file for testing the dt-tile-icon-needs-icon rule.
+ * A tile icon must always contain a dt-icon element.
+ */
+
+@Component({
+  template: `
+  <dt-tile-icon><dt-icon name="agent"></dt-icon></dt-tile-icon>
+
+  <dt-tile>
+    <dt-tile-icon><dt-icon name="agent"></dt-icon></dt-tile-icon>
+    <dt-tile-title>L-W8-64-APMDay3</dt-tile-title>
+    <dt-tile-subtitle>Linux (x84, 64-bit)</dt-tile-subtitle>
+    Network traffic
+  </dt-tile>
+
+  <dt-tile-icon>some text</dt-tile-icon>
+  ~~~~~~~~~~~~~~  [A dt-tile-icon must contain dt-icon elements only. No other nested elements are allowed.]
+
+  <dt-tile-icon>  </dt-tile-icon>
+  ~~~~~~~~~~~~~~  [A dt-tile-icon must not be empty, but must contain a dt-icon element.]
+
+  <dt-tile>
+    <dt-tile-icon>xxx</dt-tile-icon>
+    ~~~~~~~~~~~~~~  [A dt-tile-icon must contain dt-icon elements only. No other nested elements are allowed.]
+    <dt-tile-title>L-W8-64-APMDay3</dt-tile-title>
+    <dt-tile-subtitle>Linux (x84, 64-bit)</dt-tile-subtitle>
+    Network traffic
+  </dt-tile>
+  `,
+})
+class TestClass { }

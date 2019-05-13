@@ -1,0 +1,34 @@
+/**
+ * Test file for testing the dt-tab-group-requires-tabs rule.
+ * A dt-tab-group must at least contain two tabs.
+ */
+
+@Component({
+  template: `
+  <dt-tab-group>
+    <dt-tab disabled>
+     ...
+    </dt-tab>
+    <div class="test-div">
+      <dt-tab>
+      ...
+      </dt-tab>
+      <dt-tab>
+      ...
+      </dt-tab>
+    </div>
+  </dt-tab-group>
+
+  <dt-tab-group>
+  ~~~~~~~~~~~~~~  [A dt-tab-group must contain at least two tabs.]
+    <dt-tab disabled>
+     ...
+    </dt-tab>
+  </dt-tab-group>
+
+  <dt-tab-group>
+  ~~~~~~~~~~~~~~  [A dt-tab-group must contain at least two tabs.]
+  </dt-tab-group>
+  `,
+})
+class TestClass { }
