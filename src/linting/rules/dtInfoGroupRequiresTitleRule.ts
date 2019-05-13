@@ -17,18 +17,17 @@ class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
     }
 
     const hasDtInfoGroupTitle = isDirectChild(element, 'dt-info-group-title');
-    const hasDtInfoGroupIcon = isDirectChild(element, 'dt-info-group-icon');
 
-    if (hasDtInfoGroupTitle && hasDtInfoGroupIcon) {
+    if (hasDtInfoGroupTitle) {
       return;
     }
 
-    addFailure(this, element, 'A dt-info-group must always contain a dt-info-group-title and a dt-info-group-icon as direct children.');
+    addFailure(this, element, 'A dt-info-group must always contain a dt-info-group-title as direct child.');
   }
 }
 
 /**
- * The dtInfoGroupNeedsTitleRule ensures that an info group always contains a title and an icon.
+ * The dtInfoGroupRequiresTitleRule ensures that an info group always contains a title.
  *
  * The following example passes the lint checks:
  * <dt-info-group>
@@ -39,19 +38,19 @@ class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
  *
  * For the following example the linter throws an error:
  * <dt-info-group>
- *   <dt-info-group-title>5 min 30 s</dt-info-group-title>
+ *   <dt-info-group-icon><dt-icon name="agent"></dt-icon></dt-info-group-icon>
  *   Session duration
  * </dt-info-group>
  */
 export class Rule extends Rules.AbstractRule {
 
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that an info group always has a title and an icon.',
+    description: 'Ensures that an info group always has a title.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'An info group must always contain a dt-info-group-title and a dt-info-group-icon.',
-    ruleName: 'dt-info-group-needs-title-and-icon',
+    rationale: 'An info group must always contain a dt-info-group-title.',
+    ruleName: 'dt-info-group-requires-title',
     type: 'maintainability',
     typescriptOnly: true,
   };
