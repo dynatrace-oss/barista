@@ -1,4 +1,5 @@
 import { ElementAst } from '@angular/compiler';
+import { isEqual } from 'lodash';
 
 export interface ParentElement {
   name: string;
@@ -13,10 +14,7 @@ export interface ParentElement {
  */
 function findMatch(parent: ParentElement, element: ElementAst): ElementAst | undefined {
   return parent.children.find((child) => {
-    // There may be a better solution for comparing objects, but it works in this case.
-    const childObj = JSON.stringify(child);
-    const elementObj = JSON.stringify(element);
-    if (childObj === elementObj) {
+    if (isEqual(child, element)) {
       return true;
     }
     return false;
@@ -27,30 +25,24 @@ function findMatch(parent: ParentElement, element: ElementAst): ElementAst | und
  * Adds the given element to the array of parent elements, selected by name.
  * The children array is additionally filtered when the name of the child elements is given.
  * @param element - the current element
- * @param parents - array of parent elements
  * @param parentName - name of the parent element
  * @param childName - name of the children elements that should be added to the parent's children
- * @returns the new array of parent elements
+ * @returns a new parent element or undefined
  */
-export function addParentElement(element: ElementAst, parents: ParentElement[], parentName: string, childName?: string): ParentElement[] {
+export function getParentElement(element: ElementAst, parentName: string, childName?: string): ParentElement | undefined {
   const startLine = element.sourceSpan.start.line;
   const elementChildren = element.children
     .filter((child) => child instanceof ElementAst)
     // Return only children with name when given.
     .filter((child) => childName ? (child as ElementAst).name === childName : true);
-  if (elementChildren.length) {
-    parents.push({
-      name: parentName,
-      startLine,
-      children: elementChildren as ElementAst[],
-    });
-    // Sort by start line for later checks.
-    if (parents.length > 1) {
-      parents.sort((a, b) => a.startLine - b.startLine);
-    }
+  if (elementChildren.length < 1) {
+    return undefined;
   }
-
-  return parents;
+  return {
+    name: parentName,
+    startLine,
+    children: elementChildren as ElementAst[],
+  };
 }
 
 /**

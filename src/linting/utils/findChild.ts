@@ -19,37 +19,52 @@ function increaseLevel(element: any, level: number): number {
 
 /**
  * Finds children of a given element by name and collects information about the nested level.
+ * @param element - the current element.
+ * @param childName - the element name to search for.
+ * @param level - the current level.
+ * @returns array of found child nodes.
  */
-export function findChild(element: any, childName: string, level: number, foundChildren: ChildNode[]): void {
+export function findChild(element: any, childName: string, level: number): ChildNode[] {
   if (element.name && element.name === childName) {
-    foundChildren.push({
+    return [{
       name: childName,
       level,
-    });
+    }];
   }
 
+  let children: ChildNode[] = [];
   if (element.children && element.children.length > 0) {
     const newLevel = increaseLevel(element, level);
     const noOfChildren = element.children.length;
     for (let i = 0; i < noOfChildren; i++) {
-      findChild(element.children[i], childName, newLevel, foundChildren);
+      children = children.concat(findChild(element.children[i], childName, newLevel));
     }
   }
+  return children;
 }
 
-export function findChildByAttribute(element: any, attrName: string, level: number, foundChildren: ChildNode[]): void {
+/**
+ * Finds children of a given element by attribute and collects information about the nested level.
+ * @param element - the current element.
+ * @param attrName - the attribute name to search for.
+ * @param level - the current level.
+ * @returns array of found child nodes.
+ */
+export function findChildByAttribute(element: any, attrName: string, level: number): ChildNode[] {
   if (element.attrs && (element.attrs as AttrAst[]).find((attr) => attr.name === attrName)) {
-    foundChildren.push({
+    return [{
       name: attrName,
       level,
-    });
+    }];
   }
 
+  let children: ChildNode[] = [];
   if (element.children && element.children.length > 0) {
     const newLevel = increaseLevel(element, level);
     const noOfChildren = element.children.length;
     for (let i = 0; i < noOfChildren; i++) {
-      findChildByAttribute(element.children[i], attrName, newLevel, foundChildren);
+      children = children.concat(findChildByAttribute(element.children[i], attrName, newLevel));
     }
   }
+  return children;
 }

@@ -7,7 +7,7 @@ import { cardChildren } from './cardUtils';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
 
-  visitElement(element: ElementAst, context: any): any {
+  visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
   }
@@ -17,9 +17,9 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const childNodes: ChildNode[] = [];
+    let childNodes: ChildNode[] = [];
     cardChildren.forEach((childName) => {
-      findChild(element, childName, 0, childNodes);
+      childNodes = childNodes.concat(findChild(element, childName, 0));
     });
 
     const filteredChildren: string[] = childNodes
