@@ -1,3 +1,21 @@
+## 2.7.0 (2019-05-13)
+
+### Bug Fixes
+
+* **colors:** Add missing white color definition to scss variables ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **progress-circle:** Fixes an issue where the progress-circle sizing was wrong and therefore it could not be easily filled with a background-color 
+
+### Features
+
+* **breadcrumbs:** Adds appropriate aria attributes ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **inline-editor:** Adds input for aria attributes for save and cancel buttons ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Add alt text rule for context dialog and adapt examples ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Add dt-radio-button-name-required rule ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Add dt-select-requires-label rule ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Add dt-tab-group-requires-tabs rule ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Add dt-tab-requires-label and dt-tab-requires-content rules ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Add dt-tile-icon-needs-icon rule ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 2.6.1 (2019-04-29)
 
 ### Bug Fixes
