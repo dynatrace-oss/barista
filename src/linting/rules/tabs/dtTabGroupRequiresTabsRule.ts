@@ -2,11 +2,11 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, isElementWithName, findChild, ChildNode } from '../../utils';
+import { addFailure, isElementWithName, findChild } from '../../utils';
 
 class DtTabGroupVisitor extends BasicTemplateAstVisitor {
 
-  visitElement(element: ElementAst, context: any): any {
+  visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
   }
@@ -16,8 +16,7 @@ class DtTabGroupVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const dtTabChildren: ChildNode[] = [];
-    findChild(element, 'dt-tab', 0, dtTabChildren);
+    const dtTabChildren = findChild(element, 'dt-tab', 0);
 
     if (dtTabChildren.length > 1) {
       return;

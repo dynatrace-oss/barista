@@ -3,7 +3,7 @@ import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
 import { addFailure,
-  addParentElement,
+  getParentElement,
   getAttribute,
   getElementParent,
   isElementWithName,
@@ -14,7 +14,7 @@ class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
 
   radioButtonGroups: ParentElement[] = [];
 
-  visitElement(element: ElementAst, context: any): any {
+  visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
   }
@@ -23,7 +23,15 @@ class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
 
     // Check if a radio group is found.
     if (isElementWithName(element, 'dt-radio-group')) {
-      this.radioButtonGroups = addParentElement(element, this.radioButtonGroups, 'dt-radio-group', 'dt-radio-button');
+      const parentElement = getParentElement(element, 'dt-radio-group', 'dt-radio-button');
+      if (parentElement === undefined) {
+        return;
+      }
+      this.radioButtonGroups.push(parentElement);
+      // Sort by start line for later checks.
+      if (this.radioButtonGroups.length > 1) {
+        this.radioButtonGroups.sort((a, b) => a.startLine - b.startLine);
+      }
       return;
     }
 
