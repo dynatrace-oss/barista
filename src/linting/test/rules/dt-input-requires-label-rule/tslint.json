@@ -1,0 +1,5 @@
+{
+  "rules": {
+    "dt-input-requires-label": true
+  }
+}

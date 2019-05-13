@@ -1,0 +1,29 @@
+/**
+ * Test file for testing the dt-input-requires-label rule.
+ * A dt-input must have a dt-label when wrapped in a dt-form-field
+ * or an aria-label or aria-labelledby attribute to provide a text alternative.
+ */
+
+@Component({
+  template: `
+  <input type="text" dtInput placeholder="Please insert text" aria-label="Please insert text"/>
+
+  <dt-form-field>
+    <dt-label>Some text</dt-label>
+    <input type="text" dtInput placeholder="Please insert text"/>
+  </dt-form-field>
+
+  <dt-form-field>
+    <input type="text" dtInput placeholder="Please insert text" aria-label="Please insert text"/>
+  </dt-form-field>
+
+  <input type="text" dtInput placeholder="Please insert text"/>
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A dtInput requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.]
+
+  <dt-form-field>
+    <input type="text" dtInput placeholder="Please insert text"/>
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  [A dtInput requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.]
+  </dt-form-field>
+  `,
+})
+class TestClass { }

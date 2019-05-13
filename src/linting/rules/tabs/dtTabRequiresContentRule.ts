@@ -28,7 +28,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
 }
 
 /**
- * The dtTabRequiresLabelRule ensures that a dt-tab always has a label.
+ * The dtTabRequiresContentRule ensures that a dt-tab always has content.
  *
  * The following example passes the check:
  * <dt-tab>

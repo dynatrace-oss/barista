@@ -1,0 +1,42 @@
+/**
+ * Test file for testing the dt-select-requires-label rule.
+ * A dt-select must have a dt-label when wrapped in a dt-form-field
+ * or an aria-label or aria-labelledby attribute to provide a text alternative.
+ */
+
+@Component({
+  template: `
+  <dt-select placeholder="Choose your coffee" aria-label="Choose your coffee">
+    <dt-option value="ThePerfectPour">ThePerfectPour</dt-option>
+    <dt-option value="Affogato">Affogato</dt-option>
+    <dt-option value="Americano">Americano</dt-option>
+  </dt-select>
+
+  <dt-form-field>
+    <dt-label>Your Coffee:</dt-label>
+    <dt-select placeholder="Choose your coffee" required [(ngModel)]="selectedValue">
+      <dt-option>No Coffee (Triggers an error)</dt-option>
+      <dt-option value="ThePerfectPour">ThePerfectPour</dt-option>
+      <dt-option value="Affogato">Affogato</dt-option>
+      <dt-option value="Americano">Americano</dt-option>
+    </dt-select>
+   </dt-form-field>
+
+   <dt-form-field>
+    <dt-select placeholder="Choose your coffee" required [(ngModel)]="selectedValue">
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A dt-select requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.]
+      <dt-option>No Coffee (Triggers an error)</dt-option>
+      <dt-option value="ThePerfectPour">ThePerfectPour</dt-option>
+      <dt-option value="Affogato">Affogato</dt-option>
+      <dt-option value="Americano">Americano</dt-option>
+    </dt-select>
+   </dt-form-field>
+
+   <dt-select placeholder="Choose your coffee">
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A dt-select requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.]
+     <dt-option value="ThePerfectPour">ThePerfectPour</dt-option>
+     <dt-option value="Affogato">Affogato</dt-option>
+   </dt-select>
+  `,
+})
+class TestClass { }
