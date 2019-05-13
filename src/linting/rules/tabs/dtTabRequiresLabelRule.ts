@@ -39,7 +39,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
  * </dt-tab>
  *
  * For the following example the linter throws an error:
-* <dt-tab>
+ * <dt-tab>
  *   <ng-template dtTabContent>
  *     <h3>Packets</h3>
  *   </ng-template>
