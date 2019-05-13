@@ -6,7 +6,7 @@ import { addFailure, hasContentApartFrom, hasTextContentAlternative, isElementWi
 
 class DtShowMoreVisitor extends BasicTemplateAstVisitor {
 
-  visitElement(element: ElementAst, context: any): any {
+  visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
   }

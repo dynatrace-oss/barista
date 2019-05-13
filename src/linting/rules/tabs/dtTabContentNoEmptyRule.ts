@@ -6,7 +6,7 @@ import { addFailure, hasContent } from '../../utils';
 
 class DtTabVisitor extends BasicTemplateAstVisitor {
 
-  visitEmbeddedTemplate(template: EmbeddedTemplateAst, context: any): any {
+  visitEmbeddedTemplate(template: EmbeddedTemplateAst, context: any): void {
     this._validateElement(template);
     super.visitEmbeddedTemplate(template, context);
   }
