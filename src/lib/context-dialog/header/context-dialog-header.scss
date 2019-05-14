@@ -1,0 +1,15 @@
+@import '../../style/font-mixins';
+@import '../../core/style/variables';
+
+:host {
+  background-color: $gray-600;
+  display: block;
+  box-sizing: border-box;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+:host ::ng-deep .dt-context-dialog-header-title {
+  @include h2-font();
+  color: $white;
+}

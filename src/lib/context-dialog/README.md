@@ -71,6 +71,10 @@ To add a custom icon use the `<dt-button dt-icon-button></dt-button>` component 
 
 <docs-source-example example="CustomIconContextDialogExampleComponent"></docs-source-example>
 
+### Context dialog with a header
+
+<docs-source-example example="ContextDialogHeaderExampleComponent"></docs-source-example>
+
 ### Context dialog on dark background
 
 <docs-source-example example="DarkContextDialogExampleComponent" themedark="true"></docs-source-example>
