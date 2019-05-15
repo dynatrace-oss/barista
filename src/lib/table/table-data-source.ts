@@ -2,8 +2,7 @@ import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject, Observable, merge, of, combineLatest, Subscription, Subject } from 'rxjs';
 import { DtSort, DtSortEvent } from './sort/sort';
 import { map, takeUntil } from 'rxjs/operators';
-import { isNumber, isString } from '@dynatrace/angular-components/core';
-import {compareString } from './sort/sort-helpers';
+import { isNumber, isString, compareValues } from '@dynatrace/angular-components/core';
 import { DtTable } from './table';
 import { DtSimpleColumnDisplayAccessorFunction, DtSimpleColumnSortAccessorFunction } from './simple-columns/simple-column-base';
 
@@ -101,30 +100,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
     return data.sort((a, b) => {
       const valueA = this.sortingDataAccessor(a, active);
       const valueB = this.sortingDataAccessor(b, active);
-
-      // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
-      // one value exists while the other doesn't. In this case, existing value should come first.
-      // This avoids inconsistent results when comparing values to undefined/null.
-      // If neither value exists, return 0 (equal).
-      let comparatorResult = 0;
-      if (valueA !== null && valueB !== null) {
-        if (isString(valueA) && isString(valueB)) {
-          comparatorResult = compareString((valueA as string), (valueB as string));
-        } else {
-          // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
-          if (valueA > valueB) {
-            comparatorResult = 1;
-          } else if (valueA < valueB) {
-            comparatorResult = -1;
-          }
-        }
-      } else if (valueA !== null) {
-        comparatorResult = -1;
-      } else if (valueB !== null) {
-        comparatorResult = 1;
-      }
-
-      return comparatorResult * (direction === 'asc' ? 1 : -1);
+      return compareValues(valueA, valueB, direction);
     });
   }
 
