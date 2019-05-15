@@ -14,7 +14,7 @@ This makes it easier to apply CSS styles to SVG icons.
 
 You have to import the `DtIconModule` in your `AppModule`.
 **Note:** It needs a bit of configuration to work. Use the `DT_ICON_CONFIGURATION` token to provide the configuration object.
-See more in the [configuration section below](/icon#configuration).
+See more in the [configuration section below](#configuration).
 
 ```typescript
 
