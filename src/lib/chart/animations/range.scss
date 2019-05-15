@@ -1,0 +1,60 @@
+@import '../../core/style/variables';
+@import '../../core/style/interactive-common';
+
+$chart-border-width: 3px;
+$chart-arrow-size: 15px;
+$chart-border-color: $turquoise-600;
+
+:host {
+  display: flex;
+  left: 0;
+  height: 100%;
+  justify-content: space-between;
+  position: absolute;
+  opacity: 0;
+}
+
+.dt-chart-selected-area {
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: $turquoise-600, $alpha: 0.1);
+  pointer-events: none;
+}
+
+.dt-chart-right-handle,
+.dt-chart-left-handle {
+  width: $chart-border-width;
+  padding: 0;
+  border: none;
+  height: 100%;
+  background-color: $chart-border-color;
+
+  &,
+  &::after {
+    cursor: col-resize;
+  }
+
+  :host.dt-chart-range-released &::after {
+    border-bottom: $chart-arrow-size solid transparent;
+    border-top: $chart-arrow-size solid transparent;
+    content: '';
+    height: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+  }
+
+  &:focus{
+    @include dt-focus-style();
+  }
+}
+
+.dt-chart-right-handle::after {
+  border-left: $chart-arrow-size solid $chart-border-color;
+}
+
+.dt-chart-left-handle::after {
+  border-right: $chart-arrow-size solid $chart-border-color;
+  transform: translate(-100%, -50%);
+}
