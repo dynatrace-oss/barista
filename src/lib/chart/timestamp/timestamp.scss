@@ -1,0 +1,9 @@
+@import '../../core/style/variables';
+
+.dt-chart-timestamp-selector {
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  background: $turquoise-600;
+  left: 0;
+}
