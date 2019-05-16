@@ -1,0 +1,7 @@
+.dt-simple-text-cell-data,
+.dt-simple-number-cell-data {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}

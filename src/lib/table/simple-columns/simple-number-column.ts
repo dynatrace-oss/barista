@@ -12,6 +12,7 @@ import { formatCount } from '@dynatrace/angular-components/formatters';
 @Component({
   selector: 'dt-simple-number-column',
   templateUrl: 'simple-number-column.html',
+  styleUrls: ['./simple-column.scss'],
   preserveWhitespaces: false,
   encapsulation: ViewEncapsulation.Emulated,
   /*
