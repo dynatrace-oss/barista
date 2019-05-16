@@ -15,7 +15,7 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs';
 import { isDefined } from '@dynatrace/angular-components/core';
 
-const DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS  = 12;
+const DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS = 12;
 const DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS = 18;
 const DT_KEY_VALUE_LIST_MAX_COLUMNS = 6;
 
