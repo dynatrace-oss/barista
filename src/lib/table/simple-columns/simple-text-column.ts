@@ -10,6 +10,7 @@ import { DtTable } from '../table';
 @Component({
   selector: 'dt-simple-text-column',
   templateUrl: 'simple-text-column.html',
+  styleUrls: ['./simple-column.scss'],
   preserveWhitespaces: false,
   encapsulation: ViewEncapsulation.Emulated,
   /*
