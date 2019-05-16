@@ -12,10 +12,14 @@
   display: block;
 }
 
+:host[dt-column] {
+  min-width: 280px;
+}
+
 @media (min-width: 662px) {
   :host[dt-column='2'],
   :host[dt-column='3'] {
-    columns: 280px 2;
+    columns: auto 2;
     max-width: 1220px;
   }
 }
@@ -25,20 +29,20 @@
   :host[dt-column='3'],
   :host[dt-column='4'],
   :host[dt-column='5'] {
-    columns: 280px 3;
+    columns: auto 3;
     max-width: 1860px;
   }
 
   :host[dt-column='4'] {
-    columns: 280px 4;
+    columns: auto 4;
   }
 
   :host[dt-column='5'] {
-    columns: 280px 5;
+    columns: auto 5;
   }
 
   :host[dt-column='6'] {
-    columns: 280px 6;
+    columns: auto 6;
     max-width: 1980px;
   }
 }
