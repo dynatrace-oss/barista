@@ -38,6 +38,10 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   }
 
   private _disabled = false;
+  /**
+   * @deprecated The copy-to-clipboard component should not be disabled.
+   * @breaking-change To be removed with 3.0.0.
+   */
   @Input()
   get disabled(): boolean {
     return this._disabled;
