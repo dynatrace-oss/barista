@@ -1,6 +1,9 @@
 import { DtToastContainer } from './toast-container';
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, fromEvent, merge, interval, EMPTY, Subscription } from 'rxjs';
+import { startWith, switchMap, mapTo, scan, takeWhile, tap, share, takeUntil } from 'rxjs/operators';
+import { DT_TOAST_CHAR_READ_TIME } from './toast-config';
+import { NgZone } from '@angular/core';
 
 export class DtToastRef {
 
@@ -10,22 +13,34 @@ export class DtToastRef {
   /** The duration the toastref will be displayed */
   duration: number;
 
-  private _durationTimeoutId: number;
+  /** Obersable that emits when the dismiss timer should be paused */
+  private _pause$: Observable<boolean>;
+  /** Observable that emits whenever the dismiss timer should be resumed */
+  private _resume$: Observable<boolean>;
+  /** Observable that emits everytime someone can read a char */
+  private _interval$: Observable<number>;
+  /** The subscription of the countdown */
+  private _countdownSub = Subscription.EMPTY;
 
   private readonly _afterDismissed = new Subject<void>();
 
   constructor(
     containerInstance: DtToastContainer,
     duration: number,
-    private _overlayRef: OverlayRef
+    private _overlayRef: OverlayRef,
+    private _zone: NgZone
   ) {
     this.containerInstance = containerInstance;
     this.duration = duration;
     containerInstance._onDomExit.subscribe(() => {
       this._overlayRef.dispose();
+      this._countdownSub.unsubscribe();
       this._afterDismissed.next();
       this._afterDismissed.complete();
     });
+    this._interval$ = interval(DT_TOAST_CHAR_READ_TIME).pipe(mapTo(-DT_TOAST_CHAR_READ_TIME));
+    this._pause$ = fromEvent(this.containerInstance._elementRef.nativeElement, 'mouseenter').pipe(mapTo(false));
+    this._resume$ = fromEvent(this.containerInstance._elementRef.nativeElement, 'mouseleave').pipe(mapTo(true));
   }
 
   /** Observable that emits when the toast finished the dismissal */
@@ -43,10 +58,19 @@ export class DtToastRef {
     if (!this._afterDismissed.closed) {
       this.containerInstance.exit();
     }
-    clearTimeout(this._durationTimeoutId);
+    this._countdownSub.unsubscribe();
   }
 
+  /** Starts a timer to dismiss the toast automatically after the duration is over. Handles pausing and resuming the timer. */
   _dismissAfterTimeout(): void {
-    this._durationTimeoutId = window.setTimeout(() => { this.dismiss(); }, this.duration);
+    this._zone.runOutsideAngular(() => {
+      this._countdownSub = merge(this._pause$, this._resume$)
+      .pipe(
+        startWith(true),
+        switchMap((val) => (val ? this._interval$ : EMPTY)),
+        scan((acc, curr) => (curr ? curr + acc : acc), this.duration),
+        takeWhile((v) => v >= DT_TOAST_CHAR_READ_TIME)
+      ).subscribe({ complete: () => { this._zone.run(() => { this.dismiss(); }); }});
+    });
   }
 }
