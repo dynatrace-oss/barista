@@ -6,6 +6,7 @@ import {
   OnDestroy,
   NgZone,
   ChangeDetectorRef,
+  ElementRef,
 } from '@angular/core';
 import { DT_TOAST_MESSAGE } from './toast';
 import { DT_TOAST_FADE_TIME } from './toast-config';
@@ -52,6 +53,7 @@ export class DtToastContainer extends _DtToastContainerMixin implements OnDestro
   constructor(
     @Inject(DT_TOAST_MESSAGE) public message: string,
     public _ngZone: NgZone,
+    public _elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef
   )  {
     super(_ngZone);
