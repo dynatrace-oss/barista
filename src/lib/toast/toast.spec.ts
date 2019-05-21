@@ -1,9 +1,10 @@
 
-import {ComponentFixture, TestBed, fakeAsync, inject, flush, tick} from '@angular/core/testing';
-import {Component} from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, inject, flush, tick, flushMicrotasks } from '@angular/core/testing';
+import { Component } from '@angular/core';
 import { DtToastModule, DtToast, DT_TOAST_FADE_TIME, DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT} from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { dispatchFakeEvent } from '../../testing/dispatch-events';
 
 describe('DtToast', () => {
   let dtToast: DtToast;
@@ -27,12 +28,12 @@ describe('DtToast', () => {
     overlayContainerElement = oc.getContainerElement();
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     fixture = TestBed.createComponent(TestComponent);
 
     fixture.detectChanges();
 
-  });
+  }));
 
   afterEach(() => {
     overlayContainer.ngOnDestroy();
@@ -75,7 +76,6 @@ describe('DtToast', () => {
 
     const messageElement = overlayContainerElement.querySelector('.dt-toast-container')!;
     expect(messageElement.textContent!.length).toBe(DT_TOAST_CHAR_LIMIT);
-
     tick(toastRef!.duration / 2);
     expect(afterDismissSpy).not.toHaveBeenCalled();
 
@@ -159,7 +159,7 @@ describe('DtToast', () => {
       expect(dismissCompleteSpy).toHaveBeenCalled();
       expect(toastRef!.containerInstance._animationState)
           .toBe('exit', `Expected the animation state would be 'exit'.`);
-      flush();
+      tick(DT_TOAST_MIN_DURATION);
     }));
 
   it('should open a new toast after dismissing a previous toast', fakeAsync(() => {
@@ -172,28 +172,30 @@ describe('DtToast', () => {
 
     // Wait for the toast dismiss animation to finish.
     flush();
-    toastRef = dtToast.create(simpleMessage);
+    toastRef = dtToast.create('test');
     fixture.detectChanges();
 
     // Wait for the toast open animation to finish.
     tick(DT_TOAST_FADE_TIME);
     expect(toastRef!.containerInstance._animationState)
     .toBe('enter', `Expected the animation state to be 'enter'.`);
-    flush();
+    tick(DT_TOAST_MIN_DURATION);
   }));
 
   it('should remove past toasts when opening new toasts', fakeAsync(() => {
     dtToast.create('First toast');
     fixture.detectChanges();
+    tick();
 
     dtToast.create('Second toast');
     fixture.detectChanges();
-    flush();
+    tick();
 
     dtToast.create('Third toast');
     fixture.detectChanges();
+    tick();
     expect(overlayContainerElement.textContent!.trim()).toBe('Third toast');
-    flush();
+    tick(DT_TOAST_MIN_DURATION);
   }));
 
   it('should remove toast if another is shown while its still animating open', fakeAsync(() => {
@@ -205,9 +207,7 @@ describe('DtToast', () => {
 
     tick();
     expect(overlayContainerElement.textContent!.trim()).toBe('Second toast');
-
-    // Let remaining animations run.
-    flush();
+    tick(DT_TOAST_MIN_DURATION);
   }));
 
   it('should dismiss automatically after a specified timeout', fakeAsync(() => {
@@ -245,13 +245,41 @@ describe('DtToast', () => {
   it('should clear the dismiss timeout when dismissed before timeout expiration', fakeAsync(() => {
     const toastRef = dtToast.create('content message is very long and takes a long time');
 
-    setTimeout(() => dtToast.dismiss(), toastRef!.duration / 2);
+    setTimeout(() => { dtToast.dismiss(); }, toastRef!.duration / 2);
 
     tick(toastRef!.duration);
     fixture.detectChanges();
     tick();
 
     expect(fixture.isStable()).toBe(true);
+  }));
+
+  it('should pause dismissing the toast when hovering', fakeAsync(() => {
+    const longMsg = new Array(DT_TOAST_CHAR_LIMIT + 10).map(() => '.').join();
+    const toastRef = dtToast.create(longMsg);
+    const afterDismissSpy = jasmine.createSpy('after dismiss spy');
+    toastRef!.afterDismissed().subscribe(afterDismissSpy);
+
+    fixture.detectChanges();
+
+    const messageElement = overlayContainerElement.querySelector('.dt-toast-container')!;
+    expect(messageElement.textContent!.length).toBe(DT_TOAST_CHAR_LIMIT);
+
+    tick(toastRef!.duration / 2);
+    dispatchFakeEvent(messageElement, 'mouseenter');
+    expect(afterDismissSpy).not.toHaveBeenCalled();
+
+    tick(toastRef!.duration);
+    fixture.detectChanges();
+    expect(afterDismissSpy).not.toHaveBeenCalled();
+    dispatchFakeEvent(messageElement, 'mouseleave');
+    fixture.detectChanges();
+    expect(afterDismissSpy).not.toHaveBeenCalled();
+
+    tick(toastRef!.duration / 2);
+    fixture.detectChanges();
+    flushMicrotasks();
+    expect(afterDismissSpy).toHaveBeenCalled();
   }));
 });
 

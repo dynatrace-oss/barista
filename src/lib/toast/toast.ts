@@ -1,10 +1,12 @@
-import { Injectable, Injector, InjectionToken } from '@angular/core';
+import { Injectable, Injector, InjectionToken, NgZone } from '@angular/core';
 import { DtToastContainer } from './toast-container';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { DtToastRef } from './toast-ref';
 import { DT_TOAST_BOTTOM_SPACING, DT_TOAST_DEFAULT_CONFIG, DT_TOAST_PERCEIVE_TIME, DT_TOAST_CHAR_READ_TIME, DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT } from './toast-config';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtToast');
 
@@ -15,8 +17,9 @@ export const DT_TOAST_MESSAGE = new InjectionToken<string>('DtToastMessage');
 export class DtToast {
 
   private _openedToastRef: DtToastRef | null = null;
+  private _openedToastRefSub = Subscription.EMPTY;
 
-  constructor(private _overlay: Overlay, private _injector: Injector) {}
+  constructor(private _overlay: Overlay, private _injector: Injector, private _zone: NgZone) {}
 
   /** Creates a new toast and dismisses the current one if one exists */
   create(message: string): DtToastRef | null {
@@ -34,8 +37,7 @@ export class DtToast {
     const container = containerRef.instance;
 
     const duration = this._calculateToastDuration(msg);
-    const toastRef = new DtToastRef(container, duration, overlayRef);
-
+    const toastRef = new DtToastRef(container, duration, overlayRef, this._zone);
     this._animateDtToastContainer(toastRef);
     this._openedToastRef = toastRef;
     return this._openedToastRef;
@@ -71,6 +73,7 @@ export class DtToast {
     toastRef.afterDismissed().subscribe(() => {
       if (this._openedToastRef === toastRef) {
         this._openedToastRef = null;
+        this._openedToastRefSub.unsubscribe();
       }
     });
 
@@ -82,11 +85,13 @@ export class DtToast {
       });
       /** dismiss the current open toast */
       this._openedToastRef.dismiss();
+      this._openedToastRefSub.unsubscribe();
     } else {
       toastRef.containerInstance.enter();
     }
 
-    toastRef.afterOpened().subscribe(() => { toastRef._dismissAfterTimeout(); });
+    this._openedToastRefSub = toastRef.afterOpened()
+      .subscribe(() => { toastRef._dismissAfterTimeout(); });
   }
 
   private _fitMessage(message: string): string {
