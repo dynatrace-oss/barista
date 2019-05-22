@@ -8,7 +8,6 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   ViewEncapsulation,
-  Renderer2,
   Optional,
   ViewContainerRef,
   ChangeDetectorRef,
@@ -70,13 +69,11 @@ export class DtChartTooltip<T> implements OnDestroy {
   private readonly _destroy = new Subject<void>();
   private _overlayRef: OverlayRef | null;
   private _portal: TemplatePortal;
-  private _origin: SVGCircleElement | null;
   private _plotBackgroundInfo: HighchartsPlotBackgroundInformation;
 
   constructor(
     private _overlay: Overlay,
     private _ngZone: NgZone,
-    private _renderer: Renderer2,
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
     @Inject(DT_CHART_RESOLVER) @Optional() @SkipSelf() private _resolveParentChart: DtChartResolver
@@ -132,9 +129,8 @@ export class DtChartTooltip<T> implements OnDestroy {
   /** Create a new overlay for the tooltip */
   private _createOverlay(data: DtChartTooltipData, parentChart: DtChart): void {
     if (parentChart._chartObject) {
-
       const positionStrategy = this._overlay.position()
-        .flexibleConnectedTo(this._createTooltipMarker(parentChart, this._renderer, data))
+        .flexibleConnectedTo(this._getTooltipPosition(data, parentChart))
         .withPositions(DEFAULT_DT_CHART_TOOLTIP_POSITIONS);
 
       const overlayConfig = new OverlayConfig({
@@ -160,7 +156,7 @@ export class DtChartTooltip<T> implements OnDestroy {
     if (this._portal && this._overlayRef) {
       this._portal.context.$implicit = data;
       const positionStrategy = this._overlay.position()
-        .flexibleConnectedTo(this._createTooltipMarker(parentChart, this._renderer, data))
+        .flexibleConnectedTo(this._getTooltipPosition(data, parentChart))
         .withPositions(DEFAULT_DT_CHART_TOOLTIP_POSITIONS);
       this._overlayRef.updatePositionStrategy(positionStrategy);
       this._changeDetectorRef.markForCheck();
@@ -176,30 +172,16 @@ export class DtChartTooltip<T> implements OnDestroy {
   }
 
   /**
-   * Creates a dummy origin point that can be used to position the tooltip
+   * Calculate an origin point that can be used to position the tooltip.
    */
-  private _createTooltipMarker(chart: DtChart, renderer: Renderer2, data: DtChartTooltipData): { x: number; y: number } {
-    if (this._origin) {
-      this._renderer.removeChild(this._origin.parentNode, this._origin);
-      this._origin = null;
-    }
-
-    const circle: SVGCircleElement = renderer.createElement('circle', 'svg');
+  private _getTooltipPosition(data: DtChartTooltipData, chart: DtChart): { x: number; y: number } {
+    const containerElement: HTMLElement = chart.container.nativeElement;
+    const containerElementBB = containerElement.getBoundingClientRect();
     const { x, y } = getHighchartsTooltipPosition(data, this._plotBackgroundInfo);
-
-    renderer.setAttribute(circle, 'class', 'dt-tooltip-position-marker');
-    renderer.setAttribute(circle, 'cx', x.toString());
-    renderer.setAttribute(circle, 'cy', y.toString());
-    renderer.setAttribute(circle, 'r', '1');
-    renderer.setAttribute(circle, 'fill', 'transparent');
-    renderer.appendChild(chart._chartObject!.container.querySelector('svg'), circle);
-
-    this._origin = circle;
-    const boundingClientRect = circle.getBoundingClientRect();
     return {
-      x: boundingClientRect.left,
-      y: boundingClientRect.top,
-    };
+      x: containerElementBB.left + x,
+      y: containerElementBB.top + y,
+     };
   }
 
 }
