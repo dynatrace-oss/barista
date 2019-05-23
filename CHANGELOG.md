@@ -1,3 +1,21 @@
+## 2.8.0 (2019-05-23)
+
+### Bug Fixes
+
+* **chart:** Fixes an issue where chart-gridlines overlapped chart data after updating ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **copy-to-clipboard:** Fixes the text color of the input within dark theme context
+* **key-value-list:** Fixes an issue where the key-value-list did not create columns correctly if the container was too small 
+* **showmore:** Fixes an issue where the disabled property was not correctly handled when set programmatically ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Features
+
+* **context-dialog:** Added the capability to add a header section to the context-dialog component ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **core:** Publicly provide compare functions for string and number values ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** Add default datasource with pagination ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** Add show more example for the table ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** Added text overflow handling for simple columns ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **toast:** Pauses the toast dismiss timer when hovered with the mouse ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 2.7.0 (2019-05-13)
 
 ### Bug Fixes
