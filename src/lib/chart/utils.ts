@@ -1,5 +1,38 @@
+import { fromEvent, Observable, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+
+export interface Range {
+  left: number;
+  width: number;
+}
+
+export interface MousePosition {
+  x: number;
+  y: number;
+}
+
+export interface Range {
+  left: number;
+  width: number;
+}
+
+export type RangeInput = [MouseEvent, MousePosition];
+
+/**
+ * @internal
+ * Captures an event on multiple elements and merges them to one stream.
+ * returns this merged stream.
+ */
+export function captureAndMergeEvents<
+  E extends Element,
+  T extends keyof WindowEventMap
+>(type: T, elements: E[]): Observable<WindowEventMap[T]> {
+  return merge(
+    ...elements
+      .filter(Boolean)
+      .map((element: E) => fromEvent<WindowEventMap[T]>(element, type))
+  );
+}
 
 /**
  * Sets the {top, left, width, height} of an element
@@ -24,18 +57,6 @@ export function setPosition(
 }
 
 export const rangeInitialStyle = { left: '0px', width: '0px' };
-
-export interface MousePosition {
-  x: number;
-  y: number;
-}
-
-export interface Range {
-  left: number;
-  width: number;
-}
-
-export type RangeInput = [MouseEvent, MousePosition];
 
 /** Custom Rxjs operator to calculate the position of the select range */
 export const createRange = (container: HTMLElement) => (
@@ -139,6 +160,7 @@ export function getRelativeMousePosition(
   const boundingClientRect = container.getBoundingClientRect();
   const scroll = getScrollOffset();
 
+  // tslint:disable-next-line no-magic-numbers
   const borderSize = (boundingClientRect.width - container.clientWidth) / 2;
   const offsetLeft = boundingClientRect.left + scroll.x;
   const offsetTop = boundingClientRect.top + scroll.y;

@@ -1,12 +1,8 @@
 <div class="dt-chart-container">
 
-  <div class="dt-chart-selection-area" #selectionArea>
-    <ng-container *ngIf="_showRange">
-      <ng-content select="dt-chart-range"></ng-content>
-    </ng-container>
-    <ng-container *ngIf="_showTimestamp">
-      <ng-content select="dt-chart-timestamp"></ng-content>
-    </ng-container>
+  <div class="dt-chart-selection-area dt-no-pointer-events" #selectionArea>
+    <ng-content select="dt-chart-range"></ng-content>
+    <ng-content select="dt-chart-timestamp"></ng-content>
   </div>
 
   <ng-content select="dt-chart-heatfield"></ng-content>
@@ -16,7 +12,4 @@
 
   <dt-loading-distractor class="dt-chart-loading-indicator" *ngIf="_isLoading">{{loadingText}}</dt-loading-distractor>
 </div>
-<pre>
-Show Range: {{_showRange}}
-Show Timestamp: {{_showTimestamp}}
-</pre>
+

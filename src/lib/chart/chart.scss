@@ -15,12 +15,17 @@
   transform: translate(-50%, -50%);
 }
 
-
 .dt-chart-selection-area {
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 10000;
-  cursor: crosshair;
-  // background: rgba($red-600, 0.4)
+  z-index: 1;
+
+  &.dt-pointer-grabbing {
+    cursor: grabbing;
+  }
+
+  &.dt-no-pointer-events {
+    pointer-events: none;
+  }
 }
