@@ -1,14 +1,17 @@
 import {
   Component,
-  OnInit,
   ChangeDetectorRef,
-  Directive,
   Renderer2,
   ElementRef,
   ViewChild,
   ViewEncapsulation,
   ChangeDetectionStrategy,
+  Input,
+  ViewChildren,
+  QueryList,
+  OnDestroy,
 } from '@angular/core';
+import { take, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -22,34 +25,43 @@ import { Subject } from 'rxjs';
     class: 'dt-chart-timestamp',
   },
 })
-export class DtChartTimestamp {
+export class DtChartTimestamp implements OnDestroy {
 
-  /** hide the timestamp */
+  private _hidden = true;
+  private _destroy$ = new Subject<void>();
+
+  @ViewChildren('selector')
+  private _selector: QueryList<ElementRef<HTMLDivElement>>;
+
+  @Input()
   get hidden(): boolean { return this._hidden; }
   set hidden(hidden: boolean) {
     this._hidden = hidden;
     this._changeDetectorRef.markForCheck();
   }
-  private _hidden = false;
-
-  @ViewChild('selector')
-  private _selector: ElementRef<HTMLDivElement> | undefined;
 
   constructor(
     private _renderer: Renderer2,
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _elementRef: ElementRef
+    private _changeDetectorRef: ChangeDetectorRef
   ) {}
 
-  _setPosition(x: number): void {
-    if (!this._selector) {
-      return;
-    }
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
 
-    this._renderer.setStyle(
-      this._selector.nativeElement,
-      'transform',
-      `translateX(${x}px)`
-    );
+  /** @internal */
+  _setPosition(x: number): void {
+
+    this._selector.changes.pipe(
+      take(1),
+      takeUntil(this._destroy$)
+    ).subscribe(() => {
+      this._renderer.setStyle(
+        this._selector.first.nativeElement,
+        'transform',
+        `translateX(${x}px)`
+      );
+    });
   }
 }

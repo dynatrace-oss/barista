@@ -114,7 +114,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
 
   /** Applies classes and attributes to the plotbackground for keyboard and cursor support */
   private _applyAttributesAndClassesToPlotBackground(): void {
-    this._plotBackground = this._chart.container.nativeElement.querySelector('.highcharts-plot-background');
+    this._plotBackground = this._chart.container.nativeElement.querySelector('.highcharts-plot-background') as SVGRectElement;
     addCssClass(this._plotBackground, 'dt-selection-area-origin-cursor');
     this._plotBackground.setAttribute('tabindex', this.tabIndex.toString());
   }

@@ -5,7 +5,7 @@ $chart-border-width: 3px;
 $chart-arrow-size: 15px;
 $chart-border-color: $turquoise-600;
 
-:host {
+.dt-chart-range-container {
   display: flex;
   left: 0;
   height: 100%;
@@ -28,21 +28,23 @@ $chart-border-color: $turquoise-600;
   border: none;
   height: 100%;
   background-color: $chart-border-color;
+  pointer-events: all;
 
-  &,
-  &::after {
+  // only display the col-resize cursor when not resizing the range
+  .dt-chart-selection-area:not(.dt-pointer-grabbing) :host &,
+  .dt-chart-selection-area:not(.dt-pointer-grabbing) :host &::after {
     cursor: col-resize;
   }
 
   :host.dt-chart-range-released &::after {
-    border-bottom: $chart-arrow-size solid transparent;
-    border-top: $chart-arrow-size solid transparent;
+    // border-bottom: $chart-arrow-size solid transparent;
+    // border-top: $chart-arrow-size solid transparent;
     content: '';
-    height: 0;
+    height: 32px;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    width: 10px;
+    width: 11px;
+    background-image: url('/assets/selection-area-handle.svg');
   }
 
   &:focus{
@@ -51,10 +53,11 @@ $chart-border-color: $turquoise-600;
 }
 
 .dt-chart-right-handle::after {
-  border-left: $chart-arrow-size solid $chart-border-color;
+  // border-left: $chart-arrow-size solid $chart-border-color;
+  transform: translateY(-50%) scaleX(-1) ;
 }
 
 .dt-chart-left-handle::after {
-  border-right: $chart-arrow-size solid $chart-border-color;
+  // border-right: $chart-arrow-size solid $chart-border-color;
   transform: translate(-100%, -50%);
 }
