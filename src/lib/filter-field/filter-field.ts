@@ -376,7 +376,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
 
   /**
    * Removes a filter (a list of sources) from the list of current selected ones.
-   * I usually called when the user clicks the remove button of a filter
+   * It is usually called when the user clicks the remove button of a filter
    */
   private _removeFilter(sources: any[]): void {
     const removableIndex = this._filters.indexOf(sources);
