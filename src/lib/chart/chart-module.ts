@@ -7,9 +7,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { DtChartSelectionAreaOrigin } from './selection-area/chart-selection-area-origin';
 import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
-// import { DtChartSelectionArea } from './animations/chart-selection-area';
+
 import { DtChartTimestamp } from './timestamp/timestamp';
-import { DtChartRange } from './animations/range';
+import { DtChartRange } from './range/range';
 
 @NgModule({
   imports: [
@@ -23,7 +23,6 @@ import { DtChartRange } from './animations/range';
     DtChartHeatfield,
     DtChartSelectionAreaOrigin,
     DtChartTooltip,
-    // DtChartSelectionArea,
     DtChartTimestamp,
     DtChartRange,
   ],
@@ -32,7 +31,6 @@ import { DtChartRange } from './animations/range';
     DtChartHeatfield,
     DtChartSelectionAreaOrigin,
     DtChartTooltip,
-    // DtChartSelectionArea,
     DtChartTimestamp,
     DtChartRange,
   ],

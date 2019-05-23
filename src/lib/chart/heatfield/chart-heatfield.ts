@@ -217,10 +217,10 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
     const plotBackground = this._chart && this._chart.container.nativeElement.querySelector('.highcharts-plot-background');
     if (plotBackground) {
       this._plotBackgroundBoundingBox = {
-        width: parseInt(plotBackground.getAttribute('width'), 10),
-        height: parseInt(plotBackground.getAttribute('height'), 10),
-        left: parseInt(plotBackground.getAttribute('x'), 10),
-        top: parseInt(plotBackground.getAttribute('y'), 10),
+        width: parseInt(plotBackground.getAttribute('width') as string, 10),
+        height: parseInt(plotBackground.getAttribute('height') as string, 10),
+        left: parseInt(plotBackground.getAttribute('x') as string, 10),
+        top: parseInt(plotBackground.getAttribute('y') as string, 10),
       };
     }
   }
