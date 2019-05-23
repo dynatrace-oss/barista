@@ -25,16 +25,49 @@ import {
   ContentChild,
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import { DtViewportResizer, removeCssClass, addCssClass } from '@dynatrace/angular-components/core';
 import { DtTheme } from '@dynatrace/angular-components/theming';
 
 // tslint:disable-next-line:no-duplicate-imports
 import * as Highcharts from 'highcharts';
 // tslint:disable-next-line:no-duplicate-imports
-import { chart, ChartObject, IndividualSeriesOptions, Options as HighchartsOptions, setOptions, addEvent as addHighchartsEvent } from 'highcharts';
+import {
+  chart,
+  ChartObject,
+  IndividualSeriesOptions,
+  Options as HighchartsOptions,
+  setOptions,
+  addEvent as addHighchartsEvent } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
-import { Observable, Subject, Subscription, defer, merge, BehaviorSubject, fromEvent, combineLatest, from, AsyncSubject, ReplaySubject, zip, of, EMPTY} from 'rxjs';
-import { delay, takeUntil, take, switchMap, distinctUntilChanged, map, filter, share, pairwise, tap, mergeMap, mapTo,  } from 'rxjs/operators';
+import { Observable,
+  Subject,
+  Subscription,
+  defer,
+  merge,
+  BehaviorSubject,
+  fromEvent,
+  combineLatest,
+  from,
+  EMPTY,
+  ReplaySubject,
+  animationFrameScheduler,
+} from 'rxjs';
+import {
+  delay,
+  takeUntil,
+  take,
+  switchMap,
+  distinctUntilChanged,
+  map,
+  filter,
+  share,
+  pairwise,
+  tap,
+  mergeMap,
+  mapTo,
+  withLatestFrom,
+  throttleTime,
+ } from 'rxjs/operators';
 
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
 import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides';
@@ -46,11 +79,24 @@ import { DtChartTooltipEvent } from './highcharts/highcharts-tooltip-types';
 import { applyHighchartsErrorHandler } from './highcharts/highcharts-errors';
 
 import { DtChartTimestamp } from './timestamp/timestamp';
-import { DtChartRange } from './animations/range';
-import { ContentObserver } from '@angular/cdk/observers';
-import { setPosition, MousePosition, getRelativeMousePosition, createRange } from './animations/utils';
+import { DtChartRange } from './range/range';
+import {
+  setPosition,
+  MousePosition,
+  getRelativeMousePosition,
+  createRange,
+  updateRange,
+  captureAndMergeEvents,
+  Range,
+} from './utils';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
+const HIGHCHARTS_X_AXIS_GRID = '.highcharts-grid highcharts-xaxis-grid';
+const HIGHCHARTS_Y_AXIS_GRID = '.highcharts-grid highcharts-yaxis-grid';
+const HIGHCHARTS_SERIES_GROUP = '.highcharts-series-group';
+
+const NO_POINTER_EVENTS_CLASS = 'dt-no-pointer-events';
+const GRAB_CURSOR_CLASS = 'dt-pointer-grabbing';
 
 export type DtChartOptions = HighchartsOptions & { series?: undefined; tooltip?: { shared: boolean }; interpolateGaps?: boolean };
 export type DtChartSeries = IndividualSeriesOptions;
@@ -65,19 +111,19 @@ window.highchartsMore = require('highcharts/highcharts-more')(Highcharts);
 // Override Highcharts prototypes
 // added to the window so uglify does not drop this from the bundle
 window.configureLegendSymbols = configureLegendSymbols;
-// Highcharts global options, set outside component so its not set everytime a chart is created
+// Highcharts global options, set outside component so its not set every time a chart is created
 setOptions(DT_CHART_DEFAULT_GLOBAL_OPTIONS);
 // added to the window so uglify does not drop this from the bundle
 window.highchartsTooltipEventsAdded = addTooltipEvents();
 
-// add global higcharts error handler for server side logging
+// add global Highcharts error handler for server side logging
 applyHighchartsErrorHandler();
 
 /** Injection token used to get the instance of the dt-chart instance  */
 export const DT_CHART_RESOLVER = new InjectionToken<() => DtChart>('dt-chart-resolver');
 /**
  * @internal
- * Resolver similar to forward ref since we dont have the chart in the constructor necessarily (e.g. microcharts),
+ * Resolver similar to forward ref since we don't have the chart in the constructor necessarily (e.g. micro charts),
  * we might only have it afterViewInit
  */
 export type DtChartResolver = () => DtChart;
@@ -113,7 +159,7 @@ export function DT_CHART_RESOVER_PROVIDER_FACTORY(c: DtChart): DtChartResolver {
   ],
 })
 export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterContentInit {
-  @ViewChild('container', { static: true }) container: ElementRef;
+  @ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
 
   // tslint:disable-next-line: no-forward-ref
   @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<DtChartHeatfield>;
@@ -124,8 +170,20 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
   private _options: DtChartOptions;
   private _dataSub: Subscription | null = null;
   private _highchartsOptions: HighchartsOptions;
-  private readonly _destroy = new Subject<void>();
+  private readonly _destroy$ = new Subject<void>();
   private readonly _tooltipRefreshed: Subject<DtChartTooltipEvent | null> = new Subject();
+
+  /** Deals with the selection logic. */
+  private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
+
+  /** @internal stream that emits every time the plotBackground changes */
+  _plotBackground$ = new BehaviorSubject<SVGRectElement | null>(null);
+
+  /**
+   * Highcharts plotBackground is used to size the selection area according to this area
+   * is set after Highcharts render is completed.
+   */
+  private _plotBackground: SVGRectElement | null;
 
   /** @internal Emits when highcharts finishes rendering. */
   readonly _afterRender = new Subject<void>();
@@ -201,12 +259,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
       .pipe(take(1), switchMap(() => this._heatfieldActiveChanges));
   });
 
-  /** Deals with the selection logic. */
-  private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
-
-  /** @internal stream that emits everytime the plotbackgroud changes */
-  _plotBackground$ = new BehaviorSubject<SVGRectElement | null>(null);
-
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
@@ -218,7 +270,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
     if (this._viewportResizer) {
       this._viewportResizer.change()
-        .pipe(takeUntil(this._destroy), delay(0))// delay to postpone the reflow to the next change detection cycle
+        .pipe(takeUntil(this._destroy$), delay(0))// delay to postpone the reflow to the next change detection cycle
         .subscribe(() => {
           if (this._chartObject) {
             this._ngZone.runOutsideAngular(() => { this._chartObject!.reflow(); });
@@ -226,18 +278,18 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
         });
     }
     if (this._theme) {
-      this._theme._stateChanges.pipe(takeUntil(this._destroy)).subscribe(() => {
+      this._theme._stateChanges.pipe(takeUntil(this._destroy$)).subscribe(() => {
         if (this._currentSeries && this._highchartsOptions) {
           this._updateColorOptions();
           this._updateChart(false);
         }
       });
     }
-    this._heatfieldActiveChanges.pipe(takeUntil(this._destroy)).subscribe((event) => {
+    this._heatfieldActiveChanges.pipe(takeUntil(this._destroy$)).subscribe((event) => {
       this._onHeatfieldActivate(event.source);
     });
     this._tooltipRefreshed.pipe(
-      takeUntil(this._destroy),
+      takeUntil(this._destroy$),
       filter(Boolean),
       map((ev) => {
         if (ev.data.points) {
@@ -265,19 +317,19 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   ngAfterViewInit(): void {
     // Creating a new highcharts chart.
-    // This needs to be done outside the ngZone so the events, hightcharts listens to, do not polute our change detection.
+    // This needs to be done outside the ngZone so the events, highcharts listens to, do not pollute our change detection.
     this._chartObject = this._ngZone.runOutsideAngular(() => chart(this.container.nativeElement, this.highchartsOptions));
 
     addHighchartsEvent(this._chartObject, 'redraw', () => { this._notifyAfterRender(); });
     this._notifyAfterRender();
 
-    // adds eventlistener to highcharts custom event for tooltip closed
+    // adds event-listener to highcharts custom event for tooltip closed
     addHighchartsEvent(this._chartObject, 'tooltipClosed', () => {
       this._tooltipOpen = false;
       this.tooltipOpenChange.next(false);
       this._tooltipRefreshed.next(null);
     });
-    // Adds eventlistener to highcharts custom event for tooltip refreshed closed */
+    // Adds event-listener to highcharts custom event for tooltip refreshed closed */
     // We cannot type the event param, because the types for highcharts are incorrect
     // tslint:disable-next-line:no-any
     addHighchartsEvent(this._chartObject, 'tooltipRefreshed', (event: any) => {
@@ -291,21 +343,18 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   ngAfterContentInit(): void {
     this._heatfieldSelectionModel = new SelectionModel<DtChartHeatfield>();
-    this._heatfieldSelectionModel.changed.pipe(takeUntil(this._destroy)).subscribe((event) => {
+    this._heatfieldSelectionModel.changed.pipe(takeUntil(this._destroy$)).subscribe((event) => {
       event.added.forEach((heatfield) => { heatfield.active = true; });
       event.removed.forEach((heatfield) => { heatfield.active = false; });
     });
-
-
-    this._checkSelectionArea();
   }
 
   ngOnDestroy(): void {
-    this._destroy.next();
-    this._destroy.complete();
+    this._destroy$.next();
+    this._destroy$.complete();
     if (this._chartObject) {
       this._chartObject.destroy();
-      // Cleanup reference here so we dont trigger more things afterwards
+      // Cleanup reference here so we don't trigger more things afterwards
       this._chartObject = null;
     }
     if (this._dataSub) {
@@ -337,8 +386,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   private _notifyAfterRender(): void {
     this._afterRender.next();
-    const plotBackground = this.container.nativeElement.querySelector('.highcharts-plot-background');
-    this._plotBackground$.next(plotBackground);
+    this._plotBackground$.next(this._plotBackground);
   }
 
   /** Invoked when an heatfield is activated. */
@@ -391,15 +439,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
    * S E L E C T I O N   A R E A
    ********************************************************************/
 
-  @ContentChild(DtChartRange) _range: DtChartRange | undefined;
-  @ContentChild(DtChartTimestamp) _timestamp: DtChartTimestamp | undefined;
-
-  @ViewChild('selectionArea') _selectionArea: ElementRef<HTMLDivElement>;
-
   selectionAreaDisabled = false;
-
-  _showRange = false;
-  _showTimestamp = false;
 
   _disableRange = false;
   _disableTimestamp = false;
@@ -412,16 +452,38 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
   _mouseup$: Observable<MouseEvent> = EMPTY;
   /** @internal drag event based on a left click on the selection area */
   _drag$: Observable<MouseEvent> = EMPTY;
+  /** @internal drag event triggered by a boundary drag-resize *(only available within a range)* */
+  _dragHandle$: Observable<MouseEvent> = EMPTY;
   /** @internal click event stream that emits only click events on the selection area */
   _click$: Observable<MouseEvent> = EMPTY;
   /** @internal stream that emits the current relative mouse position on the selection area */
   _currentMousePosition$: Observable<MousePosition> = EMPTY;
 
-  private _destroy$ = new Subject<void>();
+  @ContentChild(DtChartRange)  private _range: DtChartRange | undefined;
+  @ContentChild(DtChartTimestamp)  private _timestamp: DtChartTimestamp | undefined;
+  @ViewChild('selectionArea') private _selectionArea: ElementRef<HTMLDivElement>;
 
-  /** Capture and initialize all event streams for clicking and dragging */
-  private _initEventStreams(): void {
-    this._mousedown$ = fromEvent<MouseEvent>(this._selectionArea.nativeElement, 'mousedown').pipe(
+  private _initializeSelectionArea(): void {
+
+    if (!this._plotBackground) {
+      throw Error('Highcharts has not rendered yet! You Requested some highcharts internal element!');
+    }
+
+    const yAxisGrids = [].slice.call(this.container.nativeElement.querySelectorAll(HIGHCHARTS_Y_AXIS_GRID));
+    const xAxisGrids = [].slice.call(this.container.nativeElement.querySelectorAll(HIGHCHARTS_X_AXIS_GRID));
+    const seriesGroup = this.container.nativeElement.querySelector(HIGHCHARTS_SERIES_GROUP);
+
+    const mousedownElements = [
+      this._plotBackground,
+      seriesGroup,
+      ...xAxisGrids,
+      ...yAxisGrids,
+    ];
+
+    this._mousedown$ = captureAndMergeEvents('mousedown', mousedownElements).pipe(
+      tap(() => {
+        removeCssClass(this._selectionArea.nativeElement, NO_POINTER_EVENTS_CLASS);
+      }),
       filter((event) => event.button === 0), // only emit left mouse
       filter(() => !this.selectionAreaDisabled),
       share()
@@ -434,6 +496,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
     this._mouseup$ = fromEvent<MouseEvent>(window, 'mouseup').pipe(
       filter(() => !this.selectionAreaDisabled),
+      tap(() => {
+        addCssClass(this._selectionArea.nativeElement, NO_POINTER_EVENTS_CLASS);
+      }),
       share()
     );
 
@@ -457,10 +522,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
     this._currentMousePosition$ = this._mousedown$.pipe(
       map((event: MouseEvent) => getRelativeMousePosition(event, this._selectionArea.nativeElement))
     );
-  }
-
-  private _eventStreams(): void {
-    const host = this._selectionArea.nativeElement;
 
     const showTimestamp$ = this._click$.pipe(mapTo(true));
     const showRange$ = this._drag$.pipe(mapTo(true));
@@ -470,21 +531,19 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
       distinctUntilChanged(),
       takeUntil(this._destroy$)
     ).subscribe((showOrHide) => {
-      this._showRange = showOrHide;
-      this._changeDetectorRef.markForCheck();
+      this._showRange(showOrHide);
     });
 
     merge(showTimestamp$, hideTimestampAndRange$).pipe(
       distinctUntilChanged(),
       takeUntil(this._destroy$)
     ).subscribe((showOrHide) => {
-      this._showTimestamp = showOrHide;
-      this._changeDetectorRef.markForCheck();
+      this._showTimestamp(showOrHide);
     });
 
     if (this._timestamp) {
       this._click$.pipe(
-        map((event: MouseEvent) => getRelativeMousePosition(event, host)),
+        map((event: MouseEvent) => getRelativeMousePosition(event, this._selectionArea.nativeElement)),
         takeUntil(this._destroy$)
       ).subscribe(({x, y}) => {
         this._timestamp!._setPosition(x);
@@ -492,58 +551,157 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
     }
 
     if (this._range) {
-      // create stream for drag handle event
-      const dragHandle$ = from(this._range._handleDragStarted).pipe(
+      // create a stream for drag handle event
+      this._dragHandle$ = from(this._range._handleDragStarted).pipe(
+        tap(() => { removeCssClass(this._selectionArea.nativeElement, NO_POINTER_EVENTS_CLASS); }),
         switchMap(() => this._mousemove$.pipe(takeUntil(this._mouseup$))),
         share()
       );
 
-      // this._range._addListeners(
-      //   host,
-      //   drag$,
-      // )
-
-      this._range._drag(host, dragHandle$, this._mouseup$);
-      this._range._createRange(host, this._drag$, this._currentMousePosition$, this._mouseup$);
+      this._checkRangeResized();
+      this._checkForRangeUpdates();
     }
   }
 
   ngOnInit(): void {
-    this._afterRender.pipe(takeUntil(this._destroy$)).subscribe(() => {
+    // after Highcharts is rendered we can start initializing the selection area.
+    this._afterRender.pipe(
+      takeUntil(this._destroy$)
+    ).subscribe(() => {
+      this._plotBackground = this.container.nativeElement.querySelector(HIGHCHARTS_PLOT_BACKGROUND);
       this._setPosition();
+
+      this._initializeSelectionArea();
+    });
+  }
+
+  private _checkForRangeUpdates(): void {
+    if (!this._range) { return; }
+    // stream that stores the last positions
+    const lastPositions$ = new ReplaySubject<Range>();
+    const leftOrRightHandle$ = from(this._range._handleDragStarted).pipe(
+      map((event: MouseEvent) => identifyLeftOrRightHandle(event)),
+      filter(Boolean),
+      distinctUntilChanged()
+    );
+
+    // update a selection area according to a resize through the side handles
+    const updatedRange$ = combineLatest(lastPositions$, this._dragHandle$, leftOrRightHandle$).pipe(
+      updateRange(this._selectionArea.nativeElement),
+      share()
+    );
+
+    // Listen for an initial creation of a selection area with a normal drag
+    combineLatest(this._drag$, this._currentMousePosition$).pipe(
+      createRange(this._selectionArea.nativeElement),
+      throttleTime(0, animationFrameScheduler),
+      takeUntil(this._destroy$)
+    ).subscribe((range: Range) => {
+      if (this._range) {
+        this._range._updateRange(range);
+        lastPositions$.next(range);
+      }
+    });
+
+    // subscribe to changes to a created selection area
+    updatedRange$.pipe(
+      throttleTime(0, animationFrameScheduler),
+      takeUntil(this._destroy$)
+    ).subscribe((range) => {
+      if (this._range) {
+        this._range._updateRange(range);
+      }
+    });
+
+    // when the range gets updated by a drag on the handles we only set the last position
+    // when the drag is completed with a mouseup.
+    this._mouseup$.pipe(
+      withLatestFrom(updatedRange$),
+      map((data) => data[1]),
+      takeUntil(this._destroy$)
+    ).subscribe((range) => {
+      lastPositions$.next(range);
+    });
+
+    this._mouseup$.pipe(takeUntil(this._destroy$)).subscribe(() => {
+      if (this._range) {
+        this._range._addOrRemoveReleasedClass(true);
+      }
+    });
+  }
+
+  private _showRange(show: boolean): void {
+    if (this._range) {
+      this._range.hidden = !show;
+    }
+  }
+
+  private _showTimestamp(show: boolean): void {
+    if (this._timestamp) {
+      this._timestamp.hidden = !show;
+    }
+  }
+
+  /**
+   * This method watches with a provides start observable if the range is going to be resized.
+   * If the range gets resized then we apply a class that changes the cursor.
+   */
+  private _checkRangeResized(): void {
+    const dragHandleStart$ = this._dragHandle$.pipe(mapTo(true));
+    const initialDragStart$ = this._drag$.pipe(mapTo(true));
+    // merge the streams of the initial drag start and the handle drag start
+    const startResizing$ = merge(initialDragStart$, dragHandleStart$);
+    // map to false to end the resize
+    const mouseRelease$ = this._mouseup$.pipe(mapTo(false));
+
+    // stream that emits drag start end end
+    merge(startResizing$, mouseRelease$).pipe(
+      distinctUntilChanged(),
+      takeUntil(this._destroy$)
+    ).subscribe((resize: boolean) => {
+      if (resize) {
+        addCssClass(this._selectionArea.nativeElement, GRAB_CURSOR_CLASS);
+      } else {
+        removeCssClass(this._selectionArea.nativeElement, GRAB_CURSOR_CLASS);
+      }
     });
   }
 
   /** Set the position of the select-able area to the size of the highcharts plot background */
   private _setPosition(): void {
-    const chartElement: HTMLElement = this.container.nativeElement;
-    const selectionArea: HTMLElement = this._selectionArea.nativeElement;
-    const referenceElement: SVGRectElement | null = chartElement.querySelector(
-      HIGHCHARTS_PLOT_BACKGROUND
-    );
-    if (!referenceElement) {
+    if (!this._plotBackground) {
       // TODO: move error message to a global place
-      throw Error('No plot background found!');
+      throw Error('Highcharts has not rendered yet! You Requested some highcharts internal element!');
     }
 
     // get Bounding client Rects of the plot background and the host to calculateRelativeXPos
     // a relative offset.
-    const hostBCR = selectionArea.getBoundingClientRect();
-    const plotBCR = referenceElement.getBoundingClientRect();
+    const hostBCR = this._selectionArea.nativeElement.getBoundingClientRect();
+    const plotBCR = this._plotBackground.getBoundingClientRect();
 
     const topOffset = plotBCR.top - hostBCR.top;
     const leftOffset = plotBCR.left - hostBCR.left;
 
-    setPosition(selectionArea, {
+    setPosition(this._selectionArea.nativeElement, {
       top: topOffset,
       left: leftOffset,
       width: plotBCR.width,
       height: plotBCR.height,
     });
   }
+}
 
-  private _checkSelectionArea(): void {
-    this._initEventStreams();
-    this._eventStreams();
+/** Check if an event target is the left or right handle  */
+function identifyLeftOrRightHandle(event: MouseEvent): 'left' | 'right' | null {
+  const target = event.target;
+
+  if (!!target && target instanceof Element) {
+    if (target.className.includes('dt-chart-right-handle')) {
+      return 'right';
+    }
+    if (target.className.includes('dt-chart-left-handle')) {
+      return 'left';
+    }
   }
+  return null;
 }
