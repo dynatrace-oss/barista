@@ -1,3 +1,21 @@
+## 2.8.0 (2019-05-23)
+
+### Bug Fixes
+
+* **chart:** Fixes an issue where chart-gridlines overlapped chart data after updating ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **copy-to-clipboard:** Fixes the text color of the input within dark theme context
+* **key-value-list:** Fixes an issue where the key-value-list did not create columns correctly if the container was too small 
+* **showmore:** Fixes an issue where the disabled property was not correctly handled when set programmatically ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Features
+
+* **context-dialog:** Added the capability to add a header section to the context-dialog component ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **core:** Publicly provide compare functions for string and number values ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table:** Add default datasource with pagination ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table:** Add show more example for the table ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **table:** Added text overflow handling for simple columns ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **toast:** Pauses the toast dismiss timer when hovered with the mouse ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 2.7.0 (2019-05-13)
 
 ### Bug Fixes
