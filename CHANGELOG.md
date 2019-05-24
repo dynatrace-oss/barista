@@ -1,3 +1,10 @@
+## 2.9.0 (2019-05-24)
+
+
+### Features
+
+* **filter-field:** Added possibility to apply filters programmatically ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 2.8.0 (2019-05-23)
 
 ### Bug Fixes
