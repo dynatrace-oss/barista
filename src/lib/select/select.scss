@@ -106,3 +106,7 @@ $dt-select-panel-min-width: 112px !default;
   overflow: auto;
   -webkit-overflow-scrolling: touch;   // for momentum scroll on mobile
 }
+
+.dt-select-content {
+  overflow: hidden;
+}
