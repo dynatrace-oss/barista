@@ -105,10 +105,10 @@ export class DtFilterFieldRange implements AfterViewInit {
   _selectedOperator: DtFilterFieldRangeOperator | null;
 
   /** @internal */
-  @ViewChild(TemplateRef, { static: true, }) _template: TemplateRef<{}>;
+  @ViewChild(TemplateRef, { static: true }) _template: TemplateRef<{}>;
 
   /** @internal */
-  @ViewChild(DtButtonGroup, { static: false, }) _operatorGroup: DtButtonGroup<DtFilterFieldRange>;
+  @ViewChild(DtButtonGroup, { static: false }) _operatorGroup: DtButtonGroup<DtFilterFieldRange>;
 
   /** @internal */
   _portal: TemplatePortal;

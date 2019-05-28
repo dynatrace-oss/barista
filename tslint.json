@@ -1,11 +1,9 @@
 {
-  "extends": [
-    "@dynatrace/angular-lint-rules/tslint"
-  ],
-  "rulesDirectory": [
-    "./tools/tslint-rules/"
-  ],
+  "extends": ["@dynatrace/angular-lint-rules/tslint", "tslint-config-prettier"],
+  "rulesDirectory": ["./tools/tslint-rules/"],
   "rules": {
+    // TODO ChMa: enable enforced linebreak after converting all files in repo
+    "linebreak-style": [false, "LF"],
     "i18n": false,
     "increment-decrement": false,
     // this needs to be disabled since having multiple components/directives
@@ -30,6 +28,7 @@
     "no-unnecessary-callback-wrapper": false,
     "no-null-keyword": false,
     "no-submodule-imports": false,
+    "no-use-before-declare": false,
     // Disabled otherwise normal functions like class mixins are not possible
     "only-arrow-functions": false,
     "one-line": [
@@ -60,6 +59,7 @@
     "trailing-comma": [
       true,
       {
+        "singleline": "never",
         "multiline": {
           "objects": "always",
           "arrays": "always",
@@ -87,6 +87,7 @@
     ],
 
     // Angular specific
+    "angular-whitespace": false,
     "component-class-suffix": false,
     "directive-class-suffix": false,
     // "use-host-property-decorator": false,
