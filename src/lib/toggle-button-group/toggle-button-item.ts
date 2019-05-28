@@ -8,7 +8,12 @@ import {
   EventEmitter,
   Input,
 } from '@angular/core';
-import { mixinTabIndex, CanDisable, HasTabIndex, mixinDisabled } from '@dynatrace/angular-components/core';
+import {
+  mixinTabIndex,
+  CanDisable,
+  HasTabIndex,
+  mixinDisabled,
+} from '@dynatrace/angular-components/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
 
@@ -163,6 +168,6 @@ export class DtToggleButtonItem<T> extends _DtToggleButtonMixinBase
 
   /** Emits a selection change event. */
   private _emitSelectionChangeEvent(isUserInput: boolean = false): void {
-    this.change.emit({ source: this, value: this._value, isUserInput, });
+    this.change.emit({ source: this, value: this._value, isUserInput });
   }
 }
