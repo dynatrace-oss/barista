@@ -1,7 +1,7 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { OverlayContainer, } from '@angular/cdk/overlay';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Provider, Type, ViewChild, ViewChildren, QueryList, Component, OnDestroy, NgZone } from '@angular/core';
 import { TestBed, inject, ComponentFixture, flush, fakeAsync, async, tick } from '@angular/core/testing';
 import {
