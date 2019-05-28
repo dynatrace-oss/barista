@@ -3,13 +3,8 @@
 @import '../core/style/form-control';
 @import '../core/style/interactive-common';
 
-// Infix stretches to fit the container, but naturally wants to be this wide. We set this in order
-// to have a a consistent natural size for the various types of controls that can go in a form
-// field.
-$dt-form-field-default-infix-width: 180px !default;
-
 .dt-form-field {
-  display: inline-block;
+  display: block;
   position: relative;
   text-align: left;
 }
@@ -47,7 +42,6 @@ $dt-form-field-default-infix-width: 180px !default;
   position: relative;
   flex: auto;
   min-width: 0;
-  width: $dt-form-field-default-infix-width;
 }
 
 // Hack to make sure the child element of the infix, prefix or suffix container is display block.
