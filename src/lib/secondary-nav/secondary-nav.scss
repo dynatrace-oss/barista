@@ -1,0 +1,211 @@
+@import '../core/style/colors';
+@import '../style/font-mixins';
+
+$dt-secondarynav-header-padding-top: 36px;
+$dt-secondarynav-header-padding-bottom: 24px;
+$dt-secondarynav-header-padding-left: 20px;
+
+.dt-secondary-nav {
+  background: $gray-130;
+  display: block;
+  border-bottom: 1px solid $gray-200;
+}
+
+.dt-secondary-nav-title {
+  font-size: 24px;
+  font-weight: normal;
+  margin: 0;
+  display: block;
+  padding: $dt-secondarynav-header-padding-top 0
+    $dt-secondarynav-header-padding-bottom $dt-secondarynav-header-padding-left;
+}
+
+.dt-secondary-nav-action {
+  display: none;
+}
+
+.dt-secondary-nav-section {
+  display: block;
+}
+
+.dt-secondary-nav-section-header {
+  text-decoration: none;
+  outline: none;
+  height: 56px;
+  font-size: 15px;
+  color: $gray-700;
+  padding: 8px 0 8px 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  background: none;
+  border-width: 1px 0 0;
+  border-style: solid;
+  border-color: $gray-200;
+  font-family: inherit;
+  align-items: unset;
+  text-align: left;
+}
+
+.dt-secondary-nav-section-header dt-icon {
+  display: none;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 16px;
+  margin: auto;
+  fill: $turquoise-600;
+  pointer-events: none;
+  transition: all 150ms ease;
+}
+
+.dt-secondary-nav-section-title {
+  display: block;
+  line-height: 22px;
+  text-align: left;
+  width: calc(100% - 12px);
+  @include dt-text-ellipsis();
+}
+
+.dt-secondary-nav-section-description {
+  display: block;
+  font-size: 12px;
+  line-height: 18px;
+  color: $gray-500;
+  width: calc(100% - 12px);
+  @include dt-text-ellipsis();
+}
+
+.dt-secondary-nav-section-content {
+  display: block;
+  padding: 12px 0 12px 32px;
+}
+
+.dt-secondary-nav-group {
+  display: block;
+  margin: 20px 0;
+}
+
+.dt-secondary-nav-group-title {
+  display: block;
+  color: $gray-500;
+  font-size: 12px;
+  line-height: 18px;
+  margin-bottom: 8px;
+}
+
+.dt-secondary-nav-group:first-child {
+  margin-top: 0;
+}
+
+.dt-secondary-nav-group:last-child {
+  margin-bottom: 0;
+}
+
+.dt-secondary-nav-link {
+  color: $gray-700;
+  font-size: 14px;
+  line-height: 30px;
+  display: block;
+  text-decoration: none;
+}
+
+.dt-secondary-nav-link:hover {
+  color: $turquoise-600;
+  text-decoration: none;
+}
+
+.dt-secondary-nav-link.dt-secondary-nav-active {
+  font-weight: 700;
+  color: $turquoise-600;
+}
+
+// Expandable state
+.dt-secondary-nav-section.dt-secondary-nav-section-expandable
+  .dt-secondary-nav-section-header
+  dt-icon {
+  display: block;
+}
+
+.dt-secondary-nav-section.dt-secondary-nav-section-expandable
+  .dt-secondary-nav-section-title {
+  width: calc(100% - 52px);
+}
+
+.dt-secondary-nav-section.dt-secondary-nav-section-expandable
+  .dt-secondary-nav-section-description {
+  width: calc(100% - 52px);
+}
+
+// Active state
+.dt-secondary-nav-section.dt-secondary-nav-section-active {
+  position: relative;
+}
+
+.dt-secondary-nav-section.dt-secondary-nav-section-active::after,
+.dt-secondary-nav-section.dt-secondary-nav-section-active::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.dt-secondary-nav-section.dt-secondary-nav-section-active::before {
+  border-top: 1px solid $turquoise-600;
+  top: 0;
+}
+
+.dt-secondary-nav-section.dt-secondary-nav-section-active::after {
+  border-bottom: 1px solid $turquoise-600;
+  bottom: -1px;
+}
+
+.dt-secondary-nav-section.dt-secondary-nav-section-active
+  .dt-secondary-nav-section-header {
+  background: $gray-200;
+}
+
+.dt-secondary-nav-section.dt-secondary-nav-section-active
+  .dt-secondary-nav-section-header
+  .dt-secondary-nav-section-title {
+  font-weight: 700;
+}
+
+// Hover state
+.dt-secondary-nav-section-header:hover {
+  background: $gray-200;
+  text-decoration: none;
+}
+
+.dt-secondary-nav-section-header:hover .dt-secondary-nav-section-title {
+  color: $turquoise-700;
+}
+
+// Expanded state
+.dt-secondary-nav-section
+  .dt-secondary-nav-section-header.dt-secondary-nav-section-expanded {
+  background: $gray-200;
+}
+
+.dt-secondary-nav-section
+  .dt-secondary-nav-section-header.dt-secondary-nav-section-expanded
+  dt-icon {
+  transform: rotate(180deg);
+}
+
+.dt-secondary-nav-section
+  .dt-secondary-nav-section-header.dt-secondary-nav-section-expanded
+  .dt-secondary-nav-section-title {
+  font-weight: 700;
+}
+
+.dt-secondary-nav-section
+  .dt-secondary-nav-section-header.dt-secondary-nav-section-expanded:hover
+  .dt-secondary-nav-section-title {
+  color: $gray-700;
+}
