@@ -1,0 +1,34 @@
+<button
+  *ngIf="expandable"
+  [dtExpandablePanel]="panel"
+  class="dt-secondary-nav-section-header"
+  (click)="_sectionExpanded()"
+  [class.dt-secondary-nav-section-expanded]="expanded"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+  <dt-icon name="dropdownopen"></dt-icon>
+</button>
+
+<ng-container *ngIf="!expandable">
+  <a [href]="href" class="dt-secondary-nav-section-header" *ngIf="external">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </a>
+  <a
+    *ngIf="!external"
+    [routerLink]="href"
+    class="dt-secondary-nav-section-header"
+  >
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </a>
+</ng-container>
+
+<ng-template #content>
+  <ng-content select="dt-secondary-nav-section-title"></ng-content>
+  <ng-content select="dt-secondary-nav-section-description"></ng-content>
+</ng-template>
+
+<dt-expandable-panel #panel [expanded]="expanded">
+  <div class="dt-secondary-nav-section-content">
+    <ng-content></ng-content>
+  </div>
+</dt-expandable-panel>
