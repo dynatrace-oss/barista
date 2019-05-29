@@ -36,6 +36,7 @@ import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
 import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
 import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-circle';
 import { DtRadioModule } from '@dynatrace/angular-components/radio';
+import { DtSecondaryNavModule } from '@dynatrace/angular-components/secondary-nav';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
 import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
@@ -85,6 +86,7 @@ const DT_MODULES = [
   DtProgressCircleModule,
   DtSelectModule,
   DtRadioModule,
+  DtSecondaryNavModule,
   // tslint:disable-next-line: deprecation
   DtSelectionAreaModule,
   DtShowMoreModule,

@@ -51,6 +51,7 @@ import { PaginationDemo } from './pagination/pagination-demo.component';
 import { ProgressBarDemo } from './progress-bar/progress-bar-demo.component';
 import { ProgressCircleDemo } from './progress-circle/progress-circle-demo.component';
 import { RadioDemo } from './radio/radio-demo.component';
+import { SecondaryNavDemo } from './secondary-nav/secondary-nav-demo.component';
 import { SelectDemo } from './select/select-demo.component';
 import { SelectionAreaDemo } from './selection-area/selection-area-demo.component';
 import { ShowMoreDemo } from './show-more/show-more-demo.component';
@@ -111,6 +112,7 @@ export class NoopRouteComponent {}
     ProgressBarDemo,
     ProgressCircleDemo,
     RadioDemo,
+    SecondaryNavDemo,
     SelectDemo,
     SelectionAreaDemo,
     ShowMoreDemo,
