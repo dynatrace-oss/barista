@@ -54,7 +54,7 @@ $dt-checkbox-size: 20px;
 }
 
 .dt-checkbox-caption {
-  @include main-font();
+  @include dt-main-font();
   padding-right: 20px;
 
   :host.dt-checkbox-disabled & {

@@ -5,25 +5,25 @@
 @import 'font-mixins';
 
 body {
-  @include main-font();
+  @include dt-main-font();
 }
 
 h1 {
-  @include h1-font();
+  @include dt-h1-font();
 }
 
 h2 {
-  @include h2-font();
+  @include dt-h2-font();
 }
 
 h3 {
-  @include h3-font();
+  @include dt-h3-font();
 }
 
 code {
-  @include code-font();
+  @include dt-code-font();
 }
 
 label {
-  @include label-font();
+  @include dt-label-font();
 }

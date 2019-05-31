@@ -4,7 +4,7 @@
 @import '../table-mixins';
 
 ::ng-deep .dt-header-cell {
-  @include label-font();
+  @include dt-label-font();
   word-wrap: normal;
   white-space: nowrap;
   text-overflow: ellipsis;

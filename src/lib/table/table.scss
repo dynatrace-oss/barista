@@ -7,7 +7,7 @@
   flex-flow: column nowrap;
   min-width: 100%;
   position: relative;
-  @include main-font();
+  @include dt-main-font();
 
   .dt-table-float-loading {
     position: absolute;

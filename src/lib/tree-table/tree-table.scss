@@ -6,7 +6,7 @@
   display: table;
   min-width: 100%;
   position: relative;
-  @include main-font();
+  @include dt-main-font();
 }
 
 :host-context(.dt-tree-table) ::ng-deep .dt-header-cell {

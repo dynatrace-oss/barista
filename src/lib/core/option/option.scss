@@ -2,7 +2,7 @@
 @import '../style/variables';
 
 :host {
-  @include main-font();
+  @include dt-main-font();
   display: block;
   padding: 0 12px;
   font-size: 14px;

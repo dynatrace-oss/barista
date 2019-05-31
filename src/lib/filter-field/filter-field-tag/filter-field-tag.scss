@@ -7,7 +7,7 @@
   border: 1px solid $gray-300;
   border-radius: 3px;
   background-color: $gray-130;
-  @include main-font();
+  @include dt-main-font();
   font-size: 12px;
   color: $gray-500;
   line-height: 22px;

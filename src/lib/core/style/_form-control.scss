@@ -8,7 +8,7 @@
   background-color: #ffffff;
   // Strangely setting the lineheight to 29 instead of 30
   // centers the text more consistent
-  @include custom-font-size(false, 29px);
+  @include dt-custom-font-styles($custom-line-height: 29px);
 
   .dt-theme-dark & {
     border-color: $gray-400;

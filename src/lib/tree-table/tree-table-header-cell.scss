@@ -5,7 +5,7 @@
 :host {
   display: table-cell;
 
-  @include label-font();
+  @include dt-label-font();
   vertical-align: bottom;
   overflow: hidden;
   border-right: 2px solid transparent;

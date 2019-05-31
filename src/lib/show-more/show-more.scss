@@ -4,6 +4,7 @@
 
 :host {
   box-sizing: border-box;
+  @include dt-main-font();
   cursor: pointer;
   display: block;
   text-align: center;
