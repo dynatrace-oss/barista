@@ -27,7 +27,7 @@
 }
 
 ::ng-deep .dt-info-group-title {
-  @include default-font(20px, 24px, 400);
+  @include dt-default-font(20px, 24px, 400);
   display: block;
   white-space: nowrap;
   overflow: hidden;

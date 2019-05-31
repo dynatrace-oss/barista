@@ -5,7 +5,7 @@
 @import './button-theme';
 
 .dt-button {
-  @include main-font(30px);
+  @include dt-main-font(30px);
   box-sizing: border-box;
   position: relative;
 

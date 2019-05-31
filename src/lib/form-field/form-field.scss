@@ -107,7 +107,7 @@ $dt-form-field-default-infix-width: 180px !default;
 }
 
 .dt-form-field-label {
-  @include label-font();
+  @include dt-label-font();
   position: relative;
   display: block;
   padding-bottom: 6px;
@@ -161,7 +161,7 @@ $dt-form-field-default-infix-width: 180px !default;
 
 .dt-hint,
 .dt-error {
-  @include label-font();
+  @include dt-label-font();
   text-decoration: none;
   appearance: none;
   display: block;

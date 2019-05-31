@@ -4,7 +4,7 @@
 @import '../core/style/form-control';
 
 .dt-input {
-  @include main-font();
+  @include dt-main-font();
   appearance: none;
   position: relative;
   display: inline-block;

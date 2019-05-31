@@ -10,7 +10,7 @@
 
 :host .dt-tab-label {
   @include dt-interactive-reset();
-  @include default-font(14px, 32px, 600);
+  @include dt-default-font(14px, 32px, 600);
   border: none;
   background-color: transparent;
   padding: 0 16px;

@@ -3,7 +3,7 @@
 @import '../core/style/card';
 
 .dt-card {
-  @include main-font();
+  @include dt-main-font();
   display: block;
   background-color: #ffffff;
   border-radius: 3px;
@@ -53,7 +53,7 @@
 }
 
 .dt-card-title {
-  @include h2-font();
+  @include dt-h2-font();
   display: block;
   white-space: nowrap;
   overflow: hidden;
@@ -61,7 +61,7 @@
 }
 
 .dt-card-subtitle {
-  @include h3-font();
+  @include dt-h3-font();
   display: block;
 }
 
