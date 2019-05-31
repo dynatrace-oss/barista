@@ -27,7 +27,7 @@
   padding-left: $dt-table-cell-padding;
 
   &.dt-column-sorted {
-    @include custom-font-styles($gray-900, 700);
+    @include dt-custom-font-styles($gray-900, 700);
   }
 }
 

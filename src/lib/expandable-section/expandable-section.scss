@@ -11,7 +11,7 @@
   align-items: baseline;
 
   position: relative;
-  @include label-font();
+  @include dt-label-font();
 
   .dt-expandable-section-arrow {
     width: 16px;

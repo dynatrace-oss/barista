@@ -2,7 +2,7 @@
 @import '../style/font-mixins';
 
 :host {
-  @include main-font();
+  @include dt-main-font();
   display: block;
   border-radius: 3px;
   border: 1px solid $gray-640;

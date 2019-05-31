@@ -7,7 +7,7 @@ $arrow-width: 8px;
 $arrow-padding: 2px;
 
 :host {
-  @include main-font($height);
+  @include dt-main-font($height);
   height: $height;
   display: inline-block;
   margin-top: 0;

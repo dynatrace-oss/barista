@@ -4,7 +4,7 @@
 $margin-arrow: 8px;
 
 .dt-pagination-list {
-  @include main-font();
+  @include dt-main-font();
   display: flex;
   margin: 0;
 
@@ -39,6 +39,6 @@ $margin-arrow: 8px;
   }
 
   [aria-current] {
-    @include custom-font-styles($gray-900, 700, 14px, 32px);
+    @include dt-custom-font-styles($gray-900, 700, 14px, 32px);
   }
 }

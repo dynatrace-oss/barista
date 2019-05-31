@@ -5,7 +5,7 @@
 @import './toggle-button-item-theme';
 
 :host {
-  @include main-font();
+  @include dt-main-font();
   appearance: none;
   display: inline-flex;
   position: relative;

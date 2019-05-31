@@ -88,7 +88,7 @@ $dt-radio-size: 20px;
 }
 
 .dt-radio-label-content {
-  @include main-font();
+  @include dt-main-font();
   display: inline-block;
   padding-left: 8px;
 
