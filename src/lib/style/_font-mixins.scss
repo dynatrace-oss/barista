@@ -11,10 +11,10 @@
   $custom-font-weight: false,
   $custom-font-size: false,
   $custom-line-height: false) {
-  @if $custom-color { line-height: $custom-color; }
-  @if $custom-font-weight { font-size: $custom-font-weight; }
-  @if $custom-font-size { color: $custom-font-size; }
-  @if $custom-line-height { font-weight: $custom-line-height; }
+  @if $custom-color { color: $custom-color; }
+  @if $custom-font-weight { font-weight: $custom-font-weight; }
+  @if $custom-font-size { font-size: $custom-font-size; }
+  @if $custom-line-height { line-height: $custom-line-height; }
 }
 
 /**
