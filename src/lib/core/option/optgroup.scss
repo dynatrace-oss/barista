@@ -10,7 +10,7 @@
 }
 
 .dt-optgroup-label {
-  @include label-font();
+  @include dt-label-font();
   color: $gray-500;
   padding: 0 12px;
   white-space: nowrap;

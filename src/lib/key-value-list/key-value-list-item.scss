@@ -10,7 +10,7 @@
 }
 
 .dt-key-value-list-item-key {
-  @include label-font(28px);
+  @include dt-label-font(28px);
   color: $gray-500;
   text-align: left;
   float: left;
@@ -30,7 +30,7 @@
   margin: 0;
   text-align: right;
   display: inline;
-  @include main-font(28px);
+  @include dt-main-font(28px);
   padding-left: 24px;
   background-color: inherit;
   z-index: 1;

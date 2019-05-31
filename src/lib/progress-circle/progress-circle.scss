@@ -5,7 +5,7 @@
 
 :host {
   display: inline-block;
-  @include main-font();
+  @include dt-main-font();
 }
 
 .dt-progress-circle-body {

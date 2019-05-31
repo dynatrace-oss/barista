@@ -9,7 +9,7 @@ $padding: 8px;
   flex-flow: row nowrap;
   justify-content: center;
   margin: $margin-top 0;
-  @include main-font();
+  @include dt-main-font();
 
   .message-area {
     padding-left: $padding;

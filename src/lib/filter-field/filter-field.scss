@@ -37,7 +37,7 @@ $dt-filter-field-inner-height: 30px;
   display: flex;
   align-items: center;
   margin: 0 0 0 8px;
-  @include main-font();
+  @include dt-main-font();
   line-height: $dt-filter-field-inner-height;
   color: $gray-500;
 }
@@ -67,7 +67,7 @@ $dt-filter-field-inner-height: 30px;
   flex-grow: 0;
   flex-shrink: 0;
   padding-right: 8px;
-  @include main-font();
+  @include dt-main-font();
   line-height: $dt-filter-field-inner-height;
   color: $gray-500;
 }
@@ -78,7 +78,7 @@ $dt-filter-field-inner-height: 30px;
   flex-grow: 1;
   flex-shrink: 1;
   position: relative;
-  @include main-font();
+  @include dt-main-font();
   appearance: none;
   box-sizing: border-box;
   padding: 0;

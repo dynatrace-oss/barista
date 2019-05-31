@@ -10,7 +10,7 @@ $dt-select-panel-min-width: 112px !default;
   display: inline-block;
   box-sizing: border-box;
   outline: none;
-  @include main-font();
+  @include dt-main-font();
   @include dt-form-control();
 
   // Do not allow it to grow outside its wrapper

@@ -26,7 +26,7 @@
 }
 
 .dt-switch-content {
-  @include main-font();
+  @include dt-main-font();
   vertical-align: middle;
 }
 
