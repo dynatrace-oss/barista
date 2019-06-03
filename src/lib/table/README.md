@@ -406,6 +406,8 @@ export class TableComponent implements AfterViewInit {
 
 <docs-source-example example="TablePaginationComponent" fullwidth="true"></docs-source-example>
 
+Further examples of the `DtPagination` in combination with a `DtTableDataSource` can be found under the [pagination](/components/pagination#dynamic-showhide-of-paginated-table) page.
+
 ### Show more
 
 <docs-source-example example="TableShowMoreComponent" fullwidth="true"></docs-source-example>
