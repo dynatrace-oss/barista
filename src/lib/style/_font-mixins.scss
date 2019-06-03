@@ -3,6 +3,7 @@
  */
 
 @import 'variables';
+@import '../core/style/deprecated';
 
 /* stylelint-disable property-blacklist  */
 
@@ -26,6 +27,7 @@
   $font-weight: false,
   $font-size: false,
   $line-height: false) {
+  @include dt-deprecated('Use dt-custom-font-styles instead.', '4.0.0.');
   @include dt-custom-font-styles($color, $font-weight, $font-size, $line-height);
 }
 
@@ -34,6 +36,7 @@
  * @breaking-change To be removed with 4.0.0.
  */
 @mixin custom-font-size($font-size: false, $line-height: false) {
+  @include dt-deprecated('Use dt-custom-font-styles with explicitly specified arguments instead.', '4.0.0.');
   @include dt-custom-font-styles($custom-font-size: $font-size, $custom-line-height: $line-height);
 }
 
@@ -54,6 +57,7 @@
   $font-size: $default-font-size,
   $line-height: $default-line-height,
   $font-weight: $default-font-weight) {
+  @include dt-deprecated('Use dt-default-font instead.', '4.0.0.');
   @include dt-default-font($font-size, $line-height, $font-weight);
 }
 
@@ -74,6 +78,7 @@
   $font-size: $default-font-size,
   $line-height: $default-line-height,
   $font-weight: $default-font-weight) {
+  @include dt-deprecated('Use dt-monospace-font instead.', '4.0.0.');
   @include dt-monospace-font($font-size, $line-height, $font-weight);
 }
 
@@ -86,6 +91,7 @@
  * @breaking-change To be removed with 4.0.0.
  */
 @mixin main-font($line-height: $default-line-height) {
+  @include dt-deprecated('Use dt-main-font instead.', '4.0.0.');
   @include dt-main-font($line-height);
 }
 
@@ -103,6 +109,7 @@
  * @breaking-change To be removed with 4.0.0.
  */
 @mixin fluid-font-size($min-font-size, $max-font-size, $min-screen-size, $max-screen-size) {
+  @include dt-deprecated('Use dt-fluid-font-size instead.', '4.0.0.');
   @include dt-fluid-font-size($min-font-size, $max-font-size, $min-screen-size, $max-screen-size);
 }
 
@@ -116,6 +123,7 @@
  * @breaking-change To be removed with 4.0.0.
  */
 @mixin h1-font($line-height: $default-line-height) {
+  @include dt-deprecated('Use dt-h1-font instead.', '4.0.0.');
   @include dt-h1-font($line-height);
 }
 
@@ -123,11 +131,8 @@
   @include dt-default-font(20px, $line-height, 600);
 }
 
-/**
- * @deprecated Use dt-h2-font instead.
- * @breaking-change To be removed with 4.0.0.
- */
 @mixin h2-font($line-height: $default-line-height) {
+  @include dt-deprecated('Use dt-h2-font instead.', '4.0.0.');
   @include dt-h2-font($line-height);
 }
 
@@ -135,11 +140,8 @@
   @include dt-default-font(18px, $line-height);
 }
 
-/**
- * @deprecated Use dt-h3-font instead.
- * @breaking-change To be removed with 4.0.0.
- */
 @mixin h3-font($line-height: $default-line-height) {
+  @include dt-deprecated('Use dt-h3-font instead.', '4.0.0.');
   @include dt-h3-font($line-height);
 }
 
@@ -147,11 +149,8 @@
   @include dt-monospace-font();
 }
 
-/**
- * @deprecated Use dt-code-font instead.
- * @breaking-change To be removed with 4.0.0.
- */
 @mixin code-font {
+  @include dt-deprecated('Use dt-code-font instead.', '4.0.0.');
   @include dt-code-font();
 }
 
@@ -159,11 +158,8 @@
   @include dt-default-font(12px, $line-height);
 }
 
-/**
- * @deprecated Use dt-label-font instead.
- * @breaking-change To be removed with 4.0.0.
- */
 @mixin label-font($line-height: $default-line-height) {
+  @include dt-deprecated('Use dt-label-font instead.', '4.0.0.');
   @include dt-label-font($line-height);
 }
 
