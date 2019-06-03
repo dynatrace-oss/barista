@@ -7,6 +7,7 @@ $margin-arrow: 8px;
   @include dt-main-font();
   display: flex;
   margin: 0;
+  padding: 0;
 
   li {
     list-style-type: none;
