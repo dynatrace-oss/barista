@@ -131,11 +131,14 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   _plotBackgroundBoundingBox: { left: number; top: number; width: number; height: number };
 
   /**
-   * Wether the input is a valid range
+   * Wether the input is a valid range. Input range is valid as long there is a
+   * start value given. If there is a distinct end value given, it needs to be
+   * larger than the start.
    * @internal
    */
   get _isValidStartEndRange(): boolean {
-    return isDefined(this.start) && isDefined(this.end) && this.start < this.end;
+    const isValidEnd = isDefined(this.end) ? this.start < this.end : true;
+    return isDefined(this.start) && isValidEnd;
   }
 
   /** The backdrop that is positioned behind the chart */
@@ -216,7 +219,10 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
         const extremes = xAxis[0].getExtremes();
         const pxPerUnit = this._plotBackgroundBoundingBox.width / (extremes.max - extremes.min);
         const left = (clamp(this._start, extremes.min, extremes.max) - extremes.min) * pxPerUnit;
-        const width = (clamp(this._end, extremes.min, extremes.max) - extremes.min) * pxPerUnit - left;
+        // calculate the width based on start/end values or from start to the edge of the chart
+        const width = isDefined(this._end) ?
+          (clamp(this._end, extremes.min, extremes.max) - extremes.min) * pxPerUnit - left :
+          (extremes.max - extremes.min) * pxPerUnit - left;
         // tslint:disable:no-magic-numbers
         this._relativeBoundingBox = {
           left: round(left + this._plotBackgroundBoundingBox.left, 2),
