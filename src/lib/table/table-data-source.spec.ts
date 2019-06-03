@@ -1,13 +1,11 @@
-import { ComponentFixture, TestBed, async, flush, fakeAsync, tick, flushMicrotasks } from '@angular/core/testing';
-import { DtTableModule } from './table-module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { OnInit, ViewChild, Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { DtPagination, DtTableDataSource, DtIconModule } from '@dynatrace/angular-components';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DtIconModule, DtPagination, DtTableDataSource } from '@dynatrace/angular-components';
 import { DtPaginationModule } from '../pagination';
-import { tap } from 'rxjs/operators';
+import { DtTableModule } from './table-module';
 
 const PAGE_SIZE = 2;
 
@@ -118,6 +116,28 @@ describe('DtTableDataSource', () => {
     fixture.detectChanges();
     rows = fixture.debugElement.queryAll(By.css('dt-row'));
 
+    expect(rows.length).toBe(PAGE_SIZE);
+  }));
+
+  it('should adapt the paging when the pagination is set to null', fakeAsync(() => {
+    flush();
+    fixture.detectChanges();
+    let rows = fixture.debugElement.queryAll(By.css('dt-row'));
+
+    expect(rows.length).toBe(PAGE_SIZE);
+
+    component.dataSource.pagination = null;
+    flush();
+    fixture.detectChanges();
+
+    rows = fixture.debugElement.queryAll(By.css('dt-row'));
+    expect(rows.length).toBe(DATA_SET.length);
+
+    component.dataSource.pagination = component.pagination;
+    flush();
+    fixture.detectChanges();
+
+    rows = fixture.debugElement.queryAll(By.css('dt-row'));
     expect(rows.length).toBe(PAGE_SIZE);
   }));
 });
