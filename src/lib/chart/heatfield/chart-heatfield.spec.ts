@@ -95,6 +95,15 @@ describe('DtChartHeatfield', () => {
         chart._afterRender.next();
         validatePosition(fixture, 100, 500);
       });
+
+      it('should stretch the heatfield to the axisMax when end is undefined', () => {
+        instance.end = undefined;
+        chart.axisMin = 100000;
+        chart.axisMax = 200000;
+        fixture.detectChanges();
+        chart._afterRender.next();
+        validatePosition(fixture, 100, 500);
+      });
     });
 
     describe('Activation', () => {
@@ -239,8 +248,8 @@ function validatePosition(fixture: ComponentFixture<SingleHeatfield>, expectedLe
   `,
 })
 class SingleHeatfield {
-  start = 10000;
-  end = 20000;
+  start: number|undefined = 10000;
+  end: number|undefined = 20000;
   color: string;
   isActive: boolean;
 }
