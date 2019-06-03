@@ -1,8 +1,8 @@
-import { Component, ViewChild, AfterViewInit, OnInit, Injectable, OnDestroy } from '@angular/core';
-import { DtTableDataSource, DtPagination, DtShowMore, DtTab } from '@dynatrace/angular-components';
+import { Component, ViewChild, AfterViewInit, OnInit, Injectable, OnDestroy, ViewChildren, QueryList, ContentChildren, ContentChild } from '@angular/core';
+import { DtTableDataSource, DtPagination, DtShowMore, DtTab, DtTable } from '@dynatrace/angular-components';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subscription, of, EMPTY } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subscription, of, EMPTY, merge, combineLatest} from 'rxjs';
+import { map, startWith, take,  } from 'rxjs/operators';
 
 interface HostUnit {
   host: string;
@@ -17,20 +17,33 @@ interface HostUnit {
   styleUrls: ['./table-demo.component.scss'],
 })
 export class TableDemo implements OnInit, OnDestroy {
-
+  show = true;
   pageSize = 3;
   dataSource: DtTableDataSource<HostUnit> = new DtTableDataSource();
   private subscription: Subscription = Subscription.EMPTY;
 
-  @ViewChild(DtPagination) pagination: DtPagination;
+  @ViewChildren(DtPagination) paginationList: QueryList<DtPagination>;
 
   ngOnInit(): void {
     this.subscription = of(this.dataSource1)
       .subscribe((data: HostUnit[]) => {
         this.dataSource.data = data;
-        this.dataSource.pagination = this.pagination;
-        this.dataSource.pageSize = this.pageSize;
-      });
+    });
+  }
+
+  ngAfterViewInit(): void {
+
+    this.paginationList.changes
+      .pipe(
+        startWith(null)
+      ).subscribe(() => {
+        if (this.paginationList.first) {
+          this.dataSource.pagination = this.paginationList.first;
+          this.dataSource.pageSize = this.pageSize;
+        } else {
+          this.dataSource.pagination = null;
+        }
+    });
   }
 
   dataSource1: HostUnit[] = [

@@ -19,6 +19,17 @@ import { DtSort, DtTableDataSource, formatPercent, formatBytes, formatRate, DtIn
 <dt-pagination></dt-pagination>
 `,
   // tslint:enable
+  styles: [`
+    :host {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    dt-pagination {
+      align-self: center;
+      margin: 1em 0;
+    }
+  `],
 })
 export class TablePaginationComponent implements OnInit {
   private data: object[] = [

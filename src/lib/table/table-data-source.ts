@@ -1,11 +1,11 @@
 import { DataSource } from '@angular/cdk/table';
+import { compareValues, isNumber } from '@dynatrace/angular-components/core';
 import { DtPagination } from '@dynatrace/angular-components/pagination';
-import { BehaviorSubject, Observable, merge, of, combineLatest, Subscription, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, Observable, of, Subject, Subscription } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
-import { isNumber, compareValues } from '@dynatrace/angular-components/core';
-import { DtTable } from './table';
 import { DtSimpleColumnDisplayAccessorFunction, DtSimpleColumnSortAccessorFunction } from './simple-columns/simple-column-base';
 import { DtSort, DtSortEvent } from './sort/sort';
+import { DtTable } from './table';
 
 const DEFAULT_PAGE_SIZE = 10;
 export class DtTableDataSource<T> extends DataSource<T> {
@@ -79,6 +79,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
   get pagination(): DtPagination | null { return this._pagination; }
   set pagination(pagination: DtPagination | null) {
     this._pagination = pagination;
+    this._internalPageChanges.next();
     this._updateChangeSubscription();
   }
   private _pagination: DtPagination | null = null;
@@ -86,8 +87,6 @@ export class DtTableDataSource<T> extends DataSource<T> {
   /** Number of items to display on a page. By default set to 50. */
   get pageSize(): number { return this._pageSize; }
   set pageSize(pageSize: number) {
-    if (pageSize === this._pageSize)  { return; }
-
     this._pageSize = pageSize;
 
     if (!!this._pagination) {
@@ -254,7 +253,9 @@ export class DtTableDataSource<T> extends DataSource<T> {
     this.filteredData =
         !this.filter ? data : data.filter((obj: T) => this.filterPredicate(obj, this.filter));
 
-    if (this._pagination) { this._updatePagination(this.filteredData.length); }
+    if (this._pagination && this._pagination.length !== this.filteredData.length) {
+      this._updatePagination(this.filteredData.length);
+    }
 
     return this.filteredData;
   }
@@ -278,25 +279,24 @@ export class DtTableDataSource<T> extends DataSource<T> {
    * guard against making property changes within a round of change detection.
    */
   private _updatePagination(filteredDataLength: number): void {
-    // if no pagination is set or the pagination is not a DtPagination return
-    if (!this._pagination) { return; }
-
     Promise.resolve().then(() => {
-      const pagination = this._pagination as DtPagination;
+      if (this._pagination) {
+        const pagination = this._pagination;
 
-      pagination.length = filteredDataLength;
+        pagination.length = filteredDataLength;
 
-      // If the page index is set beyond the page, reduce it to the last page.
-      if (pagination.currentPage > 0) {
-        const lastPageIndex = Math.ceil(pagination.length / pagination.pageSize) - 1 || 0;
-        const newPageIndex = Math.min(pagination.currentPage, lastPageIndex);
+        // If the page index is set beyond the page, reduce it to the last page.
+        if (pagination.currentPage > 0) {
+          const lastPageIndex = Math.ceil(pagination.length / pagination.pageSize) || 0;
+          const newPageIndex = Math.min(pagination.currentPage, lastPageIndex);
 
-        if (newPageIndex !== pagination.currentPage) {
-          pagination.currentPage = newPageIndex;
+          if (newPageIndex !== pagination.currentPage) {
+            pagination.currentPage = newPageIndex;
 
-          // Since the pagination only emits after user-generated changes,
-          // we need our own stream so we know to should re-render the data.
-          this._internalPageChanges.next();
+            // Since the pagination only emits after user-generated changes,
+            // we need our own stream so we know to should re-render the data.
+            this._internalPageChanges.next();
+          }
         }
       }
     });
