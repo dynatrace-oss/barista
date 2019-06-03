@@ -1,6 +1,6 @@
 @mixin dt-deprecated($msg, $breaking-version: null) {
   @if ($breaking-version) {
-    @warn #{'[DEPRECATED][to be removed with ' + $breaking-version + '] ' + $msg}
+    @warn #{'[DEPRECATED][to be removed with ' + $breaking-version + '] ' + $msg};
   } @else {
     @warn #{'[DEPRECATED] ' + $msg};
   }
