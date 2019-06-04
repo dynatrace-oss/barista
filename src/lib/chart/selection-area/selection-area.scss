@@ -1,0 +1,25 @@
+@import '../../core/style/variables';
+
+:host {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+
+  &.dt-pointer-grabbing {
+    cursor: grabbing;
+  }
+
+  &.dt-no-pointer-events {
+    pointer-events: none;
+  }
+}
+
+.dt-chart-hairline {
+  background: $turquoise-400;
+  display: none;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  width: 2px;
+}

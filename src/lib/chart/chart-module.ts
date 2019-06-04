@@ -1,15 +1,25 @@
-import { NgModule } from '@angular/core';
-import { DtChart } from './chart';
-import { CommonModule } from '@angular/common';
-import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
-import { DtChartHeatfield } from './heatfield/chart-heatfield';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { DtChartSelectionAreaOrigin } from './selection-area/chart-selection-area-origin';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
-import { DtChartTooltip } from './tooltip/chart-tooltip';
-
-import { DtChartTimestamp } from './timestamp/timestamp';
+import { DtChart } from './chart';
+import { DtChartHeatfield } from './heatfield/chart-heatfield';
 import { DtChartRange } from './range/range';
+import { DtChartSelectionAreaOrigin } from './selection-area.bak/chart-selection-area-origin';
+import { DtChartTimestamp } from './timestamp/timestamp';
+import { DtChartTooltip } from './tooltip/chart-tooltip';
+import { DtChartSelectionArea } from './selection-area/selection-area';
+
+/** components that should be declared and exported */
+const COMPONENTS = [
+  DtChart,
+  DtChartHeatfield,
+  DtChartRange,
+  DtChartSelectionAreaOrigin,
+  DtChartTimestamp,
+  DtChartTooltip,
+];
 
 @NgModule({
   imports: [
@@ -18,21 +28,10 @@ import { DtChartRange } from './range/range';
     OverlayModule,
     DtSelectionAreaModule,
   ],
-  exports: [
-    DtChart,
-    DtChartHeatfield,
-    DtChartSelectionAreaOrigin,
-    DtChartTooltip,
-    DtChartTimestamp,
-    DtChartRange,
-  ],
+  exports: COMPONENTS,
   declarations: [
-    DtChart,
-    DtChartHeatfield,
-    DtChartSelectionAreaOrigin,
-    DtChartTooltip,
-    DtChartTimestamp,
-    DtChartRange,
+    ...COMPONENTS,
+    DtChartSelectionArea,
   ],
 })
 export class DtChartModule {}

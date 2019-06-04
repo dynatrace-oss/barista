@@ -1,0 +1,136 @@
+import {
+  LEFT_ARROW,
+  UP_ARROW,
+  RIGHT_ARROW,
+  DOWN_ARROW,
+  PAGE_UP,
+  PAGE_DOWN,
+  HOME,
+  END,
+} from '@angular/cdk/keycodes';
+import { clamp } from '@dynatrace/angular-components/core';
+
+/** The step size for the keyboard interaction on PAGE UP and PAGE DOWN */
+const DT_SELECTION_AREA_KEYBOARD_BIG_STEP = 10;
+
+/** @internal Event-target for the mouse events on the selection area */
+export enum DtSelectionAreaEventTarget {
+  SelectedArea = 'selected-area',
+  LeftHandle = 'left',
+  RightHandle = 'right',
+  Origin = 'origin',
+}
+
+/** Returns the offset for a keycode */
+export function getOffsetForKeyCode(
+  keyCode: number,
+  boundaryWidth: number
+): number {
+  switch (keyCode) {
+    case LEFT_ARROW:
+    case UP_ARROW:
+      return -1;
+    case RIGHT_ARROW:
+    case DOWN_ARROW:
+      return 1;
+    case PAGE_UP:
+      return -DT_SELECTION_AREA_KEYBOARD_BIG_STEP;
+    case PAGE_DOWN:
+      return DT_SELECTION_AREA_KEYBOARD_BIG_STEP;
+    case HOME:
+      return -boundaryWidth;
+    case END:
+      return boundaryWidth;
+    default:
+      return 0;
+  }
+}
+
+/**
+ * Calculates the new position based on the old position, the delta since the last update and
+ * the target that is calling the function
+ */
+export function calculatePosition(
+  target: DtSelectionAreaEventTarget,
+  deltaX: number,
+  selectedAreaLeft: number,
+  selectedAreaWidth: number,
+  boundaryWidth: number
+): { left: number; width: number } {
+  let left = 0;
+  let width = 0;
+  // let nextTarget = target;
+  // tslint:disable-next-line:switch-default
+  switch (target) {
+    case DtSelectionAreaEventTarget.SelectedArea: {
+      left = clamp(
+        selectedAreaLeft + deltaX,
+        0,
+        boundaryWidth - selectedAreaWidth
+      );
+      return { left, width: selectedAreaWidth };
+    }
+    case DtSelectionAreaEventTarget.LeftHandle: {
+      if (selectedAreaWidth - deltaX > 0) {
+        left = selectedAreaLeft + deltaX;
+        width =
+          left <= 0
+            ? selectedAreaWidth - (deltaX - left)
+            : selectedAreaWidth - deltaX;
+        width = clamp(width, 0, boundaryWidth);
+        left = clamp(left, 0, boundaryWidth);
+        return { left, width };
+      }
+      return {
+        left: selectedAreaLeft + selectedAreaWidth,
+        width: 0,
+      };
+    }
+    case DtSelectionAreaEventTarget.RightHandle: {
+      if (selectedAreaWidth + deltaX > 0) {
+        left = selectedAreaLeft;
+        const clampStart = 0;
+        const clampEnd = boundaryWidth - selectedAreaLeft;
+        width = clamp(selectedAreaWidth + deltaX, clampStart, clampEnd);
+        return { left, width };
+      }
+      return { left: selectedAreaLeft, width: 0 };
+    }
+    case DtSelectionAreaEventTarget.Origin: {
+      // initial event on the origin check in which direction the selection area should be drawn
+      const nextTarget =
+        deltaX >= 0
+          ? DtSelectionAreaEventTarget.RightHandle
+          : DtSelectionAreaEventTarget.LeftHandle;
+
+      return calculatePosition(
+        nextTarget,
+        deltaX,
+        selectedAreaLeft,
+        selectedAreaWidth,
+        boundaryWidth
+      );
+    }
+  }
+}
+
+// export function isMouseLeftOfRightHandle(
+//   relativeMousePos: number,
+//   areaLeft: number,
+//   areaWidth: number
+// ): boolean {
+//   return relativeMousePos <= areaLeft + areaWidth;
+// }
+
+// export function isMouseRightOfLeftHandle(relativeMousePos: number, areaLeft: number): boolean {
+//   return relativeMousePos >= areaLeft;
+// }
+
+// /** Calculates the horizontal position relative to the boundaries */
+// export function calculateRelativeXPos(pos: number, start: number): number {
+//   return pos - start;
+// }
+
+// export function hasClientRectChanged(a: ClientRect, b: ClientRect): boolean {
+//   return a.top === b.top && a.left === b.left && a.width === b.width && a.height === b.height;
+// }

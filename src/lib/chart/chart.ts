@@ -51,6 +51,7 @@ import { Observable,
   EMPTY,
   ReplaySubject,
   animationFrameScheduler,
+  of,
 } from 'rxjs';
 import {
   delay,
@@ -59,14 +60,7 @@ import {
   switchMap,
   distinctUntilChanged,
   map,
-  filter,
-  share,
-  pairwise,
-  tap,
-  mergeMap,
-  mapTo,
-  withLatestFrom,
-  throttleTime,
+  concatMapTo,
  } from 'rxjs/operators';
 
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
@@ -80,23 +74,9 @@ import { applyHighchartsErrorHandler } from './highcharts/highcharts-errors';
 
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartRange } from './range/range';
-import {
-  setPosition,
-  MousePosition,
-  getRelativeMousePosition,
-  createRange,
-  updateRange,
-  captureAndMergeEvents,
-  Range,
-} from './utils';
+import { DtChartSelectionArea } from './selection-area/selection-area';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
-const HIGHCHARTS_X_AXIS_GRID = '.highcharts-grid highcharts-xaxis-grid';
-const HIGHCHARTS_Y_AXIS_GRID = '.highcharts-grid highcharts-yaxis-grid';
-const HIGHCHARTS_SERIES_GROUP = '.highcharts-series-group';
-
-const NO_POINTER_EVENTS_CLASS = 'dt-no-pointer-events';
-const GRAB_CURSOR_CLASS = 'dt-pointer-grabbing';
 
 export type DtChartOptions = HighchartsOptions & { series?: undefined; tooltip?: { shared: boolean }; interpolateGaps?: boolean };
 export type DtChartSeries = IndividualSeriesOptions;
@@ -178,12 +158,6 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   /** @internal stream that emits every time the plotBackground changes */
   _plotBackground$ = new BehaviorSubject<SVGRectElement | null>(null);
-
-  /**
-   * Highcharts plotBackground is used to size the selection area according to this area
-   * is set after Highcharts render is completed.
-   */
-  private _plotBackground: SVGRectElement | null;
 
   /** @internal Emits when highcharts finishes rendering. */
   readonly _afterRender = new Subject<void>();
@@ -339,6 +313,15 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
       }
       this._tooltipRefreshed.next({ data: (event as DtHcTooltipEventPayload).data , chart: this._chartObject! });
     });
+
+    // set the toPixels method on the timestamp to calculate a px value for an value on the xAxis
+    if (this._timestamp && this._chartObject) {
+      this._timestamp._valueToPixels = this._chartObject.xAxis[0].toPixels.bind(this._chartObject.xAxis[0]);
+    }
+
+    if (this._range && this._chartObject) {
+      this._range._valueToPixels = this._chartObject.xAxis[0].toPixels.bind(this._chartObject.xAxis[0]);
+    }
   }
 
   ngAfterContentInit(): void {
@@ -386,7 +369,8 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   private _notifyAfterRender(): void {
     this._afterRender.next();
-    this._plotBackground$.next(this._plotBackground);
+    const plotBackground = this.container.nativeElement.querySelector<SVGRectElement>(HIGHCHARTS_PLOT_BACKGROUND);
+    this._plotBackground$.next(plotBackground);
   }
 
   /** Invoked when an heatfield is activated. */
@@ -423,285 +407,11 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
   /********************************************************************
    * S E L E C T I O N   A R E A
    ********************************************************************/
-
-  selectionAreaDisabled = false;
-
-  _disableRange = false;
-  _disableTimestamp = false;
-
-  /** @internal mousedown event stream on the selection area emits only left mouse */
-  _mousedown$: Observable<MouseEvent> = EMPTY;
-  /** @internal mousemove event stream from window */
-  _mousemove$: Observable<MouseEvent> = EMPTY;
-  /** @internal mouse up stream on the window */
-  _mouseup$: Observable<MouseEvent> = EMPTY;
-  /** @internal drag event based on a left click on the selection area */
-  _drag$: Observable<MouseEvent> = EMPTY;
-  /** @internal drag event triggered by a boundary drag-resize *(only available within a range)* */
-  _dragHandle$: Observable<MouseEvent> = EMPTY;
-  /** @internal click event stream that emits only click events on the selection area */
-  _click$: Observable<MouseEvent> = EMPTY;
-  /** @internal stream that emits the current relative mouse position on the selection area */
-  _currentMousePosition$: Observable<MousePosition> = EMPTY;
-
-  @ContentChild(DtChartRange)  private _range: DtChartRange | undefined;
-  @ContentChild(DtChartTimestamp)  private _timestamp: DtChartTimestamp | undefined;
-  @ViewChild('selectionArea') private _selectionArea: ElementRef<HTMLDivElement>;
-
-  private _initializeSelectionArea(): void {
-
-    if (!this._plotBackground) {
-      throw Error('Highcharts has not rendered yet! You Requested some highcharts internal element!');
-    }
-
-    const yAxisGrids = [].slice.call(this.container.nativeElement.querySelectorAll(HIGHCHARTS_Y_AXIS_GRID));
-    const xAxisGrids = [].slice.call(this.container.nativeElement.querySelectorAll(HIGHCHARTS_X_AXIS_GRID));
-    const seriesGroup = this.container.nativeElement.querySelector(HIGHCHARTS_SERIES_GROUP);
-
-    const mousedownElements = [
-      this._plotBackground,
-      seriesGroup,
-      ...xAxisGrids,
-      ...yAxisGrids,
-    ];
-
-    this._mousedown$ = captureAndMergeEvents('mousedown', mousedownElements).pipe(
-      tap(() => {
-        removeCssClass(this._selectionArea.nativeElement, NO_POINTER_EVENTS_CLASS);
-      }),
-      filter((event) => event.button === 0), // only emit left mouse
-      filter(() => !this.selectionAreaDisabled),
-      share()
-    );
-
-    this._mousemove$ = fromEvent<MouseEvent>(window, 'mousemove').pipe(
-      filter(() => !this.selectionAreaDisabled),
-      share()
-    );
-
-    this._mouseup$ = fromEvent<MouseEvent>(window, 'mouseup').pipe(
-      filter(() => !this.selectionAreaDisabled),
-      tap(() => {
-        addCssClass(this._selectionArea.nativeElement, NO_POINTER_EVENTS_CLASS);
-      }),
-      share()
-    );
-
-    this._drag$ = this._mousedown$.pipe(
-      filter(() => !this._disableRange),
-      switchMap(() => this._mousemove$.pipe(takeUntil(this._mouseup$))),
-      share()
-    );
-
-    this._click$ = merge(
-      this._mousedown$,
-      this._mousemove$,
-      this._mouseup$
-    ).pipe(
-      pairwise(),
-      filter(([a, b]) => a.type === 'mousedown' && b.type === 'mouseup'),
-      map(([a, b]) => b),
-      share()
-    );
-
-    this._currentMousePosition$ = this._mousedown$.pipe(
-      map((event: MouseEvent) => getRelativeMousePosition(event, this._selectionArea.nativeElement))
-    );
-
-    const showTimestamp$ = this._click$.pipe(mapTo(true));
-    const showRange$ = this._drag$.pipe(mapTo(true));
-    const hideTimestampAndRange$ = this._mousedown$.pipe(mapTo(false));
-
-    merge(showRange$, hideTimestampAndRange$).pipe(
-      distinctUntilChanged(),
-      takeUntil(this._destroy$)
-    ).subscribe((showOrHide) => {
-      this._showRange(showOrHide);
-    });
-
-    merge(showTimestamp$, hideTimestampAndRange$).pipe(
-      distinctUntilChanged(),
-      takeUntil(this._destroy$)
-    ).subscribe((showOrHide) => {
-      this._showTimestamp(showOrHide);
-    });
-
-    if (this._timestamp) {
-      this._click$.pipe(
-        map((event: MouseEvent) => getRelativeMousePosition(event, this._selectionArea.nativeElement)),
-        takeUntil(this._destroy$)
-      ).subscribe(({x, y}) => {
-        this._timestamp!._setPosition(x);
-      });
-    }
-
-    if (this._range) {
-      // create a stream for drag handle event
-      this._dragHandle$ = from(this._range._handleDragStarted).pipe(
-        tap(() => { removeCssClass(this._selectionArea.nativeElement, NO_POINTER_EVENTS_CLASS); }),
-        switchMap(() => this._mousemove$.pipe(takeUntil(this._mouseup$))),
-        share()
-      );
-
-      this._checkRangeResized();
-      this._checkForRangeUpdates();
-    }
-  }
-
-  ngOnInit(): void {
-    // after Highcharts is rendered we can start initializing the selection area.
-    this._afterRender.pipe(
-      takeUntil(this._destroy$)
-    ).subscribe(() => {
-      this._plotBackground = this.container.nativeElement.querySelector(HIGHCHARTS_PLOT_BACKGROUND);
-      this._setPosition();
-
-      this._initializeSelectionArea();
-    });
-  }
-
-  private _checkForRangeUpdates(): void {
-    if (!this._range) { return; }
-    // stream that stores the last positions
-    const lastPositions$ = new ReplaySubject<Range>();
-    const leftOrRightHandle$ = from(this._range._handleDragStarted).pipe(
-      map((event: MouseEvent) => identifyLeftOrRightHandle(event)),
-      filter(Boolean),
-      distinctUntilChanged()
-    );
-
-    // update a selection area according to a resize through the side handles
-    const updatedRange$ = combineLatest(lastPositions$, this._dragHandle$, leftOrRightHandle$).pipe(
-      updateRange(this._selectionArea.nativeElement),
-      share()
-    );
-
-    // Listen for an initial creation of a selection area with a normal drag
-    combineLatest(this._drag$, this._currentMousePosition$).pipe(
-      createRange(this._selectionArea.nativeElement),
-      throttleTime(0, animationFrameScheduler),
-      takeUntil(this._destroy$)
-    ).subscribe((range: Range) => {
-      if (this._range) {
-        this._range._updateRange(range);
-        lastPositions$.next(range);
-      }
-    });
-
-    // subscribe to changes to a created selection area
-    updatedRange$.pipe(
-      throttleTime(0, animationFrameScheduler),
-      takeUntil(this._destroy$)
-    ).subscribe((range) => {
-      if (this._range) {
-        this._range._updateRange(range);
-      }
-    });
-
-    // when the range gets updated by a drag on the handles we only set the last position
-    // when the drag is completed with a mouseup.
-    this._mouseup$.pipe(
-      withLatestFrom(updatedRange$),
-      map((data) => data[1]),
-      takeUntil(this._destroy$)
-    ).subscribe((range) => {
-      lastPositions$.next(range);
-    });
-
-    this._mouseup$.pipe(takeUntil(this._destroy$)).subscribe(() => {
-      if (this._range) {
-        this._range._addOrRemoveReleasedClass(true);
-      }
-    });
-  }
-
-  private _showRange(show: boolean): void {
-    if (this._range) {
-      this._range.hidden = !show;
-    }
-  }
-
-  private _showTimestamp(show: boolean): void {
-    if (this._timestamp) {
-      this._timestamp.hidden = !show;
-    }
-  }
-
-  /**
-   * This method watches with a provides start observable if the range is going to be resized.
-   * If the range gets resized then we apply a class that changes the cursor.
-   */
-  private _checkRangeResized(): void {
-    const dragHandleStart$ = this._dragHandle$.pipe(mapTo(true));
-    const initialDragStart$ = this._drag$.pipe(mapTo(true));
-    // merge the streams of the initial drag start and the handle drag start
-    const startResizing$ = merge(initialDragStart$, dragHandleStart$);
-    // map to false to end the resize
-    const mouseRelease$ = this._mouseup$.pipe(mapTo(false));
-
-    // stream that emits drag start end end
-    merge(startResizing$, mouseRelease$).pipe(
-      distinctUntilChanged(),
-      takeUntil(this._destroy$)
-    ).subscribe((resize: boolean) => {
-      if (resize) {
-        addCssClass(this._selectionArea.nativeElement, GRAB_CURSOR_CLASS);
-      } else {
-        removeCssClass(this._selectionArea.nativeElement, GRAB_CURSOR_CLASS);
-      }
-    });
-  }
-
-  /** Set the position of the select-able area to the size of the highcharts plot background */
-  private _setPosition(): void {
-    if (!this._plotBackground) {
-      // TODO: move error message to a global place
-      throw Error('Highcharts has not rendered yet! You Requested some highcharts internal element!');
-    }
-
-    // get Bounding client Rects of the plot background and the host to calculateRelativeXPos
-    // a relative offset.
-    const hostBCR = this._selectionArea.nativeElement.getBoundingClientRect();
-    const plotBCR = this._plotBackground.getBoundingClientRect();
-
-    const topOffset = plotBCR.top - hostBCR.top;
-    const leftOffset = plotBCR.left - hostBCR.left;
-
-    setPosition(this._selectionArea.nativeElement, {
-      top: topOffset,
-      left: leftOffset,
-      width: plotBCR.width,
-      height: plotBCR.height,
-    });
-  }
-}
-
-/** Check if an event target is the left or right handle  */
-function identifyLeftOrRightHandle(event: MouseEvent): 'left' | 'right' | null {
-  const target = event.target;
-
-  if (!!target && target instanceof Element) {
-    if (target.className.includes('dt-chart-right-handle')) {
-      return 'right';
-    }
-    if (target.className.includes('dt-chart-left-handle')) {
-      return 'left';
-    }
-  }
-  return null;
+  /** @internal */
+  @ContentChild(DtChartRange)  _range: DtChartRange | undefined;
+  /** @internal The instance */
+  @ContentChild(DtChartTimestamp)  _timestamp: DtChartTimestamp | undefined;
 }
