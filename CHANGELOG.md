@@ -1,3 +1,22 @@
+## 2.10.0 (2019-06-04)
+
+
+### Bug Fixes
+
+* **heatfield:** Fixes an issue when the Heatfield end was undefined ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **select:** Fixes issue where horizontal scrollbars are visible when options with long labels are in place ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** Fixes an issue where data-source will break when removing the pagination at runtime. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **theming:** Adds missing color yellow-400 
+
+### Features
+* **styles**: Font mixins are prefixed with `dt-`. Mixins without the prefix are now deprecated.
+
+### Deprecations
+* **styles**: `custom-font-styles`, `custom-font-size`, `default-font`, `monospace-font`, `main-font`, `fluid-font-size`, `h1-font`, `h2-font`, `h3-font`, `code-font`, `label-font`
+
+### Special Thanks
+Dorota Zaranska
+
 ## 2.9.0 (2019-05-24)
 
 
