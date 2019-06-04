@@ -5,6 +5,12 @@ $chart-border-width: 3px;
 $chart-arrow-size: 15px;
 $chart-border-color: $turquoise-600;
 
+:host {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .dt-chart-range-container {
   display: flex;
   left: 0;

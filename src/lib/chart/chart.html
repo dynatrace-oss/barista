@@ -1,9 +1,9 @@
 <div class="dt-chart-container">
 
-  <div class="dt-chart-selection-area dt-no-pointer-events" #selectionArea>
+  <dt-chart-selection-area>
     <ng-content select="dt-chart-range"></ng-content>
     <ng-content select="dt-chart-timestamp"></ng-content>
-  </div>
+  </dt-chart-selection-area>
 
   <ng-content select="dt-chart-heatfield"></ng-content>
   <ng-content select="dt-chart-selection-area"></ng-content>
