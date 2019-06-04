@@ -30,6 +30,43 @@
   </dt-chart-tooltip>
 
   <dt-chart-timestamp></dt-chart-timestamp>
-  <dt-chart-range></dt-chart-range>
+  <dt-chart-range [value]="[1370309400000,1370337300000]"></dt-chart-range>
 
 </dt-chart>
+
+<div class="controls">
+  <!-- <dt-switch (change)="disableSelectionArea($event)">Disable Selection Area</dt-switch> -->
+  <!-- <dt-switch (change)="disableRange($event)">Disable Range</dt-switch>
+  <dt-switch (change)="disableTimestamp($event)">Disable Timestamp</dt-switch> -->
+
+  <dt-form-field>
+    <dt-label>Timestamp position</dt-label>
+    <dt-select placeholder="Select your Time" (selectionChange)="changeTimestamp($event)">
+      <dt-option *ngFor="let time of timeValues" [value]="time">
+        {{ time | date:'h:mm:ss'}}
+      </dt-option>
+    </dt-select>
+  </dt-form-field>
+
+  <div class="range-input">
+    <dt-form-field>
+      <dt-label>Range from {{startRange | date:'h:mm'}}</dt-label>
+      <dt-select placeholder="Select your Time" [(ngModel)]="startRange" (selectionChange)="changeRange($event)">
+          <dt-option selected>---</dt-option>
+        <dt-option *ngFor="let time of timeValues" [value]="time">
+          {{ time | date:'h:mm:ss'}}
+        </dt-option>
+      </dt-select>
+    </dt-form-field>
+
+    <dt-form-field>
+      <dt-label>to {{endRange | date:'h:mm'}}</dt-label>
+      <dt-select placeholder="Select your Time" [(ngModel)]="endRange" (selectionChange)="changeRange($event)">
+        <dt-option selected>---</dt-option>
+        <dt-option *ngFor="let time of timeValues" [value]="time">
+          {{ time | date:'h:mm'}}
+        </dt-option>
+      </dt-select>
+    </dt-form-field>
+  </div>
+</div>

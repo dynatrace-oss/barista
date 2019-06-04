@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { DtSwitchChange, DtChart, DtSelectChange } from '../../lib';
+import { DtChartTimestamp } from '../../lib/chart/timestamp/timestamp';
+import { DtChartRange } from '../../lib/chart/range/range';
+import { of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'chart-demo',
@@ -87,4 +92,19 @@ export class ChartDemo {
         [1370339100000, 74],
       ],
     }];
+
+  timeValues: number[] = this.series[0].data!.map((data) => data[0]);
+  startRange: number;
+  endRange: number;
+
+  @ViewChild(DtChartTimestamp) timestamp: DtChartTimestamp;
+  @ViewChild(DtChartRange) range: DtChartRange;
+
+  changeRange(event: DtSelectChange<number>): void {
+    this.range.value = [this.startRange, this.endRange];
+  }
+
+  changeTimestamp(event: DtSelectChange<number>): void {
+    this.timestamp.value = event.value;
+  }
 }

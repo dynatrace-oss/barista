@@ -1,22 +1,4 @@
 import { fromEvent, Observable, merge } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-export interface Range {
-  left: number;
-  width: number;
-}
-
-export interface MousePosition {
-  x: number;
-  y: number;
-}
-
-export interface Range {
-  left: number;
-  width: number;
-}
-
-export type RangeInput = [MouseEvent, MousePosition];
 
 /**
  * @internal
@@ -32,6 +14,21 @@ export function captureAndMergeEvents<
       .filter(Boolean)
       .map((element: E) => fromEvent<WindowEventMap[T]>(element, type))
   );
+}
+
+/** @internal Check if an event target is the left or right handle  */
+export function identifyLeftOrRightHandle(event: MouseEvent): 'left' | 'right' | null {
+  const target = event.target;
+
+  if (!!target && target instanceof Element) {
+    if (target.className.includes('dt-chart-right-handle')) {
+      return 'right';
+    }
+    if (target.className.includes('dt-chart-left-handle')) {
+      return 'left';
+    }
+  }
+  return null;
 }
 
 /**
@@ -55,81 +52,6 @@ export function setPosition(
     elementStyle.height = `${bounding.height}px`;
   }
 }
-
-export const rangeInitialStyle = { left: '0px', width: '0px' };
-
-/** Custom Rxjs operator to calculate the position of the select range */
-export const createRange = (container: HTMLElement) => (
-  source: Observable<RangeInput>
-): Observable<Range> =>
-  source.pipe(
-    map(([event, { x, y }]) => {
-      const mousePosition: MousePosition = getRelativeMousePosition(
-        event,
-        container
-      );
-
-      const width = mousePosition.x - x;
-
-      const bcr = container.getBoundingClientRect();
-      const left = width < 0 ? mousePosition.x : x;
-
-      return {
-        left,
-        width: Math.abs(width),
-      };
-    })
-  );
-
-export const updateRange = (container: HTMLElement) => (
-  source: Observable<[Range, MouseEvent, 'right' | 'left']>
-): Observable<Range> =>
-  source.pipe(
-    map(([range, event, handle]) => {
-      const bcr = container.getBoundingClientRect();
-      const mousePosition: MousePosition = getRelativeMousePosition(
-        event,
-        container
-      );
-      let { width, left } = range;
-
-      if (handle === 'right') {
-        // Drag of the right handle
-        if (mousePosition.x >= bcr.width) {
-          // if the mousePosition is greater or equal than the container
-          // set it to the container with
-          width = bcr.width - left;
-        } else if (mousePosition.x <= left) {
-          // if the mousePosition is lesser or equal than the left handle
-          // set the width to zero
-          width = 0;
-        } else {
-          // the right handle has to be greater than the right handle
-          // and smaller than the container width
-          width = mousePosition.x - left;
-        }
-      } else {
-        // Drag of the left handle
-        if (mousePosition.x <= 0) {
-          // if the mousePosition is lesser than zero we lock the width and
-          // set left to 0
-          width = width + left;
-          left = 0;
-        } else if (mousePosition.x >= width + left) {
-          width = 0;
-          // left = width + left;
-        } else {
-          width = width + left - mousePosition.x;
-          left = mousePosition.x;
-        }
-      }
-
-      return {
-        left: Math.abs(left),
-        width: Math.abs(width),
-      };
-    })
-  );
 
 export function getScrollOffset(): { x: number; y: number } {
   if (!document || !document.documentElement) {
