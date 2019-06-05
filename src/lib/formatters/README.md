@@ -2,7 +2,7 @@
 
 ## Pipes
 
-We provide various different pipes for formatting input within your templates. Every pipe has a single responsibility and they can be chained together to achieve combined formats.
+We provide various different pipes for formatting values within your templates. Every pipe has a single responsibility and they can be chained together to achieve combined formats.
 
 ### Count
 

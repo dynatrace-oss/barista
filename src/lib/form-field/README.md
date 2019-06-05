@@ -17,6 +17,7 @@ Because `<dt-form-field>` wraps a form input component, pls make sure that you h
 ```typescript
 @NgModule({  
   imports: [
+    BrowserAnimationsModule,
     DtFormFieldModule,
   ],
 })
@@ -59,7 +60,6 @@ If a form field can have more than one error state, it is up to the consumer to 
 
 Custom content (like buttons, icons, loading-spinners) can be included before and after the input tag, as a prefix or suffix. It will be included within the visual container that wraps the form control.
 Adding the `dtPrefix` directive to an element inside the `<dt-form-field>` will designate it as the prefix. Similarly, adding `dtSuffix` will designate it as the suffix.
-**NOTE:** Prefix & suffix is still WIP. We need to update the styles once no-border buttons, small buttons and icons are in place.
 
 *Example:*
 
