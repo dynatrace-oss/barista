@@ -8,9 +8,6 @@ This Angular component provides basic expand/collapse functionality without any 
 A `<dt-expandable-panel>` element should be used whenever some action is performed. The expandable trigger directive (`dtExpandablePanel`)
 allows you to bind a custom element as trigger to an expandable panel. The expandable trigger binds to key and click events.
 
-Animation is done using Angular animations. So, don't forget
-to provide the animations module, too.
-
 ## Imports
 
 You have to import the `DtExpandablePanelModule` when you want to use the `dt-expandable-panel`.
@@ -20,6 +17,7 @@ The `dt-expandable-panel` component also requires Angular's `BrowserAnimationsMo
 @NgModule({
   imports: [
     DtExpandablePanelModule,
+    BrowserAnimationsModule,
   ],
 })
 class MyModule {}
