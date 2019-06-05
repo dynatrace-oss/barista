@@ -4,22 +4,20 @@ type: "component"
 
 # Expandable section
 
-This Angular component provides basic expand/collapse functionality with a header.
-A `<dt-expandable-section>` element should be used whenever some action is performed. It has to contain
+This Angular component provides basic expand/collapse functionality with a header. It has to contain
 a `<dt-expandable-section-header>` which contains the header content.
-
-Animation is done using Angular animations. So, don't forget
-to provide the animations module, too.
 
 ## Imports
 
-You have to import the `DtExpandableSectionModule` when you want to use the `dt-expandable-section`:
+You have to import the `DtExpandableSectionModule` when you want to use the `dt-expandable-section`. 
+The `dt-expandable-section` component also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see *Step 2: Animations* in the Getting started Guide.
 
 ```typescript
 
 @NgModule({
   imports: [
     DtExpandableSectionModule,
+    BrowserAnimationsModule,
   ],
 })
 class MyModule {}
