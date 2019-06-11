@@ -1,6 +1,22 @@
+<ng-template let-timestamp>
+  <span class="dt-selection-area-overlay-text">{{
+    value | date: 'MMM d, HH:mm'
+  }}</span>
+  <ng-content select="[dtChartSelectionAreaAction]"></ng-content>
+  <button
+    dt-icon-button
+    variant="secondary"
+    (click)="_handleOverlayClose()"
+    [attr.aria-label]="ariaLabelClose"
+    cdkFocusInitial
+  >
+    <dt-icon name="abort"></dt-icon>
+  </button>
+</ng-template>
+
 <div
   #selector
-  *ngIf="!hidden"
+  *ngIf="!_hidden"
   cdkTrapFocus
   tabIndex="0"
   aria-role="slider"

@@ -43,8 +43,6 @@ $chart-border-color: $turquoise-600;
   }
 
   :host.dt-chart-range-released &::after {
-    // border-bottom: $chart-arrow-size solid transparent;
-    // border-top: $chart-arrow-size solid transparent;
     content: '';
     height: 32px;
     position: absolute;
@@ -53,17 +51,15 @@ $chart-border-color: $turquoise-600;
     background-image: url('/assets/selection-area-handle.svg');
   }
 
-  &:focus{
+  &:focus {
     @include dt-focus-style();
   }
 }
 
 .dt-chart-right-handle::after {
-  // border-left: $chart-arrow-size solid $chart-border-color;
-  transform: translateY(-50%) scaleX(-1) ;
+  transform: translateY(-50%) scaleX(-1);
 }
 
 .dt-chart-left-handle::after {
-  // border-right: $chart-arrow-size solid $chart-border-color;
   transform: translate(-100%, -50%);
 }

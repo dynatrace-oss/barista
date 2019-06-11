@@ -314,14 +314,22 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
       this._tooltipRefreshed.next({ data: (event as DtHcTooltipEventPayload).data , chart: this._chartObject! });
     });
 
-    // set the toPixels method on the timestamp to calculate a px value for an value on the xAxis
-    if (this._timestamp && this._chartObject) {
-      this._timestamp._valueToPixels = this._chartObject.xAxis[0].toPixels.bind(this._chartObject.xAxis[0]);
+    // set the toPixels method on the timestamp and range to calculate a px value for an
+    // value on the xAxis alongside with the toValue function.
+    if (this._chartObject) {
+      const xAxis = this._chartObject.xAxis[0];
+
+      if (this._timestamp) {
+        this._timestamp._valueToPixels = xAxis.toPixels.bind(xAxis);
+        this._timestamp._pixelsToValue = xAxis.toValue.bind(xAxis);
+      }
+
+      if (this._range) {
+        this._range._valueToPixels = xAxis.toPixels.bind(xAxis);
+        this._range._pixelsToValue = xAxis.toValue.bind(xAxis);
+      }
     }
 
-    if (this._range && this._chartObject) {
-      this._range._valueToPixels = this._chartObject.xAxis[0].toPixels.bind(this._chartObject.xAxis[0]);
-    }
   }
 
   ngAfterContentInit(): void {

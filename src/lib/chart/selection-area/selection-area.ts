@@ -1,30 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ViewEncapsulation,
-  SkipSelf,
-  OnInit,
-  OnDestroy,
-  ElementRef,
-  ContentChild,
-  Input,
-  ViewChild,
-  Renderer2,
-} from '@angular/core';
+import { Overlay, OverlayConfig, OverlayRef, ConnectedPosition, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, Renderer2, SkipSelf, ViewChild, ViewEncapsulation, TemplateRef, ViewContainerRef, ChangeDetectorRef, QueryList } from '@angular/core';
+import { animationFrameScheduler, combineLatest, EMPTY, from, fromEvent, merge, Observable, ReplaySubject, Subject, of } from 'rxjs';
+import { concatMapTo, distinctUntilChanged, filter, map, mapTo, pairwise, share, skip, switchMap, takeUntil, tap, throttleTime, withLatestFrom, distinctUntilKeyChanged } from 'rxjs/operators';
+import { addCssClass, removeCssClass } from '../..';
 import { DtChart } from '../chart';
-import { takeUntil, share, tap, filter, switchMap, pairwise, map, mapTo, distinctUntilChanged, throttleTime, withLatestFrom, concatMapTo, take, skip } from 'rxjs/operators';
-import { Subject, Observable, EMPTY, fromEvent, merge, from, animationFrameScheduler, ReplaySubject, combineLatest } from 'rxjs';
-import { removeCssClass, addCssClass } from '../..';
-import { DtChartRange, DtChartRangeChanged } from '../range/range';
-import { DtChartTimestamp, DtChartTimestampChanged } from '../timestamp/timestamp';
-
-import {
-  setPosition,
-  getRelativeMousePosition,
-  captureAndMergeEvents,
-  identifyLeftOrRightHandle,
-} from '../utils';
+import { DtChartRange } from '../range/range';
+import { DtChartTimestamp } from '../timestamp/timestamp';
+import { captureAndMergeEvents, getRelativeMousePosition, identifyLeftOrRightHandle, setPosition } from '../utils';
 import { calculatePosition, DtSelectionAreaEventTarget } from './position-utils';
+import { TemplatePortal } from '@angular/cdk/portal';
 
 const ERROR_NO_PLOT_BACKGROUND = 'Highcharts has not rendered yet! You Requested a Highcharts internal element!';
 
@@ -35,15 +19,71 @@ const HIGHCHARTS_SERIES_GROUP = '.highcharts-series-group';
 const NO_POINTER_EVENTS_CLASS = 'dt-no-pointer-events';
 const GRAB_CURSOR_CLASS = 'dt-pointer-grabbing';
 
+/** Vertical distance between the overlay and the selection area */
+const DT_SELECTION_AREA_OVERLAY_SPACING = 4;
+
+/** The size factor to the origin width the selection area is created with when created by keyboard */
+const DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE = 0.5;
+
+/** The position the selection area is created at when created by keyboard */
+const DT_SELECTION_AREA_KEYBOARD_DEFAULT_START = 0.25;
+
+/** Positions for the overlay used in the selection area */
+const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
+  {
+    originX: 'center',
+    originY: 'top',
+    overlayX: 'center',
+    overlayY: 'bottom',
+    offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+  {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'bottom',
+    offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+  {
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+  {
+    originX: 'center',
+    originY: 'bottom',
+    overlayX: 'center',
+    overlayY: 'top',
+    offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+  {
+    originX: 'end',
+    originY: 'bottom',
+    overlayX: 'end',
+    overlayY: 'top',
+    offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+  {
+    originX: 'start',
+    originY: 'bottom',
+    overlayX: 'start',
+    overlayY: 'top',
+    offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
+  },
+];
+
 @Component({
   selector: 'dt-chart-selection-area',
   templateUrl: 'selection-area.html',
   styleUrls: ['selection-area.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
+  // Disable view encapsulation to style the overlay content that is located outside this component
+  encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'dt-no-pointer-events',
+    class: 'dt-chart-selection-area dt-no-pointer-events',
   },
 })
 export class DtChartSelectionArea implements OnDestroy {
@@ -92,7 +132,10 @@ export class DtChartSelectionArea implements OnDestroy {
   constructor(
     @SkipSelf() private _chart: DtChart,
     private _elementRef: ElementRef<HTMLElement>,
-    private _renderer: Renderer2
+    private _renderer: Renderer2,
+    private _overlay: Overlay,
+    private _viewContainerRef: ViewContainerRef,
+    private _changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngAfterContentInit(): void {
@@ -114,27 +157,88 @@ export class DtChartSelectionArea implements OnDestroy {
 
       // start initializing the selection area with all the mouse events.
       this._initializeSelectionArea();
+      // initializes the Hairline directive, the timestamp that follows the mouse
+      // and listens for mouse-moves to update the position of the hairline.
+      this._initializeHairline();
     });
 
+    // we have to skip the first (initial) after render and then we reset
+    // the range and timestamp each time something changes.
     this._chart._afterRender.pipe(
       skip(1),
       takeUntil(this._destroy$)
     ).subscribe(() => {
       // If the chart changes we need to destroy the range and the timestamp
       if (this._range) {
-        this._range.reset();
+        this._range._reset();
       }
 
       if (this._timestamp) {
-        this._timestamp.reset();
+        this._timestamp._reset();
       }
 
     });
   }
 
   ngOnDestroy(): void {
+    this._closeOverlay();
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  private _overlayRef: OverlayRef | null;
+  private _portal: TemplatePortal | null;
+
+  private _createOverlay<T>(data: T, template: TemplateRef<T>, ref: ElementRef<HTMLElement>): void {
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy: this._calculateOverlayPosition(ref),
+      backdropClass: 'dt-no-pointer',
+      hasBackdrop: true,
+      panelClass: ['dt-chart-selection-area-overlay'],
+      scrollStrategy: this._overlay.scrollStrategies.reposition(),
+    });
+
+    const overlayRef = this._overlay.create(overlayConfig);
+    // tslint:disable-next-line:no-any
+    this._portal = new TemplatePortal<any>(template, this._viewContainerRef, { $implicit: data });
+
+    overlayRef.attach(this._portal);
+
+    this._overlayRef = overlayRef;
+  }
+
+  private _calculateOverlayPosition(ref: ElementRef<HTMLElement>): FlexibleConnectedPositionStrategy {
+    const positionStrategy = this._overlay.position()
+      // Create position attached to the ref of the timestamp or range
+      .flexibleConnectedTo(ref)
+      // Attach overlay's center bottom point to the
+      // top center point of the timestamp or range.
+      .withPositions(DT_SELECTION_AREA_OVERLAY_POSITIONS)
+      .setOrigin(ref)
+      .withLockedPosition(false);
+
+    return positionStrategy;
+  }
+
+  /** updates or creates an overlay with the provided data */
+  private _updateOrCreateOverlay<T>(data: T, template: TemplateRef<T>, ref: ElementRef<HTMLElement>): void {
+    if (this._portal && this._overlayRef) {
+      // We already have an overlay so update the data.
+      this._portal.context.$implicit = data;
+      this._overlayRef.updatePositionStrategy(this._calculateOverlayPosition(ref));
+      // this._changeDetectorRef.markForCheck();
+    } else {
+      this._createOverlay<T>(data, template, ref);
+    }
+  }
+
+  private _closeOverlay(): void {
+    if (this._overlayRef) {
+      this._overlayRef.dispose();
+    }
+    this._overlayRef = null;
+    this._portal = null;
   }
 
   private _initializeSelectionArea(): void {
@@ -147,6 +251,7 @@ export class DtChartSelectionArea implements OnDestroy {
     const xAxisGrids = [].slice.call(this._chart.container.nativeElement.querySelectorAll(HIGHCHARTS_X_AXIS_GRID));
     const seriesGroup = this._chart.container.nativeElement.querySelector(HIGHCHARTS_SERIES_GROUP);
 
+    // select all elements where we have to capture the mousemove when pointer events are disabled on the selection area.
     const mousedownElements = [
       this._plotBackground,
       seriesGroup,
@@ -154,7 +259,10 @@ export class DtChartSelectionArea implements OnDestroy {
       ...yAxisGrids,
     ];
 
+    // hover is used to capture the mousemove on the selection area when pointer events are disabled.
+    // so it collects all underlying areas and captures the mousemove
     this._hover$ = fromEvent<MouseEvent>(mousedownElements, 'mousemove').pipe(
+      throttleTime(0, animationFrameScheduler),
       share()
     );
 
@@ -164,11 +272,6 @@ export class DtChartSelectionArea implements OnDestroy {
       tap(() => {
         removeCssClass(this._elementRef.nativeElement, NO_POINTER_EVENTS_CLASS);
       }),
-      share()
-    );
-
-    this._mousemove$ = fromEvent<MouseEvent>(window, 'mousemove').pipe(
-      filter(() => !this.disabled),
       share()
     );
 
@@ -182,14 +285,18 @@ export class DtChartSelectionArea implements OnDestroy {
 
     this._drag$ = this._mousedown$.pipe(
       filter(() => !this._disableRange),
-      switchMap(() => this._mousemove$.pipe(takeUntil(this._mouseup$))),
+      switchMap(() => fromEvent<MouseEvent>(window, 'mousemove').pipe(takeUntil(this._mouseup$))),
       map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
       share()
     );
 
+    // Create a click event that listens on a mouse down where the next
+    // event is a mouseup and not a mouse-move
     this._click$ = merge(
       this._mousedown$,
-      this._mousemove$,
+      // cannot take the hover, on drag start pointer events are enabled and we have to capture the mousemove
+      // on the selection area and not on the underlying events.
+      fromEvent<MouseEvent>(this._elementRef.nativeElement, 'mousemove'),
       this._mouseup$
     ).pipe(
       pairwise(),
@@ -198,31 +305,66 @@ export class DtChartSelectionArea implements OnDestroy {
       share()
     );
 
+    // Create event that has the relative/current mouse position
     this._currentMousePosition$ = this._mousedown$.pipe(
       map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
       share()
     );
 
+    // listen for overlay close if there is a timestamp or a range
+    merge(
+      this._timestamp ? this._timestamp._closeOverlay : of(null),
+      this._range ? this._range._closeOverlay : of(null)
+    ).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe(() => {
+      this._closeOverlay();
+    });
+
+    // TODO: create overlay
+    // if (this._timestamp) {
+    //   const templateRef = this._timestamp._overlayTemplate;
+    //   const ref = this._elementRef;
+    //   this._updateOrCreateOverlay({}, templateRef, ref);
+    // }
+
+    // Reset range or timestamp if one of each triggers a stateChanges and is now visible
+    // the other one has to be hidden then. There can only be one of both.
     if (this._timestamp && this._range) {
-      from<DtChartTimestampChanged>(this._timestamp.changed).pipe(
+      merge(
+        this._timestamp._stateChanges.pipe(map((v) => ({...v, type: 'timestamp'}))),
+        this._range._stateChanges.pipe(map((v) => ({...v, type: 'range'})))
+      ).pipe(
+        takeUntil(this._destroy$),
         filter((event) => !event.hidden),
-        distinctUntilChanged(),
-        takeUntil(this._destroy$)
-      ).subscribe((e) => {
-        if (this._range) {
-          this._range.reset();
+        distinctUntilChanged()
+      ).subscribe((state) => {
+        if (this._range && state.type === 'timestamp') {
+          this._range._reset();
+        }
+
+        if (this._timestamp && state.type === 'range') {
+          this._timestamp._reset();
         }
       });
 
-      from<DtChartRangeChanged>(this._range.changed).pipe(
-        filter((event) => !event.hidden),
-        distinctUntilChanged(),
-        takeUntil(this._destroy$)
-      ).subscribe((e) => {
-        if (this._timestamp) {
-          this._timestamp.reset();
-        }
-      });
+      // console.log(this._timestamp._overlayTemplate)
+
+      // this._timestamp._selector.changes.pipe(
+      //   map((elements: QueryList<ElementRef>) => elements.first),
+      //   filter(Boolean),
+      //   withLatestFrom(this._timestamp._stateChanges),
+      //   filter(([ref, state]) => !state.hidden),
+      //   takeUntil(this._destroy$)
+      // ).subscribe(([ref, state]) => {
+      //   console.log('display overlay at: ', state.position)
+      //   const templateRef = this._timestamp!._overlayTemplate;
+      //   this._updateOrCreateOverlay<DtChartTimestampOverlayData>(
+      //     { time: state.position},
+      //     templateRef,
+      //     ref
+      //   );
+      // });
     }
 
     const startShowingTimestamp$ = this._click$.pipe(mapTo(true));
@@ -243,17 +385,13 @@ export class DtChartSelectionArea implements OnDestroy {
       this._showTimestamp(showOrHide);
     });
 
-    // initializes the Hairline directive, the timestamp that follows the mouse
-    // and listens for mouse-moves to update the position of the hairline.
-    this._initializeHairline();
-
-    // if we have a timestamp component inside the chart we have to show it on a mouseclick
+    // if we have a timestamp component inside the chart we have to show it on a mouse click
     if (this._timestamp) {
       this._click$.pipe(
         map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
         takeUntil(this._destroy$)
       ).subscribe(({x, y}) => {
-        this._timestamp!.position = x;
+        this._timestamp!._position = x;
       });
     }
 
@@ -262,7 +400,7 @@ export class DtChartSelectionArea implements OnDestroy {
       // create a stream for drag handle event
       this._dragHandle$ = from<MouseEvent>(this._range._handleDragStarted).pipe(
         tap(() => { removeCssClass(this._elementRef.nativeElement, NO_POINTER_EVENTS_CLASS); }),
-        switchMap(() => this._mousemove$.pipe(takeUntil(this._mouseup$))),
+        switchMap(() => fromEvent<MouseEvent>(window, 'mousemove').pipe(takeUntil(this._mouseup$))),
         map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
         share()
       );
@@ -281,24 +419,31 @@ export class DtChartSelectionArea implements OnDestroy {
         position.y < 0 ||
         position.x > this._selectionAreaBcr!.width ||
         position.y > this._selectionAreaBcr!.height
-      ),
-      share()
+      )
+      // tap(a => console.log('mouseleave', a))
     );
 
     const showHairline$ = this._hover$.pipe(mapTo(true));
-    const hideHairline$ = merge(this._mousedown$, mouseLeave$).pipe(mapTo(false));
+    const hideHairline$ = merge(
+      this._mousedown$,
+      this._dragHandle$,
+      mouseLeave$
+    ).pipe(mapTo(false));
 
     merge(showHairline$, hideHairline$).pipe(
       distinctUntilChanged(),
       takeUntil(this._destroy$)
     ).subscribe((show: boolean) => {
+      // console.log('showHairline: ', show)
       this._showHairline(show);
     });
 
     this._hover$.pipe(
       map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
       map((position: {x: number; y: number}) => position.x),
-      throttleTime(0, animationFrameScheduler)
+      distinctUntilChanged(), // only emit when the x value changes ignore hover on yAxis with that.
+      throttleTime(0, animationFrameScheduler),
+      takeUntil(this._destroy$)
     ).subscribe((x: number) => {
       this._reflectHairlinePositionToDom(x);
     });
@@ -354,7 +499,7 @@ export class DtChartSelectionArea implements OnDestroy {
       takeUntil(this._destroy$)
     ).subscribe((range: {left: number; width: number}) => {
       if (this._range) {
-        this._range.area = range;
+        this._range._area = range;
         lastRange$.next(range);
       }
     });
@@ -378,7 +523,7 @@ export class DtChartSelectionArea implements OnDestroy {
       takeUntil(this._destroy$)
     ).subscribe((range) => {
       if (this._range) {
-        this._range.area = range;
+        this._range._area = range;
       }
     });
 
@@ -400,13 +545,13 @@ export class DtChartSelectionArea implements OnDestroy {
 
   private _showRange(show: boolean): void {
     if (this._range) {
-      this._range.hidden = !show;
+      this._range._hidden = !show;
     }
   }
 
   private _showTimestamp(show: boolean): void {
     if (this._timestamp) {
-      this._timestamp.hidden = !show;
+      this._timestamp._hidden = !show;
     }
   }
 

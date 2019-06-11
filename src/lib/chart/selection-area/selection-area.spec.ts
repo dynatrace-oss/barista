@@ -9,7 +9,7 @@ import {
 } from '@dynatrace/angular-components';
 // tslint:disable:no-magic-numbers
 
-fdescribe('DtChart Selection Area', () => {
+describe('DtChart Selection Area', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtChartModule, DtThemingModule],
@@ -24,12 +24,10 @@ fdescribe('DtChart Selection Area', () => {
 @Component({
   selector: 'test-chart',
   template: `
-<dt-chart [options]="options" [series]="series">
-
-  <dt-chart-timestamp></dt-chart-timestamp>
-  <dt-chart-range></dt-chart-range>
-
-</dt-chart>
+    <dt-chart [options]="options" [series]="series">
+      <dt-chart-timestamp></dt-chart-timestamp>
+      <dt-chart-range></dt-chart-range>
+    </dt-chart>
   `,
 })
 export class TestChartComponent {
