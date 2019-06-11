@@ -14,3 +14,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@import '../core/style/overlay';
+.dt-chart-selection-area-overlay {
+  @include dt-overlay-container();
+}

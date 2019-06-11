@@ -29,8 +29,12 @@
     </ng-template>
   </dt-chart-tooltip>
 
-  <dt-chart-timestamp></dt-chart-timestamp>
-  <dt-chart-range [value]="[1370309400000,1370337300000]"></dt-chart-range>
+  <dt-chart-timestamp [value]="1370309400000">
+    <button dt-button dtChartSelectionAreaAction>Analyze</button>
+  </dt-chart-timestamp>
+  <dt-chart-range>
+    <button dt-button dtChartSelectionAreaAction>Analyze</button>
+  </dt-chart-range>
 
 </dt-chart>
 
@@ -70,3 +74,28 @@
     </dt-form-field>
   </div>
 </div>
+
+
+
+<dt-chart [options]="options" [series]="series">
+  <dt-chart-timestamp>
+    <button dt-button dtChartSelectionAreaAction>Analyze</button>
+  </dt-chart-timestamp>
+  <dt-chart-range [value]="[1370309400000,1370319300000]">
+    <button dt-button dtChartSelectionAreaAction>Analyze</button>
+  </dt-chart-range>
+</dt-chart>
+
+<h2>Timestamp only</h2>
+<dt-chart [options]="options" [series]="series">
+  <dt-chart-timestamp>
+    <button dt-button dtChartSelectionAreaAction>Analyze</button>
+  </dt-chart-timestamp>
+</dt-chart>
+
+<h2>Range only</h2>
+<dt-chart [options]="options" [series]="series">
+  <dt-chart-range>
+    <button dt-button dtChartSelectionAreaAction>Analyze</button>
+  </dt-chart-range>
+</dt-chart>
