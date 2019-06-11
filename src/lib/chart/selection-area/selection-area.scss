@@ -1,6 +1,6 @@
 @import '../../core/style/variables';
 
-:host {
+.dt-chart-selection-area {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -22,4 +22,13 @@
   left: 0;
   position: absolute;
   width: 2px;
+}
+
+.dt-chart-selection-area-overlay {
+  padding-left: 6px;
+  padding-right: 6px;
+
+  & > * {
+    margin: 0 6px;
+  }
 }

@@ -1,5 +1,5 @@
 <div
-  *ngIf="!hidden"
+  *ngIf="!_hidden"
   #range
   cdkTrapFocus
   class="dt-chart-range-container"
@@ -12,8 +12,7 @@
     class="dt-chart-left-handle"
     (mousedown)="_dragHandle($event)"
     aria-role="slider"
-  >
-  </button>
+  ></button>
   <div class="dt-chart-selected-area"></div>
   <button
     #rightHandle

@@ -1,29 +1,38 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
-  Component,
   ChangeDetectorRef,
+  Component,
   ElementRef,
   EventEmitter,
-  Output,
   Input,
+  Output,
+  QueryList,
   Renderer2,
   ViewChildren,
-  QueryList,
+  ContentChild,
+  TemplateRef,
 } from '@angular/core';
 import {
   addCssClass,
-  removeCssClass,
   isNumber,
+  removeCssClass,
 } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
-import { takeUntil, startWith } from 'rxjs/operators';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { startWith, takeUntil } from 'rxjs/operators';
 
-const DT_RANGE_RELEASED_CLASS = 'dt-chart-range-released';
+export const DT_RANGE_RELEASED_CLASS = 'dt-chart-range-released';
 
-export interface DtChartRangeChanged {
-  left: number;
-  width: number;
-  hidden: boolean;
+export interface DtChartRangeOverlayData<T = unknown> {
+  from: T;
+  to: T;
+}
+
+export class RangeStateChangedEvent {
+  constructor(
+    public left: number,
+    public width: number,
+    public hidden: boolean
+  ) {}
 }
 
 @Component({
@@ -35,41 +44,71 @@ export interface DtChartRangeChanged {
   },
 })
 export class DtChartRange {
-  /** @internal Event that emits when a handle receives a mousedown event */
-  @Output() readonly _handleDragStarted = new EventEmitter<MouseEvent>();
-  @Output() readonly changed = new EventEmitter<DtChartRangeChanged>();
+
+  @Output() valueChanges = new EventEmitter<[number, number]>();
 
   @Input() ariaLabelSelectedArea = '';
 
-  /** @internal function to calculate the px position of a provided value on the xAxis */
-  private _valueToPixelsFn: ((value: number, paneCoordinates?: boolean) => number) | null =  null;
+  /** @internal Event that emits when a handle receives a mousedown event */
+  // TODO: do it lake stateChanges
+  @Output() readonly _handleDragStarted = new EventEmitter<MouseEvent>();
 
-  get _valueToPixels(): ((value: number, paneCoordinates?: boolean) => number) | null { return this._valueToPixelsFn; }
-  set _valueToPixels(fn: ((value: number, paneCoordinates?: boolean) => number) | null) {
+  /**
+   * @internal
+   * subject that emits when the close button of the overlay was triggered
+   */
+  readonly _closeOverlay = new Subject<void>();
+
+  /** @internal state changes subject that provides the state with left and width */
+  readonly _stateChanges = new Subject<RangeStateChangedEvent>();
+
+  /** @internal */
+  @ContentChild(TemplateRef) _overlayTemplate: TemplateRef<DtChartRangeOverlayData>;
+
+  /** @internal function that provides a value on the xAxis for a provided px value */
+  _pixelsToValue:
+    | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
+    | null = null;
+
+  /** @internal function to calculate the px position of a provided value on the xAxis */
+  private _valueToPixelsFn:
+    | ((value: number, paneCoordinates?: boolean) => number)
+    | null = null;
+
+  get _valueToPixels():
+    | ((value: number, paneCoordinates?: boolean) => number)
+    | null {
+    return this._valueToPixelsFn;
+  }
+  set _valueToPixels(
+    fn: ((value: number, paneCoordinates?: boolean) => number) | null
+  ) {
     this._valueToPixelsFn = fn;
     this._reflectValueToArea();
+    this._emitStateChanges();
+    this._changeDetectorRef.markForCheck();
   }
 
   /** The state of the range in px where it should be positioned */
-  private _area: { left: number; width: number } = { left: 0, width: 0 };
+  private _rangeArea: { left: number; width: number } = { left: 0, width: 0 };
   /** The state of the range when it is set programmatically in xAxis values from - to */
   private _value: [number, number] = [0, 0];
   /** The visibility state of the range */
-  private _hidden = true;
+  private _rangeHidden = true;
   /** Subject used for unsubscribing */
   private _destroy$ = new Subject<void>();
 
   @ViewChildren('range')
   private _range: QueryList<ElementRef<HTMLDivElement>>;
 
-  /** The visibility of the range */
+  /** @internal The visibility of the range */
   @Input()
-  get hidden(): boolean {
-    return this._hidden;
+  get _hidden(): boolean {
+    return this._rangeHidden;
   }
-  set hidden(hidden: boolean) {
-    this._hidden = coerceBooleanProperty(hidden);
-    this._emitChange();
+  set _hidden(hidden: boolean) {
+    this._rangeHidden = coerceBooleanProperty(hidden);
+    this._emitStateChanges();
     this._changeDetectorRef.markForCheck();
   }
 
@@ -80,24 +119,27 @@ export class DtChartRange {
   }
   set value(value: [number, number]) {
     if (!isNumber(value[0]) || !isNumber(value[1])) {
-      this.reset();
+      this._reset();
       return;
     }
     this._value = value;
-    this._hidden = false;
-
+    this._rangeHidden = false;
+    this._addOrRemoveReleasedClass(true);
     this._reflectValueToArea();
+    this._emitStateChanges();
+    this._changeDetectorRef.markForCheck();
   }
 
-  /** The area from the left point with the width */
-  @Input()
-  get area(): { left: number; width: number } {
-    return this._area;
+  /** @internal The area from the left point with the width */
+  get _area(): { left: number; width: number } {
+    return this._rangeArea;
   }
-  set area(area: { left: number; width: number }) {
-    this._area = area;
+  set _area(area: { left: number; width: number }) {
+    this._rangeArea = area;
     this._reflectStyleToDom();
-    this._emitChange();
+
+    // emit Output
+
     this._changeDetectorRef.markForCheck();
   }
 
@@ -113,18 +155,20 @@ export class DtChartRange {
   }
 
   ngAfterViewInit(): void {
-    this._range.changes.pipe(
-      startWith(null),
-      takeUntil(this._destroy$)
-    ).subscribe(() => {
-      this._reflectStyleToDom();
-    });
+    this._range.changes
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy$)
+      )
+      .subscribe(() => {
+        this._reflectStyleToDom();
+      });
   }
 
-  /** Resets the range and hides it */
-  reset(): void {
-    this._hidden = true;
-    this._area = { left: 0, width: 0 };
+  /** @internal Resets the range and hides it */
+  _reset(): void {
+    this._rangeHidden = true;
+    this._rangeArea = { left: 0, width: 0 };
     this._value = [0, 0];
     this._reflectStyleToDom();
     // needed in case that hidden triggers a ng-if
@@ -146,44 +190,64 @@ export class DtChartRange {
     }
   }
 
+  /** @internal should clamp the value between the boundaries */
   _setBoundaries(): void {
     // TODO: clamp to boundaries
     this._elementRef.nativeElement.getBoundingClientRect();
   }
 
-  private _reflectValueToArea(): void {
-    if (this._valueToPixelsFn) {
-      this._area.left = this._valueToPixelsFn(this._value[0]);
-      this._area.width = this._valueToPixelsFn(this._value[1]) - this._area.left;
+  /**
+   * @internal
+   * will be called by the selection area when the value is set,
+   * in case that only the selection area knows when the drag is finished
+   */
+  _emitValueChanges(): void {
+    if (this._pixelsToValue) {
+      const start = this._pixelsToValue(this._area.left);
+      const end = this._pixelsToValue(this._area.left + this._area.width);
+      this.valueChanges.emit([start, end]);
     }
-
-    this._reflectStyleToDom();
-    this._emitChange();
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Emits the change event  */
-  private _emitChange(): void {
-    this.changed.emit({
-      left: this._area.left,
-      width: this._area.width,
-      hidden: this.hidden,
-    });
+  private _emitStateChanges(): void {
+    this._stateChanges.next(
+      new RangeStateChangedEvent(
+        this._rangeArea.left,
+        this._rangeArea.width,
+        this._hidden
+      )
+    );
+  }
+
+  /** Calculate the px values out of the unit values */
+  private _reflectValueToArea(): void {
+    if (this._valueToPixelsFn) {
+      this._rangeArea.left = this._valueToPixelsFn(this._value[0]);
+      this._rangeArea.width =
+        this._valueToPixelsFn(this._value[1]) - this._rangeArea.left;
+    }
+
+    this._reflectStyleToDom();
   }
 
   /** Updates the selection area styling according to the actual range */
   private _reflectStyleToDom(): void {
     if (this._range && this._range.first) {
-      this._renderer.setStyle(this._range.first.nativeElement, 'opacity', `${+!this._hidden}`);
+      this._renderer.setStyle(
+        this._range.first.nativeElement,
+        'opacity',
+        `${+!this._rangeHidden}`
+      );
       this._renderer.setStyle(
         this._range.first.nativeElement,
         'left',
-        `${this._area.left}px`
+        `${this._rangeArea.left}px`
       );
       this._renderer.setStyle(
         this._range.first.nativeElement,
         'width',
-        `${this._area.width}px`
+        `${this._rangeArea.width}px`
       );
     }
   }
