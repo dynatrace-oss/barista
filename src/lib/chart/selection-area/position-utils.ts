@@ -1,12 +1,12 @@
 import {
-  LEFT_ARROW,
-  UP_ARROW,
-  RIGHT_ARROW,
   DOWN_ARROW,
-  PAGE_UP,
-  PAGE_DOWN,
-  HOME,
   END,
+  HOME,
+  LEFT_ARROW,
+  PAGE_DOWN,
+  PAGE_UP,
+  RIGHT_ARROW,
+  UP_ARROW,
 } from '@angular/cdk/keycodes';
 import { clamp } from '@dynatrace/angular-components/core';
 
@@ -113,24 +113,3 @@ export function calculatePosition(
     }
   }
 }
-
-// export function isMouseLeftOfRightHandle(
-//   relativeMousePos: number,
-//   areaLeft: number,
-//   areaWidth: number
-// ): boolean {
-//   return relativeMousePos <= areaLeft + areaWidth;
-// }
-
-// export function isMouseRightOfLeftHandle(relativeMousePos: number, areaLeft: number): boolean {
-//   return relativeMousePos >= areaLeft;
-// }
-
-// /** Calculates the horizontal position relative to the boundaries */
-// export function calculateRelativeXPos(pos: number, start: number): number {
-//   return pos - start;
-// }
-
-// export function hasClientRectChanged(a: ClientRect, b: ClientRect): boolean {
-//   return a.top === b.top && a.left === b.left && a.width === b.width && a.height === b.height;
-// }

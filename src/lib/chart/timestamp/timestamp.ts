@@ -9,16 +9,22 @@ import {
   Renderer2,
   ViewChildren,
   ViewEncapsulation,
+  ContentChild,
+  TemplateRef,
   Output,
   EventEmitter,
+  ViewChild
 } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { isNumber } from '@dynatrace/angular-components/core';
+import { Subject } from 'rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
 
-export interface DtChartTimestampChanged {
-  position: number;
-  hidden: boolean;
+/** @internal */
+export class TimestampStateChangedEvent {
+  constructor(
+    public position: number,
+    public hidden: boolean
+  ) {}
 }
 
 @Component({
@@ -34,25 +40,61 @@ export interface DtChartTimestampChanged {
 })
 export class DtChartTimestamp implements OnDestroy {
 
-  @Output() readonly changed = new EventEmitter<DtChartTimestampChanged>();
+  // TODO: emit this like in range
+  @Output() valueChanges = new EventEmitter<number>();
 
-  _valueToPixels: (value: number, paneCoordinates?: boolean) => number = (value: number) => value;
+  @Input() ariaLabelClose = 'close';
 
-  private _positionX: number;
-  private _hidden = true;
+  /**
+   * @internal
+   * subject that emits when the close button of the overlay was triggered
+   */
+  readonly _closeOverlay = new Subject<void>();
+
+  /** @internal */
+  readonly _stateChanges = new Subject<TimestampStateChangedEvent>();
+
+  /** @internal */
+  @ViewChild(TemplateRef) _overlayTemplate: TemplateRef<unknown>;
+
+  /** @internal function that provides a value on the xAxis for a provided px value */
+  _pixelsToValue:
+    | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
+    | null = null;
+
+  /** function to calculate the px position of a provided value on the xAxis */
+  private _valueToPixelsFn:
+    | ((value: number, paneCoordinates?: boolean) => number)
+    | null = null;
+
+  private _positionX = 0;
+  private _timestampHidden = true;
   private _value = 0;
   private _destroy$ = new Subject<void>();
 
-  @ViewChildren('selector')
-  private _selector: QueryList<ElementRef<HTMLDivElement>>;
-
-  @Input()
-  get hidden(): boolean {
-    return this._hidden;
+  get _valueToPixels():
+    | ((value: number, paneCoordinates?: boolean) => number)
+    | null {
+    return this._valueToPixelsFn;
   }
-  set hidden(hidden: boolean) {
-    this._hidden = hidden;
-    this._emitChange();
+  set _valueToPixels(
+    fn: ((value: number, paneCoordinates?: boolean) => number) | null
+  ) {
+    this._valueToPixelsFn = fn;
+    this._reflectValueToPosition();
+  }
+
+  @ViewChildren('selector')
+  _selector: QueryList<ElementRef<HTMLDivElement>>;
+
+  /** @internal */
+  @Input()
+  get _hidden(): boolean {
+    return this._timestampHidden;
+  }
+  set _hidden(hidden: boolean) {
+    this._timestampHidden = hidden;
+    this._emitStateChanges();
     this._changeDetectorRef.markForCheck();
   }
 
@@ -63,26 +105,28 @@ export class DtChartTimestamp implements OnDestroy {
   }
   set value(value: number) {
     if (!isNumber(value)) {
-      this.reset();
+      this._reset();
       return;
     }
     this._value = value;
-    this._hidden = false;
-    this._positionX = this._valueToPixels(value);
-    this._reflectPositionToDom();
-    this._emitChange();
-    this._changeDetectorRef.markForCheck();
+    this._timestampHidden = false;
+    this._reflectValueToPosition();
   }
 
-  /** The position in px where the timestamp should be placed on the x-axis */
+  /** @internal The position in px where the timestamp should be placed on the x-axis */
   @Input()
-  get position(): number {
+  get _position(): number {
     return this._positionX;
   }
-  set position(position: number) {
+  set _position(position: number) {
     this._positionX = position;
-    this._emitChange();
-    this._reflectPositionToDom();
+
+    if (this._pixelsToValue) {
+      this._value = this._pixelsToValue(position);
+    }
+
+    this._emitStateChanges();
+    this._reflectStyleToDom();
   }
 
   constructor(
@@ -96,29 +140,55 @@ export class DtChartTimestamp implements OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this._selector.changes.pipe(takeUntil(this._destroy$)).subscribe(() => {
-      this._reflectPositionToDom();
-    });
+    this._selector.changes
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy$)
+      )
+      .subscribe(() => {
+        this._reflectStyleToDom();
+      });
   }
 
-  reset(): void {
+  /** @internal */
+  _reset(): void {
     this._value = 0;
     this._positionX = 0;
-    this._hidden = true;
-    this._reflectPositionToDom();
+    this._timestampHidden = true;
+    this._reflectStyleToDom();
     this._changeDetectorRef.markForCheck();
   }
 
+  /** @internal get triggered by the close button of the overlay */
+  _handleOverlayClose(): void {
+    this._closeOverlay.next();
+    // TODO: reset
+    // this._reset();
+  }
+
   /** Emits the change event  */
-  private _emitChange(): void {
-    this.changed.emit({
-      position: this._positionX,
-      hidden: this.hidden,
-    });
+  private _emitStateChanges(): void {
+    this._stateChanges.next(
+      new TimestampStateChangedEvent(
+        this._positionX,
+        this._hidden
+      )
+    );
+  }
+
+  /** Calculate the px value out of the unit value */
+  private _reflectValueToPosition(): void {
+    if (this._valueToPixelsFn) {
+      this._positionX = this._valueToPixelsFn(this._value);
+    }
+
+    this._reflectStyleToDom();
+    this._emitStateChanges();
+    this._changeDetectorRef.markForCheck();
   }
 
   /** reflects the position of the timestamp to the element */
-  private _reflectPositionToDom(): void {
+  private _reflectStyleToDom(): void {
     if (this._selector && this._selector.first) {
       this._renderer.setStyle(
         this._selector.first.nativeElement,

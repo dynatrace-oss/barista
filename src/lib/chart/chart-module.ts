@@ -10,6 +10,9 @@ import { DtChartSelectionAreaOrigin } from './selection-area.bak/chart-selection
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
 import { DtChartSelectionArea } from './selection-area/selection-area';
+import { DtChartSelectionAreaAction } from './selection-area/overlay-action';
+import { DtIconModule } from '../icon';
+import { DtButtonModule } from '../button';
 
 /** components that should be declared and exported */
 const COMPONENTS = [
@@ -19,6 +22,7 @@ const COMPONENTS = [
   DtChartSelectionAreaOrigin,
   DtChartTimestamp,
   DtChartTooltip,
+  DtChartSelectionAreaAction,
 ];
 
 @NgModule({
@@ -26,6 +30,8 @@ const COMPONENTS = [
     CommonModule,
     DtLoadingDistractorModule,
     OverlayModule,
+    DtIconModule,
+    DtButtonModule,
     DtSelectionAreaModule,
   ],
   exports: COMPONENTS,
