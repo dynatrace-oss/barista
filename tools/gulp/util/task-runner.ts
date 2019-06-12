@@ -15,26 +15,27 @@ export interface ExecTaskOptions {
   env?: any;
   // Whether the task should fail if the process writes to STDERR.
   failOnStderr?: boolean;
-  //optional handler to capture stdout
+  // optional handler to capture stdout
+  // tslint:disable-next-line: prefer-method-signature
   stdoutListener?: (data: string) => boolean;
 }
 
 /** Create a task that executes a binary as if from the command line. */
 export function execTask(binPath: string, args: string[], options: ExecTaskOptions = {}) {
   return (done: (err?: string) => void) => {
-    const env = {...process.env, ...options.env};
+    const env = { ...process.env, ...options.env };
     const childProcess = spawn(binPath, args, { env });
     const stderrData: string[] = [];
 
     if (!options.silentStdout && !options.silent) {
-      childProcess.stdout.on('data', (data: string) => process.stdout.write(data));
+      childProcess.stdout!.on('data', (data: string) => process.stdout.write(data));
     }
-    if(options.stdoutListener) {
-      childProcess.stdout.on('data', options.stdoutListener);
+    if (options.stdoutListener) {
+      childProcess.stdout!.on('data', options.stdoutListener);
     }
 
     if (!options.silent || options.failOnStderr) {
-      childProcess.stderr.on('data', (data: string) => {
+      childProcess.stderr!.on('data', (data: string) => {
         options.failOnStderr ? stderrData.push(data) : process.stderr.write(data);
       });
     }
@@ -54,8 +55,13 @@ export function execTask(binPath: string, args: string[], options: ExecTaskOptio
  * binaries that are normally in the `./node_modules/.bin` directory, but their name might differ
  * from the package. Examples are typescript, ngc and gulp itself.
  */
-export function execNodeTask(packageName: string, executable: string | string[], args?: string[],
-                             options: ExecTaskOptions = {}, nodeOptions: string[] = []) {
+export function execNodeTask(
+  packageName: string,
+  executable: string | string[],
+  args?: string[],
+  options: ExecTaskOptions = {},
+  nodeOptions: string[] = []
+) {
   if (!args) {
     args = executable as string[];
     executable = '';
