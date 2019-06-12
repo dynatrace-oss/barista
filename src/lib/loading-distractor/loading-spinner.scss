@@ -15,6 +15,7 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
 // There is an issue in angular with the combination of :host ans :host-context.
 // As a workaround you have to move the :host-context after the :host selector
 :host :host-context(.dt-form-field),
+:host :host-context(.dt-filter-field),
 :host :host-context(.dt-button) {
   width: $dt-loading-spinner-small-size;
   height: $dt-loading-spinner-small-size;
@@ -32,7 +33,8 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear infinite;
 }
 
-:host-context(.dt-form-field) .dt-loading-spinner-svg {
+:host-context(.dt-form-field) .dt-loading-spinner-svg,
+:host-context(.dt-filter-field) .dt-loading-spinner-svg {
   stroke: $gray-500;
 }
 

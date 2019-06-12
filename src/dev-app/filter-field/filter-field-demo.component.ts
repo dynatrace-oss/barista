@@ -1,8 +1,8 @@
 import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { DtFilterFieldDefaultDataSource, DtFilterField, DtFilterFieldTag } from '@dynatrace/angular-components';
+import { DtFilterFieldDefaultDataSource, DtFilterField, DtFilterFieldTag, DtFilterFieldCurrentFilterChangeEvent } from '@dynatrace/angular-components';
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
-import { TEST_DATA } from './testdata';
+import { TEST_DATA, TEST_DATA_ASYNC } from './testdata';
 import { Subscription } from 'rxjs';
 
 // tslint:disable:no-any
@@ -29,7 +29,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   }
 
   get canSetValues(): boolean {
-    return this._dataSource.data === COMPLEX_DATA;
+    return this._dataSource.data === TEST_DATA;
   }
 
   @ViewChild(DtFilterField, { static: true }) filterField: DtFilterField;
@@ -38,7 +38,8 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   private _tagChangesSub = Subscription.EMPTY;
   _firstTag: DtFilterFieldTag;
 
-  _dataSource = new DtFilterFieldDefaultDataSource(COMPLEX_DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource<any>(TEST_DATA);
+  _loading = false;
 
   ngAfterViewInit(): void {
     this._tagChangesSub = this.filterField.tags.changes.subscribe(() => {
@@ -54,6 +55,17 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     console.log(event);
   }
 
+  currentFilterChanges(event: DtFilterFieldCurrentFilterChangeEvent): void {
+    if (event.added === TEST_DATA.autocomplete[2]) {
+      // Simulate async data loading
+      setTimeout(
+        () => {
+          this._dataSource.data = TEST_DATA_ASYNC;
+        },
+        2000);
+    }
+  }
+
   toggledDisableFirstTag(): void {
     if (this._firstTag) {
       this._firstTag.disabled = !this._firstTag.disabled;
@@ -61,7 +73,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   }
 
   setValues(): void {
-    if (this._dataSource.data === COMPLEX_DATA) {
+    if (this._dataSource.data === TEST_DATA) {
       const filter1 = [
         TEST_DATA.autocomplete[0],
         (TEST_DATA as any).autocomplete[0].autocomplete[0],
