@@ -1,7 +1,8 @@
-import { IterableDiffers, ChangeDetectorRef, ElementRef, Component, Attribute, Input, NgModule } from '@angular/core';
+import { IterableDiffers, ChangeDetectorRef, ElementRef, Component, Attribute, Input, NgModule, Inject } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkTable, CDK_TABLE_TEMPLATE, CdkTableModule } from '@angular/cdk/table';
-import { isDefined } from '@dynatrace/angular-components/core';
+import { Platform } from '@angular/cdk/platform';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'dt-table-base',
@@ -19,11 +20,13 @@ export class _DtTableBase<T> extends CdkTable<T> {
     differs: IterableDiffers,
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
+    @Inject(DOCUMENT) document: any,
+    platform: Platform,
     @Attribute('role') protected _role: string,
     @Attribute('interactiveRows') interactiveRows?: boolean
   ) {
     // tslint:disable-next-line: no-any
-    super(differs, changeDetectorRef, elementRef, _role, null as unknown as any);
+    super(differs, changeDetectorRef, elementRef, _role, null as unknown as any, document, platform);
     this.interactiveRows = interactiveRows!;
   }
 }
