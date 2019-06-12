@@ -11,6 +11,7 @@ import {
   ContentChildren,
   OnDestroy,
   NgZone,
+  Inject,
 } from '@angular/core';
 import { DtExpandableRow } from './expandable/expandable-row';
 import { _DtTableBase} from './base-table';
@@ -23,6 +24,8 @@ import {
 import { takeUntil, take, switchMap, startWith, map } from 'rxjs/operators';
 import { Subject, Observable, defer } from 'rxjs';
 import { isDefined } from '@dynatrace/angular-components/core';
+import { DOCUMENT } from '@angular/common';
+import { Platform } from '@angular/cdk/platform';
 
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
@@ -132,9 +135,11 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
     @Attribute('role') role: string,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
+    @Inject(DOCUMENT) document: any,
+    platform: Platform,
   ) {
-    super(differs, changeDetectorRef, elementRef, role);
+    super(differs, changeDetectorRef, elementRef, document, platform, role);
   }
 
   ngOnDestroy(): void {
