@@ -1,6 +1,6 @@
 import { Injectable, TemplateRef, ElementRef, Inject, Injector } from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
-import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef } from './overlay-ref';
@@ -76,7 +76,8 @@ export class DtOverlay {
     private _viewportRuler: ViewportRuler,
     // tslint:disable-next-line:no-any
     @Inject(DOCUMENT) private _document: any,
-    private _platform: Platform
+    private _platform: Platform,
+    private _overlayContainer: OverlayContainer
   ) {}
 
   create<T>(
@@ -118,8 +119,9 @@ export class DtOverlay {
       });
     }
 
-    const positionStrategy = new DtMouseFollowPositionStrategy(origin, this._viewportRuler, this._document, this._platform)
-    .withPositions(positions);
+    const positionStrategy =
+      new DtMouseFollowPositionStrategy(origin, this._viewportRuler, this._document, this._platform, this._overlayContainer)
+      .withPositions(positions);
 
     if (config.movementConstraint) {
       positionStrategy.withMovementContraint(config.movementConstraint);
