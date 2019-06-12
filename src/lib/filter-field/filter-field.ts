@@ -21,6 +21,7 @@ import { ENTER, BACKSPACE, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
 import { Subject, Subscription, fromEvent } from 'rxjs';
 import { DtAutocomplete, DtAutocompleteSelectedEvent, DtAutocompleteTrigger } from '@dynatrace/angular-components/autocomplete';
 import { readKeyCode, isDefined } from '@dynatrace/angular-components/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
 import {
@@ -32,7 +33,8 @@ import {
   isDtFreeTextDef,
   isDtRangeDef,
   DtFilterFieldTagData,
-  isDtOptionDef
+  isDtOptionDef,
+  isAsyncDtAutocompleteDef
 } from './types';
 import { filterAutocompleteDef, filterFreeTextDef, transformSourceToTagData, findDefForSourceObj, peekOptionId } from './filter-field-util';
 import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-range-trigger';
@@ -47,6 +49,15 @@ export class DtFilterFieldChangeEvent {
     public added: any[],
     /** Filter data objects removed. */
     public removed: any[],
+    /** Current state of filter data objects. */
+    public filters: any[]
+  ) { }
+}
+
+export class DtFilterFieldCurrentFilterChangeEvent {
+  constructor(
+    public source: DtFilterField,
+    public added: any,
     /** Current state of filter data objects. */
     public filters: any[]
   ) { }
@@ -84,6 +95,14 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
   private _dataSubscription: Subscription | null;
   private _stateChanges = new Subject<void>();
 
+  @Input()
+  get loading(): boolean { return this._loading; }
+  set loading(value: boolean) {
+    this._loading = coerceBooleanProperty(value);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _loading = false;
+
   /** Currently applied filters */
   @Input()
   get filters(): any[][] { return this._filters; }
@@ -99,6 +118,9 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
 
   /** Emits when a new filter has been added or removed. */
   @Output() readonly filterChanges = new EventEmitter<DtFilterFieldChangeEvent>();
+
+  /** Emits when a part has been added to the currently active filter. */
+  @Output() readonly currentFilterChanges = new EventEmitter<DtFilterFieldCurrentFilterChangeEvent>();
 
   /**
    * List of tags that are the visual representation for selected nodes.
@@ -312,6 +334,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
         this._removeSelectedOptionIdsOfSources(removed, def, this._currentSelectedOptionId);
         this._currentSelectedOptionId = peekOptionId(def, this._currentSelectedOptionId);
 
+        this._updateLoading();
         this._updateAutocompleteOptionsOrGroups();
         // If the currently edited part is a range it should prefill the
         // previously set values.
@@ -342,8 +365,10 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
     if (isDtAutocompleteDef(optionDef) || isDtFreeTextDef(optionDef) || isDtRangeDef(optionDef)) {
       this._currentDef = optionDef;
       this._currentSelectedOptionId = optionId;
+      this._updateLoading();
       this._updateFilterByLabel();
       this._updateAutocompleteOptionsOrGroups();
+      this._emitCurrentFilterChanges();
     } else {
       this._switchToRootDef(true);
     }
@@ -446,6 +471,11 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
     this.filterChanges.emit(new DtFilterFieldChangeEvent(this, added, removed, cloned));
   }
 
+  private _emitCurrentFilterChanges(): void {
+    const cloned = this._currentFilterSources!.slice();
+    this.currentFilterChanges.emit(new DtFilterFieldCurrentFilterChangeEvent(this, this._currentDef!.data, cloned));
+  }
+
   /**
    * Takes a new Datasource and switches the filter date to the provided one.
    * Handles all the disconnecting and data switching.
@@ -466,8 +496,11 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
       .pipe(takeUntil(this._destroy))
       .subscribe(
         (def) => {
-          this._rootDef = def;
+          if (!isAsyncDtAutocompleteDef(this._currentDef)) {
+            this._rootDef = def;
+          }
           this._currentDef = def;
+          this._updateLoading();
           this._updateAutocompleteOptionsOrGroups();
           this._stateChanges.next();
           this._changeDetectorRef.markForCheck();
@@ -491,6 +524,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
     this._currentFilterSources = null;
     this._filterByLabel = '';
     this._currentSelectedOptionId = '';
+    this._updateLoading();
     this._updateTagData();
     this._updateAutocompleteOptionsOrGroups();
     if (shouldEmit && sourcesToEmit.length) {
@@ -536,6 +570,10 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
         this._filterByLabel = def.option.viewValue;
       }
     }
+  }
+
+  private _updateLoading(): void {
+    this._loading = isAsyncDtAutocompleteDef(this._currentDef);
   }
 
   /** Tries to remove all the ids from the selectedOptionsids list based on the provided sources array. */

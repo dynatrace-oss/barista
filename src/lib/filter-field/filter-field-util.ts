@@ -21,7 +21,8 @@ export function filterAutocompleteDef(def: DtNodeDef, distinctIds: Set<string>, 
     .map((optionOrGroup) => isDtGroupDef(optionOrGroup) ?
       filterGroupDef(optionOrGroup, distinctIds, filterText) : filterOptionDef(optionOrGroup, distinctIds, filterText))
     .filter((optionOrGroup) => optionOrGroup !== null) as DtNodeDef[];
-  return optionsOrGroups.length ? dtAutocompleteDef(optionsOrGroups, def.autocomplete!.distinct, def.data, def) : null;
+  return def.autocomplete!.async || optionsOrGroups.length ?
+    dtAutocompleteDef(optionsOrGroups, def.autocomplete!.distinct, def.autocomplete!.async , def.data, def) : null;
 }
 
 /** Filters the list of suggestions (options) based on the predicate functions below. */
@@ -60,7 +61,8 @@ export function defDistinctPredicate(def: DtNodeDef, selectedOptionIds: Set<stri
   }
 
   if (isDtAutocompleteDef(def)) {
-    return optionOrGroupListFilteredPredicate(def.autocomplete.optionsOrGroups, selectedOptionIds, def.autocomplete.distinct);
+    return def.autocomplete.async ||
+      optionOrGroupListFilteredPredicate(def.autocomplete.optionsOrGroups, selectedOptionIds, def.autocomplete.distinct);
   }
   return true;
 }

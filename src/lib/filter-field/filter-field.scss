@@ -75,6 +75,7 @@ $dt-filter-field-inner-height: 30px;
 .dt-filter-field-input {
   display: block;
   min-width: 112px; // Minimum with of the autocomplete
+  max-width: 300px;
   flex-grow: 1;
   flex-shrink: 1;
   position: relative;
@@ -90,6 +91,10 @@ $dt-filter-field-inner-height: 30px;
   outline: none;
   background: transparent;
   z-index: 1;
+}
+
+.dt-filter-field-spinner {
+  margin-top: 7px;
 }
 
 dt-filter-field-tag {
