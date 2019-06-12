@@ -103,13 +103,13 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
   @ViewChildren(DtFilterFieldTag) tags: QueryList<DtFilterFieldTag>;
 
   /** @internal Reference to the internal input element */
-  @ViewChild('input') _inputEl: ElementRef;
+  @ViewChild('input', { static: true }) _inputEl: ElementRef;
 
   /** @internal The autocomplete trigger that is placed on the input element */
-  @ViewChild(DtAutocompleteTrigger) _autocompleteTrigger: DtAutocompleteTrigger<DtNodeDef>;
+  @ViewChild(DtAutocompleteTrigger, { static: true }) _autocompleteTrigger: DtAutocompleteTrigger<DtNodeDef>;
 
   /** @internal Querylist of the autocompletes provided by ng-content */
-  @ViewChild(DtAutocomplete) _autocomplete: DtAutocomplete<DtNodeDef>;
+  @ViewChild(DtAutocomplete, { static: true }) _autocomplete: DtAutocomplete<DtNodeDef>;
 
   /** @internal List of sources of the filter that the user currently works on. */
   _currentFilterSources: any[] | null = null;

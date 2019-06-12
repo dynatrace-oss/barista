@@ -66,10 +66,10 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
   @Input() term: string;
 
   /** @internal */
-  @ViewChild('source') _sourceElement: ElementRef<HTMLElement>;
+  @ViewChild('source', { static: true }) _sourceElement: ElementRef<HTMLElement>;
 
   /** @internal */
-  @ViewChild('transformed') _transformedElement: ElementRef<HTMLElement>;
+  @ViewChild('transformed', { static: true }) _transformedElement: ElementRef<HTMLElement>;
 
   constructor(
     private _renderer: Renderer2,

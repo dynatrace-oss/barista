@@ -156,7 +156,7 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   get _inputId(): string { return `${this.id || this._uniqueId}-input`; }
 
   /** The native radio input element */
-  @ViewChild('input') _inputElement: ElementRef;
+  @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
   constructor(
     private _elementRef: ElementRef,

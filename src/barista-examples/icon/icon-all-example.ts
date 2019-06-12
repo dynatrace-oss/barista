@@ -68,7 +68,7 @@ export class DocsAsyncIcon implements OnDestroy {
 })
 export class AllIconExample {
 
-  @ViewChild('input') _inputEl: ElementRef;
+  @ViewChild('input', { static: true }) _inputEl: ElementRef;
   _icons$: Observable<string[]>;
   private _filterValue = new BehaviorSubject<string>('');
 

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 // tslint:disable:no-any
 
-const DATA_SETS = new Map<string>([
+const DATA_SETS = new Map<string, any>([
   ['TEST_DATA', TEST_DATA],
   ['KUBERNETES_DATA', KUBERNETES_DATA],
   ['COMPLEX_DATA', COMPLEX_DATA],
@@ -32,7 +32,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     return this._dataSource.data === TEST_DATA;
   }
 
-  @ViewChild(DtFilterField) filterField: DtFilterField;
+  @ViewChild(DtFilterField, { static: true }) filterField: DtFilterField;
 
   private _activeDataSourceName = 'TEST_DATA';
   private _tagChangesSub = Subscription.EMPTY;

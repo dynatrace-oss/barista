@@ -274,7 +274,7 @@ describe('DtInlineEditor', () => {
                  [(ngModel)]="model" [aria-label-save]="saveLabel" [aria-label-cancel]="cancelLabel"></em>`,
 })
 class TestApp {
-  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
   model = 'content';
   saveLabel = 'this is the initial save label';
   cancelLabel = 'this is the initial cancel label';
@@ -284,7 +284,7 @@ class TestApp {
   template: `<h1 dt-inline-editor [(ngModel)]="model" [onRemoteSave]="save"></h1>`,
 })
 class TestAppWithSuccessSave {
-  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
   model = 'content';
 
   save(): Observable<void> {
@@ -299,7 +299,7 @@ class TestAppWithSuccessSave {
   template: `<h1 dt-inline-editor [(ngModel)]="model" [onRemoteSave]="save"></h1>`,
 })
 class TestAppWithFailureSave {
-  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
   model = 'content';
 
   save(): Observable<void> {
@@ -314,7 +314,7 @@ class TestAppWithFailureSave {
   template: `<em dt-inline-editor required [(ngModel)]="model"></em>`,
 })
 class TestComponentWithRequiredValidation {
-  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
   model = 'content';
 }
 
@@ -324,7 +324,7 @@ class TestComponentWithRequiredValidation {
   </em>`,
 })
 class TestComponentWithWithCustomErrorStateMatcher {
-  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
   model = 'content';
   errorState = false;
 

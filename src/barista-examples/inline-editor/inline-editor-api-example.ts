@@ -14,6 +14,6 @@ import { DtInlineEditor } from '@dynatrace/angular-components';
   `,
 })
 export class ApiInlineEditorExample {
-  @ViewChild('sampleEditor') sampleEditor: DtInlineEditor;
+  @ViewChild('sampleEditor', { static: true }) sampleEditor: DtInlineEditor;
   sampleModel = 'text content';
 }

@@ -142,12 +142,12 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   }
 
   /** The backdrop that is positioned behind the chart */
-  @ViewChild('backdrop', { read: ElementRef }) _backdrop: ElementRef;
+  @ViewChild('backdrop', { read: ElementRef, static: true }) _backdrop: ElementRef;
 
   /** The marker button used to activate the heatfield */
-  @ViewChild('marker', { read: ElementRef }) _marker: ElementRef;
+  @ViewChild('marker', { read: ElementRef, static: true }) _marker: ElementRef;
 
-  @ViewChild(CdkConnectedOverlay) _overlay: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: true }) _overlay: CdkConnectedOverlay;
 
   constructor(
     elementRef: ElementRef,

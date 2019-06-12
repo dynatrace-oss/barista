@@ -344,8 +344,8 @@ class DefinedAxisEmptyArray {
 })
 class ThemeDynamic {
 
-  @ViewChild(DtTheme) dtTheme: DtTheme;
-  @ViewChild(DtMicroChart) chart: DtMicroChart;
+  @ViewChild(DtTheme, { static: true }) dtTheme: DtTheme;
+  @ViewChild(DtMicroChart, { static: true }) chart: DtMicroChart;
 
   theme = 'blue';
   options: DtChartOptions = {};

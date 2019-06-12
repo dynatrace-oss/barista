@@ -77,8 +77,8 @@ export const _DtTileMixinBase = mixinTabIndex(mixinDisabled(mixinColor<Construct
 export class DtTile extends _DtTileMixinBase
   implements CanDisable, HasElementRef, CanColor<DtTileThemePalette>, HasTabIndex {
 
-  @ContentChild(DtTileSubtitle) _subTitle: DtTileSubtitle;
-  @ContentChild(DtTileIcon) _icon: DtTileIcon;
+  @ContentChild(DtTileSubtitle, { static: true }) _subTitle: DtTileSubtitle;
+  @ContentChild(DtTileIcon, { static: true }) _icon: DtTileIcon;
 
   constructor(elementRef: ElementRef) {
     super(elementRef);

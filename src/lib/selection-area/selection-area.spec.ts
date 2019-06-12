@@ -813,8 +813,8 @@ function getRightHandle(selectionArea: HTMLElement): HTMLElement {
   encapsulation: ViewEncapsulation.None,
 })
 export class BasicTest {
-  @ViewChild('origin') origin: ElementRef;
-  @ViewChild(DtSelectionArea) selectionArea: DtSelectionArea;
+  @ViewChild('origin', { static: true }) origin: ElementRef;
+  @ViewChild(DtSelectionArea, { static: true }) selectionArea: DtSelectionArea;
   counter = 0;
 
   handleChange(event: DtSelectionAreaChange): void {
@@ -831,7 +831,7 @@ export class BasicTest {
   `,
 })
 export class BasicTestWithInitialTabIndex {
-  @ViewChild('origin') origin: ElementRef;
+  @ViewChild('origin', { static: true }) origin: ElementRef;
 }
 
 @Component({
@@ -870,7 +870,7 @@ class DummyChart {
     }],
   };
 
-  @ViewChild('container') container;
+  @ViewChild('container', { static: true }) container;
 
 // tslint:disable-next-line: no-any
   options: any;
@@ -897,6 +897,6 @@ class DummyChart {
   `,
 })
 export class ChartTest {
-  @ViewChild('origin') origin: ElementRef;
-  @ViewChild('origin') chart: DummyChart;
+  @ViewChild('origin', { static: true }) origin: ElementRef;
+  @ViewChild('origin', { static: true }) chart: DummyChart;
 }

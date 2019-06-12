@@ -312,9 +312,9 @@ class DummyChart {
 
   options: DtChartOptions;
 
-  @ViewChild('container') container;
+  @ViewChild('container', { static: true }) container;
 
-  @ContentChild(DtChartHeatfield) heatfield: DtChartHeatfield;
+  @ContentChild(DtChartHeatfield, { static: true }) heatfield: DtChartHeatfield;
 
   get plotWidth(): number {
     return this.width - PLOTMARGIN_LEFT - PLOTMARGIN_RIGHT;

@@ -61,10 +61,10 @@ const DEFAULT_DT_CHART_TOOLTIP_POSITIONS: ConnectedPosition[] = [
 })
 export class DtChartTooltip<T> implements OnDestroy {
   /** @deprecated @breaking-change To be removed with 3.0.0. */
-  @ContentChild(TemplateRef) overlay: TemplateRef<T>;
+  @ContentChild(TemplateRef, { static: true }) overlay: TemplateRef<T>;
 
   // tslint:disable-next-line:no-any
-  @ContentChild(TemplateRef) _overlayTemplate: TemplateRef<any>;
+  @ContentChild(TemplateRef, { static: true }) _overlayTemplate: TemplateRef<any>;
 
   private readonly _destroy = new Subject<void>();
   private _overlayRef: OverlayRef | null;

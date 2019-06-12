@@ -126,9 +126,9 @@ describe('DtOverlay', () => {
   template: '<div #trigger>trigger</div><ng-template #overlay>overlay</ng-template>',
 })
 class TestComponent {
-  @ViewChild('trigger') trigger: ElementRef;
+  @ViewChild('trigger', { static: true }) trigger: ElementRef;
   // tslint:disable-next-line:no-any
-  @ViewChild('overlay') overlay: TemplateRef<any>;
+  @ViewChild('overlay', { static: true }) overlay: TemplateRef<any>;
 }
 
 @Component({

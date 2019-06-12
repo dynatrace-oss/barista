@@ -327,7 +327,7 @@ export class EmptyPagination {}
   template: `<dt-pagination maxPages="10" #pagination></dt-pagination>`,
 })
 export class LegacyPagination {
-  @ViewChild('pagination') pagination: DtPagination;
+  @ViewChild('pagination', { static: true }) pagination: DtPagination;
 }
 
 @Component({
@@ -355,7 +355,7 @@ export class DefaultPagination {
               (changed)="onChange($event)"></dt-pagination>`,
 })
 export class PaginationTestComponent {
-  @ViewChild('pagination') pagination: DtPagination;
+  @ViewChild('pagination', { static: true }) pagination: DtPagination;
   length: number;
   pageSize: number;
   currentPage: number;

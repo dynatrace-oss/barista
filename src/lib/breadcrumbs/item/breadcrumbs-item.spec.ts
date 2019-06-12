@@ -283,7 +283,7 @@ class TestBreadcrumbsItem {
   href: string | any[] = '';
   external = false;
 
-  @ViewChild(DtBreadcrumbsItem) item;
+  @ViewChild(DtBreadcrumbsItem, { static: true }) item;
 
   set _lastItem(value: boolean | undefined) {
     this.item._lastItem = value;

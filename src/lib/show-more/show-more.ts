@@ -47,7 +47,7 @@ export class DtShowMore {
   @Output() readonly changed = new EventEmitter<void>();
 
   /** @internal */
-  @ContentChild(DtShowLessLabel) _lessLabel: DtShowLessLabel;
+  @ContentChild(DtShowLessLabel, { static: true }) _lessLabel: DtShowLessLabel;
 
   @Input()
   get showLess(): boolean { return this._showLess; }

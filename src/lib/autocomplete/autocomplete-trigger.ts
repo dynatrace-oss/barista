@@ -139,7 +139,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     if (options) {
       return options.changes.pipe(
         startWith(options),
-        switchMap(() => merge(...options.map((option) => option.selectionChange)))
+        switchMap(() => merge<DtOptionSelectionChange<T>>(...options.map((option) => option.selectionChange)))
       );
     }
 

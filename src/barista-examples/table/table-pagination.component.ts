@@ -44,8 +44,8 @@ export class TablePaginationComponent implements OnInit {
   ];
 
   // Get the viewChild to pass the sorter reference to the data-source.
-  @ViewChild('sortable', { read: DtSort }) sortable: DtSort;
-  @ViewChild(DtPagination) pagination: DtPagination;
+  @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
+  @ViewChild(DtPagination, { static: true }) pagination: DtPagination;
 
   dataSource: DtTableDataSource<object>;
 
