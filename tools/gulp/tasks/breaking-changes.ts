@@ -12,11 +12,48 @@ const versionRegex = /\d+\.\d+\.\d+/;
 // Current version from the package.json.
 const packageVersion = require(join(buildConfig.projectDir, 'package.json')).version;
 
+/** Formats a message to be logged out in the breaking changes summary. */
+function formatMessage(comment: string, commentRange: ts.CommentRange, lines: tsutils.LineRange[]) {
+  const lineNumber = lines.findIndex((line) => line.pos > commentRange.pos);
+  const messageMatch = comment.match(/@deprecated(.*)|@breaking-change(.*)/);
+  const message = messageMatch ? messageMatch[0] : '';
+  const cleanMessage = message
+    .replace(/[\*\/\r\n]|@[\w-]+/g, '')
+    .replace(versionRegex, '')
+    .trim();
+
+  return `Line ${lineNumber}, ${cleanMessage || 'No message'}`;
+}
+
+/** Converts a version string into an object. */
+function parseVersion(version: string) {
+  const [major = 0, minor = 0, patch = 0] = version.split('.').map((segment) => parseInt(segment, 10));
+  return { major, minor, patch };
+}
+
+/** Checks whether a version has expired, based on the current version. */
+function hasExpired(currentVersion: string, breakingChange: string) {
+  if (currentVersion === breakingChange) {
+    return true;
+  }
+
+  const current = parseVersion(currentVersion);
+  const target = parseVersion(breakingChange);
+
+  return target.major < current.major ||
+    (target.major === current.major && target.minor < current.minor) ||
+    (
+      target.major === current.major &&
+      target.minor === current.minor &&
+      target.patch < current.patch
+    );
+}
+
 /**
  * Goes through all of the TypeScript files in the project and puts
  * together a summary of all of the pending and expired breaking changes.
  */
-task('breaking-changes', () => {
+task('breaking-changes', (done) => {
   const projectDir = buildConfig.projectDir;
   // tslint:disable-next-line: no-unbound-method
   const configFile = ts.readJsonConfigFile(join(projectDir, 'tsconfig.json'), ts.sys.readFile);
@@ -57,41 +94,5 @@ task('breaking-changes', () => {
     console.log(isExpired ? red(header) : header);
     console.log(isExpired ? red(messages) : messages, '\n');
   });
+  done();
 });
-
-/** Formats a message to be logged out in the breaking changes summary. */
-function formatMessage(comment: string, commentRange: ts.CommentRange, lines: tsutils.LineRange[]) {
-  const lineNumber = lines.findIndex((line) => line.pos > commentRange.pos);
-  const messageMatch = comment.match(/@deprecated(.*)|@breaking-change(.*)/);
-  const message = messageMatch ? messageMatch[0] : '';
-  const cleanMessage = message
-    .replace(/[\*\/\r\n]|@[\w-]+/g, '')
-    .replace(versionRegex, '')
-    .trim();
-
-  return `Line ${lineNumber}, ${cleanMessage || 'No message'}`;
-}
-
-/** Converts a version string into an object. */
-function parseVersion(version: string) {
-  const [major = 0, minor = 0, patch = 0] = version.split('.').map((segment) => parseInt(segment, 10));
-  return { major, minor, patch };
-}
-
-/** Checks whether a version has expired, based on the current version. */
-function hasExpired(currentVersion: string, breakingChange: string) {
-  if (currentVersion === breakingChange) {
-    return true;
-  }
-
-  const current = parseVersion(currentVersion);
-  const target = parseVersion(breakingChange);
-
-  return target.major < current.major ||
-    (target.major === current.major && target.minor < current.minor) ||
-    (
-      target.major === current.major &&
-      target.minor === current.minor &&
-      target.patch < current.patch
-    );
-}
