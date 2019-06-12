@@ -14,7 +14,7 @@
       type="text"
       class="dt-filter-field-input"
       [dtAutocomplete]="autocomplete"
-      [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length"
+      [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length || loading"
       [dtFilterFieldRange]="range"
       [dtFilterFieldRangeDisabled]="!(_currentDef && !!_currentDef.range)"
       (keydown)="_handleInputKeyDown($event)"
@@ -37,6 +37,7 @@
       (rangeSubmitted)="_handleRangeSubmitted($event)"
     >
     </dt-filter-field-range>
+    <dt-loading-spinner class="dt-filter-field-spinner" *ngIf="loading"></dt-loading-spinner>
   </div>
 
   <dt-filter-field-tag

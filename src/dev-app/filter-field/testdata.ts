@@ -20,10 +20,10 @@ export const TEST_DATA = {
       name: 'US',
       autocomplete: [
         {
-          name: 'a',
+          name: 'Miami',
         },
         {
-          name: 'b',
+          name: 'Los Angeles',
         },
         {
           name: 'custom',
@@ -31,8 +31,18 @@ export const TEST_DATA = {
         },
       ],
     },
+    {
+      name: 'DE (async)',
+      async: true,
+      autocomplete: [],
+    },
   ],
 };
 
-// selectedIds
-// AUT, AUT-Vienna, US, US-b
+export const TEST_DATA_ASYNC = {
+  name: 'DE (async)',
+  autocomplete: [
+    { name: 'Berlin' },
+    { name: 'München' },
+  ],
+};
