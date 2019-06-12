@@ -3,10 +3,9 @@ import { join, basename, relative, dirname } from 'path';
 import * as ts from 'typescript';
 import { strings } from '@angular-devkit/core';
 import { sync as glob } from 'glob';
-import { task, src, dest } from 'gulp';
+import { task, src, dest, series } from 'gulp';
 import { buildConfig } from '../build-config';
 import { replaceInFile } from '../util/file-replacer';
-import { sequenceTask } from '../util/sequence-task';
 import * as through from 'through2';
 import { execNodeTask } from '../util/task-runner';
 
@@ -219,10 +218,11 @@ task('barista-examples:validate', (done) => {
 });
 
 /** Creates the examples module */
-task('barista-example:generate', () => {
+task('barista-example:generate', (done) => {
   const metadata = getExampleMetadata(glob(join(examplesDir, '*/*.ts')));
   generateAppModule(metadata, 'app.module.ts', examplesDir);
   generateAppComponent(metadata);
+  done();
 });
 
 /** Sets the deployUrl depending on the environment */
@@ -236,7 +236,7 @@ task('barista-examples:set-env', () => {
 task('barista-examples:compile', execNodeTask('@angular/cli', 'ng', ['build', 'barista-examples', ...args]));
 
 /** Combines both tasks the set env and the build tasks */
-task('barista-examples:build', sequenceTask(
+task('barista-examples:build', series(
   'barista-examples:validate',
   'barista-examples:set-env',
   'barista-example:generate',
