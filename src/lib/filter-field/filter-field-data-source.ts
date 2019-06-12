@@ -40,6 +40,7 @@ function isGroup(data: any): data is Group {
 interface Autocomplete {
   autocomplete: Array<Option | Group>;
   distinct?: boolean;
+  async?: boolean;
 }
 
 /** Whether the provided data object is of type AutocompleteData */
@@ -174,7 +175,7 @@ export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSourc
   private _transformObject(data: any | null, parent: DtNodeDef | null = null): DtNodeDef | null {
     let def: DtNodeDef | null = null;
     if (isAutocomplete(data)) {
-      def = dtAutocompleteDef([], !!data.distinct, data, null);
+      def = dtAutocompleteDef([], !!data.distinct, !!data.async, data, null);
       def.autocomplete!.optionsOrGroups = this._transformList(data.autocomplete, def);
     } else if (isFreeText(data)) {
       def = dtFreeTextDef([], data, null);

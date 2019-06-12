@@ -27,6 +27,7 @@ export interface DtNodeDef {
 
 export interface DtAutocompleteDef {
   distinct: boolean;
+  async: boolean;
   operators: DtNodeDef[];
   optionsOrGroups: DtNodeDef[];
 }
@@ -124,10 +125,10 @@ export function isDtRangeDef(def: any): def is DtRangeDef {
 
 /** Creates a new DtAutocompleteDef onto a provided existing NodeDef or a newly created one. */
 export function dtAutocompleteDef(
-  optionsOrGroups: DtNodeDef[], distinct: boolean, data: any, existingNodeDef: DtNodeDef | null): DtNodeDef {
+  optionsOrGroups: DtNodeDef[], distinct: boolean, async: boolean, data: any, existingNodeDef: DtNodeDef | null): DtNodeDef {
   const def = {
     ...nodeDef(data, existingNodeDef),
-    autocomplete: { optionsOrGroups, distinct, operators: [] },
+    autocomplete: { optionsOrGroups, distinct, async, operators: [] },
   };
   def.nodeFlags |= DtNodeFlags.TypeAutocomplete;
   return def;
@@ -136,6 +137,10 @@ export function dtAutocompleteDef(
 /** Whether the provided def object is of type NodeDef and consists of an AutocompleteDef */
 export function isDtAutocompleteDef(def: any): def is DtNodeDef & { autocomplete: DtAutocompleteDef } {
   return isNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeAutocomplete);
+}
+
+export function isAsyncDtAutocompleteDef(def: any): def is DtNodeDef & { autocomplete: DtAutocompleteDef } {
+  return isDtAutocompleteDef(def) && def.autocomplete.async;
 }
 
 /** Creates a new DtOptionDef onto a provided existing NodeDef or a newly created one. */
