@@ -37,7 +37,7 @@ import { Subscription } from 'rxjs';
 })
 export class DtTabBody {
    /** The portal host inside of this container into which the tab body content will be loaded. */
-  @ViewChild(PortalHostDirective) _portalHost: PortalHostDirective;
+  @ViewChild(PortalHostDirective, { static: true }) _portalHost: PortalHostDirective;
 
   /** The tab body content to display. */
   @Input() content: TemplatePortal;

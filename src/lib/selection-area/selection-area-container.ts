@@ -161,16 +161,16 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   _interpolateFn: (pxValue: number) => number = (pxValue) => pxValue;
 
   /** @internal The focus trap for the selectedArea */
-  @ViewChild(CdkTrapFocus) _selectedAreaFocusTrap: CdkTrapFocus;
+  @ViewChild(CdkTrapFocus, { static: true }) _selectedAreaFocusTrap: CdkTrapFocus;
 
   /** @internal The selected area that gets created by the users action */
-  @ViewChild('selectedArea') _selectedArea: ElementRef<HTMLDivElement>;
+  @ViewChild('selectedArea', { static: true }) _selectedArea: ElementRef<HTMLDivElement>;
   /** @internal The overlay adjacent to the selectedArea */
-  @ViewChild(CdkConnectedOverlay) _overlay: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: true }) _overlay: CdkConnectedOverlay;
   /** @internal The left handle of the selectedArea */
-  @ViewChild('lefthandle') _leftHandle: ElementRef;
+  @ViewChild('lefthandle', { static: true }) _leftHandle: ElementRef;
   /** @internal The right handle of the selectedArea */
-  @ViewChild('righthandle') _rightHandle: ElementRef;
+  @ViewChild('righthandle', { static: true }) _rightHandle: ElementRef;
 
   constructor(
     private _elementRef: ElementRef,

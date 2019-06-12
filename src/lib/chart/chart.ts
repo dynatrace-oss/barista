@@ -104,7 +104,7 @@ export function DT_CHART_RESOVER_PROVIDER_FACTORY(c: DtChart): DtChartResolver {
   ],
 })
 export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
-  @ViewChild('container') container: ElementRef;
+  @ViewChild('container', { static: true }) container: ElementRef;
 
   @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<DtChartHeatfield>;
 
@@ -183,7 +183,7 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
 
   private readonly _heatfieldActiveChanges: Observable<DtChartHeatfieldActiveChange> = defer(() => {
     if (this._heatfields) {
-      return merge(...this._heatfields.map((heatfield) => heatfield.activeChange));
+      return merge<DtChartHeatfieldActiveChange>(...this._heatfields.map((heatfield) => heatfield.activeChange));
     }
 
     return this._ngZone.onStable

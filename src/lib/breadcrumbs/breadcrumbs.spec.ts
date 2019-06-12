@@ -71,7 +71,7 @@ describe('DtBreadcrumbs', () => {
 })
 class TestBreadcrumbs {
   @ViewChildren(DtBreadcrumbsItem) items: QueryList<DtBreadcrumbsItem>;
-  @ViewChild(DtBreadcrumbs) breadcrumbs: DtBreadcrumbs;
+  @ViewChild(DtBreadcrumbs, { static: true }) breadcrumbs: DtBreadcrumbs;
 }
 
 @Component({

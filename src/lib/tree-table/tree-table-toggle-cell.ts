@@ -50,7 +50,7 @@ export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, After
   private _expansionSub = Subscription.EMPTY;
 
   /** @internal wrapper element that gets the indentation applied */
-  @ViewChild('wrapper') _wrapperElement: ElementRef;
+  @ViewChild('wrapper', { static: true }) _wrapperElement: ElementRef;
 
   constructor(
     public _columnDef: DtColumnDef,

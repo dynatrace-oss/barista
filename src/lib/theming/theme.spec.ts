@@ -111,7 +111,7 @@ class TestApp {
 class TestAppChild {
   theme = ':dark';
 
-  @ViewChild(DtTheme)
+  @ViewChild(DtTheme, { static: true })
   dtThemeInstance: DtTheme;
 }
 
@@ -122,6 +122,6 @@ class TestAppChild {
 class TestAppParent {
   theme = 'turquoise:light';
 
-  @ViewChild(TestAppChild)
+  @ViewChild(TestAppChild, { static: true })
   child: TestAppChild;
 }

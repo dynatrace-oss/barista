@@ -24,9 +24,9 @@ import { DtTableEmptyStateMessage } from './table-empty-state-message';
   },
 })
 export class DtTableEmptyState {
-  @ContentChild(DtTableEmptyStateImage) emptyImage;
-  @ContentChild(DtTableEmptyStateTitle) emptyTitle;
-  @ContentChild(DtTableEmptyStateMessage) emptyMessage;
+  @ContentChild(DtTableEmptyStateImage, { static: true }) emptyImage;
+  @ContentChild(DtTableEmptyStateTitle, { static: true }) emptyTitle;
+  @ContentChild(DtTableEmptyStateMessage, { static: true }) emptyMessage;
 }
 
 @Directive({

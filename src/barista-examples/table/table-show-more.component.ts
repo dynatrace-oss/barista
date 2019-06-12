@@ -25,7 +25,7 @@ export class TableShowMoreComponent implements OnInit, OnDestroy {
 
   percentageFormatter = formatPercent;
   dataSource: DtTableDataSource<{host: string; cpu: number; memory: number; traffic: number}> = new DtTableDataSource();
-  @ViewChild(DtShowMore) showMore: DtShowMore;
+  @ViewChild(DtShowMore, { static: true }) showMore: DtShowMore;
   private destroy$ = new Subject<void>();
   // tslint:disable-next-line:max-line-length
   private fakeBackend = new BehaviorSubject<Array<{host: string; cpu: number; memory: number; memoryTotal: number; traffic: number}>>([

@@ -549,5 +549,5 @@ export class TestApp {
 
   label = 'Filter by';
 
-  @ViewChild(DtFilterField) filterField: DtFilterField;
+  @ViewChild(DtFilterField, { static: true }) filterField: DtFilterField;
 }

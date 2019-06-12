@@ -50,8 +50,8 @@ export class DtProgressBar extends _DtProgressBar implements CanColor<DtProgress
   readonly valueChange = new EventEmitter<DtProgressBarChange>();
 
   /** Contentchildren reference to the description and count sub-components */
-  @ContentChild(DtProgressBarDescription) _description: DtProgressBarDescription;
-  @ContentChild(DtProgressBarCount) _count: DtProgressBarCount;
+  @ContentChild(DtProgressBarDescription, { static: true }) _description: DtProgressBarDescription;
+  @ContentChild(DtProgressBarCount, { static: true }) _count: DtProgressBarCount;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef) {
     super(elementRef);

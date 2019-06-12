@@ -16,7 +16,7 @@ export class DummyOverlay {}
   `,
 })
 export class ProgrammaticOverlayExampleComponent {
-  @ViewChild('origin') origin: ElementRef;
+  @ViewChild('origin', { static: true }) origin: ElementRef;
 
   constructor(private _dtOverlay: DtOverlay) {}
 

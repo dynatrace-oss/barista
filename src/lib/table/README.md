@@ -387,7 +387,7 @@ Currently there are two predefined versions of the `dtSimpleColumn` exposed: `dt
 })
 export class TableComponent implements AfterViewInit {
   // Get the viewChild to pass the sorter reference to the datasource.
-  @ViewChild('sortable', { read: DtSort }) sortable: DtSort;
+  @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
 
   // Create the Datasource instanciate it.
   dataSource: DtTableDataSource<object>;

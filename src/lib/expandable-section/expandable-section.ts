@@ -71,7 +71,7 @@ export class DtExpandableSection implements CanDisable {
       .pipe(take(1), switchMap(() => this.openedChange));
   });
 
-  @ViewChild(DtExpandablePanel)
+  @ViewChild(DtExpandablePanel, { static: true })
   private _panel: DtExpandablePanel;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _ngZone: NgZone) { }

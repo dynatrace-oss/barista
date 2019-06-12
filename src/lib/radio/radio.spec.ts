@@ -722,7 +722,7 @@ class RadioGroupWithNgModel {
   template: `<dt-radio-button>One</dt-radio-button>`,
 })
 class DisableableRadioButton {
-  @ViewChild(DtRadioButton) radioButton;
+  @ViewChild(DtRadioButton, { static: true }) radioButton;
 
   set disabled(value: boolean) {
     this.radioButton.disabled = value;

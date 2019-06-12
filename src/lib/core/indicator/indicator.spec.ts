@@ -93,7 +93,7 @@ describe('DtIndicator without table', () => {
   template: `<span dtIndicator></span>`,
 })
 class DtIndicatorBasic {
-  @ViewChild(DtIndicator) indicator: DtIndicator;
+  @ViewChild(DtIndicator, { static: true }) indicator: DtIndicator;
 }
 
 @Component({

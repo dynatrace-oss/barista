@@ -388,7 +388,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
   ];
 
   // Get the viewChild to pass the sorter reference to the datasource.
-  @ViewChild('sortable', { read: DtSort }) sortable: DtSort;
+  @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
   dataSource: DtTableDataSource<object>;
   constructor() {
     this.dataSource = new DtTableDataSource(this.data);
@@ -447,7 +447,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
   ];
 
   // Get the viewChild to pass the sorter reference to the datasource.
-  @ViewChild('sortable', { read: DtSort }) sortable: DtSort;
+  @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
   dataSource: DtTableDataSource<object>;
   constructor() {
     this.dataSource = new DtTableDataSource(this.data);
