@@ -11,8 +11,8 @@ import { DtButton, DtContextDialog } from '@dynatrace/angular-components';
   </dt-context-dialog>`,
 })
 export class PrevFocusContextDialogExampleComponent {
-  @ViewChild('focusme') focusMe: DtButton;
-  @ViewChild('contextdialog') contextdialog: DtContextDialog;
+  @ViewChild('focusme', { static: true }) focusMe: DtButton;
+  @ViewChild('contextdialog', { static: true }) contextdialog: DtContextDialog;
 
   open(): void {
     this.contextdialog.open();

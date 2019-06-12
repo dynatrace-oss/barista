@@ -790,7 +790,7 @@ describe('DtTable', () => {
   `,
 })
 class TestApp {
-  @ViewChild(DtTable) tableComponent: DtTable<object[]>;
+  @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
   loading = false;
   dataSource: object[] | null | undefined = [
     {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
@@ -820,7 +820,7 @@ class TestApp {
   `,
 })
 class TestDynamicApp {
-  @ViewChild(DtTable) tableComponent: DtTable<object[]>;
+  @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
   columns = ['col1', 'col2', 'col3'];
   dataSource: object[] = [];
 }
@@ -978,7 +978,7 @@ export class TestExpandableComponentModule {}
   `,
 })
 class TestIndicatorApp {
-  @ViewChild(DtTable) tableComponent: DtTable<object[]>;
+  @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
   columns = ['col1', 'col2'];
   dataSource: object[] = [
     {col1: 'test 1', col2: 'test 2', col3: 'test 3'},

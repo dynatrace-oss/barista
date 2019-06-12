@@ -80,10 +80,10 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
   /** State of the dt-error animations. */
   _errorAnimationState: '' | 'enter' | 'enter-delayed' = '';
 
-  @ContentChild(DtLabel) _labelChild: DtLabel;
+  @ContentChild(DtLabel, { static: true }) _labelChild: DtLabel;
   @ContentChildren(DtHint) _hintChildren: QueryList<DtHint>;
   @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
-  @ContentChild(DtFormFieldControl) _control: DtFormFieldControl<T>;
+  @ContentChild(DtFormFieldControl, { static: true }) _control: DtFormFieldControl<T>;
   @ContentChildren(DtPrefix) _prefixChildren: QueryList<DtPrefix>;
   @ContentChildren(DtSuffix) _suffixChildren: QueryList<DtSuffix>;
 

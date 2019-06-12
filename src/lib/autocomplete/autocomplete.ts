@@ -136,8 +136,8 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   id = `dt-autocomplete-${_uniqueIdCounter++}`;
 
   // tslint:disable-next-line:no-any
-  @ViewChild(TemplateRef) template: TemplateRef<any>;
-  @ViewChild('panel') panel: ElementRef;
+  @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+  @ViewChild('panel', { static: true }) panel: ElementRef;
   @ContentChildren(DtOption, { descendants: true }) options: QueryList<DtOption<T>>;
   @ContentChildren(DtOptgroup) optionGroups: QueryList<DtOptgroup>;
 

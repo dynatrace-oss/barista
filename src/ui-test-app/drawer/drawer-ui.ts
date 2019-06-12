@@ -10,11 +10,11 @@ export class DrawerUI {
   openCount = 0;
   closeCount = 0;
 
-  @ViewChild('container') container: DtDrawerContainer;
-  @ViewChild('drawer') drawer: DtDrawer;
-  @ViewChild('toggleButton') drawerButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('openButton') openButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('closeButton') closeButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('container', { static: true }) container: DtDrawerContainer;
+  @ViewChild('drawer', { static: true }) drawer: DtDrawer;
+  @ViewChild('toggleButton', { static: true }) drawerButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('openButton', { static: true }) openButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('closeButton', { static: true }) closeButton: ElementRef<HTMLButtonElement>;
 
   open(): void { this.openCount++; }
   close(): void { this.closeCount++; }

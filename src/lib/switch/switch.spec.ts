@@ -634,7 +634,7 @@ class SwitchWithTabIndex {
     <dt-switch></dt-switch>`,
 })
 class SwitchUsingViewChild {
-  @ViewChild(DtSwitch) switch;
+  @ViewChild(DtSwitch, { static: true }) switch;
 
   set isDisabled(value: boolean) {
     this.switch.disabled = value;

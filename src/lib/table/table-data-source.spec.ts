@@ -159,7 +159,7 @@ describe('DtTableDataSource', () => {
 })
 export class PaginationTestApp implements OnInit {
   data = DATA_SET;
-  @ViewChild(DtPagination) pagination: DtPagination;
+  @ViewChild(DtPagination, { static: true }) pagination: DtPagination;
   dataSource: DtTableDataSource<object>;
 
   constructor() {

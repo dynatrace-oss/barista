@@ -45,7 +45,7 @@ export class DtToggleButtonGroup<T> implements AfterContentInit {
   /** @internal Combined stream of all items change events. */
   readonly _itemSelectionChanges: Observable<DtToggleButtonChange<T>> = defer(() => {
     if (this._toggleButtonItems) {
-      return merge(...this._toggleButtonItems.map((toggleButton) => toggleButton.change));
+      return merge<DtToggleButtonChange<T>>(...this._toggleButtonItems.map((toggleButton) => toggleButton.change));
     }
 
     return this._ngZone.onStable

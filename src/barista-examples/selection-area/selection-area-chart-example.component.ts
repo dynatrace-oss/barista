@@ -19,8 +19,8 @@ import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angu
   `,
 })
 export class SelectionAreaChartExample {
-  @ViewChild(DtChart) chart: DtChart;
-  @ViewChild(DtSelectionArea) selectionArea: DtSelectionArea;
+  @ViewChild(DtChart, { static: true }) chart: DtChart;
+  @ViewChild(DtSelectionArea, { static: true }) selectionArea: DtSelectionArea;
 
   left: number;
   right: number;

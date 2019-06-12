@@ -178,7 +178,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   @Output() readonly indeterminateChange = new EventEmitter<boolean>();
 
   /** The native radio input element */
-  @ViewChild('input') _inputElement: ElementRef;
+  @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
   /** Returns the unique id for the visual hidden input. */
   get _inputId(): string { return `${this.id}-input`; }
