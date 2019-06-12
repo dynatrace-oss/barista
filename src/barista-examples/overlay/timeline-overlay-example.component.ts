@@ -33,7 +33,7 @@ import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
 })
 export class TimelineComponent {
 
-  @ViewChild('timeline', { read: ElementRef }) timeline: ElementRef;
+  @ViewChild('timeline', { read: ElementRef, static: true }) timeline: ElementRef;
 
   config: DtOverlayConfig = {
     movementConstraint: 'xAxis',

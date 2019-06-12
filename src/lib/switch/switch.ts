@@ -130,7 +130,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   @Output() readonly change = new EventEmitter<DtSwitchChange<T>>();
 
   /** The native switch input element */
-  @ViewChild('input') _inputElement: ElementRef;
+  @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
   /** Returns the unique id for the visual hidden input. */
   get inputId(): string { return `${this.id}-input`; }

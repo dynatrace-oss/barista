@@ -244,6 +244,6 @@ class BasicContextDialog {
   disabled: boolean;
   customTrigger = false;
 
-  @ViewChild(DtContextDialog) contextDialog: DtContextDialog;
-  @ViewChild(DtContextDialogTrigger) contextDialogTrigger: DtContextDialogTrigger;
+  @ViewChild(DtContextDialog, { static: true }) contextDialog: DtContextDialog;
+  @ViewChild(DtContextDialogTrigger, { static: true }) contextDialogTrigger: DtContextDialogTrigger;
 }

@@ -320,7 +320,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   /** Combined stream of all of the child options' change events. */
   readonly optionSelectionChanges: Observable<DtOptionSelectionChange<T>> = defer(() => {
     if (this.options) {
-      return merge(...this.options.map((option) => option.selectionChange));
+      return merge<DtOptionSelectionChange<T>>(...this.options.map((option) => option.selectionChange));
     }
 
     return this._ngZone.onStable
@@ -338,13 +338,13 @@ export class DtSelect<T> extends _DtSelectMixinBase
   @Output() readonly valueChange = new EventEmitter<T>();
 
   /** Trigger that opens the select. */
-  @ViewChild('trigger') trigger: ElementRef;
+  @ViewChild('trigger', { static: true }) trigger: ElementRef;
 
   /** Panel containing the select options. */
-  @ViewChild('panel') panel: ElementRef;
+  @ViewChild('panel', { static: true }) panel: ElementRef;
 
   /** Overlay pane containing the options. */
-  @ViewChild(CdkConnectedOverlay) overlayDir: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: true }) overlayDir: CdkConnectedOverlay;
 
   /** All of the defined select options. */
   @ContentChildren(DtOption, { descendants: true }) options: QueryList<DtOption<T>>;

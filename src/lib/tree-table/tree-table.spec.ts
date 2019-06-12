@@ -345,7 +345,7 @@ class SimpleDtTreeTableApp {
 
   underlyingDataSource = new FakeDataSource();
 
-  @ViewChild(DtTreeTable) tree: DtTreeTable<TestData>;
+  @ViewChild(DtTreeTable, { static: true }) tree: DtTreeTable<TestData>;
 
   constructor() {
     this.underlyingDataSource.connect().subscribe((data) => {
@@ -488,7 +488,7 @@ class WhenRowDtTreeTableApp {
 
   underlyingDataSource = new FakeDataSource();
 
-  @ViewChild(DtTreeTable) tree: DtTreeTable<TestData>;
+  @ViewChild(DtTreeTable, { static: true }) tree: DtTreeTable<TestData>;
 
   constructor() {
     this.underlyingDataSource.connect().subscribe((data) => {

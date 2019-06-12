@@ -418,11 +418,11 @@ class BasicTestApp {
   openCount = 0;
   closeCount = 0;
 
-  @ViewChild('container') container: DtDrawerContainer;
-  @ViewChild('drawer') drawer: DtDrawer;
-  @ViewChild('toggleButton') drawerButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('openButton') openButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('closeButton') closeButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('container', { static: true }) container: DtDrawerContainer;
+  @ViewChild('drawer', { static: true }) drawer: DtDrawer;
+  @ViewChild('toggleButton', { static: true }) drawerButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('openButton', { static: true }) openButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('closeButton', { static: true }) closeButton: ElementRef<HTMLButtonElement>;
 
   open(): void { this.openCount++; }
   close(): void { this.closeCount++; }
@@ -437,7 +437,7 @@ class BasicTestApp {
     </dt-drawer-container>`,
 })
 class TestAppDrawerOpened {
-  @ViewChild('drawer') drawer: DtDrawer;
+  @ViewChild('drawer', { static: true }) drawer: DtDrawer;
 }
 
 @Component({ template: `<dt-drawer-container> </dt-drawer-container>` })
@@ -452,8 +452,8 @@ class NoDrawerTestApp { }
     </dt-drawer-container>`,
 })
 class FailingTestApp {
-  @ViewChild('firstDrawer') firstDrawer: DtDrawer;
-  @ViewChild('secondDrawer') secondDrawer: DtDrawer;
+  @ViewChild('firstDrawer', { static: true }) firstDrawer: DtDrawer;
+  @ViewChild('secondDrawer', { static: true }) secondDrawer: DtDrawer;
 }
 
 @Component({
@@ -479,9 +479,9 @@ class TestAppOverMode {}
     </dt-drawer-container>`,
 })
 class TestAppWithOverAndSideMode {
-  @ViewChild('container') container: DtDrawerContainer;
-  @ViewChild('drawer1') drawer1: DtDrawer;
-  @ViewChild('drawer2') drawer2: DtDrawer;
+  @ViewChild('container', { static: true }) container: DtDrawerContainer;
+  @ViewChild('drawer1', { static: true }) drawer1: DtDrawer;
+  @ViewChild('drawer2', { static: true }) drawer2: DtDrawer;
 }
 
 export class FakeMediaQueryList {

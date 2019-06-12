@@ -55,11 +55,11 @@ export const _DtTabMixinBase = mixinTabIndex(mixinDisabled(DtTabBase));
 export class DtTab extends _DtTabMixinBase implements OnInit, CanDisable, HasTabIndex {
 
   /** Content for the tab label */
-  @ContentChild(DtTabLabel) label: DtTabLabel;
+  @ContentChild(DtTabLabel, { static: true }) label: DtTabLabel;
 
   /** ContentRef if the content is provided inside a ng-template with a dtTabContent directive for lazy loading */
   // tslint:disable-next-line:no-any
-  @ContentChild(DtTabContent, {read: TemplateRef}) _lazyContentRef: TemplateRef<any>;
+  @ContentChild(DtTabContent, { read: TemplateRef, static: true }) _lazyContentRef: TemplateRef<any>;
 
   /** Unique id of the element. */
   @Input()

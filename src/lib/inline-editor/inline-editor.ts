@@ -57,9 +57,9 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
   private _required = false;
   _errorChildrenSource: Observable<DtError[]>;
 
-  @ViewChild('input') _inputReference: ElementRef;
-  @ViewChild('edit') _editButtonReference: ElementRef;
-  @ViewChild(DtFormField) _formField: DtFormField<Input>;
+  @ViewChild('input', { static: true }) _inputReference: ElementRef;
+  @ViewChild('edit', { static: true }) _editButtonReference: ElementRef;
+  @ViewChild(DtFormField, { static: true }) _formField: DtFormField<Input>;
   @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
 
   @Input()

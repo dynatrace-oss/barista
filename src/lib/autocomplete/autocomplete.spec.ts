@@ -1505,9 +1505,9 @@ class SimpleAutocomplete implements OnDestroy {
   openedSpy = jasmine.createSpy('autocomplete opened spy');
   closedSpy = jasmine.createSpy('autocomplete closed spy');
 
-  @ViewChild(DtAutocompleteTrigger) trigger: DtAutocompleteTrigger<any>;
-  @ViewChild(DtAutocomplete) panel: DtAutocomplete<any>;
-  @ViewChild(DtFormField) formField: DtFormField<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: true }) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild(DtAutocomplete, { static: true }) panel: DtAutocomplete<any>;
+  @ViewChild(DtFormField, { static: true }) formField: DtFormField<any>;
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
 
   states = [
@@ -1580,7 +1580,7 @@ class AutocompleteWithNativeInput {
   filteredOptions: Observable<any>;
   options = ['En', 'To', 'Tre', 'Fire', 'Fem'];
 
-  @ViewChild(DtAutocompleteTrigger) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: true }) trigger: DtAutocompleteTrigger<any>;
   @ViewChildren(DtOption) dtOptions: QueryList<DtOption<any>>;
 
   constructor() {
@@ -1679,7 +1679,7 @@ class NgIfAutocomplete {
   isVisible = true;
   options = ['One', 'Two', 'Three'];
 
-  @ViewChild(DtAutocompleteTrigger) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: true }) trigger: DtAutocompleteTrigger<any>;
   @ViewChildren(DtOption) dtOptions: QueryList<DtOption<any>>;
 
   constructor() {
@@ -1693,7 +1693,7 @@ class NgIfAutocomplete {
   template: `<input placeholder="Choose" [dtAutocomplete]="auto" [formControl]="control">`,
 })
 class AutocompleteWithoutPanel {
-  @ViewChild(DtAutocompleteTrigger) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: true }) trigger: DtAutocompleteTrigger<any>;
   control = new FormControl();
 }
 
@@ -1724,9 +1724,9 @@ class AutocompleteWithNumberInputAndNgModel {
   `,
 })
 class DynamicallyChangingAutocomplete {
-  @ViewChild('autoOne') autoOne: DtAutocomplete<any>;
-  @ViewChild('autoTow') autoTow: DtAutocomplete<any>;
-  @ViewChild(DtAutocompleteTrigger) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild('autoOne', { static: true }) autoOne: DtAutocomplete<any>;
+  @ViewChild('autoTow', { static: true }) autoTow: DtAutocomplete<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: true }) trigger: DtAutocompleteTrigger<any>;
 }
 
 // tslint:enabule:no-any no-magic-numbers max-file-line-count

@@ -64,7 +64,7 @@ export const _DtOverlayContainerMixin = mixinNotifyDomExit(DtOverlayContainerBas
 })
 export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanNotifyOnExit {
 
-  @ViewChild(CdkPortalOutlet) _portalOutlet: CdkPortalOutlet;
+  @ViewChild(CdkPortalOutlet, { static: true }) _portalOutlet: CdkPortalOutlet;
 
   _animationState = 'void';
 

@@ -9,8 +9,8 @@ import { generateData } from '../chart/chart-data';
   styleUrls: ['./selection-area-demo.component.scss'],
 })
 export class SelectionAreaDemo {
-  @ViewChild(DtChart) chart: DtChart;
-  @ViewChild(DtSelectionArea) selectionArea: DtSelectionArea;
+  @ViewChild(DtChart, { static: true }) chart: DtChart;
+  @ViewChild(DtSelectionArea, { static: true }) selectionArea: DtSelectionArea;
 
   left: number;
   right: number;

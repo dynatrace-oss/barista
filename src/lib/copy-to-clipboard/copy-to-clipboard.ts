@@ -63,9 +63,9 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   }
 
   private _timer: Subscription;
-  @ContentChild(DtInput, {read: ElementRef}) private input: ElementRef;
-  @ContentChild(DtInput) private inputComponent: DtInput;
-  @ViewChild('copyButton', {read: ElementRef}) private copyButton: ElementRef;
+  @ContentChild(DtInput, { read: ElementRef, static: true }) private input: ElementRef;
+  @ContentChild(DtInput, { static: true }) private inputComponent: DtInput;
+  @ViewChild('copyButton', { read: ElementRef, static: true }) private copyButton: ElementRef;
 
   copyToClipboard(): void {
     if (this._disabled) {

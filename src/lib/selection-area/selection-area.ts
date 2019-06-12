@@ -83,10 +83,10 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy, DoC
   _boundariesChanged: BehaviorSubject<ClientRect | null> = new BehaviorSubject(null);
 
 // tslint:disable-next-line: no-any
-  @ViewChild('content', { read: TemplateRef }) _overlayContent: TemplateRef<any>;
+  @ViewChild('content', { read: TemplateRef, static: true }) _overlayContent: TemplateRef<any>;
 
 // tslint:disable-next-line: no-any
-  @ViewChild('actions', { read: TemplateRef }) _overlayActions: TemplateRef<any>;
+  @ViewChild('actions', { read: TemplateRef, static: true }) _overlayActions: TemplateRef<any>;
 
   constructor(
     private _renderer: Renderer2,
