@@ -1,6 +1,8 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ChangeDetectorRef, ElementRef, Attribute, IterableDiffers, Optional, TrackByFunction, isDevMode } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ChangeDetectorRef, ElementRef, Attribute, IterableDiffers, Optional, TrackByFunction, isDevMode, Inject } from '@angular/core';
 import { DtTreeControl } from '@dynatrace/angular-components/core';
 import { _DtTableBase } from '@dynatrace/angular-components/table';
+import { DOCUMENT } from '@angular/common';
+import { Platform } from '@angular/cdk/platform';
 
 /** Dynatrace Tree Table component */
 @Component({
@@ -27,9 +29,11 @@ export class DtTreeTable<T> extends _DtTableBase<T> {
     differs: IterableDiffers,
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
+    @Inject(DOCUMENT) document: any,
+    platform: Platform,
     @Attribute('role') role: string
   ) {
-    super(differs, changeDetectorRef, elementRef, role);
+    super(differs, changeDetectorRef, elementRef, document, platform, role);
     if (!role) {
       // We need this setAttribute here to override the attribute set in the constructor of the cdkTable
       this._elementRef.nativeElement.setAttribute('role', 'treegrid');
