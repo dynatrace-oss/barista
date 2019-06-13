@@ -6,6 +6,7 @@
   "rules": {
     "i18n": false,
     "no-magic-numbers": false,
+    "dt-breadcrumbs-alt-text": true,
     "dt-button-no-empty": true,
     "dt-card-direct-children": true,
     "dt-card-needs-title": true,
