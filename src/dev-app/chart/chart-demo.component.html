@@ -29,11 +29,11 @@
     </ng-template>
   </dt-chart-tooltip>
 
-  <dt-chart-timestamp [value]="1370309400000">
+  <dt-chart-timestamp>
     <button dt-button dtChartSelectionAreaAction>Analyze</button>
   </dt-chart-timestamp>
-  <dt-chart-range>
-    <button dt-button dtChartSelectionAreaAction>Analyze</button>
+  <dt-chart-range (valid)="rangeValidChanges($event)">
+    <button dt-button dtChartSelectionAreaAction [disabled]="!validRange">Inspect</button>
   </dt-chart-range>
 
 </dt-chart>
@@ -75,8 +75,7 @@
   </div>
 </div>
 
-
-
+<!--
 <dt-chart [options]="options" [series]="series">
   <dt-chart-timestamp>
     <button dt-button dtChartSelectionAreaAction>Analyze</button>
@@ -88,7 +87,7 @@
 
 <h2>Timestamp only</h2>
 <dt-chart [options]="options" [series]="series">
-  <dt-chart-timestamp>
+  <dt-chart-timestamp [value]="1370309400000">
     <button dt-button dtChartSelectionAreaAction>Analyze</button>
   </dt-chart-timestamp>
 </dt-chart>
@@ -99,3 +98,8 @@
     <button dt-button dtChartSelectionAreaAction>Analyze</button>
   </dt-chart-range>
 </dt-chart>
+
+
+<h2>Only Chart</h2>
+<dt-chart [options]="options" [series]="series">
+</dt-chart> -->

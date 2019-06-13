@@ -1,9 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { DtSwitchChange, DtChart, DtSelectChange } from '../../lib';
-import { DtChartTimestamp } from '../../lib/chart/timestamp/timestamp';
+import { DtSelectChange } from '../../lib';
 import { DtChartRange } from '../../lib/chart/range/range';
-import { of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { DtChartTimestamp } from '../../lib/chart/timestamp/timestamp';
 
 @Component({
   selector: 'chart-demo',
@@ -11,7 +9,8 @@ import { filter, map } from 'rxjs/operators';
   styleUrls: ['./chart-demo.component.scss'],
 })
 export class ChartDemo {
-
+  toggled = true;
+  validRange = false;
   options: Highcharts.Options = {
     xAxis: {
       type: 'datetime',
@@ -91,14 +90,15 @@ export class ChartDemo {
         [1370338200000, 33],
         [1370339100000, 74],
       ],
-    }];
+    },
+  ];
 
   timeValues: number[] = this.series[0].data!.map((data) => data[0]);
   startRange: number;
   endRange: number;
 
-  @ViewChild(DtChartTimestamp) timestamp: DtChartTimestamp;
-  @ViewChild(DtChartRange) range: DtChartRange;
+  @ViewChild(DtChartTimestamp, { static: true }) timestamp: DtChartTimestamp;
+  @ViewChild(DtChartRange, { static: true }) range: DtChartRange;
 
   changeRange(event: DtSelectChange<number>): void {
     this.range.value = [this.startRange, this.endRange];
@@ -106,5 +106,9 @@ export class ChartDemo {
 
   changeTimestamp(event: DtSelectChange<number>): void {
     this.timestamp.value = event.value;
+  }
+
+  rangeValidChanges(valid: boolean): void {
+    this.validRange = valid;
   }
 }

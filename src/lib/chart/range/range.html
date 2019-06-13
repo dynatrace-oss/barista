@@ -1,3 +1,20 @@
+<ng-template let-timestamp>
+  <span class="dt-selection-area-overlay-text">
+    {{ value[0] | date: 'MMM d, HH:mm' }} &mdash;
+    {{ value[1] | date: 'MMM d, HH:mm' }}
+  </span>
+  <ng-content select="[dtChartSelectionAreaAction]"></ng-content>
+  <button
+    dt-icon-button
+    variant="secondary"
+    (click)="_handleOverlayClose()"
+    [attr.aria-label]="ariaLabelClose"
+    cdkFocusInitial
+  >
+    <dt-icon name="abort"></dt-icon>
+  </button>
+</ng-template>
+
 <div
   *ngIf="!_hidden"
   #range
@@ -5,19 +22,28 @@
   class="dt-chart-range-container"
   tabIndex="0"
   aria-role="slider"
+  aria-orientation="horizontal"
+  [attr.aria-valuemin]="min"
+  [attr.aria-valuemax]="max"
+  [attr.aria-valuenow]="value"
   [attr.aria-label]="ariaLabelSelectedArea"
 >
+<!-- [attr.aria-valuetext]="value | dtDateRange" -->
   <button
     #leftHandle
     class="dt-chart-left-handle"
-    (mousedown)="_dragHandle($event)"
+    (mousedown)="_dragHandle($event, 'left')"
     aria-role="slider"
-  ></button>
+  >
+    <dt-icon name="handle"></dt-icon>
+  </button>
   <div class="dt-chart-selected-area"></div>
   <button
     #rightHandle
     class="dt-chart-right-handle"
-    (mousedown)="_dragHandle($event)"
+    (mousedown)="_dragHandle($event, 'right')"
     aria-role="slider"
-  ></button>
+  >
+    <dt-icon name="handle"></dt-icon>
+  </button>
 </div>
