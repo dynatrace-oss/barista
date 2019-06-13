@@ -1,9 +1,9 @@
 @import '../../core/style/variables';
 @import '../../core/style/interactive-common';
 
-$chart-border-width: 3px;
-$chart-arrow-size: 15px;
-$chart-border-color: $turquoise-600;
+$range-handle-border-width: 3px;
+$range-color: $turquoise-600;
+$range-valid-color: $gray-300;
 
 :host {
   position: absolute;
@@ -23,32 +23,40 @@ $chart-border-color: $turquoise-600;
 .dt-chart-selected-area {
   width: 100%;
   height: 100%;
-  background-color: rgba($color: $turquoise-600, $alpha: 0.1);
+  background-color: rgba($color: $range-color, $alpha: 0.25);
   pointer-events: none;
+
+  :host.dt-chart-range-valid & {
+    background-color: rgba($color: $range-valid-color, $alpha: 0.45);
+  }
 }
 
 .dt-chart-right-handle,
 .dt-chart-left-handle {
-  width: $chart-border-width;
+  width: $range-handle-border-width;
+  // in case, that the flex container shrinks it sometimes to 2px
+  min-width: $range-handle-border-width;
   padding: 0;
   border: none;
   height: 100%;
-  background-color: $chart-border-color;
+  background-color: $range-color;
   pointer-events: all;
+  position: relative;
 
-  // only display the col-resize cursor when not resizing the range
-  .dt-chart-selection-area:not(.dt-pointer-grabbing) :host &,
-  .dt-chart-selection-area:not(.dt-pointer-grabbing) :host &::after {
-    cursor: col-resize;
-  }
-
-  :host.dt-chart-range-released &::after {
-    content: '';
+  dt-icon {
+    width: 32px;
     height: 32px;
+    opacity: 0;
     position: absolute;
-    top: 50%;
-    width: 11px;
-    background-image: url('/assets/selection-area-handle.svg');
+    right: -9px;
+    top: 0%;
+    transition: opacity 400ms ease-out;
+    transform: translateY(-50%) scaleX(-1);
+
+    :host.dt-chart-range-released & {
+      opacity: 1;
+      top: 50%;
+    }
   }
 
   &:focus {
@@ -56,10 +64,11 @@ $chart-border-color: $turquoise-600;
   }
 }
 
-.dt-chart-right-handle::after {
-  transform: translateY(-50%) scaleX(-1);
+.dt-chart-right-handle dt-icon {
+  transform: translateY(-50%);
+  left: -9px;
 }
 
-.dt-chart-left-handle::after {
-  transform: translate(-100%, -50%);
+::ng-deep svg {
+  fill: $range-color;
 }

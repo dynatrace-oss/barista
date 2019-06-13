@@ -25,10 +25,12 @@
 }
 
 .dt-chart-selection-area-overlay {
+  display: flex;
+  align-items: center;
   padding-left: 6px;
   padding-right: 6px;
 
-  & > * {
+  > * {
     margin: 0 6px;
   }
 }

@@ -1,4 +1,6 @@
-import { fromEvent, Observable, merge } from 'rxjs';
+import { fromEvent, Observable, merge, OperatorFunction } from 'rxjs';
+import { QueryList, ElementRef } from '@angular/core';
+import { map, filter } from 'rxjs/operators';
 
 /**
  * @internal
@@ -16,22 +18,26 @@ export function captureAndMergeEvents<
   );
 }
 
-/** @internal Check if an event target is the left or right handle  */
-export function identifyLeftOrRightHandle(event: MouseEvent): 'left' | 'right' | null {
-  const target = event.target;
-
-  if (!!target && target instanceof Element) {
-    if (target.className.includes('dt-chart-right-handle')) {
-      return 'right';
-    }
-    if (target.className.includes('dt-chart-left-handle')) {
-      return 'left';
-    }
-  }
-  return null;
+/**
+ * @internal
+ * Custom operator that provides the first elementRef safely from a QueryList
+ */
+export function getElementRef<T>(
+  queryList: QueryList<ElementRef<T>>
+): OperatorFunction<unknown, ElementRef<T>> {
+  return (input$) =>
+    input$.pipe(
+      map(() => {
+        if (queryList && queryList.first) {
+          return queryList.first;
+        }
+      }),
+      filter(Boolean)
+    );
 }
 
 /**
+ * @internal
  * Sets the {top, left, width, height} of an element
  */
 export function setPosition(
@@ -53,6 +59,10 @@ export function setPosition(
   }
 }
 
+/**
+ * @internal
+ * get the scroll offset from the document
+ */
 export function getScrollOffset(): { x: number; y: number } {
   if (!document || !document.documentElement) {
     return {
@@ -67,6 +77,11 @@ export function getScrollOffset(): { x: number; y: number } {
   };
 }
 
+/**
+ * @internal
+ * Get the mouse position from a mouse event.
+ * Returns the x and y coordinates
+ */
 export function getMousePosition(event: MouseEvent): { x: number; y: number } {
   return {
     x: event.clientX,
@@ -74,6 +89,11 @@ export function getMousePosition(event: MouseEvent): { x: number; y: number } {
   };
 }
 
+/**
+ * @internal
+ * Get the relative mouse position to a provided container
+ * from a provided mouse event
+ */
 export function getRelativeMousePosition(
   event: MouseEvent,
   container: HTMLElement
