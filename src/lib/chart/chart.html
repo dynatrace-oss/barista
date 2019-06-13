@@ -1,6 +1,6 @@
 <div class="dt-chart-container">
 
-  <dt-chart-selection-area>
+  <dt-chart-selection-area *ngIf="_hasSelectionArea">
     <ng-content select="dt-chart-range"></ng-content>
     <ng-content select="dt-chart-timestamp"></ng-content>
   </dt-chart-selection-area>

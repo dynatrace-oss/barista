@@ -1,19 +1,28 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtChartModule,
   DtChartRange,
-  DT_RANGE_RELEASED_CLASS,
+  DtIconModule,
 } from '@dynatrace/angular-components';
 import { dispatchFakeEvent } from '../../../testing/dispatch-events';
+import { DT_RANGE_RELEASED_CLASS, RangeStateChangedEvent } from './range';
 
 // tslint:disable:no-magic-numbers no-unbound-method no-use-before-declare
 
 describe('DtChart Range', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DtChartModule],
+      imports: [
+        DtChartModule,
+        HttpClientTestingModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+      ],
       declarations: [RangeTestComponent, RangeTestBindingValuesComponent],
     });
     TestBed.compileComponents();
@@ -25,7 +34,8 @@ describe('DtChart Range', () => {
 
     beforeEach(() => {
       fixture = TestBed.createComponent<RangeTestComponent>(RangeTestComponent);
-      range = fixture.componentInstance.range;
+      range = fixture.debugElement.query(By.css('dt-chart-range'))
+        .componentInstance;
       fixture.detectChanges();
     });
 
@@ -163,9 +173,9 @@ describe('DtChart Range', () => {
       expect(container.classList.contains(DT_RANGE_RELEASED_CLASS)).toBe(true);
     });
 
-    it('should trigger output of handleDragStarted when the left or right handle gets clicked', () => {
-      spyOn(fixture.componentInstance, 'dragStarted');
-      expect(fixture.componentInstance.dragStarted).not.toHaveBeenCalled();
+    it('should trigger dragHandle funciton when the left or right handle gets clicked', () => {
+      spyOn(range, '_dragHandle');
+      expect(range._dragHandle).not.toHaveBeenCalled();
 
       const leftHandle = fixture.debugElement.query(
         By.css('.dt-chart-left-handle')
@@ -175,18 +185,18 @@ describe('DtChart Range', () => {
       ).nativeElement;
 
       dispatchFakeEvent(leftHandle, 'mousedown');
-      expect(fixture.componentInstance.dragStarted).toHaveBeenCalledTimes(1);
+      expect(range._dragHandle).toHaveBeenCalledTimes(1);
 
       dispatchFakeEvent(rightHandle, 'mousedown');
-      expect(fixture.componentInstance.dragStarted).toHaveBeenCalledTimes(2);
+      expect(range._dragHandle).toHaveBeenCalledTimes(2);
     });
 
     it('setting the value with the binding should trigger a _stateChanges event', () => {
       const stateChangesSpy = jasmine.createSpy('stateChanges spy');
 
-      const state1 = { left: 100, width: 100, hidden: false };
-      const state2 = { left: 110, width: 90, hidden: false };
-      const state3 = { left: 130, width: 70, hidden: false };
+      const state1 = new RangeStateChangedEvent(100, 100, false);
+      const state2 = new RangeStateChangedEvent(110, 90, false);
+      const state3 = new RangeStateChangedEvent(130, 70, false);
 
       const subscription = range._stateChanges.subscribe(stateChangesSpy);
 
@@ -212,22 +222,16 @@ describe('DtChart Range', () => {
   selector: 'range-test-component',
   template: '<dt-chart-range></dt-chart-range>',
 })
-export class RangeTestComponent {
-  @ViewChild(DtChartRange) range: DtChartRange;
-}
+export class RangeTestComponent {}
 
 @Component({
   selector: 'range-test-bind-value-component',
-  template:
-    '<dt-chart-range [value]="values" (_handleDragStarted)="dragStarted($event)"></dt-chart-range>',
+  template: '<dt-chart-range [value]="values"></dt-chart-range>',
 })
-export class RangeTestBindingValuesComponent {
-  @ViewChild(DtChartRange) range: DtChartRange;
+export class RangeTestBindingValuesComponent implements OnInit {
+  @ViewChild(DtChartRange, { static: true }) range: DtChartRange;
 
   values = [10, 100];
-
-  // used only for spying
-  dragStarted(event: MouseEvent): void {}
 
   ngOnInit(): void {
     this.range._valueToPixels = (value: number) => value;

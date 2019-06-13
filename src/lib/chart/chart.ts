@@ -1,84 +1,87 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import {
-  Component,
-  ViewChild,
-  ElementRef,
+  AfterContentInit,
   AfterViewInit,
-  Input,
   ChangeDetectionStrategy,
-  OnDestroy,
-  EventEmitter,
-  Output,
-  Optional,
-  SkipSelf,
-  SimpleChanges,
-  OnChanges,
-  ViewEncapsulation,
   ChangeDetectorRef,
-  NgZone,
-  QueryList,
+  Component,
+  ContentChild,
   ContentChildren,
+  ElementRef,
+  EventEmitter,
   forwardRef,
   Inject,
   InjectionToken,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  Optional,
+  Output,
+  QueryList,
   Self,
-  AfterContentInit,
-  ContentChild,
+  SimpleChanges,
+  SkipSelf,
+  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { DtViewportResizer, removeCssClass, addCssClass } from '@dynatrace/angular-components/core';
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
 import { DtTheme } from '@dynatrace/angular-components/theming';
-
 // tslint:disable-next-line:no-duplicate-imports
 import * as Highcharts from 'highcharts';
 // tslint:disable-next-line:no-duplicate-imports
 import {
+  addEvent as addHighchartsEvent,
   chart,
   ChartObject,
   IndividualSeriesOptions,
   Options as HighchartsOptions,
   setOptions,
-  addEvent as addHighchartsEvent } from 'highcharts';
+} from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
-import { Observable,
-  Subject,
-  Subscription,
+import {
+  BehaviorSubject,
   defer,
   merge,
-  BehaviorSubject,
-  fromEvent,
-  combineLatest,
-  from,
-  EMPTY,
-  ReplaySubject,
-  animationFrameScheduler,
-  of,
+  Observable,
+  Subject,
+  Subscription,
 } from 'rxjs';
 import {
   delay,
-  takeUntil,
-  take,
-  switchMap,
   distinctUntilChanged,
-  map,
-  concatMapTo,
- } from 'rxjs/operators';
-
+  switchMap,
+  take,
+  takeUntil,
+} from 'rxjs/operators';
+import {
+  DtChartConfig,
+  DT_CHART_CONFIG,
+  DT_CHART_DEFAULT_CONFIG,
+} from './chart-config';
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
+import {
+  DtChartHeatfield,
+  DtChartHeatfieldActiveChange,
+} from './heatfield/chart-heatfield';
+import { applyHighchartsErrorHandler } from './highcharts/highcharts-errors';
 import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides';
 import { addTooltipEvents, DtHcTooltipEventPayload, findHoveredSeriesIndex } from './highcharts/highcharts-tooltip-extensions';
-import { DtChartHeatfield, DtChartHeatfieldActiveChange } from './heatfield/chart-heatfield';
-import { createHighchartOptions, applyHighchartsColorOptions } from './highcharts/highcharts-util';
-import { DT_CHART_CONFIG, DtChartConfig, DT_CHART_DEFAULT_CONFIG } from './chart-config';
 import { DtChartTooltipEvent } from './highcharts/highcharts-tooltip-types';
-import { applyHighchartsErrorHandler } from './highcharts/highcharts-errors';
-
-import { DtChartTimestamp } from './timestamp/timestamp';
+import {
+  applyHighchartsColorOptions,
+  createHighchartOptions,
+} from './highcharts/highcharts-util';
 import { DtChartRange } from './range/range';
-import { DtChartSelectionArea } from './selection-area/selection-area';
+import { DtChartTimestamp } from './timestamp/timestamp';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 
-export type DtChartOptions = HighchartsOptions & { series?: undefined; tooltip?: { shared: boolean }; interpolateGaps?: boolean };
+export type DtChartOptions = HighchartsOptions & {
+  series?: undefined;
+  tooltip?: { shared: boolean };
+  interpolateGaps?: boolean;
+};
 export type DtChartSeries = IndividualSeriesOptions;
 
 // tslint:disable-next-line:no-any
@@ -100,7 +103,9 @@ window.highchartsTooltipEventsAdded = addTooltipEvents();
 applyHighchartsErrorHandler();
 
 /** Injection token used to get the instance of the dt-chart instance  */
-export const DT_CHART_RESOLVER = new InjectionToken<() => DtChart>('dt-chart-resolver');
+export const DT_CHART_RESOLVER = new InjectionToken<() => DtChart>(
+  'dt-chart-resolver'
+);
 /**
  * @internal
  * Resolver similar to forward ref since we don't have the chart in the constructor necessarily (e.g. micro charts),
@@ -115,9 +120,9 @@ export type DtChartResolver = () => DtChart;
  * see https://github.com/angular/angular/issues/23629 for further information
  */
 export function DT_CHART_RESOVER_PROVIDER_FACTORY(c: DtChart): DtChartResolver {
-    const resolver = () => c;
-    return resolver;
-  }
+  const resolver = () => c;
+  return resolver;
+}
 
 @Component({
   moduleId: module.id,
@@ -135,14 +140,21 @@ export function DT_CHART_RESOVER_PROVIDER_FACTORY(c: DtChart): DtChartResolver {
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    { provide: DT_CHART_RESOLVER, useFactory: DT_CHART_RESOVER_PROVIDER_FACTORY, deps: [[new Self(), DtChart]] },
+    {
+      provide: DT_CHART_RESOLVER,
+      useFactory: DT_CHART_RESOVER_PROVIDER_FACTORY,
+      deps: [[new Self(), DtChart]],
+    },
   ],
 })
-export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterContentInit {
+export class DtChart
+  implements AfterViewInit, OnDestroy, OnChanges, AfterContentInit {
   @ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
 
   // tslint:disable-next-line: no-forward-ref
-  @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<DtChartHeatfield>;
+  @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<
+    DtChartHeatfield
+  >;
 
   private _series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
   private _tooltipOpen = false;
@@ -159,6 +171,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
   /** @internal stream that emits every time the plotBackground changes */
   _plotBackground$ = new BehaviorSubject<SVGRectElement | null>(null);
 
+  /** @internal */
+  _hasSelectionArea = false;
+
   /** @internal Emits when highcharts finishes rendering. */
   readonly _afterRender = new Subject<void>();
 
@@ -167,7 +182,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   /** Options to configure the chart. */
   @Input()
-  get options(): DtChartOptions { return this._options; }
+  get options(): DtChartOptions {
+    return this._options;
+  }
   set options(options: DtChartOptions) {
     this._options = options;
     this._changeDetectorRef.markForCheck();
@@ -175,8 +192,12 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   /** Series of data points or a stream rendered in this chart */
   @Input()
-  get series(): Observable<DtChartSeries[]> | DtChartSeries[] | undefined { return this._series; }
-  set series(series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined) {
+  get series(): Observable<DtChartSeries[]> | DtChartSeries[] | undefined {
+    return this._series;
+  }
+  set series(
+    series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined
+  ) {
     if (this._dataSub) {
       this._dataSub.unsubscribe();
       this._dataSub = null;
@@ -196,16 +217,22 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
   /** The loading text of the loading distractor. */
   @Input('loading-text') loadingText: string;
 
-  /** Eventemitter that fires everytime the chart is updated */
+  /** Eventemitter that fires every time the chart is updated */
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
-  /** Eventemitter that fires everytime the tooltip opens or closes */
-  @Output() readonly tooltipOpenChange: EventEmitter<boolean> = new EventEmitter();
-  /** Eventemitter that fires everytime the data inside the chart tooltip changes */
-  @Output() readonly tooltipDataChange: EventEmitter<DtChartTooltipEvent | null> = new EventEmitter();
+  /** Eventemitter that fires every time the tooltip opens or closes */
+  @Output() readonly tooltipOpenChange: EventEmitter<
+    boolean
+  > = new EventEmitter();
+  /** Eventemitter that fires every time the data inside the chart tooltip changes */
+  @Output()
+  readonly tooltipDataChange: EventEmitter<DtChartTooltipEvent | null> = new EventEmitter();
 
   /** returns an array of ids for the series data */
   get seriesIds(): Array<string | undefined> | undefined {
-    return this._highchartsOptions.series && this._highchartsOptions.series.map((s: IndividualSeriesOptions) => s.id);
+    return (
+      this._highchartsOptions.series &&
+      this._highchartsOptions.series.map((s: IndividualSeriesOptions) => s.id)
+    );
   }
 
   /**
@@ -215,22 +242,33 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
   get highchartsOptions(): HighchartsOptions {
     // To make sure the consumer cannot modify the internal highcharts options
     // (which could result in a broken state) the object will be cloned.
-    return this._highchartsOptions ? lodashMerge({}, this._highchartsOptions) : {};
+    return this._highchartsOptions
+      ? lodashMerge({}, this._highchartsOptions)
+      : {};
   }
 
   /** @internal Whether the loading distractor should be shown. */
   get _isLoading(): boolean {
-    return this._highchartsOptions && (!this._highchartsOptions.series || !this._highchartsOptions.series.length);
+    return (
+      this._highchartsOptions &&
+      (!this._highchartsOptions.series ||
+        !this._highchartsOptions.series.length)
+    );
   }
 
-  private readonly _heatfieldActiveChanges: Observable<DtChartHeatfieldActiveChange> = defer(() => {
+  private readonly _heatfieldActiveChanges: Observable<
+    DtChartHeatfieldActiveChange
+  > = defer(() => {
     if (this._heatfields) {
-      return merge<DtChartHeatfieldActiveChange>(...this._heatfields.map((heatfield) => heatfield.activeChange));
+      return merge<DtChartHeatfieldActiveChange>(
+        ...this._heatfields.map((heatfield) => heatfield.activeChange)
+      );
     }
 
-    return this._ngZone.onStable
-      .asObservable()
-      .pipe(take(1), switchMap(() => this._heatfieldActiveChanges));
+    return this._ngZone.onStable.asObservable().pipe(
+      take(1),
+      switchMap(() => this._heatfieldActiveChanges)
+    );
   });
 
   constructor(
@@ -238,26 +276,37 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
     private _ngZone: NgZone,
     @Optional() private _viewportResizer: DtViewportResizer,
     @Optional() @SkipSelf() private _theme: DtTheme,
-    @Optional() @SkipSelf() @Inject(DT_CHART_CONFIG) private _config: DtChartConfig
+    @Optional()
+    @SkipSelf()
+    @Inject(DT_CHART_CONFIG)
+    private _config: DtChartConfig
   ) {
     this._config = this._config || DT_CHART_DEFAULT_CONFIG;
 
     if (this._viewportResizer) {
-      this._viewportResizer.change()
-        .pipe(takeUntil(this._destroy$), delay(0))// delay to postpone the reflow to the next change detection cycle
+      this._viewportResizer
+        .change()
+        .pipe(
+          takeUntil(this._destroy$),
+          delay(0)
+        ) // delay to postpone the reflow to the next change detection cycle
         .subscribe(() => {
           if (this._chartObject) {
-            this._ngZone.runOutsideAngular(() => { this._chartObject!.reflow(); });
+            this._ngZone.runOutsideAngular(() => {
+              this._chartObject!.reflow();
+            });
           }
         });
     }
     if (this._theme) {
-      this._theme._stateChanges.pipe(takeUntil(this._destroy$)).subscribe(() => {
-        if (this._currentSeries && this._highchartsOptions) {
-          this._updateColorOptions();
-          this._updateChart(false);
-        }
-      });
+      this._theme._stateChanges
+        .pipe(takeUntil(this._destroy$))
+        .subscribe(() => {
+          if (this._currentSeries && this._highchartsOptions) {
+            this._updateColorOptions();
+            this._updateChart(false);
+          }
+        });
     }
     this._heatfieldActiveChanges.pipe(takeUntil(this._destroy$)).subscribe((event) => {
       this._onHeatfieldActivate(event.source);
@@ -292,9 +341,13 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
   ngAfterViewInit(): void {
     // Creating a new highcharts chart.
     // This needs to be done outside the ngZone so the events, highcharts listens to, do not pollute our change detection.
-    this._chartObject = this._ngZone.runOutsideAngular(() => chart(this.container.nativeElement, this.highchartsOptions));
+    this._chartObject = this._ngZone.runOutsideAngular(() =>
+      chart(this.container.nativeElement, this.highchartsOptions)
+    );
 
-    addHighchartsEvent(this._chartObject, 'redraw', () => { this._notifyAfterRender(); });
+    addHighchartsEvent(this._chartObject, 'redraw', () => {
+      this._notifyAfterRender();
+    });
     this._notifyAfterRender();
 
     // adds event-listener to highcharts custom event for tooltip closed
@@ -311,7 +364,10 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
         this._tooltipOpen = true;
         this.tooltipOpenChange.next(true);
       }
-      this._tooltipRefreshed.next({ data: (event as DtHcTooltipEventPayload).data , chart: this._chartObject! });
+      this._tooltipRefreshed.next({
+        data: (event as DtHcTooltipEventPayload).data,
+        chart: this._chartObject!,
+      });
     });
 
     // set the toPixels method on the timestamp and range to calculate a px value for an
@@ -329,15 +385,24 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
         this._range._pixelsToValue = xAxis.toValue.bind(xAxis);
       }
     }
-
   }
 
   ngAfterContentInit(): void {
     this._heatfieldSelectionModel = new SelectionModel<DtChartHeatfield>();
-    this._heatfieldSelectionModel.changed.pipe(takeUntil(this._destroy$)).subscribe((event) => {
-      event.added.forEach((heatfield) => { heatfield.active = true; });
-      event.removed.forEach((heatfield) => { heatfield.active = false; });
-    });
+    this._heatfieldSelectionModel.changed
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((event) => {
+        event.added.forEach((heatfield) => {
+          heatfield.active = true;
+        });
+        event.removed.forEach((heatfield) => {
+          heatfield.active = false;
+        });
+      });
+
+    if (this._range || this._timestamp) {
+      this._hasSelectionArea = true;
+    }
   }
 
   ngOnDestroy(): void {
@@ -356,10 +421,14 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   /** @internal Creates new highcharts options and applies it to the chart. */
   _update(): void {
-    const highchartsOptions = createHighchartOptions(this._options, this._currentSeries);
+    const highchartsOptions = createHighchartOptions(
+      this._options,
+      this._currentSeries
+    );
 
     // Check if x Axis type has changes (e.g. numeric -> category)
-    const xAxisHasChanged = (highchartsOptions.xAxis !== this.highchartsOptions.xAxis);
+    const xAxisHasChanged =
+      highchartsOptions.xAxis !== this.highchartsOptions.xAxis;
 
     this._highchartsOptions = highchartsOptions;
     this._updateColorOptions();
@@ -377,7 +446,9 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   private _notifyAfterRender(): void {
     this._afterRender.next();
-    const plotBackground = this.container.nativeElement.querySelector<SVGRectElement>(HIGHCHARTS_PLOT_BACKGROUND);
+    const plotBackground = this.container.nativeElement.querySelector<
+      SVGRectElement
+    >(HIGHCHARTS_PLOT_BACKGROUND);
     this._plotBackground$.next(plotBackground);
   }
 
@@ -411,15 +482,20 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
 
   private _updateColorOptions(): void {
     if (this._config.shouldUpdateColors) {
-      this._highchartsOptions = applyHighchartsColorOptions(this._highchartsOptions, this._theme);
+      this._highchartsOptions = applyHighchartsColorOptions(
+        this._highchartsOptions,
+        this._theme
+      );
     }
   }
 
   /********************************************************************
    * S E L E C T I O N   A R E A
    ********************************************************************/
-  /** @internal */
-  @ContentChild(DtChartRange)  _range: DtChartRange | undefined;
-  /** @internal The instance */
-  @ContentChild(DtChartTimestamp)  _timestamp: DtChartTimestamp | undefined;
+  // /** @internal */
+  // @ContentChildren(DtChartRange) _range: QueryList<DtChartRange>;
+  // /** @internal The instance */
+  // @ContentChildren(DtChartTimestamp) _timestamp: QueryList<DtChartTimestamp>;
+  @ContentChild(DtChartRange, { static: false }) _range?: DtChartRange;
+  @ContentChild(DtChartTimestamp, { static: false }) _timestamp?: DtChartTimestamp;
 }

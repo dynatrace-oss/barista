@@ -1,19 +1,19 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
+  Output,
   QueryList,
   Renderer2,
+  TemplateRef,
+  ViewChild,
   ViewChildren,
   ViewEncapsulation,
-  ContentChild,
-  TemplateRef,
-  Output,
-  EventEmitter,
-  ViewChild
 } from '@angular/core';
 import { isNumber } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
@@ -21,10 +21,7 @@ import { startWith, takeUntil } from 'rxjs/operators';
 
 /** @internal */
 export class TimestampStateChangedEvent {
-  constructor(
-    public position: number,
-    public hidden: boolean
-  ) {}
+  constructor(public position: number, public hidden: boolean) {}
 }
 
 @Component({
@@ -38,12 +35,12 @@ export class TimestampStateChangedEvent {
     class: 'dt-chart-timestamp',
   },
 })
-export class DtChartTimestamp implements OnDestroy {
+export class DtChartTimestamp implements AfterViewInit, OnDestroy {
+  /** Emits the new value of the timestamp when it is changed by user triggered events */
+  @Output() readonly valueChanges = new EventEmitter<number>();
 
-  // TODO: emit this like in range
-  @Output() valueChanges = new EventEmitter<number>();
-
-  @Input() ariaLabelClose = 'close';
+  /** Aria label for the close button in the overlay */
+  @Input() readonly ariaLabelClose = 'close';
 
   /**
    * @internal
@@ -55,7 +52,8 @@ export class DtChartTimestamp implements OnDestroy {
   readonly _stateChanges = new Subject<TimestampStateChangedEvent>();
 
   /** @internal */
-  @ViewChild(TemplateRef) _overlayTemplate: TemplateRef<unknown>;
+  @ViewChild(TemplateRef, { static: true })
+  _overlayTemplate: TemplateRef<unknown>;
 
   /** @internal function that provides a value on the xAxis for a provided px value */
   _pixelsToValue:
@@ -82,10 +80,12 @@ export class DtChartTimestamp implements OnDestroy {
   ) {
     this._valueToPixelsFn = fn;
     this._reflectValueToPosition();
+    this._emitStateChanges();
+    this._changeDetectorRef.markForCheck();
   }
 
   @ViewChildren('selector')
-  _selector: QueryList<ElementRef<HTMLDivElement>>;
+  _timestampElementRef: QueryList<ElementRef<HTMLDivElement>>;
 
   /** @internal */
   @Input()
@@ -94,7 +94,6 @@ export class DtChartTimestamp implements OnDestroy {
   }
   set _hidden(hidden: boolean) {
     this._timestampHidden = hidden;
-    this._emitStateChanges();
     this._changeDetectorRef.markForCheck();
   }
 
@@ -111,6 +110,8 @@ export class DtChartTimestamp implements OnDestroy {
     this._value = value;
     this._timestampHidden = false;
     this._reflectValueToPosition();
+    this._emitStateChanges();
+    this._changeDetectorRef.markForCheck();
   }
 
   /** @internal The position in px where the timestamp should be placed on the x-axis */
@@ -120,13 +121,10 @@ export class DtChartTimestamp implements OnDestroy {
   }
   set _position(position: number) {
     this._positionX = position;
-
-    if (this._pixelsToValue) {
-      this._value = this._pixelsToValue(position);
-    }
-
-    this._emitStateChanges();
     this._reflectStyleToDom();
+
+    this._emitValueChanges();
+    this._changeDetectorRef.markForCheck();
   }
 
   constructor(
@@ -140,7 +138,7 @@ export class DtChartTimestamp implements OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this._selector.changes
+    this._timestampElementRef.changes
       .pipe(
         startWith(null),
         takeUntil(this._destroy$)
@@ -162,17 +160,28 @@ export class DtChartTimestamp implements OnDestroy {
   /** @internal get triggered by the close button of the overlay */
   _handleOverlayClose(): void {
     this._closeOverlay.next();
-    // TODO: reset
-    // this._reset();
+    this._reset();
   }
 
-  /** Emits the change event  */
-  private _emitStateChanges(): void {
+  /**
+   * @internal
+   * will be called by the selection area when the value is set.
+   */
+  _emitValueChanges(): void {
+    if (this._pixelsToValue) {
+      this._value = this._pixelsToValue(this._positionX);
+      this.valueChanges.emit(this._value);
+    }
+  }
+
+  /**
+   * @internal
+   * Emits the change event, it has to be internal in case that it will be triggered
+   * by the selection area.
+   */
+  _emitStateChanges(): void {
     this._stateChanges.next(
-      new TimestampStateChangedEvent(
-        this._positionX,
-        this._hidden
-      )
+      new TimestampStateChangedEvent(this._positionX, this._hidden)
     );
   }
 
@@ -183,15 +192,13 @@ export class DtChartTimestamp implements OnDestroy {
     }
 
     this._reflectStyleToDom();
-    this._emitStateChanges();
-    this._changeDetectorRef.markForCheck();
   }
 
   /** reflects the position of the timestamp to the element */
   private _reflectStyleToDom(): void {
-    if (this._selector && this._selector.first) {
+    if (this._timestampElementRef && this._timestampElementRef.first) {
       this._renderer.setStyle(
-        this._selector.first.nativeElement,
+        this._timestampElementRef.first.nativeElement,
         'transform',
         `translateX(${this._positionX}px)`
       );
