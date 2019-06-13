@@ -20,6 +20,7 @@ We provide a set of custom TSLint rules to help you using the Angular components
 | `dt-icon-button-needs-icon` | The content of an icon button (`dt-icon-button`) must always be an icon component (`<dt-icon>`). |
 | `dt-info-group-requires-icon` | The `dt-info-group-icon` is a required child element of the `dt-info-group` and must be a direct child. |
 | `dt-info-group-requires-title` | The `dt-info-group-title` is a required child element of the `dt-info-group` and must be a direct child. |
+| `dt-inline-editor-alt-text` | An inline editor must provide alternative texts for the save and the cancel button using the following inputs: `aria-label-save` and `aria-label-cancel`. |
 | `dt-input-requires-label` | A dtInput must have a dt-label when wrapped in a dt-form-field or an `aria-label` or `aria-labelledby` attribute. |
 | `dt-loading-distractor-no-empty` | A loading distractor must always contain text content or a component that renders text. |
 | `dt-nested-button-is-icon-button` | Every nested button (`variant="nested"`) must be an icon button (`dt-icon-button`). |
