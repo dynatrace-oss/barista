@@ -5,7 +5,7 @@ export function createMouseEvent(type: string, x: number = 0, y: number = 0): Mo
   event.initMouseEvent(
     type,
     false, /* canBubble */
-    false, /* cancelable */
+    type !== 'mousemove', /* cancelable */
     window, /* view */
     0, /* detail */
     x, /* screenX */

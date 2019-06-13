@@ -1,11 +1,13 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
+import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtChartModule, DtChartTimestamp } from '@dynatrace/angular-components';
+import { TimestampStateChangedEvent } from './timestamp';
 
 const TIMESTAMP_SELECTOR = '.dt-chart-timestamp-selector';
-
-// tslint:disable:no-magic-numbers no-unbound-method no-use-before-declare
 
 describe('DtChart Timestamp', () => {
   beforeEach(() => {
@@ -133,9 +135,9 @@ describe('DtChart Timestamp', () => {
     it('setting the value with the binding should trigger a _stateChanges event', () => {
       const stateChangesSpy = jasmine.createSpy('stateChanges spy');
 
-      const state1 = { position: 100, hidden: false };
-      const state2 = { position: 110, hidden: false };
-      const state3 = { position: 130, hidden: false };
+      const state1 = new TimestampStateChangedEvent(100, false);
+      const state2 = new TimestampStateChangedEvent(110, false);
+      const state3 = new TimestampStateChangedEvent(130, false);
 
       const subscription = timestamp._stateChanges.subscribe(stateChangesSpy);
 
@@ -162,15 +164,15 @@ describe('DtChart Timestamp', () => {
   template: '<dt-chart-timestamp></dt-chart-timestamp>',
 })
 export class TimestampTestComponent {
-  @ViewChild(DtChartTimestamp) timestamp: DtChartTimestamp;
+  @ViewChild(DtChartTimestamp, { static: true }) timestamp: DtChartTimestamp;
 }
 
 @Component({
   selector: 'timestamp-test-bind-value-component',
   template: '<dt-chart-timestamp [value]="value"></dt-chart-timestamp>',
 })
-export class TimestampTestBindingValuesComponent {
-  @ViewChild(DtChartTimestamp) timestamp: DtChartTimestamp;
+export class TimestampTestBindingValuesComponent implements OnInit {
+  @ViewChild(DtChartTimestamp, { static: true }) timestamp: DtChartTimestamp;
 
   value = 10;
 

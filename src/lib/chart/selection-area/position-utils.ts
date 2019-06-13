@@ -68,7 +68,7 @@ export function calculatePosition(
         0,
         boundaryWidth - selectedAreaWidth
       );
-      return { left, width: selectedAreaWidth };
+      return { left: Math.round(left), width: Math.round(selectedAreaWidth) };
     }
     case DtSelectionAreaEventTarget.LeftHandle: {
       if (selectedAreaWidth - deltaX > 0) {
@@ -82,7 +82,7 @@ export function calculatePosition(
         return { left, width };
       }
       return {
-        left: selectedAreaLeft + selectedAreaWidth,
+        left: Math.round(selectedAreaLeft + selectedAreaWidth),
         width: 0,
       };
     }
@@ -92,9 +92,9 @@ export function calculatePosition(
         const clampStart = 0;
         const clampEnd = boundaryWidth - selectedAreaLeft;
         width = clamp(selectedAreaWidth + deltaX, clampStart, clampEnd);
-        return { left, width };
+        return { left: Math.round(left), width: Math.round(width) };
       }
-      return { left: selectedAreaLeft, width: 0 };
+      return { left: Math.round(selectedAreaLeft), width: 0 };
     }
     case DtSelectionAreaEventTarget.Origin: {
       // initial event on the origin check in which direction the selection area should be drawn

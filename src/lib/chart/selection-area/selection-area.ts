@@ -1,78 +1,69 @@
-import { Overlay, OverlayConfig, OverlayRef, ConnectedPosition, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, Renderer2, SkipSelf, ViewChild, ViewEncapsulation, TemplateRef, ViewContainerRef, ChangeDetectorRef, QueryList } from '@angular/core';
-import { animationFrameScheduler, combineLatest, EMPTY, from, fromEvent, merge, Observable, ReplaySubject, Subject, of } from 'rxjs';
-import { concatMapTo, distinctUntilChanged, filter, map, mapTo, pairwise, share, skip, switchMap, takeUntil, tap, throttleTime, withLatestFrom, distinctUntilKeyChanged } from 'rxjs/operators';
+import {
+  FlexibleConnectedPositionStrategy,
+  Overlay,
+  OverlayConfig,
+  OverlayRef,
+} from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  NgZone,
+  OnDestroy,
+  Renderer2,
+  SkipSelf,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation,
+  AfterContentInit,
+} from '@angular/core';
+import {
+  animationFrameScheduler,
+  EMPTY,
+  fromEvent,
+  merge,
+  Observable,
+  of,
+  Subject,
+} from 'rxjs';
+import {
+  concatMapTo,
+  distinctUntilChanged,
+  filter,
+  map,
+  mapTo,
+  skip,
+  takeUntil,
+  tap,
+  throttleTime,
+} from 'rxjs/operators';
 import { addCssClass, removeCssClass } from '../..';
 import { DtChart } from '../chart';
 import { DtChartRange } from '../range/range';
 import { DtChartTimestamp } from '../timestamp/timestamp';
-import { captureAndMergeEvents, getRelativeMousePosition, identifyLeftOrRightHandle, setPosition } from '../utils';
-import { calculatePosition, DtSelectionAreaEventTarget } from './position-utils';
-import { TemplatePortal } from '@angular/cdk/portal';
-
-const ERROR_NO_PLOT_BACKGROUND = 'Highcharts has not rendered yet! You Requested a Highcharts internal element!';
-
-const HIGHCHARTS_X_AXIS_GRID = '.highcharts-grid highcharts-xaxis-grid';
-const HIGHCHARTS_Y_AXIS_GRID = '.highcharts-grid highcharts-yaxis-grid';
-const HIGHCHARTS_SERIES_GROUP = '.highcharts-series-group';
-
-const NO_POINTER_EVENTS_CLASS = 'dt-no-pointer-events';
-const GRAB_CURSOR_CLASS = 'dt-pointer-grabbing';
-
-/** Vertical distance between the overlay and the selection area */
-const DT_SELECTION_AREA_OVERLAY_SPACING = 4;
-
-/** The size factor to the origin width the selection area is created with when created by keyboard */
-const DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE = 0.5;
-
-/** The position the selection area is created at when created by keyboard */
-const DT_SELECTION_AREA_KEYBOARD_DEFAULT_START = 0.25;
-
-/** Positions for the overlay used in the selection area */
-const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
-  {
-    originX: 'center',
-    originY: 'top',
-    overlayX: 'center',
-    overlayY: 'bottom',
-    offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
-  },
-  {
-    originX: 'end',
-    originY: 'top',
-    overlayX: 'end',
-    overlayY: 'bottom',
-    offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
-  },
-  {
-    originX: 'start',
-    originY: 'top',
-    overlayX: 'start',
-    overlayY: 'bottom',
-    offsetY: -DT_SELECTION_AREA_OVERLAY_SPACING,
-  },
-  {
-    originX: 'center',
-    originY: 'bottom',
-    overlayX: 'center',
-    overlayY: 'top',
-    offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
-  },
-  {
-    originX: 'end',
-    originY: 'bottom',
-    overlayX: 'end',
-    overlayY: 'top',
-    offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
-  },
-  {
-    originX: 'start',
-    originY: 'bottom',
-    overlayX: 'start',
-    overlayY: 'top',
-    offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
-  },
-];
+import { getElementRef, getRelativeMousePosition, setPosition } from '../utils';
+import {
+  DT_SELECTION_AREA_OVERLAY_POSITIONS,
+  ERROR_NO_PLOT_BACKGROUND,
+  GRAB_CURSOR_CLASS,
+  HIGHCHARTS_SERIES_GROUP,
+  HIGHCHARTS_X_AXIS_GRID,
+  HIGHCHARTS_Y_AXIS_GRID,
+  NO_POINTER_EVENTS_CLASS,
+} from './constants';
+import {
+  getClickStream,
+  getDragStream,
+  getElementRefStream,
+  getMouseDownStream,
+  getMouseMove,
+  getMouseUpStream,
+  getRangeCreateStream,
+  getRangeResizeStream,
+} from './streams';
 
 @Component({
   selector: 'dt-chart-selection-area',
@@ -86,43 +77,40 @@ const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
     class: 'dt-chart-selection-area dt-no-pointer-events',
   },
 })
-export class DtChartSelectionArea implements OnDestroy {
-
+export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** If the selection area is disabled */
   @Input() disabled = false;
 
-  _disableRange = false;
-  _disableTimestamp = false;
-
-  /** @internal mousedown event stream on the selection area emits only left mouse */
-  _mousedown$: Observable<MouseEvent> = EMPTY;
-  /** @internal mousemove event stream from window */
-  _mousemove$: Observable<MouseEvent> = EMPTY;
-  /** @internal mouse up stream on the window */
-  _mouseup$: Observable<MouseEvent> = EMPTY;
-  /** @internal drag event based on a left click on the selection area */
-  _drag$: Observable<{x: number; y: number}> = EMPTY;
-  /** @internal drag event triggered by a boundary drag-resize *(only available within a range)* */
-  _dragHandle$: Observable<{x: number; y: number}> = EMPTY;
-  /** @internal click event stream that emits only click events on the selection area */
-  _click$: Observable<MouseEvent> = EMPTY;
-  /** @internal event for hovering the selection area */
-  _hover$: Observable<MouseEvent> = EMPTY;
-  /** @internal stream that emits the current relative mouse position on the selection area */
-  _currentMousePosition$: Observable<{x: number; y: number}> = EMPTY;
+  /** mousedown event stream on the selection area emits only left mouse */
+  private _mousedown$: Observable<MouseEvent> = EMPTY;
+  /** mouse up stream on the window */
+  private _mouseup$: Observable<MouseEvent> = EMPTY;
+  /** drag event based on a left click on the selection area */
+  private _drag$: Observable<{ x: number; y: number }> = EMPTY;
+  /** drag event triggered by a boundary drag-resize *(only available within a range)* */
+  private _dragHandle$: Observable<{ x: number; y: number }> = EMPTY;
+  /** click event stream that emits only click events on the selection area */
+  private _click$: Observable<{ x: number; y: number }> = EMPTY;
 
   /** The timestamp that follows the mouse */
-  @ViewChild('hairline') private _hairline: ElementRef<HTMLDivElement>;
+  @ViewChild('hairline', { static: true })
+  private _hairline: ElementRef<HTMLDivElement>;
 
   private _range?: DtChartRange;
   private _timestamp?: DtChartTimestamp;
 
+  private _overlayRef: OverlayRef | null;
+  private _portal: TemplatePortal | null;
+
   /**
-   * @internal
+   *
    * Highcharts plotBackground is used to size the selection area according to this area
    * is set after Highcharts render is completed.
    */
   private _plotBackground: SVGRectElement;
+
+  /** Array of Elements where we capture events in case that we disable pointer events on selection Area */
+  private _mouseDownElements: Element[] = [];
 
   /** Bounding Client Rect of the selection area. set after Highcharts render */
   private _selectionAreaBcr?: ClientRect;
@@ -135,49 +123,56 @@ export class DtChartSelectionArea implements OnDestroy {
     private _renderer: Renderer2,
     private _overlay: Overlay,
     private _viewContainerRef: ViewContainerRef,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _zone: NgZone
   ) {}
 
   ngAfterContentInit(): void {
     // after Highcharts is rendered we can start initializing the selection area.
-    this._chart._afterRender.pipe(
-      concatMapTo(this._chart._plotBackground$),
-      // plot background can be null as well
-      filter(Boolean),
-      takeUntil(this._destroy$)
-    ).subscribe((plotBackground) => {
-      this._plotBackground = plotBackground;
-      this._range = this._chart._range;
-      this._timestamp = this._chart._timestamp;
+    this._chart._afterRender
+      .pipe(
+        concatMapTo(this._chart._plotBackground$),
+        // plot background can be null as well
+        filter(Boolean),
+        takeUntil(this._destroy$)
+      )
+      .subscribe((plotBackground) => {
+        this._plotBackground = plotBackground;
+        this._range = this._chart._range;
+        this._timestamp = this._chart._timestamp;
 
-      // resize the selection area to the size of the Highcharts plot background.
-      this._updateSelectionAreaSize();
-      // get the BCR of the selection Area
-      this._selectionAreaBcr = this._elementRef.nativeElement.getBoundingClientRect();
+        // resize the selection area to the size of the Highcharts plot background.
+        this._updateSelectionAreaSize();
+        // get the BCR of the selection Area
+        this._selectionAreaBcr = this._elementRef.nativeElement.getBoundingClientRect();
 
-      // start initializing the selection area with all the mouse events.
-      this._initializeSelectionArea();
-      // initializes the Hairline directive, the timestamp that follows the mouse
-      // and listens for mouse-moves to update the position of the hairline.
-      this._initializeHairline();
-    });
+        // start initializing the selection area with all the mouse events.
+        this._initializeSelectionArea();
+        // initializes the Hairline, the timestamp that follows the mouse
+        // and listens for mouse-moves to update the position of the hairline.
+        this._initializeHairline();
+
+        this._checkRangeResized();
+        this._checkForRangeUpdates();
+      });
 
     // we have to skip the first (initial) after render and then we reset
     // the range and timestamp each time something changes.
-    this._chart._afterRender.pipe(
-      skip(1),
-      takeUntil(this._destroy$)
-    ).subscribe(() => {
-      // If the chart changes we need to destroy the range and the timestamp
-      if (this._range) {
-        this._range._reset();
-      }
+    this._chart._afterRender
+      .pipe(
+        skip(1),
+        takeUntil(this._destroy$)
+      )
+      .subscribe(() => {
+        // If the chart changes we need to destroy the range and the timestamp
+        if (this._range) {
+          this._range._reset();
+        }
 
-      if (this._timestamp) {
-        this._timestamp._reset();
-      }
-
-    });
+        if (this._timestamp) {
+          this._timestamp._reset();
+        }
+        this._closeOverlay();
+      });
   }
 
   ngOnDestroy(): void {
@@ -186,30 +181,11 @@ export class DtChartSelectionArea implements OnDestroy {
     this._destroy$.complete();
   }
 
-  private _overlayRef: OverlayRef | null;
-  private _portal: TemplatePortal | null;
-
-  private _createOverlay<T>(data: T, template: TemplateRef<T>, ref: ElementRef<HTMLElement>): void {
-
-    const overlayConfig = new OverlayConfig({
-      positionStrategy: this._calculateOverlayPosition(ref),
-      backdropClass: 'dt-no-pointer',
-      hasBackdrop: true,
-      panelClass: ['dt-chart-selection-area-overlay'],
-      scrollStrategy: this._overlay.scrollStrategies.reposition(),
-    });
-
-    const overlayRef = this._overlay.create(overlayConfig);
-    // tslint:disable-next-line:no-any
-    this._portal = new TemplatePortal<any>(template, this._viewContainerRef, { $implicit: data });
-
-    overlayRef.attach(this._portal);
-
-    this._overlayRef = overlayRef;
-  }
-
-  private _calculateOverlayPosition(ref: ElementRef<HTMLElement>): FlexibleConnectedPositionStrategy {
-    const positionStrategy = this._overlay.position()
+  private _calculateOverlayPosition(
+    ref: ElementRef<HTMLElement>
+  ): FlexibleConnectedPositionStrategy {
+    const positionStrategy = this._overlay
+      .position()
       // Create position attached to the ref of the timestamp or range
       .flexibleConnectedTo(ref)
       // Attach overlay's center bottom point to the
@@ -221,18 +197,51 @@ export class DtChartSelectionArea implements OnDestroy {
     return positionStrategy;
   }
 
-  /** updates or creates an overlay with the provided data */
-  private _updateOrCreateOverlay<T>(data: T, template: TemplateRef<T>, ref: ElementRef<HTMLElement>): void {
+  /**
+   * Creates a new Overlay for the range or timestamp with the provided template
+   * and positions it connected to the provided ref (range or timestamp).
+   */
+  private _createOverlay<T>(
+    template: TemplateRef<T>,
+    ref: ElementRef<HTMLElement>
+  ): void {
+    // create a new overlay configuration with a position strategy that connects
+    // to the provided ref.
+    // The overlay should be repositioned on scroll.
+    const overlayConfig = new OverlayConfig({
+      positionStrategy: this._calculateOverlayPosition(ref),
+      backdropClass: 'dt-no-pointer',
+      hasBackdrop: true,
+      panelClass: ['dt-chart-selection-area-overlay'],
+      scrollStrategy: this._overlay.scrollStrategies.reposition(),
+    });
+
+    const overlayRef = this._overlay.create(overlayConfig);
+
+    // create the portal out of the template and the containerRef
+    this._portal = new TemplatePortal<T>(template, this._viewContainerRef);
+    // attach the portal to the overlay ref
+    overlayRef.attach(this._portal);
+
+    this._overlayRef = overlayRef;
+  }
+
+  /** Updates or creates an overlay for the range or timestamp. */
+  private _updateOrCreateOverlay<T extends unknown>(
+    template: TemplateRef<T>,
+    ref: ElementRef<HTMLElement>
+  ): void {
     if (this._portal && this._overlayRef) {
-      // We already have an overlay so update the data.
-      this._portal.context.$implicit = data;
-      this._overlayRef.updatePositionStrategy(this._calculateOverlayPosition(ref));
-      // this._changeDetectorRef.markForCheck();
+      // We already have an overlay so update the position
+      this._overlayRef.updatePositionStrategy(
+        this._calculateOverlayPosition(ref)
+      );
     } else {
-      this._createOverlay<T>(data, template, ref);
+      this._createOverlay<T>(template, ref);
     }
   }
 
+  /** If there is an overlay open it will dispose it and destroy it */
   private _closeOverlay(): void {
     if (this._overlayRef) {
       this._overlayRef.dispose();
@@ -241,314 +250,338 @@ export class DtChartSelectionArea implements OnDestroy {
     this._portal = null;
   }
 
+  /** Main method that initializes all streams and subscribe to the initial behavior of the selection area */
   private _initializeSelectionArea(): void {
-
+    // If there is no Highcharts pot background something went wrong with the chart and we cannot calculate
+    // the positions in case that they are all relative to the plot background and not to the chart.
+    // The plot background is the area without the axis description only the chart itself.
     if (!this._plotBackground) {
       throw Error(ERROR_NO_PLOT_BACKGROUND);
     }
 
-    const yAxisGrids = [].slice.call(this._chart.container.nativeElement.querySelectorAll(HIGHCHARTS_Y_AXIS_GRID));
-    const xAxisGrids = [].slice.call(this._chart.container.nativeElement.querySelectorAll(HIGHCHARTS_X_AXIS_GRID));
-    const seriesGroup = this._chart.container.nativeElement.querySelector(HIGHCHARTS_SERIES_GROUP);
+    const yAxisGrids = [].slice.call(
+      this._chart.container.nativeElement.querySelectorAll(
+        HIGHCHARTS_Y_AXIS_GRID
+      )
+    );
+    const xAxisGrids = [].slice.call(
+      this._chart.container.nativeElement.querySelectorAll(
+        HIGHCHARTS_X_AXIS_GRID
+      )
+    );
+    const seriesGroup = this._chart.container.nativeElement.querySelector(
+      HIGHCHARTS_SERIES_GROUP
+    );
 
-    // select all elements where we have to capture the mousemove when pointer events are disabled on the selection area.
-    const mousedownElements = [
+    // select all elements where we have to capture the mousemove when pointer events are
+    // disabled on the selection area.
+    this._mouseDownElements = [
       this._plotBackground,
       seriesGroup,
       ...xAxisGrids,
       ...yAxisGrids,
     ];
 
-    // hover is used to capture the mousemove on the selection area when pointer events are disabled.
-    // so it collects all underlying areas and captures the mousemove
-    this._hover$ = fromEvent<MouseEvent>(mousedownElements, 'mousemove').pipe(
-      throttleTime(0, animationFrameScheduler),
-      share()
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // E V E N T   S T R E A M S
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // The following section is for registering the events that track the mousedown, hover
+    // drag and all interactions. This streams are stored in class members.
+
+    this._mousedown$ = getMouseDownStream(
+      this._elementRef.nativeElement,
+      this._mouseDownElements
     );
 
-    this._mousedown$ = captureAndMergeEvents('mousedown', mousedownElements).pipe(
-      filter((event) => event.button === 0), // only emit left mouse
-      filter(() => !this.disabled),
-      tap(() => {
-        removeCssClass(this._elementRef.nativeElement, NO_POINTER_EVENTS_CLASS);
-      }),
-      share()
-    );
+    this._mouseup$ = getMouseUpStream(this._elementRef.nativeElement);
 
-    this._mouseup$ = fromEvent<MouseEvent>(window, 'mouseup').pipe(
-      filter(() => !this.disabled),
-      tap(() => {
-        addCssClass(this._elementRef.nativeElement, NO_POINTER_EVENTS_CLASS);
-      }),
-      share()
-    );
-
-    this._drag$ = this._mousedown$.pipe(
-      filter(() => !this._disableRange),
-      switchMap(() => fromEvent<MouseEvent>(window, 'mousemove').pipe(takeUntil(this._mouseup$))),
-      map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
-      share()
-    );
-
-    // Create a click event that listens on a mouse down where the next
-    // event is a mouseup and not a mouse-move
-    this._click$ = merge(
+    this._click$ = getClickStream(
+      this._elementRef.nativeElement,
       this._mousedown$,
-      // cannot take the hover, on drag start pointer events are enabled and we have to capture the mousemove
-      // on the selection area and not on the underlying events.
-      fromEvent<MouseEvent>(this._elementRef.nativeElement, 'mousemove'),
       this._mouseup$
-    ).pipe(
-      pairwise(),
-      filter(([a, b]) => a.type === 'mousedown' && b.type === 'mouseup'),
-      map(([a, b]) => b),
-      share()
     );
 
-    // Create event that has the relative/current mouse position
-    this._currentMousePosition$ = this._mousedown$.pipe(
-      map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
-      share()
-    );
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // T I M E S T A M P
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // if we have a timestamp component inside the chart we have to update the position
+    // every time there is a click with the relative mouse position on the xAxis.
+    if (this._timestamp) {
+      this._click$.pipe(takeUntil(this._destroy$)).subscribe(({ x }) => {
+        if (this._timestamp) {
+          this._timestamp._position = x;
+          this._timestamp._emitStateChanges();
+        }
+      });
+    }
 
-    // listen for overlay close if there is a timestamp or a range
-    merge(
-      this._timestamp ? this._timestamp._closeOverlay : of(null),
-      this._range ? this._range._closeOverlay : of(null)
-    ).pipe(
-      takeUntil(this._destroy$)
-    ).subscribe(() => {
-      this._closeOverlay();
-    });
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // R A N G E
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // If there is a range component we have to check for drag events and resizing
+    // and updates of the range.
+    if (this._range) {
+      this._drag$ = getDragStream(
+        this._elementRef.nativeElement,
+        this._mousedown$,
+        this._mouseup$
+      );
 
-    // TODO: create overlay
-    // if (this._timestamp) {
-    //   const templateRef = this._timestamp._overlayTemplate;
-    //   const ref = this._elementRef;
-    //   this._updateOrCreateOverlay({}, templateRef, ref);
-    // }
+      // Create a stream for drag handle event in case we have to block the click event
+      // with an event prevent default inside the range component. Therefore we emit the
+      // dragHandleStart$ stream to notify when a drag on a handle happens.
+      const dragStart$ = this._range._handleDragStarted.pipe(
+        tap(() => {
+          removeCssClass(
+            this._elementRef.nativeElement,
+            NO_POINTER_EVENTS_CLASS
+          );
+        })
+      );
+
+      this._dragHandle$ = getDragStream(
+        this._elementRef.nativeElement,
+        dragStart$,
+        this._mouseup$
+      );
+    }
+
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // T I M E S T A M P  +  R A N G E
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // Decide weather to show the range or a timestamp according to a click or a drag.
+    // On a mousedown the range and the timestamp have to be hidden.
+    const startShowingTimestamp$ = this._click$.pipe(mapTo(true));
+    const startShowingRange$ = this._drag$.pipe(mapTo(true));
+    const hideTimestampAndRange$ = this._mousedown$.pipe(mapTo(false));
+
+    merge(startShowingRange$, hideTimestampAndRange$)
+      .pipe(
+        distinctUntilChanged(),
+        takeUntil(this._destroy$)
+      )
+      .subscribe((show: boolean) => {
+        this._showRange(show);
+      });
+
+    merge(startShowingTimestamp$, hideTimestampAndRange$)
+      .pipe(
+        distinctUntilChanged(),
+        takeUntil(this._destroy$)
+      )
+      .subscribe((show: boolean) => {
+        this._showTimestamp(show);
+      });
 
     // Reset range or timestamp if one of each triggers a stateChanges and is now visible
     // the other one has to be hidden then. There can only be one of both.
     if (this._timestamp && this._range) {
       merge(
-        this._timestamp._stateChanges.pipe(map((v) => ({...v, type: 'timestamp'}))),
-        this._range._stateChanges.pipe(map((v) => ({...v, type: 'range'})))
-      ).pipe(
-        takeUntil(this._destroy$),
-        filter((event) => !event.hidden),
-        distinctUntilChanged()
-      ).subscribe((state) => {
-        if (this._range && state.type === 'timestamp') {
-          this._range._reset();
-        }
+        this._timestamp._stateChanges.pipe(
+          map((v) => ({ ...v, type: 'timestamp' }))
+        ),
+        this._range._stateChanges.pipe(map((v) => ({ ...v, type: 'range' })))
+      )
+        .pipe(
+          takeUntil(this._destroy$),
+          filter((event) => !event.hidden),
+          distinctUntilChanged()
+        )
+        .subscribe((state) => {
+          if (this._range && state.type === 'timestamp') {
+            this._range._reset();
+          }
 
-        if (this._timestamp && state.type === 'range') {
-          this._timestamp._reset();
-        }
-      });
-
-      // console.log(this._timestamp._overlayTemplate)
-
-      // this._timestamp._selector.changes.pipe(
-      //   map((elements: QueryList<ElementRef>) => elements.first),
-      //   filter(Boolean),
-      //   withLatestFrom(this._timestamp._stateChanges),
-      //   filter(([ref, state]) => !state.hidden),
-      //   takeUntil(this._destroy$)
-      // ).subscribe(([ref, state]) => {
-      //   console.log('display overlay at: ', state.position)
-      //   const templateRef = this._timestamp!._overlayTemplate;
-      //   this._updateOrCreateOverlay<DtChartTimestampOverlayData>(
-      //     { time: state.position},
-      //     templateRef,
-      //     ref
-      //   );
-      // });
+          if (this._timestamp && state.type === 'range') {
+            this._timestamp._reset();
+          }
+        });
     }
 
-    const startShowingTimestamp$ = this._click$.pipe(mapTo(true));
-    const startShowingRange$ = this._drag$.pipe(mapTo(true));
-    const hideTimestampAndRange$ = this._mousedown$.pipe(mapTo(false));
-
-    merge(startShowingRange$, hideTimestampAndRange$).pipe(
-      distinctUntilChanged(),
-      takeUntil(this._destroy$)
-    ).subscribe((showOrHide) => {
-      this._showRange(showOrHide);
-    });
-
-    merge(startShowingTimestamp$, hideTimestampAndRange$).pipe(
-      distinctUntilChanged(),
-      takeUntil(this._destroy$)
-    ).subscribe((showOrHide) => {
-      this._showTimestamp(showOrHide);
-    });
-
-    // if we have a timestamp component inside the chart we have to show it on a mouse click
-    if (this._timestamp) {
-      this._click$.pipe(
-        map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
-        takeUntil(this._destroy$)
-      ).subscribe(({x, y}) => {
-        this._timestamp!._position = x;
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // O V E R L A Y
+    // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    // listen for a _closeOverlay event if there is a timestamp or a range
+    merge(
+      this._timestamp ? this._timestamp._closeOverlay : of(null),
+      this._range ? this._range._closeOverlay : of(null),
+      this._mousedown$
+    )
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this._closeOverlay();
       });
-    }
 
-    // If there is a range component we have to check for drag events and resizing and updates of the range
+    // handling of the overlay for the range
     if (this._range) {
-      // create a stream for drag handle event
-      this._dragHandle$ = from<MouseEvent>(this._range._handleDragStarted).pipe(
-        tap(() => { removeCssClass(this._elementRef.nativeElement, NO_POINTER_EVENTS_CLASS); }),
-        switchMap(() => fromEvent<MouseEvent>(window, 'mousemove').pipe(takeUntil(this._mouseup$))),
-        map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
-        share()
-      );
+      getElementRefStream<HTMLDivElement>(
+        this._range._stateChanges,
+        this._destroy$,
+        this._range._rangeElementRef,
+        this._zone
+      ).subscribe((ref) => {
+        if (this._range && this._range._overlayTemplate) {
+          this._updateOrCreateOverlay(this._range._overlayTemplate, ref);
+        }
+      });
 
-      this._checkRangeResized();
-      this._checkForRangeUpdates();
+      // On dragHandle we want to reposition the overlay with a small delay and an animationFrameScheduler
+      this._dragHandle$
+        .pipe(
+          // tslint:disable-next-line no-magic-numbers
+          throttleTime(10, animationFrameScheduler),
+          getElementRef(this._range._rangeElementRef),
+          takeUntil(this._destroy$)
+        )
+        .subscribe((ref) => {
+          if (this._range && this._range._overlayTemplate) {
+            this._updateOrCreateOverlay(this._range._overlayTemplate, ref);
+          }
+        });
+    }
+
+    // handling of the overlay for the timestamp
+    if (this._timestamp) {
+      getElementRefStream<HTMLDivElement>(
+        this._timestamp._stateChanges,
+        this._destroy$,
+        this._timestamp._timestampElementRef,
+        this._zone
+      ).subscribe((ref) => {
+        if (this._timestamp && this._timestamp._overlayTemplate) {
+          this._updateOrCreateOverlay(this._timestamp._overlayTemplate, ref);
+        }
+      });
     }
   }
 
   /** initializes the hairline the light blue line that follows the cursor */
   private _initializeHairline(): void {
-    const mouseLeave$ = fromEvent<MouseEvent>(window, 'mousemove').pipe(
-      map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
-      filter((position) =>
-        position.x < 0 ||
-        position.y < 0 ||
-        position.x > this._selectionAreaBcr!.width ||
-        position.y > this._selectionAreaBcr!.height
-      )
-      // tap(a => console.log('mouseleave', a))
-    );
+    this._zone.runOutsideAngular(() => {
+      // hover is used to capture the mousemove on the selection area when pointer events
+      // are disabled. So it collects all underlying areas and captures the mousemove
+      const hover$ = getMouseMove(
+        this._elementRef.nativeElement,
+        this._mouseDownElements
+      );
 
-    const showHairline$ = this._hover$.pipe(mapTo(true));
-    const hideHairline$ = merge(
-      this._mousedown$,
-      this._dragHandle$,
-      mouseLeave$
-    ).pipe(mapTo(false));
+      const mouseOut$ = fromEvent<MouseEvent>(
+        this._mouseDownElements,
+        'mouseout'
+      ).pipe(
+        map((event: MouseEvent) =>
+          getRelativeMousePosition(event, this._elementRef.nativeElement)
+        ),
+        filter(
+          (position) =>
+            position.x < 0 ||
+            position.y < 0 ||
+            position.x > this._selectionAreaBcr!.width ||
+            position.y > this._selectionAreaBcr!.height
+        )
+      );
 
-    merge(showHairline$, hideHairline$).pipe(
-      distinctUntilChanged(),
-      takeUntil(this._destroy$)
-    ).subscribe((show: boolean) => {
-      // console.log('showHairline: ', show)
-      this._showHairline(show);
-    });
+      const showHairline$ = hover$.pipe(mapTo(true));
+      const hideHairline$ = merge(
+        this._range ? this._mousedown$ : of(null),
+        this._dragHandle$,
+        mouseOut$
+      ).pipe(mapTo(false));
 
-    this._hover$.pipe(
-      map((event: MouseEvent) => getRelativeMousePosition(event, this._elementRef.nativeElement)),
-      map((position: {x: number; y: number}) => position.x),
-      distinctUntilChanged(), // only emit when the x value changes ignore hover on yAxis with that.
-      throttleTime(0, animationFrameScheduler),
-      takeUntil(this._destroy$)
-    ).subscribe((x: number) => {
-      this._reflectHairlinePositionToDom(x);
+      merge(showHairline$, hideHairline$)
+        .pipe(
+          distinctUntilChanged(),
+          takeUntil(this._destroy$)
+        )
+        .subscribe((show: boolean) => {
+          this._showHairline(show);
+        });
+
+      hover$
+        .pipe(
+          map((position: { x: number; y: number }) => position.x),
+          distinctUntilChanged(), // only emit when the x value changes ignore hover on yAxis with that.
+          takeUntil(this._destroy$)
+        )
+        .subscribe((x: number) => {
+          this._reflectHairlinePositionToDom(x);
+        });
     });
   }
 
   private _checkForRangeUpdates(): void {
-    if (!this._range) { return; }
-    // stream that stores the last positions
-    const lastRange$ = new ReplaySubject<{left: number; width: number}>();
-    const leftOrRightHandle$ = from(this._range._handleDragStarted).pipe(
-      map((event: MouseEvent) => identifyLeftOrRightHandle(event)),
-      filter(Boolean),
-      distinctUntilChanged()
-    );
+    if (!this._range) {
+      return;
+    }
 
-    // update a selection area according to a resize through the side handles
-    const resizeRange$ = combineLatest(
-      this._dragHandle$,
-      leftOrRightHandle$
-    ).pipe(
-      withLatestFrom(lastRange$),
-      // tap(([range, position, handle]) => console.log(handle)),
-      map(([[position, handle], range]) => {
-        const delta = handle === 'right'
-          ? position.x - (range.left + range.width)
-          : position.x - range.left;
-        return calculatePosition(
-          handle,
-          delta,
-          range.left,
-          range.width,
-          this._selectionAreaBcr!.width
-        );
-      }),
-      share()
+    const relativeMouseDown$ = this._mousedown$.pipe(
+      map((event: MouseEvent) =>
+        getRelativeMousePosition(event, this._elementRef.nativeElement)
+      )
     );
 
     // Create a range on the selection area if a drag is happening.
-    combineLatest(
-      this._currentMousePosition$,
-      this._drag$
-    ).pipe(
-      throttleTime(0, animationFrameScheduler),
-      map(([startPosition, endPosition]) =>
-        calculatePosition(
-          DtSelectionAreaEventTarget.Origin,
-          endPosition.x - startPosition.x,
-          startPosition.x,
-          0,
-          this._selectionAreaBcr!.width
-        )
-      ),
-      takeUntil(this._destroy$)
-    ).subscribe((range: {left: number; width: number}) => {
-      if (this._range) {
-        this._range._area = range;
-        lastRange$.next(range);
-      }
-    });
-
-    // show drag arrows on drag release
+    // and listen for resizing of an existing selection area
     merge(
-      this._drag$.pipe(mapTo(true)),
-      this._mouseup$.pipe(mapTo(false))
-    ).pipe(
-      distinctUntilChanged(),
-      takeUntil(this._destroy$)
-    ).subscribe((showOrHide) => {
-      if (this._range) {
-        this._range._addOrRemoveReleasedClass(!showOrHide);
-      }
-    });
-
-    // subscribe to changes to a created selection area
-    resizeRange$.pipe(
-      throttleTime(0, animationFrameScheduler),
-      takeUntil(this._destroy$)
-    ).subscribe((range) => {
-      if (this._range) {
-        this._range._area = range;
-      }
-    });
-
-    // when the range gets updated by a drag on the handles we only set the last position
-    // when the drag is completed with a mouseup.
-    this._mouseup$.pipe(
-      withLatestFrom(resizeRange$),
-      map((data) => data[1]),
-      takeUntil(this._destroy$)
-    ).subscribe((range) => {
-      lastRange$.next(range);
-    });
+      getRangeCreateStream(
+        relativeMouseDown$,
+        this._drag$,
+        this._selectionAreaBcr!.width
+      ),
+      // update a selection area according to a resize through the side handles
+      getRangeResizeStream(
+        this._dragHandle$,
+        this._range._handleDragStarted.pipe(distinctUntilChanged()),
+        this._selectionAreaBcr!.width,
+        () => this._range!._area,
+        (start: number, end: number) => this._range!._isRangeValid(start, end),
+        (left: number, width: number) =>
+          this._range!._getRangeValuesFromPixels(left, width)
+      )
+    )
+      .pipe(
+        takeUntil(this._destroy$),
+        filter((area) => this._isRangeInsideMaximumConstraint(area))
+      )
+      .subscribe((area) => {
+        if (this._range) {
+          this._range._area = area;
+        }
+      });
   }
 
+  /** Filter function to check if the created range meets the maximum constraints */
+  private _isRangeInsideMaximumConstraint(range: {
+    left: number;
+    width: number;
+  }): boolean {
+    if (this._range && this._range._pixelsToValue) {
+      // if the range has no max provided every value is okay and we don't need to filter.
+      if (!this._range.max) {
+        return true;
+      }
+      const left = this._range._pixelsToValue(range.left);
+      const width = this._range._pixelsToValue(range.width);
+
+      return this._range.max >= width - left;
+    }
+    return false;
+  }
+
+  /** Function that toggles the visibility of the hairline (line that follows the mouses) */
   private _showHairline(show: boolean): void {
     const display = show ? 'inherit' : 'none';
     this._renderer.setStyle(this._hairline.nativeElement, 'display', display);
   }
 
+  /** Function that safely toggles the visible state of the range */
   private _showRange(show: boolean): void {
     if (this._range) {
       this._range._hidden = !show;
     }
   }
 
+  /** Function that safely toggles the visible state of the timestamp */
   private _showTimestamp(show: boolean): void {
     if (this._timestamp) {
       this._timestamp._hidden = !show;
@@ -557,35 +590,57 @@ export class DtChartSelectionArea implements OnDestroy {
 
   /** reflects the position of the timestamp to the element */
   private _reflectHairlinePositionToDom(x: number): void {
-    this._renderer.setStyle(
-      this._hairline.nativeElement,
-      'transform',
-      `translateX(${x}px)`
-    );
+    this._zone.runOutsideAngular(() => {
+      this._renderer.setStyle(
+        this._hairline.nativeElement,
+        'transform',
+        `translateX(${x}px)`
+      );
+    });
   }
 
   /**
-   * This method watches with a provides start observable if the range is going to be resized.
+   * This method watches if the range is going to be resized.
    * If the range gets resized then we apply a class that changes the cursor.
    */
   private _checkRangeResized(): void {
-    const dragHandleStart$ = this._dragHandle$.pipe(mapTo(true));
-    const initialDragStart$ = this._drag$.pipe(mapTo(true));
-    // merge the streams of the initial drag start and the handle drag start
-    const startResizing$ = merge(initialDragStart$, dragHandleStart$);
-    // map to false to end the resize
-    const mouseRelease$ = this._mouseup$.pipe(mapTo(false));
+    if (!this._range) {
+      return;
+    }
 
-    // stream that emits drag start end end
-    merge(startResizing$, mouseRelease$).pipe(
-      distinctUntilChanged(),
-      takeUntil(this._destroy$)
-    ).subscribe((resize: boolean) => {
-      if (resize) {
-        addCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
-      } else {
-        removeCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
-      }
+    this._zone.runOutsideAngular(() => {
+      const dragHandleStart$ = this._dragHandle$.pipe(mapTo(1));
+      const initialDragStart$ = this._drag$.pipe(mapTo(0));
+      // merge the streams of the initial drag start and the handle drag start
+      const startResizing$ = merge(initialDragStart$, dragHandleStart$);
+      // map to false to end the resize
+      const mouseRelease$ = this._mouseup$.pipe(mapTo(-1));
+
+      // stream that emits drag start end end
+      merge(startResizing$, mouseRelease$)
+        .pipe(
+          distinctUntilChanged(),
+          takeUntil(this._destroy$)
+        )
+        .subscribe((resize: number) => {
+          // show drag arrows on drag release but only if the stream is not a drag handle
+          // 0 is initial drag and -1 is mouse release
+          if (this._range && resize < 1) {
+            this._range._reflectRangeReleased(resize < 0);
+
+            // if the drag is completed we can emit a stateChanges
+            if (resize < 0) {
+              this._range._emitStateChanges();
+            }
+          }
+
+          // every drag regardless of if it is a handle or initial drag should have the grab cursors
+          if (resize >= 0) {
+            addCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
+          } else {
+            removeCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
+          }
+        });
     });
   }
 
