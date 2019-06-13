@@ -1,0 +1,32 @@
+/**
+ * Test file for testing the dt-inline-editor-alt-text rule.
+ * An inline editor must provide alternative texts for the save and the cancel button.
+ */
+
+@Component({
+  template: `
+    <em dt-inline-editor
+      [(ngModel)]="sampleModel"
+      aria-label-save="Save text"
+      aria-label-cancel="Cancel and discard changes">
+    </em>
+    <span>model: <code>{{ sampleModel }}</code></span>
+
+    <em dt-inline-editor
+    ~~~~~~~~~~~~~~~~~~~~
+      [(ngModel)]="sampleModel"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      aria-label-save="Save text">
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [An inline editor must provide alternative texts for the save and the cancel button.]
+    </em>
+    <span>model: <code>{{ sampleModel }}</code></span>
+
+    <em dt-inline-editor
+    ~~~~~~~~~~~~~~~~~~~~
+      [(ngModel)]="sampleModel">
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [An inline editor must provide alternative texts for the save and the cancel button.]
+    </em>
+    <span>model: <code>{{ sampleModel }}</code></span>
+  `,
+})
+class TestClass { }

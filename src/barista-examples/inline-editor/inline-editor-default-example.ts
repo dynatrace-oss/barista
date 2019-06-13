@@ -5,7 +5,9 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `
     <em dt-inline-editor
-      [(ngModel)]="sampleModel">
+      [(ngModel)]="sampleModel"
+      aria-label-save="Save text"
+      aria-label-cancel="Cancel and discard changes">
     </em>
     <span>model: <code>{{ sampleModel }}</code></span>
   `,
