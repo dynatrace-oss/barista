@@ -7,7 +7,10 @@ import { DtInlineEditor } from '@dynatrace/angular-components';
   template: `
     <em #sampleEditor
       dt-inline-editor
-      [(ngModel)]="sampleModel"></em>
+      [(ngModel)]="sampleModel"
+      aria-label-save="Save text"
+      aria-label-cancel="Cancel and discard changes">
+    </em>
 
     <button (click)="sampleEditor.enterEditing()">open editor</button>
     <button (click)="sampleEditor.saveAndQuitEditing()">save changes</button>

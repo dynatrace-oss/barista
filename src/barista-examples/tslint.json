@@ -18,6 +18,7 @@
     "dt-icon-button-needs-icon": true,
     "dt-info-group-requires-icon": true,
     "dt-info-group-requires-title": true,
+    "dt-inline-editor-alt-text": true,
     "dt-input-requires-label": true,
     "dt-loading-distractor-no-empty": true,
     "dt-nested-button-is-icon-button": true,
