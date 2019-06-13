@@ -9,7 +9,11 @@ const TIMEOUT_MS = 2000;
   template: `
     <em dt-inline-editor
       [(ngModel)]="sampleModel"
-      [onRemoteSave]="successfulSaveFunction"></em>
+      [onRemoteSave]="successfulSaveFunction"
+      aria-label-save="Save text"
+      aria-label-cancel="Cancel and discard changes"
+    >
+    </em>
   `,
 })
 export class SuccessfulInlineEditorExample {
