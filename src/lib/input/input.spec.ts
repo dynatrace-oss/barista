@@ -1,3 +1,6 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { PlatformModule } from '@angular/cdk/platform';
 import { Component } from '@angular/core';
 import { fakeAsync, TestBed } from '@angular/core/testing';

@@ -4,6 +4,7 @@ import { startWith } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <ng-container *ngIf="show">
 

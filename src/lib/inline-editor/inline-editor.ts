@@ -74,8 +74,8 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;
   @Input() onRemoteSave: (value: string) => Observable<void>;
-  @Output() saved = new EventEmitter<string>();
-  @Output() cancelled = new EventEmitter<string>();
+  @Output() readonly saved = new EventEmitter<string>();
+  @Output() readonly cancelled = new EventEmitter<string>();
 
   get idle(): boolean { return this._mode === MODES.IDLE; }
   get editing(): boolean { return this._mode === MODES.EDITING; }

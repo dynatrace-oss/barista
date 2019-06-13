@@ -1,4 +1,4 @@
-import {Component, DoCheck, ViewEncapsulation} from '@angular/core';
+import { Component, DoCheck, ViewEncapsulation } from '@angular/core';
 import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
 
 @Component({

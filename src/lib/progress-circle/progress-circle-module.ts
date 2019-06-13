@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {DtProgressCircle} from './progress-circle';
+import { NgModule } from '@angular/core';
+import { DtProgressCircle } from './progress-circle';
 
 @NgModule({
   exports: [
@@ -9,4 +9,4 @@ import {DtProgressCircle} from './progress-circle';
     DtProgressCircle,
   ],
 })
-export class DtProgressCircleModule {}
+export class DtProgressCircleModule { }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: '<dt-pagination [length]="length" [pageSize]="pageSize" [currentPage]="currentPage"></dt-pagination>',
 })
 export class ManyPaginationExampleComponent {

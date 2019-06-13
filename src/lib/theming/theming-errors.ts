@@ -1,5 +1,5 @@
 export function getDtThemeNotValidError(value: string): Error {
-  return Error(`The provided theme value "${name}" for dtTheme is not a valid theme!`);
+  return Error(`The provided theme value "${value}" for dtTheme is not a valid theme!`);
 }
 
 export function getDtThemeVariantNotValidError(theme: string, variant: string): Error {

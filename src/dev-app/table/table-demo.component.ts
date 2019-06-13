@@ -1,8 +1,7 @@
-import { Component, ViewChild, AfterViewInit, OnInit, Injectable, OnDestroy, ViewChildren, QueryList, ContentChildren, ContentChild } from '@angular/core';
-import { DtTableDataSource, DtPagination, DtShowMore, DtTab, DtTable } from '@dynatrace/angular-components';
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subscription, of, EMPTY, merge, combineLatest} from 'rxjs';
-import { map, startWith, take,  } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
+import { DtPagination, DtTableDataSource } from '@dynatrace/angular-components';
+import { of, Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 interface HostUnit {
   host: string;
@@ -16,7 +15,7 @@ interface HostUnit {
   templateUrl: './table-demo.component.html',
   styleUrls: ['./table-demo.component.scss'],
 })
-export class TableDemo implements OnInit, OnDestroy {
+export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
   show = true;
   pageSize = 3;
   dataSource: DtTableDataSource<HostUnit> = new DtTableDataSource();
@@ -28,7 +27,7 @@ export class TableDemo implements OnInit, OnDestroy {
     this.subscription = of(this.dataSource1)
       .subscribe((data: HostUnit[]) => {
         this.dataSource.data = data;
-    });
+      });
   }
 
   ngAfterViewInit(): void {
@@ -43,7 +42,7 @@ export class TableDemo implements OnInit, OnDestroy {
         } else {
           this.dataSource.pagination = null;
         }
-    });
+      });
   }
 
   dataSource1: HostUnit[] = [

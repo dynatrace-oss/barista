@@ -11,6 +11,7 @@ import {
   Renderer2,
   ViewChild,
   ViewEncapsulation,
+  OnDestroy,
 } from '@angular/core';
 import {
   addCssClass,
@@ -105,13 +106,13 @@ export const _DtSelectionAreaContainerMixin = mixinTabIndex(mixinDisabled(DtSele
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin implements HasTabIndex {
+export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin implements HasTabIndex, OnDestroy {
 
   /** Emits when the selected area changes position or size */
-  @Output() changed = new EventEmitter<DtSelectionAreaContainerChange>();
+  @Output() readonly changed = new EventEmitter<DtSelectionAreaContainerChange>();
 
   /** Emits everytime the selected area and the overlay are closed */
-  @Output() closed = new EventEmitter<void>();
+  @Output() readonly closed = new EventEmitter<void>();
 
   /** @internal Indicates if the selected area is visible */
   _isSelectedAreaVisible = false;

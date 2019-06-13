@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  selector: 'barista-demo',
   template: `
   <p>Value passed to the progress circle: {{value}}</p>
   <dt-progress-circle (valueChange)="changed($event)" [value]="value">

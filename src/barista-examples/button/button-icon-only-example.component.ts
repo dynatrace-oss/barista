@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <button dt-icon-button aria-label="An example button containing an agent icon"><dt-icon name="agent"></dt-icon></button>
     <a dt-icon-button href="#" aria-label="An example button containing a proxy icon"><dt-icon name="proxy"></dt-icon></a>

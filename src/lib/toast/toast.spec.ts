@@ -1,7 +1,9 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { ComponentFixture, TestBed, fakeAsync, inject, flush, tick, flushMicrotasks } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { DtToastModule, DtToast, DT_TOAST_FADE_TIME, DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT} from '@dynatrace/angular-components';
+import { DtToastModule, DtToast, DT_TOAST_FADE_TIME, DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
@@ -92,7 +94,7 @@ describe('DtToast', () => {
     expect(overlayContainerElement.childElementCount)
         .toBeGreaterThan(0, 'Expected overlay container element to have at least one child');
 
-    toastRef!.afterDismissed().subscribe(undefined, undefined, dismissCompleteSpy);
+    toastRef!.afterDismissed().subscribe(() => {}, () => {}, dismissCompleteSpy);
 
     toastRef!.dismiss();
     fixture.detectChanges();
@@ -151,7 +153,7 @@ describe('DtToast', () => {
       const toastRef2 = dtToast.create(simpleMessage);
 
       fixture.detectChanges();
-      toastRef!.afterDismissed().subscribe(undefined, undefined, dismissCompleteSpy);
+      toastRef!.afterDismissed().subscribe(() => {}, () => {}, dismissCompleteSpy);
       tick(DT_TOAST_FADE_TIME);
       expect(toastRef2!.containerInstance._animationState)
           .toBe('enter', `Expected the animation state of the new toast to be 'enter'.`);

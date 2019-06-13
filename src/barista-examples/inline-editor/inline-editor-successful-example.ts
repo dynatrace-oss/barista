@@ -5,6 +5,7 @@ const TIMEOUT_MS = 2000;
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <em dt-inline-editor
       [(ngModel)]="sampleModel"

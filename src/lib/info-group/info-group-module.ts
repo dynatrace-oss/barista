@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   DtInfoGroup,
   DtInfoGroupTitle,
@@ -17,4 +17,4 @@ import {
     DtInfoGroupIcon,
   ],
 })
-export class DtInfoGroupModule {}
+export class DtInfoGroupModule { }

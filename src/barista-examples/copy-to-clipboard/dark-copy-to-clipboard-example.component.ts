@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
+  selector: 'demo-component',
   template: `
     <section class="dark" dtTheme=":dark">
       <dt-copy-to-clipboard>
@@ -9,4 +10,4 @@ import {Component} from '@angular/core';
       </dt-copy-to-clipboard>
     </section>`,
 })
-export class DarkCopyToClipboardExampleComponent {}
+export class DarkCopyToClipboardExampleComponent { }

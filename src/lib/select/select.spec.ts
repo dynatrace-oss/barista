@@ -1,3 +1,5 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { async, ComponentFixture, TestBed, inject, fakeAsync, flush, tick } from '@angular/core/testing';
 import { Component, ViewChild, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
@@ -565,7 +567,7 @@ describe('DtSelect', () => {
 
         it('should set the `aria-labelledby` attribute', fakeAsync(() => {
           const group = groups[0];
-          const label = group.querySelector('label')!;
+          const label = group.querySelector('label');
 
           expect(label.getAttribute('id')).toBeTruthy('Expected label to have an id.');
           expect(group.getAttribute('aria-labelledby'))
@@ -610,7 +612,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        const option: HTMLElement = overlayContainerElement.querySelector('dt-option');
         option.click();
         fixture.detectChanges();
         flush();
@@ -624,8 +626,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const backdrop =
-          overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
+        const backdrop: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-backdrop');
 
         backdrop.click();
         fixture.detectChanges();
@@ -685,7 +686,7 @@ describe('DtSelect', () => {
 
         expect(fixture.componentInstance.select.panelOpen).toBe(true);
 
-        const panel = overlayContainerElement.querySelector('.dt-select-panel')!;
+        const panel = overlayContainerElement.querySelector('.dt-select-panel');
         dispatchKeyboardEvent(panel, 'keydown', TAB);
         fixture.detectChanges();
         flush();
@@ -727,7 +728,7 @@ describe('DtSelect', () => {
         trigger.click();
         fixture.detectChanges();
 
-        const panel = overlayContainerElement.querySelector('.dt-select-panel') as HTMLElement;
+        const panel = overlayContainerElement.querySelector('.dt-select-panel');
 
         expect(panel.classList).toContain('custom-one');
         expect(panel.classList).toContain('custom-two');
@@ -737,7 +738,7 @@ describe('DtSelect', () => {
         trigger.click();
         fixture.detectChanges();
 
-        const option = overlayContainerElement.querySelector('dt-option')!;
+        const option = overlayContainerElement.querySelector('dt-option');
         const event = dispatchKeyboardEvent(option, 'keydown', SPACE);
 
         expect(event.defaultPrevented).toBe(true);
@@ -747,7 +748,7 @@ describe('DtSelect', () => {
         trigger.click();
         fixture.detectChanges();
 
-        const option = overlayContainerElement.querySelector('dt-option')!;
+        const option = overlayContainerElement.querySelector('dt-option');
         const event = dispatchKeyboardEvent(option, 'keydown', ENTER);
 
         expect(event.defaultPrevented).toBe(true);
@@ -808,7 +809,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        let option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        let option: HTMLElement = overlayContainerElement.querySelector('dt-option');
         option.click();
         fixture.detectChanges();
         flush();
@@ -817,7 +818,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        option = overlayContainerElement.querySelector('dt-option');
 
         expect(option.classList).toContain('dt-option-selected');
         expect(fixture.componentInstance.options.first.selected).toBe(true);
@@ -924,7 +925,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        const option: HTMLElement = overlayContainerElement.querySelector('dt-option');
         option.click();
         fixture.detectChanges();
         flush();
@@ -970,12 +971,12 @@ describe('DtSelect', () => {
         fixture.componentInstance.control.setValue('pizza-1');
         fixture.detectChanges();
 
-        expect(trigger.textContent!.trim()).toBe('Pizza');
+        expect(trigger.textContent.trim()).toBe('Pizza');
 
         fixture.componentInstance.foods[1].viewValue = 'Calzone';
         fixture.detectChanges();
 
-        expect(trigger.textContent!.trim()).toBe('Calzone');
+        expect(trigger.textContent.trim()).toBe('Calzone');
       }));
 
       it('should not select disabled options', fakeAsync(() => {
@@ -1021,7 +1022,7 @@ describe('DtSelect', () => {
 
         const spy = jasmine.createSpy('option selection spy');
         const subscription = fixture.componentInstance.select.optionSelectionChanges.subscribe(spy);
-        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        const option: HTMLElement = overlayContainerElement.querySelector('dt-option');
         option.click();
         fixture.detectChanges();
         flush();
@@ -1050,7 +1051,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        const option: HTMLElement = overlayContainerElement.querySelector('dt-option');
         option.click();
         fixture.detectChanges();
         flush();
@@ -1075,7 +1076,7 @@ describe('DtSelect', () => {
         const spy = jasmine.createSpy('value change spy');
         const subscription = fixture.componentInstance.select.valueChange.subscribe(spy);
 
-        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        const option: HTMLElement = overlayContainerElement.querySelector('dt-option');
         option.click();
         fixture.detectChanges();
         flush();
@@ -1097,7 +1098,7 @@ describe('DtSelect', () => {
         const spy = jasmine.createSpy('value change spy');
         const subscription = fixture.componentInstance.select.valueChange.subscribe(spy);
 
-        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        const option: HTMLElement = overlayContainerElement.querySelector('dt-option');
         option.click();
         fixture.detectChanges();
         flush();
@@ -1164,7 +1165,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        const option: HTMLElement = overlayContainerElement.querySelector('dt-option');
         option.click();
         fixture.detectChanges();
         flush();
@@ -1231,8 +1232,7 @@ describe('DtSelect', () => {
         expect(fixture.componentInstance.control.touched)
           .toEqual(false, `Expected the control to stay untouched when menu opened.`);
 
-        const backdrop =
-          overlayContainerElement.querySelector('.cdk-overlay-backdrop') as HTMLElement;
+        const backdrop: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-backdrop');
         backdrop.click();
         dispatchFakeEvent(trigger, 'blur');
         fixture.detectChanges();
@@ -1279,7 +1279,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+        const option: HTMLElement = overlayContainerElement.querySelector('dt-option');
         option.click();
         fixture.detectChanges();
         flush();
@@ -1324,7 +1324,7 @@ describe('DtSelect', () => {
   });
 
   describe('when initialized without options', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([SelectInitWithoutOptions])));
+    beforeEach(async(() => { configureDtSelectTestingModule([SelectInitWithoutOptions]); }));
 
     it('should select the proper option when option list is initialized later', fakeAsync(() => {
       const fixture = TestBed.createComponent(SelectInitWithoutOptions);
@@ -1346,7 +1346,7 @@ describe('DtSelect', () => {
   });
 
   describe('with a selectionChange event handler', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([SelectWithChangeEvent])));
+    beforeEach(async(() => { configureDtSelectTestingModule([SelectWithChangeEvent]); }));
 
     let fixture: ComponentFixture<SelectWithChangeEvent>;
     let trigger: HTMLElement;
@@ -1362,6 +1362,7 @@ describe('DtSelect', () => {
       trigger.click();
       fixture.detectChanges();
 
+      // tslint:disable-next-line: no-unnecessary-type-assertion
       (overlayContainerElement.querySelector('dt-option') as HTMLElement).click();
 
       expect(fixture.componentInstance.changeListener).toHaveBeenCalled();
@@ -1371,7 +1372,7 @@ describe('DtSelect', () => {
       trigger.click();
       fixture.detectChanges();
 
-      const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+      const option: HTMLElement = overlayContainerElement.querySelector('dt-option');
 
       option.click();
       option.click();
@@ -1388,7 +1389,7 @@ describe('DtSelect', () => {
   });
 
   describe('with ngModel', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([NgModelSelect])));
+    beforeEach(async(() => { configureDtSelectTestingModule([NgModelSelect]); }));
 
     it('should disable itself when control is disabled using the property', fakeAsync(() => {
       const fixture = TestBed.createComponent(NgModelSelect);
@@ -1423,7 +1424,7 @@ describe('DtSelect', () => {
   });
 
   describe('with tabindex', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([SelectWithPlainTabindex])));
+    beforeEach(async(() => { configureDtSelectTestingModule([SelectWithPlainTabindex]); }));
 
     it('should be able to set the tabindex via the native attribute', fakeAsync(() => {
       const fixture = TestBed.createComponent(SelectWithPlainTabindex);
@@ -1435,7 +1436,7 @@ describe('DtSelect', () => {
   });
 
   describe('change events', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([SelectWithPlainTabindex])));
+    beforeEach(async(() => { configureDtSelectTestingModule([SelectWithPlainTabindex]); }));
 
     it('should complete the stateChanges stream on destroy', () => {
       const fixture = TestBed.createComponent(SelectWithPlainTabindex);
@@ -1454,7 +1455,7 @@ describe('DtSelect', () => {
   });
 
   describe('with no placeholder', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([BasicSelectNoPlaceholder])));
+    beforeEach(async(() => { configureDtSelectTestingModule([BasicSelectNoPlaceholder]); }));
 
     it('should set the width of the overlay if there is no placeholder', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectNoPlaceholder);
@@ -1466,27 +1467,27 @@ describe('DtSelect', () => {
       fixture.detectChanges();
       flush();
 
-      const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
-      expect(parseInt(pane.style.minWidth as string, 10)).toBeGreaterThan(0);
+      const pane: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+      expect(parseInt(pane.style.minWidth, 10)).toBeGreaterThan(0);
     }));
   });
 
   describe('when invalid inside a form', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([InvalidSelectInForm])));
+    beforeEach(async(() => { configureDtSelectTestingModule([InvalidSelectInForm]); }));
 
     it('should not throw SelectionModel errors in addition to ngModel errors', fakeAsync(() => {
       const fixture = TestBed.createComponent(InvalidSelectInForm);
 
       // The first change detection run will throw the "ngModel is missing a name" error.
-      expect(() => fixture.detectChanges()).toThrowError(/the name attribute must be set/g);
+      expect(() => { fixture.detectChanges(); }).toThrowError(/the name attribute must be set/g);
 
       // The second run shouldn't throw selection-model related errors.
-      expect(() => fixture.detectChanges()).not.toThrow();
+      expect(() => { fixture.detectChanges(); }).not.toThrow();
     }));
   });
 
   describe('with ngModel using compareWith', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([NgModelCompareWithSelect])));
+    beforeEach(async(() => { configureDtSelectTestingModule([NgModelCompareWithSelect]); }));
 
     let fixture: ComponentFixture<NgModelCompareWithSelect>;
     let instance: NgModelCompareWithSelect;
@@ -1552,7 +1553,7 @@ describe('DtSelect', () => {
   });
 
   describe(`when the select's value is accessed on initialization`, () => {
-    beforeEach(async(() => configureDtSelectTestingModule([SelectEarlyAccessSibling])));
+    beforeEach(async(() => { configureDtSelectTestingModule([SelectEarlyAccessSibling]); }));
 
     it('should not throw when trying to access the selected value on init', fakeAsync(() => {
       expect(() => {
@@ -1562,7 +1563,7 @@ describe('DtSelect', () => {
   });
 
   describe('inside of a form group', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([SelectInsideFormGroup])));
+    beforeEach(async(() => { configureDtSelectTestingModule([SelectInsideFormGroup]); }));
 
     let fixture: ComponentFixture<SelectInsideFormGroup>;
     let testComponent: SelectInsideFormGroup;
@@ -1661,7 +1662,7 @@ describe('DtSelect', () => {
   });
 
   describe('with custom error behavior', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([CustomErrorBehaviorSelect])));
+    beforeEach(async(() => { configureDtSelectTestingModule([CustomErrorBehaviorSelect]); }));
 
     it('should be able to override the error matching behavior via an @Input', fakeAsync(() => {
       const fixture = TestBed.createComponent(CustomErrorBehaviorSelect);
@@ -1682,9 +1683,9 @@ describe('DtSelect', () => {
   });
 
   describe('with preselected array values', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([
-      SingleSelectWithPreselectedArrayValues,
-    ])));
+    beforeEach(async(() => {
+      configureDtSelectTestingModule([SingleSelectWithPreselectedArrayValues]);
+    }));
 
     it('should be able to preselect an array value in single-selection mode', fakeAsync(() => {
       const fixture = TestBed.createComponent(SingleSelectWithPreselectedArrayValues);
@@ -1700,10 +1701,12 @@ describe('DtSelect', () => {
   });
 
   describe('with OnPush', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([
-      BasicSelectOnPush,
-      BasicSelectOnPushPreselected,
-    ])));
+    beforeEach(async(() => {
+      configureDtSelectTestingModule([
+        BasicSelectOnPush,
+        BasicSelectOnPushPreselected,
+      ]);
+    }));
 
     it('should set the trigger text based on the value when initialized', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectOnPushPreselected);
@@ -1736,7 +1739,7 @@ describe('DtSelect', () => {
   });
 
   describe('when reseting the value by setting null or undefined', () => {
-    beforeEach(async(() => configureDtSelectTestingModule([ResetValuesSelect])));
+    beforeEach(async(() => { configureDtSelectTestingModule([ResetValuesSelect]); }));
 
     let fixture: ComponentFixture<ResetValuesSelect>;
     let trigger: HTMLElement;

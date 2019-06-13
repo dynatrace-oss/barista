@@ -14,7 +14,7 @@ import {
   Inject,
 } from '@angular/core';
 import { DtExpandableRow } from './expandable/expandable-row';
-import { _DtTableBase} from './base-table';
+import { _DtTableBase } from './base-table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   DtSimpleColumnBase,
@@ -95,6 +95,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   /** @internal List of all simpleColumns within the table. */
   // tslint:disable-next-line: no-any
   @ContentChildren(DtSimpleColumnBase) _simpleColumns: QueryList<DtSimpleColumnBase<any>>;
+
   /** @internal Stream of all simple dataAccessor functions for all SimpleColumns */
   readonly _dataAccessors: Observable<SimpleColumnsAccessorMaps<T>> = defer(() => {
     if (this._simpleColumns) {
@@ -136,8 +137,9 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     elementRef: ElementRef,
     @Attribute('role') role: string,
     private _ngZone: NgZone,
+    // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) document: any,
-    platform: Platform,
+    platform: Platform
   ) {
     super(differs, changeDetectorRef, elementRef, document, platform, role);
   }

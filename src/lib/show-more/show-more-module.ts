@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {DtShowMore, DtShowLessLabel} from './show-more';
+import { NgModule } from '@angular/core';
+import { DtShowMore, DtShowLessLabel } from './show-more';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -18,4 +18,4 @@ import {CommonModule} from '@angular/common';
     DtShowLessLabel,
   ],
 })
-export class DtShowMoreModule {}
+export class DtShowMoreModule { }

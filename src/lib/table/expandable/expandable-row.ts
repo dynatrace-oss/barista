@@ -11,6 +11,7 @@ import {
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  OnDestroy,
 } from '@angular/core';
 import { DtTable } from '../table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -56,7 +57,7 @@ export class DtExpandableRowChangeEvent {
   encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtExpandableRow',
 })
-export class DtExpandableRow extends DtRow {
+export class DtExpandableRow extends DtRow implements OnDestroy {
   private _expanded = false;
   private _uniqueId = `dt-expandable-row-${nextUniqueId++}`;
 
@@ -98,7 +99,7 @@ export class DtExpandableRow extends DtRow {
    * @deprecated Please use expanded, collapsed or expandChange instead.
    * @breaking-change To be removed with 3.0.0.
    */
-  @Output() openedChange = this.expandChange.pipe(map((changeEvent) => changeEvent.row));
+  @Output() readonly openedChange = this.expandChange.pipe(map((changeEvent) => changeEvent.row));
 
   @ViewChild('dtExpandableRow', { static: true }) private _rowRef: ElementRef;
   @ViewChild('dtExpandableContent', { read: ViewContainerRef, static: true }) private _contentViewContainer: ViewContainerRef;

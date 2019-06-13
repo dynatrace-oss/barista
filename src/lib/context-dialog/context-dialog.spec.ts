@@ -1,3 +1,6 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, flush } from '@angular/core/testing';
@@ -8,7 +11,7 @@ import {
   DtContextDialogTrigger,
   DtIconModule,
 } from '@dynatrace/angular-components';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;

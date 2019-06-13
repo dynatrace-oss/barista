@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <div dtAutocompleteOrigin #origin="dtAutocompleteOrigin">
     <input dtInput

@@ -5,6 +5,7 @@ import { DtChartSeries, formatCount } from '@dynatrace/angular-components';
 import { generateData } from './data';
 
 @Component({
+  selector: 'barista-demo',
   template: `
   <dt-micro-chart [series]="series" [labelFormatter]="_formatterFn">
     <dt-chart-tooltip>

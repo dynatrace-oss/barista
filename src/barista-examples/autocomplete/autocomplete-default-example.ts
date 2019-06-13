@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <input dtInput [dtAutocomplete]="auto" [(ngModel)]="value" placeholder="Start typing" aria-label="Start typing">
   <dt-autocomplete #auto="dtAutocomplete">

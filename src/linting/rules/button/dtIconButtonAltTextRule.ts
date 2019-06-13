@@ -35,7 +35,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    // tslint:disable-next-line:no-use-before-declare
+    // tslint:disable-next-line: no-use-before-declare
     addFailure(this, element, Rule.FAILURE_STRINGS[element.name]);
   }
 }

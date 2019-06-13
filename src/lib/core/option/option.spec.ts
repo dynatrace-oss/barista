@@ -1,3 +1,6 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { DtOptionModule, DtOption } from '@dynatrace/angular-components';
 import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -19,7 +22,7 @@ describe('DtOption', () => {
     const optionInstance: DtOption<string> =
       fixture.debugElement.query(By.directive(DtOption)).componentInstance;
     const completeSpy = jasmine.createSpy('complete spy');
-    const subscription = optionInstance._stateChanges.subscribe(undefined, undefined, completeSpy);
+    const subscription = optionInstance._stateChanges.subscribe(() => {}, () => {}, completeSpy);
 
     fixture.destroy();
     expect(completeSpy).toHaveBeenCalled();

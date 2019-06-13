@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <div>
       <button *ngIf="customTrigger" dt-icon-button [dtContextDialogTrigger]="interactiveDialog"

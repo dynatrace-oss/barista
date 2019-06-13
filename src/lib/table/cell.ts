@@ -12,8 +12,10 @@ import {
   SkipSelf,
   ChangeDetectorRef,
   OnChanges,
+  OnDestroy,
+  AfterContentInit,
 } from '@angular/core';
-import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from '@angular/cdk/table';
+import { CdkCellDef, CdkColumnDef } from '@angular/cdk/table';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtRow } from './row';
 import { Subject, merge, Subscription } from 'rxjs';
@@ -79,7 +81,7 @@ type IndicatorType = 'error' | 'warning';
   encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtCell',
 })
-export class DtCell {
+export class DtCell implements AfterContentInit, OnDestroy {
   @ContentChildren(DtIndicator, { descendants: true }) _indicators: QueryList<DtIndicator>;
 
   /** Whether the cell has an error */

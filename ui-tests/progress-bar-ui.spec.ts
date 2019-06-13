@@ -1,4 +1,4 @@
-import {browser, by, element} from 'protractor';
+import { browser, by, element } from 'protractor';
 
 describe('ProgressBar', () => {
   beforeEach(async () => browser.get('/progress-bar'));

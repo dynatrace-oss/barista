@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   styleUrls: ['highlight-demo.component.scss'],
   templateUrl: 'highlight-demo.component.html',
 })

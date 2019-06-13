@@ -52,7 +52,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   private _disabled = false;
   _selectedItem: DtButtonGroupItem<T> | null = null;
 
-  // tslint:disable-next-line:no-forward-ref no-use-before-declare
+  // tslint:disable-next-line: no-use-before-declare no-forward-ref
   @ContentChildren(forwardRef(() => DtButtonGroupItem), {descendants: true})
   private _items: QueryList<DtButtonGroupItem<T>>;
 

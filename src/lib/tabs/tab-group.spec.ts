@@ -1,6 +1,8 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { async, TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, ViewChildren, QueryList } from '@angular/core';
+import { Component, ViewChildren, QueryList, OnDestroy } from '@angular/core';
 import { DtTabsModule, DtTab, DtLogConsumer, DtLogEntry, DT_TABGROUP_SINGLE_TAB_ERROR, DtTabChange } from '@dynatrace/angular-components';
 import { By } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
@@ -387,7 +389,7 @@ class LazyTabsTestApp {
   </dt-tab-group>
   `,
 })
-class ErrorTabsTestApp {
+class ErrorTabsTestApp implements OnDestroy {
   @ViewChildren(DtTab) tabs: QueryList<DtTab>;
   secondTab = false;
   disableAll = false;
