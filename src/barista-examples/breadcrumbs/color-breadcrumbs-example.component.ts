@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-  <dt-breadcrumbs [color]="color">
+  <dt-breadcrumbs [color]="color" aria-label="Breadcrumbs navigation">
     <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>
     <dt-breadcrumbs-item [href]="['first', 'second', {param: 123}]">Second view</dt-breadcrumbs-item>
     <dt-breadcrumbs-item>Current view</dt-breadcrumbs-item>

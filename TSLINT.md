@@ -8,6 +8,7 @@ We provide a set of custom TSLint rules to help you using the Angular components
 
 | Name | Description |
 | --- | --- |
+| `dt-breadcrumbs-alt-text` | Breadcrumbs must always have an alternative text in form of an `aria-label` attribute. |
 | `dt-button-no-empty` | A button must always contain text content or a component that renders text. |
 | `dt-card-direct-children` | All predefined child components of a `dt-card`, i.e. `dt-card-title`, `dt-card-subtitle`, `dt-card-icon`, `dt-card-title-actions` and `dt-card-footer-actions` must be direct children of the `dt-card`. |
 | `dt-card-needs-title` | A `dt-card-title` is a required child element of a `dt-card`. |
