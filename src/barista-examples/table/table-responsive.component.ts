@@ -15,6 +15,7 @@ interface HostMetricResponsive {
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   // tslint:disable
   template: `
   <dt-table [dataSource]="dataSource">

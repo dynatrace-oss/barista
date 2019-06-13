@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <p>
       <button dt-button><dt-icon name="agent"></dt-icon>Primary with icon</button>

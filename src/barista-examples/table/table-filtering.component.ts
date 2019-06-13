@@ -3,6 +3,7 @@ import { DtTableDataSource } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   styles: ['dt-table { margin: 2em 0; }'],
   // tslint:disable
   template: `

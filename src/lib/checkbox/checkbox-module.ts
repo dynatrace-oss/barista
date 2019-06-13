@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { A11yModule } from '@angular/cdk/a11y';
-import {DtCheckbox, DtCheckboxRequiredValidator} from './checkbox';
+import { DtCheckbox, DtCheckboxRequiredValidator } from './checkbox';
 
 @NgModule({
   imports: [
@@ -17,4 +17,4 @@ import {DtCheckbox, DtCheckboxRequiredValidator} from './checkbox';
     DtCheckboxRequiredValidator,
   ],
 })
-export class DtCheckboxModule {}
+export class DtCheckboxModule { }

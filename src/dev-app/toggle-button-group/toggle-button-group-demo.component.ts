@@ -3,6 +3,7 @@ import { DtToggleButtonChange } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   templateUrl: './toggle-button-group-demo.component.html',
   styleUrls: ['./toggle-button-group-demo.component.scss'],
 })

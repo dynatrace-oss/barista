@@ -83,7 +83,8 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
     this._markRadiosForCheck();
   }
 
-  // tslint:disable-next-line:no-output-named-after-standard-event
+  // Disabling no-output-native rule because we want to keep a similar API to the native radio group
+  // tslint:disable-next-line: no-output-native
   @Output() readonly change = new EventEmitter<DtRadioChange<T>>();
 
   onTouched: () => void = () => {};

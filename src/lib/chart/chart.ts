@@ -21,6 +21,7 @@ import {
   Inject,
   InjectionToken,
   Self,
+  AfterContentInit,
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DtViewportResizer } from '@dynatrace/angular-components/core';
@@ -103,9 +104,10 @@ export function DT_CHART_RESOVER_PROVIDER_FACTORY(c: DtChart): DtChartResolver {
     { provide: DT_CHART_RESOLVER, useFactory: DT_CHART_RESOVER_PROVIDER_FACTORY, deps: [[new Self(), DtChart]] },
   ],
 })
-export class DtChart implements AfterViewInit, OnDestroy, OnChanges {
+export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterContentInit {
   @ViewChild('container', { static: true }) container: ElementRef;
 
+  // tslint:disable-next-line: no-forward-ref
   @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<DtChartHeatfield>;
 
   private _series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;

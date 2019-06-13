@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {Dt<%= classify(name) %>} from './<%= name %>';
+import { NgModule } from '@angular/core';
+import { Dt<%= classify(name) %> } from './<%= name %>';
 
 @NgModule({
   exports: [
@@ -9,4 +9,4 @@ import {Dt<%= classify(name) %>} from './<%= name %>';
     Dt<%= classify(name) %>,
   ],
 })
-export class Dt<%= classify(name) %>Module {}
+export class Dt<%= classify(name) %>Module { }

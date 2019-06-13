@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angular-components';
 
 @Component({
+  selector: 'barista-demo',
   template: `
 <dt-chart [options]="options" [series]="series" [dtChartSelectionArea]="area"></dt-chart>
 <dt-selection-area #area="dtSelectionArea"

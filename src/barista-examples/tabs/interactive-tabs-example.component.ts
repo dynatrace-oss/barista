@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <dt-tab-group>
     <dt-tab [disabled]="disableFirst">
@@ -42,7 +43,7 @@ export class InteractiveTabsExampleComponent {
         this.simulatedColor = this.simulatedColor === 'error' ? 'recovered' : 'main';
         this.connectivity = '80%';
       },
-      undefined,
+      () => { },
       () => {
         this.simulationRunning = false;
         this.connectivity = '100%';

@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {DtProgressBar} from './progress-bar';
-import {DtProgressBarDescription} from './progress-bar-description';
-import {DtProgressBarCount} from './progress-bar-count';
+import { NgModule } from '@angular/core';
+import { DtProgressBar } from './progress-bar';
+import { DtProgressBarDescription } from './progress-bar-description';
+import { DtProgressBarCount } from './progress-bar-count';
 
 @NgModule({
   exports: [
@@ -15,4 +15,4 @@ import {DtProgressBarCount} from './progress-bar-count';
     DtProgressBarCount,
   ],
 })
-export class DtProgressBarModule {}
+export class DtProgressBarModule { }

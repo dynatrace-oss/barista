@@ -1,4 +1,5 @@
-// tslint:disable:no-magic-numbers
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 /**
  * @license
@@ -8,7 +9,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {mixinTabIndex} from './tabindex';
+import { mixinTabIndex } from './tabindex';
 
 describe('mixinTabIndex', () => {
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <button dt-icon-button [dtContextDialogTrigger]="dialog" aria-label="Open context dialog">
     <dt-icon name="agent"></dt-icon>

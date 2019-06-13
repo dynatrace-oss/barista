@@ -1,4 +1,4 @@
-// tslint:disable:no-use-before-declare i18n newline-per-chained-call no-floating-promises no-magic-numbers
+// tslint:disable:i18n newline-per-chained-call no-floating-promises no-magic-numbers
 
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';

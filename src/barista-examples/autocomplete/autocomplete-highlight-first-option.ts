@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <input dtInput [dtAutocomplete]="auto" [formControl]="myControl" placeholder="Start typing" aria-label="Start typing">
   <dt-autocomplete #auto="dtAutocomplete" autoActiveFirstOption>

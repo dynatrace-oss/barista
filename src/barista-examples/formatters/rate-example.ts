@@ -3,6 +3,7 @@ import { DtRateUnit } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <dt-form-field>
     <dt-label>Value to be transformed</dt-label>

@@ -3,6 +3,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  selector: 'barista-demo',
   template: `<dt-chart [options]="options" [series]="series">
   <dt-chart-tooltip>
       <ng-template let-tooltip>

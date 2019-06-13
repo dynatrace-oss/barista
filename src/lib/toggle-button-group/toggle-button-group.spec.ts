@@ -1,8 +1,10 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import {async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import {Component, DebugElement } from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {DtToggleButtonGroupModule, DtToggleButtonGroup, DtToggleButtonItem } from '@dynatrace/angular-components';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { DtToggleButtonGroupModule, DtToggleButtonGroup, DtToggleButtonItem } from '@dynatrace/angular-components';
 
 describe('DtToggleButtonGroup', () => {
 

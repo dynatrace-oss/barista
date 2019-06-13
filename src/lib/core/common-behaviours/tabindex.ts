@@ -1,6 +1,6 @@
-import {Constructor} from './constructor';
-import {CanDisable} from './disabled';
-import {coerceNumberProperty} from '@angular/cdk/coercion';
+import { Constructor } from './constructor';
+import { CanDisable } from './disabled';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 export interface HasTabIndex {
   /** Tabindex of the component. */
@@ -9,7 +9,7 @@ export interface HasTabIndex {
 
 /** Mixin to augment a directive with a `tabIndex` property. */
 export function mixinTabIndex<T extends Constructor<CanDisable>>(base: T, defaultTabIndex: number = 0)
-    : Constructor<HasTabIndex> & T {
+  : Constructor<HasTabIndex> & T {
   return class extends base {
     private _tabIndex: number = defaultTabIndex;
 

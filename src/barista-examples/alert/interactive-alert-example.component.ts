@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `<div>
   <dt-alert severity="error" #alert1>This is a message!</dt-alert>
 </div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  selector: 'barista-demo',
   template: `
   <dt-progress-bar (valueChange)="changed($event)" [value]="value">
   <dt-progress-bar-count>

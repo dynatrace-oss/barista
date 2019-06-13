@@ -1,4 +1,4 @@
-import {browser, by, element} from 'protractor';
+import { browser, by, element } from 'protractor';
 
 describe('Pagination', () => {
   beforeEach(async () => browser.get('/pagination'));

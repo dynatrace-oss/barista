@@ -1,11 +1,12 @@
-import {async, TestBed} from '@angular/core/testing';
-import {Component, DebugElement} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {DtShowMoreModule, DtShowMore, DtIconModule} from '@dynatrace/angular-components';
-import {HttpClientModule, HttpXhrBackend} from '@angular/common/http';
-import {ENTER, SPACE} from '@angular/cdk/keycodes';
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
+import { async, TestBed } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { DtShowMoreModule, DtShowMore, DtIconModule } from '@dynatrace/angular-components';
+import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 
 describe('DtShowMore', () => {
   beforeEach(async(() => {

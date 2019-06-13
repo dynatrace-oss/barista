@@ -3,6 +3,7 @@ import { DtCheckboxChange } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <p>indeterminate: {{_isIndeterminate()}} | checked: {{_isChecked()}}</p>
       <dt-checkbox

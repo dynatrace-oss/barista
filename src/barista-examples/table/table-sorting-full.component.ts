@@ -3,6 +3,7 @@ import { DtSortEvent } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   // tslint:disable
   template: `
   <button dt-button (click)="toggleDisableAll()">Toggle disable sorting for all columns</button>

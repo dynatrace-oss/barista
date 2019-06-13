@@ -63,6 +63,7 @@ export function DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY(microChart: DtMicro
 export class DtMicroChart implements OnDestroy {
 
   /** @internal DtChart instance that is needed for the tooltip */
+  // tslint:disable-next-line no-forward-ref
   @ViewChild(forwardRef(() => DtChart), { static: true }) _dtChart: DtChart;
 
   private _themeStateChangeSub = Subscription.EMPTY;
@@ -182,7 +183,8 @@ function convertToDataPoints(
   return seriesData.map((dataPoint, index) => {
     if (typeof dataPoint === 'number') {
       return {x: index, y: dataPoint};
-    } else if (Array.isArray(dataPoint)) {
+    }
+    if (Array.isArray(dataPoint)) {
       return {x: typeof dataPoint[0] === 'string' ? index : dataPoint[0], y: dataPoint[1]};
     }
     return lodashMerge({}, dataPoint);

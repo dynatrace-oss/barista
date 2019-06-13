@@ -1,3 +1,6 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -240,7 +243,7 @@ describe('DtTable', () => {
       const instance: DtCell =
         fixture.debugElement.query(By.directive(DtCell)).componentInstance;
       const completeSpy = jasmine.createSpy('complete spy');
-      const subscription = instance._stateChanges.subscribe(undefined, undefined, completeSpy);
+      const subscription = instance._stateChanges.subscribe(() => {}, () => {}, completeSpy);
 
       fixture.destroy();
       expect(completeSpy).toHaveBeenCalled();

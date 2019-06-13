@@ -1,4 +1,7 @@
-import { Component, ContentChild, ViewChild } from '@angular/core';
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
+import { Component, ContentChild, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { async, TestBed, fakeAsync, inject, ComponentFixture, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -290,7 +293,7 @@ class MultipleHeatfield {
     { provide: DtChart, useExisting: DummyChart },
   ],
 })
-class DummyChart {
+class DummyChart implements AfterViewInit, OnDestroy {
   _afterRender = new Subject<boolean>();
   width = 700;
   x = PLOTMARGIN_LEFT;

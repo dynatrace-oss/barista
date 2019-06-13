@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <dt-breadcrumbs>
       <!-- data$ emits a new items list after each 5 seconds -->

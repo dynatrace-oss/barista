@@ -1,4 +1,4 @@
-import {mixinDisabled} from './disabled';
+import { mixinDisabled } from './disabled';
 
 describe('MixinDisabled', () => {
   it('should augment an existing class with a disabled property', () => {

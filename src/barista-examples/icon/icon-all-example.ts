@@ -49,6 +49,7 @@ export class DocsAsyncIcon implements OnDestroy {
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <input #input type="text" dtInput placeholder="Filter by" (input)="_onInputChange($event)" aria-label="Filter icons"/>
     <div class="all-icons-container">
@@ -66,19 +67,19 @@ export class DocsAsyncIcon implements OnDestroy {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [Viewport],
 })
-export class AllIconExample {
+export class AllIconExample implements OnDestroy {
 
   @ViewChild('input', { static: true }) _inputEl: ElementRef;
   _icons$: Observable<string[]>;
   private _filterValue = new BehaviorSubject<string>('');
 
   constructor(private _httpClient: HttpClient, viewport: Viewport) {
-    this._icons$ = combineLatest(
+    this._icons$ = combineLatest([
       this._httpClient
         .get('/assets/icons/metadata.json')
         .pipe(map((res: { icons: string[] }) => res.icons || [])),
-      this._filterValue.pipe(debounceTime(200), map((value) => value.toUpperCase()))
-    ).pipe(
+      this._filterValue.pipe(debounceTime(200), map((value) => value.toUpperCase())),
+    ]).pipe(
       map(([icons, filterValue]) =>
         icons.filter((icon) => filterValue === '' || icon.toUpperCase().indexOf(filterValue) !== -1)),
       tap(() => { setTimeout(() => { viewport.refresh(); }, 0); })

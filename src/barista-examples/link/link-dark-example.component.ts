@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  // @formatter:off
+  selector: 'demo-component',  // @formatter:off
   template: `
     <div class="dark" dtTheme=":dark">
       <a class="dt-link">Link on a dark background</a>

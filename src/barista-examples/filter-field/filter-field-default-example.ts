@@ -3,6 +3,7 @@ import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/fi
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <dt-filter-field
     [dataSource]="_dataSource"

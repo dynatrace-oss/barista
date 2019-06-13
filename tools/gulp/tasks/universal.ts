@@ -2,7 +2,6 @@ import { task, src, dest, series, parallel } from 'gulp';
 import { execTask, execNodeTask } from '../util/task-runner';
 import { join } from 'path';
 import { buildConfig } from '../build-config';
-import { sequenceTask } from '../util/sequence-task';
 import { ngcCompile } from '../util/ngc-compile';
 import { red } from 'chalk';
 

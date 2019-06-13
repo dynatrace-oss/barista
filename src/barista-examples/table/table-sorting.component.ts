@@ -3,6 +3,7 @@ import { DtSortEvent } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   // tslint:disable
   template: `
   <dt-table [dataSource]="dataSource" dtSort (dtSortChange)="sortData($event)">

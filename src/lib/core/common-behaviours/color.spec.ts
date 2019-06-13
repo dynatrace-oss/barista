@@ -1,5 +1,8 @@
-import {mixinColor} from './color';
-import {ElementRef} from '@angular/core';
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
+import { mixinColor } from './color';
+import { ElementRef } from '@angular/core';
 
 describe('MixinColor', () => {
 
@@ -70,6 +73,7 @@ describe('MixinColor', () => {
 });
 
 class TestClass {
+  // tslint:disable-next-line: ban
   testElement: HTMLElement = document.createElement('div');
 
   /** Fake instance of an ElementRef. */

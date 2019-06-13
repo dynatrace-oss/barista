@@ -52,6 +52,7 @@ import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group
 import { InfoGroupDemo } from './info-group/info-group-demo.component';
 import { HighlightDemo } from './highlight/highlight-demo.component';
 
+// tslint:disable-next-line: use-component-selector
 @Component({template: ''})
 export class NoopRouteComponent {}
 

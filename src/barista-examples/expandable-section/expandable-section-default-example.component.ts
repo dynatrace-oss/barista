@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `<dt-expandable-section>
     <dt-expandable-section-header>My header text</dt-expandable-section-header>
   {{ text }}

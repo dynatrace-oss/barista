@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  selector: 'barista-demo',
   template: `<dt-progress-circle [value]="45" [color]="color"></dt-progress-circle>
   <div>
   <dt-button-group [value]="color" (valueChange)="changed($event)">

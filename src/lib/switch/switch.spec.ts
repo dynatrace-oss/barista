@@ -1,10 +1,11 @@
-// tslint:disable:max-file-line-count no-magic-numbers no-any
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {DtSwitchModule, DtSwitch, DtSwitchChange} from '@dynatrace/angular-components';
+import { DtSwitchModule, DtSwitch, DtSwitchChange } from '@dynatrace/angular-components';
 
 describe('DtSwitch', () => {
   let fixture: ComponentFixture<any>;

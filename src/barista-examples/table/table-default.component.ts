@@ -5,6 +5,7 @@ const LOG: DtLogger = DtLoggerFactory.create('TableDefaultComponent');
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   // tslint:disable
   template: `<dt-table [dataSource]="dataSource1">
   <ng-container dtColumnDef="host" dtColumnAlign="text">

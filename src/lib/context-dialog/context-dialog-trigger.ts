@@ -6,8 +6,8 @@ import {
   OnDestroy,
   Output
 } from '@angular/core';
-import {DtContextDialog} from './context-dialog';
-import {CdkOverlayOrigin} from '@angular/cdk/overlay';
+import { DtContextDialog } from './context-dialog';
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 
 @Directive({
   selector: 'button[dtContextDialogTrigger]',
