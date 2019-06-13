@@ -6,6 +6,8 @@ import {
   ViewEncapsulation,
   Input,
   ChangeDetectorRef,
+  AfterContentInit,
+  OnDestroy,
 } from '@angular/core';
 import {
   DtKeyValueListItem
@@ -33,7 +35,7 @@ const DT_KEY_VALUE_LIST_MAX_COLUMNS = 6;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtKeyValueList {
+export class DtKeyValueList implements AfterContentInit, OnDestroy {
   @ContentChildren(DtKeyValueListItem) items: QueryList<DtKeyValueListItem>;
 
   /** @internal */

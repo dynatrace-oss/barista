@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
 import { DtSelectionAreaChange } from '@dynatrace/angular-components/selection-area';
 

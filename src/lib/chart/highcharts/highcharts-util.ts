@@ -3,7 +3,7 @@ import { Options as HighchartsOptions, AxisOptions } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import { DT_CHART_DEFAULT_OPTIONS, DT_CHART_DEFAULT_AXIS_STYLES } from '../chart-options';
 import { DtChartSeries, DtChartOptions } from '../chart';
-import {getDtChartColorPalette} from '../chart-colors';
+import { getDtChartColorPalette } from '../chart-colors';
 
 /** Create a pure highcharts options out of provided chart options and/or series. */
 export function createHighchartOptions(options: DtChartOptions = {}, series?: DtChartSeries[]): HighchartsOptions {

@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
+  selector: 'demo-component',
   template: `
     <dt-copy-to-clipboard #copyClipboard [disabled]="_toggleValue">
       <textarea dtInput aria-label="Text that is copied to clipboard">https://inzx79.dynatrace.com/</textarea>

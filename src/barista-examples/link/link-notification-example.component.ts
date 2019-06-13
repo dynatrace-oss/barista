@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  selector: 'barista-demo',
   template: `
     <div class="notification">
       A new Dynatrace ActiveGate is available for you. <a class="dt-link">Upgrade now</a>

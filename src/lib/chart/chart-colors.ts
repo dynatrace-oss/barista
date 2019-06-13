@@ -1,4 +1,4 @@
-import {DtColors, DtTheme} from '@dynatrace/angular-components/theming';
+import { DtColors, DtTheme } from '@dynatrace/angular-components/theming';
 
 // Threshold to determine the color palette used
 const DT_CHART_THEME_COLOR_MAX_LENGTH = 3;

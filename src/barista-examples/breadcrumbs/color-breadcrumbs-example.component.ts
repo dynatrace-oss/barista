@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <dt-breadcrumbs [color]="color">
     <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>

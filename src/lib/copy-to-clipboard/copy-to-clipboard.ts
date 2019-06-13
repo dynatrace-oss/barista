@@ -12,10 +12,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import {DtInput} from '@dynatrace/angular-components/input';
+import { DtInput } from '@dynatrace/angular-components/input';
 
-import {addCssClass, removeCssClass} from '@dynatrace/angular-components/core';
-import {Subscription, timer} from 'rxjs';
+import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
+import { Subscription, timer } from 'rxjs';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
 const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
@@ -52,9 +52,9 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
       this.inputComponent.disabled = value;
     }
   }
-  @Output() copied: EventEmitter<void> = new EventEmitter();
-  @Output() copyFailed: EventEmitter<void> = new EventEmitter();
-  @Output() afterCopy: EventEmitter<void> = new EventEmitter();
+  @Output() readonly copied: EventEmitter<void> = new EventEmitter();
+  @Output() readonly copyFailed: EventEmitter<void> = new EventEmitter();
+  @Output() readonly afterCopy: EventEmitter<void> = new EventEmitter();
 
   // tslint:disable-next-line:no-unused-variable
   private _showIcon = false;

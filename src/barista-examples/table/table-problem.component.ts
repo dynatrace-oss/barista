@@ -12,6 +12,7 @@ export interface TableData {
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   // tslint:disable
   styles: [
     '.example-container { overflow: auto; height: 300px; }'

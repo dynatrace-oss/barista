@@ -1,4 +1,4 @@
-import {browser, by, element, Key } from 'protractor';
+import { browser, by, element, Key } from 'protractor';
 
 describe('context-dialog', () => {
   beforeEach(async () => browser.get('/context-dialog'));

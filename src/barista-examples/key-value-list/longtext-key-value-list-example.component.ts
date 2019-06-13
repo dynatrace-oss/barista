@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `<dt-key-value-list>
   <dt-key-value-list-item *ngFor="let entry of entries">
     <dt-key-value-list-key>{{ entry.key }}</dt-key-value-list-key>

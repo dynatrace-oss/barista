@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { timer } from 'rxjs';
 
 @Component({
+  selector: 'barista-demo',
   template: `
     <dt-copy-to-clipboard (copied)="copyCallback()">
       <textarea dtInput aria-label="Text that is copied to clipboard">https://copyexample.dynatrace.com/</textarea>

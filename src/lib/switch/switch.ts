@@ -40,7 +40,7 @@ let nextUniqueId = 0;
  */
 export const DT_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-forward-ref no-use-before-declare
+  // tslint:disable-next-line: no-use-before-declare no-forward-ref
   useExisting: forwardRef(() => DtSwitch),
   multi: true,
 };
@@ -126,7 +126,8 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   @Input('aria-labelledby') ariaLabelledby: string | null = null;
 
   /** Event emitted when the switch's `checked` value changes. */
-    // tslint:disable-next-line:no-output-named-after-standard-event
+  // Disabling no-output-native rule because we want to keep a similar API to the checkbox
+  // tslint:disable-next-line: no-output-native
   @Output() readonly change = new EventEmitter<DtSwitchChange<T>>();
 
   /** The native switch input element */
@@ -240,7 +241,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
 
 export const DT_SWITCH_REQUIRED_VALIDATOR: Provider = {
   provide: NG_VALIDATORS,
-  // tslint:disable-next-line:no-forward-ref no-use-before-declare
+  // tslint:disable-next-line: no-use-before-declare no-forward-ref
   useExisting: forwardRef(() => DtSwitchRequiredValidator),
   multi: true,
 };

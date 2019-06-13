@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <dt-bar-indicator [value]="value" [min]="min" [max]="max" (valueChange)="changed($event)"></dt-bar-indicator>
     <div style="margin-top: 16px;">

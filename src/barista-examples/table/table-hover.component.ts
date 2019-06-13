@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   // tslint:disable
   template: `<dt-table [dataSource]="dataSource1" interactiveRows>
   <ng-container dtColumnDef="host" dtColumnAlign="text">

@@ -1,8 +1,10 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {Dt<%= classify(name) %>Module, Dt<%= classify(name) %>} from '@dynatrace/angular-components';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { Dt<%= classify(name) %>Module, Dt<%= classify(name) %> } from '@dynatrace/angular-components';
 
 describe('Dt<%= classify(name) %>', () => {
   beforeEach(async(() => {

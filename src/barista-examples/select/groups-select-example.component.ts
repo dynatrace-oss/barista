@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <dt-select placeholder="Select filter type" aria-label="Select filter type">
       <dt-option value="Application">Application</dt-option>

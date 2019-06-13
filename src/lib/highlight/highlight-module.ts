@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {DtHighlight} from './highlight';
+import { NgModule } from '@angular/core';
+import { DtHighlight } from './highlight';
 
 @NgModule({
   exports: [
@@ -9,4 +9,4 @@ import {DtHighlight} from './highlight';
     DtHighlight,
   ],
 })
-export class DtHighlightModule {}
+export class DtHighlightModule { }

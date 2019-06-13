@@ -1,4 +1,5 @@
-// tslint:disable no-unbound-method
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { fakeAsync, TestBed, ComponentFixture, tick } from '@angular/core/testing';
 import { DtTabNavigationAdapter, DtTabsModule, DtTabRouterFragmentAdapter } from '@dynatrace/angular-components';
@@ -33,7 +34,7 @@ describe('DtTabNavigationAdapter', () => {
 
   describe('adapter functions', () => {
     beforeEach(fakeAsync(() => {
-      adapter = TestBed.get(DtTabNavigationAdapter);
+      adapter = TestBed.get<DtTabNavigationAdapter>(DtTabNavigationAdapter as any);
     }));
 
     it('should register a tabgroup with the adapter after creation', fakeAsync(() => {
@@ -56,6 +57,7 @@ describe('DtTabNavigationAdapter', () => {
 });
 
 @Component({
+  selector: 'test-component',
   template:
   `<dt-tab-group dtTabGroupNavigation>
     <dt-tab id="traffic">
@@ -75,6 +77,7 @@ describe('DtTabNavigationAdapter', () => {
 export class TabComponent {}
 
 @Component({
+  selector: 'test-component',
   template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {

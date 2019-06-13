@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  selector: 'barista-demo',
   template: `
     <dt-breadcrumbs>
       <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>

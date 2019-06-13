@@ -1,3 +1,6 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { OverlayContainer, } from '@angular/cdk/overlay';
 import { Provider, Type, ViewChild, ViewChildren, QueryList, Component, OnDestroy, NgZone } from '@angular/core';
 import { TestBed, inject, ComponentFixture, flush, fakeAsync, async, tick } from '@angular/core/testing';
@@ -23,8 +26,6 @@ import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchEvent } from '../../t
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { typeInElement } from '../../testing/type-in-element';
 import { createKeyboardEvent } from '../../testing/event-objects';
-
-// tslint:disable:no-any no-magic-numbers max-file-line-count
 
 describe('DtAutocomplete', () => {
   let overlayContainer: OverlayContainer;
@@ -233,7 +234,7 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       fixture.destroy();
 
-      expect(() => trigger.closePanel()).not.toThrow();
+      expect(() => { trigger.closePanel(); }).not.toThrow();
     });
 
     it('should hide the panel when the options list is empty', fakeAsync(() => {
@@ -650,7 +651,6 @@ describe('DtAutocomplete', () => {
       spyOn(fixture.componentInstance.options.first, 'focus');
 
       fixture.componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
-      // tslint:disable-next-line:no-unbound-method
       expect(fixture.componentInstance.options.first.focus).not.toHaveBeenCalled();
     });
 
@@ -1137,9 +1137,7 @@ describe('DtAutocomplete', () => {
       options[1].click();
       fixture.detectChanges();
 
-      // tslint:disable-next-line:no-unbound-method
       expect(componentOptions[0].deselect).toHaveBeenCalled();
-      // tslint:disable-next-line:no-unbound-method
       componentOptions.slice(1).forEach((option) => expect(option.deselect).not.toHaveBeenCalled());
     }));
 
@@ -1728,5 +1726,3 @@ class DynamicallyChangingAutocomplete {
   @ViewChild('autoTow', { static: true }) autoTow: DtAutocomplete<any>;
   @ViewChild(DtAutocompleteTrigger, { static: true }) trigger: DtAutocompleteTrigger<any>;
 }
-
-// tslint:enabule:no-any no-magic-numbers max-file-line-count

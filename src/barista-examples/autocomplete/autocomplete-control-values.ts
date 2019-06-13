@@ -6,6 +6,7 @@ import { COUNTRIES, countryCompareWithFn, CountryOption } from './countries';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <input dtInput [dtAutocomplete]="auto" [formControl]="myControl" placeholder="Search a country" aria-label="Search a country">
   <dt-autocomplete #auto="dtAutocomplete" [displayWith]="displayFn">

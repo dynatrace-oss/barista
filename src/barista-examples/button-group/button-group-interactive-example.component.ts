@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   // @formatter:off
   template: `<div>
   <dt-button-group #control1 [disabled]="control1AllDisabled">

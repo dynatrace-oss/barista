@@ -1,6 +1,6 @@
-import {Component, NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {ServerModule} from '@angular/platform-server';
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ServerModule } from '@angular/platform-server';
 import { DtAlertModule } from '@dynatrace/angular-components/alert';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
@@ -24,7 +24,7 @@ import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-c
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { DtInputModule } from '@dynatrace/angular-components/input';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
-import { DtFilterFieldModule} from '@dynatrace/angular-components/filter-field';
+import { DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
 import { DtAutocompleteModule } from '@dynatrace/angular-components/autocomplete';
 import { DtTreeControl, DtTreeFlattener, DtTreeDataSource } from '@dynatrace/angular-components/core';
 import { DtIconType } from '@dynatrace/dt-iconpack';
@@ -150,7 +150,7 @@ export class KitchenSink {
 
   constructor() {
     this.treeControl = new DtTreeControl<ThreadFlatNode>(this._getLevel, this._isExpandable);
-    this.treeFlattener =  new DtTreeFlattener(this.transformer, this._getLevel, this._isExpandable, this._getChildren);
+    this.treeFlattener = new DtTreeFlattener(this.transformer, this._getLevel, this._isExpandable, this._getChildren);
     this.treeTableDataSource = new DtTreeDataSource(this.treeControl, this.treeFlattener);
     this.treeTableDataSource.data = TESTDATA;
   }
@@ -180,7 +180,7 @@ export class KitchenSink {
 
 @NgModule({
   imports: [
-    BrowserModule.withServerTransition({appId: 'kitchen-sink'}),
+    BrowserModule.withServerTransition({ appId: 'kitchen-sink' }),
     DtAlertModule,
     DtAutocompleteModule,
     DtButtonModule,
@@ -194,7 +194,7 @@ export class KitchenSink {
     DtDrawerModule,
     DtCopyToClipboardModule,
     DtButtonGroupModule,
-    DtIconModule.forRoot({svgIconLocation: '/lib/assets/icons/{{name}}.svg'}),
+    DtIconModule.forRoot({ svgIconLocation: '/lib/assets/icons/{{name}}.svg' }),
     DtRadioModule,
     DtShowMoreModule,
     DtProgressCircleModule,

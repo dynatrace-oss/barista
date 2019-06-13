@@ -1,6 +1,9 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick } from '@angular/core/testing';
 import { DtSelectionAreaModule, DtIconModule, DtChart, DtCardModule } from '@dynatrace/angular-components';
-import { Component, ViewChild, ElementRef, ViewEncapsulation, NgZone } from '@angular/core';
+import { Component, ViewChild, ElementRef, ViewEncapsulation, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
 import { DtButtonModule } from '../button';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
@@ -862,7 +865,7 @@ export class ProjectedTest {
     { provide: DtChart, useExisting: DummyChart },
   ],
 })
-class DummyChart {
+class DummyChart implements AfterViewInit, OnDestroy {
   _afterRender = new Subject<boolean>();
   _chartObject = {
     xAxis: [{

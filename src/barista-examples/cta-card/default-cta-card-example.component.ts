@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `<div class="demo-card">
     <dt-cta-card>
     <dt-cta-card-title i18n>Start monitoring your Cloud Foundry foundation VMs</dt-cta-card-title>

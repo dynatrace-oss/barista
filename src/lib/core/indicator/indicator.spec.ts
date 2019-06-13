@@ -1,3 +1,7 @@
+
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { Component, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -80,7 +84,7 @@ describe('DtIndicator without table', () => {
 
     const indicator = fixture.componentInstance.indicator;
     const completeSpy = jasmine.createSpy('complete spy');
-    const subscription = indicator._stateChanges.subscribe(undefined, undefined, completeSpy);
+    const subscription = indicator._stateChanges.subscribe(() => {}, () => {}, completeSpy);
 
     fixture.destroy();
     expect(completeSpy).toHaveBeenCalled();

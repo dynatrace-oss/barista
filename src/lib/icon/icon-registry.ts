@@ -70,13 +70,12 @@ export class DtIconRegistry {
     if (config.svgElement) {
       // We already have the SVG element for this icon, return a copy.
       return of(cloneSvg(config.svgElement));
-    } else {
-      // Fetch the icon from the config's URL, cache it, and return a copy.
-      return this._loadSvgIconFromConfig(config).pipe(
-        tap((svg) => config.svgElement = svg),
-        map((svg) => cloneSvg(svg))
-      );
     }
+    // Fetch the icon from the config's URL, cache it, and return a copy.
+    return this._loadSvgIconFromConfig(config).pipe(
+      tap((svg) => config.svgElement = svg),
+      map((svg) => cloneSvg(svg))
+    );
   }
 
   /**

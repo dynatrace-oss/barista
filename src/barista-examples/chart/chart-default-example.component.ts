@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { generateData } from './chart-data-utils';
 
 @Component({
+  selector: 'barista-demo',
   template: `
   <dt-chart [options]="options" [series]="series">
     <dt-chart-tooltip>

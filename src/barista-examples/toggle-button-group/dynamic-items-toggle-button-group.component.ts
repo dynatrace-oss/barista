@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <dt-toggle-button-group #group1>
     <button dt-toggle-button-item *ngFor="let item of items" [value]="item">

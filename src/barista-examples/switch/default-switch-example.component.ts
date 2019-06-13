@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <dt-switch>Default</dt-switch>
     <dt-switch checked>Checked</dt-switch>

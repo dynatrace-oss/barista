@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {DtPagination} from './pagination';
-import {DtIconModule} from '@dynatrace/angular-components/icon';
-import {CommonModule} from '@angular/common';
-import {DtButtonModule} from '@dynatrace/angular-components/button';
+import { NgModule } from '@angular/core';
+import { DtPagination } from './pagination';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { CommonModule } from '@angular/common';
+import { DtButtonModule } from '@dynatrace/angular-components/button';
 
 @NgModule({
   imports: [
@@ -17,4 +17,4 @@ import {DtButtonModule} from '@dynatrace/angular-components/button';
     DtPagination,
   ],
 })
-export class DtPaginationModule {}
+export class DtPaginationModule { }
