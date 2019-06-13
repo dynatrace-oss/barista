@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <dt-breadcrumbs>
+    <dt-breadcrumbs aria-label="Breadcrumbs navigation">
       <!-- data$ emits a new items list after each 5 seconds -->
       <dt-breadcrumbs-item *ngFor="let item of data$ | async" [href]="item.href">{{ item.label }}</dt-breadcrumbs-item>
     </dt-breadcrumbs>
