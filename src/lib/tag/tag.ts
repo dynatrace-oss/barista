@@ -9,10 +9,10 @@ import {
   mixinDisabled,
   readKeyCode,
 } from '@dynatrace/angular-components/core';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {DELETE} from '@angular/cdk/keycodes';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { DELETE } from '@angular/cdk/keycodes';
 
-export class DtTagBase {}
+export class DtTagBase { }
 
 export const _DtTagMixinBase =
   mixinDisabled(DtTagBase);

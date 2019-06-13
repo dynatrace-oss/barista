@@ -1,4 +1,4 @@
-import { Directive, Input, NgZone, ElementRef, OnDestroy, Attribute, Host, Renderer2, SimpleChanges, OnChanges } from '@angular/core';
+import { Directive, Input, NgZone, ElementRef, OnDestroy, Attribute, Host, Renderer2, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
 import { DtViewportResizer, addCssClass, HasTabIndex, CanDisable, hasCssClass } from '@dynatrace/angular-components/core';
 import { DtSelectionArea, DtSelectionAreaOrigin } from '@dynatrace/angular-components/selection-area';
 import { DtChart } from '../chart';
@@ -15,7 +15,7 @@ import { getDtChartSelectionAreaDateTimeAxisError } from './chart-selection-area
   inputs: ['tabIndex'],
 })
 export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
-  implements OnDestroy, OnChanges, HasTabIndex, CanDisable {
+  implements OnDestroy, OnChanges, HasTabIndex, CanDisable, AfterViewInit {
 
   /** The selection area instance to be connected to this origin  */
   @Input('dtChartSelectionArea') selectionArea: DtSelectionArea;

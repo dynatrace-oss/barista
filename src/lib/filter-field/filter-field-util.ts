@@ -44,7 +44,7 @@ export function filterOptionDef(def: DtNodeDef, selectedOptionIds: Set<string>, 
   return defDistinctPredicate(
     def,
     selectedOptionIds,
-    !!def.option!.parentAutocomplete && def.option!.parentAutocomplete!.autocomplete!.distinct
+    !!def.option!.parentAutocomplete && def.option!.parentAutocomplete.autocomplete!.distinct
   ) && optionFilterTextPredicate(def, filterText || '') ? def : null;
 }
 
@@ -72,9 +72,8 @@ export function optionOrGroupListFilteredPredicate(
 ): boolean {
   if (isDistinct) {
     return !optionsOrGroups.some((optionOrGroup) => !optionOrGroupFilteredPredicate(optionOrGroup, selectedOptionIds, isDistinct));
-  } else {
-    return optionsOrGroups.some((optionOrGroup) => optionOrGroupFilteredPredicate(optionOrGroup, selectedOptionIds, isDistinct));
   }
+  return optionsOrGroups.some((optionOrGroup) => optionOrGroupFilteredPredicate(optionOrGroup, selectedOptionIds, isDistinct));
 }
 
 /** Whether an option or Group is filtered (visible) */
@@ -90,7 +89,7 @@ export function optionOrGroupFilteredPredicate(
 
 /** Predicate function for filtering options based on their id. */
 export function optionSelectedPredicate(def: DtNodeDef, selectedIds: Set<string>, isDistinct: boolean): boolean {
-  return !(def.option!.uid && selectedIds.has(def.option!.uid!) && (!isDtRenderType(def) || isDistinct));
+  return !(def.option!.uid && selectedIds.has(def.option!.uid) && (!isDtRenderType(def) || isDistinct));
 }
 
 /** Predicate function for filtering options based on the view value and the text inserted by the user. */
@@ -149,7 +148,8 @@ export function findDefForSourceObj(source: any, def: DtNodeDef): DtNodeDef | nu
     for (const optionOrGroup of def.autocomplete.optionsOrGroups) {
       if (isDtOptionDef(optionOrGroup) && optionOrGroup.data === source) {
         return optionOrGroup;
-      } else if (isDtGroupDef(optionOrGroup)) {
+      }
+      if (isDtGroupDef(optionOrGroup)) {
         for (const option of optionOrGroup.group.options) {
           if (option.data === source) {
             return option;
@@ -171,13 +171,13 @@ export const DELIMITER = '◬';
 
 /** Peeks into a option node definition and returns its distinct id or creates a new one. */
 export function peekOptionId(def: DtNodeDef, prefix?: string): string {
-  const id = def.option!.uid ? def.option!.uid! : generateOptionId(def, prefix);
+  const id = def.option!.uid ? def.option!.uid : generateOptionId(def, prefix);
   def.option!.uid = id;
   return id;
 }
 
 /** Generates a new option id for the provided node def. */
 export function generateOptionId(def: DtNodeDef, prefix: string = ''): string {
-  const groupRef = def.option!.parentGroup ? `${def.option!.parentGroup!.group!.label}${DELIMITER}` : '';
+  const groupRef = def.option!.parentGroup ? `${def.option!.parentGroup.group!.label}${DELIMITER}` : '';
   return `${prefix}${groupRef}${def.option!.viewValue}${DELIMITER}`;
 }

@@ -90,6 +90,8 @@ export class DtToggleButtonItem<T> extends _DtToggleButtonMixinBase
   @Input('aria-describedby') ariaDescribedby: string;
 
   /** Change event that fires if an toggle button item is selected or deselected. */
+  // Disabling no-output-native rule because we want to keep a similar API to the radio button
+  // tslint:disable-next-line: no-output-native
   @Output() readonly change = new EventEmitter<DtToggleButtonChange<T>>();
 
   constructor(

@@ -149,7 +149,8 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   // tslint:disable-next-line:no-input-rename
   @Input('aria-describedby') ariaDescribedby: string;
 
-  // tslint:disable-next-line:no-output-named-after-standard-event
+  // Disabling no-output-native rule because we want to keep a similar API to the native radio button
+  // tslint:disable-next-line: no-output-native
   @Output() readonly change  = new EventEmitter<DtRadioChange<T>>();
 
   /** ID of the native input element */

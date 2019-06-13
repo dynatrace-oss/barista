@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <dt-radio-group name="group0">
     <dt-radio-button value="aberfeldy">Aberfeldy</dt-radio-button>

@@ -11,6 +11,7 @@ import {
   Optional,
   ViewContainerRef,
   ChangeDetectorRef,
+  AfterViewInit,
 } from '@angular/core';
 import { DtChart, DT_CHART_RESOLVER, DtChartResolver } from '../chart';
 import { takeUntil, filter } from 'rxjs/operators';
@@ -59,7 +60,7 @@ const DEFAULT_DT_CHART_TOOLTIP_POSITIONS: ConnectedPosition[] = [
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
 })
-export class DtChartTooltip<T> implements OnDestroy {
+export class DtChartTooltip<T> implements OnDestroy, AfterViewInit {
   /** @deprecated @breaking-change To be removed with 3.0.0. */
   @ContentChild(TemplateRef, { static: true }) overlay: TemplateRef<T>;
 

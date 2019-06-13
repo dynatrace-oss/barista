@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DtSelectionAreaChange } from '@dynatrace/angular-components';
 
 @Component({
+  selector: 'barista-demo',
   template: `
 <div class="origin" [dtSelectionArea]="area"></div>
 <dt-selection-area #area="dtSelectionArea"

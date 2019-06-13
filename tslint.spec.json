@@ -2,8 +2,5 @@
   "extends": [
     "./tslint.json",
     "@dynatrace/angular-lint-rules/tslint/spec"
-  ],
-  "rules": {
-    "no-use-before-declare": false
-  }
+  ]
 }

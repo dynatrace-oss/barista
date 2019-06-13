@@ -3,6 +3,7 @@ import { DtInlineEditor } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <em #sampleEditor
       dt-inline-editor

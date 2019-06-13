@@ -3,6 +3,7 @@ import { DtDrawer } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <dt-drawer-container class="drawer">
     <dt-drawer

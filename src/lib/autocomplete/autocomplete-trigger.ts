@@ -36,7 +36,7 @@ import { DOCUMENT } from '@angular/common';
 /** Provider that allows the autocomplete to register as a ControlValueAccessor. */
 export const DT_AUTOCOMPLETE_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-use-before-declare
+  // tslint:disable-next-line: no-use-before-declare no-forward-ref
   useExisting: forwardRef(() => DtAutocompleteTrigger),
   multi: true,
 };

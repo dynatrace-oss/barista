@@ -1,5 +1,5 @@
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {Constructor} from './constructor';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Constructor } from './constructor';
 
 export interface CanDisable {
   /** Whether the component is disabled. */

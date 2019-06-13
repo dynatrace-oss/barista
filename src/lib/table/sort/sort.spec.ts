@@ -1,3 +1,6 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
@@ -218,8 +221,8 @@ describe('DtSort', () => {
   });
 
   it('should throw an error if an DtSortable is not contained within an DtSort directive', () => {
-    expect(() => TestBed.createComponent(DtSortHeaderMissingSortApp).detectChanges())
-        .toThrowError(wrappedErrorMessage(getDtSortHeaderNotContainedWithinSortError()));
+    expect(() => { TestBed.createComponent(DtSortHeaderMissingSortApp).detectChanges(); })
+      .toThrowError(wrappedErrorMessage(getDtSortHeaderNotContainedWithinSortError()));
   });
 
   it('should allow let DtSortable override the default sort parameters', () => {

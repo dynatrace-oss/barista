@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  selector: 'barista-demo',
   template: `
   <dt-progress-circle [value]="value" [max]="max">
   {{value}}/{{max}}

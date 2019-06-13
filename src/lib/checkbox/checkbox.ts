@@ -58,7 +58,7 @@ export const enum TransitionCheckState {
  */
 export const DT_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-forward-ref no-use-before-declare
+  // tslint:disable-next-line: no-use-before-declare no-forward-ref
   useExisting: forwardRef(() => DtCheckbox),
   multi: true,
 };
@@ -171,7 +171,8 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   }
 
   /** Event emitted when the checkbox's `checked` value changes. */
-  // tslint:disable-next-line:no-output-named-after-standard-event
+  // Disabling no-output-native rule because we want to keep a similar API to the native checkbox
+  // tslint:disable-next-line: no-output-native
   @Output() readonly change = new EventEmitter<DtCheckboxChange<T>>();
 
   /** Event emitted when the checkbox's `indeterminate` value changes. */
@@ -359,7 +360,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
 
 export const DT_CHECKBOX_REQUIRED_VALIDATOR: Provider = {
   provide: NG_VALIDATORS,
-  // tslint:disable-next-line:no-forward-ref no-use-before-declare
+  // tslint:disable-next-line: no-use-before-declare no-forward-ref
   useExisting: forwardRef(() => DtCheckboxRequiredValidator),
   multi: true,
 };

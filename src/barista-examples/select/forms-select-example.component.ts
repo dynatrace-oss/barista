@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <p>Selected Value: <i>{{selectedValue || 'No value selected'}}</i></p>
     <dt-select placeholder="Choose your coffee" [(ngModel)]="selectedValue" aria-label="Choose your coffee">

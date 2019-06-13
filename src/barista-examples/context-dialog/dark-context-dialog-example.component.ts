@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
   <div class="dark" dtTheme=":dark">
     <dt-context-dialog aria-label="Show more actions" aria-label-close-button="Close context dialog">

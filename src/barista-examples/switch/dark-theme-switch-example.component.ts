@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <div class="dark" dtTheme=":dark">
       <div class="dt-switch-margin">

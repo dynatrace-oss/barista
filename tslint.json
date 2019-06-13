@@ -6,9 +6,8 @@
     "./tools/tslint-rules/"
   ],
   "rules": {
-    // Disabled so i++ is possible
-    "increment-decrement": false,
     "i18n": false,
+    "increment-decrement": false,
     // this needs to be disabled since having multiple components/directives
     // in one file is sometimes suitable due to the size and sharing of small pieces of code
     "max-classes-per-file": false,
@@ -26,16 +25,11 @@
     // This is essential for specific checks where typescript has a hard time resolving the type of it.
     // This would the result in using checks (like instanceof) in some places that are slower.
     "no-non-null-assertion": false,
-    // Disabled because it is deprecated.
-    "no-unused-variable": false,
-    // Static only classes are needed for us to do angular modules that have forRoot or forChild
-    "no-unnecessary-class": false,
     // Disabled, as it would force us to use bind or some other stuff to prevent "this"
     // in callbacks instead of arrow functions
     "no-unnecessary-callback-wrapper": false,
     "no-null-keyword": false,
     "no-submodule-imports": false,
-    "object-literal-sort-keys": false,
     // Disabled otherwise normal functions like class mixins are not possible
     "only-arrow-functions": false,
     "one-line": [
@@ -47,11 +41,10 @@
     ],
     // ordering is better to be logically grouped than alphabetical
     "ordered-imports": false,
+    "object-literal-sort-keys": false,
     // Turning it off as it would enforce readonly on private properties set via DI in the constructor
     // It also has an issue within mixin classes.
     "prefer-readonly": false,
-    // Turning it of so it does not throw on default value assertion like this: variant = value || defaultVariant
-    // There is also an open issue on this one: https://github.com/palantir/tslint/issues/3279
     "strict-boolean-expressions": false,
     // tslint:all defaults to file-name-casing camel-case which does is not compliant with angular's file namings
     "file-name-casing": false,
@@ -91,6 +84,25 @@
       "check-type",
       "check-preblock"
     ],
+
+    // Angular specific
+    "component-class-suffix": false,
+    "directive-class-suffix": false,
+    // "use-host-property-decorator": false,
+    "no-host-metadata-property": false,
+    "no-inputs-metadata-property": false,
+    "no-outputs-metadata-property": false,
+    "no-output-rename": false,
+    "no-input-rename": false,
+    "no-attribute-decorator": false,
+    "use-component-view-encapsulation": false,
+    "template-i18n": false,
+    // Enables us to use ngOnChanges and ngDoCheck
+    "no-conflicting-lifecycle": false,
+    "component-max-inline-declarations": false,
+
+    // Dynatrace rules
+    "dt-no-detect-changes": false,
 
     // Custom Rules
     "ts-loader": true,

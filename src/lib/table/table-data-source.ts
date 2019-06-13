@@ -195,7 +195,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
    */
   private _updateChangeSubscription(): void {
     const sortChange: Observable<DtSortEvent|null|boolean> = this._sort ?
-      merge(this._sort.sortChange, this._sort._initialized) as Observable<DtSort|boolean> :
+      merge(this._sort.sortChange, this._sort._initialized) :
       of(null);
 
     const pageChange: Observable<boolean|number|null|void> = this._pagination
@@ -203,21 +203,21 @@ export class DtTableDataSource<T> extends DataSource<T> {
       this._pagination._initialized,
       this._internalPageChanges,
       this._pagination.changed
-      ) as Observable<boolean|number|null|void>
+      )
     : of(null);
 
     const dataStream = this._data;
 
     // Watch for base data or filter changes to provide a filtered set of data.
-    const filteredData = combineLatest(dataStream, this._filter)
+    const filteredData = combineLatest([dataStream, this._filter])
       .pipe(map(([data]) => this._filterData(data)));
 
     // Watch for filtered data or sort changes to provide a sorted set of data.
-    const sortedData = combineLatest(filteredData, sortChange)
+    const sortedData = combineLatest([filteredData, sortChange])
       .pipe(map(([data]) => this._sortData(data)));
 
     // Watch for ordered data or page changes to provide a paged set of data.
-    const paginatedData = combineLatest(sortedData, pageChange)
+    const paginatedData = combineLatest([sortedData, pageChange])
       .pipe(
         map(([data]) => this._pageData(data))
       );

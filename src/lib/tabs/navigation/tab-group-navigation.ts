@@ -1,5 +1,5 @@
-import { Directive, Self, OnDestroy } from '@angular/core';
-import { DtTabGroup} from '../tab-group';
+import { Directive, Self, OnDestroy, AfterContentInit } from '@angular/core';
+import { DtTabGroup } from '../tab-group';
 import { DtTabChange, DtTab } from '../tab/tab';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { DtTabGroupNavigationControl, DtTabNavigationAdapter } from './tab-navig
   selector: 'dt-tab-group[dtTabGroupNavigation]',
   exportAs: 'dtTabGroupNavigation',
 })
-export class DtTabGroupNavigation implements DtTabGroupNavigationControl, OnDestroy {
+export class DtTabGroupNavigation implements DtTabGroupNavigationControl, OnDestroy, AfterContentInit {
   private _destroyed = new Subject<void>();
 
   constructor(

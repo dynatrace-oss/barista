@@ -1,13 +1,28 @@
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Inject,
+  Input,
+  OnDestroy,
+  Output,
+  SkipSelf,
+  ViewChild,
+  ViewEncapsulation,
+  AfterViewInit
+} from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnDestroy, Output, SkipSelf, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
-import { CanColor, isDefined, mixinColor, readKeyCode, Constructor } from '@dynatrace/angular-components/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { clamp, round } from 'lodash';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CanColor, isDefined, mixinColor, readKeyCode, Constructor } from '@dynatrace/angular-components/core';
 import { DtChart } from '../chart';
 import { getDtHeatfieldUnsupportedChartError } from './chart-heatfield-errors';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 const DT_HEATFIELD_TOP_OFFSET = 16;
 
@@ -151,6 +166,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
 
   constructor(
     elementRef: ElementRef,
+    // tslint:disable-next-line: no-forward-ref
     @Inject(forwardRef(() => DtChart)) @SkipSelf() private _chart: DtChart,
     private _changeDetectorRef: ChangeDetectorRef
   ) {

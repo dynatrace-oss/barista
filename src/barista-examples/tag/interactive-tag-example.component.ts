@@ -3,6 +3,7 @@ import { DtTag } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
 <div>
   <dt-tag [removable]="canRemove" [disabled]="disabled" [value]="value1" (removed)="doRemove(tag1)" #tag1 title="My custom tooltip">

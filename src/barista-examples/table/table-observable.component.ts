@@ -6,6 +6,7 @@ const MAX_ROWS = 5;
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   // tslint:disable
   template: `
   <button (click)="startSubscription()">Start subscription</button>

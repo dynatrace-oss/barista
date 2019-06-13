@@ -14,6 +14,7 @@ import {
   SimpleChanges,
   ViewChildren,
   QueryList,
+  OnChanges,
 } from '@angular/core';
 import { takeUntil, switchMap, take, debounceTime } from 'rxjs/operators';
 import { ENTER, BACKSPACE, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
@@ -64,7 +65,7 @@ export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtFilterField implements AfterViewInit, OnDestroy {
+export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
 
   /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';
@@ -91,10 +92,10 @@ export class DtFilterField implements AfterViewInit, OnDestroy {
   private _filters: any[][] = [];
 
   /** Emits an event with the current value of the input field everytime the user types. */
-  @Output() inputChange = new EventEmitter<string>();
+  @Output() readonly inputChange = new EventEmitter<string>();
 
   /** Emits when a new filter has been added or removed. */
-  @Output() filterChanges = new EventEmitter<DtFilterFieldChangeEvent>();
+  @Output() readonly filterChanges = new EventEmitter<DtFilterFieldChangeEvent>();
 
   /**
    * List of tags that are the visual representation for selected nodes.

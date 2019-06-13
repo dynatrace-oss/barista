@@ -5,6 +5,7 @@ import { DtColors, DtChartSeries } from '@dynatrace/angular-components';
 import { generateData } from './chart-data-utils';
 
 @Component({
+  selector: 'barista-demo',
   template: `<button dt-button (click)="toggleData()">toggle data</button>
   <dt-chart [options]="options" [series]="series" loading-text="Loading..."></dt-chart>`,
 })

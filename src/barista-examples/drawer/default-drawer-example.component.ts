@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   template: `
     <dt-drawer-container class="drawer">
       <dt-drawer

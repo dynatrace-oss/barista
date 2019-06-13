@@ -20,6 +20,7 @@ export class _DtTableBase<T> extends CdkTable<T> {
     differs: IterableDiffers,
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
+    // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) document: any,
     platform: Platform,
     @Attribute('role') protected _role: string,

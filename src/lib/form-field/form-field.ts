@@ -93,7 +93,7 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
     this._validateControlChild();
 
     // Subscribe to changes in the child control state in order to update the form field UI.
-    this._control.stateChanges.pipe(startWith(null!)).subscribe(() => {
+    this._control.stateChanges.pipe(startWith(null)).subscribe(() => {
       this._syncDescribedByIds();
       this._updateAnimationState();
       this._changeDetectorRef.markForCheck();

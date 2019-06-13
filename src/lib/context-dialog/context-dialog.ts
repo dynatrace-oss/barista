@@ -30,7 +30,7 @@ import {
   mixinDisabled,
   readKeyCode,
 } from '@dynatrace/angular-components/core';
-import { DtContextDialogTrigger} from './context-dialog-trigger';
+import { DtContextDialogTrigger } from './context-dialog-trigger';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';

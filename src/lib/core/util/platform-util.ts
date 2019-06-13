@@ -6,9 +6,7 @@ import { Renderer2 } from '@angular/core';
  * If the optional Renderer is not provided it uses the browser specific classList.
  */
 // tslint:disable-next-line:no-any
-export function replaceCssClass(elOrRef: any,
-                                oldClass: string | null | undefined,
-                                newClass: string | null | undefined, renderer?: Renderer2): void {
+export function replaceCssClass(elOrRef: any, oldClass: string | null, newClass: string | null, renderer?: Renderer2): void {
   const el = elOrRef.nativeElement || elOrRef;
   if (oldClass) { removeCssClass(el, oldClass, renderer); }
   if (newClass) { addCssClass(el, newClass, renderer); }

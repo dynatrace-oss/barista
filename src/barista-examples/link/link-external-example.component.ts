@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  // @formatter:off
+  selector: 'demo-component',  // @formatter:off
   template: `<a class="dt-link dt-external">External link</a>`,
   // @formatter:on
 })

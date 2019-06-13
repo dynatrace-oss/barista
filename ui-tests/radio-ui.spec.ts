@@ -1,4 +1,4 @@
-import {browser, by, element, ExpectedConditions} from 'protractor';
+import { browser, by, element, ExpectedConditions } from 'protractor';
 
 describe('radio', () => {
   describe('disabling behavior', () => {

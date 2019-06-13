@@ -3,6 +3,7 @@ import { DtSort, DtTableDataSource, formatPercent, formatBytes, formatRate, DtIn
 
 @Component({
   moduleId: module.id,
+  selector: 'demo-component',
   // tslint:disable
   template: `<dt-table [dataSource]="dataSource" dtSort #sortable>
     <dt-simple-text-column name="host"></dt-simple-text-column>

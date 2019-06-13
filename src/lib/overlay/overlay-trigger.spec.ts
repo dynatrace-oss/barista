@@ -1,5 +1,7 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import {ComponentFixture, TestBed, fakeAsync, inject, flush, tick, flushMicrotasks} from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, inject, flush } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { DtOverlayModule, DtOverlayConfig, DT_OVERLAY_DEFAULT_OFFSET } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
