@@ -37,7 +37,7 @@
     "dt-tile-icon-needs-icon": { "severity": "warning" },
     "dt-tile-needs-icon": true,
     "dt-tile-needs-title": true,
-    "dt-tile-no-empty": true,
+    "dt-tile-no-empty": { "severity": "warning" },
     "dt-toggle-button-group-item-is-button": true
   }
 }
