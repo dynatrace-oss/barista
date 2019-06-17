@@ -6,7 +6,7 @@ import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
 // tslint:disable:no-magic-numbers
 
 @Component({
-  selector: 'demo-component',  selector: 'dt-timeline',
+  selector: 'dt-timeline',
   template: `
   <div class="timeline"
     tabindex="-1"
@@ -88,7 +88,7 @@ export class TimelineComponent {
 }
 
 @Component({
-  selector: 'demo-component',  selector: 'dt-timeline-point',
+  selector: 'dt-timeline-point',
   template:
   `<div class="point" [dtOverlay]="overlay" [dtOverlayConfig]="config"
     [ngStyle]="{\'transform\': _translation }"></div>
