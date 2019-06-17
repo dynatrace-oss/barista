@@ -9,6 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtIconModule, DtPagination, DtTableDataSource } from '@dynatrace/angular-components';
 import { DtPaginationModule } from '../pagination';
 import { DtTableModule } from './table-module';
+import { createComponent } from '../../testing/create-component';
 
 const PAGE_SIZE = 2;
 
@@ -44,13 +45,12 @@ describe('DtTableDataSource', () => {
   }));
 
   beforeEach(fakeAsync(() => {
-    fixture = TestBed.createComponent(PaginationTestApp);
+    fixture = createComponent(PaginationTestApp);
     component = fixture.componentInstance;
-    fixture.detectChanges();
     pagination = fixture.debugElement.query(By.css('.dt-pagination'));
   }));
 
-  it('should have a pagination attached to the dataSource', () => {
+  fit('should have a pagination attached to the dataSource', () => {
     const instance = fixture.componentInstance;
     const paginationInstance = instance.dataSource.pagination as DtPagination;
 
@@ -162,7 +162,7 @@ describe('DtTableDataSource', () => {
 })
 export class PaginationTestApp implements OnInit {
   data = DATA_SET;
-  @ViewChild(DtPagination, { static: false }) pagination: DtPagination;
+  @ViewChild(DtPagination, { static: true }) pagination: DtPagination;
   dataSource: DtTableDataSource<object>;
 
   constructor() {
