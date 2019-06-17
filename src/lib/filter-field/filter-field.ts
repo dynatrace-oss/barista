@@ -158,9 +158,12 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
       switchMap(() => this._zone.onMicrotaskEmpty.pipe(take(1)))
     ).subscribe(() => {
       if (this._isFocused) {
-        if (isDtAutocompleteDef(this._currentDef)) {
+        if (isDtAutocompleteDef(this._currentDef) ||
+          (isDtFreeTextDef(this._currentDef) && this._currentDef.freeText.suggestions.length)) {
           // When the autocomplete closes after the user has selected an option
-          // and the new data is also displayed in an autocomlete we need to open it again.
+          // and the new data is also displayed in an autocomplete we need to open it again.
+          // When the next selection is a FreeTextDef and it has suggestions, we also need to
+          // show the panel again.
           // Note: Also trigger openPanel if it already open, so it does a reposition and resize
           this._autocompleteTrigger.openPanel();
         }
