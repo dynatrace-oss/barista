@@ -8,7 +8,7 @@ import { DtTagModule, DtIconModule } from '@dynatrace/angular-components';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '../../testing/create-component';
 
-fdescribe('DtTag', () => {
+describe('DtTag', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [

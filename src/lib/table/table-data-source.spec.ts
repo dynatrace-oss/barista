@@ -50,7 +50,7 @@ describe('DtTableDataSource', () => {
     pagination = fixture.debugElement.query(By.css('.dt-pagination'));
   }));
 
-  fit('should have a pagination attached to the dataSource', () => {
+  it('should have a pagination attached to the dataSource', () => {
     const instance = fixture.componentInstance;
     const paginationInstance = instance.dataSource.pagination as DtPagination;
 
