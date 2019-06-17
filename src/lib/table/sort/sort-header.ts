@@ -5,6 +5,7 @@ import { DtColumnDef } from '../cell';
 import { DtSort } from './sort';
 import { DtSortDirection } from './sort-direction';
 import { getDtSortHeaderNotContainedWithinSortError } from './sort-errors';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * Boilerplate for applying mixins to the sort header.
@@ -37,13 +38,26 @@ export type DtSortIconName = 'sorter-down' | 'sorter-up' | '';
 })
 export class DtSortHeader extends _DtSortHeaderMixinBase
     implements CanDisable, OnDestroy, OnInit {
-  private _rerenderSubscription: Subscription;
+  private _rerenderSubscription = Subscription.EMPTY;
 
   /**
    * The direction the arrow should be facing according to the current state.
    * @internal
    */
   _sortIconName: DtSortIconName = '';
+
+  /**
+   * Enables sorting on the dt-sort-header by applying the directive or not.
+   */
+  @Input('dt-sort-header')
+  get sortable(): boolean { return this._sortable; }
+  set sortable(value: boolean) {
+    this._sortable = coerceBooleanProperty(value);
+    if (this.sortable && !this._sort) {
+      throw getDtSortHeaderNotContainedWithinSortError();
+    }
+  }
+  private _sortable = true;
 
   /**
    * Overrides the sort start value of the containing DtSort
@@ -65,7 +79,7 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    * @internal
    */
   get _isDisabled(): boolean {
-    return this._sort.disabled || this.disabled;
+    return (this._sort && this._sort.disabled) || this.disabled;
   }
 
   /**
@@ -73,7 +87,7 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    * @internal
    */
   get _isSorted(): boolean {
-    const sorted = this._sort.active === this._id &&
+    const sorted = this._sortable && this._sort.active === this._id &&
     (this._sort.direction === 'asc' || this._sort.direction === 'desc');
     return sorted;
   }
@@ -84,17 +98,14 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
     @Optional() private _sort: DtSort) {
 
     super();
-
-    if (!_sort) {
-      throw getDtSortHeaderNotContainedWithinSortError();
+    if (_sort) {
+      this._rerenderSubscription =
+        merge(_sort.sortChange, _sort._stateChanges)
+          .subscribe(() => {
+            this._updateSorterIcon();
+            this._changeDetectorRef.markForCheck();
+          });
     }
-
-    this._rerenderSubscription =
-      merge(_sort.sortChange, _sort._stateChanges)
-        .subscribe(() => {
-          this._updateSorterIcon();
-          this._changeDetectorRef.markForCheck();
-        });
   }
 
   ngOnInit(): void {
@@ -105,7 +116,9 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   ngOnDestroy(): void {
     // When a sorted header is being destroyed at runtime, we need to update the dtSort
     // to unset the current sorting state.
-    this._sort._unregister(this);
+    if (this._sort) {
+      this._sort._unregister(this);
+    }
     this._rerenderSubscription.unsubscribe();
   }
 
@@ -121,7 +134,7 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    * @internal
    */
   _handleClick(): void {
-    if (this._isDisabled) { return; }
+    if (this._isDisabled || !this._sortable) { return; }
     this._sort.sort(this);
   }
 

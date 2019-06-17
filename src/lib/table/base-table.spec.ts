@@ -1,5 +1,8 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { TestBed, async } from '@angular/core/testing';
-import { Component, ViewChild, NgModule } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { _DtTableBase } from '@dynatrace/angular-components';
 import { _DtTableBaseModule } from './base-table';
 import { DtTableModule } from './table-module';
@@ -46,8 +49,7 @@ describe('_DtTableInteractiveRows', () => {
 })
 class TestApp {
   interactiveRows: boolean;
-// tslint:disable-next-line: no-any
-  @ViewChild(_DtTableBase, { static: false }) table: _DtTableBase<any>;
+  @ViewChild(_DtTableBase, { static: true }) table: _DtTableBase<any>;
 }
 
 @Component({
@@ -60,6 +62,5 @@ class TestApp {
     `,
 })
 class AttributeTestApp {
-// tslint:disable-next-line: no-any
-  @ViewChild(_DtTableBase, { static: false }) table: _DtTableBase<any>;
+  @ViewChild(_DtTableBase, { static: true }) table: _DtTableBase<any>;
 }

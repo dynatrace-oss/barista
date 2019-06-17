@@ -4,11 +4,12 @@ import {
   Optional,
   OnDestroy,
   OnInit } from '@angular/core';
-import { DtColumnDef } from '../cell';
+import { DtColumnDef, DtCellDef } from '../cell';
 import { DtTable } from '../table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DtIndicatorThemePalette } from '@dynatrace/angular-components/core';
 import { DtFormattedValue } from '@dynatrace/angular-components/formatters';
+import { DtHeaderCellDef } from '../header';
 
 /** Signature type for the dataAccessor function which can be passed to the simpleColumn. */
 // tslint:disable-next-line: no-any
@@ -35,7 +36,9 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   }
   set name(name: string) {
     this._name = name;
-    this._columnDef.name = name;
+    if (this._columnDef) {
+      this._columnDef.name = name;
+    }
   }
   _name: string;
 
@@ -83,13 +86,18 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   }
 
   /** @internal Reference to the DtColumnDef defined in the template. Will be passed to the registering table. */
-  @ViewChild(DtColumnDef, { static: false }) _columnDef: DtColumnDef;
+  @ViewChild(DtColumnDef, { static: true }) _columnDef: DtColumnDef;
 
-  // tslint:disable-next-line: no-any
+  @ViewChild(DtHeaderCellDef, { static: true }) _headerDef: DtHeaderCellDef;
+  @ViewChild(DtCellDef, { static: true }) _cellDef: DtCellDef;
+
   constructor(@Optional() public table: DtTable<T>) { }
 
   ngOnInit(): void {
+    this._syncColumnDefName();
     if (this.table) {
+      this._columnDef.cell = this._cellDef;
+      this._columnDef.headerCell = this._headerDef;
       this.table.addColumnDef(this._columnDef);
     }
   }
@@ -114,5 +122,12 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   /** @internal Get the indicator status based on the passed row data. */
   _getIndicator(data: T): DtIndicatorThemePalette {
     return this.hasProblem ? this.hasProblem(data, this.name) : undefined;
+  }
+
+  /** Synchronizes the column definition name with the text column name. */
+  private _syncColumnDefName(): void {
+    if (this._columnDef) {
+      this._columnDef.name = this._name;
+    }
   }
 }
