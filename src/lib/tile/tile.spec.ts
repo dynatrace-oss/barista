@@ -1,7 +1,12 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { TestBed, async } from '@angular/core/testing';
 import { DtTileModule } from '@dynatrace/angular-components';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
+import { createComponent } from '../../testing/create-component';
+
 describe('DtTile', () => {
 
   beforeEach(async(() => {
@@ -13,7 +18,7 @@ describe('DtTile', () => {
     TestBed.compileComponents();
   }));
   it('should handle a click on the tile', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const testComponent = fixture.debugElement.componentInstance;
     const tileDebugElement = fixture.debugElement.query(By.css('dt-tile'));
 
@@ -36,7 +41,7 @@ describe('DtTile', () => {
   // });
 
   it('should add a disabled class to the tile element', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tile');
     expect(tileNativeElement.classList.contains('dt-tile-disabled'))
       .toBeFalsy('Expected tile not to be disabled');
@@ -48,7 +53,7 @@ describe('DtTile', () => {
   });
 
   it('should add aria-disabled attribute if disabled', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const testComponent = fixture.debugElement.componentInstance;
     const tileDebugElement = fixture.debugElement.query(By.css('dt-tile'));
     fixture.detectChanges();
@@ -60,7 +65,7 @@ describe('DtTile', () => {
   });
 
   it('should not add aria-disabled attribute if disabled is false', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const testComponent = fixture.debugElement.componentInstance;
     const tileDebugElement = fixture.debugElement.query(By.css('dt-tile'));
     fixture.detectChanges();
@@ -78,7 +83,7 @@ describe('DtTile', () => {
   });
 
   it('should augment an existing class with a color property', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     fixture.detectChanges();
 
     const tileElement = fixture.debugElement.query(By.css('dt-tile'));
@@ -94,7 +99,7 @@ describe('DtTile', () => {
   });
 
   it('should remove old color classes if new color is set', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     fixture.detectChanges();
 
     const tileElement = fixture.debugElement.query(By.css('dt-tile'));

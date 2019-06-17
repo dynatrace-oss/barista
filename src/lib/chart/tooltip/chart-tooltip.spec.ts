@@ -16,6 +16,7 @@ import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-li
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
+import { createComponent } from '../../../testing/create-component';
 
 describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;
@@ -38,8 +39,7 @@ describe('DtChartTooltip', () => {
       overlayContainerElement = oc.getContainerElement();
     })();
 
-    fixture = TestBed.createComponent(ChartTest);
-    fixture.detectChanges();
+    fixture = createComponent(ChartTest);
     const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
     chartComponent = chartDebugElement.componentInstance;
 

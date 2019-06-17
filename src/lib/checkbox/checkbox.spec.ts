@@ -6,6 +6,7 @@ import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testi
 import { FormControl, FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DtCheckbox, DtCheckboxChange, DtCheckboxModule } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtCheckbox', () => {
   let fixture: ComponentFixture<any>;
@@ -43,8 +44,7 @@ describe('DtCheckbox', () => {
     let labelElement: HTMLLabelElement;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SingleCheckbox);
-      fixture.detectChanges();
+      fixture = createComponent(SingleCheckbox);
 
       checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
       checkboxNativeElement = checkboxDebugElement.nativeElement;
@@ -847,7 +847,7 @@ class CheckboxWithTabIndex {
     <dt-checkbox></dt-checkbox>`,
 })
 class CheckboxUsingViewChild {
-  @ViewChild(DtCheckbox, { static: true }) checkbox;
+  @ViewChild(DtCheckbox, { static: false }) checkbox;
 
   set isDisabled(value: boolean) {
     this.checkbox.disabled = value;

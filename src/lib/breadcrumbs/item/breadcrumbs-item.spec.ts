@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DtBreadcrumbsModule, DtBreadcrumbsItem } from '@dynatrace/angular-components';
 import { identity } from 'rxjs';
 import { instance, mock, when } from 'ts-mockito';
+import { createComponent } from '../../../testing/create-component';
 
 describe('DtBreadcrumbsItem', () => {
 
@@ -69,7 +70,7 @@ describe('DtBreadcrumbsItem', () => {
         },
       ].forEach((testCase) => {
         it(`should render internal link for href ${testCase.href} if external set to false`, () => {
-          const fixture = TestBed.createComponent(TestBreadcrumbsItem);
+          const fixture = createComponent(TestBreadcrumbsItem);
           const component = fixture.componentInstance;
 
           component.href = testCase.href;
@@ -91,7 +92,7 @@ describe('DtBreadcrumbsItem', () => {
         },
       ].forEach((testCase) => {
         it(`should render external link for href ${testCase.href} if external set to true`, () => {
-          const fixture = TestBed.createComponent(TestBreadcrumbsItem);
+          const fixture = createComponent(TestBreadcrumbsItem);
           const component = fixture.componentInstance;
 
           component.external = true;
@@ -104,7 +105,7 @@ describe('DtBreadcrumbsItem', () => {
       });
 
       it('should render internal link if no external parameter given', () => {
-        const fixture = TestBed.createComponent(NonExternalBreadcrumbsItem);
+        const fixture = createComponent(NonExternalBreadcrumbsItem);
         const component = fixture.componentInstance;
 
         component.href = 'http://google.com';
@@ -115,7 +116,7 @@ describe('DtBreadcrumbsItem', () => {
       });
 
       it('should render external link if empty external parameter given', () => {
-        const fixture = TestBed.createComponent(ExternalBreadcrumbsItem);
+        const fixture = createComponent(ExternalBreadcrumbsItem);
         const component = fixture.componentInstance;
 
         component.href = 'http://google.com';
@@ -126,7 +127,7 @@ describe('DtBreadcrumbsItem', () => {
       });
 
       it('should render link _lastItem parameter is set to false', () => {
-        const fixture = TestBed.createComponent(TestBreadcrumbsItem);
+        const fixture = createComponent(TestBreadcrumbsItem);
         const component = fixture.componentInstance;
 
         component.href = 'test1/test-current';
@@ -140,7 +141,7 @@ describe('DtBreadcrumbsItem', () => {
       });
 
       it('should render span if the _lastItem parameter is set to true', () => {
-        const fixture = TestBed.createComponent(TestBreadcrumbsItem);
+        const fixture = createComponent(TestBreadcrumbsItem);
         const component = fixture.componentInstance;
 
         component.href = 'test1/test2';
@@ -286,7 +287,7 @@ class TestBreadcrumbsItem {
   href: string | any[] = '';
   external = false;
 
-  @ViewChild(DtBreadcrumbsItem, { static: true }) item;
+  @ViewChild(DtBreadcrumbsItem, { static: false }) item;
 
   set _lastItem(value: boolean | undefined) {
     this.item._lastItem = value;
