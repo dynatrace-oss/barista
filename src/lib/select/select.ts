@@ -338,13 +338,13 @@ export class DtSelect<T> extends _DtSelectMixinBase
   @Output() readonly valueChange = new EventEmitter<T>();
 
   /** Trigger that opens the select. */
-  @ViewChild('trigger', { static: true }) trigger: ElementRef;
+  @ViewChild('trigger', { static: false }) trigger: ElementRef;
 
   /** Panel containing the select options. */
-  @ViewChild('panel', { static: true }) panel: ElementRef;
+  @ViewChild('panel', { static: false }) panel: ElementRef;
 
   /** Overlay pane containing the options. */
-  @ViewChild(CdkConnectedOverlay, { static: true }) overlayDir: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: false }) overlayDir: CdkConnectedOverlay;
 
   /** All of the defined select options. */
   @ContentChildren(DtOption, { descendants: true }) options: QueryList<DtOption<T>>;

@@ -1,9 +1,13 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { Component, DebugElement } from '@angular/core';
 import { async, TestBed, ComponentFixture, flushMicrotasks, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtExpandableSection, DtExpandableSectionModule, DtIconModule } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 
 // TODO @thomas.pink @fabian.friedl: ***REMOVED***
 // Rework tests!!!
@@ -31,9 +35,8 @@ describe('DtExpandableSection', () => {
     let instance: DtExpandableSection;
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TestApp);
+      fixture = createComponent(TestApp);
       testComponent = fixture.componentInstance;
-      fixture.detectChanges();
       instanceDebugElement = fixture.debugElement.query(By.directive(DtExpandableSection));
       instanceElement = instanceDebugElement.nativeElement;
       instance = instanceDebugElement.injector.get<DtExpandableSection>(DtExpandableSection);

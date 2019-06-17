@@ -12,12 +12,11 @@ import { DtTreeDataSource, DtTreeControl, DtTreeFlattener, DtIndicatorModule } f
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtTreeTable', () => {
   let treeTableElement: HTMLElement;
   let underlyingDataSource: FakeDataSource;
-
-  // tslint:disable-next-line:no-any
   function configureDtTreeTableTestingModule(declarations: Array<Type<any>>): void {
     TestBed.configureTestingModule({
       imports: [
@@ -37,7 +36,7 @@ describe('DtTreeTable', () => {
 
     beforeEach(async(() => {
       configureDtTreeTableTestingModule([SimpleDtTreeTableApp]);
-      fixture = TestBed.createComponent(SimpleDtTreeTableApp);
+      fixture = createComponent(SimpleDtTreeTableApp);
 
       component = fixture.componentInstance;
       underlyingDataSource = component.underlyingDataSource;
@@ -133,7 +132,7 @@ describe('DtTreeTable', () => {
 
     beforeEach(() => {
       configureDtTreeTableTestingModule([WhenRowDtTreeTableApp]);
-      fixture = TestBed.createComponent(WhenRowDtTreeTableApp);
+      fixture = createComponent(WhenRowDtTreeTableApp);
 
       component = fixture.componentInstance;
       underlyingDataSource = component.underlyingDataSource;
@@ -160,7 +159,7 @@ describe('DtTreeTable', () => {
 
       beforeEach(() => {
         configureDtTreeTableTestingModule([DtTreeTableWithNullOrUndefinedChild ]);
-        fixture = TestBed.createComponent(DtTreeTableWithNullOrUndefinedChild);
+        fixture = createComponent(DtTreeTableWithNullOrUndefinedChild);
         treeTableElement = fixture.nativeElement.querySelector('dt-tree-table');
 
         fixture.detectChanges();

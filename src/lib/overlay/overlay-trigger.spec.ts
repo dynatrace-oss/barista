@@ -9,6 +9,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
 import { SPACE, ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtOverlayTrigger', () => {
   let overlayContainer: OverlayContainer;
@@ -30,8 +31,7 @@ describe('DtOverlayTrigger', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestComponent);
-    fixture.detectChanges();
+    fixture = createComponent(TestComponent);
     trigger = fixture.debugElement.query(By.css('.dt-overlay-trigger')).nativeElement;
   });
 

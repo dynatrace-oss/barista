@@ -12,6 +12,7 @@ import {
   DtIconModule,
 } from '@dynatrace/angular-components';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
@@ -49,8 +50,7 @@ describe('DtContextDialog', () => {
         let contextDialogDefaultTrigger: HTMLElement;
 
         beforeEach(fakeAsync(() => {
-          fixture = TestBed.createComponent(BasicContextDialog);
-          fixture.detectChanges();
+          fixture = createComponent(BasicContextDialog);
           contextDialog = fixture.debugElement.query(By.css('.dt-context-dialog')).nativeElement;
           contextDialogDefaultTrigger = fixture.debugElement
             .query(By.css('.dt-context-dialog-trigger')).nativeElement;
@@ -247,6 +247,6 @@ class BasicContextDialog {
   disabled: boolean;
   customTrigger = false;
 
-  @ViewChild(DtContextDialog, { static: true }) contextDialog: DtContextDialog;
-  @ViewChild(DtContextDialogTrigger, { static: true }) contextDialogTrigger: DtContextDialogTrigger;
+  @ViewChild(DtContextDialog, { static: false }) contextDialog: DtContextDialog;
+  @ViewChild(DtContextDialogTrigger, { static: false }) contextDialogTrigger: DtContextDialogTrigger;
 }

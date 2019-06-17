@@ -56,8 +56,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   @ContentChildren(forwardRef(() => DtButtonGroupItem), {descendants: true})
   private _items: QueryList<DtButtonGroupItem<T>>;
 
-  @Output()
-  readonly valueChange: EventEmitter<T | null> = new EventEmitter<T | null>();
+  @Output() readonly valueChange: EventEmitter<T | null> = new EventEmitter<T | null>();
 
   @Input()
   get value(): T | null {

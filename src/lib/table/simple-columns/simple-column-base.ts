@@ -83,7 +83,7 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   }
 
   /** @internal Reference to the DtColumnDef defined in the template. Will be passed to the registering table. */
-  @ViewChild(DtColumnDef, { static: true }) _columnDef: DtColumnDef;
+  @ViewChild(DtColumnDef, { static: false }) _columnDef: DtColumnDef;
 
   // tslint:disable-next-line: no-any
   constructor(@Optional() public table: DtTable<T>) { }

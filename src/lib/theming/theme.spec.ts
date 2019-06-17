@@ -1,7 +1,11 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { Component, ViewChild } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtTheme, DtThemingModule } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtTheme', () => {
 
@@ -15,7 +19,7 @@ describe('DtTheme', () => {
   }));
 
   it('should apply the dt-theme class', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const sectionDebugElement = fixture.debugElement.query(By.css('section'));
     fixture.detectChanges();
 
@@ -23,7 +27,7 @@ describe('DtTheme', () => {
   });
 
   it('should apply the corrent class if a name is set', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const testComponent = fixture.debugElement.componentInstance;
     const sectionDebugElement = fixture.debugElement.query(By.css('section'));
     fixture.detectChanges();
@@ -43,7 +47,7 @@ describe('DtTheme', () => {
   });
 
   it('should apply the corrent class if a variant is set', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const testComponent = fixture.debugElement.componentInstance;
     const sectionDebugElement = fixture.debugElement.query(By.css('section'));
     fixture.detectChanges();
@@ -62,7 +66,7 @@ describe('DtTheme', () => {
   });
 
   it('should inherit from parent theme', () => {
-    const fixture = TestBed.createComponent(TestAppParent);
+    const fixture = createComponent(TestAppParent);
     const parentComponent = fixture.debugElement.componentInstance;
     const parentSectionDebugElement = fixture.debugElement.query(By.css('.parent-section'));
     const childSectionDebugElement = fixture.debugElement.query(By.css('.child-section'));
@@ -86,7 +90,7 @@ describe('DtTheme', () => {
   });
 
   it('should throw an error if the theme is invalid', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const testComponent = fixture.debugElement.componentInstance;
     testComponent.theme = 'wrong:stuff';
     expect(() => fixture.detectChanges()).toThrow();

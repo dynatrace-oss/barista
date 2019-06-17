@@ -47,7 +47,7 @@ describe('_DtTableInteractiveRows', () => {
 class TestApp {
   interactiveRows: boolean;
 // tslint:disable-next-line: no-any
-  @ViewChild(_DtTableBase, { static: true }) table: _DtTableBase<any>;
+  @ViewChild(_DtTableBase, { static: false }) table: _DtTableBase<any>;
 }
 
 @Component({
@@ -61,5 +61,5 @@ class TestApp {
 })
 class AttributeTestApp {
 // tslint:disable-next-line: no-any
-  @ViewChild(_DtTableBase, { static: true }) table: _DtTableBase<any>;
+  @ViewChild(_DtTableBase, { static: false }) table: _DtTableBase<any>;
 }

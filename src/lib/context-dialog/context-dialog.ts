@@ -113,12 +113,12 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   /** Panel that holds the content */
-  @ViewChild('panel', { static: true }) _panel: ElementRef;
+  @ViewChild('panel', { static: false }) _panel: ElementRef;
 
 // tslint:disable-next-line: no-any
   @ViewChild(TemplateRef, { static: true }) _overlayTemplate: TemplateRef<any>;
 
-  @ViewChild(CdkOverlayOrigin, { static: true }) _defaultTrigger: CdkOverlayOrigin;
+  @ViewChild(CdkOverlayOrigin, { static: false }) _defaultTrigger: CdkOverlayOrigin;
 
   /** Whether or not the overlay panel is open. */
   get isPanelOpen(): boolean {

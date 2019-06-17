@@ -18,6 +18,7 @@ import {
 import { typeInElement } from '../../testing/type-in-element';
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import { createComponent } from '../../testing/create-component';
 
 const TEST_DATA = {
   autocomplete: [
@@ -105,8 +106,7 @@ describe('DtFilterField', () => {
       overlayContainerElement = oc.getContainerElement();
     })();
 
-    fixture = TestBed.createComponent(TestApp);
-    fixture.detectChanges();
+    fixture = createComponent(TestApp);
     filterField = fixture.debugElement.query(By.directive(DtFilterField)).componentInstance;
   }));
 
@@ -550,5 +550,5 @@ export class TestApp {
 
   label = 'Filter by';
 
-  @ViewChild(DtFilterField, { static: true }) filterField: DtFilterField;
+  @ViewChild(DtFilterField, { static: false }) filterField: DtFilterField;
 }

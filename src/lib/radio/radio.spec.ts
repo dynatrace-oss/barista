@@ -7,8 +7,7 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import { DtRadioButton, DtRadioChange, DtRadioGroup, DtRadioModule } from '@dynatrace/angular-components';
-
-// tslint:disable:no-any no-magic-numbers
+import { createComponent } from '../../testing/create-component';
 
 describe('DtRadio', () => {
 
@@ -41,8 +40,7 @@ describe('DtRadio', () => {
     let testComponent: RadiosInsideRadioGroup;
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(RadiosInsideRadioGroup);
-      fixture.detectChanges();
+      fixture = createComponent(RadiosInsideRadioGroup);
 
       testComponent = fixture.debugElement.componentInstance;
 
@@ -287,8 +285,7 @@ describe('DtRadio', () => {
     let groupNgModel: NgModel;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(RadioGroupWithNgModel);
-      fixture.detectChanges();
+      fixture = createComponent(RadioGroupWithNgModel);
 
       testComponent = fixture.debugElement.componentInstance;
 
@@ -393,8 +390,7 @@ describe('DtRadio', () => {
     let testComponent: RadioGroupWithFormControl;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(RadioGroupWithFormControl);
-      fixture.detectChanges();
+      fixture = createComponent(RadioGroupWithFormControl);
 
       testComponent = fixture.debugElement.componentInstance;
       groupDebugElement = fixture.debugElement.query(By.directive(DtRadioGroup));
@@ -423,8 +419,7 @@ describe('DtRadio', () => {
     let testComponent: DisableableRadioButton;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(DisableableRadioButton);
-      fixture.detectChanges();
+      fixture = createComponent(DisableableRadioButton);
 
       testComponent = fixture.debugElement.componentInstance;
       const radioDebugElement = fixture.debugElement.query(By.directive(DtRadioButton));
@@ -458,8 +453,7 @@ describe('DtRadio', () => {
     let testComponent: StandaloneRadioButtons;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(StandaloneRadioButtons);
-      fixture.detectChanges();
+      fixture = createComponent(StandaloneRadioButtons);
 
       testComponent = fixture.debugElement.componentInstance;
 
@@ -594,8 +588,7 @@ describe('DtRadio', () => {
     let fixture: ComponentFixture<FocusableRadioButton>;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(FocusableRadioButton);
-      fixture.detectChanges();
+      fixture = createComponent(FocusableRadioButton);
     });
 
     it('should forward focus to native input', () => {
@@ -633,8 +626,7 @@ describe('DtRadio', () => {
     let radioInstances: Array<DtRadioButton<any>>;
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(InterleavedRadioGroup);
-      fixture.detectChanges();
+      fixture = createComponent(InterleavedRadioGroup);
 
       groupDebugElement = fixture.debugElement.query(By.directive(DtRadioGroup));
       groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);

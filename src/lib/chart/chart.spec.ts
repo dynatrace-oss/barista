@@ -1,3 +1,6 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -12,6 +15,7 @@ import {
 } from '@dynatrace/angular-components';
 import { BehaviorSubject } from 'rxjs';
 import { IndividualSeriesOptions } from 'highcharts';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtChart', () => {
 
@@ -40,8 +44,7 @@ describe('DtChart', () => {
 
   describe('Data', () => {
     it('should display static data', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesSingle);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
@@ -50,8 +53,7 @@ describe('DtChart', () => {
     });
 
     it('should display data from observable', () => {
-      const fixture = TestBed.createComponent(DynamicSeries);
-      fixture.detectChanges();
+      const fixture = createComponent(DynamicSeries);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const series = chartComponent.highchartsOptions.series;
@@ -59,8 +61,7 @@ describe('DtChart', () => {
     });
 
     it('should update the data if observable fires new data', () => {
-      const fixture = TestBed.createComponent(DynamicSeries);
-      fixture.detectChanges();
+      const fixture = createComponent(DynamicSeries);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const firstSeries = chartComponent.highchartsOptions.series;
@@ -73,8 +74,7 @@ describe('DtChart', () => {
     });
 
     it('provides an array of ids for the series', () => {
-      const fixture = TestBed.createComponent(SeriesMulti);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesMulti);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const ids = chartComponent.seriesIds;
@@ -82,8 +82,7 @@ describe('DtChart', () => {
     });
 
     it('seriesIds returns undefined if there is no series data', () => {
-      const fixture = TestBed.createComponent(NoSeries);
-      fixture.detectChanges();
+      const fixture = createComponent(NoSeries);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance;
       const ids = chartComponent.seriesIds;
@@ -91,8 +90,7 @@ describe('DtChart', () => {
     });
 
     it('should always return false for the tooltip wrapper fn', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesSingle);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       fixture.detectChanges();
@@ -105,8 +103,7 @@ describe('DtChart', () => {
     });
 
     it('should update the options at runtime', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesSingle);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const spy = jasmine.createSpy('chart updated spy');
@@ -122,8 +119,7 @@ describe('DtChart', () => {
     });
 
     it('should wrap the tooltip after changing the options at runtime', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesSingle);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const newOptions = {
@@ -142,22 +138,15 @@ describe('DtChart', () => {
     });
 
     it('should work with empty series array', () => {
-      expect(() => {
-        const fixture = TestBed.createComponent(EmptySeries);
-        fixture.detectChanges();
-      }).not.toThrowError('Cannot convert undefined or null to object');
-      expect(() => {
-        const fixture = TestBed.createComponent(EmptySeries);
-        fixture.detectChanges();
-      }).not.toThrow(TypeError);
+      expect(() => createComponent(EmptySeries)).not.toThrowError('Cannot convert undefined or null to object');
+      expect(() => createComponent(EmptySeries)).not.toThrow(TypeError);
     });
   });
 
   describe('update event', () => {
 
     it('should fire updated after the data observable emits a new value', () => {
-      const fixture = TestBed.createComponent(DynamicSeries);
-      fixture.detectChanges();
+      const fixture = createComponent(DynamicSeries);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
@@ -170,8 +159,7 @@ describe('DtChart', () => {
     });
 
     it('should fire updated after the static data is updated', () => {
-      const fixture = TestBed.createComponent(SeriesSingle);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesSingle);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
@@ -191,8 +179,7 @@ describe('DtChart', () => {
 
   describe('coloring', () => {
     it('should leave the color of series unchanged if provided', () => {
-      const fixture = TestBed.createComponent(SeriesColor);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesColor);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
@@ -201,24 +188,21 @@ describe('DtChart', () => {
     });
 
     it('should choose the colors from the colorpalette of the theme for up to 3 series', () => {
-      const fixture = TestBed.createComponent(SeriesTheme);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesTheme);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTES.purple);
     });
 
     it('should choose the colors from the ordered palette for more than 3 series', () => {
-      const fixture = TestBed.createComponent(SeriesMoreThanTheme);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesMoreThanTheme);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTE_ORDERED);
     });
 
     it('should update colors when the theme changes', () => {
-      const fixture = TestBed.createComponent(SeriesTheme);
-      fixture.detectChanges();
+      const fixture = createComponent(SeriesTheme);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTES.purple);
@@ -228,16 +212,14 @@ describe('DtChart', () => {
     });
 
     it('should choose the correct colors for pie charts with less than 4 data slices', () => {
-      const fixture = TestBed.createComponent(PieChartThemeColors);
-      fixture.detectChanges();
+      const fixture = createComponent(PieChartThemeColors);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTES.purple);
     });
 
     it('should choose the correct colors for pie charts with more than 3 data slices', () => {
-      const fixture = TestBed.createComponent(PieChartOrderedColors);
-      fixture.detectChanges();
+      const fixture = createComponent(PieChartOrderedColors);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTE_ORDERED);
@@ -246,8 +228,7 @@ describe('DtChart', () => {
 
   describe('loading', () => {
     it('should display the loading indicator if no series has been provided', () => {
-      const fixture = TestBed.createComponent(Loading);
-      fixture.detectChanges();
+      const fixture = createComponent(Loading);
       const loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
 
       expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
@@ -278,9 +259,7 @@ describe('DtChart', () => {
     });
 
     it('should hide the loading indicator once a series has been provided', () => {
-      const fixture = TestBed.createComponent(Loading);
-      fixture.detectChanges();
-
+      const fixture = createComponent(Loading);
       let loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
       expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
       expect(loadingDebugElement.nativeElement).toBeDefined('Loading indicater should be visible');
@@ -293,9 +272,7 @@ describe('DtChart', () => {
     });
 
     it('should not have a loading text as default', () => {
-      const fixture = TestBed.createComponent(LoadingText);
-      fixture.detectChanges();
-
+      const fixture = createComponent(LoadingText);
       const loadingElement: HTMLElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator')).nativeElement;
       expect(loadingElement.textContent).toBe('');
     });

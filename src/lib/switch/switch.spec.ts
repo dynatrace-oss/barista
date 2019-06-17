@@ -6,6 +6,7 @@ import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testi
 import { FormControl, FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DtSwitchModule, DtSwitch, DtSwitchChange } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtSwitch', () => {
   let fixture: ComponentFixture<any>;
@@ -42,8 +43,7 @@ describe('DtSwitch', () => {
     let labelElement: HTMLLabelElement;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SingleSwitch);
-      fixture.detectChanges();
+      fixture = createComponent(SingleSwitch);
 
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
@@ -246,8 +246,7 @@ describe('DtSwitch', () => {
     let labelElement: HTMLLabelElement;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SwitchWithChangeEvent);
-      fixture.detectChanges();
+      fixture = createComponent(SwitchWithChangeEvent);
 
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
@@ -296,18 +295,16 @@ describe('DtSwitch', () => {
     let inputElement: HTMLInputElement;
 
     it('should use the provided aria-label', () => {
-      fixture = TestBed.createComponent(SwitchWithAriaLabel);
+      fixture = createComponent(SwitchWithAriaLabel);
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
       inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
 
-      fixture.detectChanges();
       expect(inputElement.getAttribute('aria-label')).toBe('Super effective');
     });
 
     it('should not set the aria-label attribute if no value is provided', () => {
-      fixture = TestBed.createComponent(SingleSwitch);
-      fixture.detectChanges();
+      fixture = createComponent(SingleSwitch);
 
       expect(fixture.nativeElement.querySelector('input').hasAttribute('aria-label')).toBe(false);
     });
@@ -319,22 +316,20 @@ describe('DtSwitch', () => {
     let inputElement: HTMLInputElement;
 
     it('should use the provided aria-labelledby', () => {
-      fixture = TestBed.createComponent(SwitchWithAriaLabelledby);
+      fixture = createComponent(SwitchWithAriaLabelledby);
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
       inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
 
-      fixture.detectChanges();
       expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
     });
 
     it('should not assign aria-labelledby if none is provided', () => {
-      fixture = TestBed.createComponent(SingleSwitch);
+      fixture = createComponent(SingleSwitch);
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
       inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
 
-      fixture.detectChanges();
       expect(inputElement.getAttribute('aria-labelledby')).toBe(null);
     });
   });
@@ -346,8 +341,7 @@ describe('DtSwitch', () => {
     let inputElement: HTMLInputElement;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SwitchWithTabIndex);
-      fixture.detectChanges();
+      fixture = createComponent(SwitchWithTabIndex);
 
       testComponent = fixture.debugElement.componentInstance;
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
@@ -376,8 +370,7 @@ describe('DtSwitch', () => {
 
   describe('with native tabindex attribute', () => {
     it('should properly detect native tabindex attribute', fakeAsync(() => {
-      fixture = TestBed.createComponent(SwitchWithTabindexAttr);
-      fixture.detectChanges();
+      fixture = createComponent(SwitchWithTabindexAttr);
 
       const switchConst = fixture.debugElement
         .query(By.directive(DtSwitch)).componentInstance as DtSwitch<any>;
@@ -393,8 +386,7 @@ describe('DtSwitch', () => {
     let testComponent: SwitchUsingViewChild;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SwitchUsingViewChild);
-      fixture.detectChanges();
+      fixture = createComponent(SwitchUsingViewChild);
 
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
@@ -421,8 +413,7 @@ describe('DtSwitch', () => {
 
   describe('with multiple switches', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(MultipleSwitches);
-      fixture.detectChanges();
+      fixture = createComponent(MultipleSwitches);
     });
 
     it('should assign a unique id to each switch', () => {
@@ -442,8 +433,7 @@ describe('DtSwitch', () => {
     let inputElement: HTMLInputElement;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SwitchWithFormDirectives);
-      fixture.detectChanges();
+      fixture = createComponent(SwitchWithFormDirectives);
 
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
@@ -486,8 +476,7 @@ describe('DtSwitch', () => {
     let testComponent: SwitchWithNgModel;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SwitchWithNgModel);
-      fixture.detectChanges();
+      fixture = createComponent(SwitchWithNgModel);
 
       const switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       const switchNativeElement = switchDebugElement.nativeElement;
@@ -517,8 +506,7 @@ describe('DtSwitch', () => {
 
   describe('with name attribute', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(SwitchWithNameAttribute);
-      fixture.detectChanges();
+      fixture = createComponent(SwitchWithNameAttribute);
     });
 
     it('should forward name value to input element', () => {
@@ -536,8 +524,7 @@ describe('DtSwitch', () => {
     let inputElement: HTMLInputElement;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SwitchWithFormControl);
-      fixture.detectChanges();
+      fixture = createComponent(SwitchWithFormControl);
 
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchInstance = switchDebugElement.componentInstance;
