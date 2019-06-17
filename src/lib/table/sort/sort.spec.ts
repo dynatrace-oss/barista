@@ -375,10 +375,10 @@ class DtTableSortApp {
   direction: DtSortDirection = '';
   sortAriaLabel = 'Sort column b';
 
-  @ViewChild(DtSort, { static: false }) dtSort: DtSort;
-  @ViewChild('sortHeaderA', { static: false }) sortHeaderA: DtSortHeader;
-  @ViewChild('sortHeaderB', { static: false }) sortHeaderB: DtSortHeader;
-  @ViewChild('sortHeaderC', { static: false }) sortHeaderC: DtSortHeader;
+  @ViewChild(DtSort, { static: true }) dtSort: DtSort;
+  @ViewChild('sortHeaderA', { static: true }) sortHeaderA: DtSortHeader;
+  @ViewChild('sortHeaderB', { static: true }) sortHeaderB: DtSortHeader;
+  @ViewChild('sortHeaderC', { static: true }) sortHeaderC: DtSortHeader;
 
   @ViewChildren(DtCell) cells: QueryList<DtCell>;
 
