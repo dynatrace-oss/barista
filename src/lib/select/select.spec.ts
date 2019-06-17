@@ -2221,5 +2221,3 @@ class ResetValuesSelect {
 class SelectWithOptionValueZero {
   @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
 }
-
-
