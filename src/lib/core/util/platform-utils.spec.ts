@@ -1,3 +1,5 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { ElementRef, Renderer2, Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';

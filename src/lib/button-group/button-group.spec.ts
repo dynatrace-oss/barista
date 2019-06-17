@@ -5,6 +5,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DtButtonGroup, DtButtonGroupItem, DtButtonGroupModule } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtButtonGroup', () => {
 
@@ -28,8 +29,7 @@ describe('DtButtonGroup', () => {
     let itemHtmlElements: HTMLElement[];
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TestAppButtonGroup);
-      fixture.detectChanges();
+      fixture = createComponent(TestAppButtonGroup);
 
       groupDebugElement = fixture.debugElement.query(By.css('.dt-button-group'));
       groupInstance = groupDebugElement.componentInstance;
@@ -124,8 +124,7 @@ describe('DtButtonGroup', () => {
     let itemDebugElements: DebugElement[];
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TestAppButtonGroupWithSelection);
-      fixture.detectChanges();
+      fixture = createComponent(TestAppButtonGroupWithSelection);
 
       groupDebugElement = fixture.debugElement.query(By.css('.dt-button-group'));
       groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(DtButtonGroup);
@@ -153,8 +152,7 @@ describe('DtButtonGroup', () => {
     let itemInstances: Array<DtButtonGroupItem<string>>;
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TestAppButtonGroupWithSelection2);
-      fixture.detectChanges();
+      fixture = createComponent(TestAppButtonGroupWithSelection2);
 
       groupDebugElement = fixture.debugElement.query(By.directive(DtButtonGroup));
       groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(DtButtonGroup);

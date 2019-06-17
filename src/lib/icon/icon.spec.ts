@@ -10,6 +10,7 @@ import {
   getDtIconNoHttpProviderError,
 } from '@dynatrace/angular-components';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+import { createComponent } from '../../testing/create-component';
 
 /**
  * Fake URLs and associated SVG documents used by tests.
@@ -59,7 +60,7 @@ describe('DtIcon', () => {
   }));
 
   it('should apply class based on color attribute', () => {
-    const fixture = TestBed.createComponent(IconWithColor);
+    const fixture = createComponent(IconWithColor);
 
     const testComponent = fixture.componentInstance;
     const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
@@ -70,7 +71,7 @@ describe('DtIcon', () => {
   });
 
   it('should update class on new color attribute', () => {
-    const fixture = TestBed.createComponent(IconWithColor);
+    const fixture = createComponent(IconWithColor);
 
     const testComponent = fixture.componentInstance;
     const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
@@ -81,7 +82,7 @@ describe('DtIcon', () => {
   });
 
   it('colors from the extended color palette', () => {
-    const fixture = TestBed.createComponent(IconWithColor);
+    const fixture = createComponent(IconWithColor);
 
     const testComponent = fixture.componentInstance;
     const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
@@ -95,21 +96,21 @@ describe('DtIcon', () => {
   });
 
   it('should mark dt-icon as aria-hidden by default', () => {
-    const fixture = TestBed.createComponent(IconWithName);
+    const fixture = createComponent(IconWithName);
     const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
     expect(iconElement.getAttribute('aria-hidden'))
       .toBe('true', 'Expected the dt-icon element has aria-hidden="true" by default');
   });
 
   it('should not override a user-provided aria-hidden attribute', () => {
-    const fixture = TestBed.createComponent(IconWithAriaHiddenFalse);
+    const fixture = createComponent(IconWithAriaHiddenFalse);
     const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
     expect(iconElement.getAttribute('aria-hidden'))
       .toBe('false', 'Expected the dt-icon element has the user-provided aria-hidden value');
   });
 
   it('should clear the id attribute from the svg node', () => {
-    const fixture = TestBed.createComponent(IconWithName);
+    const fixture = createComponent(IconWithName);
 
     fixture.componentInstance.iconName = 'cat';
     fixture.detectChanges();
@@ -122,7 +123,7 @@ describe('DtIcon', () => {
   });
 
   it('should remove the SVG element from the DOM when the binding is cleared', () => {
-    const fixture = TestBed.createComponent(IconWithName);
+    const fixture = createComponent(IconWithName);
 
     fixture.componentInstance.iconName = 'cat';
     fixture.detectChanges();
@@ -140,7 +141,7 @@ describe('DtIcon', () => {
   });
 
   it('should remove script tags without type from the svg node', () => {
-    const fixture = TestBed.createComponent(IconWithName);
+    const fixture = createComponent(IconWithName);
 
     fixture.componentInstance.iconName = 'xss';
     fixture.detectChanges();
@@ -153,7 +154,7 @@ describe('DtIcon', () => {
   });
 
   it('should remove script tags with type from the svg node', () => {
-    const fixture = TestBed.createComponent(IconWithName);
+    const fixture = createComponent(IconWithName);
 
     fixture.componentInstance.iconName = 'xssType';
     fixture.detectChanges();
@@ -166,7 +167,7 @@ describe('DtIcon', () => {
   });
 
   it('should remove multiple script tags from the svg node', () => {
-    const fixture = TestBed.createComponent(IconWithName);
+    const fixture = createComponent(IconWithName);
 
     fixture.componentInstance.iconName = 'xssMulti';
     fixture.detectChanges();
@@ -179,7 +180,7 @@ describe('DtIcon', () => {
   });
 
   it('should remove script tags from the svg node that are in tags', () => {
-    const fixture = TestBed.createComponent(IconWithName);
+    const fixture = createComponent(IconWithName);
 
     fixture.componentInstance.iconName = 'xssInter';
     fixture.detectChanges();
@@ -206,7 +207,7 @@ describe('DtIcon without config', () => {
     const expectedError = wrappedErrorMessage(getDtIconNoConfigProviderError());
 
     expect(() => {
-      const fixture = TestBed.createComponent(IconWithName);
+      const fixture = createComponent(IconWithName);
 
       fixture.componentInstance.iconName = 'cat';
       fixture.detectChanges();
@@ -228,7 +229,7 @@ describe('DtIcon without HttpClientModule', () => {
     const expectedError = wrappedErrorMessage(getDtIconNoHttpProviderError());
 
     expect(() => {
-      const fixture = TestBed.createComponent(IconWithName);
+      const fixture = createComponent(IconWithName);
 
       fixture.componentInstance.iconName = 'cat';
       fixture.detectChanges();

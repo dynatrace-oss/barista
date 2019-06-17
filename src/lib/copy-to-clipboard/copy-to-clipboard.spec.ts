@@ -1,8 +1,12 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { Component } from '@angular/core';
 import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtButtonModule, DtCopyToClipboardModule, DtIconModule, DtInputModule } from '@dynatrace/angular-components';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtCopyToClipboard', () => {
   beforeEach(async(() => {
@@ -23,8 +27,7 @@ describe('DtCopyToClipboard', () => {
 
   it('should trigger callback - at least 1 copy must be called', (): void => {
 
-    const fixture = TestBed.createComponent(CallbackBehaviorTestApp);
-    fixture.detectChanges();
+    const fixture = createComponent(CallbackBehaviorTestApp);
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-to-clipboard-btn-button'));
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
 
@@ -34,8 +37,7 @@ describe('DtCopyToClipboard', () => {
   });
 
   it('should trigger a delayed callback - at least 1 copy must be called', fakeAsync((): void => {
-    const fixture = TestBed.createComponent(DelayedCallbackBehaviorTestApp);
-    fixture.detectChanges();
+    const fixture = createComponent(DelayedCallbackBehaviorTestApp);
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-to-clipboard-btn-button'));
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
 
@@ -48,8 +50,7 @@ describe('DtCopyToClipboard', () => {
   }));
 
   it('should set checkmark to visible and invisible afterwards', fakeAsync((): void => {
-    const fixture = TestBed.createComponent(CallbackBehaviorTestApp);
-    fixture.detectChanges();
+    const fixture = createComponent(CallbackBehaviorTestApp);
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-to-clipboard-btn-button'));
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
 
@@ -62,8 +63,7 @@ describe('DtCopyToClipboard', () => {
   }));
 
   it('should not trigger callback - disabled copy to clipboards container should not trigger', (): void => {
-    const fixture = TestBed.createComponent(DisabledTestApp);
-    fixture.detectChanges();
+    const fixture = createComponent(DisabledTestApp);
     const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-to-clipboard-btn-button'));
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
     fixture.detectChanges();

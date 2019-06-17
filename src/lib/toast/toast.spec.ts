@@ -7,6 +7,7 @@ import { DtToastModule, DtToast, DT_TOAST_FADE_TIME, DT_TOAST_MIN_DURATION, DT_T
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtToast', () => {
   let dtToast: DtToast;
@@ -31,7 +32,7 @@ describe('DtToast', () => {
   }));
 
   beforeEach(fakeAsync(() => {
-    fixture = TestBed.createComponent(TestComponent);
+    fixture = createComponent(TestComponent);
 
     fixture.detectChanges();
 

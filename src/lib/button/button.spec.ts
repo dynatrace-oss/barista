@@ -1,8 +1,12 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtButtonModule, DtIconModule } from '@dynatrace/angular-components';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtButton', () => {
 
@@ -22,7 +26,7 @@ describe('DtButton', () => {
   // Regular button tests
   describe('button[dt-button]', () => {
     it('should handle a click on the button', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       const buttonDebugElement = fixture.debugElement.query(By.css('button'));
 
@@ -31,7 +35,7 @@ describe('DtButton', () => {
     });
 
     it('should not increment if disabled', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       const buttonDebugElement = fixture.debugElement.query(By.css('button'));
 
@@ -44,7 +48,7 @@ describe('DtButton', () => {
     });
 
     it('should disable the native button element', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       const buttonNativeElement = fixture.debugElement.nativeElement.querySelector('button');
       expect(buttonNativeElement.disabled).toBeFalsy('Expected button not to be disabled');
 
@@ -54,9 +58,7 @@ describe('DtButton', () => {
     });
 
     it('should augment an existing class with a color property', () => {
-      const fixture = TestBed.createComponent(TestApp);
-      fixture.detectChanges();
-
+      const fixture = createComponent(TestApp);
       const buttonElement = fixture.debugElement.query(By.css('button'));
       const instance = buttonElement.componentInstance;
 
@@ -70,9 +72,7 @@ describe('DtButton', () => {
     });
 
     it('should add class for default color', () => {
-      const fixture = TestBed.createComponent(TestApp);
-      fixture.detectChanges();
-
+      const fixture = createComponent(TestApp);
       const buttonElement = fixture.debugElement.query(By.css('button'));
 
       expect(buttonElement.nativeElement.classList)
@@ -80,7 +80,7 @@ describe('DtButton', () => {
     });
 
     it('should remove old color classes if new color is set', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       fixture.detectChanges();
 
       const buttonElement = fixture.debugElement.query(By.css('button'));
@@ -95,7 +95,7 @@ describe('DtButton', () => {
     });
 
     it('should augment an existing class with a variant property', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       fixture.detectChanges();
 
       const buttonElement = fixture.debugElement.query(By.css('button'));
@@ -111,9 +111,7 @@ describe('DtButton', () => {
     });
 
     it('should add class for default variant', () => {
-      const fixture = TestBed.createComponent(TestApp);
-      fixture.detectChanges();
-
+      const fixture = createComponent(TestApp);
       const buttonElement = fixture.debugElement.query(By.css('button'));
 
       expect(buttonElement.nativeElement.classList)
@@ -121,9 +119,7 @@ describe('DtButton', () => {
     });
 
     it('should remove old variant classes if new variant is set', () => {
-      const fixture = TestBed.createComponent(TestApp);
-      fixture.detectChanges();
-
+      const fixture = createComponent(TestApp);
       const buttonElement = fixture.debugElement.query(By.css('button'));
       const instance = buttonElement.componentInstance;
       instance.variant = 'secondary';
@@ -135,7 +131,7 @@ describe('DtButton', () => {
     });
 
     it('should apply a specific class when button is icon only', () => {
-      const fixture = TestBed.createComponent(IconOnlyButton);
+      const fixture = createComponent(IconOnlyButton);
       fixture.detectChanges();
       const buttonElement = fixture.debugElement.query(By.css('button'));
       const anchorElement = fixture.debugElement.query(By.css('a'));
@@ -150,7 +146,7 @@ describe('DtButton', () => {
   // Anchor button tests
   describe('a[dt-button]', () => {
     it('should not redirect if disabled', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       const buttonDebugElement = fixture.debugElement.query(By.css('a'));
 
@@ -161,7 +157,7 @@ describe('DtButton', () => {
     });
 
     it('should add aria-disabled attribute if disabled', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       const buttonDebugElement = fixture.debugElement.query(By.css('a'));
       fixture.detectChanges();
@@ -173,7 +169,7 @@ describe('DtButton', () => {
     });
 
     it('should not add aria-disabled attribute if disabled is false', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       const buttonDebugElement = fixture.debugElement.query(By.css('a'));
       fixture.detectChanges();
@@ -191,7 +187,7 @@ describe('DtButton', () => {
     });
 
     it('should remove icon container when icon is removed', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance as TestApp;
       fixture.detectChanges();
 

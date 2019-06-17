@@ -97,7 +97,6 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   /** Ensures the trigger is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
-      event.stopPropagation();
       const keyCode = readKeyCode(event);
       if (keyCode === ENTER || keyCode === SPACE) {
         event.preventDefault();

@@ -17,6 +17,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { ENTER } from '@angular/cdk/keycodes';
 import { dispatchKeyboardEvent } from '../../../testing/dispatch-events';
 import { getDtHeatfieldUnsupportedChartError } from '@dynatrace/angular-components/chart/heatfield/chart-heatfield-errors';
+import { createComponent } from '../../../testing/create-component';
 
 const PLOTMARGIN_LEFT = 100;
 const PLOTMARGIN_RIGHT = 100;
@@ -50,7 +51,7 @@ describe('DtChartHeatfield', () => {
     let marker: HTMLElement;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SingleHeatfield);
+      fixture = createComponent(SingleHeatfield);
       instance = fixture.componentInstance;
       const chartDebug = fixture.debugElement.query(By.directive(DummyChart));
       chart = chartDebug.componentInstance as DummyChart;
@@ -204,9 +205,8 @@ describe('DtChartHeatfield', () => {
     let instance: MultipleHeatfield;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(MultipleHeatfield);
+      fixture = createComponent(MultipleHeatfield);
       instance = fixture.componentInstance;
-      fixture.detectChanges();
     });
 
     it('should handle that only one single heatfield can be active programmatically', () =>  {
@@ -315,9 +315,9 @@ class DummyChart implements AfterViewInit, OnDestroy {
 
   options: DtChartOptions;
 
-  @ViewChild('container', { static: true }) container;
+  @ViewChild('container', { static: false }) container;
 
-  @ContentChild(DtChartHeatfield, { static: true }) heatfield: DtChartHeatfield;
+  @ContentChild(DtChartHeatfield, { static: false }) heatfield: DtChartHeatfield;
 
   get plotWidth(): number {
     return this.width - PLOTMARGIN_LEFT - PLOTMARGIN_RIGHT;

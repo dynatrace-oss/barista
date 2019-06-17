@@ -80,7 +80,6 @@ export class DtTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestro
   ngOnInit(): void {
     super.ngOnInit();
     this._handleActiveTabChange(this._host.active);
-
     this._activeChangedSub = this._host._activeChanged.subscribe((isActive) => { this._handleActiveTabChange(isActive); });
   }
 

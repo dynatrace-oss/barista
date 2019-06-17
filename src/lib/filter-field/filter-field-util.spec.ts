@@ -1,3 +1,6 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { dtOptionDef, dtGroupDef, dtFreeTextDef, dtAutocompleteDef } from '@dynatrace/angular-components/filter-field';
 
 // Import locally because utils are not exported for the public

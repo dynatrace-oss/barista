@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { DtShowMoreModule, DtShowMore, DtIconModule } from '@dynatrace/angular-components';
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtShowMore', () => {
   beforeEach(async(() => {
@@ -33,9 +34,8 @@ describe('DtShowMore', () => {
     let instanceElement: HTMLElement;
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TestApp);
+      fixture = createComponent(TestApp);
       testComponent = fixture.componentInstance;
-      fixture.detectChanges();
       instanceDebugElement = fixture.debugElement.query(By.directive(DtShowMore));
       instanceElement = instanceDebugElement.nativeElement;
     }));

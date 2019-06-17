@@ -17,6 +17,7 @@ import {
 import { Observable } from 'rxjs';
 import { dispatchFakeEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtInlineEditor', () => {
   beforeEach(() => {
@@ -47,8 +48,8 @@ describe('DtInlineEditor', () => {
   });
 
   it('should create controls', fakeAsync(() => {
-    const fixture = TestBed.createComponent(TestApp);
-    fixture.detectChanges();
+    const fixture = createComponent(TestApp);
+
     tick();
 
     const instance = fixture.componentInstance.inlineEditor;
@@ -66,7 +67,7 @@ describe('DtInlineEditor', () => {
   }));
 
   it('should have edit mode', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const instance = fixture.componentInstance.inlineEditor;
 
     instance.enterEditing();
@@ -78,8 +79,8 @@ describe('DtInlineEditor', () => {
   });
 
   it('should save changes', fakeAsync(() => {
-    const fixture = TestBed.createComponent(TestApp);
-    fixture.detectChanges();
+    const fixture = createComponent(TestApp);
+
     tick();
     const instance = fixture.componentInstance.inlineEditor;
 
@@ -98,8 +99,7 @@ describe('DtInlineEditor', () => {
   }));
 
   it('should cancel changes', fakeAsync(() => {
-    const fixture = TestBed.createComponent(TestApp);
-    fixture.detectChanges();
+    const fixture = createComponent(TestApp);
     tick();
     const instance = fixture.componentInstance.inlineEditor;
 
@@ -118,8 +118,7 @@ describe('DtInlineEditor', () => {
   }));
 
   it('should toggle aria-invalid accordingly if required state is set', fakeAsync(() => {
-    const fixture = TestBed.createComponent(TestComponentWithRequiredValidation);
-    fixture.detectChanges();
+    const fixture = createComponent(TestComponentWithRequiredValidation);
     const instance = fixture.componentInstance.inlineEditor;
 
     instance.enterEditing();
@@ -141,8 +140,7 @@ describe('DtInlineEditor', () => {
   }));
 
   it('should displayerror message based on errorStateMatcher', fakeAsync(() => {
-    const fixture = TestBed.createComponent(TestComponentWithWithCustomErrorStateMatcher);
-    fixture.detectChanges();
+    const fixture = createComponent(TestComponentWithWithCustomErrorStateMatcher);
 
     const instance = fixture.componentInstance.inlineEditor;
     const component = fixture.componentInstance;
@@ -171,8 +169,7 @@ describe('DtInlineEditor', () => {
   }));
 
   it('should call save method and apply changes', fakeAsync(() => {
-    const fixture = TestBed.createComponent(TestAppWithSuccessSave);
-    fixture.detectChanges();
+    const fixture = createComponent(TestAppWithSuccessSave);
     tick();
     const instance = fixture.componentInstance.inlineEditor;
 
@@ -191,7 +188,7 @@ describe('DtInlineEditor', () => {
   }));
 
   it('should not update the model if save has not been called', () => {
-    const fixture = TestBed.createComponent(TestAppWithSuccessSave);
+    const fixture = createComponent(TestAppWithSuccessSave);
     const instance = fixture.componentInstance.inlineEditor;
 
     instance.enterEditing();
@@ -207,7 +204,7 @@ describe('DtInlineEditor', () => {
   });
 
   it('should call save method and reject changes and return to editing', () => {
-    const fixture = TestBed.createComponent(TestAppWithFailureSave);
+    const fixture = createComponent(TestAppWithFailureSave);
     const instance = fixture.componentInstance.inlineEditor;
 
     instance.enterEditing();
@@ -219,7 +216,7 @@ describe('DtInlineEditor', () => {
   });
 
   it('should call the save method and quit editing when pressing the Enter key', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const instance = fixture.componentInstance.inlineEditor;
     spyOn(instance, 'saveAndQuitEditing');
 
@@ -237,7 +234,7 @@ describe('DtInlineEditor', () => {
   });
 
   it('should call the cancel method and quit editing when pressing the ESC key', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const instance = fixture.componentInstance.inlineEditor;
     spyOn(instance, 'cancelAndQuitEditing');
 
@@ -254,7 +251,7 @@ describe('DtInlineEditor', () => {
   });
 
   it('should make sure aria labels are set properly', () => {
-    const fixture = TestBed.createComponent(TestApp);
+    const fixture = createComponent(TestApp);
     const instance = fixture.componentInstance.inlineEditor;
 
     instance.enterEditing();
@@ -277,7 +274,7 @@ describe('DtInlineEditor', () => {
                  [(ngModel)]="model" [aria-label-save]="saveLabel" [aria-label-cancel]="cancelLabel"></em>`,
 })
 class TestApp {
-  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
   model = 'content';
   saveLabel = 'this is the initial save label';
   cancelLabel = 'this is the initial cancel label';
@@ -287,7 +284,7 @@ class TestApp {
   template: `<h1 dt-inline-editor [(ngModel)]="model" [onRemoteSave]="save"></h1>`,
 })
 class TestAppWithSuccessSave {
-  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
   model = 'content';
 
   save(): Observable<void> {
@@ -302,7 +299,7 @@ class TestAppWithSuccessSave {
   template: `<h1 dt-inline-editor [(ngModel)]="model" [onRemoteSave]="save"></h1>`,
 })
 class TestAppWithFailureSave {
-  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
   model = 'content';
 
   save(): Observable<void> {
@@ -317,7 +314,7 @@ class TestAppWithFailureSave {
   template: `<em dt-inline-editor required [(ngModel)]="model"></em>`,
 })
 class TestComponentWithRequiredValidation {
-  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
   model = 'content';
 }
 
@@ -327,7 +324,7 @@ class TestComponentWithRequiredValidation {
   </em>`,
 })
 class TestComponentWithWithCustomErrorStateMatcher {
-  @ViewChild(DtInlineEditor, { static: true }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
   model = 'content';
   errorState = false;
 

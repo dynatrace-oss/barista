@@ -1,10 +1,14 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { DtTagModule, DtIconModule } from '@dynatrace/angular-components';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponent } from '../../testing/create-component';
 
-describe('DtTag', () => {
+fdescribe('DtTag', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -23,7 +27,7 @@ describe('DtTag', () => {
   }));
 
   it('should not be removable', () => {
-    const fixture = TestBed.createComponent(TestAppSimple);
+    const fixture = createComponent(TestAppSimple);
     fixture.detectChanges();
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag dt-icon');
@@ -31,7 +35,7 @@ describe('DtTag', () => {
   });
 
   it('should be removable', () => {
-    const fixture = TestBed.createComponent(TestAppRemovable);
+    const fixture = createComponent(TestAppRemovable);
     fixture.detectChanges();
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag dt-icon');
@@ -39,7 +43,7 @@ describe('DtTag', () => {
   });
 
   it('should fire removed event', () => {
-    const fixture = TestBed.createComponent(TestAppRemovable);
+    const fixture = createComponent(TestAppRemovable);
     fixture.detectChanges();
 
     const item = fixture.debugElement.nativeElement.querySelector('dt-icon');

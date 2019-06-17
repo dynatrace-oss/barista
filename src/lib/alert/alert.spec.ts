@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { CommonModule } from '@angular/common';
 import { DtAlert, DtAlertModule } from '@dynatrace/angular-components';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtAlert', () => {
   beforeEach(async(() => {
@@ -21,8 +21,7 @@ describe('DtAlert', () => {
   }));
 
   it('expects css class to be present', () => {
-    const fixture = TestBed.createComponent(TestApp);
-    fixture.detectChanges();
+    const fixture = createComponent(TestApp);
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
     expect(tileNativeElement.classList.contains('dt-alert'))
@@ -30,8 +29,7 @@ describe('DtAlert', () => {
   });
 
   it('expects correct css class after change', () => {
-    const fixture = TestBed.createComponent(TestApp);
-    fixture.detectChanges();
+    const fixture = createComponent(TestApp);
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
 
@@ -49,8 +47,7 @@ describe('DtAlert', () => {
   });
 
   it('expects no css class to be present by default', () => {
-    const fixture = TestBed.createComponent(TestAppEmpty);
-    fixture.detectChanges();
+    const fixture = createComponent(TestAppEmpty);
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
     expect(tileNativeElement.classList.contains('dt-alert-error'))

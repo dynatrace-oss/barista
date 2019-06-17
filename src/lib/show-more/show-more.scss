@@ -10,7 +10,7 @@
   text-align: center;
 
   button {
-    @include main-font();
+    @include dt-main-font();
     border: 0;
     box-sizing: border-box;
     color: $turquoise-600;

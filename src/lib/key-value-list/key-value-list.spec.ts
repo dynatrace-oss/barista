@@ -4,6 +4,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { DtKeyValueListModule } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtKeyValueList', () => {
 
@@ -13,8 +14,15 @@ describe('DtKeyValueList', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtKeyValueListModule],
-      declarations: [TestAppSingleColumn, TestAppTwoColumns, TestAppThreeColumns,
-                     TestAppSixColumns, TestAppTenColumns, TestAppFloatColumns, TestAppNegativColumns],
+      declarations: [
+        TestAppSingleColumn,
+        TestAppTwoColumns,
+        TestAppThreeColumns,
+        TestAppSixColumns,
+        TestAppTenColumns,
+        TestAppFloatColumns,
+        TestAppNegativColumns,
+      ],
     });
 
     TestBed.compileComponents();
@@ -22,85 +30,76 @@ describe('DtKeyValueList', () => {
 
   describe('key-value-list', () => {
     it('one column should be used', () => {
-      const fixture = TestBed.createComponent(TestAppSingleColumn);
+      const fixture = createComponent(TestAppSingleColumn);
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
-      fixture.detectChanges(); // trigger initial data binding
       expect(tileNativeElement).toBeDefined('Element not found');
       expect(tileNativeElement.getAttribute('dt-column') === '1')
       .toBeTruthy('Key Value list must contain 1 column');
     });
 
     it('two columns should be used', () => {
-        const fixture = TestBed.createComponent(TestAppTwoColumns);
+        const fixture = createComponent(TestAppTwoColumns);
         const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
-        fixture.detectChanges(); // trigger initial data binding
         expect(tileNativeElement).toBeDefined('Element not found');
         expect(tileNativeElement.getAttribute('dt-column') === '2')
           .toBeTruthy('Key Value list must contain 2 columns');
       });
     it('three columns should be used', () => {
-        const fixture = TestBed.createComponent(TestAppThreeColumns);
+        const fixture = createComponent(TestAppThreeColumns);
         const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
-        fixture.detectChanges(); // trigger initial data binding
         expect(tileNativeElement).toBeDefined('Element not found');
         expect(tileNativeElement.getAttribute('dt-column') === '3')
           .toBeTruthy('Key Value list must contain 3 columns');
       });
 
     it('six columns should be used', () => {
-      const fixture = TestBed.createComponent(TestAppSixColumns);
+      const fixture = createComponent(TestAppSixColumns);
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
-      fixture.detectChanges(); // trigger initial data binding
       expect(tileNativeElement).toBeDefined('Element not found');
       expect(tileNativeElement.getAttribute('dt-column') === '6')
         .toBeTruthy('Key Value list must contain 6 columns');
     });
 
     it('six columns should be used although columns is set to 10', () => {
-      const fixture = TestBed.createComponent(TestAppTenColumns);
+      const fixture = createComponent(TestAppTenColumns);
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
-      fixture.detectChanges(); // trigger initial data binding
       expect(tileNativeElement).toBeDefined('Element not found');
       expect(tileNativeElement.getAttribute('dt-column') === '6')
         .toBeTruthy('Key Value list must contain 6 columns');
     });
 
     it('three columns should be used although columns is set to 3.3', () => {
-      const fixture = TestBed.createComponent(TestAppFloatColumns);
+      const fixture = createComponent(TestAppFloatColumns);
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
-      fixture.detectChanges(); // trigger initial data binding
       expect(tileNativeElement).toBeDefined('Element not found');
       expect(tileNativeElement.getAttribute('dt-column') === '3')
         .toBeTruthy('Key Value list must contain 3 columns');
     });
 
     it('single column should be used although columns is set to -6', () => {
-      const fixture = TestBed.createComponent(TestAppNegativColumns);
+      const fixture = createComponent(TestAppNegativColumns);
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
-      fixture.detectChanges(); // trigger initial data binding
       expect(tileNativeElement).toBeDefined('Element not found');
       expect(tileNativeElement.getAttribute('dt-column') === '1')
         .toBeTruthy('Key Value list must contain 1 column');
     });
 
     it('is changed during runtime to two columns', () => {
-      const fixture = TestBed.createComponent(TestAppSixColumns);
+      const fixture = createComponent(TestAppSixColumns);
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
-      fixture.detectChanges(); // trigger initial data binding
       fixture.componentInstance.colNo = 2;
-      fixture.detectChanges(); // trigger initial data binding
+      fixture.detectChanges();
       expect(tileNativeElement.getAttribute('dt-column') === '2')
         .toBeTruthy('Key Value list must contain 2 columns');
     });
 
     it('is changed during runtime to two columns', () => {
-      const fixture = TestBed.createComponent(TestAppTwoColumns);
+      const fixture = createComponent(TestAppTwoColumns);
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-key-value-list');
-      fixture.detectChanges(); // trigger initial data binding
       expect(tileNativeElement.getAttribute('dt-column') === '2')
         .toBeTruthy('Key Value list must contain 2 columns');
       fixture.componentInstance.items = new Array(20);
-      fixture.detectChanges(); // trigger initial data binding
+      fixture.detectChanges();
       expect(tileNativeElement.getAttribute('dt-column') === '3')
       .toBeTruthy('Key Value list must contain 3 columns');
     });
@@ -111,7 +110,7 @@ describe('DtKeyValueList', () => {
     let items: HTMLElement[];
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(TestAppSingleColumn);
+      fixture = createComponent(TestAppSingleColumn);
       fixture.detectChanges();
       items = fixture.debugElement.nativeElement.querySelectorAll('.dt-key-value-list-item');
     });

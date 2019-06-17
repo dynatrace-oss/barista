@@ -5,6 +5,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DtProgressBarModule } from './index';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtProgressBar', () => {
   beforeEach(async(() => {
@@ -22,32 +23,28 @@ describe('DtProgressBar', () => {
   }));
 
   it('should define a default value of zero for the value attribute', () => {
-    const fixture = TestBed.createComponent(BasicProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(BasicProgressBar);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-bar'));
     expect(progressElement.componentInstance.value).toBe(0);
   });
 
   it('should define a default value of zero for the min attribute', () => {
-    const fixture = TestBed.createComponent(BasicProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(BasicProgressBar);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-bar'));
     expect(progressElement.componentInstance.min).toBe(0);
   });
 
   it('should define a default value of 100 for the max attribute', () => {
-    const fixture = TestBed.createComponent(BasicProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(BasicProgressBar);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-bar'));
     expect(progressElement.componentInstance.max).toBe(100);
   });
 
   it('should clamp the value of the progress between 0 and 100', () => {
-    const fixture = TestBed.createComponent(BasicProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(BasicProgressBar);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-bar'));
     const progressComponent = progressElement.componentInstance;
@@ -69,8 +66,7 @@ describe('DtProgressBar', () => {
   });
 
   it('should accept the value, min and max attribute as an input', () => {
-    const fixture = TestBed.createComponent(ValueProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(ValueProgressBar);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-bar'));
     expect(progressElement.componentInstance.value).toBe(150);
@@ -79,16 +75,14 @@ describe('DtProgressBar', () => {
   });
 
   it('should calculate the percentage based on value, min and max', () => {
-    const fixture = TestBed.createComponent(ValueProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(ValueProgressBar);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-bar'));
     expect(progressElement.componentInstance.percent).toBe(50);
   });
 
   it('should set the min, max and value aria attribute accordingly', () => {
-    const fixture = TestBed.createComponent(ValueProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(ValueProgressBar);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-bar'));
     expect(progressElement.nativeElement.getAttribute('aria-valuemin')).toBe('100');
@@ -97,8 +91,7 @@ describe('DtProgressBar', () => {
   });
 
   it('should augment an existing class with a color property', () => {
-    const fixture = TestBed.createComponent(ColorProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(ColorProgressBar);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-bar'));
     const instance = progressElement.componentInstance;
@@ -113,8 +106,7 @@ describe('DtProgressBar', () => {
   });
 
   it('should remove old color classes if new color is set', () => {
-    const fixture = TestBed.createComponent(ColorProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(ColorProgressBar);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-bar'));
     const instance = progressElement.componentInstance;
@@ -146,24 +138,21 @@ describe('DtProgressBar', () => {
   });
 
   it('should render a description when defined', () => {
-    const fixture = TestBed.createComponent(DescriptionProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(DescriptionProgressBar);
 
     const descriptionElement = fixture.debugElement.query(By.css('dt-progress-bar-description'));
     expect(descriptionElement).toBeDefined();
   });
 
   it('should render a count when defined', () => {
-    const fixture = TestBed.createComponent(CountProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(CountProgressBar);
 
     const countElement = fixture.debugElement.query(By.css('dt-progress-bar-count'));
     expect(countElement).toBeDefined();
   });
 
   it('should render a description and count when defined', () => {
-    const fixture = TestBed.createComponent(DescriptionAndCountProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(DescriptionAndCountProgressBar);
 
     const descriptionElement = fixture.debugElement.query(By.css('dt-progress-bar-count'));
     const countElement = fixture.debugElement.query(By.css('dt-progress-bar-count'));
@@ -172,24 +161,21 @@ describe('DtProgressBar', () => {
   });
 
   it('should add the wrapper class to the wrapping element if a description is set', () => {
-    const fixture = TestBed.createComponent(DescriptionProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(DescriptionProgressBar);
 
     const wrapperElement = fixture.debugElement.query(By.css('dt-progress-bar-descriptionwrapper'));
     expect(wrapperElement).toBeDefined();
   });
 
   it('should add the wrapper class to the wrapping element if a count is set', () => {
-    const fixture = TestBed.createComponent(CountProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(CountProgressBar);
 
     const wrapperElement = fixture.debugElement.query(By.css('dt-progress-bar-descriptionwrapper'));
     expect(wrapperElement).toBeDefined();
   });
 
   it('should add the wrapper class to the wrapping element if a description and count are set', () => {
-    const fixture = TestBed.createComponent(DescriptionAndCountProgressBar);
-    fixture.detectChanges();
+    const fixture = createComponent(DescriptionAndCountProgressBar);
 
     const wrapperElement = fixture.debugElement.query(By.css('dt-progress-bar-descriptionwrapper'));
     expect(wrapperElement).toBeDefined();

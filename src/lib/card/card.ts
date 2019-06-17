@@ -67,5 +67,5 @@ export class DtCardFooterActions { }
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtCard {
-  @ContentChild(DtCardTitle, { static: true }) _title: DtCardTitle;
+  @ContentChild(DtCardTitle, { static: false }) _title: DtCardTitle;
 }
