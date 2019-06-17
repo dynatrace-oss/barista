@@ -1,5 +1,8 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { ViewChild, Component, AfterViewInit } from '@angular/core';
-import { async, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { async, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtSort,
@@ -17,8 +20,8 @@ import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponent } from '../../../testing/create-component';
 
-// tslint:disable:no-magic-numbers
 describe('DtTable SimpleColumns', () => {
 
   beforeEach(async(() => {
@@ -44,8 +47,7 @@ describe('DtTable SimpleColumns', () => {
   describe('rendering', () => {
     let fixture;
     beforeEach(() => {
-      fixture = TestBed.createComponent(TestSimpleColumnsApp);
-      fixture.detectChanges();
+      fixture = createComponent(TestSimpleColumnsApp);
     });
 
     it('should infer the header label from the passed name', () => {
@@ -104,8 +106,7 @@ describe('DtTable SimpleColumns', () => {
   describe('dynamic data', () => {
     let fixture;
     beforeEach(() => {
-      fixture = TestBed.createComponent(TestSimpleColumnsApp);
-      fixture.detectChanges();
+      fixture = createComponent(TestSimpleColumnsApp);
     });
 
     it('should add a new row at the bottom', () => {
@@ -184,8 +185,7 @@ describe('DtTable SimpleColumns', () => {
   describe('sorting', () => {
     let fixture;
     beforeEach(() => {
-      fixture = TestBed.createComponent(TestSimpleColumnsApp);
-      fixture.detectChanges();
+      fixture = createComponent(TestSimpleColumnsApp);
     });
 
     it('should set the headers sortable by default', () => {
@@ -283,27 +283,9 @@ describe('DtTable SimpleColumns', () => {
       expect(cells[3].nativeElement.textContent).toBe('docker-host2');
     });
 
-    it('should remove the sorted styling when sorting is disabled', () => {
-      const sortHeader = fixture.debugElement.query(By.css('.dt-table-column-traffic'));
-
-      dispatchMouseEvent(sortHeader.nativeElement, 'click');
-      fixture.detectChanges();
-
-      fixture.componentInstance.isSortable = false;
-      fixture.detectChanges();
-
-      const sortHeaderStyles = fixture.debugElement.query(By.css('.dt-table-column-traffic .dt-sort-header-container'));
-      expect(sortHeaderStyles).toBeNull();
-
-      const cells = fixture.debugElement.queryAll(By.css('.dt-cell.dt-table-column-traffic'));
-      for (const cell of cells) {
-        expect(cell.nativeElement.classList.contains('dt-cell-sorted')).toBe(false);
-      }
-    });
-
     it('should throw an error when no dtSort can be injected', () => {
       try {
-        const errFixture = TestBed.createComponent(TestSimpleColumnsErrorApp);
+        const errFixture = createComponent(TestSimpleColumnsErrorApp);
         errFixture.detectChanges();
       } catch (err) {
         expect(err.message).toBe('DtSortHeader must be placed within a parent element with the DtSort directive.');
@@ -313,8 +295,7 @@ describe('DtTable SimpleColumns', () => {
 
   describe('indicator', () => {
     it('should have the correct indicator classes on the affected rows', fakeAsync(() => {
-      const fixture = TestBed.createComponent(TestSimpleColumnsApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestSimpleColumnsApp);
 
       flush();
       const rows = fixture.debugElement.queryAll(By.css('.dt-row'));
@@ -328,8 +309,7 @@ describe('DtTable SimpleColumns', () => {
     }));
 
     it('should have the correct indicator classes on the affected cells', () => {
-      const fixture = TestBed.createComponent(TestSimpleColumnsApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestSimpleColumnsApp);
 
       const rows = fixture.debugElement.queryAll(By.css('.dt-cell.dt-table-column-traffic'));
 
@@ -342,8 +322,7 @@ describe('DtTable SimpleColumns', () => {
     });
 
     it('should update the indicator if the hasProblem function is updated', () => {
-      const fixture = TestBed.createComponent(TestSimpleColumnsApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestSimpleColumnsApp);
 
       fixture.componentInstance.trafficHasProblem = (data) => {
         if (data.traffic > 60000000) {
@@ -388,7 +367,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
   ];
 
   // Get the viewChild to pass the sorter reference to the datasource.
-  @ViewChild('sortable', { read: DtSort, static: false }) sortable: DtSort;
+  @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
   dataSource: DtTableDataSource<object>;
   constructor() {
     this.dataSource = new DtTableDataSource(this.data);
@@ -447,7 +426,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
   ];
 
   // Get the viewChild to pass the sorter reference to the datasource.
-  @ViewChild('sortable', { read: DtSort, static: false }) sortable: DtSort;
+  @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
   dataSource: DtTableDataSource<object>;
   constructor() {
     this.dataSource = new DtTableDataSource(this.data);

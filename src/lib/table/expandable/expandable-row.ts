@@ -101,8 +101,8 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
    */
   @Output() readonly openedChange = this.expandChange.pipe(map((changeEvent) => changeEvent.row));
 
-  @ViewChild('dtExpandableRow', { static: false }) private _rowRef: ElementRef;
-  @ViewChild('dtExpandableContent', { read: ViewContainerRef, static: false }) private _contentViewContainer: ViewContainerRef;
+  @ViewChild('dtExpandableRow', { static: true }) private _rowRef: ElementRef;
+  @ViewChild('dtExpandableContent', { read: ViewContainerRef, static: true }) private _contentViewContainer: ViewContainerRef;
 
   /**
    * @deprecated To be removed

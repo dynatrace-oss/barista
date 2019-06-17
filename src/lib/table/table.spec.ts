@@ -4,7 +4,6 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
-  ComponentFactory,
   ComponentFactoryResolver,
   DebugElement,
   Input,
@@ -35,8 +34,8 @@ import {
 } from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { createComponent } from '../../testing/create-component';
 
-// tslint:disable:no-magic-numbers
 describe('DtTable', () => {
 
   beforeEach(async(() => {
@@ -78,8 +77,7 @@ describe('DtTable', () => {
     });
 
     it('Should render a TableComponent', () => {
-      const fixture = TestBed.createComponent(TestApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestApp);
 
       const dataSourceRows = (fixture.componentInstance.dataSource as object[]).length;
       const tableRows = fixture.debugElement.queryAll(By.directive(DtRow));
@@ -92,8 +90,7 @@ describe('DtTable', () => {
     });
 
     it('Should have corresponding classes', () => {
-      const fixture = TestBed.createComponent(TestApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestApp);
 
       const tableComponent = fixture.debugElement.queryAll(By.css('dt-table'));
       const tableRows = fixture.debugElement.queryAll(By.css('dt-row'));
@@ -156,8 +153,7 @@ describe('DtTable', () => {
     });
 
     it('Should render a EmptyState content', () => {
-      const fixture = TestBed.createComponent(TestApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestApp);
 
       const noEmptyComponent = fixture.debugElement.query(By.directive(DtTableEmptyStateDirective));
       expect(noEmptyComponent).toBeFalsy('Expected the DtTableEmptyState not beign rendered for not empty tables');
@@ -181,7 +177,7 @@ describe('DtTable', () => {
     });
 
     it('Should render a LoadingComponent', () => {
-      const fixture = TestBed.createComponent(TestApp);
+      const fixture = createComponent(TestApp);
       fixture.componentInstance.loading = true;
       fixture.detectChanges();
 
@@ -199,8 +195,7 @@ describe('DtTable', () => {
     });
 
     it('Should render dynamic columns', () => {
-      const fixture = TestBed.createComponent(TestDynamicApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestDynamicApp);
 
       const {dataSource, columns} = fixture.componentInstance;
 
@@ -230,15 +225,13 @@ describe('DtTable', () => {
     });
 
     it('should set a dt-indicator class on the cell', () => {
-      const fixture = TestBed.createComponent(TestIndicatorApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestIndicatorApp);
       const cell = fixture.debugElement.query(By.css('.dt-cell'));
       expect(cell.nativeElement.classList.contains('dt-indicator')).toBeTruthy();
     });
 
     it('should complete the `stateChanges` stream for the dtCells on destroy', () => {
-      const fixture = TestBed.createComponent(TestIndicatorApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestIndicatorApp);
 
       const instance: DtCell =
         fixture.debugElement.query(By.directive(DtCell)).componentInstance;
@@ -251,8 +244,7 @@ describe('DtTable', () => {
     });
 
     it('should have the correct values for hasError and hasWarning', () => {
-      const fixture = TestBed.createComponent(TestIndicatorApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestIndicatorApp);
 
       const instance: DtCell =
         fixture.debugElement.query(By.directive(DtCell)).componentInstance;
@@ -269,8 +261,7 @@ describe('DtTable', () => {
     });
 
     it('should have the correct classes on the row', fakeAsync(() => {
-      const fixture = TestBed.createComponent(TestIndicatorApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestIndicatorApp);
       tick();
       let rowNative = fixture.debugElement.query(By.directive(DtRow)).nativeElement;
 
@@ -305,8 +296,7 @@ describe('DtTable', () => {
      * @breaking-change To be removed with 3.0.0.
      */
     it('should render an expandable table', () => {
-      const fixture = TestBed.createComponent(TestAppExpandableTable);
-      fixture.detectChanges();
+      const fixture = createComponent(TestAppExpandableTable);
 
       const tableExpandableRows = fixture.debugElement.queryAll(By.directive(DtExpandableRow));
       const tableCells = fixture.debugElement.queryAll(By.directive(DtCell));
@@ -325,8 +315,7 @@ describe('DtTable', () => {
      * @breaking-change To be removed with 3.0.0.
      */
     it('should assign the right classes to an expandable table', () => {
-      const fixture = TestBed.createComponent(TestAppExpandableTable);
-      fixture.detectChanges();
+      const fixture = createComponent(TestAppExpandableTable);
 
       const tableComponent = fixture.debugElement.queryAll(By.css('dt-table'));
       const tableExpandableRows = fixture.debugElement.queryAll(By.css('dt-expandable-row'));
@@ -354,8 +343,7 @@ describe('DtTable', () => {
      * @breaking-change To be removed with 3.0.0.
      */
     it('should render static content of expandable rows', () => {
-      const fixture = TestBed.createComponent(TestAppExpandableTable);
-      fixture.detectChanges();
+      const fixture = createComponent(TestAppExpandableTable);
 
       const expandableRowElements = fixture.debugElement.queryAll(By.css('dt-expandable-row'));
       const expandableSections = expandableRowElements.map(
@@ -368,8 +356,7 @@ describe('DtTable', () => {
     });
 
     it('should render an expandable table', () => {
-      const fixture = TestBed.createComponent(TestAppMultiExpandableTable);
-      fixture.detectChanges();
+      const fixture = createComponent(TestAppMultiExpandableTable);
 
       const tableExpandableRows = fixture.debugElement.queryAll(By.directive(DtExpandableRow));
       const tableCells = fixture.debugElement.queryAll(By.directive(DtCell));
@@ -388,8 +375,7 @@ describe('DtTable', () => {
      * @breaking-change To be removed with 3.0.0.
      */
     it('should expand only one row at a time if dtExpandMultiple is set to false (default)', () => {
-      const fixture = TestBed.createComponent(TestAppExpandableTable);
-      fixture.detectChanges();
+      const fixture = createComponent(TestAppExpandableTable);
 
       const testApp = fixture.debugElement.componentInstance;
       const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
@@ -434,7 +420,7 @@ describe('DtTable', () => {
      * @breaking-change To be removed with 3.0.0.
      */
     it('should expand multiple rows at a time if dtExpandMultiple is set to true', () => {
-      const fixture = TestBed.createComponent(TestAppExpandableTable);
+      const fixture = createComponent(TestAppExpandableTable);
       const testApp: TestAppExpandableTable = fixture.debugElement.componentInstance;
       testApp.multiple = true;
       fixture.detectChanges();
@@ -483,9 +469,8 @@ describe('DtTable', () => {
      * @breaking-change To be removed with 3.0.0.
      */
     it('should trigger openedChanged event on expand and on collapse', () => {
-      const fixture = TestBed.createComponent(TestAppExpandableTable);
+      const fixture = createComponent(TestAppExpandableTable);
       const testApp: TestAppExpandableTable = fixture.debugElement.componentInstance;
-      fixture.detectChanges();
 
       const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
@@ -509,8 +494,7 @@ describe('DtTable', () => {
      * @breaking-change To be removed with 3.0.0.
      */
     it('should style dt-expandable-cell correctly on expand and on collapse', () => {
-      const fixture = TestBed.createComponent(TestAppExpandableTable);
-      fixture.detectChanges();
+      const fixture = createComponent(TestAppExpandableTable);
 
       const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
@@ -541,8 +525,7 @@ describe('DtTable', () => {
     });
 
     it('should assign the right classes to an expandable table', () => {
-      const fixture = TestBed.createComponent(TestAppMultiExpandableTable);
-      fixture.detectChanges();
+      const fixture = createComponent(TestAppMultiExpandableTable);
 
       const tableComponent = fixture.debugElement.queryAll(By.css('dt-table'));
       const tableExpandableRows = fixture.debugElement.queryAll(By.css('dt-expandable-row'));
@@ -566,8 +549,7 @@ describe('DtTable', () => {
     });
 
     it('should render static content of expandable rows', () => {
-      const fixture = TestBed.createComponent(TestAppMultiExpandableTable);
-      fixture.detectChanges();
+      const fixture = createComponent(TestAppMultiExpandableTable);
 
       const expandableRowElements = fixture.debugElement.queryAll(By.css('dt-expandable-row'));
       const expandableSections = expandableRowElements.map(
@@ -581,9 +563,8 @@ describe('DtTable', () => {
     });
 
     it('should only expand one row at a time if multiExpand is set to false', () => {
-      const fixture = TestBed.createComponent(TestAppMultiExpandableTable);
+      const fixture = createComponent(TestAppMultiExpandableTable);
       const componentInstance: TestAppMultiExpandableTable = fixture.debugElement.componentInstance;
-      fixture.detectChanges();
 
       const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
@@ -620,7 +601,7 @@ describe('DtTable', () => {
     });
 
     it('should expand multiple rows at a time if multiExpand is set to true', () => {
-      const fixture = TestBed.createComponent(TestAppMultiExpandableTable);
+      const fixture = createComponent(TestAppMultiExpandableTable);
       const componentInstance: TestAppMultiExpandableTable = fixture.debugElement.componentInstance;
       componentInstance.multiExpand = true;
       fixture.detectChanges();
@@ -670,8 +651,7 @@ describe('DtTable', () => {
     });
 
     it('should style dt-expandable-cell correctly on expand and on collapse', () => {
-      const fixture = TestBed.createComponent(TestAppMultiExpandableTable);
-      fixture.detectChanges();
+      const fixture = createComponent(TestAppMultiExpandableTable);
 
       const expandableRowTriggerElements = fixture.debugElement.queryAll(By.css('.dt-expandable-cell .dt-button')).map(
         (debugElement: DebugElement) => debugElement.nativeElement as HTMLElement);
@@ -709,16 +689,14 @@ describe('DtTable', () => {
   describe('Cell - Row registraion', () => {
 
     it('should register a cell with the row after creation', () => {
-      const fixture = TestBed.createComponent(TestIndicatorApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestIndicatorApp);
       const row: DtRow = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
 
       expect(row._registeredCells.length).toBe(2);
     });
 
     it('should register a cell with the row when the cell is generated at runtime', () => {
-      const fixture = TestBed.createComponent(TestIndicatorApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestIndicatorApp);
 
       fixture.componentInstance.columns = ['col1', 'col2', 'col3'];
       fixture.detectChanges();
@@ -727,8 +705,7 @@ describe('DtTable', () => {
     });
 
     it('should unregister a cell when a column is removed', () => {
-      const fixture = TestBed.createComponent(TestIndicatorApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestIndicatorApp);
 
       fixture.componentInstance.columns = ['col1'];
       fixture.detectChanges();
@@ -737,8 +714,7 @@ describe('DtTable', () => {
     });
 
     it('should unregister each cell with the row after destroy', () => {
-      const fixture = TestBed.createComponent(TestIndicatorApp);
-      fixture.detectChanges();
+      const fixture = createComponent(TestIndicatorApp);
       const row = fixture.debugElement.query(By.directive(DtRow)).componentInstance;
       spyOn(row, '_unregisterCell');
       fixture.destroy();
@@ -748,8 +724,7 @@ describe('DtTable', () => {
 
   describe('Sticky Header', () => {
     it('should add the sticky class to the header', () => {
-      const fixture = TestBed.createComponent(TestStickyHeader);
-      fixture.detectChanges();
+      const fixture = createComponent(TestStickyHeader);
       const headerRow = fixture.debugElement.query(By.css('dt-header-row')).nativeElement;
       expect(headerRow.classList.contains('dt-table-sticky')).toBe(true);
     });
@@ -793,7 +768,7 @@ describe('DtTable', () => {
   `,
 })
 class TestApp {
-  @ViewChild(DtTable, { static: false }) tableComponent: DtTable<object[]>;
+  @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
   loading = false;
   dataSource: object[] | null | undefined = [
     {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
@@ -823,7 +798,7 @@ class TestApp {
   `,
 })
 class TestDynamicApp {
-  @ViewChild(DtTable, { static: false }) tableComponent: DtTable<object[]>;
+  @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
   columns = ['col1', 'col2', 'col3'];
   dataSource: object[] = [];
 }
@@ -981,7 +956,7 @@ export class TestExpandableComponentModule {}
   `,
 })
 class TestIndicatorApp {
-  @ViewChild(DtTable, { static: false }) tableComponent: DtTable<object[]>;
+  @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
   columns = ['col1', 'col2'];
   dataSource: object[] = [
     {col1: 'test 1', col2: 'test 2', col3: 'test 3'},
