@@ -79,6 +79,27 @@ const TEST_DATA_SINGLE_OPTION = {
   autocomplete: ['option'],
 };
 
+const TEST_DATA_SUGGESTIONS = {
+  autocomplete: [
+    {
+      name: 'Node',
+      options: [
+        {
+          name: 'Custom Simple Option',
+        },
+        {
+          name: 'Node Label',
+          key: 'MyKey',
+          suggestions: [
+            'some cool',
+            'very weird',
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;
   let overlayContainer: OverlayContainer;
@@ -228,6 +249,31 @@ describe('DtFilterField', () => {
       expect(options[0].innerText).toBe('Linz');
       expect(options[1].innerText).toBe('Wels');
       expect(options[2].innerText).toBe('Steyr');
+    });
+
+    it('should switch to the next autocomplete if the selected option is also a freetext with suggestions', () => {
+      fixture.componentInstance.dataSource.data = TEST_DATA_SUGGESTIONS;
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+      expect(options[0].innerText).toBe('Custom Simple Option');
+      expect(options[1].innerText).toBe('Node Label');
+
+      const nodeLabelOption = options[1];
+      nodeLabelOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      options = getOptions(overlayContainerElement);
+      const optionGroups = getOptionGroups(overlayContainerElement);
+      expect(optionGroups.length).toBe(0);
+      expect(options.length).toBe(2);
+      expect(options[0].innerText).toBe('some cool');
+      expect(options[1].innerText).toBe('very weird');
+
+      zone.simulateZoneExit();
     });
 
     it('should focus the input element after selecting an option in autocomplete (autocomplete -> autocomplete)', () => {
