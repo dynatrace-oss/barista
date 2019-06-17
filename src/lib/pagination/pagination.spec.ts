@@ -1,3 +1,6 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { TestBed, async } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import {
@@ -16,6 +19,7 @@ import {
   ARIA_DEFAULT_ELLIPSES,
 } from './pagination-defaults';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtPagination', () => {
   beforeEach(async(() => {
@@ -38,7 +42,7 @@ describe('DtPagination', () => {
 
   describe('initialization without any pages', () => {
     it('should create the pagination element without any pages inside, only with arrows', () => {
-      const fixture = TestBed.createComponent(EmptyPagination);
+      const fixture = createComponent(EmptyPagination);
       const containerEl = fixture.debugElement.query(By.css('.dt-pagination-list')).nativeElement;
       fixture.detectChanges();
 
@@ -49,7 +53,7 @@ describe('DtPagination', () => {
     });
 
     it('should disable both arrows when no data is there', () => {
-      const fixture = TestBed.createComponent(EmptyPagination);
+      const fixture = createComponent(EmptyPagination);
       const containerEl = fixture.debugElement.query(By.css('.dt-pagination-list')).nativeElement;
       fixture.detectChanges();
 
@@ -66,7 +70,7 @@ describe('DtPagination', () => {
   describe('legacy functionality', () => {
 
     it('should work with the old API as well', () => {
-      const fixture = TestBed.createComponent(LegacyPagination);
+      const fixture = createComponent(LegacyPagination);
       const nextButton = fixture.debugElement.nativeElement.querySelector('.dt-pagination-next button');
       const instance = fixture.componentInstance;
       fixture.detectChanges();
@@ -89,7 +93,7 @@ describe('DtPagination', () => {
   describe('functionality of navigating through the pagination', () => {
 
     it('should create an empty pagination', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
+      const fixture = createComponent(PaginationTestComponent);
       fixture.detectChanges();
       const containerEl = fixture.debugElement.query(By.css('.dt-pagination-list')).nativeElement;
       const items = containerEl.querySelectorAll('li');
@@ -97,7 +101,7 @@ describe('DtPagination', () => {
     });
 
     it('create pagination and add a length, pageSize should be defaulted', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
+      const fixture = createComponent(PaginationTestComponent);
       const instance = fixture.componentInstance;
       fixture.detectChanges();
       let containerEl = fixture.debugElement.query(By.css('.dt-pagination-list')).nativeElement;
@@ -115,7 +119,7 @@ describe('DtPagination', () => {
     });
 
     it('should navigate programmatically', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
+      const fixture = createComponent(PaginationTestComponent);
       const instance = fixture.componentInstance;
       instance.length = 120;
       instance.pageSize = 10;
@@ -138,7 +142,7 @@ describe('DtPagination', () => {
     });
 
     it('should navigate with the click on the arrows', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
+      const fixture = createComponent(PaginationTestComponent);
       const instance = fixture.componentInstance;
       instance.length = 120;
       instance.pageSize = 10;
@@ -169,7 +173,7 @@ describe('DtPagination', () => {
     });
 
     it('should navigate with the click on the numbers', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
+      const fixture = createComponent(PaginationTestComponent);
       const instance = fixture.componentInstance;
       instance.length = 120;
       instance.pageSize = 10;
@@ -189,7 +193,7 @@ describe('DtPagination', () => {
     });
 
     it('should disable the previous and next button when the current page is at the start or end', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
+      const fixture = createComponent(PaginationTestComponent);
       const instance = fixture.componentInstance;
       instance.length = 120;
       instance.pageSize = 10;
@@ -207,7 +211,7 @@ describe('DtPagination', () => {
     });
 
     it('should fire an event if the currentPage changes that emits tha new page number', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
+      const fixture = createComponent(PaginationTestComponent);
       const instance = fixture.componentInstance;
       instance.length = 120;
       instance.pageSize = 10;
@@ -232,7 +236,7 @@ describe('DtPagination', () => {
     });
 
     it('should update the pages when navigating with the arrows', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
+      const fixture = createComponent(PaginationTestComponent);
       const instance = fixture.componentInstance;
       instance.length = 100;
       instance.pageSize = 10;
@@ -258,7 +262,7 @@ describe('DtPagination', () => {
   describe('accessibility', () => {
 
     it('should have default aria-labels', () => {
-      const fixture = TestBed.createComponent(DefaultPagination);
+      const fixture = createComponent(DefaultPagination);
       fixture.detectChanges();
 
       const containerEl = fixture.debugElement.query(By.css('.dt-pagination-list')).nativeElement;
@@ -281,7 +285,7 @@ describe('DtPagination', () => {
     });
 
     it('should update the binding of the aria-label', () => {
-      const fixture = TestBed.createComponent(PaginationTestComponent);
+      const fixture = createComponent(PaginationTestComponent);
       const instance = fixture.componentInstance;
       instance.length = 100;
       instance.pageSize = 10;

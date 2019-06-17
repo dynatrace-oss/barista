@@ -5,6 +5,7 @@ import { DtOptionModule, DtOption } from '@dynatrace/angular-components';
 import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
+import { createComponent } from '../../../testing/create-component';
 
 describe('DtOption', () => {
 
@@ -16,9 +17,7 @@ describe('DtOption', () => {
   }));
 
   it('should complete the `stateChanges` stream on destroy', () => {
-    const fixture = TestBed.createComponent(OptionWithDisable);
-    fixture.detectChanges();
-
+    const fixture = createComponent(OptionWithDisable);
     const optionInstance: DtOption<string> =
       fixture.debugElement.query(By.directive(DtOption)).componentInstance;
     const completeSpy = jasmine.createSpy('complete spy');
@@ -30,9 +29,7 @@ describe('DtOption', () => {
   });
 
   it('should not emit to `selectionChange` if selecting an already-selected option', () => {
-    const fixture = TestBed.createComponent(OptionWithDisable);
-    fixture.detectChanges();
-
+    const fixture = createComponent(OptionWithDisable);
     const optionInstance: DtOption<string> =
       fixture.debugElement.query(By.directive(DtOption)).componentInstance;
 
@@ -52,9 +49,7 @@ describe('DtOption', () => {
   });
 
   it('should not emit to `selectionChange` if deselecting an unselected option', () => {
-    const fixture = TestBed.createComponent(OptionWithDisable);
-    fixture.detectChanges();
-
+    const fixture = createComponent(OptionWithDisable);
     const optionInstance: DtOption<string> =
       fixture.debugElement.query(By.directive(DtOption)).componentInstance;
 

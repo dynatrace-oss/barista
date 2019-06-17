@@ -16,6 +16,7 @@ import { MockNgZone } from '../../testing/mock-ng-zone';
 import { Subject } from 'rxjs';
 import { DtChartSelectionAreaOrigin, getDtChartSelectionAreaDateTimeAxisError } from '@dynatrace/angular-components/chart';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtSelectionArea', () => {
 
@@ -59,20 +60,17 @@ describe('DtSelectionArea', () => {
 
   describe('origin', () => {
     it('should make the origin tabable when a selection area is attached and the element has no tabindex', () => {
-      const fixture = TestBed.createComponent(BasicTest);
-      fixture.detectChanges();
+      const fixture = createComponent(BasicTest);
       const origin = fixture.componentInstance.origin;
       expect(origin.nativeElement.getAttribute('tabindex')).toBeDefined();
     });
     it('should not change the tabindex on the origin if it was already', () => {
-      const fixture = TestBed.createComponent(BasicTestWithInitialTabIndex);
-      fixture.detectChanges();
+      const fixture = createComponent(BasicTestWithInitialTabIndex);
       const origin = fixture.componentInstance.origin;
       expect(origin.nativeElement.getAttribute('tabindex')).toBe('10');
     });
     it('should position the selection-area over to the origin', fakeAsync(() => {
-      const fixture = TestBed.createComponent(BasicTest);
-      fixture.detectChanges();
+      const fixture = createComponent(BasicTest);
       const origin = fixture.componentInstance.origin;
       const originDomRect = origin.nativeElement.getBoundingClientRect();
       const globalSelectionAreaContainer = getGlobalSelectionAreaHost();
@@ -87,14 +85,12 @@ describe('DtSelectionArea', () => {
   });
 
   describe('creation', () => {
-    // tslint:disable-next-line:no-any
     let fixture: ComponentFixture<any>;
     let origin: HTMLElement;
     let globalSelectionAreaContainer: HTMLElement | null;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(BasicTest);
-      fixture.detectChanges();
+      fixture = createComponent(BasicTest);
       globalSelectionAreaContainer = getGlobalSelectionAreaHost();
       zone.simulateZoneExit();
       origin = fixture.componentInstance.origin.nativeElement;
@@ -226,8 +222,7 @@ describe('DtSelectionArea', () => {
     let globalSelectionAreaContainer: HTMLElement | null;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(BasicTest);
-      fixture.detectChanges();
+      fixture = createComponent(BasicTest);
       globalSelectionAreaContainer = getGlobalSelectionAreaHost();
       zone.simulateZoneExit();
       origin = fixture.componentInstance.origin.nativeElement;
@@ -422,8 +417,7 @@ describe('DtSelectionArea', () => {
     let globalSelectionAreaContainer: HTMLElement | null;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(BasicTest);
-      fixture.detectChanges();
+      fixture = createComponent(BasicTest);
       globalSelectionAreaContainer = getGlobalSelectionAreaHost();
       origin = fixture.componentInstance.origin.nativeElement;
       zone.simulateZoneExit();
@@ -623,8 +617,7 @@ describe('DtSelectionArea', () => {
     let globalSelectionAreaContainer: HTMLElement | null;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(BasicTest);
-      fixture.detectChanges();
+      fixture = createComponent(BasicTest);
       globalSelectionAreaContainer = getGlobalSelectionAreaHost();
       zone.simulateZoneExit();
       origin = fixture.componentInstance.origin.nativeElement;
@@ -686,8 +679,7 @@ describe('DtSelectionArea', () => {
     let globalSelectionAreaContainer: HTMLElement | null;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(BasicTest);
-      fixture.detectChanges();
+      fixture = createComponent(BasicTest);
       globalSelectionAreaContainer = getGlobalSelectionAreaHost();
       zone.simulateZoneExit();
       origin = fixture.componentInstance.origin.nativeElement;
@@ -753,8 +745,7 @@ describe('DtSelectionArea', () => {
 
     it('should throw an error when the axis is not a datetime axis', fakeAsync(() => {
       expect(() => {
-        fixture = TestBed.createComponent(ChartTest);
-        fixture.detectChanges();
+        fixture = createComponent(ChartTest);
       }).not.toThrowError();
 
       expect(() => {
@@ -769,8 +760,7 @@ describe('DtSelectionArea', () => {
   describe('globalContainer', () => {
 
     it('should render the selection-area-container component inside the globalcontainer', () => {
-      const fixture = TestBed.createComponent(ProjectedTest);
-      fixture.detectChanges();
+      const fixture = createComponent(ProjectedTest);
       const globalContainer = getGlobalSelectionAreaHost();
       expect(globalContainer).toBeDefined();
       expect(globalContainer!.querySelector('dt-selection-area-container')).not.toBeNull();
@@ -875,7 +865,6 @@ class DummyChart implements AfterViewInit, OnDestroy {
 
   @ViewChild('container', { static: true }) container;
 
-// tslint:disable-next-line: no-any
   options: any;
 
   ngAfterViewInit(): void {

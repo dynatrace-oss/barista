@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LocationStrategy, Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { createComponent } from '../../../testing/create-component';
 
 describe('DtTabNavigationAdapter', () => {
 
@@ -29,7 +30,7 @@ describe('DtTabNavigationAdapter', () => {
       ],
     });
     router = TestBed.get(Router);
-    fixture = TestBed.createComponent(AppComponent);
+    fixture = createComponent(AppComponent);
   });
 
   describe('adapter functions', () => {

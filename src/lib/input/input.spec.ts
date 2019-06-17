@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtInputModule } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtInput without forms', () => {
   beforeEach(fakeAsync(() => {
@@ -33,8 +34,7 @@ describe('DtInput without forms', () => {
   }));
 
   it('should add aria-required reflecting the required state', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithRequired);
-    fixture.detectChanges();
+    const fixture = createComponent(DtInputWithRequired);
 
     const inputElement: HTMLInputElement =
       fixture.debugElement.query(By.css('input')).nativeElement;
@@ -50,8 +50,7 @@ describe('DtInput without forms', () => {
   }));
 
   it('supports the required attribute as binding', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithRequired);
-    fixture.detectChanges();
+    const fixture = createComponent(DtInputWithRequired);
 
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 
@@ -64,8 +63,7 @@ describe('DtInput without forms', () => {
   }));
 
   it('should not overwrite existing id', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithId);
-    fixture.detectChanges();
+    const fixture = createComponent(DtInputWithId);
 
     const inputElement: HTMLInputElement =
       fixture.debugElement.query(By.css('input')).nativeElement;
@@ -74,15 +72,14 @@ describe('DtInput without forms', () => {
   }));
 
   it('has an empty default placeholder', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputPlaceholderAttr);
-    fixture.detectChanges();
+    const fixture = createComponent(DtInputPlaceholderAttr);
 
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
     expect(inputEl.placeholder).toBe('');
   }));
 
   it('supports placeholder attribute', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputPlaceholderAttr);
+    const fixture = createComponent(DtInputPlaceholderAttr);
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 
     fixture.componentInstance.placeholder = 'Other placeholder';
@@ -91,14 +88,13 @@ describe('DtInput without forms', () => {
   }));
 
   it('has set the default disabled state to false', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithDisabled);
+    const fixture = createComponent(DtInputWithDisabled);
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-    fixture.detectChanges();
     expect(inputEl.disabled).toBe(false);
   }));
 
   it('supports the disabled attribute as binding', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithDisabled);
+    const fixture = createComponent(DtInputWithDisabled);
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 
     fixture.componentInstance.disabled = true;
@@ -108,15 +104,14 @@ describe('DtInput without forms', () => {
   }));
 
   it('has a default type of text', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithType);
+    const fixture = createComponent(DtInputWithType);
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-    fixture.detectChanges();
 
     expect(inputEl.type).toBe('text');
   }));
 
   it('supports the type attribute as binding', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithType);
+    const fixture = createComponent(DtInputWithType);
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 
     fixture.componentInstance.type = 'password';
@@ -126,8 +121,7 @@ describe('DtInput without forms', () => {
   }));
 
   it('supports textarea', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputTextareaWithBindings);
-    fixture.detectChanges();
+    const fixture = createComponent(DtInputTextareaWithBindings);
 
     const textarea: HTMLTextAreaElement = fixture.debugElement.nativeElement.querySelector('textarea');
     expect(textarea).not.toBeNull();

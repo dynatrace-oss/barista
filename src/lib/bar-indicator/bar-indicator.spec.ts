@@ -5,6 +5,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DtBarIndicatorModule } from './index';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtBarIndicator', () => {
   beforeEach(async(() => {
@@ -19,33 +20,25 @@ describe('DtBarIndicator', () => {
   }));
 
   it('should define a default value of zero for the value attribute', () => {
-    const fixture = TestBed.createComponent(BasicBarIndicator);
-    fixture.detectChanges();
-
+    const fixture = createComponent(BasicBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     expect(progressElement.componentInstance.value).toBe(0);
   });
 
   it('should define a default value of zero for the min attribute', () => {
-    const fixture = TestBed.createComponent(BasicBarIndicator);
-    fixture.detectChanges();
-
+    const fixture = createComponent(BasicBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     expect(progressElement.componentInstance.min).toBe(0);
   });
 
   it('should define a default value of 100 for the max attribute', () => {
-    const fixture = TestBed.createComponent(BasicBarIndicator);
-    fixture.detectChanges();
-
+    const fixture = createComponent(BasicBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     expect(progressElement.componentInstance.max).toBe(100);
   });
 
   it('should clamp the value of the progress between 0 and 100', () => {
-    const fixture = TestBed.createComponent(BasicBarIndicator);
-    fixture.detectChanges();
-
+    const fixture = createComponent(BasicBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     const progressComponent = progressElement.componentInstance;
 
@@ -66,9 +59,7 @@ describe('DtBarIndicator', () => {
   });
 
   it('should accept the value, min and max attribute as an input', () => {
-    const fixture = TestBed.createComponent(ValueBarIndicator);
-    fixture.detectChanges();
-
+    const fixture = createComponent(ValueBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     expect(progressElement.componentInstance.value).toBe(150);
     expect(progressElement.componentInstance.min).toBe(100);
@@ -76,17 +67,13 @@ describe('DtBarIndicator', () => {
   });
 
   it('should calculate the percentage based on value, min and max', () => {
-    const fixture = TestBed.createComponent(ValueBarIndicator);
-    fixture.detectChanges();
-
+    const fixture = createComponent(ValueBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     expect(progressElement.componentInstance.percent).toBe(50);
   });
 
   it('should set the min, max and value aria attribute accordingly', () => {
-    const fixture = TestBed.createComponent(ValueBarIndicator);
-    fixture.detectChanges();
-
+    const fixture = createComponent(ValueBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     expect(progressElement.nativeElement.getAttribute('aria-valuemin')).toBe('100');
     expect(progressElement.nativeElement.getAttribute('aria-valuemax')).toBe('200');
@@ -94,9 +81,7 @@ describe('DtBarIndicator', () => {
   });
 
   it('should augment an existing class with a color property', () => {
-    const fixture = TestBed.createComponent(ColorBarIndicator);
-    fixture.detectChanges();
-
+    const fixture = createComponent(ColorBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     const instance = progressElement.componentInstance;
 
@@ -110,9 +95,7 @@ describe('DtBarIndicator', () => {
   });
 
   it('should remove old color classes if new color is set', () => {
-    const fixture = TestBed.createComponent(ColorBarIndicator);
-    fixture.detectChanges();
-
+    const fixture = createComponent(ColorBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     const instance = progressElement.componentInstance;
 
@@ -131,7 +114,7 @@ describe('DtBarIndicator', () => {
 
   it('should fire valueChange event', () => {
     const spy = jasmine.createSpy();
-    const fixture = TestBed.createComponent(ColorBarIndicator);
+    const fixture = createComponent(ColorBarIndicator);
     const progressElement = fixture.debugElement.query(By.css('dt-bar-indicator'));
     const instance = progressElement.componentInstance;
     instance.valueChange.subscribe(spy);

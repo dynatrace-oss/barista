@@ -5,7 +5,7 @@ import { DtOverlayContainer } from './overlay-container';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { DtOverlayConfig } from './overlay-config';
 import { filter, take } from 'rxjs/operators';
-import { ESCAPE } from '@angular/cdk/keycodes';
+import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DT_OVERLAY_NO_POINTER_CLASS } from './overlay';
 
@@ -34,7 +34,7 @@ export class DtOverlayRef<T> {
     });
 
     _overlayRef.keydownEvents()
-      .pipe(filter((event: KeyboardEvent) => readKeyCode(event) === ESCAPE))
+      .pipe(filter((event: KeyboardEvent) => readKeyCode(event) === ESCAPE && !hasModifierKey(event)))
       .subscribe(() => { this.dismiss(); });
   }
 

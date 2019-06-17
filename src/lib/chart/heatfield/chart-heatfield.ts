@@ -162,7 +162,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   /** The marker button used to activate the heatfield */
   @ViewChild('marker', { read: ElementRef, static: true }) _marker: ElementRef;
 
-  @ViewChild(CdkConnectedOverlay, { static: true }) _overlay: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: false }) _overlay: CdkConnectedOverlay;
 
   constructor(
     elementRef: ElementRef,

@@ -64,10 +64,13 @@ export const _DtOverlayContainerMixin = mixinNotifyDomExit(DtOverlayContainerBas
 })
 export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanNotifyOnExit {
 
+  /** @internal */
   @ViewChild(CdkPortalOutlet, { static: true }) _portalOutlet: CdkPortalOutlet;
 
-  _animationState = 'void';
+  /** @internal */
+  _animationState: 'void' | 'enter' | 'exit' = 'void';
 
+  /** @internal */
   readonly _onExit: Subject<void> = new Subject();
 
   /** The class that traps and manages focus within the overlay. */
@@ -161,6 +164,14 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
   private _savePreviouslyFocusedElement(): void {
     if (this._document) {
       this._elementFocusedBeforeDialogWasOpened = this._document.activeElement as HTMLElement;
+
+      // Note that there is no focus method when rendering on the server.
+      if (this._elementRef.nativeElement.focus) {
+        // Move focus onto the dialog immediately in order to prevent the user from accidentally
+        // opening multiple dialogs at the same time. Needs to be async, because the element
+        // may not be focusable immediately.
+        Promise.resolve().then(() => this._elementRef.nativeElement.focus());
+      }
     }
   }
 }

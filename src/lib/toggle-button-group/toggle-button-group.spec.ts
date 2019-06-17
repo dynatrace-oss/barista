@@ -5,6 +5,7 @@ import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testi
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DtToggleButtonGroupModule, DtToggleButtonGroup, DtToggleButtonItem } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtToggleButtonGroup', () => {
 
@@ -32,7 +33,7 @@ describe('DtToggleButtonGroup', () => {
     let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SimpleToggleButtonGroupTestApp);
+      fixture = createComponent(SimpleToggleButtonGroupTestApp);
       fixture.detectChanges();
       element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
@@ -160,7 +161,7 @@ describe('DtToggleButtonGroup', () => {
     let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(OneSelectedToggleButtonGroupTestApp);
+      fixture = createComponent(OneSelectedToggleButtonGroupTestApp);
       fixture.detectChanges();
       element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
@@ -185,7 +186,7 @@ describe('DtToggleButtonGroup', () => {
     let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(DynamicButtonsToggleButtonGroupTestApp);
+      fixture = createComponent(DynamicButtonsToggleButtonGroupTestApp);
       fixture.detectChanges();
       element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
@@ -232,7 +233,7 @@ describe('DtToggleButtonGroup', () => {
     let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(OneDisabledToggleButtonGroupTestApp);
+      fixture = createComponent(OneDisabledToggleButtonGroupTestApp);
       fixture.detectChanges();
       element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
@@ -297,7 +298,7 @@ describe('DtToggleButtonGroup', () => {
     let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(PropertybindingToggleButtonGroupTestApp);
+      fixture = createComponent(PropertybindingToggleButtonGroupTestApp);
       fixture.detectChanges();
       element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
@@ -335,7 +336,7 @@ describe('DtToggleButtonGroup', () => {
     let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(AriaAttributesToggleButtonGroupTestApp);
+      fixture = createComponent(AriaAttributesToggleButtonGroupTestApp);
       fixture.detectChanges();
       element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
@@ -385,7 +386,7 @@ describe('DtToggleButtonGroup', () => {
     let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SimpleToggleButtonGroupTestApp);
+      fixture = createComponent(SimpleToggleButtonGroupTestApp);
       fixture.detectChanges();
       element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;

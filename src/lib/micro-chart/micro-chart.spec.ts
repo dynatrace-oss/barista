@@ -14,8 +14,6 @@ import { BehaviorSubject } from 'rxjs';
 import { DtMicroChartModule } from '@dynatrace/angular-components/micro-chart';
 import { merge } from 'lodash';
 
-// tslint:disable:no-magic-numbers
-
 describe('DtMicroChart', () => {
 
   beforeEach(async(() => {

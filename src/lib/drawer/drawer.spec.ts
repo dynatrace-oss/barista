@@ -133,6 +133,7 @@ describe('DtDrawer', () => {
 
     it('should be able to close the drawer by clicking a button', fakeAsync(() => {
       const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
+      fixture.detectChanges();
       instance.drawer.open();
       fixture.detectChanges();
       flush();
@@ -149,6 +150,7 @@ describe('DtDrawer', () => {
   describe('drawer behaviors', () => {
     it('should move the drawer outside the content area with a transform when it is not visible', fakeAsync(() => {
       const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
+      fixture.detectChanges();
       const drawer = fixture.debugElement.query(By.css('dt-drawer'));
       fixture.detectChanges();
       flush();
@@ -250,6 +252,7 @@ describe('DtDrawer', () => {
 
     it('should close when pressing escape', fakeAsync(() => {
       const { instance, fixture, containerEl } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
+      fixture.detectChanges();
       const drawer = instance.drawer;
       fixture.detectChanges();
 
@@ -303,7 +306,8 @@ describe('DtDrawer', () => {
     }));
 
     it('should unsubscribe drawer from _animationStarted and _animationEnd', fakeAsync(() => {
-      const { instance } = createFixture<BasicTestApp>(BasicTestApp);
+      const { instance, fixture } = createFixture<BasicTestApp>(BasicTestApp);
+      fixture.detectChanges();
       const drawer = instance.drawer;
 
       expect(drawer._animationStarted.isStopped).toBeFalsy();
@@ -421,11 +425,11 @@ class BasicTestApp {
   openCount = 0;
   closeCount = 0;
 
-  @ViewChild('container', { static: true }) container: DtDrawerContainer;
-  @ViewChild('drawer', { static: true }) drawer: DtDrawer;
-  @ViewChild('toggleButton', { static: true }) drawerButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('openButton', { static: true }) openButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('closeButton', { static: true }) closeButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('container', { static: false }) container: DtDrawerContainer;
+  @ViewChild('drawer', { static: false }) drawer: DtDrawer;
+  @ViewChild('toggleButton', { static: false }) drawerButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('openButton', { static: false }) openButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('closeButton', { static: false }) closeButton: ElementRef<HTMLButtonElement>;
 
   open(): void { this.openCount++; }
   close(): void { this.closeCount++; }
@@ -440,7 +444,7 @@ class BasicTestApp {
     </dt-drawer-container>`,
 })
 class TestAppDrawerOpened {
-  @ViewChild('drawer', { static: true }) drawer: DtDrawer;
+  @ViewChild('drawer', { static: false }) drawer: DtDrawer;
 }
 
 @Component({ template: `<dt-drawer-container> </dt-drawer-container>` })
@@ -455,8 +459,8 @@ class NoDrawerTestApp { }
     </dt-drawer-container>`,
 })
 class FailingTestApp {
-  @ViewChild('firstDrawer', { static: true }) firstDrawer: DtDrawer;
-  @ViewChild('secondDrawer', { static: true }) secondDrawer: DtDrawer;
+  @ViewChild('firstDrawer', { static: false }) firstDrawer: DtDrawer;
+  @ViewChild('secondDrawer', { static: false }) secondDrawer: DtDrawer;
 }
 
 @Component({
@@ -482,9 +486,9 @@ class TestAppOverMode {}
     </dt-drawer-container>`,
 })
 class TestAppWithOverAndSideMode {
-  @ViewChild('container', { static: true }) container: DtDrawerContainer;
-  @ViewChild('drawer1', { static: true }) drawer1: DtDrawer;
-  @ViewChild('drawer2', { static: true }) drawer2: DtDrawer;
+  @ViewChild('container', { static: false }) container: DtDrawerContainer;
+  @ViewChild('drawer1', { static: false }) drawer1: DtDrawer;
+  @ViewChild('drawer2', { static: false }) drawer2: DtDrawer;
 }
 
 export class FakeMediaQueryList {

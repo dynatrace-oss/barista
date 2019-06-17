@@ -26,6 +26,7 @@ import {
 } from '@dynatrace/angular-components';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+import { createComponent } from '../../testing/create-component';
 
 const TEST_IMPORTS = [
   FormsModule,
@@ -65,9 +66,7 @@ describe('DtFormField without forms', () => {
     const platform = new Platform();
 
     if (platform.TRIDENT || (platform.SAFARI && !platform.IOS)) {
-      const fixture = TestBed.createComponent(DtInputDateTestController);
-      fixture.detectChanges();
-
+      const fixture = createComponent(DtInputDateTestController);
       const el = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
       expect(el).not.toBeNull();
       expect(el.classList.contains('dt-form-field-empty')).toBe(true);
@@ -75,18 +74,14 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should treat text input type as empty at init', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputTextTestController);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputTextTestController);
     const el = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
     expect(el).not.toBeNull();
     expect(el.classList.contains('dt-form-field-empty')).toBe(true);
   }));
 
   it('should not be empty after input entered', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputTextTestController);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputTextTestController);
     const inputEl = fixture.debugElement.query(By.css('input'));
     const el = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
 
@@ -99,8 +94,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should not be empty when the value set before view init', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithValueBinding);
-    fixture.detectChanges();
+    const fixture = createComponent(DtInputWithValueBinding);
     const el = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
 
     expect(el.classList).not.toContain('dt-form-field-empty');
@@ -112,9 +106,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should add id', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputLabelTestController);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputLabelTestController);
     const inputElement: HTMLInputElement =
       fixture.debugElement.query(By.css('input')).nativeElement;
     const labelElement: HTMLInputElement =
@@ -125,9 +117,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should add aria-owns to the label for the associated control', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputLabelTestController);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputLabelTestController);
     const inputElement: HTMLInputElement =
       fixture.debugElement.query(By.css('input')).nativeElement;
     const labelElement: HTMLInputElement =
@@ -151,19 +141,19 @@ describe('DtFormField without forms', () => {
   it('validates that dtInput child is present', fakeAsync(() => {
     const fixture = TestBed.createComponent(DtInputMissingDtInputTestController);
 
-    expect(() => fixture.detectChanges()).toThrowError(
+    expect(() => { fixture.detectChanges(); }).toThrowError(
       wrappedErrorMessage(getDtFormFieldMissingControlError()));
   }));
 
   it('validates that dtInput child is present after initialization', fakeAsync(() => {
     const fixture = TestBed.createComponent(DtInputWithNgIf);
 
-    expect(() => fixture.detectChanges()).not.toThrowError(
+    expect(() => { fixture.detectChanges(); }).not.toThrowError(
       wrappedErrorMessage(getDtFormFieldMissingControlError()));
 
     fixture.componentInstance.renderInput = false;
 
-    expect(() => fixture.detectChanges()).toThrowError(
+    expect(() => { fixture.detectChanges(); }).toThrowError(
       wrappedErrorMessage(getDtFormFieldMissingControlError()));
   }));
 
@@ -174,13 +164,12 @@ describe('DtFormField without forms', () => {
     // so the error is really a ChangeDetectionError and it becomes
     // hard to build a full exception to compare with.
     // We just check for any exception in this case.
-    expect(() => fixture.detectChanges()).toThrow(
+    expect(() => { fixture.detectChanges(); }).toThrow(
         /* new DtInputUnsupportedTypeError('file') */);
   }));
 
   it('supports hint labels elements', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputHintTestController);
-    fixture.detectChanges();
+    const fixture = createComponent(DtInputHintTestController);
 
     // In this case, we should have an empty <dt-hint>.
     let el = fixture.debugElement.query(By.css('dt-hint')).nativeElement;
@@ -193,7 +182,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('sets an id on the hint element', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputHintTestController);
+    const fixture = createComponent(DtInputHintTestController);
 
     fixture.componentInstance.label = 'label';
     fixture.detectChanges();
@@ -204,7 +193,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('sets the aria-describedby to the id of the dt-hint', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputHintTestController);
+    const fixture = createComponent(DtInputHintTestController);
 
     fixture.componentInstance.label = 'label';
     fixture.detectChanges();
@@ -228,9 +217,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('supports the disabled attribute as binding', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithDisabled);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputWithDisabled);
     const formFieldEl =
       fixture.debugElement.query(By.css('.dt-form-field')).nativeElement;
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -248,9 +235,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should not have prefix and suffix elements when none are specified', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputTextTestController);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputTextTestController);
     const prefixEl = fixture.debugElement.query(By.css('.dt-form-field-prefix'));
     const suffixEl = fixture.debugElement.query(By.css('.dt-form-field-suffix'));
 
@@ -259,9 +244,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should add prefix and suffix elements when specified', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithPrefixAndSuffix);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputWithPrefixAndSuffix);
     const prefixEl = fixture.debugElement.query(By.css('.dt-form-field-prefix'));
     const suffixEl = fixture.debugElement.query(By.css('.dt-form-field-suffix'));
 
@@ -272,9 +255,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should update empty class when value changes programmatically and OnPush', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputOnPush);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputOnPush);
     const component = fixture.componentInstance;
     const el = fixture.debugElement.query(By.css('.dt-form-field')).nativeElement;
 
@@ -287,9 +268,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should set the focused class when the input is focused', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputTextTestController);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputTextTestController);
     const input = fixture.debugElement.query(By.directive(DtInput))
       .injector.get<DtInput>(DtInput);
     const container = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
@@ -303,9 +282,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should remove the focused class if the input becomes disabled while focused', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputTextTestController);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputTextTestController);
     const input = fixture.debugElement.query(By.directive(DtInput)).injector.get(DtInput);
     const container = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
 
@@ -323,9 +300,7 @@ describe('DtFormField without forms', () => {
   }));
 
   it('should not highlight when focusing a readonly input', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputWithReadonlyInput);
-    fixture.detectChanges();
-
+    const fixture = createComponent(DtInputWithReadonlyInput);
     const input = fixture.debugElement.query(By.directive(DtInput)).injector.get<DtInput>(DtInput);
     const container = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
 
@@ -347,7 +322,7 @@ describe('DtFormField with forms', () => {
     let inputEl: HTMLElement;
 
     beforeEach(fakeAsync(() => {
-      fixture = createComponent(DtInputWithFormErrorMessages);
+      fixture = createComponentWithCutomProviders(DtInputWithFormErrorMessages);
       fixture.detectChanges();
       testComponent = fixture.componentInstance;
       containerEl = fixture.debugElement.query(By.css('dt-form-field')).nativeElement;
@@ -394,7 +369,7 @@ describe('DtFormField with forms', () => {
       fixture.destroy();
       TestBed.resetTestingModule();
 
-      const groupFixture = createComponent(DtInputWithFormGroupErrorMessages);
+      const groupFixture = createComponentWithCutomProviders(DtInputWithFormGroupErrorMessages);
       let component: DtInputWithFormGroupErrorMessages;
 
       groupFixture.detectChanges();
@@ -463,7 +438,7 @@ describe('DtFormField with forms', () => {
   describe('custom error behavior', () => {
 
     it('should display an error message when a custom error matcher returns true', fakeAsync(() => {
-      const fixture = createComponent(DtInputWithCustomErrorStateMatcher);
+      const fixture = createComponentWithCutomProviders(DtInputWithCustomErrorStateMatcher);
       fixture.detectChanges();
 
       const component = fixture.componentInstance;
@@ -490,7 +465,7 @@ describe('DtFormField with forms', () => {
     }));
 
     it('should display an error message when global error matcher returns true', fakeAsync(() => {
-      const fixture = createComponent(DtInputWithFormErrorMessages, [{
+      const fixture = createComponentWithCutomProviders(DtInputWithFormErrorMessages, [{
         provide: ErrorStateMatcher, useValue: { isErrorState: () => true },
       }]);
 
@@ -506,7 +481,7 @@ describe('DtFormField with forms', () => {
   });
 
   it('should update the value when using FormControl.setValue', fakeAsync(() => {
-    const fixture = createComponent(DtInputWithFormControl);
+    const fixture = createComponentWithCutomProviders(DtInputWithFormControl);
     fixture.detectChanges();
 
     const input = fixture.debugElement.query(By.directive(DtInput)).injector.get<DtInput>(DtInput);
@@ -519,7 +494,7 @@ describe('DtFormField with forms', () => {
   }));
 
   it('should display disabled styles when using FormControl.disable()', fakeAsync(() => {
-    const fixture = createComponent(DtInputWithFormControl);
+    const fixture = createComponentWithCutomProviders(DtInputWithFormControl);
     fixture.detectChanges();
 
     const formFieldEl =
@@ -539,7 +514,7 @@ describe('DtFormField with forms', () => {
   }));
 });
 
-function createComponent<T>(
+function createComponentWithCutomProviders<T>(
   component: Type<T>,
   providers: Provider[] = [],
   // tslint:disable-next-line:no-any
@@ -699,7 +674,7 @@ class DtInputWithReadonlyInput { }
   `,
 })
 class DtInputWithFormErrorMessages {
-  @ViewChild('form', { static: true }) form: NgForm;
+  @ViewChild('form', { static: false }) form: NgForm;
   formControl = new FormControl('', (control: AbstractControl) => Validators.required(control));
   renderError = true;
 }
@@ -716,7 +691,7 @@ class DtInputWithFormErrorMessages {
   `,
 })
 class DtInputWithFormGroupErrorMessages {
-  @ViewChild(FormGroupDirective, { static: true }) formGroupDirective: FormGroupDirective;
+  @ViewChild(FormGroupDirective, { static: false }) formGroupDirective: FormGroupDirective;
   formGroup = new FormGroup({
     name: new FormControl('', (control: AbstractControl) => Validators.required(control)),
   });

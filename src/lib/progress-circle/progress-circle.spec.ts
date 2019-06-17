@@ -5,6 +5,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DtProgressCircleModule } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtProgressCircle', () => {
   beforeEach(async(() => {
@@ -19,32 +20,28 @@ describe('DtProgressCircle', () => {
   }));
 
   it('should define a default value of zero for the value attribute', () => {
-    const fixture = TestBed.createComponent(BasicProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(BasicProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     expect(progressElement.componentInstance.value).toBe(0);
   });
 
   it('should define a default value of zero for the min attribute', () => {
-    const fixture = TestBed.createComponent(BasicProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(BasicProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     expect(progressElement.componentInstance.min).toBe(0);
   });
 
   it('should define a default value of 100 for the max attribute', () => {
-    const fixture = TestBed.createComponent(BasicProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(BasicProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     expect(progressElement.componentInstance.max).toBe(100);
   });
 
   it('should clamp the value of the progress between 0 and 100', () => {
-    const fixture = TestBed.createComponent(BasicProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(BasicProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     const progressComponent = progressElement.componentInstance;
@@ -66,8 +63,7 @@ describe('DtProgressCircle', () => {
   });
 
   it('should accept the value, min and max attribute as an input', () => {
-    const fixture = TestBed.createComponent(ValueProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(ValueProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     expect(progressElement.componentInstance.value).toBe(150);
@@ -76,24 +72,21 @@ describe('DtProgressCircle', () => {
   });
 
   it('should calculate the percentage based on value, min and max', () => {
-    const fixture = TestBed.createComponent(ValueProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(ValueProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     expect(progressElement.componentInstance.percent).toBe(50);
   });
 
   it('should calculate the dash offset based the percentage', () => {
-    const fixture = TestBed.createComponent(ValueProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(ValueProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     expect(progressElement.componentInstance._dashOffset).toBe(164);
   });
 
   it('should set the min, max and value aria attribute accordingly', () => {
-    const fixture = TestBed.createComponent(ValueProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(ValueProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     expect(progressElement.nativeElement.getAttribute('aria-valuemin')).toBe('100');
@@ -102,8 +95,7 @@ describe('DtProgressCircle', () => {
   });
 
   it('should augment an existing class with a color property', () => {
-    const fixture = TestBed.createComponent(ColorProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(ColorProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     const instance = progressElement.componentInstance;
@@ -118,8 +110,7 @@ describe('DtProgressCircle', () => {
   });
 
   it('should remove old color classes if new color is set', () => {
-    const fixture = TestBed.createComponent(ColorProgressCircle);
-    fixture.detectChanges();
+    const fixture = createComponent(ColorProgressCircle);
 
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     const instance = progressElement.componentInstance;
@@ -139,7 +130,7 @@ describe('DtProgressCircle', () => {
 
   it('should fire valueChange event', () => {
     const spy = jasmine.createSpy();
-    const fixture = TestBed.createComponent(ColorProgressCircle);
+    const fixture = createComponent(ColorProgressCircle);
     const progressElement = fixture.debugElement.query(By.css('dt-progress-circle'));
     const instance = progressElement.componentInstance;
     instance.valueChange.subscribe(spy);

@@ -7,6 +7,7 @@ import { DtTabsModule, DtTab, DtLogConsumer, DtLogEntry, DT_TABGROUP_SINGLE_TAB_
 import { By } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/angular-components/tabs/tab-group';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtTabs', () => {
   beforeEach(async(() => {
@@ -29,7 +30,7 @@ describe('DtTabs', () => {
     let component: SimpleTabsTestApp;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(SimpleTabsTestApp);
+      fixture = createComponent(SimpleTabsTestApp);
       element = fixture.nativeElement;
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -139,7 +140,7 @@ describe('DtTabs', () => {
     let component: DynamicTabsTestApp;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(DynamicTabsTestApp);
+      fixture = createComponent(DynamicTabsTestApp);
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
@@ -203,7 +204,7 @@ describe('DtTabs', () => {
 
   describe('lazy loading', () => {
     it('should lazy load the second tab', () => {
-      const fixture = TestBed.createComponent(LazyTabsTestApp);
+      const fixture = createComponent(LazyTabsTestApp);
       fixture.detectChanges();
 
       const lazyFirst = fixture.debugElement.query(By.css('.lazy-first'));
@@ -222,7 +223,7 @@ describe('DtTabs', () => {
 
   describe('logging errors', () => {
     it('should log an error if only one tab is rendered', () => {
-      const fixture = TestBed.createComponent(ErrorTabsTestApp);
+      const fixture = createComponent(ErrorTabsTestApp);
       fixture.detectChanges();
 
       const logEntry = fixture.componentInstance.lastLogEntry;
@@ -231,6 +232,8 @@ describe('DtTabs', () => {
     });
 
     it('should log an error if only one tab is rendered at runtime', () => {
+      // We need to create the component directly via the TestBed
+      // because we specifically want to create the error after the second change detection.
       const fixture = TestBed.createComponent(ErrorTabsTestApp);
       fixture.componentInstance.secondTab = true;
       fixture.detectChanges();
@@ -246,7 +249,7 @@ describe('DtTabs', () => {
     });
 
     it('should log an error if all tabs get disabled', () => {
-      const fixture = TestBed.createComponent(ErrorTabsTestApp);
+      const fixture = createComponent(ErrorTabsTestApp);
       fixture.componentInstance.secondTab = true;
       fixture.componentInstance.disableAll = true;
       fixture.detectChanges();

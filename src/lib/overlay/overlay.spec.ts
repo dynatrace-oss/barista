@@ -8,6 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { ESCAPE } from '@angular/cdk/keycodes';
+import { createComponent } from '../../testing/create-component';
 
 describe('DtOverlay', () => {
   let dtOverlay: DtOverlay;
@@ -30,10 +31,7 @@ describe('DtOverlay', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestComponent);
-
-    fixture.detectChanges();
-
+    fixture = createComponent(TestComponent);
   });
 
   afterEach(() => {
@@ -129,7 +127,7 @@ describe('DtOverlay', () => {
 })
 class TestComponent {
   @ViewChild('trigger', { static: true }) trigger: ElementRef;
-  // tslint:disable-next-line:no-any
+
   @ViewChild('overlay', { static: true }) overlay: TemplateRef<any>;
 }
 

@@ -1,4 +1,5 @@
-// tslint:disable:i18n newline-per-chained-call no-floating-promises no-magic-numbers
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -6,6 +7,7 @@ import { TestBed, fakeAsync, ComponentFixture, tick } from '@angular/core/testin
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtFilterFieldTag, DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { createComponent } from '../../../testing/create-component';
 
 describe('DtFilterFieldTag', () => {
   let fixture: ComponentFixture<TestApp>;
@@ -24,8 +26,7 @@ describe('DtFilterFieldTag', () => {
       declarations: [TestApp],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TestApp);
-    fixture.detectChanges();
+    fixture = createComponent(TestApp);
     filterFieldTag = fixture.debugElement.query(By.directive(DtFilterFieldTag)).componentInstance;
     filterFieldTagHost = fixture.debugElement.query(By.css('.dt-filter-field-tag')).nativeElement;
     editButton = fixture.debugElement.query(By.css('.dt-filter-field-tag-label')).nativeElement;
