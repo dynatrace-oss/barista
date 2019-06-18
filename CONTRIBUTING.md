@@ -35,6 +35,9 @@ Before you submit your Pull Request (PR) consider the following guidelines:
     git push -f
     ```
 
+### PR approved – and now?
+Once your pull request is approved and ready to merge, it gets marked as `[merge-ready]` in the title and your work is done. The PR can only be merged into master by repository administrators. This is always done with the next [release of the Angular components](***REMOVED*** If the PR contains a [breaking change](#breaking-changes), it is released with the next major version upgrade.
+
 ## Commit Message Guidelines
 
 ***Commit Message Format***
@@ -59,3 +62,13 @@ The scope could be anything specifying place of the commit change, in most cases
 
 **Example**
 `***REMOVED*** feat(filter-field): added node removal on backspace`
+
+## Breaking changes
+Breaking changes can not always be avoided, so if you have to do one, consider the following guidelines:
+* If possible, deprecate and mark as a breaking change for the next (future) major release. Example:
+  ```
+    // @deprecated Use `DT_SOME_OTHER_OPTION` instead.
+    // @breaking-change 2.0.0 To be changed to `DT_SOME_OTHER_OPTION`
+    export const DT_SOME_OPTION = {};
+  ```
+* If you cannot deprecate, apply this breaking change, and commit it with the `BREAKING CHANGE` label (all uppercase) in the commit message!
