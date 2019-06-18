@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
+import { createComponent } from '../../../testing/create-component';
 
 describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;
@@ -43,9 +44,8 @@ describe('DtSort', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DtTableSortApp);
+    fixture = createComponent(DtTableSortApp);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   describe('checking correct icon for its various states', () => {
@@ -310,10 +310,8 @@ function testSingleColumnSortDirectionSequence(fixture: ComponentFixture<DtTable
   expect(component.dtSort.direction).toBe(expectedSequence[0]);
 }
 
-// tslint:disable-next-line:no-any
 class FakeDataSource extends DataSource<any> {
 
-  // tslint:disable-next-line:no-any
   connect(collectionViewer: CollectionViewer): Observable<any[]> {
     return collectionViewer.viewChange.pipe(map(() => []));
   }
@@ -376,13 +374,12 @@ class DtTableSortApp {
   sortAriaLabel = 'Sort column b';
 
   @ViewChild(DtSort, { static: true }) dtSort: DtSort;
-  @ViewChild('sortHeaderA', { static: true }) sortHeaderA: DtSortHeader;
-  @ViewChild('sortHeaderB', { static: true }) sortHeaderB: DtSortHeader;
-  @ViewChild('sortHeaderC', { static: true }) sortHeaderC: DtSortHeader;
+  @ViewChild('sortHeaderA', { static: false }) sortHeaderA: DtSortHeader;
+  @ViewChild('sortHeaderB', { static: false }) sortHeaderB: DtSortHeader;
+  @ViewChild('sortHeaderC', { static: false }) sortHeaderC: DtSortHeader;
 
   @ViewChildren(DtCell) cells: QueryList<DtCell>;
 
-  // tslint:disable-next-line:no-any
   dataSource: FakeDataSource | any[] = new FakeDataSource();
 
   columnsToRender = ['column_a', 'column_b', 'column_c'];
