@@ -37,21 +37,6 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   constructor(private _cd: ChangeDetectorRef) {
   }
 
-  private _disabled = false;
-  /**
-   * @deprecated The copy-to-clipboard component should not be disabled.
-   * @breaking-change To be removed with 3.0.0.
-   */
-  @Input()
-  get disabled(): boolean {
-    return this._disabled;
-  }
-  set disabled(value: boolean) {
-    this._disabled = value;
-    if (this.inputComponent) {
-      this.inputComponent.disabled = value;
-    }
-  }
   @Output() readonly copied: EventEmitter<void> = new EventEmitter();
   @Output() readonly copyFailed: EventEmitter<void> = new EventEmitter();
   @Output() readonly afterCopy: EventEmitter<void> = new EventEmitter();
@@ -67,11 +52,7 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   @ViewChild('copyButton', { read: ElementRef, static: true }) private copyButton: ElementRef;
 
   copyToClipboard(): void {
-    if (this._disabled) {
-      return;
-    }
     if (this.input) {
-
       this.input.nativeElement.select();
       const copyResult = document.execCommand('copy');
       if (!copyResult) {
