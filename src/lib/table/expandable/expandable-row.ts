@@ -61,19 +61,6 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
   private _expanded = false;
   private _uniqueId = `dt-expandable-row-${nextUniqueId++}`;
 
-  /**
-   * @deprecated Please use the multiExpand Input of the dt-table instead.
-   * @breaking-change To be removed with 3.0.0.
-   * Multiple rows can be expanded at a time if set to true (default: false)
-   */
-  @Input()
-  set multiple(value: boolean) {
-    const coercedValue = coerceBooleanProperty(value);
-    if (!this._table.multiExpand && coercedValue) {
-      this._table.multiExpand = coercedValue;
-    }
-  }
-
   /** The expanded state of the row. */
   @Input()
   get expanded(): boolean {
