@@ -13,7 +13,6 @@ import {
   NgZone,
   Inject,
 } from '@angular/core';
-import { DtExpandableRow } from './expandable/expandable-row';
 import { _DtTableBase } from './base-table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
@@ -57,14 +56,6 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   @Input()
   get loading(): boolean { return this._loading; }
   set loading(value: boolean) { this._loading = coerceBooleanProperty(value); }
-
-  /**
-   * @deprecated Use loading instead.
-   * @breaking-change To be removed with 3.0.0.
-   */
-  @Input()
-  get isLoading(): boolean { return this._loading; }
-  set isLoading(value: boolean) { this._loading = coerceBooleanProperty(value); }
 
   /** Whether multiple rows can be expanded at a time. */
   @Input()
