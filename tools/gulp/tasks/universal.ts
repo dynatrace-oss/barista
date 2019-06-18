@@ -39,7 +39,7 @@ task('universal:copy-lib', () =>
 
 task('universal:build', series(
   'clean:universal',
-  process.env.SKIP_BUILD === 'true' ? '' : 'library:build',
+  process.env.SKIP_BUILD === 'true' ? (done) => { done(); } : 'library:build',
   parallel('universal:copy-lib', 'universal:copy-files'),
   'universal:build-app-ts',
   'universal:build-prerender-ts'
