@@ -48,11 +48,6 @@ let nextUniqueId = 0;
   },
 })
 export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
-  /**
-   * _expandableRows are used by expandedRow() getter.
-   * @breaking-change To be removed with 3.0.0.
-   */
-  private _expandableRows = new Set<DtExpandableRow>();
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
@@ -80,17 +75,6 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   get isEmptyDataSource(): boolean {
     return !(this._data && this._data.length);
   }
-
-  /**
-   * @deprecated Please use openedChange Output of dt-expandable-row instead.
-   * @breaking-change To be removed with 3.0.0.
-   * the expanded row of the table
-   */
-  get expandedRow(): DtExpandableRow | undefined {
-    return Array.from(this._expandableRows)
-      .filter((row) => row.expanded)[0];
-  }
-  set expandedRow(_value: DtExpandableRow | undefined) { }
 
   /** @internal List of all simpleColumns within the table. */
   // tslint:disable-next-line: no-any
@@ -154,22 +138,6 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     if (this.isEmptyDataSource) {
       this._changeDetectorRef.markForCheck();
     }
-  }
-
-  /**
-   * _expandableRows are used by expandedRow() getter.
-   * @breaking-change To be removed with 3.0.0.
-   */
-  _registerExpandableRow(row: DtExpandableRow): void {
-    this._expandableRows.add(row);
-  }
-
-  /**
-   * _expandableRows are used by expandedRow() getter.
-   * @breaking-change To be removed with 3.0.0.
-   */
-  _unregisterExpandableRow(row: DtExpandableRow): void {
-    this._expandableRows.delete(row);
   }
 
   protected stickyCssClass = 'dt-table-sticky';
