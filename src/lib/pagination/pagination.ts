@@ -22,17 +22,6 @@ import {
 import { isNumber } from '@dynatrace/angular-components/core';
 import { AsyncSubject } from 'rxjs';
 
-/**
- * @internal
- * @deprecated Is not used anymore!
- * @breaking-change To be removed with 3.0.0.
- * Component-internal data-structure
- */
-export interface PaginationNumberType {
-  page: number;
-  state: 'normal' | 'active' | 'ellipsis';
-}
-
 @Component({
   moduleId: module.id,
   exportAs: 'dtPagination',
