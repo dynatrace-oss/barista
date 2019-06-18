@@ -138,7 +138,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   // tslint:disable-next-line:no-any
   @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
   @ViewChild('panel', { static: false }) panel: ElementRef;
-  @ContentChildren(DtOption, { descendants: false }) options: QueryList<DtOption<T>>;
+  @ContentChildren(DtOption, { descendants: true }) options: QueryList<DtOption<T>>;
   @ContentChildren(DtOptgroup) optionGroups: QueryList<DtOptgroup>;
 
   constructor(
