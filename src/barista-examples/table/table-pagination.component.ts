@@ -24,6 +24,7 @@ import { DtSort, DtTableDataSource, formatPercent, formatBytes, formatRate, DtIn
     :host {
       display: flex;
       align-items: flex-start;
+      flex-direction: column;
     }
 
     dt-pagination {
