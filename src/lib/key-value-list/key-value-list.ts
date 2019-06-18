@@ -44,10 +44,7 @@ export class DtKeyValueList implements AfterContentInit, OnDestroy {
 
   /** If not set programatically, columns are calclated depending on the number of items. */
   @Input()
-  get columns(): number {
-    // @breaking-change 3.0.0 changed to this._columns.
-    return this._calculatedColumns;
-  }
+  get columns(): number { return this._columns; }
   set columns(newValue: number) {
     const coerced = coerceNumberProperty(newValue);
     this._columns = coerced;
