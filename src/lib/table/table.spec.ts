@@ -513,13 +513,11 @@ describe('DtTable', () => {
 
 /**
  * Test component that contains a DtTable.
- * The example component uses the deprecated isLoading-Input on the table.
- * @breaking-change Update "isLoading" to "loading" with 3.0.0.
  */
 @Component({
   selector: 'dt-test-app',
   template: `
-  <dt-table [dataSource]="dataSource" [isLoading]="loading">
+  <dt-table [dataSource]="dataSource" [loading]="loading">
     <ng-container dtColumnDef="col1" [dtColumnProportion]="2" dtColumnAlign="center">
       <dt-header-cell *dtHeaderCellDef>column 1</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{row.col1}}</dt-cell>
