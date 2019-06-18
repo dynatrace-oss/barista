@@ -58,13 +58,6 @@ function addDeclarationsToKitchenSink(options: DtComponentOptions): Rule {
     const importChange = addDynatraceSubPackageImport(sourceFilePath, sourceFile, options);
     const changes = [importChange];
 
-    /**
-     * add it to the imports declaration in the module
-     * since we have 2 imports property assignments we need to find the one with Dt***Module entries
-     * get the indentation and the end and add a new import
-     */
-    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
-
     changes.push(addToNgModule(sourceFilePath, sourceFile, options.moduleName, 'imports'));
     return commitChanges(host, changes, sourceFilePath);
   };
@@ -91,7 +84,7 @@ function addComponentToUiTestModule(options: DtComponentOptions): Rule {
     const sourceFilePath = path.join('src', 'ui-test-app', 'ui-test-app-module.ts');
     const sourceFile = getSourceFile(host, sourceFilePath);
 
-    const changes = [];
+    const changes: InsertChange[] = [];
     /** @dynatrace/angular-component import */
     changes.push(addDynatraceSubPackageImport(sourceFilePath, sourceFile, options));
 
@@ -133,7 +126,7 @@ function addRouteInUITestApp(options: DtComponentOptions): Rule {
     const routesDeclaration = findNodes(sourceFile, ts.SyntaxKind.VariableDeclaration)
     .find((node: ts.VariableDeclaration) => node.name.getText() === 'UI_TEST_APP_ROUTES') as ts.VariableDeclaration;
     const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression).elements;
-    const end = (routes[routes.length - 1] as ts.Expression).getStart();
+    const end = (routes[routes.length - 1]).getStart();
     const indentation = getIndentation(routes);
     const toInsert = `{ path: '${strings.dasherize(options.name)}', component: ${importName} },${indentation}`;
     const routesChange = new InsertChange(modulePath, end, toInsert);
@@ -167,7 +160,7 @@ function addRouteToDevApp(options: DtComponentOptions): Rule {
     const routesDeclaration = findNodes(sourceFile, ts.SyntaxKind.VariableDeclaration)
     .find((node: ts.VariableDeclaration) => node.name.getText() === 'routes') as ts.VariableDeclaration;
     const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression).elements;
-    const end = (routes[routes.length - 1] as ts.Expression).getStart();
+    const end = (routes[routes.length - 1]).getStart();
     const indentation = getIndentation(routes);
     const toInsert = `{ path: '${strings.dasherize(options.name)}', component: ${importName} },${indentation}`;
     const routesChange = new InsertChange(modulePath, end, toInsert);
@@ -184,12 +177,13 @@ function addReferenceToDevAppDtComponentsModule(options: DtComponentOptions): Ru
     const changes: InsertChange[] = [];
     const importName = `Dt${strings.classify(options.name)}Module`;
 
-    changes.push(addDynatraceAngularComponentsImport(sourceFile, sourceFilePath, importName))
+    changes.push(addDynatraceAngularComponentsImport(sourceFile, sourceFilePath, importName));
     changes.push(addToNgModule(sourceFilePath, sourceFile, importName, 'exports'));
     return commitChanges(host, changes, sourceFilePath);
-  }
+  };
 }
 
+// tslint:disable-next-line: no-default-export
 export default function(options: DtComponentOptions): Rule {
   options.moduleName = `Dt${strings.classify(options.name)}Module`;
   options.selector = `dt-${strings.dasherize(options.name)}`;
