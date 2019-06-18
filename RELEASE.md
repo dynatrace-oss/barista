@@ -1,14 +1,8 @@
 # Releasing
 
-## Breaking changes
-Breaking changes can not always be avoided, so if you have to do one, consider the following guidelines:
-* If possible, deprecate and mark as a breaking change for the next (future) major release. Example:
-  ```
-    // @deprecated Use `DT_SOME_OTHER_OPTION` instead.
-    // @breaking-change 2.0.0 To be changed to `DT_SOME_OTHER_OPTION`
-    export const DT_SOME_OPTION = {};
-  ```
-* If you cannot deprecate, apply this breaking change, and commit it with the `BREAKING CHANGE` label (all uppercase) in the commit message!
+A new version of the Angular components is released at least once at the end of each sprint. If there are fixes and features ready earlier, a release in the middle of a sprint is also possible.
+
+[Breaking changes](***REMOVED*** are released with the next (future) major version.
 
 ## How to Release
 **Note: Releasing should only be done by the maintainers of the angular-components.**
