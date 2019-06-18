@@ -48,25 +48,24 @@ describe('MixinProgress', () => {
 
     const classWithProgress = mixinHasProgress(EmptyClass);
     class EmptyClassImpl extends classWithProgress implements HasProgressValues {
-      eventCounter = 0;
-
-      _emitValueChangeEvent(oldValue: number, newValue: number): void {
-        this.eventCounter++;
-      }
     }
 
+    const spy = jasmine.createSpy();
     const instance = new EmptyClassImpl();
+    const sub = instance.valueChange.subscribe(spy);
 
-    expect(instance.eventCounter).toBe(0);
+    expect(spy).toHaveBeenCalledTimes(0);
 
     instance.value = 50;
-    expect(instance.eventCounter).toBe(1);
+    expect(spy).toHaveBeenCalledTimes(1);
 
     instance.value = 200;
-    expect(instance.eventCounter).toBe(2);
+    expect(spy).toHaveBeenCalledTimes(2);
 
     instance.value = 200;
-    expect(instance.eventCounter).toBe(2); // still 2
+    expect(spy).toHaveBeenCalledTimes(2);
+
+    sub.unsubscribe();
   });
 
 });

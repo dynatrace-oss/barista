@@ -1,6 +1,7 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Constructor } from './constructor';
 import { clamp } from '../util/number-util';
+import { EventEmitter } from '@angular/core';
 
 export interface DtProgressChange {
   newValue: number;
@@ -8,13 +9,23 @@ export interface DtProgressChange {
 }
 
 export interface HasProgressValues {
+  /** The minimum value that the slider can have. */
   min: number;
+
+  /** The maximum value that the progress component can have. */
   max: number;
+
+  /** Value of the progress component. */
   value: number;
+
+  /** The percentage of the progress component that coincides with the value. */
   percent: number;
 
+  /** Emits valueChange event if the value of the progress is updated */
+  valueChange: EventEmitter<DtProgressChange>;
+
+  /** @internal */
   _updateValues(): void;
-  _emitValueChangeEvent(oldValue: number, newValue: number): void;
 }
 
 /** Mixin to augment a directive with a `disabled` property. */
@@ -62,7 +73,7 @@ export function mixinHasProgress<T extends Constructor<{}>>(base: T): Constructo
 
     set value(v: number) {
       if (clamp(v) !== this.value) {
-        this._emitValueChangeEvent(coerceNumberProperty(this.value), coerceNumberProperty(clamp(v)));
+        this.valueChange.emit({ oldValue: coerceNumberProperty(this.value), newValue: coerceNumberProperty(clamp(v)) });
         this._value = coerceNumberProperty(v);
         this._updateValues();
       }
@@ -73,6 +84,9 @@ export function mixinHasProgress<T extends Constructor<{}>>(base: T): Constructo
       return this._percent;
     }
 
+    /** Emits valueChange event if the value of the progress is updated */
+    readonly valueChange = new EventEmitter<DtProgressChange>();
+
     // tslint:disable-next-line
     constructor(...args: any[]) { super(...args); }
 
@@ -82,11 +96,9 @@ export function mixinHasProgress<T extends Constructor<{}>>(base: T): Constructo
       return clamp(((value || 0) - this.min) / (this.max - this.min) * 100);
     }
 
-    /** Updates all parameters */
+    /** @internal Updates all parameters */
     _updateValues(): void {
       this._percent = this._calculatePercentage(this.value);
     }
-
-    _emitValueChangeEvent(oldValue: number, newValue: number): void { }
   };
 }

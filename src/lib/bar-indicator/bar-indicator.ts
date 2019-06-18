@@ -5,8 +5,6 @@ import {
   ElementRef,
   ChangeDetectorRef,
   Input,
-  Output,
-  EventEmitter,
 } from '@angular/core';
 import {
   mixinColor,
@@ -42,6 +40,7 @@ export const _DtBarIndicator =
     '[attr.aria-valuenow]': 'value',
   },
   inputs: ['color', 'value', 'min', 'max'],
+  outputs: ['valueChange'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
@@ -49,9 +48,6 @@ export const _DtBarIndicator =
 export class DtBarIndicator extends _DtBarIndicator implements CanColor<DtBarIndicatorThemePalette>, HasProgressValues {
 
   @Input() align: 'start' | 'end' = 'start';
-
-  @Output()
-  readonly valueChange = new EventEmitter<DtBarIndicatorChange>();
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef) {
     super(elementRef);
@@ -64,13 +60,5 @@ export class DtBarIndicator extends _DtBarIndicator implements CanColor<DtBarInd
   _updateValues(): void {
     super._updateValues();
     this._changeDetectorRef.markForCheck();
-  }
-
-  /**
-   * Emits valueChange event if the value of the bar-indicator is updated
-   * @internal
-   */
-  _emitValueChangeEvent(oldValue: number, newValue: number): void {
-    this.valueChange.emit({ oldValue, newValue });
   }
 }

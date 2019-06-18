@@ -22,7 +22,7 @@ describe('DtCopyToClipboard', () => {
     });
     TestBed.compileComponents();
     // tslint:disable-next-line:no-any
-    document.execCommand = (commandId: string, showUI?: boolean, value?: any): boolean => true;
+    document.execCommand = (): boolean => true;
   }));
 
   it('should trigger callback - at least 1 copy must be called', (): void => {

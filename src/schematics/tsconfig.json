@@ -11,6 +11,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "rootDir": ".",
     "outDir": "../../node_modules/@dynatrace/components-schematics/",

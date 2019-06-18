@@ -1,4 +1,14 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ChangeDetectorRef, ElementRef, Attribute, IterableDiffers, Optional, TrackByFunction, isDevMode, Inject } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  Input,
+  ChangeDetectorRef,
+  ElementRef,
+  Attribute,
+  IterableDiffers,
+  Inject
+} from '@angular/core';
 import { DtTreeControl } from '@dynatrace/angular-components/core';
 import { _DtTableBase } from '@dynatrace/angular-components/table';
 import { DOCUMENT } from '@angular/common';

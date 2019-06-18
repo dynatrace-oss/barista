@@ -2,7 +2,7 @@ import { Directive, Input, ElementRef, TemplateRef, NgZone, Attribute } from '@a
 import { DtOverlay } from './overlay';
 import { DtOverlayConfig } from './overlay-config';
 import { DtOverlayRef } from './overlay-ref';
-import { Subscription, fromEvent, Subject } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinTabIndex, HasTabIndex, mixinDisabled, CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
@@ -29,7 +29,6 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   private _config: DtOverlayConfig = new DtOverlayConfig();
   private _dtOverlayRef: DtOverlayRef<T> | null = null;
   private _moveSub = Subscription.EMPTY;
-  private _dismissed = new Subject<void>();
 
   /** Overlay pane containing the content */
   @Input('dtOverlay')

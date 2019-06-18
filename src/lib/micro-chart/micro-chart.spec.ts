@@ -184,8 +184,6 @@ describe('DtMicroChart', () => {
       const {fixture, microChartComponent} = setupTestCase(Formatter);
       fixture.detectChanges();
 
-      const data = microChartComponent.highchartsOptions.series![0].data as DataPoint[];
-
       expect(microChartComponent.labelFormatter).toEqual(fixture.componentInstance.formatterFn);
       expect(fixture.componentInstance.formatterInvocations).toEqual(2);
     });

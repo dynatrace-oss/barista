@@ -1,10 +1,12 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewEncapsulation } from '@angular/core';
 import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter, ElementRef,
-
-} from '@angular/core';
-import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress, Constructor } from '@dynatrace/angular-components/core';
+  CanColor,
+  Constructor,
+  DtProgressChange,
+  HasProgressValues,
+  mixinColor,
+  mixinHasProgress
+} from '@dynatrace/angular-components/core';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */
 const CIRCLE_CIRCUMFERENCE = 328;
@@ -34,13 +36,11 @@ export const _DtProgressCircle =
     '[attr.aria-valuenow]': 'value',
   },
   inputs: ['color', 'value', 'min', 'max'],
+  outputs: ['valueChange'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtProgressCircle extends _DtProgressCircle implements CanColor<DtProgressCircleThemePalette>, HasProgressValues {
-
-  @Output()
-  readonly valueChange = new EventEmitter<DtProgressCircleChange>();
 
   /** Dash offset base on the values percentage */
   _dashOffset: number = CIRCLE_CIRCUMFERENCE;
@@ -63,9 +63,5 @@ export class DtProgressCircle extends _DtProgressCircle implements CanColor<DtPr
   private _calculateDashOffset(percent: number): number {
     // tslint:disable-next-line: no-magic-numbers
     return CIRCLE_CIRCUMFERENCE - (CIRCLE_CIRCUMFERENCE / 100 * percent);
-  }
-
-  _emitValueChangeEvent(oldValue: number, newValue: number): void {
-    this.valueChange.emit({oldValue, newValue});
   }
 }

@@ -90,7 +90,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     return Array.from(this._expandableRows)
       .filter((row) => row.expanded)[0];
   }
-  set expandedRow(value: DtExpandableRow | undefined) { }
+  set expandedRow(_value: DtExpandableRow | undefined) { }
 
   /** @internal List of all simpleColumns within the table. */
   // tslint:disable-next-line: no-any

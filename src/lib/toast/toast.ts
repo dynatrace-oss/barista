@@ -6,7 +6,6 @@ import { DtToastRef } from './toast-ref';
 import { DT_TOAST_BOTTOM_SPACING, DT_TOAST_DEFAULT_CONFIG, DT_TOAST_PERCEIVE_TIME, DT_TOAST_CHAR_READ_TIME, DT_TOAST_MIN_DURATION, DT_TOAST_CHAR_LIMIT } from './toast-config';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
 import { Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtToast');
 
