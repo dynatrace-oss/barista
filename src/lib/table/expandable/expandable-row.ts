@@ -9,7 +9,6 @@ import {
   Output,
   Renderer2,
   ViewChild,
-  ViewContainerRef,
   ViewEncapsulation,
   OnDestroy,
 } from '@angular/core';
@@ -18,7 +17,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
 import { DtRow } from '../row';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { map, filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 let nextUniqueId = 0;
 export class DtExpandableRowChangeEvent {
