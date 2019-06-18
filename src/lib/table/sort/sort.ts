@@ -1,7 +1,6 @@
 import { Directive, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, Output, OnInit } from '@angular/core';
-import { CanDisable, mixinDisabled } from '@dynatrace/angular-components/core';
+import { CanDisable, mixinDisabled, DtSortDirection } from '@dynatrace/angular-components/core';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { DtSortDirection } from './sort-direction';
 import { getDtSortInvalidDirectionError } from './sort-errors';
 import { DtSortHeader } from './sort-header';
 
