@@ -56,10 +56,10 @@ export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, After
     public _columnDef: DtColumnDef,
     public _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
-    private _elementRef: ElementRef,
+    elementRef: ElementRef,
     @SkipSelf() private _treeTable: DtTreeTable<T>
   ) {
-    super(_columnDef, _changeDetectorRef, _renderer, _elementRef);
+    super(_columnDef, _changeDetectorRef, _renderer, elementRef);
     // subscribe to changes in the expansionmodel and check if rowsData is part of the added or removed
     this._expansionSub = this._treeControl.expansionModel.changed.pipe(
       filter((changed: SelectionChange<T>) => changed.added.includes(this._rowData) || changed.removed.includes(this._rowData)))

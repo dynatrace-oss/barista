@@ -14,11 +14,11 @@ export function calculatePages(numberOfPages: number, currentPage: number): numb
 
   if (numberOfPages < MAX_PAGINATION_ITEMS) {
     // create an Array with the length of numberOfPages that starts with one and ends with n
-    return [Array.from({length: numberOfPages}, (v, index) => index + 1)];
+    return [Array.from({length: numberOfPages}, (_, index) => index + 1)];
   }
 
-  const start = new Set<number>(Array.from({length: BOUND}, (v, index) => index + 1));
-  const end = new Set<number>(Array.from({length: BOUND}, (v, index) =>  numberOfPages - BOUND + index + 1));
+  const start = new Set<number>(Array.from({length: BOUND}, (_, index) => index + 1));
+  const end = new Set<number>(Array.from({length: BOUND}, (_, index) =>  numberOfPages - BOUND + index + 1));
   const middle = new Set<number>();
 
   if (start.has(currentPage)) {

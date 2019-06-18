@@ -27,7 +27,6 @@ export class DtHeaderCell implements OnDestroy {
   /** Destroy subject which will fire when the component gets destroyed. */
   private _destroy = new Subject<void>();
 
-  // tslint:disable-next-line:no-unused-variable
   constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
     columnDef._stateChanges
     .pipe(

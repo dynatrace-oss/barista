@@ -220,15 +220,10 @@ class FakeDataSource {
     this.addChild(child);
   }
 
-  addChild(parent: TestData, isSpecial: boolean = false): TestData {
+  addChild(parent: TestData): TestData {
     const nextIndex = ++this.dataIndex;
     const child = new TestData(`topping_${nextIndex}`, `cheese_${nextIndex}`, `base_${nextIndex}`);
-    let newParent;
     const index = this.data.indexOf(parent);
-    if (index > -1) {
-      newParent = new TestData(
-          parent.pizzaTopping, parent.pizzaCheese, parent.pizzaBase, parent.children, isSpecial);
-    }
     parent.children.push(child);
     parent.observableChildren.next(parent.children);
 

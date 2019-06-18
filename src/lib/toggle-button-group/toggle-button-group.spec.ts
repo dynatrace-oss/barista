@@ -155,18 +155,12 @@ describe('DtToggleButtonGroup', () => {
 
   describe('with a preselected item', () => {
     let fixture: ComponentFixture<OneSelectedToggleButtonGroupTestApp>;
-    let element: HTMLElement;
     let component: DtToggleButtonGroup<string>;
-    let itemElements: DebugElement[];
-    let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
       fixture = createComponent(OneSelectedToggleButtonGroupTestApp);
       fixture.detectChanges();
-      element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
-      itemElements = fixture.debugElement.queryAll(By.css('.dt-toggle-button-item'));
-      itemComponents = itemElements.map((debugEl) => debugEl.componentInstance);
     });
 
     it('should have a value on the group already', () => {
@@ -180,18 +174,12 @@ describe('DtToggleButtonGroup', () => {
 
   describe('with dynamically added/removed items', () => {
     let fixture: ComponentFixture<DynamicButtonsToggleButtonGroupTestApp>;
-    let element: HTMLElement;
     let component: DtToggleButtonGroup<string>;
-    let itemElements: DebugElement[];
-    let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
       fixture = createComponent(DynamicButtonsToggleButtonGroupTestApp);
       fixture.detectChanges();
-      element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
-      itemElements = fixture.debugElement.queryAll(By.css('.dt-toggle-button-item'));
-      itemComponents = itemElements.map((debugEl) => debugEl.componentInstance);
     });
 
     it('should have a value on the group already', () => {
@@ -227,18 +215,12 @@ describe('DtToggleButtonGroup', () => {
 
   describe('with disabled set in the template', () => {
     let fixture: ComponentFixture<OneDisabledToggleButtonGroupTestApp>;
-    let element: HTMLElement;
     let component: DtToggleButtonGroup<string>;
-    let itemElements: DebugElement[];
-    let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
       fixture = createComponent(OneDisabledToggleButtonGroupTestApp);
       fixture.detectChanges();
-      element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
-      itemElements = fixture.debugElement.queryAll(By.css('.dt-toggle-button-item'));
-      itemComponents = itemElements.map((debugEl) => debugEl.componentInstance);
     });
 
     it('should disable the first item', () => {
@@ -292,18 +274,12 @@ describe('DtToggleButtonGroup', () => {
 
   describe('with bound properties', () => {
     let fixture: ComponentFixture<PropertybindingToggleButtonGroupTestApp>;
-    let element: HTMLElement;
     let component: DtToggleButtonGroup<string>;
-    let itemElements: DebugElement[];
-    let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
       fixture = createComponent(PropertybindingToggleButtonGroupTestApp);
       fixture.detectChanges();
-      element = fixture.nativeElement;
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
-      itemElements = fixture.debugElement.queryAll(By.css('.dt-toggle-button-item'));
-      itemComponents = itemElements.map((debugEl) => debugEl.componentInstance);
     });
 
     it('should have the second item disabled on bound property initially', () => {
@@ -330,18 +306,10 @@ describe('DtToggleButtonGroup', () => {
 
   describe('with aria attributes', () => {
     let fixture: ComponentFixture<AriaAttributesToggleButtonGroupTestApp>;
-    let element: HTMLElement;
-    let component: DtToggleButtonGroup<string>;
-    let itemElements: DebugElement[];
-    let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
       fixture = createComponent(AriaAttributesToggleButtonGroupTestApp);
       fixture.detectChanges();
-      element = fixture.nativeElement;
-      component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
-      itemElements = fixture.debugElement.queryAll(By.css('.dt-toggle-button-item'));
-      itemComponents = itemElements.map((debugEl) => debugEl.componentInstance);
     });
 
     it('should have aria-label reflected on the item', () => {
@@ -380,18 +348,10 @@ describe('DtToggleButtonGroup', () => {
 
   describe('with focus management', () => {
     let fixture: ComponentFixture<SimpleToggleButtonGroupTestApp>;
-    let element: HTMLElement;
-    let component: DtToggleButtonGroup<string>;
-    let itemElements: DebugElement[];
-    let itemComponents: Array<DtToggleButtonItem<string>>;
 
     beforeEach(() => {
       fixture = createComponent(SimpleToggleButtonGroupTestApp);
       fixture.detectChanges();
-      element = fixture.nativeElement;
-      component = fixture.debugElement.query(By.css('.dt-toggle-button-group')).componentInstance;
-      itemElements = fixture.debugElement.queryAll(By.css('.dt-toggle-button-item'));
-      itemComponents = itemElements.map((debugEl) => debugEl.componentInstance);
     });
 
     it('should let the item be focussable', () => {

@@ -1,7 +1,7 @@
 import { DtToastContainer } from './toast-container';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject, Observable, fromEvent, merge, interval, EMPTY, Subscription } from 'rxjs';
-import { startWith, switchMap, mapTo, scan, takeWhile, tap, share, takeUntil } from 'rxjs/operators';
+import { startWith, switchMap, mapTo, scan, takeWhile } from 'rxjs/operators';
 import { DT_TOAST_CHAR_READ_TIME } from './toast-config';
 import { NgZone } from '@angular/core';
 

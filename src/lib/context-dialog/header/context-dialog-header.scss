@@ -10,6 +10,6 @@
 }
 
 :host ::ng-deep .dt-context-dialog-header-title {
-  @include h2-font();
+  @include dt-h2-font();
   color: $white;
 }

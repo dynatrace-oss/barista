@@ -2,6 +2,7 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "experimentalDecorators": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "lib": ["es2015", "dom", "es2016.array.include"],
     "module": "commonjs",

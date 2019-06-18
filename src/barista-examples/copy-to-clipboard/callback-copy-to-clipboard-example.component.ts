@@ -14,7 +14,6 @@ import { timer } from 'rxjs';
     </div>`,
 })
 export class CallbackCopyToClipboardExampleComponent {
-  // tslint:disable-next-line:no-unused-variable
   _copyHint = 'Will change after copy';
 
   copyCallback(): void {

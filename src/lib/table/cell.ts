@@ -110,7 +110,6 @@ export class DtCell implements AfterContentInit, OnDestroy {
   private _sortChangeSubscription: Subscription = Subscription.EMPTY;
   private _destroy = new Subject<void>();
 
-  // tslint:disable-next-line:no-unused-variable
   constructor(
     public _columnDef: DtColumnDef,
     public _changeDetectorRef: ChangeDetectorRef,
