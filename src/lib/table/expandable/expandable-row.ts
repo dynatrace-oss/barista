@@ -83,16 +83,6 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
   @Output('collapsed') readonly _collapsedStream = this.expandChange.pipe(filter((changeEvent) => !changeEvent.row.expanded));
 
   @ViewChild('dtExpandableRow', { static: true }) private _rowRef: ElementRef;
-  @ViewChild('dtExpandableContent', { read: ViewContainerRef, static: true }) private _contentViewContainer: ViewContainerRef;
-
-  /**
-   * @deprecated To be removed
-   * @breaking-change 3.0.0 To be removed
-   * ViewContainerRef to the expandable section
-   */
-  get contentViewContainer(): ViewContainerRef {
-    return this._contentViewContainer;
-  }
 
   constructor(
     // tslint:disable-next-line:no-any
