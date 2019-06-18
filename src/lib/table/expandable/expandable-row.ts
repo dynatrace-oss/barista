@@ -122,7 +122,6 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
     elementRef: ElementRef
   ) {
     super(elementRef);
-    this._table._registerExpandableRow(this);
     this._expansionDispatcher.listen((rowId, tableId) => {
       /**
        * If the table does not allow multiple rows to be expanded at a time,
@@ -133,10 +132,6 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
         this._collapse();
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this._table._unregisterExpandableRow(this);
   }
 
   private _expand(): void {
