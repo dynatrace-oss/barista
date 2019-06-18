@@ -60,9 +60,7 @@ const DEFAULT_DT_CHART_TOOLTIP_POSITIONS: ConnectedPosition[] = [
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
 })
-export class DtChartTooltip<T> implements OnDestroy, AfterViewInit {
-  /** @deprecated @breaking-change To be removed with 3.0.0. */
-  @ContentChild(TemplateRef, { static: false }) overlay: TemplateRef<T>;
+export class DtChartTooltip implements OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line:no-any
   @ContentChild(TemplateRef, { static: false }) _overlayTemplate: TemplateRef<any>;
