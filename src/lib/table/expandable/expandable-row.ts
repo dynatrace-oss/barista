@@ -82,12 +82,6 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
   /** Event emitted when the row is collapsed. */
   @Output('collapsed') readonly _collapsedStream = this.expandChange.pipe(filter((changeEvent) => !changeEvent.row.expanded));
 
-  /**
-   * @deprecated Please use expanded, collapsed or expandChange instead.
-   * @breaking-change To be removed with 3.0.0.
-   */
-  @Output() readonly openedChange = this.expandChange.pipe(map((changeEvent) => changeEvent.row));
-
   @ViewChild('dtExpandableRow', { static: true }) private _rowRef: ElementRef;
   @ViewChild('dtExpandableContent', { read: ViewContainerRef, static: true }) private _contentViewContainer: ViewContainerRef;
 
