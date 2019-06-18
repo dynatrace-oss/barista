@@ -58,7 +58,7 @@ function getExampleMetadata(sourceFiles: string[]): ExampleMetadata[] {
         sourcePath: relative(examplesDir, sourceFilePath),
       };
       parsedData.add(metadata);
-    })
+    });
   });
   return [...parsedData];
 }

@@ -36,11 +36,11 @@ describe('chart', () => {
   });
 });
 
-async function createSelectionArea(): Promise<void> {
-  await browser.actions()
-    .mouseMove(element(by.css('.dt-chart')), { x: 170, y: 100 })
-    .mouseDown()
-    .mouseMove(element(by.css('.dt-chart')), { x: 340, y: 100 })
-    .mouseUp()
-    .perform();
-}
+// async function createSelectionArea(): Promise<void> {
+//   await browser.actions()
+//     .mouseMove(element(by.css('.dt-chart')), { x: 170, y: 100 })
+//     .mouseDown()
+//     .mouseMove(element(by.css('.dt-chart')), { x: 340, y: 100 })
+//     .mouseUp()
+//     .perform();
+// }

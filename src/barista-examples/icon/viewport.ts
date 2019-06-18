@@ -1,6 +1,6 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { ScrollDispatcher, ViewportRuler } from '@angular/cdk/scrolling';
-import { map, filter, distinctUntilChanged, tap, startWith } from 'rxjs/operators';
+import { map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { Subject, Observable, merge } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
