@@ -7,7 +7,10 @@ import { replaceVersionPlaceholders } from '../util/replace-version-placeholder'
 import { execNodeTask } from '../util/task-runner';
 import { parseDir } from 'sass-graph';
 
-task('library:version-replace', replaceVersionPlaceholders);
+task('library:version-replace', (done) => {
+  replaceVersionPlaceholders();
+  done();
+});
 
 task('library:removeModuleId', () =>
   src(join(buildConfig.libOutputDir, '/**/*.js'))
