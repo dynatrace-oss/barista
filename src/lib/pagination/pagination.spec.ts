@@ -66,30 +66,6 @@ describe('DtPagination', () => {
     });
   });
 
-  /** TODO: @breaking-change 3.0.0 – remove those tests */
-  describe('legacy functionality', () => {
-
-    it('should work with the old API as well', () => {
-      const fixture = createComponent(LegacyPagination);
-      const nextButton = fixture.debugElement.nativeElement.querySelector('.dt-pagination-next button');
-      const instance = fixture.componentInstance;
-      fixture.detectChanges();
-
-      expect(instance.pagination._pages).toEqual([[1, 2, 3], [8, 9, 10]]);
-      expect(instance.pagination.currentPage).toBe(1);
-
-      dispatchFakeEvent(nextButton, 'click');
-      fixture.detectChanges();
-      expect(instance.pagination.currentPage).toBe(2);
-
-      dispatchFakeEvent(nextButton, 'click');
-      fixture.detectChanges();
-      expect(instance.pagination.currentPage).toBe(3);
-      expect(instance.pagination._pages).toEqual([[1, 2, 3, 4], [9, 10]]);
-
-    });
-  });
-
   describe('functionality of navigating through the pagination', () => {
 
     it('should create an empty pagination', () => {
