@@ -35,7 +35,7 @@ export class DtExpandablePanelTrigger implements CanDisable, AfterContentInit, O
   }
 
   ngAfterContentInit(): void {
-    this._subscription = this._expandable.openedChange.subscribe((opened) => {
+    this._subscription = this._expandable.openedChange.subscribe(() => {
       this._changeDetectorRef.markForCheck();
     });
   }
@@ -66,7 +66,6 @@ export class DtExpandablePanelTrigger implements CanDisable, AfterContentInit, O
   }
 
   @HostListener('click', ['$event'])
-  // tslint:disable-next-line:no-unused-variable
   _onClick(event: MouseEvent): void {
     if (this._expandable) {
       this._expandable.toggle();
@@ -75,7 +74,6 @@ export class DtExpandablePanelTrigger implements CanDisable, AfterContentInit, O
   }
 
   @HostListener('keydown', ['$event'])
-  // tslint:disable-next-line:no-unused-variable
   _handleKeydown(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
     const isAltKey = event.altKey;

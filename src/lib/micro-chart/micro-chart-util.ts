@@ -42,7 +42,7 @@ export function extractGaps(data: DataPoint[]): Array<[number, number]> {
   const gaps: Array<[number, number]> = [];
   let gapStart = 0;
 
-  data.forEach((p: DataPoint, i: number) => {
+  data.forEach((_p: DataPoint, i: number) => {
     const isStartOfGap = isGapStart(i, data);
     const isEndOfGap = isGapEnd(i, data);
 

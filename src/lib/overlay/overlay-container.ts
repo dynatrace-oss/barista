@@ -30,10 +30,10 @@ export class DtOverlayContainerBase extends BasePortalOutlet implements HasNgZon
   constructor(public _ngZone: NgZone) {
     super();
   }
-  attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
+  attachComponentPortal<T>(_portal: ComponentPortal<T>): ComponentRef<T> {
     throw new Error('Method not implemented.');
   }
-  attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
+  attachTemplatePortal<C>(_portal: TemplatePortal<C>): EmbeddedViewRef<C> {
     throw new Error('Method not implemented.');
   }
 }

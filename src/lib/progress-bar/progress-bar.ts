@@ -4,8 +4,6 @@ import {
   ViewEncapsulation,
   Input,
   ChangeDetectorRef,
-  Output,
-  EventEmitter,
   ElementRef,
   ContentChild,
 } from '@angular/core';
@@ -39,15 +37,13 @@ export const _DtProgressBar =
     '[attr.aria-valuenow]': 'value',
   },
   inputs: ['color', 'value', 'min', 'max'],
+  outputs: ['valueChange'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtProgressBar extends _DtProgressBar implements CanColor<DtProgressBarThemePalette>, HasProgressValues {
 
   @Input() align: 'start' | 'end' = 'start';
-
-  @Output()
-  readonly valueChange = new EventEmitter<DtProgressBarChange>();
 
   /** Contentchildren reference to the description and count sub-components */
   @ContentChild(DtProgressBarDescription, { static: true }) _description: DtProgressBarDescription;
@@ -61,11 +57,6 @@ export class DtProgressBar extends _DtProgressBar implements CanColor<DtProgress
   _updateValues(): void {
     super._updateValues();
     this._changeDetectorRef.markForCheck();
-  }
-
-  /** Emits valueChange event if the value of the progressbar is updated */
-  _emitValueChangeEvent(oldValue: number, newValue: number): void {
-    this.valueChange.emit({oldValue, newValue});
   }
 
   /** Getter that returns true if either description or count are defined as contentchildren. */

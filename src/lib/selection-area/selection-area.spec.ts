@@ -8,7 +8,7 @@ import { DtButtonModule } from '../button';
 import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DtSelectionArea, DtSelectionAreaChange } from './selection-area';
+import { DtSelectionArea } from './selection-area';
 import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ENTER, LEFT_ARROW, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, PAGE_DOWN, PAGE_UP, HOME, END } from '@angular/cdk/keycodes';
@@ -760,7 +760,7 @@ describe('DtSelectionArea', () => {
   describe('globalContainer', () => {
 
     it('should render the selection-area-container component inside the globalcontainer', () => {
-      const fixture = createComponent(ProjectedTest);
+      createComponent(ProjectedTest);
       const globalContainer = getGlobalSelectionAreaHost();
       expect(globalContainer).toBeDefined();
       expect(globalContainer!.querySelector('dt-selection-area-container')).not.toBeNull();
@@ -810,7 +810,7 @@ export class BasicTest {
   @ViewChild(DtSelectionArea, { static: true }) selectionArea: DtSelectionArea;
   counter = 0;
 
-  handleChange(event: DtSelectionAreaChange): void {
+  handleChange(): void {
     this.counter += 1;
   }
 }

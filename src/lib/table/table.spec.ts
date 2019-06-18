@@ -4,7 +4,6 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
-  ComponentFactoryResolver,
   DebugElement,
   Input,
   NgModule,
@@ -873,8 +872,6 @@ class TestAppExpandableTable {
     return this._expandedRow;
   }
 
-  constructor(private resolver: ComponentFactoryResolver) {}
-
   onOpenedChange(row: DtExpandableRow): void {
     this._expandedRow = (row.expanded) ? row : undefined;
   }
@@ -913,7 +910,6 @@ class TestAppExpandableTable {
 class TestAppMultiExpandableTable {
   @Input() multiExpand = false;
   @ViewChildren(DtExpandableRow) private _expandableRows: QueryList<DtExpandableRow>;
-  private _expandedRow: DtExpandableRow | undefined;
   dataSource: object[] | null | undefined = [
     {col1: 'test 1', col2: 'test 2', details: 'details1'},
     {col1: 'test 1', col2: 'test 2', details: 'details2', expanded: true},
@@ -925,7 +921,7 @@ class TestAppMultiExpandableTable {
     return this._expandableRows.toArray();
   }
 
-  constructor(private resolver: ComponentFactoryResolver) {}
+  constructor() {}
 }
 
 @Component({
