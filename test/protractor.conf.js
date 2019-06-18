@@ -3,7 +3,7 @@ const chromeConfig = require('./chrome.conf');
 
 // Load ts-node to be able to execute TypeScript files with protractor.
 require('ts-node').register({
-  project: path.join(__dirname, '../ui-tests/')
+  project: path.join(__dirname, '../ui-tests/tsconfig.json')
 });
 
 const UI_TEST_BASE_URL = process.env['UI_TEST_BASE_URL'] || 'http://localhost:4200';

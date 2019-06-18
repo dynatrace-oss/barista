@@ -56,7 +56,6 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   @Output() readonly copyFailed: EventEmitter<void> = new EventEmitter();
   @Output() readonly afterCopy: EventEmitter<void> = new EventEmitter();
 
-  // tslint:disable-next-line:no-unused-variable
   private _showIcon = false;
   get showIcon(): boolean {
     return this._showIcon;

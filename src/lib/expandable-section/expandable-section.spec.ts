@@ -29,14 +29,12 @@ describe('DtExpandableSection', () => {
   describe('dt-expandable-section', () => {
 
     let fixture: ComponentFixture<TestApp>;
-    let testComponent: TestApp;
     let instanceDebugElement: DebugElement;
     let instanceElement: HTMLElement;
     let instance: DtExpandableSection;
 
     beforeEach(async(() => {
       fixture = createComponent(TestApp);
-      testComponent = fixture.componentInstance;
       instanceDebugElement = fixture.debugElement.query(By.directive(DtExpandableSection));
       instanceElement = instanceDebugElement.nativeElement;
       instance = instanceDebugElement.injector.get<DtExpandableSection>(DtExpandableSection);

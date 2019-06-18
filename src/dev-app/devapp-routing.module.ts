@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DevApp } from './devapp.component';
 import { AlertDemo } from './alert/alert-demo.component';
 import { AutocompleteDemo } from './autocomplete/autocomplete-demo.component';
 import { BarIndicatorDemo } from './bar-indicator/bar-indicator-demo.component';

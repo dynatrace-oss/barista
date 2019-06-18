@@ -2,7 +2,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,7 +27,6 @@ const DATA_SET: object[] = [
 describe('DtTableDataSource', () => {
   let fixture: ComponentFixture<PaginationTestApp>;
   let component: PaginationTestApp;
-  let pagination: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -47,7 +46,6 @@ describe('DtTableDataSource', () => {
   beforeEach(fakeAsync(() => {
     fixture = createComponent(PaginationTestApp);
     component = fixture.componentInstance;
-    pagination = fixture.debugElement.query(By.css('.dt-pagination'));
   }));
 
   it('should have a pagination attached to the dataSource', () => {

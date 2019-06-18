@@ -2,7 +2,7 @@ import { Directive, Input, NgZone, ElementRef, OnDestroy, Attribute, Host, Rende
 import { DtViewportResizer, addCssClass, HasTabIndex, CanDisable, hasCssClass } from '@dynatrace/angular-components/core';
 import { DtSelectionArea, DtSelectionAreaOrigin } from '@dynatrace/angular-components/selection-area';
 import { DtChart } from '../chart';
-import { takeUntil, switchMap, take, tap } from 'rxjs/operators';
+import { takeUntil, switchMap, take } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 import { getDtChartSelectionAreaDateTimeAxisError } from './chart-selection-area-errors';
 

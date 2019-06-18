@@ -7,9 +7,7 @@ import { By } from '@angular/platform-browser';
 import { DtSelectModule, DtSelect, DtFormFieldModule, DtOption, DtIconModule, DtOptionSelectionChange, getDtSelectNonFunctionValueError, ErrorStateMatcher } from '@dynatrace/angular-components';
 import { FormControl, FormsModule, ReactiveFormsModule, FormGroupDirective, FormGroup, Validators } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Subscription } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Platform } from '@angular/cdk/platform';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, SPACE, ENTER, HOME, TAB, END } from '@angular/cdk/keycodes';
 import { dispatchKeyboardEvent, dispatchEvent, dispatchFakeEvent } from '../../testing/dispatch-events';
@@ -36,10 +34,9 @@ describe('DtSelect', () => {
       declarations,
     }).compileComponents();
 
-    inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
+    inject([OverlayContainer], (oc: OverlayContainer) => {
       overlayContainer = oc;
       overlayContainerElement = oc.getContainerElement();
-      // platform = p;
     })();
   }
 

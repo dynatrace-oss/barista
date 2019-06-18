@@ -154,7 +154,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   }
 
   ngAfterContentInit(): void {
-    this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
+    this._keyManager = new ActiveDescendantKeyManager<DtOption<T>>(this.options).withWrap();
     // Set the initial visibility state.
     this._setVisibility();
   }

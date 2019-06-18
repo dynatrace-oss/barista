@@ -1,6 +1,5 @@
 import {
   Component,
-  Input,
   ChangeDetectionStrategy,
   ViewEncapsulation,
   Directive,

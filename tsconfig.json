@@ -19,6 +19,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "lib": [
       "dom",
       "es2017"
