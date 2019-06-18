@@ -18,7 +18,7 @@ describe('DtCopyToClipboard', () => {
         HttpClientTestingModule,
         DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
       ],
-      declarations: [CallbackBehaviorTestApp, DelayedCallbackBehaviorTestApp, DisabledTestApp],
+      declarations: [CallbackBehaviorTestApp, DelayedCallbackBehaviorTestApp],
     });
     TestBed.compileComponents();
     // tslint:disable-next-line:no-any
@@ -62,14 +62,6 @@ describe('DtCopyToClipboard', () => {
     expect(fixture.debugElement.query(By.css('.dt-button-icon'))).toBeNull('Icon should be invisible');
   }));
 
-  it('should not trigger callback - disabled copy to clipboards container should not trigger', (): void => {
-    const fixture = createComponent(DisabledTestApp);
-    const buttonDebugElement = fixture.debugElement.query(By.css('.dt-copy-to-clipboard-btn-button'));
-    buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
-    fixture.detectChanges();
-    expect(fixture.componentInstance.copyEventCount).toBe(0);
-  });
-
 });
 
 /** Test component that contains an DtCopyComponent. */
@@ -99,22 +91,6 @@ class CallbackBehaviorTestApp {
     </dt-copy-to-clipboard>`,
 })
 class DelayedCallbackBehaviorTestApp {
-  copyEventCount = 0;
-
-  increaseEventCount(): void {
-    this.copyEventCount++;
-  }
-}
-
-@Component({
-  selector: 'dt-disabled-test-app',
-  template: `
-    <dt-copy-to-clipboard [disabled]="true" (copied)="increaseEventCount();">
-      <input dtInput value="https://context.dynatrace.com"/>
-      <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
-    </dt-copy-to-clipboard>`,
-})
-class DisabledTestApp {
   copyEventCount = 0;
 
   increaseEventCount(): void {
