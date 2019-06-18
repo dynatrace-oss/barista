@@ -9,7 +9,7 @@ import { DtTable } from '../table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DtIndicatorThemePalette } from '@dynatrace/angular-components/core';
 import { DtFormattedValue } from '@dynatrace/angular-components/formatters';
-import { DtHeaderCellDef } from '../header';
+import { DtHeaderCellDef } from '../header/header-cell';
 
 /** Signature type for the dataAccessor function which can be passed to the simpleColumn. */
 // tslint:disable-next-line: no-any
