@@ -48,6 +48,7 @@
     "strict-boolean-expressions": false,
     // tslint:all defaults to file-name-casing camel-case which does is not compliant with angular's file namings
     "file-name-casing": false,
+    "return-undefined": false,
     "typedef": [
       true,
       "call-signature",

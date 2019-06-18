@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components';
-
-const LOG: DtLogger = DtLoggerFactory.create('TableDefaultComponent');
 
 @Component({
   moduleId: module.id,
@@ -45,5 +42,4 @@ export class TableWithInfoGroupCellComponent {
     { service: 'easyTRavelBusiness', location: 'gn-rx-ub12-cl04v.clients.emeea.cpwr.corp', responseTime: 66.2, failureRate: 0.1 },
     { service: 'easyTravel', location: 'L-W864-APMDay3', responseTime: 44, failureRate: 0 },
   ];
-
 }
