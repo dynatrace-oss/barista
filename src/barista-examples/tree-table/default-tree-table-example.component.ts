@@ -111,11 +111,11 @@ export class ThreadFlatNode {
     <ng-container dtColumnDef="name">
       <dt-tree-table-header-cell *dtHeaderCellDef>Name</dt-tree-table-header-cell>
       <dt-tree-table-toggle-cell *dtCellDef="let row">
-        <dt-info-group-cell>
-          <dt-info-group-cell-icon><dt-icon [name]="row.icon"></dt-icon></dt-info-group-cell-icon>
-          <dt-info-group-cell-title>{{row.name}}</dt-info-group-cell-title>
+        <dt-info-group>
+          <dt-info-group-icon><dt-icon [name]="row.icon"></dt-icon></dt-info-group-icon>
+          <dt-info-group-title>{{row.name}}</dt-info-group-title>
           {{row.threadlevel}}
-        </dt-info-group-cell>
+        </dt-info-group>
       </dt-tree-table-toggle-cell>
     </ng-container>
 
