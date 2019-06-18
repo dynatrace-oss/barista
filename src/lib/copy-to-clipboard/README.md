@@ -49,10 +49,6 @@ class MyModule {}
 
 <docs-source-example example="CallbackCopyToClipboardExampleComponent"></docs-source-example>
 
-### Disabled example
-
-<docs-source-example example="DisabledCopyToClipboardExampleComponent"></docs-source-example>
-
 ### Dark theme
 
 <docs-source-example example="DarkCopyToClipboardExampleComponent" themedark="true"></docs-source-example>
