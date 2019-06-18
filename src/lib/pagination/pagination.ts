@@ -78,22 +78,6 @@ export class DtPagination implements OnInit {
   }
   private _pageSize: number = DEFAULT_PAGE_SIZE;
 
-  /**
-   * @deprecated Please use the length and pageSize Inputs instead
-   * @breaking-change To be removed with 3.0.0.
-   */
-  @Input()
-  get maxPages(): number | undefined { return this._maxPages; }
-  set maxPages(value: number | undefined) {
-    const maxPages = coerceNumberProperty(value);
-    if (isNumber(value) && this._maxPages !== maxPages) {
-      this._maxPages = maxPages;
-      this._updateItems();
-      this._changeDetectorRef.markForCheck();
-    }
-  }
-  private _maxPages: number | undefined;
-
   /** The current page of the pagination */
   @Input()
   get currentPage(): number { return this._currentPage; }
@@ -175,12 +159,7 @@ export class DtPagination implements OnInit {
 
   /** Calculates the pages that should be displayed by the pagination */
   private _updateItems(): void {
-    /** TODO: @breaking-change 3.0.0 – remove this._maxPages */
-    this._numberOfPages = !!this._maxPages
-      ? this._maxPages
-      : this._pageSize > 0
-        ? Math.ceil(this.length / this.pageSize)
-        : 0;
+    this._numberOfPages = this._pageSize > 0 ? Math.ceil(this.length / this.pageSize) : 0;
 
     this._isFirstPage = this._currentPage <= 1;
     this._isLastPage =  this._currentPage >= this._numberOfPages;
