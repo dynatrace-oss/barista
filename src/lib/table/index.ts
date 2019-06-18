@@ -10,7 +10,6 @@ export * from './table-data-source';
 
 /** sorting */
 export * from './sort/sort';
-export * from './sort/sort-direction';
 export * from './sort/sort-header';
 export * from './sort/sort-errors';
 
