@@ -6,7 +6,7 @@ import {
   ContentChild,
   ElementRef,
   EventEmitter,
-  Input, OnDestroy,
+  OnDestroy,
   Output,
   ViewChild,
   ViewEncapsulation,
