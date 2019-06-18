@@ -152,18 +152,6 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
     }
   }
 
-  /**
-   * @deprecated To be removed
-   * @breaking-change 3.0.0 To be removed
-   */
-  toggle(): void {
-    if (this._expanded) {
-      this._collapse();
-    } else {
-      this._expand();
-    }
-  }
-
   _expandViaInteraction(): void {
     if (!this._expanded) {
       this._expanded = true;
