@@ -16,6 +16,4 @@ export * from './sort/sort-errors';
 
 export * from './base-table';
 
-export * from './info-group-cell/info-group-cell';
-
 export * from './table-data-source';

@@ -7,7 +7,6 @@ import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 import { DtSortHeader } from './sort/sort-header';
 import { DtSort } from './sort/sort';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtInfoGroupCell, DtInfoGroupCellIcon, DtInfoGroupCellTitle } from './info-group-cell/info-group-cell';
 import { DtHeaderRow, DtHeaderRowDef, DtHeaderCell, DtHeaderCellDef } from './header/index';
 import { DtRow, DtRowDef } from './row';
 import { DtCell, DtCellDef, DtColumnDef } from './cell';
@@ -44,12 +43,6 @@ const EXPORTED_DECLARATIONS = [
   DtTableLoadingState,
   DtSort,
   DtSortHeader,
-// tslint:disable-next-line: deprecation
-  DtInfoGroupCell,
-// tslint:disable-next-line: deprecation
-  DtInfoGroupCellIcon,
-// tslint:disable-next-line: deprecation
-  DtInfoGroupCellTitle,
   DtSimpleTextColumn,
   DtSimpleNumberColumn,
 ];
