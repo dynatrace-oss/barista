@@ -200,6 +200,29 @@ export function addDeclarationsToDevAppModule(name: string): Rule {
 }
 
 /**
+ * Adds the declaration to the baristaExamples Module
+ */
+export function addDynatraceAngularComponentsBaristaExampleModule(
+  sourceFile: ts.SourceFile,
+  sourcePath: string,
+  name: string
+): InsertChange {
+  const dtModulesDeclaration = findNodes(sourceFile, ts.SyntaxKind.VariableDeclaration)
+    .find((declaration: ts.VariableDeclaration) =>
+      (declaration.name as ts.Identifier).text === 'DT_MODULES');
+
+  if (dtModulesDeclaration === undefined) {
+    throw Error(`The DT_MODULES 'declarations' was not found in ${sourcePath}`);
+  }
+  const elements = ((dtModulesDeclaration as ts.VariableDeclaration).initializer as ts.ArrayLiteralExpression)
+    .elements;
+  const indentation = getIndentation(elements);
+  // calculate end position in ArrayLiteral before closing bracket.
+  const insertPosition = elements.end;
+  return new InsertChange(sourcePath, insertPosition, `${indentation}${name},`);
+}
+
+/**
  * Adds a new navitem inside the navitems
  */
 export function addNavitemToDevApp(name: string): Rule {
