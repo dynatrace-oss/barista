@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional, ViewEncapsulation } from '@angular/core';
-import { CanDisable, isEmpty, mixinDisabled, DtSortDirection } from '@dynatrace/angular-components/core';
+import { CanDisable, mixinDisabled, DtSortDirection } from '@dynatrace/angular-components/core';
 import { merge, Subscription } from 'rxjs';
 import { DtColumnDef } from '../cell';
 import { DtSort } from './sort';
