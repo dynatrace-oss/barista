@@ -24,6 +24,7 @@ import {
   addDeclarationsToDevAppModule,
   addNavitemToDevApp,
   addDynatraceAngularComponentsImport,
+  addDynatraceAngularComponentsBaristaExampleModule,
 } from '../utils/ast-utils';
 import { InsertChange, commitChanges } from '../utils/change';
 import { DtComponentOptions } from './schema';
@@ -169,16 +170,38 @@ function addRouteToDevApp(options: DtComponentOptions): Rule {
   };
 }
 
+/**
+ * Adds the newly created component module to the imported modules in the dev-app
+ * dt.module.ts
+ */
 function addReferenceToDevAppDtComponentsModule(options: DtComponentOptions): Rule {
   return (host: Tree) => {
     const sourceFilePath = path.join('src', 'dev-app', 'dt-components.module.ts');
     const sourceFile = getSourceFile(host, sourceFilePath);
 
     const changes: InsertChange[] = [];
-    const importName = `Dt${strings.classify(options.name)}Module`;
+    const importName = options.moduleName;
 
     changes.push(addDynatraceAngularComponentsImport(sourceFile, sourceFilePath, importName));
     changes.push(addToNgModule(sourceFilePath, sourceFile, importName, 'exports'));
+    return commitChanges(host, changes, sourceFilePath);
+  };
+}
+
+/**
+ * Adds the newly created component module to the imported modules in the barista examples
+ * dt.module.ts
+ */
+function addReferenceToBaristaExamplesDtModules(options: DtComponentOptions): Rule {
+  return (host: Tree) => {
+    const sourceFilePath = path.join('src', 'barista-examples', 'dt.module.ts');
+    const sourceFile = getSourceFile(host, sourceFilePath);
+
+    const changes: InsertChange[] = [];
+    const importName = options.moduleName;
+
+    changes.push(addDynatraceAngularComponentsImport(sourceFile, sourceFilePath, importName));
+    changes.push(addDynatraceAngularComponentsBaristaExampleModule(sourceFile, sourceFilePath, importName));
     return commitChanges(host, changes, sourceFilePath);
   };
 }
@@ -213,6 +236,7 @@ export default function(options: DtComponentOptions): Rule {
     addNavitemToDevApp(options.name),
     addRouteToDevApp(options),
     addReferenceToDevAppDtComponentsModule(options),
+    addReferenceToBaristaExamplesDtModules(options),
     options.universal ? chain([addDeclarationsToKitchenSink(options), addCompToKitchenSinkHtml(options)]) : noop(),
     options.uitest ? chain([
       mergeWith(uitestsTemplates),
