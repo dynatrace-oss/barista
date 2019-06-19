@@ -1,3 +1,39 @@
+## 3.0.0 (2019-06-19)
+
+### Breaking changes
+
+* Upgrade to Angular 8 ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **form-field:** Removes fixed width and specifies `dt-form-field` as a block element. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **key-value-list:** Property columns does now return the correct value, not the calculated one. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **overlay:** Fixes missing overlayContainer parameter for position strategy in Cdk version 8. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **pagination:** Removed unused interface `PaginationNumberType`. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** Fixes missing params for new `CdkTable` in Cdk version 8. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **chart:** Removed deprecated overlay property in `chart-tooltip`. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **copy-to-clipboard:** Removed deprecated `disabled` property. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **info-group-cell:** Removed deprecated component `info-group-cell`. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **pagination:** Removed deprecated `maxPages` input. Use the `length` and `pageSize` inputs instead. ([***REMOVED***](***REMOVED***/***REMOVED***)) 
+* **table:** Removed deprecated `contentViewContainer` property. ([***REMOVED***](***REMOVED***/***REMOVED***)) 
+* **table:** Removed deprecated `isLoading` property. Use `loading` instead. ([***REMOVED***](***REMOVED***/***REMOVED***)) 
+* **table:** Removed deprecated `multiple` input. Use the `multiExpand` of the dt-table instead. ([***REMOVED***](***REMOVED***/***REMOVED***)) 
+* **table:** Removed deprecated `openedChange` output from the `expandable-row`. Use `expanded`, `collapsed` or `expandChange` instead. ([***REMOVED***](***REMOVED***/***REMOVED***)) 
+* **table:** Removed deprecated `toggle` method on the `expandable-row`. ([***REMOVED***](***REMOVED***/***REMOVED***)) 
+* **table:** Removed deprecated `compareString` function. Use the `compareStrings` function from `@dynatrace/angular-components/core`. ([***REMOVED***](***REMOVED***/***REMOVED***)) 
+* **table:** Removed deprecated `expandedRow` property. Use `openedChange` output of `dt-expandable-row` instead. ([***REMOVED***](***REMOVED***/***REMOVED***)) 
+* **table:** Removed deprecated type `DtSortDirection`. Import it directly from `@dynatrace/angular-components/core`. ([***REMOVED***](***REMOVED***/***REMOVED***)) 
+* **table-sort:** Adds sort icon to all sortable columns. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Enable a first set of custom lint rules. ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Bug Fixes
+
+* **filterfield:** Fixes an issue where the suggestions were not shown immediately for freetext. ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Features
+
+* **context dialog:** Adapted the background color of the content panel. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Added `dt-breadcrumbs-alt-text` rule and initialized as warnings. ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Added `dt-inline-editor-alt-text` rule and initialized as warnings. ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+
 ## 2.10.0 (2019-06-04)
 
 
