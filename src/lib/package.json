@@ -12,9 +12,9 @@
   ],
   "homepage": "***REMOVED***
   "peerDependencies": {
-    "@angular/cdk": "^7.3.0",
-    "@angular/core": "0.0.0-NG",
-    "@angular/common": "0.0.0-NG",
+    "@angular/cdk": "^0.0.0-NG-CDK",
+    "@angular/core": "^0.0.0-NG",
+    "@angular/common": "^0.0.0-NG",
     "@dynatrace/dt-iconpack": ">= 1.0.6 < 3",
     "@types/highcharts": "^5.0.23",
     "highcharts": "^6.0.7"
