@@ -1,3 +1,9 @@
+## 3.0.1 (2019-06-19)
+
+### Bug Fixes
+
+* Fixes wrong peer dependency version numbers for `@angular/core`, `@angular/common` and `@angular/cdk`
+
 ## 3.0.0 (2019-06-19)
 
 ### Breaking changes
