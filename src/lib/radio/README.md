@@ -86,10 +86,6 @@ Radio button groups should be given a meaningful label via `aria-label` or `aria
 
 ## Examples
 
-### Pure
-
-<docs-source-example example="PureRadioExample"></docs-source-example>
-
 ### Default
 
 <docs-source-example example="DefaultRadioExample"></docs-source-example>
