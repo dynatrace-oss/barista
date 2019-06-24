@@ -4,8 +4,6 @@ type: "component"
 
 # Radio
 
-<docs-source-example example="DefaultRadioExample"></docs-source-example>
-
 `<dt-radio-button>` provides the same functionality as a native `<input type="radio">` element, enhanced with styling and animations.
 Radio elements are generally used within radio-groups to describe a set of related options. Only one radio element can be selected at the same time.
 
@@ -86,6 +84,20 @@ This internal radio button receives focus and is automatically labelled by the t
 
 Radio button groups should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
-### Dark Example
+## Examples
+
+### Pure
+
+<docs-source-example example="PureRadioExample"></docs-source-example>
+
+### Default
+
+<docs-source-example example="DefaultRadioExample"></docs-source-example>
+
+### Responsive
+
+<docs-source-example example="ResponsiveRadioExample"></docs-source-example>
+
+### Dark background
 
 <docs-source-example example="DarkRadioExample" themedark="true"></docs-source-example>
