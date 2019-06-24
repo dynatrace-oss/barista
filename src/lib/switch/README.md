@@ -4,8 +4,6 @@ type: "component"
 
 # Switch
 
-<docs-source-example example="DefaultSwitchExampleComponent"></docs-source-example>
-
 `<dt-switch>` is an on/off control that can be toggled via clicking. The switch behaves similarly to a checkbox, though it does not support an indeterminate state.
 
 ## Imports
@@ -50,6 +48,16 @@ This internal checkbox receives focus and is automatically labelled by the text 
 
 Switches without text or labels should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
-### DarkTheme
+## Examples
+
+### Default
+
+<docs-source-example example="DefaultSwitchExampleComponent"></docs-source-example>
+
+### Responsive
+
+<docs-source-example example="ResponsiveSwitchExampleComponent"></docs-source-example>
+
+### Dark background
 
 <docs-source-example example="DarkThemeSwitchExampleComponent" themedark="true"></docs-source-example>
