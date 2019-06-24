@@ -4,8 +4,6 @@ type: "component"
 
 # Checkbox
 
-<docs-source-example example="DefaultCheckboxExampleComponent"></docs-source-example>
-
 The `<dt-checkbox>` provides the same functionality as a native checkbox enhanced with styling and animations. You can set the label as the `ng-content` of the `<dt-checkbox>` component.
 
 ## Imports
@@ -66,6 +64,20 @@ This internal checkbox receives focus and is automatically labelled by the text 
 
 Checkboxes without text or labels should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
-### Dark
+## Examples
+
+### Pure
+
+<docs-source-example example="PureCheckboxExampleComponent"></docs-source-example>
+
+### Default
+
+<docs-source-example example="DefaultCheckboxExampleComponent"></docs-source-example>
+
+### Responsive
+
+<docs-source-example example="ResponsiveCheckboxExampleComponent"></docs-source-example>
+
+### Dark background
 
 <docs-source-example example="DarkCheckboxExample" themedark="true"></docs-source-example>
