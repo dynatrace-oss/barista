@@ -24,7 +24,7 @@ export class DtDateRange implements PipeTransform {
    */
   transform(value: [number, number]): string {
     // tslint:disable-next-line no-magic-numbers
-    if (value.constructor !== Array || value.length !== 2) {
+    if (!Array.isArray(value) || value.length !== 2) {
       return '';
     }
 
