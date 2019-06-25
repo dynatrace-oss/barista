@@ -234,6 +234,20 @@ describe('DtOverlayTrigger', () => {
     const overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeNull();
   }));
+
+  it('should destroy the overlay when trigger is destroyed', fakeAsync(() => {
+    initOverlay(fixture, trigger);
+    fixture.detectChanges();
+    let overlay = getContainerElement(overlayContainerElement);
+    expect(overlay).not.toBeNull();
+
+    fixture.componentInstance.showTrigger = false;
+    fixture.detectChanges();
+    flush();
+
+    overlay = getContainerElement(overlayContainerElement);
+    expect(overlay).toBeNull();
+  }));
 });
 
 function initOverlay(fixture: ComponentFixture<TestComponent>, trigger: HTMLElement): void {
@@ -252,13 +266,14 @@ function getOverlayPane(overlayContainerElement: HTMLElement): HTMLElement {
   return overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
 }
 
-/** dummy component */
+/** Test component */
 @Component({
   selector: 'dt-test-component',
-  template: `<div [dtOverlay]="overlay" [dtOverlayConfig]="config"
+  template: `<div *ngIf="showTrigger" [dtOverlay]="overlay" [dtOverlayConfig]="config"
     [disabled]="disabled">trigger</div><ng-template #overlay>overlay<button>focusme</button></ng-template>`,
 })
 class TestComponent {
   config: DtOverlayConfig = {};
   disabled = false;
+  showTrigger = true;
 }
