@@ -80,6 +80,7 @@ const DT_MODULES = [
   DtProgressCircleModule,
   DtSelectModule,
   DtRadioModule,
+  // tslint:disable-next-line: deprecation
   DtSelectionAreaModule,
   DtShowMoreModule,
   DtSwitchModule,

@@ -4,6 +4,8 @@ type: "component"
 
 # Selection Area
 
+**DEPRECATED – will be removed with version 5.0.0** Please use the `DtChartRange` and `DtChartTimestamp` instead!
+
 The `<dt-selection-area>` creates the possibility to create a selected area inside an origin element and drag the edges or the entire selected area within the constraints of the origin element. The selection area itself is not tightly coupled with the chart component but this is the main usecase.
 To connect the selection area and the chart you have to use the `dtChartSelectionArea` directive on the `dt-chart` component and provide the instance of the `dt-selection-area` component as an input.
 
