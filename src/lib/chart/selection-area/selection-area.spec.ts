@@ -7,16 +7,7 @@ import { By } from '@angular/platform-browser';
 import { DtChartModule, DtThemingModule } from '@dynatrace/angular-components';
 import { Subject } from 'rxjs';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
-import { DtChartSelectionArea } from './selection-area';
-
-const MOCK_BOUNDING_CLIENT_RECT: ClientRect = {
-  top: 50,
-  left: 50,
-  height: 200,
-  width: 400,
-  bottom: 0,
-  right: 0,
-};
+import * as streams from './streams';
 
 describe('DtChart Selection Area', () => {
   beforeEach(() => {
@@ -69,59 +60,24 @@ describe('DtChart Selection Area', () => {
     });
   });
 
-  describe('Initialization and destroying', () => {
-    it('should create the selection area after highcharts render.', async () => {
-      // const fixture = TestBed.createComponent<TestChartComponent>(
-      //   TestChartComponent
-      // );
-      //     await fixture.whenRenderingDone();
-      //     await new Promise((resolve, reject) => setTimeout(() => resolve(), 1000));
-      // const chart = fixture.debugElement.query(By.css('.dt-chart'));
-      // spyOn(chart['_afterRender'], 'next');
-      // expect(chart['_afterRender'].next).toHaveBeenCalledTimes(0);
-      // fixture.detectChanges();
-      // expect(chart['_afterRender'].next).toHaveBeenCalledTimes(1);
-      //     await chart.
-      //       // .componentInstance;
-      //     console.log(chart['_range']._elementRef.nativeElement);
-      //     const sel = fixture.debugElement.query(
-      //       By.css('.dt-chart-selection-area')
-      //     );
-      //     console.log(sel);
-      //     expect(chart['_afterRender'].next).toHaveBeenCalledTimes(0);
-      //     fixture.detectChanges();
-      //     expect(chart['_afterRender'].next).toHaveBeenCalledTimes(1);
-    });
-  });
-
   describe('Hairline', () => {
     let fixture: ComponentFixture<TestChartComponent>;
-    let selectionAreaDebugEl: DebugElement;
     let hairline: DebugElement;
-    let selectionArea: DtChartSelectionArea;
     let plotBackground: Element;
 
+    const fakedMouseOut$ = new Subject<any>();
+
     beforeEach(() => {
+      spyOn(streams, 'getMouseOutStream').and.returnValue(fakedMouseOut$);
+
       fixture = TestBed.createComponent<TestChartComponent>(TestChartComponent);
       fixture.detectChanges();
-      selectionAreaDebugEl = fixture.debugElement.query(
-        By.css('.dt-chart-selection-area')
-      );
-      selectionArea = selectionAreaDebugEl.componentInstance;
+
       hairline = fixture.debugElement.query(By.css('.dt-chart-hairline'));
       plotBackground = fixture.debugElement.nativeElement.querySelector(
         '.highcharts-plot-background'
       );
 
-      // mock the bounding client rect when it should be requested and
-      // of the selection area for comparison.
-      spyOn(
-        selectionAreaDebugEl.nativeElement,
-        'getBoundingClientRect'
-      ).and.returnValue(MOCK_BOUNDING_CLIENT_RECT);
-      spyOn<any>(selectionArea, '_selectionAreaBcr').and.returnValue(
-        MOCK_BOUNDING_CLIENT_RECT
-      );
     });
 
     it('should have a hairline that should be visible on mousemove', () => {
@@ -137,116 +93,18 @@ describe('DtChart Selection Area', () => {
     });
 
     it('should hide the hairline on mouseout', () => {
+      expect(getComputedStyle(hairline.nativeElement).display).toBe('none');
+
       dispatchMouseEvent(plotBackground, 'mousemove', 50, 50);
       // mouse move over the bounding client rect.
       expect(hairline.styles.display).toBe('inherit');
 
-      dispatchMouseEvent(plotBackground, 'mouseout', 55, 55);
-      // still in the mocked bounding client rect of the selection area
-      expect(hairline.styles.display).toBe('inherit');
-
-      dispatchMouseEvent(plotBackground, 'mouseout', 100, 100);
+      fakedMouseOut$.next({ x: 100, y: 100 });
       // now outside the mocked area of the bounding client rect.
       expect(hairline.styles.display).toBe('none');
     });
   });
 
-  describe('Event streams', () => {
-    const destroy$ = new Subject<void>();
-    let fixture: ComponentFixture<TestChartComponent>;
-    // let selectionAreaDebugEl: DebugElement;
-    // let selectionArea: DtChartSelectionArea;
-    // let plotBackground: Element;
-
-    beforeEach(async () => {
-      fixture = TestBed.createComponent<TestChartComponent>(TestChartComponent);
-      fixture.detectChanges();
-      // selectionAreaDebugEl = fixture.debugElement.query(
-      //   By.css('.dt-chart-selection-area')
-      // );
-      // selectionArea = selectionAreaDebugEl.componentInstance;
-      // plotBackground = fixture.debugElement.nativeElement.querySelector(
-      //   '.highcharts-plot-background'
-      // );
-    });
-
-    afterEach(() => {
-      destroy$.next();
-      destroy$.complete();
-    });
-
-    // it('should have invoked highcharts render once and initialize the selection area', () => {
-    //   expect(selectionArea['_plotBackground']).toBeDefined();
-    //   expect(selectionArea['_range']).toBeDefined();
-    //   expect(selectionArea['_timestamp']).toBeDefined();
-    //   expect(selectionArea['_initializeHairline']).toBeDefined();
-    // });
-
-    // it('should have invoked the mousedown event and trigger the side effect that removes the point events class', (done) => {
-    //   spyOn(
-    //     selectionAreaDebugEl.nativeElement.classList,
-    //     'remove'
-    //   ).and.callThrough();
-    //   selectionArea['_mousedown$']
-    //     .pipe(takeUntil(destroy$))
-    //     .subscribe((event) => {
-    //       expect(
-    //         selectionAreaDebugEl.nativeElement.classList.remove
-    //       ).toHaveBeenCalledWith('dt-no-pointer-events');
-    //       expect(
-    //         selectionAreaDebugEl.nativeElement.classList.remove
-    //       ).toHaveBeenCalledTimes(1);
-    //       expect(event).toBeDefined();
-    //       done();
-    //     }, fail);
-
-    //   dispatchMouseEvent(plotBackground, 'mousedown', 100, 100);
-    // });
-
-    // it('should have invoked the mousedown event and trigger the side effect that removes the point events class', (done) => {
-    //   spyOn(
-    //     selectionAreaDebugEl.nativeElement.classList,
-    //     'remove'
-    //   ).and.callThrough();
-    //   selectionArea['_mousedown$']
-    //     .pipe(takeUntil(destroy$))
-    //     .subscribe((event) => {
-    //       expect(
-    //         selectionAreaDebugEl.nativeElement.classList.remove
-    //       ).toHaveBeenCalledWith('dt-no-pointer-events');
-    //       expect(
-    //         selectionAreaDebugEl.nativeElement.classList.remove
-    //       ).toHaveBeenCalledTimes(1);
-    //       expect(event).toBeDefined();
-    //       done();
-    //     }, fail);
-
-    //   dispatchMouseEvent(plotBackground, 'mousedown', 100, 100);
-    // });
-
-    // fit('should have invoked the click event', () => {
-
-    // //   selectionArea['_drag$']
-    // //     .pipe(takeUntil(destroy$))
-    // //     .subscribe(
-    // //       (event) => {
-    // //         expect(event).toBeDefined();
-    // //         done();
-    // //       },
-    // //       fail);
-    //   // spyOn(selectionAreaDebugEl.nativeElement.classList, 'remove').and.callThrough();
-
-    //   dispatchMouseEvent(plotBackground, 'mousedown', 100, 100);
-
-    //   expect(selectionAreaDebugEl.nativeElement.classList.remove).toHaveBeenCalledTimes(1);
-
-    //   dispatchMouseEvent(selectionAreaDebugEl.nativeElement, 'mousemove', 101, 100);
-
-    //   dispatchMouseEvent(selectionAreaDebugEl.nativeElement, 'mousemove', 102, 100);
-
-    //   dispatchMouseEvent(window, 'mouseup', 102, 100);
-    // });
-  });
 });
 
 @Component({

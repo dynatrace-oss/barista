@@ -6,10 +6,10 @@ import {
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Input,
   NgZone,
   OnDestroy,
   Renderer2,
@@ -18,12 +18,14 @@ import {
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
-  AfterContentInit,
 } from '@angular/core';
+import {
+  addCssClass,
+  removeCssClass,
+} from '@dynatrace/angular-components/core';
 import {
   animationFrameScheduler,
   EMPTY,
-  fromEvent,
   merge,
   Observable,
   of,
@@ -40,7 +42,6 @@ import {
   tap,
   throttleTime,
 } from 'rxjs/operators';
-import { addCssClass, removeCssClass } from '../..';
 import { DtChart } from '../chart';
 import { DtChartRange } from '../range/range';
 import { DtChartTimestamp } from '../timestamp/timestamp';
@@ -60,6 +61,7 @@ import {
   getElementRefStream,
   getMouseDownStream,
   getMouseMove,
+  getMouseOutStream,
   getMouseUpStream,
   getRangeCreateStream,
   getRangeResizeStream,
@@ -78,9 +80,6 @@ import {
   },
 })
 export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
-  /** If the selection area is disabled */
-  @Input() disabled = false;
-
   /** mousedown event stream on the selection area emits only left mouse */
   private _mousedown$: Observable<MouseEvent> = EMPTY;
   /** mouse up stream on the window */
@@ -428,8 +427,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       // On dragHandle we want to reposition the overlay with a small delay and an animationFrameScheduler
       this._dragHandle$
         .pipe(
-          // tslint:disable-next-line no-magic-numbers
-          throttleTime(10, animationFrameScheduler),
+          throttleTime(0, animationFrameScheduler),
           getElementRef(this._range._rangeElementRef),
           takeUntil(this._destroy$)
         )
@@ -465,20 +463,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._mouseDownElements
       );
 
-      const mouseOut$ = fromEvent<MouseEvent>(
+      const mouseOut$ = getMouseOutStream(
+        this._elementRef.nativeElement,
         this._mouseDownElements,
-        'mouseout'
-      ).pipe(
-        map((event: MouseEvent) =>
-          getRelativeMousePosition(event, this._elementRef.nativeElement)
-        ),
-        filter(
-          (position) =>
-            position.x < 0 ||
-            position.y < 0 ||
-            position.x > this._selectionAreaBcr!.width ||
-            position.y > this._selectionAreaBcr!.height
-        )
+        this._selectionAreaBcr!
       );
 
       const showHairline$ = hover$.pipe(mapTo(true));
@@ -499,7 +487,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
       hover$
         .pipe(
-          map((position: { x: number; y: number }) => position.x),
+          map(({ x }) => x),
           distinctUntilChanged(), // only emit when the x value changes ignore hover on yAxis with that.
           takeUntil(this._destroy$)
         )

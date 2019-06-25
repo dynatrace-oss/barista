@@ -24,9 +24,25 @@ import { take, takeUntil, switchMap } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import { ENTER } from '@angular/cdk/keycodes';
 
-export class DtSelectionAreaOriginBase { }
-export const _DtSelectionAreaOriginMixin = mixinTabIndex(mixinDisabled(DtSelectionAreaOriginBase));
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ */
+export class DtSelectionAreaOriginBase {}
 
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ */
+export const _DtSelectionAreaOriginMixin = mixinTabIndex(
+  // tslint:disable-next-line: deprecation
+  mixinDisabled(DtSelectionAreaOriginBase)
+);
+
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ */
 @Directive({
   selector: '[dtSelectionArea]',
   exportAs: 'dtSelectionAreaOrigin',
@@ -38,10 +54,11 @@ export const _DtSelectionAreaOriginMixin = mixinTabIndex(mixinDisabled(DtSelecti
   },
   inputs: ['tabIndex'],
 })
+// tslint:disable-next-line: deprecation
 export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
-implements OnDestroy, OnChanges, AfterViewInit, HasTabIndex, CanDisable {
-
+  implements OnDestroy, OnChanges, AfterViewInit, HasTabIndex, CanDisable {
   /** The selection area connected to this origin */
+  // tslint:disable-next-line: deprecation
   @Input('dtSelectionArea') selectionArea: DtSelectionArea;
 
   private _selectionAreaGrabbingSub = Subscription.EMPTY;
@@ -60,19 +77,29 @@ implements OnDestroy, OnChanges, AfterViewInit, HasTabIndex, CanDisable {
   }
 
   ngAfterViewInit(): void {
-    this._viewport.change().pipe(takeUntil(this._destroy), switchMap(() => this._zone.onStable.pipe(take(1)))).subscribe(() => {
-      if (this.selectionArea) {
-        this._emitBoundariesChangedOnSelectionArea();
-      }
-    });
+    this._viewport
+      .change()
+      .pipe(
+        takeUntil(this._destroy),
+        switchMap(() => this._zone.onStable.pipe(take(1)))
+      )
+      .subscribe(() => {
+        if (this.selectionArea) {
+          this._emitBoundariesChangedOnSelectionArea();
+        }
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectionArea) {
-      this._zone.onStable.pipe(
-        takeUntil(this._destroy),
-        take(1)
-      ).subscribe(() => { this._emitBoundariesChangedOnSelectionArea(); });
+      this._zone.onStable
+        .pipe(
+          takeUntil(this._destroy),
+          take(1)
+        )
+        .subscribe(() => {
+          this._emitBoundariesChangedOnSelectionArea();
+        });
       this._handleGrabbingChange();
     }
   }
@@ -101,24 +128,36 @@ implements OnDestroy, OnChanges, AfterViewInit, HasTabIndex, CanDisable {
         this.selectionArea._createSelectedArea(0);
       }
 
-      this._zone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => { this.focus(); });
+      this._zone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => {
+        this.focus();
+      });
     }
   }
 
   /** React to the grabbing change event from the selection area */
   protected _handleGrabbingChange(): void {
     this._selectionAreaGrabbingSub.unsubscribe();
-    this.selectionArea._grabbingChange.pipe(takeUntil(this._destroy)).subscribe((isGrabbing) => {
-      if (isGrabbing) {
-        addCssClass(this._elementRef.nativeElement, 'dt-selection-area-cursor-grabbing');
-      } else {
-        removeCssClass(this._elementRef.nativeElement, 'dt-selection-area-cursor-grabbing');
-      }
-    });
+    this.selectionArea._grabbingChange
+      .pipe(takeUntil(this._destroy))
+      .subscribe((isGrabbing) => {
+        if (isGrabbing) {
+          addCssClass(
+            this._elementRef.nativeElement,
+            'dt-selection-area-cursor-grabbing'
+          );
+        } else {
+          removeCssClass(
+            this._elementRef.nativeElement,
+            'dt-selection-area-cursor-grabbing'
+          );
+        }
+      });
   }
 
   /** Emits the boundariesChanged on the selection area */
   private _emitBoundariesChangedOnSelectionArea(): void {
-    this.selectionArea._boundariesChanged.next(this._elementRef.nativeElement.getBoundingClientRect());
+    this.selectionArea._boundariesChanged.next(
+      this._elementRef.nativeElement.getBoundingClientRect()
+    );
   }
 }

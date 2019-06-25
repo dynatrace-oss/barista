@@ -246,9 +246,9 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   }
 
   /** @internal function that emits an event when a handle is going to be dragged */
-  _dragHandle(event: MouseEvent, type: DtSelectionAreaEventTarget): void {
+  _dragHandle(event: MouseEvent, type: string): void {
     event.stopImmediatePropagation();
-    this._handleDragStarted.next(type);
+    this._handleDragStarted.next(type as DtSelectionAreaEventTarget);
   }
 
   /** @internal adds or removes the class that displays the arrows on the side handles */

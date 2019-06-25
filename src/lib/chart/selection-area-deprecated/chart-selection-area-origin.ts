@@ -1,11 +1,36 @@
-import { Directive, Input, NgZone, ElementRef, OnDestroy, Attribute, Host, Renderer2, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
-import { DtViewportResizer, addCssClass, HasTabIndex, CanDisable, hasCssClass } from '@dynatrace/angular-components/core';
-import { DtSelectionArea, DtSelectionAreaOrigin } from '@dynatrace/angular-components/selection-area';
+import {
+  Directive,
+  Input,
+  NgZone,
+  ElementRef,
+  OnDestroy,
+  Attribute,
+  Host,
+  Renderer2,
+  SimpleChanges,
+  OnChanges,
+  AfterViewInit,
+} from '@angular/core';
+import {
+  DtViewportResizer,
+  addCssClass,
+  HasTabIndex,
+  CanDisable,
+  hasCssClass,
+} from '@dynatrace/angular-components/core';
+import {
+  DtSelectionArea,
+  DtSelectionAreaOrigin,
+} from '@dynatrace/angular-components/selection-area';
 import { DtChart } from '../chart';
 import { takeUntil, switchMap, take } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 import { getDtChartSelectionAreaDateTimeAxisError } from './chart-selection-area-errors';
 
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ */
 @Directive({
   selector: 'dt-chart[dtChartSelectionArea]',
   exportAs: 'dtChartSelectionAreaOrigin',
@@ -14,10 +39,11 @@ import { getDtChartSelectionAreaDateTimeAxisError } from './chart-selection-area
   },
   inputs: ['tabIndex'],
 })
+// tslint:disable-next-line: deprecation
 export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   implements OnDestroy, OnChanges, HasTabIndex, CanDisable, AfterViewInit {
-
   /** The selection area instance to be connected to this origin  */
+  // tslint:disable-next-line: deprecation
   @Input('dtChartSelectionArea') selectionArea: DtSelectionArea;
 
   /** The plotbackground that is used as the origin */
@@ -41,13 +67,16 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
 
     this.tabIndex = parseInt(tabIndex, 10) || 0;
 
-    this._afterChartRender = this._chart._afterRender.pipe(takeUntil(this._destroy));
+    this._afterChartRender = this._chart._afterRender.pipe(
+      takeUntil(this._destroy)
+    );
 
     this._afterChartRender.subscribe(() => {
       if (this._chart._chartObject) {
         const xAxis = this._chart._chartObject.xAxis[0];
         // tslint:disable-next-line:no-any
         if (!(xAxis as any).isDatetimeAxis) {
+          // tslint:disable-next-line: deprecation
           throw getDtChartSelectionAreaDateTimeAxisError();
         }
       }
@@ -57,26 +86,43 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
       this._setInterpolateFnOnSelectionArea();
 
       if (!this._detachFns.length) {
-        this._detachFns.push(this._renderer.listen(_elementRef.nativeElement, 'mousedown', (ev: MouseEvent) => {
-          const hitElements = document.elementsFromPoint(ev.clientX, ev.clientY);
-          const clickIsInsidePlotBackground = hitElements.some((el) => hasCssClass(el, 'highcharts-plot-background'));
-          if (clickIsInsidePlotBackground) {
+        this._detachFns.push(
+          this._renderer.listen(
+            _elementRef.nativeElement,
+            'mousedown',
+            (ev: MouseEvent) => {
+              const hitElements = document.elementsFromPoint(
+                ev.clientX,
+                ev.clientY
+              );
+              const clickIsInsidePlotBackground = hitElements.some((el) =>
+                hasCssClass(el, 'highcharts-plot-background')
+              );
+              if (clickIsInsidePlotBackground) {
+                this._chart._toggleTooltip(false);
+                this._handleMousedown(ev);
+              }
+            }
+          )
+        );
+        this._detachFns.push(
+          this._renderer.listen(_elementRef.nativeElement, 'keydown', (ev) => {
             this._chart._toggleTooltip(false);
-            this._handleMousedown(ev);
-          }
-        }));
-        this._detachFns.push(this._renderer.listen(_elementRef.nativeElement, 'keydown', (ev) => {
-          this._chart._toggleTooltip(false);
-          this._handleKeyDown(ev);
-        }));
+            this._handleKeyDown(ev);
+          })
+        );
       }
     });
 
     // this needs to be done after the zone is stable because only
     // when its stable we get a correct clientrect with the correct bounds
-    this._afterChartRender.pipe(switchMap(() => _zone.onStable.pipe(take(1))))
-      .subscribe(() => { this.selectionArea._boundariesChanged.next(this._getPlotBackgroundClientRect()); });
-
+    this._afterChartRender
+      .pipe(switchMap(() => _zone.onStable.pipe(take(1))))
+      .subscribe(() => {
+        this.selectionArea._boundariesChanged.next(
+          this._getPlotBackgroundClientRect()
+        );
+      });
   }
 
   // We need to override this lifecycle hook here since the base component
@@ -95,7 +141,9 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   }
 
   ngOnDestroy(): void {
-    this._detachFns.forEach((fn) => { fn(); });
+    this._detachFns.forEach((fn) => {
+      fn();
+    });
     this._selectionAreaClosedSub.unsubscribe();
   }
 
@@ -114,7 +162,9 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
 
   /** Applies classes and attributes to the plotbackground for keyboard and cursor support */
   private _applyAttributesAndClassesToPlotBackground(): void {
-    this._plotBackground = this._chart.container.nativeElement.querySelector('.highcharts-plot-background') as SVGRectElement;
+    this._plotBackground = this._chart.container.nativeElement.querySelector(
+      '.highcharts-plot-background'
+    ) as SVGRectElement;
     addCssClass(this._plotBackground, 'dt-selection-area-origin-cursor');
     this._plotBackground.setAttribute('tabindex', this.tabIndex.toString());
   }
@@ -128,8 +178,9 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
 
   private _setInterpolateFnOnSelectionArea(): void {
     if (this._chart._chartObject && this.selectionArea) {
-      this.selectionArea._setInterpolateFnOnContainer(
-        (pxValue: number) => this._chart._chartObject!.xAxis[0].toValue(pxValue, true));
+      this.selectionArea._setInterpolateFnOnContainer((pxValue: number) =>
+        this._chart._chartObject!.xAxis[0].toValue(pxValue, true)
+      );
     }
   }
 }

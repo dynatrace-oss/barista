@@ -24,6 +24,7 @@ import { DtSelectionAreaChange } from '@dynatrace/angular-components';
 })
 export class SelectionAreaDefaultExample {
   overlayContent = '';
+  // tslint:disable-next-line: deprecation
   handleChange(ev: DtSelectionAreaChange): void {
     this.overlayContent = `Left: ${ev.left}, Right: ${ev.right}`;
   }

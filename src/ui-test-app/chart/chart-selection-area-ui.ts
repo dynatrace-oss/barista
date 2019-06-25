@@ -37,6 +37,7 @@ export class ChartSelectionAreaUI {
     },
   ];
 
+  // tslint:disable-next-line: deprecation
   handleChange(ev: DtSelectionAreaChange): void {
     this.left = ev.left;
     this.right = ev.right;

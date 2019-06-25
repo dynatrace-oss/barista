@@ -83,6 +83,7 @@ import {
     DtProgressCircleModule,
     DtRadioModule,
     DtSelectModule,
+    // tslint:disable-next-line: deprecation
     DtSelectionAreaModule,
     DtShowMoreModule,
     DtSwitchModule,
