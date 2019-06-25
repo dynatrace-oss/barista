@@ -17,21 +17,36 @@ import {
   OnDestroy,
   DoCheck,
 } from '@angular/core';
-import {
-  addCssClass,
-} from '@dynatrace/angular-components/core';
+import { addCssClass } from '@dynatrace/angular-components/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { DomPortalOutlet, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { DtSelectionAreaContainer, DtSelectionAreaContainerChange } from './selection-area-container';
+import {
+  DomPortalOutlet,
+  ComponentPortal,
+  TemplatePortal,
+} from '@angular/cdk/portal';
+import {
+  DtSelectionAreaContainer,
+  DtSelectionAreaContainerChange,
+} from './selection-area-container';
 import { map, take, switchMap } from 'rxjs/operators';
 
-/** Change event object emitted by DtSelectionArea */
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ * Change event object emitted by DtSelectionArea
+ */
+// tslint:disable-next-line: deprecation
 export interface DtSelectionAreaChange extends DtSelectionAreaContainerChange {
+  // tslint:disable-next-line: deprecation
   source: DtSelectionArea;
 }
 /** The global container that holds all selection area containers */
 let globalContainerElement: HTMLElement | null = null;
 
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ */
 @Component({
   selector: 'dt-selection-area',
   exportAs: 'dtSelectionArea',
@@ -43,8 +58,8 @@ let globalContainerElement: HTMLElement | null = null;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy, DoCheck {
-
+export class DtSelectionArea
+  implements OnChanges, AfterViewInit, OnDestroy, DoCheck {
   /** The aria label used for the selected area of the selection area */
   @Input('aria-label-selected-area') ariaLabelSelectedArea: string;
 
@@ -58,20 +73,29 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy, DoC
   @Input('aria-label-close-button') ariaLabelClose: string;
 
   /** Emits when the selected area changes position or size */
-  @Output() readonly changed: Observable<DtSelectionAreaChange> =
-    this._deferContainerEvent<DtSelectionAreaContainerChange>('changed')
-    .pipe(map((changed) => ({ source: this, ...changed })));
+  @Output() readonly changed: Observable<
+    // tslint:disable-next-line: deprecation
+    DtSelectionAreaChange
+    // tslint:disable-next-line: deprecation
+  > = this._deferContainerEvent<DtSelectionAreaContainerChange>('changed').pipe(
+    map((changed) => ({ source: this, ...changed }))
+  );
 
   /** Emits when the selected area is closed */
-  @Output() readonly closed: Observable<void> = this._deferContainerEvent<void>('closed');
+  @Output() readonly closed: Observable<void> = this._deferContainerEvent<void>(
+    'closed'
+  );
 
   /** @internal Emits whenever the grabbing state changes */
-  readonly _grabbingChange: Observable<boolean> = this._deferContainerEvent<boolean>('_grabbingChange');
+  readonly _grabbingChange: Observable<boolean> = this._deferContainerEvent<
+    boolean
+  >('_grabbingChange');
 
   /** The portal outlet used to render the container to the body to properly position the selection area container */
   private _portalOutlet: DomPortalOutlet;
 
   /** The instance of the container that is dynamically generated in the outlet */
+  // tslint:disable-next-line: deprecation
   private _containerInstance: DtSelectionAreaContainer;
 
   /**
@@ -80,13 +104,17 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy, DoC
    * This needs to be run after zone is stable because we need to wait until the origin is actually rendered
    * to get the correct boundaries
    */
-  _boundariesChanged: BehaviorSubject<ClientRect | null> = new BehaviorSubject(null);
+  _boundariesChanged: BehaviorSubject<ClientRect | null> = new BehaviorSubject(
+    null
+  );
 
-// tslint:disable-next-line: no-any
-  @ViewChild('content', { read: TemplateRef, static: true }) _overlayContent: TemplateRef<any>;
+  @ViewChild('content', { read: TemplateRef, static: true })
+  // tslint:disable-next-line: no-any
+  _overlayContent: TemplateRef<any>;
 
-// tslint:disable-next-line: no-any
-  @ViewChild('actions', { read: TemplateRef, static: true }) _overlayActions: TemplateRef<any>;
+  @ViewChild('actions', { read: TemplateRef, static: true })
+  // tslint:disable-next-line: no-any
+  _overlayActions: TemplateRef<any>;
 
   constructor(
     private _renderer: Renderer2,
@@ -108,20 +136,32 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy, DoC
 
   ngAfterViewInit(): void {
     if (this._containerInstance) {
-      this._containerInstance._overlayContentPortal = new TemplatePortal(this._overlayContent, this._viewContainerRef);
-      this._containerInstance._overlayActionsPortal = new TemplatePortal(this._overlayActions, this._viewContainerRef);
+      this._containerInstance._overlayContentPortal = new TemplatePortal(
+        this._overlayContent,
+        this._viewContainerRef
+      );
+      this._containerInstance._overlayActionsPortal = new TemplatePortal(
+        this._overlayActions,
+        this._viewContainerRef
+      );
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this._containerInstance &&
-      (changes.ariaLabelSelectedArea || changes.ariaLabelLeftHandle || changes.ariaLabelRightHandle || changes.ariaLabelClose)
+    if (
+      changes &&
+      this._containerInstance &&
+      (changes.ariaLabelSelectedArea ||
+        changes.ariaLabelLeftHandle ||
+        changes.ariaLabelRightHandle ||
+        changes.ariaLabelClose)
     ) {
       this._containerInstance._updateAriaLabels(
         this.ariaLabelSelectedArea,
         this.ariaLabelLeftHandle,
         this.ariaLabelRightHandle,
-        this.ariaLabelClose);
+        this.ariaLabelClose
+      );
     }
   }
 
@@ -169,19 +209,33 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy, DoC
 
   /** Defers the container events until the zone is stable and the container is ready */
   private _deferContainerEvent<T>(eventName: string): Observable<T> {
-    return this._containerInstance ? this._containerInstance[eventName] : this._ngZone.onStable
-      .asObservable()
-      .pipe(take(1), switchMap(() => this._deferContainerEvent(eventName)));
+    return this._containerInstance
+      ? this._containerInstance[eventName]
+      : this._ngZone.onStable.asObservable().pipe(
+          take(1),
+          switchMap(() => this._deferContainerEvent(eventName))
+        );
   }
 
   /** Creates the container and the host element in the domportal on the body */
+  // tslint:disable-next-line: deprecation
   private _createContainer(): DtSelectionAreaContainer | null {
     if (document) {
       // the viewContainerRef as a parameter to the component portal needs to be null so we dont create an
       // embedded view
-      const portal = new ComponentPortal(DtSelectionAreaContainer, null, null, this._componentFactoryResolver);
+      const portal = new ComponentPortal(
+        // tslint:disable-next-line: deprecation
+        DtSelectionAreaContainer,
+        null,
+        null,
+        this._componentFactoryResolver
+      );
       this._portalOutlet = new DomPortalOutlet(
-        this._createHostElement(), this._componentFactoryResolver, this._appRef, this._viewContainerRef.injector);
+        this._createHostElement(),
+        this._componentFactoryResolver,
+        this._appRef,
+        this._viewContainerRef.injector
+      );
       const componentRef = this._portalOutlet.attachComponentPortal(portal);
       return componentRef.instance;
     }
@@ -201,7 +255,9 @@ export class DtSelectionArea implements OnChanges, AfterViewInit, OnDestroy, DoC
 
   /** Creates a new global container holds all selection area containers if needed and returns it */
   private _getGlobalContainerElement(): HTMLElement {
-    if (!globalContainerElement) { this._createGlobalContainerInBody(); }
+    if (!globalContainerElement) {
+      this._createGlobalContainerInBody();
+    }
     return globalContainerElement!;
   }
 

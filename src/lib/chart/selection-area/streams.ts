@@ -61,12 +61,44 @@ export function getMouseDownStream(
  * events back on the target. Starting actions remove the pointer events class.
  * @param target The HTMLElement where the no pointer events class should be toggled.
  */
-export function getMouseUpStream(target: HTMLElement): Observable<MouseEvent> {
-  return fromEvent<MouseEvent>(window, 'mouseup').pipe(
+export function getMouseUpStream(
+  target: HTMLElement,
+  mouseUpFactory?: (() => Observable<MouseEvent>) | undefined
+): Observable<MouseEvent> {
+  const mouseUp$ = mouseUpFactory
+    ? mouseUpFactory()
+    : fromEvent<MouseEvent>(window, 'mouseup');
+
+  return mouseUp$.pipe(
     tap(() => {
       addCssClass(target, NO_POINTER_EVENTS_CLASS);
     }),
     share()
+  );
+}
+
+/**
+ * Creates a mouse out stream on the provided elements filters out the mouse out between the elements
+ * if the event is not outside the provided bounding client rect.
+ * @param target The HTMLElement that should used to calculate the relative position
+ * @param mousedownElements Array of Elements that is used as event targets
+ * to capture the mouse out event
+ * @param targetBCR the bounding client rect of the target that is used to identify if the mouseout is correct.
+ */
+export function getMouseOutStream(
+  target: HTMLElement,
+  mousedownElements: Element[],
+  targetBCR: ClientRect
+): Observable<{ x: number; y: number }> {
+  return captureAndMergeEvents('mouseout', mousedownElements).pipe(
+    map((event: MouseEvent) => getRelativeMousePosition(event, target)),
+    filter(
+      (position) =>
+        position.x < 0 ||
+        position.y < 0 ||
+        position.x > targetBCR.width ||
+        position.y > targetBCR.height
+    )
   );
 }
 
@@ -81,11 +113,14 @@ export function getMouseUpStream(target: HTMLElement): Observable<MouseEvent> {
 export function getClickStream(
   target: HTMLElement,
   clickStart$: Observable<MouseEvent>,
-  clickEnd$: Observable<MouseEvent>
+  clickEnd$: Observable<MouseEvent>,
+  dragMoveFactory?: (() => Observable<MouseEvent>) | undefined
 ): Observable<{ x: number; y: number }> {
   return merge(
     clickStart$,
-    fromEvent<MouseEvent>(target, 'mousemove'),
+    dragMoveFactory
+      ? dragMoveFactory()
+      : fromEvent<MouseEvent>(target, 'mousemove'),
     clickEnd$
   ).pipe(
     pairwise(),
@@ -229,7 +264,7 @@ export function getRangeResizeStream(
         { left: number; width: number }
       ]) => {
         const delta =
-          handle === 'right'
+          handle === DtSelectionAreaEventTarget.RightHandle
             ? position.x - (range.left + range.width)
             : position.x - range.left;
 

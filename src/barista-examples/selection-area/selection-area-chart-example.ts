@@ -21,6 +21,7 @@ import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angu
 })
 export class SelectionAreaChartExample {
   @ViewChild(DtChart, { static: true }) chart: DtChart;
+  // tslint:disable-next-line: deprecation
   @ViewChild(DtSelectionArea, { static: true }) selectionArea: DtSelectionArea;
 
   left: number;
@@ -85,6 +86,7 @@ export class SelectionAreaChartExample {
       data: generateData(40, 0, 15, 1370304000000, 900000),
     }];
 
+  // tslint:disable-next-line: deprecation
   handleChange(ev: DtSelectionAreaChange): void {
     this.left = ev.left;
     this.right = ev.right;

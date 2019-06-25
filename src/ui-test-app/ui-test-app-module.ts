@@ -71,6 +71,7 @@ import { Home, UIApp } from './ui-test-app/ui-test-app';
     DtPaginationModule,
     DtProgressBarModule,
     DtRadioModule,
+    // tslint:disable-next-line: deprecation
     DtSelectionAreaModule,
     DtSelectModule,
     DtShowMoreModule,
@@ -79,6 +80,7 @@ import { Home, UIApp } from './ui-test-app/ui-test-app';
     DtTileModule,
     DtSelectModule,
     DtOverlayModule,
+    // tslint:disable-next-line: deprecation
     DtSelectionAreaModule,
     DtConsumptionModule,
   ],

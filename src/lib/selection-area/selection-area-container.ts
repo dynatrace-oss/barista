@@ -23,12 +23,20 @@ import {
   mixinTabIndex,
 } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
-import { getOffsetForKeyCode, DtSelectionAreaEventTarget, calculatePosition } from './positioning-utils';
+import {
+  getOffsetForKeyCode,
+  DtSelectionAreaEventTarget,
+  calculatePosition,
+} from './positioning-utils';
 import { ENTER } from '@angular/cdk/keycodes';
 import { take } from 'rxjs/operators';
 import { Portal } from '@angular/cdk/portal';
 
-/** Change event object emitted by DtSelectionArea */
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ * Change event object emitted by DtSelectionArea
+ */
 export interface DtSelectionAreaContainerChange {
   /** The position for the left edge - either in px or the xAxis unit of the chart when used with the dt-chart */
   left: number;
@@ -91,9 +99,25 @@ const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
   },
 ];
 
-export class DtSelectionAreaContainerBase { }
-export const _DtSelectionAreaContainerMixin = mixinTabIndex(mixinDisabled(DtSelectionAreaContainerBase));
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ */
+export class DtSelectionAreaContainerBase {}
 
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ */
+export const _DtSelectionAreaContainerMixin = mixinTabIndex(
+  // tslint:disable-next-line: deprecation
+  mixinDisabled(DtSelectionAreaContainerBase)
+);
+
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ */
 @Component({
   selector: 'dt-selection-area-container',
   exportAs: 'dtSelectionAreaContainer',
@@ -106,10 +130,14 @@ export const _DtSelectionAreaContainerMixin = mixinTabIndex(mixinDisabled(DtSele
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin implements HasTabIndex, OnDestroy {
-
+// tslint:disable-next-line: deprecation
+export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
+  implements HasTabIndex, OnDestroy {
   /** Emits when the selected area changes position or size */
-  @Output() readonly changed = new EventEmitter<DtSelectionAreaContainerChange>();
+  @Output() readonly changed = new EventEmitter<
+    // tslint:disable-next-line: deprecation
+    DtSelectionAreaContainerChange
+  >();
 
   /** Emits everytime the selected area and the overlay are closed */
   @Output() readonly closed = new EventEmitter<void>();
@@ -124,11 +152,11 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   _grabbingChange = new Subject<boolean>();
 
   /** @internal The portal that contains the content for the overlay */
-// tslint:disable-next-line: no-any
+  // tslint:disable-next-line: no-any
   _overlayContentPortal: Portal<any>;
 
   /** @internal The portal that contains the actions */
-// tslint:disable-next-line: no-any
+  // tslint:disable-next-line: no-any
   _overlayActionsPortal: Portal<any>;
 
   /** @internal The aria label used for the selected area */
@@ -162,12 +190,16 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   _interpolateFn: (pxValue: number) => number = (pxValue) => pxValue;
 
   /** @internal The focus trap for the selectedArea */
-  @ViewChild(CdkTrapFocus, { static: true }) _selectedAreaFocusTrap: CdkTrapFocus;
+  @ViewChild(CdkTrapFocus, { static: true })
+  _selectedAreaFocusTrap: CdkTrapFocus;
 
   /** @internal The selected area that gets created by the users action */
-  @ViewChild('selectedArea', { static: true }) _selectedArea: ElementRef<HTMLDivElement>;
+  @ViewChild('selectedArea', { static: true }) _selectedArea: ElementRef<
+    HTMLDivElement
+  >;
   /** @internal The overlay adjacent to the selectedArea */
-  @ViewChild(CdkConnectedOverlay, { static: true }) _overlay: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: true })
+  _overlay: CdkConnectedOverlay;
   /** @internal The left handle of the selectedArea */
   @ViewChild('lefthandle', { static: true }) _leftHandle: ElementRef;
   /** @internal The right handle of the selectedArea */
@@ -213,7 +245,9 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   _onOverlayAttached(): void {
     // create the focus trap within the overlay
     if (!this._overlayFocusTrap) {
-      this._overlayFocusTrap = this._focusTrapFactory.create(this._overlay.overlayRef.overlayElement);
+      this._overlayFocusTrap = this._focusTrapFactory.create(
+        this._overlay.overlayRef.overlayElement
+      );
       this._attachFocusTrapListeners();
     }
   }
@@ -221,7 +255,11 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   /** Attacheds the eventlisteners for the focus traps connected to each other */
   private _attachFocusTrapListeners(): void {
     this._zone.runOutsideAngular(() => {
-      const overlayAnchors = [].slice.call(this._overlay.overlayRef.hostElement.querySelectorAll('.cdk-focus-trap-anchor'));
+      const overlayAnchors = [].slice.call(
+        this._overlay.overlayRef.hostElement.querySelectorAll(
+          '.cdk-focus-trap-anchor'
+        )
+      );
       overlayAnchors[0].addEventListener('focus', (event: FocusEvent) => {
         event.preventDefault();
         this._selectedAreaFocusTrap.focusTrap.focusLastTabbableElement();
@@ -230,7 +268,11 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
         event.preventDefault();
         this._selectedAreaFocusTrap.focusTrap.focusFirstTabbableElement();
       });
-      const selectedAreaAnchors = [].slice.call(this._elementRef.nativeElement.querySelectorAll('.cdk-focus-trap-anchor'));
+      const selectedAreaAnchors = [].slice.call(
+        this._elementRef.nativeElement.querySelectorAll(
+          '.cdk-focus-trap-anchor'
+        )
+      );
       selectedAreaAnchors[0].addEventListener('focus', (event: FocusEvent) => {
         event.preventDefault();
         this._overlayFocusTrap.focusLastTabbableElement();
@@ -255,8 +297,10 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
       } else {
         // Create area at defaut position if no position has been provided
         // no need to use request animation frame here since this is done for keyboard events
-        this._left = this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_START;
-        this._width = this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE;
+        this._left =
+          this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_START;
+        this._width =
+          this._boundaries.width * DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE;
         this._isSelectedAreaVisible = true;
         this._reflectValuesToDom();
         this._emitChange();
@@ -290,7 +334,12 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   }
 
   /** @internal Updates all aria labels */
-  _updateAriaLabels(areaLabel: string, leftLabel: string, rightLabel: string, closeBtnLabel: string): void {
+  _updateAriaLabels(
+    areaLabel: string,
+    leftLabel: string,
+    rightLabel: string,
+    closeBtnLabel: string
+  ): void {
     this._ariaLabelSelectedArea = areaLabel;
     this._ariaLabelLeftHandle = leftLabel;
     this._ariaLabelRightHandle = rightLabel;
@@ -323,14 +372,24 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     this._detachWindowListeners();
     // tslint:disable-next-line:strict-type-predicates
     if (isDefined(window)) {
-      this._detachFns.push(this._renderer.listen(window, 'mousemove', (ev) => { this._handleMouseMove(ev); }));
-      this._detachFns.push(this._renderer.listen(window, 'mouseup', (ev) => { this._handleMouseup(ev); }));
+      this._detachFns.push(
+        this._renderer.listen(window, 'mousemove', (ev) => {
+          this._handleMouseMove(ev);
+        })
+      );
+      this._detachFns.push(
+        this._renderer.listen(window, 'mouseup', (ev) => {
+          this._handleMouseup(ev);
+        })
+      );
     }
   }
 
   /** Detaches the window listeners */
   private _detachWindowListeners(): void {
-    this._detachFns.forEach((fn) => { fn(); });
+    this._detachFns.forEach((fn) => {
+      fn();
+    });
     this._detachFns = [];
   }
 
@@ -344,7 +403,9 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     if (readKeyCode(event) === ENTER) {
       this._create(0);
 
-      this._zone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => { this.focus(); });
+      this._zone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => {
+        this.focus();
+      });
     }
   }
 
@@ -372,11 +433,17 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     }
 
     // Do not store relative positions outside the boundries
-    this._lastRelativeXPosition = Math.min(Math.max(relativeX, 0), this._boundaries.width);
+    this._lastRelativeXPosition = Math.min(
+      Math.max(relativeX, 0),
+      this._boundaries.width
+    );
 
     // Check if mouseposition is outside the boundries. If so, we can ignore the rest.
-    if ((event.clientX < this._boundaries.left && !this._left) ||
-      (event.clientX > this._boundaries.right && this._left + this._width > this._boundaries.width)) {
+    if (
+      (event.clientX < this._boundaries.left && !this._left) ||
+      (event.clientX > this._boundaries.right &&
+        this._left + this._width > this._boundaries.width)
+    ) {
       return;
     }
     const deltaX = relativeX - lastMoustPosition;
@@ -404,15 +471,23 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
   _handleKeyDown(event: KeyboardEvent, target: string): void {
     const keyCode = readKeyCode(event);
     this._eventTarget = DtSelectionAreaEventTarget[target];
+    // tslint:disable-next-line: deprecation
     const offset = getOffsetForKeyCode(keyCode, this._boundaries.width);
     if (offset) {
       event.preventDefault();
       event.stopPropagation();
       this._calculateNewPosition(offset);
       this._applySizeAndPosition();
-      if (this._eventTarget === DtSelectionAreaEventTarget.LeftHandle && this._width < offset) {
+      if (
+        this._eventTarget === DtSelectionAreaEventTarget.LeftHandle &&
+        this._width < offset
+      ) {
         this._rightHandle.nativeElement.focus();
-      } else if (this._eventTarget === DtSelectionAreaEventTarget.RightHandle && offset < 1 && this._width < Math.abs(offset)) {
+      } else if (
+        this._eventTarget === DtSelectionAreaEventTarget.RightHandle &&
+        offset < 1 &&
+        this._width < Math.abs(offset)
+      ) {
         this._leftHandle.nativeElement.focus();
       }
     }
@@ -450,7 +525,10 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
     const rightHandle = this._rightHandle.nativeElement;
     rightHandle.setAttribute('aria-valuemin', this._interpolateFn(this._left));
     rightHandle.setAttribute('aria-valuenow', this._interpolateFn(right));
-    rightHandle.setAttribute('aria-valuemax', this._interpolateFn(this._boundaries.width));
+    rightHandle.setAttribute(
+      'aria-valuemax',
+      this._interpolateFn(this._boundaries.width)
+    );
   }
 
   /**
@@ -458,8 +536,14 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin imp
    * and calls the emit change event
    */
   private _calculateNewPosition(deltaX: number): void {
-    const { left, width, nextTarget } =
-      calculatePosition(this._eventTarget, deltaX, this._left, this._width, this._boundaries.width);
+    // tslint:disable-next-line: deprecation
+    const { left, width, nextTarget } = calculatePosition(
+      this._eventTarget,
+      deltaX,
+      this._left,
+      this._width,
+      this._boundaries.width
+    );
     this._left = left;
     this._width = width;
     this._eventTarget = nextTarget;

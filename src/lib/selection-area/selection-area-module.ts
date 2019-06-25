@@ -9,6 +9,11 @@ import { DtSelectionAreaOrigin } from './selection-area-origin';
 import { DtSelectionAreaContainer } from './selection-area-container';
 import { PortalModule } from '@angular/cdk/portal';
 
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ */
+// tslint:disable: deprecation
 @NgModule({
   imports: [
     DtIconModule,
@@ -17,19 +22,13 @@ import { PortalModule } from '@angular/cdk/portal';
     A11yModule,
     PortalModule,
   ],
-  exports: [
-    DtSelectionArea,
-    DtSelectionAreaOrigin,
-    DtSelectionAreaActions,
-  ],
+  exports: [DtSelectionArea, DtSelectionAreaOrigin, DtSelectionAreaActions],
   declarations: [
     DtSelectionArea,
     DtSelectionAreaContainer,
     DtSelectionAreaOrigin,
     DtSelectionAreaActions,
   ],
-  entryComponents: [
-    DtSelectionAreaContainer,
-  ],
+  entryComponents: [DtSelectionAreaContainer],
 })
 export class DtSelectionAreaModule {}
