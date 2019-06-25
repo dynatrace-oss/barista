@@ -11,29 +11,18 @@ import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/fi
   </dt-filter-field>
   `,
 })
-export class FilterFieldDefaultExample {
+export class DistinctFilterFieldExample {
 
   private DATA = {
     autocomplete: [
       {
         name: 'AUT',
         autocomplete: ['Linz', 'Vienna', 'Graz'],
+        distinct: true,
       },
       {
         name: 'USA',
         autocomplete: ['San Francisco', 'Los Angeles', 'New York'],
-      },
-      {
-        name: 'Requests per minute',
-        range: {
-          operators: {
-            range: true,
-            equal: true,
-            greaterThanEqual: true,
-            lessThanEqual: true,
-          },
-          unit: 's',
-        },
       },
     ],
   };

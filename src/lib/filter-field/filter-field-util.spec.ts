@@ -8,7 +8,7 @@ import {
   generateOptionId,
   DELIMITER,
   peekOptionId,
-  findDefForSourceObj,
+  findDefForSource,
   transformSourceToTagData,
   optionFilterTextPredicate,
   optionSelectedPredicate,
@@ -58,18 +58,18 @@ describe('DtFilterField Util', () => {
 
   describe('findDefForSourceObj', () => {
     it('should return null if the provided root definition is not of type autocomplete', () => {
-      expect(findDefForSourceObj({}, dtFreeTextDef([], {}, null))).toBe(null);
-      expect(findDefForSourceObj({}, dtOptionDef('', {}, null, null, null, null))).toBe(null);
-      expect(findDefForSourceObj({}, dtGroupDef('', [], {}, null, null))).toBe(null);
+      expect(findDefForSource({}, dtFreeTextDef([], {}, null))).toBe(null);
+      expect(findDefForSource({}, dtOptionDef('', {}, null, null, null, null))).toBe(null);
+      expect(findDefForSource({}, dtGroupDef('', [], {}, null, null))).toBe(null);
     });
 
     it('should find the corresponding option definition based on a basic source object in an autocomplete def', () => {
       const optionSource = { name: 'Option 1' };
       const autocompleteSource = [optionSource];
       const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
-      const autocompleteDef = dtAutocompleteDef([optionDef], false, autocompleteSource, null);
+      const autocompleteDef = dtAutocompleteDef([optionDef], false, false, autocompleteSource, null);
       optionDef.option!.parentAutocomplete = autocompleteDef;
-      expect(findDefForSourceObj(optionSource, autocompleteDef)).toBe(optionDef);
+      expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
     });
 
     it(
@@ -82,30 +82,51 @@ describe('DtFilterField Util', () => {
 
         const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
         const groupDef = dtGroupDef('Group 1', [optionDef], groupSource, null, null);
-        const autocompleteDef = dtAutocompleteDef([groupDef], false, autocompleteSource, null);
+        const autocompleteDef = dtAutocompleteDef([groupDef], false, false, autocompleteSource, null);
         optionDef.option!.parentAutocomplete = autocompleteDef;
         optionDef.option!.parentGroup = groupDef;
         groupDef.group!.parentAutocomplete = autocompleteDef;
-        expect(findDefForSourceObj(optionSource, autocompleteDef)).toBe(optionDef);
+        expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
       });
 
     it('should find the corresponding option definition when the source is a string inside an autocomplete def', () => {
       const optionSource = 'Option 1';
       const autocompleteSource = [optionSource];
       const optionDef = dtOptionDef(optionSource, optionSource, null, null, null, null);
-      const autocompleteDef = dtAutocompleteDef([optionDef], false, autocompleteSource, null);
+      const autocompleteDef = dtAutocompleteDef([optionDef], false, false, autocompleteSource, null);
       optionDef.option!.parentAutocomplete = autocompleteDef;
-      expect(findDefForSourceObj(optionSource, autocompleteDef)).toBe(optionDef);
+      expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
     });
 
     it('should return null if no corresponding option definition could be found', () => {
       const optionSource = { name: 'Option 1' };
       const autocompleteSource = [optionSource];
       const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
-      const autocompleteDef = dtAutocompleteDef([optionDef], false, autocompleteSource, null);
+      const autocompleteDef = dtAutocompleteDef([optionDef], false, false, autocompleteSource, null);
       optionDef.option!.parentAutocomplete = autocompleteDef;
-      expect(findDefForSourceObj({}, autocompleteDef)).toBe(null);
+      expect(findDefForSource({}, autocompleteDef)).toBe(null);
     });
+
+    // fit('should', () => {
+    //   const rootSource = {
+    //     autocomplete: [
+    //       { name: 'AUT', autocomplete: [], async: true },
+    //     ],
+    //   };
+    //   const asyncSource = {
+    //     name: 'AUT',
+    //     autocomplete: [
+    //       { name: 'Linz' },
+    //     ],
+    //     async: true,
+    //   };
+    //   let autDef = dtOptionDef(rootSource.autocomplete[0].name, rootSource.autocomplete[0], null, null, null, null);
+    //   autDef = dtAutocompleteDef([], false, rootSource.autocomplete[0].async, rootSource.autocomplete[0], autDef);
+    //   const rootDef = dtAutocompleteDef([autDef], false, false, rootSource, null);
+    //   autDef.option!.parentAutocomplete = rootDef;
+
+    //   findDefForSourceObj()
+    // });
   });
 
   describe('transformSourceToTagData', () => {
@@ -114,7 +135,7 @@ describe('DtFilterField Util', () => {
       const autocompleteSource = [optionSource];
 
       const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
-      const autocompleteDef = dtAutocompleteDef([optionDef], false, autocompleteSource, null);
+      const autocompleteDef = dtAutocompleteDef([optionDef], false, false, autocompleteSource, null);
       optionDef.option!.parentAutocomplete = autocompleteDef;
 
       const sources = [optionSource];
@@ -134,7 +155,7 @@ describe('DtFilterField Util', () => {
 
       const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
       const groupDef = dtGroupDef('Group 1', [optionDef], groupSource, null, null);
-      const autocompleteDef = dtAutocompleteDef([groupDef], false, autocompleteSource, null);
+      const autocompleteDef = dtAutocompleteDef([groupDef], false, false, autocompleteSource, null);
       optionDef.option!.parentAutocomplete = autocompleteDef;
       optionDef.option!.parentGroup = groupDef;
       groupDef.group!.parentAutocomplete = autocompleteDef;
@@ -156,9 +177,9 @@ describe('DtFilterField Util', () => {
 
       const innerOptionDef = dtOptionDef(innerOptionSource, innerOptionSource, null, null, null, null);
       const outerOptionDef = dtOptionDef(outerOptionSource.name, outerOptionSource, null, null, null, null);
-      const outerOptionAutocompleteDef = dtAutocompleteDef([innerOptionDef], false, outerOptionSource, outerOptionDef);
+      const outerOptionAutocompleteDef = dtAutocompleteDef([innerOptionDef], false, false, outerOptionSource, outerOptionDef);
       innerOptionDef.option!.parentAutocomplete = outerOptionAutocompleteDef;
-      const rootAutocompleteDef = dtAutocompleteDef([outerOptionAutocompleteDef], false, rootAutocompleteSource, null);
+      const rootAutocompleteDef = dtAutocompleteDef([outerOptionAutocompleteDef], false, false, rootAutocompleteSource, null);
       outerOptionAutocompleteDef.option!.parentAutocomplete = rootAutocompleteDef;
 
       const sources = [outerOptionSource, innerOptionSource];
@@ -189,7 +210,7 @@ describe('DtFilterField Util', () => {
 
       const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
       const freeTextDef = dtFreeTextDef([], optionSource, optionDef);
-      const autocompleteDef = dtAutocompleteDef([freeTextDef], false, autocompleteSource, null);
+      const autocompleteDef = dtAutocompleteDef([freeTextDef], false, false, autocompleteSource, null);
 
       const sources = [optionSource, 'Some Text'];
       const tagData = transformSourceToTagData(sources, autocompleteDef);
@@ -209,7 +230,7 @@ describe('DtFilterField Util', () => {
       const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
       const freeTextDef = dtFreeTextDef([], optionSource, optionDef);
       const groupDef = dtGroupDef('Group 1', [freeTextDef], groupSource, null, null);
-      const autocompleteDef = dtAutocompleteDef([groupDef], false, autocompleteSource, null);
+      const autocompleteDef = dtAutocompleteDef([groupDef], false, false, autocompleteSource, null);
       freeTextDef.option!.parentGroup = groupDef;
       freeTextDef.option!.parentAutocomplete = autocompleteDef;
       groupDef.group!.parentAutocomplete = autocompleteDef;
@@ -232,7 +253,7 @@ describe('DtFilterField Util', () => {
         const autocompleteSource = [optionSource];
 
         const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
-        const autocompleteDef = dtAutocompleteDef([optionDef], false, autocompleteSource, null);
+        const autocompleteDef = dtAutocompleteDef([optionDef], false, false, autocompleteSource, null);
         const sources = [{}];
         const tagData = transformSourceToTagData(sources, autocompleteDef);
         expect(tagData).toBe(null);
@@ -283,7 +304,7 @@ describe('DtFilterField Util', () => {
         const optionSource = { name: 'Option 1', uid: '1', autocomplete: [] };
         const selectedIds = new Set([optionSource.uid]);
         let optionDef = dtOptionDef(optionSource.name, optionSource, optionSource.uid, null, null, null);
-        optionDef = dtAutocompleteDef([], false, optionSource, optionDef);
+        optionDef = dtAutocompleteDef([], false, false, optionSource, optionDef);
         expect(optionSelectedPredicate(optionDef, selectedIds, false)).toBe(true);
       });
 
@@ -294,7 +315,7 @@ describe('DtFilterField Util', () => {
         const optionSource = { name: 'Option 1', uid: '1', autocomplete: [] };
         const selectedIds = new Set([optionSource.uid]);
         let optionDef = dtOptionDef(optionSource.name, optionSource, optionSource.uid, null, null, null);
-        optionDef = dtAutocompleteDef([], false, optionSource, optionDef);
+        optionDef = dtAutocompleteDef([], false, false, optionSource, optionDef);
         expect(optionSelectedPredicate(optionDef, selectedIds, true)).toBe(false);
       });
   });
