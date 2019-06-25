@@ -1,4 +1,4 @@
-import { Injectable, TemplateRef, ElementRef, Inject, Injector } from '@angular/core';
+import { Injectable, TemplateRef, ElementRef, Inject, Injector, OnDestroy } from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
 import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
@@ -61,7 +61,7 @@ const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
 export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-no-pointer';
 
 @Injectable({ providedIn: 'root'})
-export class DtOverlay {
+export class DtOverlay implements OnDestroy {
   // tslint:disable-next-line:no-any
   private _dtOverlayRef: DtOverlayRef<any> | null;
 
@@ -80,6 +80,11 @@ export class DtOverlay {
     private _overlayContainer: OverlayContainer
   ) {}
 
+  ngOnDestroy(): void {
+    this.dismiss();
+  }
+
+  /** Create an overlay reference. */
   create<T>(
     origin: DtOverlayOrigin,
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
@@ -95,20 +100,22 @@ export class DtOverlay {
     const overlayContainer = this._attachOverlayContainer(overlayRef, config);
     const dtOverlayRef = this._attachOverlayContent(componentOrTemplateRef, overlayContainer, overlayRef, config);
 
+    dtOverlayRef.disposableFns.push(() => {
+      this._dtOverlayRef = null;
+    });
     this._dtOverlayRef = dtOverlayRef;
 
     return this._dtOverlayRef;
   }
 
+  /** Dismisses the overlay and resets the given reference. */
   dismiss(): void {
-    const ref = this._dtOverlayRef;
-    if (ref) {
-      ref.dismiss();
-
-      this._dtOverlayRef = null;
+    if (this._dtOverlayRef) {
+      this._dtOverlayRef.dismiss();
     }
   }
 
+  /** Creates an overlay with a certain origin and configuration. */
   private _createOverlay(origin: DtOverlayOrigin, config: DtOverlayConfig): OverlayRef {
     let positions = config._positions || DEFAULT_DT_OVERLAY_POSITIONS;
     if (!config._positions && config.originY === 'center') {
@@ -136,6 +143,7 @@ export class DtOverlay {
     return this._overlay.create(overlayConfig);
   }
 
+  /** Attaches the overlay container. */
   private _attachOverlayContainer(overlay: OverlayRef, config: DtOverlayConfig): DtOverlayContainer {
     const injector = new PortalInjector(this._injector, new WeakMap([
       [DtOverlayConfig, config],
@@ -147,6 +155,7 @@ export class DtOverlay {
     return containerRef.instance;
   }
 
+  /** Attaches the given component or template to the passed container. */
   private _attachOverlayContent<T>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     container: DtOverlayContainer,

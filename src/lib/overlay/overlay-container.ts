@@ -129,6 +129,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
     if ((toState === 'void' && fromState !== 'void') || toState === 'exit') {
       this._restoreFocus();
       this._notifyDomExit();
+      this._portalOutlet.detach();
     }
   }
 

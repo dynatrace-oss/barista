@@ -25,6 +25,11 @@ export class DtOverlayRef<T> {
 
   private _pinned = false;
   private _backDropClickSub = Subscription.EMPTY;
+  private _disposableFns: Array<() => void> = [];
+
+  get disposableFns(): Array<() => void> {
+    return this._disposableFns;
+  }
 
   constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer, private _config: DtOverlayConfig) {
     containerInstance._onDomExit.pipe(take(1)).subscribe(() => {
@@ -61,6 +66,7 @@ export class DtOverlayRef<T> {
   /** Dismisses the overlay */
   dismiss(): void {
     this.containerInstance.exit();
+    this._disposableFns.forEach((fn) => { fn(); });
   }
 
   /**

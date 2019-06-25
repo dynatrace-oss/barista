@@ -29,6 +29,8 @@ The `DtOverlayTrigger` directive can be applied to any element with the `[dtOver
 
 The trigger has keyboard support: It opens the overlay on `SPACE` and `ENTER` when focused and closes the open overlay on `ESCAPE`.
 
+When an overlay is active and the trigger gets destroyed, the overlay will be dismissed as well.
+
 ### Options & properties
 
 | Name | Type | Default | Description |
