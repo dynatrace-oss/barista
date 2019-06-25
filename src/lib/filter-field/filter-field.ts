@@ -34,7 +34,10 @@ import {
   isDtRangeDef,
   DtFilterFieldTagData,
   isDtOptionDef,
-  isAsyncDtAutocompleteDef
+  isAsyncDtAutocompleteDef,
+  DtNodeDefOrSource,
+  getSourceOfDtNodeDefOrSource,
+  getSourcesOfDtNodeDefsOrSources
 } from './types';
 import { filterAutocompleteDef, filterFreeTextDef, transformSourceToTagData, findDefForSourceObj, peekOptionId } from './filter-field-util';
 import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-range-trigger';
@@ -105,13 +108,17 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
 
   /** Currently applied filters */
   @Input()
-  get filters(): any[][] { return this._filters; }
+  get filters(): any[][] {
+    return this._filters.map((defsOrSources) =>
+      getSourcesOfDtNodeDefsOrSources(defsOrSources));
+  }
   set filters(value: any[][]) {
+    // TODO transform to defs!!!!
     this._filters = value;
     this._switchToRootDef(false);
     this._changeDetectorRef.markForCheck();
   }
-  private _filters: any[][] = [];
+  private _filters: DtNodeDefOrSource[][] = [];
 
   /** Emits an event with the current value of the input field everytime the user types. */
   @Output() readonly inputChange = new EventEmitter<string>();
@@ -144,10 +151,18 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild(DtAutocomplete, { static: true }) _autocomplete: DtAutocomplete<DtNodeDef>;
 
   /** @internal List of sources of the filter that the user currently works on. */
-  _currentFilterSources: any[] | null = null;
+  _currentFilterNodeDefsOrSources: DtNodeDefOrSource[] = [];
 
   /** @internal The root NodeDef. The filter field will always switch to this def once the user completes a filter. */
   _rootDef: DtNodeDef | null = null;
+
+  /**
+   * @internal
+   * The NodeDefs of the asynchronously loaded data.
+   * The key represents the Def that triggerd the async loading,
+   * the value is the Def of the loaded data.
+   */
+  _asyncDefs = new Map<DtNodeDef, DtNodeDef>();
 
   /** @internal The current NodeDef that will be displayed (autocomplete, free-text, ...) */
   _currentDef: DtNodeDef | null = null;
@@ -325,7 +340,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
    */
   _handleTagEdit(event: DtFilterFieldTag): void {
     if (this._rootDef && !this._currentFilterSources) {
-      const def = findDefForSourceObj(event.data.filterSources[0], this._rootDef);
+      const def = findDefForSource(event.data.filterSources[0], this._rootDef);
       if (def) {
         const removed = event.data.filterSources.splice(1);
         this._currentFilterSources = event.data.filterSources;
@@ -444,19 +459,22 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
    * Removes a filter (a list of sources) from the list of current selected ones.
    * It is usually called when the user clicks the remove button of a filter
    */
-  private _removeFilter(sources: any[]): void {
-    const removableIndex = this._filters.indexOf(sources);
-    if (removableIndex !== -1 && this._rootDef) {
+  private _removeFilter(nodeDefsOrSources: DtNodeDefOrSource[]): void {
+    const removableIndex = this._filters.indexOf(nodeDefsOrSources);
+    if (removableIndex !== -1) {
       this._filters.splice(removableIndex, 1);
-      this._removeSelectedOptionIdsOfSources(sources, this._rootDef);
-      if (sources === this._currentFilterSources) {
+      this._removeSelectedOptionIdsOfSources(nodeDefsOrSources);
+      if (nodeDefsOrSources === this._currentFilterNodeDefsOrSources) {
         this._switchToRootDef(false);
       } else {
         this._updateTagData();
         this._updateAutocompleteOptionsOrGroups();
         this._filterByLabel = '';
       }
-      this._emitFilterChanges([], [...sources]);
+      this._emitFilterChanges(
+        [], // added
+        [ ...getSourcesOfDtNodeDefsOrSources(nodeDefsOrSources) ] // removed
+      );
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
@@ -467,13 +485,13 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
    * so the consumer can not override it from the outside.
    */
   private _emitFilterChanges(added: any[], removed: any[]): void {
-    const cloned = this._filters.map((sources) => [...sources]);
+    const cloned = this._filters.map((sources) => [...getSourcesOfDtNodeDefsOrSources(sources)]);
     this.filterChanges.emit(new DtFilterFieldChangeEvent(this, added, removed, cloned));
   }
 
   private _emitCurrentFilterChanges(): void {
-    const cloned = this._currentFilterSources!.slice();
-    this.currentFilterChanges.emit(new DtFilterFieldCurrentFilterChangeEvent(this, this._currentDef!.data, cloned));
+    const sources = getSourcesOfDtNodeDefsOrSources(this._currentFilterNodeDefsOrSources);
+    this.currentFilterChanges.emit(new DtFilterFieldCurrentFilterChangeEvent(this, this._currentDef!.data, sources));
   }
 
   /**
@@ -496,7 +514,9 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
       .pipe(takeUntil(this._destroy))
       .subscribe(
         (def) => {
-          if (!isAsyncDtAutocompleteDef(this._currentDef)) {
+          if (isAsyncDtAutocompleteDef(this._currentDef) && def) {
+            this._asyncDefs.set(this._currentDef, def);
+          } else {
             this._rootDef = def;
           }
           this._currentDef = def;
@@ -517,11 +537,13 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
    */
   private _switchToRootDef(shouldEmit: boolean = false): void {
     this._currentDef = this._rootDef;
+
     let sourcesToEmit: any[] = [];
-    if (this._currentFilterSources) {
-      sourcesToEmit = [...this._currentFilterSources];
+    if (this._currentFilterNodeDefsOrSources) {
+      sourcesToEmit = [...getSourcesOfDtNodeDefsOrSources(this._currentFilterNodeDefsOrSources)];
     }
-    this._currentFilterSources = null;
+
+    this._currentFilterNodeDefsOrSources = [];
     this._filterByLabel = '';
     this._currentSelectedOptionId = '';
     this._updateLoading();
@@ -535,8 +557,9 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
   /** Updates prefix and suffix tag data for displaying filter tags. */
   private _updateTagData(): void {
     if (this._rootDef) {
+      const splitIndex = this._filters.indexOf(this._currentFilterNodeDefsOrSources);
       this._prefixTagData =
-        this._filters.slice(0, this._currentFilterSources ? this._filters.indexOf(this._currentFilterSources) : undefined)
+        this._filters.slice(0, this._currentFilterNodeDefsOrSources ? splitIndex : undefined)
         .map((sources, i) => transformSourceToTagData(sources, this._rootDef!) || this._prefixTagData[i] || null);
 
       this._suffixTagData = this._currentFilterSources ?
@@ -565,7 +588,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
   private _updateFilterByLabel(): void {
     const currentFilterSources = this._currentFilterSources;
     if (this._rootDef && currentFilterSources && currentFilterSources.length) {
-      const def = findDefForSourceObj(currentFilterSources[0], this._rootDef);
+      const def = findDefForSource(currentFilterSources[0], this._rootDef);
       if (isDtOptionDef(def)) {
         this._filterByLabel = def.option.viewValue;
       }
@@ -577,16 +600,10 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /** Tries to remove all the ids from the selectedOptionsids list based on the provided sources array. */
-  private _removeSelectedOptionIdsOfSources(sources: any[], rootDef: DtNodeDef, currentSelectedOptionId?: string): void {
-    let def: DtNodeDef | null = rootDef;
-    let selectedId = isDtOptionDef(def) ? peekOptionId(def, currentSelectedOptionId) : (currentSelectedOptionId || '');
-    sources.forEach((source) => {
-      def = findDefForSourceObj(source, def!);
-      if (def !== null) {
-        selectedId = peekOptionId(def, selectedId);
-        this._selectedOptionIds.delete(selectedId);
-      } else {
-        return;
+  private _removeSelectedOptionIdsOfSources(nodeDefsOrSources: DtNodeDefOrSource[]): void {
+    nodeDefsOrSources.forEach((def) => {
+      if (isDtOptionDef(def) && def.option.uid) {
+        this._selectedOptionIds.delete(def.option.uid);
       }
     });
   }

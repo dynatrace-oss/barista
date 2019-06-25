@@ -10,6 +10,7 @@ import {
   isDtFreeTextDef,
   isDtRenderType,
   isDtRangeDef,
+  isAsyncDtAutocompleteDef
 } from './types';
 
 /**
@@ -135,8 +136,12 @@ function transformRangeSourceToTagData(source: any): { separator: string; value:
  * Transforms a list of sources to TagData, looks up view values, ...
  * Used for displaying filters as tags.
  */
-// tslint:disable-next-line:no-any
-export function transformSourceToTagData(sources: any[], rootDef: DtNodeDef): DtFilterFieldTagData | null {
+export function transformSourceToTagData(
+  // tslint:disable-next-line:no-any
+  sources: any[],
+  rootDef: DtNodeDef,
+  asyncDefs: DtNodeDef[] = []
+): DtFilterFieldTagData | null {
   let def = rootDef;
   let key: string | null = null;
   let value: string | null = null;
@@ -144,7 +149,7 @@ export function transformSourceToTagData(sources: any[], rootDef: DtNodeDef): Dt
   let separator: string | null = null;
   for (let i = 0; i < sources.length; i++) {
     const source = sources[i];
-    const newDef = findDefForSourceObj(source, def);
+    const newDef = findDefForSource(source, def);
 
     if (newDef === null && isDtAutocompleteDef(def)) {
       break;
@@ -179,9 +184,54 @@ export function transformSourceToTagData(sources: any[], rootDef: DtNodeDef): Dt
   return sources.length && value !== null ? new DtFilterFieldTagData(key, value, separator, sources, isFreeText) : null;
 }
 
+export function findDefsForSources(
+  sources: any[],
+  rootDef: DtNodeDef,
+  asyncDefs: Map<DtNodeDef, DtNodeDef>): Array<DtNodeDef | [DtNodeDef, DtNodeDef]> | null {
+  const foundDefs: Array<DtNodeDef | [DtNodeDef, DtNodeDef]> = [];
+  let parentDef = rootDef;
+
+  if (!sources.length) {
+    return null;
+  }
+
+  for (const [index, source] of sources) {
+    const isLastSource = (index as number + 1) === sources.length;
+    const def = findDefForSource(source, parentDef);
+    if (def) {
+      if (isDtRenderType(def)) {
+        if (isLastSource) {
+          return null; // throw ?
+        }
+        if (isAsyncDtAutocompleteDef(def)) {
+          const asyncDef = asyncDefs.get(def);
+          if (!asyncDef || !isDtAutocompleteDef(asyncDef)) {
+            return null; // throw ?
+          }
+          parentDef = asyncDef;
+          foundDefs.push([def, asyncDef]);
+        } else {
+          parentDef = def;
+          foundDefs.push(def);
+        }
+      } else if (isLastSource) {
+        foundDefs.push(def);
+        return foundDefs;
+      } else {
+        return null; // throw ?
+      }
+    } else if (isLastSource) {
+      return foundDefs;
+    } else {
+      return null; // throw ?
+    }
+  }
+  return null;
+}
+
 /** Tries to find a definition for the provided source. It will start the lookup at the provided def. */
 // tslint:disable-next-line:no-any
-export function findDefForSourceObj(source: any, def: DtNodeDef): DtNodeDef | null {
+export function findDefForSource(source: any, def: DtNodeDef): DtNodeDef | null {
   if (isDtAutocompleteDef(def)) {
     for (const optionOrGroup of def.autocomplete.optionsOrGroups) {
       if (isDtOptionDef(optionOrGroup) && optionOrGroup.data === source) {
