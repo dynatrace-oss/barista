@@ -7,29 +7,22 @@ import { DtBytes } from './bytes/bytes';
 import { DtKilobytes } from './bytes/kilobytes';
 import { DtMegabytes } from './bytes/megabytes';
 import { DtBits } from './bits/bits';
+import { DtDateRange } from './date/date-range';
+
+const FORMATTERS = [
+  DtBytes,
+  DtBits,
+  DtKilobytes,
+  DtMegabytes,
+  DtCount,
+  DtPercent,
+  DtRate,
+  DtDateRange,
+];
 
 @NgModule({
-  declarations: [
-    DtBytes,
-    DtBits,
-    DtKilobytes,
-    DtMegabytes,
-    DtCount,
-    DtPercent,
-    DtRate,
-  ],
-  exports: [
-    DtBytes,
-    DtBits,
-    DtKilobytes,
-    DtMegabytes,
-    DtCount,
-    DtPercent,
-    DtRate,
-  ],
-  imports: [
-    CommonModule,
-  ],
+  declarations: FORMATTERS,
+  exports: FORMATTERS,
+  imports: [CommonModule],
 })
-export class DtFormattersModule {
-}
+export class DtFormattersModule {}
