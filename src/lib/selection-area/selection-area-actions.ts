@@ -1,6 +1,10 @@
 import { Directive } from '@angular/core';
 
-/** Action area in the overlay, needed as it's used as a selector in the API. */
+/**
+ * @deprecated The selection are will be replaced with the chart selection area
+ * @breaking-change To be removed with 4.0.0.
+ * Action area in the overlay, needed as it's used as a selector in the API.
+ */
 @Directive({
   selector: `dt-selection-area-actions, [dt-selection-area-actions], [dtSelectionAreaActions]`,
   host: {

@@ -1,8 +1,5 @@
 <ng-template let-timestamp>
-  <span class="dt-selection-area-overlay-text">
-    {{ value[0] | date: 'MMM d, HH:mm' }} &mdash;
-    {{ value[1] | date: 'MMM d, HH:mm' }}
-  </span>
+  <span class="dt-selection-area-overlay-text">{{ value | dtDateRange }}</span>
   <ng-content select="[dtChartSelectionAreaAction]"></ng-content>
   <button
     dt-icon-button
@@ -25,10 +22,10 @@
   aria-orientation="horizontal"
   [attr.aria-valuemin]="min"
   [attr.aria-valuemax]="max"
+  [attr.aria-valuetext]="value | dtDateRange"
   [attr.aria-valuenow]="value"
   [attr.aria-label]="ariaLabelSelectedArea"
 >
-<!-- [attr.aria-valuetext]="value | dtDateRange" -->
   <button
     #leftHandle
     class="dt-chart-left-handle"
