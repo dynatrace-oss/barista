@@ -241,4 +241,13 @@ export class DtFilterFieldTagData {
     public separator: string | null,
     public filterSources: any[],
     public isFreeText: boolean) {}
+    public filterNodeDefsOrSources: any[]) {}
+}
+
+export type DtNodeDefOrSource = DtNodeDef | string;
+export function getSourceOfDtNodeDefOrSource<T>(defOrSource: DtNodeDefOrSource): T {
+  return isNodeDef(defOrSource) ? defOrSource.data : defOrSource;
+}
+export function getSourcesOfDtNodeDefsOrSources(defsOrSources: DtNodeDefOrSource[]): any[] {
+  return defsOrSources.map((defOrSource) => getSourceOfDtNodeDefOrSource<any>(defOrSource));
 }
