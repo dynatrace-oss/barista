@@ -6,8 +6,8 @@ import { DtSort, DtTableDataSource, formatPercent, formatBytes, formatRate, DtIn
   selector: 'demo-component',
   // tslint:disable
   template: `<dt-table [dataSource]="dataSource" dtSort #sortable>
-    <dt-simple-text-column name="host"></dt-simple-text-column>
-    <dt-simple-number-column name="cpu" label="Cpu" ></dt-simple-number-column>
+    <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
+    <dt-simple-number-column name="cpu" label="CPU" ></dt-simple-number-column>
     <dt-simple-number-column name="memoryPerc" label="Memory" [formatter]="percentageFormatter"></dt-simple-number-column>
     <dt-simple-number-column name="memoryConsumption" label="Memory combined" [displayAccessor]="combineMemory" [sortAccessor]="memorySortAccessor"></dt-simple-number-column>
     <dt-simple-number-column name="traffic" label="Traffic" sortable="false" [formatter]="trafficFormatter" [hasProblem]="trafficHasProblem"></dt-simple-number-column>
