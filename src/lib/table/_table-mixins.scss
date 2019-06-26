@@ -1,13 +1,12 @@
 @import '../style/font-mixins';
+@import '../core/style/variables';
 @import '../core/style/table';
 
 @mixin dt-base-row() {
-  align-items: center;
+  align-items: stretch;
   border: 0;
   box-sizing: border-box;
   display: flex;
-  padding-left: $dt-table-row-padding;
-  padding-right: $dt-table-row-padding;
 
   // Workaround for https://goo.gl/pFmjJD in IE 11. Adds a pseudo
   // element that will stretch the row the correct height. See:
@@ -24,7 +23,8 @@
   word-wrap: break-word;
   position: relative;
   font-variant: tabular-nums;
-  padding-left: $dt-table-cell-padding;
+  padding-left: $dt-table-cell-horizontal-padding;
+  padding-right: $dt-table-cell-horizontal-padding;
 
   &.dt-column-sorted {
     @include dt-custom-font-styles($gray-900, 700);
@@ -37,17 +37,17 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-top: $dt-table-cell-padding;
-  padding-bottom: $dt-table-cell-padding;
+  padding-top: $dt-table-cell-vertical-padding;
+  padding-bottom: $dt-table-cell-vertical-padding;
 
   &.dt-table-column-align-right {
-    padding-left: 0;
     justify-content: flex-end;
+    text-align: right;
   }
 
   &.dt-table-column-align-center {
-    padding-left: 0;
     justify-content: center;
+    text-align: center;
   }
 }
 
@@ -56,32 +56,29 @@
   display: table-cell;
 
   &.dt-table-column-align-right {
-    padding-left: 0;
-    padding-right: $dt-table-cell-padding;
     text-align: right;
   }
 
   &.dt-table-column-align-center {
-    padding-left: 0;
     text-align: center;
   }
 }
 
 // Header
-@mixin dt-header-bottom-line() {
-  content: '';
-  height: 1px;
-  background-color: $gray-200;
-  display: inline-block;
-  position: relative;
-  bottom: -3px;
+@mixin dt-header-cell-font() {
+  @include dt-default-font(12px, $default-line-height);
+  color: $gray-600;
+  font-weight: 600;
+  word-break: normal;
 }
 
-@mixin dt-header-bottom-line-table() {
+// Problem indicator
+@mixin dt-table-row-indicator() {
+  width: 2px;
+  height: calc(100% - 4px);
   content: '';
-  width: 100vw;
+  display: block;
   position: absolute;
-  bottom: 4px;
-  margin: 0 3px;
-  border-bottom: 1px solid $gray-200;
+  left: 2px;
+  align-self: center;
 }

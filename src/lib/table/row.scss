@@ -20,12 +20,7 @@
 }
 
 :host.dt-table-row-indicator::before {
-  width: 2px;
-  height: calc(100% - 8px);
-  content: '';
-  display: block;
-  position: absolute;
-  left: 4px;
+  @include dt-table-row-indicator();
 }
 
 :host-context(.dt-table-interactive-rows):hover {

@@ -23,7 +23,7 @@
 
 .dt-expandable-row-base-collapsed:hover {
   border: 1px solid $gray-500;
-  padding: 1px 9px;
+  padding: 1px;
 }
 
 .dt-expandable-row-base + .dt-expandable-row-collapsible {
@@ -35,7 +35,7 @@
   border-bottom: hidden;
   border-left: hidden;
   border-right: hidden;
-  padding: 0 10px 2px;
+  padding: 0 2px;
   background-color: $gray-200;
 }
 
@@ -57,12 +57,7 @@
 }
 
 :host.dt-table-row-indicator .dt-expandable-row-base::before {
-  width: 2px;
-  height: calc(100% - 4px);
-  content: '';
-  display: block;
-  position: absolute;
-  left: 2px;
+  @include dt-table-row-indicator();
 }
 
 :host.dt-table-row-indicator .dt-expandable-row-base-collapsed:hover::before {
@@ -71,7 +66,7 @@
 }
 
 :host.dt-table-row-indicator .dt-expandable-row-base-expanded::before {
-  height: calc(100% - 6px);
+  height: calc(100% - 4px);
   left: 4px;
 }
 
