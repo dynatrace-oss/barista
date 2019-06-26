@@ -19,7 +19,7 @@ import { CdkCellDef, CdkColumnDef } from '@angular/cdk/table';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtRow } from './row';
 import { Subject, merge, Subscription } from 'rxjs';
-import { isDefined, addCssClass, DtIndicator } from '@dynatrace/angular-components/core';
+import { isDefined, addCssClass, DtIndicator, removeCssClass } from '@dynatrace/angular-components/core';
 import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
 import { DtSort, DtSortEvent } from './sort/sort';
 import { DtSortHeader } from './sort/sort-header';
@@ -202,8 +202,11 @@ export function _setDtColumnCssClasses(columnDef: DtColumnDef, elementRef: Eleme
   const { align, cssClassFriendlyName } = columnDef;
   const cssAlignmentClass = coerceAlignment(align);
 
-  addCssClass(elementRef.nativeElement, `dt-table-column-${cssClassFriendlyName}`);
+  removeCssClass(elementRef.nativeElement, 'dt-table-column-align-left');
+  removeCssClass(elementRef.nativeElement, 'dt-table-column-align-center');
+  removeCssClass(elementRef.nativeElement, 'dt-table-column-align-right');
   addCssClass(elementRef.nativeElement, `dt-table-column-align-${cssAlignmentClass}`);
+  addCssClass(elementRef.nativeElement, `dt-table-column-${cssClassFriendlyName}`);
 }
 
 /** @internal Set classes name and styles props for columns. */
