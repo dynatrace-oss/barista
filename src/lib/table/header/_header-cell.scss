@@ -4,45 +4,17 @@
 @import '../table-mixins';
 
 ::ng-deep .dt-header-cell {
-  @include dt-label-font();
-  word-wrap: normal;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  @include dt-header-cell-font();
+
   // this padding is necessary to have the focus outline and the table not jumping when focusing on sorting headers
   padding: $focus-outline-width;
   overflow: hidden;
-
-  &::after {
-    @include dt-header-bottom-line();
-    width: 100%;
-    margin-left: $dt-table-row-horizontal-padding;
-  }
-
-  &.dt-table-column-align-right::before {
-    @include dt-header-bottom-line();
-    width: 100%;
-    margin-right: $dt-table-row-horizontal-padding;
-  }
-
-  &.dt-table-column-align-right::after {
-    content: none;
-  }
-
-  &.dt-table-column-align-center::before {
-    @include dt-header-bottom-line();
-    width: 50%;
-    margin-right: $dt-table-row-horizontal-padding;
-  }
-
-  &.dt-table-column-align-center::after {
-    @include dt-header-bottom-line();
-    width: 50%;
-    margin-left: $dt-table-row-horizontal-padding;
-  }
 }
 
 :host-context(.dt-table) ::ng-deep .dt-header-cell {
   @include dt-base-cell-flex();
+  align-items: flex-end;
+  border-bottom: 2px solid $gray-200;
 }
 
 :host-context(.dt-table-interactive-rows):hover {

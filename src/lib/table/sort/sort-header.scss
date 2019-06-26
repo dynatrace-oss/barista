@@ -2,11 +2,11 @@
 @import '../../core/style/interactive-common';
 
 $dt-sort-header-arrow-margin: 4px;
-$dt-sort-header-arrow-container-size: 8px;
-$dt-sort-header-arrow-container-height: 15px;
+$dt-sort-header-arrow-container-size: 12px;
+$dt-sort-header-arrow-container-height: 14px;
 
 .dt-sort-header-container {
-  cursor: pointer;
+  // cursor: pointer;
   align-items: center;
 
   .dt-sort-header-disabled & {
@@ -15,10 +15,12 @@ $dt-sort-header-arrow-container-height: 15px;
 }
 
 .dt-sort-header-button {
+  color: $gray-600;
   border: none;
   background: 0 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  text-align: left;
   padding: 0;
   cursor: inherit;
   outline: 0;
@@ -32,15 +34,44 @@ $dt-sort-header-arrow-container-height: 15px;
   } */
 }
 
-.dt-sort-header-sorted {
-  font-weight: 600;
+.dt-sortable:hover {
+  background-color: $gray-130;
+  cursor: pointer;
+
+  .dt-sort-header-button {
+    color: $gray-700;
+  }
+
+  .dt-sort-header-arrow {
+    fill: $gray-700;
+  }
 }
 
 .dt-sort-header-arrow {
+  fill: $gray-300;
   width: $dt-sort-header-arrow-container-size;
   min-width: $dt-sort-header-arrow-container-size;
   height: $dt-sort-header-arrow-container-height;
   position: relative;
   display: flex;
-  margin: 0 0 0 $dt-sort-header-arrow-margin;
+  margin: 0 0 $dt-sort-header-arrow-margin $dt-sort-header-arrow-margin;
+}
+
+.dt-sort-header-sorted {
+
+  .dt-sort-header-button {
+    color: $gray-700;
+  }
+
+  .dt-sort-header-arrow {
+    fill: $gray-700;
+  }
+}
+
+.dt-table-column-align-right .dt-sort-header-button {
+  text-align: right;
+}
+
+.dt-table-column-align-center .dt-sort-header-button {
+  text-align: center;
 }

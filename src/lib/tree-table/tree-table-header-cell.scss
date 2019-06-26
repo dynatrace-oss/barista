@@ -5,11 +5,15 @@
 :host {
   display: table-cell;
 
-  @include dt-label-font();
+  @include dt-header-cell-font();
   vertical-align: bottom;
   overflow: hidden;
-  border-right: 2px solid transparent;
   text-align: left;
+  border-bottom: 2px solid $gray-200;
+  padding-left: $dt-table-cell-horizontal-padding;
+  padding-right: $dt-table-cell-horizontal-padding;
+  padding-top: $dt-table-cell-vertical-padding;
+  padding-bottom: $dt-table-cell-vertical-padding;
 }
 
 .dt-tree-table-header-cell-wrap {
@@ -23,24 +27,4 @@
 
 :host.dt-table-column-align-center {
   text-align: center;
-}
-
-// Header spacing at the beginning of the header row
-:host:first-of-type .dt-tree-table-header-cell-wrap {
-  padding-left: 12px;
-}
-
-// Header spacing at the end of the header row
-:host:last-of-type {
-  border-right-width: 12px;
-}
-
-.dt-tree-table-header-cell-wrap::before {
-  right: 100%;
-  @include dt-header-bottom-line-table();
-}
-
-.dt-tree-table-header-cell-wrap::after {
-  left: 100%;
-  @include dt-header-bottom-line-table();
 }

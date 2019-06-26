@@ -27,6 +27,7 @@ export const _DtSortHeaderMixinBase = mixinDisabled(DtSortHeaderBase);
     '(click)': '_handleClick()',
     '[attr.aria-sort]': '_getAriaSortAttribute()',
     '[class.dt-sort-header-disabled]': '_isDisabled',
+    '[class.dt-sortable]': 'sortable && !_isDisabled',
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,7 +41,7 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    * The direction the arrow should be facing according to the current state.
    * @internal
    */
-  _sortIconName: 'sorter-down' | 'sorter-up' = 'sorter-down';
+  _sortIconName: 'sorter2-down' | 'sorter2-up' | 'sorter-double' = 'sorter-double';
 
   /**
    * Enables sorting on the dt-sort-header by applying the directive or not.
@@ -120,8 +121,9 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
 
   /** Updates the icon used for the sorter */
   private _updateSorterIcon(): void {
-    const sorting = this._isSorted ? this._sort.direction : this.start;
-    this._sortIconName = sorting === 'asc' ? 'sorter-up' : 'sorter-down';
+    this._sortIconName = this._isSorted ?
+      (this._sort.direction === 'asc' ? 'sorter2-up' : 'sorter2-down') :
+      'sorter-double';
   }
 
   /**
