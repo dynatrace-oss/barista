@@ -29,8 +29,9 @@
   <button
     #leftHandle
     class="dt-chart-left-handle"
-    (mousedown)="_dragHandle($event, 'left')"
     aria-role="slider"
+    [attr.aria-label]="ariaLabelLeftHandle"
+    (mousedown)="_dragHandle($event, 'left')"
   >
     <dt-icon name="handle"></dt-icon>
   </button>
@@ -38,8 +39,9 @@
   <button
     #rightHandle
     class="dt-chart-right-handle"
-    (mousedown)="_dragHandle($event, 'right')"
     aria-role="slider"
+    [attr.aria-label]="ariaLabelRightHandle"
+    (mousedown)="_dragHandle($event, 'right')"
   >
     <dt-icon name="handle"></dt-icon>
   </button>
