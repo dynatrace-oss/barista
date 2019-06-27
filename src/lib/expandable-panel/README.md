@@ -24,14 +24,14 @@ class MyModule {}
 
 ## Initialization
 
-To apply the Dynatrace expandable panel, use the `<dt-expandable-panel>` element. Example:
+To apply the Dynatrace expandable panel, use the `<dt-expandable-panel>` element.
 
 | Attribute | Description |
 | --- | --- |
 | `dt-expandable-panel` | The expandable panel, with the behaviour, but without styling |
 | `[dtExpandablePanel]=#panel` | The expandable trigger which listens on click and key events. The trigger needs to get a panel assigned. |
 
-<docs-source-example example="DefaultExpandablePanelExampleComponent"></docs-source-example>
+<docs-source-example example="DefaultExpandablePanelExample"></docs-source-example>
 
 ## Expandable panel
 
@@ -56,25 +56,34 @@ To apply the Dynatrace expandable panel, use the `<dt-expandable-panel>` element
 | --- | --- | --- |
 | `toggle` | `boolean` | Toggles the expanded state, i.e. changes it to expanded if collapsed, or vice-versa. |
 | `open` | `void` | Expands the panel. |
-| `close` | `void` | Collapses the panel .|
+| `close` | `void` | Collapses the panel.|
 
-## Expandable trigger
+## Expandable trigger input
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `[opened]` | `boolean` | `false` | Sets or gets the opened state |
-| `[dtExpandablePanel]` | `DtExpandablePanel` | `undefined` | Attaches the expandable panel to this trigger |
+| `dtExpandablePanel` | `DtExpandablePanel` | `undefined` | Attaches an expandable panel to this trigger. |
 
 ## Examples
 
-### Open state
+### Default
 
-<docs-source-example example="OpenExpandablePanelExampleComponent"></docs-source-example>
+<docs-source-example example="DefaultExpandablePanelExample"></docs-source-example>
 
-## Simple trigger
+### Disabled
 
-<docs-source-example example="TriggerSimpleExpandablePanelExampleComponent"></docs-source-example>
+The expandable panel can be disabled, which also disables the trigger button.
 
-## Styled trigger
+<docs-source-example example="DisabledExpandablePanelExample"></docs-source-example>
 
-<docs-source-example example="TriggerExpandablePanelExampleComponent"></docs-source-example>
+### Dynamic trigger
+
+The expandable panel's trigger can be updated according to the panel's current state.
+
+<docs-source-example example="DynamicTriggerExpandablePanelExample"></docs-source-example>
+
+### Programmatic trigger
+
+The expandable panel can be opened/closed/toggled programmatically.
+
+<docs-source-example example="ProgrammaticExpandablePanelExample"></docs-source-example>
