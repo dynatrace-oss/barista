@@ -1,7 +1,7 @@
 <!-- TODO replace with sidebar component when available -->
 <nav>
   <ul>
-    <li *ngFor="let component of componentItems" class="expandable-item" [class.expandable-item-open]="panel.opened">
+    <li *ngFor="let component of componentItems" class="expandable-item" [class.expandable-item-open]="panel.expanded">
       <div class="item-entry" [dtExpandablePanel]="panel">
         <span>{{component.name}}</span>
         <dt-icon name="dropdownopen"></dt-icon>
