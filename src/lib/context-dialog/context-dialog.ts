@@ -200,7 +200,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   private _trapFocus(): void {
     if (!this._focusTrap && this._overlayRef) {
       this._focusTrap = this._focusTrapFactory.create(this._overlayRef.overlayElement);
-      this._focusTrap.focusInitialElementWhenReady()
+      this._focusTrap.focusFirstTabbableElementWhenReady()
       .catch((error: Error) => {
         if (isDevMode()) {
           LOG.debug('Error when trying to set initial focus', error);

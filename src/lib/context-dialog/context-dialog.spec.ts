@@ -2,7 +2,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -195,6 +195,15 @@ describe('DtContextDialog', () => {
           panel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-panel');
           expect(panel).toBeNull();
         });
+
+        it('should focus the first interactive element when opening', fakeAsync(() => {
+          document.body.focus(); // ensure that focus isn't on the trigger already
+          fixture.componentInstance.contextDialog.open();
+          fixture.detectChanges();
+
+          expect(document.activeElement)
+            .toBe(fixture.componentInstance.firstInteractive.nativeElement);
+        }));
       });
     });
     describe('blur behaviour for context-dialog', () => {
@@ -237,6 +246,7 @@ describe('DtContextDialog', () => {
       [disabled]="disabled"
     >
       <p>Some cool content</p>
+      <button #interactive>test</button>
     </dt-context-dialog>
   `,
 })
@@ -249,4 +259,5 @@ class BasicContextDialog {
 
   @ViewChild(DtContextDialog, { static: false }) contextDialog: DtContextDialog;
   @ViewChild(DtContextDialogTrigger, { static: false }) contextDialogTrigger: DtContextDialogTrigger;
+  @ViewChild('interactive', { static: false }) firstInteractive: ElementRef;
 }
