@@ -13,12 +13,15 @@ import {
   DtFilterFieldDefaultDataSource,
   DtFilterField,
   DT_FILTER_FIELD_TYPING_DEBOUNCE,
-  DtFilterFieldChangeEvent
+  DtFilterFieldChangeEvent,
+  getDtFilterFieldRangeNoOperatorsError,
+  dtRangeDef
 } from '@dynatrace/angular-components/filter-field';
 import { typeInElement } from '../../testing/type-in-element';
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { createComponent } from '../../testing/create-component';
+import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 const TEST_DATA = {
   autocomplete: [
@@ -96,6 +99,23 @@ const TEST_DATA_SUGGESTIONS = {
           ],
         },
       ],
+    },
+  ],
+};
+
+const TEST_DATA_RANGE = {
+  autocomplete: [
+    {
+      name: 'Requests per minute',
+      range: {
+        operators: {
+          range: true,
+          equal: true,
+          greaterThanEqual: true,
+          lessThanEqual: true,
+        },
+        unit: 's',
+      },
     },
   ],
 };
@@ -549,6 +569,257 @@ describe('DtFilterField', () => {
       expect(trigger.panelOpen).toBe(false);
     }));
   });
+
+  describe('with range option', () => {
+    beforeEach(() => {
+      fixture.componentInstance.dataSource.data = TEST_DATA_RANGE;
+      fixture.detectChanges();
+
+      // Focus the filter field.
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+    });
+
+    it('should open the range overlay if the range option is selected', () => {
+      let filterFieldRangeElements = getFilterFieldRange(overlayContainerElement);
+      expect(filterFieldRangeElements.length).toBe(0);
+
+      const options = getOptions(overlayContainerElement);
+      options[0].click();
+
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+      filterFieldRangeElements = getFilterFieldRange(overlayContainerElement);
+
+      expect(filterFieldRangeElements.length).toBe(1);
+    });
+
+    describe('opened', () => {
+      beforeEach(() => {
+        // Open the filter-field-range overlay.
+        const options = getOptions(overlayContainerElement);
+        options[0].click();
+
+        zone.simulateMicrotasksEmpty();
+        fixture.detectChanges();
+      });
+
+      it('should set the focus onto the first button-group-item by default', () => {
+        const firstButtonElement = overlayContainerElement.querySelector('dt-button-group-item');
+        expect(document.activeElement).toBe(firstButtonElement);
+      });
+
+      it('should have all operators enabled', () => {
+        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        expect(operatorButtonElements.length).toBe(4);
+      });
+
+      it('should have only range and greater-equal operators enabled', () => {
+        // Change the datasource at runtime
+        fixture.componentInstance.dataSource.data = {
+          autocomplete: [
+            {
+              name: 'Requests per minute',
+              range: {
+                operators: {
+                  range: true,
+                  greaterThanEqual: true,
+                },
+                unit: 's',
+              },
+            },
+          ],
+        };
+        fixture.detectChanges();
+
+        // open the range overlay
+        filterField.focus();
+        zone.simulateZoneExit();
+        fixture.detectChanges();
+
+        const options = getOptions(overlayContainerElement);
+        options[0].click();
+
+        zone.simulateMicrotasksEmpty();
+        fixture.detectChanges();
+
+        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        expect(operatorButtonElements.length).toBe(2);
+        expect(operatorButtonElements[0].textContent).toBe('Range');
+        expect(operatorButtonElements[1].textContent).toBe('≥');
+      });
+
+      it('should have only one operator enabled', () => {
+        // Change the datasource at runtime
+        fixture.componentInstance.dataSource.data = {
+          autocomplete: [
+            {
+              name: 'Requests per minute',
+              range: {
+                operators: {
+                  greaterThanEqual: true,
+                },
+                unit: 's',
+              },
+            },
+          ],
+        };
+        fixture.detectChanges();
+
+        // open the range overlay
+        filterField.focus();
+        zone.simulateZoneExit();
+        fixture.detectChanges();
+
+        const options = getOptions(overlayContainerElement);
+        options[0].click();
+
+        zone.simulateMicrotasksEmpty();
+        fixture.detectChanges();
+
+        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        expect(operatorButtonElements.length).toBe(1);
+        expect(operatorButtonElements[0].textContent).toBe('≥');
+      });
+
+      it('should throw an error if there is no operator defined', fakeAsync(() => {
+        // Change the datasource at runtime
+        expect(() => {
+          fixture.componentInstance.dataSource.data = {
+            autocomplete: [
+              {
+                name: 'Requests per minute',
+                range: {
+                  operators: { },
+                  unit: 's',
+                },
+              },
+            ],
+          };
+          flush();
+        }).toThrowError(wrappedErrorMessage(getDtFilterFieldRangeNoOperatorsError()));
+      }));
+
+      it('should throw', () => {
+        expect(() => {
+          dtRangeDef(false, false, false, false, 's', {}, null);
+        }).toThrowError(wrappedErrorMessage(getDtFilterFieldRangeNoOperatorsError()));
+      });
+
+      it('should show two input fields when operator range is selected', () => {
+        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        expect(inputFieldsElements.length).toBe(2);
+      });
+
+      it('should show only one input field when the operator is not range', () => {
+        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        operatorButtonElements[2].click();
+        fixture.detectChanges();
+
+        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        expect(inputFieldsElements.length).toBe(1);
+      });
+
+      it('should keep the apply button disabled until both entries are valid', () => {
+        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+
+        let rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        expect(rangeApplyButton.getAttribute('disabled')).toBeDefined();
+
+        typeInElement('15', inputFieldsElements[0]);
+        fixture.detectChanges();
+
+        rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        expect(rangeApplyButton.getAttribute('disabled')).toBeDefined();
+
+        typeInElement('25', inputFieldsElements[1]);
+        fixture.detectChanges();
+
+        rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        expect(rangeApplyButton.getAttribute('disabled')).toBeNull();
+      });
+
+      it('should keep the apply button disabled until the one required is valid', () => {
+        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+
+        operatorButtonElements[2].click();
+        fixture.detectChanges();
+
+        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+
+        let rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        expect(rangeApplyButton.getAttribute('disabled')).toBeDefined();
+
+        typeInElement('15', inputFieldsElements[0]);
+        fixture.detectChanges();
+
+        rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        expect(rangeApplyButton.getAttribute('disabled')).toBeNull();
+      });
+
+      it('should close the range after the range-filter is submitted', () => {
+        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+
+        typeInElement('15', inputFieldsElements[0]);
+        typeInElement('25', inputFieldsElements[1]);
+        fixture.detectChanges();
+
+        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        rangeApplyButton.click();
+
+        const rangeOverlay = getFilterFieldRange(overlayContainerElement);
+        expect(rangeOverlay.length).toBe(0);
+      });
+
+      it('should have the tag-filter committed in the filterfield and formatted for range', () => {
+        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+
+        typeInElement('15', inputFieldsElements[0]);
+        typeInElement('25', inputFieldsElements[1]);
+        fixture.detectChanges();
+
+        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        rangeApplyButton.click();
+        fixture.detectChanges();
+
+        const tags = getFilterTags(fixture);
+        expect(tags[0].key).toBe('Requests per minute');
+        expect(tags[0].separator).toBe(':');
+        expect(tags[0].value).toBe('15s - 25s');
+      });
+
+      it('should have the tag-filter committed in the filterfield and formatted for greater-than operator', () => {
+        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+
+        operatorButtonElements[2].click();
+        fixture.detectChanges();
+
+        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+
+        typeInElement('15', inputFieldsElements[0]);
+        fixture.detectChanges();
+
+        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        rangeApplyButton.click();
+        fixture.detectChanges();
+
+        const tags = getFilterTags(fixture);
+        expect(tags[0].key).toBe('Requests per minute');
+        expect(tags[0].separator).toBe('≥');
+        expect(tags[0].value).toBe('15s');
+      });
+
+      it('should close the filter-range when using the keyboard ESC', () => {
+        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        dispatchKeyboardEvent(operatorButtonElements[0], 'keydown', ESCAPE);
+        fixture.detectChanges();
+
+        const rangeOverlay = getFilterFieldRange(overlayContainerElement);
+        expect(rangeOverlay.length).toBe(0);
+      });
+    });
+  });
 });
 
 function getOptions(overlayContainerElement: HTMLElement): HTMLElement[] {
@@ -558,6 +829,23 @@ function getOptions(overlayContainerElement: HTMLElement): HTMLElement[] {
 function getOptionGroups(overlayContainerElement: HTMLElement): HTMLElement[] {
   return Array.from(overlayContainerElement.querySelectorAll('.dt-optgroup'));
 }
+
+function getFilterFieldRange(overlayContainerElement: HTMLElement): HTMLElement[] {
+  return Array.from(overlayContainerElement.querySelectorAll('.dt-filter-field-range-panel'));
+}
+
+function getOperatorButtonGroupItems(overlayContainerElement: HTMLElement): HTMLElement[] {
+  return Array.from(overlayContainerElement.querySelectorAll('dt-button-group-item'));
+}
+
+function getRangeInputFields(overlayContainerElement: HTMLElement): HTMLInputElement[] {
+  return Array.from(overlayContainerElement.querySelectorAll('.dt-filter-field-range-input'));
+}
+
+function getRangeApplyButton(overlayContainerElement: HTMLElement): HTMLElement[] {
+  return Array.from(overlayContainerElement.querySelectorAll('.dt-filter-field-range-apply'));
+}
+
 // tslint:disable-next-line:no-any
 function getFilterTags(fixture: ComponentFixture<any>):
   Array<{ key: string; separator: string; value: string; removeButton: HTMLElement }> {

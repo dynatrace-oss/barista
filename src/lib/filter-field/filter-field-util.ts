@@ -9,6 +9,7 @@ import {
   DtFilterFieldTagData,
   isDtFreeTextDef,
   isDtRenderType,
+  isDtRangeDef,
 } from './types';
 
 /**
@@ -100,6 +101,34 @@ export function optionFilterTextPredicate(def: DtNodeDef, filterText: string): b
   return !transformedFilter.length || transformedViewValue.indexOf(transformedFilter) !== -1;
 }
 
+/** Transforms a RangeSource to the Tag data values. */
+// tslint:disable-next-line: no-any
+function transformRangeSourceToTagData(source: any): { separator: string; value: string } {
+  if (source.operator === 'range') {
+    return {
+      separator: ':',
+      value: `${source.range[0]}${source.unit} - ${source.range[1]}${source.unit}`,
+    };
+  }
+  let separator;
+  switch (source.operator) {
+    case 'equal':
+      separator = '=';
+      break;
+    case 'greater-equal':
+      separator = '≥';
+      break;
+    case 'lower-equal':
+      separator = '≤';
+      break;
+    default:
+      separator = '-';
+  }
+  const value = `${source.range}${source.unit}`;
+
+  return { separator, value };
+}
+
 /**
  * Transforms a list of sources to TagData, looks up view values, ...
  * Used for displaying filters as tags.
@@ -111,7 +140,6 @@ export function transformSourceToTagData(sources: any[], rootDef: DtNodeDef): Dt
   let value: string | null = null;
   let isFreeText = false;
   let separator: string | null = null;
-
   for (let i = 0; i < sources.length; i++) {
     const source = sources[i];
     const newDef = findDefForSourceObj(source, def);
@@ -126,6 +154,12 @@ export function transformSourceToTagData(sources: any[], rootDef: DtNodeDef): Dt
       if (sources.length > 1) {
         separator = '~';
       }
+      break;
+    }
+
+    if (isDtRangeDef(def) && source.hasOwnProperty('operator') && source.hasOwnProperty('range')) {
+      // Assigning variables destructed variables to already defined ones needs to be within braces.
+      ({ value, separator } = transformRangeSourceToTagData(source));
       break;
     }
 

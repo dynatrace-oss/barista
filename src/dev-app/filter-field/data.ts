@@ -78,5 +78,17 @@ export const COMPLEX_DATA = {
         },
       ],
     },
+    {
+      name: 'Requests per minute',
+      range: {
+        operators: {
+          range: true,
+          equal: true,
+          greaterThanEqual: true,
+          lessThanEqual: true,
+        },
+        unit: 's',
+      },
+    },
   ],
 };

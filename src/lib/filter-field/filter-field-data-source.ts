@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isObject } from '@dynatrace/angular-components/core';
-import { DtNodeDef, dtAutocompleteDef, dtOptionDef, dtGroupDef, isDtAutocompleteDef, isDtGroupDef, dtFreeTextDef } from './types';
+import { DtNodeDef, dtAutocompleteDef, dtOptionDef, dtGroupDef, isDtAutocompleteDef, isDtGroupDef, dtFreeTextDef, dtRangeDef } from './types';
 
 export abstract class DtFilterFieldDataSource {
   /**
@@ -59,6 +59,23 @@ function isFreeText(data: any): data is FreeText {
   return isObject(data) && Array.isArray(data.suggestions);
 }
 
+interface Range {
+  range: {
+    unit: string;
+    operators: {
+      range?: boolean;
+      equal?: boolean;
+      greaterThanEqual?: boolean;
+      lessThanEqual?: boolean;
+    };
+  };
+}
+/** Whether the provided data object is of type RangeData */
+// tslint:disable-next-line: no-any
+function isRange(data: any): data is Range {
+  return isObject(data) && isObject(data.range);
+}
+
 // tslint:disable: no-bitwise
 
 /**
@@ -109,6 +126,20 @@ function isFreeText(data: any): data is FreeText {
  *    ]
  *  }
  * ```
+ *
+ * To render a range input for all operators and the value is in seconds.
+ * ```
+ * {
+ *   range: {
+ *     unit: 's',
+ *     operators: {
+ *       range: true,
+ *       equal: true,
+ *       greaterThanEqual: true,
+ *       lessThanEqual: true,
+ *     },
+ *   }
+ * }
  */
 export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSource {
 
@@ -148,6 +179,16 @@ export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSourc
     } else if (isFreeText(data)) {
       def = dtFreeTextDef([], data, null);
       def.freeText!.suggestions = this._transformList(data.suggestions, def);
+    } else if (isRange(data)) {
+      def = dtRangeDef(
+        !!data.range.operators.range,
+        !!data.range.operators.equal,
+        !!data.range.operators.greaterThanEqual,
+        !!data.range.operators.lessThanEqual,
+        data.range.unit,
+        data,
+        null
+      );
     }
 
     let parentAutocomplete = isDtAutocompleteDef(parent) ? parent as DtNodeDef : null;

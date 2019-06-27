@@ -1,4 +1,5 @@
 import { isDefined, isObject } from '@dynatrace/angular-components/core';
+import { getDtFilterFieldRangeNoOperatorsError } from './filter-field-errors';
 
 // tslint:disable:no-bitwise no-magic-numbers no-any
 export enum DtNodeFlags {
@@ -7,6 +8,7 @@ export enum DtNodeFlags {
   TypeFreeText = 1 << 1,
   TypeOption = 1 << 2,
   TypeGroup = 1 << 3,
+  TypeRange = 1 << 4,
   RenderTypes = TypeAutocomplete | TypeFreeText,
   Types = TypeAutocomplete | TypeFreeText | TypeOption | TypeGroup,
 }
@@ -57,7 +59,7 @@ export interface DtOperatorDef {
   type: DtOperatorTypes;
 }
 
-const enum DtRangeOperatorFlags {
+export const enum DtRangeOperatorFlags {
   Equal = 1 << 0,
   LowerEqual = 1 << 1,
   GreatEqual = 1 << 2,
@@ -67,6 +69,57 @@ const enum DtRangeOperatorFlags {
 
 export interface DtRangeDef {
   operatorFlags: DtRangeOperatorFlags;
+  unit: string;
+}
+
+/** Creates a new DtRangeDef onto a provided existing NodeDef or a newly created one. */
+export function dtRangeDef(
+  hasRangeOperator: boolean,
+  hasEqualOperator: boolean,
+  hasGreaterEqualOperator: boolean,
+  hasLowerEqualOperator: boolean,
+  unit: string,
+  data: any,
+  existingNodeDef: DtNodeDef | null
+): DtNodeDef {
+  // if none of the operators are defined, throw an error.
+  if (
+    !(hasRangeOperator ||
+      hasEqualOperator ||
+      hasLowerEqualOperator ||
+      hasGreaterEqualOperator)
+  ) {
+    throw getDtFilterFieldRangeNoOperatorsError();
+  }
+
+  // Define which operators are enabled.
+  let operatorFlags: DtRangeOperatorFlags = 0;
+  if (hasRangeOperator) {
+    operatorFlags |= DtRangeOperatorFlags.Range;
+  }
+  if (hasEqualOperator) {
+    operatorFlags |= DtRangeOperatorFlags.Equal;
+  }
+  if (hasGreaterEqualOperator) {
+    operatorFlags |= DtRangeOperatorFlags.GreatEqual;
+  }
+  if (hasLowerEqualOperator) {
+    operatorFlags |= DtRangeOperatorFlags.LowerEqual;
+  }
+  const def = {
+    ...nodeDef(data, existingNodeDef),
+    range: {
+      operatorFlags,
+      unit,
+    },
+  };
+  def.nodeFlags |= DtNodeFlags.TypeRange;
+  return def;
+}
+
+/** Whether the provided def object is of type NodeDef and consists of an RangeDef. */
+export function isDtRangeDef(def: any): def is DtRangeDef {
+  return isNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeRange);
 }
 
 /** Creates a new DtAutocompleteDef onto a provided existing NodeDef or a newly created one. */
