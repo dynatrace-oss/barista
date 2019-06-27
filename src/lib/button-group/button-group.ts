@@ -78,6 +78,13 @@ export class DtButtonGroup<T> extends _DtButtonGroup
     this._markItemsForCheck();
   }
 
+  /** Sets the focus to the first button in the buttongroup. */
+  focus(): void {
+    if (this._items && this._items.first) {
+      this._items.first.focus();
+    }
+  }
+
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
     super();
   }
@@ -196,6 +203,11 @@ implements CanDisable, CanColor<DtButtonGroupThemePalette>, HasTabIndex, AfterCo
   get value(): T { return this._value; }
   set value(newValue: T) {
     this._value = newValue;
+  }
+
+  /** Sets the focus on the element */
+  focus(): void {
+    this._elementRef.nativeElement.focus();
   }
 
   constructor(
