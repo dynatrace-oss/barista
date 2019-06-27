@@ -1,21 +1,19 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation, Directive, Output, EventEmitter, Input, HostListener,
-} from '@angular/core';
-
-import {
-  CanDisable,
-  mixinDisabled,
-  readKeyCode,
-} from '@dynatrace/angular-components/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DELETE } from '@angular/cdk/keycodes';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 
-export class DtTagBase { }
+import { readKeyCode } from '@dynatrace/angular-components/core';
 
-export const _DtTagMixinBase =
-  mixinDisabled(DtTagBase);
+export class DtTagBase {}
 
 /** Key of a tag, needed as it's used as a selector in the API. */
 @Directive({
@@ -24,7 +22,7 @@ export const _DtTagMixinBase =
     class: 'tag-key',
   },
 })
-export class DtTagKey { }
+export class DtTagKey {}
 
 @Component({
   moduleId: module.id,
@@ -39,33 +37,43 @@ export class DtTagKey { }
     '[class.dt-tag-disabled]': 'disabled',
     '[class.dt-tag-removable]': 'removable && !disabled',
   },
-  inputs: ['disabled'],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTag<T> extends _DtTagMixinBase implements CanDisable {
-
+export class DtTag<T> extends DtTagBase {
   @Input()
-  value: T | undefined;
+  value?: T;
 
-  @Output()
-  readonly removed: EventEmitter<T> = new EventEmitter<T>();
-
-  private _removable = false;
+  /** @deprecated Disabled state will be removed without replacement in 4.0 */
+  @Input()
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(value: boolean) {
+    this._disabled = coerceBooleanProperty(value);
+  }
 
   @Input()
   get removable(): boolean {
     return this._removable;
   }
   set removable(value: boolean) {
-    const newValue = coerceBooleanProperty(value);
-    this._removable = newValue;
+    this._removable = coerceBooleanProperty(value);
   }
+
+  @Output()
+  readonly removed: EventEmitter<T> = new EventEmitter<T>();
+
+  private _removable = false;
+  private _disabled = false;
 
   @HostListener('keyup', ['$event'])
   _doDelete(event?: KeyboardEvent): void {
-    if (!this.disabled && (event === undefined || readKeyCode(event) === DELETE)) {
+    if (
+      !this.disabled &&
+      (event === undefined || readKeyCode(event) === DELETE)
+    ) {
       this.removed.emit(this.value);
     }
   }
