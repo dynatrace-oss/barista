@@ -59,7 +59,6 @@ class MyModule {}
 | Name | Type | Default | Description |
 | --- | --- | --- | --- | --- |
 | `dataSource` | `object[] | Observable | DataSource ` | | Data to be shown in the table |
-| `isLoading` | `boolean` | `false` | **DEPRECATED - will be removed with 3.0.0** Use `loading` instead. |
 | `loading` | `boolean` | `false` | Whether the table is loading or not. |
 | `multiExpand` | `boolean` | `false` | Whether the table allows multiple rows to be expanded at a time. |
 
@@ -168,23 +167,15 @@ Multiple rows can be expanded at a time. The expanded state of each row can be s
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `multiple` | `boolean` | `false` | **DEPRECATED - will be removed with 3.0.0** Use `multiExpand` input of table instead. Sets the mode for expanding multiple rows at a time. |
 | `expanded` | `boolean` | `false` | Whether the row is expanded or not. |
 
 ### Outputs
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `openedChange` | `EventEmitter<DtExpandableRow>` | **DEPRECATED - will be removed with 3.0.0, use `expandChange` instead** Event emitted when the expanded state changes. |
 | `expandChange` | `EventEmitter<DtExpandableRowChangeEvent>` | Event emitted when the row's expandable state changes. |
 | `expanded` | `EventEmitter<DtExpandableRow>` | Event emitted when the row is expanded. |
 | `collapsed` | `EventEmitter<DtExpandableRow>` | Event emitted when the row is collapsed. |
-
-### Properties
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `contentViewContainer` | `ViewContainerRef` | **DEPRECATED - will be removed with 3.0.0** Gets a reference to the expandable container for dynamically adding components. |
 
 ### Options and Properties of DtExpandableCell
 
