@@ -30,10 +30,13 @@ import {
   DtNodeDef,
   isDtAutocompleteDef,
   isDtFreeTextDef,
+  isDtRangeDef,
   DtFilterFieldTagData,
   isDtOptionDef
 } from './types';
 import { filterAutocompleteDef, filterFreeTextDef, transformSourceToTagData, findDefForSourceObj, peekOptionId } from './filter-field-util';
+import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-range-trigger';
+import { DtFilterFieldRangeSubmittedEvent } from './filter-field-range/filter-field-range';
 
 // tslint:disable:no-any
 
@@ -109,6 +112,9 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal The autocomplete trigger that is placed on the input element */
   @ViewChild(DtAutocompleteTrigger, { static: true }) _autocompleteTrigger: DtAutocompleteTrigger<DtNodeDef>;
 
+  /** @internal The range trigger that is placed on the input element */
+  @ViewChild(DtFilterFieldRangeTrigger, { static: true }) _filterfieldRangeTrigger: DtFilterFieldRangeTrigger;
+
   /** @internal Querylist of the autocompletes provided by ng-content */
   @ViewChild(DtAutocomplete, { static: true }) _autocomplete: DtAutocomplete<DtNodeDef>;
 
@@ -166,6 +172,10 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
           // show the panel again.
           // Note: Also trigger openPanel if it already open, so it does a reposition and resize
           this._autocompleteTrigger.openPanel();
+        } else if (isDtRangeDef(this._currentDef)) {
+          this._filterfieldRangeTrigger.openPanel();
+          // need to return here, otherwise the focus would jump back into the filter field
+          return;
         }
         // It is necessary to restore the focus back to the input field
         // so the user can directly coninue creating more filter nodes.
@@ -260,6 +270,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
       }
     } else if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
       this._autocompleteTrigger.closePanel();
+      this._filterfieldRangeTrigger.closePanel();
     }
   }
 
@@ -300,7 +311,10 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
         this._updateAutocompleteOptionsOrGroups();
         this._updateFilterByLabel();
         this._updateTagData();
+        this._isFocused = true;
         this.focus();
+        // TODO: @thomas.pink please emit currentfilterchanges with async
+        this._stateChanges.next();
         this._changeDetectorRef.markForCheck();
       }
     }
@@ -315,7 +329,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
     const optionId = peekOptionId(optionDef, this._currentSelectedOptionId);
     this._selectedOptionIds.add(optionId);
 
-    if (isDtAutocompleteDef(optionDef) || isDtFreeTextDef(optionDef)) {
+    if (isDtAutocompleteDef(optionDef) || isDtFreeTextDef(optionDef) || isDtRangeDef(optionDef)) {
       this._currentDef = optionDef;
       this._currentSelectedOptionId = optionId;
       this._updateFilterByLabel();
@@ -345,6 +359,19 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
     const sources = this._peekCurrentFilterSources();
     sources.push(this._inputValue);
 
+    this._writeInputValue('');
+    this._switchToRootDef(true);
+    this._stateChanges.next();
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** @internal */
+  _handleRangeSubmitted(event: DtFilterFieldRangeSubmittedEvent): void {
+    const sources = this._peekCurrentFilterSources();
+    sources.push({ operator: event.operator, range: event.range, unit: event.unit });
+
+    this._filterfieldRangeTrigger.closePanel();
+    this._isFocused = true;
     this._writeInputValue('');
     this._switchToRootDef(true);
     this._stateChanges.next();
@@ -427,13 +454,18 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
 
     this._dataSubscription = this._dataSource.connect()
       .pipe(takeUntil(this._destroy))
-      .subscribe((def) => {
-        this._rootDef = def;
-        this._currentDef = def;
-        this._updateAutocompleteOptionsOrGroups();
-        this._stateChanges.next();
-        this._changeDetectorRef.markForCheck();
-      });
+      .subscribe(
+        (def) => {
+          this._rootDef = def;
+          this._currentDef = def;
+          this._updateAutocompleteOptionsOrGroups();
+          this._stateChanges.next();
+          this._changeDetectorRef.markForCheck();
+        },
+        (error: Error) => {
+          // If parsing the data in the datasource fails, we need to throw to notify the developer about the error.
+          throw error;
+        });
   }
 
   /**
@@ -480,6 +512,8 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
     } else if (isDtFreeTextDef(currentDef)) {
       const def = filterFreeTextDef(currentDef, this._inputValue);
       this._autocompleteOptionsOrGroups = def ? def.freeText!.suggestions : [];
+    } else {
+      this._autocompleteOptionsOrGroups = [];
     }
   }
 
