@@ -1,6 +1,4 @@
-## Getting started
-
-### Step 1: Install the angular-components and Angular CDK
+## Step 1: Install the angular-components and Angular CDK
 This library is available in our internal Artifactory. To make it installable via `npm` or `yarn` add the following lines to your `.npmrc` or `.yarnrc` (you might need to create this file if it is not already there)
 ```
 registry="***REMOVED***
@@ -13,7 +11,7 @@ Now you are able to install the library
 or      
 `yarn add @dynatrace/angular-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/dt-iconpack`
 
-### Step 2: Animations
+## Step 2: Animations
 Some angular-components components depend on the Angular animations module.
 If you want these animations to work in your app, you have to install the `@angular/animations` module and include the `BrowserAnimationsModule` in your app.    
 
@@ -47,7 +45,7 @@ export class AppModule { }
 
 **Note:** @angular/animations uses the WebAnimation API that isn't supported by all browsers yet. If you want to support animations in these browsers, you'll have to [include a polyfill](https://github.com/web-animations/web-animations-js).
 
-### Step 3: Import the component modules
+## Step 3: Import the component modules
 
 Import the NgModule for each component you want to use:
 ```ts
@@ -65,7 +63,7 @@ Alternatively, you can create a separate NgModule that imports all of the angula
 
 **Note:** Whichever approach you use, be sure to import the angular-components modules after Angular's BrowserModule, as the import order matters for NgModules.
 
-### Step 4: Include the styles
+## Step 4: Include the styles
 
 This library ships with two different variants for including styles.
 You can either import the core styles that are **required** to use the angular-components.
@@ -79,7 +77,7 @@ You can also import the second variant, which include in addition to the core st
 @import '~@dynatrace/angular-components/style/index';
 ```
 
-### Step 5: Optional - Install linting rules
+## Step 5: Optional - Install linting rules
 
 Install `@dynatrace/angular-lint-rules` to use the additional recommended angular linting rules:
 `npm install --save @dynatrace/angular-lint-rules`    
@@ -88,7 +86,7 @@ or
 
 You can find more information in the [angular-lint-rules repo](***REMOVED***
 
-### Step 6: Optional - Add fonts and icon files to your assets
+## Step 6: Optional - Add fonts and icon files to your assets
 
 Add this section to the `assets` array in your projects architect in the angular.json. This will copy all svgs from the iconpack and all fonts shipped with the angular-components-library to your dist package and will make angular aware of the file dependencies.
 
