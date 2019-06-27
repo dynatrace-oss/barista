@@ -48,6 +48,13 @@ To apply the Dynatrace button group, use the `<dt-button-group>` and `<dt-button
 | --- | --- | --- |
 | `valueChange` | `event<T>` | Emits an event when the user selects another button. |
 
+
+### Methods
+
+| Name | Description | Return value |
+| --- | --- | --- |
+| `focus()` | Sets focus to the first item in the `<dt-button-group>`. | `void` |
+
 ## Button group item
 
 ### Inputs
@@ -60,6 +67,12 @@ To apply the Dynatrace button group, use the `<dt-button-group>` and `<dt-button
 | `tabIndex` | `number` | `0` | Sets and gets the tabIndex property |
 | `selected` | `boolean` | `false` | Sets or gets the selected state of this item |
 | `color` | `'main' | 'error'` | `main` | Sets color. Possible options: <ul><li><code>main</code> (default)</li><li><code>error</code></li></ul> |
+
+### Methods
+
+| Name | Description | Return value |
+| --- | --- | --- |
+| `focus()` | Sets focus to the `<dt-button-group-item>`. | `void` |
 
 ## Examples
 
