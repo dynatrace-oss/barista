@@ -9,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
   // tslint:disable
   template: `
 <dt-table [dataSource]="dataSource">
-  <dt-simple-text-column name="host" label="Host" sortable="false"></dt-simple-text-column>
+  <dt-simple-text-column name="host" sortable="false"></dt-simple-text-column>
   <dt-simple-number-column name="cpu" label="CPU" sortable="false" [formatter]="percentageFormatter"></dt-simple-number-column>
   <dt-simple-number-column name="memory" label="Memory" sortable="false" [formatter]="percentageFormatter"></dt-simple-number-column>
   <dt-simple-number-column name="traffic" label="Traffic" sortable="false" [formatter]="trafficFormatter"></dt-simple-number-column>
