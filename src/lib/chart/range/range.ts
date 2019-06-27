@@ -31,7 +31,7 @@ export const DT_RANGE_UN_VALID_CLASS = 'dt-chart-range-valid';
 
 // The Default minimum is 5 minutes
 // tslint:disable-next-line no-magic-numbers
-const DT_RANGE_DEFAULT_MIN = 30 * 5 * 60 * 1000;
+const DT_RANGE_DEFAULT_MIN = 5 * 60 * 1000;
 
 /** @internal */
 export class RangeStateChangedEvent {
@@ -58,9 +58,16 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   @Output() readonly valid = new BehaviorSubject(false);
 
   /** Aria label for the close button in the overlay */
-  @Input() ariaLabelClose = 'close';
+  @Input('aria-label-close') ariaLabelClose = 'close';
+
+  /** Aria label for the left handle */
+  @Input('aria-label-left-handle') ariaLabelLeftHandle = 'left handle';
+
+  /** Aria label for the right handle */
+  @Input('aria-label-right-handle') ariaLabelRightHandle = 'right handle';
+
   /** Aria label for the selected area */
-  @Input() ariaLabelSelectedArea = '';
+  @Input('aria-label-selected-area') ariaLabelSelectedArea = '';
 
   /** @internal subject that emits when the close button of the overlay was triggered */
   readonly _closeOverlay = new Subject<void>();
@@ -134,7 +141,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     this._max = parseInt(`${max}`, 10) || null;
   }
 
-  /** The value on the chart x-axis where the timestamp should be placed */
+  /** The time frame on the charts x-axis where the range should be placed */
   @Input()
   get value(): [number, number] {
     return this._value;
