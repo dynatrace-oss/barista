@@ -1,10 +1,10 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Tag
 
-The `dt-tag` wraps text or key-value pairs. A tag can be an interactive element. 
+The `dt-tag` wraps text or key-value pairs.
 
 ## Imports
 
@@ -12,9 +12,7 @@ You have to import the `DtTagModule` when you want to use the `dt-tag`:
 
 ```typescript
 @NgModule({
-  imports: [
-    DtTagModule,
-  ],
+  imports: [DtTagModule],
 })
 class MyModule {}
 ```
@@ -25,32 +23,26 @@ To use the Dynatrace tag, use the `<dt-tag>` element.
 
 In addition, also other selectors can be used.
 
-* `<dt-tag>` or `[dt-tag]` or `[dtTag]` - To create the tag itself. Attribute selectors can be used on an anchor tag for example.
-* `<dt-tag-key>` or `[dt-tag-key]` or `[dtTagKey]` - To identify a content child as a key/attribute for the tag.
+- `<dt-tag>` or `[dt-tag]` or `[dtTag]` - To create the tag itself. Attribute selectors can be used on an anchor tag for example.
+- `<dt-tag-key>` or `[dt-tag-key]` or `[dtTagKey]` - To identify a content child as a key/attribute for the tag.
 
 <docs-source-example example="DefaultTagExampleComponent"></docs-source-example>
 
 ## Inputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `disabled` | `boolean | undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined. |
-| `removable` | `boolean` | `false` | If this is set to `true`, the tag can be removed by the user by clicking the abort icon. |
-| `value` | `T` | `undefined` | This can be used to bind a specific value to a tag. |
-
+| Name        | Type      | Default     | Description                                                                              |
+| ----------- | --------- | ----------- | ---------------------------------------------------------------------------------------- |
+| `value`     | `T`       | `undefined` | This can be used to bind a specific value to a tag.                                      |
+| `removable` | `boolean` | `false`     | If this is set to `true`, the tag can be removed by the user by clicking the abort icon. |
+| `disabled`  | `boolean` | `false`     | **DEPRECATED - will be removed with 4.0.0 without replacement**                          |
 
 ## Outputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `removed` | `event<T>` |  | This event is fired, when the user triggers the abort icon. |
-
+| Name      | Type       | Default | Description                                                 |
+| --------- | ---------- | ------- | ----------------------------------------------------------- |
+| `removed` | `event<T>` |         | This event is fired, when the user triggers the abort icon. |
 
 ## Examples
-
-### Disabled state
-
-<docs-source-example example="DisabledTagExampleComponent"></docs-source-example>
 
 ### Removable state
 
@@ -63,4 +55,3 @@ In addition, also other selectors can be used.
 ### Interactive example
 
 <docs-source-example example="InteractiveTagExampleComponent"></docs-source-example>
-

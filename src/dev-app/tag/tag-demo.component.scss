@@ -1,3 +1,15 @@
 :host {
   display: block;
 }
+
+div > dt-tag:not(:last-child) {
+  margin-right: 4px;
+}
+
+.control-buttons {
+  margin-top: 24px;
+
+  & > button:not(:last-child) {
+    margin-right: 4px;
+  }
+}

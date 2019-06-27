@@ -1,6 +1,6 @@
 <div class="dt-tag-name">
-  <ng-content select="dt-tag-key, [dt-tag-key], [dtTagKey]" #key></ng-content>
+  <ng-content select="dt-tag-key, [dt-tag-key], [dtTagKey]"></ng-content>
   <ng-content></ng-content>
 </div>
 
-<dt-icon name="abort" *ngIf="removable" (click)="_doDelete()" ></dt-icon>
+<dt-icon name="abort" *ngIf="removable" (click)="_doDelete()"></dt-icon>
