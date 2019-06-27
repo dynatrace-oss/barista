@@ -21,14 +21,14 @@ describe('context-dialog', () => {
     it('should trap the focus inside the overlay', async () => {
       await element(by.id('context-dialog')).click();
       await browser.isElementPresent(by.css('.dt-context-dialog-panel'));
-      expect(await browser.driver.switchTo().activeElement().getAttribute('aria-label'))
-        .toEqual('close');
-      await browser.actions().sendKeys(Key.TAB).perform();
       expect(await browser.driver.switchTo().activeElement().getText()).toEqual('Edit');
 
       await browser.actions().sendKeys(Key.TAB).perform();
       expect(await browser.driver.switchTo().activeElement().getAttribute('aria-label'))
         .toEqual('close');
+
+      await browser.actions().sendKeys(Key.TAB).perform();
+      expect(await browser.driver.switchTo().activeElement().getText()).toEqual('Edit');
     });
   });
 
