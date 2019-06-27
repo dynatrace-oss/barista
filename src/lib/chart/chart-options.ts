@@ -71,9 +71,6 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
       color: DtColors.GRAY_300,
     },
   },
-  time: {
-    useUTC: false,
-  },
 };
 
 export const DT_CHART_DEFAULT_AXIS_STYLES: AxisOptions = {
@@ -90,5 +87,8 @@ export const DT_CHART_DEFAULT_AXIS_STYLES: AxisOptions = {
 export const DT_CHART_DEFAULT_GLOBAL_OPTIONS: GlobalOptions = {
   lang: {
     numericSymbols: ['k', 'mil', 'bil'],
+  },
+  time: {
+    useUTC: false,
   },
 };
