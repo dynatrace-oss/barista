@@ -1,1 +1,41 @@
-<dt-tag>Hello tag</dt-tag>
+<div>
+  <dt-tag
+    [removable]="canRemove"
+    [value]="value1"
+    (removed)="doRemove(tag1)"
+    #tag1
+    title="My custom tooltip"
+  >
+    <dt-tag-key *ngIf="hasKey">[AWS]OSType:</dt-tag-key>
+    Windows
+  </dt-tag>
+
+  <dt-tag
+    [removable]="canRemove"
+    [value]="value2"
+    (removed)="doRemove(tag2)"
+    #tag2
+    title="Another tooltip"
+  >
+    <dt-tag-key *ngIf="hasKey">[AWS]Category:</dt-tag-key>
+    Managed
+  </dt-tag>
+</div>
+
+<div class="control-buttons">
+  <button
+    dt-button
+    (click)="canRemove = !canRemove"
+    [variant]="canRemove ? 'primary' : 'secondary'"
+  >
+    Toggle removable
+  </button>
+
+  <button
+    dt-button
+    (click)="hasKey = !hasKey"
+    [variant]="hasKey ? 'primary' : 'secondary'"
+  >
+    Toggle key
+  </button>
+</div>
