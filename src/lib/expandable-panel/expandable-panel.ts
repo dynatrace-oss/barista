@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  HostBinding,
   Input,
   Output,
   ViewEncapsulation,
@@ -18,7 +17,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   templateUrl: 'expandable-panel.html',
   styleUrls: ['expandable-panel.scss'],
   host: {
-    class: 'dt-expandable-panel',
+    'class': 'dt-expandable-panel',
+    '[class.dt-expandable-panel-opened]': 'opened || expanded',
   },
   animations: [
     trigger('animationState', [
@@ -43,33 +43,75 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class DtExpandablePanel {
 
   @Input()
-  @HostBinding('class.dt-expandable-panel-opened')
-  get opened(): boolean { return this._opened; }
-  set opened(value: boolean) { this._openClose(coerceBooleanProperty(value)); }
+  get expanded(): boolean { return this._expanded; }
+  set expanded(value: boolean) {
+    const newValue = coerceBooleanProperty(value);
 
-  /** Event emitted when the select has been opened. */
+    // Only update expanded state if it actually changed.
+    if (this._expanded !== newValue) {
+      this._expanded = newValue;
+      this.expandChange.emit(newValue);
+      this.openedChange.emit(newValue);
+
+      if (newValue) {
+        this._panelExpanded.emit();
+      } else {
+        this._panelCollapsed.emit();
+      }
+
+      // Ensures that the animation will run when the value is set outside of an `@Input`.
+      // This includes cases like the open, close and toggle methods.
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+  private _expanded = false;
+
+  @Input()
+  get disabled(): boolean { return this._disabled; }
+  set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); }
+  private _disabled = false;
+
+  /**
+   * @deprecated Will be removed, use expanded instead
+   * @breaking-change To be removed with 5.0.0
+   */
+  @Input()
+  get opened(): boolean { return this.expanded; }
+  set opened(value: boolean) { this.expanded = coerceBooleanProperty(value); }
+
+  /** Event emitted when the panel's expandable state changes. */
+  @Output() readonly expandChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  /** Event emitted when the panel is expanded. */
+  @Output('expanded') readonly _panelExpanded: EventEmitter<void> = new EventEmitter<void>();
+  /** Event emitted when the panel is collapsed. */
+  @Output('collapsed') readonly _panelCollapsed: EventEmitter<void> = new EventEmitter<void>();
+  /**
+   * Event emitted when the panel has been opened.
+   * @deprecated Will be removed, use expandChange instead.
+   * @breaking-change To be removed with 5.0.0
+   */
   @Output() readonly openedChange = new EventEmitter<boolean>();
-
-  private _opened = false;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
-  toggle(): boolean {
-    this._openClose(!this._opened);
-    return this.opened;
+  /** Toggles the expanded state of the panel. */
+  toggle(): void {
+    if (!this.disabled) {
+      this.expanded = !this.expanded;
+    }
   }
 
-  open(): void {
-    this._openClose(true);
-  }
-
+  /** Sets the expanded state of the panel to false. */
   close(): void {
-    this._openClose(false);
+    if (!this.disabled) {
+      this.expanded = false;
+    }
   }
 
-  private _openClose(open: boolean): void {
-    this._opened = open;
-    this.openedChange.emit(open);
-    this._changeDetectorRef.detectChanges();
+  /** Sets the expanded state of the panel to true. */
+  open(): void {
+    if (!this.disabled) {
+      this.expanded = true;
+    }
   }
 }
