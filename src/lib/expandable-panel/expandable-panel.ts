@@ -19,6 +19,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   host: {
     'class': 'dt-expandable-panel',
     '[class.dt-expandable-panel-opened]': 'opened || expanded',
+    '[attr.aria-disabled]': 'disabled',
   },
   animations: [
     trigger('animationState', [
@@ -87,7 +88,7 @@ export class DtExpandablePanel {
   @Output('collapsed') readonly _panelCollapsed: EventEmitter<void> = new EventEmitter<void>();
   /**
    * Event emitted when the panel has been opened.
-   * @deprecated Will be removed, use expandChange instead.
+   * @deprecated Use expandChange instead.
    * @breaking-change To be removed with 5.0.0
    */
   @Output() readonly openedChange = new EventEmitter<boolean>();

@@ -7,6 +7,8 @@ $turquoise-600: #00a1b2;
 .barista-side-nav {
   background-color: #f2f2f2;
   font-family: 'BerninaSansWeb';
+  flex-basis: 400px;
+  min-width: 400px;
 
   ul {
     list-style: none;
