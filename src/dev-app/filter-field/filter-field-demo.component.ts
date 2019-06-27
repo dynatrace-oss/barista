@@ -29,16 +29,16 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   }
 
   get canSetValues(): boolean {
-    return this._dataSource.data === TEST_DATA;
+    return this._dataSource.data === COMPLEX_DATA;
   }
 
   @ViewChild(DtFilterField, { static: true }) filterField: DtFilterField;
 
-  private _activeDataSourceName = 'TEST_DATA';
+  private _activeDataSourceName = 'COMPLEX_DATA';
   private _tagChangesSub = Subscription.EMPTY;
   _firstTag: DtFilterFieldTag;
 
-  _dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource(COMPLEX_DATA);
 
   ngAfterViewInit(): void {
     this._tagChangesSub = this.filterField.tags.changes.subscribe(() => {
@@ -61,7 +61,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   }
 
   setValues(): void {
-    if (this._dataSource.data === TEST_DATA) {
+    if (this._dataSource.data === COMPLEX_DATA) {
       const filter1 = [
         TEST_DATA.autocomplete[0],
         (TEST_DATA as any).autocomplete[0].autocomplete[0],
