@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
-  Output, ViewChild,
+  Output,
+  ViewChild,
   ViewEncapsulation,
   NgZone,
 } from '@angular/core';
@@ -10,7 +12,7 @@ import { DtExpandablePanel } from '@dynatrace/angular-components/expandable-pane
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CanDisable } from '@dynatrace/angular-components/core';
 import { Observable, defer } from 'rxjs';
-import { take, switchMap } from 'rxjs/operators';
+import { take, switchMap, filter } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
@@ -21,7 +23,7 @@ import { take, switchMap } from 'rxjs/operators';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtExpandableSectionHeader { }
+export class DtExpandableSectionHeader {}
 
 @Component({
   moduleId: module.id,
@@ -31,7 +33,7 @@ export class DtExpandableSectionHeader { }
   styleUrls: ['expandable-section.scss'],
   host: {
     'class': 'dt-expandable-section',
-    '[class.dt-expandable-section-opened]': 'opened',
+    '[class.dt-expandable-section-opened]': 'opened || expanded',
     '[class.dt-expandable-section-disabled]': 'disabled',
     '[attr.aria-disabled]': 'disabled',
   },
@@ -41,12 +43,21 @@ export class DtExpandableSectionHeader { }
 })
 export class DtExpandableSection implements CanDisable {
 
-  /** Whether the expandable is open (expanded). */
+  /** Whether the expandable section is expaned. */
   @Input()
-  get opened(): boolean { return this._panel.opened && !this.disabled; }
-  set opened(value: boolean) { this._panel.opened = coerceBooleanProperty(value); }
+  get expanded(): boolean { return this._panel.expanded; }
+  set expanded(value: boolean) { this._panel.expanded = coerceBooleanProperty(value); }
 
-  /** Whether the expandable is disabled. When set to false it will also close. */
+  /**
+   * Whether the expandable is open (expanded).
+   * @deprecated Use expanded instead.
+   * @breaking-change To be removed with v5.0.0
+   */
+  @Input()
+  get opened(): boolean { return this._panel.expanded && !this.disabled; }
+  set opened(value: boolean) { this._panel.expanded = coerceBooleanProperty(value); }
+
+  /** Whether the expandable section is disabled. When set to false it will also close. */
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
@@ -58,36 +69,50 @@ export class DtExpandableSection implements CanDisable {
   }
   private _disabled = false;
 
-  /** Emits when the expandable opens or closes  */
-  @Output() readonly openedChange: Observable<boolean> = defer(() => {
+  /** Event emitted when the section's expandable state changes. */
+  @Output() readonly expandChange: Observable<boolean> = defer(() => {
     if (this._panel) {
-      return this._panel.openedChange.asObservable();
+      return this._panel.expandChange.asObservable();
     }
 
     return this._ngZone.onStable
       .asObservable()
-      .pipe(take(1), switchMap(() => this.openedChange));
+      .pipe(take(1), switchMap(() => this.expandChange));
   });
+  /** Event emitted when the section is expanded. */
+  @Output('expanded') readonly _sectionExpanded = this.expandChange.pipe(filter((v) => v));
+  /** Event emitted when the section is collapsed. */
+  @Output('collapsed') readonly _sectionCollapsed = this.expandChange.pipe(filter((v) => !v));
+
+  /**
+   * Emits when the expandable opens or closes
+   * @deprecated Use expandChange instead.
+   * @breaking-change To be removed with v5.0.0.
+   */
+  @Output() readonly openedChange = this.expandChange;
 
   @ViewChild(DtExpandablePanel, { static: true })
   private _panel: DtExpandablePanel;
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef, private _ngZone: NgZone) { }
+  constructor(private _changeDetectorRef: ChangeDetectorRef, private _ngZone: NgZone) {}
 
+  /** Toggles the expanded state of the panel. */
   toggle(): boolean {
     if (!this.disabled) {
       this._panel.toggle();
     }
-    return this.opened;
+    return this.expanded;
   }
 
+  /** Sets the expanded state of the panel to false. */
+  close(): void {
+    this._panel.close();
+  }
+
+  /** Sets the expanded state of the panel to true. */
   open(): void {
     if (!this.disabled) {
       this._panel.open();
     }
-  }
-
-  close(): void {
-    this._panel.close();
   }
 }

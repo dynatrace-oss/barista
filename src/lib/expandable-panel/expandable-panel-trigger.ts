@@ -1,10 +1,9 @@
 import { DOWN_ARROW, ENTER, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
-  AfterContentInit,
   ChangeDetectorRef,
   Directive,
-  Input, OnDestroy
+  Input, OnDestroy,
 } from '@angular/core';
 import { DtExpandablePanel } from './expandable-panel';
 import { CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
@@ -25,10 +24,19 @@ import { Subscription } from 'rxjs';
     '(keydown)': '_handleKeydown($event)',
   },
 })
-export class DtExpandablePanelTrigger implements CanDisable, AfterContentInit, OnDestroy {
+export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
 
   @Input()
-  dtExpandablePanel: DtExpandablePanel;
+  get dtExpandablePanel(): DtExpandablePanel { return this._panel; }
+  set dtExpandablePanel(value: DtExpandablePanel) {
+    this._panel = value;
+    this._subscription.unsubscribe();
+    this._subscription = this.dtExpandablePanel.expandChange.subscribe(() => {
+      this._changeDetectorRef.markForCheck();
+    });
+  }
+  private _panel: DtExpandablePanel;
+  private _subscription: Subscription = Subscription.EMPTY;
 
   /**
    * @deprecated Use the panel's expanded input instead.
@@ -58,20 +66,10 @@ export class DtExpandablePanelTrigger implements CanDisable, AfterContentInit, O
     }
   }
 
-  private _subscription: Subscription;
-
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
-  ngAfterContentInit(): void {
-    this._subscription = this.dtExpandablePanel.expandChange.subscribe(() => {
-      this._changeDetectorRef.markForCheck();
-    });
-  }
-
   ngOnDestroy(): void {
-    if (this._subscription) {
-      this._subscription.unsubscribe();
-    }
+    this._subscription.unsubscribe();
   }
 
   /** @internal Handles the trigger's click event. */
