@@ -37,29 +37,29 @@ describe('DtExpandablePanel', () => {
     }));
 
     it('should be closed', () => {
-      expect(instance.opened).toBe(false);
+      expect(instance.expanded).toBe(false);
       instance.close();
-      expect(instance.opened).toBe(false);
+      expect(instance.expanded).toBe(false);
     });
 
-    it('should be opened', () => {
-      instance.opened = true;
-      expect(instance.opened).toBe(true);
+    it('should be expanded', () => {
+      instance.expanded = true;
+      expect(instance.expanded).toBe(true);
     });
 
-    it('should be opened after method call', () => {
+    it('should be expanded after method call', () => {
       instance.open();
-      expect(instance.opened).toBe(true);
+      expect(instance.expanded).toBe(true);
       instance.open();
-      expect(instance.opened).toBe(true);
+      expect(instance.expanded).toBe(true);
     });
 
-    it('should be opened after toggle', () => {
+    it('should be expanded after toggle', () => {
       expect(instance.toggle()).toBe(true);
-      expect(instance.opened).toBe(true);
+      expect(instance.expanded).toBe(true);
 
       instance.close();
-      expect(instance.opened).toBe(false);
+      expect(instance.expanded).toBe(false);
     });
 
     it('should have correct styles applied', () => {
