@@ -3,4 +3,13 @@
   <ng-content></ng-content>
 </div>
 
-<dt-icon name="abort" *ngIf="removable" (click)="_doDelete()"></dt-icon>
+<button
+  dt-icon-button
+  variant="nested"
+  class="dt-tag-remove-button"
+  [disabled]="disabled"
+  (click)="_removeTag($event)"
+  *ngIf="removable"
+>
+  <dt-icon name="abort"></dt-icon>
+</button>
