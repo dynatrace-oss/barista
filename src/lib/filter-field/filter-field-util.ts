@@ -8,7 +8,7 @@ import {
   dtFreeTextDef,
   DtFilterFieldTagData,
   isDtFreeTextDef,
-  isDtRenderType
+  isDtRenderType,
 } from './types';
 
 /**
@@ -109,6 +109,7 @@ export function transformSourceToTagData(sources: any[], rootDef: DtNodeDef): Dt
   let def = rootDef;
   let key: string | null = null;
   let value: string | null = null;
+  let isFreeText = false;
   let separator: string | null = null;
 
   for (let i = 0; i < sources.length; i++) {
@@ -120,7 +121,8 @@ export function transformSourceToTagData(sources: any[], rootDef: DtNodeDef): Dt
     }
 
     if (isDtFreeTextDef(def) && typeof source === 'string') {
-      value = `"${source}"`;
+      value = `${source}`;
+      isFreeText = true;
       if (sources.length > 1) {
         separator = '~';
       }
@@ -138,7 +140,7 @@ export function transformSourceToTagData(sources: any[], rootDef: DtNodeDef): Dt
     }
   }
 
-  return sources.length && value !== null ? new DtFilterFieldTagData(key, value, separator, sources) : null;
+  return sources.length && value !== null ? new DtFilterFieldTagData(key, value, separator, sources, isFreeText) : null;
 }
 
 /** Tries to find a definition for the provided source. It will start the lookup at the provided def. */

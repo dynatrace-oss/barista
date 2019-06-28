@@ -3,8 +3,10 @@
   class="dt-filter-field-tag-label"
   [disabled]="disabled"
   (click)="_handleEdit($event)">
-  <span *ngIf="data?.key" class="dt-filter-field-tag-key" [attr.data-separator]="data.separator ? data.separator! : ':'">{{data.key}}</span>
-  <span class="dt-filter-field-tag-value" *ngIf="data?.value">{{data.value}}</span>
+  <div class="dt-filter-field-tag-container" [class.dt-filter-field-tag-value-isfreetext]="data && data.isFreeText">
+    <span *ngIf="data?.key" class="dt-filter-field-tag-key" [attr.data-separator]="data.separator ? data.separator! : ':'">{{data.key}}</span>
+    <span class="dt-filter-field-tag-value" *ngIf="data?.value">{{data.value}}</span>
+  </div>
 </button>
 <button dt-icon-button
   variant="nested"
