@@ -5,15 +5,12 @@ import {
   Component,
   Directive,
   EventEmitter,
-  HostListener,
   Input,
   Output,
   ViewEncapsulation,
 } from '@angular/core';
 
 import { readKeyCode } from '@dynatrace/angular-components/core';
-
-export class DtTagBase {}
 
 /** Key of a tag, needed as it's used as a selector in the API. */
 @Directive({
@@ -31,9 +28,8 @@ export class DtTagKey {}
   styleUrls: ['tag.scss'],
   host: {
     'class': 'dt-tag',
-    '[attr.role]': `'option'`,
+    'role': 'option',
     '[attr.aria-disabled]': 'disabled.toString()',
-    '[attr.tabindex]': 'removable && !disabled ? 0 : -1',
     '[class.dt-tag-disabled]': 'disabled',
     '[class.dt-tag-removable]': 'removable && !disabled',
   },
@@ -41,11 +37,13 @@ export class DtTagKey {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTag<T> extends DtTagBase {
-  @Input()
-  value?: T;
+export class DtTag<T> {
+  @Input() value?: T;
 
-  /** @deprecated Disabled state will be removed without replacement in 4.0 */
+  /**
+   * @deprecated Disabled property on tags has no longer any use.
+   * @breaking-change Disabled property will be removed in version 5.0.0
+   */
   @Input()
   get disabled(): boolean {
     return this._disabled;
@@ -53,6 +51,7 @@ export class DtTag<T> extends DtTagBase {
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
   }
+  private _disabled = false;
 
   @Input()
   get removable(): boolean {
@@ -61,18 +60,15 @@ export class DtTag<T> extends DtTagBase {
   set removable(value: boolean) {
     this._removable = coerceBooleanProperty(value);
   }
+  private _removable = false;
 
   @Output()
   readonly removed: EventEmitter<T> = new EventEmitter<T>();
 
-  private _removable = false;
-  private _disabled = false;
-
-  @HostListener('keyup', ['$event'])
-  _doDelete(event?: KeyboardEvent): void {
+  _removeTag(event: Event | KeyboardEvent): void {
     if (
-      !this.disabled &&
-      (event === undefined || readKeyCode(event) === DELETE)
+      !this._disabled &&
+      (!(event instanceof KeyboardEvent) || readKeyCode(event) === DELETE)
     ) {
       this.removed.emit(this.value);
     }
