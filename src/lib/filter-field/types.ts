@@ -181,5 +181,6 @@ export class DtFilterFieldTagData {
     public key: string | null,
     public value: string | null,
     public separator: string | null,
-    public filterSources: any[]) {}
+    public filterSources: any[],
+    public isFreeText: boolean) {}
 }

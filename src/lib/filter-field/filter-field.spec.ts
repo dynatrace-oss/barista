@@ -402,7 +402,7 @@ describe('DtFilterField', () => {
       expect(tags.length).toBe(1);
       expect(tags[0].key).toBe('Free');
       expect(tags[0].separator).toBe('~');
-      expect(tags[0].value).toBe('"abc"');
+      expect(tags[0].value).toBe('abc');
       expect(spy).toHaveBeenCalledTimes(1);
       subscription.unsubscribe();
     }));
