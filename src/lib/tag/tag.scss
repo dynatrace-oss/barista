@@ -17,50 +17,58 @@ $remove-icon-size: 16px;
 
   display: inline-flex;
   align-items: center;
-}
 
-:host.dt-tag-removable {
-  &:focus {
-    box-shadow: 0 0 0 2px $gray-300;
+  &.dt-tag-removable {
+    padding-right: 0;
   }
-}
 
-dt-icon {
-  height: $remove-icon-size;
-  width: $remove-icon-size;
-  margin-left: 8px;
-  display: inline-block;
-  cursor: pointer;
+  .dt-tag-remove-button {
+    width: 22px;
+    height: 22px;
+    margin-left: 8px;
+    padding-right: 24px;
 
-  /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
-  ::ng-deep > svg {
-    fill: $turquoise-600;
+    &:focus:not(disabled) {
+      border-radius: 0 $remove-icon-size $remove-icon-size 0;
+    }
 
-    &:hover {
-      fill: $turquoise-700;
+    &:hover:not(disabled) {
+      background: transparent;
+    }
+
+    ::ng-deep {
+      .dt-icon {
+        height: $remove-icon-size;
+        width: $remove-icon-size;
+      }
+
+      .dt-button-icon {
+        margin-top: 0;
+      }
+    }
+  }
+
+  /**
+   * @deprecated Disabled property on tags has no longer any use.
+   * @breaking-change Disabled property will be removed in version 5.0.0
+  */
+  &.dt-tag-disabled {
+    pointer-events: none;
+    background-color: #ffffff;
+    color: $gray-300;
+    border: 1px solid $gray-200;
+
+    dt-icon ::ng-deep > svg {
+      fill: $gray-300;
+    }
+
+    .dt-tag-name ::ng-deep .tag-key {
+      color: inherit;
     }
   }
 }
 
-:host.dt-tag-disabled {
-  pointer-events: none;
-  background-color: #ffffff;
-  color: $gray-300;
-  border: 1px solid $gray-200;
-
-  /* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
-  dt-icon ::ng-deep > svg {
-    fill: $gray-300;
-  }
-}
-
-/* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
 .dt-tag-name ::ng-deep .tag-key {
   color: $gray-500;
   margin-right: 0.25em;
-}
-
-/* stylelint-disable-next-line selector-pseudo-element-no-unknown  */
-:host.dt-tag-disabled .dt-tag-name ::ng-deep .tag-key {
-  color: inherit;
 }
