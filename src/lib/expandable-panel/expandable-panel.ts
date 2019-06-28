@@ -43,6 +43,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class DtExpandablePanel {
 
+  /** Whether the panel is expanded. */
   @Input()
   get expanded(): boolean { return this._expanded; }
   set expanded(value: boolean) {
@@ -52,6 +53,7 @@ export class DtExpandablePanel {
     if (this._expanded !== newValue) {
       this._expanded = newValue;
       this.expandChange.emit(newValue);
+      // tslint:disable-next-line
       this.openedChange.emit(newValue);
 
       if (newValue) {
@@ -67,6 +69,7 @@ export class DtExpandablePanel {
   }
   private _expanded = false;
 
+  /** Whether the panel is disabled. */
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); }
@@ -96,10 +99,11 @@ export class DtExpandablePanel {
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
   /** Toggles the expanded state of the panel. */
-  toggle(): void {
+  toggle(): boolean {
     if (!this.disabled) {
       this.expanded = !this.expanded;
     }
+    return this.expanded;
   }
 
   /** Sets the expanded state of the panel to false. */
