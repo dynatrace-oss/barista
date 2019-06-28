@@ -178,7 +178,7 @@ describe('DtFilterField Util', () => {
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe(null);
-      expect(tagData!.value).toBe('"Some Text"');
+      expect(tagData!.value).toBe('Some Text');
       expect(tagData!.separator).toBe(null);
       expect(tagData!.filterSources).toBe(sources);
     });
@@ -196,7 +196,7 @@ describe('DtFilterField Util', () => {
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe('Option 1');
-      expect(tagData!.value).toBe('"Some Text"');
+      expect(tagData!.value).toBe('Some Text');
       expect(tagData!.separator).toBe('~');
       expect(tagData!.filterSources).toBe(sources);
     });
@@ -219,7 +219,7 @@ describe('DtFilterField Util', () => {
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe('Option 1');
-      expect(tagData!.value).toBe('"Some Text"');
+      expect(tagData!.value).toBe('Some Text');
       expect(tagData!.separator).toBe('~');
       expect(tagData!.filterSources).toBe(sources);
     });

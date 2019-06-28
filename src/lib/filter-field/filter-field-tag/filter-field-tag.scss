@@ -62,6 +62,24 @@
   content: attr(data-separator) ' ';
 }
 
+.dt-filter-field-tag-container {
+  display: flex;
+
+  &.dt-filter-field-tag-value-isfreetext::after {
+    content: '"';
+    color: $turquoise-600;
+  }
+}
+
 .dt-filter-field-tag-value {
   color: $turquoise-600;
+  max-width: 250px;
+  margin-left: 4px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.dt-filter-field-tag-value-isfreetext .dt-filter-field-tag-value::before {
+  content: '"';
 }
