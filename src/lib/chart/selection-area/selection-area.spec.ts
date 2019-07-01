@@ -47,7 +47,7 @@ describe('DtChart Selection Area', () => {
       expect(timestamp).not.toBeNull();
     });
 
-    it('should have a a range inside the chart selection area', () => {
+    it('should have a range inside the chart selection area', () => {
       fixture.componentInstance.hasRange = true;
       fixture.detectChanges();
       const selectionArea = fixture.debugElement.query(
@@ -136,21 +136,6 @@ export class TestChart {
 export class TestChartComponent {
   options = OPTIONS;
   series = SERIES;
-
-  // timeValues: number[] = this.series[0].data!.map((data) => data[0]);
-  // startRange: number;
-  // endRange: number;
-
-  // @ViewChild(DtChartTimestamp) timestamp: DtChartTimestamp;
-  // @ViewChild(DtChartRange) range: DtChartRange;
-
-  // changeRange(event: DtSelectChange<number>): void {
-  //   this.range.value = [this.startRange, this.endRange];
-  // }
-
-  // changeTimestamp(event: DtSelectChange<number>): void {
-  //   this.timestamp.value = event.value;
-  // }
 }
 
 const OPTIONS: Highcharts.Options = {

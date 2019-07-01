@@ -378,11 +378,15 @@ export class DtChart
       if (this._timestamp) {
         this._timestamp._valueToPixels = xAxis.toPixels.bind(xAxis);
         this._timestamp._pixelsToValue = xAxis.toValue.bind(xAxis);
+        this._timestamp._maxValue = xAxis.dataMax;
+        this._timestamp._minValue = xAxis.dataMin;
       }
 
       if (this._range) {
         this._range._valueToPixels = xAxis.toPixels.bind(xAxis);
         this._range._pixelsToValue = xAxis.toValue.bind(xAxis);
+        this._range._maxValue = xAxis.dataMax;
+        this._range._minValue = xAxis.dataMin;
       }
     }
   }

@@ -33,8 +33,8 @@ import { take } from 'rxjs/operators';
 import { Portal } from '@angular/cdk/portal';
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  * Change event object emitted by DtSelectionArea
  */
 export interface DtSelectionAreaContainerChange {
@@ -100,14 +100,14 @@ const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
 ];
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  */
 export class DtSelectionAreaContainerBase {}
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  */
 export const _DtSelectionAreaContainerMixin = mixinTabIndex(
   // tslint:disable-next-line: deprecation
@@ -115,8 +115,8 @@ export const _DtSelectionAreaContainerMixin = mixinTabIndex(
 );
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  */
 @Component({
   selector: 'dt-selection-area-container',

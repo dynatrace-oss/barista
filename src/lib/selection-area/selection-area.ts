@@ -31,8 +31,8 @@ import {
 import { map, take, switchMap } from 'rxjs/operators';
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  * Change event object emitted by DtSelectionArea
  */
 // tslint:disable-next-line: deprecation
@@ -44,8 +44,8 @@ export interface DtSelectionAreaChange extends DtSelectionAreaContainerChange {
 let globalContainerElement: HTMLElement | null = null;
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  */
 @Component({
   selector: 'dt-selection-area',

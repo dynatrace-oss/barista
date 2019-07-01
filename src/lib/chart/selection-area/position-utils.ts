@@ -59,7 +59,6 @@ export function calculatePosition(
 ): { left: number; width: number } {
   let left = 0;
   let width = 0;
-  // let nextTarget = target;
   // tslint:disable-next-line:switch-default
   switch (target) {
     case DtSelectionAreaEventTarget.SelectedArea: {
