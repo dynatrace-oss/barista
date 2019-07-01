@@ -44,10 +44,15 @@ $turquoise-600: #00a1b2;
   }
 
   .item-entry {
-    padding: 0 16px;
+    border: none;
+    background-color: transparent;
+    padding: 8px 16px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 14px;
+    font-family: "BerninaSansWeb";
     cursor: pointer;
   }
 
