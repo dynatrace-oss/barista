@@ -2,10 +2,10 @@
 <nav>
   <ul>
     <li *ngFor="let component of componentItems" class="expandable-item" [class.expandable-item-open]="panel.expanded">
-      <div class="item-entry" [dtExpandablePanel]="panel">
+      <button class="item-entry" [dtExpandablePanel]="panel">
         <span>{{component.name}}</span>
         <dt-icon name="dropdownopen"></dt-icon>
-      </div>
+      </button>
       <dt-expandable-panel #panel>
         <ul>
           <li *ngFor="let example of component.examples">
