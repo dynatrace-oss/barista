@@ -26,21 +26,26 @@ $dt-select-panel-min-width: 112px !default;
     color: $disabledcolor;
   }
 
-  &:focus:not(.dt-select-disabled) {
-    @include dt-focus-style();
-  }
-
   &.dt-select-open {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+  }
+
+  .dt-form-field-infix > & {
+    border: none;
+    border-radius: 0;
+    min-height: 30px;
+  }
+
+  :not(.dt-form-field-infix) > &:focus:not(.dt-select-disabled) {
+    @include dt-focus-style();
   }
 }
 
 .dt-select-trigger {
   display: flex;
   flex-direction: row;
-  padding: 0;
-  padding-left: 12px;
+  padding: 0 0 0 12px;
 }
 
 .dt-select-value {
@@ -104,7 +109,7 @@ $dt-select-panel-min-width: 112px !default;
   // Makes sure the opening scale animation starts from the top
   transform-origin: left top;
   overflow: auto;
-  -webkit-overflow-scrolling: touch;   // for momentum scroll on mobile
+  -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
 }
 
 .dt-select-content {
