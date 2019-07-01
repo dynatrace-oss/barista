@@ -4,19 +4,21 @@
 $remove-icon-size: 16px;
 
 :host {
-  @include dt-label-font();
   box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+
+  min-width: 30px;
+  max-width: 350px;
+  height: 24px;
+  padding: 2px 8px;
+
+  @include dt-label-font();
   text-decoration: none;
+  outline: none;
   border: 1px solid $gray-130;
   background-color: $gray-130;
   border-radius: 12px;
-  min-width: 30px;
-  height: 24px;
-  padding: 2px 8px;
-  outline: none;
-
-  display: inline-flex;
-  align-items: center;
 
   &.dt-tag-removable {
     padding-right: 0;
@@ -68,7 +70,14 @@ $remove-icon-size: 16px;
   }
 }
 
-.dt-tag-name ::ng-deep .tag-key {
-  color: $gray-500;
-  margin-right: 0.25em;
+.dt-tag-name {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  ::ng-deep .tag-key {
+    color: $gray-500;
+    margin-right: 0.25em;
+  }
 }
