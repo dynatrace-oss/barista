@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
-  EventEmitter,
   Input,
   Output,
   ViewChild,
@@ -43,7 +42,7 @@ export class DtExpandableSectionHeader {}
 })
 export class DtExpandableSection implements CanDisable {
 
-  /** Whether the expandable section is expaned. */
+  /** Whether the expandable section is expanded. */
   @Input()
   get expanded(): boolean { return this._panel.expanded; }
   set expanded(value: boolean) { this._panel.expanded = coerceBooleanProperty(value); }

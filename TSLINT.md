@@ -17,6 +17,7 @@ We provide a set of custom TSLint rules to help you using the Angular components
 | `dt-consumption-icon-alt-text` | A `dt-consumption-icon` must have an `aria-label` that describes the icon. |
 | `dt-context-dialog-alt-text` | The open and the close button need additional attributes to provide text alternatives using the following inputs: `aria-label` and `aria-label-close-button` |
 | `dt-copy-to-clipboard-no-empty` | The copy-to-clipboard component must always contain a `dt-copy-to-clipboard-label`, that is a direct child of `dt-copy-to-clipboard`. |
+| `dt-expandable-trigger-is-button` | The trigger of an expandable panel must always be a button element. |
 | `dt-icon-button-alt-text` | An icon-only button must always have an alternative text in form of an `aria-label` or `aria-labelledby` attribute. |
 | `dt-icon-button-needs-icon` | The content of an icon button (`dt-icon-button`) must always be an icon component (`<dt-icon>`). |
 | `dt-info-group-requires-icon` | The `dt-info-group-icon` is a required child element of the `dt-info-group` and must be a direct child. |
