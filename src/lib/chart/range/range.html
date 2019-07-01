@@ -20,16 +20,16 @@
   tabIndex="0"
   aria-role="slider"
   aria-orientation="horizontal"
-  [attr.aria-valuemin]="min"
-  [attr.aria-valuemax]="max"
-  [attr.aria-valuetext]="value | dtDateRange"
-  [attr.aria-valuenow]="value"
+  [attr.aria-valuemin]="_minValue"
+  [attr.aria-valuemax]="_maxValue"
   [attr.aria-label]="ariaLabelSelectedArea"
 >
   <button
     #leftHandle
     class="dt-chart-left-handle"
     aria-role="slider"
+    [attr.aria-valuemin]="_minValue"
+    [attr.aria-valuemax]="_maxValue"
     [attr.aria-label]="ariaLabelLeftHandle"
     (mousedown)="_dragHandle($event, 'left')"
   >
@@ -40,6 +40,8 @@
     #rightHandle
     class="dt-chart-right-handle"
     aria-role="slider"
+    [attr.aria-valuemin]="_minValue"
+    [attr.aria-valuemax]="_maxValue"
     [attr.aria-label]="ariaLabelRightHandle"
     (mousedown)="_dragHandle($event, 'right')"
   >

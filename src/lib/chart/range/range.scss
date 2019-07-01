@@ -69,6 +69,6 @@ $range-valid-color: $gray-300;
   left: -9px;
 }
 
-::ng-deep svg {
+:host ::ng-deep svg {
   fill: $range-color;
 }

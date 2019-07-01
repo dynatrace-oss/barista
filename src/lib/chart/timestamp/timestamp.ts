@@ -13,11 +13,18 @@ import {
   TemplateRef,
   ViewChild,
   ViewChildren,
+  ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
 import { isNumber } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
+
+/** @internal Aria label for the selected time. */
+export const ARIA_DEFAULT_SELECTED_LABEL = 'the selected time';
+
+/** @internal Aria label for the close button in the overlay. */
+export const ARIA_DEFAULT_CLOSE_LABEL = 'close';
 
 /** @internal */
 export class TimestampStateChangedEvent {
@@ -36,68 +43,14 @@ export class TimestampStateChangedEvent {
   },
 })
 export class DtChartTimestamp implements AfterViewInit, OnDestroy {
-  /** Emits the new value of the timestamp when it is changed by user triggered events */
-  @Output() readonly valueChanges = new EventEmitter<number>();
-
   /** Aria label for the close button in the overlay */
-  @Input() readonly ariaLabelClose = 'close';
+  @Input('aria-label-close') readonly ariaLabelClose = ARIA_DEFAULT_CLOSE_LABEL;
 
-  /**
-   * @internal
-   * subject that emits when the close button of the overlay was triggered
-   */
-  readonly _closeOverlay = new Subject<void>();
+  /** Aria label for the selected moment */
+  @Input('aria-label-selected')
+  readonly ariaLabelSelected = ARIA_DEFAULT_SELECTED_LABEL;
 
-  /** @internal */
-  readonly _stateChanges = new Subject<TimestampStateChangedEvent>();
-
-  /** @internal */
-  @ViewChild(TemplateRef, { static: true })
-  _overlayTemplate: TemplateRef<unknown>;
-
-  /** @internal function that provides a value on the xAxis for a provided px value */
-  _pixelsToValue:
-    | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
-    | null = null;
-
-  /** function to calculate the px position of a provided value on the xAxis */
-  private _valueToPixelsFn:
-    | ((value: number, paneCoordinates?: boolean) => number)
-    | null = null;
-
-  private _positionX = 0;
-  private _timestampHidden = true;
-  private _value = 0;
-  private _destroy$ = new Subject<void>();
-
-  get _valueToPixels():
-    | ((value: number, paneCoordinates?: boolean) => number)
-    | null {
-    return this._valueToPixelsFn;
-  }
-  set _valueToPixels(
-    fn: ((value: number, paneCoordinates?: boolean) => number) | null
-  ) {
-    this._valueToPixelsFn = fn;
-    this._reflectValueToPosition();
-    this._emitStateChanges();
-    this._changeDetectorRef.markForCheck();
-  }
-
-  @ViewChildren('selector')
-  _timestampElementRef: QueryList<ElementRef<HTMLDivElement>>;
-
-  /** @internal */
-  @Input()
-  get _hidden(): boolean {
-    return this._timestampHidden;
-  }
-  set _hidden(hidden: boolean) {
-    this._timestampHidden = hidden;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  /** The value on the chart x-axis where the timestamp should be placed */
+  /** The value on the chart xAxis where the timestamp should be placed */
   @Input()
   get value(): number {
     return this._value;
@@ -114,8 +67,42 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  /** @internal The position in px where the timestamp should be placed on the x-axis */
-  @Input()
+  /** Emits the new value of the timestamp when it is changed by user triggered events */
+  @Output() readonly valueChanges = new EventEmitter<number>();
+
+  /** @internal */
+  @ViewChild(TemplateRef, { static: true })
+  _overlayTemplate: TemplateRef<unknown>;
+
+  /** @internal */
+  @ViewChildren('selector')
+  _timestampElementRef: QueryList<ElementRef<HTMLDivElement>>;
+
+  /** @internal */
+  get _valueToPixels():
+    | ((value: number, paneCoordinates?: boolean) => number)
+    | null {
+    return this._valueToPixelsFn;
+  }
+  set _valueToPixels(
+    fn: ((value: number, paneCoordinates?: boolean) => number) | null
+  ) {
+    this._valueToPixelsFn = fn;
+    this._reflectValueToPosition();
+    this._emitStateChanges();
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** @internal */
+  get _hidden(): boolean {
+    return this._timestampHidden;
+  }
+  set _hidden(hidden: boolean) {
+    this._timestampHidden = hidden;
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** @internal The position in px where the timestamp should be placed on the xAxis */
   get _position(): number {
     return this._positionX;
   }
@@ -127,7 +114,38 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
+  /**
+   * @internal
+   * subject that emits when the close button of the overlay was triggered
+   */
+  readonly _closeOverlay = new Subject<void>();
+
+  /** @internal */
+  readonly _stateChanges = new Subject<TimestampStateChangedEvent>();
+
+  /** @internal the maximum value that can be selected on the xAxis */
+  _maxValue: number;
+
+  /** @internal the minimal value that can be selected on the xAxis */
+  _minValue: number;
+
+  /** @internal function that provides a value on the xAxis for a provided px value */
+  _pixelsToValue:
+    | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
+    | null = null;
+
+  /** function to calculate the px position of a provided value on the xAxis */
+  private _valueToPixelsFn:
+    | ((value: number, paneCoordinates?: boolean) => number)
+    | null = null;
+
+  private _positionX = 0;
+  private _timestampHidden = true;
+  private _value = 0;
+  private _destroy$ = new Subject<void>();
+
   constructor(
+    public _viewContainerRef: ViewContainerRef,
     private _renderer: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef
   ) {}
