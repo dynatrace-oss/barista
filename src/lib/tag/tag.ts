@@ -1,5 +1,4 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { DELETE } from '@angular/cdk/keycodes';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,8 +8,6 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-
-import { readKeyCode } from '@dynatrace/angular-components/core';
 
 /** Key of a tag, needed as it's used as a selector in the API. */
 @Directive({
@@ -65,11 +62,8 @@ export class DtTag<T> {
   @Output()
   readonly removed: EventEmitter<T> = new EventEmitter<T>();
 
-  _removeTag(event: Event | KeyboardEvent): void {
-    if (
-      !this._disabled &&
-      (!(event instanceof KeyboardEvent) || readKeyCode(event) === DELETE)
-    ) {
+  _removeTag(): void {
+    if (!this._disabled) {
       this.removed.emit(this.value);
     }
   }

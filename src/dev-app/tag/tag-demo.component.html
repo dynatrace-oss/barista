@@ -22,6 +22,18 @@
     <dt-tag-key *ngIf="hasKey">[AWS]Category:</dt-tag-key>
     Managed
   </dt-tag>
+
+  <dt-tag
+    [removable]="canRemove"
+    [disabled]="isDisabled"
+    [value]="value3"
+    (removed)="doRemove(tag3)"
+    #tag3
+    title="A really really long tooltip"
+  >
+    <dt-tag-key *ngIf="hasKey">[AWS]Category:</dt-tag-key>
+    Super duper long tag that is very long and has to be abbreviated
+  </dt-tag>
 </div>
 
 <div class="control-buttons">
