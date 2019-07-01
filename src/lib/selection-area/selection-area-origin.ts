@@ -25,14 +25,14 @@ import { Subscription, Subject } from 'rxjs';
 import { ENTER } from '@angular/cdk/keycodes';
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  */
 export class DtSelectionAreaOriginBase {}
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  */
 export const _DtSelectionAreaOriginMixin = mixinTabIndex(
   // tslint:disable-next-line: deprecation
@@ -40,8 +40,8 @@ export const _DtSelectionAreaOriginMixin = mixinTabIndex(
 );
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  */
 @Directive({
   selector: '[dtSelectionArea]',

@@ -21,4 +21,11 @@
   tabIndex="0"
   aria-role="slider"
   class="dt-chart-timestamp-selector"
+  aria-role="slider"
+  aria-orientation="horizontal"
+  [attr.aria-valuemin]="_minValue"
+  [attr.aria-valuemax]="_maxValue"
+  [attr.aria-valuetext]="value | date: 'MMM d, HH:mm'"
+  [attr.aria-valuenow]="value"
+  [attr.aria-label]="ariaLabelSelected"
 ></div>

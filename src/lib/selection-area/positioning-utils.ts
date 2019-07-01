@@ -22,8 +22,8 @@ export enum DtSelectionAreaEventTarget {
 }
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  * Returns the offset for a keycode
  */
 export function getOffsetForKeyCode(
@@ -51,8 +51,8 @@ export function getOffsetForKeyCode(
 }
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  * Calculates the new position based on the old position, the delta since the last update and
  * the target that is calling the function
  */

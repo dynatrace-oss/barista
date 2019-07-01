@@ -5,7 +5,10 @@ import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtChartModule, DtChartTimestamp } from '@dynatrace/angular-components';
-import { TimestampStateChangedEvent } from './timestamp';
+import {
+  TimestampStateChangedEvent,
+  ARIA_DEFAULT_SELECTED_LABEL,
+} from './timestamp';
 
 const TIMESTAMP_SELECTOR = '.dt-chart-timestamp-selector';
 
@@ -15,6 +18,7 @@ describe('DtChart Timestamp', () => {
       imports: [DtChartModule],
       declarations: [
         TimestampTestComponent,
+        TimestampTestA11yComponent,
         TimestampTestBindingValuesComponent,
       ],
     });
@@ -157,6 +161,79 @@ describe('DtChart Timestamp', () => {
       subscription.unsubscribe();
     });
   });
+
+  describe('accessibility', () => {
+    let fixture: ComponentFixture<TimestampTestBindingValuesComponent>;
+    let fixtureA11y: ComponentFixture<TimestampTestA11yComponent>;
+    let timestamp: DtChartTimestamp;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent<TimestampTestBindingValuesComponent>(
+        TimestampTestBindingValuesComponent
+      );
+      fixtureA11y = TestBed.createComponent<TimestampTestA11yComponent>(
+        TimestampTestA11yComponent
+      );
+      timestamp = fixtureA11y.componentInstance.timestamp;
+      fixture.detectChanges();
+      fixtureA11y.detectChanges();
+      // mock current date for date-range pipe
+      jasmine.clock().mockDate(new Date('2019/06/01 09:33:21'));
+    });
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
+
+    it('should have default aria-labels on timestamp', () => {
+      const container = fixture.debugElement.query(
+        By.css('.dt-chart-timestamp-selector')
+      ).nativeElement;
+
+      expect(container.getAttribute('aria-role')).toBe('slider');
+      expect(container.getAttribute('aria-orientation')).toBe('horizontal');
+      expect(container.getAttribute('aria-label')).toBe(
+        ARIA_DEFAULT_SELECTED_LABEL
+      );
+      expect(container.getAttribute('aria-valuenow')).toBe('10');
+      expect(container.getAttribute('aria-valuetext')).toMatch(/Jan 1/);
+    });
+
+    it('should have aria min and max values provided on container', () => {
+      const container = fixture.debugElement.query(
+        By.css('.dt-chart-timestamp-selector')
+      ).nativeElement;
+
+      expect(container.getAttribute('aria-valuemin')).toBe(
+        `${new Date('2019/01/01 00:00:00').getTime()}`
+      );
+      expect(container.getAttribute('aria-valuemax')).toBe(
+        `${new Date('2019/12/31 00:00:00').getTime()}`
+      );
+    });
+
+    it('should have updated aria labels on timestamp when input is provided', () => {
+      const container = fixtureA11y.debugElement.query(
+        By.css('.dt-chart-timestamp-selector')
+      ).nativeElement;
+
+      expect(container.getAttribute('aria-label')).toBe('SELECTED');
+    });
+
+    it('should have updated aria value labels on timestamp when values changing', () => {
+      const newDate = new Date('2018/10/11 20:48:11').getTime();
+
+      timestamp.value = newDate;
+      fixtureA11y.detectChanges();
+
+      const container = fixtureA11y.debugElement.query(
+        By.css('.dt-chart-timestamp-selector')
+      ).nativeElement;
+
+      expect(container.getAttribute('aria-valuenow')).toBe(`${newDate}`);
+      expect(container.getAttribute('aria-valuetext')).toBe('Oct 11, 20:48');
+    });
+  });
 });
 
 @Component({
@@ -168,15 +245,35 @@ export class TimestampTestComponent {
 }
 
 @Component({
+  selector: 'timestamp-test-a11y-component',
+  template: `
+    <dt-chart-timestamp
+      [value]="value"
+      aria-label-close="CLOSE"
+      aria-label-selected="SELECTED"
+    ></dt-chart-timestamp>
+  `,
+})
+export class TimestampTestA11yComponent implements OnInit {
+  @ViewChild(DtChartTimestamp, { static: true }) timestamp: DtChartTimestamp;
+  value = new Date('2019/06/01 20:38:14').getTime();
+
+  ngOnInit(): void {
+    this.timestamp._valueToPixels = (value: number) => value;
+  }
+}
+
+@Component({
   selector: 'timestamp-test-bind-value-component',
   template: '<dt-chart-timestamp [value]="value"></dt-chart-timestamp>',
 })
 export class TimestampTestBindingValuesComponent implements OnInit {
   @ViewChild(DtChartTimestamp, { static: true }) timestamp: DtChartTimestamp;
-
   value = 10;
 
   ngOnInit(): void {
+    this.timestamp._minValue = new Date('2019/01/01 00:00:00').getTime();
+    this.timestamp._maxValue = new Date('2019/12/31 00:00:00').getTime();
     this.timestamp._valueToPixels = (value: number) => value;
   }
 }

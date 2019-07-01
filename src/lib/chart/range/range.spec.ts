@@ -11,7 +11,13 @@ import {
   DtIconModule,
 } from '@dynatrace/angular-components';
 import { dispatchFakeEvent } from '../../../testing/dispatch-events';
-import { DT_RANGE_RELEASED_CLASS, RangeStateChangedEvent } from './range';
+import {
+  ARIA_DEFAULT_LEFT_HANDLE_LABEL,
+  ARIA_DEFAULT_RIGHT_HANDLE_LABEL,
+  ARIA_DEFAULT_SELECTED_AREA_LABEL,
+  DT_RANGE_RELEASED_CLASS,
+} from './constants';
+import { RangeStateChangedEvent } from './range';
 
 // tslint:disable:no-magic-numbers no-unbound-method no-use-before-declare
 
@@ -23,7 +29,11 @@ describe('DtChart Range', () => {
         HttpClientTestingModule,
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
-      declarations: [RangeTestComponent, RangeTestBindingValuesComponent],
+      declarations: [
+        RangeTestComponent,
+        RangeTestBindingValuesComponent,
+        RangeA11yTestComponent,
+      ],
     });
     TestBed.compileComponents();
   });
@@ -39,7 +49,7 @@ describe('DtChart Range', () => {
       fixture.detectChanges();
     });
 
-    it('should initialize a hidden range without any style.', () => {
+    it('should initialize a hidden range without any style', () => {
       expect(range).toBeDefined();
       expect(range._hidden).toBe(true);
       expect(range._area).toEqual({ left: 0, width: 0 });
@@ -216,6 +226,133 @@ describe('DtChart Range', () => {
       subscription.unsubscribe();
     });
   });
+
+  describe('accessibility', () => {
+    let fixture: ComponentFixture<RangeTestBindingValuesComponent>;
+    let fixtureA11y: ComponentFixture<RangeA11yTestComponent>;
+    let range: DtChartRange;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent<RangeTestBindingValuesComponent>(
+        RangeTestBindingValuesComponent
+      );
+      fixtureA11y = TestBed.createComponent<RangeA11yTestComponent>(
+        RangeA11yTestComponent
+      );
+      range = fixture.componentInstance.range;
+      fixture.detectChanges();
+      fixtureA11y.detectChanges();
+      // mock current date for date-range pipe
+      jasmine.clock().mockDate(new Date('2019/06/01 09:33:21'));
+    });
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
+
+    it('should have default aria-labels on chart container', () => {
+      const container = fixture.debugElement.query(
+        By.css('.dt-chart-range-container')
+      ).nativeElement;
+
+      expect(container.getAttribute('aria-role')).toBe('slider');
+      expect(container.getAttribute('aria-orientation')).toBe('horizontal');
+      expect(container.getAttribute('aria-label')).toBe(
+        ARIA_DEFAULT_SELECTED_AREA_LABEL
+      );
+      expect(container.getAttribute('aria-valuenow')).toBe('10-100');
+      expect(container.getAttribute('aria-valuetext')).toMatch(/1970 Jan 1/); // Date of 10 since unix
+    });
+
+    it('should have aria min and max values provided on container', () => {
+      const container = fixtureA11y.debugElement.query(
+        By.css('.dt-chart-range-container')
+      ).nativeElement;
+
+      expect(container.getAttribute('aria-valuemin')).toBe('10');
+      expect(container.getAttribute('aria-valuemax')).toBe('100');
+    });
+
+    it('should have aria min and max values provided on left handle', () => {
+      const handle = fixtureA11y.debugElement.query(
+        By.css('.dt-chart-left-handle')
+      ).nativeElement;
+
+      expect(handle.getAttribute('aria-valuemin')).toBe('10');
+      expect(handle.getAttribute('aria-valuemax')).toBe('100');
+    });
+
+    it('should have aria min and max values provided on right handle', () => {
+      const handle = fixtureA11y.debugElement.query(
+        By.css('.dt-chart-right-handle')
+      ).nativeElement;
+
+      expect(handle.getAttribute('aria-valuemin')).toBe('10');
+      expect(handle.getAttribute('aria-valuemax')).toBe('100');
+    });
+
+    it('should have updated aria labels on chart when input is provided', () => {
+      const container = fixtureA11y.debugElement.query(
+        By.css('.dt-chart-range-container')
+      ).nativeElement;
+
+      expect(container.getAttribute('aria-label')).toBe('SELECTED');
+    });
+
+    it('should have default aria-labels on left handle', () => {
+      const handle = fixture.debugElement.query(By.css('.dt-chart-left-handle'))
+        .nativeElement;
+
+      expect(handle.getAttribute('aria-role')).toBe('slider');
+      expect(handle.getAttribute('aria-label')).toBe(
+        ARIA_DEFAULT_LEFT_HANDLE_LABEL
+      );
+    });
+
+    it('should have updated aria-labels on left handle', () => {
+      const handle = fixtureA11y.debugElement.query(
+        By.css('.dt-chart-left-handle')
+      ).nativeElement;
+
+      expect(handle.getAttribute('aria-label')).toBe('LEFT');
+    });
+
+    it('should have default aria-labels on right handle', () => {
+      const handle = fixture.debugElement.query(
+        By.css('.dt-chart-right-handle')
+      ).nativeElement;
+
+      expect(handle.getAttribute('aria-role')).toBe('slider');
+      expect(handle.getAttribute('aria-label')).toBe(
+        ARIA_DEFAULT_RIGHT_HANDLE_LABEL
+      );
+    });
+
+    it('should have updated aria-labels on right handle', () => {
+      const handle = fixtureA11y.debugElement.query(
+        By.css('.dt-chart-right-handle')
+      ).nativeElement;
+
+      expect(handle.getAttribute('aria-label')).toBe('RIGHT');
+    });
+
+    it('should have updated aria value labels on chart container when values changing', () => {
+      const start = new Date('2018/10/11 20:48:11').getTime();
+      const end = new Date('2019/01/02 17:30:00').getTime();
+
+      range.value = [start, end];
+      fixture.detectChanges();
+
+      const container = fixture.debugElement.query(
+        By.css('.dt-chart-range-container')
+      ).nativeElement;
+
+      expect(container.getAttribute('aria-valuenow')).toBe(`${start}-${end}`);
+      expect(container.getAttribute('aria-valuetext')).toBe(
+        '2018 Oct 11 20:48 — 2019 Jan 2 17:30'
+      );
+    });
+  });
 });
 
 @Component({
@@ -223,6 +360,29 @@ describe('DtChart Range', () => {
   template: '<dt-chart-range></dt-chart-range>',
 })
 export class RangeTestComponent {}
+
+@Component({
+  selector: 'range-test-a11y-component',
+  template: `
+    <dt-chart-range
+      [value]="values"
+      aria-label-close="CLOSE"
+      aria-label-left-handle="LEFT"
+      aria-label-right-handle="RIGHT"
+      aria-label-selected-area="SELECTED"
+    ></dt-chart-range>
+  `,
+})
+export class RangeA11yTestComponent implements OnInit {
+  @ViewChild(DtChartRange, { static: true }) range: DtChartRange;
+  values = [10, 100];
+
+  ngOnInit(): void {
+    this.range._minValue = 10;
+    this.range._maxValue = 100;
+    this.range._valueToPixels = (value: number) => value;
+  }
+}
 
 @Component({
   selector: 'range-test-bind-value-component',

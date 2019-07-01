@@ -7,10 +7,10 @@ import { generateData } from './chart-data-utils';
   template: `
     <dt-chart [options]="options" [series]="series">
       <dt-chart-timestamp
-        aria-label-close="close the selection"
+        aria-label-close="Close the selection"
       ></dt-chart-timestamp>
       <dt-chart-range
-        aria-label-close="close the selection"
+        aria-label-close="Close the selection"
         aria-label-left-handle="The left handle to update the selection"
         aria-label-right-handle="The right handle to update the selection"
         aria-label-selected-area="The selected time-frame"

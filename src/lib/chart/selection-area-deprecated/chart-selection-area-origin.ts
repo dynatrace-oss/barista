@@ -28,8 +28,8 @@ import { Subscription, Observable } from 'rxjs';
 import { getDtChartSelectionAreaDateTimeAxisError } from './chart-selection-area-errors';
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  */
 @Directive({
   selector: 'dt-chart[dtChartSelectionArea]',
