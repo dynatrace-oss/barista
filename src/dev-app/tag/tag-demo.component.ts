@@ -9,6 +9,7 @@ import { DtTag } from '@dynatrace/angular-components/tag';
 export class TagDemo {
   value1 = 'My value 1';
   value2 = 'My value 2';
+  value3 = 'My value 3';
   isDisabled = false;
   canRemove = false;
   hasKey = false;
