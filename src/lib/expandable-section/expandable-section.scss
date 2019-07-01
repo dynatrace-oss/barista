@@ -1,6 +1,8 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
+@import '../core/theming/theming';
+@import './expandable-section-theme';
 
 :host {
   box-sizing: border-box;
@@ -82,4 +84,9 @@
 .dt-expandable-section-container {
   margin-left: 20px;
   margin-top: 12px;
+}
+
+// Apply the expandable section theme
+@include dt-apply-theme() {
+  @include dt-theme-expandable-section($dt-current-theme);
 }
