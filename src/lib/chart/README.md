@@ -33,7 +33,6 @@ To use the Dynatrace chart, add the `<dt-chart options="myoptions" series="myser
 | `series`       | `Observable<Highcharts.IndividualSeriesOptions[]> | Highcharts.IndividualSeriesOptions[] | undefined` | `undefined` | Sets the series of the chart. The type can either be an observable or a static array.                                                                           |
 | `loading-text` | `string`                                                                                              |             | The loading text of the loading distractor.                                                                                                                     |
 
-
 ## Outputs
 
 | Name                | Type                                       | Description                                                |
@@ -140,37 +139,9 @@ The chart supports adding heatfields. The `dt-chart` component takes `dt-chart-h
 
 <docs-source-example example="ChartSelectionAreaDefaultExample" fullwidth="true"></docs-source-example>
 
-The chart selection area creates the possibility to select a specific time frame or moment in a chart. The **Timestamp** is used therefore to select a specific moment on the x-Axis of the chart. The **Range** empowers the user to select a desired time frame between two dates. To apply a valid range on a chart it is important to meet the provided constraints. First of all the selected range has to be larger as 5minutes by default. Furthermore the developer can specify a max constraint as well. Once a so called range was created the user can resize it by the two handles on the left and right side.
+The chart selection area creates the possibility to select a specific time frame or moment in a chart. The **Timestamp** is used therefore to select a specific moment on the xAxis of the chart. The **Range** empowers the user to select a desired time frame between two dates. To apply a valid range on a chart it is important to meet the provided constraints. First of all the selected range has to be larger as 5minutes by default. Furthermore the developer can specify a max constraint as well. Once a range was created the user can resize it by the two handles on the left and right side.
 
-Adding the ability to select one specific moment in a chart with a `dt-chart-timestamp`.
-
-```html
-<dt-chart ...>
-  <dt-chart-timestamp></dt-chart-timestamp>
-</dt-chart>
-
-```
-
-Adding the ability to select a desired time frame between two dates in a chart with a `dt-chart-timestamp`.
-
-```html
-<dt-chart ...>
-  <dt-chart-range></dt-chart-range>
-</dt-chart>
-
-```
-
-Furthermore it is possible to have both `dt-chart-range` and `dt-chart-timestamp` along side in a chart. So that the user can either select a moment or a time frame on the x-Axis of the chart.
-
-```html
-<dt-chart ...>
-  <dt-chart-range></dt-chart-range>
-  <dt-chart-timestamp></dt-chart-timestamp>
-</dt-chart>
-
-```
-
-To specify an action inside the overlay that is shown by the selection ara you can project a button with the `dtChartSelectionAreaAction` directive inside the `dt-chart-timestamp` or `dt-chart-range`. This empowers the developer to have full control on all actions that should be performed.
+To specify an action inside the overlay that is shown by the selection area you can project a button with the `dtChartSelectionAreaAction` directive inside the `dt-chart-timestamp` or `dt-chart-range`. This empowers the developer to have full control on all actions that should be performed.
 
 The close button that will destroy the selection is mandatory!
 
@@ -183,27 +154,77 @@ The close button that will destroy the selection is mandatory!
 
 ```
 
+Furthermore it is possible to have both `dt-chart-range` and `dt-chart-timestamp` along side in a chart. This enables the user to either select a moment or a time frame on the x-Axis of the chart.
+
+```html
+<dt-chart ...>
+  <dt-chart-range></dt-chart-range>
+  <dt-chart-timestamp></dt-chart-timestamp>
+</dt-chart>
+
+```
+
 ### Range
+
+Adding the ability to select a desired time frame between two timestamps in a chart with a `dt-chart-range`.
+
+```html
+<dt-chart ...>
+  <dt-chart-range></dt-chart-range>
+</dt-chart>
+
+```
 
 #### Accessibility
 
 You have to provide meaningful labels to the range via `aria-label-selected-area`, `aria-label-left-handle`, `aria-label-right-handle` and `aria-label-close`, to meet our accessibility standards.
 
-##### Inputs
+#### Range Inputs
 
-| Name                       | Type               | Default  | Description                                                                                              |
-|----------------------------|--------------------|----------|----------------------------------------------------------------------------------------------------------|
-| `min`                      | `number`           | `300000` | The minimum range that can be created in milliseconds, by default the minimum range is 5 minutes.        |
-| `max`                      | `number | null`    | `null`   | The maximum range that can be created in a time format, if none is set it can be drawn till to the edge. |
-| `value`                    | `[number, number]` | `[0,0]`  | The time frame on the charts x-axis where the range should be placed                                     |
-| `aria-label-selected-area` | `string`           | `''`     | Aria label of the selected area that is created.                                                         |
-| `aria-label-left-handle`   | `string`           | `''`     | Aria label of the left handle of the selected area that can resize the selected frame.                   |
-| `aria-label-right-handle`  | `string`           | `''`     | Aria label of the right handle of the selected area that can resize the selected frame.                  |
-| `aria-label-close`         | `string`           | `''`     | Aria label of the close button inside the overlay.                                                       |
+| Name                       | Type               | Default  | Description                                                                                                            |
+|----------------------------|--------------------|----------|------------------------------------------------------------------------------------------------------------------------|
+| `min`                      | `number`           | `300000` | The minimum range that can be created in milliseconds, by default the minimum range is 5 minutes.                      |
+| `max`                      | `number | null`    | `null`   | The maximum range that can be created in a time format, if non is set, the range will cap at the borders of the chart. |
+| `value`                    | `[number, number]` | `[0,0]`  | The time frame on the charts xAxis where the range should be placed                                                    |
+| `aria-label-selected-area` | `string`           | `''`     | Aria label of the selected area that is created.                                                                       |
+| `aria-label-left-handle`   | `string`           | `''`     | Aria label of the left handle of the selected area that can resize the selected frame.                                 |
+| `aria-label-right-handle`  | `string`           | `''`     | Aria label of the right handle of the selected area that can resize the selected frame.                                |
+| `aria-label-close`         | `string`           | `''`     | Aria label of the close button inside the overlay.                                                                     |
 
-###### Outputs
+##### Range Outputs
 
 | Name           | Type                             | Description                                                                                                                        |
 |----------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | `valueChanges` | `EventEmitter<[number, number]>` | Event emitted when the values of the selection are have changed by user triggered interactions. *(Not triggered programmatically)* |
 | `valid`        | `BehaviorSubject<boolean>`       | Event emitted when the selection area is valid *(greater than the minimum constraint)*                                             |
+
+### Timestamp
+
+Adding the ability to select one specific moment in a chart with a `dt-chart-timestamp`.
+
+```html
+<dt-chart ...>
+  <dt-chart-timestamp></dt-chart-timestamp>
+</dt-chart>
+
+```
+
+#### Accessibility
+
+You have to provide meaningful labels to the range via `aria-label-selected` and `aria-label-close`, to meet our accessibility standards.
+
+#### Timestamp Inputs
+
+| Name                  | Type     | Default | Description                                                        |
+|-----------------------|----------|---------|--------------------------------------------------------------------|
+| `value`               | `number` | `0`     | The value on the chart xAxis where the timestamp should be placed. |
+| `aria-label-selected` | `string` | `''`    | Aria label for the selected moment.                                |
+| `aria-label-close`    | `string` | `''`    | Aria label of the close button inside the overlay.                 |
+
+##### Timestamp Outputs
+
+| Name           | Type                   | Description                                                                                                                  |
+|----------------|------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| `valueChanges` | `EventEmitter<number>` | Event emitted when the value of the timestamp has changed by user triggered interactions. *(Not triggered programmatically)* |
+
+

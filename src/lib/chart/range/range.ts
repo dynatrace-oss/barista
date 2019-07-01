@@ -1,6 +1,7 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -13,25 +14,27 @@ import {
   TemplateRef,
   ViewChild,
   ViewChildren,
+  ViewContainerRef,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   addCssClass,
   isNumber,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
+import { dtFormatDateRange } from '@dynatrace/angular-components/formatters';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 import { DtSelectionAreaEventTarget } from '../selection-area/position-utils';
-
-/** @internal */
-export const DT_RANGE_RELEASED_CLASS = 'dt-chart-range-released';
-
-/** @internal */
-export const DT_RANGE_UN_VALID_CLASS = 'dt-chart-range-valid';
-
-// The Default minimum is 5 minutes
-// tslint:disable-next-line no-magic-numbers
-const DT_RANGE_DEFAULT_MIN = 5 * 60 * 1000;
+import {
+  ARIA_DEFAULT_CLOSE_LABEL,
+  ARIA_DEFAULT_LEFT_HANDLE_LABEL,
+  ARIA_DEFAULT_RIGHT_HANDLE_LABEL,
+  ARIA_DEFAULT_SELECTED_AREA_LABEL,
+  DT_RANGE_DEFAULT_MIN,
+  DT_RANGE_RELEASED_CLASS,
+  DT_RANGE_UN_VALID_CLASS,
+} from './constants';
 
 /** @internal */
 export class RangeStateChangedEvent {
@@ -46,79 +49,28 @@ export class RangeStateChangedEvent {
   selector: 'dt-chart-range',
   templateUrl: 'range.html',
   styleUrls: ['range.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
+  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'dt-chart-range',
   },
 })
 export class DtChartRange implements AfterViewInit, OnDestroy {
-  /** Emits the new values of the selection area when they are changed by user triggered events */
-  @Output() readonly valueChanges = new EventEmitter<[number, number]>();
-
-  /** Emits when the selection area is valid *(greater than the minimum constraint)* */
-  @Output() readonly valid = new BehaviorSubject(false);
-
   /** Aria label for the close button in the overlay */
-  @Input('aria-label-close') ariaLabelClose = 'close';
+  @Input('aria-label-close') ariaLabelClose = ARIA_DEFAULT_CLOSE_LABEL;
 
   /** Aria label for the left handle */
-  @Input('aria-label-left-handle') ariaLabelLeftHandle = 'left handle';
+  @Input('aria-label-left-handle')
+  ariaLabelLeftHandle = ARIA_DEFAULT_LEFT_HANDLE_LABEL;
 
   /** Aria label for the right handle */
-  @Input('aria-label-right-handle') ariaLabelRightHandle = 'right handle';
+  @Input('aria-label-right-handle')
+  ariaLabelRightHandle = ARIA_DEFAULT_RIGHT_HANDLE_LABEL;
 
   /** Aria label for the selected area */
-  @Input('aria-label-selected-area') ariaLabelSelectedArea = '';
-
-  /** @internal subject that emits when the close button of the overlay was triggered */
-  readonly _closeOverlay = new Subject<void>();
-
-  /** @internal state changes subject that provides the state with left and width */
-  readonly _stateChanges = new Subject<RangeStateChangedEvent>();
-
-  /** @internal Event that emits when a handle receives a mousedown event */
-  readonly _handleDragStarted = new Subject<DtSelectionAreaEventTarget>();
-
-  /**
-   * @internal
-   * Used by the selection area as content to project into the overlay with a portal.
-   */
-  @ViewChild(TemplateRef, { static: true })
-  _overlayTemplate: TemplateRef<{}>;
-
-  /**
-   * @internal
-   * ElementRef of the selected area, used by the selection area to position
-   * the overlay centered to the selected area. Furthermore it is used by the range
-   * to subscribe to the changes when it is hidden there is no selected area.
-   */
-  @ViewChildren('range') _rangeElementRef: QueryList<
-    ElementRef<HTMLDivElement>
-  >;
-
-  /** @internal function that provides a value on the xAxis for a provided px value */
-  _pixelsToValue:
-    | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
-    | null = null;
-
-  /** @internal function to calculate the px position of a provided value on the xAxis */
-  private _valueToPixelsFn:
-    | ((value: number, paneCoordinates?: boolean) => number)
-    | null = null;
-
-  /** The state of the range in px where it should be positioned */
-  private _rangeArea: { left: number; width: number } = { left: 0, width: 0 };
-  /** The state of the range when it is set programmatically in xAxis values from - to */
-  private _value: [number, number] = [0, 0];
-  /** The minimum range that can be created */
-  private _min = DT_RANGE_DEFAULT_MIN;
-  /** The maximum range that can be created, if none is set it can be drawn till to the edge */
-  private _max: number | null = null;
-  /** The visibility state of the range */
-  private _rangeHidden = true;
-  /** Subject used for unsubscribing */
-  private _destroy$ = new Subject<void>();
-  /** If the range is valid (grey background if it is beneath min) */
-  private _valid = false;
+  @Input('aria-label-selected-area')
+  ariaLabelSelectedArea = ARIA_DEFAULT_SELECTED_AREA_LABEL;
 
   /** The minimum range that can be created, by default the minimum range is 5 minutes  */
   @Input()
@@ -127,6 +79,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   }
   set min(min: number) {
     this._min = parseInt(`${min}`, 10) || DT_RANGE_DEFAULT_MIN;
+    this._changeDetectorRef.markForCheck();
   }
 
   /**
@@ -139,9 +92,10 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   }
   set max(max: number | null) {
     this._max = parseInt(`${max}`, 10) || null;
+    this._changeDetectorRef.markForCheck();
   }
 
-  /** The time frame on the charts x-axis where the range should be placed */
+  /** The time frame on the charts xAxis where the range should be placed */
   @Input()
   get value(): [number, number] {
     return this._value;
@@ -164,9 +118,34 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     this._emitStateChanges();
     // check if the range is valid and toggle the appropriate classes
     this._checkRangeValid();
+    // sets the aria labels with the renderer to avoid change detection.
+    this._reflectValueToDom();
     // trigger change detection in case that it can be set programmatically
     this._changeDetectorRef.markForCheck();
   }
+
+  /** Emits the new values of the selection area when they are changed by user triggered events */
+  @Output() readonly valueChanges = new EventEmitter<[number, number]>();
+
+  /** Emits when the selection area is valid *(greater than the minimum constraint)* */
+  @Output() readonly valid = new BehaviorSubject(false);
+
+  /**
+   * @internal
+   * Used by the selection area as content to project into the overlay with a portal.
+   */
+  @ViewChild(TemplateRef, { static: true })
+  _overlayTemplate: TemplateRef<{}>;
+
+  /**
+   * @internal
+   * ElementRef of the selected area, used by the selection area to position
+   * the overlay centered to the selected area. Furthermore it is used by the range
+   * to subscribe to the changes when it is hidden there is no selected area.
+   */
+  @ViewChildren('range') _rangeElementRef: QueryList<
+    ElementRef<HTMLDivElement>
+  >;
 
   /** @internal function to calculate the px position of a provided value on the xAxis */
   get _valueToPixels():
@@ -204,16 +183,58 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     this._rangeArea = area;
     // set the correct styles on the range element
     this._reflectStyleToDom();
-    // emit a values changed event
-    this._emitValueChanges();
+    // set the value according the selected range
+    this._setValueFromArea();
+    // emit an internal state changes
     this._emitStateChanges();
     // check if the range is valid and toggle the appropriate classes
     this._checkRangeValid();
-    // trigger change detection in case that it can be set programmatically
-    this._changeDetectorRef.markForCheck();
+    // sets the aria labels with the renderer to avoid change detection.
+    this._reflectValueToDom();
   }
 
+  /** @internal subject that emits when the close button of the overlay was triggered */
+  readonly _closeOverlay = new Subject<void>();
+
+  /** @internal state changes subject that provides the state with left and width */
+  readonly _stateChanges = new Subject<RangeStateChangedEvent>();
+
+  /** @internal Event that emits when a handle receives a mousedown event */
+  readonly _handleDragStarted = new Subject<DtSelectionAreaEventTarget>();
+
+  /** @internal the maximum value that can be selected on the xAxis */
+  _maxValue: number;
+
+  /** @internal the minimal value that can be selected on the xAxis */
+  _minValue: number;
+
+  /** @internal function that provides a value on the xAxis for a provided px value */
+  _pixelsToValue:
+    | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
+    | null = null;
+
+  /** @internal function to calculate the px position of a provided value on the xAxis */
+  private _valueToPixelsFn:
+    | ((value: number, paneCoordinates?: boolean) => number)
+    | null = null;
+
+  /** The state of the range in px where it should be positioned */
+  private _rangeArea: { left: number; width: number } = { left: 0, width: 0 };
+  /** The state of the range when it is set programmatically in xAxis values from - to */
+  private _value: [number, number] = [0, 0];
+  /** The minimum range that can be created */
+  private _min = DT_RANGE_DEFAULT_MIN;
+  /** The maximum range that can be created, if none is set it can be drawn till to the edge */
+  private _max: number | null = null;
+  /** The visibility state of the range */
+  private _rangeHidden = true;
+  /** Subject used for unsubscribing */
+  private _destroy$ = new Subject<void>();
+  /** If the range is valid (grey background if it is beneath min) */
+  private _valid = false;
+
   constructor(
+    public _viewContainerRef: ViewContainerRef,
     private _elementRef: ElementRef<HTMLElement>,
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2
@@ -232,11 +253,16 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
       )
       .subscribe(() => {
         this._reflectStyleToDom();
+        this._reflectValueToDom();
         this._reflectRangeValid();
       });
   }
 
-  /** @internal Resets the range and hides it */
+  /**
+   * @internal
+   * Resets the range and hides it.
+   * This method is used by the selection area to reset the range.
+   */
   _reset(): void {
     this._rangeHidden = true;
     this._rangeArea = { left: 0, width: 0 };
@@ -246,19 +272,28 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  /** @internal get triggered by the close button of the overlay */
+  /** @internal Gets triggered by the close button of the overlay */
   _handleOverlayClose(): void {
     this._closeOverlay.next();
     this._reset();
   }
 
-  /** @internal function that emits an event when a handle is going to be dragged */
+  /**
+   * @internal
+   * Method that emits an event when a handle is going to be dragged.
+   * To prevent a new creation of a new range, the event propagation has to be stopped.
+   * Indicates wether the left or right handle was dragged.
+   */
   _dragHandle(event: MouseEvent, type: string): void {
     event.stopImmediatePropagation();
     this._handleDragStarted.next(type as DtSelectionAreaEventTarget);
   }
 
-  /** @internal adds or removes the class that displays the arrows on the side handles */
+  /**
+   * @internal
+   * Adds or removes the class that displays the arrows on the side handles.
+   * This method is used by the selection are to toggle the arrows.
+   */
   _reflectRangeReleased(add: boolean): void {
     if (add) {
       addCssClass(this._elementRef.nativeElement, DT_RANGE_RELEASED_CLASS);
@@ -270,6 +305,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   /**
    * @internal
    * Checks if the range is valid with the start and end point.
+   * This method is used by the selection area to determine if it is valid.
    */
   _isRangeValid(start: number, end: number): boolean {
     if (end < start + this._min) {
@@ -280,40 +316,16 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
 
   /**
    * @internal
-   * will be called by the selection area when the value is set,
-   * in case that only the selection area knows when the drag is finished
+   * Emits the final value that a selection is holding on drag end.
+   * This method is being called by the wrapping selection area.
    */
-  _emitValueChanges(): void {
-    const value = this._getRangeValuesFromPixels(
-      this._rangeArea.left,
-      this._rangeArea.width
-    );
-
-    if (value) {
-      this._value = value;
-      this.valueChanges.emit(this._value);
-    }
+  _emitDragEnd(): void {
+    this.valueChanges.emit(this._value);
   }
 
   /**
    * @internal
-   * Emits the change event, it has to be internal in case that it will be triggered
-   * by the selection area when the drag is completed. The range itself never knows when the drag
-   * completes.
-   */
-  _emitStateChanges(): void {
-    this._stateChanges.next(
-      new RangeStateChangedEvent(
-        this._rangeArea.left,
-        this._rangeArea.width,
-        this._hidden
-      )
-    );
-  }
-
-  /**
-   * @internal
-   * converts a range state from pixels to a number tuple with start and end.
+   * Converts a range state from pixels to a number tuple with start and end.
    * Used by the selection area and the range itself.
    */
   _getRangeValuesFromPixels(
@@ -327,7 +339,8 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     }
   }
 
-  _checkRangeValid(): void {
+  /** Checks if the selected area meets the minimum constraints. */
+  private _checkRangeValid(): void {
     const valid = this._isRangeValid(this._value[0], this._value[1]);
     if (this._valid !== valid) {
       this._valid = valid;
@@ -336,6 +349,36 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     }
   }
 
+  /** Emits the internal state changes event when the left and width properties are changing */
+  private _emitStateChanges(): void {
+    this._stateChanges.next(
+      new RangeStateChangedEvent(
+        this._rangeArea.left,
+        this._rangeArea.width,
+        this._hidden
+      )
+    );
+  }
+
+  /**
+   * Set the value when the area is updated with left and width in px.
+   * This function converts the px values to a value and emits a value change.
+   */
+  private _setValueFromArea(): void {
+    const value = this._getRangeValuesFromPixels(
+      this._rangeArea.left,
+      this._rangeArea.width
+    );
+
+    if (value) {
+      this._value = value;
+    }
+  }
+
+  /**
+   * Toggles a css class according to the min constraint,
+   * that indicates wether the range is valid or not.
+   */
   private _reflectRangeValid(): void {
     if (!this._valid) {
       addCssClass(this._elementRef.nativeElement, DT_RANGE_UN_VALID_CLASS);
@@ -353,6 +396,24 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     }
 
     this._reflectStyleToDom();
+  }
+
+  /** Updates the value with the renderer to avoid an expensive binding */
+  private _reflectValueToDom(): void {
+    const displayValue = dtFormatDateRange(this.value[0], this.value[1]);
+
+    if (this._rangeElementRef && this._rangeElementRef.first) {
+      this._renderer.setAttribute(
+        this._rangeElementRef.first.nativeElement,
+        'aria-valuenow',
+        `${this.value.join('-')}`
+      );
+      this._renderer.setAttribute(
+        this._rangeElementRef.first.nativeElement,
+        'aria-valuetext',
+        displayValue
+      );
+    }
   }
 
   /** Updates the selection area styling according to the actual range */

@@ -10,8 +10,8 @@ import { DtSelectionAreaContainer } from './selection-area-container';
 import { PortalModule } from '@angular/cdk/portal';
 
 /**
- * @deprecated The selection are will be replaced with the chart selection area
- * @breaking-change To be removed with 4.0.0.
+ * @deprecated The selection area will be replaced with the chart selection area
+ * @breaking-change To be removed with 5.0.0.
  */
 // tslint:disable: deprecation
 @NgModule({

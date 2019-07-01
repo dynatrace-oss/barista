@@ -102,7 +102,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   private _portal: TemplatePortal | null;
 
   /**
-   *
    * Highcharts plotBackground is used to size the selection area according to this area
    * is set after Highcharts render is completed.
    */
@@ -114,6 +113,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** Bounding Client Rect of the selection area. set after Highcharts render */
   private _selectionAreaBcr?: ClientRect;
 
+  /** Subject to unsubscribe from every subscription */
   private _destroy$ = new Subject<void>();
 
   constructor(
@@ -121,7 +121,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     private _elementRef: ElementRef<HTMLElement>,
     private _renderer: Renderer2,
     private _overlay: Overlay,
-    private _viewContainerRef: ViewContainerRef,
     private _zone: NgZone
   ) {}
 
@@ -149,9 +148,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         // initializes the Hairline, the timestamp that follows the mouse
         // and listens for mouse-moves to update the position of the hairline.
         this._initializeHairline();
-
-        this._checkRangeResized();
-        this._checkForRangeUpdates();
       });
 
     // we have to skip the first (initial) after render and then we reset
@@ -180,6 +176,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     this._destroy$.complete();
   }
 
+  /**
+   * Creates a flexible position strategy for the selection area overlay.
+   * @param ref ElementRef of the timestamp or range to center the overlay
+   */
   private _calculateOverlayPosition(
     ref: ElementRef<HTMLElement>
   ): FlexibleConnectedPositionStrategy {
@@ -202,7 +202,8 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
    */
   private _createOverlay<T>(
     template: TemplateRef<T>,
-    ref: ElementRef<HTMLElement>
+    ref: ElementRef<HTMLElement>,
+    viewRef: ViewContainerRef
   ): void {
     // create a new overlay configuration with a position strategy that connects
     // to the provided ref.
@@ -218,7 +219,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     const overlayRef = this._overlay.create(overlayConfig);
 
     // create the portal out of the template and the containerRef
-    this._portal = new TemplatePortal<T>(template, this._viewContainerRef);
+    this._portal = new TemplatePortal(template, viewRef);
     // attach the portal to the overlay ref
     overlayRef.attach(this._portal);
 
@@ -226,9 +227,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   }
 
   /** Updates or creates an overlay for the range or timestamp. */
-  private _updateOrCreateOverlay<T extends unknown>(
+  private _updateOrCreateOverlay<T = unknown>(
     template: TemplateRef<T>,
-    ref: ElementRef<HTMLElement>
+    ref: ElementRef<HTMLElement>,
+    viewRef: ViewContainerRef
   ): void {
     if (this._portal && this._overlayRef) {
       // We already have an overlay so update the position
@@ -236,7 +238,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._calculateOverlayPosition(ref)
       );
     } else {
-      this._createOverlay<T>(template, ref);
+      this._createOverlay<T>(template, ref, viewRef);
     }
   }
 
@@ -343,6 +345,77 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         dragStart$,
         this._mouseup$
       );
+
+      const relativeMouseDown$ = this._mousedown$.pipe(
+        map((event: MouseEvent) =>
+          getRelativeMousePosition(event, this._elementRef.nativeElement)
+        )
+      );
+
+      // Create a range on the selection area if a drag is happening.
+      // and listen for resizing of an existing selection area
+      merge(
+        getRangeCreateStream(
+          relativeMouseDown$,
+          this._drag$,
+          this._selectionAreaBcr!.width
+        ),
+        // update a selection area according to a resize through the side handles
+        getRangeResizeStream(
+          this._dragHandle$,
+          this._range._handleDragStarted.pipe(distinctUntilChanged()),
+          this._selectionAreaBcr!.width,
+          () => this._range!._area,
+          (start: number, end: number) =>
+            this._range!._isRangeValid(start, end),
+          (left: number, width: number) =>
+            this._range!._getRangeValuesFromPixels(left, width)
+        )
+      )
+        .pipe(
+          takeUntil(this._destroy$),
+          filter((area) => this._isRangeInsideMaximumConstraint(area))
+        )
+        .subscribe((area) => {
+          if (this._range) {
+            this._range._area = area;
+          }
+        });
+
+      this._zone.runOutsideAngular(() => {
+        const dragHandleStart$ = this._dragHandle$.pipe(mapTo(1));
+        const initialDragStart$ = this._drag$.pipe(mapTo(0));
+        // merge the streams of the initial drag start and the handle drag start
+        const startResizing$ = merge(initialDragStart$, dragHandleStart$);
+        // map to false to end the resize
+        const mouseRelease$ = this._mouseup$.pipe(mapTo(-1));
+
+        // stream that emits drag start end end
+        merge(startResizing$, mouseRelease$)
+          .pipe(
+            distinctUntilChanged(),
+            takeUntil(this._destroy$)
+          )
+          .subscribe((resize: number) => {
+            // show drag arrows on drag release but only if the stream is not a drag handle
+            // 0 is initial drag and -1 is mouse release
+            if (this._range && resize < 1) {
+              this._range._reflectRangeReleased(resize < 0);
+
+              // if the drag is completed we can emit a stateChanges
+              if (resize < 0) {
+                this._range._emitDragEnd();
+              }
+            }
+
+            // every drag regardless of if it is a handle or initial drag should have the grab cursors
+            if (resize >= 0) {
+              addCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
+            } else {
+              removeCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
+            }
+          });
+      });
     }
 
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -420,7 +493,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._zone
       ).subscribe((ref) => {
         if (this._range && this._range._overlayTemplate) {
-          this._updateOrCreateOverlay(this._range._overlayTemplate, ref);
+          this._updateOrCreateOverlay(
+            this._range._overlayTemplate,
+            ref,
+            this._range._viewContainerRef
+          );
         }
       });
 
@@ -433,7 +510,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         )
         .subscribe((ref) => {
           if (this._range && this._range._overlayTemplate) {
-            this._updateOrCreateOverlay(this._range._overlayTemplate, ref);
+            this._updateOrCreateOverlay(
+              this._range._overlayTemplate,
+              ref,
+              this._range._viewContainerRef
+            );
           }
         });
     }
@@ -447,7 +528,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._zone
       ).subscribe((ref) => {
         if (this._timestamp && this._timestamp._overlayTemplate) {
-          this._updateOrCreateOverlay(this._timestamp._overlayTemplate, ref);
+          this._updateOrCreateOverlay(
+            this._timestamp._overlayTemplate,
+            ref,
+            this._timestamp._viewContainerRef
+          );
         }
       });
     }
@@ -497,47 +582,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     });
   }
 
-  private _checkForRangeUpdates(): void {
-    if (!this._range) {
-      return;
-    }
-
-    const relativeMouseDown$ = this._mousedown$.pipe(
-      map((event: MouseEvent) =>
-        getRelativeMousePosition(event, this._elementRef.nativeElement)
-      )
-    );
-
-    // Create a range on the selection area if a drag is happening.
-    // and listen for resizing of an existing selection area
-    merge(
-      getRangeCreateStream(
-        relativeMouseDown$,
-        this._drag$,
-        this._selectionAreaBcr!.width
-      ),
-      // update a selection area according to a resize through the side handles
-      getRangeResizeStream(
-        this._dragHandle$,
-        this._range._handleDragStarted.pipe(distinctUntilChanged()),
-        this._selectionAreaBcr!.width,
-        () => this._range!._area,
-        (start: number, end: number) => this._range!._isRangeValid(start, end),
-        (left: number, width: number) =>
-          this._range!._getRangeValuesFromPixels(left, width)
-      )
-    )
-      .pipe(
-        takeUntil(this._destroy$),
-        filter((area) => this._isRangeInsideMaximumConstraint(area))
-      )
-      .subscribe((area) => {
-        if (this._range) {
-          this._range._area = area;
-        }
-      });
-  }
-
   /** Filter function to check if the created range meets the maximum constraints */
   private _isRangeInsideMaximumConstraint(range: {
     left: number;
@@ -584,51 +628,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         'transform',
         `translateX(${x}px)`
       );
-    });
-  }
-
-  /**
-   * This method watches if the range is going to be resized.
-   * If the range gets resized then we apply a class that changes the cursor.
-   */
-  private _checkRangeResized(): void {
-    if (!this._range) {
-      return;
-    }
-
-    this._zone.runOutsideAngular(() => {
-      const dragHandleStart$ = this._dragHandle$.pipe(mapTo(1));
-      const initialDragStart$ = this._drag$.pipe(mapTo(0));
-      // merge the streams of the initial drag start and the handle drag start
-      const startResizing$ = merge(initialDragStart$, dragHandleStart$);
-      // map to false to end the resize
-      const mouseRelease$ = this._mouseup$.pipe(mapTo(-1));
-
-      // stream that emits drag start end end
-      merge(startResizing$, mouseRelease$)
-        .pipe(
-          distinctUntilChanged(),
-          takeUntil(this._destroy$)
-        )
-        .subscribe((resize: number) => {
-          // show drag arrows on drag release but only if the stream is not a drag handle
-          // 0 is initial drag and -1 is mouse release
-          if (this._range && resize < 1) {
-            this._range._reflectRangeReleased(resize < 0);
-
-            // if the drag is completed we can emit a stateChanges
-            if (resize < 0) {
-              this._range._emitStateChanges();
-            }
-          }
-
-          // every drag regardless of if it is a handle or initial drag should have the grab cursors
-          if (resize >= 0) {
-            addCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
-          } else {
-            removeCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
-          }
-        });
     });
   }
 

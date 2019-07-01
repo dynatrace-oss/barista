@@ -23,8 +23,6 @@ import {
   getRangeResizeStream,
 } from './streams';
 
-// tslint:disable no-magic-numbers
-
 const MOCK_BOUNDING_CLIENT_RECT: ClientRect = {
   top: 50,
   left: 50,
