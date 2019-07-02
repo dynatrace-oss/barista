@@ -35,6 +35,7 @@ import {
   DT_RANGE_RELEASED_CLASS,
   DT_RANGE_UN_VALID_CLASS,
 } from './constants';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 
 /** @internal */
 export class RangeStateChangedEvent {
@@ -138,14 +139,20 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   _overlayTemplate: TemplateRef<{}>;
 
   /**
+   * @internal The focus trap for the selected area,
+   * used by the selection area to chain the focus group of the area and the overlay.
+   */
+  @ViewChild(CdkTrapFocus, { static: false })
+  _selectedAreaFocusTrap: CdkTrapFocus;
+
+  /**
    * @internal
    * ElementRef of the selected area, used by the selection area to position
    * the overlay centered to the selected area. Furthermore it is used by the range
    * to subscribe to the changes when it is hidden there is no selected area.
    */
-  @ViewChildren('range') _rangeElementRef: QueryList<
-    ElementRef<HTMLDivElement>
-  >;
+  @ViewChildren('range')
+  _rangeElementRef: QueryList<ElementRef<HTMLDivElement>>;
 
   /** @internal function to calculate the px position of a provided value on the xAxis */
   get _valueToPixels():

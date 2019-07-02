@@ -19,6 +19,7 @@ import {
 import { isNumber } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 
 /** @internal Aria label for the selected time. */
 export const ARIA_DEFAULT_SELECTED_LABEL = 'the selected time';
@@ -40,6 +41,7 @@ export class TimestampStateChangedEvent {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'dt-chart-timestamp',
+    cdkTrapFocus: 'true',
   },
 })
 export class DtChartTimestamp implements AfterViewInit, OnDestroy {
@@ -73,6 +75,13 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   /** @internal */
   @ViewChild(TemplateRef, { static: true })
   _overlayTemplate: TemplateRef<unknown>;
+
+  /**
+   * @internal The focus trap for the selected timestamp,
+   * used by the selection area to chain the focus group of the timestamp and the overlay.
+   */
+  @ViewChild(CdkTrapFocus, { static: false })
+  _selectedFocusTrap: CdkTrapFocus;
 
   /** @internal */
   @ViewChildren('selector')
@@ -110,6 +119,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     this._positionX = position;
     this._reflectStyleToDom();
 
+    this._emitStateChanges();
     this._emitValueChanges();
     this._changeDetectorRef.markForCheck();
   }
