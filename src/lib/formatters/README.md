@@ -8,19 +8,19 @@ We provide various different pipes for formatting values within your templates. 
 
 The `dtCount` pipe provides a way to display numbers in common way, abbreviating big numbers and adjusting precision
 
-<docs-source-example example="CountExample"></docs-source-example>
+<docs-source-example example="FormattersCountExample"></docs-source-example>
 
 ### Percent
 
 The `dtPercent` pipe provides a way to display percents in common way, adjusting precision
 
-<docs-source-example example="PercentExample"></docs-source-example>
+<docs-source-example example="FormattersPercentExample"></docs-source-example>
 
 ### Bits
 
 The `dtBits` pipe provides a way to format numbers as bits
 
-<docs-source-example example="BitsExample"></docs-source-example>
+<docs-source-example example="FormattersBitsExample"></docs-source-example>
 
 ### Bytes
 
@@ -28,13 +28,13 @@ The `dtBytes` pipe provides a way to display bytes in automatic units depending 
 The `dtKilobytes` pipe provides a way to display bytes as kB 
 The `dtMegabytes` pipe provides a way to display bytes as MB  
 
-<docs-source-example example="BytesExample"></docs-source-example>
+<docs-source-example example="FormattersBytesExample"></docs-source-example>
 
 ### Rate 
 
 The `dtRate` pipe provides a way to add a rate info to the value
 
-<docs-source-example example="RateExample"></docs-source-example>
+<docs-source-example example="FormattersRateExample"></docs-source-example>
 
 ## Util functions
 

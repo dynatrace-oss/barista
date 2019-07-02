@@ -67,7 +67,7 @@ export class DocsAsyncIcon implements OnDestroy {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [Viewport],
 })
-export class AllIconExample implements OnDestroy {
+export class IconAllExample implements OnDestroy {
 
   @ViewChild('input', { static: true }) _inputEl: ElementRef;
   _icons$: Observable<string[]>;

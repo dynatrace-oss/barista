@@ -4,7 +4,7 @@ type: "component"
 
 # TreeTable
 
-<docs-source-example example="DefaultTreeTableExample" fullwidth="true"></docs-source-example>
+<docs-source-example example="TreeTableDefaultExample" fullwidth="true"></docs-source-example>
 
 ## Imports
 
@@ -152,7 +152,7 @@ The `dtColumnAlign` input handles the following values: `'left' | 'right' | 'cen
 
 You can use the `DtIndicator` directive the same way as in the `<dt-table>` to indicate a warning/error in a row. This will result in a Problem indicator being shown in front of the row.
 
-<docs-source-example example="ProblemIndicatorTreeTableExample" fullwidth="true"></docs-source-example>
+<docs-source-example example="TreeTableProblemIndicatorExample" fullwidth="true"></docs-source-example>
 
 ## Options & Properties & Methods
 
@@ -209,4 +209,4 @@ You can use the `DtIndicator` directive the same way as in the `<dt-table>` to i
 | `isExpandable` | `(row: T) => boolean` | function that returns wether a node is expandable |
 | `transformFunction` | `(row: T, level: number) => F` | function that transforms from type T to flat type F |
 
-<docs-source-example example="AsyncShowMoreTreeTable" fullwidth="true"></docs-source-example>
+<docs-source-example example="TreeTableAsyncShowMoreExample" fullwidth="true"></docs-source-example>

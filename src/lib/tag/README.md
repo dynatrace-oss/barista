@@ -26,7 +26,7 @@ In addition, also other selectors can be used.
 - `<dt-tag>` or `[dt-tag]` or `[dtTag]` - To create the tag itself. Attribute selectors can be used on an anchor tag for example.
 - `<dt-tag-key>` or `[dt-tag-key]` or `[dtTagKey]` - To identify a content child as a key/attribute for the tag.
 
-<docs-source-example example="DefaultTagExampleComponent"></docs-source-example>
+<docs-source-example example="TagDefaultExample"></docs-source-example>
 
 ## Inputs
 
@@ -46,12 +46,13 @@ In addition, also other selectors can be used.
 
 ### Removable state
 
-<docs-source-example example="RemovableTagExampleComponent"></docs-source-example>
+<docs-source-example example="TagRemovableExample"></docs-source-example>
 
 ### With key/category
 
-<docs-source-example example="KeyTagExampleComponent"></docs-source-example>
+<docs-source-example example="TagKeyExample"></docs-source-example>
 
 ### Interactive example
 
-<docs-source-example example="InteractiveTagExampleComponent"></docs-source-example>
+<docs-source-example example="TagInteractiveExample"></docs-source-example>
+

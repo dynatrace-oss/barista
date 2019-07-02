@@ -4,8 +4,6 @@ type: "component"
 
 # Cta Card
 
-<docs-source-example example="DefaultCtaCardExampleComponent"></docs-source-example>
-
 The `<dt-cta-card>` is a specific type of card showing a call to action content, defined by a title, an image, a teaser text and an action button.
 In addition to the custom content, the cta card can hold some special sections:
 
@@ -13,6 +11,8 @@ In addition to the custom content, the cta card can hold some special sections:
 * `<dt-cta-card-image>` - Image to be shown within the illustration region of the cta card
 * `<dt-cta-card-footer-actions>` - Action buttons, displayed below the text. For the regular cases there should only be one primary cta styled dt-button.  
 * `<dt-cta-card-title-actions>` - Buttons displayed next to the title. Should be a secondary styled dt-button showing an image.
+
+<docs-source-example example="CtaCardDefaultExample"></docs-source-example>
 
 ## Imports
 
@@ -33,4 +33,4 @@ Please note that you should not use the cta-card's elements like title to hold a
 
 ### Closable
 
-<docs-source-example example="ClosableCtaCardExampleComponent"></docs-source-example>
+<docs-source-example example="CtaCardClosableExample"></docs-source-example>

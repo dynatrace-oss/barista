@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `<dt-loading-spinner></dt-loading-spinner>`,
 })
-export class SpinnerLoadingDistractorExampleComponent { }
+export class LoadingDistractorSpinnerExample { }

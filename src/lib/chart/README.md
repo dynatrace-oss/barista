@@ -4,8 +4,6 @@ type: "component"
 
 # Chart
 
-<docs-source-example example="ChartDefaultExampleComponent" fullwidth="true"></docs-source-example>
-
 The `dt-chart` component wraps highcharts to be used within angular.
 
 ## Imports
@@ -26,8 +24,6 @@ class MyModule {}
 ## Initialization
 
 To use the Dynatrace chart, add the `<dt-chart options="myoptions" series="myseries"></dt-chart>` element to the view.
-
-## Options & Properties
 
 ## Inputs
 
@@ -106,32 +102,36 @@ The chart supports adding heatfields. The `dt-chart` component takes `dt-chart-h
 
 ## Examples
 
+### Default
+
+<docs-source-example example="ChartDefaultExample" fullwidth="true"></docs-source-example>
+
 ### Stream example with colors
 
-<docs-source-example example="ChartStreamExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartStreamExample" fullwidth="true"></docs-source-example>
 
 ### Chart with more than 3 series example
 
-<docs-source-example example="ChartOrderdColorsExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartOrderedColorsExample" fullwidth="true"></docs-source-example>
 
 ### Loading example
 
-<docs-source-example example="ChartLoadingExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartLoadingExample" fullwidth="true"></docs-source-example>
 
 ### Categorized
 
-<docs-source-example example="ChartCategorizedExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartCategorizedExample" fullwidth="true"></docs-source-example>
 
 ### Pie chart
 
-<docs-source-example example="ChartPieExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartPieExample" fullwidth="true"></docs-source-example>
 
 ### AreaRange chart
 
-<docs-source-example example="ChartAreaRangeExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartAreaRangeExample" fullwidth="true"></docs-source-example>
 
 ### Heatfield & Overload prevention
 
-<docs-source-example example="ChartHeatfieldExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartHeatfieldExample" fullwidth="true"></docs-source-example>
 
-<docs-source-example example="ChartHeatfieldMultipleExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartHeatfieldMultipleExample" fullwidth="true"></docs-source-example>

@@ -8,7 +8,7 @@ The overlay component is used to display additional context information or to an
 
 There are two ways to create overlays: using the `DtOverlay` service or the `DtOverlayTrigger` directive. The service can be used to apply overlays programatically or to pass components into the overlay. The directive can be used inside the template with a `templateRef` as the content of the overlay. The following basic example uses the `DtOverlay` service and passes an optional configuration (find details below) to the overlay.
 
-<docs-source-example example="DefaultOverlayExampleComponent"></docs-source-example>
+<docs-source-example example="OverlayDefaultExample"></docs-source-example>
 
 ## Imports
 
@@ -82,8 +82,8 @@ This configuration is optional and can be passed to the service's `create` metho
 
 ### Timeline overlay
 
-<docs-source-example example="TimelineOverlayExampleComponent"></docs-source-example>
+<docs-source-example example="OverlayTimelineExample"></docs-source-example>
 
 ### Programmatic overlay
 
-<docs-source-example example="ProgrammaticOverlayExampleComponent"></docs-source-example>
+<docs-source-example example="OverlayProgrammaticExample"></docs-source-example>

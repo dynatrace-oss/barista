@@ -4,10 +4,10 @@ type: "component"
 
 # Tabs
 
-<docs-source-example example="DefaultTabsExampleComponent"></docs-source-example>
-
 The `<dt-tab-group>` creates wraps a group of `<dt-tab>` components. Each tab gets a label and a content respectively. 
 The label is provided with a `ng-template` with the directive `dtTabLabel`. The content is also declared with a `ng-template`, but with a directive called `dtTabContent`. By default the first enabled tab gets selected if no selected tab is specified.
+
+<docs-source-example example="TabsDefaultExample"></docs-source-example>
 
 ## Imports
 
@@ -100,9 +100,9 @@ The button styling depends on the theme the component is in. You can set a theme
 ## Examples
 
 ### Dynamic Tabs
-<docs-source-example example="DynamicTabsExampleComponent"></docs-source-example>
+
+<docs-source-example example="TabsDynamicExample"></docs-source-example>
 
 ### Interactive Tabs
-<docs-source-example example="InteractiveTabsExampleComponent"></docs-source-example>
 
-
+<docs-source-example example="TabsInteractiveExample"></docs-source-example>

@@ -19,6 +19,6 @@ import { Component } from '@angular/core';
     </p>
   `,
 })
-export class NgModelInputExample {
+export class InputNgModelExample {
   textValue = '';
 }

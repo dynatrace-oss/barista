@@ -4,8 +4,6 @@ type: "component"
 
 # Toast
 
-<docs-source-example example="DefaultToastExampleComponent"></docs-source-example>
-
 The `DtToast` service provides the possibility to show a temporary message to the user. The duration the toast is shown is calculated based on the message length. Dismissing the toast is paused while the user is hovering the message. 
 
 ## Imports
@@ -48,4 +46,10 @@ Dismisses the currently displayed toast. Can be used if a toast needs to be dism
 
 ## Examples
 
-<docs-source-example example="DynamicMsgToastExampleComponent"></docs-source-example>
+### Default 
+
+<docs-source-example example="ToastDefaultExample"></docs-source-example>
+
+### Dynamic message
+
+<docs-source-example example="ToastDynamicMsgExample"></docs-source-example>

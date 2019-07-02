@@ -4,7 +4,7 @@ type: "component"
 
 # Drawer
 
-<docs-source-example example="DefaultDrawerExampleComponent"></docs-source-example>
+<docs-source-example example="DrawerDefaultExample"></docs-source-example>
 
 The Dynatrace Drawer is a component designed to add collapsible side content *(often navigation, though it can be any content)* alongside some primary content.
 
@@ -66,12 +66,12 @@ The container class `DtDrawerContainer` has follwing methods:
 
 ### Over laying mode Drawer Example
 
-<docs-source-example example="OverDrawerExampleComponent"></docs-source-example>
+<docs-source-example example="DrawerOverExample"></docs-source-example>
 
 ### Dynamic Drawer Example
 
-<docs-source-example example="DynamicDrawerExampleComponent"></docs-source-example>
+<docs-source-example example="DrawerDynamicExample"></docs-source-example>
 
 ### Nested Drawer Example
 
-<docs-source-example example="NestedDrawerExampleComponent"></docs-source-example>
+<docs-source-example example="DrawerNestedExample"></docs-source-example>

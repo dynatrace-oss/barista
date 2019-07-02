@@ -53,7 +53,7 @@ class MyModule {}
 While the indeterminate property of the checkbox is true, it will render as indeterminate regardless of the checked value.
 Any interaction with the checkbox by a user (i.e., clicking) will remove the indeterminate state.
 
-<docs-source-example example="IndeterminateCheckboxExampleComponent"></docs-source-example>
+<docs-source-example example="CheckboxIndeterminateExample"></docs-source-example>
 
 The `<dt-checkbox>` is compatible with @angular/forms and supports both FormsModule and ReactiveFormsModule.
 
@@ -66,18 +66,14 @@ Checkboxes without text or labels should be given a meaningful label via `aria-l
 
 ## Examples
 
-### Pure
-
-<docs-source-example example="PureCheckboxExampleComponent"></docs-source-example>
-
 ### Default
 
-<docs-source-example example="DefaultCheckboxExampleComponent"></docs-source-example>
+<docs-source-example example="CheckboxDefaultExample"></docs-source-example>
 
 ### Responsive
 
-<docs-source-example example="ResponsiveCheckboxExampleComponent"></docs-source-example>
+<docs-source-example example="CheckboxResponsiveExample"></docs-source-example>
 
-### Dark background
+### Dark theme
 
-<docs-source-example example="DarkCheckboxExample" themedark="true"></docs-source-example>
+<docs-source-example example="CheckboxDarkExample" themedark="true"></docs-source-example>

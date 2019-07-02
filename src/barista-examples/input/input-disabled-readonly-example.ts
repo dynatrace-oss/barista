@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
     <p><button dt-button (click)="isReadonly = !isReadonly">Toggle readonly</button></p>
   `,
 })
-export class DisabledReadonlyInputExample {
+export class InputDisabledReadonlyExample {
   isDisabled = false;
   isReadonly = false;
 }
