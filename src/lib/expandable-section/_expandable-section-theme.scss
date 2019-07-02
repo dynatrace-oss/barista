@@ -2,7 +2,8 @@
   $is-dark: map-get($theme, 'is-dark');
 
   @if ($is-dark == true) {
-    :host .dt-expandable-section-header {
+    :host .dt-expandable-section-header,
+    :host .dt-expandable-section-header-trigger {
       color: #ffffff;
 
       .dt-expandable-section-arrow {
