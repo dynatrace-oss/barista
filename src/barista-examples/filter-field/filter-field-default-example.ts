@@ -52,6 +52,18 @@ export class DefaultFilterFieldExample {
           },
         ],
       },
+      {
+        name: 'Requests per minute',
+        range: {
+          operators: {
+            range: true,
+            equal: true,
+            greaterThanEqual: true,
+            lessThanEqual: true,
+          },
+          unit: 's',
+        },
+      },
     ],
   };
 
