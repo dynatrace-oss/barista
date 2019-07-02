@@ -27,7 +27,7 @@ export const ARIA_DEFAULT_SELECTED_LABEL = 'the selected time';
 /** @internal Aria label for the close button in the overlay. */
 export const ARIA_DEFAULT_CLOSE_LABEL = 'close';
 
-/** @internal */
+/** @internal Event that gets emitted when the internal state of the timestamp changes */
 export class TimestampStateChangedEvent {
   constructor(public position: number, public hidden: boolean) {}
 }
@@ -72,7 +72,10 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   /** Emits the new value of the timestamp when it is changed by user triggered events */
   @Output() readonly valueChanges = new EventEmitter<number>();
 
-  /** @internal */
+  /**
+   * @internal
+   * Used by the selection area as content to project into the overlay with a portal.
+   */
   @ViewChild(TemplateRef, { static: true })
   _overlayTemplate: TemplateRef<unknown>;
 
@@ -83,11 +86,16 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   @ViewChild(CdkTrapFocus, { static: false })
   _selectedFocusTrap: CdkTrapFocus;
 
-  /** @internal */
+  /**
+   * @internal
+   * ElementRef of the timestamp, used by the selection area to position
+   * the overlay centered to the timestamp. Furthermore it is used by the timestamp itself
+   * to subscribe to the changes when it is hidden there is no timestamp.
+   */
   @ViewChildren('selector')
   _timestampElementRef: QueryList<ElementRef<HTMLDivElement>>;
 
-  /** @internal */
+  /** @internal Function that converts a chart xAxis value to a px value */
   get _valueToPixels():
     | ((value: number, paneCoordinates?: boolean) => number)
     | null {
@@ -102,7 +110,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  /** @internal */
+  /** @internal If the timestamp is currently visible, used to switch between timestamp and range */
   get _hidden(): boolean {
     return this._timestampHidden;
   }
@@ -126,32 +134,39 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
 
   /**
    * @internal
-   * subject that emits when the close button of the overlay was triggered
+   * Subject that emits when the close button of the overlay was triggered
    */
   readonly _closeOverlay = new Subject<void>();
 
-  /** @internal */
+  /** @internal State changes subject that provides the state with the position in px */
   readonly _stateChanges = new Subject<TimestampStateChangedEvent>();
 
-  /** @internal the maximum value that can be selected on the xAxis */
+  /** @internal The maximum value that can be selected on the xAxis */
   _maxValue: number;
 
-  /** @internal the minimal value that can be selected on the xAxis */
+  /** @internal The minimal value that can be selected on the xAxis */
   _minValue: number;
 
-  /** @internal function that provides a value on the xAxis for a provided px value */
+  /** @internal Function that provides a value on the xAxis for a provided px value */
   _pixelsToValue:
     | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
     | null = null;
 
-  /** function to calculate the px position of a provided value on the xAxis */
+  /** Function to calculate the px position of a provided value on the xAxis */
   private _valueToPixelsFn:
     | ((value: number, paneCoordinates?: boolean) => number)
     | null = null;
 
+  /** The internal state on which px position of the xAxis the timestamp is  */
   private _positionX = 0;
+
+  /** If the timestamp is currently visible, used to switch between timestamp and range  */
   private _timestampHidden = true;
+
+  /** The internal value on the chart xAxis where the timestamp should be placed */
   private _value = 0;
+
+  /** Subject used for unsubscribing */
   private _destroy$ = new Subject<void>();
 
   constructor(
@@ -176,7 +191,18 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
       });
   }
 
-  /** @internal */
+  /** Focuses the timestamp element. */
+  focus(): void {
+    if (this._timestampElementRef && this._timestampElementRef.first) {
+      this._timestampElementRef.first.nativeElement.focus();
+    }
+  }
+
+  /**
+   * @internal
+   * Resets the timestamps values and hides it.
+   * This method is used by the selection area to reset the timestamp.
+   */
   _reset(): void {
     this._value = 0;
     this._positionX = 0;
@@ -185,7 +211,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
-  /** @internal get triggered by the close button of the overlay */
+  /** @internal Get triggered by the close button of the overlay */
   _handleOverlayClose(): void {
     this._closeOverlay.next();
     this._reset();
@@ -193,7 +219,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
 
   /**
    * @internal
-   * will be called by the selection area when the value is set.
+   * Will be called by the selection area when the value is set.
    */
   _emitValueChanges(): void {
     if (this._pixelsToValue) {
@@ -222,7 +248,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     this._reflectStyleToDom();
   }
 
-  /** reflects the position of the timestamp to the element */
+  /** Reflects the position of the timestamp to the element */
   private _reflectStyleToDom(): void {
     if (this._timestampElementRef && this._timestampElementRef.first) {
       this._renderer.setStyle(

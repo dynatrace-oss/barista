@@ -55,12 +55,12 @@ import {
 } from '../utils';
 import {
   DT_SELECTION_AREA_OVERLAY_POSITIONS,
-  ERROR_NO_PLOT_BACKGROUND,
   GRAB_CURSOR_CLASS,
   HIGHCHARTS_SERIES_GROUP,
   HIGHCHARTS_X_AXIS_GRID,
   HIGHCHARTS_Y_AXIS_GRID,
   NO_POINTER_EVENTS_CLASS,
+  getDtNoPlotBackgroundError,
 } from './constants';
 import {
   getClickStream,
@@ -90,12 +90,16 @@ import {
 export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** mousedown event stream on the selection area emits only left mouse */
   private _mousedown$: Observable<MouseEvent> = EMPTY;
+
   /** mouse up stream on the window */
   private _mouseup$: Observable<MouseEvent> = EMPTY;
+
   /** drag event based on a left click on the selection area */
   private _drag$: Observable<{ x: number; y: number }> = EMPTY;
+
   /** drag event triggered by a boundary drag-resize *(only available within a range)* */
   private _dragHandle$: Observable<{ x: number; y: number }> = EMPTY;
+
   /** click event stream that emits only click events on the selection area */
   private _click$: Observable<{ x: number; y: number }> = EMPTY;
 
@@ -103,7 +107,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   @ViewChild('hairline', { static: true })
   private _hairline: ElementRef<HTMLDivElement>;
 
+  /** Instance of the chart range if one is present */
   private _range?: DtChartRange;
+
+  /** Instance of the chart timestamp if one is present */
   private _timestamp?: DtChartTimestamp;
 
   /** The ref of the selection area overlay */
@@ -112,6 +119,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** The focus trap inside the overlay */
   private _overlayFocusTrap: FocusTrap | null;
 
+  /** Template portal of the selection area overlay */
   private _portal: TemplatePortal | null;
 
   /**
@@ -281,11 +289,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   /** Main method that initializes all streams and subscribe to the initial behavior of the selection area */
   private _initializeSelectionArea(): void {
-    // If there is no Highcharts pot background something went wrong with the chart and we cannot calculate
+    // If there is no Highcharts plot background something went wrong with the chart and we cannot calculate
     // the positions in case that they are all relative to the plot background and not to the chart.
     // The plot background is the area without the axis description only the chart itself.
     if (!this._plotBackground) {
-      throw Error(ERROR_NO_PLOT_BACKGROUND);
+      throw getDtNoPlotBackgroundError();
     }
 
     const yAxisGrids = [].slice.call(
@@ -343,14 +351,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       });
 
       // after a click happened and the timestamp is visible in the queryList we focus the timestamp
-      this._click$.pipe(
-        switchMap(() => this._timestamp!._timestampElementRef.changes)
-      ).subscribe(() => {
-        // query list is not always present
-        if (this._timestamp && this._timestamp._timestampElementRef.first) {
-          this._timestamp._timestampElementRef.first.nativeElement.focus();
-        }
-      });
+      this._click$
+        .pipe(switchMap(() => this._timestamp!._timestampElementRef.changes))
+        .subscribe(() => {
+          if (this._timestamp) {
+            this._timestamp.focus();
+          }
+        });
     }
 
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -427,6 +434,9 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         // map to false to end the resize
         const mouseRelease$ = this._mouseup$.pipe(mapTo(-1));
 
+        // mouse Release is -1
+        const isMouseRelease = (resize: number) => resize === -1;
+
         // stream that emits drag start end end
         merge(startResizing$, mouseRelease$)
           .pipe(
@@ -437,16 +447,12 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
             // show drag arrows on drag release but only if the stream is not a drag handle
             // 0 is initial drag and -1 is mouse release
             if (this._range && resize < 1) {
-              this._range._reflectRangeReleased(resize < 0);
+              this._range._reflectRangeReleased(isMouseRelease(resize));
 
               // if the drag is completed we can emit a stateChanges
-              if (resize < 0) {
+              if (isMouseRelease(resize)) {
                 this._range._emitDragEnd();
-
-                // query list is not always present
-                if (this._range._rangeElementRef.first) {
-                  this._range._rangeElementRef.first.nativeElement.focus();
-                }
+                this._range.focus();
               }
             }
 
@@ -475,7 +481,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         takeUntil(this._destroy$)
       )
       .subscribe((show: boolean) => {
-        this._showRange(show);
+        this._toggleRange(show);
       });
 
     merge(startShowingTimestamp$, hideTimestampAndRange$)
@@ -484,7 +490,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         takeUntil(this._destroy$)
       )
       .subscribe((show: boolean) => {
-        this._showTimestamp(show);
+        this._toggleTimestamp(show);
       });
 
     // Reset range or timestamp if one of each triggers a stateChanges and is now visible
@@ -609,7 +615,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
           takeUntil(this._destroy$)
         )
         .subscribe((show: boolean) => {
-          this._showHairline(show);
+          this._toggleHairline(show);
         });
 
       hover$
@@ -627,29 +633,19 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** Attaches the event listeners for the focus traps connected to each other */
   private _attachFocusTrapListeners(): void {
     this._zone.runOutsideAngular(() => {
-
-      if (
-        !this._overlayFocusTrap ||
-        !this._overlayRef
-      ) {
+      if (!this._overlayFocusTrap || !this._overlayRef) {
         return;
       }
 
       const traps = [this._overlayFocusTrap];
       const anchors = [this._overlayRef.hostElement];
 
-      if (
-        this._range &&
-        this._range._rangeElementRef.first
-      ) {
+      if (this._range && this._range._rangeElementRef.first) {
         traps.push(this._range._selectedAreaFocusTrap.focusTrap);
         anchors.push(this._range._viewContainerRef.element.nativeElement);
       }
 
-      if (
-        this._timestamp &&
-        this._timestamp._timestampElementRef.first
-      ) {
+      if (this._timestamp && this._timestamp._timestampElementRef.first) {
         traps.push(this._timestamp._selectedFocusTrap.focusTrap);
         anchors.push(this._timestamp._viewContainerRef.element.nativeElement);
       }
@@ -677,20 +673,20 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   }
 
   /** Function that toggles the visibility of the hairline (line that follows the mouses) */
-  private _showHairline(show: boolean): void {
+  private _toggleHairline(show: boolean): void {
     const display = show ? 'inherit' : 'none';
     this._renderer.setStyle(this._hairline.nativeElement, 'display', display);
   }
 
   /** Function that safely toggles the visible state of the range */
-  private _showRange(show: boolean): void {
+  private _toggleRange(show: boolean): void {
     if (this._range) {
       this._range._hidden = !show;
     }
   }
 
   /** Function that safely toggles the visible state of the timestamp */
-  private _showTimestamp(show: boolean): void {
+  private _toggleTimestamp(show: boolean): void {
     if (this._timestamp) {
       this._timestamp._hidden = !show;
     }
@@ -698,19 +694,17 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   /** reflects the position of the timestamp to the element */
   private _reflectHairlinePositionToDom(x: number): void {
-    this._zone.runOutsideAngular(() => {
-      this._renderer.setStyle(
-        this._hairline.nativeElement,
-        'transform',
-        `translateX(${x}px)`
-      );
-    });
+    this._renderer.setStyle(
+      this._hairline.nativeElement,
+      'transform',
+      `translateX(${x}px)`
+    );
   }
 
   /** Set the position of the select-able area to the size of the highcharts plot background */
   private _updateSelectionAreaSize(): void {
     if (!this._plotBackground) {
-      throw Error(ERROR_NO_PLOT_BACKGROUND);
+      throw getDtNoPlotBackgroundError();
     }
 
     // get Bounding client Rects of the plot background and the host to calculateRelativeXPos
