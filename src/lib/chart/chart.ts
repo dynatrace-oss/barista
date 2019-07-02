@@ -53,6 +53,8 @@ import {
   switchMap,
   take,
   takeUntil,
+  filter,
+  map,
 } from 'rxjs/operators';
 import {
   DtChartConfig,
@@ -171,7 +173,10 @@ export class DtChart
   /** @internal stream that emits every time the plotBackground changes */
   _plotBackground$ = new BehaviorSubject<SVGRectElement | null>(null);
 
-  /** @internal */
+  /**
+   * @internal
+   * hold the state if there is a range or a timestamp if one of them is there we need a selection area
+   */
   _hasSelectionArea = false;
 
   /** @internal Emits when highcharts finishes rendering. */
@@ -255,6 +260,12 @@ export class DtChart
         !this._highchartsOptions.series.length)
     );
   }
+
+  /** @internal Instance of the Chart range used by the selection area */
+  @ContentChild(DtChartRange, { static: false }) _range?: DtChartRange;
+
+  /** @internal Instance of the Chart timestamp used by the selection area */
+  @ContentChild(DtChartTimestamp, { static: false }) _timestamp?: DtChartTimestamp;
 
   private readonly _heatfieldActiveChanges: Observable<
     DtChartHeatfieldActiveChange
@@ -492,14 +503,4 @@ export class DtChart
       );
     }
   }
-
-  /********************************************************************
-   * S E L E C T I O N   A R E A
-   ********************************************************************/
-  // /** @internal */
-  // @ContentChildren(DtChartRange) _range: QueryList<DtChartRange>;
-  // /** @internal The instance */
-  // @ContentChildren(DtChartTimestamp) _timestamp: QueryList<DtChartTimestamp>;
-  @ContentChild(DtChartRange, { static: false }) _range?: DtChartRange;
-  @ContentChild(DtChartTimestamp, { static: false }) _timestamp?: DtChartTimestamp;
 }

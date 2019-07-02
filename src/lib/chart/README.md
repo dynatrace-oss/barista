@@ -179,7 +179,7 @@ Adding the ability to select a desired time frame between two timestamps in a ch
 
 You have to provide meaningful labels to the range via `aria-label-selected-area`, `aria-label-left-handle`, `aria-label-right-handle` and `aria-label-close`, to meet our accessibility standards.
 
-#### Range Inputs
+#### Inputs
 
 | Name                       | Type               | Default  | Description                                                                                                            |
 |----------------------------|--------------------|----------|------------------------------------------------------------------------------------------------------------------------|
@@ -191,12 +191,19 @@ You have to provide meaningful labels to the range via `aria-label-selected-area
 | `aria-label-right-handle`  | `string`           | `''`     | Aria label of the right handle of the selected area that can resize the selected frame.                                |
 | `aria-label-close`         | `string`           | `''`     | Aria label of the close button inside the overlay.                                                                     |
 
-##### Range Outputs
+##### Outputs
 
-| Name           | Type                             | Description                                                                                                                        |
-|----------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| `valueChanges` | `EventEmitter<[number, number]>` | Event emitted when the values of the selection are have changed by user triggered interactions. *(Not triggered programmatically)* |
-| `valid`        | `BehaviorSubject<boolean>`       | Event emitted when the selection area is valid *(greater than the minimum constraint)*                                             |
+| Name           | Type                             | Description                                                                                                                          |
+|----------------|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| `valueChanges` | `EventEmitter<[number, number]>` | Event emitted when the values of the selection are have changed. Emits when the drag is complete. *(Not triggered programmatically)* |
+| `valid`        | `BehaviorSubject<boolean>`       | Event emitted when the selection area is valid *(greater than the minimum constraint)*                                               |
+
+##### Methods
+
+| Name    | Type   | Description               |
+|---------|--------|---------------------------|
+| `focus` | `void` | Focuses the range element |
+
 
 ### Timestamp
 
@@ -213,7 +220,7 @@ Adding the ability to select one specific moment in a chart with a `dt-chart-tim
 
 You have to provide meaningful labels to the range via `aria-label-selected` and `aria-label-close`, to meet our accessibility standards.
 
-#### Timestamp Inputs
+#### Inputs
 
 | Name                  | Type     | Default | Description                                                        |
 |-----------------------|----------|---------|--------------------------------------------------------------------|
@@ -221,10 +228,14 @@ You have to provide meaningful labels to the range via `aria-label-selected` and
 | `aria-label-selected` | `string` | `''`    | Aria label for the selected moment.                                |
 | `aria-label-close`    | `string` | `''`    | Aria label of the close button inside the overlay.                 |
 
-##### Timestamp Outputs
+##### Outputs
 
 | Name           | Type                   | Description                                                                                                                  |
 |----------------|------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | `valueChanges` | `EventEmitter<number>` | Event emitted when the value of the timestamp has changed by user triggered interactions. *(Not triggered programmatically)* |
 
+##### Methods
 
+| Name    | Type   | Description                   |
+|---------|--------|-------------------------------|
+| `focus` | `void` | Focuses the timestamp element |

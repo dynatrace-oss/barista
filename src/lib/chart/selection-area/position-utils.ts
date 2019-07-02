@@ -21,7 +21,7 @@ export const enum DtSelectionAreaEventTarget {
   Origin = 'origin',
 }
 
-/** Returns the offset for a keycode */
+/** @internal Returns the offset for a keycode */
 export function getOffsetForKeyCode(
   keyCode: number,
   boundaryWidth: number
@@ -47,6 +47,7 @@ export function getOffsetForKeyCode(
 }
 
 /**
+ * @internal
  * Calculates the new position based on the old position, the delta since the last update and
  * the target that is calling the function
  */

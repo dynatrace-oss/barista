@@ -1,28 +1,68 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component, DebugElement, Provider, Type } from '@angular/core';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtChartModule, DtThemingModule } from '@dynatrace/angular-components';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  DtChartModule,
+  DtIconModule,
+  DtThemingModule,
+} from '@dynatrace/angular-components';
 import { Subject } from 'rxjs';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
+import { ARIA_DEFAULT_CLOSE_LABEL } from '../range/constants';
+import { DtChartRange } from '../range/range';
 import * as streams from './streams';
 
 describe('DtChart Selection Area', () => {
-  beforeEach(() => {
+  let overlayContainer: OverlayContainer;
+  let overlayContainerElement: HTMLElement;
+
+  function createComponent<T>(
+    component: Type<T>,
+    providers: Provider[] = []
+  ): any {
     TestBed.configureTestingModule({
-      imports: [DtChartModule, DtThemingModule],
+      imports: [
+        DtChartModule,
+        DtThemingModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+      ],
       declarations: [TestChart, TestChartComponent],
+      providers,
     });
+
     TestBed.compileComponents();
-  });
+
+    inject([OverlayContainer], (oc: OverlayContainer) => {
+      overlayContainer = oc;
+      overlayContainerElement = oc.getContainerElement();
+    })();
+
+    return TestBed.createComponent<T>(component);
+  }
+
+  afterEach(inject(
+    [OverlayContainer],
+    (currentOverlayContainer: OverlayContainer) => {
+      // Since we're resetting the testing module in some of the tests,
+      // we can potentially have multiple overlay containers.
+      currentOverlayContainer.ngOnDestroy();
+      overlayContainer.ngOnDestroy();
+    }
+  ));
 
   describe('range and timestamp available', () => {
     let fixture: ComponentFixture<TestChart>;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent<TestChart>(TestChart);
+      fixture = createComponent(TestChart);
     });
 
     it('should not have a selection area if there is no timestamp or range inside the chart', () => {
@@ -70,14 +110,13 @@ describe('DtChart Selection Area', () => {
     beforeEach(() => {
       spyOn(streams, 'getMouseOutStream').and.returnValue(fakedMouseOut$);
 
-      fixture = TestBed.createComponent<TestChartComponent>(TestChartComponent);
+      fixture = createComponent(TestChartComponent);
       fixture.detectChanges();
 
       hairline = fixture.debugElement.query(By.css('.dt-chart-hairline'));
       plotBackground = fixture.debugElement.nativeElement.querySelector(
         '.highcharts-plot-background'
       );
-
     });
 
     it('should have a hairline that should be visible on mousemove', () => {
@@ -104,6 +143,72 @@ describe('DtChart Selection Area', () => {
       expect(hairline.styles.display).toBe('none');
     });
   });
+
+  describe('accessibilty', () => {
+    let fixture: ComponentFixture<TestChart>;
+
+    beforeEach(() => {
+      fixture = createComponent(TestChart);
+    });
+
+    describe('range', () => {
+      let range: DtChartRange;
+
+      beforeEach(() => {
+        fixture.componentInstance.hasRange = true;
+        fixture.detectChanges();
+        range = fixture.debugElement.query(By.css('.dt-chart-range'))
+          .componentInstance;
+        const start = new Date('2019/06/01 20:40:00').getTime();
+        const end = new Date('2019/06/01 20:55:00').getTime();
+        range.value = [start, end];
+        fixture.detectChanges();
+      });
+
+      it('should have a default aria label on the overlay close button', () => {
+        const container = overlayContainerElement.querySelector(
+          '.dt-chart-selection-area-overlay .dt-icon-button'
+        ) as HTMLElement;
+
+        expect(container.getAttribute('aria-label')).toBe(
+          ARIA_DEFAULT_CLOSE_LABEL
+        );
+      });
+
+      it('should not have been focused on programmatic creation', () => {
+        const rangeContainer = fixture.debugElement.query(
+          By.css('.dt-chart-range-container')
+        );
+        expect(document.activeElement).not.toEqual(
+          rangeContainer.nativeElement
+        );
+      });
+
+      it('should focused on programmatic focus call', () => {
+        range.focus();
+        const rangeContainer = fixture.debugElement.query(
+          By.css('.dt-chart-range-container')
+        );
+        expect(document.activeElement).toEqual(rangeContainer.nativeElement);
+      });
+
+      it('should be in a focus trap after the chart range container was focused', () => {
+        range.focus();
+        const rangeContainer = fixture.debugElement.query(
+          By.css('.dt-chart-range-container')
+        );
+
+        const next = rangeContainer.nativeElement.nextSibling;
+        const prev = rangeContainer.nativeElement.previousSibling;
+
+        expect(prev.classList.contains('cdk-focus-trap-anchor')).toBe(true);
+        expect(prev.getAttribute('tabindex')).toBe('0');
+
+        expect(next.classList.contains('cdk-focus-trap-anchor')).toBe(true);
+        expect(next.getAttribute('tabindex')).toBe('0');
+      });
+    });
+  });
 });
 
 @Component({
@@ -128,7 +233,10 @@ export class TestChart {
   template: `
     <dt-chart [options]="options" [series]="series">
       <dt-chart-timestamp></dt-chart-timestamp>
-      <dt-chart-range value="[1370304002000, 1370304005000]"></dt-chart-range>
+      <dt-chart-range
+        value="[1370304002000, 1370304005000]"
+        aria-label-close="CLOSE"
+      ></dt-chart-range>
     </dt-chart>
   `,
 })
@@ -175,7 +283,13 @@ const SERIES: Highcharts.IndividualSeriesOptions[] = [
     name: 'Requests',
     type: 'column',
     yAxis: 1,
-    data: generateData(40, 0, 250, 1370304000000, 900000),
+    data: generateData(
+      40,
+      0,
+      250,
+      new Date('2019/06/01 20:38:00').getTime(),
+      900000
+    ),
   },
 ];
 
