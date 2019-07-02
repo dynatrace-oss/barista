@@ -4,8 +4,6 @@ type: "component"
 
 # Form field
 
-<docs-source-example example="DefaultFormFieldExample"></docs-source-example>
-
 `<dt-form-field>` is a component that wraps form input components like `dtInput` and provides functionality for a label (`<dt-label>`), errors (`<dt-error>`) and hints (`<dt-hint>`).
 
 ## Imports
@@ -29,6 +27,8 @@ class MyModule {}
 A label can be applied by adding a `<dt-label>` element.
 `<dt-form-field>` takes care of linking the label correctly to the form component by adding `for="input-id"` and the correct aria attributes.
 
+<docs-source-example example="FormFieldDefaultExample"></docs-source-example>
+
 ## Hint labels
 
 Hint labels are additional descriptive text that appears below the form field.
@@ -40,9 +40,7 @@ Attempting to add multiple hints to the same side will raise an error.
 
 `<dt-form-field>` takes care of linking the hints correctly to the form component.
 
-*Example:*
-
-<docs-source-example example="HintFormFieldExample"></docs-source-example>
+<docs-source-example example="FormFieldHintExample"></docs-source-example>
 
 ## Error messages
 
@@ -52,15 +50,11 @@ The errors will appear on top of the hint labels and will overlap them.
 
 If a form field can have more than one error state, it is up to the consumer to toggle which messages should be displayed. This can be done with `ngIf` or `ngSwitch`.
 
-*Example:*
-
-<docs-source-example example="ErrorFormFieldExample"></docs-source-example>
+<docs-source-example example="FormFieldErrorExample"></docs-source-example>
 
 ## Prefix & suffix
 
 Custom content (like buttons, icons, loading-spinners) can be included before and after the input tag, as a prefix or suffix. It will be included within the visual container that wraps the form control.
 Adding the `dtPrefix` directive to an element inside the `<dt-form-field>` will designate it as the prefix. Similarly, adding `dtSuffix` will designate it as the suffix.
 
-*Example:*
-
-<docs-source-example example="PrefixSuffixFormFieldExample"></docs-source-example>
+<docs-source-example example="FormFieldPrefixSuffixExample"></docs-source-example>

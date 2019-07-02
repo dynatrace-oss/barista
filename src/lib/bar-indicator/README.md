@@ -4,9 +4,9 @@ type: "component"
 
 # Bar-indicator
 
-<docs-source-example example="DefaultBarIndicatorExampleComponent"></docs-source-example>
-
 The bar-indicator functions as a semantic alternative to the progress bar. It should display not a progress, but rather a ratio between multiple bar-indicators or something like "passed time" to put some visual perspective between connected bar-indicators.
+
+<docs-source-example example="BarIndicatorDefaultExample"></docs-source-example>
 
 A basic bar-indicator would follow this structure:
 
@@ -52,15 +52,15 @@ class MyModule {}
 
 Bar-indicator set to a fixed value.
 
-<docs-source-example example="DefaultBarIndicatorExampleComponent"></docs-source-example>
+<docs-source-example example="BarIndicatorDefaultExample"></docs-source-example>
 
 Bar-indicator in different color variations.
 
-<docs-source-example example="ColorBarIndicatorExampleComponent"></docs-source-example>
+<docs-source-example example="BarIndicatorColorExample"></docs-source-example>
 
 Bar-indicator with alignment set to end
-<docs-source-example example="AlignmentBarIndicatorExampleComponent"></docs-source-example>
+<docs-source-example example="BarIndicatorAlignmentExample"></docs-source-example>
 
 Bar-indicator with variable `min`, `max` and `value` bindings.
 
-<docs-source-example example="DynamicBarIndicatorExampleComponent"></docs-source-example>
+<docs-source-example example="BarIndicatorDynamicExample"></docs-source-example>

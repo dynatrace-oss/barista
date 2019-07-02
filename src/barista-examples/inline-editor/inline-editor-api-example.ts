@@ -17,7 +17,7 @@ import { DtInlineEditor } from '@dynatrace/angular-components';
     <button (click)="sampleEditor.cancelAndQuitEditing()">cancel changes</button>
   `,
 })
-export class ApiInlineEditorExample {
+export class InlineEditorApiExample {
   @ViewChild('sampleEditor', { static: true }) sampleEditor: DtInlineEditor;
   sampleModel = 'text content';
 }

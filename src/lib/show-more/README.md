@@ -4,9 +4,7 @@ type: "component"
 
 # Show More
 
-This component create a show more pagination widget.
-
-<docs-source-example example="DefaultShowMoreExampleComponent"></docs-source-example>
+This component creates a show more pagination widget.
 
 ## Imports
 
@@ -41,17 +39,21 @@ To apply the dynatrace show more component, use the `<dt-show-more>` element wit
 
 ## Examples
 
+### Default
+
+<docs-source-example example="ShowMoreDefaultExample"></docs-source-example>
+
 ### Without text
 
-<docs-source-example example="NoTextShowMoreExampleComponent"></docs-source-example>
+<docs-source-example example="ShowMoreNoTextExample"></docs-source-example>
 
 ### Interactive example
 
-<docs-source-example example="InteractiveShowMoreExampleComponent"></docs-source-example>
+<docs-source-example example="ShowMoreInteractiveExample"></docs-source-example>
 
 ### Dark theme
 
-<docs-source-example example="DarkThemeShowMoreExampleComponent" themedark="true"></docs-source-example>
+<docs-source-example example="ShowMoreDarkExample" themedark="true"></docs-source-example>
 
 ### Disabled
 

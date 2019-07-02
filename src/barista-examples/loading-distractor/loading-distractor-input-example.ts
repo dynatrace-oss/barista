@@ -10,4 +10,4 @@ import { Component } from '@angular/core';
     </dt-form-field>
   `,
 })
-export class InputLoadingDistractorExampleComponent { }
+export class LoadingDistractorInputExample { }

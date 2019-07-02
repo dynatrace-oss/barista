@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `<dt-loading-distractor>Loading …</dt-loading-distractor>`,
 })
-export class DefaultLoadingDistractorExampleComponent { }
+export class LoadingDistractorDefaultExample { }

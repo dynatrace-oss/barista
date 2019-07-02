@@ -6,8 +6,6 @@ type: "component"
 
 The microchart components wraps the chart component. Find more details about theming and reflow on the [chart page](/components/charts/).
 
-<docs-source-example example="MicroChartDefaultExampleComponent" fullwidth="true"></docs-source-example>
-
 ## Imports
 
 You have to import the `DtMicroChartModule` when you want to use the `dt-micro-chart`:
@@ -47,18 +45,22 @@ As the microchart component is a wrapper for charts, the same content children â
 
 ## Examples
 
+### Default
+
+<docs-source-example example="MicroChartDefaultExample" fullwidth="true"></docs-source-example>
+
 ### Columns example
 
-<docs-source-example example="MicroChartColumnsExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="MicroChartColumnsExample" fullwidth="true"></docs-source-example>
 
 ### Streamed values example
 
-<docs-source-example example="MicroChartStreamExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="MicroChartStreamExample" fullwidth="true"></docs-source-example>
 
 ### Interpolated values example
 
-<docs-source-example example="MicroChartInterpolatedExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="MicroChartInterpolatedExample" fullwidth="true"></docs-source-example>
 
 ### Columns interpolated values example
 
-<docs-source-example example="MicroChartColumnsInterpolatedExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="MicroChartColumnsInterpolatedExample" fullwidth="true"></docs-source-example>

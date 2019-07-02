@@ -16,7 +16,7 @@ const TIMEOUT_MS = 2000;
     </em>
   `,
 })
-export class SuccessfulInlineEditorExample {
+export class InlineEditorSuccessfulExample {
   sampleModel = 'text content';
 
   successfulSaveFunction(): Observable<void> {

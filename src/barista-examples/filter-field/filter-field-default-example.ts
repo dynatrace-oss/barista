@@ -11,7 +11,7 @@ import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/fi
   </dt-filter-field>
   `,
 })
-export class DefaultFilterFieldExample {
+export class FilterFieldDefaultExample {
 
   private TEST_DATA = {
     autocomplete: [

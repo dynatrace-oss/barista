@@ -11,4 +11,4 @@ import { Component } from '@angular/core';
     </dt-form-field>
   `,
 })
-export class HintFormFieldExample { }
+export class FormFieldHintExample { }

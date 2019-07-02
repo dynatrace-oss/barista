@@ -15,5 +15,5 @@ import { Component } from '@angular/core';
     `p { margin-top: 0px; }`,
   ],
 })
-export class ContextDialogHeaderExampleComponent {
+export class ContextDialogHeaderExample {
 }

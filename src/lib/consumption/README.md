@@ -4,10 +4,10 @@ type: 'component'
 
 # Consumption
 
-<docs-source-example example="DefaultConsumptionExample"></docs-source-example>
-
 The `<dt-consumption>` is a data visualization box with an icon, a title, a progress bar with a value label and a description text.
 To set the content for a consumption component, the following tags are available:
+
+<docs-source-example example="ConsumptionDefaultExample"></docs-source-example>
 
 - `<dt-consumption-icon>` - An icon shown right next to the title (e.g. `<dt-icon name="host"></dt-icon>`)
 - `<dt-consumption-title>` - The title of the consumption component
@@ -47,8 +47,8 @@ Icons defined with `<dt-consumption-icon>` must be given a meaningful label via 
 
 ### Warning mode
 
-<docs-source-example example="WarningConsumptionExample"></docs-source-example>
+<docs-source-example example="ConsumptionWarningExample"></docs-source-example>
 
 ### Error mode
 
-<docs-source-example example="ErrorConsumptionExample"></docs-source-example>
+<docs-source-example example="ConsumptionErrorExample"></docs-source-example>
