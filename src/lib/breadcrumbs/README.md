@@ -4,8 +4,6 @@ type: "component"
 
 # Breadcrumbs
 
-<docs-source-example example="DefaultBreadcrumbsExampleComponent"></docs-source-example>
-
 Breadcrumbs are used to navigate and to indicate the currently viewed page.
 
 ## Imports
@@ -46,19 +44,23 @@ class MyModule {}
 
 ## Examples
 
+### Default
+
+<docs-source-example example="BreadcrumbsDefaultExample"></docs-source-example>
+
+
 ### Listening to an observable
 
-<docs-source-example example="ObservableBreadcrumbsExampleComponent"></docs-source-example>
+<docs-source-example example="BreadcrumbsObservableExample"></docs-source-example>
 
 ### External
 
-<docs-source-example example="ExternalBreadcrumbsExampleComponent"></docs-source-example>
+<docs-source-example example="BreadcrumbsExternalExample"></docs-source-example>
 
 ### Dark
 
-<docs-source-example example="DarkBreadcrumbsExampleComponent" themedark="true"></docs-source-example>
-
+<docs-source-example example="BreadcrumbsDarkExample" themedark="true"></docs-source-example>
 
 ### Colors
 
-<docs-source-example example="ColorBreadcrumbsExampleComponent"></docs-source-example>
+<docs-source-example example="BreadcrumbsColorExample"></docs-source-example>

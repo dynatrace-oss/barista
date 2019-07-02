@@ -4,10 +4,6 @@ type: "component"
 
 # Table
 
-<docs-source-example example="TableDefaultComponent" fullwidth="true"></docs-source-example>
-
-## Description
-
 The `DtTable` enhances the [Material's cdk table](https://material.angular.io/cdk/table/overview). This first implementation also removes unneeded things from the public API.
 
 ## Imports
@@ -104,52 +100,54 @@ And finally the table row is defined with a `dt-row` component and a `dtRowDef` 
 
 Note: The `dtRowDef` also exports row context, which can be used for event and property bindings on the row element. See the source code of any of the examples in this page to see all the pieces in place.
 
+<docs-source-example example="TableDefaultExample" fullwidth="true"></docs-source-example>
+
 ### Width proportion
 
 You can customize the column width proportion with the `[dtColumnProportion]` attribute.
 
-<docs-source-example example="TableDifferentWidthComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableDifferentWidthExample" fullwidth="true"></docs-source-example>
 
 ### Tables with two lines per row
 
 If you want to have 2 lines of text and maybe an icon inside a row you can use the `<dt-info-group>` component. You can also take a look at the `<dt-info-group>` component's page for further information.
 
-<docs-source-example example="TableWithInfoGroupCellComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableWithInfoGroupCellExample" fullwidth="true"></docs-source-example>
 
 ### Minimum Width
 
 You can customize the column minimun width with `[dtColumnMinWidth]`
 
-<docs-source-example example="TableMinWidthComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableMinWidthExample" fullwidth="true"></docs-source-example>
 
 ### Empty state
 
 You can pass an empty state to the table using the `dtTableEmptyState` directive, this will be used when there's no data.
 The recommended approach is to use the following components: `<dt-table-empty-state>`, `<dt-table-empty-state-image>`, `<dt-table-empty-state-title>`, `<dt-table-empty-state-message>`
 
-<docs-source-example example="TableEmptyStateComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableEmptyStateExample" fullwidth="true"></docs-source-example>
 
 You can also pass custom content using the same `dtTableEmptyState`.
 
-<docs-source-example example="TableEmptyCustomStateComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableEmptyCustomStateExample" fullwidth="true"></docs-source-example>
 
 ### Loading state
 
 You can mark the table as loading using `[loading]` and pass the content to display with `dtTableLoadingState` directive
 
-<docs-source-example example="TableLoadingComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableLoadingExample" fullwidth="true"></docs-source-example>
 
 ### Observable as DataSource
 
 You can pass an Observable to the `[dataSource]` property.
 
-<docs-source-example example="TableObservableComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableObservableExample" fullwidth="true"></docs-source-example>
 
 ### Dynamic Columns
 
 You can bind the column definitions to an array with a `*ngFor` directive.
 
-<docs-source-example example="TableDynamicColumnsComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableDynamicColumnsExample" fullwidth="true"></docs-source-example>
 
 The DataSource type is an abstract class with two methods: connect and disconnect. Connect has to return an Observable that the table subscribes to. Disconnect does cleanup. Using this class to wrap the data provided for the table allows maximum flexibility and will be responsible of a future sort, and filter functionalities.
 
@@ -157,11 +155,11 @@ The DataSource type is an abstract class with two methods: connect and disconnec
 
 Expandable rows can be defined using `dt-expandable-row`. An expandable row **has to** contain a column with a details cell. A details cell can be added using `dt-expandable-cell`.
 
-<docs-source-example example="TableExpandableRowsComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableExpandableRowsExample" fullwidth="true"></docs-source-example>
 
 Multiple rows can be expanded at a time. The expanded state of each row can be set programmatically.
 
-<docs-source-example example="TableMultiExpandableRowsComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableMultiExpandableRowsExample" fullwidth="true"></docs-source-example>
 
 ### Inputs
 
@@ -217,17 +215,17 @@ The table styling depends on the page theme. You can set a theme on an area of t
 
 To apply a sticky header to the table set the `sticky` input on the `dtHeaderRowDef` directive.
 
-<docs-source-example example="TableStickyHeaderComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableStickyHeaderExample" fullwidth="true"></docs-source-example>
 
 ### Table hover
 
 To apply the hover effect for the table add interactiveRows on the `dt-table` component.
 
-<docs-source-example example="TableHoverComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableHoverExample" fullwidth="true"></docs-source-example>
 
 ## Sorting
 
-<docs-source-example example="TableSortingComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableSortingExample" fullwidth="true"></docs-source-example>
 
 The `DtSort` and `dt-sort-header` are used to add sorting functionality to the table.
 
@@ -303,7 +301,7 @@ The event emitted when the user changes either the active sort or the sorting di
 
 To see a combination with initial sort direction and active column and disabling behaviour - please see the following complex example.
 
-<docs-source-example example="TableSortingFullComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableSortingFullExample" fullwidth="true"></docs-source-example>
 
 ## Problem & Warning Indicator
 
@@ -316,15 +314,15 @@ You can control the active state of the indicator by using the input named the s
 
 The full example below shows both usages - single metric inside a cell and the entire cell enhanced with the dtIndicator for table with either static and expandable rows.
 
-<docs-source-example example="TableProblemComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableProblemExample" fullwidth="true"></docs-source-example>
 
-<docs-source-example example="TableExpandableProblemComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableExpandableProblemExample" fullwidth="true"></docs-source-example>
 
 ### Responsive table
 
 Since some tables might have a lot of data in them and screen space is very limited especially on devices with smaller screens you might want to switch between a table with expandable rows and normal rows. The example below shows a very simple approach how this might be done.
 
-<docs-source-example example="TableResponsiveComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableResponsiveExample" fullwidth="true"></docs-source-example>
 
 All pending functionality will be progressively addressed by future versions
 
@@ -363,7 +361,7 @@ Currently there are two predefined versions of the `dtSimpleColumn` exposed: `dt
 
 ### Example
 
-<docs-source-example example="TableSimpleColumnsComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableSimpleColumnsExample" fullwidth="true"></docs-source-example>
 
 ### Sorting, paging and filtering out of the box with DtTableDataSource
 
@@ -395,17 +393,17 @@ export class TableComponent implements AfterViewInit {
 
 ### Pagination
 
-<docs-source-example example="TablePaginationComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TablePaginationExample" fullwidth="true"></docs-source-example>
 
 Further examples of the `DtPagination` in combination with a `DtTableDataSource` can be found under the [pagination](/components/pagination#dynamic-showhide-of-paginated-table) page.
 
 ### Show more
 
-<docs-source-example example="TableShowMoreComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableShowMoreExample" fullwidth="true"></docs-source-example>
 
 ### Filtering with highlight of the filtered value
 
-<docs-source-example example="TableFilteringComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableFilteringExample" fullwidth="true"></docs-source-example>
 
 ### Extending DtSimpleColumn
 

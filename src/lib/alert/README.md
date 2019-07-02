@@ -21,7 +21,7 @@ class MyModule {}
 
 To apply the dynatrace alert component, use the `<dt-alert>` element. Example:
 
-<docs-source-example example="WarningAlertExampleComponent"></docs-source-example>
+<docs-source-example example="AlertWarningExample"></docs-source-example>
 
 ## Options & Properties
 
@@ -36,12 +36,12 @@ The alert component is a wrapper component that holds a `dt-icon` and some text.
 
 ### Error
 
-<docs-source-example example="ErrorAlertExampleComponent"></docs-source-example>
+<docs-source-example example="AlertErrorExample"></docs-source-example>
 
 ### Interactive example
 
-<docs-source-example example="InteractiveAlertExampleComponent"></docs-source-example>
+<docs-source-example example="AlertInteractiveExample"></docs-source-example>
 
 ### Dark mode
 
-<docs-source-example example="DarkAlertExampleComponent" themedark="true"></docs-source-example>
+<docs-source-example example="AlertDarkExample" themedark="true"></docs-source-example>

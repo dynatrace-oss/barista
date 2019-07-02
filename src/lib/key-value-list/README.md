@@ -34,12 +34,12 @@ Only use text with basic inline markup and links as content of key and value ele
 
 ### Single column
 
-<docs-source-example example="DefaultKeyValueListExampleComponent"></docs-source-example>
+<docs-source-example example="KeyValueListDefaultExample"></docs-source-example>
 
 ### Multiple columns
 
-<docs-source-example example="MulticolumnKeyValueListExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="KeyValueListMulticolumnExample" fullwidth="true"></docs-source-example>
 
 ### Multiple columns with line breaks
 
-<docs-source-example example="LongtextKeyValueListExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="KeyValueListLongtextExample" fullwidth="true"></docs-source-example>

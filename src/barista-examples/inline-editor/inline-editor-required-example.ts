@@ -14,6 +14,6 @@ import { Component } from '@angular/core';
     <span>model: <code>{{ sampleModel }}</code></span>
   `,
 })
-export class RequiredInlineEditorExample {
+export class InlineEditorRequiredExample {
   sampleModel = 'text content';
 }

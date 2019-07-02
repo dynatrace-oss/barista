@@ -1,0 +1,15 @@
+import { Component } from '@angular/core';
+import { DtToast } from '@dynatrace/angular-components';
+
+@Component({
+  moduleId: module.id,
+  selector: 'demo-component',
+  template: '<button dt-button (click)="createToast()">Save</button>',
+})
+export class ToastDefaultExample {
+  constructor(private _toast: DtToast) {}
+
+  createToast(): void {
+    this._toast.create('Your changes have been saved!');
+  }
+}

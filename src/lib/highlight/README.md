@@ -1,9 +1,9 @@
 # Highlight
 
-<docs-source-example example="DefaultHighlightExampleComponent"></docs-source-example>
-
 The `dt-highlight` component designed to highlight some characters in a string that has been searched of filtererd for.
 It can be either used for [filtering tables](/components/table#table-filter-behavior) or in the [drop-down panel](/components/filter#adding-filters) of the filter field.
+
+<docs-source-example example="HighlightDefaultExample"></docs-source-example>
 
 ## Imports
 
@@ -51,4 +51,4 @@ You have to avoid any HTML Tags inside this component!
 
 ### A case sensitive highlight example
 
-<docs-source-example example="CaseSensitiveHighlightExampleComponent"></docs-source-example>
+<docs-source-example example="HighlightCaseSensitiveExample"></docs-source-example>

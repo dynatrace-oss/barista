@@ -53,7 +53,7 @@ To use certain mixin simply include it in your rule-set:
 
 ## Link
 
-<docs-source-example example="LinkSimpleExampleComponent"></docs-source-example>
+<docs-source-example example="LinkSimpleExample"></docs-source-example>
 
 ### API
 
@@ -78,14 +78,14 @@ Link styles are automatically applied to any `<a>` tag.
 
 #### External link
 
-<docs-source-example example="LinkExternalExampleComponent"></docs-source-example>
+<docs-source-example example="LinkExternalExample"></docs-source-example>
 
 #### Dark theme
 
-<docs-source-example example="LinkDarkExampleComponent" themedark="true"></docs-source-example>
+<docs-source-example example="LinkDarkExample" themedark="true"></docs-source-example>
 
 #### Notification
 
 The link can be used in any context and inherits the font size.
 
-<docs-source-example example="LinkNotificationExampleComponent"></docs-source-example>
+<docs-source-example example="LinkNotificationExample"></docs-source-example>

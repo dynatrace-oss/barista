@@ -66,12 +66,12 @@ The following methods are available on the `DtPagination` class.
 
 ### Few pages
 
-<docs-source-example example="DefaultPaginationExampleComponent"></docs-source-example>
+<docs-source-example example="PaginationDefaultExample"></docs-source-example>
 
 ### Many pages
 
-<docs-source-example example="ManyPaginationExampleComponent"></docs-source-example>
+<docs-source-example example="PaginationManyExample"></docs-source-example>
 
 ### Dynamic show/hide of paginated table
 
-<docs-source-example example="DynamicTablePaginationExampleComponent"></docs-source-example>
+<docs-source-example example="PaginationDynamicTableExample"></docs-source-example>

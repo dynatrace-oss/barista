@@ -4,8 +4,6 @@ type: "component"
 
 # Selection Area
 
-<docs-source-example example="SelectionAreaChartExample" fullwidth="true"></docs-source-example>
-
 The `<dt-selection-area>` creates the possibility to create a selected area inside an origin element and drag the edges or the entire selected area within the constraints of the origin element. The selection area itself is not tightly coupled with the chart component but this is the main usecase.
 To connect the selection area and the chart you have to use the `dtChartSelectionArea` directive on the `dt-chart` component and provide the instance of the `dt-selection-area` component as an input.
 
@@ -89,3 +87,6 @@ You can use the selection area connected to any element. Not only charts are sup
 
 <docs-source-example example="SelectionAreaDefaultExample" fullwidth="true"></docs-source-example>
 
+### Usage with a chart
+
+<docs-source-example example="SelectionAreaChartExample" fullwidth="true"></docs-source-example>

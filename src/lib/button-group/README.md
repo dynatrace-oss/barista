@@ -4,8 +4,6 @@ type: "component"
 
 # ButtonGroup
 
-<docs-source-example example="ButtonGroupDefaultExampleComponent"></docs-source-example>
-
 This component creates a button group element with Dynatrace styling.
 
 ## Imports
@@ -32,9 +30,7 @@ To apply the Dynatrace button group, use the `<dt-button-group>` and `<dt-button
 | `dt-button-group` | Wrapper element for the button group. It can contain multiple `<dt-button-group-item>` elements. |
 | `dt-button-group-item` | The individual button elements. |
 
-## Button group
-
-### Inputs
+## Inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -42,22 +38,21 @@ To apply the Dynatrace button group, use the `<dt-button-group>` and `<dt-button
 | `disabled` | `boolean | undefined` | `undefined` | Sets disabled state if property is set and the value is truthy or undefined |
 | `tabIndex` | `number` | `0` | Sets and gets the tabIndex property |
 
-### Outputs
+## Outputs
 
 | Name | Type | Description |
 | --- | --- | --- |
 | `valueChange` | `event<T>` | Emits an event when the user selects another button. |
 
 
-### Methods
+## Methods
 
 | Name | Description | Return value |
 | --- | --- | --- |
 | `focus()` | Sets focus to the first item in the `<dt-button-group>`. | `void` |
 
-## Button group item
 
-### Inputs
+## Button group item inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -68,7 +63,7 @@ To apply the Dynatrace button group, use the `<dt-button-group>` and `<dt-button
 | `selected` | `boolean` | `false` | Sets or gets the selected state of this item |
 | `color` | `'main' | 'error'` | `main` | Sets color. Possible options: <ul><li><code>main</code> (default)</li><li><code>error</code></li></ul> |
 
-### Methods
+## Button group item methods
 
 | Name | Description | Return value |
 | --- | --- | --- |
@@ -76,18 +71,22 @@ To apply the Dynatrace button group, use the `<dt-button-group>` and `<dt-button
 
 ## Examples
 
+### Default
+
+<docs-source-example example="ButtonGroupDefaultExample"></docs-source-example>
+
 ### Group disabled
 
-<docs-source-example example="ButtonGroupDisabledExampleComponent"></docs-source-example>
+<docs-source-example example="ButtonGroupDisabledExample"></docs-source-example>
 
 ### Item disabled
 
-<docs-source-example example="ButtonGroupItemDisabledExampleComponent"></docs-source-example>
+<docs-source-example example="ButtonGroupItemDisabledExample"></docs-source-example>
 
 ### Error state
 
-<docs-source-example example="ButtonGroupErrorExampleComponent"></docs-source-example>
+<docs-source-example example="ButtonGroupErrorExample"></docs-source-example>
 
 ### Interactive example
 
-<docs-source-example example="ButtonGroupInteractiveExampleComponent"></docs-source-example>
+<docs-source-example example="ButtonGroupInteractiveExample"></docs-source-example>

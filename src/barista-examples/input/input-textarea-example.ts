@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `<textarea dtInput placeholder="Please insert text" aria-label="Please insert text"></textarea>`,
 })
-export class TextareaInputExample { }
+export class InputTextareaExample { }

@@ -4,8 +4,6 @@ type: "component"
 
 # Button
 
-<docs-source-example example="DefaultButtonExampleComponent"></docs-source-example>
-
 This Angular button enhances native `<button>` and `<a>` elements with Dynatrace styling. Make sure to always use `<button>` or `<a>` tags to provide an accessible experience for the user. While a `<button>` element should be used whenever some action is performed, `<a>` elements should be used when the user will navigate to another view.
 
 ## Imports
@@ -59,36 +57,40 @@ By using native `<button>` or `<a>` elements, accessibility is ensured per defau
 
 ## Examples
 
+### Default
+
+<docs-source-example example="ButtonDefaultExample"></docs-source-example>
+
 ### Interaction
 
-<docs-source-example example="InteractionButtonExampleComponent"></docs-source-example>
+<docs-source-example example="ButtonInteractionExample"></docs-source-example>
 
 ### Variants
 
-<docs-source-example example="VariantButtonExampleComponent"></docs-source-example>
+<docs-source-example example="ButtonVariantExample"></docs-source-example>
 
 ### Colors
 
-<docs-source-example example="ColorButtonExampleComponent"></docs-source-example>
+<docs-source-example example="ButtonColorExample"></docs-source-example>
 
 ### With Icons
 
-<docs-source-example example="IconsButtonExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ButtonIconsExample"></docs-source-example>
 
 ### With loading spinner
 
 The loading spinner can only be used within a disabled button.
 
-<docs-source-example example="LoadingSpinnerButtonExampleComponent"></docs-source-example>
+<docs-source-example example="ButtonLoadingSpinnerExample"></docs-source-example>
 
 ### Icon only
 
-<docs-source-example example="IconOnlyButtonExampleComponent"></docs-source-example>
+<docs-source-example example="ButtonIconOnlyExample"></docs-source-example>
 
-### Disabled example
+### Disabled
 
-<docs-source-example example="DisabledButtonExampleComponent" fullwidth="true"></docs-source-example>
+<docs-source-example example="ButtonDisabledExample"></docs-source-example>
 
 ### Dark
 
-<docs-source-example example="DarkButtonExampleComponent" themedark="true" fullwidth="true"></docs-source-example>
+<docs-source-example example="ButtonDarkExample" themedark="true"></docs-source-example>

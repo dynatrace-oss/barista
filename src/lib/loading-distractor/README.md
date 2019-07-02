@@ -23,19 +23,19 @@ class MyModule {}
 
 The loading spinner consists of an anmiated SVG circle and can be used in combination with other components, e.g. a form field.
 
-<docs-source-example example="SpinnerLoadingDistractorExampleComponent"></docs-source-example>
+<docs-source-example example="LoadingDistractorSpinnerExample"></docs-source-example>
 
 ### Inside a form field
 
 When a `<dt-loading-spinner>` is placed as a prefix or suffix inside a `<dt-form-field>` the color and size adjust automatically.
 
-<docs-source-example example="InputLoadingDistractorExampleComponent"></docs-source-example>
+<docs-source-example example="LoadingDistractorInputExample"></docs-source-example>
 
 ## Loading distractor
 
 The `<dt-loading-distractor>` wraps the spinner and adds a label next to it.
 
-<docs-source-example example="DefaultLoadingDistractorExampleComponent"></docs-source-example>
+<docs-source-example example="LoadingDistractorDefaultExample"></docs-source-example>
 
 ### Options & Properties
 
