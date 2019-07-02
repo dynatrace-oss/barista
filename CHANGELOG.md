@@ -1,3 +1,27 @@
+## 3.1.0 (2019-07-02)
+
+### Bug Fixes
+
+* **card:** Fixes broken subtitle attribute selector 
+* **chart:** Fixes an edge case with timezones in highcharts
+* **context-dialog:** Changes the first interactive element to be focused instead of the closing button 
+* **filter-field:** Fixes an issues where the `filter-field-tag` did not apply the overflow styling ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **radio:** Fixes issue where the `radio-button` label text was not wrapping ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **select:** Fixes broken appearance when used inside a `dt-form-field` ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **overlay:** Fixes an issue where the `overlay` is not dismissed when the `overlay-trigger` destroyed. ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **tag:** Introduced maximum width for `tags` to prevent overly long labels from breaking the layout ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **tag:** Made the remove button focusable instead of the `dt-tag` itself ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
+### Features
+
+* **button-group:** Added the functionality to programatically set focus to the `button-group` and `button-group-item`.
+* **consumption:** Added consumption component ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **filter-field:** Added the filter-range capability to the `filter field` ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **formatters:** Add `date-range` pipe to transform two timestamps to a unified range string ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **tag:** Deprecated `disabled` input for `dt-tag` since there is no proper use case for it ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
 ## 3.0.1 (2019-06-19)
 
 ### Bug Fixes
