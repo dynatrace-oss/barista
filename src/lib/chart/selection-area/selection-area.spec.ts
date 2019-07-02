@@ -18,7 +18,7 @@ describe('DtChart Selection Area', () => {
     TestBed.compileComponents();
   });
 
-  describe('Range and Timestamp available', () => {
+  describe('range and timestamp available', () => {
     let fixture: ComponentFixture<TestChart>;
 
     beforeEach(() => {
@@ -60,7 +60,7 @@ describe('DtChart Selection Area', () => {
     });
   });
 
-  describe('Hairline', () => {
+  describe('hairline', () => {
     let fixture: ComponentFixture<TestChartComponent>;
     let hairline: DebugElement;
     let plotBackground: Element;
@@ -104,7 +104,6 @@ describe('DtChart Selection Area', () => {
       expect(hairline.styles.display).toBe('none');
     });
   });
-
 });
 
 @Component({
