@@ -1,4 +1,5 @@
 @import '../../core/style/variables';
+@import '../../core/style/interactive-common';
 
 .dt-chart-timestamp-selector {
   position: absolute;
@@ -6,4 +7,8 @@
   width: 3px;
   background: $turquoise-600;
   left: 0;
+
+  &:focus {
+    @include dt-focus-style();
+  }
 }
