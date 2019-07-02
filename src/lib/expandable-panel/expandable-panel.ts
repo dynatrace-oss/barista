@@ -53,7 +53,7 @@ export class DtExpandablePanel {
     if (this._expanded !== newValue) {
       this._expanded = newValue;
       this.expandChange.emit(newValue);
-      // tslint:disable-next-line
+      // tslint:disable-next-line deprecation
       this.openedChange.emit(newValue);
 
       if (newValue) {

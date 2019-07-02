@@ -6,6 +6,8 @@ type: "component"
 
 This Angular component provides basic expand/collapse functionality without any styling. The expandable trigger directive `dtExpandablePanel` allows you to bind a custom element as trigger to an expandable panel `<dt-expandable-panel>`. The expandable trigger binds to key and click events.
 
+**Note:** In version 5.0.0 the selector for the panel's trigger will be updated to `button[dtExpandablePanel]`, then only a button element can be used as expandable panel trigger.
+
 ## Imports
 
 You have to import the `DtExpandablePanelModule` when you want to use the `dt-expandable-panel`.
@@ -33,16 +35,14 @@ To apply the Dynatrace expandable panel, use the `<dt-expandable-panel>` element
 
 <docs-source-example example="DefaultExpandablePanelExample"></docs-source-example>
 
-## Expandable panel
-
-### Inputs
+## Inputs
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `expanded` | `boolean` | `false` | Sets or gets the panel's expanded state. |
 | `disabled` | `boolean` | `false` | Sets or gets the panel's disabled state. |
 
-### Outputs
+## Outputs
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ To apply the Dynatrace expandable panel, use the `<dt-expandable-panel>` element
 | `expanded` | `EventEmitter<void>` | Event emitted when the panel is expanded. |
 | `collapsed` | `EventEmitter<void>` | Event emitted when the panel is collapsed. |
 
-### Properties
+## Properties
 
 | Name | Type | Description |
 | --- | --- | --- |
