@@ -1,4 +1,4 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -37,7 +37,7 @@ import {
 } from './constants';
 import { CdkTrapFocus } from '@angular/cdk/a11y';
 
-/** @internal */
+/** @internal Event that gets emitted when the internal state of the range changes */
 export class RangeStateChangedEvent {
   constructor(
     public left: number,
@@ -79,7 +79,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     return this._min;
   }
   set min(min: number) {
-    this._min = parseInt(`${min}`, 10) || DT_RANGE_DEFAULT_MIN;
+    this._min = coerceNumberProperty(min, DT_RANGE_DEFAULT_MIN);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -92,7 +92,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     return this._max;
   }
   set max(max: number | null) {
-    this._max = parseInt(`${max}`, 10) || null;
+    this._max = coerceNumberProperty(max, null);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -154,7 +154,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   @ViewChildren('range')
   _rangeElementRef: QueryList<ElementRef<HTMLDivElement>>;
 
-  /** @internal function to calculate the px position of a provided value on the xAxis */
+  /** @internal Function to calculate the px position of a provided value on the xAxis */
   get _valueToPixels():
     | ((value: number, paneCoordinates?: boolean) => number)
     | null {
@@ -200,27 +200,27 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     this._reflectValueToDom();
   }
 
-  /** @internal subject that emits when the close button of the overlay was triggered */
+  /** @internal Subject that emits when the close button of the overlay was triggered */
   readonly _closeOverlay = new Subject<void>();
 
-  /** @internal state changes subject that provides the state with left and width */
+  /** @internal State changes subject that provides the state with left and width */
   readonly _stateChanges = new Subject<RangeStateChangedEvent>();
 
   /** @internal Event that emits when a handle receives a mousedown event */
   readonly _handleDragStarted = new Subject<DtSelectionAreaEventTarget>();
 
-  /** @internal the maximum value that can be selected on the xAxis */
+  /** @internal The maximum value that can be selected on the xAxis */
   _maxValue: number;
 
-  /** @internal the minimal value that can be selected on the xAxis */
+  /** @internal The minimal value that can be selected on the xAxis */
   _minValue: number;
 
-  /** @internal function that provides a value on the xAxis for a provided px value */
+  /** @internal Function that provides a value on the xAxis for a provided px value */
   _pixelsToValue:
     | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
     | null = null;
 
-  /** @internal function to calculate the px position of a provided value on the xAxis */
+  /** @internal Function to calculate the px position of a provided value on the xAxis */
   private _valueToPixelsFn:
     | ((value: number, paneCoordinates?: boolean) => number)
     | null = null;
@@ -263,6 +263,13 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
         this._reflectValueToDom();
         this._reflectRangeValid();
       });
+  }
+
+  /** Focuses the range element. */
+  focus(): void {
+    if (this._rangeElementRef && this._rangeElementRef.first) {
+      this._rangeElementRef.first.nativeElement.focus();
+    }
   }
 
   /**
