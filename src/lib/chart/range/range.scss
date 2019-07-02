@@ -72,24 +72,23 @@ $range-valid-color: $gray-300;
 .dt-chart-range-container:focus,
 .dt-chart-right-handle:focus,
 .dt-chart-left-handle:focus {
-  dt-icon:before {
+
+  dt-icon::before,
+  dt-icon::after {
     content: '';
     position: absolute;
     width: 17px;
     height: $focus-outline-width;
     background: $focuscolor;
-    top: 9px;
     right: 6px;
+  }
+
+  dt-icon::before {
+    top: 9px;
     transform: rotate(53deg);
   }
 
-  dt-icon:after {
-    content: '';
-    position: absolute;
-    width: 17px;
-    height: $focus-outline-width;
-    background: $focuscolor;
-    right: 6px;
+  dt-icon::after {
     bottom: 9px;
     transform: rotate(-53deg);
   }
