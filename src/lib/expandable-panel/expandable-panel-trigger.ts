@@ -3,7 +3,8 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectorRef,
   Directive,
-  Input, OnDestroy,
+  Input,
+  OnDestroy,
 } from '@angular/core';
 import { DtExpandablePanel } from './expandable-panel';
 import { CanDisable, readKeyCode } from '@dynatrace/angular-components/core';

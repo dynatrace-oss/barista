@@ -72,3 +72,7 @@ To apply the Dynatrace expandable panel, use the `<dt-expandable-section>` eleme
 ### Interactive
 
 <docs-source-example example="InteractiveExpandableSectionExample"></docs-source-example>
+
+### Dark background
+
+<docs-source-example example="DarkExpandableSectionExample"></docs-source-example>
