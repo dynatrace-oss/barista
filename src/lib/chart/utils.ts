@@ -1,6 +1,7 @@
-import { fromEvent, Observable, merge, OperatorFunction } from 'rxjs';
-import { QueryList, ElementRef } from '@angular/core';
-import { map, filter } from 'rxjs/operators';
+import { FocusTrap } from '@angular/cdk/a11y';
+import { ElementRef, QueryList } from '@angular/core';
+import { fromEvent, merge, Observable, OperatorFunction } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 /**
  * @internal
@@ -119,4 +120,56 @@ export function getRelativeMousePosition(
       (offsetTop - window.pageYOffset) +
       container.scrollTop,
   };
+}
+
+/**
+ * @internal
+ * Joins multiple focus traps together.
+ * @param traps The array of traps that should be joined
+ * @param trapContainers The trap containers of the traps in the same sort direction as the traps
+ */
+export function chainFocusTraps(
+  traps: FocusTrap[],
+  trapContainers: HTMLElement[]
+): void {
+  if (traps.length !== trapContainers.length) {
+    return;
+  }
+
+  // tslint:disable-next-line: one-variable-per-declaration
+  for (let i = 0, max = traps.length; i < max; i++) {
+    const anchors: HTMLElement[] = [].slice.call(
+      trapContainers[i].querySelectorAll('.cdk-focus-trap-anchor')
+    );
+    const nextTrap = i + 1 === max ? traps[0] : traps[i + 1];
+
+    // Focus trap has always two elements a start and an end
+    // tslint:disable-next-line: no-magic-numbers
+    if (anchors.length === 2) {
+      chainFocusToNextTrap(anchors[0], nextTrap, false);
+      chainFocusToNextTrap(anchors[1], nextTrap, true);
+    }
+  }
+}
+
+/**
+ * @internal
+ * Chain Focus to another trap when a focus is triggered on a provided element
+ * @param target The target element where the focus should be captured
+ * @param nextTrap The next trap where the focus should be set
+ * @param first Wether the focus should be set to the last or first tabbable element.
+ */
+export function chainFocusToNextTrap(
+  target: HTMLElement,
+  nextTrap: FocusTrap,
+  first: boolean
+): void {
+  target.addEventListener('focus', (event: FocusEvent) => {
+    event.preventDefault();
+    if (first) {
+      nextTrap.focusFirstTabbableElement();
+    } else {
+      nextTrap.focusLastTabbableElement();
+    }
+  });
 }

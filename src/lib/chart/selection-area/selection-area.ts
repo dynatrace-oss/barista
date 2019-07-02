@@ -1,3 +1,4 @@
+import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import {
   FlexibleConnectedPositionStrategy,
   Overlay,
@@ -41,11 +42,17 @@ import {
   takeUntil,
   tap,
   throttleTime,
+  switchMap,
 } from 'rxjs/operators';
 import { DtChart } from '../chart';
 import { DtChartRange } from '../range/range';
 import { DtChartTimestamp } from '../timestamp/timestamp';
-import { getElementRef, getRelativeMousePosition, setPosition } from '../utils';
+import {
+  chainFocusTraps,
+  getElementRef,
+  getRelativeMousePosition,
+  setPosition,
+} from '../utils';
 import {
   DT_SELECTION_AREA_OVERLAY_POSITIONS,
   ERROR_NO_PLOT_BACKGROUND,
@@ -76,7 +83,8 @@ import {
   preserveWhitespaces: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'dt-chart-selection-area dt-no-pointer-events',
+    'class': 'dt-chart-selection-area dt-no-pointer-events',
+    '[attr.tabindex]': '0',
   },
 })
 export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
@@ -98,7 +106,12 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   private _range?: DtChartRange;
   private _timestamp?: DtChartTimestamp;
 
+  /** The ref of the selection area overlay */
   private _overlayRef: OverlayRef | null;
+
+  /** The focus trap inside the overlay */
+  private _overlayFocusTrap: FocusTrap | null;
+
   private _portal: TemplatePortal | null;
 
   /**
@@ -119,6 +132,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   constructor(
     @SkipSelf() private _chart: DtChart,
     private _elementRef: ElementRef<HTMLElement>,
+    private _focusTrapFactory: FocusTrapFactory,
     private _renderer: Renderer2,
     private _overlay: Overlay,
     private _zone: NgZone
@@ -224,6 +238,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     overlayRef.attach(this._portal);
 
     this._overlayRef = overlayRef;
+
+    if (!this._overlayFocusTrap) {
+      this._overlayFocusTrap = this._focusTrapFactory.create(
+        this._overlayRef.overlayElement
+      );
+      this._attachFocusTrapListeners();
+    }
   }
 
   /** Updates or creates an overlay for the range or timestamp. */
@@ -247,6 +268,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     if (this._overlayRef) {
       this._overlayRef.dispose();
     }
+
+    // if we have a focus trap we have to destroy it
+    if (this._overlayFocusTrap) {
+      this._overlayFocusTrap.destroy();
+    }
+
+    this._overlayFocusTrap = null;
     this._overlayRef = null;
     this._portal = null;
   }
@@ -311,7 +339,16 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       this._click$.pipe(takeUntil(this._destroy$)).subscribe(({ x }) => {
         if (this._timestamp) {
           this._timestamp._position = x;
-          this._timestamp._emitStateChanges();
+        }
+      });
+
+      // after a click happened and the timestamp is visible in the queryList we focus the timestamp
+      this._click$.pipe(
+        switchMap(() => this._timestamp!._timestampElementRef.changes)
+      ).subscribe(() => {
+        // query list is not always present
+        if (this._timestamp && this._timestamp._timestampElementRef.first) {
+          this._timestamp._timestampElementRef.first.nativeElement.focus();
         }
       });
     }
@@ -405,6 +442,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
               // if the drag is completed we can emit a stateChanges
               if (resize < 0) {
                 this._range._emitDragEnd();
+
+                // query list is not always present
+                if (this._range._rangeElementRef.first) {
+                  this._range._rangeElementRef.first.nativeElement.focus();
+                }
               }
             }
 
@@ -579,6 +621,40 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         .subscribe((x: number) => {
           this._reflectHairlinePositionToDom(x);
         });
+    });
+  }
+
+  /** Attaches the event listeners for the focus traps connected to each other */
+  private _attachFocusTrapListeners(): void {
+    this._zone.runOutsideAngular(() => {
+
+      if (
+        !this._overlayFocusTrap ||
+        !this._overlayRef
+      ) {
+        return;
+      }
+
+      const traps = [this._overlayFocusTrap];
+      const anchors = [this._overlayRef.hostElement];
+
+      if (
+        this._range &&
+        this._range._rangeElementRef.first
+      ) {
+        traps.push(this._range._selectedAreaFocusTrap.focusTrap);
+        anchors.push(this._range._viewContainerRef.element.nativeElement);
+      }
+
+      if (
+        this._timestamp &&
+        this._timestamp._timestampElementRef.first
+      ) {
+        traps.push(this._timestamp._selectedFocusTrap.focusTrap);
+        anchors.push(this._timestamp._viewContainerRef.element.nativeElement);
+      }
+
+      chainFocusTraps(traps, anchors);
     });
   }
 

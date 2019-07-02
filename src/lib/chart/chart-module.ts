@@ -14,6 +14,7 @@ import { DtChartSelectionAreaAction } from './selection-area/overlay-action';
 import { DtChartSelectionArea } from './selection-area/selection-area';
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
+import { A11yModule } from '@angular/cdk/a11y';
 
 /** components that should be declared and exported */
 const COMPONENTS = [
@@ -31,6 +32,7 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     DtLoadingDistractorModule,
+    A11yModule,
     OverlayModule,
     DtIconModule,
     DtButtonModule,

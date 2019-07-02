@@ -18,6 +18,10 @@ $range-valid-color: $gray-300;
   justify-content: space-between;
   position: absolute;
   opacity: 0;
+
+  &:focus {
+    @include dt-focus-style();
+  }
 }
 
 .dt-chart-selected-area {
@@ -61,6 +65,33 @@ $range-valid-color: $gray-300;
 
   &:focus {
     @include dt-focus-style();
+  }
+}
+
+// tweaked focus style for our arrows
+.dt-chart-range-container:focus,
+.dt-chart-right-handle:focus,
+.dt-chart-left-handle:focus {
+  dt-icon:before {
+    content: '';
+    position: absolute;
+    width: 17px;
+    height: $focus-outline-width;
+    background: $focuscolor;
+    top: 9px;
+    right: 6px;
+    transform: rotate(53deg);
+  }
+
+  dt-icon:after {
+    content: '';
+    position: absolute;
+    width: 17px;
+    height: $focus-outline-width;
+    background: $focuscolor;
+    right: 6px;
+    bottom: 9px;
+    transform: rotate(-53deg);
   }
 }
 
