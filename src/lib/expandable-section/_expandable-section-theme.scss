@@ -4,20 +4,27 @@
   @if ($is-dark == true) {
     :host .dt-expandable-section-header,
     :host .dt-expandable-section-header-trigger {
-      color: #ffffff;
+      color: $gray-200;
 
       .dt-expandable-section-arrow {
-        fill: #ffffff;
+        fill: $turquoise-500;
+      }
+
+      ~ .dt-expandable-section-header-line {
+        border-bottom-color: $gray-400;
       }
     }
 
-    // TODO: get input about hover state from UX
-    // :host .dt-expandable-section-header-trigger:hover {
-    //   color: #ffffff;
+    :host .dt-expandable-section-header-trigger:hover {
+      color: #ffffff;
 
-    //   .dt-expandable-section-arrow ::ng-deep svg {
-    //     fill: #ffffff;
-    //   }
-    // }
+      .dt-expandable-section-arrow ::ng-deep svg {
+        fill: $turquoise-400;
+      }
+
+      ~ .dt-expandable-section-header-line {
+        border-bottom-color: $gray-200;
+      }
+    }
   }
 }

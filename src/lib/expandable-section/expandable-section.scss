@@ -36,17 +36,9 @@
   @include dt-focus-style();
 }
 
-.dt-expandable-section-header-trigger:hover {
-  color: $gray-700;
-
-  .dt-expandable-section-arrow ::ng-deep svg {
-    fill: $turquoise-700;
-  }
-}
-
 .dt-expandable-section-header-line {
   flex-grow: 1;
-  border-bottom: 1px solid $gray-400;
+  border-bottom: 1px solid $gray-500;
 }
 
 .dt-expandable-section-header-trigger {
@@ -60,6 +52,18 @@
   margin: 2px;
   padding: 0;
   position: relative;
+}
+
+.dt-expandable-section-header-trigger:hover {
+  color: $gray-900;
+
+  .dt-expandable-section-arrow ::ng-deep svg {
+    fill: $turquoise-700;
+  }
+
+  ~ .dt-expandable-section-header-line {
+    border-bottom-color: $gray-700;
+  }
 }
 
 :host.dt-expandable-section-disabled {
