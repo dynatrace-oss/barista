@@ -52,12 +52,12 @@ Switches without text or labels should be given a meaningful label via `aria-lab
 
 ### Default
 
-<docs-source-example example="DefaultSwitchExampleComponent"></docs-source-example>
+<docs-source-example example="SwitchDefaultExample"></docs-source-example>
 
 ### Responsive
 
-<docs-source-example example="ResponsiveSwitchExampleComponent"></docs-source-example>
+<docs-source-example example="SwitchResponsiveExample"></docs-source-example>
 
-### Dark background
+### Dark theme
 
-<docs-source-example example="DarkThemeSwitchExampleComponent" themedark="true"></docs-source-example>
+<docs-source-example example="SwitchDarkExample" themedark="true"></docs-source-example>

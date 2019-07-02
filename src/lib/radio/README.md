@@ -71,7 +71,7 @@ Individual radio-buttons inside of a radio-group will inherit the name of the gr
 
 All radio-buttons with the same name comprise a set from which only one may be selected at a time.
 
-<docs-source-example example="NameGroupingRadioExample"></docs-source-example>
+<docs-source-example example="RadioNameGroupingExample"></docs-source-example>
 
 ## Angular forms
 
@@ -88,12 +88,12 @@ Radio button groups should be given a meaningful label via `aria-label` or `aria
 
 ### Default
 
-<docs-source-example example="DefaultRadioExample"></docs-source-example>
+<docs-source-example example="RadioDefaultExample"></docs-source-example>
 
 ### Responsive
 
-<docs-source-example example="ResponsiveRadioExample"></docs-source-example>
+<docs-source-example example="RadioResponsiveExample"></docs-source-example>
 
-### Dark background
+## Dark theme
 
-<docs-source-example example="DarkRadioExample" themedark="true"></docs-source-example>
+<docs-source-example example="RadioDarkExample" themedark="true"></docs-source-example>

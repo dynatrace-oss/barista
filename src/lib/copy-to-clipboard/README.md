@@ -8,7 +8,7 @@ The `<dt-copy-to-clipboard>` creates a container including a textarea, input or 
 
 Using `<dt-copy-to-clipboard-label>` defines the button content (e.g. text like "click here to copy").
 
-<docs-source-example example="DefaultCopyToClipboardExampleComponent"></docs-source-example>
+<docs-source-example example="CopyToClipboardDefaultExample"></docs-source-example>
 
 ## Imports
 
@@ -47,15 +47,12 @@ class MyModule {}
 
 ### With Callback
 
-<docs-source-example example="CallbackCopyToClipboardExampleComponent"></docs-source-example>
+<docs-source-example example="CopyToClipboardCallbackExample"></docs-source-example>
 
 ### Dark theme
 
-<docs-source-example example="DarkCopyToClipboardExampleComponent" themedark="true"></docs-source-example>
+<docs-source-example example="CopyToClipboardDarkExample" themedark="true"></docs-source-example>
 
 ### Example within context dialog
 
-<docs-source-example example="ContextCopyToClipboardExampleComponent"></docs-source-example>
-
-
-
+<docs-source-example example="CopyToClipboardContextExample"></docs-source-example>

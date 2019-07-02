@@ -12,6 +12,6 @@ import { Component } from '@angular/core';
     <span>model: <code>{{ sampleModel }}</code></span>
   `,
 })
-export class DefaultInlineEditorExample {
+export class InlineEditorDefaultExample {
   sampleModel = 'text content';
 }

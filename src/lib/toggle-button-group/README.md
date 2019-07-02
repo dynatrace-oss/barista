@@ -4,8 +4,6 @@ type: "component"
 
 # ToggleButtonGroup
 
-<docs-source-example example="DefaultToggleButtonExampleComponent"></docs-source-example>
-
 ## Imports
 
 You have to import the `DtToggleButtonGroupModule` when you want to use the `<dt-toggle-button-group>`:
@@ -71,4 +69,10 @@ The `<dt-toggle-button-item>` can hold any content which will be rendered into t
 
 ## Examples
 
-<docs-source-example example="DynamicItemsToggleButtonExampleComponent"></docs-source-example>
+### Default
+
+<docs-source-example example="ToggleButtonGroupDefaultExample"></docs-source-example>
+
+### Dynamic items
+
+<docs-source-example example="ToggleButtonGroupDynamicItemsExample"></docs-source-example>
