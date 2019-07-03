@@ -34,8 +34,8 @@
 </div>
 <hr>
 
-<p dt-highlight term="wher">
-  Some text where a part should <em>be</em> highlighted
+<p dt-highlight term="highlighted?">
+  Some text where a part should b highlighted?
 </p>
 <hr>
 
@@ -54,9 +54,14 @@
   Nobis aeterno maiorum sed in. Facilis iracundia temporibus ei ius, voluptaria appellantur te eos, ad civibus omnesque mel.
 </dt-highlight>
 <br>
+<hr>
 
 <input type="text" dtInput value="Dy" #search (keyup)="0"/>
 <dt-highlight [term]="search.value" caseSensitive>Dynatrace system Monitoring</dt-highlight>
+<hr>
+
+<input type="text" dtInput #search2 (keyup)="void" />
+<dt-highlight [term]="search2.value">HTTP-Monitoring</dt-highlight>
 <hr>
 
 <dt-highlight term="Jane">
