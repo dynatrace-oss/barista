@@ -121,3 +121,29 @@
 <h2>Only Chart</h2>
 <dt-chart [options]="options" [series]="series">
 </dt-chart> -->
+
+<hr />
+
+<dt-chart
+  [options]="lineChartWithGapsOptions"
+  [series]="lineChartWithGapsSeries"
+></dt-chart>
+
+<hr />
+
+<dt-chart [options]="barChartOptions" [series]="barChartSeries"></dt-chart>
+
+<hr />
+
+<dt-chart [options]="donutChartOptions" [series]="donutChartSeries"></dt-chart>
+
+<hr />
+
+<dt-chart [options]="lineChartOptions" [series]="lineChartSeries"></dt-chart>
+
+<hr />
+
+<dt-chart
+  [options]="minMaxChartOptions"
+  [series]="minMaxChartSeries"
+></dt-chart>
