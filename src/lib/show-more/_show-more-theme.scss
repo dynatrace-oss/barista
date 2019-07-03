@@ -1,0 +1,27 @@
+@mixin dt-theme-show-more($theme) {
+  $is-dark: map-get($theme, 'is-dark');
+
+  @if ($is-dark == true) {
+
+    :host {
+      .dt-show-more-label {
+        color: $gray-200;
+      }
+
+      > dt-icon {
+        fill: $turquoise-500;
+      }
+
+      &:hover:not(.dt-show-more-disabled) {
+
+        .dt-show-more-label {
+          color: #ffffff;
+        }
+
+        > dt-icon {
+          fill: $turquoise-400;
+        }
+      }
+    }
+  }
+}
