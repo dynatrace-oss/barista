@@ -28,6 +28,7 @@ import { startWith } from 'rxjs/operators';
     :host {
       display: flex;
       align-items: flex-start;
+      flex-direction: column;
     }
 
     dt-pagination {
