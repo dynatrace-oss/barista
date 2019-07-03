@@ -111,11 +111,6 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   }
 
   ngOnDestroy(): void {
-    // When a sorted header is being destroyed at runtime, we need to update the dtSort
-    // to unset the current sorting state.
-    if (this._sort) {
-      this._sort._unregister(this);
-    }
     this._rerenderSubscription.unsubscribe();
   }
 
