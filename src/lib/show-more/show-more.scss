@@ -7,11 +7,10 @@
 :host {
   box-sizing: border-box;
   @include dt-main-font();
-  cursor: pointer;
   display: block;
   text-align: center;
 
-  button {
+  .dt-show-more-label {
     @include dt-main-font();
     border: 0;
     box-sizing: border-box;
@@ -37,8 +36,15 @@
     transition: transform 400ms;
   }
 
-  &.dt-show-more-disabled dt-icon ::ng-deep svg {
-    fill: $disabledcolor;
+  &.dt-show-more-disabled {
+    .dt-show-more-label {
+      color: $disabledcolor;
+      cursor: default;
+    }
+
+    dt-icon {
+      fill: $disabledcolor;
+    }
   }
 
   &:focus:not(.dt-show-more-disabled) {
@@ -46,6 +52,8 @@
   }
 
   &:hover:not(.dt-show-more-disabled) {
+    cursor: pointer;
+
     .dt-show-more-label {
       color: $turquoise-700;
     }
