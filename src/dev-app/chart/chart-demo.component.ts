@@ -1,4 +1,10 @@
+// tslint:disable no-magic-numbers no-any max-file-line-count
+
 import { Component, ViewChild } from '@angular/core';
+import {
+  generateAreaRangeData,
+  generateData,
+} from '../../barista-examples/chart/chart-data-utils';
 import { DtSelectChange } from '../../lib';
 import { DtChartRange } from '../../lib/chart/range/range';
 import { DtChartTimestamp } from '../../lib/chart/timestamp/timestamp';
@@ -9,7 +15,6 @@ import { DtChartTimestamp } from '../../lib/chart/timestamp/timestamp';
   styleUrls: ['./chart-demo.component.scss'],
 })
 export class ChartDemo {
-  toggled = true;
   validRange = false;
   options: Highcharts.Options = {
     xAxis: {
@@ -17,14 +22,18 @@ export class ChartDemo {
     },
     yAxis: [
       {
-        title: null,
+        title: {
+          text: null,
+        },
         labels: {
           format: '{value}',
         },
         tickInterval: 10,
       },
       {
-        title: null,
+        title: {
+          text: null,
+        },
         labels: {
           format: '{value}/min',
         },
@@ -111,4 +120,232 @@ export class ChartDemo {
   rangeValidChanges(valid: boolean): void {
     this.validRange = valid;
   }
+
+  lineChartWithGapsOptions: Highcharts.Options = {
+    chart: {
+      type: 'line',
+    },
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: [
+      {
+        title: {
+          text: null,
+        },
+        type: 'linear',
+        tickInterval: 25,
+        labels: {
+          format: '{value} %',
+        },
+      },
+    ],
+    plotOptions: {
+      series: {
+        marker: {
+          enabled: false,
+        },
+      },
+    },
+  };
+  lineChartWithGapsSeries: Highcharts.LineChartSeriesOptions[] = [
+    {
+      name: 'Requests',
+      data: generateData(40, 0, 75, 1370304000000, 600000, true),
+    },
+    {
+      name: 'Failed requests',
+      data: generateData(40, 0, 75, 1370304000000, 600000, true),
+    },
+    {
+      name: 'Failure rate',
+      data: generateData(40, 0, 75, 1370304000000, 600000, true),
+    },
+  ];
+
+  barChartOptions: Highcharts.Options = {
+    chart: {
+      type: 'bar',
+    },
+    xAxis: {
+      title: {
+        text: null,
+      },
+      categories: [
+        'First item',
+        'Second item',
+        'Third item',
+        'Fourth item',
+        'Fifth item',
+      ],
+    },
+    yAxis: {
+      title: {
+        text: null,
+      },
+      labels: {
+        format: '{value} %',
+      },
+    },
+    plotOptions: {
+      pie: {
+        showInLegend: true,
+        shadow: false,
+        innerSize: '80%',
+        borderWidth: 0,
+      },
+    },
+  };
+  barChartSeries: Highcharts.BarChartSeriesOptions[] = [
+    {
+      name: 'Metric',
+      data: [60, 86, 25, 43, 28],
+    },
+  ];
+
+  donutChartOptions: Highcharts.Options = {
+    chart: {
+      type: 'pie',
+      plotBorderWidth: 0,
+    },
+    legend: {
+      align: 'right',
+      enabled: true,
+      layout: 'vertical',
+      symbolRadius: 0,
+      verticalAlign: 'middle',
+      floating: true,
+    },
+    plotOptions: {
+      pie: {
+        showInLegend: true,
+        shadow: false,
+        innerSize: '80%',
+        borderWidth: 0,
+      },
+    },
+  };
+  donutChartSeries: Highcharts.PieChartSeriesOptions[] = [
+    {
+      data: [
+        {
+          name: 'Canada',
+          y: 55,
+        },
+        {
+          name: 'Italy',
+          y: 25,
+        },
+        {
+          name: 'United States',
+          y: 15,
+        },
+        {
+          name: 'France',
+          y: 5,
+        },
+      ],
+    },
+  ];
+
+  lineChartOptions: Highcharts.Options = {
+    chart: {
+      type: 'line',
+    },
+    xAxis: {
+      title: {
+        text: null,
+      },
+      type: 'datetime',
+    },
+    yAxis: [
+      {
+        title: {
+          text: null,
+        },
+        labels: {
+          format: '{value} ms',
+        },
+        tickInterval: 25,
+      },
+    ],
+  };
+  lineChartSeries: Highcharts.LineChartSeriesOptions[] = [
+    {
+      name: 'Host 1',
+      data: generateData(10, 0, 45, 1370304000000, 900000),
+    },
+    {
+      name: 'Host 2',
+      data: generateData(10, 0, 45, 1370304000000, 900000),
+    },
+    {
+      name: 'Host 3',
+      data: generateData(10, 0, 45, 1370304000000, 900000),
+    },
+    {
+      name: 'Host 4',
+      data: generateData(10, 0, 45, 1370304000000, 900000),
+    },
+    {
+      name: 'Host 5',
+      data: generateData(10, 0, 45, 1370304000000, 900000),
+    },
+    {
+      name: 'Host 6',
+      data: generateData(10, 0, 45, 1370304000000, 900000),
+    },
+  ];
+
+  private _minMaxChartLineSeries = generateData(
+    20,
+    20,
+    40,
+    1370304000000,
+    900000
+  );
+  minMaxChartOptions: Highcharts.Options = {
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: {
+      title: {
+        text: null,
+      },
+      type: 'datetime',
+      labels: {
+        format: '{value} ms',
+      },
+    },
+    plotOptions: {
+      series: {
+        marker: {
+          enabled: false,
+        },
+      },
+      arearange: {
+        lineWidth: 0,
+        states: {
+          hover: undefined,
+        },
+      },
+    },
+  };
+  minMaxChartSeries: Highcharts.IndividualSeriesOptions[] = [
+    {
+      name: 'Bar 1',
+      type: 'column',
+      data: generateData(20, 20, 40, 1370304000000, 900000),
+    },
+    {
+      name: 'Area 1',
+      type: 'arearange',
+      data: generateAreaRangeData(this._minMaxChartLineSeries, 4, 8),
+    },
+    {
+      name: 'Line 1',
+      type: 'line',
+      data: this._minMaxChartLineSeries,
+    },
+  ];
 }

@@ -12,7 +12,7 @@ You have to import the `DtChartModule` when you want to use the `dt-chart`:
 
 ```typescript
 @NgModule({
-  imports: [DtChartModule],
+  imports: [DtChartModule]
 })
 class MyModule {}
 ```
@@ -114,13 +114,33 @@ The chart supports adding heatfields. The `dt-chart` component takes `dt-chart-h
 
 <docs-source-example example="ChartCategorizedExample" fullwidth="true"></docs-source-example>
 
+### Line chart
+
+<docs-source-example example="ChartLineExample" fullwidth="true"></docs-source-example>
+
+### Line chart with data gaps
+
+<docs-source-example example="ChartLineWithGapsExample" fullwidth="true"></docs-source-example>
+
+### Bar chart
+
+<docs-source-example example="ChartBarExample" fullwidth="true"></docs-source-example>
+
 ### Pie chart
 
-<docs-source-example example="ChartPieExample" fullwidth="true"></docs-source-example>
+<docs-source-example example="ChartPieExample"></docs-source-example>
+
+### Donut chart
+
+<docs-source-example example="ChartDonutExample"></docs-source-example>
 
 ### AreaRange chart
 
 <docs-source-example example="ChartAreaRangeExample" fullwidth="true"></docs-source-example>
+
+### Min-Max chart
+
+<docs-source-example example="ChartMinMaxExample" fullwidth="true"></docs-source-example>
 
 ### Heatfield & Overload prevention
 
