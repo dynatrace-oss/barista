@@ -60,6 +60,8 @@ export class DtShowMore {
 
   /** @internal emits the change */
   _fireChange(): void {
-    this.changed.emit();
+    if (!this._disabled) {
+      this.changed.emit();
+    }
   }
 }
