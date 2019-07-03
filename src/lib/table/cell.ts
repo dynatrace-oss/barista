@@ -22,7 +22,6 @@ import { Subject, merge, Subscription } from 'rxjs';
 import { isDefined, addCssClass, DtIndicator, removeCssClass } from '@dynatrace/angular-components/core';
 import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
 import { DtSort, DtSortEvent } from './sort/sort';
-import { DtSortHeader } from './sort/sort-header';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
@@ -125,14 +124,6 @@ export class DtCell implements AfterContentInit, OnDestroy {
           // If event is void, it is being unregisterd.
           this._isSorted = sort.active === this._columnDef.name;
           this._changeDetectorRef.detectChanges();
-        });
-      dtSortable._unregisterSortable
-        .pipe(takeUntil(this._destroy))
-        .subscribe((sort: DtSortHeader) => {
-          if (sort.id === this._columnDef.name) {
-            this._isSorted = false;
-            this._changeDetectorRef.detectChanges();
-          }
         });
     }
 
