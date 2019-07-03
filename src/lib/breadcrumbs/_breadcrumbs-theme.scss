@@ -1,8 +1,11 @@
+@import '../core/style/interactive-common';
+
 @mixin dt-theme-breadcrumbs($theme, $theme-name) {
   $palette-names: 'main', 'error', 'neutral';
   $default-palette: 'main';
 
   @each $name in $palette-names {
+    $is-dark: map-get($theme, 'is-dark');
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
     $hover-color: dt-get-theme-color($palette, 'hover');
@@ -18,6 +21,11 @@
 
       &::after {
         border-left-color: $active-color;
+      }
+
+      @if ($is-dark == true) {
+        // Apply focus to CDK focus monitored elements
+        @include dt-cdkmonitor-focus-style(true);
       }
     }
 

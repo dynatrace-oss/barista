@@ -1,27 +1,20 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
+@import '../core/style/interactive-common';
 @import '../core/theming/theming';
 @import './button-group-item-theme';
 
-@mixin boxShadowSelected($width, $color) {
-  box-shadow: $width 0 0 0 $color, 0 $width 0 0 $color, $width $width 0 0 $color,
-    $width 0 0 0 $color inset, 0 $width 0 0 $color inset;
-}
-@mixin boxShadowFocus() {
-  box-shadow: 0 0 0 2px $gray-300;
-}
-@mixin boxShadowSelectedFocus($width, $color) {
-  box-shadow: $width 0 0 0 $color, 0 $width 0 0 $color, $width $width 0 0 $color,
-    $width 0 0 0 $color inset, 0 $width 0 0 $color inset, 0 0 0 1px $gray-300,
-    2px 0 0 0 $gray-300, 0 2px 0 0 $gray-300;
-}
-
 :host {
   background-color: transparent;
-  border: none;
   outline: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $gray-300;
 
   @include dt-main-font(32px);
+
+  // Apply focus to CDK focus monitored elements
+  @include dt-cdkmonitor-focus-style();
 
   padding: 0 12px;
   vertical-align: middle;
@@ -31,6 +24,7 @@
 
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-left: -1px;
 
   &:hover {
     z-index: 2;
@@ -40,6 +34,7 @@
 
   &:first-child {
     border-radius: 3px 0 0 3px;
+    margin-left: 0;
   }
 
   &:last-child {

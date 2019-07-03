@@ -55,8 +55,12 @@ export class DevApp {
   selectedTheme = 'turquoise';
   themes = [
     { value: 'turquoise', name: 'Turquoise' },
+    { value: 'turquoise:dark', name: 'Turquoise dark' },
     { value: 'blue', name: 'Blue' },
+    { value: 'blue:dark', name: 'Blue dark' },
     { value: 'purple', name: 'Purple' },
+    { value: 'purple:dark', name: 'Purple dark' },
     { value: 'royalblue', name: 'Royalblue' },
+    { value: 'royalblue:dark', name: 'Royalblue dark' },
   ];
 }

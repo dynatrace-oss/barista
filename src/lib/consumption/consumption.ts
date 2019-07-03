@@ -26,6 +26,7 @@ import {
   readKeyCode,
 } from '@dynatrace/angular-components/core';
 import { DtConsumptionOverlay } from './consumption-directives';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 export type DtConsumptionThemePalette = 'main' | 'warning' | 'error';
 
@@ -137,9 +138,11 @@ export class DtConsumption extends _DtConsumption
     readonly _elementRef: ElementRef<HTMLElement>,
     private readonly _overlay: Overlay,
     private readonly _viewContainerRef: ViewContainerRef,
-    private readonly _changeDetectorRef: ChangeDetectorRef
+    private readonly _changeDetectorRef: ChangeDetectorRef,
+    private _focusMonitor: FocusMonitor
   ) {
     super(_elementRef);
+    this._focusMonitor.monitor(this._elementRef);
   }
 
   ngAfterViewInit(): void {
@@ -149,6 +152,7 @@ export class DtConsumption extends _DtConsumption
   }
 
   ngOnDestroy(): void {
+    this._focusMonitor.stopMonitoring(this._elementRef);
     this._destroyOverlay();
   }
 
