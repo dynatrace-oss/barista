@@ -1,6 +1,8 @@
 @import '../style/font-mixins';
 @import '../core/style/interactive-common';
 @import '../core/style/variables';
+@import '../core/theming/theming';
+@import './show-more-theme';
 
 :host {
   box-sizing: border-box;
@@ -44,7 +46,9 @@
   }
 
   &:hover:not(.dt-show-more-disabled) {
-    color: $turquoise-700;
+    .dt-show-more-label {
+      color: $turquoise-700;
+    }
 
     dt-icon {
       fill: $turquoise-700;
@@ -62,4 +66,8 @@
   &:empty {
     margin-bottom: 0;
   }
+}
+
+@include dt-apply-theme() {
+  @include dt-theme-show-more($dt-current-theme);
 }
