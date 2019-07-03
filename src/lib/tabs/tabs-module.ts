@@ -8,9 +8,10 @@ import { DtTabLabel } from './tab/tab-label';
 import { DtTabContent } from './tab/tab-content';
 import { DtTabBody, DtTabBodyPortal } from './tab/tab-body';
 import { DtTabGroupNavigation } from './navigation/tab-group-navigation';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
-  imports: [CommonModule, PortalModule, DtColorModule],
+  imports: [A11yModule, CommonModule, PortalModule, DtColorModule],
   exports: [DtTabGroup, DtTab, DtTabLabel, DtTabContent, DtTabGroupNavigation],
   declarations: [
     DtTabGroup,

@@ -19,11 +19,7 @@
     }
 
     #{$namespace} {
-      @include boxShadowSelected(1px, $border-color);
-
-      &:focus {
-        @include boxShadowFocus();
-      }
+      border-color: $border-color;
     }
 
     #{$namespace}.dt-button-group-item:not(.dt-button-group-item-disabled) {
@@ -32,7 +28,7 @@
 
     #{$namespace}.dt-button-group-item:hover {
       color: $hover-color;
-      @include boxShadowSelected(1px, $hover-color);
+      border-color: $hover-color;
     }
 
     #{$namespace}.dt-button-group-item.dt-button-group-item-selected,
@@ -42,12 +38,7 @@
         position: relative;
         color: $active-color;
         background-color: $background-color;
-
-        @include boxShadowSelected(1px, $active-color);
-
-        &:focus {
-          @include boxShadowSelectedFocus(1px, $active-color);
-        }
+        border-color: $active-color;
       }
     }
   }

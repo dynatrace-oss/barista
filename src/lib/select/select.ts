@@ -28,7 +28,7 @@ import {
   ControlValueAccessor,
 } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager, FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
@@ -434,7 +434,8 @@ export class DtSelect<T> extends _DtSelectMixinBase
     @Optional() _parentFormGroup: FormGroupDirective,
     @Optional() private _parentFormField: DtFormField<T>,
     @Self() @Optional() public ngControl: NgControl,
-    @Attribute('tabindex') tabIndex: string
+    @Attribute('tabindex') tabIndex: string,
+    private _focusMonitor: FocusMonitor
   ) {
     super(
       elementRef,
@@ -454,6 +455,8 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
+
+    this._focusMonitor.monitor(this._elementRef, false);
   }
 
   ngOnInit(): void {
@@ -524,6 +527,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     this._destroy.next();
     this._destroy.complete();
     this.stateChanges.complete();
+    this._focusMonitor.stopMonitoring(this._elementRef);
   }
 
   /** Toggles the overlay panel open or closed. */

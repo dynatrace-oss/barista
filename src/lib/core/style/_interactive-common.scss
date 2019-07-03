@@ -1,9 +1,28 @@
 @import 'variables';
 
 // Mixin overriding default focus styles and setting our own
-@mixin dt-focus-style() {
-  outline: none;
-  box-shadow: 0 0 0 $focus-outline-width $focuscolor;
+@mixin dt-focus-style($is-dark: false) {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-offset: 1px;
+  @if ($is-dark == true) {
+    outline-color: $gray-100;
+  } @else {
+    outline-color: $gray-400;
+  }
+}
+
+// Mixin applying the cdk-keyboard-focus and cdk-program-focus
+// to the calling selector and applies the dt-focus-style
+@mixin dt-cdkmonitor-focus-style($is-dark: false) {
+  &:focus {
+    outline: none;
+  }
+
+  &.cdk-focused.cdk-keyboard-focused,
+  &.cdk-focused.cdk-program-focused {
+    @include dt-focus-style($is-dark);
+  }
 }
 
 // Mixin overriding default styles for interactive elements (button, ..)

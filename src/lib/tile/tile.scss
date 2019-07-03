@@ -29,9 +29,7 @@
     box-shadow: none;
   }
 
-  &:focus:not(.dt-tile-disabled) {
-    @include dt-focus-style();
-  }
+  @include dt-cdkmonitor-focus-style();
 }
 
 .dt-tile-header {

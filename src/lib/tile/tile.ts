@@ -5,6 +5,7 @@ import {
   Directive,
   ContentChild,
   ElementRef,
+  OnDestroy,
 } from '@angular/core';
 import {
   CanDisable,
@@ -16,6 +17,7 @@ import {
   mixinColor,
   Constructor,
 } from '@dynatrace/angular-components/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 /** Title of a tile, needed as it's used as a selector in the API. */
 @Directive({
@@ -82,12 +84,18 @@ export class DtTile extends _DtTileMixinBase
     CanDisable,
     HasElementRef,
     CanColor<DtTileThemePalette>,
-    HasTabIndex {
+    HasTabIndex,
+    OnDestroy {
   @ContentChild(DtTileSubtitle, { static: true }) _subTitle: DtTileSubtitle;
   @ContentChild(DtTileIcon, { static: true }) _icon: DtTileIcon;
 
-  constructor(elementRef: ElementRef) {
+  constructor(elementRef: ElementRef, private _focusMonitor: FocusMonitor) {
     super(elementRef);
+    this._focusMonitor.monitor(this._elementRef);
+  }
+
+  ngOnDestroy(): void {
+    this._focusMonitor.stopMonitoring(this._elementRef);
   }
 
   _haltDisabledEvents(event: Event): void {
