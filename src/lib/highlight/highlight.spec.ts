@@ -20,49 +20,61 @@ describe('DtHighlight', () => {
         TestComponentWithHighlightedHtml,
         TestComponentWithInputBindung,
         TestComponentWithTextBinding,
+        TestCasingHighlighted,
       ],
     });
 
     TestBed.compileComponents();
   }));
   describe('with initial behaviour', () => {
-
     it('should show the original text if no term is given', () => {
       const fixture = createComponent(TestComponentWithoutTerm);
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       fixture.detectChanges();
       const transformed = containerEl.lastChild as HTMLElement;
-      expect(transformed.innerHTML).toMatch('Original text where nothing should be highlighted');
+      expect(transformed.innerHTML).toMatch(
+        'Original text where nothing should be highlighted'
+      );
     });
 
     it('should contain one container for the original source and one for the escaped text', () => {
       const fixture = createComponent(TestComponentWithHtmlInText);
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       expect(containerEl.childNodes.length).toBe(2);
       const hiddenSource = containerEl.firstChild as HTMLElement;
       const transformed = containerEl.lastChild as HTMLElement;
       expect(hiddenSource.tagName).toMatch('DIV');
-      expect(hiddenSource.innerHTML).toMatch('Some <b>text where</b> with html characters');
+      expect(hiddenSource.innerHTML).toMatch(
+        'Some <b>text where</b> with html characters'
+      );
       expect(transformed.tagName).toMatch('SPAN');
     });
 
     it('should escape every html character in the projected content', () => {
       const fixture = createComponent(TestComponentWithHtmlInText);
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       const transformed = containerEl.lastChild as HTMLElement;
       expect(transformed.tagName).toMatch('SPAN');
       expect(transformed.innerHTML).toMatch('');
 
       fixture.detectChanges();
-      expect(transformed.innerHTML).toMatch('Some &lt;b&gt;text where&lt;/b&gt; with html characters');
+      expect(transformed.innerHTML).toMatch(
+        'Some &lt;b&gt;text where&lt;/b&gt; with html characters'
+      );
     });
 
     it('should wrap the highlighted word with a mark tag', () => {
-      const fixture = createComponent(TestComponentWithStaticQueryAndStaticText);
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const fixture = createComponent(
+        TestComponentWithStaticQueryAndStaticText
+      );
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       const transformed = containerEl.lastChild as HTMLElement;
       expect(transformed.tagName).toMatch('SPAN');
@@ -77,7 +89,8 @@ describe('DtHighlight', () => {
 
     it('should find multiple occurrences of the term that should be highlighted', () => {
       const fixture = createComponent(TestComponentWithMultipleHighlights);
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       const transformed = containerEl.lastChild as HTMLElement;
       expect(transformed.tagName).toMatch('SPAN');
@@ -95,7 +108,8 @@ describe('DtHighlight', () => {
 
     it('should find multiple occurrences of the term that should be highlighted but case sensitive', () => {
       const fixture = createComponent(TestComponentWithStaticCaseSensitive);
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       const transformed = containerEl.lastChild as HTMLElement;
       expect(transformed.tagName).toMatch('SPAN');
@@ -112,7 +126,8 @@ describe('DtHighlight', () => {
 
     it('should highlight found content and escape every html character inside the projected content', () => {
       const fixture = createComponent(TestComponentWithHighlightedHtml);
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       const transformed = containerEl.lastChild as HTMLElement;
       expect(transformed.tagName).toMatch('SPAN');
@@ -120,8 +135,14 @@ describe('DtHighlight', () => {
 
       fixture.detectChanges();
 
-      expect(transformed.innerHTML.startsWith('Some &lt;b&gt;text ')).toBeTruthy();
-      expect(transformed.innerHTML.endsWith('e&lt;/b&gt; a part should be highlighted')).toBeTruthy();
+      expect(
+        transformed.innerHTML.startsWith('Some &lt;b&gt;text ')
+      ).toBeTruthy();
+      expect(
+        transformed.innerHTML.endsWith(
+          'e&lt;/b&gt; a part should be highlighted'
+        )
+      ).toBeTruthy();
 
       const highlights = transformed.querySelectorAll('.dt-highlight-mark');
       expect(highlights.length).toBe(1);
@@ -131,11 +152,11 @@ describe('DtHighlight', () => {
   });
 
   describe('with dynamic bindings', () => {
-
     it('should update the highlight when term is changed', () => {
       const fixture = createComponent(TestComponentWithInputBindung);
       const instance = fixture.componentInstance;
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       const transformed = containerEl.lastChild as HTMLElement;
       expect(transformed.tagName).toMatch('SPAN');
@@ -165,7 +186,8 @@ describe('DtHighlight', () => {
     it('should update the highlight when caseSensitive is changed', () => {
       const fixture = createComponent(TestComponentWithInputBindung);
       const instance = fixture.componentInstance;
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       const transformed = containerEl.lastChild as HTMLElement;
       expect(transformed.tagName).toMatch('SPAN');
@@ -188,10 +210,11 @@ describe('DtHighlight', () => {
     it('should highlight when term contains quantifier characters', () => {
       const fixture = createComponent(TestComponentWithInputBindung);
       const instance = fixture.componentInstance;
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
       instance.term = 'highlighted?';
-
       fixture.detectChanges();
+
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       const transformed = containerEl.lastChild as HTMLElement;
       const highlights = transformed.querySelectorAll('.dt-highlight-mark');
@@ -202,7 +225,8 @@ describe('DtHighlight', () => {
     it('should update the highlight when the dynamic text changes', () => {
       const fixture = createComponent(TestComponentWithTextBinding);
       const instance = fixture.componentInstance;
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       expect(containerEl.childNodes.length).toBe(2);
 
@@ -216,12 +240,22 @@ describe('DtHighlight', () => {
       expect(highlights.length).toBe(1);
       expect(highlights[0].innerHTML).toMatch('Jane');
     });
+
+    it('should keep the text casing of the original text when it is not case sensitive', () => {
+      // ISSUE: https://dev-jira.dynatrace.org/browse/***REMOVED***
+      const fixture = createComponent(TestCasingHighlighted);
+      const containerEl: HTMLElement = fixture.debugElement.query(By.css('.dt-highlight span'))
+        .nativeElement;
+
+      expect(containerEl.textContent).toBe('HTTP-Monitoring');
+    });
   });
 
   describe('accessibility', () => {
     it('should hide the source container from screen readers', () => {
       const fixture = createComponent(TestComponentWithHtmlInText);
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       expect(containerEl.childNodes.length).toBe(2);
       const hiddenSource = containerEl.firstChild as HTMLElement;
@@ -230,55 +264,88 @@ describe('DtHighlight', () => {
     });
 
     it('should add a notice for screen readers when an element is marked', () => {
-      const fixture = createComponent(TestComponentWithStaticQueryAndStaticText);
-      const containerEl = fixture.debugElement.query(By.css('.dt-highlight')).nativeElement;
+      const fixture = createComponent(
+        TestComponentWithStaticQueryAndStaticText
+      );
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
 
       expect(containerEl.childNodes.length).toBe(2);
       const transformed = containerEl.lastChild as HTMLElement;
       fixture.detectChanges();
 
       const highlight = transformed.querySelectorAll('.dt-highlight-mark')[0];
-      expect(getComputedStyle(highlight, ':before').content).toContain('[highlight start]');
-      expect(getComputedStyle(highlight, ':after').content).toContain('[highlight end]');
+      expect(getComputedStyle(highlight, ':before').content).toContain(
+        '[highlight start]'
+      );
+      expect(getComputedStyle(highlight, ':after').content).toContain(
+        '[highlight end]'
+      );
     });
   });
-
 });
 
 @Component({
-  template: `<p dt-highlight>Original text where nothing should be highlighted</p>`,
+  template: `
+    <p dt-highlight>Original text where nothing should be highlighted</p>
+  `,
 })
 class TestComponentWithoutTerm {}
 
 @Component({
-  template: `<p dt-highlight term="">Some <b>text where</b> with html characters</p>`,
+  template: `
+    <p dt-highlight term="">Some <b>text where</b> with html characters</p>
+  `,
 })
 class TestComponentWithHtmlInText {}
 
 @Component({
-  template: `<p dt-highlight term="wher">Some text where a part should be highlighted</p>`,
+  template: `
+    <p dt-highlight term="wher">Some text where a part should be highlighted</p>
+  `,
 })
 class TestComponentWithStaticQueryAndStaticText {}
 
 @Component({
-  template: `<span dt-highlight term="s">Some text where some parts should be highlighted</span>`,
+  template: `
+    <span dt-highlight term="s">
+      Some text where some parts should be highlighted
+    </span>
+  `,
 })
 class TestComponentWithMultipleHighlights {}
 
 @Component({
-  template: `<span dt-highlight term="s" caseSensitive>Some text where some parts should be highlighted</span>`,
+  template: `
+    <span dt-highlight term="s" caseSensitive>
+      Some text where some parts should be highlighted
+    </span>
+  `,
 })
 class TestComponentWithStaticCaseSensitive {}
 
 @Component({
-  template: `<p dt-highlight term="wher" >Some <b>text where</b> a part should be highlighted</p>`,
+  template: `
+    <p dt-highlight term="wher">
+      Some <b>text where</b> a part should be highlighted
+    </p>
+  `,
 })
 class TestComponentWithHighlightedHtml {}
 
 @Component({
   template: `
+    <dt-highlight [term]="value">HTTP-Monitoring</dt-highlight>
+  `,
+})
+class TestCasingHighlighted {
+  value = 'HTTP';
+}
+
+@Component({
+  template: `
     <dt-highlight [term]="term" [caseSensitive]="caseSensitive">
-    Some text where a part should be highlighted?
+      Some text where a part should be highlighted?
     </dt-highlight>
   `,
 })
@@ -288,7 +355,11 @@ class TestComponentWithInputBindung {
 }
 
 @Component({
-  template: `<dt-highlight term="Jane">We welcome {{ name }} to this event.</dt-highlight>`,
+  template: `
+    <dt-highlight term="Jane">
+      We welcome {{ name }} to this event.
+    </dt-highlight>
+  `,
 })
 class TestComponentWithTextBinding {
   name = 'John';
