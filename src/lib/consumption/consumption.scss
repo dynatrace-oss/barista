@@ -9,13 +9,8 @@
   box-sizing: border-box;
   @include dt-default-font();
 
-  &:focus {
-    outline: none;
-  }
-
-  &.dt-consumption-focusable:focus {
-    @include dt-focus-style();
-  }
+  // Apply focus to CDK focus monitored elements
+  @include dt-cdkmonitor-focus-style();
 }
 
 ::ng-deep {

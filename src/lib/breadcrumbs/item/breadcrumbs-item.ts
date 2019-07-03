@@ -72,6 +72,7 @@ export class DtBreadcrumbsItem {
     }
   }
 
+  /** @internal Calculate the href property. */
   _calculatedHref(): string | undefined {
     if (this.href === undefined) {
       return undefined;
@@ -100,6 +101,7 @@ export class DtBreadcrumbsItem {
     private readonly _activatedRoute: ActivatedRoute | null
   ) {}
 
+  /** Create the url tree for the router state. */
   private _createUrlTree(): UrlTree {
     if (Array.isArray(this.href)) {
       return ensureProvided(this._router).createUrlTree(this.href, {

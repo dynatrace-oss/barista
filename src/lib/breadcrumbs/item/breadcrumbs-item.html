@@ -1,5 +1,6 @@
 <a
   *ngIf="!_lastItem"
+  cdkMonitorElementFocus
   [href]="_calculatedHref()"
   (click)="_linkClicked($event)"
   class="dt-breadcrumb-item dt-breadcrumb-link"

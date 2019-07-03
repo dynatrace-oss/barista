@@ -13,6 +13,7 @@ import {
   QueryList,
   ViewEncapsulation,
   forwardRef,
+  OnDestroy,
 } from '@angular/core';
 import {
   CanColor,
@@ -24,6 +25,7 @@ import {
   readKeyCode,
   Constructor,
 } from '@dynatrace/angular-components/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 export class DtButtonGroupBase {}
 export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));
@@ -177,7 +179,8 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
     CanDisable,
     CanColor<DtButtonGroupThemePalette>,
     HasTabIndex,
-    AfterContentInit {
+    AfterContentInit,
+    OnDestroy {
   private _selected = false;
   private _value: T;
   private _disabled = false;
@@ -229,15 +232,21 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
   constructor(
     private _buttonGroup: DtButtonGroup<T>,
     private _changeDetectorRef: ChangeDetectorRef,
-    _elementRef: ElementRef
+    _elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor
   ) {
     super(_elementRef);
+    this._focusMonitor.monitor(_elementRef);
   }
 
   ngAfterContentInit(): void {
     if (this.value === undefined && this._elementRef) {
       this._value = this._elementRef.nativeElement.textContent;
     }
+  }
+
+  ngOnDestroy(): void {
+    this._focusMonitor.stopMonitoring(this._elementRef);
   }
 
   _onSelect(event: Event): void {

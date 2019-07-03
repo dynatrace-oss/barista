@@ -1,5 +1,6 @@
 @import '../core/style/variables';
 @import '../core/theming/theming';
+@import '../core/style/interactive-common';
 
 @mixin dt-theme-switch($theme) {
   $is-dark: map-get($theme, 'is-dark');
@@ -37,6 +38,12 @@
 
       .dt-switch-label::after {
         background-color: #ffffff;
+      }
+
+      &.dt-switch-focused:not(.dt-switch-disabled) {
+        .dt-switch-label::before {
+          @include dt-focus-style(true);
+        }
       }
     }
 

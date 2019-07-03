@@ -43,9 +43,7 @@
     height: 4px;
   }
 
-  &:focus:not([disabled]) {
-    @include dt-focus-style();
-  }
+  @include dt-cdkmonitor-focus-style();
 
   /** disabled
   this needs the double selector because the themes ::after is more specific
