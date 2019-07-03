@@ -1,3 +1,5 @@
+@import '../core/style/interactive-common';
+
 @mixin dt-theme-expandable-section($theme) {
   $is-dark: map-get($theme, 'is-dark');
 
@@ -13,6 +15,11 @@
       ~ .dt-expandable-section-header-line {
         border-bottom-color: $gray-400;
       }
+    }
+
+    :host:not(.dt-expandable-section-disabled)
+      .dt-expandable-section-header-trigger:focus {
+      @include dt-focus-style(true);
     }
 
     :host .dt-expandable-section-header-trigger:hover {

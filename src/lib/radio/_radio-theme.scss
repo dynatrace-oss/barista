@@ -1,5 +1,6 @@
 @import '../core/style/variables';
 @import '../core/theming/theming';
+@import '../core/style/interactive-common';
 
 @mixin dt-theme-radio($theme) {
   $is-dark: map-get($theme, 'is-dark');
@@ -7,6 +8,9 @@
   @if ($is-dark == true) {
     :host .dt-radio-outer-circle {
       border-color: #ffffff;
+    }
+    :host.dt-radio-focused:not(.dt-radio-disabled) .dt-radio-outer-circle {
+      @include dt-focus-style(true);
     }
     :host.dt-radio-disabled .dt-radio-outer-circle {
       border-color: $gray-500;

@@ -66,15 +66,12 @@ $arrow-padding: 2px;
     z-index: 2;
   }
 
-  &:focus,
   &:hover {
     color: #ffffff;
     text-decoration: none;
   }
 
-  &:focus {
-    @include dt-focus-style();
-  }
+  @include dt-cdkmonitor-focus-style();
 }
 
 .dt-breadcrumb-non-clickable {

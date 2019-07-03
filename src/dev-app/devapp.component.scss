@@ -24,6 +24,10 @@
   max-width: calc(100vw - 240px);
 }
 
+.dt-theme-dark .main {
+  background-color: #242424;
+}
+
 // replace this with the sidenav component as soon as this is ready
 .sidenav {
   background-color: #f2f2f2;

@@ -41,9 +41,8 @@
     outline: none;
   }
 
-  &:focus:not([disabled]) {
-    @include dt-focus-style();
-  }
+  // Apply focus to CDK focus monitored elements
+  @include dt-cdkmonitor-focus-style();
 
   &::-moz-focus-inner {
     border: 0;

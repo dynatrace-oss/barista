@@ -286,6 +286,7 @@ describe('DtSelect', () => {
             options[1].value,
             'Expected value from second option to have been set on the model.'
           );
+          flush();
         }));
 
         it('should resume focus from selected item after selecting via click', fakeAsync(() => {
@@ -310,6 +311,7 @@ describe('DtSelect', () => {
           fixture.detectChanges();
 
           expect(formControl.value).toBe(options[4].value);
+          flush();
         }));
 
         it('should select options via LEFT/RIGHT arrow keys on a closed select', fakeAsync(() => {
@@ -352,6 +354,7 @@ describe('DtSelect', () => {
             options[1].value,
             'Expected value from second option to have been set on the model.'
           );
+          flush();
         }));
 
         it('should open a single-selection select using ALT + DOWN_ARROW', fakeAsync(() => {
@@ -378,6 +381,7 @@ describe('DtSelect', () => {
           expect(formControl.value).toBeFalsy(
             'Expected value not to have changed.'
           );
+          flush();
         }));
 
         it('should open a single-selection select using ALT + UP_ARROW', fakeAsync(() => {
@@ -404,6 +408,7 @@ describe('DtSelect', () => {
           expect(formControl.value).toBeFalsy(
             'Expected value not to have changed.'
           );
+          flush();
         }));
 
         it('should should close when pressing ALT + DOWN_ARROW', fakeAsync(() => {
@@ -430,6 +435,7 @@ describe('DtSelect', () => {
             true,
             'Expected default action to be prevented.'
           );
+          flush();
         }));
 
         it('should should close when pressing ALT + UP_ARROW', fakeAsync(() => {
@@ -456,6 +462,7 @@ describe('DtSelect', () => {
             true,
             'Expected default action to be prevented.'
           );
+          flush();
         }));
 
         it('should be able to select options by typing on a closed select', fakeAsync(() => {
@@ -514,6 +521,7 @@ describe('DtSelect', () => {
             true,
             'Expected form control to stay clean.'
           );
+          flush();
         }));
 
         it('should continue from the selected option when the value is set programmatically', fakeAsync(() => {
@@ -528,6 +536,7 @@ describe('DtSelect', () => {
           expect(fixture.componentInstance.options.toArray()[6].selected).toBe(
             true
           );
+          flush();
         }));
 
         it('should not cycle through the options if the control is disabled', fakeAsync(() => {
@@ -542,6 +551,7 @@ describe('DtSelect', () => {
             'eggs-5',
             'Expected value to remain unchaged.'
           );
+          flush();
         }));
 
         it('should not wrap selection after reaching the end of the options', fakeAsync(() => {
@@ -562,11 +572,13 @@ describe('DtSelect', () => {
             true,
             'Expected last option to stay selected.'
           );
+          flush();
         }));
 
         it('should prevent the default action when pressing space', fakeAsync(() => {
           const event = dispatchKeyboardEvent(select, 'keydown', SPACE);
           expect(event.defaultPrevented).toBe(true);
+          flush();
         }));
 
         it('should consider the selection a result of a user action when closed', fakeAsync(() => {
@@ -580,6 +592,7 @@ describe('DtSelect', () => {
           expect(spy).toHaveBeenCalledWith(true);
 
           subscription.unsubscribe();
+          flush();
         }));
 
         it('should be able to focus the select trigger', fakeAsync(() => {
@@ -667,6 +680,7 @@ describe('DtSelect', () => {
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[3].id
           );
+          flush();
         }));
 
         it('should not change the aria-activedescendant using the horizontal arrow keys', fakeAsync(() => {
@@ -691,6 +705,7 @@ describe('DtSelect', () => {
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[0].id
           );
+          flush();
         }));
       });
 
@@ -800,13 +815,13 @@ describe('DtSelect', () => {
           .nativeElement;
       }));
 
-      it('should not throw when attempting to open too early', () => {
+      it('should not throw when attempting to open too early', fakeAsync(() => {
         // Create component and then immediately open without running change detection
-        fixture = createComponent(BasicSelect);
         expect(() => {
           fixture.componentInstance.select.open();
         }).not.toThrow();
-      });
+        flush();
+      }));
 
       it('should open the panel when trigger is clicked', fakeAsync(() => {
         trigger.click();
@@ -927,6 +942,7 @@ describe('DtSelect', () => {
           fixture.componentInstance.select._keyManager.activeItemIndex
         ).toBe(0);
         expect(event.defaultPrevented).toBe(true);
+        flush();
       }));
 
       it('should focus the last option when pressing END', fakeAsync(() => {
@@ -944,6 +960,7 @@ describe('DtSelect', () => {
           fixture.componentInstance.select._keyManager.activeItemIndex
         ).toBe(7);
         expect(event.defaultPrevented).toBe(true);
+        flush();
       }));
 
       it('should be able to set extra classes on the panel', fakeAsync(() => {
@@ -968,6 +985,7 @@ describe('DtSelect', () => {
         const event = dispatchKeyboardEvent(option, 'keydown', SPACE);
 
         expect(event.defaultPrevented).toBe(true);
+        flush();
       }));
 
       it('should prevent the default action when pressing ENTER on an option', fakeAsync(() => {
@@ -980,6 +998,7 @@ describe('DtSelect', () => {
         const event = dispatchKeyboardEvent(option, 'keydown', ENTER);
 
         expect(event.defaultPrevented).toBe(true);
+        flush();
       }));
 
       it('should be able to render options inside groups with an ng-container', fakeAsync(() => {
@@ -1708,7 +1727,7 @@ describe('DtSelect', () => {
   });
 
   describe('with a selectionChange event handler', () => {
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
       configureDtSelectTestingModule([SelectWithChangeEvent]);
     }));
 
@@ -1754,6 +1773,7 @@ describe('DtSelect', () => {
       dispatchKeyboardEvent(select, 'keydown', DOWN_ARROW);
 
       expect(fixture.componentInstance.changeListener).toHaveBeenCalledTimes(1);
+      flush();
     }));
   });
 

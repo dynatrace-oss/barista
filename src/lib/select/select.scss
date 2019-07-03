@@ -37,9 +37,7 @@ $dt-select-panel-min-width: 112px !default;
     min-height: 30px;
   }
 
-  :not(.dt-form-field-infix) > &:focus:not(.dt-select-disabled) {
-    @include dt-focus-style();
-  }
+  @include dt-cdkmonitor-focus-style();
 }
 
 .dt-select-trigger {

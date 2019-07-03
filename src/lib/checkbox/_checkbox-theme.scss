@@ -1,5 +1,6 @@
 @import '../core/style/variables';
 @import '../core/theming/theming';
+@import '../core/style/interactive-common';
 
 @mixin dt-theme-checkbox($theme) {
   $is-dark: map-get($theme, 'is-dark');
@@ -7,6 +8,10 @@
   @if ($is-dark == true) {
     :host .dt-checkbox-container {
       border-color: #ffffff;
+    }
+    :host.dt-checkbox-focused:not(.dt-checkbox-disabled)
+      .dt-checkbox-container {
+      @include dt-focus-style(true);
     }
     :host .dt-checkbox-icon svg {
       stroke: #ffffff;
