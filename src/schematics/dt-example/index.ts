@@ -1,4 +1,4 @@
-import {strings} from '@angular-devkit/core';
+import { strings } from '@angular-devkit/core';
 import {
   Rule,
   apply,
@@ -8,7 +8,7 @@ import {
   url,
   SchematicsException,
 } from '@angular-devkit/schematics';
-import {DtExampleOptions} from './schema';
+import { DtExampleOptions } from './schema';
 
 // tslint:disable-next-line:no-default-export
 export default function(options: DtExampleOptions): Rule {
@@ -17,7 +17,7 @@ export default function(options: DtExampleOptions): Rule {
   }
   options.component = strings.decamelize(options.component);
   options.name = strings.decamelize(options.name);
-  options.exampleComponentName = `${strings.classify(options.name)}${strings.classify(options.component)}ExampleComponent`;
+  options.exampleComponentName = `${strings.classify(options.component)}${strings.classify(options.name)}Example`;
   const templateSource = apply(url('./files'), [
     template({...strings, ...options}),
     move('src'),
