@@ -124,7 +124,7 @@ describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
-  let filterField: DtFilterField;
+  let filterField: DtFilterField<any>;
   let zone: MockNgZone;
 
   beforeEach(fakeAsync(() => {
@@ -344,7 +344,7 @@ describe('DtFilterField', () => {
     }));
 
     it('should emit filterChanges when adding an option', fakeAsync(() => {
-      let filterChangeEvent: DtFilterFieldChangeEvent | undefined;
+      let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe((ev) => filterChangeEvent = ev);
@@ -368,7 +368,7 @@ describe('DtFilterField', () => {
     }));
 
     it('should emit filterChanges when removing an option', fakeAsync(() => {
-      let filterChangeEvent: DtFilterFieldChangeEvent | undefined;
+      let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe((ev) => filterChangeEvent = ev);
@@ -595,6 +595,73 @@ describe('DtFilterField', () => {
       expect(filterFieldRangeElements.length).toBe(1);
     });
 
+    it('should have only range and greater-equal operators enabled', () => {
+      // Change the datasource at runtime
+      fixture.componentInstance.dataSource.data = {
+        autocomplete: [
+          {
+            name: 'Requests per minute',
+            range: {
+              operators: {
+                range: true,
+                greaterThanEqual: true,
+              },
+              unit: 's',
+            },
+          },
+        ],
+      };
+      fixture.detectChanges();
+
+      // open the range overlay
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+      const options = getOptions(overlayContainerElement);
+      options[0].click();
+
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+      expect(operatorButtonElements.length).toBe(2);
+      expect(operatorButtonElements[0].textContent).toBe('Range');
+      expect(operatorButtonElements[1].textContent).toBe('≥');
+    });
+
+    it('should have only one operator enabled', () => {
+      // Change the datasource at runtime
+      fixture.componentInstance.dataSource.data = {
+        autocomplete: [
+          {
+            name: 'Requests per minute',
+            range: {
+              operators: {
+                greaterThanEqual: true,
+              },
+              unit: 's',
+            },
+          },
+        ],
+      };
+      fixture.detectChanges();
+
+      // open the range overlay
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      const options = getOptions(overlayContainerElement);
+      options[0].click();
+
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+      expect(operatorButtonElements.length).toBe(1);
+      expect(operatorButtonElements[0].textContent).toBe('≥');
+    });
+
     describe('opened', () => {
       beforeEach(() => {
         // Open the filter-field-range overlay.
@@ -613,74 +680,6 @@ describe('DtFilterField', () => {
       it('should have all operators enabled', () => {
         const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
         expect(operatorButtonElements.length).toBe(4);
-      });
-
-      it('should have only range and greater-equal operators enabled', () => {
-        // Change the datasource at runtime
-        fixture.componentInstance.dataSource.data = {
-          autocomplete: [
-            {
-              name: 'Requests per minute',
-              range: {
-                operators: {
-                  range: true,
-                  greaterThanEqual: true,
-                },
-                unit: 's',
-              },
-            },
-          ],
-        };
-        fixture.detectChanges();
-
-        // open the range overlay
-        filterField.focus();
-        zone.simulateZoneExit();
-        fixture.detectChanges();
-
-        const options = getOptions(overlayContainerElement);
-        options[0].click();
-
-        zone.simulateMicrotasksEmpty();
-        fixture.detectChanges();
-
-        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
-        expect(operatorButtonElements.length).toBe(2);
-        expect(operatorButtonElements[0].textContent).toBe('Range');
-        expect(operatorButtonElements[1].textContent).toBe('≥');
-      });
-
-      it('should have only one operator enabled', () => {
-        // Change the datasource at runtime
-        fixture.componentInstance.dataSource.data = {
-          autocomplete: [
-            {
-              name: 'Requests per minute',
-              range: {
-                operators: {
-                  greaterThanEqual: true,
-                },
-                unit: 's',
-              },
-            },
-          ],
-        };
-        fixture.detectChanges();
-
-        // open the range overlay
-        filterField.focus();
-        zone.simulateZoneExit();
-        fixture.detectChanges();
-
-        const options = getOptions(overlayContainerElement);
-        options[0].click();
-
-        zone.simulateMicrotasksEmpty();
-        fixture.detectChanges();
-
-        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
-        expect(operatorButtonElements.length).toBe(1);
-        expect(operatorButtonElements[0].textContent).toBe('≥');
       });
 
       it('should throw an error if there is no operator defined', fakeAsync(() => {
@@ -940,5 +939,5 @@ export class TestApp {
 
   label = 'Filter by';
 
-  @ViewChild(DtFilterField, { static: false }) filterField: DtFilterField;
+  @ViewChild(DtFilterField, { static: false }) filterField: DtFilterField<any>;
 }
