@@ -120,7 +120,7 @@ export function dtRangeDef(
 
 /** Whether the provided def object is of type NodeDef and consists of an RangeDef. */
 export function isDtRangeDef(def: any): def is DtRangeDef {
-  return isNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeRange);
+  return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeRange);
 }
 
 /** Creates a new DtAutocompleteDef onto a provided existing NodeDef or a newly created one. */
@@ -136,11 +136,11 @@ export function dtAutocompleteDef(
 
 /** Whether the provided def object is of type NodeDef and consists of an AutocompleteDef */
 export function isDtAutocompleteDef(def: any): def is DtNodeDef & { autocomplete: DtAutocompleteDef } {
-  return isNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeAutocomplete);
+  return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeAutocomplete);
 }
 
-export function isAsyncDtAutocompleteDef(def: any): def is DtNodeDef & { autocomplete: DtAutocompleteDef } {
-  return isDtAutocompleteDef(def) && def.autocomplete.async;
+export function isAsyncDtAutocompleteDef(def: any): def is DtNodeDef & { autocomplete: DtAutocompleteDef; option: DtOptionDef } {
+  return isDtAutocompleteDef(def) && isDtOptionDef(def) && def.autocomplete.async;
 }
 
 /** Creates a new DtOptionDef onto a provided existing NodeDef or a newly created one. */
@@ -166,7 +166,7 @@ export function dtOptionDef(
 
 /** Whether the provided def object is of type NodeDef and consists of an OptionDef */
 export function isDtOptionDef(def: any): def is DtNodeDef & { option: DtOptionDef } {
-  return isNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeOption);
+  return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeOption);
 }
 
 /** Creates a new DtGroupDef onto a provided existing NodeDef or a newly created one. */
@@ -191,7 +191,7 @@ export function dtGroupDef(
 
 /** Whether the provided def object is of type NodeDef and consists of an GroupDef */
 export function isDtGroupDef(def: any): def is DtNodeDef & { group: DtGroupDef } {
-  return isNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeGroup);
+  return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeGroup);
 }
 
 /** Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one. */
@@ -206,12 +206,12 @@ export function dtFreeTextDef(suggestions: DtNodeDef[], data: any, existingNodeD
 
 /** Whether the provided def object is of type NodeDef and consists of an FreeTextDef */
 export function isDtFreeTextDef(def: any): def is DtNodeDef & { freeText: DtFreeTextDef } {
-  return isNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeFreeText);
+  return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeFreeText);
 }
 
 /** Whether the provided def object is of type RenderType */
 export function isDtRenderType(def: any): def is DtNodeDef {
-  return isNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.RenderTypes);
+  return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.RenderTypes);
 }
 
 /** Creates a new DtNodeDef or returns the provided existing one. */
@@ -229,25 +229,54 @@ function nodeDef(data: any, existingNodeDef: DtNodeDef | null): DtNodeDef {
 }
 
 /** Whether the provided def object is of type NodeDef */
-function isNodeDef(def: any): def is DtNodeDef {
+export function isDtNodeDef(def: any): def is DtNodeDef {
   return isObject(def) && isDefined(def.nodeFlags);
 }
 
-/** Holds all the view values and the original filter source for providing it to the DtFilterFieldTag to display. */
+/** @internal Holds all the view values and the original filter source for providing it to the DtFilterFieldTag to display. */
 export class DtFilterFieldTagData {
   constructor(
     public key: string | null,
     public value: string | null,
     public separator: string | null,
-    public filterSources: any[],
-    public isFreeText: boolean) {}
-    public filterNodeDefsOrSources: any[]) {}
+    public isFreeText: boolean,
+    public filterValues: DtFilterValue[]) {}
 }
 
-export type DtNodeDefOrSource = DtNodeDef | string;
-export function getSourceOfDtNodeDefOrSource<T>(defOrSource: DtNodeDefOrSource): T {
-  return isNodeDef(defOrSource) ? defOrSource.data : defOrSource;
+/** @internal */
+export type DtFreeTextValue = string;
+
+/** @internal */
+export function isDtFreeTextValue(value: any): value is DtFreeTextValue {
+  return typeof value === 'string';
 }
-export function getSourcesOfDtNodeDefsOrSources(defsOrSources: DtNodeDefOrSource[]): any[] {
-  return defsOrSources.map((defOrSource) => getSourceOfDtNodeDefOrSource<any>(defOrSource));
+
+/** @internal */
+export type DtAutocompletValue = DtNodeDef & { option: DtOptionDef };
+
+/** @internal */
+export function isDtAutocompletValue(value: any): value is DtAutocompletValue {
+  return isDtOptionDef(value);
+}
+
+/** @internal */
+export interface DtRangeValue {
+  range: number | [number, number];
+  operator: string;
+  unit?: string;
+}
+
+/** @internal */
+export function isDtRangeValue(value: any): value is DtRangeValue {
+  return isObject(value) && value.hasOwnProperty('operator') && value.hasOwnProperty('range');
+}
+
+/** @internal */
+export type DtFilterValue = DtAutocompletValue | DtFreeTextValue | DtRangeValue;
+
+export function getSourceOfDtFilterValue<T>(value: DtFilterValue): T {
+  return isDtNodeDef(value) ? value.data : value;
+}
+export function getSourcesOfDtFilterValues(values: DtFilterValue[]): any[] {
+  return values.map((value) => getSourceOfDtFilterValue<any>(value));
 }

@@ -7,10 +7,14 @@ import {
   dtAutocompleteDef,
   dtFreeTextDef,
   DtFilterFieldTagData,
-  isDtFreeTextDef,
   isDtRenderType,
-  isDtRangeDef,
-  isAsyncDtAutocompleteDef
+  isAsyncDtAutocompleteDef,
+  DtFilterValue,
+  isDtFreeTextValue,
+  isDtRangeValue,
+  DtRangeValue,
+  isDtAutocompletValue,
+  DtAutocompletValue
 } from './types';
 
 /**
@@ -93,6 +97,9 @@ export function optionOrGroupFilteredPredicate(
 
 /** Predicate function for filtering options based on their id. */
 export function optionSelectedPredicate(def: DtNodeDef, selectedIds: Set<string>, isDistinct: boolean): boolean {
+  if (isDtOptionDef(def.option!.parentAutocomplete)) {
+
+  }
   return !(def.option!.uid && selectedIds.has(def.option!.uid) && (!isDtRenderType(def) || isDistinct));
 }
 
@@ -106,15 +113,15 @@ export function optionFilterTextPredicate(def: DtNodeDef, filterText: string): b
 
 /** Transforms a RangeSource to the Tag data values. */
 // tslint:disable-next-line: no-any
-function transformRangeSourceToTagData(source: any): { separator: string; value: string } {
-  if (source.operator === 'range') {
+function transformRangeSourceToTagData(result: DtRangeValue): { separator: string; value: string } {
+  if (result.operator === 'range') {
     return {
       separator: ':',
-      value: `${source.range[0]}${source.unit} - ${source.range[1]}${source.unit}`,
+      value: `${result.range[0]}${result.unit} - ${result.range[1]}${result.unit}`,
     };
   }
   let separator;
-  switch (source.operator) {
+  switch (result.operator) {
     case 'equal':
       separator = '=';
       break;
@@ -127,76 +134,57 @@ function transformRangeSourceToTagData(source: any): { separator: string; value:
     default:
       separator = '-';
   }
-  const value = `${source.range}${source.unit}`;
+  const value = `${result.range}${result.unit}`;
 
   return { separator, value };
 }
 
-/**
- * Transforms a list of sources to TagData, looks up view values, ...
- * Used for displaying filters as tags.
- */
-export function transformSourceToTagData(
-  // tslint:disable-next-line:no-any
-  sources: any[],
-  rootDef: DtNodeDef,
-  asyncDefs: DtNodeDef[] = []
-): DtFilterFieldTagData | null {
-  let def = rootDef;
+export function createTagDataForFilterValues(filterValues: DtFilterValue[]): DtFilterFieldTagData | null {
   let key: string | null = null;
   let value: string | null = null;
-  let isFreeText = false;
   let separator: string | null = null;
-  for (let i = 0; i < sources.length; i++) {
-    const source = sources[i];
-    const newDef = findDefForSource(source, def);
+  let isFreeText = false;
+  let isFirstValue = true;
 
-    if (newDef === null && isDtAutocompleteDef(def)) {
-      break;
-    }
-
-    if (isDtFreeTextDef(def) && typeof source === 'string') {
-      value = `${source}`;
+  for (const filterValue of filterValues) {
+    if (isDtAutocompletValue(filterValue)) {
+      if (isFirstValue && filterValues.length > 1) {
+        key = filterValue.option.viewValue;
+      }
+      value = filterValue.option.viewValue;
+    } else if (isDtFreeTextValue(filterValue)) {
+      value = `${filterValue}`;
       isFreeText = true;
-      if (sources.length > 1) {
+      if (filterValues.length > 1) {
         separator = '~';
       }
       break;
-    }
-
-    if (isDtRangeDef(def) && source.hasOwnProperty('operator') && source.hasOwnProperty('range')) {
+    } else if (isDtRangeValue(filterValue)) {
       // Assigning variables destructed variables to already defined ones needs to be within braces.
-      ({ value, separator } = transformRangeSourceToTagData(source));
+      ({ value, separator } = transformRangeSourceToTagData(filterValue));
       break;
     }
-
-    if (newDef !== null) {
-      def = newDef;
-      if (i === 0 && sources.length > 1) {
-        key = typeof source === 'string' ? source : def.option!.viewValue;
-      }
-      value = typeof source === 'string' ? source : def.option!.viewValue;
-    } else {
-      break;
-    }
+    isFirstValue = false;
   }
 
-  return sources.length && value !== null ? new DtFilterFieldTagData(key, value, separator, sources, isFreeText) : null;
+  return filterValues.length && value !== null ?
+    new DtFilterFieldTagData(key, value, separator, isFreeText, filterValues) : null;
 }
 
-export function findDefsForSources(
-  sources: any[],
+export function findFilterValuesForSources<T>(
+  sources: T[],
   rootDef: DtNodeDef,
-  asyncDefs: Map<DtNodeDef, DtNodeDef>): Array<DtNodeDef | [DtNodeDef, DtNodeDef]> | null {
-  const foundDefs: Array<DtNodeDef | [DtNodeDef, DtNodeDef]> = [];
+  asyncDefs: Map<DtNodeDef, DtNodeDef>): DtFilterValue[] | null {
+  const foundValues: DtFilterValue[] = [];
   let parentDef = rootDef;
 
   if (!sources.length) {
     return null;
   }
 
-  for (const [index, source] of sources) {
-    const isLastSource = (index as number + 1) === sources.length;
+  for (let i = 0; i < sources.length; i++) {
+    const source = sources[i];
+    const isLastSource = (i + 1) === sources.length;
     const def = findDefForSource(source, parentDef);
     if (def) {
       if (isDtRenderType(def)) {
@@ -209,19 +197,22 @@ export function findDefsForSources(
             return null; // throw ?
           }
           parentDef = asyncDef;
-          foundDefs.push([def, asyncDef]);
-        } else {
+          foundValues.push(def, asyncDef as DtAutocompletValue);
+        } else if (isDtOptionDef(def)) {
           parentDef = def;
-          foundDefs.push(def);
+          foundValues.push(def);
+        } else {
+          return null;
         }
       } else if (isLastSource) {
-        foundDefs.push(def);
-        return foundDefs;
+        foundValues.push(def);
+        return foundValues;
       } else {
         return null; // throw ?
       }
-    } else if (isLastSource) {
-      return foundDefs;
+    } else if (isLastSource && (isDtFreeTextValue(source) || isDtRangeValue(source))) {
+      foundValues.push(source);
+      return foundValues;
     } else {
       return null; // throw ?
     }
@@ -268,4 +259,22 @@ export function peekOptionId(def: DtNodeDef, prefix?: string): string {
 export function generateOptionId(def: DtNodeDef, prefix: string = ''): string {
   const groupRef = def.option!.parentGroup ? `${def.option!.parentGroup.group!.label}${DELIMITER}` : '';
   return `${prefix}${groupRef}${def.option!.viewValue}${DELIMITER}`;
+}
+
+/** Generates and applies ids for the provided option and all its children. */
+export function applyDtOptionIds(def: DtNodeDef, prefix: string = ''): void {
+  if (isDtOptionDef(def)) {
+    // Reassigning is ok here as the prefix param is of type string
+    // tslint:disable-next-line: no-parameter-reassignment
+    prefix = peekOptionId(def, prefix);
+  }
+  if (isDtAutocompleteDef(def)) {
+    for (const optionOrGroup of def.autocomplete.optionsOrGroups) {
+      applyDtOptionIds(optionOrGroup, prefix);
+    }
+  } else if (isDtGroupDef(def)) {
+    for (const option of def.group.options) {
+      applyDtOptionIds(option, prefix);
+    }
+  }
 }
