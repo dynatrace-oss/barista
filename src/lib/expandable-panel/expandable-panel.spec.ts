@@ -89,6 +89,14 @@ describe('DtExpandablePanel', () => {
       expect(expandablePanelInstance.expanded).toBe(false);
     });
 
+    // test expanded and disabled state
+    it('should close when open and disabled', () => {
+      expandablePanelInstance.open();
+      expect(expandablePanelInstance.expanded).toBe(true);
+      expandablePanelInstance.disabled = true;
+      expect(expandablePanelInstance.expanded).toBe(false);
+    });
+
     // check CSS class of panel
     it('should have correct styles applied when expanded', () => {
       expect(instanceElement.classList).not.toContain('dt-expandable-panel-opened');
