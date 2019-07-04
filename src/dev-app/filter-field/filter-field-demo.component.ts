@@ -32,9 +32,9 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     return this._dataSource.data === TEST_DATA;
   }
 
-  @ViewChild(DtFilterField, { static: true }) filterField: DtFilterField;
+  @ViewChild(DtFilterField, { static: true }) filterField: DtFilterField<any>;
 
-  private _activeDataSourceName = 'COMPLEX_DATA';
+  private _activeDataSourceName = 'TEST_DATA';
   private _tagChangesSub = Subscription.EMPTY;
   _firstTag: DtFilterFieldTag;
 
@@ -55,8 +55,8 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     console.log(event);
   }
 
-  currentFilterChanges(event: DtFilterFieldCurrentFilterChangeEvent): void {
-    if (event.added === TEST_DATA.autocomplete[2]) {
+  currentFilterChanges(event: DtFilterFieldCurrentFilterChangeEvent<any>): void {
+    if (event.added[0] === TEST_DATA.autocomplete[2]) {
       // Simulate async data loading
       setTimeout(
         () => {

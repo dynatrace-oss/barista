@@ -12,8 +12,10 @@ import {
   transformSourceToTagData,
   optionFilterTextPredicate,
   optionSelectedPredicate,
-  optionOrGroupFilteredPredicate
+  optionOrGroupFilteredPredicate,
+  createTagDataForFilterValues
 } from './filter-field-util';
+import { DtFilterValue } from './types';
 
 describe('DtFilterField Util', () => {
 
@@ -129,7 +131,7 @@ describe('DtFilterField Util', () => {
     // });
   });
 
-  describe('transformSourceToTagData', () => {
+  describe('createTagDataForFilterValues', () => {
     it('should create a tag data object out of a single option', () => {
       const optionSource = { name: 'Option 1' };
       const autocompleteSource = [optionSource];
@@ -138,14 +140,15 @@ describe('DtFilterField Util', () => {
       const autocompleteDef = dtAutocompleteDef([optionDef], false, false, autocompleteSource, null);
       optionDef.option!.parentAutocomplete = autocompleteDef;
 
-      const sources = [optionSource];
-      const tagData = transformSourceToTagData(sources, autocompleteDef);
+      const values = [optionDef] as DtFilterValue[];
+      const tagData = createTagDataForFilterValues(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe(null);
       expect(tagData!.value).toBe('Option 1');
       expect(tagData!.separator).toBe(null);
-      expect(tagData!.filterSources).toBe(sources);
+      expect(tagData!.isFreeText).toBe(false);
+      expect(tagData!.filterValues).toBe(values);
     });
 
     it('should create a tag data object out of a single option wrapped inside a group', () => {
@@ -160,14 +163,15 @@ describe('DtFilterField Util', () => {
       optionDef.option!.parentGroup = groupDef;
       groupDef.group!.parentAutocomplete = autocompleteDef;
 
-      const sources = [optionSource];
-      const tagData = transformSourceToTagData(sources, autocompleteDef);
+      const values = [optionDef] as DtFilterValue[];
+      const tagData = createTagDataForFilterValues(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe(null);
       expect(tagData!.value).toBe('Option 1');
       expect(tagData!.separator).toBe(null);
-      expect(tagData!.filterSources).toBe(sources);
+      expect(tagData!.isFreeText).toBe(false);
+      expect(tagData!.filterValues).toBe(values);
     });
 
     it('should create a tag data object out of a list of nested options', () => {
@@ -182,26 +186,27 @@ describe('DtFilterField Util', () => {
       const rootAutocompleteDef = dtAutocompleteDef([outerOptionAutocompleteDef], false, false, rootAutocompleteSource, null);
       outerOptionAutocompleteDef.option!.parentAutocomplete = rootAutocompleteDef;
 
-      const sources = [outerOptionSource, innerOptionSource];
-      const tagData = transformSourceToTagData(sources, rootAutocompleteDef);
+      const values = [outerOptionDef, innerOptionDef] as DtFilterValue[];
+      const tagData = createTagDataForFilterValues(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe('Outer Option');
       expect(tagData!.value).toBe('Inner Option');
       expect(tagData!.separator).toBe(null);
-      expect(tagData!.filterSources).toBe(sources);
+      expect(tagData!.isFreeText).toBe(false);
+      expect(tagData!.filterValues).toBe(values);
     });
 
     it('should create a tag object out of a single free text', () => {
-      const freeTextDef = dtFreeTextDef([], {}, null);
-      const sources = ['Some Text'];
-      const tagData = transformSourceToTagData(sources, freeTextDef);
+      const values = ['Some Text'];
+      const tagData = createTagDataForFilterValues(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe(null);
       expect(tagData!.value).toBe('Some Text');
       expect(tagData!.separator).toBe(null);
-      expect(tagData!.filterSources).toBe(sources);
+      expect(tagData!.isFreeText).toBe(true);
+      expect(tagData!.filterValues).toBe(values);
     });
 
     it('should create a tag object out of a free-text as an option in an autocomplete', () => {
@@ -211,15 +216,17 @@ describe('DtFilterField Util', () => {
       const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
       const freeTextDef = dtFreeTextDef([], optionSource, optionDef);
       const autocompleteDef = dtAutocompleteDef([freeTextDef], false, false, autocompleteSource, null);
+      freeTextDef.option!.parentAutocomplete = autocompleteDef;
 
-      const sources = [optionSource, 'Some Text'];
-      const tagData = transformSourceToTagData(sources, autocompleteDef);
+      const values = [freeTextDef, 'Some Text'] as DtFilterValue[];
+      const tagData = createTagDataForFilterValues(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe('Option 1');
       expect(tagData!.value).toBe('Some Text');
       expect(tagData!.separator).toBe('~');
-      expect(tagData!.filterSources).toBe(sources);
+      expect(tagData!.isFreeText).toBe(true);
+      expect(tagData!.filterValues).toBe(values);
     });
 
     it('should create a tag object out of a free-text as an option wrapped in a group', () => {
@@ -235,29 +242,30 @@ describe('DtFilterField Util', () => {
       freeTextDef.option!.parentAutocomplete = autocompleteDef;
       groupDef.group!.parentAutocomplete = autocompleteDef;
 
-      const sources = [optionSource, 'Some Text'];
-      const tagData = transformSourceToTagData(sources, autocompleteDef);
+      const values = [optionDef, 'Some Text'] as DtFilterValue[];
+      const tagData = createTagDataForFilterValues(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe('Option 1');
       expect(tagData!.value).toBe('Some Text');
       expect(tagData!.separator).toBe('~');
-      expect(tagData!.filterSources).toBe(sources);
+      expect(tagData!.isFreeText).toBe(true);
+      expect(tagData!.filterValues).toBe(values);
     });
 
-    it(
-      'should return null if a tag object can not be created because of ' +
-      'resolving a definition based on a source obj is not possible',
-      () => {
-        const optionSource = { name: 'Option 1' };
-        const autocompleteSource = [optionSource];
+    // it(
+    //   'should return null if a tag object can not be created because of ' +
+    //   'resolving a definition based on a source obj is not possible',
+    //   () => {
+    //     const optionSource = { name: 'Option 1' };
+    //     const autocompleteSource = [optionSource];
 
-        const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
-        const autocompleteDef = dtAutocompleteDef([optionDef], false, false, autocompleteSource, null);
-        const sources = [{}];
-        const tagData = transformSourceToTagData(sources, autocompleteDef);
-        expect(tagData).toBe(null);
-      });
+    //     const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
+    //     const autocompleteDef = dtAutocompleteDef([optionDef], false, false, autocompleteSource, null);
+    //     const sources = [{}];
+    //     const tagData = transformSourceToTagData(sources, autocompleteDef);
+    //     expect(tagData).toBe(null);
+    //   });
   });
 
   describe('optionFilterTextPredicate', () => {
