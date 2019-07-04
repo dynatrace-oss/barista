@@ -174,6 +174,7 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
           this._autocompleteTrigger.openPanel();
         } else if (isDtRangeDef(this._currentDef)) {
           this._filterfieldRangeTrigger.openPanel();
+          this._filterfieldRangeTrigger.range.focus();
           // need to return here, otherwise the focus would jump back into the filter field
           return;
         }
