@@ -158,6 +158,18 @@ describe('DtSort', () => {
       expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
     });
 
+    it('should keep the sorting when changing columns dynamically', () => {
+      component.start = 'asc';
+      component.active = 'column_a';
+      fixture.detectChanges();
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+      expect(checkCellsSorted(component.cells, false, 'column_b')).toBeTruthy();
+      component.columnsToRender = ['column_a', 'column_b'];
+      fixture.detectChanges();
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+      expect(checkCellsSorted(component.cells, false, 'column_b')).toBeTruthy();
+    });
+
   });
 
   it('should be able to cycle from asc -> desc from either start point', () => {
@@ -413,6 +425,10 @@ class DtTableSortApp {
   <ng-container dtColumnDef="column_a">
     <dt-header-cell *dtHeaderCellDef dt-sort-header>Column A</dt-header-cell>
     <dt-cell *dtCellDef="let row"> {{row.a}} </dt-cell>
+  </ng-container>
+  <ng-container dtColumnDef="column_b">
+    <dt-header-cell *dtHeaderCellDef dt-sort-header>Column B</dt-header-cell>
+    <dt-cell *dtCellDef="let row"> {{row.b}} </dt-cell>
   </ng-container>
   <dt-header-row *dtHeaderRowDef="columnsToRender"></dt-header-row>
   <dt-row *dtRowDef="let row; columns: columnsToRender"></dt-row>
