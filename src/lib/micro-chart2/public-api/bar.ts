@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnChanges, OnDestroy, Optional, SkipSelf, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, OnChanges, OnDestroy, Optional, SkipSelf } from '@angular/core';
 import { DtMicroChartSeries, DtMicroChartSeriesType, DtMicroChartStackableSeries } from './series';
 import { DtMicroChartStackContainer } from './stacked-container';
 

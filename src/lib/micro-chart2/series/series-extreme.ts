@@ -1,5 +1,5 @@
 import { DtMicroChartSeriesSVG } from './series';
-import { Input, TemplateRef, ViewChild, ElementRef, OnDestroy, OnChanges, SimpleChanges, ViewContainerRef, NgZone } from '@angular/core';
+import { Input, TemplateRef, ViewChild, ElementRef, OnDestroy, OnChanges, ViewContainerRef, NgZone } from '@angular/core';
 import { DtMicroChartExtremes } from '../business-logic/core/chart';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { takeUntil, take } from 'rxjs/operators';
@@ -35,10 +35,10 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG imple
   _maxPortal: TemplatePortal;
 
   /** @internal Element reference for the minimum Label. Needed for rendering the label into the svg */
-  @ViewChild('minLabel') _minLabelElementRef: ElementRef;
+  @ViewChild('minLabel', { static: false }) _minLabelElementRef: ElementRef;
 
   /** @internal Element reference for the maximum Label. Needed for rendering the label into the svg */
-  @ViewChild('maxLabel') _maxLabelElementRef: ElementRef;
+  @ViewChild('maxLabel', { static: false }) _maxLabelElementRef: ElementRef;
 
   constructor(
     private _viewContainerRef: ViewContainerRef,
@@ -48,7 +48,7 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG imple
   }
 
   /** On changes */
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.highlightExtremes && this.minTemplate && this.maxTemplate) {
       this._minPortal = new TemplatePortal(this.minTemplate, this._viewContainerRef, { $implicit: this.extremes.minValue });
       this._maxPortal = new TemplatePortal(this.maxTemplate, this._viewContainerRef, { $implicit: this.extremes.maxValue });

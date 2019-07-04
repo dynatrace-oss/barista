@@ -41,7 +41,7 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
 
     // Interpolated path
     const interpolatedLineGenerator = line()
-      .defined((dp, index) => {
+      .defined((_dp, index) => {
         const isInterpolated = data.points[index].interpolated === true;
         const nextIsInterpolated = data.points[index + 1] && data.points[index + 1].interpolated === true;
         const previousIsInterpolated = data.points[index - 1] && data.points[index - 1].interpolated === true;

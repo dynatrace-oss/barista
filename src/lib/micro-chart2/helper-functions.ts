@@ -19,6 +19,7 @@ export function findMinimum<T>(values: T[], accessor?: (arg0: T) => number | nul
 
   if (accessor === undefined) {
     for (const value of values) {
+      // tslint:disable-next-line: no-tautology-expression
       if (value !== null && value >= value && (min === undefined || min > value)) {
         minValue = value;
         min = value;
@@ -27,6 +28,7 @@ export function findMinimum<T>(values: T[], accessor?: (arg0: T) => number | nul
   } else {
     for (const value of values) {
       const compareValue = accessor(value);
+      // tslint:disable-next-line: no-tautology-expression
       if (compareValue !== null && compareValue >= compareValue && (minValue === undefined || minValue > compareValue)) {
         minValue = compareValue;
         min = value;
@@ -46,6 +48,7 @@ export function findMaximum<T>(values: T[], accessor?: (arg0: T) => number | nul
 
   if (accessor === undefined) {
     for (const value of values) {
+      // tslint:disable-next-line: no-tautology-expression
       if (value !== null && value >= value && (max === undefined || max < value)) {
         maxValue = value;
         max = value;
@@ -54,6 +57,7 @@ export function findMaximum<T>(values: T[], accessor?: (arg0: T) => number | nul
   } else {
     for (const value of values) {
       const compareValue = accessor(value);
+      // tslint:disable-next-line: no-tautology-expression
       if (compareValue !== null && compareValue >= compareValue && (maxValue === undefined || maxValue < compareValue)) {
         maxValue = compareValue;
         max = value;
@@ -82,6 +86,7 @@ export function findExtremes<T>(
     for (const value of values) {
       if (
         value !== null &&
+        // tslint:disable-next-line: no-tautology-expression
         value >= value &&
         (min === undefined || min < value)
       ) {
@@ -91,6 +96,7 @@ export function findExtremes<T>(
       }
       if (
         value !== null &&
+        // tslint:disable-next-line: no-tautology-expression
         value >= value &&
         (max === undefined || max < value)
       ) {
@@ -105,6 +111,7 @@ export function findExtremes<T>(
       const compareValue = accessor(value);
       if (
         compareValue !== null &&
+        // tslint:disable-next-line: no-tautology-expression
         compareValue >= compareValue &&
         (minValue === undefined || minValue > compareValue)
       ) {
@@ -114,6 +121,7 @@ export function findExtremes<T>(
       }
       if (
         compareValue !== null &&
+        // tslint:disable-next-line: no-tautology-expression
         compareValue >= compareValue &&
         (maxValue === undefined || maxValue < compareValue)
       ) {

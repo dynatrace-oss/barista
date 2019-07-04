@@ -1,14 +1,15 @@
-import { Component, NgZone } from '@angular/core';
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { MockNgZone } from '../../../testing/mock-ng-zone';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { PortalModule } from '@angular/cdk/portal';
 import { DtMicroChartBarSeriesSVG } from './bar';
+import { createComponent } from '../../../testing/create-component';
 
-// tslint:disable:no-magic-numbers
 describe('DtMicroChartBarSvg', () => {
-  let zone: MockNgZone;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,9 +21,6 @@ describe('DtMicroChartBarSvg', () => {
         SimpleBarSeries,
         DtMicroChartBarSeriesSVG,
       ],
-      providers: [
-        { provide: NgZone, useFactory: () => zone = new MockNgZone() },
-      ],
     }).compileComponents();
   }));
 
@@ -30,8 +28,7 @@ describe('DtMicroChartBarSvg', () => {
     let fixture: ComponentFixture<SimpleBarSeries>;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(SimpleBarSeries);
-      fixture.detectChanges();
+      fixture = createComponent(SimpleBarSeries);
     }));
 
     it('should exist', () => {

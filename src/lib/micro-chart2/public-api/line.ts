@@ -26,9 +26,9 @@ export class DtMicroChartLineSeries extends DtMicroChartSeries implements OnChan
   readonly type: DtMicroChartSeriesType = 'line';
 
   // tslint:disable-next-line:no-any
-  @ContentChild(DtMicroChartMinLabel, { read: TemplateRef }) _minLabelTemplate: TemplateRef<any>;
+  @ContentChild(DtMicroChartMinLabel, { static: true, read: TemplateRef }) _minLabelTemplate: TemplateRef<any>;
   // tslint:disable-next-line:no-any
-  @ContentChild(DtMicroChartMaxLabel, { read: TemplateRef }) _maxLabelTemplate: TemplateRef<any>;
+  @ContentChild(DtMicroChartMaxLabel, { static: true, read: TemplateRef }) _maxLabelTemplate: TemplateRef<any>;
 
   /**
    * Whether the autocomplete is disabled. When disabled, the element will

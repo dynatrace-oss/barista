@@ -1,13 +1,11 @@
-import {
-  Directive, Input, SimpleChanges,
-} from '@angular/core';
+import { Directive, Input, OnChanges, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 let uniqueId = 0;
 
 export type DtMicroChartAxisOrientation = 'x' | 'y';
 
-export class DtMicroChartAxis {
+export class DtMicroChartAxis implements OnChanges, OnDestroy {
   /** Minimum extent of the axis. */
   @Input() min = 0;
 
@@ -27,7 +25,7 @@ export class DtMicroChartAxis {
   _stateChanges = new BehaviorSubject<DtMicroChartAxis>(this);
 
   /** OnChanges hook emits stateChanges. */
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this._stateChanges.next(this);
   }
 

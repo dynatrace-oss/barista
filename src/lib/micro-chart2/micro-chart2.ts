@@ -1,4 +1,3 @@
-
 import {
   Component,
   ElementRef,
@@ -12,7 +11,6 @@ import {
   ContentChildren,
   QueryList,
   ViewChildren,
-  NgZone,
 } from '@angular/core';
 import { DtViewportResizer, Constructor, mixinColor, CanColor } from '@dynatrace/angular-components/core';
 import { takeUntil, switchMap, startWith, filter, map } from 'rxjs/operators';
@@ -122,7 +120,7 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
     const seriesInputChanges = this._allSeriesExternal.changes.pipe(
       startWith(null),
       filter(() => !!this._allSeriesExternal.length),
-      switchMap(() => combineLatest(...this._allSeriesExternal.map((seriesExt) => seriesExt._stateChanges)))
+      switchMap(() => combineLatest(this._allSeriesExternal.map((seriesExt) => seriesExt._stateChanges)))
       // TODO: figure it out - prevent multiple emissions when data changes
       // switchMap((series) => this._zone.onMicrotaskEmpty.pipe(take(1), map(() => series)))
     );
@@ -130,9 +128,9 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
     // This is a stream that emits every time one of the x axes' inputs change.
     const xAxesInputChanges = this._allXAxesExternal.changes.pipe(
       startWith(null),
-      switchMap((a) => {
+      switchMap(() => {
         if (!!this._allXAxesExternal.length) {
-          return combineLatest(...this._allXAxesExternal.map((axisExt) => axisExt._stateChanges));
+          return combineLatest(this._allXAxesExternal.map((axisExt) => axisExt._stateChanges));
         }
         return of(null);
       })
@@ -141,9 +139,9 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
     // This is a stream that emits every time one of the x axes' inputs change.
     const yAxesInputChanges = this._allYAxesExternal.changes.pipe(
       startWith(null),
-      switchMap((a) => {
+      switchMap(() => {
         if (!!this._allYAxesExternal.length) {
-          return combineLatest(...this._allYAxesExternal.map((axisExt) => axisExt._stateChanges));
+          return combineLatest(this._allYAxesExternal.map((axisExt) => axisExt._stateChanges));
         }
         return of(null);
       })
@@ -156,12 +154,12 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
 
     // we merge the seriesInputChanges with the viewport resizer changes to
     // trigger recalculation of the scales and domains and reflow
-    combineLatest(
+    combineLatest([
       viewportChanges,
       seriesInputChanges,
       xAxesInputChanges,
-      yAxesInputChanges
-    ).pipe(
+      yAxesInputChanges,
+    ]).pipe(
       takeUntil(this._destroy)
     ).subscribe(([width, series, xAxes, yAxes]) => {
       Promise.resolve().then(() => {

@@ -1,13 +1,14 @@
-import { Component, ViewChild, TemplateRef, NgZone } from '@angular/core';
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
+import { Component, ViewChild, TemplateRef, NgZone, AfterViewInit } from '@angular/core';
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { MockNgZone } from '../../../testing/mock-ng-zone';
 import { By } from '@angular/platform-browser';
-import objectContaining = jasmine.objectContaining;
 import { CommonModule } from '@angular/common';
 import { PortalModule } from '@angular/cdk/portal';
 import { DtMicroChartLineSeriesSVG } from './line';
-
-// tslint:disable:no-magic-numbers
+import { createComponent } from '../../../testing/create-component';
 
 describe('DtMicroChartLineSvg', () => {
   let zone: MockNgZone;
@@ -32,8 +33,7 @@ describe('DtMicroChartLineSvg', () => {
     let fixture: ComponentFixture<SimpleLineSeries>;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(SimpleLineSeries);
-      fixture.detectChanges();
+      fixture = createComponent(SimpleLineSeries);
     }));
 
     it('should exist', () => {
@@ -142,7 +142,7 @@ describe('DtMicroChartLineSvg', () => {
     </svg>
   `,
 })
-class SimpleLineSeries {
+class SimpleLineSeries implements AfterViewInit {
   points = [
     { x: 0, y: 75 },
     { x: 67.5, y: 0 },
@@ -153,9 +153,9 @@ class SimpleLineSeries {
   // tslint:disable-next-line:no-any
   minTemplate: TemplateRef<any>;
   // tslint:disable-next-line:no-any
-  @ViewChild('initialMinTemplate') initialMinTemplate: TemplateRef<any>;
+  @ViewChild('initialMinTemplate', { static: true }) initialMinTemplate: TemplateRef<any>;
   // tslint:disable-next-line:no-any
-  @ViewChild('updatedMinTemplate') updatedMinTemplate: TemplateRef<any>;
+  @ViewChild('updatedMinTemplate', { static: true }) updatedMinTemplate: TemplateRef<any>;
 
   path = 'M0,75L67.5,0L135,100L202.5,100L270,60';
 

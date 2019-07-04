@@ -1,13 +1,14 @@
-import { Component, ViewChild, TemplateRef, NgZone } from '@angular/core';
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
+import { Component, ViewChild, TemplateRef, NgZone, AfterViewInit } from '@angular/core';
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { MockNgZone } from '../../../testing/mock-ng-zone';
 import { By } from '@angular/platform-browser';
-import objectContaining = jasmine.objectContaining;
 import { CommonModule } from '@angular/common';
 import { PortalModule } from '@angular/cdk/portal';
 import { DtMicroChartColumnSeriesSVG } from './column';
-
-// tslint:disable:no-magic-numbers
+import { createComponent } from '../../../testing/create-component';
 
 describe('DtMicroChartColumnSvg', () => {
   let zone: MockNgZone;
@@ -32,8 +33,7 @@ describe('DtMicroChartColumnSvg', () => {
     let fixture: ComponentFixture<SimpleColumnSeries>;
 
     beforeEach(fakeAsync(() => {
-      fixture = TestBed.createComponent(SimpleColumnSeries);
-      fixture.detectChanges();
+      fixture = createComponent(SimpleColumnSeries);
     }));
 
     it('should exist', () => {
@@ -150,7 +150,7 @@ describe('DtMicroChartColumnSvg', () => {
     </svg>
   `,
 })
-class SimpleColumnSeries {
+class SimpleColumnSeries implements AfterViewInit {
   points = [
     { x: 0, y: 64, height: 36, width: 24 },
     { x: 49, y: 20, height: 80, width: 24 },
@@ -162,9 +162,9 @@ class SimpleColumnSeries {
   // tslint:disable-next-line:no-any
   minTemplate: TemplateRef<any>;
   // tslint:disable-next-line:no-any
-  @ViewChild('initialMinTemplate') initialMinTemplate: TemplateRef<any>;
+  @ViewChild('initialMinTemplate', { static: true, }) initialMinTemplate: TemplateRef<any>;
   // tslint:disable-next-line:no-any
-  @ViewChild('updatedMinTemplate') updatedMinTemplate: TemplateRef<any>;
+  @ViewChild('updatedMinTemplate', { static: true, }) updatedMinTemplate: TemplateRef<any>;
 
   highlightExtremes = true;
   minHighlightRectangle = { x: 144, y: 96, width: 30, height: 7 };

@@ -1,4 +1,4 @@
-import { SimpleChanges, TemplateRef, Input } from '@angular/core';
+import { SimpleChanges, TemplateRef, Input, OnDestroy, OnChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { unifySeriesData, DtMicroChartDataPoint } from '../business-logic/core/chart';
 import { DtMicroChartStackContainer } from './stacked-container';
@@ -22,7 +22,7 @@ export interface DtMicroChartRenderDataExtremes {
 
 let uniqueId = 1;
 
-export abstract class DtMicroChartSeries {
+export abstract class DtMicroChartSeries implements OnChanges, OnDestroy {
   readonly type: DtMicroChartSeriesType;
 
   private _data: Array<number|null> | Array<[number, number|null]>;
@@ -78,7 +78,7 @@ export abstract class DtMicroChartSeries {
     };
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     this._stateChanges.next(this);
   }
 
