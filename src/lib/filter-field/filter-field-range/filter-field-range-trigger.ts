@@ -113,7 +113,6 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
   openPanel(): void {
     if (this._range) {
       this._attachOverlay();
-      this._range.focus();
     }
   }
 
