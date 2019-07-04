@@ -7,4 +7,3 @@ ng g @dynatrace/components-schematics:dte --name=default --component=select
 ```
 - Specifying a component is required using the --component flag
 - Adds new example to a component with the correct imports
-- Adds example to the docs page
