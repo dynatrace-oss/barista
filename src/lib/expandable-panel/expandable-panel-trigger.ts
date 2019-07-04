@@ -1,5 +1,4 @@
 import { DOWN_ARROW, ENTER, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectorRef,
   Directive,
@@ -11,7 +10,7 @@ import { CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
 import { Subscription } from 'rxjs';
 
 @Directive({
-  // @breaking-change update selector to button[dtExpandablePanel] in v5.0.0
+  // @breaking-change update selector to button[dtExpandablePanel] in 5.0.0
   selector: '[dtExpandablePanel]',
   exportAs: 'dtExpandablePanelTrigger',
   host: {
@@ -31,17 +30,17 @@ export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
   get dtExpandablePanel(): DtExpandablePanel { return this._panel; }
   set dtExpandablePanel(value: DtExpandablePanel) {
     this._panel = value;
-    this._subscription.unsubscribe();
-    this._subscription = this.dtExpandablePanel.expandChange.subscribe(() => {
+    this._expandedSubscription.unsubscribe();
+    this._expandedSubscription = this.dtExpandablePanel.expandChange.subscribe(() => {
       this._changeDetectorRef.markForCheck();
     });
   }
   private _panel: DtExpandablePanel;
-  private _subscription: Subscription = Subscription.EMPTY;
+  private _expandedSubscription: Subscription = Subscription.EMPTY;
 
   /**
    * @deprecated Use the panel's expanded input instead.
-   * @breaking-change To be removed with v5.0.0
+   * @breaking-change To be removed with 5.0.0
    */
   @Input()
   get opened(): boolean {
@@ -49,13 +48,13 @@ export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
   }
   set opened(value: boolean) {
     if (this.dtExpandablePanel) {
-      this.dtExpandablePanel.expanded = coerceBooleanProperty(value);
+      this.dtExpandablePanel.expanded = value;
     }
   }
 
   /**
    * @deprecated Use the panel's disabled input instead.
-   * @breaking-change To be removed with v5.0.0
+   * @breaking-change To be removed with 5.0.0
    */
   @Input()
   get disabled(): boolean {
@@ -63,19 +62,19 @@ export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
   }
   set disabled(value: boolean) {
     if (this.dtExpandablePanel) {
-      this.dtExpandablePanel.disabled = coerceBooleanProperty(value);
+      this.dtExpandablePanel.disabled = value;
     }
   }
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnDestroy(): void {
-    this._subscription.unsubscribe();
+    this._expandedSubscription.unsubscribe();
   }
 
   /** @internal Handles the trigger's click event. */
   _handleClick(event: MouseEvent): void {
-    // @breaking-change preventDefault to be removed with v5.0.0
+    // @breaking-change preventDefault to be removed with 5.0.0
     event.preventDefault();
     if (this.dtExpandablePanel && !this.dtExpandablePanel.disabled) {
       this.dtExpandablePanel.toggle();
@@ -87,7 +86,7 @@ export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
     if (this.dtExpandablePanel && !this.dtExpandablePanel.disabled) {
       const keyCode = readKeyCode(event);
       const isAltKey = event.altKey;
-      // @breaking-change enter/space handling can be removed once the trigger can only be a button (v5.0.0)
+      // @breaking-change enter/space handling can be removed once the trigger can only be a button (5.0.0)
       if (keyCode === ENTER || keyCode === SPACE) {
         event.preventDefault();
         this.dtExpandablePanel.toggle();

@@ -93,6 +93,14 @@ describe('DtExpandableSection', () => {
       expect(expandableSectionInstance.expanded).toBe(false);
     });
 
+    // test expanded and disabled state
+    it('should close when open and disabled', () => {
+      expandableSectionInstance.open();
+      expect(expandableSectionInstance.expanded).toBe(true);
+      expandableSectionInstance.disabled = true;
+      expect(expandableSectionInstance.expanded).toBe(false);
+    });
+
     // check CSS class when expanded
     it('should have correct styles applied when expanded', () => {
       expect(instanceElement.classList).not.toContain('dt-expandable-section-opened');
