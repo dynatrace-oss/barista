@@ -74,7 +74,19 @@ export const COMPLEX_DATA = {
         {
           name: 'Chrome',
           value: 'IE',
-          autocomplete: ['Latest', { name: 'Custom', suggestions: []}],
+          autocomplete: ['Latest', { name: 'Custom', suggestions: []}, {
+            name: 'Version',
+            range: {
+              operators: {
+                range: true,
+                equal: true,
+                greaterThanEqual: true,
+                lessThanEqual: true,
+              },
+              unit: '',
+            },
+          },
+        ],
         },
       ],
     },

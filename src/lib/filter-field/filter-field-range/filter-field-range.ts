@@ -66,7 +66,7 @@ export class DtFilterFieldRange implements AfterViewInit {
     this._hasLowerEqualOperator = !!(this._enabledOperators & DtRangeOperatorFlags.LowerEqual);
     // tslint:disable-next-line: no-bitwise
     this._hasGreaterEqualOperator = !!(this._enabledOperators & DtRangeOperatorFlags.GreatEqual);
-    this._updateSelectedOperator();
+    this._setOperator();
   }
   private _enabledOperators: DtRangeOperatorFlags;
 
@@ -101,8 +101,8 @@ export class DtFilterFieldRange implements AfterViewInit {
   /** @internal Whether the filter-field range panel is open. */
   _isOpen = false;
 
-  /** The currently selected option. */
-  selectedOperator: DtFilterFieldRangeOperator | null;
+  /** @internal The currently selected option. */
+  _selectedOperator: DtFilterFieldRangeOperator | null;
 
   /** @internal */
   @ViewChild(TemplateRef, { static: true, }) _template: TemplateRef<{}>;
@@ -145,7 +145,7 @@ export class DtFilterFieldRange implements AfterViewInit {
 
   /** @internal Whether the selected operator's type equals the provided type */
   _isOperatorType(type: DtFilterFieldRangeOperator): boolean {
-    return isDefined(this.selectedOperator) && this.selectedOperator === type;
+    return isDefined(this._selectedOperator) && this._selectedOperator === type;
   }
 
   /** @internal Handles the submit of range values. */
@@ -157,10 +157,46 @@ export class DtFilterFieldRange implements AfterViewInit {
       this.rangeSubmitted.emit(
         new DtFilterFieldRangeSubmittedEvent(
           this,
-          this.selectedOperator as DtFilterFieldRangeOperator,
+          this._selectedOperator as DtFilterFieldRangeOperator,
           range as number | [number, number],
           this.unit
         ));
+    }
+  }
+
+  /** @internal Sets the operator if it is available. */
+  _setOperator(operator?: DtFilterFieldRangeOperator): void {
+    if (operator === 'range' && this._hasRangeOperator) {
+      this._selectedOperator = operator;
+      return;
+    }
+    if (operator === 'equal' && this._hasEqualOperator) {
+      this._selectedOperator = operator;
+      return;
+    }
+    if (operator === 'lower-equal' && this._hasLowerEqualOperator) {
+      this._selectedOperator = operator;
+      return;
+    }
+    if (operator === 'greater-equal' && this._hasGreaterEqualOperator) {
+      this._selectedOperator = operator;
+      return;
+    }
+    if (!this._selectedOperator) {
+      this._selectedOperator = this._hasRangeOperator ? 'range' :
+        this._hasLowerEqualOperator ? 'lower-equal' :
+        this._hasGreaterEqualOperator ? 'greater-equal' :
+        this._hasEqualOperator ? 'equal' : null;
+    }
+  }
+
+  /** @internal Set values for the range input fields. */
+  _setValues(values: number|[number, number]): void {
+    if (Array.isArray(values)) {
+      this._valueFrom = `${values[0]}`;
+      this._valueTo = `${values[1]}`;
+    } else {
+      this._valueFrom = `${values}`;
     }
   }
 
@@ -172,18 +208,10 @@ export class DtFilterFieldRange implements AfterViewInit {
   /** Validates and casts the range values (from & to) and return either the range number(s) or null */
   private _validateRange(): number | [number, number] | null {
     const valueFromOrNull = coerceNumberProperty(this._valueFrom, null);
-    if (this.selectedOperator === 'range' && valueFromOrNull !== null) {
+    if (this._selectedOperator === 'range' && valueFromOrNull !== null) {
       const valueToOrNull = coerceNumberProperty(this._valueTo, null);
       return valueToOrNull !== null ? [valueFromOrNull, valueToOrNull] : null;
     }
     return valueFromOrNull;
-  }
-
-  /** Updates the selectedOperator */
-  private _updateSelectedOperator(): void {
-    this.selectedOperator = this._hasRangeOperator ? 'range' :
-      this._hasLowerEqualOperator ? 'lower-equal' :
-      this._hasGreaterEqualOperator ? 'greater-equal' :
-      this._hasEqualOperator ? 'equal' : null;
   }
 }
