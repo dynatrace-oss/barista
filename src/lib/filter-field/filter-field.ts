@@ -36,7 +36,7 @@ import {
 } from './types';
 import { filterAutocompleteDef, filterFreeTextDef, transformSourceToTagData, findDefForSourceObj, peekOptionId } from './filter-field-util';
 import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-range-trigger';
-import { DtFilterFieldRangeSubmittedEvent } from './filter-field-range/filter-field-range';
+import { DtFilterFieldRangeSubmittedEvent, DtFilterFieldRange } from './filter-field-range/filter-field-range';
 
 // tslint:disable:no-any
 
@@ -111,6 +111,9 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
 
   /** @internal The autocomplete trigger that is placed on the input element */
   @ViewChild(DtAutocompleteTrigger, { static: true }) _autocompleteTrigger: DtAutocompleteTrigger<DtNodeDef>;
+
+  /** @internal The range trigger that is placed on the input element */
+  @ViewChild(DtFilterFieldRange, { static: true }) _filterfieldRange: DtFilterFieldRange;
 
   /** @internal The range trigger that is placed on the input element */
   @ViewChild(DtFilterFieldRangeTrigger, { static: true }) _filterfieldRangeTrigger: DtFilterFieldRangeTrigger;
@@ -310,6 +313,12 @@ export class DtFilterField implements AfterViewInit, OnDestroy, OnChanges {
         this._currentSelectedOptionId = peekOptionId(def, this._currentSelectedOptionId);
 
         this._updateAutocompleteOptionsOrGroups();
+        // If the currently edited part is a range it should prefill the
+        // previously set values.
+        if (isDtRangeDef(this._currentDef) && removed.length === 1) {
+          this._filterfieldRange._setValues(removed[0].range);
+          this._filterfieldRange._setOperator(removed[0].operator);
+        }
         this._updateFilterByLabel();
         this._updateTagData();
         this._isFocused = true;

@@ -818,6 +818,62 @@ describe('DtFilterField', () => {
         const rangeOverlay = getFilterFieldRange(overlayContainerElement);
         expect(rangeOverlay.length).toBe(0);
       });
+
+      it('should reapply previously set range operator and values when editing a range filter', () => {
+        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+
+        typeInElement('15', inputFieldsElements[0]);
+        typeInElement('25', inputFieldsElements[1]);
+        fixture.detectChanges();
+
+        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        rangeApplyButton.click();
+        fixture.detectChanges();
+
+        const tagLabel = fixture.debugElement.queryAll(By.css('.dt-filter-field-tag-label'))[0];
+        tagLabel.nativeElement.click();
+
+        zone.simulateMicrotasksEmpty();
+        fixture.detectChanges();
+
+        // expect the range to open again
+        const filterFieldRangeElements = getFilterFieldRange(overlayContainerElement);
+        expect(filterFieldRangeElements.length).toBe(1);
+
+        // expect the values to be filled
+        expect(filterField._filterfieldRange._selectedOperator).toEqual('range');
+        expect(filterField._filterfieldRange._valueFrom).toEqual('15');
+        expect(filterField._filterfieldRange._valueTo).toEqual('25');
+      });
+
+      it('should reapply previously set greater-equal operator and value when editing a range filter', () => {
+
+        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        operatorButtonElements[2].click();
+        fixture.detectChanges();
+
+        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        typeInElement('27', inputFieldsElements[0]);
+        fixture.detectChanges();
+
+        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        rangeApplyButton.click();
+        fixture.detectChanges();
+
+        const tagLabel = fixture.debugElement.queryAll(By.css('.dt-filter-field-tag-label'))[0];
+        tagLabel.nativeElement.click();
+
+        zone.simulateMicrotasksEmpty();
+        fixture.detectChanges();
+
+        // expect the range to open again
+        const filterFieldRangeElements = getFilterFieldRange(overlayContainerElement);
+        expect(filterFieldRangeElements.length).toBe(1);
+
+        // expect the values to be filled
+        expect(filterField._filterfieldRange._selectedOperator).toEqual('greater-equal');
+        expect(filterField._filterfieldRange._valueFrom).toEqual('27');
+      });
     });
   });
 });
