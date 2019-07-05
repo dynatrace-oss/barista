@@ -1,4 +1,4 @@
-import { DtChartTooltipData } from './highcharts-tooltip-types';
+import { DtChartTooltipData, DtChartTooltipEvent } from './highcharts-tooltip-types';
 
 // tslint:disable-next-line: no-any
 declare var require: any;
@@ -71,4 +71,12 @@ export function addTooltipEvents(): boolean {
   // this has to return something otherwise when running a build with the prod flag enabled
   // uglify throws away this code because it does not produce sideeffects
   return true;
+}
+
+/** Searches for the hovered series in a tooltip event object */
+export function findHoveredSeriesIndex(ev: DtChartTooltipEvent): number {
+  if (ev.data.points !== undefined) {
+    return ev.data.points.findIndex((p) => p.series.state === 'hover');
+  }
+  return -1;
 }

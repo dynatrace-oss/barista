@@ -33,11 +33,11 @@ import * as Highcharts from 'highcharts';
 import { chart, ChartObject, IndividualSeriesOptions, Options as HighchartsOptions, setOptions, addEvent as addHighchartsEvent } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import { Observable, Subject, Subscription, defer, merge, BehaviorSubject } from 'rxjs';
-import { delay, takeUntil, take, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { delay, takeUntil, take, switchMap, distinctUntilChanged, map, filter } from 'rxjs/operators';
 
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
 import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides';
-import { addTooltipEvents, DtHcTooltipEventPayload } from './highcharts/highcharts-tooltip-extensions';
+import { addTooltipEvents, DtHcTooltipEventPayload, findHoveredSeriesIndex } from './highcharts/highcharts-tooltip-extensions';
 import { DtChartHeatfield, DtChartHeatfieldActiveChange } from './heatfield/chart-heatfield';
 import { createHighchartOptions, applyHighchartsColorOptions } from './highcharts/highcharts-util';
 import { DT_CHART_CONFIG, DtChartConfig, DT_CHART_DEFAULT_CONFIG } from './chart-config';
@@ -230,9 +230,18 @@ export class DtChart implements AfterViewInit, OnDestroy, OnChanges, AfterConten
     });
     this._tooltipRefreshed.pipe(
       takeUntil(this._destroy),
+      filter(Boolean),
+      map((ev) => {
+        if (ev.data.points) {
+          // We need to clone the series here, because highcharts mutates the object and
+          // we therefore cannot create a compare function that compares the last with the next emission
+          ev.data.points = ev.data.points.map((p) => ({...p, series: { ...p.series }}));
+        }
+        return ev;
+      }),
       distinctUntilChanged((a, b) => {
         if (a && b) {
-          return a.data.x === b.data.x && a.data.y === b.data.y;
+          return a.data.x === b.data.x && a.data.y === b.data.y && findHoveredSeriesIndex(a) === findHoveredSeriesIndex(b);
         }
         return false;
       })
