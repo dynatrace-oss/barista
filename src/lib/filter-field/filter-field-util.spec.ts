@@ -9,7 +9,6 @@ import {
   DELIMITER,
   peekOptionId,
   findDefForSource,
-  transformSourceToTagData,
   optionFilterTextPredicate,
   optionSelectedPredicate,
   optionOrGroupFilteredPredicate,
