@@ -14,6 +14,8 @@ export class ContextDialogDemo {
     { host: 'et-demo-2-win1', cpu: '23 %' },
   ];
 
+  panel = ['more', 'evenmore'];
+
   removeRow(row: { host: string; cpu: string }): void {
     this.dataSource = this.dataSource.filter(r => r !== row);
   }
