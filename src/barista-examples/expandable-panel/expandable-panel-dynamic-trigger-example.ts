@@ -16,4 +16,4 @@ import { Component } from '@angular/core';
  Toggle trigger (<span *ngIf="panel.expanded">close panel</span><span *ngIf="!panel.expanded">open panel</span>)
 </button>`,
 })
-export class DynamicTriggerExpandablePanelExample {}
+export class ExpandablePanelDynamicTriggerExample {}

@@ -14,4 +14,4 @@ import { Component } from '@angular/core';
 </dt-expandable-panel>
 <button dt-button [dtExpandablePanel]="panel">Toggle expandable panel</button>`,
 })
-export class DisabledExpandablePanelExample {}
+export class ExpandablePanelDisabledExample {}
