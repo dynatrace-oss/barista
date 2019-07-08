@@ -53,6 +53,36 @@ describe('DtContextDialog', () => {
     beforeEach(async(() => {
       configureDtContextDialogTestingModule([BasicContextDialog]);
     }));
+
+    it('should set a class on the overlay panel if a string is set on the input', () => {
+      const fixture = createComponent(BasicContextDialog);
+      fixture.componentInstance.contextDialog.open();
+      fixture.detectChanges();
+      const contextDialogPanel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-content');
+      expect(contextDialogPanel!.classList).toContain('someclass');
+    });
+
+    it('should set all classes on the overlay panel if an array of strings is set on the input', () => {
+      const fixture = createComponent(BasicContextDialog);
+      fixture.componentInstance.panelClass = ['more', 'evenmore'];
+      fixture.componentInstance.contextDialog.open();
+      fixture.detectChanges();
+      const contextDialogPanel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-content');
+      expect(contextDialogPanel!.classList).toContain('more');
+      expect(contextDialogPanel!.classList).toContain('evenmore');
+    });
+
+    it('should set the correct classes on the overlay panel when already open', () => {
+      const fixture = createComponent(BasicContextDialog);
+      fixture.componentInstance.contextDialog.open();
+      fixture.detectChanges();
+      fixture.componentInstance.panelClass = ['more', 'evenmore'];
+      fixture.detectChanges();
+      const contextDialogPanel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-content');
+      expect(contextDialogPanel!.classList).toContain('more');
+      expect(contextDialogPanel!.classList).toContain('evenmore');
+    });
+
     describe('accessibility', () => {
       describe('for context-dialog', () => {
         let fixture: ComponentFixture<BasicContextDialog>;
@@ -334,6 +364,7 @@ describe('DtContextDialog', () => {
       [aria-label-close-button]="ariaLabelClose"
       [tabIndex]="tabIndexOverride"
       [disabled]="disabled"
+      [overlayPanelClass]="panelClass"
     >
       <p>Some cool content</p>
       <button #interactive>test</button>
@@ -346,6 +377,7 @@ class BasicContextDialog {
   ariaLabelClose: string;
   disabled: boolean;
   customTrigger = false;
+  panelClass: string | string[] = 'someclass';
 
   @ViewChild(DtContextDialog, { static: false }) contextDialog: DtContextDialog;
   @ViewChild(DtContextDialogTrigger, { static: false })
