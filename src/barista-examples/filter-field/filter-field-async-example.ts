@@ -14,7 +14,7 @@ import { DtFilterFieldDefaultDataSource, DtFilterFieldCurrentFilterChangeEvent }
   </dt-filter-field>
   `,
 })
-export class AsyncFilterFieldExample {
+export class FilterFieldAsyncExample {
 
   private DATA = {
     autocomplete: [
