@@ -118,6 +118,14 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   /** Aria label of the context-dialog's close button. */
   @Input('aria-label-close-button') ariaLabelClose: string;
 
+  /** The custom class to add to the overlay panel element. Can be used to scope styling within the overlay */
+  @Input() overlayPanelClass:
+    | string
+    | string[]
+    | Set<string>
+    // tslint:disable-next-line: no-any
+    | { [key: string]: any };
+
   /** Event emitted when the select has been opened. */
   @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<
     boolean
