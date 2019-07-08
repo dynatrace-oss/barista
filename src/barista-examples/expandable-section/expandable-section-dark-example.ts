@@ -13,4 +13,4 @@ import { Component } from '@angular/core';
   </dt-expandable-section>
 </div>`,
 })
-export class DarkExpandableSectionExample {}
+export class ExpandableSectionDarkExample {}

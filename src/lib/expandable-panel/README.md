@@ -33,7 +33,7 @@ To apply the Dynatrace expandable panel, use the `<dt-expandable-panel>` element
 | `dt-expandable-panel` | The expandable panel, with the behaviour, but without styling |
 | `[dtExpandablePanel]=#panel` | The expandable trigger which listens on click and key events. The trigger needs to get a panel assigned. |
 
-<docs-source-example example="DefaultExpandablePanelExample"></docs-source-example>
+<docs-source-example example="ExpandablePanelDefaultExample"></docs-source-example>
 
 ## Inputs
 
@@ -68,22 +68,22 @@ To apply the Dynatrace expandable panel, use the `<dt-expandable-panel>` element
 
 ### Default
 
-<docs-source-example example="DefaultExpandablePanelExample"></docs-source-example>
+<docs-source-example example="ExpandablePanelDefaultExample"></docs-source-example>
 
 ### Disabled
 
 The expandable panel can be disabled, which also disables the trigger button.
 
-<docs-source-example example="DisabledExpandablePanelExample"></docs-source-example>
+<docs-source-example example="ExpandablePanelDisabledExample"></docs-source-example>
 
 ### Dynamic trigger
 
 The expandable panel's trigger can be updated according to the panel's current state.
 
-<docs-source-example example="DynamicTriggerExpandablePanelExample"></docs-source-example>
+<docs-source-example example="ExpandablePanelDynamicTriggerExample"></docs-source-example>
 
 ### Programmatic trigger
 
 The expandable panel can be opened/closed/toggled programmatically.
 
-<docs-source-example example="ProgrammaticExpandablePanelExample"></docs-source-example>
+<docs-source-example example="ExpandablePanelProgrammaticExample"></docs-source-example>
