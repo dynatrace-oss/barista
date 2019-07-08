@@ -42,7 +42,7 @@ Normally you can select all options of an autocomplete, but sometimes there is a
 
 You can do that by setting the `distinct: true` property onto the autocomplete object.
 
-<docs-source-example example="DistinctFilterFieldExample"></docs-source-example>
+<docs-source-example example="FilterFieldDistinctExample"></docs-source-example>
 
 ## Loading Options asynchronously
 
