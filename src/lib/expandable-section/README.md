@@ -32,7 +32,7 @@ To apply the Dynatrace expandable panel, use the `<dt-expandable-section>` eleme
 | `dt-expandable-section` | The expandable section. |
 | `dt-expandable-section-header` | The component, which contains the content of the header. |
 
-<docs-source-example example="DefaultExpandableSectionExample"></docs-source-example>
+<docs-source-example example="ExpandableSectionDefaultExample"></docs-source-example>
 
 ## Options & Properties
 
@@ -63,16 +63,16 @@ To apply the Dynatrace expandable panel, use the `<dt-expandable-section>` eleme
 
 ### Open state by default
 
-<docs-source-example example="OpenExpandableSectionExample"></docs-source-example>
+<docs-source-example example="ExpandableSectionOpenExample"></docs-source-example>
 
 ### Disabled
 
-<docs-source-example example="DisabledExpandableSectionExample"></docs-source-example>
+<docs-source-example example="ExpandableSectionDisabledExample"></docs-source-example>
 
 ### Interactive
 
-<docs-source-example example="InteractiveExpandableSectionExample"></docs-source-example>
+<docs-source-example example="ExpandableSectionInteractiveExample"></docs-source-example>
 
 ### Dark background
 
-<docs-source-example example="DarkExpandableSectionExample"></docs-source-example>
+<docs-source-example example="ExpandableSectionDarkExample"></docs-source-example>
