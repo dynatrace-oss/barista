@@ -1,3 +1,30 @@
+## 3.2.0 (2019-07-08)
+
+### Bug Fixes
+
+* **chart:** Fixes an issue where the tooltip did not refresh when the hovered series changed
+* **expandable-section:** Fixes an issue that aligns `expandable-section` styles with UX guidelines ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **filter-field:** Fixes an issue where the `filter-field-range` did not let go of the focus once opened ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **filter-field:** Fixes an issue where the max-width of the `filter-field-tag` was not aligned with Barista guideline 
+* **highlight:** Fixes an issue where the output text casing was wrongfully transformed when highlighting ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **show-more:** Fixed default hover styles and added missing dark theme styles ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **show-more:** Fixes an issue where show more was still clickable when disabled ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+
+### Features
+
+* **chart:** Added `dt-chart-selection-area` ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **chart:** Deprecated the `dt-selection-area` component ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **chart:** Add Barista example and API documentation for the range component ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **chart:** Add focus method for programmatically focusing the range and timestamp ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **chart:** Add focus trapping for creation of timestamp and range ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **chart:** Create a chart hairline that follows mouse position on a selection area to indicate the current position ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **chart:** Create a selection area overlay that indicates the selected area (range) or time (timestamp) ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **expandable-panel:** Added `expanded` and `disabled` inputs and `expandChange`, `expanded` and `collapsed` outputs ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **expandable-panel:** Deprecated inputs (`opened`, `disabled`) as these values should be handled by the panel itself ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **expandable-section:** Added `expanded` input and `expandChange`, `expanded` and `collapsed` outputs, according to the updates of the expandable panel component ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **linting:** Added `dt-expandable-trigger-is-button` rule ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 3.1.0 (2019-07-02)
 
 ### Bug Fixes
