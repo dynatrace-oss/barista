@@ -43,6 +43,7 @@ import {
   getSourcesOfDtFilterValues,
   DtAutocompletValue,
   isDtAutocompletValue,
+  isDtRangeValue,
 } from './types';
 import {
   filterAutocompleteDef,
@@ -53,7 +54,7 @@ import {
   applyDtOptionIds
 } from './filter-field-util';
 import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-range-trigger';
-import { DtFilterFieldRangeSubmittedEvent, DtFilterFieldRange } from './filter-field-range/filter-field-range';
+import { DtFilterFieldRangeSubmittedEvent, DtFilterFieldRange, DtFilterFieldRangeOperator } from './filter-field-range/filter-field-range';
 import { getDtFilterFieldApplyFilterNoRootDataProvidedError, getDtFilterFieldApplyFilterParseError } from './filter-field-errors';
 
 // tslint:disable:no-any
@@ -345,9 +346,10 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
    * Usually called when the user clicks the edit button of a filter.
    */
   _handleTagEdit(event: DtFilterFieldTag): void {
+    // TODO: Editing of tag should be refactored in a later stage.
     if (!this._currentFilterValues.length && event.data.filterValues.length) {
       const value = event.data.filterValues[0];
-      if (isDtAutocompletValue(value) && isDtAutocompleteDef(value)) {
+      if ((isDtAutocompletValue(value) && isDtAutocompleteDef(value)) || isDtRangeDef(value)) {
         const removed = event.data.filterValues.splice(1);
         this._currentFilterValues = event.data.filterValues;
         this._currentDef = value;
@@ -356,9 +358,15 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         this._updateAutocompleteOptionsOrGroups();
         // If the currently edited part is a range it should prefill the
         // previously set values.
-        if (isDtRangeDef(this._currentDef) && removed.length === 1) {
-          this._filterfieldRange._setValues(removed[0].range);
-          this._filterfieldRange._setOperator(removed[0].operator);
+        if (removed.length === 1) {
+          // Needed to reassign in order for typescript to understand the type.
+          const recentRangeValue = removed[0];
+          if (isDtRangeValue(recentRangeValue)) {
+            // Needed to set this in typescript, because template binding of input would be evaluated to late.
+            this._filterfieldRange.enabledOperators = this._currentDef.range!.operatorFlags;
+            this._filterfieldRange._setValues(recentRangeValue.range);
+            this._filterfieldRange._setOperator(recentRangeValue.operator as DtFilterFieldRangeOperator);
+          }
         }
         this._updateFilterByLabel();
         this._updateTagData();

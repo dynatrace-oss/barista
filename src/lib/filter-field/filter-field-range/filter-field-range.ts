@@ -34,7 +34,7 @@ export class DtFilterFieldRangeSubmittedEvent {
 }
 
 /** Valid FilterfieldRange operators. */
-type DtFilterFieldRangeOperator = 'range' | 'lower-equal' | 'greater-equal' | 'equal';
+export type DtFilterFieldRangeOperator = 'range' | 'lower-equal' | 'greater-equal' | 'equal';
 
 @Component({
   selector: 'dt-filter-field-range',
@@ -161,6 +161,11 @@ export class DtFilterFieldRange implements AfterViewInit {
           range as number | [number, number],
           this.unit
         ));
+      // After emission we need to reset the range state, to have a fresh one
+      // if another range opens.
+      this._valueFrom = '';
+      this._valueTo = '';
+      this._selectedOperator = null;
     }
   }
 

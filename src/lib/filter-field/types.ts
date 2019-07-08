@@ -119,7 +119,7 @@ export function dtRangeDef(
 }
 
 /** Whether the provided def object is of type NodeDef and consists of an RangeDef. */
-export function isDtRangeDef(def: any): def is DtRangeDef {
+export function isDtRangeDef(def: any): def is DtNodeDef & DtRangeDef {
   return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeRange);
 }
 
