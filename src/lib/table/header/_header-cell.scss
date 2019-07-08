@@ -14,7 +14,7 @@
 :host-context(.dt-table) ::ng-deep .dt-header-cell {
   @include dt-base-cell-flex();
   align-items: flex-end;
-  border-bottom: 2px solid $gray-200;
+  border-bottom: 1px solid $gray-200;
 }
 
 :host-context(.dt-table-interactive-rows):hover {
