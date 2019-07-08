@@ -1,3 +1,30 @@
+## 3.2.0 (2019-07-08)
+
+### Bug Fixes
+
+* **chart:** Fixes an issue where the tooltip did not refresh when the hovered series changed
+* **expandable-section:** Fixes an issue that aligns `expandable-section` styles with UX guidelines ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **filter-field:** Fixes an issue where the `filter-field-range` did not let go of the focus once opened ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **filter-field:** Fixes an issue where the max-width of the `filter-field-tag` was not aligned with Barista guideline 
+* **highlight:** Fixes an issue where the output text casing was wrongfully transformed when highlighting ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **show-more:** Fixed default hover styles and added missing dark theme styles ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **show-more:** Fixes an issue where show more was still clickable when disabled ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+
+### Features
+
+* **chart:** Added `dt-chart-selection-area` ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **chart:** Deprecated the `dt-selection-area` component ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **chart:** Add Barista example and API documentation for the range component ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **chart:** Add focus method for programmatically focusing the range and timestamp ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **chart:** Add focus trapping for creation of timestamp and range ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **chart:** Create a chart hairline that follows mouse position on a selection area to indicate the current position ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **chart:** Create a selection area overlay that indicates the selected area (range) or time (timestamp) ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **expandable-panel:** Added `expanded` and `disabled` inputs and `expandChange`, `expanded` and `collapsed` outputs ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **expandable-panel:** Deprecated inputs (`opened`, `disabled`) as these values should be handled by the panel itself ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **expandable-section:** Added `expanded` input and `expandChange`, `expanded` and `collapsed` outputs, according to the updates of the expandable panel component ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+* **linting:** Added `dt-expandable-trigger-is-button` rule ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 3.1.0 (2019-07-02)
 
 ### Bug Fixes
