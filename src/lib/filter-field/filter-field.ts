@@ -612,7 +612,6 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         }
       }
     }
-    console.log(ids.values());
     return ids;
   }
 
