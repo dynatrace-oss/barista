@@ -97,9 +97,6 @@ export function optionOrGroupFilteredPredicate(
 
 /** Predicate function for filtering options based on their id. */
 export function optionSelectedPredicate(def: DtNodeDef, selectedIds: Set<string>, isDistinct: boolean): boolean {
-  if (isDtOptionDef(def.option!.parentAutocomplete)) {
-
-  }
   return !(def.option!.uid && selectedIds.has(def.option!.uid) && (!isDtRenderType(def) || isDistinct));
 }
 
