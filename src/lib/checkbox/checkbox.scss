@@ -44,7 +44,7 @@ $dt-checkbox-size: 20px;
     border-color: $disabledcolor;
   }
 
-  .dt-checkbox-button:not(:host.dt-checkbox-disabled):hover & {
+  :host:not(.dt-checkbox-disabled):hover & {
     border-color: $turquoise-700;
   }
 
@@ -72,6 +72,10 @@ $dt-checkbox-size: 20px;
   stroke: $turquoise-600;
   width: $dt-checkbox-size - 4;
   height: $dt-checkbox-size - 4;
+
+  :host:hover & {
+    stroke: $turquoise-700;
+  }
 
   :host.dt-checkbox-disabled & {
     stroke: $disabledcolor;
