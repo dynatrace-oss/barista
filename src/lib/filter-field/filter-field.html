@@ -10,6 +10,7 @@
 
   <div class="dt-filter-field-infix">
     <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{_filterByLabel}}</span>
+    <dt-loading-spinner class="dt-filter-field-spinner" *ngIf="loading"></dt-loading-spinner>
     <input #input
       type="text"
       class="dt-filter-field-input"
@@ -37,7 +38,6 @@
       (rangeSubmitted)="_handleRangeSubmitted($event)"
     >
     </dt-filter-field-range>
-    <dt-loading-spinner class="dt-filter-field-spinner" *ngIf="loading"></dt-loading-spinner>
   </div>
 
   <dt-filter-field-tag

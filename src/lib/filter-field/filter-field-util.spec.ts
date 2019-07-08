@@ -107,27 +107,6 @@ describe('DtFilterField Util', () => {
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(findDefForSource({}, autocompleteDef)).toBe(null);
     });
-
-    // fit('should', () => {
-    //   const rootSource = {
-    //     autocomplete: [
-    //       { name: 'AUT', autocomplete: [], async: true },
-    //     ],
-    //   };
-    //   const asyncSource = {
-    //     name: 'AUT',
-    //     autocomplete: [
-    //       { name: 'Linz' },
-    //     ],
-    //     async: true,
-    //   };
-    //   let autDef = dtOptionDef(rootSource.autocomplete[0].name, rootSource.autocomplete[0], null, null, null, null);
-    //   autDef = dtAutocompleteDef([], false, rootSource.autocomplete[0].async, rootSource.autocomplete[0], autDef);
-    //   const rootDef = dtAutocompleteDef([autDef], false, false, rootSource, null);
-    //   autDef.option!.parentAutocomplete = rootDef;
-
-    //   findDefForSourceObj()
-    // });
   });
 
   describe('createTagDataForFilterValues', () => {
@@ -251,20 +230,6 @@ describe('DtFilterField Util', () => {
       expect(tagData!.isFreeText).toBe(true);
       expect(tagData!.filterValues).toBe(values);
     });
-
-    // it(
-    //   'should return null if a tag object can not be created because of ' +
-    //   'resolving a definition based on a source obj is not possible',
-    //   () => {
-    //     const optionSource = { name: 'Option 1' };
-    //     const autocompleteSource = [optionSource];
-
-    //     const optionDef = dtOptionDef(optionSource.name, optionSource, null, null, null, null);
-    //     const autocompleteDef = dtAutocompleteDef([optionDef], false, false, autocompleteSource, null);
-    //     const sources = [{}];
-    //     const tagData = transformSourceToTagData(sources, autocompleteDef);
-    //     expect(tagData).toBe(null);
-    //   });
   });
 
   describe('optionFilterTextPredicate', () => {
