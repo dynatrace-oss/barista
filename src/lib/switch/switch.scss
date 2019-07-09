@@ -1,17 +1,24 @@
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
+@import '../core/style/transition';
 @import '../core/theming/theming';
-@import './switch-theme';
 @import '../style/font-mixins';
+@import './switch-theme';
 
-:host:not(.dt-switch-disabled),
-:host:not(.dt-switch-disabled) .dt-switch-label {
-  cursor: pointer;
+.dt-switch-label {
+  display: flex;
+  align-items: center;
+  position: relative;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-:host.dt-switch-disabled,
-:host.dt-switch-disabled .dt-switch-label {
-  cursor: default;
+.dt-switch-content {
+  @include dt-main-font();
+  vertical-align: middle;
 }
 
 .dt-switch-input {
@@ -21,24 +28,13 @@
 
 .dt-switch-bar {
   display: inline-block;
-  width: 36px;
   height: 20px;
-}
-
-.dt-switch-content {
-  @include dt-main-font();
-  vertical-align: middle;
-}
-
-.dt-switch-label {
+  width: 36px;
+  min-width: 36px;
   position: relative;
-  padding-left: 8px;
-  padding-right: 20px;
-  user-select: none;
-}
+  margin-right: 8px;
 
-:host {
-  .dt-switch-label::before {
+  &::before {
     content: '';
     display: inline-block;
     width: 36px;
@@ -46,36 +42,29 @@
     border-radius: 10px;
     position: absolute;
     left: 0;
+    top: -1px;
     box-sizing: border-box;
+    border: solid 1px $turquoise-600;
     background-size: 10px 10px;
     background-repeat: no-repeat;
     background-position: 21px 4px;
-    transition: background-color 100ms ease-out;
-    top: -1px;
+    background-color: transparent;
+    @include dt-form-input-color-transition();
+    background-image: radial-gradient(
+      circle 5px,
+      transparent 0,
+      transparent 2px,
+      $gray-700 3px,
+      transparent 4px
+    );
   }
 
-  &.dt-switch-focused:not(.dt-switch-disabled) {
-    .dt-switch-label::before {
-      @include dt-focus-style();
-    }
-  }
-
-  &.dt-switch-checked {
-    .dt-switch-label::before {
-      background-size: 8px 8px;
-      background-repeat: no-repeat;
-      background-position: 9px 5px;
-    }
-    .dt-switch-label::after {
-      left: 16px;
-    }
-  }
-
-  .dt-switch-label::after {
+  &::after {
     content: '';
     height: 12px;
     width: 12px;
     border-radius: 50%;
+    background-color: $gray-700;
     transition: left 100ms ease-out, right 100ms ease-out;
     margin-top: 3px;
     margin-left: 4px;
@@ -84,6 +73,89 @@
     display: block;
     top: 0;
     left: 0;
+  }
+}
+
+:host {
+  &:hover .dt-switch-bar::before {
+    border: 1px solid $turquoise-700;
+    background-color: $gray-100;
+  }
+
+  &:active .dt-switch-bar::before {
+    border: 1px solid $turquoise-800;
+    background-color: $gray-100;
+  }
+
+  &.dt-switch-checked {
+    .dt-switch-bar::before {
+      background-size: 8px 8px;
+      background-repeat: no-repeat;
+      background-position: 9px 5px;
+      background-color: $turquoise-600;
+      border-color: $turquoise-600;
+      background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
+    }
+
+    .dt-switch-bar::after {
+      left: 16px;
+    }
+
+    &:hover {
+      .dt-switch-bar::before {
+        background-color: $turquoise-700;
+        border-color: $turquoise-700;
+      }
+    }
+
+    &:active {
+      .dt-switch-bar::before {
+        border: 1px solid $turquoise-800;
+        background-color: $turquoise-800;
+      }
+    }
+  }
+
+  &.dt-switch-focused .dt-switch-bar::before {
+    @include dt-focus-style();
+  }
+
+  &.dt-switch-disabled {
+    .dt-switch-content {
+      color: $disabledcolor;
+    }
+
+    &:hover .dt-switch-label {
+      cursor: default;
+    }
+
+    .dt-switch-bar::before {
+      border-color: $disabledcolor;
+      background-image: radial-gradient(
+        circle 5px,
+        transparent 0,
+        transparent 2px,
+        $disabledcolor 3px,
+        transparent 4px
+      );
+      background-color: transparent;
+    }
+
+    .dt-switch-bar::after {
+      background-color: $disabledcolor;
+    }
+  }
+
+  &.dt-switch-checked.dt-switch-disabled {
+    .dt-switch-bar::before {
+      border-color: $disabledcolor;
+      background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
+      background-color: $disabledcolor;
+    }
+
+    .dt-switch-bar::after {
+      background-color: #ffffff;
+    }
   }
 }
 
