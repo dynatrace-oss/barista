@@ -70,4 +70,4 @@ To apply the Dynatrace expandable panel, use the `<dt-expandable-section>` eleme
 
 ### Dark background
 
-<docs-source-example example="ExpandableSectionDarkExample"></docs-source-example>
+<docs-source-example example="ExpandableSectionDarkExample" themedark="true"></docs-source-example>
