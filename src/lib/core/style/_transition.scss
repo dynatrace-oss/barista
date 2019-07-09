@@ -1,0 +1,8 @@
+$color-transition-duration: 280ms;
+$color-transition-timing: ease;
+
+@mixin dt-form-input-color-transition() {
+  transition-duration: $color-transition-duration;
+  transition-timing-function: $color-transition-timing;
+  transition-property: border-color, background-color;
+}

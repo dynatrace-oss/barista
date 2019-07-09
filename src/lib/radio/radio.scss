@@ -1,23 +1,11 @@
-@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
+@import '../core/style/transition';
 @import '../core/theming/theming';
+@import '../style/font-mixins';
 @import './radio-theme';
 
 $dt-radio-size: 20px;
-
-:host {
-  display: inline-block;
-}
-
-:host:not(.dt-radio-disabled) {
-  cursor: pointer;
-}
-
-:host.dt-radio-disabled,
-:host.dt-radio-disabled .dt-radio-label {
-  cursor: default;
-}
 
 .dt-radio-label {
   cursor: pointer;
@@ -27,6 +15,10 @@ $dt-radio-size: 20px;
 
   // Have the label span the rest of the radio button for maximum clickable area.
   width: 100%;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .dt-radio-container {
@@ -35,6 +27,12 @@ $dt-radio-size: 20px;
   width: $dt-radio-size;
   height: $dt-radio-size;
   flex-shrink: 0;
+}
+
+.dt-radio-content {
+  @include dt-main-font();
+  display: inline-block;
+  padding-left: 8px;
 }
 
 // The outer circle for the radio, always present.
@@ -47,19 +45,7 @@ $dt-radio-size: 20px;
   padding: 0;
   border-radius: 50%;
   border: solid 2px $turquoise-600;
-  transition: border-color ease 280ms;
-
-  :host.dt-radio-disabled & {
-    border-color: $disabledcolor;
-  }
-
-  :host:not(.dt-radio-disabled):hover & {
-    border-color: $turquoise-700;
-  }
-
-  :host.dt-radio-focused:not(.dt-radio-disabled) & {
-    @include dt-focus-style();
-  }
+  @include dt-form-input-color-transition();
 }
 
 .dt-radio-inner-circle {
@@ -71,28 +57,61 @@ $dt-radio-size: 20px;
   height: $dt-radio-size;
   border-radius: 50%;
   background-color: $turquoise-600;
-  transition: transform ease 280ms, background-color ease 280ms;
+  @include dt-form-input-color-transition();
+  transition-property: transform, background-color;
 
   // Note: This starts from 0.001 instead of 0, because transitioning from 0 to 0.5 causes
   // IE to flash the entire circle for a couple of frames, throwing off the entire animation.
   transform: scale(0.001);
+}
 
-  :host.dt-radio-checked & {
+:host {
+  display: inline-block;
+
+  &:hover {
+    .dt-radio-outer-circle {
+      border-color: $turquoise-700;
+    }
+
+    .dt-radio-inner-circle {
+      background-color: $turquoise-700;
+    }
+  }
+
+  &:active {
+    .dt-radio-outer-circle {
+      border-color: $turquoise-800;
+    }
+
+    .dt-radio-inner-circle {
+      background-color: $turquoise-800;
+    }
+  }
+
+  &.dt-radio-focused .dt-radio-outer-circle {
+    @include dt-focus-style();
+  }
+
+  &.dt-radio-checked .dt-radio-inner-circle {
     transform: scale(0.5);
   }
 
-  :host:not(.dt-radio-disabled):hover & {
-    background-color: $turquoise-700;
-  }
-}
+  &.dt-radio-disabled {
+    .dt-radio-label {
+      cursor: default;
+    }
 
-.dt-radio-label-content {
-  @include dt-main-font();
-  display: inline-block;
-  padding-left: 8px;
+    .dt-radio-content {
+      color: $disabledcolor;
+    }
 
-  :host.dt-radio-disabled & {
-    color: $disabledcolor;
+    .dt-radio-outer-circle {
+      border-color: $disabledcolor;
+    }
+
+    .dt-radio-inner-circle {
+      background-color: $disabledcolor;
+    }
   }
 }
 
