@@ -34,7 +34,7 @@ In addition, also other selectors can be used.
 | ----------- | --------- | ----------- | ---------------------------------------------------------------------------------------- |
 | `value`     | `T`       | `undefined` | This can be used to bind a specific value to a tag.                                      |
 | `removable` | `boolean` | `false`     | If this is set to `true`, the tag can be removed by the user by clicking the abort icon. |
-| `disabled`  | `boolean` | `false`     | **DEPRECATED - will be removed with 4.0.0 without replacement**                          |
+| `disabled`  | `boolean` | `false`     | **DEPRECATED - will be removed with 5.0.0 without replacement**                          |
 
 ## Outputs
 
