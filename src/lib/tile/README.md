@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Tile
@@ -10,9 +10,7 @@ You have to import the `DtTileModule` when you want to use the `dt-tile`:
 
 ```typescript
 @NgModule({
-  imports: [
-    DtTileModule,
-  ],
+  imports: [DtTileModule],
 })
 class MyModule {}
 ```
@@ -22,9 +20,9 @@ class MyModule {}
 `<dt-tile>` is a visual container for wrapping a wide variety of contents.
 In addition to custom content, the tile also holds the following sections:
 
-* `<dt-tile-title>` - The title of this tile, needs to be defined to show the tile's header. It contains text only.
-* `<dt-tile-subtitle>` - Right below the title, a subtitle can be placed. It contains text only.
-* `<dt-tile-icon>` - An icon in the top left corner of the tile.
+- `<dt-tile-title>` - The title of this tile, needs to be defined to show the tile's header. It contains text only.
+- `<dt-tile-subtitle>` - Right below the title, a subtitle can be placed. It contains text only.
+- `<dt-tile-icon>` - An icon in the top left corner of the tile.
 
 <docs-source-example example="TileDefaultExample"></docs-source-example>
 
@@ -32,11 +30,11 @@ If only a `<dt-tile-title>` and no `<dt-tile-subtitle>` is given, the tile will 
 
 ## Inputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `disabled` | `boolean | undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined. |
-| `color` | `string | undefined` | `undefined` | Sets color. Possible options: <ul><li>`main`</li><li>`error`</li><li>`recovered`</li></ul> |
-| `tabindex` | `number` | `0` | Sets tabindex on the tile. |
+| Name       | Type                  | Default     | Description                                                                                |
+| ---------- | --------------------- | ----------- | ------------------------------------------------------------------------------------------ |
+| `disabled` | `boolean | undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined.                |
+| `color`    | `string | undefined`  | `undefined` | Sets color. Possible options: <ul><li>`main`</li><li>`error`</li><li>`recovered`</li></ul> |
+| `tabindex` | `number`              | `0`         | Sets tabindex on the tile.                                                                 |
 
 ## Examples
 

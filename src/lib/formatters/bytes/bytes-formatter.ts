@@ -1,6 +1,10 @@
 import { DtUnit } from '../unit';
 import { DtFormattedValue } from '../formatted-value';
-import { KIBI_MULTIPLIER, KILO_MULTIPLIER, DtNumberFormatOptions } from '../number-formatter';
+import {
+  KIBI_MULTIPLIER,
+  KILO_MULTIPLIER,
+  DtNumberFormatOptions,
+} from '../number-formatter';
 import { formatToBitsBytes, DtUnitConversion } from '../bits-bytes-formatter';
 
 const DEFAULT_BYTES_OPTIONS: DtNumberFormatOptions = {
@@ -10,19 +14,19 @@ const DEFAULT_BYTES_OPTIONS: DtNumberFormatOptions = {
 
 // tslint:disable:no-magic-numbers
 const KILO_CONVERSIONS = [
-  { multiplier: Math.pow(KILO_MULTIPLIER, 5), unit: DtUnit.PETA_BYTES},
-  { multiplier: Math.pow(KILO_MULTIPLIER, 4), unit: DtUnit.TERA_BYTES},
-  { multiplier: Math.pow(KILO_MULTIPLIER, 3), unit: DtUnit.GIGA_BYTES},
-  { multiplier: Math.pow(KILO_MULTIPLIER, 2), unit: DtUnit.MEGA_BYTES},
-  { multiplier: KILO_MULTIPLIER, unit: DtUnit.KILO_BYTES},
+  { multiplier: Math.pow(KILO_MULTIPLIER, 5), unit: DtUnit.PETA_BYTES },
+  { multiplier: Math.pow(KILO_MULTIPLIER, 4), unit: DtUnit.TERA_BYTES },
+  { multiplier: Math.pow(KILO_MULTIPLIER, 3), unit: DtUnit.GIGA_BYTES },
+  { multiplier: Math.pow(KILO_MULTIPLIER, 2), unit: DtUnit.MEGA_BYTES },
+  { multiplier: KILO_MULTIPLIER, unit: DtUnit.KILO_BYTES },
 ];
 
 const KIBI_CONVERSIONS = [
-  { multiplier: Math.pow(KIBI_MULTIPLIER, 5), unit: DtUnit.PETA_BYTES},
-  { multiplier: Math.pow(KIBI_MULTIPLIER, 4), unit: DtUnit.TERA_BYTES},
-  { multiplier: Math.pow(KIBI_MULTIPLIER, 3), unit: DtUnit.GIGA_BYTES},
-  { multiplier: Math.pow(KIBI_MULTIPLIER, 2), unit: DtUnit.MEGA_BYTES},
-  { multiplier: KIBI_MULTIPLIER, unit: DtUnit.KILO_BYTES},
+  { multiplier: Math.pow(KIBI_MULTIPLIER, 5), unit: DtUnit.PETA_BYTES },
+  { multiplier: Math.pow(KIBI_MULTIPLIER, 4), unit: DtUnit.TERA_BYTES },
+  { multiplier: Math.pow(KIBI_MULTIPLIER, 3), unit: DtUnit.GIGA_BYTES },
+  { multiplier: Math.pow(KIBI_MULTIPLIER, 2), unit: DtUnit.MEGA_BYTES },
+  { multiplier: KIBI_MULTIPLIER, unit: DtUnit.KILO_BYTES },
 ];
 // tslint:enable:no-magic-numbers
 
@@ -35,15 +39,18 @@ const KIBI_CONVERSIONS = [
  * if you specify an outputUnit like kilobytes - the input will be presented in kilobytes regardless how big the input is
  */
 // tslint:disable-next-line:no-any
-export function formatBytes(input: any, options?: DtNumberFormatOptions): DtFormattedValue {
-
-  const mergedOptions: DtNumberFormatOptions = { ...DEFAULT_BYTES_OPTIONS, ...options };
+export function formatBytes(
+  input: any,
+  options?: DtNumberFormatOptions
+): DtFormattedValue {
+  const mergedOptions: DtNumberFormatOptions = {
+    ...DEFAULT_BYTES_OPTIONS,
+    ...options,
+  };
   const conversions = getConversions(mergedOptions.factor);
   return formatToBitsBytes(input, conversions, mergedOptions);
 }
 
 function getConversions(factor: number): DtUnitConversion[] {
-  return factor === KIBI_MULTIPLIER
-    ? KIBI_CONVERSIONS
-    : KILO_CONVERSIONS;
+  return factor === KIBI_MULTIPLIER ? KIBI_CONVERSIONS : KILO_CONVERSIONS;
 }

@@ -12,4 +12,4 @@ import { Directive } from '@angular/core';
   },
   exportAs: 'dtSelectionAreaActions',
 })
-export class DtSelectionAreaActions { }
+export class DtSelectionAreaActions {}

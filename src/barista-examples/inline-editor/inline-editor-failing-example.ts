@@ -7,11 +7,13 @@ const TIMEOUT_MS = 2000;
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <em dt-inline-editor
+    <em
+      dt-inline-editor
       [(ngModel)]="sampleModel"
       [onRemoteSave]="failingSaveFunction"
       aria-label-save="Save text"
-      aria-label-cancel="Cancel and discard changes">
+      aria-label-cancel="Cancel and discard changes"
+    >
     </em>
   `,
 })
@@ -19,12 +21,10 @@ export class InlineEditorFailingExample {
   sampleModel = 'text content';
 
   failingSaveFunction(): Observable<void> {
-    return new Observable<void>((observer) => {
-      setTimeout(
-        () => {
-          observer.error();
-        },
-        TIMEOUT_MS);
+    return new Observable<void>(observer => {
+      setTimeout(() => {
+        observer.error();
+      }, TIMEOUT_MS);
     });
   }
 }

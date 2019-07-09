@@ -2,10 +2,13 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasContentApartFrom, isElementWithName } from '../../utils';
+import {
+  addFailure,
+  hasContentApartFrom,
+  isElementWithName,
+} from '../../utils';
 
 class DtTileVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -16,17 +19,17 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const tileChildren = [
-      'dt-tile-icon',
-      'dt-tile-title',
-      'dt-tile-subtitle',
-    ];
+    const tileChildren = ['dt-tile-icon', 'dt-tile-title', 'dt-tile-subtitle'];
 
     if (hasContentApartFrom(element, tileChildren)) {
       return;
     }
 
-    addFailure(this, element, 'A dt-tile must always contain content apart from title, subtitle and icon.');
+    addFailure(
+      this,
+      element,
+      'A dt-tile must always contain content apart from title, subtitle and icon.'
+    );
   }
 }
 
@@ -50,13 +53,14 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
  * </dt-tile>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a dt-tile always contains content apart from title, subtitle and icon.',
+    description:
+      'Ensures that a dt-tile always contains content apart from title, subtitle and icon.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A dt-tile must always contain content apart from title, subtitle and icon.',
+    rationale:
+      'A dt-tile must always contain content apart from title, subtitle and icon.',
     ruleName: 'dt-tile-no-empty',
     type: 'maintainability',
     typescriptOnly: true,

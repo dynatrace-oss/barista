@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   selector: 'dt-progress-bar-ui',
   templateUrl: 'progress-bar-ui.html',
 })
-export class ProgressBarUI {
-
-}
+export class ProgressBarUI {}

@@ -8,17 +8,12 @@
     "outDir": "../../dist/dev-app",
     "target": "es5",
     "stripInternal": false,
-    "typeRoots": [
-      "../../node_modules/@types/!(node)"
-    ],
+    "typeRoots": ["../../node_modules/@types/!(node)"],
     "baseUrl": ".",
-    "rootDirs": [
-      ".",
-      "../../dist/dev-app"
-    ],
+    "rootDirs": [".", "../../dist/dev-app"],
     "paths": {
       "@dynatrace/angular-components": ["../lib"],
-      "@dynatrace/angular-components/*": ["../lib/*"],
+      "@dynatrace/angular-components/*": ["../lib/*"]
     }
   },
   "files": [

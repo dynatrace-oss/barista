@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './copy-to-clipboard-demo.component.html',
   styleUrls: ['./copy-to-clipboard-demo.component.scss'],
 })
-export class CopyToClipboardDemo {
-
-}
+export class CopyToClipboardDemo {}

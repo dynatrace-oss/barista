@@ -12,10 +12,28 @@ import {
   isDevMode,
   ViewContainerRef,
 } from '@angular/core';
-import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import {
+  BasePortalOutlet,
+  ComponentPortal,
+  CdkPortalOutlet,
+  TemplatePortal,
+} from '@angular/cdk/portal';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+  AnimationEvent,
+} from '@angular/animations';
 import { Subject } from 'rxjs';
-import { HasNgZone, mixinNotifyDomExit, CanNotifyOnExit, DtLoggerFactory, DtLogger } from '@dynatrace/angular-components/core';
+import {
+  HasNgZone,
+  mixinNotifyDomExit,
+  CanNotifyOnExit,
+  DtLoggerFactory,
+  DtLogger,
+} from '@dynatrace/angular-components/core';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
 import { DtOverlayConfig } from './overlay-config';
@@ -26,7 +44,8 @@ export const DT_OVERLAY_FADE_TIME = 150;
 export const DT_OVERLAY_DELAY = 100;
 
 // Boilerplate for applying mixins to DtOverlayContainer.
-export class DtOverlayContainerBase extends BasePortalOutlet implements HasNgZone {
+export class DtOverlayContainerBase extends BasePortalOutlet
+  implements HasNgZone {
   constructor(public _ngZone: NgZone) {
     super();
   }
@@ -37,7 +56,9 @@ export class DtOverlayContainerBase extends BasePortalOutlet implements HasNgZon
     throw new Error('Method not implemented.');
   }
 }
-export const _DtOverlayContainerMixin = mixinNotifyDomExit(DtOverlayContainerBase);
+export const _DtOverlayContainerMixin = mixinNotifyDomExit(
+  DtOverlayContainerBase
+);
 
 @Component({
   moduleId: module.id,
@@ -46,24 +67,30 @@ export const _DtOverlayContainerMixin = mixinNotifyDomExit(DtOverlayContainerBas
   templateUrl: 'overlay-container.html',
   styleUrls: ['overlay-container.scss'],
   host: {
-    'class': 'dt-overlay-container',
+    class: 'dt-overlay-container',
     'attr.aria-hidden': 'true',
     '[@fade]': '_animationState',
     '(@fade.done)': '_animationDone($event)',
   },
   animations: [
     trigger('fade', [
-      state('enter', style({opacity: 1})),
-      transition('void => enter', animate(`${DT_OVERLAY_FADE_TIME}ms ${DT_OVERLAY_DELAY}ms ease-in-out`)),
-      transition('enter => exit', animate(`${DT_OVERLAY_FADE_TIME}ms ease-in-out`)),
+      state('enter', style({ opacity: 1 })),
+      transition(
+        'void => enter',
+        animate(`${DT_OVERLAY_FADE_TIME}ms ${DT_OVERLAY_DELAY}ms ease-in-out`)
+      ),
+      transition(
+        'enter => exit',
+        animate(`${DT_OVERLAY_FADE_TIME}ms ease-in-out`)
+      ),
     ]),
   ],
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanNotifyOnExit {
-
+export class DtOverlayContainer extends _DtOverlayContainerMixin
+  implements CanNotifyOnExit {
   /** @internal */
   @ViewChild(CdkPortalOutlet, { static: true }) _portalOutlet: CdkPortalOutlet;
 
@@ -86,7 +113,8 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
     private _viewContainerRef: ViewContainerRef,
     // tslint:disable-next-line:no-any
     @Optional() @Inject(DOCUMENT) private _document: any,
-    public _config: DtOverlayConfig) {
+    public _config: DtOverlayConfig
+  ) {
     super(_ngZone);
   }
 
@@ -124,7 +152,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
 
   /** Animation callback */
   _animationDone(event: AnimationEvent): void {
-    const {fromState, toState} = event;
+    const { fromState, toState } = event;
 
     if ((toState === 'void' && fromState !== 'void') || toState === 'exit') {
       this._restoreFocus();
@@ -137,10 +165,11 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
   _trapFocus(): void {
     this._savePreviouslyFocusedElement();
     if (!this._focusTrap) {
-      this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+      this._focusTrap = this._focusTrapFactory.create(
+        this._elementRef.nativeElement
+      );
     }
-    this._focusTrap.focusInitialElementWhenReady()
-    .catch((error: Error) => {
+    this._focusTrap.focusInitialElementWhenReady().catch((error: Error) => {
       if (isDevMode()) {
         LOG.debug('Error when trying to set initial focus', error);
       }
@@ -164,7 +193,8 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin implements CanN
   /** Saves a reference to the element that was focused before the overlay was opened. */
   private _savePreviouslyFocusedElement(): void {
     if (this._document) {
-      this._elementFocusedBeforeDialogWasOpened = this._document.activeElement as HTMLElement;
+      this._elementFocusedBeforeDialogWasOpened = this._document
+        .activeElement as HTMLElement;
 
       // Note that there is no focus method when rendering on the server.
       if (this._elementRef.nativeElement.focus) {

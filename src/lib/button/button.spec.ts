@@ -9,13 +9,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtButton', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         DtButtonModule,
         HttpClientTestingModule,
-        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations: [TestApp, IconOnlyButton],
     });
@@ -49,12 +48,18 @@ describe('DtButton', () => {
 
     it('should disable the native button element', () => {
       const fixture = createComponent(TestApp);
-      const buttonNativeElement = fixture.debugElement.nativeElement.querySelector('button');
-      expect(buttonNativeElement.disabled).toBeFalsy('Expected button not to be disabled');
+      const buttonNativeElement = fixture.debugElement.nativeElement.querySelector(
+        'button'
+      );
+      expect(buttonNativeElement.disabled).toBeFalsy(
+        'Expected button not to be disabled'
+      );
 
       fixture.componentInstance.isDisabled = true;
       fixture.detectChanges();
-      expect(buttonNativeElement.disabled).toBeTruthy('Expected button to be disabled');
+      expect(buttonNativeElement.disabled).toBeTruthy(
+        'Expected button to be disabled'
+      );
     });
 
     it('should augment an existing class with a color property', () => {
@@ -62,21 +67,27 @@ describe('DtButton', () => {
       const buttonElement = fixture.debugElement.query(By.css('button'));
       const instance = buttonElement.componentInstance;
 
-      expect(instance.color)
-        .toBe('main', 'Expected the mixed-into class to have a color property');
+      expect(instance.color).toBe(
+        'main',
+        'Expected the mixed-into class to have a color property'
+      );
 
       instance.color = 'cta';
 
-      expect(instance.color)
-        .toBe('cta', 'Expected the mixed-into class to have an updated color property');
+      expect(instance.color).toBe(
+        'cta',
+        'Expected the mixed-into class to have an updated color property'
+      );
     });
 
     it('should add class for default color', () => {
       const fixture = createComponent(TestApp);
       const buttonElement = fixture.debugElement.query(By.css('button'));
 
-      expect(buttonElement.nativeElement.classList)
-        .toContain('dt-color-main', 'Expected the element to have the "dt-color-main" class set');
+      expect(buttonElement.nativeElement.classList).toContain(
+        'dt-color-main',
+        'Expected the element to have the "dt-color-main" class set'
+      );
     });
 
     it('should remove old color classes if new color is set', () => {
@@ -88,10 +99,14 @@ describe('DtButton', () => {
 
       instance.color = 'cta';
 
-      expect(buttonElement.nativeElement.classList)
-        .not.toContain('dt-color-main', 'Expected the element to no longer have "dt-color-main" set.');
-      expect(buttonElement.nativeElement.classList)
-        .toContain('dt-color-cta', 'Expected the element to have the "dt-color-cta" class set');
+      expect(buttonElement.nativeElement.classList).not.toContain(
+        'dt-color-main',
+        'Expected the element to no longer have "dt-color-main" set.'
+      );
+      expect(buttonElement.nativeElement.classList).toContain(
+        'dt-color-cta',
+        'Expected the element to have the "dt-color-cta" class set'
+      );
     });
 
     it('should augment an existing class with a variant property', () => {
@@ -101,21 +116,27 @@ describe('DtButton', () => {
       const buttonElement = fixture.debugElement.query(By.css('button'));
       const instance = buttonElement.componentInstance;
 
-      expect(instance.variant)
-        .toBe('primary', 'Expected the mixed-into class to have a variant property');
+      expect(instance.variant).toBe(
+        'primary',
+        'Expected the mixed-into class to have a variant property'
+      );
 
       instance.variant = 'secondary';
 
-      expect(instance.variant)
-        .toBe('secondary', 'Expected the mixed-into class to have an updated variant property');
+      expect(instance.variant).toBe(
+        'secondary',
+        'Expected the mixed-into class to have an updated variant property'
+      );
     });
 
     it('should add class for default variant', () => {
       const fixture = createComponent(TestApp);
       const buttonElement = fixture.debugElement.query(By.css('button'));
 
-      expect(buttonElement.nativeElement.classList)
-        .toContain('dt-button-primary', 'Expected the element to have the "dt-button-primary" class set');
+      expect(buttonElement.nativeElement.classList).toContain(
+        'dt-button-primary',
+        'Expected the element to have the "dt-button-primary" class set'
+      );
     });
 
     it('should remove old variant classes if new variant is set', () => {
@@ -124,10 +145,14 @@ describe('DtButton', () => {
       const instance = buttonElement.componentInstance;
       instance.variant = 'secondary';
 
-      expect(buttonElement.nativeElement.classList)
-        .not.toContain('dt-button-primary', 'Expected the element to no longer have "dt-button-primary" set.');
-      expect(buttonElement.nativeElement.classList)
-        .toContain('dt-button-secondary', 'Expected the element to have the "dt-button-secondary" class set');
+      expect(buttonElement.nativeElement.classList).not.toContain(
+        'dt-button-primary',
+        'Expected the element to no longer have "dt-button-primary" set.'
+      );
+      expect(buttonElement.nativeElement.classList).toContain(
+        'dt-button-secondary',
+        'Expected the element to have the "dt-button-secondary" class set'
+      );
     });
 
     it('should apply a specific class when button is icon only', () => {
@@ -136,10 +161,14 @@ describe('DtButton', () => {
       const buttonElement = fixture.debugElement.query(By.css('button'));
       const anchorElement = fixture.debugElement.query(By.css('a'));
 
-      expect(buttonElement.nativeElement.classList)
-        .toContain('dt-icon-button', 'Expected the element to have "dt-icon-button" set.');
-      expect(anchorElement.nativeElement.classList)
-        .toContain('dt-icon-button', 'Expected the element to have "dt-icon-button" set.');
+      expect(buttonElement.nativeElement.classList).toContain(
+        'dt-icon-button',
+        'Expected the element to have "dt-icon-button" set.'
+      );
+      expect(anchorElement.nativeElement.classList).toContain(
+        'dt-icon-button',
+        'Expected the element to have "dt-icon-button" set.'
+      );
     });
   });
 
@@ -161,11 +190,15 @@ describe('DtButton', () => {
       const testComponent = fixture.debugElement.componentInstance;
       const buttonDebugElement = fixture.debugElement.query(By.css('a'));
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(
+        buttonDebugElement.nativeElement.getAttribute('aria-disabled')
+      ).toBe('false');
 
       testComponent.isDisabled = true;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(
+        buttonDebugElement.nativeElement.getAttribute('aria-disabled')
+      ).toBe('true');
     });
 
     it('should not add aria-disabled attribute if disabled is false', () => {
@@ -173,17 +206,21 @@ describe('DtButton', () => {
       const testComponent = fixture.debugElement.componentInstance;
       const buttonDebugElement = fixture.debugElement.query(By.css('a'));
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.getAttribute('aria-disabled'))
-        .toBe('false', 'Expect aria-disabled="false"');
-      expect(buttonDebugElement.nativeElement.getAttribute('disabled'))
-        .toBeNull('Expect disabled="false"');
+      expect(
+        buttonDebugElement.nativeElement.getAttribute('aria-disabled')
+      ).toBe('false', 'Expect aria-disabled="false"');
+      expect(
+        buttonDebugElement.nativeElement.getAttribute('disabled')
+      ).toBeNull('Expect disabled="false"');
 
       testComponent.isDisabled = false;
       fixture.detectChanges();
-      expect(buttonDebugElement.nativeElement.getAttribute('aria-disabled'))
-        .toBe('false', 'Expect no aria-disabled');
-      expect(buttonDebugElement.nativeElement.getAttribute('disabled'))
-        .toBeNull('Expect no disabled');
+      expect(
+        buttonDebugElement.nativeElement.getAttribute('aria-disabled')
+      ).toBe('false', 'Expect no aria-disabled');
+      expect(
+        buttonDebugElement.nativeElement.getAttribute('disabled')
+      ).toBeNull('Expect no disabled');
     });
 
     it('should remove icon container when icon is removed', () => {
@@ -208,8 +245,13 @@ describe('DtButton', () => {
 @Component({
   selector: 'dt-test-app',
   template: `
-    <button dt-button type="button" (click)="increment()"
-      [disabled]="isDisabled" [variant]="variant">
+    <button
+      dt-button
+      type="button"
+      (click)="increment()"
+      [disabled]="isDisabled"
+      [variant]="variant"
+    >
       <dt-icon name="agent" *ngIf="showIcon"></dt-icon>
       Go
     </button>
@@ -233,8 +275,12 @@ class TestApp {
 @Component({
   selector: 'dt-icon-only-button',
   template: `
-    <button dt-icon-button type="button"><dt-icon name="agent"></dt-icon></button>
-    <a href="#" dt-icon-button type="button"><dt-icon name="agent"></dt-icon></a>
+    <button dt-icon-button type="button"
+      ><dt-icon name="agent"></dt-icon
+    ></button>
+    <a href="#" dt-icon-button type="button"
+      ><dt-icon name="agent"></dt-icon
+    ></a>
   `,
 })
-class IconOnlyButton { }
+class IconOnlyButton {}

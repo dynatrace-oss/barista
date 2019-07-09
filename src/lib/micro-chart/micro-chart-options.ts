@@ -3,7 +3,9 @@ import { DtChartOptions } from '@dynatrace/angular-components/chart';
 import { DtMicroChartColorPalette } from './micro-chart-colors';
 import { DtColors } from '@dynatrace/angular-components/theming';
 
-export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalette): DtChartOptions {
+export function createDtMicrochartDefaultOptions(
+  palette: DtMicroChartColorPalette
+): DtChartOptions {
   return {
     colors: [palette.primary],
     chart: {
@@ -85,38 +87,40 @@ export function createDtMicrochartDefaultOptions(palette: DtMicroChartColorPalet
   };
 }
 
-export function createDtMicrochartMinMaxDataPointOptions(palette: DtMicroChartColorPalette): DataPoint {
+export function createDtMicrochartMinMaxDataPointOptions(
+  palette: DtMicroChartColorPalette
+): DataPoint {
   return {
-      color: palette.darker,
-      borderColor: palette.darker,
-      borderWidth: 2,
+    color: palette.darker,
+    borderColor: palette.darker,
+    borderWidth: 2,
+    states: {
+      hover: {
+        color: palette.darker,
+        borderColor: palette.darker,
+        borderWidth: 4,
+      },
+    },
+    dataLabels: {
+      align: 'center',
+      color: DtColors.GRAY_500,
+      enabled: true,
+    },
+    marker: {
+      fillColor: palette.darker,
+      lineColor: palette.darker,
+      enabled: true,
+      radius: 5,
+      lineWidth: 2,
       states: {
         hover: {
-          color: palette.darker,
-          borderColor: palette.darker,
-          borderWidth: 4,
+          fillColor: palette.darker,
+          lineColor: palette.darker,
+          radius: 6,
         },
       },
-      dataLabels: {
-        align: 'center',
-        color: DtColors.GRAY_500,
-        enabled: true,
-      },
-      marker: {
-        fillColor: palette.darker,
-        lineColor: palette.darker,
-        enabled: true,
-        radius: 5,
-        lineWidth: 2,
-        states: {
-          hover: {
-            fillColor: palette.darker,
-            lineColor: palette.darker,
-            radius: 6,
-          },
-        },
-      },
-  // tslint:disable-next-line:no-any
+    },
+    // tslint:disable-next-line:no-any
   } as any;
 }
 

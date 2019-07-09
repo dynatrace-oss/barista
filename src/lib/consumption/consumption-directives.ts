@@ -15,7 +15,7 @@ import {
   selector:
     'dt-consumption-title, [dt-consumption-title], [dtConsumptionTitle]',
   host: {
-    'class': 'dt-consumption-title',
+    class: 'dt-consumption-title',
     'aria-role': 'heading',
     'aria-level': '1',
   },
@@ -31,7 +31,7 @@ export class DtConsumptionTitle {}
   selector:
     'dt-consumption-subtitle, [dt-consumption-subtitle], [dtConsumptionSubtitle]',
   host: {
-    'class': 'dt-consumption-subtitle',
+    class: 'dt-consumption-subtitle',
     'aria-role': 'heading',
     'aria-level': '2',
   },
@@ -49,7 +49,7 @@ export class DtConsumptionSubtitle {}
 @Directive({
   selector: 'dt-consumption-icon, [dt-consumption-icon], [dtConsumptionIcon]',
   host: {
-    'class': 'dt-consumption-icon',
+    class: 'dt-consumption-icon',
     'aria-role': 'icon',
     '[attr.aria-label]': 'ariaLabel',
   },

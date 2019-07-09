@@ -4,26 +4,16 @@
 @import './button-group-item-theme';
 
 @mixin boxShadowSelected($width, $color) {
-  box-shadow:
-    $width 0 0 0 $color,
-    0 $width 0 0 $color,
-    $width $width 0 0 $color,
-    $width 0 0 0 $color inset,
-    0 $width 0 0 $color inset;
+  box-shadow: $width 0 0 0 $color, 0 $width 0 0 $color, $width $width 0 0 $color,
+    $width 0 0 0 $color inset, 0 $width 0 0 $color inset;
 }
 @mixin boxShadowFocus() {
   box-shadow: 0 0 0 2px $gray-300;
 }
 @mixin boxShadowSelectedFocus($width, $color) {
-  box-shadow:
-    $width 0 0 0 $color,
-    0 $width 0 0 $color,
-    $width $width 0 0 $color,
-    $width 0 0 0 $color inset,
-    0 $width 0 0 $color inset,
-    0 0 0 1px $gray-300,
-    2px 0 0 0 $gray-300,
-    0 2px 0 0 $gray-300;
+  box-shadow: $width 0 0 0 $color, 0 $width 0 0 $color, $width $width 0 0 $color,
+    $width 0 0 0 $color inset, 0 $width 0 0 $color inset, 0 0 0 1px $gray-300,
+    2px 0 0 0 $gray-300, 0 2px 0 0 $gray-300;
 }
 
 :host {

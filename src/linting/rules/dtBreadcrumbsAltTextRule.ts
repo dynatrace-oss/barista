@@ -5,11 +5,10 @@ import { SourceFile } from 'typescript';
 import {
   addFailure,
   isElementWithName,
-  hasTextContentAlternative
+  hasTextContentAlternative,
 } from '../utils';
 
 class DtBreadcrumbsVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -24,7 +23,11 @@ class DtBreadcrumbsVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'Breadcrumbs must provide an alternative text in form of an aria-label attribute.');
+    addFailure(
+      this,
+      element,
+      'Breadcrumbs must provide an alternative text in form of an aria-label attribute.'
+    );
   }
 }
 
@@ -43,13 +46,13 @@ class DtBreadcrumbsVisitor extends BasicTemplateAstVisitor {
  *
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that text alternatives are given for breadcrumbs.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'Breadcrumbs need additional attributes to provide text alternatives.',
+    rationale:
+      'Breadcrumbs need additional attributes to provide text alternatives.',
     ruleName: 'dt-breadcrumbs-alt-text',
     type: 'maintainability',
     typescriptOnly: true,

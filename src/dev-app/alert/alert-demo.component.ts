@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './alert-demo.component.html',
   styleUrls: ['./alert-demo.component.scss'],
 })
-export class AlertDemo {
-
-}
+export class AlertDemo {}

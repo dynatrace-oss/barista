@@ -10,7 +10,6 @@ import { SourceData } from '../formatted-value';
  * @param input - numeric value to be transformed
  */
 export function formatPercent(input: number): DtFormattedValue {
-
   const inputData: SourceData = {
     input,
     unit: DtUnit.PERCENT,
@@ -20,10 +19,10 @@ export function formatPercent(input: number): DtFormattedValue {
 
   const formattedData = !isNaN(value)
     ? {
-      transformedValue: value,
-      displayValue: adjustNumber(value),
-      displayUnit: inputData.unit,
-    }
+        transformedValue: value,
+        displayValue: adjustNumber(value),
+        displayUnit: inputData.unit,
+      }
     : {};
 
   return new DtFormattedValue(inputData, formattedData);

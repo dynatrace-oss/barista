@@ -32,7 +32,8 @@
   padding-right: 2px;
 }
 
-:host:not(.dt-expandable-section-disabled) .dt-expandable-section-header-trigger:focus {
+:host:not(.dt-expandable-section-disabled)
+  .dt-expandable-section-header-trigger:focus {
   @include dt-focus-style();
 }
 
@@ -67,12 +68,10 @@
 }
 
 :host.dt-expandable-section-disabled {
-
   pointer-events: none;
 
   .dt-expandable-section-header,
   .dt-expandable-section-header-trigger {
-
     color: $gray-300;
 
     .dt-expandable-section-arrow ::ng-deep svg {
@@ -85,7 +84,9 @@
   }
 }
 
-:host.dt-expandable-section-opened .dt-expandable-section-header .dt-expandable-section-arrow {
+:host.dt-expandable-section-opened
+  .dt-expandable-section-header
+  .dt-expandable-section-arrow {
   transform: rotate(0deg);
 }
 

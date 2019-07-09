@@ -9,4 +9,4 @@ import { Component } from '@angular/core';
   `,
   styles: ['.dt-button + .dt-button { margin-left: 8px; }'],
 })
-export class ButtonDefaultExample { }
+export class ButtonDefaultExample {}

@@ -2,14 +2,14 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure,
+import {
+  addFailure,
   hasContent,
   hasOnlyDtIconChildren,
   isElementWithName,
 } from '../../utils';
 
 class DtTileVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -21,14 +21,22 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
     }
 
     if (!hasContent(element)) {
-      addFailure(this, element, 'A dt-tile-icon must not be empty, but must contain a dt-icon element.');
+      addFailure(
+        this,
+        element,
+        'A dt-tile-icon must not be empty, but must contain a dt-icon element.'
+      );
     }
 
     if (hasOnlyDtIconChildren(element)) {
       return;
     }
 
-    addFailure(this, element, 'A dt-tile-icon must contain dt-icon elements only. No other nested elements are allowed.');
+    addFailure(
+      this,
+      element,
+      'A dt-tile-icon must contain dt-icon elements only. No other nested elements are allowed.'
+    );
   }
 }
 
@@ -43,7 +51,6 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
  * <dt-tile-icon> </dt-tile-icon>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a tile icon contains only dt-icon components.',
     // tslint:disable-next-line:no-null-keyword

@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, hasContentApartFrom, isElementWithName } from '../utils';
 
 class DtTagVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -16,15 +15,17 @@ class DtTagVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const tagChildren = [
-      'dt-tag-key',
-    ];
+    const tagChildren = ['dt-tag-key'];
 
     if (hasContentApartFrom(element, tagChildren)) {
       return;
     }
 
-    addFailure(this, element, 'A dt-tag must always contain text. Make sure this is the case even if you use nested components to render text.');
+    addFailure(
+      this,
+      element,
+      'A dt-tag must always contain text. Make sure this is the case even if you use nested components to render text.'
+    );
   }
 }
 
@@ -40,13 +41,13 @@ class DtTagVisitor extends BasicTemplateAstVisitor {
  * <dt-tag><dt-tag-key>[My key]:</dt-tag-key></dt-tag>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a tag is never empty.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A tag must always contain text or another component that renders text.',
+    rationale:
+      'A tag must always contain text or another component that renders text.',
     ruleName: 'dt-tag-no-empty',
     type: 'maintainability',
     typescriptOnly: true,

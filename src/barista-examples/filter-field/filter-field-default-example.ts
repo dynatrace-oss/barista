@@ -5,14 +5,11 @@ import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/fi
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-  <dt-filter-field
-    [dataSource]="_dataSource"
-    label="Filter by">
-  </dt-filter-field>
+    <dt-filter-field [dataSource]="_dataSource" label="Filter by">
+    </dt-filter-field>
   `,
 })
 export class FilterFieldDefaultExample {
-
   private DATA = {
     autocomplete: [
       {
@@ -39,5 +36,4 @@ export class FilterFieldDefaultExample {
   };
 
   _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
-
 }

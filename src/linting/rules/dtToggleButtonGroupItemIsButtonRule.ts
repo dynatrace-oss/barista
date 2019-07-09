@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, isElementWithName } from '../utils';
 
 class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -16,7 +15,9 @@ class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const isToggleButtonItem = element.attrs.some((attr) => attr.name === 'dt-toggle-button-item');
+    const isToggleButtonItem = element.attrs.some(
+      attr => attr.name === 'dt-toggle-button-item'
+    );
     if (!isToggleButtonItem) {
       return;
     }
@@ -25,7 +26,11 @@ class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A toggle button group item must always be a button.');
+    addFailure(
+      this,
+      element,
+      'A toggle button group item must always be a button.'
+    );
   }
 }
 
@@ -43,7 +48,6 @@ class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
  * </a>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a toggle button group item is always a button.',
     // tslint:disable-next-line:no-null-keyword

@@ -11,9 +11,7 @@ You have to import the `DtHighlightModule` when you want to use the `<dt-highlig
 
 ```typescript
 @NgModule({
-  imports: [
-    DtHighlightModule,
-  ],
+  imports: [DtHighlightModule],
 })
 class MyModule {}
 ```
@@ -24,10 +22,10 @@ If the text's wrapper is an Angular component, you have to use the highlight as 
 
 ## Inputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
+| Name            | Type      | Default | Description                                                                  |
+| --------------- | --------- | ------- | ---------------------------------------------------------------------------- |
 | `caseSensitive` | `boolean` | `false` | The caseSensitive input can be set to search for case sensitive occurrences. |
-| `term` | `string` | `''` | The term is the string that should be highlighted in the projected content. |
+| `term`          | `string`  | `''`    | The term is the string that should be highlighted in the projected content.  |
 
 ## Usage
 

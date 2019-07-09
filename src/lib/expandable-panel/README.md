@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Expandable panel
@@ -11,57 +11,53 @@ This Angular component provides basic expand/collapse functionality without any 
 ## Imports
 
 You have to import the `DtExpandablePanelModule` when you want to use the `dt-expandable-panel`.
-The `dt-expandable-panel` component also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see [*Step 2: Animations*](***REMOVED*** in the getting started guide.
+The `dt-expandable-panel` component also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see [_Step 2: Animations_](***REMOVED*** in the getting started guide.
 
 ```typescript
 @NgModule({
-  imports: [
-    DtExpandablePanelModule,
-    BrowserAnimationsModule,
-  ],
+  imports: [DtExpandablePanelModule, BrowserAnimationsModule],
 })
 class MyModule {}
-
 ```
 
 ## Initialization
 
 To apply the Dynatrace expandable panel, use the `<dt-expandable-panel>` element.
 
-| Attribute | Description |
-| --- | --- |
-| `dt-expandable-panel` | The expandable panel, with the behaviour, but without styling |
+| Attribute                    | Description                                                                                              |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `dt-expandable-panel`        | The expandable panel, with the behaviour, but without styling                                            |
 | `[dtExpandablePanel]=#panel` | The expandable trigger which listens on click and key events. The trigger needs to get a panel assigned. |
 
 <docs-source-example example="ExpandablePanelDefaultExample"></docs-source-example>
 
 ## Inputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
+| Name       | Type      | Default | Description                              |
+| ---------- | --------- | ------- | ---------------------------------------- |
 | `expanded` | `boolean` | `false` | Sets or gets the panel's expanded state. |
 | `disabled` | `boolean` | `false` | Sets or gets the panel's disabled state. |
 
 ## Outputs
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name           | Type                    | Description                                     |
+| -------------- | ----------------------- | ----------------------------------------------- |
 | `expandChange` | `EventEmitter<boolean>` | Emits an event when the expanded state changes. |
-| `expanded` | `EventEmitter<void>` | Event emitted when the panel is expanded. |
-| `collapsed` | `EventEmitter<void>` | Event emitted when the panel is collapsed. |
+| `expanded`     |  `EventEmitter<void>`   |  Event emitted when the panel is expanded.      |
+| `collapsed`    |  `EventEmitter<void>`   |  Event emitted when the panel is collapsed.     |
 
 ## Properties
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name     | Type      | Description                                                                          |
+| -------- | --------- | ------------------------------------------------------------------------------------ |
 | `toggle` | `boolean` | Toggles the expanded state, i.e. changes it to expanded if collapsed, or vice-versa. |
-| `open` | `void` | Expands the panel. |
-| `close` | `void` | Collapses the panel.|
+| `open`   | `void`    | Expands the panel.                                                                   |
+| `close`  | `void`    | Collapses the panel.                                                                 |
 
 ## Expandable trigger input
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
+| Name                | Type                | Default     | Description                                   |
+| ------------------- | ------------------- | ----------- | --------------------------------------------- |
 | `dtExpandablePanel` | `DtExpandablePanel` | `undefined` | Attaches an expandable panel to this trigger. |
 
 ## Examples

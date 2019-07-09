@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './checkbox-demo.component.html',
   styleUrls: ['./checkbox-demo.component.scss'],
 })
-export class CheckboxDemo {
-
-}
+export class CheckboxDemo {}

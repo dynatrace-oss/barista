@@ -4,13 +4,15 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'barista-demo',
-  template: `<dt-chart [options]="options" [series]="series">
-  <dt-chart-tooltip>
-      <ng-template let-tooltip>
-        {{tooltip.x}} {{tooltip.point.colorIndex}}
-      </ng-template>
-    </dt-chart-tooltip>
-  </dt-chart>`,
+  template: `
+    <dt-chart [options]="options" [series]="series">
+      <dt-chart-tooltip>
+        <ng-template let-tooltip>
+          {{ tooltip.x }} {{ tooltip.point.colorIndex }}
+        </ng-template>
+      </dt-chart-tooltip>
+    </dt-chart>
+  `,
 })
 export class ChartPieExample {
   options: Highcharts.Options = {
@@ -38,22 +40,25 @@ export class ChartPieExample {
     },
   };
 
-  series: Highcharts.IndividualSeriesOptions[] = [{
-    name: 'Browsers',
-    data: [
-      {
-        name: 'Chrome',
-        y: 55,
-      },
-      {
-        name: 'Firefox',
-        y: 25,
-      },
-      {
-        name: 'Edge',
-        y: 15,
-      }],
-    }];
+  series: Highcharts.IndividualSeriesOptions[] = [
+    {
+      name: 'Browsers',
+      data: [
+        {
+          name: 'Chrome',
+          y: 55,
+        },
+        {
+          name: 'Firefox',
+          y: 25,
+        },
+        {
+          name: 'Edge',
+          y: 15,
+        },
+      ],
+    },
+  ];
 }
 
 // tslint:enable:no-magic-numbers

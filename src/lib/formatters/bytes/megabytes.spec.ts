@@ -32,8 +32,9 @@ describe('DtMegabytes', () => {
       },
     ].forEach((testCase: TestCase) => {
       it(`should display result converted to MB (${testCase.output})`, () => {
-        expect(pipe.transform(testCase.input).toString())
-          .toEqual(testCase.output);
+        expect(pipe.transform(testCase.input).toString()).toEqual(
+          testCase.output
+        );
       });
     });
   });
@@ -45,7 +46,7 @@ describe('DtMegabytes', () => {
     });
 
     it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
-      class A { }
+      class A {}
       expect(pipe.transform({})).toEqual(NO_DATA);
       expect(pipe.transform([])).toEqual(NO_DATA);
       expect(pipe.transform(() => {})).toEqual(NO_DATA);
@@ -69,5 +70,4 @@ describe('DtMegabytes', () => {
       expect(pipe.transform(0).toString()).toEqual('0 MB');
     });
   });
-
 });

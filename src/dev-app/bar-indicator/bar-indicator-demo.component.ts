@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './bar-indicator-demo.component.html',
   styleUrls: ['./bar-indicator-demo.component.scss'],
 })
-export class BarIndicatorDemo {
-
-}
+export class BarIndicatorDemo {}

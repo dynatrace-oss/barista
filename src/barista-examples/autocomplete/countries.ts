@@ -1,10 +1,16 @@
-export interface CountryOption {name: string; code: string; }
+export interface CountryOption {
+  name: string;
+  code: string;
+}
 
 export const countryCompareWithFn = (o: CountryOption, needle: string) => {
   const needleLC = needle && needle.toLocaleLowerCase();
   const name = o.name && o.name.toLocaleLowerCase();
   const code = o.code && o.code.toString().toLocaleLowerCase();
-  return (name && name.includes(needleLC)) || (code && code.toString().includes(needleLC));
+  return (
+    (name && name.includes(needleLC)) ||
+    (code && code.toString().includes(needleLC))
+  );
 };
 
 export const COUNTRIES = [
@@ -61,7 +67,7 @@ export const COUNTRIES = [
   { name: 'Congo, The Democratic Republic of the', code: 'CD' },
   { name: 'Cook Islands', code: 'CK' },
   { name: 'Costa Rica', code: 'CR' },
-  { name: 'Cote D\'Ivoire', code: 'CI' },
+  { name: "Cote D'Ivoire", code: 'CI' },
   { name: 'Croatia', code: 'HR' },
   { name: 'Cuba', code: 'CU' },
   { name: 'Cyprus', code: 'CY' },
@@ -123,11 +129,11 @@ export const COUNTRIES = [
   { name: 'Kazakhstan', code: 'KZ' },
   { name: 'Kenya', code: 'KE' },
   { name: 'Kiribati', code: 'KI' },
-  { name: 'Korea, Democratic People\'S Republic of', code: 'KP' },
+  { name: "Korea, Democratic People'S Republic of", code: 'KP' },
   { name: 'Korea, Republic of', code: 'KR' },
   { name: 'Kuwait', code: 'KW' },
   { name: 'Kyrgyzstan', code: 'KG' },
-  { name: 'Lao People\'S Democratic Republic', code: 'LA' },
+  { name: "Lao People'S Democratic Republic", code: 'LA' },
   { name: 'Latvia', code: 'LV' },
   { name: 'Lebanon', code: 'LB' },
   { name: 'Lesotho', code: 'LS' },

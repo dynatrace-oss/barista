@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Output,
   Input,
-  ChangeDetectorRef
+  ChangeDetectorRef,
 } from '@angular/core';
 import { DtFilterFieldTagData } from '../types';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -20,7 +20,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   styleUrls: ['filter-field-tag.scss'],
   host: {
     '[attr.role]': `'option'`,
-    'class': 'dt-filter-field-tag',
+    class: 'dt-filter-field-tag',
     '[class.dt-filter-field-tag-disabled]': 'disabled',
   },
   encapsulation: ViewEncapsulation.Emulated,
@@ -28,7 +28,6 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtFilterFieldTag {
-
   /** Tag data object that contains view values for displaying (like key, value and separator) and the original source. */
   @Input() data: DtFilterFieldTagData;
 
@@ -41,7 +40,9 @@ export class DtFilterFieldTag {
   /** Whether the tag is disabled. */
   // Note: The disabled mixin can not be used here because the CD needs to be triggerd after it has been set
   // to reflect the state when programatically setting the property.
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     this._changeDetectorRef.markForCheck();

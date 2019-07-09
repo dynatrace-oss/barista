@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './progress-circle-demo.component.html',
   styleUrls: ['./progress-circle-demo.component.scss'],
 })
-export class ProgressCircleDemo {
-
-}
+export class ProgressCircleDemo {}

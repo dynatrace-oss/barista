@@ -5,23 +5,27 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtExpandablePanelModule, DtExpandablePanel } from '@dynatrace/angular-components';
+import {
+  DtExpandablePanelModule,
+  DtExpandablePanel,
+} from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtExpandablePanel', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtExpandablePanelModule, NoopAnimationsModule],
-      declarations: [ExpandablePanelComponent, ExpandablePanelWithTriggerComponent],
+      declarations: [
+        ExpandablePanelComponent,
+        ExpandablePanelWithTriggerComponent,
+      ],
     });
 
     TestBed.compileComponents();
   }));
 
   describe('dt-expandable-panel', () => {
-
     let fixture;
     let instanceDebugElement: DebugElement;
     let instanceElement: HTMLElement;
@@ -29,9 +33,13 @@ describe('DtExpandablePanel', () => {
 
     beforeEach(async(() => {
       fixture = createComponent(ExpandablePanelComponent);
-      instanceDebugElement = fixture.debugElement.query(By.directive(DtExpandablePanel));
+      instanceDebugElement = fixture.debugElement.query(
+        By.directive(DtExpandablePanel)
+      );
       instanceElement = instanceDebugElement.nativeElement;
-      expandablePanelInstance = instanceDebugElement.injector.get<DtExpandablePanel>(DtExpandablePanel);
+      expandablePanelInstance = instanceDebugElement.injector.get<
+        DtExpandablePanel
+      >(DtExpandablePanel);
     }));
 
     // test initial state
@@ -99,7 +107,9 @@ describe('DtExpandablePanel', () => {
 
     // check CSS class of panel
     it('should have correct styles applied when expanded', () => {
-      expect(instanceElement.classList).not.toContain('dt-expandable-panel-opened');
+      expect(instanceElement.classList).not.toContain(
+        'dt-expandable-panel-opened'
+      );
       expect(expandablePanelInstance.toggle()).toBe(true);
       fixture.detectChanges();
       expect(instanceElement.classList).toContain('dt-expandable-panel-opened');
@@ -108,24 +118,42 @@ describe('DtExpandablePanel', () => {
     // check CSS class of trigger when expanded
     it('should have correctly styled trigger button when expanded', () => {
       const panelFixture = createComponent(ExpandablePanelWithTriggerComponent);
-      const panelDebugElement = panelFixture.debugElement.query(By.directive(DtExpandablePanel));
-      const triggerInstanceElement = panelFixture.debugElement.query(By.css('.dt-expandable-panel-trigger')).nativeElement;
-      const panelInstance = panelDebugElement.injector.get<DtExpandablePanel>(DtExpandablePanel);
+      const panelDebugElement = panelFixture.debugElement.query(
+        By.directive(DtExpandablePanel)
+      );
+      const triggerInstanceElement = panelFixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger')
+      ).nativeElement;
+      const panelInstance = panelDebugElement.injector.get<DtExpandablePanel>(
+        DtExpandablePanel
+      );
 
-      expect(triggerInstanceElement.classList).toContain('dt-expandable-panel-trigger');
-      expect(triggerInstanceElement.classList).not.toContain('dt-expandable-panel-trigger-open');
+      expect(triggerInstanceElement.classList).toContain(
+        'dt-expandable-panel-trigger'
+      );
+      expect(triggerInstanceElement.classList).not.toContain(
+        'dt-expandable-panel-trigger-open'
+      );
       panelInstance.expanded = true;
       panelFixture.detectChanges();
-      expect(triggerInstanceElement.classList).toContain('dt-expandable-panel-trigger-open');
+      expect(triggerInstanceElement.classList).toContain(
+        'dt-expandable-panel-trigger-open'
+      );
     });
 
     // check attributes of panel and trigger when disabled
     it('should have correct attributes when disabled', () => {
       const panelFixture = createComponent(ExpandablePanelWithTriggerComponent);
-      const panelDebugElement = panelFixture.debugElement.query(By.directive(DtExpandablePanel));
-      const triggerInstanceElement = panelFixture.debugElement.query(By.css('.dt-expandable-panel-trigger')).nativeElement;
+      const panelDebugElement = panelFixture.debugElement.query(
+        By.directive(DtExpandablePanel)
+      );
+      const triggerInstanceElement = panelFixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger')
+      ).nativeElement;
       const panelInstanceElement = panelDebugElement.nativeElement;
-      const panelInstance = panelDebugElement.injector.get<DtExpandablePanel>(DtExpandablePanel);
+      const panelInstance = panelDebugElement.injector.get<DtExpandablePanel>(
+        DtExpandablePanel
+      );
 
       expect(panelInstanceElement.getAttribute('aria-disabled')).toBe('false');
       expect(triggerInstanceElement.getAttribute('tabindex')).toBe('0');
@@ -143,7 +171,9 @@ describe('DtExpandablePanel', () => {
       const expandedSpy = jasmine.createSpy();
       const changedSpy = jasmine.createSpy();
       const instance = instanceDebugElement.componentInstance;
-      const expandedSubscription = instance._panelExpanded.subscribe(expandedSpy);
+      const expandedSubscription = instance._panelExpanded.subscribe(
+        expandedSpy
+      );
       const changedSubscription = instance.expandChange.subscribe(changedSpy);
 
       expandablePanelInstance.open();
@@ -161,7 +191,9 @@ describe('DtExpandablePanel', () => {
       const collapsedSpy = jasmine.createSpy();
       const changedSpy = jasmine.createSpy();
       const instance = instanceDebugElement.componentInstance;
-      const collapsedSubscription = instance._panelCollapsed.subscribe(collapsedSpy);
+      const collapsedSubscription = instance._panelCollapsed.subscribe(
+        collapsedSpy
+      );
       const changedSubscription = instance.expandChange.subscribe(changedSpy);
 
       expandablePanelInstance.close();
@@ -177,14 +209,17 @@ describe('DtExpandablePanel', () => {
 
 @Component({
   selector: 'dt-test-app',
-  template: `<dt-expandable-panel>text</dt-expandable-panel>`,
+  template: `
+    <dt-expandable-panel>text</dt-expandable-panel>
+  `,
 })
-class ExpandablePanelComponent {
-}
+class ExpandablePanelComponent {}
 
 @Component({
   selector: 'dt-test-app',
-  template: `<dt-expandable-panel #panel>text</dt-expandable-panel><button [dtExpandablePanel]="panel">trigger</button>`,
+  template: `
+    <dt-expandable-panel #panel>text</dt-expandable-panel
+    ><button [dtExpandablePanel]="panel">trigger</button>
+  `,
 })
-class ExpandablePanelWithTriggerComponent {
-}
+class ExpandablePanelWithTriggerComponent {}

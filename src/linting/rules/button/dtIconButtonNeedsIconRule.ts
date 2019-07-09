@@ -1,19 +1,16 @@
-import {
-  AttrAst,
-  ElementAst,
-} from '@angular/compiler';
+import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure,
+import {
+  addFailure,
   hasContent,
   hasOnlyDtIconChildren,
   isButtonElement,
-  isIconButtonAttr
+  isIconButtonAttr,
 } from '../../utils';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -25,10 +22,14 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     }
 
     const attrs: AttrAst[] = element.attrs;
-    const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
+    const isIconButton = attrs.some(attr => isIconButtonAttr(attr));
 
     if (isIconButton && !hasContent(element)) {
-      addFailure(this, element, 'A dt-icon-button must not be empty, but must contain a dt-icon element.');
+      addFailure(
+        this,
+        element,
+        'A dt-icon-button must not be empty, but must contain a dt-icon element.'
+      );
     }
 
     if (isIconButton) {
@@ -36,7 +37,11 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
         return;
       }
 
-      addFailure(this, element, 'A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.');
+      addFailure(
+        this,
+        element,
+        'A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.'
+      );
     }
   }
 }
@@ -57,9 +62,9 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
  * <button dt-icon-button variant="secondary"></button>, icon content required
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that an icon button contains only dt-icon components.',
+    description:
+      'Ensures that an icon button contains only dt-icon components.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',

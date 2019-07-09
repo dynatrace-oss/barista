@@ -4,17 +4,8 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { DtButtonGroup, DtButtonGroupItem } from './button-group';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    A11yModule,
-  ],
-  exports: [
-    DtButtonGroup,
-    DtButtonGroupItem,
-  ],
-  declarations: [
-    DtButtonGroup,
-    DtButtonGroupItem,
-  ],
+  imports: [CommonModule, A11yModule],
+  exports: [DtButtonGroup, DtButtonGroupItem],
+  declarations: [DtButtonGroup, DtButtonGroupItem],
 })
-export class DtButtonGroupModule { }
+export class DtButtonGroupModule {}

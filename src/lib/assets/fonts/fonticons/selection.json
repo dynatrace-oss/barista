@@ -9,9 +9,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_005_Pinpoint_Location"
-        ],
+        "tags": ["Icons_file_005_Pinpoint_Location"],
         "defaultCode": 59648,
         "grid": 0
       },
@@ -41,9 +39,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Dashboard"
-        ],
+        "tags": ["Icons_file_004_Dashboard"],
         "defaultCode": 59649,
         "grid": 0
       },
@@ -67,9 +63,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Left"
-        ],
+        "tags": ["Icons_file_004_Left"],
         "defaultCode": 59650,
         "grid": 0
       },
@@ -94,9 +88,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_LeftEnd"
-        ],
+        "tags": ["Icons_file_004_LeftEnd"],
         "defaultCode": 59651,
         "grid": 0
       },
@@ -120,9 +112,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Right"
-        ],
+        "tags": ["Icons_file_004_Right"],
         "defaultCode": 59652,
         "grid": 0
       },
@@ -147,9 +137,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_RightEnd"
-        ],
+        "tags": ["Icons_file_004_RightEnd"],
         "defaultCode": 59653,
         "grid": 0
       },
@@ -176,9 +164,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Chart_percentile"
-        ],
+        "tags": ["Icons_file_004_Chart_percentile"],
         "defaultCode": 59654,
         "grid": 0
       },
@@ -204,9 +190,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_More"
-        ],
+        "tags": ["Icons_file_004_More"],
         "defaultCode": 59655,
         "grid": 0
       },
@@ -235,9 +219,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Usergroup"
-        ],
+        "tags": ["Icons_file_001_Usergroup"],
         "defaultCode": 59392,
         "grid": 0
       },
@@ -262,9 +244,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Entry"
-        ],
+        "tags": ["Icons_file_001_Entry"],
         "defaultCode": 59393,
         "grid": 0
       },
@@ -288,9 +268,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Exit"
-        ],
+        "tags": ["Icons_file_001_Exit"],
         "defaultCode": 59394,
         "grid": 0
       },
@@ -314,9 +292,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Webpages"
-        ],
+        "tags": ["Icons_file_001_Webpages"],
         "defaultCode": 59395,
         "grid": 0
       },
@@ -344,9 +320,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Environment"
-        ],
+        "tags": ["Icons_file_004_Environment"],
         "defaultCode": 59209,
         "grid": 0
       },
@@ -374,9 +348,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Mobile_App"
-        ],
+        "tags": ["Icons_file_004_Mobile_App"],
         "defaultCode": 59208,
         "grid": 0
       },
@@ -410,9 +382,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Group_v1-01"
-        ],
+        "tags": ["Group_v1-01"],
         "defaultCode": 59207,
         "grid": 0
       },
@@ -436,9 +406,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_SaoPaulo"
-        ],
+        "tags": ["Icons_file_004_SaoPaulo"],
         "defaultCode": 59204,
         "grid": 0
       },
@@ -462,9 +430,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Singapore"
-        ],
+        "tags": ["Icons_file_004_Singapore"],
         "defaultCode": 59205,
         "grid": 0
       },
@@ -488,9 +454,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Sydney"
-        ],
+        "tags": ["Icons_file_004_Sydney"],
         "defaultCode": 59206,
         "grid": 0
       },
@@ -523,9 +487,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Load"
-        ],
+        "tags": ["Icons_file_004_Load"],
         "defaultCode": 59203,
         "grid": 0
       },
@@ -550,9 +512,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_LogFile"
-        ],
+        "tags": ["Icons_file_004_LogFile"],
         "defaultCode": 59202,
         "grid": 0
       },
@@ -577,9 +537,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Recurring_issue"
-        ],
+        "tags": ["Icons_file_004_Recurring_issue"],
         "defaultCode": 59200,
         "grid": 0
       },
@@ -608,9 +566,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_San_Jose"
-        ],
+        "tags": ["Icons_file_004_San_Jose"],
         "defaultCode": 59198,
         "grid": 0
       },
@@ -639,9 +595,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_New_York"
-        ],
+        "tags": ["Icons_file_004_New_York"],
         "defaultCode": 59199,
         "grid": 0
       },
@@ -668,9 +622,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Atlanta"
-        ],
+        "tags": ["Icons_file_004_Atlanta"],
         "defaultCode": 59186,
         "grid": 0
       },
@@ -698,9 +650,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Boston"
-        ],
+        "tags": ["Icons_file_004_Boston"],
         "defaultCode": 59187,
         "grid": 0
       },
@@ -732,9 +682,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Chicago"
-        ],
+        "tags": ["Icons_file_004_Chicago"],
         "defaultCode": 59188,
         "grid": 0
       },
@@ -760,9 +708,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_City"
-        ],
+        "tags": ["Icons_file_004_City"],
         "defaultCode": 59189,
         "grid": 0
       },
@@ -786,9 +732,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Dallas"
-        ],
+        "tags": ["Icons_file_004_Dallas"],
         "defaultCode": 59190,
         "grid": 0
       },
@@ -814,9 +758,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Frankfurt"
-        ],
+        "tags": ["Icons_file_004_Frankfurt"],
         "defaultCode": 59191,
         "grid": 0
       },
@@ -843,9 +785,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_London"
-        ],
+        "tags": ["Icons_file_004_London"],
         "defaultCode": 59192,
         "grid": 0
       },
@@ -870,9 +810,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Paris"
-        ],
+        "tags": ["Icons_file_004_Paris"],
         "defaultCode": 59193,
         "grid": 0
       },
@@ -899,9 +837,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Seattle"
-        ],
+        "tags": ["Icons_file_004_Seattle"],
         "defaultCode": 59194,
         "grid": 0
       },
@@ -926,9 +862,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_ActionsPerSession"
-        ],
+        "tags": ["Icons_file_004_ActionsPerSession"],
         "defaultCode": 59195,
         "grid": 0
       },
@@ -952,9 +886,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_BounceRate"
-        ],
+        "tags": ["Icons_file_004_BounceRate"],
         "defaultCode": 59196,
         "grid": 0
       },
@@ -979,9 +911,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_RealUser"
-        ],
+        "tags": ["Icons_file_004_RealUser"],
         "defaultCode": 59197,
         "grid": 0
       },
@@ -1005,9 +935,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "File"
-        ],
+        "tags": ["File"],
         "defaultCode": 59185,
         "grid": 0
       },
@@ -1031,9 +959,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "FinishFlag"
-        ],
+        "tags": ["FinishFlag"],
         "defaultCode": 59182,
         "grid": 0
       },
@@ -1057,9 +983,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "HealthStatus"
-        ],
+        "tags": ["HealthStatus"],
         "defaultCode": 59183,
         "grid": 0
       },
@@ -1088,9 +1012,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "ConnectionLost"
-        ],
+        "tags": ["ConnectionLost"],
         "defaultCode": 59184,
         "grid": 0
       },
@@ -1120,9 +1042,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_aspnet"
-        ],
+        "tags": ["Icons_file_004_aspnet"],
         "defaultCode": 59181,
         "grid": 0
       },
@@ -1155,9 +1075,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Hyperlyzer"
-        ],
+        "tags": ["Icons_file_004_Hyperlyzer"],
         "defaultCode": 59179,
         "grid": 0
       },
@@ -1181,9 +1099,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Infinity"
-        ],
+        "tags": ["Icons_file_004_Infinity"],
         "defaultCode": 59178,
         "grid": 0
       },
@@ -1223,9 +1139,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_.Net Microsoft"
-        ],
+        "tags": ["Icons_file_001_.Net Microsoft"],
         "defaultCode": 58880,
         "grid": 0
       },
@@ -1266,9 +1180,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Abort"
-        ],
+        "tags": ["Icons_file_001_Abort"],
         "defaultCode": 58881,
         "grid": 0
       },
@@ -1300,9 +1212,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Agent"
-        ],
+        "tags": ["Icons_file_001_Agent"],
         "defaultCode": 58882,
         "grid": 0
       },
@@ -1342,9 +1252,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_AIX"
-        ],
+        "tags": ["Icons_file_001_AIX"],
         "defaultCode": 58883,
         "grid": 0
       },
@@ -1394,9 +1302,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Alert Notifiaction"
-        ],
+        "tags": ["Icons_file_001_Alert Notifiaction"],
         "defaultCode": 58884,
         "grid": 0
       },
@@ -1449,9 +1355,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Android"
-        ],
+        "tags": ["Icons_file_001_Android"],
         "defaultCode": 58885,
         "grid": 0
       },
@@ -1544,9 +1448,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Apache Solr"
-        ],
+        "tags": ["Icons_file_001_Apache Solr"],
         "defaultCode": 58886,
         "grid": 0
       },
@@ -1621,9 +1523,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Apache Tomcat"
-        ],
+        "tags": ["Icons_file_001_Apache Tomcat"],
         "defaultCode": 58887,
         "grid": 0
       },
@@ -1666,9 +1566,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Apache"
-        ],
+        "tags": ["Icons_file_001_Apache"],
         "defaultCode": 58888,
         "grid": 0
       },
@@ -1706,9 +1604,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_APMngServer"
-        ],
+        "tags": ["Icons_file_001_APMngServer"],
         "defaultCode": 58889,
         "grid": 0
       },
@@ -1744,9 +1640,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Apple"
-        ],
+        "tags": ["Icons_file_001_Apple"],
         "defaultCode": 58890,
         "grid": 0
       },
@@ -1781,9 +1675,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Application"
-        ],
+        "tags": ["Icons_file_001_Application"],
         "defaultCode": 58891,
         "grid": 0
       },
@@ -1827,9 +1719,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_ApplicationMonitoring"
-        ],
+        "tags": ["Icons_file_001_ApplicationMonitoring"],
         "defaultCode": 58892,
         "grid": 0
       },
@@ -1874,9 +1764,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_ApplicationNetworkMonitoring"
-        ],
+        "tags": ["Icons_file_001_ApplicationNetworkMonitoring"],
         "defaultCode": 58893,
         "grid": 0
       },
@@ -1915,9 +1803,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_ApplicationServer"
-        ],
+        "tags": ["Icons_file_001_ApplicationServer"],
         "defaultCode": 58894,
         "grid": 0
       },
@@ -1952,9 +1838,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_BigData"
-        ],
+        "tags": ["Icons_file_001_BigData"],
         "defaultCode": 58895,
         "grid": 0
       },
@@ -2014,9 +1898,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_BigDataServer"
-        ],
+        "tags": ["Icons_file_001_BigDataServer"],
         "defaultCode": 58896,
         "grid": 0
       },
@@ -2101,9 +1983,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Browser"
-        ],
+        "tags": ["Icons_file_001_Browser"],
         "defaultCode": 58897,
         "grid": 0
       },
@@ -2175,9 +2055,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_BusinessImpact"
-        ],
+        "tags": ["Icons_file_001_BusinessImpact"],
         "defaultCode": 58898,
         "grid": 0
       },
@@ -2233,9 +2111,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Calendar"
-        ],
+        "tags": ["Icons_file_001_Calendar"],
         "defaultCode": 58899,
         "grid": 0
       },
@@ -2276,9 +2152,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Cassandra"
-        ],
+        "tags": ["Icons_file_001_Cassandra"],
         "defaultCode": 58900,
         "grid": 0
       },
@@ -2318,9 +2192,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_CleanUp"
-        ],
+        "tags": ["Icons_file_001_CleanUp"],
         "defaultCode": 58901,
         "grid": 0
       },
@@ -2358,9 +2230,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Cloud"
-        ],
+        "tags": ["Icons_file_001_Cloud"],
         "defaultCode": 58902,
         "grid": 0
       },
@@ -2416,9 +2286,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_CloudControl"
-        ],
+        "tags": ["Icons_file_001_CloudControl"],
         "defaultCode": 58903,
         "grid": 0
       },
@@ -2472,9 +2340,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_CloudShare"
-        ],
+        "tags": ["Icons_file_001_CloudShare"],
         "defaultCode": 58904,
         "grid": 0
       },
@@ -2517,9 +2383,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_CloudSync"
-        ],
+        "tags": ["Icons_file_001_CloudSync"],
         "defaultCode": 58905,
         "grid": 0
       },
@@ -2569,9 +2433,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_CouchDB"
-        ],
+        "tags": ["Icons_file_001_CouchDB"],
         "defaultCode": 58906,
         "grid": 0
       },
@@ -2612,9 +2474,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_CriticalEvent"
-        ],
+        "tags": ["Icons_file_001_CriticalEvent"],
         "defaultCode": 58907,
         "grid": 0
       },
@@ -2650,9 +2510,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Darwin Apple"
-        ],
+        "tags": ["Icons_file_001_Darwin Apple"],
         "defaultCode": 58908,
         "grid": 0
       },
@@ -2687,9 +2545,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_DataBase"
-        ],
+        "tags": ["Icons_file_001_DataBase"],
         "defaultCode": 58909,
         "grid": 0
       },
@@ -2729,9 +2585,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_DataBaseServer"
-        ],
+        "tags": ["Icons_file_001_DataBaseServer"],
         "defaultCode": 58910,
         "grid": 0
       },
@@ -2773,9 +2627,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Desktop"
-        ],
+        "tags": ["Icons_file_001_Desktop"],
         "defaultCode": 58911,
         "grid": 0
       },
@@ -2826,9 +2678,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_FailedUserAction"
-        ],
+        "tags": ["Icons_file_001_FailedUserAction"],
         "defaultCode": 58912,
         "grid": 0
       },
@@ -2896,9 +2746,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Firewall"
-        ],
+        "tags": ["Icons_file_001_Firewall"],
         "defaultCode": 58913,
         "grid": 0
       },
@@ -2960,9 +2808,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_FitToScreen"
-        ],
+        "tags": ["Icons_file_001_FitToScreen"],
         "defaultCode": 58914,
         "grid": 0
       },
@@ -3059,9 +2905,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Glassfish"
-        ],
+        "tags": ["Icons_file_001_Glassfish"],
         "defaultCode": 58915,
         "grid": 0
       },
@@ -3151,9 +2995,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Hadoop"
-        ],
+        "tags": ["Icons_file_001_Hadoop"],
         "defaultCode": 58916,
         "grid": 0
       },
@@ -3197,9 +3039,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Home"
-        ],
+        "tags": ["Icons_file_001_Home"],
         "defaultCode": 58917,
         "grid": 0
       },
@@ -3231,9 +3071,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_HP UX"
-        ],
+        "tags": ["Icons_file_001_HP UX"],
         "defaultCode": 58918,
         "grid": 0
       },
@@ -3285,9 +3123,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Hypervisor"
-        ],
+        "tags": ["Icons_file_001_Hypervisor"],
         "defaultCode": 58919,
         "grid": 0
       },
@@ -3342,9 +3178,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_IBM DB2"
-        ],
+        "tags": ["Icons_file_001_IBM DB2"],
         "defaultCode": 58920,
         "grid": 0
       },
@@ -3390,9 +3224,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_IIS Microsoft"
-        ],
+        "tags": ["Icons_file_001_IIS Microsoft"],
         "defaultCode": 58921,
         "grid": 0
       },
@@ -3430,9 +3262,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Incident"
-        ],
+        "tags": ["Icons_file_001_Incident"],
         "defaultCode": 58922,
         "grid": 0
       },
@@ -3464,9 +3294,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Information"
-        ],
+        "tags": ["Icons_file_001_Information"],
         "defaultCode": 58923,
         "grid": 0
       },
@@ -3498,9 +3326,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Infrastructure"
-        ],
+        "tags": ["Icons_file_001_Infrastructure"],
         "defaultCode": 58924,
         "grid": 0
       },
@@ -3540,9 +3366,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_iOS"
-        ],
+        "tags": ["Icons_file_001_iOS"],
         "defaultCode": 58925,
         "grid": 0
       },
@@ -3648,9 +3472,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_IPv6"
-        ],
+        "tags": ["Icons_file_001_IPv6"],
         "defaultCode": 58926,
         "grid": 0
       },
@@ -3761,9 +3583,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Java"
-        ],
+        "tags": ["Icons_file_001_Java"],
         "defaultCode": 58927,
         "grid": 0
       },
@@ -3848,9 +3668,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_JBoss"
-        ],
+        "tags": ["Icons_file_001_JBoss"],
         "defaultCode": 58928,
         "grid": 0
       },
@@ -3910,9 +3728,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_JRUBY"
-        ],
+        "tags": ["Icons_file_001_JRUBY"],
         "defaultCode": 58929,
         "grid": 0
       },
@@ -3951,9 +3767,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Jython"
-        ],
+        "tags": ["Icons_file_001_Jython"],
         "defaultCode": 58930,
         "grid": 0
       },
@@ -3988,9 +3802,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_LifecyclePerformanceManagement"
-        ],
+        "tags": ["Icons_file_001_LifecyclePerformanceManagement"],
         "defaultCode": 58931,
         "grid": 0
       },
@@ -4046,9 +3858,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Linux"
-        ],
+        "tags": ["Icons_file_001_Linux"],
         "defaultCode": 58932,
         "grid": 0
       },
@@ -4114,9 +3924,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Live"
-        ],
+        "tags": ["Icons_file_001_Live"],
         "defaultCode": 58933,
         "grid": 0
       },
@@ -4168,9 +3976,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_LoadBalancer"
-        ],
+        "tags": ["Icons_file_001_LoadBalancer"],
         "defaultCode": 58934,
         "grid": 0
       },
@@ -4260,9 +4066,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_LoadTest"
-        ],
+        "tags": ["Icons_file_001_LoadTest"],
         "defaultCode": 58935,
         "grid": 0
       },
@@ -4341,9 +4145,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Mainframe"
-        ],
+        "tags": ["Icons_file_001_Mainframe"],
         "defaultCode": 58936,
         "grid": 0
       },
@@ -4389,9 +4191,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_MainframeServer"
-        ],
+        "tags": ["Icons_file_001_MainframeServer"],
         "defaultCode": 58937,
         "grid": 0
       },
@@ -4437,9 +4237,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Memcached"
-        ],
+        "tags": ["Icons_file_001_Memcached"],
         "defaultCode": 58938,
         "grid": 0
       },
@@ -4477,9 +4275,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Mobile"
-        ],
+        "tags": ["Icons_file_001_Mobile"],
         "defaultCode": 58939,
         "grid": 0
       },
@@ -4511,9 +4307,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Mongo DB"
-        ],
+        "tags": ["Icons_file_001_Mongo DB"],
         "defaultCode": 58940,
         "grid": 0
       },
@@ -4545,9 +4339,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_MySQL"
-        ],
+        "tags": ["Icons_file_001_MySQL"],
         "defaultCode": 58941,
         "grid": 0
       },
@@ -4579,9 +4371,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_NGINX"
-        ],
+        "tags": ["Icons_file_001_NGINX"],
         "defaultCode": 58942,
         "grid": 0
       },
@@ -4617,9 +4407,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Node JS"
-        ],
+        "tags": ["Icons_file_001_Node JS"],
         "defaultCode": 58943,
         "grid": 0
       },
@@ -4654,9 +4442,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Notebook"
-        ],
+        "tags": ["Icons_file_001_Notebook"],
         "defaultCode": 58944,
         "grid": 0
       },
@@ -4688,9 +4474,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Oracle"
-        ],
+        "tags": ["Icons_file_001_Oracle"],
         "defaultCode": 58945,
         "grid": 0
       },
@@ -4726,9 +4510,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Overview"
-        ],
+        "tags": ["Icons_file_001_Overview"],
         "defaultCode": 58946,
         "grid": 0
       },
@@ -4767,9 +4549,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Pause"
-        ],
+        "tags": ["Icons_file_001_Pause"],
         "defaultCode": 58947,
         "grid": 0
       },
@@ -4804,9 +4584,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Perl"
-        ],
+        "tags": ["Icons_file_001_Perl"],
         "defaultCode": 58948,
         "grid": 0
       },
@@ -4846,9 +4624,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_PHP"
-        ],
+        "tags": ["Icons_file_001_PHP"],
         "defaultCode": 58949,
         "grid": 0
       },
@@ -4876,9 +4652,7 @@
     },
     {
       "icon": {
-        "paths": [
-          "M132 132l760 380-760 380z"
-        ],
+        "paths": ["M132 132l760 380-760 380z"],
         "attrs": [
           {
             "visibility": false
@@ -4886,9 +4660,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Play"
-        ],
+        "tags": ["Icons_file_001_Play"],
         "defaultCode": 58950,
         "grid": 0
       },
@@ -4948,9 +4720,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Postgre"
-        ],
+        "tags": ["Icons_file_001_Postgre"],
         "defaultCode": 58951,
         "grid": 0
       },
@@ -5027,9 +4797,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Process"
-        ],
+        "tags": ["Icons_file_001_Process"],
         "defaultCode": 58952,
         "grid": 0
       },
@@ -5107,9 +4875,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Processes"
-        ],
+        "tags": ["Icons_file_001_Processes"],
         "defaultCode": 58953,
         "grid": 0
       },
@@ -5166,9 +4932,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Python"
-        ],
+        "tags": ["Icons_file_001_Python"],
         "defaultCode": 58954,
         "grid": 0
       },
@@ -5227,9 +4991,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_RealUser MonitorWebsiteUsers_"
-        ],
+        "tags": ["Icons_file_001_RealUser MonitorWebsiteUsers_"],
         "defaultCode": 58955,
         "grid": 0
       },
@@ -5279,9 +5041,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Redis"
-        ],
+        "tags": ["Icons_file_001_Redis"],
         "defaultCode": 58956,
         "grid": 0
       },
@@ -5317,9 +5077,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Resume"
-        ],
+        "tags": ["Icons_file_001_Resume"],
         "defaultCode": 58957,
         "grid": 0
       },
@@ -5358,9 +5116,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Ruby"
-        ],
+        "tags": ["Icons_file_001_Ruby"],
         "defaultCode": 58958,
         "grid": 0
       },
@@ -5407,9 +5163,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_ruxit"
-        ],
+        "tags": ["Icons_file_001_ruxit"],
         "defaultCode": 58959,
         "grid": 0
       },
@@ -5454,9 +5208,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_ruxitUser"
-        ],
+        "tags": ["Icons_file_001_ruxitUser"],
         "defaultCode": 58960,
         "grid": 0
       },
@@ -5499,9 +5251,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Scala"
-        ],
+        "tags": ["Icons_file_001_Scala"],
         "defaultCode": 58961,
         "grid": 0
       },
@@ -5539,9 +5289,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_ServerBracket"
-        ],
+        "tags": ["Icons_file_001_ServerBracket"],
         "defaultCode": 58962,
         "grid": 0
       },
@@ -5573,9 +5321,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Services"
-        ],
+        "tags": ["Icons_file_001_Services"],
         "defaultCode": 58963,
         "grid": 0
       },
@@ -5607,9 +5353,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_SQL Microsoft"
-        ],
+        "tags": ["Icons_file_001_SQL Microsoft"],
         "defaultCode": 58964,
         "grid": 0
       },
@@ -5631,9 +5375,7 @@
     },
     {
       "icon": {
-        "paths": [
-          "M192 192h640v640h-640v-640z"
-        ],
+        "paths": ["M192 192h640v640h-640v-640z"],
         "attrs": [
           {
             "visibility": false
@@ -5641,9 +5383,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Stop"
-        ],
+        "tags": ["Icons_file_001_Stop"],
         "defaultCode": 58965,
         "grid": 0
       },
@@ -5675,9 +5415,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Storage"
-        ],
+        "tags": ["Icons_file_001_Storage"],
         "defaultCode": 58966,
         "grid": 0
       },
@@ -5713,9 +5451,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Switch"
-        ],
+        "tags": ["Icons_file_001_Switch"],
         "defaultCode": 58967,
         "grid": 0
       },
@@ -5770,9 +5506,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_SyntheticMonitoring"
-        ],
+        "tags": ["Icons_file_001_SyntheticMonitoring"],
         "defaultCode": 58968,
         "grid": 0
       },
@@ -5819,9 +5553,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Tablet"
-        ],
+        "tags": ["Icons_file_001_Tablet"],
         "defaultCode": 58969,
         "grid": 0
       },
@@ -5865,9 +5597,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_TabletUI"
-        ],
+        "tags": ["Icons_file_001_TabletUI"],
         "defaultCode": 58970,
         "grid": 0
       },
@@ -5908,9 +5638,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Unknown"
-        ],
+        "tags": ["Icons_file_001_Unknown"],
         "defaultCode": 58971,
         "grid": 0
       },
@@ -5946,9 +5674,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_User UEM"
-        ],
+        "tags": ["Icons_file_001_User UEM"],
         "defaultCode": 58972,
         "grid": 0
       },
@@ -6039,9 +5765,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_UserExperienceManagement"
-        ],
+        "tags": ["Icons_file_001_UserExperienceManagement"],
         "defaultCode": 58973,
         "grid": 0
       },
@@ -6123,9 +5847,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_W3C"
-        ],
+        "tags": ["Icons_file_001_W3C"],
         "defaultCode": 58974,
         "grid": 0
       },
@@ -6203,9 +5925,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Web Sphere"
-        ],
+        "tags": ["Icons_file_001_Web Sphere"],
         "defaultCode": 58975,
         "grid": 0
       },
@@ -6267,9 +5987,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Web"
-        ],
+        "tags": ["Icons_file_001_Web"],
         "defaultCode": 58976,
         "grid": 0
       },
@@ -6349,9 +6067,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_WebServer"
-        ],
+        "tags": ["Icons_file_001_WebServer"],
         "defaultCode": 58977,
         "grid": 0
       },
@@ -6431,9 +6147,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_Windows"
-        ],
+        "tags": ["Icons_file_001_Windows"],
         "defaultCode": 58978,
         "grid": 0
       },
@@ -6482,9 +6196,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_zOS"
-        ],
+        "tags": ["Icons_file_001_zOS"],
         "defaultCode": 58979,
         "grid": 0
       },
@@ -6534,9 +6246,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_AddColumnLeft"
-        ],
+        "tags": ["Icons_file_002_AddColumnLeft"],
         "defaultCode": 58980,
         "grid": 0
       },
@@ -6589,9 +6299,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_AddColumnRight"
-        ],
+        "tags": ["Icons_file_002_AddColumnRight"],
         "defaultCode": 58981,
         "grid": 0
       },
@@ -6644,9 +6352,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_AddRowOnBottom"
-        ],
+        "tags": ["Icons_file_002_AddRowOnBottom"],
         "defaultCode": 58982,
         "grid": 0
       },
@@ -6699,9 +6405,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_AddRowOnTop"
-        ],
+        "tags": ["Icons_file_002_AddRowOnTop"],
         "defaultCode": 58983,
         "grid": 0
       },
@@ -6746,9 +6450,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_AjaxEdition"
-        ],
+        "tags": ["Icons_file_002_AjaxEdition"],
         "defaultCode": 58984,
         "grid": 0
       },
@@ -6795,9 +6497,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_APMaaS"
-        ],
+        "tags": ["Icons_file_002_APMaaS"],
         "defaultCode": 58985,
         "grid": 0
       },
@@ -6842,9 +6542,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_APMAppliance"
-        ],
+        "tags": ["Icons_file_002_APMAppliance"],
         "defaultCode": 58986,
         "grid": 0
       },
@@ -6887,9 +6585,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_APMngCollector"
-        ],
+        "tags": ["Icons_file_002_APMngCollector"],
         "defaultCode": 58987,
         "grid": 0
       },
@@ -6931,9 +6627,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Appliance"
-        ],
+        "tags": ["Icons_file_002_Appliance"],
         "defaultCode": 58988,
         "grid": 0
       },
@@ -6968,9 +6662,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_ApplicationHealth"
-        ],
+        "tags": ["Icons_file_002_ApplicationHealth"],
         "defaultCode": 58989,
         "grid": 0
       },
@@ -7006,9 +6698,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Availability"
-        ],
+        "tags": ["Icons_file_002_Availability"],
         "defaultCode": 58990,
         "grid": 0
       },
@@ -7047,9 +6737,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Backup"
-        ],
+        "tags": ["Icons_file_002_Backup"],
         "defaultCode": 58991,
         "grid": 0
       },
@@ -7092,9 +6780,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Certificate"
-        ],
+        "tags": ["Icons_file_002_Certificate"],
         "defaultCode": 58992,
         "grid": 0
       },
@@ -7140,9 +6826,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Chart"
-        ],
+        "tags": ["Icons_file_002_Chart"],
         "defaultCode": 58993,
         "grid": 0
       },
@@ -7180,9 +6864,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Chrome"
-        ],
+        "tags": ["Icons_file_002_Chrome"],
         "defaultCode": 58994,
         "grid": 0
       },
@@ -7242,9 +6924,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Citrix WTS Network"
-        ],
+        "tags": ["Icons_file_002_Citrix WTS Network"],
         "defaultCode": 58995,
         "grid": 0
       },
@@ -7321,9 +7001,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_ClientNetwork"
-        ],
+        "tags": ["Icons_file_002_ClientNetwork"],
         "defaultCode": 58996,
         "grid": 0
       },
@@ -7377,9 +7055,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Clock"
-        ],
+        "tags": ["Icons_file_002_Clock"],
         "defaultCode": 58997,
         "grid": 0
       },
@@ -7446,9 +7122,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Cluster"
-        ],
+        "tags": ["Icons_file_002_Cluster"],
         "defaultCode": 58998,
         "grid": 0
       },
@@ -7504,9 +7178,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_CollectiveInteligence"
-        ],
+        "tags": ["Icons_file_002_CollectiveInteligence"],
         "defaultCode": 58999,
         "grid": 0
       },
@@ -7542,9 +7214,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Community"
-        ],
+        "tags": ["Icons_file_002_Community"],
         "defaultCode": 59000,
         "grid": 0
       },
@@ -7587,9 +7257,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Conversions"
-        ],
+        "tags": ["Icons_file_002_Conversions"],
         "defaultCode": 59001,
         "grid": 0
       },
@@ -7727,9 +7395,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_CPU Processor"
-        ],
+        "tags": ["Icons_file_002_CPU Processor"],
         "defaultCode": 59002,
         "grid": 0
       },
@@ -7840,9 +7506,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Delete"
-        ],
+        "tags": ["Icons_file_002_Delete"],
         "defaultCode": 59003,
         "grid": 0
       },
@@ -7881,9 +7545,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Documentation"
-        ],
+        "tags": ["Icons_file_002_Documentation"],
         "defaultCode": 59004,
         "grid": 0
       },
@@ -7922,9 +7584,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Download"
-        ],
+        "tags": ["Icons_file_002_Download"],
         "defaultCode": 59005,
         "grid": 0
       },
@@ -7959,9 +7619,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_DropDownClosed"
-        ],
+        "tags": ["Icons_file_002_DropDownClosed"],
         "defaultCode": 59006,
         "grid": 0
       },
@@ -7993,9 +7651,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_DropDownOpen"
-        ],
+        "tags": ["Icons_file_002_DropDownOpen"],
         "defaultCode": 59007,
         "grid": 0
       },
@@ -8031,9 +7687,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Duplicate"
-        ],
+        "tags": ["Icons_file_002_Duplicate"],
         "defaultCode": 59008,
         "grid": 0
       },
@@ -8088,9 +7742,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Edit1"
-        ],
+        "tags": ["Icons_file_002_Edit1"],
         "defaultCode": 59009,
         "grid": 0
       },
@@ -8161,9 +7813,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Edit2"
-        ],
+        "tags": ["Icons_file_002_Edit2"],
         "defaultCode": 59010,
         "grid": 0
       },
@@ -8213,9 +7863,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Education"
-        ],
+        "tags": ["Icons_file_002_Education"],
         "defaultCode": 59011,
         "grid": 0
       },
@@ -8263,9 +7911,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_eServices BAS"
-        ],
+        "tags": ["Icons_file_002_eServices BAS"],
         "defaultCode": 59012,
         "grid": 0
       },
@@ -8325,9 +7971,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Event"
-        ],
+        "tags": ["Icons_file_002_Event"],
         "defaultCode": 59013,
         "grid": 0
       },
@@ -8375,9 +8019,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_ExternalLink"
-        ],
+        "tags": ["Icons_file_002_ExternalLink"],
         "defaultCode": 59014,
         "grid": 0
       },
@@ -8420,9 +8062,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_FaultDomainAnalysis"
-        ],
+        "tags": ["Icons_file_002_FaultDomainAnalysis"],
         "defaultCode": 59015,
         "grid": 0
       },
@@ -8460,9 +8100,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Favorite"
-        ],
+        "tags": ["Icons_file_002_Favorite"],
         "defaultCode": 59016,
         "grid": 0
       },
@@ -8494,9 +8132,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Filter"
-        ],
+        "tags": ["Icons_file_002_Filter"],
         "defaultCode": 59017,
         "grid": 0
       },
@@ -8528,9 +8164,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Firefox"
-        ],
+        "tags": ["Icons_file_002_Firefox"],
         "defaultCode": 59018,
         "grid": 0
       },
@@ -8574,9 +8208,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Fixpack"
-        ],
+        "tags": ["Icons_file_002_Fixpack"],
         "defaultCode": 59019,
         "grid": 0
       },
@@ -8621,9 +8253,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Forum"
-        ],
+        "tags": ["Icons_file_002_Forum"],
         "defaultCode": 59020,
         "grid": 0
       },
@@ -8662,9 +8292,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_GettingStarted"
-        ],
+        "tags": ["Icons_file_002_GettingStarted"],
         "defaultCode": 59021,
         "grid": 0
       },
@@ -8707,9 +8335,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_HDD DiscDrive"
-        ],
+        "tags": ["Icons_file_002_HDD DiscDrive"],
         "defaultCode": 59022,
         "grid": 0
       },
@@ -8763,9 +8389,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Host"
-        ],
+        "tags": ["Icons_file_002_Host"],
         "defaultCode": 59023,
         "grid": 0
       },
@@ -8817,9 +8441,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Hourglass"
-        ],
+        "tags": ["Icons_file_002_Hourglass"],
         "defaultCode": 59024,
         "grid": 0
       },
@@ -8893,9 +8515,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Idle"
-        ],
+        "tags": ["Icons_file_002_Idle"],
         "defaultCode": 59025,
         "grid": 0
       },
@@ -8982,9 +8602,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_InfograhicHypervisor"
-        ],
+        "tags": ["Icons_file_002_InfograhicHypervisor"],
         "defaultCode": 59026,
         "grid": 0
       },
@@ -9037,9 +8655,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_InfrastructureHealth"
-        ],
+        "tags": ["Icons_file_002_InfrastructureHealth"],
         "defaultCode": 59027,
         "grid": 0
       },
@@ -9091,9 +8707,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Infrographic19Rack"
-        ],
+        "tags": ["Icons_file_002_Infrographic19Rack"],
         "defaultCode": 59028,
         "grid": 0
       },
@@ -9140,9 +8754,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_InternetExplorer"
-        ],
+        "tags": ["Icons_file_002_InternetExplorer"],
         "defaultCode": 59029,
         "grid": 0
       },
@@ -9178,9 +8790,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_LoadAction"
-        ],
+        "tags": ["Icons_file_002_LoadAction"],
         "defaultCode": 59030,
         "grid": 0
       },
@@ -9219,9 +8829,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Lock"
-        ],
+        "tags": ["Icons_file_002_Lock"],
         "defaultCode": 59031,
         "grid": 0
       },
@@ -9268,9 +8876,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_MailClosed"
-        ],
+        "tags": ["Icons_file_002_MailClosed"],
         "defaultCode": 59032,
         "grid": 0
       },
@@ -9339,9 +8945,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_MailOpen"
-        ],
+        "tags": ["Icons_file_002_MailOpen"],
         "defaultCode": 59033,
         "grid": 0
       },
@@ -9398,9 +9002,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Maintenance"
-        ],
+        "tags": ["Icons_file_002_Maintenance"],
         "defaultCode": 59034,
         "grid": 0
       },
@@ -9447,9 +9049,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Marketing"
-        ],
+        "tags": ["Icons_file_002_Marketing"],
         "defaultCode": 59035,
         "grid": 0
       },
@@ -9534,9 +9134,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Memory RAM"
-        ],
+        "tags": ["Icons_file_002_Memory RAM"],
         "defaultCode": 59036,
         "grid": 0
       },
@@ -9617,9 +9215,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Menu"
-        ],
+        "tags": ["Icons_file_002_Menu"],
         "defaultCode": 59037,
         "grid": 0
       },
@@ -9671,9 +9267,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Multiple"
-        ],
+        "tags": ["Icons_file_002_Multiple"],
         "defaultCode": 59038,
         "grid": 0
       },
@@ -9723,9 +9317,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Network"
-        ],
+        "tags": ["Icons_file_002_Network"],
         "defaultCode": 59039,
         "grid": 0
       },
@@ -9770,9 +9362,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Next Advance"
-        ],
+        "tags": ["Icons_file_002_Next Advance"],
         "defaultCode": 59040,
         "grid": 0
       },
@@ -9807,9 +9397,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Opera"
-        ],
+        "tags": ["Icons_file_002_Opera"],
         "defaultCode": 59041,
         "grid": 0
       },
@@ -9865,9 +9453,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Options Menu"
-        ],
+        "tags": ["Icons_file_002_Options Menu"],
         "defaultCode": 59042,
         "grid": 0
       },
@@ -9941,9 +9527,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_OrcestrationPlatform"
-        ],
+        "tags": ["Icons_file_002_OrcestrationPlatform"],
         "defaultCode": 59043,
         "grid": 0
       },
@@ -9993,9 +9577,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Partner"
-        ],
+        "tags": ["Icons_file_002_Partner"],
         "defaultCode": 59044,
         "grid": 0
       },
@@ -10043,9 +9625,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Perfromance Health"
-        ],
+        "tags": ["Icons_file_002_Perfromance Health"],
         "defaultCode": 59045,
         "grid": 0
       },
@@ -10089,9 +9669,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Pin"
-        ],
+        "tags": ["Icons_file_002_Pin"],
         "defaultCode": 59046,
         "grid": 0
       },
@@ -10123,9 +9701,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Plugin"
-        ],
+        "tags": ["Icons_file_002_Plugin"],
         "defaultCode": 59047,
         "grid": 0
       },
@@ -10157,9 +9733,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_PreSales"
-        ],
+        "tags": ["Icons_file_002_PreSales"],
         "defaultCode": 59048,
         "grid": 0
       },
@@ -10199,9 +9773,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_PureModel"
-        ],
+        "tags": ["Icons_file_002_PureModel"],
         "defaultCode": 59049,
         "grid": 0
       },
@@ -10243,9 +9815,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_PurePath"
-        ],
+        "tags": ["Icons_file_002_PurePath"],
         "defaultCode": 59050,
         "grid": 0
       },
@@ -10288,9 +9858,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_PurepathID"
-        ],
+        "tags": ["Icons_file_002_PurepathID"],
         "defaultCode": 59051,
         "grid": 0
       },
@@ -10328,9 +9896,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_PureStack"
-        ],
+        "tags": ["Icons_file_002_PureStack"],
         "defaultCode": 59052,
         "grid": 0
       },
@@ -10378,9 +9944,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_RebuildStack"
-        ],
+        "tags": ["Icons_file_002_RebuildStack"],
         "defaultCode": 59053,
         "grid": 0
       },
@@ -10424,9 +9988,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Refresh"
-        ],
+        "tags": ["Icons_file_002_Refresh"],
         "defaultCode": 59054,
         "grid": 0
       },
@@ -10458,9 +10020,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_RegisterDeals"
-        ],
+        "tags": ["Icons_file_002_RegisterDeals"],
         "defaultCode": 59055,
         "grid": 0
       },
@@ -10504,9 +10064,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_RemoveColumn"
-        ],
+        "tags": ["Icons_file_002_RemoveColumn"],
         "defaultCode": 59056,
         "grid": 0
       },
@@ -10559,9 +10117,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_RemoveRow"
-        ],
+        "tags": ["Icons_file_002_RemoveRow"],
         "defaultCode": 59057,
         "grid": 0
       },
@@ -10610,9 +10166,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Repair"
-        ],
+        "tags": ["Icons_file_002_Repair"],
         "defaultCode": 59058,
         "grid": 0
       },
@@ -10658,9 +10212,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Reports"
-        ],
+        "tags": ["Icons_file_002_Reports"],
         "defaultCode": 59059,
         "grid": 0
       },
@@ -10702,9 +10254,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Request"
-        ],
+        "tags": ["Icons_file_002_Request"],
         "defaultCode": 59060,
         "grid": 0
       },
@@ -10739,9 +10289,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_ResetPassword"
-        ],
+        "tags": ["Icons_file_002_ResetPassword"],
         "defaultCode": 59061,
         "grid": 0
       },
@@ -10777,9 +10325,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Restore"
-        ],
+        "tags": ["Icons_file_002_Restore"],
         "defaultCode": 59062,
         "grid": 0
       },
@@ -10814,9 +10360,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Revert"
-        ],
+        "tags": ["Icons_file_002_Revert"],
         "defaultCode": 59063,
         "grid": 0
       },
@@ -10864,9 +10408,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Safari"
-        ],
+        "tags": ["Icons_file_002_Safari"],
         "defaultCode": 59064,
         "grid": 0
       },
@@ -10914,9 +10456,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Sales"
-        ],
+        "tags": ["Icons_file_002_Sales"],
         "defaultCode": 59065,
         "grid": 0
       },
@@ -10955,9 +10495,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Search MagnifyingGlass"
-        ],
+        "tags": ["Icons_file_002_Search MagnifyingGlass"],
         "defaultCode": 59066,
         "grid": 0
       },
@@ -10992,9 +10530,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Sensor"
-        ],
+        "tags": ["Icons_file_002_Sensor"],
         "defaultCode": 59067,
         "grid": 0
       },
@@ -11026,9 +10562,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Server"
-        ],
+        "tags": ["Icons_file_002_Server"],
         "defaultCode": 59068,
         "grid": 0
       },
@@ -11060,9 +10594,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Support Contact"
-        ],
+        "tags": ["Icons_file_002_Support Contact"],
         "defaultCode": 59069,
         "grid": 0
       },
@@ -11094,9 +10626,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Support Help"
-        ],
+        "tags": ["Icons_file_002_Support Help"],
         "defaultCode": 59070,
         "grid": 0
       },
@@ -11140,9 +10670,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Table"
-        ],
+        "tags": ["Icons_file_002_Table"],
         "defaultCode": 59071,
         "grid": 0
       },
@@ -11191,9 +10719,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_TimeMeasurement"
-        ],
+        "tags": ["Icons_file_002_TimeMeasurement"],
         "defaultCode": 59072,
         "grid": 0
       },
@@ -11231,9 +10757,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Unknown Server"
-        ],
+        "tags": ["Icons_file_002_Unknown Server"],
         "defaultCode": 59073,
         "grid": 0
       },
@@ -11265,9 +10789,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Usage1"
-        ],
+        "tags": ["Icons_file_002_Usage1"],
         "defaultCode": 59074,
         "grid": 0
       },
@@ -11311,9 +10833,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Usage2"
-        ],
+        "tags": ["Icons_file_002_Usage2"],
         "defaultCode": 59075,
         "grid": 0
       },
@@ -11354,9 +10874,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_vCenter"
-        ],
+        "tags": ["Icons_file_002_vCenter"],
         "defaultCode": 59076,
         "grid": 0
       },
@@ -11388,9 +10906,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_VMware"
-        ],
+        "tags": ["Icons_file_002_VMware"],
         "defaultCode": 59077,
         "grid": 0
       },
@@ -11446,9 +10962,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_WAN"
-        ],
+        "tags": ["Icons_file_002_WAN"],
         "defaultCode": 59078,
         "grid": 0
       },
@@ -11538,9 +11052,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_XHRProcess"
-        ],
+        "tags": ["Icons_file_002_XHRProcess"],
         "defaultCode": 59079,
         "grid": 0
       },
@@ -11610,9 +11122,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Akamai"
-        ],
+        "tags": ["Icons_file_003_Akamai"],
         "defaultCode": 59080,
         "grid": 0
       },
@@ -11658,9 +11168,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Amazon"
-        ],
+        "tags": ["Icons_file_003_Amazon"],
         "defaultCode": 59081,
         "grid": 0
       },
@@ -11714,9 +11222,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_AmazonWebservices"
-        ],
+        "tags": ["Icons_file_003_AmazonWebservices"],
         "defaultCode": 59082,
         "grid": 0
       },
@@ -11768,9 +11274,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_AngularJS"
-        ],
+        "tags": ["Icons_file_003_AngularJS"],
         "defaultCode": 59083,
         "grid": 0
       },
@@ -11808,9 +11312,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Appdynamics"
-        ],
+        "tags": ["Icons_file_003_Appdynamics"],
         "defaultCode": 59084,
         "grid": 0
       },
@@ -11910,9 +11412,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Azure"
-        ],
+        "tags": ["Icons_file_003_Azure"],
         "defaultCode": 59085,
         "grid": 0
       },
@@ -12055,9 +11555,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Centos"
-        ],
+        "tags": ["Icons_file_003_Centos"],
         "defaultCode": 59086,
         "grid": 0
       },
@@ -12138,9 +11636,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Chart_2"
-        ],
+        "tags": ["Icons_file_003_Chart_2"],
         "defaultCode": 59087,
         "grid": 0
       },
@@ -12175,9 +11671,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Checkmark"
-        ],
+        "tags": ["Icons_file_003_Checkmark"],
         "defaultCode": 59088,
         "grid": 0
       },
@@ -12209,9 +11703,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Checkmark_OK"
-        ],
+        "tags": ["Icons_file_003_Checkmark_OK"],
         "defaultCode": 59089,
         "grid": 0
       },
@@ -12247,9 +11739,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Cloudflare"
-        ],
+        "tags": ["Icons_file_003_Cloudflare"],
         "defaultCode": 59090,
         "grid": 0
       },
@@ -12284,9 +11774,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Debian"
-        ],
+        "tags": ["Icons_file_003_Debian"],
         "defaultCode": 59091,
         "grid": 0
       },
@@ -12326,9 +11814,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Desktop_NotVisible"
-        ],
+        "tags": ["Icons_file_003_Desktop_NotVisible"],
         "defaultCode": 59092,
         "grid": 0
       },
@@ -12386,9 +11872,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Desktop_Visible"
-        ],
+        "tags": ["Icons_file_003_Desktop_Visible"],
         "defaultCode": 59093,
         "grid": 0
       },
@@ -12439,9 +11923,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_django"
-        ],
+        "tags": ["Icons_file_003_django"],
         "defaultCode": 59094,
         "grid": 0
       },
@@ -12480,9 +11962,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_DojoToolkit"
-        ],
+        "tags": ["Icons_file_003_DojoToolkit"],
         "defaultCode": 59095,
         "grid": 0
       },
@@ -12521,9 +12001,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_dynaTrace"
-        ],
+        "tags": ["Icons_file_003_dynaTrace"],
         "defaultCode": 59096,
         "grid": 0
       },
@@ -12558,9 +12036,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_EC2"
-        ],
+        "tags": ["Icons_file_003_EC2"],
         "defaultCode": 59097,
         "grid": 0
       },
@@ -12596,9 +12072,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_ExtJS"
-        ],
+        "tags": ["Icons_file_003_ExtJS"],
         "defaultCode": 59098,
         "grid": 0
       },
@@ -12633,9 +12107,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_facebook"
-        ],
+        "tags": ["Icons_file_003_facebook"],
         "defaultCode": 59099,
         "grid": 0
       },
@@ -12667,9 +12139,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_google"
-        ],
+        "tags": ["Icons_file_003_google"],
         "defaultCode": 59100,
         "grid": 0
       },
@@ -12701,9 +12171,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_GoogleWebkit"
-        ],
+        "tags": ["Icons_file_003_GoogleWebkit"],
         "defaultCode": 59101,
         "grid": 0
       },
@@ -12751,9 +12219,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_HAProxy"
-        ],
+        "tags": ["Icons_file_003_HAProxy"],
         "defaultCode": 59102,
         "grid": 0
       },
@@ -12809,9 +12275,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_HortonWorks"
-        ],
+        "tags": ["Icons_file_003_HortonWorks"],
         "defaultCode": 59103,
         "grid": 0
       },
@@ -12856,9 +12320,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_HyperV"
-        ],
+        "tags": ["Icons_file_003_HyperV"],
         "defaultCode": 59104,
         "grid": 0
       },
@@ -12893,9 +12355,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_IBM"
-        ],
+        "tags": ["Icons_file_003_IBM"],
         "defaultCode": 59105,
         "grid": 0
       },
@@ -12955,9 +12415,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_ICEfaces"
-        ],
+        "tags": ["Icons_file_003_ICEfaces"],
         "defaultCode": 59106,
         "grid": 0
       },
@@ -13042,9 +12500,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_jetty"
-        ],
+        "tags": ["Icons_file_003_jetty"],
         "defaultCode": 59107,
         "grid": 0
       },
@@ -13100,9 +12556,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_jQuery"
-        ],
+        "tags": ["Icons_file_003_jQuery"],
         "defaultCode": 59108,
         "grid": 0
       },
@@ -13138,9 +12592,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Link_2"
-        ],
+        "tags": ["Icons_file_003_Link_2"],
         "defaultCode": 59109,
         "grid": 0
       },
@@ -13199,9 +12651,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Linux_VM"
-        ],
+        "tags": ["Icons_file_003_Linux_VM"],
         "defaultCode": 59110,
         "grid": 0
       },
@@ -13263,9 +12713,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Live_Europe"
-        ],
+        "tags": ["Icons_file_003_Live_Europe"],
         "defaultCode": 59111,
         "grid": 0
       },
@@ -13306,9 +12754,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Menu_Close"
-        ],
+        "tags": ["Icons_file_003_Menu_Close"],
         "defaultCode": 59112,
         "grid": 0
       },
@@ -13348,9 +12794,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Menu_Hamburger"
-        ],
+        "tags": ["Icons_file_003_Menu_Hamburger"],
         "defaultCode": 59113,
         "grid": 0
       },
@@ -13388,9 +12832,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_MooTools"
-        ],
+        "tags": ["Icons_file_003_MooTools"],
         "defaultCode": 59114,
         "grid": 0
       },
@@ -13422,9 +12864,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Navigation_Back"
-        ],
+        "tags": ["Icons_file_003_Navigation_Back"],
         "defaultCode": 59115,
         "grid": 0
       },
@@ -13456,9 +12896,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Navigation_Forward"
-        ],
+        "tags": ["Icons_file_003_Navigation_Forward"],
         "defaultCode": 59116,
         "grid": 0
       },
@@ -13490,9 +12928,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Navigation_Up"
-        ],
+        "tags": ["Icons_file_003_Navigation_Up"],
         "defaultCode": 59117,
         "grid": 0
       },
@@ -13528,9 +12964,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_NewRelic"
-        ],
+        "tags": ["Icons_file_003_NewRelic"],
         "defaultCode": 59118,
         "grid": 0
       },
@@ -13577,9 +13011,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_NOC"
-        ],
+        "tags": ["Icons_file_003_NOC"],
         "defaultCode": 59119,
         "grid": 0
       },
@@ -13652,9 +13084,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_OracleDataBase"
-        ],
+        "tags": ["Icons_file_003_OracleDataBase"],
         "defaultCode": 59120,
         "grid": 0
       },
@@ -13738,9 +13168,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_OracleSolaris"
-        ],
+        "tags": ["Icons_file_003_OracleSolaris"],
         "defaultCode": 59121,
         "grid": 0
       },
@@ -13825,9 +13253,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_OracleWebLogic"
-        ],
+        "tags": ["Icons_file_003_OracleWebLogic"],
         "defaultCode": 59122,
         "grid": 0
       },
@@ -13883,9 +13309,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Plus-Add"
-        ],
+        "tags": ["Icons_file_003_Plus-Add"],
         "defaultCode": 59123,
         "grid": 0
       },
@@ -13925,9 +13349,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Prototype"
-        ],
+        "tags": ["Icons_file_003_Prototype"],
         "defaultCode": 59124,
         "grid": 0
       },
@@ -13969,9 +13391,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_RedHat"
-        ],
+        "tags": ["Icons_file_003_RedHat"],
         "defaultCode": 59125,
         "grid": 0
       },
@@ -14010,9 +13430,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_richFaces"
-        ],
+        "tags": ["Icons_file_003_richFaces"],
         "defaultCode": 59126,
         "grid": 0
       },
@@ -14055,9 +13473,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_RubyOnRails"
-        ],
+        "tags": ["Icons_file_003_RubyOnRails"],
         "defaultCode": 59127,
         "grid": 0
       },
@@ -14095,9 +13511,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Share"
-        ],
+        "tags": ["Icons_file_003_Share"],
         "defaultCode": 59128,
         "grid": 0
       },
@@ -14137,9 +13551,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smartscape"
-        ],
+        "tags": ["Icons_file_003_Smartscape"],
         "defaultCode": 59129,
         "grid": 0
       },
@@ -14197,9 +13609,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_Enraged_1"
-        ],
+        "tags": ["Icons_file_003_Smiley_Enraged_1"],
         "defaultCode": 59130,
         "grid": 0
       },
@@ -14246,9 +13656,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_Enraged_2"
-        ],
+        "tags": ["Icons_file_003_Smiley_Enraged_2"],
         "defaultCode": 59131,
         "grid": 0
       },
@@ -14292,9 +13700,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_Happy_1"
-        ],
+        "tags": ["Icons_file_003_Smiley_Happy_1"],
         "defaultCode": 59132,
         "grid": 0
       },
@@ -14335,9 +13741,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_Happy_2"
-        ],
+        "tags": ["Icons_file_003_Smiley_Happy_2"],
         "defaultCode": 59133,
         "grid": 0
       },
@@ -14381,9 +13785,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_Neutral_1"
-        ],
+        "tags": ["Icons_file_003_Smiley_Neutral_1"],
         "defaultCode": 59134,
         "grid": 0
       },
@@ -14424,9 +13826,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_Neutral_2"
-        ],
+        "tags": ["Icons_file_003_Smiley_Neutral_2"],
         "defaultCode": 59135,
         "grid": 0
       },
@@ -14470,9 +13870,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_OK_1"
-        ],
+        "tags": ["Icons_file_003_Smiley_OK_1"],
         "defaultCode": 59136,
         "grid": 0
       },
@@ -14513,9 +13911,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_OK_2"
-        ],
+        "tags": ["Icons_file_003_Smiley_OK_2"],
         "defaultCode": 59137,
         "grid": 0
       },
@@ -14559,9 +13955,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_Unhappy_1"
-        ],
+        "tags": ["Icons_file_003_Smiley_Unhappy_1"],
         "defaultCode": 59138,
         "grid": 0
       },
@@ -14602,9 +13996,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Smiley_Unhappy_2"
-        ],
+        "tags": ["Icons_file_003_Smiley_Unhappy_2"],
         "defaultCode": 59139,
         "grid": 0
       },
@@ -14626,9 +14018,7 @@
     },
     {
       "icon": {
-        "paths": [
-          "M192 192l320 640 320-639.922-640-0.078z"
-        ],
+        "paths": ["M192 192l320 640 320-639.922-640-0.078z"],
         "attrs": [
           {
             "visibility": false
@@ -14636,9 +14026,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Sorter_Down"
-        ],
+        "tags": ["Icons_file_003_Sorter_Down"],
         "defaultCode": 59140,
         "grid": 0
       },
@@ -14660,9 +14048,7 @@
     },
     {
       "icon": {
-        "paths": [
-          "M831.996 832l-319.996-640-319.996 640h639.992z"
-        ],
+        "paths": ["M831.996 832l-319.996-640-319.996 640h639.992z"],
         "attrs": [
           {
             "visibility": false
@@ -14670,9 +14056,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Sorter_Up"
-        ],
+        "tags": ["Icons_file_003_Sorter_Up"],
         "defaultCode": 59141,
         "grid": 0
       },
@@ -14704,9 +14088,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Storm_Apache"
-        ],
+        "tags": ["Icons_file_003_Storm_Apache"],
         "defaultCode": 59142,
         "grid": 0
       },
@@ -14742,9 +14124,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_SuseLinux"
-        ],
+        "tags": ["Icons_file_003_SuseLinux"],
         "defaultCode": 59143,
         "grid": 0
       },
@@ -14783,9 +14163,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Trend_down"
-        ],
+        "tags": ["Icons_file_003_Trend_down"],
         "defaultCode": 59144,
         "grid": 0
       },
@@ -14824,9 +14202,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Trend_up"
-        ],
+        "tags": ["Icons_file_003_Trend_up"],
         "defaultCode": 59145,
         "grid": 0
       },
@@ -14861,9 +14237,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_twitter"
-        ],
+        "tags": ["Icons_file_003_twitter"],
         "defaultCode": 59146,
         "grid": 0
       },
@@ -14895,9 +14269,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_UbuntuLinux"
-        ],
+        "tags": ["Icons_file_003_UbuntuLinux"],
         "defaultCode": 59147,
         "grid": 0
       },
@@ -14937,9 +14309,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_VarnishCache"
-        ],
+        "tags": ["Icons_file_003_VarnishCache"],
         "defaultCode": 59148,
         "grid": 0
       },
@@ -14981,9 +14351,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_VirtualBox"
-        ],
+        "tags": ["Icons_file_003_VirtualBox"],
         "defaultCode": 59149,
         "grid": 0
       },
@@ -15026,9 +14394,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_VirtualizationLayer"
-        ],
+        "tags": ["Icons_file_003_VirtualizationLayer"],
         "defaultCode": 59150,
         "grid": 0
       },
@@ -15134,9 +14500,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_VM_Azure"
-        ],
+        "tags": ["Icons_file_003_VM_Azure"],
         "defaultCode": 59151,
         "grid": 0
       },
@@ -15219,9 +14583,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_VM_EC2"
-        ],
+        "tags": ["Icons_file_003_VM_EC2"],
         "defaultCode": 59152,
         "grid": 0
       },
@@ -15257,9 +14619,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_VM_HyperV"
-        ],
+        "tags": ["Icons_file_003_VM_HyperV"],
         "defaultCode": 59153,
         "grid": 0
       },
@@ -15298,9 +14658,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_VM_Virtualbox"
-        ],
+        "tags": ["Icons_file_003_VM_Virtualbox"],
         "defaultCode": 59154,
         "grid": 0
       },
@@ -15335,9 +14693,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_VM_VMware"
-        ],
+        "tags": ["Icons_file_003_VM_VMware"],
         "defaultCode": 59155,
         "grid": 0
       },
@@ -15381,9 +14737,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_VM_Xen"
-        ],
+        "tags": ["Icons_file_003_VM_Xen"],
         "defaultCode": 59156,
         "grid": 0
       },
@@ -15444,9 +14798,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_web2py"
-        ],
+        "tags": ["Icons_file_003_web2py"],
         "defaultCode": 59157,
         "grid": 0
       },
@@ -15521,9 +14873,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Wildfly"
-        ],
+        "tags": ["Icons_file_003_Wildfly"],
         "defaultCode": 59158,
         "grid": 0
       },
@@ -15588,9 +14938,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Windows_VM"
-        ],
+        "tags": ["Icons_file_003_Windows_VM"],
         "defaultCode": 59159,
         "grid": 0
       },
@@ -15643,9 +14991,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Xen"
-        ],
+        "tags": ["Icons_file_003_Xen"],
         "defaultCode": 59160,
         "grid": 0
       },
@@ -15710,9 +15056,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_XHR_Load_Action"
-        ],
+        "tags": ["Icons_file_003_XHR_Load_Action"],
         "defaultCode": 59161,
         "grid": 0
       },
@@ -15762,9 +15106,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_zKoss"
-        ],
+        "tags": ["Icons_file_003_zKoss"],
         "defaultCode": 59162,
         "grid": 0
       },
@@ -15792,9 +15134,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Couchbase"
-        ],
+        "tags": ["Icons_file_003_Couchbase"],
         "defaultCode": 59163,
         "grid": 0
       },
@@ -15818,9 +15158,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Rabbit_MQ"
-        ],
+        "tags": ["Icons_file_003_Rabbit_MQ"],
         "defaultCode": 59164,
         "grid": 0
       },
@@ -15844,9 +15182,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Riak"
-        ],
+        "tags": ["Icons_file_003_Riak"],
         "defaultCode": 59165,
         "grid": 0
       },
@@ -15895,9 +15231,7 @@
             }
           ]
         },
-        "tags": [
-          "Icons_file_003_Dont_Watch_eye"
-        ],
+        "tags": ["Icons_file_003_Dont_Watch_eye"],
         "defaultCode": 59166,
         "grid": 0
       },
@@ -15949,9 +15283,7 @@
             }
           ]
         },
-        "tags": [
-          "Icons_file_003_Amazon_S3"
-        ],
+        "tags": ["Icons_file_003_Amazon_S3"],
         "defaultCode": 59170,
         "grid": 0
       },
@@ -16021,9 +15353,7 @@
             }
           ]
         },
-        "tags": [
-          "Icons_file_003_Amazon_RDS"
-        ],
+        "tags": ["Icons_file_003_Amazon_RDS"],
         "defaultCode": 59171,
         "grid": 0
       },
@@ -16081,9 +15411,7 @@
             }
           ]
         },
-        "tags": [
-          "Icons_file_003_Amazon_EBS"
-        ],
+        "tags": ["Icons_file_003_Amazon_EBS"],
         "defaultCode": 59172,
         "grid": 0
       },
@@ -16181,9 +15509,7 @@
             }
           ]
         },
-        "tags": [
-          "Icons_file_004_Erlang_Logo"
-        ],
+        "tags": ["Icons_file_004_Erlang_Logo"],
         "defaultCode": 59167,
         "grid": 0
       },
@@ -16246,9 +15572,7 @@
             }
           ]
         },
-        "tags": [
-          "Icons_file_004_Trend_Down_2"
-        ],
+        "tags": ["Icons_file_004_Trend_Down_2"],
         "defaultCode": 59168,
         "grid": 0
       },
@@ -16287,9 +15611,7 @@
             }
           ]
         },
-        "tags": [
-          "Icons_file_004_Trend_Up_2"
-        ],
+        "tags": ["Icons_file_004_Trend_Up_2"],
         "defaultCode": 59169,
         "grid": 0
       },
@@ -16317,9 +15639,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_ELB_Amazon"
-        ],
+        "tags": ["Icons_file_004_ELB_Amazon"],
         "defaultCode": 59173,
         "grid": 0
       },
@@ -16343,9 +15663,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_ResourceRequest"
-        ],
+        "tags": ["Icons_file_003_ResourceRequest"],
         "defaultCode": 59174,
         "grid": 0
       },
@@ -16371,9 +15689,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_TrialDayCounter"
-        ],
+        "tags": ["Icons_file_004_TrialDayCounter"],
         "defaultCode": 59175,
         "grid": 0
       },
@@ -16399,9 +15715,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Alarm_Off"
-        ],
+        "tags": ["Icons_file_003_Alarm_Off"],
         "defaultCode": 59176,
         "grid": 0
       },
@@ -16426,9 +15740,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Alarm_On"
-        ],
+        "tags": ["Icons_file_003_Alarm_On"],
         "defaultCode": 59177,
         "grid": 0
       },
@@ -16454,9 +15766,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_001_CustomAction"
-        ],
+        "tags": ["Icons_file_001_CustomAction"],
         "defaultCode": 59180,
         "grid": 0
       },
@@ -16489,9 +15799,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Docker"
-        ],
+        "tags": ["Icons_file_004_Docker"],
         "defaultCode": 59201,
         "grid": 0
       },
@@ -16515,9 +15823,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_006_Elastic_Signet"
-        ],
+        "tags": ["Icons_file_006_Elastic_Signet"],
         "defaultCode": 59656,
         "grid": 0
       },
@@ -16547,9 +15853,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "IISDotNet"
-        ],
+        "tags": ["IISDotNet"],
         "defaultCode": 59657,
         "grid": 0
       },
@@ -16575,9 +15879,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Netty"
-        ],
+        "tags": ["Netty"],
         "defaultCode": 59658,
         "grid": 0
       },
@@ -16598,19 +15900,13 @@
         "paths": [
           "M233 315.2c0-31 25.2-58.4 56.4-61l527.2-45.8c1 0 1.8 0 2.8-0.2l-57.4-56.6c-0.2-0.2-0.6-0.4-0.8-0.6s-0.6-0.4-0.8-0.6-0.6-0.4-0.8-0.6c-0.4-0.4-1-0.6-1.6-1-0.2-0.2-0.4-0.2-0.6-0.4-0.2 0-0.2-0.2-0.4-0.2-0.8-0.4-1.6-1-2.4-1.4-0.2 0-0.2-0.2-0.4-0.2h-0.2c-0.6-0.4-1.2-0.6-1.8-0.8-0.4-0.2-1-0.4-1.4-0.6-0.2 0-0.4-0.2-0.6-0.2s-0.4-0.2-0.4-0.2c-0.8-0.2-1.6-0.6-2.4-0.8-0.2 0-0.4 0-0.4-0.2-0.2 0-0.4 0-0.6-0.2-0.6-0.2-1-0.2-1.6-0.4s-1.2-0.2-1.8-0.2h-0.8c-1-0.2-2-0.2-3-0.2h-3.2c-0.6 0-1.2 0-1.8 0.2l-527.2 45.8c-0.8 0-1.4 0.2-2.2 0.2-0.4 0-1 0.2-1.4 0.2s-0.6 0.2-1 0.2c-1.2 0.2-2.4 0.6-3.4 0.8-1.2 0.4-2.2 0.6-3.2 1-0.6 0.2-1.8 0.8-2.4 1l-2.4 1.2c-0.2 0-0.4 0.2-0.6 0.2-1.8 1-3.6 2-5.2 3.4 0 0-0.2 0-0.2 0.2-0.6 0.4-1.2 1-2 1.6-0.4 0.2-0.6 0.6-1 0.8l-0.2 0.2c-0.2 0.2-0.4 0.4-0.8 0.6-0.4 0.4-1 0.8-1.4 1.2-0.2 0.4-0.6 0.6-0.8 1l-1 1c-0.4 0.6-1 1-1.4 1.6-0.2 0.2-0.4 0.4-0.6 0.8-0.4 0.6-0.8 1-1.2 1.6-0.2 0.4-0.6 0.8-0.8 1.2 0 0 0 0.2-0.2 0.2-0.2 0.2-0.2 0.4-0.4 0.6-0.4 0.6-0.8 1.4-1.2 2 0 0.2-0.2 0.2-0.2 0.4-0.2 0.2-0.2 0.4-0.4 0.6-0.2 0.4-0.4 0.6-0.6 1-0.4 0.6-0.6 1.4-1 2v0.2c0 0.2-0.2 0.4-0.2 0.6-0.2 0.4-0.4 0.8-0.6 1.4-0.2 0.4-0.2 0.8-0.4 1.4-0.2 0.4-0.2 0.8-0.4 1-0.2 0.6-0.4 1.4-0.6 2.2-0.2 0.4-0.2 0.8-0.2 1.2v0.2c0 0.4-0.2 0.8-0.2 1.2-0.2 1-0.2 1.8-0.4 2.8s-0.2 2.2-0.2 3.2v0.8l-0.4 131.4c0 0.6 0.2 1.2 0.8 1.6l23.8 23.4c1.4 1.4 0.6 3.8-1.4 4l-21.4 1.8c-1.2 0.2-2.2 1.2-2.2 2.4l0.8 197.6c0 0.6 0.2 1.2 0.8 1.6l22.8 23.8c1.4 1.4 0.6 3.8-1.4 4l-20.2 1.8c-1.2 0.2-2.2 1.2-2.2 2.4l-0.2 134.4c0 1 0 2.2 0.2 3.2v0.2c0 0.6 0.2 1.2 0.2 2 0 0.6 0.2 1.2 0.2 1.8s0.2 1 0.4 1.6c0.2 0.6 0.4 1.4 0.6 2 0 0.2 0 0.2 0.2 0.4 0.4 1.4 0.8 2.6 1.4 4 0 0 0 0.2 0.2 0.2 0.2 0.6 0.6 1.4 1 2l0.6 1.2 1.2 1.8c0.2 0.4 0.4 0.8 0.6 1 0.4 0.6 0.8 1.2 1.4 1.8 0.2 0.4 0.4 0.6 0.8 1 0.8 0.8 1.4 1.6 2.2 2.4l51.6 51c1.4 1.4 4 0.4 4-1.6v-522.8zM394.4 697.2v29.2c0 0.4 0 1 0.4 1.4 0.2 0.2 0.6 0.4 1.2 0.4h0.4l312.2-27.4c2.6-0.2 5.2-3 5.2-5.6v-58.6l-0.8-200.8v-16h0.4l0.4-14v-25.2c0-0.4 0-1-0.4-1.4-0.2-0.2-0.6-0.4-1.2-0.4h-0.4l-62.8 5.4c-1.2 0.2-2.2 1.2-2.2 2.4l0.6 166c0 0.6 0.2 1.2 0.8 1.6l23 22.8c1.4 1.4 0.6 3.8-1.4 4l-20.2 1.8c-1.2 0.2-2.2 1.2-2.2 2.4v27.2c0 0.6 0 1.2-0.2 1.8 0 0.6-0.2 1-0.2 1.4s-0.2 0.8-0.2 1.2-0.2 0.8-0.4 1.2v0.2c-0.2 0.4-0.2 0.8-0.4 1.2s-0.2 0.8-0.4 1.2c0 0 0 0.2-0.2 0.4-0.2 0.4-0.2 0.6-0.4 1-0.2 0.2-0.2 0.6-0.4 0.8-0.2 0.4-0.4 0.6-0.6 1s-0.4 0.8-0.6 1c-0.2 0.4-0.6 0.8-0.8 1-0.2 0.4-0.6 0.8-1 1-0.2 0.4-0.6 0.8-1 1l-0.2 0.2c-0.4 0.4-0.8 0.8-1.2 1-0.4 0.4-1 0.8-1.6 1.4 0 0-0.2 0-0.2 0.2-0.8 0.6-1.6 1-2.4 1.4-0.2 0-0.4 0.2-0.4 0.2-1.4 0.8-2.8 1.4-4.4 1.8-1 0.4-2.2 0.6-3.4 0.8-0.4 0-0.6 0-1 0.2l-229.6 20c-1.2 0.2-2.2 1.2-2.2 2.4v26l0.4 13.8zM290.8 271.6c-22.2 2-40.4 21.4-40.4 43.6l-0.4 129.8c0 1.4 1.2 2.4 2.6 2.4l122-10.6c1.2-0.2 2.2-1.2 2.2-2.4v-23c0-11.6 9.6-21.8 21-22.8l314.2-27.2c10.8 0 19 8.2 19 19.2v22.6c0 1.4 1.2 2.4 2.6 2.4l122-10.6c1.2-0.2 2.2-1.2 2.2-2.4l0.4-130.2c0-21-16.2-36.8-36.8-36.8-1.2 0-2.2 0-3.4 0.2l-527.2 45.8zM373.6 464.2l-122 10.6c-1.2 0.2-2.2 1.2-2.2 2.4l-2 201.8c0 1.4 1.2 2.4 2.6 2.4l122-10.6c1.2-0.2 2.2-1.2 2.2-2.4l2-201.8c0-1.4-1.2-2.6-2.6-2.4zM730.4 435l0.8 201.8c0 1.4 1.2 2.4 2.6 2.4l122-10.6c1.2-0.2 2.2-1.2 2.2-2.4l-0.8-201.8c0-1.4-1.2-2.4-2.6-2.4l-122 10.6c-1.2 0.2-2.2 1.2-2.2 2.4zM731 695.2c0 11.6-9.6 21.8-21 22.8l-314.2 27.4c-10.6 0-19-8.2-19-19.2v-26.6c0-1.4-1.2-2.4-2.6-2.4l-122 10.8c-1.2 0.2-2.2 1.2-2.2 2.4l-0.2 134.2c0 21 16 36.8 36.6 36.8 1.2 0 2.4 0 3.6-0.2l527.2-46.2c22.2-2 40.2-21.6 40.4-43.6l0.2-133.8c0-1.4-1.2-2.4-2.6-2.4l-122 10.6c-1.2 0.2-2.2 1.2-2.2 2.4v27z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Openstack"
-        ],
+        "tags": ["Icons_file_004_Openstack"],
         "grid": 0
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 1052,
         "id": 345,
@@ -16627,19 +15923,13 @@
         "paths": [
           "M356.22 591.56c-0.024-0-0.052-0-0.080-0-67.533 0-122.28 54.747-122.28 122.28s54.747 122.28 122.28 122.28c67.477 0 122.189-54.656 122.28-122.111 0-0.032 0-0.061 0-0.089 0-67.521-54.691-122.269-122.191-122.36zM438.72 304.88c-0-67.489-54.711-122.2-122.2-122.2s-122.2 54.711-122.2 122.2c0 67.489 54.711 122.2 122.2 122.2 67.469-0.068 122.143-54.75 122.2-122.215zM728.72 334.22c-67.489 0-122.2 54.711-122.2 122.2s54.711 122.2 122.2 122.2c67.489 0 122.2-54.711 122.2-122.2-0.068-67.476-54.761-122.155-122.236-122.2z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_004_Kvm"
-        ],
+        "tags": ["Icons_file_004_Kvm"],
         "grid": 0
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 1053,
         "id": 346,
@@ -16667,41 +15957,13 @@
           "M518.4 450.4l-3.4 17.4h15.2l3.4-17.4h9.8l-8.6 43.4h-9.8l3.8-18.6h-15.2l-3.6 18.6h-10l8.6-43.4h9.8z",
           "M597.4 450.4l-1.4 7.4h-16.8l-2 10h14.2l-1.4 7.4h-14.2l-2.2 11.4h17.8l-1.4 7.4h-27.4l8.6-43.4 26.2-0.2z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_006_Apache_Spark"
-        ],
+        "tags": ["Icons_file_006_Apache_Spark"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       "properties": {
         "order": 2,
         "id": 347,
@@ -16719,21 +15981,13 @@
           "M729 656.4c-1.2 0-2.4 0-3.6 0-11.2-0.6-22.2-3.4-34.4-7-32-9.4-106.6-32.2-106.6-32.2l-13.4-81.6 118.8 32.8c1.6 0.4 2.8-1.2 2-2.6l-73.6-138.6c0 0 99.8-116.6 116.2-135.8 1.2-1.4-0.2-3.4-1.8-3l-165 44.6-82-135.8c-0.8-1.4-3-1-3.4 0.6l-29.2 168-167.2 51.6c-1.6 0.6-1.8 2.8-0.2 3.4l128.2 50.2-87.2 56c0 0-78.6-34.4-103.2-46.8-12.2-6-24.4-15.8-34.6-27.2-9.6-11-13.8-24.4-11.8-37.8 2.2-14.8 12-28.2 26.8-37.2 12.2-7.4 26.2-12.2 39.6-16.6 41.4-13.4 127.4-40 145.8-46 2.2-0.6 4-2.6 4.4-5 3.2-20 18.6-112.8 26-147.8 3.8-18.2 9.2-35 18.8-48 10.8-14.8 26-23.4 40.6-23.4 15.8 0 33 11 44.4 27.6 14.2 20.8 70.8 115.6 79.2 129.4 1.4 2.4 4.2 3.4 7 2.8 23.8-6.4 133.6-35.4 135.8-36 19.8-5 49.8-13.2 64.8-12.4s26.8 6.6 33 17.2c6.6 11 5.6 25.6-2.2 40-8.2 14.8-19.6 28.2-30.6 41.2-2 2.4-87.8 104.2-104.2 123.6-1.6 2-2 4.6-0.8 7 11.8 22.2 72.4 136.6 75.8 145 8 19.8 6.8 40-3.6 55.2-10.2 16-28 24.6-48.6 24.6z",
           "M376.2 931.8h-82.6l50.4-391.8c0 0 61.6-39.6 91.6-59-8.8 67.6-17.4 133-26.4 201.8 47.2-52.2 92.2-102 138.6-153.2l13.4 81.4-95.2 100.6 156.6 220h-99.8l-122.4-184.6-24.2 184.8z"
         ],
-        "attrs": [
-          {},
-          {}
-        ],
+        "attrs": [{}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_007_Apache_Spark_Signet"
-        ],
+        "tags": ["Icons_file_007_Apache_Spark_Signet"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {}
-      ],
+      "attrs": [{}, {}],
       "properties": {
         "order": 3,
         "id": 348,
@@ -16752,23 +16006,13 @@
           "M920 252.8l-57.4-7.8c-3.4-7.6-7.6-14.8-12.6-21.4l21.8-53.4c1.8-4.2 0-9.2-4-11.4l-48-27.6c-4-2.4-9-1.4-12 2.4l-36.2 46.8c-3.4-0.2-6.6-0.4-10-0.4-4.6 0-9 0.4-13.4 0.8l-36-46.4c-2.8-3.6-8-4.6-12-2.4l-48 27.6c-4 2.4-5.6 7.2-4 11.4l22.4 55c-4.6 6.2-8.4 13-11.4 20.2l-58.2 8c-4.6 0.6-8 4.6-8 9.2v55.4c0 4.6 3.4 8.6 8 9.2l58.8 8c3.2 7.2 7.2 13.8 11.8 20l-22.2 54.4c-1.8 4.2 0 9.2 4 11.4l48 27.6c4 2.4 9 1.4 12-2.4l36.4-46.8c3.8 0.4 7.6 0.6 11.6 0.6s7.8-0.2 11.8-0.6l36 46.4c2.8 3.6 8 4.6 12 2.4l48-27.6c4-2.4 5.6-7.2 4-11.4l-22-53.8c5-6.6 9-13.8 12.4-21.4l57-7.8c4.6-0.6 8-4.6 8-9.2v-55.8c-0.6-4.6-4-8.6-8.6-9.2zM761.6 345.2c-10.4 0-20-2.8-28.4-7.8-0.4-0.2-0.8-0.4-1.2-0.8-0.2-0.2-0.6-0.4-0.8-0.6-12.4-8.2-21.4-21.6-23.8-37.4-4.6-30 16-58.2 46-62.8 2.6-0.4 5.2-0.6 7.8-0.6 26.4 0.2 49.6 19.6 53.8 46.8 4.6 30-16 58.2-46 62.8-2.4 0.2-4.8 0.4-7.4 0.4z",
           "M920 696.4l-57.4-7.8c-3.4-7.6-7.6-14.8-12.6-21.4l21.8-53.4c1.8-4.2 0-9.2-4-11.4l-48-27.6c-4-2.4-9-1.4-12 2.4l-36.2 46.8c-3.4-0.2-6.6-0.4-10-0.4-4.6 0-9 0.4-13.4 0.8l-36-46.4c-2.8-3.6-8-4.6-12-2.4l-48 27.6c-4 2.4-5.6 7.2-4 11.4l22.4 55c-4.6 6.2-8.4 13-11.4 20.2l-58.2 8c-4.6 0.6-8 4.6-8 9.2v55c0 4.6 3.4 8.6 8 9.2l58.8 8c3.2 7.2 7.2 13.8 11.8 20l-22.2 54.4c-1.8 4.2 0 9.2 4 11.4l48 27.6c4 2.4 9 1.4 12-2.4l36.4-46.8c3.8 0.4 7.6 0.6 11.6 0.6s7.8-0.2 11.8-0.6l36 46.4c2.8 3.6 8 4.6 12 2.4l48-27.6c4-2.4 5.6-7.2 4-11.4l-22-53.8c5-6.6 9-13.8 12.4-21.4l56.4-8c4.6-0.6 8-4.6 8-9.2v-55.4c0-4.6-3.4-8.4-8-9zM761.6 788.6c-10.4 0-20-2.8-28.4-7.8-0.4-0.2-0.8-0.4-1.2-0.8-0.2-0.2-0.6-0.4-0.8-0.6-12.4-8.2-21.4-21.6-23.8-37.4-4.6-30 16-58.2 46-62.8 2.6-0.4 5.2-0.6 7.8-0.6 26.4 0.2 49.6 19.6 53.8 46.8 4.6 30-16 58.2-46 62.8-2.4 0.4-4.8 0.4-7.4 0.4z"
         ],
-        "attrs": [
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_006_Horizon"
-        ],
+        "tags": ["Icons_file_006_Horizon"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}],
       "properties": {
         "order": 2,
         "id": 349,
@@ -16785,19 +16029,13 @@
         "paths": [
           "M548.4 183c-80.4-80.6-232.6-59-339.6 48s-128.6 259.2-48.2 339.8c71 71 198 62.6 300.4-14l321.6 321.6c15.4 15.4 40.4 15.4 55.6 0l17.6-17.6c15.4-15.4 15.4-40.4 0-55.6l-106.8-106.8 48.8-48.8 51.2 51.2c4.8 4.8 12.4 4.8 17.2 0l42-42c4.8-4.8 4.8-12.4 0-17.2l-148.8-148.8c-4.8-4.8-12.4-4.8-17.2 0l-42 42c-4.8 4.8-4.8 12.4 0 17.2l57.4 57.4-48.8 48.8-174.4-174.4c76.6-102.8 85-229.8 14-300.8zM381.2 400.6c13.8 33.4 7 73.4-20.2 100.6-36 36-94.6 36-130.6 0s-36-94.6 0-130.6c27.2-27.2 67-33.8 100.6-20.2-13.8-33.4-7-73.4 20.2-100.6 36-36 94.6-36 130.6 0s36 94.6 0 130.6c-27.4 27.2-67.2 34-100.6 20.2z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_006_Keystone"
-        ],
+        "tags": ["Icons_file_006_Keystone"],
         "grid": 0
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 3,
         "id": 350,
@@ -16814,19 +16052,13 @@
         "paths": [
           "M775.6 488.4c10.8-16 17-35.4 17-56.2 0-56-45.4-101.4-101.4-101.4-25.8 0-49.2 9.6-67 25.6-30-74.6-103-127.2-188.4-127.2-112.2 0-203 91-203 203 0 5.8 0.4 11.4 0.8 17-60 28.4-101.8 93.6-101.8 164.4 0 97.8 79.2 181.4 177 181.4 7.6 0 425 0 432 0 83.4 0 151-71.8 151-155.2 0.2-71.6-49.4-135.6-116.2-151.4zM633.6 529.6h-97v148.4c0 5.6-4.6 10.2-10.2 10.2h-81.2c-5.6 0-10.2-4.6-10.2-10.2v-148.4h-95.4c-9.2 0-13.6-11-7-17.4l147-143.6c4-3.8 10.2-3.8 14.2 0l147 143.6c6.4 6.4 1.8 17.4-7.2 17.4z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_006_Glance"
-        ],
+        "tags": ["Icons_file_006_Glance"],
         "grid": 0
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 4,
         "id": 351,
@@ -16844,21 +16076,13 @@
           "M863.6 338.8h-703.2c-15.6 0-28.4-12.6-28.4-28.4v-116.2c0-15.6 12.6-28.4 28.4-28.4h703.2c15.6 0 28.4 12.6 28.4 28.4v116.4c0 15.6-12.6 28.2-28.4 28.2z",
           "M831.6 365.2h-639.2c-14 0-25.2 11.4-25.2 25.4v442.6c0 14 11.4 25.2 25.2 25.2h639c14 0 25.2-11.4 25.2-25.2v-442.8c0.2-14-11.2-25.2-25-25.2zM605 484.6c0 16.6-13.4 30.2-30.2 30.2h-125.6c-16.6 0-30.2-13.4-30.2-30.2v0c0-16.6 13.4-30.2 30.2-30.2h125.6c16.6-0 30.2 13.4 30.2 30.2v0z"
         ],
-        "attrs": [
-          {},
-          {}
-        ],
+        "attrs": [{}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_006_Cinder"
-        ],
+        "tags": ["Icons_file_006_Cinder"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {}
-      ],
+      "attrs": [{}, {}],
       "properties": {
         "order": 1054,
         "id": 352,
@@ -16876,21 +16100,13 @@
           "M932 302.2v-157.6h-157.6v52.4h-524.8v-52.4h-157.6v157.6h52.6v419.8h-52.6v157.6h157.6v-52.6h525v52.6h157.4v-157.6h-52.6v-419.8h52.6zM827 197.2h52.4v52.4h-52.4v-52.4zM144.6 197.2h52.4v52.4h-52.4v-52.4zM197 826.8h-52.4v-52.4h52.4v52.4zM879.4 826.8h-52.4v-52.4h52.4v52.4zM827 721.8h-52.6v52.6h-524.8v-52.6h-52.6v-419.6h52.6v-52.6h525v52.6h52.6v419.6z",
           "M617 406.6v-104.6h-368v315h157.8v104.6h367.4v-315h-157.2zM301.6 354.6h262.8v209.8h-262.8v-209.8zM459.4 669v-52.2h157.6v-157.8h105v209.8h-262.6z"
         ],
-        "attrs": [
-          {},
-          {}
-        ],
+        "attrs": [{}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_006_Swift"
-        ],
+        "tags": ["Icons_file_006_Swift"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {}
-      ],
+      "attrs": [{}, {}],
       "properties": {
         "order": 1056,
         "id": 353,
@@ -16916,37 +16132,13 @@
           "M927.8 803.2c-5.4-6.8-13.2-11.8-23.6-15.2 6.4-3.4 11.2-7.8 14.4-13.4 3.4-5.6 5-11.8 5-18.4 0-12-4.2-21.2-12.4-27.4-8.2-6.4-20.2-9.8-36.2-9.8h-30v151.8h41.8c14.6 0 26.4-4 35.4-12.2 9.2-8.4 13.8-18.8 13.8-31.2 0-9.4-2.8-17.4-8.2-24.2zM860 733.8v0h17.6c20.2 0 30.4 7.4 30.4 22.4 0 9-3.2 15.6-9.8 19.8-6.4 4.2-16.4 6.4-29.6 6.4h-8.6v-48.6zM915.2 842.6c-3.2 4.6-7.4 7.8-12.6 10.2-5 2.2-13 3.2-23.8 3.2h-18.8v-58.4h8.4c13.6 0 23 0.8 27.8 2.2 5 1.4 9.4 3.6 12.8 6.4 3.6 2.8 6.4 6 8.2 9.8 1.8 3.6 2.8 7.8 2.8 12.6 0.2 4.8-1.4 9.4-4.8 14z",
           "M748.2 213.6c12.8 11 39.6 2.2 34.8-19.8-20-1.6-31.4 5.2-34.8 19.8z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_006_MariaDB"
-        ],
+        "tags": ["Icons_file_006_MariaDB"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       "properties": {
         "order": 2,
         "id": 354,
@@ -16964,21 +16156,13 @@
           "M971.2 193.2c-14.8 0.4-10.2 4.8-42.2 12.6-32.4 8-72 5.6-106.8 20.2-104 43.6-125 192.8-219.6 246.2-70.8 40-142 43.2-206.2 63.2-42.2 13.2-88.2 40.4-126.4 73.2-29.6 25.6-30.4 48-61.4 80-33.2 34.2-131.6 0.6-176.4 53 14.4 14.6 20.6 18.6 49 14.8-5.8 11.2-40.4 20.6-33.8 36.8 7.2 17.2 90.8 28.8 166.8-17 35.4-21.4 63.6-52.2 118.8-59.6 71.4-9.6 153.6 6.2 236.2 18-12.2 36.6-36.8 60.8-56.6 90-6.2 6.6 12.2 7.4 33.2 3.4 37.6-9.4 64.8-16.8 93.2-33.4 35-20.4 40.2-72.4 83-83.8 23.8 36.8 88.8 45.4 129.2 16-35.4-10-45.2-85.2-33.2-118.4 11.4-31.4 22.4-81.6 33.8-123.2 12.2-44.6 16.8-100.8 31.6-123.4 22.2-34.2 46.8-45.8 68.2-65.2 21.4-19.2 41-38 40.2-82 0.2-13.8-7.2-21.8-20.6-21.4zM821.4 725.6c-23.2 5.6-63-3.6-73.2-20 5.2-23.6 32.6-45.2 46.6-60 1.4 23 14.8 68.8 26.6 80zM923.8 296.2c-2.4 1.6-4.8 3.2-7.2 5-18.6 13-38 26.2-51.4 47-9 13.8-15.4 44-23.8 82.2-6.4 29.4-13.6 62.8-23.4 96-22.2 75.2-50.6 124-86.8 149-0.2-2.4-0.2-5-0.4-7.6-0.4-11.8-1-25.2-10.4-32.4-1.4-1-3.2-1.6-4.8-1.6-0.8 0-1.6 0.2-2.2 0.4-2.4 0.8-4.4 2.6-5.2 5-7.2 20.8-15 38.6-23.4 54.8-29.6 56.4-69 90.2-123 105 32.8-46.4 58.2-94 59-167.2 0-2.4-1-4.8-3-6.4-1.4-1.2-3.2-1.8-5-1.8-0.6 0-1.2 0-1.8 0.2-17.2 3.8-24.4 23.8-31.2 43-5.2 14.8-10.8 30.2-19.8 36.8-8 0.8-16.4 1.2-25.4 1.2-6.6 0-13.6-0.2-21-0.6-19.4-1.2-39.4-3.8-58.8-6.2-26.6-3.4-54.2-7-81-7-25 0-46.6 3-66.2 9.4-26.2 8.4-49 23-71.2 37.2-16 10.2-31 19.8-46 26.4-30.2 13-55.6 21.2-89 21.2-7.2 0-14.8-0.4-23-1.2 0.6-0.4 1.4-0.8 2-1.2 12.4-7.8 29.6-18.6 27.4-35-0.6-3.6-3.4-6.4-7-6.8-4.6-0.6-9.2-0.8-14.4-0.8-2.4 0-4.6 0-6.8 0-2 0-3.8 0-5.8 0-4 0-7.6-0.2-11.2-0.8 15-9.2 44.4-10.8 72.8-12.2 34.4-1.8 66.8-3.4 82.2-18.4 14.8-14.6 25-29.6 34.8-44 1-1.6 2.2-3.2 3.2-4.8 10-14.8 20.4-29.2 36.2-42 5.8-4.8 12.2-9.6 19.2-14.2 27.6-18.8 61.2-35.8 94.8-47.6 21.2-7.4 42.4-11.6 64.8-16.2 25.2-5 51.4-10.2 78.4-20.6 28-10.8 63.8-25.8 93-47.4 7-5.2 13.4-10.6 19-16 28-27.4 48-61.8 67.4-95.2 34.6-59.6 67.2-116 141.4-123.6 10-1 18.4-1 26.8-1.2 3.6 0 6.8 0 10.2-0.2 7.2-0.2 13.8-0.8 20.4-2.2-9.6 11-25.4 30.8-31.8 50-1 3.2-0.8 5.2 0.8 5.6 0.2 0 0.4 0 0.6 0 1.8 0 3.6-2.2 4.2-4.6 3.4-10.6 12.6-28.4 37-54.6 0 0.2 0.2 0.2 0.2 0.4-0.2 0.2-0.4 0.4-0.6 0.6-1.4 2-3.2 4.2-5 6.6-9.2 11.8-21.8 28-25.4 47.8-0.6 3.4 0 5.2 1.6 5.4 0.2 0 0.2 0 0.4 0 1.8 0 3.4-2.6 3.8-5 3.2-19 16.8-35.6 25-45.6 1.6-1.8 2.8-3.6 4-5l0.2 0.2c-0.2 0.2-0.4 0.4-0.4 0.6l-2.2 3.4c-7.6 12.4-16.4 26.6-18.6 48.4-0.2 3.4 0.4 5.2 2.2 5.4h0.2c2 0 3.4-2.8 3.6-5.4 1.8-20.2 11.2-35 17.4-44.6 0.4-0.8 1-1.6 1.4-2.2l-1.2 2.6c-6.2 12.2-11.4 22.6-11.6 44.6 0 0.2 0 0.6 0 0.8-3 3-6 5-9.2 7.2zM938.8 285.2c0.6-18.2 6.4-29.4 10.6-37.6 0.8-1.6 1.6-3.2 2.4-4.6v0 0c3.8 1.6 8.6 2.8 14 3.8-4 16.2-14.2 27.8-27 38.4z",
           "M828.6 279.4c17 14.8 53 3 46.6-26.6-26.6-2.2-42 6.8-46.6 26.6z"
         ],
-        "attrs": [
-          {},
-          {}
-        ],
+        "attrs": [{}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_006_MariaDB_Signet"
-        ],
+        "tags": ["Icons_file_006_MariaDB_Signet"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {}
-      ],
+      "attrs": [{}, {}],
       "properties": {
         "order": 3,
         "id": 355,
@@ -16997,23 +16181,13 @@
           "M555.4 487.4c-2.2 0-2.2-1-2.2-3.8v-44.2c0-2.6 0.6-3.2 2.6-3.2h29.8v-16.6c0-19.8 3.2-37 10.8-51.4 13.4-27.4 37-39.6 69.2-39.6 9.6 0 16.4 0.6 21.6 2.6 2.6 1 3.2 2.2 3.2 4.8v43c0 2.6-1 3.8-3.8 3.2-4.2-1-10.4-1.6-14.6-1.6-18.8 0-27.8 13.4-27.8 39.2v16.6h42.6c2.6 0 3.8 0.6 3.8 2.6v44.8c0 2.6-0.6 3.2-3.2 3.8h-43.2v200.4c0 2.2-0.6 3.6-3.8 3.6h-51c-2.6 0-3.8-1.6-3.8-3.8v-200.4h-30.2z",
           "M534.6 682c0 3.2-1 4.8-3.8 6-14 6-36.2 8-59.2 8-83.6 0-157.8-54.8-157.8-183.4 0-110.6 65.4-184.6 165.2-184.6 26.2 0 45.4 2.6 55.6 7.6 2.6 1 3.2 2.6 3.2 6v46.2c0 4.2-2.2 4.2-3.8 3.8-12.8-6.4-32-10.2-54.4-10.2-62.8 0-104.6 47.8-104.6 129.8 0 101.4 57.4 131.4 104.6 131.4 21.4 0 35.6-1.6 51.2-7 2.2-1 3.8-1 3.8 2.6v43.8h-0z"
         ],
-        "attrs": [
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_007_Coldfusion_Signet"
-        ],
+        "tags": ["Icons_file_007_Coldfusion_Signet"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}],
       "properties": {
         "order": 2,
         "id": 356,
@@ -17031,21 +16205,13 @@
           "M530.6 743.2c-0.2-3.2-0.4-5.4-0.4-6.4-0.8-5.2-7.2-46-15.8-80.6-109.6 7.4-245.8 39.8-341 76.4v-521.8c0-24.2 19.8-44 44-44h455.2c8.4-10.6 16.8-20.6 25.2-29.4 2.8-2.8 5.4-5.6 8-8.2h-505.2c-35.4 0-64.2 29-64.2 64.2v581.2c0 35.4 29 64.2 64.2 64.2h331.8c-2.6-31.4-3.2-64.6-1.8-95.6z",
           "M850.8 110.2v0c-36-32.2-79.8-19.2-123 19-6.4 5.6-12.8 12-19.2 18.8-73.8 78.2-142.2 223.2-163.6 334 8.2 16.8 14.8 38.2 19 54.6 1 4.2 2 8.2 2.8 11.6 1.8 8 2.8 13 2.8 13s-0.6-2.6-3.4-10.4c-0.6-1.6-1-3.2-1.8-5-0.4-1-0.8-1.8-1.2-2.8-4.8-11.2-18.2-34.8-24-45-4.6 13.6-9 27.4-13.2 41.2 17 31 27.2 84 27.2 84s-0.8-3.4-5.2-15.4c-3.8-10.6-22.6-43.6-27-51.2-7.6 28.2-10.6 47.2-8 51.8 5.2 9 10.4 24.4 14.8 41.4 10 38.4 17 85.4 17 85.4s0.2 3.2 0.6 7.8c-1.4 32.4-0.6 65.8 2 96.2 3.4 40.2 9.6 74.6 17.6 93l5.4-3c-11.6-36.4-16.4-84-14.4-138.8 3.2-84 22.4-185.2 58.2-290.6 60.2-159.2 144-287 220.6-348-69.8 63-164.2 267-192.4 342.6-31.6 84.6-54 164-67.6 240 23.4-71.4 98.8-102 98.8-102s37-45.6 80.2-110.8c-25.8 6-68.4 16-82.6 22-21 8.8-26.6 11.8-26.6 11.8s68-41.4 126.4-60.2c80.4-126.8 167.8-306.4 79.8-385z"
         ],
-        "attrs": [
-          {},
-          {}
-        ],
+        "attrs": [{}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_007_Sql_Lite_Signet"
-        ],
+        "tags": ["Icons_file_007_Sql_Lite_Signet"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {}
-      ],
+      "attrs": [{}, {}],
       "properties": {
         "order": 3,
         "id": 357,
@@ -17064,23 +16230,13 @@
           "M229.4 625c-0.2-1.6-0.2-2.8-0.2-3.2-0.4-2.6-3.6-23-8-40.4-55 3.8-123.2 20-170.8 38.2v-261c0-12.2 9.8-22 22-22h228c4.2-5.4 8.4-10.2 12.6-14.8 1.4-1.4 2.6-2.8 4-4.2h-252.8c-17.6 0-32.2 14.4-32.2 32.2v291.2c0 17.6 14.4 32.2 32.2 32.2h166.2c-1.4-16-1.6-32.4-1-48.2z",
           "M389.8 308.2v0c-18-16.2-40-9.6-61.6 9.6-3.2 2.8-6.4 6-9.6 9.4-37 39.2-71.2 111.8-82 167.4 4.2 8.4 7.4 19.2 9.6 27.4 0.6 2.2 1 4 1.4 5.8 1 4 1.4 6.6 1.4 6.6s-0.4-1.2-1.6-5.2c-0.2-0.8-0.6-1.6-0.8-2.6-0.2-0.4-0.4-1-0.6-1.4-2.4-5.6-9-17.4-12-22.6-2.4 6.8-4.6 13.6-6.6 20.6 8.4 15.6 13.6 42 13.6 42s-0.4-1.8-2.6-7.8c-1.8-5.4-11.4-21.8-13.6-25.6-3.8 14-5.4 23.6-4 26 2.6 4.4 5.2 12.2 7.4 20.8 5 19.2 8.4 42.8 8.4 42.8s0.2 1.6 0.4 4c-0.6 16.2-0.2 33 1 48.2 1.6 20 4.8 37.4 8.8 46.6l2.8-1.4c-5.8-18.2-8.2-42-7.2-69.6 1.6-42 11.2-92.8 29.2-145.6 30.2-79.8 72-143.8 110.4-174.4-35 31.6-82.2 133.8-96.4 171.6-15.8 42.4-27 82.2-33.8 120.2 11.6-35.8 49.4-51 49.4-51s18.6-22.8 40.2-55.4c-13 3-34.2 8-41.4 11-10.6 4.4-13.4 6-13.4 6s34-20.8 63.4-30.2c40-64 83.8-154 39.8-193.2z"
         ],
-        "attrs": [
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_007_Sql_Lite"
-        ],
+        "tags": ["Icons_file_007_Sql_Lite"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}],
       "properties": {
         "order": 4,
         "id": 358,
@@ -17097,19 +16253,13 @@
         "paths": [
           "M512 165.4c-210 0-380 147-380 328.4 0 109.2 61.8 206 156.8 265.6 3 90-86 132.6-86 132.6 116 3 186.2-41.4 224.2-78.2 27.4 5.4 55.8 8.2 85 8.2 209.8 0 380-147 380-328.2s-170.2-328.4-380-328.4zM474.8 652.2c0-49.6 74.6-49.6 74.6 0 0 49.2-74.6 49.2-74.6 0zM572.4 526c-21.2 15.2-33 35.6-33 61.8l-59.2-0.6c0-45.8 19-71 49.8-97 27.2-22.8 62-37.6 62-68.2 0-48.4-44.6-59.2-82.4-59.2s-82.4 18.6-83 60.6h-58c0-79.2 69-112.8 142.2-112.8 73.4 0 144.8 37 144.8 105.4 0 58.8-49.8 86.4-83.2 110z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_007_help_bubble"
-        ],
+        "tags": ["Icons_file_007_help_bubble"],
         "grid": 0
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 2,
         "id": 359,
@@ -17126,19 +16276,13 @@
         "paths": [
           "M896 453.2c0-66.4-53.8-120.2-120.4-120.2-24.2 0-46.8 7.2-65.6 19.6l-82.2-69c3.4-11.2 5.4-23.2 5.4-35.6 0-66.4-53.8-120.2-120.4-120.2s-120.4 53.8-120.4 120.2c0 12 1.8 23.6 5.2 34.6l-83.4 70c-18.8-12.4-41.4-19.6-65.6-19.6-66.4 0-120.4 53.8-120.4 120.2 0 59 42.6 107.8 98.8 118l34.2 114c-25.4 22-41.4 54.4-41.4 90.6 0 66.4 53.8 120.2 120.4 120.2 51.8 0 96-32.8 112.8-78.8h121.8c16.8 46 61 78.8 112.8 78.8 66.4 0 120.4-53.8 120.4-120.2 0-37.4-17.2-70.8-44-92.8l33.4-111.8c56-10 98.6-59 98.6-118zM687.4 655.8c-57.4 0-105.4 40.2-117.4 94h-112.8c-12-53.8-60-94-117.4-94-5.6 0-11.2 0.6-16.8 1.2l-28-93.2c43.2-18.2 73.6-61 73.6-110.6 0-17.6-3.8-34.2-10.6-49.2l76.8-64.4c21 17.8 48.2 28.6 78 28.6 29.4 0 56.2-10.6 77.2-28l76 63.8c-6.8 15-10.6 31.8-10.6 49.2 0 49.8 30.4 92.4 73.6 110.6l-27.8 92.6c-4.6-0.2-9.2-0.6-13.8-0.6z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_007_microsoft-azure-fabric"
-        ],
+        "tags": ["Icons_file_007_microsoft-azure-fabric"],
         "grid": 0
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 2,
         "id": 360,
@@ -17157,23 +16301,13 @@
           "M307.6 428.6l21.4-21.4-41-41-21.4 21.4c-23.8-16-52.6-25.4-83.6-25.4-82.8 0-150 67.2-150 150 0 31 9.4 59.8 25.4 83.6l-21.4 21.4 41 41 21.4-21.4c23.8 16 52.6 25.4 83.6 25.4 82.8 0 150-67.2 150-150 0-30.8-9.4-59.6-25.4-83.6zM90 512.2c0-51.2 41.6-92.8 92.8-92.8 15 0 29.4 3.6 41.8 10l-124.6 124.8c-6.4-12.6-10-26.8-10-42zM183 605.2c-15 0-29.4-3.6-41.8-10l124.8-124.8c6.4 12.6 10 26.8 10 41.8-0.2 51.4-41.8 93-93 93z",
           "M991.2 622.2l-28.6-28.6c15.2-23.4 24-51.4 24-81.4 0-82.8-67.2-150-150-150s-150 67.2-150 150 67.2 150 150 150c32 0 61.6-10 85.8-27l27.8 27.8 41-40.8zM836.4 605.2c-51.2 0-92.8-41.6-92.8-92.8s41.6-92.8 92.8-92.8 92.8 41.6 92.8 92.8c0 14-3.2 27.4-8.8 39.4l-55.2-55.2-41 41 56.4 56.4c-13 7-28 11.2-44.2 11.2z"
         ],
-        "attrs": [
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_007_zeromq"
-        ],
+        "tags": ["Icons_file_007_zeromq"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}],
       "properties": {
         "order": 1057,
         "id": 361,
@@ -17192,23 +16326,13 @@
           "M399.2 464l-26.2 82.2c7.8 3 16.8 4.4 26.6 4.4 9.4 0 18.2-1.4 26-4.2l-26-82.4h-0.4z",
           "M92 304v416h424.4l415.6-416h-840zM603.8 560h-25.8v80h-123.4l-12.2-38.4c-13 4.2-27.6 6.4-43.2 6.4-16 0-31-2.2-44.2-6.8l-12.6 38.6h-75l8.2-22.6c-1 0.8-2 1.6-3 2.4-18.8 15-42.2 23.2-71.2 23.8h-4.4c-33.2 0-66-9.2-93.6-25l25.8-50.4c27.6 16.4 45 20 68.4 19.6 12.2-0.2 21-2.4 26.6-8.4 3.4-3.6 5.2-8 5.4-12.8 0.2-13.2-18.6-19.4-41.4-26.4-18.6-5.8-39.8-13.6-56.2-25.8-19.6-14.4-28.8-32.4-28.4-57.8 0.4-18.4 7.2-35 19.8-48.2 18.2-18.8 47.6-30.2 82.6-30.2h0.2c30.2 0 67 8.6 93.6 22.2l-28.8 50c-29.2-14-43.8-15.4-60.4-16.4-24.8-1.4-37.2 7.6-37.4 17-0.2 11.6 23.4 22.2 45.6 29.4 33.8 10.8 76.6 25 83.2 66.4l62-164.6h71.6l72.4 197v-196.6h82.6c79 0 116.2 28.2 116.2 89.6-0.2 55-38.4 88-103 88z"
         ],
-        "attrs": [
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_005_SAP"
-        ],
+        "tags": ["Icons_file_005_SAP"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}],
       "properties": {
         "order": 2,
         "id": 362,
@@ -17229,27 +16353,13 @@
           "M143.8 341.2c3.2-12.4 6.6-24 10.6-34.6 2.8-7.4 5.8-15.2 9.2-23-0.2-0.2-0.6-0.2-0.8-0.4-12.4-7.4-16.6-23.2-9.2-35.4 7-11.6 22-15.6 34.2-9.2 11-16.8 24.6-33.6 42-49-2-1.4-4-2.8-6.2-4-20-11.8-44.6-11.6-67.4-5.6s-44.2 17.6-56.2 35.8c-12.8 19.2-14.2 42-9.6 63.2 5 22.8 17.4 43.8 39.2 55.4 4.8 2.6 9.6 4.8 14.2 6.8z",
           "M921.2 197.6c-13.2-17.4-35.2-27.6-58.4-32s-47.6-3.2-67 9.8c-1 0.6-1.8 1.4-2.8 2 12.8 11.2 24.2 23.4 33.8 37 2.8 3.8 5.4 7.8 8.2 11.8 11.8-7.2 27-4.2 34.8 6.8 8 11.6 4.8 27.6-7 35.8-0.8 0.6-1.6 1-2.4 1.4 8.8 18 16.4 36.8 22.6 56.6 5.2-2.6 10.6-5.4 16.2-9 21-13 32-34.8 35.4-57.8 3.4-21.4 0.4-44-13.4-62.4z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_007_golang_signet"
-        ],
+        "tags": ["Icons_file_007_golang_signet"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}],
       "properties": {
         "order": 2,
         "id": 363,
@@ -17266,19 +16376,13 @@
         "paths": [
           "M92 296v432h840v-432h-840zM320 664h-40v-304h40v304zM532 664h-40v-304h40v304zM744 664h-40v-304h40v304z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_005_Container"
-        ],
+        "tags": ["Icons_file_005_Container"],
         "grid": 0
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 5,
         "id": 364,
@@ -17299,27 +16403,13 @@
           "M342 763.96h340c3.314 0 6-2.686 6-6v-52c0-3.314-2.686-6-6-6h-340c-3.314 0-6 2.686-6 6v52c0 3.314 2.686 6 6 6z",
           "M342 603.968h340c3.314 0 6-2.686 6-6v-52c0-3.314-2.686-6-6-6h-340c-3.314 0-6 2.686-6 6v52c0 3.314 2.686 6 6 6z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_Reports"
-        ],
+        "tags": ["Icons_file_002_Reports"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}],
       "properties": {
         "order": 4,
         "id": 365,
@@ -17344,35 +16434,13 @@
           "M534.821 480.439c0 0 68.494 45.354 74.048 43.040s-23.603-53.58-51.371-56.178c-8.793-24.318-20.826-47.952-29.619-54.894 0-15.735-12.496-68.494-31.007-65.717s6.479 60.627 7.405 68.957c0.926 8.33 30.545 64.792 30.545 64.792z",
           "M461.323 473.286c0 0 41.189 53.222 46.743 49.982s-2.39-37.569-19.9-61.552c-4.628-21.752-10.234-38.128-16.25-50.983 4.628-17.945 12.412-58.087 3.292-64.253-14.674-9.922-22.214 2.561-29.156 18.404s-1.852 47.211-1.852 47.211l17.124 61.192z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_technologies_003_Hornetq"
-        ],
+        "tags": ["Icons_technologies_003_Hornetq"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}, {}, {}, {}, {}],
       "properties": {
         "order": 2,
         "id": 366,
@@ -17402,45 +16470,13 @@
           "M615.56 228.997l-76.766 46.069 30.654 53.31h63.099v-89.732c-6.689-1.312-12.586-4.786-16.987-9.647z",
           "M707.664 88h-138.216l-69.108 120.188 32.463 56.457 76.568-45.949c-1.184-3.286-1.862-6.814-1.862-10.508 0-17.148 13.901-31.049 31.049-31.049s31.049 13.901 31.049 31.049c0 15.090-10.769 27.655-25.038 30.456v89.732h63.098l69.108-120.188-69.108-120.188z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_technologies_003_Apache-Activemq"
-        ],
+        "tags": ["Icons_technologies_003_Apache-Activemq"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       "properties": {
         "order": 3,
         "id": 367,
@@ -17459,23 +16495,13 @@
           "M150.192 613.332c73.839-31.849 142.386-72.661 206.349-121.173 122.165-92.654 225.486-202.657 306.258-333.401-46.297-19.79-97.265-30.758-150.798-30.758-212.078 0-384 171.922-384 384 0 35.725 4.897 70.302 14.024 103.119 1.845 0.446 4.412-0.166 8.167-1.786z",
           "M716.347 186.856c-11.389 27.631-23.206 55.102-35.569 82.31-72.658 159.911-163.59 308.316-278.668 441.474-34.904 40.386-71.435 79.228-109.825 116.3 62.256 43.513 137.997 69.058 219.715 69.058 212.077 0 384-171.922 384-384 0-136.97-71.727-257.169-179.653-325.143z"
         ],
-        "attrs": [
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_technologies_002_Tibco_Signet"
-        ],
+        "tags": ["Icons_technologies_002_Tibco_Signet"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}],
       "properties": {
         "order": 4,
         "id": 368,
@@ -17498,31 +16524,13 @@
           "M299.139 627.946c-0 2.721-0.002 2.723-2.708 2.723-8.848 0.001-17.697-0.043-26.544 0.037-1.775 0.016-2.31-0.494-2.309-2.293 0.041-77.344 0.041-154.687 0-232.031-0.001-1.795 0.527-2.312 2.306-2.296 8.971 0.080 17.944 0.090 26.915-0.006 1.885-0.020 2.385 0.507 2.382 2.392-0.055 38.672-0.041 192.988-0.042 231.474z",
           "M782.385 594.984c-0.356-0.337-0.699-0.594-0.96-0.918-5.82-7.202-10.633-15.026-14.573-23.405-0.63-1.34-0.163-1.802 0.92-2.393 18.412-10.036 35.603-21.879 51.79-35.186 31.665-26.032 58.605-56.359 81.75-90.12 9.274-13.528 17.805-27.511 25.393-42.056 0.722-1.384 1.376-1.591 2.688-0.831 2.459 1.425 4.965 2.777 7.504 4.052 1.371 0.688 1.432 1.414 0.808 2.753-6.429 13.798-13.528 27.241-21.29 40.333-19.41 32.739-42.151 62.977-68.265 90.668-19.53 20.709-40.667 39.587-64.016 55.929-0.554 0.388-1.122 0.754-1.749 1.174z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_technologies_002_Tibco"
-        ],
+        "tags": ["Icons_technologies_002_Tibco"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}, {}, {}],
       "properties": {
         "order": 5,
         "id": 369,
@@ -17539,19 +16547,13 @@
         "paths": [
           "M828.925 295.184c-4.71 19.454-7.176 39.612-11.719 60.237-57.597-7.477-125.245-12.949-201.255-15.626-6.097 19.291-11.873 38.166-18.478 58.773 127.139 7.813 188.943 41.325 225.578 80.807 35.641 39.929 43.207 84.057 41.147 125.019-4.545 66.567-33.899 108.658-74.185 139.856-40.758 30.707-90.078 45.96-129.52 49.272-58.206 4.357-136.039-9.495-152.594-19.645-9.949-22.684-19.795-45.539-30.368-70.47-2.57-5.303-4.19-10.742 3.090-17.076 11.318-10.846 22.211-21.35 33.665-32.466 5.065-4.949 10.676-9.559 14.931-2.465 15.657 24.138 30.319 46.281 45.014 68.392 16.689 24.608 42.111 47.041 97.648 43.308 46.686-4.173 82.192-39.491 85.957-78.323 4.089-71.89-68.645-122.849-257.773-139.217 36.282-109.59 71.651-215.631 99.944-299.906 44.93 2.076 86.517 5.742 126.245 10.868 29.384 3.737 56.682 10.581 84.065 13.746-70.394-86.773-177.829-142.27-298.281-142.27-212.099 0-384.034 171.927-384.034 383.999 0 85.189 27.789 163.868 74.736 227.56 16.265 0.124 27.539-3.514 28.759-10.525 1.486-7.333 0.235-18.683-1.047-30.134-7.653-75.352-10.39-156.716-7.501-238.249-19.476 0.846-36.956 1.724-53.711 2.703 0.674-15.076 1.486-29.357 2.701-44.228 16.553-1.587 34.086-2.983 53.343-4.602 0.827-12.982 1.755-25.557 2.871-38.253 8.649-77.748 90.535-125.33 158.742-143.682 30.268-7.372 48.779-9.703 63.308-10.464 5.252-0.167 10.91-0.372 16.552-0.372 14.139 0 28.478 1.319 37.566 7.491 14.713 11.030 29.255 22.002 44.71 34.206 1.571 2.095 3.226 5.346-0.607 11.022-7.097 8.3-13.952 16.24-21.165 24.777-4.155 5.043-11.048 3.718-16.857 2.145-12.164-6.231-23.868-11.95-35.742-17.708-21.536-9.569-43.781-19.409-68.56-18.446-15.456 1.242-30.422 17.060-31.974 38.698-2.148 32.936-3.582 66.694-4.798 103.272 42.971-1.233 85.822-1.944 131.040-2.164 0 10.286-0.067 19.72-0.067 30.252-14.747 6.589-28.648 13.251-43.428 19.982-30.487 0.355-59.506 0.593-88.726 1.099-1.352 87.005-0.070 173.691 3.85 253.838 0.744 12.093 1.35 24.34 4.831 32.548 4.171 10.321 28.156 18.275 80.333 21.217 0.203 9.085 0.455 17.65 0.742 26.466-84.964-2.477-166.55-10.607-231.97-22.375 70.316 78.495 172.419 127.928 286.103 127.928 212.083 0 383.966-171.933 383.966-384.001 0-80.459-24.784-155.108-67.075-216.815z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_002_F5"
-        ],
+        "tags": ["Icons_file_002_F5"],
         "grid": 0
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 2,
         "id": 370,
@@ -17572,27 +16574,13 @@
           "M186 358c-72.8 0-137.4 53.2-151.2 124.6s25.8 144.4 93 172c43.4 17.8 93.8 14.4 134.6-8.8l6.2 18h62.6l-23-58c29.8-38.8 39.4-90.8 25.4-137.8-12-40.2-40.6-74.2-77.8-93.2-21.8-11.2-45.8-16.8-69.8-16.8zM186 364c44.4 0 90 23.8 107.6 65.8 17.2 40.8 1.2 86.2-33.4 112-20.8 15.6-46.8 23.6-72.8 23.8-5-13.2-10.6-25.4-12.4-39.6-2-15.2-3.6-33 11.8-41.4 7-3.8 14.8-5.6 21.8-9.4 7.4-4 15.2-11 23.8-12s18.2 1 26.6 2c7.4 1 16.2 3.4 23.4 0 8.8 1.6 15.8-5.2 12.6-14.2-2.6-7-9.2-12.4-15-16.2-12-7.8-28.2-9.2-39.2-18.6-5-14-14.2-24.4-27.4-31.2-13.6-7-29.6-11.6-45-11.4-1.6-2.6-4.2-6.2-8.8-7.2 8.4-1.4 17.2-2.4 26.4-2.4zM71.2 465c0-32.8 17.8-62 45.6-80.4-0.2 2 0.2 4.4 1.8 7-14.8 18.8-23.8 42-28.2 65.4-1.8 10-2.6 19.8-2.6 30 0 10.6-1.2 22 1.4 32.2-11.4-15.8-18-34.4-18-54.2zM195.8 652.6c-5.6-12.4-13-24.4-20.2-35.8-14.4-23.2-30.8-46.6-50-66v0c-6-6.4-12.4-12.6-18.8-18.8-3-3-6.2-6.2-8.2-10-4.8-9.2-3-21.6-3-31.6 0.2-31.8 7.4-64.4 26.4-90.4 1.8-2.4 6.2-6 5.8-9.2-0.4-2.4-3.4-3-3.2-5.6 0.4-3 2.6-2.6 4.6-1.2 1.2 0.8 1.6 2.6 3.2 2 2.8-1-0.4-3.2-1-4.4-1.4-2.6-0.6-4.8 2.6-4.6 1.6 0.2 3.6 2.2 5.2 1.4 1.4-0.8 0.6-1.4 1.2-2.6 1.4-2.6 2.8-4 6-1.6 1.6 1.2 3.6 6.2 6 5.8 2.6-0.4 1.2-3.6 3.2-4.8 2.4-1.4 4.4 1.2 5.6 3 2.4 3.6 1.8 4.2 6.6 4.2 9.6-0.2 18.2 1.6 27.4 4.6 12.2 4 24.6 9.8 32 20.6 2.8 4.2 3.8 10 7 14 4.6 6.2 15.6 9.4 22.4 12 9.4 3.8 18.8 6.8 26.2 14.2 2 2 9 10.8 1.4 9.8-10.8-13.8-33.6-16.8-49.8-19-8.8-1.2-17.6-1.8-26.4-2.8-5-0.6-10-1.4-14.8-2.4-2.2-0.4-9.4-3.6-10.8-3-2.4 1 4.8 3.4 5.8 3.8 4 1.4 8 2.6 12 3.6 8.2 2 16.6 3.4 25 4.8 16.2 2.6 36.8 5.6 49.8 16.6-11.8 0.4-24-3.2-36-3.6-8-0.4-14 1.4-21 5.4-6.6 3.8-13 8.2-20 11-8.6 3.4-17.4 5.8-24 12.8-10.4 11.2-8.6 28.4-7 42.4 1.8 13.8 6.8 26 11.8 38.8v0c10.8 28 17.8 58 17.8 88-0.2-0.4-0.4-0.8-0.8-1.4z",
           "M187.4 412.8c3.2-11.2 31.2-3.2 28 8-3.2 11.4-31.2 3.2-28-8z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Qemu"
-        ],
+        "tags": ["Icons_file_003_Qemu"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}],
       "properties": {
         "order": 3,
         "id": 371,
@@ -17610,21 +16598,13 @@
           "M512 128c-181.4 0-342.6 132.4-377 310.8-34.4 177.8 64.2 360.2 231.8 428.8 108.2 44.2 234 36 335.6-22l15.4 44.8h156.2l-57.2-144.8c74.4-96.8 98.2-226.6 63.2-343.4-29.8-100-101.2-185.2-194.2-232.6-53.6-27.4-113.6-41.6-173.8-41.6zM512 143.2c110.6 0 224.2 59.2 268.4 164.2 42.8 101.6 3 215-83.4 279.4-52 38.8-116.6 58.8-181.4 59.6-12.2-32.8-26.4-63.6-31-98.8-4.8-38-9.2-82.4 29.4-103.2 17.4-9.4 37-13.8 54.6-23.4 18.4-10 38-27.4 59.2-29.8 21.4-2.6 45.2 2.4 66.4 5 18.4 2.2 40.6 8.2 58.2-0.2 22.2 3.8 39.6-13.2 31.6-35.2-6.4-17.2-22.8-30.8-37.6-40.6-29.8-19.6-70.6-22.8-97.8-46.2-12.6-34.8-35.2-61-68.2-77.8-34-17.4-73.8-29-112-28.2-3.8-6.6-10.4-15.4-22-17.8 21-4.6 43-7 65.6-7zM225.8 394.8c0-82 44.6-154.8 113.6-200.6-0.4 4.8 0.4 11 4.4 17.4-37 47-59.6 104.6-70.2 163.2-4.6 24.8-6.6 49.6-6.6 74.8 0 26.2-3 54.8 3.6 80.6-28.4-39.4-44.8-85.6-44.8-135.4zM536.8 862.8c-13.8-31-32.2-60.8-50.2-89.4-36-57.8-76.6-116.2-124.8-164.6v0c-15-16.2-31.2-31.4-46.6-47.2-7.4-7.6-15.2-15.4-20.4-25-12.2-22.8-7.8-54-7.6-78.6 0.4-79.6 18.4-160.4 66-225.6 4.2-5.8 15.6-15.2 14.6-22.8-0.8-5.8-8.8-7.4-7.8-14 1-7.2 6.8-6.4 11.4-3.2 3 2 3.8 6.4 8.2 4.8 6.8-2.6-1-8-2.4-11-3.4-6.8-1.6-12.2 6.4-11.4 4 0.4 9 5.8 13 3.6 3.4-1.8 1.2-3.6 2.8-6.2 3.8-6.6 7.2-9.8 15-4.2 3.8 2.8 9 15.4 14.8 14.4 6.2-1 2.8-9.2 7.8-12 6.2-3.4 11 3 14 7.4 5.8 9 4.4 10.4 16.4 10.2 23.8-0.4 45.6 4.2 68.2 11.6 30.4 9.8 61.4 24.2 79.8 51.6 7.2 10.6 9.6 25.2 17.2 35 11.8 15.2 39 23.4 56 30 23.6 9.2 47 17 65.2 35.6 5 5.2 22.6 27 3.4 24.4-27.2-34.4-83.6-41.8-124-47.2-22-2.8-44-4.2-66-7.2-12.4-1.6-24.8-3.6-37.2-6.2-5.4-1.2-23.4-9-27.2-7.4-6 2.8 11.8 8.4 14.2 9.2 9.8 3.4 19.8 6.2 29.8 8.8 20.6 5.2 41.4 8.6 62.4 12 40.4 6.6 91.8 14 124 41.6-29.6 0.8-60-7.8-89.6-9-20-0.8-34.8 3.4-52.2 13.4-16.4 9.4-32.2 20.4-49.8 27.4-21.4 8.4-43.6 14.4-59.6 31.8-25.8 28-21.6 70.6-17.4 105.4 4.2 34.6 17 64.8 29.4 97v0c27 69.6 44.2 144.6 44.2 219.4-0.2 0-0.6-0.8-1.4-2.4z",
           "M515.8 264.6c8-28 77.6-8.2 69.8 20.2-8 28.2-78 8-69.8-20.2z"
         ],
-        "attrs": [
-          {},
-          {}
-        ],
+        "attrs": [{}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_file_003_Qemu_Signet"
-        ],
+        "tags": ["Icons_file_003_Qemu_Signet"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {}
-      ],
+      "attrs": [{}, {}],
       "properties": {
         "order": 4,
         "id": 372,
@@ -17645,27 +16625,13 @@
           "M818.777 741.64c-9.673-8.373-18.951-16.405-28.485-24.658 25.279-34.776 43.42-72.24 54.959-113.351 2.036 0.581 3.593 0.865 5.023 1.459 8.399 3.49 16.706 7.21 25.174 10.523 4.096 1.602 4.897 3.723 3.6 7.898-9.273 29.853-21.702 58.295-37.881 85.039-5.739 9.487-12.121 18.585-18.26 27.828-1.075 1.618-2.398 3.071-4.13 5.263z",
           "M654.702 537.209c-0.38-0.026-1.65-0.106-2.92-0.199-17.993-1.315-24.192-8.721-22.294-26.632 2.124-20.038 18.137-36.273 38.949-39.144 4.638-0.64 9.481-0.974 14.096-0.39 17.129 2.17 25.655 15.811 20.679 32.469-5.996 20.074-26.091 34.386-48.51 33.896z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_technologies_002_WAS_Liberty_Profile"
-        ],
+        "tags": ["Icons_technologies_002_WAS_Liberty_Profile"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}],
       "properties": {
         "order": 2,
         "id": 373,
@@ -17683,21 +16649,13 @@
           "M792 88v0c-28.8 0-52 23.2-52 52v536c0 28.8 23.2 52 52 52v0c28.8 0 52-23.2 52-52v-536c0-28.8-23.2-52-52-52z",
           "M898 480h-22v196c0 46.4-37.6 84-84 84s-84-37.6-84-84v-196h-582c-21 0-38 17-38 38v380c0 21 17 38 38 38h772c21 0 38-17 38-38v-380c0-21-17-38-38-38zM188 816c-24.4 0-44-19.6-44-44s19.6-44 44-44 44 19.6 44 44-19.6 44-44 44zM188 640c-24.4 0-44-19.6-44-44s19.6-44 44-44 44 19.6 44 44-19.6 44-44 44zM600 736v80h-240l-80-56v-32h320v8zM600 560v80h-240l-80-56v-32h320v8z"
         ],
-        "attrs": [
-          {},
-          {}
-        ],
+        "attrs": [{}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "icons_universal_003_embedded-pc"
-        ],
+        "tags": ["icons_universal_003_embedded-pc"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {}
-      ],
+      "attrs": [{}, {}],
       "properties": {
         "order": 1061,
         "id": 374,
@@ -17718,27 +16676,13 @@
           "M450 127.961h-188c-20.987 0-38 17.013-38 38v218h-55.502c-12.537-25.22-39.413-42.056-69.97-39.798-35.329 2.611-63.847 31.229-66.343 66.566-2.976 42.13 30.32 77.232 71.815 77.232 28.267 0 52.714-16.297 64.498-40h119.502v-218c0-20.987 17.013-38 38-38h162v-26c0-20.987-17.013-38-38-38z",
           "M552 165.961v26h146c20.987 0 38 17.013 38 38v154h26c20.987 0 38-17.013 38-38v-180c0-20.987-17.013-38-38-38h-172c-20.987-0-38 17.013-38 38z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "icons_universal_003_IoT"
-        ],
+        "tags": ["icons_universal_003_IoT"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}],
       "properties": {
         "order": 1062,
         "id": 375,
@@ -17761,31 +16705,13 @@
           "M303.065 782.813c-4.186-9.294-5.037-20.406-5.121-21.643l-0.022-0.671-0.005-79.574c-33.665-4.017-68.554-8.914-104.872-14.731-41.941-6.72-76.597-16.885-100.218-29.396-1.675-0.887-3.27-1.785-4.827-2.689v84.616h0.191c4.371 29.845 89.864 52.801 215.166 64.671-0.094-0.198-0.201-0.382-0.292-0.583z",
           "M931.173 636.797c-23.621 12.512-58.276 22.677-100.218 29.396-36.316 5.817-71.203 10.714-104.867 14.731l-0.032 80.246c-0.084 1.236-0.936 12.349-5.121 21.642-0.074 0.166-0.164 0.317-0.241 0.48 125.112-11.899 210.732-34.808 215.115-64.568h0.191v-84.616c-1.557 0.904-3.152 1.802-4.827 2.689z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "icons_universal_003_ufo"
-        ],
+        "tags": ["icons_universal_003_ufo"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}, {}, {}],
       "properties": {
         "order": 1063,
         "id": 376,
@@ -17805,25 +16731,13 @@
           "M776.704 522.822c-24.579-11.337-43.014-22.955-43.014-46.906 0-20.366 11.32-37.186 36.212-37.186 29.116 0 39.128 23.312 46.192 42.69 0.406 1.112 1.554 1.756 2.715 1.528l0.634-0.125c1.244-0.245 2.082-1.433 1.915-2.689-2.447-18.465-4.279-30.849-5.531-41.717-9.705-2.275-20.367-7.461-38.802-7.461-42.050 0-65.656 27.827-65.656 59.2 0 37.186 40.756 52.052 53.362 58.524 17.464 9.061 43.674 19.417 43.674 52.076 0 26.838-15.855 41.407-40.433 41.407-35.562 0-53.685-38.504-59.827-53.379l-2.715 0.733c-1.209 0.326-1.963 1.513-1.736 2.744 3.122 16.851 6.502 38.272 9.299 46.34 3.57 1.616 9.045 4.197 17.15 6.786 7.742 2.597 18.733 4.856 30.383 5.499 40.771-0.643 71.156-28.768 71.156-64.996-0-38.504-31.044-52.405-54.979-63.067z",
           "M990.069 594.806l-0.723-0.146c-1.061-0.213-2.14 0.325-2.625 1.294-7.037 14.043-12.629 24.436-17.938 30.047-7.108 7.75-22.311 12.936-40.731 12.936-15.204 0-26.854 0-33.641-5.186-5.515-4.205-7.444-11.964-7.444-30.4v-62.094h32.658c13.901 0 21.033 0.643 25.551 4.519 4.293 3.369 6.272 9.677 9.23 20.843 0.28 1.054 1.234 1.798 2.324 1.798h0.606c1.326 0 2.401-1.075 2.401-2.401v-59.237c0-1.326-1.075-2.401-2.401-2.401h-0.619c-1.084 0-2.036 0.736-2.319 1.782-6.057 22.299-7.668 25.37-34.773 25.37h-32.658v-78.906c0-5.36 4.344-9.704 9.704-9.704h21.339c24.57 0 34.275 5.821 39.131 11.337 4.324 4.93 9.549 12.831 13.947 27.612 0.356 1.195 1.553 1.94 2.776 1.696l0.586-0.118c1.2-0.24 2.027-1.332 1.92-2.551-1.552-17.78-3.057-39.789-3.374-45.075h-137.956c-1.326 0-2.401 1.075-2.401 2.401v0.026c0 1.195 0.887 2.204 2.071 2.377 23.95 3.504 26.383 8.114 26.383 42.086v116.437c0 34.065-2.447 38.599-29.579 42.107-1.2 0.155-2.107 1.172-2.107 2.382v0.016c0 1.326 1.075 2.401 2.401 2.401h149.275c2.401-8.106 8.697-37.068 10.874-48.454 0.247-1.294-0.596-2.534-1.888-2.794z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_technologies_003_SAP_Sybase"
-        ],
+        "tags": ["Icons_technologies_003_SAP_Sybase"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}],
       "properties": {
         "order": 2,
         "id": 377,
@@ -17847,33 +16761,13 @@
           "M616.108 478.37h49.748c32.111 0 53.826 1.837 65.146 5.508 11.316 3.673 19.924 9.706 25.821 18.097 5.895 8.393 9.579 17.737 11.055 28.031 1.474 10.295 2.212 30.522 2.212 60.683v111.532c0 28.591-1.081 47.702-3.238 57.34-2.159 9.64-5.922 17.182-11.292 22.623-5.369 5.442-12.002 9.244-19.899 11.409-7.897 2.163-19.795 3.245-35.692 3.245h-83.86v-318.469zM674.615 532.857v209.494c9.579 0 23.458-2.391 25.669-7.181 2.212-4.785 3.317-17.802 3.317-39.046v-123.729c0-14.425-0.37-23.669-1.105-27.735-0.738-4.063-2.424-7.048-5.054-8.95-2.633-1.9-15.562-2.853-22.826-2.853z",
           "M785.22 478.37h58.349c20.951 0 40.813 2.033 51.606 6.094 10.791 4.063 19.504 12.285 26.137 24.669 6.633 12.387 9.95 32.337 9.95 59.858 0 18.61-2.344 31.583-7.028 38.923-4.686 7.339-13.925 12.973-27.716 16.904 15.371 4.33 25.794 11.514 31.27 21.551 5.473 10.039 8.212 25.424 8.212 46.155v29.522c0 21.522-1.974 37.463-5.922 47.828-3.948 10.368-10.241 17.452-18.872 21.257-8.634 3.805-26.323 5.707-53.064 5.707h-72.921v-318.469zM843.727 532.857v70.816c2.842-0.129 9.044-0.197 10.623-0.197 6.527 0 10.685-1.999 12.476-5.999 1.789-3.999 2.685-15.442 2.685-34.327 0-9.964-0.738-16.946-2.211-20.948-1.476-3.999-3.396-6.522-5.765-7.573-2.369-1.048-10.966-1.639-17.809-1.771zM843.727 653.243v89.108c9.37-0.394 19.334-2.23 21.915-5.508 2.579-3.275 3.869-11.341 3.869-24.195v-29.703c0-13.637-1.16-21.898-3.475-24.784-2.317-2.883-12.415-4.525-22.31-4.917z"
         ],
-        "attrs": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
-        ],
+        "attrs": [{}, {}, {}, {}, {}, {}, {}, {}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_technologies_003_SAP_MaxDB"
-        ],
+        "tags": ["Icons_technologies_003_SAP_MaxDB"],
         "grid": 0
       },
-      "attrs": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      "attrs": [{}, {}, {}, {}, {}, {}, {}, {}],
       "properties": {
         "order": 3,
         "id": 378,
@@ -17890,19 +16784,13 @@
         "paths": [
           "M929.805 319.669h-162.476c-3.348 0-6.062 2.714-6.062 6.062v0.194c0 2.961 2.139 5.489 5.060 5.979l29.221 4.896c30.221 5.703 36.756 16.339 23.685 48.163-20.396 50.62-72.681 149.424-102.862 205.747-37.57-62.047-110.231-193.488-117.578-211.45-12.24-30.222-8.971-35.925 10.594-40.004l33.586-7.176c2.798-0.598 4.796-3.068 4.796-5.928v-0.421c0-3.348-2.714-6.062-6.062-6.062h-174.072c-8.048-61.303-14.152-102.016-18.225-137.691-31.237-7.307-65.578-23.95-124.926-23.95-135.318 0-211.327 89.549-211.327 190.524 0 119.709 131.175 167.649 171.748 188.413 56.222 29.187 140.555 62.473 140.555 167.65 0 86.402-51.026 133.227-130.122 133.227-114.534 0-172.826-123.891-192.615-171.77l-10.231 2.747c-3.057 0.822-4.969 3.818-4.389 6.93 10.152 54.478 21.156 124.477 30.188 150.666 11.467 5.237 29.167 13.558 55.186 21.88 25.005 8.322 60.382 15.608 97.89 17.679 131.178-2.071 229.048-92.654 229.048-209.278 0-123.891-99.963-168.644-177.008-202.966-79.095-36.432-138.463-73.941-138.463-150.966 0-65.598 36.433-119.709 116.604-119.709 96.815 0 152.297 147.46 152.672 148.733 0 0 5.985 0.337 12.917 1.928 35.579 8.166 41.997 18.866 72.877 73.332 50.619 89.792 80.84 146.095 100.407 179.625 18.003 30.161 21.25 39.984 21.25 53.035v92.248c0 86.033-6.222 97.451-76.295 106.307-3.037 0.384-5.336 2.955-5.336 6.016v0.027c0 3.347 2.711 6.061 6.062 6.061h220.556c3.348 0 6.059-2.714 6.059-6.061v-0.001c0-3.072-2.319-5.649-5.369-6.019-73.297-8.878-79.53-20.219-79.53-106.33h-0.042v-101.259c0-13.030 0.812-22.002 16.34-50.62 37.568-70.206 66.937-126.528 97.16-173.028 33.929-52.123 41.182-66.088 89.601-75.083 2.953-0.548 5.122-3.096 5.122-6.098 0-3.422-2.773-6.196-6.195-6.196z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "Icons_technologies_003_SAP_Sybase_Signet"
-        ],
+        "tags": ["Icons_technologies_003_SAP_Sybase_Signet"],
         "grid": 0
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 4,
         "id": 379,
@@ -17960,9 +16848,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "icons_universal_003_Amazon_Echo"
-        ],
+        "tags": ["icons_universal_003_Amazon_Echo"],
         "grid": 0
       },
       "attrs": [

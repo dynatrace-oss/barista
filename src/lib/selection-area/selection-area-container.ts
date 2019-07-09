@@ -187,7 +187,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
   private _overlayFocusTrap: FocusTrap;
 
   /** @internal Default interpolation function that just returns the px value */
-  _interpolateFn: (pxValue: number) => number = (pxValue) => pxValue;
+  _interpolateFn: (pxValue: number) => number = pxValue => pxValue;
 
   /** @internal The focus trap for the selectedArea */
   @ViewChild(CdkTrapFocus, { static: true })
@@ -373,12 +373,12 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
     // tslint:disable-next-line:strict-type-predicates
     if (isDefined(window)) {
       this._detachFns.push(
-        this._renderer.listen(window, 'mousemove', (ev) => {
+        this._renderer.listen(window, 'mousemove', ev => {
           this._handleMouseMove(ev);
         })
       );
       this._detachFns.push(
-        this._renderer.listen(window, 'mouseup', (ev) => {
+        this._renderer.listen(window, 'mouseup', ev => {
           this._handleMouseup(ev);
         })
       );
@@ -387,7 +387,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
 
   /** Detaches the window listeners */
   private _detachWindowListeners(): void {
-    this._detachFns.forEach((fn) => {
+    this._detachFns.forEach(fn => {
       fn();
     });
     this._detachFns = [];

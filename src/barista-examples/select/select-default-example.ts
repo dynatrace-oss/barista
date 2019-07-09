@@ -44,4 +44,4 @@ import { Component } from '@angular/core';
     </dt-select>
   `,
 })
-export class SelectDefaultExample { }
+export class SelectDefaultExample {}

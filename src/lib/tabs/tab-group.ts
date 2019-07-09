@@ -24,9 +24,11 @@ import {
 } from '@dynatrace/angular-components/core';
 import { Subscription, merge } from 'rxjs';
 
-export const DT_TABGROUP_SINGLE_TAB_ERROR = 'Only one single tab is not allowed inside a tabgroup';
+export const DT_TABGROUP_SINGLE_TAB_ERROR =
+  'Only one single tab is not allowed inside a tabgroup';
 
-export const DT_TABGROUP_NO_ENABLED_TABS_ERROR = 'At least one tab must be enabled at all times';
+export const DT_TABGROUP_NO_ENABLED_TABS_ERROR =
+  'At least one tab must be enabled at all times';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtTabGroup');
 
@@ -35,8 +37,12 @@ export type DtTabGroupThemePalette = 'main' | 'recovered' | 'error';
 export class DtTabGroupBase {
   constructor(public _elementRef: ElementRef) {}
 }
-export const _DtTabGroupMixinBase =
-mixinDisabled(mixinColor<Constructor<DtTabGroupBase>, DtTabGroupThemePalette>(DtTabGroupBase, 'main'));
+export const _DtTabGroupMixinBase = mixinDisabled(
+  mixinColor<Constructor<DtTabGroupBase>, DtTabGroupThemePalette>(
+    DtTabGroupBase,
+    'main'
+  )
+);
 
 /** Used to generate unique ID's for each tab component */
 let nextId = 0;
@@ -56,7 +62,11 @@ let nextId = 0;
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtTabGroup extends _DtTabGroupMixinBase
-  implements AfterContentInit, OnDestroy, CanColor<DtTabGroupThemePalette>, CanDisable {
+  implements
+    AfterContentInit,
+    OnDestroy,
+    CanColor<DtTabGroupThemePalette>,
+    CanDisable {
   // tslint:disable-next-line:no-forward-ref
   @ContentChildren(forwardRef(() => DtTab)) _tabs: QueryList<DtTab>;
 
@@ -90,7 +100,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
     this._tabsSubscription = this._tabs.changes.subscribe(() => {
       this._validateTabs();
       // if selected tab got removed - select the first enabled again
-      if (!this._tabs.find((tab) => tab === this._selected)) {
+      if (!this._tabs.find(tab => tab === this._selected)) {
         this._selectTab();
       }
       // after tabs changed we need to subscribe again
@@ -109,7 +119,11 @@ export class DtTabGroup extends _DtTabGroupMixinBase
     /** unselect all other tabs */
     this._selected = selected;
     if (this._tabs) {
-      this._tabs.filter((tab) => tab !== selected).forEach((tab) => { tab._deselect(); });
+      this._tabs
+        .filter(tab => tab !== selected)
+        .forEach(tab => {
+          tab._deselect();
+        });
     }
     this.selectionChanged.emit({ source: this._selected, isUserInteraction });
     this._changeDetectorRef.markForCheck();
@@ -126,9 +140,12 @@ export class DtTabGroup extends _DtTabGroupMixinBase
    * we need to trigger change detection on the group since the group needs to render the header again
    */
   private _subscribeToTabStateChanges(): void {
-    if (this._tabStateSubscription) { this._tabStateSubscription.unsubscribe(); }
-    this._tabStateSubscription = merge(...this._tabs.map((tab) => tab._stateChanges))
-    .subscribe(() => {
+    if (this._tabStateSubscription) {
+      this._tabStateSubscription.unsubscribe();
+    }
+    this._tabStateSubscription = merge(
+      ...this._tabs.map(tab => tab._stateChanges)
+    ).subscribe(() => {
       /** check if the selected tab is disabled now */
       if (this._selected && this._selected.disabled) {
         this._selected = null;
@@ -141,14 +158,13 @@ export class DtTabGroup extends _DtTabGroupMixinBase
   /** Selects the tab  */
   _selectTab(): void {
     if (this._tabs) {
-      const hasEnabledTabs = this._tabs.some((t) => !t.disabled);
+      const hasEnabledTabs = this._tabs.some(t => !t.disabled);
       if (!hasEnabledTabs) {
         LOG.error(DT_TABGROUP_NO_ENABLED_TABS_ERROR);
         return;
       }
-      const selectedTabNotFound = !this._tabs.find((t) => t === this._selected);
+      const selectedTabNotFound = !this._tabs.find(t => t === this._selected);
       if (selectedTabNotFound) {
-
         const firstEnabled = this._findFirstEnabledTab();
         if (firstEnabled) {
           firstEnabled._select(false);

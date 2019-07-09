@@ -23,8 +23,6 @@ import { DtCardModule } from '@dynatrace/angular-components/card';
     DtCtaCardTitle,
     DtCtaCardImage,
   ],
-  imports: [
-    DtCardModule,
-  ],
+  imports: [DtCardModule],
 })
-export class DtCtaCardModule { }
+export class DtCtaCardModule {}

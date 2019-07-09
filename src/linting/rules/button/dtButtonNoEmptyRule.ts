@@ -2,10 +2,14 @@ import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasContent, isButtonAttr, isButtonElement } from '../../utils';
+import {
+  addFailure,
+  hasContent,
+  isButtonAttr,
+  isButtonElement,
+} from '../../utils';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -17,14 +21,18 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     }
 
     const attrs: AttrAst[] = element.attrs;
-    const isButton = attrs.some((attr) => isButtonAttr(attr));
+    const isButton = attrs.some(attr => isButtonAttr(attr));
 
     if (isButton) {
       if (hasContent(element)) {
         return;
       }
 
-      addFailure(this, element, 'A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.');
+      addFailure(
+        this,
+        element,
+        'A dt-button must always contain text. Make sure this is the case even if you use nested components to render text.'
+      );
     }
   }
 }
@@ -40,13 +48,13 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
  * <button dt-button> </button>, content required
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a button is never empty.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A button must always contain text or another component that renders text.',
+    rationale:
+      'A button must always contain text or another component that renders text.',
     ruleName: 'dt-button-no-empty',
     type: 'maintainability',
     typescriptOnly: true,

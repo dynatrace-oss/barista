@@ -7,22 +7,13 @@ import { DtAutocompleteOrigin } from './autocomplete-origin';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    OverlayModule,
-    DtOptionModule,
-  ],
+  imports: [CommonModule, OverlayModule, DtOptionModule],
   exports: [
     DtAutocompleteTrigger,
     DtAutocomplete,
     DtAutocompleteOrigin,
     DtOptionModule,
   ],
-  declarations: [
-    DtAutocompleteTrigger,
-    DtAutocomplete,
-    DtAutocompleteOrigin,
-  ],
+  declarations: [DtAutocompleteTrigger, DtAutocomplete, DtAutocompleteOrigin],
 })
-export class DtAutocompleteModule {
-}
+export class DtAutocompleteModule {}

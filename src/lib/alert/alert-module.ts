@@ -4,15 +4,8 @@ import { CommonModule } from '@angular/common';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DtIconModule,
-  ],
-  exports: [
-    DtAlert,
-  ],
-  declarations: [
-    DtAlert,
-  ],
+  imports: [CommonModule, DtIconModule],
+  exports: [DtAlert],
+  declarations: [DtAlert],
 })
-export class DtAlertModule { }
+export class DtAlertModule {}

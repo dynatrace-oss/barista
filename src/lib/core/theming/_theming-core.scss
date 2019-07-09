@@ -76,18 +76,17 @@
 
 // Registers and adds the provided light and dark theme to the list of theme definitions
 @mixin dt-register-theme($name, $light-theme, $dark-theme, $default: false) {
-  $dt-themes:
-    map-merge(
-      $dt-themes,
-      (
-        $name: (
-          name: $name,
-          light: $light-theme,
-          dark: $dark-theme,
-          default: $default
-        )
-      )
-    ) !global;
+  $dt-themes: map-merge(
+    $dt-themes,
+    (
+      $name: (
+        name: $name,
+        light: $light-theme,
+        dark: $dark-theme,
+        default: $default,
+      ),
+    )
+  ) !global;
 }
 
 // Applies the components theme mixin to all registered themes

@@ -8,7 +8,6 @@ import { DtLoadingDistractorModule } from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtLoadingSpinner', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtLoadingDistractorModule],
@@ -20,26 +19,35 @@ describe('DtLoadingSpinner', () => {
 
   it('should support setting a custom aria-label', fakeAsync(() => {
     const fixture = createComponent(TestApp);
-    const spinnerElement = fixture.debugElement.query(By.css('dt-loading-spinner'));
+    const spinnerElement = fixture.debugElement.query(
+      By.css('dt-loading-spinner')
+    );
     const instance = spinnerElement.componentInstance;
     instance.ariaLabel = 'Custom Label';
     fixture.detectChanges();
-    expect(spinnerElement.nativeElement.getAttribute('aria-label')).toEqual('Custom Label');
+    expect(spinnerElement.nativeElement.getAttribute('aria-label')).toEqual(
+      'Custom Label'
+    );
   }));
 
   it('should support setting aria-labeledby', fakeAsync(() => {
     const fixture = createComponent(TestApp);
-    const spinnerElement = fixture.debugElement.query(By.css('dt-loading-spinner'));
+    const spinnerElement = fixture.debugElement.query(
+      By.css('dt-loading-spinner')
+    );
     const instance = spinnerElement.componentInstance;
     instance.ariaLabelledby = 'test';
     fixture.detectChanges();
-    expect(spinnerElement.nativeElement.getAttribute('aria-labeledby')).toEqual('test');
+    expect(spinnerElement.nativeElement.getAttribute('aria-labeledby')).toEqual(
+      'test'
+    );
   }));
 });
 
 @Component({
   selector: 'dt-test-app',
-  template: `<dt-loading-spinner></dt-loading-spinner>`,
+  template: `
+    <dt-loading-spinner></dt-loading-spinner>
+  `,
 })
-class TestApp {
-}
+class TestApp {}

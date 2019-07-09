@@ -18,7 +18,6 @@ import { IndividualSeriesOptions } from 'highcharts';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtChart', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtChartModule, DtThemingModule],
@@ -57,7 +56,10 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const series = chartComponent.highchartsOptions.series;
-      expect(series![0].data).toEqual([[1523972199774, 0], [1523972201622, 10]]);
+      expect(series![0].data).toEqual([
+        [1523972199774, 0],
+        [1523972201622, 10],
+      ]);
     });
 
     it('should update the data if observable fires new data', () => {
@@ -99,7 +101,9 @@ describe('DtChart', () => {
       // tslint:disable-next-line: no-unbound-method
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
-      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual(false);
+      expect(
+        tooltip!.formatter!.bind({ series: { name: 'somename' } })()
+      ).toEqual(false);
     });
 
     it('should update the options at runtime', () => {
@@ -134,17 +138,20 @@ describe('DtChart', () => {
       // tslint:disable-next-line: no-unbound-method
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
-      expect(tooltip!.formatter!.bind({series: { name: 'somename'}})()).toEqual(false);
+      expect(
+        tooltip!.formatter!.bind({ series: { name: 'somename' } })()
+      ).toEqual(false);
     });
 
     it('should work with empty series array', () => {
-      expect(() => createComponent(EmptySeries)).not.toThrowError('Cannot convert undefined or null to object');
+      expect(() => createComponent(EmptySeries)).not.toThrowError(
+        'Cannot convert undefined or null to object'
+      );
       expect(() => createComponent(EmptySeries)).not.toThrow(TypeError);
     });
   });
 
   describe('update event', () => {
-
     it('should fire updated after the data observable emits a new value', () => {
       const fixture = createComponent(DynamicSeries);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
@@ -167,11 +174,13 @@ describe('DtChart', () => {
       chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
 
-      fixture.componentInstance.series = [{
-        name: 'Actions/min',
-        id: 'someMetricId',
-        data: [[1370304000000, 140], [1370390400000, 120]],
-      }];
+      fixture.componentInstance.series = [
+        {
+          name: 'Actions/min',
+          id: 'someMetricId',
+          data: [[1370304000000, 140], [1370390400000, 120]],
+        },
+      ];
       fixture.detectChanges();
       expect(spy).toHaveBeenCalled();
     });
@@ -191,89 +200,131 @@ describe('DtChart', () => {
       const fixture = createComponent(SeriesTheme);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTES.purple);
+      expect(chartComponent.highchartsOptions.colors).toEqual(
+        DT_CHART_COLOR_PALETTES.purple
+      );
     });
 
     it('should choose the colors from the ordered palette for more than 3 series', () => {
       const fixture = createComponent(SeriesMoreThanTheme);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTE_ORDERED);
+      expect(chartComponent.highchartsOptions.colors).toEqual(
+        DT_CHART_COLOR_PALETTE_ORDERED
+      );
     });
 
     it('should update colors when the theme changes', () => {
       const fixture = createComponent(SeriesTheme);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTES.purple);
+      expect(chartComponent.highchartsOptions.colors).toEqual(
+        DT_CHART_COLOR_PALETTES.purple
+      );
       fixture.componentInstance.theme = 'royalblue';
       fixture.detectChanges();
-      expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTES.royalblue);
+      expect(chartComponent.highchartsOptions.colors).toEqual(
+        DT_CHART_COLOR_PALETTES.royalblue
+      );
     });
 
     it('should choose the correct colors for pie charts with less than 4 data slices', () => {
       const fixture = createComponent(PieChartThemeColors);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTES.purple);
+      expect(chartComponent.highchartsOptions.colors).toEqual(
+        DT_CHART_COLOR_PALETTES.purple
+      );
     });
 
     it('should choose the correct colors for pie charts with more than 3 data slices', () => {
       const fixture = createComponent(PieChartOrderedColors);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      expect(chartComponent.highchartsOptions.colors).toEqual(DT_CHART_COLOR_PALETTE_ORDERED);
+      expect(chartComponent.highchartsOptions.colors).toEqual(
+        DT_CHART_COLOR_PALETTE_ORDERED
+      );
     });
   });
 
   describe('loading', () => {
     it('should display the loading indicator if no series has been provided', () => {
       const fixture = createComponent(Loading);
-      const loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+      const loadingDebugElement = fixture.debugElement.query(
+        By.css('.dt-chart-loading-indicator')
+      );
 
-      expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
-      expect(loadingDebugElement.nativeElement).toBeDefined('Loading indicater should be visible');
+      expect(loadingDebugElement).toBeDefined(
+        'Loading indicater should be visible'
+      );
+      expect(loadingDebugElement.nativeElement).toBeDefined(
+        'Loading indicater should be visible'
+      );
     });
 
     it('should display the loading indicator if the series array is empty', () => {
       const fixture = TestBed.createComponent(Loading);
       fixture.componentInstance.series = [];
       fixture.detectChanges();
-      const loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+      const loadingDebugElement = fixture.debugElement.query(
+        By.css('.dt-chart-loading-indicator')
+      );
 
-      expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
-      expect(loadingDebugElement.nativeElement).toBeDefined('Loading indicater should be visible');
+      expect(loadingDebugElement).toBeDefined(
+        'Loading indicater should be visible'
+      );
+      expect(loadingDebugElement.nativeElement).toBeDefined(
+        'Loading indicater should be visible'
+      );
     });
 
     it('should not display the loading indicator if a series has been provided', () => {
       const fixture = TestBed.createComponent(Loading);
-      fixture.componentInstance.series = [{
-        name: 'Actions/min',
-        id: 'someid',
-        data: [[1523972199774, 0], [1523972201622, 10]],
-      }];
+      fixture.componentInstance.series = [
+        {
+          name: 'Actions/min',
+          id: 'someid',
+          data: [[1523972199774, 0], [1523972201622, 10]],
+        },
+      ];
       fixture.detectChanges();
-      const loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
+      const loadingDebugElement = fixture.debugElement.query(
+        By.css('.dt-chart-loading-indicator')
+      );
 
-      expect(loadingDebugElement).toBeNull('Loading indicator should be hidden');
+      expect(loadingDebugElement).toBeNull(
+        'Loading indicator should be hidden'
+      );
     });
 
     it('should hide the loading indicator once a series has been provided', () => {
       const fixture = createComponent(Loading);
-      let loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
-      expect(loadingDebugElement).toBeDefined('Loading indicater should be visible');
-      expect(loadingDebugElement.nativeElement).toBeDefined('Loading indicater should be visible');
+      let loadingDebugElement = fixture.debugElement.query(
+        By.css('.dt-chart-loading-indicator')
+      );
+      expect(loadingDebugElement).toBeDefined(
+        'Loading indicater should be visible'
+      );
+      expect(loadingDebugElement.nativeElement).toBeDefined(
+        'Loading indicater should be visible'
+      );
 
       fixture.componentInstance.series = [{}];
       fixture.detectChanges();
 
-      loadingDebugElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator'));
-      expect(loadingDebugElement).toBeNull('Loading indicator should be hidden');
+      loadingDebugElement = fixture.debugElement.query(
+        By.css('.dt-chart-loading-indicator')
+      );
+      expect(loadingDebugElement).toBeNull(
+        'Loading indicator should be hidden'
+      );
     });
 
     it('should not have a loading text as default', () => {
       const fixture = createComponent(LoadingText);
-      const loadingElement: HTMLElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator')).nativeElement;
+      const loadingElement: HTMLElement = fixture.debugElement.query(
+        By.css('.dt-chart-loading-indicator')
+      ).nativeElement;
       expect(loadingElement.textContent).toBe('');
     });
 
@@ -282,7 +333,9 @@ describe('DtChart', () => {
       fixture.componentInstance.loadingText = 'Loading';
       fixture.detectChanges();
 
-      const loadingElement: HTMLElement = fixture.debugElement.query(By.css('.dt-chart-loading-indicator')).nativeElement;
+      const loadingElement: HTMLElement = fixture.debugElement.query(
+        By.css('.dt-chart-loading-indicator')
+      ).nativeElement;
       expect(loadingElement.textContent).toBe('Loading');
     });
   });
@@ -320,7 +373,7 @@ class SeriesSingle {
 @Component({
   selector: 'dt-series-multi',
   template: `
-  <dt-chart [series]="series" [options]="options"></dt-chart>
+    <dt-chart [series]="series" [options]="options"></dt-chart>
   `,
 })
 class SeriesMulti {
@@ -353,7 +406,7 @@ class SeriesMulti {
 @Component({
   selector: 'dt-no-series',
   template: `
-  <dt-chart [options]="options"></dt-chart>
+    <dt-chart [options]="options"></dt-chart>
   `,
 })
 class NoSeries {
@@ -374,7 +427,7 @@ class NoSeries {
 @Component({
   selector: 'dt-dynamic-series',
   template: `
-  <dt-chart [series]="series" [options]="options"></dt-chart>
+    <dt-chart [series]="series" [options]="options"></dt-chart>
   `,
 })
 class DynamicSeries {
@@ -391,25 +444,29 @@ class DynamicSeries {
     },
   };
 
-  series = new BehaviorSubject([{
-    name: 'Actions/min',
-    id: 'someid',
-    data: [[1523972199774, 0], [1523972201622, 10]],
-  }]);
-
-  emitTestData(): void {
-    this.series.next([{
+  series = new BehaviorSubject([
+    {
       name: 'Actions/min',
       id: 'someid',
-      data: [[1523972199774, 20], [1523972201622, 30]],
-    }]);
+      data: [[1523972199774, 0], [1523972201622, 10]],
+    },
+  ]);
+
+  emitTestData(): void {
+    this.series.next([
+      {
+        name: 'Actions/min',
+        id: 'someid',
+        data: [[1523972199774, 20], [1523972201622, 30]],
+      },
+    ]);
   }
 }
 
 @Component({
   selector: 'dt-series-color',
   template: `
-  <dt-chart [series]="series" [options]="options"></dt-chart>
+    <dt-chart [series]="series" [options]="options"></dt-chart>
   `,
 })
 class SeriesColor {
@@ -437,12 +494,17 @@ class SeriesColor {
       id: 'someOtherMetricId',
       color: '#00ff00',
       data: [[1370304000000, 130], [1370390400000, 110]],
-    }];
+    },
+  ];
 }
 
 @Component({
   selector: 'dt-series-color',
-  template: `<div [dtTheme]="theme"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+  template: `
+    <div [dtTheme]="theme"
+      ><dt-chart [series]="series" [options]="options"></dt-chart
+    ></div>
+  `,
 })
 class SeriesTheme {
   theme = 'purple';
@@ -468,12 +530,17 @@ class SeriesTheme {
       name: 'Requests/min',
       id: 'someOtherMetricId',
       data: [[1370304000000, 130], [1370390400000, 110]],
-    }];
+    },
+  ];
 }
 
 @Component({
   selector: 'dt-series-color',
-  template: `<div dtTheme="purple"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+  template: `
+    <div dtTheme="purple"
+      ><dt-chart [series]="series" [options]="options"></dt-chart
+    ></div>
+  `,
 })
 class SeriesMoreThanTheme {
   options: DtChartOptions = {
@@ -514,7 +581,11 @@ class SeriesMoreThanTheme {
 
 @Component({
   selector: 'dt-series-color',
-  template: `<div dtTheme="purple"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+  template: `
+    <div dtTheme="purple"
+      ><dt-chart [series]="series" [options]="options"></dt-chart
+    ></div>
+  `,
 })
 class SeriesMoreThanOrderedColors {
   options: DtChartOptions = {
@@ -529,17 +600,24 @@ class SeriesMoreThanOrderedColors {
       max: 200,
     },
   };
-  series: DtChartSeries[] = Array.from(Array(DT_CHART_COLOR_PALETTE_ORDERED.length + 1).keys())
-    .map((): IndividualSeriesOptions => ({
+  series: DtChartSeries[] = Array.from(
+    Array(DT_CHART_COLOR_PALETTE_ORDERED.length + 1).keys()
+  ).map(
+    (): IndividualSeriesOptions => ({
       name: 'Actions/min',
       id: 'someMetricId',
       data: [[1370304000000, 140], [1370390400000, 120]],
-    }));
+    })
+  );
 }
 
 @Component({
   selector: 'dt-pie-color-theme',
-  template: `<div dtTheme="purple"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+  template: `
+    <div dtTheme="purple"
+      ><dt-chart [series]="series" [options]="options"></dt-chart
+    ></div>
+  `,
 })
 class PieChartThemeColors {
   options: DtChartOptions = {
@@ -547,27 +625,34 @@ class PieChartThemeColors {
       type: 'pie',
     },
   };
-  series = [{
-    name: 'Browsers',
-    data: [
-      {
-        name: 'Chrome',
-        y: 60,
-      },
-      {
-        name: 'Firefox',
-        y: 25,
-      },
-      {
-        name: 'Edge',
-        y: 15,
-      }],
-    }];
+  series = [
+    {
+      name: 'Browsers',
+      data: [
+        {
+          name: 'Chrome',
+          y: 60,
+        },
+        {
+          name: 'Firefox',
+          y: 25,
+        },
+        {
+          name: 'Edge',
+          y: 15,
+        },
+      ],
+    },
+  ];
 }
 
 @Component({
   selector: 'dt-pie-color-theme',
-  template: `<div dtTheme="purple"><dt-chart [series]="series" [options]="options"></dt-chart></div>`,
+  template: `
+    <div dtTheme="purple"
+      ><dt-chart [series]="series" [options]="options"></dt-chart
+    ></div>
+  `,
 })
 class PieChartOrderedColors {
   options: DtChartOptions = {
@@ -575,31 +660,36 @@ class PieChartOrderedColors {
       type: 'pie',
     },
   };
-  series = [{
-    name: 'Browsers',
-    data: [
-      {
-        name: 'Chrome',
-        y: 55,
-      },
-      {
-        name: 'Firefox',
-        y: 25,
-      },
-      {
-        name: 'Edge',
-        y: 15,
-      },
-      {
-        name: 'Others',
-        y: 5,
-      }],
-    }];
+  series = [
+    {
+      name: 'Browsers',
+      data: [
+        {
+          name: 'Chrome',
+          y: 55,
+        },
+        {
+          name: 'Firefox',
+          y: 25,
+        },
+        {
+          name: 'Edge',
+          y: 15,
+        },
+        {
+          name: 'Others',
+          y: 5,
+        },
+      ],
+    },
+  ];
 }
 
 @Component({
   selector: 'dt-empty-series',
-  template: `<dt-chart [series]="series" [options]="options"></dt-chart>`,
+  template: `
+    <dt-chart [series]="series" [options]="options"></dt-chart>
+  `,
 })
 class EmptySeries {
   options: DtChartOptions = {
@@ -612,7 +702,9 @@ class EmptySeries {
 
 @Component({
   selector: 'dt-empty-series',
-  template: `<dt-chart [series]="series" [options]="options"></dt-chart>`,
+  template: `
+    <dt-chart [series]="series" [options]="options"></dt-chart>
+  `,
 })
 class Loading {
   // tslint:disable-next-line:no-any
@@ -623,7 +715,9 @@ class Loading {
 
 @Component({
   selector: 'dt-empty-series',
-  template: `<dt-chart [loading-text]="loadingText" [series]="[]"></dt-chart>`,
+  template: `
+    <dt-chart [loading-text]="loadingText" [series]="[]"></dt-chart>
+  `,
 })
 class LoadingText {
   loadingText: string;

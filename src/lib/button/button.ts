@@ -19,7 +19,7 @@ import {
   mixinDisabled,
   CanDisable,
   replaceCssClass,
-  Constructor
+  Constructor,
 } from '@dynatrace/angular-components/core';
 import { DtIcon } from '@dynatrace/angular-components/icon';
 import { Subscription, NEVER } from 'rxjs';
@@ -32,10 +32,14 @@ export type DtButtonThemePalette = 'main' | 'warning' | 'cta';
 
 // Boilerplate for applying mixins to DtButton.
 export class DtButtonBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
-export const _DtButtonMixinBase =
-  mixinDisabled(mixinColor<Constructor<DtButtonBase>, DtButtonThemePalette>(DtButtonBase, 'main'));
+export const _DtButtonMixinBase = mixinDisabled(
+  mixinColor<Constructor<DtButtonBase>, DtButtonThemePalette>(
+    DtButtonBase,
+    'main'
+  )
+);
 
 export type ButtonVariant = 'primary' | 'secondary' | 'nested';
 const defaultVariant = 'primary';
@@ -48,7 +52,7 @@ const defaultVariant = 'primary';
   selector: `button[dt-button], button[dt-icon-button]`,
   exportAs: 'dtButton',
   host: {
-    'class': 'dt-button',
+    class: 'dt-button',
     '[class.dt-icon-button]': '_isIconButton',
     '[disabled]': 'disabled || null',
   },
@@ -62,10 +66,16 @@ const defaultVariant = 'primary';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtButton extends _DtButtonMixinBase
-  implements OnDestroy, AfterContentInit, CanDisable, CanColor<DtButtonThemePalette>, HasElementRef {
-
+  implements
+    OnDestroy,
+    AfterContentInit,
+    CanDisable,
+    CanColor<DtButtonThemePalette>,
+    HasElementRef {
   @Input()
-  get variant(): ButtonVariant { return this._variant; }
+  get variant(): ButtonVariant {
+    return this._variant;
+  }
   set variant(value: ButtonVariant) {
     const variant = value || defaultVariant;
     if (variant !== this._variant) {
@@ -101,8 +111,9 @@ export class DtButton extends _DtButtonMixinBase
     // We need to set markForCheck manually on every icons change
     // so that the template can determine if the icon container
     // should be shown or not
-    this._iconChangesSub = this._icons.changes
-      .subscribe(() => { this._changeDetectorRef.markForCheck(); });
+    this._iconChangesSub = this._icons.changes.subscribe(() => {
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   ngOnDestroy(): void {
@@ -121,9 +132,13 @@ export class DtButton extends _DtButtonMixinBase
   }
 
   private _replaceCssClass(newClass?: string, oldClass?: string): void {
-    replaceCssClass(this._elementRef, `dt-button-${oldClass}`, `dt-button-${newClass}`, this._renderer);
+    replaceCssClass(
+      this._elementRef,
+      `dt-button-${oldClass}`,
+      `dt-button-${newClass}`,
+      this._renderer
+    );
   }
-
 }
 
 /**
@@ -136,7 +151,7 @@ export class DtButton extends _DtButtonMixinBase
   selector: `a[dt-button], a[dt-icon-button]`,
   exportAs: 'dtButton, dtAnchor',
   host: {
-    'class': 'dt-button',
+    class: 'dt-button',
     '[class.dt-icon-button]': '_isIconButton',
     '[attr.tabindex]': 'disabled ? -1 : 0',
     '[attr.disabled]': 'disabled || null',

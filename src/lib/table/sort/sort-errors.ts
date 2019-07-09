@@ -1,6 +1,8 @@
 /** @internal */
 export function getDtSortHeaderNotContainedWithinSortError(): Error {
-  return Error(`DtSortHeader must be placed within a parent element with the DtSort directive.`);
+  return Error(
+    `DtSortHeader must be placed within a parent element with the DtSort directive.`
+  );
 }
 
 /** @internal */

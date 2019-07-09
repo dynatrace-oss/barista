@@ -49,8 +49,9 @@ describe('DtBytes', () => {
       },
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} converted to auto unit`, () => {
-        expect(pipe.transform(testCase.input).toString())
-          .toEqual(testCase.output);
+        expect(pipe.transform(testCase.input).toString()).toEqual(
+          testCase.output
+        );
       });
     });
   });
@@ -95,8 +96,11 @@ describe('DtBytes', () => {
       },
     ].forEach((testCase: TestCase) => {
       it(`should display different result (${testCase.output})`, () => {
-        expect(pipe.transform(testCase.input, testCase.factor, testCase.inputUnit).toString())
-          .toEqual(testCase.output);
+        expect(
+          pipe
+            .transform(testCase.input, testCase.factor, testCase.inputUnit)
+            .toString()
+        ).toEqual(testCase.output);
       });
     });
   });
@@ -109,7 +113,7 @@ describe('DtBytes', () => {
     });
 
     it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
-      class A { }
+      class A {}
       expect(pipe.transform({})).toEqual(NO_DATA);
       expect(pipe.transform([])).toEqual(NO_DATA);
       expect(pipe.transform(() => {})).toEqual(NO_DATA);
@@ -133,5 +137,4 @@ describe('DtBytes', () => {
       expect(pipe.transform(0).toString()).toEqual('0 B');
     });
   });
-
 });

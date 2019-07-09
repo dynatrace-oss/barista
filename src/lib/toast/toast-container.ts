@@ -10,13 +10,24 @@ import {
 } from '@angular/core';
 import { DT_TOAST_MESSAGE } from './toast';
 import { DT_TOAST_FADE_TIME } from './toast-config';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+  AnimationEvent,
+} from '@angular/animations';
 import { Subject } from 'rxjs';
-import { HasNgZone, mixinNotifyDomExit, CanNotifyOnExit } from '@dynatrace/angular-components/core';
+import {
+  HasNgZone,
+  mixinNotifyDomExit,
+  CanNotifyOnExit,
+} from '@dynatrace/angular-components/core';
 
 // Boilerplate for applying mixins to DtToastContainer.
 export class DtToastContainerBase implements HasNgZone {
-  constructor(public _ngZone: NgZone) { }
+  constructor(public _ngZone: NgZone) {}
 }
 export const _DtToastContainerMixin = mixinNotifyDomExit(DtToastContainerBase);
 
@@ -27,8 +38,8 @@ export const _DtToastContainerMixin = mixinNotifyDomExit(DtToastContainerBase);
   template: '{{message}}',
   styleUrls: ['toast-container.scss'],
   host: {
-    'class': 'dt-toast-container',
-    'role': 'alert',
+    class: 'dt-toast-container',
+    role: 'alert',
     '[@fade]': '_animationState',
     '(@fade.done)': '_animationDone($event)',
   },
@@ -37,13 +48,20 @@ export const _DtToastContainerMixin = mixinNotifyDomExit(DtToastContainerBase);
   encapsulation: ViewEncapsulation.Emulated,
   animations: [
     trigger('fade', [
-      state('enter', style({opacity: 1})),
-      transition('enter => exit', animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`)),
-      transition('void => enter', animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`)),
+      state('enter', style({ opacity: 1 })),
+      transition(
+        'enter => exit',
+        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`)
+      ),
+      transition(
+        'void => enter',
+        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`)
+      ),
     ]),
   ],
 })
-export class DtToastContainer extends _DtToastContainerMixin implements OnDestroy, CanNotifyOnExit {
+export class DtToastContainer extends _DtToastContainerMixin
+  implements OnDestroy, CanNotifyOnExit {
   private _destroyed = false;
 
   readonly _onEnter: Subject<void> = new Subject();
@@ -55,7 +73,7 @@ export class DtToastContainer extends _DtToastContainerMixin implements OnDestro
     public _ngZone: NgZone,
     public _elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef
-  )  {
+  ) {
     super(_ngZone);
   }
 
@@ -66,7 +84,7 @@ export class DtToastContainer extends _DtToastContainerMixin implements OnDestro
 
   /** Animation callback */
   _animationDone(event: AnimationEvent): void {
-    const {fromState, toState} = event;
+    const { fromState, toState } = event;
 
     if ((toState === 'void' && fromState !== 'void') || toState === 'exit') {
       this._notifyDomExit();

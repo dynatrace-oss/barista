@@ -1,4 +1,7 @@
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
+import {
+  coerceBooleanProperty,
+  coerceNumberProperty,
+} from '@angular/cdk/coercion';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,

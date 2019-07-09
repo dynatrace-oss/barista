@@ -6,11 +6,16 @@ import { generateData } from './chart-data-utils';
 
 @Component({
   selector: 'barista-demo',
-  template: `<button dt-button (click)="toggleData()">toggle data</button>
-  <dt-chart [options]="options" [series]="series" loading-text="Loading..."></dt-chart>`,
+  template: `
+    <button dt-button (click)="toggleData()">toggle data</button>
+    <dt-chart
+      [options]="options"
+      [series]="series"
+      loading-text="Loading..."
+    ></dt-chart>
+  `,
 })
 export class ChartLoadingExample {
-
   options: Highcharts.Options = {
     xAxis: {
       type: 'datetime',
@@ -29,12 +34,14 @@ export class ChartLoadingExample {
   series: DtChartSeries[] | null;
 
   toggleData(): void {
-    const dummyData = [{
-      name: 'Failure rate',
-      type: 'line',
-      color: DtColors.ROYALBLUE_700,
-      data: generateData(40, 0, 20, 1370304000000, 900000),
-    }];
+    const dummyData = [
+      {
+        name: 'Failure rate',
+        type: 'line',
+        color: DtColors.ROYALBLUE_700,
+        data: generateData(40, 0, 20, 1370304000000, 900000),
+      },
+    ];
     this.series = !this.series ? dummyData : null;
   }
 }

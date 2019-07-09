@@ -24,7 +24,6 @@ export interface Change {
  * Will add text to the source code.
  */
 export class InsertChange implements Change {
-
   order: number;
   description: string;
 
@@ -40,7 +39,7 @@ export class InsertChange implements Change {
    * This method does not insert spaces if there is none in the original string.
    */
   apply(host: Host): Promise<void> {
-    return host.read(this.path).then((content) => {
+    return host.read(this.path).then(content => {
       const prefix = content.substring(0, this.pos);
       const suffix = content.substring(this.pos);
 
@@ -52,9 +51,13 @@ export class InsertChange implements Change {
 /**
  * Commit changes to host
  */
-export function commitChanges(host: Tree, changes: InsertChange[], path: string): Tree {
+export function commitChanges(
+  host: Tree,
+  changes: InsertChange[],
+  path: string
+): Tree {
   const recorder = host.beginUpdate(path);
-  changes.forEach((change) => {
+  changes.forEach(change => {
     recorder.insertLeft(change.pos, change.toAdd);
   });
   host.commitUpdate(recorder);

@@ -1,6 +1,12 @@
 <ng-container *ngIf="idle">
   <span>{{value}}</span>
-  <button dt-icon-button variant="nested" #edit aria-label="edit" (click)="enterEditing()">
+  <button
+    dt-icon-button
+    variant="nested"
+    #edit
+    aria-label="edit"
+    (click)="enterEditing()"
+  >
     <dt-icon name="edit1"></dt-icon>
   </button>
 </ng-container>
@@ -8,17 +14,38 @@
 <dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
 <dt-form-field *ngIf="editing || saving">
-  <input dtInput #input [required]="required" [disabled]="saving" [(ngModel)]="value"
-    [errorStateMatcher]="errorStateMatcher" (keydown)="onKeyDown($event)" class="dt-form-field-input" />
+  <input
+    dtInput
+    #input
+    [required]="required"
+    [disabled]="saving"
+    [(ngModel)]="value"
+    [errorStateMatcher]="errorStateMatcher"
+    (keydown)="onKeyDown($event)"
+    class="dt-form-field-input"
+  />
 
-  <dt-error *ngFor="let error of _errorChildrenSource | async" [id]="error.id">{{error.message}}</dt-error>
+  <dt-error *ngFor="let error of _errorChildrenSource | async" [id]="error.id"
+    >{{error.message}}</dt-error
+  >
 
-  <button dt-icon-button dtSuffix variant="nested" [attr.aria-label]="ariaLabelSave" (click)="saveAndQuitEditing()" >
+  <button
+    dt-icon-button
+    dtSuffix
+    variant="nested"
+    [attr.aria-label]="ariaLabelSave"
+    (click)="saveAndQuitEditing()"
+  >
     <dt-icon name="checkmark"></dt-icon>
   </button>
 
-  <button dt-icon-button dtSuffix variant="nested" [attr.aria-label]="ariaLabelCancel" (click)="cancelAndQuitEditing()">
+  <button
+    dt-icon-button
+    dtSuffix
+    variant="nested"
+    [attr.aria-label]="ariaLabelCancel"
+    (click)="cancelAndQuitEditing()"
+  >
     <dt-icon name="abort"></dt-icon>
   </button>
-
 </dt-form-field>

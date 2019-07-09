@@ -2,10 +2,14 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, ChildNode, findChild, isElementWithName } from '../../utils';
+import {
+  addFailure,
+  ChildNode,
+  findChild,
+  isElementWithName,
+} from '../../utils';
 
 class DtTileVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -23,13 +27,13 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
     ];
 
     let childNodes: ChildNode[] = [];
-    directChildren.forEach((childName) => {
+    directChildren.forEach(childName => {
       childNodes = childNodes.concat(findChild(element, childName, 0));
     });
 
     const filteredChildren: string[] = childNodes
-      .filter((el) => el.level > 1)
-      .map((el) => el.name);
+      .filter(el => el.level > 1)
+      .map(el => el.name);
 
     if (filteredChildren.length < 1) {
       return;
@@ -37,7 +41,13 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
 
     const childrenNames = Array.from(new Set(filteredChildren));
 
-    addFailure(this, element, `The following elements must be direct children of a dt-tile: ${childrenNames.join(', ')}`);
+    addFailure(
+      this,
+      element,
+      `The following elements must be direct children of a dt-tile: ${childrenNames.join(
+        ', '
+      )}`
+    );
   }
 }
 
@@ -62,13 +72,14 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
  * </dt-tile>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a tile\'s child components are direct children of a dt-tile.',
+    description:
+      "Ensures that a tile's child components are direct children of a dt-tile.",
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A tile\'s child components (title, subtitle, icon) must always be direct children of the dt-tile.',
+    rationale:
+      "A tile's child components (title, subtitle, icon) must always be direct children of the dt-tile.",
     ruleName: 'dt-tile-direct-children',
     type: 'maintainability',
     typescriptOnly: true,

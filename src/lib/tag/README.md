@@ -55,4 +55,3 @@ In addition, also other selectors can be used.
 ### Interactive example
 
 <docs-source-example example="TagInteractiveExample"></docs-source-example>
-

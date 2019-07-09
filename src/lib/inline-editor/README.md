@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Inline editor
@@ -14,9 +14,7 @@ You have to import the `DtInlineEditorModule` when you want to use the `dt-inlin
 
 ```typescript
 @NgModule({
-  imports: [
-    DtInlineEditorModule,
-  ],
+  imports: [DtInlineEditorModule],
 })
 class MyModule {}
 ```
@@ -27,20 +25,20 @@ To apply, add the `dt-inline-editor` attribute to the HTML element.
 
 ## Options & Properties
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `ngModel` | `string` | - | The two-way data-binding to set the content and handle changes. |
-| `@Input() required` | `boolean` | `false` | To specify that the input field must not be left empty. |
-| `@Input() onRemoteSave` | `function` | - | A callback returning an Observable that will be triggered when the (potentially async) saving of the new value has finished. The inline editor needs to be notified so it can go back to idle state if ok or stay in editing mode if failed. |
-| `@Input() errorStateMatcher` | `ErrorStateMatcher` | `DefaultErrorStateMatcher` | A class used to control when error messages are shown. |
-| `@Input() ariaLabelSave` | `string` | - | Takes precedence as the save buttons's text alternative. |
-| `@Input() ariaLabelCancel` | `string` | - | Takes precedence as the cancel button's text alternative. |
-| `@Output() saved` | `EventEmitter<string>()` | - | Emitted when value is saved. |
-| `@Output() cancelled` | `EventEmitter<string>()` | - | Emitted when editing is cancelled. |
-| `value()` | `string` | `''` | Value of the inline editor. |
-| `idle()` | `boolean` | - | Whether current mode is idle (readonly). |
-| `editing()` | `boolean` | - | Whether current mode is editing (readonly). |
-| `saving()` | `boolean` | - | Whether current mode is saving (readonly). |
+| Name                         | Type                     | Default                    | Description                                                                                                                                                                                                                                  |
+| ---------------------------- | ------------------------ | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ngModel`                    | `string`                 | -                          | The two-way data-binding to set the content and handle changes.                                                                                                                                                                              |
+| `@Input() required`          | `boolean`                | `false`                    | To specify that the input field must not be left empty.                                                                                                                                                                                      |
+| `@Input() onRemoteSave`      | `function`               | -                          | A callback returning an Observable that will be triggered when the (potentially async) saving of the new value has finished. The inline editor needs to be notified so it can go back to idle state if ok or stay in editing mode if failed. |
+| `@Input() errorStateMatcher` | `ErrorStateMatcher`      | `DefaultErrorStateMatcher` | A class used to control when error messages are shown.                                                                                                                                                                                       |
+| `@Input() ariaLabelSave`     | `string`                 | -                          | Takes precedence as the save buttons's text alternative.                                                                                                                                                                                     |
+| `@Input() ariaLabelCancel`   | `string`                 | -                          | Takes precedence as the cancel button's text alternative.                                                                                                                                                                                    |
+| `@Output() saved`            | `EventEmitter<string>()` | -                          | Emitted when value is saved.                                                                                                                                                                                                                 |
+| `@Output() cancelled`        | `EventEmitter<string>()` | -                          | Emitted when editing is cancelled.                                                                                                                                                                                                           |
+| `value()`                    | `string`                 |  `''`                      |  Value of the inline editor.                                                                                                                                                                                                                 |
+| `idle()`                     | `boolean`                |  -                         |  Whether current mode is idle (readonly).                                                                                                                                                                                                    |
+| `editing()`                  | `boolean`                |  -                         |  Whether current mode is editing (readonly).                                                                                                                                                                                                 |
+| `saving()`                   | `boolean`                |  -                         |  Whether current mode is saving (readonly).                                                                                                                                                                                                  |
 
 ### Required field validation
 

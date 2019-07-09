@@ -14,13 +14,15 @@ describe('DtTag', () => {
       imports: [
         DtTagModule,
         HttpClientModule,
-        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations: [TestAppSimple, TestAppRemovable],
-      providers: [{
-        provide: HttpXhrBackend,
-        useClass: HttpClientTestingModule,
-      }],
+      providers: [
+        {
+          provide: HttpXhrBackend,
+          useClass: HttpClientTestingModule,
+        },
+      ],
     });
 
     TestBed.compileComponents();
@@ -30,7 +32,9 @@ describe('DtTag', () => {
     const fixture = createComponent(TestAppSimple);
     fixture.detectChanges();
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag dt-icon');
+    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-tag dt-icon'
+    );
     expect(tileNativeElement).toBeFalsy();
   });
 
@@ -38,7 +42,9 @@ describe('DtTag', () => {
     const fixture = createComponent(TestAppRemovable);
     fixture.detectChanges();
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-tag dt-icon');
+    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-tag dt-icon'
+    );
     expect(tileNativeElement).toBeTruthy();
   });
 
@@ -54,7 +60,6 @@ describe('DtTag', () => {
 
     expect(fixture.componentInstance.removeEventCount).toBe(1);
   });
-
 });
 
 /** Test component that contains an DtTag. */
@@ -64,12 +69,13 @@ describe('DtTag', () => {
     <dt-tag>Value</dt-tag>
   `,
 })
-class TestAppSimple {
-}
+class TestAppSimple {}
 
 @Component({
   selector: 'dt-test-app',
-  template: `<dt-tag removable (removed)="increaseEventCount()">Value</dt-tag>`,
+  template: `
+    <dt-tag removable (removed)="increaseEventCount()">Value</dt-tag>
+  `,
 })
 class TestAppRemovable {
   removeEventCount = 0;

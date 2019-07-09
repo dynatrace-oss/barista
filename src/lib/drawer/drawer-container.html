@@ -1,7 +1,8 @@
 <div
   *ngIf="_hasBackdrop"
   (click)="_handleBackdropClick()"
-  class="dt-drawer-backdrop">
+  class="dt-drawer-backdrop"
+>
 </div>
 
 <ng-content select="dt-drawer"></ng-content>
@@ -9,6 +10,7 @@
 <div
   class="dt-drawer-content"
   [style.margin-left.px]="_contentMargins.left"
-  [style.margin-right.px]="_contentMargins.right">
+  [style.margin-right.px]="_contentMargins.right"
+>
   <ng-content></ng-content>
 </div>

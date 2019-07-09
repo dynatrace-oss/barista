@@ -8,7 +8,7 @@ import {
   extractLineGapDataPoints,
   isDataMissing,
   isGapEnd,
-  isGapStart
+  isGapStart,
 } from './micro-chart-util';
 
 describe('DtMicroChartUtil', () => {
@@ -48,9 +48,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return false for index 0 with a single data point list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 0 }];
 
       // when
       const actual = isDataMissing(0, dataPoints);
@@ -61,9 +59,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 1 with a single data point list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 0 }];
 
       // when
       const actual = isDataMissing(1, dataPoints);
@@ -74,9 +70,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index -1 with a single data point list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 0 }];
 
       // when
       const actual = isDataMissing(-1, dataPoints);
@@ -87,9 +81,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 0 with a single data point with missing data list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }];
 
       // when
       const actual = isDataMissing(0, dataPoints);
@@ -100,9 +92,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 1 with a single data point with missing data list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }];
 
       // when
       const actual = isDataMissing(1, dataPoints);
@@ -113,9 +103,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index -1 with a single data point with missing data list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }];
 
       // when
       const actual = isDataMissing(-1, dataPoints);
@@ -161,9 +149,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return false for index 0 with a single data point list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 0 }];
 
       // when
       const actual = isGapStart(0, dataPoints);
@@ -174,9 +160,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 0 with a single data point with missing data list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }];
 
       // when
       const actual = isGapStart(0, dataPoints);
@@ -187,10 +171,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 0 with two data points with a gap at the beginning', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }];
 
       // when
       const actual = isGapStart(0, dataPoints);
@@ -201,10 +182,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return false for index 1 with two data points with a gap at the beginning', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }];
 
       // when
       const actual = isGapStart(1, dataPoints);
@@ -215,10 +193,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return false for index 0 with two data points with a gap at the end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 0},
-        {x: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 0 }, { x: 1 }];
 
       // when
       const actual = isGapStart(0, dataPoints);
@@ -229,10 +204,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 1 with two data points with a gap at the end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 0},
-        {x: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 0 }, { x: 1 }];
 
       // when
       const actual = isGapStart(1, dataPoints);
@@ -244,9 +216,9 @@ describe('DtMicroChartUtil', () => {
     it('should return false for index 0 with three data points with a gap in the middle', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 1, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 1, y: 2 },
       ];
 
       // when
@@ -259,9 +231,9 @@ describe('DtMicroChartUtil', () => {
     it('should return true for index 1 with three data points with a gap in the middle', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 1, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 1, y: 2 },
       ];
 
       // when
@@ -274,9 +246,9 @@ describe('DtMicroChartUtil', () => {
     it('should return false for index 2 with three data points with a gap in the middle', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 1, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 1, y: 2 },
       ];
 
       // when
@@ -288,11 +260,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 0 with three data points with gaps at the beginning an end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-        {x: 2},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }, { x: 2 }];
 
       // when
       const actual = isGapStart(0, dataPoints);
@@ -303,11 +271,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return false for index 1 with three data points with gaps at the beginning an end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-        {x: 2},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }, { x: 2 }];
 
       // when
       const actual = isGapStart(1, dataPoints);
@@ -318,11 +282,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 2 with three data points with gaps at the beginning an end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-        {x: 2},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }, { x: 2 }];
 
       // when
       const actual = isGapStart(2, dataPoints);
@@ -334,12 +294,12 @@ describe('DtMicroChartUtil', () => {
     it('should return true for index 1 with multiple data points with a single gap in between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2},
-        {x: 3},
-        {x: 4},
-        {x: 5, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2 },
+        { x: 3 },
+        { x: 4 },
+        { x: 5, y: 2 },
       ];
 
       // when
@@ -352,12 +312,12 @@ describe('DtMicroChartUtil', () => {
     it('should return false for index 2 with multiple data points with a single gap in between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2},
-        {x: 3},
-        {x: 4},
-        {x: 5, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2 },
+        { x: 3 },
+        { x: 4 },
+        { x: 5, y: 2 },
       ];
 
       // when
@@ -370,12 +330,12 @@ describe('DtMicroChartUtil', () => {
     it('should return false for index 4 with multiple data points with a single gap in between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2},
-        {x: 3},
-        {x: 4},
-        {x: 5, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2 },
+        { x: 3 },
+        { x: 4 },
+        { x: 5, y: 2 },
       ];
 
       // when
@@ -422,9 +382,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return false for index 0 with a single data point list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 0 }];
 
       // when
       const actual = isGapEnd(0, dataPoints);
@@ -435,9 +393,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 0 with a single data point with missing data list', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }];
 
       // when
       const actual = isGapEnd(0, dataPoints);
@@ -448,10 +404,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 0 with two data points with a gap at the beginning', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }];
 
       // when
       const actual = isGapEnd(0, dataPoints);
@@ -462,10 +415,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return false for index 1 with two data points with a gap at the beginning', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }];
 
       // when
       const actual = isGapEnd(1, dataPoints);
@@ -476,10 +426,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return false for index 0 with two data points with a gap at the end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 0},
-        {x: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 0 }, { x: 1 }];
 
       // when
       const actual = isGapEnd(0, dataPoints);
@@ -490,10 +437,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 1 with two data points with a gap at the end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 0},
-        {x: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 0 }, { x: 1 }];
 
       // when
       const actual = isGapEnd(1, dataPoints);
@@ -505,9 +449,9 @@ describe('DtMicroChartUtil', () => {
     it('should return false for index 0 with three data points with a gap in the middle', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 1, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 1, y: 2 },
       ];
 
       // when
@@ -520,9 +464,9 @@ describe('DtMicroChartUtil', () => {
     it('should return true for index 1 with three data points with a gap in the middle', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 1, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 1, y: 2 },
       ];
 
       // when
@@ -535,9 +479,9 @@ describe('DtMicroChartUtil', () => {
     it('should return false for index 2 with three data points with a gap in the middle', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 1, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 1, y: 2 },
       ];
 
       // when
@@ -549,11 +493,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 0 with three data points with gaps at the beginning an end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-        {x: 2},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }, { x: 2 }];
 
       // when
       const actual = isGapEnd(0, dataPoints);
@@ -564,11 +504,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return false for index 1 with three data points with gaps at the beginning an end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-        {x: 2},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }, { x: 2 }];
 
       // when
       const actual = isGapEnd(1, dataPoints);
@@ -579,11 +515,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return true for index 2 with three data points with gaps at the beginning an end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-        {x: 2},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }, { x: 2 }];
 
       // when
       const actual = isGapEnd(2, dataPoints);
@@ -595,12 +527,12 @@ describe('DtMicroChartUtil', () => {
     it('should return false for index 1 with multiple data points with a single gap in between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2},
-        {x: 3},
-        {x: 4},
-        {x: 5, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2 },
+        { x: 3 },
+        { x: 4 },
+        { x: 5, y: 2 },
       ];
 
       // when
@@ -613,12 +545,12 @@ describe('DtMicroChartUtil', () => {
     it('should return false for index 2 with multiple data points with a single gap in between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2},
-        {x: 3},
-        {x: 4},
-        {x: 5, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2 },
+        { x: 3 },
+        { x: 4 },
+        { x: 5, y: 2 },
       ];
 
       // when
@@ -631,12 +563,12 @@ describe('DtMicroChartUtil', () => {
     it('should return true for index 4 with multiple data points with a single gap in between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2},
-        {x: 3},
-        {x: 4},
-        {x: 5, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2 },
+        { x: 3 },
+        { x: 4 },
+        { x: 5, y: 2 },
       ];
 
       // when
@@ -661,9 +593,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return an empty gap list for a single data point', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }];
 
       // when
       const actual = extractGaps(dataPoints);
@@ -674,9 +604,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return a gap list for a single data point without value', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }];
 
       // when
       const actual = extractGaps(dataPoints);
@@ -687,10 +615,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return a gap list for two data points without value', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1 }];
 
       // when
       const actual = extractGaps(dataPoints);
@@ -701,10 +626,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return a gap list for two data points with a gap at the beginning', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }];
 
       // when
       const actual = extractGaps(dataPoints);
@@ -715,10 +637,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return a gap list for two data points with a gap at the end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }, { x: 1 }];
 
       // when
       const actual = extractGaps(dataPoints);
@@ -730,9 +649,9 @@ describe('DtMicroChartUtil', () => {
     it('should return a gap list for three data points with a gap in the middle', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 1, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 1, y: 2 },
       ];
 
       // when
@@ -744,11 +663,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should return a gap list for three data points with gaps at the beginning an end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-        {x: 2},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }, { x: 2 }];
 
       // when
       const actual = extractGaps(dataPoints);
@@ -760,12 +675,12 @@ describe('DtMicroChartUtil', () => {
     it('should return a gap list for multiple data points with a single gap in between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2},
-        {x: 3},
-        {x: 4},
-        {x: 5, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2 },
+        { x: 3 },
+        { x: 4 },
+        { x: 5, y: 2 },
       ];
 
       // when
@@ -790,9 +705,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should create an empty gap list for a single data point', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }];
 
       // when
       const actual = extractLineGapDataPoints(dataPoints);
@@ -803,10 +716,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should create an empty gap list for two data points', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1, y: 2},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }, { x: 1, y: 2 }];
 
       // when
       const actual = extractLineGapDataPoints(dataPoints);
@@ -818,61 +728,68 @@ describe('DtMicroChartUtil', () => {
     it('should create a gap list for two data points with gap between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2, y: 2 },
       ];
 
       // when
       const actual = extractLineGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 0, y: 1}, {x: 2, y: 2}]);
+      expect(actual).toEqual([{ x: 0, y: 1 }, { x: 2, y: 2 }]);
     });
 
     it('should create a gap list for three data points with gaps between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2, y: 2},
-        {x: 3},
-        {x: 4, y: 3},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2, y: 2 },
+        { x: 3 },
+        { x: 4, y: 3 },
       ];
 
       // when
       const actual = extractLineGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 0, y: 1}, {x: 2, y: 2}, {x: 2}, {x: 2, y: 2}, {x: 4, y: 3}]);
+      expect(actual).toEqual([
+        { x: 0, y: 1 },
+        { x: 2, y: 2 },
+        { x: 2 },
+        { x: 2, y: 2 },
+        { x: 4, y: 3 },
+      ]);
     });
 
     it('should create a gap list for multiple consecutive data points with gaps in between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2, y: 2},
-        {x: 3, y: 3},
-        {x: 4},
-        {x: 5, y: 4},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2, y: 2 },
+        { x: 3, y: 3 },
+        { x: 4 },
+        { x: 5, y: 4 },
       ];
 
       // when
       const actual = extractLineGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 0, y: 1}, {x: 2, y: 2}, {x: 2}, {x: 3, y: 3}, {x: 5, y: 4}]);
+      expect(actual).toEqual([
+        { x: 0, y: 1 },
+        { x: 2, y: 2 },
+        { x: 2 },
+        { x: 3, y: 3 },
+        { x: 5, y: 4 },
+      ]);
     });
 
     it('should create no gap list for multiple gaps without real data points', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1},
-        {x: 2},
-        {x: 3},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1 }, { x: 2 }, { x: 3 }];
 
       // when
       const actual = extractLineGapDataPoints(dataPoints);
@@ -883,30 +800,24 @@ describe('DtMicroChartUtil', () => {
 
     it('should create a gap list for a single data point with a gap at the beginning', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }];
 
       // when
       const actual = extractLineGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 0, y: 1}, {x: 1, y: 1}]);
+      expect(actual).toEqual([{ x: 0, y: 1 }, { x: 1, y: 1 }]);
     });
 
     it('should create a gap list for a single data point with a gap at the end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }, { x: 1 }];
 
       // when
       const actual = extractLineGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 0, y: 1}, {x: 1, y: 1}]);
+      expect(actual).toEqual([{ x: 0, y: 1 }, { x: 1, y: 1 }]);
     });
   });
 
@@ -924,9 +835,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should create an empty gap list for a single data point', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }];
 
       // when
       const actual = extractColumnGapDataPoints(dataPoints);
@@ -937,10 +846,7 @@ describe('DtMicroChartUtil', () => {
 
     it('should create an empty gap list for two data points', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1, y: 2},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }, { x: 1, y: 2 }];
 
       // when
       const actual = extractColumnGapDataPoints(dataPoints);
@@ -952,61 +858,56 @@ describe('DtMicroChartUtil', () => {
     it('should create a gap list for two data points with gap between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2, y: 2},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2, y: 2 },
       ];
 
       // when
       const actual = extractColumnGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 1, y: 1}]);
+      expect(actual).toEqual([{ x: 1, y: 1 }]);
     });
 
     it('should create a gap list for three data points with gaps between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2, y: 2},
-        {x: 3},
-        {x: 4, y: 3},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2, y: 2 },
+        { x: 3 },
+        { x: 4, y: 3 },
       ];
 
       // when
       const actual = extractColumnGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 1, y: 1}, {x: 3, y: 2}]);
+      expect(actual).toEqual([{ x: 1, y: 1 }, { x: 3, y: 2 }]);
     });
 
     it('should create a gap list for multiple consecutive data points with gaps in between', () => {
       // given
       const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-        {x: 2, y: 2},
-        {x: 3, y: 3},
-        {x: 4},
-        {x: 5, y: 4},
+        { x: 0, y: 1 },
+        { x: 1 },
+        { x: 2, y: 2 },
+        { x: 3, y: 3 },
+        { x: 4 },
+        { x: 5, y: 4 },
       ];
 
       // when
       const actual = extractColumnGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 1, y: 1}, {x: 4, y: 3}]);
+      expect(actual).toEqual([{ x: 1, y: 1 }, { x: 4, y: 3 }]);
     });
 
     it('should create no gap list for multiple gaps without real data points', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1},
-        {x: 2},
-        {x: 3},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1 }, { x: 2 }, { x: 3 }];
 
       // when
       const actual = extractColumnGapDataPoints(dataPoints);
@@ -1017,30 +918,24 @@ describe('DtMicroChartUtil', () => {
 
     it('should create a gap list for a single data point with a gap at the beginning', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0},
-        {x: 1, y: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0 }, { x: 1, y: 1 }];
 
       // when
       const actual = extractColumnGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 0, y: 1}]);
+      expect(actual).toEqual([{ x: 0, y: 1 }]);
     });
 
     it('should create a gap list for a single data point with a gap at the end', () => {
       // given
-      const dataPoints: DataPoint[] = [
-        {x: 0, y: 1},
-        {x: 1},
-      ];
+      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }, { x: 1 }];
 
       // when
       const actual = extractColumnGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{x: 1, y: 1}]);
+      expect(actual).toEqual([{ x: 1, y: 1 }]);
     });
   });
 });

@@ -3,7 +3,15 @@
 
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, flush } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  flush,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtContextDialog,
@@ -18,12 +26,14 @@ describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
 
   // tslint:disable-next-line:no-any
-  function configureDtContextDialogTestingModule(declarations: any[] | undefined): void {
+  function configureDtContextDialogTestingModule(
+    declarations: any[] | undefined
+  ): void {
     TestBed.configureTestingModule({
       imports: [
         DtContextDialogModule,
         HttpClientTestingModule,
-        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations,
     }).compileComponents();
@@ -39,9 +49,7 @@ describe('DtContextDialog', () => {
 
   describe('core', () => {
     beforeEach(async(() => {
-      configureDtContextDialogTestingModule([
-        BasicContextDialog,
-      ]);
+      configureDtContextDialogTestingModule([BasicContextDialog]);
     }));
     describe('accessibility', () => {
       describe('for context-dialog', () => {
@@ -51,17 +59,21 @@ describe('DtContextDialog', () => {
 
         beforeEach(fakeAsync(() => {
           fixture = createComponent(BasicContextDialog);
-          contextDialog = fixture.debugElement.query(By.css('.dt-context-dialog')).nativeElement;
-          contextDialogDefaultTrigger = fixture.debugElement
-            .query(By.css('.dt-context-dialog-trigger')).nativeElement;
+          contextDialog = fixture.debugElement.query(
+            By.css('.dt-context-dialog')
+          ).nativeElement;
+          contextDialogDefaultTrigger = fixture.debugElement.query(
+            By.css('.dt-context-dialog-trigger')
+          ).nativeElement;
         }));
 
         it('should set the role of the overlay to dialog', fakeAsync(() => {
           fixture.componentInstance.contextDialog.open();
           fixture.detectChanges();
           tick();
-          const contextMenuPanel = fixture.debugElement
-            .query(By.css('.dt-context-dialog-panel')).nativeElement;
+          const contextMenuPanel = fixture.debugElement.query(
+            By.css('.dt-context-dialog-panel')
+          ).nativeElement;
           expect(contextMenuPanel.getAttribute('role')).toEqual('dialog');
         }));
 
@@ -69,15 +81,20 @@ describe('DtContextDialog', () => {
           fixture.componentInstance.contextDialog.open();
           fixture.detectChanges();
           tick();
-          const contextDialogPanel = fixture.debugElement
-            .query(By.css('.dt-context-dialog-panel')).nativeElement;
-          expect(contextDialogPanel.classList.contains('dt-theme-dark')).toEqual(true);
+          const contextDialogPanel = fixture.debugElement.query(
+            By.css('.dt-context-dialog-panel')
+          ).nativeElement;
+          expect(
+            contextDialogPanel.classList.contains('dt-theme-dark')
+          ).toEqual(true);
         }));
 
         it('should support setting a custom aria-label for the trigger button', fakeAsync(() => {
           fixture.componentInstance.ariaLabel = 'Custom Label';
           fixture.detectChanges();
-          expect(contextDialogDefaultTrigger.getAttribute('aria-label')).toEqual('Custom Label');
+          expect(
+            contextDialogDefaultTrigger.getAttribute('aria-label')
+          ).toEqual('Custom Label');
         }));
 
         it('should support setting a custom aria-label for the close button', fakeAsync(() => {
@@ -85,19 +102,26 @@ describe('DtContextDialog', () => {
           fixture.componentInstance.contextDialog.open();
           fixture.detectChanges();
           tick();
-          const contextDialogCloseTrigger = fixture.debugElement
-            .query(By.css('.dt-context-dialog-close-trigger')).nativeElement;
-          expect(contextDialogCloseTrigger.getAttribute('aria-label')).toEqual('Close context dialog');
+          const contextDialogCloseTrigger = fixture.debugElement.query(
+            By.css('.dt-context-dialog-close-trigger')
+          ).nativeElement;
+          expect(contextDialogCloseTrigger.getAttribute('aria-label')).toEqual(
+            'Close context dialog'
+          );
         }));
 
         it('should set the tabindex of the trigger to 0 by default', fakeAsync(() => {
-          expect(contextDialogDefaultTrigger.getAttribute('tabindex')).toEqual('0');
+          expect(contextDialogDefaultTrigger.getAttribute('tabindex')).toEqual(
+            '0'
+          );
         }));
 
         it('should be able to override the tabindex', fakeAsync(() => {
           fixture.componentInstance.tabIndexOverride = 3;
           fixture.detectChanges();
-          expect(contextDialogDefaultTrigger.getAttribute('tabindex')).toBe('3');
+          expect(contextDialogDefaultTrigger.getAttribute('tabindex')).toBe(
+            '3'
+          );
         }));
 
         it('should set aria-disabled for disabled context dialog', fakeAsync(() => {
@@ -110,10 +134,14 @@ describe('DtContextDialog', () => {
         it('should set the tabindex of the context dialog to -1 if disabled', fakeAsync(() => {
           fixture.componentInstance.disabled = true;
           fixture.detectChanges();
-          expect(contextDialogDefaultTrigger.getAttribute('tabindex')).toEqual('-1');
+          expect(contextDialogDefaultTrigger.getAttribute('tabindex')).toEqual(
+            '-1'
+          );
           fixture.componentInstance.disabled = false;
           fixture.detectChanges();
-          expect(contextDialogDefaultTrigger.getAttribute('tabindex')).toEqual('0');
+          expect(contextDialogDefaultTrigger.getAttribute('tabindex')).toEqual(
+            '0'
+          );
         }));
 
         it('should be able to focus the context dialog default trigger', fakeAsync(() => {
@@ -122,77 +150,106 @@ describe('DtContextDialog', () => {
           fixture.componentInstance.contextDialog.focus();
           tick();
 
-          expect(document.activeElement)
-            .toBe(contextDialogDefaultTrigger, 'Expected context Dialog trigger to be focused.');
+          expect(document.activeElement).toBe(
+            contextDialogDefaultTrigger,
+            'Expected context Dialog trigger to be focused.'
+          );
         }));
 
         it('should be able to show custom trigger', fakeAsync(() => {
           fixture.componentInstance.customTrigger = true;
           fixture.detectChanges();
 
-          const  contextDialogCustomTrigger = fixture.debugElement.query(By.directive(DtContextDialogTrigger));
-          expect(contextDialogCustomTrigger)
-            .toBeTruthy('Expected the DtContextDialogTrigger to display custom trigger button');
-          expect(contextDialogDefaultTrigger.hidden)
-            .toBeTruthy('Expected the DtContextDialogTrigger to hide default trigger button');
+          const contextDialogCustomTrigger = fixture.debugElement.query(
+            By.directive(DtContextDialogTrigger)
+          );
+          expect(contextDialogCustomTrigger).toBeTruthy(
+            'Expected the DtContextDialogTrigger to display custom trigger button'
+          );
+          expect(contextDialogDefaultTrigger.hidden).toBeTruthy(
+            'Expected the DtContextDialogTrigger to hide default trigger button'
+          );
         }));
 
         it('should be able open context dialog by clicking custom trigger', fakeAsync(() => {
           fixture.componentInstance.customTrigger = true;
           fixture.detectChanges();
 
-          const  contextDialogCustomTrigger = fixture.debugElement.query(By.directive(DtContextDialogTrigger));
+          const contextDialogCustomTrigger = fixture.debugElement.query(
+            By.directive(DtContextDialogTrigger)
+          );
           contextDialogCustomTrigger.nativeElement.click();
           tick();
-          expect(fixture.componentInstance.contextDialog.isPanelOpen)
-            .toBeTruthy('Expected the custom trigger to open the context dialog');
+          expect(
+            fixture.componentInstance.contextDialog.isPanelOpen
+          ).toBeTruthy(
+            'Expected the custom trigger to open the context dialog'
+          );
         }));
 
         it('should be able to focus the context dialog custom trigger', fakeAsync(() => {
           fixture.componentInstance.customTrigger = true;
           fixture.detectChanges();
-          const  contextDialogCustomTrigger = fixture.debugElement.query(By.directive(DtContextDialogTrigger)).nativeElement;
+          const contextDialogCustomTrigger = fixture.debugElement.query(
+            By.directive(DtContextDialogTrigger)
+          ).nativeElement;
           document.body.focus(); // ensure that focus isn't on the trigger already
           tick();
           fixture.componentInstance.contextDialog.focus();
           tick();
 
-          expect(document.activeElement)
-            .toBe(contextDialogCustomTrigger, 'Expected context Dialog custom trigger to be focused.');
+          expect(document.activeElement).toBe(
+            contextDialogCustomTrigger,
+            'Expected context Dialog custom trigger to be focused.'
+          );
         }));
 
         it('should be able to unregister a custom trigger', fakeAsync(() => {
           fixture.componentInstance.customTrigger = true;
           fixture.detectChanges();
-          expect(fixture.componentInstance.contextDialog.trigger)
-            .toBe(fixture.componentInstance.contextDialogTrigger, 'Expected context Dialog custom trigger to be assigned.');
+          expect(fixture.componentInstance.contextDialog.trigger).toBe(
+            fixture.componentInstance.contextDialogTrigger,
+            'Expected context Dialog custom trigger to be assigned.'
+          );
           fixture.componentInstance.contextDialogTrigger._unregisterFromDialog();
           fixture.detectChanges();
-          const contextDialogDefaultTriggerComponent = fixture.componentInstance.contextDialog._defaultTrigger;
+          const contextDialogDefaultTriggerComponent =
+            fixture.componentInstance.contextDialog._defaultTrigger;
 
-          expect(contextDialogDefaultTrigger.hidden)
-            .toBeFalsy('Expected to show default trigger button');
-          expect(fixture.componentInstance.contextDialog.trigger)
-            .toBe(contextDialogDefaultTriggerComponent, 'Expected context Dialog default trigger to be assigned.');
+          expect(contextDialogDefaultTrigger.hidden).toBeFalsy(
+            'Expected to show default trigger button'
+          );
+          expect(fixture.componentInstance.contextDialog.trigger).toBe(
+            contextDialogDefaultTriggerComponent,
+            'Expected context Dialog default trigger to be assigned.'
+          );
         }));
 
         it('should close the overlay when a custom trigger gets destroyed', () => {
           fixture.componentInstance.customTrigger = true;
           fixture.detectChanges();
           fixture.componentInstance.contextDialog.open();
-          let panel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-panel');
+          let panel = overlayContainer
+            .getContainerElement()
+            .querySelector('.dt-context-dialog-panel');
           expect(panel).toBeDefined();
           fixture.componentInstance.customTrigger = false;
           fixture.detectChanges();
-          panel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-panel');
+          panel = overlayContainer
+            .getContainerElement()
+            .querySelector('.dt-context-dialog-panel');
           expect(panel).toBeNull();
         });
         it('should dispose the overlay when the context dialog is destroyed', () => {
           fixture.componentInstance.contextDialog.open();
-          let panel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-panel');
+          let panel = overlayContainer
+            .getContainerElement()
+            .querySelector('.dt-context-dialog-panel');
           expect(panel).toBeDefined();
           fixture.destroy();
-          panel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-panel');
+          panel = overlayContainer
+            .getContainerElement()
+            .querySelector('.dt-context-dialog-panel');
           expect(panel).toBeNull();
         });
 
@@ -201,8 +258,9 @@ describe('DtContextDialog', () => {
           fixture.componentInstance.contextDialog.open();
           fixture.detectChanges();
 
-          expect(document.activeElement)
-            .toBe(fixture.componentInstance.firstInteractive.nativeElement);
+          expect(document.activeElement).toBe(
+            fixture.componentInstance.firstInteractive.nativeElement
+          );
         }));
       });
     });
@@ -218,7 +276,9 @@ describe('DtContextDialog', () => {
         contextDialog.open();
         fixture.detectChanges();
         tick();
-        const backdrop = overlayContainer.getContainerElement().querySelector('.cdk-overlay-backdrop');
+        const backdrop = overlayContainer
+          .getContainerElement()
+          .querySelector('.cdk-overlay-backdrop');
         expect(backdrop).not.toBeNull();
         (backdrop! as HTMLElement).click();
         fixture.detectChanges();
@@ -236,10 +296,16 @@ describe('DtContextDialog', () => {
 @Component({
   selector: 'dt-basic-context-dialog',
   template: `
-    <button *ngIf="customTrigger" dt-icon-button [dtContextDialogTrigger]="dialog" variant="secondary">
+    <button
+      *ngIf="customTrigger"
+      dt-icon-button
+      [dtContextDialogTrigger]="dialog"
+      variant="secondary"
+    >
       <dt-icon name="agent"></dt-icon>
     </button>
-    <dt-context-dialog #dialog
+    <dt-context-dialog
+      #dialog
       [aria-label]="ariaLabel"
       [aria-label-close-button]="ariaLabelClose"
       [tabIndex]="tabIndexOverride"
@@ -258,6 +324,7 @@ class BasicContextDialog {
   customTrigger = false;
 
   @ViewChild(DtContextDialog, { static: false }) contextDialog: DtContextDialog;
-  @ViewChild(DtContextDialogTrigger, { static: false }) contextDialogTrigger: DtContextDialogTrigger;
+  @ViewChild(DtContextDialogTrigger, { static: false })
+  contextDialogTrigger: DtContextDialogTrigger;
   @ViewChild('interactive', { static: false }) firstInteractive: ElementRef;
 }

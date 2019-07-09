@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren,
+  AfterViewInit,
+} from '@angular/core';
 import { DtPagination, DtTableDataSource } from '@dynatrace/angular-components';
 import { of, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -24,43 +31,98 @@ export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren(DtPagination) paginationList: QueryList<DtPagination>;
 
   ngOnInit(): void {
-    this.subscription = of(this.dataSource1)
-      .subscribe((data: HostUnit[]) => {
-        this.dataSource.data = data;
-      });
+    this.subscription = of(this.dataSource1).subscribe((data: HostUnit[]) => {
+      this.dataSource.data = data;
+    });
   }
 
   ngAfterViewInit(): void {
-
-    this.paginationList.changes
-      .pipe(
-        startWith(null)
-      ).subscribe(() => {
-        if (this.paginationList.first) {
-          this.dataSource.pagination = this.paginationList.first;
-          this.dataSource.pageSize = this.pageSize;
-        } else {
-          this.dataSource.pagination = null;
-        }
-      });
+    this.paginationList.changes.pipe(startWith(null)).subscribe(() => {
+      if (this.paginationList.first) {
+        this.dataSource.pagination = this.paginationList.first;
+        this.dataSource.pageSize = this.pageSize;
+      } else {
+        this.dataSource.pagination = null;
+      }
+    });
   }
 
   dataSource1: HostUnit[] = [
-    { host: 'et-demo-2-win4', cpu: '30 %', memory: '38 % of 5.83 GB', traffic: '98.7 Mbit/s' },
-    { host: 'et-demo-2-win3', cpu: '26 %', memory: '46 % of 6 GB', traffic: '625 Mbit/s' },
-    { host: 'docker-host2', cpu: '25.4 %', memory: '38 % of 5.83 GB', traffic: '419 Mbit/s' },
-    { host: 'et-demo-2-win1', cpu: '23 %', memory: '7.86 % of 5.83 GB', traffic: '98.7 Mbit/s' },
-    { host: 'et-demo-2-win8', cpu: '78 %', memory: '21 % of 10 TB', traffic: '918.7 Mbit/s' },
-    { host: 'et-demo-2-macOS', cpu: '21 %', memory: '34 % of 1.45 GB', traffic: '12 Mbit/s' },
-    { host: 'kyber-host6', cpu: '12.3 %', memory: '12 % of 6.2 GB', traffic: '45 Mbit/s' },
-    { host: 'dev-demo-5-macOS', cpu: '24 %', memory: '8,6 % of 7 GB', traffic: '32.7 Mbit/s' },
+    {
+      host: 'et-demo-2-win4',
+      cpu: '30 %',
+      memory: '38 % of 5.83 GB',
+      traffic: '98.7 Mbit/s',
+    },
+    {
+      host: 'et-demo-2-win3',
+      cpu: '26 %',
+      memory: '46 % of 6 GB',
+      traffic: '625 Mbit/s',
+    },
+    {
+      host: 'docker-host2',
+      cpu: '25.4 %',
+      memory: '38 % of 5.83 GB',
+      traffic: '419 Mbit/s',
+    },
+    {
+      host: 'et-demo-2-win1',
+      cpu: '23 %',
+      memory: '7.86 % of 5.83 GB',
+      traffic: '98.7 Mbit/s',
+    },
+    {
+      host: 'et-demo-2-win8',
+      cpu: '78 %',
+      memory: '21 % of 10 TB',
+      traffic: '918.7 Mbit/s',
+    },
+    {
+      host: 'et-demo-2-macOS',
+      cpu: '21 %',
+      memory: '34 % of 1.45 GB',
+      traffic: '12 Mbit/s',
+    },
+    {
+      host: 'kyber-host6',
+      cpu: '12.3 %',
+      memory: '12 % of 6.2 GB',
+      traffic: '45 Mbit/s',
+    },
+    {
+      host: 'dev-demo-5-macOS',
+      cpu: '24 %',
+      memory: '8,6 % of 7 GB',
+      traffic: '32.7 Mbit/s',
+    },
   ];
 
   dataSource2: HostUnit[] = [
-    { host: 'et-demo-2-win4', cpu: '30', memory: '38 % of 5.83 GB', traffic: '98.7' },
-    { host: 'et-demo-2-win3', cpu: '26', memory: '46 % of 6 GB', traffic: '625' },
-    { host: 'docker-host2', cpu: '25.4', memory: '38 % of 5.83 GB', traffic: '419' },
-    { host: 'et-demo-2-win1', cpu: '23', memory: '7.86 % of 5.83 GB', traffic: '98.7' },
+    {
+      host: 'et-demo-2-win4',
+      cpu: '30',
+      memory: '38 % of 5.83 GB',
+      traffic: '98.7',
+    },
+    {
+      host: 'et-demo-2-win3',
+      cpu: '26',
+      memory: '46 % of 6 GB',
+      traffic: '625',
+    },
+    {
+      host: 'docker-host2',
+      cpu: '25.4',
+      memory: '38 % of 5.83 GB',
+      traffic: '419',
+    },
+    {
+      host: 'et-demo-2-win1',
+      cpu: '23',
+      memory: '7.86 % of 5.83 GB',
+      traffic: '98.7',
+    },
   ];
 
   series: Highcharts.IndividualSeriesOptions[] = [
@@ -109,7 +171,8 @@ export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
         [1370338200000, 33],
         [1370339100000, 74],
       ],
-    }];
+    },
+  ];
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

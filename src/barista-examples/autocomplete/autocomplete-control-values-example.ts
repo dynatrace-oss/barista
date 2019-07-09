@@ -8,10 +8,20 @@ import { COUNTRIES, countryCompareWithFn, CountryOption } from './countries';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-  <input dtInput [dtAutocomplete]="auto" [formControl]="myControl" placeholder="Search a country" aria-label="Search a country">
-  <dt-autocomplete #auto="dtAutocomplete" [displayWith]="displayFn">
-    <dt-option *ngFor="let option of filteredOptions | async" [value]="option">{{option.name}}</dt-option>
-  </dt-autocomplete>
+    <input
+      dtInput
+      [dtAutocomplete]="auto"
+      [formControl]="myControl"
+      placeholder="Search a country"
+      aria-label="Search a country"
+    />
+    <dt-autocomplete #auto="dtAutocomplete" [displayWith]="displayFn">
+      <dt-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option"
+        >{{ option.name }}</dt-option
+      >
+    </dt-autocomplete>
   `,
 })
 export class AutocompleteControlValuesExample implements OnInit {
@@ -22,8 +32,8 @@ export class AutocompleteControlValuesExample implements OnInit {
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith<string | CountryOption>(''),
-      map((value) => typeof value === 'string' ? value : value.name),
-      map((name) => name ? this._filter(name) : this.options.slice())
+      map(value => (typeof value === 'string' ? value : value.name)),
+      map(name => (name ? this._filter(name) : this.options.slice()))
     );
   }
 
@@ -32,6 +42,6 @@ export class AutocompleteControlValuesExample implements OnInit {
   }
 
   private _filter(name: string): CountryOption[] {
-    return this.options.filter((option) => countryCompareWithFn(option, name));
+    return this.options.filter(option => countryCompareWithFn(option, name));
   }
 }

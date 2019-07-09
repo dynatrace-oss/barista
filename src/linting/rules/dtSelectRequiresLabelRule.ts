@@ -2,7 +2,8 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure,
+import {
+  addFailure,
   getParentElement,
   hasFormFieldParentWithLabel,
   hasTextContentAlternative,
@@ -11,7 +12,6 @@ import { addFailure,
 } from '../utils';
 
 class DtSelectVisitor extends BasicTemplateAstVisitor {
-
   formFields: ParentElement[] = [];
 
   visitElement(element: ElementAst, context: any): void {
@@ -48,7 +48,11 @@ class DtSelectVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dt-select requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.');
+    addFailure(
+      this,
+      element,
+      'A dt-select requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.'
+    );
   }
 }
 
@@ -80,13 +84,14 @@ class DtSelectVisitor extends BasicTemplateAstVisitor {
  * </dt-select>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a label or text alternatives are given for a dt-select.',
+    description:
+      'Ensures that a label or text alternatives are given for a dt-select.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A dt-select must have a label when used with the form field component or an aria-label or aria-labelledby attribute.',
+    rationale:
+      'A dt-select must have a label when used with the form field component or an aria-label or aria-labelledby attribute.',
     ruleName: 'dt-select-requires-label',
     type: 'maintainability',
     typescriptOnly: true,

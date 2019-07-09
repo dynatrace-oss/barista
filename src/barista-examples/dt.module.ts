@@ -98,11 +98,7 @@ const DT_MODULES = [
  * NgModule that includes all Dynatrace angular components modules that are required to serve the examples.
  */
 @NgModule({
-  imports: [
-    ...DT_MODULES,
-  ],
-  exports: [
-    ...DT_MODULES,
-  ],
+  imports: [...DT_MODULES],
+  exports: [...DT_MODULES],
 })
-export class ExamplesAppDynatraceModule { }
+export class ExamplesAppDynatraceModule {}

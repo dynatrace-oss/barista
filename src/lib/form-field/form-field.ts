@@ -11,12 +11,18 @@ import {
   AfterViewInit,
   ElementRef,
 } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 import { startWith } from 'rxjs/operators';
 import { EMPTY, merge } from 'rxjs';
 import {
   getDtFormFieldDuplicatedHintError,
-  getDtFormFieldMissingControlError
+  getDtFormFieldMissingControlError,
 } from './form-field-errors';
 import { DtFormFieldControl } from './form-field-control';
 import { DtLabel } from './label';
@@ -34,7 +40,7 @@ let nextUniqueId = 0;
   templateUrl: 'form-field.html',
   styleUrls: ['form-field.scss'],
   host: {
-    'class': 'dt-form-field',
+    class: 'dt-form-field',
     '[class.dt-form-field-invalid]': '_control.errorState',
     '[class.dt-form-field-disabled]': '_control.disabled',
     '[class.dt-form-field-autofilled]': '_control.autofilled',
@@ -69,8 +75,8 @@ let nextUniqueId = 0;
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtFormField<T> implements AfterContentInit, AfterContentChecked, AfterViewInit {
-
+export class DtFormField<T>
+  implements AfterContentInit, AfterContentChecked, AfterViewInit {
   // Unique id for the hint label.
   _hintLabelId = `dt-hint-${nextUniqueId++}`;
 
@@ -83,11 +89,15 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
   @ContentChild(DtLabel, { static: false }) _labelChild: DtLabel;
   @ContentChildren(DtHint) _hintChildren: QueryList<DtHint>;
   @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
-  @ContentChild(DtFormFieldControl, { static: false }) _control: DtFormFieldControl<T>;
+  @ContentChild(DtFormFieldControl, { static: false })
+  _control: DtFormFieldControl<T>;
   @ContentChildren(DtPrefix) _prefixChildren: QueryList<DtPrefix>;
   @ContentChildren(DtSuffix) _suffixChildren: QueryList<DtSuffix>;
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef, public _elementRef: ElementRef) { }
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    public _elementRef: ElementRef
+  ) {}
 
   ngAfterContentInit(): void {
     this._validateControlChild();
@@ -100,9 +110,16 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
     });
 
     // Run change detection if the value, prefix, or suffix changes.
-    const valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || EMPTY;
-    merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
-        .subscribe(() => { this._changeDetectorRef.markForCheck(); });
+    const valueChanges =
+      (this._control.ngControl && this._control.ngControl.valueChanges) ||
+      EMPTY;
+    merge(
+      valueChanges,
+      this._prefixChildren.changes,
+      this._suffixChildren.changes
+    ).subscribe(() => {
+      this._changeDetectorRef.markForCheck();
+    });
 
     // Re-validate when the number of hints changes.
     this._hintChildren.changes.pipe(startWith(null)).subscribe(() => {
@@ -145,8 +162,11 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
 
   /** Determines whether to display errors or not. */
   _getDisplayedError(): boolean {
-    return this._errorChildren && this._errorChildren.length > 0 &&
-      this._control.errorState;
+    return (
+      this._errorChildren &&
+      this._errorChildren.length > 0 &&
+      this._control.errorState
+    );
   }
 
   /** Throws an error if the form field's control is missing. */
@@ -196,10 +216,12 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
       let ids: string[] = [];
 
       if (!this._getDisplayedError()) {
-        const startHint = this._hintChildren ?
-          this._hintChildren.find((hint) => hint.align === 'start') : null;
-        const endHint = this._hintChildren ?
-          this._hintChildren.find((hint) => hint.align === 'end') : null;
+        const startHint = this._hintChildren
+          ? this._hintChildren.find(hint => hint.align === 'start')
+          : null;
+        const endHint = this._hintChildren
+          ? this._hintChildren.find(hint => hint.align === 'end')
+          : null;
 
         if (startHint) {
           ids.push(startHint.id);
@@ -209,14 +231,16 @@ export class DtFormField<T> implements AfterContentInit, AfterContentChecked, Af
           ids.push(endHint.id);
         }
       } else if (this._errorChildren) {
-        ids = this._errorChildren.map((error) => error.id);
+        ids = this._errorChildren.map(error => error.id);
       }
       this._control.setDescribedByIds(ids);
     }
   }
 
   private _updateAnimationState(): void {
-    this._errorAnimationState = this._getDisplayedError() &&
-    this._control.focused ? 'enter-delayed' : 'enter';
+    this._errorAnimationState =
+      this._getDisplayedError() && this._control.focused
+        ? 'enter-delayed'
+        : 'enter';
   }
 }

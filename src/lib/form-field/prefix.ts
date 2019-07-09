@@ -7,4 +7,4 @@ import { Directive } from '@angular/core';
     class: 'dt-prefix',
   },
 })
-export class DtPrefix { }
+export class DtPrefix {}

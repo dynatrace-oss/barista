@@ -1,9 +1,4 @@
-import {
-  Input,
-  ViewChild,
-  Optional,
-  OnDestroy,
-  OnInit } from '@angular/core';
+import { Input, ViewChild, Optional, OnDestroy, OnInit } from '@angular/core';
 import { DtColumnDef, DtCellDef } from '../cell';
 import { DtTable } from '../table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -13,22 +8,32 @@ import { DtHeaderCellDef } from '../header/header-cell';
 
 /** Signature type for the dataAccessor function which can be passed to the simpleColumn. */
 // tslint:disable-next-line: no-any
-export type DtSimpleColumnDisplayAccessorFunction<T> = (data: T, name: string) => any;
+export type DtSimpleColumnDisplayAccessorFunction<T> = (
+  data: T,
+  name: string
+) => any;
 
 /** Signature type for the sortAccessor function which can be passed to the simpleColumn. */
 // tslint:disable-next-line: no-any
-export type DtSimpleColumnSortAccessorFunction<T> = (data: T, name: string) => string|number;
+export type DtSimpleColumnSortAccessorFunction<T> = (
+  data: T,
+  name: string
+) => string | number;
 
 /** Signature type for the hasProblem function, which can be passed to the simpleColumn. */
 // tslint:disable-next-line: no-any
-export type DtSimpleColumnHasProblemFunction<T> = (data: T, name: string) => DtIndicatorThemePalette;
+export type DtSimpleColumnHasProblemFunction<T> = (
+  data: T,
+  name: string
+) => DtIndicatorThemePalette;
 
 /** Signature type for the hasProblem function, which can be passed to the simpleColumn. */
 // tslint:disable-next-line: no-any
-export type DtSimpleColumnFormatFunction = (displayValue: any) => string|DtFormattedValue;
+export type DtSimpleColumnFormatFunction = (
+  displayValue: any
+) => string | DtFormattedValue;
 
 export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
-
   /** Input for the name with which the columnDefinition will register itself to the table. */
   @Input()
   get name(): string {
@@ -91,7 +96,7 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   @ViewChild(DtHeaderCellDef, { static: true }) _headerDef: DtHeaderCellDef;
   @ViewChild(DtCellDef, { static: true }) _cellDef: DtCellDef;
 
-  constructor(@Optional() public table: DtTable<T>) { }
+  constructor(@Optional() public table: DtTable<T>) {}
 
   ngOnInit(): void {
     this._syncColumnDefName();
@@ -115,7 +120,9 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   // tslint:disable-next-line: no-any
   _getData(data: T): any {
     // tslint:disable-next-line: no-any
-    const output = this.displayAccessor ? this.displayAccessor(data, this.name) : (data as any)[this.name];
+    const output = this.displayAccessor
+      ? this.displayAccessor(data, this.name)
+      : (data as any)[this.name];
     return this.formatter ? this.formatter(output) : output;
   }
 

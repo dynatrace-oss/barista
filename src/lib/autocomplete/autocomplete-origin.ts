@@ -9,5 +9,5 @@ import { Directive, ElementRef } from '@angular/core';
   exportAs: 'dtAutocompleteOrigin',
 })
 export class DtAutocompleteOrigin {
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }

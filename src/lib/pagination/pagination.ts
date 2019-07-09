@@ -36,14 +36,15 @@ import { AsyncSubject } from 'rxjs';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtPagination implements OnInit {
-
   /** Event that gets fired if the pagination changes the current page */
   @Output()
   readonly changed: EventEmitter<number> = new EventEmitter<number>();
 
   /** The length of the total number of items that are being paginated. Defaulted to 0. */
   @Input()
-  get length(): number { return this._length; }
+  get length(): number {
+    return this._length;
+  }
   set length(value: number) {
     const length = coerceNumberProperty(value);
     if (isNumber(value) && this._length !== length) {
@@ -56,7 +57,9 @@ export class DtPagination implements OnInit {
 
   /** Number of items to display on a page. By default set to 50. */
   @Input()
-  get pageSize(): number { return this._pageSize; }
+  get pageSize(): number {
+    return this._pageSize;
+  }
   set pageSize(value: number) {
     const pageSize = coerceNumberProperty(value);
     if (isNumber(value) && this._pageSize !== pageSize) {
@@ -69,7 +72,9 @@ export class DtPagination implements OnInit {
 
   /** The current page of the pagination */
   @Input()
-  get currentPage(): number { return this._currentPage; }
+  get currentPage(): number {
+    return this._currentPage;
+  }
   set currentPage(value: number) {
     const currentPage = coerceNumberProperty(value);
     if (isNumber(value) && this._currentPage !== currentPage) {
@@ -94,7 +99,9 @@ export class DtPagination implements OnInit {
   @Input('aria-label-current') ariaCurrentLabel = ARIA_DEFAULT_CURRENT_LABEL;
 
   /** The number of pages by the provided page size and the length of all items */
-  get numberOfPages(): number { return this._numberOfPages; }
+  get numberOfPages(): number {
+    return this._numberOfPages;
+  }
   private _numberOfPages = 0;
 
   /**
@@ -148,10 +155,11 @@ export class DtPagination implements OnInit {
 
   /** Calculates the pages that should be displayed by the pagination */
   private _updateItems(): void {
-    this._numberOfPages = this._pageSize > 0 ? Math.ceil(this.length / this.pageSize) : 0;
+    this._numberOfPages =
+      this._pageSize > 0 ? Math.ceil(this.length / this.pageSize) : 0;
 
     this._isFirstPage = this._currentPage <= 1;
-    this._isLastPage =  this._currentPage >= this._numberOfPages;
+    this._isLastPage = this._currentPage >= this._numberOfPages;
 
     this._pages = calculatePages(this._numberOfPages, this._currentPage);
   }

@@ -5,18 +5,8 @@ import { DtBreadcrumbsItem } from './item/breadcrumbs-item';
 import { DtBreadcrumbs } from './breadcrumbs';
 
 @NgModule({
-  exports: [
-    DtBreadcrumbs,
-    DtBreadcrumbsItem,
-  ],
-  declarations: [
-    DtBreadcrumbs,
-    DtBreadcrumbsItem,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-  ],
+  exports: [DtBreadcrumbs, DtBreadcrumbsItem],
+  declarations: [DtBreadcrumbs, DtBreadcrumbsItem],
+  imports: [CommonModule, RouterModule],
 })
-export class DtBreadcrumbsModule {
-}
+export class DtBreadcrumbsModule {}

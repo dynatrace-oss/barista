@@ -26,10 +26,12 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
   { path: 'button', component: ButtonUI },
   { path: 'button-group', component: ButtonGroupUi },
-  { path: 'chart', children: [
-     { path: '', component: ChartUI },
-     { path: 'highcharts', component: ChartHighchartsUI },
-     { path: 'selection-area', component: ChartSelectionAreaUI },
+  {
+    path: 'chart',
+    children: [
+      { path: '', component: ChartUI },
+      { path: 'highcharts', component: ChartHighchartsUI },
+      { path: 'selection-area', component: ChartSelectionAreaUI },
     ],
   },
   { path: 'checkbox', component: CheckboxUI },

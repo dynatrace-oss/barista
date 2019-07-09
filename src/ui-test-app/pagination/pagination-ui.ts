@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   selector: 'dt-pagination-ui',
   templateUrl: 'pagination-ui.html',
 })
-export class PaginationUI {
-
-}
+export class PaginationUI {}

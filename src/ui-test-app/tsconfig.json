@@ -8,14 +8,9 @@
     "outDir": "../../dist/ui-test-app",
     "target": "es5",
     "stripInternal": false,
-    "typeRoots": [
-      "../../node_modules/@types/!(node)"
-    ],
+    "typeRoots": ["../../node_modules/@types/!(node)"],
     "baseUrl": ".",
-    "rootDirs": [
-      ".",
-      "../../dist/ui-test-app"
-    ],
+    "rootDirs": [".", "../../dist/ui-test-app"],
     "paths": {
       "@dynatrace/angular-components": ["../lib"],
       "@dynatrace/angular-components/*": ["../lib/*"]

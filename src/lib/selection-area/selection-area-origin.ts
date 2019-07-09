@@ -47,7 +47,7 @@ export const _DtSelectionAreaOriginMixin = mixinTabIndex(
   selector: '[dtSelectionArea]',
   exportAs: 'dtSelectionAreaOrigin',
   host: {
-    'class': 'dt-selection-area-origin',
+    class: 'dt-selection-area-origin',
     '[attr.tabindex]': 'tabIndex',
     '(mousedown)': '_handleMousedown($event)',
     '(keydown)': '_handleKeyDown($event)',
@@ -139,7 +139,7 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
     this._selectionAreaGrabbingSub.unsubscribe();
     this.selectionArea._grabbingChange
       .pipe(takeUntil(this._destroy))
-      .subscribe((isGrabbing) => {
+      .subscribe(isGrabbing => {
         if (isGrabbing) {
           addCssClass(
             this._elementRef.nativeElement,

@@ -20,11 +20,10 @@ export class ChartHighchartsUI {
       },
     },
   };
-  series = [{
-    name: 'Temperatures',
-    data: [
-      [1483232400000, 1.4, 4.7],
-      [1483318800000, -1.3, 1.9],
-    ],
-  }];
+  series = [
+    {
+      name: 'Temperatures',
+      data: [[1483232400000, 1.4, 4.7], [1483318800000, -1.3, 1.9]],
+    },
+  ];
 }

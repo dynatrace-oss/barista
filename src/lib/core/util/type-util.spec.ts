@@ -4,7 +4,6 @@
 import { isDefined, isEmpty, isNumber, isObject } from './type-util';
 
 describe('TypeUtil', () => {
-
   describe('isDefined', () => {
     it('should be false if the value is undefined or null', () => {
       expect(isDefined(void 0)).toBeFalsy();
@@ -28,7 +27,7 @@ describe('TypeUtil', () => {
       expect(isDefined(Symbol('foo'))).toBeTruthy();
     });
     it('should be true if the value is a complex object or function', () => {
-      class A { }
+      class A {}
       expect(isDefined({})).toBeTruthy();
       expect(isDefined([])).toBeTruthy();
       expect(isDefined(() => {})).toBeTruthy();
@@ -63,7 +62,7 @@ describe('TypeUtil', () => {
       expect(isEmpty(Symbol('foo'))).toBeFalsy();
     });
     it('should be false if the value is a complex object or function', () => {
-      class A { }
+      class A {}
       expect(isEmpty({})).toBeFalsy();
       expect(isEmpty([])).toBeFalsy();
       expect(isEmpty(() => {})).toBeFalsy();
@@ -103,7 +102,7 @@ describe('TypeUtil', () => {
       expect(isNumber(Symbol('foo'))).toBeFalsy();
     });
     it('should be false if the value is a complex object or function', () => {
-      class A { }
+      class A {}
       expect(isNumber({})).toBeFalsy();
       expect(isNumber([])).toBeFalsy();
       expect(isNumber(() => {})).toBeFalsy();

@@ -1,4 +1,9 @@
-import { ElementAst, EmbeddedTemplateAst, TemplateAst, TextAst } from '@angular/compiler';
+import {
+  ElementAst,
+  EmbeddedTemplateAst,
+  TemplateAst,
+  TextAst,
+} from '@angular/compiler';
 import { isElementWithName } from './isElementWithName';
 import { hasTextContent } from './hasContent';
 
@@ -21,15 +26,16 @@ function filterWhitespaceElements(element: TemplateAst): boolean {
  */
 export function hasOnlyDtIconChildren(element: ElementAst): boolean {
   return element.children
-    .filter((child) => filterWhitespaceElements(child))
-    .every((child) => {
+    .filter(child => filterWhitespaceElements(child))
+    .every(child => {
       if (isElementWithName(child, 'dt-icon')) {
         return true;
       }
 
       if (child instanceof EmbeddedTemplateAst) {
-        return child.children
-          .every((grandchild) => isElementWithName(grandchild, 'dt-icon'));
+        return child.children.every(grandchild =>
+          isElementWithName(grandchild, 'dt-icon')
+        );
       }
 
       return false;

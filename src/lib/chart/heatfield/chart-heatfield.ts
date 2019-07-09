@@ -12,7 +12,7 @@ import {
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
@@ -20,7 +20,13 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { clamp, round } from 'lodash';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CanColor, isDefined, mixinColor, readKeyCode, Constructor } from '@dynatrace/angular-components/core';
+import {
+  CanColor,
+  isDefined,
+  mixinColor,
+  readKeyCode,
+  Constructor,
+} from '@dynatrace/angular-components/core';
 import { DtChart } from '../chart';
 import { getDtHeatfieldUnsupportedChartError } from './chart-heatfield-errors';
 
@@ -55,17 +61,19 @@ export class DtChartHeatfieldActiveChange {
   constructor(
     /** Reference to the heatfield that emitted the event. */
     public source: DtChartHeatfield
-  ) { }
+  ) {}
 }
 
 export type DtChartHeatfieldThemePalette = 'main' | 'error';
 
 // Boilerplate for applying mixins to DtHeatfield.
 export class DtHeatfieldBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
-export const _DtHeatfieldMixinBase =
-  mixinColor<Constructor<DtHeatfieldBase>, DtChartHeatfieldThemePalette>(DtHeatfieldBase, 'error');
+export const _DtHeatfieldMixinBase = mixinColor<
+  Constructor<DtHeatfieldBase>,
+  DtChartHeatfieldThemePalette
+>(DtHeatfieldBase, 'error');
 
 @Component({
   selector: 'dt-chart-heatfield',
@@ -77,12 +85,12 @@ export const _DtHeatfieldMixinBase =
   encapsulation: ViewEncapsulation.Emulated,
   inputs: ['color'],
 })
-
 export class DtChartHeatfield extends _DtHeatfieldMixinBase
   implements CanColor<DtChartHeatfieldThemePalette>, OnDestroy, AfterViewInit {
-
   /** Event emitted when the option is selected or deselected. */
-  @Output() readonly activeChange = new EventEmitter<DtChartHeatfieldActiveChange>();
+  @Output() readonly activeChange = new EventEmitter<
+    DtChartHeatfieldActiveChange
+  >();
 
   private _start: number;
 
@@ -143,7 +151,12 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
    * Boundingbox of the plot background - used for calculations and positioning
    * @internal
    */
-  _plotBackgroundBoundingBox: { left: number; top: number; width: number; height: number };
+  _plotBackgroundBoundingBox: {
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+  };
 
   /**
    * Wether the input is a valid range. Input range is valid as long there is a
@@ -157,12 +170,14 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   }
 
   /** The backdrop that is positioned behind the chart */
-  @ViewChild('backdrop', { read: ElementRef, static: true }) _backdrop: ElementRef;
+  @ViewChild('backdrop', { read: ElementRef, static: true })
+  _backdrop: ElementRef;
 
   /** The marker button used to activate the heatfield */
   @ViewChild('marker', { read: ElementRef, static: true }) _marker: ElementRef;
 
-  @ViewChild(CdkConnectedOverlay, { static: false }) _overlay: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: false })
+  _overlay: CdkConnectedOverlay;
 
   constructor(
     elementRef: ElementRef,
@@ -180,9 +195,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   }
 
   ngAfterViewInit(): void {
-    this._chart._afterRender
-    .pipe(takeUntil(this._destroyed))
-    .subscribe(() => {
+    this._chart._afterRender.pipe(takeUntil(this._destroyed)).subscribe(() => {
       this._checkChartSupport();
       this._getPlotBackgroundBoundingBox();
       this._updatePosition();
@@ -214,7 +227,11 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   private _getPlotBackgroundBoundingBox(): void {
     // this needs to be run after zone is stable because we need to wait until the origin is actually rendered
     // to get the correct boundaries
-    const plotBackground = this._chart && this._chart.container.nativeElement.querySelector('.highcharts-plot-background');
+    const plotBackground =
+      this._chart &&
+      this._chart.container.nativeElement.querySelector(
+        '.highcharts-plot-background'
+      );
     if (plotBackground) {
       this._plotBackgroundBoundingBox = {
         width: parseInt(plotBackground.getAttribute('width') as string, 10),
@@ -227,23 +244,35 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
 
   /** Calculates and updates the position for the heatfield */
   private _updatePosition(): void {
-    if (this._isValidStartEndRange && this._chart._chartObject && this._plotBackgroundBoundingBox) {
+    if (
+      this._isValidStartEndRange &&
+      this._chart._chartObject &&
+      this._plotBackgroundBoundingBox
+    ) {
       const xAxis = this._chart._chartObject.xAxis;
       if (xAxis && xAxis.length > 0) {
         // NOTE that there can be multiple xAxis in highcharts but our charts dont have multiple xAxis
         // so we use the first one for the extremes
         const extremes = xAxis[0].getExtremes();
-        const pxPerUnit = this._plotBackgroundBoundingBox.width / (extremes.max - extremes.min);
-        const left = (clamp(this._start, extremes.min, extremes.max) - extremes.min) * pxPerUnit;
+        const pxPerUnit =
+          this._plotBackgroundBoundingBox.width / (extremes.max - extremes.min);
+        const left =
+          (clamp(this._start, extremes.min, extremes.max) - extremes.min) *
+          pxPerUnit;
         // calculate the width based on start/end values or from start to the edge of the chart
-        const width = isDefined(this._end) ?
-          (clamp(this._end, extremes.min, extremes.max) - extremes.min) * pxPerUnit - left :
-          (extremes.max - extremes.min) * pxPerUnit - left;
+        const width = isDefined(this._end)
+          ? (clamp(this._end, extremes.min, extremes.max) - extremes.min) *
+              pxPerUnit -
+            left
+          : (extremes.max - extremes.min) * pxPerUnit - left;
         // tslint:disable:no-magic-numbers
         this._relativeBoundingBox = {
           left: round(left + this._plotBackgroundBoundingBox.left, 2),
           width: round(width, 2),
-          top: round(this._plotBackgroundBoundingBox.top - DT_HEATFIELD_TOP_OFFSET, 2),
+          top: round(
+            this._plotBackgroundBoundingBox.top - DT_HEATFIELD_TOP_OFFSET,
+            2
+          ),
         };
         // tslint:enable:no-magic-numbers
         // It is not possible to set this on the ref nativelement and not in the marker and the backdrop,

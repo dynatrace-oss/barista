@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Progress circle
@@ -17,14 +17,10 @@ With `ng-content` the content inside the progress-circle can be set.
 You have to import the `DtProgressCircleModule` when you want to use the `dt-progress-circle`:
 
 ```typescript
-
 @NgModule({
-  imports: [
-    DtProgressCircleModule,
-  ],
+  imports: [DtProgressCircleModule],
 })
 class MyModule {}
-
 ```
 
 ## Accessibility
@@ -35,22 +31,22 @@ Prgoress circles should be given a meaningful label via aria-label or aria-label
 
 ## Inputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `value` | `number` | `0` | Gets and sets the value on the progress-circle. |
-| `min` | `number` | `0` | Gets and sets the minimum value on the progress circle |
-| `max` | `number` | `100` | Gets and sets the maximum value on the progress circle |
+| Name    | Type     | Default | Description                                            |
+| ------- | -------- | ------- | ------------------------------------------------------ |
+| `value` | `number` | `0`     | Gets and sets the value on the progress-circle.        |
+| `min`   | `number` | `0`     | Gets and sets the minimum value on the progress circle |
+| `max`   | `number` | `100`   | Gets and sets the maximum value on the progress circle |
 
 ## Outputs
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name          | Type                                                   | Description                                           |
+| ------------- | ------------------------------------------------------ | ----------------------------------------------------- |
 | `valueChange` | `EventEmitter<{ oldValue: number, newValue: number }>` | Event emitted when the progress circle value changes. |
 
 ## Properties
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name         | Type     | Description                                     |
+| ------------ | -------- | ----------------------------------------------- |
 | `percentage` | `number` | Gets the percentage used to render the progress |
 
 ## Examples

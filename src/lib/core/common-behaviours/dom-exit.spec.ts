@@ -4,15 +4,16 @@ import { Subject } from 'rxjs';
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
 
 describe('mixinNotifyDomExit', () => {
-
   it('should augment an existing class with a _onDomExit subject', () => {
     const classWithMixin = mixinNotifyDomExit(TestClass);
     const instance = new classWithMixin();
 
-    expect(instance._onDomExit)
-        .toBeTruthy('Expected the mixed-into class to have a _onDomExit subject');
-    expect(instance._onDomExit instanceof Subject)
-      .toBeTruthy('Expected the mixed-into class _onDomExit to be a subject');
+    expect(instance._onDomExit).toBeTruthy(
+      'Expected the mixed-into class to have a _onDomExit subject'
+    );
+    expect(instance._onDomExit instanceof Subject).toBeTruthy(
+      'Expected the mixed-into class _onDomExit to be a subject'
+    );
   });
 
   it('should augment an existing class with a _safeExit method', () => {
@@ -20,8 +21,7 @@ describe('mixinNotifyDomExit', () => {
     const instance = new classWithMixin();
 
     // tslint:disable-next-line:no-unbound-method
-    expect(typeof instance._notifyDomExit)
-        .toEqual('function');
+    expect(typeof instance._notifyDomExit).toEqual('function');
   });
 
   it('should emit a new value for the _onDomExit observable when microtasks are empty when safeExit is called', fakeAsync(() => {

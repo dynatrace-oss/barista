@@ -4,7 +4,7 @@ import {
   ViewEncapsulation,
   Directive,
   ContentChild,
-  ElementRef
+  ElementRef,
 } from '@angular/core';
 import {
   CanDisable,
@@ -24,7 +24,7 @@ import {
     class: 'dt-tile-title',
   },
 })
-export class DtTileTitle { }
+export class DtTileTitle {}
 
 /** Icon of a tile, needed as it's used as a selector in the API. */
 @Directive({
@@ -33,8 +33,7 @@ export class DtTileTitle { }
     class: 'dt-tile-icon',
   },
 })
-export class DtTileIcon {
-}
+export class DtTileIcon {}
 
 /** Sub-title of a tile, needed as it's used as a selector in the API. */
 @Directive({
@@ -43,15 +42,19 @@ export class DtTileIcon {
     class: 'dt-tile-subtitle',
   },
 })
-export class DtTileSubtitle { }
+export class DtTileSubtitle {}
 
 export type DtTileThemePalette = 'main' | 'error' | 'recovered';
 
 // Boilerplate for applying mixins to DtTile.
 export class DtTileBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
-export const _DtTileMixinBase = mixinTabIndex(mixinDisabled(mixinColor<Constructor<DtTileBase>, DtTileThemePalette>(DtTileBase)));
+export const _DtTileMixinBase = mixinTabIndex(
+  mixinDisabled(
+    mixinColor<Constructor<DtTileBase>, DtTileThemePalette>(DtTileBase)
+  )
+);
 
 @Component({
   moduleId: module.id,
@@ -61,10 +64,10 @@ export const _DtTileMixinBase = mixinTabIndex(mixinDisabled(mixinColor<Construct
   styleUrls: ['tile.scss'],
   inputs: ['disabled', 'tabIndex', 'color'],
   host: {
-    'role': 'button',
+    role: 'button',
     '[attr.tabindex]': 'tabIndex',
     '[attr.aria-disabled]': 'disabled.toString()',
-    'class': 'dt-tile',
+    class: 'dt-tile',
     '[class.dt-tile-small]': '!_subTitle',
     '[class.dt-tile-disabled]': 'disabled',
     '(click)': '_haltDisabledEvents($event)',
@@ -75,8 +78,11 @@ export const _DtTileMixinBase = mixinTabIndex(mixinDisabled(mixinColor<Construct
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtTile extends _DtTileMixinBase
-  implements CanDisable, HasElementRef, CanColor<DtTileThemePalette>, HasTabIndex {
-
+  implements
+    CanDisable,
+    HasElementRef,
+    CanColor<DtTileThemePalette>,
+    HasTabIndex {
   @ContentChild(DtTileSubtitle, { static: true }) _subTitle: DtTileSubtitle;
   @ContentChild(DtTileIcon, { static: true }) _icon: DtTileIcon;
 

@@ -8,7 +8,6 @@ import { _DtTableBaseModule } from './base-table';
 import { DtTableModule } from './table-module';
 
 describe('_DtTableInteractiveRows', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [_DtTableBaseModule, DtTableModule],
@@ -41,11 +40,11 @@ describe('_DtTableInteractiveRows', () => {
 @Component({
   selector: 'dt-test-app',
   template: `
-      <dt-table-base [interactiveRows]="interactiveRows">
-        <ng-container dtColumnDef="memory"></ng-container>
-        <dt-row *dtRowDef="let row; columns: ['memory'];"></dt-row>
-      </dt-table-base>
-    `,
+    <dt-table-base [interactiveRows]="interactiveRows">
+      <ng-container dtColumnDef="memory"></ng-container>
+      <dt-row *dtRowDef="let row; columns: ['memory']"></dt-row>
+    </dt-table-base>
+  `,
 })
 class TestApp {
   interactiveRows: boolean;
@@ -55,11 +54,11 @@ class TestApp {
 @Component({
   selector: 'dt-test-app',
   template: `
-      <dt-table-base interactiveRows>
-        <ng-container dtColumnDef="memory"></ng-container>
-        <dt-row *dtRowDef="let row; columns: ['memory'];"></dt-row>
-      </dt-table-base>
-    `,
+    <dt-table-base interactiveRows>
+      <ng-container dtColumnDef="memory"></ng-container>
+      <dt-row *dtRowDef="let row; columns: ['memory']"></dt-row>
+    </dt-table-base>
+  `,
 })
 class AttributeTestApp {
   @ViewChild(_DtTableBase, { static: true }) table: _DtTableBase<any>;

@@ -1,7 +1,10 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
 import {
@@ -19,8 +22,10 @@ import { createComponent } from '../../testing/create-component';
 export const FAKE_SVGS = {
   cat: '<svg><path id="meow" name="meow"></path></svg>',
   dog: '<svg><path id="woof" name="woof"></path></svg>',
-  xss: '<svg><script>alert("123")</script><path id="xss" name="xss"></path></svg>',
-  xssType: '<svg><script type="text/javascript">alert("123")</script><path id="xss" name="xss"></path></svg>',
+  xss:
+    '<svg><script>alert("123")</script><path id="xss" name="xss"></path></svg>',
+  xssType:
+    '<svg><script type="text/javascript">alert("123")</script><path id="xss" name="xss"></path></svg>',
   xssMulti: `<svg><script>alert("123")</script><path id="xss" name="xss"></path><script>alert("123")</script></svg>`,
   xssInter: `<svg><scr<script>ipt>alert("123")</scr</script>ipt><path id="xss" name="xss"></path></svg>`,
 };
@@ -41,13 +46,9 @@ describe('DtIcon', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
-      declarations: [
-        IconWithName,
-        IconWithColor,
-        IconWithAriaHiddenFalse,
-      ],
+      declarations: [IconWithName, IconWithColor, IconWithAriaHiddenFalse],
     });
 
     TestBed.compileComponents();
@@ -63,7 +64,9 @@ describe('DtIcon', () => {
     const fixture = createComponent(IconWithColor);
 
     const testComponent = fixture.componentInstance;
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
     testComponent.iconName = 'home';
     testComponent.iconColor = 'main';
     fixture.detectChanges();
@@ -74,7 +77,9 @@ describe('DtIcon', () => {
     const fixture = createComponent(IconWithColor);
 
     const testComponent = fixture.componentInstance;
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
     testComponent.iconName = 'home';
     testComponent.iconColor = 'cta';
     fixture.detectChanges();
@@ -85,7 +90,9 @@ describe('DtIcon', () => {
     const fixture = createComponent(IconWithColor);
 
     const testComponent = fixture.componentInstance;
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
     testComponent.iconName = 'home';
     testComponent.iconColor = 'light';
     fixture.detectChanges();
@@ -97,16 +104,24 @@ describe('DtIcon', () => {
 
   it('should mark dt-icon as aria-hidden by default', () => {
     const fixture = createComponent(IconWithName);
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
-    expect(iconElement.getAttribute('aria-hidden'))
-      .toBe('true', 'Expected the dt-icon element has aria-hidden="true" by default');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
+    expect(iconElement.getAttribute('aria-hidden')).toBe(
+      'true',
+      'Expected the dt-icon element has aria-hidden="true" by default'
+    );
   });
 
   it('should not override a user-provided aria-hidden attribute', () => {
     const fixture = createComponent(IconWithAriaHiddenFalse);
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
-    expect(iconElement.getAttribute('aria-hidden'))
-      .toBe('false', 'Expected the dt-icon element has the user-provided aria-hidden value');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
+    expect(iconElement.getAttribute('aria-hidden')).toBe(
+      'false',
+      'Expected the dt-icon element has the user-provided aria-hidden value'
+    );
   });
 
   it('should clear the id attribute from the svg node', () => {
@@ -116,7 +131,9 @@ describe('DtIcon', () => {
     fixture.detectChanges();
     http.expectOne('cat.svg').flush(FAKE_SVGS.cat);
 
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
     const svgElement = verifyAndGetSingleSvgChild(iconElement);
 
     expect(svgElement.hasAttribute('id')).toBe(false);
@@ -130,7 +147,9 @@ describe('DtIcon', () => {
     http.expectOne('cat.svg').flush(FAKE_SVGS.cat);
 
     const testComponent = fixture.componentInstance;
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
 
     expect(iconElement.querySelector('svg')).toBeTruthy();
 
@@ -147,7 +166,9 @@ describe('DtIcon', () => {
     fixture.detectChanges();
     http.expectOne('xss.svg').flush(FAKE_SVGS.xss);
 
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
     const svgElement = verifyAndGetSingleSvgChild(iconElement);
 
     expect(svgElement.querySelector('script')).toBeNull();
@@ -160,7 +181,9 @@ describe('DtIcon', () => {
     fixture.detectChanges();
     http.expectOne('xssType.svg').flush(FAKE_SVGS.xssType);
 
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
     const svgElement = verifyAndGetSingleSvgChild(iconElement);
 
     expect(svgElement.querySelector('script')).toBeNull();
@@ -173,7 +196,9 @@ describe('DtIcon', () => {
     fixture.detectChanges();
     http.expectOne('xssMulti.svg').flush(FAKE_SVGS.xssMulti);
 
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
     const svgElement = verifyAndGetSingleSvgChild(iconElement);
 
     expect(svgElement.querySelector('script')).toBeNull();
@@ -186,7 +211,9 @@ describe('DtIcon', () => {
     fixture.detectChanges();
     http.expectOne('xssInter.svg').flush(FAKE_SVGS.xssMulti);
 
-    const iconElement = fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-icon'
+    );
     const svgElement = verifyAndGetSingleSvgChild(iconElement);
 
     expect(svgElement.querySelector('script')).toBeNull();
@@ -218,7 +245,7 @@ describe('DtIcon without config', () => {
 describe('DtIcon without HttpClientModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`})],
+      imports: [DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
       declarations: [IconWithName],
     });
 
@@ -238,14 +265,18 @@ describe('DtIcon without HttpClientModule', () => {
 });
 
 @Component({
-  template: `<dt-icon [name]="iconName"></dt-icon>`,
+  template: `
+    <dt-icon [name]="iconName"></dt-icon>
+  `,
 })
 class IconWithName {
   iconName: string | undefined = '';
 }
 
 @Component({
-  template: `<dt-icon name="agent" [color]="iconColor">{{iconName}}</dt-icon>`,
+  template: `
+    <dt-icon name="agent" [color]="iconColor">{{ iconName }}</dt-icon>
+  `,
 })
 class IconWithColor {
   iconName = '';
@@ -255,5 +286,4 @@ class IconWithColor {
 @Component({
   template: '<dt-icon name="agent" aria-hidden="false">face</dt-icon>',
 })
-class IconWithAriaHiddenFalse {
-}
+class IconWithAriaHiddenFalse {}

@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, hasContent, isElementWithName } from '../utils';
 
 class DtLoadingDistractorVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -19,7 +18,11 @@ class DtLoadingDistractorVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dt-loading-distractor must always contain text. Make sure this is the case even if you use nested components to render text.');
+    addFailure(
+      this,
+      element,
+      'A dt-loading-distractor must always contain text. Make sure this is the case even if you use nested components to render text.'
+    );
   }
 }
 
@@ -33,9 +36,9 @@ class DtLoadingDistractorVisitor extends BasicTemplateAstVisitor {
  * <dt-loading-distractor> </dt-loading-distractor>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a dt-loading-distractor always contains content.',
+    description:
+      'Ensures that a dt-loading-distractor always contains content.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',

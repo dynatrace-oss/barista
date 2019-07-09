@@ -1,5 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/angular-components/chart';
 import { DtSelectionAreaChange } from '@dynatrace/angular-components/selection-area';
 
 @Component({
@@ -8,9 +11,7 @@ import { DtSelectionAreaChange } from '@dynatrace/angular-components/selection-a
   templateUrl: 'chart-selection-area-ui.html',
   // tslint:disable-next-line use-view-encapsulation
   encapsulation: ViewEncapsulation.None,
-  styles: [
-    '.highcharts-plot-background: { fill: red }',
-  ],
+  styles: ['.highcharts-plot-background: { fill: red }'],
 })
 export class ChartSelectionAreaUI {
   left: number;

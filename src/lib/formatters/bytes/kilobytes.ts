@@ -27,10 +27,18 @@ export class DtKilobytes implements PipeTransform {
       return NO_DATA;
     }
     if (input instanceof DtFormattedValue) {
-      return formatBytes(input, { factor, inputUnit, outputUnit: DtUnit.KILO_BYTES });
+      return formatBytes(input, {
+        factor,
+        inputUnit,
+        outputUnit: DtUnit.KILO_BYTES,
+      });
     }
     if (isNumber(input)) {
-      return formatBytes(input, { factor, inputUnit, outputUnit: DtUnit.KILO_BYTES });
+      return formatBytes(input, {
+        factor,
+        inputUnit,
+        outputUnit: DtUnit.KILO_BYTES,
+      });
     }
 
     return NO_DATA;

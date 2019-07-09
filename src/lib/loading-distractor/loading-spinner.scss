@@ -30,7 +30,8 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
   stroke-width: 4px;
   stroke: $logolime;
   fill: none;
-  animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear infinite;
+  animation: dt-loading-spinner-spin $dt-loading-spinner-duration * 2 linear
+    infinite;
 }
 
 :host-context(.dt-form-field) .dt-loading-spinner-svg,
@@ -55,7 +56,8 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
 .dt-loading-spinner-path {
   stroke-dasharray: $dt-loading-spinner-offset;
   transform-origin: center;
-  animation: dt-loading-spinner-dash $dt-loading-spinner-duration $dt-loading-spinner-ease infinite;
+  animation: dt-loading-spinner-dash $dt-loading-spinner-duration
+    $dt-loading-spinner-ease infinite;
 }
 
 @-webkit-keyframes dt-loading-spinner-spin {
@@ -77,13 +79,25 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 @-webkit-keyframes dt-loading-spinner-dash {
-  0% { stroke-dashoffset: 138.2304px; }
-  50% { stroke-dashoffset: 86.394px; }
-  100% { stroke-dashoffset: 0; }
+  0% {
+    stroke-dashoffset: 138.2304px;
+  }
+  50% {
+    stroke-dashoffset: 86.394px;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes dt-loading-spinner-dash {
-  0% { stroke-dashoffset: 138.2304px; }
-  50% { stroke-dashoffset: 86.394px; }
-  100% { stroke-dashoffset: 0; }
+  0% {
+    stroke-dashoffset: 138.2304px;
+  }
+  50% {
+    stroke-dashoffset: 86.394px;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }

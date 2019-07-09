@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, isIconButtonAttr, isButtonElement } from '../../utils';
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -17,12 +16,18 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     }
 
     const attrs: AttrAst[] = element.attrs;
-    const isNestedVariant = attrs.some((attr) => attr.name === 'variant' && attr.value === 'nested');
-    const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
+    const isNestedVariant = attrs.some(
+      attr => attr.name === 'variant' && attr.value === 'nested'
+    );
+    const isIconButton = attrs.some(attr => isIconButtonAttr(attr));
 
     // dt-icon-button attribute required for nested buttons
     if (isNestedVariant && !isIconButton) {
-      addFailure(this, element, 'A nested button variant must always be a dt-icon-button.');
+      addFailure(
+        this,
+        element,
+        'A nested button variant must always be a dt-icon-button.'
+      );
     }
   }
 }
@@ -37,7 +42,6 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
  * <button dt-button variant="nested">...</button>, dt-icon-button attribute required
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a nested button is always an icon button.',
     // tslint:disable-next-line:no-null-keyword

@@ -18,8 +18,10 @@ export const NO_DATA = '-';
  * Class used in formatting functions and pipes
  */
 export class DtFormattedValue {
-
-  constructor(private _sourceData: SourceData, private _formattedData: FormattedData) {}
+  constructor(
+    private _sourceData: SourceData,
+    private _formattedData: FormattedData
+  ) {}
 
   /** Source data containing value, unit, rate unit */
   get sourceData(): SourceData {
@@ -42,9 +44,10 @@ export class DtFormattedValue {
       text = `${text} ${this._formattedData.displayUnit}`;
     }
     if (this._formattedData.displayRateUnit !== undefined) {
-      text = (this._formattedData.displayUnit !== undefined)
-        ? `${text}/${this._formattedData.displayRateUnit}`
-        : `${text} /${this._formattedData.displayRateUnit}`;
+      text =
+        this._formattedData.displayUnit !== undefined
+          ? `${text}/${this._formattedData.displayRateUnit}`
+          : `${text} /${this._formattedData.displayRateUnit}`;
     }
 
     return text;

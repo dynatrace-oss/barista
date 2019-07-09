@@ -6,7 +6,11 @@ import { Component } from '@angular/core';
   template: `
     <dt-form-field>
       <dt-label>Your Coffee:</dt-label>
-      <dt-select placeholder="Choose your coffee" required [(ngModel)]="selectedValue">
+      <dt-select
+        placeholder="Choose your coffee"
+        required
+        [(ngModel)]="selectedValue"
+      >
         <dt-option>No Coffee (Triggers an error)</dt-option>
         <dt-option value="ThePerfectPour">ThePerfectPour</dt-option>
         <dt-option value="Affogato">Affogato</dt-option>

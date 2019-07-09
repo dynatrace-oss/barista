@@ -1,3 +1,8 @@
-<button dt-icon-button variant="nested" [attr.aria-label]="ariaLabel" (click)="_row.expanded ? _row._collapse() : _row._expandViaInteraction()">
+<button
+  dt-icon-button
+  variant="nested"
+  [attr.aria-label]="ariaLabel"
+  (click)="_row.expanded ? _row._collapse() : _row._expandViaInteraction()"
+>
   <dt-icon class="dt-expandable-cell-dropdown" name="dropdownopen"></dt-icon>
 </button>

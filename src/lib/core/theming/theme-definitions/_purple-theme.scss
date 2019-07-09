@@ -1,26 +1,47 @@
 @import '../../style/variables';
 @import '../theming-core';
 
-$dt-purple-theme-light:
-  dt-theme-light(
-    /* main */      dt-theme-palette($purple-600, $purple-700, $purple-800, $purple-100),
-    /* accent */    dt-theme-palette($turquoise-600, $turquoise-700, $turquoise-800, $turquoise-100),
-    /* warning */   dt-theme-palette($yellow-600, $yellow-700, $yellow-800, $yellow-100),
-    /* error */     dt-theme-palette($red-600, $red-700, $red-800, $red-100),
-    /* recovered */ dt-theme-palette($green-600, $green-700, $green-800, $green-100),
-    /* cta */       dt-theme-palette($green-600, $green-700, $green-800, $green-100),
-    /* neutral */   dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100)
-  );
+$dt-purple-theme-light: dt-theme-light(
+  /* main */
+    dt-theme-palette($purple-600, $purple-700, $purple-800, $purple-100),
+  /* accent */
+    dt-theme-palette(
+      $turquoise-600,
+      $turquoise-700,
+      $turquoise-800,
+      $turquoise-100
+    ),
+  /* warning */
+    dt-theme-palette($yellow-600, $yellow-700, $yellow-800, $yellow-100),
+  /* error */ dt-theme-palette($red-600, $red-700, $red-800, $red-100),
+  /* recovered */
+    dt-theme-palette($green-600, $green-700, $green-800, $green-100),
+  /* cta */ dt-theme-palette($green-600, $green-700, $green-800, $green-100),
+  /* neutral */ dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100)
+);
 
-$dt-purple-theme-dark:
-  dt-theme-dark(
-    /* main */      dt-theme-palette($purple-500, $purple-400, $purple-300, $purple-100),
-    /* accent */    dt-theme-palette($turquoise-500, $turquoise-400, $turquoise-300, $turquoise-100),
-    /* warning */   dt-theme-palette($yellow-600, $yellow-500, $yellow-400, $yellow-100),
-    /* error */     dt-theme-palette($red-400, $red-300, $red-200, $red-100),
-    /* recovered */ dt-theme-palette($green-500, $green-400, $green-300, $green-100),
-    /* cta */       dt-theme-palette($green-500, $green-400, $green-300, $green-100),
-    /* neutral */   dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100)
-  );
+$dt-purple-theme-dark: dt-theme-dark(
+  /* main */
+    dt-theme-palette($purple-500, $purple-400, $purple-300, $purple-100),
+  /* accent */
+    dt-theme-palette(
+      $turquoise-500,
+      $turquoise-400,
+      $turquoise-300,
+      $turquoise-100
+    ),
+  /* warning */
+    dt-theme-palette($yellow-600, $yellow-500, $yellow-400, $yellow-100),
+  /* error */ dt-theme-palette($red-400, $red-300, $red-200, $red-100),
+  /* recovered */
+    dt-theme-palette($green-500, $green-400, $green-300, $green-100),
+  /* cta */ dt-theme-palette($green-500, $green-400, $green-300, $green-100),
+  /* neutral */ dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100)
+);
 
-@include dt-register-theme('purple', $dt-purple-theme-light, $dt-purple-theme-dark, false);
+@include dt-register-theme(
+  'purple',
+  $dt-purple-theme-light,
+  $dt-purple-theme-dark,
+  false
+);

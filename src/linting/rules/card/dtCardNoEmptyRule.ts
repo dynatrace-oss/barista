@@ -2,11 +2,14 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasContentApartFrom, isElementWithName } from '../../utils';
+import {
+  addFailure,
+  hasContentApartFrom,
+  isElementWithName,
+} from '../../utils';
 import { cardChildren } from './cardUtils';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -21,7 +24,11 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dt-card must always contain content apart from title, subtitle, icon and actions.');
+    addFailure(
+      this,
+      element,
+      'A dt-card must always contain content apart from title, subtitle, icon and actions.'
+    );
   }
 }
 
@@ -44,13 +51,14 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
  * </dt-card>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a dt-card always contains content apart from title, subtitle, icon and actions.',
+    description:
+      'Ensures that a dt-card always contains content apart from title, subtitle, icon and actions.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A dt-card must always contain content apart from title, subtitle, icon and actions.',
+    rationale:
+      'A dt-card must always contain content apart from title, subtitle, icon and actions.',
     ruleName: 'dt-card-no-empty',
     type: 'maintainability',
     typescriptOnly: true,

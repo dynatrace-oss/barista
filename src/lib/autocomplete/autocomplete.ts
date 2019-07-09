@@ -15,7 +15,7 @@ import {
   ContentChildren,
   QueryList,
   AfterViewInit,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DtOption, DtOptgroup } from '@dynatrace/angular-components/core';
@@ -30,7 +30,8 @@ export class DtAutocompleteSelectedEvent<T> {
     /** Reference to the autocomplete panel that emitted the event. */
     public source: DtAutocomplete<T>,
     /** Option that was selected. */
-    public option: DtOption<T>) { }
+    public option: DtOption<T>
+  ) {}
 }
 
 /** Default `dt-autocomplete` options that can be overridden. */
@@ -40,7 +41,9 @@ export interface DtAutocompleteDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `dt-autocomplete`. */
-export const DT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<DtAutocompleteDefaultOptions>('dt-autocomplete-default-options', {
+export const DT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<
+  DtAutocompleteDefaultOptions
+>('dt-autocomplete-default-options', {
   providedIn: 'root',
   factory: DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
 });
@@ -64,13 +67,14 @@ export function DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): DtAutocompleteDefault
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
-
   /**
    * Whether the first option should be highlighted when the autocomplete panel is opened.
    * Can be configured globally through the `DT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
    */
   @Input()
-  get autoActiveFirstOption(): boolean { return this._autoActiveFirstOption; }
+  get autoActiveFirstOption(): boolean {
+    return this._autoActiveFirstOption;
+  }
   set autoActiveFirstOption(value: boolean) {
     this._autoActiveFirstOption = coerceBooleanProperty(value);
   }
@@ -86,7 +90,9 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   @Input() displayWith: ((value: T) => string) | null = null;
 
   /** Event that is emitted whenever an option from the list is selected. */
-  @Output() readonly optionSelected = new EventEmitter<DtAutocompleteSelectedEvent<T>>();
+  @Output() readonly optionSelected = new EventEmitter<
+    DtAutocompleteSelectedEvent<T>
+  >();
 
   /** Event that is emitted when the autocomplete panel is opened. */
   @Output() readonly opened = new EventEmitter<void>();
@@ -105,22 +111,25 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   set classList(value: string) {
     if (value && value.length) {
       this._classList = value.split(' ').reduce(
-      (classList, className) => {
-        classList[className.trim()] = true;
-        return classList;
-      },
-      // tslint:disable-next-line: no-object-literal-type-assertion
-      {} as {[key: string]: boolean});
+        (classList, className) => {
+          classList[className.trim()] = true;
+          return classList;
+        },
+        // tslint:disable-next-line: no-object-literal-type-assertion
+        {} as { [key: string]: boolean }
+      );
     } else {
       this._classList = {};
     }
     this._setVisibilityClasses(this._classList);
     this._elementRef.nativeElement.className = '';
   }
-  _classList: {[key: string]: boolean} = {};
+  _classList: { [key: string]: boolean } = {};
 
   /** Whether the autocomplete panel is open. */
-  get isOpen(): boolean { return this._isOpen && this.showPanel; }
+  get isOpen(): boolean {
+    return this._isOpen && this.showPanel;
+  }
   _isOpen = false;
 
   /**
@@ -138,14 +147,18 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   // tslint:disable-next-line:no-any
   @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
   @ViewChild('panel', { static: false }) panel: ElementRef;
-  @ContentChildren(DtOption, { descendants: true }) options: QueryList<DtOption<T>>;
+  @ContentChildren(DtOption, { descendants: true }) options: QueryList<
+    DtOption<T>
+  >;
   @ContentChildren(DtOptgroup) optionGroups: QueryList<DtOptgroup>;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
     private _viewContainerRef: ViewContainerRef,
-    @Inject(DT_AUTOCOMPLETE_DEFAULT_OPTIONS) defaults: DtAutocompleteDefaultOptions) {
+    @Inject(DT_AUTOCOMPLETE_DEFAULT_OPTIONS)
+    defaults: DtAutocompleteDefaultOptions
+  ) {
     this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
   }
 
@@ -154,7 +167,9 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   }
 
   ngAfterContentInit(): void {
-    this._keyManager = new ActiveDescendantKeyManager<DtOption<T>>(this.options).withWrap();
+    this._keyManager = new ActiveDescendantKeyManager<DtOption<T>>(
+      this.options
+    ).withWrap();
     // Set the initial visibility state.
     this._setVisibility();
   }
@@ -198,7 +213,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   }
 
   /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
-  private _setVisibilityClasses(classList: {[key: string]: boolean}): void {
+  private _setVisibilityClasses(classList: { [key: string]: boolean }): void {
     classList['dt-autocomplete-visible'] = this.showPanel;
     classList['dt-autocomplete-hidden'] = !this.showPanel;
   }

@@ -7,7 +7,11 @@ import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtExpandableSection, DtExpandableSectionModule, DtIconModule } from '@dynatrace/angular-components';
+import {
+  DtExpandableSection,
+  DtExpandableSectionModule,
+  DtIconModule,
+} from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtExpandableSection', () => {
@@ -25,7 +29,6 @@ describe('DtExpandableSection', () => {
   }));
 
   describe('dt-expandable-section', () => {
-
     let fixture: ComponentFixture<TestApp>;
     let instanceDebugElement: DebugElement;
     let instanceElement: HTMLElement;
@@ -33,9 +36,13 @@ describe('DtExpandableSection', () => {
 
     beforeEach(async(() => {
       fixture = createComponent(TestApp);
-      instanceDebugElement = fixture.debugElement.query(By.directive(DtExpandableSection));
+      instanceDebugElement = fixture.debugElement.query(
+        By.directive(DtExpandableSection)
+      );
       instanceElement = instanceDebugElement.nativeElement;
-      expandableSectionInstance = instanceDebugElement.injector.get<DtExpandableSection>(DtExpandableSection);
+      expandableSectionInstance = instanceDebugElement.injector.get<
+        DtExpandableSection
+      >(DtExpandableSection);
     }));
 
     // test initial state
@@ -103,15 +110,21 @@ describe('DtExpandableSection', () => {
 
     // check CSS class when expanded
     it('should have correct styles applied when expanded', () => {
-      expect(instanceElement.classList).not.toContain('dt-expandable-section-opened');
+      expect(instanceElement.classList).not.toContain(
+        'dt-expandable-section-opened'
+      );
       expect(expandableSectionInstance.toggle()).toBe(true);
       fixture.detectChanges();
-      expect(instanceElement.classList).toContain('dt-expandable-section-opened');
+      expect(instanceElement.classList).toContain(
+        'dt-expandable-section-opened'
+      );
     });
 
     // check attributes of section and trigger when disabled
     it('should have correct attributes when disabled', () => {
-      const triggerInstanceElement = fixture.debugElement.query(By.css('.dt-expandable-panel-trigger')).nativeElement;
+      const triggerInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger')
+      ).nativeElement;
 
       expect(instanceElement.getAttribute('aria-disabled')).toBe('false');
       expect(triggerInstanceElement.getAttribute('tabindex')).toBe('0');
@@ -129,7 +142,9 @@ describe('DtExpandableSection', () => {
       const expandedSpy = jasmine.createSpy();
       const changedSpy = jasmine.createSpy();
       const instance = instanceDebugElement.componentInstance;
-      const expandedSubscription = instance._sectionExpanded.subscribe(expandedSpy);
+      const expandedSubscription = instance._sectionExpanded.subscribe(
+        expandedSpy
+      );
       const changedSubscription = instance.expandChange.subscribe(changedSpy);
 
       expandableSectionInstance.open();
@@ -148,7 +163,9 @@ describe('DtExpandableSection', () => {
       const collapsedSpy = jasmine.createSpy();
       const changedSpy = jasmine.createSpy();
       const instance = instanceDebugElement.componentInstance;
-      const collapsedSubscription = instance._sectionCollapsed.subscribe(collapsedSpy);
+      const collapsedSubscription = instance._sectionCollapsed.subscribe(
+        collapsedSpy
+      );
       const changedSubscription = instance.expandChange.subscribe(changedSpy);
 
       expandableSectionInstance.close();
@@ -172,4 +189,4 @@ describe('DtExpandableSection', () => {
     </dt-expandable-section>
   `,
 })
-class TestApp { }
+class TestApp {}

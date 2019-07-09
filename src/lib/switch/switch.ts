@@ -22,7 +22,7 @@ import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
   NG_VALIDATORS,
-  CheckboxRequiredValidator
+  CheckboxRequiredValidator,
 } from '@angular/forms';
 import {
   HasTabIndex,
@@ -52,7 +52,7 @@ export interface DtSwitchChange<T> {
 }
 
 // Boilerplate for applying mixins to DtSwitch.
-export class DtSwitchBase { }
+export class DtSwitchBase {}
 export const _DtSwitchMixinBase = mixinTabIndex(mixinDisabled(DtSwitchBase));
 
 @Component({
@@ -63,7 +63,7 @@ export const _DtSwitchMixinBase = mixinTabIndex(mixinDisabled(DtSwitchBase));
   exportAs: 'dtSwitch',
   inputs: ['disabled', 'tabIndex'],
   host: {
-    'class': 'dt-switch',
+    class: 'dt-switch',
     '[id]': 'id',
     '[class.dt-switch-checked]': 'checked',
     '[class.dt-switch-disabled]': 'disabled',
@@ -75,11 +75,17 @@ export const _DtSwitchMixinBase = mixinTabIndex(mixinDisabled(DtSwitchBase));
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtSwitch<T> extends _DtSwitchMixinBase
-  implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit, ControlValueAccessor {
-
+  implements
+    CanDisable,
+    HasTabIndex,
+    OnDestroy,
+    AfterViewInit,
+    ControlValueAccessor {
   /** Whether or not the switch is checked. */
   @Input()
-  get checked(): boolean { return this._checked; }
+  get checked(): boolean {
+    return this._checked;
+  }
   set checked(value: boolean) {
     const coercedValue = coerceBooleanProperty(value);
     if (coercedValue !== this._checked) {
@@ -90,20 +96,30 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
 
   /** Unique id of the element. */
   @Input()
-  get id(): string { return this._id; }
-  set id(value: string) { this._id = value || this._uid; }
+  get id(): string {
+    return this._id;
+  }
+  set id(value: string) {
+    this._id = value || this._uid;
+  }
 
   /** Whether the switch is required. */
   @Input()
-  get required(): boolean { return this._required; }
-  set required(value: boolean) { this._required = coerceBooleanProperty(value); }
+  get required(): boolean {
+    return this._required;
+  }
+  set required(value: boolean) {
+    this._required = coerceBooleanProperty(value);
+  }
 
   /**
    * Whether the switch is disabled. This fully overrides the implementation provided by
    * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
    */
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     if (value !== this.disabled) {
       this._disabled = coerceBooleanProperty(value);
@@ -118,11 +134,11 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   @Input() value: T;
 
   /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
-    // tslint:disable-next-line:no-input-rename
+  // tslint:disable-next-line:no-input-rename
   @Input('aria-label') ariaLabel = '';
 
   /** The 'aria-describedby' attribute is read after the element's label and field type. */
-    // tslint:disable-next-line:no-input-rename
+  // tslint:disable-next-line:no-input-rename
   @Input('aria-labelledby') ariaLabelledby: string | null = null;
 
   /** Event emitted when the switch's `checked` value changes. */
@@ -134,16 +150,18 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
   /** Returns the unique id for the visual hidden input. */
-  get inputId(): string { return `${this.id}-input`; }
+  get inputId(): string {
+    return `${this.id}-input`;
+  }
 
-  _onTouched: () => void = () => { };
+  _onTouched: () => void = () => {};
 
   private _checked = false;
   private _uid = `dt-switch-${nextUniqueId++}`;
   private _id: string;
   private _required: boolean;
   private _disabled = false;
-  private _controlValueAccessorChangeFn: (value: boolean) => void = () => { };
+  private _controlValueAccessorChangeFn: (value: boolean) => void = () => {};
 
   constructor(
     private _renderer: Renderer2,
@@ -162,7 +180,9 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   ngAfterViewInit(): void {
     this._focusMonitor
       .monitor(this._inputElement.nativeElement, false)
-      .subscribe((focusOrigin) => { this._onInputFocusChange(focusOrigin); });
+      .subscribe(focusOrigin => {
+        this._onInputFocusChange(focusOrigin);
+      });
   }
 
   ngOnDestroy(): void {
@@ -207,7 +227,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   }
 
   /** Implemented as a part of ControlValueAccessor. */
-  registerOnTouched(fn: () => void = () => { }): void {
+  registerOnTouched(fn: () => void = () => {}): void {
     this._onTouched = fn;
   }
 
@@ -256,4 +276,4 @@ export const DT_SWITCH_REQUIRED_VALIDATOR: Provider = {
   providers: [DT_SWITCH_REQUIRED_VALIDATOR],
   host: { '[attr.required]': 'required ? "" : null' },
 })
-export class DtSwitchRequiredValidator extends CheckboxRequiredValidator { }
+export class DtSwitchRequiredValidator extends CheckboxRequiredValidator {}

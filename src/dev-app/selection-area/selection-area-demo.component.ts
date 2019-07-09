@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { DtSelectionAreaChange, DtSelectionArea } from '@dynatrace/angular-components/selection-area';
+import {
+  DtSelectionAreaChange,
+  DtSelectionArea,
+} from '@dynatrace/angular-components/selection-area';
 import { DtChart } from '@dynatrace/angular-components/chart';
 import { generateData } from '../chart/chart-data';
 
@@ -71,7 +74,8 @@ export class SelectionAreaDemo {
       type: 'column',
       yAxis: 1,
       data: generateData(40, 0, 15, 1370304000000, 10000),
-    }];
+    },
+  ];
 
   // tslint:disable-next-line: deprecation
   handleChange(ev: DtSelectionAreaChange): void {

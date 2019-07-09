@@ -32,7 +32,7 @@ export type DtDrawerAnimationState = 'open' | 'open-instant' | 'closed';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   host: {
-    'class': 'dt-drawer',
+    class: 'dt-drawer',
     '[@transform]': '_animationState',
     '(@transform.start)': '_animationStarted.next($event)',
     '(@transform.done)': '_animationEnd.next($event)',
@@ -43,13 +43,14 @@ export type DtDrawerAnimationState = 'open' | 'open-instant' | 'closed';
   },
 })
 export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
-
   /**
    * The mode of the drawer can be `'side' | 'over'`. The mode describes the behavior of the
    * overlaying or pushing to side mechanism of the drawer.
    */
   @Input()
-  get mode(): 'side' | 'over' { return this._mode; }
+  get mode(): 'side' | 'over' {
+    return this._mode;
+  }
   set mode(value: 'side' | 'over') {
     this._mode = value;
     this._currentMode = value;
@@ -72,7 +73,9 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
    * A drawer container can only have one drawer per position.
    */
   @Input()
-  get position(): 'start' | 'end' { return this._position; }
+  get position(): 'start' | 'end' {
+    return this._position;
+  }
   set position(value: 'start' | 'end') {
     this._position = value;
     this._stateChanges.next();
@@ -84,7 +87,9 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
    * Can be applied as directive to the drawer to open it initial.
    */
   @Input()
-  get opened(): boolean { return this._opened; }
+  get opened(): boolean {
+    return this._opened;
+  }
   set opened(value: boolean) {
     // we hav to coerce the value in case that we always want a boolean value
     // if the property `opened` is set on the element it the value will not be true
@@ -104,15 +109,23 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
    * @internal
    * Event emitted when the drawer has been opened.
    */
-  @Output('opened') readonly _openedStream: Observable<void> =
-    this.openChange.pipe(filter((o) => o), map(() => {}));
+  @Output('opened') readonly _openedStream: Observable<
+    void
+  > = this.openChange.pipe(
+    filter(o => o),
+    map(() => {})
+  );
 
   /**
    * @internal
    * Event emitted when the drawer has been closed.
    */
-  @Output('closed') readonly _closedStream: Observable<void> =
-    this.openChange.pipe(filter((o) => !o), map(() => {}));
+  @Output('closed') readonly _closedStream: Observable<
+    void
+  > = this.openChange.pipe(
+    filter(o => !o),
+    map(() => {})
+  );
 
   /**
    * @internal
@@ -120,7 +133,9 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
    * If no elementRef is present default it to 0.
    */
   get _width(): number {
-    return this._elementRef.nativeElement ? (this._elementRef.nativeElement.offsetWidth || 0) : 0;
+    return this._elementRef.nativeElement
+      ? this._elementRef.nativeElement.offsetWidth || 0
+      : 0;
   }
 
   /** @internal */
@@ -150,21 +165,24 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
     private _elementRef: ElementRef,
     private _breakpointObserver: BreakpointObserver
   ) {
-
     // distinctUntilChanged is needed because the done event fires twice on some browsers
     // and fire if animation is done
-    this._animationEnd.pipe(
-      distinctUntilChanged((x, y) => x.fromState === y.fromState && x.toState === y.toState)
-    ).subscribe((event: AnimationEvent) => {
-      const { fromState, toState } = event;
+    this._animationEnd
+      .pipe(
+        distinctUntilChanged(
+          (x, y) => x.fromState === y.fromState && x.toState === y.toState
+        )
+      )
+      .subscribe((event: AnimationEvent) => {
+        const { fromState, toState } = event;
 
-      if (
-        (toState.indexOf('open') === 0 && fromState === 'closed') ||
-        (toState === 'closed' && fromState.indexOf('open') === 0)
-      ) {
-        this.openChange.emit(this._opened);
-      }
-    });
+        if (
+          (toState.indexOf('open') === 0 && fromState === 'closed') ||
+          (toState === 'closed' && fromState.indexOf('open') === 0)
+        ) {
+          this.openChange.emit(this._opened);
+        }
+      });
   }
 
   ngOnInit(): void {
@@ -172,22 +190,21 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
     // and sets the mode to overlay if it is below the breakpoint.
     // mobile devices should only see the over mode
     this._breakpointObserver
-    .observe([`(max-width: ${DT_DRAWER_MODE_BREAKPOINT}px)`])
-    .pipe(takeUntil(this._destroy))
-    .subscribe((state: BreakpointState) => {
-
-      if (state.matches) {
-        if (this._currentMode !== 'over') {
-          this._currentMode = 'over';
-          this._stateChanges.next();
+      .observe([`(max-width: ${DT_DRAWER_MODE_BREAKPOINT}px)`])
+      .pipe(takeUntil(this._destroy))
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          if (this._currentMode !== 'over') {
+            this._currentMode = 'over';
+            this._stateChanges.next();
+          }
+        } else {
+          if (this._currentMode !== this.mode) {
+            this._currentMode = this._mode;
+            this._stateChanges.next();
+          }
         }
-      } else {
-        if (this._currentMode !== this.mode) {
-          this._currentMode = this._mode;
-          this._stateChanges.next();
-        }
-      }
-    });
+      });
   }
 
   ngAfterContentChecked(): void {
@@ -226,8 +243,10 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
   toggle(opened: boolean = !this.opened): void {
     this._opened = opened;
 
-    this._animationState = opened ?
-      this._enableAnimations ? 'open' : 'open-instant' :
-      this._animationState = 'closed';
+    this._animationState = opened
+      ? this._enableAnimations
+        ? 'open'
+        : 'open-instant'
+      : (this._animationState = 'closed');
   }
 }

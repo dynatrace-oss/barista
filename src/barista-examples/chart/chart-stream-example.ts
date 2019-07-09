@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'barista-demo',
-  template: '<dt-chart [options]="options" [series]="series$" loading-text="Loading..."></dt-chart>',
+  template:
+    '<dt-chart [options]="options" [series]="series$" loading-text="Loading..."></dt-chart>',
 })
 export class ChartStreamExample {
-
   options: Highcharts.Options = {
     xAxis: {
       type: 'datetime',

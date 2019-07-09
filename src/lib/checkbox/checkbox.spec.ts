@@ -2,10 +2,24 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
-import { FormControl, FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  flush,
+} from '@angular/core/testing';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  NgModel,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DtCheckbox, DtCheckboxChange, DtCheckboxModule } from '@dynatrace/angular-components';
+import {
+  DtCheckbox,
+  DtCheckboxChange,
+  DtCheckboxModule,
+} from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtCheckbox', () => {
@@ -46,17 +60,25 @@ describe('DtCheckbox', () => {
     beforeEach(() => {
       fixture = createComponent(SingleCheckbox);
 
-      checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       checkboxNativeElement = checkboxDebugElement.nativeElement;
       checkboxInstance = checkboxDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = checkboxNativeElement.querySelector('input') as HTMLInputElement;
-      labelElement = checkboxNativeElement.querySelector('label') as HTMLLabelElement;
+      inputElement = checkboxNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
+      labelElement = checkboxNativeElement.querySelector(
+        'label'
+      ) as HTMLLabelElement;
     });
 
     it('should add and remove the checked state', () => {
       expect(checkboxInstance.checked).toBe(false);
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-checked');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-checked'
+      );
       expect(inputElement.checked).toBe(false);
 
       testComponent.isChecked = true;
@@ -70,27 +92,40 @@ describe('DtCheckbox', () => {
       fixture.detectChanges();
 
       expect(checkboxInstance.checked).toBe(false);
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-checked');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-checked'
+      );
       expect(inputElement.checked).toBe(false);
     });
 
     it('should add and remove indeterminate state', () => {
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-checked');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-checked'
+      );
       expect(inputElement.checked).toBe(false);
-      expect(inputElement.getAttribute('aria-checked')).toBe('false', 'Expect aria-checked to be false');
+      expect(inputElement.getAttribute('aria-checked')).toBe(
+        'false',
+        'Expect aria-checked to be false'
+      );
 
       testComponent.isIndeterminate = true;
       fixture.detectChanges();
 
-      expect(checkboxNativeElement.classList).toContain('dt-checkbox-indeterminate');
+      expect(checkboxNativeElement.classList).toContain(
+        'dt-checkbox-indeterminate'
+      );
       expect(inputElement.checked).toBe(false);
-      expect(inputElement.getAttribute('aria-checked'))
-        .toBe('mixed', 'Expect aria checked to be mixed for indeterminate checkbox');
+      expect(inputElement.getAttribute('aria-checked')).toBe(
+        'mixed',
+        'Expect aria checked to be mixed for indeterminate checkbox'
+      );
 
       testComponent.isIndeterminate = false;
       fixture.detectChanges();
 
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-indeterminate');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-indeterminate'
+      );
       expect(inputElement.checked).toBe(false);
     });
 
@@ -121,8 +156,10 @@ describe('DtCheckbox', () => {
       expect(checkboxInstance.indeterminate).toBe(true);
       expect(inputElement.checked).toBe(true);
       expect(testComponent.isIndeterminate).toBe(true);
-      expect(inputElement.getAttribute('aria-checked'))
-        .toBe('true', 'Expect aria checked to be true');
+      expect(inputElement.getAttribute('aria-checked')).toBe(
+        'true',
+        'Expect aria checked to be true'
+      );
 
       inputElement.click();
       fixture.detectChanges();
@@ -191,7 +228,7 @@ describe('DtCheckbox', () => {
 
       expect(checkboxInstance.checked).toBe(false);
       expect(checkboxInstance.indeterminate).toBe(true);
-      checkboxInstance._onInputClick({ stopPropagation: () => { } } as any);
+      checkboxInstance._onInputClick({ stopPropagation: () => {} } as any);
 
       // Flush the microtasks because the indeterminate state will be updated in the next tick.
       flush();
@@ -199,7 +236,7 @@ describe('DtCheckbox', () => {
       expect(checkboxInstance.checked).toBe(true);
       expect(checkboxInstance.indeterminate).toBe(false);
 
-      checkboxInstance._onInputClick({ stopPropagation: () => { } } as any);
+      checkboxInstance._onInputClick({ stopPropagation: () => {} } as any);
       fixture.detectChanges();
 
       expect(checkboxInstance.checked).toBe(false);
@@ -208,7 +245,9 @@ describe('DtCheckbox', () => {
 
     it('should add and remove disabled state', () => {
       expect(checkboxInstance.disabled).toBe(false);
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-disabled');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-disabled'
+      );
       expect(inputElement.tabIndex).toBe(0);
       expect(inputElement.disabled).toBe(false);
 
@@ -223,7 +262,9 @@ describe('DtCheckbox', () => {
       fixture.detectChanges();
 
       expect(checkboxInstance.disabled).toBe(false);
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-disabled');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-disabled'
+      );
       expect(inputElement.tabIndex).toBe(0);
       expect(inputElement.disabled).toBe(false);
     });
@@ -264,7 +305,9 @@ describe('DtCheckbox', () => {
     });
 
     it('should project the checkbox content into the label element', () => {
-      const label = checkboxNativeElement.querySelector('.dt-checkbox-label') as HTMLLabelElement;
+      const label = checkboxNativeElement.querySelector(
+        '.dt-checkbox-label'
+      ) as HTMLLabelElement;
       expect(label.textContent!.trim()).toBe('Simple checkbox');
     });
 
@@ -281,7 +324,9 @@ describe('DtCheckbox', () => {
       spyOn(testComponent, 'onCheckboxClick');
 
       expect(inputElement.checked).toBe(false);
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-checked');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-checked'
+      );
 
       labelElement.click();
       fixture.detectChanges();
@@ -296,7 +341,9 @@ describe('DtCheckbox', () => {
       spyOn(testComponent, 'onCheckboxChange');
 
       expect(inputElement.checked).toBe(false);
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-checked');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-checked'
+      );
 
       labelElement.click();
       fixture.detectChanges();
@@ -316,7 +363,9 @@ describe('DtCheckbox', () => {
       spyOn(testComponent, 'onCheckboxChange');
 
       expect(inputElement.checked).toBe(false);
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-checked');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-checked'
+      );
 
       testComponent.isChecked = true;
       fixture.detectChanges();
@@ -361,37 +410,46 @@ describe('DtCheckbox', () => {
     });
 
     it('should remove the SVG checkmark from the tab order', () => {
-      expect(checkboxNativeElement.querySelector('svg')!.getAttribute('focusable')).toBe('false');
+      expect(
+        checkboxNativeElement.querySelector('svg')!.getAttribute('focusable')
+      ).toBe('false');
     });
 
     describe('state transition css classes', () => {
       it('should transition unchecked -> checked -> unchecked', () => {
         inputElement.click();
         fixture.detectChanges();
-        expect(checkboxNativeElement.classList).toContain('dt-checkbox-anim-unchecked-checked');
+        expect(checkboxNativeElement.classList).toContain(
+          'dt-checkbox-anim-unchecked-checked'
+        );
 
         inputElement.click();
         fixture.detectChanges();
-        expect(checkboxNativeElement.classList)
-          .not.toContain('dt-checkbox-anim-unchecked-checked');
-        expect(checkboxNativeElement.classList)
-          .toContain('dt-checkbox-anim-checked-unchecked');
+        expect(checkboxNativeElement.classList).not.toContain(
+          'dt-checkbox-anim-unchecked-checked'
+        );
+        expect(checkboxNativeElement.classList).toContain(
+          'dt-checkbox-anim-checked-unchecked'
+        );
       });
 
       it('should transition unchecked -> indeterminate -> unchecked', () => {
         testComponent.isIndeterminate = true;
         fixture.detectChanges();
 
-        expect(checkboxNativeElement.classList)
-          .toContain('dt-checkbox-anim-unchecked-indeterminate');
+        expect(checkboxNativeElement.classList).toContain(
+          'dt-checkbox-anim-unchecked-indeterminate'
+        );
 
         testComponent.isIndeterminate = false;
         fixture.detectChanges();
 
-        expect(checkboxNativeElement.classList)
-          .not.toContain('dt-checkbox-anim-unchecked-indeterminate');
-        expect(checkboxNativeElement.classList)
-          .toContain('dt-checkbox-anim-indeterminate-unchecked');
+        expect(checkboxNativeElement.classList).not.toContain(
+          'dt-checkbox-anim-unchecked-indeterminate'
+        );
+        expect(checkboxNativeElement.classList).toContain(
+          'dt-checkbox-anim-indeterminate-unchecked'
+        );
       });
 
       it('should transition indeterminate -> checked', () => {
@@ -402,9 +460,11 @@ describe('DtCheckbox', () => {
         fixture.detectChanges();
 
         expect(checkboxNativeElement.classList).not.toContain(
-          'dt-checkbox-anim-unchecked-indeterminate');
-        expect(checkboxNativeElement.classList)
-          .toContain('dt-checkbox-anim-indeterminate-checked');
+          'dt-checkbox-anim-unchecked-indeterminate'
+        );
+        expect(checkboxNativeElement.classList).toContain(
+          'dt-checkbox-anim-indeterminate-checked'
+        );
       });
 
       it('should not apply transition classes when there is no state change', () => {
@@ -434,12 +494,18 @@ describe('DtCheckbox', () => {
       fixture = TestBed.createComponent(CheckboxWithChangeEvent);
       fixture.detectChanges();
 
-      checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       checkboxNativeElement = checkboxDebugElement.nativeElement;
       checkboxInstance = checkboxDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = checkboxNativeElement.querySelector('input') as HTMLInputElement;
-      labelElement = checkboxNativeElement.querySelector('label') as HTMLLabelElement;
+      inputElement = checkboxNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
+      labelElement = checkboxNativeElement.querySelector(
+        'label'
+      ) as HTMLLabelElement;
     });
 
     it('should emit the event to the change observable', () => {
@@ -482,9 +548,13 @@ describe('DtCheckbox', () => {
 
     it('should use the provided aria-label', () => {
       fixture = TestBed.createComponent(CheckboxWithAriaLabel);
-      checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       checkboxNativeElement = checkboxDebugElement.nativeElement;
-      inputElement = checkboxNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = checkboxNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       fixture.detectChanges();
       expect(inputElement.getAttribute('aria-label')).toBe('Super effective');
@@ -494,7 +564,9 @@ describe('DtCheckbox', () => {
       fixture = TestBed.createComponent(SingleCheckbox);
       fixture.detectChanges();
 
-      expect(fixture.nativeElement.querySelector('input').hasAttribute('aria-label')).toBe(false);
+      expect(
+        fixture.nativeElement.querySelector('input').hasAttribute('aria-label')
+      ).toBe(false);
     });
   });
 
@@ -505,9 +577,13 @@ describe('DtCheckbox', () => {
 
     it('should use the provided aria-labelledby', () => {
       fixture = TestBed.createComponent(CheckboxWithAriaLabelledby);
-      checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       checkboxNativeElement = checkboxDebugElement.nativeElement;
-      inputElement = checkboxNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = checkboxNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       fixture.detectChanges();
       expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
@@ -515,9 +591,13 @@ describe('DtCheckbox', () => {
 
     it('should not assign aria-labelledby if none is provided', () => {
       fixture = TestBed.createComponent(SingleCheckbox);
-      checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       checkboxNativeElement = checkboxDebugElement.nativeElement;
-      inputElement = checkboxNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = checkboxNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       fixture.detectChanges();
       expect(inputElement.getAttribute('aria-labelledby')).toBe(null);
@@ -535,9 +615,13 @@ describe('DtCheckbox', () => {
       fixture.detectChanges();
 
       testComponent = fixture.debugElement.componentInstance;
-      checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       checkboxNativeElement = checkboxDebugElement.nativeElement;
-      inputElement = checkboxNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = checkboxNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
     });
 
     it('should preserve any given tabIndex', () => {
@@ -556,7 +640,6 @@ describe('DtCheckbox', () => {
 
       expect(inputElement.tabIndex).toBe(13);
     });
-
   });
 
   describe('with native tabindex attribute', () => {
@@ -564,11 +647,13 @@ describe('DtCheckbox', () => {
       fixture = TestBed.createComponent(CheckboxWithTabindexAttr);
       fixture.detectChanges();
 
-      const checkbox = fixture.debugElement
-        .query(By.directive(DtCheckbox)).componentInstance as DtCheckbox<any>;
+      const checkbox = fixture.debugElement.query(By.directive(DtCheckbox))
+        .componentInstance as DtCheckbox<any>;
 
-      expect(checkbox.tabIndex)
-        .toBe(5, 'Expected tabIndex property to have been set based on the native attribute');
+      expect(checkbox.tabIndex).toBe(
+        5,
+        'Expected tabIndex property to have been set based on the native attribute'
+      );
     }));
   });
 
@@ -581,17 +666,23 @@ describe('DtCheckbox', () => {
       fixture = TestBed.createComponent(CheckboxUsingViewChild);
       fixture.detectChanges();
 
-      checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       checkboxNativeElement = checkboxDebugElement.nativeElement;
       testComponent = fixture.debugElement.componentInstance;
     });
 
     it('should toggle checkbox disabledness correctly', () => {
       const checkboxInstance = checkboxDebugElement.componentInstance;
-      const inputElement = checkboxNativeElement.querySelector('input') as HTMLInputElement;
+      const inputElement = checkboxNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       expect(checkboxInstance.disabled).toBe(false);
-      expect(checkboxNativeElement.classList).not.toContain('dt-checkbox-disabled');
+      expect(checkboxNativeElement.classList).not.toContain(
+        'dt-checkbox-disabled'
+      );
       expect(inputElement.tabIndex).toBe(0);
       expect(inputElement.disabled).toBe(false);
 
@@ -619,8 +710,11 @@ describe('DtCheckbox', () => {
     });
 
     it('should assign a unique id to each checkbox', () => {
-      const [firstId, secondId] = fixture.debugElement.queryAll(By.directive(DtCheckbox))
-        .map((debugElement) => debugElement.nativeElement.querySelector('input').id);
+      const [firstId, secondId] = fixture.debugElement
+        .queryAll(By.directive(DtCheckbox))
+        .map(
+          debugElement => debugElement.nativeElement.querySelector('input').id
+        );
 
       expect(firstId).toMatch(/dt-checkbox-\d+-input/);
       expect(secondId).toMatch(/dt-checkbox-\d+-input/);
@@ -638,16 +732,22 @@ describe('DtCheckbox', () => {
       fixture = TestBed.createComponent(CheckboxWithFormDirectives);
       fixture.detectChanges();
 
-      checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       checkboxNativeElement = checkboxDebugElement.nativeElement;
       checkboxInstance = checkboxDebugElement.componentInstance;
-      inputElement = checkboxNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = checkboxNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
     });
 
     it('should be in pristine, untouched, and valid states initially', fakeAsync(() => {
       flush();
 
-      const checkboxElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      const checkboxElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       const ngModel = checkboxElement.injector.get<NgModel>(NgModel);
 
       expect(ngModel.valid).toBe(true);
@@ -682,15 +782,21 @@ describe('DtCheckbox', () => {
       fixture = TestBed.createComponent(CheckboxWithNgModel);
       fixture.detectChanges();
 
-      const checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      const checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       const checkboxNativeElement = checkboxDebugElement.nativeElement;
       testComponent = fixture.debugElement.componentInstance;
       checkboxInstance = checkboxDebugElement.componentInstance;
-      inputElement = checkboxNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = checkboxNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
     });
 
     it('should validate with RequiredTrue validator', () => {
-      const checkboxElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      const checkboxElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       const ngModel = checkboxElement.injector.get<NgModel>(NgModel);
 
       testComponent.isRequired = true;
@@ -715,8 +821,12 @@ describe('DtCheckbox', () => {
     });
 
     it('should forward name value to input element', () => {
-      const checkboxElement = fixture.debugElement.query(By.directive(DtCheckbox));
-      const inputElement = checkboxElement.nativeElement.querySelector('input') as HTMLInputElement;
+      const checkboxElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
+      const inputElement = checkboxElement.nativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       expect(inputElement.getAttribute('name')).toBe('test-name');
     });
@@ -732,10 +842,14 @@ describe('DtCheckbox', () => {
       fixture = TestBed.createComponent(CheckboxWithFormControl);
       fixture.detectChanges();
 
-      checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+      checkboxDebugElement = fixture.debugElement.query(
+        By.directive(DtCheckbox)
+      );
       checkboxInstance = checkboxDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = checkboxDebugElement.nativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = checkboxDebugElement.nativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
     });
 
     it('should toggle the disabled state', () => {
@@ -759,7 +873,9 @@ describe('DtCheckbox', () => {
     fixture = TestBed.createComponent(CheckboxDisabledAttribute);
     fixture.detectChanges();
 
-    const checkboxDebugElement = fixture.debugElement.query(By.directive(DtCheckbox));
+    const checkboxDebugElement = fixture.debugElement.query(
+      By.directive(DtCheckbox)
+    );
     const checkboxInstance = checkboxDebugElement.componentInstance;
     const checkboxNativeElement = checkboxDebugElement.nativeElement;
     expect(checkboxInstance.disabled).toBe(true);
@@ -770,8 +886,11 @@ describe('DtCheckbox', () => {
 /** Simple component for testing a single checkbox. */
 @Component({
   template: `
-  <div (click)="parentElementClicked = true" (keyup)="parentElementKeyedUp = true">
-    <dt-checkbox
+    <div
+      (click)="parentElementClicked = true"
+      (keyup)="parentElementKeyedUp = true"
+    >
+      <dt-checkbox
         [id]="checkboxId"
         [required]="isRequired"
         [checked]="isChecked"
@@ -779,10 +898,12 @@ describe('DtCheckbox', () => {
         [disabled]="isDisabled"
         [value]="checkboxValue"
         (click)="onCheckboxClick($event)"
-        (change)="onCheckboxChange($event)">
-      Simple checkbox
-    </dt-checkbox>
-  </div>`,
+        (change)="onCheckboxChange($event)"
+      >
+        Simple checkbox
+      </dt-checkbox>
+    </div>
+  `,
 })
 class SingleCheckbox {
   isChecked = false;
@@ -794,8 +915,8 @@ class SingleCheckbox {
   checkboxId: string | null = 'simple-check';
   checkboxValue = 'single_checkbox';
 
-  onCheckboxClick: (event?: Event) => void = () => { };
-  onCheckboxChange: (event?: DtCheckboxChange<any>) => void = () => { };
+  onCheckboxClick: (event?: Event) => void = () => {};
+  onCheckboxChange: (event?: DtCheckboxChange<any>) => void = () => {};
 }
 
 /** Simple component for testing an DtCheckbox with ngModel in a form. */
@@ -812,7 +933,11 @@ class CheckboxWithFormDirectives {
 
 /** Simple component for testing an DtCheckbox with required ngModel. */
 @Component({
-  template: `<dt-checkbox [required]="isRequired" [(ngModel)]="isGood">Be good</dt-checkbox>`,
+  template: `
+    <dt-checkbox [required]="isRequired" [(ngModel)]="isGood"
+      >Be good</dt-checkbox
+    >
+  `,
 })
 class CheckboxWithNgModel {
   isGood = false;
@@ -820,21 +945,20 @@ class CheckboxWithNgModel {
 }
 
 /** Simple test component with multiple checkboxes. */
-@Component(({
+@Component({
   template: `
     <dt-checkbox>Option 1</dt-checkbox>
     <dt-checkbox>Option 2</dt-checkbox>
   `,
-}))
-class MultipleCheckboxes { }
+})
+class MultipleCheckboxes {}
 
 /** Simple test component with tabIndex */
 @Component({
   template: `
-    <dt-checkbox
-        [tabIndex]="customTabIndex"
-        [disabled]="isDisabled">
-    </dt-checkbox>`,
+    <dt-checkbox [tabIndex]="customTabIndex" [disabled]="isDisabled">
+    </dt-checkbox>
+  `,
 })
 class CheckboxWithTabIndex {
   customTabIndex = 7;
@@ -844,7 +968,8 @@ class CheckboxWithTabIndex {
 /** Simple test component that accesses DtCheckbox using ViewChild. */
 @Component({
   template: `
-    <dt-checkbox></dt-checkbox>`,
+    <dt-checkbox></dt-checkbox>
+  `,
 })
 class CheckboxUsingViewChild {
   @ViewChild(DtCheckbox, { static: false }) checkbox;
@@ -856,25 +981,33 @@ class CheckboxUsingViewChild {
 
 /** Simple test component with an aria-label set. */
 @Component({
-  template: `<dt-checkbox aria-label="Super effective"></dt-checkbox>`,
+  template: `
+    <dt-checkbox aria-label="Super effective"></dt-checkbox>
+  `,
 })
-class CheckboxWithAriaLabel { }
+class CheckboxWithAriaLabel {}
 
 /** Simple test component with an aria-label set. */
 @Component({
-  template: `<dt-checkbox aria-labelledby="some-id"></dt-checkbox>`,
+  template: `
+    <dt-checkbox aria-labelledby="some-id"></dt-checkbox>
+  `,
 })
-class CheckboxWithAriaLabelledby { }
+class CheckboxWithAriaLabelledby {}
 
 /** Simple test component with name attribute */
 @Component({
-  template: `<dt-checkbox name="test-name"></dt-checkbox>`,
+  template: `
+    <dt-checkbox name="test-name"></dt-checkbox>
+  `,
 })
-class CheckboxWithNameAttribute { }
+class CheckboxWithNameAttribute {}
 
 /** Simple test component with change event */
 @Component({
-  template: `<dt-checkbox (change)="lastEvent = $event"></dt-checkbox>`,
+  template: `
+    <dt-checkbox (change)="lastEvent = $event"></dt-checkbox>
+  `,
 })
 class CheckboxWithChangeEvent {
   lastEvent: DtCheckboxChange<any>;
@@ -882,7 +1015,9 @@ class CheckboxWithChangeEvent {
 
 /** Test component with reactive forms */
 @Component({
-  template: `<dt-checkbox [formControl]="formControl"></dt-checkbox>`,
+  template: `
+    <dt-checkbox [formControl]="formControl"></dt-checkbox>
+  `,
 })
 class CheckboxWithFormControl {
   formControl = new FormControl();
@@ -890,7 +1025,9 @@ class CheckboxWithFormControl {
 
 /** Test component without label */
 @Component({
-  template: `<dt-checkbox>{{ label }}</dt-checkbox>`,
+  template: `
+    <dt-checkbox>{{ label }}</dt-checkbox>
+  `,
 })
 class CheckboxWithoutLabel {
   label: string;
@@ -898,12 +1035,16 @@ class CheckboxWithoutLabel {
 
 /** Test component with the native tabindex attribute. */
 @Component({
-  template: `<dt-checkbox tabindex="5"></dt-checkbox>`,
+  template: `
+    <dt-checkbox tabindex="5"></dt-checkbox>
+  `,
 })
-class CheckboxWithTabindexAttr { }
+class CheckboxWithTabindexAttr {}
 
 /** Test component with the native tabindex attribute. */
 @Component({
-  template: `<dt-checkbox disabled></dt-checkbox>`,
+  template: `
+    <dt-checkbox disabled></dt-checkbox>
+  `,
 })
-class CheckboxDisabledAttribute { }
+class CheckboxDisabledAttribute {}

@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Switch
@@ -11,31 +11,27 @@ type: "component"
 You have to import the `DtSwitchModule` when you want to use the `dt-switch`:
 
 ```typescript
-
 @NgModule({
-  imports: [
-    DtSwitchModule,
-  ],
+  imports: [DtSwitchModule],
 })
 class MyModule {}
-
 ```
 
 ## Options & Properties
 
-| Name | Type | Description |
-| --- | --- | --- |
-| `ng-content` | `string` | Text will be set as the label. |
-| `@Input() checked` | `boolean` | Whether or not the switch is checked. |
-| `@Input() id` | `string` | Unique id of the element. |
-| `@Input() required` | `boolean` | Whether the switch is required. |
-| `@Input() disabled` | `boolean` | Whether the element is disabled. |
-| `@Input() tabIndex` | `number` | The elements tab index. |
-| `@Input() name` | `string` | Name value will be applied to the input element if present. |
-| `@Input() value` | `<T>` | The value attribute of the native input element |
-| `@Input() aria-label` | `string` | Takes precedence as the element's text alternative. |
-| `@Input() aria-labelledby` | `string` | Is read after the element's label and field type |
-| `@Output() change` | `DtSwitchChange<T>` | Called every time the switch gets checked or unchecked |
+|  Name                      | Type                | Description                                                 |
+| -------------------------- | ------------------- | ----------------------------------------------------------- |
+| `ng-content`               | `string`            | Text will be set as the label.                              |
+| `@Input() checked`         | `boolean`           | Whether or not the switch is checked.                       |
+| `@Input() id`              | `string`            | Unique id of the element.                                   |
+| `@Input() required`        | `boolean`           | Whether the switch is required.                             |
+| `@Input() disabled`        | `boolean`           | Whether the element is disabled.                            |
+| `@Input() tabIndex`        | `number`            | The elements tab index.                                     |
+| `@Input() name`            | `string`            | Name value will be applied to the input element if present. |
+| `@Input() value`           | `<T>`               | The value attribute of the native input element             |
+| `@Input() aria-label`      | `string`            | Takes precedence as the element's text alternative.         |
+| `@Input() aria-labelledby` | `string`            | Is read after the element's label and field type            |
+| `@Output() change`         | `DtSwitchChange<T>` | Called every time the switch gets checked or unchecked      |
 
 ## Angular forms
 
