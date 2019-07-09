@@ -2,8 +2,7 @@
   "extends": ["@dynatrace/angular-lint-rules/tslint", "tslint-config-prettier"],
   "rulesDirectory": ["./tools/tslint-rules/"],
   "rules": {
-    // TODO ChMa: enable enforced linebreak after converting all files in repo
-    "linebreak-style": [false, "LF"],
+    "linebreak-style": [true, "LF"],
     "i18n": false,
     "increment-decrement": false,
     // this needs to be disabled since having multiple components/directives
