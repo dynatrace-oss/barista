@@ -16,14 +16,9 @@
     "sourceMap": true,
     "target": "es5",
     "stripInternal": false,
-    "typeRoots": [
-      "../../node_modules/@types/!(node)"
-    ],
+    "typeRoots": ["../../node_modules/@types/!(node)"],
     "baseUrl": ".",
-    "rootDirs": [
-      ".",
-      "../../dist/barista-examples"
-    ],
+    "rootDirs": [".", "../../dist/barista-examples"],
     "paths": {
       "@dynatrace/angular-components": ["../../dist/lib"],
       "@dynatrace/angular-components/*": ["../../dist/lib/*"]

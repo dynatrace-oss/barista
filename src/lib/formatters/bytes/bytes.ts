@@ -28,10 +28,10 @@ export class DtBytes implements PipeTransform {
       return NO_DATA;
     }
     if (input instanceof DtFormattedValue) {
-      return formatBytes(input, {factor, inputUnit});
+      return formatBytes(input, { factor, inputUnit });
     }
     if (isNumber(input)) {
-      return formatBytes(coerceNumberProperty(input), {factor, inputUnit});
+      return formatBytes(coerceNumberProperty(input), { factor, inputUnit });
     }
 
     return NO_DATA;

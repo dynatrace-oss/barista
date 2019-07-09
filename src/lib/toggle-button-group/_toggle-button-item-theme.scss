@@ -15,7 +15,9 @@
 
   /* Hover state */
   #{$namespace}:hover ::ng-deep .dt-toggle-button-item-icon,
-  #{$namespace}:hover.dt-toggle-button-item-selected ::ng-deep .dt-toggle-button-item-icon {
+  #{$namespace}:hover.dt-toggle-button-item-selected
+    ::ng-deep
+    .dt-toggle-button-item-icon {
     background-color: $hover-color;
   }
   #{$namespace}.dt-toggle-button-item-selected:hover {
@@ -26,7 +28,9 @@
   #{$namespace}.dt-toggle-button-item-selected {
     border-color: $default-color;
   }
-  #{$namespace}.dt-toggle-button-item-selected ::ng-deep .dt-toggle-button-item-icon {
+  #{$namespace}.dt-toggle-button-item-selected
+    ::ng-deep
+    .dt-toggle-button-item-icon {
     background-color: $default-color;
   }
 
@@ -35,7 +39,9 @@
     color: $gray-300;
   }
 
-  #{$namespace}.dt-toggle-button-item-disabled ::ng-deep .dt-toggle-button-item-icon {
+  #{$namespace}.dt-toggle-button-item-disabled
+    ::ng-deep
+    .dt-toggle-button-item-icon {
     background-color: $gray-300;
   }
 }

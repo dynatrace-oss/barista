@@ -5,4 +5,4 @@ import { DtTheme } from './theme';
   exports: [DtTheme],
   declarations: [DtTheme],
 })
-export class DtThemingModule { }
+export class DtThemingModule {}

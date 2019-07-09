@@ -2,10 +2,14 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasContentApartFrom, hasTextContentAlternative, isElementWithName } from '../utils';
+import {
+  addFailure,
+  hasContentApartFrom,
+  hasTextContentAlternative,
+  isElementWithName,
+} from '../utils';
 
 class DtShowMoreVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -16,9 +20,7 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    const showMoreChildren = [
-      'dt-show-less-label',
-    ];
+    const showMoreChildren = ['dt-show-less-label'];
 
     if (
       hasContentApartFrom(element, showMoreChildren) ||
@@ -27,7 +29,11 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dt-show-more must always contain text or an aria-label/aria-labelledby attribute.');
+    addFailure(
+      this,
+      element,
+      'A dt-show-more must always contain text or an aria-label/aria-labelledby attribute.'
+    );
   }
 }
 
@@ -47,13 +53,14 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
  * </dt-show-more>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a dt-show-more always contains content or a text alternative.',
+    description:
+      'Ensures that a dt-show-more always contains content or a text alternative.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A dt-show-more must always contain content apart from the dt-show-less-label or a text alternative.',
+    rationale:
+      'A dt-show-more must always contain content apart from the dt-show-less-label or a text alternative.',
     ruleName: 'dt-show-more-no-empty',
     type: 'maintainability',
     typescriptOnly: true,

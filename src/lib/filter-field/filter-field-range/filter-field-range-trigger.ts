@@ -1,7 +1,29 @@
-import { Directive, Input, ElementRef, OnDestroy, ChangeDetectorRef, NgZone, Renderer2 } from '@angular/core';
-import { Overlay, OverlayRef, OverlayConfig, FlexibleConnectedPositionStrategy, PositionStrategy } from '@angular/cdk/overlay';
+import {
+  Directive,
+  Input,
+  ElementRef,
+  OnDestroy,
+  ChangeDetectorRef,
+  NgZone,
+  Renderer2,
+} from '@angular/core';
+import {
+  Overlay,
+  OverlayRef,
+  OverlayConfig,
+  FlexibleConnectedPositionStrategy,
+  PositionStrategy,
+} from '@angular/cdk/overlay';
 import { ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
-import { Subscription, fromEvent, merge, of as observableOf, Observable, Subject, EMPTY } from 'rxjs';
+import {
+  Subscription,
+  fromEvent,
+  merge,
+  of as observableOf,
+  Observable,
+  Subject,
+  EMPTY,
+} from 'rxjs';
 import { take, filter, map } from 'rxjs/operators';
 import { readKeyCode } from '@dynatrace/angular-components/core';
 import { DtFilterFieldRange } from './filter-field-range';
@@ -17,10 +39,11 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   },
 })
 export class DtFilterFieldRangeTrigger implements OnDestroy {
-
   /** The filter-field range panel to be attached to this trigger. */
   @Input('dtFilterFieldRange')
-  get range(): DtFilterFieldRange { return this._range; }
+  get range(): DtFilterFieldRange {
+    return this._range;
+  }
   set range(value: DtFilterFieldRange) {
     this._range = value;
     this._detachOverlay();
@@ -32,7 +55,9 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
    * act as a regular input and the user won't be able to open the panel.
    */
   @Input('dtFilterFieldRangeDisabled')
-  get rangeDisabled(): boolean { return this._rangeDisabled; }
+  get rangeDisabled(): boolean {
+    return this._rangeDisabled;
+  }
   set rangeDisabled(value: boolean) {
     this._rangeDisabled = coerceBooleanProperty(value);
   }
@@ -40,7 +65,10 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
 
   /** Whether or not the filter-field range panel is open. */
   get panelOpen(): boolean {
-    return !!(this._overlayRef && this._overlayRef.hasAttached()) && this._range.isOpen;
+    return (
+      !!(this._overlayRef && this._overlayRef.hasAttached()) &&
+      this._range.isOpen
+    );
   }
 
   /**
@@ -51,9 +79,15 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     return merge(
       this._closeKeyEventStream,
       this._getOutsideClickStream(),
-      this._overlayRef ? this._overlayRef.detachments().pipe(
-        filter(() => !!(this._overlayRef && this._overlayRef.hasAttached()))
-      ) : observableOf()
+      this._overlayRef
+        ? this._overlayRef
+            .detachments()
+            .pipe(
+              filter(
+                () => !!(this._overlayRef && this._overlayRef.hasAttached())
+              )
+            )
+        : observableOf()
     ).pipe(map(() => null));
   }
 
@@ -91,18 +125,24 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
       zone.runOutsideAngular(() => {
-        this._disposableFns.push(renderer.listen(window, 'blur', () => {
-          // If the user blurred the window while the autocomplete is focused, it means that it'll be
-          // refocused when they come back. In this case we want to skip the first focus event, if the
-          // pane was closed, in order to avoid reopening it unintentionally.
-          this._canOpenOnNextFocus = document.activeElement !== this._elementRef.nativeElement || this.panelOpen;
-        }));
+        this._disposableFns.push(
+          renderer.listen(window, 'blur', () => {
+            // If the user blurred the window while the autocomplete is focused, it means that it'll be
+            // refocused when they come back. In this case we want to skip the first focus event, if the
+            // pane was closed, in order to avoid reopening it unintentionally.
+            this._canOpenOnNextFocus =
+              document.activeElement !== this._elementRef.nativeElement ||
+              this.panelOpen;
+          })
+        );
       });
     }
   }
 
   ngOnDestroy(): void {
-    this._disposableFns.forEach((fn) => { fn(); });
+    this._disposableFns.forEach(fn => {
+      fn();
+    });
     this._closingActionsSubscription.unsubscribe();
     this._componentDestroyed = true;
     this._destroyPanel();
@@ -153,7 +193,7 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
   /** Determines whether the panel can be opened. */
   private _canOpen(): boolean {
     const element = this._elementRef.nativeElement;
-    return !element.readOnly && !element.disabled  && !this._rangeDisabled;
+    return !element.readOnly && !element.disabled && !this._rangeDisabled;
   }
 
   /** Attach the filter-field-range overlay. */
@@ -161,7 +201,7 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     if (!this._overlayRef) {
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
 
-      this._overlayRef.keydownEvents().subscribe((event) => {
+      this._overlayRef.keydownEvents().subscribe(event => {
         const keyCode = readKeyCode(event);
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
         // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
@@ -213,16 +253,19 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
 
   /** Returns the overlay position. */
   private _getOverlayPosition(): PositionStrategy {
-    this._positionStrategy = this._overlay.position()
+    this._positionStrategy = this._overlay
+      .position()
       .flexibleConnectedTo(this._elementRef)
       .withFlexibleDimensions(false)
       .withPush(false)
-      .withPositions([{
+      .withPositions([
+        {
           originX: 'start',
           originY: 'bottom',
           overlayX: 'start',
           overlayY: 'top',
-        }]);
+        },
+      ]);
 
     return this._positionStrategy;
   }
@@ -232,17 +275,20 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
    * stream every time the option list changes.
    */
   private _subscribeToClosingActions(): Subscription {
-    return this.panelClosingActions.pipe(take(1))
-      // set the value, close the panel, and complete.
-      .subscribe(() => {
-        // this._setValueAndClose(event);
-        this.closePanel();
-      });
+    return (
+      this.panelClosingActions
+        .pipe(take(1))
+        // set the value, close the panel, and complete.
+        .subscribe(() => {
+          // this._setValueAndClose(event);
+          this.closePanel();
+        })
+    );
   }
 
   /** Stream of clicks outside of the autocomplete panel. */
   // tslint:disable-next-line:no-any
-  private _getOutsideClickStream(): Observable<Event|null> {
+  private _getOutsideClickStream(): Observable<Event | null> {
     if (!document) {
       return observableOf(null);
     }
@@ -250,12 +296,17 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     return merge(
       fromEvent<MouseEvent>(document, 'click'),
       fromEvent<TouchEvent>(document, 'touchend')
-    ).pipe(filter((event: Event) => {
-      const clickTarget = event.target as HTMLElement;
+    ).pipe(
+      filter((event: Event) => {
+        const clickTarget = event.target as HTMLElement;
 
-      return !!(this._overlayRef && this._overlayRef.hasAttached()) &&
-        clickTarget !== this._elementRef.nativeElement &&
-        (!!this._overlayRef && !this._overlayRef.overlayElement.contains(clickTarget));
-    }));
+        return (
+          !!(this._overlayRef && this._overlayRef.hasAttached()) &&
+          clickTarget !== this._elementRef.nativeElement &&
+          (!!this._overlayRef &&
+            !this._overlayRef.overlayElement.contains(clickTarget))
+        );
+      })
+    );
   }
 }

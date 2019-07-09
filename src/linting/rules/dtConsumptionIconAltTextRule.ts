@@ -23,11 +23,7 @@ class DtConsumptionIconVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(
-      this,
-      element,
-      'A dt-consumption-icon must have an aria-label.'
-    );
+    addFailure(this, element, 'A dt-consumption-icon must have an aria-label.');
   }
 }
 

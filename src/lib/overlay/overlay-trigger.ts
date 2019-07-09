@@ -1,14 +1,30 @@
-import { Directive, Input, ElementRef, TemplateRef, NgZone, Attribute, OnDestroy } from '@angular/core';
+import {
+  Directive,
+  Input,
+  ElementRef,
+  TemplateRef,
+  NgZone,
+  Attribute,
+  OnDestroy,
+} from '@angular/core';
 import { DtOverlay } from './overlay';
 import { DtOverlayConfig } from './overlay-config';
 import { DtOverlayRef } from './overlay-ref';
 import { Subscription, fromEvent } from 'rxjs';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { mixinTabIndex, HasTabIndex, mixinDisabled, CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
+import {
+  mixinTabIndex,
+  HasTabIndex,
+  mixinDisabled,
+  CanDisable,
+  readKeyCode,
+} from '@dynatrace/angular-components/core';
 
-export class DtOverlayTriggerBase { }
-export const _DtOverlayTriggerMixin = mixinTabIndex(mixinDisabled(DtOverlayTriggerBase));
+export class DtOverlayTriggerBase {}
+export const _DtOverlayTriggerMixin = mixinTabIndex(
+  mixinDisabled(DtOverlayTriggerBase)
+);
 
 @Directive({
   selector: '[dtOverlay]',
@@ -18,12 +34,13 @@ export const _DtOverlayTriggerMixin = mixinTabIndex(mixinDisabled(DtOverlayTrigg
     '(mouseout)': '_onMouseOut($event)',
     '(keydown)': '_handleKeydown($event)',
     '(click)': '_handleClick()',
-    'class': 'dt-overlay-trigger',
+    class: 'dt-overlay-trigger',
     '[attr.tabindex]': 'tabIndex',
   },
   inputs: ['disabled', 'tabIndex'],
 })
-export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDisable, HasTabIndex, OnDestroy {
+export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
+  implements CanDisable, HasTabIndex, OnDestroy {
   private _content: TemplateRef<T>;
   private _config: DtOverlayConfig = new DtOverlayConfig();
   private _dtOverlayRef: DtOverlayRef<T> | null = null;
@@ -36,7 +53,9 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   }
 
   @Input()
-  get dtOverlayConfig(): DtOverlayConfig { return this._config; }
+  get dtOverlayConfig(): DtOverlayConfig {
+    return this._config;
+  }
   set dtOverlayConfig(value: DtOverlayConfig) {
     this._config = value;
   }
@@ -70,10 +89,13 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
     if (!this.disabled) {
       event.stopPropagation();
       this._moveSub.unsubscribe();
-      this._moveSub = this._ngZone.runOutsideAngular(() => fromEvent(this.elementRef.nativeElement, 'mousemove')
-        .subscribe((ev: MouseEvent) => {
-          this._onMouseMove(ev);
-        }));
+      this._moveSub = this._ngZone.runOutsideAngular(() =>
+        fromEvent(this.elementRef.nativeElement, 'mousemove').subscribe(
+          (ev: MouseEvent) => {
+            this._onMouseMove(ev);
+          }
+        )
+      );
     }
   }
 
@@ -89,7 +111,9 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
   /** @internal MouseMove listener that updates the position of the overlay. */
   _onMouseMove(event: MouseEvent): void {
     if (this._dtOverlayRef === null) {
-      this._ngZone.run(() => { this._createOverlay(); });
+      this._ngZone.run(() => {
+        this._createOverlay();
+      });
     }
     if (this._dtOverlayRef && !this._dtOverlayRef.pinned) {
       this._dtOverlayRef.updatePosition(event.offsetX, event.offsetY);
@@ -117,7 +141,11 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin implements CanDi
 
   /** Function that creates an overlay and stores the reference. */
   private _createOverlay(): void {
-    const ref = this._dtOverlayService.create<T>(this.elementRef, this._content, this._config);
+    const ref = this._dtOverlayService.create<T>(
+      this.elementRef,
+      this._content,
+      this._config
+    );
     ref.disposableFns.push(() => {
       this._dtOverlayRef = null;
     });

@@ -1,5 +1,17 @@
 import { DtCell, DtColumnDef } from '@dynatrace/angular-components/table';
-import { ChangeDetectionStrategy, ViewEncapsulation, Renderer2, ElementRef, SkipSelf, Component, ChangeDetectorRef, Input, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  Renderer2,
+  ElementRef,
+  SkipSelf,
+  Component,
+  ChangeDetectorRef,
+  Input,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { DtTreeTableRow } from './tree-table-row';
 import { DtTreeControl } from '@dynatrace/angular-components/core';
 import { DtTreeTable } from './tree-table';
@@ -24,7 +36,8 @@ const DT_TREE_TABLE_INDENT_PX = 16;
   preserveWhitespaces: false,
   exportAs: 'dtTreeTableToggleCell',
 })
-export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, AfterViewInit {
+export class DtTreeTableToggleCell<T> extends DtCell
+  implements OnDestroy, AfterViewInit {
   /** The aria label for the toggle button */
   @Input('aria-label') ariaLabel: string;
 
@@ -34,7 +47,9 @@ export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, After
   }
   /** @internal Wether the row is expandable */
   get _expandable(): boolean {
-    return this._treeControl.isExpandable((this._row as DtTreeTableRow<T>).data);
+    return this._treeControl.isExpandable(
+      (this._row as DtTreeTableRow<T>).data
+    );
   }
 
   /** @internal the treecontrol registered on the tree-table */
@@ -61,8 +76,14 @@ export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, After
   ) {
     super(_columnDef, _changeDetectorRef, _renderer, elementRef);
     // subscribe to changes in the expansionmodel and check if rowsData is part of the added or removed
-    this._expansionSub = this._treeControl.expansionModel.changed.pipe(
-      filter((changed: SelectionChange<T>) => changed.added.includes(this._rowData) || changed.removed.includes(this._rowData)))
+    this._expansionSub = this._treeControl.expansionModel.changed
+      .pipe(
+        filter(
+          (changed: SelectionChange<T>) =>
+            changed.added.includes(this._rowData) ||
+            changed.removed.includes(this._rowData)
+        )
+      )
       .subscribe(() => {
         this._changeDetectorRef.markForCheck();
       });
@@ -80,14 +101,17 @@ export class DtTreeTableToggleCell<T> extends DtCell implements OnDestroy, After
   private _paddingIndent(): number | null {
     const treeControl = this._treeTable.treeControl;
     const row = this._row as DtTreeTableRow<T>;
-    const nodeLevel = (row.data && treeControl.getLevel)
-      ? treeControl.getLevel(row.data)
-      : null;
+    const nodeLevel =
+      row.data && treeControl.getLevel ? treeControl.getLevel(row.data) : null;
     return nodeLevel ? nodeLevel * DT_TREE_TABLE_INDENT_PX : null;
   }
   /** Sets the padding on the cell */
   private _setIndent(): void {
     const padding = this._paddingIndent();
-    this._renderer.setStyle(this._wrapperElement.nativeElement, 'padding-left', `${padding}px`);
+    this._renderer.setStyle(
+      this._wrapperElement.nativeElement,
+      'padding-left',
+      `${padding}px`
+    );
   }
 }

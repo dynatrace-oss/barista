@@ -23,16 +23,15 @@ import { SelectionModel } from '@angular/cdk/collections';
   templateUrl: 'toggle-button-group.html',
   styleUrls: ['toggle-button-group.scss'],
   host: {
-    'class': 'dt-toggle-button-group',
+    class: 'dt-toggle-button-group',
     'aria-multiselectable': 'false',
-    'role': 'radiogroup',
+    role: 'radiogroup',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
-
   /** Gets the selected ToggleButtonItem. */
   get selectedItem(): DtToggleButtonItem<T> | null {
     return this._toggleButtonSelectionModel.selected[0] || null;
@@ -44,37 +43,53 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
   }
 
   /** @internal Combined stream of all items change events. */
-  readonly _itemSelectionChanges: Observable<DtToggleButtonChange<T>> = defer(() => {
-    if (this._toggleButtonItems) {
-      return merge<DtToggleButtonChange<T>>(...this._toggleButtonItems.map((toggleButton) => toggleButton.change));
-    }
+  readonly _itemSelectionChanges: Observable<DtToggleButtonChange<T>> = defer(
+    () => {
+      if (this._toggleButtonItems) {
+        return merge<DtToggleButtonChange<T>>(
+          ...this._toggleButtonItems.map(toggleButton => toggleButton.change)
+        );
+      }
 
-    return this._ngZone.onStable
-      .asObservable()
-      .pipe(take(1), switchMap(() => this._itemSelectionChanges));
-  });
+      return this._ngZone.onStable.asObservable().pipe(
+        take(1),
+        switchMap(() => this._itemSelectionChanges)
+      );
+    }
+  );
 
   /** Output observable that fires every time the selection on the ToggleButtonGroup changes. */
   // Disabling no-output-native rule because we want to keep a similar API to the radio group
   // tslint:disable-next-line: no-output-native
-  @Output() readonly change: Observable<DtToggleButtonChange<T>> = this._itemSelectionChanges;
+  @Output() readonly change: Observable<DtToggleButtonChange<T>> = this
+    ._itemSelectionChanges;
 
   /** Emits whenever the group component is destroyed. */
   private readonly _destroy = new Subject<void>();
 
   /** Selection model for the current ToggleButtonGroup. */
-  private _toggleButtonSelectionModel = new SelectionModel<DtToggleButtonItem<T>>(false);
+  private _toggleButtonSelectionModel = new SelectionModel<
+    DtToggleButtonItem<T>
+  >(false);
 
   /** @internal Content children which selects all DtToggleButtonItems within its content. */
-  @ContentChildren(DtToggleButtonItem) _toggleButtonItems: QueryList<DtToggleButtonItem<T>>;
+  @ContentChildren(DtToggleButtonItem) _toggleButtonItems: QueryList<
+    DtToggleButtonItem<T>
+  >;
 
-  constructor(private _ngZone: NgZone, private _changeDetectorRef: ChangeDetectorRef) { }
+  constructor(
+    private _ngZone: NgZone,
+    private _changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   /** ngAfterContentInit Hook to initialize contentChildren observables.  */
   ngAfterContentInit(): void {
     // subscribe to toggleButtonItems changes in the contentchildren.
     this._toggleButtonItems.changes
-      .pipe(startWith(null), takeUntil(this._destroy))
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy)
+      )
       .subscribe(() => {
         this._resetItems();
         this._initializeToggleButtonItemSelection();
@@ -82,11 +97,11 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
     // subscribe to value changes in the selection model and handle selects/deselects accordingly.
     this._toggleButtonSelectionModel.changed
       .pipe(takeUntil(this._destroy))
-      .subscribe((event) => {
-        event.added.forEach((toggleButtonItem) => {
+      .subscribe(event => {
+        event.added.forEach(toggleButtonItem => {
           toggleButtonItem.select();
         });
-        event.removed.forEach((toggleButtonItem) => {
+        event.removed.forEach(toggleButtonItem => {
           toggleButtonItem.deselect();
         });
       });
@@ -101,8 +116,11 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
   /** Initialize the selection if and map it to the selection model. */
   private _initializeToggleButtonItemSelection(): void {
     // Find an item that has set a select state via a selected property.
-    const hasPreselectedItem = this._toggleButtonItems.length &&
-      this._toggleButtonItems.toArray().find((toggleButton) => toggleButton.selected && !toggleButton.disabled);
+    const hasPreselectedItem =
+      this._toggleButtonItems.length &&
+      this._toggleButtonItems
+        .toArray()
+        .find(toggleButton => toggleButton.selected && !toggleButton.disabled);
 
     // If there is a preselected ToggleButtonItem in the list, set the selection
     // to the first preselected ToggleButtonItem that was found.
@@ -115,15 +133,22 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
 
   /** Reset all ToggleButtonItems */
   private _resetItems(): void {
-    const changedOrDestroyed = merge(this._toggleButtonItems.changes, this._destroy);
-    this._itemSelectionChanges.pipe(takeUntil(changedOrDestroyed)).subscribe((event) => {
-      this._onItemSelect(event.source);
-    });
+    const changedOrDestroyed = merge(
+      this._toggleButtonItems.changes,
+      this._destroy
+    );
+    this._itemSelectionChanges
+      .pipe(takeUntil(changedOrDestroyed))
+      .subscribe(event => {
+        this._onItemSelect(event.source);
+      });
   }
 
   /** Invoked when an item is clicked. */
   private _onItemSelect(toggleButtonItem: DtToggleButtonItem<T>): void {
-    const wasSelected = this._toggleButtonSelectionModel.isSelected(toggleButtonItem);
+    const wasSelected = this._toggleButtonSelectionModel.isSelected(
+      toggleButtonItem
+    );
 
     if (toggleButtonItem.selected) {
       this._toggleButtonSelectionModel.select(toggleButtonItem);
@@ -131,7 +156,10 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
       this._toggleButtonSelectionModel.deselect(toggleButtonItem);
     }
 
-    if (wasSelected !== this._toggleButtonSelectionModel.isSelected(toggleButtonItem)) {
+    if (
+      wasSelected !==
+      this._toggleButtonSelectionModel.isSelected(toggleButtonItem)
+    ) {
       this._changeDetectorRef.markForCheck();
     }
   }

@@ -2,7 +2,8 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure,
+import {
+  addFailure,
   getParentElement,
   getAttribute,
   hasFormFieldParentWithLabel,
@@ -12,7 +13,6 @@ import { addFailure,
 } from '../utils';
 
 class DtInputVisitor extends BasicTemplateAstVisitor {
-
   formFields: ParentElement[] = [];
 
   visitElement(element: ElementAst, context: any): void {
@@ -49,7 +49,11 @@ class DtInputVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dtInput requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.');
+    addFailure(
+      this,
+      element,
+      'A dtInput requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.'
+    );
   }
 }
 
@@ -68,13 +72,14 @@ class DtInputVisitor extends BasicTemplateAstVisitor {
  * <input type="text" dtInput placeholder="Please insert text"/>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a label or text alternatives are given for a dtInput.',
+    description:
+      'Ensures that a label or text alternatives are given for a dtInput.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A dtInput must have a label when used with the form field component or an aria-label or aria-labelledby attribute.',
+    rationale:
+      'A dtInput must have a label when used with the form field component or an aria-label or aria-labelledby attribute.',
     ruleName: 'dt-input-requires-label',
     type: 'maintainability',
     typescriptOnly: true,

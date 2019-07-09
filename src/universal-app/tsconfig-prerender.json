@@ -20,7 +20,5 @@
       "@dynatrace/angular-components/*": ["./lib/*"]
     }
   },
-  "files": [
-    "prerender.ts"
-  ]
+  "files": ["prerender.ts"]
 }

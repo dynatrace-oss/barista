@@ -61,7 +61,7 @@ describe('Selection Area Streams', () => {
     // create a mocked mouseMove function
     mouseMoveXFn = () =>
       interval(1).pipe(
-        map((curX) => createMouseEvent('mousemove', curX + 401, 300)),
+        map(curX => createMouseEvent('mousemove', curX + 401, 300)),
         take(4)
       );
   });
@@ -316,7 +316,7 @@ describe('Selection Area Streams', () => {
     (fakeList.first as any) = 'FakeElementRef';
 
     // create fake operator function getElementRef that returns the fake element ref
-    spyOn(utils, 'getElementRef').and.callFake(() => (input$) =>
+    spyOn(utils, 'getElementRef').and.callFake(() => input$ =>
       input$.pipe(mapTo(fakeList.first))
     );
 
@@ -341,7 +341,7 @@ describe('Selection Area Streams', () => {
   it('should get a range stream for an increasing mousemove', () => {
     const dragStart$ = of({ x: 100, y: 100 });
     const dragMove$ = interval(2).pipe(
-      map((curX) => ({ x: curX + 101, y: 100 })),
+      map(curX => ({ x: curX + 101, y: 100 })),
       take(3)
     );
 
@@ -360,7 +360,7 @@ describe('Selection Area Streams', () => {
   it('should get a range stream that drops redundant values for an increasing mousemove', () => {
     const dragStart$ = of({ x: 100, y: 100 });
     const dragMove$ = interval(1).pipe(
-      map((curX) => {
+      map(curX => {
         const add = curX % 2 ? curX : curX + 1;
 
         return { x: add + 101, y: 100 };
@@ -383,7 +383,7 @@ describe('Selection Area Streams', () => {
   it('should create range resize stream on right handle drag', () => {
     const dragOrigin$ = of(DtSelectionAreaEventTarget.RightHandle);
     const dragMove$ = interval(2).pipe(
-      map((curX) => ({ x: curX + 251, y: 30 })),
+      map(curX => ({ x: curX + 251, y: 30 })),
       take(3)
     );
     let called = -1;
@@ -415,7 +415,7 @@ describe('Selection Area Streams', () => {
   it('should create range resize stream on left handle drag', () => {
     const dragOrigin$ = of(DtSelectionAreaEventTarget.LeftHandle);
     const dragMove$ = interval(2).pipe(
-      map((curX) => ({ x: 99 - curX, y: 30 })),
+      map(curX => ({ x: 99 - curX, y: 30 })),
       take(3)
     );
     let called = -1;

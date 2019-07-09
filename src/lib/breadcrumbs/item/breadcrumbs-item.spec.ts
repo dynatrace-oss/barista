@@ -6,22 +6,21 @@ import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DtBreadcrumbsModule, DtBreadcrumbsItem } from '@dynatrace/angular-components';
+import {
+  DtBreadcrumbsModule,
+  DtBreadcrumbsItem,
+} from '@dynatrace/angular-components';
 import { identity } from 'rxjs';
 import { instance, mock, when } from 'ts-mockito';
 import { createComponent } from '../../../testing/create-component';
 
 describe('DtBreadcrumbsItem', () => {
-
   describe('Router provided', () => {
     let router: Router;
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        imports: [
-          DtBreadcrumbsModule,
-          RouterTestingModule.withRoutes([]),
-        ],
+        imports: [DtBreadcrumbsModule, RouterTestingModule.withRoutes([])],
         declarations: [
           TestBreadcrumbsItem,
           NonExternalBreadcrumbsItem,
@@ -61,14 +60,14 @@ describe('DtBreadcrumbsItem', () => {
           expected: '/test1/test2',
         },
         {
-          href: ['test1', {arg1: 'val1'}, 'test2'],
+          href: ['test1', { arg1: 'val1' }, 'test2'],
           expected: '/test1;arg1=val1/test2',
         },
         {
           href: 'http://google.com',
           expected: '/http:',
         },
-      ].forEach((testCase) => {
+      ].forEach(testCase => {
         it(`should render internal link for href ${testCase.href} if external set to false`, () => {
           const fixture = createComponent(TestBreadcrumbsItem);
           const component = fixture.componentInstance;
@@ -77,7 +76,9 @@ describe('DtBreadcrumbsItem', () => {
           fixture.detectChanges();
 
           const linkElement = fixture.debugElement.query(By.css('a'));
-          expect(linkElement.nativeElement.getAttribute('href')).toBe(testCase.expected);
+          expect(linkElement.nativeElement.getAttribute('href')).toBe(
+            testCase.expected
+          );
         });
       });
 
@@ -90,7 +91,7 @@ describe('DtBreadcrumbsItem', () => {
           href: 'test1/test2',
           expected: 'test1/test2',
         },
-      ].forEach((testCase) => {
+      ].forEach(testCase => {
         it(`should render external link for href ${testCase.href} if external set to true`, () => {
           const fixture = createComponent(TestBreadcrumbsItem);
           const component = fixture.componentInstance;
@@ -100,7 +101,9 @@ describe('DtBreadcrumbsItem', () => {
           fixture.detectChanges();
 
           const linkElement = fixture.debugElement.query(By.css('a'));
-          expect(linkElement.nativeElement.getAttribute('href')).toBe(testCase.expected);
+          expect(linkElement.nativeElement.getAttribute('href')).toBe(
+            testCase.expected
+          );
         });
       });
 
@@ -123,7 +126,9 @@ describe('DtBreadcrumbsItem', () => {
         fixture.detectChanges();
 
         const linkElement = fixture.debugElement.query(By.css('a'));
-        expect(linkElement.nativeElement.getAttribute('href')).toBe('http://google.com');
+        expect(linkElement.nativeElement.getAttribute('href')).toBe(
+          'http://google.com'
+        );
       });
 
       it('should render link _lastItem parameter is set to false', () => {
@@ -175,7 +180,7 @@ describe('DtBreadcrumbsItem', () => {
           ctrl: true,
           description: 'ctrl',
         },
-      ].forEach((btnsPressed) => {
+      ].forEach(btnsPressed => {
         it(`should bubble the event if ${btnsPressed.description} key is pressed`, () => {
           // given
           const { meta, shift, ctrl } = btnsPressed;
@@ -240,16 +245,10 @@ describe('DtBreadcrumbsItem', () => {
   });
 
   describe('Router not provided', () => {
-
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        imports: [
-          DtBreadcrumbsModule,
-        ],
-        declarations: [
-          NonExternalBreadcrumbsItem,
-          ExternalBreadcrumbsItem,
-        ],
+        imports: [DtBreadcrumbsModule],
+        declarations: [NonExternalBreadcrumbsItem, ExternalBreadcrumbsItem],
       });
       TestBed.compileComponents();
     }));
@@ -262,7 +261,9 @@ describe('DtBreadcrumbsItem', () => {
       fixture.detectChanges();
 
       const linkElement = fixture.debugElement.query(By.css('a'));
-      expect(linkElement.nativeElement.getAttribute('href')).toBe('http://google.com');
+      expect(linkElement.nativeElement.getAttribute('href')).toBe(
+        'http://google.com'
+      );
     });
 
     it('should throw an error if no external parameter given', () => {
@@ -274,12 +275,14 @@ describe('DtBreadcrumbsItem', () => {
       expect(() => fixture.detectChanges()).toThrow();
     });
   });
-
 });
 
 @Component({
   template: `
-    <dt-breadcrumbs-item [href]="href" [external]="external" #item>{{ text }}</dt-breadcrumbs-item>`,
+    <dt-breadcrumbs-item [href]="href" [external]="external" #item>{{
+      text
+    }}</dt-breadcrumbs-item>
+  `,
 })
 class TestBreadcrumbsItem {
   text = '';
@@ -300,7 +303,8 @@ class TestBreadcrumbsItem {
 
 @Component({
   template: `
-    <dt-breadcrumbs-item [href]="href"></dt-breadcrumbs-item>`,
+    <dt-breadcrumbs-item [href]="href"></dt-breadcrumbs-item>
+  `,
 })
 class NonExternalBreadcrumbsItem {
   // tslint:disable-next-line no-any
@@ -309,7 +313,8 @@ class NonExternalBreadcrumbsItem {
 
 @Component({
   template: `
-    <dt-breadcrumbs-item [href]="href" external></dt-breadcrumbs-item>`,
+    <dt-breadcrumbs-item [href]="href" external></dt-breadcrumbs-item>
+  `,
 })
 class ExternalBreadcrumbsItem {
   // tslint:disable-next-line no-any
@@ -318,20 +323,25 @@ class ExternalBreadcrumbsItem {
 
 @Component({
   template: `
-    <dt-breadcrumbs-item></dt-breadcrumbs-item>`,
+    <dt-breadcrumbs-item></dt-breadcrumbs-item>
+  `,
 })
-class EmptyBreadcrumbsItem {
-}
+class EmptyBreadcrumbsItem {}
 
 @Component({
   template: '',
 })
-class EmptyComponent {
-}
+class EmptyComponent {}
 
-const mockMouseEvent = (metaKey?: boolean, shiftKey?: boolean, ctrlKey?: boolean): MouseEvent => {
+const mockMouseEvent = (
+  metaKey?: boolean,
+  shiftKey?: boolean,
+  ctrlKey?: boolean
+): MouseEvent => {
   const event = mock(MouseEvent);
-  when(event.button).thenReturn([metaKey, shiftKey, ctrlKey].filter(identity).length);
+  when(event.button).thenReturn(
+    [metaKey, shiftKey, ctrlKey].filter(identity).length
+  );
   when(event.metaKey).thenReturn(metaKey || false);
   when(event.shiftKey).thenReturn(shiftKey || false);
   when(event.ctrlKey).thenReturn(ctrlKey || false);

@@ -13,18 +13,25 @@ export interface HasNgZone {
 }
 
 /** Mixin to augment a directive with a `disabled` property. */
-export function mixinNotifyDomExit<T extends Constructor<HasNgZone>>(base: T): Constructor<CanNotifyOnExit> & T {
+export function mixinNotifyDomExit<T extends Constructor<HasNgZone>>(
+  base: T
+): Constructor<CanNotifyOnExit> & T {
   return class extends base {
     _onDomExit = new Subject<void>();
 
     _notifyDomExit(): void {
-      this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
-        this._onDomExit.next();
-        this._onDomExit.complete();
-      });
+      this._ngZone.onMicrotaskEmpty
+        .asObservable()
+        .pipe(take(1))
+        .subscribe(() => {
+          this._onDomExit.next();
+          this._onDomExit.complete();
+        });
     }
 
     // tslint:disable-next-line
-    constructor(...args: any[]) { super(...args); }
+    constructor(...args: any[]) {
+      super(...args);
+    }
   };
 }

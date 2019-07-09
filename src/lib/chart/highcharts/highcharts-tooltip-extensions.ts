@@ -1,4 +1,7 @@
-import { DtChartTooltipData, DtChartTooltipEvent } from './highcharts-tooltip-types';
+import {
+  DtChartTooltipData,
+  DtChartTooltipEvent,
+} from './highcharts-tooltip-types';
 
 // tslint:disable-next-line: no-any
 declare var require: any;
@@ -11,7 +14,9 @@ export interface DtHcTooltipEventPayload {
 
 /** Function that gets the arguments from highcharts and extracts the tooltip data the same way highcharts does it internally */
 // tslint:disable-next-line:no-any
-export function prepareTooltipData(pointOrPoints: any | any[]): DtChartTooltipData {
+export function prepareTooltipData(
+  pointOrPoints: any | any[]
+): DtChartTooltipData {
   let data: DtChartTooltipData;
   if (Array.isArray(pointOrPoints)) {
     // tslint:disable-next-line:no-any
@@ -21,9 +26,9 @@ export function prepareTooltipData(pointOrPoints: any | any[]): DtChartTooltipDa
       pointConfig.push(item.getLabelConfig());
     });
     data = {
-        x: pointOrPoints[0].category,
-        y: pointOrPoints[0].y,
-        points: pointConfig,
+      x: pointOrPoints[0].category,
+      y: pointOrPoints[0].y,
+      points: pointConfig,
     };
   } else {
     const label = pointOrPoints.getLabelConfig();
@@ -41,8 +46,9 @@ export function prepareTooltipData(pointOrPoints: any | any[]): DtChartTooltipDa
  */
 export function addTooltipEvents(): boolean {
   // tslint:disable-next-line: no-any
-  highcharts.wrap(highcharts.Pointer.prototype, 'reset', function(proceed: any): void {
-
+  highcharts.wrap(highcharts.Pointer.prototype, 'reset', function(
+    proceed: any
+  ): void {
     /**
      * Now apply the original function with the original arguments,
      * which are sliced off this function's arguments
@@ -53,7 +59,9 @@ export function addTooltipEvents(): boolean {
   });
 
   // tslint:disable-next-line:no-any
-  highcharts.wrap(highcharts.Tooltip.prototype, 'refresh', function(proceed: any): void {
+  highcharts.wrap(highcharts.Tooltip.prototype, 'refresh', function(
+    proceed: any
+  ): void {
     const args = Array.prototype.slice.call(arguments, 1);
     proceed.apply(this, args);
     /**
@@ -76,7 +84,7 @@ export function addTooltipEvents(): boolean {
 /** Searches for the hovered series in a tooltip event object */
 export function findHoveredSeriesIndex(ev: DtChartTooltipEvent): number {
   if (ev.data.points !== undefined) {
-    return ev.data.points.findIndex((p) => p.series.state === 'hover');
+    return ev.data.points.findIndex(p => p.series.state === 'hover');
   }
   return -1;
 }

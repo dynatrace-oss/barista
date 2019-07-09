@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Copy to clipboard
@@ -16,32 +16,30 @@ You have to import the `DtCopyToClipboardModule` when you want to use the `dt-co
 
 ```typescript
 @NgModule({
-  imports: [
-  DtCopyClipboardModule,
-  ],
+  imports: [DtCopyClipboardModule],
 })
 class MyModule {}
 ```
 
 ## Inputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
+| Name       | Type      | Default | Description                                                                               |
+| ---------- | --------- | ------- | ----------------------------------------------------------------------------------------- |
 | `disabled` | `boolean` | `false` | If `true` (= default) the included button and textarea are disabled, no copy is possible. |
 
 ## Outputs
 
-| Name | Type | Description |
-| --- | --- | --- |
-| `copied` | `EventEmitter<void>` | Callback that is triggered after a successful copy. |
-| `afterCopy` | `EventEmitter<void>` | Callback that is triggered after a successful copy and after the copy animation is stopped. |
-| `copyFailed` | `EventEmitter<void>` | Callback that is triggered after a failed copy. |
+| Name         | Type                 | Description                                                                                 |
+| ------------ | -------------------- | ------------------------------------------------------------------------------------------- |
+| `copied`     | `EventEmitter<void>` | Callback that is triggered after a successful copy.                                         |
+| `afterCopy`  | `EventEmitter<void>` | Callback that is triggered after a successful copy and after the copy animation is stopped. |
+| `copyFailed` | `EventEmitter<void>` | Callback that is triggered after a failed copy.                                             |
 
 ## Methods
 
-| Name | Description | Return value |
-| --- | --- | --- |
-| `copyToClipboard()` | Triggers copy to clipboard programmatically. | `void` |
+| Name                | Description                                  | Return value |
+| ------------------- | -------------------------------------------- | ------------ |
+| `copyToClipboard()` | Triggers copy to clipboard programmatically. | `void`       |
 
 ## Examples
 

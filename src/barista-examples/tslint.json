@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "../../tslint.json",
-    "../linting"
-  ],
+  "extends": ["../../tslint.json", "../linting"],
   "rules": {
     "i18n": false,
     "no-magic-numbers": false,

@@ -8,7 +8,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -18,21 +24,27 @@ import { filter } from 'rxjs/operators';
   templateUrl: 'expandable-panel.html',
   styleUrls: ['expandable-panel.scss'],
   host: {
-    'class': 'dt-expandable-panel',
+    class: 'dt-expandable-panel',
     '[class.dt-expandable-panel-opened]': 'expanded',
     '[attr.aria-disabled]': 'disabled',
   },
   animations: [
     trigger('animationState', [
-      state('false', style({
-        height: '0px',
-        visibility: 'hidden',
-      })),
-      state('true', style({
-        height: '*',
-        visibility: 'visible',
-        overflow: 'visible',
-      })),
+      state(
+        'false',
+        style({
+          height: '0px',
+          visibility: 'hidden',
+        })
+      ),
+      state(
+        'true',
+        style({
+          height: '*',
+          visibility: 'visible',
+          overflow: 'visible',
+        })
+      ),
       transition('true <=> false', [
         animate('225ms cubic-bezier(0.4,0.0,0.2,1)'),
       ]),
@@ -43,10 +55,11 @@ import { filter } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtExpandablePanel {
-
   /** Whether the panel is expanded. */
   @Input()
-  get expanded(): boolean { return this._expanded; }
+  get expanded(): boolean {
+    return this._expanded;
+  }
   set expanded(value: boolean) {
     const newValue = coerceBooleanProperty(value);
 
@@ -64,7 +77,9 @@ export class DtExpandablePanel {
 
   /** Whether the panel is disabled. */
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     // When panel gets disabled it will also close when expanded.
@@ -80,15 +95,25 @@ export class DtExpandablePanel {
    * @breaking-change To be removed with 5.0.0
    */
   @Input()
-  get opened(): boolean { return this.expanded; }
-  set opened(value: boolean) { this.expanded = value; }
+  get opened(): boolean {
+    return this.expanded;
+  }
+  set opened(value: boolean) {
+    this.expanded = value;
+  }
 
   /** Event emitted when the panel's expandable state changes. */
-  @Output() readonly expandChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() readonly expandChange: EventEmitter<boolean> = new EventEmitter<
+    boolean
+  >();
   /** Event emitted when the panel is expanded. */
-  @Output('expanded') readonly _panelExpanded = this.expandChange.pipe(filter((v) => v));
+  @Output('expanded') readonly _panelExpanded = this.expandChange.pipe(
+    filter(v => v)
+  );
   /** Event emitted when the panel is collapsed. */
-  @Output('collapsed') readonly _panelCollapsed = this.expandChange.pipe(filter((v) => !v));
+  @Output('collapsed') readonly _panelCollapsed = this.expandChange.pipe(
+    filter(v => !v)
+  );
   /**
    * Event emitted when the panel has been opened.
    * @deprecated Use expandChange instead.

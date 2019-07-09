@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: '<dt-switch>Default</dt-switch>',
 })
-export class SwitchPureExample { }
+export class SwitchPureExample {}

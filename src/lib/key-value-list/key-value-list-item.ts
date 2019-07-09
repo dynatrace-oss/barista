@@ -30,4 +30,4 @@ export class DtKeyValueListValue {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtKeyValueListItem { }
+export class DtKeyValueListItem {}

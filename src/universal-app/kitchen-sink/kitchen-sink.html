@@ -21,9 +21,18 @@
 <dt-card>
   <dt-card-title>Top 3 JavaScript errors</dt-card-title>
   <dt-card-subtitle>Some subtitle</dt-card-subtitle>
-  <dt-card-title-actions><button dt-button variant="secondary">Some Action</button></dt-card-title-actions>
-  The card is not an interactive element, therefore, there are no hover, active and disabled card.
-  <dt-card-footer-actions><button dt-button variant="primary">Footer Action</button></dt-card-footer-actions>
+  <dt-card-title-actions
+    ><button dt-button variant="secondary"
+      >Some Action</button
+    ></dt-card-title-actions
+  >
+  The card is not an interactive element, therefore, there are no hover, active
+  and disabled card.
+  <dt-card-footer-actions
+    ><button dt-button variant="primary"
+      >Footer Action</button
+    ></dt-card-footer-actions
+  >
 </dt-card>
 
 <dt-context-dialog>
@@ -103,16 +112,12 @@
   </dt-optgroup>
 </dt-select>
 
-<input type="text" dtInput placeholder="Something">
-<input [dtAutocomplete]="auto"/>
+<input type="text" dtInput placeholder="Something" />
+<input [dtAutocomplete]="auto" />
 <dt-autocomplete #auto="dtAutocomplete"></dt-autocomplete>
 
-
 <dt-drawer-container class="drawer">
-  <dt-drawer
-    #drawer
-    opened>
-    Drawer Content</dt-drawer>
+  <dt-drawer #drawer opened> Drawer Content</dt-drawer>
   Main content
 </dt-drawer-container>
 
@@ -123,7 +128,9 @@
     <dt-tree-table-header-cell *dtHeaderCellDef>Name</dt-tree-table-header-cell>
     <dt-tree-table-toggle-cell *dtCellDef="let row">
       <dt-info-group>
-        <dt-info-group-icon><dt-icon [name]="row.icon"></dt-icon></dt-info-group-icon>
+        <dt-info-group-icon
+          ><dt-icon [name]="row.icon"></dt-icon
+        ></dt-info-group-icon>
         <dt-info-group-title>{{row.name}}</dt-info-group-title>
         {{row.threadlevel}}
       </dt-info-group>
@@ -131,12 +138,17 @@
   </ng-container>
 
   <ng-container dtColumnDef="blocked" dtColumnAlign="right">
-    <dt-tree-table-header-cell *dtHeaderCellDef>Blocked</dt-tree-table-header-cell>
+    <dt-tree-table-header-cell *dtHeaderCellDef
+      >Blocked</dt-tree-table-header-cell
+    >
     <dt-cell *dtCellDef="let row">{{row.blocked}}ms</dt-cell>
   </ng-container>
 
   <dt-header-row *dtHeaderRowDef="['name', 'blocked']"></dt-header-row>
-  <dt-tree-table-row *dtRowDef="let row; columns: ['name', 'blocked'];" [data]="row"></dt-tree-table-row>
+  <dt-tree-table-row
+    *dtRowDef="let row; columns: ['name', 'blocked'];"
+    [data]="row"
+  ></dt-tree-table-row>
 </dt-tree-table>
 
 <dt-toggle-button-group></dt-toggle-button-group>

@@ -93,7 +93,7 @@ export class ChartDemo {
     },
   ];
 
-  timeValues: number[] = this.series[0].data!.map((data) => data[0]);
+  timeValues: number[] = this.series[0].data!.map(data => data[0]);
   startRange: number;
   endRange: number;
 

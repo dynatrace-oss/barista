@@ -1,4 +1,9 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  Input,
+} from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -7,7 +12,7 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input } from '@a
   templateUrl: 'loading-spinner.html',
   styleUrls: ['loading-spinner.scss'],
   host: {
-    'role': 'progressbar',
+    role: 'progressbar',
     'aria-busy': 'true',
     'aria-live': 'assertive',
     '[attr.aria-label]': 'ariaLabel',

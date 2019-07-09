@@ -7,20 +7,37 @@ import {
   ElementRef,
   ContentChild,
 } from '@angular/core';
-import { mixinColor, CanColor, DtProgressChange, HasProgressValues, mixinHasProgress, Constructor, isDefined } from '@dynatrace/angular-components/core';
+import {
+  mixinColor,
+  CanColor,
+  DtProgressChange,
+  HasProgressValues,
+  mixinHasProgress,
+  Constructor,
+  isDefined,
+} from '@dynatrace/angular-components/core';
 import { DtProgressBarDescription } from './progress-bar-description';
 import { DtProgressBarCount } from './progress-bar-count';
 
 export type DtProgressBarChange = DtProgressChange;
 
-export type DtProgressBarThemePalette = 'main' | 'accent' | 'warning' | 'recovered' | 'error';
+export type DtProgressBarThemePalette =
+  | 'main'
+  | 'accent'
+  | 'warning'
+  | 'recovered'
+  | 'error';
 
 export class DtProgressBarBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
 
-export const _DtProgressBar =
-  mixinHasProgress(mixinColor<Constructor<DtProgressBarBase>, DtProgressBarThemePalette>(DtProgressBarBase, 'main'));
+export const _DtProgressBar = mixinHasProgress(
+  mixinColor<Constructor<DtProgressBarBase>, DtProgressBarThemePalette>(
+    DtProgressBarBase,
+    'main'
+  )
+);
 
 @Component({
   moduleId: module.id,
@@ -29,8 +46,8 @@ export const _DtProgressBar =
   styleUrls: ['progress-bar.scss'],
   exportAs: 'dtProgressBar',
   host: {
-    'class': 'dt-progress-bar',
-    'role': 'progressbar',
+    class: 'dt-progress-bar',
+    role: 'progressbar',
     '[class.dt-progress-bar-end]': 'align == "end"',
     '[attr.aria-valuemin]': 'min',
     '[attr.aria-valuemax]': 'max',
@@ -41,15 +58,20 @@ export const _DtProgressBar =
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtProgressBar extends _DtProgressBar implements CanColor<DtProgressBarThemePalette>, HasProgressValues {
-
+export class DtProgressBar extends _DtProgressBar
+  implements CanColor<DtProgressBarThemePalette>, HasProgressValues {
   @Input() align: 'start' | 'end' = 'start';
 
   /** Contentchildren reference to the description and count sub-components */
-  @ContentChild(DtProgressBarDescription, { static: true }) _description: DtProgressBarDescription;
-  @ContentChild(DtProgressBarCount, { static: true }) _count: DtProgressBarCount;
+  @ContentChild(DtProgressBarDescription, { static: true })
+  _description: DtProgressBarDescription;
+  @ContentChild(DtProgressBarCount, { static: true })
+  _count: DtProgressBarCount;
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef) {
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    elementRef: ElementRef
+  ) {
     super(elementRef);
   }
 

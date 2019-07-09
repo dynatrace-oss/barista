@@ -9,9 +9,7 @@ import {
   AfterContentInit,
   OnDestroy,
 } from '@angular/core';
-import {
-  DtKeyValueListItem
-} from './key-value-list-item';
+import { DtKeyValueListItem } from './key-value-list-item';
 import { startWith } from 'rxjs/operators';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs';
@@ -24,13 +22,13 @@ const DT_KEY_VALUE_LIST_MAX_COLUMNS = 6;
 @Component({
   moduleId: module.id,
   selector: 'dt-key-value-list',
-  host : {
-    'class': 'dt-key-value-list',
+  host: {
+    class: 'dt-key-value-list',
     '[attr.dt-column]': '_calculatedColumns',
   },
   templateUrl: 'key-value-list.html',
   styleUrls: ['key-value-list.scss'],
-  exportAs : 'dtKeyValueList',
+  exportAs: 'dtKeyValueList',
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
@@ -44,11 +42,16 @@ export class DtKeyValueList implements AfterContentInit, OnDestroy {
 
   /** If not set programatically, columns are calclated depending on the number of items. */
   @Input()
-  get columns(): number { return this._columns; }
+  get columns(): number {
+    return this._columns;
+  }
   set columns(newValue: number) {
     const coerced = coerceNumberProperty(newValue);
     this._columns = coerced;
-    this._calculatedColumns = Math.min(Math.max(Math.floor(coerced), 1), DT_KEY_VALUE_LIST_MAX_COLUMNS);
+    this._calculatedColumns = Math.min(
+      Math.max(Math.floor(coerced), 1),
+      DT_KEY_VALUE_LIST_MAX_COLUMNS
+    );
     this._itemsChangeSub.unsubscribe();
     this._itemsChangeSub = Subscription.EMPTY;
     this._changeDetectorRef.markForCheck();
@@ -60,19 +63,23 @@ export class DtKeyValueList implements AfterContentInit, OnDestroy {
   ngAfterContentInit(): void {
     if (!isDefined(this._columns)) {
       this._itemsChangeSub = this.items.changes
-      .pipe(startWith(null))
-      .subscribe(() => {
-        if (this.items.length > DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS) {
-          // tslint:disable:no-any no-magic-numbers
-          this._calculatedColumns = 3;
-        } else if (this.items.length > DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS) {
-          // tslint:disable:no-any no-magic-numbers
-          this._calculatedColumns = 2;
-        } else {
-          this._calculatedColumns = 1;
-        }
-        this._changeDetectorRef.markForCheck();
-      });
+        .pipe(startWith(null))
+        .subscribe(() => {
+          if (
+            this.items.length > DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS
+          ) {
+            // tslint:disable:no-any no-magic-numbers
+            this._calculatedColumns = 3;
+          } else if (
+            this.items.length > DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS
+          ) {
+            // tslint:disable:no-any no-magic-numbers
+            this._calculatedColumns = 2;
+          } else {
+            this._calculatedColumns = 1;
+          }
+          this._changeDetectorRef.markForCheck();
+        });
     }
   }
 

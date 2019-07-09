@@ -6,7 +6,7 @@ import {
   DtCardSubtitle,
   DtCardIcon,
   DtCardTitleActions,
-  DtCardFooterActions
+  DtCardFooterActions,
 } from './card';
 
 @NgModule({
@@ -28,4 +28,4 @@ import {
     DtCardFooterActions,
   ],
 })
-export class DtCardModule { }
+export class DtCardModule {}

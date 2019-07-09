@@ -65,7 +65,9 @@
         border-color: rgba(255, 255, 255, 0.2);
         color: rgba(255, 255, 255, 0.6);
 
-        .dt-button-icon .dt-icon svg { fill: rgba(255, 255, 255, 0.6); }
+        .dt-button-icon .dt-icon svg {
+          fill: rgba(255, 255, 255, 0.6);
+        }
       }
     } @else {
       #{$namespace}.dt-button-primary[disabled] {
@@ -73,7 +75,9 @@
         border-color: $disabledcolor;
         color: #ffffff;
 
-        .dt-button-icon .dt-icon svg { fill: #ffffff; }
+        .dt-button-icon .dt-icon svg {
+          fill: #ffffff;
+        }
       }
     }
 
@@ -85,21 +89,27 @@
       border-color: $default-color;
       color: $default-color;
 
-      .dt-button-icon .dt-icon svg { fill: $default-color; }
+      .dt-button-icon .dt-icon svg {
+        fill: $default-color;
+      }
     }
     #{$namespace}.dt-button-secondary:hover:not([disabled]) {
       background: $gray-100;
       border-color: $hover-color;
       color: $hover-color;
 
-      .dt-button-icon .dt-icon svg { fill: $hover-color; }
+      .dt-button-icon .dt-icon svg {
+        fill: $hover-color;
+      }
     }
     #{$namespace}.dt-button-secondary:active:not([disabled]) {
       background: $gray-100;
       border-color: $active-color;
       color: $active-color;
 
-      .dt-button-icon .dt-icon svg { fill: $active-color; }
+      .dt-button-icon .dt-icon svg {
+        fill: $active-color;
+      }
     }
 
     @if $is-dark == true {
@@ -108,25 +118,33 @@
         background: transparent;
         color: #ffffff;
 
-        .dt-button-icon .dt-icon svg { fill: #ffffff; }
+        .dt-button-icon .dt-icon svg {
+          fill: #ffffff;
+        }
       }
       #{$namespace}.dt-button-secondary:hover:not([disabled]) {
         background: rgba(255, 255, 255, 0.2);
         color: #ffffff;
 
-        .dt-button-icon .dt-icon svg { fill: #ffffff; }
+        .dt-button-icon .dt-icon svg {
+          fill: #ffffff;
+        }
       }
       #{$namespace}.dt-button-secondary:active:not([disabled]) {
         background: rgba(255, 255, 255, 0.3);
         color: #ffffff;
 
-        .dt-button-icon .dt-icon svg { fill: #ffffff; }
+        .dt-button-icon .dt-icon svg {
+          fill: #ffffff;
+        }
       }
       #{$namespace}.dt-button-secondary[disabled] {
         border-color: rgba(255, 255, 255, 0.2);
         color: rgba(255, 255, 255, 0.6);
 
-        .dt-button-icon .dt-icon svg { fill: rgba(255, 255, 255, 0.6); }
+        .dt-button-icon .dt-icon svg {
+          fill: rgba(255, 255, 255, 0.6);
+        }
       }
       // Main does not have the main color as a border
       // so we have to specifiy it differently
@@ -147,7 +165,9 @@
         border-color: $disabledcolor;
         color: $disabledcolor;
 
-        .dt-button-icon .dt-icon svg { fill: $disabledcolor; }
+        .dt-button-icon .dt-icon svg {
+          fill: $disabledcolor;
+        }
       }
     }
 
@@ -158,7 +178,9 @@
       #{$namespace}.dt-button-nested,
       #{$namespace}.dt-button-nested:hover:not([disabled]),
       #{$namespace}.dt-button-nested:active:not([disabled]) {
-        .dt-button-icon .dt-icon svg { fill: #ffffff; }
+        .dt-button-icon .dt-icon svg {
+          fill: #ffffff;
+        }
       }
       #{$namespace}.dt-button-nested:hover:not([disabled]) {
         background: rgba(255, 255, 255, 0.2);
@@ -167,20 +189,30 @@
         background: rgba(255, 255, 255, 0.3);
       }
       #{$namespace}.dt-button-nested[disabled] {
-        .dt-button-icon .dt-icon svg { fill: rgba(255, 255, 255, 0.6); }
+        .dt-button-icon .dt-icon svg {
+          fill: rgba(255, 255, 255, 0.6);
+        }
       }
     } @else {
       #{$namespace}.dt-button-nested {
-        .dt-button-icon .dt-icon svg { fill: $default-color; }
+        .dt-button-icon .dt-icon svg {
+          fill: $default-color;
+        }
       }
       #{$namespace}.dt-button-nested:hover:not([disabled]) {
-        .dt-button-icon .dt-icon svg { fill: $hover-color; }
+        .dt-button-icon .dt-icon svg {
+          fill: $hover-color;
+        }
       }
       #{$namespace}.dt-button-nested:active:not([disabled]) {
-        .dt-button-icon .dt-icon svg { fill: $active-color; }
+        .dt-button-icon .dt-icon svg {
+          fill: $active-color;
+        }
       }
       #{$namespace}.dt-button-nested[disabled] {
-        .dt-button-icon .dt-icon svg { fill: $disabledcolor; }
+        .dt-button-icon .dt-icon svg {
+          fill: $disabledcolor;
+        }
       }
     }
   }

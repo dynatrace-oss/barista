@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Context dialog
@@ -18,40 +18,39 @@ You have to import the `DtContextDialogModule` when you want to use the `<dt-con
 
 ```typescript
 @NgModule({
-  imports: [
-    DtContextDialogModule,
-  ],
+  imports: [DtContextDialogModule],
 })
 class MyModule {}
 ```
 
 ## Inputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `tabIndex` | `number` | `0` | Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex. |
-| `disabled` | `boolean` | `false` | Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled. |
-| `aria-label` | `string` | | ARIA label of the context dialog trigger button. |
-| `aria-label-close-button` | `string` | | ARIA label of the context dialog close button. |
+| Name                      | Type      | Default | Description                                                                            |
+| ------------------------- | --------- | ------- | -------------------------------------------------------------------------------------- |
+| `tabIndex`                | `number`  | `0`     | Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex.          |
+| `disabled`                | `boolean` | `false` | Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled. |
+| `aria-label`              | `string`  |         | ARIA label of the context dialog trigger button.                                       |
+| `aria-label-close-button` | `string`  |         | ARIA label of the context dialog close button.                                         |
 
 ## Properties
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name          | Type      | Description                              |
+| ------------- | --------- | ---------------------------------------- |
 | `isPanelOpen` | `boolean` | Returns wether or not the panel is open. |
 
 ## Outputs
-| Name | Type | Description |
-| --- | --- | --- |
+
+| Name            | Type                    | Description                                            |
+| --------------- | ----------------------- | ------------------------------------------------------ |
 | `openedChanged` | `EventEmitter<boolean>` | Event emitted when the context dialog opens or closes. |
 
 ## Methods
 
-| Name | Description | Return value |
-| --- | --- | --- |
-| `open()` | Opens the context dialog. | `void` |
-| `close()` | Closes the context dialog. | `void` |
-| `focus()` | Focuses the context dialog. | `void` |
+| Name      | Description                 | Return value |
+| --------- | --------------------------- | ------------ |
+| `open()`  | Opens the context dialog.   | `void`       |
+| `close()` | Closes the context dialog.  | `void`       |
+| `focus()` | Focuses the context dialog. | `void`       |
 
 ## Accessibility
 

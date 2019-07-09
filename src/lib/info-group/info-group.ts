@@ -11,8 +11,7 @@ import {
     class: 'dt-info-group-title',
   },
 })
-export class DtInfoGroupTitle {
-}
+export class DtInfoGroupTitle {}
 
 /** Icon of the info group, needed as it's used as a selector in the API. */
 @Directive({
@@ -21,8 +20,7 @@ export class DtInfoGroupTitle {
     class: 'dt-info-group-icon',
   },
 })
-export class DtInfoGroupIcon {
-}
+export class DtInfoGroupIcon {}
 
 @Component({
   moduleId: module.id,
@@ -37,7 +35,4 @@ export class DtInfoGroupIcon {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-
-export class DtInfoGroup {
-
-}
+export class DtInfoGroup {}

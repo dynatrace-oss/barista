@@ -5,12 +5,12 @@ import { Subject, Observable, merge } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class Viewport {
-
   private _refresher = new Subject<undefined | Element | ElementRef>();
 
   constructor(
     private _scrollDispatcher: ScrollDispatcher,
-    private _viewportRuler: ViewportRuler) { }
+    private _viewportRuler: ViewportRuler
+  ) {}
 
   /**
    * Stream that emits the ClientRect for the
@@ -29,22 +29,22 @@ export class Viewport {
   elementVisibility(el: Element | ElementRef): Observable<boolean> {
     const element = asElement(el);
     return this._change(element).pipe(
-        map((viewportRect) => isElementVisible(element, viewportRect)),
-        distinctUntilChanged()
-      );
+      map(viewportRect => isElementVisible(element, viewportRect)),
+      distinctUntilChanged()
+    );
   }
 
   /** Stream that emits when the element enters the viewport */
   elementEnter(el: Element | ElementRef): Observable<void> {
     return this.elementVisibility(el)
-      .pipe(filter((visibility) => visibility))
+      .pipe(filter(visibility => visibility))
       .pipe(map(() => void 0));
   }
 
   /** Stream that emits when the element leaves the viewport */
   elementLeave(el: Element | ElementRef): Observable<void> {
     return this.elementVisibility(el)
-      .pipe(filter((visibility) => !visibility))
+      .pipe(filter(visibility => !visibility))
       .pipe(map(() => void 0));
   }
 
@@ -53,14 +53,18 @@ export class Viewport {
     return merge(
       this._scrollDispatcher.scrolled(),
       this._viewportRuler.change(200),
-      this._refresher.pipe(filter(((ctx) => !ctx || asElement(context) === asElement(ctx))))
+      this._refresher.pipe(
+        filter(ctx => !ctx || asElement(context) === asElement(ctx))
+      )
     ).pipe(map(() => this._viewportRuler.getViewportRect()));
   }
-
 }
 
 /** Calculates if the element is visible in the viewports Client Rect */
-export function isElementVisible(element: Element, viewportRect: ClientRect): boolean {
+export function isElementVisible(
+  element: Element,
+  viewportRect: ClientRect
+): boolean {
   const { bottom, top } = element.getBoundingClientRect();
   return bottom >= 0 && top <= viewportRect.height;
 }

@@ -5,17 +5,16 @@ import { mixinHasProgress, HasProgressValues } from './progress';
 
 describe('MixinProgress', () => {
   it('should augment an existing class with a progress property', () => {
-    class EmptyClass { }
+    class EmptyClass {}
 
     const classWithProgress = mixinHasProgress(EmptyClass);
     const instance = new classWithProgress();
 
-    expect(instance.value)
-        .toBe(0, 'Expected default value of the property');
+    expect(instance.value).toBe(0, 'Expected default value of the property');
   });
 
   it('should calculate percentage', () => {
-    class EmptyClass { }
+    class EmptyClass {}
 
     const classWithProgress = mixinHasProgress(EmptyClass);
     const instance = new classWithProgress();
@@ -30,7 +29,7 @@ describe('MixinProgress', () => {
   });
 
   it('should clamp values', () => {
-    class EmptyClass { }
+    class EmptyClass {}
 
     const classWithProgress = mixinHasProgress(EmptyClass);
     const instance = new classWithProgress();
@@ -44,11 +43,11 @@ describe('MixinProgress', () => {
   });
 
   it('should fire event', () => {
-    class EmptyClass { }
+    class EmptyClass {}
 
     const classWithProgress = mixinHasProgress(EmptyClass);
-    class EmptyClassImpl extends classWithProgress implements HasProgressValues {
-    }
+    class EmptyClassImpl extends classWithProgress
+      implements HasProgressValues {}
 
     const spy = jasmine.createSpy();
     const instance = new EmptyClassImpl();
@@ -67,5 +66,4 @@ describe('MixinProgress', () => {
 
     sub.unsubscribe();
   });
-
 });

@@ -2,7 +2,15 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { async, TestBed, inject, fakeAsync, flush, tick, ComponentFixture } from '@angular/core/testing';
+import {
+  async,
+  TestBed,
+  inject,
+  fakeAsync,
+  flush,
+  tick,
+  ComponentFixture,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtChart,
@@ -26,10 +34,14 @@ describe('DtChartTooltip', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtChartModule, DtThemingModule, DtKeyValueListModule, DtOverlayModule, NoopAnimationsModule],
-      declarations: [
-        ChartTest,
+      imports: [
+        DtChartModule,
+        DtThemingModule,
+        DtKeyValueListModule,
+        DtOverlayModule,
+        NoopAnimationsModule,
       ],
+      declarations: [ChartTest],
     });
 
     TestBed.compileComponents();
@@ -42,18 +54,22 @@ describe('DtChartTooltip', () => {
     fixture = createComponent(ChartTest);
     const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
     chartComponent = chartDebugElement.componentInstance;
-
   }));
 
-  afterEach(inject([OverlayContainer], (currentOverlayContainer: OverlayContainer) => {
-    // Since we're resetting the testing module in some of the tests,
-    // we can potentially have multiple overlay containers.
-    currentOverlayContainer.ngOnDestroy();
-    overlayContainer.ngOnDestroy();
-  }));
+  afterEach(inject(
+    [OverlayContainer],
+    (currentOverlayContainer: OverlayContainer) => {
+      // Since we're resetting the testing module in some of the tests,
+      // we can potentially have multiple overlay containers.
+      currentOverlayContainer.ngOnDestroy();
+      overlayContainer.ngOnDestroy();
+    }
+  ));
 
   it('should dismiss the overlay when the tooltip close event is called', fakeAsync(() => {
-    chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA_LINE_SERIES });
+    chartComponent.tooltipDataChange.next({
+      data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
+    });
     fixture.detectChanges();
     chartComponent.tooltipOpenChange.next(false);
     fixture.detectChanges();
@@ -63,7 +79,7 @@ describe('DtChartTooltip', () => {
   }));
 
   it('should dismiss the overlay when the tooltip data event is called but has no data for the point', fakeAsync(() => {
-    const newData: DtChartTooltipData = {...DUMMY_TOOLTIP_DATA_LINE_SERIES};
+    const newData: DtChartTooltipData = { ...DUMMY_TOOLTIP_DATA_LINE_SERIES };
     newData.points = undefined;
     chartComponent.tooltipDataChange.next({ data: newData });
     fixture.detectChanges();
@@ -74,7 +90,9 @@ describe('DtChartTooltip', () => {
 
   describe('content', () => {
     beforeEach(fakeAsync(() => {
-      chartComponent.tooltipDataChange.next({ data: DUMMY_TOOLTIP_DATA_LINE_SERIES });
+      chartComponent.tooltipDataChange.next({
+        data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
+      });
       fixture.detectChanges();
     }));
 
@@ -85,7 +103,7 @@ describe('DtChartTooltip', () => {
     });
 
     it('should be updated with new data', () => {
-      const newData: DtChartTooltipData = {...DUMMY_TOOLTIP_DATA_LINE_SERIES};
+      const newData: DtChartTooltipData = { ...DUMMY_TOOLTIP_DATA_LINE_SERIES };
       newData.points![0].point.y = 54321;
 
       chartComponent.tooltipDataChange.next({ data: newData });
@@ -94,7 +112,6 @@ describe('DtChartTooltip', () => {
       expect(overlayContainerElement.innerText).toContain('54321');
     });
   });
-
 });
 
 @Component({
@@ -105,8 +122,12 @@ describe('DtChartTooltip', () => {
         <ng-template let-series>
           <dt-key-value-list style="min-width: 100px">
             <dt-key-value-list-item *ngFor="let data of series.points">
-              <dt-key-value-list-key>{{data.series.name}}</dt-key-value-list-key>
-              <dt-key-value-list-value>{{data.point.y}}</dt-key-value-list-value>
+              <dt-key-value-list-key>{{
+                data.series.name
+              }}</dt-key-value-list-key>
+              <dt-key-value-list-value>{{
+                data.point.y
+              }}</dt-key-value-list-value>
             </dt-key-value-list-item>
           </dt-key-value-list>
         </ng-template>
@@ -155,10 +176,10 @@ const DUMMY_TOOLTIP_DATA_LINE_SERIES: DtChartTooltipData = {
       series: {
         name: 'Actions/min',
         xAxis: {
-          toPixels: (x) => x * 2,
+          toPixels: x => x * 2,
         },
         yAxis: {
-          toPixels: (y) => y * 2,
+          toPixels: y => y * 2,
         },
       },
       key: 0,

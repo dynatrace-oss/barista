@@ -68,7 +68,11 @@ import {
 } from './heatfield/chart-heatfield';
 import { applyHighchartsErrorHandler } from './highcharts/highcharts-errors';
 import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides';
-import { addTooltipEvents, DtHcTooltipEventPayload, findHoveredSeriesIndex } from './highcharts/highcharts-tooltip-extensions';
+import {
+  addTooltipEvents,
+  DtHcTooltipEventPayload,
+  findHoveredSeriesIndex,
+} from './highcharts/highcharts-tooltip-extensions';
 import { DtChartTooltipEvent } from './highcharts/highcharts-tooltip-types';
 import {
   applyHighchartsColorOptions,
@@ -265,14 +269,15 @@ export class DtChart
   @ContentChild(DtChartRange, { static: false }) _range?: DtChartRange;
 
   /** @internal Instance of the Chart timestamp used by the selection area */
-  @ContentChild(DtChartTimestamp, { static: false }) _timestamp?: DtChartTimestamp;
+  @ContentChild(DtChartTimestamp, { static: false })
+  _timestamp?: DtChartTimestamp;
 
   private readonly _heatfieldActiveChanges: Observable<
     DtChartHeatfieldActiveChange
   > = defer(() => {
     if (this._heatfields) {
       return merge<DtChartHeatfieldActiveChange>(
-        ...this._heatfields.map((heatfield) => heatfield.activeChange)
+        ...this._heatfields.map(heatfield => heatfield.activeChange)
       );
     }
 
@@ -319,28 +324,40 @@ export class DtChart
           }
         });
     }
-    this._heatfieldActiveChanges.pipe(takeUntil(this._destroy$)).subscribe((event) => {
-      this._onHeatfieldActivate(event.source);
-    });
-    this._tooltipRefreshed.pipe(
-      takeUntil(this._destroy$),
-      filter(Boolean),
-      map((ev) => {
-        if (ev.data.points) {
-          // We need to clone the series here, because highcharts mutates the object and
-          // we therefore cannot create a compare function that compares the last with the next emission
-          ev.data.points = ev.data.points.map((p) => ({...p, series: { ...p.series }}));
-        }
-        return ev;
-      }),
-      distinctUntilChanged((a, b) => {
-        if (a && b) {
-          return a.data.x === b.data.x && a.data.y === b.data.y && findHoveredSeriesIndex(a) === findHoveredSeriesIndex(b);
-        }
-        return false;
-      })
-    )
-    .subscribe((ev) => { this.tooltipDataChange.next(ev); });
+    this._heatfieldActiveChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(event => {
+        this._onHeatfieldActivate(event.source);
+      });
+    this._tooltipRefreshed
+      .pipe(
+        takeUntil(this._destroy$),
+        filter(Boolean),
+        map(ev => {
+          if (ev.data.points) {
+            // We need to clone the series here, because highcharts mutates the object and
+            // we therefore cannot create a compare function that compares the last with the next emission
+            ev.data.points = ev.data.points.map(p => ({
+              ...p,
+              series: { ...p.series },
+            }));
+          }
+          return ev;
+        }),
+        distinctUntilChanged((a, b) => {
+          if (a && b) {
+            return (
+              a.data.x === b.data.x &&
+              a.data.y === b.data.y &&
+              findHoveredSeriesIndex(a) === findHoveredSeriesIndex(b)
+            );
+          }
+          return false;
+        })
+      )
+      .subscribe(ev => {
+        this.tooltipDataChange.next(ev);
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -406,11 +423,11 @@ export class DtChart
     this._heatfieldSelectionModel = new SelectionModel<DtChartHeatfield>();
     this._heatfieldSelectionModel.changed
       .pipe(takeUntil(this._destroy$))
-      .subscribe((event) => {
-        event.added.forEach((heatfield) => {
+      .subscribe(event => {
+        event.added.forEach(heatfield => {
           heatfield.active = true;
         });
-        event.removed.forEach((heatfield) => {
+        event.removed.forEach(heatfield => {
           heatfield.active = false;
         });
       });

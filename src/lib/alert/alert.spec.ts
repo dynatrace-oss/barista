@@ -23,15 +23,18 @@ describe('DtAlert', () => {
   it('expects css class to be present', () => {
     const fixture = createComponent(TestApp);
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
-    expect(tileNativeElement.classList.contains('dt-alert'))
-      .toBeTruthy();
+    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-alert'
+    );
+    expect(tileNativeElement.classList.contains('dt-alert')).toBeTruthy();
   });
 
   it('expects correct css class after change', () => {
     const fixture = createComponent(TestApp);
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
+    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-alert'
+    );
 
     const groupDebugElement = fixture.debugElement.query(By.directive(DtAlert));
     const groupInstance = groupDebugElement.injector.get<DtAlert>(DtAlert);
@@ -39,21 +42,23 @@ describe('DtAlert', () => {
     groupInstance.severity = 'warning';
     fixture.detectChanges();
 
-    expect(tileNativeElement.classList.contains('dt-alert-warning'))
-      .toBeTruthy();
+    expect(
+      tileNativeElement.classList.contains('dt-alert-warning')
+    ).toBeTruthy();
 
-    expect(tileNativeElement.classList.contains('dt-alert-error'))
-      .toBeFalsy();
+    expect(tileNativeElement.classList.contains('dt-alert-error')).toBeFalsy();
   });
 
   it('expects no css class to be present by default', () => {
     const fixture = createComponent(TestAppEmpty);
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector('dt-alert');
-    expect(tileNativeElement.classList.contains('dt-alert-error'))
-      .toBeFalsy();
-    expect(tileNativeElement.classList.contains('dt-alert-warning'))
-      .toBeFalsy();
+    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
+      'dt-alert'
+    );
+    expect(tileNativeElement.classList.contains('dt-alert-error')).toBeFalsy();
+    expect(
+      tileNativeElement.classList.contains('dt-alert-warning')
+    ).toBeFalsy();
   });
 });
 
@@ -64,8 +69,7 @@ describe('DtAlert', () => {
     <dt-alert severity="error"></dt-alert>
   `,
 })
-class TestApp {
-}
+class TestApp {}
 
 /** Test component that is not visible by default. */
 @Component({
@@ -74,5 +78,4 @@ class TestApp {
     <dt-alert></dt-alert>
   `,
 })
-class TestAppEmpty {
-}
+class TestAppEmpty {}

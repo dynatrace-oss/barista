@@ -1,36 +1,49 @@
-
 <h2>With chart</h2>
 <dt-card *ngIf="!destroyed">
-<dt-chart [options]="options" [series]="series" [dtChartSelectionArea]="areaChart">
-  <dt-chart-tooltip>
-    <ng-template let-tooltip>
-      <dt-key-value-list>
-        <dt-key-value-list-item *ngFor="let data of tooltip.points">
-          <dt-key-value-list-key>{{data.series.name}}</dt-key-value-list-key>
-          <dt-key-value-list-value>{{data.point.y}}</dt-key-value-list-value>
-        </dt-key-value-list-item>
-      </dt-key-value-list>
-    </ng-template>
-  </dt-chart-tooltip>
-</dt-chart>
-<dt-selection-area #areaChart="dtSelectionArea" (changed)="handleChange($event)">
-  {{left | date: 'MMM d, y - HH:mm':'GMT' }} - {{right | date: 'MMM d, y - HH:mm':'GMT'}}
-  <dt-selection-area-actions>
-    <button dt-button>Zoom in</button>
-  </dt-selection-area-actions>
-</dt-selection-area>
-</dt-card>
-
-<h2>Without chart</h2>
-<div class="originWithoutChart" #origin [dtSelectionArea]="area"></div>
+  <dt-chart
+    [options]="options"
+    [series]="series"
+    [dtChartSelectionArea]="areaChart"
+  >
+    <dt-chart-tooltip>
+      <ng-template let-tooltip>
+        <dt-key-value-list>
+          <dt-key-value-list-item *ngFor="let data of tooltip.points">
+            <dt-key-value-list-key>{{
+              data.series.name
+            }}</dt-key-value-list-key>
+            <dt-key-value-list-value>{{
+              data.point.y
+            }}</dt-key-value-list-value>
+          </dt-key-value-list-item>
+        </dt-key-value-list>
+      </ng-template>
+    </dt-chart-tooltip>
+  </dt-chart>
   <dt-selection-area
-    #area="dtSelectionArea"
-    aria-label-selected-area="aria selected-area"
-    aria-label-left-handle="aria left"
-    aria-label-right-handle="aria right"
-    aria-label-close-button="aria close" (changed)="handleChange($event)">
-    Some basic overlay content
+    #areaChart="dtSelectionArea"
+    (changed)="handleChange($event)"
+  >
+    {{ left | date: 'MMM d, y - HH:mm':'GMT' }} -
+    {{ right | date: 'MMM d, y - HH:mm':'GMT' }}
     <dt-selection-area-actions>
       <button dt-button>Zoom in</button>
     </dt-selection-area-actions>
   </dt-selection-area>
+</dt-card>
+
+<h2>Without chart</h2>
+<div class="originWithoutChart" #origin [dtSelectionArea]="area"></div>
+<dt-selection-area
+  #area="dtSelectionArea"
+  aria-label-selected-area="aria selected-area"
+  aria-label-left-handle="aria left"
+  aria-label-right-handle="aria right"
+  aria-label-close-button="aria close"
+  (changed)="handleChange($event)"
+>
+  Some basic overlay content
+  <dt-selection-area-actions>
+    <button dt-button>Zoom in</button>
+  </dt-selection-area-actions>
+</dt-selection-area>

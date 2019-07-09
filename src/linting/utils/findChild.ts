@@ -24,12 +24,18 @@ function increaseLevel(element: any, level: number): number {
  * @param level - the current level.
  * @returns array of found child nodes.
  */
-export function findChild(element: any, childName: string, level: number): ChildNode[] {
+export function findChild(
+  element: any,
+  childName: string,
+  level: number
+): ChildNode[] {
   if (element.name && element.name === childName) {
-    return [{
-      name: childName,
-      level,
-    }];
+    return [
+      {
+        name: childName,
+        level,
+      },
+    ];
   }
 
   let children: ChildNode[] = [];
@@ -37,7 +43,9 @@ export function findChild(element: any, childName: string, level: number): Child
     const newLevel = increaseLevel(element, level);
     const noOfChildren = element.children.length;
     for (let i = 0; i < noOfChildren; i++) {
-      children = children.concat(findChild(element.children[i], childName, newLevel));
+      children = children.concat(
+        findChild(element.children[i], childName, newLevel)
+      );
     }
   }
   return children;
@@ -50,12 +58,21 @@ export function findChild(element: any, childName: string, level: number): Child
  * @param level - the current level.
  * @returns array of found child nodes.
  */
-export function findChildByAttribute(element: any, attrName: string, level: number): ChildNode[] {
-  if (element.attrs && (element.attrs as AttrAst[]).find((attr) => attr.name === attrName)) {
-    return [{
-      name: attrName,
-      level,
-    }];
+export function findChildByAttribute(
+  element: any,
+  attrName: string,
+  level: number
+): ChildNode[] {
+  if (
+    element.attrs &&
+    (element.attrs as AttrAst[]).find(attr => attr.name === attrName)
+  ) {
+    return [
+      {
+        name: attrName,
+        level,
+      },
+    ];
   }
 
   let children: ChildNode[] = [];
@@ -63,7 +80,9 @@ export function findChildByAttribute(element: any, attrName: string, level: numb
     const newLevel = increaseLevel(element, level);
     const noOfChildren = element.children.length;
     for (let i = 0; i < noOfChildren; i++) {
-      children = children.concat(findChildByAttribute(element.children[i], attrName, newLevel));
+      children = children.concat(
+        findChildByAttribute(element.children[i], attrName, newLevel)
+      );
     }
   }
   return children;

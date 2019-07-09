@@ -19,7 +19,7 @@ $dt-autocomplete-panel-min-width: 112px !default;
   // Makes sure the opening scale animation starts from the top
   transform-origin: left top;
   overflow: auto;
-  -webkit-overflow-scrolling: touch;   // for momentum scroll on mobile
+  -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
 }
 
 .dt-autocomplete-hidden {

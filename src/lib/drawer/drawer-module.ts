@@ -4,16 +4,8 @@ import { DtDrawer } from './drawer';
 import { DtDrawerContainer } from './drawer-container';
 
 @NgModule({
-  imports: [
-    CommonModule,
-  ],
-  exports: [
-    DtDrawer,
-    DtDrawerContainer,
-  ],
-  declarations: [
-    DtDrawer,
-    DtDrawerContainer,
-  ],
+  imports: [CommonModule],
+  exports: [DtDrawer, DtDrawerContainer],
+  declarations: [DtDrawer, DtDrawerContainer],
 })
-export class DtDrawerModule { }
+export class DtDrawerModule {}

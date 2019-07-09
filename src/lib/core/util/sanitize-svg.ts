@@ -4,9 +4,11 @@ export function sanitizeSvg(svgString: string): SVGElement {
   const div = document.createElement('div');
   // tslint:disable-next-line dt-ban-inner-html
   div.innerHTML = svgString;
-  [].slice.call(div.getElementsByTagName('script')).forEach((script: HTMLScriptElement) => {
-    script.parentNode!.removeChild(script);
-  });
+  [].slice
+    .call(div.getElementsByTagName('script'))
+    .forEach((script: HTMLScriptElement) => {
+      script.parentNode!.removeChild(script);
+    });
 
   const svg = div.getElementsByTagName('svg')[0];
 

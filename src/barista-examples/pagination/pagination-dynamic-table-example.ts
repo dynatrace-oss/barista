@@ -1,4 +1,9 @@
-import { Component, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { DtPagination, DtTableDataSource } from '@dynatrace/angular-components';
 import { startWith } from 'rxjs/operators';
 
@@ -7,39 +12,63 @@ import { startWith } from 'rxjs/operators';
   selector: 'demo-component',
   template: `
     <ng-container *ngIf="show">
-
       <dt-table [dataSource]="dataSource">
-        <dt-simple-text-column name="host" sortable="false"></dt-simple-text-column>
-        <dt-simple-number-column name="cpu" label="Cpu"  sortable="false"></dt-simple-number-column>
-        <dt-simple-number-column name="memory" label="Memory" sortable="false"></dt-simple-number-column>
-        <dt-simple-number-column name="traffic" label="Traffic" sortable="false"></dt-simple-number-column>
+        <dt-simple-text-column
+          name="host"
+          sortable="false"
+        ></dt-simple-text-column>
+        <dt-simple-number-column
+          name="cpu"
+          label="Cpu"
+          sortable="false"
+        ></dt-simple-number-column>
+        <dt-simple-number-column
+          name="memory"
+          label="Memory"
+          sortable="false"
+        ></dt-simple-number-column>
+        <dt-simple-number-column
+          name="traffic"
+          label="Traffic"
+          sortable="false"
+        ></dt-simple-number-column>
 
-        <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"></dt-header-row>
-        <dt-row *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic'];"></dt-row>
+        <dt-header-row
+          *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"
+        ></dt-header-row>
+        <dt-row
+          *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
+        ></dt-row>
       </dt-table>
 
       <dt-pagination></dt-pagination>
-
     </ng-container>
 
     <button dt-button (click)="show = !show">show/hide</button>
   `,
-  styles: [`
-    :host {
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-    }
+  styles: [
+    `
+      :host {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+      }
 
-    dt-pagination {
-      align-self: center;
-      margin: 1em 0;
-    }
-  `],
+      dt-pagination {
+        align-self: center;
+        margin: 1em 0;
+      }
+    `,
+  ],
 })
 export class PaginationDynamicTableExample implements AfterViewInit {
   show = true;
-  private data: Array<{host: string; cpu: number; memory: number; traffic: number}> = [
+  private data: Array<{
+    host: string;
+    cpu: number;
+    memory: number;
+    traffic: number;
+  }> = [
     { host: 'et-demo-2-win4', cpu: 30, memory: 38, traffic: 98700000 },
     { host: 'et-demo-2-win3', cpu: 26, memory: 46, traffic: 62500000 },
     { host: 'docker-host2', cpu: 25.4, memory: 35, traffic: 41900000 },
@@ -52,10 +81,14 @@ export class PaginationDynamicTableExample implements AfterViewInit {
 
   @ViewChildren(DtPagination) paginationList: QueryList<DtPagination>;
 
-  dataSource: DtTableDataSource<{host: string; cpu: number; memory: number; traffic: number}> = new DtTableDataSource(this.data);
+  dataSource: DtTableDataSource<{
+    host: string;
+    cpu: number;
+    memory: number;
+    traffic: number;
+  }> = new DtTableDataSource(this.data);
 
   ngAfterViewInit(): void {
-
     this.paginationList.changes.pipe(startWith(null)).subscribe(() => {
       if (this.paginationList.first) {
         this.dataSource.pagination = this.paginationList.first;
@@ -65,5 +98,4 @@ export class PaginationDynamicTableExample implements AfterViewInit {
       }
     });
   }
-
 }

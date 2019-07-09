@@ -5,7 +5,14 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `
     <dt-form-field>
-      <input type="text" required dtInput placeholder="Please insert text" [(ngModel)]="textValue" aria-label="Please insert text"/>
+      <input
+        type="text"
+        required
+        dtInput
+        placeholder="Please insert text"
+        [(ngModel)]="textValue"
+        aria-label="Please insert text"
+      />
       <dt-error>A wild error appears</dt-error>
     </dt-form-field>
   `,

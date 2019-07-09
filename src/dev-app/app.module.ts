@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import {
   Location,
   LocationStrategy,
-  PathLocationStrategy
+  PathLocationStrategy,
 } from '@angular/common';
 import { DevApp } from './devapp.component';
 import { DevAppDynatraceModule } from './dt-components.module';
@@ -58,7 +58,7 @@ import { HighlightDemo } from './highlight/highlight-demo.component';
 import { ConsumptionDemo } from './consumption/consumption-demo.component';
 
 // tslint:disable-next-line: use-component-selector
-@Component({template: ''})
+@Component({ template: '' })
 export class NoopRouteComponent {}
 
 @NgModule({
@@ -119,14 +119,11 @@ export class NoopRouteComponent {}
     HighlightDemo,
     ConsumptionDemo,
   ],
-  entryComponents: [
-    DevApp,
-  ],
+  entryComponents: [DevApp],
   bootstrap: [DevApp],
   providers: [
     Location,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
   ],
 })
-export class AppModule {
-}
+export class AppModule {}

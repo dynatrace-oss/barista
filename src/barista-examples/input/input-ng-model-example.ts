@@ -4,13 +4,17 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <input dtInput
+    <input
+      dtInput
       required
       placeholder="Enter Text"
       aria-label="Enter text"
       [(ngModel)]="textValue"
-      #textControl="ngModel" />
-    <p>Output: <em>{{textValue || 'none'}}</em></p>
+      #textControl="ngModel"
+    />
+    <p
+      >Output: <em>{{ textValue || 'none' }}</em></p
+    >
     <!-- The lines below are just for the showcase, do not use this in production -->
     <p>
       Touched: {{ textControl.touched }}<br />

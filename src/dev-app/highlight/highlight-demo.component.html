@@ -1,83 +1,90 @@
 <p dt-highlight term="s">
   Some <b>text where</b> a part should be highlighted
 </p>
-<hr>
+<hr />
 
 <p dt-highlight term="s">
   Some <b>text where</b> a part should be highlighted
 </p>
-<hr>
+<hr />
 
 <p dt-highlight>Some text where nothing should be highlighted</p>
-<hr>
+<hr />
 
 <p dt-highlight term="wher">Some text where a part should be highlighted</p>
-<hr>
+<hr />
 
-<span dt-highlight term="s">Some text where some parts should be highlighted</span>
-<hr>
+<span dt-highlight term="s"
+  >Some text where some parts should be highlighted</span
+>
+<hr />
 
-<button dt-button (click)="caseSensitive = !caseSensitive">Toggle caseSensitive</button><br>
+<button dt-button (click)="caseSensitive = !caseSensitive"
+  >Toggle caseSensitive</button
+><br />
 
 <span dt-highlight term="Some" [caseSensitive]="caseSensitive">
   Case sensetiv Some text where some parts should be highlighted
 </span>
-<hr>
+<hr />
 
 <p dt-highlight term="wher">
   asdf Some <b>text where</b> a part should be highlighted
 </p>
-<hr>
+<hr />
 
 <div dt-highlight term="wher">
   <p>DIV text where a part should be highlighted</p>
 </div>
-<hr>
+<hr />
 
 <p dt-highlight term="highlighted?">
   Some text where a part should b highlighted?
 </p>
-<hr>
+<hr />
 
 <p dt-highlight term="">
   NO highlight text where a part should <em>be</em> highlighted
 </p>
-<hr>
+<hr />
 
 <dt-highlight term="pa">
   NO highlight text where a part should <em>be</em> highlighted
 </dt-highlight>
-<hr>
+<hr />
 
 <dt-highlight [term]="search.value">
-  Lorem ipsum dolor sit amet, accumsan eligendi his ex. Ea eum invidunt lucilius, an duo officiis interesset.
-  Nobis aeterno maiorum sed in. Facilis iracundia temporibus ei ius, voluptaria appellantur te eos, ad civibus omnesque mel.
+  Lorem ipsum dolor sit amet, accumsan eligendi his ex. Ea eum invidunt
+  lucilius, an duo officiis interesset. Nobis aeterno maiorum sed in. Facilis
+  iracundia temporibus ei ius, voluptaria appellantur te eos, ad civibus
+  omnesque mel.
 </dt-highlight>
-<br>
-<hr>
+<br />
+<hr />
 
-<input type="text" dtInput value="Dy" #search (keyup)="0"/>
-<dt-highlight [term]="search.value" caseSensitive>Dynatrace system Monitoring</dt-highlight>
-<hr>
+<input type="text" dtInput value="Dy" #search (keyup)="(0)" />
+<dt-highlight [term]="search.value" caseSensitive
+  >Dynatrace system Monitoring</dt-highlight
+>
+<hr />
 
-<input type="text" dtInput #search2 (keyup)="void" />
+<input type="text" dtInput #search2 (keyup)="(void)" />
 <dt-highlight [term]="search2.value">HTTP-Monitoring</dt-highlight>
-<hr>
+<hr />
 
-<dt-highlight term="Jane">
-  We welcome {{name}} to this event.
-</dt-highlight>
-
+<dt-highlight term="Jane"> We welcome {{ name }} to this event. </dt-highlight>
 
 <div dtTheme=":dark" class="dark">
   <p dt-highlight term="s">
     Some <b>text where</b> a part should be highlighted
   </p>
-  <hr>
+  <hr />
 
   <p dt-highlight term="wher">Some text where a part should be highlighted</p>
-  <hr>
+  <hr />
 
-  <span dt-highlight term="s">Some text where some parts should be highlighted</span>
-  <hr>
+  <span dt-highlight term="s"
+    >Some text where some parts should be highlighted</span
+  >
+  <hr />
 </div>

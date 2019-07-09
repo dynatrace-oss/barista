@@ -12,21 +12,37 @@ export interface HasElementRef {
 }
 
 /** Possible color palette values. */
-export type DtThemePalette = 'main' | 'accent' | 'warning' | 'error' | 'cta' | 'recovered' | 'neutral' | undefined;
+export type DtThemePalette =
+  | 'main'
+  | 'accent'
+  | 'warning'
+  | 'error'
+  | 'cta'
+  | 'recovered'
+  | 'neutral'
+  | undefined;
 
 /** Mixin to augment a directive with a `color` property. */
 export function mixinColor<T extends Constructor<HasElementRef>>(
-  base: T, defaultColor?: DtThemePalette): Constructor<CanColor<DtThemePalette>> & T;
-export function mixinColor<T extends Constructor<HasElementRef>, P extends Partial<DtThemePalette>>(
-  base: T, defaultColor?: P): Constructor<CanColor<P>> & T;
-export function mixinColor<T extends Constructor<HasElementRef>, P extends Partial<DtThemePalette>>(
-  base: T, defaultColor?: P): Constructor<CanColor<P>> & T {
+  base: T,
+  defaultColor?: DtThemePalette
+): Constructor<CanColor<DtThemePalette>> & T;
+export function mixinColor<
+  T extends Constructor<HasElementRef>,
+  P extends Partial<DtThemePalette>
+>(base: T, defaultColor?: P): Constructor<CanColor<P>> & T;
+export function mixinColor<
+  T extends Constructor<HasElementRef>,
+  P extends Partial<DtThemePalette>
+>(base: T, defaultColor?: P): Constructor<CanColor<P>> & T {
   return class extends base {
     private _color: P;
 
-    get color(): P { return this._color; }
+    get color(): P {
+      return this._color;
+    }
     set color(value: P) {
-      const colorPalette = value || defaultColor as P;
+      const colorPalette = value || (defaultColor as P);
 
       if (colorPalette !== this._color) {
         setComponentColorClasses(this, colorPalette);
@@ -44,16 +60,15 @@ export function mixinColor<T extends Constructor<HasElementRef>, P extends Parti
   };
 }
 
-export function setComponentColorClasses<T extends { color: string | undefined } & HasElementRef>(
-  component: T,
-  color?: string
-): void {
-
+export function setComponentColorClasses<
+  T extends { color: string | undefined } & HasElementRef
+>(component: T, color?: string): void {
   if (color !== component.color) {
     replaceCssClass(
       component._elementRef,
       component.color ? `dt-color-${component.color}` : null,
-      color ? `dt-color-${color}` : null);
+      color ? `dt-color-${color}` : null
+    );
   }
 }
 
@@ -61,7 +76,7 @@ export function setComponentColorClasses<T extends { color: string | undefined }
  * Base class that uses the mixinColor mixin
  */
 export class DtColorBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
 export const _DtColorMixinBase = mixinColor(DtColorBase);
 
@@ -75,7 +90,8 @@ export const _DtColorMixinBase = mixinColor(DtColorBase);
   inputs: ['color'],
   exportAs: 'dtColor',
 })
-export class DtColor extends _DtColorMixinBase implements CanColor<DtThemePalette> {
+export class DtColor extends _DtColorMixinBase
+  implements CanColor<DtThemePalette> {
   constructor(elementRef: ElementRef) {
     super(elementRef);
   }
@@ -88,4 +104,4 @@ export class DtColor extends _DtColorMixinBase implements CanColor<DtThemePalett
   exports: [DtColor],
   declarations: [DtColor],
 })
-export class DtColorModule { }
+export class DtColorModule {}

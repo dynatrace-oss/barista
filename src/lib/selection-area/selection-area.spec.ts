@@ -1,25 +1,61 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers deprecation
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { async, TestBed, fakeAsync, flush, ComponentFixture, inject, tick } from '@angular/core/testing';
-import { DtSelectionAreaModule, DtIconModule, DtChart, DtCardModule } from '@dynatrace/angular-components';
-import { Component, ViewChild, ElementRef, ViewEncapsulation, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  async,
+  TestBed,
+  fakeAsync,
+  flush,
+  ComponentFixture,
+  inject,
+  tick,
+} from '@angular/core/testing';
+import {
+  DtSelectionAreaModule,
+  DtIconModule,
+  DtChart,
+  DtCardModule,
+} from '@dynatrace/angular-components';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  ViewEncapsulation,
+  NgZone,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { DtButtonModule } from '../button';
-import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import {
+  dispatchMouseEvent,
+  dispatchKeyboardEvent,
+} from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtSelectionArea } from './selection-area';
 import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { ENTER, LEFT_ARROW, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, PAGE_DOWN, PAGE_UP, HOME, END } from '@angular/cdk/keycodes';
+import {
+  ENTER,
+  LEFT_ARROW,
+  UP_ARROW,
+  DOWN_ARROW,
+  RIGHT_ARROW,
+  PAGE_DOWN,
+  PAGE_UP,
+  HOME,
+  END,
+} from '@angular/cdk/keycodes';
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { Subject } from 'rxjs';
-import { DtChartSelectionAreaOrigin, getDtChartSelectionAreaDateTimeAxisError } from '@dynatrace/angular-components/chart';
+import {
+  DtChartSelectionAreaOrigin,
+  getDtChartSelectionAreaDateTimeAxisError,
+} from '@dynatrace/angular-components/chart';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtSelectionArea', () => {
-
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   let zone: MockNgZone;
@@ -30,7 +66,7 @@ describe('DtSelectionArea', () => {
         DtSelectionAreaModule,
         DtButtonModule,
         HttpClientTestingModule,
-        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
         DtCardModule,
       ],
       declarations: [
@@ -42,7 +78,7 @@ describe('DtSelectionArea', () => {
         ProjectedTest,
       ],
       providers: [
-        { provide: NgZone, useFactory: () => zone = new MockNgZone() },
+        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
       ],
     });
 
@@ -76,7 +112,9 @@ describe('DtSelectionArea', () => {
       const globalSelectionAreaContainer = getGlobalSelectionAreaHost();
       zone.simulateZoneExit();
       fixture.detectChanges();
-      const selectionArea: HTMLElement | null = globalSelectionAreaContainer!.querySelector('dt-selection-area-container');
+      const selectionArea: HTMLElement | null = globalSelectionAreaContainer!.querySelector(
+        'dt-selection-area-container'
+      );
       expect(selectionArea!.style.left).toEqual(`${originDomRect.left}px`);
       expect(selectionArea!.style.top).toEqual(`${originDomRect.top}px`);
       expect(selectionArea!.style.width).toEqual(`${originDomRect.width}px`);
@@ -156,7 +194,7 @@ describe('DtSelectionArea', () => {
       expect(selectedArea.style.width).toEqual('100px');
     }));
 
-    it('should constrain the position to the origin\'s left edge', fakeAsync(() => {
+    it("should constrain the position to the origin's left edge", fakeAsync(() => {
       dispatchMouseEvent(origin, 'mousedown', 210, 10);
       fixture.detectChanges();
       flush();
@@ -170,7 +208,7 @@ describe('DtSelectionArea', () => {
       expect(selectedArea.style.width).toEqual('200px');
     }));
 
-    it('should constrain the position to the origin\'s right edge', fakeAsync(() => {
+    it("should constrain the position to the origin's right edge", fakeAsync(() => {
       dispatchMouseEvent(origin, 'mousedown', 20, 10);
       fixture.detectChanges();
       flush();
@@ -194,7 +232,9 @@ describe('DtSelectionArea', () => {
       fixture.detectChanges();
       flush();
       tickRequestAnimationFrame();
-      const overlayNative = overlayContainerElement.querySelector('.dt-selection-area-overlay-pane');
+      const overlayNative = overlayContainerElement.querySelector(
+        '.dt-selection-area-overlay-pane'
+      );
       expect(overlayNative).not.toBeNull();
     }));
 
@@ -210,7 +250,9 @@ describe('DtSelectionArea', () => {
       fixture.detectChanges();
       const selectedArea = getSelectionArea(globalSelectionAreaContainer!);
       expect(selectedArea.style.visibility).toBe('hidden');
-      const overlayNative = overlayContainerElement.querySelector('.dt-selection-area-overlay-pane');
+      const overlayNative = overlayContainerElement.querySelector(
+        '.dt-selection-area-overlay-pane'
+      );
       expect(overlayNative).toBeNull();
     }));
   });
@@ -241,9 +283,8 @@ describe('DtSelectionArea', () => {
     }));
 
     describe('on the selectedArea', () => {
-
       beforeEach(fakeAsync(() => {
-         selectedAreaNative = getSelectionArea(globalSelectionAreaContainer!);
+        selectedAreaNative = getSelectionArea(globalSelectionAreaContainer!);
         // position after this creation
         // left 100
         // width 100
@@ -438,7 +479,6 @@ describe('DtSelectionArea', () => {
     }));
 
     describe('on the selectedArea', () => {
-
       it('should move the selectedArea to the left when LEFT_ARROW or UP_ARROW is pressed', fakeAsync(() => {
         dispatchKeyboardEvent(selectedAreaNative, 'keydown', LEFT_ARROW);
         flush();
@@ -489,8 +529,9 @@ describe('DtSelectionArea', () => {
       let leftHandle;
 
       beforeEach(() => {
-        leftHandle = getSelectionArea(globalSelectionAreaContainer!)
-          .querySelector<HTMLButtonElement>('.dt-selection-area-left-handle')!;
+        leftHandle = getSelectionArea(
+          globalSelectionAreaContainer!
+        ).querySelector<HTMLButtonElement>('.dt-selection-area-left-handle')!;
       });
 
       it('should move it to the left when LEFT_ARROW or UP_ARROW is pressed', fakeAsync(() => {
@@ -550,8 +591,9 @@ describe('DtSelectionArea', () => {
       let rightHandle;
 
       beforeEach(() => {
-        rightHandle = getSelectionArea(globalSelectionAreaContainer!)
-          .querySelector<HTMLButtonElement>('.dt-selection-area-right-handle')!;
+        rightHandle = getSelectionArea(
+          globalSelectionAreaContainer!
+        ).querySelector<HTMLButtonElement>('.dt-selection-area-right-handle')!;
       });
 
       it('should move it to the left when LEFT_ARROW or UP_ARROW is pressed', fakeAsync(() => {
@@ -606,7 +648,6 @@ describe('DtSelectionArea', () => {
         expect(selectedAreaNative.style.width).toEqual('300px');
       }));
     });
-
   });
 
   describe('overlay', () => {
@@ -634,7 +675,9 @@ describe('DtSelectionArea', () => {
 
       fixture.detectChanges();
       selectedArea = getSelectionArea(globalSelectionAreaContainer!);
-      closeButton = overlayContainerElement.querySelector('.dt-selection-area-close button');
+      closeButton = overlayContainerElement.querySelector(
+        '.dt-selection-area-close button'
+      );
     }));
 
     it('should be dismissed and hidden when closed', fakeAsync(() => {
@@ -642,12 +685,16 @@ describe('DtSelectionArea', () => {
       closeButton!.click();
       fixture.detectChanges();
       tick();
-      expect(overlayContainerElement.querySelector('.dt-selection-area-overlay-pane')).toBeNull();
+      expect(
+        overlayContainerElement.querySelector('.dt-selection-area-overlay-pane')
+      ).toBeNull();
       expect(selectedArea.style.visibility).toBe('hidden');
     }));
 
     it('should fire a closed event when closing by clicking the button', fakeAsync(() => {
-      const selectionArea = fixture.debugElement.query(By.directive(DtSelectionArea)).componentInstance;
+      const selectionArea = fixture.debugElement.query(
+        By.directive(DtSelectionArea)
+      ).componentInstance;
       const closeSpy = jasmine.createSpy('onCloseObservable');
 
       selectionArea.closed.subscribe(closeSpy);
@@ -659,7 +706,9 @@ describe('DtSelectionArea', () => {
     }));
 
     it('should fire a closed event when closing programmatically', fakeAsync(() => {
-      const selectionArea: DtSelectionArea = fixture.debugElement.query(By.directive(DtSelectionArea)).componentInstance;
+      const selectionArea: DtSelectionArea = fixture.debugElement.query(
+        By.directive(DtSelectionArea)
+      ).componentInstance;
       const closeSpy = jasmine.createSpy('onCloseObservable');
 
       selectionArea.closed.subscribe(closeSpy);
@@ -696,11 +745,15 @@ describe('DtSelectionArea', () => {
 
       fixture.detectChanges();
       selectedArea = getSelectionArea(globalSelectionAreaContainer!);
-      closeButton = overlayContainerElement.querySelector('.dt-selection-area-close button');
+      closeButton = overlayContainerElement.querySelector(
+        '.dt-selection-area-close button'
+      );
     }));
 
     it('should set the aria-label on the selected-area', () => {
-      expect(selectedArea.getAttribute('aria-label')).toBe('aria selected-area');
+      expect(selectedArea.getAttribute('aria-label')).toBe(
+        'aria selected-area'
+      );
     });
 
     it('should set the aria-label on the left handle', () => {
@@ -753,17 +806,20 @@ describe('DtSelectionArea', () => {
         fixture.detectChanges();
         fixture.componentInstance.chart._afterRender.next();
         flush();
-      }).toThrowError(wrappedErrorMessage(getDtChartSelectionAreaDateTimeAxisError()));
+      }).toThrowError(
+        wrappedErrorMessage(getDtChartSelectionAreaDateTimeAxisError())
+      );
     }));
   });
 
   describe('globalContainer', () => {
-
     it('should render the selection-area-container component inside the globalcontainer', () => {
       createComponent(ProjectedTest);
       const globalContainer = getGlobalSelectionAreaHost();
       expect(globalContainer).toBeDefined();
-      expect(globalContainer!.querySelector('dt-selection-area-container')).not.toBeNull();
+      expect(
+        globalContainer!.querySelector('dt-selection-area-container')
+      ).not.toBeNull();
     });
   });
 });
@@ -772,32 +828,42 @@ function getGlobalSelectionAreaHost(): HTMLElement | null {
   return document.body.querySelector('.dt-selection-area-global-container');
 }
 
-function getSelectionArea(globalSelectionAreaContainer: HTMLElement): HTMLElement {
-  return globalSelectionAreaContainer.querySelector<HTMLElement>('.dt-selection-area-selected-area')!;
+function getSelectionArea(
+  globalSelectionAreaContainer: HTMLElement
+): HTMLElement {
+  return globalSelectionAreaContainer.querySelector<HTMLElement>(
+    '.dt-selection-area-selected-area'
+  )!;
 }
 
 function getLeftHandle(selectionArea: HTMLElement): HTMLElement {
-  return selectionArea.querySelector<HTMLButtonElement>('.dt-selection-area-left-handle')!;
+  return selectionArea.querySelector<HTMLButtonElement>(
+    '.dt-selection-area-left-handle'
+  )!;
 }
 
 function getRightHandle(selectionArea: HTMLElement): HTMLElement {
-  return selectionArea.querySelector<HTMLButtonElement>('.dt-selection-area-right-handle')!;
+  return selectionArea.querySelector<HTMLButtonElement>(
+    '.dt-selection-area-right-handle'
+  )!;
 }
 
 @Component({
   template: `
-  <div class="origin" #origin [dtSelectionArea]="area"></div>
-  <dt-selection-area
-    #area="dtSelectionArea"
-    aria-label-selected-area="aria selected-area"
-    aria-label-left-handle="aria left"
-    aria-label-right-handle="aria right"
-    aria-label-close-button="aria close" (changed)="handleChange($event)">
-    Some basic overlay content
-    <dt-selection-area-actions>
-      <button dt-button>Zoom in</button>
-    </dt-selection-area-actions>
-  </dt-selection-area>
+    <div class="origin" #origin [dtSelectionArea]="area"></div>
+    <dt-selection-area
+      #area="dtSelectionArea"
+      aria-label-selected-area="aria selected-area"
+      aria-label-left-handle="aria left"
+      aria-label-right-handle="aria right"
+      aria-label-close-button="aria close"
+      (changed)="handleChange($event)"
+    >
+      Some basic overlay content
+      <dt-selection-area-actions>
+        <button dt-button>Zoom in</button>
+      </dt-selection-area-actions>
+    </dt-selection-area>
   `,
   styles: [
     'body { margin: 10px; }',
@@ -817,10 +883,10 @@ export class BasicTest {
 
 @Component({
   template: `
-  <div class="origin" #origin [dtSelectionArea]="area" tabindex="10"></div>
-  <dt-selection-area #area="dtSelectionArea">
-    Some basic overlay content
-  </dt-selection-area>
+    <div class="origin" #origin [dtSelectionArea]="area" tabindex="10"></div>
+    <dt-selection-area #area="dtSelectionArea">
+      Some basic overlay content
+    </dt-selection-area>
   `,
 })
 export class BasicTestWithInitialTabIndex {
@@ -829,38 +895,42 @@ export class BasicTestWithInitialTabIndex {
 
 @Component({
   template: `
-  <dt-card>
-    <div class="origin" [dtSelectionArea]="area" tabindex="10"></div>
-    <dt-selection-area #area="dtSelectionArea">
-      Some basic overlay content
-    </dt-selection-area>
-  </dt-card>
+    <dt-card>
+      <div class="origin" [dtSelectionArea]="area" tabindex="10"></div>
+      <dt-selection-area #area="dtSelectionArea">
+        Some basic overlay content
+      </dt-selection-area>
+    </dt-card>
   `,
 })
-export class ProjectedTest {
-
-}
+export class ProjectedTest {}
 
 /** Test component that fakes a dt-chart so we can test without highcharts */
 @Component({
   selector: 'dt-chart',
   template: `
-  <div #container>
-    <svg [attr.width]="width" height="250" [attr.viewBox]="viewbox">
-      <svg:rect class="highcharts-plot-background" [attr.x]="x" y="16" [attr.width]="plotWidth" height="200"></rect>
-    </svg>
-  </div>
+    <div #container>
+      <svg [attr.width]="width" height="250" [attr.viewBox]="viewbox">
+        <svg:rect
+          class="highcharts-plot-background"
+          [attr.x]="x"
+          y="16"
+          [attr.width]="plotWidth"
+          height="200"
+        ></svg:rect>
+      </svg>
+    </div>
   `,
-  providers: [
-    { provide: DtChart, useExisting: DummyChart },
-  ],
+  providers: [{ provide: DtChart, useExisting: DummyChart }],
 })
 class DummyChart implements AfterViewInit, OnDestroy {
   _afterRender = new Subject<boolean>();
   _chartObject = {
-    xAxis: [{
-      isDatetimeAxis: true,
-    }],
+    xAxis: [
+      {
+        isDatetimeAxis: true,
+      },
+    ],
   };
 
   @ViewChild('container', { static: true }) container;
@@ -882,10 +952,10 @@ class DummyChart implements AfterViewInit, OnDestroy {
 
 @Component({
   template: `
-  <dt-chart #origin [dtChartSelectionArea]="area"></dt-chart>
-  <dt-selection-area #area="dtSelectionArea">
-    Some basic overlay content
-  </dt-selection-area>
+    <dt-chart #origin [dtChartSelectionArea]="area"></dt-chart>
+    <dt-selection-area #area="dtSelectionArea">
+      Some basic overlay content
+    </dt-selection-area>
   `,
 })
 export class ChartTest {

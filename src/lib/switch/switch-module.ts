@@ -2,13 +2,7 @@ import { NgModule } from '@angular/core';
 import { DtSwitch, DtSwitchRequiredValidator } from './switch';
 
 @NgModule({
-  exports: [
-    DtSwitch,
-    DtSwitchRequiredValidator,
-  ],
-  declarations: [
-    DtSwitch,
-    DtSwitchRequiredValidator,
-  ],
+  exports: [DtSwitch, DtSwitchRequiredValidator],
+  declarations: [DtSwitch, DtSwitchRequiredValidator],
 })
-export class DtSwitchModule { }
+export class DtSwitchModule {}

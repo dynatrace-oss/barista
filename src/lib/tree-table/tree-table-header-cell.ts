@@ -1,5 +1,8 @@
 import { Component, ElementRef } from '@angular/core';
-import { DtColumnDef, _setDtColumnCssClasses } from '@dynatrace/angular-components/table';
+import {
+  DtColumnDef,
+  _setDtColumnCssClasses,
+} from '@dynatrace/angular-components/table';
 
 @Component({
   selector: 'dt-tree-table-header-cell',
@@ -10,7 +13,10 @@ import { DtColumnDef, _setDtColumnCssClasses } from '@dynatrace/angular-componen
   },
 })
 export class DtTreeTableHeaderCell {
-  constructor(private _columnDef: DtColumnDef, private _elementRef: ElementRef) {
+  constructor(
+    private _columnDef: DtColumnDef,
+    private _elementRef: ElementRef
+  ) {
     _setDtColumnCssClasses(this._columnDef, this._elementRef);
   }
 }

@@ -1,20 +1,22 @@
 <label class="dt-switch-label" [attr.for]="inputId">
-
   <div class="dt-switch-bar">
-
-    <input #input class="dt-switch-input" type="checkbox"
-           [id]="inputId"
-           [required]="required"
-           [tabIndex]="tabIndex"
-           [disabled]="disabled"
-           [checked]="checked"
-           [name]="name"
-           [value]="value"
-           [attr.aria-label]="ariaLabel || null"
-           [attr.aria-labelledby]="ariaLabelledby"
-           [attr.aria-checked]="_getAriaChecked()"
-           (change)="_onInputChange($event)"
-           (click)="_onInputClick($event)">
+    <input
+      #input
+      class="dt-switch-input"
+      type="checkbox"
+      [id]="inputId"
+      [required]="required"
+      [tabIndex]="tabIndex"
+      [disabled]="disabled"
+      [checked]="checked"
+      [name]="name"
+      [value]="value"
+      [attr.aria-label]="ariaLabel || null"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-checked]="_getAriaChecked()"
+      (change)="_onInputChange($event)"
+      (click)="_onInputClick($event)"
+    />
   </div>
 
   <span class="dt-switch-content">

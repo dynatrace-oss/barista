@@ -33,7 +33,8 @@
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
 
-    :host.dt-table-row-indicator.dt-color-#{$name} .dt-expandable-row-base::before {
+    :host.dt-table-row-indicator.dt-color-#{$name}
+      .dt-expandable-row-base::before {
       background-color: $default-color;
     }
   }

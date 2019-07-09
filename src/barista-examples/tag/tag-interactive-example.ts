@@ -44,7 +44,6 @@ import { DtTag } from '@dynatrace/angular-components';
   `,
 })
 export class TagInteractiveExample {
-
   value1 = 'My value 1';
   value2 = 'My value 2';
   canRemove = false;

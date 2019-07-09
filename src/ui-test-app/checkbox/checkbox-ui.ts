@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'dt-checkbox-ui',
   templateUrl: 'checkbox-ui.html',
 })
-export class CheckboxUI { }
+export class CheckboxUI {}

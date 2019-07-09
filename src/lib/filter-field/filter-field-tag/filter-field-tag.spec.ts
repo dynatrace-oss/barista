@@ -3,9 +3,17 @@
 
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { TestBed, fakeAsync, ComponentFixture, tick } from '@angular/core/testing';
+import {
+  TestBed,
+  fakeAsync,
+  ComponentFixture,
+  tick,
+} from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DtFilterFieldTag, DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
+import {
+  DtFilterFieldTag,
+  DtFilterFieldModule,
+} from '@dynatrace/angular-components/filter-field';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { createComponent } from '../../../testing/create-component';
 
@@ -27,15 +35,24 @@ describe('DtFilterFieldTag', () => {
     }).compileComponents();
 
     fixture = createComponent(TestApp);
-    filterFieldTag = fixture.debugElement.query(By.directive(DtFilterFieldTag)).componentInstance;
-    filterFieldTagHost = fixture.debugElement.query(By.css('.dt-filter-field-tag')).nativeElement;
-    editButton = fixture.debugElement.query(By.css('.dt-filter-field-tag-label')).nativeElement;
-    removeButton = fixture.debugElement.query(By.css('.dt-filter-field-tag-button')).nativeElement;
+    filterFieldTag = fixture.debugElement.query(By.directive(DtFilterFieldTag))
+      .componentInstance;
+    filterFieldTagHost = fixture.debugElement.query(
+      By.css('.dt-filter-field-tag')
+    ).nativeElement;
+    editButton = fixture.debugElement.query(
+      By.css('.dt-filter-field-tag-label')
+    ).nativeElement;
+    removeButton = fixture.debugElement.query(
+      By.css('.dt-filter-field-tag-button')
+    ).nativeElement;
   }));
 
   it('should handle disabled', () => {
     expect(filterFieldTag.disabled).toBe(false);
-    expect(filterFieldTagHost.classList).not.toContain('dt-filter-field-tag-disabled');
+    expect(filterFieldTagHost.classList).not.toContain(
+      'dt-filter-field-tag-disabled'
+    );
     expect(editButton.getAttribute('disabled')).toBe(null);
     expect(removeButton.getAttribute('disabled')).toBe(null);
 
@@ -43,7 +60,9 @@ describe('DtFilterFieldTag', () => {
     fixture.detectChanges();
 
     expect(filterFieldTag.disabled).toBe(true);
-    expect(filterFieldTagHost.classList).toContain('dt-filter-field-tag-disabled');
+    expect(filterFieldTagHost.classList).toContain(
+      'dt-filter-field-tag-disabled'
+    );
     expect(editButton.getAttribute('disabled')).toBeDefined();
     expect(removeButton.getAttribute('disabled')).toBeDefined();
   });
@@ -106,7 +125,7 @@ describe('DtFilterFieldTag', () => {
 @Component({
   selector: 'test-app',
   template: `
-  <dt-filter-field-tag></dt-filter-field-tag>
-`,
+    <dt-filter-field-tag></dt-filter-field-tag>
+  `,
 })
-export class TestApp { }
+export class TestApp {}

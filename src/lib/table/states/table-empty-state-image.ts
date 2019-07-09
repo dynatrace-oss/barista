@@ -1,4 +1,8 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+} from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -13,4 +17,4 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
     class: 'dt-table-empty-state-image',
   },
 })
-export class DtTableEmptyStateImage { }
+export class DtTableEmptyStateImage {}

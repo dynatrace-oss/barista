@@ -13,7 +13,12 @@ import {
   Inject,
   forwardRef,
 } from '@angular/core';
-import { mixinDisabled, CanDisable, mixinTabIndex, HasTabIndex } from '@dynatrace/angular-components/core';
+import {
+  mixinDisabled,
+  CanDisable,
+  mixinTabIndex,
+  HasTabIndex,
+} from '@dynatrace/angular-components/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DtTabLabel } from './tab-label';
 import { DtTabContent } from './tab-content';
@@ -35,7 +40,7 @@ const defaultPalette: TabThemePalette = 'main';
 
 // Boilerplate for applying mixins to DtTab.
 export class DtTabBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
 export const _DtTabMixinBase = mixinTabIndex(mixinDisabled(DtTabBase));
 
@@ -52,25 +57,30 @@ export const _DtTabMixinBase = mixinTabIndex(mixinDisabled(DtTabBase));
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTab extends _DtTabMixinBase implements OnInit, CanDisable, HasTabIndex {
-
+export class DtTab extends _DtTabMixinBase
+  implements OnInit, CanDisable, HasTabIndex {
   /** Content for the tab label */
   @ContentChild(DtTabLabel, { static: true }) label: DtTabLabel;
 
   /** ContentRef if the content is provided inside a ng-template with a dtTabContent directive for lazy loading */
   // tslint:disable-next-line:no-any
-  @ContentChild(DtTabContent, { read: TemplateRef, static: true }) _lazyContentRef: TemplateRef<any>;
+  @ContentChild(DtTabContent, { read: TemplateRef, static: true })
+  _lazyContentRef: TemplateRef<any>;
 
   /** Unique id of the element. */
   @Input()
-  get id(): string { return this._id; }
+  get id(): string {
+    return this._id;
+  }
   set id(value: string) {
     this._id = value || this._uniqueId;
   }
 
   /** Wether the tab is disabed */
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     const newDisabledState = coerceBooleanProperty(value);
     if (this._disabled !== newDisabledState) {
@@ -82,7 +92,9 @@ export class DtTab extends _DtTabMixinBase implements OnInit, CanDisable, HasTab
 
   /** Whether tab is selected. */
   @Input()
-  get selected(): boolean { return this._selected; }
+  get selected(): boolean {
+    return this._selected;
+  }
   set selected(value: boolean) {
     const newSelectedState = coerceBooleanProperty(value);
     if (this._selected !== newSelectedState) {
@@ -98,7 +110,9 @@ export class DtTab extends _DtTabMixinBase implements OnInit, CanDisable, HasTab
    * so the color gets applied correctly with the dtColor directive on the header
    */
   @Input()
-  get color(): TabThemePalette { return this._color; }
+  get color(): TabThemePalette {
+    return this._color;
+  }
   set color(value: TabThemePalette) {
     this._color = value;
     this._stateChanges.next();
@@ -132,7 +146,9 @@ export class DtTab extends _DtTabMixinBase implements OnInit, CanDisable, HasTab
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
     // tslint:disable-next-line:no-forward-ref
-    @Inject(forwardRef(() => DtTabGroup)) @Optional() private _tabGroup: DtTabGroup
+    @Inject(forwardRef(() => DtTabGroup))
+    @Optional()
+    private _tabGroup: DtTabGroup
   ) {
     super(elementRef);
     // Force setter to be called in case id was not specified.
@@ -142,7 +158,9 @@ export class DtTab extends _DtTabMixinBase implements OnInit, CanDisable, HasTab
   ngOnInit(): void {
     if (this._lazyContentRef) {
       this._contentPortal = new TemplatePortal(
-        this._lazyContentRef, this._viewContainerRef);
+        this._lazyContentRef,
+        this._viewContainerRef
+      );
     }
     if (this._tabGroup) {
       this.selected = this._tabGroup._selected === this;

@@ -1,4 +1,10 @@
-import { Directive, ElementRef, Input, OnDestroy, OnChanges } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnChanges,
+} from '@angular/core';
 import { Constructor, mixinColor, CanColor } from '../common-behaviours/index';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
@@ -7,23 +13,25 @@ export type DtIndicatorThemePalette = 'error' | 'warning' | undefined;
 
 // Boilerplate for applying mixins to DtIndicator.
 export class DtIndicatorBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
 
-export const _DtIndicatorMixinBase =
-  mixinColor<Constructor<DtIndicatorBase>, DtIndicatorThemePalette>(DtIndicatorBase);
+export const _DtIndicatorMixinBase = mixinColor<
+  Constructor<DtIndicatorBase>,
+  DtIndicatorThemePalette
+>(DtIndicatorBase);
 
 @Directive({
   selector: '[dtIndicator]',
   inputs: ['color: dtIndicatorColor'],
   exportAs: 'dtIndicator',
   host: {
-    'class': 'dt-indicator',
+    class: 'dt-indicator',
     '[class.dt-indicator-active]': 'active',
   },
 })
-export class DtIndicator extends _DtIndicatorMixinBase implements CanColor<DtIndicatorThemePalette>, OnDestroy, OnChanges {
-
+export class DtIndicator extends _DtIndicatorMixinBase
+  implements CanColor<DtIndicatorThemePalette>, OnDestroy, OnChanges {
   /**
    * @internal
    * Emits whenever some inputs change on the indicator so the row can reevaluate the indicator
@@ -35,7 +43,9 @@ export class DtIndicator extends _DtIndicatorMixinBase implements CanColor<DtInd
    * This in input can be used for convenience to enable / disable the indicator without the need for a wrapping element
    */
   @Input('dtIndicator')
-  get active(): boolean { return this._active; }
+  get active(): boolean {
+    return this._active;
+  }
   set active(value: boolean) {
     const coerceValue = coerceBooleanProperty(value);
     if (coerceValue !== this._active) {
@@ -54,6 +64,6 @@ export class DtIndicator extends _DtIndicatorMixinBase implements CanColor<DtInd
   }
 
   ngOnDestroy(): void {
-   this._stateChanges.complete();
+    this._stateChanges.complete();
   }
 }

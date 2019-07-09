@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: '<dt-tag>Hello tag</dt-tag>',
 })
-export class TagDefaultExample { }
+export class TagDefaultExample {}

@@ -1,10 +1,5 @@
 import { DOWN_ARROW, ENTER, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import {
-  ChangeDetectorRef,
-  Directive,
-  Input,
-  OnDestroy,
-} from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnDestroy } from '@angular/core';
 import { DtExpandablePanel } from './expandable-panel';
 import { CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
 import { Subscription } from 'rxjs';
@@ -14,10 +9,12 @@ import { Subscription } from 'rxjs';
   selector: '[dtExpandablePanel]',
   exportAs: 'dtExpandablePanelTrigger',
   host: {
-    'role': 'button',
-    'class': 'dt-expandable-panel-trigger',
-    '[class.dt-expandable-panel-trigger-open]': 'dtExpandablePanel && dtExpandablePanel.expanded',
-    '[attr.disabled]': 'dtExpandablePanel && dtExpandablePanel.disabled ? true: null',
+    role: 'button',
+    class: 'dt-expandable-panel-trigger',
+    '[class.dt-expandable-panel-trigger-open]':
+      'dtExpandablePanel && dtExpandablePanel.expanded',
+    '[attr.disabled]':
+      'dtExpandablePanel && dtExpandablePanel.disabled ? true: null',
     '[attr.aria-disabled]': 'dtExpandablePanel && dtExpandablePanel.disabled',
     '[tabindex]': 'dtExpandablePanel && dtExpandablePanel.disabled ? -1 : 0',
     '(click)': '_handleClick($event)',
@@ -25,15 +22,18 @@ import { Subscription } from 'rxjs';
   },
 })
 export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
-
   @Input()
-  get dtExpandablePanel(): DtExpandablePanel { return this._panel; }
+  get dtExpandablePanel(): DtExpandablePanel {
+    return this._panel;
+  }
   set dtExpandablePanel(value: DtExpandablePanel) {
     this._panel = value;
     this._expandedSubscription.unsubscribe();
-    this._expandedSubscription = this.dtExpandablePanel.expandChange.subscribe(() => {
-      this._changeDetectorRef.markForCheck();
-    });
+    this._expandedSubscription = this.dtExpandablePanel.expandChange.subscribe(
+      () => {
+        this._changeDetectorRef.markForCheck();
+      }
+    );
   }
   private _panel: DtExpandablePanel;
   private _expandedSubscription: Subscription = Subscription.EMPTY;

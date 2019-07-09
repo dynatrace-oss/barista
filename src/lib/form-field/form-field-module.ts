@@ -9,25 +9,8 @@ import { DtPrefix } from './prefix';
 import { DtSuffix } from './suffix';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    PlatformModule,
-  ],
-  exports: [
-    DtFormField,
-    DtLabel,
-    DtHint,
-    DtError,
-    DtPrefix,
-    DtSuffix,
-  ],
-  declarations: [
-    DtFormField,
-    DtLabel,
-    DtHint,
-    DtError,
-    DtPrefix,
-    DtSuffix,
-  ],
+  imports: [CommonModule, PlatformModule],
+  exports: [DtFormField, DtLabel, DtHint, DtError, DtPrefix, DtSuffix],
+  declarations: [DtFormField, DtLabel, DtHint, DtError, DtPrefix, DtSuffix],
 })
-export class DtFormFieldModule { }
+export class DtFormFieldModule {}

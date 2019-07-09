@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './cta-card-demo.component.html',
   styleUrls: ['./cta-card-demo.component.scss'],
 })
-export class CtaCardDemo {
-
-}
+export class CtaCardDemo {}

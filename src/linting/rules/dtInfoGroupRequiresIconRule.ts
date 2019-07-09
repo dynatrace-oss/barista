@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, isDirectChild, isElementWithName } from '../utils';
 
 class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -22,7 +21,11 @@ class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dt-info-group must always contain a dt-info-group-icon as direct child.');
+    addFailure(
+      this,
+      element,
+      'A dt-info-group must always contain a dt-info-group-icon as direct child.'
+    );
   }
 }
 
@@ -43,7 +46,6 @@ class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
  * </dt-info-group>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that an info group always has an icon.',
     // tslint:disable-next-line:no-null-keyword

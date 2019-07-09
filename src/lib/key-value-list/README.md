@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Key value list
@@ -12,9 +12,7 @@ You have to import the `DtKeyValueListModule` when you want to use the `dt-key-v
 
 ```typescript
 @NgModule({
-  imports: [
-    DtKeyValueListModule,
-  ],
+  imports: [DtKeyValueListModule],
 })
 class MyModule {}
 ```
@@ -23,10 +21,10 @@ class MyModule {}
 
 Use the Dynatrace key value list `<dt-key-value-list>` tag in conjunction with the `<dt-key-value-list-item>` tag. Every list item contains a `<dt-key-value-list-key>` followed by a `<dt-key-value-list-value>`. Use the following tags to define the list and its items.
 
-* The `<dt-key-value-list>` tag itself to create the component,
-* the `<dt-key-value-list-item>` to create a separate entry for each item,
-* the `<dt-key-value-list-key>` or `[dt-key-value-list-key]` or `[dtKeyValueListKey]` to define the item's key (left label) to be displayed and
-* the `<dt-key-value-list-value>` or `[dt-key-value-list-value]` or `[dtKeyValueListValue]` to define the items value (right label) to be displayed.
+- The `<dt-key-value-list>` tag itself to create the component,
+- the `<dt-key-value-list-item>` to create a separate entry for each item,
+- the `<dt-key-value-list-key>` or `[dt-key-value-list-key]` or `[dtKeyValueListKey]` to define the item's key (left label) to be displayed and
+- the `<dt-key-value-list-value>` or `[dt-key-value-list-value]` or `[dtKeyValueListValue]` to define the items value (right label) to be displayed.
 
 Only use text with basic inline markup and links as content of key and value elements.
 

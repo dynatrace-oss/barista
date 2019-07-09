@@ -1,14 +1,10 @@
 <dt-form-field>
   <dt-label>Value to be transformed</dt-label>
-  <input dtInput #value [(ngModel)]="exampleValue"/>
+  <input dtInput #value [(ngModel)]="exampleValue" />
 </dt-form-field>
 <h2>Bits</h2>
-<p>
-  Default: {{ exampleValue | dtBits }}
-</p>
-<p>
-  Factor 1024: {{ exampleValue | dtBits: 1024 }}
-</p>
+<p> Default: {{ exampleValue | dtBits }} </p>
+<p> Factor 1024: {{ exampleValue | dtBits: 1024 }} </p>
 <h2>Bytes</h2>
 <p>Default: {{ exampleValue | dtBytes }}</p>
 <p>Factor 1024: {{ exampleValue | dtBytes: 1024 }}</p>
@@ -16,11 +12,11 @@
 <p>MB: {{ exampleValue | dtMegabytes }}</p>
 <h2>Count</h2>
 <p>Default: {{ exampleValue | dtCount }}</p>
-<p>With unit: {{ exampleValue | dtCount:'req.' }}</p>
+<p>With unit: {{ exampleValue | dtCount: 'req.' }}</p>
 <h2>Percent</h2>
 <p>Default: {{ exampleValue | dtPercent }}</p>
 <h2>Rate</h2>
-<p>per request: {{ exampleValue | dtRate:'request' }}</p>
-<p>per second: {{ exampleValue | dtCount | dtRate:'s' }}</p>
-<p>Chaining rate + bytes: {{ exampleValue | dtRate:'s' | dtBytes }}</p>
-<p>Chaining bytes + rate: {{ exampleValue | dtBytes | dtRate:'s' }}</p>
+<p>per request: {{ exampleValue | dtRate: 'request' }}</p>
+<p>per second: {{ exampleValue | dtCount | dtRate: 's' }}</p>
+<p>Chaining rate + bytes: {{ exampleValue | dtRate: 's' | dtBytes }}</p>
+<p>Chaining bytes + rate: {{ exampleValue | dtBytes | dtRate: 's' }}</p>

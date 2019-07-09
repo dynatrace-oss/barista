@@ -1,28 +1,30 @@
 <ng-container *ngIf="show">
-
   <dt-table [dataSource]="dataSource">
     <ng-container dtColumnDef="host" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
-      <dt-cell *dtCellDef="let row">{{row.host}}</dt-cell>
+      <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
     </ng-container>
     <ng-container dtColumnDef="cpu" dtColumnAlign="number">
       <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
-      <dt-cell *dtCellDef="let row;">{{row.cpu}}</dt-cell>
+      <dt-cell *dtCellDef="let row">{{ row.cpu }}</dt-cell>
     </ng-container>
     <ng-container dtColumnDef="memory" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
-      <dt-cell *dtCellDef="let row">{{row.memory}}</dt-cell>
+      <dt-cell *dtCellDef="let row">{{ row.memory }}</dt-cell>
     </ng-container>
     <ng-container dtColumnDef="traffic" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Traffic</dt-header-cell>
-      <dt-cell *dtCellDef="let row">{{row.traffic}}</dt-cell>
+      <dt-cell *dtCellDef="let row">{{ row.traffic }}</dt-cell>
     </ng-container>
-    <dt-header-row *dtHeaderRowDef="['host', 'memory', 'cpu', 'traffic']"></dt-header-row>
-    <dt-row *dtRowDef="let row; columns: ['host', 'memory', 'cpu', 'traffic'];"></dt-row>
+    <dt-header-row
+      *dtHeaderRowDef="['host', 'memory', 'cpu', 'traffic']"
+    ></dt-header-row>
+    <dt-row
+      *dtRowDef="let row; columns: ['host', 'memory', 'cpu', 'traffic']"
+    ></dt-row>
   </dt-table>
 
   <dt-pagination></dt-pagination>
-
 </ng-container>
 
 <button dt-button (click)="show = !show">show/hide</button>

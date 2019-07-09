@@ -1,7 +1,6 @@
-<label
-  class="dt-checkbox-label"
-  [attr.for]="_inputId">
-  <input #input
+<label class="dt-checkbox-label" [attr.for]="_inputId">
+  <input
+    #input
     type="checkbox"
     class="dt-checkbox-input"
     [required]="required"
@@ -15,12 +14,25 @@
     [attr.aria-labelledby]="ariaLabelledby"
     [attr.aria-checked]="_getAriaChecked()"
     (change)="_onInputChange($event)"
-    (click)="_onInputClick($event)"/>
+    (click)="_onInputClick($event)"
+  />
   <div class="dt-checkbox-container">
     <div class="dt-checkbox-icon">
       <svg viewBox="0 0 512 512" focusable="false">
-        <path class="dt-checkbox-checkmark" fill="transparent" stroke-width="64" d="M79.57 267.044l128.761 107.991 221.185-263.55" stroke-dasharray="560" />
-        <path class="dt-checkbox-indeterminate"  fill="transparent" stroke-width="64" d="M80 256 h 352" stroke-dasharray="352" />
+        <path
+          class="dt-checkbox-checkmark"
+          fill="transparent"
+          stroke-width="64"
+          d="M79.57 267.044l128.761 107.991 221.185-263.55"
+          stroke-dasharray="560"
+        />
+        <path
+          class="dt-checkbox-indeterminate"
+          fill="transparent"
+          stroke-width="64"
+          d="M80 256 h 352"
+          stroke-dasharray="352"
+        />
       </svg>
     </div>
   </div>

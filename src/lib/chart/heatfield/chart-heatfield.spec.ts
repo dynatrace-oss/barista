@@ -1,8 +1,21 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component, ContentChild, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { async, TestBed, fakeAsync, inject, ComponentFixture, flush } from '@angular/core/testing';
+import {
+  Component,
+  ContentChild,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
+import {
+  async,
+  TestBed,
+  fakeAsync,
+  inject,
+  ComponentFixture,
+  flush,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtChart,
@@ -23,17 +36,12 @@ const PLOTMARGIN_LEFT = 100;
 const PLOTMARGIN_RIGHT = 100;
 
 describe('DtChartHeatfield', () => {
-
   let overlayContainerElement: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtChartModule, DtThemingModule],
-      declarations: [
-        SingleHeatfield,
-        MultipleHeatfield,
-        DummyChart,
-      ],
+      declarations: [SingleHeatfield, MultipleHeatfield, DummyChart],
     });
 
     inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -41,7 +49,6 @@ describe('DtChartHeatfield', () => {
     })();
 
     TestBed.compileComponents();
-
   }));
 
   describe('Single heatfield', () => {
@@ -56,11 +63,11 @@ describe('DtChartHeatfield', () => {
       const chartDebug = fixture.debugElement.query(By.directive(DummyChart));
       chart = chartDebug.componentInstance as DummyChart;
       fixture.detectChanges();
-      marker = chartDebug.query(By.css('.dt-chart-heatfield-marker')).nativeElement;
+      marker = chartDebug.query(By.css('.dt-chart-heatfield-marker'))
+        .nativeElement;
     });
 
     describe('Positioning', () => {
-
       it('should scale the heatfield correctly', () => {
         validatePosition(fixture, 150, 50);
       });
@@ -159,7 +166,9 @@ describe('DtChartHeatfield', () => {
       let heatfieldNative: HTMLElement;
 
       beforeEach(() => {
-        heatfieldNative = fixture.debugElement.query(By.directive(DtChartHeatfield)).nativeElement;
+        heatfieldNative = fixture.debugElement.query(
+          By.directive(DtChartHeatfield)
+        ).nativeElement;
       });
 
       it('should have error by default', () => {
@@ -176,18 +185,26 @@ describe('DtChartHeatfield', () => {
     it('should focus the marker when tab clicked', () => {
       marker.focus();
       fixture.detectChanges();
-      expect(document.activeElement)
-        .toBe(marker, 'Expected marker to be focused.');
+      expect(document.activeElement).toBe(
+        marker,
+        'Expected marker to be focused.'
+      );
     });
 
     it('should emit whenever the active changes', () => {
-      const heatfield: DtChartHeatfield = fixture.debugElement.query(By.directive(DtChartHeatfield)).componentInstance;
+      const heatfield: DtChartHeatfield = fixture.debugElement.query(
+        By.directive(DtChartHeatfield)
+      ).componentInstance;
       const activeChangeSpy = jasmine.createSpy('active change listener');
-      const sub: Subscription = heatfield.activeChange.subscribe(activeChangeSpy);
+      const sub: Subscription = heatfield.activeChange.subscribe(
+        activeChangeSpy
+      );
       expect(activeChangeSpy).not.toHaveBeenCalled();
       instance.isActive = true;
       fixture.detectChanges();
-      expect(activeChangeSpy).toHaveBeenCalledWith(jasmine.any(DtChartHeatfieldActiveChange));
+      expect(activeChangeSpy).toHaveBeenCalledWith(
+        jasmine.any(DtChartHeatfieldActiveChange)
+      );
       sub.unsubscribe();
     });
 
@@ -209,27 +226,39 @@ describe('DtChartHeatfield', () => {
       instance = fixture.componentInstance;
     });
 
-    it('should handle that only one single heatfield can be active programmatically', () =>  {
+    it('should handle that only one single heatfield can be active programmatically', () => {
       instance.active = 'second';
       expect(overlayContainerElement.textContent).toContain('Problem 1');
       fixture.detectChanges();
       expect(overlayContainerElement.textContent).toContain('Problem 2');
     });
 
-    it('should handle that only one single heatfield can be active', () =>  {
+    it('should handle that only one single heatfield can be active', () => {
       expect(overlayContainerElement.textContent).toContain('Problem 1');
-      const heatfields = fixture.debugElement.queryAll(By.directive(DtChartHeatfield));
-      heatfields[1].query(By.css('.dt-chart-heatfield-marker')).nativeElement.click();
+      const heatfields = fixture.debugElement.queryAll(
+        By.directive(DtChartHeatfield)
+      );
+      heatfields[1]
+        .query(By.css('.dt-chart-heatfield-marker'))
+        .nativeElement.click();
       fixture.detectChanges();
       expect(overlayContainerElement.textContent).toContain('Problem 2');
     });
   });
 });
 
-function validatePosition(fixture: ComponentFixture<SingleHeatfield>, expectedLeft: number, expectedWidth: number): void {
+function validatePosition(
+  fixture: ComponentFixture<SingleHeatfield>,
+  expectedLeft: number,
+  expectedWidth: number
+): void {
   fixture.detectChanges();
-  const chartMarkerDebugElement = fixture.debugElement.query(By.css('.dt-chart-heatfield-marker'));
-  const chartBackdropDebugElement = fixture.debugElement.query(By.css('.dt-chart-heatfield-backdrop'));
+  const chartMarkerDebugElement = fixture.debugElement.query(
+    By.css('.dt-chart-heatfield-marker')
+  );
+  const chartBackdropDebugElement = fixture.debugElement.query(
+    By.css('.dt-chart-heatfield-backdrop')
+  );
   // cannot select svg subelements with By.css see - https://github.com/angular/angular/issues/15164
   const styleMarker = chartMarkerDebugElement.nativeElement.style;
   expect(styleMarker.left).toEqual(`${expectedLeft}px`);
@@ -244,15 +273,20 @@ function validatePosition(fixture: ComponentFixture<SingleHeatfield>, expectedLe
   selector: 'dt-single-heatfield',
   template: `
     <dt-dummy-chart>
-      <dt-chart-heatfield [start]="start" [end]="end" [color]="color" [active]="isActive">
+      <dt-chart-heatfield
+        [start]="start"
+        [end]="end"
+        [color]="color"
+        [active]="isActive"
+      >
         Problem 1:
       </dt-chart-heatfield>
     </dt-dummy-chart>
   `,
 })
 class SingleHeatfield {
-  start: number|undefined = 10000;
-  end: number|undefined = 20000;
+  start: number | undefined = 10000;
+  end: number | undefined = 20000;
   color: string;
   isActive: boolean;
 }
@@ -262,10 +296,20 @@ class SingleHeatfield {
   selector: 'dt-multi-heatfield',
   template: `
     <dt-dummy-chart>
-      <dt-chart-heatfield [start]="start" [end]="end" [color]="color" [active]="active === 'first'">
+      <dt-chart-heatfield
+        [start]="start"
+        [end]="end"
+        [color]="color"
+        [active]="active === 'first'"
+      >
         Problem 1:
       </dt-chart-heatfield>
-      <dt-chart-heatfield [start]="start" [end]="end" [color]="color" [active]="active === 'second'">
+      <dt-chart-heatfield
+        [start]="start"
+        [end]="end"
+        [color]="color"
+        [active]="active === 'second'"
+      >
         Problem 2:
       </dt-chart-heatfield>
     </dt-dummy-chart>
@@ -282,16 +326,20 @@ class MultipleHeatfield {
 @Component({
   selector: 'dt-dummy-chart',
   template: `
-  <div #container>
-    <ng-content select="dt-chart-heatfield"></ng-content>
-    <svg [attr.width]="width" height="250" [attr.viewBox]="viewbox">
-      <svg:rect class="highcharts-plot-background" [attr.x]="x" y="16" [attr.width]="plotWidth" height="200"></rect>
-    </svg>
-  </div>
+    <div #container>
+      <ng-content select="dt-chart-heatfield"></ng-content>
+      <svg [attr.width]="width" height="250" [attr.viewBox]="viewbox">
+        <svg:rect
+          class="highcharts-plot-background"
+          [attr.x]="x"
+          y="16"
+          [attr.width]="plotWidth"
+          height="200"
+        ></svg:rect>
+      </svg>
+    </div>
   `,
-  providers: [
-    { provide: DtChart, useExisting: DummyChart },
-  ],
+  providers: [{ provide: DtChart, useExisting: DummyChart }],
 })
 class DummyChart implements AfterViewInit, OnDestroy {
   _afterRender = new Subject<boolean>();
@@ -302,22 +350,24 @@ class DummyChart implements AfterViewInit, OnDestroy {
   dataMin = 10000;
   dataMax = 20000;
   _chartObject = {
-    xAxis: [{
-      getExtremes: (): Highcharts.Extremes =>
-        ({
+    xAxis: [
+      {
+        getExtremes: (): Highcharts.Extremes => ({
           dataMin: this.dataMin,
           dataMax: this.dataMax,
           min: this.axisMin,
           max: this.axisMax,
         }),
-    }],
+      },
+    ],
   };
 
   options: DtChartOptions;
 
   @ViewChild('container', { static: false }) container;
 
-  @ContentChild(DtChartHeatfield, { static: false }) heatfield: DtChartHeatfield;
+  @ContentChild(DtChartHeatfield, { static: false })
+  heatfield: DtChartHeatfield;
 
   get plotWidth(): number {
     return this.width - PLOTMARGIN_LEFT - PLOTMARGIN_RIGHT;

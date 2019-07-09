@@ -1,10 +1,12 @@
 <nav>
   <ul>
     <li *ngFor="let navItem of navItems">
-      <a routerLinkActive
+      <a
+        routerLinkActive
         #routerLinkActiveInstance="routerLinkActive"
         [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
-        [routerLink]="[navItem.route]">
+        [routerLink]="[navItem.route]"
+      >
         {{navItem.name}}
       </a>
     </li>

@@ -2,10 +2,13 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, isElementWithName, findChildByAttribute } from '../../utils';
+import {
+  addFailure,
+  isElementWithName,
+  findChildByAttribute,
+} from '../../utils';
 
 class DtTabVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -45,7 +48,6 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
  * </dt-tab>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a dt-tab always has a label.',
     // tslint:disable-next-line:no-null-keyword

@@ -8,4 +8,4 @@ import { Directive } from '@angular/core';
   },
   exportAs: 'dtProgressBarDescription',
 })
-export class DtProgressBarDescription { }
+export class DtProgressBarDescription {}

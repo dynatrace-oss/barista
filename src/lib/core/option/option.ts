@@ -10,7 +10,7 @@ import {
   ChangeDetectorRef,
   AfterViewChecked,
   OnDestroy,
-  QueryList
+  QueryList,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -26,7 +26,8 @@ export class DtOptionSelectionChange<T> {
     /** Reference to the option that emitted the event. */
     public source: DtOption<T>,
     /** Whether the change in the option's value was a result of a user action. */
-    public isUserInput: boolean = false) { }
+    public isUserInput: boolean = false
+  ) {}
 }
 
 /** Single option inside of a `<dt-select>` or `<dt-combobox>` element. */
@@ -35,7 +36,7 @@ export class DtOptionSelectionChange<T> {
   selector: 'dt-option',
   exportAs: 'dtOption',
   host: {
-    'role': 'option',
+    role: 'option',
     '[id]': 'id',
     '[attr.tabindex]': '_getTabIndex()',
     '[attr.aria-selected]': 'selected.toString()',
@@ -45,7 +46,7 @@ export class DtOptionSelectionChange<T> {
     '[class.dt-option-disabled]': 'disabled',
     '(click)': '_handleClick($event)',
     '(keydown)': '_handleKeydown($event)',
-    'class': 'dt-option',
+    class: 'dt-option',
   },
   styleUrls: ['option.scss'],
   template: '<ng-content></ng-content>',
@@ -64,20 +65,30 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
 
   /** Whether the option is disabled. */
   @Input()
-  get disabled(): boolean { return (this.group && this.group.disabled) || this._disabled; }
-  set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); }
+  get disabled(): boolean {
+    return (this.group && this.group.disabled) || this._disabled;
+  }
+  set disabled(value: boolean) {
+    this._disabled = coerceBooleanProperty(value);
+  }
 
   /** Event emitted when the option is selected or deselected. */
-  @Output() readonly selectionChange = new EventEmitter<DtOptionSelectionChange<T>>();
+  @Output() readonly selectionChange = new EventEmitter<
+    DtOptionSelectionChange<T>
+  >();
 
   /** Emits when the state of the option changes and any parents have to be notified. */
   readonly _stateChanges = new Subject<void>();
 
   /** The unique ID of the option. */
-  get id(): string { return this._id; }
+  get id(): string {
+    return this._id;
+  }
 
   /** Whether or not the option is currently selected. */
-  get selected(): boolean { return this._selected; }
+  get selected(): boolean {
+    return this._selected;
+  }
 
   /** Whether or not the option is currently active and ready to be selected. */
   get active(): boolean {
@@ -96,7 +107,7 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
     private _element: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
     @Optional() readonly group?: DtOptgroup
-  ) { }
+  ) {}
 
   ngAfterViewChecked(): void {
     // Since parent components could be using the option's label to display the selected values
@@ -228,14 +239,16 @@ export function _countGroupLabelsBeforeOption<T>(
   options: QueryList<DtOption<T>>,
   optionGroups: QueryList<DtOptgroup>
 ): number {
-
   if (optionGroups.length) {
     const optionsArray = options.toArray();
     const groups = optionGroups.toArray();
     let groupCounter = 0;
 
     for (let i = 0; i < optionIndex + 1; i++) {
-      if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
+      if (
+        optionsArray[i].group &&
+        optionsArray[i].group === groups[groupCounter]
+      ) {
         groupCounter++;
       }
     }

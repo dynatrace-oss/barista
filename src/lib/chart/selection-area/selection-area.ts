@@ -83,7 +83,7 @@ import {
   preserveWhitespaces: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    'class': 'dt-chart-selection-area dt-no-pointer-events',
+    class: 'dt-chart-selection-area dt-no-pointer-events',
     '[attr.tabindex]': '0',
   },
 })
@@ -155,7 +155,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         filter(Boolean),
         takeUntil(this._destroy$)
       )
-      .subscribe((plotBackground) => {
+      .subscribe(plotBackground => {
         this._plotBackground = plotBackground;
         this._range = this._chart._range;
         this._timestamp = this._chart._timestamp;
@@ -418,9 +418,9 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       )
         .pipe(
           takeUntil(this._destroy$),
-          filter((area) => this._isRangeInsideMaximumConstraint(area))
+          filter(area => this._isRangeInsideMaximumConstraint(area))
         )
-        .subscribe((area) => {
+        .subscribe(area => {
           if (this._range) {
             this._range._area = area;
           }
@@ -498,16 +498,16 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     if (this._timestamp && this._range) {
       merge(
         this._timestamp._stateChanges.pipe(
-          map((v) => ({ ...v, type: 'timestamp' }))
+          map(v => ({ ...v, type: 'timestamp' }))
         ),
-        this._range._stateChanges.pipe(map((v) => ({ ...v, type: 'range' })))
+        this._range._stateChanges.pipe(map(v => ({ ...v, type: 'range' })))
       )
         .pipe(
           takeUntil(this._destroy$),
-          filter((event) => !event.hidden),
+          filter(event => !event.hidden),
           distinctUntilChanged()
         )
-        .subscribe((state) => {
+        .subscribe(state => {
           if (this._range && state.type === 'timestamp') {
             this._range._reset();
           }
@@ -539,7 +539,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._destroy$,
         this._range._rangeElementRef,
         this._zone
-      ).subscribe((ref) => {
+      ).subscribe(ref => {
         if (this._range && this._range._overlayTemplate) {
           this._updateOrCreateOverlay(
             this._range._overlayTemplate,
@@ -556,7 +556,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
           getElementRef(this._range._rangeElementRef),
           takeUntil(this._destroy$)
         )
-        .subscribe((ref) => {
+        .subscribe(ref => {
           if (this._range && this._range._overlayTemplate) {
             this._updateOrCreateOverlay(
               this._range._overlayTemplate,
@@ -574,7 +574,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._destroy$,
         this._timestamp._timestampElementRef,
         this._zone
-      ).subscribe((ref) => {
+      ).subscribe(ref => {
         if (this._timestamp && this._timestamp._overlayTemplate) {
           this._updateOrCreateOverlay(
             this._timestamp._overlayTemplate,

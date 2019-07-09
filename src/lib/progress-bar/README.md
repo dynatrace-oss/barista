@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Progress bar
@@ -18,14 +18,10 @@ The progress bar should be used to display a distinct progress of a process or s
 You have to import the `DtProgressBarModule` when you want to use the `dt-progress-bar`:
 
 ```typescript
-
 @NgModule({
-  imports: [
-    DtProgressBarModule,
-  ],
+  imports: [DtProgressBarModule],
 })
 class MyModule {}
-
 ```
 
 ## Progress bar description
@@ -35,8 +31,11 @@ to position the description correctly. Use the description to provide more insig
 
 ```html
 <dt-progress-bar ...>
-  <dt-progress-bar-description>Rich text describing the progress...</dt-progress-bar-description>
-<dt-progress-bar>
+  <dt-progress-bar-description
+    >Rich text describing the progress...</dt-progress-bar-description
+  >
+  <dt-progress-bar></dt-progress-bar
+></dt-progress-bar>
 ```
 
 <docs-source-example example="ProgressBarWithDescriptionExample"></docs-source-example>
@@ -48,7 +47,8 @@ The `<dt-progress-bar-count>` component lets you add a count to the progressbar 
 ```html
 <dt-progress-bar ...>
   <dt-progress-bar-count>80/100 days</dt-progress-bar-count>
-<dt-progress-bar>
+  <dt-progress-bar></dt-progress-bar
+></dt-progress-bar>
 ```
 
 <docs-source-example example="ProgressBarWithCountAndDescriptionExample"></docs-source-example>
@@ -59,23 +59,23 @@ Progress bars should be given a meaningful label via aria-label or aria-labelled
 
 ## Inputs
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `value` | `number` | `0` | Gets and sets the value on the progress-bar. |
-| `min` | `number` | `0` | Gets and sets the minimum value on the progress bar |
-| `max` | `number` | `100` | Gets and sets the maximum value on the progress bar |
+| Name    | Type              | Default | Description                                                           |
+| ------- | ----------------- | ------- | --------------------------------------------------------------------- |
+| `value` | `number`          | `0`     | Gets and sets the value on the progress-bar.                          |
+| `min`   | `number`          | `0`     | Gets and sets the minimum value on the progress bar                   |
+| `max`   | `number`          | `100`   | Gets and sets the maximum value on the progress bar                   |
 | `align` | `'start' | 'end'` | `start` | Sets the alignment of the progress element to the star or to the end. |
 
 ## Outputs
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name          | Type                                                   | Description                                        |
+| ------------- | ------------------------------------------------------ | -------------------------------------------------- |
 | `valueChange` | `EventEmitter<{ oldValue: number, newValue: number }>` | Event emitted when the progress bar value changes. |
 
 ## Properties
 
-| Name | Type | Description |
-| --- | --- | --- |
+| Name         | Type     | Description                                     |
+| ------------ | -------- | ----------------------------------------------- |
 | `percentage` | `number` | Gets the percentage used to render the progress |
 
 ## Examples

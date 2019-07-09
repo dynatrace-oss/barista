@@ -12,9 +12,9 @@ export class DummyOverlay {}
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-  <button dt-button (click)="createOverlay()">Create overlay</button>
-  <button dt-button (click)="dismiss()">Dismiss</button>
-  <p><span #origin>An overlay will be created here</span></p>
+    <button dt-button (click)="createOverlay()">Create overlay</button>
+    <button dt-button (click)="dismiss()">Dismiss</button>
+    <p><span #origin>An overlay will be created here</span></p>
   `,
 })
 export class OverlayProgrammaticExample {

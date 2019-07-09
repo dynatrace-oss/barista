@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Alert
@@ -10,9 +10,7 @@ You have to import the `DtAlertModule` to use the `dt-alert`:
 
 ```typescript
 @NgModule({
-  imports: [
-    DtAlertModule,
-  ],
+  imports: [DtAlertModule],
 })
 class MyModule {}
 ```
@@ -27,10 +25,10 @@ To apply the dynatrace alert component, use the `<dt-alert>` element. Example:
 
 The alert component is a wrapper component that holds a `dt-icon` and some text.
 
-| Name  | Type | Default | Description |
-| --- | --- | --- | --- |
-| `[severity]` | `error | warning | undefined` | `undefined` | Sets the alert severity |
-| `<ng-content>` | | | The text (error/warning) message which should be displayed. |
+| Name           | Type                          | Default     | Description                                                 |
+| -------------- | ----------------------------- | ----------- | ----------------------------------------------------------- |
+| `[severity]`   | `error | warning | undefined` | `undefined` | Sets the alert severity                                     |
+| `<ng-content>` |                               |             | The text (error/warning) message which should be displayed. |
 
 ## Examples
 

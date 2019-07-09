@@ -98,4 +98,4 @@ import {
     DtConsumptionModule,
   ],
 })
-export class DevAppDynatraceModule { }
+export class DevAppDynatraceModule {}

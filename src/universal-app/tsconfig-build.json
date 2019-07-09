@@ -21,9 +21,7 @@
       "@dynatrace/angular-components/*": ["./lib/*"]
     }
   },
-  "files": [
-    "main.ts"
-  ],
+  "files": ["main.ts"],
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,
     "fullTemplateTypeCheck": true

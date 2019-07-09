@@ -41,8 +41,5 @@ export const TEST_DATA = {
 
 export const TEST_DATA_ASYNC = {
   name: 'DE (async)',
-  autocomplete: [
-    { name: 'Berlin' },
-    { name: 'München' },
-  ],
+  autocomplete: [{ name: 'Berlin' }, { name: 'München' }],
 };
