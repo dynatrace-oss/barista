@@ -7,11 +7,10 @@ import { DtFormattedValue } from '@dynatrace/angular-components/formatters';
 import { DtHeaderCellDef } from '../header/header-cell';
 
 /** Signature type for the dataAccessor function which can be passed to the simpleColumn. */
-// tslint:disable-next-line: no-any
 export type DtSimpleColumnDisplayAccessorFunction<T> = (
   data: T,
   name: string
-) => any;
+) => any; // tslint:disable-line:no-any
 
 /** Signature type for the sortAccessor function which can be passed to the simpleColumn. */
 // tslint:disable-next-line: no-any
@@ -28,9 +27,8 @@ export type DtSimpleColumnHasProblemFunction<T> = (
 ) => DtIndicatorThemePalette;
 
 /** Signature type for the hasProblem function, which can be passed to the simpleColumn. */
-// tslint:disable-next-line: no-any
 export type DtSimpleColumnFormatFunction = (
-  displayValue: any
+  displayValue: any // tslint:disable-line:no-any
 ) => string | DtFormattedValue;
 
 export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
@@ -119,10 +117,9 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
    */
   // tslint:disable-next-line: no-any
   _getData(data: T): any {
-    // tslint:disable-next-line: no-any
     const output = this.displayAccessor
       ? this.displayAccessor(data, this.name)
-      : (data as any)[this.name];
+      : (data as any)[this.name]; // tslint:disable-line:no-any
     return this.formatter ? this.formatter(output) : output;
   }
 
