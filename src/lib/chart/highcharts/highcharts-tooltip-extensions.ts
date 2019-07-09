@@ -13,9 +13,8 @@ export interface DtHcTooltipEventPayload {
 }
 
 /** Function that gets the arguments from highcharts and extracts the tooltip data the same way highcharts does it internally */
-// tslint:disable-next-line:no-any
 export function prepareTooltipData(
-  pointOrPoints: any | any[]
+  pointOrPoints: any | any[] // tslint:disable-line:no-any
 ): DtChartTooltipData {
   let data: DtChartTooltipData;
   if (Array.isArray(pointOrPoints)) {
@@ -45,9 +44,8 @@ export function prepareTooltipData(
  * Wraps the reset function of the pointer class to have events that we can listen to
  */
 export function addTooltipEvents(): boolean {
-  // tslint:disable-next-line: no-any
   highcharts.wrap(highcharts.Pointer.prototype, 'reset', function(
-    proceed: any
+    proceed: any // tslint:disable-line:no-any
   ): void {
     /**
      * Now apply the original function with the original arguments,
@@ -58,9 +56,8 @@ export function addTooltipEvents(): boolean {
     highcharts.fireEvent(this.chart, 'tooltipClosed');
   });
 
-  // tslint:disable-next-line:no-any
   highcharts.wrap(highcharts.Tooltip.prototype, 'refresh', function(
-    proceed: any
+    proceed: any // tslint:disable-line:no-any
   ): void {
     const args = Array.prototype.slice.call(arguments, 1);
     proceed.apply(this, args);

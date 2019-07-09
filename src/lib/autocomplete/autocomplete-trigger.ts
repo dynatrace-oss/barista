@@ -612,9 +612,8 @@ export class DtAutocompleteTrigger<T>
   private _setTriggerValue(value: T): void {
     let stringifiedValue = '';
     if (isDefined(value)) {
-      // tslint:disable-next-line:no-any
       stringifiedValue =
-        value && value.toString ? value.toString() : (value as any);
+        value && value.toString ? value.toString() : (value as any); // tslint:disable-line:no-any
     }
 
     const toDisplay =

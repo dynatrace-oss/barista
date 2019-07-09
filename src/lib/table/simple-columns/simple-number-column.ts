@@ -36,10 +36,9 @@ export class DtSimpleNumberColumn<T> extends DtSimpleColumnBase<T> {
    */
   // tslint:disable-next-line: no-any
   _getData(data: T): any {
-    // tslint:disable-next-line: no-any
     const output = this.displayAccessor
       ? this.displayAccessor(data, this.name)
-      : (data as any)[this.name];
+      : (data as any)[this.name]; // tslint:disable-line:no-any
 
     if (isNumber(output) && !isDefined(this.formatter)) {
       return formatCount(output);

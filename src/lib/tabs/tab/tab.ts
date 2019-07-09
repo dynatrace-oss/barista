@@ -63,9 +63,8 @@ export class DtTab extends _DtTabMixinBase
   @ContentChild(DtTabLabel, { static: true }) label: DtTabLabel;
 
   /** ContentRef if the content is provided inside a ng-template with a dtTabContent directive for lazy loading */
-  // tslint:disable-next-line:no-any
   @ContentChild(DtTabContent, { read: TemplateRef, static: true })
-  _lazyContentRef: TemplateRef<any>;
+  _lazyContentRef: TemplateRef<any>; // tslint:disable-line:no-any
 
   /** Unique id of the element. */
   @Input()
