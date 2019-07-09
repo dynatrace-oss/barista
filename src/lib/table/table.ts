@@ -76,9 +76,8 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   }
 
   /** @internal List of all simpleColumns within the table. */
-  // tslint:disable-next-line: no-any
   @ContentChildren(DtSimpleColumnBase) _simpleColumns: QueryList<
-    DtSimpleColumnBase<any>
+    DtSimpleColumnBase<any> // tslint:disable-line:no-any
   >;
 
   /** @internal Stream of all simple dataAccessor functions for all SimpleColumns */

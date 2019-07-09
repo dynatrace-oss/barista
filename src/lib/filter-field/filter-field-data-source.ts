@@ -189,9 +189,8 @@ export class DtFilterFieldDefaultDataSource<T>
   }
 
   /** Transforms the provided data into an internal data structure that can be used by the filter-field. */
-  // tslint:disable-next-line: no-any
   private _transformObject(
-    data: any | null,
+    data: any | null, // tslint:disable-line:no-any
     parent: DtNodeDef | null = null
   ): DtNodeDef | null {
     let def: DtNodeDef | null = null;
@@ -240,9 +239,8 @@ export class DtFilterFieldDefaultDataSource<T>
   }
 
   /** Transforms the provided list of data objects into an internal data structure that can be used by the filter field. */
-  // tslint:disable-next-line: no-any
   private _transformList(
-    list: any[],
+    list: any[], // tslint:disable-line:no-any
     parent: DtNodeDef | null = null
   ): DtNodeDef[] {
     return list

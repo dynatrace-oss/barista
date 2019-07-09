@@ -61,22 +61,14 @@ export class DtFilterFieldRange implements AfterViewInit {
   set enabledOperators(value: DtRangeOperatorFlags) {
     this._enabledOperators = value;
 
-    // tslint:disable-next-line: no-bitwise
-    this._hasRangeOperator = !!(
-      this._enabledOperators & DtRangeOperatorFlags.Range
-    );
-    // tslint:disable-next-line: no-bitwise
-    this._hasEqualOperator = !!(
-      this._enabledOperators & DtRangeOperatorFlags.Equal
-    );
-    // tslint:disable-next-line: no-bitwise
-    this._hasLowerEqualOperator = !!(
-      this._enabledOperators & DtRangeOperatorFlags.LowerEqual
-    );
-    // tslint:disable-next-line: no-bitwise
-    this._hasGreaterEqualOperator = !!(
-      this._enabledOperators & DtRangeOperatorFlags.GreatEqual
-    );
+    this._hasRangeOperator = !!// tslint:disable-next-line: no-bitwise
+    (this._enabledOperators & DtRangeOperatorFlags.Range);
+    this._hasEqualOperator = !!// tslint:disable-next-line: no-bitwise
+    (this._enabledOperators & DtRangeOperatorFlags.Equal);
+    this._hasLowerEqualOperator = !!// tslint:disable-next-line: no-bitwise
+    (this._enabledOperators & DtRangeOperatorFlags.LowerEqual);
+    this._hasGreaterEqualOperator = !!// tslint:disable-next-line: no-bitwise
+    (this._enabledOperators & DtRangeOperatorFlags.GreatEqual);
     this._setOperator();
   }
   private _enabledOperators: DtRangeOperatorFlags;
