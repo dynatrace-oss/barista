@@ -1,23 +1,19 @@
-@import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/interactive-common';
+@import '../core/style/transition';
 @import '../core/theming/theming';
+@import '../style/font-mixins';
 @import './checkbox-theme';
 
 $dt-checkbox-size: 20px;
 
-:host {
-  display: inline-block;
-}
+.dt-checkbox-label {
+  display: flex;
+  align-items: center;
 
-:host:not(.dt-checkbox-disabled),
-:host:not(.dt-checkbox-disabled) .dt-checkbox-label {
-  cursor: pointer;
-}
-
-:host.dt-checkbox-disabled,
-:host.dt-checkbox-disabled .dt-checkbox-label {
-  cursor: default;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .dt-checkbox-input {
@@ -25,41 +21,21 @@ $dt-checkbox-size: 20px;
   position: absolute;
 }
 
-.dt-checkbox-label {
-  display: flex;
-  align-items: center;
-}
-
 .dt-checkbox-container {
   width: $dt-checkbox-size;
   height: $dt-checkbox-size;
   border: solid 2px $turquoise-600;
   margin-right: 8px;
+  @include dt-form-input-color-transition();
 
   // Box sizing is required here so we do not inherit the value
   // and therefore can not predict the way the size of the container
   box-sizing: border-box;
-
-  :host.dt-checkbox-disabled & {
-    border-color: $disabledcolor;
-  }
-
-  :host:not(.dt-checkbox-disabled):hover & {
-    border-color: $turquoise-700;
-  }
-
-  .dt-checkbox-focused:not(:host.dt-checkbox-disabled) & {
-    @include dt-focus-style();
-  }
 }
 
-.dt-checkbox-caption {
+.dt-checkbox-content {
   @include dt-main-font();
   padding-right: 20px;
-
-  :host.dt-checkbox-disabled & {
-    color: $disabledcolor;
-  }
 }
 
 .dt-checkbox-icon {
@@ -72,15 +48,55 @@ $dt-checkbox-size: 20px;
   stroke: $turquoise-600;
   width: $dt-checkbox-size - 4;
   height: $dt-checkbox-size - 4;
+  transition: stroke ease 280ms;
+}
 
-  :host:hover & {
-    stroke: $turquoise-700;
+:host {
+  display: inline-block;
+
+  &:hover {
+    .dt-checkbox-container {
+      border-color: $turquoise-700;
+    }
+
+    .dt-checkbox-icon svg {
+      stroke: $turquoise-700;
+    }
   }
 
-  :host.dt-checkbox-disabled & {
-    stroke: $disabledcolor;
+  &:active {
+    .dt-checkbox-container {
+      border-color: $turquoise-800;
+    }
+
+    .dt-checkbox-icon svg {
+      stroke: $turquoise-800;
+    }
+  }
+
+  &.dt-checkbox-focused .dt-checkbox-container {
+    @include dt-focus-style();
+  }
+
+  &.dt-checkbox-disabled {
+    .dt-checkbox-label {
+      cursor: default;
+    }
+
+    .dt-checkbox-content {
+      color: $disabledcolor;
+    }
+
+    .dt-checkbox-container {
+      border-color: $disabledcolor;
+    }
+
+    .dt-checkbox-icon svg {
+      stroke: $disabledcolor;
+    }
   }
 }
+
 .dt-checkbox-checkmark,
 .dt-checkbox-indeterminate {
   animation-fill-mode: forwards;

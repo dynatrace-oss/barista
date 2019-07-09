@@ -6,30 +6,41 @@
   $is-dark: map-get($theme, 'is-dark');
 
   @if ($is-dark == true) {
-    :host .dt-checkbox-container {
-      border-color: #ffffff;
-    }
-    :host.dt-checkbox-focused:not(.dt-checkbox-disabled)
-      .dt-checkbox-container {
-      @include dt-focus-style(true);
-    }
-    :host .dt-checkbox-icon svg {
-      stroke: #ffffff;
-    }
-    :host.dt-checkbox-disabled {
-      .dt-checkbox-container {
-        border-color: $gray-500;
-      }
-      .dt-checkbox-icon svg {
-        stroke: $gray-500;
-      }
-    }
-    :host:hover:not(.dt-checkbox-disabled) .dt-checkbox-container {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
 
-    :host:not(.dt-checkbox-disabled) .dt-checkbox-caption {
-      color: #ffffff;
+    :host {
+      .dt-checkbox-content {
+        color: #ffffff;
+      }
+
+      .dt-checkbox-container {
+        border-color: #ffffff;
+      }
+
+      .dt-checkbox-icon svg {
+        stroke: #ffffff;
+      }
+
+      &:hover .dt-checkbox-container {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      &.dt-checkbox-focused .dt-checkbox-container {
+        @include dt-focus-style(true);
+      }
+
+      &.dt-checkbox-disabled {
+        .dt-checkbox-content {
+          color: $gray-500;
+        }
+
+        .dt-checkbox-container {
+          background-color: transparent;
+          border-color: $gray-500;
+        }
+        .dt-checkbox-icon svg {
+          stroke: $gray-500;
+        }
+      }
     }
   }
 }
