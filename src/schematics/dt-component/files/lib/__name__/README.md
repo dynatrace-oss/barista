@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # <%= classify(name) %>
@@ -21,11 +21,10 @@ class MyModule {}
 
 ## Initialization
 
-
 ## Options & Properties
 
 | Name | Type | Default | Description |
-| --- | --- | --- | --- |
+| ---- | ---- | ------- | ----------- |
+
 
 ## Examples
-

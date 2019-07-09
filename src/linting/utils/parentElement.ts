@@ -12,8 +12,11 @@ export interface ParentElement {
  * @param parent - the parent element
  * @param element - the current element
  */
-function findMatch(parent: ParentElement, element: ElementAst): ElementAst | undefined {
-  return parent.children.find((child) => {
+function findMatch(
+  parent: ParentElement,
+  element: ElementAst
+): ElementAst | undefined {
+  return parent.children.find(child => {
     if (isEqual(child, element)) {
       return true;
     }
@@ -29,12 +32,18 @@ function findMatch(parent: ParentElement, element: ElementAst): ElementAst | und
  * @param childName - name of the children elements that should be added to the parent's children
  * @returns a new parent element or undefined
  */
-export function getParentElement(element: ElementAst, parentName: string, childName?: string): ParentElement | undefined {
+export function getParentElement(
+  element: ElementAst,
+  parentName: string,
+  childName?: string
+): ParentElement | undefined {
   const startLine = element.sourceSpan.start.line;
   const elementChildren = element.children
-    .filter((child) => child instanceof ElementAst)
+    .filter(child => child instanceof ElementAst)
     // Return only children with name when given.
-    .filter((child) => childName ? (child as ElementAst).name === childName : true);
+    .filter(child =>
+      childName ? (child as ElementAst).name === childName : true
+    );
   if (elementChildren.length < 1) {
     return undefined;
   }
@@ -50,10 +59,13 @@ export function getParentElement(element: ElementAst, parentName: string, childN
  * @param element - the current element
  * @param parents - array of parent elements
  */
-export function getElementParent(element: ElementAst, parents: ParentElement[]): ParentElement | undefined {
+export function getElementParent(
+  element: ElementAst,
+  parents: ParentElement[]
+): ParentElement | undefined {
   const elementStartLine = element.sourceSpan.start.line;
   let matchingGroup;
-  parents.forEach((group) => {
+  parents.forEach(group => {
     // Get the parent with the highest start line number that is still below the
     // start line number of the current element.
     // Groups are sorted by startLine (see addParentElement function).
@@ -79,11 +91,16 @@ export function getElementParent(element: ElementAst, parents: ParentElement[]):
  * @param parents - array of parent elements
  * @returns Whether the parent element contains a dt-label.
  */
-export function hasFormFieldParentWithLabel(element: ElementAst, parents: ParentElement[]): boolean {
+export function hasFormFieldParentWithLabel(
+  element: ElementAst,
+  parents: ParentElement[]
+): boolean {
   // If the element has a (form field) parent, check if it contains a dt-label element.
   const parentMatch = getElementParent(element, parents);
   if (parentMatch) {
-    const hasDtLabel = parentMatch.children.find((child) => child.name === 'dt-label');
+    const hasDtLabel = parentMatch.children.find(
+      child => child.name === 'dt-label'
+    );
     if (hasDtLabel) {
       return true;
     }

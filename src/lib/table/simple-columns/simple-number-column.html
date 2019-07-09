@@ -1,8 +1,15 @@
 <ng-container [dtColumnDef]="name" dtColumnAlign="number">
   <ng-container *dtHeaderCellDef>
-    <dt-header-cell [dt-sort-header]="sortable" start="desc">{{ label || name }}</dt-header-cell>
+    <dt-header-cell [dt-sort-header]="sortable" start="desc"
+      >{{ label || name }}</dt-header-cell
+    >
   </ng-container>
-  <dt-cell *dtCellDef="let data" [dtIndicator]="_getIndicator(data)" [dtIndicatorColor]="_getIndicator(data)" [attr.title]="_getData(data)">
+  <dt-cell
+    *dtCellDef="let data"
+    [dtIndicator]="_getIndicator(data)"
+    [dtIndicatorColor]="_getIndicator(data)"
+    [attr.title]="_getData(data)"
+  >
     <div class="dt-simple-number-cell-data">{{ _getData(data) }}</div>
   </dt-cell>
 </ng-container>

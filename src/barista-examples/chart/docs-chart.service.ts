@@ -6,12 +6,11 @@ import { map } from 'rxjs/operators';
 import { DtChartSeries, DtColors } from '@dynatrace/angular-components';
 import { generateData } from './chart-data-utils';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ChartService {
   getStreamedChartdata(): Observable<DtChartSeries[]> {
-    return timer(1000, 5000)
-    .pipe(map(() =>
-      [
+    return timer(1000, 5000).pipe(
+      map(() => [
         {
           name: 'Requests',
           type: 'column',
@@ -24,7 +23,8 @@ export class ChartService {
           color: DtColors.PURPLE_700,
           data: generateData(40, 0, 15, 1370304000000, 900000),
         },
-      ]));
+      ])
+    );
   }
 }
 

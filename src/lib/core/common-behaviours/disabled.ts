@@ -7,14 +7,22 @@ export interface CanDisable {
 }
 
 /** Mixin to augment a directive with a `disabled` property. */
-export function mixinDisabled<T extends Constructor<{}>>(base: T): Constructor<CanDisable> & T {
+export function mixinDisabled<T extends Constructor<{}>>(
+  base: T
+): Constructor<CanDisable> & T {
   return class extends base {
     private _disabled = false;
 
-    get disabled(): boolean { return this._disabled; }
-    set disabled(value: boolean) { this._disabled = coerceBooleanProperty(value); }
+    get disabled(): boolean {
+      return this._disabled;
+    }
+    set disabled(value: boolean) {
+      this._disabled = coerceBooleanProperty(value);
+    }
 
     // tslint:disable-next-line
-    constructor(...args: any[]) { super(...args); }
+    constructor(...args: any[]) {
+      super(...args);
+    }
   };
 }

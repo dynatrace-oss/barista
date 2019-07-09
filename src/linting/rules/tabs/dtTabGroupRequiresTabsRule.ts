@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, isElementWithName, findChild } from '../../utils';
 
 class DtTabGroupVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -47,7 +46,6 @@ class DtTabGroupVisitor extends BasicTemplateAstVisitor {
  * </dt-tab-group>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a dt-tab-group contains at least two tabs.',
     // tslint:disable-next-line:no-null-keyword

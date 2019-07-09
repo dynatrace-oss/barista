@@ -6,11 +6,18 @@ import {
   SkipSelf,
   OnDestroy,
   isDevMode,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { Subject, Subscription, NEVER } from 'rxjs';
-import { DtLogger, DtLoggerFactory, replaceCssClass } from '@dynatrace/angular-components/core';
-import { getDtThemeNotValidError, getDtThemeVariantNotValidError } from './theming-errors';
+import {
+  DtLogger,
+  DtLoggerFactory,
+  replaceCssClass,
+} from '@dynatrace/angular-components/core';
+import {
+  getDtThemeNotValidError,
+  getDtThemeVariantNotValidError,
+} from './theming-errors';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtTheme');
 
@@ -40,7 +47,6 @@ interface NameVariantClasses {
   },
 })
 export class DtTheme implements OnDestroy {
-
   /**
    * Theme name and the variant.
    * could be:
@@ -117,8 +123,18 @@ export class DtTheme implements OnDestroy {
   private _updateHostClasses(): void {
     const currentClassNames = this._classNames;
     const newClassNames = this._genClassNames();
-    replaceCssClass(this._elementRef, currentClassNames.name, newClassNames.name, this._renderer);
-    replaceCssClass(this._elementRef, currentClassNames.variant, newClassNames.variant, this._renderer);
+    replaceCssClass(
+      this._elementRef,
+      currentClassNames.name,
+      newClassNames.name,
+      this._renderer
+    );
+    replaceCssClass(
+      this._elementRef,
+      currentClassNames.variant,
+      newClassNames.variant,
+      this._renderer
+    );
     this._classNames = newClassNames;
   }
 
@@ -132,15 +148,23 @@ export class DtTheme implements OnDestroy {
 
   /** Notify developers if max depth level has been exceeded */
   private _warnIfDepthExceeded(): void {
-    if (isDevMode() && this._depthLevel > MAX_DEPTH &&
-      !MAX_DEPTH_EXCEPTION_CLASSESS.some((c) => this._elementRef.nativeElement.classList.contains(c))
+    if (
+      isDevMode() &&
+      this._depthLevel > MAX_DEPTH &&
+      !MAX_DEPTH_EXCEPTION_CLASSESS.some(c =>
+        this._elementRef.nativeElement.classList.contains(c)
+      )
     ) {
-      LOG.warn(`The max supported depth level (${MAX_DEPTH}) of nested themes (dtTheme) has ` +
-        `been exceeded. This could result in wrong styling unpredictable styling side effects.`);
+      LOG.warn(
+        `The max supported depth level (${MAX_DEPTH}) of nested themes (dtTheme) has ` +
+          `been exceeded. This could result in wrong styling unpredictable styling side effects.`
+      );
     }
   }
 
-  private _parseThemeValue(value: string): { name: string; variant: DtThemeVariant } {
+  private _parseThemeValue(
+    value: string
+  ): { name: string; variant: DtThemeVariant } {
     const result = !!value ? value.match(THEME_VALIDATION_RX) : null;
     if (result === null) {
       throw getDtThemeNotValidError(value);

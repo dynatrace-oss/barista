@@ -1,13 +1,15 @@
 <section>
-    <dt-radio-group
-      [disabled]="isGroupDisabled"
-      [(value)]="groupValue"
-      id="test-group"
-      aria-label="Select a Pokemon">
-      <dt-radio-button value="fire" id="fire">Charmander</dt-radio-button>
-      <dt-radio-button value="water" id="water">Squirtle</dt-radio-button>
-      <dt-radio-button value="leaf" id="leaf">Bulbasaur</dt-radio-button>
-
-    </dt-radio-group>
-    <button (click)="isGroupDisabled=!isGroupDisabled" id="toggle-disable">Disable/enable group</button>
-  </section>
+  <dt-radio-group
+    [disabled]="isGroupDisabled"
+    [(value)]="groupValue"
+    id="test-group"
+    aria-label="Select a Pokemon"
+  >
+    <dt-radio-button value="fire" id="fire">Charmander</dt-radio-button>
+    <dt-radio-button value="water" id="water">Squirtle</dt-radio-button>
+    <dt-radio-button value="leaf" id="leaf">Bulbasaur</dt-radio-button>
+  </dt-radio-group>
+  <button (click)="isGroupDisabled=!isGroupDisabled" id="toggle-disable"
+    >Disable/enable group</button
+  >
+</section>

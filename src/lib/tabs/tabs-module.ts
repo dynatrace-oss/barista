@@ -10,18 +10,8 @@ import { DtTabBody, DtTabBodyPortal } from './tab/tab-body';
 import { DtTabGroupNavigation } from './navigation/tab-group-navigation';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    PortalModule,
-    DtColorModule,
-  ],
-  exports: [
-    DtTabGroup,
-    DtTab,
-    DtTabLabel,
-    DtTabContent,
-    DtTabGroupNavigation,
-  ],
+  imports: [CommonModule, PortalModule, DtColorModule],
+  exports: [DtTabGroup, DtTab, DtTabLabel, DtTabContent, DtTabGroupNavigation],
   declarations: [
     DtTabGroup,
     DtTab,
@@ -32,5 +22,4 @@ import { DtTabGroupNavigation } from './navigation/tab-group-navigation';
     DtTabGroupNavigation,
   ],
 })
-export class DtTabsModule {
-}
+export class DtTabsModule {}

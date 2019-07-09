@@ -19,13 +19,25 @@ import { CdkCellDef, CdkColumnDef } from '@angular/cdk/table';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { DtRow } from './row';
 import { Subject, merge, Subscription } from 'rxjs';
-import { isDefined, addCssClass, DtIndicator, removeCssClass } from '@dynatrace/angular-components/core';
+import {
+  isDefined,
+  addCssClass,
+  DtIndicator,
+  removeCssClass,
+} from '@dynatrace/angular-components/core';
 import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
 import { DtSort, DtSortEvent } from './sort/sort';
 
 /** Custom Types for Cell alignments */
 export type DtTableColumnAlign = 'left' | 'right' | 'center';
-export type DtTableColumnTypedAlign = 'text' | 'id' | 'icon' | 'control' | 'number' | 'date' | 'ip';
+export type DtTableColumnTypedAlign =
+  | 'text'
+  | 'id'
+  | 'icon'
+  | 'control'
+  | 'number'
+  | 'date'
+  | 'ip';
 
 /**
  * Cell definition for the dt-table.
@@ -33,9 +45,9 @@ export type DtTableColumnTypedAlign = 'text' | 'id' | 'icon' | 'control' | 'numb
  */
 @Directive({
   selector: '[dtCellDef]',
-  providers: [{provide: CdkCellDef, useExisting: DtCellDef}],
+  providers: [{ provide: CdkCellDef, useExisting: DtCellDef }],
 })
-export class DtCellDef extends CdkCellDef { }
+export class DtCellDef extends CdkCellDef {}
 
 /**
  * Column definition for the dt-table.
@@ -43,14 +55,15 @@ export class DtCellDef extends CdkCellDef { }
  */
 @Directive({
   selector: '[dtColumnDef]',
-  providers: [{provide: CdkColumnDef, useExisting: DtColumnDef}],
+  providers: [{ provide: CdkColumnDef, useExisting: DtColumnDef }],
 })
 export class DtColumnDef extends CdkColumnDef implements OnChanges {
   /** Unique name for this column. */
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnDef') name: string;
   // tslint:disable-next-line:no-input-rename
-  @Input('dtColumnAlign') align: DtTableColumnTypedAlign | DtTableColumnAlign = 'left';
+  @Input('dtColumnAlign') align: DtTableColumnTypedAlign | DtTableColumnAlign =
+    'left';
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnProportion') proportion: number;
   // tslint:disable-next-line:no-input-rename
@@ -72,8 +85,8 @@ type IndicatorType = 'error' | 'warning';
   template: '<ng-content></ng-content>',
   styleUrls: ['./cell.scss'],
   host: {
-    'class': 'dt-cell',
-    'role': 'gridcell',
+    class: 'dt-cell',
+    role: 'gridcell',
     '[class.dt-cell-sorted]': '_isSorted',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -81,13 +94,19 @@ type IndicatorType = 'error' | 'warning';
   exportAs: 'dtCell',
 })
 export class DtCell implements AfterContentInit, OnDestroy {
-  @ContentChildren(DtIndicator, { descendants: true }) _indicators: QueryList<DtIndicator>;
+  @ContentChildren(DtIndicator, { descendants: true }) _indicators: QueryList<
+    DtIndicator
+  >;
 
   /** Whether the cell has an error */
-  get hasError(): boolean { return this._hasIndicator('error'); }
+  get hasError(): boolean {
+    return this._hasIndicator('error');
+  }
 
   /** Whether the cell has a warning */
-  get hasWarning(): boolean { return this._hasIndicator('warning'); }
+  get hasWarning(): boolean {
+    return this._hasIndicator('warning');
+  }
 
   /**
    * @internal
@@ -127,12 +146,14 @@ export class DtCell implements AfterContentInit, OnDestroy {
         });
     }
 
-    this._columnDef._stateChanges.pipe(
-      startWith(null),
-      takeUntil(this._destroy)
-    ).subscribe(() => {
-      _updateDtColumnStyles(this._columnDef, elem, renderer);
-    });
+    this._columnDef._stateChanges
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy)
+      )
+      .subscribe(() => {
+        _updateDtColumnStyles(this._columnDef, elem, renderer);
+      });
 
     if (DtRow.mostRecentRow) {
       this._row = DtRow.mostRecentRow;
@@ -141,17 +162,27 @@ export class DtCell implements AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit(): void {
-    this._indicators.changes.pipe(takeUntil(this._destroy)).subscribe(() => { this._stateChanges.next(); });
+    this._indicators.changes.pipe(takeUntil(this._destroy)).subscribe(() => {
+      this._stateChanges.next();
+    });
 
     // Emits whenever one of the indicator's inputs changes
-    this._indicators.changes.pipe(
-      startWith(null),
-      takeUntil(this._destroy),
-      filter(() => !!this._indicators.length),
-      switchMap(() => merge(...this._indicators.map((indicator) => indicator._stateChanges))))
-    .subscribe(() => { this._stateChanges.next(); });
+    this._indicators.changes
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy),
+        filter(() => !!this._indicators.length),
+        switchMap(() =>
+          merge(...this._indicators.map(indicator => indicator._stateChanges))
+        )
+      )
+      .subscribe(() => {
+        this._stateChanges.next();
+      });
 
-    Promise.resolve().then(() => { this._stateChanges.next(); });
+    Promise.resolve().then(() => {
+      this._stateChanges.next();
+    });
   }
 
   ngOnDestroy(): void {
@@ -165,18 +196,26 @@ export class DtCell implements AfterContentInit, OnDestroy {
   }
 
   private _hasIndicator(indicatorType: IndicatorType): boolean {
-    return this._indicators && isDefined(this._indicators
-      .find((indicator) => indicator.active && indicator.color === indicatorType));
+    return (
+      this._indicators &&
+      isDefined(
+        this._indicators.find(
+          indicator => indicator.active && indicator.color === indicatorType
+        )
+      )
+    );
   }
 }
 
-const ALIGNMENT_CAST_MAP = new Map<DtTableColumnTypedAlign, DtTableColumnAlign>([
-  ['icon', 'center'],
-  ['control', 'center'],
-  ['number', 'right'],
-  ['date', 'right'],
-  ['ip', 'right'],
-]);
+const ALIGNMENT_CAST_MAP = new Map<DtTableColumnTypedAlign, DtTableColumnAlign>(
+  [
+    ['icon', 'center'],
+    ['control', 'center'],
+    ['number', 'right'],
+    ['date', 'right'],
+    ['ip', 'right'],
+  ]
+);
 
 /**
  * Maps the provided alignment to a css align provided by the cast map, if there's no coincidence
@@ -184,24 +223,42 @@ const ALIGNMENT_CAST_MAP = new Map<DtTableColumnTypedAlign, DtTableColumnAlign>(
  *
  * This will be also 'type checked' with the Template Compiler feature from @Angular6.
  */
-function coerceAlignment(value: DtTableColumnAlign | DtTableColumnTypedAlign): DtTableColumnAlign {
-  return ALIGNMENT_CAST_MAP.get(value as DtTableColumnTypedAlign) || value as DtTableColumnAlign;
+function coerceAlignment(
+  value: DtTableColumnAlign | DtTableColumnTypedAlign
+): DtTableColumnAlign {
+  return (
+    ALIGNMENT_CAST_MAP.get(value as DtTableColumnTypedAlign) ||
+    (value as DtTableColumnAlign)
+  );
 }
 
 /** @internal Sets the css classes on a DtColumn */
-export function _setDtColumnCssClasses(columnDef: DtColumnDef, elementRef: ElementRef): void {
+export function _setDtColumnCssClasses(
+  columnDef: DtColumnDef,
+  elementRef: ElementRef
+): void {
   const { align, cssClassFriendlyName } = columnDef;
   const cssAlignmentClass = coerceAlignment(align);
 
   removeCssClass(elementRef.nativeElement, 'dt-table-column-align-left');
   removeCssClass(elementRef.nativeElement, 'dt-table-column-align-center');
   removeCssClass(elementRef.nativeElement, 'dt-table-column-align-right');
-  addCssClass(elementRef.nativeElement, `dt-table-column-align-${cssAlignmentClass}`);
-  addCssClass(elementRef.nativeElement, `dt-table-column-${cssClassFriendlyName}`);
+  addCssClass(
+    elementRef.nativeElement,
+    `dt-table-column-align-${cssAlignmentClass}`
+  );
+  addCssClass(
+    elementRef.nativeElement,
+    `dt-table-column-${cssClassFriendlyName}`
+  );
 }
 
 /** @internal Set classes name and styles props for columns. */
-export function _updateDtColumnStyles(columnDef: DtColumnDef, elementRef: ElementRef, renderer: Renderer2): void {
+export function _updateDtColumnStyles(
+  columnDef: DtColumnDef,
+  elementRef: ElementRef,
+  renderer: Renderer2
+): void {
   _setDtColumnCssClasses(columnDef, elementRef);
   const { proportion, minWidth } = columnDef;
   const setProportion = coerceNumberProperty(proportion);
@@ -210,6 +267,10 @@ export function _updateDtColumnStyles(columnDef: DtColumnDef, elementRef: Elemen
     renderer.setStyle(elementRef.nativeElement, 'flex-shrink', setProportion);
   }
   if (minWidth > 0) {
-    renderer.setStyle(elementRef.nativeElement, 'min-width', `${coerceNumberProperty(minWidth)}px`);
+    renderer.setStyle(
+      elementRef.nativeElement,
+      'min-width',
+      `${coerceNumberProperty(minWidth)}px`
+    );
   }
 }

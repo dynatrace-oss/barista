@@ -1,12 +1,25 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ComponentFixture, TestBed, fakeAsync, inject, flush } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  inject,
+  flush,
+} from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { DtOverlayModule, DtOverlayConfig, DT_OVERLAY_DEFAULT_OFFSET } from '@dynatrace/angular-components';
+import {
+  DtOverlayModule,
+  DtOverlayConfig,
+  DT_OVERLAY_DEFAULT_OFFSET,
+} from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { dispatchMouseEvent, dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import {
+  dispatchMouseEvent,
+  dispatchKeyboardEvent,
+} from '../../testing/dispatch-events';
 import { By } from '@angular/platform-browser';
 import { SPACE, ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { createComponent } from '../../testing/create-component';
@@ -32,7 +45,8 @@ describe('DtOverlayTrigger', () => {
 
   beforeEach(() => {
     fixture = createComponent(TestComponent);
-    trigger = fixture.debugElement.query(By.css('.dt-overlay-trigger')).nativeElement;
+    trigger = fixture.debugElement.query(By.css('.dt-overlay-trigger'))
+      .nativeElement;
   });
 
   afterEach(() => {
@@ -63,14 +77,18 @@ describe('DtOverlayTrigger', () => {
       trigger,
       'mousemove',
       trigger.getBoundingClientRect().left + offset,
-      trigger.getBoundingClientRect().top + offset);
+      trigger.getBoundingClientRect().top + offset
+    );
     fixture.detectChanges();
     flush();
 
-    const overlayPane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+    const overlayPane = overlayContainerElement.querySelector(
+      '.cdk-overlay-pane'
+    ) as HTMLElement;
     expect(overlayPane).toBeDefined();
     expect(overlayPane.style.transform).toEqual(
-      `translateX(${DT_OVERLAY_DEFAULT_OFFSET + 1}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET + offset}px)`
+      `translateX(${DT_OVERLAY_DEFAULT_OFFSET +
+        1}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET + offset}px)`
     );
   }));
 
@@ -119,9 +137,7 @@ describe('DtOverlayTrigger', () => {
     let overlay = getOverlayPane(overlayContainerElement);
 
     dispatchMouseEvent(trigger, 'mouseover');
-    dispatchMouseEvent(
-      trigger,
-      'mousemove');
+    dispatchMouseEvent(trigger, 'mousemove');
     fixture.detectChanges();
     flush();
 
@@ -139,13 +155,17 @@ describe('DtOverlayTrigger', () => {
       trigger,
       'mousemove',
       trigger.getBoundingClientRect().left + offset,
-      trigger.getBoundingClientRect().top + offset);
+      trigger.getBoundingClientRect().top + offset
+    );
     fixture.detectChanges();
     flush();
 
-    const overlayPane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+    const overlayPane = overlayContainerElement.querySelector(
+      '.cdk-overlay-pane'
+    ) as HTMLElement;
     expect(overlayPane.style.transform).toEqual(
-      `translateX(${DT_OVERLAY_DEFAULT_OFFSET + offset}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET}px)`
+      `translateX(${DT_OVERLAY_DEFAULT_OFFSET +
+        offset}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET}px)`
     );
   }));
 
@@ -158,13 +178,17 @@ describe('DtOverlayTrigger', () => {
       trigger,
       'mousemove',
       trigger.getBoundingClientRect().left + offset,
-      trigger.getBoundingClientRect().top + offset);
+      trigger.getBoundingClientRect().top + offset
+    );
     fixture.detectChanges();
     flush();
 
-    const overlayPane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+    const overlayPane = overlayContainerElement.querySelector(
+      '.cdk-overlay-pane'
+    ) as HTMLElement;
     expect(overlayPane.style.transform).toEqual(
-      `translateX(${DT_OVERLAY_DEFAULT_OFFSET}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET + offset}px)`
+      `translateX(${DT_OVERLAY_DEFAULT_OFFSET}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET +
+        offset}px)`
     );
   }));
 
@@ -250,27 +274,41 @@ describe('DtOverlayTrigger', () => {
   }));
 });
 
-function initOverlay(fixture: ComponentFixture<TestComponent>, trigger: HTMLElement): void {
+function initOverlay(
+  fixture: ComponentFixture<TestComponent>,
+  trigger: HTMLElement
+): void {
   dispatchMouseEvent(trigger, 'mouseover');
-  dispatchMouseEvent(
-    trigger,
-    'mousemove');
+  dispatchMouseEvent(trigger, 'mousemove');
   fixture.detectChanges();
   flush();
 }
 
-function getContainerElement(overlayContainerElement: HTMLElement): HTMLElement {
-  return overlayContainerElement.querySelector('.dt-overlay-container') as HTMLElement;
+function getContainerElement(
+  overlayContainerElement: HTMLElement
+): HTMLElement {
+  return overlayContainerElement.querySelector(
+    '.dt-overlay-container'
+  ) as HTMLElement;
 }
 function getOverlayPane(overlayContainerElement: HTMLElement): HTMLElement {
-  return overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+  return overlayContainerElement.querySelector(
+    '.cdk-overlay-pane'
+  ) as HTMLElement;
 }
 
 /** Test component */
 @Component({
   selector: 'dt-test-component',
-  template: `<div *ngIf="showTrigger" [dtOverlay]="overlay" [dtOverlayConfig]="config"
-    [disabled]="disabled">trigger</div><ng-template #overlay>overlay<button>focusme</button></ng-template>`,
+  template: `
+    <div
+      *ngIf="showTrigger"
+      [dtOverlay]="overlay"
+      [dtOverlayConfig]="config"
+      [disabled]="disabled"
+      >trigger</div
+    ><ng-template #overlay>overlay<button>focusme</button></ng-template>
+  `,
 })
 class TestComponent {
   config: DtOverlayConfig = {};

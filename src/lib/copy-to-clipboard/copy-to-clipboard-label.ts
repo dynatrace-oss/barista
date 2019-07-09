@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 /* Display label of the copy 2 clipboard, will be displayed inside a button */
@@ -12,10 +12,11 @@ import {
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  template: `<ng-content></ng-content>`,
+  template: `
+    <ng-content></ng-content>
+  `,
   host: {
     class: 'dt-copy-to-clipboard-label',
   },
 })
-export class DtCopyToClipboardLabel {
-}
+export class DtCopyToClipboardLabel {}

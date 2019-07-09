@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   selector: 'dt-expandable-panel-ui',
   templateUrl: 'expandable-panel-ui.html',
 })
-export class ExpandablePanelUi {
-}
+export class ExpandablePanelUi {}

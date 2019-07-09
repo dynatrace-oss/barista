@@ -6,15 +6,15 @@ let nextUniqueId = 0;
 @Directive({
   selector: 'dt-error',
   host: {
-    'class': 'dt-error',
-    'role': 'alert',
+    class: 'dt-error',
+    role: 'alert',
     '[attr.id]': 'id',
   },
 })
 export class DtError {
   @Input() id = `dt-error-${nextUniqueId++}`;
 
-  constructor(private _elementRef: ElementRef) { }
+  constructor(private _elementRef: ElementRef) {}
 
   /**
    * Exposing message here so other components,

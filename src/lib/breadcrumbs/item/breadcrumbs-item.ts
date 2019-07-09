@@ -1,16 +1,28 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { LocationStrategy } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, Optional, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  Optional,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 
 // tslint:disable-next-line no-any
 export type RouterLinkAccepted = string | any[];
 
 function routerNotFoundError(): Error {
-  return new Error('Router dependency not found. Cannot set internal link without router provided');
+  return new Error(
+    'Router dependency not found. Cannot set internal link without router provided'
+  );
 }
 
-const ensureProvided = <T extends Router | LocationStrategy | ActivatedRoute>(variable: T | null): T => {
+const ensureProvided = <T extends Router | LocationStrategy | ActivatedRoute>(
+  variable: T | null
+): T => {
   if (variable === null) {
     throw routerNotFoundError();
   }
@@ -70,8 +82,8 @@ export class DtBreadcrumbsItem {
     }
 
     return ensureProvided(this._locationStrategy).prepareExternalUrl(
-        ensureProvided(this._router).serializeUrl(this._createUrlTree())
-      );
+      ensureProvided(this._router).serializeUrl(this._createUrlTree())
+    );
   }
 
   private _external = false;
@@ -80,10 +92,13 @@ export class DtBreadcrumbsItem {
   constructor(
     private readonly _changeDetectorRef: ChangeDetectorRef,
     @Optional() @Inject(Router) private readonly _router: Router | null,
-    @Optional() @Inject(LocationStrategy) private readonly _locationStrategy: LocationStrategy | null,
-    @Optional() @Inject(ActivatedRoute) private readonly _activatedRoute: ActivatedRoute | null
-  ) {
-  }
+    @Optional()
+    @Inject(LocationStrategy)
+    private readonly _locationStrategy: LocationStrategy | null,
+    @Optional()
+    @Inject(ActivatedRoute)
+    private readonly _activatedRoute: ActivatedRoute | null
+  ) {}
 
   private _createUrlTree(): UrlTree {
     if (Array.isArray(this.href)) {
@@ -105,7 +120,12 @@ export class DtBreadcrumbsItem {
   // Regular click on a with [href] causes page reload.
   // See:  https://github.com/angular/angular/blob/05e3e4d71eb84617a7d3/packages/router/src/directives/router_link.ts#L227-L243
   _linkClicked(event: MouseEvent): boolean {
-    if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey) {
+    if (
+      event.button !== 0 ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey
+    ) {
       return true;
     }
 

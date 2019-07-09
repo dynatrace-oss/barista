@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { Location, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import {
+  Location,
+  LocationStrategy,
+  HashLocationStrategy,
+} from '@angular/common';
 import { DtTabsRouterFragmentBuilder } from './tab-fragment-builder';
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
 
@@ -28,7 +32,6 @@ export abstract class DtTabNavigationAdapter {
  * Adapter for storing/reading tab navigation information in the url fragment
  */
 export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
-
   private _controls = new Set<DtTabGroupNavigationControl>();
   private _tabIds = new Set<string>();
 
@@ -40,17 +43,23 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
   ) {
     super();
     /** store tabIds from fragment and update  */
-    _route.fragment.pipe(filter((fragment) => !!fragment)).subscribe((fragmentText) => {
-      const ids = fragmentText.split(',').map((id) => id.trim());
-      this._tabIds = new Set(ids);
-      this._controls.forEach((control) => { control._updateWithTabIds(ids); });
-    });
+    _route.fragment
+      .pipe(filter(fragment => !!fragment))
+      .subscribe(fragmentText => {
+        const ids = fragmentText.split(',').map(id => id.trim());
+        this._tabIds = new Set(ids);
+        this._controls.forEach(control => {
+          control._updateWithTabIds(ids);
+        });
+      });
   }
 
   /** Registers a tabcontrol with the adapater */
   registerTabControl(control: DtTabGroupNavigationControl): void {
     if (this._controls.has(control)) {
-      LOG.info(`You are trying to register a DtTabGroupNavigationControl that is already registerd`);
+      LOG.info(
+        `You are trying to register a DtTabGroupNavigationControl that is already registerd`
+      );
     }
     this._controls.add(control);
     control._updateWithTabIds(Array.from(this._tabIds));
@@ -59,7 +68,9 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
   /** Unregister a tabcontrol with the adapter */
   unregisterTabControl(control: DtTabGroupNavigationControl): void {
     if (!this._controls.has(control)) {
-      LOG.info(`You are trying to unregister a not yet registerd DtTabGroupNavigationControl`);
+      LOG.info(
+        `You are trying to unregister a not yet registerd DtTabGroupNavigationControl`
+      );
     }
     this._controls.delete(control);
   }
@@ -71,9 +82,12 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
    * requires pathlocationstrategy to be used
    */
   update(id: string, idsToRemove: string[]): void {
-    const usesHashLocationStrategy = this._locationStrategy instanceof HashLocationStrategy;
+    const usesHashLocationStrategy =
+      this._locationStrategy instanceof HashLocationStrategy;
     if (!usesHashLocationStrategy) {
-      idsToRemove.forEach((i) => { this._tabIds.delete(i); });
+      idsToRemove.forEach(i => {
+        this._tabIds.delete(i);
+      });
       this._tabIds.add(id);
       this._updateRouterFragment();
     }
@@ -82,7 +96,9 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
   /** Updates the router fragment */
   private _updateRouterFragment(): void {
     const fragment = DtTabsRouterFragmentBuilder.build(this._tabIds);
-    const url = this._router.createUrlTree([], { relativeTo: this._route, fragment }).toString();
+    const url = this._router
+      .createUrlTree([], { relativeTo: this._route, fragment })
+      .toString();
     this._location.go(url);
   }
 }

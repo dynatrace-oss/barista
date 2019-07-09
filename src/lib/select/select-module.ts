@@ -7,19 +7,8 @@ import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
 import { DtSelect } from './select';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    OverlayModule,
-    DtIconModule,
-    DtOptionModule,
-  ],
-  exports: [
-    DtFormFieldModule,
-    DtOptionModule,
-    DtSelect,
-  ],
-  declarations: [
-    DtSelect,
-  ],
+  imports: [CommonModule, OverlayModule, DtIconModule, DtOptionModule],
+  exports: [DtFormFieldModule, DtOptionModule, DtSelect],
+  declarations: [DtSelect],
 })
-export class DtSelectModule { }
+export class DtSelectModule {}

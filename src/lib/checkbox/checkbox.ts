@@ -15,7 +15,7 @@ import {
   Directive,
   Provider,
   OnInit,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusOrigin, FocusMonitor } from '@angular/cdk/a11y';
@@ -23,14 +23,14 @@ import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
   NG_VALIDATORS,
-  CheckboxRequiredValidator
+  CheckboxRequiredValidator,
 } from '@angular/forms';
 import {
   mixinTabIndex,
   mixinDisabled,
   CanDisable,
   HasTabIndex,
-  addCssClass
+  addCssClass,
 } from '@dynatrace/angular-components/core';
 import { Platform } from '@angular/cdk/platform';
 
@@ -70,8 +70,10 @@ export interface DtCheckboxChange<T> {
 }
 
 // Boilerplate for applying mixins to DtCheckbox.
-export class DtCheckboxBase { }
-export const _DtCheckboxMixinBase = mixinTabIndex(mixinDisabled(DtCheckboxBase));
+export class DtCheckboxBase {}
+export const _DtCheckboxMixinBase = mixinTabIndex(
+  mixinDisabled(DtCheckboxBase)
+);
 
 @Component({
   moduleId: module.id,
@@ -81,7 +83,7 @@ export const _DtCheckboxMixinBase = mixinTabIndex(mixinDisabled(DtCheckboxBase))
   exportAs: 'dtCheckbox',
   host: {
     '[id]': 'id',
-    'class': 'dt-checkbox',
+    class: 'dt-checkbox',
     '[class.dt-checkbox-checked]': 'checked',
     '[class.dt-checkbox-indeterminate]': 'indeterminate',
     '[class.dt-checkbox-disabled]': 'disabled',
@@ -94,37 +96,57 @@ export const _DtCheckboxMixinBase = mixinTabIndex(mixinDisabled(DtCheckboxBase))
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtCheckbox<T> extends _DtCheckboxMixinBase
-  implements CanDisable, HasTabIndex, AfterViewInit, OnDestroy, OnInit, ControlValueAccessor {
-
+  implements
+    CanDisable,
+    HasTabIndex,
+    AfterViewInit,
+    OnDestroy,
+    OnInit,
+    ControlValueAccessor {
   /** Whether or not the checkbox is checked. */
   @Input()
-  get checked(): boolean { return this._checked; }
+  get checked(): boolean {
+    return this._checked;
+  }
   set checked(value: boolean) {
     const coercedValue = coerceBooleanProperty(value);
     if (coercedValue !== this._checked) {
       this._checked = coercedValue;
       this._transitionCheckState(
-        this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+        this._checked
+          ? TransitionCheckState.Checked
+          : TransitionCheckState.Unchecked
+      );
       this._changeDetectorRef.markForCheck();
     }
   }
 
   /** Unique id of the element. */
   @Input()
-  get id(): string { return this._id; }
-  set id(value: string) { this._id = value || this._uid; }
+  get id(): string {
+    return this._id;
+  }
+  set id(value: string) {
+    this._id = value || this._uid;
+  }
 
   /** Whether the checkbox is required. */
   @Input()
-  get required(): boolean { return this._required; }
-  set required(value: boolean) { this._required = coerceBooleanProperty(value); }
+  get required(): boolean {
+    return this._required;
+  }
+  set required(value: boolean) {
+    this._required = coerceBooleanProperty(value);
+  }
 
   /**
    * Whether the checkbox is disabled. This fully overrides the implementation provided by
    * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
    */
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     const coerced = coerceBooleanProperty(value);
     if (coerced !== this.disabled) {
@@ -154,7 +176,9 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
    * set to false.
    */
   @Input()
-  get indeterminate(): boolean { return this._indeterminate; }
+  get indeterminate(): boolean {
+    return this._indeterminate;
+  }
   set indeterminate(value: boolean) {
     const changed = value !== this._indeterminate;
     this._indeterminate = value;
@@ -164,7 +188,10 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
         this._transitionCheckState(TransitionCheckState.Indeterminate);
       } else {
         this._transitionCheckState(
-          this.checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+          this.checked
+            ? TransitionCheckState.Checked
+            : TransitionCheckState.Unchecked
+        );
       }
       this.indeterminateChange.emit(this._indeterminate);
     }
@@ -182,9 +209,11 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
   /** Returns the unique id for the visual hidden input. */
-  get _inputId(): string { return `${this.id}-input`; }
+  get _inputId(): string {
+    return `${this.id}-input`;
+  }
 
-  _onTouched: () => void = () => { };
+  _onTouched: () => void = () => {};
 
   private _checked = false;
   private _uid = `dt-checkbox-${nextUniqueId++}`;
@@ -194,7 +223,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   private _indeterminate = false;
   private _currentCheckState: TransitionCheckState = TransitionCheckState.Init;
   private _currentAnimationClass = '';
-  private _controlValueAccessorChangeFn: (value: boolean) => void = () => { };
+  private _controlValueAccessorChangeFn: (value: boolean) => void = () => {};
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -215,14 +244,20 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     // We need to do the user agent check on JS side
     // because there is no css specific solution for EDGE
     if (this._platform.TRIDENT || this._platform.EDGE) {
-      addCssClass(this._elementRef.nativeElement, 'dt-checkbox-animation-fallback', this._renderer);
+      addCssClass(
+        this._elementRef.nativeElement,
+        'dt-checkbox-animation-fallback',
+        this._renderer
+      );
     }
   }
 
   ngAfterViewInit(): void {
     this._focusMonitor
       .monitor(this._inputElement.nativeElement, false)
-      .subscribe((focusOrigin) => { this._onInputFocusChange(focusOrigin); });
+      .subscribe(focusOrigin => {
+        this._onInputFocusChange(focusOrigin);
+      });
   }
 
   ngOnDestroy(): void {
@@ -265,7 +300,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   }
 
   _getAriaChecked(): 'true' | 'false' | 'mixed' {
-    return this.checked ? 'true' : (this.indeterminate ? 'mixed' : 'false');
+    return this.checked ? 'true' : this.indeterminate ? 'mixed' : 'false';
   }
 
   /** Implemented as a part of ControlValueAccessor. */
@@ -279,7 +314,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   }
 
   /** Implemented as a part of ControlValueAccessor. */
-  registerOnTouched(fn: () => void = () => { }): void {
+  registerOnTouched(fn: () => void = () => {}): void {
     this._onTouched = fn;
   }
 
@@ -315,7 +350,10 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
       element.classList.remove(this._currentAnimationClass);
     }
 
-    this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(oldState, newState);
+    this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(
+      oldState,
+      newState
+    );
     this._currentCheckState = newState;
 
     if (this._currentAnimationClass.length > 0) {
@@ -324,7 +362,9 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   }
 
   private _getAnimationClassForCheckStateTransition(
-    oldState: TransitionCheckState, newState: TransitionCheckState): string {
+    oldState: TransitionCheckState,
+    newState: TransitionCheckState
+  ): string {
     let animSuffix = '';
 
     switch (oldState) {
@@ -340,18 +380,25 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
         }
         break;
       case TransitionCheckState.Unchecked:
-        animSuffix = newState === TransitionCheckState.Checked ?
-          'unchecked-checked' : 'unchecked-indeterminate';
+        animSuffix =
+          newState === TransitionCheckState.Checked
+            ? 'unchecked-checked'
+            : 'unchecked-indeterminate';
         break;
       case TransitionCheckState.Checked:
-        animSuffix = newState === TransitionCheckState.Unchecked ?
-          'checked-unchecked' : 'checked-indeterminate';
+        animSuffix =
+          newState === TransitionCheckState.Unchecked
+            ? 'checked-unchecked'
+            : 'checked-indeterminate';
         break;
       case TransitionCheckState.Indeterminate:
-        animSuffix = newState === TransitionCheckState.Checked ?
-          'indeterminate-checked' : 'indeterminate-unchecked';
+        animSuffix =
+          newState === TransitionCheckState.Checked
+            ? 'indeterminate-checked'
+            : 'indeterminate-unchecked';
         break;
-      default: {}
+      default: {
+      }
     }
 
     return `dt-checkbox-anim-${animSuffix}`;
@@ -375,4 +422,4 @@ export const DT_CHECKBOX_REQUIRED_VALIDATOR: Provider = {
   providers: [DT_CHECKBOX_REQUIRED_VALIDATOR],
   host: { '[attr.required]': 'required ? "" : null' },
 })
-export class DtCheckboxRequiredValidator extends CheckboxRequiredValidator { }
+export class DtCheckboxRequiredValidator extends CheckboxRequiredValidator {}

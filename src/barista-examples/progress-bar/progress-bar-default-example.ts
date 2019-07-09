@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: '<dt-progress-bar [value]="75"></dt-progress-bar>',
 })
-export class ProgressBarDefaultExample { }
+export class ProgressBarDefaultExample {}

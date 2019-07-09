@@ -4,7 +4,7 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
-  Output
+  Output,
 } from '@angular/core';
 import { DtContextDialog } from './context-dialog';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
@@ -13,16 +13,18 @@ import { CdkOverlayOrigin } from '@angular/cdk/overlay';
   selector: 'button[dtContextDialogTrigger]',
   exportAs: 'dtContextDialogTrigger',
   host: {
-    'class': 'dt-context-dialog-trigger',
+    class: 'dt-context-dialog-trigger',
     '(click)': 'dialog && dialog.open()',
   },
 })
-export class DtContextDialogTrigger extends CdkOverlayOrigin implements OnDestroy {
-
+export class DtContextDialogTrigger extends CdkOverlayOrigin
+  implements OnDestroy {
   private _dialog: DtContextDialog | undefined;
 
   @Input('dtContextDialogTrigger')
-  get dialog(): DtContextDialog | undefined { return this._dialog; }
+  get dialog(): DtContextDialog | undefined {
+    return this._dialog;
+  }
   set dialog(value: DtContextDialog | undefined) {
     if (value !== this._dialog) {
       this._unregisterFromDialog();

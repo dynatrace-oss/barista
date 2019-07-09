@@ -13,7 +13,7 @@ const result = renderModuleFactory(KitchenSinkServerModuleNgFactory, {
 });
 
 result
-  .then((content) => {
+  .then(content => {
     const filename = join(__dirname, 'index-prerendered.html');
 
     log(`Outputting result to ${filename}`);

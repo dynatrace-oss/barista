@@ -2,7 +2,11 @@
   <button id="disable-toggle" (click)="disabled=!disabled">Disable</button>
   <span id="click-counter">{{clickCounter}}</span>
   <section>
-    <dt-context-dialog id="context-dialog" aria-label-close-button="close" [disabled]="disabled">
+    <dt-context-dialog
+      id="context-dialog"
+      aria-label-close-button="close"
+      [disabled]="disabled"
+    >
       <p>Some awesome content</p>
       <button dt-button>Edit</button>
     </dt-context-dialog>

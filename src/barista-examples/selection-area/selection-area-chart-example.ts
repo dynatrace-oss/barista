@@ -1,22 +1,32 @@
 import { Component, ViewChild } from '@angular/core';
-import { DtSelectionAreaChange, DtChart, DtSelectionArea } from '@dynatrace/angular-components';
+import {
+  DtSelectionAreaChange,
+  DtChart,
+  DtSelectionArea,
+} from '@dynatrace/angular-components';
 
 @Component({
   selector: 'barista-demo',
   template: `
-<dt-chart [options]="options" [series]="series" [dtChartSelectionArea]="area"></dt-chart>
-<dt-selection-area #area="dtSelectionArea"
-  (changed)="handleChange($event)"
-  aria-label-selected-area="Text that describes the content of the selection area."
-  aria-label-left-handle="Resize selection area to the left."
-  aria-label-right-handle="Resize selection area to the right."
-  aria-label-close-button="Close the selection area."
->
-  {{left | date: 'MMM d, y - HH:mm':'GMT' }} - {{right | date: 'MMM d, y - HH:mm':'GMT'}}
-  <dt-selection-area-actions>
-    <button dt-button>Zoom in</button>
-  </dt-selection-area-actions>
-</dt-selection-area>
+    <dt-chart
+      [options]="options"
+      [series]="series"
+      [dtChartSelectionArea]="area"
+    ></dt-chart>
+    <dt-selection-area
+      #area="dtSelectionArea"
+      (changed)="handleChange($event)"
+      aria-label-selected-area="Text that describes the content of the selection area."
+      aria-label-left-handle="Resize selection area to the left."
+      aria-label-right-handle="Resize selection area to the right."
+      aria-label-close-button="Close the selection area."
+    >
+      {{ left | date: 'MMM d, y - HH:mm':'GMT' }} -
+      {{ right | date: 'MMM d, y - HH:mm':'GMT' }}
+      <dt-selection-area-actions>
+        <button dt-button>Zoom in</button>
+      </dt-selection-area-actions>
+    </dt-selection-area>
   `,
 })
 export class SelectionAreaChartExample {
@@ -84,14 +94,14 @@ export class SelectionAreaChartExample {
       type: 'column',
       yAxis: 1,
       data: generateData(40, 0, 15, 1370304000000, 900000),
-    }];
+    },
+  ];
 
   // tslint:disable-next-line: deprecation
   handleChange(ev: DtSelectionAreaChange): void {
     this.left = ev.left;
     this.right = ev.right;
   }
-
 }
 
 export function randomize(min: number, max: number): number {
@@ -105,9 +115,11 @@ export function generateData(
   timestampStart: number,
   timestampTick: number
 ): Array<[number, number]> {
-  return Array.from(Array(amount).keys())
-    .map((v) => [
-      timestampStart + (timestampTick * v),
-      randomize(min, max),
-    ] as [number, number]);
+  return Array.from(Array(amount).keys()).map(
+    v =>
+      [timestampStart + timestampTick * v, randomize(min, max)] as [
+        number,
+        number
+      ]
+  );
 }

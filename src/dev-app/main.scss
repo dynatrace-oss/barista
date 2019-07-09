@@ -1,6 +1,8 @@
 @import '../lib/style/index';
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 *::after,
 *::before {

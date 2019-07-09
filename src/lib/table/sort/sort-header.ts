@@ -1,5 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional, ViewEncapsulation } from '@angular/core';
-import { CanDisable, mixinDisabled, DtSortDirection } from '@dynatrace/angular-components/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  CanDisable,
+  mixinDisabled,
+  DtSortDirection,
+} from '@dynatrace/angular-components/core';
 import { merge, Subscription } from 'rxjs';
 import { DtColumnDef } from '../cell';
 import { DtSort } from './sort';
@@ -34,20 +47,23 @@ export const _DtSortHeaderMixinBase = mixinDisabled(DtSortHeaderBase);
   inputs: ['disabled'],
 })
 export class DtSortHeader extends _DtSortHeaderMixinBase
-    implements CanDisable, OnDestroy, OnInit {
+  implements CanDisable, OnDestroy, OnInit {
   private _rerenderSubscription = Subscription.EMPTY;
 
   /**
    * The direction the arrow should be facing according to the current state.
    * @internal
    */
-  _sortIconName: 'sorter2-down' | 'sorter2-up' | 'sorter-double' = 'sorter-double';
+  _sortIconName: 'sorter2-down' | 'sorter2-up' | 'sorter-double' =
+    'sorter-double';
 
   /**
    * Enables sorting on the dt-sort-header by applying the directive or not.
    */
   @Input('dt-sort-header')
-  get sortable(): boolean { return this._sortable; }
+  get sortable(): boolean {
+    return this._sortable;
+  }
   set sortable(value: boolean) {
     this._sortable = coerceBooleanProperty(value);
     if (this.sortable && !this._sort) {
@@ -66,7 +82,9 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   private _id: string;
 
   /** Returns the internal id */
-  get id(): string { return this._id; }
+  get id(): string {
+    return this._id;
+  }
 
   /** Aria label for the sort header */
   @Input('sort-aria-label') ariaLabel: string;
@@ -84,24 +102,27 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    * @internal
    */
   get _isSorted(): boolean {
-    const sorted = this._sortable && this._sort.active === this._id &&
-    (this._sort.direction === 'asc' || this._sort.direction === 'desc');
+    const sorted =
+      this._sortable &&
+      this._sort.active === this._id &&
+      (this._sort.direction === 'asc' || this._sort.direction === 'desc');
     return sorted;
   }
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _dtColumnDef: DtColumnDef,
-    @Optional() private _sort: DtSort) {
-
+    @Optional() private _sort: DtSort
+  ) {
     super();
     if (_sort) {
-      this._rerenderSubscription =
-        merge(_sort.sortChange, _sort._stateChanges)
-          .subscribe(() => {
-            this._updateSorterIcon();
-            this._changeDetectorRef.markForCheck();
-          });
+      this._rerenderSubscription = merge(
+        _sort.sortChange,
+        _sort._stateChanges
+      ).subscribe(() => {
+        this._updateSorterIcon();
+        this._changeDetectorRef.markForCheck();
+      });
     }
   }
 
@@ -116,9 +137,11 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
 
   /** Updates the icon used for the sorter */
   private _updateSorterIcon(): void {
-    this._sortIconName = this._isSorted ?
-      (this._sort.direction === 'asc' ? 'sorter2-up' : 'sorter2-down') :
-      'sorter-double';
+    this._sortIconName = this._isSorted
+      ? this._sort.direction === 'asc'
+        ? 'sorter2-up'
+        : 'sorter2-down'
+      : 'sorter-double';
   }
 
   /**
@@ -126,7 +149,9 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    * @internal
    */
   _handleClick(): void {
-    if (this._isDisabled || !this._sortable) { return; }
+    if (this._isDisabled || !this._sortable) {
+      return;
+    }
     this._sort.sort(this);
   }
 
@@ -138,7 +163,9 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
    * @internal
    */
   _getAriaSortAttribute(): string | null {
-    if (!this._isSorted) { return null; }
+    if (!this._isSorted) {
+      return null;
+    }
 
     return this._sort.direction === 'asc' ? 'ascending' : 'descending';
   }

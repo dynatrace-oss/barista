@@ -2,11 +2,15 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, ChildNode, findChild, isElementWithName } from '../../utils';
+import {
+  addFailure,
+  ChildNode,
+  findChild,
+  isElementWithName,
+} from '../../utils';
 import { cardChildren } from './cardUtils';
 
 class DtCardVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -18,20 +22,26 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
     }
 
     let childNodes: ChildNode[] = [];
-    cardChildren.forEach((childName) => {
+    cardChildren.forEach(childName => {
       childNodes = childNodes.concat(findChild(element, childName, 0));
     });
 
     const filteredChildren: string[] = childNodes
-      .filter((el) => el.level > 1)
-      .map((el) => el.name);
+      .filter(el => el.level > 1)
+      .map(el => el.name);
 
     if (filteredChildren.length < 1) {
       return;
     }
 
     const childrenNames = Array.from(new Set(filteredChildren));
-    addFailure(this, element, `The following elements must be direct children of a dt-card: ${childrenNames.join(', ')}`);
+    addFailure(
+      this,
+      element,
+      `The following elements must be direct children of a dt-card: ${childrenNames.join(
+        ', '
+      )}`
+    );
   }
 }
 
@@ -55,13 +65,14 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
  * </dt-card>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a card\'s child components are direct children of a dt-card.',
+    description:
+      "Ensures that a card's child components are direct children of a dt-card.",
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A card\'s child components (title, subtitle, actions, ...) must always be direct children of the dt-card.',
+    rationale:
+      "A card's child components (title, subtitle, actions, ...) must always be direct children of the dt-card.",
     ruleName: 'dt-card-direct-children',
     type: 'maintainability',
     typescriptOnly: true,

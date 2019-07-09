@@ -6,25 +6,30 @@ import { generateData } from './chart-data-utils';
 @Component({
   selector: 'barista-demo',
   template: `
-  <dt-chart [options]="options" [series]="series">
-    <dt-chart-heatfield [start]="10000" [end]="20000">
-      <p>
-        Problem 1:<br/>
-        Failure rate increase
-      </p>
-      <a class="dt-link">View problem details</a>
-    </dt-chart-heatfield>
-    <dt-chart-tooltip>
-      <ng-template let-tooltip>
-        <dt-key-value-list style="min-width: 100px">
-          <dt-key-value-list-item *ngFor="let data of tooltip.points">
-            <dt-key-value-list-key>{{data.series.name}}</dt-key-value-list-key>
-            <dt-key-value-list-value>{{data.point.y}}</dt-key-value-list-value>
-          </dt-key-value-list-item>
-        </dt-key-value-list>
-      </ng-template>
-    </dt-chart-tooltip>
-  </dt-chart>`,
+    <dt-chart [options]="options" [series]="series">
+      <dt-chart-heatfield [start]="10000" [end]="20000">
+        <p>
+          Problem 1:<br />
+          Failure rate increase
+        </p>
+        <a class="dt-link">View problem details</a>
+      </dt-chart-heatfield>
+      <dt-chart-tooltip>
+        <ng-template let-tooltip>
+          <dt-key-value-list style="min-width: 100px">
+            <dt-key-value-list-item *ngFor="let data of tooltip.points">
+              <dt-key-value-list-key>{{
+                data.series.name
+              }}</dt-key-value-list-key>
+              <dt-key-value-list-value>{{
+                data.point.y
+              }}</dt-key-value-list-value>
+            </dt-key-value-list-item>
+          </dt-key-value-list>
+        </ng-template>
+      </dt-chart-tooltip>
+    </dt-chart>
+  `,
 })
 export class ChartHeatfieldExample {
   options: Highcharts.Options = {
@@ -63,7 +68,8 @@ export class ChartHeatfieldExample {
       name: 'Requests',
       type: 'line',
       data: generateData(11, 0, 200, 0, 10000),
-    }];
+    },
+  ];
 }
 
 // tslint:enable:no-magic-numbers

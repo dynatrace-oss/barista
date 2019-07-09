@@ -10,9 +10,7 @@ export class DtIconModule {
   static forRoot(config: DtIconConfiguration): ModuleWithProviders {
     return {
       ngModule: DtIconModule,
-      providers: [
-        { provide: DT_ICON_CONFIGURATION, useValue: config },
-      ],
+      providers: [{ provide: DT_ICON_CONFIGURATION, useValue: config }],
     };
   }
 }

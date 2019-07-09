@@ -14,7 +14,10 @@ import {
 
 import { DtInput } from '@dynatrace/angular-components/input';
 
-import { addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
+import {
+  addCssClass,
+  removeCssClass,
+} from '@dynatrace/angular-components/core';
 import { Subscription, timer } from 'rxjs';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
@@ -34,8 +37,7 @@ const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
-  constructor(private _cd: ChangeDetectorRef) {
-  }
+  constructor(private _cd: ChangeDetectorRef) {}
 
   @Output() readonly copied: EventEmitter<void> = new EventEmitter();
   @Output() readonly copyFailed: EventEmitter<void> = new EventEmitter();
@@ -47,9 +49,11 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   }
 
   private _timer: Subscription;
-  @ContentChild(DtInput, { read: ElementRef, static: false }) private input: ElementRef;
+  @ContentChild(DtInput, { read: ElementRef, static: false })
+  private input: ElementRef;
   @ContentChild(DtInput, { static: false }) private inputComponent: DtInput;
-  @ViewChild('copyButton', { read: ElementRef, static: true }) private copyButton: ElementRef;
+  @ViewChild('copyButton', { read: ElementRef, static: true })
+  private copyButton: ElementRef;
 
   copyToClipboard(): void {
     if (this.input) {
@@ -62,7 +66,10 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
       this._showIcon = true;
       addCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
       if (this.copyButton) {
-        addCssClass(this.copyButton.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+        addCssClass(
+          this.copyButton.nativeElement,
+          DT_COPY_TO_CLIPBOARD_SUCCESSFUL
+        );
         this.copyButton.nativeElement.focus();
       }
     }
@@ -79,7 +86,10 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
     this._showIcon = false;
     removeCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     if (this.copyButton) {
-      removeCssClass(this.copyButton.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+      removeCssClass(
+        this.copyButton.nativeElement,
+        DT_COPY_TO_CLIPBOARD_SUCCESSFUL
+      );
     }
     this._cd.markForCheck();
     this._timer.unsubscribe();

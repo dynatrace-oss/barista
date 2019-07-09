@@ -1,12 +1,18 @@
 <div class="dt-tile-header">
-  <ng-content select="
+  <ng-content
+    select="
     dt-tile-icon,
     [dt-tile-icon],
-    [dtTileIcon]">
+    [dtTileIcon]"
+  >
   </ng-content>
   <div class="dt-tile-heading">
-    <ng-content select="dt-tile-title, [dt-tile-title], [dtTileTitle]"></ng-content>
-    <ng-content select="dt-tile-subtitle, [dt-tile-subtitle], [dtTileSubtitle]"></ng-content>
+    <ng-content
+      select="dt-tile-title, [dt-tile-title], [dtTileTitle]"
+    ></ng-content>
+    <ng-content
+      select="dt-tile-subtitle, [dt-tile-subtitle], [dtTileSubtitle]"
+    ></ng-content>
   </div>
 </div>
 <div class="dt-tile-content">

@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Autocomplete
@@ -14,17 +14,16 @@ You have to import the `DtAutocompleteModule` when you want to use `dt-autocompl
 
 ```typescript
 @NgModule({
-  imports: [
-    DtAutocompleteModule,
-  ],
+  imports: [DtAutocompleteModule],
 })
 class MyModule {}
 ```
 
 ## Custom filter
-If we want our options to filter when we type, we need to add a custom filter. You can filter the options in any way you like based on the text input*
 
-*For optimal accessibility, you may want to consider adding text guidance on the page to explain filter criteria. This is especially helpful for screenreader users if you're using a non-standard filter that doesn't limit matches to the beginning of the string.
+If we want our options to filter when we type, we need to add a custom filter. You can filter the options in any way you like based on the text input\*
+
+\*For optimal accessibility, you may want to consider adding text guidance on the page to explain filter criteria. This is especially helpful for screenreader users if you're using a non-standard filter that doesn't limit matches to the beginning of the string.
 
 <docs-source-example example="AutocompleteCustomFilterExample"></docs-source-example>
 
@@ -37,6 +36,7 @@ To make this work, create a function on your component class that maps the contr
 <docs-source-example example="AutocompleteControlValuesExample"></docs-source-example>
 
 ## Automatically highlighting the first option
+
 If your use case requires for the first autocomplete option to be highlighted when the user opens the panel, you can do so by setting the `autoActiveFirstOption` input on the `dt-autocomplete` component. This behavior can be configured globally using the `DT_AUTOCOMPLETE_DEFAULT_OPTIONS` injection token.
 
 <docs-source-example example="AutocompleteHighlightFirstOptionExample"></docs-source-example>
@@ -54,6 +54,7 @@ Of course the `dt-autocomplete` component also supports collecting `dt-option` e
 <docs-source-example example="AutocompleteGroupsExample"></docs-source-example>
 
 ## Accessibility
+
 The input for an autocomplete without text or labels should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
 The autocomplete trigger is given `role="combobox"`. The trigger sets `aria-owns` to the autocomplete's id, and sets `aria-activedescendant` to the active option's id.

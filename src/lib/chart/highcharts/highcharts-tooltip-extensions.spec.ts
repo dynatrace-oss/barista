@@ -47,7 +47,6 @@ describe('highcharts-tooltip-extensions', () => {
   });
 
   it('should return the correct data for single metrics or pie charts', () => {
-
     const dummyConfigSingle = {
       x: 0,
       y: 0,
@@ -80,5 +79,4 @@ describe('highcharts-tooltip-extensions', () => {
       key: 0,
     });
   });
-
 });

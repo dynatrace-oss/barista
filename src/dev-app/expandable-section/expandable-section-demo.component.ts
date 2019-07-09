@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './expandable-section-demo.component.html',
   styleUrls: ['./expandable-section-demo.component.scss'],
 })
-export class ExpandableSectionDemo {
-
-}
+export class ExpandableSectionDemo {}

@@ -2,7 +2,8 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure,
+import {
+  addFailure,
   getParentElement,
   getAttribute,
   getElementParent,
@@ -11,7 +12,6 @@ import { addFailure,
 } from '../utils';
 
 class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
-
   radioButtonGroups: ParentElement[] = [];
 
   visitElement(element: ElementAst, context: any): void {
@@ -20,10 +20,13 @@ class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-
     // Check if a radio group is found.
     if (isElementWithName(element, 'dt-radio-group')) {
-      const parentElement = getParentElement(element, 'dt-radio-group', 'dt-radio-button');
+      const parentElement = getParentElement(
+        element,
+        'dt-radio-group',
+        'dt-radio-button'
+      );
       if (parentElement === undefined) {
         return;
       }
@@ -50,7 +53,11 @@ class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'When a dt-radio-button is not part of a dt-radio group it must have a name attribute.');
+    addFailure(
+      this,
+      element,
+      'When a dt-radio-button is not part of a dt-radio group it must have a name attribute.'
+    );
   }
 }
 
@@ -69,13 +76,14 @@ class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
  * <dt-radio-button value="myValue">Radio button value</dt-radio-button>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a radio button has a name attribute when not part of a radiogroup.',
+    description:
+      'Ensures that a radio button has a name attribute when not part of a radiogroup.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A radio button that is not part of a radio group must have a name attribute.',
+    rationale:
+      'A radio button that is not part of a radio group must have a name attribute.',
     ruleName: 'dt-radio-button-requires-name',
     type: 'maintainability',
     typescriptOnly: true,

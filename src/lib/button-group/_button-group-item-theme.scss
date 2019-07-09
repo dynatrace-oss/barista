@@ -37,7 +37,6 @@
 
     #{$namespace}.dt-button-group-item.dt-button-group-item-selected,
     #{$namespace}.dt-button-group-item:active {
-
       &:not(.dt-button-group-item-disabled) {
         z-index: 1;
         position: relative;

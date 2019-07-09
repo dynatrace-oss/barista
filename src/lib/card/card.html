@@ -1,10 +1,16 @@
 <div class="dt-card-header" *ngIf="!!_title">
   <ng-content select="dt-card-icon, [dt-card-icon], [dtCardIcon]"></ng-content>
   <div class="dt-card-heading">
-    <ng-content select="dt-card-title, [dt-card-title], [dtCardTitle]"></ng-content>
-    <ng-content select="dt-card-subtitle, [dt-card-subtitle], [dtCardSubtitle]"></ng-content>
+    <ng-content
+      select="dt-card-title, [dt-card-title], [dtCardTitle]"
+    ></ng-content>
+    <ng-content
+      select="dt-card-subtitle, [dt-card-subtitle], [dtCardSubtitle]"
+    ></ng-content>
   </div>
-  <ng-content select="dt-card-title-actions, [dt-card-title-actions], [dtCardTitleActions], dt-card-actions, [dt-card-actions], [dtCardActions]"></ng-content>
+  <ng-content
+    select="dt-card-title-actions, [dt-card-title-actions], [dtCardTitleActions], dt-card-actions, [dt-card-actions], [dtCardActions]"
+  ></ng-content>
 </div>
 <div class="dt-card-content">
   <ng-content></ng-content>

@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, isDirectChild, isElementWithName } from '../../utils';
 
 class DtTileVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -19,7 +18,11 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dt-tile must contain a dt-tile-icon element, that must be a direct child.');
+    addFailure(
+      this,
+      element,
+      'A dt-tile must contain a dt-tile-icon element, that must be a direct child.'
+    );
   }
 }
 
@@ -43,13 +46,14 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
  * </dt-tile>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a tile always has an icon, that is a direct child of dt-tile.',
+    description:
+      'Ensures that a tile always has an icon, that is a direct child of dt-tile.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A tile must always contain a dt-tile-icon, that is a direct child of dt-tile.',
+    rationale:
+      'A tile must always contain a dt-tile-icon, that is a direct child of dt-tile.',
     ruleName: 'dt-tile-needs-icon',
     type: 'maintainability',
     typescriptOnly: true,

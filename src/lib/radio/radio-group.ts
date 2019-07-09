@@ -7,7 +7,7 @@ import {
   EventEmitter,
   ContentChildren,
   QueryList,
-  ChangeDetectorRef
+  ChangeDetectorRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CanDisable } from '@dynatrace/angular-components/core';
@@ -19,19 +19,21 @@ let nextUniqueId = 0;
 @Directive({
   selector: 'dt-radio-group',
   exportAs: 'dtRadioGroup',
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    // tslint:disable-next-line:no-forward-ref
-    useExisting: forwardRef(() => DtRadioGroup),
-    multi: true,
-  }],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      // tslint:disable-next-line:no-forward-ref
+      useExisting: forwardRef(() => DtRadioGroup),
+      multi: true,
+    },
+  ],
   host: {
     role: 'radiogroup',
     class: 'dt-radio-group',
   },
   inputs: ['disabled'],
 })
-export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
+export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
   private _value: T | null = null;
   private _name = `dt-radio-group-${nextUniqueId++}`;
   private _selected: DtRadioButton<T> | null = null;
@@ -41,7 +43,9 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   /** Name of the radio button group. All radio buttons inside this group will use this name. */
   @Input()
-  get name(): string { return this._name; }
+  get name(): string {
+    return this._name;
+  }
   set name(value: string) {
     this._name = value;
     this._updateRadioButtonNames();
@@ -49,7 +53,9 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   /** Value of the radio button. */
   @Input()
-  get value(): T | null { return this._value; }
+  get value(): T | null {
+    return this._value;
+  }
   set value(newValue: T | null) {
     if (this._value !== newValue) {
       this._value = newValue;
@@ -60,7 +66,9 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   /** Whether the radio button is selected. */
   @Input()
-  get selected(): DtRadioButton<T> | null { return this._selected; }
+  get selected(): DtRadioButton<T> | null {
+    return this._selected;
+  }
   set selected(selected: DtRadioButton<T> | null) {
     this._selected = selected;
     this.value = selected ? selected.value : null;
@@ -69,7 +77,9 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   /** Whether the radio group is disabled */
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     this._markRadiosForCheck();
@@ -77,7 +87,9 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   /** Whether the radio group is required */
   @Input()
-  get required(): boolean { return this._required; }
+  get required(): boolean {
+    return this._required;
+  }
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
     this._markRadiosForCheck();
@@ -96,7 +108,7 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
   @ContentChildren(forwardRef(() => DtRadioButton), { descendants: true })
   _radios: QueryList<DtRadioButton<T>>;
 
-  constructor(private _changeDetector: ChangeDetectorRef) { }
+  constructor(private _changeDetector: ChangeDetectorRef) {}
 
   ngAfterContentInit(): void {
     // Mark this component as initialized in AfterContentInit because the initial value can
@@ -148,14 +160,16 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   private _markRadiosForCheck(): void {
     if (this._radios) {
-      this._radios.forEach((radio) => { radio._markForCheck(); });
+      this._radios.forEach(radio => {
+        radio._markForCheck();
+      });
     }
   }
 
   /** Set the name of every radio button to the groups name */
   private _updateRadioButtonNames(): void {
     if (this._radios) {
-      this._radios.forEach((radio) => {
+      this._radios.forEach(radio => {
         radio.name = this.name;
       });
     }
@@ -163,9 +177,12 @@ export class DtRadioGroup<T>  implements AfterContentInit, CanDisable {
 
   /** Updates the `selected` state of each radio button based on the groups value. */
   private _updateSelectedRadioFromValue(): void {
-    if (this._radios && !(this._selected !== null && this._selected.value === this._value)) {
+    if (
+      this._radios &&
+      !(this._selected !== null && this._selected.value === this._value)
+    ) {
       this._selected = null;
-      this._radios.forEach((radio) => {
+      this._radios.forEach(radio => {
         radio.checked = this.value === radio.value;
         if (radio.checked) {
           this._selected = radio;

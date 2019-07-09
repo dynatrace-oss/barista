@@ -4,7 +4,6 @@
 import { compareValues, compareStrings, compareNumbers } from './compare-util';
 
 describe('CompareUtil', () => {
-
   describe('compareValues', () => {
     it('should sort number values ascending', () => {
       const numbers = [8, 27, 5000, 17, 123, 591, 182];

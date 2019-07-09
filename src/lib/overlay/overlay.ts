@@ -1,7 +1,26 @@
-import { Injectable, TemplateRef, ElementRef, Inject, Injector, OnDestroy } from '@angular/core';
+import {
+  Injectable,
+  TemplateRef,
+  ElementRef,
+  Inject,
+  Injector,
+  OnDestroy,
+} from '@angular/core';
 import { DtOverlayConfig } from './overlay-config';
-import { Overlay, OverlayRef, OverlayConfig, ViewportRuler, ConnectedPosition, OverlayContainer } from '@angular/cdk/overlay';
-import { ComponentPortal, TemplatePortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
+import {
+  Overlay,
+  OverlayRef,
+  OverlayConfig,
+  ViewportRuler,
+  ConnectedPosition,
+  OverlayContainer,
+} from '@angular/cdk/overlay';
+import {
+  ComponentPortal,
+  TemplatePortal,
+  ComponentType,
+  PortalInjector,
+} from '@angular/cdk/portal';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef } from './overlay-ref';
 import { DOCUMENT } from '@angular/common';
@@ -10,7 +29,10 @@ import { Platform } from '@angular/cdk/platform';
 
 // TODO: FlexibleConnectedPositionStrategyOrigin is not exported by cdk/overlay
 // https://github.com/angular/material2/blob/master/src/cdk/overlay/position/flexible-connected-position-strategy.ts#L33
-export type DtOverlayOrigin = ElementRef | HTMLElement | { x: number; y: number };
+export type DtOverlayOrigin =
+  | ElementRef
+  | HTMLElement
+  | { x: number; y: number };
 export const DT_OVERLAY_DEFAULT_OFFSET = 6;
 
 const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
@@ -60,7 +82,7 @@ const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
  */
 export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-no-pointer';
 
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class DtOverlay implements OnDestroy {
   // tslint:disable-next-line:no-any
   private _dtOverlayRef: DtOverlayRef<any> | null;
@@ -98,7 +120,12 @@ export class DtOverlay implements OnDestroy {
 
     const overlayRef = this._createOverlay(origin, config);
     const overlayContainer = this._attachOverlayContainer(overlayRef, config);
-    const dtOverlayRef = this._attachOverlayContent(componentOrTemplateRef, overlayContainer, overlayRef, config);
+    const dtOverlayRef = this._attachOverlayContent(
+      componentOrTemplateRef,
+      overlayContainer,
+      overlayRef,
+      config
+    );
 
     dtOverlayRef.disposableFns.push(() => {
       this._dtOverlayRef = null;
@@ -116,19 +143,26 @@ export class DtOverlay implements OnDestroy {
   }
 
   /** Creates an overlay with a certain origin and configuration. */
-  private _createOverlay(origin: DtOverlayOrigin, config: DtOverlayConfig): OverlayRef {
+  private _createOverlay(
+    origin: DtOverlayOrigin,
+    config: DtOverlayConfig
+  ): OverlayRef {
     let positions = config._positions || DEFAULT_DT_OVERLAY_POSITIONS;
     if (!config._positions && config.originY === 'center') {
-      positions = positions.map((pos) => {
-        const newPos = {...pos};
+      positions = positions.map(pos => {
+        const newPos = { ...pos };
         newPos.originY = 'center';
         return newPos;
       });
     }
 
-    const positionStrategy =
-      new DtMouseFollowPositionStrategy(origin, this._viewportRuler, this._document, this._platform, this._overlayContainer)
-      .withPositions(positions);
+    const positionStrategy = new DtMouseFollowPositionStrategy(
+      origin,
+      this._viewportRuler,
+      this._document,
+      this._platform,
+      this._overlayContainer
+    ).withPositions(positions);
 
     if (config.movementConstraint) {
       positionStrategy.withMovementContraint(config.movementConstraint);
@@ -144,12 +178,19 @@ export class DtOverlay implements OnDestroy {
   }
 
   /** Attaches the overlay container. */
-  private _attachOverlayContainer(overlay: OverlayRef, config: DtOverlayConfig): DtOverlayContainer {
-    const injector = new PortalInjector(this._injector, new WeakMap([
-      [DtOverlayConfig, config],
-    ]));
-    const containerPortal =
-        new ComponentPortal(DtOverlayContainer, null, injector);
+  private _attachOverlayContainer(
+    overlay: OverlayRef,
+    config: DtOverlayConfig
+  ): DtOverlayContainer {
+    const injector = new PortalInjector(
+      this._injector,
+      new WeakMap([[DtOverlayConfig, config]])
+    );
+    const containerPortal = new ComponentPortal(
+      DtOverlayContainer,
+      null,
+      injector
+    );
     const containerRef = overlay.attach<DtOverlayContainer>(containerPortal);
 
     return containerRef.instance;
@@ -162,15 +203,19 @@ export class DtOverlay implements OnDestroy {
     overlayRef: OverlayRef,
     config: DtOverlayConfig
   ): DtOverlayRef<T> {
-
     const dtOverlayRef = new DtOverlayRef<T>(overlayRef, container, config);
 
     if (componentOrTemplateRef instanceof TemplateRef) {
       container.attachTemplatePortal(
         // tslint:disable-next-line:no-any
-        new TemplatePortal<any>(componentOrTemplateRef, null!, { $implicit: config.data }));
+        new TemplatePortal<any>(componentOrTemplateRef, null!, {
+          $implicit: config.data,
+        })
+      );
     } else {
-      container.attachComponentPortal(new ComponentPortal<T>(componentOrTemplateRef));
+      container.attachComponentPortal(
+        new ComponentPortal<T>(componentOrTemplateRef)
+      );
     }
 
     return dtOverlayRef;

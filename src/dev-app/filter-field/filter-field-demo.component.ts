@@ -1,5 +1,10 @@
 import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { DtFilterFieldDefaultDataSource, DtFilterField, DtFilterFieldTag, DtFilterFieldCurrentFilterChangeEvent } from '@dynatrace/angular-components';
+import {
+  DtFilterFieldDefaultDataSource,
+  DtFilterField,
+  DtFilterFieldTag,
+  DtFilterFieldCurrentFilterChangeEvent,
+} from '@dynatrace/angular-components';
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
 import { TEST_DATA, TEST_DATA_ASYNC } from './testdata';
@@ -19,10 +24,13 @@ const DATA_SETS = new Map<string, any>([
   styleUrls: ['./filter-field-demo.component.scss'],
 })
 export class FilterFieldDemo implements AfterViewInit, OnDestroy {
+  get dataSourceNames(): string[] {
+    return Array.from(DATA_SETS.keys());
+  }
 
-  get dataSourceNames(): string[] { return Array.from(DATA_SETS.keys()); }
-
-  get activeDataSourceName(): string { return this._activeDataSourceName; }
+  get activeDataSourceName(): string {
+    return this._activeDataSourceName;
+  }
   set activeDataSourceName(value: string) {
     this._dataSource.data = DATA_SETS.get(value);
     this._activeDataSourceName = value;
@@ -43,7 +51,9 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._tagChangesSub = this.filterField.tags.changes.subscribe(() => {
-      Promise.resolve().then(() => this._firstTag = this.filterField.tags.first);
+      Promise.resolve().then(
+        () => (this._firstTag = this.filterField.tags.first)
+      );
     });
   }
 
@@ -55,14 +65,14 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     console.log(event);
   }
 
-  currentFilterChanges(event: DtFilterFieldCurrentFilterChangeEvent<any>): void {
+  currentFilterChanges(
+    event: DtFilterFieldCurrentFilterChangeEvent<any>
+  ): void {
     if (event.added[0] === TEST_DATA.autocomplete[2]) {
       // Simulate async data loading
-      setTimeout(
-        () => {
-          this._dataSource.data = TEST_DATA_ASYNC;
-        },
-        2000);
+      setTimeout(() => {
+        this._dataSource.data = TEST_DATA_ASYNC;
+      }, 2000);
     }
   }
 

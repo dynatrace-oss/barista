@@ -30,11 +30,15 @@ export class DtFilterFieldRangeSubmittedEvent {
     public range: number | [number, number],
     /** Unit for the entered range / value */
     public unit: string
-  ) { }
+  ) {}
 }
 
 /** Valid FilterfieldRange operators. */
-export type DtFilterFieldRangeOperator = 'range' | 'lower-equal' | 'greater-equal' | 'equal';
+export type DtFilterFieldRangeOperator =
+  | 'range'
+  | 'lower-equal'
+  | 'greater-equal'
+  | 'equal';
 
 @Component({
   selector: 'dt-filter-field-range',
@@ -46,7 +50,6 @@ export type DtFilterFieldRangeOperator = 'range' | 'lower-equal' | 'greater-equa
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtFilterFieldRange implements AfterViewInit {
-
   /** Unit for the range values */
   @Input() unit: string;
 
@@ -59,13 +62,21 @@ export class DtFilterFieldRange implements AfterViewInit {
     this._enabledOperators = value;
 
     // tslint:disable-next-line: no-bitwise
-    this._hasRangeOperator = !!(this._enabledOperators & DtRangeOperatorFlags.Range);
+    this._hasRangeOperator = !!(
+      this._enabledOperators & DtRangeOperatorFlags.Range
+    );
     // tslint:disable-next-line: no-bitwise
-    this._hasEqualOperator = !!(this._enabledOperators & DtRangeOperatorFlags.Equal);
+    this._hasEqualOperator = !!(
+      this._enabledOperators & DtRangeOperatorFlags.Equal
+    );
     // tslint:disable-next-line: no-bitwise
-    this._hasLowerEqualOperator = !!(this._enabledOperators & DtRangeOperatorFlags.LowerEqual);
+    this._hasLowerEqualOperator = !!(
+      this._enabledOperators & DtRangeOperatorFlags.LowerEqual
+    );
     // tslint:disable-next-line: no-bitwise
-    this._hasGreaterEqualOperator = !!(this._enabledOperators & DtRangeOperatorFlags.GreatEqual);
+    this._hasGreaterEqualOperator = !!(
+      this._enabledOperators & DtRangeOperatorFlags.GreatEqual
+    );
     this._setOperator();
   }
   private _enabledOperators: DtRangeOperatorFlags;
@@ -89,7 +100,9 @@ export class DtFilterFieldRange implements AfterViewInit {
   @Output() readonly closed = new EventEmitter<void>();
 
   /** Event that is emitted whenever an option from the list is selected. */
-  @Output() readonly rangeSubmitted = new EventEmitter<DtFilterFieldRangeSubmittedEvent>();
+  @Output() readonly rangeSubmitted = new EventEmitter<
+    DtFilterFieldRangeSubmittedEvent
+  >();
 
   /** Unique ID to be used by filter-field range trigger's "aria-owns" property. */
   id = `dt-filter-field-range-${_uniqueIdCounter++}`;
@@ -108,7 +121,9 @@ export class DtFilterFieldRange implements AfterViewInit {
   @ViewChild(TemplateRef, { static: true }) _template: TemplateRef<{}>;
 
   /** @internal */
-  @ViewChild(DtButtonGroup, { static: false }) _operatorGroup: DtButtonGroup<DtFilterFieldRange>;
+  @ViewChild(DtButtonGroup, { static: false }) _operatorGroup: DtButtonGroup<
+    DtFilterFieldRange
+  >;
 
   /** @internal */
   _portal: TemplatePortal;
@@ -122,10 +137,13 @@ export class DtFilterFieldRange implements AfterViewInit {
   constructor(
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngAfterViewInit(): void {
-    this._portal = new TemplatePortal<{}>(this._template, this._viewContainerRef);
+    this._portal = new TemplatePortal<{}>(
+      this._template,
+      this._viewContainerRef
+    );
   }
 
   /** Sets focus to the operator button group. */
@@ -160,7 +178,8 @@ export class DtFilterFieldRange implements AfterViewInit {
           this._selectedOperator as DtFilterFieldRangeOperator,
           range as number | [number, number],
           this.unit
-        ));
+        )
+      );
       // After emission we need to reset the range state, to have a fresh one
       // if another range opens.
       this._valueFrom = '';
@@ -188,15 +207,20 @@ export class DtFilterFieldRange implements AfterViewInit {
       return;
     }
     if (!this._selectedOperator) {
-      this._selectedOperator = this._hasRangeOperator ? 'range' :
-        this._hasLowerEqualOperator ? 'lower-equal' :
-        this._hasGreaterEqualOperator ? 'greater-equal' :
-        this._hasEqualOperator ? 'equal' : null;
+      this._selectedOperator = this._hasRangeOperator
+        ? 'range'
+        : this._hasLowerEqualOperator
+        ? 'lower-equal'
+        : this._hasGreaterEqualOperator
+        ? 'greater-equal'
+        : this._hasEqualOperator
+        ? 'equal'
+        : null;
     }
   }
 
   /** @internal Set values for the range input fields. */
-  _setValues(values: number|[number, number]): void {
+  _setValues(values: number | [number, number]): void {
     if (Array.isArray(values)) {
       this._valueFrom = `${values[0]}`;
       this._valueTo = `${values[1]}`;

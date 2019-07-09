@@ -1,14 +1,12 @@
 import { adjustNumber } from './number-formatter';
 
 describe('FormatterUtil', () => {
-
   interface TestCase {
     input: number;
     output: string;
   }
 
   describe('Adjusting number without abbreviation', () => {
-
     [
       {
         input: 0.123456789,
@@ -44,14 +42,14 @@ describe('FormatterUtil', () => {
       },
     ].forEach((testCase: TestCase) => {
       it(`should return ${testCase.input} with adjusted precision`, () => {
-        expect(adjustNumber(testCase.input).toString())
-          .toEqual(testCase.output);
+        expect(adjustNumber(testCase.input).toString()).toEqual(
+          testCase.output
+        );
       });
     });
   });
 
   describe('Adjusting number with abbreviation', () => {
-
     [
       {
         input: 1234567890,
@@ -87,8 +85,9 @@ describe('FormatterUtil', () => {
       },
     ].forEach((testCase: TestCase) => {
       it(`should return ${testCase.input} in abbreviated version`, () => {
-        expect(adjustNumber(testCase.input, true).toString())
-          .toEqual(testCase.output);
+        expect(adjustNumber(testCase.input, true).toString()).toEqual(
+          testCase.output
+        );
       });
     });
   });

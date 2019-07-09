@@ -18,14 +18,18 @@ export function getDtIconNameNotFoundError(iconName: string): Error {
 }
 
 export function getDtIconNoHttpProviderError(): Error {
-  return Error('Could not find HttpClient provider for use with angular-component icons. ' +
-               'Please include the HttpClientModule from @angular/common/http in your ' +
-               'app imports.');
+  return Error(
+    'Could not find HttpClient provider for use with angular-component icons. ' +
+      'Please include the HttpClientModule from @angular/common/http in your ' +
+      'app imports.'
+  );
 }
 
 export function getDtIconNoConfigProviderError(): Error {
-  return Error('Could not find config provider for icons. ' +
-               'Please use DtIconModule.forRoot or provide the config in your app module');
+  return Error(
+    'Could not find config provider for icons. ' +
+      'Please use DtIconModule.forRoot or provide the config in your app module'
+  );
 }
 
 /**
@@ -34,9 +38,8 @@ export function getDtIconNoConfigProviderError(): Error {
  * Since the icon registry deals with a global shared resource-location, we cannot have
  * more than one registry active. To ensure this use the `forRoot` method on the DtIconModule.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class DtIconRegistry {
-
   /** URLs and cached SVG elements for individual icons. */
   private _svgIconConfigs = new Map<string, SvgIconConfig>();
 
@@ -44,9 +47,11 @@ export class DtIconRegistry {
   private _inProgressUrlFetches = new Map<string, Observable<string>>();
 
   constructor(
-    @Optional() @Inject(DT_ICON_CONFIGURATION) private _config: DtIconConfiguration,
-    @Optional() private _httpClient: HttpClient) {
-    }
+    @Optional()
+    @Inject(DT_ICON_CONFIGURATION)
+    private _config: DtIconConfiguration,
+    @Optional() private _httpClient: HttpClient
+  ) {}
 
   /**
    * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name.
@@ -58,7 +63,7 @@ export class DtIconRegistry {
     let config = this._svgIconConfigs.get(name);
 
     if (!config) {
-      config = { name, svgElement: null};
+      config = { name, svgElement: null };
       this._svgIconConfigs.set(name, config);
     }
 
@@ -73,8 +78,8 @@ export class DtIconRegistry {
     }
     // Fetch the icon from the config's URL, cache it, and return a copy.
     return this._loadSvgIconFromConfig(config).pipe(
-      tap((svg) => config.svgElement = svg),
-      map((svg) => cloneSvg(svg))
+      tap(svg => (config.svgElement = svg)),
+      map(svg => cloneSvg(svg))
     );
   }
 
@@ -82,13 +87,19 @@ export class DtIconRegistry {
    * Loads the content of the icon URL specified in the SvgIconConfig and creates an SVG element
    * from it.
    */
-  private _loadSvgIconFromConfig(iconConfig: SvgIconConfig): Observable<SVGElement> {
+  private _loadSvgIconFromConfig(
+    iconConfig: SvgIconConfig
+  ): Observable<SVGElement> {
     if (!this._config) {
       throw getDtIconNoConfigProviderError();
     }
-    const url = this._config.svgIconLocation.replace(new RegExp('{{name}}', 'g'), iconConfig.name);
-    return this._fetchUrl(url)
-      .pipe(map((svgText) => this._createSvgElementForSingleIcon(svgText)));
+    const url = this._config.svgIconLocation.replace(
+      new RegExp('{{name}}', 'g'),
+      iconConfig.name
+    );
+    return this._fetchUrl(url).pipe(
+      map(svgText => this._createSvgElementForSingleIcon(svgText))
+    );
   }
 
   /**
@@ -109,7 +120,7 @@ export class DtIconRegistry {
       return inProgressFetch;
     }
 
-    const req = this._httpClient.get(url, {responseType: 'text'}).pipe(
+    const req = this._httpClient.get(url, { responseType: 'text' }).pipe(
       finalize(() => this._inProgressUrlFetches.delete(url)),
       share()
     );

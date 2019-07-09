@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['drawer-demo.component.scss'],
 })
 export class DrawerDemo {
-
   dynamicallyAdded = false;
 
   addDrawer(): void {

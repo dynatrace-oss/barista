@@ -3,7 +3,14 @@
 
 import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, ViewChildren, QueryList, OnDestroy } from '@angular/core';
-import { DtTabsModule, DtTab, DtLogConsumer, DtLogEntry, DT_TABGROUP_SINGLE_TAB_ERROR, DtTabChange } from '@dynatrace/angular-components';
+import {
+  DtTabsModule,
+  DtTab,
+  DtLogConsumer,
+  DtLogEntry,
+  DT_TABGROUP_SINGLE_TAB_ERROR,
+  DtTabChange,
+} from '@dynatrace/angular-components';
 import { By } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/angular-components/tabs/tab-group';
@@ -61,7 +68,6 @@ describe('DtTabs', () => {
     });
 
     it('should set the selected flag on each of the tabs', () => {
-
       const tabs = fixture.componentInstance.tabs.toArray();
 
       expect(tabs[0].selected).toBe(true);
@@ -90,7 +96,9 @@ describe('DtTabs', () => {
       fixture.detectChanges();
       spyOn(component, 'handleTabChange').and.callThrough();
 
-      const tabLabel = fixture.debugElement.queryAll(By.css('.dt-tab-label'))[1];
+      const tabLabel = fixture.debugElement.queryAll(
+        By.css('.dt-tab-label')
+      )[1];
       tabLabel.nativeElement.click();
 
       const tabs = fixture.componentInstance.tabs.toArray();
@@ -130,9 +138,11 @@ describe('DtTabs', () => {
       const tabs = fixture.componentInstance.tabs.toArray();
       tabs[1].disabled = true;
       fixture.detectChanges();
-      expect(fixture.debugElement.queryAll(By.css('.dt-tab-label'))[1].nativeElement.disabled).toBeTruthy();
+      expect(
+        fixture.debugElement.queryAll(By.css('.dt-tab-label'))[1].nativeElement
+          .disabled
+      ).toBeTruthy();
     });
-
   });
 
   describe('dynamic behaviour', () => {
@@ -212,7 +222,9 @@ describe('DtTabs', () => {
       let lazySecond = fixture.debugElement.query(By.css('.lazy-second'));
       expect(lazySecond).toBeNull();
 
-      const secondLabel = fixture.debugElement.queryAll(By.css('.dt-tab-label'))[1];
+      const secondLabel = fixture.debugElement.queryAll(
+        By.css('.dt-tab-label')
+      )[1];
       secondLabel.nativeElement.click();
       fixture.detectChanges();
 
@@ -266,40 +278,55 @@ describe('DtTabs', () => {
  * respective `active` classes
  */
 // tslint:disable-next-line:no-any
-export function checkSelected(expectedIndex: number, fixture: ComponentFixture<any>, isSelected?: boolean): void {
+export function checkSelected(
+  expectedIndex: number,
+  fixture: ComponentFixture<any>,
+  isSelected?: boolean
+): void {
   fixture.detectChanges();
   checkLabelClass(expectedIndex, fixture, 'dt-tab-label-active', isSelected);
-  const tabContentElement = fixture.debugElement
-      .queryAll(By.css('.dt-tab-body'))[expectedIndex].nativeElement;
-  expect(tabContentElement.classList.contains('dt-tab-body-active'))
-  .toBe(isSelected !== undefined ? isSelected : true, 'Expected "dt-tab-body-active" class to be there');
+  const tabContentElement = fixture.debugElement.queryAll(
+    By.css('.dt-tab-body')
+  )[expectedIndex].nativeElement;
+  expect(tabContentElement.classList.contains('dt-tab-body-active')).toBe(
+    isSelected !== undefined ? isSelected : true,
+    'Expected "dt-tab-body-active" class to be there'
+  );
 }
 /** checks if the label at given index has the given class */
 // tslint:disable-next-line:no-any
-function checkLabelClass(expectedIndex: number, fixture: ComponentFixture<any>, cssClass: string, toExist?: boolean): void {
-  const tabLabelElement = fixture.debugElement
-      .queryAll(By.css('.dt-tab-label'))[expectedIndex].nativeElement;
-  expect(tabLabelElement.classList.contains(cssClass))
-  .toBe(toExist !== undefined ? toExist : true, `Expected "${cssClass}" class to be there`);
+function checkLabelClass(
+  expectedIndex: number,
+  fixture: ComponentFixture<any>,
+  cssClass: string,
+  toExist?: boolean
+): void {
+  const tabLabelElement = fixture.debugElement.queryAll(
+    By.css('.dt-tab-label')
+  )[expectedIndex].nativeElement;
+  expect(tabLabelElement.classList.contains(cssClass)).toBe(
+    toExist !== undefined ? toExist : true,
+    `Expected "${cssClass}" class to be there`
+  );
 }
 /** Test component that contains an DtTabs. */
 @Component({
   selector: 'dt-test-app',
   template: `
-  <dt-tab-group (selectionChanged)="handleTabChange($event)">
-    <dt-tab id="firstid">
-      <ng-template dtTabLabel>Tab one label</ng-template>
-      <ng-template dtTabContent>
-        Tab one content
-      </ng-template>
-    </dt-tab>
-    <dt-tab [id]="dynamicId" color="error">
-      <ng-template dtTabLabel>Tab two label</ng-template>
-      <ng-template dtTabContent>
-        Tab two content
-      </ng-template>
-    </dt-tab>
-  </dt-tab-group>
+    <dt-tab-group (selectionChanged)="handleTabChange($event)">
+      <dt-tab id="firstid">
+        <ng-template dtTabLabel>Tab one label</ng-template>
+        <ng-template dtTabContent>
+          Tab one content
+        </ng-template>
+      </dt-tab>
+      <dt-tab [id]="dynamicId" color="error">
+        <ng-template dtTabLabel>Tab two label</ng-template>
+        <ng-template dtTabContent>
+          Tab two content
+        </ng-template>
+      </dt-tab>
+    </dt-tab-group>
   `,
 })
 class SimpleTabsTestApp {
@@ -317,26 +344,26 @@ class SimpleTabsTestApp {
 @Component({
   selector: 'dt-dynamic-test-app',
   template: `
-  <dt-tab-group (selectionChanged)="handleTabChange($event)">
-    <dt-tab>
-      <ng-template dtTabLabel>Tab one label</ng-template>
-      <ng-template dtTabContent>
-        Tab one content
-      </ng-template>
-    </dt-tab>
-    <dt-tab selected>
-      <ng-template dtTabLabel>Tab two label</ng-template>
-      <ng-template dtTabContent>
-        Tab two content
-      </ng-template>
-    </dt-tab>
-    <dt-tab *ngIf="dynamicTab">
-      <ng-template dtTabLabel>Tab three label</ng-template>
-      <ng-template dtTabContent>
-        Tab two content
-      </ng-template>
-    </dt-tab>
-  </dt-tab-group>
+    <dt-tab-group (selectionChanged)="handleTabChange($event)">
+      <dt-tab>
+        <ng-template dtTabLabel>Tab one label</ng-template>
+        <ng-template dtTabContent>
+          Tab one content
+        </ng-template>
+      </dt-tab>
+      <dt-tab selected>
+        <ng-template dtTabLabel>Tab two label</ng-template>
+        <ng-template dtTabContent>
+          Tab two content
+        </ng-template>
+      </dt-tab>
+      <dt-tab *ngIf="dynamicTab">
+        <ng-template dtTabLabel>Tab three label</ng-template>
+        <ng-template dtTabContent>
+          Tab two content
+        </ng-template>
+      </dt-tab>
+    </dt-tab-group>
   `,
 })
 class DynamicTabsTestApp {
@@ -354,20 +381,20 @@ class DynamicTabsTestApp {
 @Component({
   selector: 'dt-lazy-test-app',
   template: `
-  <dt-tab-group>
-    <dt-tab selected>
-      <ng-template dtTabLabel>Tab one label</ng-template>
-      <ng-template dtTabContent>
-        <div class="lazy-first"></div>
-      </ng-template>
-    </dt-tab>
-    <dt-tab>
-      <ng-template dtTabLabel>Tab two label</ng-template>
-      <ng-template dtTabContent>
-        <div class="lazy-second"></div>
-      </ng-template>
-    </dt-tab>
-  </dt-tab-group>
+    <dt-tab-group>
+      <dt-tab selected>
+        <ng-template dtTabLabel>Tab one label</ng-template>
+        <ng-template dtTabContent>
+          <div class="lazy-first"></div>
+        </ng-template>
+      </dt-tab>
+      <dt-tab>
+        <ng-template dtTabLabel>Tab two label</ng-template>
+        <ng-template dtTabContent>
+          <div class="lazy-second"></div>
+        </ng-template>
+      </dt-tab>
+    </dt-tab-group>
   `,
 })
 class LazyTabsTestApp {
@@ -378,18 +405,16 @@ class LazyTabsTestApp {
 @Component({
   selector: 'dt-error-test-app',
   template: `
-  <dt-tab-group>
-    <dt-tab [disabled]="disableAll">
-      <ng-template dtTabLabel>Tab one label</ng-template>
-      <ng-template dtTabContent>
-      </ng-template>
-    </dt-tab>
-    <dt-tab *ngIf="secondTab" [disabled]="disableAll">
-      <ng-template dtTabLabel>Tab two label</ng-template>
-      <ng-template dtTabContent>
-      </ng-template>
-    </dt-tab>
-  </dt-tab-group>
+    <dt-tab-group>
+      <dt-tab [disabled]="disableAll">
+        <ng-template dtTabLabel>Tab one label</ng-template>
+        <ng-template dtTabContent> </ng-template>
+      </dt-tab>
+      <dt-tab *ngIf="secondTab" [disabled]="disableAll">
+        <ng-template dtTabLabel>Tab two label</ng-template>
+        <ng-template dtTabContent> </ng-template>
+      </dt-tab>
+    </dt-tab-group>
   `,
 })
 class ErrorTabsTestApp implements OnDestroy {
@@ -402,7 +427,7 @@ class ErrorTabsTestApp implements OnDestroy {
   private _logSub: Subscription;
 
   constructor(public logConsumer: DtLogConsumer) {
-    this._logSub = logConsumer.consume().subscribe((val) => {
+    this._logSub = logConsumer.consume().subscribe(val => {
       this.lastLogEntry = val;
     });
   }

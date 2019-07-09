@@ -2,8 +2,25 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Provider, Type, ViewChild, ViewChildren, QueryList, Component, OnDestroy, NgZone } from '@angular/core';
-import { TestBed, inject, ComponentFixture, flush, fakeAsync, async, tick } from '@angular/core/testing';
+import {
+  Provider,
+  Type,
+  ViewChild,
+  ViewChildren,
+  QueryList,
+  Component,
+  OnDestroy,
+  NgZone,
+} from '@angular/core';
+import {
+  TestBed,
+  inject,
+  ComponentFixture,
+  flush,
+  fakeAsync,
+  async,
+  tick,
+} from '@angular/core/testing';
 import {
   DtAutocompleteModule,
   DtFormFieldModule,
@@ -14,15 +31,26 @@ import {
   DtOption,
   DT_AUTOCOMPLETE_DEFAULT_OPTIONS,
   DtOptionSelectionChange,
-  getDtAutocompleteMissingPanelError
+  getDtAutocompleteMissingPanelError,
 } from '@dynatrace/angular-components';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { DOWN_ARROW, SPACE, UP_ARROW, ENTER, ESCAPE, TAB } from '@angular/cdk/keycodes';
+import {
+  DOWN_ARROW,
+  SPACE,
+  UP_ARROW,
+  ENTER,
+  ESCAPE,
+  TAB,
+} from '@angular/cdk/keycodes';
 import { Subscription, Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchEvent } from '../../testing/dispatch-events';
+import {
+  dispatchFakeEvent,
+  dispatchKeyboardEvent,
+  dispatchEvent,
+} from '../../testing/dispatch-events';
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { typeInElement } from '../../testing/type-in-element';
 import { createKeyboardEvent } from '../../testing/event-objects';
@@ -33,7 +61,10 @@ describe('DtAutocomplete', () => {
   let zone: MockNgZone;
 
   // Creates a test component fixture.
-  function createComponent<T>(component: Type<T>, providers: Provider[] = []): any {
+  function createComponent<T>(
+    component: Type<T>,
+    providers: Provider[] = []
+  ): any {
     TestBed.configureTestingModule({
       imports: [
         DtAutocompleteModule,
@@ -45,7 +76,7 @@ describe('DtAutocomplete', () => {
       ],
       declarations: [component],
       providers: [
-        { provide: NgZone, useFactory: () => zone = new MockNgZone() },
+        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
         ...providers,
       ],
     });
@@ -60,12 +91,15 @@ describe('DtAutocomplete', () => {
     return TestBed.createComponent<T>(component);
   }
 
-  afterEach(inject([OverlayContainer], (currentOverlayContainer: OverlayContainer) => {
-    // Since we're resetting the testing module in some of the tests,
-    // we can potentially have multiple overlay containers.
-    currentOverlayContainer.ngOnDestroy();
-    overlayContainer.ngOnDestroy();
-  }));
+  afterEach(inject(
+    [OverlayContainer],
+    (currentOverlayContainer: OverlayContainer) => {
+      // Since we're resetting the testing module in some of the tests,
+      // we can potentially have multiple overlay containers.
+      currentOverlayContainer.ngOnDestroy();
+      overlayContainer.ngOnDestroy();
+    }
+  ));
 
   describe('panel toggling', () => {
     let fixture: ComponentFixture<SimpleAutocomplete>;
@@ -78,17 +112,26 @@ describe('DtAutocomplete', () => {
     });
 
     it('should open the panel when the input is focused', () => {
-      expect(fixture.componentInstance.trigger.panelOpen).toBe(false, `Expected panel state to start out closed.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected panel state to start out closed.`
+      );
 
       dispatchFakeEvent(input, 'focusin');
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(true, `Expected panel state to read open when input is focused.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('Alabama', `Expected panel to display when input is focused.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('California', `Expected panel to display when input is focused.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        true,
+        `Expected panel state to read open when input is focused.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'Alabama',
+        `Expected panel to display when input is focused.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'California',
+        `Expected panel to display when input is focused.`
+      );
     });
 
     it('should not open the panel on focus if the input is readonly', fakeAsync(() => {
@@ -96,7 +139,10 @@ describe('DtAutocomplete', () => {
       input.readOnly = true;
       fixture.detectChanges();
 
-      expect(trigger.panelOpen).toBe(false, 'Expected panel state to start out closed.');
+      expect(trigger.panelOpen).toBe(
+        false,
+        'Expected panel state to start out closed.'
+      );
       dispatchFakeEvent(input, 'focusin');
       flush();
 
@@ -109,7 +155,10 @@ describe('DtAutocomplete', () => {
       input.readOnly = true;
       fixture.detectChanges();
 
-      expect(trigger.panelOpen).toBe(false, 'Expected panel state to start out closed.');
+      expect(trigger.panelOpen).toBe(
+        false,
+        'Expected panel state to start out closed.'
+      );
       dispatchKeyboardEvent(input, 'keydown', DOWN_ARROW);
       flush();
 
@@ -118,18 +167,26 @@ describe('DtAutocomplete', () => {
     }));
 
     it('should open the panel programmatically', () => {
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(false, `Expected panel state to start out closed.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected panel state to start out closed.`
+      );
 
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(true, `Expected panel state to read open when opened programmatically.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('Alabama', `Expected panel to display when opened programmatically.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('California', `Expected panel to display when opened programmatically.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        true,
+        `Expected panel state to read open when opened programmatically.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'Alabama',
+        `Expected panel to display when opened programmatically.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'California',
+        `Expected panel to display when opened programmatically.`
+      );
     });
 
     it('should show the panel when the first open is after the initial zone stabilization', async(() => {
@@ -140,7 +197,10 @@ describe('DtAutocomplete', () => {
         fixture.componentInstance.trigger.openPanel();
 
         Promise.resolve().then(() => {
-          expect(fixture.componentInstance.panel.showPanel).toBe(true, `Expected panel to be visible.`);
+          expect(fixture.componentInstance.panel.showPanel).toBe(
+            true,
+            `Expected panel to be visible.`
+          );
         });
       });
     }));
@@ -151,10 +211,14 @@ describe('DtAutocomplete', () => {
       zone.simulateZoneExit();
       dispatchFakeEvent(document, 'click');
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(false, `Expected clicking outside the panel to set its state to closed.`);
-      expect(overlayContainerElement.textContent)
-        .toEqual('', `Expected clicking outside the panel to close the panel.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected clicking outside the panel to set its state to closed.`
+      );
+      expect(overlayContainerElement.textContent).toEqual(
+        '',
+        `Expected clicking outside the panel to close the panel.`
+      );
     }));
 
     it('should close the panel when the user taps away on a touch device', fakeAsync(() => {
@@ -163,10 +227,14 @@ describe('DtAutocomplete', () => {
       flush();
       dispatchFakeEvent(document, 'touchend');
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(false, `Expected tapping outside the panel to set its state to closed.`);
-      expect(overlayContainerElement.textContent)
-        .toEqual('', `Expected tapping outside the panel to close the panel.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected tapping outside the panel to set its state to closed.`
+      );
+      expect(overlayContainerElement.textContent).toEqual(
+        '',
+        `Expected tapping outside the panel to close the panel.`
+      );
     }));
 
     it('should close the panel when an option is clicked', fakeAsync(() => {
@@ -174,14 +242,20 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+      const option = overlayContainerElement.querySelector(
+        'dt-option'
+      ) as HTMLElement;
       option.click();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(false, `Expected clicking an option to set the panel state to closed.`);
-      expect(overlayContainerElement.textContent)
-        .toEqual('', `Expected clicking an option to close the panel.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected clicking an option to set the panel state to closed.`
+      );
+      expect(overlayContainerElement.textContent).toEqual(
+        '',
+        `Expected clicking an option to close the panel.`
+      );
     }));
 
     it('should close the panel when a newly created option is clicked', fakeAsync(() => {
@@ -194,7 +268,9 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       tick();
 
-      let options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      let options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[0].click();
 
       // Changing value from 'Alabama' to 'al' to re-populate the option list,
@@ -204,14 +280,20 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       tick();
 
-      options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[1].click();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(false, `Expected clicking a new option to set the panel state to closed.`);
-      expect(overlayContainerElement.textContent)
-        .toEqual('', `Expected clicking a new option to close the panel.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected clicking a new option to set the panel state to closed.`
+      );
+      expect(overlayContainerElement.textContent).toEqual(
+        '',
+        `Expected clicking a new option to close the panel.`
+      );
     }));
 
     it('should close the panel programmatically', () => {
@@ -221,10 +303,14 @@ describe('DtAutocomplete', () => {
       fixture.componentInstance.trigger.closePanel();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(false, `Expected closing programmatically to set the panel state to closed.`);
-      expect(overlayContainerElement.textContent)
-        .toEqual('', `Expected closing programmatically to close the panel.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected closing programmatically to set the panel state to closed.`
+      );
+      expect(overlayContainerElement.textContent).toEqual(
+        '',
+        `Expected closing programmatically to close the panel.`
+      );
     });
 
     it('should not throw when attempting to close the panel of a destroyed autocomplete', () => {
@@ -234,16 +320,23 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       fixture.destroy();
 
-      expect(() => { trigger.closePanel(); }).not.toThrow();
+      expect(() => {
+        trigger.closePanel();
+      }).not.toThrow();
     });
 
     it('should hide the panel when the options list is empty', fakeAsync(() => {
       dispatchFakeEvent(input, 'focusin');
       fixture.detectChanges();
 
-      const panel = overlayContainerElement.querySelector('.dt-autocomplete-panel') as HTMLElement;
+      const panel = overlayContainerElement.querySelector(
+        '.dt-autocomplete-panel'
+      ) as HTMLElement;
 
-      expect(panel.classList).toContain('dt-autocomplete-visible', `Expected panel to start out visible.`);
+      expect(panel.classList).toContain(
+        'dt-autocomplete-visible',
+        `Expected panel to start out visible.`
+      );
 
       // Filter down the option list such that no options match the value
       typeInElement('af', input);
@@ -251,19 +344,26 @@ describe('DtAutocomplete', () => {
       tick();
       fixture.detectChanges();
 
-      expect(panel.classList).toContain('dt-autocomplete-hidden', `Expected panel to hide itself when empty.`);
+      expect(panel.classList).toContain(
+        'dt-autocomplete-hidden',
+        `Expected panel to hide itself when empty.`
+      );
     }));
 
     it('should not open the panel when the `input` event is invoked on a non-focused input', () => {
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(false, `Expected panel state to start out closed.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected panel state to start out closed.`
+      );
 
       input.value = 'Alabama';
       dispatchFakeEvent(input, 'input');
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(false, `Expected panel state to stay closed.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected panel state to stay closed.`
+      );
     });
 
     it('should toggle the visibility when typing and closing the panel', fakeAsync(() => {
@@ -271,16 +371,20 @@ describe('DtAutocomplete', () => {
       tick();
       fixture.detectChanges();
 
-      expect(overlayContainerElement.querySelector('.dt-autocomplete-panel')!.classList)
-        .toContain('dt-autocomplete-visible', 'Expected panel to be visible.');
+      expect(
+        overlayContainerElement.querySelector('.dt-autocomplete-panel')!
+          .classList
+      ).toContain('dt-autocomplete-visible', 'Expected panel to be visible.');
 
       typeInElement('x', input);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
 
-      expect(overlayContainerElement.querySelector('.dt-autocomplete-panel')!.classList)
-        .toContain('dt-autocomplete-hidden', 'Expected panel to be hidden.');
+      expect(
+        overlayContainerElement.querySelector('.dt-autocomplete-panel')!
+          .classList
+      ).toContain('dt-autocomplete-hidden', 'Expected panel to be hidden.');
 
       fixture.componentInstance.trigger.closePanel();
       fixture.detectChanges();
@@ -293,18 +397,24 @@ describe('DtAutocomplete', () => {
       tick();
       fixture.detectChanges();
 
-      expect(overlayContainerElement.querySelector('.dt-autocomplete-panel')!.classList)
-        .toContain('dt-autocomplete-visible', 'Expected panel to be visible.');
+      expect(
+        overlayContainerElement.querySelector('.dt-autocomplete-panel')!
+          .classList
+      ).toContain('dt-autocomplete-visible', 'Expected panel to be visible.');
     }));
 
     it('should provide the open state of the panel', fakeAsync(() => {
-      expect(fixture.componentInstance.panel.isOpen).toBeFalsy(`Expected the panel to be unopened initially.`);
+      expect(fixture.componentInstance.panel.isOpen).toBeFalsy(
+        `Expected the panel to be unopened initially.`
+      );
 
       dispatchFakeEvent(input, 'focusin');
       fixture.detectChanges();
       flush();
 
-      expect(fixture.componentInstance.panel.isOpen).toBeTruthy(`Expected the panel to be opened on focus.`);
+      expect(fixture.componentInstance.panel.isOpen).toBeTruthy(
+        `Expected the panel to be opened on focus.`
+      );
     }));
 
     it('should emit an event when the panel is opened', () => {
@@ -362,7 +472,10 @@ describe('DtAutocomplete', () => {
     });
 
     it('should not be able to open the panel if the autocomplete is disabled', () => {
-      expect(fixture.componentInstance.trigger.panelOpen).toBe(false, `Expected panel state to start out closed.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected panel state to start out closed.`
+      );
 
       fixture.componentInstance.autocompleteDisabled = true;
       fixture.detectChanges();
@@ -370,12 +483,17 @@ describe('DtAutocomplete', () => {
       dispatchFakeEvent(input, 'focusin');
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.trigger.panelOpen).toBe(false, `Expected panel to remain closed.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected panel to remain closed.`
+      );
     });
   });
 
   it('should be able to set a custom value for the `autocomplete` attribute', () => {
-    const fixture = createComponent(AutocompleteWithNativeAutocompleteAttribute);
+    const fixture = createComponent(
+      AutocompleteWithNativeAutocompleteAttribute
+    );
     const input = fixture.nativeElement.querySelector('input');
 
     fixture.detectChanges();
@@ -388,7 +506,11 @@ describe('DtAutocomplete', () => {
     fixture.detectChanges();
 
     expect(() => {
-      dispatchKeyboardEvent(fixture.nativeElement.querySelector('input'), 'keydown', SPACE);
+      dispatchKeyboardEvent(
+        fixture.nativeElement.querySelector('input'),
+        'keydown',
+        SPACE
+      );
       fixture.detectChanges();
     }).not.toThrow();
   });
@@ -412,12 +534,18 @@ describe('DtAutocomplete', () => {
       typeInElement('a', input);
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.value).toEqual('a', 'Expected control value to be updated as user types.');
+      expect(fixture.componentInstance.stateCtrl.value).toEqual(
+        'a',
+        'Expected control value to be updated as user types.'
+      );
 
       typeInElement('al', input);
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.value).toEqual('al', 'Expected control value to be updated as user types.');
+      expect(fixture.componentInstance.stateCtrl.value).toEqual(
+        'al',
+        'Expected control value to be updated as user types.'
+      );
     });
 
     it('should update control value when option is selected with option value', fakeAsync(() => {
@@ -425,12 +553,16 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      const options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      const options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[1].click();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.value)
-        .toEqual({ code: 'CA', name: 'California' }, 'Expected control value to equal the selected option value.');
+      expect(fixture.componentInstance.stateCtrl.value).toEqual(
+        { code: 'CA', name: 'California' },
+        'Expected control value to equal the selected option value.'
+      );
     }));
 
     it('should update the control back to a string if user types after an option is selected', fakeAsync(() => {
@@ -438,8 +570,9 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      const options =
-        overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      const options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[1].click();
       fixture.detectChanges();
 
@@ -447,8 +580,10 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       tick();
 
-      expect(fixture.componentInstance.stateCtrl.value)
-        .toEqual('Californi', 'Expected control value to revert back to string.');
+      expect(fixture.componentInstance.stateCtrl.value).toEqual(
+        'Californi',
+        'Expected control value to revert back to string.'
+      );
     }));
 
     it('should fill the text field with display value when an option is selected', fakeAsync(() => {
@@ -456,13 +591,16 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      const options =
-        overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      const options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[1].click();
       fixture.detectChanges();
 
-      expect(input.value)
-        .toContain('California', `Expected text field to fill with selected value.`);
+      expect(input.value).toContain(
+        'California',
+        `Expected text field to fill with selected value.`
+      );
     }));
 
     it('should fill the text field with value if displayWith is not set', fakeAsync(() => {
@@ -474,23 +612,31 @@ describe('DtAutocomplete', () => {
       fixture.componentInstance.options.toArray()[1].value = 'test value';
       fixture.detectChanges();
 
-      const options =
-        overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      const options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[1].click();
 
       fixture.detectChanges();
-      expect(input.value)
-        .toContain('test value', `Expected input to fall back to selected option's value.`);
+      expect(input.value).toContain(
+        'test value',
+        `Expected input to fall back to selected option's value.`
+      );
     }));
 
     it('should fill the text field correctly if value is set to obj programmatically', fakeAsync(() => {
-      fixture.componentInstance.stateCtrl.setValue({ code: 'AL', name: 'Alabama' });
+      fixture.componentInstance.stateCtrl.setValue({
+        code: 'AL',
+        name: 'Alabama',
+      });
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
 
-      expect(input.value)
-        .toContain('Alabama', `Expected input to fill with matching option's viewValue.`);
+      expect(input.value).toContain(
+        'Alabama',
+        `Expected input to fill with matching option's viewValue.`
+      );
     }));
 
     it('should clear the text field if value is reset programmatically', fakeAsync(() => {
@@ -504,108 +650,150 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       tick();
 
-      expect(input.value).toEqual('', `Expected input value to be empty after reset.`);
+      expect(input.value).toEqual(
+        '',
+        `Expected input value to be empty after reset.`
+      );
     }));
 
     it('should disable input in view when disabled programmatically', () => {
-      const formFieldElement =
-        fixture.debugElement.query(By.css('.dt-form-field')).nativeElement;
+      const formFieldElement = fixture.debugElement.query(
+        By.css('.dt-form-field')
+      ).nativeElement;
 
-      expect(input.disabled)
-        .toBe(false, `Expected input to start out enabled in view.`);
-      expect(formFieldElement.classList.contains('dt-form-field-disabled'))
-        .toBe(false, `Expected input underline to start out with normal styles.`);
+      expect(input.disabled).toBe(
+        false,
+        `Expected input to start out enabled in view.`
+      );
+      expect(
+        formFieldElement.classList.contains('dt-form-field-disabled')
+      ).toBe(
+        false,
+        `Expected input underline to start out with normal styles.`
+      );
 
       fixture.componentInstance.stateCtrl.disable();
       fixture.detectChanges();
 
-      expect(input.disabled)
-        .toBe(true, `Expected input to be disabled in view when disabled programmatically.`);
-      expect(formFieldElement.classList.contains('dt-form-field-disabled'))
-        .toBe(true, `Expected input underline to display disabled styles.`);
+      expect(input.disabled).toBe(
+        true,
+        `Expected input to be disabled in view when disabled programmatically.`
+      );
+      expect(
+        formFieldElement.classList.contains('dt-form-field-disabled')
+      ).toBe(true, `Expected input underline to display disabled styles.`);
     });
 
     it('should mark the autocomplete control as dirty as user types', () => {
-      expect(fixture.componentInstance.stateCtrl.dirty).toBe(false, `Expected control to start out pristine.`);
+      expect(fixture.componentInstance.stateCtrl.dirty).toBe(
+        false,
+        `Expected control to start out pristine.`
+      );
 
       typeInElement('a', input);
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.dirty)
-        .toBe(true, `Expected control to become dirty when the user types into the input.`);
+      expect(fixture.componentInstance.stateCtrl.dirty).toBe(
+        true,
+        `Expected control to become dirty when the user types into the input.`
+      );
     });
 
     it('should mark the autocomplete control as dirty when an option is selected', fakeAsync(() => {
-      expect(fixture.componentInstance.stateCtrl.dirty)
-        .toBe(false, `Expected control to start out pristine.`);
+      expect(fixture.componentInstance.stateCtrl.dirty).toBe(
+        false,
+        `Expected control to start out pristine.`
+      );
 
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      const options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      const options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[1].click();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.dirty)
-        .toBe(true, `Expected control to become dirty when an option was selected.`);
+      expect(fixture.componentInstance.stateCtrl.dirty).toBe(
+        true,
+        `Expected control to become dirty when an option was selected.`
+      );
     }));
 
     it('should not mark the control dirty when the value is set programmatically', () => {
-      expect(fixture.componentInstance.stateCtrl.dirty)
-        .toBe(false, `Expected control to start out pristine.`);
+      expect(fixture.componentInstance.stateCtrl.dirty).toBe(
+        false,
+        `Expected control to start out pristine.`
+      );
 
       fixture.componentInstance.stateCtrl.setValue('AL');
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.dirty)
-        .toBe(false, `Expected control to stay pristine if value is set programmatically.`);
+      expect(fixture.componentInstance.stateCtrl.dirty).toBe(
+        false,
+        `Expected control to stay pristine if value is set programmatically.`
+      );
     });
 
     it('should mark the autocomplete control as touched on blur', () => {
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
-      expect(fixture.componentInstance.stateCtrl.touched)
-        .toBe(false, `Expected control to start out untouched.`);
+      expect(fixture.componentInstance.stateCtrl.touched).toBe(
+        false,
+        `Expected control to start out untouched.`
+      );
 
       dispatchFakeEvent(input, 'blur');
       fixture.detectChanges();
       fixture.componentInstance.trigger.closePanel();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.touched)
-        .toBe(true, `Expected control to become touched on blur.`);
+      expect(fixture.componentInstance.stateCtrl.touched).toBe(
+        true,
+        `Expected control to become touched on blur.`
+      );
     });
 
     it('should mark the autocomplete control as touched on blur if the panel is closed', () => {
-      expect(fixture.componentInstance.stateCtrl.touched)
-        .toBe(false, 'Expected control to start out untouched.');
+      expect(fixture.componentInstance.stateCtrl.touched).toBe(
+        false,
+        'Expected control to start out untouched.'
+      );
 
       dispatchFakeEvent(input, 'blur');
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.touched)
-        .toBe(true, `Expected control to become touched on blur.`);
+      expect(fixture.componentInstance.stateCtrl.touched).toBe(
+        true,
+        `Expected control to become touched on blur.`
+      );
     });
 
     it('should not mark the autocomplete control as touched if the input was blurred while the panel is open', () => {
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.touched)
-        .toBe(false, 'Expected control to start out untouched.');
+      expect(fixture.componentInstance.stateCtrl.touched).toBe(
+        false,
+        'Expected control to start out untouched.'
+      );
 
       dispatchFakeEvent(input, 'blur');
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.touched)
-        .toBe(false, 'Expected control to remain untouched.');
+      expect(fixture.componentInstance.stateCtrl.touched).toBe(
+        false,
+        'Expected control to remain untouched.'
+      );
 
       fixture.componentInstance.trigger.closePanel();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.touched)
-        .toBe(true, 'Expected control to be touched once the panel is closed.');
+      expect(fixture.componentInstance.stateCtrl.touched).toBe(
+        true,
+        'Expected control to be touched once the panel is closed.'
+      );
     });
 
     it('should disable the input when used with a value accessor and without `dtInput`', () => {
@@ -613,7 +801,9 @@ describe('DtAutocomplete', () => {
       fixture.destroy();
       TestBed.resetTestingModule();
 
-      const plainFixture = createComponent(PlainAutocompleteInputWithFormControl);
+      const plainFixture = createComponent(
+        PlainAutocompleteInputWithFormControl
+      );
       plainFixture.detectChanges();
       input = plainFixture.nativeElement.querySelector('input');
 
@@ -651,63 +841,88 @@ describe('DtAutocomplete', () => {
       spyOn(fixture.componentInstance.options.first, 'focus');
 
       fixture.componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
-      expect(fixture.componentInstance.options.first.focus).not.toHaveBeenCalled();
+      expect(
+        fixture.componentInstance.options.first.focus
+      ).not.toHaveBeenCalled();
     });
 
     it('should not close the panel when DOWN key is pressed', () => {
       fixture.componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(true, `Expected panel state to stay open when DOWN key is pressed.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('Alabama', `Expected panel to keep displaying when DOWN key is pressed.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('California', `Expected panel to keep displaying when DOWN key is pressed.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        true,
+        `Expected panel state to stay open when DOWN key is pressed.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'Alabama',
+        `Expected panel to keep displaying when DOWN key is pressed.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'California',
+        `Expected panel to keep displaying when DOWN key is pressed.`
+      );
     });
 
     it('should set the active item to the first option when DOWN key is pressed', () => {
       const componentInstance = fixture.componentInstance;
-      const optionEls = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      const optionEls = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
 
-      expect(componentInstance.trigger.panelOpen).toBe(true, 'Expected first down press to open the pane.');
+      expect(componentInstance.trigger.panelOpen).toBe(
+        true,
+        'Expected first down press to open the pane.'
+      );
 
       componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
       fixture.detectChanges();
 
-      expect(componentInstance.trigger.activeOption === componentInstance.options.first)
-        .toBe(true, 'Expected first option to be active.');
+      expect(
+        componentInstance.trigger.activeOption ===
+          componentInstance.options.first
+      ).toBe(true, 'Expected first option to be active.');
       expect(optionEls[0].classList).toContain('dt-option-active');
       expect(optionEls[1].classList).not.toContain('dt-option-active');
 
       componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
       fixture.detectChanges();
 
-      expect(componentInstance.trigger.activeOption === componentInstance.options.toArray()[1])
-        .toBe(true, 'Expected second option to be active.');
+      expect(
+        componentInstance.trigger.activeOption ===
+          componentInstance.options.toArray()[1]
+      ).toBe(true, 'Expected second option to be active.');
       expect(optionEls[0].classList).not.toContain('dt-option-active');
       expect(optionEls[1].classList).toContain('dt-option-active');
     });
 
     it('should set the active item to the last option when UP key is pressed', () => {
       const componentInstance = fixture.componentInstance;
-      const optionEls = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      const optionEls = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
 
-      expect(componentInstance.trigger.panelOpen)
-        .toBe(true, 'Expected first up press to open the pane.');
+      expect(componentInstance.trigger.panelOpen).toBe(
+        true,
+        'Expected first up press to open the pane.'
+      );
 
       componentInstance.trigger._handleKeydown(UP_ARROW_EVENT);
       fixture.detectChanges();
 
-      expect(componentInstance.trigger.activeOption === componentInstance.options.last)
-        .toBe(true, 'Expected last option to be active.');
+      expect(
+        componentInstance.trigger.activeOption ===
+          componentInstance.options.last
+      ).toBe(true, 'Expected last option to be active.');
       expect(optionEls[10].classList).toContain('dt-option-active');
       expect(optionEls[0].classList).not.toContain('dt-option-active');
 
       componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
       fixture.detectChanges();
 
-      expect(componentInstance.trigger.activeOption === componentInstance.options.first)
-        .toBe(true, 'Expected first option to be active.');
+      expect(
+        componentInstance.trigger.activeOption ===
+          componentInstance.options.first
+      ).toBe(true, 'Expected first option to be active.');
       expect(optionEls[0].classList).toContain('dt-option-active');
     });
 
@@ -728,10 +943,14 @@ describe('DtAutocomplete', () => {
       componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
       fixture.detectChanges();
 
-      const optionEls = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      const optionEls = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
 
-      expect(componentInstance.trigger.activeOption === componentInstance.options.first)
-        .toBe(true, 'Expected first option to be active.');
+      expect(
+        componentInstance.trigger.activeOption ===
+          componentInstance.options.first
+      ).toBe(true, 'Expected first option to be active.');
       expect(optionEls[0].classList).toContain('dt-option-active');
       expect(optionEls[1].classList).not.toContain('dt-option-active');
     });
@@ -743,8 +962,10 @@ describe('DtAutocomplete', () => {
 
       fixture.componentInstance.trigger._handleKeydown(ENTER_EVENT);
       fixture.detectChanges();
-      expect(input.value)
-        .toContain('Alabama', `Expected text field to fill with selected value on ENTER.`);
+      expect(input.value).toContain(
+        'Alabama',
+        `Expected text field to fill with selected value on ENTER.`
+      );
     }));
 
     it('should prevent the default enter key action', fakeAsync(() => {
@@ -753,8 +974,10 @@ describe('DtAutocomplete', () => {
 
       fixture.componentInstance.trigger._handleKeydown(ENTER_EVENT);
 
-      expect(ENTER_EVENT.defaultPrevented)
-        .toBe(true, 'Expected the default action to have been prevented.');
+      expect(ENTER_EVENT.defaultPrevented).toBe(
+        true,
+        'Expected the default action to have been prevented.'
+      );
     }));
 
     it('should not prevent the default enter action for a closed panel after a user action', () => {
@@ -765,7 +988,10 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       fixture.componentInstance.trigger._handleKeydown(ENTER_EVENT);
 
-      expect(ENTER_EVENT.defaultPrevented).toBe(false, 'Default action should not be prevented.');
+      expect(ENTER_EVENT.defaultPrevented).toBe(
+        false,
+        'Default action should not be prevented.'
+      );
     });
 
     it('should fill the text field, not select an option, when SPACE is entered', () => {
@@ -779,19 +1005,27 @@ describe('DtAutocomplete', () => {
       fixture.componentInstance.trigger._handleKeydown(SPACE_EVENT);
       fixture.detectChanges();
 
-      expect(input.value).not.toContain('New York', `Expected option not to be selected on SPACE.`);
+      expect(input.value).not.toContain(
+        'New York',
+        `Expected option not to be selected on SPACE.`
+      );
     });
 
     it('should mark the control dirty when selecting an option from the keyboard', fakeAsync(() => {
-      expect(fixture.componentInstance.stateCtrl.dirty).toBe(false, `Expected control to start out pristine.`);
+      expect(fixture.componentInstance.stateCtrl.dirty).toBe(
+        false,
+        `Expected control to start out pristine.`
+      );
 
       fixture.componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
       flush();
       fixture.componentInstance.trigger._handleKeydown(ENTER_EVENT);
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.stateCtrl.dirty)
-        .toBe(true, `Expected control to become dirty when option was selected by ENTER.`);
+      expect(fixture.componentInstance.stateCtrl.dirty).toBe(
+        true,
+        `Expected control to become dirty when option was selected by ENTER.`
+      );
     }));
 
     it('should open the panel again when typing after making a selection', fakeAsync(() => {
@@ -800,20 +1034,28 @@ describe('DtAutocomplete', () => {
       fixture.componentInstance.trigger._handleKeydown(ENTER_EVENT);
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(false, `Expected panel state to read closed after ENTER key.`);
-      expect(overlayContainerElement.textContent)
-        .toEqual('', `Expected panel to close after ENTER key.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected panel state to read closed after ENTER key.`
+      );
+      expect(overlayContainerElement.textContent).toEqual(
+        '',
+        `Expected panel to close after ENTER key.`
+      );
 
       dispatchFakeEvent(input, 'focusin');
       typeInElement('Alabama', input);
       fixture.detectChanges();
       tick();
 
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(true, `Expected panel state to read open when typing in input.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('Alabama', `Expected panel to display when typing in input.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        true,
+        `Expected panel state to read open when typing in input.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'Alabama',
+        `Expected panel to display when typing in input.`
+      );
     }));
 
     it('should not open the panel if the `input` event was dispatched with changing the value', fakeAsync(() => {
@@ -847,13 +1089,19 @@ describe('DtAutocomplete', () => {
       flush();
       fixture.detectChanges();
 
-      expect(document.activeElement).toBe(input, 'Expected input to be focused.');
+      expect(document.activeElement).toBe(
+        input,
+        'Expected input to be focused.'
+      );
       expect(trigger.panelOpen).toBe(true, 'Expected panel to be open.');
 
       dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
       fixture.detectChanges();
 
-      expect(document.activeElement).toBe(input, 'Expected input to continue to be focused.');
+      expect(document.activeElement).toBe(
+        input,
+        'Expected input to continue to be focused.'
+      );
       expect(trigger.panelOpen).toBe(false, 'Expected panel to be closed.');
     }));
 
@@ -873,13 +1121,19 @@ describe('DtAutocomplete', () => {
       flush();
       fixture.detectChanges();
 
-      expect(document.activeElement).toBe(input, 'Expected input to be focused.');
+      expect(document.activeElement).toBe(
+        input,
+        'Expected input to be focused.'
+      );
       expect(trigger.panelOpen).toBe(true, 'Expected panel to be open.');
 
       dispatchEvent(document.body, upArrowEvent);
       fixture.detectChanges();
 
-      expect(document.activeElement).toBe(input, 'Expected input to continue to be focused.');
+      expect(document.activeElement).toBe(
+        input,
+        'Expected input to continue to be focused.'
+      );
       expect(trigger.panelOpen).toBe(false, 'Expected panel to be closed.');
     }));
 
@@ -890,13 +1144,16 @@ describe('DtAutocomplete', () => {
       input.focus();
       flush();
 
-      expect(overlayContainerElement.querySelector('.dt-autocomplete-panel')).toBeTruthy('Expected panel to be rendered.');
+      expect(
+        overlayContainerElement.querySelector('.dt-autocomplete-panel')
+      ).toBeTruthy('Expected panel to be rendered.');
 
       dispatchKeyboardEvent(input, 'keydown', TAB);
       fixture.detectChanges();
 
-      expect(overlayContainerElement.querySelector('.dt-autocomplete-panel'))
-        .toBeFalsy('Expected panel to be removed.');
+      expect(
+        overlayContainerElement.querySelector('.dt-autocomplete-panel')
+      ).toBeFalsy('Expected panel to be removed.');
     }));
 
     it('should reset the active option when closing with the escape key', fakeAsync(() => {
@@ -918,7 +1175,10 @@ describe('DtAutocomplete', () => {
 
       // Note that this casts to a boolean, in order to prevent Jasmine
       // from crashing when trying to stringify the option if the test fails.
-      expect(!!trigger.activeOption).toBe(true, 'Expected to find an active option.');
+      expect(!!trigger.activeOption).toBe(
+        true,
+        'Expected to find an active option.'
+      );
 
       dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
       tick();
@@ -945,7 +1205,10 @@ describe('DtAutocomplete', () => {
 
       // Note that this casts to a boolean, in order to prevent Jasmine
       // from crashing when trying to stringify the option if the test fails.
-      expect(!!trigger.activeOption).toBe(true, 'Expected to find an active option.');
+      expect(!!trigger.activeOption).toBe(
+        true,
+        'Expected to find an active option.'
+      );
 
       trigger._handleKeydown(ENTER_EVENT);
       tick();
@@ -966,31 +1229,40 @@ describe('DtAutocomplete', () => {
     });
 
     it('should set role of input to combobox', () => {
-      expect(input.getAttribute('role'))
-        .toEqual('combobox', 'Expected role of input to be combobox.');
+      expect(input.getAttribute('role')).toEqual(
+        'combobox',
+        'Expected role of input to be combobox.'
+      );
     });
 
     it('should set role of autocomplete panel to listbox', () => {
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
 
-      const panel = fixture.debugElement.query(By.css('.dt-autocomplete-panel')).nativeElement;
+      const panel = fixture.debugElement.query(By.css('.dt-autocomplete-panel'))
+        .nativeElement;
 
-      expect(panel.getAttribute('role'))
-        .toEqual('listbox', 'Expected role of the panel to be listbox.');
+      expect(panel.getAttribute('role')).toEqual(
+        'listbox',
+        'Expected role of the panel to be listbox.'
+      );
     });
 
     it('should set aria-autocomplete to list', () => {
-      expect(input.getAttribute('aria-autocomplete'))
-        .toEqual('list', 'Expected aria-autocomplete attribute to equal list.');
+      expect(input.getAttribute('aria-autocomplete')).toEqual(
+        'list',
+        'Expected aria-autocomplete attribute to equal list.'
+      );
     });
 
     it('should set aria-activedescendant based on the active option', fakeAsync(() => {
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
 
-      expect(input.hasAttribute('aria-activedescendant'))
-        .toBe(false, 'Expected aria-activedescendant to be absent if no active item.');
+      expect(input.hasAttribute('aria-activedescendant')).toBe(
+        false,
+        'Expected aria-activedescendant to be absent if no active item.'
+      );
 
       const DOWN_ARROW_EVENT = createKeyboardEvent('keydown', DOWN_ARROW);
 
@@ -1000,7 +1272,8 @@ describe('DtAutocomplete', () => {
 
       expect(input.getAttribute('aria-activedescendant')).toEqual(
         fixture.componentInstance.options.first.id,
-        'Expected aria-activedescendant to match the active item after 1 down arrow.');
+        'Expected aria-activedescendant to match the active item after 1 down arrow.'
+      );
 
       fixture.componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
       tick();
@@ -1008,49 +1281,63 @@ describe('DtAutocomplete', () => {
 
       expect(input.getAttribute('aria-activedescendant')).toEqual(
         fixture.componentInstance.options.toArray()[1].id,
-        'Expected aria-activedescendant to match the active item after 2 down arrows.');
+        'Expected aria-activedescendant to match the active item after 2 down arrows.'
+      );
     }));
 
     it('should set aria-expanded based on whether the panel is open', () => {
-      expect(input.getAttribute('aria-expanded'))
-        .toBe('false', 'Expected aria-expanded to be false while panel is closed.');
+      expect(input.getAttribute('aria-expanded')).toBe(
+        'false',
+        'Expected aria-expanded to be false while panel is closed.'
+      );
 
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
 
-      expect(input.getAttribute('aria-expanded'))
-        .toBe('true', 'Expected aria-expanded to be true while panel is open.');
+      expect(input.getAttribute('aria-expanded')).toBe(
+        'true',
+        'Expected aria-expanded to be true while panel is open.'
+      );
 
       fixture.componentInstance.trigger.closePanel();
       fixture.detectChanges();
 
-      expect(input.getAttribute('aria-expanded'))
-        .toBe('false', 'Expected aria-expanded to be false when panel closes again.');
+      expect(input.getAttribute('aria-expanded')).toBe(
+        'false',
+        'Expected aria-expanded to be false when panel closes again.'
+      );
     });
 
     it('should set aria-expanded properly when the panel is hidden', fakeAsync(() => {
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
-      expect(input.getAttribute('aria-expanded'))
-        .toBe('true', 'Expected aria-expanded to be true while panel is open.');
+      expect(input.getAttribute('aria-expanded')).toBe(
+        'true',
+        'Expected aria-expanded to be true while panel is open.'
+      );
 
       typeInElement('zz', input);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
 
-      expect(input.getAttribute('aria-expanded'))
-        .toBe('false', 'Expected aria-expanded to be false when panel hides itself.');
+      expect(input.getAttribute('aria-expanded')).toBe(
+        'false',
+        'Expected aria-expanded to be false when panel hides itself.'
+      );
     }));
 
     it('should set aria-owns based on the attached autocomplete', () => {
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
 
-      const panel = fixture.debugElement.query(By.css('.dt-autocomplete-panel')).nativeElement;
+      const panel = fixture.debugElement.query(By.css('.dt-autocomplete-panel'))
+        .nativeElement;
 
-      expect(input.getAttribute('aria-owns'))
-        .toBe(panel.getAttribute('id'), 'Expected aria-owns to match attached autocomplete.');
+      expect(input.getAttribute('aria-owns')).toBe(
+        panel.getAttribute('id'),
+        'Expected aria-owns to match attached autocomplete.'
+      );
     });
 
     it('should not set aria-owns while the autocomplete is closed', () => {
@@ -1067,14 +1354,19 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+      const option = overlayContainerElement.querySelector(
+        'dt-option'
+      ) as HTMLElement;
 
       // Focus the option manually since the synthetic click may not do it.
       option.focus();
       option.click();
       fixture.detectChanges();
 
-      expect(document.activeElement).toBe(input, 'Expected focus to be restored to the input.');
+      expect(document.activeElement).toBe(
+        input,
+        'Expected focus to be restored to the input.'
+      );
     }));
 
     it('should remove autocomplete-specific aria attributes when autocomplete is disabled', () => {
@@ -1100,45 +1392,66 @@ describe('DtAutocomplete', () => {
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
 
-      let options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      let options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[0].click();
       fixture.detectChanges();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
       const componentOptions = fixture.componentInstance.options.toArray();
-      expect(componentOptions[0].selected).toBe(true, `Clicked option should be selected.`);
+      expect(componentOptions[0].selected).toBe(
+        true,
+        `Clicked option should be selected.`
+      );
 
-      options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[1].click();
       fixture.detectChanges();
 
-      expect(componentOptions[0].selected).toBe(false, `Previous option should not be selected.`);
-      expect(componentOptions[1].selected).toBe(true, `New Clicked option should be selected.`);
+      expect(componentOptions[0].selected).toBe(
+        false,
+        `Previous option should not be selected.`
+      );
+      expect(componentOptions[1].selected).toBe(
+        true,
+        `New Clicked option should be selected.`
+      );
     }));
 
     it('should call deselect only on the previous selected option', fakeAsync(() => {
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
 
-      let options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      let options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[0].click();
       fixture.detectChanges();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
       const componentOptions = fixture.componentInstance.options.toArray();
-      componentOptions.forEach((option) => spyOn(option, 'deselect'));
+      componentOptions.forEach(option => spyOn(option, 'deselect'));
 
-      expect(componentOptions[0].selected)
-        .toBe(true, `Clicked option should be selected.`);
+      expect(componentOptions[0].selected).toBe(
+        true,
+        `Clicked option should be selected.`
+      );
 
-      options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+      options = overlayContainerElement.querySelectorAll<HTMLElement>(
+        'dt-option'
+      );
       options[1].click();
       fixture.detectChanges();
 
       expect(componentOptions[0].deselect).toHaveBeenCalled();
-      componentOptions.slice(1).forEach((option) => expect(option.deselect).not.toHaveBeenCalled());
+      componentOptions
+        .slice(1)
+        .forEach(option => expect(option.deselect).not.toHaveBeenCalled());
     }));
 
     it('should be able to preselect the first option', fakeAsync(() => {
@@ -1148,8 +1461,12 @@ describe('DtAutocomplete', () => {
       zone.simulateZoneExit();
       fixture.detectChanges();
 
-      expect(overlayContainerElement.querySelectorAll('dt-option')[0].classList)
-        .toContain('dt-option-active', 'Expected first option to be highlighted.');
+      expect(
+        overlayContainerElement.querySelectorAll('dt-option')[0].classList
+      ).toContain(
+        'dt-option-active',
+        'Expected first option to be highlighted.'
+      );
     }));
 
     it('should be able to preselect the first option on focus', fakeAsync(() => {
@@ -1160,8 +1477,12 @@ describe('DtAutocomplete', () => {
       dispatchFakeEvent(input, 'focusin');
       zone.simulateZoneExit();
 
-      expect(overlayContainerElement.querySelectorAll('dt-option')[0].classList)
-        .toContain('dt-option-active', 'Expected first option to be highlighted.');
+      expect(
+        overlayContainerElement.querySelectorAll('dt-option')[0].classList
+      ).toContain(
+        'dt-option-active',
+        'Expected first option to be highlighted.'
+      );
     }));
 
     it('should be able to configure preselecting the first option globally', fakeAsync(() => {
@@ -1169,7 +1490,10 @@ describe('DtAutocomplete', () => {
       fixture.destroy();
       TestBed.resetTestingModule();
       fixture = createComponent(SimpleAutocomplete, [
-        { provide: DT_AUTOCOMPLETE_DEFAULT_OPTIONS, useValue: { autoActiveFirstOption: true } },
+        {
+          provide: DT_AUTOCOMPLETE_DEFAULT_OPTIONS,
+          useValue: { autoActiveFirstOption: true },
+        },
       ]);
 
       fixture.detectChanges();
@@ -1178,8 +1502,12 @@ describe('DtAutocomplete', () => {
       zone.simulateZoneExit();
       fixture.detectChanges();
 
-      expect(overlayContainerElement.querySelectorAll('dt-option')[0].classList)
-        .toContain('dt-option-active', 'Expected first option to be highlighted.');
+      expect(
+        overlayContainerElement.querySelectorAll('dt-option')[0].classList
+      ).toContain(
+        'dt-option-active',
+        'Expected first option to be highlighted.'
+      );
     }));
 
     // it('should handle `optionSelections` being accessed too early', fakeAsync(() => {
@@ -1212,24 +1540,30 @@ describe('DtAutocomplete', () => {
 
     it('should emit to `optionSelections` if the list of options changes', fakeAsync(() => {
       const spy = jasmine.createSpy('option selection spy');
-      const subscription = fixture.componentInstance.trigger.optionSelections.subscribe(spy);
+      const subscription = fixture.componentInstance.trigger.optionSelections.subscribe(
+        spy
+      );
       const openAndSelectFirstOption = () => {
         fixture.detectChanges();
         fixture.componentInstance.trigger.openPanel();
         fixture.detectChanges();
         zone.simulateZoneExit();
-        (overlayContainerElement.querySelector('dt-option') as HTMLElement).click();
+        (overlayContainerElement.querySelector(
+          'dt-option'
+        ) as HTMLElement).click();
         fixture.detectChanges();
         zone.simulateZoneExit();
       };
 
-      fixture.componentInstance.states = [{code: 'OR', name: 'Oregon'}];
+      fixture.componentInstance.states = [{ code: 'OR', name: 'Oregon' }];
       fixture.detectChanges();
 
       openAndSelectFirstOption();
       expect(spy).toHaveBeenCalledTimes(1);
 
-      fixture.componentInstance.states = [{code: 'WV', name: 'West Virginia'}];
+      fixture.componentInstance.states = [
+        { code: 'WV', name: 'West Virginia' },
+      ];
       fixture.detectChanges();
 
       openAndSelectFirstOption();
@@ -1258,7 +1592,9 @@ describe('DtAutocomplete', () => {
 
       trigger = fixture.componentInstance.trigger;
       closingActionSpy = jasmine.createSpy('closing action listener');
-      closingActionsSub = trigger.panelClosingActions.subscribe(closingActionSpy);
+      closingActionsSub = trigger.panelClosingActions.subscribe(
+        closingActionSpy
+      );
     }));
 
     afterEach(() => {
@@ -1298,11 +1634,15 @@ describe('DtAutocomplete', () => {
     });
 
     it('should emit panel close event when selecting an option', () => {
-      const option = overlayContainerElement.querySelector('dt-option') as HTMLElement;
+      const option = overlayContainerElement.querySelector(
+        'dt-option'
+      ) as HTMLElement;
 
       expect(closingActionSpy).not.toHaveBeenCalled();
       option.click();
-      expect(closingActionSpy).toHaveBeenCalledWith(jasmine.any(DtOptionSelectionChange));
+      expect(closingActionSpy).toHaveBeenCalledWith(
+        jasmine.any(DtOptionSelectionChange)
+      );
     });
 
     it('should close the panel when pressing escape', () => {
@@ -1321,7 +1661,10 @@ describe('DtAutocomplete', () => {
     });
 
     it('should not throw when clicking outside', fakeAsync(() => {
-      dispatchFakeEvent(fixture.debugElement.query(By.css('input')).nativeElement, 'focus');
+      dispatchFakeEvent(
+        fixture.debugElement.query(By.css('input')).nativeElement,
+        'focus'
+      );
       fixture.detectChanges();
       flush();
 
@@ -1330,7 +1673,6 @@ describe('DtAutocomplete', () => {
   });
 
   describe('misc', () => {
-
     it('should allow basic use without any forms directives', () => {
       expect(() => {
         const fixture = createComponent(AutocompleteWithoutForms);
@@ -1340,7 +1682,9 @@ describe('DtAutocomplete', () => {
         typeInElement('d', input);
         fixture.detectChanges();
 
-        const options = overlayContainerElement.querySelectorAll<HTMLElement>('dt-option');
+        const options = overlayContainerElement.querySelectorAll<HTMLElement>(
+          'dt-option'
+        );
         expect(options.length).toBe(1);
       }).not.toThrowError();
     });
@@ -1349,7 +1693,9 @@ describe('DtAutocomplete', () => {
       const fixture = createComponent(AutocompleteWithNgModel);
       fixture.detectChanges();
 
-      expect(fixture.debugElement.query(By.css('input')).nativeElement.value).toBe('');
+      expect(
+        fixture.debugElement.query(By.css('input')).nativeElement.value
+      ).toBe('');
     });
 
     it('should display the number when the selected option is the number zero', fakeAsync(() => {
@@ -1359,21 +1705,32 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
       tick();
 
-      expect(fixture.debugElement.query(By.css('input')).nativeElement.value).toBe('0');
+      expect(
+        fixture.debugElement.query(By.css('input')).nativeElement.value
+      ).toBe('0');
     }));
 
     it('should work when input is wrapped in ngIf', () => {
       const fixture = createComponent(NgIfAutocomplete);
       fixture.detectChanges();
 
-      dispatchFakeEvent(fixture.debugElement.query(By.css('input')).nativeElement, 'focusin');
+      dispatchFakeEvent(
+        fixture.debugElement.query(By.css('input')).nativeElement,
+        'focusin'
+      );
       fixture.detectChanges();
-      expect(fixture.componentInstance.trigger.panelOpen)
-        .toBe(true, `Expected panel state to read open when input is focused.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('One', `Expected panel to display when input is focused.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('Two', `Expected panel to display when input is focused.`);
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        true,
+        `Expected panel state to read open when input is focused.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'One',
+        `Expected panel to display when input is focused.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'Two',
+        `Expected panel to display when input is focused.`
+      );
     });
 
     it('should filter properly with ngIf after setting the active item', () => {
@@ -1431,27 +1788,36 @@ describe('DtAutocomplete', () => {
       dispatchFakeEvent(input, 'focusin');
       fixture.detectChanges();
 
-      expect(overlayContainerElement.textContent)
-        .toContain('First', `Expected panel to display the option of the first autocomplete.`);
-      expect(overlayContainerElement.textContent)
-        .not.toContain('Second', `Expected panel to not display the option of the second autocomplete.`);
+      expect(overlayContainerElement.textContent).toContain(
+        'First',
+        `Expected panel to display the option of the first autocomplete.`
+      );
+      expect(overlayContainerElement.textContent).not.toContain(
+        'Second',
+        `Expected panel to not display the option of the second autocomplete.`
+      );
 
       // close overlay
       dispatchFakeEvent(document, 'click');
       fixture.detectChanges();
 
       // Switch to second autocomplete
-      fixture.componentInstance.trigger.autocomplete = fixture.componentInstance.autoTow;
+      fixture.componentInstance.trigger.autocomplete =
+        fixture.componentInstance.autoTow;
       fixture.detectChanges();
 
       // reopen agian
       dispatchFakeEvent(input, 'focusin');
       fixture.detectChanges();
 
-      expect(overlayContainerElement.textContent)
-        .not.toContain('First', `Expected panel to not display the option of the first autocomplete.`);
-      expect(overlayContainerElement.textContent)
-        .toContain('Second', `Expected panel to display the option of the second autocomplete.`);
+      expect(overlayContainerElement.textContent).not.toContain(
+        'First',
+        `Expected panel to not display the option of the first autocomplete.`
+      );
+      expect(overlayContainerElement.textContent).toContain(
+        'Second',
+        `Expected panel to display the option of the second autocomplete.`
+      );
     });
 
     it('should transfer the dt-autocomplete classes to the panel element', fakeAsync(() => {
@@ -1462,8 +1828,12 @@ describe('DtAutocomplete', () => {
       tick();
       fixture.detectChanges();
 
-      const autocomplete = fixture.debugElement.nativeElement.querySelector('dt-autocomplete');
-      const panel = overlayContainerElement.querySelector('.dt-autocomplete-panel')!;
+      const autocomplete = fixture.debugElement.nativeElement.querySelector(
+        'dt-autocomplete'
+      );
+      const panel = overlayContainerElement.querySelector(
+        '.dt-autocomplete-panel'
+      )!;
 
       expect(autocomplete.classList).not.toContain('class-one');
       expect(autocomplete.classList).not.toContain('class-two');
@@ -1471,7 +1841,6 @@ describe('DtAutocomplete', () => {
       expect(panel.classList).toContain('class-one');
       expect(panel.classList).toContain('class-two');
     }));
-
   });
 });
 
@@ -1483,10 +1852,16 @@ describe('DtAutocomplete', () => {
         placeholder="State"
         [dtAutocomplete]="auto"
         [dtAutocompleteDisabled]="autocompleteDisabled"
-        [formControl]="stateCtrl">
+        [formControl]="stateCtrl"
+      />
     </dt-form-field>
-    <dt-autocomplete class="class-one class-two" #auto="dtAutocomplete" [displayWith]="displayFn"
-       (opened)="openedSpy()" (closed)="closedSpy()">
+    <dt-autocomplete
+      class="class-one class-two"
+      #auto="dtAutocomplete"
+      [displayWith]="displayFn"
+      (opened)="openedSpy()"
+      (closed)="closedSpy()"
+    >
       <dt-option *ngFor="let state of filteredStates" [value]="state">
         <span>{{ state.code }}: {{ state.name }}</span>
       </dt-option>
@@ -1502,7 +1877,8 @@ class SimpleAutocomplete implements OnDestroy {
   openedSpy = jasmine.createSpy('autocomplete opened spy');
   closedSpy = jasmine.createSpy('autocomplete closed spy');
 
-  @ViewChild(DtAutocompleteTrigger, { static: false }) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: false })
+  trigger: DtAutocompleteTrigger<any>;
   @ViewChild(DtAutocomplete, { static: false }) panel: DtAutocomplete<any>;
   @ViewChild(DtFormField, { static: false }) formField: DtFormField<any>;
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
@@ -1523,8 +1899,10 @@ class SimpleAutocomplete implements OnDestroy {
 
   constructor() {
     this.filteredStates = this.states;
-    this.valueSub = this.stateCtrl.valueChanges.subscribe((val) => {
-      this.filteredStates = val ? this.states.filter((s) => s.name.match(new RegExp(val, 'gi'))) : this.states;
+    this.valueSub = this.stateCtrl.valueChanges.subscribe(val => {
+      this.filteredStates = val
+        ? this.states.filter(s => s.name.match(new RegExp(val, 'gi')))
+        : this.states;
     });
   }
 
@@ -1539,7 +1917,7 @@ class SimpleAutocomplete implements OnDestroy {
 
 @Component({
   template: `
-    <input autocomplete="changed" [(ngModel)]="value" [dtAutocomplete]="auto"/>
+    <input autocomplete="changed" [(ngModel)]="value" [dtAutocomplete]="auto" />
     <dt-autocomplete #auto="dtAutocomplete"></dt-autocomplete>
   `,
 })
@@ -1550,11 +1928,11 @@ class AutocompleteWithNativeAutocompleteAttribute {
 @Component({
   template: '<input [dtAutocomplete]="null" dtAutocompleteDisabled>',
 })
-class InputWithoutAutocompleteAndDisabled { }
+class InputWithoutAutocompleteAndDisabled {}
 
 @Component({
   template: `
-    <input [formControl]="formControl" [dtAutocomplete]="auto"/>
+    <input [formControl]="formControl" [dtAutocomplete]="auto" />
     <dt-autocomplete #auto="dtAutocomplete"></dt-autocomplete>
   `,
 })
@@ -1564,10 +1942,17 @@ class PlainAutocompleteInputWithFormControl {
 
 @Component({
   template: `
-    <input placeholder="Choose" [dtAutocomplete]="auto" [formControl]="optionCtrl">
+    <input
+      placeholder="Choose"
+      [dtAutocomplete]="auto"
+      [formControl]="optionCtrl"
+    />
     <dt-autocomplete #auto="dtAutocomplete">
-      <dt-option *ngFor="let option of filteredOptions | async" [value]="option">
-         {{option}}
+      <dt-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option"
+      >
+        {{ option }}
       </dt-option>
     </dt-autocomplete>
   `,
@@ -1577,13 +1962,18 @@ class AutocompleteWithNativeInput {
   filteredOptions: Observable<any>;
   options = ['En', 'To', 'Tre', 'Fire', 'Fem'];
 
-  @ViewChild(DtAutocompleteTrigger, { static: false }) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: false })
+  trigger: DtAutocompleteTrigger<any>;
   @ViewChildren(DtOption) dtOptions: QueryList<DtOption<any>>;
 
   constructor() {
     this.filteredOptions = this.optionCtrl.valueChanges.pipe(
       startWith(null),
-      map((val: string) => val ? this.options.filter((option) => new RegExp(val, 'gi').test(option)) : this.options.slice())
+      map((val: string) =>
+        val
+          ? this.options.filter(option => new RegExp(val, 'gi').test(option))
+          : this.options.slice()
+      )
     );
   }
 }
@@ -1591,12 +1981,16 @@ class AutocompleteWithNativeInput {
 @Component({
   template: `
     <dt-form-field>
-      <input dtInput placeholder="State" [dtAutocomplete]="auto"
-      (input)="onInput($event.target?.value)">
+      <input
+        dtInput
+        placeholder="State"
+        [dtAutocomplete]="auto"
+        (input)="onInput($event.target?.value)"
+      />
     </dt-form-field>
     <dt-autocomplete #auto="dtAutocomplete">
       <dt-option *ngFor="let state of filteredStates" [value]="state">
-        <span> {{ state }}  </span>
+        <span> {{ state }} </span>
       </dt-option>
     </dt-autocomplete>
   `,
@@ -1610,15 +2004,22 @@ class AutocompleteWithoutForms {
   }
 
   onInput(value: any): void {
-    this.filteredStates = this.states.filter((s) => new RegExp(value, 'gi').test(s));
+    this.filteredStates = this.states.filter(s =>
+      new RegExp(value, 'gi').test(s)
+    );
   }
 }
 
 @Component({
   template: `
     <dt-form-field>
-      <input dtInput placeholder="State" [dtAutocomplete]="auto" [(ngModel)]="selectedState"
-      (ngModelChange)="onInput($event)">
+      <input
+        dtInput
+        placeholder="State"
+        [dtAutocomplete]="auto"
+        [(ngModel)]="selectedState"
+        (ngModelChange)="onInput($event)"
+      />
     </dt-form-field>
     <dt-autocomplete #auto="dtAutocomplete">
       <dt-option *ngFor="let state of filteredStates" [value]="state">
@@ -1637,14 +2038,21 @@ class AutocompleteWithNgModel {
   }
 
   onInput(value: any): void {
-    this.filteredStates = this.states.filter((s) => new RegExp(value, 'gi').test(s));
+    this.filteredStates = this.states.filter(s =>
+      new RegExp(value, 'gi').test(s)
+    );
   }
 }
 
 @Component({
   template: `
     <dt-form-field>
-      <input dtInput placeholder="Number" [dtAutocomplete]="auto" [(ngModel)]="selectedNumber">
+      <input
+        dtInput
+        placeholder="Number"
+        [dtAutocomplete]="auto"
+        [(ngModel)]="selectedNumber"
+      />
     </dt-form-field>
     <dt-autocomplete #auto="dtAutocomplete">
       <dt-option *ngFor="let number of numbers" [value]="number">
@@ -1661,11 +2069,19 @@ class AutocompleteWithNumbers {
 @Component({
   template: `
     <dt-form-field *ngIf="isVisible">
-      <input dtInput placeholder="Choose" [dtAutocomplete]="auto" [formControl]="optionCtrl">
+      <input
+        dtInput
+        placeholder="Choose"
+        [dtAutocomplete]="auto"
+        [formControl]="optionCtrl"
+      />
     </dt-form-field>
     <dt-autocomplete #auto="dtAutocomplete">
-      <dt-option *ngFor="let option of filteredOptions | async" [value]="option">
-         {{option}}
+      <dt-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option"
+      >
+        {{ option }}
       </dt-option>
     </dt-autocomplete>
   `,
@@ -1676,31 +2092,51 @@ class NgIfAutocomplete {
   isVisible = true;
   options = ['One', 'Two', 'Three'];
 
-  @ViewChild(DtAutocompleteTrigger, { static: false }) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: false })
+  trigger: DtAutocompleteTrigger<any>;
   @ViewChildren(DtOption) dtOptions: QueryList<DtOption<any>>;
 
   constructor() {
     this.filteredOptions = this.optionCtrl.valueChanges.pipe(
       startWith(null),
-      map((val: string) => val ? this.options.filter((option) => new RegExp(val, 'gi').test(option)) : this.options.slice()));
+      map((val: string) =>
+        val
+          ? this.options.filter(option => new RegExp(val, 'gi').test(option))
+          : this.options.slice()
+      )
+    );
   }
 }
 
 @Component({
-  template: `<input placeholder="Choose" [dtAutocomplete]="auto" [formControl]="control">`,
+  template: `
+    <input
+      placeholder="Choose"
+      [dtAutocomplete]="auto"
+      [formControl]="control"
+    />
+  `,
 })
 class AutocompleteWithoutPanel {
-  @ViewChild(DtAutocompleteTrigger, { static: false }) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: false })
+  trigger: DtAutocompleteTrigger<any>;
   control = new FormControl();
 }
 
 @Component({
   template: `
     <dt-form-field>
-      <input type="number" dtInput [dtAutocomplete]="auto" [(ngModel)]="selectedValue">
+      <input
+        type="number"
+        dtInput
+        [dtAutocomplete]="auto"
+        [(ngModel)]="selectedValue"
+      />
     </dt-form-field>
     <dt-autocomplete #auto="dtAutocomplete">
-      <dt-option *ngFor="let value of values" [value]="value">{{value}}</dt-option>
+      <dt-option *ngFor="let value of values" [value]="value">{{
+        value
+      }}</dt-option>
     </dt-autocomplete>
   `,
 })
@@ -1711,11 +2147,11 @@ class AutocompleteWithNumberInputAndNgModel {
 
 @Component({
   template: `
-    <input type="number" dtInput [dtAutocomplete]="autoOne">
+    <input type="number" dtInput [dtAutocomplete]="autoOne" />
     <dt-autocomplete #autoOne>
       <dt-option [value]="0">First</dt-option>
     </dt-autocomplete>
-     <dt-autocomplete #autoTow>
+    <dt-autocomplete #autoTow>
       <dt-option [value]="1">Second</dt-option>
     </dt-autocomplete>
   `,
@@ -1723,5 +2159,6 @@ class AutocompleteWithNumberInputAndNgModel {
 class DynamicallyChangingAutocomplete {
   @ViewChild('autoOne', { static: false }) autoOne: DtAutocomplete<any>;
   @ViewChild('autoTow', { static: false }) autoTow: DtAutocomplete<any>;
-  @ViewChild(DtAutocompleteTrigger, { static: false }) trigger: DtAutocompleteTrigger<any>;
+  @ViewChild(DtAutocompleteTrigger, { static: false })
+  trigger: DtAutocompleteTrigger<any>;
 }

@@ -14,11 +14,13 @@ export function formatToBitsBytes(
   conversions: DtUnitConversion[],
   options: DtNumberFormatOptions
 ): DtFormattedValue {
-
-  const sourceData: SourceData = input instanceof DtFormattedValue ? input.sourceData : {
-    input,
-    unit: options.inputUnit,
-  };
+  const sourceData: SourceData =
+    input instanceof DtFormattedValue
+      ? input.sourceData
+      : {
+          input,
+          unit: options.inputUnit,
+        };
 
   let formattedData: FormattedData = {};
   const value = coerceNumberProperty(sourceData.input, NaN);
@@ -27,14 +29,19 @@ export function formatToBitsBytes(
     const conversion = options.outputUnit
       ? getFixedUnitConversion(conversions, options.outputUnit)
       : getAutoUnitConversion(conversions, valueInUnit);
-    const convertedValue = conversion ? valueInUnit / conversion.multiplier : valueInUnit;
+    const convertedValue = conversion
+      ? valueInUnit / conversion.multiplier
+      : valueInUnit;
     const convertedUnit = conversion ? conversion.unit : options.inputUnit;
 
     formattedData = {
       transformedValue: convertedValue,
       displayValue: adjustNumber(convertedValue),
       displayUnit: convertedUnit,
-      displayRateUnit: input instanceof DtFormattedValue ? input.displayData.displayRateUnit : undefined,
+      displayRateUnit:
+        input instanceof DtFormattedValue
+          ? input.displayData.displayRateUnit
+          : undefined,
     };
   }
 
@@ -42,17 +49,25 @@ export function formatToBitsBytes(
 }
 
 /** Converts number to given unit by applying the corect conversionrate */
-function convertToUnit(input: number, conversions: DtUnitConversion[], inputUnit: string): number {
-  const conversion = conversions.find((m) => m.unit === inputUnit);
-  return conversion !== undefined
-    ? input * conversion.multiplier
-    : input;
+function convertToUnit(
+  input: number,
+  conversions: DtUnitConversion[],
+  inputUnit: string
+): number {
+  const conversion = conversions.find(m => m.unit === inputUnit);
+  return conversion !== undefined ? input * conversion.multiplier : input;
 }
 
-function getAutoUnitConversion(conversions: DtUnitConversion[], valueInUnit: number): DtUnitConversion | undefined {
-  return conversions.find((m) => valueInUnit >= m.multiplier);
+function getAutoUnitConversion(
+  conversions: DtUnitConversion[],
+  valueInUnit: number
+): DtUnitConversion | undefined {
+  return conversions.find(m => valueInUnit >= m.multiplier);
 }
 
-function getFixedUnitConversion(conversions: DtUnitConversion[], outputUnit: string): DtUnitConversion | undefined {
-  return conversions.find((m) => m.unit === outputUnit);
+function getFixedUnitConversion(
+  conversions: DtUnitConversion[],
+  outputUnit: string
+): DtUnitConversion | undefined {
+  return conversions.find(m => m.unit === outputUnit);
 }

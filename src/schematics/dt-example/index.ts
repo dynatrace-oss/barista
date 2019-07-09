@@ -13,13 +13,17 @@ import { DtExampleOptions } from './schema';
 // tslint:disable-next-line:no-default-export
 export default function(options: DtExampleOptions): Rule {
   if (!options.component) {
-    throw new SchematicsException(`You need to specify a component using --component flag`);
+    throw new SchematicsException(
+      `You need to specify a component using --component flag`
+    );
   }
   options.component = strings.decamelize(options.component);
   options.name = strings.decamelize(options.name);
-  options.exampleComponentName = `${strings.classify(options.component)}${strings.classify(options.name)}Example`;
+  options.exampleComponentName = `${strings.classify(
+    options.component
+  )}${strings.classify(options.name)}Example`;
   const templateSource = apply(url('./files'), [
-    template({...strings, ...options}),
+    template({ ...strings, ...options }),
     move('src'),
   ]);
 

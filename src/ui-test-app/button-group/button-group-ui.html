@@ -5,7 +5,8 @@
       *ngFor="let gvalue of groupValues; let i = index"
       [id]="'group-1-item-' + i"
       [value]="gvalue"
-    >{{gvalue}}</dt-button-group-item>
+      >{{gvalue}}</dt-button-group-item
+    >
   </dt-button-group>
 </section>
 
@@ -16,9 +17,9 @@
       *ngFor="let gvalue of groupValues; let i = index"
       [id]="'group-2-item-' + i"
       [value]="gvalue"
-    >{{gvalue}}</dt-button-group-item>
+      >{{gvalue}}</dt-button-group-item
+    >
   </dt-button-group>
-
 </section>
 
 <section>
@@ -29,7 +30,7 @@
       [id]="'group-3-item-' + i"
       [value]="gvalue"
       [disabled]="i === 1"
-    >{{gvalue}}</dt-button-group-item>
+      >{{gvalue}}</dt-button-group-item
+    >
   </dt-button-group>
-
 </section>

@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: '<button dt-button>Simple button</button>',
 })
-export class ButtonPureExample { }
+export class ButtonPureExample {}

@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, isDirectChild, isElementWithName } from '../utils';
 
 class DtCopyToClipboardVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -19,7 +18,11 @@ class DtCopyToClipboardVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dt-copy-to-clipboard must contain a dt-copy-to-clipboard-label element, that must be a direct child.');
+    addFailure(
+      this,
+      element,
+      'A dt-copy-to-clipboard must contain a dt-copy-to-clipboard-label element, that must be a direct child.'
+    );
   }
 }
 
@@ -40,13 +43,14 @@ class DtCopyToClipboardVisitor extends BasicTemplateAstVisitor {
  * </dt-copy-to-clipboard>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that the dt-copy-to-clipboard component always has a label, that is a direct child.',
+    description:
+      'Ensures that the dt-copy-to-clipboard component always has a label, that is a direct child.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'The copy-to-clipboard component must always contain a dt-copy-to-clipboard-label, that is a direct child of dt-copy-to-clipboard.',
+    rationale:
+      'The copy-to-clipboard component must always contain a dt-copy-to-clipboard-label, that is a direct child of dt-copy-to-clipboard.',
     ruleName: 'dt-copy-to-clipboard-no-empty',
     type: 'maintainability',
     typescriptOnly: true,

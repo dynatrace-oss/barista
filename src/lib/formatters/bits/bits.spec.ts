@@ -47,10 +47,11 @@ describe('DtBits', () => {
         input: 7121000000000000,
         output: '7.12 Pbit',
       },
-
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} converted to auto unit`, () => {
-        expect(pipe.transform(testCase.input).toString()).toEqual(testCase.output);
+        expect(pipe.transform(testCase.input).toString()).toEqual(
+          testCase.output
+        );
       });
     });
   });
@@ -90,8 +91,11 @@ describe('DtBits', () => {
     ];
     testCases.forEach((testCase: TestCase) => {
       it(`should display different result (${testCase.output})`, () => {
-        expect(pipe.transform(testCase.input, testCase.factor, testCase.inputUnit).toString())
-          .toEqual(testCase.output);
+        expect(
+          pipe
+            .transform(testCase.input, testCase.factor, testCase.inputUnit)
+            .toString()
+        ).toEqual(testCase.output);
       });
     });
   });
@@ -104,7 +108,7 @@ describe('DtBits', () => {
     });
 
     it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
-      class A { }
+      class A {}
       expect(pipe.transform({})).toEqual(NO_DATA);
       expect(pipe.transform([])).toEqual(NO_DATA);
       expect(pipe.transform(() => {})).toEqual(NO_DATA);

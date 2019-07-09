@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Radio
@@ -12,29 +12,26 @@ Radio elements are generally used within radio-groups to describe a set of relat
 You have to import the `DtRadioModule` when you want to use the `dt-radio-button` or `dt-radio-button-group`.
 
 ```typescript
-@NgModule({  
-  imports: [
-    DtRadioModule,
-  ],
+@NgModule({
+  imports: [DtRadioModule],
 })
 class MyModule {}
 ```
 
 ## Options & Properties
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `@Input() id` | `string` | `dt-radio-{consecutiveNumber}` | The unique ID for the radio button. |
-| `@Input() Input` | `boolean` |  | Sets whether the radio button is disabled. |
-| `@Input() checked` | `boolean` |  | Whether this radio button is checked. |
-| `@Input() value` | `T` |  | The value of this radio button. |
-| `@Input() name` | `string` |  | Analog to HTML 'name' attribute used to group radios for unique selection. Will be inherited from the `dt-radio-group` if not set. |
-| `@Input() aria-label` | `string` |  | Used to set the 'aria-label' attribute on the underlying input element. |
-| `@Input() aria-labelledby` | `string` |  | The 'aria-labelledby' attribute takes precedence as the element's text alternative. |
-| `@Input() aria-describedby` | `string` |  | The 'aria-describedby' attribute is read after the element's label and field type. |
-| `@Output() change` | `EventEmitter<DtRadioChange<T>>` |  | Emits a `DtRadioChange` event when the selection changes. |
-| `focus` | `function` |  | Let's you set the focus on this radio element. |
-
+| Name                        | Type                             | Default                        | Description                                                                                                                        |
+| --------------------------- | -------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `@Input() id`               | `string`                         | `dt-radio-{consecutiveNumber}` | The unique ID for the radio button.                                                                                                |
+| `@Input() Input`            | `boolean`                        |                                | Sets whether the radio button is disabled.                                                                                         |
+| `@Input() checked`          | `boolean`                        |                                | Whether this radio button is checked.                                                                                              |
+| `@Input() value`            | `T`                              |                                | The value of this radio button.                                                                                                    |
+| `@Input() name`             | `string`                         |                                | Analog to HTML 'name' attribute used to group radios for unique selection. Will be inherited from the `dt-radio-group` if not set. |
+| `@Input() aria-label`       | `string`                         |                                | Used to set the 'aria-label' attribute on the underlying input element.                                                            |
+| `@Input() aria-labelledby`  | `string`                         |                                | The 'aria-labelledby' attribute takes precedence as the element's text alternative.                                                |
+| `@Input() aria-describedby` | `string`                         |                                | The 'aria-describedby' attribute is read after the element's label and field type.                                                 |
+| `@Output() change`          | `EventEmitter<DtRadioChange<T>>` |                                | Emits a `DtRadioChange` event when the selection changes.                                                                          |
+| `focus`                     | `function`                       |                                | Let's you set the focus on this radio element.                                                                                     |
 
 ## Imports
 
@@ -42,9 +39,7 @@ You have to import the `DtRadioModule` when you want to use the `dt-radio-group`
 
 ```typescript
 @NgModule({
-  imports: [
-    DtRadioModule,
-  ],
+  imports: [DtRadioModule],
 })
 class MyModule {}
 ```
@@ -57,15 +52,14 @@ Radio-buttons should typically be placed inside of a `<dt-radio-group>` componen
 The radio-group has a value property that reflects the currently selected radio-button inside of the group.
 Individual radio-buttons inside of a radio-group will inherit the name of the group.
 
-
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `@Input() name` | `string` | `dt-radio-group-{consecutiveNumber}` | The unique ID for the radio group button. |
-| `@Input() value` | `T | null` |  | Currently selected value of the radio group. |
-| `@Input() selected` | `DtRadioButton<T> | null` |  | Currently selected radio button within the group. |
-| `@Input() disabled` | `boolean` | `false` | Whether the radio group is disabled. |
-| `@Input() required` | `boolean` | `false` | Whether the radio group is required. |
-| `@Output() change` | `EventEmitter<DtRadioChange<T>>` |  | Emits a `DtRadioChange` event when the selection on the radio-group changes. |
+| Name                | Type                             | Default                              | Description                                                                  |
+| ------------------- | -------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------- |
+| `@Input() name`     | `string`                         | `dt-radio-group-{consecutiveNumber}` | The unique ID for the radio group button.                                    |
+| `@Input() value`    | `T | null`                       |                                      | Currently selected value of the radio group.                                 |
+| `@Input() selected` | `DtRadioButton<T> | null`        |                                      | Currently selected radio button within the group.                            |
+| `@Input() disabled` | `boolean`                        | `false`                              | Whether the radio group is disabled.                                         |
+| `@Input() required` | `boolean`                        | `false`                              | Whether the radio group is required.                                         |
+| `@Output() change`  | `EventEmitter<DtRadioChange<T>>` |                                      | Emits a `DtRadioChange` event when the selection on the radio-group changes. |
 
 ### Grouping by name
 

@@ -1,10 +1,24 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component, ViewChild, ElementRef, Type, Injectable } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  Type,
+  Injectable,
+} from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { async, TestBed, tick, fakeAsync, flush, ComponentFixture, inject } from '@angular/core/testing';
+import {
+  async,
+  TestBed,
+  tick,
+  fakeAsync,
+  flush,
+  ComponentFixture,
+  inject,
+} from '@angular/core/testing';
 import {
   DT_DRAWER_OPEN_CLASS,
   DtDrawerContainer,
@@ -12,7 +26,11 @@ import {
   DtDrawer,
   DtDrawerModule,
 } from '@dynatrace/angular-components';
-import { BreakpointObserver, MediaMatcher, LayoutModule } from '@angular/cdk/layout';
+import {
+  BreakpointObserver,
+  MediaMatcher,
+  LayoutModule,
+} from '@angular/cdk/layout';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 import { ESCAPE } from '@angular/cdk/keycodes';
 
@@ -22,13 +40,18 @@ function getVisibility(element: HTMLElement): boolean {
   return right + offsetX > width;
 }
 
-export function createFixture<T>(component: Type<T>, selector?: string): {
+export function createFixture<T>(
+  component: Type<T>,
+  selector?: string
+): {
   fixture: ComponentFixture<T>;
   instance: T;
   containerEl: HTMLElement;
 } {
   const fixture = TestBed.createComponent(component);
-  const container = selector ? fixture.debugElement.query(By.css(selector)).nativeElement : undefined;
+  const container = selector
+    ? fixture.debugElement.query(By.css(selector)).nativeElement
+    : undefined;
   return {
     fixture,
     instance: fixture.debugElement.componentInstance,
@@ -37,13 +60,9 @@ export function createFixture<T>(component: Type<T>, selector?: string): {
 }
 
 describe('DtDrawer', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        DtDrawerModule,
-        NoopAnimationsModule,
-      ],
+      imports: [DtDrawerModule, NoopAnimationsModule],
       declarations: [
         NoDrawerTestApp,
         BasicTestApp,
@@ -59,20 +78,26 @@ describe('DtDrawer', () => {
 
   describe('validate drawers', () => {
     it('should throw if there are two drawers with the same mode in the container', () => {
-      const { instance, fixture } = createFixture<FailingTestApp>(FailingTestApp);
+      const { instance, fixture } = createFixture<FailingTestApp>(
+        FailingTestApp
+      );
 
-      expect(fakeAsync(() => {
-        fixture.detectChanges();
-        flush();
-      })).toThrow(getDtDuplicateDrawerError('start'));
+      expect(
+        fakeAsync(() => {
+          fixture.detectChanges();
+          flush();
+        })
+      ).toThrow(getDtDuplicateDrawerError('start'));
 
       instance.secondDrawer.position = 'end';
 
-      expect(fakeAsync(() => {
-        // when the mode is changed it should get checked again
-        fixture.detectChanges();
-        flush();
-      })).not.toThrowError();
+      expect(
+        fakeAsync(() => {
+          // when the mode is changed it should get checked again
+          fixture.detectChanges();
+          flush();
+        })
+      ).not.toThrowError();
     });
 
     it('does not throw when created without a drawer', fakeAsync(() => {
@@ -85,9 +110,10 @@ describe('DtDrawer', () => {
   });
 
   describe('drawer methods', () => {
-
     it('should fire the open event when open on init', fakeAsync(() => {
-      const { fixture, instance } = createFixture<TestAppDrawerOpened>(TestAppDrawerOpened);
+      const { fixture, instance } = createFixture<TestAppDrawerOpened>(
+        TestAppDrawerOpened
+      );
       fixture.detectChanges();
       flush();
 
@@ -95,7 +121,10 @@ describe('DtDrawer', () => {
     }));
 
     it('should open the drawer by calling its open function programmatically', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(
+        BasicTestApp,
+        'dt-drawer-container'
+      );
       fixture.detectChanges();
       flush();
 
@@ -108,7 +137,10 @@ describe('DtDrawer', () => {
     }));
 
     it('should be able to open the drawer by clicking a button', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(
+        BasicTestApp,
+        'dt-drawer-container'
+      );
       fixture.detectChanges();
 
       fixture.debugElement.query(By.css('.open')).nativeElement.click();
@@ -119,7 +151,9 @@ describe('DtDrawer', () => {
     }));
 
     it('should close the drawer by calling its close function programmatically', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<TestAppDrawerOpened>(TestAppDrawerOpened, 'dt-drawer-container');
+      const { instance, containerEl, fixture } = createFixture<
+        TestAppDrawerOpened
+      >(TestAppDrawerOpened, 'dt-drawer-container');
       fixture.detectChanges();
       flush();
 
@@ -132,7 +166,10 @@ describe('DtDrawer', () => {
     }));
 
     it('should be able to close the drawer by clicking a button', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(
+        BasicTestApp,
+        'dt-drawer-container'
+      );
       fixture.detectChanges();
       instance.drawer.open();
       fixture.detectChanges();
@@ -149,7 +186,10 @@ describe('DtDrawer', () => {
 
   describe('drawer behaviors', () => {
     it('should move the drawer outside the content area with a transform when it is not visible', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(
+        BasicTestApp,
+        'dt-drawer-container'
+      );
       fixture.detectChanges();
       const drawer = fixture.debugElement.query(By.css('dt-drawer'));
       fixture.detectChanges();
@@ -169,7 +209,9 @@ describe('DtDrawer', () => {
 
   describe('container methods', () => {
     it('should open all drawers when the open function is called on the container', fakeAsync(() => {
-      const { instance, fixture } = createFixture<TestAppWithOverAndSideMode>(TestAppWithOverAndSideMode);
+      const { instance, fixture } = createFixture<TestAppWithOverAndSideMode>(
+        TestAppWithOverAndSideMode
+      );
       fixture.detectChanges();
       flush();
 
@@ -185,8 +227,9 @@ describe('DtDrawer', () => {
     }));
 
     it('should close all drawers when the close function is called on the container', fakeAsync(() => {
-      const { instance, fixture, containerEl } =
-        createFixture<TestAppWithOverAndSideMode>(TestAppWithOverAndSideMode, 'dt-drawer-container');
+      const { instance, fixture, containerEl } = createFixture<
+        TestAppWithOverAndSideMode
+      >(TestAppWithOverAndSideMode, 'dt-drawer-container');
       fixture.detectChanges();
       flush();
 
@@ -210,11 +253,16 @@ describe('DtDrawer', () => {
 
   describe('container behaviors', () => {
     it('should have a backdrop element if it is in over mode', fakeAsync(() => {
-      const { containerEl, fixture } = createFixture<TestAppOverMode>(TestAppOverMode, 'dt-drawer-container');
+      const { containerEl, fixture } = createFixture<TestAppOverMode>(
+        TestAppOverMode,
+        'dt-drawer-container'
+      );
       fixture.detectChanges();
       flush();
 
-      const backdrop = fixture.debugElement.query(By.css('.dt-drawer-backdrop'));
+      const backdrop = fixture.debugElement.query(
+        By.css('.dt-drawer-backdrop')
+      );
       expect(backdrop).not.toBeUndefined();
 
       expect(containerEl.classList.contains(DT_DRAWER_OPEN_CLASS)).toBeFalsy();
@@ -231,7 +279,10 @@ describe('DtDrawer', () => {
     }));
 
     it('should close over mode when click on backdrop area', fakeAsync(() => {
-      const { containerEl, fixture } = createFixture<TestAppOverMode>(TestAppOverMode, 'dt-drawer-container');
+      const { containerEl, fixture } = createFixture<TestAppOverMode>(
+        TestAppOverMode,
+        'dt-drawer-container'
+      );
       fixture.detectChanges();
       flush();
 
@@ -241,7 +292,8 @@ describe('DtDrawer', () => {
 
       expect(containerEl.classList.contains(DT_DRAWER_OPEN_CLASS)).toBeTruthy();
 
-      const backdrop = fixture.debugElement.query(By.css('.dt-drawer-backdrop')).nativeElement;
+      const backdrop = fixture.debugElement.query(By.css('.dt-drawer-backdrop'))
+        .nativeElement;
       // click on backdrop to close drawer
       backdrop.click();
       fixture.detectChanges();
@@ -251,7 +303,10 @@ describe('DtDrawer', () => {
     }));
 
     it('should close when pressing escape', fakeAsync(() => {
-      const { instance, fixture, containerEl } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
+      const { instance, fixture, containerEl } = createFixture<BasicTestApp>(
+        BasicTestApp,
+        'dt-drawer-container'
+      );
       fixture.detectChanges();
       const drawer = instance.drawer;
       fixture.detectChanges();
@@ -269,12 +324,14 @@ describe('DtDrawer', () => {
 
       expect(instance.closeCount).toBe(1, 'Expected one close event.');
     }));
-
   });
 
   describe('accessibility', () => {
     it('should have an aria-hidden on the drawer when it is not shown', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(BasicTestApp, 'dt-drawer-container');
+      const { instance, containerEl, fixture } = createFixture<BasicTestApp>(
+        BasicTestApp,
+        'dt-drawer-container'
+      );
       fixture.detectChanges();
       flush();
 
@@ -326,15 +383,9 @@ describe('DtDrawer screen sizes', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        LayoutModule,
-        DtDrawerModule,
-        NoopAnimationsModule,
-      ],
-      declarations: [
-        BasicTestApp,
-      ],
-      providers: [{provide: MediaMatcher, useClass: FakeMediaMatcher}],
+      imports: [LayoutModule, DtDrawerModule, NoopAnimationsModule],
+      declarations: [BasicTestApp],
+      providers: [{ provide: MediaMatcher, useClass: FakeMediaMatcher }],
     });
     TestBed.compileComponents();
   }));
@@ -416,10 +467,13 @@ describe('DtDrawer screen sizes', () => {
         position="start"
         mode="side"
         (opened)="open()"
-        (closed)="close()">Content</dt-drawer>
+        (closed)="close()"
+        >Content</dt-drawer
+      >
       <button (click)="drawer.open()" class="open" #openButton></button>
       <button (click)="drawer.close()" class="close" #closeButton></button>
-    </dt-drawer-container>`,
+    </dt-drawer-container>
+  `,
 })
 class BasicTestApp {
   openCount = 0;
@@ -427,28 +481,41 @@ class BasicTestApp {
 
   @ViewChild('container', { static: false }) container: DtDrawerContainer;
   @ViewChild('drawer', { static: false }) drawer: DtDrawer;
-  @ViewChild('toggleButton', { static: false }) drawerButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('openButton', { static: false }) openButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('closeButton', { static: false }) closeButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('toggleButton', { static: false }) drawerButton: ElementRef<
+    HTMLButtonElement
+  >;
+  @ViewChild('openButton', { static: false }) openButton: ElementRef<
+    HTMLButtonElement
+  >;
+  @ViewChild('closeButton', { static: false }) closeButton: ElementRef<
+    HTMLButtonElement
+  >;
 
-  open(): void { this.openCount++; }
-  close(): void { this.closeCount++; }
+  open(): void {
+    this.openCount++;
+  }
+  close(): void {
+    this.closeCount++;
+  }
 }
 
 @Component({
   template: `
     <dt-drawer-container>
-      <dt-drawer
-        #drawer
-        opened>Content</dt-drawer>
-    </dt-drawer-container>`,
+      <dt-drawer #drawer opened>Content</dt-drawer>
+    </dt-drawer-container>
+  `,
 })
 class TestAppDrawerOpened {
   @ViewChild('drawer', { static: false }) drawer: DtDrawer;
 }
 
-@Component({ template: `<dt-drawer-container> </dt-drawer-container>` })
-class NoDrawerTestApp { }
+@Component({
+  template: `
+    <dt-drawer-container> </dt-drawer-container>
+  `,
+})
+class NoDrawerTestApp {}
 
 @Component({
   template: `
@@ -456,7 +523,8 @@ class NoDrawerTestApp { }
       <dt-drawer position="start" #firstDrawer>start drawer 1</dt-drawer>
       <dt-drawer position="start" #secondDrawer>second start drawer</dt-drawer>
       Main content
-    </dt-drawer-container>`,
+    </dt-drawer-container>
+  `,
 })
 class FailingTestApp {
   @ViewChild('firstDrawer', { static: false }) firstDrawer: DtDrawer;
@@ -478,12 +546,12 @@ class TestAppOverMode {}
   template: `
     <dt-drawer-container #container>
       <dt-drawer #drawer1>start drawer 1</dt-drawer>
-      <dt-drawer
-        #drawer2
-        mode="over"
-        position="end">second start drawer</dt-drawer>
+      <dt-drawer #drawer2 mode="over" position="end"
+        >second start drawer</dt-drawer
+      >
       Main content
-    </dt-drawer-container>`,
+    </dt-drawer-container>
+  `,
 })
 class TestAppWithOverAndSideMode {
   @ViewChild('container', { static: false }) container: DtDrawerContainer;
@@ -510,7 +578,7 @@ export class FakeMediaQueryList {
   }
 
   // Noop removal method for testing.
-  removeListener(): void { }
+  removeListener(): void {}
 }
 
 @Injectable()

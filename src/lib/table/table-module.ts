@@ -7,7 +7,12 @@ import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 import { DtSortHeader } from './sort/sort-header';
 import { DtSort } from './sort/sort';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtHeaderRow, DtHeaderRowDef, DtHeaderCell, DtHeaderCellDef } from './header/index';
+import {
+  DtHeaderRow,
+  DtHeaderRowDef,
+  DtHeaderCell,
+  DtHeaderCellDef,
+} from './header/index';
 import { DtRow, DtRowDef } from './row';
 import { DtCell, DtCellDef, DtColumnDef } from './cell';
 import { DtExpandableCell, DtExpandableRow } from './expandable/index';
@@ -20,7 +25,10 @@ import {
   DtTableLoadingState,
 } from './states/index';
 import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
-import { DtSimpleNumberColumn, DtSimpleTextColumn } from './simple-columns/index';
+import {
+  DtSimpleNumberColumn,
+  DtSimpleTextColumn,
+} from './simple-columns/index';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
@@ -56,12 +64,7 @@ const EXPORTED_DECLARATIONS = [
     DtIndicatorModule,
     DtFormattersModule,
   ],
-  exports: [
-    ...EXPORTED_DECLARATIONS,
-    DtIndicatorModule,
-  ],
-  declarations: [
-    ...EXPORTED_DECLARATIONS,
-  ],
+  exports: [...EXPORTED_DECLARATIONS, DtIndicatorModule],
+  declarations: [...EXPORTED_DECLARATIONS],
 })
 export class DtTableModule {}

@@ -10,12 +10,12 @@ const DEFAULT_WINDOW_EVENT_TIMEOUT = 150;
 @Injectable()
 // tslint:disable-next-line
 export class DtDefaultViewportResizer implements DtViewportResizer {
-
-  constructor(private _viewportRuler: ViewportRuler) { }
+  constructor(private _viewportRuler: ViewportRuler) {}
 
   /** Returns a stream that emits whenever the size of the viewport changes. */
   change(): Observable<void> {
-    return this._viewportRuler.change(DEFAULT_WINDOW_EVENT_TIMEOUT)
+    return this._viewportRuler
+      .change(DEFAULT_WINDOW_EVENT_TIMEOUT)
       .pipe(map(() => void 0));
   }
 }

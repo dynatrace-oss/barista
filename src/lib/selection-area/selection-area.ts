@@ -78,7 +78,7 @@ export class DtSelectionArea
     DtSelectionAreaChange
     // tslint:disable-next-line: deprecation
   > = this._deferContainerEvent<DtSelectionAreaContainerChange>('changed').pipe(
-    map((changed) => ({ source: this, ...changed }))
+    map(changed => ({ source: this, ...changed }))
   );
 
   /** Emits when the selected area is closed */
@@ -126,7 +126,7 @@ export class DtSelectionArea
     const containerInstance = this._createContainer();
     if (containerInstance) {
       this._containerInstance = containerInstance;
-      this._boundariesChanged.subscribe((boundaries) => {
+      this._boundariesChanged.subscribe(boundaries => {
         if (boundaries) {
           this._applyBoundariesToContainer(boundaries);
         }

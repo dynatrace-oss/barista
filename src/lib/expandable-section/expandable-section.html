@@ -1,7 +1,14 @@
 <div class="dt-expandable-section-header">
-  <button [dtExpandablePanel]="expandablepanel" class="dt-expandable-section-header-trigger" [disabled]="disabled">
+  <button
+    [dtExpandablePanel]="expandablepanel"
+    class="dt-expandable-section-header-trigger"
+    [disabled]="disabled"
+  >
     <div>
-      <dt-icon name="dropdownopen" class="dt-expandable-section-arrow"></dt-icon>
+      <dt-icon
+        name="dropdownopen"
+        class="dt-expandable-section-arrow"
+      ></dt-icon>
     </div>
     <div class="dt-expandable-section-header-content">
       <ng-content select="dt-expandable-section-header"></ng-content>

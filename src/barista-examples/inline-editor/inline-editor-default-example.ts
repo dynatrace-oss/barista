@@ -4,12 +4,16 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <em dt-inline-editor
+    <em
+      dt-inline-editor
       [(ngModel)]="sampleModel"
       aria-label-save="Save text"
-      aria-label-cancel="Cancel and discard changes">
+      aria-label-cancel="Cancel and discard changes"
+    >
     </em>
-    <span>model: <code>{{ sampleModel }}</code></span>
+    <span
+      >model: <code>{{ sampleModel }}</code></span
+    >
   `,
 })
 export class InlineEditorDefaultExample {

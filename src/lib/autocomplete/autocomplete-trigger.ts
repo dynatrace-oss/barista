@@ -10,17 +10,38 @@ import {
   Host,
   Optional,
   NgZone,
-  Inject
+  Inject,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { OverlayRef, Overlay, FlexibleConnectedPositionStrategy, PositionStrategy, OverlayConfig } from '@angular/cdk/overlay';
+import {
+  OverlayRef,
+  Overlay,
+  FlexibleConnectedPositionStrategy,
+  PositionStrategy,
+  OverlayConfig,
+} from '@angular/cdk/overlay';
 import { DtFormField } from '@dynatrace/angular-components/form-field';
 import { DtAutocomplete } from './autocomplete';
 import { getDtAutocompleteMissingPanelError } from './autocomplete-errors';
 import { DtAutocompleteOrigin } from './autocomplete-origin';
-import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
-import { Subject, EMPTY, Subscription, merge, Observable, of as observableOf, defer, fromEvent } from 'rxjs';
+import {
+  ESCAPE,
+  UP_ARROW,
+  ENTER,
+  DOWN_ARROW,
+  TAB,
+} from '@angular/cdk/keycodes';
+import {
+  Subject,
+  EMPTY,
+  Subscription,
+  merge,
+  Observable,
+  of as observableOf,
+  defer,
+  fromEvent,
+} from 'rxjs';
 import {
   DtViewportResizer,
   DtOptionSelectionChange,
@@ -28,9 +49,18 @@ import {
   DtOption,
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition,
-  readKeyCode
+  readKeyCode,
 } from '@dynatrace/angular-components/core';
-import { tap, take, delay, switchMap, filter, map, takeUntil, startWith } from 'rxjs/operators';
+import {
+  tap,
+  take,
+  delay,
+  switchMap,
+  filter,
+  map,
+  takeUntil,
+  startWith,
+} from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 
 /** Provider that allows the autocomplete to register as a ControlValueAccessor. */
@@ -55,8 +85,10 @@ export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
     '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
     '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
     '[attr.aria-activedescendant]': 'activeOption?.id',
-    '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
-    '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
+    '[attr.aria-expanded]':
+      'autocompleteDisabled ? null : panelOpen.toString()',
+    '[attr.aria-owns]':
+      '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
     '(focusin)': '_handleFocus()',
     '(blur)': '_handleBlur()',
     '(input)': '_handleInput($event)',
@@ -64,7 +96,8 @@ export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
   },
   providers: [DT_AUTOCOMPLETE_VALUE_ACCESSOR],
 })
-export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy {
+export class DtAutocompleteTrigger<T>
+  implements ControlValueAccessor, OnDestroy {
   private _autocomplete: DtAutocomplete<T>;
   private _autocompleteDisabled = false;
   private _overlayRef: OverlayRef | null;
@@ -73,11 +106,13 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   /** The autocomplete panel to be attached to this trigger. */
   @Input('dtAutocomplete')
-  get autocomplete(): DtAutocomplete<T> { return this._autocomplete; }
+  get autocomplete(): DtAutocomplete<T> {
+    return this._autocomplete;
+  }
   set autocomplete(value: DtAutocomplete<T>) {
     this._autocomplete = value;
     this._detachOverlay();
-    }
+  }
 
   /** autocomplete` attribute to be set on the input element. */
   @Input('autocomplete') autocompleteAttribute = 'off';
@@ -87,7 +122,9 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
    * act as a regular input and the user won't be able to open the panel.
    */
   @Input('dtAutocompleteDisabled')
-  get autocompleteDisabled(): boolean { return this._autocompleteDisabled; }
+  get autocompleteDisabled(): boolean {
+    return this._autocompleteDisabled;
+  }
   set autocompleteDisabled(value: boolean) {
     this._autocompleteDisabled = coerceBooleanProperty(value);
   }
@@ -100,10 +137,10 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   /** `View -> model callback called when value changes` */
   // tslint:disable-next-line:no-any
-  private _onChange: (value: any) => void = () => { };
+  private _onChange: (value: any) => void = () => {};
 
   /** `View -> model callback called when autocomplete has been touched` */
-  private _onTouched = () => { };
+  private _onTouched = () => {};
 
   /** Whether or not the autocomplete panel is open. */
   get panelOpen(): boolean {
@@ -117,11 +154,19 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   get panelClosingActions(): Observable<DtOptionSelectionChange<T> | null> {
     return merge(
       this.optionSelections,
-      this.autocomplete._keyManager.tabOut.pipe(filter(() => this._overlayAttached)),
+      this.autocomplete._keyManager.tabOut.pipe(
+        filter(() => this._overlayAttached)
+      ),
       this._closeKeyEventStream,
       this._getOutsideClickStream(),
-      this._overlayRef ? this._overlayRef.detachments().pipe(filter(() => this._overlayAttached)) : observableOf()
-    ).pipe(map((event) => event instanceof DtOptionSelectionChange ? event : null));
+      this._overlayRef
+        ? this._overlayRef
+            .detachments()
+            .pipe(filter(() => this._overlayAttached))
+        : observableOf()
+    ).pipe(
+      map(event => (event instanceof DtOptionSelectionChange ? event : null))
+    );
   }
 
   /** The currently active option, coerced to DtOption type. */
@@ -133,22 +178,29 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   }
 
   /** Stream of changes to the selection state of the autocomplete options. */
-  readonly optionSelections: Observable<DtOptionSelectionChange<T>> = defer(() => {
-    const options = this.autocomplete ? this.autocomplete.options : null;
+  readonly optionSelections: Observable<DtOptionSelectionChange<T>> = defer(
+    () => {
+      const options = this.autocomplete ? this.autocomplete.options : null;
 
-    if (options) {
-      return options.changes.pipe(
-        startWith(options),
-        switchMap(() => merge<DtOptionSelectionChange<T>>(...options.map((option) => option.selectionChange)))
+      if (options) {
+        return options.changes.pipe(
+          startWith(options),
+          switchMap(() =>
+            merge<DtOptionSelectionChange<T>>(
+              ...options.map(option => option.selectionChange)
+            )
+          )
+        );
+      }
+
+      // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
+      // Return a stream that we'll replace with the real one once everything is in place.
+      return this._zone.onStable.asObservable().pipe(
+        take(1),
+        switchMap(() => this.optionSelections)
       );
     }
-
-    // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
-    // Return a stream that we'll replace with the real one once everything is in place.
-    return this._zone.onStable
-      .asObservable()
-      .pipe(take(1), switchMap(() => this.optionSelections));
-  });
+  );
 
   /**
    * Whether the autocomplete can open the next time it is focused. Used to prevent a focused,
@@ -188,18 +240,24 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
       _zone.runOutsideAngular(() => {
-        this._disposableFns.push(this._renderer.listen(window, 'blur', () => {
-          // If the user blurred the window while the autocomplete is focused, it means that it'll be
-          // refocused when they come back. In this case we want to skip the first focus event, if the
-          // pane was closed, in order to avoid reopening it unintentionally.
-          this._canOpenOnNextFocus = document.activeElement !== this._element.nativeElement || this.panelOpen;
-        }));
+        this._disposableFns.push(
+          this._renderer.listen(window, 'blur', () => {
+            // If the user blurred the window while the autocomplete is focused, it means that it'll be
+            // refocused when they come back. In this case we want to skip the first focus event, if the
+            // pane was closed, in order to avoid reopening it unintentionally.
+            this._canOpenOnNextFocus =
+              document.activeElement !== this._element.nativeElement ||
+              this.panelOpen;
+          })
+        );
       });
     }
   }
 
   ngOnDestroy(): void {
-    this._disposableFns.forEach((fn) => { fn(); });
+    this._disposableFns.forEach(fn => {
+      fn();
+    });
     this._viewportSubscription.unsubscribe();
     this._componentDestroyed = true;
     this._destroyPanel();
@@ -248,8 +306,13 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   _handleBlur(): void {
     if (this.panelOpen) {
       this.autocomplete.closed
-        .pipe(take(1), takeUntil(this.autocomplete.opened.asObservable()))
-        .subscribe(() => { this._onTouched(); });
+        .pipe(
+          take(1),
+          takeUntil(this.autocomplete.opened.asObservable())
+        )
+        .subscribe(() => {
+          this._onTouched();
+        });
     } else {
       this._onTouched();
     }
@@ -269,7 +332,10 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     // filter out all of the extra events, we save the value on focus and between
     // `input` events, and we check whether it changed.
     // See: https://connect.microsoft.com/IE/feedback/details/885747/
-    if (this._previousValue !== value && document.activeElement === event.target) {
+    if (
+      this._previousValue !== value &&
+      document.activeElement === event.target
+    ) {
       this._previousValue = value;
       this._onChange(value);
 
@@ -304,7 +370,10 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
         this.openPanel();
       }
 
-      if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
+      if (
+        isArrowKey ||
+        this.autocomplete._keyManager.activeItem !== prevActiveItem
+      ) {
         this._scrollToOption();
       }
     }
@@ -318,7 +387,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     if (!this._overlayRef) {
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
 
-      this._overlayRef.keydownEvents().subscribe((event) => {
+      this._overlayRef.keydownEvents().subscribe(event => {
         const keyCode = readKeyCode(event);
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
         // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
@@ -329,11 +398,13 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
       });
 
       if (this._viewportResizer) {
-        this._viewportSubscription = this._viewportResizer.change().subscribe(() => {
-          if (this.panelOpen && this._overlayRef) {
-            this._overlayRef.updateSize({ width: this._getPanelWidth() });
-          }
-        });
+        this._viewportSubscription = this._viewportResizer
+          .change()
+          .subscribe(() => {
+            if (this.panelOpen && this._overlayRef) {
+              this._overlayRef.updateSize({ width: this._getPanelWidth() });
+            }
+          });
       }
     } else {
       // Update the panel width and position in case anything has changed.
@@ -381,7 +452,8 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   /** Returns the width of the input element, so the panel width can match it. */
   private _getHostWidth(): number {
-    return this._getConnectedElement().nativeElement.getBoundingClientRect().width;
+    return this._getConnectedElement().nativeElement.getBoundingClientRect()
+      .width;
   }
 
   private _getConnectedElement(): ElementRef {
@@ -389,7 +461,9 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
       return this.connectedTo.elementRef;
     }
 
-    return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
+    return this._formField
+      ? this._formField.getConnectedOverlayOrigin()
+      : this._element;
   }
 
   // TODO: reconsider if this config should be providable
@@ -402,7 +476,8 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   }
 
   private _getOverlayPosition(): PositionStrategy {
-    this._positionStrategy = this._overlay.position()
+    this._positionStrategy = this._overlay
+      .position()
       .flexibleConnectedTo(this._getConnectedElement())
       .withFlexibleDimensions(false)
       .withPush(false)
@@ -420,7 +495,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
           overlayY: 'bottom',
           panelClass: 'dt-autocomplete-panel-above',
         },
-      // tslint:disable-next-line:no-any
+        // tslint:disable-next-line:no-any
       ] as any[]);
 
     return this._positionStrategy;
@@ -428,7 +503,9 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   /** Resets the active item to -1 so arrow events will activate the orrect options, or to 0 if the consumer opted into it. */
   private _resetActiveItem(): void {
-    this.autocomplete._keyManager.setActiveItem(this.autocomplete.autoActiveFirstOption ? 0 : -1);
+    this.autocomplete._keyManager.setActiveItem(
+      this.autocomplete.autoActiveFirstOption ? 0 : -1
+    );
   }
 
   /**
@@ -438,37 +515,43 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   private _subscribeToClosingActions(): Subscription {
     const firstStable = this._zone.onStable.asObservable().pipe(take(1));
     const optionChanges = this.autocomplete.options.changes.pipe(
-      tap(() => { this._positionStrategy.reapplyLastPosition(); }),
+      tap(() => {
+        this._positionStrategy.reapplyLastPosition();
+      }),
       // Defer emitting to the stream until the next tick, because changing
       // bindings in here will cause "changed after checked" errors.
       delay(0)
     );
 
     // When the zone is stable initially, and when the option list changes...
-    return merge(firstStable, optionChanges)
-      .pipe(
-        // create a new stream of panelClosingActions, replacing any previous streams
-        // that were created, and flatten it so our stream only emits closing events...
-        switchMap((optionChange) => {
-          this._resetActiveItem();
-          this.autocomplete._setVisibility();
+    return (
+      merge(firstStable, optionChanges)
+        .pipe(
+          // create a new stream of panelClosingActions, replacing any previous streams
+          // that were created, and flatten it so our stream only emits closing events...
+          switchMap(optionChange => {
+            this._resetActiveItem();
+            this.autocomplete._setVisibility();
 
-          if (this.panelOpen) {
-            this._overlayRef!.updatePosition();
-          }
+            if (this.panelOpen) {
+              this._overlayRef!.updatePosition();
+            }
 
-          // TODO @thomas.pink: Remove/Rework once angular material issue has been resolved
-          // https://github.com/angular/material2/issues/13734
-          if (!optionChange) {
-            this._changeDetectorRef.detectChanges();
-          }
-          return this.panelClosingActions;
-        }),
-        // when the first closing event occurs...
-        take(1)
-      )
-      // set the value, close the panel, and complete.
-      .subscribe((event) => { this._setValueAndClose(event); });
+            // TODO @thomas.pink: Remove/Rework once angular material issue has been resolved
+            // https://github.com/angular/material2/issues/13734
+            if (!optionChange) {
+              this._changeDetectorRef.detectChanges();
+            }
+            return this.panelClosingActions;
+          }),
+          // when the first closing event occurs...
+          take(1)
+        )
+        // set the value, close the panel, and complete.
+        .subscribe(event => {
+          this._setValueAndClose(event);
+        })
+    );
   }
 
   /** Stream of clicks outside of the autocomplete panel. */
@@ -481,16 +564,22 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     return merge(
       fromEvent<MouseEvent>(this._document, 'click'),
       fromEvent<TouchEvent>(this._document, 'touchend')
-    ).pipe(filter((event: Event) => {
-      const clickTarget = event.target as HTMLElement;
-      const formField = this._formField ?
-        this._formField._elementRef.nativeElement : null;
+    ).pipe(
+      filter((event: Event) => {
+        const clickTarget = event.target as HTMLElement;
+        const formField = this._formField
+          ? this._formField._elementRef.nativeElement
+          : null;
 
-      return this._overlayAttached &&
-        clickTarget !== this._element.nativeElement &&
-        (!formField || !formField.contains(clickTarget)) &&
-        (!!this._overlayRef && !this._overlayRef.overlayElement.contains(clickTarget));
-    }));
+        return (
+          this._overlayAttached &&
+          clickTarget !== this._element.nativeElement &&
+          (!formField || !formField.contains(clickTarget)) &&
+          (!!this._overlayRef &&
+            !this._overlayRef.overlayElement.contains(clickTarget))
+        );
+      })
+    );
   }
 
   /**
@@ -513,7 +602,7 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   /** Clear any previous selected option and emit a selection change event for this option */
   private _clearPreviousSelectedOption(skip: DtOption<T>): void {
-    this.autocomplete.options.forEach((option) => {
+    this.autocomplete.options.forEach(option => {
       if (option !== skip && option.selected) {
         option.deselect();
       }
@@ -524,10 +613,14 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
     let stringifiedValue = '';
     if (isDefined(value)) {
       // tslint:disable-next-line:no-any
-      stringifiedValue = value && value.toString ? value.toString() : value as any;
+      stringifiedValue =
+        value && value.toString ? value.toString() : (value as any);
     }
 
-    const toDisplay = this.autocomplete && this.autocomplete.displayWith ? this.autocomplete.displayWith(value) : stringifiedValue;
+    const toDisplay =
+      this.autocomplete && this.autocomplete.displayWith
+        ? this.autocomplete.displayWith(value)
+        : stringifiedValue;
 
     // Simply falling back to an empty string if the display value is falsy does not work properly.
     // The display value can also be the number zero and shouldn't fall back to an empty string.
@@ -546,12 +639,18 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
   /** Determines whether the panel can be opened. */
   private _canOpen(): boolean {
     const element = this._element.nativeElement;
-    return !element.readOnly && !element.disabled && !this._autocompleteDisabled;
+    return (
+      !element.readOnly && !element.disabled && !this._autocompleteDisabled
+    );
   }
 
   private _scrollToOption(): void {
     const index = this.autocomplete._keyManager.activeItemIndex || 0;
-    const labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
+    const labelCount = _countGroupLabelsBeforeOption(
+      index,
+      this.autocomplete.options,
+      this.autocomplete.optionGroups
+    );
 
     const newScrollPosition = _getOptionScrollPosition(
       index + labelCount,
@@ -565,7 +664,9 @@ export class DtAutocompleteTrigger<T> implements ControlValueAccessor, OnDestroy
 
   // Implemented as part of ControlValueAccessor.
   writeValue(value: T): void {
-    Promise.resolve(null).then(() => { this._setTriggerValue(value); });
+    Promise.resolve(null).then(() => {
+      this._setTriggerValue(value);
+    });
   }
 
   // Implemented as part of ControlValueAccessor.

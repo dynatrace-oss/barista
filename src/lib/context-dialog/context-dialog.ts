@@ -1,5 +1,10 @@
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { CdkOverlayOrigin, ConnectedPosition, Overlay, OverlayRef } from '@angular/cdk/overlay';
+import {
+  CdkOverlayOrigin,
+  ConnectedPosition,
+  Overlay,
+  OverlayRef,
+} from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
   Attribute,
@@ -62,13 +67,18 @@ const OVERLAY_POSITIONS: ConnectedPosition[] = [
     originY: 'bottom',
     overlayX: 'start',
     overlayY: 'bottom',
-    panelClass: ['dt-context-dialog-panel-right', 'dt-context-dialog-panel-bottom'],
+    panelClass: [
+      'dt-context-dialog-panel-right',
+      'dt-context-dialog-panel-bottom',
+    ],
   },
 ];
 
 // Boilerplate for applying mixins to DtContextDialog.
-export class DtContextDialogBase { }
-export const _DtContextDialogMixinBase = mixinTabIndex(mixinDisabled(DtContextDialogBase));
+export class DtContextDialogBase {}
+export const _DtContextDialogMixinBase = mixinTabIndex(
+  mixinDisabled(DtContextDialogBase)
+);
 
 @Component({
   moduleId: module.id,
@@ -76,7 +86,7 @@ export const _DtContextDialogMixinBase = mixinTabIndex(mixinDisabled(DtContextDi
   templateUrl: 'context-dialog.html',
   styleUrls: ['context-dialog.scss'],
   host: {
-    'class': 'dt-context-dialog',
+    class: 'dt-context-dialog',
     '[attr.aria-disabled]': 'disabled.toString()',
     'attr.aria-hidden': 'true',
   },
@@ -87,7 +97,6 @@ export const _DtContextDialogMixinBase = mixinTabIndex(mixinDisabled(DtContextDi
 })
 export class DtContextDialog extends _DtContextDialogMixinBase
   implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit {
-
   /** The class that traps and manages focus within the overlay. */
   private _focusTrap: FocusTrap | null;
 
@@ -97,7 +106,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
    */
   private _elementFocusedBeforeDialogWasOpened: HTMLElement | null = null;
 
-  private  _trigger: CdkOverlayOrigin;
+  private _trigger: CdkOverlayOrigin;
 
   private _overlayRef: OverlayRef | null;
 
@@ -110,15 +119,18 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   @Input('aria-label-close-button') ariaLabelClose: string;
 
   /** Event emitted when the select has been opened. */
-  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<
+    boolean
+  >();
 
   /** Panel that holds the content */
   @ViewChild('panel', { static: false }) _panel: ElementRef;
 
-// tslint:disable-next-line: no-any
+  // tslint:disable-next-line: no-any
   @ViewChild(TemplateRef, { static: true }) _overlayTemplate: TemplateRef<any>;
 
-  @ViewChild(CdkOverlayOrigin, { static: false }) _defaultTrigger: CdkOverlayOrigin;
+  @ViewChild(CdkOverlayOrigin, { static: false })
+  _defaultTrigger: CdkOverlayOrigin;
 
   /** Whether or not the overlay panel is open. */
   get isPanelOpen(): boolean {
@@ -193,19 +205,22 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   /** Focuses the context-dialog element. */
   focus(): void {
-      this.trigger.elementRef.nativeElement.focus();
+    this.trigger.elementRef.nativeElement.focus();
   }
 
   /** Moves the focus inside the focus trap. */
   private _trapFocus(): void {
     if (!this._focusTrap && this._overlayRef) {
-      this._focusTrap = this._focusTrapFactory.create(this._overlayRef.overlayElement);
-      this._focusTrap.focusFirstTabbableElementWhenReady()
-      .catch((error: Error) => {
-        if (isDevMode()) {
-          LOG.debug('Error when trying to set initial focus', error);
-        }
-      });
+      this._focusTrap = this._focusTrapFactory.create(
+        this._overlayRef.overlayElement
+      );
+      this._focusTrap
+        .focusFirstTabbableElementWhenReady()
+        .catch((error: Error) => {
+          if (isDevMode()) {
+            LOG.debug('Error when trying to set initial focus', error);
+          }
+        });
     }
   }
 
@@ -230,12 +245,14 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   /** Saves a reference to the element that was focused before the overlay was opened. */
   private _savePreviouslyFocusedElement(): void {
     if (this._document) {
-      this._elementFocusedBeforeDialogWasOpened = this._document.activeElement as HTMLElement;
+      this._elementFocusedBeforeDialogWasOpened = this._document
+        .activeElement as HTMLElement;
     }
   }
 
   private _createOverlay(): void {
-    const positionStrategy = this._overlay.position()
+    const positionStrategy = this._overlay
+      .position()
       .flexibleConnectedTo(this._trigger.elementRef)
       .withPositions(OVERLAY_POSITIONS)
       .setOrigin(this._trigger.elementRef)
@@ -250,16 +267,25 @@ export class DtContextDialog extends _DtContextDialogMixinBase
       backdropClass: 'cdk-overlay-transparent-backdrop',
       hasBackdrop: true,
     });
-    this._overlayRef.backdropClick().pipe(takeUntil(this._destroy)).subscribe(() => { this.close(); });
-    this._overlayRef.attach(new TemplatePortal(this._overlayTemplate, this._viewContainerRef));
+    this._overlayRef
+      .backdropClick()
+      .pipe(takeUntil(this._destroy))
+      .subscribe(() => {
+        this.close();
+      });
+    this._overlayRef.attach(
+      new TemplatePortal(this._overlayTemplate, this._viewContainerRef)
+    );
     this._trapFocus();
 
-    this._overlayRef.keydownEvents().pipe(takeUntil(this._destroy)).subscribe((event: KeyboardEvent) => {
-
-      if (readKeyCode(event) === ESCAPE && this._overlayRef) {
-        this._overlayRef.detach();
-      }
-    });
+    this._overlayRef
+      .keydownEvents()
+      .pipe(takeUntil(this._destroy))
+      .subscribe((event: KeyboardEvent) => {
+        if (readKeyCode(event) === ESCAPE && this._overlayRef) {
+          this._overlayRef.detach();
+        }
+      });
   }
 
   _registerTrigger(trigger: DtContextDialogTrigger): void {

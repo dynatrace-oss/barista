@@ -1,9 +1,15 @@
-import { FlexibleConnectedPositionStrategy, ViewportRuler, PositionStrategy, OverlayRef, ConnectedPosition, OverlayContainer } from '@angular/cdk/overlay';
+import {
+  FlexibleConnectedPositionStrategy,
+  ViewportRuler,
+  PositionStrategy,
+  OverlayRef,
+  ConnectedPosition,
+  OverlayContainer,
+} from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { DtOverlayOrigin } from './overlay';
 
 export class DtMouseFollowPositionStrategy implements PositionStrategy {
-
   private _flexiblePositionStrategy: FlexibleConnectedPositionStrategy;
 
   private _relativePositions: ConnectedPosition[];
@@ -17,8 +23,13 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
     platform: Platform,
     overlayContainer: OverlayContainer
   ) {
-    this._flexiblePositionStrategy =
-      new FlexibleConnectedPositionStrategy(connectedTo, viewportRuler, document, platform, overlayContainer);
+    this._flexiblePositionStrategy = new FlexibleConnectedPositionStrategy(
+      connectedTo,
+      viewportRuler,
+      document,
+      platform,
+      overlayContainer
+    );
   }
 
   /** attaches the strategy */
@@ -37,7 +48,9 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
   }
 
   /** sets the movement constraint */
-  withMovementContraint(constraint: 'xAxis' | 'yAxis'): DtMouseFollowPositionStrategy {
+  withMovementContraint(
+    constraint: 'xAxis' | 'yAxis'
+  ): DtMouseFollowPositionStrategy {
     this._constraint = constraint;
     return this;
   }
@@ -52,19 +65,21 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
   /** applies offset to each given position */
   withOffset(offsetX: number, offsetY: number): this {
     if (this._relativePositions) {
-      this._flexiblePositionStrategy.withPositions(this._relativePositions.map((pos: ConnectedPosition) => {
-        const posWithOffset = { ...pos };
+      this._flexiblePositionStrategy.withPositions(
+        this._relativePositions.map((pos: ConnectedPosition) => {
+          const posWithOffset = { ...pos };
 
-        posWithOffset.offsetX = this._combineOffset(offsetX, pos.offsetX);
-        posWithOffset.offsetY = this._combineOffset(offsetY, pos.offsetY);
+          posWithOffset.offsetX = this._combineOffset(offsetX, pos.offsetX);
+          posWithOffset.offsetY = this._combineOffset(offsetY, pos.offsetY);
 
-        if (this._constraint === 'yAxis') {
-          posWithOffset.offsetX = pos.offsetX;
-        } else if (this._constraint === 'xAxis') {
-          posWithOffset.offsetY = pos.offsetY;
-        }
-        return posWithOffset;
-      }));
+          if (this._constraint === 'yAxis') {
+            posWithOffset.offsetX = pos.offsetX;
+          } else if (this._constraint === 'xAxis') {
+            posWithOffset.offsetY = pos.offsetY;
+          }
+          return posWithOffset;
+        })
+      );
     }
     return this;
   }

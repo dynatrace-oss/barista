@@ -18,16 +18,16 @@ describe('DefaultViewportResizer', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [
-        ViewportRuler,
-        Platform,
-      ],
+      providers: [ViewportRuler, Platform],
     });
   }));
 
-  beforeEach(inject([DtViewportResizer], (viewportResizer: DtViewportResizer) => {
-    resizer = viewportResizer;
-  }));
+  beforeEach(inject(
+    [DtViewportResizer],
+    (viewportResizer: DtViewportResizer) => {
+      resizer = viewportResizer;
+    }
+  ));
 
   it('should emit on resize', fakeAsync(() => {
     const spy = jasmine.createSpy('viewport changed spy');

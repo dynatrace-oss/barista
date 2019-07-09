@@ -4,4 +4,6 @@ export interface DtIconConfiguration {
   svgIconLocation: string;
 }
 
-export const DT_ICON_CONFIGURATION = new InjectionToken<DtIconConfiguration>('DT_ICON_CONFIGURATION');
+export const DT_ICON_CONFIGURATION = new InjectionToken<DtIconConfiguration>(
+  'DT_ICON_CONFIGURATION'
+);

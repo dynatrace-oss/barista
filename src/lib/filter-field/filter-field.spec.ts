@@ -5,7 +5,14 @@ import { Component, NgZone, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ENTER, BACKSPACE, ESCAPE } from '@angular/cdk/keycodes';
-import { TestBed, ComponentFixture, inject, fakeAsync, tick, flush } from '@angular/core/testing';
+import {
+  TestBed,
+  ComponentFixture,
+  inject,
+  fakeAsync,
+  tick,
+  flush,
+} from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import {
@@ -15,7 +22,7 @@ import {
   DT_FILTER_FIELD_TYPING_DEBOUNCE,
   DtFilterFieldChangeEvent,
   getDtFilterFieldRangeNoOperatorsError,
-  dtRangeDef
+  dtRangeDef,
 } from '@dynatrace/angular-components/filter-field';
 import { typeInElement } from '../../testing/type-in-element';
 import { MockNgZone } from '../../testing/mock-ng-zone';
@@ -34,11 +41,7 @@ const TEST_DATA = {
           autocomplete: [
             {
               name: 'Cities',
-              options: [
-                'Linz',
-                'Wels',
-                'Steyr',
-              ],
+              options: ['Linz', 'Wels', 'Steyr'],
             },
           ],
         },
@@ -49,10 +52,7 @@ const TEST_DATA = {
     },
     {
       name: 'USA',
-      autocomplete: [
-        'Los Angeles',
-        'San Fran',
-      ],
+      autocomplete: ['Los Angeles', 'San Fran'],
     },
     {
       name: 'Free',
@@ -93,10 +93,7 @@ const TEST_DATA_SUGGESTIONS = {
         {
           name: 'Node Label',
           key: 'MyKey',
-          suggestions: [
-            'some cool',
-            'very weird',
-          ],
+          suggestions: ['some cool', 'very weird'],
         },
       ],
     },
@@ -134,11 +131,9 @@ describe('DtFilterField', () => {
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
         DtFilterFieldModule,
       ],
-      declarations: [
-        TestApp,
-      ],
+      declarations: [TestApp],
       providers: [
-        { provide: NgZone, useFactory: () => zone = new MockNgZone() },
+        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
       ],
     }).compileComponents();
 
@@ -148,38 +143,49 @@ describe('DtFilterField', () => {
     })();
 
     fixture = createComponent(TestApp);
-    filterField = fixture.debugElement.query(By.directive(DtFilterField)).componentInstance;
+    filterField = fixture.debugElement.query(By.directive(DtFilterField))
+      .componentInstance;
   }));
 
-  afterEach(inject([OverlayContainer], (currentOverlayContainer: OverlayContainer) => {
-    // Since we're resetting the testing module in some of the tests,
-    // we can potentially have multiple overlay containers.
-    currentOverlayContainer.ngOnDestroy();
-    overlayContainer.ngOnDestroy();
-  }));
+  afterEach(inject(
+    [OverlayContainer],
+    (currentOverlayContainer: OverlayContainer) => {
+      // Since we're resetting the testing module in some of the tests,
+      // we can potentially have multiple overlay containers.
+      currentOverlayContainer.ngOnDestroy();
+      overlayContainer.ngOnDestroy();
+    }
+  ));
 
   it('should focus the input field when focusing the host', () => {
-    const input = fixture.debugElement.query(By.css('.dt-filter-field-input')).nativeElement;
+    const input = fixture.debugElement.query(By.css('.dt-filter-field-input'))
+      .nativeElement;
     filterField.focus();
     expect(document.activeElement).toBe(input);
   });
 
   describe('labeling', () => {
     it('should create an label with an filter icon', () => {
-      const label = fixture.debugElement.query(By.css('.dt-filter-field-label'));
+      const label = fixture.debugElement.query(
+        By.css('.dt-filter-field-label')
+      );
       const icon = label.query(By.css('dt-icon'));
       expect(icon.componentInstance.name).toEqual('filter');
     });
 
     it('should use the label passed to the component', () => {
-      const label = fixture.debugElement.query(By.css('.dt-filter-field-label'));
+      const label = fixture.debugElement.query(
+        By.css('.dt-filter-field-label')
+      );
       expect(label.nativeElement.innerText).toEqual('Filter by');
     });
 
     it('should update the label', () => {
       fixture.componentInstance.label = 'Something else';
       fixture.detectChanges();
-      const label = fixture.debugElement.query(By.css('.dt-filter-field-label'));
+      const label = fixture.debugElement.query(
+        By.css('.dt-filter-field-label')
+      );
       expect(label.nativeElement.innerText).toEqual('Something else');
     });
   });
@@ -305,7 +311,10 @@ describe('DtFilterField', () => {
       fixture.detectChanges();
       const inputEl = getInput(fixture);
 
-      expect(document.activeElement).toBe(inputEl, 'input element should be focused again');
+      expect(document.activeElement).toBe(
+        inputEl,
+        'input element should be focused again'
+      );
     });
 
     it('should fire filterChanges and create a tag after an option that has no children is clicked', fakeAsync(() => {
@@ -347,7 +356,9 @@ describe('DtFilterField', () => {
       let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
-      const sub = filterField.filterChanges.subscribe((ev) => filterChangeEvent = ev);
+      const sub = filterField.filterChanges.subscribe(
+        ev => (filterChangeEvent = ev)
+      );
 
       fixture.detectChanges();
       filterField.focus();
@@ -371,7 +382,9 @@ describe('DtFilterField', () => {
       let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
-      const sub = filterField.filterChanges.subscribe((ev) => filterChangeEvent = ev);
+      const sub = filterField.filterChanges.subscribe(
+        ev => (filterChangeEvent = ev)
+      );
 
       fixture.detectChanges();
       filterField.focus();
@@ -448,7 +461,6 @@ describe('DtFilterField', () => {
       expect(options[0].innerText).toBe('AUT');
       expect(options[1].innerText).toBe('USA');
       expect(options[2].innerText).toBe('Free');
-
     });
 
     it('should show option again after adding all possible options and removing this option from the filters', () => {
@@ -582,7 +594,9 @@ describe('DtFilterField', () => {
     });
 
     it('should open the range overlay if the range option is selected', () => {
-      let filterFieldRangeElements = getFilterFieldRange(overlayContainerElement);
+      let filterFieldRangeElements = getFilterFieldRange(
+        overlayContainerElement
+      );
       expect(filterFieldRangeElements.length).toBe(0);
 
       const options = getOptions(overlayContainerElement);
@@ -623,7 +637,9 @@ describe('DtFilterField', () => {
       zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
 
-      const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+      const operatorButtonElements = getOperatorButtonGroupItems(
+        overlayContainerElement
+      );
       expect(operatorButtonElements.length).toBe(2);
       expect(operatorButtonElements[0].textContent).toBe('Range');
       expect(operatorButtonElements[1].textContent).toBe('≥');
@@ -657,7 +673,9 @@ describe('DtFilterField', () => {
       zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
 
-      const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+      const operatorButtonElements = getOperatorButtonGroupItems(
+        overlayContainerElement
+      );
       expect(operatorButtonElements.length).toBe(1);
       expect(operatorButtonElements[0].textContent).toBe('≥');
     });
@@ -673,12 +691,16 @@ describe('DtFilterField', () => {
       });
 
       it('should set the focus onto the first button-group-item by default', () => {
-        const firstButtonElement = overlayContainerElement.querySelector('dt-button-group-item');
+        const firstButtonElement = overlayContainerElement.querySelector(
+          'dt-button-group-item'
+        );
         expect(document.activeElement).toBe(firstButtonElement);
       });
 
       it('should have all operators enabled', () => {
-        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        const operatorButtonElements = getOperatorButtonGroupItems(
+          overlayContainerElement
+        );
         expect(operatorButtonElements.length).toBe(4);
       });
 
@@ -690,38 +712,50 @@ describe('DtFilterField', () => {
               {
                 name: 'Requests per minute',
                 range: {
-                  operators: { },
+                  operators: {},
                   unit: 's',
                 },
               },
             ],
           };
           flush();
-        }).toThrowError(wrappedErrorMessage(getDtFilterFieldRangeNoOperatorsError()));
+        }).toThrowError(
+          wrappedErrorMessage(getDtFilterFieldRangeNoOperatorsError())
+        );
       }));
 
       it('should throw', () => {
         expect(() => {
           dtRangeDef(false, false, false, false, 's', {}, null);
-        }).toThrowError(wrappedErrorMessage(getDtFilterFieldRangeNoOperatorsError()));
+        }).toThrowError(
+          wrappedErrorMessage(getDtFilterFieldRangeNoOperatorsError())
+        );
       });
 
       it('should show two input fields when operator range is selected', () => {
-        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        const inputFieldsElements = getRangeInputFields(
+          overlayContainerElement
+        );
         expect(inputFieldsElements.length).toBe(2);
       });
 
       it('should show only one input field when the operator is not range', () => {
-        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        const operatorButtonElements = getOperatorButtonGroupItems(
+          overlayContainerElement
+        );
         operatorButtonElements[2].click();
         fixture.detectChanges();
 
-        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        const inputFieldsElements = getRangeInputFields(
+          overlayContainerElement
+        );
         expect(inputFieldsElements.length).toBe(1);
       });
 
       it('should keep the apply button disabled until both entries are valid', () => {
-        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        const inputFieldsElements = getRangeInputFields(
+          overlayContainerElement
+        );
 
         let rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
         expect(rangeApplyButton.getAttribute('disabled')).toBeDefined();
@@ -740,12 +774,16 @@ describe('DtFilterField', () => {
       });
 
       it('should keep the apply button disabled until the one required is valid', () => {
-        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        const operatorButtonElements = getOperatorButtonGroupItems(
+          overlayContainerElement
+        );
 
         operatorButtonElements[2].click();
         fixture.detectChanges();
 
-        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        const inputFieldsElements = getRangeInputFields(
+          overlayContainerElement
+        );
 
         let rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
         expect(rangeApplyButton.getAttribute('disabled')).toBeDefined();
@@ -758,13 +796,17 @@ describe('DtFilterField', () => {
       });
 
       it('should close the range after the range-filter is submitted', () => {
-        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        const inputFieldsElements = getRangeInputFields(
+          overlayContainerElement
+        );
 
         typeInElement('15', inputFieldsElements[0]);
         typeInElement('25', inputFieldsElements[1]);
         fixture.detectChanges();
 
-        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        const rangeApplyButton = getRangeApplyButton(
+          overlayContainerElement
+        )[0];
         rangeApplyButton.click();
 
         const rangeOverlay = getFilterFieldRange(overlayContainerElement);
@@ -772,13 +814,17 @@ describe('DtFilterField', () => {
       });
 
       it('should have the tag-filter committed in the filterfield and formatted for range', () => {
-        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        const inputFieldsElements = getRangeInputFields(
+          overlayContainerElement
+        );
 
         typeInElement('15', inputFieldsElements[0]);
         typeInElement('25', inputFieldsElements[1]);
         fixture.detectChanges();
 
-        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        const rangeApplyButton = getRangeApplyButton(
+          overlayContainerElement
+        )[0];
         rangeApplyButton.click();
         fixture.detectChanges();
 
@@ -789,17 +835,23 @@ describe('DtFilterField', () => {
       });
 
       it('should have the tag-filter committed in the filterfield and formatted for greater-than operator', () => {
-        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        const operatorButtonElements = getOperatorButtonGroupItems(
+          overlayContainerElement
+        );
 
         operatorButtonElements[2].click();
         fixture.detectChanges();
 
-        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        const inputFieldsElements = getRangeInputFields(
+          overlayContainerElement
+        );
 
         typeInElement('15', inputFieldsElements[0]);
         fixture.detectChanges();
 
-        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        const rangeApplyButton = getRangeApplyButton(
+          overlayContainerElement
+        )[0];
         rangeApplyButton.click();
         fixture.detectChanges();
 
@@ -810,7 +862,9 @@ describe('DtFilterField', () => {
       });
 
       it('should close the filter-range when using the keyboard ESC', () => {
-        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        const operatorButtonElements = getOperatorButtonGroupItems(
+          overlayContainerElement
+        );
         dispatchKeyboardEvent(operatorButtonElements[0], 'keydown', ESCAPE);
         fixture.detectChanges();
 
@@ -819,58 +873,79 @@ describe('DtFilterField', () => {
       });
 
       it('should reapply previously set range operator and values when editing a range filter', () => {
-        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        const inputFieldsElements = getRangeInputFields(
+          overlayContainerElement
+        );
 
         typeInElement('15', inputFieldsElements[0]);
         typeInElement('25', inputFieldsElements[1]);
         fixture.detectChanges();
 
-        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        const rangeApplyButton = getRangeApplyButton(
+          overlayContainerElement
+        )[0];
         rangeApplyButton.click();
         fixture.detectChanges();
 
-        const tagLabel = fixture.debugElement.queryAll(By.css('.dt-filter-field-tag-label'))[0];
+        const tagLabel = fixture.debugElement.queryAll(
+          By.css('.dt-filter-field-tag-label')
+        )[0];
         tagLabel.nativeElement.click();
 
         zone.simulateMicrotasksEmpty();
         fixture.detectChanges();
 
         // expect the range to open again
-        const filterFieldRangeElements = getFilterFieldRange(overlayContainerElement);
+        const filterFieldRangeElements = getFilterFieldRange(
+          overlayContainerElement
+        );
         expect(filterFieldRangeElements.length).toBe(1);
 
         // expect the values to be filled
-        expect(filterField._filterfieldRange._selectedOperator).toEqual('range');
+        expect(filterField._filterfieldRange._selectedOperator).toEqual(
+          'range'
+        );
         expect(filterField._filterfieldRange._valueFrom).toEqual('15');
         expect(filterField._filterfieldRange._valueTo).toEqual('25');
       });
 
       it('should reapply previously set greater-equal operator and value when editing a range filter', () => {
-
-        const operatorButtonElements = getOperatorButtonGroupItems(overlayContainerElement);
+        const operatorButtonElements = getOperatorButtonGroupItems(
+          overlayContainerElement
+        );
         operatorButtonElements[2].click();
         fixture.detectChanges();
 
-        const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+        const inputFieldsElements = getRangeInputFields(
+          overlayContainerElement
+        );
         typeInElement('27', inputFieldsElements[0]);
         fixture.detectChanges();
 
-        const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+        const rangeApplyButton = getRangeApplyButton(
+          overlayContainerElement
+        )[0];
         rangeApplyButton.click();
         fixture.detectChanges();
 
-        const tagLabel = fixture.debugElement.queryAll(By.css('.dt-filter-field-tag-label'))[0];
+        const tagLabel = fixture.debugElement.queryAll(
+          By.css('.dt-filter-field-tag-label')
+        )[0];
         tagLabel.nativeElement.click();
 
         zone.simulateMicrotasksEmpty();
         fixture.detectChanges();
 
         // expect the range to open again
-        const filterFieldRangeElements = getFilterFieldRange(overlayContainerElement);
+        const filterFieldRangeElements = getFilterFieldRange(
+          overlayContainerElement
+        );
         expect(filterFieldRangeElements.length).toBe(1);
 
         // expect the values to be filled
-        expect(filterField._filterfieldRange._selectedOperator).toEqual('greater-equal');
+        expect(filterField._filterfieldRange._selectedOperator).toEqual(
+          'greater-equal'
+        );
         expect(filterField._filterfieldRange._valueFrom).toEqual('27');
       });
     });
@@ -885,55 +960,85 @@ function getOptionGroups(overlayContainerElement: HTMLElement): HTMLElement[] {
   return Array.from(overlayContainerElement.querySelectorAll('.dt-optgroup'));
 }
 
-function getFilterFieldRange(overlayContainerElement: HTMLElement): HTMLElement[] {
-  return Array.from(overlayContainerElement.querySelectorAll('.dt-filter-field-range-panel'));
+function getFilterFieldRange(
+  overlayContainerElement: HTMLElement
+): HTMLElement[] {
+  return Array.from(
+    overlayContainerElement.querySelectorAll('.dt-filter-field-range-panel')
+  );
 }
 
-function getOperatorButtonGroupItems(overlayContainerElement: HTMLElement): HTMLElement[] {
-  return Array.from(overlayContainerElement.querySelectorAll('dt-button-group-item'));
+function getOperatorButtonGroupItems(
+  overlayContainerElement: HTMLElement
+): HTMLElement[] {
+  return Array.from(
+    overlayContainerElement.querySelectorAll('dt-button-group-item')
+  );
 }
 
-function getRangeInputFields(overlayContainerElement: HTMLElement): HTMLInputElement[] {
-  return Array.from(overlayContainerElement.querySelectorAll('.dt-filter-field-range-input'));
+function getRangeInputFields(
+  overlayContainerElement: HTMLElement
+): HTMLInputElement[] {
+  return Array.from(
+    overlayContainerElement.querySelectorAll('.dt-filter-field-range-input')
+  );
 }
 
-function getRangeApplyButton(overlayContainerElement: HTMLElement): HTMLElement[] {
-  return Array.from(overlayContainerElement.querySelectorAll('.dt-filter-field-range-apply'));
+function getRangeApplyButton(
+  overlayContainerElement: HTMLElement
+): HTMLElement[] {
+  return Array.from(
+    overlayContainerElement.querySelectorAll('.dt-filter-field-range-apply')
+  );
 }
 
 // tslint:disable-next-line:no-any
-function getFilterTags(fixture: ComponentFixture<any>):
-  Array<{ key: string; separator: string; value: string; removeButton: HTMLElement }> {
-  return Array.from(fixture.debugElement.queryAll(By.css('.dt-filter-field-tag'))).map((ele) => {
-    const key: HTMLElement = ele.nativeElement.querySelector('.dt-filter-field-tag-key');
-    const separator = key && key.getAttribute('data-separator') ? key.getAttribute('data-separator')! : '';
-    const value = ele.nativeElement.querySelector('.dt-filter-field-tag-value').innerText;
+function getFilterTags(
+  fixture: ComponentFixture<any>
+): Array<{
+  key: string;
+  separator: string;
+  value: string;
+  removeButton: HTMLElement;
+}> {
+  return Array.from(
+    fixture.debugElement.queryAll(By.css('.dt-filter-field-tag'))
+  ).map(ele => {
+    const key: HTMLElement = ele.nativeElement.querySelector(
+      '.dt-filter-field-tag-key'
+    );
+    const separator =
+      key && key.getAttribute('data-separator')
+        ? key.getAttribute('data-separator')!
+        : '';
+    const value = ele.nativeElement.querySelector('.dt-filter-field-tag-value')
+      .innerText;
 
     return {
       key: key && key.innerText ? key.innerText : '',
       separator,
       value,
-      removeButton: ele.nativeElement.querySelector('.dt-filter-field-tag-button'),
+      removeButton: ele.nativeElement.querySelector(
+        '.dt-filter-field-tag-button'
+      ),
     };
   });
 }
 
 // tslint:disable-next-line:no-any
 function getInput(fixture: ComponentFixture<any>): HTMLInputElement {
-  return fixture.debugElement.query(By.css('.dt-filter-field-input')).nativeElement;
+  return fixture.debugElement.query(By.css('.dt-filter-field-input'))
+    .nativeElement;
 }
 
 @Component({
   selector: 'test-app',
   template: `
-  <dt-filter-field
-    [dataSource]="dataSource"
-    [label]="label">
-  </dt-filter-field>
-`,
+    <dt-filter-field [dataSource]="dataSource" [label]="label">
+    </dt-filter-field>
+  `,
 })
 export class TestApp {
-
   // tslint:disable-next-line:no-any
   dataSource = new DtFilterFieldDefaultDataSource<any>(TEST_DATA);
 

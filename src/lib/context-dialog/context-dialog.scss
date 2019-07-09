@@ -26,13 +26,18 @@ $dialog-max-width: 328px;
 }
 
 // If there is a header in the context dialog, reset the contents top padding.
-.dt-context-dialog-panel ::ng-deep .dt-context-dialog-header + .dt-context-dialog-content {
+.dt-context-dialog-panel
+  ::ng-deep
+  .dt-context-dialog-header
+  + .dt-context-dialog-content {
   padding-top: $panel-padding;
 }
 
 // If the context dialog is being positioned on top of the trigger,
 // reset the top padding of the header.
-::ng-deep.dt-context-dialog-panel-bottom .dt-context-dialog-panel .dt-context-dialog-header {
+::ng-deep.dt-context-dialog-panel-bottom
+  .dt-context-dialog-panel
+  .dt-context-dialog-header {
   padding-top: $panel-padding;
 }
 
@@ -62,7 +67,8 @@ $dialog-max-width: 328px;
   transform-origin: bottom right;
 }
 
-::ng-deep.dt-context-dialog-panel-bottom [dt-icon-button].dt-context-dialog-close-trigger {
+::ng-deep.dt-context-dialog-panel-bottom
+  [dt-icon-button].dt-context-dialog-close-trigger {
   top: auto;
   bottom: 0;
 }

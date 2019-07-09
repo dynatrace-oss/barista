@@ -7,7 +7,7 @@ import {
   AfterContentInit,
   OnDestroy,
   Input,
-  ElementRef
+  ElementRef,
 } from '@angular/core';
 import { startWith } from 'rxjs/operators';
 import { NEVER } from 'rxjs';
@@ -18,11 +18,13 @@ export type DtBreadcrumbThemePalette = 'main' | 'error' | 'neutral';
 
 // Boilerplate for applying mixins to DtBreadcrumb.
 export class DtBreadcrumbBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
 
-export const _DtBreadcrumbMixinBase =
-  mixinColor<Constructor<DtBreadcrumbBase>, DtBreadcrumbThemePalette>(DtBreadcrumbBase, 'main');
+export const _DtBreadcrumbMixinBase = mixinColor<
+  Constructor<DtBreadcrumbBase>,
+  DtBreadcrumbThemePalette
+>(DtBreadcrumbBase, 'main');
 @Component({
   moduleId: module.id,
   selector: 'dt-breadcrumbs',
@@ -30,18 +32,21 @@ export const _DtBreadcrumbMixinBase =
   templateUrl: 'breadcrumbs.html',
   styleUrls: ['breadcrumbs.scss'],
   host: {
-    'class': 'dt-breadcrumbs',
+    class: 'dt-breadcrumbs',
     '[attr.aria-label]': 'ariaLabel',
   },
-  inputs: [ 'color' ],
+  inputs: ['color'],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtBreadcrumbs extends _DtBreadcrumbMixinBase implements AfterContentInit, OnDestroy {
+export class DtBreadcrumbs extends _DtBreadcrumbMixinBase
+  implements AfterContentInit, OnDestroy {
   /** Aria label for the breadcrumbs */
   @Input('aria-label') ariaLabel: string;
-  @ContentChildren(DtBreadcrumbsItem) private _items: QueryList<DtBreadcrumbsItem>;
+  @ContentChildren(DtBreadcrumbsItem) private _items: QueryList<
+    DtBreadcrumbsItem
+  >;
 
   private _itemChangesSub = NEVER.subscribe();
 

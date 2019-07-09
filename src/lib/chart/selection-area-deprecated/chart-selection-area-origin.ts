@@ -95,7 +95,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
                 ev.clientX,
                 ev.clientY
               );
-              const clickIsInsidePlotBackground = hitElements.some((el) =>
+              const clickIsInsidePlotBackground = hitElements.some(el =>
                 hasCssClass(el, 'highcharts-plot-background')
               );
               if (clickIsInsidePlotBackground) {
@@ -106,7 +106,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
           )
         );
         this._detachFns.push(
-          this._renderer.listen(_elementRef.nativeElement, 'keydown', (ev) => {
+          this._renderer.listen(_elementRef.nativeElement, 'keydown', ev => {
             this._chart._toggleTooltip(false);
             this._handleKeyDown(ev);
           })
@@ -141,7 +141,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   }
 
   ngOnDestroy(): void {
-    this._detachFns.forEach((fn) => {
+    this._detachFns.forEach(fn => {
       fn();
     });
     this._selectionAreaClosedSub.unsubscribe();

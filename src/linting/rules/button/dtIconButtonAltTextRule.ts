@@ -6,7 +6,7 @@ import {
   addFailure,
   isButtonElement,
   isIconButtonAttr,
-  hasTextContentAlternative
+  hasTextContentAlternative,
 } from '../../utils';
 
 interface FailureStrings {
@@ -14,7 +14,6 @@ interface FailureStrings {
 }
 
 class DtButtonVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -26,7 +25,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     }
 
     const attrs: AttrAst[] = element.attrs;
-    const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
+    const isIconButton = attrs.some(attr => isIconButtonAttr(attr));
     if (!isIconButton) {
       return;
     }
@@ -50,11 +49,12 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
  * <a dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></a>, no text alternative given
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly ELEMENTS = ['a', 'button'];
   static readonly FAILURE_STRINGS: FailureStrings = {
-    a: 'An icon-button link must have an aria-label or an aria-labelledby attribute.',
-    button: 'An icon-button must have an aria-label or an aria-labelledby attribute.',
+    a:
+      'An icon-button link must have an aria-label or an aria-labelledby attribute.',
+    button:
+      'An icon-button must have an aria-label or an aria-labelledby attribute.',
   };
 
   static readonly metadata: IRuleMetadata = {
@@ -62,7 +62,8 @@ export class Rule extends Rules.AbstractRule {
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'Buttons without a text content need additional attributes to provide text alternatives.',
+    rationale:
+      'Buttons without a text content need additional attributes to provide text alternatives.',
     ruleName: 'dt-icon-button-alt-text',
     type: 'maintainability',
     typescriptOnly: true,

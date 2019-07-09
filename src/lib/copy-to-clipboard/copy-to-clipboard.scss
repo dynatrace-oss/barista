@@ -22,7 +22,8 @@
     min-width: 80px;
   }
   ::ng-deep button.dt-button.dt-copy-to-clipboard-successful,
-  ::ng-deep button.dt-button.dt-copy-to-clipboard-successful:hover:not([disabled]) {
+  ::ng-deep
+    button.dt-button.dt-copy-to-clipboard-successful:hover:not([disabled]) {
     background-color: $green-500;
     border: 1px solid $green-500;
     box-shadow: none;

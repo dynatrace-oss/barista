@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './pagination-demo.component.html',
   styleUrls: ['./pagination-demo.component.scss'],
 })
-export class PaginationDemo {
-
-}
+export class PaginationDemo {}

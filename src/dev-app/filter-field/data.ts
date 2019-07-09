@@ -1,4 +1,3 @@
-
 export const COMPLEX_DATA = {
   name: 'Category',
   value: 'category',
@@ -14,12 +13,25 @@ export const COMPLEX_DATA = {
             {
               name: 'Oberösterreich',
               value: 'OOE',
-              autocomplete: ['Linz', 'Wels' , 'Steyr' , 'Leonding' , 'Traun' , 'Vöcklabruck'],
+              autocomplete: [
+                'Linz',
+                'Wels',
+                'Steyr',
+                'Leonding',
+                'Traun',
+                'Vöcklabruck',
+              ],
             },
             {
               name: 'Niederösterreich',
               value: 'NOE',
-              autocomplete: ['St. Pölten', 'Melk', 'Krems', 'St. Valentin', 'Amstetten'],
+              autocomplete: [
+                'St. Pölten',
+                'Melk',
+                'Krems',
+                'St. Valentin',
+                'Amstetten',
+              ],
             },
             {
               name: 'Wien',
@@ -69,24 +81,27 @@ export const COMPLEX_DATA = {
         {
           name: 'Edge',
           value: 'IE',
-          autocomplete: ['12', '13', { name: 'Custom', suggestions: []}],
+          autocomplete: ['12', '13', { name: 'Custom', suggestions: [] }],
         },
         {
           name: 'Chrome',
           value: 'IE',
-          autocomplete: ['Latest', { name: 'Custom', suggestions: []}, {
-            name: 'Version',
-            range: {
-              operators: {
-                range: true,
-                equal: true,
-                greaterThanEqual: true,
-                lessThanEqual: true,
+          autocomplete: [
+            'Latest',
+            { name: 'Custom', suggestions: [] },
+            {
+              name: 'Version',
+              range: {
+                operators: {
+                  range: true,
+                  equal: true,
+                  greaterThanEqual: true,
+                  lessThanEqual: true,
+                },
+                unit: '',
               },
-              unit: '',
             },
-          },
-        ],
+          ],
         },
       ],
     },

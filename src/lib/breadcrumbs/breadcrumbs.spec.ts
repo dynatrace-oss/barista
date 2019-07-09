@@ -3,20 +3,19 @@
 
 import { Component, QueryList, ViewChildren, ViewChild } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { DtBreadcrumbsItem, DtBreadcrumbsModule, DtBreadcrumbs } from '@dynatrace/angular-components';
+import {
+  DtBreadcrumbsItem,
+  DtBreadcrumbsModule,
+  DtBreadcrumbs,
+} from '@dynatrace/angular-components';
 import { By } from '@angular/platform-browser';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtBreadcrumbs', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        DtBreadcrumbsModule,
-      ],
-      declarations: [
-        TestBreadcrumbs,
-        TestBreadcrumbsWithAriaAttr,
-      ],
+      imports: [DtBreadcrumbsModule],
+      declarations: [TestBreadcrumbs, TestBreadcrumbsWithAriaAttr],
     });
     TestBed.compileComponents();
   }));
@@ -24,19 +23,25 @@ describe('DtBreadcrumbs', () => {
   it('should set last property on last child', () => {
     const fixture = createComponent(TestBreadcrumbs);
     const component = fixture.componentInstance;
-    const lastValues = component.items.map((item: DtBreadcrumbsItem) => item._lastItem);
+    const lastValues = component.items.map(
+      (item: DtBreadcrumbsItem) => item._lastItem
+    );
     expect(lastValues).toEqual([false, false, true]);
   });
 
   it('should make sure aria current is set', () => {
     const fixture = createComponent(TestBreadcrumbs);
-    const lastItem = fixture.debugElement.query(By.css('span[aria-current=page]'));
+    const lastItem = fixture.debugElement.query(
+      By.css('span[aria-current=page]')
+    );
     expect(lastItem).not.toBeFalsy();
   });
 
   it('should make sure aria label is set properly', () => {
     const fixture = createComponent(TestBreadcrumbsWithAriaAttr);
-    const breadcrumbs = fixture.debugElement.query(By.css('dt-breadcrumbs[aria-label=breadcrumbs]'));
+    const breadcrumbs = fixture.debugElement.query(
+      By.css('dt-breadcrumbs[aria-label=breadcrumbs]')
+    );
 
     expect(breadcrumbs).not.toBeFalsy();
   });
@@ -48,7 +53,9 @@ describe('DtBreadcrumbs', () => {
 
     fixture.detectChanges();
 
-    const breadcrumbsNative = fixture.debugElement.query(By.css('dt-breadcrumbs[aria-label=myverycoollabel]'));
+    const breadcrumbsNative = fixture.debugElement.query(
+      By.css('dt-breadcrumbs[aria-label=myverycoollabel]')
+    );
 
     expect(breadcrumbsNative).not.toBeFalsy();
   });

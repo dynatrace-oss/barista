@@ -1,10 +1,15 @@
 import { Component, DoCheck, ViewEncapsulation } from '@angular/core';
-import { DtChartOptions, DtChartSeries } from '@dynatrace/angular-components/chart';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/angular-components/chart';
 
 @Component({
   moduleId: module.id,
   selector: 'dt-chart-ui',
-  styles: ['.dt-chart { border: 1px solid black; } .dt-chart:hover { border: 1px solid red; }'],
+  styles: [
+    '.dt-chart { border: 1px solid black; } .dt-chart:hover { border: 1px solid red; }',
+  ],
   templateUrl: 'chart-ui.html',
   // tslint:disable-next-line use-view-encapsulation
   encapsulation: ViewEncapsulation.None,

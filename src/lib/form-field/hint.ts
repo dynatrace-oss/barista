@@ -6,7 +6,7 @@ let nextUniqueId = 0;
 @Directive({
   selector: 'dt-hint',
   host: {
-    'class': 'dt-hint',
+    class: 'dt-hint',
     '[class.dt-hint-right]': 'align == "end"',
     '[attr.id]': 'id',
     // Remove align attribute to prevent it from interfering with layout.

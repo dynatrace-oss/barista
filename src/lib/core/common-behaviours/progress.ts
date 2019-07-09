@@ -29,9 +29,10 @@ export interface HasProgressValues {
 }
 
 /** Mixin to augment a directive with a `disabled` property. */
-export function mixinHasProgress<T extends Constructor<{}>>(base: T): Constructor<HasProgressValues> & T {
+export function mixinHasProgress<T extends Constructor<{}>>(
+  base: T
+): Constructor<HasProgressValues> & T {
   return class extends base {
-
     private _value: number | null = null;
     private _min = 0;
     private _max = 100;
@@ -73,7 +74,10 @@ export function mixinHasProgress<T extends Constructor<{}>>(base: T): Constructo
 
     set value(v: number) {
       if (clamp(v) !== this.value) {
-        this.valueChange.emit({ oldValue: coerceNumberProperty(this.value), newValue: coerceNumberProperty(clamp(v)) });
+        this.valueChange.emit({
+          oldValue: coerceNumberProperty(this.value),
+          newValue: coerceNumberProperty(clamp(v)),
+        });
         this._value = coerceNumberProperty(v);
         this._updateValues();
       }
@@ -88,12 +92,14 @@ export function mixinHasProgress<T extends Constructor<{}>>(base: T): Constructo
     readonly valueChange = new EventEmitter<DtProgressChange>();
 
     // tslint:disable-next-line
-    constructor(...args: any[]) { super(...args); }
+    constructor(...args: any[]) {
+      super(...args);
+    }
 
     /** Calculates the percentage of the progress component that a value is. */
     private _calculatePercentage(value: number | null): number {
       // tslint:disable-next-line: no-magic-numbers
-      return clamp(((value || 0) - this.min) / (this.max - this.min) * 100);
+      return clamp((((value || 0) - this.min) / (this.max - this.min)) * 100);
     }
 
     /** @internal Updates all parameters */

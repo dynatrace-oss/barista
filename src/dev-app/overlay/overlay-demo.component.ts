@@ -11,5 +11,4 @@ export class OverlayDemo {
     pinnable: true,
     originY: 'center',
   };
-
 }

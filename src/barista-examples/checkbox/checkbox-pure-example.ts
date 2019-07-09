@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: '<dt-checkbox>Check me</dt-checkbox>',
 })
-export class CheckboxPureExample { }
+export class CheckboxPureExample {}

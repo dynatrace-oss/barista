@@ -2,7 +2,6 @@ import { calculatePages } from './pagination-calculate-pages';
 
 describe('calculatePages', () => {
   describe('functionality of the ellipsis calculation', () => {
-
     it('should return an empty array when no pages are present', () => {
       const pages = calculatePages(0, 1);
       expect(pages).toEqual([]);

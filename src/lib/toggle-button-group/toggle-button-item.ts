@@ -26,7 +26,9 @@ export interface DtToggleButtonChange<T> {
 
 export class DtToggleButtonBase {}
 
-export const _DtToggleButtonMixinBase = mixinTabIndex(mixinDisabled(DtToggleButtonBase));
+export const _DtToggleButtonMixinBase = mixinTabIndex(
+  mixinDisabled(DtToggleButtonBase)
+);
 
 /** ToggleButtonItem as a building part of the DtToggleButtonGroup */
 @Component({
@@ -37,7 +39,7 @@ export const _DtToggleButtonMixinBase = mixinTabIndex(mixinDisabled(DtToggleButt
   styleUrls: ['toggle-button-item.scss'],
   inputs: ['disabled', 'tabIndex'],
   host: {
-    'class': 'dt-toggle-button-item',
+    class: 'dt-toggle-button-item',
     '[class.dt-toggle-button-item-selected]': 'selected',
     '[class.dt-toggle-button-item-disabled]': 'disabled',
     '[attr.disabled]': 'disabled === true ? true : null',

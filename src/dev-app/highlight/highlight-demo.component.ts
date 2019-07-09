@@ -12,6 +12,8 @@ export class HighlightDemo {
   name = 'John';
 
   constructor() {
-    setTimeout(() => { this.name = 'Jane'; }, 2000);
+    setTimeout(() => {
+      this.name = 'Jane';
+    }, 2000);
   }
 }

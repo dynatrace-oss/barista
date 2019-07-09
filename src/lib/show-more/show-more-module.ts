@@ -4,18 +4,8 @@ import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DtIconModule,
-  ],
-  exports: [
-    DtShowMore,
-    DtShowLessLabel,
-    DtIconModule,
-  ],
-  declarations: [
-    DtShowMore,
-    DtShowLessLabel,
-  ],
+  imports: [CommonModule, DtIconModule],
+  exports: [DtShowMore, DtShowLessLabel, DtIconModule],
+  declarations: [DtShowMore, DtShowLessLabel],
 })
-export class DtShowMoreModule { }
+export class DtShowMoreModule {}

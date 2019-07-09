@@ -20,11 +20,15 @@ export type DtBarIndicatorChange = DtProgressChange;
 export type DtBarIndicatorThemePalette = 'main' | 'recovered' | 'error';
 
 export class DtBarIndicatorBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
 
-export const _DtBarIndicator =
-  mixinHasProgress(mixinColor<Constructor<DtBarIndicatorBase>, DtBarIndicatorThemePalette>(DtBarIndicatorBase, 'main'));
+export const _DtBarIndicator = mixinHasProgress(
+  mixinColor<Constructor<DtBarIndicatorBase>, DtBarIndicatorThemePalette>(
+    DtBarIndicatorBase,
+    'main'
+  )
+);
 
 @Component({
   moduleId: module.id,
@@ -33,7 +37,7 @@ export const _DtBarIndicator =
   styleUrls: ['bar-indicator.scss'],
   exportAs: 'dtBarIndicator',
   host: {
-    'class': 'dt-bar-indicator',
+    class: 'dt-bar-indicator',
     '[class.dt-bar-indicator-end]': 'align == "end"',
     '[attr.aria-valuemin]': 'min',
     '[attr.aria-valuemax]': 'max',
@@ -45,11 +49,14 @@ export const _DtBarIndicator =
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
 })
-export class DtBarIndicator extends _DtBarIndicator implements CanColor<DtBarIndicatorThemePalette>, HasProgressValues {
-
+export class DtBarIndicator extends _DtBarIndicator
+  implements CanColor<DtBarIndicatorThemePalette>, HasProgressValues {
   @Input() align: 'start' | 'end' = 'start';
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef) {
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    elementRef: ElementRef
+  ) {
     super(elementRef);
   }
 

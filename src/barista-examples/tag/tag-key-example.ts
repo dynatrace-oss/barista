@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: '<dt-tag><dt-tag-key>[My key]:</dt-tag-key>My value</dt-tag>',
 })
-export class TagKeyExample { }
+export class TagKeyExample {}

@@ -5,17 +5,8 @@ import { DtRadioButton } from './radio';
 import { DtRadioGroup } from './radio-group';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    A11yModule,
-  ],
-  exports: [
-    DtRadioButton,
-    DtRadioGroup,
-  ],
-  declarations: [
-    DtRadioButton,
-    DtRadioGroup,
-  ],
+  imports: [CommonModule, A11yModule],
+  exports: [DtRadioButton, DtRadioGroup],
+  declarations: [DtRadioButton, DtRadioGroup],
 })
-export class DtRadioModule { }
+export class DtRadioModule {}

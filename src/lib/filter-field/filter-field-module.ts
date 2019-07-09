@@ -36,4 +36,4 @@ import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-ran
     DtFilterFieldRangeTrigger,
   ],
 })
-export class DtFilterFieldModule { }
+export class DtFilterFieldModule {}

@@ -6,7 +6,6 @@ import { TestBed, async } from '@angular/core/testing';
 import { replaceCssClass, hasCssClass } from './platform-util';
 
 describe('PlatformUtil', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TestApp],
@@ -16,14 +15,18 @@ describe('PlatformUtil', () => {
   }));
 
   describe('replaceCssClass', () => {
-
     it('should replace an old class with a new one using the renderer', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       const renderer = testComponent.renderer;
       expect(renderer).toBeTruthy();
       expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(testComponent.testElement, 'old-class', 'new-class', renderer);
+      replaceCssClass(
+        testComponent.testElement,
+        'old-class',
+        'new-class',
+        renderer
+      );
       expect(testComponent.testElement.className).toBe('new-class');
     });
 
@@ -62,7 +65,12 @@ describe('PlatformUtil', () => {
       const renderer = testComponent.renderer;
 
       expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(testComponent.elementRef, 'old-class', 'new-class', renderer);
+      replaceCssClass(
+        testComponent.elementRef,
+        'old-class',
+        'new-class',
+        renderer
+      );
       expect(testComponent.testElement.className).toBe('new-class');
     });
   });
@@ -83,13 +91,17 @@ describe('PlatformUtil', () => {
     it('should return true on svg element that has the class', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
-      expect(hasCssClass(testComponent.testSvgElement, 'old-class')).toBeTruthy();
+      expect(
+        hasCssClass(testComponent.testSvgElement, 'old-class')
+      ).toBeTruthy();
     });
 
     it('should return false on svg element that doesnt the class', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
-      expect(hasCssClass(testComponent.testSvgElement, 'new-class')).toBeFalsy();
+      expect(
+        hasCssClass(testComponent.testSvgElement, 'new-class')
+      ).toBeFalsy();
     });
   });
 });
@@ -100,8 +112,11 @@ describe('PlatformUtil', () => {
 })
 class TestApp {
   testElement: HTMLElement = document.createElement('div');
-// tslint:disable-next-line: ban
-  testSvgElement: SVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  // tslint:disable-next-line: ban
+  testSvgElement: SVGElement = document.createElementNS(
+    'http://www.w3.org/2000/svg',
+    'svg'
+  );
   elementRef = new ElementRef(this.testElement);
 
   constructor(public renderer: Renderer2) {

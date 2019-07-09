@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   CanColor,
   Constructor,
   DtProgressChange,
   HasProgressValues,
   mixinColor,
-  mixinHasProgress
+  mixinHasProgress,
 } from '@dynatrace/angular-components/core';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */
@@ -13,14 +19,23 @@ const CIRCLE_CIRCUMFERENCE = 328;
 
 export type DtProgressCircleChange = DtProgressChange;
 
-export type DtProgressCircleThemePalette = 'main' | 'accent' | 'warning' | 'recovered' | 'error';
+export type DtProgressCircleThemePalette =
+  | 'main'
+  | 'accent'
+  | 'warning'
+  | 'recovered'
+  | 'error';
 
 export class DtProgressCircleBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
 
-export const _DtProgressCircle =
-  mixinHasProgress(mixinColor<Constructor<DtProgressCircleBase>, DtProgressCircleThemePalette>(DtProgressCircleBase, 'main'));
+export const _DtProgressCircle = mixinHasProgress(
+  mixinColor<Constructor<DtProgressCircleBase>, DtProgressCircleThemePalette>(
+    DtProgressCircleBase,
+    'main'
+  )
+);
 
 @Component({
   moduleId: module.id,
@@ -29,8 +44,8 @@ export const _DtProgressCircle =
   styleUrls: ['progress-circle.scss'],
   exportAs: 'dtProgressCircle',
   host: {
-    'class': 'dt-progress-circle',
-    'role': 'progressbar',
+    class: 'dt-progress-circle',
+    role: 'progressbar',
     '[attr.aria-valuemin]': 'min',
     '[attr.aria-valuemax]': 'max',
     '[attr.aria-valuenow]': 'value',
@@ -40,12 +55,15 @@ export const _DtProgressCircle =
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtProgressCircle extends _DtProgressCircle implements CanColor<DtProgressCircleThemePalette>, HasProgressValues {
-
+export class DtProgressCircle extends _DtProgressCircle
+  implements CanColor<DtProgressCircleThemePalette>, HasProgressValues {
   /** Dash offset base on the values percentage */
   _dashOffset: number = CIRCLE_CIRCUMFERENCE;
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef, public _elementRef: ElementRef) {
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    public _elementRef: ElementRef
+  ) {
     super(_elementRef);
   }
 
@@ -62,6 +80,6 @@ export class DtProgressCircle extends _DtProgressCircle implements CanColor<DtPr
   /** Calculates the dash offset of the progress circle based on the calculated percent */
   private _calculateDashOffset(percent: number): number {
     // tslint:disable-next-line: no-magic-numbers
-    return CIRCLE_CIRCUMFERENCE - (CIRCLE_CIRCUMFERENCE / 100 * percent);
+    return CIRCLE_CIRCUMFERENCE - (CIRCLE_CIRCUMFERENCE / 100) * percent;
   }
 }

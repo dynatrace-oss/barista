@@ -16,7 +16,10 @@ export function isDataMissing(idx: number, data: DataPoint[]): boolean {
  * @param data The data points
  */
 export function isGapStart(idx: number, data: DataPoint[]): boolean {
-  return isDataMissing(idx, data) && (!data[idx - 1] || data[idx - 1].y !== undefined);
+  return (
+    isDataMissing(idx, data) &&
+    (!data[idx - 1] || data[idx - 1].y !== undefined)
+  );
 }
 
 /**
@@ -26,7 +29,10 @@ export function isGapStart(idx: number, data: DataPoint[]): boolean {
  * @param data The data points
  */
 export function isGapEnd(idx: number, data: DataPoint[]): boolean {
-  return isDataMissing(idx, data) && (!data[idx + 1] || data[idx + 1].y !== undefined);
+  return (
+    isDataMissing(idx, data) &&
+    (!data[idx + 1] || data[idx + 1].y !== undefined)
+  );
 }
 
 /**
@@ -80,17 +86,16 @@ export function extractLineGapDataPoints(data: DataPoint[]): DataPoint[] {
       }
 
       if (acc.length > 0) {
-        acc.push({x: acc[acc.length - 1].x});
+        acc.push({ x: acc[acc.length - 1].x });
       }
 
-      return acc.concat(
-        [
-          {x: startDataPoint.x, y: startDataPoint.y || endDataPoint.y},
-          {x: endDataPoint.x, y: endDataPoint.y || startDataPoint.y},
-        ]
-      );
+      return acc.concat([
+        { x: startDataPoint.x, y: startDataPoint.y || endDataPoint.y },
+        { x: endDataPoint.x, y: endDataPoint.y || startDataPoint.y },
+      ]);
     },
-    []);
+    []
+  );
 }
 
 /**
@@ -115,12 +120,13 @@ export function extractColumnGapDataPoints(data: DataPoint[]): DataPoint[] {
 
       const interpolatedValue = startValue || endValue || 0;
 
-      return acc.concat(Array.from(
-        {length: endIndex - startIndex + 1},
-        (_, i: number) => ({
+      return acc.concat(
+        Array.from({ length: endIndex - startIndex + 1 }, (_, i: number) => ({
           x: data[i + startIndex].x,
           y: interpolatedValue,
-        })));
+        }))
+      );
     },
-    []);
+    []
+  );
 }

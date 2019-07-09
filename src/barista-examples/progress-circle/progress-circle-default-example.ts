@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: '<dt-progress-circle [value]="75"></dt-progress-circle>',
 })
-export class ProgressCircleDefaultExample { }
+export class ProgressCircleDefaultExample {}

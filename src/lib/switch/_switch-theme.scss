@@ -24,14 +24,13 @@
       }
 
       .dt-switch-label::before {
-        background-image:
-          radial-gradient(
-            circle 5px,
-            transparent 0,
-            transparent 2px,
-            #ffffff 3px,
-            transparent 4px
-          );
+        background-image: radial-gradient(
+          circle 5px,
+          transparent 0,
+          transparent 2px,
+          #ffffff 3px,
+          transparent 4px
+        );
         border-color: #ffffff;
         background-color: transparent;
       }
@@ -65,14 +64,13 @@
 
     :host.dt-switch-disabled {
       .dt-switch-label::before {
-        background-image:
-          radial-gradient(
-            circle 5px,
-            transparent 0,
-            transparent 2px,
-            $gray-500 3px,
-            transparent 4px
-          );
+        background-image: radial-gradient(
+          circle 5px,
+          transparent 0,
+          transparent 2px,
+          $gray-500 3px,
+          transparent 4px
+        );
         border-color: $gray-500;
         background-color: transparent;
       }
@@ -83,7 +81,11 @@
 
     :host.dt-switch-checked.dt-switch-disabled {
       .dt-switch-label::before {
-        background-image: linear-gradient(to right, $gray-500 1px, transparent 0);
+        background-image: linear-gradient(
+          to right,
+          $gray-500 1px,
+          transparent 0
+        );
         border: 1px solid rgba(255, 255, 255, 0.3);
         background-color: rgba(255, 255, 255, 0.2);
       }
@@ -98,14 +100,13 @@
       .dt-switch-label::before {
         border: solid 1px $turquoise-600;
         background-color: transparent;
-        background-image:
-          radial-gradient(
-            circle 5px,
-            transparent 0,
-            transparent 2px,
-            $gray-700 3px,
-            transparent 4px
-          );
+        background-image: radial-gradient(
+          circle 5px,
+          transparent 0,
+          transparent 2px,
+          $gray-700 3px,
+          transparent 4px
+        );
       }
 
       &:not(.dt-switch-disabled, .dt-switch-checked):hover {
@@ -126,7 +127,11 @@
         .dt-switch-label::before {
           background-color: $turquoise-600;
           border-color: $turquoise-600;
-          background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
+          background-image: linear-gradient(
+            to right,
+            #ffffff 1px,
+            transparent 0
+          );
         }
       }
 
@@ -147,14 +152,13 @@
       &.dt-switch-disabled {
         .dt-switch-label::before {
           border-color: $disabledcolor;
-          background-image:
-            radial-gradient(
-              circle 5px,
-              transparent 0,
-              transparent 2px,
-              $disabledcolor 3px,
-              transparent 4px
-            );
+          background-image: radial-gradient(
+            circle 5px,
+            transparent 0,
+            transparent 2px,
+            $disabledcolor 3px,
+            transparent 4px
+          );
           background-color: transparent;
         }
       }
@@ -162,7 +166,11 @@
       &.dt-switch-checked.dt-switch-disabled {
         .dt-switch-label::before {
           border-color: $disabledcolor;
-          background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
+          background-image: linear-gradient(
+            to right,
+            #ffffff 1px,
+            transparent 0
+          );
           background-color: $disabledcolor;
         }
 

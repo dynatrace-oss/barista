@@ -5,16 +5,20 @@ import { DtInlineEditor } from '@dynatrace/angular-components';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <em #sampleEditor
+    <em
+      #sampleEditor
       dt-inline-editor
       [(ngModel)]="sampleModel"
       aria-label-save="Save text"
-      aria-label-cancel="Cancel and discard changes">
+      aria-label-cancel="Cancel and discard changes"
+    >
     </em>
 
     <button (click)="sampleEditor.enterEditing()">open editor</button>
     <button (click)="sampleEditor.saveAndQuitEditing()">save changes</button>
-    <button (click)="sampleEditor.cancelAndQuitEditing()">cancel changes</button>
+    <button (click)="sampleEditor.cancelAndQuitEditing()"
+      >cancel changes</button
+    >
   `,
 })
 export class InlineEditorApiExample {

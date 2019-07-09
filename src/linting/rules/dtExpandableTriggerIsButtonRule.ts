@@ -5,14 +5,15 @@ import { SourceFile } from 'typescript';
 import { addFailure, isElementWithName } from '../utils';
 
 class DtExpandableTriggerVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
   }
 
   private _validateElement(element: ElementAst): any {
-    const isExpandablePanelTrigger = element.inputs.some((input) => input.name === 'dtExpandablePanel');
+    const isExpandablePanelTrigger = element.inputs.some(
+      input => input.name === 'dtExpandablePanel'
+    );
     if (!isExpandablePanelTrigger) {
       return;
     }
@@ -21,7 +22,11 @@ class DtExpandableTriggerVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'The trigger of an expandable panel must be a button.');
+    addFailure(
+      this,
+      element,
+      'The trigger of an expandable panel must be a button.'
+    );
   }
 }
 
@@ -35,9 +40,9 @@ class DtExpandableTriggerVisitor extends BasicTemplateAstVisitor {
  * <span [dtExpandablePanel]="panel">Trigger</span>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that the trigger of an expandable panel is always a button.',
+    description:
+      'Ensures that the trigger of an expandable panel is always a button.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',

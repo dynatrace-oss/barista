@@ -26,11 +26,7 @@ const EXPORTED_DECLARATIONS = [
     A11yModule,
     DtIconModule,
   ],
-  exports: [
-    ...EXPORTED_DECLARATIONS,
-  ],
-  declarations: [
-    ...EXPORTED_DECLARATIONS,
-  ],
+  exports: [...EXPORTED_DECLARATIONS],
+  declarations: [...EXPORTED_DECLARATIONS],
 })
 export class DtContextDialogModule {}

@@ -7,7 +7,7 @@ import {
   ElementRef,
   Attribute,
   IterableDiffers,
-  Inject
+  Inject,
 } from '@angular/core';
 import { DtTreeControl } from '@dynatrace/angular-components/core';
 import { _DtTableBase } from '@dynatrace/angular-components/table';
@@ -20,9 +20,9 @@ import { Platform } from '@angular/cdk/platform';
   templateUrl: 'tree-table.html',
   styleUrls: ['tree-table.scss'],
   host: {
-    'class': 'dt-tree-table',
+    class: 'dt-tree-table',
     '[class.dt-table-interactive-rows]': 'interactiveRows',
-    'role': 'treegrid',
+    role: 'treegrid',
     '[attr.aria-label]': 'ariaLabel',
   },
   encapsulation: ViewEncapsulation.Emulated,

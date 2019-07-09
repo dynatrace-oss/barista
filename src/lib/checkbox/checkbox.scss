@@ -93,23 +93,39 @@ $dt-checkbox-size: 20px;
 }
 
 @keyframes dt-checkbox-check {
-  0% { stroke-dashoffset: 560; }
-  100% { stroke-dashoffset: 0; }
+  0% {
+    stroke-dashoffset: 560;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes dt-checkbox-uncheck {
-  0% { stroke-dashoffset: 1120; }
-  100% { stroke-dashoffset: 560; }
+  0% {
+    stroke-dashoffset: 1120;
+  }
+  100% {
+    stroke-dashoffset: 560;
+  }
 }
 
 @keyframes dt-checkbox-indeterminate {
-  0% { stroke-dashoffset: 352; }
-  100% { stroke-dashoffset: 0; }
+  0% {
+    stroke-dashoffset: 352;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes dt-checkbox-determined {
-  0% { stroke-dashoffset: 704; }
-  100% { stroke-dashoffset: 352; }
+  0% {
+    stroke-dashoffset: 704;
+  }
+  100% {
+    stroke-dashoffset: 352;
+  }
 }
 
 :host.dt-checkbox-anim-unchecked-checked .dt-checkbox-checkmark {

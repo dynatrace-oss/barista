@@ -20,4 +20,4 @@ import { Component } from '@angular/core';
     </dt-select>
   `,
 })
-export class SelectGroupsExample { }
+export class SelectGroupsExample {}

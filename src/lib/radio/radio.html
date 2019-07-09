@@ -1,5 +1,6 @@
 <label [attr.for]="_inputId" class="dt-radio-label" #label>
-  <input #input
+  <input
+    #input
     class="dt-radio-input cdk-visually-hidden"
     type="radio"
     [id]="_inputId"
@@ -12,7 +13,8 @@
     [attr.aria-labelledby]="ariaLabelledby"
     [attr.aria-describedby]="ariaDescribedby"
     (change)="_onInputChange($event)"
-    (click)="_onInputClick($event)">
+    (click)="_onInputClick($event)"
+  />
   <div class="dt-radio-container">
     <div class="dt-radio-outer-circle"></div>
     <div class="dt-radio-inner-circle"></div>

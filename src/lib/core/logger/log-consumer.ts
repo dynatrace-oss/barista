@@ -4,7 +4,7 @@ import { DtLogEntry } from './log-entry';
 
 const LOG_BUS = new Subject<DtLogEntry>();
 
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class DtLogConsumer {
   consume(): Observable<DtLogEntry> {
     return LOG_BUS.asObservable();

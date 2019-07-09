@@ -4,12 +4,13 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-<div class="demo-card">
-  <dt-card>
-    <dt-card-title>Top 3 JavaScript errors</dt-card-title>
-    <dt-card-subtitle>Some subtitle</dt-card-subtitle>
-    This is some generic content
-  </dt-card>
-</div>`,
+    <div class="demo-card">
+      <dt-card>
+        <dt-card-title>Top 3 JavaScript errors</dt-card-title>
+        <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+        This is some generic content
+      </dt-card>
+    </div>
+  `,
 })
-export class CardSubtitleExample { }
+export class CardSubtitleExample {}

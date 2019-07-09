@@ -32,8 +32,9 @@ describe('DtKilobytes', () => {
       },
     ].forEach((testCase: TestCase) => {
       it(`should display result converted to KB (${testCase.output})`, () => {
-        expect(pipe.transform(testCase.input).toString())
-          .toEqual(testCase.output);
+        expect(pipe.transform(testCase.input).toString()).toEqual(
+          testCase.output
+        );
       });
     });
   });
@@ -45,7 +46,7 @@ describe('DtKilobytes', () => {
     });
 
     it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
-      class A { }
+      class A {}
       expect(pipe.transform({})).toEqual(NO_DATA);
       expect(pipe.transform([])).toEqual(NO_DATA);
       expect(pipe.transform(() => {})).toEqual(NO_DATA);

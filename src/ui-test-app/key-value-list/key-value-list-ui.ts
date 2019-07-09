@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   selector: 'dt-key-value-list-ui',
   templateUrl: 'key-value-list-ui.html',
 })
-export class KeyValueListUI {
-
-}
+export class KeyValueListUI {}

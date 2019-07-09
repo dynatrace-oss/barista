@@ -1,6 +1,10 @@
 import { DtUnit } from '../unit';
 import { DtFormattedValue } from '../formatted-value';
-import { KIBI_MULTIPLIER, KILO_MULTIPLIER, DtNumberFormatOptions } from '../number-formatter';
+import {
+  KIBI_MULTIPLIER,
+  KILO_MULTIPLIER,
+  DtNumberFormatOptions,
+} from '../number-formatter';
 import { formatToBitsBytes, DtUnitConversion } from '../bits-bytes-formatter';
 
 const DEFAULT_BITS_OPTIONS: DtNumberFormatOptions = {
@@ -38,14 +42,14 @@ export function formatBits(
   input: any,
   options?: DtNumberFormatOptions
 ): DtFormattedValue {
-
-  const mergedOptions: DtNumberFormatOptions = { ...DEFAULT_BITS_OPTIONS, ...options };
+  const mergedOptions: DtNumberFormatOptions = {
+    ...DEFAULT_BITS_OPTIONS,
+    ...options,
+  };
   const conversions = getConversions(mergedOptions.factor);
   return formatToBitsBytes(input, conversions, mergedOptions);
 }
 
 function getConversions(factor: number): DtUnitConversion[] {
-  return factor === KIBI_MULTIPLIER
-    ? KIBI_CONVERSIONS
-    : KILO_CONVERSIONS;
+  return factor === KIBI_MULTIPLIER ? KIBI_CONVERSIONS : KILO_CONVERSIONS;
 }

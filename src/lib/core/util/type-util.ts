@@ -19,7 +19,11 @@ export function isEmpty(value: any): boolean {
 export function isNumber(value: any): boolean {
   // parsefloat handles null, '', NaN, undefined - for everything else we check with Number
   // tslint:disable-next-line:no-any
-  return typeof value !== 'symbol' && !isNaN(parseFloat(value)) && !isNaN(Number(value));
+  return (
+    typeof value !== 'symbol' &&
+    !isNaN(parseFloat(value)) &&
+    !isNaN(Number(value))
+  );
 }
 
 /** Checks if the provided value is a real object. */
