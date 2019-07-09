@@ -21,7 +21,6 @@
     "prettier": "prettier \"src/**/*.{ts,js,css,scss,json,html,md}\"",
     "prettier:fix": "yarn prettier --write",
     "universal": "gulp universal",
-    "precommit": "yarn lint && yarn test && yarn ui-test && yarn universal",
     "schematics:build": "gulp schematics:build",
     "postinstall": "gulp schematics:build && gulp barista-example:generate"
   },
@@ -125,6 +124,8 @@
     "htmlWhitespaceSensitivity": "strict"
   },
   "husky": {
-    "hooks": {}
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
