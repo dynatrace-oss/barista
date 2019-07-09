@@ -6,26 +6,43 @@
   $is-dark: map-get($theme, 'is-dark');
 
   @if ($is-dark == true) {
-    :host .dt-radio-outer-circle {
-      border-color: #ffffff;
-    }
-    :host.dt-radio-focused:not(.dt-radio-disabled) .dt-radio-outer-circle {
-      @include dt-focus-style(true);
-    }
-    :host.dt-radio-disabled .dt-radio-outer-circle {
-      border-color: $gray-500;
-    }
-    :host:not(.dt-radio-disabled):hover .dt-radio-outer-circle {
-      background-color: rgba(255, 255, 255, 0.2);
-      border-color: #ffffff;
-    }
-    :host .dt-radio-inner-circle,
-    :host:not(.dt-radio-disabled):hover .dt-radio-inner-circle {
-      background-color: #ffffff;
-    }
 
-    :host:not(.dt-radio-disabled) .dt-radio-label-content {
-      color: #ffffff;
+    :host {
+      .dt-radio-outer-circle {
+        border-color: #ffffff;
+      }
+
+      .dt-radio-content {
+        color: #ffffff;
+      }
+
+      &:hover .dt-radio-outer-circle {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: #ffffff;
+      }
+
+      .dt-radio-inner-circle {
+        background-color: #ffffff;
+      }
+
+      &.dt-radio-focused .dt-radio-outer-circle {
+        @include dt-focus-style(true);
+      }
+
+      &.dt-radio-disabled {
+        .dt-radio-content {
+          color: $gray-500;
+        }
+
+        .dt-radio-inner-circle {
+          background-color: $gray-500;
+        }
+
+        .dt-radio-outer-circle {
+          background-color: transparent;
+          border-color: $gray-500;
+        }
+      }
     }
   }
 }
