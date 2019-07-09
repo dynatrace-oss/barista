@@ -5,9 +5,8 @@ import { Renderer2 } from '@angular/core';
  * Both can also be null. In this case it just adds the new one or removes the old one.
  * If the optional Renderer is not provided it uses the browser specific classList.
  */
-// tslint:disable-next-line:no-any
 export function replaceCssClass(
-  elOrRef: any,
+  elOrRef: any, // tslint:disable-line:no-any
   oldClass: string | null,
   newClass: string | null,
   renderer?: Renderer2
@@ -30,9 +29,8 @@ export function addCssClass(el: any, name: string, renderer?: Renderer2): void {
   }
 }
 
-// tslint:disable-next-line:no-any
 export function removeCssClass(
-  el: any,
+  el: any, // tslint:disable-line:no-any
   name: string,
   renderer?: Renderer2
 ): void {

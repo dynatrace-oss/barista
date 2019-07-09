@@ -312,9 +312,8 @@ export function findFilterValuesForSources<T>(
 }
 
 /** Tries to find a definition for the provided source. It will start the lookup at the provided def. */
-// tslint:disable-next-line:no-any
 export function findDefForSource(
-  source: any,
+  source: any, // tslint:disable-line:no-any
   def: DtNodeDef
 ): DtNodeDef | null {
   if (isDtAutocompleteDef(def)) {

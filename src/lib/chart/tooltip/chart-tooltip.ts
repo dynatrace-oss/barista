@@ -66,9 +66,8 @@ const DEFAULT_DT_CHART_TOOLTIP_POSITIONS: ConnectedPosition[] = [
   preserveWhitespaces: false,
 })
 export class DtChartTooltip implements OnDestroy, AfterViewInit {
-  // tslint:disable-next-line:no-any
   @ContentChild(TemplateRef, { static: false }) _overlayTemplate: TemplateRef<
-    any
+    any // tslint:disable-line:no-any
   >;
 
   private readonly _destroy = new Subject<void>();

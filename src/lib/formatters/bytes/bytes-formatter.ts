@@ -38,9 +38,8 @@ const KIBI_CONVERSIONS = [
  * if no outputUnit is specified, the outputUnit is adjusted dynamically
  * if you specify an outputUnit like kilobytes - the input will be presented in kilobytes regardless how big the input is
  */
-// tslint:disable-next-line:no-any
 export function formatBytes(
-  input: any,
+  input: any, // tslint:disable-line:no-any
   options?: DtNumberFormatOptions
 ): DtFormattedValue {
   const mergedOptions: DtNumberFormatOptions = {

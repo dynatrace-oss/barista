@@ -93,7 +93,7 @@ export function mixinHasProgress<T extends Constructor<{}>>(
 
     // tslint:disable-next-line
     constructor(...args: any[]) {
-      super(...args);
+      super(...args); // tslint:disable-line:no-inferred-empty-object-type
     }
 
     /** Calculates the percentage of the progress component that a value is. */

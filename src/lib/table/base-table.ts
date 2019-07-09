@@ -49,7 +49,7 @@ export class _DtTableBase<T> extends CdkTable<T> {
       changeDetectorRef,
       elementRef,
       _role,
-      (null as unknown) as any,
+      (null as unknown) as any, // tslint:disable-line:no-any
       document,
       platform
     );

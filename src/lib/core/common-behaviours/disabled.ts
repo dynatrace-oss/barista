@@ -22,7 +22,7 @@ export function mixinDisabled<T extends Constructor<{}>>(
 
     // tslint:disable-next-line
     constructor(...args: any[]) {
-      super(...args);
+      super(...args); // tslint:disable-line:no-inferred-empty-object-type
     }
   };
 }

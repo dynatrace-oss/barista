@@ -109,12 +109,10 @@ export class DtSelectionArea
   );
 
   @ViewChild('content', { read: TemplateRef, static: true })
-  // tslint:disable-next-line: no-any
-  _overlayContent: TemplateRef<any>;
+  _overlayContent: TemplateRef<any>; // tslint:disable-line:no-any
 
   @ViewChild('actions', { read: TemplateRef, static: true })
-  // tslint:disable-next-line: no-any
-  _overlayActions: TemplateRef<any>;
+  _overlayActions: TemplateRef<any>; // tslint:disable-line:no-any
 
   constructor(
     private _renderer: Renderer2,
