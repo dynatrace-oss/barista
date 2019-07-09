@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './loading-distractor-demo.component.html',
   styleUrls: ['./loading-distractor-demo.component.scss'],
 })
-export class LoadingDistractorDemo {
-
-}
+export class LoadingDistractorDemo {}

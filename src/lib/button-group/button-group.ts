@@ -25,7 +25,7 @@ import {
   Constructor,
 } from '@dynatrace/angular-components/core';
 
-export class DtButtonGroupBase { }
+export class DtButtonGroupBase {}
 export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));
 
 @Component({
@@ -36,10 +36,10 @@ export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));
   styleUrls: ['button-group.scss'],
   inputs: ['disabled', 'tabIndex'],
   host: {
-    'class': 'dt-button-group',
+    class: 'dt-button-group',
     '[attr.aria-disabled]': 'disabled.toString()',
     'aria-multiselectable': 'false',
-    'role': 'radiogroup',
+    role: 'radiogroup',
   },
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
@@ -47,16 +47,16 @@ export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));
 })
 export class DtButtonGroup<T> extends _DtButtonGroup
   implements CanDisable, HasTabIndex, AfterContentInit {
-
   private _value: T | null = null;
   private _disabled = false;
   _selectedItem: DtButtonGroupItem<T> | null = null;
 
   // tslint:disable-next-line: no-use-before-declare no-forward-ref
-  @ContentChildren(forwardRef(() => DtButtonGroupItem), {descendants: true})
+  @ContentChildren(forwardRef(() => DtButtonGroupItem), { descendants: true })
   private _items: QueryList<DtButtonGroupItem<T>>;
 
-  @Output() readonly valueChange: EventEmitter<T | null> = new EventEmitter<T | null>();
+  @Output()
+  readonly valueChange: EventEmitter<T | null> = new EventEmitter<T | null>();
 
   @Input()
   get value(): T | null {
@@ -72,7 +72,9 @@ export class DtButtonGroup<T> extends _DtButtonGroup
 
   /** Whether the radio group is disabled */
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     this._markItemsForCheck();
@@ -94,7 +96,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
       // find if there is a selection
       // defer to next CD run - this is needed because we cannot update the item right away when there is no value set
       Promise.resolve().then(() => {
-        const selected = this._items.find((item) => item.selected);
+        const selected = this._items.find(item => item.selected);
         if (this.value === null) {
           this.value = selected ? selected.value : this._items.first.value;
         } else {
@@ -112,14 +114,16 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   /** trigger change detection for items */
   private _markItemsForCheck(): void {
     if (this._items) {
-      this._items.forEach((item) => { item._markForCheck(); });
+      this._items.forEach(item => {
+        item._markForCheck();
+      });
     }
   }
 
   /** Updates the `selected` state of each item button based on the groups value. */
   private _updateSelectedItemFromValue(): void {
     if (this._items) {
-      this._items.forEach((item) => {
+      this._items.forEach(item => {
         item.selected = this.value === item.value;
       });
     }
@@ -135,19 +139,25 @@ export interface DtButtonGroupItemSelectionChange<T> {
 export type DtButtonGroupThemePalette = 'main' | 'error';
 export class DtButtonGroupItemBase {
   disabled: boolean;
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
-export const _DtButtonGroupItem =
-  mixinTabIndex(mixinColor<Constructor<DtButtonGroupItemBase>, DtButtonGroupThemePalette>(DtButtonGroupItemBase, 'main'));
+export const _DtButtonGroupItem = mixinTabIndex(
+  mixinColor<Constructor<DtButtonGroupItemBase>, DtButtonGroupThemePalette>(
+    DtButtonGroupItemBase,
+    'main'
+  )
+);
 
 @Component({
   moduleId: module.id,
   selector: 'dt-button-group-item',
-  template: `<ng-content></ng-content>`,
+  template: `
+    <ng-content></ng-content>
+  `,
   exportAs: 'dtButtonGroupItem',
   host: {
-    'role': 'radio',
-    'class': 'dt-button-group-item',
+    role: 'radio',
+    class: 'dt-button-group-item',
     '[attr.aria-selected]': 'selected',
     '[class.dt-button-group-item-selected]': 'selected',
     '[attr.aria-disabled]': 'disabled',
@@ -162,15 +172,19 @@ export const _DtButtonGroupItem =
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-
 export class DtButtonGroupItem<T> extends _DtButtonGroupItem
-implements CanDisable, CanColor<DtButtonGroupThemePalette>, HasTabIndex, AfterContentInit {
-
+  implements
+    CanDisable,
+    CanColor<DtButtonGroupThemePalette>,
+    HasTabIndex,
+    AfterContentInit {
   private _selected = false;
   private _value: T;
   private _disabled = false;
 
-  @Output() readonly selectionChange = new EventEmitter<DtButtonGroupItemSelectionChange<T>>();
+  @Output() readonly selectionChange = new EventEmitter<
+    DtButtonGroupItemSelectionChange<T>
+  >();
 
   /** Whether the button-group item is selected. */
   @Input()
@@ -188,7 +202,7 @@ implements CanDisable, CanColor<DtButtonGroupThemePalette>, HasTabIndex, AfterCo
   /** Whether the button-group item is disabled. */
   @Input()
   get disabled(): boolean {
-    return this._disabled  || (this._buttonGroup && this._buttonGroup.disabled);
+    return this._disabled || (this._buttonGroup && this._buttonGroup.disabled);
   }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
@@ -200,7 +214,9 @@ implements CanDisable, CanColor<DtButtonGroupThemePalette>, HasTabIndex, AfterCo
 
   /** The bound value. */
   @Input()
-  get value(): T { return this._value; }
+  get value(): T {
+    return this._value;
+  }
   set value(newValue: T) {
     this._value = newValue;
   }
@@ -226,8 +242,9 @@ implements CanDisable, CanColor<DtButtonGroupThemePalette>, HasTabIndex, AfterCo
 
   _onSelect(event: Event): void {
     event.stopPropagation();
-    const groupValueChanged = this._buttonGroup && this.value !== this._buttonGroup.value;
-    this.selectionChange.emit({source: this, value: this.value});
+    const groupValueChanged =
+      this._buttonGroup && this.value !== this._buttonGroup.value;
+    this.selectionChange.emit({ source: this, value: this.value });
 
     if (this._buttonGroup && groupValueChanged) {
       this._buttonGroup.value = this.value;

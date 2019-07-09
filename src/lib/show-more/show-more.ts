@@ -14,7 +14,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 @Directive({
   selector: 'dt-show-less-label',
 })
-export class DtShowLessLabel { }
+export class DtShowLessLabel {}
 
 @Component({
   moduleId: module.id,
@@ -23,7 +23,7 @@ export class DtShowLessLabel { }
   templateUrl: 'show-more.html',
   styleUrls: ['show-more.scss'],
   host: {
-    'class': 'dt-show-more',
+    class: 'dt-show-more',
     '[class.dt-show-more-disabled]': 'disabled',
     '[class.dt-show-more-show-less]': 'showLess',
     '(click)': '_fireChange()',
@@ -33,10 +33,11 @@ export class DtShowLessLabel { }
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtShowMore {
-
   /** Whether the show-more is disabled. Not focus and clickable anymore */
   @Input()
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     this._changeDetectorRef.markForCheck();
@@ -50,7 +51,9 @@ export class DtShowMore {
   @ContentChild(DtShowLessLabel, { static: true }) _lessLabel: DtShowLessLabel;
 
   @Input()
-  get showLess(): boolean { return this._showLess; }
+  get showLess(): boolean {
+    return this._showLess;
+  }
   set showLess(value: boolean) {
     this._showLess = coerceBooleanProperty(value);
   }

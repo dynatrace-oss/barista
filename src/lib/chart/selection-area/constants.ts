@@ -2,7 +2,9 @@ import { ConnectedPosition } from '@angular/cdk/overlay';
 
 /** @internal Error  when there is no plot background or internal highcharts elements */
 export function getDtNoPlotBackgroundError(): Error {
-  return Error('Highcharts has not rendered yet! You Requested a Highcharts internal element!');
+  return Error(
+    'Highcharts has not rendered yet! You Requested a Highcharts internal element!'
+  );
 }
 
 /** @internal Selector for the xAxis grid in Highcharts */

@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, hasTextContentAlternative } from '../utils';
 
 class DtInlineEditorVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -13,7 +12,7 @@ class DtInlineEditorVisitor extends BasicTemplateAstVisitor {
 
   private _validateElement(element: ElementAst): any {
     const attrs: AttrAst[] = element.attrs;
-    const isInlineEditor = attrs.some((attr) => attr.name === 'dt-inline-editor');
+    const isInlineEditor = attrs.some(attr => attr.name === 'dt-inline-editor');
     if (!isInlineEditor) {
       return;
     }
@@ -25,7 +24,11 @@ class DtInlineEditorVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'An inline editor must provide alternative texts for the save and the cancel button.');
+    addFailure(
+      this,
+      element,
+      'An inline editor must provide alternative texts for the save and the cancel button.'
+    );
   }
 }
 
@@ -48,13 +51,14 @@ class DtInlineEditorVisitor extends BasicTemplateAstVisitor {
  * <span>model: <code>{{ sampleModel }}</code></span>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that text alternatives are given for the save and cancel button of the inline editor.',
+    description:
+      'Ensures that text alternatives are given for the save and cancel button of the inline editor.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'The save and cancel button of the inline editor need additional attributes to provide text alternatives.',
+    rationale:
+      'The save and cancel button of the inline editor need additional attributes to provide text alternatives.',
     ruleName: 'dt-inline-editor-alt-text',
     type: 'maintainability',
     typescriptOnly: true,

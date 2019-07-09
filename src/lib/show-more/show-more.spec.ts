@@ -4,7 +4,11 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtShowMoreModule, DtShowMore, DtIconModule } from '@dynatrace/angular-components';
+import {
+  DtShowMoreModule,
+  DtShowMore,
+  DtIconModule,
+} from '@dynatrace/angular-components';
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '../../testing/create-component';
@@ -15,19 +19,21 @@ describe('DtShowMore', () => {
       imports: [
         DtShowMoreModule,
         HttpClientModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+      ],
       declarations: [TestApp],
-      providers: [{
-        provide: HttpXhrBackend,
-        useClass: HttpClientTestingModule,
-      }],
+      providers: [
+        {
+          provide: HttpXhrBackend,
+          useClass: HttpClientTestingModule,
+        },
+      ],
     });
 
     TestBed.compileComponents();
   }));
 
   describe('show-more', () => {
-
     let fixture;
     let testComponent: TestApp;
     let instanceDebugElement: DebugElement;
@@ -36,21 +42,21 @@ describe('DtShowMore', () => {
     beforeEach(async(() => {
       fixture = createComponent(TestApp);
       testComponent = fixture.componentInstance;
-      instanceDebugElement = fixture.debugElement.query(By.directive(DtShowMore));
+      instanceDebugElement = fixture.debugElement.query(
+        By.directive(DtShowMore)
+      );
       instanceElement = instanceDebugElement.nativeElement;
     }));
 
     it('should not contain less style', () => {
-      expect(instanceElement.classList).not.toContain(
-        'dt-show-more-show-less');
+      expect(instanceElement.classList).not.toContain('dt-show-more-show-less');
     });
 
     it('should have less styles', () => {
       testComponent.showLess = true;
       fixture.detectChanges();
 
-      expect(instanceElement.classList).toContain(
-        'dt-show-more-show-less');
+      expect(instanceElement.classList).toContain('dt-show-more-show-less');
     });
 
     it('should fire event', () => {
@@ -65,7 +71,11 @@ describe('DtShowMore', () => {
 
 @Component({
   selector: 'dt-test-app',
-  template: `<dt-show-more [showLess]="showLess" (changed)="eventFired()">More</dt-show-more>`,
+  template: `
+    <dt-show-more [showLess]="showLess" (changed)="eventFired()"
+      >More</dt-show-more
+    >
+  `,
 })
 class TestApp {
   showLess = false;

@@ -20,11 +20,12 @@ $fonts-path: '/assets/fonts' !default;
   @font-face {
     font-family: $type;
     src: url('#{$fonts-path}/#{$type}/#{$type}_#{$version}.eot');
-    src:
-      url('#{$fonts-path}/#{$type}/#{$type}_#{$version}.eot?#iefix') format('embedded-opentype'),
+    src: url('#{$fonts-path}/#{$type}/#{$type}_#{$version}.eot?#iefix')
+        format('embedded-opentype'),
       url('#{$fonts-path}/#{$type}/#{$type}_#{$version}.woff') format('woff'),
       url('#{$fonts-path}/#{$type}/#{$type}_#{$version}.ttf') format('truetype'),
-      url('#{$fonts-path}/#{$type}/#{$type}_#{$version}.svg#icons') format('svg');
+      url('#{$fonts-path}/#{$type}/#{$type}_#{$version}.svg#icons')
+        format('svg');
     font-weight: normal;
     font-style: normal;
   }

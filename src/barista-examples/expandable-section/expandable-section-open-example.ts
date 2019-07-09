@@ -4,10 +4,13 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-<dt-expandable-section [opened]="true">
-  <dt-expandable-section-header>My header text</dt-expandable-section-header>
-  {{ text }}
-</dt-expandable-section>`,
+    <dt-expandable-section [opened]="true">
+      <dt-expandable-section-header
+        >My header text</dt-expandable-section-header
+      >
+      {{ text }}
+    </dt-expandable-section>
+  `,
 })
 export class ExpandableSectionOpenExample {
   text = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et

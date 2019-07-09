@@ -23,7 +23,7 @@ export function hasContent(element: ElementAst | EmbeddedTemplateAst): boolean {
     return false;
   }
 
-  return element.children.some((child) => {
+  return element.children.some(child => {
     if (child instanceof TextAst) {
       return hasTextContent(child);
     }
@@ -37,12 +37,15 @@ export function hasContent(element: ElementAst | EmbeddedTemplateAst): boolean {
  * @param element - The element to check.
  * @param exclude - Array of node names that do not count as content.
  */
-export function hasContentApartFrom(element: ElementAst, exclude: string[]): boolean {
+export function hasContentApartFrom(
+  element: ElementAst,
+  exclude: string[]
+): boolean {
   if (!element.children) {
     return false;
   }
 
-  return element.children.some((child) => {
+  return element.children.some(child => {
     if (child instanceof TextAst) {
       return hasTextContent(child);
     }

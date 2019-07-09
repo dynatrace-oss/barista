@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <button dt-button (click)="counter = counter + 1 ">Increase Counter</button>
-    <p>Counter: {{counter}}</p>
+    <button dt-button (click)="counter = counter + 1">Increase Counter</button>
+    <p>Counter: {{ counter }}</p>
   `,
 })
 export class ButtonInteractionExample {

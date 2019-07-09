@@ -1,16 +1,31 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import {
+  FormControl,
+  FormsModule,
+  NgModel,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
-import { DtRadioButton, DtRadioChange, DtRadioGroup, DtRadioModule } from '@dynatrace/angular-components';
+import {
+  DtRadioButton,
+  DtRadioChange,
+  DtRadioGroup,
+  DtRadioModule,
+} from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtRadio', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtRadioModule, FormsModule, ReactiveFormsModule],
@@ -44,16 +59,26 @@ describe('DtRadio', () => {
 
       testComponent = fixture.debugElement.componentInstance;
 
-      groupDebugElement = fixture.debugElement.query(By.directive(DtRadioGroup));
-      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);
+      groupDebugElement = fixture.debugElement.query(
+        By.directive(DtRadioGroup)
+      );
+      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
+        DtRadioGroup
+      );
 
-      radioDebugElements = fixture.debugElement.queryAll(By.directive(DtRadioButton));
-      radioInstances = radioDebugElements.map((debugEl) => debugEl.componentInstance);
+      radioDebugElements = fixture.debugElement.queryAll(
+        By.directive(DtRadioButton)
+      );
+      radioInstances = radioDebugElements.map(
+        debugEl => debugEl.componentInstance
+      );
 
-      radioLabelElements = radioDebugElements
-        .map((debugEl) => debugEl.query(By.css('label')).nativeElement);
-      radioInputElements = radioDebugElements
-        .map((debugEl) => debugEl.query(By.css('input')).nativeElement);
+      radioLabelElements = radioDebugElements.map(
+        debugEl => debugEl.query(By.css('label')).nativeElement
+      );
+      radioInputElements = radioDebugElements.map(
+        debugEl => debugEl.query(By.css('input')).nativeElement
+      );
     }));
 
     it('should set individual radio names based on the group name', () => {
@@ -144,10 +169,13 @@ describe('DtRadio', () => {
     it('should emit a change event from radio buttons', () => {
       expect(radioInstances[0].checked).toBe(false);
 
-      const spies = radioInstances
-        .map((radio, index) => jasmine.createSpy(`onChangeSpy ${index} for ${radio.name}`));
+      const spies = radioInstances.map((radio, index) =>
+        jasmine.createSpy(`onChangeSpy ${index} for ${radio.name}`)
+      );
 
-      spies.forEach((spy, index) => radioInstances[index].change.subscribe(spy));
+      spies.forEach((spy, index) =>
+        radioInstances[index].change.subscribe(spy)
+      );
 
       radioLabelElements[0].click();
       fixture.detectChanges();
@@ -207,28 +235,28 @@ describe('DtRadio', () => {
 
       groupInstance.value = null;
 
-      expect(radioInstances.every((radio) => !radio.checked)).toBe(true);
+      expect(radioInstances.every(radio => !radio.checked)).toBe(true);
     });
 
     it(`should update the group's selected radio to null when unchecking that radio programmatically`, () => {
-        const changeSpy = jasmine.createSpy('radio-group change listener');
-        groupInstance.change.subscribe(changeSpy);
-        radioInstances[0].checked = true;
+      const changeSpy = jasmine.createSpy('radio-group change listener');
+      groupInstance.change.subscribe(changeSpy);
+      radioInstances[0].checked = true;
 
-        fixture.detectChanges();
+      fixture.detectChanges();
 
-        expect(changeSpy).not.toHaveBeenCalled();
-        expect(groupInstance.value).toBeTruthy();
+      expect(changeSpy).not.toHaveBeenCalled();
+      expect(groupInstance.value).toBeTruthy();
 
-        radioInstances[0].checked = false;
+      radioInstances[0].checked = false;
 
-        fixture.detectChanges();
+      fixture.detectChanges();
 
-        expect(changeSpy).not.toHaveBeenCalled();
-        expect(groupInstance.value).toBeFalsy();
-        expect(radioInstances.every((radio) => !radio.checked)).toBe(true);
-        expect(groupInstance.selected).toBeNull();
-      });
+      expect(changeSpy).not.toHaveBeenCalled();
+      expect(groupInstance.value).toBeFalsy();
+      expect(radioInstances.every(radio => !radio.checked)).toBe(true);
+      expect(groupInstance.selected).toBeNull();
+    });
 
     it('should not fire a change event from the group when a radio checked state changes', () => {
       const changeSpy = jasmine.createSpy('radio-group change listener');
@@ -256,20 +284,36 @@ describe('DtRadio', () => {
 
       expect(changeSpy).not.toHaveBeenCalled();
       expect(groupInstance.value).toBe('apple');
-      expect(groupInstance.selected).toBeFalsy('expect group selected to be null');
-      expect(radioInstances[0].checked).toBeFalsy('should not select the first button');
-      expect(radioInstances[1].checked).toBeFalsy('should not select the second button');
-      expect(radioInstances[2].checked).toBeFalsy('should not select the third button');
+      expect(groupInstance.selected).toBeFalsy(
+        'expect group selected to be null'
+      );
+      expect(radioInstances[0].checked).toBeFalsy(
+        'should not select the first button'
+      );
+      expect(radioInstances[1].checked).toBeFalsy(
+        'should not select the second button'
+      );
+      expect(radioInstances[2].checked).toBeFalsy(
+        'should not select the third button'
+      );
 
       radioInstances[0].value = 'apple';
 
       fixture.detectChanges();
 
       expect(groupInstance.selected).toBe(
-        radioInstances[0], 'expect group selected to be first button');
-      expect(radioInstances[0].checked).toBeTruthy('expect group select the first button');
-      expect(radioInstances[1].checked).toBeFalsy('should not select the second button');
-      expect(radioInstances[2].checked).toBeFalsy('should not select the third button');
+        radioInstances[0],
+        'expect group selected to be first button'
+      );
+      expect(radioInstances[0].checked).toBeTruthy(
+        'expect group select the first button'
+      );
+      expect(radioInstances[1].checked).toBeFalsy(
+        'should not select the second button'
+      );
+      expect(radioInstances[2].checked).toBeFalsy(
+        'should not select the third button'
+      );
     });
   });
 
@@ -289,16 +333,27 @@ describe('DtRadio', () => {
 
       testComponent = fixture.debugElement.componentInstance;
 
-      groupDebugElement = fixture.debugElement.query(By.directive(DtRadioGroup));
-      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);
+      groupDebugElement = fixture.debugElement.query(
+        By.directive(DtRadioGroup)
+      );
+      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
+        DtRadioGroup
+      );
       groupNgModel = groupDebugElement.injector.get<NgModel>(NgModel);
 
-      radioDebugElements = fixture.debugElement.queryAll(By.directive(DtRadioButton));
-      radioInstances = radioDebugElements.map((debugEl) => debugEl.componentInstance);
-      innerRadios = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
+      radioDebugElements = fixture.debugElement.queryAll(
+        By.directive(DtRadioButton)
+      );
+      radioInstances = radioDebugElements.map(
+        debugEl => debugEl.componentInstance
+      );
+      innerRadios = fixture.debugElement.queryAll(
+        By.css('input[type="radio"]')
+      );
 
-      radioLabelElements = radioDebugElements
-        .map((debugEl) => debugEl.query(By.css('label')).nativeElement);
+      radioLabelElements = radioDebugElements.map(
+        debugEl => debugEl.query(By.css('label')).nativeElement
+      );
     });
 
     it('should set individual radio names based on the group name', () => {
@@ -393,8 +448,12 @@ describe('DtRadio', () => {
       fixture = createComponent(RadioGroupWithFormControl);
 
       testComponent = fixture.debugElement.componentInstance;
-      groupDebugElement = fixture.debugElement.query(By.directive(DtRadioGroup));
-      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);
+      groupDebugElement = fixture.debugElement.query(
+        By.directive(DtRadioGroup)
+      );
+      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
+        DtRadioGroup
+      );
     });
 
     it('should toggle the disabled state', () => {
@@ -422,9 +481,15 @@ describe('DtRadio', () => {
       fixture = createComponent(DisableableRadioButton);
 
       testComponent = fixture.debugElement.componentInstance;
-      const radioDebugElement = fixture.debugElement.query(By.directive(DtRadioButton));
-      radioInstance = radioDebugElement.injector.get<DtRadioButton<any>>(DtRadioButton);
-      radioNativeElement = radioDebugElement.nativeElement.querySelector('input');
+      const radioDebugElement = fixture.debugElement.query(
+        By.directive(DtRadioButton)
+      );
+      radioInstance = radioDebugElement.injector.get<DtRadioButton<any>>(
+        DtRadioButton
+      );
+      radioNativeElement = radioDebugElement.nativeElement.querySelector(
+        'input'
+      );
     });
 
     it('should toggle the disabled state', () => {
@@ -457,24 +522,28 @@ describe('DtRadio', () => {
 
       testComponent = fixture.debugElement.componentInstance;
 
-      radioDebugElements = fixture.debugElement.queryAll(By.directive(DtRadioButton));
+      radioDebugElements = fixture.debugElement.queryAll(
+        By.directive(DtRadioButton)
+      );
       seasonRadioInstances = radioDebugElements
-        .filter((debugEl) => debugEl.componentInstance.name === 'season')
-        .map((debugEl) => debugEl.componentInstance);
+        .filter(debugEl => debugEl.componentInstance.name === 'season')
+        .map(debugEl => debugEl.componentInstance);
       weatherRadioInstances = radioDebugElements
-        .filter((debugEl) => debugEl.componentInstance.name === 'weather')
-        .map((debugEl) => debugEl.componentInstance);
+        .filter(debugEl => debugEl.componentInstance.name === 'weather')
+        .map(debugEl => debugEl.componentInstance);
       fruitRadioInstances = radioDebugElements
-        .filter((debugEl) => debugEl.componentInstance.name === 'fruit')
-        .map((debugEl) => debugEl.componentInstance);
+        .filter(debugEl => debugEl.componentInstance.name === 'fruit')
+        .map(debugEl => debugEl.componentInstance);
 
       const fruitRadioNativeElements = radioDebugElements
-        .filter((debugEl) => debugEl.componentInstance.name === 'fruit')
-        .map((debugEl) => debugEl.nativeElement);
+        .filter(debugEl => debugEl.componentInstance.name === 'fruit')
+        .map(debugEl => debugEl.nativeElement);
 
       fruitRadioNativeInputs = [];
       for (const element of fruitRadioNativeElements) {
-        fruitRadioNativeInputs.push(element.querySelector('input') as HTMLElement);
+        fruitRadioNativeInputs.push(element.querySelector(
+          'input'
+        ) as HTMLElement);
       }
     });
 
@@ -517,7 +586,9 @@ describe('DtRadio', () => {
     });
 
     it('should add aria-label attribute to the underlying input element if defined', () => {
-      expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe('Banana');
+      expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe(
+        'Banana'
+      );
     });
 
     it('should not add aria-label attribute if not defined', () => {
@@ -525,46 +596,66 @@ describe('DtRadio', () => {
     });
 
     it('should change aria-label attribute if property is changed at runtime', () => {
-      expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe('Banana');
+      expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe(
+        'Banana'
+      );
 
       testComponent.ariaLabel = 'Pineapple';
       fixture.detectChanges();
 
-      expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe('Pineapple');
+      expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe(
+        'Pineapple'
+      );
     });
 
     it('should add aria-labelledby attribute to the underlying input element if defined', () => {
-      expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe('xyz');
+      expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe(
+        'xyz'
+      );
     });
 
     it('should not add aria-labelledby attribute if not defined', () => {
-      expect(fruitRadioNativeInputs[1].hasAttribute('aria-labelledby')).toBeFalsy();
+      expect(
+        fruitRadioNativeInputs[1].hasAttribute('aria-labelledby')
+      ).toBeFalsy();
     });
 
     it('should change aria-labelledby attribute if property is changed at runtime', () => {
-      expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe('xyz');
+      expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe(
+        'xyz'
+      );
 
       testComponent.ariaLabelledby = 'uvw';
       fixture.detectChanges();
 
-      expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe('uvw');
+      expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe(
+        'uvw'
+      );
     });
 
     it('should add aria-describedby attribute to the underlying input element if defined', () => {
-      expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe('abc');
+      expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe(
+        'abc'
+      );
     });
 
     it('should not add aria-describedby attribute if not defined', () => {
-      expect(fruitRadioNativeInputs[1].hasAttribute('aria-describedby')).toBeFalsy();
+      expect(
+        fruitRadioNativeInputs[1].hasAttribute('aria-describedby')
+      ).toBeFalsy();
     });
 
     it('should change aria-describedby attribute if property is changed at runtime', () => {
-      expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe('abc');
+      expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe(
+        'abc'
+      );
 
       testComponent.ariaDescribedby = 'uvw';
       fixture.detectChanges();
 
-      expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe('uvw');
+      expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe(
+        'uvw'
+      );
     });
 
     it('should focus on underlying input element when focus() is called', () => {
@@ -578,10 +669,11 @@ describe('DtRadio', () => {
     });
 
     it('should not add the "name" attribute if it is not passed in', () => {
-      const radio = fixture.debugElement.nativeElement.querySelector('#nameless input');
+      const radio = fixture.debugElement.nativeElement.querySelector(
+        '#nameless input'
+      );
       expect(radio.hasAttribute('name')).toBe(false);
     });
-
   });
 
   describe('with tabindex', () => {
@@ -592,8 +684,11 @@ describe('DtRadio', () => {
     });
 
     it('should forward focus to native input', () => {
-      const radioButtonEl = fixture.debugElement.query(By.css('.dt-radio-button')).nativeElement;
-      const inputEl = fixture.debugElement.query(By.css('.dt-radio-input')).nativeElement;
+      const radioButtonEl = fixture.debugElement.query(
+        By.css('.dt-radio-button')
+      ).nativeElement;
+      const inputEl = fixture.debugElement.query(By.css('.dt-radio-input'))
+        .nativeElement;
 
       radioButtonEl.focus();
       // Focus events don't always fire in tests, so we need to fake it.
@@ -604,17 +699,22 @@ describe('DtRadio', () => {
     });
 
     it('should allow specifying an explicit tabindex for a single radio-button', () => {
-      const radioButtonInput = fixture.debugElement
-        .query(By.css('.dt-radio-button input')).nativeElement as HTMLInputElement;
+      const radioButtonInput = fixture.debugElement.query(
+        By.css('.dt-radio-button input')
+      ).nativeElement as HTMLInputElement;
 
-      expect(radioButtonInput.tabIndex)
-        .toBe(0, 'Expected the tabindex to be set to "0" by default.');
+      expect(radioButtonInput.tabIndex).toBe(
+        0,
+        'Expected the tabindex to be set to "0" by default.'
+      );
 
       fixture.componentInstance.tabIndex = 4;
       fixture.detectChanges();
 
-      expect(radioButtonInput.tabIndex)
-        .toBe(4, 'Expected the tabindex to be set to "4".');
+      expect(radioButtonInput.tabIndex).toBe(
+        4,
+        'Expected the tabindex to be set to "4".'
+      );
     });
   });
 
@@ -628,10 +728,18 @@ describe('DtRadio', () => {
     beforeEach(async(() => {
       fixture = createComponent(InterleavedRadioGroup);
 
-      groupDebugElement = fixture.debugElement.query(By.directive(DtRadioGroup));
-      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);
-      radioDebugElements = fixture.debugElement.queryAll(By.directive(DtRadioButton));
-      radioInstances = radioDebugElements.map((debugEl) => debugEl.componentInstance);
+      groupDebugElement = fixture.debugElement.query(
+        By.directive(DtRadioGroup)
+      );
+      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
+        DtRadioGroup
+      );
+      radioDebugElements = fixture.debugElement.queryAll(
+        By.directive(DtRadioButton)
+      );
+      radioInstances = radioDebugElements.map(
+        debugEl => debugEl.componentInstance
+      );
     }));
 
     it('should initialize selection of radios based on model value', () => {
@@ -642,20 +750,22 @@ describe('DtRadio', () => {
 
 @Component({
   template: `
-  <dt-radio-group [disabled]="isGroupDisabled"
-                  [required]="isGroupRequired"
-                  [value]="groupValue"
-                  name="test-name">
-    <dt-radio-button value="fire"[disabled]="isFirstDisabled">
-      Charmander
-    </dt-radio-button>
-    <dt-radio-button value="water">
-      Squirtle
-    </dt-radio-button>
-    <dt-radio-button value="leaf">
-      Bulbasaur
-    </dt-radio-button>
-  </dt-radio-group>
+    <dt-radio-group
+      [disabled]="isGroupDisabled"
+      [required]="isGroupRequired"
+      [value]="groupValue"
+      name="test-name"
+    >
+      <dt-radio-button value="fire" [disabled]="isFirstDisabled">
+        Charmander
+      </dt-radio-button>
+      <dt-radio-button value="water">
+        Squirtle
+      </dt-radio-button>
+      <dt-radio-button value="leaf">
+        Bulbasaur
+      </dt-radio-button>
+    </dt-radio-group>
   `,
 })
 class RadiosInsideRadioGroup {
@@ -678,11 +788,13 @@ class RadiosInsideRadioGroup {
 
     <span id="xyz">Baby Banana</span>
     <span id="abc">A smaller banana</span>
-    <dt-radio-button name="fruit"
-                     value="banana"
-                     [aria-label]="ariaLabel"
-                     [aria-labelledby]="ariaLabelledby"
-                     [aria-describedby]="ariaDescribedby">
+    <dt-radio-button
+      name="fruit"
+      value="banana"
+      [aria-label]="ariaLabel"
+      [aria-labelledby]="ariaLabelledby"
+      [aria-describedby]="ariaDescribedby"
+    >
     </dt-radio-button>
     <dt-radio-button name="fruit" value="raspberry">Raspberry</dt-radio-button>
     <dt-radio-button id="nameless" value="no-name">No name</dt-radio-button>
@@ -696,11 +808,11 @@ class StandaloneRadioButtons {
 
 @Component({
   template: `
-  <dt-radio-group [(ngModel)]="modelValue" (change)="lastEvent = $event">
-    <dt-radio-button *ngFor="let option of options" [value]="option.value">
-      {{option.label}}
-    </dt-radio-button>
-  </dt-radio-group>
+    <dt-radio-group [(ngModel)]="modelValue" (change)="lastEvent = $event">
+      <dt-radio-button *ngFor="let option of options" [value]="option.value">
+        {{ option.label }}
+      </dt-radio-button>
+    </dt-radio-group>
   `,
 })
 class RadioGroupWithNgModel {
@@ -714,7 +826,9 @@ class RadioGroupWithNgModel {
 }
 
 @Component({
-  template: `<dt-radio-button>One</dt-radio-button>`,
+  template: `
+    <dt-radio-button>One</dt-radio-button>
+  `,
 })
 class DisableableRadioButton {
   @ViewChild(DtRadioButton, { static: true }) radioButton;
@@ -726,9 +840,9 @@ class DisableableRadioButton {
 
 @Component({
   template: `
-  <dt-radio-group [formControl]="formControl">
-    <dt-radio-button value="1">One</dt-radio-button>
-  </dt-radio-group>
+    <dt-radio-group [formControl]="formControl">
+      <dt-radio-button value="1">One</dt-radio-button>
+    </dt-radio-group>
   `,
 })
 class RadioGroupWithFormControl {
@@ -736,7 +850,9 @@ class RadioGroupWithFormControl {
 }
 
 @Component({
-  template: `<dt-radio-button [tabIndex]="tabIndex"></dt-radio-button>`,
+  template: `
+    <dt-radio-button [tabIndex]="tabIndex"></dt-radio-button>
+  `,
 })
 class FocusableRadioButton {
   tabIndex: number;
@@ -744,11 +860,13 @@ class FocusableRadioButton {
 
 @Component({
   template: `
-  <dt-radio-group name="group" [(ngModel)]="modelValue">
-    <dt-transcluding-wrapper *ngFor="let option of options">
-      <dt-radio-button [value]="option.value">{{option.label}}</dt-radio-button>
-    </dt-transcluding-wrapper>
-  </dt-radio-group>
+    <dt-radio-group name="group" [(ngModel)]="modelValue">
+      <dt-transcluding-wrapper *ngFor="let option of options">
+        <dt-radio-button [value]="option.value">{{
+          option.label
+        }}</dt-radio-button>
+      </dt-transcluding-wrapper>
+    </dt-radio-group>
   `,
 })
 class InterleavedRadioGroup {
@@ -766,6 +884,6 @@ class InterleavedRadioGroup {
     <div><ng-content></ng-content></div>
   `,
 })
-class TranscludingWrapper { }
+class TranscludingWrapper {}
 
 // tslint:enable:no-any no-magic-numbers

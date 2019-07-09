@@ -11,7 +11,7 @@ export class MockNgZone extends NgZone {
   onMicrotaskEmpty: EventEmitter<any> = new EventEmitter(false);
 
   constructor() {
-    super({enableLongStackTrace: false});
+    super({ enableLongStackTrace: false });
   }
 
   // tslint:disable-next-line:no-any

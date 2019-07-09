@@ -26,7 +26,7 @@ export function captureAndMergeEvents<
 export function getElementRef<T>(
   queryList: QueryList<ElementRef<T>>
 ): OperatorFunction<unknown, ElementRef<T>> {
-  return (input$) =>
+  return input$ =>
     input$.pipe(
       map(() => {
         if (queryList && queryList.first) {

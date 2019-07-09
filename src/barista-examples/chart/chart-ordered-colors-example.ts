@@ -6,21 +6,25 @@ import { generateData } from './chart-data-utils';
 @Component({
   selector: 'barista-demo',
   template: `
-  <dt-chart [options]="options" [series]="series">
-    <dt-chart-tooltip>
-      <ng-template let-tooltip>
-        <dt-key-value-list style="min-width: 100px">
-          <dt-key-value-list-item *ngFor="let data of tooltip.points">
-            <dt-key-value-list-key>{{data.series.name}}</dt-key-value-list-key>
-            <dt-key-value-list-value>{{data.point.y}}</dt-key-value-list-value>
-          </dt-key-value-list-item>
-        </dt-key-value-list>
-      </ng-template>
-    </dt-chart-tooltip>
-  </dt-chart>`,
+    <dt-chart [options]="options" [series]="series">
+      <dt-chart-tooltip>
+        <ng-template let-tooltip>
+          <dt-key-value-list style="min-width: 100px">
+            <dt-key-value-list-item *ngFor="let data of tooltip.points">
+              <dt-key-value-list-key>{{
+                data.series.name
+              }}</dt-key-value-list-key>
+              <dt-key-value-list-value>{{
+                data.point.y
+              }}</dt-key-value-list-value>
+            </dt-key-value-list-item>
+          </dt-key-value-list>
+        </ng-template>
+      </dt-chart-tooltip>
+    </dt-chart>
+  `,
 })
 export class ChartOrderedColorsExample {
-
   options: Highcharts.Options = {
     xAxis: {
       type: 'datetime',
@@ -76,7 +80,8 @@ export class ChartOrderedColorsExample {
       name: 'Failure rate new',
       type: 'line',
       data: generateData(40, 0, 20, 1370304000000, 900000),
-    }];
+    },
+  ];
 }
 
 // tslint:enable:no-magic-numbers

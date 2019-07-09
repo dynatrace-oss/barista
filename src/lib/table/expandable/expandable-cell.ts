@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  Input,
+} from '@angular/core';
 import { DtCell } from '../cell';
 import { DtExpandableRow } from './expandable-row';
 
@@ -20,7 +25,6 @@ import { DtExpandableRow } from './expandable-row';
   exportAs: 'dtExpandableCell',
 })
 export class DtExpandableCell extends DtCell {
-
   /** @internal Retyped for the AOT compiler, as _row member will always be a DtExpandableRow for the DtExpandable cell. */
   _row: DtExpandableRow;
   @Input('aria-label') ariaLabel: string;

@@ -7,13 +7,14 @@ import { generateData } from './data';
 @Component({
   selector: 'barista-demo',
   template: `
-  <dt-micro-chart [options]="options" [series]="series">
-    <dt-chart-tooltip>
-      <ng-template let-tooltip>
-        {{tooltip.y | dtCount}}
-      </ng-template>
-    </dt-chart-tooltip>
-  </dt-micro-chart>`,
+    <dt-micro-chart [options]="options" [series]="series">
+      <dt-chart-tooltip>
+        <ng-template let-tooltip>
+          {{ tooltip.y | dtCount }}
+        </ng-template>
+      </dt-chart-tooltip>
+    </dt-micro-chart>
+  `,
 })
 export class MicroChartColumnsExample {
   options: DtChartOptions = {

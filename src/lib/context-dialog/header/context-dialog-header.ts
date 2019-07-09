@@ -1,4 +1,8 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -12,4 +16,4 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtContextDialogHeader { }
+export class DtContextDialogHeader {}

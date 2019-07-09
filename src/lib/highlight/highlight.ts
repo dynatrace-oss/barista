@@ -132,7 +132,7 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
     if (this.term && this.term.length) {
       const flags = this._caseSensitive ? 'gm' : 'gmi';
       const regExp = new RegExp(`(${escapeRegExp(this.term)})`, flags);
-      textTokens = content.split(regExp).filter((s) => s.length);
+      textTokens = content.split(regExp).filter(s => s.length);
     }
 
     const max = textTokens.length;

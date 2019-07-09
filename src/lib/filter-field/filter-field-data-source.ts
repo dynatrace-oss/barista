@@ -1,7 +1,16 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isObject } from '@dynatrace/angular-components/core';
-import { DtNodeDef, dtAutocompleteDef, dtOptionDef, dtGroupDef, isDtAutocompleteDef, isDtGroupDef, dtFreeTextDef, dtRangeDef } from './types';
+import {
+  DtNodeDef,
+  dtAutocompleteDef,
+  dtOptionDef,
+  dtGroupDef,
+  isDtAutocompleteDef,
+  isDtGroupDef,
+  dtFreeTextDef,
+  dtRangeDef,
+} from './types';
 
 export abstract class DtFilterFieldDataSource {
   /**
@@ -21,7 +30,10 @@ type Option = { name: string } | string;
 /** Whether the provided data object is of type OptionData */
 // tslint:disable-next-line: no-any
 function isOption(data: any): data is Option {
-  return typeof data === 'string' || (isObject(data) && typeof data.name === 'string');
+  return (
+    typeof data === 'string' ||
+    (isObject(data) && typeof data.name === 'string')
+  );
 }
 
 /** Shape of an object to be usable as a group in an autocomplete */
@@ -33,7 +45,11 @@ interface Group {
 /** Whether the provided data object is of type GroupData */
 // tslint:disable-next-line: no-any
 function isGroup(data: any): data is Group {
-  return isObject(data) && typeof data.name === 'string' && Array.isArray(data.options);
+  return (
+    isObject(data) &&
+    typeof data.name === 'string' &&
+    Array.isArray(data.options)
+  );
 }
 
 /** Shape of an object to be usable as an autocomplete */
@@ -142,17 +158,19 @@ function isRange(data: any): data is Range {
  *   }
  * }
  */
-export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSource {
-
+export class DtFilterFieldDefaultDataSource<T>
+  implements DtFilterFieldDataSource {
   private readonly _data$: BehaviorSubject<T>;
 
   /** Structure of data that is used, transformed and rendered by the filter-field. */
-  get data(): T { return this._data$.value; }
+  get data(): T {
+    return this._data$.value;
+  }
   set data(data: T) {
     this._data$.next(data);
   }
 
-  constructor(initialData: T = null as unknown as T) {
+  constructor(initialData: T = (null as unknown) as T) {
     this._data$ = new BehaviorSubject<T>(initialData);
   }
 
@@ -162,7 +180,7 @@ export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSourc
    * displayed by the DtFilterFieldViewer (filter-field)
    */
   connect(): Observable<DtNodeDef | null> {
-    return this._data$.pipe(map((data) => this._transformObject(data)));
+    return this._data$.pipe(map(data => this._transformObject(data)));
   }
 
   /** Used by the DtFilterField. Called when it is destroyed. No-op. */
@@ -172,11 +190,17 @@ export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSourc
 
   /** Transforms the provided data into an internal data structure that can be used by the filter-field. */
   // tslint:disable-next-line: no-any
-  private _transformObject(data: any | null, parent: DtNodeDef | null = null): DtNodeDef | null {
+  private _transformObject(
+    data: any | null,
+    parent: DtNodeDef | null = null
+  ): DtNodeDef | null {
     let def: DtNodeDef | null = null;
     if (isAutocomplete(data)) {
       def = dtAutocompleteDef([], !!data.distinct, !!data.async, data, null);
-      def.autocomplete!.optionsOrGroups = this._transformList(data.autocomplete, def);
+      def.autocomplete!.optionsOrGroups = this._transformList(
+        data.autocomplete,
+        def
+      );
     } else if (isFreeText(data)) {
       def = dtFreeTextDef([], data, null);
       def.freeText!.suggestions = this._transformList(data.suggestions, def);
@@ -192,22 +216,37 @@ export class DtFilterFieldDefaultDataSource<T> implements DtFilterFieldDataSourc
       );
     }
 
-    let parentAutocomplete = isDtAutocompleteDef(parent) ? parent as DtNodeDef : null;
+    let parentAutocomplete = isDtAutocompleteDef(parent)
+      ? (parent as DtNodeDef)
+      : null;
     if (isGroup(data)) {
       def = dtGroupDef(data.name, [], data, def, parentAutocomplete);
       def.group!.options = this._transformList(data.options, def);
     } else if (isOption(data)) {
       const parentGroup = isDtGroupDef(parent) ? parent : null;
-      parentAutocomplete = parentAutocomplete || (parentGroup && parentGroup.group.parentAutocomplete || null);
-      def = dtOptionDef(typeof data === 'string' ? data : data.name, data, null, def, parentAutocomplete, parentGroup);
+      parentAutocomplete =
+        parentAutocomplete ||
+        ((parentGroup && parentGroup.group.parentAutocomplete) || null);
+      def = dtOptionDef(
+        typeof data === 'string' ? data : data.name,
+        data,
+        null,
+        def,
+        parentAutocomplete,
+        parentGroup
+      );
     }
     return def;
   }
 
   /** Transforms the provided list of data objects into an internal data structure that can be used by the filter field. */
   // tslint:disable-next-line: no-any
-  private _transformList(list: any[], parent: DtNodeDef | null = null): DtNodeDef[] {
-    return list.map((item) => this._transformObject(item, parent))
-      .filter((item) => item !== null) as DtNodeDef[];
+  private _transformList(
+    list: any[],
+    parent: DtNodeDef | null = null
+  ): DtNodeDef[] {
+    return list
+      .map(item => this._transformObject(item, parent))
+      .filter(item => item !== null) as DtNodeDef[];
   }
 }

@@ -4,16 +4,18 @@ export function randomize(min: number, max: number): number {
 }
 
 export function generateData(
-    amount: number,
-    min: number,
-    max: number,
-    timestampStart: number,
-    timestampTick: number
-  ): Array<[number, number]> {
-    return Array.from(Array(amount).keys())
-      .map((v) => [
-        timestampStart + (timestampTick * v),
-        randomize(min, max),
-      ] as [number, number]);
+  amount: number,
+  min: number,
+  max: number,
+  timestampStart: number,
+  timestampTick: number
+): Array<[number, number]> {
+  return Array.from(Array(amount).keys()).map(
+    v =>
+      [timestampStart + timestampTick * v, randomize(min, max)] as [
+        number,
+        number
+      ]
+  );
 }
 // tslint:enable:no-magic-numbers

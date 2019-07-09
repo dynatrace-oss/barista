@@ -1,4 +1,3 @@
-
 import {
   Component,
   ViewEncapsulation,
@@ -32,4 +31,4 @@ export class DtTableEmptyState {
 @Directive({
   selector: '[dtTableEmptyState]',
 })
-export class DtTableEmptyStateDirective { }
+export class DtTableEmptyStateDirective {}

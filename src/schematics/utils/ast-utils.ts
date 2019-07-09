@@ -1,9 +1,5 @@
 import * as ts from 'typescript';
-import {
-  Tree,
-  SchematicsException,
-  Rule,
-} from '@angular-devkit/schematics';
+import { Tree, SchematicsException, Rule } from '@angular-devkit/schematics';
 import { InsertChange, commitChanges } from './change';
 import { strings } from '@angular-devkit/core';
 import { DtComponentOptions } from '../dt-component/schema';
@@ -17,7 +13,12 @@ export function getSourceFile(host: Tree, path: string): ts.SourceFile {
     throw new SchematicsException(`File ${path} does not exist.`);
   }
   const content = buffer.toString();
-  const source = ts.createSourceFile(path, content, ts.ScriptTarget.Latest, true);
+  const source = ts.createSourceFile(
+    path,
+    content,
+    ts.ScriptTarget.Latest,
+    true
+  );
 
   return source;
 }
@@ -25,7 +26,11 @@ export function getSourceFile(host: Tree, path: string): ts.SourceFile {
 /**
  * Find all nodes from the AST in the subtree of node of SyntaxKind kind.
  */
-export function findNodes(node: ts.Node, kind: ts.SyntaxKind, max = Infinity): ts.Node[] {
+export function findNodes(
+  node: ts.Node,
+  kind: ts.SyntaxKind,
+  max = Infinity
+): ts.Node[] {
   if (!node || max == 0) {
     return [];
   }
@@ -77,22 +82,35 @@ export function getSourceNodes(sourceFile: ts.SourceFile): ts.Node[] {
 /**
  * Adds an import to the existing @dynatrace/angular-components import declaration
  */
-export function addDynatraceAngularComponentsImport(source: ts.SourceFile, path: string, symbolName: string): InsertChange {
-  const importNodes = findNodes(source, ts.SyntaxKind.ImportDeclaration)
-    .filter((node: ts.ImportDeclaration) =>
-    node.moduleSpecifier && node.moduleSpecifier.getText() === '\'@dynatrace/angular-components\'');
+export function addDynatraceAngularComponentsImport(
+  source: ts.SourceFile,
+  path: string,
+  symbolName: string
+): InsertChange {
+  const importNodes = findNodes(source, ts.SyntaxKind.ImportDeclaration).filter(
+    (node: ts.ImportDeclaration) =>
+      node.moduleSpecifier &&
+      node.moduleSpecifier.getText() === "'@dynatrace/angular-components'"
+  );
 
   if (importNodes.length === 0) {
-    throw new SchematicsException(`No @dynatrace/angular-components import found in ${path}`);
+    throw new SchematicsException(
+      `No @dynatrace/angular-components import found in ${path}`
+    );
   }
   /**
    * add it to the last @dynatrace/angular-components import
    */
   const lastImport = importNodes[importNodes.length - 1];
-  const namedImports = findNodes(lastImport, ts.SyntaxKind.NamedImports) as ts.NamedImports[];
+  const namedImports = findNodes(
+    lastImport,
+    ts.SyntaxKind.NamedImports
+  ) as ts.NamedImports[];
 
   if (namedImports.length === 0) {
-    throw new SchematicsException(`No named imports found from @dynatrace/angular-components in ${path}`);
+    throw new SchematicsException(
+      `No named imports found from @dynatrace/angular-components in ${path}`
+    );
   }
   const lastNamedImport = namedImports[namedImports.length - 1];
   const end = lastNamedImport.elements.end;
@@ -105,7 +123,9 @@ export function addDynatraceAngularComponentsImport(source: ts.SourceFile, path:
 /**
  * Gets the indentation string for the last entry in NodeArray
  */
-export function getIndentation(elements: ts.NodeArray<any> | ts.Node[]): string {
+export function getIndentation(
+  elements: ts.NodeArray<any> | ts.Node[]
+): string {
   let indentation = '\n';
   if (elements.length > 0) {
     const text = elements[elements.length - 1].getFullText();
@@ -140,7 +160,12 @@ export function addDynatraceSubPackageImport(
   sourceFile: ts.SourceFile,
   options: DtComponentOptions
 ): InsertChange {
-  return addImport(sourcePath, sourceFile, options.moduleName, `'@dynatrace/angular-components/${dasherize(options.name)}';`);
+  return addImport(
+    sourcePath,
+    sourceFile,
+    options.moduleName,
+    `'@dynatrace/angular-components/${dasherize(options.name)}';`
+  );
 }
 
 export type NgModuleDefinition = 'imports' | 'declarations' | 'exports';
@@ -154,14 +179,14 @@ export function addToNgModule(
 ): InsertChange {
   const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
   const importSyntaxLists = assignments
-    .filter((c) => c.getText().startsWith(position)) // filter by position
-    .map((c) => c.getChildren())
+    .filter(c => c.getText().startsWith(position)) // filter by position
+    .map(c => c.getChildren())
     .reduce((acc, val) => acc.concat(val), []) // flatten
-    .filter((c) => c.kind === ts.SyntaxKind.ArrayLiteralExpression) // filter out arrays
-    .filter((c) => c.getText().match(filter)) // filter the one with other Dt***Module declarations
-    .map((c) => c.getChildren())
+    .filter(c => c.kind === ts.SyntaxKind.ArrayLiteralExpression) // filter out arrays
+    .filter(c => c.getText().match(filter)) // filter the one with other Dt***Module declarations
+    .map(c => c.getChildren())
     .reduce((acc, val) => acc.concat(val), []) // flatten
-    .filter((c) => c.kind === ts.SyntaxKind.SyntaxList) as ts.SyntaxList[]; // remove tokens
+    .filter(c => c.kind === ts.SyntaxKind.SyntaxList) as ts.SyntaxList[]; // remove tokens
   const indentation = getIndentation(importSyntaxLists);
   const toInsert = `${indentation}${name},`;
   return new InsertChange(sourcePath, importSyntaxLists[0].end, toInsert);
@@ -176,12 +201,22 @@ export function addDeclarationsToDevAppModule(name: string): Rule {
     const sourceFile = getSourceFile(host, modulePath);
     const importName = `${strings.classify(name)}Demo`;
     const importLocation = `'./${name}/${name}-demo.component';`;
-    const importChange = addImport(modulePath, sourceFile, importName, importLocation);
+    const importChange = addImport(
+      modulePath,
+      sourceFile,
+      importName,
+      importLocation
+    );
     /**
      * add it to the declarations in the module
      */
-    const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment) as ts.PropertyAssignment[];
-    const assignment = assignments.find((a: ts.PropertyAssignment) => a.name.getText() === 'declarations');
+    const assignments = findNodes(
+      sourceFile,
+      ts.SyntaxKind.PropertyAssignment
+    ) as ts.PropertyAssignment[];
+    const assignment = assignments.find(
+      (a: ts.PropertyAssignment) => a.name.getText() === 'declarations'
+    );
     if (assignment === undefined) {
       throw Error("No AppModule 'declarations' section found");
     }
@@ -207,15 +242,19 @@ export function addDynatraceAngularComponentsBaristaExampleModule(
   sourcePath: string,
   name: string
 ): InsertChange {
-  const dtModulesDeclaration = findNodes(sourceFile, ts.SyntaxKind.VariableDeclaration)
-    .find((declaration: ts.VariableDeclaration) =>
-      (declaration.name as ts.Identifier).text === 'DT_MODULES');
+  const dtModulesDeclaration = findNodes(
+    sourceFile,
+    ts.SyntaxKind.VariableDeclaration
+  ).find(
+    (declaration: ts.VariableDeclaration) =>
+      (declaration.name as ts.Identifier).text === 'DT_MODULES'
+  );
 
   if (dtModulesDeclaration === undefined) {
     throw Error(`The DT_MODULES 'declarations' was not found in ${sourcePath}`);
   }
-  const elements = ((dtModulesDeclaration as ts.VariableDeclaration).initializer as ts.ArrayLiteralExpression)
-    .elements;
+  const elements = ((dtModulesDeclaration as ts.VariableDeclaration)
+    .initializer as ts.ArrayLiteralExpression).elements;
   const indentation = getIndentation(elements);
   // calculate end position in ArrayLiteral before closing bracket.
   const insertPosition = elements.end;
@@ -226,5 +265,6 @@ export function addDynatraceAngularComponentsBaristaExampleModule(
  * Adds a new navitem inside the navitems
  */
 export function addNavitemToDevApp(name: string): Rule {
-  return (host: Tree) => addNavItem(host, { name }, join('src', 'dev-app', 'devapp.component.ts'));
+  return (host: Tree) =>
+    addNavItem(host, { name }, join('src', 'dev-app', 'devapp.component.ts'));
 }

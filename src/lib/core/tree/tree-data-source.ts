@@ -39,14 +39,19 @@ import { isDefined } from '../util';
  * and the output flattened type is `F` with additional information.
  */
 export class DtTreeFlattener<T, F> {
+  constructor(
+    private transformFunction: (node: T, level: number) => F,
+    private getLevel: (node: F) => number,
+    private isExpandable: (node: F) => boolean,
+    private getChildren: (node: T) => Observable<T[]> | T[] | undefined | null
+  ) {}
 
-  constructor(private transformFunction: (node: T, level: number) => F,
-              private getLevel: (node: F) => number,
-              private isExpandable: (node: F) => boolean,
-              private getChildren: (node: T) =>
-                  Observable<T[]> | T[] | undefined | null) {}
-
-  private _flattenNode(node: T, level: number, resultNodes: F[], parentMap: boolean[]): F[] {
+  private _flattenNode(
+    node: T,
+    level: number,
+    resultNodes: F[],
+    parentMap: boolean[]
+  ): F[] {
     const flatNode = this.transformFunction(node, level);
     resultNodes.push(flatNode);
 
@@ -56,7 +61,7 @@ export class DtTreeFlattener<T, F> {
         if (Array.isArray(childrenNodes)) {
           this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
         } else {
-          childrenNodes!.pipe(take(1)).subscribe((children) => {
+          childrenNodes!.pipe(take(1)).subscribe(children => {
             this._flattenChildren(children, level, resultNodes, parentMap);
           });
         }
@@ -65,7 +70,12 @@ export class DtTreeFlattener<T, F> {
     return resultNodes;
   }
 
-  private _flattenChildren(children: T[], level: number, resultNodes: F[], parentMap: boolean[]): void {
+  private _flattenChildren(
+    children: T[],
+    level: number,
+    resultNodes: F[],
+    parentMap: boolean[]
+  ): void {
     children.forEach((child, index) => {
       const childParentMap: boolean[] = parentMap.slice();
       childParentMap.push(index !== children.length - 1);
@@ -80,7 +90,7 @@ export class DtTreeFlattener<T, F> {
    */
   flattenNodes(structuredData: T[]): F[] {
     const resultNodes: F[] = [];
-    structuredData.forEach((node) => this._flattenNode(node, 0, resultNodes, []));
+    structuredData.forEach(node => this._flattenNode(node, 0, resultNodes, []));
     return resultNodes;
   }
 
@@ -123,16 +133,20 @@ export class DtTreeDataSource<T, F> extends DataSource<F> {
 
   _data: BehaviorSubject<T[]>;
   /** The data for the datasource */
-  get data(): T[] { return this._data.value; }
+  get data(): T[] {
+    return this._data.value;
+  }
   set data(value: T[]) {
     this._data.next(value);
     this._flattenedData.next(this.treeFlattener.flattenNodes(this.data));
     this.treeControl.dataNodes = this._flattenedData.value;
   }
 
-  constructor(private treeControl: FlatTreeControl<F>,
-              private treeFlattener: DtTreeFlattener<T, F>,
-              initialData: T[] = []) {
+  constructor(
+    private treeControl: FlatTreeControl<F>,
+    private treeFlattener: DtTreeFlattener<T, F>,
+    initialData: T[] = []
+  ) {
     super();
     this._data = new BehaviorSubject<T[]>(initialData);
   }
@@ -144,13 +158,19 @@ export class DtTreeDataSource<T, F> extends DataSource<F> {
       this.treeControl.expansionModel.changed,
       this._flattenedData,
     ];
-    return merge(...changes).pipe(map(() => {
-      this._expandedData.next(
-        this.treeFlattener.expandFlattenedNodes(this._flattenedData.value, this.treeControl));
-      return this._expandedData.value;
-    }));
+    return merge(...changes).pipe(
+      map(() => {
+        this._expandedData.next(
+          this.treeFlattener.expandFlattenedNodes(
+            this._flattenedData.value,
+            this.treeControl
+          )
+        );
+        return this._expandedData.value;
+      })
+    );
   }
 
   /** Noop */
-  disconnect(): void { }
+  disconnect(): void {}
 }

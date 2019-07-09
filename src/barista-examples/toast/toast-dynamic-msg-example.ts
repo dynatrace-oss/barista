@@ -9,13 +9,20 @@ const TIMERINTERVAL = 50;
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-  <dt-form-field>
-    <dt-label>Message</dt-label>
-    <input type="text" dtInput [(ngModel)]="message" placeholder="Your message"/>
-  </dt-form-field>
-  <p>Current message: {{message}}</p>
-  <p *ngIf="elapsedTime">Time elapsed since opening: {{elapsedTime | async}}ms</p>
-  <button dt-button (click)="createToast()">Save</button>
+    <dt-form-field>
+      <dt-label>Message</dt-label>
+      <input
+        type="text"
+        dtInput
+        [(ngModel)]="message"
+        placeholder="Your message"
+      />
+    </dt-form-field>
+    <p>Current message: {{ message }}</p>
+    <p *ngIf="elapsedTime"
+      >Time elapsed since opening: {{ elapsedTime | async }}ms</p
+    >
+    <button dt-button (click)="createToast()">Save</button>
   `,
 })
 export class ToastDynamicMsgExample {
@@ -29,8 +36,9 @@ export class ToastDynamicMsgExample {
     this.toastRef = this._toast.create(this.message);
     if (this.toastRef) {
       this.elapsedTime = timer(0, TIMERINTERVAL).pipe(
-          takeUntil(this.toastRef.afterDismissed()),
-          map((count: number) => TIMERINTERVAL * count));
+        takeUntil(this.toastRef.afterDismissed()),
+        map((count: number) => TIMERINTERVAL * count)
+      );
     }
   }
 }

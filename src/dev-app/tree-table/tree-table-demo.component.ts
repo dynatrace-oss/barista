@@ -1,86 +1,92 @@
 import { Component } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { DtIconType } from '@dynatrace/dt-iconpack';
-import { DtTreeDataSource, DtTreeFlattener, DtTreeControl } from '@dynatrace/angular-components';
+import {
+  DtTreeDataSource,
+  DtTreeFlattener,
+  DtTreeControl,
+} from '@dynatrace/angular-components';
 import { BehaviorSubject } from 'rxjs';
 
 const TESTDATA: ThreadNode[] = [
-{
-  name: 'hz.hzInstance_1_cluster.thread',
-  icon: 'apache-tomcat',
-  threadlevel: 'S0',
-  totalTimeConsumption: 150,
-  waiting: 123,
-  running: 20,
-  blocked: 0,
-  children: [
-    {
-      name: 'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
-      icon: 'apache-tomcat',
-      threadlevel: 'S1',
-      totalTimeConsumption: 150,
-      waiting: 123,
-      running: 20,
-      blocked: 0,
-    },
-    {
-      name: 'hz.hzInstance_1_cluster.thread-2',
-      icon: 'apache-tomcat',
-      threadlevel: 'S1',
-      totalTimeConsumption: 150,
-      waiting: 130,
-      running: 0,
-      blocked: 0,
-    },
-  ],
-},
-{
-  name: 'jetty',
-  icon: 'apache-tomcat',
-  threadlevel: 'S0',
-  totalTimeConsumption: 150,
-  waiting: 123,
-  running: 20,
-  blocked: 0,
-  children: [
-    {
-      name: 'jetty-422',
-      icon: 'apache-tomcat',
-      threadlevel: 'S1',
-      totalTimeConsumption: 150,
-      waiting: 123,
-      running: 20,
-      blocked: 0,
-    },
-    {
-      name: 'jetty-423',
-      icon: 'apache-tomcat',
-      threadlevel: 'S1',
-      totalTimeConsumption: 150,
-      waiting: 130,
-      running: 0,
-      blocked: 0,
-    },
-    {
-      name: 'jetty-424',
-      icon: 'apache-tomcat',
-      threadlevel: 'S1',
-      totalTimeConsumption: 150,
-      waiting: 130,
-      running: 0,
-      blocked: 0,
-    },
-  ],
-},
-{
-  name: 'Downtime timer',
-  icon: 'apache-tomcat',
-  threadlevel: 'S0',
-  totalTimeConsumption: 150,
-  waiting: 123,
-  running: 20,
-  blocked: 0,
-}];
+  {
+    name: 'hz.hzInstance_1_cluster.thread',
+    icon: 'apache-tomcat',
+    threadlevel: 'S0',
+    totalTimeConsumption: 150,
+    waiting: 123,
+    running: 20,
+    blocked: 0,
+    children: [
+      {
+        name:
+          'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
+        icon: 'apache-tomcat',
+        threadlevel: 'S1',
+        totalTimeConsumption: 150,
+        waiting: 123,
+        running: 20,
+        blocked: 0,
+      },
+      {
+        name: 'hz.hzInstance_1_cluster.thread-2',
+        icon: 'apache-tomcat',
+        threadlevel: 'S1',
+        totalTimeConsumption: 150,
+        waiting: 130,
+        running: 0,
+        blocked: 0,
+      },
+    ],
+  },
+  {
+    name: 'jetty',
+    icon: 'apache-tomcat',
+    threadlevel: 'S0',
+    totalTimeConsumption: 150,
+    waiting: 123,
+    running: 20,
+    blocked: 0,
+    children: [
+      {
+        name: 'jetty-422',
+        icon: 'apache-tomcat',
+        threadlevel: 'S1',
+        totalTimeConsumption: 150,
+        waiting: 123,
+        running: 20,
+        blocked: 0,
+      },
+      {
+        name: 'jetty-423',
+        icon: 'apache-tomcat',
+        threadlevel: 'S1',
+        totalTimeConsumption: 150,
+        waiting: 130,
+        running: 0,
+        blocked: 0,
+      },
+      {
+        name: 'jetty-424',
+        icon: 'apache-tomcat',
+        threadlevel: 'S1',
+        totalTimeConsumption: 150,
+        waiting: 130,
+        running: 0,
+        blocked: 0,
+      },
+    ],
+  },
+  {
+    name: 'Downtime timer',
+    icon: 'apache-tomcat',
+    threadlevel: 'S0',
+    totalTimeConsumption: 150,
+    waiting: 123,
+    running: 20,
+    blocked: 0,
+  },
+];
 
 export class ThreadNode {
   name: string;
@@ -128,12 +134,23 @@ export class TreeTableDemo {
   dataChange = new BehaviorSubject<ThreadNode[]>([]);
 
   constructor() {
-    this.treeControl = new DtTreeControl<ThreadFlatNode>(this._getLevel, this._isExpandable);
-    this.treeFlattener =  new DtTreeFlattener(this.transformer, this._getLevel, this._isExpandable, this._getChildren);
-    this.dataSource = new DtTreeDataSource(this.treeControl, this.treeFlattener);
+    this.treeControl = new DtTreeControl<ThreadFlatNode>(
+      this._getLevel,
+      this._isExpandable
+    );
+    this.treeFlattener = new DtTreeFlattener(
+      this.transformer,
+      this._getLevel,
+      this._isExpandable,
+      this._getChildren
+    );
+    this.dataSource = new DtTreeDataSource(
+      this.treeControl,
+      this.treeFlattener
+    );
     this.dataChange.next(TESTDATA);
 
-    this.dataChange.subscribe((data) => {
+    this.dataChange.subscribe(data => {
       this.dataSource.data = data;
     });
   }
@@ -142,7 +159,8 @@ export class TreeTableDemo {
 
   transformer = (node: ThreadNode, level: number): ThreadFlatNode => {
     const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = existingNode && existingNode.name === node.name
+    const flatNode =
+      existingNode && existingNode.name === node.name
         ? existingNode
         : new ThreadFlatNode();
     flatNode.name = node.name;
@@ -157,11 +175,12 @@ export class TreeTableDemo {
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;
-  }
+  };
 
   private _getLevel = (node: ThreadFlatNode) => node.level;
 
   private _isExpandable = (node: ThreadFlatNode) => node.expandable;
 
-  private _getChildren = (node: ThreadNode): ThreadNode[] => node.children || [];
+  private _getChildren = (node: ThreadNode): ThreadNode[] =>
+    node.children || [];
 }

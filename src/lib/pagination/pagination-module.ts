@@ -5,16 +5,8 @@ import { CommonModule } from '@angular/common';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DtIconModule,
-    DtButtonModule,
-  ],
-  exports: [
-    DtPagination,
-  ],
-  declarations: [
-    DtPagination,
-  ],
+  imports: [CommonModule, DtIconModule, DtButtonModule],
+  exports: [DtPagination],
+  declarations: [DtPagination],
 })
-export class DtPaginationModule { }
+export class DtPaginationModule {}

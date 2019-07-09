@@ -2,10 +2,13 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasTextContentAlternative, isElementWithName } from '../utils';
+import {
+  addFailure,
+  hasTextContentAlternative,
+  isElementWithName,
+} from '../utils';
 
 class DtSelectionAreaVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -25,7 +28,11 @@ class DtSelectionAreaVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A selection area must provide alternative texts for both handles, the selected area and the close button.');
+    addFailure(
+      this,
+      element,
+      'A selection area must provide alternative texts for both handles, the selected area and the close button.'
+    );
   }
 }
 
@@ -50,13 +57,14 @@ class DtSelectionAreaVisitor extends BasicTemplateAstVisitor {
  * </dt-selection-area>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that text alternatives are given for handles, the close button and the area of the selection area.',
+    description:
+      'Ensures that text alternatives are given for handles, the close button and the area of the selection area.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'Handles, the close button and the area of the selection area need additional attributes to provide text alternatives.',
+    rationale:
+      'Handles, the close button and the area of the selection area need additional attributes to provide text alternatives.',
     ruleName: 'dt-selection-area-alt-text',
     type: 'maintainability',
     typescriptOnly: true,

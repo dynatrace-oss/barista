@@ -12,10 +12,20 @@ export class DrawerUI {
 
   @ViewChild('container', { static: true }) container: DtDrawerContainer;
   @ViewChild('drawer', { static: true }) drawer: DtDrawer;
-  @ViewChild('toggleButton', { static: true }) drawerButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('openButton', { static: true }) openButton: ElementRef<HTMLButtonElement>;
-  @ViewChild('closeButton', { static: true }) closeButton: ElementRef<HTMLButtonElement>;
+  @ViewChild('toggleButton', { static: true }) drawerButton: ElementRef<
+    HTMLButtonElement
+  >;
+  @ViewChild('openButton', { static: true }) openButton: ElementRef<
+    HTMLButtonElement
+  >;
+  @ViewChild('closeButton', { static: true }) closeButton: ElementRef<
+    HTMLButtonElement
+  >;
 
-  open(): void { this.openCount++; }
-  close(): void { this.closeCount++; }
+  open(): void {
+    this.openCount++;
+  }
+  close(): void {
+    this.closeCount++;
+  }
 }

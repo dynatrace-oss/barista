@@ -1,5 +1,18 @@
-import { Directive, EventEmitter, Input, isDevMode, OnChanges, OnDestroy, Output, OnInit } from '@angular/core';
-import { CanDisable, mixinDisabled, DtSortDirection } from '@dynatrace/angular-components/core';
+import {
+  Directive,
+  EventEmitter,
+  Input,
+  isDevMode,
+  OnChanges,
+  OnDestroy,
+  Output,
+  OnInit,
+} from '@angular/core';
+import {
+  CanDisable,
+  mixinDisabled,
+  DtSortDirection,
+} from '@dynatrace/angular-components/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { getDtSortInvalidDirectionError } from './sort-errors';
 import { DtSortHeader } from './sort-header';
@@ -27,8 +40,7 @@ export const _DtSortMixinBase = mixinDisabled(DtSortBase);
   inputs: ['disabled: dtSortDisabled'],
 })
 export class DtSort extends _DtSortMixinBase
-    implements CanDisable, OnChanges, OnInit, OnDestroy {
-
+  implements CanDisable, OnChanges, OnInit, OnDestroy {
   /**
    * Used to notify any child components listening to state changes.
    * @internal
@@ -49,9 +61,16 @@ export class DtSort extends _DtSortMixinBase
 
   /** The sort direction of the currently active DtSortHeader. */
   @Input('dtSortDirection')
-  get direction(): DtSortDirection { return this._direction; }
+  get direction(): DtSortDirection {
+    return this._direction;
+  }
   set direction(direction: DtSortDirection) {
-    if (isDevMode() && direction && direction !== 'asc' && direction !== 'desc') {
+    if (
+      isDevMode() &&
+      direction &&
+      direction !== 'asc' &&
+      direction !== 'desc'
+    ) {
       throw getDtSortInvalidDirectionError(direction);
     }
     this._direction = direction;
@@ -59,7 +78,9 @@ export class DtSort extends _DtSortMixinBase
   private _direction: DtSortDirection = '';
 
   /** Event emitted when the user changes either the active sort or sort direction. */
-  @Output('dtSortChange') readonly sortChange: EventEmitter<DtSortEvent> = new EventEmitter<DtSortEvent>();
+  @Output('dtSortChange') readonly sortChange: EventEmitter<
+    DtSortEvent
+  > = new EventEmitter<DtSortEvent>();
 
   /** Sets the active sort id and determines the new sort direction. */
   sort(sortable: DtSortHeader): void {
@@ -70,17 +91,21 @@ export class DtSort extends _DtSortMixinBase
       this.direction = this.getNextSortDirection(sortable);
     }
 
-    this.sortChange.emit({active: this.active, direction: this.direction});
+    this.sortChange.emit({ active: this.active, direction: this.direction });
   }
 
   /** Returns the next sort direction of the active sortable. */
   getNextSortDirection(sortable: DtSortHeader): DtSortDirection {
-    if (!sortable) { return ''; }
+    if (!sortable) {
+      return '';
+    }
     const sortDirectionCycle = getSortDirection(sortable.start || this.start);
 
     // Get and return the next direction in the cycle
     let nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
-    if (nextDirectionIndex >= sortDirectionCycle.length) { nextDirectionIndex = 0; }
+    if (nextDirectionIndex >= sortDirectionCycle.length) {
+      nextDirectionIndex = 0;
+    }
     return sortDirectionCycle[nextDirectionIndex];
   }
 
@@ -101,6 +126,8 @@ export class DtSort extends _DtSortMixinBase
 /** Returns the sort direction cycle to use given the provided parameters of order and clear. */
 function getSortDirection(start: DtSortDirection): DtSortDirection[] {
   const sortOrder: DtSortDirection[] = ['asc', 'desc'];
-  if (start === 'desc') { sortOrder.reverse(); }
+  if (start === 'desc') {
+    sortOrder.reverse();
+  }
   return sortOrder;
 }

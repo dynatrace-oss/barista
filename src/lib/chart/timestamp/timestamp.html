@@ -1,7 +1,7 @@
 <ng-template let-timestamp>
-  <span class="dt-selection-area-overlay-text">{{
-    value | date: 'MMM d, HH:mm'
-  }}</span>
+  <span class="dt-selection-area-overlay-text"
+    >{{ value | date: 'MMM d, HH:mm' }}</span
+  >
   <ng-content select="[dtChartSelectionAreaAction]"></ng-content>
   <button
     dt-icon-button
@@ -18,7 +18,7 @@
   #selector
   *ngIf="!_hidden"
   cdkTrapFocus
-  tabIndex="0"
+  tabindex="0"
   aria-role="slider"
   class="dt-chart-timestamp-selector"
   aria-role="slider"

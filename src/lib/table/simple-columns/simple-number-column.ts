@@ -20,10 +20,11 @@ import { formatCount } from '@dynatrace/angular-components/formatters';
    * dtColumDef can't handle onPush and results in ChangeAfterChecked error.
    */
   changeDetection: ChangeDetectionStrategy.Default,
-  providers: [{ provide: DtSimpleColumnBase, useExisting: DtSimpleNumberColumn }],
+  providers: [
+    { provide: DtSimpleColumnBase, useExisting: DtSimpleNumberColumn },
+  ],
 })
 export class DtSimpleNumberColumn<T> extends DtSimpleColumnBase<T> {
-
   // tslint:disable-next-line: no-any
   constructor(@Optional() table: DtTable<T>) {
     super(table);
@@ -36,7 +37,9 @@ export class DtSimpleNumberColumn<T> extends DtSimpleColumnBase<T> {
   // tslint:disable-next-line: no-any
   _getData(data: T): any {
     // tslint:disable-next-line: no-any
-    const output = this.displayAccessor ? this.displayAccessor(data, this.name) : (data as any)[this.name];
+    const output = this.displayAccessor
+      ? this.displayAccessor(data, this.name)
+      : (data as any)[this.name];
 
     if (isNumber(output) && !isDefined(this.formatter)) {
       return formatCount(output);

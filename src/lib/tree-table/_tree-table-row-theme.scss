@@ -7,7 +7,9 @@
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
 
-    :host.dt-table-row-indicator.dt-color-#{$name} ::ng-deep .dt-tree-table-toggle-cell-wrap::before {
+    :host.dt-table-row-indicator.dt-color-#{$name}
+      ::ng-deep
+      .dt-tree-table-toggle-cell-wrap::before {
       background-color: $default-color;
     }
   }

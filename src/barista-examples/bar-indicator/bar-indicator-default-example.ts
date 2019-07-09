@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: '<dt-bar-indicator value="60"></dt-bar-indicator>',
 })
-export class BarIndicatorDefaultExample { }
+export class BarIndicatorDefaultExample {}

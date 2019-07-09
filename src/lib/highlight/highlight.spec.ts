@@ -244,8 +244,9 @@ describe('DtHighlight', () => {
     it('should keep the text casing of the original text when it is not case sensitive', () => {
       // ISSUE: ***REMOVED***/***REMOVED***
       const fixture = createComponent(TestCasingHighlighted);
-      const containerEl: HTMLElement = fixture.debugElement.query(By.css('.dt-highlight span'))
-        .nativeElement;
+      const containerEl: HTMLElement = fixture.debugElement.query(
+        By.css('.dt-highlight span')
+      ).nativeElement;
 
       expect(containerEl.textContent).toBe('HTTP-Monitoring');
     });

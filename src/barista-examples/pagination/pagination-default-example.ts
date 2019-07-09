@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: '<dt-pagination length="11" pageSize="2"></dt-pagination>',
 })
-export class PaginationDefaultExample { }
+export class PaginationDefaultExample {}

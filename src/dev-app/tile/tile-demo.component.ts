@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './tile-demo.component.html',
   styleUrls: ['./tile-demo.component.scss'],
 })
-export class TileDemo {
-
-}
+export class TileDemo {}

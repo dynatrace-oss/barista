@@ -1,8 +1,19 @@
-import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation, OnDestroy, ElementRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  ViewEncapsulation,
+  OnDestroy,
+  ElementRef,
+} from '@angular/core';
 import { CDK_ROW_TEMPLATE, CdkRow, CdkRowDef } from '@angular/cdk/table';
 import { DtCell } from './cell';
 import { merge, Subscription } from 'rxjs';
-import { replaceCssClass, addCssClass, removeCssClass } from '@dynatrace/angular-components/core';
+import {
+  replaceCssClass,
+  addCssClass,
+  removeCssClass,
+} from '@dynatrace/angular-components/core';
 
 /**
  * Data row definition for the dt-table.
@@ -15,7 +26,7 @@ import { replaceCssClass, addCssClass, removeCssClass } from '@dynatrace/angular
   providers: [{ provide: CdkRowDef, useExisting: DtRowDef }],
   inputs: ['columns: dtRowDefColumns', 'when: dtRowDefWhen'],
 })
-export class DtRowDef<T> extends CdkRowDef<T> { }
+export class DtRowDef<T> extends CdkRowDef<T> {}
 
 /** Data row template container that contains the cell outlet. Adds the right class and role. */
 @Component({
@@ -32,7 +43,6 @@ export class DtRowDef<T> extends CdkRowDef<T> { }
   exportAs: 'dtRow',
 })
 export class DtRow extends CdkRow implements OnDestroy {
-
   /**
    * @internal
    * Necessary due to the fact that we cannot get the DtRow via normal DI
@@ -83,14 +93,16 @@ export class DtRow extends CdkRow implements OnDestroy {
   private _listenForStateChanges(): void {
     this._cellStateChangesSub.unsubscribe();
     const cells = Array.from(this._cells.values());
-    this._cellStateChangesSub = merge(...(cells.map((cell) => cell._stateChanges))).subscribe(() => {
+    this._cellStateChangesSub = merge(
+      ...cells.map(cell => cell._stateChanges)
+    ).subscribe(() => {
       this._applyCssClasses(cells);
     });
   }
 
   private _applyCssClasses(cells: DtCell[]): void {
-    const hasError = !!cells.find((cell) => cell.hasError);
-    const hasWarning = !!cells.find((cell) => cell.hasWarning);
+    const hasError = !!cells.find(cell => cell.hasError);
+    const hasWarning = !!cells.find(cell => cell.hasWarning);
     const hasIndicator = hasError || hasWarning;
     if (hasIndicator) {
       addCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
@@ -99,13 +111,21 @@ export class DtRow extends CdkRow implements OnDestroy {
     }
 
     if (hasWarning) {
-      replaceCssClass(this._elementRef.nativeElement, 'dt-color-error', 'dt-color-warning');
+      replaceCssClass(
+        this._elementRef.nativeElement,
+        'dt-color-error',
+        'dt-color-warning'
+      );
     } else {
       removeCssClass(this._elementRef.nativeElement, 'dt-color-warning');
     }
 
     if (hasError) {
-      replaceCssClass(this._elementRef.nativeElement, 'dt-color-warning', 'dt-color-error');
+      replaceCssClass(
+        this._elementRef.nativeElement,
+        'dt-color-warning',
+        'dt-color-error'
+      );
     } else {
       removeCssClass(this._elementRef.nativeElement, 'dt-color-error');
     }

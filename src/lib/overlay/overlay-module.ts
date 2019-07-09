@@ -8,10 +8,7 @@ import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayTrigger } from './overlay-trigger';
 import { PortalModule } from '@angular/cdk/portal';
 
-const EXPORTED_DECLARATIONS = [
-  DtOverlayContainer,
-  DtOverlayTrigger,
-];
+const EXPORTED_DECLARATIONS = [DtOverlayContainer, DtOverlayTrigger];
 
 @NgModule({
   imports: [
@@ -22,12 +19,8 @@ const EXPORTED_DECLARATIONS = [
     PortalModule,
     A11yModule,
   ],
-  exports: [
-    ...EXPORTED_DECLARATIONS,
-  ],
-  declarations: [
-    ...EXPORTED_DECLARATIONS,
-  ],
+  exports: [...EXPORTED_DECLARATIONS],
+  declarations: [...EXPORTED_DECLARATIONS],
   entryComponents: [DtOverlayContainer],
 })
 export class DtOverlayModule {}

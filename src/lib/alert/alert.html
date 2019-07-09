@@ -1,5 +1,8 @@
 <div class="dt-alert-icon-container">
-  <dt-icon class="dt-alert-icon" [name]="severity === 'warning' ? 'incident' : 'criticalevent'"></dt-icon>
+  <dt-icon
+    class="dt-alert-icon"
+    [name]="severity === 'warning' ? 'incident' : 'criticalevent'"
+  ></dt-icon>
 </div>
 <div class="dt-alert-text-container">
   <ng-content></ng-content>

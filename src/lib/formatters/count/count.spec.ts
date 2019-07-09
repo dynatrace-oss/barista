@@ -34,8 +34,9 @@ describe('DtCount', () => {
       },
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} without unit`, () => {
-        expect(pipe.transform(testCase.input, testCase.inputUnit).toString())
-          .toEqual(testCase.output);
+        expect(
+          pipe.transform(testCase.input, testCase.inputUnit).toString()
+        ).toEqual(testCase.output);
       });
     });
   });
@@ -59,8 +60,9 @@ describe('DtCount', () => {
       },
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} together with custom unit`, () => {
-        expect(pipe.transform(testCase.input, testCase.inputUnit).toString())
-          .toEqual(testCase.output);
+        expect(
+          pipe.transform(testCase.input, testCase.inputUnit).toString()
+        ).toEqual(testCase.output);
       });
     });
   });
@@ -73,7 +75,7 @@ describe('DtCount', () => {
     });
 
     it(`should return '${NO_DATA}' for values that cannot be converted to numbers`, () => {
-      class A { }
+      class A {}
       expect(pipe.transform({})).toEqual(NO_DATA);
       expect(pipe.transform([])).toEqual(NO_DATA);
       expect(pipe.transform(() => {})).toEqual(NO_DATA);

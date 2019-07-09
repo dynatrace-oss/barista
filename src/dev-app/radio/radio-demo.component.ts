@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './radio-demo.component.html',
   styleUrls: ['./radio-demo.component.scss'],
 })
-export class RadioDemo {
-
-}
+export class RadioDemo {}

@@ -7,7 +7,8 @@ const TIMEOUT_MS = 2000;
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <em dt-inline-editor
+    <em
+      dt-inline-editor
       [(ngModel)]="sampleModel"
       [onRemoteSave]="successfulSaveFunction"
       aria-label-save="Save text"
@@ -20,13 +21,11 @@ export class InlineEditorSuccessfulExample {
   sampleModel = 'text content';
 
   successfulSaveFunction(): Observable<void> {
-    return new Observable<void>((observer) => {
-      setTimeout(
-        () => {
-          observer.next();
-          observer.complete();
-        },
-        TIMEOUT_MS);
+    return new Observable<void>(observer => {
+      setTimeout(() => {
+        observer.next();
+        observer.complete();
+      }, TIMEOUT_MS);
     });
   }
 }

@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Form field
@@ -9,15 +9,12 @@ type: "component"
 ## Imports
 
 You have to import the `DtFormFieldModule` when you want to use the `dt-form-field`.
-The `dt-form-field` component component also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see *Step 2: Animations* in the Getting started Guide.
+The `dt-form-field` component component also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see _Step 2: Animations_ in the Getting started Guide.
 Because `<dt-form-field>` wraps a form input component, pls make sure that you have imported the specific component module (e.g. `DtInputModule`)
 
 ```typescript
-@NgModule({  
-  imports: [
-    BrowserAnimationsModule,
-    DtFormFieldModule,
-  ],
+@NgModule({
+  imports: [BrowserAnimationsModule, DtFormFieldModule],
 })
 class MyModule {}
 ```

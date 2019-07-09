@@ -12,10 +12,18 @@ export function formatRate(
   input: DtFormattedValue | number,
   rateUnit: DtRateUnit | string
 ): DtFormattedValue {
-
-  const sourceData = input instanceof DtFormattedValue ? input.sourceData : { input, unit: DtUnit.COUNT };
-  const displayValue = input instanceof DtFormattedValue ? input.displayData.displayValue : input.toString();
-  const displayUnit = input instanceof DtFormattedValue ? input.displayData.displayUnit : undefined;
+  const sourceData =
+    input instanceof DtFormattedValue
+      ? input.sourceData
+      : { input, unit: DtUnit.COUNT };
+  const displayValue =
+    input instanceof DtFormattedValue
+      ? input.displayData.displayValue
+      : input.toString();
+  const displayUnit =
+    input instanceof DtFormattedValue
+      ? input.displayData.displayUnit
+      : undefined;
 
   const formattedData: FormattedData = {
     transformedValue: sourceData.input,

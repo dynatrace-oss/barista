@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewEncapsulation,
-  Optional
+  Optional,
 } from '@angular/core';
 import { DtSimpleColumnBase } from './simple-column-base';
 import { DtTable } from '../table';

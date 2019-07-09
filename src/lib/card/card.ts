@@ -3,7 +3,7 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   Directive,
-  ContentChild
+  ContentChild,
 } from '@angular/core';
 
 /** Title of a card, needed as it's used as a selector in the API. */
@@ -13,7 +13,7 @@ import {
     class: 'dt-card-title',
   },
 })
-export class DtCardTitle { }
+export class DtCardTitle {}
 
 /** Icon of a card, needed as it's used as a selector in the API. */
 @Directive({
@@ -22,7 +22,7 @@ export class DtCardTitle { }
     class: 'dt-card-icon',
   },
 })
-export class DtCardIcon { }
+export class DtCardIcon {}
 
 /** Sub-title of a card, needed as it's used as a selector in the API. */
 @Directive({
@@ -31,7 +31,7 @@ export class DtCardIcon { }
     class: 'dt-card-subtitle',
   },
 })
-export class DtCardSubtitle { }
+export class DtCardSubtitle {}
 
 /** Title actions of a card, needed as it's used as a selector in the API. */
 @Directive({
@@ -40,7 +40,7 @@ export class DtCardSubtitle { }
     class: 'dt-card-title-actions',
   },
 })
-export class DtCardTitleActions { }
+export class DtCardTitleActions {}
 
 @Directive({
   host: {
@@ -48,7 +48,7 @@ export class DtCardTitleActions { }
   },
   selector: 'dt-card-footer-actions',
 })
-export class DtCardFooterActions { }
+export class DtCardFooterActions {}
 
 @Component({
   moduleId: module.id,
@@ -57,7 +57,7 @@ export class DtCardFooterActions { }
   templateUrl: 'card.html',
   styleUrls: ['card.scss'],
   host: {
-    'class': 'dt-card',
+    class: 'dt-card',
     // We know that a header is present when the card has at least a title
     '[class.dt-card-has-header]': '!!_title',
   },

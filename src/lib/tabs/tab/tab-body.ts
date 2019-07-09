@@ -1,4 +1,8 @@
-import { CdkPortalOutlet, PortalHostDirective, TemplatePortal } from '@angular/cdk/portal';
+import {
+  CdkPortalOutlet,
+  PortalHostDirective,
+  TemplatePortal,
+} from '@angular/cdk/portal';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -31,20 +35,23 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    'class': 'dt-tab-body',
+    class: 'dt-tab-body',
     '[class.dt-tab-body-active]': 'active',
   },
 })
 export class DtTabBody {
-   /** The portal host inside of this container into which the tab body content will be loaded. */
-  @ViewChild(PortalHostDirective, { static: true }) _portalHost: PortalHostDirective;
+  /** The portal host inside of this container into which the tab body content will be loaded. */
+  @ViewChild(PortalHostDirective, { static: true })
+  _portalHost: PortalHostDirective;
 
   /** The tab body content to display. */
   @Input() content: TemplatePortal;
 
   /** Input to be used in the tab-group to set the active tab */
   @Input()
-  get active(): boolean { return this._isActive; }
+  get active(): boolean {
+    return this._isActive;
+  }
   set active(value: boolean) {
     this._isActive = value;
     this._activeChanged.emit(value);
@@ -54,7 +61,6 @@ export class DtTabBody {
   @Output() readonly _activeChanged: EventEmitter<boolean> = new EventEmitter();
 
   private _isActive = false;
-
 }
 
 /**
@@ -64,7 +70,8 @@ export class DtTabBody {
 @Directive({
   selector: '[dtTabBodyHost]',
 })
-export class DtTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestroy {
+export class DtTabBodyPortal extends CdkPortalOutlet
+  implements OnInit, OnDestroy {
   /** Subscription to events for when the active tab changes */
   private _activeChangedSub = Subscription.EMPTY;
 
@@ -72,15 +79,18 @@ export class DtTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestro
     componentFactoryResolver: ComponentFactoryResolver,
     viewContainerRef: ViewContainerRef,
     // tslint:disable-next-line:no-forward-ref
-    @Inject(forwardRef(() => DtTabBody)) private _host: DtTabBody) {
-      super(componentFactoryResolver, viewContainerRef);
+    @Inject(forwardRef(() => DtTabBody)) private _host: DtTabBody
+  ) {
+    super(componentFactoryResolver, viewContainerRef);
   }
 
   /** Set initial visibility or set up subscription for changing visibility. */
   ngOnInit(): void {
     super.ngOnInit();
     this._handleActiveTabChange(this._host.active);
-    this._activeChangedSub = this._host._activeChanged.subscribe((isActive) => { this._handleActiveTabChange(isActive); });
+    this._activeChangedSub = this._host._activeChanged.subscribe(isActive => {
+      this._handleActiveTabChange(isActive);
+    });
   }
 
   /**  Attaches the content to the portaloutlet if necessary */

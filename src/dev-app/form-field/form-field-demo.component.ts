@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './form-field-demo.component.html',
   styleUrls: ['./form-field-demo.component.scss'],
 })
-export class FormFieldDemo {
-
-}
+export class FormFieldDemo {}

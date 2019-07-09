@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Loading distractor & loading spinner
@@ -12,9 +12,7 @@ You have to import the `DtLoadingDistractorModule` when you want to use the `dt-
 
 ```typescript
 @NgModule({
-  imports: [
-    DtLoadingDistractorModule,
-  ],
+  imports: [DtLoadingDistractorModule],
 })
 class MyModule {}
 ```
@@ -39,9 +37,9 @@ The `<dt-loading-distractor>` wraps the spinner and adds a label next to it.
 
 ### Options & Properties
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `ng-content` | `string` (html content) | `-` | Defines the label of the loading distractor |
+| Name         | Type                    | Default | Description                                 |
+| ------------ | ----------------------- | ------- | ------------------------------------------- |
+| `ng-content` | `string` (html content) | `-`     | Defines the label of the loading distractor |
 
 ## Accessibility
 

@@ -3,13 +3,7 @@ import { DtExpandablePanelTrigger } from './expandable-panel-trigger';
 import { DtExpandablePanel } from './expandable-panel';
 
 @NgModule({
-  exports: [
-    DtExpandablePanelTrigger,
-    DtExpandablePanel,
-  ],
-  declarations: [
-    DtExpandablePanelTrigger,
-    DtExpandablePanel,
-  ],
+  exports: [DtExpandablePanelTrigger, DtExpandablePanel],
+  declarations: [DtExpandablePanelTrigger, DtExpandablePanel],
 })
-export class DtExpandablePanelModule { }
+export class DtExpandablePanelModule {}

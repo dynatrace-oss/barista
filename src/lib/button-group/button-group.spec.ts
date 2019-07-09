@@ -4,15 +4,22 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { DtButtonGroup, DtButtonGroupItem, DtButtonGroupModule } from '@dynatrace/angular-components';
+import {
+  DtButtonGroup,
+  DtButtonGroupItem,
+  DtButtonGroupModule,
+} from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtButtonGroup', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtButtonGroupModule],
-      declarations: [TestAppButtonGroup, TestAppButtonGroupWithSelection, TestAppButtonGroupWithSelection2],
+      declarations: [
+        TestAppButtonGroup,
+        TestAppButtonGroupWithSelection,
+        TestAppButtonGroupWithSelection2,
+      ],
     });
 
     TestBed.compileComponents();
@@ -31,12 +38,20 @@ describe('DtButtonGroup', () => {
     beforeEach(async(() => {
       fixture = createComponent(TestAppButtonGroup);
 
-      groupDebugElement = fixture.debugElement.query(By.css('.dt-button-group'));
+      groupDebugElement = fixture.debugElement.query(
+        By.css('.dt-button-group')
+      );
       groupInstance = groupDebugElement.componentInstance;
 
-      itemDebugElements = fixture.debugElement.queryAll(By.css('.dt-button-group-item'));
-      itemHtmlElements = itemDebugElements.map((debugEl: DebugElement) => debugEl.nativeElement);
-      itemInstances = itemDebugElements.map((debugEl: DebugElement) => debugEl.componentInstance);
+      itemDebugElements = fixture.debugElement.queryAll(
+        By.css('.dt-button-group-item')
+      );
+      itemHtmlElements = itemDebugElements.map(
+        (debugEl: DebugElement) => debugEl.nativeElement
+      );
+      itemInstances = itemDebugElements.map(
+        (debugEl: DebugElement) => debugEl.componentInstance
+      );
     }));
 
     it('should exist', () => {
@@ -59,7 +74,9 @@ describe('DtButtonGroup', () => {
     });
 
     it('should have a value after selections', () => {
-      const item = fixture.debugElement.nativeElement.querySelector('dt-button-group-item:nth-child(2)');
+      const item = fixture.debugElement.nativeElement.querySelector(
+        'dt-button-group-item:nth-child(2)'
+      );
       item.click();
 
       expect(groupInstance.value).toBe('Connectivity');
@@ -74,7 +91,6 @@ describe('DtButtonGroup', () => {
     });
 
     it('should have item disabled when group disabled', () => {
-
       expect(itemInstances[1].disabled).toBe(false);
       groupInstance.disabled = true;
 
@@ -126,11 +142,19 @@ describe('DtButtonGroup', () => {
     beforeEach(async(() => {
       fixture = createComponent(TestAppButtonGroupWithSelection);
 
-      groupDebugElement = fixture.debugElement.query(By.css('.dt-button-group'));
-      groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(DtButtonGroup);
+      groupDebugElement = fixture.debugElement.query(
+        By.css('.dt-button-group')
+      );
+      groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
+        DtButtonGroup
+      );
 
-      itemDebugElements = fixture.debugElement.queryAll(By.css('.dt-button-group-item'));
-      itemInstances = itemDebugElements.map((debugEl: DebugElement) => debugEl.componentInstance);
+      itemDebugElements = fixture.debugElement.queryAll(
+        By.css('.dt-button-group-item')
+      );
+      itemInstances = itemDebugElements.map(
+        (debugEl: DebugElement) => debugEl.componentInstance
+      );
     }));
 
     it('should have a value', () => {
@@ -154,11 +178,19 @@ describe('DtButtonGroup', () => {
     beforeEach(async(() => {
       fixture = createComponent(TestAppButtonGroupWithSelection2);
 
-      groupDebugElement = fixture.debugElement.query(By.directive(DtButtonGroup));
-      groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(DtButtonGroup);
+      groupDebugElement = fixture.debugElement.query(
+        By.directive(DtButtonGroup)
+      );
+      groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
+        DtButtonGroup
+      );
 
-      const itemDebugElements = fixture.debugElement.queryAll(By.directive(DtButtonGroupItem));
-      itemInstances = itemDebugElements.map((debugEl: DebugElement) => debugEl.componentInstance);
+      const itemDebugElements = fixture.debugElement.queryAll(
+        By.directive(DtButtonGroupItem)
+      );
+      itemInstances = itemDebugElements.map(
+        (debugEl: DebugElement) => debugEl.componentInstance
+      );
     }));
 
     it('should have a value', () => {
@@ -176,9 +208,15 @@ describe('DtButtonGroup', () => {
   selector: 'dt-test-app',
   template: `
     <dt-button-group>
-      <dt-button-group-item value="Performance">Performance</dt-button-group-item>
-      <dt-button-group-item value="Connectivity">Connectivity</dt-button-group-item>
-      <dt-button-group-item value="Failure rate">Failure rate</dt-button-group-item>
+      <dt-button-group-item value="Performance"
+        >Performance</dt-button-group-item
+      >
+      <dt-button-group-item value="Connectivity"
+        >Connectivity</dt-button-group-item
+      >
+      <dt-button-group-item value="Failure rate"
+        >Failure rate</dt-button-group-item
+      >
     </dt-button-group>
   `,
 })
@@ -188,9 +226,15 @@ class TestAppButtonGroup {}
   selector: 'dt-test-app-selection',
   template: `
     <dt-button-group>
-      <dt-button-group-item [selected]="false" value="Performance">Performance</dt-button-group-item>
-      <dt-button-group-item [selected]="true" value="Connectivity">Connectivity</dt-button-group-item>
-      <dt-button-group-item [selected]="false" value="Failure rate">Failure rate</dt-button-group-item>
+      <dt-button-group-item [selected]="false" value="Performance"
+        >Performance</dt-button-group-item
+      >
+      <dt-button-group-item [selected]="true" value="Connectivity"
+        >Connectivity</dt-button-group-item
+      >
+      <dt-button-group-item [selected]="false" value="Failure rate"
+        >Failure rate</dt-button-group-item
+      >
     </dt-button-group>
   `,
 })
@@ -200,9 +244,15 @@ class TestAppButtonGroupWithSelection {}
   selector: 'dt-test-app-selection2',
   template: `
     <dt-button-group [value]="'Connectivity'">
-      <dt-button-group-item value="Performance">Performance</dt-button-group-item>
-      <dt-button-group-item value="Connectivity">Connectivity</dt-button-group-item>
-      <dt-button-group-item value="Failure rate">Failure rate</dt-button-group-item>
+      <dt-button-group-item value="Performance"
+        >Performance</dt-button-group-item
+      >
+      <dt-button-group-item value="Connectivity"
+        >Connectivity</dt-button-group-item
+      >
+      <dt-button-group-item value="Failure rate"
+        >Failure rate</dt-button-group-item
+      >
     </dt-button-group>
   `,
 })

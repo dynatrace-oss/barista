@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   template: `
     <dt-form-field>
       <dt-label>Some text</dt-label>
-      <input type="text" dtInput placeholder="Please insert text"/>
+      <input type="text" dtInput placeholder="Please insert text" />
     </dt-form-field>
   `,
 })
-export class FormFieldDefaultExample { }
+export class FormFieldDefaultExample {}

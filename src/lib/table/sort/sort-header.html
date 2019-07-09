@@ -1,9 +1,11 @@
-<div class="dt-sort-header-container"
-     [class.dt-sort-header-sorted]="_isSorted">
-  <button *ngIf="sortable"
-          class="dt-sort-header-button" type="button"
-          [attr.disabled]="_isDisabled || null"
-          [attr.aria-label]="ariaLabel">
+<div class="dt-sort-header-container" [class.dt-sort-header-sorted]="_isSorted">
+  <button
+    *ngIf="sortable"
+    class="dt-sort-header-button"
+    type="button"
+    [attr.disabled]="_isDisabled || null"
+    [attr.aria-label]="ariaLabel"
+  >
     <ng-container *ngTemplateOutlet="content"></ng-container>
     <div class="dt-sort-header-arrow" *ngIf="!_isDisabled">
       <dt-icon [name]="_sortIconName"></dt-icon>

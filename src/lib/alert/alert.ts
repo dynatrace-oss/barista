@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewEncapsulation,
-  Input
+  Input,
 } from '@angular/core';
 
 @Component({
@@ -11,8 +11,8 @@ import {
   templateUrl: 'alert.html',
   styleUrls: ['alert.scss'],
   host: {
-    'role': 'alert',
-    'class': 'dt-alert',
+    role: 'alert',
+    class: 'dt-alert',
     '[class.dt-alert-warning]': 'severity === "warning"',
   },
   preserveWhitespaces: false,

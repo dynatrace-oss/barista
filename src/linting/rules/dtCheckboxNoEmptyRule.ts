@@ -2,10 +2,14 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasContent, hasTextContentAlternative, isElementWithName } from '../utils';
+import {
+  addFailure,
+  hasContent,
+  hasTextContentAlternative,
+  isElementWithName,
+} from '../utils';
 
 class DtCheckboxVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -16,14 +20,15 @@ class DtCheckboxVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    if (
-      hasContent(element) ||
-      hasTextContentAlternative(element)
-    ) {
+    if (hasContent(element) || hasTextContentAlternative(element)) {
       return;
     }
 
-    addFailure(this, element, 'When a dt-checkbox does not contain any content it must have an aria-label or an aria-labelledby attribute.');
+    addFailure(
+      this,
+      element,
+      'When a dt-checkbox does not contain any content it must have an aria-label or an aria-labelledby attribute.'
+    );
   }
 }
 
@@ -38,13 +43,14 @@ class DtCheckboxVisitor extends BasicTemplateAstVisitor {
  * <dt-checkbox></dt-checkbox>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a checkbox always contains content or an aria-label as alternative.',
+    description:
+      'Ensures that a checkbox always contains content or an aria-label as alternative.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A checkbox without content must have an aria-label or aria-labelledby attribute.',
+    rationale:
+      'A checkbox without content must have an aria-label or aria-labelledby attribute.',
     ruleName: 'dt-checkbox-no-empty',
     type: 'maintainability',
     typescriptOnly: true,

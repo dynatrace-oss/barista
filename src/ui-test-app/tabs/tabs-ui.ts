@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   selector: 'dt-tabs-ui',
   templateUrl: 'tabs-ui.html',
 })
-export class TabsUI {
-
-}
+export class TabsUI {}

@@ -7,4 +7,4 @@ import { Directive } from '@angular/core';
     class: 'dt-suffix',
   },
 })
-export class DtSuffix { }
+export class DtSuffix {}

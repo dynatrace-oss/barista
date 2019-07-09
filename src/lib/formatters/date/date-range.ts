@@ -6,7 +6,6 @@ import { formatDate } from '@angular/common';
   pure: true,
 })
 export class DtDateRange implements PipeTransform {
-
   constructor(@Inject(LOCALE_ID) private _locale: string) {}
 
   /**
@@ -42,7 +41,11 @@ export class DtDateRange implements PipeTransform {
  * `Jan 23 00:00 - Jan 24 12:01` - For different dates in the current year.
  * `2017 Apr 13 13:13 - 2018 Jun 06 06:06` - For different dates and years.
  */
-export function dtFormatDateRange(start: number, end: number, locale: string = 'en-US'): string {
+export function dtFormatDateRange(
+  start: number,
+  end: number,
+  locale: string = 'en-US'
+): string {
   const date1 = new Date(start);
   const date2 = new Date(end);
 

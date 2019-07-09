@@ -1,6 +1,6 @@
 <div
   class="dt-selection-area-selected-area"
-  tabindex="0" 
+  tabindex="0"
   [style.visibility]="_isSelectedAreaVisible ? 'visible' : 'hidden'"
   #selectedArea
   #originSelectedArea="cdkOverlayOrigin"
@@ -10,14 +10,15 @@
   cdkTrapFocus
   aria-role="slider"
   [attr.aria-label]="_ariaLabelSelectedArea"
-  >
+>
   <button
     #lefthandle
     class="dt-selection-area-handle dt-selection-area-left-handle"
     (mousedown)="_handleMouseDown($event, 'LeftHandle')"
     (keydown)="_handleKeyDown($event, 'LeftHandle')"
     aria-role="slider"
-    [attr.aria-label]="_ariaLabelLeftHandle">
+    [attr.aria-label]="_ariaLabelLeftHandle"
+  >
   </button>
   <button
     #righthandle
@@ -25,7 +26,8 @@
     (mousedown)="_handleMouseDown($event, 'RightHandle')"
     (keydown)="_handleKeyDown($event, 'RightHandle')"
     aria-role="slider"
-    [attr.aria-label]="_ariaLabelRightHandle">
+    [attr.aria-label]="_ariaLabelRightHandle"
+  >
   </button>
 </div>
 <ng-template
@@ -34,18 +36,25 @@
   [cdkConnectedOverlayOpen]="_isSelectedAreaVisible"
   [cdkConnectedOverlayPositions]="_positions"
   (attach)="_onOverlayAttached()"
-  (detach)="_reset()">
+  (detach)="_reset()"
+>
   <div class="dt-selection-area-overlay-pane">
     <div class="dt-selection-area-overlay-wrapper">
       <section class="dt-selection-area-content">
         <ng-container [cdkPortalOutlet]="_overlayContentPortal"></ng-container>
       </section>
       <aside class="dt-selection-area-close">
-        <button dt-icon-button variant="nested" (click)="close()" [attr.aria-label]="_ariaLabelClose"><dt-icon name="abort"></dt-icon></button>
+        <button
+          dt-icon-button
+          variant="nested"
+          (click)="close()"
+          [attr.aria-label]="_ariaLabelClose"
+          ><dt-icon name="abort"></dt-icon
+        ></button>
       </aside>
     </div>
     <section class="dt-selection-area-actions">
-        <ng-container [cdkPortalOutlet]="_overlayActionsPortal"></ng-container>
+      <ng-container [cdkPortalOutlet]="_overlayActionsPortal"></ng-container>
     </section>
   </div>
 </ng-template>

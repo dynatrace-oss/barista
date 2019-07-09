@@ -1,11 +1,16 @@
 <dt-expandable-section>
   <dt-expandable-section-header>My header text</dt-expandable-section-header>
-  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-  dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-  magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+  <p
+    >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+    diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+    amet.</p
+  >
 </dt-expandable-section>
 
 <dt-chart [options]="options" [series]="series">
@@ -14,9 +19,9 @@
     <a class="dt-link">View problem details</a>
   </dt-chart-heatfield> -->
 
-  <dt-chart-heatfield [start]="1370335500000" >
-      Problem 2:<br/>
-      <a class="dt-link">View problem details</a>
+  <dt-chart-heatfield [start]="1370335500000">
+    Problem 2:<br />
+    <a class="dt-link">View problem details</a>
   </dt-chart-heatfield>
   <!-- <dt-chart-tooltip>
     <ng-template let-tooltip>
@@ -33,9 +38,10 @@
     <button dt-button dtChartSelectionAreaAction>Analyze</button>
   </dt-chart-timestamp>
   <dt-chart-range (valid)="rangeValidChanges($event)">
-    <button dt-button dtChartSelectionAreaAction [disabled]="!validRange">Inspect</button>
+    <button dt-button dtChartSelectionAreaAction [disabled]="!validRange"
+      >Inspect</button
+    >
   </dt-chart-range>
-
 </dt-chart>
 
 <div class="controls">
@@ -45,30 +51,41 @@
 
   <dt-form-field>
     <dt-label>Timestamp position</dt-label>
-    <dt-select placeholder="Select your Time" (selectionChange)="changeTimestamp($event)">
+    <dt-select
+      placeholder="Select your Time"
+      (selectionChange)="changeTimestamp($event)"
+    >
       <dt-option *ngFor="let time of timeValues" [value]="time">
-        {{ time | date:'h:mm:ss'}}
+        {{ time | date: 'h:mm:ss' }}
       </dt-option>
     </dt-select>
   </dt-form-field>
 
   <div class="range-input">
     <dt-form-field>
-      <dt-label>Range from {{startRange | date:'h:mm'}}</dt-label>
-      <dt-select placeholder="Select your Time" [(ngModel)]="startRange" (selectionChange)="changeRange($event)">
-          <dt-option selected>---</dt-option>
+      <dt-label>Range from {{ startRange | date: 'h:mm' }}</dt-label>
+      <dt-select
+        placeholder="Select your Time"
+        [(ngModel)]="startRange"
+        (selectionChange)="changeRange($event)"
+      >
+        <dt-option selected>---</dt-option>
         <dt-option *ngFor="let time of timeValues" [value]="time">
-          {{ time | date:'h:mm:ss'}}
+          {{ time | date: 'h:mm:ss' }}
         </dt-option>
       </dt-select>
     </dt-form-field>
 
     <dt-form-field>
-      <dt-label>to {{endRange | date:'h:mm'}}</dt-label>
-      <dt-select placeholder="Select your Time" [(ngModel)]="endRange" (selectionChange)="changeRange($event)">
+      <dt-label>to {{ endRange | date: 'h:mm' }}</dt-label>
+      <dt-select
+        placeholder="Select your Time"
+        [(ngModel)]="endRange"
+        (selectionChange)="changeRange($event)"
+      >
         <dt-option selected>---</dt-option>
         <dt-option *ngFor="let time of timeValues" [value]="time">
-          {{ time | date:'h:mm'}}
+          {{ time | date: 'h:mm' }}
         </dt-option>
       </dt-select>
     </dt-form-field>
@@ -103,4 +120,3 @@
 <h2>Only Chart</h2>
 <dt-chart [options]="options" [series]="series">
 </dt-chart> -->
-

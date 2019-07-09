@@ -5,14 +5,8 @@ import { DtToggleButtonItem } from './toggle-button-item';
 import { DtToggleButtonItemIcon } from './toggle-button-item-icon';
 
 @NgModule({
-  imports: [
-    CommonModule,
-  ],
-  exports: [
-    DtToggleButtonGroup,
-    DtToggleButtonItem,
-    DtToggleButtonItemIcon,
-  ],
+  imports: [CommonModule],
+  exports: [DtToggleButtonGroup, DtToggleButtonItem, DtToggleButtonItemIcon],
   declarations: [
     DtToggleButtonGroup,
     DtToggleButtonItem,

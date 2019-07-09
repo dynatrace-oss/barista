@@ -8,4 +8,4 @@ import { Directive } from '@angular/core';
   },
   exportAs: 'dtToggleButtonItemIcon',
 })
-export class DtToggleButtonItemIcon { }
+export class DtToggleButtonItemIcon {}

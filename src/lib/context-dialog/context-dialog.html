@@ -1,4 +1,5 @@
-<button [hidden]="hasCustomTrigger"
+<button
+  [hidden]="hasCustomTrigger"
   dt-icon-button
   [attr.tabIndex]="tabIndex"
   [disabled]="disabled"
@@ -6,16 +7,12 @@
   variant="secondary"
   cdkOverlayOrigin
   (click)="open()"
-  class="dt-context-dialog-trigger">
+  class="dt-context-dialog-trigger"
+>
   <dt-icon name="more"></dt-icon>
 </button>
 <ng-template>
-  <div
-    class="dt-context-dialog-panel"
-    #panel
-    role="dialog"
-    dtTheme=":dark"
-    >
+  <div class="dt-context-dialog-panel" #panel role="dialog" dtTheme=":dark">
     <ng-content select="dt-context-dialog-header"></ng-content>
     <div class="dt-context-dialog-content">
       <ng-content></ng-content>
@@ -26,9 +23,9 @@
       class="dt-context-dialog-close-trigger"
       (click)="close()"
       [attr.aria-label]="ariaLabelClose"
-      cdkFocusInitial>
+      cdkFocusInitial
+    >
       <dt-icon name="abort"></dt-icon>
     </button>
   </div>
 </ng-template>
-

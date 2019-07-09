@@ -52,7 +52,7 @@ $turquoise-600: #00a1b2;
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
-    font-family: "BerninaSansWeb";
+    font-family: 'BerninaSansWeb';
     cursor: pointer;
   }
 
@@ -62,7 +62,7 @@ $turquoise-600: #00a1b2;
   }
 
   .dt-expandable-panel-trigger-open ::ng-deep svg {
-    transform: rotate(180deg)
+    transform: rotate(180deg);
   }
 
   dt-icon {

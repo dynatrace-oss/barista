@@ -12,7 +12,11 @@ export type DtSortDirection = 'asc' | 'desc' | '';
  * const stringValues = ['host', 'memory', 'metric', 'center'];
  * const sortedStrings = stringValues.sort((a, b) => compareStrings(a, b));
  */
-export function compareStrings(valueA: string|null, valueB: string|null, direction: DtSortDirection = 'asc'): number {
+export function compareStrings(
+  valueA: string | null,
+  valueB: string | null,
+  direction: DtSortDirection = 'asc'
+): number {
   return compareValues(valueA, valueB, direction);
 }
 
@@ -25,7 +29,11 @@ export function compareStrings(valueA: string|null, valueB: string|null, directi
  * const numberValues = [1, 15, 8, 19, 23];
  * const sortednumbers = numberValues.sort((a, b) => compareStrings(a, b));
  */
-export function compareNumbers(valueA: number|null, valueB: number|null, direction: DtSortDirection = 'desc'): number {
+export function compareNumbers(
+  valueA: number | null,
+  valueB: number | null,
+  direction: DtSortDirection = 'desc'
+): number {
   return compareValues(valueA, valueB, direction);
 }
 
@@ -41,9 +49,10 @@ export function compareNumbers(valueA: number|null, valueB: number|null, directi
  * const sortedStrings = stringValues.sort((a, b) => compareStrings(a, b));
  */
 export function compareValues(
-    valueA: string|number|null,
-    valueB: string|number|null,
-    direction: DtSortDirection): number {
+  valueA: string | number | null,
+  valueB: string | number | null,
+  direction: DtSortDirection
+): number {
   let comparatorResult = 0;
   if (isDefined(valueA) && isDefined(valueB)) {
     if (isString(valueA) && isString(valueB)) {

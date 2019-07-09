@@ -13,7 +13,11 @@ import { AnimationEvent } from '@angular/animations';
 import { filter, takeUntil, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DtDrawer } from './drawer';
-import { addCssClass, removeCssClass, readKeyCode } from '@dynatrace/angular-components/core';
+import {
+  addCssClass,
+  removeCssClass,
+  readKeyCode,
+} from '@dynatrace/angular-components/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
 
 export const DT_DRAWER_OPEN_CLASS = 'dt-drawer-is-open';
@@ -45,17 +49,16 @@ export function getDtDuplicateDrawerError(position: 'start' | 'end'): Error {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   host: {
-    'class': 'dt-drawer-container',
+    class: 'dt-drawer-container',
     '(keydown)': '_handleKeyboardEvent($event)',
   },
 })
-export class DtDrawerContainer  implements AfterContentInit, OnDestroy {
-
+export class DtDrawerContainer implements AfterContentInit, OnDestroy {
   /**
    * @internal
    * Used to calculate the margins in the side mode
    */
-  _contentMargins: DtDrawerMargin = {left: null, right: null};
+  _contentMargins: DtDrawerMargin = { left: null, right: null };
 
   /** List of all drawers in the container */
   @ContentChildren(DtDrawer) private _drawers: QueryList<DtDrawer>;
@@ -77,8 +80,10 @@ export class DtDrawerContainer  implements AfterContentInit, OnDestroy {
    * Whether a backdrop is visible based on the mode of the drawers
    */
   get _hasBackdrop(): boolean {
-    return !!this._start && this._start._currentMode === 'over' ||
-      !!this._end && this._end._currentMode === 'over';
+    return (
+      (!!this._start && this._start._currentMode === 'over') ||
+      (!!this._end && this._end._currentMode === 'over')
+    );
   }
 
   constructor(
@@ -87,21 +92,21 @@ export class DtDrawerContainer  implements AfterContentInit, OnDestroy {
   ) {}
 
   ngAfterContentInit(): void {
-
     // initial with null because there is no change
-    this._drawers.changes.pipe(
-      startWith(null),
-      takeUntil(this._destroy)
-    ).subscribe(() => {
+    this._drawers.changes
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy)
+      )
+      .subscribe(() => {
+        // Check if the drawers are implemented correctly
+        this._validateDrawers();
 
-      // Check if the drawers are implemented correctly
-      this._validateDrawers();
-
-      this._drawers.forEach((drawer: DtDrawer) => {
-        this._watchDrawerToggle(drawer);
-        this._watchStateChanges(drawer);
+        this._drawers.forEach((drawer: DtDrawer) => {
+          this._watchDrawerToggle(drawer);
+          this._watchStateChanges(drawer);
+        });
       });
-    });
   }
 
   ngOnDestroy(): void {
@@ -111,12 +116,16 @@ export class DtDrawerContainer  implements AfterContentInit, OnDestroy {
 
   /** open all drawers in the container. */
   open(): void {
-    this._drawers.forEach((drawer) => { drawer.open(); });
+    this._drawers.forEach(drawer => {
+      drawer.open();
+    });
   }
 
   /** close all drawers in the container. */
   close(): void {
-    this._drawers.forEach((drawer) => { drawer.close(); });
+    this._drawers.forEach(drawer => {
+      drawer.close();
+    });
   }
 
   /**
@@ -155,13 +164,12 @@ export class DtDrawerContainer  implements AfterContentInit, OnDestroy {
       return;
     }
 
-    drawer._stateChanges.pipe(
-      takeUntil(this._drawers.changes)
-    )
-    .subscribe(() => {
-      this._validateDrawers();
-      this._updateContentSize();
-    });
+    drawer._stateChanges
+      .pipe(takeUntil(this._drawers.changes))
+      .subscribe(() => {
+        this._validateDrawers();
+        this._updateContentSize();
+      });
   }
 
   /**
@@ -170,27 +178,31 @@ export class DtDrawerContainer  implements AfterContentInit, OnDestroy {
    * @param drawer The drawer that should be watched
    */
   private _watchDrawerToggle(drawer: DtDrawer): void {
-    drawer._animationStarted.pipe(
-      filter((event: AnimationEvent) => event.fromState !== event.toState),
-      takeUntil(this._drawers.changes)
-    )
-    .subscribe((event: AnimationEvent) => {
+    drawer._animationStarted
+      .pipe(
+        filter((event: AnimationEvent) => event.fromState !== event.toState),
+        takeUntil(this._drawers.changes)
+      )
+      .subscribe((event: AnimationEvent) => {
+        if (event.toState !== 'open-instant' && this._enableAnimations) {
+          addCssClass(
+            this._elementRef.nativeElement,
+            'dt-drawer-content-transition'
+          );
+        }
 
-      if (event.toState !== 'open-instant' && this._enableAnimations) {
-        addCssClass(this._elementRef.nativeElement, 'dt-drawer-content-transition');
-      }
+        this._updateContentSize();
+        this._enableAnimations = true;
+      });
 
-      this._updateContentSize();
-      this._enableAnimations = true;
-    });
-
-    drawer.openChange.pipe(
-      startWith(null),
-      takeUntil(this._drawers.changes)
-    )
-    .subscribe(() => {
-      this._toggleOpenClass(drawer.opened);
-    });
+    drawer.openChange
+      .pipe(
+        startWith(null),
+        takeUntil(this._drawers.changes)
+      )
+      .subscribe(() => {
+        this._toggleOpenClass(drawer.opened);
+      });
   }
 
   /**
@@ -210,14 +222,10 @@ export class DtDrawerContainer  implements AfterContentInit, OnDestroy {
       left += this._start._width;
     }
 
-    if (
-      this._end &&
-      this._end.opened &&
-      this._end._currentMode === 'side'
-    ) {
+    if (this._end && this._end.opened && this._end._currentMode === 'side') {
       right += this._end._width;
     }
-    this._contentMargins = {left, right};
+    this._contentMargins = { left, right };
     this._changeDetectorRef.markForCheck();
   }
 
@@ -230,12 +238,16 @@ export class DtDrawerContainer  implements AfterContentInit, OnDestroy {
     this._start = this._end = null;
 
     // if there is only one drawer every thing is fine
-    this._drawers.forEach((drawer) => {
+    this._drawers.forEach(drawer => {
       if (drawer.position === 'end') {
-        if (this._end !== null) { throw getDtDuplicateDrawerError('end'); }
+        if (this._end !== null) {
+          throw getDtDuplicateDrawerError('end');
+        }
         this._end = drawer;
       } else if (drawer.position === 'start') {
-        if (this._start !== null) { throw getDtDuplicateDrawerError('start'); }
+        if (this._start !== null) {
+          throw getDtDuplicateDrawerError('start');
+        }
         this._start = drawer;
       }
     });

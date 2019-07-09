@@ -21,7 +21,7 @@ import {
   CanDisable,
   HasTabIndex,
   removeCssClass,
-  addCssClass
+  addCssClass,
 } from '@dynatrace/angular-components/core';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DtRadioGroup } from './radio-group';
@@ -48,7 +48,7 @@ export const _DtRadioButtonMixinBase = mixinTabIndex(DtRadioButtonBase);
   styleUrls: ['radio.scss'],
   inputs: ['tabIndex'],
   host: {
-    'class': 'dt-radio-button',
+    class: 'dt-radio-button',
     '[class.dt-radio-checked]': 'checked',
     '[class.dt-radio-disabled]': 'disabled',
     '[attr.id]': 'id',
@@ -60,7 +60,6 @@ export const _DtRadioButtonMixinBase = mixinTabIndex(DtRadioButtonBase);
 })
 export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   implements OnInit, AfterViewInit, OnDestroy, CanDisable, HasTabIndex {
-
   private _uniqueId = `dt-radio-${++nextUniqueId}`;
   private _required: boolean;
   private _checked = false;
@@ -76,7 +75,9 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   get required(): boolean {
     return this._required || (this._radioGroup && this._radioGroup.required);
   }
-  set required(value: boolean) { this._required = coerceBooleanProperty(value); }
+  set required(value: boolean) {
+    this._required = coerceBooleanProperty(value);
+  }
 
   /** Whether the radio button is disabled. */
   @Input()
@@ -93,16 +94,26 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
 
   /** Whether this radio button is checked. */
   @Input()
-  get checked(): boolean { return this._checked; }
+  get checked(): boolean {
+    return this._checked;
+  }
   set checked(value: boolean) {
     const newCheckedState = coerceBooleanProperty(value);
 
     if (this._checked !== newCheckedState) {
       this._checked = newCheckedState;
 
-      if (newCheckedState && this._radioGroup && this._radioGroup.value !== this.value) {
+      if (
+        newCheckedState &&
+        this._radioGroup &&
+        this._radioGroup.value !== this.value
+      ) {
         this._radioGroup.selected = this;
-      } else if (!newCheckedState && this._radioGroup && this._radioGroup.value === this.value) {
+      } else if (
+        !newCheckedState &&
+        this._radioGroup &&
+        this._radioGroup.value === this.value
+      ) {
         // When unchecking the selected radio button, update the selected radio
         // property on the group.
         this._radioGroup.selected = null;
@@ -118,7 +129,9 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
 
   /** The value of this radio button. */
   @Input()
-  get value(): T { return this._value; }
+  get value(): T {
+    return this._value;
+  }
   set value(value: T) {
     if (this._value !== value) {
       this._value = value;
@@ -151,10 +164,12 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
 
   // Disabling no-output-native rule because we want to keep a similar API to the native radio button
   // tslint:disable-next-line: no-output-native
-  @Output() readonly change  = new EventEmitter<DtRadioChange<T>>();
+  @Output() readonly change = new EventEmitter<DtRadioChange<T>>();
 
   /** ID of the native input element */
-  get _inputId(): string { return `${this.id || this._uniqueId}-input`; }
+  get _inputId(): string {
+    return `${this.id || this._uniqueId}-input`;
+  }
 
   /** The native radio input element */
   @ViewChild('input', { static: true }) _inputElement: ElementRef;
@@ -168,11 +183,13 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     @Optional() private _radioGroup: DtRadioGroup<T>
   ) {
     super();
-    this._removeUniqueSelectionListener = _radioDispatcher.listen((id: string, name: string) => {
-      if (id !== this.id && name === this.name) {
-        this.checked = false;
+    this._removeUniqueSelectionListener = _radioDispatcher.listen(
+      (id: string, name: string) => {
+        if (id !== this.id && name === this.name) {
+          this.checked = false;
+        }
       }
-    });
+    );
   }
 
   ngOnInit(): void {
@@ -185,7 +202,9 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   ngAfterViewInit(): void {
     this._focusMonitor
       .monitor(this._inputElement.nativeElement, false)
-      .subscribe((focusOrigin) => { this._onInputFocusChange(focusOrigin); });
+      .subscribe(focusOrigin => {
+        this._onInputFocusChange(focusOrigin);
+      });
   }
 
   ngOnDestroy(): void {
@@ -210,7 +229,8 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     // emit its event object to the `change` output.
     event.stopPropagation();
 
-    const groupValueChanged = this._radioGroup && this.value !== this._radioGroup.value;
+    const groupValueChanged =
+      this._radioGroup && this.value !== this._radioGroup.value;
     this.checked = true;
     this._emitChangeEvent();
 

@@ -15,7 +15,10 @@ export class DtRate implements PipeTransform {
    * @param rateUnit - The unit for the rate of the input
    */
   // tslint:disable-next-line:no-any
-  transform(input: any, rateUnit: DtRateUnit | string): DtFormattedValue | string {
+  transform(
+    input: any,
+    rateUnit: DtRateUnit | string
+  ): DtFormattedValue | string {
     if (isEmpty(input)) {
       return NO_DATA;
     }
@@ -28,5 +31,4 @@ export class DtRate implements PipeTransform {
 
     return NO_DATA;
   }
-
 }

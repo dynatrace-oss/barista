@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, hasContent } from '../../utils';
 
 class DtTabVisitor extends BasicTemplateAstVisitor {
-
   visitEmbeddedTemplate(template: EmbeddedTemplateAst, context: any): void {
     this._validateElement(template);
     super.visitEmbeddedTemplate(template, context);
@@ -24,8 +23,9 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
   }
 
   private _isTabContent(element: EmbeddedTemplateAst): boolean {
-    return element.attrs &&
-      element.attrs.some((attr) => attr.name === 'dtTabContent');
+    return (
+      element.attrs && element.attrs.some(attr => attr.name === 'dtTabContent')
+    );
   }
 }
 
@@ -42,7 +42,6 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
  * </ng-template>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a dtTabContent always contains content.',
     // tslint:disable-next-line:no-null-keyword

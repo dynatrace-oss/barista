@@ -60,7 +60,7 @@ const KEY_RETURN = 13;
   templateUrl: 'consumption.html',
   styleUrls: ['consumption.scss'],
   host: {
-    'class': 'dt-consumption',
+    class: 'dt-consumption',
     '[attr.tabindex]': '_tabIndex',
     '[class.dt-consumption-focusable]': '_tabIndex >= 0',
     '(keydown)': '_toggleOverlay($event)',

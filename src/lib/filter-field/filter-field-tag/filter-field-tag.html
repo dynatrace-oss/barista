@@ -1,17 +1,31 @@
-<button dt-button
+<button
+  dt-button
   variant="nested"
   class="dt-filter-field-tag-label"
   [disabled]="disabled"
-  (click)="_handleEdit($event)">
-  <div class="dt-filter-field-tag-container" [class.dt-filter-field-tag-value-isfreetext]="data && data.isFreeText">
-    <span *ngIf="data?.key" class="dt-filter-field-tag-key" [attr.data-separator]="data.separator ? data.separator! : ':'">{{data.key}}</span>
-    <span class="dt-filter-field-tag-value" *ngIf="data?.value">{{data.value}}</span>
+  (click)="_handleEdit($event)"
+>
+  <div
+    class="dt-filter-field-tag-container"
+    [class.dt-filter-field-tag-value-isfreetext]="data && data.isFreeText"
+  >
+    <span
+      *ngIf="data?.key"
+      class="dt-filter-field-tag-key"
+      [attr.data-separator]="data.separator ? data.separator! : ':'"
+      >{{data.key}}</span
+    >
+    <span class="dt-filter-field-tag-value" *ngIf="data?.value"
+      >{{data.value}}</span
+    >
   </div>
 </button>
-<button dt-icon-button
+<button
+  dt-icon-button
   variant="nested"
   class="dt-filter-field-tag-button"
   [disabled]="disabled"
-  (click)="_handleRemove($event)">
+  (click)="_handleRemove($event)"
+>
   <dt-icon name="abort" class="dt-filter-field-tag-icon"></dt-icon>
 </button>

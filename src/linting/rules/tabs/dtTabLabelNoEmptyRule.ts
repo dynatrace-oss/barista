@@ -5,7 +5,6 @@ import { SourceFile } from 'typescript';
 import { addFailure, hasContent } from '../../utils';
 
 class DtTabVisitor extends BasicTemplateAstVisitor {
-
   visitEmbeddedTemplate(template: EmbeddedTemplateAst, context: any): void {
     this._validateElement(template);
     super.visitEmbeddedTemplate(template, context);
@@ -20,12 +19,17 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
       return;
     }
 
-    addFailure(this, element, 'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.');
+    addFailure(
+      this,
+      element,
+      'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.'
+    );
   }
 
   private _isTabLabel(element: EmbeddedTemplateAst): boolean {
-    return element.attrs &&
-      element.attrs.some((attr) => attr.name === 'dtTabLabel');
+    return (
+      element.attrs && element.attrs.some(attr => attr.name === 'dtTabLabel')
+    );
   }
 }
 
@@ -39,13 +43,13 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
  * <ng-template dtTabLabel> </ng-template>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
     description: 'Ensures that a dtTabLabel always contains text content.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.',
+    rationale:
+      'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.',
     ruleName: 'dt-tab-label-no-empty',
     type: 'maintainability',
     typescriptOnly: true,

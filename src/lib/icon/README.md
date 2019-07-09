@@ -1,5 +1,5 @@
 ---
-type: "component"
+type: 'component'
 ---
 
 # Icon
@@ -16,21 +16,21 @@ You have to import the `DtIconModule` in your `AppModule`.
 **Note:** It needs a bit of configuration to work. Read more in the [configuration section below](#configuration).
 
 ```typescript
-
 @NgModule({
   imports: [
-    DtIconModule.forRoot({ svgIconLocation: `/path/to/your/icons/{{name}}.svg` })
+    DtIconModule.forRoot({
+      svgIconLocation: `/path/to/your/icons/{{name}}.svg`,
+    }),
   ],
 })
 class MyModule {}
-
 ```
 
 ## Options & Properties
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | `-` | The name of the icon. 
+| Name   | Type     | Default | Description           |
+| ------ | -------- | ------- | --------------------- |
+| `name` | `string` | `-`     | The name of the icon. |
 
 ## Configuration
 
@@ -41,14 +41,14 @@ To provide this configuration please use the static `forRoot` method on the modu
 Just pass in the configuration object to the `forRoot` method:
 
 ```typescript
-
 @NgModule({
   imports: [
-    DtIconModule.forRoot({ svgIconLocation: `/path/to/your/icons/{{name}}.svg` })
+    DtIconModule.forRoot({
+      svgIconLocation: `/path/to/your/icons/{{name}}.svg`,
+    }),
   ],
 })
 class MyModule {}
-
 ```
 
 **Configuration options**
@@ -74,17 +74,15 @@ npm install @dynatrace/dt-iconpack
 After installation you can import the `dt-iconpack` in your typescript files if you need to set a type for a property or want to use the enumeration
 
 ```typescript
-
-  import { DtIconType, Icons } from '@dynatrace/dt-iconpack';
-
+import { DtIconType, Icons } from '@dynatrace/dt-iconpack';
 ```
 
 **Exports**
 
-| Name | Description |
-| --- | --- |
+| Name         | Description                                              |
+| ------------ | -------------------------------------------------------- |
 | `DtIconType` | `Typescript Type with all icon names as possible values` |
-| `Icons` | `Enumeration with all icon names` |
+| `Icons`      | `Enumeration with all icon names`                        |
 
 ## Accessibility
 

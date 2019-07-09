@@ -4,7 +4,10 @@ import { DtInlineEditor } from './inline-editor';
 import { DtInputModule } from '@dynatrace/angular-components/input';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
-import { DtFormFieldModule, DtError } from '@dynatrace/angular-components/form-field';
+import {
+  DtFormFieldModule,
+  DtError,
+} from '@dynatrace/angular-components/form-field';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { FormsModule } from '@angular/forms';
 
@@ -18,12 +21,7 @@ import { FormsModule } from '@angular/forms';
     DtIconModule,
     FormsModule,
   ],
-  exports: [
-    DtInlineEditor,
-    DtError,
-  ],
-  declarations: [
-    DtInlineEditor,
-  ],
+  exports: [DtInlineEditor, DtError],
+  declarations: [DtInlineEditor],
 })
 export class DtInlineEditorModule {}

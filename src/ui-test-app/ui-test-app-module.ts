@@ -95,7 +95,7 @@ export class DynatraceAngularCompModule {}
     NoopAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DtIconModule.forRoot({svgIconLocation: '/assets/icons/{{name}}.svg'}),
+    DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
   ],
   declarations: [
     ButtonGroupUi,
@@ -126,4 +126,4 @@ export class DynatraceAngularCompModule {}
   entryComponents: [UIApp],
   bootstrap: [UIApp],
 })
-export class UiTestAppModule { }
+export class UiTestAppModule {}

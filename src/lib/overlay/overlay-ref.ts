@@ -1,5 +1,9 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { addCssClass, removeCssClass, readKeyCode } from '@dynatrace/angular-components/core';
+import {
+  addCssClass,
+  removeCssClass,
+  readKeyCode,
+} from '@dynatrace/angular-components/core';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { DtOverlayContainer } from './overlay-container';
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
@@ -14,7 +18,9 @@ export class DtOverlayRef<T> {
   componentInstance: T;
 
   /** Wether the overlay is pinned or not */
-  get pinned(): boolean { return this._pinned; }
+  get pinned(): boolean {
+    return this._pinned;
+  }
 
   get pinnable(): boolean {
     return coerceBooleanProperty(this._config.pinnable);
@@ -31,16 +37,28 @@ export class DtOverlayRef<T> {
     return this._disposableFns;
   }
 
-  constructor(private _overlayRef: OverlayRef, public containerInstance: DtOverlayContainer, private _config: DtOverlayConfig) {
+  constructor(
+    private _overlayRef: OverlayRef,
+    public containerInstance: DtOverlayContainer,
+    private _config: DtOverlayConfig
+  ) {
     containerInstance._onDomExit.pipe(take(1)).subscribe(() => {
       this._overlayRef.dispose();
       this._pinned = false;
       this._afterExit.next();
     });
 
-    _overlayRef.keydownEvents()
-      .pipe(filter((event: KeyboardEvent) => readKeyCode(event) === ESCAPE && !hasModifierKey(event)))
-      .subscribe(() => { this.dismiss(); });
+    _overlayRef
+      .keydownEvents()
+      .pipe(
+        filter(
+          (event: KeyboardEvent) =>
+            readKeyCode(event) === ESCAPE && !hasModifierKey(event)
+        )
+      )
+      .subscribe(() => {
+        this.dismiss();
+      });
   }
 
   /** Pins the overlay */
@@ -52,12 +70,18 @@ export class DtOverlayRef<T> {
     if (this._overlayRef.backdropElement) {
       if (value) {
         this.containerInstance._trapFocus();
-        removeCssClass(this._overlayRef.backdropElement, DT_OVERLAY_NO_POINTER_CLASS);
+        removeCssClass(
+          this._overlayRef.backdropElement,
+          DT_OVERLAY_NO_POINTER_CLASS
+        );
         this._overlayRef.backdropClick().subscribe(() => {
           this.dismiss();
         });
       } else {
-        addCssClass(this._overlayRef.backdropElement, DT_OVERLAY_NO_POINTER_CLASS);
+        addCssClass(
+          this._overlayRef.backdropElement,
+          DT_OVERLAY_NO_POINTER_CLASS
+        );
         this._backDropClickSub.unsubscribe();
       }
     }
@@ -66,7 +90,9 @@ export class DtOverlayRef<T> {
   /** Dismisses the overlay */
   dismiss(): void {
     this.containerInstance.exit();
-    this._disposableFns.forEach((fn) => { fn(); });
+    this._disposableFns.forEach(fn => {
+      fn();
+    });
   }
 
   /**
@@ -74,7 +100,10 @@ export class DtOverlayRef<T> {
    */
   updatePosition(offsetX: number, offsetY: number): void {
     const config = this._overlayRef.getConfig();
-    if (config.positionStrategy && config.positionStrategy instanceof DtMouseFollowPositionStrategy) {
+    if (
+      config.positionStrategy &&
+      config.positionStrategy instanceof DtMouseFollowPositionStrategy
+    ) {
       config.positionStrategy.withOffset(offsetX, offsetY);
     }
 

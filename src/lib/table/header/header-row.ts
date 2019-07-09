@@ -1,5 +1,14 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Directive } from '@angular/core';
-import { CdkHeaderRow, CDK_ROW_TEMPLATE, CdkHeaderRowDef } from '@angular/cdk/table';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  Directive,
+} from '@angular/core';
+import {
+  CdkHeaderRow,
+  CDK_ROW_TEMPLATE,
+  CdkHeaderRowDef,
+} from '@angular/cdk/table';
 
 /**
  * Header row definition for the dt-table.
@@ -10,7 +19,7 @@ import { CdkHeaderRow, CDK_ROW_TEMPLATE, CdkHeaderRowDef } from '@angular/cdk/ta
   providers: [{ provide: CdkHeaderRowDef, useExisting: DtHeaderRowDef }],
   inputs: ['columns: dtHeaderRowDef', 'sticky: dtHeaderRowDefSticky'],
 })
-export class DtHeaderRowDef extends CdkHeaderRowDef { }
+export class DtHeaderRowDef extends CdkHeaderRowDef {}
 
 /** Header template container that contains the cell outlet. Adds the right class and role. */
 @Component({
@@ -26,4 +35,4 @@ export class DtHeaderRowDef extends CdkHeaderRowDef { }
   encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtHeaderRow',
 })
-export class DtHeaderRow extends CdkHeaderRow { }
+export class DtHeaderRow extends CdkHeaderRow {}

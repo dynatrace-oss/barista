@@ -4,14 +4,18 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <em dt-inline-editor required
+    <em
+      dt-inline-editor
+      required
       [(ngModel)]="sampleModel"
       aria-label-save="Save text"
       aria-label-cancel="Cancel and discard changes"
     >
       <dt-error>Empty value not accepted!</dt-error>
     </em>
-    <span>model: <code>{{ sampleModel }}</code></span>
+    <span
+      >model: <code>{{ sampleModel }}</code></span
+    >
   `,
 })
 export class InlineEditorRequiredExample {

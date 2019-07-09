@@ -3,10 +3,20 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtIconModule, DtPagination, DtTableDataSource } from '@dynatrace/angular-components';
+import {
+  DtIconModule,
+  DtPagination,
+  DtTableDataSource,
+} from '@dynatrace/angular-components';
 import { DtPaginationModule } from '../pagination';
 import { DtTableModule } from './table-module';
 import { createComponent } from '../../testing/create-component';
@@ -14,14 +24,62 @@ import { createComponent } from '../../testing/create-component';
 const PAGE_SIZE = 2;
 
 const DATA_SET: object[] = [
-  { host: 'et-demo-2-win4', cpu: 30, memoryPerc: 38, memoryTotal: 5830000000, traffic: 98700000 },
-  { host: 'et-demo-2-win3', cpu: 26, memoryPerc: 46, memoryTotal: 6000000000, traffic: 62500000 },
-  { host: 'docker-host2', cpu: 25.4, memoryPerc: 35, memoryTotal: 5810000000, traffic: 41900000 },
-  { host: 'et-demo-2-win1', cpu: 23, memoryPerc: 7.86, memoryTotal: 5820000000, traffic: 98700000 },
-  { host: 'et-demo-2-win8', cpu: 78, memoryPerc: 21, memoryTotal: 3520000000, traffic: 91870000 },
-  { host: 'et-demo-2-macOS', cpu: 21, memoryPerc: 34, memoryTotal: 3200000000, traffic: 1200000 },
-  { host: 'kyber-host6', cpu: 12.3, memoryPerc: 12, memoryTotal: 2120000000, traffic: 4500000 },
-  { host: 'dev-demo-5-macOS', cpu: 24, memoryPerc: 8.6, memoryTotal: 4670000000, traffic: 3270000 },
+  {
+    host: 'et-demo-2-win4',
+    cpu: 30,
+    memoryPerc: 38,
+    memoryTotal: 5830000000,
+    traffic: 98700000,
+  },
+  {
+    host: 'et-demo-2-win3',
+    cpu: 26,
+    memoryPerc: 46,
+    memoryTotal: 6000000000,
+    traffic: 62500000,
+  },
+  {
+    host: 'docker-host2',
+    cpu: 25.4,
+    memoryPerc: 35,
+    memoryTotal: 5810000000,
+    traffic: 41900000,
+  },
+  {
+    host: 'et-demo-2-win1',
+    cpu: 23,
+    memoryPerc: 7.86,
+    memoryTotal: 5820000000,
+    traffic: 98700000,
+  },
+  {
+    host: 'et-demo-2-win8',
+    cpu: 78,
+    memoryPerc: 21,
+    memoryTotal: 3520000000,
+    traffic: 91870000,
+  },
+  {
+    host: 'et-demo-2-macOS',
+    cpu: 21,
+    memoryPerc: 34,
+    memoryTotal: 3200000000,
+    traffic: 1200000,
+  },
+  {
+    host: 'kyber-host6',
+    cpu: 12.3,
+    memoryPerc: 12,
+    memoryTotal: 2120000000,
+    traffic: 4500000,
+  },
+  {
+    host: 'dev-demo-5-macOS',
+    cpu: 24,
+    memoryPerc: 8.6,
+    memoryTotal: 4670000000,
+    traffic: 3270000,
+  },
 ];
 
 describe('DtTableDataSource', () => {
@@ -37,9 +95,7 @@ describe('DtTableDataSource', () => {
         DtPaginationModule,
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
-      declarations: [
-        PaginationTestApp,
-      ],
+      declarations: [PaginationTestApp],
     }).compileComponents();
   }));
 
@@ -85,8 +141,10 @@ describe('DtTableDataSource', () => {
     flush();
     fixture.detectChanges();
 
-    const paginationList = fixture.debugElement.queryAll(By.css('.dt-pagination li'));
-    const length = (DATA_SET.length / PAGE_SIZE) + 2; // +2 for arrow left and right
+    const paginationList = fixture.debugElement.queryAll(
+      By.css('.dt-pagination li')
+    );
+    const length = DATA_SET.length / PAGE_SIZE + 2; // +2 for arrow left and right
 
     expect(paginationList.length).toBe(length);
   }));
@@ -146,17 +204,47 @@ describe('DtTableDataSource', () => {
 @Component({
   moduleId: module.id,
   template: `
-<dt-table [dataSource]="dataSource">
-  <dt-simple-text-column name="host" sortable="false"></dt-simple-text-column>
-  <dt-simple-number-column name="cpu" label="Cpu" sortable="false">CPU</dt-simple-number-column>
-  <dt-simple-number-column name="memoryPerc" label="Memory" sortable="false"></dt-simple-number-column>
-  <dt-simple-number-column name="memoryConsumption" label="Memory combined" sortable="false"></dt-simple-number-column>
-  <dt-simple-number-column name="traffic" label="Traffic" sortable="false"></dt-simple-number-column>
-  <dt-header-row *dtHeaderRowDef="['host', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic']"></dt-header-row>
-  <dt-row *dtRowDef="let row; columns: ['host', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic'];"></dt-row>
-</dt-table>
-<dt-pagination></dt-pagination>
-`,
+    <dt-table [dataSource]="dataSource">
+      <dt-simple-text-column
+        name="host"
+        sortable="false"
+      ></dt-simple-text-column>
+      <dt-simple-number-column name="cpu" label="Cpu" sortable="false"
+        >CPU</dt-simple-number-column
+      >
+      <dt-simple-number-column
+        name="memoryPerc"
+        label="Memory"
+        sortable="false"
+      ></dt-simple-number-column>
+      <dt-simple-number-column
+        name="memoryConsumption"
+        label="Memory combined"
+        sortable="false"
+      ></dt-simple-number-column>
+      <dt-simple-number-column
+        name="traffic"
+        label="Traffic"
+        sortable="false"
+      ></dt-simple-number-column>
+      <dt-header-row
+        *dtHeaderRowDef="[
+          'host',
+          'cpu',
+          'memoryPerc',
+          'memoryConsumption',
+          'traffic'
+        ]"
+      ></dt-header-row>
+      <dt-row
+        *dtRowDef="
+          let row;
+          columns: ['host', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic']
+        "
+      ></dt-row>
+    </dt-table>
+    <dt-pagination></dt-pagination>
+  `,
 })
 export class PaginationTestApp implements OnInit {
   data = DATA_SET;

@@ -4,15 +4,17 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-<div class="demo-card">
-  <dt-card>
-    <dt-card-icon>
-      <dt-icon name="application"></dt-icon>
-    </dt-card-icon>
-    <dt-card-title>Top 3 JavaScript errors</dt-card-title>
-    <dt-card-subtitle>Some subtitle</dt-card-subtitle>
-    Icons are not yet implemented - this is an example to showcase the icon placeholder
-  </dt-card>
-</div>`,
+    <div class="demo-card">
+      <dt-card>
+        <dt-card-icon>
+          <dt-icon name="application"></dt-icon>
+        </dt-card-icon>
+        <dt-card-title>Top 3 JavaScript errors</dt-card-title>
+        <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+        Icons are not yet implemented - this is an example to showcase the icon
+        placeholder
+      </dt-card>
+    </div>
+  `,
 })
-export class CardIconExample { }
+export class CardIconExample {}

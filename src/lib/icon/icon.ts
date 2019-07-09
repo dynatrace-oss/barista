@@ -13,10 +13,18 @@ import { DtIconRegistry } from './icon-registry';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 import {
   setComponentColorClasses,
-  DtLoggerFactory
+  DtLoggerFactory,
 } from '@dynatrace/angular-components/core';
 
-export type DtIconColorPalette = 'main' | 'accent' | 'warning' | 'error' | 'cta' | 'recovered' | 'light' | 'dark';
+export type DtIconColorPalette =
+  | 'main'
+  | 'accent'
+  | 'warning'
+  | 'error'
+  | 'cta'
+  | 'recovered'
+  | 'light'
+  | 'dark';
 
 const iconLogger = DtLoggerFactory.create('DtIcon');
 
@@ -41,7 +49,6 @@ const iconLogger = DtLoggerFactory.create('DtIcon');
   encapsulation: ViewEncapsulation.None,
 })
 export class DtIcon implements OnChanges {
-
   /** Name of the icon in the registry. */
   @Input() name: DtIconType;
 
@@ -50,7 +57,9 @@ export class DtIcon implements OnChanges {
    * We can not use the color mixin here because icon has a special extended set of colors.
    */
   @Input()
-  get color(): DtIconColorPalette { return this._color; }
+  get color(): DtIconColorPalette {
+    return this._color;
+  }
   set color(value: DtIconColorPalette) {
     if (value !== this._color) {
       setComponentColorClasses(this, value);
@@ -74,12 +83,21 @@ export class DtIcon implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.name) {
       if (this.name) {
-        this._iconRegistry.getNamedSvgIcon(this.name).pipe(take(1)).subscribe(
-          (svg) => { this._setSvgElement(svg); },
-          // We do not break the app when an icon could not be loaded
-          // so do only a log here
-          (err: Error) => { iconLogger.warn(`Error retrieving icon: ${this.name} ${err.message}`); }
-        );
+        this._iconRegistry
+          .getNamedSvgIcon(this.name)
+          .pipe(take(1))
+          .subscribe(
+            svg => {
+              this._setSvgElement(svg);
+            },
+            // We do not break the app when an icon could not be loaded
+            // so do only a log here
+            (err: Error) => {
+              iconLogger.warn(
+                `Error retrieving icon: ${this.name} ${err.message}`
+              );
+            }
+          );
       } else {
         this._clearSvgElement();
       }

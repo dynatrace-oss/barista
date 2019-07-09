@@ -2,10 +2,24 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
-import { FormControl, FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  flush,
+} from '@angular/core/testing';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  NgModel,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DtSwitchModule, DtSwitch, DtSwitchChange } from '@dynatrace/angular-components';
+import {
+  DtSwitchModule,
+  DtSwitch,
+  DtSwitchChange,
+} from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtSwitch', () => {
@@ -49,8 +63,12 @@ describe('DtSwitch', () => {
       switchNativeElement = switchDebugElement.nativeElement;
       switchInstance = switchDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
-      labelElement = switchNativeElement.querySelector('label') as HTMLLabelElement;
+      inputElement = switchNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
+      labelElement = switchNativeElement.querySelector(
+        'label'
+      ) as HTMLLabelElement;
     });
 
     it('should add and remove the checked state', () => {
@@ -140,7 +158,9 @@ describe('DtSwitch', () => {
     });
 
     it('should project the switch content into the label element', () => {
-      const label = switchNativeElement.querySelector('.dt-switch-label') as HTMLLabelElement;
+      const label = switchNativeElement.querySelector(
+        '.dt-switch-label'
+      ) as HTMLLabelElement;
       expect(label.textContent!.trim()).toBe('Simple switch');
     });
 
@@ -252,8 +272,12 @@ describe('DtSwitch', () => {
       switchNativeElement = switchDebugElement.nativeElement;
       switchInstance = switchDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
-      labelElement = switchNativeElement.querySelector('label') as HTMLLabelElement;
+      inputElement = switchNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
+      labelElement = switchNativeElement.querySelector(
+        'label'
+      ) as HTMLLabelElement;
     });
 
     it('should emit the event to the change observable', () => {
@@ -298,7 +322,9 @@ describe('DtSwitch', () => {
       fixture = createComponent(SwitchWithAriaLabel);
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
-      inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = switchNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       expect(inputElement.getAttribute('aria-label')).toBe('Super effective');
     });
@@ -306,7 +332,9 @@ describe('DtSwitch', () => {
     it('should not set the aria-label attribute if no value is provided', () => {
       fixture = createComponent(SingleSwitch);
 
-      expect(fixture.nativeElement.querySelector('input').hasAttribute('aria-label')).toBe(false);
+      expect(
+        fixture.nativeElement.querySelector('input').hasAttribute('aria-label')
+      ).toBe(false);
     });
   });
 
@@ -319,7 +347,9 @@ describe('DtSwitch', () => {
       fixture = createComponent(SwitchWithAriaLabelledby);
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
-      inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = switchNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
     });
@@ -328,7 +358,9 @@ describe('DtSwitch', () => {
       fixture = createComponent(SingleSwitch);
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
-      inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = switchNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       expect(inputElement.getAttribute('aria-labelledby')).toBe(null);
     });
@@ -346,7 +378,9 @@ describe('DtSwitch', () => {
       testComponent = fixture.debugElement.componentInstance;
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
-      inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = switchNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
     });
 
     it('should preserve any given tabIndex', () => {
@@ -365,18 +399,19 @@ describe('DtSwitch', () => {
 
       expect(inputElement.tabIndex).toBe(13);
     });
-
   });
 
   describe('with native tabindex attribute', () => {
     it('should properly detect native tabindex attribute', fakeAsync(() => {
       fixture = createComponent(SwitchWithTabindexAttr);
 
-      const switchConst = fixture.debugElement
-        .query(By.directive(DtSwitch)).componentInstance as DtSwitch<any>;
+      const switchConst = fixture.debugElement.query(By.directive(DtSwitch))
+        .componentInstance as DtSwitch<any>;
 
-      expect(switchConst.tabIndex)
-        .toBe(5, 'Expected tabIndex property to have been set based on the native attribute');
+      expect(switchConst.tabIndex).toBe(
+        5,
+        'Expected tabIndex property to have been set based on the native attribute'
+      );
     }));
   });
 
@@ -395,7 +430,9 @@ describe('DtSwitch', () => {
 
     it('should toggle switch disabledness correctly', () => {
       const switchInstance = switchDebugElement.componentInstance;
-      const inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
+      const inputElement = switchNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       expect(switchInstance.disabled).toBe(false);
       expect(switchNativeElement.classList).not.toContain('dt-switch-disabled');
@@ -417,8 +454,11 @@ describe('DtSwitch', () => {
     });
 
     it('should assign a unique id to each switch', () => {
-      const [firstId, secondId] = fixture.debugElement.queryAll(By.directive(DtSwitch))
-        .map((debugElement) => debugElement.nativeElement.querySelector('input').id);
+      const [firstId, secondId] = fixture.debugElement
+        .queryAll(By.directive(DtSwitch))
+        .map(
+          debugElement => debugElement.nativeElement.querySelector('input').id
+        );
 
       expect(firstId).toMatch(/dt-switch-\d+-input/);
       expect(secondId).toMatch(/dt-switch-\d+-input/);
@@ -438,7 +478,9 @@ describe('DtSwitch', () => {
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
       switchInstance = switchDebugElement.componentInstance;
-      inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = switchNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
     });
 
     it('should be in pristine, untouched, and valid states initially', fakeAsync(() => {
@@ -478,11 +520,15 @@ describe('DtSwitch', () => {
     beforeEach(() => {
       fixture = createComponent(SwitchWithNgModel);
 
-      const switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
+      const switchDebugElement = fixture.debugElement.query(
+        By.directive(DtSwitch)
+      );
       const switchNativeElement = switchDebugElement.nativeElement;
       testComponent = fixture.debugElement.componentInstance;
       switchInstance = switchDebugElement.componentInstance;
-      inputElement = switchNativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = switchNativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
     });
 
     it('should validate with RequiredTrue validator', () => {
@@ -511,7 +557,9 @@ describe('DtSwitch', () => {
 
     it('should forward name value to input element', () => {
       const switchElement = fixture.debugElement.query(By.directive(DtSwitch));
-      const inputElement = switchElement.nativeElement.querySelector('input') as HTMLInputElement;
+      const inputElement = switchElement.nativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
 
       expect(inputElement.getAttribute('name')).toBe('test-name');
     });
@@ -529,7 +577,9 @@ describe('DtSwitch', () => {
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchInstance = switchDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = switchDebugElement.nativeElement.querySelector('input') as HTMLInputElement;
+      inputElement = switchDebugElement.nativeElement.querySelector(
+        'input'
+      ) as HTMLInputElement;
     });
 
     it('should toggle the disabled state', () => {
@@ -552,18 +602,23 @@ describe('DtSwitch', () => {
 
 @Component({
   template: `
-  <div (click)="parentElementClicked = true" (keyup)="parentElementKeyedUp = true">
-    <dt-switch
+    <div
+      (click)="parentElementClicked = true"
+      (keyup)="parentElementKeyedUp = true"
+    >
+      <dt-switch
         [id]="switchId"
         [required]="isRequired"
         [checked]="isChecked"
         [disabled]="isDisabled"
         [value]="switchValue"
         (click)="onSwitchClick($event)"
-        (change)="onSwitchChange($event)">
-      Simple switch
-    </dt-switch>
-  </div>`,
+        (change)="onSwitchChange($event)"
+      >
+        Simple switch
+      </dt-switch>
+    </div>
+  `,
 })
 class SingleSwitch {
   isChecked = false;
@@ -574,8 +629,8 @@ class SingleSwitch {
   switchId: string | null = 'simple-switch';
   switchValue = 'single_switch';
 
-  onSwitchClick: (event?: Event) => void = () => { };
-  onSwitchChange: (event?: DtSwitchChange<any>) => void = () => { };
+  onSwitchClick: (event?: Event) => void = () => {};
+  onSwitchChange: (event?: DtSwitchChange<any>) => void = () => {};
 }
 
 @Component({
@@ -590,7 +645,9 @@ class SwitchWithFormDirectives {
 }
 
 @Component({
-  template: `<dt-switch [required]="isRequired" [(ngModel)]="isGood">Be good</dt-switch>`,
+  template: `
+    <dt-switch [required]="isRequired" [(ngModel)]="isGood">Be good</dt-switch>
+  `,
 })
 class SwitchWithNgModel {
   isGood = false;
@@ -603,14 +660,12 @@ class SwitchWithNgModel {
     <dt-switch>Option 2</dt-switch>
   `,
 })
-class MultipleSwitches { }
+class MultipleSwitches {}
 
 @Component({
   template: `
-    <dt-switch
-        [tabIndex]="customTabIndex"
-        [disabled]="isDisabled">
-    </dt-switch>`,
+    <dt-switch [tabIndex]="customTabIndex" [disabled]="isDisabled"> </dt-switch>
+  `,
 })
 class SwitchWithTabIndex {
   customTabIndex = 7;
@@ -619,7 +674,8 @@ class SwitchWithTabIndex {
 
 @Component({
   template: `
-    <dt-switch></dt-switch>`,
+    <dt-switch></dt-switch>
+  `,
 })
 class SwitchUsingViewChild {
   @ViewChild(DtSwitch, { static: true }) switch;
@@ -630,42 +686,56 @@ class SwitchUsingViewChild {
 }
 
 @Component({
-  template: `<dt-switch aria-label="Super effective"></dt-switch>`,
+  template: `
+    <dt-switch aria-label="Super effective"></dt-switch>
+  `,
 })
-class SwitchWithAriaLabel { }
+class SwitchWithAriaLabel {}
 
 @Component({
-  template: `<dt-switch aria-labelledby="some-id"></dt-switch>`,
+  template: `
+    <dt-switch aria-labelledby="some-id"></dt-switch>
+  `,
 })
-class SwitchWithAriaLabelledby { }
+class SwitchWithAriaLabelledby {}
 
 @Component({
-  template: `<dt-switch name="test-name"></dt-switch>`,
+  template: `
+    <dt-switch name="test-name"></dt-switch>
+  `,
 })
-class SwitchWithNameAttribute { }
+class SwitchWithNameAttribute {}
 
 @Component({
-  template: `<dt-switch (change)="lastEvent = $event"></dt-switch>`,
+  template: `
+    <dt-switch (change)="lastEvent = $event"></dt-switch>
+  `,
 })
 class SwitchWithChangeEvent {
   lastEvent: DtSwitchChange<any>;
 }
 
 @Component({
-  template: `<dt-switch [formControl]="formControl"></dt-switch>`,
+  template: `
+    <dt-switch [formControl]="formControl"></dt-switch>
+  `,
 })
 class SwitchWithFormControl {
   formControl = new FormControl();
 }
 
 @Component({
-  template: `<dt-switch>{{ label }}</dt-switch>`,
+  template: `
+    <dt-switch>{{ label }}</dt-switch>
+  `,
 })
 class SwitchWithoutLabel {
   label: string;
 }
 
 @Component({
-  template: `<dt-switch tabindex="5"></dt-switch>`,
+  template: `
+    <dt-switch tabindex="5"></dt-switch>
+  `,
 })
-class SwitchWithTabindexAttr { }
+class SwitchWithTabindexAttr {}

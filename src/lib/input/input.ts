@@ -7,7 +7,7 @@ import {
   DoCheck,
   OnChanges,
   OnDestroy,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -16,7 +16,7 @@ import { AutofillMonitor } from '@angular/cdk/text-field';
 import {
   ErrorStateMatcher,
   mixinErrorState,
-  CanUpdateErrorState
+  CanUpdateErrorState,
 } from '@dynatrace/angular-components/core';
 import { DtFormFieldControl } from '@dynatrace/angular-components/form-field';
 import { Subject } from 'rxjs';
@@ -46,7 +46,8 @@ export class DtInputBase {
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public _parentForm: NgForm,
     public _parentFormGroup: FormGroupDirective,
-    public ngControl: NgControl) { }
+    public ngControl: NgControl
+  ) {}
 }
 export const _DtInputMixinBase = mixinErrorState(DtInputBase);
 
@@ -54,7 +55,7 @@ export const _DtInputMixinBase = mixinErrorState(DtInputBase);
   selector: `input[dtInput], textarea[dtInput]`,
   exportAs: 'dtInput',
   host: {
-    'class': 'dt-input',
+    class: 'dt-input',
     '[class.dt-input-invalid]': 'errorState',
     '[attr.id]': 'id',
     '[placeholder]': 'placeholder',
@@ -68,11 +69,16 @@ export const _DtInputMixinBase = mixinErrorState(DtInputBase);
     '(blur)': '_focusChanged(false)',
     '(focus)': '_focusChanged(true)',
   },
-  providers: [{provide: DtFormFieldControl, useExisting: DtInput}],
+  providers: [{ provide: DtFormFieldControl, useExisting: DtInput }],
 })
 export class DtInput extends _DtInputMixinBase
-  implements DoCheck, OnInit, OnChanges, OnDestroy, CanUpdateErrorState, DtFormFieldControl<string> {
-
+  implements
+    DoCheck,
+    OnInit,
+    OnChanges,
+    OnDestroy,
+    CanUpdateErrorState,
+    DtFormFieldControl<string> {
   /** Implemented as part of DtFormFieldControl. */
   focused = false;
 
@@ -83,8 +89,12 @@ export class DtInput extends _DtInputMixinBase
   autofilled = false;
 
   @Input()
-  get id(): string { return this._id; }
-  set id(value: string) { this._id = value || this._uid; }
+  get id(): string {
+    return this._id;
+  }
+  set id(value: string) {
+    this._id = value || this._uid;
+  }
 
   @Input()
   get disabled(): boolean {
@@ -106,14 +116,20 @@ export class DtInput extends _DtInputMixinBase
   }
 
   @Input()
-  get required(): boolean { return this._required; }
-  set required(value: boolean) { this._required = coerceBooleanProperty(value); }
+  get required(): boolean {
+    return this._required;
+  }
+  set required(value: boolean) {
+    this._required = coerceBooleanProperty(value);
+  }
 
   @Input() placeholder = '';
 
   /** Input type of the element. */
   @Input()
-  get type(): string { return this._type; }
+  get type(): string {
+    return this._type;
+  }
   set type(value: string) {
     this._type = value || 'text';
     this._validateType();
@@ -127,7 +143,9 @@ export class DtInput extends _DtInputMixinBase
   }
 
   @Input()
-  get value(): string { return this._elementRef.nativeElement.value; }
+  get value(): string {
+    return this._elementRef.nativeElement.value;
+  }
   set value(value: string) {
     if (value !== this.value) {
       this._elementRef.nativeElement.value = value;
@@ -137,15 +155,24 @@ export class DtInput extends _DtInputMixinBase
 
   /** Whether the element is readonly. */
   @Input()
-  get readonly(): boolean { return this._readonly; }
-  set readonly(value: boolean) { this._readonly = coerceBooleanProperty(value); }
+  get readonly(): boolean {
+    return this._readonly;
+  }
+  set readonly(value: boolean) {
+    this._readonly = coerceBooleanProperty(value);
+  }
 
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;
 
   /** Implemented as part of DtFormFieldControl. */
   get empty(): boolean {
-    return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput() && !this.autofilled;
+    return (
+      !this._isNeverEmpty() &&
+      !this._elementRef.nativeElement.value &&
+      !this._isBadInput() &&
+      !this.autofilled
+    );
   }
 
   /** The aria-describedby attribute on the input for improved a11y. */
@@ -158,7 +185,7 @@ export class DtInput extends _DtInputMixinBase
     'month',
     'time',
     'week',
-  ].filter((t) => getSupportedInputTypes().has(t));
+  ].filter(t => getSupportedInputTypes().has(t));
 
   private _uid = `dt-input-${nextUniqueId++}`;
   private _id: string;
@@ -186,10 +213,12 @@ export class DtInput extends _DtInputMixinBase
   }
 
   ngOnInit(): void {
-    this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe((event) => {
-      this.autofilled = event.isAutofilled;
-      this.stateChanges.next();
-    });
+    this._autofillMonitor
+      .monitor(this._elementRef.nativeElement)
+      .subscribe(event => {
+        this.autofilled = event.isAutofilled;
+        this.stateChanges.next();
+      });
   }
 
   ngOnChanges(): void {
@@ -216,13 +245,19 @@ export class DtInput extends _DtInputMixinBase
   }
 
   /** Focuses the input. */
-  focus(): void { this._elementRef.nativeElement.focus(); }
+  focus(): void {
+    this._elementRef.nativeElement.focus();
+  }
 
   /** Implemented as part of DtFormFieldControl. */
-  setDescribedByIds(ids: string[]): void { this._ariaDescribedby = ids.join(' '); }
+  setDescribedByIds(ids: string[]): void {
+    this._ariaDescribedby = ids.join(' ');
+  }
 
   /** Implemented as part of DtFormFieldControl. */
-  onContainerClick(): void { this.focus(); }
+  onContainerClick(): void {
+    this.focus();
+  }
 
   _onInput(): void {
     // _onInput is basically just a noop function to let change detection know
@@ -242,7 +277,9 @@ export class DtInput extends _DtInputMixinBase
     const nativeElement = this._elementRef.nativeElement;
 
     // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
-    const nodeName = this._platform.isBrowser ? nativeElement.nodeName : nativeElement.name;
+    const nodeName = this._platform.isBrowser
+      ? nativeElement.nodeName
+      : nativeElement.name;
 
     return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
   }
@@ -272,7 +309,8 @@ export class DtInput extends _DtInputMixinBase
   /** Checks whether the input is invalid based on the native validation. */
   protected _isBadInput(): boolean {
     // The `validity` property won't be present on platform-server.
-    const validity = (this._elementRef.nativeElement as HTMLInputElement).validity;
+    const validity = (this._elementRef.nativeElement as HTMLInputElement)
+      .validity;
     return validity && validity.badInput;
   }
 }

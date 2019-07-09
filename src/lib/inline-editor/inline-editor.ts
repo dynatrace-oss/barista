@@ -16,7 +16,10 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { DtFormField, DtError } from '@dynatrace/angular-components/form-field';
-import { ErrorStateMatcher, readKeyCode } from '@dynatrace/angular-components/core';
+import {
+  ErrorStateMatcher,
+  readKeyCode,
+} from '@dynatrace/angular-components/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Observable, Subscription } from 'rxjs';
@@ -43,11 +46,12 @@ const enum MODES {
       provide: NG_VALUE_ACCESSOR,
       // tslint:disable-next-line:no-forward-ref
       useExisting: forwardRef(() => DtInlineEditor),
-      multi: true },
+      multi: true,
+    },
   ],
 })
-export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterViewInit {
-
+export class DtInlineEditor
+  implements ControlValueAccessor, OnDestroy, AfterViewInit {
   private _onChanged: (value: string) => void = () => {};
   private _onTouched: () => void = () => {};
   private _initialState: string;
@@ -63,8 +67,12 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
   @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
 
   @Input()
-  get required(): boolean { return this._required; }
-  set required(value: boolean) { this._required = coerceBooleanProperty(value); }
+  get required(): boolean {
+    return this._required;
+  }
+  set required(value: boolean) {
+    this._required = coerceBooleanProperty(value);
+  }
 
   /** Aria label of the inline-editor's save button. */
   @Input('aria-label-save') ariaLabelSave: string;
@@ -77,11 +85,19 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
   @Output() readonly saved = new EventEmitter<string>();
   @Output() readonly cancelled = new EventEmitter<string>();
 
-  get idle(): boolean { return this._mode === MODES.IDLE; }
-  get editing(): boolean { return this._mode === MODES.EDITING; }
-  get saving(): boolean { return this._mode === MODES.SAVING; }
+  get idle(): boolean {
+    return this._mode === MODES.IDLE;
+  }
+  get editing(): boolean {
+    return this._mode === MODES.EDITING;
+  }
+  get saving(): boolean {
+    return this._mode === MODES.SAVING;
+  }
 
-  get value(): string { return this._value; }
+  get value(): string {
+    return this._value;
+  }
   set value(value: string) {
     if (this._value !== value) {
       this._value = value;
@@ -90,17 +106,20 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
     }
   }
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef, private _ngZone: NgZone) { }
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _ngZone: NgZone
+  ) {}
 
   ngAfterViewInit(): void {
-
     // In angular it is not yet possible to pass components via ng-content
     // multiple levels of components (in our case consumer -> inline-editor -> form-field)
     // To solve this we take the dt-error components passed in via ng-content and create
     // new onces (basically clone them) in the template.
     this._errorChildrenSource = this._errorChildren.changes.pipe(
       startWith(null),
-      map(() => this._errorChildren.toArray()));
+      map(() => this._errorChildren.toArray())
+    );
   }
 
   ngOnDestroy(): void {
@@ -112,8 +131,10 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
   onKeyDown(event: KeyboardEvent): void {
     // tslint:disable-next-line:switch-default
     switch (readKeyCode(event)) {
-      case ESCAPE: this.cancelAndQuitEditing();
-      case ENTER: this.saveAndQuitEditing();
+      case ESCAPE:
+        this.cancelAndQuitEditing();
+      case ENTER:
+        this.saveAndQuitEditing();
     }
   }
 
@@ -136,8 +157,13 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
     if (this.onRemoteSave) {
       this._mode = MODES.SAVING;
       this._saving = this.onRemoteSave(value).subscribe(
-        () => { this._emitValue(value); },
-        (error) => { this._emitError(error); });
+        () => {
+          this._emitValue(value);
+        },
+        error => {
+          this._emitError(error);
+        }
+      );
       this._changeDetectorRef.markForCheck();
     } else {
       this._emitValue(value);
@@ -191,14 +217,19 @@ export class DtInlineEditor implements ControlValueAccessor, OnDestroy, AfterVie
   }
 
   private _focusWhenStable(): void {
-    this._executeOnStable(() => {this.focus(); });
+    this._executeOnStable(() => {
+      this.focus();
+    });
   }
 
   private _executeOnStable(fn: () => void): void {
     if (this._ngZone.isStable) {
       fn();
     } else {
-      this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(fn);
+      this._ngZone.onStable
+        .asObservable()
+        .pipe(take(1))
+        .subscribe(fn);
     }
   }
 }

@@ -13,7 +13,7 @@ import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-c
 import {
   DtTreeControl,
   DtTreeDataSource,
-  DtTreeFlattener
+  DtTreeFlattener,
 } from '@dynatrace/angular-components/core';
 import { DtDrawerModule } from '@dynatrace/angular-components/drawer';
 import { DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
@@ -48,7 +48,8 @@ const TESTDATA: ThreadNode[] = [
     blocked: 0,
     children: [
       {
-        name: 'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
+        name:
+          'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
         icon: 'apache-tomcat',
         threadlevel: 'S1',
         totalTimeConsumption: 150,
@@ -113,7 +114,8 @@ const TESTDATA: ThreadNode[] = [
     waiting: 123,
     running: 20,
     blocked: 0,
-  }];
+  },
+];
 
 export class ThreadNode {
   name: string;
@@ -154,9 +156,20 @@ export class KitchenSink {
   treeTableDataSource: DtTreeDataSource<ThreadNode, ThreadFlatNode>;
 
   constructor() {
-    this.treeControl = new DtTreeControl<ThreadFlatNode>(this._getLevel, this._isExpandable);
-    this.treeFlattener = new DtTreeFlattener(this.transformer, this._getLevel, this._isExpandable, this._getChildren);
-    this.treeTableDataSource = new DtTreeDataSource(this.treeControl, this.treeFlattener);
+    this.treeControl = new DtTreeControl<ThreadFlatNode>(
+      this._getLevel,
+      this._isExpandable
+    );
+    this.treeFlattener = new DtTreeFlattener(
+      this.transformer,
+      this._getLevel,
+      this._isExpandable,
+      this._getChildren
+    );
+    this.treeTableDataSource = new DtTreeDataSource(
+      this.treeControl,
+      this.treeFlattener
+    );
     this.treeTableDataSource.data = TESTDATA;
   }
 
@@ -174,13 +187,14 @@ export class KitchenSink {
     flatNode.totalTimeConsumption = node.totalTimeConsumption;
     flatNode.icon = node.icon;
     return flatNode;
-  }
+  };
 
   private _getLevel = (node: ThreadFlatNode) => node.level;
 
   private _isExpandable = (node: ThreadFlatNode) => node.expandable;
 
-  private _getChildren = (node: ThreadNode): ThreadNode[] => node.children || [];
+  private _getChildren = (node: ThreadNode): ThreadNode[] =>
+    node.children || [];
 }
 
 @NgModule({
@@ -219,13 +233,10 @@ export class KitchenSink {
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
 })
-export class KitchenSinkClientModule { }
+export class KitchenSinkClientModule {}
 
 @NgModule({
-  imports: [
-    KitchenSinkClientModule,
-    ServerModule,
-  ],
+  imports: [KitchenSinkClientModule, ServerModule],
   bootstrap: [KitchenSink],
 })
-export class KitchenSinkServerModule { }
+export class KitchenSinkServerModule {}

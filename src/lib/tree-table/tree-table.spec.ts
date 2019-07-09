@@ -2,13 +2,23 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, ViewChild, Type } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, async } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  async,
+} from '@angular/core/testing';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   DtTreeTable,
   DtTreeTableModule,
 } from '@dynatrace/angular-components/tree-table';
-import { DtTreeDataSource, DtTreeControl, DtTreeFlattener, DtIndicatorModule } from '@dynatrace/angular-components/core';
+import {
+  DtTreeDataSource,
+  DtTreeControl,
+  DtTreeFlattener,
+  DtIndicatorModule,
+} from '@dynatrace/angular-components/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
@@ -17,14 +27,16 @@ import { createComponent } from '../../testing/create-component';
 describe('DtTreeTable', () => {
   let treeTableElement: HTMLElement;
   let underlyingDataSource: FakeDataSource;
-  function configureDtTreeTableTestingModule(declarations: Array<Type<any>>): void {
+  function configureDtTreeTableTestingModule(
+    declarations: Array<Type<any>>
+  ): void {
     TestBed.configureTestingModule({
       imports: [
         DtTreeTableModule,
         NoopAnimationsModule,
         HttpClientTestingModule,
         DtIndicatorModule,
-        DtIconModule.forRoot({svgIconLocation: `{{name}}.svg`}),
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations,
     }).compileComponents();
@@ -55,7 +67,7 @@ describe('DtTreeTable', () => {
     it('with the right accessibility roles', () => {
       expect(treeTableElement.getAttribute('role')).toBe('treegrid');
 
-      getRows(treeTableElement).forEach((row) => {
+      getRows(treeTableElement).forEach(row => {
         expect(row.getAttribute('role')).toBe('row');
       });
     });
@@ -63,59 +75,57 @@ describe('DtTreeTable', () => {
     it('should expand/collapse the node', () => {
       expect(underlyingDataSource.data.length).toBe(3);
 
-      expect(component.treeControl.expansionModel.selected.length)
-      .toBe(0, `Expect no expanded node`);
+      expect(component.treeControl.expansionModel.selected.length).toBe(
+        0,
+        `Expect no expanded node`
+      );
 
       fixture.detectChanges();
 
-      expectTreeTableToMatch(
-        treeTableElement,
-        [
-          { cells: ['topping_1', 'cheese_1'], level: 0 },
-          { cells: ['topping_2', 'cheese_2'], level: 0 },
-          { cells: ['topping_3', 'cheese_3'], level: 0 },
-        ]);
+      expectTreeTableToMatch(treeTableElement, [
+        { cells: ['topping_1', 'cheese_1'], level: 0 },
+        { cells: ['topping_2', 'cheese_2'], level: 0 },
+        { cells: ['topping_3', 'cheese_3'], level: 0 },
+      ]);
       fixture.detectChanges();
 
       (getToggles(treeTableElement)[2] as HTMLElement).click();
       fixture.detectChanges();
 
-      expect(component.treeControl.expansionModel.selected.length)
-        .toBe(1, `Expect node expanded one level`);
-      expectTreeTableToMatch(
-        treeTableElement,
-        [
-          { cells: ['topping_1', 'cheese_1'], level: 0 },
-          { cells: ['topping_2', 'cheese_2'], level: 0 },
-          { cells: ['topping_3', 'cheese_3'], level: 0 },
-          { cells: ['topping_4', 'cheese_4'], level: 1 },
-        ]);
+      expect(component.treeControl.expansionModel.selected.length).toBe(
+        1,
+        `Expect node expanded one level`
+      );
+      expectTreeTableToMatch(treeTableElement, [
+        { cells: ['topping_1', 'cheese_1'], level: 0 },
+        { cells: ['topping_2', 'cheese_2'], level: 0 },
+        { cells: ['topping_3', 'cheese_3'], level: 0 },
+        { cells: ['topping_4', 'cheese_4'], level: 1 },
+      ]);
 
       (getToggles(treeTableElement)[3] as HTMLElement).click();
       fixture.detectChanges();
 
-      expect(component.treeControl.expansionModel.selected.length)
-        .toBe(2, `Expect node expanded`);
-      expectTreeTableToMatch(
-        treeTableElement,
-        [
-          { cells: ['topping_1', 'cheese_1'], level: 0 },
-          { cells: ['topping_2', 'cheese_2'], level: 0 },
-          { cells: ['topping_3', 'cheese_3'], level: 0 },
-          { cells: ['topping_4', 'cheese_4'], level: 1 },
-          { cells: ['topping_5', 'cheese_5'], level: 2 },
-        ]);
+      expect(component.treeControl.expansionModel.selected.length).toBe(
+        2,
+        `Expect node expanded`
+      );
+      expectTreeTableToMatch(treeTableElement, [
+        { cells: ['topping_1', 'cheese_1'], level: 0 },
+        { cells: ['topping_2', 'cheese_2'], level: 0 },
+        { cells: ['topping_3', 'cheese_3'], level: 0 },
+        { cells: ['topping_4', 'cheese_4'], level: 1 },
+        { cells: ['topping_5', 'cheese_5'], level: 2 },
+      ]);
 
       (getToggles(treeTableElement)[2] as HTMLElement).click();
       fixture.detectChanges();
 
-      expectTreeTableToMatch(
-        treeTableElement,
-        [
-          { cells: ['topping_1', 'cheese_1'], level: 0 },
-          { cells: ['topping_2', 'cheese_2'], level: 0 },
-          { cells: ['topping_3', 'cheese_3'], level: 0 },
-        ]);
+      expectTreeTableToMatch(treeTableElement, [
+        { cells: ['topping_1', 'cheese_1'], level: 0 },
+        { cells: ['topping_2', 'cheese_2'], level: 0 },
+        { cells: ['topping_3', 'cheese_3'], level: 0 },
+      ]);
     });
 
     it('with dtIndicator', fakeAsync(() => {
@@ -142,23 +152,23 @@ describe('DtTreeTable', () => {
     });
 
     it('with the right data', () => {
-      expectTreeTableToMatch(
-        treeTableElement,
-        [
-          { cells: ['topping_1', 'cheese_1'], level: 0 },
-          { cells: ['topping_2', 'cheese_2'], level: 0 },
-          { cells: ['topping_3', 'cheese_3'], level: 0 },
-          { cells: ['topping_4', 'base_4'], level: 0 },
-        ]);
+      expectTreeTableToMatch(treeTableElement, [
+        { cells: ['topping_1', 'cheese_1'], level: 0 },
+        { cells: ['topping_2', 'cheese_2'], level: 0 },
+        { cells: ['topping_3', 'cheese_3'], level: 0 },
+        { cells: ['topping_4', 'base_4'], level: 0 },
+      ]);
     });
   });
 
   describe('with undefined or null children', () => {
     describe('should initialize', () => {
-      let fixture: ComponentFixture<DtTreeTableWithNullOrUndefinedChild >;
+      let fixture: ComponentFixture<DtTreeTableWithNullOrUndefinedChild>;
 
       beforeEach(() => {
-        configureDtTreeTableTestingModule([DtTreeTableWithNullOrUndefinedChild ]);
+        configureDtTreeTableTestingModule([
+          DtTreeTableWithNullOrUndefinedChild,
+        ]);
         fixture = createComponent(DtTreeTableWithNullOrUndefinedChild);
         treeTableElement = fixture.nativeElement.querySelector('dt-tree-table');
 
@@ -189,8 +199,13 @@ export class TestData {
   observableChildren: BehaviorSubject<TestData[]>;
   isSpecial: boolean;
 
-  constructor(pizzaTopping: string, pizzaCheese: string, pizzaBase: string,
-              children: TestData[] = [], isSpecial: boolean = false) {
+  constructor(
+    pizzaTopping: string,
+    pizzaCheese: string,
+    pizzaBase: string,
+    children: TestData[] = [],
+    isSpecial: boolean = false
+  ) {
     this.pizzaTopping = pizzaTopping;
     this.pizzaCheese = pizzaCheese;
     this.pizzaBase = pizzaBase;
@@ -203,8 +218,12 @@ export class TestData {
 class FakeDataSource {
   dataIndex = 0;
   _dataChange = new BehaviorSubject<TestData[]>([]);
-  get data(): TestData[] { return this._dataChange.getValue(); }
-  set data(data: TestData[]) { this._dataChange.next(data); }
+  get data(): TestData[] {
+    return this._dataChange.getValue();
+  }
+  set data(data: TestData[]) {
+    this._dataChange.next(data);
+  }
 
   connect(): Observable<TestData[]> {
     return this._dataChange;
@@ -222,7 +241,11 @@ class FakeDataSource {
 
   addChild(parent: TestData): TestData {
     const nextIndex = ++this.dataIndex;
-    const child = new TestData(`topping_${nextIndex}`, `cheese_${nextIndex}`, `base_${nextIndex}`);
+    const child = new TestData(
+      `topping_${nextIndex}`,
+      `cheese_${nextIndex}`,
+      `base_${nextIndex}`
+    );
     const index = this.data.indexOf(parent);
     parent.children.push(child);
     parent.observableChildren.next(parent.children);
@@ -238,8 +261,15 @@ class FakeDataSource {
   addData(isSpecial: boolean = false): void {
     const nextIndex = ++this.dataIndex;
     const copiedData = this.data.slice();
-    copiedData.push(new TestData(
-      `topping_${nextIndex}`, `cheese_${nextIndex}`, `base_${nextIndex}`, [], isSpecial));
+    copiedData.push(
+      new TestData(
+        `topping_${nextIndex}`,
+        `cheese_${nextIndex}`,
+        `base_${nextIndex}`,
+        [],
+        isSpecial
+      )
+    );
 
     this.data = copiedData;
   }
@@ -258,34 +288,49 @@ function getCells(row: Element): Element[] {
 }
 
 function getIndentation(row: Element): string | null {
-  return (row.querySelector('.dt-tree-table-toggle-cell-wrap') as HTMLElement).style.paddingLeft || '0px';
+  return (
+    (row.querySelector('.dt-tree-table-toggle-cell-wrap') as HTMLElement).style
+      .paddingLeft || '0px'
+  );
 }
 
-function expectTreeTableToMatch(treeTableElement: Element, expectedTreeTable: RowExpectation[]): void {
+function expectTreeTableToMatch(
+  treeTableElement: Element,
+  expectedTreeTable: RowExpectation[]
+): void {
   const missedExpectations: string[] = [];
 
-  function checkRow(row: Element, rowIndex: number, expectedRow: string[]): void {
+  function checkRow(
+    row: Element,
+    rowIndex: number,
+    expectedRow: string[]
+  ): void {
     const cells = getCells(row);
     cells.forEach((cell, index) => {
       checkCell(rowIndex, cell, expectedRow[index]);
     });
   }
 
-  function checkCell(rowIndex: number, cell: Element, expectedCellContent: string): void {
+  function checkCell(
+    rowIndex: number,
+    cell: Element,
+    expectedCellContent: string
+  ): void {
     const actualTextContent = cell.textContent!.trim();
     if (actualTextContent !== expectedCellContent) {
       missedExpectations.push(
-        `Expected cell's content in row at index ${rowIndex} to be ${expectedCellContent} but was ${actualTextContent}`);
+        `Expected cell's content in row at index ${rowIndex} to be ${expectedCellContent} but was ${actualTextContent}`
+      );
     }
   }
 
   function checkIndentation(row: Element, expectedLevel: number): void {
-
     const actualIndentation = getIndentation(row);
     const expectedIndentation = `${expectedLevel * 16}px`;
     if (actualIndentation !== expectedIndentation) {
       missedExpectations.push(
-        `Expected node level to be ${expectedIndentation} due to expected level ${expectedLevel} but was ${actualIndentation}`);
+        `Expected node level to be ${expectedIndentation} due to expected level ${expectedLevel} but was ${actualIndentation}`
+      );
     }
   }
 
@@ -305,21 +350,33 @@ function expectTreeTableToMatch(treeTableElement: Element, expectedTreeTable: Ro
   template: `
     <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
       <ng-container dtColumnDef="topping">
-        <dt-tree-table-header-cell *dtHeaderCellDef>Topping</dt-tree-table-header-cell>
+        <dt-tree-table-header-cell *dtHeaderCellDef
+          >Topping</dt-tree-table-header-cell
+        >
         <dt-tree-table-toggle-cell *dtCellDef="let row">
-          {{row.pizzaTopping}}
+          {{ row.pizzaTopping }}
         </dt-tree-table-toggle-cell>
       </ng-container>
 
       <ng-container dtColumnDef="cheese">
-        <dt-tree-table-header-cell *dtHeaderCellDef>Cheese</dt-tree-table-header-cell>
-        <dt-cell *dtCellDef="let row" dtIndicator="true" dtIndicatorColor="error" >
-        {{row.pizzaCheese}}
+        <dt-tree-table-header-cell *dtHeaderCellDef
+          >Cheese</dt-tree-table-header-cell
+        >
+        <dt-cell
+          *dtCellDef="let row"
+          dtIndicator="true"
+          dtIndicatorColor="error"
+        >
+          {{ row.pizzaCheese }}
         </dt-cell>
       </ng-container>
 
       <dt-header-row *dtHeaderRowDef="['topping', 'cheese']"></dt-header-row>
-      <dt-tree-table-row *dtRowDef="let row; columns: ['topping', 'cheese'];" [data]="row" class="customRowClass">
+      <dt-tree-table-row
+        *dtRowDef="let row; columns: ['topping', 'cheese']"
+        [data]="row"
+        class="customRowClass"
+      >
       </dt-tree-table-row>
     </dt-tree-table>
   `,
@@ -331,10 +388,14 @@ class SimpleDtTreeTableApp {
   transformer = (node: TestData, level: number) => {
     node.level = level;
     return node;
-  }
+  };
 
   treeFlattener = new DtTreeFlattener<TestData, TestData>(
-    this.transformer, this.getLevel, this.isExpandable, this.getChildren);
+    this.transformer,
+    this.getLevel,
+    this.isExpandable,
+    this.getChildren
+  );
 
   treeControl = new DtTreeControl(this.getLevel, this.isExpandable);
 
@@ -345,7 +406,7 @@ class SimpleDtTreeTableApp {
   @ViewChild(DtTreeTable, { static: true }) tree: DtTreeTable<TestData>;
 
   constructor() {
-    this.underlyingDataSource.connect().subscribe((data) => {
+    this.underlyingDataSource.connect().subscribe(data => {
       this.dataSource.data = data;
     });
   }
@@ -371,9 +432,9 @@ const TREE_DATA: FoodNode[] = [
   {
     name: 'Fruit',
     children: [
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Fruit loops', children: null},
+      { name: 'Apple' },
+      { name: 'Banana' },
+      { name: 'Fruit loops', children: null },
     ],
   },
   {
@@ -381,17 +442,11 @@ const TREE_DATA: FoodNode[] = [
     children: [
       {
         name: 'Green',
-        children: [
-          {name: 'Broccoli'},
-          {name: 'Brussel sprouts'},
-        ],
+        children: [{ name: 'Broccoli' }, { name: 'Brussel sprouts' }],
       },
       {
         name: 'Orange',
-        children: [
-          {name: 'Pumpkins'},
-          {name: 'Carrots'},
-        ],
+        children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
       },
     ],
   },
@@ -401,14 +456,20 @@ const TREE_DATA: FoodNode[] = [
   template: `
     <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
       <ng-container dtColumnDef="name">
-        <dt-tree-table-header-cell *dtHeaderCellDef>Name</dt-tree-table-header-cell>
+        <dt-tree-table-header-cell *dtHeaderCellDef
+          >Name</dt-tree-table-header-cell
+        >
         <dt-tree-table-toggle-cell *dtCellDef="let row">
-          {{row.name}}
+          {{ row.name }}
         </dt-tree-table-toggle-cell>
       </ng-container>
 
       <dt-header-row *dtHeaderRowDef="['name']"></dt-header-row>
-      <dt-tree-table-row *dtRowDef="let row; columns: ['name'];" [data]="row" class="customRowClass"></dt-tree-table-row>
+      <dt-tree-table-row
+        *dtRowDef="let row; columns: ['name']"
+        [data]="row"
+        class="customRowClass"
+      ></dt-tree-table-row>
     </dt-tree-table>
   `,
 })
@@ -417,15 +478,25 @@ class DtTreeTableWithNullOrUndefinedChild {
     expandable: !!node.children,
     name: node.name,
     level,
-  })
+  });
 
   treeControl = new DtTreeControl<ExampleFlatNode>(
-    (node) => node.level, (node) => node.expandable);
+    node => node.level,
+    node => node.expandable
+  );
 
   treeFlattener = new DtTreeFlattener(
-     this.transformer, (node) => node.level, (node) => node.expandable, (node) => node.children);
+    this.transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children
+  );
 
-  dataSource = new DtTreeDataSource(this.treeControl, this.treeFlattener, TREE_DATA);
+  dataSource = new DtTreeDataSource(
+    this.treeControl,
+    this.treeFlattener,
+    TREE_DATA
+  );
 
   constructor() {
     this.dataSource.data = TREE_DATA;
@@ -436,33 +507,47 @@ class DtTreeTableWithNullOrUndefinedChild {
 
 @Component({
   template: `
-  <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
-    <ng-container dtColumnDef="topping">
-      <dt-tree-table-header-cell *dtHeaderCellDef>Topping</dt-tree-table-header-cell>
-      <dt-tree-table-toggle-cell *dtCellDef="let row">
-        {{row.pizzaTopping}}
-      </dt-tree-table-toggle-cell>
-    </ng-container>
+    <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
+      <ng-container dtColumnDef="topping">
+        <dt-tree-table-header-cell *dtHeaderCellDef
+          >Topping</dt-tree-table-header-cell
+        >
+        <dt-tree-table-toggle-cell *dtCellDef="let row">
+          {{ row.pizzaTopping }}
+        </dt-tree-table-toggle-cell>
+      </ng-container>
 
-    <ng-container dtColumnDef="cheese">
-      <dt-tree-table-header-cell *dtHeaderCellDef>Cheese</dt-tree-table-header-cell>
-      <dt-cell *dtCellDef="let row">
-      {{row.pizzaCheese}}
-      </dt-cell>
-    </ng-container>
+      <ng-container dtColumnDef="cheese">
+        <dt-tree-table-header-cell *dtHeaderCellDef
+          >Cheese</dt-tree-table-header-cell
+        >
+        <dt-cell *dtCellDef="let row">
+          {{ row.pizzaCheese }}
+        </dt-cell>
+      </ng-container>
 
-    <ng-container dtColumnDef="base">
-      <dt-tree-table-header-cell *dtHeaderCellDef>Base</dt-tree-table-header-cell>
-      <dt-cell *dtCellDef="let row">
-      {{row.pizzaBase}}
-      </dt-cell>
-    </ng-container>
+      <ng-container dtColumnDef="base">
+        <dt-tree-table-header-cell *dtHeaderCellDef
+          >Base</dt-tree-table-header-cell
+        >
+        <dt-cell *dtCellDef="let row">
+          {{ row.pizzaBase }}
+        </dt-cell>
+      </ng-container>
 
-    <dt-header-row *dtHeaderRowDef="['topping', 'cheese']"></dt-header-row>
-    <dt-tree-table-row *dtRowDef="let row; columns: ['topping', 'cheese'];" [data]="row" class="customRowClass"></dt-tree-table-row>
-    <dt-tree-table-row *dtRowDef="let row; when: isSpecial; columns: ['topping', 'base'];" [data]="row" class="customRowClass">
-    </dt-tree-table-row>
-  </dt-tree-table>
+      <dt-header-row *dtHeaderRowDef="['topping', 'cheese']"></dt-header-row>
+      <dt-tree-table-row
+        *dtRowDef="let row; columns: ['topping', 'cheese']"
+        [data]="row"
+        class="customRowClass"
+      ></dt-tree-table-row>
+      <dt-tree-table-row
+        *dtRowDef="let row; when: isSpecial; columns: ['topping', 'base']"
+        [data]="row"
+        class="customRowClass"
+      >
+      </dt-tree-table-row>
+    </dt-tree-table>
   `,
 })
 class WhenRowDtTreeTableApp {
@@ -474,10 +559,14 @@ class WhenRowDtTreeTableApp {
   transformer = (node: TestData, level: number) => {
     node.level = level;
     return node;
-  }
+  };
 
   treeFlattener = new DtTreeFlattener<TestData, TestData>(
-    this.transformer, this.getLevel, this.isExpandable, this.getChildren);
+    this.transformer,
+    this.getLevel,
+    this.isExpandable,
+    this.getChildren
+  );
 
   treeControl = new DtTreeControl(this.getLevel, this.isExpandable);
 
@@ -488,7 +577,7 @@ class WhenRowDtTreeTableApp {
   @ViewChild(DtTreeTable, { static: true }) tree: DtTreeTable<TestData>;
 
   constructor() {
-    this.underlyingDataSource.connect().subscribe((data) => {
+    this.underlyingDataSource.connect().subscribe(data => {
       this.dataSource.data = data;
     });
   }

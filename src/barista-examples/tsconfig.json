@@ -8,14 +8,9 @@
     "outDir": "../../dist/barista-examples",
     "target": "es5",
     "stripInternal": false,
-    "typeRoots": [
-      "../../node_modules/@types/!(node)"
-    ],
+    "typeRoots": ["../../node_modules/@types/!(node)"],
     "baseUrl": ".",
-    "rootDirs": [
-      ".",
-      "../../dist/barista-examples"
-    ],
+    "rootDirs": [".", "../../dist/barista-examples"],
     "paths": {
       "@dynatrace/angular-components": ["../lib"],
       "@dynatrace/angular-components/*": ["../lib/*"]

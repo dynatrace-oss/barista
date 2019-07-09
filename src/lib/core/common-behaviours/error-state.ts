@@ -1,6 +1,11 @@
 import { Constructor } from './constructor';
 import { ErrorStateMatcher } from '../error';
-import { FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import {
+  FormControl,
+  FormGroupDirective,
+  NgControl,
+  NgForm,
+} from '@angular/forms';
 import { Subject } from 'rxjs';
 
 export interface CanUpdateErrorState {
@@ -21,8 +26,9 @@ export interface HasErrorState {
  * Mixin to augment a directive with updateErrorState method.
  * For component with `errorState` and need to update `errorState`.
  */
-export function mixinErrorState<T extends Constructor<HasErrorState>>(base: T)
-: Constructor<CanUpdateErrorState> & T {
+export function mixinErrorState<T extends Constructor<HasErrorState>>(
+  base: T
+): Constructor<CanUpdateErrorState> & T {
   return class extends base {
     /** Whether the component is in an error state. */
     errorState = false;
@@ -39,7 +45,9 @@ export function mixinErrorState<T extends Constructor<HasErrorState>>(base: T)
       // Disable 'no-unnecessary-type-assertion' rule here as it is a bug in tslint and TS:
       // https://github.com/palantir/tslint/issues/3540
       // tslint:disable-next-line:no-unnecessary-type-assertion
-      const control = this.ngControl ? this.ngControl.control as FormControl : null;
+      const control = this.ngControl
+        ? (this.ngControl.control as FormControl)
+        : null;
       const newState = matcher.isErrorState(control, parent);
 
       if (newState !== oldState) {

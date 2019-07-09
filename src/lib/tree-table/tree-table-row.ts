@@ -9,16 +9,13 @@ import { DtTreeTable } from './tree-table';
   host: {
     '[attr.aria-expanded]': '_isExpanded',
     '[attr.aria-level]': '_level',
-    'role': 'row',
-    'class': 'dt-tree-table-row',
+    role: 'row',
+    class: 'dt-tree-table-row',
   },
   styleUrls: ['tree-table-row.scss'],
-  providers: [
-    { provide: CdkRow, useExisting: DtTreeTableRow },
-  ],
+  providers: [{ provide: CdkRow, useExisting: DtTreeTableRow }],
 })
 export class DtTreeTableRow<T> extends DtRow {
-
   /** The data for this row. This needs to be set in order for the tree control to work */
   @Input()
   get data(): T {
@@ -40,7 +37,10 @@ export class DtTreeTableRow<T> extends DtRow {
 
   private _data: T;
 
-  constructor(elementRef: ElementRef, @SkipSelf() private _treeTable: DtTreeTable<T>) {
+  constructor(
+    elementRef: ElementRef,
+    @SkipSelf() private _treeTable: DtTreeTable<T>
+  ) {
     super(elementRef);
   }
 }

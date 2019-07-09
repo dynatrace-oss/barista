@@ -9,13 +9,15 @@ import { Component } from '@angular/core';
     <dt-switch disabled>Disabled</dt-switch>
     <dt-switch checked disabled>Checked Disabled</dt-switch>
   `,
-  styles: [`
-    dt-switch {
-      display: block;
-    }
-    dt-switch + dt-switch {
-      margin-top: 20px;
-    }
-  `],
+  styles: [
+    `
+      dt-switch {
+        display: block;
+      }
+      dt-switch + dt-switch {
+        margin-top: 20px;
+      }
+    `,
+  ],
 })
-export class SwitchDefaultExample { }
+export class SwitchDefaultExample {}

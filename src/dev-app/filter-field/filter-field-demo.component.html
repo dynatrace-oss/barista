@@ -4,13 +4,33 @@
   label="Filter by"
   (filterChanges)="filterChanges($event)"
   (currentFilterChanges)="currentFilterChanges($event)"
-  >
+>
 </dt-filter-field>
 <dt-radio-group class="dev-group" [(ngModel)]="activeDataSourceName">
-  <dt-radio-button *ngFor="let name of dataSourceNames" class="dev-radio-button" [value]="name">{{name}}</dt-radio-button>
+  <dt-radio-button
+    *ngFor="let name of dataSourceNames"
+    class="dev-radio-button"
+    [value]="name"
+    >{{ name }}</dt-radio-button
+  >
 </dt-radio-group>
 <div class="demo-controls">
-  <button dt-button class="disable-tag-button" variant="secondary" [disabled]="!_firstTag"  (click)="toggledDisableFirstTag()">Toggle disabled on first tag</button>
-  <button dt-button (click)="setValues()" variant="secondary" [disabled]="!canSetValues">Set values</button>
-  <button dt-button (click)="loading = !loading" variant="secondary">Toggle loading</button>
+  <button
+    dt-button
+    class="disable-tag-button"
+    variant="secondary"
+    [disabled]="!_firstTag"
+    (click)="toggledDisableFirstTag()"
+    >Toggle disabled on first tag</button
+  >
+  <button
+    dt-button
+    (click)="setValues()"
+    variant="secondary"
+    [disabled]="!canSetValues"
+    >Set values</button
+  >
+  <button dt-button (click)="loading = !loading" variant="secondary"
+    >Toggle loading</button
+  >
 </div>

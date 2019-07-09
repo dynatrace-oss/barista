@@ -28,4 +28,7 @@ export interface DtChartTooltipData {
   points?: DtChartTooltipPoint[];
   point?: DtChartTooltipPoint;
 }
-export interface DtChartTooltipEvent { data: DtChartTooltipData; chart?: ChartObject; }
+export interface DtChartTooltipEvent {
+  data: DtChartTooltipData;
+  chart?: ChartObject;
+}

@@ -36,17 +36,22 @@ describe('DtInput without forms', () => {
   it('should add aria-required reflecting the required state', fakeAsync(() => {
     const fixture = createComponent(DtInputWithRequired);
 
-    const inputElement: HTMLInputElement =
-      fixture.debugElement.query(By.css('input')).nativeElement;
+    const inputElement: HTMLInputElement = fixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
 
-    expect(inputElement.getAttribute('aria-required'))
-      .toBe('false', 'Expected aria-required to reflect required state of false');
+    expect(inputElement.getAttribute('aria-required')).toBe(
+      'false',
+      'Expected aria-required to reflect required state of false'
+    );
 
     fixture.componentInstance.required = true;
     fixture.detectChanges();
 
-    expect(inputElement.getAttribute('aria-required'))
-      .toBe('true', 'Expected aria-required to reflect required state of true');
+    expect(inputElement.getAttribute('aria-required')).toBe(
+      'true',
+      'Expected aria-required to reflect required state of true'
+    );
   }));
 
   it('supports the required attribute as binding', fakeAsync(() => {
@@ -65,8 +70,9 @@ describe('DtInput without forms', () => {
   it('should not overwrite existing id', fakeAsync(() => {
     const fixture = createComponent(DtInputWithId);
 
-    const inputElement: HTMLInputElement =
-      fixture.debugElement.query(By.css('input')).nativeElement;
+    const inputElement: HTMLInputElement = fixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
 
     expect(inputElement.id).toBe('test-id');
   }));
@@ -123,47 +129,66 @@ describe('DtInput without forms', () => {
   it('supports textarea', fakeAsync(() => {
     const fixture = createComponent(DtInputTextareaWithBindings);
 
-    const textarea: HTMLTextAreaElement = fixture.debugElement.nativeElement.querySelector('textarea');
+    const textarea: HTMLTextAreaElement = fixture.debugElement.nativeElement.querySelector(
+      'textarea'
+    );
     expect(textarea).not.toBeNull();
   }));
 });
 
 @Component({
-  template: `<input dtInput [required]="required">`,
+  template: `
+    <input dtInput [required]="required" />
+  `,
 })
 class DtInputWithRequired {
   required: boolean;
 }
 
 @Component({
-  template: `<input dtInput id="test-id">`,
+  template: `
+    <input dtInput id="test-id" />
+  `,
 })
-class DtInputWithId {
-}
+class DtInputWithId {}
 
 @Component({
-  template: `<input dtInput [placeholder]="placeholder">`,
+  template: `
+    <input dtInput [placeholder]="placeholder" />
+  `,
 })
 class DtInputPlaceholderAttr {
   placeholder = '';
 }
 
 @Component({
-  template: `<input dtInput [disabled]="disabled">`,
+  template: `
+    <input dtInput [disabled]="disabled" />
+  `,
 })
 class DtInputWithDisabled {
   disabled: boolean;
 }
 
 @Component({
-  template: `<input dtInput [type]="type">`,
+  template: `
+    <input dtInput [type]="type" />
+  `,
 })
 class DtInputWithType {
   type: string;
 }
 
 @Component({
-  template: `<textarea ghInput [rows]="rows" [cols]="cols" [wrap]="wrap" placeholder="Snacks"></textarea>`,
+  template: `
+    <textarea
+      ghInput
+      [rows]="rows"
+      [cols]="cols"
+      [wrap]="wrap"
+      placeholder="Snacks"
+    ></textarea>
+  `,
 })
 class DtInputTextareaWithBindings {
   rows = 4;

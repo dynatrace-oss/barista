@@ -2,31 +2,43 @@ import { ElementAst, ASTWithSource } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, hasTextContentAlternative, isElementWithName } from '../utils';
+import {
+  addFailure,
+  hasTextContentAlternative,
+  isElementWithName,
+} from '../utils';
 
 class DtContextDialogVisitor extends BasicTemplateAstVisitor {
-
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
   }
 
   private _isCustomTrigger(element: ElementAst): boolean {
-    const customTrigger = element.inputs.find((el) => el.name === 'dtContextDialogTrigger');
+    const customTrigger = element.inputs.find(
+      el => el.name === 'dtContextDialogTrigger'
+    );
 
-    if (customTrigger && customTrigger.value && customTrigger.value instanceof ASTWithSource) {
+    if (
+      customTrigger &&
+      customTrigger.value &&
+      customTrigger.value instanceof ASTWithSource
+    ) {
       return true;
     }
     return false;
   }
 
   private _validateElement(element: ElementAst): any {
-
     if (this._isCustomTrigger(element)) {
       if (hasTextContentAlternative(element)) {
         return;
       } else {
-        addFailure(this, element, 'A context dialog trigger must have an aria-label or aria-labelledby attribute.');
+        addFailure(
+          this,
+          element,
+          'A context dialog trigger must have an aria-label or aria-labelledby attribute.'
+        );
       }
     }
 
@@ -38,7 +50,11 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
         return;
       }
 
-      addFailure(this, element, 'A context dialog must provide alternative texts for the open and the close buttons. Use the aria-label and the aria-label-close-button input.');
+      addFailure(
+        this,
+        element,
+        'A context dialog must provide alternative texts for the open and the close buttons. Use the aria-label and the aria-label-close-button input.'
+      );
     }
   }
 }
@@ -58,13 +74,14 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
  * </dt-context-dialog>
  */
 export class Rule extends Rules.AbstractRule {
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that text alternatives are given for the context dialog\'s open and close buttons.',
+    description:
+      "Ensures that text alternatives are given for the context dialog's open and close buttons.",
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale: 'The open and the close button need additional attributes to provide text alternatives.',
+    rationale:
+      'The open and the close button need additional attributes to provide text alternatives.',
     ruleName: 'dt-context-dialog-alt-text',
     type: 'maintainability',
     typescriptOnly: true,

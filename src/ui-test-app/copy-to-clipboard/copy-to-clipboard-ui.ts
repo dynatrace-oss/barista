@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   selector: 'dt-copy-clipboard-ui',
   templateUrl: 'copy-to-clipboard-ui.html',
 })
-export class CopyToClipboardUI {
-}
+export class CopyToClipboardUI {}

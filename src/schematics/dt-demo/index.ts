@@ -32,14 +32,24 @@ function addRoute(options: DtDemoOptions): Rule {
 
     const importName = `${strings.classify(options.name)}Demo`;
     const importLocation = `'./${options.name}/${options.name}-demo.component';`;
-    const importChange = addImport(modulePath, sourceFile, importName, importLocation);
+    const importChange = addImport(
+      modulePath,
+      sourceFile,
+      importName,
+      importLocation
+    );
 
     /**
      * find last route and add new route
      */
-    const routesDeclaration = findNodes(sourceFile, ts.SyntaxKind.VariableDeclaration)
-    .find((node: ts.VariableDeclaration) => node.name.getText() === 'routes') as ts.VariableDeclaration;
-    const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression).elements;
+    const routesDeclaration = findNodes(
+      sourceFile,
+      ts.SyntaxKind.VariableDeclaration
+    ).find(
+      (node: ts.VariableDeclaration) => node.name.getText() === 'routes'
+    ) as ts.VariableDeclaration;
+    const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression)
+      .elements;
     const end = routes[routes.length - 1].getStart();
     const indentation = getIndentation(routes);
     const toInsert = `{ path: '${options.name}', component: ${importName} },${indentation}`;
@@ -52,12 +62,12 @@ function addRoute(options: DtDemoOptions): Rule {
 // tslint:disable-next-line:no-default-export
 export default function(options: DtDemoOptions): Rule {
   const templateSource = apply(url('./files'), [
-      template({
-        ...strings,
-        ...options,
-      }),
-      move('src/dev-app'),
-    ]);
+    template({
+      ...strings,
+      ...options,
+    }),
+    move('src/dev-app'),
+  ]);
 
   return chain([
     mergeWith(templateSource),
