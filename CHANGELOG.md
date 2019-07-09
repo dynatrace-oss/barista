@@ -1,3 +1,19 @@
+## 4.0.0 (2019-07-09)
+
+### Breaking changes
+
+* Updated dt-iconpack peer-dependency to v2.0.22 ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **filter-field:** `DtFilterField` and `DtFilterFieldDefaultDataSource` classes are now generics ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Bug Fixes
+
+* **table:** Fixes an issue where the table sort styling is lost when adding columns dynamically ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Features
+
+* **filter-field:** Added possibility to load async data ([***REMOVED***](***REMOVED***/***REMOVED***))
+* **table:** Updated table header appearance to fit new Barista design guidelines ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 3.2.0 (2019-07-08)
 
 ### Bug Fixes
