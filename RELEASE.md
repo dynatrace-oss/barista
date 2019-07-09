@@ -4,24 +4,47 @@ A new version of the Angular components is released at least once at the end of 
 
 [Breaking changes](***REMOVED*** are released with the next (future) major version.
 
-## How to Release
+## How to release
 **Note: Releasing should only be done by the maintainers of the angular-components.**
 
-* Make sure you are on the `master` branch.
-* If you wanna do a major release run `yarn  breaking-changes` which will get you a list of breaking changes for the next major versions.
-* If you do have breaking changes for the release version or have outdated breaking-changes.
-  * Create a branch for applying the breaking changes for this release version. e.g. `fix/apply-breaking-changes-2.0.0`
-  * Apply the breaking changes of the major version you want to release and outdated changes.
-  * Commit the breaking-changes in related chunks. Do not forget the `BREAKING CHANGE` label (all uppercase) in the commit message!
-  * Push the commit and create a PR
-  * When merged continue with the release
-* Make sure you are on the `master` branch again.
-* Start the release Wizard by entering `yarn stage-release` in your command line tool.
-* The Wizard will now prompt you for the new version number. You can select between a `patch`, `minor` and `major` release. The Wizard will also recommend you the version bumb based on the commits between now and the last release.
-* Based on the version you have selected, a new state-release branch will be created (e.g. `release-stage/2.0.0`) and the version in the package json will be set.
-* A changelog based on the commits going to be created and attached to the CHANGELOG.md file.
-* Please review CHANGELOG.md and ensure that the log contains only changes that apply to the public library release.
-* When done, proceed by confirming the prompt.
-* The new changelog and the version bump will automatically be commited, and pushed to the remote.
-* Create a new PR from this branch against the master.
-* Once all required tests in the PR have successfully been run and you have clicked the merge button, this version will be released.
+Go to the [pull request overview page](***REMOVED*** of the angular-components repository and merge all pull requests marked as `[merge-ready]` into master. Only merge pull requests marked with `[major]` when releasing a new major version. Once all branches are merged and all merge conflicts are resolved, follow these steps:
+
+* Check out and update your local `master` branch.
+* If you wanna do a major release run `yarn  breaking-changes` which will get you a list of breaking changes for the next major version. If you do have breaking changes for the release version or have deprecations:
+  * Create a branch for applying the breaking changes for this release version, e.g. `fix/apply-breaking-changes-4.0.0`.
+  * Apply the breaking changes of the major version you want to release and remove deprecations.
+  * Commit the breaking changes in related chunks. Add a `BREAKING CHANGE` label (all uppercase) in the commit message!
+  * Push the commits and create a pull request.
+  * When merged continue with the release. (Make sure you are on the updated `master` branch again.)
+* Start the release wizard by entering `yarn stage-release` in your command line tool.
+* The wizard will now prompt you for the new version number. You can select between a `patch`, `minor` and `major` release. The wizard will also recommend you the new version number based on the commits between now and the last release.
+* Based on the version you have selected, a new release-stage branch will be created (e.g. `release-stage/2.0.0`) and the new version will be set in the `package.json`.
+* A changelog based on the commits will be created and attached to the `CHANGELOG.md` file.
+* Review the `CHANGELOG.md` file and ensure that the log contains only changes that apply to the public library release. Move commits marked with `BREAKING CHANGE` to an extra "Breaking changes" section on top. When done, proceed by confirming the prompt in your command line tool.
+* The new changelog and the version bump will automatically be commited, and pushed to the remote repository.
+* Create a new pull request from this branch against the master branch.
+* Once all required tests in the pull request have successfully been run and you have clicked the merge button, this version will be released.
+* Create a tag for the version bump commit by running `yarn create-tag`.
+
+## After the release
+
+After a successful release the Barista examples (code demos) build is triggered and the updated content for the design system is built. Check the pull request that is automatically opened in the [barista-content repository](***REMOVED*** and the generated preview. When merging this pull request all updates to component demos and the [new changelog](***REMOVED*** will be published in [Barista](***REMOVED***
+
+Announce the new version upgrade in our Slack channels [#help-ng-components](https://dynatrace.slack.com/messages/CJUCU3J6T) and [#news-ui-dev](https://dynatrace.slack.com/messages/C9CCJJ9M1) following this pattern:
+
+```
+*Angular Components Version X.x.x (YYYY-MM-DD) released*
+
+:fire: *Breaking Changes*
+> commit message 1
+...
+
+:beetle: *Bug Fixes*
+> commit message 1
+> commit message 2
+...
+
+:gift: *Features*
+> commit message 1
+...
+```
