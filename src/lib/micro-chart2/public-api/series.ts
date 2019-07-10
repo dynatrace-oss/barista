@@ -1,6 +1,15 @@
-import { SimpleChanges, TemplateRef, Input, OnDestroy, OnChanges } from '@angular/core';
+import {
+  SimpleChanges,
+  TemplateRef,
+  Input,
+  OnDestroy,
+  OnChanges,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { unifySeriesData, DtMicroChartDataPoint } from '../business-logic/core/chart';
+import {
+  unifySeriesData,
+  DtMicroChartDataPoint,
+} from '../business-logic/core/chart';
 import { DtMicroChartStackContainer } from './stacked-container';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
@@ -9,7 +18,7 @@ export interface DtMicroChartRenderDataBase {
   type: DtMicroChartSeriesType;
   publicSeriesId: string;
   color: string;
-  data: Array<number|null> | Array<[number, number|null]>;
+  data: Array<number | null> | Array<[number, number | null]>;
 }
 
 export interface DtMicroChartRenderDataExtremes {
@@ -25,13 +34,13 @@ let uniqueId = 1;
 export abstract class DtMicroChartSeries implements OnChanges, OnDestroy {
   readonly type: DtMicroChartSeriesType;
 
-  private _data: Array<number|null> | Array<[number, number|null]>;
+  private _data: Array<number | null> | Array<[number, number | null]>;
 
   @Input()
-  get data(): Array<number|null> | Array<[number, number|null]> {
+  get data(): Array<number | null> | Array<[number, number | null]> {
     return this._data;
   }
-  set data(value: Array<number|null> | Array<[number, number|null]>) {
+  set data(value: Array<number | null> | Array<[number, number | null]>) {
     if (value) {
       this._transformedData = unifySeriesData(value);
     }
@@ -44,7 +53,9 @@ export abstract class DtMicroChartSeries implements OnChanges, OnDestroy {
    * Whether null values should be skipped or interpolated. Defaults to false.
    */
   @Input()
-  get skipNullValues(): boolean { return this._skipNullValues; }
+  get skipNullValues(): boolean {
+    return this._skipNullValues;
+  }
   set skipNullValues(value: boolean) {
     this._skipNullValues = coerceBooleanProperty(value);
   }
@@ -88,7 +99,9 @@ export abstract class DtMicroChartSeries implements OnChanges, OnDestroy {
 }
 
 export abstract class DtMicroChartStackableSeries extends DtMicroChartSeries {
-  get isStacked(): boolean { return !!this._stackedContainer && !this._stackedContainer.disabled; }
+  get isStacked(): boolean {
+    return !!this._stackedContainer && !this._stackedContainer.disabled;
+  }
 
   constructor(public _stackedContainer: DtMicroChartStackContainer) {
     super();

@@ -6,14 +6,16 @@ let stackId = 0;
 // Boilerplate for applying mixins to DtMicroChartStackedContainer.
 export class DtMicroChartStackContainerBase {}
 
-export const _DtMicroChartStackContainerBase =
-  mixinDisabled(DtMicroChartStackContainerBase);
+export const _DtMicroChartStackContainerBase = mixinDisabled(
+  DtMicroChartStackContainerBase
+);
 
 @Directive({
   selector: 'dt-micro-chart-stack-container',
   exportAs: 'dtMicroChartStackContainer',
   inputs: ['disabled'],
 })
-export class DtMicroChartStackContainer extends _DtMicroChartStackContainerBase implements CanDisable {
+export class DtMicroChartStackContainer extends _DtMicroChartStackContainerBase
+  implements CanDisable {
   readonly _stackId = stackId++;
 }

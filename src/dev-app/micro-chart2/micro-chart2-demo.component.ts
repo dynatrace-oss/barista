@@ -7,7 +7,6 @@ import { generateData } from './micro-chart2-data';
   styleUrls: ['./micro-chart2-demo.component.scss'],
 })
 export class MicroChart2Demo {
-
   series = {
     data: [100, 200, 400, 100, 90],
   };

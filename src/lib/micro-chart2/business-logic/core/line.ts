@@ -1,5 +1,9 @@
 import { ScaleLinear, scaleLinear } from 'd3-scale';
-import { DtMicroChartDomains, DtMicroChartExtremes, DtMicroChartDataPoint } from './chart';
+import {
+  DtMicroChartDomains,
+  DtMicroChartExtremes,
+  DtMicroChartDataPoint,
+} from './chart';
 import { DtMicroChartConfig } from '../../micro-chart-config';
 import { findExtremes, interpolateNullValues } from '../../helper-functions';
 import { DtMicroChartLineSeries } from '../../public-api/line';
@@ -31,9 +35,9 @@ export function handleChartLineSeries(
   if (!series.skipNullValues) {
     data = interpolateNullValues(data);
   }
-  const { min, max } = findExtremes<DtMicroChartLineDataPoint>(data, (d) => d.y);
+  const { min, max } = findExtremes<DtMicroChartLineDataPoint>(data, d => d.y);
 
-  const points = data.map((dp) => ({
+  const points = data.map(dp => ({
     x: x(dp.x),
     y: dp.y === null ? null : y(dp.y),
     interpolated: dp.interpolated,
@@ -57,7 +61,11 @@ export function handleChartLineSeries(
   return transformedData;
 }
 
-function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartLineScales {
+function getScales(
+  width: number,
+  domains: DtMicroChartDomains,
+  config: DtMicroChartConfig
+): DtMicroChartLineScales {
   const x = scaleLinear()
     .range([0, width - config.marginLeft - config.marginRight])
     .domain([domains.x.min, domains.x.max]);

@@ -1,8 +1,19 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component, ViewChild, TemplateRef, NgZone, AfterViewInit } from '@angular/core';
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import {
+  Component,
+  ViewChild,
+  TemplateRef,
+  NgZone,
+  AfterViewInit,
+} from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+} from '@angular/core/testing';
 import { MockNgZone } from '../../../testing/mock-ng-zone';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -15,16 +26,10 @@ describe('DtMicroChartColumnSvg', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        PortalModule,
-      ],
-      declarations: [
-        SimpleColumnSeries,
-        DtMicroChartColumnSeriesSVG,
-      ],
+      imports: [CommonModule, PortalModule],
+      declarations: [SimpleColumnSeries, DtMicroChartColumnSeriesSVG],
       providers: [
-        { provide: NgZone, useFactory: () => zone = new MockNgZone() },
+        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
       ],
     }).compileComponents();
   }));
@@ -41,7 +46,9 @@ describe('DtMicroChartColumnSvg', () => {
     });
 
     it('should render columns ', () => {
-      const column = fixture.debugElement.query(By.css('.dt-micro-chart-column'));
+      const column = fixture.debugElement.query(
+        By.css('.dt-micro-chart-column')
+      );
       const x = column.nativeElement.getAttribute('x');
       const y = column.nativeElement.getAttribute('y');
       const width = column.nativeElement.getAttribute('width');
@@ -53,25 +60,35 @@ describe('DtMicroChartColumnSvg', () => {
     });
 
     it('should render extreme highlights', () => {
-      const highlightMarker = fixture.debugElement.queryAll(By.css('.dt-micro-chart-column-extreme'));
+      const highlightMarker = fixture.debugElement.queryAll(
+        By.css('.dt-micro-chart-column-extreme')
+      );
       expect(highlightMarker.length).toBe(2);
     });
 
     it('should have the initial min template applied', () => {
       fixture.detectChanges();
-      const minOutlet = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel'));
-      expect(minOutlet.nativeElement.textContent.trim()).toBe('Min template 60');
+      const minOutlet = fixture.debugElement.query(
+        By.css('.dt-micro-chart-column-extremelabel')
+      );
+      expect(minOutlet.nativeElement.textContent.trim()).toBe(
+        'Min template 60'
+      );
     });
 
     it('should have two extreme labels at the right position', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
-      const minLabel = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel-min'));
+      const minLabel = fixture.debugElement.query(
+        By.css('.dt-micro-chart-column-extremelabel-min')
+      );
       expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
       expect(minLabel.nativeElement.getAttribute('y')).toBe('64');
       expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
 
-      const maxLabel = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel-max'));
+      const maxLabel = fixture.debugElement.query(
+        By.css('.dt-micro-chart-column-extremelabel-max')
+      );
       expect(maxLabel.nativeElement.getAttribute('x')).toBe('147');
       expect(maxLabel.nativeElement.getAttribute('y')).toBe('99');
       expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('middle');
@@ -89,15 +106,22 @@ describe('DtMicroChartColumnSvg', () => {
     it('should not render extremes if set to false', () => {
       fixture.componentInstance.highlightExtremes = false;
       fixture.detectChanges();
-      const highlightMarker = fixture.debugElement.queryAll(By.css('.dt-micro-chart-line-extreme'));
+      const highlightMarker = fixture.debugElement.queryAll(
+        By.css('.dt-micro-chart-line-extreme')
+      );
       expect(highlightMarker.length).toBe(0);
     });
 
     it('should have update min template', () => {
-      fixture.componentInstance.minTemplate = fixture.componentInstance.updatedMinTemplate;
+      fixture.componentInstance.minTemplate =
+        fixture.componentInstance.updatedMinTemplate;
       fixture.detectChanges();
-      const minOutlet = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel'));
-      expect(minOutlet.nativeElement.textContent.trim()).toBe('Updated template 60');
+      const minOutlet = fixture.debugElement.query(
+        By.css('.dt-micro-chart-column-extremelabel')
+      );
+      expect(minOutlet.nativeElement.textContent.trim()).toBe(
+        'Updated template 60'
+      );
     });
 
     it('should update label positions after updating extremes', () => {
@@ -111,12 +135,16 @@ describe('DtMicroChartColumnSvg', () => {
       };
       fixture.detectChanges();
       zone.simulateZoneExit();
-      const minLabel = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel-min'));
+      const minLabel = fixture.debugElement.query(
+        By.css('.dt-micro-chart-column-extremelabel-min')
+      );
       expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
       expect(minLabel.nativeElement.getAttribute('y')).toBe('50');
       expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
 
-      const maxLabel = fixture.debugElement.query(By.css('.dt-micro-chart-column-extremelabel-max'));
+      const maxLabel = fixture.debugElement.query(
+        By.css('.dt-micro-chart-column-extremelabel-max')
+      );
       expect(maxLabel.nativeElement.getAttribute('x')).toBe('270');
       expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
       expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
@@ -162,9 +190,11 @@ class SimpleColumnSeries implements AfterViewInit {
   // tslint:disable-next-line:no-any
   minTemplate: TemplateRef<any>;
   // tslint:disable-next-line:no-any
-  @ViewChild('initialMinTemplate', { static: true, }) initialMinTemplate: TemplateRef<any>;
+  @ViewChild('initialMinTemplate', { static: true })
+  initialMinTemplate: TemplateRef<any>;
   // tslint:disable-next-line:no-any
-  @ViewChild('updatedMinTemplate', { static: true, }) updatedMinTemplate: TemplateRef<any>;
+  @ViewChild('updatedMinTemplate', { static: true })
+  updatedMinTemplate: TemplateRef<any>;
 
   highlightExtremes = true;
   minHighlightRectangle = { x: 144, y: 96, width: 30, height: 7 };

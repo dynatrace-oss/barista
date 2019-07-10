@@ -1,5 +1,8 @@
 <!-- Interpolated path -->
-<svg:path class="dt-micro-chart-line dt-micro-chart-interpolated-line" [attr.d]="interpolatedPath"></svg:path>
+<svg:path
+  class="dt-micro-chart-line dt-micro-chart-interpolated-line"
+  [attr.d]="interpolatedPath"
+></svg:path>
 
 <!-- Distinct line -->
 <svg:path class="dt-micro-chart-line" [attr.d]="path"></svg:path>
@@ -28,10 +31,10 @@
     #minLabel
   >
     <svg:tspan baseline-shift="-20">
-      <ng-container [cdkPortalOutlet]="_minPortal" ></ng-container>
+      <ng-container [cdkPortalOutlet]="_minPortal"></ng-container>
     </svg:tspan>
   </svg:text>
- 
+
   <svg:circle
     [attr.cx]="extremes.max.x"
     [attr.cy]="extremes.max.y"

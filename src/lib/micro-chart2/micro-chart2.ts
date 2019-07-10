@@ -12,7 +12,12 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { DtViewportResizer, Constructor, mixinColor, CanColor } from '@dynatrace/angular-components/core';
+import {
+  DtViewportResizer,
+  Constructor,
+  mixinColor,
+  CanColor,
+} from '@dynatrace/angular-components/core';
 import { takeUntil, switchMap, startWith, filter, map } from 'rxjs/operators';
 import { Subject, combineLatest, of } from 'rxjs';
 import { DtMicroChartConfig } from './micro-chart-config';
@@ -23,20 +28,31 @@ import { DtMicroChartColumnSeries } from './public-api/column';
 import { DtMicroChartBarSeries } from './public-api/bar';
 import { DtMicroChartLineSeries } from './public-api/line';
 import { DtMicroChartSeriesSVG } from './series/series';
-import { createChartDomains, applyAxesExtentsToDomain } from './business-logic/core/chart';
-import { DtMicroChartSvgRenderer, DtMicroChartRendererSeriesData } from './business-logic/renderer/svg-renderer';
+import {
+  createChartDomains,
+  applyAxesExtentsToDomain,
+} from './business-logic/core/chart';
+import {
+  DtMicroChartSvgRenderer,
+  DtMicroChartRendererSeriesData,
+} from './business-logic/renderer/svg-renderer';
 import { handleChartLineSeries } from './business-logic/core/line';
 import { handleChartBarSeries } from './business-logic/core/bar';
 import { handleChartColumnSeries } from './business-logic/core/column';
-import { createStack, extendDomainForStack } from './business-logic/core/stacks';
+import {
+  createStack,
+  extendDomainForStack,
+} from './business-logic/core/stacks';
 import { Series } from 'd3-shape';
 import { DT_MICRO_CHART_RENDERER } from './business-logic/renderer/base';
 
 /** Injection token that can be used to specify default micro-chart options. */
-export const DT_MICRO_CHART_DEFAULT_OPTIONS =
-    new InjectionToken<DtMicroChartConfig>(
-      'dt-micro-chart-default-options',
-      { providedIn: 'root', factory: DT_MICRO_CHART_DEFAULT_OPTIONS_FACTORY2 });
+export const DT_MICRO_CHART_DEFAULT_OPTIONS = new InjectionToken<
+  DtMicroChartConfig
+>('dt-micro-chart-default-options', {
+  providedIn: 'root',
+  factory: DT_MICRO_CHART_DEFAULT_OPTIONS_FACTORY2,
+});
 
 export function DT_MICRO_CHART_DEFAULT_OPTIONS_FACTORY2(): DtMicroChartConfig {
   return new DtMicroChartConfig();
@@ -45,9 +61,13 @@ export function DT_MICRO_CHART_DEFAULT_OPTIONS_FACTORY2(): DtMicroChartConfig {
 export type DtMicroChartThemePalette2 = 'main';
 
 // Boilerplate for applying mixins to DtMicroChart
-export class DtMicroChartBase2 { constructor(public _elementRef: ElementRef) { } }
-export const _DtMicroChartBase2 =
-  mixinColor<Constructor<DtMicroChartBase2>, DtMicroChartThemePalette2>(DtMicroChartBase2, 'main');
+export class DtMicroChartBase2 {
+  constructor(public _elementRef: ElementRef) {}
+}
+export const _DtMicroChartBase2 = mixinColor<
+  Constructor<DtMicroChartBase2>,
+  DtMicroChartThemePalette2
+>(DtMicroChartBase2, 'main');
 
 @Component({
   selector: 'dt-micro-chart2',
@@ -57,8 +77,8 @@ export const _DtMicroChartBase2 =
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicroChartThemePalette2>, AfterViewInit, OnDestroy {
-
+export class DtMicroChart2 extends _DtMicroChartBase2
+  implements CanColor<DtMicroChartThemePalette2>, AfterViewInit, OnDestroy {
   /** @internal Destroy subject to clear subscriptions on component destroy. */
   private readonly _destroy = new Subject<void>();
 
@@ -67,18 +87,27 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
 
   // TODO: check for new or removed children -> maybe subscribe and trigger CD
   /** @internal A QueryList of all public series configured by the consumer. */
-  @ContentChildren(DtMicroChartSeries, { descendants: true }) _allSeriesExternal: QueryList<DtMicroChartSeries>;
+  @ContentChildren(DtMicroChartSeries, { descendants: true })
+  _allSeriesExternal: QueryList<DtMicroChartSeries>;
 
   /** @internal A QueryList of all public x-axis configure by the consumer. */
-  @ContentChildren(DtMicroChartXAxis) _allXAxesExternal: QueryList<DtMicroChartXAxis>;
+  @ContentChildren(DtMicroChartXAxis) _allXAxesExternal: QueryList<
+    DtMicroChartXAxis
+  >;
 
   /** @internal A QueryList of all public y-axis configure by the consumer. */
-  @ContentChildren(DtMicroChartYAxis) _allYAxesExternal: QueryList<DtMicroChartYAxis>;
+  @ContentChildren(DtMicroChartYAxis) _allYAxesExternal: QueryList<
+    DtMicroChartYAxis
+  >;
 
   /** @internal A QueryList of all rendered internal series. */
-  @ViewChildren(DtMicroChartSeriesSVG) _allSeriesSVG: QueryList<DtMicroChartSeriesSVG>;
+  @ViewChildren(DtMicroChartSeriesSVG) _allSeriesSVG: QueryList<
+    DtMicroChartSeriesSVG
+  >;
 
-  @ContentChildren(DtMicroChartStackContainer) _stackContainer: QueryList<DtMicroChartStackContainer>;
+  @ContentChildren(DtMicroChartStackContainer) _stackContainer: QueryList<
+    DtMicroChartStackContainer
+  >;
 
   /** @internal Returns a viewbox string for the micro-chart2 svg container. */
   get _viewbox(): string {
@@ -102,7 +131,8 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
     _elementRef: ElementRef<HTMLElement>,
     private _viewportResizer: DtViewportResizer,
     private _changeDetectorRef: ChangeDetectorRef,
-    @Inject(DT_MICRO_CHART_RENDERER) private _chartRenderer: DtMicroChartSvgRenderer,
+    @Inject(DT_MICRO_CHART_RENDERER)
+    private _chartRenderer: DtMicroChartSvgRenderer,
     @Inject(DT_MICRO_CHART_DEFAULT_OPTIONS) private _config: DtMicroChartConfig
   ) {
     super(_elementRef);
@@ -112,7 +142,7 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
   ngAfterViewInit(): void {
     // iterate through all series and apply the config.
     // do we need this or could we pass this as a binding with the render data?
-    this._allSeriesSVG.forEach((series) => {
+    this._allSeriesSVG.forEach(series => {
       series._config = this._config;
     });
 
@@ -120,7 +150,11 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
     const seriesInputChanges = this._allSeriesExternal.changes.pipe(
       startWith(null),
       filter(() => !!this._allSeriesExternal.length),
-      switchMap(() => combineLatest(this._allSeriesExternal.map((seriesExt) => seriesExt._stateChanges)))
+      switchMap(() =>
+        combineLatest(
+          this._allSeriesExternal.map(seriesExt => seriesExt._stateChanges)
+        )
+      )
       // TODO: figure it out - prevent multiple emissions when data changes
       // switchMap((series) => this._zone.onMicrotaskEmpty.pipe(take(1), map(() => series)))
     );
@@ -130,7 +164,9 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
       startWith(null),
       switchMap(() => {
         if (!!this._allXAxesExternal.length) {
-          return combineLatest(this._allXAxesExternal.map((axisExt) => axisExt._stateChanges));
+          return combineLatest(
+            this._allXAxesExternal.map(axisExt => axisExt._stateChanges)
+          );
         }
         return of(null);
       })
@@ -141,7 +177,9 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
       startWith(null),
       switchMap(() => {
         if (!!this._allYAxesExternal.length) {
-          return combineLatest(this._allYAxesExternal.map((axisExt) => axisExt._stateChanges));
+          return combineLatest(
+            this._allYAxesExternal.map(axisExt => axisExt._stateChanges)
+          );
         }
         return of(null);
       })
@@ -150,7 +188,12 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
     // This is a stream that emits every time the viewport size changes and applies the new width of the chart.
     const viewportChanges = this._viewportResizer.change().pipe(
       startWith(null),
-      map(() => (this._elementRef.nativeElement as HTMLElement).getBoundingClientRect().width));
+      map(
+        () =>
+          (this._elementRef
+            .nativeElement as HTMLElement).getBoundingClientRect().width
+      )
+    );
 
     // we merge the seriesInputChanges with the viewport resizer changes to
     // trigger recalculation of the scales and domains and reflow
@@ -159,56 +202,89 @@ export class DtMicroChart2 extends _DtMicroChartBase2 implements CanColor<DtMicr
       seriesInputChanges,
       xAxesInputChanges,
       yAxesInputChanges,
-    ]).pipe(
-      takeUntil(this._destroy)
-    ).subscribe(([width, series, xAxes, yAxes]) => {
-      Promise.resolve().then(() => {
-        // apply the new width.
-        this._width = width;
+    ])
+      .pipe(takeUntil(this._destroy))
+      .subscribe(([width, series, xAxes, yAxes]) => {
+        Promise.resolve().then(() => {
+          // apply the new width.
+          this._width = width;
 
-        // generate Domains for all series.
-        let domains = createChartDomains(series);
+          // generate Domains for all series.
+          let domains = createChartDomains(series);
 
-        // Get extents of the axis.
-        if (xAxes !== null || yAxes !== null) {
-          domains = applyAxesExtentsToDomain([...(xAxes || []), ...(yAxes || [])], domains);
-        }
-
-        let stack: Array<Series<{ [key: string]: number }, string>> | undefined;
-        if (this._stackContainer.length > 0) {
-          stack = createStack(series);
-          domains = extendDomainForStack(domains, stack);
-        }
-        // for now we can only have one stack
-
-        const nextRenderData: DtMicroChartRendererSeriesData[] = [];
-
-        // iterate over the series and collect renderdata.
-        for (const s of series) {
-          let rendererData;
-          switch (s.type) {
-            case 'column': {
-              const data = handleChartColumnSeries(width, (s as DtMicroChartColumnSeries), domains, this._config, stack);
-              rendererData = this._chartRenderer.createColumnSeriesRenderData(data);
-              break;
-            }
-            case 'bar': {
-              const data = handleChartBarSeries(width, (s as DtMicroChartBarSeries), domains, this._config, stack);
-              rendererData = this._chartRenderer.createBarSeriesRenderData(data);
-              break;
-            }
-            case 'line':
-            default: {
-              const data = handleChartLineSeries(width, (s as DtMicroChartLineSeries), domains, this._config);
-              rendererData = this._chartRenderer.createLineSeriesRenderData(data);
-            }
+          // Get extents of the axis.
+          if (xAxes !== null || yAxes !== null) {
+            domains = applyAxesExtentsToDomain(
+              [...(xAxes || []), ...(yAxes || [])],
+              domains
+            );
           }
-          nextRenderData.push({ ...s._renderData, ...rendererData, width, plotOffsetX: this._config.marginLeft });
-        }
-        this._renderData.next(nextRenderData);
-        this._changeDetectorRef.markForCheck();
+
+          let stack:
+            | Array<Series<{ [key: string]: number }, string>>
+            | undefined;
+          if (this._stackContainer.length > 0) {
+            stack = createStack(series);
+            domains = extendDomainForStack(domains, stack);
+          }
+          // for now we can only have one stack
+
+          const nextRenderData: DtMicroChartRendererSeriesData[] = [];
+
+          // iterate over the series and collect renderdata.
+          for (const s of series) {
+            let rendererData;
+            switch (s.type) {
+              case 'column': {
+                const data = handleChartColumnSeries(
+                  width,
+                  s as DtMicroChartColumnSeries,
+                  domains,
+                  this._config,
+                  stack
+                );
+                rendererData = this._chartRenderer.createColumnSeriesRenderData(
+                  data
+                );
+                break;
+              }
+              case 'bar': {
+                const data = handleChartBarSeries(
+                  width,
+                  s as DtMicroChartBarSeries,
+                  domains,
+                  this._config,
+                  stack
+                );
+                rendererData = this._chartRenderer.createBarSeriesRenderData(
+                  data
+                );
+                break;
+              }
+              case 'line':
+              default: {
+                const data = handleChartLineSeries(
+                  width,
+                  s as DtMicroChartLineSeries,
+                  domains,
+                  this._config
+                );
+                rendererData = this._chartRenderer.createLineSeriesRenderData(
+                  data
+                );
+              }
+            }
+            nextRenderData.push({
+              ...s._renderData,
+              ...rendererData,
+              width,
+              plotOffsetX: this._config.marginLeft,
+            });
+          }
+          this._renderData.next(nextRenderData);
+          this._changeDetectorRef.markForCheck();
+        });
       });
-    });
   }
 
   /** OnDestroy hook. */

@@ -11,7 +11,9 @@ import { DtMicroChartBarDataPoint } from '../business-logic/core/bar';
   styleUrls: ['./bar.scss'],
   inputs: ['color'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartBarSeriesSVG }],
+  providers: [
+    { provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartBarSeriesSVG },
+  ],
 })
 export class DtMicroChartBarSeriesSVG extends DtMicroChartSeriesSVG {
   @Input() points: DtMicroChartBarDataPoint[];

@@ -1,8 +1,10 @@
-
 import { stack as d3Stack, Series } from 'd3-shape';
 import { DtMicroChartDomains } from './chart';
 import { max } from 'd3-array';
-import { DtMicroChartSeries, DtMicroChartStackableSeries } from '../../public-api/series';
+import {
+  DtMicroChartSeries,
+  DtMicroChartStackableSeries,
+} from '../../public-api/series';
 
 /**
  * Create stack
@@ -37,12 +39,10 @@ export function createStack(
   const stackMap = new Map<string, { [key: string]: number }>();
 
   const stackedSeries = series.filter(
-    (s) =>
-      s instanceof DtMicroChartStackableSeries &&
-      s.isStacked
+    s => s instanceof DtMicroChartStackableSeries && s.isStacked
   );
 
-  stackedSeries.forEach((s) => {
+  stackedSeries.forEach(s => {
     for (const dp of s._transformedData) {
       const stackedDataMap: { [key: string]: number } = stackMap.has(
         dp.x.toString()
@@ -55,7 +55,9 @@ export function createStack(
     }
   });
 
-  return d3Stack().keys(Array.from(stackedSeries.map((s) => s._id)))(Array.from(stackMap.values()));
+  return d3Stack().keys(Array.from(stackedSeries.map(s => s._id)))(
+    Array.from(stackMap.values())
+  );
 }
 
 export function extendDomainForStack(
@@ -65,12 +67,15 @@ export function extendDomainForStack(
   if (!stack.length) {
     return domains;
   }
-  const stackMax = max(stack, (y) => max(y, (d) => d[1]));
+  const stackMax = max(stack, y => max(y, d => d[1]));
   return {
     ...domains,
     y: {
       ...domains.y,
-      max: stackMax !== undefined && stackMax > domains.y.max ? stackMax : domains.y.max,
+      max:
+        stackMax !== undefined && stackMax > domains.y.max
+          ? stackMax
+          : domains.y.max,
       min: 0,
     },
   };

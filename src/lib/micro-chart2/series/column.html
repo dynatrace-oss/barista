@@ -1,6 +1,6 @@
 <ng-container *ngFor="let point of points">
   <svg:rect
-    *ngIf="point.y !== null"  
+    *ngIf="point.y !== null"
     [attr.x]="point.x"
     [attr.y]="point.y"
     [attr.width]="point.width"
@@ -27,7 +27,6 @@
     #minLabel
   >
     <svg:tspan baseline-shift="-20">
-
       <ng-container [cdkPortalOutlet]="_minPortal"></ng-container>
     </svg:tspan>
   </svg:text>

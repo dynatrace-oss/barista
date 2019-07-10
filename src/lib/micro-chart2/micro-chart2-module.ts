@@ -6,7 +6,10 @@ import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
 import { DtMicroChartLineSeries } from './public-api/line';
 import { DtMicroChartColumnSeries } from './public-api/column';
 import { DtMicroChartBarSeries } from './public-api/bar';
-import { DtMicroChartMinLabel, DtMicroChartMaxLabel } from './public-api/extreme-label';
+import {
+  DtMicroChartMinLabel,
+  DtMicroChartMaxLabel,
+} from './public-api/extreme-label';
 import { DtMicroChartXAxis, DtMicroChartYAxis } from './public-api/axes';
 import { DtMicroChartStackContainer } from './public-api/stacked-container';
 import { DtMicroChartLineSeriesSVG } from './series/line';
@@ -17,12 +20,7 @@ import { DtMicroChartSvgRenderer } from './business-logic/renderer/svg-renderer'
 import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
-  imports: [
-    DtChartModule,
-    CommonModule,
-    DtFormattersModule,
-    PortalModule,
-  ],
+  imports: [DtChartModule, CommonModule, DtFormattersModule, PortalModule],
   exports: [
     DtMicroChart2,
     DtMicroChartLineSeries,
@@ -50,8 +48,9 @@ import { PortalModule } from '@angular/cdk/portal';
   ],
   providers: [
     {
-      provide: DT_MICRO_CHART_RENDERER, useClass: DtMicroChartSvgRenderer,
+      provide: DT_MICRO_CHART_RENDERER,
+      useClass: DtMicroChartSvgRenderer,
     },
   ],
 })
-export class DtMicroChart2Module { }
+export class DtMicroChart2Module {}

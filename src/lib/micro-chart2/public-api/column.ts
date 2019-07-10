@@ -27,34 +27,43 @@ import { DtMicroChartStackContainer } from './stacked-container';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   exportAs: 'dtMicroChartColumnSeries',
-  providers: [{ provide: DtMicroChartSeries, useExisting: DtMicroChartColumnSeries }],
+  providers: [
+    { provide: DtMicroChartSeries, useExisting: DtMicroChartColumnSeries },
+  ],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries implements OnChanges, OnDestroy {
+export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries
+  implements OnChanges, OnDestroy {
   private _highlightExtremes;
 
   readonly type: DtMicroChartSeriesType = 'column';
 
-  // tslint:disable-next-line:no-any
-  @ContentChild(DtMicroChartMinLabel, { static: true, read: TemplateRef }) _minLabelTemplate: TemplateRef<any>;
-  // tslint:disable-next-line:no-any
-  @ContentChild(DtMicroChartMaxLabel, { static: true, read: TemplateRef }) _maxLabelTemplate: TemplateRef<any>;
+  @ContentChild(DtMicroChartMinLabel, { static: true, read: TemplateRef })
+  _minLabelTemplate: TemplateRef<any>; // tslint:disable-line:no-any
+
+  @ContentChild(DtMicroChartMaxLabel, { static: true, read: TemplateRef })
+  _maxLabelTemplate: TemplateRef<any>; // tslint:disable-line:no-any
 
   /**
    * Whether the autocomplete is disabled. When disabled, the element will
    * act as a regular input and the user won't be able to open the panel.
    */
   @Input()
-  get highlightExtremes(): boolean { return this._highlightExtremes; }
+  get highlightExtremes(): boolean {
+    return this._highlightExtremes;
+  }
   set highlightExtremes(value: boolean) {
     this._highlightExtremes = coerceBooleanProperty(value);
   }
 
-  constructor(@Optional() @SkipSelf() public _stackedContainer: DtMicroChartStackContainer) {
+  constructor(
+    @Optional() @SkipSelf() public _stackedContainer: DtMicroChartStackContainer
+  ) {
     super(_stackedContainer);
   }
 
-  get _renderData(): DtMicroChartRenderDataBase & DtMicroChartRenderDataExtremes {
+  get _renderData(): DtMicroChartRenderDataBase &
+    DtMicroChartRenderDataExtremes {
     return {
       type: this.type,
       publicSeriesId: this._id,

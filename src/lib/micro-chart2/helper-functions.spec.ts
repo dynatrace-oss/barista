@@ -1,7 +1,9 @@
-import { calculateLabelPosition, interpolateNullValues } from './helper-functions';
+import {
+  calculateLabelPosition,
+  interpolateNullValues,
+} from './helper-functions';
 
 describe('DtMicroChart - Helper functions', () => {
-
   describe('calculateLabelPosition', () => {
     it('should be middle if the label fits', () => {
       expect(calculateLabelPosition(150, 100, 300)).toBe('middle');

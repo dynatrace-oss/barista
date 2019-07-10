@@ -19,10 +19,15 @@ import { DtMicroChartExtremeSeriesSVG } from './series-extreme';
   inputs: ['color'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    { provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartColumnSeriesSVG },
+    {
+      provide: DtMicroChartSeriesSVG,
+      useExisting: DtMicroChartColumnSeriesSVG,
+    },
   ],
 })
-export class DtMicroChartColumnSeriesSVG extends DtMicroChartExtremeSeriesSVG<DtMicroChartColumnDataPoint> {
+export class DtMicroChartColumnSeriesSVG extends DtMicroChartExtremeSeriesSVG<
+  DtMicroChartColumnDataPoint
+> {
   /** Points input to render columns. */
   @Input() points: DtMicroChartColumnDataPoint[];
 

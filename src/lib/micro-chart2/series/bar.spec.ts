@@ -2,7 +2,12 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { PortalModule } from '@angular/cdk/portal';
@@ -10,17 +15,10 @@ import { DtMicroChartBarSeriesSVG } from './bar';
 import { createComponent } from '../../../testing/create-component';
 
 describe('DtMicroChartBarSvg', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        PortalModule,
-      ],
-      declarations: [
-        SimpleBarSeries,
-        DtMicroChartBarSeriesSVG,
-      ],
+      imports: [CommonModule, PortalModule],
+      declarations: [SimpleBarSeries, DtMicroChartBarSeriesSVG],
     }).compileComponents();
   }));
 
@@ -55,7 +53,6 @@ describe('DtMicroChartBarSvg', () => {
       fixture = TestBed.createComponent(SimpleBarSeries);
       fixture.detectChanges();
     }));
-
   });
 });
 

@@ -1,8 +1,17 @@
-import { DtMicroChartLineSeriesData, DtMicroChartLineDataPoint } from '../core/line';
+import {
+  DtMicroChartLineSeriesData,
+  DtMicroChartLineDataPoint,
+} from '../core/line';
 import { line } from 'd3-shape';
 import { DtMicroChartRenderer } from './base';
-import { DtMicroChartColumnSeriesData, DtMicroChartColumnDataPoint } from '../core/column';
-import { DtMicroChartBarSeriesData, DtMicroChartBarDataPoint } from '../core/bar';
+import {
+  DtMicroChartColumnSeriesData,
+  DtMicroChartColumnDataPoint,
+} from '../core/column';
+import {
+  DtMicroChartBarSeriesData,
+  DtMicroChartBarDataPoint,
+} from '../core/bar';
 import { DtMicroChartExtremes } from '../core/chart';
 
 export type SVGTextAnchor = 'start' | 'middle' | 'end';
@@ -26,27 +35,31 @@ export interface DtMicroChartBarSeriesSvgData {
 }
 
 export type DtMicroChartRendererSeriesData =
-  DtMicroChartLineSeriesSvgData |
-  DtMicroChartColumnSeriesSvgData |
-  DtMicroChartBarSeriesSvgData;
+  | DtMicroChartLineSeriesSvgData
+  | DtMicroChartColumnSeriesSvgData
+  | DtMicroChartBarSeriesSvgData;
 
 export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
-
-  createLineSeriesRenderData(data: DtMicroChartLineSeriesData): DtMicroChartLineSeriesSvgData {
-    const linePoints = data.points.map((dp) => [dp.x, dp.y] as [number, number]);
+  createLineSeriesRenderData(
+    data: DtMicroChartLineSeriesData
+  ): DtMicroChartLineSeriesSvgData {
+    const linePoints = data.points.map(dp => [dp.x, dp.y] as [number, number]);
     // Defined path
-    const lineGenerator = line()
-      .defined((dp: [number, number|null], index) => dp[1] !== null && data.points[index].interpolated === undefined);
+    const lineGenerator = line().defined(
+      (dp: [number, number | null], index) =>
+        dp[1] !== null && data.points[index].interpolated === undefined
+    );
     const path = lineGenerator(linePoints) || '';
 
     // Interpolated path
-    const interpolatedLineGenerator = line()
-      .defined((_dp, index) => {
-        const isInterpolated = data.points[index].interpolated === true;
-        const nextIsInterpolated = data.points[index + 1] && data.points[index + 1].interpolated === true;
-        const previousIsInterpolated = data.points[index - 1] && data.points[index - 1].interpolated === true;
-        return isInterpolated || nextIsInterpolated || previousIsInterpolated;
-      });
+    const interpolatedLineGenerator = line().defined((_dp, index) => {
+      const isInterpolated = data.points[index].interpolated === true;
+      const nextIsInterpolated =
+        data.points[index + 1] && data.points[index + 1].interpolated === true;
+      const previousIsInterpolated =
+        data.points[index - 1] && data.points[index - 1].interpolated === true;
+      return isInterpolated || nextIsInterpolated || previousIsInterpolated;
+    });
     const interpolatedPath = interpolatedLineGenerator(linePoints) || '';
 
     return {
@@ -57,7 +70,9 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
     };
   }
 
-  createColumnSeriesRenderData(data: DtMicroChartColumnSeriesData): DtMicroChartColumnSeriesSvgData {
+  createColumnSeriesRenderData(
+    data: DtMicroChartColumnSeriesData
+  ): DtMicroChartColumnSeriesSvgData {
     const offset = 3;
     let renderData: DtMicroChartColumnSeriesSvgData = {
       points: data.points,
@@ -67,17 +82,17 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
         x: data.extremes.min.x - offset,
         y: data.extremes.min.y - offset,
         // tslint:disable-next-line:no-magic-numbers
-        width: data.extremes.min.width + (offset * 2),
+        width: data.extremes.min.width + offset * 2,
         // tslint:disable-next-line:no-magic-numbers
-        height: data.extremes.min.height + (offset * 2),
+        height: data.extremes.min.height + offset * 2,
       };
       const maxHighlightRectangle = {
         x: data.extremes.max.x - offset,
         y: data.extremes.max.y - offset,
         // tslint:disable-next-line:no-magic-numbers
-        width: data.extremes.max.width + (offset * 2),
+        width: data.extremes.max.width + offset * 2,
         // tslint:disable-next-line:no-magic-numbers
-        height: data.extremes.max.height + (offset * 2),
+        height: data.extremes.max.height + offset * 2,
       };
 
       renderData = {
@@ -91,7 +106,9 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
     return renderData;
   }
 
-  createBarSeriesRenderData(data: DtMicroChartBarSeriesData): DtMicroChartBarSeriesSvgData {
+  createBarSeriesRenderData(
+    data: DtMicroChartBarSeriesData
+  ): DtMicroChartBarSeriesSvgData {
     return {
       points: data.points,
     };

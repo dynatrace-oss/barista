@@ -1,84 +1,122 @@
 <p>
   <button dt-button (click)="updateData()">Update data</button>&nbsp;
-  <button dt-button (click)="toggleSeries = !toggleSeries">Toggle Series</button>&nbsp;
-  <button dt-button (click)="toggleExtremes = !toggleExtremes">Toggle Extremes</button>&nbsp;
-  <button dt-button (click)="skipNullValues = !skipNullValues">Toggle skipNullValues: Current value {{skipNullValues}}</button>&nbsp;
+  <button dt-button (click)="toggleSeries = !toggleSeries">Toggle Series</button
+  >&nbsp;
+  <button dt-button (click)="toggleExtremes = !toggleExtremes"
+    >Toggle Extremes</button
+  >&nbsp;
+  <button dt-button (click)="skipNullValues = !skipNullValues"
+    >Toggle skipNullValues: Current value {{ skipNullValues }}</button
+  >&nbsp;
 </p>
 <p>
-  <button dt-button (click)="toggleAxis = !toggleAxis">Toggle Axis</button>&nbsp;
-  <button dt-button (click)="yAxisMin = yAxisMin - 10">Y Axis Min -10</button>&nbsp;
-  <button dt-button (click)="yAxisMin = yAxisMin + 10">Y Axis Min +10</button>&nbsp;
+  <button dt-button (click)="toggleAxis = !toggleAxis">Toggle Axis</button
+  >&nbsp;
+  <button dt-button (click)="yAxisMin = yAxisMin - 10">Y Axis Min -10</button
+  >&nbsp;
+  <button dt-button (click)="yAxisMin = yAxisMin + 10">Y Axis Min +10</button
+  >&nbsp;
 </p>
 <h2>Micro chart demos</h2>
 <h2>Stacked</h2>
 <div style="width: 300px">
   <dt-micro-chart2>
     <dt-micro-chart-stack-container>
-      <dt-micro-chart-column-series [data]="series.data" color="red"></dt-micro-chart-column-series>
-      <dt-micro-chart-column-series [data]="series3.data" color="blue"></dt-micro-chart-column-series>
+      <dt-micro-chart-column-series
+        [data]="series.data"
+        color="red"
+      ></dt-micro-chart-column-series>
+      <dt-micro-chart-column-series
+        [data]="series3.data"
+        color="blue"
+      ></dt-micro-chart-column-series>
     </dt-micro-chart-stack-container>
   </dt-micro-chart2>
 </div>
 <div style="width: 300px">
   <dt-micro-chart2>
     <dt-micro-chart-stack-container>
-      <dt-micro-chart-bar-series [data]="series.data" color="red"></dt-micro-chart-bar-series>
-      <dt-micro-chart-bar-series [data]="series3.data" color="blue"></dt-micro-chart-bar-series>
+      <dt-micro-chart-bar-series
+        [data]="series.data"
+        color="red"
+      ></dt-micro-chart-bar-series>
+      <dt-micro-chart-bar-series
+        [data]="series3.data"
+        color="blue"
+      ></dt-micro-chart-bar-series>
     </dt-micro-chart-stack-container>
   </dt-micro-chart2>
 </div>
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-line-series [data]="series.data" [highlightExtremes]="toggleExtremes">
+    <dt-micro-chart-line-series
+      [data]="series.data"
+      [highlightExtremes]="toggleExtremes"
+    >
       <ng-template dtMicroChartMinLabel let-min>
-        Very long min that should fit: {{min}}
+        Very long min that should fit: {{ min }}
       </ng-template>
       <ng-template dtMicroChartMaxLabel let-max>
-        Very long max that should fit: {{max}}
+        Very long max that should fit: {{ max }}
       </ng-template>
     </dt-micro-chart-line-series>
-    <dt-micro-chart-line-series *ngIf="toggleSeries" [data]="series2.data"></dt-micro-chart-line-series>
-    <dt-micro-chart-y-axis *ngIf="toggleAxis" [min]="yAxisMin" [max]="yAxisMax"></dt-micro-chart-y-axis>
+    <dt-micro-chart-line-series
+      *ngIf="toggleSeries"
+      [data]="series2.data"
+    ></dt-micro-chart-line-series>
+    <dt-micro-chart-y-axis
+      *ngIf="toggleAxis"
+      [min]="yAxisMin"
+      [max]="yAxisMax"
+    ></dt-micro-chart-y-axis>
   </dt-micro-chart2>
 </div>
 
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-line-series [data]="series.data" [highlightExtremes]="toggleExtremes">
+    <dt-micro-chart-line-series
+      [data]="series.data"
+      [highlightExtremes]="toggleExtremes"
+    >
       <ng-template dtMicroChartMinLabel let-min>
-        Very long min that should fit: {{min}}
+        Very long min that should fit: {{ min }}
       </ng-template>
       <ng-template dtMicroChartMaxLabel let-max>
-        Very long max that should fit: {{max}}
+        Very long max that should fit: {{ max }}
       </ng-template>
     </dt-micro-chart-line-series>
-    <dt-micro-chart-line-series *ngIf="toggleSeries" [data]="series2.data"></dt-micro-chart-line-series>
+    <dt-micro-chart-line-series
+      *ngIf="toggleSeries"
+      [data]="series2.data"
+    ></dt-micro-chart-line-series>
   </dt-micro-chart2>
 </div>
-
-
 
 <h2>Simple data - Line</h2>
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-line-series [data]="series.data"></dt-micro-chart-line-series>
+    <dt-micro-chart-line-series
+      [data]="series.data"
+    ></dt-micro-chart-line-series>
   </dt-micro-chart2>
 </div>
 
 <h2>Simple data - Column</h2>
 <div>
   <dt-micro-chart2>
-    <dt-micro-chart-column-series [data]="series.data" [highlightExtremes]="toggleExtremes">
+    <dt-micro-chart-column-series
+      [data]="series.data"
+      [highlightExtremes]="toggleExtremes"
+    >
       <ng-template dtMicroChartMinLabel let-min>
-          Very long min that should fit: {{min}}
+        Very long min that should fit: {{ min }}
       </ng-template>
       <ng-template dtMicroChartMaxLabel let-max>
-        Very long max that should fit: {{max}}
+        Very long max that should fit: {{ max }}
       </ng-template>
     </dt-micro-chart-column-series>
   </dt-micro-chart2>
 </div>
-
 
 <h2>Simple data - Bar</h2>
 <div style="width: 300px">
@@ -90,58 +128,90 @@
 <h2>Simple data with multiple series</h2>
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-column-series [data]="series.data"></dt-micro-chart-column-series>
-    <dt-micro-chart-line-series [data]="series.data"></dt-micro-chart-line-series>
+    <dt-micro-chart-column-series
+      [data]="series.data"
+    ></dt-micro-chart-column-series>
+    <dt-micro-chart-line-series
+      [data]="series.data"
+    ></dt-micro-chart-line-series>
   </dt-micro-chart2>
 </div>
-
 
 <h2>Timeseries data - Line</h2>
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-line-series [data]="timeseries.data"></dt-micro-chart-line-series>
+    <dt-micro-chart-line-series
+      [data]="timeseries.data"
+    ></dt-micro-chart-line-series>
   </dt-micro-chart2>
 </div>
 
 <h2>Timeseries data - Column</h2>
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-column-series [data]="timeseries.data"></dt-micro-chart-column-series>
+    <dt-micro-chart-column-series
+      [data]="timeseries.data"
+    ></dt-micro-chart-column-series>
   </dt-micro-chart2>
 </div>
-  
+
 <h2>Timeseries data - Line and column</h2>
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-line-series [data]="timeseries.data"></dt-micro-chart-line-series>
-    <dt-micro-chart-column-series [data]="timeseries.data"></dt-micro-chart-column-series>
+    <dt-micro-chart-line-series
+      [data]="timeseries.data"
+    ></dt-micro-chart-line-series>
+    <dt-micro-chart-column-series
+      [data]="timeseries.data"
+    ></dt-micro-chart-column-series>
   </dt-micro-chart2>
 </div>
 
 <dt-micro-chart2>
   <dt-micro-chart-stack-container>
-    <dt-micro-chart-bar-series [data]="[100]" color="#7c38a1"></dt-micro-chart-bar-series>
-    <dt-micro-chart-bar-series [data]="[30]" color="#fff29a"></dt-micro-chart-bar-series>
-    <dt-micro-chart-bar-series [data]="[40]" color="#4fd5e0"></dt-micro-chart-bar-series>
-    <dt-micro-chart-bar-series [data]="[30]" color="#debbf3"></dt-micro-chart-bar-series>
+    <dt-micro-chart-bar-series
+      [data]="[100]"
+      color="#7c38a1"
+    ></dt-micro-chart-bar-series>
+    <dt-micro-chart-bar-series
+      [data]="[30]"
+      color="#fff29a"
+    ></dt-micro-chart-bar-series>
+    <dt-micro-chart-bar-series
+      [data]="[40]"
+      color="#4fd5e0"
+    ></dt-micro-chart-bar-series>
+    <dt-micro-chart-bar-series
+      [data]="[30]"
+      color="#debbf3"
+    ></dt-micro-chart-bar-series>
   </dt-micro-chart-stack-container>
 </dt-micro-chart2>
 
 <h2>Interpolated data - Line, column and bar</h2>
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-line-series [data]="series3.data" [skipNullValues]="skipNullValues"></dt-micro-chart-line-series>
+    <dt-micro-chart-line-series
+      [data]="series3.data"
+      [skipNullValues]="skipNullValues"
+    ></dt-micro-chart-line-series>
   </dt-micro-chart2>
 </div>
 
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-column-series [data]="series3.data" [skipNullValues]="skipNullValues"></dt-micro-chart-column-series>
+    <dt-micro-chart-column-series
+      [data]="series3.data"
+      [skipNullValues]="skipNullValues"
+    ></dt-micro-chart-column-series>
   </dt-micro-chart2>
 </div>
 
 <div style="width: 300px">
   <dt-micro-chart2>
-    <dt-micro-chart-bar-series [data]="series3.data" [skipNullValues]="skipNullValues"></dt-micro-chart-bar-series>
+    <dt-micro-chart-bar-series
+      [data]="series3.data"
+      [skipNullValues]="skipNullValues"
+    ></dt-micro-chart-bar-series>
   </dt-micro-chart2>
 </div>

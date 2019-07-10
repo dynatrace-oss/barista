@@ -1,6 +1,8 @@
-
 import { extent } from 'd3-array';
-import { DtMicroChartSeriesType, DtMicroChartSeries } from '../../public-api/series';
+import {
+  DtMicroChartSeriesType,
+  DtMicroChartSeries,
+} from '../../public-api/series';
 import { DtMicroChartAxis } from '../../public-api/axes';
 
 // TODO: adjust datastructure to find eventually shared scales (multiple axis, ...)
@@ -28,14 +30,22 @@ export interface DtMicroChartDataPoint {
 }
 
 /** Unify the series data to a map where the x value is the key and the y value is the value in the map. */
-export function unifySeriesData(data: Array<number|null> | Array<[number, number|null]>): DtMicroChartDataPoint[] {
+export function unifySeriesData(
+  data: Array<number | null> | Array<[number, number | null]>
+): DtMicroChartDataPoint[] {
   const transform = data && data.length && !(data[0] instanceof Array);
-  return transform ?
-    (data as Array<number|null>).map((dataPoint, index) => ({x: index, y: dataPoint})) :
-    (data as Array<[number, number|null]>).map(([x, y]) => ({ x, y }));
+  return transform
+    ? (data as Array<number | null>).map((dataPoint, index) => ({
+        x: index,
+        y: dataPoint,
+      }))
+    : (data as Array<[number, number | null]>).map(([x, y]) => ({ x, y }));
 }
 
-export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, series: DtMicroChartSeries): DtMicroChartDomains {
+export function reduceSeriesToChartDomains(
+  aggregator: DtMicroChartDomains,
+  series: DtMicroChartSeries
+): DtMicroChartDomains {
   let xMin = aggregator.x.min;
   let xMax = aggregator.x.max;
   let yMin = aggregator.y.min;
@@ -44,8 +54,8 @@ export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, seri
   let yMaxNrOfPoints = aggregator.y.numberOfPoints;
 
   const data = series._transformedData;
-  const [seriesXMin, seriesXMax] = extent(data, (d) => d.x);
-  const [seriesYMin, seriesYMax] = extent(data, (d) => d.y);
+  const [seriesXMin, seriesXMax] = extent(data, d => d.x);
+  const [seriesYMin, seriesYMax] = extent(data, d => d.y);
   // TODO: find distinct x Values
 
   // Find extents over all series provided
@@ -85,7 +95,9 @@ export function reduceSeriesToChartDomains(aggregator: DtMicroChartDomains, seri
 }
 
 /** Create chart domains for all combined series. */
-export function createChartDomains(series: DtMicroChartSeries[]): DtMicroChartDomains {
+export function createChartDomains(
+  series: DtMicroChartSeries[]
+): DtMicroChartDomains {
   // TODO: this needs some smarts
   const standardDomain: DtMicroChartDomains = {
     x: {
@@ -99,12 +111,14 @@ export function createChartDomains(series: DtMicroChartSeries[]): DtMicroChartDo
       numberOfPoints: -Infinity,
     },
   };
-  return series
-    .reduce(reduceSeriesToChartDomains, standardDomain);
+  return series.reduce(reduceSeriesToChartDomains, standardDomain);
 }
 
 /** Axis can move the chart domains. Calculate the extents of the configured axis and apply it to the domains. */
-export function applyAxesExtentsToDomain(axes: DtMicroChartAxis[], domains: DtMicroChartDomains): DtMicroChartDomains {
+export function applyAxesExtentsToDomain(
+  axes: DtMicroChartAxis[],
+  domains: DtMicroChartDomains
+): DtMicroChartDomains {
   let xAxisMin;
   let xAxisMax;
   let yAxisMin;

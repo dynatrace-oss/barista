@@ -21,8 +21,9 @@ import { DtMicroChartExtremeSeriesSVG } from './series-extreme';
     { provide: DtMicroChartSeriesSVG, useExisting: DtMicroChartLineSeriesSVG },
   ],
 })
-export class DtMicroChartLineSeriesSVG extends DtMicroChartExtremeSeriesSVG<DtMicroChartLineDataPoint> {
-
+export class DtMicroChartLineSeriesSVG extends DtMicroChartExtremeSeriesSVG<
+  DtMicroChartLineDataPoint
+> {
   @Input() points: DtMicroChartLineDataPoint[];
   @Input() path: string;
   @Input() interpolatedPath: string;

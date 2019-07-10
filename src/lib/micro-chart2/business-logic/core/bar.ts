@@ -27,7 +27,6 @@ function calculatePoint(
   scales: DtMicroChartBarScales,
   dpStacked?: number
 ): DtMicroChartBarDataPoint {
-
   const y = scales.y(index) as number;
   const height = scales.y.bandwidth();
   let x;
@@ -65,7 +64,9 @@ export function handleChartBarSeries(
   };
 
   if (stack) {
-    const stackData = stack.find((stackedSeries) => stackedSeries.key === series._id);
+    const stackData = stack.find(
+      stackedSeries => stackedSeries.key === series._id
+    );
     if (stackData) {
       transformedData.points = stackData.map((d, index) => {
         const d0 = d[0];
@@ -90,7 +91,11 @@ export function handleChartBarSeries(
   return transformedData;
 }
 
-function getScales(width: number, domains: DtMicroChartDomains, config: DtMicroChartConfig): DtMicroChartBarScales {
+function getScales(
+  width: number,
+  domains: DtMicroChartDomains,
+  config: DtMicroChartConfig
+): DtMicroChartBarScales {
   const x = scaleLinear()
     .range([0, width - config.marginLeft - config.marginRight])
     .domain([domains.y.min, domains.y.max]);
