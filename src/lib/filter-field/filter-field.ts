@@ -400,9 +400,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         if (removed.length === 1) {
           // Needed to reassign in order for typescript to understand the type.
           const recentRangeValue = removed[0];
-          if (isDtRangeValue(recentRangeValue)) {
+          if (isDtRangeValue(recentRangeValue) && this._currentDef.range) {
             // Needed to set this in typescript, because template binding of input would be evaluated to late.
-            this._filterfieldRange.enabledOperators = this._currentDef.range!.operatorFlags;
+            this._filterfieldRange.enabledOperators = this._currentDef.range.operatorFlags;
             this._filterfieldRange._setValues(recentRangeValue.range);
             this._filterfieldRange._setOperator(
               recentRangeValue.operator as DtFilterFieldRangeOperator
