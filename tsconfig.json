@@ -21,25 +21,14 @@
     "importHelpers": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "paths": {
-      "@dynatrace/angular-components": [
-        "src/lib"
-      ],
-      "@dynatrace/angular-components/*": [
-        "src/lib/*"
-      ],
-      "highcharts": [
-        "node_modules/highcharts"
-      ]
+      "@dynatrace/angular-components": ["src/lib"],
+      "@dynatrace/angular-components/*": ["src/lib/*"],
+      "highcharts": ["node_modules/highcharts"]
     },
     "strictNullChecks": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "typeRoots": ["node_modules/@types"],
     "plugins": [
       {
         "name": "typescript-tslint-plugin",
@@ -49,13 +38,8 @@
         "disableNoUnusedVariableRule": false,
         "suppressWhileTypeErrorsPresent": false,
         "mockTypeScriptVersion": false
-        }
+      }
     ]
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.ngfactory.ts",
-    "**/*.shim.ts"
-  ]
+  "exclude": ["node_modules", "dist", "**/*.ngfactory.ts", "**/*.shim.ts"]
 }
