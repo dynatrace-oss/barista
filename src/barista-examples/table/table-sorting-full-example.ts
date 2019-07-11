@@ -6,9 +6,9 @@ import { DtSortEvent } from '@dynatrace/angular-components';
   selector: 'demo-component',
   // tslint:disable
   template: `
-    <button dt-button (click)="toggleDisableAll()"
-      >Toggle disable sorting for all columns</button
-    >
+    <button dt-button (click)="toggleDisableAll()">
+      Toggle disable sorting for all columns
+    </button>
     <dt-table
       [dataSource]="dataSource"
       dtSort
@@ -23,8 +23,9 @@ import { DtSortEvent } from '@dynatrace/angular-components';
           *dtHeaderCellDef
           dt-sort-header
           sort-aria-label="Change sort order for hosts"
-          >Host</dt-header-cell
         >
+          Host
+        </dt-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
       </ng-container>
 
@@ -33,8 +34,9 @@ import { DtSortEvent } from '@dynatrace/angular-components';
           *dtHeaderCellDef
           dt-sort-header
           sort-aria-label="Change sort order for cpus"
-          >CPU</dt-header-cell
         >
+          CPU
+        </dt-header-cell>
         <dt-cell
           *dtCellDef="
             let row;
@@ -45,8 +47,9 @@ import { DtSortEvent } from '@dynatrace/angular-components';
             even as e;
             odd as o
           "
-          >{{ row.cpu | dtPercent }}</dt-cell
         >
+          {{ row.cpu | dtPercent }}
+        </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="memory" dtColumnAlign="number">
@@ -55,12 +58,12 @@ import { DtSortEvent } from '@dynatrace/angular-components';
           dt-sort-header
           start="desc"
           sort-aria-label="Change sort order for memory"
-          >Memory</dt-header-cell
         >
-        <dt-cell *dtCellDef="let row"
-          >{{ row.memoryPerc | dtPercent }} of
-          {{ row.memoryTotal | dtBytes }}</dt-cell
-        >
+          Memory
+        </dt-header-cell>
+        <dt-cell *dtCellDef="let row">
+          {{ row.memoryPerc | dtPercent }} of {{ row.memoryTotal | dtBytes }}
+        </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="traffic" dtColumnAlign="control">
@@ -69,11 +72,12 @@ import { DtSortEvent } from '@dynatrace/angular-components';
           disabled
           dt-sort-header
           sort-aria-label="Change sort order for network traffic"
-          >Network traffic</dt-header-cell
         >
-        <dt-cell *dtCellDef="let row">{{
-          row.traffic | dtBytes | dtRate: 's'
-        }}</dt-cell>
+          Network traffic
+        </dt-header-cell>
+        <dt-cell *dtCellDef="let row">
+          {{ row.traffic | dtBytes | dtRate: 's' }}
+        </dt-cell>
       </ng-container>
 
       <dt-header-row

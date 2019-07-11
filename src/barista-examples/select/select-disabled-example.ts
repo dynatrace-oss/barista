@@ -13,11 +13,11 @@ import { Component } from '@angular/core';
       <dt-option disabled value="Affogato">Affogato</dt-option>
       <dt-option value="Americano">Americano</dt-option>
     </dt-select>
-    <p
-      ><dt-checkbox checked (change)="disabled = !disabled"
-        >Disabled</dt-checkbox
-      ></p
-    >
+    <p>
+      <dt-checkbox checked (change)="disabled = !disabled">
+        Disabled
+      </dt-checkbox>
+    </p>
   `,
 })
 export class SelectDisabledExample {

@@ -16,10 +16,11 @@ import { Component } from '@angular/core';
       aria-label="Open context dialog"
       aria-label-close-button="Close context dialog"
     >
-      <p
-        >Your dashboard "real user monitoring"<br />
-        is only visible to you</p
-      >
+      <p>
+        Your dashboard "real user monitoring"
+        <br />
+        is only visible to you
+      </p>
     </dt-context-dialog>
   `,
 })

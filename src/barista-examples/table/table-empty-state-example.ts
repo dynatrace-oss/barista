@@ -56,13 +56,13 @@ import { Component } from '@angular/core';
           />
         </dt-table-empty-state-image>
 
-        <dt-table-empty-state-title
-          >No data that matches your query</dt-table-empty-state-title
-        >
+        <dt-table-empty-state-title>
+          No data that matches your query
+        </dt-table-empty-state-title>
 
-        <dt-table-empty-state-message>{{
-          message
-        }}</dt-table-empty-state-message>
+        <dt-table-empty-state-message>
+          {{ message }}
+        </dt-table-empty-state-message>
       </dt-table-empty-state>
 
       <dt-header-row

@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `
     <dt-expandable-section disabled>
-      <dt-expandable-section-header
-        >My header text</dt-expandable-section-header
-      >
+      <dt-expandable-section-header>
+        My header text
+      </dt-expandable-section-header>
       {{ text }}
     </dt-expandable-section>
   `,

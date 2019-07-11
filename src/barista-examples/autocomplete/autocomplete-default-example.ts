@@ -12,9 +12,9 @@ import { Component } from '@angular/core';
       aria-label="Start typing"
     />
     <dt-autocomplete #auto="dtAutocomplete">
-      <dt-option *ngFor="let option of options" [value]="option">{{
-        option
-      }}</dt-option>
+      <dt-option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </dt-option>
     </dt-autocomplete>
   `,
 })

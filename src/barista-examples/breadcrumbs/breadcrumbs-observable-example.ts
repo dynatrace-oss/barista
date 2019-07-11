@@ -11,8 +11,9 @@ import { map } from 'rxjs/operators';
       <dt-breadcrumbs-item
         *ngFor="let item of data$ | async"
         [href]="item.href"
-        >{{ item.label }}</dt-breadcrumbs-item
       >
+        {{ item.label }}
+      </dt-breadcrumbs-item>
     </dt-breadcrumbs>
   `,
 })

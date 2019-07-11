@@ -4,15 +4,19 @@ import { Component } from '@angular/core';
   selector: 'barista-demo',
   template: `
     <p>Value passed to the progress circle: {{ value }}</p>
-    <dt-progress-circle (valueChange)="changed($event)" [value]="value">
-    </dt-progress-circle>
+    <dt-progress-circle
+      (valueChange)="changed($event)"
+      [value]="value"
+    ></dt-progress-circle>
     <div>
       <button dt-button (click)="value = value - 10">decrease by 10</button>
       <button dt-button (click)="value = value + 10">increase by 10</button>
     </div>
-    <p *ngIf="oldValue !== null"
-      >Event: OldValue: {{ oldValue }}<br />NewValue: {{ newValue }}</p
-    >
+    <p *ngIf="oldValue !== null">
+      Event: OldValue: {{ oldValue }}
+      <br />
+      NewValue: {{ newValue }}
+    </p>
   `,
 })
 export class ProgressCircleChangeExample {

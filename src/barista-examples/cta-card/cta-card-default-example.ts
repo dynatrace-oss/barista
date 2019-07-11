@@ -6,15 +6,15 @@ import { Component } from '@angular/core';
   template: `
     <div class="demo-card">
       <dt-cta-card>
-        <dt-cta-card-title i18n
-          >Start monitoring your Cloud Foundry foundation VMs</dt-cta-card-title
-        >
+        <dt-cta-card-title i18n>
+          Start monitoring your Cloud Foundry foundation VMs
+        </dt-cta-card-title>
         <dt-cta-card-footer-actions>
           <a dt-button color="cta" i18n>View release</a>
         </dt-cta-card-footer-actions>
-        <dt-cta-card-image
-          ><img src="/assets/cta-noagent.svg"
-        /></dt-cta-card-image>
+        <dt-cta-card-image>
+          <img src="/assets/cta-noagent.svg" />
+        </dt-cta-card-image>
         Deploy Dynatrace OneAgent via the Dynatrace OneAgent BOSH release to
         your Cloud Foundry foundation VMs. Get monitoring insights into all
         Cloud Foundry components including Diego cells, Gorouters, and more.

@@ -5,15 +5,14 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <dt-checkbox
-      >Check this checkbox to subscribe to our product news newsletter and other
-      updates. We'll send updates once a month and promise we won't spam
-      you.</dt-checkbox
-    >
-    <dt-checkbox
-      >This website uses performance, functionality and targeting cookies. If
-      you check this checkbox, you consent to the use of cookies.</dt-checkbox
-    >
+    <dt-checkbox>
+      Check this checkbox to subscribe to our product news newsletter and other
+      updates. We'll send updates once a month and promise we won't spam you.
+    </dt-checkbox>
+    <dt-checkbox>
+      This website uses performance, functionality and targeting cookies. If you
+      check this checkbox, you consent to the use of cookies.
+    </dt-checkbox>
   `,
   styles: [
     `

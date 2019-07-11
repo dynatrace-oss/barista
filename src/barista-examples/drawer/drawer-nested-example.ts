@@ -10,25 +10,29 @@ import { Component } from '@angular/core';
       </dt-drawer>
 
       <h2>Hosting units</h2>
-      <p> There can be some text before the second drawer will appear</p>
+      <p>There can be some text before the second drawer will appear</p>
 
       <dt-drawer-container class="inner-drawer">
         <dt-drawer #innerDrawer mode="over" position="end">
           Inner drawer content
         </dt-drawer>
 
-        I'm the content of the <b>inner</b> drawer
-        <button dt-button (click)="innerDrawer.toggle()"
-          >Toggle inner drawer</button
-        >
+        I'm the content of the
+        <b>inner</b>
+        drawer
+        <button dt-button (click)="innerDrawer.toggle()">
+          Toggle inner drawer
+        </button>
       </dt-drawer-container>
 
-      I'm the content of the <b>outer</b> drawer
+      I'm the content of the
+      <b>outer</b>
+      drawer
     </dt-drawer-container>
 
-    <button dt-button (click)="outerDrawer.toggle()"
-      >Toggle outer drawer</button
-    >
+    <button dt-button (click)="outerDrawer.toggle()">
+      Toggle outer drawer
+    </button>
   `,
   styles: [
     `

@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   template: `
     <dt-drawer-container class="drawer">
       <dt-drawer #drawer mode="over" position="start">
-        Drawer Content</dt-drawer
-      >
+        Drawer Content
+      </dt-drawer>
       Main content
     </dt-drawer-container>
 

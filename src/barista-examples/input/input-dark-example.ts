@@ -29,8 +29,9 @@ Text</textarea
           input.disabled = !input.disabled;
           textarea.disabled = !textarea.disabled
         "
-        >Toggle disabled</button
       >
+        Toggle disabled
+      </button>
     </section>
   `,
   styles: ['textarea { margin-top: 8px; }'],

@@ -11,14 +11,13 @@ import { DtInlineEditor } from '@dynatrace/angular-components';
       [(ngModel)]="sampleModel"
       aria-label-save="Save text"
       aria-label-cancel="Cancel and discard changes"
-    >
-    </em>
+    ></em>
 
     <button (click)="sampleEditor.enterEditing()">open editor</button>
     <button (click)="sampleEditor.saveAndQuitEditing()">save changes</button>
-    <button (click)="sampleEditor.cancelAndQuitEditing()"
-      >cancel changes</button
-    >
+    <button (click)="sampleEditor.cancelAndQuitEditing()">
+      cancel changes
+    </button>
   `,
 })
 export class InlineEditorApiExample {

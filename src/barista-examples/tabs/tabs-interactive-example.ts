@@ -20,12 +20,12 @@ import { take } from 'rxjs/operators';
         </ng-template>
       </dt-tab>
     </dt-tab-group>
-    <button dt-button (click)="disableFirst = !disableFirst"
-      >Toggle disable for first tab</button
-    >
-    <button dt-button [disabled]="simulationRunning" (click)="simulateError()"
-      >Simulate Error</button
-    >
+    <button dt-button (click)="disableFirst = !disableFirst">
+      Toggle disable for first tab
+    </button>
+    <button dt-button [disabled]="simulationRunning" (click)="simulateError()">
+      Simulate Error
+    </button>
   `,
 })
 export class TabsInteractiveExample {
