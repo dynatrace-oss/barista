@@ -1,26 +1,26 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ViewChild, Component, AfterViewInit } from '@angular/core';
-import { async, TestBed, fakeAsync, flush } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { async, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  DtFormattersModule,
+  DtIconModule,
+  DtIndicatorThemePalette,
+  DtLoadingDistractorModule,
   DtSort,
   DtTableDataSource,
-  formatPercent,
-  formatBytes,
   DtTableModule,
-  DtIconModule,
-  DtLoadingDistractorModule,
-  DtFormattersModule,
-  DtIndicatorThemePalette,
+  formatBytes,
+  formatPercent,
   formatRate,
 } from '@dynatrace/angular-components';
-import { CommonModule } from '@angular/common';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { dispatchMouseEvent } from '../../../testing/dispatch-events';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '../../../testing/create-component';
+import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 
 describe('DtTable SimpleColumns', () => {
   beforeEach(async(() => {
@@ -48,12 +48,12 @@ describe('DtTable SimpleColumns', () => {
 
     it('should infer the header label from the passed name', () => {
       const headers = fixture.debugElement.queryAll(By.css('.dt-header-cell'));
-      expect(headers[0].nativeElement.textContent).toBe('host');
+      expect(headers[0].nativeElement.textContent).toMatch(/^\s*host\s*$/);
     });
 
     it('should use the label as header label when passed', () => {
       const headers = fixture.debugElement.queryAll(By.css('.dt-header-cell'));
-      expect(headers[1].nativeElement.textContent).toBe('Cpu');
+      expect(headers[1].nativeElement.textContent).toMatch(/^\s*Cpu\s*$/);
     });
 
     it('should register all headerCell correctly', () => {

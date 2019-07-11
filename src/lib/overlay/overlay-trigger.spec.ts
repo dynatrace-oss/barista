@@ -58,7 +58,7 @@ describe('DtOverlayTrigger', () => {
 
     let overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeDefined();
-    expect(overlay.innerText).toEqual('overlayfocusme');
+    expect(overlay.innerText).toEqual('overlay focusme');
 
     dispatchMouseEvent(trigger, 'mouseout');
     fixture.detectChanges();
