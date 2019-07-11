@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { DtIconType } from '@dynatrace/dt-iconpack';
 import {
+  DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
-  DtTreeControl,
 } from '@dynatrace/angular-components';
+import { DtIconType } from '@dynatrace/dt-iconpack';
 
 const TESTDATA: ThreadNode[] = [
   {
@@ -107,14 +107,14 @@ export class ThreadFlatNode {
   template: `
     <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
       <ng-container dtColumnDef="name">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Name</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Name
+        </dt-tree-table-header-cell>
         <dt-tree-table-toggle-cell *dtCellDef="let row">
           <dt-info-group>
-            <dt-info-group-icon
-              ><dt-icon [name]="row.icon"></dt-icon
-            ></dt-info-group-icon>
+            <dt-info-group-icon>
+              <dt-icon [name]="row.icon"></dt-icon>
+            </dt-info-group-icon>
             <dt-info-group-title>{{ row.name }}</dt-info-group-title>
             {{ row.threadlevel }}
           </dt-info-group>
@@ -122,9 +122,9 @@ export class ThreadFlatNode {
       </ng-container>
 
       <ng-container dtColumnDef="total">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Total time consumption</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Total time consumption
+        </dt-tree-table-header-cell>
         <dt-cell *dtCellDef="let row">
           <ng-container *ngIf="!row.isShowMore">
             <dt-progress-bar
@@ -147,55 +147,55 @@ export class ThreadFlatNode {
       </ng-container>
 
       <ng-container dtColumnDef="blocked" dtColumnAlign="right">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Blocked</dt-tree-table-header-cell
-        >
-        <dt-cell *dtCellDef="let row"
-          ><ng-container *ngIf="!row.isShowMore"
-            >{{ row.blocked }}ms</ng-container
-          ></dt-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Blocked
+        </dt-tree-table-header-cell>
+        <dt-cell *dtCellDef="let row">
+          <ng-container *ngIf="!row.isShowMore">
+            {{ row.blocked }}ms
+          </ng-container>
+        </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="running" dtColumnAlign="center">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Running</dt-tree-table-header-cell
-        >
-        <dt-cell *dtCellDef="let row"
-          ><ng-container *ngIf="!row.isShowMore"
-            >{{ row.running }}ms</ng-container
-          ></dt-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Running
+        </dt-tree-table-header-cell>
+        <dt-cell *dtCellDef="let row">
+          <ng-container *ngIf="!row.isShowMore">
+            {{ row.running }}ms
+          </ng-container>
+        </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="waiting">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Waiting</dt-tree-table-header-cell
-        >
-        <dt-cell *dtCellDef="let row"
-          ><ng-container *ngIf="!row.isShowMore"
-            >{{ row.waiting }}ms</ng-container
-          ></dt-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Waiting
+        </dt-tree-table-header-cell>
+        <dt-cell *dtCellDef="let row">
+          <ng-container *ngIf="!row.isShowMore">
+            {{ row.waiting }}ms
+          </ng-container>
+        </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="showMore">
         <dt-tree-table-toggle-cell *dtCellDef="let row">
-          <button dt-button variant="secondary" (click)="showMore()"
-            >Show more</button
-          >
+          <button dt-button variant="secondary" (click)="showMore()">
+            Show more
+          </button>
         </dt-tree-table-toggle-cell>
       </ng-container>
 
       <ng-container dtColumnDef="actions">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Actions</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Actions
+        </dt-tree-table-header-cell>
         <dt-cell *dtCellDef="let row">
           <ng-container *ngIf="!row.isShowMore">
-            <button dt-icon-button variant="nested" aria-label="Filter results"
-              ><dt-icon name="filter"></dt-icon
-            ></button>
+            <button dt-icon-button variant="nested" aria-label="Filter results">
+              <dt-icon name="filter"></dt-icon>
+            </button>
             <button
               dt-icon-button
               variant="nested"

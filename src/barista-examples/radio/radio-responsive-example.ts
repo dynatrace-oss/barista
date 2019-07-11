@@ -6,15 +6,13 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `
     <dt-radio-group name="newsletter">
-      <dt-radio-button value="opt-in"
-        >Yes, I want to receive a weekly newsletter, because I like emails a
-        lot.</dt-radio-button
-      >
-      <dt-radio-button value="opt-out"
-        >No, I don't want to receive a weekly newsletter, because I don't like
-        them at all. I don't like to read so many emails every
-        week.</dt-radio-button
-      >
+      <dt-radio-button value="opt-in">
+        Yes, I want to receive a weekly newsletter, because I like emails a lot.
+      </dt-radio-button>
+      <dt-radio-button value="opt-out">
+        No, I don't want to receive a weekly newsletter, because I don't like
+        them at all. I don't like to read so many emails every week.
+      </dt-radio-button>
     </dt-radio-group>
   `,
   styles: [

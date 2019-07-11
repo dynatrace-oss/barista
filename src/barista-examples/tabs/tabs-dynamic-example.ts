@@ -24,9 +24,9 @@ import { Component } from '@angular/core';
         </ng-template>
       </dt-tab>
     </dt-tab-group>
-    <button dt-button (click)="hasProblems = !hasProblems"
-      >Toggle problems</button
-    >
+    <button dt-button (click)="hasProblems = !hasProblems">
+      Toggle problems
+    </button>
   `,
 })
 export class TabsDynamicExample {

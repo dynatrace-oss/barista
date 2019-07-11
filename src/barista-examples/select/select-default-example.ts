@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
       <dt-option value="Cafe mocha">Cafe mocha</dt-option>
       <dt-option value="Ca phe sua da">Ca phe sua da</dt-option>
       <dt-option value="Kopi susu">Kopi susu</dt-option>
-      <dt-option value="Cappuccino ">Cappuccino </dt-option>
+      <dt-option value="Cappuccino ">Cappuccino</dt-option>
       <dt-option value="Cappuccino-cups">Cappuccino-cups</dt-option>
       <dt-option value="Cappuccino">Cappuccino</dt-option>
       <dt-option value="Carajillo">Carajillo</dt-option>

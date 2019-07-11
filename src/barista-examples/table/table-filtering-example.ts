@@ -46,9 +46,9 @@ import { DtTableDataSource } from '@dynatrace/angular-components';
       placeholder="Start typing"
     />
     <dt-autocomplete #auto="dtAutocomplete">
-      <dt-option *ngFor="let option of filterableValues" [value]="option">{{
-        option
-      }}</dt-option>
+      <dt-option *ngFor="let option of filterableValues" [value]="option">
+        {{ option }}
+      </dt-option>
     </dt-autocomplete>
   `,
   // tslint:enable

@@ -15,9 +15,9 @@ import { Component } from '@angular/core';
       Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
       sit amet.
     </dt-expandable-panel>
-    <button dt-button [dtExpandablePanel]="panel"
-      >Toggle expandable panel</button
-    >
+    <button dt-button [dtExpandablePanel]="panel">
+      Toggle expandable panel
+    </button>
   `,
 })
 export class ExpandablePanelDisabledExample {}

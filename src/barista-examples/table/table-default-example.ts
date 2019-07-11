@@ -26,9 +26,10 @@ const LOG: DtLogger = DtLoggerFactory.create('TableDefaultComponent');
             even as e;
             odd as o
           "
-          >Row {{ i }}/{{ c }} {{ e ? 'even' : 'odd' }}: {{ row.cpu }}
-          {{ f ? 'first' : '' }} {{ l ? 'last' : '' }}</dt-cell
         >
+          Row {{ i }}/{{ c }} {{ e ? 'even' : 'odd' }}: {{ row.cpu }}
+          {{ f ? 'first' : '' }} {{ l ? 'last' : '' }}
+        </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="memory" dtColumnAlign="number">

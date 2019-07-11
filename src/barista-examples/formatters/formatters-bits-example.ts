@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
       <dt-label>Value to be transformed</dt-label>
       <input dtInput #value [(ngModel)]="exampleValue" />
     </dt-form-field>
-    <p> Default: {{ exampleValue | dtBits }} </p>
-    <p> Factor 1024: {{ exampleValue | dtBits: 1024 }} </p>
+    <p>Default: {{ exampleValue | dtBits }}</p>
+    <p>Factor 1024: {{ exampleValue | dtBits: 1024 }}</p>
   `,
 })
 export class FormattersBitsExample {
