@@ -7,14 +7,14 @@
   <button dt-button variant="secondary">Third button</button>
 </dt-context-dialog>
 
-<button dt-icon-button [dtContextDialogTrigger]="dialog"
-  ><dt-icon name="agent"></dt-icon
-></button>
+<button dt-icon-button [dtContextDialogTrigger]="dialog">
+  <dt-icon name="agent"></dt-icon>
+</button>
 <dt-context-dialog #dialog>
   <dt-context-dialog-header>
-    <dt-context-dialog-header-title
-      >Context dialog title</dt-context-dialog-header-title
-    >
+    <dt-context-dialog-header-title>
+      Context dialog title
+    </dt-context-dialog-header-title>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   </dt-context-dialog-header>
   <p>Your dashboard "real user monitoring" is only visible to you</p>
@@ -25,9 +25,9 @@
     <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
     <dt-cell *dtCellDef="let row">
       <dt-info-group>
-        <dt-info-group-icon
-          ><dt-icon name="agent"></dt-icon
-        ></dt-info-group-icon>
+        <dt-info-group-icon>
+          <dt-icon name="agent"></dt-icon>
+        </dt-info-group-icon>
         <dt-info-group-title>{{ row.host }}</dt-info-group-title>
         Subtitle
       </dt-info-group>
@@ -42,13 +42,13 @@
   <ng-container dtColumnDef="details">
     <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
     <dt-cell *dtCellDef="let row">
-      <button dt-icon-button [dtContextDialogTrigger]="dialog" variant="nested"
-        ><dt-icon name="more"></dt-icon
-      ></button>
+      <button dt-icon-button [dtContextDialogTrigger]="dialog" variant="nested">
+        <dt-icon name="more"></dt-icon>
+      </button>
       <dt-context-dialog #dialog>
-        <button dt-button variant="secondary" (click)="removeRow(row)"
-          >Remove row</button
-        >
+        <button dt-button variant="secondary" (click)="removeRow(row)">
+          Remove row
+        </button>
       </dt-context-dialog>
     </dt-cell>
   </ng-container>

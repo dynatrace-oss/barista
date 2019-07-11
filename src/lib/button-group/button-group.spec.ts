@@ -1,8 +1,8 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { async, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtButtonGroup,
@@ -208,15 +208,15 @@ describe('DtButtonGroup', () => {
   selector: 'dt-test-app',
   template: `
     <dt-button-group>
-      <dt-button-group-item value="Performance"
-        >Performance</dt-button-group-item
-      >
-      <dt-button-group-item value="Connectivity"
-        >Connectivity</dt-button-group-item
-      >
-      <dt-button-group-item value="Failure rate"
-        >Failure rate</dt-button-group-item
-      >
+      <dt-button-group-item value="Performance">
+        Performance
+      </dt-button-group-item>
+      <dt-button-group-item value="Connectivity">
+        Connectivity
+      </dt-button-group-item>
+      <dt-button-group-item value="Failure rate">
+        Failure rate
+      </dt-button-group-item>
     </dt-button-group>
   `,
 })
@@ -226,15 +226,15 @@ class TestAppButtonGroup {}
   selector: 'dt-test-app-selection',
   template: `
     <dt-button-group>
-      <dt-button-group-item [selected]="false" value="Performance"
-        >Performance</dt-button-group-item
-      >
-      <dt-button-group-item [selected]="true" value="Connectivity"
-        >Connectivity</dt-button-group-item
-      >
-      <dt-button-group-item [selected]="false" value="Failure rate"
-        >Failure rate</dt-button-group-item
-      >
+      <dt-button-group-item [selected]="false" value="Performance">
+        Performance
+      </dt-button-group-item>
+      <dt-button-group-item [selected]="true" value="Connectivity">
+        Connectivity
+      </dt-button-group-item>
+      <dt-button-group-item [selected]="false" value="Failure rate">
+        Failure rate
+      </dt-button-group-item>
     </dt-button-group>
   `,
 })
@@ -244,15 +244,15 @@ class TestAppButtonGroupWithSelection {}
   selector: 'dt-test-app-selection2',
   template: `
     <dt-button-group [value]="'Connectivity'">
-      <dt-button-group-item value="Performance"
-        >Performance</dt-button-group-item
-      >
-      <dt-button-group-item value="Connectivity"
-        >Connectivity</dt-button-group-item
-      >
-      <dt-button-group-item value="Failure rate"
-        >Failure rate</dt-button-group-item
-      >
+      <dt-button-group-item value="Performance">
+        Performance
+      </dt-button-group-item>
+      <dt-button-group-item value="Connectivity">
+        Connectivity
+      </dt-button-group-item>
+      <dt-button-group-item value="Failure rate">
+        Failure rate
+      </dt-button-group-item>
     </dt-button-group>
   `,
 })

@@ -4,15 +4,15 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed,
   fakeAsync,
   flush,
+  TestBed,
 } from '@angular/core/testing';
 import {
   FormControl,
   FormsModule,
-  ReactiveFormsModule,
   NgModel,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
@@ -934,9 +934,9 @@ class CheckboxWithFormDirectives {
 /** Simple component for testing an DtCheckbox with required ngModel. */
 @Component({
   template: `
-    <dt-checkbox [required]="isRequired" [(ngModel)]="isGood"
-      >Be good</dt-checkbox
-    >
+    <dt-checkbox [required]="isRequired" [(ngModel)]="isGood">
+      Be good
+    </dt-checkbox>
   `,
 })
 class CheckboxWithNgModel {
@@ -956,8 +956,10 @@ class MultipleCheckboxes {}
 /** Simple test component with tabIndex */
 @Component({
   template: `
-    <dt-checkbox [tabIndex]="customTabIndex" [disabled]="isDisabled">
-    </dt-checkbox>
+    <dt-checkbox
+      [tabIndex]="customTabIndex"
+      [disabled]="isDisabled"
+    ></dt-checkbox>
   `,
 })
 class CheckboxWithTabIndex {

@@ -1,8 +1,8 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DtKeyValueListModule } from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
@@ -170,16 +170,16 @@ describe('DtKeyValueList', () => {
   template: `
     <dt-key-value-list>
       <dt-key-value-list-item>
-        <dt-key-value-list-key>Temp</dt-key-value-list-key
-        ><dt-key-value-list-value>1</dt-key-value-list-value>
+        <dt-key-value-list-key>Temp</dt-key-value-list-key>
+        <dt-key-value-list-value>1</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key>Temp1</dt-key-value-list-key
-        ><dt-key-value-list-value>13</dt-key-value-list-value>
+        <dt-key-value-list-key>Temp1</dt-key-value-list-key>
+        <dt-key-value-list-value>13</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key>Temp2</dt-key-value-list-key
-        ><dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key>Temp2</dt-key-value-list-key>
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
     </dt-key-value-list>
   `,
@@ -191,8 +191,8 @@ class TestAppSingleColumn {}
   template: `
     <dt-key-value-list>
       <dt-key-value-list-item *ngFor="let item of items; let i = index">
-        <dt-key-value-list-key>{{ i }}</dt-key-value-list-key
-        ><dt-key-value-list-value>{{ i }}</dt-key-value-list-value>
+        <dt-key-value-list-key>{{ i }}</dt-key-value-list-key>
+        <dt-key-value-list-value>{{ i }}</dt-key-value-list-value>
       </dt-key-value-list-item>
     </dt-key-value-list>
   `,
@@ -206,88 +206,109 @@ class TestAppTwoColumns {
   template: `
     <dt-key-value-list>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp<dt-key-value-list-value>1</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp
+        <dt-key-value-list-value>1</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp1<dt-key-value-list-value>13</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp1
+        <dt-key-value-list-value>13</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp2<dt-key-value-list-value>24</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp2
+        <dt-key-value-list-value>24</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp3<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp3
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp4<dt-key-value-list-value>25</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp4
+        <dt-key-value-list-value>25</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp5<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp5
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp6<dt-key-value-list-value>20</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp6
+        <dt-key-value-list-value>20</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp7<dt-key-value-list-value>24</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp7
+        <dt-key-value-list-value>24</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp8<dt-key-value-list-value>22</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp8
+        <dt-key-value-list-value>22</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp9<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp9
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp10<dt-key-value-list-value>27</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp10
+        <dt-key-value-list-value>27</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp11<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp11
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp12<dt-key-value-list-value>26</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp12
+        <dt-key-value-list-value>26</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp13<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp13
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp14<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp14
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp15<dt-key-value-list-value>21</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp15
+        <dt-key-value-list-value>21</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp16<dt-key-value-list-value>23</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp16
+        <dt-key-value-list-value>23</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp17<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp17
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp18<dt-key-value-list-value>27</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp18
+        <dt-key-value-list-value>27</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp19<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp19
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp20<dt-key-value-list-value>29</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp20
+        <dt-key-value-list-value>29</dt-key-value-list-value>
       </dt-key-value-list-item>
     </dt-key-value-list>
   `,
@@ -299,32 +320,39 @@ class TestAppThreeColumns {}
   template: `
     <dt-key-value-list [columns]="colNo">
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp<dt-key-value-list-value>1</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp
+        <dt-key-value-list-value>1</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp1<dt-key-value-list-value>13</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp1
+        <dt-key-value-list-value>13</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp2<dt-key-value-list-value>24</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp2
+        <dt-key-value-list-value>24</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp3<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp3
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp4<dt-key-value-list-value>25</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp4
+        <dt-key-value-list-value>25</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp5<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp5
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp6<dt-key-value-list-value>20</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp6
+        <dt-key-value-list-value>20</dt-key-value-list-value>
       </dt-key-value-list-item>
     </dt-key-value-list>
   `,
@@ -338,40 +366,49 @@ class TestAppSixColumns {
   template: `
     <dt-key-value-list columns="10">
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp<dt-key-value-list-value>1</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp
+        <dt-key-value-list-value>1</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp1<dt-key-value-list-value>13</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp1
+        <dt-key-value-list-value>13</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp2<dt-key-value-list-value>24</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp2
+        <dt-key-value-list-value>24</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp3<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp3
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp4<dt-key-value-list-value>25</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp4
+        <dt-key-value-list-value>25</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp5<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp5
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp6<dt-key-value-list-value>20</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp6
+        <dt-key-value-list-value>20</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp7<dt-key-value-list-value>24</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp7
+        <dt-key-value-list-value>24</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp8<dt-key-value-list-value>22</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp8
+        <dt-key-value-list-value>22</dt-key-value-list-value>
       </dt-key-value-list-item>
     </dt-key-value-list>
   `,
@@ -383,40 +420,49 @@ class TestAppTenColumns {}
   template: `
     <dt-key-value-list columns="3.3">
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp<dt-key-value-list-value>1</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp
+        <dt-key-value-list-value>1</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp1<dt-key-value-list-value>13</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp1
+        <dt-key-value-list-value>13</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp2<dt-key-value-list-value>24</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp2
+        <dt-key-value-list-value>24</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp3<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp3
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp4<dt-key-value-list-value>25</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp4
+        <dt-key-value-list-value>25</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp5<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp5
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp6<dt-key-value-list-value>20</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp6
+        <dt-key-value-list-value>20</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp7<dt-key-value-list-value>24</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp7
+        <dt-key-value-list-value>24</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp8<dt-key-value-list-value>22</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp8
+        <dt-key-value-list-value>22</dt-key-value-list-value>
       </dt-key-value-list-item>
     </dt-key-value-list>
   `,
@@ -427,40 +473,49 @@ class TestAppFloatColumns {}
   template: `
     <dt-key-value-list columns="-6">
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp<dt-key-value-list-value>1</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp
+        <dt-key-value-list-value>1</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp1<dt-key-value-list-value>13</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp1
+        <dt-key-value-list-value>13</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp2<dt-key-value-list-value>24</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp2
+        <dt-key-value-list-value>24</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp3<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp3
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp4<dt-key-value-list-value>25</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp4
+        <dt-key-value-list-value>25</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp5<dt-key-value-list-value>28</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp5
+        <dt-key-value-list-value>28</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp6<dt-key-value-list-value>20</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp6
+        <dt-key-value-list-value>20</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp7<dt-key-value-list-value>24</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp7
+        <dt-key-value-list-value>24</dt-key-value-list-value>
       </dt-key-value-list-item>
       <dt-key-value-list-item>
-        <dt-key-value-list-key></dt-key-value-list-key
-        >Temp8<dt-key-value-list-value>22</dt-key-value-list-value>
+        <dt-key-value-list-key></dt-key-value-list-key>
+        Temp8
+        <dt-key-value-list-value>22</dt-key-value-list-value>
       </dt-key-value-list-item>
     </dt-key-value-list>
   `,

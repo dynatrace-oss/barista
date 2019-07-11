@@ -1,10 +1,10 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { DtHighlightModule } from '@dynatrace/angular-components';
+import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { DtHighlightModule } from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtHighlight', () => {
@@ -295,7 +295,11 @@ class TestComponentWithoutTerm {}
 
 @Component({
   template: `
-    <p dt-highlight term="">Some <b>text where</b> with html characters</p>
+    <p dt-highlight term="">
+      Some
+      <b>text where</b>
+      with html characters
+    </p>
   `,
 })
 class TestComponentWithHtmlInText {}
@@ -328,7 +332,9 @@ class TestComponentWithStaticCaseSensitive {}
 @Component({
   template: `
     <p dt-highlight term="wher">
-      Some <b>text where</b> a part should be highlighted
+      Some
+      <b>text where</b>
+      a part should be highlighted
     </p>
   `,
 })
