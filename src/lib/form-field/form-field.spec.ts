@@ -1,43 +1,43 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewChild,
-  Provider,
-  Type,
-} from '@angular/core';
-import {
-  fakeAsync,
-  TestBed,
-  flush,
-  ComponentFixture,
-} from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import {
-  FormsModule,
-  ReactiveFormsModule,
-  FormControl,
-  Validators,
-  NgForm,
-  FormGroupDirective,
-  FormGroup,
+  ChangeDetectionStrategy,
+  Component,
+  Provider,
+  Type,
+  ViewChild,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+} from '@angular/core/testing';
+import {
   AbstractControl,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtFormFieldModule,
-  getDtFormFieldMissingControlError,
-  getDtFormFieldDuplicatedHintError,
-  DtInputModule,
   DtInput,
+  DtInputModule,
   ErrorStateMatcher,
+  getDtFormFieldDuplicatedHintError,
+  getDtFormFieldMissingControlError,
 } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
-import { createComponent } from '../../testing/create-component';
 
 const TEST_IMPORTS = [
   FormsModule,
@@ -795,16 +795,17 @@ class DtInputWithNgIf {
 
 @Component({
   template: `
-    <dt-form-field><input dtInput type="file"/></dt-form-field>
+    <dt-form-field><input dtInput type="file" /></dt-form-field>
   `,
 })
 class DtInputInvalidTypeTestController {}
 
 @Component({
   template: `
-    <dt-form-field
-      ><input dtInput /><dt-hint>{{ label }}</dt-hint></dt-form-field
-    >
+    <dt-form-field>
+      <input dtInput />
+      <dt-hint>{{ label }}</dt-hint>
+    </dt-form-field>
   `,
 })
 class DtInputHintTestController {
@@ -813,7 +814,7 @@ class DtInputHintTestController {
 
 @Component({
   template: `
-    <dt-form-field><input dtInput [disabled]="disabled"/></dt-form-field>
+    <dt-form-field><input dtInput [disabled]="disabled" /></dt-form-field>
   `,
 })
 class DtInputWithDisabled {

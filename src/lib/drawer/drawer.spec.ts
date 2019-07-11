@@ -1,38 +1,38 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  Type,
-  Injectable,
-} from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
-import {
-  async,
-  TestBed,
-  tick,
-  fakeAsync,
-  flush,
-  ComponentFixture,
-  inject,
-} from '@angular/core/testing';
-import {
-  DT_DRAWER_OPEN_CLASS,
-  DtDrawerContainer,
-  getDtDuplicateDrawerError,
-  DtDrawer,
-  DtDrawerModule,
-} from '@dynatrace/angular-components';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import {
   BreakpointObserver,
-  MediaMatcher,
   LayoutModule,
+  MediaMatcher,
 } from '@angular/cdk/layout';
+import {
+  Component,
+  ElementRef,
+  Injectable,
+  Type,
+  ViewChild,
+} from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  DT_DRAWER_OPEN_CLASS,
+  DtDrawer,
+  DtDrawerContainer,
+  DtDrawerModule,
+  getDtDuplicateDrawerError,
+} from '@dynatrace/angular-components';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
-import { ESCAPE } from '@angular/cdk/keycodes';
 
 function getVisibility(element: HTMLElement): boolean {
   const { x, right, width } = element.getBoundingClientRect() as DOMRect;
@@ -468,8 +468,9 @@ describe('DtDrawer screen sizes', () => {
         mode="side"
         (opened)="open()"
         (closed)="close()"
-        >Content</dt-drawer
       >
+        Content
+      </dt-drawer>
       <button (click)="drawer.open()" class="open" #openButton></button>
       <button (click)="drawer.close()" class="close" #closeButton></button>
     </dt-drawer-container>
@@ -512,7 +513,7 @@ class TestAppDrawerOpened {
 
 @Component({
   template: `
-    <dt-drawer-container> </dt-drawer-container>
+    <dt-drawer-container></dt-drawer-container>
   `,
 })
 class NoDrawerTestApp {}
@@ -546,9 +547,9 @@ class TestAppOverMode {}
   template: `
     <dt-drawer-container #container>
       <dt-drawer #drawer1>start drawer 1</dt-drawer>
-      <dt-drawer #drawer2 mode="over" position="end"
-        >second start drawer</dt-drawer
-      >
+      <dt-drawer #drawer2 mode="over" position="end">
+        second start drawer
+      </dt-drawer>
       Main content
     </dt-drawer-container>
   `,

@@ -1,59 +1,59 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import {
+  DOWN_ARROW,
+  ENTER,
+  ESCAPE,
+  SPACE,
+  TAB,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import {
+  Component,
+  NgZone,
+  OnDestroy,
   Provider,
+  QueryList,
   Type,
   ViewChild,
   ViewChildren,
-  QueryList,
-  Component,
-  OnDestroy,
-  NgZone,
 } from '@angular/core';
 import {
-  TestBed,
-  inject,
-  ComponentFixture,
-  flush,
-  fakeAsync,
   async,
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
   tick,
 } from '@angular/core/testing';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  DT_AUTOCOMPLETE_DEFAULT_OPTIONS,
+  DtAutocomplete,
   DtAutocompleteModule,
+  DtAutocompleteTrigger,
+  DtFormField,
   DtFormFieldModule,
   DtInputModule,
-  DtAutocompleteTrigger,
-  DtAutocomplete,
-  DtFormField,
   DtOption,
-  DT_AUTOCOMPLETE_DEFAULT_OPTIONS,
   DtOptionSelectionChange,
   getDtAutocompleteMissingPanelError,
 } from '@dynatrace/angular-components';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
+import { Observable, Subscription } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import {
-  DOWN_ARROW,
-  SPACE,
-  UP_ARROW,
-  ENTER,
-  ESCAPE,
-  TAB,
-} from '@angular/cdk/keycodes';
-import { Subscription, Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
-import {
+  dispatchEvent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-  dispatchEvent,
 } from '../../testing/dispatch-events';
+import { createKeyboardEvent } from '../../testing/event-objects';
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { typeInElement } from '../../testing/type-in-element';
-import { createKeyboardEvent } from '../../testing/event-objects';
 
 describe('DtAutocomplete', () => {
   let overlayContainer: OverlayContainer;
@@ -1990,7 +1990,7 @@ class AutocompleteWithNativeInput {
     </dt-form-field>
     <dt-autocomplete #auto="dtAutocomplete">
       <dt-option *ngFor="let state of filteredStates" [value]="state">
-        <span> {{ state }} </span>
+        <span>{{ state }}</span>
       </dt-option>
     </dt-autocomplete>
   `,
@@ -2134,9 +2134,9 @@ class AutocompleteWithoutPanel {
       />
     </dt-form-field>
     <dt-autocomplete #auto="dtAutocomplete">
-      <dt-option *ngFor="let value of values" [value]="value">{{
-        value
-      }}</dt-option>
+      <dt-option *ngFor="let value of values" [value]="value">
+        {{ value }}
+      </dt-option>
     </dt-autocomplete>
   `,
 })

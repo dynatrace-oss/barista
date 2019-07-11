@@ -1,28 +1,28 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  inject,
-  flush,
-} from '@angular/core/testing';
+import { ENTER, ESCAPE, SPACE } from '@angular/cdk/keycodes';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import {
-  DtOverlayModule,
-  DtOverlayConfig,
-  DT_OVERLAY_DEFAULT_OFFSET,
-} from '@dynatrace/angular-components';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import {
-  dispatchMouseEvent,
-  dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SPACE, ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  DT_OVERLAY_DEFAULT_OFFSET,
+  DtOverlayConfig,
+  DtOverlayModule,
+} from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
+import {
+  dispatchKeyboardEvent,
+  dispatchMouseEvent,
+} from '../../testing/dispatch-events';
 
 describe('DtOverlayTrigger', () => {
   let overlayContainer: OverlayContainer;
@@ -306,8 +306,13 @@ function getOverlayPane(overlayContainerElement: HTMLElement): HTMLElement {
       [dtOverlay]="overlay"
       [dtOverlayConfig]="config"
       [disabled]="disabled"
-      >trigger</div
-    ><ng-template #overlay>overlay<button>focusme</button></ng-template>
+    >
+      trigger
+    </div>
+    <ng-template #overlay>
+      overlay
+      <button>focusme</button>
+    </ng-template>
   `,
 })
 class TestComponent {

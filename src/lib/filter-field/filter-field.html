@@ -1,21 +1,20 @@
 <div class="dt-filter-field-body">
-  <div class="dt-filter-field-label"
-    ><dt-icon name="filter" class="dt-filter-field-icon"></dt-icon
-    ><span>{{label}}</span></div
-  >
+  <div class="dt-filter-field-label">
+    <dt-icon name="filter" class="dt-filter-field-icon"></dt-icon>
+    <span>{{label}}</span>
+  </div>
 
   <dt-filter-field-tag
     *ngFor="let tagData of _prefixTagData"
     [data]="tagData"
     (remove)="_handleTagRemove($event)"
     (edit)="_handleTagEdit($event)"
-  >
-  </dt-filter-field-tag>
+  ></dt-filter-field-tag>
 
   <div class="dt-filter-field-infix">
-    <span class="dt-filter-field-category" *ngIf="_filterByLabel"
-      >{{_filterByLabel}}</span
-    >
+    <span class="dt-filter-field-category" *ngIf="_filterByLabel">
+      {{_filterByLabel}}
+    </span>
     <dt-loading-spinner
       class="dt-filter-field-spinner"
       *ngIf="loading"
@@ -47,13 +46,14 @@
           <dt-option
             *ngFor="let optionDef of optionOrGroupDef.group!.options"
             [value]="optionDef"
-            >{{optionDef.option.viewValue}}</dt-option
           >
+            {{optionDef.option.viewValue}}
+          </dt-option>
         </dt-optgroup>
         <ng-template #options>
-          <dt-option [value]="optionOrGroupDef"
-            >{{ optionOrGroupDef.option!.viewValue}}</dt-option
-          >
+          <dt-option [value]="optionOrGroupDef">
+            {{ optionOrGroupDef.option!.viewValue}}
+          </dt-option>
         </ng-template>
       </ng-container>
     </dt-autocomplete>
@@ -62,8 +62,7 @@
       [enabledOperators]="_currentDef && !!_currentDef.range && _currentDef!.range!.operatorFlags"
       [unit]="_currentDef && !!_currentDef.range && _currentDef!.range!.unit"
       (rangeSubmitted)="_handleRangeSubmitted($event)"
-    >
-    </dt-filter-field-range>
+    ></dt-filter-field-range>
   </div>
 
   <dt-filter-field-tag
@@ -71,6 +70,5 @@
     [data]="tagData"
     (remove)="_handleTagRemove($event)"
     (edit)="_handleTagEdit($event)"
-  >
-  </dt-filter-field-tag>
+  ></dt-filter-field-tag>
 </div>

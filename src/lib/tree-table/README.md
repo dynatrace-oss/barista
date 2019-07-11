@@ -26,8 +26,10 @@ The `<dt-tree-table>` provides the functionality of a tree displayed in a grid/t
 Start by adding the `<dt-tree-table>` component to your template and provide it with a datasource and a treecontrol.
 
 ```html
-<dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
-</dt-tree-table>
+<dt-tree-table
+  [dataSource]="dataSource"
+  [treeControl]="treeControl"
+></dt-tree-table>
 ```
 
 ### Provide the data
@@ -120,9 +122,9 @@ A normal column could like the following example
 
 ```html
 <ng-container dtColumnDef="waiting">
-  <dt-tree-table-header-cell *dtHeaderCellDef
-    >Waiting</dt-tree-table-header-cell
-  >
+  <dt-tree-table-header-cell *dtHeaderCellDef>
+    Waiting
+  </dt-tree-table-header-cell>
   <dt-cell *dtCellDef="let row">
     {{row.waiting}}
   </dt-cell>

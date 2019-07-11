@@ -25,9 +25,9 @@
     class="dt-form-field-input"
   />
 
-  <dt-error *ngFor="let error of _errorChildrenSource | async" [id]="error.id"
-    >{{error.message}}</dt-error
-  >
+  <dt-error *ngFor="let error of _errorChildrenSource | async" [id]="error.id">
+    {{error.message}}
+  </dt-error>
 
   <button
     dt-icon-button

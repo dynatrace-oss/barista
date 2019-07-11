@@ -1,33 +1,33 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component, NgZone, ViewChild } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import { BACKSPACE, ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { ENTER, BACKSPACE, ESCAPE } from '@angular/cdk/keycodes';
-import {
-  TestBed,
-  ComponentFixture,
-  inject,
-  fakeAsync,
-  tick,
-  flush,
-} from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { Component, NgZone, ViewChild } from '@angular/core';
 import {
-  DtFilterFieldModule,
-  DtFilterFieldDefaultDataSource,
-  DtFilterField,
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
   DT_FILTER_FIELD_TYPING_DEBOUNCE,
+  DtFilterField,
   DtFilterFieldChangeEvent,
-  getDtFilterFieldRangeNoOperatorsError,
+  DtFilterFieldDefaultDataSource,
+  DtFilterFieldModule,
   dtRangeDef,
+  getDtFilterFieldRangeNoOperatorsError,
 } from '@dynatrace/angular-components/filter-field';
-import { typeInElement } from '../../testing/type-in-element';
-import { MockNgZone } from '../../testing/mock-ng-zone';
-import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { createComponent } from '../../testing/create-component';
+import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import { MockNgZone } from '../../testing/mock-ng-zone';
+import { typeInElement } from '../../testing/type-in-element';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 const TEST_DATA = {
@@ -1034,8 +1034,10 @@ function getInput(fixture: ComponentFixture<any>): HTMLInputElement {
 @Component({
   selector: 'test-app',
   template: `
-    <dt-filter-field [dataSource]="dataSource" [label]="label">
-    </dt-filter-field>
+    <dt-filter-field
+      [dataSource]="dataSource"
+      [label]="label"
+    ></dt-filter-field>
   `,
 })
 export class TestApp {

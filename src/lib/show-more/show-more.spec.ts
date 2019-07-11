@@ -1,16 +1,16 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { async, TestBed } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import {
-  DtShowMoreModule,
-  DtShowMore,
-  DtIconModule,
-} from '@dynatrace/angular-components';
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component, DebugElement } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  DtIconModule,
+  DtShowMore,
+  DtShowMoreModule,
+} from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtShowMore', () => {
@@ -72,9 +72,9 @@ describe('DtShowMore', () => {
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-show-more [showLess]="showLess" (changed)="eventFired()"
-      >More</dt-show-more
-    >
+    <dt-show-more [showLess]="showLess" (changed)="eventFired()">
+      More
+    </dt-show-more>
   `,
 })
 class TestApp {

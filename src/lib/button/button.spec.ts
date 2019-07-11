@@ -1,11 +1,11 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtButtonModule, DtIconModule } from '@dynatrace/angular-components';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtButton', () => {
@@ -275,12 +275,12 @@ class TestApp {
 @Component({
   selector: 'dt-icon-only-button',
   template: `
-    <button dt-icon-button type="button"
-      ><dt-icon name="agent"></dt-icon
-    ></button>
-    <a href="#" dt-icon-button type="button"
-      ><dt-icon name="agent"></dt-icon
-    ></a>
+    <button dt-icon-button type="button">
+      <dt-icon name="agent"></dt-icon>
+    </button>
+    <a href="#" dt-icon-button type="button">
+      <dt-icon name="agent"></dt-icon>
+    </a>
   `,
 })
 class IconOnlyButton {}

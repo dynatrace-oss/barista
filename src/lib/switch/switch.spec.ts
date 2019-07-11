@@ -4,21 +4,21 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed,
   fakeAsync,
   flush,
+  TestBed,
 } from '@angular/core/testing';
 import {
   FormControl,
   FormsModule,
-  ReactiveFormsModule,
   NgModel,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
-  DtSwitchModule,
   DtSwitch,
   DtSwitchChange,
+  DtSwitchModule,
 } from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
@@ -664,7 +664,7 @@ class MultipleSwitches {}
 
 @Component({
   template: `
-    <dt-switch [tabIndex]="customTabIndex" [disabled]="isDisabled"> </dt-switch>
+    <dt-switch [tabIndex]="customTabIndex" [disabled]="isDisabled"></dt-switch>
   `,
 })
 class SwitchWithTabIndex {

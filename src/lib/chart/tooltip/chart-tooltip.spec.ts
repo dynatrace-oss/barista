@@ -1,17 +1,19 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import {
   async,
-  TestBed,
-  inject,
+  ComponentFixture,
   fakeAsync,
   flush,
+  inject,
+  TestBed,
   tick,
-  ComponentFixture,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtChart,
   DtChartModule,
@@ -19,12 +21,10 @@ import {
   DtChartSeries,
   DtThemingModule,
 } from '@dynatrace/angular-components';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 import { createComponent } from '../../../testing/create-component';
+import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 
 describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;
@@ -122,12 +122,12 @@ describe('DtChartTooltip', () => {
         <ng-template let-series>
           <dt-key-value-list style="min-width: 100px">
             <dt-key-value-list-item *ngFor="let data of series.points">
-              <dt-key-value-list-key>{{
-                data.series.name
-              }}</dt-key-value-list-key>
-              <dt-key-value-list-value>{{
-                data.point.y
-              }}</dt-key-value-list-value>
+              <dt-key-value-list-key>
+                {{ data.series.name }}
+              </dt-key-value-list-key>
+              <dt-key-value-list-value>
+                {{ data.point.y }}
+              </dt-key-value-list-value>
             </dt-key-value-list-item>
           </dt-key-value-list>
         </ng-template>

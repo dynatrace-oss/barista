@@ -6,27 +6,27 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   Component,
   ElementRef,
+  QueryList,
   ViewChild,
   ViewChildren,
-  QueryList,
 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  DtCell,
   DtIconModule,
   DtSort,
   DtSortDirection,
   DtSortEvent,
   DtSortHeader,
-  DtCell,
   DtTableModule,
   getDtSortHeaderNotContainedWithinSortError,
 } from '@dynatrace/angular-components';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { createComponent } from '../../../testing/create-component';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
-import { createComponent } from '../../../testing/create-component';
 
 describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;
@@ -373,7 +373,7 @@ type DtSortAppColumnIds = 'column_a' | 'column_b' | 'column_c';
         >
           Column A
         </dt-header-cell>
-        <dt-cell *dtCellDef="let row"> {{ row.a }} </dt-cell>
+        <dt-cell *dtCellDef="let row">{{ row.a }}</dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="column_b">
@@ -386,7 +386,7 @@ type DtSortAppColumnIds = 'column_a' | 'column_b' | 'column_c';
         >
           Column B
         </dt-header-cell>
-        <dt-cell *dtCellDef="let row"> {{ row.b }} </dt-cell>
+        <dt-cell *dtCellDef="let row">{{ row.b }}</dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="column_c">
@@ -396,9 +396,10 @@ type DtSortAppColumnIds = 'column_a' | 'column_b' | 'column_c';
           #sortHeaderC
           dt-sort-header
           start="desc"
-          >Column C</dt-header-cell
         >
-        <dt-cell *dtCellDef="let row"> {{ row.c }} </dt-cell>
+          Column C
+        </dt-header-cell>
+        <dt-cell *dtCellDef="let row">{{ row.c }}</dt-cell>
       </ng-container>
 
       <dt-header-row *dtHeaderRowDef="columnsToRender"></dt-header-row>
@@ -454,16 +455,16 @@ class DtTableSortApp {
   template: `
     <dt-table [dataSource]="dataSource">
       <ng-container dtColumnDef="column_a">
-        <dt-header-cell *dtHeaderCellDef dt-sort-header
-          >Column A</dt-header-cell
-        >
-        <dt-cell *dtCellDef="let row"> {{ row.a }} </dt-cell>
+        <dt-header-cell *dtHeaderCellDef dt-sort-header>
+          Column A
+        </dt-header-cell>
+        <dt-cell *dtCellDef="let row">{{ row.a }}</dt-cell>
       </ng-container>
       <ng-container dtColumnDef="column_b">
-        <dt-header-cell *dtHeaderCellDef dt-sort-header
-          >Column B</dt-header-cell
-        >
-        <dt-cell *dtCellDef="let row"> {{ row.b }} </dt-cell>
+        <dt-header-cell *dtHeaderCellDef dt-sort-header>
+          Column B
+        </dt-header-cell>
+        <dt-cell *dtCellDef="let row">{{ row.b }}</dt-cell>
       </ng-container>
       <dt-header-row *dtHeaderRowDef="columnsToRender"></dt-header-row>
       <dt-row *dtRowDef="let row; columns: columnsToRender"></dt-row>
@@ -479,10 +480,10 @@ class DtSortHeaderMissingSortApp {
   template: `
     <dt-table [dataSource]="dataSource" dtSort dtSortDirection="'invalid'">
       <ng-container dtColumnDef="column_a">
-        <dt-header-cell *dtHeaderCellDef dt-sort-header
-          >Column A</dt-header-cell
-        >
-        <dt-cell *dtCellDef="let row"> {{ row.a }} </dt-cell>
+        <dt-header-cell *dtHeaderCellDef dt-sort-header>
+          Column A
+        </dt-header-cell>
+        <dt-cell *dtCellDef="let row">{{ row.a }}</dt-cell>
       </ng-container>
       <dt-header-row *dtHeaderRowDef="columnsToRender"></dt-header-row>
       <dt-row *dtRowDef="let row; columns: columnsToRender"></dt-row>
