@@ -1,19 +1,19 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, ViewChildren, QueryList, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import {
-  DtTabsModule,
-  DtTab,
+  DT_TABGROUP_SINGLE_TAB_ERROR,
   DtLogConsumer,
   DtLogEntry,
-  DT_TABGROUP_SINGLE_TAB_ERROR,
+  DtTab,
   DtTabChange,
+  DtTabsModule,
 } from '@dynatrace/angular-components';
-import { By } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
 import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/angular-components/tabs/tab-group';
+import { Subscription } from 'rxjs';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtTabs', () => {
@@ -408,11 +408,11 @@ class LazyTabsTestApp {
     <dt-tab-group>
       <dt-tab [disabled]="disableAll">
         <ng-template dtTabLabel>Tab one label</ng-template>
-        <ng-template dtTabContent> </ng-template>
+        <ng-template dtTabContent></ng-template>
       </dt-tab>
       <dt-tab *ngIf="secondTab" [disabled]="disableAll">
         <ng-template dtTabLabel>Tab two label</ng-template>
-        <ng-template dtTabContent> </ng-template>
+        <ng-template dtTabContent></ng-template>
       </dt-tab>
     </dt-tab-group>
   `,

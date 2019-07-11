@@ -1,27 +1,27 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component, ViewChild, Type } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component, Type, ViewChild } from '@angular/core';
 import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
   async,
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
 } from '@angular/core/testing';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  DtIndicatorModule,
+  DtTreeControl,
+  DtTreeDataSource,
+  DtTreeFlattener,
+} from '@dynatrace/angular-components/core';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import {
   DtTreeTable,
   DtTreeTableModule,
 } from '@dynatrace/angular-components/tree-table';
-import {
-  DtTreeDataSource,
-  DtTreeControl,
-  DtTreeFlattener,
-  DtIndicatorModule,
-} from '@dynatrace/angular-components/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtTreeTable', () => {
@@ -350,18 +350,18 @@ function expectTreeTableToMatch(
   template: `
     <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
       <ng-container dtColumnDef="topping">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Topping</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Topping
+        </dt-tree-table-header-cell>
         <dt-tree-table-toggle-cell *dtCellDef="let row">
           {{ row.pizzaTopping }}
         </dt-tree-table-toggle-cell>
       </ng-container>
 
       <ng-container dtColumnDef="cheese">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Cheese</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Cheese
+        </dt-tree-table-header-cell>
         <dt-cell
           *dtCellDef="let row"
           dtIndicator="true"
@@ -376,8 +376,7 @@ function expectTreeTableToMatch(
         *dtRowDef="let row; columns: ['topping', 'cheese']"
         [data]="row"
         class="customRowClass"
-      >
-      </dt-tree-table-row>
+      ></dt-tree-table-row>
     </dt-tree-table>
   `,
 })
@@ -456,9 +455,9 @@ const TREE_DATA: FoodNode[] = [
   template: `
     <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
       <ng-container dtColumnDef="name">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Name</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Name
+        </dt-tree-table-header-cell>
         <dt-tree-table-toggle-cell *dtCellDef="let row">
           {{ row.name }}
         </dt-tree-table-toggle-cell>
@@ -509,27 +508,27 @@ class DtTreeTableWithNullOrUndefinedChild {
   template: `
     <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
       <ng-container dtColumnDef="topping">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Topping</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Topping
+        </dt-tree-table-header-cell>
         <dt-tree-table-toggle-cell *dtCellDef="let row">
           {{ row.pizzaTopping }}
         </dt-tree-table-toggle-cell>
       </ng-container>
 
       <ng-container dtColumnDef="cheese">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Cheese</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Cheese
+        </dt-tree-table-header-cell>
         <dt-cell *dtCellDef="let row">
           {{ row.pizzaCheese }}
         </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="base">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Base</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Base
+        </dt-tree-table-header-cell>
         <dt-cell *dtCellDef="let row">
           {{ row.pizzaBase }}
         </dt-cell>
@@ -545,8 +544,7 @@ class DtTreeTableWithNullOrUndefinedChild {
         *dtRowDef="let row; when: isSpecial; columns: ['topping', 'base']"
         [data]="row"
         class="customRowClass"
-      >
-      </dt-tree-table-row>
+      ></dt-tree-table-row>
     </dt-tree-table>
   `,
 })

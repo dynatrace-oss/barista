@@ -1,17 +1,17 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { Component, DebugElement } from '@angular/core';
 import {
   async,
   ComponentFixture,
-  TestBed,
   fakeAsync,
+  TestBed,
 } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import {
-  DtToggleButtonGroupModule,
   DtToggleButtonGroup,
+  DtToggleButtonGroupModule,
   DtToggleButtonItem,
 } from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
@@ -481,8 +481,9 @@ class OneSelectedToggleButtonGroupTestApp {}
         value="One"
         *ngIf="showsButton"
         [selected]="isSelected"
-        >One</button
       >
+        One
+      </button>
     </dt-toggle-button-group>
   `,
 })
@@ -508,12 +509,12 @@ class OneDisabledToggleButtonGroupTestApp {}
   selector: 'dt-propertybinding-toggle-button-group-test-app',
   template: `
     <dt-toggle-button-group>
-      <button dt-toggle-button-item value="One" [selected]="testAppSelected"
-        >One</button
-      >
-      <button dt-toggle-button-item value="Two" [disabled]="testAppDisabled"
-        >Two</button
-      >
+      <button dt-toggle-button-item value="One" [selected]="testAppSelected">
+        One
+      </button>
+      <button dt-toggle-button-item value="Two" [disabled]="testAppDisabled">
+        Two
+      </button>
     </dt-toggle-button-group>
   `,
 })
@@ -533,17 +534,19 @@ class PropertybindingToggleButtonGroupTestApp {
         dt-toggle-button-item
         value="One"
         aria-label="This is the label for one"
-        >One</button
       >
-      <button dt-toggle-button-item value="Two" aria-labelledby="labelfortwo"
-        >Two</button
-      >
+        One
+      </button>
+      <button dt-toggle-button-item value="Two" aria-labelledby="labelfortwo">
+        Two
+      </button>
       <button
         dt-toggle-button-item
         value="Three"
         aria-describedby="descriptionforthree"
-        >Three</button
       >
+        Three
+      </button>
     </dt-toggle-button-group>
   `,
 })

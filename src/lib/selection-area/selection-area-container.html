@@ -18,8 +18,7 @@
     (keydown)="_handleKeyDown($event, 'LeftHandle')"
     aria-role="slider"
     [attr.aria-label]="_ariaLabelLeftHandle"
-  >
-  </button>
+  ></button>
   <button
     #righthandle
     class="dt-selection-area-handle dt-selection-area-right-handle"
@@ -27,8 +26,7 @@
     (keydown)="_handleKeyDown($event, 'RightHandle')"
     aria-role="slider"
     [attr.aria-label]="_ariaLabelRightHandle"
-  >
-  </button>
+  ></button>
 </div>
 <ng-template
   cdkConnectedOverlay
@@ -49,8 +47,9 @@
           variant="nested"
           (click)="close()"
           [attr.aria-label]="_ariaLabelClose"
-          ><dt-icon name="abort"></dt-icon
-        ></button>
+        >
+          <dt-icon name="abort"></dt-icon>
+        </button>
       </aside>
     </div>
     <section class="dt-selection-area-actions">

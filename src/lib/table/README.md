@@ -79,17 +79,17 @@ Each column definition is created with `dt-header-cell` and `dt-cell` inside a [
 Note: `dtCellDef` not only exports the row data but also the same properties as `*ngFor`- using the same [micro-syntax](https://gist.github.com/mhevery/d3530294cff2e4a1b3fe15ff75d08855). The table header is defined with a `dt-header-row` component and a `dtHeaderRowDef` directive:
 
 ```html
-<dt-header-row *dtHeaderRowDef="['username', 'age', 'title']"
-  ><dt-header-row> </dt-header-row
-></dt-header-row>
+<dt-header-row *dtHeaderRowDef="['username', 'age', 'title']">
+  <dt-header-row></dt-header-row>
+</dt-header-row>
 ```
 
 To make the header sticky, add the `dtHeaderRowDefSticky` input to the `dtHeaderRowDef` directive.
 
 ```html
-<dt-header-row *dtHeaderRowDef="['username', 'age', 'title']; sticky"
-  ><dt-header-row></dt-header-row
-></dt-header-row>
+<dt-header-row *dtHeaderRowDef="['username', 'age', 'title']; sticky">
+  <dt-header-row></dt-header-row>
+</dt-header-row>
 ```
 
 And finally the table row is defined with a `dt-row` component and a `dtRowDef` directive:
@@ -414,15 +414,16 @@ Of course you can extend from the simpleColumn to create your own predefined sim
 <ng-container [dtColumnDef]="name" dtColumnAlign="number">
   <ng-container *dtHeaderCellDef>
     <dt-header-cell *ngIf="!sortable">{{ label || name }}</dt-header-cell>
-    <dt-header-cell *ngIf="sortable" dt-sort-header start="desc"
-      >{{ label || name }}</dt-header-cell
-    >
+    <dt-header-cell *ngIf="sortable" dt-sort-header start="desc">
+      {{ label || name }}
+    </dt-header-cell>
   </ng-container>
   <dt-cell
     *dtCellDef="let data"
     [dtIndicator]="_getIndicator(data, name)"
     [dtIndicatorColor]="_getIndicator(data, name)"
-    >{{ _getData(data) }}</dt-cell
   >
+    {{ _getData(data) }}
+  </dt-cell>
 </ng-container>
 ```

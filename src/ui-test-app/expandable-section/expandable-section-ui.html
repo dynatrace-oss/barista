@@ -5,19 +5,24 @@
   </p>
 
   <dt-expandable-section #section1 id="section" [disabled]="section1disabled">
-    <dt-expandable-section-header
-      >My <span id="lblHeader">header</span> text</dt-expandable-section-header
-    >
-    some text<br />
-    some text<br /> </dt-expandable-section
-  ><br />
+    <dt-expandable-section-header>
+      My
+      <span id="lblHeader">header</span>
+      text
+    </dt-expandable-section-header>
+    some text
+    <br />
+    some text
+    <br />
+  </dt-expandable-section>
+  <br />
   <button dt-button (click)="section1.open()" id="btnOpen">Open</button>
   <button dt-button (click)="section1.close()" id="btnClose">Close</button>
   <button dt-button (click)="section1.toggle()" id="btnToggle">Toggle</button>
-  <button dt-button (click)="section1disabled = true" id="btnDisable"
-    >Disable</button
-  >
-  <button dt-button (click)="section1disabled = false" id="btnEnable"
-    >Enable</button
-  >
+  <button dt-button (click)="section1disabled = true" id="btnDisable">
+    Disable
+  </button>
+  <button dt-button (click)="section1disabled = false" id="btnEnable">
+    Enable
+  </button>
 </section>

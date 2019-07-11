@@ -2,6 +2,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import {
   Component,
   DebugElement,
@@ -12,27 +13,26 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { async, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtCell,
   DtExpandableCell,
-  DtHeaderCell,
-  DtRow,
   DtExpandableRow,
+  DtHeaderCell,
+  DtIconModule,
+  DtIndicatorModule,
+  DtLoadingDistractor,
+  DtLoadingDistractorModule,
+  DtRow,
   DtTable,
   DtTableEmptyStateDirective,
   DtTableEmptyStateMessage,
   DtTableEmptyStateTitle,
   DtTableLoadingState,
   DtTableModule,
-  DtLoadingDistractor,
-  DtLoadingDistractorModule,
-  DtIconModule,
-  DtIndicatorModule,
 } from '@dynatrace/angular-components';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtTable', () => {
@@ -737,14 +737,14 @@ describe('DtTable', () => {
 
       <dt-table-empty-state dtTableEmptyState>
         <dt-table-empty-state-title>No host</dt-table-empty-state-title>
-        <dt-table-empty-state-message
-          >Test message</dt-table-empty-state-message
-        >
+        <dt-table-empty-state-message>
+          Test message
+        </dt-table-empty-state-message>
       </dt-table-empty-state>
 
-      <dt-loading-distractor dtTableLoadingState
-        >Loading...</dt-loading-distractor
-      >
+      <dt-loading-distractor dtTableLoadingState>
+        Loading...
+      </dt-loading-distractor>
 
       <dt-header-row *dtHeaderRowDef="['col1', 'col2', 'col3']"></dt-header-row>
       <dt-row *dtRowDef="let row; columns: ['col1', 'col2', 'col3']"></dt-row>
@@ -880,8 +880,9 @@ export class TestExpandableComponentModule {}
           *dtCellDef="let row"
           [dtIndicator]="active"
           [dtIndicatorColor]="color"
-          >{{ row[column] }}</dt-cell
         >
+          {{ row[column] }}
+        </dt-cell>
       </ng-container>
 
       <dt-header-row *dtHeaderRowDef="columns"></dt-header-row>
