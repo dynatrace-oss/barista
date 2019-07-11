@@ -1,4 +1,7 @@
 {
+  "proseWrap": "always",
+  "endOfLine": "lf",
+  "printWidth": 80,
   "singleQuote": true,
   "trailingComma": "es5",
   "htmlWhitespaceSensitivity": "ignore",
@@ -6,6 +9,14 @@
     {
       "files": ".prettierrc",
       "options": { "parser": "json" }
+    },
+    {
+      "files": "/src/barista-examples/app.module.template",
+      "options": { "parser": "angular" }
+    },
+    {
+      "files": "/src/barista-examples/app.component.template",
+      "options": { "parser": "angular" }
     }
   ]
 }
