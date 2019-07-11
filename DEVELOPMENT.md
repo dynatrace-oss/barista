@@ -9,11 +9,13 @@
    ```
 
 ##### Using Yarn
+
 1. Meet NodeJS prerequisites
 2. Install dependencies - `yarn install`
-3. Start dev app - `yarn dev` 
+3. Start dev app - `yarn dev`
 
 ### Building
+
 1. Install NPM dependencies
    ```
    yarn install
@@ -25,7 +27,7 @@
 
 ## Structure
 
-The angular components library has the following structure: 
+The angular components library has the following structure:
 
 - barista-examples: The preview app that includes all examples that get compiled and bundled for the Barista design system.
 - dev-app: local development app to test components
@@ -37,38 +39,47 @@ The angular components library has the following structure:
 - universal-app A testapp to verify that the components can be used in a serverside rendered context
 
 ## Developing
+
 Developing with the dev-app
+
 ```
 yarn dev
 ```
 
 ## Running tests and style lint
+
 Unit tests:
+
 ```
 yarn test
 ```
 
 Unit tests with watcher for local testing:
+
 ```
 yarn test:watch
 ```
 
 UI Tests
+
 ```
 yarn ui-test
 ```
 
 Universal build
+
 ```
 yarn universal
 ```
 
 Stylelint
+
 ```
 yarn lint
 ```
 
 Pre-commit sanity check (runs all tests + linting)
+
 ```
 ./gradlew completeBuild
 ```
@@ -88,12 +99,15 @@ gulp tslint:barista-examples
 ```
 
 ## Custom TSLint rules
+
 Run the following command to build the custom TSLint rules
+
 ```
 yarn tslint:build
 ```
 
 To test the rules run
+
 ```
 yarn tslint:test
 ```
@@ -113,6 +127,7 @@ yarn tslint:test
 3. Any further build will be automatically updated in the project referencing the link.
 
 To unlink development version:
+
 ```
 yarn unlink @dynatrace/angular-components
 yarn install
@@ -120,17 +135,20 @@ yarn install
 
 ### Using Gradle build
 
-Gradle build is meant for CI servers and does not require NodeJS installed upfront. 
+Gradle build is meant for CI servers and does not require NodeJS installed upfront.
 Instead, it downloads NodeJS binaries locally from Arifactory and runs any yarn task with that node version.
 
 Gradle tasks look very similar to the NPM ones, e.g.:
+
 ```
 ./gradlew yarn_install
 ./gradlew test
 ./gradlew lint
 ./gradlew compile
-``` 
+```
+
 To see complete list of gradlew builds, run:
+
 ```
 ./gradlew tasks
 ```
@@ -139,7 +157,7 @@ To see complete list of gradlew builds, run:
 
 ### Git repository version
 
-Version in package.json is hardcoded to match x.x.0-dev pattern. 
+Version in package.json is hardcoded to match x.x.0-dev pattern.
 Specific patch versions are bumped by CI but not commited to the repository.
 
 ### Master branch versions
@@ -149,6 +167,6 @@ Each CI build from master branch bumps patch version (e.g. `0.1.4 -> 0.1.5`)
 ### Incrementing major/minor version
 
 Angular components are stil in 0.x version and major part should not be increased for now.
-Minor version should be bumped if breaking changes are introduced and it has to be done manually. 
+Minor version should be bumped if breaking changes are introduced and it has to be done manually.
 To do it, open `package.json` and increase minor number by one.
 Remember to leave patch and suffix section unchanged (e.g. `0.5.0-dev -> 0.6.0-dev`, `1.6.0-dev -> 2.0.0-dev`)
