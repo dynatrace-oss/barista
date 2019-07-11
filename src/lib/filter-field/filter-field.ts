@@ -15,10 +15,25 @@ import {
   ViewChildren,
   QueryList,
   OnChanges,
+  Optional,
+  Inject,
 } from '@angular/core';
-import { takeUntil, switchMap, take, debounceTime } from 'rxjs/operators';
+import {
+  takeUntil,
+  switchMap,
+  take,
+  debounceTime,
+  filter,
+} from 'rxjs/operators';
 import { ENTER, BACKSPACE, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
-import { Subject, Subscription, fromEvent } from 'rxjs';
+import {
+  Subject,
+  Subscription,
+  fromEvent,
+  merge,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import {
   DtAutocomplete,
   DtAutocompleteSelectedEvent,
@@ -61,6 +76,7 @@ import {
   getDtFilterFieldApplyFilterNoRootDataProvidedError,
   getDtFilterFieldApplyFilterParseError,
 } from './filter-field-errors';
+import { DOCUMENT } from '@angular/common';
 
 // tslint:disable:no-any
 
@@ -118,6 +134,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   private _dataSource: DtFilterFieldDataSource;
   private _dataSubscription: Subscription | null;
   private _stateChanges = new Subject<void>();
+  private _outsideClickSubscription: Subscription | null;
 
   @Input()
   get loading(): boolean {
@@ -214,6 +231,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
 
+  /** Member value that holds the previous filter values, to reset them if editmode is cancelled. */
+  private _editModeStashedValue: DtFilterValue[] | null;
+
   /** Whether the filter field or one of it's child elements is focused. */
   private _isFocused = false;
 
@@ -221,7 +241,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     private _changeDetectorRef: ChangeDetectorRef,
     private _zone: NgZone,
     private _focusMonitor: FocusMonitor,
-    private _elementRef: ElementRef
+    private _elementRef: ElementRef,
+    // tslint:disable-next-line:no-any
+    @Optional() @Inject(DOCUMENT) private _document: any
   ) {
     this._stateChanges
       .pipe(switchMap(() => this._zone.onMicrotaskEmpty.pipe(take(1))))
@@ -300,6 +322,11 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       this._dataSubscription = null;
     }
 
+    if (this._outsideClickSubscription) {
+      this._outsideClickSubscription.unsubscribe();
+      this._outsideClickSubscription = null;
+    }
+
     this._destroy.next();
     this._destroy.complete();
   }
@@ -351,6 +378,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     } else if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
       this._autocompleteTrigger.closePanel();
       this._filterfieldRangeTrigger.closePanel();
+      if (this._editModeStashedValue) {
+        this._cancelEditMode();
+      }
     }
   }
 
@@ -387,9 +417,13 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       const value = event.data.filterValues[0];
       if (
         (isDtAutocompletValue(value) && isDtAutocompleteDef(value)) ||
-        isDtRangeDef(value)
+        isDtRangeDef(value) ||
+        isDtFreeTextDef(value)
       ) {
         const removed = event.data.filterValues.splice(1);
+        // Keep the removed values in the stashed member, to reapply them if necessary.
+        this._editModeStashedValue = removed;
+        this._outsideClickSubscription = this._cancelEditModeSubscription();
         this._currentFilterValues = event.data.filterValues;
         this._currentDef = value;
 
@@ -409,6 +443,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
             );
           }
         }
+
         this._updateFilterByLabel();
         this._updateTagData();
         this._isFocused = true;
@@ -420,6 +455,58 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       }
       this.focus();
     }
+  }
+
+  /**
+   * Creates a subscription that fires once the editMode should be cancelled.
+   */
+  private _cancelEditModeSubscription(): Subscription {
+    return merge(
+      this._getOutsideClickStream(),
+      this._autocomplete.closed,
+      this._filterfieldRange.closed
+    )
+      .pipe(filter(() => isDefined(this._editModeStashedValue)))
+      .subscribe(() => {
+        this._cancelEditMode();
+      });
+  }
+
+  /**
+   * Cancels the editmode and resets the filter to the root definition.
+   * It resets the currently edited filter back to the stashed value.
+   */
+  private _cancelEditMode(): void {
+    // Clear the outside click subscription.
+    if (this._outsideClickSubscription) {
+      this._outsideClickSubscription.unsubscribe();
+      this._outsideClickSubscription = null;
+    }
+    // If we have a stashed value, reset the filter to the previous state and make
+    // the necessary updates.
+    if (this._editModeStashedValue) {
+      this._peekCurrentFilterValues().push(...this._editModeStashedValue);
+      this._editModeStashedValue = null;
+      this._updateFilterByLabel();
+      this._updateTagData();
+      this._isFocused = false;
+      this._switchToRootDef(false);
+      this._stateChanges.next();
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  /**
+   * If any changes to the filter have been made during the editmode, the editmode should be exited and the
+   * usual behaviour of writing filters should continue.
+   */
+  private _resetEditMode(): void {
+    // Clear the outside click subscription.
+    if (this._outsideClickSubscription) {
+      this._outsideClickSubscription.unsubscribe();
+      this._outsideClickSubscription = null;
+    }
+    this._editModeStashedValue = null;
   }
 
   /** Handles selecting an option from the autocomplete. */
@@ -452,6 +539,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       }
     });
 
+    // if any changes happen, cancel the editmode.
+    this._resetEditMode();
+
     this._stateChanges.next();
     this._changeDetectorRef.markForCheck();
   }
@@ -463,6 +553,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   private _handleFreeTextSubmitted(): void {
     const sources = this._peekCurrentFilterValues();
     sources.push(this._inputValue);
+
+    // if any changes happen, cancel the editmode.
+    this._resetEditMode();
 
     this._writeInputValue('');
     this._switchToRootDef(true);
@@ -481,6 +574,10 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     this._isFocused = true;
     this._writeInputValue('');
     this._switchToRootDef(true);
+
+    // if any changes happen, cancel the editmode.
+    this._resetEditMode();
+
     this._stateChanges.next();
     this._changeDetectorRef.markForCheck();
   }
@@ -563,6 +660,30 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         getSourcesOfDtFilterValues(this._currentFilterValues),
         this.filters
       )
+    );
+  }
+
+  /**
+   * Creates a stream of clicks outside the filter field.
+   */
+  // tslint:disable-next-line:no-any
+  private _getOutsideClickStream(): Observable<any> {
+    if (!this._document) {
+      return observableOf(null);
+    }
+
+    return merge(
+      fromEvent<MouseEvent>(this._document, 'click'),
+      fromEvent<TouchEvent>(this._document, 'touchend')
+    ).pipe(
+      filter((event: Event) => {
+        const clickTarget = event.target as HTMLElement;
+        const filterField = this._elementRef.nativeElement;
+        return (
+          clickTarget !== filterField &&
+          (!filterField || !filterField.contains(clickTarget))
+        );
+      })
     );
   }
 
@@ -699,9 +820,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
 
   private _getSelectedOptionIds(): Set<string> {
     const ids = new Set<string>();
-    for (const filter of this._filters) {
+    for (const currentFilter of this._filters) {
       let currentId = '';
-      for (const value of filter) {
+      for (const value of currentFilter) {
         if (isDtAutocompletValue(value)) {
           const id = peekOptionId(value, currentId);
           ids.add(id);
