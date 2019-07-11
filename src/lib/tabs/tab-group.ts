@@ -83,6 +83,11 @@ export class DtTabGroup extends _DtTabGroupMixinBase
   /** Emits an event every time the selected tab changes */
   @Output() readonly selectionChanged = new EventEmitter<DtTabChange>();
 
+  /** The currently registered tabs on the tabgroup */
+  get tabs(): DtTab[] {
+    return this._tabs ? this._tabs.toArray() : [];
+  }
+
   constructor(
     elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef
