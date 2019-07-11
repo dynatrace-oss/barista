@@ -38,9 +38,7 @@
                 "output": "/assets/icons"
               }
             ],
-            "styles": [
-              "src/dev-app/main.scss"
-            ]
+            "styles": ["src/dev-app/main.scss"]
           }
         },
         "serve": {
@@ -128,9 +126,7 @@
                 "output": "/assets/icons"
               }
             ],
-            "styles": [
-              "src/ui-test-app/main.scss"
-            ]
+            "styles": ["src/ui-test-app/main.scss"]
           }
         },
         "serve": {
