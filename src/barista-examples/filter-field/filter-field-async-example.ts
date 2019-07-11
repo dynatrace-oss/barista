@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
-  DtFilterFieldDefaultDataSource,
   DtFilterFieldCurrentFilterChangeEvent,
+  DtFilterFieldDefaultDataSource,
 } from '@dynatrace/angular-components/filter-field';
 
 // tslint:disable: no-any
@@ -14,8 +14,7 @@ import {
       [dataSource]="_dataSource"
       (currentFilterChanges)="currentFilterChanged($event)"
       label="Filter by"
-    >
-    </dt-filter-field>
+    ></dt-filter-field>
   `,
 })
 export class FilterFieldAsyncExample {

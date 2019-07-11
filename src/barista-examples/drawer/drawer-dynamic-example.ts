@@ -13,8 +13,8 @@ import { DtDrawer } from '@dynatrace/angular-components';
         [position]="position"
         opened
       >
-        Drawer Content</dt-drawer
-      >
+        Drawer Content
+      </dt-drawer>
       Main content
     </dt-drawer-container>
 
@@ -24,8 +24,9 @@ import { DtDrawer } from '@dynatrace/angular-components';
       color="secondary"
       [disabled]="!drawerPresent"
       (click)="toggle()"
-      >toggle drawer</button
     >
+      toggle drawer
+    </button>
     <dt-form-field>
       <dt-label>Select drawer mode:</dt-label>
       <dt-select [(value)]="mode">

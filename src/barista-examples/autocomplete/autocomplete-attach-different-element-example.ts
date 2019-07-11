@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
@@ -22,8 +22,9 @@ import { FormControl } from '@angular/forms';
       <dt-option
         *ngFor="let option of filteredOptions | async"
         [value]="option"
-        >{{ option }}</dt-option
       >
+        {{ option }}
+      </dt-option>
     </dt-autocomplete>
   `,
 })

@@ -13,8 +13,7 @@ const TIMEOUT_MS = 2000;
       [onRemoteSave]="failingSaveFunction"
       aria-label-save="Save text"
       aria-label-cancel="Cancel and discard changes"
-    >
-    </em>
+    ></em>
   `,
 })
 export class InlineEditorFailingExample {

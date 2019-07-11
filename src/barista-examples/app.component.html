@@ -5,9 +5,9 @@
     [(ngModel)]="selectedTheme"
     aria-label="Select a theme"
   >
-    <dt-option *ngFor="let theme of themes" [value]="theme.value">{{
-      theme.name
-    }}</dt-option>
+    <dt-option *ngFor="let theme of themes" [value]="theme.value">
+      {{ theme.name }}
+    </dt-option>
   </dt-select>
 </nav>
 <div class="content-wrapper" [dtTheme]="selectedTheme">

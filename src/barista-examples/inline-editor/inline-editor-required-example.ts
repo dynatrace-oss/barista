@@ -13,9 +13,10 @@ import { Component } from '@angular/core';
     >
       <dt-error>Empty value not accepted!</dt-error>
     </em>
-    <span
-      >model: <code>{{ sampleModel }}</code></span
-    >
+    <span>
+      model:
+      <code>{{ sampleModel }}</code>
+    </span>
   `,
 })
 export class InlineEditorRequiredExample {

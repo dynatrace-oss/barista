@@ -12,14 +12,18 @@ import { Component } from '@angular/core';
       [(ngModel)]="textValue"
       #textControl="ngModel"
     />
-    <p
-      >Output: <em>{{ textValue || 'none' }}</em></p
-    >
+    <p>
+      Output:
+      <em>{{ textValue || 'none' }}</em>
+    </p>
     <!-- The lines below are just for the showcase, do not use this in production -->
     <p>
-      Touched: {{ textControl.touched }}<br />
-      Dirty: {{ textControl.dirty }}<br />
-      Status: {{ textControl.control?.status }}<br />
+      Touched: {{ textControl.touched }}
+      <br />
+      Dirty: {{ textControl.dirty }}
+      <br />
+      Status: {{ textControl.control?.status }}
+      <br />
     </p>
   `,
 })

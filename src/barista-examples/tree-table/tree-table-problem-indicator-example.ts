@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { DtIconType } from '@dynatrace/dt-iconpack';
+import { Component } from '@angular/core';
 import {
+  DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
-  DtTreeControl,
 } from '@dynatrace/angular-components';
+import { DtIconType } from '@dynatrace/dt-iconpack';
 
 const TESTDATA: ThreadNode[] = [
   {
@@ -115,14 +115,14 @@ export class ThreadFlatNode {
   template: `
     <dt-tree-table [dataSource]="dataSource" [treeControl]="treeControl">
       <ng-container dtColumnDef="name">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Name</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Name
+        </dt-tree-table-header-cell>
         <dt-tree-table-toggle-cell *dtCellDef="let row">
           <dt-info-group>
-            <dt-info-group-icon
-              ><dt-icon [name]="row.icon"></dt-icon
-            ></dt-info-group-icon>
+            <dt-info-group-icon>
+              <dt-icon [name]="row.icon"></dt-icon>
+            </dt-info-group-icon>
             <dt-info-group-title>{{ row.name }}</dt-info-group-title>
             {{ row.threadlevel }}
           </dt-info-group>
@@ -130,39 +130,40 @@ export class ThreadFlatNode {
       </ng-container>
 
       <ng-container dtColumnDef="blocked" dtColumnAlign="right">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Blocked</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Blocked
+        </dt-tree-table-header-cell>
         <dt-cell
           *dtCellDef="let row"
           [dtIndicator]="row.blocked > 0"
           dtIndicatorColor="error"
-          >{{ row.blocked }}ms</dt-cell
         >
+          {{ row.blocked }}ms
+        </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="running" dtColumnAlign="center">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Running</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Running
+        </dt-tree-table-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.running }}ms</dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="waiting">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Waiting</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Waiting
+        </dt-tree-table-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.waiting }}ms</dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="actions">
-        <dt-tree-table-header-cell *dtHeaderCellDef
-          >Actions</dt-tree-table-header-cell
-        >
+        <dt-tree-table-header-cell *dtHeaderCellDef>
+          Actions
+        </dt-tree-table-header-cell>
         <dt-cell *dtCellDef="let row">
-          <button dt-icon-button variant="nested" aria-label="Filter results"
-            ><dt-icon name="filter"></dt-icon
-          ></button>
+          <button dt-icon-button variant="nested" aria-label="Filter results">
+            <dt-icon name="filter"></dt-icon>
+          </button>
           <button
             dt-icon-button
             variant="nested"

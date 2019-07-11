@@ -10,11 +10,11 @@ import { Component } from '@angular/core';
       [disabled]="isDisabled"
       aria-label="Please insert text"
     />
-    <p
-      ><button dt-button (click)="isDisabled = !isDisabled"
-        >Toggle disabled</button
-      ></p
-    >
+    <p>
+      <button dt-button (click)="isDisabled = !isDisabled">
+        Toggle disabled
+      </button>
+    </p>
 
     <input
       dtInput
@@ -22,11 +22,11 @@ import { Component } from '@angular/core';
       [readonly]="isReadonly"
       aria-label="Please insert text"
     />
-    <p
-      ><button dt-button (click)="isReadonly = !isReadonly"
-        >Toggle readonly</button
-      ></p
-    >
+    <p>
+      <button dt-button (click)="isReadonly = !isReadonly">
+        Toggle readonly
+      </button>
+    </p>
   `,
 })
 export class InputDisabledReadonlyExample {

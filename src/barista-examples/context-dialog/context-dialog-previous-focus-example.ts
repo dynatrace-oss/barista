@@ -5,9 +5,9 @@ import { DtButton, DtContextDialog } from '@dynatrace/angular-components';
   moduleId: module.id,
   selector: 'demo-component',
   template: `
-    <button dt-button variant="secondary" (click)="open()" #focusme
-      >Open</button
-    >
+    <button dt-button variant="secondary" (click)="open()" #focusme>
+      Open
+    </button>
     <dt-context-dialog
       #contextdialog
       color="cta"

@@ -1,15 +1,15 @@
 import {
-  ElementRef,
   Component,
+  ElementRef,
   Input,
+  NgZone,
   Optional,
   SkipSelf,
-  NgZone,
   ViewChild,
 } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
-import { map, distinctUntilChanged } from 'rxjs/operators';
 import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
+import { fromEvent, Subscription } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 // tslint:disable:no-magic-numbers
 
@@ -27,9 +27,9 @@ import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
     >
       <ng-content></ng-content>
     </div>
-    <ng-template #overlay
-      ><span>{{ time | date: 'mm:ss' }}</span></ng-template
-    >
+    <ng-template #overlay>
+      <span>{{ time | date: 'mm:ss' }}</span>
+    </ng-template>
   `,
   styles: [
     `

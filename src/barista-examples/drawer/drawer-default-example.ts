@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `
     <dt-drawer-container class="drawer">
-      <dt-drawer #drawer opened> Drawer Content</dt-drawer>
+      <dt-drawer #drawer opened>Drawer Content</dt-drawer>
       Main content
     </dt-drawer-container>
 

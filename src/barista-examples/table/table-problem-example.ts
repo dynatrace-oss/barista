@@ -39,21 +39,24 @@ export interface TableData {
           <span
             [dtIndicator]="metricHasProblem(row, 'memoryPerc')"
             [dtIndicatorColor]="metricIndicatorColor(row, 'memoryPerc')"
-            >{{ row.memoryPerc | dtPercent }}</span
-          >&nbsp;of&nbsp;
+          >
+            {{ row.memoryPerc | dtPercent }}
+          </span>
+          &nbsp;of&nbsp;
           <span
             [dtIndicator]="metricHasProblem(row, 'memoryTotal')"
             [dtIndicatorColor]="metricIndicatorColor(row, 'memoryTotal')"
-            >{{ row.memoryTotal | dtBytes }}</span
           >
+            {{ row.memoryTotal | dtBytes }}
+          </span>
         </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="traffic" dtColumnAlign="control">
         <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
-        <dt-cell *dtCellDef="let row">{{
-          row.traffic | dtBits | dtRate: 's'
-        }}</dt-cell>
+        <dt-cell *dtCellDef="let row">
+          {{ row.traffic | dtBits | dtRate: 's' }}
+        </dt-cell>
       </ng-container>
 
       <ng-container dtColumnDef="empty">

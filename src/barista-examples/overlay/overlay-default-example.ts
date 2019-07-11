@@ -9,8 +9,9 @@ import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
       [dtOverlay]="overlay"
       style="cursor: pointer;"
       [dtOverlayConfig]="config"
-      >Hover me</span
     >
+      Hover me
+    </span>
     <ng-template #overlay>
       <p>Overlay content</p>
     </ng-template>
