@@ -9,11 +9,11 @@ import { Component } from '@angular/core';
       [(ngModel)]="sampleModel"
       aria-label-save="Save text"
       aria-label-cancel="Cancel and discard changes"
-    >
-    </em>
-    <span
-      >model: <code>{{ sampleModel }}</code></span
-    >
+    ></em>
+    <span>
+      model:
+      <code>{{ sampleModel }}</code>
+    </span>
   `,
 })
 export class InlineEditorDefaultExample {

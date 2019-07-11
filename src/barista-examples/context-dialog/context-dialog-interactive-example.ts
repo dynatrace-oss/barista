@@ -21,10 +21,11 @@ import { Component } from '@angular/core';
         aria-label="Show more details"
         aria-label-close-button="Close context dialog"
       >
-        <p
-          >Your dashboard "real user monitoring"<br />
-          is only visible to you</p
-        >
+        <p>
+          Your dashboard "real user monitoring"
+          <br />
+          is only visible to you
+        </p>
       </dt-context-dialog>
     </div>
     <button dt-button (click)="interactiveDialog.open()">Open</button>
@@ -32,11 +33,12 @@ import { Component } from '@angular/core';
     <button
       dt-button
       (click)="interactiveDialogDisabled = !interactiveDialogDisabled"
-      >Disabled / Enable</button
     >
-    <button dt-button (click)="customTrigger = !customTrigger"
-      >Toggle custom trigger</button
-    >
+      Disabled / Enable
+    </button>
+    <button dt-button (click)="customTrigger = !customTrigger">
+      Toggle custom trigger
+    </button>
   `,
 })
 export class ContextDialogInteractiveExample {

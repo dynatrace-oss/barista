@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `
     <section class="dark" dtTheme=":dark">
-      <dt-show-more [showLess]="showLess" (changed)="showLess = !showLess"
-        >Toggle more/less</dt-show-more
-      >
+      <dt-show-more [showLess]="showLess" (changed)="showLess = !showLess">
+        Toggle more/less
+      </dt-show-more>
     </section>
   `,
 })

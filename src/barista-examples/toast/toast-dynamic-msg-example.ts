@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DtToast, DtToastRef } from '@dynatrace/angular-components';
-import { timer, Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
 const TIMERINTERVAL = 50;
@@ -19,9 +19,9 @@ const TIMERINTERVAL = 50;
       />
     </dt-form-field>
     <p>Current message: {{ message }}</p>
-    <p *ngIf="elapsedTime"
-      >Time elapsed since opening: {{ elapsedTime | async }}ms</p
-    >
+    <p *ngIf="elapsedTime">
+      Time elapsed since opening: {{ elapsedTime | async }}ms
+    </p>
     <button dt-button (click)="createToast()">Save</button>
   `,
 })

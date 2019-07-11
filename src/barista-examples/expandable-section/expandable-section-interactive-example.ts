@@ -5,29 +5,31 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `
     <dt-expandable-section #section [disabled]="sectionDisabled">
-      <dt-expandable-section-header
-        >My header text</dt-expandable-section-header
-      >
+      <dt-expandable-section-header>
+        My header text
+      </dt-expandable-section-header>
       {{ text }}
     </dt-expandable-section>
     <button
       dt-button
       (click)="section.open()"
       [disabled]="section.expanded || sectionDisabled"
-      >Open</button
     >
+      Open
+    </button>
     <button
       dt-button
       (click)="section.close()"
       [disabled]="!section.expanded || sectionDisabled"
-      >Close</button
     >
-    <button dt-button (click)="section.toggle()" [disabled]="sectionDisabled"
-      >Toggle</button
-    >
-    <button dt-button (click)="sectionDisabled = !sectionDisabled"
-      >Disable / Enable</button
-    >
+      Close
+    </button>
+    <button dt-button (click)="section.toggle()" [disabled]="sectionDisabled">
+      Toggle
+    </button>
+    <button dt-button (click)="sectionDisabled = !sectionDisabled">
+      Disable / Enable
+    </button>
   `,
 })
 export class ExpandableSectionInteractiveExample {

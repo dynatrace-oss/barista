@@ -27,9 +27,9 @@ import { Component } from '@angular/core';
         <dt-cell *dtCellDef="let row">{{ row.traffic }}</dt-cell>
       </ng-container>
 
-      <dt-loading-distractor dtTableLoadingState
-        >Loading...</dt-loading-distractor
-      >
+      <dt-loading-distractor dtTableLoadingState>
+        Loading...
+      </dt-loading-distractor>
 
       <dt-header-row
         *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"

@@ -12,9 +12,11 @@ import { Component } from '@angular/core';
       <button dt-button (click)="value = value - 10">decrease by 10</button>
       <button dt-button (click)="value = value + 10">increase by 10</button>
     </div>
-    <p *ngIf="oldValue !== null"
-      >Event: OldValue: {{ oldValue }}<br />NewValue: {{ newValue }}</p
-    >
+    <p *ngIf="oldValue !== null">
+      Event: OldValue: {{ oldValue }}
+      <br />
+      NewValue: {{ newValue }}
+    </p>
   `,
   styles: ['dt-progress-bar {margin: 8px 0}'],
 })

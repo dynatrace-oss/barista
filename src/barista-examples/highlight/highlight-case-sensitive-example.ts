@@ -12,9 +12,9 @@ import { Component } from '@angular/core';
       #search
       aria-label="Insert the text that should be highlighted in the example below."
     />
-    <dt-highlight [term]="search.value" caseSensitive
-      >Dynatrace system Monitoring</dt-highlight
-    >
+    <dt-highlight [term]="search.value" caseSensitive>
+      Dynatrace system Monitoring
+    </dt-highlight>
   `,
 })
 export class HighlightCaseSensitiveExample {}

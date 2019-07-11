@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `
     <dt-breadcrumbs aria-label="Breadcrumbs navigation">
-      <dt-breadcrumbs-item href="http://google.com" external
-        >google.com</dt-breadcrumbs-item
-      >
+      <dt-breadcrumbs-item href="http://google.com" external>
+        google.com
+      </dt-breadcrumbs-item>
       <dt-breadcrumbs-item>Current view</dt-breadcrumbs-item>
     </dt-breadcrumbs>
   `,

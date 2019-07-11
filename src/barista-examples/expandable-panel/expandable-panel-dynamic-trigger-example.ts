@@ -16,8 +16,10 @@ import { Component } from '@angular/core';
       sit amet.
     </dt-expandable-panel>
     <button dt-button [dtExpandablePanel]="panel">
-      Toggle trigger (<span *ngIf="panel.expanded">close panel</span
-      ><span *ngIf="!panel.expanded">open panel</span>)
+      Toggle trigger (
+      <span *ngIf="panel.expanded">close panel</span>
+      <span *ngIf="!panel.expanded">open panel</span>
+      )
     </button>
   `,
 })

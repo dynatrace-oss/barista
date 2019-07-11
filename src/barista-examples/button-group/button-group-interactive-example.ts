@@ -12,30 +12,38 @@ import { Component } from '@angular/core';
             *ngIf="!control1secondOdd || i % 2 === 0"
             [value]="gvalue.key"
             [disabled]="i === 2 && control1secondDisabled"
-            >{{ gvalue.name }}
+          >
+            {{ gvalue.name }}
           </dt-button-group-item>
         </ng-container>
       </dt-button-group>
     </div>
     <div style="margin-top: .5em;">Current value: {{ control1.value }}</div>
     <div style="margin-top: .5em;">
-      <button dt-button (click)="control1.value = groupValues[0].key"
-        >Select 1<sup>st</sup> key</button
-      >
-      <button dt-button (click)="control1.value = groupValues[1].key"
-        >Select 2<sup>nd</sup> key</button
-      >
-      <button dt-button (click)="control1AllDisabled = !control1AllDisabled"
-        >Toggle all disabled</button
-      >
+      <button dt-button (click)="control1.value = groupValues[0].key">
+        Select 1
+        <sup>st</sup>
+        key
+      </button>
+      <button dt-button (click)="control1.value = groupValues[1].key">
+        Select 2
+        <sup>nd</sup>
+        key
+      </button>
+      <button dt-button (click)="control1AllDisabled = !control1AllDisabled">
+        Toggle all disabled
+      </button>
       <button
         dt-button
         (click)="control1secondDisabled = !control1secondDisabled"
-        >Toggle 3<sup>rd</sup> disabled</button
       >
-      <button dt-button (click)="control1secondOdd = !control1secondOdd"
-        >Toggle odd items</button
-      >
+        Toggle 3
+        <sup>rd</sup>
+        disabled
+      </button>
+      <button dt-button (click)="control1secondOdd = !control1secondOdd">
+        Toggle odd items
+      </button>
     </div>
   `,
   // @formatter:on

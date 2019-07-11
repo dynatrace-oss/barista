@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
       <button dt-button (click)="addItem()">Add item</button>
       <button dt-button (click)="removeItem()">Remove item</button>
     </div>
-    <div style="margin-top: 16px;"> Current value: "{{ group1.value }}" </div>
+    <div style="margin-top: 16px;">Current value: "{{ group1.value }}"</div>
   `,
   styles: [
     '.dt-toggle-button-item { margin-right: 16px; }',
