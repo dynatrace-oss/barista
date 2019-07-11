@@ -18,7 +18,7 @@
     "tslint:build": "gulp ts-linting-rules:build",
     "tslint:test": "tslint --rules-dir dist/lib/tslint/rules --test src/linting/test/rules/**/tslint.json",
     "stylelint-check": "stylelint-config-prettier-check",
-    "prettier": "prettier \"src/!(schematics)/**/*.{ts,js,css,scss,json,html,md}\"",
+    "prettier": "prettier \"src/**/*.{ts,js,css,scss,json,html,md}\"",
     "prettier:fix": "yarn prettier --write",
     "universal": "gulp universal",
     "schematics:build": "gulp schematics:build",
