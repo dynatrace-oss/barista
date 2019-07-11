@@ -325,7 +325,7 @@ describe('DtChart', () => {
       const loadingElement: HTMLElement = fixture.debugElement.query(
         By.css('.dt-chart-loading-indicator')
       ).nativeElement;
-      expect(loadingElement.textContent).toBe('');
+      expect(loadingElement.textContent).toMatch(/^\s*$/);
     });
 
     it('should able to set a loading text', () => {
@@ -336,7 +336,7 @@ describe('DtChart', () => {
       const loadingElement: HTMLElement = fixture.debugElement.query(
         By.css('.dt-chart-loading-indicator')
       ).nativeElement;
-      expect(loadingElement.textContent).toBe('Loading');
+      expect(loadingElement.textContent).toMatch(/^\s*Loading\s*$/);
     });
   });
 });
