@@ -13,8 +13,7 @@ const isOnCI = process.env.CI;
 const coverageReporters = isOnCI ? ['lcovonly', 'html'] : ['html'];
 const karmaReporters = isOnCI ? ['dots', 'junit', 'sonarqubeUnit'] : ['dots'];
 
-module.exports = (config) => {
-
+module.exports = config => {
   config.set({
     basePath: path.join(__dirname, '..'),
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -38,8 +37,8 @@ module.exports = (config) => {
       fixWebpackSourcePaths: true,
       'report-config': {
         html: {
-          subdir: 'html'
-        }
+          subdir: 'html',
+        },
       },
     },
     reporters: karmaReporters,
@@ -48,13 +47,12 @@ module.exports = (config) => {
     colors: !isOnCI,
     logLevel: config.LOG_INFO,
 
-
     junitReporter: {
       outputDir: 'dist/test-results/',
       outputFile: 'unit-tests.xml',
       useBrowserName: false,
       suite: '',
-      XMLconfigValue: true
+      XMLconfigValue: true,
     },
     sonarQubeUnitReporter: {
       sonarQubeVersion: 'LATEST',
@@ -75,8 +73,7 @@ module.exports = (config) => {
       CustomChromeHeadless: {
         base: 'ChromeHeadless',
         flags: chromeConfig.karmaFlags,
-      }
+      },
     },
-
   });
 };
