@@ -7,8 +7,8 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
-  DtBreadcrumbsModule,
   DtBreadcrumbsItem,
+  DtBreadcrumbsModule,
 } from '@dynatrace/angular-components';
 import { identity } from 'rxjs';
 import { instance, mock, when } from 'ts-mockito';
@@ -279,9 +279,9 @@ describe('DtBreadcrumbsItem', () => {
 
 @Component({
   template: `
-    <dt-breadcrumbs-item [href]="href" [external]="external" #item>{{
-      text
-    }}</dt-breadcrumbs-item>
+    <dt-breadcrumbs-item [href]="href" [external]="external" #item>
+      {{ text }}
+    </dt-breadcrumbs-item>
   `,
 })
 class TestBreadcrumbsItem {

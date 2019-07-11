@@ -1,11 +1,11 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { async, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtProgressBarModule } from './index';
 import { createComponent } from '../../testing/create-component';
+import { DtProgressBarModule } from './index';
 
 describe('DtProgressBar', () => {
   beforeEach(async(() => {
@@ -251,9 +251,9 @@ class ColorProgressBar {
 @Component({
   template: `
     <dt-progress-bar [value]="75">
-      <dt-progress-bar-description
-        >We found more than 100 results.</dt-progress-bar-description
-      >
+      <dt-progress-bar-description>
+        We found more than 100 results.
+      </dt-progress-bar-description>
     </dt-progress-bar>
   `,
 })
@@ -271,9 +271,9 @@ class CountProgressBar {}
 @Component({
   template: `
     <dt-progress-bar [value]="75">
-      <dt-progress-bar-description
-        >We found more than 100 results.</dt-progress-bar-description
-      >
+      <dt-progress-bar-description>
+        We found more than 100 results.
+      </dt-progress-bar-description>
       <dt-progress-bar-count>80/100 days</dt-progress-bar-count>
     </dt-progress-bar>
   `,

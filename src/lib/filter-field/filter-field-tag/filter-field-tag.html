@@ -13,11 +13,12 @@
       *ngIf="data?.key"
       class="dt-filter-field-tag-key"
       [attr.data-separator]="data.separator ? data.separator! : ':'"
-      >{{data.key}}</span
     >
-    <span class="dt-filter-field-tag-value" *ngIf="data?.value"
-      >{{data.value}}</span
-    >
+      {{data.key}}
+    </span>
+    <span class="dt-filter-field-tag-value" *ngIf="data?.value">
+      {{data.value}}
+    </span>
   </div>
 </button>
 <button

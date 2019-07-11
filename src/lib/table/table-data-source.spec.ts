@@ -17,9 +17,9 @@ import {
   DtPagination,
   DtTableDataSource,
 } from '@dynatrace/angular-components';
+import { createComponent } from '../../testing/create-component';
 import { DtPaginationModule } from '../pagination';
 import { DtTableModule } from './table-module';
-import { createComponent } from '../../testing/create-component';
 
 const PAGE_SIZE = 2;
 
@@ -209,9 +209,9 @@ describe('DtTableDataSource', () => {
         name="host"
         sortable="false"
       ></dt-simple-text-column>
-      <dt-simple-number-column name="cpu" label="Cpu" sortable="false"
-        >CPU</dt-simple-number-column
-      >
+      <dt-simple-number-column name="cpu" label="Cpu" sortable="false">
+        CPU
+      </dt-simple-number-column>
       <dt-simple-number-column
         name="memoryPerc"
         label="Memory"

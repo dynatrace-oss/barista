@@ -2,14 +2,14 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 // tslint:disable deprecation
 
-import { async, TestBed } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  DtExpandablePanelModule,
-  DtExpandablePanel,
-} from '@dynatrace/angular-components';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  DtExpandablePanel,
+  DtExpandablePanelModule,
+} from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtExpandablePanel', () => {
@@ -218,8 +218,8 @@ class ExpandablePanelComponent {}
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-expandable-panel #panel>text</dt-expandable-panel
-    ><button [dtExpandablePanel]="panel">trigger</button>
+    <dt-expandable-panel #panel>text</dt-expandable-panel>
+    <button [dtExpandablePanel]="panel">trigger</button>
   `,
 })
 class ExpandablePanelWithTriggerComponent {}

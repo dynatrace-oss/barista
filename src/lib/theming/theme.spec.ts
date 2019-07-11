@@ -172,9 +172,9 @@ class TestAppChild {
 @Component({
   selector: 'dt-test-parent',
   template: `
-    <section class="parent-section" [dtTheme]="theme"
-      ><dt-test-child></dt-test-child
-    ></section>
+    <section class="parent-section" [dtTheme]="theme">
+      <dt-test-child></dt-test-child>
+    </section>
   `,
 })
 class TestAppParent {

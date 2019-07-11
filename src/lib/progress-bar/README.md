@@ -31,11 +31,11 @@ to position the description correctly. Use the description to provide more insig
 
 ```html
 <dt-progress-bar ...>
-  <dt-progress-bar-description
-    >Rich text describing the progress...</dt-progress-bar-description
-  >
-  <dt-progress-bar></dt-progress-bar
-></dt-progress-bar>
+  <dt-progress-bar-description>
+    Rich text describing the progress...
+  </dt-progress-bar-description>
+  <dt-progress-bar></dt-progress-bar>
+</dt-progress-bar>
 ```
 
 <docs-source-example example="ProgressBarWithDescriptionExample"></docs-source-example>
@@ -47,8 +47,8 @@ The `<dt-progress-bar-count>` component lets you add a count to the progressbar 
 ```html
 <dt-progress-bar ...>
   <dt-progress-bar-count>80/100 days</dt-progress-bar-count>
-  <dt-progress-bar></dt-progress-bar
-></dt-progress-bar>
+  <dt-progress-bar></dt-progress-bar>
+</dt-progress-bar>
 ```
 
 <docs-source-example example="ProgressBarWithCountAndDescriptionExample"></docs-source-example>

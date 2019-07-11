@@ -7,12 +7,12 @@
   #trigger
 >
   <div class="dt-select-value" [ngSwitch]="empty">
-    <span class="dt-select-placeholder" *ngSwitchCase="true"
-      >{{placeholder || '\u00A0'}}</span
-    >
-    <span class="dt-select-value-text" *ngSwitchCase="false"
-      >{{triggerValue || '\u00A0'}}</span
-    >
+    <span class="dt-select-placeholder" *ngSwitchCase="true">
+      {{placeholder || '\u00A0'}}
+    </span>
+    <span class="dt-select-value-text" *ngSwitchCase="false">
+      {{triggerValue || '\u00A0'}}
+    </span>
   </div>
 
   <dt-icon name="dropdownopen" class="dt-select-arrow"></dt-icon>

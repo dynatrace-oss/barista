@@ -2,63 +2,63 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import {
+  DOWN_ARROW,
+  END,
+  ENTER,
+  HOME,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  SPACE,
+  TAB,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
+import {
   async,
   ComponentFixture,
-  TestBed,
-  inject,
   fakeAsync,
   flush,
+  inject,
+  TestBed,
   tick,
 } from '@angular/core/testing';
 import {
-  Component,
-  ViewChild,
-  QueryList,
-  ViewChildren,
-  ChangeDetectionStrategy,
-} from '@angular/core';
-import { By } from '@angular/platform-browser';
-import {
-  DtSelectModule,
-  DtSelect,
-  DtFormFieldModule,
-  DtOption,
-  DtIconModule,
-  DtOptionSelectionChange,
-  getDtSelectNonFunctionValueError,
-  ErrorStateMatcher,
-} from '@dynatrace/angular-components';
-import {
   FormControl,
+  FormGroup,
+  FormGroupDirective,
   FormsModule,
   ReactiveFormsModule,
-  FormGroupDirective,
-  FormGroup,
   Validators,
 } from '@angular/forms';
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
-  DOWN_ARROW,
-  UP_ARROW,
-  RIGHT_ARROW,
-  LEFT_ARROW,
-  SPACE,
-  ENTER,
-  HOME,
-  TAB,
-  END,
-} from '@angular/cdk/keycodes';
+  DtFormFieldModule,
+  DtIconModule,
+  DtOption,
+  DtOptionSelectionChange,
+  DtSelect,
+  DtSelectModule,
+  ErrorStateMatcher,
+  getDtSelectNonFunctionValueError,
+} from '@dynatrace/angular-components';
+import { map } from 'rxjs/operators';
+import { createComponent } from '../../testing/create-component';
 import {
-  dispatchKeyboardEvent,
   dispatchEvent,
   dispatchFakeEvent,
+  dispatchKeyboardEvent,
 } from '../../testing/dispatch-events';
 import { createKeyboardEvent } from '../../testing/event-objects';
-import { map } from 'rxjs/operators';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
-import { createComponent } from '../../testing/create-component';
 
 describe('DtSelect', () => {
   let overlayContainer: OverlayContainer;
@@ -2404,9 +2404,9 @@ class SelectWithGroups {
       <dt-select placeholder="Pokemon" [formControl]="control">
         <dt-optgroup *ngFor="let group of pokemonTypes" [label]="group.name">
           <ng-container *ngFor="let pokemon of group.pokemon">
-            <dt-option [value]="pokemon.value">{{
-              pokemon.viewValue
-            }}</dt-option>
+            <dt-option [value]="pokemon.value">
+              {{ pokemon.viewValue }}
+            </dt-option>
           </ng-container>
         </dt-optgroup>
       </dt-select>
@@ -2445,9 +2445,9 @@ class SelectWithFormFieldLabel {
         placeholder="Food I want to eat right now"
         [formControl]="control"
       >
-        <dt-option *ngFor="let food of foods" [value]="food.value">{{
-          food.viewValue
-        }}</dt-option>
+        <dt-option *ngFor="let food of foods" [value]="food.value">
+          {{ food.viewValue }}
+        </dt-option>
       </dt-select>
     </dt-form-field>
   `,
@@ -2473,9 +2473,9 @@ class SelectInitWithoutOptions {
   template: `
     <dt-form-field>
       <dt-select (selectionChange)="changeListener($event)">
-        <dt-option *ngFor="let food of foods" [value]="food">{{
-          food
-        }}</dt-option>
+        <dt-option *ngFor="let food of foods" [value]="food">
+          {{ food }}
+        </dt-option>
       </dt-select>
     </dt-form-field>
   `,
@@ -2500,8 +2500,8 @@ class SelectWithChangeEvent {
   template: `
     <dt-form-field>
       <dt-select placeholder="Food" ngModel [disabled]="isDisabled">
-        <dt-option *ngFor="let food of foods" [value]="food.value"
-          >{{ food.viewValue }}
+        <dt-option *ngFor="let food of foods" [value]="food.value">
+          {{ food.viewValue }}
         </dt-option>
       </dt-select>
     </dt-form-field>
@@ -2561,9 +2561,9 @@ class InvalidSelectInForm {
         (ngModelChange)="setFoodByCopy($event)"
         [compareWith]="comparator"
       >
-        <dt-option *ngFor="let food of foods" [value]="food">{{
-          food.viewValue
-        }}</dt-option>
+        <dt-option *ngFor="let food of foods" [value]="food">
+          {{ food.viewValue }}
+        </dt-option>
       </dt-select>
     </dt-form-field>
   `,
@@ -2648,9 +2648,9 @@ class SelectInsideFormGroup {
       [formControl]="control"
       [errorStateMatcher]="errorStateMatcher"
     >
-      <dt-option *ngFor="let food of foods" [value]="food.value">{{
-        food.viewValue
-      }}</dt-option>
+      <dt-option *ngFor="let food of foods" [value]="food.value">
+        {{ food.viewValue }}
+      </dt-option>
     </dt-select>
   `,
 })
@@ -2668,9 +2668,9 @@ class CustomErrorBehaviorSelect {
   template: `
     <dt-form-field>
       <dt-select placeholder="Food" [(ngModel)]="selectedFoods">
-        <dt-option *ngFor="let food of foods" [value]="food.value">{{
-          food.viewValue
-        }}</dt-option>
+        <dt-option *ngFor="let food of foods" [value]="food.value">
+          {{ food.viewValue }}
+        </dt-option>
       </dt-select>
     </dt-form-field>
   `,
@@ -2694,9 +2694,9 @@ class SingleSelectWithPreselectedArrayValues {
   template: `
     <dt-form-field>
       <dt-select placeholder="Food" [formControl]="control">
-        <dt-option *ngFor="let food of foods" [value]="food.value">{{
-          food.viewValue
-        }}</dt-option>
+        <dt-option *ngFor="let food of foods" [value]="food.value">
+          {{ food.viewValue }}
+        </dt-option>
       </dt-select>
     </dt-form-field>
   `,
@@ -2716,9 +2716,9 @@ class BasicSelectOnPush {
   template: `
     <dt-form-field>
       <dt-select placeholder="Food" [formControl]="control">
-        <dt-option *ngFor="let food of foods" [value]="food.value">{{
-          food.viewValue
-        }}</dt-option>
+        <dt-option *ngFor="let food of foods" [value]="food.value">
+          {{ food.viewValue }}
+        </dt-option>
       </dt-select>
     </dt-form-field>
   `,

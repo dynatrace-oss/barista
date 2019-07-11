@@ -1,6 +1,7 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import {
   async,
   ComponentFixture,
@@ -14,9 +15,7 @@ import {
   NgModel,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import {
   DtRadioButton,
   DtRadioChange,
@@ -24,6 +23,7 @@ import {
   DtRadioModule,
 } from '@dynatrace/angular-components';
 import { createComponent } from '../../testing/create-component';
+import { dispatchFakeEvent } from '../../testing/dispatch-events';
 
 describe('DtRadio', () => {
   beforeEach(async(() => {
@@ -794,8 +794,7 @@ class RadiosInsideRadioGroup {
       [aria-label]="ariaLabel"
       [aria-labelledby]="ariaLabelledby"
       [aria-describedby]="ariaDescribedby"
-    >
-    </dt-radio-button>
+    ></dt-radio-button>
     <dt-radio-button name="fruit" value="raspberry">Raspberry</dt-radio-button>
     <dt-radio-button id="nameless" value="no-name">No name</dt-radio-button>
   `,
@@ -862,9 +861,9 @@ class FocusableRadioButton {
   template: `
     <dt-radio-group name="group" [(ngModel)]="modelValue">
       <dt-transcluding-wrapper *ngFor="let option of options">
-        <dt-radio-button [value]="option.value">{{
-          option.label
-        }}</dt-radio-button>
+        <dt-radio-button [value]="option.value">
+          {{ option.label }}
+        </dt-radio-button>
       </dt-transcluding-wrapper>
     </dt-radio-group>
   `,

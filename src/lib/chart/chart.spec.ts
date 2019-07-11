@@ -5,16 +5,16 @@ import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  DT_CHART_COLOR_PALETTE_ORDERED,
+  DT_CHART_COLOR_PALETTES,
   DtChart,
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
   DtThemingModule,
-  DT_CHART_COLOR_PALETTES,
-  DT_CHART_COLOR_PALETTE_ORDERED,
 } from '@dynatrace/angular-components';
-import { BehaviorSubject } from 'rxjs';
 import { IndividualSeriesOptions } from 'highcharts';
+import { BehaviorSubject } from 'rxjs';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtChart', () => {
@@ -501,9 +501,9 @@ class SeriesColor {
 @Component({
   selector: 'dt-series-color',
   template: `
-    <div [dtTheme]="theme"
-      ><dt-chart [series]="series" [options]="options"></dt-chart
-    ></div>
+    <div [dtTheme]="theme">
+      <dt-chart [series]="series" [options]="options"></dt-chart>
+    </div>
   `,
 })
 class SeriesTheme {
@@ -537,9 +537,9 @@ class SeriesTheme {
 @Component({
   selector: 'dt-series-color',
   template: `
-    <div dtTheme="purple"
-      ><dt-chart [series]="series" [options]="options"></dt-chart
-    ></div>
+    <div dtTheme="purple">
+      <dt-chart [series]="series" [options]="options"></dt-chart>
+    </div>
   `,
 })
 class SeriesMoreThanTheme {
@@ -582,9 +582,9 @@ class SeriesMoreThanTheme {
 @Component({
   selector: 'dt-series-color',
   template: `
-    <div dtTheme="purple"
-      ><dt-chart [series]="series" [options]="options"></dt-chart
-    ></div>
+    <div dtTheme="purple">
+      <dt-chart [series]="series" [options]="options"></dt-chart>
+    </div>
   `,
 })
 class SeriesMoreThanOrderedColors {
@@ -614,9 +614,9 @@ class SeriesMoreThanOrderedColors {
 @Component({
   selector: 'dt-pie-color-theme',
   template: `
-    <div dtTheme="purple"
-      ><dt-chart [series]="series" [options]="options"></dt-chart
-    ></div>
+    <div dtTheme="purple">
+      <dt-chart [series]="series" [options]="options"></dt-chart>
+    </div>
   `,
 })
 class PieChartThemeColors {
@@ -649,9 +649,9 @@ class PieChartThemeColors {
 @Component({
   selector: 'dt-pie-color-theme',
   template: `
-    <div dtTheme="purple"
-      ><dt-chart [series]="series" [options]="options"></dt-chart
-    ></div>
+    <div dtTheme="purple">
+      <dt-chart [series]="series" [options]="options"></dt-chart>
+    </div>
   `,
 })
 class PieChartOrderedColors {
