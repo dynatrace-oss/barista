@@ -24,10 +24,13 @@ import {
   getDtFilterFieldRangeNoOperatorsError,
 } from '@dynatrace/angular-components/filter-field';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { createComponent } from '../../testing/create-component';
-import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
-import { MockNgZone } from '../../testing/mock-ng-zone';
 import { typeInElement } from '../../testing/type-in-element';
+import { MockNgZone } from '../../testing/mock-ng-zone';
+import {
+  dispatchKeyboardEvent,
+  dispatchFakeEvent,
+} from '../../testing/dispatch-events';
+import { createComponent } from '../../testing/create-component';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 const TEST_DATA = {
@@ -102,6 +105,49 @@ const TEST_DATA_SUGGESTIONS = {
 
 const TEST_DATA_RANGE = {
   autocomplete: [
+    {
+      name: 'Requests per minute',
+      range: {
+        operators: {
+          range: true,
+          equal: true,
+          greaterThanEqual: true,
+          lessThanEqual: true,
+        },
+        unit: 's',
+      },
+    },
+  ],
+};
+
+const TEST_DATA_EDITMODE = {
+  autocomplete: [
+    {
+      name: 'AUT',
+      autocomplete: [
+        {
+          name: 'Upper Austria',
+          distinct: true,
+          autocomplete: [
+            {
+              name: 'Cities',
+              options: ['Linz', 'Wels', 'Steyr'],
+            },
+          ],
+        },
+        {
+          name: 'Vienna',
+        },
+      ],
+    },
+    {
+      name: 'USA',
+      autocomplete: ['Los Angeles', 'San Fran'],
+    },
+    {
+      name: 'Free',
+      suggestions: [],
+    },
     {
       name: 'Requests per minute',
       range: {
@@ -974,6 +1020,316 @@ describe('DtFilterField', () => {
         );
         expect(filterField._filterfieldRange._valueFrom).toEqual('27');
       });
+    });
+  });
+
+  describe('edit mode', () => {
+    beforeEach(() => {
+      fixture.componentInstance.dataSource.data = TEST_DATA_EDITMODE;
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      // Autocomplete filter for AUT -> Upper Austria -> Cities -> Linz
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      // Custom free text for Free -> Custom free text
+      const freeTextFilter = [
+        TEST_DATA_EDITMODE.autocomplete[2],
+        'Custom free text',
+      ];
+      // Set filters as a starting point
+      filterField.filters = [autocompleteFilter, freeTextFilter];
+      fixture.detectChanges();
+
+      // TODO: Change this to a programmatic setting of the range filter, as soon as https://dev-jira.dynatrace.org/browse/***REMOVED*** is done.
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      // Open the filter-field-range overlay.
+      const options = getOptions(overlayContainerElement);
+      options[3].click();
+
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      const inputFieldsElements = getRangeInputFields(overlayContainerElement);
+
+      typeInElement('15', inputFieldsElements[0]);
+      typeInElement('80', inputFieldsElements[1]);
+      fixture.detectChanges();
+
+      const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
+      rangeApplyButton.click();
+      fixture.detectChanges();
+    });
+
+    it('should have the correct filters set as a starting point', () => {
+      const tags = getFilterTags(fixture);
+
+      expect(tags[0].key).toBe('AUT');
+      expect(tags[0].separator).toBe(':');
+      expect(tags[0].value).toBe('Linz');
+
+      expect(tags[1].key).toBe('Free');
+      expect(tags[1].separator).toBe('~');
+      expect(tags[1].value).toBe('Custom free text');
+
+      expect(tags[2].key).toBe('Requests per minute');
+      expect(tags[2].separator).toBe(':');
+      expect(tags[2].value).toBe('15s - 80s');
+    });
+
+    it('should reset the autocomplete filter when not changing anything and cancelling by mouse', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label')
+      );
+      tags[0].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      let options = getOptions(overlayContainerElement);
+      // Make sure that the autocomplete actually opened.
+      expect(options.length).toBe(2);
+
+      dispatchFakeEvent(document, 'click');
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      // Make sure the autocomplete closed again.
+      options = getOptions(overlayContainerElement);
+      expect(options.length).toBe(0);
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixture);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Linz');
+
+      expect(filterTags[1].key).toBe('Free');
+      expect(filterTags[1].separator).toBe('~');
+      expect(filterTags[1].value).toBe('Custom free text');
+
+      expect(filterTags[2].key).toBe('Requests per minute');
+      expect(filterTags[2].separator).toBe(':');
+      expect(filterTags[2].value).toBe('15s - 80s');
+    });
+
+    it('should reset the autocomplete filter when not changing anything and cancelling by keyboard', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label')
+      );
+      tags[0].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      let options = getOptions(overlayContainerElement);
+      // Make sure that the autocomplete actually opened.
+      expect(options.length).toBe(2);
+
+      // Cancel editmode with keyboard
+      const inputfield = getInput(fixture);
+      dispatchKeyboardEvent(inputfield, 'keydown', ESCAPE);
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      // Make sure the autocomplete closed again.
+      options = getOptions(overlayContainerElement);
+      expect(options.length).toBe(0);
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixture);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Linz');
+
+      expect(filterTags[1].key).toBe('Free');
+      expect(filterTags[1].separator).toBe('~');
+      expect(filterTags[1].value).toBe('Custom free text');
+
+      expect(filterTags[2].key).toBe('Requests per minute');
+      expect(filterTags[2].separator).toBe(':');
+      expect(filterTags[2].value).toBe('15s - 80s');
+    });
+
+    it('should reset the freetext filter when not changing anything and cancelling by mouse', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label')
+      );
+      tags[1].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+      zone.simulateMicrotasksEmpty();
+
+      dispatchFakeEvent(document, 'click');
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixture);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Linz');
+
+      expect(filterTags[1].key).toBe('Free');
+      expect(filterTags[1].separator).toBe('~');
+      expect(filterTags[1].value).toBe('Custom free text');
+
+      expect(filterTags[2].key).toBe('Requests per minute');
+      expect(filterTags[2].separator).toBe(':');
+      expect(filterTags[2].value).toBe('15s - 80s');
+    });
+
+    it('should reset the freetext filter when not changing anything and cancelling by keyboard', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label')
+      );
+      tags[1].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      // Cancel editmode with keyboard
+      const inputfield = getInput(fixture);
+      dispatchKeyboardEvent(inputfield, 'keydown', ESCAPE);
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixture);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Linz');
+
+      expect(filterTags[1].key).toBe('Free');
+      expect(filterTags[1].separator).toBe('~');
+      expect(filterTags[1].value).toBe('Custom free text');
+
+      expect(filterTags[2].key).toBe('Requests per minute');
+      expect(filterTags[2].separator).toBe(':');
+      expect(filterTags[2].value).toBe('15s - 80s');
+    });
+
+    it('should reset the range filter when not changing anything and cancelling by mouse', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label')
+      );
+      tags[2].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      // Expect the range filter to be open
+      let filterfield = getFilterFieldRange(overlayContainerElement);
+      expect(filterfield.length).toBe(1);
+
+      dispatchFakeEvent(document, 'click');
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      // Expect the range filter to be closed again
+      filterfield = getFilterFieldRange(overlayContainerElement);
+      expect(filterfield.length).toBe(0);
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixture);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Linz');
+
+      expect(filterTags[1].key).toBe('Free');
+      expect(filterTags[1].separator).toBe('~');
+      expect(filterTags[1].value).toBe('Custom free text');
+
+      expect(filterTags[2].key).toBe('Requests per minute');
+      expect(filterTags[2].separator).toBe(':');
+      expect(filterTags[2].value).toBe('15s - 80s');
+    });
+
+    it('should reset the range filter when not changing anything and cancelling by keyboard', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label')
+      );
+      tags[2].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      // Expect the range filter to be open
+      let filterfield = getFilterFieldRange(overlayContainerElement);
+      expect(filterfield.length).toBe(1);
+
+      // Cancel editmode with keyboard
+      const inputfields = getRangeInputFields(overlayContainerElement);
+      dispatchKeyboardEvent(inputfields[0], 'keydown', ESCAPE);
+
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      // Expect the range filter to be closed again
+      filterfield = getFilterFieldRange(overlayContainerElement);
+      expect(filterfield.length).toBe(0);
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixture);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Linz');
+
+      expect(filterTags[1].key).toBe('Free');
+      expect(filterTags[1].separator).toBe('~');
+      expect(filterTags[1].value).toBe('Custom free text');
+
+      expect(filterTags[2].key).toBe('Requests per minute');
+      expect(filterTags[2].separator).toBe(':');
+      expect(filterTags[2].value).toBe('15s - 80s');
+    });
+
+    it('should make the edit to the first tag', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label')
+      );
+      tags[0].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      const options = getOptions(overlayContainerElement);
+      // Make sure that the autocomplete actually opened.
+      expect(options.length).toBe(2);
+
+      // Select Vienna
+      options[1].click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixture);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Vienna');
+
+      expect(filterTags[1].key).toBe('Free');
+      expect(filterTags[1].separator).toBe('~');
+      expect(filterTags[1].value).toBe('Custom free text');
+
+      expect(filterTags[2].key).toBe('Requests per minute');
+      expect(filterTags[2].separator).toBe(':');
+      expect(filterTags[2].value).toBe('15s - 80s');
     });
   });
 });
