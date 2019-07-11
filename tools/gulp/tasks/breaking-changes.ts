@@ -1,20 +1,25 @@
+import { bold, green, red } from 'chalk';
+import { readFileSync } from 'fs';
 import { task } from 'gulp';
 import { join, relative } from 'path';
-import { readFileSync } from 'fs';
-import * as ts from 'typescript';
 import * as tsutils from 'tsutils';
+import * as ts from 'typescript';
 import { buildConfig } from '../build-config';
-import { red, green, bold } from 'chalk';
 
 // Regex used to extract versions from a string.
 const versionRegex = /\d+\.\d+\.\d+/;
 
 // Current version from the package.json.
-const packageVersion = require(join(buildConfig.projectDir, 'package.json')).version;
+const packageVersion = require(join(buildConfig.projectDir, 'package.json'))
+  .version;
 
 /** Formats a message to be logged out in the breaking changes summary. */
-function formatMessage(comment: string, commentRange: ts.CommentRange, lines: tsutils.LineRange[]) {
-  const lineNumber = lines.findIndex((line) => line.pos > commentRange.pos);
+function formatMessage(
+  comment: string,
+  commentRange: ts.CommentRange,
+  lines: tsutils.LineRange[]
+) {
+  const lineNumber = lines.findIndex(line => line.pos > commentRange.pos);
   const messageMatch = comment.match(/@deprecated(.*)|@breaking-change(.*)/);
   const message = messageMatch ? messageMatch[0] : '';
   const cleanMessage = message
@@ -27,7 +32,9 @@ function formatMessage(comment: string, commentRange: ts.CommentRange, lines: ts
 
 /** Converts a version string into an object. */
 function parseVersion(version: string) {
-  const [major = 0, minor = 0, patch = 0] = version.split('.').map((segment) => parseInt(segment, 10));
+  const [major = 0, minor = 0, patch = 0] = version
+    .split('.')
+    .map(segment => parseInt(segment, 10));
   return { major, minor, patch };
 }
 
@@ -40,28 +47,39 @@ function hasExpired(currentVersion: string, breakingChange: string) {
   const current = parseVersion(currentVersion);
   const target = parseVersion(breakingChange);
 
-  return target.major < current.major ||
+  return (
+    target.major < current.major ||
     (target.major === current.major && target.minor < current.minor) ||
-    (
-      target.major === current.major &&
+    (target.major === current.major &&
       target.minor === current.minor &&
-      target.patch < current.patch
-    );
+      target.patch < current.patch)
+  );
 }
 
 /**
  * Goes through all of the TypeScript files in the project and puts
  * together a summary of all of the pending and expired breaking changes.
  */
-task('breaking-changes', (done) => {
+task('breaking-changes', done => {
   const projectDir = buildConfig.projectDir;
   // tslint:disable-next-line: no-unbound-method
-  const configFile = ts.readJsonConfigFile(join(projectDir, 'tsconfig.json'), ts.sys.readFile);
-  const parsedConfig = ts.parseJsonSourceFileConfigFileContent(configFile, ts.sys, projectDir);
+  const configFile = ts.readJsonConfigFile(
+    join(projectDir, 'tsconfig.json'),
+    ts.sys.readFile
+  );
+  const parsedConfig = ts.parseJsonSourceFileConfigFileContent(
+    configFile,
+    ts.sys,
+    projectDir
+  );
   const summary: { [version: string]: string[] } = {};
 
-  parsedConfig.fileNames.forEach((fileName) => {
-    const sourceFile = ts.createSourceFile(fileName, readFileSync(fileName, 'utf8'), configFile.languageVersion);
+  parsedConfig.fileNames.forEach(fileName => {
+    const sourceFile = ts.createSourceFile(
+      fileName,
+      readFileSync(fileName, 'utf8'),
+      configFile.languageVersion
+    );
     const lineRanges = tsutils.getLineRanges(sourceFile);
 
     // Go through each of the comments of the file.
@@ -76,16 +94,21 @@ task('breaking-changes', (done) => {
 
       // Use a path relative to the project root, in order to make the summary more tidy.
       // Also replace escaped Windows slashes with regular forward slashes.
-      const pathInProject = relative(projectDir, sourceFile.fileName).replace(/\\/g, '/');
+      const pathInProject = relative(projectDir, sourceFile.fileName).replace(
+        /\\/g,
+        '/'
+      );
       const [version] = versionMatch;
 
       summary[version] = summary[version] || [];
-      summary[version].push(`  ${pathInProject}: ${formatMessage(comment, range, lineRanges)}`);
+      summary[version].push(
+        `  ${pathInProject}: ${formatMessage(comment, range, lineRanges)}`
+      );
     });
   });
 
   // Go through the summary and log out all of the breaking changes.
-  Object.keys(summary).forEach((version) => {
+  Object.keys(summary).forEach(version => {
     const isExpired = hasExpired(packageVersion, version);
     const status = isExpired ? red('(expired)') : green('(not expired)');
     const header = bold(`Breaking changes for ${version} ${status}:`);
