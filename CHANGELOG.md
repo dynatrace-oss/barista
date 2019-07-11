@@ -314,8 +314,8 @@ Bernd Farka
     <dt-key-value-list-key>{{ entry.key }}</dt-key-value-list-key>
     <dt-key-value-list-value>{{ entry.value }}</dt-key-value-list-value>
   </dt-key-value-list-item>
-  <dt-key-value-list></dt-key-value-list
-></dt-key-value-list>
+  <dt-key-value-list></dt-key-value-list>
+</dt-key-value-list>
 ```
 
 - **logger:** The value `WARN` for the enum DtLogLevel has been renamed to `WARNING`.
