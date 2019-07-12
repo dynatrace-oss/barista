@@ -9,4 +9,4 @@
     </dt-my-custom-component>
   `,
 })
-class TestClass { }
+class TestClass {}

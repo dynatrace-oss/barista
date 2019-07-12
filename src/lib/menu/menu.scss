@@ -1,0 +1,55 @@
+@import './variables';
+@import '../style/variables';
+@import '../style/font-mixins';
+@import '../core/style/interactive-common';
+
+:host {
+  display: block;
+  box-sizing: border-box;
+  background: $gray-640;
+  @include dt-default-font();
+
+  ::ng-deep {
+    .dt-menu-group-header {
+      display: block;
+      color: $white;
+      background: $gray-640;
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .dt-menu-item {
+      display: block;
+      width: 100%;
+      height: 32px;
+      padding: 0 12px;
+      @include dt-default-font(
+        $default-font-size,
+        32px,
+        $default-font-weight,
+        $white
+      );
+      @include dt-text-ellipsis();
+      @include dt-cdkmonitor-focus-style(true);
+
+      &:hover {
+        background: $gray-700;
+      }
+    }
+
+    .dt-menu-item + .dt-menu-group {
+      margin-top: $menu-group-padding;
+    }
+
+    a.dt-menu-item {
+      text-decoration: none;
+    }
+
+    button.dt-menu-item {
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      background: $gray-640;
+    }
+  }
+}

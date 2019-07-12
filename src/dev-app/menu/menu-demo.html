@@ -1,0 +1,108 @@
+<dt-menu aria-label="Demo Menu" class="demo-menu">
+  <dt-menu-group label="Dashboards & reports">
+    <a href="javascript:void(0)" dtMenuItem>Dashboards</a>
+    <a href="javascript:void(0)" dtMenuItem>Create custom chart</a>
+    <a href="javascript:void(0)" dtMenuItem>Reports</a>
+    <button (click)="doSomething()" dtMenuItem>
+      Reports
+    </button>
+  </dt-menu-group>
+
+  <a href="javascript:void(0)" dtMenuItem>Item outside a group</a>
+  <a href="javascript:void(0)" dtMenuItem>Item outside a group</a>
+
+  <dt-menu-group label="Analyze">
+    <button (click)="doSomething()" dtMenuItem>
+      Problems
+    </button>
+    <a href="javascript:void(0)" dtMenuItem>Problems</a>
+    <a href="javascript:void(0)" dtMenuItem>User sessions</a>
+    <a href="javascript:void(0)" dtMenuItem>Smartscape topology</a>
+    <a href="javascript:void(0)" dtMenuItem>Diagnostic tools</a>
+    <a href="javascript:void(0)" dtMenuItem>
+      Super duper long menu entry that must be truncated
+    </a>
+  </dt-menu-group>
+
+  <a href="javascript:void(0)" dtMenuItem>Item outside a group</a>
+  <a href="javascript:void(0)" dtMenuItem>Item outside a group</a>
+</dt-menu>
+
+<hr />
+
+<dt-context-dialog
+  class="demo-menu-context-dialog"
+  aria-label="Show more details"
+  aria-label-close-button="Close context dialog"
+>
+  <dt-menu aria-label="Demo Menu" class="demo-menu">
+    <dt-menu-group label="Dashboards & reports">
+      <a href="javascript:void(0)" dtMenuItem>Dashboards</a>
+      <a href="javascript:void(0)" dtMenuItem>Create custom chart</a>
+      <a href="javascript:void(0)" dtMenuItem>Reports</a>
+      <button (click)="doSomething()" dtMenuItem>
+        Reports
+      </button>
+    </dt-menu-group>
+
+    <dt-menu-group label="Analyze">
+      <button (click)="doSomething()" dtMenuItem>
+        Problems
+      </button>
+      <a href="javascript:void(0)" dtMenuItem>Problems</a>
+      <a href="javascript:void(0)" dtMenuItem>User sessions</a>
+      <a href="javascript:void(0)" dtMenuItem>Smartscape topology</a>
+      <a href="javascript:void(0)" dtMenuItem>Diagnostic tools</a>
+      <a href="javascript:void(0)" dtMenuItem>
+        Super duper long menu entry that must be truncated
+      </a>
+    </dt-menu-group>
+
+    <a href="javascript:void(0)" dtMenuItem>Item outside a group</a>
+  </dt-menu>
+</dt-context-dialog>
+
+<hr />
+
+<dt-checkbox (change)="toggle()">Toggle drawer</dt-checkbox>
+
+<br />
+
+<dt-drawer-container class="demo-menu-drawer-container">
+  <dt-drawer mode="side" position="start" class="demo-menu-drawer">
+    <dt-menu aria-label="Demo Menu" class="demo-menu">
+      <dt-menu-group label="Dashboards & reports">
+        <a href="javascript:void(0)" dtMenuItem>Dashboards</a>
+        <a href="javascript:void(0)" dtMenuItem>Create custom chart</a>
+        <a href="javascript:void(0)" dtMenuItem>Reports</a>
+        <button (click)="doSomething()" dtMenuItem>
+          Reports
+        </button>
+      </dt-menu-group>
+
+      <dt-menu-group label="Analyze">
+        <button (click)="doSomething()" dtMenuItem>
+          Problems
+        </button>
+        <a href="javascript:void(0)" dtMenuItem>Problems</a>
+        <a href="javascript:void(0)" dtMenuItem>User sessions</a>
+        <a href="javascript:void(0)" dtMenuItem>Smartscape topology</a>
+        <a href="javascript:void(0)" dtMenuItem>Diagnostic tools</a>
+        <a href="javascript:void(0)" dtMenuItem>
+          Super duper long menu entry that must be truncated
+        </a>
+      </dt-menu-group>
+
+      <a href="javascript:void(0)" dtMenuItem>Item outside a group</a>
+    </dt-menu>
+  </dt-drawer>
+
+  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+  eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+  voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
+  kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
+  ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+  vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+  gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+</dt-drawer-container>
