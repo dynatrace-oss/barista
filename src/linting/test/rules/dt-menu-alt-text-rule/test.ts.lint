@@ -1,0 +1,17 @@
+/**
+ * Test file for testing the dt-menu-alt-text rule.
+ */
+
+@Component({
+  template: `
+    <dt-menu>
+    ~~~~~~~~~ [A dt-menu must have an aria-label.]
+      <a dtMenuItem>Menu item</a>
+    </dt-menu>
+
+    <dt-menu aria-label="Test Menu">
+      <a dtMenuItem>Menu item</a>
+    </dt-menu>
+  `,
+})
+class TestClass {}

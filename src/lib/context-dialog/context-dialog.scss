@@ -4,6 +4,12 @@
 $panel-padding-btn: 38px;
 $panel-padding: 12px;
 $dialog-max-width: 328px;
+$context-dialog-panel-padding: 12px;
+
+.dt-context-dialog-content ::ng-deep .dt-menu {
+  margin-left: -$context-dialog-panel-padding;
+  margin-right: -$context-dialog-panel-padding;
+}
 
 .dt-context-dialog-panel {
   @include dt-main-font();

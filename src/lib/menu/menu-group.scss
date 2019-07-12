@@ -1,0 +1,22 @@
+@import './variables';
+@import '../style/variables';
+@import '../style/font-mixins';
+@import '../core/style/interactive-common';
+
+:host {
+  display: block;
+
+  &:not(:first-child) {
+    margin-top: $menu-group-padding;
+  }
+
+  ::ng-deep {
+    .dt-menu-item {
+      padding: 0 20px;
+    }
+
+    + .dt-menu-item {
+      margin-top: $menu-group-padding;
+    }
+  }
+}

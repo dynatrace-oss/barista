@@ -20,6 +20,8 @@
     "dt-inline-editor-alt-text": true,
     "dt-input-requires-label": true,
     "dt-loading-distractor-no-empty": true,
+    "dt-menu-alt-text": true,
+    "dt-menu-disabled-buttons-not-allowed": true,
     "dt-nested-button-is-icon-button": true,
     "dt-radio-button-no-empty": true,
     "dt-radio-button-requires-name": true,
