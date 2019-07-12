@@ -7,6 +7,12 @@
 
 /* stylelint-disable property-blacklist  */
 
+@mixin dt-text-ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @mixin dt-custom-font-styles(
   $custom-color: false,
   $custom-font-weight: false,
