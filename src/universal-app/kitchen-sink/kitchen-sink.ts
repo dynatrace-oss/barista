@@ -22,6 +22,7 @@ import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtInfoGroupModule } from '@dynatrace/angular-components/info-group';
 import { DtInputModule } from '@dynatrace/angular-components/input';
 import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
+import { DtMenuModule } from '@dynatrace/angular-components/menu';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
 import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
@@ -230,6 +231,7 @@ export class KitchenSink {
     DtHighlightModule,
     DtConsumptionModule,
     DtFilterFieldModule,
+    DtMenuModule,
     DtTimelineChartModule,
   ],
   bootstrap: [KitchenSink],

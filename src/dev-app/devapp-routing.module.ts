@@ -27,6 +27,7 @@ import { InputDemo } from './input/input-demo.component';
 import { KeyValueListDemo } from './key-value-list/key-value-list-demo.component';
 import { LinkDemo } from './link/link-demo.component';
 import { LoadingDistractorDemo } from './loading-distractor/loading-distractor-demo.component';
+import { MenuDemo } from './menu/menu-demo';
 import { MicroChartDemo } from './micro-chart/micro-chart-demo.component';
 import { OverlayDemo } from './overlay/overlay-demo.component';
 import { PaginationDemo } from './pagination/pagination-demo.component';
@@ -91,6 +92,7 @@ const routes: Routes = [
   { path: 'tile', component: TileDemo },
   { path: 'toast', component: ToastDemo },
   { path: 'tree-table', component: TreeTableDemo },
+  { path: 'menu', component: MenuDemo },
   { path: 'timeline-chart', component: TimelineChartDemo },
   { path: 'legend', component: LegendDemo },
   { path: 'toggle-button-group', component: ToggleButtonGroupDemo },

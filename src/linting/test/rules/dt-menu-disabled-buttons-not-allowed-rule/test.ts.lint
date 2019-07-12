@@ -1,0 +1,20 @@
+/**
+ * Test file for testing the dt-menu-disabled-buttons-not-allowed rule.
+ */
+
+@Component({
+  template: `
+    <dt-menu aria-label="Test Menu">
+      <button disabled dtMenuItem>Disabled menu item</button>
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [dt-menu-item must not be disabled.]
+      <button dtMenuItem>Menu item</button>
+
+      <dt-menu-group>
+        <button disabled dtMenuItem>Disabled menu item</button>
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [dt-menu-item must not be disabled.]
+        <button dtMenuItem>Menu item</button>
+      </dt-menu-group>
+    </dt-menu>
+  `,
+})
+class TestClass {}

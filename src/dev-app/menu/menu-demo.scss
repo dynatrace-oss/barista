@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.demo-menu {
+  width: 240px;
+}
+
+.demo-menu-drawer {
+  padding: 0;
+
+  ::ng-deep .dt-drawer-content {
+    padding-left: 16px;
+  }
+}

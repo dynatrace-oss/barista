@@ -64,8 +64,7 @@ function _findRulePosition(
         const currentRuleName = rule.key.text;
 
         if (
-          currentRuleName !== '"i18n"' &&
-          currentRuleName !== '"no-magic-numbers"' &&
+          currentRuleName.startsWith('"dt-') &&
           quotedRuleName.localeCompare(currentRuleName) < 0
         ) {
           return rule.start;

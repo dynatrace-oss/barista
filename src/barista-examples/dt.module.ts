@@ -9,8 +9,8 @@ import {
   DtCardModule,
   DtChartModule,
   DtCheckboxModule,
-  DtContextDialogModule,
   DtConsumptionModule,
+  DtContextDialogModule,
   DtCopyToClipboardModule,
   DtCtaCardModule,
   DtDrawerModule,
@@ -25,7 +25,9 @@ import {
   DtInlineEditorModule,
   DtInputModule,
   DtKeyValueListModule,
+  DtLegendModule,
   DtLoadingDistractorModule,
+  DtMenuModule,
   DtMicroChartModule,
   DtOverlayModule,
   DtPaginationModule,
@@ -41,11 +43,10 @@ import {
   DtTagModule,
   DtThemingModule,
   DtTileModule,
-  DtTreeTableModule,
+  DtTimelineChartModule,
   DtToastModule,
   DtToggleButtonGroupModule,
-  DtTimelineChartModule,
-  DtLegendModule,
+  DtTreeTableModule,
 } from '@dynatrace/angular-components';
 
 const DT_MODULES = [
@@ -96,6 +97,7 @@ const DT_MODULES = [
   DtToggleButtonGroupModule,
   DtTimelineChartModule,
   DtLegendModule,
+  DtMenuModule,
 ];
 
 /**
