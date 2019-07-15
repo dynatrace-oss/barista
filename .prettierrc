@@ -9,14 +9,6 @@
     {
       "files": ".prettierrc",
       "options": { "parser": "json" }
-    },
-    {
-      "files": "/src/barista-examples/app.module.template",
-      "options": { "parser": "angular" }
-    },
-    {
-      "files": "/src/barista-examples/app.component.template",
-      "options": { "parser": "angular" }
     }
   ]
 }
