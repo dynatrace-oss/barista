@@ -8,7 +8,8 @@ This component creates a show more pagination widget.
 
 ## Imports
 
-You have to import the `DtShowMoreModule` when you want to use the `dt-show-more`:
+You have to import the `DtShowMoreModule` when you want to use the
+`dt-show-more`:
 
 ```typescript
 @NgModule({
@@ -19,8 +20,9 @@ class MyModule {}
 
 ## Initialization
 
-To apply the dynatrace show more component, use the `<dt-show-more>` element with some content as text. To use a
-_Show less_ label an additional `<dt-show-less-label>` tag can be used.
+To apply the dynatrace show more component, use the `<dt-show-more>` element
+with some content as text. To use a _Show less_ label an additional
+`<dt-show-less-label>` tag can be used.
 
 ## Options & Properties
 

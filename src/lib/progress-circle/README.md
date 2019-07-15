@@ -5,16 +5,18 @@ type: 'component'
 # Progress circle
 
 The `<dt-progress-circle>` creates a container that is hidden inside an overlay.
-It is possible to set the value for the progress circle as well as setting a min and max value.
-The color property can be set to specify the color of the progress. The color depends on the theme the progress circle is in.
-The value will be clamped between the min and max values.
-With `ng-content` the content inside the progress-circle can be set.
+It is possible to set the value for the progress circle as well as setting a min
+and max value. The color property can be set to specify the color of the
+progress. The color depends on the theme the progress circle is in. The value
+will be clamped between the min and max values. With `ng-content` the content
+inside the progress-circle can be set.
 
 <docs-source-example example="ProgressCircleDefaultExample"></docs-source-example>
 
 ## Imports
 
-You have to import the `DtProgressCircleModule` when you want to use the `dt-progress-circle`:
+You have to import the `DtProgressCircleModule` when you want to use the
+`dt-progress-circle`:
 
 ```typescript
 @NgModule({
@@ -25,7 +27,8 @@ class MyModule {}
 
 ## Accessibility
 
-Prgoress circles should be given a meaningful label via aria-label or aria-labelledby.
+Progress circles should be given a meaningful label via aria-label or
+aria-labelledby.
 
 ## Options & Properties
 

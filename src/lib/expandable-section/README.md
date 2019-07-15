@@ -4,12 +4,18 @@ type: 'component'
 
 # Expandable section
 
-This Angular component provides basic expand/collapse functionality based on the [expandable panel](***REMOVED*** but contains a header (`<dt-expandable-section-header>`), which is the trigger of the expandable panel.
+This Angular component provides basic expand/collapse functionality based on the
+[expandable panel](***REMOVED***
+but contains a header (`<dt-expandable-section-header>`), which is the trigger
+of the expandable panel.
 
 ## Imports
 
-You have to import the `DtExpandableSectionModule` when you want to use the `dt-expandable-section`.
-The `dt-expandable-section` component also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see [_Step 2: Animations_](***REMOVED*** in the getting started guide.
+You have to import the `DtExpandableSectionModule` when you want to use the
+`dt-expandable-section`. The `dt-expandable-section` component also requires
+Angular's `BrowserAnimationsModule` for animations. For more details on this see
+[_Step 2: Animations_](***REMOVED***
+in the getting started guide.
 
 ```typescript
 @NgModule({
@@ -20,7 +26,8 @@ class MyModule {}
 
 ## Initialization
 
-To apply the Dynatrace expandable panel, use the `<dt-expandable-section>` element.
+To apply the Dynatrace expandable panel, use the `<dt-expandable-section>`
+element.
 
 | Attribute                      | Description                                              |
 | ------------------------------ | -------------------------------------------------------- |

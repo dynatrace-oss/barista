@@ -4,7 +4,9 @@ type: 'component'
 
 # Switch
 
-`<dt-switch>` is an on/off control that can be toggled via clicking. The switch behaves similarly to a checkbox, though it does not support an indeterminate state.
+`<dt-switch>` is an on/off control that can be toggled via clicking. The switch
+behaves similarly to a checkbox, though it does not support an indeterminate
+state.
 
 ## Imports
 
@@ -35,14 +37,17 @@ class MyModule {}
 
 ## Angular forms
 
-`<dt-switch>` is compatible with @angular/forms and supports both FormsModule and ReactiveFormsModule.
+`<dt-switch>` is compatible with @angular/forms and supports both FormsModule
+and ReactiveFormsModule.
 
 ## Accessibility
 
-The `<dt-switch>` uses an internal `<input type="checkbox">` to provide an accessible experience.
-This internal checkbox receives focus and is automatically labelled by the text content of the `<dt-switch>` element.
+The `<dt-switch>` uses an internal `<input type="checkbox">` to provide an
+accessible experience. This internal checkbox receives focus and is
+automatically labelled by the text content of the `<dt-switch>` element.
 
-Switches without text or labels should be given a meaningful label via `aria-label` or `aria-labelledby`.
+Switches without text or labels should be given a meaningful label via
+`aria-label` or `aria-labelledby`.
 
 ## Examples
 

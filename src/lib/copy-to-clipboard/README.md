@@ -4,15 +4,19 @@ type: 'component'
 
 # Copy to clipboard
 
-The `<dt-copy-to-clipboard>` creates a container including a textarea, input or a label ready to be copied to the clipboard. It is possible to disable the entire copy clipboard container.
+The `<dt-copy-to-clipboard>` creates a container including a textarea, input or
+a label ready to be copied to the clipboard. It is possible to disable the
+entire copy clipboard container.
 
-Using `<dt-copy-to-clipboard-label>` defines the button content (e.g. text like "click here to copy").
+Using `<dt-copy-to-clipboard-label>` defines the button content (e.g. text like
+"click here to copy").
 
 <docs-source-example example="CopyToClipboardDefaultExample"></docs-source-example>
 
 ## Imports
 
-You have to import the `DtCopyToClipboardModule` when you want to use the `dt-copy-to-clipboard`:
+You have to import the `DtCopyToClipboardModule` when you want to use the
+`dt-copy-to-clipboard`:
 
 ```typescript
 @NgModule({

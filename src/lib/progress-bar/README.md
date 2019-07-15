@@ -4,18 +4,21 @@ type: 'component'
 
 # Progress bar
 
-The `<dt-progress-bar>` creates a simple progress bar.
-It is possible to set the value for the progress bars as well as setting a min and max value.
-The color property can be set to specify the color of the progress. The color depends on the theme the progress bars is in.
-The value will be clamped between the min and max values.
+The `<dt-progress-bar>` creates a simple progress bar. It is possible to set the
+value for the progress bars as well as setting a min and max value. The color
+property can be set to specify the color of the progress. The color depends on
+the theme the progress bars is in. The value will be clamped between the min and
+max values.
 
-The progress bar should be used to display a distinct progress of a process or status, i.e. a download progress or used status of a disk.
+The progress bar should be used to display a distinct progress of a process or
+status, i.e. a download progress or used status of a disk.
 
 <docs-source-example example="ProgressBarDefaultExample"></docs-source-example>
 
 ## Imports
 
-You have to import the `DtProgressBarModule` when you want to use the `dt-progress-bar`:
+You have to import the `DtProgressBarModule` when you want to use the
+`dt-progress-bar`:
 
 ```typescript
 @NgModule({
@@ -26,8 +29,10 @@ class MyModule {}
 
 ## Progress bar description
 
-The `<dt-progress-bar-description>` component lets you add a description to the progress-bar. It utilises ng-content selection within the `<dt-progress-bar>` component
-to position the description correctly. Use the description to provide more insight into what the progress bar actually indicates.
+The `<dt-progress-bar-description>` component lets you add a description to the
+progress-bar. It utilises ng-content selection within the `<dt-progress-bar>`
+component to position the description correctly. Use the description to provide
+more insight into what the progress bar actually indicates.
 
 ```html
 <dt-progress-bar ...>
@@ -42,7 +47,12 @@ to position the description correctly. Use the description to provide more insig
 
 ## Progress bar count
 
-The `<dt-progress-bar-count>` component lets you add a count to the progressbar which usually is a textual representation of the progress displayed (i.e. 80/100 days). It utilises ng-content selection within the `<dt-progress-bar>` component to position the count data correctly. Any values passed to the progress-bar-count are not affected by the progress-bar component min/max values. Use the count to display a text representation of the progress.
+The `<dt-progress-bar-count>` component lets you add a count to the progressbar
+which usually is a textual representation of the progress displayed (i.e. 80/100
+days). It utilises ng-content selection within the `<dt-progress-bar>` component
+to position the count data correctly. Any values passed to the
+progress-bar-count are not affected by the progress-bar component min/max
+values. Use the count to display a text representation of the progress.
 
 ```html
 <dt-progress-bar ...>
@@ -55,7 +65,8 @@ The `<dt-progress-bar-count>` component lets you add a count to the progressbar 
 
 ## Accessibility
 
-Progress bars should be given a meaningful label via aria-label or aria-labelledby.
+Progress bars should be given a meaningful label via aria-label or
+aria-labelledby.
 
 ## Inputs
 
