@@ -27,6 +27,7 @@
 
 .dt-chart-selection-area-overlay {
   @include dt-overlay-container();
+  position: absolute;
   display: flex;
   align-items: center;
   padding-left: 6px;
