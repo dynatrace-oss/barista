@@ -174,6 +174,9 @@ export class DtChart
   /** Deals with the selection logic. */
   private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
 
+  /** @internal The offset of the plotBackground in relation to the chart container on the xAxis  */
+  _plotBackgroundChartOffset = 0;
+
   /** @internal stream that emits every time the plotBackground changes */
   _plotBackground$ = new BehaviorSubject<SVGRectElement | null>(null);
 
@@ -481,7 +484,21 @@ export class DtChart
     const plotBackground = this.container.nativeElement.querySelector<
       SVGRectElement
     >(HIGHCHARTS_PLOT_BACKGROUND);
+
+    // set the offset of the plotBackground in relation to the chart
+    this._setPlotBackgroundOffset(plotBackground);
+
     this._plotBackground$.next(plotBackground);
+  }
+
+  /** Calculates and sets the offset of the plot-background to the Chart container on the xAxis */
+  private _setPlotBackgroundOffset(
+    plotBackground: SVGRectElement | null
+  ): void {
+    this._plotBackgroundChartOffset = plotBackground
+      ? plotBackground.getBoundingClientRect().left -
+        this.container.nativeElement.getBoundingClientRect().left
+      : 0;
   }
 
   /** Invoked when an heatfield is activated. */
