@@ -2,6 +2,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import {
   async,
@@ -21,6 +22,7 @@ import {
 } from '@dynatrace/angular-components';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '../../testing/create-component';
+import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
@@ -284,6 +286,28 @@ describe('DtContextDialog', () => {
         fixture.detectChanges();
         flush();
         expect(contextDialog.isPanelOpen).toBeFalsy();
+      }));
+
+      it('should close the context dialog on ESC and open it again on click', fakeAsync(() => {
+        const contextDialog = fixture.componentInstance.contextDialog;
+        contextDialog.open();
+        fixture.detectChanges();
+        tick();
+        const backdrop = overlayContainer
+          .getContainerElement()
+          .querySelector('.cdk-overlay-backdrop');
+        expect(backdrop).not.toBeNull();
+        dispatchKeyboardEvent(backdrop!, 'keydown', ESCAPE);
+        fixture.detectChanges();
+        flush();
+        expect(contextDialog.isPanelOpen).toBeFalsy();
+        contextDialog.open();
+        fixture.detectChanges();
+        expect(
+          overlayContainer
+            .getContainerElement()
+            .querySelector('.dt-context-dialog-panel')
+        ).toBeDefined();
       }));
     });
   });
