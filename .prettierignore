@@ -1,1 +1,9 @@
 /src/schematics/**/*
+
+/.gradle/**/*
+/.idea/**/*
+/.vscode/**/*
+/build/**/*
+/dist/**/*
+/gradle/**/*
+/node_modules/**/*
