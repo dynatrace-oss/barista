@@ -160,6 +160,14 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._range = this._chart._range;
         this._timestamp = this._chart._timestamp;
 
+        if (this._timestamp) {
+          this._timestamp._plotBackgroundChartOffset = this._chart._plotBackgroundChartOffset;
+        }
+
+        if (this._range) {
+          this._range._plotBackgroundChartOffset = this._chart._plotBackgroundChartOffset;
+        }
+
         // resize the selection area to the size of the Highcharts plot background.
         this._updateSelectionAreaSize();
         // get the BCR of the selection Area
