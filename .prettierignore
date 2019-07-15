@@ -1,4 +1,12 @@
-/src/schematics/**/*
+/src/schematics/**/*.ts
+/src/schematics/**/*.scss
+/src/schematics/**/*.html
+/src/barista-examples/app.module.template
+/src/barista-examples/app.component.template
+
+/test/**/*
+/tools/**/*
+/ui-tests/**/*
 
 /.gradle/**/*
 /.idea/**/*
