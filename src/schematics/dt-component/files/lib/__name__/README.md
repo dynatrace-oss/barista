@@ -8,7 +8,8 @@ type: 'component'
 
 ## Imports
 
-You have to import the `<%= moduleName %>` when you want to use the `<dt-<%= dasherize(name) %>>`:
+You have to import the `<%= moduleName %>` when you want to use the
+`<dt-<%= dasherize(name) %>>`:
 
 ```typescript
 @NgModule({
