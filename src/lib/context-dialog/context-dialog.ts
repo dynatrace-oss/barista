@@ -283,7 +283,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
       .pipe(takeUntil(this._destroy))
       .subscribe((event: KeyboardEvent) => {
         if (readKeyCode(event) === ESCAPE && this._overlayRef) {
-          this._overlayRef.detach();
+          this.close();
         }
       });
   }
