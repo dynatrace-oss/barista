@@ -1,1 +1,1 @@
-declare var module: {id: string};
+declare var module: { id: string };
