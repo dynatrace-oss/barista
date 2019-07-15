@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'dev-app',
   styleUrls: ['devapp.component.scss'],
   templateUrl: 'devapp.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DevApp {
   navItems = [

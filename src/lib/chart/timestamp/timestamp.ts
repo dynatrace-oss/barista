@@ -147,6 +147,9 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   /** @internal The minimal value that can be selected on the xAxis */
   _minValue: number;
 
+  /** @internal The offset of the plotBackground in relation to the chart container on the xAxis  */
+  _plotBackgroundChartOffset = 0;
+
   /** @internal Function that provides a value on the xAxis for a provided px value */
   _pixelsToValue:
     | ((pixel: number, paneCoordinates?: boolean) => number)
@@ -223,7 +226,9 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
    */
   _emitValueChanges(): void {
     if (this._pixelsToValue) {
-      this._value = this._pixelsToValue(this._positionX);
+      this._value = this._pixelsToValue(
+        this._positionX + this._plotBackgroundChartOffset
+      );
       this.valueChanges.emit(this._value);
     }
   }
