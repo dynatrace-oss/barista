@@ -4,24 +4,31 @@ type: 'component'
 
 # Consumption
 
-The `<dt-consumption>` is a data visualization box with an icon, a title, a progress bar with a value label and a description text.
-To set the content for a consumption component, the following tags are available:
+The `<dt-consumption>` is a data visualization box with an icon, a title, a
+progress bar with a value label and a description text. To set the content for a
+consumption component, the following tags are available:
 
 <docs-source-example example="ConsumptionDefaultExample"></docs-source-example>
 
-- `<dt-consumption-icon>` - An icon shown right next to the title (e.g. `<dt-icon name="host"></dt-icon>`)
+- `<dt-consumption-icon>` - An icon shown right next to the title (e.g.
+  `<dt-icon name="host"></dt-icon>`)
 - `<dt-consumption-title>` - The title of the consumption component
 - `<dt-consumption-subtitle>` - The title usually shown below the actual title
-- `<dt-consumption-count>` - A formatted value label shown below the progress bar (e.g. `5/20`)
-- `<dt-consumption-label>` - A more detailed description of what the progressbar and count label actually represent (e.g. `Restricted host unit hours`)
+- `<dt-consumption-count>` - A formatted value label shown below the progress
+  bar (e.g. `5/20`)
+- `<dt-consumption-label>` - A more detailed description of what the progressbar
+  and count label actually represent (e.g. `Restricted host unit hours`)
 
-Additionally an optional overlay section is supported that is only shown when the user hovers over the consumption component:
+Additionally an optional overlay section is supported that is only shown when
+the user hovers over the consumption component:
 
-- `<dt-consumption-overlay>` - Content that is shown in an overlay when the user hovers over the consumption component
+- `<dt-consumption-overlay>` - Content that is shown in an overlay when the user
+  hovers over the consumption component
 
 ## Imports
 
-You have to import the `DtConsumptionModule` when you want to use the `<dt-consumption>`:
+You have to import the `DtConsumptionModule` when you want to use the
+`<dt-consumption>`:
 
 ```typescript
 @NgModule({
@@ -41,7 +48,8 @@ class MyModule {}
 
 ## Accessibility
 
-Icons defined with `<dt-consumption-icon>` must be given a meaningful label via `aria-label`.
+Icons defined with `<dt-consumption-icon>` must be given a meaningful label via
+`aria-label`.
 
 ## Examples
 

@@ -4,7 +4,11 @@ type: 'component'
 
 # Button
 
-This Angular button enhances native `<button>` and `<a>` elements with Dynatrace styling. Make sure to always use `<button>` or `<a>` tags to provide an accessible experience for the user. While a `<button>` element should be used whenever some action is performed, `<a>` elements should be used when the user will navigate to another view.
+This Angular button enhances native `<button>` and `<a>` elements with Dynatrace
+styling. Make sure to always use `<button>` or `<a>` tags to provide an
+accessible experience for the user. While a `<button>` element should be used
+whenever some action is performed, `<a>` elements should be used when the user
+will navigate to another view.
 
 ## Imports
 
@@ -19,7 +23,8 @@ class MyModule {}
 
 ## Initialization
 
-To apply the dynatrace button, add one of the following attributes to the `<button>` and `<a>` elements:
+To apply the dynatrace button, add one of the following attributes to the
+`<button>` and `<a>` elements:
 
 | Attribute        | Description                                    |
 | ---------------- | ---------------------------------------------- |
@@ -36,7 +41,8 @@ To apply the dynatrace button, add one of the following attributes to the `<butt
 
 ## Theming
 
-The button styling depends on the theme the component is used in. You can set a theme on an area of the app by using the `dtTheme` directive.
+The button styling depends on the theme the component is used in. You can set a
+theme on an area of the app by using the `dtTheme` directive.
 
 ```html
 <div dtTheme="purple:dark">
@@ -46,7 +52,9 @@ The button styling depends on the theme the component is used in. You can set a 
 
 ## Accessibility
 
-By using native `<button>` or `<a>` elements, accessibility is ensured per default. Buttons or links containing only icons (`dt-icon-button`) should be given a meaningful label via `aria-label` or `aria-labelledby`.
+By using native `<button>` or `<a>` elements, accessibility is ensured per
+default. Buttons or links containing only icons (`dt-icon-button`) should be
+given a meaningful label via `aria-label` or `aria-labelledby`.
 
 ## Examples
 

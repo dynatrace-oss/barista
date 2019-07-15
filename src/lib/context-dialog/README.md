@@ -5,16 +5,17 @@ type: 'component'
 # Context dialog
 
 The `<dt-context-dialog>` creates a container that is hidden inside an overlay.
-It is possible to disable the entire context dialog.
-The context dialog traps the focus inside the overlay until it is closed again.
-It sets the focus to the previously focused element when closed.
-The closing button inside the context dialog will get the focus, when the context menu is opened.
+It is possible to disable the entire context dialog. The context dialog traps
+the focus inside the overlay until it is closed again. It sets the focus to the
+previously focused element when closed. The closing button inside the context
+dialog will get the focus, when the context menu is opened.
 
 <docs-source-example example="ContextDialogDefaultExample"></docs-source-example>
 
 ## Imports
 
-You have to import the `DtContextDialogModule` when you want to use the `<dt-context-dialog>`:
+You have to import the `DtContextDialogModule` when you want to use the
+`<dt-context-dialog>`:
 
 ```typescript
 @NgModule({
@@ -54,19 +55,24 @@ class MyModule {}
 
 ## Accessibility
 
-Context dialogs should be given a meaningful label via `aria-label` for the open trigger and via `aria-label-close-button` for the close trigger, because the buttons do not contain text.
+Context dialogs should be given a meaningful label via `aria-label` for the open
+trigger and via `aria-label-close-button` for the close trigger, because the
+buttons do not contain text.
 
 ## Examples
 
 ### Focus previously focused element on close
 
-To show the previous focused element working - please use the button labeled "Open" and not the button with the icon to open the context dialog
+To show the previous focused element working - please use the button labeled
+"Open" and not the button with the icon to open the context dialog
 
 <docs-source-example example="ContextDialogPreviousFocusExample"></docs-source-example>
 
 ### Context dialog with custom icon
 
-To add a custom icon use the `<dt-button dt-icon-button></dt-button>` component and add the directive `[dtContextDialogTrigger]` to be able to link it to the correct context dialog.
+To add a custom icon use the `<dt-button dt-icon-button></dt-button>` component
+and add the directive `[dtContextDialogTrigger]` to be able to link it to the
+correct context dialog.
 
 <docs-source-example example="ContextDialogCustomIconExample"></docs-source-example>
 

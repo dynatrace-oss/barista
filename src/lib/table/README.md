@@ -4,12 +4,16 @@ type: 'component'
 
 # Table
 
-The `DtTable` enhances the [Material's cdk table](https://material.angular.io/cdk/table/overview). This first implementation also removes unneeded things from the public API.
+The `DtTable` enhances the
+[Material's cdk table](https://material.angular.io/cdk/table/overview). This
+first implementation also removes unneeded things from the public API.
 
 ## Imports
 
-You have to import the `DtTableModule` to use the `dt-table`.
-If you want to use the `dt-expandable-cell` component, Angular's `BrowserAnimationsModule` is required for animations. For more details on this see _Step 2: Animations_ in the Getting started Guide.
+You have to import the `DtTableModule` to use the `dt-table`. If you want to use
+the `dt-expandable-cell` component, Angular's `BrowserAnimationsModule` is
+required for animations. For more details on this see _Step 2: Animations_ in
+the Getting started Guide.
 
 ```typescript
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -62,10 +66,16 @@ There are no outputs at this stage. The table is totally passive.
 
 ## Table Usage
 
-The cdk table has a very different approach on how to define the table template, it does not use the native HTML table. Therefore, there is no `td`, `tr` or `th` involved.
-Instead, you need to define all possible columns that the table may show (depending on the data available) and then define the table header and body by selecting from the column definitions, which subset of columns you want to show.
+The cdk table has a very different approach on how to define the table template,
+it does not use the native HTML table. Therefore, there is no `td`, `tr` or `th`
+involved. Instead, you need to define all possible columns that the table may
+show (depending on the data available) and then define the table header and body
+by selecting from the column definitions, which subset of columns you want to
+show.
 
-Each column definition is created with `dt-header-cell` and `dt-cell` inside a [ng-container](https://angular.io/guide/structural-directives#ngcontainer) structural directive with a `dtColumDef` attribute directive applied to it.
+Each column definition is created with `dt-header-cell` and `dt-cell` inside a
+[ng-container](https://angular.io/guide/structural-directives#ngcontainer)
+structural directive with a `dtColumDef` attribute directive applied to it.
 
 ```html
 
@@ -76,7 +86,11 @@ Each column definition is created with `dt-header-cell` and `dt-cell` inside a [
 
 ```
 
-Note: `dtCellDef` not only exports the row data but also the same properties as `*ngFor`- using the same [micro-syntax](https://gist.github.com/mhevery/d3530294cff2e4a1b3fe15ff75d08855). The table header is defined with a `dt-header-row` component and a `dtHeaderRowDef` directive:
+Note: `dtCellDef` not only exports the row data but also the same properties as
+`*ngFor`- using the same
+[micro-syntax](https://gist.github.com/mhevery/d3530294cff2e4a1b3fe15ff75d08855).
+The table header is defined with a `dt-header-row` component and a
+`dtHeaderRowDef` directive:
 
 ```html
 <dt-header-row *dtHeaderRowDef="['username', 'age', 'title']">
@@ -84,7 +98,8 @@ Note: `dtCellDef` not only exports the row data but also the same properties as 
 </dt-header-row>
 ```
 
-To make the header sticky, add the `dtHeaderRowDefSticky` input to the `dtHeaderRowDef` directive.
+To make the header sticky, add the `dtHeaderRowDefSticky` input to the
+`dtHeaderRowDef` directive.
 
 ```html
 <dt-header-row *dtHeaderRowDef="['username', 'age', 'title']; sticky">
@@ -92,25 +107,31 @@ To make the header sticky, add the `dtHeaderRowDefSticky` input to the `dtHeader
 </dt-header-row>
 ```
 
-And finally the table row is defined with a `dt-row` component and a `dtRowDef` directive:
+And finally the table row is defined with a `dt-row` component and a `dtRowDef`
+directive:
 
 ```html
 <dt-row *dtRowDef="let row; columns: ['username', 'age', 'title']"></dt-row>
 ```
 
-Note: The `dtRowDef` also exports row context, which can be used for event and property bindings on the row element. See the source code of any of the examples in this page to see all the pieces in place.
+Note: The `dtRowDef` also exports row context, which can be used for event and
+property bindings on the row element. See the source code of any of the examples
+in this page to see all the pieces in place.
 
 <docs-source-example example="TableDefaultExample" fullwidth="true"></docs-source-example>
 
 ### Width proportion
 
-You can customize the column width proportion with the `[dtColumnProportion]` attribute.
+You can customize the column width proportion with the `[dtColumnProportion]`
+attribute.
 
 <docs-source-example example="TableDifferentWidthExample" fullwidth="true"></docs-source-example>
 
 ### Tables with two lines per row
 
-If you want to have 2 lines of text and maybe an icon inside a row you can use the `<dt-info-group>` component. You can also take a look at the `<dt-info-group>` component's page for further information.
+If you want to have 2 lines of text and maybe an icon inside a row you can use
+the `<dt-info-group>` component. You can also take a look at the
+`<dt-info-group>` component's page for further information.
 
 <docs-source-example example="TableWithInfoGroupCellExample" fullwidth="true"></docs-source-example>
 
@@ -122,8 +143,11 @@ You can customize the column minimun width with `[dtColumnMinWidth]`
 
 ### Empty state
 
-You can pass an empty state to the table using the `dtTableEmptyState` directive, this will be used when there's no data.
-The recommended approach is to use the following components: `<dt-table-empty-state>`, `<dt-table-empty-state-image>`, `<dt-table-empty-state-title>`, `<dt-table-empty-state-message>`
+You can pass an empty state to the table using the `dtTableEmptyState`
+directive, this will be used when there's no data. The recommended approach is
+to use the following components: `<dt-table-empty-state>`,
+`<dt-table-empty-state-image>`, `<dt-table-empty-state-title>`,
+`<dt-table-empty-state-message>`
 
 <docs-source-example example="TableEmptyStateExample" fullwidth="true"></docs-source-example>
 
@@ -133,7 +157,8 @@ You can also pass custom content using the same `dtTableEmptyState`.
 
 ### Loading state
 
-You can mark the table as loading using `[loading]` and pass the content to display with `dtTableLoadingState` directive
+You can mark the table as loading using `[loading]` and pass the content to
+display with `dtTableLoadingState` directive
 
 <docs-source-example example="TableLoadingExample" fullwidth="true"></docs-source-example>
 
@@ -149,15 +174,22 @@ You can bind the column definitions to an array with a `*ngFor` directive.
 
 <docs-source-example example="TableDynamicColumnsExample" fullwidth="true"></docs-source-example>
 
-The DataSource type is an abstract class with two methods: connect and disconnect. Connect has to return an Observable that the table subscribes to. Disconnect does cleanup. Using this class to wrap the data provided for the table allows maximum flexibility and will be responsible of a future sort, and filter functionalities.
+The DataSource type is an abstract class with two methods: connect and
+disconnect. Connect has to return an Observable that the table subscribes to.
+Disconnect does cleanup. Using this class to wrap the data provided for the
+table allows maximum flexibility and will be responsible of a future sort, and
+filter functionalities.
 
 ## Expandable Table Rows
 
-Expandable rows can be defined using `dt-expandable-row`. An expandable row **has to** contain a column with a details cell. A details cell can be added using `dt-expandable-cell`.
+Expandable rows can be defined using `dt-expandable-row`. An expandable row
+**has to** contain a column with a details cell. A details cell can be added
+using `dt-expandable-cell`.
 
 <docs-source-example example="TableExpandableRowsExample" fullwidth="true"></docs-source-example>
 
-Multiple rows can be expanded at a time. The expanded state of each row can be set programmatically.
+Multiple rows can be expanded at a time. The expanded state of each row can be
+set programmatically.
 
 <docs-source-example example="TableMultiExpandableRowsExample" fullwidth="true"></docs-source-example>
 
@@ -177,7 +209,9 @@ Multiple rows can be expanded at a time. The expanded state of each row can be s
 
 ### Options and Properties of DtExpandableCell
 
-Expandable rows have to contain one column definition which contains a `dt-expandable-cell`. A sample column definition for the details column could look like this:
+Expandable rows have to contain one column definition which contains a
+`dt-expandable-cell`. A sample column definition for the details column could
+look like this:
 
 ```html
 <ng-container dtColumnDef="details" dtColumnAlign="number">
@@ -212,17 +246,20 @@ Expandable rows have to contain one column definition which contains a `dt-expan
 
 ## Theming
 
-The table styling depends on the page theme. You can set a theme on an area of the app by using the `dtTheme` directive.
+The table styling depends on the page theme. You can set a theme on an area of
+the app by using the `dtTheme` directive.
 
 ### Sticky header
 
-To apply a sticky header to the table set the `sticky` input on the `dtHeaderRowDef` directive.
+To apply a sticky header to the table set the `sticky` input on the
+`dtHeaderRowDef` directive.
 
 <docs-source-example example="TableStickyHeaderExample" fullwidth="true"></docs-source-example>
 
 ### Table hover
 
-To apply the hover effect for the table add interactiveRows on the `dt-table` component.
+To apply the hover effect for the table add interactiveRows on the `dt-table`
+component.
 
 <docs-source-example example="TableHoverExample" fullwidth="true"></docs-source-example>
 
@@ -230,9 +267,13 @@ To apply the hover effect for the table add interactiveRows on the `dt-table` co
 
 <docs-source-example example="TableSortingExample" fullwidth="true"></docs-source-example>
 
-The `DtSort` and `dt-sort-header` are used to add sorting functionality to the table.
+The `DtSort` and `dt-sort-header` are used to add sorting functionality to the
+table.
 
-To add sorting capabilities to your table add the `dtSort` directive to the `dt-table` component. For each column that should be sortable by the user add `dt-sort-header` to the `dt-header-cell`. The `dt-sort-header` registers itself with the id given to the `dtColumnDef` with the `DtSort` directive.
+To add sorting capabilities to your table add the `dtSort` directive to the
+`dt-table` component. For each column that should be sortable by the user add
+`dt-sort-header` to the `dt-header-cell`. The `dt-sort-header` registers itself
+with the id given to the `dtColumnDef` with the `DtSort` directive.
 
 ```html
 <dt-table ... dtSort ...></dt-table>
@@ -283,7 +324,8 @@ You can set the following inputs and outputs on the `dt-sort-header` component.
 
 #### Accessibility
 
-Please provide a `sort-aria-label` for each `dt-sort-header` to make the sorting experience accessible for all users. E.g. `Change sort order for column hosts`.
+Please provide a `sort-aria-label` for each `dt-sort-header` to make the sorting
+experience accessible for all users. E.g. `Change sort order for column hosts`.
 
 ### DtSortDirection
 
@@ -291,27 +333,36 @@ The type used for the sort direction either `asc` or `desc`
 
 ### DtSortEvent
 
-The event emitted when the user changes either the active sort or the sorting direction. The event contains the following properties.
+The event emitted when the user changes either the active sort or the sorting
+direction. The event contains the following properties.
 
 | Name        | Type              | Description                                   |
 | ----------- | ----------------- | --------------------------------------------- |
 | `active`    | `string`          | The id of the currently active column         |
 | `direction` | `DtSortDirection` | The direction for the currently active column |
 
-To see a combination with initial sort direction and active column and disabling behaviour - please see the following complex example.
+To see a combination with initial sort direction and active column and disabling
+behaviour - please see the following complex example.
 
 <docs-source-example example="TableSortingFullExample" fullwidth="true"></docs-source-example>
 
 ## Problem & Warning Indicator
 
-To get an error or warning indicator use the `dtIndicator` directive inside your `dt-cell` components on any html element or on your `dt-cell` component directly. The `dt-row` and `dt-expandable-row` will pick up if any `dtIndicator` was used inside the row's `dt-cell` and show the correct indicator. If one indicator has color `error` set the indicator on the row is an error indicator (Error trumps warning).
-You can control the active state of the indicator by using the input named the same as `dtIndicator`.
+To get an error or warning indicator use the `dtIndicator` directive inside your
+`dt-cell` components on any html element or on your `dt-cell` component
+directly. The `dt-row` and `dt-expandable-row` will pick up if any `dtIndicator`
+was used inside the row's `dt-cell` and show the correct indicator. If one
+indicator has color `error` set the indicator on the row is an error indicator
+(Error trumps warning). You can control the active state of the indicator by
+using the input named the same as `dtIndicator`.
 
 ```html
 <dt-cell [dtIndicator]="active" ...></dt-cell>
 ```
 
-The full example below shows both usages - single metric inside a cell and the entire cell enhanced with the dtIndicator for table with either static and expandable rows.
+The full example below shows both usages - single metric inside a cell and the
+entire cell enhanced with the dtIndicator for table with either static and
+expandable rows.
 
 <docs-source-example example="TableProblemExample" fullwidth="true"></docs-source-example>
 
@@ -319,7 +370,10 @@ The full example below shows both usages - single metric inside a cell and the e
 
 ### Responsive table
 
-Since some tables might have a lot of data in them and screen space is very limited especially on devices with smaller screens you might want to switch between a table with expandable rows and normal rows. The example below shows a very simple approach how this might be done.
+Since some tables might have a lot of data in them and screen space is very
+limited especially on devices with smaller screens you might want to switch
+between a table with expandable rows and normal rows. The example below shows a
+very simple approach how this might be done.
 
 <docs-source-example example="TableResponsiveExample" fullwidth="true"></docs-source-example>
 
@@ -327,11 +381,15 @@ All pending functionality will be progressively addressed by future versions
 
 ## Simple Columns
 
-The `dtSimpleColumn` are an abstraction layer to the full fledged table implementation to make usage of recurring-patterns easier and to reduce boiler plate code that needs to be written to generate a simple table.
+The `dtSimpleColumn` are an abstraction layer to the full fledged table
+implementation to make usage of recurring-patterns easier and to reduce boiler
+plate code that needs to be written to generate a simple table.
 
 ### Inputs
 
-The `dtSimpleColumn` provides a couple of inputs, which give the user easy access to certain functionality of the `dtTable` like sorting, formatting, error/warning indicators.
+The `dtSimpleColumn` provides a couple of inputs, which give the user easy
+access to certain functionality of the `dtTable` like sorting, formatting,
+error/warning indicators.
 
 | Name                 | Type                                                 | Default | Description                                                                                                                                                                                                                                                                                                                                                   |
 | -------------------- | ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -345,7 +403,9 @@ The `dtSimpleColumn` provides a couple of inputs, which give the user easy acces
 
 ### Versions
 
-Currently there are two predefined versions of the `dtSimpleColumn` exposed: `dt-simple-number-column` and `dt-simple-text-column`. There are only small differences between the number and text column:
+Currently there are two predefined versions of the `dtSimpleColumn` exposed:
+`dt-simple-number-column` and `dt-simple-text-column`. There are only small
+differences between the number and text column:
 
 **dt-simple-text-column**
 
@@ -354,9 +414,11 @@ Currently there are two predefined versions of the `dtSimpleColumn` exposed: `dt
 
 **dt-simple-number-column**
 
-- When sorting this column, the sort direction will start descending, e.g. 100 -> 0
+- When sorting this column, the sort direction will start descending, e.g. 100
+  -> 0
 - Column alignemnt is set to `number` -> right
-- When no formatter is given, the `dtCount` formatter will automatically be applied, e.g. 1000 -> 1k
+- When no formatter is given, the `dtCount` formatter will automatically be
+  applied, e.g. 1000 -> 1k
 
 ### Example
 
@@ -364,9 +426,13 @@ Currently there are two predefined versions of the `dtSimpleColumn` exposed: `dt
 
 ### Sorting, paging and filtering out of the box with DtTableDataSource
 
-`dtSimpleColumns` integrate out of the box with the `DtTableDataSource`. Unified sorting (locale-aware for strings, null/undefined value treatment) is possible when using the DtTableDataSource. To do this, create a new `DtTableDataSource` instance with the data. You will have to connect the input instances for `dtSort` to the `DtTableDataSource`.
+`dtSimpleColumns` integrate out of the box with the `DtTableDataSource`. Unified
+sorting (locale-aware for strings, null/undefined value treatment) is possible
+when using the DtTableDataSource. To do this, create a new `DtTableDataSource`
+instance with the data. You will have to connect the input instances for
+`dtSort` to the `DtTableDataSource`.
 
-```ts
+```typescript
 @Component({
   moduleId: module.id,
   template: `
@@ -396,7 +462,9 @@ export class TableComponent implements AfterViewInit {
 
 <docs-source-example example="TablePaginationExample" fullwidth="true"></docs-source-example>
 
-Further examples of the `DtPagination` in combination with a `DtTableDataSource` can be found under the [pagination](/components/pagination#dynamic-showhide-of-paginated-table) page.
+Further examples of the `DtPagination` in combination with a `DtTableDataSource`
+can be found under the
+[pagination](/components/pagination#dynamic-showhide-of-paginated-table) page.
 
 ### Show more
 
@@ -408,7 +476,11 @@ Further examples of the `DtPagination` in combination with a `DtTableDataSource`
 
 ### Extending DtSimpleColumn
 
-Of course you can extend from the simpleColumn to create your own predefined simplecolumn. To do this, simply extend from the `DtSimpleColumnBase<T>` abstract class and implement the deviation that suits your needs. A basic template for the simpleColumn could look like this (example from the `dt-simple-number-column`).
+Of course you can extend from the simpleColumn to create your own predefined
+simplecolumn. To do this, simply extend from the `DtSimpleColumnBase<T>`
+abstract class and implement the deviation that suits your needs. A basic
+template for the simpleColumn could look like this (example from the
+`dt-simple-number-column`).
 
 ```html
 <ng-container [dtColumnDef]="name" dtColumnAlign="number">

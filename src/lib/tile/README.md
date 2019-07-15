@@ -17,16 +17,19 @@ class MyModule {}
 
 ## Initialization
 
-`<dt-tile>` is a visual container for wrapping a wide variety of contents.
-In addition to custom content, the tile also holds the following sections:
+`<dt-tile>` is a visual container for wrapping a wide variety of contents. In
+addition to custom content, the tile also holds the following sections:
 
-- `<dt-tile-title>` - The title of this tile, needs to be defined to show the tile's header. It contains text only.
-- `<dt-tile-subtitle>` - Right below the title, a subtitle can be placed. It contains text only.
+- `<dt-tile-title>` - The title of this tile, needs to be defined to show the
+  tile's header. It contains text only.
+- `<dt-tile-subtitle>` - Right below the title, a subtitle can be placed. It
+  contains text only.
 - `<dt-tile-icon>` - An icon in the top left corner of the tile.
 
 <docs-source-example example="TileDefaultExample"></docs-source-example>
 
-If only a `<dt-tile-title>` and no `<dt-tile-subtitle>` is given, the tile will be rendered in a smaller version.
+If only a `<dt-tile-title>` and no `<dt-tile-subtitle>` is given, the tile will
+be rendered in a smaller version.
 
 ## Inputs
 

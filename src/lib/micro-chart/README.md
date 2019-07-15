@@ -4,11 +4,13 @@ type: 'component'
 
 # Microchart
 
-The microchart components wraps the chart component. Find more details about theming and reflow on the [chart page](/components/charts/).
+The microchart components wraps the chart component. Find more details about
+theming and reflow on the [chart page](/components/charts/).
 
 ## Imports
 
-You have to import the `DtMicroChartModule` when you want to use the `dt-micro-chart`:
+You have to import the `DtMicroChartModule` when you want to use the
+`dt-micro-chart`:
 
 ```typescript
 @NgModule({
@@ -19,7 +21,8 @@ class MyModule {}
 
 ## Initialization
 
-To use a Dynatrace microchart, add the `<dt-micro-chart>` element to the view and set `options` and `series` data using the appropriate attributes.
+To use a Dynatrace microchart, add the `<dt-micro-chart>` element to the view
+and set `options` and `series` data using the appropriate attributes.
 
 ## Options & Properties
 
@@ -39,7 +42,9 @@ To use a Dynatrace microchart, add the `<dt-micro-chart>` element to the view an
 
 ## Content children
 
-As the microchart component is a wrapper for charts, the same content children – e.g. a `dt-chart-tooltip` – can be used. Find details on the [chart page](/components/charts/).
+As the microchart component is a wrapper for charts, the same content children –
+e.g. a `dt-chart-tooltip` – can be used. Find details on the
+[chart page](/components/charts/).
 
 ## Examples
 

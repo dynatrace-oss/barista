@@ -10,23 +10,37 @@ type: 'other'
 
 #### Importing
 
-`font-mixins.scss` - set of mixins that can be used to apply defined font styles or introduce custom changes; import it to your stylesheet to be able to style your enclosed component or apply custom font styles (`@import "~@dynatrace/angular-components/style/font-mixins";`).
+`font-mixins.scss` - set of mixins that can be used to apply defined font styles
+or introduce custom changes; import it to your stylesheet to be able to style
+your enclosed component or apply custom font styles
+(`@import "~@dynatrace/angular-components/style/font-mixins";`).
 
-`font-styles.scss` - stylesheet with rule-sets for all predefined use cases of font styles; import it to your stylesheet to have basic html tags styled automatically (`@import "~@dynatrace/angular-components/style/font-styles";`).
+`font-styles.scss` - stylesheet with rule-sets for all predefined use cases of
+font styles; import it to your stylesheet to have basic html tags styled
+automatically (`@import "~@dynatrace/angular-components/style/font-styles";`).
 
 #### Usage
 
 To use certain mixin simply include it in your rule-set:
 
-`.example {` <br> &nbsp;&nbsp;`@include dt-main-font();` <br> `}`
+```scss
+.example {
+  @include dt-main-font();
+}
+```
 
 ##### Default values
 
-`$monospace-font-family: 'VeraMonoWeb'`<br>
-`$default-font-family: 'BerninaSansWeb'`<br>
-`$default-font-color: #454646`<br>
-`$default-font-weight: normal`<br>
-`$default-font-size: 14px`<br>
+`$monospace-font-family: 'VeraMonoWeb'`
+
+`$default-font-family: 'BerninaSansWeb'`
+
+`$default-font-color: #454646`
+
+`$default-font-weight: normal`
+
+`$default-font-size: 14px`
+
 `$default-line-height: 1.6`
 
 ##### Mixins for defined cases
@@ -46,7 +60,9 @@ To use certain mixin simply include it in your rule-set:
 | ---------------------------- | ---------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `dt-custom-font-styles(...)` | color* <br> font-weight* <br> font-size* <br> line-height* | changing style-and-size-related properties | `dt-custom-font-styles(#facade, 700);` <br> `dt-custom-font-styles(#c0ffee, 700, 14px, 32px)` <br> `dt-custom-font-styles(false, 300)` <br> `dt-custom-font-styles($custom-font-weight: 300)` <br> |
 
-\* - optional argument; **NOTE:** if not used but not last in order should be replaced by **false**; you can also use explicitly specified arguments not to worry about the order of arguments (see last example in the table above)
+\* - optional argument; **NOTE:** if not used but not last in order should be
+replaced by **false**; you can also use explicitly specified arguments not to
+worry about the order of arguments (see last example in the table above)
 
 ## Link
 
@@ -56,8 +72,9 @@ To use certain mixin simply include it in your rule-set:
 
 #### Importing
 
-_Links are not Angular components, thus it's not necessary to import any module._ However, make sure you include `link.scss`
-into your stylesheet (it's also automatically imported when using `main.scss` stylesheet).
+_Links are not Angular components, thus it's not necessary to import any
+module._ However, make sure you include `link.scss` into your stylesheet (it's
+also automatically imported when using `main.scss` stylesheet).
 
 #### Initialization
 

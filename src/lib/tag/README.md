@@ -23,8 +23,10 @@ To use the Dynatrace tag, use the `<dt-tag>` element.
 
 In addition, also other selectors can be used.
 
-- `<dt-tag>` or `[dt-tag]` or `[dtTag]` - To create the tag itself. Attribute selectors can be used on an anchor tag for example.
-- `<dt-tag-key>` or `[dt-tag-key]` or `[dtTagKey]` - To identify a content child as a key/attribute for the tag.
+- `<dt-tag>` or `[dt-tag]` or `[dtTag]` - To create the tag itself. Attribute
+  selectors can be used on an anchor tag for example.
+- `<dt-tag-key>` or `[dt-tag-key]` or `[dtTagKey]` - To identify a content child
+  as a key/attribute for the tag.
 
 <docs-source-example example="TagDefaultExample"></docs-source-example>
 
