@@ -19,7 +19,9 @@ class MyModule {}
 
 ## Initialization
 
-To use the Dynatrace chart, add the `<dt-chart options="myoptions" series="myseries"></dt-chart>` element to the view.
+To use the Dynatrace chart, add the
+`<dt-chart options="myoptions" series="myseries"></dt-chart>` element to the
+view.
 
 ## Inputs
 
@@ -39,8 +41,11 @@ To use the Dynatrace chart, add the `<dt-chart options="myoptions" series="myser
 
 ## Theming
 
-The chart will take a chart color for the series data if no color is specified for the series. If no theme is set the default color palette is used. For charts within themes with no more than 3 series a theme palette is available.
-For charts with more than 3 series, an ordered list of chart colors is used to ensure enough contrast.
+The chart will take a chart color for the series data if no color is specified
+for the series. If no theme is set the default color palette is used. For charts
+within themes with no more than 3 series a theme palette is available. For
+charts with more than 3 series, an ordered list of chart colors is used to
+ensure enough contrast.
 
 ```html
 <div dtTheme="purple">
@@ -50,11 +55,18 @@ For charts with more than 3 series, an ordered list of chart colors is used to e
 
 ## Reflow
 
-The chart needs the **ViewportResizer** provider. The ViewportResizer notifies the `dt-chart` component about Viewport changes that trigger a reflow of the `dt-chart`.
+The chart needs the **ViewportResizer** provider. The ViewportResizer notifies
+the `dt-chart` component about Viewport changes that trigger a reflow of the
+`dt-chart`.
 
 ## Tooltip
 
-The chart supports adding a tooltip that wraps other angular components. The `dt-chart` component takes a `dt-chart-tooltip` component as a content child. The `dt-chart-tooltip` component needs a `ng-template` as a content child. This `ng-template` receives the same object passed to the context as the "normal" highcharts tooltip formatter function would receive. Don't forget to declare the variable for the implicit context on the `ng-template`.
+The chart supports adding a tooltip that wraps other angular components. The
+`dt-chart` component takes a `dt-chart-tooltip` component as a content child.
+The `dt-chart-tooltip` component needs a `ng-template` as a content child. This
+`ng-template` receives the same object passed to the context as the "normal"
+highcharts tooltip formatter function would receive. Don't forget to declare the
+variable for the implicit context on the `ng-template`.
 
 ```html
 <dt-chart ...>
@@ -68,7 +80,10 @@ The chart supports adding a tooltip that wraps other angular components. The `dt
 
 ## Heatfield
 
-The chart supports adding heatfields. The `dt-chart` component takes `dt-chart-heatfield` components as content children. The `dt-chart-heatfield` component is themeable. By setting the `color` to `main` you can use the heatfield in theme color (for example for the overload prevention usecase).
+The chart supports adding heatfields. The `dt-chart` component takes
+`dt-chart-heatfield` components as content children. The `dt-chart-heatfield`
+component is themeable. By setting the `color` to `main` you can use the
+heatfield in theme color (for example for the overload prevention usecase).
 
 ```html
 <dt-chart ...>
@@ -152,9 +167,19 @@ The chart supports adding heatfields. The `dt-chart` component takes `dt-chart-h
 
 <docs-source-example example="ChartSelectionAreaDefaultExample" fullwidth="true"></docs-source-example>
 
-The chart selection area creates the possibility to select a specific time frame or moment in a chart. The **Timestamp** is used therefore to select a specific moment on the xAxis of the chart. The **Range** empowers the user to select a desired time frame between two dates. To apply a valid range on a chart it is important to meet the provided constraints. First of all the selected range has to be larger as 5minutes by default. Furthermore the developer can specify a max constraint as well. Once a range was created the user can resize it by the two handles on the left and right side.
+The chart selection area creates the possibility to select a specific time frame
+or moment in a chart. The **Timestamp** is used therefore to select a specific
+moment on the xAxis of the chart. The **Range** empowers the user to select a
+desired time frame between two dates. To apply a valid range on a chart it is
+important to meet the provided constraints. First of all the selected range has
+to be larger as 5minutes by default. Furthermore the developer can specify a max
+constraint as well. Once a range was created the user can resize it by the two
+handles on the left and right side.
 
-To specify an action inside the overlay that is shown by the selection area you can project a button with the `dtChartSelectionAreaAction` directive inside the `dt-chart-timestamp` or `dt-chart-range`. This empowers the developer to have full control on all actions that should be performed.
+To specify an action inside the overlay that is shown by the selection area you
+can project a button with the `dtChartSelectionAreaAction` directive inside the
+`dt-chart-timestamp` or `dt-chart-range`. This empowers the developer to have
+full control on all actions that should be performed.
 
 The close button that will destroy the selection is mandatory!
 
@@ -166,7 +191,9 @@ The close button that will destroy the selection is mandatory!
 </dt-chart>
 ```
 
-Furthermore it is possible to have both `dt-chart-range` and `dt-chart-timestamp` along side in a chart. This enables the user to either select a moment or a time frame on the x-Axis of the chart.
+Furthermore it is possible to have both `dt-chart-range` and
+`dt-chart-timestamp` along side in a chart. This enables the user to either
+select a moment or a time frame on the x-Axis of the chart.
 
 ```html
 <dt-chart ...>
@@ -177,7 +204,8 @@ Furthermore it is possible to have both `dt-chart-range` and `dt-chart-timestamp
 
 ### Range
 
-Adding the ability to select a desired time frame between two timestamps in a chart with a `dt-chart-range`.
+Adding the ability to select a desired time frame between two timestamps in a
+chart with a `dt-chart-range`.
 
 ```html
 <dt-chart ...>
@@ -187,7 +215,9 @@ Adding the ability to select a desired time frame between two timestamps in a ch
 
 #### Accessibility
 
-You have to provide meaningful labels to the range via `aria-label-selected-area`, `aria-label-left-handle`, `aria-label-right-handle` and `aria-label-close`, to meet our accessibility standards.
+You have to provide meaningful labels to the range via
+`aria-label-selected-area`, `aria-label-left-handle`, `aria-label-right-handle`
+and `aria-label-close`, to meet our accessibility standards.
 
 #### Inputs
 
@@ -216,7 +246,8 @@ You have to provide meaningful labels to the range via `aria-label-selected-area
 
 ### Timestamp
 
-Adding the ability to select one specific moment in a chart with a `dt-chart-timestamp`.
+Adding the ability to select one specific moment in a chart with a
+`dt-chart-timestamp`.
 
 ```html
 <dt-chart ...>
@@ -226,7 +257,8 @@ Adding the ability to select one specific moment in a chart with a `dt-chart-tim
 
 #### Accessibility
 
-You have to provide meaningful labels to the range via `aria-label-selected` and `aria-label-close`, to meet our accessibility standards.
+You have to provide meaningful labels to the range via `aria-label-selected` and
+`aria-label-close`, to meet our accessibility standards.
 
 #### Inputs
 

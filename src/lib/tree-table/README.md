@@ -8,7 +8,8 @@ type: 'component'
 
 ## Imports
 
-You have to import the `DtTreeTableModule` when you want to use the `<dt-tree-table>`:
+You have to import the `DtTreeTableModule` when you want to use the
+`<dt-tree-table>`:
 
 ```typescript
 @NgModule({
@@ -19,11 +20,17 @@ class MyModule {}
 
 ## Description
 
-The `<dt-tree-table>` provides the functionality of a tree displayed in a grid/table. The api is very similar to the `<dt-table>` component. You define the different columns and rows and choose which columns should be rendered inside each row. It is also possible to have multiple different row templates that can be switched when a row should have a special behavior e.g. a show more row for lazy loading more rows.
+The `<dt-tree-table>` provides the functionality of a tree displayed in a
+grid/table. The api is very similar to the `<dt-table>` component. You define
+the different columns and rows and choose which columns should be rendered
+inside each row. It is also possible to have multiple different row templates
+that can be switched when a row should have a special behavior e.g. a show more
+row for lazy loading more rows.
 
 ## Usage
 
-Start by adding the `<dt-tree-table>` component to your template and provide it with a datasource and a treecontrol.
+Start by adding the `<dt-tree-table>` component to your template and provide it
+with a datasource and a treecontrol.
 
 ```html
 <dt-tree-table
@@ -34,7 +41,9 @@ Start by adding the `<dt-tree-table>` component to your template and provide it 
 
 ### Provide the data
 
-Since a table is a flat structure but we want to show hierachical tree data there is a special datasource called `DtTreeDataSource` involved. The `DtTreeControl` is responsible for controlling expanding/collapsing of nodes.
+Since a table is a flat structure but we want to show hierachical tree data
+there is a special datasource called `DtTreeDataSource` involved. The
+`DtTreeControl` is responsible for controlling expanding/collapsing of nodes.
 
 ```typescript
 private _getLevel = (node: ThreadFlatNode) => node.level;
@@ -44,7 +53,12 @@ private _isExpandable = (node: ThreadFlatNode) => node.expandable;
 this.treeControl = new DtTreeControl<ThreadFlatNode>(this._getLevel, this._isExpandable);
 ```
 
-The `DtTreeFlattener` takes multiple accessor functions as parameters to transform the hierachical data to a flat datastructure that can be rendered inside the table. The `DtTreeFlattener` is a generic class that transforms a hierachical structure of nodes of type T to a flat structure of nodes of type F; In the example below it takes the hierachical type `ThreadNode` and transforms it to `ThreadFlatNode`.
+The `DtTreeFlattener` takes multiple accessor functions as parameters to
+transform the hierachical data to a flat datastructure that can be rendered
+inside the table. The `DtTreeFlattener` is a generic class that transforms a
+hierachical structure of nodes of type T to a flat structure of nodes of type F;
+In the example below it takes the hierachical type `ThreadNode` and transforms
+it to `ThreadFlatNode`.
 
 ```typescript
 private _transformer = (node: ThreadNode, level: number): ThreadFlatNode => {
@@ -60,13 +74,15 @@ private _getChildren = (node: ThreadNode): ThreadNode[] => node.children || [];
 this.treeFlattener =  new DtTreeFlattener<ThreadNode, ThreadFlatNode>(this._transformer, this._getLevel, this._isExpandable, this._getChildren);
 ```
 
-The `DtTreeDataSource` gets the `DtTreeFlattener` and the `DtTreeControl` as parameters.
+The `DtTreeDataSource` gets the `DtTreeFlattener` and the `DtTreeControl` as
+parameters.
 
 ```typescript
 this.dataSource = new DtTreeDataSource(this.treeControl, this.treeFlattener);
 ```
 
-By assigning the data property on the datasource with a new set of data the tree-table is populated with the rows.
+By assigning the data property on the datasource with a new set of data the
+tree-table is populated with the rows.
 
 ```typescript
 this.dataSource.data = [
@@ -105,9 +121,14 @@ this.dataSource.data = [
 
 ### Adding column templates
 
-To specify the different columns that are shown inside the table you have to define column templates. Each column consists of `<dt-tree-table-header-cell>` and either a `<dt-tree-table-toggle-cell>` or a `<dt-cell>` inside a `<ng-container>`.
+To specify the different columns that are shown inside the table you have to
+define column templates. Each column consists of `<dt-tree-table-header-cell>`
+and either a `<dt-tree-table-toggle-cell>` or a `<dt-cell>` inside a
+`<ng-container>`.
 
-The first column shown in the `<dt-tree-table>` has to include the `<dt-tree-table-toggle-cell>`. This special cell includes the indentation logic and the toggle button used to expand/collapse the next level of rows.
+The first column shown in the `<dt-tree-table>` has to include the
+`<dt-tree-table-toggle-cell>`. This special cell includes the indentation logic
+and the toggle button used to expand/collapse the next level of rows.
 
 ```html
 <ng-container dtColumnDef="name">
@@ -135,7 +156,8 @@ After adding all column definitions the next step is to add the row definitions.
 
 ### Adding rows
 
-You want to add the table header by adding a `<dt-header-row>` inside the `<dt-tree-table>` tag.
+You want to add the table header by adding a `<dt-header-row>` inside the
+`<dt-tree-table>` tag.
 
 ```html
 <dt-header-row
@@ -143,7 +165,10 @@ You want to add the table header by adding a `<dt-header-row>` inside the `<dt-t
 ></dt-header-row>
 ```
 
-The next step is to add the row where the columns get rendered. You can do this by adding the `<dt-tree-table-row>` inside the `<dt-tree-table>` tag. You can specify the columns that should be rendered and don't forget to bind the row's data to the `<dt-tree-table-row>`s data input `[data]="row"`.
+The next step is to add the row where the columns get rendered. You can do this
+by adding the `<dt-tree-table-row>` inside the `<dt-tree-table>` tag. You can
+specify the columns that should be rendered and don't forget to bind the row's
+data to the `<dt-tree-table-row>`s data input `[data]="row"`.
 
 ```html
 <dt-tree-table-row
@@ -154,13 +179,20 @@ The next step is to add the row where the columns get rendered. You can do this 
 
 ## Column alignment
 
-If you want to specify an alignment for the content of a column you can do so by setting the `dtColumnAlign` input on the `<ng-container dtColumnDef=... dtColumnAlign="text">`
+If you want to specify an alignment for the content of a column you can do so by
+setting the `dtColumnAlign` input on the
+`<ng-container dtColumnDef=... dtColumnAlign="text">`
 
-The `dtColumnAlign` input handles the following values: `'left' | 'right' | 'center'` or one of the typed values that get mapped to left, right and center internally `'text' | 'id' | 'icon' | 'control' | 'number' | 'date' | 'ip'`.
+The `dtColumnAlign` input handles the following values:
+`'left' | 'right' | 'center'` or one of the typed values that get mapped to
+left, right and center internally
+`'text' | 'id' | 'icon' | 'control' | 'number' | 'date' | 'ip'`.
 
 ## DtIndicator
 
-You can use the `DtIndicator` directive the same way as in the `<dt-table>` to indicate a warning/error in a row. This will result in a Problem indicator being shown in front of the row.
+You can use the `DtIndicator` directive the same way as in the `<dt-table>` to
+indicate a warning/error in a row. This will result in a Problem indicator being
+shown in front of the row.
 
 <docs-source-example example="TreeTableProblemIndicatorExample" fullwidth="true"></docs-source-example>
 

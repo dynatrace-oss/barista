@@ -4,10 +4,16 @@ type: 'component'
 
 # Selection Area
 
-**DEPRECATED – will be removed with version 5.0.0** Please use the `DtChartRange` and `DtChartTimestamp` instead!
+**DEPRECATED – will be removed with version 5.0.0** Please use the
+`DtChartRange` and `DtChartTimestamp` instead!
 
-The `<dt-selection-area>` creates the possibility to create a selected area inside an origin element and drag the edges or the entire selected area within the constraints of the origin element. The selection area itself is not tightly coupled with the chart component but this is the main usecase.
-To connect the selection area and the chart you have to use the `dtChartSelectionArea` directive on the `dt-chart` component and provide the instance of the `dt-selection-area` component as an input.
+The `<dt-selection-area>` creates the possibility to create a selected area
+inside an origin element and drag the edges or the entire selected area within
+the constraints of the origin element. The selection area itself is not tightly
+coupled with the chart component but this is the main usecase. To connect the
+selection area and the chart you have to use the `dtChartSelectionArea`
+directive on the `dt-chart` component and provide the instance of the
+`dt-selection-area` component as an input.
 
 ```html
 <dt-chart ... [dtChartSelectionArea]="area"></dt-chart>
@@ -16,7 +22,9 @@ To connect the selection area and the chart you have to use the `dtChartSelectio
 </dt-selection-area>
 ```
 
-Inside the `dt-selection-area` tags you can specify the content of the overlay that gets created when creating the selected area. A special outlet for the action button is available called `dt-selection-area-actions`.
+Inside the `dt-selection-area` tags you can specify the content of the overlay
+that gets created when creating the selected area. A special outlet for the
+action button is available called `dt-selection-area-actions`.
 
 ```html
 ...
@@ -28,9 +36,14 @@ Inside the `dt-selection-area` tags you can specify the content of the overlay t
 </dt-selection-area>
 ```
 
-The `dt-selection-area` component will fire a change event when the selected area changes with the values for the positions of the handles. When used with a chart the values in the event are the x Axis values for the chart. If used with any other element the values will be pixel values.
+The `dt-selection-area` component will fire a change event when the selected
+area changes with the values for the positions of the handles. When used with a
+chart the values in the event are the x Axis values for the chart. If used with
+any other element the values will be pixel values.
 
-When you want to use the selection area connected to any other element than a dt-chart you have to use the `dtSelectionArea` directive on the origin element and connect the area the same way.
+When you want to use the selection area connected to any other element than a
+dt-chart you have to use the `dtSelectionArea` directive on the origin element
+and connect the area the same way.
 
 ```html
 <div class="origin" ... [dtSelectionArea]="area"></div>
@@ -41,7 +54,9 @@ When you want to use the selection area connected to any other element than a dt
 
 ## Imports
 
-You have to import the `DtSelectionAreaModule` when you want to use the `dt-selection-area`. Note that you also need the `DtChartModule` when using with the `dt-chart` component.
+You have to import the `DtSelectionAreaModule` when you want to use the
+`dt-selection-area`. Note that you also need the `DtChartModule` when using with
+the `dt-chart` component.
 
 ```typescript
 @NgModule({
@@ -52,7 +67,10 @@ class MyModule {}
 
 ## Accessibility
 
-Selection areas should be given meaningful labels via `aria-label-selected-area`, `aria-label-left-handle`, `aria-label-right-handle` and `aria-label-close-button`, because all those interactive elements don't have a text.
+Selection areas should be given meaningful labels via
+`aria-label-selected-area`, `aria-label-left-handle`, `aria-label-right-handle`
+and `aria-label-close-button`, because all those interactive elements don't have
+a text.
 
 ## Options & Properties
 
@@ -76,7 +94,8 @@ Selection areas should be given meaningful labels via `aria-label-selected-area`
 
 ### Usage on a non chart origin
 
-You can use the selection area connected to any element. Not only charts are supported.
+You can use the selection area connected to any element. Not only charts are
+supported.
 
 <docs-source-example example="SelectionAreaDefaultExample" fullwidth="true"></docs-source-example>
 

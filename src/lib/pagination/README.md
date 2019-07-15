@@ -4,7 +4,8 @@ type: 'component'
 
 # Pagination
 
-The `DtPagination` provides navigation for paged information, typically used in combination with a table.
+The `DtPagination` provides navigation for paged information, typically used in
+combination with a table.
 
 ## Basic use
 
@@ -13,12 +14,14 @@ Each pagination instance requires:
 - The total number of items being paged
 - The number of items per page _(default set to 50)_
 
-The current page index defaults to 0, but can be explicitly set via the `currentPage` input.
-When the user interacts with the pagination a `changed` event will be fired that can be used to update any associated data view.
+The current page index defaults to 0, but can be explicitly set via the
+`currentPage` input. When the user interacts with the pagination a `changed`
+event will be fired that can be used to update any associated data view.
 
 ## Initialization
 
-You have to import the `DtPaginationModule` when you want to use the `dt-pagination`:
+You have to import the `DtPaginationModule` when you want to use the
+`dt-pagination`:
 
 ```typescript
 @NgModule({

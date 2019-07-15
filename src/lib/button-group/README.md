@@ -8,7 +8,8 @@ This component creates a button group element with Dynatrace styling.
 
 ## Imports
 
-You have to import the `DtButtonGroupModule` when you want to use the `dt-button-group`
+You have to import the `DtButtonGroupModule` when you want to use the
+`dt-button-group`
 
 ```typescript
 
@@ -23,7 +24,8 @@ class MyModule {}
 
 ## Initialization
 
-To apply the Dynatrace button group, use the `<dt-button-group>` and `<dt-button-group-item>` elements.
+To apply the Dynatrace button group, use the `<dt-button-group>` and
+`<dt-button-group-item>` elements.
 
 | Attribute              | Description                                                                                      |
 | ---------------------- | ------------------------------------------------------------------------------------------------ |
