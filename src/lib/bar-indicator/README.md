@@ -4,7 +4,10 @@ type: 'component'
 
 # Bar-indicator
 
-The bar-indicator functions as a semantic alternative to the progress bar. It should display not a progress, but rather a ratio between multiple bar-indicators or something like "passed time" to put some visual perspective between connected bar-indicators.
+The bar-indicator functions as a semantic alternative to the progress bar. It
+should display not a progress, but rather a ratio between multiple
+bar-indicators or something like "passed time" to put some visual perspective
+between connected bar-indicators.
 
 <docs-source-example example="BarIndicatorDefaultExample"></docs-source-example>
 

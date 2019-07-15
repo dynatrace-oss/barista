@@ -6,7 +6,8 @@ type: 'component'
 
 ## Imports
 
-You have to import the `DtToggleButtonGroupModule` when you want to use the `<dt-toggle-button-group>`:
+You have to import the `DtToggleButtonGroupModule` when you want to use the
+`<dt-toggle-button-group>`:
 
 ```typescript
 @NgModule({
@@ -17,11 +18,17 @@ class MyModule {}
 
 ## Initialization
 
-The `<dt-toggle-button-group>` is a wrapping container for all `<dt-toggle-button-item>` components. A `<dt-toggle-button-item>` cannot function without a group as it is the group that is managing the toggling state. The group can hold any content and is not limited to `dt-toggle-button-item`s.
+The `<dt-toggle-button-group>` is a wrapping container for all
+`<dt-toggle-button-item>` components. A `<dt-toggle-button-item>` cannot
+function without a group as it is the group that is managing the toggling state.
+The group can hold any content and is not limited to `dt-toggle-button-item`s.
 
-The `<dt-toggle-button-item>` can hold any content which will be rendered into the right part of the component. It also has a dedicated section for the icon on the left hand side:
+The `<dt-toggle-button-item>` can hold any content which will be rendered into
+the right part of the component. It also has a dedicated section for the icon on
+the left hand side:
 
-- `<dt-toggle-button-item-icon>` should be filled only with a `dt-icon` which will be styled and rendered according to the toggle-button-group container.
+- `<dt-toggle-button-item-icon>` should be filled only with a `dt-icon` which
+  will be styled and rendered according to the toggle-button-group container.
 
 ### Outputs
 

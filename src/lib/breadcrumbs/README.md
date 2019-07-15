@@ -8,7 +8,8 @@ Breadcrumbs are used to navigate and to indicate the currently viewed page.
 
 ## Imports
 
-You have to import the `DtBreadcrumbsModule` when you want to use `dt-breadcrumbs` or `dt-breadcrumbs-item` elements:
+You have to import the `DtBreadcrumbsModule` when you want to use
+`dt-breadcrumbs` or `dt-breadcrumbs-item` elements:
 
 ```typescript
 @NgModule({
@@ -19,7 +20,9 @@ class MyModule {}
 
 ## dt-breadcrumbs
 
-`dt-breadcrumbs` component accepts a `color` property to define the color version of the breadcrumbs. It's a wrapper for the `dt-breadcrumbs-item` elements.
+`dt-breadcrumbs` component accepts a `color` property to define the color
+version of the breadcrumbs. It's a wrapper for the `dt-breadcrumbs-item`
+elements.
 
 ### Inputs
 

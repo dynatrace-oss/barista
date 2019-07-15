@@ -4,7 +4,8 @@ type: 'component'
 
 # Input & Textarea
 
-`dtInput` is a directive that applies Dynatrace styling to native `<input>` and `<textarea>` elements and allows them to work with `<dt-form-field>`.
+`dtInput` is a directive that applies Dynatrace styling to native `<input>` and
+`<textarea>` elements and allows them to work with `<dt-form-field>`.
 
 <docs-source-example example="InputDefaultExample"></docs-source-example>
 
@@ -21,12 +22,14 @@ class MyModule {}
 
 ## Initialization
 
-To apply the Dynatrace input, add the `dtInput` attribute to the `<input>` and `<textarea>` elements.
+To apply the Dynatrace input, add the `dtInput` attribute to the `<input>` and
+`<textarea>` elements.
 
 ## Attributes
 
-All valid `<input>` and `<textarea>` attributes can be used on `dtInput` including `ngModel` and `formControl`.
-The only exception ist type where not all values are possible.
+All valid `<input>` and `<textarea>` attributes can be used on `dtInput`
+including `ngModel` and `formControl`. The only exception ist type where not all
+values are possible.
 
 **Invalid input type values are:**
 
@@ -55,7 +58,12 @@ The only exception ist type where not all values are possible.
 
 ## Accessibility
 
-The `dtInput` directive works with native `<input>` and `<textarea>` to provide an accessible experience. If there's no `<dt-form-field>` used and the input does not contain a `<dt-label>`, `aria-label` or `aria-labelledby` attribute, it should be added. Any `dt-error` and `dt-hint` are automatically added to the input's `aria-describedby` list, and `aria-invalid` is automatically updated based on the input's validity state.
+The `dtInput` directive works with native `<input>` and `<textarea>` to provide
+an accessible experience. If there's no `<dt-form-field>` used and the input
+does not contain a `<dt-label>`, `aria-label` or `aria-labelledby` attribute, it
+should be added. Any `dt-error` and `dt-hint` are automatically added to the
+input's `aria-describedby` list, and `aria-invalid` is automatically updated
+based on the input's validity state.
 
 ## Examples
 

@@ -4,15 +4,27 @@ type: 'component'
 
 # Overlay
 
-The overlay component is used to display additional context information or to analyze charts, tags or tiles. The overlay's content should be reduced to a minimal amount of necessary components to display further information and actions.
+The overlay component is used to display additional context information or to
+analyze charts, tags or tiles. The overlay's content should be reduced to a
+minimal amount of necessary components to display further information and
+actions.
 
-There are two ways to create overlays: using the `DtOverlay` service or the `DtOverlayTrigger` directive. The service can be used to apply overlays programatically or to pass components into the overlay. The directive can be used inside the template with a `templateRef` as the content of the overlay. The following basic example uses the `DtOverlay` service and passes an optional configuration (find details below) to the overlay.
+There are two ways to create overlays: using the `DtOverlay` service or the
+`DtOverlayTrigger` directive. The service can be used to apply overlays
+programatically or to pass components into the overlay. The directive can be
+used inside the template with a `templateRef` as the content of the overlay. The
+following basic example uses the `DtOverlay` service and passes an optional
+configuration (find details below) to the overlay.
 
 <docs-source-example example="OverlayDefaultExample"></docs-source-example>
 
 ## Imports
 
-You have to import the `DtOverlayModule` when you want to use the `DtOverlay` service or the `DtOverlayTrigger`directive. The `DtOverlay` service also requires Angular's `BrowserAnimationsModule` for animations. For more details on this see [_Step 2: Animations_ in the getting started guide](/components/get-started/#step-2-animations).
+You have to import the `DtOverlayModule` when you want to use the `DtOverlay`
+service or the `DtOverlayTrigger`directive. The `DtOverlay` service also
+requires Angular's `BrowserAnimationsModule` for animations. For more details on
+this see
+[_Step 2: Animations_ in the getting started guide](/components/get-started/#step-2-animations).
 
 ```typescript
 @NgModule({
@@ -23,11 +35,17 @@ class MyModule {}
 
 ## DtOverlayTrigger directive
 
-The `DtOverlayTrigger` directive can be applied to any element with the `[dtOverlay]="overlay"` attribute. The parameter `overlay` passed in this example is a reference to an `ng-template` that holds the content of the overlay. The configuration can be passed to the directive using the `[dtOverlayConfig]` input (see properties below).
+The `DtOverlayTrigger` directive can be applied to any element with the
+`[dtOverlay]="overlay"` attribute. The parameter `overlay` passed in this
+example is a reference to an `ng-template` that holds the content of the
+overlay. The configuration can be passed to the directive using the
+`[dtOverlayConfig]` input (see properties below).
 
-The trigger has keyboard support: It opens the overlay on `SPACE` and `ENTER` when focused and closes the open overlay on `ESCAPE`.
+The trigger has keyboard support: It opens the overlay on `SPACE` and `ENTER`
+when focused and closes the open overlay on `ESCAPE`.
 
-When an overlay is active and the trigger gets destroyed, the overlay will be dismissed as well.
+When an overlay is active and the trigger gets destroyed, the overlay will be
+dismissed as well.
 
 ### Options & properties
 
@@ -58,7 +76,9 @@ The `DtOverlay` service has the following two methods:
 
 ### DtOverlayRef
 
-The DtOverlay service `create` method returns an instance of `DtOverlayRef`. This reference can be used to perform updates on the position, pinning the overlay or dismissing it.
+The DtOverlay service `create` method returns an instance of `DtOverlayRef`.
+This reference can be used to perform updates on the position, pinning the
+overlay or dismissing it.
 
 | Method             | Parameters                               | Return value | Description                                                                                                                                          |
 | ------------------ | ---------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -68,7 +88,9 @@ The DtOverlay service `create` method returns an instance of `DtOverlayRef`. Thi
 
 ## DtOverlayConfig
 
-This configuration is optional and can be passed to the service's `create` method or as an input to the trigger directive. The `DtOverlayConfig` class has the following properties:
+This configuration is optional and can be passed to the service's `create`
+method or as an input to the trigger directive. The `DtOverlayConfig` class has
+the following properties:
 
 | Name                 | Type             | Default  | Description                                                                                                                                                                                                                                         |
 | -------------------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

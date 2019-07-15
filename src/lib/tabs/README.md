@@ -4,8 +4,11 @@ type: 'component'
 
 # Tabs
 
-The `<dt-tab-group>` creates wraps a group of `<dt-tab>` components. Each tab gets a label and a content respectively.
-The label is provided with a `ng-template` with the directive `dtTabLabel`. The content is also declared with a `ng-template`, but with a directive called `dtTabContent`. By default the first enabled tab gets selected if no selected tab is specified.
+The `<dt-tab-group>` creates wraps a group of `<dt-tab>` components. Each tab
+gets a label and a content respectively. The label is provided with a
+`ng-template` with the directive `dtTabLabel`. The content is also declared with
+a `ng-template`, but with a directive called `dtTabContent`. By default the
+first enabled tab gets selected if no selected tab is specified.
 
 <docs-source-example example="TabsDefaultExample"></docs-source-example>
 
@@ -56,7 +59,13 @@ To use the Dynatrace tabs, add the following components/directives:
 
 ## Navigation
 
-Tabgroups come with support for storing the selected tab for navigation purposes. You can enable navigation for a `dt-tab-group` by adding the `dtTabGroupNavigation` directive. The selected tab gets stored only on user interaction. If an id of a `dt-tab` matches an id stored inside the `DtTabNavigationAdapter` the tab gets selected. Ids stored in the `DtTabNavigationAdapter` take presedence over the `selected` attribute on the `dt-tab` component.
+Tabgroups come with support for storing the selected tab for navigation
+purposes. You can enable navigation for a `dt-tab-group` by adding the
+`dtTabGroupNavigation` directive. The selected tab gets stored only on user
+interaction. If an id of a `dt-tab` matches an id stored inside the
+`DtTabNavigationAdapter` the tab gets selected. Ids stored in the
+`DtTabNavigationAdapter` take presedence over the `selected` attribute on the
+`dt-tab` component.
 
 ```html
 <dt-tab-group dtTabGroupNavigation>
@@ -75,10 +84,13 @@ Tabgroups come with support for storing the selected tab for navigation purposes
 </dt-tab-group>
 ```
 
-The `DtTabModule` comes with a `DtTabRouterFragmentAdapter` service that stores the id of the selected `dt-tab` inside the url fragment. If you want to implement your own logic of storing the selected tab ids, e.g. in localStorage - you need to implement the abstract class `DtTabNavigationAdapter` yourself.
+The `DtTabModule` comes with a `DtTabRouterFragmentAdapter` service that stores
+the id of the selected `dt-tab` inside the url fragment. If you want to
+implement your own logic of storing the selected tab ids, e.g. in localStorage -
+you need to implement the abstract class `DtTabNavigationAdapter` yourself.
 
-Make sure to provide a `DtTabNavigationAdapter` with its dependencies in the root of your application.
-E.g.
+Make sure to provide a `DtTabNavigationAdapter` with its dependencies in the
+root of your application. E.g.
 
 ```typescript
 ...
@@ -93,7 +105,8 @@ providers: [
 
 ## Theming
 
-The button styling depends on the theme the component is in. You can set a theme on an area of the app by using the `dtTheme` directive.
+The button styling depends on the theme the component is in. You can set a theme
+on an area of the app by using the `dtTheme` directive.
 
 ## Examples
 

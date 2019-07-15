@@ -1,13 +1,16 @@
 # Highlight
 
-The `dt-highlight` component designed to highlight some characters in a string that has been searched of filtererd for.
-It can be either used for [filtering tables](/components/table#table-filter-behavior) or in the [drop-down panel](/components/filter#adding-filters) of the filter field.
+The `dt-highlight` component designed to highlight some characters in a string
+that has been searched of filtererd for. It can be either used for
+[filtering tables](/components/table#table-filter-behavior) or in the
+[drop-down panel](/components/filter#adding-filters) of the filter field.
 
 <docs-source-example example="HighlightDefaultExample"></docs-source-example>
 
 ## Imports
 
-You have to import the `DtHighlightModule` when you want to use the `<dt-highlight>` component:
+You have to import the `DtHighlightModule` when you want to use the
+`<dt-highlight>` component:
 
 ```typescript
 @NgModule({
@@ -16,9 +19,14 @@ You have to import the `DtHighlightModule` when you want to use the `<dt-highlig
 class MyModule {}
 ```
 
-There are two options to use the highlight component in your template. If you already have a native HTML element that contains your text (e.g. a paragraph `<p>`) you can keep this tag and apply the attribute `dt-highlight` in combination with the attribute `term` on it.
+There are two options to use the highlight component in your template. If you
+already have a native HTML element that contains your text (e.g. a paragraph
+`<p>`) you can keep this tag and apply the attribute `dt-highlight` in
+combination with the attribute `term` on it.
 
-If the text's wrapper is an Angular component, you have to use the highlight as an additional tag with a term-attribute to wrap your text. Find usage examples below.
+If the text's wrapper is an Angular component, you have to use the highlight as
+an additional tag with a term-attribute to wrap your text. Find usage examples
+below.
 
 ## Inputs
 
@@ -29,9 +37,8 @@ If the text's wrapper is an Angular component, you have to use the highlight as 
 
 ## Usage
 
-**important notice:**
-The projected content inside the highlight component will be escaped!
-You have to avoid any HTML Tags inside this component!
+**important notice:** The projected content inside the highlight component will
+be escaped! You have to avoid any HTML Tags inside this component!
 
 ### On a paragraph
 

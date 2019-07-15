@@ -8,7 +8,8 @@ type: 'component'
 
 ## Imports
 
-You have to import the `DtFilterFieldModule` when you want to use the `dt-filter-field`.
+You have to import the `DtFilterFieldModule` when you want to use the
+`dt-filter-field`.
 
 ```typescript
 @NgModule({
@@ -36,29 +37,46 @@ class MyModule {}
 
 ## Distinct Options
 
-Normally you can select all options of an autocomplete, but sometimes there is also the need to remove a the whole list of options once one of them is selected (e.g. when you only want the user to select one city of full list).
+Normally you can select all options of an autocomplete, but sometimes there is
+also the need to remove a the whole list of options once one of them is selected
+(e.g. when you only want the user to select one city of full list).
 
-You can do that by setting the `distinct: true` property onto the autocomplete object.
+You can do that by setting the `distinct: true` property onto the autocomplete
+object.
 
 <docs-source-example example="FilterFieldDistinctExample"></docs-source-example>
 
 ## Loading Options asynchronously
 
-When working with huge sets of data, there is often the need to load parts of it asynchronously when the user needs it. You can do this by setting the `async: true` property on the autocomplete instead of options, then load the data and apply it to the Data Source.
+When working with huge sets of data, there is often the need to load parts of it
+asynchronously when the user needs it. You can do this by setting the
+`async: true` property on the autocomplete instead of options, then load the
+data and apply it to the Data Source.
 
 ## Data Source
 
-The filter-field needs a `DtFilterFieldDataSource` so data can be applied. The main part of the Data Source is to convert the data that should be fed into the filter-field into a form the filter-field can understand.
+The filter-field needs a `DtFilterFieldDataSource` so data can be applied. The
+main part of the Data Source is to convert the data that should be fed into the
+filter-field into a form the filter-field can understand.
 
-A `DataSource` needs to be a class that implements the `DtFilterFieldDataSource` interface.
+A `DataSource` needs to be a class that implements the `DtFilterFieldDataSource`
+interface.
 
-The filter-field provides a default implementation of a DataSource, named `DtFilterFieldDefaultDataSource`, that takes a specific form of data. If your data has a different form you can either transform your data so the Default Data Source can understand it, or you create your own custom Data Source.
+The filter-field provides a default implementation of a DataSource, named
+`DtFilterFieldDefaultDataSource`, that takes a specific form of data. If your
+data has a different form you can either transform your data so the Default Data
+Source can understand it, or you create your own custom Data Source.
 
-When creating a custom Data Source, we also provide a lot of utility functions for converting and creating data into the form of definition node objects the filter-field can understand. You can also take a look at the implementation of the `DtFilterFieldDefaultDataSource` to get a better understanding on how to create a custom Data Source
+When creating a custom Data Source, we also provide a lot of utility functions
+for converting and creating data into the form of definition node objects the
+filter-field can understand. You can also take a look at the implementation of
+the `DtFilterFieldDefaultDataSource` to get a better understanding on how to
+create a custom Data Source
 
 ## Data utility functions:
 
-A list of the most useful utility function for creating and checking definition node objects:
+A list of the most useful utility function for creating and checking definition
+node objects:
 
 | Name                  | Description                                                                                                              |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------ |

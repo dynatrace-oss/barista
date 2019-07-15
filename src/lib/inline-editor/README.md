@@ -4,13 +4,15 @@ type: 'component'
 
 # Inline editor
 
-`dt-inline-editor` is a directive that makes any text containing HTML element editable.
+`dt-inline-editor` is a directive that makes any text containing HTML element
+editable.
 
 <docs-source-example example="InlineEditorDefaultExample"></docs-source-example>
 
 ## Imports
 
-You have to import the `DtInlineEditorModule` when you want to use the `dt-inline-editor` directive:
+You have to import the `DtInlineEditorModule` when you want to use the
+`dt-inline-editor` directive:
 
 ```typescript
 @NgModule({
@@ -42,13 +44,18 @@ To apply, add the `dt-inline-editor` attribute to the HTML element.
 
 ### Required field validation
 
-When a value for the input field is required, an error message must be provided by adding a `<dt-error>` element inside the inline editor.
+When a value for the input field is required, an error message must be provided
+by adding a `<dt-error>` element inside the inline editor.
 
 <docs-source-example example="InlineEditorRequiredExample"></docs-source-example>
 
-Errors are hidden initially and will be displayed on invalid form fields, after the user has interacted with the element or the parent form has been submitted. The errors will appear on top of the hint labels and will overlap them.
+Errors are hidden initially and will be displayed on invalid form fields, after
+the user has interacted with the element or the parent form has been submitted.
+The errors will appear on top of the hint labels and will overlap them.
 
-If a form field can have more than one error state, it is up to the consumer to toggle which messages should be displayed. This can be done with `ngIf` or `ngSwitch`.
+If a form field can have more than one error state, it is up to the consumer to
+toggle which messages should be displayed. This can be done with `ngIf` or
+`ngSwitch`.
 
 ## Examples
 

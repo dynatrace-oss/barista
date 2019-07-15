@@ -4,11 +4,14 @@ type: 'component'
 
 # Checkbox
 
-The `<dt-checkbox>` provides the same functionality as a native checkbox enhanced with styling and animations. You can set the label as the `ng-content` of the `<dt-checkbox>` component.
+The `<dt-checkbox>` provides the same functionality as a native checkbox
+enhanced with styling and animations. You can set the label as the `ng-content`
+of the `<dt-checkbox>` component.
 
 ## Imports
 
-You have to import the `DtCheckboxModule` when you want to use the `dt-checkbox`:
+You have to import the `DtCheckboxModule` when you want to use the
+`dt-checkbox`:
 
 ```typescript
 @NgModule({
@@ -47,20 +50,25 @@ class MyModule {}
 
 ## Indeterminate state
 
-`<dt-checkbox>` supports an indeterminate state, similar to the native `<input type="checkbox">`.
-While the indeterminate property of the checkbox is true, it will render as indeterminate regardless of the checked value.
-Any interaction with the checkbox by a user (i.e., clicking) will remove the indeterminate state.
+`<dt-checkbox>` supports an indeterminate state, similar to the native
+`<input type="checkbox">`. While the indeterminate property of the checkbox is
+true, it will render as indeterminate regardless of the checked value. Any
+interaction with the checkbox by a user (i.e., clicking) will remove the
+indeterminate state.
 
 <docs-source-example example="CheckboxIndeterminateExample"></docs-source-example>
 
-The `<dt-checkbox>` is compatible with @angular/forms and supports both FormsModule and ReactiveFormsModule.
+The `<dt-checkbox>` is compatible with @angular/forms and supports both
+FormsModule and ReactiveFormsModule.
 
 ## Accessibility
 
-The `<dt-checkbox>` uses an internal `<input type="checkbox">` to provide an accessible experience.
-This internal checkbox receives focus and is automatically labelled by the text content of the `<dt-checkbox>` element.
+The `<dt-checkbox>` uses an internal `<input type="checkbox">` to provide an
+accessible experience. This internal checkbox receives focus and is
+automatically labelled by the text content of the `<dt-checkbox>` element.
 
-Checkboxes without text or labels should be given a meaningful label via `aria-label` or `aria-labelledby`.
+Checkboxes without text or labels should be given a meaningful label via
+`aria-label` or `aria-labelledby`.
 
 ## Examples
 
