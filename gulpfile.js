@@ -11,7 +11,7 @@ const tsconfig = require(tsconfigPath);
 
 // Register TS compilation.
 require('ts-node').register({
-  project: tsconfigPath
+  project: tsconfigPath,
 });
 
 // The gulp tsconfig file maps specific imports to relative paths. In combination with ts-node
@@ -19,7 +19,7 @@ require('ts-node').register({
 // to the relative path. Tsconfig-paths can be used to support path mapping inside of Node.
 require('tsconfig-paths').register({
   baseUrl: path.dirname(tsconfigPath),
-  paths: tsconfig.compilerOptions.paths
+  paths: tsconfig.compilerOptions.paths,
 });
 
 require('./tools/gulp/gulpfile');
