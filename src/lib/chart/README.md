@@ -12,7 +12,7 @@ You have to import the `DtChartModule` when you want to use the `dt-chart`:
 
 ```typescript
 @NgModule({
-  imports: [DtChartModule]
+  imports: [DtChartModule],
 })
 class MyModule {}
 ```
