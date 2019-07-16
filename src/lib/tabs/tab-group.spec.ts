@@ -81,7 +81,7 @@ describe('DtTabs', () => {
     });
 
     it('should emit a change event on programmatic tab change', () => {
-      spyOn(component, 'handleTabChange').and.callThrough();
+      jest.spyOn(component, 'handleTabChange');
 
       const tabs = fixture.componentInstance.tabs.toArray();
       tabs[1].selected = true;
@@ -94,7 +94,7 @@ describe('DtTabs', () => {
 
     it('should emit a change event on tab click', () => {
       fixture.detectChanges();
-      spyOn(component, 'handleTabChange').and.callThrough();
+      jest.spyOn(component, 'handleTabChange');
 
       const tabLabel = fixture.debugElement.queryAll(
         By.css('.dt-tab-label'),
@@ -188,7 +188,7 @@ describe('DtTabs', () => {
     });
 
     it('should emit a change event when the tab is removed and selection is changed automatically', () => {
-      spyOn(component, 'handleTabChange').and.callThrough();
+      jest.spyOn(component, 'handleTabChange');
 
       component.dynamicTab = true;
       fixture.detectChanges();
@@ -290,7 +290,6 @@ export function checkSelected(
   )[expectedIndex].nativeElement;
   expect(tabContentElement.classList.contains('dt-tab-body-active')).toBe(
     isSelected !== undefined ? isSelected : true,
-    'Expected "dt-tab-body-active" class to be there',
   );
 }
 /** checks if the label at given index has the given class */
@@ -306,7 +305,6 @@ function checkLabelClass(
   )[expectedIndex].nativeElement;
   expect(tabLabelElement.classList.contains(cssClass)).toBe(
     toExist !== undefined ? toExist : true,
-    `Expected "${cssClass}" class to be there`,
   );
 }
 /** Test component that contains an DtTabs. */

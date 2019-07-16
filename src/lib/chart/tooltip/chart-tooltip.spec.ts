@@ -97,8 +97,8 @@ describe('DtChartTooltip', () => {
     }));
 
     it('should be a key value list with the data', () => {
-      expect(overlayContainerElement.innerText).toContain('Actions/min');
-      expect(overlayContainerElement.innerText).toContain('1000');
+      expect(overlayContainerElement.textContent).toContain('Actions/min');
+      expect(overlayContainerElement.textContent).toContain('1000');
       expect(overlayContainerElement.innerHTML).toContain('dt-key-value-list');
     });
 
@@ -108,8 +108,8 @@ describe('DtChartTooltip', () => {
 
       chartComponent.tooltipDataChange.next({ data: newData });
       fixture.detectChanges();
-      expect(overlayContainerElement.innerText).not.toContain('1000');
-      expect(overlayContainerElement.innerText).toContain('54321');
+      expect(overlayContainerElement.textContent).not.toContain('1000');
+      expect(overlayContainerElement.textContent).toContain('54321');
     });
   });
 });

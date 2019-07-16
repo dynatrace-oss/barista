@@ -223,7 +223,7 @@ describe('DtFilterField', () => {
       const label = fixture.debugElement.query(
         By.css('.dt-filter-field-label'),
       );
-      expect(label.nativeElement.innerText).toEqual('Filter by');
+      expect(label.nativeElement.textContent).toEqual('Filter by');
     });
 
     it('should update the label', () => {
@@ -232,7 +232,7 @@ describe('DtFilterField', () => {
       const label = fixture.debugElement.query(
         By.css('.dt-filter-field-label'),
       );
-      expect(label.nativeElement.innerText).toEqual('Something else');
+      expect(label.nativeElement.textContent).toEqual('Something else');
     });
   });
 
@@ -248,11 +248,12 @@ describe('DtFilterField', () => {
     it('should open the autocomplete if filter field is focused', () => {
       expect(filterField._autocomplete.isOpen).toBe(false);
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       expect(filterField._autocomplete.isOpen).toBe(true);
     });
 
     it('should emit the inputChange event when typing into the input field with autocomplete', fakeAsync(() => {
-      const spy = jasmine.createSpy('autocomplete input spy');
+      const spy = jest.fn();
       const subscription = filterField.inputChange.subscribe(spy);
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 
@@ -272,6 +273,7 @@ describe('DtFilterField', () => {
 
     it('should create the correct options and option groups', () => {
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
@@ -279,20 +281,21 @@ describe('DtFilterField', () => {
       const optionGroups = getOptionGroups(overlayContainerElement);
       expect(options.length).toBe(3);
       expect(optionGroups.length).toBe(0);
-      expect(options[0].innerText).toBe('AUT');
-      expect(options[1].innerText).toBe('USA');
-      expect(options[2].innerText).toBe('Free');
+      expect(options[0].textContent).toContain('AUT');
+      expect(options[1].textContent).toContain('USA');
+      expect(options[2].textContent).toContain('Free');
     });
 
     it('should switch to the next autocomplete if the selected option is also an autocomplete', () => {
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
       let options = getOptions(overlayContainerElement);
-      expect(options[0].innerText).toBe('AUT');
-      expect(options[1].innerText).toBe('USA');
-      expect(options[2].innerText).toBe('Free');
+      expect(options[0].textContent).toContain('AUT');
+      expect(options[1].textContent).toContain('USA');
+      expect(options[2].textContent).toContain('Free');
 
       const autOption = options[0];
       autOption.click();
@@ -303,8 +306,8 @@ describe('DtFilterField', () => {
       let optionGroups = getOptionGroups(overlayContainerElement);
       expect(optionGroups.length).toBe(0);
       expect(options.length).toBe(2);
-      expect(options[0].innerText).toBe('Upper Austria');
-      expect(options[1].innerText).toBe('Vienna');
+      expect(options[0].textContent).toContain('Upper Austria');
+      expect(options[1].textContent).toContain('Vienna');
 
       zone.simulateZoneExit();
 
@@ -317,14 +320,15 @@ describe('DtFilterField', () => {
       optionGroups = getOptionGroups(overlayContainerElement);
 
       expect(optionGroups.length).toBe(1);
-      expect(optionGroups[0].innerText).toContain('Cities');
-      expect(options[0].innerText).toBe('Linz');
-      expect(options[1].innerText).toBe('Wels');
-      expect(options[2].innerText).toBe('Steyr');
+      expect(optionGroups[0].textContent).toContain('Cities');
+      expect(options[0].textContent).toContain('Linz');
+      expect(options[1].textContent).toContain('Wels');
+      expect(options[2].textContent).toContain('Steyr');
     });
 
     it('should clear the filtered string from the input when selecting an option', fakeAsync(() => {
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
@@ -343,21 +347,22 @@ describe('DtFilterField', () => {
 
       options = getOptions(overlayContainerElement);
       expect(options.length).toBe(2);
-      expect(options[0].innerText).toBe('Los Angeles');
-      expect(options[1].innerText).toBe('San Fran');
+      expect(options[0].textContent!.trim()).toBe('Los Angeles');
+      expect(options[1].textContent!.trim()).toBe('San Fran');
 
       zone.simulateZoneExit();
     }));
 
-    it('should switch to the next autocomplete if the selected option is also a freetext with suggestions', () => {
+    it('should switch to the next autocomplete if the selected option is also a free text with suggestions', () => {
       fixture.componentInstance.dataSource.data = TEST_DATA_SUGGESTIONS;
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
       let options = getOptions(overlayContainerElement);
-      expect(options[0].innerText).toBe('Custom Simple Option');
-      expect(options[1].innerText).toBe('Node Label');
+      expect(options[0].textContent).toContain('Custom Simple Option');
+      expect(options[1].textContent).toContain('Node Label');
 
       const nodeLabelOption = options[1];
       nodeLabelOption.click();
@@ -368,14 +373,15 @@ describe('DtFilterField', () => {
       const optionGroups = getOptionGroups(overlayContainerElement);
       expect(optionGroups.length).toBe(0);
       expect(options.length).toBe(2);
-      expect(options[0].innerText).toBe('some cool');
-      expect(options[1].innerText).toBe('very weird');
+      expect(options[0].textContent).toContain('some cool');
+      expect(options[1].textContent).toContain('very weird');
 
       zone.simulateZoneExit();
     });
 
     it('should focus the input element after selecting an option in autocomplete (autocomplete -> autocomplete)', () => {
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
 
       const options = getOptions(overlayContainerElement);
@@ -383,22 +389,20 @@ describe('DtFilterField', () => {
       fixture.detectChanges();
       const inputEl = getInput(fixture);
 
-      expect(document.activeElement).toBe(
-        inputEl,
-        'input element should be focused again',
-      );
+      expect(document.activeElement).toBe(inputEl);
     });
 
     it('should fire filterChanges and create a tag after an option that has no children is clicked', fakeAsync(() => {
-      const spy = jasmine.createSpy('filterChange spy');
+      const spy = jest.fn();
       const subscription = filterField.filterChanges.subscribe(spy);
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
       let options = getOptions(overlayContainerElement);
-      expect(options[0].innerText).toBe('AUT');
-      expect(options[1].innerText).toBe('USA');
+      expect(options[0].textContent).toContain('AUT');
+      expect(options[1].textContent).toContain('USA');
 
       const usaOption = options[1];
       usaOption.click();
@@ -418,7 +422,7 @@ describe('DtFilterField', () => {
       expect(tags.length).toBe(1);
       expect(tags[0].key).toBe('USA');
       expect(tags[0].separator).toBe(':');
-      expect(tags[0].value).toBe('Los Angeles');
+      expect(tags[0].value.trim()).toBe('Los Angeles');
 
       expect(spy).toHaveBeenCalledTimes(1);
       subscription.unsubscribe();
@@ -434,6 +438,7 @@ describe('DtFilterField', () => {
 
       fixture.detectChanges();
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
@@ -460,6 +465,7 @@ describe('DtFilterField', () => {
 
       fixture.detectChanges();
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
@@ -482,9 +488,10 @@ describe('DtFilterField', () => {
     }));
 
     it('should switch to free text and on enter fire a filterChanges event and create a tag', fakeAsync(() => {
-      const spy = jasmine.createSpy('filterChange spy');
+      const spy = jest.fn();
       const subscription = filterField.filterChanges.subscribe(spy);
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
@@ -514,6 +521,7 @@ describe('DtFilterField', () => {
 
     it('should switch back to root if unfinished filter is deleted with BACKSPACE', () => {
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
 
       let options = getOptions(overlayContainerElement);
@@ -530,9 +538,9 @@ describe('DtFilterField', () => {
       expect(tags.length).toBe(0);
 
       options = getOptions(overlayContainerElement);
-      expect(options[0].innerText).toBe('AUT');
-      expect(options[1].innerText).toBe('USA');
-      expect(options[2].innerText).toBe('Free');
+      expect(options[0].textContent).toContain('AUT');
+      expect(options[1].textContent).toContain('USA');
+      expect(options[2].textContent).toContain('Free');
     });
 
     it('should show option again after adding all possible options and removing this option from the filters', () => {
@@ -540,6 +548,7 @@ describe('DtFilterField', () => {
       fixture.detectChanges();
 
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
@@ -553,7 +562,7 @@ describe('DtFilterField', () => {
       zone.simulateZoneExit();
       options = getOptions(overlayContainerElement);
       const viennaOption = options[0];
-      expect(viennaOption.innerText).toBe('Vienna');
+      expect(viennaOption.textContent).toContain('Vienna');
 
       viennaOption.click();
       zone.simulateMicrotasksEmpty();
@@ -564,7 +573,7 @@ describe('DtFilterField', () => {
 
       expect(tags[0].key).toBe('AUT');
       expect(tags[0].separator).toBe(':');
-      expect(tags[0].value).toBe('Vienna');
+      expect(tags[0].value.trim()).toBe('Vienna');
 
       tags[0].removeButton.click();
 
@@ -573,11 +582,12 @@ describe('DtFilterField', () => {
       fixture.detectChanges();
 
       options = getOptions(overlayContainerElement);
-      expect(options[0].innerText).toBe('AUT');
+      expect(options[0].textContent).toMatch(/^\s*AUT\s*$/);
     });
 
     it('should switch back from root after deleting a unfinished freetext filter with BACKSPACE', () => {
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
@@ -599,15 +609,16 @@ describe('DtFilterField', () => {
       expect(tags.length).toBe(0);
 
       options = getOptions(overlayContainerElement);
-      expect(options[0].innerText).toBe('AUT');
-      expect(options[1].innerText).toBe('USA');
-      expect(options[2].innerText).toBe('Free');
+      expect(options[0].textContent).toMatch(/^\s*AUT\s*$/);
+      expect(options[1].textContent).toMatch(/^\s*USA\s*$/);
+      expect(options[2].textContent).toMatch(/^\s*Free\s*$/);
     });
 
     it('should remove a parent from an autocomplete if it is distinct and an option has been selected', () => {
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
@@ -622,7 +633,7 @@ describe('DtFilterField', () => {
 
       options = getOptions(overlayContainerElement);
       const viennaOption = options[0];
-      expect(viennaOption.innerText).toBe('Vienna');
+      expect(viennaOption.textContent).toContain('Vienna');
 
       viennaOption.click();
       zone.simulateMicrotasksEmpty();
@@ -640,6 +651,7 @@ describe('DtFilterField', () => {
 
       input.focus();
       flush();
+      zone.simulateMicrotasksEmpty();
       fixture.detectChanges();
 
       expect(document.activeElement).toBe(input);
@@ -661,6 +673,7 @@ describe('DtFilterField', () => {
 
       // Focus the filter field.
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
     });
@@ -903,7 +916,7 @@ describe('DtFilterField', () => {
         const tags = getFilterTags(fixture);
         expect(tags[0].key).toBe('Requests per minute');
         expect(tags[0].separator).toBe(':');
-        expect(tags[0].value).toBe('15s - 25s');
+        expect(tags[0].value.trim()).toBe('15s - 25s');
       });
 
       it('should have the tag-filter committed in the filterfield and formatted for greater-than operator', () => {
@@ -930,7 +943,7 @@ describe('DtFilterField', () => {
         const tags = getFilterTags(fixture);
         expect(tags[0].key).toBe('Requests per minute');
         expect(tags[0].separator).toBe('≥');
-        expect(tags[0].value).toBe('15s');
+        expect(tags[0].value.trim()).toBe('15s');
       });
 
       it('should close the filter-range when using the keyboard ESC', () => {
@@ -1047,6 +1060,7 @@ describe('DtFilterField', () => {
 
       // TODO: Change this to a programmatic setting of the range filter, as soon as https://dev-jira.dynatrace.org/browse/***REMOVED*** is done.
       filterField.focus();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
       fixture.detectChanges();
 
@@ -1090,6 +1104,7 @@ describe('DtFilterField', () => {
       );
       tags[0].nativeElement.click();
       fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
 
       let options = getOptions(overlayContainerElement);
@@ -1127,6 +1142,7 @@ describe('DtFilterField', () => {
       );
       tags[0].nativeElement.click();
       fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
 
       let options = getOptions(overlayContainerElement);
@@ -1304,6 +1320,7 @@ describe('DtFilterField', () => {
       );
       tags[0].nativeElement.click();
       fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
       zone.simulateZoneExit();
 
       const options = getOptions(overlayContainerElement);
@@ -1394,10 +1411,10 @@ function getFilterTags(
         ? key.getAttribute('data-separator')!
         : '';
     const value = ele.nativeElement.querySelector('.dt-filter-field-tag-value')
-      .innerText;
+      .textContent;
 
     return {
-      key: key && key.innerText ? key.innerText : '',
+      key: key && key.textContent ? key.textContent : '',
       separator,
       value,
       removeButton: ele.nativeElement.querySelector(

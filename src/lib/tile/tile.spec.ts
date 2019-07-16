@@ -44,15 +44,15 @@ describe('DtTile', () => {
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
       'dt-tile',
     );
-    expect(tileNativeElement.classList.contains('dt-tile-disabled')).toBeFalsy(
-      'Expected tile not to be disabled',
-    );
+    expect(
+      tileNativeElement.classList.contains('dt-tile-disabled'),
+    ).toBeFalsy();
 
     fixture.componentInstance.isDisabled = true;
     fixture.detectChanges();
-    expect(tileNativeElement.classList.contains('dt-tile-disabled')).toBeTruthy(
-      'Expected tile to be disabled',
-    );
+    expect(
+      tileNativeElement.classList.contains('dt-tile-disabled'),
+    ).toBeTruthy();
   });
 
   it('should add aria-disabled attribute if disabled', () => {
@@ -78,21 +78,15 @@ describe('DtTile', () => {
     fixture.detectChanges();
     expect(tileDebugElement.nativeElement.getAttribute('aria-disabled')).toBe(
       'false',
-      'Expect aria-disabled="false"',
     );
-    expect(tileDebugElement.nativeElement.getAttribute('disabled')).toBeNull(
-      'Expect disabled="false"',
-    );
+    expect(tileDebugElement.nativeElement.getAttribute('disabled')).toBeNull();
 
     testComponent.isDisabled = false;
     fixture.detectChanges();
     expect(tileDebugElement.nativeElement.getAttribute('aria-disabled')).toBe(
       'false',
-      'Expect no aria-disabled',
     );
-    expect(tileDebugElement.nativeElement.getAttribute('disabled')).toBeNull(
-      'Expect no disabled',
-    );
+    expect(tileDebugElement.nativeElement.getAttribute('disabled')).toBeNull();
   });
 
   it('should augment an existing class with a color property', () => {
@@ -102,17 +96,11 @@ describe('DtTile', () => {
     const tileElement = fixture.debugElement.query(By.css('dt-tile'));
     const instance = tileElement.componentInstance;
 
-    expect(instance.color).toBe(
-      'main',
-      'Expected the mixed-into class to have a color property',
-    );
+    expect(instance.color).toBe('main');
 
     instance.color = 'error';
 
-    expect(instance.color).toBe(
-      'error',
-      'Expected the mixed-into class to have an updated color property',
-    );
+    expect(instance.color).toBe('error');
   });
 
   it('should remove old color classes if new color is set', () => {
@@ -122,21 +110,12 @@ describe('DtTile', () => {
     const tileElement = fixture.debugElement.query(By.css('dt-tile'));
     const instance = tileElement.componentInstance;
 
-    expect(tileElement.nativeElement.classList).toContain(
-      'dt-color-main',
-      'Expected the element to have the "dt-color-main" class set',
-    );
+    expect(tileElement.nativeElement.classList).toContain('dt-color-main');
 
     instance.color = 'error';
 
-    expect(tileElement.nativeElement.classList).not.toContain(
-      'dt-color-main',
-      'Expected the element to no longer have "dt-color-main" set.',
-    );
-    expect(tileElement.nativeElement.classList).toContain(
-      'dt-color-error',
-      'Expected the element to have the "dt-color-error" class set',
-    );
+    expect(tileElement.nativeElement.classList).not.toContain('dt-color-main');
+    expect(tileElement.nativeElement.classList).toContain('dt-color-error');
   });
 });
 

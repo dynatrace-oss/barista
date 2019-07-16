@@ -64,10 +64,8 @@ describe('DtToast', () => {
     const containerElement = overlayContainerElement.querySelector(
       '.dt-toast-container',
     )!;
-    expect(containerElement.getAttribute('role')).toBe(
-      'alert',
-      'Expected toast container to have role="alert"',
-    );
+    // Expected toast container to have role="alert"
+    expect(containerElement.getAttribute('role')).toBe('alert');
   });
 
   it('should open a simple message', () => {
@@ -78,10 +76,7 @@ describe('DtToast', () => {
     const messageElement = overlayContainerElement.querySelector(
       '.dt-toast-container',
     )!;
-    expect(messageElement.textContent).toContain(
-      simpleMessage,
-      `Expected the toast message to be '${simpleMessage}'`,
-    );
+    expect(messageElement.textContent).toContain(simpleMessage);
   });
 
   it('should not create a toast with empty message', () => {
@@ -98,7 +93,7 @@ describe('DtToast', () => {
   it('should cut of the message if it exceeds the limit and limit duration', fakeAsync(() => {
     const longMsg = new Array(DT_TOAST_CHAR_LIMIT + 10).map(() => '.').join();
     const toastRef = dtToast.create(longMsg);
-    const afterDismissSpy = jasmine.createSpy('after dismiss spy');
+    const afterDismissSpy = jest.fn();
     toastRef!.afterDismissed().subscribe(afterDismissSpy);
 
     fixture.detectChanges();
@@ -116,14 +111,11 @@ describe('DtToast', () => {
   }));
 
   it('should dismiss the toast and remove itself from the view', fakeAsync(() => {
-    const dismissCompleteSpy = jasmine.createSpy('dismiss complete spy');
+    const dismissCompleteSpy = jest.fn();
 
     const toastRef = dtToast.create(simpleMessage);
     fixture.detectChanges();
-    expect(overlayContainerElement.childElementCount).toBeGreaterThan(
-      0,
-      'Expected overlay container element to have at least one child',
-    );
+    expect(overlayContainerElement.childElementCount).toBeGreaterThan(0);
 
     toastRef!
       .afterDismissed()
@@ -134,10 +126,7 @@ describe('DtToast', () => {
     flush();
 
     expect(dismissCompleteSpy).toHaveBeenCalled();
-    expect(overlayContainerElement.childElementCount).toBe(
-      0,
-      'Expected the overlay container element to have no child elements',
-    );
+    expect(overlayContainerElement.childElementCount).toBe(0);
   }));
 
   it('should be able to get dismissed through the service', fakeAsync(() => {
@@ -156,17 +145,11 @@ describe('DtToast', () => {
     const toastRef = dtToast.create(simpleMessage);
 
     fixture.detectChanges();
-    expect(toastRef!.containerInstance._animationState).toBe(
-      'enter',
-      `Expected the animation state would be 'enter'.`,
-    );
+    expect(toastRef!.containerInstance._animationState).toBe('enter');
     toastRef!.dismiss();
 
     fixture.detectChanges();
-    expect(toastRef!.containerInstance._animationState).toBe(
-      'exit',
-      `Expected the animation state would be 'exit'.`,
-    );
+    expect(toastRef!.containerInstance._animationState).toBe('exit');
   });
 
   it('should set the animation state to complete on exit', () => {
@@ -174,22 +157,16 @@ describe('DtToast', () => {
     toastRef!.dismiss();
 
     fixture.detectChanges();
-    expect(toastRef!.containerInstance._animationState).toBe(
-      'exit',
-      `Expected the animation state would be 'exit'.`,
-    );
+    expect(toastRef!.containerInstance._animationState).toBe('exit');
   });
 
   it(`should set the old toast animation state to exit and the new toast animation
       state to enter on entry of new toast`, fakeAsync(() => {
     const toastRef = dtToast.create(simpleMessage);
-    const dismissCompleteSpy = jasmine.createSpy('dismiss complete spy');
+    const dismissCompleteSpy = jest.fn();
 
     fixture.detectChanges();
-    expect(toastRef!.containerInstance._animationState).toBe(
-      'enter',
-      `Expected the animation state would be 'enter'.`,
-    );
+    expect(toastRef!.containerInstance._animationState).toBe('enter');
 
     const toastRef2 = dtToast.create(simpleMessage);
 
@@ -198,16 +175,10 @@ describe('DtToast', () => {
       .afterDismissed()
       .subscribe(() => {}, () => {}, dismissCompleteSpy);
     tick(DT_TOAST_FADE_TIME);
-    expect(toastRef2!.containerInstance._animationState).toBe(
-      'enter',
-      `Expected the animation state of the new toast to be 'enter'.`,
-    );
+    expect(toastRef2!.containerInstance._animationState).toBe('enter');
 
     expect(dismissCompleteSpy).toHaveBeenCalled();
-    expect(toastRef!.containerInstance._animationState).toBe(
-      'exit',
-      `Expected the animation state would be 'exit'.`,
-    );
+    expect(toastRef!.containerInstance._animationState).toBe('exit');
     tick(DT_TOAST_MIN_DURATION);
   }));
 
@@ -226,10 +197,7 @@ describe('DtToast', () => {
 
     // Wait for the toast open animation to finish.
     tick(DT_TOAST_FADE_TIME);
-    expect(toastRef!.containerInstance._animationState).toBe(
-      'enter',
-      `Expected the animation state to be 'enter'.`,
-    );
+    expect(toastRef!.containerInstance._animationState).toBe('enter');
     tick(DT_TOAST_MIN_DURATION);
   }));
 
@@ -263,7 +231,7 @@ describe('DtToast', () => {
 
   it('should dismiss automatically after a specified timeout', fakeAsync(() => {
     const toastRef = dtToast.create('short');
-    const afterDismissSpy = jasmine.createSpy('after dismiss spy');
+    const afterDismissSpy = jest.fn();
     toastRef!.afterDismissed().subscribe(afterDismissSpy);
 
     fixture.detectChanges();
@@ -279,7 +247,7 @@ describe('DtToast', () => {
 
   it('should clamp the duration to a minimum', fakeAsync(() => {
     const toastRef = dtToast.create('1');
-    const afterDismissSpy = jasmine.createSpy('after dismiss spy');
+    const afterDismissSpy = jest.fn();
     toastRef!.afterDismissed().subscribe(afterDismissSpy);
 
     fixture.detectChanges();
@@ -312,7 +280,7 @@ describe('DtToast', () => {
   it('should pause dismissing the toast when hovering', fakeAsync(() => {
     const longMsg = new Array(DT_TOAST_CHAR_LIMIT + 10).map(() => '.').join();
     const toastRef = dtToast.create(longMsg);
-    const afterDismissSpy = jasmine.createSpy('after dismiss spy');
+    const afterDismissSpy = jest.fn();
     toastRef!.afterDismissed().subscribe(afterDismissSpy);
 
     fixture.detectChanges();

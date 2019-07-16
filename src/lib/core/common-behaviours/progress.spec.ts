@@ -10,7 +10,7 @@ describe('MixinProgress', () => {
     const classWithProgress = mixinHasProgress(EmptyClass);
     const instance = new classWithProgress();
 
-    expect(instance.value).toBe(0, 'Expected default value of the property');
+    expect(instance.value).toBe(0);
   });
 
   it('should calculate percentage', () => {
@@ -49,7 +49,7 @@ describe('MixinProgress', () => {
     class EmptyClassImpl extends classWithProgress
       implements HasProgressValues {}
 
-    const spy = jasmine.createSpy();
+    const spy = jest.fn();
     const instance = new EmptyClassImpl();
     const sub = instance.valueChange.subscribe(spy);
 
