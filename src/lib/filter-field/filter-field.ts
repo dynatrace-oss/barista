@@ -428,6 +428,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   ): void {
     const optionDef = event.option.value as DtAutocompletValue;
     this._peekCurrentFilterValues().push(optionDef);
+    // Reset input value to empty string after handling the value provided by the autocomplete.
+    // Otherwise the value of the autocomplete would be in the input elements and the next options would be filtered by the inputvalue
+    this._writeInputValue('');
     if (
       isDtAutocompleteDef(optionDef) ||
       isDtFreeTextDef(optionDef) ||
@@ -441,10 +444,6 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     } else {
       this._switchToRootDef(true);
     }
-
-    // Reset input value to empty string after handling the value provided by the autocomplete.
-    // Otherwise the value of the autocomplete would be in the input elements.
-    this._writeInputValue('');
 
     // Clear any previous selected option.
     this._autocomplete.options.forEach(option => {
