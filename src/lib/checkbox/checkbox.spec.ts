@@ -103,10 +103,8 @@ describe('DtCheckbox', () => {
         'dt-checkbox-checked',
       );
       expect(inputElement.checked).toBe(false);
-      expect(inputElement.getAttribute('aria-checked')).toBe(
-        'false',
-        'Expect aria-checked to be false',
-      );
+      // Expect aria-checked to be false
+      expect(inputElement.getAttribute('aria-checked')).toBe('false');
 
       testComponent.isIndeterminate = true;
       fixture.detectChanges();
@@ -115,10 +113,8 @@ describe('DtCheckbox', () => {
         'dt-checkbox-indeterminate',
       );
       expect(inputElement.checked).toBe(false);
-      expect(inputElement.getAttribute('aria-checked')).toBe(
-        'mixed',
-        'Expect aria checked to be mixed for indeterminate checkbox',
-      );
+      // Expect aria checked to be mixed for indeterminate checkbox
+      expect(inputElement.getAttribute('aria-checked')).toBe('mixed');
 
       testComponent.isIndeterminate = false;
       fixture.detectChanges();
@@ -156,10 +152,8 @@ describe('DtCheckbox', () => {
       expect(checkboxInstance.indeterminate).toBe(true);
       expect(inputElement.checked).toBe(true);
       expect(testComponent.isIndeterminate).toBe(true);
-      expect(inputElement.getAttribute('aria-checked')).toBe(
-        'true',
-        'Expect aria checked to be true',
-      );
+      // Expect aria checked to be true
+      expect(inputElement.getAttribute('aria-checked')).toBe('true');
 
       inputElement.click();
       fixture.detectChanges();
@@ -321,7 +315,7 @@ describe('DtCheckbox', () => {
       // Since we're using a label element and a visual hidden input, this behavior can led
       // to an issue, where the click events on the checkbox are getting executed twice.
 
-      spyOn(testComponent, 'onCheckboxClick');
+      jest.spyOn(testComponent, 'onCheckboxClick').mockImplementation(() => {});
 
       expect(inputElement.checked).toBe(false);
       expect(checkboxNativeElement.classList).not.toContain(
@@ -338,7 +332,9 @@ describe('DtCheckbox', () => {
     });
 
     it('should trigger a change event when the native input does', fakeAsync(() => {
-      spyOn(testComponent, 'onCheckboxChange');
+      jest
+        .spyOn(testComponent, 'onCheckboxChange')
+        .mockImplementation(() => {});
 
       expect(inputElement.checked).toBe(false);
       expect(checkboxNativeElement.classList).not.toContain(
@@ -360,7 +356,9 @@ describe('DtCheckbox', () => {
     }));
 
     it('should not trigger the change event by changing the native value', fakeAsync(() => {
-      spyOn(testComponent, 'onCheckboxChange');
+      jest
+        .spyOn(testComponent, 'onCheckboxChange')
+        .mockImplementation(() => {});
 
       expect(inputElement.checked).toBe(false);
       expect(checkboxNativeElement.classList).not.toContain(
@@ -470,14 +468,20 @@ describe('DtCheckbox', () => {
       it('should not apply transition classes when there is no state change', () => {
         testComponent.isChecked = checkboxInstance.checked;
         fixture.detectChanges();
-        expect(checkboxNativeElement).not.toMatch(/^dt\-checkbox\-anim/g);
+        expect(checkboxNativeElement.innerHTML).not.toMatch(
+          /^dt\-checkbox\-anim/g,
+        );
 
         testComponent.isIndeterminate = checkboxInstance.indeterminate;
-        expect(checkboxNativeElement).not.toMatch(/^dt\-checkbox\-anim/g);
+        expect(checkboxNativeElement.innerHTML).not.toMatch(
+          /^dt\-checkbox\-anim/g,
+        );
       });
 
       it('should not initially have any transition classes', () => {
-        expect(checkboxNativeElement).not.toMatch(/^dt\-checkbox\-anim/g);
+        expect(checkboxNativeElement.innerHTML).not.toMatch(
+          /^dt\-checkbox\-anim/g,
+        );
       });
     });
   });
@@ -509,7 +513,7 @@ describe('DtCheckbox', () => {
     });
 
     it('should emit the event to the change observable', () => {
-      const changeSpy = jasmine.createSpy('onChangeObservable');
+      const changeSpy = jest.fn();
 
       checkboxInstance.change.subscribe(changeSpy);
 
@@ -650,10 +654,8 @@ describe('DtCheckbox', () => {
       const checkbox = fixture.debugElement.query(By.directive(DtCheckbox))
         .componentInstance as DtCheckbox<any>;
 
-      expect(checkbox.tabIndex).toBe(
-        5,
-        'Expected tabIndex property to have been set based on the native attribute',
-      );
+      // Expected tabIndex property to have been set based on the native attribute
+      expect(checkbox.tabIndex).toBe(5);
     }));
   });
 

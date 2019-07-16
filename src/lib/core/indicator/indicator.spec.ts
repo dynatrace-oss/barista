@@ -84,7 +84,7 @@ describe('DtIndicator without table', () => {
     fixture.detectChanges();
 
     const indicator = fixture.componentInstance.indicator;
-    const completeSpy = jasmine.createSpy('complete spy');
+    const completeSpy = jest.fn();
     const subscription = indicator._stateChanges.subscribe(
       () => {},
       () => {},

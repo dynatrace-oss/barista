@@ -137,7 +137,7 @@ describe('DtChart Timestamp', () => {
     });
 
     it('setting the value with the binding should trigger a _stateChanges event', () => {
-      const stateChangesSpy = jasmine.createSpy('stateChanges spy');
+      const stateChangesSpy = jest.fn();
 
       const state1 = new TimestampStateChangedEvent(100, false);
       const state2 = new TimestampStateChangedEvent(110, false);
@@ -148,15 +148,15 @@ describe('DtChart Timestamp', () => {
       fixture.componentInstance.value = 100;
       fixture.detectChanges();
       expect(stateChangesSpy).toHaveBeenCalledTimes(1);
-      expect(stateChangesSpy.calls.mostRecent().args).toEqual([state1]);
+      expect(stateChangesSpy.mock.calls[0]).toEqual([state1]);
       fixture.componentInstance.value = 110;
       fixture.detectChanges();
       expect(stateChangesSpy).toHaveBeenCalledTimes(2);
-      expect(stateChangesSpy.calls.mostRecent().args).toEqual([state2]);
+      expect(stateChangesSpy.mock.calls[1]).toEqual([state2]);
       fixture.componentInstance.value = 130;
       fixture.detectChanges();
       expect(stateChangesSpy).toHaveBeenCalledTimes(3);
-      expect(stateChangesSpy.calls.mostRecent().args).toEqual([state3]);
+      expect(stateChangesSpy.mock.calls[2]).toEqual([state3]);
 
       subscription.unsubscribe();
     });
@@ -166,6 +166,7 @@ describe('DtChart Timestamp', () => {
     let fixture: ComponentFixture<TimestampTestBindingValuesComponent>;
     let fixtureA11y: ComponentFixture<TimestampTestA11yComponent>;
     let timestamp: DtChartTimestamp;
+    let spiedDate: jest.SpyInstance;
 
     beforeEach(() => {
       fixture = TestBed.createComponent<TimestampTestBindingValuesComponent>(
@@ -177,12 +178,16 @@ describe('DtChart Timestamp', () => {
       timestamp = fixtureA11y.componentInstance.timestamp;
       fixture.detectChanges();
       fixtureA11y.detectChanges();
-      // mock current date for date-range pipe
-      jasmine.clock().mockDate(new Date('2019/06/01 09:33:21'));
+
+      spiedDate = jest
+        .spyOn(global.Date, 'now')
+        .mockImplementationOnce(() =>
+          new Date('2019/06/01 09:33:21').valueOf(),
+        );
     });
 
     afterEach(() => {
-      jasmine.clock().uninstall();
+      spiedDate.mockClear();
     });
 
     it('should have default aria-labels on timestamp', () => {

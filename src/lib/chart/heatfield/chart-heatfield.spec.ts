@@ -185,17 +185,14 @@ describe('DtChartHeatfield', () => {
     it('should focus the marker when tab clicked', () => {
       marker.focus();
       fixture.detectChanges();
-      expect(document.activeElement).toBe(
-        marker,
-        'Expected marker to be focused.',
-      );
+      expect(document.activeElement).toBe(marker);
     });
 
     it('should emit whenever the active changes', () => {
       const heatfield: DtChartHeatfield = fixture.debugElement.query(
         By.directive(DtChartHeatfield),
       ).componentInstance;
-      const activeChangeSpy = jasmine.createSpy('active change listener');
+      const activeChangeSpy = jest.fn();
       const sub: Subscription = heatfield.activeChange.subscribe(
         activeChangeSpy,
       );
@@ -203,7 +200,7 @@ describe('DtChartHeatfield', () => {
       instance.isActive = true;
       fixture.detectChanges();
       expect(activeChangeSpy).toHaveBeenCalledWith(
-        jasmine.any(DtChartHeatfieldActiveChange),
+        expect.any(DtChartHeatfieldActiveChange),
       );
       sub.unsubscribe();
     });

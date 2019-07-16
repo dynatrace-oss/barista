@@ -271,7 +271,7 @@ describe('DtSort', () => {
   });
 
   it('should not emit an invalid sort event when destroyed', () => {
-    const spy = jasmine.createSpy('Sort event');
+    const spy = jest.fn();
 
     component.sort('column_a');
     fixture.detectChanges();

@@ -67,12 +67,10 @@ describe('DtCopyToClipboard', () => {
     const checkIfIconExist = fixture.debugElement.query(
       By.css('.dt-button-icon'),
     );
-    expect(checkIfIconExist).not.toBeNull('Icon should be visible');
+    expect(checkIfIconExist).not.toBeNull();
     tick(1200); // wait at least 800ms until the icon should automatically disappear
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('.dt-button-icon'))).toBeNull(
-      'Icon should be invisible',
-    );
+    expect(fixture.debugElement.query(By.css('.dt-button-icon'))).toBeNull();
   }));
 });
 

@@ -168,8 +168,8 @@ describe('DtExpandablePanel', () => {
 
     // check expanded and expandChange outputs
     it('should fire expanded and expandChange events on open', () => {
-      const expandedSpy = jasmine.createSpy();
-      const changedSpy = jasmine.createSpy();
+      const expandedSpy = jest.fn();
+      const changedSpy = jest.fn();
       const instance = instanceDebugElement.componentInstance;
       const expandedSubscription = instance._panelExpanded.subscribe(
         expandedSpy,
@@ -188,8 +188,8 @@ describe('DtExpandablePanel', () => {
     // check collapsed and expandChange outputs
     it('should fire collapsed and expandChange events on close', () => {
       expandablePanelInstance.expanded = true;
-      const collapsedSpy = jasmine.createSpy();
-      const changedSpy = jasmine.createSpy();
+      const collapsedSpy = jest.fn();
+      const changedSpy = jest.fn();
       const instance = instanceDebugElement.componentInstance;
       const collapsedSubscription = instance._panelCollapsed.subscribe(
         collapsedSpy,

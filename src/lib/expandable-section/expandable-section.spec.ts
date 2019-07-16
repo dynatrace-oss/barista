@@ -139,8 +139,8 @@ describe('DtExpandableSection', () => {
 
     // check expanded and expandChange outputs
     it('should fire expanded and expandChange events on open', () => {
-      const expandedSpy = jasmine.createSpy();
-      const changedSpy = jasmine.createSpy();
+      const expandedSpy = jest.fn();
+      const changedSpy = jest.fn();
       const instance = instanceDebugElement.componentInstance;
       const expandedSubscription = instance._sectionExpanded.subscribe(
         expandedSpy,
@@ -160,8 +160,8 @@ describe('DtExpandableSection', () => {
     // check collapsed and expandChange outputs
     it('should fire collapsed and expandChange events on close', () => {
       expandableSectionInstance.expanded = true;
-      const collapsedSpy = jasmine.createSpy();
-      const changedSpy = jasmine.createSpy();
+      const collapsedSpy = jest.fn();
+      const changedSpy = jest.fn();
       const instance = instanceDebugElement.componentInstance;
       const collapsedSubscription = instance._sectionCollapsed.subscribe(
         collapsedSpy,

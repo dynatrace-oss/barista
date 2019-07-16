@@ -184,7 +184,7 @@ describe('DtChart Range', () => {
     });
 
     it('should trigger dragHandle funciton when the left or right handle gets clicked', () => {
-      spyOn(range, '_dragHandle');
+      jest.spyOn(range, '_dragHandle').mockImplementation(() => {});
       expect(range._dragHandle).not.toHaveBeenCalled();
 
       const leftHandle = fixture.debugElement.query(
@@ -202,7 +202,7 @@ describe('DtChart Range', () => {
     });
 
     it('setting the value with the binding should trigger a _stateChanges event', () => {
-      const stateChangesSpy = jasmine.createSpy('stateChanges spy');
+      const stateChangesSpy = jest.fn();
 
       const state1 = new RangeStateChangedEvent(100, 100, false);
       const state2 = new RangeStateChangedEvent(110, 90, false);
@@ -213,15 +213,16 @@ describe('DtChart Range', () => {
       fixture.componentInstance.values = [100, 200];
       fixture.detectChanges();
       expect(stateChangesSpy).toHaveBeenCalledTimes(1);
-      expect(stateChangesSpy.calls.mostRecent().args).toEqual([state1]);
+
+      expect(stateChangesSpy.mock.calls[0]).toEqual([state1]);
       fixture.componentInstance.values = [110, 200];
       fixture.detectChanges();
       expect(stateChangesSpy).toHaveBeenCalledTimes(2);
-      expect(stateChangesSpy.calls.mostRecent().args).toEqual([state2]);
+      expect(stateChangesSpy.mock.calls[1]).toEqual([state2]);
       fixture.componentInstance.values = [130, 200];
       fixture.detectChanges();
       expect(stateChangesSpy).toHaveBeenCalledTimes(3);
-      expect(stateChangesSpy.calls.mostRecent().args).toEqual([state3]);
+      expect(stateChangesSpy.mock.calls[2]).toEqual([state3]);
 
       subscription.unsubscribe();
     });
@@ -231,6 +232,7 @@ describe('DtChart Range', () => {
     let fixture: ComponentFixture<RangeTestBindingValuesComponent>;
     let fixtureA11y: ComponentFixture<RangeA11yTestComponent>;
     let range: DtChartRange;
+    let spiedDate: jest.SpyInstance;
 
     beforeEach(() => {
       fixture = TestBed.createComponent<RangeTestBindingValuesComponent>(
@@ -243,11 +245,15 @@ describe('DtChart Range', () => {
       fixture.detectChanges();
       fixtureA11y.detectChanges();
       // mock current date for date-range pipe
-      jasmine.clock().mockDate(new Date('2019/06/01 09:33:21'));
+      spiedDate = jest
+        .spyOn(global.Date, 'now')
+        .mockImplementationOnce(() =>
+          new Date('2019/06/01 09:33:21').valueOf(),
+        );
     });
 
     afterEach(() => {
-      jasmine.clock().uninstall();
+      spiedDate.mockClear();
     });
 
     it('should have default aria-labels on chart container', () => {

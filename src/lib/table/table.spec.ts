@@ -64,21 +64,13 @@ describe('DtTable', () => {
   describe('Table Rendering', () => {
     it('Should render the TestComponent', () => {
       const fixture = TestBed.createComponent(TestApp);
-      expect(fixture.componentInstance.tableComponent.dataSource).toBeFalsy(
-        'Expected component dataSource empty',
-      );
+      expect(fixture.componentInstance.tableComponent.dataSource).toBeFalsy();
 
       fixture.detectChanges();
 
-      expect(fixture.componentInstance).toBeTruthy(
-        'Expected test component defined',
-      );
-      expect(fixture.componentInstance.tableComponent).toBeTruthy(
-        'Expected component defined',
-      );
-      expect(fixture.componentInstance.tableComponent.dataSource).toBeTruthy(
-        'Expected component received dataSource',
-      );
+      expect(fixture.componentInstance).toBeTruthy();
+      expect(fixture.componentInstance.tableComponent).toBeTruthy();
+      expect(fixture.componentInstance.tableComponent.dataSource).toBeTruthy();
     });
 
     it('Should render a TableComponent', () => {
@@ -94,14 +86,8 @@ describe('DtTable', () => {
       );
       const tableCells = fixture.debugElement.queryAll(By.directive(DtCell));
 
-      expect(tableRows.length).toBe(
-        dataSourceRows,
-        'Expected the same amount of rows that the dataSource',
-      );
-      expect(tableCells.length).toBe(
-        dataSourceCells,
-        'Expected the same amount of cells that the dataSource',
-      );
+      expect(tableRows.length).toBe(dataSourceRows);
+      expect(tableCells.length).toBe(dataSourceCells);
     });
 
     it('Should have corresponding classes', () => {
@@ -132,87 +118,43 @@ describe('DtTable', () => {
         By.css('.dt-cell.dt-table-column-align-center'),
       );
 
-      expect(tableComponent.length).toBe(
-        1,
-        'Expected 1 component with directive <dt-table>',
-      );
-      expect(tableRows.length).toBe(
-        4,
-        'Expected 4 components with directive <dt-row>',
-      );
-      expect(tableCells.length).toBe(
-        12,
-        'Expected 12 components with directive <dt-cell>',
-      );
-      expect(tableHeaderRows.length).toBe(
-        1,
-        'Expected 1 component with directive <dt-header-row>',
-      );
-      expect(tableHeaderCells.length).toBe(
-        3,
-        'Expected 3 components with directive <dt-header-cell>',
-      );
-      expect(tableColumnProportionCells.length).toBe(
-        5,
-        'Expected 5 components with the CSS .dt-table-column-col1 class applied',
-      );
-      expect(tableColumnMinWidthCells.length).toBe(
-        5,
-        'Expected 5 components with the CSS .dt-table-column-col2 class applied',
-      );
-      expect(tableColumnMinWidthAndPropCells.length).toBe(
-        5,
-        'Expected 5 components with the CSS .dt-table-column-col3 class applied',
-      );
-      expect(tableHeaderCellsAlignCenter.length).toBe(
-        1,
-        'Expected 1 header cells with the CSS .dt-table-column-align-center class applied',
-      );
-      expect(tableCellsAlignCenter.length).toBe(
-        4,
-        'Expected 4 header cells with the CSS .dt-table-column-align-center class applied',
-      );
+      // Expected 1 component with directive <dt-table>
+      expect(tableComponent.length).toBe(1);
+      // Expected 4 components with directive <dt-row>
+      expect(tableRows.length).toBe(4);
+      // Expected 12 components with directive <dt-cell>
+      expect(tableCells.length).toBe(12);
+      // Expected 1 component with directive <dt-header-row>
+      expect(tableHeaderRows.length).toBe(1);
+      // Expected 3 components with directive <dt-header-cell>
+      expect(tableHeaderCells.length).toBe(3);
+      // Expected 5 components with the CSS .dt-table-column-col1 class applied
+      expect(tableColumnProportionCells.length).toBe(5);
+      // Expected 5 components with the CSS .dt-table-column-col2 class applied
+      expect(tableColumnMinWidthCells.length).toBe(5);
+      // Expected 5 components with the CSS .dt-table-column-col3 class applied
+      expect(tableColumnMinWidthAndPropCells.length).toBe(5);
+      // Expected 1 header cells with the CSS .dt-table-column-align-center class applied
+      expect(tableHeaderCellsAlignCenter.length).toBe(1);
+      // Expected 4 header cells with the CSS .dt-table-column-align-center class applied
+      expect(tableCellsAlignCenter.length).toBe(4);
 
-      tableColumnMinWidthCells.forEach((cell, index) => {
-        expect(cell.nativeElement.style.minWidth).toBe(
-          '50px',
-          `Expected cell ${index} min width prop set`,
-        );
-        expect(cell.nativeElement.style.flexGrow).toBeFalsy(
-          `Expected cell ${index} flexGrow prop to be empty`,
-        );
-        expect(cell.nativeElement.style.flexShrink).toBeFalsy(
-          `Expected cell ${index} flexShrink prop to be empty`,
-        );
+      tableColumnMinWidthCells.forEach(cell => {
+        expect(cell.nativeElement.style.minWidth).toBe('50px');
+        expect(cell.nativeElement.style.flexGrow).toBeFalsy();
+        expect(cell.nativeElement.style.flexShrink).toBeFalsy();
       });
 
-      tableColumnProportionCells.forEach((cell, index) => {
-        expect(cell.nativeElement.style.minWidth).toBeFalsy(
-          `Expected cell ${index} minWidth prop to be empty`,
-        );
-        expect(cell.nativeElement.style.flexGrow).toBe(
-          '2',
-          `Expected cell ${index} with just DtColumnProportion input set, have flexGrow prop set to 2`,
-        );
-        expect(cell.nativeElement.style.flexShrink).toBe(
-          '2',
-          `Expected cell ${index} with just DtColumnProportion prop set, have flexShrink prop set to 2`,
-        );
+      tableColumnProportionCells.forEach(cell => {
+        expect(cell.nativeElement.style.minWidth).toBeFalsy();
+        expect(cell.nativeElement.style.flexGrow).toBe('2');
+        expect(cell.nativeElement.style.flexShrink).toBe('2');
       });
 
-      tableColumnMinWidthAndPropCells.forEach((cell, index) => {
-        expect(cell.nativeElement.style.minWidth).toBe(
-          '50px',
-          `Expected cell ${index} Expected min width prop set`,
-        );
-        expect(cell.nativeElement.style.flexGrow).toBe(
-          '2',
-          `Expected cell ${index} with DtColumnProportion input set, have flexGrow prop set to 2`,
-        );
-        expect(cell.nativeElement.style.flexShrink).toBe(
-          '2',
-          `Expected cell ${index} with DtColumnProportion input set, have flexShrink prop set to 2`,
-        );
+      tableColumnMinWidthAndPropCells.forEach(cell => {
+        expect(cell.nativeElement.style.minWidth).toBe('50px');
+        expect(cell.nativeElement.style.flexGrow).toBe('2');
+        expect(cell.nativeElement.style.flexShrink).toBe('2');
       });
     });
 
@@ -222,9 +164,7 @@ describe('DtTable', () => {
       const noEmptyComponent = fixture.debugElement.query(
         By.directive(DtTableEmptyStateDirective),
       );
-      expect(noEmptyComponent).toBeFalsy(
-        'Expected the DtTableEmptyState not beign rendered for not empty tables',
-      );
+      expect(noEmptyComponent).toBeFalsy();
 
       const emptyDataSources = [[], null, undefined];
 
@@ -235,23 +175,19 @@ describe('DtTable', () => {
         const emptyComponent = fixture.debugElement.query(
           By.directive(DtTableEmptyStateDirective),
         );
-        expect(emptyComponent).toBeTruthy(
-          'Expected the DtTableEmptyState rendered for empty tables',
-        );
+        expect(emptyComponent).toBeTruthy();
 
         const emptyTitleComponent = fixture.debugElement.query(
           By.directive(DtTableEmptyStateTitle),
         );
-        expect(emptyTitleComponent).toBeTruthy(
-          'Expected the DtTableEmptyStateTitle rendered for empty tables',
-        );
+        // Expected the DtTableEmptyStateTitle rendered for empty tables
+        expect(emptyTitleComponent).toBeTruthy();
 
         const emptyMessageComponent = fixture.debugElement.query(
           By.directive(DtTableEmptyStateMessage),
         );
-        expect(emptyMessageComponent).toBeTruthy(
-          'Expected the DtTableEmptyStateMessage rendered for empty tables',
-        );
+        // Expected the DtTableEmptyStateMessage rendered for empty tables
+        expect(emptyMessageComponent).toBeTruthy();
       });
     });
 
@@ -263,16 +199,14 @@ describe('DtTable', () => {
       const loadingComponent = fixture.debugElement.query(
         By.directive(DtLoadingDistractor),
       );
-      expect(loadingComponent).toBeTruthy(
-        'Expected the DtLoadingSpinner beign rendered for loading tables',
-      );
+      // Expected the DtLoadingSpinner beign rendered for loading tables
+      expect(loadingComponent).toBeTruthy();
 
       const loadingPlaceholder = fixture.debugElement.query(
         By.directive(DtTableLoadingState),
       );
-      expect(loadingPlaceholder).toBeTruthy(
-        'Expected the DtTableLoadingState placeholder beign rendered for loading tables',
-      );
+      // Expected the DtTableLoadingState placeholder beign rendered for loading tables
+      expect(loadingPlaceholder).toBeTruthy();
 
       fixture.componentInstance.loading = false;
       fixture.detectChanges();
@@ -280,9 +214,8 @@ describe('DtTable', () => {
       const noLoadingComponent = fixture.debugElement.query(
         By.directive(DtLoadingDistractor),
       );
-      expect(noLoadingComponent).toBeFalsy(
-        'Expected the DtLoadingSpinner not beign rendered for not loading tables',
-      );
+      // Expected the DtLoadingSpinner not beign rendered for not loading tables
+      expect(noLoadingComponent).toBeFalsy();
     });
 
     it('Should render dynamic columns', () => {
@@ -293,10 +226,8 @@ describe('DtTable', () => {
       const testColumns = fixture.debugElement.queryAll(
         By.directive(DtHeaderCell),
       );
-      expect(testColumns.length).toBe(
-        columns.length,
-        'Expected the DtLoadingSpinner being rendered for loading tables',
-      );
+      // Expected the DtLoadingSpinner being rendered for loading tables
+      expect(testColumns.length).toBe(columns.length);
 
       const MAX_ITER = 10;
       for (let i = 0; i < MAX_ITER; i++) {
@@ -319,14 +250,10 @@ describe('DtTable', () => {
       );
       const testRows = fixture.debugElement.queryAll(By.directive(DtRow));
 
-      expect(cells.length).toBe(
-        testCells,
-        'Expected the same number of DtCells as DataSource cells',
-      );
-      expect(dataSource.length).toBe(
-        testRows.length,
-        'Expected the same number of DtRows as DataSource rows',
-      );
+      // Expected the same number of DtCells as DataSource cells
+      expect(cells.length).toBe(testCells);
+      // Expected the same number of DtRows as DataSource rows
+      expect(dataSource.length).toBe(testRows.length);
     });
 
     it('should set a dt-indicator class on the cell', () => {
@@ -342,7 +269,7 @@ describe('DtTable', () => {
 
       const instance: DtCell = fixture.debugElement.query(By.directive(DtCell))
         .componentInstance;
-      const completeSpy = jasmine.createSpy('complete spy');
+      const completeSpy = jest.fn();
       const subscription = instance._stateChanges.subscribe(
         () => {},
         () => {},
@@ -360,14 +287,14 @@ describe('DtTable', () => {
       const instance: DtCell = fixture.debugElement.query(By.directive(DtCell))
         .componentInstance;
 
-      expect(instance.hasError).toBeTruthy('hasError to be true');
-      expect(instance.hasWarning).toBeFalsy('hasWarning to be false');
+      expect(instance.hasError).toBeTruthy();
+      expect(instance.hasWarning).toBeFalsy();
 
       fixture.componentInstance.color = 'warning';
       fixture.detectChanges();
 
-      expect(instance.hasError).toBeFalsy('hasError to be false');
-      expect(instance.hasWarning).toBeTruthy('hasWarning to be true');
+      expect(instance.hasError).toBeFalsy();
+      expect(instance.hasWarning).toBeTruthy();
     });
 
     it('should have the correct classes on the row', fakeAsync(() => {
@@ -419,18 +346,12 @@ describe('DtTable', () => {
         By.directive(DtExpandableCell),
       );
 
-      expect(tableExpandableRows.length).toBe(
-        4,
-        'Expected the table to have 4 instances of DtExpandableRow',
-      );
-      expect(tableCells.length).toBe(
-        8,
-        'Expected the table to have 8 instances of DtCell',
-      );
-      expect(tableExpandableCells.length).toBe(
-        4,
-        'Expected the table to have 4 instances of DtExpandableCell',
-      );
+      // Expected the table to have 4 instances of DtExpandableRow
+      expect(tableExpandableRows.length).toBe(4);
+      // Expected the table to have 8 instances of DtCell
+      expect(tableCells.length).toBe(8);
+      // Expected the table to have 4 instances of DtExpandableCell
+      expect(tableExpandableCells.length).toBe(4);
     });
 
     it('should assign the right classes to an expandable table', () => {
@@ -451,30 +372,18 @@ describe('DtTable', () => {
         By.css('dt-header-cell'),
       );
 
-      expect(tableComponent.length).toBe(
-        1,
-        'Expected 1 component with directive <dt-table>',
-      );
-      expect(tableExpandableRows.length).toBe(
-        4,
-        'Expected 4 components with directive <dt-expandable-row>',
-      );
-      expect(tableCells.length).toBe(
-        8,
-        'Expected 8 components with directive <dt-cell>',
-      );
-      expect(tableExpandableCells.length).toBe(
-        4,
-        'Expected 4 components with directive <dt-expandable-cell>',
-      );
-      expect(tableHeaderRows.length).toBe(
-        1,
-        'Expected 1 component with directive <dt-header-row>',
-      );
-      expect(tableHeaderCells.length).toBe(
-        3,
-        'Expected 3 components with directive <dt-header-cell>',
-      );
+      // Expected 1 component with directive <dt-table>
+      expect(tableComponent.length).toBe(1);
+      // Expected 4 components with directive <dt-expandable-row>
+      expect(tableExpandableRows.length).toBe(4);
+      // Expected 8 components with directive <dt-cell>
+      expect(tableCells.length).toBe(8);
+      // Expected 4 components with directive <dt-expandable-cell>
+      expect(tableExpandableCells.length).toBe(4);
+      // Expected 1 component with directive <dt-header-row>
+      expect(tableHeaderRows.length).toBe(1);
+      // Expected 3 components with directive <dt-header-cell>
+      expect(tableHeaderCells.length).toBe(3);
     });
 
     it('should render static content of expandable rows', () => {
@@ -488,10 +397,7 @@ describe('DtTable', () => {
           debugElement.nativeElement as HTMLElement,
       );
 
-      expect(expandableSections.length).toBe(
-        4,
-        'Expected 4 expandable sections',
-      );
+      expect(expandableSections.length).toBe(4);
       expect(expandableSections[0].children[1].children[0].textContent).toBe(
         'details1',
       );
@@ -685,7 +591,7 @@ describe('DtTable', () => {
       const fixture = createComponent(TestIndicatorApp);
       const row = fixture.debugElement.query(By.directive(DtRow))
         .componentInstance;
-      spyOn(row, '_unregisterCell');
+      jest.spyOn(row, '_unregisterCell').mockImplementation(() => {});
       fixture.destroy();
       expect(row._unregisterCell).toHaveBeenCalledTimes(2);
     });
