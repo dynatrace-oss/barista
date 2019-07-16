@@ -277,6 +277,32 @@ describe('DtFilterField', () => {
       expect(options[2].innerText).toBe('Steyr');
     });
 
+    it('should clear the filtered string from the input when selecting an option', fakeAsync(() => {
+      filterField.focus();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      const inputEl = getInput(fixture);
+      typeInElement('US', inputEl);
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
+
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+      const usOption = options[0];
+      usOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      options = getOptions(overlayContainerElement);
+      expect(options.length).toBe(2);
+      expect(options[0].innerText).toBe('Los Angeles');
+      expect(options[1].innerText).toBe('San Fran');
+
+      zone.simulateZoneExit();
+    }));
+
     it('should switch to the next autocomplete if the selected option is also a freetext with suggestions', () => {
       fixture.componentInstance.dataSource.data = TEST_DATA_SUGGESTIONS;
       filterField.focus();
