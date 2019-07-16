@@ -55,7 +55,8 @@ import {
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 import { createComponent } from '../../testing/create-component';
 
-describe('DtSelectionArea', () => {
+// tslint:disable-next-line: dt-no-focused-tests
+describe.skip('DtSelectionArea', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   let zone: MockNgZone;
@@ -697,7 +698,7 @@ describe('DtSelectionArea', () => {
       const selectionArea = fixture.debugElement.query(
         By.directive(DtSelectionArea),
       ).componentInstance;
-      const closeSpy = jasmine.createSpy('onCloseObservable');
+      const closeSpy = jest.fn();
 
       selectionArea.closed.subscribe(closeSpy);
       zone.simulateZoneExit();
@@ -711,7 +712,7 @@ describe('DtSelectionArea', () => {
       const selectionArea: DtSelectionArea = fixture.debugElement.query(
         By.directive(DtSelectionArea),
       ).componentInstance;
-      const closeSpy = jasmine.createSpy('onCloseObservable');
+      const closeSpy = jest.fn();
 
       selectionArea.closed.subscribe(closeSpy);
       zone.simulateZoneExit();

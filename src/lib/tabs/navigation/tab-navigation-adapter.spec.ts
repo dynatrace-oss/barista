@@ -50,7 +50,7 @@ describe('DtTabNavigationAdapter', () => {
     }));
 
     it('should register a tabgroup with the adapter after creation', fakeAsync(() => {
-      spyOn(adapter, 'registerTabControl');
+      jest.spyOn(adapter, 'registerTabControl');
       router.initialNavigation();
       tick();
       fixture.detectChanges();
@@ -58,7 +58,7 @@ describe('DtTabNavigationAdapter', () => {
     }));
 
     it('should unregister a tabgroup with the adapter after destroy', fakeAsync(() => {
-      spyOn(adapter, 'unregisterTabControl');
+      jest.spyOn(adapter, 'unregisterTabControl');
       router.initialNavigation();
       tick();
       fixture.detectChanges();

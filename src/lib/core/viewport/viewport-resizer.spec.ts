@@ -30,7 +30,7 @@ describe('DefaultViewportResizer', () => {
   ));
 
   it('should emit on resize', fakeAsync(() => {
-    const spy = jasmine.createSpy('viewport changed spy');
+    const spy = jest.fn();
     const subscription = resizer.change().subscribe(spy);
 
     window.dispatchEvent(createFakeEvent('resize'));

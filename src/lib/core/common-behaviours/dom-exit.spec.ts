@@ -8,12 +8,10 @@ describe('mixinNotifyDomExit', () => {
     const classWithMixin = mixinNotifyDomExit(TestClass);
     const instance = new classWithMixin();
 
-    expect(instance._onDomExit).toBeTruthy(
-      'Expected the mixed-into class to have a _onDomExit subject',
-    );
-    expect(instance._onDomExit instanceof Subject).toBeTruthy(
-      'Expected the mixed-into class _onDomExit to be a subject',
-    );
+    // Expected the mixed-into class to have a _onDomExit subject
+    expect(instance._onDomExit).toBeTruthy();
+    // Expected the mixed-into class _onDomExit to be a subject
+    expect(instance._onDomExit instanceof Subject).toBeTruthy();
   });
 
   it('should augment an existing class with a _safeExit method', () => {
@@ -28,7 +26,7 @@ describe('mixinNotifyDomExit', () => {
     const classWithMixin = mixinNotifyDomExit(TestClass);
     const instance = new classWithMixin();
 
-    const spy = jasmine.createSpy('_onDomExit spy');
+    const spy = jest.fn();
     instance._onDomExit.subscribe(spy);
     expect(spy).not.toHaveBeenCalled();
     instance._notifyDomExit();

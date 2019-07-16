@@ -1,24 +1,10 @@
-// TypeScript config that is used to build the e2e spec files. Protractor will use TS-Node to
-// compile the ui-tests/ folder at runtime.
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "strictNullChecks": true,
-    "inlineSources": true,
-    "lib": ["es2015"],
+    "outDir": "../dist/ui-tests",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "outDir": "../dist/ui-tests/",
-    "rootDir": ".",
-    "sourceMap": true,
-    "target": "es5",
-    "typeRoots": ["../node_modules/@types"],
-    "types": ["jasmine"]
-  }
+    "types": ["jest", "node"]
+  },
+  "files": ["test-setup.ts"],
+  "include": ["**/*.spec.ts", "../../typings.d.ts"]
 }

@@ -5,14 +5,17 @@ import { DtDateRange } from './date-range';
 
 describe('DtDateRange', () => {
   let pipe: DtDateRange;
+  let spiedDate: jest.SpyInstance;
 
   beforeEach(() => {
     pipe = new DtDateRange('en-US');
-    jasmine.clock().mockDate(new Date('2019/06/01 09:33:21'));
+    spiedDate = jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() => new Date('2019/06/01 09:33:21').valueOf());
   });
 
   afterEach(() => {
-    jasmine.clock().uninstall();
+    spiedDate.mockClear();
   });
 
   describe('Transforming date range with default en-US locale', () => {

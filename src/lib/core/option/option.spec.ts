@@ -20,7 +20,7 @@ describe('DtOption', () => {
     const optionInstance: DtOption<string> = fixture.debugElement.query(
       By.directive(DtOption),
     ).componentInstance;
-    const completeSpy = jasmine.createSpy('complete spy');
+    const completeSpy = jest.fn();
     const subscription = optionInstance._stateChanges.subscribe(
       () => {},
       () => {},
@@ -41,7 +41,7 @@ describe('DtOption', () => {
     optionInstance.select();
     expect(optionInstance.selected).toBe(true);
 
-    const spy = jasmine.createSpy('selection change spy');
+    const spy = jest.fn();
     const subscription = optionInstance.selectionChange.subscribe(spy);
 
     optionInstance.select();
@@ -62,7 +62,7 @@ describe('DtOption', () => {
     optionInstance.deselect();
     expect(optionInstance.selected).toBe(false);
 
-    const spy = jasmine.createSpy('selection change spy');
+    const spy = jest.fn();
     const subscription = optionInstance.selectionChange.subscribe(spy);
 
     optionInstance.deselect();

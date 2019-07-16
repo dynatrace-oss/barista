@@ -40,18 +40,12 @@ describe('DtInput without forms', () => {
       By.css('input'),
     ).nativeElement;
 
-    expect(inputElement.getAttribute('aria-required')).toBe(
-      'false',
-      'Expected aria-required to reflect required state of false',
-    );
+    expect(inputElement.getAttribute('aria-required')).toBe('false');
 
     fixture.componentInstance.required = true;
     fixture.detectChanges();
 
-    expect(inputElement.getAttribute('aria-required')).toBe(
-      'true',
-      'Expected aria-required to reflect required state of true',
-    );
+    expect(inputElement.getAttribute('aria-required')).toBe('true');
   }));
 
   it('supports the required attribute as binding', fakeAsync(() => {

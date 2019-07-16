@@ -103,10 +103,8 @@ describe('DtFormField without forms', () => {
     inputEl.triggerEventHandler('input', { target: inputEl.nativeElement });
     fixture.detectChanges();
 
-    expect(el.classList.contains('dt-form-field-empty')).toBe(
-      false,
-      'should not be empty',
-    );
+    // should not be empty
+    expect(el.classList.contains('dt-form-field-empty')).toBe(false);
   }));
 
   it('should not be empty when the value set before view init', fakeAsync(() => {
@@ -258,19 +256,17 @@ describe('DtFormField without forms', () => {
       .nativeElement;
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 
+    // Expected form field not to start out disabled
     expect(formFieldEl.classList.contains('dt-form-field-disabled')).toBe(
       false,
-      `Expected form field not to start out disabled.`,
     );
     expect(inputEl.disabled).toBe(false);
 
     fixture.componentInstance.disabled = true;
     fixture.detectChanges();
 
-    expect(formFieldEl.classList.contains('dt-form-field-disabled')).toBe(
-      true,
-      `Expected form field to look disabled after property is set.`,
-    );
+    // Expected form field to look disabled after property is set.
+    expect(formFieldEl.classList.contains('dt-form-field-disabled')).toBe(true);
     expect(inputEl.disabled).toBe(true);
   }));
 
@@ -298,8 +294,8 @@ describe('DtFormField without forms', () => {
 
     expect(prefixEl).not.toBeNull();
     expect(suffixEl).not.toBeNull();
-    expect(prefixEl.nativeElement.innerText.trim()).toEqual('Prefix');
-    expect(suffixEl.nativeElement.innerText.trim()).toEqual('Suffix');
+    expect(prefixEl.nativeElement.textContent.trim()).toEqual('Prefix');
+    expect(suffixEl.nativeElement.textContent.trim()).toEqual('Suffix');
   }));
 
   it('should update empty class when value changes programmatically and OnPush', fakeAsync(() => {
@@ -308,18 +304,14 @@ describe('DtFormField without forms', () => {
     const el = fixture.debugElement.query(By.css('.dt-form-field'))
       .nativeElement;
 
-    expect(el.classList).toContain(
-      'dt-form-field-empty',
-      'Input initially empty',
-    );
+    // Input initially empty
+    expect(el.classList).toContain('dt-form-field-empty');
 
     component.formControl.setValue('something');
     fixture.detectChanges();
 
-    expect(el.classList).not.toContain(
-      'dt-form-field-empty',
-      'Input no longer empty',
-    );
+    // Input no longer empty
+    expect(el.classList).not.toContain('dt-form-field-empty');
   }));
 
   it('should set the focused class when the input is focused', fakeAsync(() => {
@@ -394,65 +386,41 @@ describe('DtFormField with forms', () => {
     }));
 
     it('should not show any errors if the user has not interacted', fakeAsync(() => {
-      expect(testComponent.formControl.untouched).toBe(
-        true,
-        'Expected untouched form control',
-      );
-      expect(testComponent.formControl.dirty).toBe(
-        false,
-        'Expected form control not to be diry',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        0,
-        'Expected no error message',
-      );
-      expect(inputEl.getAttribute('aria-invalid')).toBe(
-        'false',
-        'Expected aria-invalid to be set to "false".',
-      );
+      // Expected untouched form control
+      expect(testComponent.formControl.untouched).toBe(true);
+      // Expected form control not to be diry
+      expect(testComponent.formControl.dirty).toBe(false);
+      // Expected no error message
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(0);
+      // Expected aria-invalid to be set to "false".
+      expect(inputEl.getAttribute('aria-invalid')).toBe('false');
     }));
 
     it('should display an error message when the input is dirty and invalid', fakeAsync(() => {
-      expect(testComponent.formControl.invalid).toBe(
-        true,
-        'Expected form control to be invalid',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        0,
-        'Expected no error message',
-      );
+      // Expected form control to be invalid
+      expect(testComponent.formControl.invalid).toBe(true);
+      // Expected no error message
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(0);
 
       testComponent.formControl.markAsDirty();
       fixture.detectChanges();
       flush();
 
-      expect(containerEl.classList).toContain(
-        'dt-form-field-invalid',
-        'Expected container to have the invalid CSS class.',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        1,
-        'Expected one error message to have been rendered.',
-      );
-      expect(inputEl.getAttribute('aria-invalid')).toBe(
-        'true',
-        'Expected aria-invalid to be set to "true".',
-      );
+      // Expected container to have the invalid CSS class.
+      expect(containerEl.classList).toContain('dt-form-field-invalid');
+      // Expected one error message to have been rendered.
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(1);
+      // Expected aria-invalid to be set to "true".
+      expect(inputEl.getAttribute('aria-invalid')).toBe('true');
     }));
 
     it('should display an error message when the parent form is submitted', fakeAsync(() => {
-      expect(testComponent.form.submitted).toBe(
-        false,
-        'Expected form not to have been submitted',
-      );
-      expect(testComponent.formControl.invalid).toBe(
-        true,
-        'Expected form control to be invalid',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        0,
-        'Expected no error message',
-      );
+      // Expected form not to have been submitted
+      expect(testComponent.form.submitted).toBe(false);
+      // Expected form control to be invalid
+      expect(testComponent.formControl.invalid).toBe(true);
+      // Expected no error message
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(0);
 
       dispatchFakeEvent(
         fixture.debugElement.query(By.css('form')).nativeElement,
@@ -461,22 +429,14 @@ describe('DtFormField with forms', () => {
       fixture.detectChanges();
       flush();
 
-      expect(testComponent.form.submitted).toBe(
-        true,
-        'Expected form to have been submitted',
-      );
-      expect(containerEl.classList).toContain(
-        'dt-form-field-invalid',
-        'Expected container to have the invalid CSS class.',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        1,
-        'Expected one error message to have been rendered.',
-      );
-      expect(inputEl.getAttribute('aria-invalid')).toBe(
-        'true',
-        'Expected aria-invalid to be set to "true".',
-      );
+      // Expected form to have been submitted
+      expect(testComponent.form.submitted).toBe(true);
+      // Expected container to have the invalid CSS class.
+      expect(containerEl.classList).toContain('dt-form-field-invalid');
+      // Expected one error message to have been rendered.
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(1);
+      // Expected aria-invalid to be set to "true".
+      expect(inputEl.getAttribute('aria-invalid')).toBe('true');
     }));
 
     it('should display an error message when the parent form group is submitted', fakeAsync(() => {
@@ -494,22 +454,14 @@ describe('DtFormField with forms', () => {
         .nativeElement;
       inputEl = groupFixture.debugElement.query(By.css('input')).nativeElement;
 
-      expect(component.formGroup.invalid).toBe(
-        true,
-        'Expected form control to be invalid',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        0,
-        'Expected no error message',
-      );
-      expect(inputEl.getAttribute('aria-invalid')).toBe(
-        'false',
-        'Expected aria-invalid to be set to "false".',
-      );
-      expect(component.formGroupDirective.submitted).toBe(
-        false,
-        'Expected form not to have been submitted',
-      );
+      // Expected form control to be invalid
+      expect(component.formGroup.invalid).toBe(true);
+      // Expected no error message
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(0);
+      // Expected aria-invalid to be set to "false".
+      expect(inputEl.getAttribute('aria-invalid')).toBe('false');
+      // Expected form not to have been submitted
+      expect(component.formGroupDirective.submitted).toBe(false);
 
       dispatchFakeEvent(
         groupFixture.debugElement.query(By.css('form')).nativeElement,
@@ -518,22 +470,14 @@ describe('DtFormField with forms', () => {
       groupFixture.detectChanges();
       flush();
 
-      expect(component.formGroupDirective.submitted).toBe(
-        true,
-        'Expected form to have been submitted',
-      );
-      expect(containerEl.classList).toContain(
-        'dt-form-field-invalid',
-        'Expected container to have the invalid CSS class.',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        1,
-        'Expected one error message to have been rendered.',
-      );
-      expect(inputEl.getAttribute('aria-invalid')).toBe(
-        'true',
-        'Expected aria-invalid to be set to "true".',
-      );
+      // Expected form to have been submitted
+      expect(component.formGroupDirective.submitted).toBe(true);
+      // Expected container to have the invalid CSS class.
+      expect(containerEl.classList).toContain('dt-form-field-invalid');
+      // Expected one error message to have been rendered.
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(1);
+      // Expected aria-invalid to be set to "true".
+      expect(inputEl.getAttribute('aria-invalid')).toBe('true');
     }));
 
     it('should hide the errors and show the hints once the input becomes valid', fakeAsync(() => {
@@ -541,27 +485,19 @@ describe('DtFormField with forms', () => {
       fixture.detectChanges();
       flush();
 
-      expect(containerEl.classList).toContain(
-        'dt-form-field-invalid',
-        'Expected container to have the invalid CSS class.',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        1,
-        'Expected one error message to have been rendered.',
-      );
+      // Expected container to have the invalid CSS class.
+      expect(containerEl.classList).toContain('dt-form-field-invalid');
+      // Expected one error message to have been rendered.
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(1);
 
       testComponent.formControl.setValue('something');
       fixture.detectChanges();
       flush();
 
-      expect(containerEl.classList).not.toContain(
-        'dt-form-field-invalid',
-        'Expected container not to have the invalid class when valid.',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        0,
-        'Expected no error messages when the input is valid.',
-      );
+      // Expected container not to have the invalid class when valid.
+      expect(containerEl.classList).not.toContain('dt-form-field-invalid');
+      // Expected no error messages when the input is valid.
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(0);
     }));
 
     it('should set the proper role on the error messages', fakeAsync(() => {
@@ -578,8 +514,8 @@ describe('DtFormField with forms', () => {
         .query(By.css('.dt-hint'))
         .nativeElement.getAttribute('id');
       let describedBy = inputEl.getAttribute('aria-describedby');
-
-      expect(hintId).toBeTruthy('hint should be shown');
+      // hint should be shown
+      expect(hintId).toBeTruthy();
       expect(describedBy).toBe(hintId);
 
       fixture.componentInstance.formControl.markAsDirty();
@@ -590,8 +526,8 @@ describe('DtFormField with forms', () => {
         .map(el => el.nativeElement.getAttribute('id'))
         .join(' ');
       describedBy = inputEl.getAttribute('aria-describedby');
-
-      expect(errorIds).toBeTruthy('errors should be shown');
+      // errors should be shown
+      expect(errorIds).toBeTruthy();
       expect(describedBy).toBe(errorIds);
     }));
   });
@@ -610,27 +546,21 @@ describe('DtFormField with forms', () => {
       // tslint:disable-next-line:no-unnecessary-type-assertion
       const control = component.formGroup.get('name')!;
 
-      expect(control.invalid).toBe(true, 'Expected form control to be invalid');
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        0,
-        'Expected no error messages',
-      );
+      // Expected form control to be invalid
+      expect(control.invalid).toBe(true);
+      // Expected no error messages
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(0);
 
       control.markAsTouched();
       fixture.detectChanges();
-
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        0,
-        'Expected no error messages after being touched.',
-      );
+      // Expected no error messages after being touched.
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(0);
 
       component.errorState = true;
       fixture.detectChanges();
 
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        1,
-        'Expected one error messages to have been rendered.',
-      );
+      // Expected one error messages to have been rendered.
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(1);
     }));
 
     it('should display an error message when global error matcher returns true', fakeAsync(() => {
@@ -651,14 +581,10 @@ describe('DtFormField with forms', () => {
       const testComponent = fixture.componentInstance;
 
       // Expect the control to still be untouched but the error to show due to the global setting
-      expect(testComponent.formControl.untouched).toBe(
-        true,
-        'Expected untouched form control',
-      );
-      expect(containerEl.querySelectorAll('dt-error').length).toBe(
-        1,
-        'Expected an error message',
-      );
+      // Expected untouched form control
+      expect(testComponent.formControl.untouched).toBe(true);
+      // Expected an error message
+      expect(containerEl.querySelectorAll('dt-error').length).toBe(1);
     }));
   });
 
@@ -684,20 +610,14 @@ describe('DtFormField with forms', () => {
     const formFieldEl = fixture.debugElement.query(By.css('.dt-form-field'))
       .nativeElement;
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-
-    expect(formFieldEl.classList).not.toContain(
-      'dt-form-field-disabled',
-      `Expected form field not to start out disabled.`,
-    );
+    // Expected form field not to start out disabled.
+    expect(formFieldEl.classList).not.toContain('dt-form-field-disabled');
     expect(inputEl.disabled).toBe(false);
 
     fixture.componentInstance.formControl.disable();
     fixture.detectChanges();
-
-    expect(formFieldEl.classList).toContain(
-      'dt-form-field-disabled',
-      `Expected form field to look disabled after disable() is called.`,
-    );
+    // Expected form field to look disabled after disable() is called.
+    expect(formFieldEl.classList).toContain('dt-form-field-disabled');
     expect(inputEl.disabled).toBe(true);
   }));
 });

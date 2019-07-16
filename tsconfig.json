@@ -25,6 +25,7 @@
     "paths": {
       "@dynatrace/angular-components": ["src/lib"],
       "@dynatrace/angular-components/*": ["src/lib/*"],
+      "@dynatrace/angular-components/testing": ["src/testing/*"],
       "highcharts": ["node_modules/highcharts"]
     },
     "strictNullChecks": true,

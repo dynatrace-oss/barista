@@ -77,7 +77,7 @@ describe('DtFilterFieldTag', () => {
   });
 
   it('should emit the edit event when clicking the label', fakeAsync(() => {
-    const editSpy = jasmine.createSpy('filter field tag edit spy');
+    const editSpy = jest.fn();
     const editSubscription = filterFieldTag.edit.subscribe(editSpy);
 
     editButton.click();
@@ -89,7 +89,7 @@ describe('DtFilterFieldTag', () => {
   }));
 
   it('should emit the remove event when clicking the button', fakeAsync(() => {
-    const removeSpy = jasmine.createSpy('filter field tag remove spy');
+    const removeSpy = jest.fn();
     const removeSubscription = filterFieldTag.remove.subscribe(removeSpy);
 
     removeButton.click();
@@ -101,8 +101,8 @@ describe('DtFilterFieldTag', () => {
   }));
 
   it('should not emit remove and edit events when disabled', fakeAsync(() => {
-    const editSpy = jasmine.createSpy('filter field tag edit spy');
-    const removeSpy = jasmine.createSpy('filter field tag remove spy');
+    const editSpy = jest.fn();
+    const removeSpy = jest.fn();
     const editSubscription = filterFieldTag.edit.subscribe(editSpy);
     const removeSubscription = filterFieldTag.remove.subscribe(removeSpy);
 

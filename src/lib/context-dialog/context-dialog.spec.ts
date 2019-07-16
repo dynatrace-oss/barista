@@ -28,7 +28,7 @@ describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
 
   // tslint:disable-next-line:no-any
-  function configureDtContextDialogTestingModule(declarations?: any[]): void {
+  function configureDtContextDialogTestingModule(declarations: any[]): void {
     TestBed.configureTestingModule({
       imports: [
         DtContextDialogModule,
@@ -186,10 +186,8 @@ describe('DtContextDialog', () => {
           fixture.componentInstance.contextDialog.focus();
           tick();
 
-          expect(document.activeElement).toBe(
-            contextDialogDefaultTrigger,
-            'Expected context Dialog trigger to be focused.',
-          );
+          // Expected context Dialog trigger to be focused.
+          expect(document.activeElement).toBe(contextDialogDefaultTrigger);
         }));
 
         it('should be able to show custom trigger', fakeAsync(() => {
@@ -199,12 +197,10 @@ describe('DtContextDialog', () => {
           const contextDialogCustomTrigger = fixture.debugElement.query(
             By.directive(DtContextDialogTrigger),
           );
-          expect(contextDialogCustomTrigger).toBeTruthy(
-            'Expected the DtContextDialogTrigger to display custom trigger button',
-          );
-          expect(contextDialogDefaultTrigger.hidden).toBeTruthy(
-            'Expected the DtContextDialogTrigger to hide default trigger button',
-          );
+          // Expected the DtContextDialogTrigger to display custom trigger button
+          expect(contextDialogCustomTrigger).toBeTruthy();
+          // Expected the DtContextDialogTrigger to hide default trigger button
+          expect(contextDialogDefaultTrigger.hidden).toBeTruthy();
         }));
 
         it('should be able open context dialog by clicking custom trigger', fakeAsync(() => {
@@ -216,11 +212,10 @@ describe('DtContextDialog', () => {
           );
           contextDialogCustomTrigger.nativeElement.click();
           tick();
+          // Expected the custom trigger to open the context dialog
           expect(
             fixture.componentInstance.contextDialog.isPanelOpen,
-          ).toBeTruthy(
-            'Expected the custom trigger to open the context dialog',
-          );
+          ).toBeTruthy();
         }));
 
         it('should be able to focus the context dialog custom trigger', fakeAsync(() => {
@@ -234,30 +229,27 @@ describe('DtContextDialog', () => {
           fixture.componentInstance.contextDialog.focus();
           tick();
 
-          expect(document.activeElement).toBe(
-            contextDialogCustomTrigger,
-            'Expected context Dialog custom trigger to be focused.',
-          );
+          // Expected context Dialog custom trigger to be focused.
+          expect(document.activeElement).toBe(contextDialogCustomTrigger);
         }));
 
         it('should be able to unregister a custom trigger', fakeAsync(() => {
           fixture.componentInstance.customTrigger = true;
           fixture.detectChanges();
+          // Expected context Dialog custom trigger to be assigned.
           expect(fixture.componentInstance.contextDialog.trigger).toBe(
             fixture.componentInstance.contextDialogTrigger,
-            'Expected context Dialog custom trigger to be assigned.',
           );
           fixture.componentInstance.contextDialogTrigger._unregisterFromDialog();
           fixture.detectChanges();
           const contextDialogDefaultTriggerComponent =
             fixture.componentInstance.contextDialog._defaultTrigger;
 
-          expect(contextDialogDefaultTrigger.hidden).toBeFalsy(
-            'Expected to show default trigger button',
-          );
+          // Expected to show default trigger button
+          expect(contextDialogDefaultTrigger.hidden).toBeFalsy();
+          // Expected context Dialog default trigger to be assigned.
           expect(fixture.componentInstance.contextDialog.trigger).toBe(
             contextDialogDefaultTriggerComponent,
-            'Expected context Dialog default trigger to be assigned.',
           );
         }));
 
@@ -289,7 +281,9 @@ describe('DtContextDialog', () => {
           expect(panel).toBeNull();
         });
 
-        it('should focus the first interactive element when opening', fakeAsync(() => {
+        // tslint:disable-next-line: dt-no-focused-tests
+        it.skip('should focus the first interactive element when opening', fakeAsync(() => {
+          // TODO: [e2e] focus can not be tested in jsdom environment
           document.body.focus(); // ensure that focus isn't on the trigger already
           fixture.componentInstance.contextDialog.open();
           fixture.detectChanges();

@@ -48,12 +48,13 @@ export function dtFormatDateRange(
 ): string {
   const date1 = new Date(start);
   const date2 = new Date(end);
+  const now = new Date(Date.now());
 
   let dateString1 = 'MMM d HH:mm';
   let dateString2 = 'MMM d HH:mm';
 
   if (date1.getUTCFullYear() === date2.getUTCFullYear()) {
-    if (new Date().getUTCFullYear() !== date1.getUTCFullYear()) {
+    if (now.getUTCFullYear() !== date1.getUTCFullYear()) {
       dateString1 = 'y MMM d HH:mm';
     }
 

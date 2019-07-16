@@ -10,9 +10,8 @@ import {
   DtBreadcrumbsItem,
   DtBreadcrumbsModule,
 } from '@dynatrace/angular-components';
-import { identity } from 'rxjs';
-import { instance, mock, when } from 'ts-mockito';
 import { createComponent } from '../../../testing/create-component';
+import { createMouseEvent } from '../../../testing/event-objects';
 
 describe('DtBreadcrumbsItem', () => {
   describe('Router provided', () => {
@@ -41,8 +40,9 @@ describe('DtBreadcrumbsItem', () => {
       component.text = 'test label';
       fixture.detectChanges();
 
-      const linkElement = fixture.debugElement.query(By.css('a'));
-      expect(linkElement.nativeElement.innerText).toBe('test label');
+      const compiled = fixture.debugElement.nativeElement;
+      const link = compiled.querySelector('a');
+      expect(link.textContent).toMatch(/test label/);
     });
 
     describe('href attribute', () => {
@@ -161,31 +161,14 @@ describe('DtBreadcrumbsItem', () => {
     });
 
     describe('link click handler', () => {
-      [
-        {
-          meta: true,
-          shift: false,
-          ctrl: false,
-          description: 'meta',
-        },
-        {
-          meta: false,
-          shift: true,
-          ctrl: false,
-          description: 'shift',
-        },
-        {
-          meta: false,
-          shift: false,
-          ctrl: true,
-          description: 'ctrl',
-        },
-      ].forEach(btnsPressed => {
-        it(`should bubble the event if ${btnsPressed.description} key is pressed`, () => {
-          // given
-          const { meta, shift, ctrl } = btnsPressed;
-          const event = mockMouseEvent(meta, shift, ctrl);
-          spyOn(router, 'navigateByUrl');
+      ['metaKey', 'shiftKey', 'ctrlKey'].forEach(key => {
+        it(`should bubble the event if ${key} key is pressed`, () => {
+          const event = createMouseEvent('click');
+          const spied = jest
+            .spyOn(event, key as any, 'get')
+            .mockImplementation(() => true);
+
+          jest.spyOn(router, 'navigateByUrl');
 
           const fixture = TestBed.createComponent(TestBreadcrumbsItem);
           const component = fixture.componentInstance;
@@ -200,13 +183,15 @@ describe('DtBreadcrumbsItem', () => {
           expect(bubbled).toBeTruthy();
           // tslint:disable-next-line no-unbound-method
           expect(router.navigateByUrl).not.toHaveBeenCalled();
+
+          spied.mockClear();
         });
       });
 
       it('should bubble the event if external', () => {
         // given
-        const event = mockMouseEvent();
-        spyOn(router, 'navigateByUrl');
+        const event = createMouseEvent('click');
+        jest.spyOn(router, 'navigateByUrl');
         const fixture = TestBed.createComponent(TestBreadcrumbsItem);
         const component = fixture.componentInstance;
 
@@ -225,8 +210,10 @@ describe('DtBreadcrumbsItem', () => {
 
       it('should handle navigation if link is internal', () => {
         // given
-        const event = mockMouseEvent();
-        spyOn(router, 'navigateByUrl');
+        const event = createMouseEvent('click');
+        jest
+          .spyOn(router, 'navigateByUrl')
+          .mockImplementation(async () => Promise.resolve(true));
         const fixture = TestBed.createComponent(TestBreadcrumbsItem);
         const component = fixture.componentInstance;
 
@@ -332,19 +319,3 @@ class EmptyBreadcrumbsItem {}
   template: '',
 })
 class EmptyComponent {}
-
-const mockMouseEvent = (
-  metaKey?: boolean,
-  shiftKey?: boolean,
-  ctrlKey?: boolean,
-): MouseEvent => {
-  const event = mock(MouseEvent);
-  when(event.button).thenReturn(
-    [metaKey, shiftKey, ctrlKey].filter(identity).length,
-  );
-  when(event.metaKey).thenReturn(metaKey || false);
-  when(event.shiftKey).thenReturn(shiftKey || false);
-  when(event.ctrlKey).thenReturn(ctrlKey || false);
-
-  return instance(event);
-};

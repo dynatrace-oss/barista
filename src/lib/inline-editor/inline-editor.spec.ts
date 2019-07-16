@@ -62,16 +62,14 @@ describe('DtInlineEditor', () => {
     expect(instance.idle).toBeTruthy();
     fixture.detectChanges();
     const textReference = fixture.debugElement.query(By.css('span'));
-    expect(textReference.nativeElement.innerText).toBe(
-      'content',
-      'Expected inner text to reflect ngModel value',
-    );
+    // Expected inner text to reflect ngModel value
+    expect(textReference.nativeElement.textContent.trim()).toBe('content');
 
     const buttonReference = fixture.debugElement.query(By.css('button'));
 
+    // Expected aria-label to be "edit"
     expect(buttonReference.nativeElement.getAttribute('aria-label')).toBe(
       'edit',
-      'Expected aria-label to be "edit"',
     );
   }));
 
@@ -103,10 +101,7 @@ describe('DtInlineEditor', () => {
     instance.saveAndQuitEditing();
     fixture.detectChanges();
 
-    expect(fixture.componentInstance.model).toBe(
-      'hola',
-      'Expected inner text to be changed',
-    );
+    expect(fixture.componentInstance.model).toBe('hola');
   }));
 
   it('should cancel changes', fakeAsync(() => {
@@ -124,10 +119,7 @@ describe('DtInlineEditor', () => {
     instance.cancelAndQuitEditing();
     fixture.detectChanges();
 
-    expect(fixture.componentInstance.model).toBe(
-      'content',
-      'Expected inner text to be changed',
-    );
+    expect(fixture.componentInstance.model).toBe('content');
   }));
 
   it('should toggle aria-invalid accordingly if required state is set', fakeAsync(() => {
@@ -140,23 +132,14 @@ describe('DtInlineEditor', () => {
     const inputElement = fixture.debugElement.query(By.css('input'))
       .nativeElement;
 
-    expect(inputElement.getAttribute('aria-required')).toBe(
-      'true',
-      'Expected aria-required to reflect required state',
-    );
-    expect(inputElement.getAttribute('aria-invalid')).toBe(
-      'false',
-      'Expected aria-invalid to be false',
-    );
+    expect(inputElement.getAttribute('aria-required')).toBe('true');
+    expect(inputElement.getAttribute('aria-invalid')).toBe('false');
 
     inputElement.value = '';
     dispatchFakeEvent(inputElement, 'input');
     fixture.detectChanges();
 
-    expect(inputElement.getAttribute('aria-invalid')).toBe(
-      'true',
-      'Expected aria-invalid to be true',
-    );
+    expect(inputElement.getAttribute('aria-invalid')).toBe('true');
   }));
 
   it('should displayerror message based on errorStateMatcher', fakeAsync(() => {
@@ -173,27 +156,23 @@ describe('DtInlineEditor', () => {
     const inputElement = fixture.debugElement.query(By.css('input'))
       .nativeElement;
 
-    expect(inputElement.getAttribute('aria-invalid')).toBe(
-      'false',
-      'Expected aria-invalid to be false',
-    );
+    expect(inputElement.getAttribute('aria-invalid')).toBe('false');
 
+    // Expected zero error messages to have been rendered.
     expect(
       fixture.debugElement.nativeElement.querySelectorAll('dt-error').length,
-    ).toBe(0, 'Expected zero error messages to have been rendered.');
+    ).toBe(0);
 
     component.errorState = true;
     dispatchFakeEvent(inputElement, 'input');
     fixture.detectChanges();
 
-    expect(inputElement.getAttribute('aria-invalid')).toBe(
-      'true',
-      'Expected aria-invalid to be true',
-    );
+    expect(inputElement.getAttribute('aria-invalid')).toBe('true');
 
+    // Expected one error messages to have been rendered.
     expect(
       fixture.debugElement.nativeElement.querySelectorAll('dt-error').length,
-    ).toBe(1, 'Expected one error messages to have been rendered.');
+    ).toBe(1);
   }));
 
   it('should call save method and apply changes', fakeAsync(() => {
@@ -211,10 +190,7 @@ describe('DtInlineEditor', () => {
 
     instance.saveAndQuitEditing();
     fixture.detectChanges();
-    expect(fixture.componentInstance.model).toBe(
-      'hola',
-      'Make sure model has be applied',
-    );
+    expect(fixture.componentInstance.model).toBe('hola');
   }));
 
   it('should not update the model if save has not been called', () => {
@@ -229,10 +205,7 @@ describe('DtInlineEditor', () => {
     inputReference.nativeElement.value = 'hola';
     fixture.detectChanges();
 
-    expect(fixture.componentInstance.model).toBe(
-      'content',
-      'Make sure model has not yet be applied',
-    );
+    expect(fixture.componentInstance.model).toBe('content');
   });
 
   it('should call save method and reject changes and return to editing', () => {
@@ -250,7 +223,7 @@ describe('DtInlineEditor', () => {
   it('should call the save method and quit editing when pressing the Enter key', () => {
     const fixture = createComponent(TestApp);
     const instance = fixture.componentInstance.inlineEditor;
-    spyOn(instance, 'saveAndQuitEditing');
+    jest.spyOn(instance, 'saveAndQuitEditing').mockImplementation(() => {});
 
     instance.enterEditing();
     fixture.detectChanges();
@@ -268,7 +241,7 @@ describe('DtInlineEditor', () => {
   it('should call the cancel method and quit editing when pressing the ESC key', () => {
     const fixture = createComponent(TestApp);
     const instance = fixture.componentInstance.inlineEditor;
-    spyOn(instance, 'cancelAndQuitEditing');
+    jest.spyOn(instance, 'cancelAndQuitEditing').mockImplementation(() => {});
 
     instance.enterEditing();
     fixture.detectChanges();

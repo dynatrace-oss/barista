@@ -52,6 +52,8 @@
     "@angular/router": "~8.0.0",
     "@dynatrace/angular-lint-rules": "^0.6.0",
     "@dynatrace/dt-iconpack": "^2.0.22",
+    "@nrwl/jest": "^8.2.0",
+    "@nrwl/workspace": "^8.2.0",
     "@types/chalk": "^0.4.31",
     "@types/cross-spawn": "^6.0.0",
     "@types/fs-extra": "^5.0.0",
@@ -59,7 +61,7 @@
     "@types/gulp": "^4.0.6",
     "@types/highcharts": "^5.0.20",
     "@types/inquirer": "^0.0.43",
-    "@types/jasmine": "^3.3.8",
+    "@types/jest": "^24.0.15",
     "@types/lodash": "^4.14.134",
     "@types/sass-graph": "^2.1.2",
     "@types/stylelint": "^9.10.0",
@@ -77,14 +79,11 @@
     "highcharts": "^6.0.7",
     "husky": "^3.0.0",
     "inquirer": "^6.2.1",
-    "jasmine-core": "^3.4.0",
     "jasmine-reporters": "^2.3.2",
-    "karma": "^4.1.0",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage-istanbul-reporter": "^2.0.1",
-    "karma-jasmine": "^2.0.1",
-    "karma-junit-reporter": "^1.2.0",
-    "karma-sonarqube-unit-reporter": "^0.0.18",
+    "jest": "^24.8.0",
+    "jest-junit": "^6.4.0",
+    "jest-preset-angular": "^7.1.1",
+    "jest-sonar-reporter": "^2.0.0",
     "merge2": "^1.2.3",
     "minimatch": "^3.0.4",
     "ng-packagr": "^5.3.0",
@@ -101,7 +100,6 @@
     "stylelint-config-prettier": "^5.2.0",
     "stylelint-prettier": "^1.1.1",
     "stylelint-scss": "^3.9.1",
-    "ts-mockito": "^2.3.0",
     "ts-node": "^7.0.0",
     "tsconfig-paths": "^2.3.0",
     "tsickle": "^0.35.0",
@@ -123,5 +121,9 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "jestSonar": {
+    "reportPath": "dist/sonar-test-results/",
+    "reportFile": "unit-tests.xml"
   }
 }

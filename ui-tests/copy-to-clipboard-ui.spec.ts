@@ -8,7 +8,7 @@ describe('CopyToClipboard UI Test', () => {
   it('should copy something to the clipboard', () => {
     expect(
       element(by.css('.dt-copy-to-clipboard-btn-button')).getSize(),
-    ).toBeDefined('Not defined');
+    ).toBeDefined();
     const button = element(by.css('.dt-copy-to-clipboard-btn-button'));
     button.getWebElement().click();
 

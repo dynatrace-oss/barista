@@ -62,7 +62,7 @@ describe('DtTreeTable', () => {
     it('with rendered rows', () => {
       const rows = getRows(treeTableElement);
 
-      expect(rows).toBeDefined('Expect rows to be defined');
+      expect(rows).toBeDefined();
       expect(rows[0].classList).toContain('customRowClass');
     });
 
@@ -77,10 +77,7 @@ describe('DtTreeTable', () => {
     it('should expand/collapse the node', () => {
       expect(underlyingDataSource.data.length).toBe(3);
 
-      expect(component.treeControl.expansionModel.selected.length).toBe(
-        0,
-        `Expect no expanded node`,
-      );
+      expect(component.treeControl.expansionModel.selected.length).toBe(0);
 
       fixture.detectChanges();
 
@@ -94,10 +91,7 @@ describe('DtTreeTable', () => {
       (getToggles(treeTableElement)[2] as HTMLElement).click();
       fixture.detectChanges();
 
-      expect(component.treeControl.expansionModel.selected.length).toBe(
-        1,
-        `Expect node expanded one level`,
-      );
+      expect(component.treeControl.expansionModel.selected.length).toBe(1);
       expectTreeTableToMatch(treeTableElement, [
         { cells: ['topping_1', 'cheese_1'], level: 0 },
         { cells: ['topping_2', 'cheese_2'], level: 0 },
@@ -108,10 +102,7 @@ describe('DtTreeTable', () => {
       (getToggles(treeTableElement)[3] as HTMLElement).click();
       fixture.detectChanges();
 
-      expect(component.treeControl.expansionModel.selected.length).toBe(
-        2,
-        `Expect node expanded`,
-      );
+      expect(component.treeControl.expansionModel.selected.length).toBe(2);
       expectTreeTableToMatch(treeTableElement, [
         { cells: ['topping_1', 'cheese_1'], level: 0 },
         { cells: ['topping_2', 'cheese_2'], level: 0 },
@@ -180,7 +171,7 @@ describe('DtTreeTable', () => {
       it('with rendered rows', () => {
         const rows = getRows(treeTableElement);
 
-        expect(rows).toBeDefined('Expect rows to be defined');
+        expect(rows).toBeDefined();
         expect(rows[0].classList).toContain('customRowClass');
       });
     });
