@@ -35,10 +35,10 @@ describe('DtKeyValueList', () => {
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
         'dt-key-value-list',
       );
-      expect(tileNativeElement).toBeDefined('Element not found');
-      expect(tileNativeElement.getAttribute('dt-column') === '1').toBeTruthy(
-        'Key Value list must contain 1 column',
-      );
+      // Element not found
+      expect(tileNativeElement).toBeDefined();
+      // Key Value list must contain 1 column
+      expect(tileNativeElement.getAttribute('dt-column') === '1').toBeTruthy();
     });
 
     it('two columns should be used', () => {
@@ -46,20 +46,16 @@ describe('DtKeyValueList', () => {
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
         'dt-key-value-list',
       );
-      expect(tileNativeElement).toBeDefined('Element not found');
-      expect(tileNativeElement.getAttribute('dt-column') === '2').toBeTruthy(
-        'Key Value list must contain 2 columns',
-      );
+      expect(tileNativeElement).toBeDefined();
+      expect(tileNativeElement.getAttribute('dt-column') === '2').toBeTruthy();
     });
     it('three columns should be used', () => {
       const fixture = createComponent(TestAppThreeColumns);
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
         'dt-key-value-list',
       );
-      expect(tileNativeElement).toBeDefined('Element not found');
-      expect(tileNativeElement.getAttribute('dt-column') === '3').toBeTruthy(
-        'Key Value list must contain 3 columns',
-      );
+      expect(tileNativeElement).toBeDefined();
+      expect(tileNativeElement.getAttribute('dt-column') === '3').toBeTruthy();
     });
 
     it('six columns should be used', () => {
@@ -67,10 +63,8 @@ describe('DtKeyValueList', () => {
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
         'dt-key-value-list',
       );
-      expect(tileNativeElement).toBeDefined('Element not found');
-      expect(tileNativeElement.getAttribute('dt-column') === '6').toBeTruthy(
-        'Key Value list must contain 6 columns',
-      );
+      expect(tileNativeElement).toBeDefined();
+      expect(tileNativeElement.getAttribute('dt-column') === '6').toBeTruthy();
     });
 
     it('six columns should be used although columns is set to 10', () => {
@@ -78,10 +72,8 @@ describe('DtKeyValueList', () => {
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
         'dt-key-value-list',
       );
-      expect(tileNativeElement).toBeDefined('Element not found');
-      expect(tileNativeElement.getAttribute('dt-column') === '6').toBeTruthy(
-        'Key Value list must contain 6 columns',
-      );
+      expect(tileNativeElement).toBeDefined();
+      expect(tileNativeElement.getAttribute('dt-column') === '6').toBeTruthy();
     });
 
     it('three columns should be used although columns is set to 3.3', () => {
@@ -89,10 +81,8 @@ describe('DtKeyValueList', () => {
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
         'dt-key-value-list',
       );
-      expect(tileNativeElement).toBeDefined('Element not found');
-      expect(tileNativeElement.getAttribute('dt-column') === '3').toBeTruthy(
-        'Key Value list must contain 3 columns',
-      );
+      expect(tileNativeElement).toBeDefined();
+      expect(tileNativeElement.getAttribute('dt-column') === '3').toBeTruthy();
     });
 
     it('single column should be used although columns is set to -6', () => {
@@ -100,10 +90,8 @@ describe('DtKeyValueList', () => {
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
         'dt-key-value-list',
       );
-      expect(tileNativeElement).toBeDefined('Element not found');
-      expect(tileNativeElement.getAttribute('dt-column') === '1').toBeTruthy(
-        'Key Value list must contain 1 column',
-      );
+      expect(tileNativeElement).toBeDefined();
+      expect(tileNativeElement.getAttribute('dt-column') === '1').toBeTruthy();
     });
 
     it('is changed during runtime to two columns', () => {
@@ -113,9 +101,7 @@ describe('DtKeyValueList', () => {
       );
       fixture.componentInstance.colNo = 2;
       fixture.detectChanges();
-      expect(tileNativeElement.getAttribute('dt-column') === '2').toBeTruthy(
-        'Key Value list must contain 2 columns',
-      );
+      expect(tileNativeElement.getAttribute('dt-column') === '2').toBeTruthy();
     });
 
     it('is changed during runtime to two columns', () => {
@@ -123,14 +109,10 @@ describe('DtKeyValueList', () => {
       const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
         'dt-key-value-list',
       );
-      expect(tileNativeElement.getAttribute('dt-column') === '2').toBeTruthy(
-        'Key Value list must contain 2 columns',
-      );
+      expect(tileNativeElement.getAttribute('dt-column') === '2').toBeTruthy();
       fixture.componentInstance.items = new Array(20);
       fixture.detectChanges();
-      expect(tileNativeElement.getAttribute('dt-column') === '3').toBeTruthy(
-        'Key Value list must contain 3 columns',
-      );
+      expect(tileNativeElement.getAttribute('dt-column') === '3').toBeTruthy();
     });
   });
 

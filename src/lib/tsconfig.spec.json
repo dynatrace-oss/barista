@@ -1,33 +1,10 @@
 {
   "extends": "../../tsconfig.json",
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "importHelpers": false,
-    "module": "commonjs",
-    "target": "es5",
-    "types": ["jasmine"],
-    "paths": {
-      "@dynatrace/angular-components": ["."],
-      "@dynatrace/angular-components/*": ["./*"]
-    },
-    "rootDir": "..",
     "outDir": "../../dist/unit-test",
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"]
+    "module": "commonjs",
+    "types": ["jest", "node"]
   },
-  "angularCompilerOptions": {
-    "strictMetadataEmit": true,
-    "skipTemplateCodegen": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "fullTemplateTypeCheck": true
-  },
-  "files": ["test.ts"],
+  "files": ["test-setup.ts"],
   "include": ["**/*.spec.ts", "../../typings.d.ts"]
 }

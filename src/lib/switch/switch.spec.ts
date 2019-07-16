@@ -174,7 +174,7 @@ describe('DtSwitch', () => {
       // Since we're using a label element and a visual hidden input, this behavior can led
       // to an issue, where the click events on the checkbox are getting executed twice.
 
-      spyOn(testComponent, 'onSwitchClick');
+      jest.spyOn(testComponent, 'onSwitchClick');
 
       expect(inputElement.checked).toBe(false);
       expect(switchNativeElement.classList).not.toContain('dt-switch-checked');
@@ -189,7 +189,7 @@ describe('DtSwitch', () => {
     });
 
     it('should trigger a change event when the native input does', fakeAsync(() => {
-      spyOn(testComponent, 'onSwitchChange');
+      jest.spyOn(testComponent, 'onSwitchChange');
 
       expect(inputElement.checked).toBe(false);
       expect(switchNativeElement.classList).not.toContain('dt-switch-checked');
@@ -209,7 +209,7 @@ describe('DtSwitch', () => {
     }));
 
     it('should not trigger the change event by changing the native value', fakeAsync(() => {
-      spyOn(testComponent, 'onSwitchChange');
+      jest.spyOn(testComponent, 'onSwitchChange');
 
       expect(inputElement.checked).toBe(false);
       expect(switchNativeElement.classList).not.toContain('dt-switch-checked');
@@ -281,7 +281,7 @@ describe('DtSwitch', () => {
     });
 
     it('should emit the event to the change observable', () => {
-      const changeSpy = jasmine.createSpy('onChangeObservable');
+      const changeSpy = jest.fn();
 
       switchInstance.change.subscribe(changeSpy);
 
@@ -408,10 +408,7 @@ describe('DtSwitch', () => {
       const switchConst = fixture.debugElement.query(By.directive(DtSwitch))
         .componentInstance as DtSwitch<any>;
 
-      expect(switchConst.tabIndex).toBe(
-        5,
-        'Expected tabIndex property to have been set based on the native attribute',
-      );
+      expect(switchConst.tabIndex).toBe(5);
     }));
   });
 

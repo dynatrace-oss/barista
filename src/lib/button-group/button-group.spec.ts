@@ -107,7 +107,7 @@ describe('DtButtonGroup', () => {
     });
 
     it('should fire valueChange event', () => {
-      const spy = jasmine.createSpy(`onChangeSpy 0 for ${groupInstance}`);
+      const spy = jest.fn();
       groupInstance.valueChange.subscribe(spy);
 
       itemHtmlElements[1].click();

@@ -68,7 +68,7 @@ describe('DtOverlay', () => {
       '.dt-overlay-container',
     ) as HTMLElement;
     expect(overlay).toBeDefined();
-    expect(overlay.innerText).toEqual('overlay');
+    expect(overlay.textContent).toContain('overlay');
   });
 
   it('should create a new overlay from component', () => {
@@ -83,8 +83,8 @@ describe('DtOverlay', () => {
       '.dt-overlay-container',
     ) as HTMLElement;
     expect(overlay).toBeDefined();
-    expect(overlay.innerText.trim()).toEqual('dummy-overlay');
-    expect(ref.componentInstance instanceof DummyOverlay).toBe(true);
+    expect(overlay.textContent).toContain('dummy-overlay');
+    expect(ref.componentInstance).toBeInstanceOf(DummyOverlay);
   });
 
   it('should dismiss the overlay correctly', fakeAsync(() => {

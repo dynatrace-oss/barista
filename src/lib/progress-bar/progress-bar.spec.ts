@@ -118,17 +118,11 @@ describe('DtProgressBar', () => {
     );
     const instance = progressElement.componentInstance;
 
-    expect(instance.color).toBe(
-      'main',
-      'Expected the mixed-into class to have a color property',
-    );
+    expect(instance.color).toBe('main');
 
     instance.color = 'accent';
 
-    expect(instance.color).toBe(
-      'accent',
-      'Expected the mixed-into class to have an updated color property',
-    );
+    expect(instance.color).toBe('accent');
   });
 
   it('should remove old color classes if new color is set', () => {
@@ -139,25 +133,20 @@ describe('DtProgressBar', () => {
     );
     const instance = progressElement.componentInstance;
 
-    expect(progressElement.nativeElement.classList).toContain(
-      'dt-color-main',
-      'Expected the element to have the "dt-color-main" class set',
-    );
+    expect(progressElement.nativeElement.classList).toContain('dt-color-main');
 
     instance.color = 'accent';
 
     expect(progressElement.nativeElement.classList).not.toContain(
       'dt-color-main',
-      'Expected the element to no longer have "dt-color-main" set.',
     );
     expect(progressElement.nativeElement.classList).toContain(
       'dt-color-accent',
-      'Expected the element to have the "dt-color-accent" class set',
     );
   });
 
   it('should fire valueChange event', () => {
-    const spy = jasmine.createSpy();
+    const spy = jest.fn();
     const fixture = TestBed.createComponent(ColorProgressBar);
     const progressElement = fixture.debugElement.query(
       By.css('dt-progress-bar'),

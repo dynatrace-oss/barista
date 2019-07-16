@@ -43,16 +43,19 @@ describe('Selection Area Streams', () => {
   let selectionArea: HTMLElement;
   let testScheduler: TestScheduler;
   let mouseMoveXFn: () => Observable<MouseEvent>;
+  let relativeMousePositionSpy: jest.SpyInstance;
 
   beforeEach(() => {
     // tslint:disable ban
     selectionArea = document.createElement('div');
-    spyOn(selectionArea, 'getBoundingClientRect').and.returnValue(
-      MOCK_BOUNDING_CLIENT_RECT,
-    );
-    spyOn<any>(selectionArea, 'clientWidth').and.returnValue(
-      MOCK_BOUNDING_CLIENT_RECT.width,
-    );
+
+    relativeMousePositionSpy = jest
+      .spyOn(utils, 'getRelativeMousePosition')
+      .mockImplementation(event => ({
+        x: event.clientX - MOCK_BOUNDING_CLIENT_RECT.left,
+        y: event.clientY - MOCK_BOUNDING_CLIENT_RECT.top,
+      }));
+
     // Set up the TestScheduler to assert with the framework your using (Jasmine in this case)
     testScheduler = new TestScheduler((actual, expected) => {
       expect(actual).toEqual(expected);
@@ -61,9 +64,13 @@ describe('Selection Area Streams', () => {
     // create a mocked mouseMove function
     mouseMoveXFn = () =>
       interval(1).pipe(
-        map(curX => createMouseEvent('mousemove', curX + 401, 300)),
+        map(curX => createMouseEvent('mousemove', curX + 201, 100)),
         take(4),
       );
+  });
+
+  afterEach(() => {
+    relativeMousePositionSpy.mockClear();
   });
 
   it('should creat a drag stream', () => {
@@ -79,7 +86,9 @@ describe('Selection Area Streams', () => {
 
   it('should create a mousemove stream', () => {
     // mock the capture and merge events to return our faked mousemove
-    spyOn(utils, 'captureAndMergeEvents').and.returnValue(mouseMoveXFn());
+    const utilaSpy = jest
+      .spyOn(utils, 'captureAndMergeEvents')
+      .mockReturnValue(mouseMoveXFn());
 
     testScheduler.run(({ expectObservable }) => {
       expectObservable(getMouseMove(selectionArea, [selectionArea])).toBe(
@@ -91,14 +100,18 @@ describe('Selection Area Streams', () => {
         selectionArea,
       ]);
     });
+
+    utilaSpy.mockClear();
   });
 
   it('should create a mousedown stream', () => {
-    const fakeMouseDown = createMouseEvent('mousedown', 400, 300);
+    const fakeMouseDown = createMouseEvent('mousedown', 200, 100);
 
     // mock the capture and merge events to return our faked mousemove
-    spyOn(utils, 'captureAndMergeEvents').and.returnValue(of(fakeMouseDown));
-    spyOn(core, 'removeCssClass').and.callThrough();
+    const captureSpy = jest
+      .spyOn(utils, 'captureAndMergeEvents')
+      .mockReturnValue(of(fakeMouseDown));
+    const coreSpy = jest.spyOn(core, 'removeCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(getMouseDownStream(selectionArea, [selectionArea])).toBe(
@@ -117,12 +130,15 @@ describe('Selection Area Streams', () => {
         selectionArea,
       ]);
     });
+
+    coreSpy.mockClear();
+    captureSpy.mockClear();
   });
 
   it('should create a mouseup stream that triggers a side effect', () => {
     const fakeMouseUp = createMouseEvent('mouseup');
 
-    spyOn(core, 'addCssClass').and.callThrough();
+    const coreSpy = jest.spyOn(core, 'addCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
@@ -137,6 +153,8 @@ describe('Selection Area Streams', () => {
         NO_POINTER_EVENTS_CLASS,
       );
     });
+
+    coreSpy.mockClear();
   });
 
   it('should not create a mousedown stream when the left mouse button is pressed', () => {
@@ -148,10 +166,10 @@ describe('Selection Area Streams', () => {
       true /* cancelable */,
       window /* view */,
       0 /* detail */,
-      400 /* screen400 */,
-      300 /* screenY */,
-      400 /* clientX */,
-      300 /* clientY */,
+      200 /* screen400 */,
+      100 /* screenY */,
+      200 /* clientX */,
+      100 /* clientY */,
       false /* ctrlKey */,
       false /* altKey */,
       false /* shiftKey */,
@@ -161,8 +179,10 @@ describe('Selection Area Streams', () => {
     );
 
     // mock the capture and merge events to return our faked mousemove
-    spyOn(utils, 'captureAndMergeEvents').and.returnValue(of(fakeMouseDown));
-    spyOn(core, 'removeCssClass').and.callThrough();
+    const captureSpy = jest
+      .spyOn(utils, 'captureAndMergeEvents')
+      .mockReturnValue(of(fakeMouseDown));
+    const cssClassSpy = jest.spyOn(core, 'removeCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(getMouseDownStream(selectionArea, [selectionArea])).toBe(
@@ -176,10 +196,13 @@ describe('Selection Area Streams', () => {
         selectionArea,
       ]);
     });
+
+    captureSpy.mockClear();
+    cssClassSpy.mockClear();
   });
 
   it('should create a mouseOut stream that is outside the bounding client rect', () => {
-    const fakeMouseOut = createMouseEvent('mouseout', 400, 300);
+    const fakeMouseOut = createMouseEvent('mouseout', 200, 100);
 
     const fakeOut = {
       x: 600,
@@ -187,8 +210,12 @@ describe('Selection Area Streams', () => {
     };
 
     // mock the capture and merge events to return our faked mousemove
-    spyOn(utils, 'captureAndMergeEvents').and.returnValue(of(fakeMouseOut));
-    spyOn(utils, 'getRelativeMousePosition').and.returnValue(fakeOut);
+    const captureSpy = jest
+      .spyOn(utils, 'captureAndMergeEvents')
+      .mockReturnValue(of(fakeMouseOut));
+    const utilaSpy = jest
+      .spyOn(utils, 'getRelativeMousePosition')
+      .mockReturnValue(fakeOut);
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
@@ -209,6 +236,9 @@ describe('Selection Area Streams', () => {
         selectionArea,
       ]);
     });
+
+    captureSpy.mockClear();
+    utilaSpy.mockClear();
   });
 
   it('should filter a mouseOut stream that is not outside the bounding client rect', () => {
@@ -220,8 +250,12 @@ describe('Selection Area Streams', () => {
     };
 
     // mock the capture and merge events to return our faked mousemove
-    spyOn(utils, 'captureAndMergeEvents').and.returnValue(of(fakeMouseOut));
-    spyOn(utils, 'getRelativeMousePosition').and.returnValue(inside);
+    const captureSpy = jest
+      .spyOn(utils, 'captureAndMergeEvents')
+      .mockReturnValue(of(fakeMouseOut));
+    const utilaSpy = jest
+      .spyOn(utils, 'getRelativeMousePosition')
+      .mockReturnValue(inside);
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
@@ -242,6 +276,9 @@ describe('Selection Area Streams', () => {
         selectionArea,
       ]);
     });
+
+    captureSpy.mockClear();
+    utilaSpy.mockClear();
   });
 
   it('should create a click stream out of a mousedown and mouse up', () => {
@@ -250,10 +287,12 @@ describe('Selection Area Streams', () => {
     const clickStart$ = of(createMouseEvent('mousedown'));
     const clickEnd$ = of(clickEndEvent).pipe(delay(2));
 
-    spyOn(utils, 'getRelativeMousePosition').and.returnValue({
-      x: 100,
-      y: 100,
-    });
+    const utilSpy = jest
+      .spyOn(utils, 'getRelativeMousePosition')
+      .mockReturnValue({
+        x: 100,
+        y: 100,
+      });
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
@@ -267,14 +306,13 @@ describe('Selection Area Streams', () => {
         selectionArea,
       );
     });
+
+    utilSpy.mockClear();
   });
 
   it('should not create a click stream when the mouseup starts before the mouse down', () => {
     const clickStart$ = of(createMouseEvent('mousedown')).pipe(delay(1));
     const clickEnd$ = of(createMouseEvent('mouseup'));
-
-    spyOn(utils, 'getRelativeMousePosition');
-
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
         getClickStream(selectionArea, clickStart$, clickEnd$),
@@ -293,7 +331,7 @@ describe('Selection Area Streams', () => {
     const clickEnd$ = of(clickEndEvent).pipe(delay(5));
     const mouseMoveFn = () => of(createMouseEvent('mousemove')).pipe(delay(3));
 
-    spyOn(utils, 'getRelativeMousePosition');
+    jest.spyOn(utils, 'getRelativeMousePosition');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
@@ -316,9 +354,9 @@ describe('Selection Area Streams', () => {
     (fakeList.first as any) = 'FakeElementRef';
 
     // create fake operator function getElementRef that returns the fake element ref
-    spyOn(utils, 'getElementRef').and.callFake(() => input$ =>
-      input$.pipe(mapTo(fakeList.first)),
-    );
+    jest
+      .spyOn(utils, 'getElementRef')
+      .mockImplementation(() => input$ => input$.pipe(mapTo(fakeList.first)));
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(

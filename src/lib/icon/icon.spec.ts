@@ -106,10 +106,7 @@ describe('DtIcon', () => {
     const iconElement = fixture.debugElement.nativeElement.querySelector(
       'dt-icon',
     );
-    expect(iconElement.getAttribute('aria-hidden')).toBe(
-      'true',
-      'Expected the dt-icon element has aria-hidden="true" by default',
-    );
+    expect(iconElement.getAttribute('aria-hidden')).toBe('true');
   });
 
   it('should not override a user-provided aria-hidden attribute', () => {
@@ -117,10 +114,7 @@ describe('DtIcon', () => {
     const iconElement = fixture.debugElement.nativeElement.querySelector(
       'dt-icon',
     );
-    expect(iconElement.getAttribute('aria-hidden')).toBe(
-      'false',
-      'Expected the dt-icon element has the user-provided aria-hidden value',
-    );
+    expect(iconElement.getAttribute('aria-hidden')).toBe('false');
   });
 
   it('should clear the id attribute from the svg node', () => {

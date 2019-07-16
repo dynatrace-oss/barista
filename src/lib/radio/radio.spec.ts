@@ -169,9 +169,7 @@ describe('DtRadio', () => {
     it('should emit a change event from radio buttons', () => {
       expect(radioInstances[0].checked).toBe(false);
 
-      const spies = radioInstances.map((radio, index) =>
-        jasmine.createSpy(`onChangeSpy ${index} for ${radio.name}`),
-      );
+      const spies = radioInstances.map(() => jest.fn());
 
       spies.forEach((spy, index) =>
         radioInstances[index].change.subscribe(spy),
@@ -194,7 +192,7 @@ describe('DtRadio', () => {
     it(`should not emit a change event from the radio group when change group value programmatically`, () => {
       expect(groupInstance.value).toBeFalsy();
 
-      const changeSpy = jasmine.createSpy('radio-group change listener');
+      const changeSpy = jest.fn();
       groupInstance.change.subscribe(changeSpy);
 
       radioLabelElements[0].click();
@@ -239,7 +237,7 @@ describe('DtRadio', () => {
     });
 
     it(`should update the group's selected radio to null when unchecking that radio programmatically`, () => {
-      const changeSpy = jasmine.createSpy('radio-group change listener');
+      const changeSpy = jest.fn();
       groupInstance.change.subscribe(changeSpy);
       radioInstances[0].checked = true;
 
@@ -259,7 +257,7 @@ describe('DtRadio', () => {
     });
 
     it('should not fire a change event from the group when a radio checked state changes', () => {
-      const changeSpy = jasmine.createSpy('radio-group change listener');
+      const changeSpy = jest.fn();
       groupInstance.change.subscribe(changeSpy);
       radioInstances[0].checked = true;
 
@@ -278,42 +276,25 @@ describe('DtRadio', () => {
     });
 
     it(`should update checked status if changed value to radio group's value`, () => {
-      const changeSpy = jasmine.createSpy('radio-group change listener');
+      const changeSpy = jest.fn();
       groupInstance.change.subscribe(changeSpy);
       groupInstance.value = 'apple';
 
       expect(changeSpy).not.toHaveBeenCalled();
       expect(groupInstance.value).toBe('apple');
-      expect(groupInstance.selected).toBeFalsy(
-        'expect group selected to be null',
-      );
-      expect(radioInstances[0].checked).toBeFalsy(
-        'should not select the first button',
-      );
-      expect(radioInstances[1].checked).toBeFalsy(
-        'should not select the second button',
-      );
-      expect(radioInstances[2].checked).toBeFalsy(
-        'should not select the third button',
-      );
+      expect(groupInstance.selected).toBeFalsy();
+      expect(radioInstances[0].checked).toBeFalsy();
+      expect(radioInstances[1].checked).toBeFalsy();
+      expect(radioInstances[2].checked).toBeFalsy();
 
       radioInstances[0].value = 'apple';
 
       fixture.detectChanges();
 
-      expect(groupInstance.selected).toBe(
-        radioInstances[0],
-        'expect group selected to be first button',
-      );
-      expect(radioInstances[0].checked).toBeTruthy(
-        'expect group select the first button',
-      );
-      expect(radioInstances[1].checked).toBeFalsy(
-        'should not select the second button',
-      );
-      expect(radioInstances[2].checked).toBeFalsy(
-        'should not select the third button',
-      );
+      expect(groupInstance.selected).toBe(radioInstances[0]);
+      expect(radioInstances[0].checked).toBeTruthy();
+      expect(radioInstances[1].checked).toBeFalsy();
+      expect(radioInstances[2].checked).toBeFalsy();
     });
   });
 
@@ -703,18 +684,13 @@ describe('DtRadio', () => {
         By.css('.dt-radio-button input'),
       ).nativeElement as HTMLInputElement;
 
-      expect(radioButtonInput.tabIndex).toBe(
-        0,
-        'Expected the tabindex to be set to "0" by default.',
-      );
+      // Expected the tabindex to be set to "0" by default.
+      expect(radioButtonInput.tabIndex).toBe(0);
 
       fixture.componentInstance.tabIndex = 4;
       fixture.detectChanges();
 
-      expect(radioButtonInput.tabIndex).toBe(
-        4,
-        'Expected the tabindex to be set to "4".',
-      );
+      expect(radioButtonInput.tabIndex).toBe(4);
     });
   });
 

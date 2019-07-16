@@ -83,19 +83,11 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@nrwl/jest:jest",
           "options": {
-            "main": "src/lib/test.ts",
+            "jestConfig": "jest.config.js",
             "tsConfig": "src/lib/tsconfig.spec.json",
-            "karmaConfig": "test/karma.conf.js",
-            "codeCoverageExclude": [
-              "src/polyfills.ts",
-              "**/test.ts",
-              "**/*.spec.ts",
-              "**/*-module.ts",
-              "**/index.ts",
-              "**/testing/*"
-            ]
+            "setupFile": "src/lib/test-setup.ts"
           }
         }
       }

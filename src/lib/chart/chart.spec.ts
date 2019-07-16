@@ -110,7 +110,7 @@ describe('DtChart', () => {
       const fixture = createComponent(SeriesSingle);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      const spy = jasmine.createSpy('chart updated spy');
+      const spy = jest.fn();
       chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
       fixture.componentInstance.options = {
@@ -157,7 +157,7 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
-      const spy = jasmine.createSpy('chart updated spy');
+      const spy = jest.fn();
       chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
 
@@ -170,7 +170,7 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
-      const spy = jasmine.createSpy('chart updated spy');
+      const spy = jest.fn();
       chartComponent.updated.subscribe(spy);
       expect(spy).not.toHaveBeenCalled();
 
@@ -254,12 +254,10 @@ describe('DtChart', () => {
         By.css('.dt-chart-loading-indicator'),
       );
 
-      expect(loadingDebugElement).toBeDefined(
-        'Loading indicater should be visible',
-      );
-      expect(loadingDebugElement.nativeElement).toBeDefined(
-        'Loading indicater should be visible',
-      );
+      // Loading indicater should be visible
+      expect(loadingDebugElement).toBeDefined();
+      // Loading indicater should be visible
+      expect(loadingDebugElement.nativeElement).toBeDefined();
     });
 
     it('should display the loading indicator if the series array is empty', () => {
@@ -270,12 +268,11 @@ describe('DtChart', () => {
         By.css('.dt-chart-loading-indicator'),
       );
 
-      expect(loadingDebugElement).toBeDefined(
-        'Loading indicater should be visible',
-      );
-      expect(loadingDebugElement.nativeElement).toBeDefined(
-        'Loading indicater should be visible',
-      );
+      // Loading indicater should be visible
+      expect(loadingDebugElement).toBeDefined();
+
+      // Loading indicater should be visible
+      expect(loadingDebugElement.nativeElement).toBeDefined();
     });
 
     it('should not display the loading indicator if a series has been provided', () => {
@@ -292,9 +289,8 @@ describe('DtChart', () => {
         By.css('.dt-chart-loading-indicator'),
       );
 
-      expect(loadingDebugElement).toBeNull(
-        'Loading indicator should be hidden',
-      );
+      // Loading indicator should be hidden
+      expect(loadingDebugElement).toBeNull();
     });
 
     it('should hide the loading indicator once a series has been provided', () => {
@@ -302,12 +298,10 @@ describe('DtChart', () => {
       let loadingDebugElement = fixture.debugElement.query(
         By.css('.dt-chart-loading-indicator'),
       );
-      expect(loadingDebugElement).toBeDefined(
-        'Loading indicater should be visible',
-      );
-      expect(loadingDebugElement.nativeElement).toBeDefined(
-        'Loading indicater should be visible',
-      );
+      // Loading indicater should be visible
+      expect(loadingDebugElement).toBeDefined();
+      // Loading indicater should be visible
+      expect(loadingDebugElement.nativeElement).toBeDefined();
 
       fixture.componentInstance.series = [{}];
       fixture.detectChanges();
@@ -315,9 +309,8 @@ describe('DtChart', () => {
       loadingDebugElement = fixture.debugElement.query(
         By.css('.dt-chart-loading-indicator'),
       );
-      expect(loadingDebugElement).toBeNull(
-        'Loading indicator should be hidden',
-      );
+      // Loading indicator should be hidden
+      expect(loadingDebugElement).toBeNull();
     });
 
     it('should not have a loading text as default', () => {
