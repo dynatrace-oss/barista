@@ -1,3 +1,33 @@
+## 4.1.0 (2019-07-17)
+
+### Bug Fixes
+
+- **checkbox:** Fixes issue where the hover style was not applied because of a
+  wrong CSS selector
+- **context-dialog:** Fixes that the context dialog did not clear the overlay
+  correctly when closed by pressing ESC
+- **filter-field:** Fixes an issue where the filter field input value was not
+  reset correctly when an option was selected and the following options where
+  filtered incorrectly
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Fixes an issue where the original value was not restored
+  when cancelling a filter editing action
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **icon:** Fixes an issue where the default icon color was not applied
+  correctly ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **switch, radio, checkbox:** Fixes issue where styling of switch, radio and
+  checkbox was not aligned
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Features
+
+- The focus style of various components is now visible only programmatic or
+  keyboard interaction
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **context-dialog:** Adds an input to set custom css classes on the overlay
+  panel to scope styles better
+- **tabs:** Exposes currently registered tabs for testing purposes
+
 ## 4.0.1 (2019-07-10)
 
 ### Bug Fixes
