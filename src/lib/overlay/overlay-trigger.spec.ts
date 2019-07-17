@@ -309,6 +309,7 @@ function getOverlayPane(overlayContainerElement: HTMLElement): HTMLElement {
     >
       trigger
     </div>
+    <!-- prettier-ignore -->
     <ng-template #overlay>overlay<button>focusme</button></ng-template>
   `,
 })
