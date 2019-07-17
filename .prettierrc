@@ -9,6 +9,14 @@
     {
       "files": ".prettierrc",
       "options": { "parser": "json" }
+    },
+    {
+      "files": "*.html",
+      "options": { "htmlWhitespaceSensitivity": "css", "parser": "vue" }
+    },
+    {
+      "files": "*.spec.ts",
+      "options": { "htmlWhitespaceSensitivity": "css", "parser": "typescript" }
     }
   ]
 }
