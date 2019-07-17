@@ -48,12 +48,12 @@ describe('DtTable SimpleColumns', () => {
 
     it('should infer the header label from the passed name', () => {
       const headers = fixture.debugElement.queryAll(By.css('.dt-header-cell'));
-      expect(headers[0].nativeElement.textContent).toMatch(/^\s*host\s*$/);
+      expect(headers[0].nativeElement.textContent).toBe('host');
     });
 
     it('should use the label as header label when passed', () => {
       const headers = fixture.debugElement.queryAll(By.css('.dt-header-cell'));
-      expect(headers[1].nativeElement.textContent).toMatch(/^\s*Cpu\s*$/);
+      expect(headers[1].nativeElement.textContent).toBe('Cpu');
     });
 
     it('should register all headerCell correctly', () => {
