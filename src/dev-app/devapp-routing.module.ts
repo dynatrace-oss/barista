@@ -44,6 +44,7 @@ import { TileDemo } from './tile/tile-demo.component';
 import { ToastDemo } from './toast/toast-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
+import { TimelineChartDemo } from './timeline-chart/timeline-chart-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
@@ -89,6 +90,7 @@ const routes: Routes = [
   { path: 'tile', component: TileDemo },
   { path: 'toast', component: ToastDemo },
   { path: 'tree-table', component: TreeTableDemo },
+  { path: 'timeline-chart', component: TimelineChartDemo },
   { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
 ];
 
