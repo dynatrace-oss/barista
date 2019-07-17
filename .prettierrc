@@ -8,15 +8,24 @@
   "overrides": [
     {
       "files": ".prettierrc",
-      "options": { "parser": "json" }
+      "options": {
+        "parser": "json"
+      }
     },
     {
-      "files": "*.html",
-      "options": { "htmlWhitespaceSensitivity": "css", "parser": "vue" }
-    },
-    {
-      "files": "*.spec.ts",
-      "options": { "htmlWhitespaceSensitivity": "css", "parser": "typescript" }
+      "files": [
+        "src/lib/chart/chart.html",
+        "src/lib/chart/timestamp/timestamp.html",
+        "src/lib/filter-field/filter-field.html",
+        "src/lib/filter-field/filter-field-tag/filter-field-tag.html",
+        "src/lib/filter-field/filter-field-range/filter-field-range.html",
+        "src/lib/table/simple-columns/simple-text-column.html",
+        "src/lib/table/simple-columns/simple-number-column.html"
+      ],
+      "options": {
+        "htmlWhitespaceSensitivity": "css",
+        "parser": "vue"
+      }
     }
   ]
 }
