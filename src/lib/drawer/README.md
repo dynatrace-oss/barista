@@ -1,14 +1,19 @@
 ---
-type: 'component'
+description:
+  The drawer is a component that adds collapsible side content to some primary
+  content.
+contributors:
+  dev:
+    - lukas.holzer
 ---
 
 # Drawer
 
-<docs-source-example example="DrawerDefaultExample"></docs-source-example>
-
 The Dynatrace Drawer is a component designed to add collapsible side content
 _(often navigation, though it can be any content)_ alongside some primary
 content.
+
+<docs-source-example example="DrawerDefaultExample"></docs-source-example>
 
 ## Imports
 
