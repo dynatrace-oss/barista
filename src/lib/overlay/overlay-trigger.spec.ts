@@ -58,7 +58,7 @@ describe('DtOverlayTrigger', () => {
 
     let overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeDefined();
-    expect(overlay.innerText).toEqual('overlay focusme');
+    expect(overlay.innerText).toEqual('overlayfocusme');
 
     dispatchMouseEvent(trigger, 'mouseout');
     fixture.detectChanges();
@@ -309,10 +309,7 @@ function getOverlayPane(overlayContainerElement: HTMLElement): HTMLElement {
     >
       trigger
     </div>
-    <ng-template #overlay>
-      overlay
-      <button>focusme</button>
-    </ng-template>
+    <ng-template #overlay>overlay<button>focusme</button></ng-template>
   `,
 })
 class TestComponent {

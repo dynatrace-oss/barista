@@ -344,7 +344,7 @@ describe('DtFilterField', () => {
 
       const tags = getFilterTags(fixture);
       expect(tags.length).toBe(1);
-      expect(tags[0].key).toMatch(/^\s*USA\s*$/);
+      expect(tags[0].key).toBe('USA');
       expect(tags[0].separator).toBe(':');
       expect(tags[0].value).toBe('Los Angeles');
 
@@ -433,9 +433,9 @@ describe('DtFilterField', () => {
 
       const tags = getFilterTags(fixture);
       expect(tags.length).toBe(1);
-      expect(tags[0].key).toMatch(/^\s*Free\s*$/);
+      expect(tags[0].key).toBe('Free');
       expect(tags[0].separator).toBe('~');
-      expect(tags[0].value).toMatch(/^\s*abc\s*$/);
+      expect(tags[0].value).toBe('abc');
       expect(spy).toHaveBeenCalledTimes(1);
       subscription.unsubscribe();
     }));
@@ -490,7 +490,7 @@ describe('DtFilterField', () => {
       const tags = getFilterTags(fixture);
       expect(tags.length).toBe(1);
 
-      expect(tags[0].key).toMatch(/^\s*AUT\s*$/);
+      expect(tags[0].key).toBe('AUT');
       expect(tags[0].separator).toBe(':');
       expect(tags[0].value).toBe('Vienna');
 
@@ -501,7 +501,7 @@ describe('DtFilterField', () => {
       fixture.detectChanges();
 
       options = getOptions(overlayContainerElement);
-      expect(options[0].innerText).toMatch(/^\s*AUT\s*$/);
+      expect(options[0].innerText).toBe('AUT');
     });
 
     it('should switch back from root after deleting a unfinished freetext filter with BACKSPACE', () => {
@@ -527,9 +527,9 @@ describe('DtFilterField', () => {
       expect(tags.length).toBe(0);
 
       options = getOptions(overlayContainerElement);
-      expect(options[0].innerText).toMatch(/^\s*AUT\s*$/);
-      expect(options[1].innerText).toMatch(/^\s*USA\s*$/);
-      expect(options[2].innerText).toMatch(/^\s*Free\s*$/);
+      expect(options[0].innerText).toBe('AUT');
+      expect(options[1].innerText).toBe('USA');
+      expect(options[2].innerText).toBe('Free');
     });
 
     it('should remove a parent from an autocomplete if it is distinct and an option has been selected', () => {
@@ -641,8 +641,8 @@ describe('DtFilterField', () => {
         overlayContainerElement
       );
       expect(operatorButtonElements.length).toBe(2);
-      expect(operatorButtonElements[0].textContent).toMatch(/^\s*Range\s*$/);
-      expect(operatorButtonElements[1].textContent).toMatch(/^\s*≥\s*$/);
+      expect(operatorButtonElements[0].textContent).toBe('Range');
+      expect(operatorButtonElements[1].textContent).toBe('≥');
     });
 
     it('should have only one operator enabled', () => {
@@ -677,7 +677,7 @@ describe('DtFilterField', () => {
         overlayContainerElement
       );
       expect(operatorButtonElements.length).toBe(1);
-      expect(operatorButtonElements[0].textContent).toMatch(/^\s*≥\s*$/);
+      expect(operatorButtonElements[0].textContent).toBe('≥');
     });
 
     describe('opened', () => {
@@ -829,7 +829,7 @@ describe('DtFilterField', () => {
         fixture.detectChanges();
 
         const tags = getFilterTags(fixture);
-        expect(tags[0].key).toMatch(/^\s*Requests per minute\s*$/);
+        expect(tags[0].key).toBe('Requests per minute');
         expect(tags[0].separator).toBe(':');
         expect(tags[0].value).toBe('15s - 25s');
       });
@@ -856,7 +856,7 @@ describe('DtFilterField', () => {
         fixture.detectChanges();
 
         const tags = getFilterTags(fixture);
-        expect(tags[0].key).toMatch(/^\s*Requests per minute\s*$/);
+        expect(tags[0].key).toBe('Requests per minute');
         expect(tags[0].separator).toBe('≥');
         expect(tags[0].value).toBe('15s');
       });
