@@ -36,6 +36,7 @@ import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
 import { DtIconType } from '@dynatrace/dt-iconpack';
+import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
 
 const TESTDATA: ThreadNode[] = [
   {
@@ -229,6 +230,7 @@ export class KitchenSink {
     DtHighlightModule,
     DtConsumptionModule,
     DtFilterFieldModule,
+    DtTimelineChartModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],

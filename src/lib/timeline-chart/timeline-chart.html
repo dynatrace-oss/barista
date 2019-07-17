@@ -1,0 +1,29 @@
+<div class="dt-timeline-chart-timing-marker-container">
+  <div
+    class="dt-timeline-chart-timing-marker"
+    *ngFor="let markerObj of _renderTimingMarkers"
+    [style.left.%]="markerObj.position"
+  >
+    <span class="dt-timeline-chart-timing-marker-bubble">
+      {{ markerObj.marker.identifier }}
+    </span>
+  </div>
+</div>
+
+<div class="dt-timeline-chart-bar-container">
+  <div
+    class="dt-timeline-chart-bar"
+    *ngFor="let bar of _renderBars"
+    [style.width.%]="bar"
+  ></div>
+</div>
+
+<div class="dt-timeline-chart-tick-container">
+  <div
+    class="dt-timeline-chart-tick"
+    *ngFor="let tick of _renderTicks; last as isLast"
+    [style.left.%]="tick.position"
+  >
+    <ng-container *ngIf="!isLast">{{ tick.value }}{{ unit }}</ng-container>
+  </div>
+</div>
