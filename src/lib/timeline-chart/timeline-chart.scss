@@ -1,0 +1,87 @@
+@import '../core/style/variables';
+
+.dt-timeline-chart {
+  display: block;
+}
+
+.dt-timeline-chart-bar-container {
+  display: flex;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  height: 46px;
+  padding-top: 17px;
+}
+
+.dt-timeline-chart-bar {
+  display: block;
+  height: 12px;
+  position: relative;
+  z-index: 1;
+
+  &:nth-child(1) {
+    background: $blue-300;
+  }
+  &:nth-child(2) {
+    background: $yellow-300;
+  }
+  &:nth-child(3) {
+    background: $red-500;
+  }
+}
+
+.dt-timeline-chart-tick-container {
+  display: block;
+  position: relative;
+  z-index: 0;
+}
+
+.dt-timeline-chart-tick {
+  display: block;
+  position: absolute;
+  height: 62px;
+  bottom: 0;
+  z-index: 0;
+  font-size: 12px;
+  padding-left: 4px;
+  &::before {
+    display: block;
+    content: '';
+    width: 2px;
+    height: 50px;
+    background: #ccc;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+  }
+}
+
+.dt-timeline-chart-timing-marker-container {
+  display: block;
+  position: relative;
+  z-index: 0;
+}
+
+.dt-timeline-chart-timing-marker {
+  display: block;
+  position: absolute;
+  width: 2px;
+  height: 58px;
+  background: #525252;
+}
+
+.dt-timeline-chart-timing-marker-bubble {
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  color: #fff;
+  background: #525252;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 16px;
+  text-align: center;
+  bottom: -16px;
+  left: -7px;
+}

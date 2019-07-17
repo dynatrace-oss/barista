@@ -19,6 +19,7 @@
         "allow-string-order-comparison": true
       }
     ],
+    "array-type": false,
     "linebreak-style": [true, "LF"],
     "i18n": false,
     "increment-decrement": false,

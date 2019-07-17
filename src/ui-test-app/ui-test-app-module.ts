@@ -50,6 +50,8 @@ import { TabsUI } from './tabs/tabs-ui';
 import { TileUI } from './tile/tile-ui';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
 import { Home, UIApp } from './ui-test-app/ui-test-app';
+import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
+import { TimelineChartUI } from './timeline-chart/timeline-chart-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -83,6 +85,7 @@ import { Home, UIApp } from './ui-test-app/ui-test-app';
     // tslint:disable-next-line: deprecation
     DtSelectionAreaModule,
     DtConsumptionModule,
+    DtTimelineChartModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -122,6 +125,7 @@ export class DynatraceAngularCompModule {}
     UIApp,
     OverlayUI,
     ConsumptionUI,
+    TimelineChartUI,
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],
