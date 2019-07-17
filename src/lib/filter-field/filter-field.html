@@ -12,9 +12,7 @@
   ></dt-filter-field-tag>
 
   <div class="dt-filter-field-infix">
-    <span class="dt-filter-field-category" *ngIf="_filterByLabel">
-      {{_filterByLabel}}
-    </span>
+    <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{_filterByLabel}}</span>
     <dt-loading-spinner
       class="dt-filter-field-spinner"
       *ngIf="loading"
@@ -46,14 +44,10 @@
           <dt-option
             *ngFor="let optionDef of optionOrGroupDef.group!.options"
             [value]="optionDef"
-          >
-            {{optionDef.option.viewValue}}
-          </dt-option>
+          >{{optionDef.option.viewValue}}</dt-option>
         </dt-optgroup>
         <ng-template #options>
-          <dt-option [value]="optionOrGroupDef">
-            {{ optionOrGroupDef.option!.viewValue}}
-          </dt-option>
+          <dt-option [value]="optionOrGroupDef">{{ optionOrGroupDef.option!.viewValue}}</dt-option>
         </ng-template>
       </ng-container>
     </dt-autocomplete>
