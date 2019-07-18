@@ -1,5 +1,5 @@
 <dt-filter-field
-  [loading]="loading"
+  [loading]="_loading"
   [dataSource]="_dataSource"
   label="Filter by"
   (filterChanges)="filterChanges($event)"
@@ -32,7 +32,7 @@
   >
     Set values
   </button>
-  <button dt-button (click)="loading = !loading" variant="secondary">
+  <button dt-button (click)="_loading = !_loading" variant="secondary">
     Toggle loading
   </button>
 </div>

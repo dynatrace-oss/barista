@@ -7,7 +7,7 @@ import { DtRateUnit } from '@dynatrace/angular-components';
   template: `
     <dt-form-field>
       <dt-label>Value to be transformed</dt-label>
-      <input dtInput #value [(ngModel)]="exampleValue" />
+      <input dtInput [(ngModel)]="exampleValue" />
     </dt-form-field>
     <p>per request: {{ exampleValue | dtRate: 'request' }}</p>
     <p>per second: {{ exampleValue | dtCount | dtRate: 's' }}</p>

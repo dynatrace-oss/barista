@@ -45,9 +45,6 @@ const MAX_ROWS = 5;
 export class TableObservableExample {
   dataSource1 = new BehaviorSubject<object[]>([]);
 
-  emptyTitle = 'No Host';
-  emptyMessage = `from 9:00 - 10:00\n Remove filter to make your search less restrictive.
-  Expand or change the timeframe you're searching within.`;
   // tslint:disable-next-line:no-magic-numbers
   private source = interval(1000);
   subscription: Subscription;

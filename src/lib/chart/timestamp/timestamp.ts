@@ -1,3 +1,4 @@
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -19,7 +20,6 @@ import {
 import { isNumber } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
-import { CdkTrapFocus } from '@angular/cdk/a11y';
 
 /** @internal Aria label for the selected time. */
 export const ARIA_DEFAULT_SELECTED_LABEL = 'the selected time';
@@ -149,7 +149,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
 
   /** @internal Function that provides a value on the xAxis for a provided px value */
   _pixelsToValue:
-    | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
+    | ((pixel: number, paneCoordinates?: boolean) => number)
     | null = null;
 
   /** Function to calculate the px position of a provided value on the xAxis */

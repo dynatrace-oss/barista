@@ -1,5 +1,6 @@
 import { CdkTrapFocus, FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
+import { Portal } from '@angular/cdk/portal';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -7,30 +8,27 @@ import {
   ElementRef,
   EventEmitter,
   NgZone,
+  OnDestroy,
   Output,
   Renderer2,
   ViewChild,
   ViewEncapsulation,
-  OnDestroy,
 } from '@angular/core';
 import {
   addCssClass,
-  isDefined,
-  readKeyCode,
-  removeCssClass,
   HasTabIndex,
+  isDefined,
   mixinDisabled,
   mixinTabIndex,
+  readKeyCode,
+  removeCssClass,
 } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
 import {
-  getOffsetForKeyCode,
-  DtSelectionAreaEventTarget,
   calculatePosition,
+  DtSelectionAreaEventTarget,
+  getOffsetForKeyCode,
 } from './positioning-utils';
-import { ENTER } from '@angular/cdk/keycodes';
-import { take } from 'rxjs/operators';
-import { Portal } from '@angular/cdk/portal';
 
 /**
  * @deprecated The selection area will be replaced with the chart selection area
@@ -391,22 +389,6 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
       fn();
     });
     this._detachFns = [];
-  }
-
-  /** @internal Handle mousedown on the host */
-  _handleHostMousedown(ev: MouseEvent): void {
-    this._create(ev.clientX);
-  }
-
-  /** @internal Handle keydown on the host */
-  _handleHostKeyDown(event: KeyboardEvent): void {
-    if (readKeyCode(event) === ENTER) {
-      this._create(0);
-
-      this._zone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => {
-        this.focus();
-      });
-    }
   }
 
   /** @internal Handle mousedown on the selection area and handles */

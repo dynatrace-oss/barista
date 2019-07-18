@@ -769,7 +769,6 @@ describe('DtRadio', () => {
   `,
 })
 class RadiosInsideRadioGroup {
-  labelPos: 'before' | 'after';
   isFirstDisabled = false;
   isGroupDisabled = false;
   isGroupRequired = false;

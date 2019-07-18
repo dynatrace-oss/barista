@@ -1,12 +1,15 @@
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import {
   CdkOverlayOrigin,
   ConnectedPosition,
   Overlay,
   OverlayRef,
 } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import {
+  AfterViewInit,
   Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -15,30 +18,27 @@ import {
   EventEmitter,
   Inject,
   Input,
+  isDevMode,
   OnDestroy,
   Optional,
   Output,
-  ViewChild,
-  ViewEncapsulation,
-  isDevMode,
-  AfterViewInit,
   TemplateRef,
+  ViewChild,
   ViewContainerRef,
+  ViewEncapsulation,
 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 import {
-  HasTabIndex,
   CanDisable,
   DtLogger,
   DtLoggerFactory,
-  mixinTabIndex,
+  HasTabIndex,
   mixinDisabled,
+  mixinTabIndex,
   readKeyCode,
 } from '@dynatrace/angular-components/core';
-import { DtContextDialogTrigger } from './context-dialog-trigger';
-import { ESCAPE } from '@angular/cdk/keycodes';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { DtContextDialogTrigger } from './context-dialog-trigger';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialog');
 const OVERLAY_POSITIONS: ConnectedPosition[] = [
@@ -155,8 +155,6 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     return this._trigger && this._trigger !== this._defaultTrigger;
   }
 
-  _positions = OVERLAY_POSITIONS;
-
   constructor(
     private _overlay: Overlay,
     private _viewContainerRef: ViewContainerRef,
@@ -167,7 +165,6 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     @Optional() @Inject(DOCUMENT) private _document: any
   ) {
     super();
-
     this.tabIndex = parseInt(tabIndex, 10) || 0;
   }
 

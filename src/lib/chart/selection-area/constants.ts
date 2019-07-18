@@ -25,12 +25,6 @@ export const GRAB_CURSOR_CLASS = 'dt-pointer-grabbing';
 /** @internal Vertical distance between the overlay and the selection area */
 export const DT_SELECTION_AREA_OVERLAY_SPACING = 4;
 
-/** @internal The size factor to the origin width the selection area is created with when created by keyboard */
-export const DT_SELECTION_AREA_KEYBOARD_DEFAULT_SIZE = 0.5;
-
-/** @internal The position the selection area is created at when created by keyboard */
-export const DT_SELECTION_AREA_KEYBOARD_DEFAULT_START = 0.25;
-
 /** @internal Positions for the overlay used in the selection area */
 export const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
   {

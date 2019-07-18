@@ -1,42 +1,40 @@
 import {
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  ComponentRef,
-  EmbeddedViewRef,
-  Component,
-  ViewChild,
-  NgZone,
-  Optional,
-  Inject,
-  ElementRef,
-  isDevMode,
-  ViewContainerRef,
-} from '@angular/core';
-import {
-  BasePortalOutlet,
-  ComponentPortal,
-  CdkPortalOutlet,
-  TemplatePortal,
-} from '@angular/cdk/portal';
-import {
-  trigger,
+  animate,
+  AnimationEvent,
   state,
   style,
   transition,
-  animate,
-  AnimationEvent,
+  trigger,
 } from '@angular/animations';
-import { Subject } from 'rxjs';
+import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import {
+  BasePortalOutlet,
+  CdkPortalOutlet,
+  ComponentPortal,
+  TemplatePortal,
+} from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ComponentRef,
+  ElementRef,
+  EmbeddedViewRef,
+  Inject,
+  isDevMode,
+  NgZone,
+  Optional,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  CanNotifyOnExit,
+  DtLogger,
+  DtLoggerFactory,
   HasNgZone,
   mixinNotifyDomExit,
-  CanNotifyOnExit,
-  DtLoggerFactory,
-  DtLogger,
 } from '@dynatrace/angular-components/core';
-import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { DOCUMENT } from '@angular/common';
-import { DtOverlayConfig } from './overlay-config';
 
 const LOG: DtLogger = DtLoggerFactory.create('OverlayContainer');
 
@@ -97,9 +95,6 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin
   /** @internal */
   _animationState: 'void' | 'enter' | 'exit' = 'void';
 
-  /** @internal */
-  readonly _onExit: Subject<void> = new Subject();
-
   /** The class that traps and manages focus within the overlay. */
   private _focusTrap: FocusTrap;
 
@@ -112,8 +107,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin
     private _focusTrapFactory: FocusTrapFactory,
     private _viewContainerRef: ViewContainerRef,
     // tslint:disable-next-line:no-any
-    @Optional() @Inject(DOCUMENT) private _document: any,
-    public _config: DtOverlayConfig
+    @Optional() @Inject(DOCUMENT) private _document: any
   ) {
     super(_ngZone);
   }
