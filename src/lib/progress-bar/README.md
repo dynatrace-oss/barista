@@ -118,3 +118,7 @@ aria-labelledby.
 ### Progress bar with description and counter - Uses dt-indicator above 75/100 days
 
 <docs-source-example example="ProgressBarWithCountAndDescriptionIndicatorExample"></docs-source-example>
+
+### Progress bar on dark background
+
+<docs-source-example example="ProgressBarDarkExample"></docs-source-example>
