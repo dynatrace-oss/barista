@@ -1,10 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   OnDestroy,
   OnInit,
   QueryList,
   ViewChildren,
-  AfterViewInit,
 } from '@angular/core';
 import { DtPagination, DtTableDataSource } from '@dynatrace/angular-components';
 import { of, Subscription } from 'rxjs';
@@ -95,33 +95,6 @@ export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
       cpu: '24 %',
       memory: '8,6 % of 7 GB',
       traffic: '32.7 Mbit/s',
-    },
-  ];
-
-  dataSource2: HostUnit[] = [
-    {
-      host: 'et-demo-2-win4',
-      cpu: '30',
-      memory: '38 % of 5.83 GB',
-      traffic: '98.7',
-    },
-    {
-      host: 'et-demo-2-win3',
-      cpu: '26',
-      memory: '46 % of 6 GB',
-      traffic: '625',
-    },
-    {
-      host: 'docker-host2',
-      cpu: '25.4',
-      memory: '38 % of 5.83 GB',
-      traffic: '419',
-    },
-    {
-      host: 'et-demo-2-win1',
-      cpu: '23',
-      memory: '7.86 % of 5.83 GB',
-      traffic: '98.7',
     },
   ];
 

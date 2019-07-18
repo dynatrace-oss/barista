@@ -229,8 +229,6 @@ class FakeDataSource {
     return this._dataChange;
   }
 
-  disconnect(): void {}
-
   constructor() {
     for (let i = 0; i < 3; i++) {
       this.addData();

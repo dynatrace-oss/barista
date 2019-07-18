@@ -1,17 +1,18 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   async,
   ComponentFixture,
   fakeAsync,
+  flush,
   inject,
   TestBed,
   tick,
-  flush,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
@@ -20,7 +21,6 @@ import {
   DtContextDialogTrigger,
   DtIconModule,
 } from '@dynatrace/angular-components';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '../../testing/create-component';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 
@@ -28,9 +28,7 @@ describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
 
   // tslint:disable-next-line:no-any
-  function configureDtContextDialogTestingModule(
-    declarations: any[] | undefined
-  ): void {
+  function configureDtContextDialogTestingModule(declarations?: any[]): void {
     TestBed.configureTestingModule({
       imports: [
         DtContextDialogModule,
@@ -58,7 +56,9 @@ describe('DtContextDialog', () => {
       const fixture = createComponent(BasicContextDialog);
       fixture.componentInstance.contextDialog.open();
       fixture.detectChanges();
-      const contextDialogPanel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-content');
+      const contextDialogPanel = overlayContainer
+        .getContainerElement()
+        .querySelector('.dt-context-dialog-content');
       expect(contextDialogPanel!.classList).toContain('someclass');
     });
 
@@ -67,7 +67,9 @@ describe('DtContextDialog', () => {
       fixture.componentInstance.panelClass = ['more', 'evenmore'];
       fixture.componentInstance.contextDialog.open();
       fixture.detectChanges();
-      const contextDialogPanel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-content');
+      const contextDialogPanel = overlayContainer
+        .getContainerElement()
+        .querySelector('.dt-context-dialog-content');
       expect(contextDialogPanel!.classList).toContain('more');
       expect(contextDialogPanel!.classList).toContain('evenmore');
     });
@@ -78,7 +80,9 @@ describe('DtContextDialog', () => {
       fixture.detectChanges();
       fixture.componentInstance.panelClass = ['more', 'evenmore'];
       fixture.detectChanges();
-      const contextDialogPanel = overlayContainer.getContainerElement().querySelector('.dt-context-dialog-content');
+      const contextDialogPanel = overlayContainer
+        .getContainerElement()
+        .querySelector('.dt-context-dialog-content');
       expect(contextDialogPanel!.classList).toContain('more');
       expect(contextDialogPanel!.classList).toContain('evenmore');
     });

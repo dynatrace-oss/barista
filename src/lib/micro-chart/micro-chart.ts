@@ -1,46 +1,46 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   forwardRef,
   Input,
+  isDevMode,
   OnDestroy,
   Optional,
   Output,
+  Self,
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
-  isDevMode,
-  ChangeDetectorRef,
-  Self,
 } from '@angular/core';
+import {
+  DT_CHART_CONFIG,
+  DT_CHART_RESOLVER,
+  DtChart,
+  DtChartOptions,
+  DtChartResolver,
+  DtChartSeries,
+} from '@dynatrace/angular-components/chart';
+import { DtTheme } from '@dynatrace/angular-components/theming';
 import {
   ColumnChartSeriesOptions,
   DataPoint,
   LineChartSeriesOptions,
   Options,
 } from 'highcharts';
-import {
-  DtChart,
-  DtChartOptions,
-  DtChartSeries,
-  DT_CHART_CONFIG,
-  DT_CHART_RESOLVER,
-  DtChartResolver,
-} from '@dynatrace/angular-components/chart';
-import {
-  _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS,
-  _DT_MICROCHART_MAX_DATAPOINT_OPTIONS,
-  _DT_MICROCHART_MIN_DATAPOINT_OPTIONS,
-  createDtMicrochartMinMaxDataPointOptions,
-  createDtMicrochartDefaultOptions,
-} from './micro-chart-options';
 import { merge as lodashMerge } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getDtMicrochartColorPalette } from './micro-chart-colors';
-import { DtTheme } from '@dynatrace/angular-components/theming';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
+import {
+  _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS,
+  _DT_MICROCHART_MAX_DATAPOINT_OPTIONS,
+  _DT_MICROCHART_MIN_DATAPOINT_OPTIONS,
+  createDtMicrochartDefaultOptions,
+  createDtMicrochartMinMaxDataPointOptions,
+} from './micro-chart-options';
 import {
   extractColumnGapDataPoints,
   extractLineGapDataPoints,
@@ -330,7 +330,7 @@ function applyMinMaxOptions(
   addDataLabelFormatter(max, labelFormatter);
 }
 
-function checkUnsupportedType(type: string | undefined): void {
+function checkUnsupportedType(type?: string): void {
   if (type && SUPPORTED_CHART_TYPES.indexOf(type) === -1) {
     throw getDtMicroChartUnsupportedChartTypeError(type);
   }

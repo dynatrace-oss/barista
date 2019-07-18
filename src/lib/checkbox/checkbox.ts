@@ -1,38 +1,38 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectorRef,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-  forwardRef,
-  Attribute,
-  Directive,
-  Provider,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { FocusOrigin, FocusMonitor } from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
 import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  NG_VALIDATORS,
+  AfterViewInit,
+  Attribute,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  Provider,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
   CheckboxRequiredValidator,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
-  mixinTabIndex,
-  mixinDisabled,
+  addCssClass,
   CanDisable,
   HasTabIndex,
-  addCssClass,
+  mixinDisabled,
+  mixinTabIndex,
 } from '@dynatrace/angular-components/core';
-import { Platform } from '@angular/cdk/platform';
 
 /**
  * Checkbox IDs need to be unique across components, so this counter exists outside of
@@ -305,7 +305,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
 
   /** Implemented as a part of ControlValueAccessor. */
   writeValue(value: boolean): void {
-    this.checked = !!value;
+    this.checked = value;
   }
 
   /** Implemented as a part of ControlValueAccessor. */
@@ -350,7 +350,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
       element.classList.remove(this._currentAnimationClass);
     }
 
-    this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(
+    this._currentAnimationClass = getAnimationClassForCheckStateTransition(
       oldState,
       newState
     );
@@ -359,49 +359,6 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     if (this._currentAnimationClass.length > 0) {
       element.classList.add(this._currentAnimationClass);
     }
-  }
-
-  private _getAnimationClassForCheckStateTransition(
-    oldState: TransitionCheckState,
-    newState: TransitionCheckState
-  ): string {
-    let animSuffix = '';
-
-    switch (oldState) {
-      case TransitionCheckState.Init:
-        // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
-        // [checked] bound to it.
-        if (newState === TransitionCheckState.Checked) {
-          animSuffix = 'unchecked-checked';
-        } else if (newState === TransitionCheckState.Indeterminate) {
-          animSuffix = 'unchecked-indeterminate';
-        } else {
-          return '';
-        }
-        break;
-      case TransitionCheckState.Unchecked:
-        animSuffix =
-          newState === TransitionCheckState.Checked
-            ? 'unchecked-checked'
-            : 'unchecked-indeterminate';
-        break;
-      case TransitionCheckState.Checked:
-        animSuffix =
-          newState === TransitionCheckState.Unchecked
-            ? 'checked-unchecked'
-            : 'checked-indeterminate';
-        break;
-      case TransitionCheckState.Indeterminate:
-        animSuffix =
-          newState === TransitionCheckState.Checked
-            ? 'indeterminate-checked'
-            : 'indeterminate-unchecked';
-        break;
-      default: {
-      }
-    }
-
-    return `dt-checkbox-anim-${animSuffix}`;
   }
 }
 
@@ -423,3 +380,46 @@ export const DT_CHECKBOX_REQUIRED_VALIDATOR: Provider = {
   host: { '[attr.required]': 'required ? "" : null' },
 })
 export class DtCheckboxRequiredValidator extends CheckboxRequiredValidator {}
+
+function getAnimationClassForCheckStateTransition(
+  oldState: TransitionCheckState,
+  newState: TransitionCheckState
+): string {
+  let animSuffix = '';
+
+  switch (oldState) {
+    case TransitionCheckState.Init:
+      // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
+      // [checked] bound to it.
+      if (newState === TransitionCheckState.Checked) {
+        animSuffix = 'unchecked-checked';
+      } else if (newState === TransitionCheckState.Indeterminate) {
+        animSuffix = 'unchecked-indeterminate';
+      } else {
+        return '';
+      }
+      break;
+    case TransitionCheckState.Unchecked:
+      animSuffix =
+        newState === TransitionCheckState.Checked
+          ? 'unchecked-checked'
+          : 'unchecked-indeterminate';
+      break;
+    case TransitionCheckState.Checked:
+      animSuffix =
+        newState === TransitionCheckState.Unchecked
+          ? 'checked-unchecked'
+          : 'checked-indeterminate';
+      break;
+    case TransitionCheckState.Indeterminate:
+      animSuffix =
+        newState === TransitionCheckState.Checked
+          ? 'indeterminate-checked'
+          : 'indeterminate-unchecked';
+      break;
+    default: {
+    }
+  }
+
+  return `dt-checkbox-anim-${animSuffix}`;
+}

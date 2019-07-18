@@ -1,3 +1,4 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import {
@@ -8,24 +9,23 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
+  forwardRef,
   Input,
+  OnDestroy,
   Output,
   QueryList,
   ViewEncapsulation,
-  forwardRef,
-  OnDestroy,
 } from '@angular/core';
 import {
   CanColor,
   CanDisable,
+  Constructor,
   HasTabIndex,
   mixinColor,
   mixinDisabled,
   mixinTabIndex,
   readKeyCode,
-  Constructor,
 } from '@dynatrace/angular-components/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 
 export class DtButtonGroupBase {}
 export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));
@@ -51,7 +51,6 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   implements CanDisable, HasTabIndex, AfterContentInit {
   private _value: T | null = null;
   private _disabled = false;
-  _selectedItem: DtButtonGroupItem<T> | null = null;
 
   // tslint:disable-next-line: no-use-before-declare no-forward-ref
   @ContentChildren(forwardRef(() => DtButtonGroupItem), { descendants: true })

@@ -60,10 +60,11 @@ export function getMouseDownStream(
  * In case it is used to end our actions we want to dispatch a side effect that adds the pointer
  * events back on the target. Starting actions remove the pointer events class.
  * @param target The HTMLElement where the no pointer events class should be toggled.
+ * @param mouseUpFactory TODO LuHo: write JSDoc for parameter
  */
 export function getMouseUpStream(
   target: HTMLElement,
-  mouseUpFactory?: (() => Observable<MouseEvent>) | undefined
+  mouseUpFactory?: () => Observable<MouseEvent>
 ): Observable<MouseEvent> {
   const mouseUp$ = mouseUpFactory
     ? mouseUpFactory()
@@ -109,12 +110,13 @@ export function getMouseOutStream(
  * And capture the move events so that we can check if it is not a drag
  * @param clickStart$ A mousedown stream that indicates a click
  * @param clickEnd$ A mouseup stream that ends a click
+ * @param dragMoveFactory TODO LuHo: write JSDoc for parameter
  */
 export function getClickStream(
   target: HTMLElement,
   clickStart$: Observable<MouseEvent>,
   clickEnd$: Observable<MouseEvent>,
-  dragMoveFactory?: (() => Observable<MouseEvent>) | undefined
+  dragMoveFactory?: () => Observable<MouseEvent>
 ): Observable<{ x: number; y: number }> {
   return merge(
     clickStart$,
@@ -143,7 +145,7 @@ export function getClickStream(
 export function getMouseMove(
   target: HTMLElement,
   mousedownElements: Element[],
-  scheduler?: SchedulerLike | undefined
+  scheduler?: SchedulerLike
 ): Observable<{ x: number; y: number }> {
   return captureAndMergeEvents('mousemove', mousedownElements).pipe(
     throttleTime(0, scheduler || animationFrameScheduler),
@@ -165,13 +167,14 @@ export const getWindowMouseMoveStream: () => Observable<MouseEvent> = () =>
  * @param dragStart$ Any Stream that emits the start of the drag. (mostly a mousedown)
  * @param dragEnd$  The Stream that triggers the end of a drag. (mostly a mouseup)
  * @param dragMove The stream that fires the moves – by default a mousemove on the window.
+ * @param scheduler TODO LuHo: write JSDoc for parameter
  */
 export function getDragStream(
   target: HTMLElement,
   dragStart$: Observable<unknown>,
   dragEnd$: Observable<MouseEvent>,
-  dragMove?: (() => Observable<MouseEvent>) | undefined,
-  scheduler?: SchedulerLike | undefined
+  dragMove?: () => Observable<MouseEvent>,
+  scheduler?: SchedulerLike
 ): Observable<{ x: number; y: number }> {
   return dragStart$.pipe(
     switchMap(() =>

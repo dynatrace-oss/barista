@@ -1,14 +1,14 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import {
-  DtFilterFieldDefaultDataSource,
   DtFilterField,
-  DtFilterFieldTag,
   DtFilterFieldCurrentFilterChangeEvent,
+  DtFilterFieldDefaultDataSource,
+  DtFilterFieldTag,
 } from '@dynatrace/angular-components';
+import { Subscription } from 'rxjs';
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
 import { TEST_DATA, TEST_DATA_ASYNC } from './testdata';
-import { Subscription } from 'rxjs';
 
 // tslint:disable:no-any
 

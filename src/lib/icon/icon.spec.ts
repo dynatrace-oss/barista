@@ -12,8 +12,8 @@ import {
   getDtIconNoConfigProviderError,
   getDtIconNoHttpProviderError,
 } from '@dynatrace/angular-components';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 import { createComponent } from '../../testing/create-component';
+import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 
 /**
  * Fake URLs and associated SVG documents used by tests.
@@ -21,7 +21,6 @@ import { createComponent } from '../../testing/create-component';
  */
 export const FAKE_SVGS = {
   cat: '<svg><path id="meow" name="meow"></path></svg>',
-  dog: '<svg><path id="woof" name="woof"></path></svg>',
   xss:
     '<svg><script>alert("123")</script><path id="xss" name="xss"></path></svg>',
   xssType:

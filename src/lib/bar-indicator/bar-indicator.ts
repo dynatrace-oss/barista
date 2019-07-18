@@ -1,21 +1,18 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
-  ElementRef,
   ChangeDetectorRef,
+  Component,
+  ElementRef,
   Input,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  mixinColor,
   CanColor,
-  DtProgressChange,
-  HasProgressValues,
-  mixinHasProgress,
   Constructor,
+  HasProgressValues,
+  mixinColor,
+  mixinHasProgress,
 } from '@dynatrace/angular-components/core';
-
-export type DtBarIndicatorChange = DtProgressChange;
 
 export type DtBarIndicatorThemePalette = 'main' | 'recovered' | 'error';
 

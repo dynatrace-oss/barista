@@ -1,3 +1,4 @@
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
   Directive,
   ElementRef,
@@ -7,7 +8,6 @@ import {
   Output,
 } from '@angular/core';
 import { DtContextDialog } from './context-dialog';
-import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 
 @Directive({
   selector: 'button[dtContextDialogTrigger]',
@@ -19,7 +19,7 @@ import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 })
 export class DtContextDialogTrigger extends CdkOverlayOrigin
   implements OnDestroy {
-  private _dialog: DtContextDialog | undefined;
+  private _dialog?: DtContextDialog;
 
   @Input('dtContextDialogTrigger')
   get dialog(): DtContextDialog | undefined {
