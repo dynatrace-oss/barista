@@ -279,7 +279,7 @@ describe('DtBreadcrumbsItem', () => {
 
 @Component({
   template: `
-    <dt-breadcrumbs-item [href]="href" [external]="external" #item>
+    <dt-breadcrumbs-item [href]="href" [external]="external">
       {{ text }}
     </dt-breadcrumbs-item>
   `,
@@ -292,7 +292,7 @@ class TestBreadcrumbsItem {
 
   @ViewChild(DtBreadcrumbsItem, { static: false }) item;
 
-  set _lastItem(value: boolean | undefined) {
+  set _lastItem(value: boolean) {
     this.item._lastItem = value;
   }
 

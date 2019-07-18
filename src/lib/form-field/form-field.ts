@@ -1,33 +1,33 @@
 import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  ContentChild,
-  ContentChildren,
-  QueryList,
-  AfterContentInit,
-  ChangeDetectorRef,
-  AfterContentChecked,
-  AfterViewInit,
-  ElementRef,
-} from '@angular/core';
-import {
-  trigger,
+  animate,
   state,
   style,
   transition,
-  animate,
+  trigger,
 } from '@angular/animations';
-import { startWith } from 'rxjs/operators';
+import {
+  AfterContentChecked,
+  AfterContentInit,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChild,
+  ContentChildren,
+  ElementRef,
+  QueryList,
+  ViewEncapsulation,
+} from '@angular/core';
 import { EMPTY, merge } from 'rxjs';
+import { startWith } from 'rxjs/operators';
+import { DtError } from './error';
+import { DtFormFieldControl } from './form-field-control';
 import {
   getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError,
 } from './form-field-errors';
-import { DtFormFieldControl } from './form-field-control';
-import { DtLabel } from './label';
 import { DtHint } from './hint';
-import { DtError } from './error';
+import { DtLabel } from './label';
 import { DtPrefix } from './prefix';
 import { DtSuffix } from './suffix';
 
@@ -77,9 +77,6 @@ let nextUniqueId = 0;
 })
 export class DtFormField<T>
   implements AfterContentInit, AfterContentChecked, AfterViewInit {
-  // Unique id for the hint label.
-  _hintLabelId = `dt-hint-${nextUniqueId++}`;
-
   // Unique id for the internal form field label.
   _labelId = `dt-form-field-label-${nextUniqueId++}`;
 

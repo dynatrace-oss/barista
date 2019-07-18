@@ -1,3 +1,4 @@
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 import {
   coerceBooleanProperty,
   coerceNumberProperty,
@@ -38,7 +39,6 @@ import {
   DT_RANGE_RELEASED_CLASS,
   DT_RANGE_UN_VALID_CLASS,
 } from './constants';
-import { CdkTrapFocus } from '@angular/cdk/a11y';
 
 /** @internal Event that gets emitted when the internal state of the range changes */
 export class RangeStateChangedEvent {
@@ -220,7 +220,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
 
   /** @internal Function that provides a value on the xAxis for a provided px value */
   _pixelsToValue:
-    | ((pixel: number, paneCoordinates?: boolean | undefined) => number)
+    | ((pixel: number, paneCoordinates?: boolean) => number)
     | null = null;
 
   /** @internal Function to calculate the px position of a provided value on the xAxis */

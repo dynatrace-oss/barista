@@ -52,7 +52,7 @@ export class DtBreadcrumbsItem {
     this._external = coerceBooleanProperty(value);
   }
 
-  @Input() href: RouterLinkAccepted | undefined;
+  @Input() href?: RouterLinkAccepted;
 
   /**
    * Whether this item is the last item in the breadcrumb list.

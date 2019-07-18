@@ -1,6 +1,6 @@
-import { Constructor } from './constructor';
-import { ElementRef, Directive, NgModule } from '@angular/core';
+import { Directive, ElementRef, NgModule } from '@angular/core';
 import { replaceCssClass } from '../util/platform-util';
+import { Constructor } from './constructor';
 
 export interface CanColor<P extends Partial<DtThemePalette>> {
   /** Theme color palette for the component. */
@@ -61,7 +61,7 @@ export function mixinColor<
 }
 
 export function setComponentColorClasses<
-  T extends { color: string | undefined } & HasElementRef
+  T extends { color?: string } & HasElementRef
 >(component: T, color?: string): void {
   if (color !== component.color) {
     replaceCssClass(

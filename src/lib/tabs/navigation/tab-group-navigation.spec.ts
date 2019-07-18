@@ -1,23 +1,23 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import {
-  TestBed,
-  ComponentFixture,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { Location, LocationStrategy } from '@angular/common';
 import { Component, DebugElement } from '@angular/core';
 import {
-  DtTabsModule,
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
   DtTabGroup,
   DtTabNavigationAdapter,
   DtTabRouterFragmentAdapter,
+  DtTabsModule,
 } from '@dynatrace/angular-components';
-import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Location, LocationStrategy } from '@angular/common';
 import { checkSelected } from '../tab-group.spec';
 
 describe('DtTabRouterFragmentAdapter', () => {
@@ -191,7 +191,6 @@ describe('DtTabRouterFragmentAdapter', () => {
 export class TabComponent {
   selected = 'quality';
   disablePackets = false;
-  secondGroup = true;
 }
 
 @Component({

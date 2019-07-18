@@ -1,32 +1,28 @@
-import {
-  Component,
-  ElementRef,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  Input,
-  Renderer2,
-  ContentChildren,
-  QueryList,
-  AfterContentInit,
-  ChangeDetectorRef,
-} from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import {
-  mixinColor,
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  ElementRef,
+  Input,
+  OnDestroy,
+  QueryList,
+  Renderer2,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
   CanColor,
-  HasElementRef,
-  mixinDisabled,
   CanDisable,
-  replaceCssClass,
   Constructor,
+  HasElementRef,
+  mixinColor,
+  mixinDisabled,
+  replaceCssClass,
 } from '@dynatrace/angular-components/core';
 import { DtIcon } from '@dynatrace/angular-components/icon';
-import { Subscription, NEVER } from 'rxjs';
-
-export function getDtButtonNestedVariantNotAllowedError(): Error {
-  return Error(`The nested button variant is only allowed on dt-icon-button`);
-}
+import { NEVER, Subscription } from 'rxjs';
 
 export type DtButtonThemePalette = 'main' | 'warning' | 'cta';
 
