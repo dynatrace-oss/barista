@@ -1,0 +1,13 @@
+#
+# This is the config file, and
+# a '#' or ';' character indicates
+# a comment
+#
+
+[core]
+  # convert CRLF to LF on commit but not the other way around
+  autocrlf = input
+  # circumvent the 260 chars limitation for file paths on Windows
+  longpaths = true
+  # enables various workarounds so Git works better on filesystems that are not case sensitive
+  ignorecase = true
