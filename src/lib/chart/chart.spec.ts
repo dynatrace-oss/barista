@@ -708,8 +708,7 @@ class EmptySeries {
 })
 class Loading {
   // tslint:disable-next-line:no-any
-  series: any[] | undefined;
-
+  series?: any[];
   options: DtChartOptions = {};
 }
 

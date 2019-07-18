@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   template: `
     <dt-form-field>
       <dt-label>Value to be transformed</dt-label>
-      <input dtInput #value [(ngModel)]="exampleValue" />
+      <input dtInput [(ngModel)]="exampleValue" />
     </dt-form-field>
     <p>Default: {{ exampleValue | dtBits }}</p>
     <p>Factor 1024: {{ exampleValue | dtBits: 1024 }}</p>

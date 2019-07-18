@@ -1,7 +1,7 @@
 import * as stream from 'stream';
 import * as through from 'through2';
 
-export const replaceInFile = (searchValue: string | RegExp, replaceValue: string | undefined): stream.Transform =>
+export const replaceInFile = (searchValue: string | RegExp, replaceValue?: string): stream.Transform =>
   through.obj((file, _, callback) => {
     if (file.isNull()) {
       callback(null);

@@ -514,8 +514,8 @@ describe('DtTable SimpleColumns', () => {
 })
 class TestSimpleColumnsApp implements AfterViewInit {
   data: Array<{
-    host: string | undefined;
-    cpu: number | undefined;
+    host?: string;
+    cpu?: number;
     memoryPerc: number;
     memoryTotal: number;
     traffic: number;
@@ -639,8 +639,8 @@ class TestSimpleColumnsApp implements AfterViewInit {
 })
 class TestSimpleColumnsErrorApp implements AfterViewInit {
   data: Array<{
-    host: string | undefined;
-    cpu: number | undefined;
+    host?: string;
+    cpu?: number;
     memoryPerc: number;
     memoryTotal: number;
     traffic: number;

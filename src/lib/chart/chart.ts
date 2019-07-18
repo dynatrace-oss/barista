@@ -50,16 +50,16 @@ import {
 import {
   delay,
   distinctUntilChanged,
+  filter,
+  map,
   switchMap,
   take,
   takeUntil,
-  filter,
-  map,
 } from 'rxjs/operators';
 import {
-  DtChartConfig,
   DT_CHART_CONFIG,
   DT_CHART_DEFAULT_CONFIG,
+  DtChartConfig,
 } from './chart-config';
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
 import {
@@ -162,9 +162,9 @@ export class DtChart
     DtChartHeatfield
   >;
 
-  private _series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined;
+  private _series?: Observable<DtChartSeries[]> | DtChartSeries[];
   private _tooltipOpen = false;
-  private _currentSeries: IndividualSeriesOptions[] | undefined;
+  private _currentSeries?: IndividualSeriesOptions[];
   private _options: DtChartOptions;
   private _dataSub: Subscription | null = null;
   private _highchartsOptions: HighchartsOptions;
