@@ -1,6 +1,8 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { CollectionViewer } from '@angular/cdk/collections';
+import { DataSource } from '@angular/cdk/table';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, Type, ViewChild } from '@angular/core';
 import {
@@ -215,7 +217,7 @@ export class TestData {
   }
 }
 
-class FakeDataSource {
+class FakeDataSource implements DataSource<TestData> {
   dataIndex = 0;
   _dataChange = new BehaviorSubject<TestData[]>([]);
   get data(): TestData[] {
@@ -271,6 +273,8 @@ class FakeDataSource {
 
     this.data = copiedData;
   }
+
+  disconnect(_: CollectionViewer): void {}
 }
 
 function getRows(treeElement: Element): Element[] {
