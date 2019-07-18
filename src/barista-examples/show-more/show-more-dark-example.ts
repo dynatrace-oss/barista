@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
   selector: 'component-barista-example',
   template: `
     <section class="dark" dtTheme=":dark">
-      <dt-show-more [showLess]="showLess" (changed)="showLess = !showLess">
+      <button dt-show-more [showLess]="showLess" (click)="showLess = !showLess">
         Toggle more/less
-      </dt-show-more>
+      </button>
     </section>
   `,
 })

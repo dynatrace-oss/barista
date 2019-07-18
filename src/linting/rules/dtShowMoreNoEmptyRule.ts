@@ -1,14 +1,8 @@
-import { ElementAst } from '@angular/compiler';
+import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-
-import {
-  addFailure,
-  hasContentApartFrom,
-  hasTextContentAlternative,
-  isElementWithName,
-} from '../utils';
+import { addFailure, hasContent, isButtonElement } from '../utils';
 
 class DtShowMoreVisitor extends BasicTemplateAstVisitor {
   visitElement(element: ElementAst, context: any): void {
@@ -17,23 +11,25 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
   }
 
   private _validateElement(element: ElementAst): any {
-    if (!isElementWithName(element, 'dt-show-more')) {
+    if (!isButtonElement(element)) {
       return;
     }
 
-    const showMoreChildren = ['dt-show-less-label'];
+    const attrs: AttrAst[] = element.attrs;
+    const isShowMore = attrs.some(attr => attr.name === 'dt-show-more');
 
-    if (
-      hasContentApartFrom(element, showMoreChildren) ||
-      hasTextContentAlternative(element)
-    ) {
+    if (!isShowMore) {
+      return;
+    }
+
+    if (hasContent(element)) {
       return;
     }
 
     addFailure(
       this,
       element,
-      'A dt-show-more must always contain text or an aria-label/aria-labelledby attribute.',
+      'A dt-show-more must always contain text content.',
     );
   }
 }
@@ -42,26 +38,22 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
  * The dtShowMoreNoEmpty ensures that a dt-show-more always contains content.
  *
  * The following examples pass the check:
- * <dt-show-more ...>
+ * <button dt-show-more ...>
  *   Show more
- *   <dt-show-less-label>Show less</dt-show-less-label>
- * </dt-show-more>
- * <dt-show-more ... aria-label="Show more data"></dt-show-more>
+ * </button>
  *
  * For the following example the linter throws an error:
- * <dt-show-more ...>
- *   <dt-show-less-label>Show less</dt-show-less-label>
- * </dt-show-more>
+ * <button dt-show-more ...>
+ * </button>
  */
 export class Rule extends Rules.AbstractRule {
   static readonly metadata: IRuleMetadata = {
     description:
-      'Ensures that a dt-show-more always contains content or a text alternative.',
+      'Ensures that a dt-show-more always contains content as a button label.',
     // tslint:disable-next-line:no-null-keyword
     options: null,
     optionsDescription: 'Not configurable.',
-    rationale:
-      'A dt-show-more must always contain content apart from the dt-show-less-label or a text alternative.',
+    rationale: 'A dt-show-more must always contain content as a button label.',
     ruleName: 'dt-show-more-no-empty',
     type: 'maintainability',
     typescriptOnly: true,

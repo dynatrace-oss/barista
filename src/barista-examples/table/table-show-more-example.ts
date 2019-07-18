@@ -1,18 +1,17 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   formatBytes,
   formatPercent,
   formatRate,
 } from '@dynatrace/angular-components/formatters';
-import { DtShowMore } from '@dynatrace/angular-components/show-more';
 import { DtTableDataSource } from '@dynatrace/angular-components/table';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
   selector: 'component-barista-example',
+  styles: ['button { margin-top: 24px; }'],
   // tslint:disable
   template: `
     <dt-table [dataSource]="dataSource">
@@ -48,21 +47,25 @@ import { DtTableDataSource } from '@dynatrace/angular-components/table';
       ></dt-row>
     </dt-table>
 
-    <dt-show-more (click)="loadMore()">
+    <button dt-show-more (click)="loadMore()" *ngIf="!hideShowMore">
       Show 5 more
-    </dt-show-more>
+    </button>
+    <p *ngIf="hideShowMore" style="text-align: center">
+      There is no more data available.
+    </p>
   `,
   // tslint:enable
 })
 export class TableShowMoreExample implements OnInit, OnDestroy {
   percentageFormatter = formatPercent;
+  hideShowMore = false;
   dataSource: DtTableDataSource<{
     host: string;
     cpu: number;
     memory: number;
     traffic: number;
   }> = new DtTableDataSource();
-  @ViewChild(DtShowMore, { static: true }) showMore: DtShowMore;
+
   private destroy$ = new Subject<void>();
   // tslint:disable-next-line:max-line-length
   private fakeBackend = new BehaviorSubject<
@@ -174,7 +177,7 @@ export class TableShowMoreExample implements OnInit, OnDestroy {
       },
     ]);
 
-    this.showMore.disabled = true;
+    this.hideShowMore = true;
   }
 
   ngOnDestroy(): void {

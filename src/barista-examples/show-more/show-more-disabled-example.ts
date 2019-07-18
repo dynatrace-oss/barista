@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'component-barista-example',
   template: `
-    <dt-show-more [disabled]="true">
+    <button dt-show-more [disabled]="true">
       Show more
-    </dt-show-more>
+    </button>
   `,
 })
 export class ShowMoreDisabledExample {}

@@ -1,4 +1,10 @@
-<dt-show-more [showLess]="showLess" (changed)="showLess = !showLess">
+<button
+  dt-show-more
+  [disabled]="isDisabled"
+  [showLess]="showLess"
+  (click)="showLess = !showLess"
+>
   Show more
-  <dt-show-less-label>Show less</dt-show-less-label>
-</dt-show-more>
+</button>
+
+<dt-checkbox [(ngModel)]="isDisabled">Disabled</dt-checkbox>
