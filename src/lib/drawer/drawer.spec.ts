@@ -405,43 +405,45 @@ describe('DtDrawer screen sizes', () => {
   it('should change the side mode to an over mode at a screen size less than 1024px', fakeAsync(() => {
     const { instance, fixture } = createFixture<BasicTestApp>(BasicTestApp);
     const query = '(max-width: 1024px)';
-    breakpointManager.observe(query).subscribe();
+    const subscription = breakpointManager.observe(query).subscribe();
     mediaMatcher.setMatchesQuery(query, false);
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(breakpointManager.isMatched(query)).toBeFalsy();
     expect(instance.drawer._currentMode).toBe('side');
 
     mediaMatcher.setMatchesQuery(query, true);
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(breakpointManager.isMatched(query)).toBeTruthy();
     expect(instance.drawer._currentMode).toBe('over');
 
     mediaMatcher.setMatchesQuery(query, false);
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(breakpointManager.isMatched(query)).toBeFalsy();
     expect(instance.drawer._currentMode).toBe('side');
+
+    subscription.unsubscribe();
   }));
 
   it('should stay in over mode if in resize the mode was changed by the user', fakeAsync(() => {
     const { instance, fixture } = createFixture<BasicTestApp>(BasicTestApp);
     const query = '(max-width: 1024px)';
-    breakpointManager.observe(query).subscribe();
+    const subscription = breakpointManager.observe(query).subscribe();
     mediaMatcher.setMatchesQuery(query, false);
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(breakpointManager.isMatched(query)).toBeFalsy();
     expect(instance.drawer._currentMode).toBe('side');
 
     mediaMatcher.setMatchesQuery(query, true);
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(breakpointManager.isMatched(query)).toBeTruthy();
     expect(instance.drawer._currentMode).toBe('over');
@@ -452,10 +454,12 @@ describe('DtDrawer screen sizes', () => {
 
     mediaMatcher.setMatchesQuery(query, false);
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(breakpointManager.isMatched(query)).toBeFalsy();
     expect(instance.drawer._currentMode).toBe('over');
+
+    subscription.unsubscribe();
   }));
 });
 
