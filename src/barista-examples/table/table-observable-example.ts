@@ -7,11 +7,10 @@ const MAX_ROWS = 5;
 @Component({
   moduleId: module.id,
   selector: 'demo-component',
+  styles: ['button { margin-top: 16px; }'],
   // tslint:disable
   template: `
-    <button (click)="startSubscription()">Start subscription</button>
-    <button (click)="clearRows()">Clear</button>
-    <dt-table [dataSource]="dataSource1">
+    <dt-table [dataSource]="dataSource">
       <ng-container dtColumnDef="host" dtColumnAlign="text">
         <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
@@ -39,11 +38,13 @@ const MAX_ROWS = 5;
         *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
       ></dt-row>
     </dt-table>
+    <button dt-button (click)="startSubscription()">Start subscription</button>
+    <button dt-button variant="secondary" (click)="clearRows()">Clear</button>
   `,
   // tslint:enable
 })
 export class TableObservableExample {
-  dataSource1 = new BehaviorSubject<object[]>([]);
+  dataSource = new BehaviorSubject<object[]>([]);
 
   // tslint:disable-next-line:no-magic-numbers
   private source = interval(1000);
@@ -56,13 +57,13 @@ export class TableObservableExample {
   }
 
   clearRows(): void {
-    this.dataSource1.next([]);
+    this.dataSource.next([]);
   }
 
   getAnotherRow(): void {
     // tslint:disable
-    this.dataSource1.next([
-      ...this.dataSource1.value,
+    this.dataSource.next([
+      ...this.dataSource.value,
       {
         host: 'et-demo-2-win4',
         cpu: `${(Math.random() * 10).toFixed(2)} %`,

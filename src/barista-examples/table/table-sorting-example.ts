@@ -4,12 +4,17 @@ import { DtSortEvent } from '@dynatrace/angular-components';
 @Component({
   moduleId: module.id,
   selector: 'demo-component',
+  styles: ['button { margin-top: 16px; }'],
   // tslint:disable
   template: `
     <dt-table
       [dataSource]="dataSource"
       dtSort
       (dtSortChange)="sortData($event)"
+      [dtSortDisabled]="disableSorting"
+      [dtSortActive]="'cpu'"
+      dtSortStart="asc"
+      dtSortDirection="desc"
     >
       <ng-container dtColumnDef="host" dtColumnAlign="text">
         <dt-header-cell
@@ -22,25 +27,16 @@ import { DtSortEvent } from '@dynatrace/angular-components';
         <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
       </ng-container>
 
-      <ng-container dtColumnDef="cpu" dtColumnAlign="text">
+      <ng-container dtColumnDef="cpu" dtColumnAlign="number">
         <dt-header-cell
           *dtHeaderCellDef
           dt-sort-header
-          sort-aria-label="Change sort order for cpus"
+          start="desc"
+          sort-aria-label="Change sort order for CPUs"
         >
           CPU
         </dt-header-cell>
-        <dt-cell
-          *dtCellDef="
-            let row;
-            index as i;
-            count as c;
-            first as f;
-            last as l;
-            even as e;
-            odd as o
-          "
-        >
+        <dt-cell *dtCellDef="let row">
           {{ row.cpu | dtPercent }}
         </dt-cell>
       </ng-container>
@@ -59,9 +55,10 @@ import { DtSortEvent } from '@dynatrace/angular-components';
         </dt-cell>
       </ng-container>
 
-      <ng-container dtColumnDef="traffic" dtColumnAlign="control">
+      <ng-container dtColumnDef="traffic" dtColumnAlign="number">
         <dt-header-cell
           *dtHeaderCellDef
+          disabled
           dt-sort-header
           sort-aria-label="Change sort order for network traffic"
         >
@@ -76,42 +73,36 @@ import { DtSortEvent } from '@dynatrace/angular-components';
         *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"
       ></dt-header-row>
       <dt-row
-        *dtRowDef="
-          let row;
-          columns: ['host', 'cpu', 'memory', 'traffic'];
-          index as i;
-          count as c;
-          first as f;
-          last as l;
-          even as e;
-          odd as o
-        "
+        *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
       ></dt-row>
     </dt-table>
+    <button
+      dt-button
+      variant="secondary"
+      (click)="disableSorting = !disableSorting"
+    >
+      Toggle disable sorting for all columns
+    </button>
   `,
   // tslint:enable
 })
 export class TableSortingExample {
-  dataSource: Array<{
-    host: string;
-    cpu: number;
-    memoryPerc: number;
-    memoryTotal: number;
-    traffic: number;
-  }> = [
-    {
-      host: 'et-demo-2-win3',
-      cpu: 26,
-      memoryPerc: 46,
-      memoryTotal: 6000000000,
-      traffic: 62500000,
-    },
+  disableSorting = false;
+
+  dataSource = [
     {
       host: 'et-demo-2-win4',
       cpu: 30,
       memoryPerc: 38,
       memoryTotal: 5830000000,
       traffic: 98700000,
+    },
+    {
+      host: 'et-demo-2-win3',
+      cpu: 26,
+      memoryPerc: 46,
+      memoryTotal: 6000000000,
+      traffic: 62500000,
     },
     {
       host: 'docker-host2',
@@ -131,6 +122,7 @@ export class TableSortingExample {
 
   sortData(event: DtSortEvent): void {
     const data = this.dataSource.slice();
+
     this.dataSource = data.sort((a, b) => {
       const isAsc = event.direction === 'asc';
       switch (event.active) {

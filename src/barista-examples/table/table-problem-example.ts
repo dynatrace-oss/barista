@@ -14,7 +14,7 @@ export interface TableData {
   moduleId: module.id,
   selector: 'demo-component',
   // tslint:disable
-  styles: ['.example-container { overflow: auto; height: 300px; }'],
+  styles: ['button { margin-top: 16px; }'],
   template: `
     <dt-table [dataSource]="_dataSource">
       <ng-container dtColumnDef="host" dtColumnAlign="text">
@@ -22,7 +22,7 @@ export interface TableData {
         <dt-cell *dtCellDef="let row">{{ row.name }}</dt-cell>
       </ng-container>
 
-      <ng-container dtColumnDef="cpu" dtColumnAlign="text">
+      <ng-container dtColumnDef="cpu" dtColumnAlign="number">
         <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
         <dt-cell
           [dtIndicator]="metricHasProblem(row, 'cpuUsage')"
@@ -52,7 +52,7 @@ export interface TableData {
         </dt-cell>
       </ng-container>
 
-      <ng-container dtColumnDef="traffic" dtColumnAlign="control">
+      <ng-container dtColumnDef="traffic" dtColumnAlign="number">
         <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
         <dt-cell *dtCellDef="let row">
           {{ row.traffic | dtBits | dtRate: 's' }}
@@ -70,13 +70,15 @@ export interface TableData {
         *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
       ></dt-row>
     </dt-table>
-    <button dt-button (click)="_toggleProblem()">Toggle problem</button>
+
+    <button dt-button variant="secondary" (click)="_toggleProblem()">
+      Toggle problem
+    </button>
   `,
   // tslint:enable
 })
 export class TableProblemExample {
   _dataSource: TableData[] = [
-    // tslint:disable-next-line: max-line-length
     {
       name: 'et-demo-2-win4',
       cpuUsage: 30,

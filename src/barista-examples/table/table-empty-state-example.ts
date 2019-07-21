@@ -1,52 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { DtSort } from '@dynatrace/angular-components';
 
 @Component({
   moduleId: module.id,
   selector: 'demo-component',
+  styles: ['button { margin-top: 16px; }'],
   // tslint:disable
   template: `
-    <button (click)="toggleEmptyState()">Toggle empty state</button>
-
-    <dt-table [dataSource]="dataSource1">
-      <ng-container dtColumnDef="usersId" dtColumnAlign="text">
-        <dt-header-cell *dtHeaderCellDef>Users ID</dt-header-cell>
-        <dt-cell *dtCellDef="let row">{{ row.usersId }}</dt-cell>
-      </ng-container>
-
-      <ng-container dtColumnDef="sessionCount" dtColumnAlign="number">
-        <dt-header-cell *dtHeaderCellDef>Session count</dt-header-cell>
-        <dt-cell *dtCellDef="let row">{{ row.sessionCount }}</dt-cell>
-      </ng-container>
-
-      <ng-container dtColumnDef="averageDuration" dtColumnAlign="number">
-        <dt-header-cell *dtHeaderCellDef>Average duration</dt-header-cell>
-        <dt-cell *dtCellDef="let row">{{ row.averageDuration }}</dt-cell>
-      </ng-container>
-
-      <ng-container dtColumnDef="errors" dtColumnAlign="number">
-        <dt-header-cell *dtHeaderCellDef>Errors</dt-header-cell>
-        <dt-cell *dtCellDef="let row">{{ row.errors }}</dt-cell>
-      </ng-container>
-
-      <ng-container dtColumnDef="country" dtColumnAlign="text">
-        <dt-header-cell *dtHeaderCellDef>Country</dt-header-cell>
-        <dt-cell *dtCellDef="let row">{{ row.country }}</dt-cell>
-      </ng-container>
-
-      <ng-container dtColumnDef="city" dtColumnAlign="text">
-        <dt-header-cell *dtHeaderCellDef>City</dt-header-cell>
-        <dt-cell *dtCellDef="let row">{{ row.city }}</dt-cell>
-      </ng-container>
-
-      <ng-container dtColumnDef="browserFamily" dtColumnAlign="text">
-        <dt-header-cell *dtHeaderCellDef>Browser Family</dt-header-cell>
-        <dt-cell *dtCellDef="let row">{{ row.browserFamily }}</dt-cell>
-      </ng-container>
-
-      <ng-container dtColumnDef="device" dtColumnAlign="text">
-        <dt-header-cell *dtHeaderCellDef>Device</dt-header-cell>
-        <dt-cell *dtCellDef="let row">{{ row.device }}</dt-cell>
-      </ng-container>
+    <dt-table [dataSource]="dataSource" dtSort [dtSortDisabled]="true">
+      <dt-simple-text-column
+        name="usersId"
+        label="Users ID"
+      ></dt-simple-text-column>
+      <dt-simple-number-column
+        name="sessionCount"
+        label="Session count"
+      ></dt-simple-number-column>
+      <dt-simple-number-column
+        name="averageDuration"
+        label="Average duration"
+      ></dt-simple-number-column>
+      <dt-simple-number-column
+        name="errors"
+        label="Errors"
+      ></dt-simple-number-column>
+      <dt-simple-text-column
+        name="country"
+        label="Country"
+      ></dt-simple-text-column>
+      <dt-simple-text-column name="city" label="City"></dt-simple-text-column>
+      <dt-simple-text-column
+        name="browserFamily"
+        label="Browser family"
+      ></dt-simple-text-column>
+      <dt-simple-text-column
+        name="device"
+        label="Device"
+      ></dt-simple-text-column>
 
       <dt-table-empty-state dtTableEmptyState>
         <dt-table-empty-state-image>
@@ -57,11 +47,11 @@ import { Component } from '@angular/core';
         </dt-table-empty-state-image>
 
         <dt-table-empty-state-title>
-          No data that matches your query
+          {{ emptyState.title }}
         </dt-table-empty-state-title>
 
         <dt-table-empty-state-message>
-          {{ message }}
+          {{ emptyState.message }}
         </dt-table-empty-state-message>
       </dt-table-empty-state>
 
@@ -93,11 +83,15 @@ import { Component } from '@angular/core';
         "
       ></dt-row>
     </dt-table>
+
+    <button dt-button variant="secondary" (click)="toggleEmptyState()">
+      Toggle empty state
+    </button>
   `,
   // tslint:enable
 })
 export class TableEmptyStateExample {
-  dataSource: object[] = [
+  data: object[] = [
     {
       usersId: 'Alexander@sommers.at',
       sessionCount: 10,
@@ -130,11 +124,17 @@ export class TableEmptyStateExample {
     },
   ];
 
-  dataSource1: object[] = [];
-  message = `Amend the timefrime you're querying within or
-  review your query to make your statement less restrictive.`;
+  dataSource: object[] = [];
+  emptyState = {
+    title: 'No data that matches your query',
+    message: `Amend the timefrime you're querying within or
+    review your query to make your statement less restrictive.`,
+  };
+
+  // Get the viewChild to pass the sorter reference to the datasource.
+  @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
 
   toggleEmptyState(): void {
-    this.dataSource1 = this.dataSource1.length ? [] : [...this.dataSource];
+    this.dataSource = this.dataSource.length ? [] : [...this.data];
   }
 }
