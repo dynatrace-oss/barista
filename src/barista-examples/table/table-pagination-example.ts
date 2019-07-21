@@ -5,7 +5,6 @@ import {
   formatPercent,
   formatBytes,
   formatRate,
-  DtIndicatorThemePalette,
   DtPagination,
 } from '@dynatrace/angular-components';
 
@@ -15,8 +14,8 @@ import {
   // tslint:disable
   template: `
     <dt-table [dataSource]="dataSource" dtSort #sortable>
-      <dt-simple-text-column name="host"></dt-simple-text-column>
-      <dt-simple-number-column name="cpu" label="Cpu"></dt-simple-number-column>
+      <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
+      <dt-simple-number-column name="cpu" label="CPU"></dt-simple-number-column>
       <dt-simple-number-column
         name="memoryPerc"
         label="Memory"
@@ -33,7 +32,6 @@ import {
         label="Traffic"
         sortable="false"
         [formatter]="trafficFormatter"
-        [hasProblem]="trafficHasProblem"
       ></dt-simple-number-column>
 
       <dt-header-row
@@ -173,14 +171,5 @@ export class TablePaginationExample implements OnInit {
   // tslint:disable-next-line: no-any
   memorySortAccessor(row: any): number {
     return row.memoryPerc;
-  }
-
-  // tslint:disable-next-line: no-any
-  trafficHasProblem(row: any): DtIndicatorThemePalette {
-    if (row.traffic > 90000000) {
-      return 'error';
-    } else if (row.traffic > 60000000) {
-      return 'warning';
-    }
   }
 }

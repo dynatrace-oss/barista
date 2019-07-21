@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
         <dt-cell *dtCellDef="let row">
           <dt-info-group>
             <dt-info-group-icon>
-              <dt-icon name="agent"></dt-icon>
+              <dt-icon name="services"></dt-icon>
             </dt-info-group-icon>
             <dt-info-group-title>{{ row.service }}</dt-info-group-title>
             {{ row.location }}
