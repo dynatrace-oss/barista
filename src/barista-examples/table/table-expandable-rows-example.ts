@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   moduleId: module.id,
   selector: 'demo-component',
+  styles: ['button { margin-top: 16px; }'],
   // tslint:disable
   template: `
-    <dt-table [dataSource]="dataSource1">
+    <dt-table [dataSource]="dataSource" [multiExpand]="multiExpand">
       <ng-container dtColumnDef="host" dtColumnAlign="text">
         <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
@@ -40,18 +41,22 @@ import { Component } from '@angular/core';
       <dt-expandable-row
         *dtRowDef="
           let row;
-          columns: ['host', 'cpu', 'memory', 'traffic', 'details'];
-          let rowIndex = index
+          columns: ['host', 'cpu', 'memory', 'traffic', 'details']
         "
+        [expanded]="row.expanded"
       >
-        Expandable section for {{ row.name }}
+        Expandable section for {{ row.host }}
       </dt-expandable-row>
     </dt-table>
+    <button dt-button variant="secondary" (click)="multiExpand = !multiExpand">
+      Toggle multiexpand (current value: {{ multiExpand }})
+    </button>
   `,
   // tslint:enable
 })
 export class TableExpandableRowsExample {
-  dataSource1: object[] = [
+  multiExpand = false;
+  dataSource: object[] = [
     {
       host: 'et-demo-2-win4',
       cpu: '30 %',
@@ -63,6 +68,7 @@ export class TableExpandableRowsExample {
       cpu: '26 %',
       memory: '46 % of 6 GB',
       traffic: '625 Mbit/s',
+      expanded: true,
     },
     {
       host: 'docker-host2',
