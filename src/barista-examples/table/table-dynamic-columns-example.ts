@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   // tslint:disable
   template: `
-    <dt-table [dataSource]="dataSource1">
+    <dt-table [dataSource]="dataSource">
       <ng-container
         *ngFor="let column of columnsDef"
         [dtColumnDef]="column.id"
@@ -31,7 +31,7 @@ export class TableDynamicColumnsExample {
     {
       id: 'cpu',
       title: 'CPU',
-      type: 'text',
+      type: 'number',
     },
     {
       id: 'memory',
@@ -41,12 +41,12 @@ export class TableDynamicColumnsExample {
     {
       id: 'traffic',
       title: 'Traffic',
-      type: 'control',
+      type: 'number',
     },
   ];
   columnsName = this.columnsDef.map(col => col.id);
 
-  dataSource1: object[] = [
+  dataSource: object[] = [
     {
       host: 'et-demo-2-win4',
       cpu: '30 %',

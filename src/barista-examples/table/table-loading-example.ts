@@ -3,16 +3,16 @@ import { Component } from '@angular/core';
 @Component({
   moduleId: module.id,
   selector: 'demo-component',
+  styles: ['button { margin-top: 16px; }'],
   // tslint:disable
   template: `
-    <button (click)="toggleLoading()">Toggle loading property</button>
-    <dt-table [dataSource]="dataSource1" [loading]="tableLoading">
+    <dt-table [dataSource]="dataSource" [loading]="tableLoading">
       <ng-container dtColumnDef="host" dtColumnAlign="text">
         <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
       </ng-container>
 
-      <ng-container dtColumnDef="cpu" dtColumnAlign="text">
+      <ng-container dtColumnDef="cpu" dtColumnAlign="number">
         <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.cpu }}</dt-cell>
       </ng-container>
@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
         <dt-cell *dtCellDef="let row">{{ row.memory }}</dt-cell>
       </ng-container>
 
-      <ng-container dtColumnDef="traffic" dtColumnAlign="control">
+      <ng-container dtColumnDef="traffic" dtColumnAlign="number">
         <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.traffic }}</dt-cell>
       </ng-container>
@@ -38,11 +38,20 @@ import { Component } from '@angular/core';
         *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
       ></dt-row>
     </dt-table>
+
+    <button
+      dt-button
+      variant="secondary"
+      (click)="tableLoading = !tableLoading"
+    >
+      Toggle loading property
+    </button>
   `,
   // tslint:enable
 })
 export class TableLoadingExample {
-  dataSource1: object[] = [
+  tableLoading = true;
+  dataSource: object[] = [
     {
       host: 'et-demo-2-win4',
       cpu: '30 %',
@@ -68,9 +77,4 @@ export class TableLoadingExample {
       traffic: '98.7 Mbit/s',
     },
   ];
-  tableLoading = true;
-
-  toggleLoading(): void {
-    this.tableLoading = !this.tableLoading;
-  }
 }

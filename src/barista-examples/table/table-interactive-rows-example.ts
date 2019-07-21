@@ -5,13 +5,13 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   // tslint:disable
   template: `
-    <dt-table [dataSource]="dataSource1" interactiveRows>
+    <dt-table [dataSource]="dataSource" interactiveRows>
       <ng-container dtColumnDef="host" dtColumnAlign="text">
         <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
       </ng-container>
 
-      <ng-container dtColumnDef="cpu" dtColumnAlign="text">
+      <ng-container dtColumnDef="cpu" dtColumnAlign="number">
         <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.cpu }}</dt-cell>
       </ng-container>
@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
         <dt-cell *dtCellDef="let row">{{ row.memory }}</dt-cell>
       </ng-container>
 
-      <ng-container dtColumnDef="traffic" dtColumnAlign="control">
+      <ng-container dtColumnDef="traffic" dtColumnAlign="number">
         <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
         <dt-cell *dtCellDef="let row">{{ row.traffic }}</dt-cell>
       </ng-container>
@@ -36,8 +36,8 @@ import { Component } from '@angular/core';
   `,
   // tslint:enable
 })
-export class TableHoverExample {
-  dataSource1: object[] = [
+export class TableInteractiveRowsExample {
+  dataSource: object[] = [
     {
       host: 'et-demo-2-win4',
       cpu: '30 %',

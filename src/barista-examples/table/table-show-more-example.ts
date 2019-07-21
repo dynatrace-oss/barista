@@ -17,6 +17,7 @@ import { takeUntil } from 'rxjs/operators';
     <dt-table [dataSource]="dataSource">
       <dt-simple-text-column
         name="host"
+        label="Host"
         sortable="false"
       ></dt-simple-text-column>
       <dt-simple-number-column
@@ -46,7 +47,9 @@ import { takeUntil } from 'rxjs/operators';
       ></dt-row>
     </dt-table>
 
-    <dt-show-more (click)="loadMore()"></dt-show-more>
+    <dt-show-more (click)="loadMore()">
+      Show 5 more
+    </dt-show-more>
   `,
   // tslint:enable
 })
