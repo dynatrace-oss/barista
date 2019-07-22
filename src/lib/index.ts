@@ -49,3 +49,4 @@ export * from '@dynatrace/angular-components/toggle-button-group';
 export * from '@dynatrace/angular-components/highlight';
 export * from '@dynatrace/angular-components/consumption';
 export * from '@dynatrace/angular-components/timeline-chart';
+export * from '@dynatrace/angular-components/legend';

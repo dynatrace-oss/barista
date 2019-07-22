@@ -4,11 +4,15 @@
   display: block;
 }
 
+.dt-timeline-chart-wrapper {
+  padding-bottom: 28px;
+}
+
 .dt-timeline-chart-bar-container {
   display: flex;
   width: 100%;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
   height: 46px;
   padding-top: 17px;
 }
@@ -49,7 +53,7 @@
     content: '';
     width: 2px;
     height: 50px;
-    background: #ccc;
+    background: #cccccc;
     bottom: 0;
     left: 0;
     position: absolute;
@@ -70,18 +74,26 @@
   background: #525252;
 }
 
+.dt-timeline-chart-legend {
+  margin-top: 20px;
+}
+
+.dt-timeline-chart-legend-symbol,
 .dt-timeline-chart-timing-marker-bubble {
   display: block;
-  position: absolute;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  color: #fff;
+  color: #ffffff;
   background: #525252;
   font-size: 10px;
   font-weight: bold;
   line-height: 16px;
   text-align: center;
+}
+
+.dt-timeline-chart-timing-marker-bubble {
+  position: absolute;
   bottom: -16px;
   left: -7px;
 }
