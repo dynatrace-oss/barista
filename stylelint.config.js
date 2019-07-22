@@ -1,9 +1,11 @@
 module.exports = {
+  plugins: ['stylelint-prettier'],
   extends: [
     '@dynatrace/angular-lint-rules/stylelint',
-    'stylelint-config-prettier',
+    'stylelint-prettier/recommended',
   ],
   rules: {
+    'prettier/prettier': true,
     'at-rule-empty-line-before': null,
     'rule-empty-line-before': null,
     'selector-type-no-unknown': null,
