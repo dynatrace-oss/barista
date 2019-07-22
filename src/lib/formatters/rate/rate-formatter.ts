@@ -10,7 +10,7 @@ import { DtFormattedValue, FormattedData } from '../formatted-value';
  */
 export function formatRate(
   input: DtFormattedValue | number,
-  rateUnit: DtRateUnit | string
+  rateUnit: DtRateUnit | string,
 ): DtFormattedValue {
   const sourceData =
     input instanceof DtFormattedValue

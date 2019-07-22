@@ -117,13 +117,13 @@ export class TableResponsiveExample {
   constructor(
     private _viewportResizer: DtViewportResizer,
     private _viewportRuler: ViewportRuler,
-    private _zone: NgZone
+    private _zone: NgZone,
   ) {
     this._viewportResizer
       .change()
       .pipe(
         startWith(null),
-        switchMap(() => this._zone.onStable.pipe(take(1)))
+        switchMap(() => this._zone.onStable.pipe(take(1))),
       )
       .subscribe(() => {
         const narrow =

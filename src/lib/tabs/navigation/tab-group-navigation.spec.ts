@@ -58,7 +58,7 @@ describe('DtTabRouterFragmentAdapter', () => {
       tabGroupDebug = fixture.debugElement.query(By.directive(DtTabGroup));
       tabsDebug = tabGroupDebug.queryAll(By.css('.dt-tab-label'));
       tabComponentInstance = fixture.debugElement.query(
-        By.directive(TabComponent)
+        By.directive(TabComponent),
       ).componentInstance;
     }));
 
@@ -97,10 +97,10 @@ describe('DtTabRouterFragmentAdapter', () => {
 
     it('should save ids of different tabgroups in the fragment', fakeAsync(() => {
       const secondTabGroupDebug = fixture.debugElement.queryAll(
-        By.directive(DtTabGroup)
+        By.directive(DtTabGroup),
       )[1];
       const secondTabsDebug = secondTabGroupDebug.queryAll(
-        By.css('.dt-tab-label')
+        By.css('.dt-tab-label'),
       );
 
       tabsDebug[0].nativeElement.click();

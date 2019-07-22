@@ -40,7 +40,7 @@ export class FilterFieldAsyncExample {
   _dataSource = new DtFilterFieldDefaultDataSource<any>(this.DATA);
 
   currentFilterChanged(
-    event: DtFilterFieldCurrentFilterChangeEvent<any>
+    event: DtFilterFieldCurrentFilterChangeEvent<any>,
   ): void {
     if (event.added[0] === this.DATA.autocomplete[0]) {
       // Emulate a http request

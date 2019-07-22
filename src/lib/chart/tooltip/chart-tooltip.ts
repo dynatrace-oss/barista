@@ -83,7 +83,7 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
     @Inject(DT_CHART_RESOLVER)
     @Optional()
     @SkipSelf()
-    private _resolveParentChart: DtChartResolver
+    private _resolveParentChart: DtChartResolver,
   ) {}
 
   ngAfterViewInit(): void {
@@ -156,7 +156,7 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
       this._portal = new TemplatePortal<any>(
         this._overlayTemplate,
         this._viewContainerRef,
-        { $implicit: data }
+        { $implicit: data },
       );
 
       overlayRef.attach(this._portal);
@@ -168,7 +168,7 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
   /** Updates the overlay content */
   private _updateOverlayContext(
     data: DtChartTooltipData,
-    parentChart: DtChart
+    parentChart: DtChart,
   ): void {
     if (this._portal && this._overlayRef) {
       this._portal.context.$implicit = data;
@@ -194,13 +194,13 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
    */
   private _getTooltipPosition(
     data: DtChartTooltipData,
-    chart: DtChart
+    chart: DtChart,
   ): { x: number; y: number } {
     const containerElement: HTMLElement = chart.container.nativeElement;
     const containerElementBB = containerElement.getBoundingClientRect();
     const { x, y } = getHighchartsTooltipPosition(
       data,
-      this._plotBackgroundInfo
+      this._plotBackgroundInfo,
     );
     return {
       x: containerElementBB.left + x,
@@ -222,7 +222,7 @@ function checkHasPointData(data: DtChartTooltipData): boolean {
  */
 function getHighchartsTooltipPosition(
   data: DtChartTooltipData,
-  plotBackgroundInfo: HighchartsPlotBackgroundInformation
+  plotBackgroundInfo: HighchartsPlotBackgroundInformation,
 ): { x: number; y: number } {
   const isPieChart = !isDefined(data.points);
   const hasAreaFirstSeries =

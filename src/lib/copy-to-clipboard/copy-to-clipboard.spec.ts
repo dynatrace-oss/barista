@@ -33,7 +33,7 @@ describe('DtCopyToClipboard', () => {
   it('should trigger callback - at least 1 copy must be called', (): void => {
     const fixture = createComponent(CallbackBehaviorTestApp);
     const buttonDebugElement = fixture.debugElement.query(
-      By.css('.dt-copy-to-clipboard-btn-button')
+      By.css('.dt-copy-to-clipboard-btn-button'),
     );
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
 
@@ -44,7 +44,7 @@ describe('DtCopyToClipboard', () => {
   it('should trigger a delayed callback - at least 1 copy must be called', fakeAsync((): void => {
     const fixture = createComponent(DelayedCallbackBehaviorTestApp);
     const buttonDebugElement = fixture.debugElement.query(
-      By.css('.dt-copy-to-clipboard-btn-button')
+      By.css('.dt-copy-to-clipboard-btn-button'),
     );
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
 
@@ -59,19 +59,19 @@ describe('DtCopyToClipboard', () => {
   it('should set checkmark to visible and invisible afterwards', fakeAsync((): void => {
     const fixture = createComponent(CallbackBehaviorTestApp);
     const buttonDebugElement = fixture.debugElement.query(
-      By.css('.dt-copy-to-clipboard-btn-button')
+      By.css('.dt-copy-to-clipboard-btn-button'),
     );
     buttonDebugElement.nativeElement.dispatchEvent(new Event('click'));
 
     fixture.detectChanges();
     const checkIfIconExist = fixture.debugElement.query(
-      By.css('.dt-button-icon')
+      By.css('.dt-button-icon'),
     );
     expect(checkIfIconExist).not.toBeNull('Icon should be visible');
     tick(1200); // wait at least 800ms until the icon should automatically disappear
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.dt-button-icon'))).toBeNull(
-      'Icon should be invisible'
+      'Icon should be invisible',
     );
   }));
 });

@@ -93,7 +93,7 @@ export class DtFormField<T>
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public _elementRef: ElementRef
+    public _elementRef: ElementRef,
   ) {}
 
   ngAfterContentInit(): void {
@@ -113,7 +113,7 @@ export class DtFormField<T>
     merge(
       valueChanges,
       this._prefixChildren.changes,
-      this._suffixChildren.changes
+      this._suffixChildren.changes,
     ).subscribe(() => {
       this._changeDetectorRef.markForCheck();
     });

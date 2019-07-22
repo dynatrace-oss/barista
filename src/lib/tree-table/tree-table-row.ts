@@ -39,7 +39,7 @@ export class DtTreeTableRow<T> extends DtRow {
 
   constructor(
     elementRef: ElementRef,
-    @SkipSelf() private _treeTable: DtTreeTable<T>
+    @SkipSelf() private _treeTable: DtTreeTable<T>,
   ) {
     super(elementRef);
   }

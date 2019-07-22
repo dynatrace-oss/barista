@@ -33,8 +33,8 @@ export class DtProgressCircleBase {
 export const _DtProgressCircle = mixinHasProgress(
   mixinColor<Constructor<DtProgressCircleBase>, DtProgressCircleThemePalette>(
     DtProgressCircleBase,
-    'main'
-  )
+    'main',
+  ),
 );
 
 @Component({
@@ -62,7 +62,7 @@ export class DtProgressCircle extends _DtProgressCircle
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public _elementRef: ElementRef
+    public _elementRef: ElementRef,
   ) {
     super(_elementRef);
   }

@@ -180,7 +180,7 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     private _radioDispatcher: UniqueSelectionDispatcher,
     private _focusMonitor: FocusMonitor,
     private _renderer: Renderer2,
-    @Optional() private _radioGroup: DtRadioGroup<T>
+    @Optional() private _radioGroup: DtRadioGroup<T>,
   ) {
     super();
     this._removeUniqueSelectionListener = _radioDispatcher.listen(
@@ -188,7 +188,7 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
         if (id !== this.id && name === this.name) {
           this.checked = false;
         }
-      }
+      },
     );
   }
 

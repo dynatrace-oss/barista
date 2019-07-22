@@ -145,8 +145,8 @@ export class DtButtonGroupItemBase {
 export const _DtButtonGroupItem = mixinTabIndex(
   mixinColor<Constructor<DtButtonGroupItemBase>, DtButtonGroupThemePalette>(
     DtButtonGroupItemBase,
-    'main'
-  )
+    'main',
+  ),
 );
 
 @Component({
@@ -232,7 +232,7 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
     private _buttonGroup: DtButtonGroup<T>,
     private _changeDetectorRef: ChangeDetectorRef,
     _elementRef: ElementRef,
-    private _focusMonitor: FocusMonitor
+    private _focusMonitor: FocusMonitor,
   ) {
     super(_elementRef);
     this._focusMonitor.monitor(_elementRef);

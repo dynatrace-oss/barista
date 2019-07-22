@@ -9,10 +9,10 @@ describe('mixinNotifyDomExit', () => {
     const instance = new classWithMixin();
 
     expect(instance._onDomExit).toBeTruthy(
-      'Expected the mixed-into class to have a _onDomExit subject'
+      'Expected the mixed-into class to have a _onDomExit subject',
     );
     expect(instance._onDomExit instanceof Subject).toBeTruthy(
-      'Expected the mixed-into class _onDomExit to be a subject'
+      'Expected the mixed-into class _onDomExit to be a subject',
     );
   });
 

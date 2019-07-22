@@ -77,7 +77,7 @@ describe('DtBreadcrumbsItem', () => {
 
           const linkElement = fixture.debugElement.query(By.css('a'));
           expect(linkElement.nativeElement.getAttribute('href')).toBe(
-            testCase.expected
+            testCase.expected,
           );
         });
       });
@@ -102,7 +102,7 @@ describe('DtBreadcrumbsItem', () => {
 
           const linkElement = fixture.debugElement.query(By.css('a'));
           expect(linkElement.nativeElement.getAttribute('href')).toBe(
-            testCase.expected
+            testCase.expected,
           );
         });
       });
@@ -127,7 +127,7 @@ describe('DtBreadcrumbsItem', () => {
 
         const linkElement = fixture.debugElement.query(By.css('a'));
         expect(linkElement.nativeElement.getAttribute('href')).toBe(
-          'http://google.com'
+          'http://google.com',
         );
       });
 
@@ -262,7 +262,7 @@ describe('DtBreadcrumbsItem', () => {
 
       const linkElement = fixture.debugElement.query(By.css('a'));
       expect(linkElement.nativeElement.getAttribute('href')).toBe(
-        'http://google.com'
+        'http://google.com',
       );
     });
 
@@ -336,11 +336,11 @@ class EmptyComponent {}
 const mockMouseEvent = (
   metaKey?: boolean,
   shiftKey?: boolean,
-  ctrlKey?: boolean
+  ctrlKey?: boolean,
 ): MouseEvent => {
   const event = mock(MouseEvent);
   when(event.button).thenReturn(
-    [metaKey, shiftKey, ctrlKey].filter(identity).length
+    [metaKey, shiftKey, ctrlKey].filter(identity).length,
   );
   when(event.metaKey).thenReturn(metaKey || false);
   when(event.shiftKey).thenReturn(shiftKey || false);

@@ -95,7 +95,7 @@ export class DtTheme implements OnDestroy {
   constructor(
     private _elementRef: ElementRef,
     private _renderer: Renderer2,
-    @Optional() @SkipSelf() private _parentTheme: DtTheme
+    @Optional() @SkipSelf() private _parentTheme: DtTheme,
   ) {
     if (this._parentTheme) {
       this._parentSub = this._parentTheme._stateChanges.subscribe(() => {
@@ -127,13 +127,13 @@ export class DtTheme implements OnDestroy {
       this._elementRef,
       currentClassNames.name,
       newClassNames.name,
-      this._renderer
+      this._renderer,
     );
     replaceCssClass(
       this._elementRef,
       currentClassNames.variant,
       newClassNames.variant,
-      this._renderer
+      this._renderer,
     );
     this._classNames = newClassNames;
   }
@@ -152,18 +152,18 @@ export class DtTheme implements OnDestroy {
       isDevMode() &&
       this._depthLevel > MAX_DEPTH &&
       !MAX_DEPTH_EXCEPTION_CLASSESS.some(c =>
-        this._elementRef.nativeElement.classList.contains(c)
+        this._elementRef.nativeElement.classList.contains(c),
       )
     ) {
       LOG.warn(
         `The max supported depth level (${MAX_DEPTH}) of nested themes (dtTheme) has ` +
-          `been exceeded. This could result in wrong styling unpredictable styling side effects.`
+          `been exceeded. This could result in wrong styling unpredictable styling side effects.`,
       );
     }
   }
 
   private _parseThemeValue(
-    value: string
+    value: string,
   ): { name: string; variant: DtThemeVariant } {
     const result = !!value ? value.match(THEME_VALIDATION_RX) : null;
     if (result === null) {

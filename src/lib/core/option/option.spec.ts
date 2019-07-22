@@ -18,13 +18,13 @@ describe('DtOption', () => {
   it('should complete the `stateChanges` stream on destroy', () => {
     const fixture = createComponent(OptionWithDisable);
     const optionInstance: DtOption<string> = fixture.debugElement.query(
-      By.directive(DtOption)
+      By.directive(DtOption),
     ).componentInstance;
     const completeSpy = jasmine.createSpy('complete spy');
     const subscription = optionInstance._stateChanges.subscribe(
       () => {},
       () => {},
-      completeSpy
+      completeSpy,
     );
 
     fixture.destroy();
@@ -35,7 +35,7 @@ describe('DtOption', () => {
   it('should not emit to `selectionChange` if selecting an already-selected option', () => {
     const fixture = createComponent(OptionWithDisable);
     const optionInstance: DtOption<string> = fixture.debugElement.query(
-      By.directive(DtOption)
+      By.directive(DtOption),
     ).componentInstance;
 
     optionInstance.select();
@@ -56,7 +56,7 @@ describe('DtOption', () => {
   it('should not emit to `selectionChange` if deselecting an unselected option', () => {
     const fixture = createComponent(OptionWithDisable);
     const optionInstance: DtOption<string> = fixture.debugElement.query(
-      By.directive(DtOption)
+      By.directive(DtOption),
     ).componentInstance;
 
     optionInstance.deselect();

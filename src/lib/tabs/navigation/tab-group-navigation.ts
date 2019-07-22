@@ -21,7 +21,7 @@ export class DtTabGroupNavigation
 
   constructor(
     @Self() private _tabGroup: DtTabGroup,
-    private _tabNavigationAdapter: DtTabNavigationAdapter
+    private _tabNavigationAdapter: DtTabNavigationAdapter,
   ) {}
 
   ngAfterContentInit(): void {

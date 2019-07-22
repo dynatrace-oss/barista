@@ -23,7 +23,7 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(BasicProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     expect(progressElement.componentInstance.value).toBe(0);
   });
@@ -32,7 +32,7 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(BasicProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     expect(progressElement.componentInstance.min).toBe(0);
   });
@@ -41,7 +41,7 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(BasicProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     expect(progressElement.componentInstance.max).toBe(100);
   });
@@ -50,7 +50,7 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(BasicProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     const progressComponent = progressElement.componentInstance;
 
@@ -74,7 +74,7 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(ValueProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     expect(progressElement.componentInstance.value).toBe(150);
     expect(progressElement.componentInstance.min).toBe(100);
@@ -85,7 +85,7 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(ValueProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     expect(progressElement.componentInstance.percent).toBe(50);
   });
@@ -94,7 +94,7 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(ValueProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     expect(progressElement.componentInstance._dashOffset).toBe(164);
   });
@@ -103,16 +103,16 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(ValueProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     expect(progressElement.nativeElement.getAttribute('aria-valuemin')).toBe(
-      '100'
+      '100',
     );
     expect(progressElement.nativeElement.getAttribute('aria-valuemax')).toBe(
-      '200'
+      '200',
     );
     expect(progressElement.nativeElement.getAttribute('aria-valuenow')).toBe(
-      '150'
+      '150',
     );
   });
 
@@ -120,20 +120,20 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(ColorProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     const instance = progressElement.componentInstance;
 
     expect(instance.color).toBe(
       'main',
-      'Expected the mixed-into class to have a color property'
+      'Expected the mixed-into class to have a color property',
     );
 
     instance.color = 'accent';
 
     expect(instance.color).toBe(
       'accent',
-      'Expected the mixed-into class to have an updated color property'
+      'Expected the mixed-into class to have an updated color property',
     );
   });
 
@@ -141,24 +141,24 @@ describe('DtProgressCircle', () => {
     const fixture = createComponent(ColorProgressCircle);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     const instance = progressElement.componentInstance;
 
     expect(progressElement.nativeElement.classList).toContain(
       'dt-color-main',
-      'Expected the element to have the "dt-color-main" class set'
+      'Expected the element to have the "dt-color-main" class set',
     );
 
     instance.color = 'accent';
 
     expect(progressElement.nativeElement.classList).not.toContain(
       'dt-color-main',
-      'Expected the element to no longer have "dt-color-main" set.'
+      'Expected the element to no longer have "dt-color-main" set.',
     );
     expect(progressElement.nativeElement.classList).toContain(
       'dt-color-accent',
-      'Expected the element to have the "dt-color-accent" class set'
+      'Expected the element to have the "dt-color-accent" class set',
     );
   });
 
@@ -166,7 +166,7 @@ describe('DtProgressCircle', () => {
     const spy = jasmine.createSpy();
     const fixture = createComponent(ColorProgressCircle);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-circle')
+      By.css('dt-progress-circle'),
     );
     const instance = progressElement.componentInstance;
     instance.valueChange.subscribe(spy);

@@ -14,7 +14,7 @@ export interface HasNgZone {
 
 /** Mixin to augment a directive with a `disabled` property. */
 export function mixinNotifyDomExit<T extends Constructor<HasNgZone>>(
-  base: T
+  base: T,
 ): Constructor<CanNotifyOnExit> & T {
   return class extends base {
     _onDomExit = new Subject<void>();

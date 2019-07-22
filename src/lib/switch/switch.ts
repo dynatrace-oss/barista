@@ -168,7 +168,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
-    @Attribute('tabindex') tabIndex: string
+    @Attribute('tabindex') tabIndex: string,
   ) {
     super();
 

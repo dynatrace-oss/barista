@@ -21,7 +21,7 @@ class DtLoadingDistractorVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-loading-distractor must always contain text. Make sure this is the case even if you use nested components to render text.'
+      'A dt-loading-distractor must always contain text. Make sure this is the case even if you use nested components to render text.',
     );
   }
 }
@@ -52,7 +52,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtLoadingDistractorVisitor,
-      })
+      }),
     );
   }
 }

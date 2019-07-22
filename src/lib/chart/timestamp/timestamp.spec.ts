@@ -31,7 +31,7 @@ describe('DtChart Timestamp', () => {
 
     beforeEach(() => {
       fixture = TestBed.createComponent<TimestampTestComponent>(
-        TimestampTestComponent
+        TimestampTestComponent,
       );
       timestamp = fixture.componentInstance.timestamp;
       fixture.detectChanges();
@@ -60,7 +60,7 @@ describe('DtChart Timestamp', () => {
       fixture.detectChanges();
 
       let container: HTMLElement = fixture.debugElement.query(
-        By.css(TIMESTAMP_SELECTOR)
+        By.css(TIMESTAMP_SELECTOR),
       ).nativeElement;
       expect(container.style.transform).toBe('translateX(20px)');
 
@@ -79,7 +79,7 @@ describe('DtChart Timestamp', () => {
       fixture.detectChanges();
 
       let container: HTMLElement = fixture.debugElement.query(
-        By.css(TIMESTAMP_SELECTOR)
+        By.css(TIMESTAMP_SELECTOR),
       ).nativeElement;
       expect(container.style.transform).toBe('translateX(20px)');
 
@@ -97,7 +97,7 @@ describe('DtChart Timestamp', () => {
       fixture.detectChanges();
 
       let container: DebugElement = fixture.debugElement.query(
-        By.css(TIMESTAMP_SELECTOR)
+        By.css(TIMESTAMP_SELECTOR),
       );
       expect(container).not.toBeNull();
 
@@ -117,7 +117,7 @@ describe('DtChart Timestamp', () => {
 
     beforeEach(() => {
       fixture = TestBed.createComponent<TimestampTestBindingValuesComponent>(
-        TimestampTestBindingValuesComponent
+        TimestampTestBindingValuesComponent,
       );
       timestamp = fixture.componentInstance.timestamp;
       fixture.detectChanges();
@@ -169,10 +169,10 @@ describe('DtChart Timestamp', () => {
 
     beforeEach(() => {
       fixture = TestBed.createComponent<TimestampTestBindingValuesComponent>(
-        TimestampTestBindingValuesComponent
+        TimestampTestBindingValuesComponent,
       );
       fixtureA11y = TestBed.createComponent<TimestampTestA11yComponent>(
-        TimestampTestA11yComponent
+        TimestampTestA11yComponent,
       );
       timestamp = fixtureA11y.componentInstance.timestamp;
       fixture.detectChanges();
@@ -187,13 +187,13 @@ describe('DtChart Timestamp', () => {
 
     it('should have default aria-labels on timestamp', () => {
       const container = fixture.debugElement.query(
-        By.css('.dt-chart-timestamp-selector')
+        By.css('.dt-chart-timestamp-selector'),
       ).nativeElement;
 
       expect(container.getAttribute('aria-role')).toBe('slider');
       expect(container.getAttribute('aria-orientation')).toBe('horizontal');
       expect(container.getAttribute('aria-label')).toBe(
-        ARIA_DEFAULT_SELECTED_LABEL
+        ARIA_DEFAULT_SELECTED_LABEL,
       );
       expect(container.getAttribute('aria-valuenow')).toBe('10');
       expect(container.getAttribute('aria-valuetext')).toMatch(/Jan 1/);
@@ -201,20 +201,20 @@ describe('DtChart Timestamp', () => {
 
     it('should have aria min and max values provided on container', () => {
       const container = fixture.debugElement.query(
-        By.css('.dt-chart-timestamp-selector')
+        By.css('.dt-chart-timestamp-selector'),
       ).nativeElement;
 
       expect(container.getAttribute('aria-valuemin')).toBe(
-        `${new Date('2019/01/01 00:00:00').getTime()}`
+        `${new Date('2019/01/01 00:00:00').getTime()}`,
       );
       expect(container.getAttribute('aria-valuemax')).toBe(
-        `${new Date('2019/12/31 00:00:00').getTime()}`
+        `${new Date('2019/12/31 00:00:00').getTime()}`,
       );
     });
 
     it('should have updated aria labels on timestamp when input is provided', () => {
       const container = fixtureA11y.debugElement.query(
-        By.css('.dt-chart-timestamp-selector')
+        By.css('.dt-chart-timestamp-selector'),
       ).nativeElement;
 
       expect(container.getAttribute('aria-label')).toBe('SELECTED');
@@ -227,7 +227,7 @@ describe('DtChart Timestamp', () => {
       fixtureA11y.detectChanges();
 
       const container = fixtureA11y.debugElement.query(
-        By.css('.dt-chart-timestamp-selector')
+        By.css('.dt-chart-timestamp-selector'),
       ).nativeElement;
 
       expect(container.getAttribute('aria-valuenow')).toBe(`${newDate}`);

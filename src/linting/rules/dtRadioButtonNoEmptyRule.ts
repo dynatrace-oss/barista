@@ -27,7 +27,7 @@ class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'When a dt-radio-button does not contain any content it must have an aria-label or an aria-labelledby attribute.'
+      'When a dt-radio-button does not contain any content it must have an aria-label or an aria-labelledby attribute.',
     );
   }
 }
@@ -60,7 +60,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtRadioButtonVisitor,
-      })
+      }),
     );
   }
 }

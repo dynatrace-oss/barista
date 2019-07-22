@@ -26,7 +26,7 @@ class DtBreadcrumbsVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'Breadcrumbs must provide an alternative text in form of an aria-label attribute.'
+      'Breadcrumbs must provide an alternative text in form of an aria-label attribute.',
     );
   }
 }
@@ -62,7 +62,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtBreadcrumbsVisitor,
-      })
+      }),
     );
   }
 }

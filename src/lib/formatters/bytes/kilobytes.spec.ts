@@ -33,7 +33,7 @@ describe('DtKilobytes', () => {
     ].forEach((testCase: TestCase) => {
       it(`should display result converted to KB (${testCase.output})`, () => {
         expect(pipe.transform(testCase.input).toString()).toEqual(
-          testCase.output
+          testCase.output,
         );
       });
     });

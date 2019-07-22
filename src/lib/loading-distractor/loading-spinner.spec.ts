@@ -20,26 +20,26 @@ describe('DtLoadingSpinner', () => {
   it('should support setting a custom aria-label', fakeAsync(() => {
     const fixture = createComponent(TestApp);
     const spinnerElement = fixture.debugElement.query(
-      By.css('dt-loading-spinner')
+      By.css('dt-loading-spinner'),
     );
     const instance = spinnerElement.componentInstance;
     instance.ariaLabel = 'Custom Label';
     fixture.detectChanges();
     expect(spinnerElement.nativeElement.getAttribute('aria-label')).toEqual(
-      'Custom Label'
+      'Custom Label',
     );
   }));
 
   it('should support setting aria-labeledby', fakeAsync(() => {
     const fixture = createComponent(TestApp);
     const spinnerElement = fixture.debugElement.query(
-      By.css('dt-loading-spinner')
+      By.css('dt-loading-spinner'),
     );
     const instance = spinnerElement.componentInstance;
     instance.ariaLabelledby = 'test';
     fixture.detectChanges();
     expect(spinnerElement.nativeElement.getAttribute('aria-labeledby')).toEqual(
-      'test'
+      'test',
     );
   }));
 });

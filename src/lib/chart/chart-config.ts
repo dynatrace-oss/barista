@@ -9,5 +9,5 @@ export const DT_CHART_DEFAULT_CONFIG: DtChartConfig = {
 };
 
 export const DT_CHART_CONFIG = new InjectionToken<DtChartConfig>(
-  'dt-chart-config'
+  'dt-chart-config',
 );

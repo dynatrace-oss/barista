@@ -45,7 +45,7 @@ describe('DtTabNavigationAdapter', () => {
   describe('adapter functions', () => {
     beforeEach(fakeAsync(() => {
       adapter = TestBed.get<DtTabNavigationAdapter>(
-        DtTabNavigationAdapter as any
+        DtTabNavigationAdapter as any,
       );
     }));
 

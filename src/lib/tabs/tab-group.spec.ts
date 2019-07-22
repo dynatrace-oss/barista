@@ -97,7 +97,7 @@ describe('DtTabs', () => {
       spyOn(component, 'handleTabChange').and.callThrough();
 
       const tabLabel = fixture.debugElement.queryAll(
-        By.css('.dt-tab-label')
+        By.css('.dt-tab-label'),
       )[1];
       tabLabel.nativeElement.click();
 
@@ -140,7 +140,7 @@ describe('DtTabs', () => {
       fixture.detectChanges();
       expect(
         fixture.debugElement.queryAll(By.css('.dt-tab-label'))[1].nativeElement
-          .disabled
+          .disabled,
       ).toBeTruthy();
     });
   });
@@ -223,7 +223,7 @@ describe('DtTabs', () => {
       expect(lazySecond).toBeNull();
 
       const secondLabel = fixture.debugElement.queryAll(
-        By.css('.dt-tab-label')
+        By.css('.dt-tab-label'),
       )[1];
       secondLabel.nativeElement.click();
       fixture.detectChanges();
@@ -281,16 +281,16 @@ describe('DtTabs', () => {
 export function checkSelected(
   expectedIndex: number,
   fixture: ComponentFixture<any>,
-  isSelected?: boolean
+  isSelected?: boolean,
 ): void {
   fixture.detectChanges();
   checkLabelClass(expectedIndex, fixture, 'dt-tab-label-active', isSelected);
   const tabContentElement = fixture.debugElement.queryAll(
-    By.css('.dt-tab-body')
+    By.css('.dt-tab-body'),
   )[expectedIndex].nativeElement;
   expect(tabContentElement.classList.contains('dt-tab-body-active')).toBe(
     isSelected !== undefined ? isSelected : true,
-    'Expected "dt-tab-body-active" class to be there'
+    'Expected "dt-tab-body-active" class to be there',
   );
 }
 /** checks if the label at given index has the given class */
@@ -299,14 +299,14 @@ function checkLabelClass(
   expectedIndex: number,
   fixture: ComponentFixture<any>,
   cssClass: string,
-  toExist?: boolean
+  toExist?: boolean,
 ): void {
   const tabLabelElement = fixture.debugElement.queryAll(
-    By.css('.dt-tab-label')
+    By.css('.dt-tab-label'),
   )[expectedIndex].nativeElement;
   expect(tabLabelElement.classList.contains(cssClass)).toBe(
     toExist !== undefined ? toExist : true,
-    `Expected "${cssClass}" class to be there`
+    `Expected "${cssClass}" class to be there`,
   );
 }
 /** Test component that contains an DtTabs. */

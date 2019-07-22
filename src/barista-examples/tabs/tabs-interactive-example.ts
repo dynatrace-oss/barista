@@ -52,7 +52,7 @@ export class TabsInteractiveExample {
         () => {
           this.simulationRunning = false;
           this.connectivity = '100%';
-        }
+        },
       );
   }
 }

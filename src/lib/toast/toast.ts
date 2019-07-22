@@ -27,7 +27,7 @@ export class DtToast {
   constructor(
     private _overlay: Overlay,
     private _injector: Injector,
-    private _zone: NgZone
+    private _zone: NgZone,
   ) {}
 
   /** Creates a new toast and dismisses the current one if one exists */
@@ -40,12 +40,12 @@ export class DtToast {
     const overlayRef = this._createOverlay();
     const injector = new PortalInjector(
       this._injector,
-      new WeakMap<InjectionToken<string>, string>([[DT_TOAST_MESSAGE, msg]])
+      new WeakMap<InjectionToken<string>, string>([[DT_TOAST_MESSAGE, msg]]),
     );
     const containerPortal = new ComponentPortal(
       DtToastContainer,
       null,
-      injector
+      injector,
     );
     const containerRef = overlayRef.attach(containerPortal);
     const container = containerRef.instance;
@@ -55,7 +55,7 @@ export class DtToast {
       container,
       duration,
       overlayRef,
-      this._zone
+      this._zone,
     );
     this._animateDtToastContainer(toastRef);
     this._openedToastRef = toastRef;
@@ -87,7 +87,7 @@ export class DtToast {
   private _calculateToastDuration(message: string): number {
     return Math.max(
       DT_TOAST_PERCEIVE_TIME + DT_TOAST_CHAR_READ_TIME * message.length,
-      DT_TOAST_MIN_DURATION
+      DT_TOAST_MIN_DURATION,
     );
   }
 

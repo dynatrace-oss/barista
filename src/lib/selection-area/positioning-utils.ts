@@ -28,7 +28,7 @@ export enum DtSelectionAreaEventTarget {
  */
 export function getOffsetForKeyCode(
   keyCode: number,
-  boundaryWidth: number
+  boundaryWidth: number,
 ): number {
   switch (keyCode) {
     case LEFT_ARROW:
@@ -61,7 +61,7 @@ export function calculatePosition(
   deltaX: number,
   selectedAreaLeft: number,
   selectedAreaWidth: number,
-  boundaryWidth: number
+  boundaryWidth: number,
 ): { left: number; width: number; nextTarget: DtSelectionAreaEventTarget } {
   let left = 0;
   let width = 0;
@@ -72,7 +72,7 @@ export function calculatePosition(
       left = clamp(
         selectedAreaLeft + deltaX,
         0,
-        boundaryWidth - selectedAreaWidth
+        boundaryWidth - selectedAreaWidth,
       );
       return { left, width: selectedAreaWidth, nextTarget };
     case DtSelectionAreaEventTarget.LeftHandle:
@@ -102,7 +102,7 @@ export function calculatePosition(
         left = clamp(
           selectedAreaLeft + selectedAreaWidth + deltaX,
           0,
-          boundaryWidth
+          boundaryWidth,
         );
         width = selectedAreaLeft - left;
         nextTarget = DtSelectionAreaEventTarget.LeftHandle;
@@ -112,7 +112,7 @@ export function calculatePosition(
         width = clamp(
           selectedAreaWidth + deltaX,
           0,
-          boundaryWidth - selectedAreaLeft
+          boundaryWidth - selectedAreaLeft,
         );
       }
       return { left, width, nextTarget };
@@ -128,7 +128,7 @@ export function calculatePosition(
         deltaX,
         selectedAreaLeft,
         selectedAreaWidth,
-        boundaryWidth
+        boundaryWidth,
       );
   }
 }

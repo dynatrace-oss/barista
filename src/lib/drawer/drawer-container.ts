@@ -88,7 +88,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngAfterContentInit(): void {
@@ -96,7 +96,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
     this._drawers.changes
       .pipe(
         startWith(null),
-        takeUntil(this._destroy)
+        takeUntil(this._destroy),
       )
       .subscribe(() => {
         // Check if the drawers are implemented correctly
@@ -181,13 +181,13 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
     drawer._animationStarted
       .pipe(
         filter((event: AnimationEvent) => event.fromState !== event.toState),
-        takeUntil(this._drawers.changes)
+        takeUntil(this._drawers.changes),
       )
       .subscribe((event: AnimationEvent) => {
         if (event.toState !== 'open-instant' && this._enableAnimations) {
           addCssClass(
             this._elementRef.nativeElement,
-            'dt-drawer-content-transition'
+            'dt-drawer-content-transition',
           );
         }
 
@@ -198,7 +198,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
     drawer.openChange
       .pipe(
         startWith(null),
-        takeUntil(this._drawers.changes)
+        takeUntil(this._drawers.changes),
       )
       .subscribe(() => {
         this._toggleOpenClass(drawer.opened);

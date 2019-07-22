@@ -30,7 +30,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       expect(generateOptionId(optionDef)).toBe(`Option 1${DELIMITER}`);
     });
@@ -41,12 +41,12 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const groupDef = dtGroupDef('Group', [optionDef], {}, null, null);
       optionDef.option!.parentGroup = groupDef;
       expect(generateOptionId(optionDef)).toBe(
-        `Group${DELIMITER}Option 1${DELIMITER}`
+        `Group${DELIMITER}Option 1${DELIMITER}`,
       );
     });
 
@@ -57,10 +57,10 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       expect(generateOptionId(optionDef, `Prefix${DELIMITER}`)).toBe(
-        `Prefix${DELIMITER}Option 1${DELIMITER}`
+        `Prefix${DELIMITER}Option 1${DELIMITER}`,
       );
     });
 
@@ -71,12 +71,12 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const groupDef = dtGroupDef('Group', [optionDef], {}, null, null);
       optionDef.option!.parentGroup = groupDef;
       expect(generateOptionId(optionDef, `Prefix${DELIMITER}`)).toBe(
-        `Prefix${DELIMITER}Group${DELIMITER}Option 1${DELIMITER}`
+        `Prefix${DELIMITER}Group${DELIMITER}Option 1${DELIMITER}`,
       );
     });
   });
@@ -89,7 +89,7 @@ describe('DtFilterField Util', () => {
         'id1',
         null,
         null,
-        null
+        null,
       );
       expect(peekOptionId(optionDef)).toBe('id1');
     });
@@ -101,7 +101,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       expect(peekOptionId(optionDef)).toBe(`Option 1${DELIMITER}`);
       expect(optionDef.option!.uid).toBe(`Option 1${DELIMITER}`);
@@ -112,10 +112,10 @@ describe('DtFilterField Util', () => {
     it('should return null if the provided root definition is not of type autocomplete', () => {
       expect(findDefForSource({}, dtFreeTextDef([], {}, null))).toBe(null);
       expect(
-        findDefForSource({}, dtOptionDef('', {}, null, null, null, null))
+        findDefForSource({}, dtOptionDef('', {}, null, null, null, null)),
       ).toBe(null);
       expect(findDefForSource({}, dtGroupDef('', [], {}, null, null))).toBe(
-        null
+        null,
       );
     });
 
@@ -128,14 +128,14 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const autocompleteDef = dtAutocompleteDef(
         [optionDef],
         false,
         false,
         autocompleteSource,
-        null
+        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
@@ -155,27 +155,27 @@ describe('DtFilterField Util', () => {
           null,
           null,
           null,
-          null
+          null,
         );
         const groupDef = dtGroupDef(
           'Group 1',
           [optionDef],
           groupSource,
           null,
-          null
+          null,
         );
         const autocompleteDef = dtAutocompleteDef(
           [groupDef],
           false,
           false,
           autocompleteSource,
-          null
+          null,
         );
         optionDef.option!.parentAutocomplete = autocompleteDef;
         optionDef.option!.parentGroup = groupDef;
         groupDef.group!.parentAutocomplete = autocompleteDef;
         expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
-      }
+      },
     );
 
     it('should find the corresponding option definition when the source is a string inside an autocomplete def', () => {
@@ -187,14 +187,14 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const autocompleteDef = dtAutocompleteDef(
         [optionDef],
         false,
         false,
         autocompleteSource,
-        null
+        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
@@ -209,14 +209,14 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const autocompleteDef = dtAutocompleteDef(
         [optionDef],
         false,
         false,
         autocompleteSource,
-        null
+        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(findDefForSource({}, autocompleteDef)).toBe(null);
@@ -234,14 +234,14 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const autocompleteDef = dtAutocompleteDef(
         [optionDef],
         false,
         false,
         autocompleteSource,
-        null
+        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
 
@@ -267,21 +267,21 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const groupDef = dtGroupDef(
         'Group 1',
         [optionDef],
         groupSource,
         null,
-        null
+        null,
       );
       const autocompleteDef = dtAutocompleteDef(
         [groupDef],
         false,
         false,
         autocompleteSource,
-        null
+        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       optionDef.option!.parentGroup = groupDef;
@@ -312,7 +312,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const outerOptionDef = dtOptionDef(
         outerOptionSource.name,
@@ -320,14 +320,14 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const outerOptionAutocompleteDef = dtAutocompleteDef(
         [innerOptionDef],
         false,
         false,
         outerOptionSource,
-        outerOptionDef
+        outerOptionDef,
       );
       innerOptionDef.option!.parentAutocomplete = outerOptionAutocompleteDef;
       const rootAutocompleteDef = dtAutocompleteDef(
@@ -335,7 +335,7 @@ describe('DtFilterField Util', () => {
         false,
         false,
         rootAutocompleteSource,
-        null
+        null,
       );
       outerOptionAutocompleteDef.option!.parentAutocomplete = rootAutocompleteDef;
 
@@ -372,7 +372,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const freeTextDef = dtFreeTextDef([], optionSource, optionDef);
       const autocompleteDef = dtAutocompleteDef(
@@ -380,7 +380,7 @@ describe('DtFilterField Util', () => {
         false,
         false,
         autocompleteSource,
-        null
+        null,
       );
       freeTextDef.option!.parentAutocomplete = autocompleteDef;
 
@@ -406,7 +406,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       const freeTextDef = dtFreeTextDef([], optionSource, optionDef);
       const groupDef = dtGroupDef(
@@ -414,14 +414,14 @@ describe('DtFilterField Util', () => {
         [freeTextDef],
         groupSource,
         null,
-        null
+        null,
       );
       const autocompleteDef = dtAutocompleteDef(
         [groupDef],
         false,
         false,
         autocompleteSource,
-        null
+        null,
       );
       freeTextDef.option!.parentGroup = groupDef;
       freeTextDef.option!.parentAutocomplete = autocompleteDef;
@@ -448,7 +448,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       expect(optionFilterTextPredicate(optionDef, 'Opt')).toBe(true);
     });
@@ -461,7 +461,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       expect(optionFilterTextPredicate(optionDef, 'ion 1')).toBe(true);
     });
@@ -474,7 +474,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-        null
+        null,
       );
       expect(optionFilterTextPredicate(optionDef, 'ion 2')).toBe(false);
     });
@@ -490,10 +490,10 @@ describe('DtFilterField Util', () => {
         optionSource.uid,
         null,
         null,
-        null
+        null,
       );
       expect(optionSelectedPredicate(optionDef, selectedIds, false)).toBe(
-        false
+        false,
       );
       expect(optionSelectedPredicate(optionDef, selectedIds, true)).toBe(false);
     });
@@ -507,7 +507,7 @@ describe('DtFilterField Util', () => {
         optionSource.uid,
         null,
         null,
-        null
+        null,
       );
       expect(optionSelectedPredicate(optionDef, selectedIds, false)).toBe(true);
       expect(optionSelectedPredicate(optionDef, selectedIds, true)).toBe(true);
@@ -525,19 +525,19 @@ describe('DtFilterField Util', () => {
           optionSource.uid,
           null,
           null,
-          null
+          null,
         );
         optionDef = dtAutocompleteDef(
           [],
           false,
           false,
           optionSource,
-          optionDef
+          optionDef,
         );
         expect(optionSelectedPredicate(optionDef, selectedIds, false)).toBe(
-          true
+          true,
         );
-      }
+      },
     );
 
     it(
@@ -552,19 +552,19 @@ describe('DtFilterField Util', () => {
           optionSource.uid,
           null,
           null,
-          null
+          null,
         );
         optionDef = dtAutocompleteDef(
           [],
           false,
           false,
           optionSource,
-          optionDef
+          optionDef,
         );
         expect(optionSelectedPredicate(optionDef, selectedIds, true)).toBe(
-          false
+          false,
         );
-      }
+      },
     );
   });
 
@@ -578,15 +578,15 @@ describe('DtFilterField Util', () => {
         optionSource.uid,
         null,
         null,
-        null
+        null,
       );
       const groupDef = dtGroupDef('Group 1', [optionDef], {}, null, null);
       optionDef.option!.parentGroup = groupDef;
       expect(optionOrGroupFilteredPredicate(groupDef, selectedIds, false)).toBe(
-        false
+        false,
       );
       expect(optionOrGroupFilteredPredicate(groupDef, selectedIds, true)).toBe(
-        false
+        false,
       );
     });
 
@@ -599,7 +599,7 @@ describe('DtFilterField Util', () => {
         option1Source.uid,
         null,
         null,
-        null
+        null,
       );
       const option2Def = dtOptionDef(
         option2Source.name,
@@ -607,7 +607,7 @@ describe('DtFilterField Util', () => {
         option2Source.uid,
         null,
         null,
-        null
+        null,
       );
       const selectedIds = new Set([option1Source.uid]);
       const groupDef = dtGroupDef(
@@ -615,12 +615,12 @@ describe('DtFilterField Util', () => {
         [option1Def, option2Def],
         {},
         null,
-        null
+        null,
       );
       option1Def.option!.parentGroup = groupDef;
       option2Def.option!.parentGroup = groupDef;
       expect(optionOrGroupFilteredPredicate(groupDef, selectedIds, false)).toBe(
-        true
+        true,
       );
     });
 
@@ -633,7 +633,7 @@ describe('DtFilterField Util', () => {
         option1Source.uid,
         null,
         null,
-        null
+        null,
       );
       const option2Def = dtOptionDef(
         option2Source.name,
@@ -641,7 +641,7 @@ describe('DtFilterField Util', () => {
         option2Source.uid,
         null,
         null,
-        null
+        null,
       );
 
       const selectedIds = new Set([option1Source.uid]);
@@ -650,12 +650,12 @@ describe('DtFilterField Util', () => {
         [option1Def, option2Def],
         {},
         null,
-        null
+        null,
       );
       option1Def.option!.parentGroup = groupDef;
       option2Def.option!.parentGroup = groupDef;
       expect(optionOrGroupFilteredPredicate(groupDef, selectedIds, true)).toBe(
-        false
+        false,
       );
     });
 
@@ -668,7 +668,7 @@ describe('DtFilterField Util', () => {
         option1Source.uid,
         null,
         null,
-        null
+        null,
       );
       const option2Def = dtOptionDef(
         option2Source.name,
@@ -676,7 +676,7 @@ describe('DtFilterField Util', () => {
         option2Source.uid,
         null,
         null,
-        null
+        null,
       );
       const selectedIds = new Set();
       const groupDef = dtGroupDef(
@@ -684,15 +684,15 @@ describe('DtFilterField Util', () => {
         [option1Def, option2Def],
         {},
         null,
-        null
+        null,
       );
       option1Def.option!.parentGroup = groupDef;
       option2Def.option!.parentGroup = groupDef;
       expect(optionOrGroupFilteredPredicate(groupDef, selectedIds, true)).toBe(
-        true
+        true,
       );
       expect(optionOrGroupFilteredPredicate(groupDef, selectedIds, false)).toBe(
-        true
+        true,
       );
     });
   });

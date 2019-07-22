@@ -6,7 +6,6 @@
   $is-dark: map-get($theme, 'is-dark');
 
   @if ($is-dark == true) {
-
     :host {
       .dt-checkbox-content {
         color: #ffffff;

@@ -9,7 +9,7 @@ import { MAX_PAGINATION_ITEMS, BOUND } from './pagination-defaults';
  */
 export function calculatePages(
   numberOfPages: number,
-  currentPage: number
+  currentPage: number,
 ): number[][] {
   if (currentPage > numberOfPages || currentPage < 1) {
     return [];
@@ -21,13 +21,13 @@ export function calculatePages(
   }
 
   const start = new Set<number>(
-    Array.from({ length: BOUND }, (_, index) => index + 1)
+    Array.from({ length: BOUND }, (_, index) => index + 1),
   );
   const end = new Set<number>(
     Array.from(
       { length: BOUND },
-      (_, index) => numberOfPages - BOUND + index + 1
-    )
+      (_, index) => numberOfPages - BOUND + index + 1,
+    ),
   );
   const middle = new Set<number>();
 

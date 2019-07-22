@@ -108,7 +108,7 @@ export class DtInlineEditor
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
   ) {}
 
   ngAfterViewInit(): void {
@@ -118,7 +118,7 @@ export class DtInlineEditor
     // new onces (basically clone them) in the template.
     this._errorChildrenSource = this._errorChildren.changes.pipe(
       startWith(null),
-      map(() => this._errorChildren.toArray())
+      map(() => this._errorChildren.toArray()),
     );
   }
 
@@ -162,7 +162,7 @@ export class DtInlineEditor
         },
         error => {
           this._emitError(error);
-        }
+        },
       );
       this._changeDetectorRef.markForCheck();
     } else {

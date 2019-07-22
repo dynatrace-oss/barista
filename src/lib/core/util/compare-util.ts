@@ -15,7 +15,7 @@ export type DtSortDirection = 'asc' | 'desc' | '';
 export function compareStrings(
   valueA: string | null,
   valueB: string | null,
-  direction: DtSortDirection = 'asc'
+  direction: DtSortDirection = 'asc',
 ): number {
   return compareValues(valueA, valueB, direction);
 }
@@ -32,7 +32,7 @@ export function compareStrings(
 export function compareNumbers(
   valueA: number | null,
   valueB: number | null,
-  direction: DtSortDirection = 'desc'
+  direction: DtSortDirection = 'desc',
 ): number {
   return compareValues(valueA, valueB, direction);
 }
@@ -51,7 +51,7 @@ export function compareNumbers(
 export function compareValues(
   valueA: string | number | null,
   valueB: string | number | null,
-  direction: DtSortDirection
+  direction: DtSortDirection,
 ): number {
   let comparatorResult = 0;
   if (isDefined(valueA) && isDefined(valueB)) {

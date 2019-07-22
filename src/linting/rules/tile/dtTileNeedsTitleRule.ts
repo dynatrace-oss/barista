@@ -21,7 +21,7 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-tile must contain a dt-tile-title element, that must be a direct child.'
+      'A dt-tile must contain a dt-tile-title element, that must be a direct child.',
     );
   }
 }
@@ -63,7 +63,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtTileVisitor,
-      })
+      }),
     );
   }
 }

@@ -35,7 +35,7 @@ export class DtToastRef {
     containerInstance: DtToastContainer,
     duration: number,
     private _overlayRef: OverlayRef,
-    private _zone: NgZone
+    private _zone: NgZone,
   ) {
     this.containerInstance = containerInstance;
     this.duration = duration;
@@ -46,15 +46,15 @@ export class DtToastRef {
       this._afterDismissed.complete();
     });
     this._interval$ = interval(DT_TOAST_CHAR_READ_TIME).pipe(
-      mapTo(-DT_TOAST_CHAR_READ_TIME)
+      mapTo(-DT_TOAST_CHAR_READ_TIME),
     );
     this._pause$ = fromEvent(
       this.containerInstance._elementRef.nativeElement,
-      'mouseenter'
+      'mouseenter',
     ).pipe(mapTo(false));
     this._resume$ = fromEvent(
       this.containerInstance._elementRef.nativeElement,
-      'mouseleave'
+      'mouseleave',
     ).pipe(mapTo(true));
   }
 
@@ -84,7 +84,7 @@ export class DtToastRef {
           startWith(true),
           switchMap(val => (val ? this._interval$ : EMPTY)),
           scan((acc, curr) => (curr ? curr + acc : acc), this.duration),
-          takeWhile(v => v >= DT_TOAST_CHAR_READ_TIME)
+          takeWhile(v => v >= DT_TOAST_CHAR_READ_TIME),
         )
         .subscribe({
           complete: () => {

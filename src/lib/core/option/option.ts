@@ -26,7 +26,7 @@ export class DtOptionSelectionChange<T> {
     /** Reference to the option that emitted the event. */
     public source: DtOption<T>,
     /** Whether the change in the option's value was a result of a user action. */
-    public isUserInput: boolean = false
+    public isUserInput: boolean = false,
   ) {}
 }
 
@@ -106,7 +106,7 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
   constructor(
     private _element: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
-    @Optional() readonly group?: DtOptgroup
+    @Optional() readonly group?: DtOptgroup,
   ) {}
 
   ngAfterViewChecked(): void {
@@ -237,7 +237,7 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
 export function _countGroupLabelsBeforeOption<T>(
   optionIndex: number,
   options: QueryList<DtOption<T>>,
-  optionGroups: QueryList<DtOptgroup>
+  optionGroups: QueryList<DtOptgroup>,
 ): number {
   if (optionGroups.length) {
     const optionsArray = options.toArray();
@@ -264,7 +264,7 @@ export function _getOptionScrollPosition(
   optionIndex: number,
   optionHeight: number,
   currentScrollPosition: number,
-  panelHeight: number
+  panelHeight: number,
 ): number {
   const optionOffset = optionIndex * optionHeight;
 

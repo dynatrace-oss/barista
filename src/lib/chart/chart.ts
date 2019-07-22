@@ -110,7 +110,7 @@ applyHighchartsErrorHandler();
 
 /** Injection token used to get the instance of the dt-chart instance  */
 export const DT_CHART_RESOLVER = new InjectionToken<() => DtChart>(
-  'dt-chart-resolver'
+  'dt-chart-resolver',
 );
 /**
  * @internal
@@ -208,7 +208,7 @@ export class DtChart
     return this._series;
   }
   set series(
-    series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined
+    series: Observable<DtChartSeries[]> | DtChartSeries[] | undefined,
   ) {
     if (this._dataSub) {
       this._dataSub.unsubscribe();
@@ -280,13 +280,13 @@ export class DtChart
   > = defer(() => {
     if (this._heatfields) {
       return merge<DtChartHeatfieldActiveChange>(
-        ...this._heatfields.map(heatfield => heatfield.activeChange)
+        ...this._heatfields.map(heatfield => heatfield.activeChange),
       );
     }
 
     return this._ngZone.onStable.asObservable().pipe(
       take(1),
-      switchMap(() => this._heatfieldActiveChanges)
+      switchMap(() => this._heatfieldActiveChanges),
     );
   });
 
@@ -298,7 +298,7 @@ export class DtChart
     @Optional()
     @SkipSelf()
     @Inject(DT_CHART_CONFIG)
-    private _config: DtChartConfig
+    private _config: DtChartConfig,
   ) {
     this._config = this._config || DT_CHART_DEFAULT_CONFIG;
 
@@ -307,7 +307,7 @@ export class DtChart
         .change()
         .pipe(
           takeUntil(this._destroy$),
-          delay(0)
+          delay(0),
         ) // delay to postpone the reflow to the next change detection cycle
         .subscribe(() => {
           if (this._chartObject) {
@@ -356,7 +356,7 @@ export class DtChart
             );
           }
           return false;
-        })
+        }),
       )
       .subscribe(ev => {
         this.tooltipDataChange.next(ev);
@@ -373,7 +373,7 @@ export class DtChart
     // Creating a new highcharts chart.
     // This needs to be done outside the ngZone so the events, highcharts listens to, do not pollute our change detection.
     this._chartObject = this._ngZone.runOutsideAngular(() =>
-      chart(this.container.nativeElement, this.highchartsOptions)
+      chart(this.container.nativeElement, this.highchartsOptions),
     );
 
     addHighchartsEvent(this._chartObject, 'redraw', () => {
@@ -458,7 +458,7 @@ export class DtChart
   _update(): void {
     const highchartsOptions = createHighchartOptions(
       this._options,
-      this._currentSeries
+      this._currentSeries,
     );
 
     // Check if x Axis type has changes (e.g. numeric -> category)
@@ -493,7 +493,7 @@ export class DtChart
 
   /** Calculates and sets the offset of the plot-background to the Chart container on the xAxis */
   private _setPlotBackgroundOffset(
-    plotBackground: SVGRectElement | null
+    plotBackground: SVGRectElement | null,
   ): void {
     this._plotBackgroundChartOffset = plotBackground
       ? plotBackground.getBoundingClientRect().left -
@@ -533,7 +533,7 @@ export class DtChart
     if (this._config.shouldUpdateColors) {
       this._highchartsOptions = applyHighchartsColorOptions(
         this._highchartsOptions,
-        this._theme
+        this._theme,
       );
     }
   }

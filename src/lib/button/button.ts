@@ -33,8 +33,8 @@ export class DtButtonBase {
 export const _DtButtonMixinBase = mixinDisabled(
   mixinColor<Constructor<DtButtonBase>, DtButtonThemePalette>(
     DtButtonBase,
-    'main'
-  )
+    'main',
+  ),
 );
 
 export type ButtonVariant = 'primary' | 'secondary' | 'nested';
@@ -91,7 +91,7 @@ export class DtButton extends _DtButtonMixinBase
     elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
     private _renderer: Renderer2,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     super(elementRef);
 
@@ -132,7 +132,7 @@ export class DtButton extends _DtButtonMixinBase
       this._elementRef,
       `dt-button-${oldClass}`,
       `dt-button-${newClass}`,
-      this._renderer
+      this._renderer,
     );
   }
 }
@@ -166,7 +166,7 @@ export class DtAnchor extends DtButton {
     elementRef: ElementRef,
     focusMonitor: FocusMonitor,
     renderer: Renderer2,
-    changeDetectorRef: ChangeDetectorRef
+    changeDetectorRef: ChangeDetectorRef,
   ) {
     super(elementRef, focusMonitor, renderer, changeDetectorRef);
   }

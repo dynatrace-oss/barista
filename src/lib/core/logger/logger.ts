@@ -9,7 +9,7 @@ export const DT_LOGGER_NAME = new InjectionToken<string>('DtLoggerName');
 export class DtLogger {
   constructor(
     @Inject(DT_LOGGER_NAME) readonly name: string,
-    private readonly _consumer: DtLogConsumer
+    private readonly _consumer: DtLogConsumer,
   ) {}
 
   error(message: string, param?: DtLogEntryParam): void {

@@ -30,7 +30,7 @@ describe('DtDateRange', () => {
       const end = new Date('2019/02/11 10:20:11').getTime();
 
       expect(pipe.transform([start, end]).toString()).toEqual(
-        'Feb 11 08:20 — 10:20'
+        'Feb 11 08:20 — 10:20',
       );
     });
 
@@ -39,7 +39,7 @@ describe('DtDateRange', () => {
       const end = new Date('2019/02/12 10:20:11').getTime();
 
       expect(pipe.transform([start, end]).toString()).toEqual(
-        'Feb 11 08:20 — Feb 12 10:20'
+        'Feb 11 08:20 — Feb 12 10:20',
       );
     });
 
@@ -48,7 +48,7 @@ describe('DtDateRange', () => {
       const end = new Date('2018/12/11 10:20:11').getTime();
 
       expect(pipe.transform([start, end]).toString()).toEqual(
-        '2018 Dec 11 08:20 — 10:20'
+        '2018 Dec 11 08:20 — 10:20',
       );
     });
 
@@ -57,7 +57,7 @@ describe('DtDateRange', () => {
       const end = new Date('2018/12/12 10:20:11').getTime();
 
       expect(pipe.transform([start, end]).toString()).toEqual(
-        '2018 Dec 11 08:20 — Dec 12 10:20'
+        '2018 Dec 11 08:20 — Dec 12 10:20',
       );
     });
 
@@ -66,7 +66,7 @@ describe('DtDateRange', () => {
       const end = new Date('2018/12/12 10:20:11').getTime();
 
       expect(pipe.transform([start, end]).toString()).toEqual(
-        '2017 Feb 11 08:20 — 2018 Dec 12 10:20'
+        '2017 Feb 11 08:20 — 2018 Dec 12 10:20',
       );
     });
   });

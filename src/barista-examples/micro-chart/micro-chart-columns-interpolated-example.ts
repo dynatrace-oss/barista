@@ -29,7 +29,7 @@ export class MicroChartColumnsInterpolatedExample {
       ([x, y]: [number, number]) => ({
         x,
         y: Math.random() > 0.3 ? y : undefined,
-      })
+      }),
     ),
   };
 }

@@ -51,7 +51,7 @@ export const DT_CHART_COLOR_PALETTES = {
 /** Return correct color palette depending on the number of metrics */
 export function getDtChartColorPalette(
   nrOfMetrics: number,
-  theme?: DtTheme
+  theme?: DtTheme,
 ): string[] {
   let palette = DT_CHART_COLOR_PALETTE_ORDERED;
 

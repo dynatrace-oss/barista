@@ -14,7 +14,7 @@ export interface ParentElement {
  */
 function findMatch(
   parent: ParentElement,
-  element: ElementAst
+  element: ElementAst,
 ): ElementAst | undefined {
   return parent.children.find(child => {
     if (isEqual(child, element)) {
@@ -35,14 +35,14 @@ function findMatch(
 export function getParentElement(
   element: ElementAst,
   parentName: string,
-  childName?: string
+  childName?: string,
 ): ParentElement | undefined {
   const startLine = element.sourceSpan.start.line;
   const elementChildren = element.children
     .filter(child => child instanceof ElementAst)
     // Return only children with name when given.
     .filter(child =>
-      childName ? (child as ElementAst).name === childName : true
+      childName ? (child as ElementAst).name === childName : true,
     );
   if (elementChildren.length < 1) {
     return undefined;
@@ -61,7 +61,7 @@ export function getParentElement(
  */
 export function getElementParent(
   element: ElementAst,
-  parents: ParentElement[]
+  parents: ParentElement[],
 ): ParentElement | undefined {
   const elementStartLine = element.sourceSpan.start.line;
   let matchingGroup;
@@ -93,13 +93,13 @@ export function getElementParent(
  */
 export function hasFormFieldParentWithLabel(
   element: ElementAst,
-  parents: ParentElement[]
+  parents: ParentElement[],
 ): boolean {
   // If the element has a (form field) parent, check if it contains a dt-label element.
   const parentMatch = getElementParent(element, parents);
   if (parentMatch) {
     const hasDtLabel = parentMatch.children.find(
-      child => child.name === 'dt-label'
+      child => child.name === 'dt-label',
     );
     if (hasDtLabel) {
       return true;

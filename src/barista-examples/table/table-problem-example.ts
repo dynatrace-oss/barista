@@ -119,7 +119,7 @@ export class TableProblemExample {
 
   metricIndicatorColor(
     rowData: TableData,
-    metricName: string
+    metricName: string,
   ): 'error' | 'warning' | null {
     return this._metricHasError(rowData, metricName)
       ? 'error'

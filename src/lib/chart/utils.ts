@@ -15,7 +15,7 @@ export function captureAndMergeEvents<
   return merge(
     ...elements
       .filter(Boolean)
-      .map((element: E) => fromEvent<WindowEventMap[T]>(element, type))
+      .map((element: E) => fromEvent<WindowEventMap[T]>(element, type)),
   );
 }
 
@@ -24,7 +24,7 @@ export function captureAndMergeEvents<
  * Custom operator that provides the first elementRef safely from a QueryList
  */
 export function getElementRef<T>(
-  queryList: QueryList<ElementRef<T>>
+  queryList: QueryList<ElementRef<T>>,
 ): OperatorFunction<unknown, ElementRef<T>> {
   return input$ =>
     input$.pipe(
@@ -33,7 +33,7 @@ export function getElementRef<T>(
           return queryList.first;
         }
       }),
-      filter(Boolean)
+      filter(Boolean),
     );
 }
 
@@ -43,7 +43,7 @@ export function getElementRef<T>(
  */
 export function setPosition(
   element: HTMLElement,
-  bounding: Partial<ClientRect>
+  bounding: Partial<ClientRect>,
 ): void {
   const elementStyle: CSSStyleDeclaration = element.style;
   if (bounding.top) {
@@ -97,7 +97,7 @@ export function getMousePosition(event: MouseEvent): { x: number; y: number } {
  */
 export function getRelativeMousePosition(
   event: MouseEvent,
-  container: HTMLElement
+  container: HTMLElement,
 ): { x: number; y: number } {
   const { x: clientX, y: clientY } = getMousePosition(event);
   const boundingClientRect = container.getBoundingClientRect();
@@ -130,7 +130,7 @@ export function getRelativeMousePosition(
  */
 export function chainFocusTraps(
   traps: FocusTrap[],
-  trapContainers: HTMLElement[]
+  trapContainers: HTMLElement[],
 ): void {
   if (traps.length !== trapContainers.length) {
     return;
@@ -139,7 +139,7 @@ export function chainFocusTraps(
   // tslint:disable-next-line: one-variable-per-declaration
   for (let i = 0, max = traps.length; i < max; i++) {
     const anchors: HTMLElement[] = [].slice.call(
-      trapContainers[i].querySelectorAll('.cdk-focus-trap-anchor')
+      trapContainers[i].querySelectorAll('.cdk-focus-trap-anchor'),
     );
     const nextTrap = i + 1 === max ? traps[0] : traps[i + 1];
 
@@ -162,7 +162,7 @@ export function chainFocusTraps(
 export function chainFocusToNextTrap(
   target: HTMLElement,
   nextTrap: FocusTrap,
-  first: boolean
+  first: boolean,
 ): void {
   target.addEventListener('focus', (event: FocusEvent) => {
     event.preventDefault();

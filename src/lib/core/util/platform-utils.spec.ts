@@ -25,7 +25,7 @@ describe('PlatformUtil', () => {
         testComponent.testElement,
         'old-class',
         'new-class',
-        renderer
+        renderer,
       );
       expect(testComponent.testElement.className).toBe('new-class');
     });
@@ -69,7 +69,7 @@ describe('PlatformUtil', () => {
         testComponent.elementRef,
         'old-class',
         'new-class',
-        renderer
+        renderer,
       );
       expect(testComponent.testElement.className).toBe('new-class');
     });
@@ -92,7 +92,7 @@ describe('PlatformUtil', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       expect(
-        hasCssClass(testComponent.testSvgElement, 'old-class')
+        hasCssClass(testComponent.testSvgElement, 'old-class'),
       ).toBeTruthy();
     });
 
@@ -100,7 +100,7 @@ describe('PlatformUtil', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       expect(
-        hasCssClass(testComponent.testSvgElement, 'new-class')
+        hasCssClass(testComponent.testSvgElement, 'new-class'),
       ).toBeFalsy();
     });
   });
@@ -115,7 +115,7 @@ class TestApp {
   // tslint:disable-next-line: ban
   testSvgElement: SVGElement = document.createElementNS(
     'http://www.w3.org/2000/svg',
-    'svg'
+    'svg',
   );
   elementRef = new ElementRef(this.testElement);
 

@@ -55,7 +55,7 @@ const SUPPORTED_CHART_TYPES = ['line', 'column'];
  * see https://github.com/angular/angular/issues/23629 for further information
  */
 export function DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY(
-  microChart: DtMicroChart
+  microChart: DtMicroChart,
 ): DtChartResolver {
   const resolver = () => microChart._dtChart;
   return resolver;
@@ -128,14 +128,14 @@ export class DtMicroChart implements OnDestroy {
       | Observable<DtChartSeries[]>
       | Observable<DtChartSeries>
       | DtChartSeries[]
-      | DtChartSeries
+      | DtChartSeries,
   ) {
     this._transformedSeries =
       series instanceof Observable
         ? (series as Observable<DtChartSeries[] | DtChartSeries>).pipe(
             map((s: DtChartSeries[] | DtChartSeries) =>
-              this._transformSeries(s)
-            )
+              this._transformSeries(s),
+            ),
           )
         : series && this._transformSeries(series);
     this._series = series;
@@ -165,7 +165,7 @@ export class DtMicroChart implements OnDestroy {
 
   constructor(
     @Optional() @SkipSelf() private readonly _theme: DtTheme,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     this._transformedOptions = this._transformOptions({});
 
@@ -189,7 +189,7 @@ export class DtMicroChart implements OnDestroy {
   }
 
   private _transformSeries(
-    series: DtChartSeries[] | DtChartSeries
+    series: DtChartSeries[] | DtChartSeries,
   ): DtChartSeries[] {
     const singleSeries: DtChartSeries = Array.isArray(series)
       ? series[0]
@@ -207,7 +207,7 @@ export class DtMicroChart implements OnDestroy {
       max,
       this.labelFormatter,
       this._theme,
-      this._transformedOptions.chart!.type
+      this._transformedOptions.chart!.type,
     );
 
     singleSeries.data = dataPoints;
@@ -254,7 +254,7 @@ function convertToDataPoints(
     | [string, number, number]
     | [number, number, number]
     | DataPoint
-  >
+  >,
 ): DataPoint[] {
   return seriesData.map((dataPoint, index) => {
     if (typeof dataPoint === 'number') {
@@ -272,7 +272,7 @@ function convertToDataPoints(
 
 /** Find minium and maximum data points */
 function getMinMaxDataPoints(
-  dataPoints: DataPoint[]
+  dataPoints: DataPoint[],
 ): { min: DataPoint; max: DataPoint } {
   // tslint:disable:align
   return dataPoints.reduce(
@@ -286,7 +286,7 @@ function getMinMaxDataPoints(
           ? currentDataPoint
           : accumulator.max,
     }),
-    { min: { y: Infinity }, max: { y: -Infinity } }
+    { min: { y: Infinity }, max: { y: -Infinity } },
   );
   // tslint:enable:align
 }
@@ -297,33 +297,33 @@ function applyMinMaxOptions(
   max: DataPoint,
   labelFormatter: (input: number) => string,
   theme?: DtTheme,
-  chartType?: string
+  chartType?: string,
 ): void {
   const palette = getDtMicrochartColorPalette(theme);
   const minMaxDefaultOptions = createDtMicrochartMinMaxDataPointOptions(
-    palette
+    palette,
   );
   if (chartType === 'column') {
     lodashMerge(
       min,
       minMaxDefaultOptions,
-      _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS
+      _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS,
     );
     lodashMerge(
       max,
       minMaxDefaultOptions,
-      _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS
+      _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS,
     );
   } else {
     lodashMerge(
       min,
       minMaxDefaultOptions,
-      _DT_MICROCHART_MIN_DATAPOINT_OPTIONS
+      _DT_MICROCHART_MIN_DATAPOINT_OPTIONS,
     );
     lodashMerge(
       max,
       minMaxDefaultOptions,
-      _DT_MICROCHART_MAX_DATAPOINT_OPTIONS
+      _DT_MICROCHART_MAX_DATAPOINT_OPTIONS,
     );
   }
   addDataLabelFormatter(min, labelFormatter);
@@ -345,7 +345,7 @@ function checkUnsupportedOptions(options: DtChartOptions): void {
 /** Apply count formatter to value to be displayed in data label */
 function addDataLabelFormatter(
   dataPoint: DataPoint,
-  formatter: (input: number) => string
+  formatter: (input: number) => string,
 ): void {
   if (dataPoint && dataPoint.dataLabels) {
     dataPoint.dataLabels.formatter = () =>
@@ -361,7 +361,7 @@ function addDataLabelFormatter(
  */
 function extractGapSeries(
   series: DtChartSeries,
-  options: DtChartOptions
+  options: DtChartOptions,
 ): LineChartSeriesOptions | ColumnChartSeriesOptions {
   const data = series.data as DataPoint[];
 

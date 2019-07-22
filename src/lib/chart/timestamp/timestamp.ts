@@ -102,7 +102,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     return this._valueToPixelsFn;
   }
   set _valueToPixels(
-    fn: ((value: number, paneCoordinates?: boolean) => number) | null
+    fn: ((value: number, paneCoordinates?: boolean) => number) | null,
   ) {
     this._valueToPixelsFn = fn;
     this._reflectValueToPosition();
@@ -175,7 +175,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   constructor(
     public _viewContainerRef: ViewContainerRef,
     private _renderer: Renderer2,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnDestroy(): void {
@@ -187,7 +187,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     this._timestampElementRef.changes
       .pipe(
         startWith(null),
-        takeUntil(this._destroy$)
+        takeUntil(this._destroy$),
       )
       .subscribe(() => {
         this._reflectStyleToDom();
@@ -227,7 +227,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   _emitValueChanges(): void {
     if (this._pixelsToValue) {
       this._value = this._pixelsToValue(
-        this._positionX + this._plotBackgroundChartOffset
+        this._positionX + this._plotBackgroundChartOffset,
       );
       this.valueChanges.emit(this._value);
     }
@@ -240,7 +240,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
    */
   _emitStateChanges(): void {
     this._stateChanges.next(
-      new TimestampStateChangedEvent(this._positionX, this._hidden)
+      new TimestampStateChangedEvent(this._positionX, this._hidden),
     );
   }
 
@@ -259,7 +259,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
       this._renderer.setStyle(
         this._timestampElementRef.first.nativeElement,
         'transform',
-        `translateX(${this._positionX}px)`
+        `translateX(${this._positionX}px)`,
       );
     }
   }

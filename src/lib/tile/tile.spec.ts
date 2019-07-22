@@ -42,16 +42,16 @@ describe('DtTile', () => {
   it('should add a disabled class to the tile element', () => {
     const fixture = createComponent(TestApp);
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-tile'
+      'dt-tile',
     );
     expect(tileNativeElement.classList.contains('dt-tile-disabled')).toBeFalsy(
-      'Expected tile not to be disabled'
+      'Expected tile not to be disabled',
     );
 
     fixture.componentInstance.isDisabled = true;
     fixture.detectChanges();
     expect(tileNativeElement.classList.contains('dt-tile-disabled')).toBeTruthy(
-      'Expected tile to be disabled'
+      'Expected tile to be disabled',
     );
   });
 
@@ -61,13 +61,13 @@ describe('DtTile', () => {
     const tileDebugElement = fixture.debugElement.query(By.css('dt-tile'));
     fixture.detectChanges();
     expect(tileDebugElement.nativeElement.getAttribute('aria-disabled')).toBe(
-      'false'
+      'false',
     );
 
     testComponent.isDisabled = true;
     fixture.detectChanges();
     expect(tileDebugElement.nativeElement.getAttribute('aria-disabled')).toBe(
-      'true'
+      'true',
     );
   });
 
@@ -78,20 +78,20 @@ describe('DtTile', () => {
     fixture.detectChanges();
     expect(tileDebugElement.nativeElement.getAttribute('aria-disabled')).toBe(
       'false',
-      'Expect aria-disabled="false"'
+      'Expect aria-disabled="false"',
     );
     expect(tileDebugElement.nativeElement.getAttribute('disabled')).toBeNull(
-      'Expect disabled="false"'
+      'Expect disabled="false"',
     );
 
     testComponent.isDisabled = false;
     fixture.detectChanges();
     expect(tileDebugElement.nativeElement.getAttribute('aria-disabled')).toBe(
       'false',
-      'Expect no aria-disabled'
+      'Expect no aria-disabled',
     );
     expect(tileDebugElement.nativeElement.getAttribute('disabled')).toBeNull(
-      'Expect no disabled'
+      'Expect no disabled',
     );
   });
 
@@ -104,14 +104,14 @@ describe('DtTile', () => {
 
     expect(instance.color).toBe(
       'main',
-      'Expected the mixed-into class to have a color property'
+      'Expected the mixed-into class to have a color property',
     );
 
     instance.color = 'error';
 
     expect(instance.color).toBe(
       'error',
-      'Expected the mixed-into class to have an updated color property'
+      'Expected the mixed-into class to have an updated color property',
     );
   });
 
@@ -124,18 +124,18 @@ describe('DtTile', () => {
 
     expect(tileElement.nativeElement.classList).toContain(
       'dt-color-main',
-      'Expected the element to have the "dt-color-main" class set'
+      'Expected the element to have the "dt-color-main" class set',
     );
 
     instance.color = 'error';
 
     expect(tileElement.nativeElement.classList).not.toContain(
       'dt-color-main',
-      'Expected the element to no longer have "dt-color-main" set.'
+      'Expected the element to no longer have "dt-color-main" set.',
     );
     expect(tileElement.nativeElement.classList).toContain(
       'dt-color-error',
-      'Expected the element to have the "dt-color-error" class set'
+      'Expected the element to have the "dt-color-error" class set',
     );
   });
 });

@@ -26,7 +26,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(BasicProgressBar);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     expect(progressElement.componentInstance.value).toBe(0);
   });
@@ -35,7 +35,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(BasicProgressBar);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     expect(progressElement.componentInstance.min).toBe(0);
   });
@@ -44,7 +44,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(BasicProgressBar);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     expect(progressElement.componentInstance.max).toBe(100);
   });
@@ -53,7 +53,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(BasicProgressBar);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     const progressComponent = progressElement.componentInstance;
 
@@ -77,7 +77,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(ValueProgressBar);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     expect(progressElement.componentInstance.value).toBe(150);
     expect(progressElement.componentInstance.min).toBe(100);
@@ -88,7 +88,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(ValueProgressBar);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     expect(progressElement.componentInstance.percent).toBe(50);
   });
@@ -97,16 +97,16 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(ValueProgressBar);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     expect(progressElement.nativeElement.getAttribute('aria-valuemin')).toBe(
-      '100'
+      '100',
     );
     expect(progressElement.nativeElement.getAttribute('aria-valuemax')).toBe(
-      '200'
+      '200',
     );
     expect(progressElement.nativeElement.getAttribute('aria-valuenow')).toBe(
-      '150'
+      '150',
     );
   });
 
@@ -114,20 +114,20 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(ColorProgressBar);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     const instance = progressElement.componentInstance;
 
     expect(instance.color).toBe(
       'main',
-      'Expected the mixed-into class to have a color property'
+      'Expected the mixed-into class to have a color property',
     );
 
     instance.color = 'accent';
 
     expect(instance.color).toBe(
       'accent',
-      'Expected the mixed-into class to have an updated color property'
+      'Expected the mixed-into class to have an updated color property',
     );
   });
 
@@ -135,24 +135,24 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(ColorProgressBar);
 
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     const instance = progressElement.componentInstance;
 
     expect(progressElement.nativeElement.classList).toContain(
       'dt-color-main',
-      'Expected the element to have the "dt-color-main" class set'
+      'Expected the element to have the "dt-color-main" class set',
     );
 
     instance.color = 'accent';
 
     expect(progressElement.nativeElement.classList).not.toContain(
       'dt-color-main',
-      'Expected the element to no longer have "dt-color-main" set.'
+      'Expected the element to no longer have "dt-color-main" set.',
     );
     expect(progressElement.nativeElement.classList).toContain(
       'dt-color-accent',
-      'Expected the element to have the "dt-color-accent" class set'
+      'Expected the element to have the "dt-color-accent" class set',
     );
   });
 
@@ -160,7 +160,7 @@ describe('DtProgressBar', () => {
     const spy = jasmine.createSpy();
     const fixture = TestBed.createComponent(ColorProgressBar);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-progress-bar')
+      By.css('dt-progress-bar'),
     );
     const instance = progressElement.componentInstance;
     instance.valueChange.subscribe(spy);
@@ -175,7 +175,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(DescriptionProgressBar);
 
     const descriptionElement = fixture.debugElement.query(
-      By.css('dt-progress-bar-description')
+      By.css('dt-progress-bar-description'),
     );
     expect(descriptionElement).toBeDefined();
   });
@@ -184,7 +184,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(CountProgressBar);
 
     const countElement = fixture.debugElement.query(
-      By.css('dt-progress-bar-count')
+      By.css('dt-progress-bar-count'),
     );
     expect(countElement).toBeDefined();
   });
@@ -193,10 +193,10 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(DescriptionAndCountProgressBar);
 
     const descriptionElement = fixture.debugElement.query(
-      By.css('dt-progress-bar-count')
+      By.css('dt-progress-bar-count'),
     );
     const countElement = fixture.debugElement.query(
-      By.css('dt-progress-bar-count')
+      By.css('dt-progress-bar-count'),
     );
     expect(descriptionElement).toBeDefined();
     expect(countElement).toBeDefined();
@@ -206,7 +206,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(DescriptionProgressBar);
 
     const wrapperElement = fixture.debugElement.query(
-      By.css('dt-progress-bar-descriptionwrapper')
+      By.css('dt-progress-bar-descriptionwrapper'),
     );
     expect(wrapperElement).toBeDefined();
   });
@@ -215,7 +215,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(CountProgressBar);
 
     const wrapperElement = fixture.debugElement.query(
-      By.css('dt-progress-bar-descriptionwrapper')
+      By.css('dt-progress-bar-descriptionwrapper'),
     );
     expect(wrapperElement).toBeDefined();
   });
@@ -224,7 +224,7 @@ describe('DtProgressBar', () => {
     const fixture = createComponent(DescriptionAndCountProgressBar);
 
     const wrapperElement = fixture.debugElement.query(
-      By.css('dt-progress-bar-descriptionwrapper')
+      By.css('dt-progress-bar-descriptionwrapper'),
     );
     expect(wrapperElement).toBeDefined();
   });

@@ -15,7 +15,7 @@ import {
 export class DtTreeTableHeaderCell {
   constructor(
     private _columnDef: DtColumnDef,
-    private _elementRef: ElementRef
+    private _elementRef: ElementRef,
   ) {
     _setDtColumnCssClasses(this._columnDef, this._elementRef);
   }

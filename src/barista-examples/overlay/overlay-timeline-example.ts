@@ -76,7 +76,7 @@ export class TimelineComponent {
         .pipe(
           map((ev: MouseEvent) => ev.offsetX),
           distinctUntilChanged(),
-          map(offset => this._calculateTime(offset))
+          map(offset => this._calculateTime(offset)),
         )
         .subscribe(offset => {
           this._ngZone.run(() => {
@@ -161,7 +161,7 @@ export class TimelinePointComponent {
       const timelineRect = this._timeline.elementRef.nativeElement.getBoundingClientRect() as ClientRect;
       const translation = Math.max(
         0,
-        (timelineRect.width / 100) * this.position - 20
+        (timelineRect.width / 100) * this.position - 20,
       );
       return `translate(${translation}px)`;
     }
