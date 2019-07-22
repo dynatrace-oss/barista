@@ -14,14 +14,13 @@ import { Component } from '@angular/core';
           value="Text"
           aria-label="Please insert text"
         />
+        <!-- prettier-ignore -->
         <textarea
           dtInput
           #textarea
           placeholder="Please insert text"
           aria-label="Please insert text"
-        >
-Text</textarea
-        >
+        >Text</textarea>
       </p>
       <button
         dt-button
