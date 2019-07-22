@@ -57,6 +57,7 @@ import { InfoGroupDemo } from './info-group/info-group-demo.component';
 import { HighlightDemo } from './highlight/highlight-demo.component';
 import { ConsumptionDemo } from './consumption/consumption-demo.component';
 import { TimelineChartDemo } from './timeline-chart/timeline-chart-demo.component';
+import { LegendDemo } from './legend/legend-demo.component';
 
 // tslint:disable-next-line: use-component-selector
 @Component({ template: '' })
@@ -120,6 +121,7 @@ export class NoopRouteComponent {}
     HighlightDemo,
     ConsumptionDemo,
     TimelineChartDemo,
+    LegendDemo,
   ],
   entryComponents: [DevApp],
   bootstrap: [DevApp],

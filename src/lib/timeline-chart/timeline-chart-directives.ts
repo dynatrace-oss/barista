@@ -1,5 +1,6 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, Component, ViewChild } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { CdkPortal } from '@angular/cdk/portal';
 
 export class DtTimelineChartMarker {
   @Input()
@@ -12,9 +13,11 @@ export class DtTimelineChartMarker {
   private _value = 0;
 
   @Input() identifier: string;
+
+  @ViewChild(CdkPortal, { static: true }) _contentPortal: CdkPortal;
 }
 
-@Directive({
+@Component({
   selector: 'dt-timeline-chart-timing-marker',
   providers: [
     {
@@ -22,6 +25,7 @@ export class DtTimelineChartMarker {
       useExisting: DtTimelineChartTimingMarker,
     },
   ],
+  templateUrl: `./timeline-chart-marker.html`,
 })
 export class DtTimelineChartTimingMarker extends DtTimelineChartMarker {}
 

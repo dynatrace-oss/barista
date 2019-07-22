@@ -33,6 +33,7 @@ export class DevApp {
     { name: 'Inline-editor', route: '/inline-editor' },
     { name: 'Input', route: '/input' },
     { name: 'Key-value-list', route: '/key-value-list' },
+    { name: 'Legend', route: '/legend' },
     { name: 'Link', route: '/link' },
     { name: 'Loading-distractor', route: '/loading-distractor' },
     { name: 'Micro-chart', route: '/micro-chart' },

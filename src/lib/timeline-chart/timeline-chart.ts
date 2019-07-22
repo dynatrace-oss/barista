@@ -44,7 +44,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   private _value = 0;
 
   @ContentChildren(DtTimelineChartTimingMarker)
-  _renderMarkers: QueryList<DtTimelineChartTimingMarker>;
+  _timingMarkers: QueryList<DtTimelineChartTimingMarker>;
 
   _renderBars: number[] = [];
   _renderTicks: { position: number; value: number }[] = [];
@@ -58,7 +58,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
   ngAfterContentInit(): void {
-    this._renderMarkers.changes.pipe(takeUntil(this._destroy)).subscribe(() => {
+    this._timingMarkers.changes.pipe(takeUntil(this._destroy)).subscribe(() => {
       this._update();
     });
     this._update();
@@ -105,13 +105,11 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   }
 
   private _updateRenderTimingMarkers(scale: ScaleLinear<number, number>): void {
-    this._renderTimingMarkers = this._renderMarkers
-      ? this._renderMarkers
-          .toArray()
-          .map(marker => ({
-            position: valueToPercentage(marker.value, scale),
-            marker,
-          }))
+    this._renderTimingMarkers = this._timingMarkers
+      ? this._timingMarkers.toArray().map(marker => ({
+          position: valueToPercentage(marker.value, scale),
+          marker,
+        }))
       : [];
   }
 }
@@ -120,8 +118,8 @@ function valueToPercentage(
   value: number,
   scale: ScaleLinear<number, number>
 ): number {
-  // tslint:disable-next-line: no-magic-numbers
   return (
+    // tslint:disable-next-line: no-magic-numbers
     Math.round((scale(value) / 100) * POSITION_PRECISION) / POSITION_PRECISION
   );
 }
