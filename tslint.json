@@ -1,7 +1,24 @@
 {
-  "extends": ["@dynatrace/angular-lint-rules/tslint", "tslint-config-prettier"],
+  "extends": [
+    "@dynatrace/angular-lint-rules/tslint",
+    "tslint-plugin-prettier",
+    "tslint-config-prettier"
+  ],
   "rulesDirectory": ["./tools/tslint-rules/"],
+  "linterOptions": {
+    "exclude": [
+      "src/barista-examples/app.component.ts",
+      "src/barista-examples/app.module.ts"
+    ]
+  },
   "rules": {
+    "strict-comparisons": [
+      true,
+      {
+        "allow-object-equal-comparison": true,
+        "allow-string-order-comparison": true
+      }
+    ],
     "linebreak-style": [true, "LF"],
     "i18n": false,
     "increment-decrement": false,
