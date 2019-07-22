@@ -795,7 +795,7 @@ class DtInputWithNgIf {
 
 @Component({
   template: `
-    <dt-form-field><input dtInput type="file" /></dt-form-field>
+    <dt-form-field><input dtInput type="file"/></dt-form-field>
   `,
 })
 class DtInputInvalidTypeTestController {}
@@ -814,7 +814,7 @@ class DtInputHintTestController {
 
 @Component({
   template: `
-    <dt-form-field><input dtInput [disabled]="disabled" /></dt-form-field>
+    <dt-form-field><input dtInput [disabled]="disabled"/></dt-form-field>
   `,
 })
 class DtInputWithDisabled {
