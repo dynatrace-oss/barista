@@ -11,6 +11,10 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
+/**
+ * @deprecated There is no show less label needed according to UX guidelines.
+ * @breaking-change Will be removed with 5.0.0.
+ */
 @Directive({
   selector: 'dt-show-less-label',
 })
@@ -18,6 +22,10 @@ export class DtShowLessLabel {}
 
 @Component({
   moduleId: module.id,
+  /**
+   * @deprecated The selector will be updated to button[dt-show-more] in 5.0.0
+   * @breaking-change update selector to button[dt-show-more] in 5.0.0, update template accordingly
+   */
   selector: 'dt-show-more',
   exportAs: 'dtShowMore',
   templateUrl: 'show-more.html',
@@ -44,10 +52,16 @@ export class DtShowMore {
   }
   private _disabled = false;
 
-  /** Emits when the show more element was clicked */
+  /**
+   * @deprecated To be removed once the selector is updated to button[dt-show-more].
+   * Use the button's native click event instead.
+   * @breaking-change Remove with 5.0.0
+   * Emits when the show more element was clicked
+   */
   @Output() readonly changed = new EventEmitter<void>();
 
   /** @internal */
+  // tslint:disable-next-line: deprecation
   @ContentChild(DtShowLessLabel, { static: true }) _lessLabel: DtShowLessLabel;
 
   @Input()
@@ -64,6 +78,7 @@ export class DtShowMore {
   /** @internal emits the change */
   _fireChange(): void {
     if (!this._disabled) {
+      // tslint:disable-next-line: deprecation
       this.changed.emit();
     }
   }
