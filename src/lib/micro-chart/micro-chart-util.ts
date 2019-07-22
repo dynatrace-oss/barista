@@ -1,4 +1,5 @@
 import { DataPoint } from 'highcharts';
+import { isDefined } from '@dynatrace/angular-components/core';
 
 /**
  * Checks whether or not data at the given index is missing.
@@ -6,7 +7,7 @@ import { DataPoint } from 'highcharts';
  * @param data The data points
  */
 export function isDataMissing(idx: number, data: DataPoint[]): boolean {
-  return !data[idx] || data[idx].y === undefined;
+  return !data[idx] || !isDefined(data[idx].y);
 }
 
 /**
@@ -17,8 +18,7 @@ export function isDataMissing(idx: number, data: DataPoint[]): boolean {
  */
 export function isGapStart(idx: number, data: DataPoint[]): boolean {
   return (
-    isDataMissing(idx, data) &&
-    (!data[idx - 1] || data[idx - 1].y !== undefined)
+    isDataMissing(idx, data) && (!data[idx - 1] || isDefined(data[idx - 1].y))
   );
 }
 
@@ -30,8 +30,7 @@ export function isGapStart(idx: number, data: DataPoint[]): boolean {
  */
 export function isGapEnd(idx: number, data: DataPoint[]): boolean {
   return (
-    isDataMissing(idx, data) &&
-    (!data[idx + 1] || data[idx + 1].y !== undefined)
+    isDataMissing(idx, data) && (!data[idx + 1] || isDefined(data[idx + 1].y))
   );
 }
 
@@ -81,7 +80,7 @@ export function extractLineGapDataPoints(data: DataPoint[]): DataPoint[] {
       const startDataPoint = data[startIndex - 1] || data[0];
       const endDataPoint = data[endIndex + 1] || data[data.length - 1];
 
-      if (startDataPoint.y === undefined && endDataPoint.y === undefined) {
+      if (!isDefined(startDataPoint.y) && !isDefined(endDataPoint.y)) {
         return acc;
       }
 
@@ -114,7 +113,7 @@ export function extractColumnGapDataPoints(data: DataPoint[]): DataPoint[] {
       const startValue = data[startIndex - 1] && data[startIndex - 1].y;
       const endValue = data[endIndex + 1] && data[endIndex + 1].y;
 
-      if (startValue === undefined && endValue === undefined) {
+      if (!isDefined(startValue) && !isDefined(endValue)) {
         return acc;
       }
 
