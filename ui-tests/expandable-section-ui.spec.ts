@@ -34,6 +34,5 @@ describe('expandable-section', () => {
       await element(by.id('lblHeader')).click();
       expect(await element(by.id('open')).getText()).toEqual('1');
     });
-
   });
 });
