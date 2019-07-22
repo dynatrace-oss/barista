@@ -4,14 +4,9 @@
   "printWidth": 80,
   "singleQuote": true,
   "trailingComma": "all",
-  "htmlWhitespaceSensitivity": "ignore",
+  "htmlWhitespaceSensitivity": "css",
   "overrides": [
-    {
-      "files": ".prettierrc",
-      "options": {
-        "parser": "json"
-      }
-    },
+    { "files": ".prettierrc", "options": { "parser": "json" } },
     {
       "files": [
         "src/lib/chart/chart.html",
@@ -22,10 +17,7 @@
         "src/lib/table/simple-columns/simple-text-column.html",
         "src/lib/table/simple-columns/simple-number-column.html"
       ],
-      "options": {
-        "htmlWhitespaceSensitivity": "css",
-        "parser": "vue"
-      }
+      "options": { "parser": "vue" }
     }
   ]
 }
