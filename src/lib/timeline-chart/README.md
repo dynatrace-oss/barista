@@ -4,7 +4,7 @@ type: 'component'
 
 # TimelineChart
 
-<docs-source-example example="DefaultTimelineChartExampleComponent"></docs-source-example>
+<docs-source-example example="DefaultTimelineChartExample"></docs-source-example>
 
 ## Imports
 
