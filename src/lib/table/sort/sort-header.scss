@@ -47,13 +47,16 @@ $dt-sort-header-arrow-container-height: 14px;
 }
 
 .dt-sort-header-arrow {
-  fill: $gray-300;
   width: $dt-sort-header-arrow-container-size;
   min-width: $dt-sort-header-arrow-container-size;
   height: $dt-sort-header-arrow-container-height;
   position: relative;
   display: flex;
   margin: 0 0 $dt-sort-header-arrow-margin $dt-sort-header-arrow-margin;
+
+  .dt-icon {
+    fill: $gray-300;
+  }
 }
 
 .dt-sort-header-sorted {
@@ -61,7 +64,7 @@ $dt-sort-header-arrow-container-height: 14px;
     color: $gray-700;
   }
 
-  .dt-sort-header-arrow {
+  .dt-sort-header-arrow .dt-icon {
     fill: $gray-700;
   }
 }
