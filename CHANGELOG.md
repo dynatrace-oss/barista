@@ -1,3 +1,21 @@
+## 4.1.1 (2019-07-22)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the value in the overlay was wrong, due to a
+  missing offset in the calculation of the position on the x axis.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **chart:** Fixes an issue where the overlay of the range/timestamp changed
+  it's size when scrolled.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **icon:** Fixes an issue where the setting of the default color broke the API
+  contract ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **microchart:** Fixes an issue where null values were not shown as
+  interpolated values in dt-micro-chart
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **table:** Fixes issue where the sort icon had a wrong color in unsorted
+  columns
+
 ## 4.1.0 (2019-07-17)
 
 ### Bug Fixes
