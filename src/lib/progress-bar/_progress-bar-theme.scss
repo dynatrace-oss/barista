@@ -3,9 +3,15 @@
 @mixin dt-theme-progress-bar($theme) {
   $palette-names: 'main', 'accent', 'warning', 'recovered', 'error';
   $default-palette: 'main';
+  $is-dark: map-get($theme, 'is-dark');
+
+  @if ($is-dark == true) {
+    :host {
+      color: #ffffff;
+    }
+  }
 
   @each $name in $palette-names {
-    $is-dark: map-get($theme, 'is-dark');
     $palette: dt-get-theme-palette($theme, $name);
     $default-color: dt-get-theme-color($palette, 'default');
 
