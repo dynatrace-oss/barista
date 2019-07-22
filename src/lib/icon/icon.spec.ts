@@ -232,7 +232,7 @@ describe('DtIcon without config', () => {
   it('should throw an error when trying to load a remote icon', async () => {
     const expectedError = wrappedErrorMessage(getDtIconNoConfigProviderError());
 
-    expect(() => {
+    return expect(() => {
       const fixture = createComponent(IconWithName);
 
       fixture.componentInstance.iconName = 'cat';
@@ -254,7 +254,7 @@ describe('DtIcon without HttpClientModule', () => {
   it('should throw an error when trying to load a remote icon', async () => {
     const expectedError = wrappedErrorMessage(getDtIconNoHttpProviderError());
 
-    expect(() => {
+    return expect(() => {
       const fixture = createComponent(IconWithName);
 
       fixture.componentInstance.iconName = 'cat';

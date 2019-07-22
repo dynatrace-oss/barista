@@ -58,14 +58,13 @@ export class DtTheme implements OnDestroy {
    */
   @Input()
   set dtTheme(value: string) {
-    if (value !== void 0) {
-      const { name, variant } = this._parseThemeValue(value);
-      if (name !== this._name || variant !== this._variant) {
-        this._name = name;
-        this._variant = variant;
-        this._updateHostClasses();
-        this._stateChanges.next();
-      }
+    const { name, variant } = this._parseThemeValue(value);
+
+    if (name !== this._name || variant !== this._variant) {
+      this._name = name;
+      this._variant = variant;
+      this._updateHostClasses();
+      this._stateChanges.next();
     }
   }
 
