@@ -5,7 +5,7 @@ import { FormGroupDirective, NgForm, FormControl } from '@angular/forms';
 export class DefaultErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
+    form: FormGroupDirective | NgForm | null,
   ): boolean {
     const isFormSubmitted = !!form && form.submitted;
     const isControlInvalid = !!control && control.invalid;
@@ -27,6 +27,6 @@ export class DefaultErrorStateMatcher {
 export abstract class ErrorStateMatcher {
   abstract isErrorState(
     control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
+    form: FormGroupDirective | NgForm | null,
   ): boolean;
 }

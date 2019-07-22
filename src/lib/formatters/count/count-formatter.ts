@@ -12,7 +12,7 @@ import { adjustNumber } from '../number-formatter';
  */
 export function formatCount(
   input: DtFormattedValue | number,
-  inputUnit: DtUnit | string = DtUnit.COUNT
+  inputUnit: DtUnit | string = DtUnit.COUNT,
 ): DtFormattedValue {
   const sourceData: SourceData =
     input instanceof DtFormattedValue

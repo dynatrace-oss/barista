@@ -84,10 +84,10 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
             .detachments()
             .pipe(
               filter(
-                () => !!(this._overlayRef && this._overlayRef.hasAttached())
-              )
+                () => !!(this._overlayRef && this._overlayRef.hasAttached()),
+              ),
             )
-        : observableOf()
+        : observableOf(),
     ).pipe(map(() => null));
   }
 
@@ -120,7 +120,7 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     private _overlay: Overlay,
     private _changeDetectorRef: ChangeDetectorRef,
     zone: NgZone,
-    renderer: Renderer2
+    renderer: Renderer2,
   ) {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
@@ -133,7 +133,7 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
             this._canOpenOnNextFocus =
               document.activeElement !== this._elementRef.nativeElement ||
               this.panelOpen;
-          })
+          }),
         );
       });
     }
@@ -295,7 +295,7 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
 
     return merge(
       fromEvent<MouseEvent>(document, 'click'),
-      fromEvent<TouchEvent>(document, 'touchend')
+      fromEvent<TouchEvent>(document, 'touchend'),
     ).pipe(
       filter((event: Event) => {
         const clickTarget = event.target as HTMLElement;
@@ -306,7 +306,7 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
           (!!this._overlayRef &&
             !this._overlayRef.overlayElement.contains(clickTarget))
         );
-      })
+      }),
     );
   }
 }

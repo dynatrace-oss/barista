@@ -23,8 +23,8 @@ export class DtBarIndicatorBase {
 export const _DtBarIndicator = mixinHasProgress(
   mixinColor<Constructor<DtBarIndicatorBase>, DtBarIndicatorThemePalette>(
     DtBarIndicatorBase,
-    'main'
-  )
+    'main',
+  ),
 );
 
 @Component({
@@ -52,7 +52,7 @@ export class DtBarIndicator extends _DtBarIndicator
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    elementRef: ElementRef
+    elementRef: ElementRef,
   ) {
     super(elementRef);
   }

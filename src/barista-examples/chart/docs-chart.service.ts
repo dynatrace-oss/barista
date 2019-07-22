@@ -23,7 +23,7 @@ export class ChartService {
           color: DtColors.PURPLE_700,
           data: generateData(40, 0, 15, 1370304000000, 900000),
         },
-      ])
+      ]),
     );
   }
 }

@@ -45,7 +45,7 @@ export class RangeStateChangedEvent {
   constructor(
     public left: number,
     public width: number,
-    public hidden: boolean
+    public hidden: boolean,
   ) {}
 }
 
@@ -164,7 +164,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     return this._valueToPixelsFn;
   }
   set _valueToPixels(
-    fn: ((value: number, paneCoordinates?: boolean) => number) | null
+    fn: ((value: number, paneCoordinates?: boolean) => number) | null,
   ) {
     this._valueToPixelsFn = fn;
     this._reflectValueToArea();
@@ -250,7 +250,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     public _viewContainerRef: ViewContainerRef,
     private _elementRef: ElementRef<HTMLElement>,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _renderer: Renderer2
+    private _renderer: Renderer2,
   ) {}
 
   ngOnDestroy(): void {
@@ -262,7 +262,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     this._rangeElementRef.changes
       .pipe(
         startWith(null),
-        takeUntil(this._destroy$)
+        takeUntil(this._destroy$),
       )
       .subscribe(() => {
         this._reflectStyleToDom();
@@ -350,14 +350,14 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    */
   _getRangeValuesFromPixels(
     left: number,
-    width: number
+    width: number,
   ): [number, number] | undefined {
     if (this._pixelsToValue) {
       const start = Math.round(
-        this._pixelsToValue(left + this._plotBackgroundChartOffset)
+        this._pixelsToValue(left + this._plotBackgroundChartOffset),
       );
       const end = Math.round(
-        this._pixelsToValue(left + width + this._plotBackgroundChartOffset)
+        this._pixelsToValue(left + width + this._plotBackgroundChartOffset),
       );
       return [start, end];
     }
@@ -379,8 +379,8 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
       new RangeStateChangedEvent(
         this._rangeArea.left,
         this._rangeArea.width,
-        this._hidden
-      )
+        this._hidden,
+      ),
     );
   }
 
@@ -391,7 +391,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   private _setValueFromArea(): void {
     const value = this._getRangeValuesFromPixels(
       this._rangeArea.left,
-      this._rangeArea.width
+      this._rangeArea.width,
     );
 
     if (value) {
@@ -430,12 +430,12 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
       this._renderer.setAttribute(
         this._rangeElementRef.first.nativeElement,
         'aria-valuenow',
-        `${this.value.join('-')}`
+        `${this.value.join('-')}`,
       );
       this._renderer.setAttribute(
         this._rangeElementRef.first.nativeElement,
         'aria-valuetext',
-        displayValue
+        displayValue,
       );
     }
   }
@@ -446,17 +446,17 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
       this._renderer.setStyle(
         this._rangeElementRef.first.nativeElement,
         'opacity',
-        `${+!this._rangeHidden}`
+        `${+!this._rangeHidden}`,
       );
       this._renderer.setStyle(
         this._rangeElementRef.first.nativeElement,
         'left',
-        `${this._rangeArea.left}px`
+        `${this._rangeArea.left}px`,
       );
       this._renderer.setStyle(
         this._rangeElementRef.first.nativeElement,
         'width',
-        `${this._rangeArea.width}px`
+        `${this._rangeArea.width}px`,
       );
     }
   }

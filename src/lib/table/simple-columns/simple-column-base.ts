@@ -9,26 +9,26 @@ import { DtHeaderCellDef } from '../header/header-cell';
 /** Signature type for the dataAccessor function which can be passed to the simpleColumn. */
 export type DtSimpleColumnDisplayAccessorFunction<T> = (
   data: T,
-  name: string
+  name: string,
 ) => any; // tslint:disable-line:no-any
 
 /** Signature type for the sortAccessor function which can be passed to the simpleColumn. */
 // tslint:disable-next-line: no-any
 export type DtSimpleColumnSortAccessorFunction<T> = (
   data: T,
-  name: string
+  name: string,
 ) => string | number;
 
 /** Signature type for the hasProblem function, which can be passed to the simpleColumn. */
 // tslint:disable-next-line: no-any
 export type DtSimpleColumnHasProblemFunction<T> = (
   data: T,
-  name: string
+  name: string,
 ) => DtIndicatorThemePalette;
 
 /** Signature type for the hasProblem function, which can be passed to the simpleColumn. */
 export type DtSimpleColumnFormatFunction = (
-  displayValue: any // tslint:disable-line:no-any
+  displayValue: any, // tslint:disable-line:no-any
 ) => string | DtFormattedValue;
 
 export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {

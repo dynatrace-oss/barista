@@ -34,7 +34,7 @@ const MICROCHART_PALETTES = {
 };
 
 export function getDtMicrochartColorPalette(
-  theme?: DtTheme
+  theme?: DtTheme,
 ): DtMicroChartColorPalette {
   return (
     MICROCHART_PALETTES[(theme && theme.name) || 'default'] ||

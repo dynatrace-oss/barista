@@ -34,7 +34,7 @@ export class DocsAsyncIcon implements OnDestroy {
   constructor(
     viewport: Viewport,
     el: ElementRef,
-    changeDetector: ChangeDetectorRef
+    changeDetector: ChangeDetectorRef,
   ) {
     this._viewportEnterSub = viewport
       .elementEnter(el)
@@ -97,20 +97,21 @@ export class IconAllExample implements OnDestroy {
         .pipe(map((res: { icons: string[] }) => res.icons || [])),
       this._filterValue.pipe(
         debounceTime(200),
-        map(value => value.toUpperCase())
+        map(value => value.toUpperCase()),
       ),
     ]).pipe(
       map(([icons, filterValue]) =>
         icons.filter(
           icon =>
-            filterValue === '' || icon.toUpperCase().indexOf(filterValue) !== -1
-        )
+            filterValue === '' ||
+            icon.toUpperCase().indexOf(filterValue) !== -1,
+        ),
       ),
       tap(() => {
         setTimeout(() => {
           viewport.refresh();
         }, 0);
-      })
+      }),
     );
   }
 

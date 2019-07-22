@@ -27,7 +27,7 @@ export interface DtToggleButtonChange<T> {
 export class DtToggleButtonBase {}
 
 export const _DtToggleButtonMixinBase = mixinTabIndex(
-  mixinDisabled(DtToggleButtonBase)
+  mixinDisabled(DtToggleButtonBase),
 );
 
 /** ToggleButtonItem as a building part of the DtToggleButtonGroup */
@@ -104,7 +104,7 @@ export class DtToggleButtonItem<T> extends _DtToggleButtonMixinBase
   constructor(
     private _elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _focusMonitor: FocusMonitor
+    private _focusMonitor: FocusMonitor,
   ) {
     super();
   }

@@ -52,7 +52,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this._tagChangesSub = this.filterField.tags.changes.subscribe(() => {
       Promise.resolve().then(
-        () => (this._firstTag = this.filterField.tags.first)
+        () => (this._firstTag = this.filterField.tags.first),
       );
     });
   }
@@ -66,7 +66,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   }
 
   currentFilterChanges(
-    event: DtFilterFieldCurrentFilterChangeEvent<any>
+    event: DtFilterFieldCurrentFilterChangeEvent<any>,
   ): void {
     if (event.added[0] === TEST_DATA.autocomplete[2]) {
       // Simulate async data loading

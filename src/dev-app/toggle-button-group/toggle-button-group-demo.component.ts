@@ -43,7 +43,7 @@ export class ToggleButtonGroupDemo {
       'lr-co-cf400010v.dynatrace.vmta',
       'lr-co-cf400011v.dynatrace.vmta',
       'lr-co-cf400012v.dynatrace.vmta',
-      'lr-co-cf400013v.dynatrace.vmta'
+      'lr-co-cf400013v.dynatrace.vmta',
     );
     this.hasMoreItems = false;
   }

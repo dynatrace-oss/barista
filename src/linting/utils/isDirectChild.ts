@@ -11,7 +11,7 @@ import { isElementWithName } from './isElementWithName';
  */
 export function isDirectChild(element: ElementAst, childName: string): boolean {
   const isChild = element.children.some(child =>
-    isElementWithName(child, childName)
+    isElementWithName(child, childName),
   );
 
   if (isChild) {
@@ -21,7 +21,7 @@ export function isDirectChild(element: ElementAst, childName: string): boolean {
   return element.children.some(child => {
     if (child instanceof EmbeddedTemplateAst) {
       return child.children.some(grandchild =>
-        isElementWithName(grandchild, childName)
+        isElementWithName(grandchild, childName),
       );
     }
     return false;

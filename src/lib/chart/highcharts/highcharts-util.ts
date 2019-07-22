@@ -11,13 +11,13 @@ import { getDtChartColorPalette } from '../chart-colors';
 /** Create a pure highcharts options out of provided chart options and/or series. */
 export function createHighchartOptions(
   options: DtChartOptions = {},
-  series?: DtChartSeries[]
+  series?: DtChartSeries[],
 ): HighchartsOptions {
   const mergedSeries = series ? lodashMerge([], series) : undefined;
   let mergedOptions = lodashMerge(
     { series: mergedSeries },
     DT_CHART_DEFAULT_OPTIONS,
-    options
+    options,
   ) as HighchartsOptions;
   mergedOptions = mergeAxis(mergedOptions);
   mergedOptions = wrapTooltipFormatterFn(mergedOptions);
@@ -27,7 +27,7 @@ export function createHighchartOptions(
 /** Applies correct color palette depending on the number of metrics. */
 export function applyHighchartsColorOptions(
   options: HighchartsOptions,
-  theme: DtTheme
+  theme: DtTheme,
 ): HighchartsOptions {
   return mergeHighchartsColorOptions(lodashMerge({}, options), theme);
 }
@@ -62,7 +62,7 @@ function wrapTooltipFormatterFn(options: HighchartsOptions): HighchartsOptions {
 /** Merges the correct color palette depending on the number of metrics into the options. */
 function mergeHighchartsColorOptions(
   options: HighchartsOptions,
-  theme: DtTheme
+  theme: DtTheme,
 ): HighchartsOptions {
   let nrOfMetrics: number;
   // Number of metrics is different depending on the chart type.

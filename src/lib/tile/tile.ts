@@ -54,8 +54,8 @@ export class DtTileBase {
 }
 export const _DtTileMixinBase = mixinTabIndex(
   mixinDisabled(
-    mixinColor<Constructor<DtTileBase>, DtTileThemePalette>(DtTileBase)
-  )
+    mixinColor<Constructor<DtTileBase>, DtTileThemePalette>(DtTileBase),
+  ),
 );
 
 @Component({

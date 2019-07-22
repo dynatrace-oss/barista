@@ -10,7 +10,7 @@ export interface HasTabIndex {
 /** Mixin to augment a directive with a `tabIndex` property. */
 export function mixinTabIndex<T extends Constructor<CanDisable>>(
   base: T,
-  defaultTabIndex: number = 0
+  defaultTabIndex: number = 0,
 ): Constructor<HasTabIndex> & T {
   return class extends base {
     private _tabIndex: number = defaultTabIndex;

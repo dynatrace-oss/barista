@@ -24,7 +24,7 @@ class DtInfoGroupVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-info-group must always contain a dt-info-group-icon as direct child.'
+      'A dt-info-group must always contain a dt-info-group-icon as direct child.',
     );
   }
 }
@@ -61,7 +61,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtInfoGroupVisitor,
-      })
+      }),
     );
   }
 }

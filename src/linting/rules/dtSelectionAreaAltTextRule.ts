@@ -31,7 +31,7 @@ class DtSelectionAreaVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A selection area must provide alternative texts for both handles, the selected area and the close button.'
+      'A selection area must provide alternative texts for both handles, the selected area and the close button.',
     );
   }
 }
@@ -74,7 +74,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtSelectionAreaVisitor,
-      })
+      }),
     );
   }
 }

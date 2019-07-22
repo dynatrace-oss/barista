@@ -35,7 +35,7 @@ import { filter } from 'rxjs/operators';
         style({
           height: '0px',
           visibility: 'hidden',
-        })
+        }),
       ),
       state(
         'true',
@@ -43,7 +43,7 @@ import { filter } from 'rxjs/operators';
           height: '*',
           visibility: 'visible',
           overflow: 'visible',
-        })
+        }),
       ),
       transition('true <=> false', [
         animate('225ms cubic-bezier(0.4,0.0,0.2,1)'),
@@ -108,11 +108,11 @@ export class DtExpandablePanel {
   >();
   /** Event emitted when the panel is expanded. */
   @Output('expanded') readonly _panelExpanded = this.expandChange.pipe(
-    filter(v => v)
+    filter(v => v),
   );
   /** Event emitted when the panel is collapsed. */
   @Output('collapsed') readonly _panelCollapsed = this.expandChange.pipe(
-    filter(v => !v)
+    filter(v => !v),
   );
   /**
    * Event emitted when the panel has been opened.

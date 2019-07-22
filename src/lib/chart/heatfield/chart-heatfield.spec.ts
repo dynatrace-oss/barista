@@ -167,7 +167,7 @@ describe('DtChartHeatfield', () => {
 
       beforeEach(() => {
         heatfieldNative = fixture.debugElement.query(
-          By.directive(DtChartHeatfield)
+          By.directive(DtChartHeatfield),
         ).nativeElement;
       });
 
@@ -187,23 +187,23 @@ describe('DtChartHeatfield', () => {
       fixture.detectChanges();
       expect(document.activeElement).toBe(
         marker,
-        'Expected marker to be focused.'
+        'Expected marker to be focused.',
       );
     });
 
     it('should emit whenever the active changes', () => {
       const heatfield: DtChartHeatfield = fixture.debugElement.query(
-        By.directive(DtChartHeatfield)
+        By.directive(DtChartHeatfield),
       ).componentInstance;
       const activeChangeSpy = jasmine.createSpy('active change listener');
       const sub: Subscription = heatfield.activeChange.subscribe(
-        activeChangeSpy
+        activeChangeSpy,
       );
       expect(activeChangeSpy).not.toHaveBeenCalled();
       instance.isActive = true;
       fixture.detectChanges();
       expect(activeChangeSpy).toHaveBeenCalledWith(
-        jasmine.any(DtChartHeatfieldActiveChange)
+        jasmine.any(DtChartHeatfieldActiveChange),
       );
       sub.unsubscribe();
     });
@@ -236,7 +236,7 @@ describe('DtChartHeatfield', () => {
     it('should handle that only one single heatfield can be active', () => {
       expect(overlayContainerElement.textContent).toContain('Problem 1');
       const heatfields = fixture.debugElement.queryAll(
-        By.directive(DtChartHeatfield)
+        By.directive(DtChartHeatfield),
       );
       heatfields[1]
         .query(By.css('.dt-chart-heatfield-marker'))
@@ -250,14 +250,14 @@ describe('DtChartHeatfield', () => {
 function validatePosition(
   fixture: ComponentFixture<SingleHeatfield>,
   expectedLeft: number,
-  expectedWidth: number
+  expectedWidth: number,
 ): void {
   fixture.detectChanges();
   const chartMarkerDebugElement = fixture.debugElement.query(
-    By.css('.dt-chart-heatfield-marker')
+    By.css('.dt-chart-heatfield-marker'),
   );
   const chartBackdropDebugElement = fixture.debugElement.query(
-    By.css('.dt-chart-heatfield-backdrop')
+    By.css('.dt-chart-heatfield-backdrop'),
   );
   // cannot select svg subelements with By.css see - https://github.com/angular/angular/issues/15164
   const styleMarker = chartMarkerDebugElement.nativeElement.style;

@@ -32,7 +32,7 @@ export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
     this._expandedSubscription = this.dtExpandablePanel.expandChange.subscribe(
       () => {
         this._changeDetectorRef.markForCheck();
-      }
+      },
     );
   }
   private _panel: DtExpandablePanel;

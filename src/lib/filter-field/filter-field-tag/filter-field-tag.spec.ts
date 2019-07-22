@@ -38,20 +38,20 @@ describe('DtFilterFieldTag', () => {
     filterFieldTag = fixture.debugElement.query(By.directive(DtFilterFieldTag))
       .componentInstance;
     filterFieldTagHost = fixture.debugElement.query(
-      By.css('.dt-filter-field-tag')
+      By.css('.dt-filter-field-tag'),
     ).nativeElement;
     editButton = fixture.debugElement.query(
-      By.css('.dt-filter-field-tag-label')
+      By.css('.dt-filter-field-tag-label'),
     ).nativeElement;
     removeButton = fixture.debugElement.query(
-      By.css('.dt-filter-field-tag-button')
+      By.css('.dt-filter-field-tag-button'),
     ).nativeElement;
   }));
 
   it('should handle disabled', () => {
     expect(filterFieldTag.disabled).toBe(false);
     expect(filterFieldTagHost.classList).not.toContain(
-      'dt-filter-field-tag-disabled'
+      'dt-filter-field-tag-disabled',
     );
     expect(editButton.getAttribute('disabled')).toBe(null);
     expect(removeButton.getAttribute('disabled')).toBe(null);
@@ -61,7 +61,7 @@ describe('DtFilterFieldTag', () => {
 
     expect(filterFieldTag.disabled).toBe(true);
     expect(filterFieldTagHost.classList).toContain(
-      'dt-filter-field-tag-disabled'
+      'dt-filter-field-tag-disabled',
     );
     expect(editButton.getAttribute('disabled')).toBeDefined();
     expect(removeButton.getAttribute('disabled')).toBeDefined();

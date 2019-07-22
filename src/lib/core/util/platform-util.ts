@@ -9,7 +9,7 @@ export function replaceCssClass(
   elOrRef: any, // tslint:disable-line:no-any
   oldClass: string | null,
   newClass: string | null,
-  renderer?: Renderer2
+  renderer?: Renderer2,
 ): void {
   const el = elOrRef.nativeElement || elOrRef;
   if (oldClass) {
@@ -32,7 +32,7 @@ export function addCssClass(el: any, name: string, renderer?: Renderer2): void {
 export function removeCssClass(
   el: any, // tslint:disable-line:no-any
   name: string,
-  renderer?: Renderer2
+  renderer?: Renderer2,
 ): void {
   if (renderer) {
     renderer.removeClass(el, name);

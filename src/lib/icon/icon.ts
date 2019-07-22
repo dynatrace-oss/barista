@@ -71,7 +71,7 @@ export class DtIcon implements OnChanges {
   constructor(
     public _elementRef: ElementRef,
     private _iconRegistry: DtIconRegistry,
-    @Attribute('aria-hidden') ariaHidden: string
+    @Attribute('aria-hidden') ariaHidden: string,
   ) {
     // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
     // the right thing to do for the majority of icon use-cases.
@@ -94,9 +94,9 @@ export class DtIcon implements OnChanges {
             // so do only a log here
             (err: Error) => {
               iconLogger.warn(
-                `Error retrieving icon: ${this.name} ${err.message}`
+                `Error retrieving icon: ${this.name} ${err.message}`,
               );
-            }
+            },
           );
       } else {
         this._clearSvgElement();

@@ -16,7 +16,7 @@ export class DtCount implements PipeTransform {
   transform(
     // tslint:disable-next-line:no-any
     input: any,
-    inputUnit: DtUnit | string = DtUnit.COUNT
+    inputUnit: DtUnit | string = DtUnit.COUNT,
   ): DtFormattedValue | string {
     if (isEmpty(input)) {
       return NO_DATA;

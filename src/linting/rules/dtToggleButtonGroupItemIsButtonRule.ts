@@ -16,7 +16,7 @@ class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
     }
 
     const isToggleButtonItem = element.attrs.some(
-      attr => attr.name === 'dt-toggle-button-item'
+      attr => attr.name === 'dt-toggle-button-item',
     );
     if (!isToggleButtonItem) {
       return;
@@ -29,7 +29,7 @@ class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A toggle button group item must always be a button.'
+      'A toggle button group item must always be a button.',
     );
   }
 }
@@ -63,7 +63,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtToggleButtonGroupVisitor,
-      })
+      }),
     );
   }
 }

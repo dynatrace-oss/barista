@@ -63,72 +63,72 @@ describe('DtTable SimpleColumns', () => {
 
     it('should display the correct simple-text values', () => {
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-host')
+        By.css('.dt-cell.dt-table-column-host'),
       );
       expect(cells[0].nativeElement.textContent).toBe(
-        fixture.componentInstance.data[0].host.toString()
+        fixture.componentInstance.data[0].host.toString(),
       );
       expect(cells[1].nativeElement.textContent).toBe('');
       expect(cells[2].nativeElement.textContent).toBe(
-        fixture.componentInstance.data[2].host.toString()
+        fixture.componentInstance.data[2].host.toString(),
       );
       expect(cells[3].nativeElement.textContent).toBe(
-        fixture.componentInstance.data[3].host.toString()
+        fixture.componentInstance.data[3].host.toString(),
       );
     });
 
     it('should display the correct simple-number values', () => {
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-cpu')
+        By.css('.dt-cell.dt-table-column-cpu'),
       );
       expect(cells[0].nativeElement.textContent).toBe(
-        fixture.componentInstance.data[0].cpu.toString()
+        fixture.componentInstance.data[0].cpu.toString(),
       );
       expect(cells[1].nativeElement.textContent).toBe(
-        fixture.componentInstance.data[1].cpu.toString()
+        fixture.componentInstance.data[1].cpu.toString(),
       );
       expect(cells[2].nativeElement.textContent).toBe('');
       expect(cells[3].nativeElement.textContent).toBe(
-        fixture.componentInstance.data[3].cpu.toString()
+        fixture.componentInstance.data[3].cpu.toString(),
       );
     });
 
     it('should display the correct simple-percentage values', () => {
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-memoryPerc')
+        By.css('.dt-cell.dt-table-column-memoryPerc'),
       );
       expect(cells[0].nativeElement.textContent).toBe(
-        `${fixture.componentInstance.data[0].memoryPerc} %`
+        `${fixture.componentInstance.data[0].memoryPerc} %`,
       );
       expect(cells[1].nativeElement.textContent).toBe(
-        `${fixture.componentInstance.data[1].memoryPerc} %`
+        `${fixture.componentInstance.data[1].memoryPerc} %`,
       );
       expect(cells[2].nativeElement.textContent).toBe(
-        `${fixture.componentInstance.data[2].memoryPerc} %`
+        `${fixture.componentInstance.data[2].memoryPerc} %`,
       );
       expect(cells[3].nativeElement.textContent).toBe(
-        `${fixture.componentInstance.data[3].memoryPerc} %`
+        `${fixture.componentInstance.data[3].memoryPerc} %`,
       );
     });
 
     it('should display the correct values when accessing through a dataAccessor', () => {
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-memoryConsumption')
+        By.css('.dt-cell.dt-table-column-memoryConsumption'),
       );
       const transformFunction = fixture.componentInstance.combineMemory.bind(
-        this
+        this,
       );
       expect(cells[0].nativeElement.textContent).toBe(
-        transformFunction(fixture.componentInstance.data[0])
+        transformFunction(fixture.componentInstance.data[0]),
       );
       expect(cells[1].nativeElement.textContent).toBe(
-        transformFunction(fixture.componentInstance.data[1])
+        transformFunction(fixture.componentInstance.data[1]),
       );
       expect(cells[2].nativeElement.textContent).toBe(
-        transformFunction(fixture.componentInstance.data[2])
+        transformFunction(fixture.componentInstance.data[2]),
       );
       expect(cells[3].nativeElement.textContent).toBe(
-        transformFunction(fixture.componentInstance.data[3])
+        transformFunction(fixture.componentInstance.data[3]),
       );
     });
   });
@@ -161,12 +161,12 @@ describe('DtTable SimpleColumns', () => {
       const newlyAddedRow = rows[rows.length - 1];
       const newlyAddedCells = newlyAddedRow.queryAll(By.css('.dt-cell'));
       expect(newlyAddedCells[0].nativeElement.textContent).toBe(
-        'et-demo-2-win3'
+        'et-demo-2-win3',
       );
       expect(newlyAddedCells[1].nativeElement.textContent).toBe('24');
       expect(newlyAddedCells[2].nativeElement.textContent).toBe('23 %');
       expect(newlyAddedCells[3].nativeElement.textContent).toBe(
-        '23 % of 5.42 GB'
+        '23 % of 5.42 GB',
       );
     });
 
@@ -182,7 +182,7 @@ describe('DtTable SimpleColumns', () => {
 
     it('should add a new row in correct sorted order', () => {
       const sortHeader = fixture.debugElement.query(
-        By.css('.dt-header-cell.dt-table-column-host')
+        By.css('.dt-header-cell.dt-table-column-host'),
       );
       dispatchMouseEvent(sortHeader.nativeElement, 'click');
       fixture.componentInstance.dataSource.data = [
@@ -201,7 +201,7 @@ describe('DtTable SimpleColumns', () => {
       expect(rows.length).toBe(5);
 
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-host')
+        By.css('.dt-cell.dt-table-column-host'),
       );
       expect(cells[0].nativeElement.textContent).toBe('docker-host2');
       expect(cells[1].nativeElement.textContent).toBe('et-demo-2-win1');
@@ -212,7 +212,7 @@ describe('DtTable SimpleColumns', () => {
 
     it('should add a new row in correct sorted order', () => {
       const sortHeader = fixture.debugElement.query(
-        By.css('.dt-header-cell.dt-table-column-cpu')
+        By.css('.dt-header-cell.dt-table-column-cpu'),
       );
       dispatchMouseEvent(sortHeader.nativeElement, 'click');
       fixture.componentInstance.dataSource.data = [
@@ -231,7 +231,7 @@ describe('DtTable SimpleColumns', () => {
       expect(rows.length).toBe(5);
 
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-cpu')
+        By.css('.dt-cell.dt-table-column-cpu'),
       );
       expect(cells[0].nativeElement.textContent).toBe('');
       expect(cells[1].nativeElement.textContent).toBe('30');
@@ -253,66 +253,66 @@ describe('DtTable SimpleColumns', () => {
 
     it('should set the headers sortable by default', () => {
       const sortHeaders = fixture.debugElement.queryAll(
-        By.css('.dt-sort-header-container')
+        By.css('.dt-sort-header-container'),
       );
       expect(sortHeaders.length).toBe(5);
     });
 
     it('should apply sort styles to header', () => {
       const sortHeader = fixture.debugElement.query(
-        By.css('.dt-header-cell.dt-table-column-cpu')
+        By.css('.dt-header-cell.dt-table-column-cpu'),
       );
       dispatchMouseEvent(sortHeader.nativeElement, 'click');
       fixture.detectChanges();
 
       const headerCell = fixture.debugElement.queryAll(
-        By.css('.dt-header-cell')
+        By.css('.dt-header-cell'),
       )[1];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
-        'descending'
+        'descending',
       );
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-cpu')
+        By.css('.dt-cell.dt-table-column-cpu'),
       );
       expect(cells[1].nativeElement.classList.contains('dt-cell-sorted')).toBe(
-        true
+        true,
       );
     });
 
     it('should apply sort styles to cells', () => {
       const sortHeader = fixture.debugElement.query(
-        By.css('.dt-header-cell.dt-table-column-cpu')
+        By.css('.dt-header-cell.dt-table-column-cpu'),
       );
       dispatchMouseEvent(sortHeader.nativeElement, 'click');
       fixture.detectChanges();
 
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-cpu')
+        By.css('.dt-cell.dt-table-column-cpu'),
       );
       for (const cell of cells) {
         expect(cell.nativeElement.classList.contains('dt-cell-sorted')).toBe(
-          true
+          true,
         );
       }
     });
 
     it('should sort the number column correctly descending (start)', () => {
       const sortHeader = fixture.debugElement.query(
-        By.css('.dt-header-cell.dt-table-column-cpu')
+        By.css('.dt-header-cell.dt-table-column-cpu'),
       );
 
       dispatchMouseEvent(sortHeader.nativeElement, 'click');
       fixture.detectChanges();
 
       const headerCell = fixture.debugElement.queryAll(
-        By.css('.dt-header-cell')
+        By.css('.dt-header-cell'),
       )[1];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
-        'descending'
+        'descending',
       );
 
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-cpu')
+        By.css('.dt-cell.dt-table-column-cpu'),
       );
       expect(cells[0].nativeElement.textContent).toBe('');
       expect(cells[1].nativeElement.textContent).toBe('30');
@@ -322,7 +322,7 @@ describe('DtTable SimpleColumns', () => {
 
     it('should sort the number column correctly ascending (alternate)', () => {
       const sortHeader = fixture.debugElement.query(
-        By.css('.dt-header-cell.dt-table-column-cpu')
+        By.css('.dt-header-cell.dt-table-column-cpu'),
       );
 
       dispatchMouseEvent(sortHeader.nativeElement, 'click');
@@ -331,14 +331,14 @@ describe('DtTable SimpleColumns', () => {
       fixture.detectChanges();
 
       const headerCell = fixture.debugElement.queryAll(
-        By.css('.dt-header-cell')
+        By.css('.dt-header-cell'),
       )[1];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
-        'ascending'
+        'ascending',
       );
 
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-cpu')
+        By.css('.dt-cell.dt-table-column-cpu'),
       );
       expect(cells[0].nativeElement.textContent).toBe('23');
       expect(cells[1].nativeElement.textContent).toBe('26');
@@ -348,21 +348,21 @@ describe('DtTable SimpleColumns', () => {
 
     it('should sort the text column correctly ascending (start)', () => {
       const sortHeader = fixture.debugElement.query(
-        By.css('.dt-header-cell.dt-table-column-host')
+        By.css('.dt-header-cell.dt-table-column-host'),
       );
 
       dispatchMouseEvent(sortHeader.nativeElement, 'click');
       fixture.detectChanges();
 
       const headerCell = fixture.debugElement.queryAll(
-        By.css('.dt-header-cell')
+        By.css('.dt-header-cell'),
       )[0];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
-        'ascending'
+        'ascending',
       );
 
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-host')
+        By.css('.dt-cell.dt-table-column-host'),
       );
       expect(cells[0].nativeElement.textContent).toBe('docker-host2');
       expect(cells[1].nativeElement.textContent).toBe('et-demo-2-win1');
@@ -372,7 +372,7 @@ describe('DtTable SimpleColumns', () => {
 
     it('should sort the text column correctly descending (alternate)', () => {
       const sortHeader = fixture.debugElement.query(
-        By.css('.dt-header-cell.dt-table-column-host')
+        By.css('.dt-header-cell.dt-table-column-host'),
       );
 
       dispatchMouseEvent(sortHeader.nativeElement, 'click');
@@ -381,14 +381,14 @@ describe('DtTable SimpleColumns', () => {
       fixture.detectChanges();
 
       const headerCell = fixture.debugElement.queryAll(
-        By.css('.dt-header-cell')
+        By.css('.dt-header-cell'),
       )[0];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
-        'descending'
+        'descending',
       );
 
       const cells = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-host')
+        By.css('.dt-cell.dt-table-column-host'),
       );
       expect(cells[0].nativeElement.textContent).toBe('');
       expect(cells[1].nativeElement.textContent).toBe('et-demo-2-win4');
@@ -402,7 +402,7 @@ describe('DtTable SimpleColumns', () => {
         errFixture.detectChanges();
       } catch (err) {
         expect(err.message).toBe(
-          'DtSortHeader must be placed within a parent element with the DtSort directive.'
+          'DtSortHeader must be placed within a parent element with the DtSort directive.',
         );
       }
     });
@@ -416,15 +416,15 @@ describe('DtTable SimpleColumns', () => {
       const rows = fixture.debugElement.queryAll(By.css('.dt-row'));
 
       expect(rows[0].nativeElement.classList).toContain(
-        'dt-table-row-indicator'
+        'dt-table-row-indicator',
       );
       expect(rows[0].nativeElement.classList).toContain('dt-color-error');
       expect(rows[1].nativeElement.classList).toContain(
-        'dt-table-row-indicator'
+        'dt-table-row-indicator',
       );
       expect(rows[1].nativeElement.classList).toContain('dt-color-warning');
       expect(rows[3].nativeElement.classList).toContain(
-        'dt-table-row-indicator'
+        'dt-table-row-indicator',
       );
       expect(rows[3].nativeElement.classList).toContain('dt-color-error');
     }));
@@ -433,7 +433,7 @@ describe('DtTable SimpleColumns', () => {
       const fixture = createComponent(TestSimpleColumnsApp);
 
       const rows = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-traffic')
+        By.css('.dt-cell.dt-table-column-traffic'),
       );
 
       expect(rows[0].nativeElement.classList).toContain('dt-indicator');
@@ -455,7 +455,7 @@ describe('DtTable SimpleColumns', () => {
       fixture.detectChanges();
 
       const rows = fixture.debugElement.queryAll(
-        By.css('.dt-cell.dt-table-column-traffic')
+        By.css('.dt-cell.dt-table-column-traffic'),
       );
 
       expect(rows[0].nativeElement.classList).toContain('dt-indicator');

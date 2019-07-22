@@ -5,5 +5,5 @@ export interface DtIconConfiguration {
 }
 
 export const DT_ICON_CONFIGURATION = new InjectionToken<DtIconConfiguration>(
-  'DT_ICON_CONFIGURATION'
+  'DT_ICON_CONFIGURATION',
 );

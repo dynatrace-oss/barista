@@ -28,7 +28,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
       addFailure(
         this,
         element,
-        'A dt-icon-button must not be empty, but must contain a dt-icon element.'
+        'A dt-icon-button must not be empty, but must contain a dt-icon element.',
       );
     }
 
@@ -40,7 +40,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
       addFailure(
         this,
         element,
-        'A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.'
+        'A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.',
       );
     }
   }
@@ -78,7 +78,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtButtonVisitor,
-      })
+      }),
     );
   }
 }

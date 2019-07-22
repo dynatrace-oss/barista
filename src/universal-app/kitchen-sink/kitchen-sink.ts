@@ -158,17 +158,17 @@ export class KitchenSink {
   constructor() {
     this.treeControl = new DtTreeControl<ThreadFlatNode>(
       this._getLevel,
-      this._isExpandable
+      this._isExpandable,
     );
     this.treeFlattener = new DtTreeFlattener(
       this.transformer,
       this._getLevel,
       this._isExpandable,
-      this._getChildren
+      this._getChildren,
     );
     this.treeTableDataSource = new DtTreeDataSource(
       this.treeControl,
-      this.treeFlattener
+      this.treeFlattener,
     );
     this.treeTableDataSource.data = TESTDATA;
   }

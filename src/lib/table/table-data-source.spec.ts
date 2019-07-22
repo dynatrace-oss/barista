@@ -142,7 +142,7 @@ describe('DtTableDataSource', () => {
     fixture.detectChanges();
 
     const paginationList = fixture.debugElement.queryAll(
-      By.css('.dt-pagination li')
+      By.css('.dt-pagination li'),
     );
     const length = DATA_SET.length / PAGE_SIZE + 2; // +2 for arrow left and right
 

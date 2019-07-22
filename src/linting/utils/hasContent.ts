@@ -39,7 +39,7 @@ export function hasContent(element: ElementAst | EmbeddedTemplateAst): boolean {
  */
 export function hasContentApartFrom(
   element: ElementAst,
-  exclude: string[]
+  exclude: string[],
 ): boolean {
   if (!element.children) {
     return false;

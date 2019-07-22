@@ -109,7 +109,7 @@ export class DtSelectionAreaContainerBase {}
  */
 export const _DtSelectionAreaContainerMixin = mixinTabIndex(
   // tslint:disable-next-line: deprecation
-  mixinDisabled(DtSelectionAreaContainerBase)
+  mixinDisabled(DtSelectionAreaContainerBase),
 );
 
 /**
@@ -208,7 +208,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
     private _renderer: Renderer2,
     private _zone: NgZone,
     public _changeDetectorRef: ChangeDetectorRef,
-    private _focusTrapFactory: FocusTrapFactory
+    private _focusTrapFactory: FocusTrapFactory,
   ) {
     super();
   }
@@ -244,7 +244,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
     // create the focus trap within the overlay
     if (!this._overlayFocusTrap) {
       this._overlayFocusTrap = this._focusTrapFactory.create(
-        this._overlay.overlayRef.overlayElement
+        this._overlay.overlayRef.overlayElement,
       );
       this._attachFocusTrapListeners();
     }
@@ -255,8 +255,8 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
     this._zone.runOutsideAngular(() => {
       const overlayAnchors = [].slice.call(
         this._overlay.overlayRef.hostElement.querySelectorAll(
-          '.cdk-focus-trap-anchor'
-        )
+          '.cdk-focus-trap-anchor',
+        ),
       );
       overlayAnchors[0].addEventListener('focus', (event: FocusEvent) => {
         event.preventDefault();
@@ -268,8 +268,8 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
       });
       const selectedAreaAnchors = [].slice.call(
         this._elementRef.nativeElement.querySelectorAll(
-          '.cdk-focus-trap-anchor'
-        )
+          '.cdk-focus-trap-anchor',
+        ),
       );
       selectedAreaAnchors[0].addEventListener('focus', (event: FocusEvent) => {
         event.preventDefault();
@@ -336,7 +336,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
     areaLabel: string,
     leftLabel: string,
     rightLabel: string,
-    closeBtnLabel: string
+    closeBtnLabel: string,
   ): void {
     this._ariaLabelSelectedArea = areaLabel;
     this._ariaLabelLeftHandle = leftLabel;
@@ -373,12 +373,12 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
       this._detachFns.push(
         this._renderer.listen(window, 'mousemove', ev => {
           this._handleMouseMove(ev);
-        })
+        }),
       );
       this._detachFns.push(
         this._renderer.listen(window, 'mouseup', ev => {
           this._handleMouseup(ev);
-        })
+        }),
       );
     }
   }
@@ -417,7 +417,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
     // Do not store relative positions outside the boundries
     this._lastRelativeXPosition = Math.min(
       Math.max(relativeX, 0),
-      this._boundaries.width
+      this._boundaries.width,
     );
 
     // Check if mouseposition is outside the boundries. If so, we can ignore the rest.
@@ -509,7 +509,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
     rightHandle.setAttribute('aria-valuenow', this._interpolateFn(right));
     rightHandle.setAttribute(
       'aria-valuemax',
-      this._interpolateFn(this._boundaries.width)
+      this._interpolateFn(this._boundaries.width),
     );
   }
 
@@ -524,7 +524,7 @@ export class DtSelectionAreaContainer extends _DtSelectionAreaContainerMixin
       deltaX,
       this._left,
       this._width,
-      this._boundaries.width
+      this._boundaries.width,
     );
     this._left = left;
     this._width = width;

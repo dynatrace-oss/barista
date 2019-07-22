@@ -47,7 +47,7 @@ describe('DtToggleButtonGroup', () => {
       component = fixture.debugElement.query(By.css('.dt-toggle-button-group'))
         .componentInstance;
       itemElements = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       );
       itemComponents = itemElements.map(debugEl => debugEl.componentInstance);
     });
@@ -71,7 +71,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have a value after an element has been clicked', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       item.nativeElement.click();
       fixture.detectChanges();
@@ -83,7 +83,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have no value after an element has been clicked twice', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       item.nativeElement.click();
       fixture.detectChanges();
@@ -97,7 +97,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have one item selected after calling it programmatically', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       item.componentInstance.select();
       fixture.detectChanges();
@@ -108,7 +108,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have no item selected after calling deselect on selected item programmatically', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       item.componentInstance.select();
       fixture.detectChanges();
@@ -123,7 +123,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have only one item selected after selecting an item programmatically', () => {
       const items = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       );
       items[0].componentInstance.select();
       fixture.detectChanges();
@@ -131,8 +131,8 @@ describe('DtToggleButtonGroup', () => {
       const selected = items
         .map(item =>
           item.nativeElement.classList.contains(
-            'dt-toggle-button-item-selected'
-          )
+            'dt-toggle-button-item-selected',
+          ),
         )
         .filter(Boolean);
       expect(selected.length).toBe(1);
@@ -140,7 +140,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have only one item selected after selecting another than the selected item via interaction', () => {
       const items = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       );
       items[0].nativeElement.click();
       fixture.detectChanges();
@@ -151,8 +151,8 @@ describe('DtToggleButtonGroup', () => {
       const selected = items
         .map(item =>
           item.nativeElement.classList.contains(
-            'dt-toggle-button-item-selected'
-          )
+            'dt-toggle-button-item-selected',
+          ),
         )
         .filter(Boolean);
       expect(selected.length).toBe(1);
@@ -160,7 +160,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have only one item selected after selecting another than the selected item programmatically', () => {
       const items = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       );
       items[0].componentInstance.select();
       fixture.detectChanges();
@@ -171,8 +171,8 @@ describe('DtToggleButtonGroup', () => {
       const selected = items
         .map(item =>
           item.nativeElement.classList.contains(
-            'dt-toggle-button-item-selected'
-          )
+            'dt-toggle-button-item-selected',
+          ),
         )
         .filter(Boolean);
       expect(selected.length).toBe(1);
@@ -180,7 +180,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should reflect the value of the selected item after selecting an item other than the currently selected', () => {
       const items = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       );
       items[0].componentInstance.select();
       fixture.detectChanges();
@@ -267,21 +267,21 @@ describe('DtToggleButtonGroup', () => {
 
     it('should disable the first item', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       expect(item.nativeElement.hasAttribute('disabled')).toBeTruthy();
     });
 
     it('should disable the second item', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[1];
       expect(item.nativeElement.hasAttribute('disabled')).toBeFalsy();
     });
 
     it('should not mark a disabled item as selected', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       item.nativeElement.click();
       fixture.detectChanges();
@@ -292,7 +292,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should not mark a disabled item as selected (programmatically)', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       item.componentInstance.select();
       fixture.detectChanges();
@@ -303,7 +303,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should not focus a disabled item', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       expect(document.activeElement).not.toBe(item.nativeElement);
 
@@ -315,7 +315,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should not focus a disabled item (programmatically)', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       expect(document.activeElement).not.toBe(item.nativeElement);
 
@@ -339,14 +339,14 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have the second item disabled on bound property initially', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[1];
       expect(item.nativeElement.hasAttribute('disabled')).toBeTruthy();
     });
 
     it('should have the second item enabled after bound property is set to false', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[1];
       fixture.componentInstance.testAppDisabled = false;
       fixture.detectChanges();
@@ -355,7 +355,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have the first item marked as selected', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
 
       expect(item.nativeElement.hasAttribute('aria-pressed')).toBeTruthy();
@@ -375,51 +375,51 @@ describe('DtToggleButtonGroup', () => {
 
     it('should have aria-label reflected on the item', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       expect(item.nativeElement.hasAttribute('aria-label')).toBeTruthy();
       expect(item.nativeElement.getAttribute('aria-label')).toBe(
-        'This is the label for one'
+        'This is the label for one',
       );
     });
 
     it('should not reflect aria-label if it is not set', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[1];
       expect(item.nativeElement.hasAttribute('aria-label')).toBeFalsy();
     });
 
     it('should have aria-labelledby reflected on the item', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[1];
       expect(item.nativeElement.hasAttribute('aria-labelledby')).toBeTruthy();
       expect(item.nativeElement.getAttribute('aria-labelledby')).toBe(
-        'labelfortwo'
+        'labelfortwo',
       );
     });
 
     it('should not reflect aria-labelledby if it is not set', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       expect(item.nativeElement.hasAttribute('aria-labelledby')).toBeFalsy();
     });
 
     it('should have aria-describedby reflected on the item', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[2];
       expect(item.nativeElement.hasAttribute('aria-describedby')).toBeTruthy();
       expect(item.nativeElement.getAttribute('aria-describedby')).toBe(
-        'descriptionforthree'
+        'descriptionforthree',
       );
     });
 
     it('should not reflect aria-describedby if it is not set', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       expect(item.nativeElement.hasAttribute('aria-describedby')).toBeFalsy();
     });
@@ -435,7 +435,7 @@ describe('DtToggleButtonGroup', () => {
 
     it('should let the item be focussable', () => {
       const item = fixture.debugElement.queryAll(
-        By.css('.dt-toggle-button-item')
+        By.css('.dt-toggle-button-item'),
       )[0];
       expect(document.activeElement).not.toBe(item.nativeElement);
 

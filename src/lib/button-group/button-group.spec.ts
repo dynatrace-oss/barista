@@ -39,18 +39,18 @@ describe('DtButtonGroup', () => {
       fixture = createComponent(TestAppButtonGroup);
 
       groupDebugElement = fixture.debugElement.query(
-        By.css('.dt-button-group')
+        By.css('.dt-button-group'),
       );
       groupInstance = groupDebugElement.componentInstance;
 
       itemDebugElements = fixture.debugElement.queryAll(
-        By.css('.dt-button-group-item')
+        By.css('.dt-button-group-item'),
       );
       itemHtmlElements = itemDebugElements.map(
-        (debugEl: DebugElement) => debugEl.nativeElement
+        (debugEl: DebugElement) => debugEl.nativeElement,
       );
       itemInstances = itemDebugElements.map(
-        (debugEl: DebugElement) => debugEl.componentInstance
+        (debugEl: DebugElement) => debugEl.componentInstance,
       );
     }));
 
@@ -75,7 +75,7 @@ describe('DtButtonGroup', () => {
 
     it('should have a value after selections', () => {
       const item = fixture.debugElement.nativeElement.querySelector(
-        'dt-button-group-item:nth-child(2)'
+        'dt-button-group-item:nth-child(2)',
       );
       item.click();
 
@@ -143,17 +143,17 @@ describe('DtButtonGroup', () => {
       fixture = createComponent(TestAppButtonGroupWithSelection);
 
       groupDebugElement = fixture.debugElement.query(
-        By.css('.dt-button-group')
+        By.css('.dt-button-group'),
       );
       groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
-        DtButtonGroup
+        DtButtonGroup,
       );
 
       itemDebugElements = fixture.debugElement.queryAll(
-        By.css('.dt-button-group-item')
+        By.css('.dt-button-group-item'),
       );
       itemInstances = itemDebugElements.map(
-        (debugEl: DebugElement) => debugEl.componentInstance
+        (debugEl: DebugElement) => debugEl.componentInstance,
       );
     }));
 
@@ -179,17 +179,17 @@ describe('DtButtonGroup', () => {
       fixture = createComponent(TestAppButtonGroupWithSelection2);
 
       groupDebugElement = fixture.debugElement.query(
-        By.directive(DtButtonGroup)
+        By.directive(DtButtonGroup),
       );
       groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
-        DtButtonGroup
+        DtButtonGroup,
       );
 
       const itemDebugElements = fixture.debugElement.queryAll(
-        By.directive(DtButtonGroupItem)
+        By.directive(DtButtonGroupItem),
       );
       itemInstances = itemDebugElements.map(
-        (debugEl: DebugElement) => debugEl.componentInstance
+        (debugEl: DebugElement) => debugEl.componentInstance,
       );
     }));
 

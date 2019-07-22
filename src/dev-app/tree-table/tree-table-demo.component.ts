@@ -136,17 +136,17 @@ export class TreeTableDemo {
   constructor() {
     this.treeControl = new DtTreeControl<ThreadFlatNode>(
       this._getLevel,
-      this._isExpandable
+      this._isExpandable,
     );
     this.treeFlattener = new DtTreeFlattener(
       this.transformer,
       this._getLevel,
       this._isExpandable,
-      this._getChildren
+      this._getChildren,
     );
     this.dataSource = new DtTreeDataSource(
       this.treeControl,
-      this.treeFlattener
+      this.treeFlattener,
     );
     this.dataChange.next(TESTDATA);
 

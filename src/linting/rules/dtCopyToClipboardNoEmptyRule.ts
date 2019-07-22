@@ -21,7 +21,7 @@ class DtCopyToClipboardVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-copy-to-clipboard must contain a dt-copy-to-clipboard-label element, that must be a direct child.'
+      'A dt-copy-to-clipboard must contain a dt-copy-to-clipboard-label element, that must be a direct child.',
     );
   }
 }
@@ -60,7 +60,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtCopyToClipboardVisitor,
-      })
+      }),
     );
   }
 }

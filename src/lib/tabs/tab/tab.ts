@@ -147,7 +147,7 @@ export class DtTab extends _DtTabMixinBase
     // tslint:disable-next-line:no-forward-ref
     @Inject(forwardRef(() => DtTabGroup))
     @Optional()
-    private _tabGroup: DtTabGroup
+    private _tabGroup: DtTabGroup,
   ) {
     super(elementRef);
     // Force setter to be called in case id was not specified.
@@ -158,7 +158,7 @@ export class DtTab extends _DtTabMixinBase
     if (this._lazyContentRef) {
       this._contentPortal = new TemplatePortal(
         this._lazyContentRef,
-        this._viewContainerRef
+        this._viewContainerRef,
       );
     }
     if (this._tabGroup) {

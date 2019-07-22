@@ -130,7 +130,7 @@ describe('DtSelect', () => {
           fixture.detectChanges();
 
           expect(select.getAttribute('aria-label')).toBeFalsy(
-            'Expected no aria-label to be set.'
+            'Expected no aria-label to be set.',
           );
           expect(select.getAttribute('aria-labelledby')).toBe('myLabelId');
         }));
@@ -154,7 +154,7 @@ describe('DtSelect', () => {
         it('should set aria-required for required selects', fakeAsync(() => {
           expect(select.getAttribute('aria-required')).toEqual(
             'false',
-            `Expected aria-required attr to be false for normal selects.`
+            `Expected aria-required attr to be false for normal selects.`,
           );
 
           fixture.componentInstance.isRequired = true;
@@ -162,14 +162,14 @@ describe('DtSelect', () => {
 
           expect(select.getAttribute('aria-required')).toEqual(
             'true',
-            `Expected aria-required attr to be true for required selects.`
+            `Expected aria-required attr to be true for required selects.`,
           );
         }));
 
         it('should set the dt-select-required class for required selects', fakeAsync(() => {
           expect(select.classList).not.toContain(
             'dt-select-required',
-            `Expected the dt-select-required class not to be set.`
+            `Expected the dt-select-required class not to be set.`,
           );
 
           fixture.componentInstance.isRequired = true;
@@ -177,14 +177,14 @@ describe('DtSelect', () => {
 
           expect(select.classList).toContain(
             'dt-select-required',
-            `Expected the dt-select-required class to be set.`
+            `Expected the dt-select-required class to be set.`,
           );
         }));
 
         it('should set aria-invalid for selects that are invalid and touched', fakeAsync(() => {
           expect(select.getAttribute('aria-invalid')).toEqual(
             'false',
-            `Expected aria-invalid attr to be false for valid selects.`
+            `Expected aria-invalid attr to be false for valid selects.`,
           );
 
           fixture.componentInstance.isRequired = true;
@@ -193,7 +193,7 @@ describe('DtSelect', () => {
 
           expect(select.getAttribute('aria-invalid')).toEqual(
             'true',
-            `Expected aria-invalid attr to be true for invalid selects.`
+            `Expected aria-invalid attr to be true for invalid selects.`,
           );
         }));
 
@@ -220,7 +220,7 @@ describe('DtSelect', () => {
           fixture.destroy();
 
           const labelFixture = TestBed.createComponent(
-            SelectWithFormFieldLabel
+            SelectWithFormFieldLabel,
           );
           labelFixture.detectChanges();
           select = labelFixture.debugElement.query(By.css('dt-select'))
@@ -228,7 +228,9 @@ describe('DtSelect', () => {
 
           expect(select.getAttribute('aria-labelledby')).toBeTruthy();
           expect(select.getAttribute('aria-labelledby')).toBe(
-            labelFixture.nativeElement.querySelector('label').getAttribute('id')
+            labelFixture.nativeElement
+              .querySelector('label')
+              .getAttribute('id'),
           );
         });
 
@@ -236,7 +238,7 @@ describe('DtSelect', () => {
           fixture.destroy();
 
           const labelFixture = TestBed.createComponent(
-            SelectWithFormFieldLabel
+            SelectWithFormFieldLabel,
           );
           labelFixture.componentInstance.placeholder = 'Thing selector';
           labelFixture.detectChanges();
@@ -256,11 +258,11 @@ describe('DtSelect', () => {
 
           expect(options[0].selected).toBe(
             true,
-            'Expected first option to be selected.'
+            'Expected first option to be selected.',
           );
           expect(formControl.value).toBe(
             options[0].value,
-            'Expected value from first option to have been set on the model.'
+            'Expected value from first option to have been set on the model.',
           );
 
           dispatchKeyboardEvent(select, 'keydown', DOWN_ARROW);
@@ -269,22 +271,22 @@ describe('DtSelect', () => {
           // Note that the third option is skipped, because it is disabled.
           expect(options[3].selected).toBe(
             true,
-            'Expected fourth option to be selected.'
+            'Expected fourth option to be selected.',
           );
           expect(formControl.value).toBe(
             options[3].value,
-            'Expected value from fourth option to have been set on the model.'
+            'Expected value from fourth option to have been set on the model.',
           );
 
           dispatchKeyboardEvent(select, 'keydown', UP_ARROW);
 
           expect(options[1].selected).toBe(
             true,
-            'Expected second option to be selected.'
+            'Expected second option to be selected.',
           );
           expect(formControl.value).toBe(
             options[1].value,
-            'Expected value from second option to have been set on the model.'
+            'Expected value from second option to have been set on the model.',
           );
           flush();
         }));
@@ -300,7 +302,7 @@ describe('DtSelect', () => {
           flush();
 
           (overlayContainerElement.querySelectorAll(
-            'dt-option'
+            'dt-option',
           )[3] as HTMLElement).click();
           fixture.detectChanges();
           flush();
@@ -324,11 +326,11 @@ describe('DtSelect', () => {
 
           expect(options[0].selected).toBe(
             true,
-            'Expected first option to be selected.'
+            'Expected first option to be selected.',
           );
           expect(formControl.value).toBe(
             options[0].value,
-            'Expected value from first option to have been set on the model.'
+            'Expected value from first option to have been set on the model.',
           );
 
           dispatchKeyboardEvent(select, 'keydown', RIGHT_ARROW);
@@ -337,22 +339,22 @@ describe('DtSelect', () => {
           // Note that the third option is skipped, because it is disabled.
           expect(options[3].selected).toBe(
             true,
-            'Expected fourth option to be selected.'
+            'Expected fourth option to be selected.',
           );
           expect(formControl.value).toBe(
             options[3].value,
-            'Expected value from fourth option to have been set on the model.'
+            'Expected value from fourth option to have been set on the model.',
           );
 
           dispatchKeyboardEvent(select, 'keydown', LEFT_ARROW);
 
           expect(options[1].selected).toBe(
             true,
-            'Expected second option to be selected.'
+            'Expected second option to be selected.',
           );
           expect(formControl.value).toBe(
             options[1].value,
-            'Expected value from second option to have been set on the model.'
+            'Expected value from second option to have been set on the model.',
           );
           flush();
         }));
@@ -365,7 +367,7 @@ describe('DtSelect', () => {
 
           expect(selectInstance.panelOpen).toBe(
             false,
-            'Expected select to be closed.'
+            'Expected select to be closed.',
           );
           expect(formControl.value).toBeFalsy('Expected no initial value.');
 
@@ -376,10 +378,10 @@ describe('DtSelect', () => {
 
           expect(selectInstance.panelOpen).toBe(
             true,
-            'Expected select to be open.'
+            'Expected select to be open.',
           );
           expect(formControl.value).toBeFalsy(
-            'Expected value not to have changed.'
+            'Expected value not to have changed.',
           );
           flush();
         }));
@@ -392,7 +394,7 @@ describe('DtSelect', () => {
 
           expect(selectInstance.panelOpen).toBe(
             false,
-            'Expected select to be closed.'
+            'Expected select to be closed.',
           );
           expect(formControl.value).toBeFalsy('Expected no initial value.');
 
@@ -403,10 +405,10 @@ describe('DtSelect', () => {
 
           expect(selectInstance.panelOpen).toBe(
             true,
-            'Expected select to be open.'
+            'Expected select to be open.',
           );
           expect(formControl.value).toBeFalsy(
-            'Expected value not to have changed.'
+            'Expected value not to have changed.',
           );
           flush();
         }));
@@ -419,7 +421,7 @@ describe('DtSelect', () => {
 
           expect(selectInstance.panelOpen).toBe(
             true,
-            'Expected select to be open.'
+            'Expected select to be open.',
           );
 
           const event = createKeyboardEvent('keydown', DOWN_ARROW);
@@ -429,11 +431,11 @@ describe('DtSelect', () => {
 
           expect(selectInstance.panelOpen).toBe(
             false,
-            'Expected select to be closed.'
+            'Expected select to be closed.',
           );
           expect(event.defaultPrevented).toBe(
             true,
-            'Expected default action to be prevented.'
+            'Expected default action to be prevented.',
           );
           flush();
         }));
@@ -446,7 +448,7 @@ describe('DtSelect', () => {
 
           expect(selectInstance.panelOpen).toBe(
             true,
-            'Expected select to be open.'
+            'Expected select to be open.',
           );
 
           const event = createKeyboardEvent('keydown', UP_ARROW);
@@ -456,11 +458,11 @@ describe('DtSelect', () => {
 
           expect(selectInstance.panelOpen).toBe(
             false,
-            'Expected select to be closed.'
+            'Expected select to be closed.',
           );
           expect(event.defaultPrevented).toBe(
             true,
-            'Expected default action to be prevented.'
+            'Expected default action to be prevented.',
           );
           flush();
         }));
@@ -473,32 +475,32 @@ describe('DtSelect', () => {
 
           dispatchEvent(
             select,
-            createKeyboardEvent('keydown', 80, undefined, 'p')
+            createKeyboardEvent('keydown', 80, undefined, 'p'),
           );
           tick(200);
 
           expect(options[1].selected).toBe(
             true,
-            'Expected second option to be selected.'
+            'Expected second option to be selected.',
           );
           expect(formControl.value).toBe(
             options[1].value,
-            'Expected value from second option to have been set on the model.'
+            'Expected value from second option to have been set on the model.',
           );
 
           dispatchEvent(
             select,
-            createKeyboardEvent('keydown', 69, undefined, 'e')
+            createKeyboardEvent('keydown', 69, undefined, 'e'),
           );
           tick(200);
 
           expect(options[5].selected).toBe(
             true,
-            'Expected sixth option to be selected.'
+            'Expected sixth option to be selected.',
           );
           expect(formControl.value).toBe(
             options[5].value,
-            'Expected value from sixth option to have been set on the model.'
+            'Expected value from sixth option to have been set on the model.',
           );
         }));
 
@@ -506,20 +508,20 @@ describe('DtSelect', () => {
           const formControl = fixture.componentInstance.control;
 
           expect(formControl.value).toBeNull(
-            'Expected form control value to be empty.'
+            'Expected form control value to be empty.',
           );
           expect(formControl.pristine).toBe(
             true,
-            'Expected form control to be clean.'
+            'Expected form control to be clean.',
           );
 
           dispatchKeyboardEvent(select, 'keydown', 16); // Press a random key.
           expect(formControl.value).toBeNull(
-            'Expected form control value to stay empty.'
+            'Expected form control value to stay empty.',
           );
           expect(formControl.pristine).toBe(
             true,
-            'Expected form control to stay clean.'
+            'Expected form control to stay clean.',
           );
           flush();
         }));
@@ -534,7 +536,7 @@ describe('DtSelect', () => {
 
           expect(formControl.value).toBe('pasta-6');
           expect(fixture.componentInstance.options.toArray()[6].selected).toBe(
-            true
+            true,
           );
           flush();
         }));
@@ -549,7 +551,7 @@ describe('DtSelect', () => {
 
           expect(formControl.value).toBe(
             'eggs-5',
-            'Expected value to remain unchaged.'
+            'Expected value to remain unchaged.',
           );
           flush();
         }));
@@ -563,14 +565,14 @@ describe('DtSelect', () => {
 
           expect(lastOption.selected).toBe(
             true,
-            'Expected last option to be selected.'
+            'Expected last option to be selected.',
           );
 
           dispatchKeyboardEvent(select, 'keydown', DOWN_ARROW);
 
           expect(lastOption.selected).toBe(
             true,
-            'Expected last option to stay selected.'
+            'Expected last option to stay selected.',
           );
           flush();
         }));
@@ -601,7 +603,7 @@ describe('DtSelect', () => {
 
           expect(document.activeElement).toBe(
             select,
-            'Expected select element to be focused.'
+            'Expected select element to be focused.',
           );
         }));
 
@@ -609,12 +611,12 @@ describe('DtSelect', () => {
         // screen readers read out the wrong amount of options.
         it('should set aria-hidden on the trigger element', fakeAsync(() => {
           const trigger = fixture.debugElement.query(
-            By.css('.dt-select-trigger')
+            By.css('.dt-select-trigger'),
           ).nativeElement;
 
           expect(trigger.getAttribute('aria-hidden')).toBe(
             'true',
-            'Expected aria-hidden to be true when the select is open.'
+            'Expected aria-hidden to be true when the select is open.',
           );
         }));
 
@@ -627,7 +629,7 @@ describe('DtSelect', () => {
 
           expect(host.hasAttribute('aria-activedescendant')).toBe(
             false,
-            'Expected no aria-activedescendant on init.'
+            'Expected no aria-activedescendant on init.',
           );
 
           fixture.componentInstance.select.open();
@@ -638,7 +640,7 @@ describe('DtSelect', () => {
 
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[4].id,
-            'Expected aria-activedescendant to match the active option.'
+            'Expected aria-activedescendant to match the active option.',
           );
 
           fixture.componentInstance.select.close();
@@ -647,7 +649,7 @@ describe('DtSelect', () => {
 
           expect(host.hasAttribute('aria-activedescendant')).toBe(
             false,
-            'Expected no aria-activedescendant when closed.'
+            'Expected no aria-activedescendant when closed.',
           );
         }));
 
@@ -662,7 +664,7 @@ describe('DtSelect', () => {
           const options = overlayContainerElement.querySelectorAll('dt-option');
 
           expect(host.getAttribute('aria-activedescendant')).toBe(
-            options[0].id
+            options[0].id,
           );
 
           [1, 2, 3].forEach(() => {
@@ -671,14 +673,14 @@ describe('DtSelect', () => {
           });
 
           expect(host.getAttribute('aria-activedescendant')).toBe(
-            options[4].id
+            options[4].id,
           );
 
           dispatchKeyboardEvent(host, 'keydown', UP_ARROW);
           fixture.detectChanges();
 
           expect(host.getAttribute('aria-activedescendant')).toBe(
-            options[3].id
+            options[3].id,
           );
           flush();
         }));
@@ -694,7 +696,7 @@ describe('DtSelect', () => {
           const options = overlayContainerElement.querySelectorAll('dt-option');
 
           expect(host.getAttribute('aria-activedescendant')).toBe(
-            options[0].id
+            options[0].id,
           );
 
           [1, 2, 3].forEach(() => {
@@ -703,7 +705,7 @@ describe('DtSelect', () => {
           });
 
           expect(host.getAttribute('aria-activedescendant')).toBe(
-            options[0].id
+            options[0].id,
           );
           flush();
         }));
@@ -791,11 +793,11 @@ describe('DtSelect', () => {
           const label = group.querySelector('label') as HTMLElement;
 
           expect(label.getAttribute('id')).toBeTruthy(
-            'Expected label to have an id.'
+            'Expected label to have an id.',
           );
           expect(group.getAttribute('aria-labelledby')).toBe(
             label.getAttribute('id'),
-            'Expected `aria-labelledby` to match the label id.'
+            'Expected `aria-labelledby` to match the label id.',
           );
         }));
 
@@ -840,7 +842,7 @@ describe('DtSelect', () => {
         flush();
 
         const option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         option.click();
         fixture.detectChanges();
@@ -856,7 +858,7 @@ describe('DtSelect', () => {
         flush();
 
         const backdrop = overlayContainerElement.querySelector(
-          '.cdk-overlay-backdrop'
+          '.cdk-overlay-backdrop',
         ) as HTMLElement;
 
         backdrop.click();
@@ -918,7 +920,7 @@ describe('DtSelect', () => {
         expect(fixture.componentInstance.select.panelOpen).toBe(true);
 
         const panel = overlayContainerElement.querySelector(
-          '.dt-select-panel'
+          '.dt-select-panel',
         ) as HTMLElement;
         dispatchKeyboardEvent(panel, 'keydown', TAB);
         fixture.detectChanges();
@@ -939,7 +941,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
 
         expect(
-          fixture.componentInstance.select._keyManager.activeItemIndex
+          fixture.componentInstance.select._keyManager.activeItemIndex,
         ).toBe(0);
         expect(event.defaultPrevented).toBe(true);
         flush();
@@ -957,7 +959,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
 
         expect(
-          fixture.componentInstance.select._keyManager.activeItemIndex
+          fixture.componentInstance.select._keyManager.activeItemIndex,
         ).toBe(7);
         expect(event.defaultPrevented).toBe(true);
         flush();
@@ -968,7 +970,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
 
         const panel = overlayContainerElement.querySelector(
-          '.dt-select-panel'
+          '.dt-select-panel',
         ) as HTMLElement;
 
         expect(panel.classList).toContain('custom-one');
@@ -980,7 +982,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
 
         const option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         const event = dispatchKeyboardEvent(option, 'keydown', SPACE);
 
@@ -993,7 +995,7 @@ describe('DtSelect', () => {
         fixture.detectChanges();
 
         const option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         const event = dispatchKeyboardEvent(option, 'keydown', ENTER);
 
@@ -1005,7 +1007,7 @@ describe('DtSelect', () => {
         fixture.destroy();
 
         const groupFixture = TestBed.createComponent(
-          SelectWithGroupsAndNgContainer
+          SelectWithGroupsAndNgContainer,
         );
         groupFixture.detectChanges();
         trigger = groupFixture.debugElement.query(By.css('.dt-select-trigger'))
@@ -1014,7 +1016,7 @@ describe('DtSelect', () => {
         groupFixture.detectChanges();
 
         expect(
-          document.querySelectorAll('.cdk-overlay-container dt-option').length
+          document.querySelectorAll('.cdk-overlay-container dt-option').length,
         ).toBeGreaterThan(0, 'Expected at least one option to be rendered.');
       }));
 
@@ -1027,7 +1029,7 @@ describe('DtSelect', () => {
 
         expect(selectInstance.focused).toBe(
           true,
-          'Expected select to be focused.'
+          'Expected select to be focused.',
         );
 
         selectInstance.open();
@@ -1038,7 +1040,7 @@ describe('DtSelect', () => {
 
         expect(selectInstance.focused).toBe(
           true,
-          'Expected select element to remain focused.'
+          'Expected select element to remain focused.',
         );
       }));
     });
@@ -1059,7 +1061,7 @@ describe('DtSelect', () => {
         flush();
 
         expect(
-          fixture.componentInstance.select._keyManager.activeItemIndex
+          fixture.componentInstance.select._keyManager.activeItemIndex,
         ).toEqual(0);
       }));
 
@@ -1069,7 +1071,7 @@ describe('DtSelect', () => {
         flush();
 
         let option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         option.click();
         fixture.detectChanges();
@@ -1080,13 +1082,13 @@ describe('DtSelect', () => {
         flush();
 
         option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
 
         expect(option.classList).toContain('dt-option-selected');
         expect(fixture.componentInstance.options.first.selected).toBe(true);
         expect(fixture.componentInstance.select.selected).toBe(
-          fixture.componentInstance.options.first
+          fixture.componentInstance.options.first,
         );
       }));
 
@@ -1106,7 +1108,7 @@ describe('DtSelect', () => {
         expect(optionNodes[1].classList).toContain('dt-option-selected');
         expect(optionInstances[1].selected).toBe(true);
         expect(fixture.componentInstance.select.selected).toBe(
-          optionInstances[1]
+          optionInstances[1],
         );
       }));
 
@@ -1159,22 +1161,22 @@ describe('DtSelect', () => {
 
         expect(options[0].classList).not.toContain(
           'dt-option-selected',
-          'Expected first option to no longer be selected'
+          'Expected first option to no longer be selected',
         );
         expect(options[1].classList).toContain(
           'dt-option-selected',
-          'Expected second option to be selected'
+          'Expected second option to be selected',
         );
 
         const optionInstances = fixture.componentInstance.options.toArray();
 
         expect(optionInstances[0].selected).toBe(
           false,
-          'Expected first option to no longer be selected'
+          'Expected first option to no longer be selected',
         );
         expect(optionInstances[1].selected).toBe(
           true,
-          'Expected second option to be selected'
+          'Expected second option to be selected',
         );
       }));
 
@@ -1186,7 +1188,7 @@ describe('DtSelect', () => {
         flush();
 
         const firstOption = overlayContainerElement.querySelectorAll(
-          'dt-option'
+          'dt-option',
         )[0] as HTMLElement;
 
         firstOption.click();
@@ -1194,7 +1196,7 @@ describe('DtSelect', () => {
 
         expect(select.selected).toBe(
           select.options.first,
-          'Expected first option to be selected.'
+          'Expected first option to be selected.',
         );
 
         fixture.componentInstance.foods = [];
@@ -1202,7 +1204,7 @@ describe('DtSelect', () => {
         flush();
 
         expect(select.selected).toBeUndefined(
-          'Expected selection to be removed when option no longer exists.'
+          'Expected selection to be removed when option no longer exists.',
         );
       }));
 
@@ -1212,7 +1214,7 @@ describe('DtSelect', () => {
         flush();
 
         const option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         option.click();
         fixture.detectChanges();
@@ -1238,7 +1240,7 @@ describe('DtSelect', () => {
         // must wait for animation to finish
         fixture.detectChanges();
         expect(
-          fixture.componentInstance.select._keyManager.activeItemIndex
+          fixture.componentInstance.select._keyManager.activeItemIndex,
         ).toEqual(1);
       }));
 
@@ -1258,7 +1260,7 @@ describe('DtSelect', () => {
 
         expect(trigger.textContent).toContain('Potatoes');
         expect(fixture.componentInstance.select.selected).toBe(
-          fixture.componentInstance.options.last
+          fixture.componentInstance.options.last,
         );
       }));
 
@@ -1298,7 +1300,7 @@ describe('DtSelect', () => {
         groupFixture.detectChanges();
 
         const disabledGroup = overlayContainerElement.querySelectorAll(
-          'dt-optgroup'
+          'dt-optgroup',
         )[1];
         const options = disabledGroup.querySelectorAll('dt-option');
 
@@ -1312,7 +1314,7 @@ describe('DtSelect', () => {
 
       it('should not throw if triggerValue accessed with no selected value', fakeAsync(() => {
         expect(
-          () => fixture.componentInstance.select.triggerValue
+          () => fixture.componentInstance.select.triggerValue,
         ).not.toThrow();
       }));
 
@@ -1323,10 +1325,10 @@ describe('DtSelect', () => {
 
         const spy = jasmine.createSpy('option selection spy');
         const subscription = fixture.componentInstance.select.optionSelectionChanges.subscribe(
-          spy
+          spy,
         );
         const option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         option.click();
         fixture.detectChanges();
@@ -1381,11 +1383,11 @@ describe('DtSelect', () => {
 
         const spy = jasmine.createSpy('value change spy');
         const subscription = fixture.componentInstance.select.valueChange.subscribe(
-          spy
+          spy,
         );
 
         const option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         option.click();
         fixture.detectChanges();
@@ -1407,11 +1409,11 @@ describe('DtSelect', () => {
 
         const spy = jasmine.createSpy('value change spy');
         const subscription = fixture.componentInstance.select.valueChange.subscribe(
-          spy
+          spy,
         );
 
         const option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         option.click();
         fixture.detectChanges();
@@ -1440,7 +1442,7 @@ describe('DtSelect', () => {
         const value = fixture.debugElement.query(By.css('.dt-select-value'));
         expect(value.nativeElement.textContent).toContain(
           'Pizza',
-          `Expected trigger to be populated by the control's initial value.`
+          `Expected trigger to be populated by the control's initial value.`,
         );
 
         trigger = fixture.debugElement.query(By.css('.dt-select-trigger'))
@@ -1452,7 +1454,7 @@ describe('DtSelect', () => {
         const options = overlayContainerElement.querySelectorAll('dt-option');
         expect(options[1].classList).toContain(
           'dt-option-selected',
-          `Expected option with the control's initial value to be selected.`
+          `Expected option with the control's initial value to be selected.`,
         );
       }));
 
@@ -1466,7 +1468,7 @@ describe('DtSelect', () => {
         value = fixture.debugElement.query(By.css('.dt-select-value'));
         expect(value.nativeElement.textContent).toContain(
           'Pizza',
-          `Expected trigger to be populated by the control's new value.`
+          `Expected trigger to be populated by the control's new value.`,
         );
 
         trigger.click();
@@ -1476,14 +1478,14 @@ describe('DtSelect', () => {
         const options = overlayContainerElement.querySelectorAll('dt-option');
         expect(options[1].classList).toContain(
           'dt-option-selected',
-          `Expected option with the control's new value to be selected.`
+          `Expected option with the control's new value to be selected.`,
         );
       }));
 
       it('should update the form value when the view changes', fakeAsync(() => {
         expect(fixture.componentInstance.control.value).toEqual(
           null,
-          `Expected the control's value to be empty initially.`
+          `Expected the control's value to be empty initially.`,
         );
 
         trigger.click();
@@ -1491,7 +1493,7 @@ describe('DtSelect', () => {
         flush();
 
         const option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         option.click();
         fixture.detectChanges();
@@ -1499,7 +1501,7 @@ describe('DtSelect', () => {
 
         expect(fixture.componentInstance.control.value).toEqual(
           'steak-0',
-          `Expected control's value to be set to the new option.`
+          `Expected control's value to be set to the new option.`,
         );
       }));
 
@@ -1513,11 +1515,11 @@ describe('DtSelect', () => {
         const value = fixture.debugElement.query(By.css('.dt-select-value'));
         expect(value.nativeElement.textContent.trim()).toBe(
           'Food',
-          `Expected trigger to show the placeholder.`
+          `Expected trigger to show the placeholder.`,
         );
         expect(trigger.textContent).not.toContain(
           'Pizza',
-          `Expected trigger is cleared when option value is not found.`
+          `Expected trigger is cleared when option value is not found.`,
         );
 
         trigger.click();
@@ -1527,7 +1529,7 @@ describe('DtSelect', () => {
         const options = overlayContainerElement.querySelectorAll('dt-option');
         expect(options[1].classList).not.toContain(
           'dt-option-selected',
-          `Expected option w/ the old value not to be selected.`
+          `Expected option w/ the old value not to be selected.`,
         );
       }));
 
@@ -1541,11 +1543,11 @@ describe('DtSelect', () => {
         const value = fixture.debugElement.query(By.css('.dt-select-value'));
         expect(value.nativeElement.textContent.trim()).toBe(
           'Food',
-          `Expected trigger to show the placeholder.`
+          `Expected trigger to show the placeholder.`,
         );
         expect(trigger.textContent).not.toContain(
           'Pizza',
-          `Expected trigger is cleared when option value is not found.`
+          `Expected trigger is cleared when option value is not found.`,
         );
 
         trigger.click();
@@ -1555,14 +1557,14 @@ describe('DtSelect', () => {
         const options = overlayContainerElement.querySelectorAll('dt-option');
         expect(options[1].classList).not.toContain(
           'dt-option-selected',
-          `Expected option w/ the old value not to be selected.`
+          `Expected option w/ the old value not to be selected.`,
         );
       }));
 
       it('should set the control to touched when the select is blurred', fakeAsync(() => {
         expect(fixture.componentInstance.control.touched).toEqual(
           false,
-          `Expected the control to start off as untouched.`
+          `Expected the control to start off as untouched.`,
         );
 
         trigger.click();
@@ -1572,11 +1574,11 @@ describe('DtSelect', () => {
 
         expect(fixture.componentInstance.control.touched).toEqual(
           false,
-          `Expected the control to stay untouched when menu opened.`
+          `Expected the control to stay untouched when menu opened.`,
         );
 
         const backdrop = overlayContainerElement.querySelector(
-          '.cdk-overlay-backdrop'
+          '.cdk-overlay-backdrop',
         ) as HTMLElement;
         backdrop.click();
         dispatchFakeEvent(trigger, 'blur');
@@ -1585,14 +1587,14 @@ describe('DtSelect', () => {
 
         expect(fixture.componentInstance.control.touched).toEqual(
           true,
-          `Expected the control to be touched as soon as focus left the select.`
+          `Expected the control to be touched as soon as focus left the select.`,
         );
       }));
 
       it('should set the control to touched when the panel is closed', fakeAsync(() => {
         expect(fixture.componentInstance.control.touched).toBe(
           false,
-          'Expected the control to start off as untouched.'
+          'Expected the control to start off as untouched.',
         );
 
         trigger.click();
@@ -1602,7 +1604,7 @@ describe('DtSelect', () => {
 
         expect(fixture.componentInstance.control.touched).toBe(
           false,
-          'Expected the control to stay untouched when menu opened.'
+          'Expected the control to stay untouched when menu opened.',
         );
 
         fixture.componentInstance.select.close();
@@ -1611,14 +1613,14 @@ describe('DtSelect', () => {
 
         expect(fixture.componentInstance.control.touched).toBe(
           true,
-          'Expected the control to be touched when the panel was closed.'
+          'Expected the control to be touched when the panel was closed.',
         );
       }));
 
       it('should not set touched when a disabled select is touched', fakeAsync(() => {
         expect(fixture.componentInstance.control.touched).toBe(
           false,
-          'Expected the control to start off as untouched.'
+          'Expected the control to start off as untouched.',
         );
 
         fixture.componentInstance.control.disable();
@@ -1626,14 +1628,14 @@ describe('DtSelect', () => {
 
         expect(fixture.componentInstance.control.touched).toBe(
           false,
-          'Expected the control to stay untouched.'
+          'Expected the control to stay untouched.',
         );
       }));
 
       it('should set the control to dirty when the select value changes in DOM', fakeAsync(() => {
         expect(fixture.componentInstance.control.dirty).toEqual(
           false,
-          `Expected control to start out pristine.`
+          `Expected control to start out pristine.`,
         );
 
         trigger.click();
@@ -1641,7 +1643,7 @@ describe('DtSelect', () => {
         flush();
 
         const option = overlayContainerElement.querySelector(
-          'dt-option'
+          'dt-option',
         ) as HTMLElement;
         option.click();
         fixture.detectChanges();
@@ -1649,21 +1651,21 @@ describe('DtSelect', () => {
 
         expect(fixture.componentInstance.control.dirty).toEqual(
           true,
-          `Expected control to be dirty after value was changed by user.`
+          `Expected control to be dirty after value was changed by user.`,
         );
       }));
 
       it('should not set the control to dirty when the value changes programmatically', fakeAsync(() => {
         expect(fixture.componentInstance.control.dirty).toEqual(
           false,
-          `Expected control to start out pristine.`
+          `Expected control to start out pristine.`,
         );
 
         fixture.componentInstance.control.setValue('pizza-1');
 
         expect(fixture.componentInstance.control.dirty).toEqual(
           false,
-          `Expected control to stay pristine after programmatic change.`
+          `Expected control to stay pristine after programmatic change.`,
         );
       }));
     });
@@ -1680,11 +1682,11 @@ describe('DtSelect', () => {
 
         expect(overlayContainerElement.textContent).toEqual(
           '',
-          `Expected select panel to stay closed.`
+          `Expected select panel to stay closed.`,
         );
         expect(fixture.componentInstance.select.panelOpen).toBe(
           false,
-          `Expected select panelOpen property to stay false.`
+          `Expected select panelOpen property to stay false.`,
         );
 
         fixture.componentInstance.control.enable();
@@ -1693,11 +1695,11 @@ describe('DtSelect', () => {
 
         expect(overlayContainerElement.textContent).toContain(
           'Steak',
-          `Expected select panel to open normally on re-enabled control`
+          `Expected select panel to open normally on re-enabled control`,
         );
         expect(fixture.componentInstance.select.panelOpen).toBe(
           true,
-          `Expected select panelOpen property to become true.`
+          `Expected select panelOpen property to become true.`,
         );
       }));
     });
@@ -1747,7 +1749,7 @@ describe('DtSelect', () => {
 
       // tslint:disable-next-line: no-unnecessary-type-assertion
       (overlayContainerElement.querySelector(
-        'dt-option'
+        'dt-option',
       ) as HTMLElement).click();
 
       expect(fixture.componentInstance.changeListener).toHaveBeenCalled();
@@ -1758,7 +1760,7 @@ describe('DtSelect', () => {
       fixture.detectChanges();
 
       const option = overlayContainerElement.querySelector(
-        'dt-option'
+        'dt-option',
       ) as HTMLElement;
 
       option.click();
@@ -1797,11 +1799,11 @@ describe('DtSelect', () => {
 
       expect(overlayContainerElement.textContent).toEqual(
         '',
-        `Expected select panel to stay closed.`
+        `Expected select panel to stay closed.`,
       );
       expect(fixture.componentInstance.select.panelOpen).toBe(
         false,
-        `Expected select panelOpen property to stay false.`
+        `Expected select panelOpen property to stay false.`,
       );
 
       fixture.componentInstance.isDisabled = false;
@@ -1813,11 +1815,11 @@ describe('DtSelect', () => {
 
       expect(overlayContainerElement.textContent).toContain(
         'Steak',
-        `Expected select panel to open normally on re-enabled control`
+        `Expected select panel to open normally on re-enabled control`,
       );
       expect(fixture.componentInstance.select.panelOpen).toBe(
         true,
-        `Expected select panelOpen property to become true.`
+        `Expected select panelOpen property to become true.`,
       );
     }));
   });
@@ -1851,7 +1853,7 @@ describe('DtSelect', () => {
       const subscription = select.stateChanges.subscribe(
         undefined,
         undefined,
-        spy
+        spy,
       );
 
       fixture.destroy();
@@ -1876,7 +1878,7 @@ describe('DtSelect', () => {
       flush();
 
       const pane = overlayContainerElement.querySelector(
-        '.cdk-overlay-pane'
+        '.cdk-overlay-pane',
       ) as HTMLElement;
       expect(parseInt(pane.style.minWidth!, 10)).toBeGreaterThan(0);
     }));
@@ -1964,7 +1966,7 @@ describe('DtSelect', () => {
         expect(() => {
           fixture.detectChanges();
         }).toThrowError(
-          wrappedErrorMessage(getDtSelectNonFunctionValueError())
+          wrappedErrorMessage(getDtSelectNonFunctionValueError()),
         );
       }));
     });
@@ -2000,30 +2002,30 @@ describe('DtSelect', () => {
     it('should not set the invalid class on a clean select', fakeAsync(() => {
       expect(testComponent.formGroup.untouched).toBe(
         true,
-        'Expected the form to be untouched.'
+        'Expected the form to be untouched.',
       );
       expect(testComponent.formControl.invalid).toBe(
         true,
-        'Expected form control to be invalid.'
+        'Expected form control to be invalid.',
       );
       expect(select.classList).not.toContain(
         'dt-select-invalid',
-        'Expected select not to appear invalid.'
+        'Expected select not to appear invalid.',
       );
       expect(select.getAttribute('aria-invalid')).toBe(
         'false',
-        'Expected aria-invalid to be set to false.'
+        'Expected aria-invalid to be set to false.',
       );
     }));
 
     it('should appear as invalid if it becomes touched', fakeAsync(() => {
       expect(select.classList).not.toContain(
         'dt-select-invalid',
-        'Expected select not to appear invalid.'
+        'Expected select not to appear invalid.',
       );
       expect(select.getAttribute('aria-invalid')).toBe(
         'false',
-        'Expected aria-invalid to be set to false.'
+        'Expected aria-invalid to be set to false.',
       );
 
       testComponent.formControl.markAsDirty();
@@ -2031,11 +2033,11 @@ describe('DtSelect', () => {
 
       expect(select.classList).toContain(
         'dt-select-invalid',
-        'Expected select to appear invalid.'
+        'Expected select to appear invalid.',
       );
       expect(select.getAttribute('aria-invalid')).toBe(
         'true',
-        'Expected aria-invalid to be set to true.'
+        'Expected aria-invalid to be set to true.',
       );
     }));
 
@@ -2045,11 +2047,11 @@ describe('DtSelect', () => {
 
       expect(select.classList).toContain(
         'dt-select-invalid',
-        'Expected select to appear invalid.'
+        'Expected select to appear invalid.',
       );
       expect(select.getAttribute('aria-invalid')).toBe(
         'true',
-        'Expected aria-invalid to be set to true.'
+        'Expected aria-invalid to be set to true.',
       );
 
       testComponent.formControl.setValue('pizza-1');
@@ -2057,37 +2059,37 @@ describe('DtSelect', () => {
 
       expect(select.classList).not.toContain(
         'dt-select-invalid',
-        'Expected select not to appear invalid.'
+        'Expected select not to appear invalid.',
       );
       expect(select.getAttribute('aria-invalid')).toBe(
         'false',
-        'Expected aria-invalid to be set to false.'
+        'Expected aria-invalid to be set to false.',
       );
     }));
 
     it('should appear as invalid when the parent form group is submitted', fakeAsync(() => {
       expect(select.classList).not.toContain(
         'dt-select-invalid',
-        'Expected select not to appear invalid.'
+        'Expected select not to appear invalid.',
       );
       expect(select.getAttribute('aria-invalid')).toBe(
         'false',
-        'Expected aria-invalid to be set to false.'
+        'Expected aria-invalid to be set to false.',
       );
 
       dispatchFakeEvent(
         fixture.debugElement.query(By.css('form')).nativeElement,
-        'submit'
+        'submit',
       );
       fixture.detectChanges();
 
       expect(select.classList).toContain(
         'dt-select-invalid',
-        'Expected select to appear invalid.'
+        'Expected select to appear invalid.',
       );
       expect(select.getAttribute('aria-invalid')).toBe(
         'true',
-        'Expected aria-invalid to be set to true.'
+        'Expected aria-invalid to be set to true.',
       );
     }));
 
@@ -2096,18 +2098,18 @@ describe('DtSelect', () => {
 
       expect(debugEl.querySelectorAll('dt-error').length).toBe(
         0,
-        'Expected no error messages'
+        'Expected no error messages',
       );
 
       dispatchFakeEvent(
         fixture.debugElement.query(By.css('form')).nativeElement,
-        'submit'
+        'submit',
       );
       fixture.detectChanges();
 
       expect(debugEl.querySelectorAll('dt-error').length).toBe(
         1,
-        'Expected one error message'
+        'Expected one error message',
       );
     }));
 
@@ -2183,7 +2185,7 @@ describe('DtSelect', () => {
 
       expect(trigger.textContent).toContain('Pizza');
       expect(fixture.componentInstance.options.toArray()[1].selected).toBe(
-        true
+        true,
       );
     }));
   });

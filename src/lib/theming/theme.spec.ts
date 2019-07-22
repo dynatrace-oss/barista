@@ -23,7 +23,7 @@ describe('DtTheme', () => {
     fixture.detectChanges();
 
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme')
+      sectionDebugElement.nativeElement.classList.contains('dt-theme'),
     ).toBeTruthy();
   });
 
@@ -33,25 +33,33 @@ describe('DtTheme', () => {
     const sectionDebugElement = fixture.debugElement.query(By.css('section'));
     fixture.detectChanges();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-turquoise')
+      sectionDebugElement.nativeElement.classList.contains(
+        'dt-theme-turquoise',
+      ),
     ).toBeTruthy();
 
     testComponent.theme = 'royalblue:light';
     fixture.detectChanges();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-royalblue')
+      sectionDebugElement.nativeElement.classList.contains(
+        'dt-theme-royalblue',
+      ),
     ).toBeTruthy();
 
     testComponent.theme = 'turquoise:dark';
     fixture.detectChanges();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-turquoise')
+      sectionDebugElement.nativeElement.classList.contains(
+        'dt-theme-turquoise',
+      ),
     ).toBeTruthy();
 
     testComponent.theme = ':dark';
     fixture.detectChanges();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-turquoise')
+      sectionDebugElement.nativeElement.classList.contains(
+        'dt-theme-turquoise',
+      ),
     ).toBeFalsy();
   });
 
@@ -61,28 +69,28 @@ describe('DtTheme', () => {
     const sectionDebugElement = fixture.debugElement.query(By.css('section'));
     fixture.detectChanges();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-light')
+      sectionDebugElement.nativeElement.classList.contains('dt-theme-light'),
     ).toBeFalsy();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-dark')
+      sectionDebugElement.nativeElement.classList.contains('dt-theme-dark'),
     ).toBeFalsy();
 
     testComponent.theme = 'turquoise:light';
     fixture.detectChanges();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-light')
+      sectionDebugElement.nativeElement.classList.contains('dt-theme-light'),
     ).toBeTruthy();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-dark')
+      sectionDebugElement.nativeElement.classList.contains('dt-theme-dark'),
     ).toBeFalsy();
 
     testComponent.theme = 'turquoise:dark';
     fixture.detectChanges();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-light')
+      sectionDebugElement.nativeElement.classList.contains('dt-theme-light'),
     ).toBeFalsy();
     expect(
-      sectionDebugElement.nativeElement.classList.contains('dt-theme-dark')
+      sectionDebugElement.nativeElement.classList.contains('dt-theme-dark'),
     ).toBeTruthy();
   });
 
@@ -90,10 +98,10 @@ describe('DtTheme', () => {
     const fixture = createComponent(TestAppParent);
     const parentComponent = fixture.debugElement.componentInstance;
     const parentSectionDebugElement = fixture.debugElement.query(
-      By.css('.parent-section')
+      By.css('.parent-section'),
     );
     const childSectionDebugElement = fixture.debugElement.query(
-      By.css('.child-section')
+      By.css('.child-section'),
     );
     const childComponent = parentComponent.child;
 
@@ -101,24 +109,26 @@ describe('DtTheme', () => {
 
     expect(
       parentSectionDebugElement.nativeElement.classList.contains(
-        'dt-theme-turquoise'
-      )
+        'dt-theme-turquoise',
+      ),
     ).toBeTruthy();
     expect(
       parentSectionDebugElement.nativeElement.classList.contains(
-        'dt-theme-light'
-      )
+        'dt-theme-light',
+      ),
     ).toBeTruthy();
 
     expect(childComponent.dtThemeInstance.name === 'turquoise');
     expect(childComponent.dtThemeInstance.name === 'dark');
     expect(
       childSectionDebugElement.nativeElement.classList.contains(
-        'dt-theme-turquoise'
-      )
+        'dt-theme-turquoise',
+      ),
     ).toBeTruthy();
     expect(
-      childSectionDebugElement.nativeElement.classList.contains('dt-theme-dark')
+      childSectionDebugElement.nativeElement.classList.contains(
+        'dt-theme-dark',
+      ),
     ).toBeTruthy();
 
     childComponent.theme = 'purple';
@@ -126,13 +136,13 @@ describe('DtTheme', () => {
 
     expect(
       childSectionDebugElement.nativeElement.classList.contains(
-        'dt-theme-purple'
-      )
+        'dt-theme-purple',
+      ),
     ).toBeTruthy();
     expect(
       childSectionDebugElement.nativeElement.classList.contains(
-        'dt-theme-light'
-      )
+        'dt-theme-light',
+      ),
     ).toBeTruthy();
   });
 

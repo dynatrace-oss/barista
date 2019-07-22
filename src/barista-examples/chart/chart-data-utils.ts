@@ -6,7 +6,7 @@ import { DataPoint } from 'highcharts';
 export function randomize(min: number, max: number): number {
   if (min > max) {
     throw new Error(
-      `Min value (${min}) must not be larger than max value (${max})`
+      `Min value (${min}) must not be larger than max value (${max})`,
     );
   }
   return Math.floor(Math.random() * (max - min) + min);
@@ -18,14 +18,14 @@ export function generateData(
   max: number,
   timestampStart: number,
   timestampTick: number,
-  generateGaps?: boolean
+  generateGaps?: boolean,
 ): DataPoint[] {
   if (amount < 0) {
     throw new Error('Amount must not be negative');
   }
   if (min > max) {
     throw new Error(
-      `Min value (${min}) must not be larger than max value (${max})`
+      `Min value (${min}) must not be larger than max value (${max})`,
     );
   }
 
@@ -48,11 +48,11 @@ export function generateAreaRangeData(
   min: number,
   max: number,
   timestampStart?: number,
-  timestampTick?: number
+  timestampTick?: number,
 ): DataPoint[] {
   if (min > max) {
     throw new Error(
-      `Min value (${min}) must not be larger than max value (${max})`
+      `Min value (${min}) must not be larger than max value (${max})`,
     );
   }
 
@@ -64,7 +64,7 @@ export function generateAreaRangeData(
     }
     if (timestampStart === undefined || timestampTick === undefined) {
       throw new Error(
-        'Parameters timestampStart and timestampTick are required'
+        'Parameters timestampStart and timestampTick are required',
       );
     }
 

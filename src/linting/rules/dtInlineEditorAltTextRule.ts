@@ -27,7 +27,7 @@ class DtInlineEditorVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'An inline editor must provide alternative texts for the save and the cancel button.'
+      'An inline editor must provide alternative texts for the save and the cancel button.',
     );
   }
 }
@@ -68,7 +68,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtInlineEditorVisitor,
-      })
+      }),
     );
   }
 }

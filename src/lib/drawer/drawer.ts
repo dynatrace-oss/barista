@@ -113,7 +113,7 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
     void
   > = this.openChange.pipe(
     filter(o => o),
-    map(() => {})
+    map(() => {}),
   );
 
   /**
@@ -124,7 +124,7 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
     void
   > = this.openChange.pipe(
     filter(o => !o),
-    map(() => {})
+    map(() => {}),
   );
 
   /**
@@ -163,15 +163,15 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
 
   constructor(
     private _elementRef: ElementRef,
-    private _breakpointObserver: BreakpointObserver
+    private _breakpointObserver: BreakpointObserver,
   ) {
     // distinctUntilChanged is needed because the done event fires twice on some browsers
     // and fire if animation is done
     this._animationEnd
       .pipe(
         distinctUntilChanged(
-          (x, y) => x.fromState === y.fromState && x.toState === y.toState
-        )
+          (x, y) => x.fromState === y.fromState && x.toState === y.toState,
+        ),
       )
       .subscribe((event: AnimationEvent) => {
         const { fromState, toState } = event;

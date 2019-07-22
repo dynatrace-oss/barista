@@ -8,5 +8,5 @@ platformBrowserDynamic()
     // tslint:disable-next-line:typedef
     (err): void => {
       console.log(err); // tslint:disable-line:no-console
-    }
+    },
   );

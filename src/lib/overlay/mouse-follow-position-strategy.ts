@@ -21,14 +21,14 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
     viewportRuler: ViewportRuler,
     document: Document,
     platform: Platform,
-    overlayContainer: OverlayContainer
+    overlayContainer: OverlayContainer,
   ) {
     this._flexiblePositionStrategy = new FlexibleConnectedPositionStrategy(
       connectedTo,
       viewportRuler,
       document,
       platform,
-      overlayContainer
+      overlayContainer,
     );
   }
 
@@ -49,7 +49,7 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
 
   /** sets the movement constraint */
   withMovementContraint(
-    constraint: 'xAxis' | 'yAxis'
+    constraint: 'xAxis' | 'yAxis',
   ): DtMouseFollowPositionStrategy {
     this._constraint = constraint;
     return this;
@@ -78,7 +78,7 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
             posWithOffset.offsetY = pos.offsetY;
           }
           return posWithOffset;
-        })
+        }),
       );
     }
     return this;

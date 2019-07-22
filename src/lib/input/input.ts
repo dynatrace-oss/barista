@@ -46,7 +46,7 @@ export class DtInputBase {
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public _parentForm: NgForm,
     public _parentFormGroup: FormGroupDirective,
-    public ngControl: NgControl
+    public ngControl: NgControl,
   ) {}
 }
 export const _DtInputMixinBase = mixinErrorState(DtInputBase);
@@ -202,7 +202,7 @@ export class DtInput extends _DtInputMixinBase
     @Optional() _parentForm: NgForm,
     @Optional() _parentFormGroup: FormGroupDirective,
     _defaultErrorStateMatcher: ErrorStateMatcher,
-    private _autofillMonitor: AutofillMonitor
+    private _autofillMonitor: AutofillMonitor,
   ) {
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 

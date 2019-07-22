@@ -37,7 +37,7 @@ export class ToastDynamicMsgExample {
     if (this.toastRef) {
       this.elapsedTime = timer(0, TIMERINTERVAL).pipe(
         takeUntil(this.toastRef.afterDismissed()),
-        map((count: number) => TIMERINTERVAL * count)
+        map((count: number) => TIMERINTERVAL * count),
       );
     }
   }

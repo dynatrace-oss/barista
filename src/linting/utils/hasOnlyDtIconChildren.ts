@@ -34,7 +34,7 @@ export function hasOnlyDtIconChildren(element: ElementAst): boolean {
 
       if (child instanceof EmbeddedTemplateAst) {
         return child.children.every(grandchild =>
-          isElementWithName(grandchild, 'dt-icon')
+          isElementWithName(grandchild, 'dt-icon'),
         );
       }
 

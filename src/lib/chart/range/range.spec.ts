@@ -58,14 +58,14 @@ describe('DtChart Range', () => {
 
     it('should show the range element when hidden is false', () => {
       let container = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       );
       expect(container).not.toBeTruthy();
 
       range._hidden = false;
       fixture.detectChanges();
       container = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       );
       expect(container).toBeTruthy();
     });
@@ -76,7 +76,7 @@ describe('DtChart Range', () => {
       fixture.detectChanges();
 
       let container: HTMLElement = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
       expect(container.style.left).toBe('100px');
       expect(container.style.width).toBe('20px');
@@ -85,7 +85,7 @@ describe('DtChart Range', () => {
       fixture.detectChanges();
 
       container = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
       expect(container.style.left).toBe('0px');
       expect(container.style.width).toBe('100px');
@@ -98,7 +98,7 @@ describe('DtChart Range', () => {
       fixture.detectChanges();
 
       let container: HTMLElement = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
       expect(container.style.left).toBe('200px');
       expect(container.style.width).toBe('200px');
@@ -106,7 +106,7 @@ describe('DtChart Range', () => {
       range.value = [0, 100];
       fixture.detectChanges();
       container = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
       expect(container.style.left).toBe('0px');
       expect(container.style.width).toBe('200px');
@@ -119,7 +119,7 @@ describe('DtChart Range', () => {
       fixture.detectChanges();
 
       let container: DebugElement = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       );
       expect(container).not.toBeNull();
 
@@ -128,7 +128,7 @@ describe('DtChart Range', () => {
       fixture.detectChanges();
 
       container = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       );
       expect(container).toBeNull();
       expect(range._hidden).toBe(true);
@@ -141,7 +141,7 @@ describe('DtChart Range', () => {
       fixture.detectChanges();
 
       const container: HTMLElement = fixture.debugElement.query(
-        By.css('.dt-chart-range')
+        By.css('.dt-chart-range'),
       ).nativeElement;
       expect(container.classList.contains(DT_RANGE_RELEASED_CLASS)).toBe(true);
     });
@@ -153,7 +153,7 @@ describe('DtChart Range', () => {
 
     beforeEach(() => {
       fixture = TestBed.createComponent<RangeTestBindingValuesComponent>(
-        RangeTestBindingValuesComponent
+        RangeTestBindingValuesComponent,
       );
       range = fixture.componentInstance.range;
       fixture.detectChanges();
@@ -162,7 +162,7 @@ describe('DtChart Range', () => {
     it('should have initial values from binding and update them', () => {
       expect(range._hidden).toBe(false);
       let container = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
       expect(container.style.left).toBe('10px');
       expect(container.style.width).toBe('90px');
@@ -170,7 +170,7 @@ describe('DtChart Range', () => {
       fixture.componentInstance.values = [100, 200];
       fixture.detectChanges();
       container = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
       expect(container.style.left).toBe('100px');
       expect(container.style.width).toBe('100px');
@@ -178,7 +178,7 @@ describe('DtChart Range', () => {
 
     it('should have the arrows released class on a created container with a binding', () => {
       const container: HTMLElement = fixture.debugElement.query(
-        By.css('.dt-chart-range')
+        By.css('.dt-chart-range'),
       ).nativeElement;
       expect(container.classList.contains(DT_RANGE_RELEASED_CLASS)).toBe(true);
     });
@@ -188,10 +188,10 @@ describe('DtChart Range', () => {
       expect(range._dragHandle).not.toHaveBeenCalled();
 
       const leftHandle = fixture.debugElement.query(
-        By.css('.dt-chart-left-handle')
+        By.css('.dt-chart-left-handle'),
       ).nativeElement;
       const rightHandle = fixture.debugElement.query(
-        By.css('.dt-chart-right-handle')
+        By.css('.dt-chart-right-handle'),
       ).nativeElement;
 
       dispatchFakeEvent(leftHandle, 'mousedown');
@@ -234,10 +234,10 @@ describe('DtChart Range', () => {
 
     beforeEach(() => {
       fixture = TestBed.createComponent<RangeTestBindingValuesComponent>(
-        RangeTestBindingValuesComponent
+        RangeTestBindingValuesComponent,
       );
       fixtureA11y = TestBed.createComponent<RangeA11yTestComponent>(
-        RangeA11yTestComponent
+        RangeA11yTestComponent,
       );
       range = fixture.componentInstance.range;
       fixture.detectChanges();
@@ -252,13 +252,13 @@ describe('DtChart Range', () => {
 
     it('should have default aria-labels on chart container', () => {
       const container = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
 
       expect(container.getAttribute('aria-role')).toBe('slider');
       expect(container.getAttribute('aria-orientation')).toBe('horizontal');
       expect(container.getAttribute('aria-label')).toBe(
-        ARIA_DEFAULT_SELECTED_AREA_LABEL
+        ARIA_DEFAULT_SELECTED_AREA_LABEL,
       );
       expect(container.getAttribute('aria-valuenow')).toBe('10-100');
       expect(container.getAttribute('aria-valuetext')).toMatch(/1970 Jan 1/); // Date of 10 since unix
@@ -266,7 +266,7 @@ describe('DtChart Range', () => {
 
     it('should have aria min and max values provided on container', () => {
       const container = fixtureA11y.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
 
       expect(container.getAttribute('aria-valuemin')).toBe('10');
@@ -275,7 +275,7 @@ describe('DtChart Range', () => {
 
     it('should have aria min and max values provided on left handle', () => {
       const handle = fixtureA11y.debugElement.query(
-        By.css('.dt-chart-left-handle')
+        By.css('.dt-chart-left-handle'),
       ).nativeElement;
 
       expect(handle.getAttribute('aria-valuemin')).toBe('10');
@@ -284,7 +284,7 @@ describe('DtChart Range', () => {
 
     it('should have aria min and max values provided on right handle', () => {
       const handle = fixtureA11y.debugElement.query(
-        By.css('.dt-chart-right-handle')
+        By.css('.dt-chart-right-handle'),
       ).nativeElement;
 
       expect(handle.getAttribute('aria-valuemin')).toBe('10');
@@ -293,7 +293,7 @@ describe('DtChart Range', () => {
 
     it('should have updated aria labels on chart when input is provided', () => {
       const container = fixtureA11y.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
 
       expect(container.getAttribute('aria-label')).toBe('SELECTED');
@@ -305,13 +305,13 @@ describe('DtChart Range', () => {
 
       expect(handle.getAttribute('aria-role')).toBe('slider');
       expect(handle.getAttribute('aria-label')).toBe(
-        ARIA_DEFAULT_LEFT_HANDLE_LABEL
+        ARIA_DEFAULT_LEFT_HANDLE_LABEL,
       );
     });
 
     it('should have updated aria-labels on left handle', () => {
       const handle = fixtureA11y.debugElement.query(
-        By.css('.dt-chart-left-handle')
+        By.css('.dt-chart-left-handle'),
       ).nativeElement;
 
       expect(handle.getAttribute('aria-label')).toBe('LEFT');
@@ -319,18 +319,18 @@ describe('DtChart Range', () => {
 
     it('should have default aria-labels on right handle', () => {
       const handle = fixture.debugElement.query(
-        By.css('.dt-chart-right-handle')
+        By.css('.dt-chart-right-handle'),
       ).nativeElement;
 
       expect(handle.getAttribute('aria-role')).toBe('slider');
       expect(handle.getAttribute('aria-label')).toBe(
-        ARIA_DEFAULT_RIGHT_HANDLE_LABEL
+        ARIA_DEFAULT_RIGHT_HANDLE_LABEL,
       );
     });
 
     it('should have updated aria-labels on right handle', () => {
       const handle = fixtureA11y.debugElement.query(
-        By.css('.dt-chart-right-handle')
+        By.css('.dt-chart-right-handle'),
       ).nativeElement;
 
       expect(handle.getAttribute('aria-label')).toBe('RIGHT');
@@ -344,12 +344,12 @@ describe('DtChart Range', () => {
       fixture.detectChanges();
 
       const container = fixture.debugElement.query(
-        By.css('.dt-chart-range-container')
+        By.css('.dt-chart-range-container'),
       ).nativeElement;
 
       expect(container.getAttribute('aria-valuenow')).toBe(`${start}-${end}`);
       expect(container.getAttribute('aria-valuetext')).toBe(
-        '2018 Oct 11 20:48 — 2019 Jan 2 17:30'
+        '2018 Oct 11 20:48 — 2019 Jan 2 17:30',
       );
     });
   });

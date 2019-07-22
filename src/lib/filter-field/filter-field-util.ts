@@ -24,13 +24,13 @@ import {
 export function filterAutocompleteDef(
   def: DtNodeDef,
   distinctIds: Set<string>,
-  filterText?: string
+  filterText?: string,
 ): DtNodeDef | null {
   const optionsOrGroups = def
     .autocomplete!.optionsOrGroups.map(optionOrGroup =>
       isDtGroupDef(optionOrGroup)
         ? filterGroupDef(optionOrGroup, distinctIds, filterText)
-        : filterOptionDef(optionOrGroup, distinctIds, filterText)
+        : filterOptionDef(optionOrGroup, distinctIds, filterText),
     )
     .filter(optionOrGroup => optionOrGroup !== null) as DtNodeDef[];
   return def.autocomplete!.async || optionsOrGroups.length
@@ -39,7 +39,7 @@ export function filterAutocompleteDef(
         def.autocomplete!.distinct,
         def.autocomplete!.async,
         def.data,
-        def
+        def,
       )
     : null;
 }
@@ -47,11 +47,11 @@ export function filterAutocompleteDef(
 /** Filters the list of suggestions (options) based on the predicate functions below. */
 export function filterFreeTextDef(
   def: DtNodeDef,
-  filterText?: string
+  filterText?: string,
 ): DtNodeDef {
   const suggestions = def.freeText!.suggestions
     ? def.freeText!.suggestions.filter(option =>
-        filterOptionDef(option, new Set(), filterText)
+        filterOptionDef(option, new Set(), filterText),
       )
     : [];
   return dtFreeTextDef(suggestions, def.data, def);
@@ -64,10 +64,10 @@ export function filterFreeTextDef(
 export function filterGroupDef(
   def: DtNodeDef,
   selectedOptionIds: Set<string>,
-  filterText?: string
+  filterText?: string,
 ): DtNodeDef | null {
   const options = def.group!.options.filter(option =>
-    filterOptionDef(option, selectedOptionIds, filterText)
+    filterOptionDef(option, selectedOptionIds, filterText),
   );
   return options.length
     ? dtGroupDef(
@@ -75,7 +75,7 @@ export function filterGroupDef(
         options,
         def.data,
         def,
-        def.group!.parentAutocomplete
+        def.group!.parentAutocomplete,
       )
     : null;
 }
@@ -84,13 +84,13 @@ export function filterGroupDef(
 export function filterOptionDef(
   def: DtNodeDef,
   selectedOptionIds: Set<string>,
-  filterText?: string
+  filterText?: string,
 ): DtNodeDef | null {
   return defDistinctPredicate(
     def,
     selectedOptionIds,
     !!def.option!.parentAutocomplete &&
-      def.option!.parentAutocomplete.autocomplete!.distinct
+      def.option!.parentAutocomplete.autocomplete!.distinct,
   ) && optionFilterTextPredicate(def, filterText || '')
     ? def
     : null;
@@ -100,13 +100,13 @@ export function filterOptionDef(
 export function defDistinctPredicate(
   def: DtNodeDef,
   selectedOptionIds: Set<string>,
-  isDistinct: boolean
+  isDistinct: boolean,
 ): boolean {
   if (isDtGroupDef(def)) {
     return optionOrGroupListFilteredPredicate(
       def.group.options,
       selectedOptionIds,
-      isDistinct
+      isDistinct,
     );
   }
 
@@ -123,7 +123,7 @@ export function defDistinctPredicate(
       optionOrGroupListFilteredPredicate(
         def.autocomplete.optionsOrGroups,
         selectedOptionIds,
-        def.autocomplete.distinct
+        def.autocomplete.distinct,
       )
     );
   }
@@ -134,7 +134,7 @@ export function defDistinctPredicate(
 export function optionOrGroupListFilteredPredicate(
   optionsOrGroups: DtNodeDef[],
   selectedOptionIds: Set<string>,
-  isDistinct: boolean
+  isDistinct: boolean,
 ): boolean {
   if (isDistinct) {
     return !optionsOrGroups.some(
@@ -142,12 +142,16 @@ export function optionOrGroupListFilteredPredicate(
         !optionOrGroupFilteredPredicate(
           optionOrGroup,
           selectedOptionIds,
-          isDistinct
-        )
+          isDistinct,
+        ),
     );
   }
   return optionsOrGroups.some(optionOrGroup =>
-    optionOrGroupFilteredPredicate(optionOrGroup, selectedOptionIds, isDistinct)
+    optionOrGroupFilteredPredicate(
+      optionOrGroup,
+      selectedOptionIds,
+      isDistinct,
+    ),
   );
 }
 
@@ -155,13 +159,13 @@ export function optionOrGroupListFilteredPredicate(
 export function optionOrGroupFilteredPredicate(
   optionOrGroup: DtNodeDef,
   selectedOptionIds: Set<string>,
-  isDistinct: boolean
+  isDistinct: boolean,
 ): boolean {
   return isDtGroupDef(optionOrGroup)
     ? optionOrGroupListFilteredPredicate(
         optionOrGroup.group.options,
         selectedOptionIds,
-        isDistinct
+        isDistinct,
       )
     : optionSelectedPredicate(optionOrGroup, selectedOptionIds, isDistinct);
 }
@@ -170,7 +174,7 @@ export function optionOrGroupFilteredPredicate(
 export function optionSelectedPredicate(
   def: DtNodeDef,
   selectedIds: Set<string>,
-  isDistinct: boolean
+  isDistinct: boolean,
 ): boolean {
   return !(
     def.option!.uid &&
@@ -182,7 +186,7 @@ export function optionSelectedPredicate(
 /** Predicate function for filtering options based on the view value and the text inserted by the user. */
 export function optionFilterTextPredicate(
   def: DtNodeDef,
-  filterText: string
+  filterText: string,
 ): boolean {
   // Transform the filter and viewValue by converting it to lowercase and removing whitespace.
   const transformedFilter = filterText.trim().toLowerCase();
@@ -196,7 +200,7 @@ export function optionFilterTextPredicate(
 /** Transforms a RangeSource to the Tag data values. */
 // tslint:disable-next-line: no-any
 function transformRangeSourceToTagData(
-  result: DtRangeValue
+  result: DtRangeValue,
 ): { separator: string; value: string } {
   if (result.operator === 'range') {
     return {
@@ -224,7 +228,7 @@ function transformRangeSourceToTagData(
 }
 
 export function createTagDataForFilterValues(
-  filterValues: DtFilterValue[]
+  filterValues: DtFilterValue[],
 ): DtFilterFieldTagData | null {
   let key: string | null = null;
   let value: string | null = null;
@@ -261,7 +265,7 @@ export function createTagDataForFilterValues(
 export function findFilterValuesForSources<T>(
   sources: T[],
   rootDef: DtNodeDef,
-  asyncDefs: Map<DtNodeDef, DtNodeDef>
+  asyncDefs: Map<DtNodeDef, DtNodeDef>,
 ): DtFilterValue[] | null {
   const foundValues: DtFilterValue[] = [];
   let parentDef = rootDef;
@@ -314,7 +318,7 @@ export function findFilterValuesForSources<T>(
 /** Tries to find a definition for the provided source. It will start the lookup at the provided def. */
 export function findDefForSource(
   source: any, // tslint:disable-line:no-any
-  def: DtNodeDef
+  def: DtNodeDef,
 ): DtNodeDef | null {
   if (isDtAutocompleteDef(def)) {
     for (const optionOrGroup of def.autocomplete.optionsOrGroups) {

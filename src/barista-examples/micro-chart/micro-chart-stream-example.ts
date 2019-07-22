@@ -29,6 +29,6 @@ export class MicroChartStreamExample {
       name: 'Requests',
       type: 'column',
       data: generateData(40, 0, 200, 1370304000000, 900000),
-    }))
+    })),
   );
 }

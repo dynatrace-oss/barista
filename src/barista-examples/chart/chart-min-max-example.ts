@@ -15,7 +15,7 @@ export class ChartMinMaxExample {
     20,
     40,
     1370304000000,
-    900000
+    900000,
   );
 
   options: Highcharts.Options = {

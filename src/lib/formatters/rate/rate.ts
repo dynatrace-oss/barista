@@ -16,7 +16,7 @@ export class DtRate implements PipeTransform {
    */
   transform(
     input: any, // tslint:disable-line:no-any
-    rateUnit: DtRateUnit | string
+    rateUnit: DtRateUnit | string,
   ): DtFormattedValue | string {
     if (isEmpty(input)) {
       return NO_DATA;

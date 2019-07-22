@@ -100,7 +100,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
             simpleColumnsArray
               .filter(sc => isDefined(sc.displayAccessor))
               .forEach(sc =>
-                displayAccessorMap.set(sc.name, sc.displayAccessor)
+                displayAccessorMap.set(sc.name, sc.displayAccessor),
               );
 
             /*
@@ -116,14 +116,14 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
               .forEach(sc => sortAccessorMap.set(sc.name, sc.sortAccessor));
 
             return { displayAccessorMap, sortAccessorMap };
-          })
+          }),
         );
       }
       return this._ngZone.onStable.asObservable().pipe(
         take(1),
-        switchMap(() => this._dataAccessors)
+        switchMap(() => this._dataAccessors),
       );
-    }
+    },
   );
 
   constructor(
@@ -134,7 +134,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     private _ngZone: NgZone,
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) document: any,
-    platform: Platform
+    platform: Platform,
   ) {
     super(differs, changeDetectorRef, elementRef, document, platform, role);
   }

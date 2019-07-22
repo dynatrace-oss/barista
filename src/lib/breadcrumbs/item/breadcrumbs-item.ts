@@ -16,12 +16,12 @@ export type RouterLinkAccepted = string | any[];
 
 function routerNotFoundError(): Error {
   return new Error(
-    'Router dependency not found. Cannot set internal link without router provided'
+    'Router dependency not found. Cannot set internal link without router provided',
   );
 }
 
 const ensureProvided = <T extends Router | LocationStrategy | ActivatedRoute>(
-  variable: T | null
+  variable: T | null,
 ): T => {
   if (variable === null) {
     throw routerNotFoundError();
@@ -83,7 +83,7 @@ export class DtBreadcrumbsItem {
     }
 
     return ensureProvided(this._locationStrategy).prepareExternalUrl(
-      ensureProvided(this._router).serializeUrl(this._createUrlTree())
+      ensureProvided(this._router).serializeUrl(this._createUrlTree()),
     );
   }
 
@@ -98,7 +98,7 @@ export class DtBreadcrumbsItem {
     private readonly _locationStrategy: LocationStrategy | null,
     @Optional()
     @Inject(ActivatedRoute)
-    private readonly _activatedRoute: ActivatedRoute | null
+    private readonly _activatedRoute: ActivatedRoute | null,
   ) {}
 
   /** Create the url tree for the router state. */
