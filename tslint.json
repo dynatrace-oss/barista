@@ -55,20 +55,7 @@
       // "arrow-parameter",
       "property-declaration"
     ],
-    "trailing-comma": [
-      true,
-      {
-        "singleline": "never",
-        "multiline": {
-          "objects": "always",
-          "arrays": "always",
-          // Disabled as this would lead to an undefined last arguments in every function with multiline arguments
-          "functions": "never",
-          "typeLiterals": "ignore"
-        },
-        "esSpecCompliant": true
-      }
-    ],
+    "trailing-comma": [true, { "singleline": "never", "multiline": "always" }],
     "variable-name": [
       true,
       "ban-keywords",
