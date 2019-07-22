@@ -121,4 +121,4 @@ aria-labelledby.
 
 ### Progress bar on dark background
 
-<docs-source-example example="ProgressBarDarkExample"></docs-source-example>
+<docs-source-example example="ProgressBarDarkExample" themedark="true"></docs-source-example>
