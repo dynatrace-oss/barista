@@ -24,7 +24,7 @@ class DtTagVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-tag must always contain text. Make sure this is the case even if you use nested components to render text.'
+      'A dt-tag must always contain text. Make sure this is the case even if you use nested components to render text.',
     );
   }
 }
@@ -57,7 +57,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtTagVisitor,
-      })
+      }),
     );
   }
 }

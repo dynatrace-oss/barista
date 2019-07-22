@@ -39,7 +39,7 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
     private _router: Router,
     private _route: ActivatedRoute,
     private _location: Location,
-    private _locationStrategy: LocationStrategy
+    private _locationStrategy: LocationStrategy,
   ) {
     super();
     /** store tabIds from fragment and update  */
@@ -58,7 +58,7 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
   registerTabControl(control: DtTabGroupNavigationControl): void {
     if (this._controls.has(control)) {
       LOG.info(
-        `You are trying to register a DtTabGroupNavigationControl that is already registerd`
+        `You are trying to register a DtTabGroupNavigationControl that is already registerd`,
       );
     }
     this._controls.add(control);
@@ -69,7 +69,7 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
   unregisterTabControl(control: DtTabGroupNavigationControl): void {
     if (!this._controls.has(control)) {
       LOG.info(
-        `You are trying to unregister a not yet registerd DtTabGroupNavigationControl`
+        `You are trying to unregister a not yet registerd DtTabGroupNavigationControl`,
       );
     }
     this._controls.delete(control);

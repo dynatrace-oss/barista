@@ -40,8 +40,8 @@ export class DtTabGroupBase {
 export const _DtTabGroupMixinBase = mixinDisabled(
   mixinColor<Constructor<DtTabGroupBase>, DtTabGroupThemePalette>(
     DtTabGroupBase,
-    'main'
-  )
+    'main',
+  ),
 );
 
 /** Used to generate unique ID's for each tab component */
@@ -90,7 +90,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
 
   constructor(
     elementRef: ElementRef,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     super(elementRef);
   }
@@ -149,7 +149,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
       this._tabStateSubscription.unsubscribe();
     }
     this._tabStateSubscription = merge(
-      ...this._tabs.map(tab => tab._stateChanges)
+      ...this._tabs.map(tab => tab._stateChanges),
     ).subscribe(() => {
       /** check if the selected tab is disabled now */
       if (this._selected && this._selected.disabled) {

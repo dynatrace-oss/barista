@@ -28,7 +28,7 @@ const ABBREVIATION_LEVELS = [
  */
 export function adjustNumber(
   value: number,
-  abbreviate: boolean = false
+  abbreviate: boolean = false,
 ): string {
   return abbreviate && value >= KILO_MULTIPLIER
     ? abbreviateNumber(value)

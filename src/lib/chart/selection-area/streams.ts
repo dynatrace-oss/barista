@@ -44,14 +44,14 @@ import {
  */
 export function getMouseDownStream(
   target: HTMLElement,
-  mousedownElements: Element[]
+  mousedownElements: Element[],
 ): Observable<MouseEvent> {
   return captureAndMergeEvents('mousedown', mousedownElements).pipe(
     filter(event => event.button === 0), // only emit left mouse
     tap(() => {
       removeCssClass(target, NO_POINTER_EVENTS_CLASS);
     }),
-    share()
+    share(),
   );
 }
 
@@ -64,7 +64,7 @@ export function getMouseDownStream(
  */
 export function getMouseUpStream(
   target: HTMLElement,
-  mouseUpFactory?: () => Observable<MouseEvent>
+  mouseUpFactory?: () => Observable<MouseEvent>,
 ): Observable<MouseEvent> {
   const mouseUp$ = mouseUpFactory
     ? mouseUpFactory()
@@ -74,7 +74,7 @@ export function getMouseUpStream(
     tap(() => {
       addCssClass(target, NO_POINTER_EVENTS_CLASS);
     }),
-    share()
+    share(),
   );
 }
 
@@ -89,7 +89,7 @@ export function getMouseUpStream(
 export function getMouseOutStream(
   target: HTMLElement,
   mousedownElements: Element[],
-  targetBCR: ClientRect
+  targetBCR: ClientRect,
 ): Observable<{ x: number; y: number }> {
   return captureAndMergeEvents('mouseout', mousedownElements).pipe(
     map((event: MouseEvent) => getRelativeMousePosition(event, target)),
@@ -98,8 +98,8 @@ export function getMouseOutStream(
         position.x < 0 ||
         position.y < 0 ||
         position.x > targetBCR.width ||
-        position.y > targetBCR.height
-    )
+        position.y > targetBCR.height,
+    ),
   );
 }
 
@@ -116,20 +116,20 @@ export function getClickStream(
   target: HTMLElement,
   clickStart$: Observable<MouseEvent>,
   clickEnd$: Observable<MouseEvent>,
-  dragMoveFactory?: () => Observable<MouseEvent>
+  dragMoveFactory?: () => Observable<MouseEvent>,
 ): Observable<{ x: number; y: number }> {
   return merge(
     clickStart$,
     dragMoveFactory
       ? dragMoveFactory()
       : fromEvent<MouseEvent>(target, 'mousemove'),
-    clickEnd$
+    clickEnd$,
   ).pipe(
     pairwise(),
     filter(([a, b]) => a.type === 'mousedown' && b.type === 'mouseup'),
     map(([b]) => b),
     map((event: MouseEvent) => getRelativeMousePosition(event, target)),
-    share()
+    share(),
   );
 }
 
@@ -145,12 +145,12 @@ export function getClickStream(
 export function getMouseMove(
   target: HTMLElement,
   mousedownElements: Element[],
-  scheduler?: SchedulerLike
+  scheduler?: SchedulerLike,
 ): Observable<{ x: number; y: number }> {
   return captureAndMergeEvents('mousemove', mousedownElements).pipe(
     throttleTime(0, scheduler || animationFrameScheduler),
     map((event: MouseEvent) => getRelativeMousePosition(event, target)),
-    share()
+    share(),
   );
 }
 
@@ -174,17 +174,17 @@ export function getDragStream(
   dragStart$: Observable<unknown>,
   dragEnd$: Observable<MouseEvent>,
   dragMove?: () => Observable<MouseEvent>,
-  scheduler?: SchedulerLike
+  scheduler?: SchedulerLike,
 ): Observable<{ x: number; y: number }> {
   return dragStart$.pipe(
     switchMap(() =>
       (dragMove || getWindowMouseMoveStream)().pipe(
-        takeUntil(dragEnd$.pipe(take(1)))
-      )
+        takeUntil(dragEnd$.pipe(take(1))),
+      ),
     ),
     throttleTime(0, scheduler || animationFrameScheduler),
     map((event: MouseEvent) => getRelativeMousePosition(event, target)),
-    share()
+    share(),
   );
 }
 
@@ -200,13 +200,13 @@ export function getElementRefStream<T>(
   changes$: Observable<unknown>,
   destroy$: Subject<void>,
   queryList: QueryList<ElementRef<T>>,
-  zone: NgZone
+  zone: NgZone,
 ): Observable<ElementRef<T>> {
   return changes$.pipe(
     switchMap(() => zone.onMicrotaskEmpty.pipe(take(1))),
     // take until needs to be before getElementRef in case that this custom operator uses a filter
     takeUntil(destroy$),
-    getElementRef<T>(queryList)
+    getElementRef<T>(queryList),
   );
 }
 
@@ -219,7 +219,7 @@ export function getElementRefStream<T>(
 export function getRangeCreateStream(
   dragStart$: Observable<{ x: number; y: number }>,
   dragMove$: Observable<{ x: number; y: number }>,
-  targetWidth: number
+  targetWidth: number,
 ): Observable<{ left: number; width: number }> {
   return combineLatest([dragStart$, dragMove$]).pipe(
     throttleTime(0, animationFrameScheduler),
@@ -229,10 +229,10 @@ export function getRangeCreateStream(
         endPosition.x - startPosition.x,
         startPosition.x,
         0,
-        targetWidth
-      )
+        targetWidth,
+      ),
     ),
-    distinctUntilChanged(isEqual)
+    distinctUntilChanged(isEqual),
   );
 }
 
@@ -254,8 +254,8 @@ export function getRangeResizeStream(
   isRangeValid: (start: number, end: number) => boolean,
   getRangeValuesFromPixels: (
     left: number,
-    width: number
-  ) => [number, number] | undefined
+    width: number,
+  ) => [number, number] | undefined,
 ): Observable<{ left: number; width: number }> {
   return combineLatest([dragMove$, dragOrigin$]).pipe(
     throttleTime(0, animationFrameScheduler),
@@ -264,7 +264,7 @@ export function getRangeResizeStream(
       ([position, handle, range]: [
         { x: number; y: number },
         DtSelectionAreaEventTarget,
-        { left: number; width: number }
+        { left: number; width: number },
       ]) => {
         const delta =
           handle === DtSelectionAreaEventTarget.RightHandle
@@ -276,14 +276,14 @@ export function getRangeResizeStream(
           delta,
           range.left,
           range.width,
-          targetWidth
+          targetWidth,
         );
 
         return {
           cur: range,
           next,
         };
-      }
+      },
     ),
     distinctUntilChanged(isEqual),
     filter(({ cur, next }) => {
@@ -298,6 +298,6 @@ export function getRangeResizeStream(
       }
       return false;
     }),
-    map(({ next }) => next)
+    map(({ next }) => next),
   );
 }

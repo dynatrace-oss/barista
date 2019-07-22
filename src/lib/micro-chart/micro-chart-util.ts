@@ -93,7 +93,7 @@ export function extractLineGapDataPoints(data: DataPoint[]): DataPoint[] {
         { x: endDataPoint.x, y: endDataPoint.y || startDataPoint.y },
       ]);
     },
-    []
+    [],
   );
 }
 
@@ -123,9 +123,9 @@ export function extractColumnGapDataPoints(data: DataPoint[]): DataPoint[] {
         Array.from({ length: endIndex - startIndex + 1 }, (_, i: number) => ({
           x: data[i + startIndex].x,
           y: interpolatedValue,
-        }))
+        })),
       );
     },
-    []
+    [],
   );
 }

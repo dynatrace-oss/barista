@@ -7,13 +7,13 @@ export function generateData(
   min: number,
   max: number,
   timestampStart: number,
-  timestampTick: number
+  timestampTick: number,
 ): Array<[number, number]> {
   return Array.from(Array(amount).keys()).map(
     v =>
       [timestampStart + timestampTick * v, randomize(min, max)] as [
         number,
-        number
-      ]
+        number,
+      ],
   );
 }

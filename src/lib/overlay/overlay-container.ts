@@ -55,7 +55,7 @@ export class DtOverlayContainerBase extends BasePortalOutlet
   }
 }
 export const _DtOverlayContainerMixin = mixinNotifyDomExit(
-  DtOverlayContainerBase
+  DtOverlayContainerBase,
 );
 
 @Component({
@@ -75,11 +75,11 @@ export const _DtOverlayContainerMixin = mixinNotifyDomExit(
       state('enter', style({ opacity: 1 })),
       transition(
         'void => enter',
-        animate(`${DT_OVERLAY_FADE_TIME}ms ${DT_OVERLAY_DELAY}ms ease-in-out`)
+        animate(`${DT_OVERLAY_FADE_TIME}ms ${DT_OVERLAY_DELAY}ms ease-in-out`),
       ),
       transition(
         'enter => exit',
-        animate(`${DT_OVERLAY_FADE_TIME}ms ease-in-out`)
+        animate(`${DT_OVERLAY_FADE_TIME}ms ease-in-out`),
       ),
     ]),
   ],
@@ -107,7 +107,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin
     private _focusTrapFactory: FocusTrapFactory,
     private _viewContainerRef: ViewContainerRef,
     // tslint:disable-next-line:no-any
-    @Optional() @Inject(DOCUMENT) private _document: any
+    @Optional() @Inject(DOCUMENT) private _document: any,
   ) {
     super(_ngZone);
   }
@@ -160,7 +160,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin
     this._savePreviouslyFocusedElement();
     if (!this._focusTrap) {
       this._focusTrap = this._focusTrapFactory.create(
-        this._elementRef.nativeElement
+        this._elementRef.nativeElement,
       );
     }
     this._focusTrap.focusInitialElementWhenReady().catch((error: Error) => {

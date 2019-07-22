@@ -143,7 +143,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     private _focusTrapFactory: FocusTrapFactory,
     private _renderer: Renderer2,
     private _overlay: Overlay,
-    private _zone: NgZone
+    private _zone: NgZone,
   ) {}
 
   ngAfterContentInit(): void {
@@ -153,7 +153,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         concatMapTo(this._chart._plotBackground$),
         // plot background can be null as well
         filter(Boolean),
-        takeUntil(this._destroy$)
+        takeUntil(this._destroy$),
       )
       .subscribe(plotBackground => {
         this._plotBackground = plotBackground;
@@ -185,7 +185,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     this._chart._afterRender
       .pipe(
         skip(1),
-        takeUntil(this._destroy$)
+        takeUntil(this._destroy$),
       )
       .subscribe(() => {
         // If the chart changes we need to destroy the range and the timestamp
@@ -211,7 +211,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
    * @param ref ElementRef of the timestamp or range to center the overlay
    */
   private _calculateOverlayPosition(
-    ref: ElementRef<HTMLElement>
+    ref: ElementRef<HTMLElement>,
   ): FlexibleConnectedPositionStrategy {
     const positionStrategy = this._overlay
       .position()
@@ -233,7 +233,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   private _createOverlay<T>(
     template: TemplateRef<T>,
     ref: ElementRef<HTMLElement>,
-    viewRef: ViewContainerRef
+    viewRef: ViewContainerRef,
   ): void {
     // create a new overlay configuration with a position strategy that connects
     // to the provided ref.
@@ -257,7 +257,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     if (!this._overlayFocusTrap) {
       this._overlayFocusTrap = this._focusTrapFactory.create(
-        this._overlayRef.overlayElement
+        this._overlayRef.overlayElement,
       );
       this._attachFocusTrapListeners();
     }
@@ -267,12 +267,12 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   private _updateOrCreateOverlay<T = unknown>(
     template: TemplateRef<T>,
     ref: ElementRef<HTMLElement>,
-    viewRef: ViewContainerRef
+    viewRef: ViewContainerRef,
   ): void {
     if (this._portal && this._overlayRef) {
       // We already have an overlay so update the position
       this._overlayRef.updatePositionStrategy(
-        this._calculateOverlayPosition(ref)
+        this._calculateOverlayPosition(ref),
       );
     } else {
       this._createOverlay<T>(template, ref, viewRef);
@@ -306,16 +306,16 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     const yAxisGrids = [].slice.call(
       this._chart.container.nativeElement.querySelectorAll(
-        HIGHCHARTS_Y_AXIS_GRID
-      )
+        HIGHCHARTS_Y_AXIS_GRID,
+      ),
     );
     const xAxisGrids = [].slice.call(
       this._chart.container.nativeElement.querySelectorAll(
-        HIGHCHARTS_X_AXIS_GRID
-      )
+        HIGHCHARTS_X_AXIS_GRID,
+      ),
     );
     const seriesGroup = this._chart.container.nativeElement.querySelector(
-      HIGHCHARTS_SERIES_GROUP
+      HIGHCHARTS_SERIES_GROUP,
     );
 
     // select all elements where we have to capture the mousemove when pointer events are
@@ -335,7 +335,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     this._mousedown$ = getMouseDownStream(
       this._elementRef.nativeElement,
-      this._mouseDownElements
+      this._mouseDownElements,
     );
 
     this._mouseup$ = getMouseUpStream(this._elementRef.nativeElement);
@@ -343,7 +343,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     this._click$ = getClickStream(
       this._elementRef.nativeElement,
       this._mousedown$,
-      this._mouseup$
+      this._mouseup$,
     );
 
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -377,7 +377,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       this._drag$ = getDragStream(
         this._elementRef.nativeElement,
         this._mousedown$,
-        this._mouseup$
+        this._mouseup$,
       );
 
       // Create a stream for drag handle event in case we have to block the click event
@@ -387,21 +387,21 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         tap(() => {
           removeCssClass(
             this._elementRef.nativeElement,
-            NO_POINTER_EVENTS_CLASS
+            NO_POINTER_EVENTS_CLASS,
           );
-        })
+        }),
       );
 
       this._dragHandle$ = getDragStream(
         this._elementRef.nativeElement,
         dragStart$,
-        this._mouseup$
+        this._mouseup$,
       );
 
       const relativeMouseDown$ = this._mousedown$.pipe(
         map((event: MouseEvent) =>
-          getRelativeMousePosition(event, this._elementRef.nativeElement)
-        )
+          getRelativeMousePosition(event, this._elementRef.nativeElement),
+        ),
       );
 
       // Create a range on the selection area if a drag is happening.
@@ -410,7 +410,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         getRangeCreateStream(
           relativeMouseDown$,
           this._drag$,
-          this._selectionAreaBcr!.width
+          this._selectionAreaBcr!.width,
         ),
         // update a selection area according to a resize through the side handles
         getRangeResizeStream(
@@ -421,12 +421,12 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
           (start: number, end: number) =>
             this._range!._isRangeValid(start, end),
           (left: number, width: number) =>
-            this._range!._getRangeValuesFromPixels(left, width)
-        )
+            this._range!._getRangeValuesFromPixels(left, width),
+        ),
       )
         .pipe(
           takeUntil(this._destroy$),
-          filter(area => this._isRangeInsideMaximumConstraint(area))
+          filter(area => this._isRangeInsideMaximumConstraint(area)),
         )
         .subscribe(area => {
           if (this._range) {
@@ -449,7 +449,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         merge(startResizing$, mouseRelease$)
           .pipe(
             distinctUntilChanged(),
-            takeUntil(this._destroy$)
+            takeUntil(this._destroy$),
           )
           .subscribe((resize: number) => {
             // show drag arrows on drag release but only if the stream is not a drag handle
@@ -486,7 +486,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     merge(startShowingRange$, hideTimestampAndRange$)
       .pipe(
         distinctUntilChanged(),
-        takeUntil(this._destroy$)
+        takeUntil(this._destroy$),
       )
       .subscribe((show: boolean) => {
         this._toggleRange(show);
@@ -495,7 +495,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     merge(startShowingTimestamp$, hideTimestampAndRange$)
       .pipe(
         distinctUntilChanged(),
-        takeUntil(this._destroy$)
+        takeUntil(this._destroy$),
       )
       .subscribe((show: boolean) => {
         this._toggleTimestamp(show);
@@ -506,14 +506,14 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     if (this._timestamp && this._range) {
       merge(
         this._timestamp._stateChanges.pipe(
-          map(v => ({ ...v, type: 'timestamp' }))
+          map(v => ({ ...v, type: 'timestamp' })),
         ),
-        this._range._stateChanges.pipe(map(v => ({ ...v, type: 'range' })))
+        this._range._stateChanges.pipe(map(v => ({ ...v, type: 'range' }))),
       )
         .pipe(
           takeUntil(this._destroy$),
           filter(event => !event.hidden),
-          distinctUntilChanged()
+          distinctUntilChanged(),
         )
         .subscribe(state => {
           if (this._range && state.type === 'timestamp') {
@@ -533,7 +533,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     merge(
       this._timestamp ? this._timestamp._closeOverlay : of(null),
       this._range ? this._range._closeOverlay : of(null),
-      this._mousedown$
+      this._mousedown$,
     )
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {
@@ -546,13 +546,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._range._stateChanges,
         this._destroy$,
         this._range._rangeElementRef,
-        this._zone
+        this._zone,
       ).subscribe(ref => {
         if (this._range && this._range._overlayTemplate) {
           this._updateOrCreateOverlay(
             this._range._overlayTemplate,
             ref,
-            this._range._viewContainerRef
+            this._range._viewContainerRef,
           );
         }
       });
@@ -562,14 +562,14 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         .pipe(
           throttleTime(0, animationFrameScheduler),
           getElementRef(this._range._rangeElementRef),
-          takeUntil(this._destroy$)
+          takeUntil(this._destroy$),
         )
         .subscribe(ref => {
           if (this._range && this._range._overlayTemplate) {
             this._updateOrCreateOverlay(
               this._range._overlayTemplate,
               ref,
-              this._range._viewContainerRef
+              this._range._viewContainerRef,
             );
           }
         });
@@ -581,13 +581,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._timestamp._stateChanges,
         this._destroy$,
         this._timestamp._timestampElementRef,
-        this._zone
+        this._zone,
       ).subscribe(ref => {
         if (this._timestamp && this._timestamp._overlayTemplate) {
           this._updateOrCreateOverlay(
             this._timestamp._overlayTemplate,
             ref,
-            this._timestamp._viewContainerRef
+            this._timestamp._viewContainerRef,
           );
         }
       });
@@ -601,26 +601,26 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       // are disabled. So it collects all underlying areas and captures the mousemove
       const hover$ = getMouseMove(
         this._elementRef.nativeElement,
-        this._mouseDownElements
+        this._mouseDownElements,
       );
 
       const mouseOut$ = getMouseOutStream(
         this._elementRef.nativeElement,
         this._mouseDownElements,
-        this._selectionAreaBcr!
+        this._selectionAreaBcr!,
       );
 
       const showHairline$ = hover$.pipe(mapTo(true));
       const hideHairline$ = merge(
         this._range ? this._mousedown$ : of(null),
         this._dragHandle$,
-        mouseOut$
+        mouseOut$,
       ).pipe(mapTo(false));
 
       merge(showHairline$, hideHairline$)
         .pipe(
           distinctUntilChanged(),
-          takeUntil(this._destroy$)
+          takeUntil(this._destroy$),
         )
         .subscribe((show: boolean) => {
           this._toggleHairline(show);
@@ -630,7 +630,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         .pipe(
           map(({ x }) => x),
           distinctUntilChanged(), // only emit when the x value changes ignore hover on yAxis with that.
-          takeUntil(this._destroy$)
+          takeUntil(this._destroy$),
         )
         .subscribe((x: number) => {
           this._reflectHairlinePositionToDom(x);
@@ -705,7 +705,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     this._renderer.setStyle(
       this._hairline.nativeElement,
       'transform',
-      `translateX(${x}px)`
+      `translateX(${x}px)`,
     );
   }
 

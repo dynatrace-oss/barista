@@ -135,10 +135,10 @@ export class DtTableDataSource<T> extends DataSource<T> {
    */
   sortingDataAccessor: (
     data: T,
-    sortHeaderId: string
+    sortHeaderId: string,
   ) => string | number | null = (
     data: T,
-    sortHeaderId: string
+    sortHeaderId: string,
   ): string | number | null => {
     let value;
     if (this._sortAccessorMap.has(sortHeaderId)) {
@@ -174,7 +174,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
    */
   sortData: (data: T[], sort: DtSort) => T[] = (
     data: T[],
-    sort: DtSort
+    sort: DtSort,
   ): T[] => {
     const active = sort.active;
     const direction = sort.direction;
@@ -201,7 +201,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
    */
   filterPredicate: (data: T, filter: string) => boolean = (
     data: T,
-    filter: string
+    filter: string,
   ): boolean => {
     // Transform the data into a lowercase string of all property values.
     const dataStr = Object.keys(data)
@@ -215,7 +215,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
           // https://en.wikipedia.org/wiki/List_of_Unicode_characters
           // tslint:disable-next-line
           `${currentTerm}${(data as { [key: string]: any })[key]}◬`,
-        ''
+        '',
       )
       .toLowerCase();
 
@@ -246,7 +246,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
       ? merge(
           this._pagination._initialized,
           this._internalPageChanges,
-          this._pagination.changed
+          this._pagination.changed,
         )
       : of(null);
 
@@ -254,17 +254,17 @@ export class DtTableDataSource<T> extends DataSource<T> {
 
     // Watch for base data or filter changes to provide a filtered set of data.
     const filteredData = combineLatest([dataStream, this._filter]).pipe(
-      map(([data]) => this._filterData(data))
+      map(([data]) => this._filterData(data)),
     );
 
     // Watch for filtered data or sort changes to provide a sorted set of data.
     const sortedData = combineLatest([filteredData, sortChange]).pipe(
-      map(([data]) => this._sortData(data))
+      map(([data]) => this._sortData(data)),
     );
 
     // Watch for ordered data or page changes to provide a paged set of data.
     const paginatedData = combineLatest([sortedData, pageChange]).pipe(
-      map(([data]) => this._pageData(data))
+      map(([data]) => this._pageData(data)),
     );
 
     this._renderChangesSubscription.unsubscribe();

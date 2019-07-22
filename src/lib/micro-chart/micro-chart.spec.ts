@@ -45,11 +45,11 @@ describe('DtMicroChart', () => {
   }));
 
   const setupTestCase = <T>(
-    componentType: Type<T>
+    componentType: Type<T>,
   ): { fixture: ComponentFixture<T>; microChartComponent: DtMicroChart } => {
     const fixture = TestBed.createComponent(componentType);
     const microChartDebugElement = fixture.debugElement.query(
-      By.directive(DtMicroChart)
+      By.directive(DtMicroChart),
     );
     const microChartComponent = microChartDebugElement.componentInstance as DtMicroChart;
 
@@ -134,7 +134,7 @@ describe('DtMicroChart', () => {
       let data = microChartComponent.highchartsOptions.series![0]
         .data as DataPoint[];
       expect(data[0].marker).toEqual(
-        objectContaining({ lineColor: DtColors.BLUE_600 })
+        objectContaining({ lineColor: DtColors.BLUE_600 }),
       );
 
       fixture.componentInstance.theme = 'purple';
@@ -143,7 +143,7 @@ describe('DtMicroChart', () => {
       data = microChartComponent.highchartsOptions.series![0]
         .data as DataPoint[];
       expect(data[0].marker).toEqual(
-        objectContaining({ lineColor: DtColors.PURPLE_600 })
+        objectContaining({ lineColor: DtColors.PURPLE_600 }),
       );
     });
   });
@@ -155,7 +155,7 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
 
       expect(microChartComponent.options).toBe(
-        fixture.componentInstance.options
+        fixture.componentInstance.options,
       );
       expect(microChartComponent.options).toEqual(optionsClone);
     });
@@ -197,10 +197,10 @@ describe('DtMicroChart', () => {
         .data as DataPoint[];
 
       expect(data[0].dataLabels).toEqual(
-        objectContaining({ verticalAlign: 'bottom', enabled: true })
+        objectContaining({ verticalAlign: 'bottom', enabled: true }),
       );
       expect(data[1].dataLabels).toEqual(
-        objectContaining({ verticalAlign: 'top', enabled: true })
+        objectContaining({ verticalAlign: 'top', enabled: true }),
       );
     });
 
@@ -209,7 +209,7 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
 
       expect(microChartComponent.labelFormatter).toEqual(
-        fixture.componentInstance.formatterFn
+        fixture.componentInstance.formatterFn,
       );
       expect(fixture.componentInstance.formatterInvocations).toEqual(2);
     });

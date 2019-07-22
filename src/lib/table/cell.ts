@@ -133,7 +133,7 @@ export class DtCell implements AfterContentInit, OnDestroy {
     public _changeDetectorRef: ChangeDetectorRef,
     renderer: Renderer2,
     elem: ElementRef,
-    @Optional() @SkipSelf() dtSortable?: DtSort
+    @Optional() @SkipSelf() dtSortable?: DtSort,
   ) {
     if (dtSortable) {
       this._isSorted = dtSortable.active === this._columnDef.name;
@@ -149,7 +149,7 @@ export class DtCell implements AfterContentInit, OnDestroy {
     this._columnDef._stateChanges
       .pipe(
         startWith(null),
-        takeUntil(this._destroy)
+        takeUntil(this._destroy),
       )
       .subscribe(() => {
         _updateDtColumnStyles(this._columnDef, elem, renderer);
@@ -173,8 +173,8 @@ export class DtCell implements AfterContentInit, OnDestroy {
         takeUntil(this._destroy),
         filter(() => !!this._indicators.length),
         switchMap(() =>
-          merge(...this._indicators.map(indicator => indicator._stateChanges))
-        )
+          merge(...this._indicators.map(indicator => indicator._stateChanges)),
+        ),
       )
       .subscribe(() => {
         this._stateChanges.next();
@@ -200,8 +200,8 @@ export class DtCell implements AfterContentInit, OnDestroy {
       this._indicators &&
       isDefined(
         this._indicators.find(
-          indicator => indicator.active && indicator.color === indicatorType
-        )
+          indicator => indicator.active && indicator.color === indicatorType,
+        ),
       )
     );
   }
@@ -214,7 +214,7 @@ const ALIGNMENT_CAST_MAP = new Map<DtTableColumnTypedAlign, DtTableColumnAlign>(
     ['number', 'right'],
     ['date', 'right'],
     ['ip', 'right'],
-  ]
+  ],
 );
 
 /**
@@ -224,7 +224,7 @@ const ALIGNMENT_CAST_MAP = new Map<DtTableColumnTypedAlign, DtTableColumnAlign>(
  * This will be also 'type checked' with the Template Compiler feature from @Angular6.
  */
 function coerceAlignment(
-  value: DtTableColumnAlign | DtTableColumnTypedAlign
+  value: DtTableColumnAlign | DtTableColumnTypedAlign,
 ): DtTableColumnAlign {
   return (
     ALIGNMENT_CAST_MAP.get(value as DtTableColumnTypedAlign) ||
@@ -235,7 +235,7 @@ function coerceAlignment(
 /** @internal Sets the css classes on a DtColumn */
 export function _setDtColumnCssClasses(
   columnDef: DtColumnDef,
-  elementRef: ElementRef
+  elementRef: ElementRef,
 ): void {
   const { align, cssClassFriendlyName } = columnDef;
   const cssAlignmentClass = coerceAlignment(align);
@@ -245,11 +245,11 @@ export function _setDtColumnCssClasses(
   removeCssClass(elementRef.nativeElement, 'dt-table-column-align-right');
   addCssClass(
     elementRef.nativeElement,
-    `dt-table-column-align-${cssAlignmentClass}`
+    `dt-table-column-align-${cssAlignmentClass}`,
   );
   addCssClass(
     elementRef.nativeElement,
-    `dt-table-column-${cssClassFriendlyName}`
+    `dt-table-column-${cssClassFriendlyName}`,
   );
 }
 
@@ -257,7 +257,7 @@ export function _setDtColumnCssClasses(
 export function _updateDtColumnStyles(
   columnDef: DtColumnDef,
   elementRef: ElementRef,
-  renderer: Renderer2
+  renderer: Renderer2,
 ): void {
   _setDtColumnCssClasses(columnDef, elementRef);
   const { proportion, minWidth } = columnDef;
@@ -270,7 +270,7 @@ export function _updateDtColumnStyles(
     renderer.setStyle(
       elementRef.nativeElement,
       'min-width',
-      `${coerceNumberProperty(minWidth)}px`
+      `${coerceNumberProperty(minWidth)}px`,
     );
   }
 }

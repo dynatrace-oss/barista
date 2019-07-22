@@ -21,7 +21,7 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-card must contain a dt-card-title element, that must be a direct child.'
+      'A dt-card must contain a dt-card-title element, that must be a direct child.',
     );
   }
 }
@@ -60,7 +60,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtCardVisitor,
-      })
+      }),
     );
   }
 }

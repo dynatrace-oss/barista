@@ -51,7 +51,7 @@ class DtSelectVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-select requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.'
+      'A dt-select requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.',
     );
   }
 }
@@ -101,7 +101,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtSelectVisitor,
-      })
+      }),
     );
   }
 }

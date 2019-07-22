@@ -21,14 +21,14 @@ export function getDtIconNoHttpProviderError(): Error {
   return Error(
     'Could not find HttpClient provider for use with angular-component icons. ' +
       'Please include the HttpClientModule from @angular/common/http in your ' +
-      'app imports.'
+      'app imports.',
   );
 }
 
 export function getDtIconNoConfigProviderError(): Error {
   return Error(
     'Could not find config provider for icons. ' +
-      'Please use DtIconModule.forRoot or provide the config in your app module'
+      'Please use DtIconModule.forRoot or provide the config in your app module',
   );
 }
 
@@ -50,7 +50,7 @@ export class DtIconRegistry {
     @Optional()
     @Inject(DT_ICON_CONFIGURATION)
     private _config: DtIconConfiguration,
-    @Optional() private _httpClient: HttpClient
+    @Optional() private _httpClient: HttpClient,
   ) {}
 
   /**
@@ -79,7 +79,7 @@ export class DtIconRegistry {
     // Fetch the icon from the config's URL, cache it, and return a copy.
     return this._loadSvgIconFromConfig(config).pipe(
       tap(svg => (config.svgElement = svg)),
-      map(svg => cloneSvg(svg))
+      map(svg => cloneSvg(svg)),
     );
   }
 
@@ -88,17 +88,17 @@ export class DtIconRegistry {
    * from it.
    */
   private _loadSvgIconFromConfig(
-    iconConfig: SvgIconConfig
+    iconConfig: SvgIconConfig,
   ): Observable<SVGElement> {
     if (!this._config) {
       throw getDtIconNoConfigProviderError();
     }
     const url = this._config.svgIconLocation.replace(
       new RegExp('{{name}}', 'g'),
-      iconConfig.name
+      iconConfig.name,
     );
     return this._fetchUrl(url).pipe(
-      map(svgText => this._createSvgElementForSingleIcon(svgText))
+      map(svgText => this._createSvgElementForSingleIcon(svgText)),
     );
   }
 
@@ -122,7 +122,7 @@ export class DtIconRegistry {
 
     const req = this._httpClient.get(url, { responseType: 'text' }).pipe(
       finalize(() => this._inProgressUrlFetches.delete(url)),
-      share()
+      share(),
     );
 
     this._inProgressUrlFetches.set(url, req);

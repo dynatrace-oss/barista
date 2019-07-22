@@ -123,7 +123,7 @@ export class TableFilteringExample {
         memoryPerc: number;
         memoryTotal: number;
         traffic: number;
-      }) => data.host
+      }) => data.host,
     );
   }
 

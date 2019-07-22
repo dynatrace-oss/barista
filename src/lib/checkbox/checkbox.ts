@@ -72,7 +72,7 @@ export interface DtCheckboxChange<T> {
 // Boilerplate for applying mixins to DtCheckbox.
 export class DtCheckboxBase {}
 export const _DtCheckboxMixinBase = mixinTabIndex(
-  mixinDisabled(DtCheckboxBase)
+  mixinDisabled(DtCheckboxBase),
 );
 
 @Component({
@@ -115,7 +115,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
       this._transitionCheckState(
         this._checked
           ? TransitionCheckState.Checked
-          : TransitionCheckState.Unchecked
+          : TransitionCheckState.Unchecked,
       );
       this._changeDetectorRef.markForCheck();
     }
@@ -190,7 +190,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
         this._transitionCheckState(
           this.checked
             ? TransitionCheckState.Checked
-            : TransitionCheckState.Unchecked
+            : TransitionCheckState.Unchecked,
         );
       }
       this.indeterminateChange.emit(this._indeterminate);
@@ -231,7 +231,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     private _focusMonitor: FocusMonitor,
     private _platform: Platform,
     private _renderer: Renderer2,
-    @Attribute('tabindex') tabIndex: string
+    @Attribute('tabindex') tabIndex: string,
   ) {
     super();
 
@@ -247,7 +247,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
       addCssClass(
         this._elementRef.nativeElement,
         'dt-checkbox-animation-fallback',
-        this._renderer
+        this._renderer,
       );
     }
   }
@@ -352,7 +352,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
 
     this._currentAnimationClass = getAnimationClassForCheckStateTransition(
       oldState,
-      newState
+      newState,
     );
     this._currentCheckState = newState;
 
@@ -383,7 +383,7 @@ export class DtCheckboxRequiredValidator extends CheckboxRequiredValidator {}
 
 function getAnimationClassForCheckStateTransition(
   oldState: TransitionCheckState,
-  newState: TransitionCheckState
+  newState: TransitionCheckState,
 ): string {
   let animSuffix = '';
 

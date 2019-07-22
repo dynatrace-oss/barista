@@ -63,7 +63,7 @@ describe('DtChartTooltip', () => {
       // we can potentially have multiple overlay containers.
       currentOverlayContainer.ngOnDestroy();
       overlayContainer.ngOnDestroy();
-    }
+    },
   ));
 
   it('should dismiss the overlay when the tooltip close event is called', fakeAsync(() => {

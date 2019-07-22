@@ -12,7 +12,7 @@ export class DtTabLabel extends CdkPortal {
   constructor(
     // tslint:disable-next-line:no-any
     templateRef: TemplateRef<any>,
-    viewContainerRef: ViewContainerRef
+    viewContainerRef: ViewContainerRef,
   ) {
     super(templateRef, viewContainerRef);
   }

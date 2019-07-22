@@ -30,7 +30,7 @@ export class DtAutocompleteSelectedEvent<T> {
     /** Reference to the autocomplete panel that emitted the event. */
     public source: DtAutocomplete<T>,
     /** Option that was selected. */
-    public option: DtOption<T>
+    public option: DtOption<T>,
   ) {}
 }
 
@@ -116,7 +116,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
           return classList;
         },
         // tslint:disable-next-line: no-object-literal-type-assertion
-        {} as { [key: string]: boolean }
+        {} as { [key: string]: boolean },
       );
     } else {
       this._classList = {};
@@ -157,7 +157,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
     private _elementRef: ElementRef<HTMLElement>,
     private _viewContainerRef: ViewContainerRef,
     @Inject(DT_AUTOCOMPLETE_DEFAULT_OPTIONS)
-    defaults: DtAutocompleteDefaultOptions
+    defaults: DtAutocompleteDefaultOptions,
   ) {
     this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
   }
@@ -168,7 +168,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
 
   ngAfterContentInit(): void {
     this._keyManager = new ActiveDescendantKeyManager<DtOption<T>>(
-      this.options
+      this.options,
     ).withWrap();
     // Set the initial visibility state.
     this._setVisibility();

@@ -16,8 +16,8 @@ describe('PositioningUtils', () => {
             10,
             100,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 110,
           width: 100,
@@ -29,8 +29,8 @@ describe('PositioningUtils', () => {
             10,
             190,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 200,
           width: 100,
@@ -44,8 +44,8 @@ describe('PositioningUtils', () => {
             10,
             100,
             100,
-            200
-          )
+            200,
+          ),
         ).toEqual({
           left: 100,
           width: 100,
@@ -57,8 +57,8 @@ describe('PositioningUtils', () => {
             10,
             100,
             100,
-            205
-          )
+            205,
+          ),
         ).toEqual({
           left: 105,
           width: 100,
@@ -72,8 +72,8 @@ describe('PositioningUtils', () => {
             -10,
             100,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 90,
           width: 100,
@@ -87,8 +87,8 @@ describe('PositioningUtils', () => {
             -10,
             0,
             100,
-            200
-          )
+            200,
+          ),
         ).toEqual({
           left: 0,
           width: 100,
@@ -100,8 +100,8 @@ describe('PositioningUtils', () => {
             -10,
             5,
             100,
-            205
-          )
+            205,
+          ),
         ).toEqual({
           left: 0,
           width: 100,
@@ -118,8 +118,8 @@ describe('PositioningUtils', () => {
             -10,
             100,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 90,
           width: 110,
@@ -134,8 +134,8 @@ describe('PositioningUtils', () => {
             -10,
             0,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 0,
           width: 100,
@@ -147,8 +147,8 @@ describe('PositioningUtils', () => {
             -10,
             5,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 0,
           width: 105,
@@ -163,8 +163,8 @@ describe('PositioningUtils', () => {
             10,
             100,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 110,
           width: 90,
@@ -179,8 +179,8 @@ describe('PositioningUtils', () => {
             10,
             100,
             5,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 105,
           width: 5,
@@ -195,8 +195,8 @@ describe('PositioningUtils', () => {
             10,
             299,
             1,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 300,
           width: 0,
@@ -208,8 +208,8 @@ describe('PositioningUtils', () => {
             10,
             290,
             5,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 295,
           width: 5,
@@ -226,8 +226,8 @@ describe('PositioningUtils', () => {
             10,
             100,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 100,
           width: 110,
@@ -242,8 +242,8 @@ describe('PositioningUtils', () => {
             10,
             200,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 200,
           width: 100,
@@ -255,8 +255,8 @@ describe('PositioningUtils', () => {
             10,
             195,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 195,
           width: 105,
@@ -271,8 +271,8 @@ describe('PositioningUtils', () => {
             -10,
             100,
             100,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 100,
           width: 90,
@@ -287,8 +287,8 @@ describe('PositioningUtils', () => {
             -10,
             100,
             5,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 95,
           width: 5,
@@ -303,8 +303,8 @@ describe('PositioningUtils', () => {
             -10,
             1,
             5,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 0,
           width: 1,
@@ -316,8 +316,8 @@ describe('PositioningUtils', () => {
             -10,
             0,
             5,
-            300
-          )
+            300,
+          ),
         ).toEqual({
           left: 0,
           width: 0,

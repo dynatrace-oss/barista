@@ -43,7 +43,7 @@ export class DtExpandableRowChangeEvent {
     trigger('detailExpand', [
       state(
         'collapsed',
-        style({ height: '0px', minHeight: '0', visibility: 'hidden' })
+        style({ height: '0px', minHeight: '0', visibility: 'hidden' }),
       ),
       state('expanded', style({ height: 'auto', visibility: 'visible' })),
       transition(
@@ -53,8 +53,8 @@ export class DtExpandableRowChangeEvent {
           keyframes([
             style({ height: 'auto', visibility: 'hidden', offset: 0.95 }),
             style({ height: 'auto', visibility: 'visible', offset: 1 }),
-          ])
-        )
+          ]),
+        ),
       ),
       transition(
         'expanded => collapsed',
@@ -68,8 +68,8 @@ export class DtExpandableRowChangeEvent {
               visibility: 'hidden',
               offset: 1,
             }),
-          ])
-        )
+          ]),
+        ),
       ),
     ]),
   ],
@@ -110,11 +110,11 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
   >();
   /** Event emitted when the row is expanded. */
   @Output('expanded') readonly _expandedStream = this.expandChange.pipe(
-    filter(changeEvent => changeEvent.row.expanded)
+    filter(changeEvent => changeEvent.row.expanded),
   );
   /** Event emitted when the row is collapsed. */
   @Output('collapsed') readonly _collapsedStream = this.expandChange.pipe(
-    filter(changeEvent => !changeEvent.row.expanded)
+    filter(changeEvent => !changeEvent.row.expanded),
   );
 
   @ViewChild('dtExpandableRow', { static: true }) private _rowRef: ElementRef;
@@ -125,7 +125,7 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
     private _renderer2: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef,
     private _expansionDispatcher: UniqueSelectionDispatcher,
-    elementRef: ElementRef
+    elementRef: ElementRef,
   ) {
     super(elementRef);
     this._expansionDispatcher.listen((rowId, tableId) => {
@@ -181,7 +181,7 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
       (expanded ? addCssClass : removeCssClass)(
         cell,
         'dt-expandable-cell-expanded',
-        this._renderer2
+        this._renderer2,
       );
     });
   }

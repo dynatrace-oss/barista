@@ -23,7 +23,7 @@ import {
 
 export class DtOverlayTriggerBase {}
 export const _DtOverlayTriggerMixin = mixinTabIndex(
-  mixinDisabled(DtOverlayTriggerBase)
+  mixinDisabled(DtOverlayTriggerBase),
 );
 
 @Directive({
@@ -65,7 +65,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
     private _dtOverlayService: DtOverlay,
     private _ngZone: NgZone,
     private _focusMonitor: FocusMonitor,
-    @Attribute('tabindex') tabIndex: string
+    @Attribute('tabindex') tabIndex: string,
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
@@ -93,8 +93,8 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
         fromEvent(this.elementRef.nativeElement, 'mousemove').subscribe(
           (ev: MouseEvent) => {
             this._onMouseMove(ev);
-          }
-        )
+          },
+        ),
       );
     }
   }
@@ -144,7 +144,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
     const ref = this._dtOverlayService.create<T>(
       this.elementRef,
       this._content,
-      this._config
+      this._config,
     );
     ref.disposableFns.push(() => {
       this._dtOverlayRef = null;

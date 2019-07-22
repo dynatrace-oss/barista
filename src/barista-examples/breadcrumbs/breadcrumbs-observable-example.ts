@@ -22,7 +22,7 @@ export class BreadcrumbsObservableExample {
 
   data$: Observable<Array<{ label: string; href?: string }>> = timer(
     0,
-    this.interval
+    this.interval,
   ).pipe(
     map((i: number) => [
       {
@@ -37,6 +37,6 @@ export class BreadcrumbsObservableExample {
         // tslint:disable-next-line no-magic-numbers
         label: `Current view ${i + 2}`,
       },
-    ])
+    ]),
   );
 }

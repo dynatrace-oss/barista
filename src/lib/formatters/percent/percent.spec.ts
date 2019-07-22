@@ -34,7 +34,7 @@ describe('DtPercentPipe', () => {
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} with adjusted precision and % sign`, () => {
         expect(pipe.transform(testCase.input).toString()).toEqual(
-          testCase.output
+          testCase.output,
         );
       });
     });

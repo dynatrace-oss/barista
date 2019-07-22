@@ -52,7 +52,7 @@ class DtInputVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dtInput requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.'
+      'A dtInput requires a wrapping form field with a dt-label or an aria-label or aria-labelledby attribute.',
     );
   }
 }
@@ -89,7 +89,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtInputVisitor,
-      })
+      }),
     );
   }
 }

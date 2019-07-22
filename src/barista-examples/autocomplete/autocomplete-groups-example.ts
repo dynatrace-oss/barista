@@ -87,7 +87,7 @@ export class AutocompleteGroupsExample implements OnInit {
       .get('stateGroup')!
       .valueChanges.pipe(
         startWith(''),
-        map((value: string) => this._filterGroup(value))
+        map((value: string) => this._filterGroup(value)),
       );
   }
 

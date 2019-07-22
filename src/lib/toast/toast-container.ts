@@ -51,11 +51,11 @@ export const _DtToastContainerMixin = mixinNotifyDomExit(DtToastContainerBase);
       state('enter', style({ opacity: 1 })),
       transition(
         'enter => exit',
-        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`)
+        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`),
       ),
       transition(
         'void => enter',
-        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`)
+        animate(`${DT_TOAST_FADE_TIME}ms ease-in-out`),
       ),
     ]),
   ],
@@ -72,7 +72,7 @@ export class DtToastContainer extends _DtToastContainerMixin
     @Inject(DT_TOAST_MESSAGE) public message: string,
     public _ngZone: NgZone,
     public _elementRef: ElementRef,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     super(_ngZone);
   }

@@ -48,10 +48,10 @@ describe('Selection Area Streams', () => {
     // tslint:disable ban
     selectionArea = document.createElement('div');
     spyOn(selectionArea, 'getBoundingClientRect').and.returnValue(
-      MOCK_BOUNDING_CLIENT_RECT
+      MOCK_BOUNDING_CLIENT_RECT,
     );
     spyOn<any>(selectionArea, 'clientWidth').and.returnValue(
-      MOCK_BOUNDING_CLIENT_RECT.width
+      MOCK_BOUNDING_CLIENT_RECT.width,
     );
     // Set up the TestScheduler to assert with the framework your using (Jasmine in this case)
     testScheduler = new TestScheduler((actual, expected) => {
@@ -62,7 +62,7 @@ describe('Selection Area Streams', () => {
     mouseMoveXFn = () =>
       interval(1).pipe(
         map(curX => createMouseEvent('mousemove', curX + 401, 300)),
-        take(4)
+        take(4),
       );
   });
 
@@ -72,7 +72,7 @@ describe('Selection Area Streams', () => {
 
     testScheduler.run(({ expectObservable }) => {
       expectObservable(
-        getDragStream(selectionArea, dragStart$, dragEnd$, mouseMoveXFn)
+        getDragStream(selectionArea, dragStart$, dragEnd$, mouseMoveXFn),
       ).toBe('-abc(d|)', MOVE_VALUES);
     });
   });
@@ -84,7 +84,7 @@ describe('Selection Area Streams', () => {
     testScheduler.run(({ expectObservable }) => {
       expectObservable(getMouseMove(selectionArea, [selectionArea])).toBe(
         '-abc(d|)',
-        MOVE_VALUES
+        MOVE_VALUES,
       );
 
       expect(utils.captureAndMergeEvents).toHaveBeenCalledWith('mousemove', [
@@ -103,7 +103,7 @@ describe('Selection Area Streams', () => {
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(getMouseDownStream(selectionArea, [selectionArea])).toBe(
         '(a|)',
-        { a: fakeMouseDown }
+        { a: fakeMouseDown },
       );
       // need to execute all side effects before expecting
       flush();
@@ -111,7 +111,7 @@ describe('Selection Area Streams', () => {
       expect(core.removeCssClass).toHaveBeenCalledTimes(1);
       expect(core.removeCssClass).toHaveBeenCalledWith(
         selectionArea,
-        NO_POINTER_EVENTS_CLASS
+        NO_POINTER_EVENTS_CLASS,
       );
       expect(utils.captureAndMergeEvents).toHaveBeenCalledWith('mousedown', [
         selectionArea,
@@ -126,7 +126,7 @@ describe('Selection Area Streams', () => {
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
-        getMouseUpStream(selectionArea, () => of(fakeMouseUp))
+        getMouseUpStream(selectionArea, () => of(fakeMouseUp)),
       ).toBe('(a|)', { a: fakeMouseUp });
       // need to execute all side effects before expecting
       flush();
@@ -134,7 +134,7 @@ describe('Selection Area Streams', () => {
       expect(core.addCssClass).toHaveBeenCalledTimes(1);
       expect(core.addCssClass).toHaveBeenCalledWith(
         selectionArea,
-        NO_POINTER_EVENTS_CLASS
+        NO_POINTER_EVENTS_CLASS,
       );
     });
   });
@@ -157,7 +157,7 @@ describe('Selection Area Streams', () => {
       false /* shiftKey */,
       false /* metaKey */,
       1 /* button */,
-      null /* relatedTarget */
+      null /* relatedTarget */,
     );
 
     // mock the capture and merge events to return our faked mousemove
@@ -166,7 +166,7 @@ describe('Selection Area Streams', () => {
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(getMouseDownStream(selectionArea, [selectionArea])).toBe(
-        '(|)'
+        '(|)',
       );
       // need to execute all side effects before expecting
       flush();
@@ -195,15 +195,15 @@ describe('Selection Area Streams', () => {
         getMouseOutStream(
           selectionArea,
           [selectionArea],
-          MOCK_BOUNDING_CLIENT_RECT
-        )
+          MOCK_BOUNDING_CLIENT_RECT,
+        ),
       ).toBe('(a|)', { a: fakeOut });
       // need to execute all side effects before expecting
       flush();
 
       expect(utils.getRelativeMousePosition).toHaveBeenCalledWith(
         fakeMouseOut,
-        selectionArea
+        selectionArea,
       );
       expect(utils.captureAndMergeEvents).toHaveBeenCalledWith('mouseout', [
         selectionArea,
@@ -228,15 +228,15 @@ describe('Selection Area Streams', () => {
         getMouseOutStream(
           selectionArea,
           [selectionArea],
-          MOCK_BOUNDING_CLIENT_RECT
-        )
+          MOCK_BOUNDING_CLIENT_RECT,
+        ),
       ).toBe('(|)');
       // need to execute all side effects before expecting
       flush();
 
       expect(utils.getRelativeMousePosition).toHaveBeenCalledWith(
         fakeMouseOut,
-        selectionArea
+        selectionArea,
       );
       expect(utils.captureAndMergeEvents).toHaveBeenCalledWith('mouseout', [
         selectionArea,
@@ -257,14 +257,14 @@ describe('Selection Area Streams', () => {
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
-        getClickStream(selectionArea, clickStart$, clickEnd$)
+        getClickStream(selectionArea, clickStart$, clickEnd$),
       ).toBe('--(a)', { a: { x: 100, y: 100 } });
       // need to execute all side effects before expecting
       flush();
 
       expect(utils.getRelativeMousePosition).toHaveBeenCalledWith(
         clickEndEvent,
-        selectionArea
+        selectionArea,
       );
     });
   });
@@ -277,7 +277,7 @@ describe('Selection Area Streams', () => {
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
-        getClickStream(selectionArea, clickStart$, clickEnd$)
+        getClickStream(selectionArea, clickStart$, clickEnd$),
       ).toBe('');
       // need to execute all side effects before expecting
       flush();
@@ -297,7 +297,7 @@ describe('Selection Area Streams', () => {
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
-        getClickStream(selectionArea, clickStart$, clickEnd$, mouseMoveFn)
+        getClickStream(selectionArea, clickStart$, clickEnd$, mouseMoveFn),
       ).toBe('-----|'); // delay clickEnd$ for 5ms
       // need to execute all side effects before expecting
       flush();
@@ -317,7 +317,7 @@ describe('Selection Area Streams', () => {
 
     // create fake operator function getElementRef that returns the fake element ref
     spyOn(utils, 'getElementRef').and.callFake(() => input$ =>
-      input$.pipe(mapTo(fakeList.first))
+      input$.pipe(mapTo(fakeList.first)),
     );
 
     testScheduler.run(({ expectObservable, flush }) => {
@@ -326,8 +326,8 @@ describe('Selection Area Streams', () => {
           changes$,
           destroy$,
           fakeList,
-          (fakeZone as unknown) as NgZone
-        )
+          (fakeZone as unknown) as NgZone,
+        ),
       ).toBe('-- 10ms (a|)', { a: 'FakeElementRef' });
 
       // need to execute all side effects before expecting
@@ -342,7 +342,7 @@ describe('Selection Area Streams', () => {
     const dragStart$ = of({ x: 100, y: 100 });
     const dragMove$ = interval(2).pipe(
       map(curX => ({ x: curX + 101, y: 100 })),
-      take(3)
+      take(3),
     );
 
     testScheduler.run(({ expectObservable }) => {
@@ -352,7 +352,7 @@ describe('Selection Area Streams', () => {
           a: { left: 100, width: 1 },
           b: { left: 100, width: 2 },
           c: { left: 100, width: 3 },
-        }
+        },
       );
     });
   });
@@ -365,7 +365,7 @@ describe('Selection Area Streams', () => {
 
         return { x: add + 101, y: 100 };
       }),
-      take(6)
+      take(6),
     );
 
     testScheduler.run(({ expectObservable }) => {
@@ -375,7 +375,7 @@ describe('Selection Area Streams', () => {
           a: { left: 100, width: 2 },
           b: { left: 100, width: 4 },
           c: { left: 100, width: 6 },
-        }
+        },
       );
     });
   });
@@ -384,7 +384,7 @@ describe('Selection Area Streams', () => {
     const dragOrigin$ = of(DtSelectionAreaEventTarget.RightHandle);
     const dragMove$ = interval(2).pipe(
       map(curX => ({ x: curX + 251, y: 30 })),
-      take(3)
+      take(3),
     );
     let called = -1;
     const previousArea = () => {
@@ -402,8 +402,8 @@ describe('Selection Area Streams', () => {
           500,
           previousArea,
           isRangeValid,
-          valToPx
-        )
+          valToPx,
+        ),
       ).toBe('--a-b-(c|)', {
         a: { left: 100, width: 151 },
         b: { left: 100, width: 152 },
@@ -416,7 +416,7 @@ describe('Selection Area Streams', () => {
     const dragOrigin$ = of(DtSelectionAreaEventTarget.LeftHandle);
     const dragMove$ = interval(2).pipe(
       map(curX => ({ x: 99 - curX, y: 30 })),
-      take(3)
+      take(3),
     );
     let called = -1;
     const previousArea = () => {
@@ -434,8 +434,8 @@ describe('Selection Area Streams', () => {
           500,
           previousArea,
           isRangeValid,
-          valToPx
-        )
+          valToPx,
+        ),
       ).toBe('--a-b-(c|)', {
         a: { left: 99, width: 151 },
         b: { left: 98, width: 152 },

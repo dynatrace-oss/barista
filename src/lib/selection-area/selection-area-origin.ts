@@ -36,7 +36,7 @@ export class DtSelectionAreaOriginBase {}
  */
 export const _DtSelectionAreaOriginMixin = mixinTabIndex(
   // tslint:disable-next-line: deprecation
-  mixinDisabled(DtSelectionAreaOriginBase)
+  mixinDisabled(DtSelectionAreaOriginBase),
 );
 
 /**
@@ -70,7 +70,7 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
     private _zone: NgZone,
     protected _elementRef: ElementRef,
     private _viewport: DtViewportResizer,
-    @Attribute('tabindex') tabIndex: string
+    @Attribute('tabindex') tabIndex: string,
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
@@ -81,7 +81,7 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
       .change()
       .pipe(
         takeUntil(this._destroy),
-        switchMap(() => this._zone.onStable.pipe(take(1)))
+        switchMap(() => this._zone.onStable.pipe(take(1))),
       )
       .subscribe(() => {
         if (this.selectionArea) {
@@ -95,7 +95,7 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
       this._zone.onStable
         .pipe(
           takeUntil(this._destroy),
-          take(1)
+          take(1),
         )
         .subscribe(() => {
           this._emitBoundariesChangedOnSelectionArea();
@@ -143,12 +143,12 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
         if (isGrabbing) {
           addCssClass(
             this._elementRef.nativeElement,
-            'dt-selection-area-cursor-grabbing'
+            'dt-selection-area-cursor-grabbing',
           );
         } else {
           removeCssClass(
             this._elementRef.nativeElement,
-            'dt-selection-area-cursor-grabbing'
+            'dt-selection-area-cursor-grabbing',
           );
         }
       });
@@ -157,7 +157,7 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
   /** Emits the boundariesChanged on the selection area */
   private _emitBoundariesChangedOnSelectionArea(): void {
     this.selectionArea._boundariesChanged.next(
-      this._elementRef.nativeElement.getBoundingClientRect()
+      this._elementRef.nativeElement.getBoundingClientRect(),
     );
   }
 }

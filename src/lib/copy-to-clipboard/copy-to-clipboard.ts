@@ -68,7 +68,7 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
       if (this.copyButton) {
         addCssClass(
           this.copyButton.nativeElement,
-          DT_COPY_TO_CLIPBOARD_SUCCESSFUL
+          DT_COPY_TO_CLIPBOARD_SUCCESSFUL,
         );
         this.copyButton.nativeElement.focus();
       }
@@ -88,7 +88,7 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
     if (this.copyButton) {
       removeCssClass(
         this.copyButton.nativeElement,
-        DT_COPY_TO_CLIPBOARD_SUCCESSFUL
+        DT_COPY_TO_CLIPBOARD_SUCCESSFUL,
       );
     }
     this._cd.markForCheck();

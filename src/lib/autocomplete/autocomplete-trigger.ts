@@ -155,7 +155,7 @@ export class DtAutocompleteTrigger<T>
     return merge(
       this.optionSelections,
       this.autocomplete._keyManager.tabOut.pipe(
-        filter(() => this._overlayAttached)
+        filter(() => this._overlayAttached),
       ),
       this._closeKeyEventStream,
       this._getOutsideClickStream(),
@@ -163,9 +163,9 @@ export class DtAutocompleteTrigger<T>
         ? this._overlayRef
             .detachments()
             .pipe(filter(() => this._overlayAttached))
-        : observableOf()
+        : observableOf(),
     ).pipe(
-      map(event => (event instanceof DtOptionSelectionChange ? event : null))
+      map(event => (event instanceof DtOptionSelectionChange ? event : null)),
     );
   }
 
@@ -187,9 +187,9 @@ export class DtAutocompleteTrigger<T>
           startWith(options),
           switchMap(() =>
             merge<DtOptionSelectionChange<T>>(
-              ...options.map(option => option.selectionChange)
-            )
-          )
+              ...options.map(option => option.selectionChange),
+            ),
+          ),
         );
       }
 
@@ -197,9 +197,9 @@ export class DtAutocompleteTrigger<T>
       // Return a stream that we'll replace with the real one once everything is in place.
       return this._zone.onStable.asObservable().pipe(
         take(1),
-        switchMap(() => this.optionSelections)
+        switchMap(() => this.optionSelections),
       );
-    }
+    },
   );
 
   /**
@@ -235,7 +235,7 @@ export class DtAutocompleteTrigger<T>
     private _zone: NgZone,
     @Optional() @Host() private _formField: DtFormField<string>,
     // tslint:disable-next-line:no-any
-    @Optional() @Inject(DOCUMENT) private _document: any
+    @Optional() @Inject(DOCUMENT) private _document: any,
   ) {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
@@ -248,7 +248,7 @@ export class DtAutocompleteTrigger<T>
             this._canOpenOnNextFocus =
               document.activeElement !== this._element.nativeElement ||
               this.panelOpen;
-          })
+          }),
         );
       });
     }
@@ -308,7 +308,7 @@ export class DtAutocompleteTrigger<T>
       this.autocomplete.closed
         .pipe(
           take(1),
-          takeUntil(this.autocomplete.opened.asObservable())
+          takeUntil(this.autocomplete.opened.asObservable()),
         )
         .subscribe(() => {
           this._onTouched();
@@ -504,7 +504,7 @@ export class DtAutocompleteTrigger<T>
   /** Resets the active item to -1 so arrow events will activate the orrect options, or to 0 if the consumer opted into it. */
   private _resetActiveItem(): void {
     this.autocomplete._keyManager.setActiveItem(
-      this.autocomplete.autoActiveFirstOption ? 0 : -1
+      this.autocomplete.autoActiveFirstOption ? 0 : -1,
     );
   }
 
@@ -520,7 +520,7 @@ export class DtAutocompleteTrigger<T>
       }),
       // Defer emitting to the stream until the next tick, because changing
       // bindings in here will cause "changed after checked" errors.
-      delay(0)
+      delay(0),
     );
 
     // When the zone is stable initially, and when the option list changes...
@@ -545,7 +545,7 @@ export class DtAutocompleteTrigger<T>
             return this.panelClosingActions;
           }),
           // when the first closing event occurs...
-          take(1)
+          take(1),
         )
         // set the value, close the panel, and complete.
         .subscribe(event => {
@@ -563,7 +563,7 @@ export class DtAutocompleteTrigger<T>
 
     return merge(
       fromEvent<MouseEvent>(this._document, 'click'),
-      fromEvent<TouchEvent>(this._document, 'touchend')
+      fromEvent<TouchEvent>(this._document, 'touchend'),
     ).pipe(
       filter((event: Event) => {
         const clickTarget = event.target as HTMLElement;
@@ -578,7 +578,7 @@ export class DtAutocompleteTrigger<T>
           (!!this._overlayRef &&
             !this._overlayRef.overlayElement.contains(clickTarget))
         );
-      })
+      }),
     );
   }
 
@@ -648,14 +648,14 @@ export class DtAutocompleteTrigger<T>
     const labelCount = _countGroupLabelsBeforeOption(
       index,
       this.autocomplete.options,
-      this.autocomplete.optionGroups
+      this.autocomplete.optionGroups,
     );
 
     const newScrollPosition = _getOptionScrollPosition(
       index + labelCount,
       AUTOCOMPLETE_OPTION_HEIGHT,
       this.autocomplete._getScrollTop(),
-      AUTOCOMPLETE_PANEL_MAX_HEIGHT
+      AUTOCOMPLETE_PANEL_MAX_HEIGHT,
     );
 
     this.autocomplete._setScrollTop(newScrollPosition);

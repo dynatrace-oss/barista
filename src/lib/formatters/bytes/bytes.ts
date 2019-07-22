@@ -22,7 +22,7 @@ export class DtBytes implements PipeTransform {
     // tslint:disable-next-line:no-any
     input: any,
     factor: number = KILO_MULTIPLIER,
-    inputUnit: DtUnit = DtUnit.BYTES
+    inputUnit: DtUnit = DtUnit.BYTES,
   ): DtFormattedValue | string {
     if (isEmpty(input)) {
       return NO_DATA;

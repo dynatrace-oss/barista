@@ -41,7 +41,7 @@ export class _DtTableBase<T> extends CdkTable<T> {
     @Inject(DOCUMENT) document: any,
     platform: Platform,
     @Attribute('role') protected _role: string,
-    @Attribute('interactiveRows') interactiveRows?: boolean
+    @Attribute('interactiveRows') interactiveRows?: boolean,
   ) {
     // tslint:disable-next-line: no-any
     super(
@@ -51,7 +51,7 @@ export class _DtTableBase<T> extends CdkTable<T> {
       _role,
       (null as unknown) as any, // tslint:disable-line:no-any
       document,
-      platform
+      platform,
     );
     this.interactiveRows = interactiveRows!;
   }

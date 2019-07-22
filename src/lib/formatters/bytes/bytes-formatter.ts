@@ -40,7 +40,7 @@ const KIBI_CONVERSIONS = [
  */
 export function formatBytes(
   input: any, // tslint:disable-line:no-any
-  options?: DtNumberFormatOptions
+  options?: DtNumberFormatOptions,
 ): DtFormattedValue {
   const mergedOptions: DtNumberFormatOptions = {
     ...DEFAULT_BYTES_OPTIONS,

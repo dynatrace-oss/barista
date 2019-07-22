@@ -113,7 +113,7 @@ describe('DtSelectionArea', () => {
       zone.simulateZoneExit();
       fixture.detectChanges();
       const selectionArea: HTMLElement | null = globalSelectionAreaContainer!.querySelector(
-        'dt-selection-area-container'
+        'dt-selection-area-container',
       );
       expect(selectionArea!.style.left).toEqual(`${originDomRect.left}px`);
       expect(selectionArea!.style.top).toEqual(`${originDomRect.top}px`);
@@ -233,7 +233,7 @@ describe('DtSelectionArea', () => {
       flush();
       tickRequestAnimationFrame();
       const overlayNative = overlayContainerElement.querySelector(
-        '.dt-selection-area-overlay-pane'
+        '.dt-selection-area-overlay-pane',
       );
       expect(overlayNative).not.toBeNull();
     }));
@@ -251,7 +251,7 @@ describe('DtSelectionArea', () => {
       const selectedArea = getSelectionArea(globalSelectionAreaContainer!);
       expect(selectedArea.style.visibility).toBe('hidden');
       const overlayNative = overlayContainerElement.querySelector(
-        '.dt-selection-area-overlay-pane'
+        '.dt-selection-area-overlay-pane',
       );
       expect(overlayNative).toBeNull();
     }));
@@ -530,7 +530,7 @@ describe('DtSelectionArea', () => {
 
       beforeEach(() => {
         leftHandle = getSelectionArea(
-          globalSelectionAreaContainer!
+          globalSelectionAreaContainer!,
         ).querySelector<HTMLButtonElement>('.dt-selection-area-left-handle')!;
       });
 
@@ -592,7 +592,7 @@ describe('DtSelectionArea', () => {
 
       beforeEach(() => {
         rightHandle = getSelectionArea(
-          globalSelectionAreaContainer!
+          globalSelectionAreaContainer!,
         ).querySelector<HTMLButtonElement>('.dt-selection-area-right-handle')!;
       });
 
@@ -676,7 +676,7 @@ describe('DtSelectionArea', () => {
       fixture.detectChanges();
       selectedArea = getSelectionArea(globalSelectionAreaContainer!);
       closeButton = overlayContainerElement.querySelector(
-        '.dt-selection-area-close button'
+        '.dt-selection-area-close button',
       );
     }));
 
@@ -686,14 +686,16 @@ describe('DtSelectionArea', () => {
       fixture.detectChanges();
       tick();
       expect(
-        overlayContainerElement.querySelector('.dt-selection-area-overlay-pane')
+        overlayContainerElement.querySelector(
+          '.dt-selection-area-overlay-pane',
+        ),
       ).toBeNull();
       expect(selectedArea.style.visibility).toBe('hidden');
     }));
 
     it('should fire a closed event when closing by clicking the button', fakeAsync(() => {
       const selectionArea = fixture.debugElement.query(
-        By.directive(DtSelectionArea)
+        By.directive(DtSelectionArea),
       ).componentInstance;
       const closeSpy = jasmine.createSpy('onCloseObservable');
 
@@ -707,7 +709,7 @@ describe('DtSelectionArea', () => {
 
     it('should fire a closed event when closing programmatically', fakeAsync(() => {
       const selectionArea: DtSelectionArea = fixture.debugElement.query(
-        By.directive(DtSelectionArea)
+        By.directive(DtSelectionArea),
       ).componentInstance;
       const closeSpy = jasmine.createSpy('onCloseObservable');
 
@@ -746,13 +748,13 @@ describe('DtSelectionArea', () => {
       fixture.detectChanges();
       selectedArea = getSelectionArea(globalSelectionAreaContainer!);
       closeButton = overlayContainerElement.querySelector(
-        '.dt-selection-area-close button'
+        '.dt-selection-area-close button',
       );
     }));
 
     it('should set the aria-label on the selected-area', () => {
       expect(selectedArea.getAttribute('aria-label')).toBe(
-        'aria selected-area'
+        'aria selected-area',
       );
     });
 
@@ -807,7 +809,7 @@ describe('DtSelectionArea', () => {
         fixture.componentInstance.chart._afterRender.next();
         flush();
       }).toThrowError(
-        wrappedErrorMessage(getDtChartSelectionAreaDateTimeAxisError())
+        wrappedErrorMessage(getDtChartSelectionAreaDateTimeAxisError()),
       );
     }));
   });
@@ -818,7 +820,7 @@ describe('DtSelectionArea', () => {
       const globalContainer = getGlobalSelectionAreaHost();
       expect(globalContainer).toBeDefined();
       expect(
-        globalContainer!.querySelector('dt-selection-area-container')
+        globalContainer!.querySelector('dt-selection-area-container'),
       ).not.toBeNull();
     });
   });
@@ -829,22 +831,22 @@ function getGlobalSelectionAreaHost(): HTMLElement | null {
 }
 
 function getSelectionArea(
-  globalSelectionAreaContainer: HTMLElement
+  globalSelectionAreaContainer: HTMLElement,
 ): HTMLElement {
   return globalSelectionAreaContainer.querySelector<HTMLElement>(
-    '.dt-selection-area-selected-area'
+    '.dt-selection-area-selected-area',
   )!;
 }
 
 function getLeftHandle(selectionArea: HTMLElement): HTMLElement {
   return selectionArea.querySelector<HTMLButtonElement>(
-    '.dt-selection-area-left-handle'
+    '.dt-selection-area-left-handle',
   )!;
 }
 
 function getRightHandle(selectionArea: HTMLElement): HTMLElement {
   return selectionArea.querySelector<HTMLButtonElement>(
-    '.dt-selection-area-right-handle'
+    '.dt-selection-area-right-handle',
   )!;
 }
 

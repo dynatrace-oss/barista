@@ -25,7 +25,7 @@ class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
       const parentElement = getParentElement(
         element,
         'dt-radio-group',
-        'dt-radio-button'
+        'dt-radio-button',
       );
       if (parentElement === undefined) {
         return;
@@ -56,7 +56,7 @@ class DtRadioButtonVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'When a dt-radio-button is not part of a dt-radio group it must have a name attribute.'
+      'When a dt-radio-button is not part of a dt-radio group it must have a name attribute.',
     );
   }
 }
@@ -93,7 +93,7 @@ export class Rule extends Rules.AbstractRule {
     const result = this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtRadioButtonVisitor,
-      })
+      }),
     );
 
     return result;

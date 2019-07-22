@@ -43,7 +43,7 @@ describe('FormatterUtil', () => {
     ].forEach((testCase: TestCase) => {
       it(`should return ${testCase.input} with adjusted precision`, () => {
         expect(adjustNumber(testCase.input).toString()).toEqual(
-          testCase.output
+          testCase.output,
         );
       });
     });
@@ -86,7 +86,7 @@ describe('FormatterUtil', () => {
     ].forEach((testCase: TestCase) => {
       it(`should return ${testCase.input} in abbreviated version`, () => {
         expect(adjustNumber(testCase.input, true).toString()).toEqual(
-          testCase.output
+          testCase.output,
         );
       });
     });

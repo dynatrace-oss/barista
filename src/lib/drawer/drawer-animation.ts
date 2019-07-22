@@ -13,7 +13,7 @@ export const dtDrawerAnimation: AnimationTriggerMetadata[] = [
     transition('closed => open-instant', animate('0ms')),
     transition(
       'closed <=> open, open-instant => closed',
-      animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+      animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'),
     ),
   ]),
 ];
