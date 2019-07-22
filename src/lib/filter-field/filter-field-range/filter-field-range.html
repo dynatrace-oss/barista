@@ -30,7 +30,7 @@
       [attr.aria-label]="!_isOperatorType('range') ? 'from' : null"
       class="dt-filter-field-range-input"
     />
-    <span>{{unit}}</span>
+    <span class="dt-filter-field-range-unit">{{unit}}</span>
 
     <ng-container *ngIf="_isOperatorType('range')">
       <label [for]="_getLocalId('to')" class="dt-filter-field-range-label" i18n>to</label>
@@ -42,7 +42,7 @@
         [id]="_getLocalId('to')"
         class="dt-filter-field-range-input"
       />
-      <span>{{unit}}</span>
+      <span class="dt-filter-field-range-unit">{{unit}}</span>
     </ng-container>
 
     <button
