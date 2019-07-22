@@ -103,10 +103,10 @@ export class TableShowMoreExample implements OnInit, OnDestroy {
             cpu: number;
             memory: number;
             traffic: number;
-          }>
+          }>,
         ) => {
           this.dataSource.data = data;
-        }
+        },
       );
   }
 

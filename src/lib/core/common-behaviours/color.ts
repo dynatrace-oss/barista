@@ -25,7 +25,7 @@ export type DtThemePalette =
 /** Mixin to augment a directive with a `color` property. */
 export function mixinColor<T extends Constructor<HasElementRef>>(
   base: T,
-  defaultColor?: DtThemePalette
+  defaultColor?: DtThemePalette,
 ): Constructor<CanColor<DtThemePalette>> & T;
 export function mixinColor<
   T extends Constructor<HasElementRef>,
@@ -67,7 +67,7 @@ export function setComponentColorClasses<
     replaceCssClass(
       component._elementRef,
       component.color ? `dt-color-${component.color}` : null,
-      color ? `dt-color-${color}` : null
+      color ? `dt-color-${color}` : null,
     );
   }
 }

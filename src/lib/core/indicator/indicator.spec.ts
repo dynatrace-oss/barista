@@ -26,7 +26,7 @@ describe('DtIndicator without table', () => {
     fixture.detectChanges();
 
     const indicator: HTMLSpanElement = fixture.debugElement.query(
-      By.css('.dt-indicator')
+      By.css('.dt-indicator'),
     ).nativeElement;
 
     expect(indicator.classList.contains('dt-indicator')).toBe(true);
@@ -38,7 +38,7 @@ describe('DtIndicator without table', () => {
     fixture.detectChanges();
 
     const indicator: HTMLSpanElement = fixture.debugElement.query(
-      By.css('.dt-indicator')
+      By.css('.dt-indicator'),
     ).nativeElement;
 
     expect(indicator.classList.contains('dt-indicator-active')).toBe(false);
@@ -53,7 +53,7 @@ describe('DtIndicator without table', () => {
     fixture.detectChanges();
 
     const indicator: HTMLSpanElement = fixture.debugElement.query(
-      By.css('.dt-indicator')
+      By.css('.dt-indicator'),
     ).nativeElement;
 
     expect(indicator.classList.contains('dt-indicator-active')).toBe(true);
@@ -65,7 +65,7 @@ describe('DtIndicator without table', () => {
     fixture.detectChanges();
 
     const indicator: HTMLSpanElement = fixture.debugElement.query(
-      By.css('.dt-indicator')
+      By.css('.dt-indicator'),
     ).nativeElement;
 
     expect(indicator.classList.contains('dt-indicator-active')).toBe(true);
@@ -88,7 +88,7 @@ describe('DtIndicator without table', () => {
     const subscription = indicator._stateChanges.subscribe(
       () => {},
       () => {},
-      completeSpy
+      completeSpy,
     );
 
     fixture.destroy();

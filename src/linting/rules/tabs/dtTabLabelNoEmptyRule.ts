@@ -22,7 +22,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.'
+      'A dtTabLabel must always contain text. Make sure this is the case even if you use nested components to render text.',
     );
   }
 
@@ -59,7 +59,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtTabVisitor,
-      })
+      }),
     );
   }
 }

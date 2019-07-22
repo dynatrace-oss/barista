@@ -42,7 +42,7 @@ export class DtTreeTable<T> extends _DtTableBase<T> {
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) document: any,
     platform: Platform,
-    @Attribute('role') role: string
+    @Attribute('role') role: string,
   ) {
     super(differs, changeDetectorRef, elementRef, document, platform, role);
     if (!role) {

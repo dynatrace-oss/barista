@@ -26,7 +26,7 @@ describe('DefaultViewportResizer', () => {
     [DtViewportResizer],
     (viewportResizer: DtViewportResizer) => {
       resizer = viewportResizer;
-    }
+    },
   ));
 
   it('should emit on resize', fakeAsync(() => {

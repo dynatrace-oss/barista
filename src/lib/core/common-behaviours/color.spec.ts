@@ -10,14 +10,14 @@ describe('MixinColor', () => {
     const instance = new classWithColor();
 
     expect(instance.color).toBeFalsy(
-      'Expected the mixed-into class to have a color property'
+      'Expected the mixed-into class to have a color property',
     );
 
     instance.color = 'accent';
 
     expect(instance.color).toBe(
       'accent',
-      'Expected the mixed-into class to have an updated color property'
+      'Expected the mixed-into class to have an updated color property',
     );
   });
 
@@ -27,25 +27,25 @@ describe('MixinColor', () => {
 
     expect(instance.testElement.classList.length).toBe(
       0,
-      'Expected the element to not have any classes at initialization'
+      'Expected the element to not have any classes at initialization',
     );
 
     instance.color = 'main';
 
     expect(instance.testElement.classList).toContain(
       'dt-color-main',
-      'Expected the element to have the "dt-color-main" class set'
+      'Expected the element to have the "dt-color-main" class set',
     );
 
     instance.color = 'accent';
 
     expect(instance.testElement.classList).not.toContain(
       'dt-color-main',
-      'Expected the element to no longer have "dt-color-main" set.'
+      'Expected the element to no longer have "dt-color-main" set.',
     );
     expect(instance.testElement.classList).toContain(
       'dt-color-accent',
-      'Expected the element to have the "dt-color-accent" class set'
+      'Expected the element to have the "dt-color-accent" class set',
     );
   });
 
@@ -55,21 +55,21 @@ describe('MixinColor', () => {
 
     expect(instance.testElement.classList.length).toBe(
       0,
-      'Expected the element to not have any classes at initialization'
+      'Expected the element to not have any classes at initialization',
     );
 
     instance.color = 'main';
 
     expect(instance.testElement.classList).toContain(
       'dt-color-main',
-      'Expected the element to have the "dt-color-main" class set'
+      'Expected the element to have the "dt-color-main" class set',
     );
 
     instance.color = undefined;
 
     expect(instance.testElement.classList.length).toBe(
       0,
-      'Expected the element to have no color class set.'
+      'Expected the element to have no color class set.',
     );
   });
 
@@ -79,14 +79,14 @@ describe('MixinColor', () => {
 
     expect(instance.testElement.classList).toContain(
       'dt-color-accent',
-      'Expected the element to have the "dt-color-accent" class by default.'
+      'Expected the element to have the "dt-color-accent" class by default.',
     );
 
     instance.color = undefined;
 
     expect(instance.testElement.classList).toContain(
       'dt-color-accent',
-      'Expected the default color "dt-color-accent" to be set.'
+      'Expected the default color "dt-color-accent" to be set.',
     );
   });
 });

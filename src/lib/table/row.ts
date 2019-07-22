@@ -94,7 +94,7 @@ export class DtRow extends CdkRow implements OnDestroy {
     this._cellStateChangesSub.unsubscribe();
     const cells = Array.from(this._cells.values());
     this._cellStateChangesSub = merge(
-      ...cells.map(cell => cell._stateChanges)
+      ...cells.map(cell => cell._stateChanges),
     ).subscribe(() => {
       this._applyCssClasses(cells);
     });
@@ -114,7 +114,7 @@ export class DtRow extends CdkRow implements OnDestroy {
       replaceCssClass(
         this._elementRef.nativeElement,
         'dt-color-error',
-        'dt-color-warning'
+        'dt-color-warning',
       );
     } else {
       removeCssClass(this._elementRef.nativeElement, 'dt-color-warning');
@@ -124,7 +124,7 @@ export class DtRow extends CdkRow implements OnDestroy {
       replaceCssClass(
         this._elementRef.nativeElement,
         'dt-color-warning',
-        'dt-color-error'
+        'dt-color-error',
       );
     } else {
       removeCssClass(this._elementRef.nativeElement, 'dt-color-error');

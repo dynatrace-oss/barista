@@ -13,10 +13,10 @@ import {
 function hasAttributeValue(
   name: string,
   attrs: AttrAst[],
-  inputs: BoundElementPropertyAst[]
+  inputs: BoundElementPropertyAst[],
 ): boolean {
   const hasAttr = attrs.some(
-    attr => attr.name === name && attr.value.trim().length > 0
+    attr => attr.name === name && attr.value.trim().length > 0,
   );
   const hasInput = inputs.some(input => input.name === name);
   // TODO: check reference if aria-labelledby given?
@@ -33,7 +33,7 @@ function hasAttributeValue(
  */
 export function hasTextContentAlternative(
   element: ElementAst,
-  attribute?: string
+  attribute?: string,
 ): boolean {
   const attrs: AttrAst[] = element.attrs;
   const inputs: BoundElementPropertyAst[] = element.inputs;

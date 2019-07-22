@@ -29,7 +29,7 @@ export class DtFilterFieldRangeSubmittedEvent {
     /** Entered range value(s). Could be either a single value, or a range defined by two values. */
     public range: number | [number, number],
     /** Unit for the entered range / value */
-    public unit: string
+    public unit: string,
   ) {}
 }
 
@@ -128,13 +128,13 @@ export class DtFilterFieldRange implements AfterViewInit {
 
   constructor(
     private _viewContainerRef: ViewContainerRef,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngAfterViewInit(): void {
     this._portal = new TemplatePortal<{}>(
       this._template,
-      this._viewContainerRef
+      this._viewContainerRef,
     );
   }
 
@@ -169,8 +169,8 @@ export class DtFilterFieldRange implements AfterViewInit {
           this,
           this._selectedOperator as DtFilterFieldRangeOperator,
           range as number | [number, number],
-          this.unit
-        )
+          this.unit,
+        ),
       );
       // After emission we need to reset the range state, to have a fresh one
       // if another range opens.

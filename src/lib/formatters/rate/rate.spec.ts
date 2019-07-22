@@ -38,7 +38,7 @@ describe('DtRate', () => {
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} without unit`, () => {
         expect(
-          ratePipe.transform(testCase.input, testCase.rateUnit).toString()
+          ratePipe.transform(testCase.input, testCase.rateUnit).toString(),
         ).toEqual(testCase.output);
       });
     });
@@ -65,7 +65,7 @@ describe('DtRate', () => {
       it(`should display ${testCase.input} orignal unit together with rate`, () => {
         const formattedValue = bytePipe.transform(testCase.input);
         expect(
-          ratePipe.transform(formattedValue, testCase.rateUnit).toString()
+          ratePipe.transform(formattedValue, testCase.rateUnit).toString(),
         ).toEqual(testCase.output);
       });
     });
@@ -76,7 +76,7 @@ describe('DtRate', () => {
       expect(ratePipe.transform('', DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
       expect(ratePipe.transform(null, DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
       expect(ratePipe.transform(undefined, DtRateUnit.PER_SECOND)).toEqual(
-        NO_DATA
+        NO_DATA,
       );
     });
 
@@ -85,17 +85,17 @@ describe('DtRate', () => {
       expect(ratePipe.transform({}, DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
       expect(ratePipe.transform([], DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
       expect(ratePipe.transform(() => {}, DtRateUnit.PER_SECOND)).toEqual(
-        NO_DATA
+        NO_DATA,
       );
       expect(ratePipe.transform(A, DtRateUnit.PER_SECOND)).toEqual(NO_DATA);
       expect(ratePipe.transform(new A(), DtRateUnit.PER_SECOND)).toEqual(
-        NO_DATA
+        NO_DATA,
       );
     });
 
     it(`should return '${NO_DATA}' for combined strings`, () => {
       expect(
-        ratePipe.transform('123test', DtRateUnit.PER_SECOND).toString()
+        ratePipe.transform('123test', DtRateUnit.PER_SECOND).toString(),
       ).toEqual(NO_DATA);
     });
   });
@@ -103,19 +103,19 @@ describe('DtRate', () => {
   describe('Valid input types', () => {
     it('should handle numbers as strings', () => {
       expect(
-        ratePipe.transform('123', DtRateUnit.PER_SECOND).toString()
+        ratePipe.transform('123', DtRateUnit.PER_SECOND).toString(),
       ).toEqual('123 /s');
       expect(
-        ratePipe.transform('1234', DtRateUnit.PER_SECOND).toString()
+        ratePipe.transform('1234', DtRateUnit.PER_SECOND).toString(),
       ).toEqual('1234 /s');
     });
 
     it('should handle 0', () => {
       expect(ratePipe.transform('0', DtRateUnit.PER_SECOND).toString()).toEqual(
-        '0 /s'
+        '0 /s',
       );
       expect(ratePipe.transform(0, DtRateUnit.PER_SECOND).toString()).toEqual(
-        '0 /s'
+        '0 /s',
       );
     });
   });

@@ -32,7 +32,7 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-show-more must always contain text or an aria-label/aria-labelledby attribute.'
+      'A dt-show-more must always contain text or an aria-label/aria-labelledby attribute.',
     );
   }
 }
@@ -70,7 +70,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtShowMoreVisitor,
-      })
+      }),
     );
   }
 }

@@ -43,14 +43,14 @@ export class DtTreeFlattener<T, F> {
     private transformFunction: (node: T, level: number) => F,
     private getLevel: (node: F) => number,
     private isExpandable: (node: F) => boolean,
-    private getChildren: (node: T) => Observable<T[]> | T[] | undefined | null
+    private getChildren: (node: T) => Observable<T[]> | T[] | undefined | null,
   ) {}
 
   private _flattenNode(
     node: T,
     level: number,
     resultNodes: F[],
-    parentMap: boolean[]
+    parentMap: boolean[],
   ): F[] {
     const flatNode = this.transformFunction(node, level);
     resultNodes.push(flatNode);
@@ -74,7 +74,7 @@ export class DtTreeFlattener<T, F> {
     children: T[],
     level: number,
     resultNodes: F[],
-    parentMap: boolean[]
+    parentMap: boolean[],
   ): void {
     children.forEach((child, index) => {
       const childParentMap: boolean[] = parentMap.slice();
@@ -145,7 +145,7 @@ export class DtTreeDataSource<T, F> extends DataSource<F> {
   constructor(
     private treeControl: FlatTreeControl<F>,
     private treeFlattener: DtTreeFlattener<T, F>,
-    initialData: T[] = []
+    initialData: T[] = [],
   ) {
     super();
     this._data = new BehaviorSubject<T[]>(initialData);
@@ -163,11 +163,11 @@ export class DtTreeDataSource<T, F> extends DataSource<F> {
         this._expandedData.next(
           this.treeFlattener.expandFlattenedNodes(
             this._flattenedData.value,
-            this.treeControl
-          )
+            this.treeControl,
+          ),
         );
         return this._expandedData.value;
-      })
+      }),
     );
   }
 

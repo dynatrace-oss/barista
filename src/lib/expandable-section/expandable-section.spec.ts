@@ -37,7 +37,7 @@ describe('DtExpandableSection', () => {
     beforeEach(async(() => {
       fixture = createComponent(TestApp);
       instanceDebugElement = fixture.debugElement.query(
-        By.directive(DtExpandableSection)
+        By.directive(DtExpandableSection),
       );
       instanceElement = instanceDebugElement.nativeElement;
       expandableSectionInstance = instanceDebugElement.injector.get<
@@ -111,19 +111,19 @@ describe('DtExpandableSection', () => {
     // check CSS class when expanded
     it('should have correct styles applied when expanded', () => {
       expect(instanceElement.classList).not.toContain(
-        'dt-expandable-section-opened'
+        'dt-expandable-section-opened',
       );
       expect(expandableSectionInstance.toggle()).toBe(true);
       fixture.detectChanges();
       expect(instanceElement.classList).toContain(
-        'dt-expandable-section-opened'
+        'dt-expandable-section-opened',
       );
     });
 
     // check attributes of section and trigger when disabled
     it('should have correct attributes when disabled', () => {
       const triggerInstanceElement = fixture.debugElement.query(
-        By.css('.dt-expandable-panel-trigger')
+        By.css('.dt-expandable-panel-trigger'),
       ).nativeElement;
 
       expect(instanceElement.getAttribute('aria-disabled')).toBe('false');
@@ -143,7 +143,7 @@ describe('DtExpandableSection', () => {
       const changedSpy = jasmine.createSpy();
       const instance = instanceDebugElement.componentInstance;
       const expandedSubscription = instance._sectionExpanded.subscribe(
-        expandedSpy
+        expandedSpy,
       );
       const changedSubscription = instance.expandChange.subscribe(changedSpy);
 
@@ -164,7 +164,7 @@ describe('DtExpandableSection', () => {
       const changedSpy = jasmine.createSpy();
       const instance = instanceDebugElement.componentInstance;
       const collapsedSubscription = instance._sectionCollapsed.subscribe(
-        collapsedSpy
+        collapsedSpy,
       );
       const changedSubscription = instance.expandChange.subscribe(changedSpy);
 

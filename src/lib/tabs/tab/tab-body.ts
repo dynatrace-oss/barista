@@ -79,7 +79,7 @@ export class DtTabBodyPortal extends CdkPortalOutlet
     componentFactoryResolver: ComponentFactoryResolver,
     viewContainerRef: ViewContainerRef,
     // tslint:disable-next-line:no-forward-ref
-    @Inject(forwardRef(() => DtTabBody)) private _host: DtTabBody
+    @Inject(forwardRef(() => DtTabBody)) private _host: DtTabBody,
   ) {
     super(componentFactoryResolver, viewContainerRef);
   }

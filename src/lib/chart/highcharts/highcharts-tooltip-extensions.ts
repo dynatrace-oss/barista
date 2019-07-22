@@ -14,7 +14,7 @@ export interface DtHcTooltipEventPayload {
 
 /** Function that gets the arguments from highcharts and extracts the tooltip data the same way highcharts does it internally */
 export function prepareTooltipData(
-  pointOrPoints: any | any[] // tslint:disable-line:no-any
+  pointOrPoints: any | any[], // tslint:disable-line:no-any
 ): DtChartTooltipData {
   let data: DtChartTooltipData;
   if (Array.isArray(pointOrPoints)) {
@@ -45,7 +45,7 @@ export function prepareTooltipData(
  */
 export function addTooltipEvents(): boolean {
   highcharts.wrap(highcharts.Pointer.prototype, 'reset', function(
-    proceed: any // tslint:disable-line:no-any
+    proceed: any, // tslint:disable-line:no-any
   ): void {
     /**
      * Now apply the original function with the original arguments,
@@ -57,7 +57,7 @@ export function addTooltipEvents(): boolean {
   });
 
   highcharts.wrap(highcharts.Tooltip.prototype, 'refresh', function(
-    proceed: any // tslint:disable-line:no-any
+    proceed: any, // tslint:disable-line:no-any
   ): void {
     const args = Array.prototype.slice.call(arguments, 1);
     proceed.apply(this, args);

@@ -61,14 +61,14 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
     _viewport: DtViewportResizer,
     private _renderer: Renderer2,
     @Host() private _chart: DtChart,
-    @Attribute('tabindex') tabIndex: string
+    @Attribute('tabindex') tabIndex: string,
   ) {
     super(_zone, _elementRef, _viewport, tabIndex);
 
     this.tabIndex = parseInt(tabIndex, 10) || 0;
 
     this._afterChartRender = this._chart._afterRender.pipe(
-      takeUntil(this._destroy)
+      takeUntil(this._destroy),
     );
 
     this._afterChartRender.subscribe(() => {
@@ -93,23 +93,23 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
             (ev: MouseEvent) => {
               const hitElements = document.elementsFromPoint(
                 ev.clientX,
-                ev.clientY
+                ev.clientY,
               );
               const clickIsInsidePlotBackground = hitElements.some(el =>
-                hasCssClass(el, 'highcharts-plot-background')
+                hasCssClass(el, 'highcharts-plot-background'),
               );
               if (clickIsInsidePlotBackground) {
                 this._chart._toggleTooltip(false);
                 this._handleMousedown(ev);
               }
-            }
-          )
+            },
+          ),
         );
         this._detachFns.push(
           this._renderer.listen(_elementRef.nativeElement, 'keydown', ev => {
             this._chart._toggleTooltip(false);
             this._handleKeyDown(ev);
-          })
+          }),
         );
       }
     });
@@ -120,7 +120,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
       .pipe(switchMap(() => _zone.onStable.pipe(take(1))))
       .subscribe(() => {
         this.selectionArea._boundariesChanged.next(
-          this._getPlotBackgroundClientRect()
+          this._getPlotBackgroundClientRect(),
         );
       });
   }
@@ -163,7 +163,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   /** Applies classes and attributes to the plotbackground for keyboard and cursor support */
   private _applyAttributesAndClassesToPlotBackground(): void {
     this._plotBackground = this._chart.container.nativeElement.querySelector(
-      '.highcharts-plot-background'
+      '.highcharts-plot-background',
     ) as SVGRectElement;
     addCssClass(this._plotBackground, 'dt-selection-area-origin-cursor');
     this._plotBackground.setAttribute('tabindex', this.tabIndex.toString());
@@ -179,7 +179,7 @@ export class DtChartSelectionAreaOrigin extends DtSelectionAreaOrigin
   private _setInterpolateFnOnSelectionArea(): void {
     if (this._chart._chartObject && this.selectionArea) {
       this.selectionArea._setInterpolateFnOnContainer((pxValue: number) =>
-        this._chart._chartObject!.xAxis[0].toValue(pxValue, true)
+        this._chart._chartObject!.xAxis[0].toValue(pxValue, true),
       );
     }
   }

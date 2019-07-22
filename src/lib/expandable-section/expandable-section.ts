@@ -82,16 +82,16 @@ export class DtExpandableSection implements CanDisable {
 
     return this._ngZone.onStable.asObservable().pipe(
       take(1),
-      switchMap(() => this.expandChange)
+      switchMap(() => this.expandChange),
     );
   });
   /** Event emitted when the section is expanded. */
   @Output('expanded') readonly _sectionExpanded = this.expandChange.pipe(
-    filter(v => v)
+    filter(v => v),
   );
   /** Event emitted when the section is collapsed. */
   @Output('collapsed') readonly _sectionCollapsed = this.expandChange.pipe(
-    filter(v => !v)
+    filter(v => !v),
   );
 
   /**
@@ -106,7 +106,7 @@ export class DtExpandableSection implements CanDisable {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
   ) {}
 
   /**

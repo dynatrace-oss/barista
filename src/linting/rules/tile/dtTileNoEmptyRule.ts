@@ -28,7 +28,7 @@ class DtTileVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-tile must always contain content apart from title, subtitle and icon.'
+      'A dt-tile must always contain content apart from title, subtitle and icon.',
     );
   }
 }
@@ -70,7 +70,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtTileVisitor,
-      })
+      }),
     );
   }
 }

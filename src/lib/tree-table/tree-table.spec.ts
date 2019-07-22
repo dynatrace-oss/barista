@@ -30,7 +30,7 @@ describe('DtTreeTable', () => {
   let treeTableElement: HTMLElement;
   let underlyingDataSource: FakeDataSource;
   function configureDtTreeTableTestingModule(
-    declarations: Array<Type<any>>
+    declarations: Array<Type<any>>,
   ): void {
     TestBed.configureTestingModule({
       imports: [
@@ -79,7 +79,7 @@ describe('DtTreeTable', () => {
 
       expect(component.treeControl.expansionModel.selected.length).toBe(
         0,
-        `Expect no expanded node`
+        `Expect no expanded node`,
       );
 
       fixture.detectChanges();
@@ -96,7 +96,7 @@ describe('DtTreeTable', () => {
 
       expect(component.treeControl.expansionModel.selected.length).toBe(
         1,
-        `Expect node expanded one level`
+        `Expect node expanded one level`,
       );
       expectTreeTableToMatch(treeTableElement, [
         { cells: ['topping_1', 'cheese_1'], level: 0 },
@@ -110,7 +110,7 @@ describe('DtTreeTable', () => {
 
       expect(component.treeControl.expansionModel.selected.length).toBe(
         2,
-        `Expect node expanded`
+        `Expect node expanded`,
       );
       expectTreeTableToMatch(treeTableElement, [
         { cells: ['topping_1', 'cheese_1'], level: 0 },
@@ -206,7 +206,7 @@ export class TestData {
     pizzaCheese: string,
     pizzaBase: string,
     children: TestData[] = [],
-    isSpecial: boolean = false
+    isSpecial: boolean = false,
   ) {
     this.pizzaTopping = pizzaTopping;
     this.pizzaCheese = pizzaCheese;
@@ -244,7 +244,7 @@ class FakeDataSource implements DataSource<TestData> {
     const child = new TestData(
       `topping_${nextIndex}`,
       `cheese_${nextIndex}`,
-      `base_${nextIndex}`
+      `base_${nextIndex}`,
     );
     const index = this.data.indexOf(parent);
     parent.children.push(child);
@@ -267,8 +267,8 @@ class FakeDataSource implements DataSource<TestData> {
         `cheese_${nextIndex}`,
         `base_${nextIndex}`,
         [],
-        isSpecial
-      )
+        isSpecial,
+      ),
     );
 
     this.data = copiedData;
@@ -298,14 +298,14 @@ function getIndentation(row: Element): string | null {
 
 function expectTreeTableToMatch(
   treeTableElement: Element,
-  expectedTreeTable: RowExpectation[]
+  expectedTreeTable: RowExpectation[],
 ): void {
   const missedExpectations: string[] = [];
 
   function checkRow(
     row: Element,
     rowIndex: number,
-    expectedRow: string[]
+    expectedRow: string[],
   ): void {
     const cells = getCells(row);
     cells.forEach((cell, index) => {
@@ -316,12 +316,12 @@ function expectTreeTableToMatch(
   function checkCell(
     rowIndex: number,
     cell: Element,
-    expectedCellContent: string
+    expectedCellContent: string,
   ): void {
     const actualTextContent = cell.textContent!.trim();
     if (actualTextContent !== expectedCellContent) {
       missedExpectations.push(
-        `Expected cell's content in row at index ${rowIndex} to be ${expectedCellContent} but was ${actualTextContent}`
+        `Expected cell's content in row at index ${rowIndex} to be ${expectedCellContent} but was ${actualTextContent}`,
       );
     }
   }
@@ -331,7 +331,7 @@ function expectTreeTableToMatch(
     const expectedIndentation = `${expectedLevel * 16}px`;
     if (actualIndentation !== expectedIndentation) {
       missedExpectations.push(
-        `Expected node level to be ${expectedIndentation} due to expected level ${expectedLevel} but was ${actualIndentation}`
+        `Expected node level to be ${expectedIndentation} due to expected level ${expectedLevel} but was ${actualIndentation}`,
       );
     }
   }
@@ -395,7 +395,7 @@ class SimpleDtTreeTableApp {
     this.transformer,
     this.getLevel,
     this.isExpandable,
-    this.getChildren
+    this.getChildren,
   );
 
   treeControl = new DtTreeControl(this.getLevel, this.isExpandable);
@@ -483,20 +483,20 @@ class DtTreeTableWithNullOrUndefinedChild {
 
   treeControl = new DtTreeControl<ExampleFlatNode>(
     node => node.level,
-    node => node.expandable
+    node => node.expandable,
   );
 
   treeFlattener = new DtTreeFlattener(
     this.transformer,
     node => node.level,
     node => node.expandable,
-    node => node.children
+    node => node.children,
   );
 
   dataSource = new DtTreeDataSource(
     this.treeControl,
     this.treeFlattener,
-    TREE_DATA
+    TREE_DATA,
   );
 
   constructor() {
@@ -565,7 +565,7 @@ class WhenRowDtTreeTableApp {
     this.transformer,
     this.getLevel,
     this.isExpandable,
-    this.getChildren
+    this.getChildren,
   );
 
   treeControl = new DtTreeControl(this.getLevel, this.isExpandable);

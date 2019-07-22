@@ -45,7 +45,7 @@ describe('DtToast', () => {
       dtToast = toast;
       overlayContainer = oc;
       overlayContainerElement = oc.getContainerElement();
-    }
+    },
   ));
 
   beforeEach(fakeAsync(() => {
@@ -62,11 +62,11 @@ describe('DtToast', () => {
     dtToast.create(simpleMessage);
 
     const containerElement = overlayContainerElement.querySelector(
-      '.dt-toast-container'
+      '.dt-toast-container',
     )!;
     expect(containerElement.getAttribute('role')).toBe(
       'alert',
-      'Expected toast container to have role="alert"'
+      'Expected toast container to have role="alert"',
     );
   });
 
@@ -76,11 +76,11 @@ describe('DtToast', () => {
     fixture.detectChanges();
 
     const messageElement = overlayContainerElement.querySelector(
-      '.dt-toast-container'
+      '.dt-toast-container',
     )!;
     expect(messageElement.textContent).toContain(
       simpleMessage,
-      `Expected the toast message to be '${simpleMessage}'`
+      `Expected the toast message to be '${simpleMessage}'`,
     );
   });
 
@@ -90,7 +90,7 @@ describe('DtToast', () => {
     fixture.detectChanges();
 
     const messageElement = overlayContainerElement.querySelector(
-      '.dt-toast-container'
+      '.dt-toast-container',
     )!;
     expect(messageElement).toBeNull();
   });
@@ -104,7 +104,7 @@ describe('DtToast', () => {
     fixture.detectChanges();
 
     const messageElement = overlayContainerElement.querySelector(
-      '.dt-toast-container'
+      '.dt-toast-container',
     )!;
     expect(messageElement.textContent!.length).toBe(DT_TOAST_CHAR_LIMIT);
     tick(toastRef!.duration / 2);
@@ -122,7 +122,7 @@ describe('DtToast', () => {
     fixture.detectChanges();
     expect(overlayContainerElement.childElementCount).toBeGreaterThan(
       0,
-      'Expected overlay container element to have at least one child'
+      'Expected overlay container element to have at least one child',
     );
 
     toastRef!
@@ -136,7 +136,7 @@ describe('DtToast', () => {
     expect(dismissCompleteSpy).toHaveBeenCalled();
     expect(overlayContainerElement.childElementCount).toBe(
       0,
-      'Expected the overlay container element to have no child elements'
+      'Expected the overlay container element to have no child elements',
     );
   }));
 
@@ -158,14 +158,14 @@ describe('DtToast', () => {
     fixture.detectChanges();
     expect(toastRef!.containerInstance._animationState).toBe(
       'enter',
-      `Expected the animation state would be 'enter'.`
+      `Expected the animation state would be 'enter'.`,
     );
     toastRef!.dismiss();
 
     fixture.detectChanges();
     expect(toastRef!.containerInstance._animationState).toBe(
       'exit',
-      `Expected the animation state would be 'exit'.`
+      `Expected the animation state would be 'exit'.`,
     );
   });
 
@@ -176,7 +176,7 @@ describe('DtToast', () => {
     fixture.detectChanges();
     expect(toastRef!.containerInstance._animationState).toBe(
       'exit',
-      `Expected the animation state would be 'exit'.`
+      `Expected the animation state would be 'exit'.`,
     );
   });
 
@@ -188,7 +188,7 @@ describe('DtToast', () => {
     fixture.detectChanges();
     expect(toastRef!.containerInstance._animationState).toBe(
       'enter',
-      `Expected the animation state would be 'enter'.`
+      `Expected the animation state would be 'enter'.`,
     );
 
     const toastRef2 = dtToast.create(simpleMessage);
@@ -200,13 +200,13 @@ describe('DtToast', () => {
     tick(DT_TOAST_FADE_TIME);
     expect(toastRef2!.containerInstance._animationState).toBe(
       'enter',
-      `Expected the animation state of the new toast to be 'enter'.`
+      `Expected the animation state of the new toast to be 'enter'.`,
     );
 
     expect(dismissCompleteSpy).toHaveBeenCalled();
     expect(toastRef!.containerInstance._animationState).toBe(
       'exit',
-      `Expected the animation state would be 'exit'.`
+      `Expected the animation state would be 'exit'.`,
     );
     tick(DT_TOAST_MIN_DURATION);
   }));
@@ -228,7 +228,7 @@ describe('DtToast', () => {
     tick(DT_TOAST_FADE_TIME);
     expect(toastRef!.containerInstance._animationState).toBe(
       'enter',
-      `Expected the animation state to be 'enter'.`
+      `Expected the animation state to be 'enter'.`,
     );
     tick(DT_TOAST_MIN_DURATION);
   }));
@@ -295,7 +295,7 @@ describe('DtToast', () => {
 
   it('should clear the dismiss timeout when dismissed before timeout expiration', fakeAsync(() => {
     const toastRef = dtToast.create(
-      'content message is very long and takes a long time'
+      'content message is very long and takes a long time',
     );
 
     setTimeout(() => {
@@ -318,7 +318,7 @@ describe('DtToast', () => {
     fixture.detectChanges();
 
     const messageElement = overlayContainerElement.querySelector(
-      '.dt-toast-container'
+      '.dt-toast-container',
     )!;
     expect(messageElement.textContent!.length).toBe(DT_TOAST_CHAR_LIMIT);
 

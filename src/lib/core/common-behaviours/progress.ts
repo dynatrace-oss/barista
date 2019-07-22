@@ -30,7 +30,7 @@ export interface HasProgressValues {
 
 /** Mixin to augment a directive with a `disabled` property. */
 export function mixinHasProgress<T extends Constructor<{}>>(
-  base: T
+  base: T,
 ): Constructor<HasProgressValues> & T {
   return class extends base {
     private _value: number | null = null;

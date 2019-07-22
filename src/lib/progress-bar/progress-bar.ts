@@ -35,8 +35,8 @@ export class DtProgressBarBase {
 export const _DtProgressBar = mixinHasProgress(
   mixinColor<Constructor<DtProgressBarBase>, DtProgressBarThemePalette>(
     DtProgressBarBase,
-    'main'
-  )
+    'main',
+  ),
 );
 
 @Component({
@@ -70,7 +70,7 @@ export class DtProgressBar extends _DtProgressBar
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    elementRef: ElementRef
+    elementRef: ElementRef,
   ) {
     super(elementRef);
   }

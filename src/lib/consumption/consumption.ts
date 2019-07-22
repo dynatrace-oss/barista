@@ -139,7 +139,7 @@ export class DtConsumption extends _DtConsumption
     private readonly _overlay: Overlay,
     private readonly _viewContainerRef: ViewContainerRef,
     private readonly _changeDetectorRef: ChangeDetectorRef,
-    private _focusMonitor: FocusMonitor
+    private _focusMonitor: FocusMonitor,
   ) {
     super(_elementRef);
     this._focusMonitor.monitor(this._elementRef);
@@ -171,7 +171,7 @@ export class DtConsumption extends _DtConsumption
       // overlay template has already been loaded
       const portal = new TemplatePortal(
         overlayTemplate,
-        this._viewContainerRef
+        this._viewContainerRef,
       );
 
       // Note: each OverlayConfig can only be used for one overlay instance

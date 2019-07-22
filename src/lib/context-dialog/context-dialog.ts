@@ -77,7 +77,7 @@ const OVERLAY_POSITIONS: ConnectedPosition[] = [
 // Boilerplate for applying mixins to DtContextDialog.
 export class DtContextDialogBase {}
 export const _DtContextDialogMixinBase = mixinTabIndex(
-  mixinDisabled(DtContextDialogBase)
+  mixinDisabled(DtContextDialogBase),
 );
 
 @Component({
@@ -162,7 +162,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     private _focusTrapFactory: FocusTrapFactory,
     @Attribute('tabindex') tabIndex: string,
     // tslint:disable-next-line: no-any
-    @Optional() @Inject(DOCUMENT) private _document: any
+    @Optional() @Inject(DOCUMENT) private _document: any,
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
@@ -217,7 +217,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   private _trapFocus(): void {
     if (!this._focusTrap && this._overlayRef) {
       this._focusTrap = this._focusTrapFactory.create(
-        this._overlayRef.overlayElement
+        this._overlayRef.overlayElement,
       );
       this._focusTrap
         .focusFirstTabbableElementWhenReady()
@@ -279,7 +279,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
         this.close();
       });
     this._overlayRef.attach(
-      new TemplatePortal(this._overlayTemplate, this._viewContainerRef)
+      new TemplatePortal(this._overlayTemplate, this._viewContainerRef),
     );
     this._trapFocus();
 

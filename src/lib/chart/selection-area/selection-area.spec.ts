@@ -24,7 +24,7 @@ describe('DtChart Selection Area', () => {
 
   function createComponent<T>(
     component: Type<T>,
-    providers: Provider[] = []
+    providers: Provider[] = [],
   ): any {
     TestBed.configureTestingModule({
       imports: [
@@ -55,7 +55,7 @@ describe('DtChart Selection Area', () => {
       // we can potentially have multiple overlay containers.
       currentOverlayContainer.ngOnDestroy();
       overlayContainer.ngOnDestroy();
-    }
+    },
   ));
 
   describe('range and timestamp available', () => {
@@ -67,7 +67,7 @@ describe('DtChart Selection Area', () => {
 
     it('should not have a selection area if there is no timestamp or range inside the chart', () => {
       const selectionArea = fixture.debugElement.query(
-        By.css('.dt-chart-selection-area')
+        By.css('.dt-chart-selection-area'),
       );
 
       expect(selectionArea).toBeNull();
@@ -77,10 +77,10 @@ describe('DtChart Selection Area', () => {
       fixture.componentInstance.hasTimestamp = true;
       fixture.detectChanges();
       const selectionArea = fixture.debugElement.query(
-        By.css('.dt-chart-selection-area')
+        By.css('.dt-chart-selection-area'),
       );
       const timestamp = fixture.debugElement.query(
-        By.css('.dt-chart-timestamp')
+        By.css('.dt-chart-timestamp'),
       );
 
       expect(selectionArea).not.toBeNull();
@@ -91,7 +91,7 @@ describe('DtChart Selection Area', () => {
       fixture.componentInstance.hasRange = true;
       fixture.detectChanges();
       const selectionArea = fixture.debugElement.query(
-        By.css('.dt-chart-selection-area')
+        By.css('.dt-chart-selection-area'),
       );
       const range = fixture.debugElement.query(By.css('.dt-chart-range'));
 
@@ -115,7 +115,7 @@ describe('DtChart Selection Area', () => {
 
       hairline = fixture.debugElement.query(By.css('.dt-chart-hairline'));
       plotBackground = fixture.debugElement.nativeElement.querySelector(
-        '.highcharts-plot-background'
+        '.highcharts-plot-background',
       );
     });
 
@@ -167,27 +167,27 @@ describe('DtChart Selection Area', () => {
 
       it('should have a default aria label on the overlay close button', () => {
         const container = overlayContainerElement.querySelector(
-          '.dt-chart-selection-area-overlay .dt-icon-button'
+          '.dt-chart-selection-area-overlay .dt-icon-button',
         ) as HTMLElement;
 
         expect(container.getAttribute('aria-label')).toBe(
-          ARIA_DEFAULT_CLOSE_LABEL
+          ARIA_DEFAULT_CLOSE_LABEL,
         );
       });
 
       it('should not have been focused on programmatic creation', () => {
         const rangeContainer = fixture.debugElement.query(
-          By.css('.dt-chart-range-container')
+          By.css('.dt-chart-range-container'),
         );
         expect(document.activeElement).not.toEqual(
-          rangeContainer.nativeElement
+          rangeContainer.nativeElement,
         );
       });
 
       it('should focused on programmatic focus call', () => {
         range.focus();
         const rangeContainer = fixture.debugElement.query(
-          By.css('.dt-chart-range-container')
+          By.css('.dt-chart-range-container'),
         );
         expect(document.activeElement).toEqual(rangeContainer.nativeElement);
       });
@@ -195,7 +195,7 @@ describe('DtChart Selection Area', () => {
       it('should be in a focus trap after the chart range container was focused', () => {
         range.focus();
         const rangeContainer = fixture.debugElement.query(
-          By.css('.dt-chart-range-container')
+          By.css('.dt-chart-range-container'),
         );
 
         const next = rangeContainer.nativeElement.nextSibling;
@@ -288,7 +288,7 @@ const SERIES: Highcharts.IndividualSeriesOptions[] = [
       0,
       250,
       new Date('2019/06/01 20:38:00').getTime(),
-      900000
+      900000,
     ),
   },
 ];
@@ -302,13 +302,13 @@ function generateData(
   min: number,
   max: number,
   timestampStart: number,
-  timestampTick: number
+  timestampTick: number,
 ): Array<[number, number]> {
   return Array.from(Array(amount).keys()).map(
     v =>
       [timestampStart + timestampTick * v, randomize(min, max)] as [
         number,
-        number
-      ]
+        number,
+      ],
   );
 }

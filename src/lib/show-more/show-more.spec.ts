@@ -43,7 +43,7 @@ describe('DtShowMore', () => {
       fixture = createComponent(TestApp);
       testComponent = fixture.componentInstance;
       instanceDebugElement = fixture.debugElement.query(
-        By.directive(DtShowMore)
+        By.directive(DtShowMore),
       );
       instanceElement = instanceDebugElement.nativeElement;
     }));

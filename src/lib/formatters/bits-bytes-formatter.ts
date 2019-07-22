@@ -12,7 +12,7 @@ export interface DtUnitConversion {
 export function formatToBitsBytes(
   input: DtFormattedValue | number,
   conversions: DtUnitConversion[],
-  options: DtNumberFormatOptions
+  options: DtNumberFormatOptions,
 ): DtFormattedValue {
   const sourceData: SourceData =
     input instanceof DtFormattedValue
@@ -52,7 +52,7 @@ export function formatToBitsBytes(
 function convertToUnit(
   input: number,
   conversions: DtUnitConversion[],
-  inputUnit: string
+  inputUnit: string,
 ): number {
   const conversion = conversions.find(m => m.unit === inputUnit);
   return conversion !== undefined ? input * conversion.multiplier : input;
@@ -60,14 +60,14 @@ function convertToUnit(
 
 function getAutoUnitConversion(
   conversions: DtUnitConversion[],
-  valueInUnit: number
+  valueInUnit: number,
 ): DtUnitConversion | undefined {
   return conversions.find(m => valueInUnit >= m.multiplier);
 }
 
 function getFixedUnitConversion(
   conversions: DtUnitConversion[],
-  outputUnit: string
+  outputUnit: string,
 ): DtUnitConversion | undefined {
   return conversions.find(m => m.unit === outputUnit);
 }

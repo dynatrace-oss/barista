@@ -78,12 +78,12 @@ export class DtSelectionArea
     DtSelectionAreaChange
     // tslint:disable-next-line: deprecation
   > = this._deferContainerEvent<DtSelectionAreaContainerChange>('changed').pipe(
-    map(changed => ({ source: this, ...changed }))
+    map(changed => ({ source: this, ...changed })),
   );
 
   /** Emits when the selected area is closed */
   @Output() readonly closed: Observable<void> = this._deferContainerEvent<void>(
-    'closed'
+    'closed',
   );
 
   /** @internal Emits whenever the grabbing state changes */
@@ -105,7 +105,7 @@ export class DtSelectionArea
    * to get the correct boundaries
    */
   _boundariesChanged: BehaviorSubject<ClientRect | null> = new BehaviorSubject(
-    null
+    null,
   );
 
   @ViewChild('content', { read: TemplateRef, static: true })
@@ -119,7 +119,7 @@ export class DtSelectionArea
     private _viewContainerRef: ViewContainerRef,
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _appRef: ApplicationRef,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
   ) {
     const containerInstance = this._createContainer();
     if (containerInstance) {
@@ -136,11 +136,11 @@ export class DtSelectionArea
     if (this._containerInstance) {
       this._containerInstance._overlayContentPortal = new TemplatePortal(
         this._overlayContent,
-        this._viewContainerRef
+        this._viewContainerRef,
       );
       this._containerInstance._overlayActionsPortal = new TemplatePortal(
         this._overlayActions,
-        this._viewContainerRef
+        this._viewContainerRef,
       );
     }
   }
@@ -158,7 +158,7 @@ export class DtSelectionArea
         this.ariaLabelSelectedArea,
         this.ariaLabelLeftHandle,
         this.ariaLabelRightHandle,
-        this.ariaLabelClose
+        this.ariaLabelClose,
       );
     }
   }
@@ -211,7 +211,7 @@ export class DtSelectionArea
       ? this._containerInstance[eventName]
       : this._ngZone.onStable.asObservable().pipe(
           take(1),
-          switchMap(() => this._deferContainerEvent(eventName))
+          switchMap(() => this._deferContainerEvent(eventName)),
         );
   }
 
@@ -226,13 +226,13 @@ export class DtSelectionArea
         DtSelectionAreaContainer,
         null,
         null,
-        this._componentFactoryResolver
+        this._componentFactoryResolver,
       );
       this._portalOutlet = new DomPortalOutlet(
         this._createHostElement(),
         this._componentFactoryResolver,
         this._appRef,
-        this._viewContainerRef.injector
+        this._viewContainerRef.injector,
       );
       const componentRef = this._portalOutlet.attachComponentPortal(portal);
       return componentRef.instance;

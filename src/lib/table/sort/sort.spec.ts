@@ -240,7 +240,7 @@ describe('DtSort', () => {
     expect(() => {
       TestBed.createComponent(DtSortHeaderMissingSortApp).detectChanges();
     }).toThrowError(
-      wrappedErrorMessage(getDtSortHeaderNotContainedWithinSortError())
+      wrappedErrorMessage(getDtSortHeaderNotContainedWithinSortError()),
     );
   });
 
@@ -286,7 +286,7 @@ describe('DtSort', () => {
 function checkCellsSorted(
   cells: QueryList<DtCell>,
   sorted: boolean = false,
-  colName?: string
+  colName?: string,
 ): boolean {
   const filteredCells = colName
     ? cells.filter(cell => cell._columnDef.name === colName)
@@ -302,7 +302,7 @@ function checkCellsSorted(
 function testSingleColumnSortDirectionSequence(
   fixture: ComponentFixture<DtTableSortApp>,
   expectedSequence: DtSortDirection[],
-  id: DtSortAppColumnIds = 'column_a'
+  id: DtSortAppColumnIds = 'column_a',
 ): void {
   // Detect any changes that were made in preparation for this sort sequence
   fixture.detectChanges();
@@ -322,7 +322,7 @@ function testSingleColumnSortDirectionSequence(
     if (component.latestSortEvent !== null) {
       expect(component.latestSortEvent.active).toBe(id);
       expect(component.dtSort.direction).toBe(
-        component.latestSortEvent.direction
+        component.latestSortEvent.direction,
       );
     }
 

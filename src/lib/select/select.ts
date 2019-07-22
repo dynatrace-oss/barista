@@ -98,7 +98,7 @@ export class DtSelectChange<T> {
     /** Reference to the select that emitted the change event. */
     public source: DtSelect<T>,
     /** Current value of the select that emitted the event. */
-    public value: T
+    public value: T,
   ) {}
 }
 
@@ -109,11 +109,11 @@ export class DtSelectBase {
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public _parentForm: NgForm,
     public _parentFormGroup: FormGroupDirective,
-    public ngControl: NgControl
+    public ngControl: NgControl,
   ) {}
 }
 export const _DtSelectMixinBase = mixinTabIndex(
-  mixinDisabled(mixinErrorState(DtSelectBase))
+  mixinDisabled(mixinErrorState(DtSelectBase)),
 );
 
 export function getDtSelectNonFunctionValueError(): Error {
@@ -158,21 +158,21 @@ export function getDtSelectNonFunctionValueError(): Error {
         style({
           transform: 'scaleY(0)',
           opacity: 0,
-        })
+        }),
       ),
       state(
         'showing',
         style({
           opacity: 1,
           transform: 'scaleY(1)',
-        })
+        }),
       ),
       transition(
         'void => *',
         group([
           query('@fadeInContent', animateChild()),
           animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)'),
-        ])
+        ]),
       ),
       transition('* => void', [
         animate('250ms 100ms linear', style({ opacity: 0 })),
@@ -388,13 +388,13 @@ export class DtSelect<T> extends _DtSelectMixinBase
   > = defer(() => {
     if (this.options) {
       return merge<DtOptionSelectionChange<T>>(
-        ...this.options.map(option => option.selectionChange)
+        ...this.options.map(option => option.selectionChange),
       );
     }
 
     return this._ngZone.onStable.asObservable().pipe(
       take(1),
-      switchMap(() => this.optionSelectionChanges)
+      switchMap(() => this.optionSelectionChanges),
     );
   });
 
@@ -435,14 +435,14 @@ export class DtSelect<T> extends _DtSelectMixinBase
     @Optional() private _parentFormField: DtFormField<T>,
     @Self() @Optional() public ngControl: NgControl,
     @Attribute('tabindex') tabIndex: string,
-    private _focusMonitor: FocusMonitor
+    private _focusMonitor: FocusMonitor,
   ) {
     super(
       elementRef,
       _defaultErrorStateMatcher,
       _parentForm,
       _parentFormGroup,
-      ngControl
+      ngControl,
     );
 
     if (this.ngControl) {
@@ -469,7 +469,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     this._panelDoneAnimatingStream
       .pipe(
         distinctUntilChanged(),
-        takeUntil(this._destroy)
+        takeUntil(this._destroy),
       )
       .subscribe(() => {
         if (this.panelOpen) {
@@ -501,7 +501,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     this.options.changes
       .pipe(
         startWith(null),
-        takeUntil(this._destroy)
+        takeUntil(this._destroy),
       )
       .subscribe(() => {
         this._resetOptions();
@@ -798,7 +798,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
       this._setSelectionByValue(
-        this.ngControl ? this.ngControl.value : this._value
+        this.ngControl ? this.ngControl.value : this._value,
       );
     });
   }
@@ -842,7 +842,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     const items = this._getItemCount();
     const panelHeight = Math.min(
       items * SELECT_ITEM_HEIGHT,
-      SELECT_PANEL_MAX_HEIGHT
+      SELECT_PANEL_MAX_HEIGHT,
     );
     const scrollContainerHeight = items * SELECT_ITEM_HEIGHT;
 
@@ -856,7 +856,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     selectedOptionOffset += _countGroupLabelsBeforeOption(
       selectedOptionOffset,
       this.options,
-      this.optionGroups
+      this.optionGroups,
     );
 
     // We must maintain a scroll buffer so the selected option will be scrolled to the
@@ -866,7 +866,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     this._scrollTop = this._calculateOverlayScroll(
       selectedOptionOffset,
       scrollBuffer,
-      maxScroll
+      maxScroll,
     );
     // this._offsetY = this._calculateOverlayOffsetY(selectedOptionOffset, scrollBuffer, maxScroll);
   }
@@ -874,7 +874,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   private _calculateOverlayScroll(
     selectedIndex: number,
     scrollBuffer: number,
-    maxScroll: number
+    maxScroll: number,
   ): number {
     const optionOffsetFromScrollTop = SELECT_ITEM_HEIGHT * selectedIndex;
     // tslint:disable-next-line:no-magic-numbers
@@ -894,14 +894,14 @@ export class DtSelect<T> extends _DtSelectMixinBase
     const labelCount = _countGroupLabelsBeforeOption(
       activeOptionIndex,
       this.options,
-      this.optionGroups
+      this.optionGroups,
     );
 
     this.panel.nativeElement.scrollTop = _getOptionScrollPosition(
       activeOptionIndex + labelCount,
       SELECT_ITEM_HEIGHT,
       this.panel.nativeElement.scrollTop,
-      SELECT_PANEL_MAX_HEIGHT
+      SELECT_PANEL_MAX_HEIGHT,
     );
   }
 
@@ -944,7 +944,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
         this._keyManager.setFirstItemActive();
       } else {
         this._keyManager.setActiveItem(
-          this._getOptionIndex(this._selectionModel.selected[0])!
+          this._getOptionIndex(this._selectionModel.selected[0])!,
         );
       }
     }

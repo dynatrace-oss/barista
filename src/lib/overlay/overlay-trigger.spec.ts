@@ -77,18 +77,18 @@ describe('DtOverlayTrigger', () => {
       trigger,
       'mousemove',
       trigger.getBoundingClientRect().left + offset,
-      trigger.getBoundingClientRect().top + offset
+      trigger.getBoundingClientRect().top + offset,
     );
     fixture.detectChanges();
     flush();
 
     const overlayPane = overlayContainerElement.querySelector(
-      '.cdk-overlay-pane'
+      '.cdk-overlay-pane',
     ) as HTMLElement;
     expect(overlayPane).toBeDefined();
     expect(overlayPane.style.transform).toEqual(
       `translateX(${DT_OVERLAY_DEFAULT_OFFSET +
-        1}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET + offset}px)`
+        1}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET + offset}px)`,
     );
   }));
 
@@ -155,17 +155,17 @@ describe('DtOverlayTrigger', () => {
       trigger,
       'mousemove',
       trigger.getBoundingClientRect().left + offset,
-      trigger.getBoundingClientRect().top + offset
+      trigger.getBoundingClientRect().top + offset,
     );
     fixture.detectChanges();
     flush();
 
     const overlayPane = overlayContainerElement.querySelector(
-      '.cdk-overlay-pane'
+      '.cdk-overlay-pane',
     ) as HTMLElement;
     expect(overlayPane.style.transform).toEqual(
       `translateX(${DT_OVERLAY_DEFAULT_OFFSET +
-        offset}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET}px)`
+        offset}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET}px)`,
     );
   }));
 
@@ -178,17 +178,17 @@ describe('DtOverlayTrigger', () => {
       trigger,
       'mousemove',
       trigger.getBoundingClientRect().left + offset,
-      trigger.getBoundingClientRect().top + offset
+      trigger.getBoundingClientRect().top + offset,
     );
     fixture.detectChanges();
     flush();
 
     const overlayPane = overlayContainerElement.querySelector(
-      '.cdk-overlay-pane'
+      '.cdk-overlay-pane',
     ) as HTMLElement;
     expect(overlayPane.style.transform).toEqual(
       `translateX(${DT_OVERLAY_DEFAULT_OFFSET}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET +
-        offset}px)`
+        offset}px)`,
     );
   }));
 
@@ -276,7 +276,7 @@ describe('DtOverlayTrigger', () => {
 
 function initOverlay(
   fixture: ComponentFixture<TestComponent>,
-  trigger: HTMLElement
+  trigger: HTMLElement,
 ): void {
   dispatchMouseEvent(trigger, 'mouseover');
   dispatchMouseEvent(trigger, 'mousemove');
@@ -285,15 +285,15 @@ function initOverlay(
 }
 
 function getContainerElement(
-  overlayContainerElement: HTMLElement
+  overlayContainerElement: HTMLElement,
 ): HTMLElement {
   return overlayContainerElement.querySelector(
-    '.dt-overlay-container'
+    '.dt-overlay-container',
   ) as HTMLElement;
 }
 function getOverlayPane(overlayContainerElement: HTMLElement): HTMLElement {
   return overlayContainerElement.querySelector(
-    '.cdk-overlay-pane'
+    '.cdk-overlay-pane',
   ) as HTMLElement;
 }
 

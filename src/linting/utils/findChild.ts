@@ -27,7 +27,7 @@ function increaseLevel(element: any, level: number): number {
 export function findChild(
   element: any,
   childName: string,
-  level: number
+  level: number,
 ): ChildNode[] {
   if (element.name && element.name === childName) {
     return [
@@ -44,7 +44,7 @@ export function findChild(
     const noOfChildren = element.children.length;
     for (let i = 0; i < noOfChildren; i++) {
       children = children.concat(
-        findChild(element.children[i], childName, newLevel)
+        findChild(element.children[i], childName, newLevel),
       );
     }
   }
@@ -61,7 +61,7 @@ export function findChild(
 export function findChildByAttribute(
   element: any,
   attrName: string,
-  level: number
+  level: number,
 ): ChildNode[] {
   if (
     element.attrs &&
@@ -81,7 +81,7 @@ export function findChildByAttribute(
     const noOfChildren = element.children.length;
     for (let i = 0; i < noOfChildren; i++) {
       children = children.concat(
-        findChildByAttribute(element.children[i], attrName, newLevel)
+        findChildByAttribute(element.children[i], attrName, newLevel),
       );
     }
   }

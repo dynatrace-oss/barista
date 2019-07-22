@@ -44,7 +44,7 @@ export class DtDateRange implements PipeTransform {
 export function dtFormatDateRange(
   start: number,
   end: number,
-  locale: string = 'en-US'
+  locale: string = 'en-US',
 ): string {
   const date1 = new Date(start);
   const date2 = new Date(end);

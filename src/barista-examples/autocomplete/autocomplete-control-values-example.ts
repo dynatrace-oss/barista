@@ -34,7 +34,7 @@ export class AutocompleteControlValuesExample implements OnInit {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith<string | CountryOption>(''),
       map(value => (typeof value === 'string' ? value : value.name)),
-      map(name => (name ? this._filter(name) : this.options.slice()))
+      map(name => (name ? this._filter(name) : this.options.slice())),
     );
   }
 

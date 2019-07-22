@@ -81,7 +81,7 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
   constructor(
     private _renderer: Renderer2,
     private _zone: NgZone,
-    @Inject(PLATFORM_ID) private _platformId: string
+    @Inject(PLATFORM_ID) private _platformId: string,
   ) {}
 
   /** Highlight if either the term or the caseSensitive input changes. */
@@ -148,12 +148,12 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
         this._renderer.appendChild(span, text);
         this._renderer.appendChild(
           this._transformedElement.nativeElement,
-          span
+          span,
         );
       } else {
         this._renderer.appendChild(
           this._transformedElement.nativeElement,
-          text
+          text,
         );
       }
     }

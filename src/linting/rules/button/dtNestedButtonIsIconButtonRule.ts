@@ -17,7 +17,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 
     const attrs: AttrAst[] = element.attrs;
     const isNestedVariant = attrs.some(
-      attr => attr.name === 'variant' && attr.value === 'nested'
+      attr => attr.name === 'variant' && attr.value === 'nested',
     );
     const isIconButton = attrs.some(attr => isIconButtonAttr(attr));
 
@@ -26,7 +26,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
       addFailure(
         this,
         element,
-        'A nested button variant must always be a dt-icon-button.'
+        'A nested button variant must always be a dt-icon-button.',
       );
     }
   }
@@ -57,7 +57,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtButtonVisitor,
-      })
+      }),
     );
   }
 }

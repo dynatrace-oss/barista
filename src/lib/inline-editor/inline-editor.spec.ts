@@ -64,14 +64,14 @@ describe('DtInlineEditor', () => {
     const textReference = fixture.debugElement.query(By.css('span'));
     expect(textReference.nativeElement.innerText).toBe(
       'content',
-      'Expected inner text to reflect ngModel value'
+      'Expected inner text to reflect ngModel value',
     );
 
     const buttonReference = fixture.debugElement.query(By.css('button'));
 
     expect(buttonReference.nativeElement.getAttribute('aria-label')).toBe(
       'edit',
-      'Expected aria-label to be "edit"'
+      'Expected aria-label to be "edit"',
     );
   }));
 
@@ -105,7 +105,7 @@ describe('DtInlineEditor', () => {
 
     expect(fixture.componentInstance.model).toBe(
       'hola',
-      'Expected inner text to be changed'
+      'Expected inner text to be changed',
     );
   }));
 
@@ -126,7 +126,7 @@ describe('DtInlineEditor', () => {
 
     expect(fixture.componentInstance.model).toBe(
       'content',
-      'Expected inner text to be changed'
+      'Expected inner text to be changed',
     );
   }));
 
@@ -142,11 +142,11 @@ describe('DtInlineEditor', () => {
 
     expect(inputElement.getAttribute('aria-required')).toBe(
       'true',
-      'Expected aria-required to reflect required state'
+      'Expected aria-required to reflect required state',
     );
     expect(inputElement.getAttribute('aria-invalid')).toBe(
       'false',
-      'Expected aria-invalid to be false'
+      'Expected aria-invalid to be false',
     );
 
     inputElement.value = '';
@@ -155,13 +155,13 @@ describe('DtInlineEditor', () => {
 
     expect(inputElement.getAttribute('aria-invalid')).toBe(
       'true',
-      'Expected aria-invalid to be true'
+      'Expected aria-invalid to be true',
     );
   }));
 
   it('should displayerror message based on errorStateMatcher', fakeAsync(() => {
     const fixture = createComponent(
-      TestComponentWithWithCustomErrorStateMatcher
+      TestComponentWithWithCustomErrorStateMatcher,
     );
 
     const instance = fixture.componentInstance.inlineEditor;
@@ -175,11 +175,11 @@ describe('DtInlineEditor', () => {
 
     expect(inputElement.getAttribute('aria-invalid')).toBe(
       'false',
-      'Expected aria-invalid to be false'
+      'Expected aria-invalid to be false',
     );
 
     expect(
-      fixture.debugElement.nativeElement.querySelectorAll('dt-error').length
+      fixture.debugElement.nativeElement.querySelectorAll('dt-error').length,
     ).toBe(0, 'Expected zero error messages to have been rendered.');
 
     component.errorState = true;
@@ -188,11 +188,11 @@ describe('DtInlineEditor', () => {
 
     expect(inputElement.getAttribute('aria-invalid')).toBe(
       'true',
-      'Expected aria-invalid to be true'
+      'Expected aria-invalid to be true',
     );
 
     expect(
-      fixture.debugElement.nativeElement.querySelectorAll('dt-error').length
+      fixture.debugElement.nativeElement.querySelectorAll('dt-error').length,
     ).toBe(1, 'Expected one error messages to have been rendered.');
   }));
 
@@ -213,7 +213,7 @@ describe('DtInlineEditor', () => {
     fixture.detectChanges();
     expect(fixture.componentInstance.model).toBe(
       'hola',
-      'Make sure model has be applied'
+      'Make sure model has be applied',
     );
   }));
 
@@ -231,7 +231,7 @@ describe('DtInlineEditor', () => {
 
     expect(fixture.componentInstance.model).toBe(
       'content',
-      'Make sure model has not yet be applied'
+      'Make sure model has not yet be applied',
     );
   });
 
@@ -294,10 +294,10 @@ describe('DtInlineEditor', () => {
 
     fixture.detectChanges();
     const saveButtonReference = fixture.debugElement.query(
-      By.css('button[aria-label=save]')
+      By.css('button[aria-label=save]'),
     );
     const cancelButtonReference = fixture.debugElement.query(
-      By.css('button[aria-label=cancel]')
+      By.css('button[aria-label=cancel]'),
     );
 
     expect(saveButtonReference).not.toBeFalsy();

@@ -64,10 +64,10 @@ describe('DtSwitch', () => {
       switchInstance = switchDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
       inputElement = switchNativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
       labelElement = switchNativeElement.querySelector(
-        'label'
+        'label',
       ) as HTMLLabelElement;
     });
 
@@ -159,7 +159,7 @@ describe('DtSwitch', () => {
 
     it('should project the switch content into the label element', () => {
       const label = switchNativeElement.querySelector(
-        '.dt-switch-label'
+        '.dt-switch-label',
       ) as HTMLLabelElement;
       expect(label.textContent!.trim()).toBe('Simple switch');
     });
@@ -273,10 +273,10 @@ describe('DtSwitch', () => {
       switchInstance = switchDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
       inputElement = switchNativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
       labelElement = switchNativeElement.querySelector(
-        'label'
+        'label',
       ) as HTMLLabelElement;
     });
 
@@ -323,7 +323,7 @@ describe('DtSwitch', () => {
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
       inputElement = switchNativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
 
       expect(inputElement.getAttribute('aria-label')).toBe('Super effective');
@@ -333,7 +333,7 @@ describe('DtSwitch', () => {
       fixture = createComponent(SingleSwitch);
 
       expect(
-        fixture.nativeElement.querySelector('input').hasAttribute('aria-label')
+        fixture.nativeElement.querySelector('input').hasAttribute('aria-label'),
       ).toBe(false);
     });
   });
@@ -348,7 +348,7 @@ describe('DtSwitch', () => {
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
       inputElement = switchNativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
 
       expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
@@ -359,7 +359,7 @@ describe('DtSwitch', () => {
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
       inputElement = switchNativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
 
       expect(inputElement.getAttribute('aria-labelledby')).toBe(null);
@@ -379,7 +379,7 @@ describe('DtSwitch', () => {
       switchDebugElement = fixture.debugElement.query(By.directive(DtSwitch));
       switchNativeElement = switchDebugElement.nativeElement;
       inputElement = switchNativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
     });
 
@@ -410,7 +410,7 @@ describe('DtSwitch', () => {
 
       expect(switchConst.tabIndex).toBe(
         5,
-        'Expected tabIndex property to have been set based on the native attribute'
+        'Expected tabIndex property to have been set based on the native attribute',
       );
     }));
   });
@@ -431,7 +431,7 @@ describe('DtSwitch', () => {
     it('should toggle switch disabledness correctly', () => {
       const switchInstance = switchDebugElement.componentInstance;
       const inputElement = switchNativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
 
       expect(switchInstance.disabled).toBe(false);
@@ -457,7 +457,7 @@ describe('DtSwitch', () => {
       const [firstId, secondId] = fixture.debugElement
         .queryAll(By.directive(DtSwitch))
         .map(
-          debugElement => debugElement.nativeElement.querySelector('input').id
+          debugElement => debugElement.nativeElement.querySelector('input').id,
         );
 
       expect(firstId).toMatch(/dt-switch-\d+-input/);
@@ -479,7 +479,7 @@ describe('DtSwitch', () => {
       switchNativeElement = switchDebugElement.nativeElement;
       switchInstance = switchDebugElement.componentInstance;
       inputElement = switchNativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
     });
 
@@ -521,13 +521,13 @@ describe('DtSwitch', () => {
       fixture = createComponent(SwitchWithNgModel);
 
       const switchDebugElement = fixture.debugElement.query(
-        By.directive(DtSwitch)
+        By.directive(DtSwitch),
       );
       const switchNativeElement = switchDebugElement.nativeElement;
       testComponent = fixture.debugElement.componentInstance;
       switchInstance = switchDebugElement.componentInstance;
       inputElement = switchNativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
     });
 
@@ -558,7 +558,7 @@ describe('DtSwitch', () => {
     it('should forward name value to input element', () => {
       const switchElement = fixture.debugElement.query(By.directive(DtSwitch));
       const inputElement = switchElement.nativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
 
       expect(inputElement.getAttribute('name')).toBe('test-name');
@@ -578,7 +578,7 @@ describe('DtSwitch', () => {
       switchInstance = switchDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
       inputElement = switchDebugElement.nativeElement.querySelector(
-        'input'
+        'input',
       ) as HTMLInputElement;
     });
 

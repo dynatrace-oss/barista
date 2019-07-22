@@ -47,15 +47,15 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
     () => {
       if (this._toggleButtonItems) {
         return merge<DtToggleButtonChange<T>>(
-          ...this._toggleButtonItems.map(toggleButton => toggleButton.change)
+          ...this._toggleButtonItems.map(toggleButton => toggleButton.change),
         );
       }
 
       return this._ngZone.onStable.asObservable().pipe(
         take(1),
-        switchMap(() => this._itemSelectionChanges)
+        switchMap(() => this._itemSelectionChanges),
       );
-    }
+    },
   );
 
   /** Output observable that fires every time the selection on the ToggleButtonGroup changes. */
@@ -79,7 +79,7 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
 
   constructor(
     private _ngZone: NgZone,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   /** ngAfterContentInit Hook to initialize contentChildren observables.  */
@@ -88,7 +88,7 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
     this._toggleButtonItems.changes
       .pipe(
         startWith(null),
-        takeUntil(this._destroy)
+        takeUntil(this._destroy),
       )
       .subscribe(() => {
         this._resetItems();
@@ -135,7 +135,7 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
   private _resetItems(): void {
     const changedOrDestroyed = merge(
       this._toggleButtonItems.changes,
-      this._destroy
+      this._destroy,
     );
     this._itemSelectionChanges
       .pipe(takeUntil(changedOrDestroyed))
@@ -147,7 +147,7 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
   /** Invoked when an item is clicked. */
   private _onItemSelect(toggleButtonItem: DtToggleButtonItem<T>): void {
     const wasSelected = this._toggleButtonSelectionModel.isSelected(
-      toggleButtonItem
+      toggleButtonItem,
     );
 
     if (toggleButtonItem.selected) {

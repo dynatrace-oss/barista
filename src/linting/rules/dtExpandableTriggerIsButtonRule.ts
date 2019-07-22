@@ -12,7 +12,7 @@ class DtExpandableTriggerVisitor extends BasicTemplateAstVisitor {
 
   private _validateElement(element: ElementAst): any {
     const isExpandablePanelTrigger = element.inputs.some(
-      input => input.name === 'dtExpandablePanel'
+      input => input.name === 'dtExpandablePanel',
     );
     if (!isExpandablePanelTrigger) {
       return;
@@ -25,7 +25,7 @@ class DtExpandableTriggerVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'The trigger of an expandable panel must be a button.'
+      'The trigger of an expandable panel must be a button.',
     );
   }
 }
@@ -56,7 +56,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtExpandableTriggerVisitor,
-      })
+      }),
     );
   }
 }

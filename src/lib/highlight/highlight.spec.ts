@@ -35,7 +35,7 @@ describe('DtHighlight', () => {
       fixture.detectChanges();
       const transformed = containerEl.lastChild as HTMLElement;
       expect(transformed.innerHTML).toMatch(
-        'Original text where nothing should be highlighted'
+        'Original text where nothing should be highlighted',
       );
     });
 
@@ -49,7 +49,7 @@ describe('DtHighlight', () => {
       const transformed = containerEl.lastChild as HTMLElement;
       expect(hiddenSource.tagName).toMatch('DIV');
       expect(hiddenSource.innerHTML).toMatch(
-        'Some <b>text where</b> with html characters'
+        'Some <b>text where</b> with html characters',
       );
       expect(transformed.tagName).toMatch('SPAN');
     });
@@ -65,13 +65,13 @@ describe('DtHighlight', () => {
 
       fixture.detectChanges();
       expect(transformed.innerHTML).toMatch(
-        'Some &lt;b&gt;text where&lt;/b&gt; with html characters'
+        'Some &lt;b&gt;text where&lt;/b&gt; with html characters',
       );
     });
 
     it('should wrap the highlighted word with a mark tag', () => {
       const fixture = createComponent(
-        TestComponentWithStaticQueryAndStaticText
+        TestComponentWithStaticQueryAndStaticText,
       );
       const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
         .nativeElement;
@@ -136,12 +136,12 @@ describe('DtHighlight', () => {
       fixture.detectChanges();
 
       expect(
-        transformed.innerHTML.startsWith('Some &lt;b&gt;text ')
+        transformed.innerHTML.startsWith('Some &lt;b&gt;text '),
       ).toBeTruthy();
       expect(
         transformed.innerHTML.endsWith(
-          'e&lt;/b&gt; a part should be highlighted'
-        )
+          'e&lt;/b&gt; a part should be highlighted',
+        ),
       ).toBeTruthy();
 
       const highlights = transformed.querySelectorAll('.dt-highlight-mark');
@@ -245,7 +245,7 @@ describe('DtHighlight', () => {
       // ISSUE: ***REMOVED***/***REMOVED***
       const fixture = createComponent(TestCasingHighlighted);
       const containerEl: HTMLElement = fixture.debugElement.query(
-        By.css('.dt-highlight span')
+        By.css('.dt-highlight span'),
       ).nativeElement;
 
       expect(containerEl.textContent).toBe('HTTP-Monitoring');
@@ -266,7 +266,7 @@ describe('DtHighlight', () => {
 
     it('should add a notice for screen readers when an element is marked', () => {
       const fixture = createComponent(
-        TestComponentWithStaticQueryAndStaticText
+        TestComponentWithStaticQueryAndStaticText,
       );
       const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
         .nativeElement;
@@ -277,10 +277,10 @@ describe('DtHighlight', () => {
 
       const highlight = transformed.querySelectorAll('.dt-highlight-mark')[0];
       expect(getComputedStyle(highlight, ':before').content).toContain(
-        '[highlight start]'
+        '[highlight start]',
       );
       expect(getComputedStyle(highlight, ':after').content).toContain(
-        '[highlight end]'
+        '[highlight end]',
       );
     });
   });

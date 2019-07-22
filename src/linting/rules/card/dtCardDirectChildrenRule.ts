@@ -39,8 +39,8 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
       this,
       element,
       `The following elements must be direct children of a dt-card: ${childrenNames.join(
-        ', '
-      )}`
+        ', ',
+      )}`,
     );
   }
 }
@@ -82,7 +82,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtCardVisitor,
-      })
+      }),
     );
   }
 }

@@ -191,14 +191,14 @@ export class DtFilterFieldDefaultDataSource<T>
   /** Transforms the provided data into an internal data structure that can be used by the filter-field. */
   private _transformObject(
     data: any | null, // tslint:disable-line:no-any
-    parent: DtNodeDef | null = null
+    parent: DtNodeDef | null = null,
   ): DtNodeDef | null {
     let def: DtNodeDef | null = null;
     if (isAutocomplete(data)) {
       def = dtAutocompleteDef([], !!data.distinct, !!data.async, data, null);
       def.autocomplete!.optionsOrGroups = this._transformList(
         data.autocomplete,
-        def
+        def,
       );
     } else if (isFreeText(data)) {
       def = dtFreeTextDef([], data, null);
@@ -211,7 +211,7 @@ export class DtFilterFieldDefaultDataSource<T>
         !!data.range.operators.lessThanEqual,
         data.range.unit,
         data,
-        null
+        null,
       );
     }
 
@@ -232,7 +232,7 @@ export class DtFilterFieldDefaultDataSource<T>
         null,
         def,
         parentAutocomplete,
-        parentGroup
+        parentGroup,
       );
     }
     return def;
@@ -241,7 +241,7 @@ export class DtFilterFieldDefaultDataSource<T>
   /** Transforms the provided list of data objects into an internal data structure that can be used by the filter field. */
   private _transformList(
     list: any[], // tslint:disable-line:no-any
-    parent: DtNodeDef | null = null
+    parent: DtNodeDef | null = null,
   ): DtNodeDef[] {
     return list
       .map(item => this._transformObject(item, parent))

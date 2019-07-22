@@ -24,7 +24,7 @@ describe('DtAlert', () => {
     const fixture = createComponent(TestApp);
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-alert'
+      'dt-alert',
     );
     expect(tileNativeElement.classList.contains('dt-alert')).toBeTruthy();
   });
@@ -33,7 +33,7 @@ describe('DtAlert', () => {
     const fixture = createComponent(TestApp);
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-alert'
+      'dt-alert',
     );
 
     const groupDebugElement = fixture.debugElement.query(By.directive(DtAlert));
@@ -43,7 +43,7 @@ describe('DtAlert', () => {
     fixture.detectChanges();
 
     expect(
-      tileNativeElement.classList.contains('dt-alert-warning')
+      tileNativeElement.classList.contains('dt-alert-warning'),
     ).toBeTruthy();
 
     expect(tileNativeElement.classList.contains('dt-alert-error')).toBeFalsy();
@@ -53,11 +53,11 @@ describe('DtAlert', () => {
     const fixture = createComponent(TestAppEmpty);
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-alert'
+      'dt-alert',
     );
     expect(tileNativeElement.classList.contains('dt-alert-error')).toBeFalsy();
     expect(
-      tileNativeElement.classList.contains('dt-alert-warning')
+      tileNativeElement.classList.contains('dt-alert-warning'),
     ).toBeFalsy();
   });
 });

@@ -2,7 +2,7 @@
 export function createMouseEvent(
   type: string,
   x: number = 0,
-  y: number = 0
+  y: number = 0,
 ): MouseEvent {
   const event = document.createEvent('MouseEvent');
 
@@ -21,7 +21,7 @@ export function createMouseEvent(
     false /* shiftKey */,
     false /* metaKey */,
     0 /* button */,
-    null /* relatedTarget */
+    null /* relatedTarget */,
   );
 
   return event;
@@ -31,7 +31,7 @@ export function createMouseEvent(
 export function createTouchEvent(
   type: string,
   pageX: number = 0,
-  pageY: number = 0
+  pageY: number = 0,
 ): UIEvent {
   // In favor of creating events that work for most of the browsers, the event is created
   // as a basic UI Event. The necessary details for the event will be set manually.
@@ -56,7 +56,7 @@ export function createKeyboardEvent(
   type: string,
   keyCode: number,
   target?: Element,
-  key?: string
+  key?: string,
 ): KeyboardEvent {
   // tslint:disable-next-line:no-any
   const event = document.createEvent('KeyboardEvent') as any;
@@ -90,7 +90,7 @@ export function createKeyboardEvent(
 export function createFakeEvent(
   type: string,
   canBubble: boolean = false,
-  cancelable: boolean = true
+  cancelable: boolean = true,
 ): Event {
   const event = document.createEvent('Event');
   event.initEvent(type, canBubble, cancelable);

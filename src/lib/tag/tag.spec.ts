@@ -33,7 +33,7 @@ describe('DtTag', () => {
     fixture.detectChanges();
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-tag dt-icon'
+      'dt-tag dt-icon',
     );
     expect(tileNativeElement).toBeFalsy();
   });
@@ -43,7 +43,7 @@ describe('DtTag', () => {
     fixture.detectChanges();
 
     const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-tag dt-icon'
+      'dt-tag dt-icon',
     );
     expect(tileNativeElement).toBeTruthy();
   });

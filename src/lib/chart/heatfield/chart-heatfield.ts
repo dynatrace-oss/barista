@@ -60,7 +60,7 @@ const DT_HEATFIELD_OVERLAY_POSITIONS: ConnectedPosition[] = [
 export class DtChartHeatfieldActiveChange {
   constructor(
     /** Reference to the heatfield that emitted the event. */
-    public source: DtChartHeatfield
+    public source: DtChartHeatfield,
   ) {}
 }
 
@@ -183,7 +183,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
     elementRef: ElementRef,
     // tslint:disable-next-line: no-forward-ref
     @Inject(forwardRef(() => DtChart)) @SkipSelf() private _chart: DtChart,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     super(elementRef);
     this._checkChartSupport();
@@ -230,7 +230,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
     const plotBackground =
       this._chart &&
       this._chart.container.nativeElement.querySelector(
-        '.highcharts-plot-background'
+        '.highcharts-plot-background',
       );
     if (plotBackground) {
       this._plotBackgroundBoundingBox = {
@@ -271,7 +271,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
           width: round(width, 2),
           top: round(
             this._plotBackgroundBoundingBox.top - DT_HEATFIELD_TOP_OFFSET,
-            2
+            2,
           ),
         };
         // tslint:enable:no-magic-numbers

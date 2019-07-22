@@ -4,7 +4,7 @@ import { DtMicroChartColorPalette } from './micro-chart-colors';
 import { DtColors } from '@dynatrace/angular-components/theming';
 
 export function createDtMicrochartDefaultOptions(
-  palette: DtMicroChartColorPalette
+  palette: DtMicroChartColorPalette,
 ): DtChartOptions {
   return {
     colors: [palette.primary],
@@ -88,7 +88,7 @@ export function createDtMicrochartDefaultOptions(
 }
 
 export function createDtMicrochartMinMaxDataPointOptions(
-  palette: DtMicroChartColorPalette
+  palette: DtMicroChartColorPalette,
 ): DataPoint {
   return {
     color: palette.darker,

@@ -33,7 +33,7 @@ describe('DtMegabytes', () => {
     ].forEach((testCase: TestCase) => {
       it(`should display result converted to MB (${testCase.output})`, () => {
         expect(pipe.transform(testCase.input).toString()).toEqual(
-          testCase.output
+          testCase.output,
         );
       });
     });

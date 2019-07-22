@@ -50,7 +50,7 @@ describe('DtBits', () => {
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} converted to auto unit`, () => {
         expect(pipe.transform(testCase.input).toString()).toEqual(
-          testCase.output
+          testCase.output,
         );
       });
     });
@@ -94,7 +94,7 @@ describe('DtBits', () => {
         expect(
           pipe
             .transform(testCase.input, testCase.factor, testCase.inputUnit)
-            .toString()
+            .toString(),
         ).toEqual(testCase.output);
       });
     });

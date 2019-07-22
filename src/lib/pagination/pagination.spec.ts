@@ -44,24 +44,24 @@ describe('DtPagination', () => {
     it('should create the pagination element without any pages inside, only with arrows', () => {
       const fixture = createComponent(EmptyPagination);
       const containerEl = fixture.debugElement.query(
-        By.css('.dt-pagination-list')
+        By.css('.dt-pagination-list'),
       ).nativeElement;
       fixture.detectChanges();
 
       const listItems = containerEl.querySelectorAll('li');
       expect(listItems.length).toBe(2);
       expect(
-        listItems[0].classList.contains('dt-pagination-previous')
+        listItems[0].classList.contains('dt-pagination-previous'),
       ).toBeTruthy();
       expect(
-        listItems[1].classList.contains('dt-pagination-next')
+        listItems[1].classList.contains('dt-pagination-next'),
       ).toBeTruthy();
     });
 
     it('should disable both arrows when no data is there', () => {
       const fixture = createComponent(EmptyPagination);
       const containerEl = fixture.debugElement.query(
-        By.css('.dt-pagination-list')
+        By.css('.dt-pagination-list'),
       ).nativeElement;
       fixture.detectChanges();
 
@@ -79,7 +79,7 @@ describe('DtPagination', () => {
       const fixture = createComponent(PaginationTestComponent);
       fixture.detectChanges();
       const containerEl = fixture.debugElement.query(
-        By.css('.dt-pagination-list')
+        By.css('.dt-pagination-list'),
       ).nativeElement;
       const items = containerEl.querySelectorAll('li');
       expect(items.length).toBe(2);
@@ -90,7 +90,7 @@ describe('DtPagination', () => {
       const instance = fixture.componentInstance;
       fixture.detectChanges();
       let containerEl = fixture.debugElement.query(
-        By.css('.dt-pagination-list')
+        By.css('.dt-pagination-list'),
       ).nativeElement;
       let items = containerEl.querySelectorAll('.dt-pagination-item > *');
       expect(items.length).toBe(0);
@@ -139,10 +139,10 @@ describe('DtPagination', () => {
       expect(instance.pagination.currentPage).toBe(1);
 
       const prevButton = fixture.debugElement.nativeElement.querySelector(
-        '.dt-pagination-previous button'
+        '.dt-pagination-previous button',
       );
       const nextButton = fixture.debugElement.nativeElement.querySelector(
-        '.dt-pagination-next button'
+        '.dt-pagination-next button',
       );
 
       dispatchFakeEvent(prevButton, 'click');
@@ -173,7 +173,7 @@ describe('DtPagination', () => {
 
       expect(instance.pagination.currentPage).toBe(1);
       const page1 = fixture.debugElement.nativeElement.querySelector(
-        '.dt-pagination-item button'
+        '.dt-pagination-item button',
       );
       dispatchFakeEvent(page1, 'click');
       fixture.detectChanges();
@@ -181,7 +181,7 @@ describe('DtPagination', () => {
 
       // 4th element is the page 3
       const page2 = fixture.debugElement.nativeElement.querySelector(
-        '.dt-pagination-item:nth-child(4) button'
+        '.dt-pagination-item:nth-child(4) button',
       );
       dispatchFakeEvent(page2, 'click');
       fixture.detectChanges();
@@ -196,7 +196,7 @@ describe('DtPagination', () => {
       fixture.detectChanges();
 
       const buttons = fixture.debugElement.nativeElement.querySelectorAll(
-        '[dt-icon-button]'
+        '[dt-icon-button]',
       );
       expect(buttons[0].getAttribute('aria-disabled')).toBeTruthy();
       expect(buttons[1].getAttribute('aria-disabled')).toBe('false');
@@ -220,10 +220,10 @@ describe('DtPagination', () => {
       fixture.detectChanges();
 
       const previous = fixture.debugElement.nativeElement.querySelector(
-        '.dt-pagination-previous button'
+        '.dt-pagination-previous button',
       );
       const next = fixture.debugElement.nativeElement.querySelector(
-        '.dt-pagination-next button'
+        '.dt-pagination-next button',
       );
 
       dispatchFakeEvent(next, 'click');
@@ -245,7 +245,7 @@ describe('DtPagination', () => {
       fixture.detectChanges();
 
       const nextButton = fixture.debugElement.nativeElement.querySelector(
-        '.dt-pagination-next button'
+        '.dt-pagination-next button',
       );
 
       expect(instance.pagination.currentPage).toBe(1);
@@ -269,39 +269,39 @@ describe('DtPagination', () => {
       fixture.detectChanges();
 
       const containerEl = fixture.debugElement.query(
-        By.css('.dt-pagination-list')
+        By.css('.dt-pagination-list'),
       ).nativeElement;
       const previous = containerEl.querySelector(
-        '.dt-pagination-previous button'
+        '.dt-pagination-previous button',
       );
       const next = containerEl.querySelector('.dt-pagination-next button');
       const items = containerEl.querySelectorAll('.dt-pagination-item > *');
 
       expect(containerEl.getAttribute('aria-label')).toBe(ARIA_DEFAULT_LABEL);
       expect(previous.getAttribute('aria-label')).toBe(
-        ARIA_DEFAULT_PREVIOUS_LABEL
+        ARIA_DEFAULT_PREVIOUS_LABEL,
       );
       expect(next.getAttribute('aria-label')).toBe(ARIA_DEFAULT_NEXT_LABEL);
 
       expect(items[0].getAttribute('aria-label')).toBe(
-        `${ARIA_DEFAULT_CURRENT_LABEL} 1`
+        `${ARIA_DEFAULT_CURRENT_LABEL} 1`,
       );
       expect(items[0].getAttribute('aria-current')).toBe('');
       expect(items[1].getAttribute('aria-label')).toBe(
-        `${ARIA_DEFAULT_PAGE_LABEL} 2`
+        `${ARIA_DEFAULT_PAGE_LABEL} 2`,
       );
       expect(items[2].getAttribute('aria-label')).toBe(
-        `${ARIA_DEFAULT_PAGE_LABEL} 3`
+        `${ARIA_DEFAULT_PAGE_LABEL} 3`,
       );
       expect(items[3].getAttribute('aria-label')).toBe(ARIA_DEFAULT_ELLIPSES);
       expect(items[4].getAttribute('aria-label')).toBe(
-        `${ARIA_DEFAULT_PAGE_LABEL} 8`
+        `${ARIA_DEFAULT_PAGE_LABEL} 8`,
       );
       expect(items[5].getAttribute('aria-label')).toBe(
-        `${ARIA_DEFAULT_PAGE_LABEL} 9`
+        `${ARIA_DEFAULT_PAGE_LABEL} 9`,
       );
       expect(items[6].getAttribute('aria-label')).toBe(
-        `${ARIA_DEFAULT_PAGE_LABEL} 10`
+        `${ARIA_DEFAULT_PAGE_LABEL} 10`,
       );
     });
 
@@ -313,10 +313,10 @@ describe('DtPagination', () => {
       fixture.detectChanges();
 
       const containerEl = fixture.debugElement.query(
-        By.css('.dt-pagination-list')
+        By.css('.dt-pagination-list'),
       ).nativeElement;
       const previous = containerEl.querySelector(
-        '.dt-pagination-previous button'
+        '.dt-pagination-previous button',
       );
       const next = containerEl.querySelector('.dt-pagination-next button');
       const items = containerEl.querySelectorAll('.dt-pagination-item > *');
@@ -340,7 +340,7 @@ describe('DtPagination', () => {
       expect(items[0].getAttribute('aria-current')).toBe('');
       expect(items[1].getAttribute('aria-label')).toBe('página 2');
       expect(items[3].getAttribute('aria-label')).toBe(
-        'las siguientes paginas son elipses'
+        'las siguientes paginas son elipses',
       );
       expect(items[6].getAttribute('aria-label')).toBe('página 10');
     });

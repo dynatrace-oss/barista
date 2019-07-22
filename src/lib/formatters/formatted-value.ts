@@ -20,7 +20,7 @@ export const NO_DATA = '-';
 export class DtFormattedValue {
   constructor(
     private _sourceData: SourceData,
-    private _formattedData: FormattedData
+    private _formattedData: FormattedData,
   ) {}
 
   /** Source data containing value, unit, rate unit */

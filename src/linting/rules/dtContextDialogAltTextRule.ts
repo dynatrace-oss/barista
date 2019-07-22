@@ -16,7 +16,7 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
 
   private _isCustomTrigger(element: ElementAst): boolean {
     const customTrigger = element.inputs.find(
-      el => el.name === 'dtContextDialogTrigger'
+      el => el.name === 'dtContextDialogTrigger',
     );
 
     if (
@@ -37,7 +37,7 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
         addFailure(
           this,
           element,
-          'A context dialog trigger must have an aria-label or aria-labelledby attribute.'
+          'A context dialog trigger must have an aria-label or aria-labelledby attribute.',
         );
       }
     }
@@ -53,7 +53,7 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
       addFailure(
         this,
         element,
-        'A context dialog must provide alternative texts for the open and the close buttons. Use the aria-label and the aria-label-close-button input.'
+        'A context dialog must provide alternative texts for the open and the close buttons. Use the aria-label and the aria-label-close-button input.',
       );
     }
   }
@@ -91,7 +91,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtContextDialogVisitor,
-      })
+      }),
     );
   }
 }

@@ -102,7 +102,7 @@ describe('DtChart', () => {
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
       expect(
-        tooltip!.formatter!.bind({ series: { name: 'somename' } })()
+        tooltip!.formatter!.bind({ series: { name: 'somename' } })(),
       ).toEqual(false);
     });
 
@@ -139,13 +139,13 @@ describe('DtChart', () => {
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
       expect(
-        tooltip!.formatter!.bind({ series: { name: 'somename' } })()
+        tooltip!.formatter!.bind({ series: { name: 'somename' } })(),
       ).toEqual(false);
     });
 
     it('should work with empty series array', () => {
       expect(() => createComponent(EmptySeries)).not.toThrowError(
-        'Cannot convert undefined or null to object'
+        'Cannot convert undefined or null to object',
       );
       expect(() => createComponent(EmptySeries)).not.toThrow(TypeError);
     });
@@ -201,7 +201,7 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(
-        DT_CHART_COLOR_PALETTES.purple
+        DT_CHART_COLOR_PALETTES.purple,
       );
     });
 
@@ -210,7 +210,7 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(
-        DT_CHART_COLOR_PALETTE_ORDERED
+        DT_CHART_COLOR_PALETTE_ORDERED,
       );
     });
 
@@ -219,12 +219,12 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(
-        DT_CHART_COLOR_PALETTES.purple
+        DT_CHART_COLOR_PALETTES.purple,
       );
       fixture.componentInstance.theme = 'royalblue';
       fixture.detectChanges();
       expect(chartComponent.highchartsOptions.colors).toEqual(
-        DT_CHART_COLOR_PALETTES.royalblue
+        DT_CHART_COLOR_PALETTES.royalblue,
       );
     });
 
@@ -233,7 +233,7 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(
-        DT_CHART_COLOR_PALETTES.purple
+        DT_CHART_COLOR_PALETTES.purple,
       );
     });
 
@@ -242,7 +242,7 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       expect(chartComponent.highchartsOptions.colors).toEqual(
-        DT_CHART_COLOR_PALETTE_ORDERED
+        DT_CHART_COLOR_PALETTE_ORDERED,
       );
     });
   });
@@ -251,14 +251,14 @@ describe('DtChart', () => {
     it('should display the loading indicator if no series has been provided', () => {
       const fixture = createComponent(Loading);
       const loadingDebugElement = fixture.debugElement.query(
-        By.css('.dt-chart-loading-indicator')
+        By.css('.dt-chart-loading-indicator'),
       );
 
       expect(loadingDebugElement).toBeDefined(
-        'Loading indicater should be visible'
+        'Loading indicater should be visible',
       );
       expect(loadingDebugElement.nativeElement).toBeDefined(
-        'Loading indicater should be visible'
+        'Loading indicater should be visible',
       );
     });
 
@@ -267,14 +267,14 @@ describe('DtChart', () => {
       fixture.componentInstance.series = [];
       fixture.detectChanges();
       const loadingDebugElement = fixture.debugElement.query(
-        By.css('.dt-chart-loading-indicator')
+        By.css('.dt-chart-loading-indicator'),
       );
 
       expect(loadingDebugElement).toBeDefined(
-        'Loading indicater should be visible'
+        'Loading indicater should be visible',
       );
       expect(loadingDebugElement.nativeElement).toBeDefined(
-        'Loading indicater should be visible'
+        'Loading indicater should be visible',
       );
     });
 
@@ -289,41 +289,41 @@ describe('DtChart', () => {
       ];
       fixture.detectChanges();
       const loadingDebugElement = fixture.debugElement.query(
-        By.css('.dt-chart-loading-indicator')
+        By.css('.dt-chart-loading-indicator'),
       );
 
       expect(loadingDebugElement).toBeNull(
-        'Loading indicator should be hidden'
+        'Loading indicator should be hidden',
       );
     });
 
     it('should hide the loading indicator once a series has been provided', () => {
       const fixture = createComponent(Loading);
       let loadingDebugElement = fixture.debugElement.query(
-        By.css('.dt-chart-loading-indicator')
+        By.css('.dt-chart-loading-indicator'),
       );
       expect(loadingDebugElement).toBeDefined(
-        'Loading indicater should be visible'
+        'Loading indicater should be visible',
       );
       expect(loadingDebugElement.nativeElement).toBeDefined(
-        'Loading indicater should be visible'
+        'Loading indicater should be visible',
       );
 
       fixture.componentInstance.series = [{}];
       fixture.detectChanges();
 
       loadingDebugElement = fixture.debugElement.query(
-        By.css('.dt-chart-loading-indicator')
+        By.css('.dt-chart-loading-indicator'),
       );
       expect(loadingDebugElement).toBeNull(
-        'Loading indicator should be hidden'
+        'Loading indicator should be hidden',
       );
     });
 
     it('should not have a loading text as default', () => {
       const fixture = createComponent(LoadingText);
       const loadingElement: HTMLElement = fixture.debugElement.query(
-        By.css('.dt-chart-loading-indicator')
+        By.css('.dt-chart-loading-indicator'),
       ).nativeElement;
       expect(loadingElement.textContent).toBe('');
     });
@@ -334,7 +334,7 @@ describe('DtChart', () => {
       fixture.detectChanges();
 
       const loadingElement: HTMLElement = fixture.debugElement.query(
-        By.css('.dt-chart-loading-indicator')
+        By.css('.dt-chart-loading-indicator'),
       ).nativeElement;
       expect(loadingElement.textContent).toBe('Loading');
     });
@@ -601,13 +601,13 @@ class SeriesMoreThanOrderedColors {
     },
   };
   series: DtChartSeries[] = Array.from(
-    Array(DT_CHART_COLOR_PALETTE_ORDERED.length + 1).keys()
+    Array(DT_CHART_COLOR_PALETTE_ORDERED.length + 1).keys(),
   ).map(
     (): IndividualSeriesOptions => ({
       name: 'Actions/min',
       id: 'someMetricId',
       data: [[1370304000000, 140], [1370390400000, 120]],
-    })
+    }),
   );
 }
 

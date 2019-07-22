@@ -50,7 +50,7 @@ export class DtKeyValueList implements AfterContentInit, OnDestroy {
     this._columns = coerced;
     this._calculatedColumns = Math.min(
       Math.max(Math.floor(coerced), 1),
-      DT_KEY_VALUE_LIST_MAX_COLUMNS
+      DT_KEY_VALUE_LIST_MAX_COLUMNS,
     );
     this._itemsChangeSub.unsubscribe();
     this._itemsChangeSub = Subscription.EMPTY;

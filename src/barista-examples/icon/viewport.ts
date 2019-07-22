@@ -9,7 +9,7 @@ export class Viewport {
 
   constructor(
     private _scrollDispatcher: ScrollDispatcher,
-    private _viewportRuler: ViewportRuler
+    private _viewportRuler: ViewportRuler,
   ) {}
 
   /**
@@ -30,7 +30,7 @@ export class Viewport {
     const element = asElement(el);
     return this._change(element).pipe(
       map(viewportRect => isElementVisible(element, viewportRect)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -54,8 +54,8 @@ export class Viewport {
       this._scrollDispatcher.scrolled(),
       this._viewportRuler.change(200),
       this._refresher.pipe(
-        filter(ctx => !ctx || asElement(context) === asElement(ctx))
-      )
+        filter(ctx => !ctx || asElement(context) === asElement(ctx)),
+      ),
     ).pipe(map(() => this._viewportRuler.getViewportRect()));
   }
 }
@@ -63,7 +63,7 @@ export class Viewport {
 /** Calculates if the element is visible in the viewports Client Rect */
 export function isElementVisible(
   element: Element,
-  viewportRect: ClientRect
+  viewportRect: ClientRect,
 ): boolean {
   const { bottom, top } = element.getBoundingClientRect();
   return bottom >= 0 && top <= viewportRect.height;

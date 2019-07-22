@@ -37,12 +37,12 @@ describe('DtInput without forms', () => {
     const fixture = createComponent(DtInputWithRequired);
 
     const inputElement: HTMLInputElement = fixture.debugElement.query(
-      By.css('input')
+      By.css('input'),
     ).nativeElement;
 
     expect(inputElement.getAttribute('aria-required')).toBe(
       'false',
-      'Expected aria-required to reflect required state of false'
+      'Expected aria-required to reflect required state of false',
     );
 
     fixture.componentInstance.required = true;
@@ -50,7 +50,7 @@ describe('DtInput without forms', () => {
 
     expect(inputElement.getAttribute('aria-required')).toBe(
       'true',
-      'Expected aria-required to reflect required state of true'
+      'Expected aria-required to reflect required state of true',
     );
   }));
 
@@ -71,7 +71,7 @@ describe('DtInput without forms', () => {
     const fixture = createComponent(DtInputWithId);
 
     const inputElement: HTMLInputElement = fixture.debugElement.query(
-      By.css('input')
+      By.css('input'),
     ).nativeElement;
 
     expect(inputElement.id).toBe('test-id');
@@ -130,7 +130,7 @@ describe('DtInput without forms', () => {
     const fixture = createComponent(DtInputTextareaWithBindings);
 
     const textarea: HTMLTextAreaElement = fixture.debugElement.nativeElement.querySelector(
-      'textarea'
+      'textarea',
     );
     expect(textarea).not.toBeNull();
   }));

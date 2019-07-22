@@ -112,13 +112,13 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _dtColumnDef: DtColumnDef,
-    @Optional() private _sort: DtSort
+    @Optional() private _sort: DtSort,
   ) {
     super();
     if (_sort) {
       this._rerenderSubscription = merge(
         _sort.sortChange,
-        _sort._stateChanges
+        _sort._stateChanges,
       ).subscribe(() => {
         this._updateSorterIcon();
         this._changeDetectorRef.markForCheck();

@@ -45,7 +45,7 @@ describe('DtOverlay', () => {
       dtOverlay = overlay;
       overlayContainer = oc;
       overlayContainerElement = oc.getContainerElement();
-    }
+    },
   ));
 
   beforeEach(() => {
@@ -59,13 +59,13 @@ describe('DtOverlay', () => {
   it('should create a new overlay from templateRef', () => {
     dtOverlay.create(
       fixture.componentInstance.trigger,
-      fixture.componentInstance.overlay
+      fixture.componentInstance.overlay,
     );
 
     fixture.detectChanges();
 
     const overlay = overlayContainerElement.querySelector(
-      '.dt-overlay-container'
+      '.dt-overlay-container',
     ) as HTMLElement;
     expect(overlay).toBeDefined();
     expect(overlay.innerText).toEqual('overlay');
@@ -77,7 +77,7 @@ describe('DtOverlay', () => {
     fixture.detectChanges();
 
     const overlay = overlayContainerElement.querySelector(
-      '.dt-overlay-container'
+      '.dt-overlay-container',
     ) as HTMLElement;
     expect(overlay).toBeDefined();
     expect(overlay.innerText.trim()).toEqual('dummy-overlay');
@@ -86,12 +86,12 @@ describe('DtOverlay', () => {
   it('should dismiss the overlay correctly', fakeAsync(() => {
     dtOverlay.create(
       fixture.componentInstance.trigger,
-      fixture.componentInstance.overlay
+      fixture.componentInstance.overlay,
     );
     fixture.detectChanges();
 
     let overlay = overlayContainerElement.querySelector(
-      '.dt-overlay-container'
+      '.dt-overlay-container',
     );
     expect(overlay).toBeDefined();
     dtOverlay.dismiss();
@@ -104,7 +104,7 @@ describe('DtOverlay', () => {
   it('should not be pinnable by default', fakeAsync(() => {
     const dtOverlayRef = dtOverlay.create(
       fixture.componentInstance.trigger,
-      fixture.componentInstance.overlay
+      fixture.componentInstance.overlay,
     );
     fixture.detectChanges();
     dtOverlayRef.pin(true);
@@ -117,7 +117,7 @@ describe('DtOverlay', () => {
     const dtOverlayRef = dtOverlay.create(
       fixture.componentInstance.trigger,
       fixture.componentInstance.overlay,
-      { pinnable: true }
+      { pinnable: true },
     );
     fixture.detectChanges();
     dtOverlayRef.pin(true);
@@ -130,14 +130,14 @@ describe('DtOverlay', () => {
     const dtOverlayRef = dtOverlay.create(
       fixture.componentInstance.trigger,
       fixture.componentInstance.overlay,
-      { pinnable: true }
+      { pinnable: true },
     );
     fixture.detectChanges();
     dtOverlayRef.pin(true);
     fixture.detectChanges();
     flush();
     const backdrop = overlayContainerElement.querySelector(
-      '.cdk-overlay-backdrop'
+      '.cdk-overlay-backdrop',
     );
     expect(backdrop).not.toBeNull();
     dispatchMouseEvent(backdrop!, 'click');
@@ -145,7 +145,7 @@ describe('DtOverlay', () => {
     flush();
     expect(dtOverlayRef.pinned).toBeFalsy();
     const overlay = overlayContainerElement.querySelector(
-      '.dt-overlay-container'
+      '.dt-overlay-container',
     );
     expect(overlay).toBeNull();
   }));
@@ -154,7 +154,7 @@ describe('DtOverlay', () => {
     const dtOverlayRef = dtOverlay.create(
       fixture.componentInstance.trigger,
       fixture.componentInstance.overlay,
-      { pinnable: true }
+      { pinnable: true },
     );
     fixture.detectChanges();
     dtOverlayRef.pin(true);
@@ -165,7 +165,7 @@ describe('DtOverlay', () => {
     flush();
     expect(dtOverlayRef.pinned).toBeFalsy();
     const overlay = overlayContainerElement.querySelector(
-      '.dt-overlay-container'
+      '.dt-overlay-container',
     );
     expect(overlay).toBeNull();
   }));

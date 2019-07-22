@@ -40,7 +40,7 @@ export class DtOverlayRef<T> {
   constructor(
     private _overlayRef: OverlayRef,
     public containerInstance: DtOverlayContainer,
-    private _config: DtOverlayConfig
+    private _config: DtOverlayConfig,
   ) {
     containerInstance._onDomExit.pipe(take(1)).subscribe(() => {
       this._overlayRef.dispose();
@@ -53,8 +53,8 @@ export class DtOverlayRef<T> {
       .pipe(
         filter(
           (event: KeyboardEvent) =>
-            readKeyCode(event) === ESCAPE && !hasModifierKey(event)
-        )
+            readKeyCode(event) === ESCAPE && !hasModifierKey(event),
+        ),
       )
       .subscribe(() => {
         this.dismiss();
@@ -72,7 +72,7 @@ export class DtOverlayRef<T> {
         this.containerInstance._trapFocus();
         removeCssClass(
           this._overlayRef.backdropElement,
-          DT_OVERLAY_NO_POINTER_CLASS
+          DT_OVERLAY_NO_POINTER_CLASS,
         );
         this._overlayRef.backdropClick().subscribe(() => {
           this.dismiss();
@@ -80,7 +80,7 @@ export class DtOverlayRef<T> {
       } else {
         addCssClass(
           this._overlayRef.backdropElement,
-          DT_OVERLAY_NO_POINTER_CLASS
+          DT_OVERLAY_NO_POINTER_CLASS,
         );
         this._backDropClickSub.unsubscribe();
       }

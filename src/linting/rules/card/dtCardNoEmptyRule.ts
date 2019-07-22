@@ -27,7 +27,7 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
     addFailure(
       this,
       element,
-      'A dt-card must always contain content apart from title, subtitle, icon and actions.'
+      'A dt-card must always contain content apart from title, subtitle, icon and actions.',
     );
   }
 }
@@ -68,7 +68,7 @@ export class Rule extends Rules.AbstractRule {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
         templateVisitorCtrl: DtCardVisitor,
-      })
+      }),
     );
   }
 }

@@ -48,7 +48,7 @@ export class DtTreeTableToggleCell<T> extends DtCell
   /** @internal Wether the row is expandable */
   get _expandable(): boolean {
     return this._treeControl.isExpandable(
-      (this._row as DtTreeTableRow<T>).data
+      (this._row as DtTreeTableRow<T>).data,
     );
   }
 
@@ -72,7 +72,7 @@ export class DtTreeTableToggleCell<T> extends DtCell
     public _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
     elementRef: ElementRef,
-    @SkipSelf() private _treeTable: DtTreeTable<T>
+    @SkipSelf() private _treeTable: DtTreeTable<T>,
   ) {
     super(_columnDef, _changeDetectorRef, _renderer, elementRef);
     // subscribe to changes in the expansionmodel and check if rowsData is part of the added or removed
@@ -81,8 +81,8 @@ export class DtTreeTableToggleCell<T> extends DtCell
         filter(
           (changed: SelectionChange<T>) =>
             changed.added.includes(this._rowData) ||
-            changed.removed.includes(this._rowData)
-        )
+            changed.removed.includes(this._rowData),
+        ),
       )
       .subscribe(() => {
         this._changeDetectorRef.markForCheck();
@@ -111,7 +111,7 @@ export class DtTreeTableToggleCell<T> extends DtCell
     this._renderer.setStyle(
       this._wrapperElement.nativeElement,
       'padding-left',
-      `${padding}px`
+      `${padding}px`,
     );
   }
 }

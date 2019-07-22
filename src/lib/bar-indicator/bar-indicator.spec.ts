@@ -18,7 +18,7 @@ describe('DtBarIndicator', () => {
   it('should define a default value of zero for the value attribute', () => {
     const fixture = createComponent(BasicBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     expect(progressElement.componentInstance.value).toBe(0);
   });
@@ -26,7 +26,7 @@ describe('DtBarIndicator', () => {
   it('should define a default value of zero for the min attribute', () => {
     const fixture = createComponent(BasicBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     expect(progressElement.componentInstance.min).toBe(0);
   });
@@ -34,7 +34,7 @@ describe('DtBarIndicator', () => {
   it('should define a default value of 100 for the max attribute', () => {
     const fixture = createComponent(BasicBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     expect(progressElement.componentInstance.max).toBe(100);
   });
@@ -42,7 +42,7 @@ describe('DtBarIndicator', () => {
   it('should clamp the value of the progress between 0 and 100', () => {
     const fixture = createComponent(BasicBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     const progressComponent = progressElement.componentInstance;
 
@@ -65,7 +65,7 @@ describe('DtBarIndicator', () => {
   it('should accept the value, min and max attribute as an input', () => {
     const fixture = createComponent(ValueBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     expect(progressElement.componentInstance.value).toBe(150);
     expect(progressElement.componentInstance.min).toBe(100);
@@ -75,7 +75,7 @@ describe('DtBarIndicator', () => {
   it('should calculate the percentage based on value, min and max', () => {
     const fixture = createComponent(ValueBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     expect(progressElement.componentInstance.percent).toBe(50);
   });
@@ -83,60 +83,60 @@ describe('DtBarIndicator', () => {
   it('should set the min, max and value aria attribute accordingly', () => {
     const fixture = createComponent(ValueBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     expect(progressElement.nativeElement.getAttribute('aria-valuemin')).toBe(
-      '100'
+      '100',
     );
     expect(progressElement.nativeElement.getAttribute('aria-valuemax')).toBe(
-      '200'
+      '200',
     );
     expect(progressElement.nativeElement.getAttribute('aria-valuenow')).toBe(
-      '150'
+      '150',
     );
   });
 
   it('should augment an existing class with a color property', () => {
     const fixture = createComponent(ColorBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     const instance = progressElement.componentInstance;
 
     expect(instance.color).toBe(
       'main',
-      'Expected the mixed-into class to have a color property'
+      'Expected the mixed-into class to have a color property',
     );
 
     instance.color = 'accent';
 
     expect(instance.color).toBe(
       'accent',
-      'Expected the mixed-into class to have an updated color property'
+      'Expected the mixed-into class to have an updated color property',
     );
   });
 
   it('should remove old color classes if new color is set', () => {
     const fixture = createComponent(ColorBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     const instance = progressElement.componentInstance;
 
     expect(progressElement.nativeElement.classList).toContain(
       'dt-color-main',
-      'Expected the element to have the "dt-color-main" class set'
+      'Expected the element to have the "dt-color-main" class set',
     );
 
     instance.color = 'accent';
 
     expect(progressElement.nativeElement.classList).not.toContain(
       'dt-color-main',
-      'Expected the element to no longer have "dt-color-main" set.'
+      'Expected the element to no longer have "dt-color-main" set.',
     );
     expect(progressElement.nativeElement.classList).toContain(
       'dt-color-accent',
-      'Expected the element to have the "dt-color-accent" class set'
+      'Expected the element to have the "dt-color-accent" class set',
     );
   });
 
@@ -144,7 +144,7 @@ describe('DtBarIndicator', () => {
     const spy = jasmine.createSpy();
     const fixture = createComponent(ColorBarIndicator);
     const progressElement = fixture.debugElement.query(
-      By.css('dt-bar-indicator')
+      By.css('dt-bar-indicator'),
     );
     const instance = progressElement.componentInstance;
     instance.valueChange.subscribe(spy);

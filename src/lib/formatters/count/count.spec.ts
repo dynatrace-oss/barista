@@ -35,7 +35,7 @@ describe('DtCount', () => {
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} without unit`, () => {
         expect(
-          pipe.transform(testCase.input, testCase.inputUnit).toString()
+          pipe.transform(testCase.input, testCase.inputUnit).toString(),
         ).toEqual(testCase.output);
       });
     });
@@ -61,7 +61,7 @@ describe('DtCount', () => {
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} together with custom unit`, () => {
         expect(
-          pipe.transform(testCase.input, testCase.inputUnit).toString()
+          pipe.transform(testCase.input, testCase.inputUnit).toString(),
         ).toEqual(testCase.output);
       });
     });
