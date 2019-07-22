@@ -89,6 +89,9 @@
     "no-conflicting-lifecycle": false,
     "component-max-inline-declarations": false,
 
+    // Prettier specific
+    "prettier": true,
+
     // Dynatrace rules
     "dt-no-detect-changes": false,
 
