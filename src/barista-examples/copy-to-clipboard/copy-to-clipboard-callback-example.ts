@@ -5,9 +5,9 @@ import { timer } from 'rxjs';
   selector: 'barista-demo',
   template: `
     <dt-copy-to-clipboard (copied)="copyCallback()">
+      <!-- prettier-ignore -->
       <textarea dtInput aria-label="Text that is copied to clipboard">
-https://copyexample.dynatrace.com/</textarea
-      >
+https://copyexample.dynatrace.com/</textarea>
       <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
     </dt-copy-to-clipboard>
     <br />
