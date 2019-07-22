@@ -45,6 +45,7 @@ import {
   DtToastModule,
   DtToggleButtonGroupModule,
   DtTimelineChartModule,
+  DtLegendModule,
 } from '@dynatrace/angular-components';
 
 const DT_MODULES = [
@@ -94,6 +95,7 @@ const DT_MODULES = [
   DtToastModule,
   DtToggleButtonGroupModule,
   DtTimelineChartModule,
+  DtLegendModule,
 ];
 
 /**

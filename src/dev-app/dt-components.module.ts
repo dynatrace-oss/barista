@@ -45,6 +45,7 @@ import {
   DtToggleButtonGroupModule,
   DtTreeTableModule,
   DtTimelineChartModule,
+  DtLegendModule,
 } from '@dynatrace/angular-components';
 
 /**
@@ -98,6 +99,7 @@ import {
     DtToggleButtonGroupModule,
     DtConsumptionModule,
     DtTimelineChartModule,
+    DtLegendModule,
   ],
 })
 export class DevAppDynatraceModule {}
