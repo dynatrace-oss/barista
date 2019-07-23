@@ -1,18 +1,24 @@
 @import '../core/style/variables';
 
-.dt-timeline-chart {
+$dt-timeline-chart-tick-color: #cccccc;
+$dt-timeline-chart-bar-1-color: $blue-300;
+$dt-timeline-chart-timing-marker-color: $gray-640;
+$dt-timeline-chart-key-timing-marker-color: $blue-500;
+
+:host {
   display: block;
 }
 
 .dt-timeline-chart-wrapper {
+  padding-top: 28px;
   padding-bottom: 28px;
 }
 
 .dt-timeline-chart-bar-container {
   display: flex;
   width: 100%;
-  border-top: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
+  border-top: 1px solid $dt-timeline-chart-tick-color;
+  border-bottom: 1px solid $dt-timeline-chart-tick-color;
   height: 46px;
   padding-top: 17px;
 }
@@ -22,16 +28,7 @@
   height: 12px;
   position: relative;
   z-index: 1;
-
-  &:nth-child(1) {
-    background: $blue-300;
-  }
-  &:nth-child(2) {
-    background: $yellow-300;
-  }
-  &:nth-child(3) {
-    background: $red-500;
-  }
+  background: $dt-timeline-chart-bar-1-color;
 }
 
 .dt-timeline-chart-tick-container {
@@ -53,7 +50,7 @@
     content: '';
     width: 2px;
     height: 50px;
-    background: #cccccc;
+    background: $dt-timeline-chart-tick-color;
     bottom: 0;
     left: 0;
     position: absolute;
@@ -71,29 +68,66 @@
   position: absolute;
   width: 2px;
   height: 58px;
-  background: #525252;
-}
-
-.dt-timeline-chart-legend {
-  margin-top: 20px;
+  background: $dt-timeline-chart-timing-marker-color;
 }
 
 .dt-timeline-chart-legend-symbol,
-.dt-timeline-chart-timing-marker-bubble {
+.dt-timeline-chart-timing-marker-bubble,
+.dt-timeline-chart-key-timing-marker-bubble {
   display: block;
   width: 16px;
   height: 16px;
   border-radius: 50%;
   color: #ffffff;
-  background: #525252;
   font-size: 10px;
   font-weight: bold;
   line-height: 16px;
   text-align: center;
 }
 
+.dt-timeline-chart-legend-symbol,
+.dt-timeline-chart-timing-marker-bubble {
+  background: $dt-timeline-chart-timing-marker-color;
+}
+
 .dt-timeline-chart-timing-marker-bubble {
   position: absolute;
   bottom: -16px;
   left: -7px;
+}
+
+.dt-timeline-chart-key-timing-marker-container {
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.dt-timeline-chart-key-timing-marker {
+  display: block;
+  position: absolute;
+  width: 0px;
+  height: 58px;
+  bottom: 0;
+  border-left: 2px dashed $dt-timeline-chart-key-timing-marker-color;
+}
+
+.dt-timeline-chart-key-timing-marker-bubble {
+  background: $dt-timeline-chart-key-timing-marker-color;
+  position: absolute;
+  top: -16px;
+  left: -9px;
+}
+
+.dt-timeline-chart-key-timing-marker-label {
+  display: block;
+  position: absolute;
+  top: -18px;
+  left: 12px;
+  font-size: 12px;
+  white-space: nowrap;
+  color: $dt-timeline-chart-key-timing-marker-color;
+}
+
+.dt-timeline-chart-legend {
+  margin-top: 20px;
 }
