@@ -28,6 +28,23 @@
       <ng-container *ngIf="!isLast">{{ tick.value }}{{ unit }}</ng-container>
     </div>
   </div>
+
+  <div class="dt-timeline-chart-key-timing-marker-container">
+    <div
+      class="dt-timeline-chart-key-timing-marker"
+      *ngFor="let markerObj of _renderKeyTimingMarkers"
+      [style.left.%]="markerObj.position"
+    >
+      <span class="dt-timeline-chart-key-timing-marker-bubble">
+        {{ markerObj.marker.identifier }}
+      </span>
+      <span class="dt-timeline-chart-key-timing-marker-label">
+        <ng-template
+          [cdkPortalOutlet]="markerObj.marker._contentPortal"
+        ></ng-template>
+      </span>
+    </div>
+  </div>
 </div>
 
 <dt-legend class="dt-timeline-chart-legend">
