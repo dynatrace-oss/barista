@@ -21,7 +21,6 @@ import { SwitchUI } from '../switch/switch-ui';
 import { TabsUI } from '../tabs/tabs-ui';
 import { TileUI } from '../tile/tile-ui';
 import { Home } from './ui-test-app';
-import { TimelineChartUI } from '../timeline-chart/timeline-chart-ui';
 
 export const UI_TEST_APP_ROUTES: Routes = [
   { path: '', component: Home },
@@ -50,6 +49,5 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'tabs', component: TabsUI },
   { path: 'overlay', component: OverlayUI },
   { path: 'consumption', component: ConsumptionUI },
-  { path: 'timeline-chart', component: TimelineChartUI },
   { path: 'tile', component: TileUI },
 ];
