@@ -5,10 +5,24 @@
   <dt-timeline-chart-timing-marker value="0.04" identifier="S">
     Speed index 0.04s
   </dt-timeline-chart-timing-marker>
-  <dt-timeline-chart-timing-marker value="0.17" identifier="I">
+  <dt-timeline-chart-timing-marker
+    value="0.17"
+    identifier="I"
+    *ngIf="showDomInteractive"
+  >
     DOM interactive 0.17s
   </dt-timeline-chart-timing-marker>
   <dt-timeline-chart-timing-marker value="0.37" identifier="L">
     Load event start 0.37s
   </dt-timeline-chart-timing-marker>
+
+  <dt-timeline-chart-key-timing-marker value="0.03" identifier="V">
+    Visually complete
+  </dt-timeline-chart-key-timing-marker>
 </dt-timeline-chart>
+
+<div class="timeline-chart-demo-controls">
+  <dt-checkbox [(ngModel)]="showDomInteractive">
+    Show Dom Interactive
+  </dt-checkbox>
+</div>
