@@ -1,6 +1,6 @@
 @import '../core/style/variables';
 
-$dt-timeline-chart-tick-color: #cccccc;
+$dt-timeline-chart-tick-color: $gray-300;
 $dt-timeline-chart-bar-1-color: $blue-300;
 $dt-timeline-chart-timing-marker-color: $gray-640;
 $dt-timeline-chart-key-timing-marker-color: $blue-500;
@@ -105,7 +105,7 @@ $dt-timeline-chart-key-timing-marker-color: $blue-500;
 .dt-timeline-chart-key-timing-marker {
   display: block;
   position: absolute;
-  width: 0px;
+  width: 0;
   height: 58px;
   bottom: 0;
   border-left: 2px dashed $dt-timeline-chart-key-timing-marker-color;
@@ -130,4 +130,18 @@ $dt-timeline-chart-key-timing-marker-color: $blue-500;
 
 .dt-timeline-chart-legend {
   margin-top: 20px;
+}
+
+::ng-deep .dt-timeline-chart-overlay-panel {
+  display: block;
+  max-width: 300px;
+}
+
+::ng-deep .dt-timeline-chart-overlay-title {
+  display: block;
+  font-weight: bold;
+}
+
+::ng-deep .dt-timeline-chart-overlay-text {
+  display: block;
 }

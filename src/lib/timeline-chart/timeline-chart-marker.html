@@ -1,1 +1,7 @@
-<ng-template cdkPortal><ng-content></ng-content></ng-template>
+<ng-template cdkPortal #contentPortal><ng-content></ng-content></ng-template>
+<ng-template #overlayTemplate>
+  <div class="dt-timeline-chart-overlay-panel">
+    <ng-content select="dt-timeline-chart-overlay-title"></ng-content>
+    <ng-content select="dt-timeline-chart-overlay-text"></ng-content>
+  </div>
+</ng-template>

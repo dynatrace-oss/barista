@@ -48,7 +48,10 @@
 </div>
 
 <dt-legend class="dt-timeline-chart-legend">
-  <dt-legend-item *ngFor="let marker of _timingMarkers.toArray()">
+  <dt-legend-item
+    *ngFor="let marker of _timingMarkers.toArray()"
+    [_overlayTemplateRef]="marker._hasOverlay ? marker._overlayTemplate : undefined"
+  >
     <dt-legend-symbol class="dt-timeline-chart-legend-symbol">
       {{ marker.identifier }}
     </dt-legend-symbol>

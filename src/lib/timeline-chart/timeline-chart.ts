@@ -75,14 +75,14 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _viewportResizer: DtViewportResizer,
-    private _elementRef: ElementRef
+    private _elementRef: ElementRef,
   ) {}
 
   ngAfterContentInit(): void {
     merge(
       this._timingMarkers.changes,
       this._keyTimingMarkers,
-      this._viewportResizer.change()
+      this._viewportResizer.change(),
     )
       .pipe(takeUntil(this._destroy))
       .subscribe(() => {
@@ -130,7 +130,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   /** Calculates the position and updates the tick objects that are actually rendered. */
   private _updateRenderTicks(
     scale: ScaleLinear<number, number>,
-    ticks: number[]
+    ticks: number[],
   ): void {
     this._renderTicks = ticks.map(t => ({
       position: valueToPercentage(t, scale),
@@ -150,7 +150,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
 
   /** Calculates the position and updates the key timing marker objects that are actually rendered. */
   private _updateRenderKeyTimingMarkers(
-    scale: ScaleLinear<number, number>
+    scale: ScaleLinear<number, number>,
   ): void {
     this._renderKeyTimingMarkers = this._keyTimingMarkers
       ? this._keyTimingMarkers.toArray().map(marker => ({
@@ -161,9 +161,11 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   }
 
   /** Returns the amount of ticks based on the component with. More space means more ticks. */
-  private _getTickAmount() {
-    if (document && this._elementRef.nativeElement) {
-      const width = (this._elementRef.nativeElement as HTMLElement).clientWidth;
+  private _getTickAmount(): number {
+    const el = this._elementRef.nativeElement as HTMLElement;
+    // tslint:disable: no-magic-numbers
+    if (el && el.clientWidth) {
+      const width = el.clientWidth;
       if (width > 1200) {
         return 10;
       }
@@ -172,12 +174,13 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
       }
     }
     return 4;
+    // tslint:enable: no-magic-numbers
   }
 }
 
 function valueToPercentage(
   value: number,
-  scale: ScaleLinear<number, number>
+  scale: ScaleLinear<number, number>,
 ): number {
   return (
     // tslint:disable-next-line: no-magic-numbers

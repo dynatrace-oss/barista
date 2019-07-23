@@ -30,7 +30,6 @@ export class UIApp {
     { name: 'Pagination', route: '/pagination' },
     { name: 'Progress-bar', route: '/progress-bar' },
     { name: 'Switch', route: '/switch' },
-    { name: 'Timeline-chart', route: '/timeline-chart' },
     { name: 'radio', route: '/radio' },
     { name: 'Show-more', route: '/show-more' },
     { name: 'tile', route: '/tile' },
