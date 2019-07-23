@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
         <dt-legend-symbol class="dt-timeline-chart-legend-symbol">
           R
         </dt-legend-symbol>
+        <ng-template dtLegendOverlay>Overlay text</ng-template>
         Request start at 0.02s
       </dt-legend-item>
       <dt-legend-item>
@@ -22,6 +23,7 @@ import { Component } from '@angular/core';
           I
         </dt-legend-symbol>
         Dom interactive 0.17s
+        <ng-template dtLegendOverlay>Overlay 2</ng-template>
       </dt-legend-item>
       <dt-legend-item>
         <dt-legend-symbol class="dt-timeline-chart-legend-symbol">
