@@ -20,6 +20,7 @@
       }
     ],
     "array-type": false,
+    "template-cyclomatic-complexity": [true, 6],
     "linebreak-style": [true, "LF"],
     "i18n": false,
     "increment-decrement": false,
