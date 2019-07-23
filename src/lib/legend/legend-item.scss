@@ -1,11 +1,13 @@
 :host {
   display: flex;
   align-items: center;
+  cursor: default;
 }
 
 .dt-legend-item-label {
   margin-left: 4px;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 ::ng-deep.dt-legend-symbol {
