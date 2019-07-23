@@ -1,4 +1,5 @@
 import { Renderer2 } from '@angular/core';
+import { isNumber, isString } from './type-util';
 
 /**
  * Replaces an old class on an element with a new on.
@@ -60,4 +61,26 @@ export function hasCssClass(el: any, name: string): boolean {
 export function readKeyCode(event: KeyboardEvent): number {
   // tslint:disable-next-line:deprecation
   return event.keyCode;
+}
+
+/** Parses a value and a unit from a string / number if possible */
+export function parseCssValue(
+  // tslint:disable-next-line: no-any
+  input: any,
+): { value: number; unit: string } | null {
+  if (isNumber(input)) {
+    return { value: parseFloat(input), unit: 'px' };
+  }
+  if (isString(input)) {
+    const result = input.match(/^[\d\.]+/);
+    let unit = 'px';
+    let value: number;
+    if (result && result.length) {
+      value = parseFloat(result[0]);
+      const unitParsed = input.slice(result[0].length).trim();
+      unit = unitParsed !== '' ? unitParsed : unit;
+      return { value, unit };
+    }
+  }
+  return null;
 }
