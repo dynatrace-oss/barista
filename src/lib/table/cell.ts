@@ -24,6 +24,7 @@ import {
   addCssClass,
   DtIndicator,
   removeCssClass,
+  parseCssValue,
 } from '@dynatrace/angular-components/core';
 import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
 import { DtSort, DtSortEvent } from './sort/sort';
@@ -66,6 +67,7 @@ export class DtColumnDef extends CdkColumnDef implements OnChanges {
     'left';
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnProportion') proportion: number;
+  // TODO: Consider switching to ngStyle syntax in the future - value.unit
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnMinWidth') minWidth: string | number;
 
@@ -266,11 +268,14 @@ export function _updateDtColumnStyles(
     renderer.setStyle(elementRef.nativeElement, 'flex-grow', setProportion);
     renderer.setStyle(elementRef.nativeElement, 'flex-shrink', setProportion);
   }
-  if (minWidth > 0) {
+  const valueAndUnit = parseCssValue(minWidth);
+  if (valueAndUnit !== null) {
     renderer.setStyle(
       elementRef.nativeElement,
       'min-width',
-      `${coerceNumberProperty(minWidth)}px`,
+      `${valueAndUnit.value}${valueAndUnit.unit}`,
     );
+  } else {
+    renderer.removeStyle(elementRef.nativeElement, 'min-width');
   }
 }
