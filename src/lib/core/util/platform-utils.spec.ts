@@ -3,7 +3,7 @@
 
 import { ElementRef, Renderer2, Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
-import { replaceCssClass, hasCssClass } from './platform-util';
+import { replaceCssClass, hasCssClass, parseCssValue } from './platform-util';
 
 describe('PlatformUtil', () => {
   beforeEach(async(() => {
@@ -102,6 +102,34 @@ describe('PlatformUtil', () => {
       expect(
         hasCssClass(testComponent.testSvgElement, 'new-class'),
       ).toBeFalsy();
+    });
+  });
+
+  describe('parseCssValue', () => {
+    it('should return null if undefined is passed', () => {
+      expect(parseCssValue(undefined)).toBeNull();
+    });
+    it('should return null if no value is found', () => {
+      expect(parseCssValue('px')).toBeNull();
+      expect(parseCssValue('')).toBeNull();
+      expect(parseCssValue('%23')).toBeNull();
+    });
+    it('should default to px if no unit is found', () => {
+      expect(parseCssValue('23')).toEqual({ value: 23, unit: 'px' });
+      expect(parseCssValue(23)).toEqual({ value: 23, unit: 'px' });
+    });
+    it('should use whatever is passed into that is not a number as the unit', () => {
+      expect(parseCssValue('23%')).toEqual({ value: 23, unit: '%' });
+      expect(parseCssValue('23vw')).toEqual({ value: 23, unit: 'vw' });
+    });
+    it('should trim the unit if spaces are passed', () => {
+      expect(parseCssValue('23 % ')).toEqual({ value: 23, unit: '%' });
+      expect(parseCssValue('23   vw')).toEqual({ value: 23, unit: 'vw' });
+      expect(parseCssValue('23vw  ')).toEqual({ value: 23, unit: 'vw' });
+    });
+    it('should handle integer and floating point numbers', () => {
+      expect(parseCssValue('23.5%')).toEqual({ value: 23.5, unit: '%' });
+      expect(parseCssValue('23vw')).toEqual({ value: 23, unit: 'vw' });
     });
   });
 });
