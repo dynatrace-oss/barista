@@ -53,14 +53,14 @@ describe('DtOverlayTrigger', () => {
     overlayContainer.ngOnDestroy();
   });
 
-  it('should create an overlay on mouseover and move and dismiss on mouseout', fakeAsync(() => {
+  it('should create an overlay on mouseenter and move and dismiss on mouseleave', fakeAsync(() => {
     initOverlay(fixture, trigger);
 
     let overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeDefined();
     expect(overlay.innerText).toEqual('overlayfocusme');
 
-    dispatchMouseEvent(trigger, 'mouseout');
+    dispatchMouseEvent(trigger, 'mouseleave');
     fixture.detectChanges();
     flush();
 
@@ -99,7 +99,7 @@ describe('DtOverlayTrigger', () => {
     fixture.detectChanges();
     flush();
 
-    dispatchMouseEvent(trigger, 'mouseout');
+    dispatchMouseEvent(trigger, 'mouseleave');
     flush();
 
     const overlay = getContainerElement(overlayContainerElement);
@@ -115,14 +115,14 @@ describe('DtOverlayTrigger', () => {
     fixture.detectChanges();
     flush();
 
-    dispatchMouseEvent(trigger, 'mouseout');
+    dispatchMouseEvent(trigger, 'mouseleave');
     flush();
 
     const overlay = getContainerElement(overlayContainerElement);
     expect(overlay).not.toBeNull();
   }));
 
-  it('should stay pinned on subsequent mouseover', fakeAsync(() => {
+  it('should stay pinned on subsequent mouseenter', fakeAsync(() => {
     fixture.componentInstance.config = { pinnable: true };
     fixture.detectChanges();
     initOverlay(fixture, trigger);
@@ -131,12 +131,12 @@ describe('DtOverlayTrigger', () => {
     fixture.detectChanges();
     flush();
 
-    dispatchMouseEvent(trigger, 'mouseout');
+    dispatchMouseEvent(trigger, 'mouseleave');
     fixture.detectChanges();
 
     let overlay = getOverlayPane(overlayContainerElement);
 
-    dispatchMouseEvent(trigger, 'mouseover');
+    dispatchMouseEvent(trigger, 'mouseenter');
     dispatchMouseEvent(trigger, 'mousemove');
     fixture.detectChanges();
     flush();
@@ -278,7 +278,7 @@ function initOverlay(
   fixture: ComponentFixture<TestComponent>,
   trigger: HTMLElement,
 ): void {
-  dispatchMouseEvent(trigger, 'mouseover');
+  dispatchMouseEvent(trigger, 'mouseenter');
   dispatchMouseEvent(trigger, 'mousemove');
   fixture.detectChanges();
   flush();
