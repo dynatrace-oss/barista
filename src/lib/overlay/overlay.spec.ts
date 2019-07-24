@@ -72,7 +72,10 @@ describe('DtOverlay', () => {
   });
 
   it('should create a new overlay from component', () => {
-    dtOverlay.create(fixture.componentInstance.trigger, DummyOverlay);
+    const ref = dtOverlay.create(
+      fixture.componentInstance.trigger,
+      DummyOverlay,
+    );
 
     fixture.detectChanges();
 
@@ -81,6 +84,7 @@ describe('DtOverlay', () => {
     ) as HTMLElement;
     expect(overlay).toBeDefined();
     expect(overlay.innerText.trim()).toEqual('dummy-overlay');
+    expect(ref.componentInstance instanceof DummyOverlay).toBe(true);
   });
 
   it('should dismiss the overlay correctly', fakeAsync(() => {
