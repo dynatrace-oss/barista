@@ -213,9 +213,10 @@ export class DtOverlay implements OnDestroy {
         }),
       );
     } else {
-      container.attachComponentPortal(
+      const componentRef = container.attachComponentPortal(
         new ComponentPortal<T>(componentOrTemplateRef),
       );
+      dtOverlayRef.componentInstance = componentRef.instance;
     }
 
     return dtOverlayRef;

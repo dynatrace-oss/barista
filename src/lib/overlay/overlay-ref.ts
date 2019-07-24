@@ -15,6 +15,7 @@ import { DT_OVERLAY_NO_POINTER_CLASS } from './overlay';
 
 export class DtOverlayRef<T> {
   /** The instance of component opened into the overlay. */
+  // @breaking-change 5.0.0 Change type to `T | null` and assign value `null` as default.
   componentInstance: T;
 
   /** Wether the overlay is pinned or not */

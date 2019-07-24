@@ -99,7 +99,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
     }
   }
 
-  /** @internal MouseOut listener function that detaches the move subscription for the overlay. */
+  /** @internal MouseLeave listener function that detaches the move subscription for the overlay. */
   _handleMouseLeave(event: MouseEvent): void {
     event.stopPropagation();
     this._moveSub.unsubscribe();
