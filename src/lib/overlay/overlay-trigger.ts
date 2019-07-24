@@ -30,8 +30,8 @@ export const _DtOverlayTriggerMixin = mixinTabIndex(
   selector: '[dtOverlay]',
   exportAs: 'dtOverlayTrigger',
   host: {
-    '(mouseover)': '_onMouseOver($event)',
-    '(mouseout)': '_onMouseOut($event)',
+    '(mouseenter)': '_handleMouseEnter($event)',
+    '(mouseleave)': '_handleMouseLeave($event)',
     '(keydown)': '_handleKeydown($event)',
     '(click)': '_handleClick()',
     class: 'dt-overlay-trigger',
@@ -84,15 +84,15 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
     }
   }
 
-  /** @internal MouseOver listener function that attaches the move subscription to the mouse. */
-  _onMouseOver(event: MouseEvent): void {
+  /** @internal MouseEnter listener function that attaches the move subscription to the mouse. */
+  _handleMouseEnter(event: MouseEvent): void {
     if (!this.disabled) {
       event.stopPropagation();
       this._moveSub.unsubscribe();
       this._moveSub = this._ngZone.runOutsideAngular(() =>
         fromEvent(this.elementRef.nativeElement, 'mousemove').subscribe(
           (ev: MouseEvent) => {
-            this._onMouseMove(ev);
+            this._handleMouseMove(ev);
           },
         ),
       );
@@ -100,7 +100,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
   }
 
   /** @internal MouseOut listener function that detaches the move subscription for the overlay. */
-  _onMouseOut(event: MouseEvent): void {
+  _handleMouseLeave(event: MouseEvent): void {
     event.stopPropagation();
     this._moveSub.unsubscribe();
     if (this._dtOverlayRef && !this._dtOverlayRef.pinned) {
@@ -109,7 +109,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
   }
 
   /** @internal MouseMove listener that updates the position of the overlay. */
-  _onMouseMove(event: MouseEvent): void {
+  _handleMouseMove(event: MouseEvent): void {
     if (this._dtOverlayRef === null) {
       this._ngZone.run(() => {
         this._createOverlay();
