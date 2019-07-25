@@ -1054,31 +1054,14 @@ describe('DtFilterField', () => {
         TEST_DATA_EDITMODE.autocomplete[2],
         'Custom free text',
       ];
+
+      const rangeFilter = [
+        TEST_DATA_EDITMODE.autocomplete[3],
+        { operator: 'range', unit: 's', range: [15, 80] },
+      ];
+
       // Set filters as a starting point
-      filterField.filters = [autocompleteFilter, freeTextFilter];
-      fixture.detectChanges();
-
-      // TODO: Change this to a programmatic setting of the range filter, as soon as https://dev-jira.dynatrace.org/browse/***REMOVED*** is done.
-      filterField.focus();
-      zone.simulateMicrotasksEmpty();
-      zone.simulateZoneExit();
-      fixture.detectChanges();
-
-      // Open the filter-field-range overlay.
-      const options = getOptions(overlayContainerElement);
-      options[3].click();
-
-      zone.simulateMicrotasksEmpty();
-      fixture.detectChanges();
-
-      const inputFieldsElements = getRangeInputFields(overlayContainerElement);
-
-      typeInElement('15', inputFieldsElements[0]);
-      typeInElement('80', inputFieldsElements[1]);
-      fixture.detectChanges();
-
-      const rangeApplyButton = getRangeApplyButton(overlayContainerElement)[0];
-      rangeApplyButton.click();
+      filterField.filters = [autocompleteFilter, freeTextFilter, rangeFilter];
       fixture.detectChanges();
     });
 
@@ -1383,6 +1366,76 @@ describe('DtFilterField', () => {
       expect(filterTags[2].key).toBe('Requests per minute');
       expect(filterTags[2].separator).toBe(':');
       expect(filterTags[2].value).toBe('15s - 80s');
+    });
+  });
+
+  describe('programmatic setting', () => {
+    beforeEach(() => {
+      fixture.componentInstance.dataSource.data = TEST_DATA_EDITMODE;
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+    });
+
+    it('should set the autocomplete filter programmatically', () => {
+      // Autocomplete filter for AUT -> Upper Austria -> Cities -> Linz
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      fixture.detectChanges();
+
+      const tags = getFilterTags(fixture);
+      expect(tags[0].key).toBe('AUT');
+      expect(tags[0].separator).toBe(':');
+      expect(tags[0].value).toBe('Linz');
+    });
+
+    it('should set the freetext filter programmatically', () => {
+      // Custom free text for Free -> Custom free text
+      const freeTextFilter = [
+        TEST_DATA_EDITMODE.autocomplete[2],
+        'Custom free text',
+      ];
+      filterField.filters = [freeTextFilter];
+      fixture.detectChanges();
+
+      const tags = getFilterTags(fixture);
+      expect(tags[0].key).toBe('Free');
+      expect(tags[0].separator).toBe('~');
+      expect(tags[0].value).toBe('Custom free text');
+    });
+
+    it('should set the range filter programmatically (range operator)', () => {
+      // Range filter preset with range operator, second unit and range from 15 to 80
+      const rangeFilter = [
+        TEST_DATA_EDITMODE.autocomplete[3],
+        { operator: 'range', unit: 's', range: [15, 80] },
+      ];
+      filterField.filters = [rangeFilter];
+      fixture.detectChanges();
+
+      const tags = getFilterTags(fixture);
+      expect(tags[0].key).toBe('Requests per minute');
+      expect(tags[0].separator).toBe(':');
+      expect(tags[0].value).toBe('15s - 80s');
+    });
+
+    it('should set the range filter programmatically (greater-equal operator)', () => {
+      // Range filter preset with greater-equal operator, second unit and value of 75
+      const rangeFilter = [
+        TEST_DATA_EDITMODE.autocomplete[3],
+        { operator: 'greater-equal', unit: 's', range: 75 },
+      ];
+      filterField.filters = [rangeFilter];
+      fixture.detectChanges();
+
+      const tags = getFilterTags(fixture);
+      expect(tags[0].key).toBe('Requests per minute');
+      expect(tags[0].separator).toBe('≥');
+      expect(tags[0].value).toBe('75s');
     });
   });
 });

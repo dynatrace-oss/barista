@@ -9,7 +9,7 @@ export enum DtNodeFlags {
   TypeOption = 1 << 2,
   TypeGroup = 1 << 3,
   TypeRange = 1 << 4,
-  RenderTypes = TypeAutocomplete | TypeFreeText,
+  RenderTypes = TypeAutocomplete | TypeFreeText | TypeRange,
   Types = TypeAutocomplete | TypeFreeText | TypeOption | TypeGroup,
 }
 
