@@ -4,7 +4,7 @@ type: 'component'
 
 # <%= classify(name) %>
 
-<docs-source-example example="Default<%= classify(name) %>ExampleComponent"></docs-source-example>
+<docs-source-example example="<%= classify(name) %>DefaultExample"></docs-source-example>
 
 ## Imports
 
