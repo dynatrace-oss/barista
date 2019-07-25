@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: '<<%= selector %>></<%= selector %>>',
 })
-export class Default<%= classify(name) %>ExampleComponent { }
+export class <%= classify(name) %>DefaultExample { }
