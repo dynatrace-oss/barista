@@ -1205,6 +1205,42 @@ describe('DtFilterField', () => {
       expect(filterTags[2].value).toBe('15s - 80s');
     });
 
+    it('should reset the input value when editing the freetext, typing something (but not commiting the filter) and then cancelling', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+      tags[1].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+      zone.simulateMicrotasksEmpty();
+
+      const inputfield = getInput(fixture);
+      typeInElement('something else', inputfield);
+      fixture.detectChanges();
+
+      dispatchFakeEvent(document, 'click');
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixture);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Linz');
+
+      expect(filterTags[1].key).toBe('Free');
+      expect(filterTags[1].separator).toBe('~');
+      expect(filterTags[1].value).toBe('Custom free text');
+
+      expect(filterTags[2].key).toBe('Requests per minute');
+      expect(filterTags[2].separator).toBe(':');
+      expect(filterTags[2].value).toBe('15s - 80s');
+
+      expect(inputfield.value).toBe('');
+    });
+
     it('should reset the freetext filter when not changing anything and cancelling by keyboard', () => {
       const tags = fixture.debugElement.queryAll(
         By.css('.dt-filter-field-tag-label'),
