@@ -17,6 +17,7 @@
     "@angular/common": "^0.0.0-NG",
     "@dynatrace/dt-iconpack": ">= 2.0.22 < 3",
     "@types/highcharts": "^5.0.23",
+    "d3-scale": "^3.0.0",
     "highcharts": "^6.0.7"
   },
   "ngPackage": {
