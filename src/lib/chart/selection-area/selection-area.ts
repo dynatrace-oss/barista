@@ -1,4 +1,5 @@
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { ENTER } from '@angular/cdk/keycodes';
 import {
   FlexibleConnectedPositionStrategy,
   Overlay,
@@ -22,6 +23,7 @@ import {
 } from '@angular/core';
 import {
   addCssClass,
+  readKeyCode,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
 import {
@@ -39,12 +41,14 @@ import {
   map,
   mapTo,
   skip,
+  switchMap,
+  take,
   takeUntil,
   tap,
   throttleTime,
-  switchMap,
 } from 'rxjs/operators';
 import { DtChart } from '../chart';
+import { clampRange } from '../range/clamp-range';
 import { DtChartRange } from '../range/range';
 import { DtChartTimestamp } from '../timestamp/timestamp';
 import {
@@ -55,12 +59,12 @@ import {
 } from '../utils';
 import {
   DT_SELECTION_AREA_OVERLAY_POSITIONS,
+  getDtNoPlotBackgroundError,
   GRAB_CURSOR_CLASS,
   HIGHCHARTS_SERIES_GROUP,
   HIGHCHARTS_X_AXIS_GRID,
   HIGHCHARTS_Y_AXIS_GRID,
   NO_POINTER_EVENTS_CLASS,
-  getDtNoPlotBackgroundError,
 } from './constants';
 import {
   getClickStream,
@@ -85,6 +89,7 @@ import {
   host: {
     class: 'dt-chart-selection-area dt-no-pointer-events',
     '[attr.tabindex]': '0',
+    '(keydown)': '_createSelection($event)',
   },
 })
 export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
@@ -204,6 +209,72 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     this._closeOverlay();
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  /**
+   * @internal
+   * Is used to create a selection that is triggered
+   * by keyboard interaction on hitting enter called by host binding
+   * @param $event Keyboard event that is fired on the selection area
+   */
+  _createSelection(event: KeyboardEvent): void {
+    if (readKeyCode(event) !== ENTER || !this._selectionAreaBcr) {
+      return;
+    }
+
+    if ((this._range && this._timestamp) || this._timestamp) {
+      // place the timestamp in the middle
+      // tslint:disable-next-line: no-magic-numbers
+      this._setTimestamp(this._selectionAreaBcr.width / 2);
+    } else {
+      // tslint:disable-next-line: no-magic-numbers
+      const quarter = this._selectionAreaBcr.width / 4;
+      // tslint:disable-next-line: no-magic-numbers
+      this._setRange(quarter, quarter * 2);
+    }
+  }
+
+  /** Toggles the range and sets it programmatically with the provided values */
+  private _setRange(left: number, width?: number): void {
+    if (!this._range || !this._selectionAreaBcr) {
+      return;
+    }
+    this._closeOverlay();
+    this._toggleRange(true);
+    const minWidth = !width ? this._range._calculateMinWidth(left) : width;
+    const maxWidth = this._selectionAreaBcr.width;
+    const range = { left, width: minWidth };
+    this._range._area = clampRange(range, maxWidth, minWidth);
+    this._zone.onMicrotaskEmpty
+      .pipe(
+        take(1),
+        takeUntil(this._destroy$),
+      )
+      .subscribe(() => {
+        if (this._range) {
+          this._range.focus();
+        }
+      });
+  }
+
+  /** Toggles the timestamp and sets it programmatically with the provided value */
+  private _setTimestamp(position: number): void {
+    if (!this._timestamp) {
+      return;
+    }
+    this._closeOverlay();
+    this._toggleTimestamp(true);
+    this._timestamp._position = position;
+    this._zone.onMicrotaskEmpty
+      .pipe(
+        take(1),
+        takeUntil(this._destroy$),
+      )
+      .subscribe(() => {
+        if (this._timestamp) {
+          this._timestamp.focus();
+        }
+      });
   }
 
   /**
@@ -360,11 +431,20 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
       // after a click happened and the timestamp is visible in the queryList we focus the timestamp
       this._click$
-        .pipe(switchMap(() => this._timestamp!._timestampElementRef.changes))
+        .pipe(
+          switchMap(() => this._timestamp!._timestampElementRef.changes),
+          takeUntil(this._destroy$),
+        )
         .subscribe(() => {
           if (this._timestamp) {
             this._timestamp.focus();
           }
+        });
+
+      this._timestamp._switchToRange
+        .pipe(takeUntil(this._destroy$))
+        .subscribe((left: number) => {
+          this._setRange(left);
         });
     }
 
@@ -432,6 +512,12 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
           if (this._range) {
             this._range._area = area;
           }
+        });
+
+      this._range._switchToTimestamp
+        .pipe(takeUntil(this._destroy$))
+        .subscribe((position: number) => {
+          this._setTimestamp(position);
         });
 
       this._zone.runOutsideAngular(() => {

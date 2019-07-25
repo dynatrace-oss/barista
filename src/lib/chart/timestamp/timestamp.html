@@ -25,4 +25,5 @@
   [attr.aria-valuetext]="value | date: 'MMM d, HH:mm'"
   [attr.aria-valuenow]="value"
   [attr.aria-label]="ariaLabelSelected"
+  (keydown)="_handleKeyUp($event)"
 ></div>

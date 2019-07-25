@@ -1,5 +1,14 @@
 import { CdkTrapFocus } from '@angular/cdk/a11y';
 import {
+  TAB,
+  DOWN_ARROW,
+  UP_ARROW,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  BACKSPACE,
+  DELETE,
+} from '@angular/cdk/keycodes';
+import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -17,9 +26,10 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { isNumber } from '@dynatrace/angular-components/core';
+import { isNumber, readKeyCode } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
+import { updateTimestampWithKeyboardEvent } from './update-timestamp-with-keyboard-event';
 
 /** @internal Aria label for the selected time. */
 export const ARIA_DEFAULT_SELECTED_LABEL = 'the selected time';
@@ -141,6 +151,9 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   /** @internal State changes subject that provides the state with the position in px */
   readonly _stateChanges = new Subject<TimestampStateChangedEvent>();
 
+  /** @internal Subject that emits if a timestamp will be transformed to a range */
+  readonly _switchToRange = new Subject<number>();
+
   /** @internal The maximum value that can be selected on the xAxis */
   _maxValue: number;
 
@@ -176,6 +189,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     public _viewContainerRef: ViewContainerRef,
     private _renderer: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _elementRef: ElementRef<HTMLElement>,
   ) {}
 
   ngOnDestroy(): void {
@@ -240,7 +254,43 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
    */
   _emitStateChanges(): void {
     this._stateChanges.next(
-      new TimestampStateChangedEvent(this._positionX, this._hidden),
+      new TimestampStateChangedEvent(this._positionX, this._timestampHidden),
+    );
+  }
+
+  /**
+   * @internal
+   * This method is used to enable keyboard support to move the timestamp
+   * @param event Keyboard event that provides information how to move the timestamp
+   */
+  _handleKeyUp(event: KeyboardEvent): void {
+    if (readKeyCode(event) === TAB) {
+      // we want to stay in our focus trap so continue
+      return;
+    }
+
+    if ([BACKSPACE, DELETE].includes(readKeyCode(event))) {
+      // reset the timestamp
+      this._reset();
+      this._closeOverlay.next();
+      this._emitStateChanges();
+    }
+
+    const arrowKeys = [DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW];
+    if (!!event.shiftKey && arrowKeys.includes(readKeyCode(event))) {
+      this._switchToRange.next(this._positionX);
+    }
+
+    // to prevent scrolling on page up and down
+    event.preventDefault();
+
+    const maxWidth = this._elementRef.nativeElement.getBoundingClientRect()
+      .width;
+
+    this._position = updateTimestampWithKeyboardEvent(
+      event,
+      this._positionX,
+      maxWidth,
     );
   }
 
