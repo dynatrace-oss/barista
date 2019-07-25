@@ -1,3 +1,36 @@
+## 4.2.0 (2019-07-25)
+
+### Bug Fixes
+
+- **filter-field:** Fixes an issue where the range filter failed to set
+  programmatically
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Fixes an issue with the filter field not correctly resetting
+  when cancelling edit mode
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Fixes weird spacing for range labels
+  ([***REMOVED***])(https://dev-jira.dynatrace.org/browse/***REMOVED***)
+- **overlay:** Fixes an issue when hovering over child elements of the trigger
+  the overlay is destroyed and recreated.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **overlay:** Fixes an issue where the instance of the component created in the
+  overlay was not applied to the respective property on the overlay ref.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **table:** Fixes an issue where the dtColumnMinWidth input did not handle
+  strings correctly
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Features
+
+- **progress-bar:** Added dark theme styles
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **timeline-chart:** Added possibility to set key timing marker
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **timeline-chart:** Added possibility to show an overlay for timing marker.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **timeline-chart:** Added timeline chart
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 4.1.1 (2019-07-22)
 
 ### Bug Fixes
