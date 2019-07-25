@@ -9,6 +9,24 @@ import {
   TimestampStateChangedEvent,
   ARIA_DEFAULT_SELECTED_LABEL,
 } from './timestamp';
+import { createComponent } from '../../../testing/create-component';
+import { createKeyboardEvent } from '../../../testing/event-objects';
+import {
+  dispatchEvent,
+  dispatchKeyboardEvent,
+} from '../../../testing/dispatch-events';
+import {
+  UP_ARROW,
+  RIGHT_ARROW,
+  LEFT_ARROW,
+  DOWN_ARROW,
+  PAGE_UP,
+  PAGE_DOWN,
+  HOME,
+  END,
+  BACKSPACE,
+  DELETE,
+} from '@angular/cdk/keycodes';
 
 const TIMESTAMP_SELECTOR = '.dt-chart-timestamp-selector';
 
@@ -116,11 +134,8 @@ describe('DtChart Timestamp', () => {
     let timestamp: DtChartTimestamp;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent<TimestampTestBindingValuesComponent>(
-        TimestampTestBindingValuesComponent,
-      );
+      fixture = createComponent(TimestampTestBindingValuesComponent);
       timestamp = fixture.componentInstance.timestamp;
-      fixture.detectChanges();
     });
 
     it('should have initial values from binding and update them', () => {
@@ -239,6 +254,114 @@ describe('DtChart Timestamp', () => {
       expect(container.getAttribute('aria-valuetext')).toBe('Oct 11, 20:48');
     });
   });
+
+  describe('keyboard support', () => {
+    let fixture: ComponentFixture<TimestampTestBindingValuesComponent>;
+    let timestamp: DtChartTimestamp;
+    let selector: HTMLElement;
+
+    beforeEach(() => {
+      fixture = createComponent(TimestampTestBindingValuesComponent);
+      timestamp = fixture.componentInstance.timestamp;
+
+      const el: HTMLElement = fixture.debugElement.query(
+        By.css('.dt-chart-timestamp'),
+      ).nativeElement;
+
+      jest.spyOn(el, 'getBoundingClientRect').mockReturnValue({
+        bottom: 100,
+        height: 100,
+        left: 0,
+        right: 100,
+        top: 0,
+        width: 100,
+      });
+
+      selector = fixture.debugElement.query(
+        By.css('.dt-chart-timestamp-selector'),
+      ).nativeElement;
+    });
+
+    it('should trigger a switch to Range event when the shift key was pressed', () => {
+      const spy = jest.fn();
+      const subscription = timestamp._switchToRange.subscribe(spy);
+
+      const event = createKeyboardEvent('keydown', UP_ARROW);
+      jest.spyOn(event, 'shiftKey', 'get').mockImplementation(() => true);
+      dispatchEvent(selector, event);
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith(10); // value of the timestamp
+      subscription.unsubscribe();
+    });
+
+    it('should increase the value on right arrow press', () => {
+      dispatchKeyboardEvent(selector, 'keydown', RIGHT_ARROW);
+      expect(timestamp.value).toBe(11);
+      expect(timestamp._position).toBe(11);
+    });
+
+    it('should increase the value on up arrow press', () => {
+      dispatchKeyboardEvent(selector, 'keydown', UP_ARROW);
+      expect(timestamp.value).toBe(11);
+      expect(timestamp._position).toBe(11);
+    });
+
+    it('should decrease the value on left arrow press', () => {
+      dispatchKeyboardEvent(selector, 'keydown', LEFT_ARROW);
+      expect(timestamp.value).toBe(9);
+      expect(timestamp._position).toBe(9);
+    });
+
+    it('should decrease the value on down arrow press', () => {
+      dispatchKeyboardEvent(selector, 'keydown', DOWN_ARROW);
+      expect(timestamp.value).toBe(9);
+      expect(timestamp._position).toBe(9);
+    });
+
+    it('should increase the value in large steps on page up press', () => {
+      dispatchKeyboardEvent(selector, 'keydown', PAGE_UP);
+      expect(timestamp.value).toBe(20);
+      expect(timestamp._position).toBe(20);
+    });
+
+    it('should decrease the value in large steps on page down press', () => {
+      fixture.debugElement.componentInstance.value = 44;
+      fixture.detectChanges();
+      dispatchKeyboardEvent(selector, 'keydown', PAGE_DOWN);
+      expect(timestamp.value).toBe(34);
+      expect(timestamp._position).toBe(34);
+    });
+
+    it('should set the value to the min on home press', () => {
+      fixture.debugElement.componentInstance.value = 44;
+      fixture.detectChanges();
+      dispatchKeyboardEvent(selector, 'keydown', HOME);
+      expect(timestamp.value).toBe(0);
+      expect(timestamp._position).toBe(0);
+    });
+
+    it('should set the value to the max on end press', () => {
+      fixture.debugElement.componentInstance.value = 44;
+      fixture.detectChanges();
+      dispatchKeyboardEvent(selector, 'keydown', END);
+      expect(timestamp.value).toBe(100);
+      expect(timestamp._position).toBe(100);
+    });
+
+    it('should destroy the timestamp on backspace press', () => {
+      expect(timestamp._hidden).toBe(false);
+      dispatchKeyboardEvent(selector, 'keydown', BACKSPACE);
+      expect(timestamp.value).toBe(0);
+      expect(timestamp._hidden).toBe(true);
+    });
+
+    it('should destroy the timestamp on delete press', () => {
+      expect(timestamp._hidden).toBe(false);
+      dispatchKeyboardEvent(selector, 'keydown', DELETE);
+      expect(timestamp.value).toBe(0);
+      expect(timestamp._hidden).toBe(true);
+    });
+  });
 });
 
 @Component({
@@ -280,5 +403,6 @@ export class TimestampTestBindingValuesComponent implements OnInit {
     this.timestamp._minValue = new Date('2019/01/01 00:00:00').getTime();
     this.timestamp._maxValue = new Date('2019/12/31 00:00:00').getTime();
     this.timestamp._valueToPixels = (value: number) => value;
+    this.timestamp._pixelsToValue = (value: number) => value;
   }
 }

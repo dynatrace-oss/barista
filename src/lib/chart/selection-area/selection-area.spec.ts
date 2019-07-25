@@ -1,6 +1,7 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { ENTER } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, Provider, Type } from '@angular/core';
@@ -12,11 +13,19 @@ import {
   DtIconModule,
   DtThemingModule,
 } from '@dynatrace/angular-components';
+import * as formatters from '@dynatrace/angular-components/formatters';
 import { Subject } from 'rxjs';
-import { dispatchMouseEvent } from '../../../testing/dispatch-events';
+import {
+  dispatchKeyboardEvent,
+  dispatchMouseEvent,
+} from '../../../testing/dispatch-events';
 import { ARIA_DEFAULT_CLOSE_LABEL } from '../range/constants';
 import { DtChartRange } from '../range/range';
 import * as streams from './streams';
+
+jest
+  .spyOn(formatters, 'dtFormatDateRange')
+  .mockImplementation(() => '21 Feb 2019');
 
 describe('DtChart Selection Area', () => {
   let overlayContainer: OverlayContainer;
@@ -25,7 +34,7 @@ describe('DtChart Selection Area', () => {
   function createComponent<T>(
     component: Type<T>,
     providers: Provider[] = [],
-  ): any {
+  ): ComponentFixture<T> {
     TestBed.configureTestingModule({
       imports: [
         DtChartModule,
@@ -34,7 +43,12 @@ describe('DtChart Selection Area', () => {
         HttpClientTestingModule,
         NoopAnimationsModule,
       ],
-      declarations: [TestChart, TestChartComponent],
+      declarations: [
+        TestChart,
+        TestChartComponent,
+        TimestampOnlyChart,
+        RangeOnlyChart,
+      ],
       providers,
     });
 
@@ -148,7 +162,7 @@ describe('DtChart Selection Area', () => {
     });
   });
 
-  describe('accessibilty', () => {
+  describe('accessibility', () => {
     let fixture: ComponentFixture<TestChart>;
 
     beforeEach(() => {
@@ -213,6 +227,82 @@ describe('DtChart Selection Area', () => {
       });
     });
   });
+
+  describe('keyboard support', () => {
+    function createFixture<T>(
+      component: Type<T>,
+      selector: string,
+    ): {
+      fixture: ComponentFixture<T>;
+      selectionArea: HTMLElement;
+      element: DebugElement;
+    } {
+      const fixture = createComponent(component);
+      fixture.detectChanges();
+      const selectionArea = fixture.debugElement.query(
+        By.css('.dt-chart-selection-area'),
+      );
+
+      Object.defineProperty(
+        selectionArea.componentInstance,
+        '_selectionAreaBcr',
+        {
+          get: jest.fn().mockReturnValue({
+            top: 10,
+            left: 10,
+            right: 510,
+            bottom: 110,
+            width: 500,
+            height: 100,
+          }),
+        },
+      );
+
+      const element: DebugElement = fixture.debugElement.query(
+        By.css(selector),
+      );
+
+      return {
+        fixture,
+        selectionArea: selectionArea.nativeElement,
+        element,
+      };
+    }
+
+    it('should create a timestamp on hitting the enter key', () => {
+      const selector = '.dt-chart-timestamp-selector';
+      const { fixture, selectionArea, element } = createFixture(
+        TimestampOnlyChart,
+        selector,
+      );
+      expect(element).toBeNull();
+
+      dispatchKeyboardEvent(selectionArea, 'keydown', ENTER);
+      fixture.detectChanges();
+
+      const timestamp = fixture.debugElement.query(By.css(selector));
+
+      expect(timestamp).not.toBeNull();
+      expect(timestamp.nativeElement).toBeDefined();
+    });
+
+    it('should create a range on hitting the enter key with a range only selection area', () => {
+      const selector = '.dt-chart-range-container';
+      const { fixture, selectionArea, element } = createFixture(
+        RangeOnlyChart,
+        selector,
+      );
+      expect(element).toBeNull();
+
+      dispatchKeyboardEvent(selectionArea, 'keydown', ENTER);
+      fixture.detectChanges();
+
+      const range = fixture.debugElement.query(By.css(selector));
+
+      expect(range).not.toBeNull();
+      expect(range.nativeElement).toBeDefined();
+    });
+  });
 });
 
 @Component({
@@ -245,6 +335,32 @@ export class TestChart {
   `,
 })
 export class TestChartComponent {
+  options = OPTIONS;
+  series = SERIES;
+}
+
+@Component({
+  selector: 'test-chart',
+  template: `
+    <dt-chart [options]="options" [series]="series">
+      <dt-chart-timestamp></dt-chart-timestamp>
+    </dt-chart>
+  `,
+})
+export class TimestampOnlyChart {
+  options = OPTIONS;
+  series = SERIES;
+}
+
+@Component({
+  selector: 'test-chart',
+  template: `
+    <dt-chart [options]="options" [series]="series">
+      <dt-chart-range></dt-chart-range>
+    </dt-chart>
+  `,
+})
+export class RangeOnlyChart {
   options = OPTIONS;
   series = SERIES;
 }
