@@ -1,7 +1,42 @@
 import { FocusTrap } from '@angular/cdk/a11y';
+import {
+  DOWN_ARROW,
+  LEFT_ARROW,
+  PAGE_DOWN,
+  PAGE_UP,
+  RIGHT_ARROW,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
 import { ElementRef, QueryList } from '@angular/core';
+import { readKeyCode } from '@dynatrace/angular-components/core';
 import { fromEvent, merge, Observable, OperatorFunction } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+
+/** @internal the large offset for keyboard navigation */
+const KEYBOARD_NAVIGATION_LARGE_OFFSET = 10;
+
+/**
+ * @internal
+ * Calculate according to a keyboardEvents key code the offset
+ * that should be used to move an element. Weather it is a large offset
+ * or a small one.
+ */
+export function getKeyboardNavigationOffset(event: KeyboardEvent): number {
+  switch (readKeyCode(event)) {
+    case RIGHT_ARROW:
+    case UP_ARROW:
+      return 1;
+    case LEFT_ARROW:
+    case DOWN_ARROW:
+      return -1;
+    case PAGE_UP:
+      return KEYBOARD_NAVIGATION_LARGE_OFFSET;
+    case PAGE_DOWN:
+      return -KEYBOARD_NAVIGATION_LARGE_OFFSET;
+    default:
+      return 0;
+  }
+}
 
 /**
  * @internal

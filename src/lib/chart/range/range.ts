@@ -3,6 +3,8 @@ import {
   coerceBooleanProperty,
   coerceNumberProperty,
 } from '@angular/cdk/coercion';
+import { BACKSPACE, DELETE, TAB } from '@angular/cdk/keycodes';
+import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -10,9 +12,11 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Inject,
   Input,
   OnDestroy,
   Output,
+  PLATFORM_ID,
   QueryList,
   Renderer2,
   TemplateRef,
@@ -24,12 +28,14 @@ import {
 import {
   addCssClass,
   isNumber,
+  readKeyCode,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
 import { dtFormatDateRange } from '@dynatrace/angular-components/formatters';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 import { DtSelectionAreaEventTarget } from '../selection-area/position-utils';
+import { clampRange } from './clamp-range';
 import {
   ARIA_DEFAULT_CLOSE_LABEL,
   ARIA_DEFAULT_LEFT_HANDLE_LABEL,
@@ -39,6 +45,7 @@ import {
   DT_RANGE_RELEASED_CLASS,
   DT_RANGE_UN_VALID_CLASS,
 } from './constants';
+import { updateRangeWithKeyboardEvent } from './update-range-with-keyboard-event';
 
 /** @internal Event that gets emitted when the internal state of the range changes */
 export class RangeStateChangedEvent {
@@ -212,11 +219,17 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   /** @internal Event that emits when a handle receives a mousedown event */
   readonly _handleDragStarted = new Subject<DtSelectionAreaEventTarget>();
 
+  /** @internal Subject that emits when a handle gets deleted and the range switches to a timestamp */
+  readonly _switchToTimestamp = new Subject<number>();
+
   /** @internal The maximum value that can be selected on the xAxis */
   _maxValue: number;
 
   /** @internal The minimal value that can be selected on the xAxis */
   _minValue: number;
+
+  /** @internal The maximum value in px that can be selected on the xAxis */
+  _maxWidth: number;
 
   /** @internal The offset of the plotBackground in relation to the chart container on the xAxis  */
   _plotBackgroundChartOffset = 0;
@@ -226,7 +239,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     | ((pixel: number, paneCoordinates?: boolean) => number)
     | null = null;
 
-  /** @internal Function to calculate the px position of a provided value on the xAxis */
+  /** Function to calculate the px position of a provided value on the xAxis */
   private _valueToPixelsFn:
     | ((value: number, paneCoordinates?: boolean) => number)
     | null = null;
@@ -251,6 +264,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     private _elementRef: ElementRef<HTMLElement>,
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
+    @Inject(PLATFORM_ID) private _platformId: string,
   ) {}
 
   ngOnDestroy(): void {
@@ -265,6 +279,9 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe(() => {
+        if (isPlatformBrowser(this._platformId)) {
+          this._maxWidth = this._elementRef.nativeElement.getBoundingClientRect().width;
+        }
         this._reflectStyleToDom();
         this._reflectValueToDom();
         this._reflectRangeValid();
@@ -307,6 +324,61 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   _dragHandle(event: MouseEvent, type: string): void {
     event.stopImmediatePropagation();
     this._handleDragStarted.next(type as DtSelectionAreaEventTarget);
+  }
+
+  /**
+   * @internal
+   * Calculate the min width in px out of a left value.
+   * Needs the starting point in case that the min is defined via timestamp values
+   * @param left the starting point to calculate the min width
+   */
+  _calculateMinWidth(left: number): number {
+    if (this._pixelsToValue && this._valueToPixelsFn) {
+      const start = this._pixelsToValue(left);
+      return (
+        this._valueToPixelsFn(start + this._min) - this._valueToPixelsFn(start)
+      );
+    }
+    return 0;
+  }
+
+  /**
+   * @internal
+   * This method is used to enable keyboard support to move the both handles
+   * @param event Keyboard event that provides information how to move the handle
+   * @param handle indicates whether the left or the right handle triggered the event
+   */
+  _handleKeyUp(event: KeyboardEvent, handle: string): void {
+    if (readKeyCode(event) === TAB) {
+      // we want to stay in our focus trap so continue
+      return;
+    }
+
+    if ([BACKSPACE, DELETE].includes(readKeyCode(event))) {
+      const timestamp =
+        handle === DtSelectionAreaEventTarget.RightHandle
+          ? this._rangeArea.left
+          : this._rangeArea.left + this._rangeArea.width;
+      // reset the range
+      this._reset();
+      this._closeOverlay.next();
+      this._emitStateChanges();
+      this._switchToTimestamp.next(timestamp);
+      return;
+    }
+
+    // to prevent scrolling on page up and down
+    event.preventDefault();
+
+    const range = updateRangeWithKeyboardEvent(
+      event,
+      handle,
+      this._maxWidth,
+      this._rangeArea,
+    );
+
+    const minWidth = this._calculateMinWidth(range.left);
+    this._area = clampRange(range, this._maxWidth, minWidth);
   }
 
   /**
