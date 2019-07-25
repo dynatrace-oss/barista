@@ -24,16 +24,16 @@
     <br />
     <a class="dt-link">View problem details</a>
   </dt-chart-heatfield>
-  <!-- <dt-chart-tooltip>
+  <dt-chart-tooltip>
     <ng-template let-tooltip>
       <dt-key-value-list style="width: 200px">
         <dt-key-value-list-item *ngFor="let data of tooltip.points">
-          <dt-key-value-list-key>{{data.series.name}}</dt-key-value-list-key>
-          <dt-key-value-list-value>{{data.point.y}}</dt-key-value-list-value>
+          <dt-key-value-list-key>{{ data.series.name }}</dt-key-value-list-key>
+          <dt-key-value-list-value>{{ data.point.y }}</dt-key-value-list-value>
         </dt-key-value-list-item>
       </dt-key-value-list>
     </ng-template>
-  </dt-chart-tooltip> -->
+  </dt-chart-tooltip>
 
   <dt-chart-timestamp>
     <button dt-button dtChartSelectionAreaAction>Analyze</button>
@@ -93,19 +93,20 @@
   </div>
 </div>
 
-<!--
 <dt-chart [options]="options" [series]="series">
   <dt-chart-timestamp>
     <button dt-button dtChartSelectionAreaAction>Analyze</button>
   </dt-chart-timestamp>
-  <dt-chart-range [value]="[1370309400000,1370319300000]">
+  <!-- [value]="[1370309400000,1370319300000]" -->
+  <dt-chart-range>
     <button dt-button dtChartSelectionAreaAction>Analyze</button>
   </dt-chart-range>
 </dt-chart>
 
 <h2>Timestamp only</h2>
 <dt-chart [options]="options" [series]="series">
-  <dt-chart-timestamp [value]="1370309400000">
+  <!-- [value]="1370309400000" -->
+  <dt-chart-timestamp>
     <button dt-button dtChartSelectionAreaAction>Analyze</button>
   </dt-chart-timestamp>
 </dt-chart>
@@ -117,10 +118,8 @@
   </dt-chart-range>
 </dt-chart>
 
-
 <h2>Only Chart</h2>
-<dt-chart [options]="options" [series]="series">
-</dt-chart> -->
+<dt-chart [options]="options" [series]="series"> </dt-chart>
 
 <hr />
 

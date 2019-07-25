@@ -30,6 +30,7 @@
     [attr.aria-valuemin]="_minValue"
     [attr.aria-valuemax]="_maxValue"
     [attr.aria-label]="ariaLabelLeftHandle"
+    (keydown)="_handleKeyUp($event, 'left')"
     (mousedown)="_dragHandle($event, 'left')"
   >
     <dt-icon name="handle"></dt-icon>
@@ -41,6 +42,7 @@
     [attr.aria-valuemin]="_minValue"
     [attr.aria-valuemax]="_maxValue"
     [attr.aria-label]="ariaLabelRightHandle"
+    (keydown)="_handleKeyUp($event, 'right')"
     (mousedown)="_dragHandle($event, 'right')"
   >
     <dt-icon name="handle"></dt-icon>
