@@ -99,11 +99,12 @@ describe('DtOverlayTrigger', () => {
     initOverlay(fixture, trigger);
 
     dispatchMouseEvent(trigger, 'click');
-    fixture.detectChanges();
     flush();
+    fixture.detectChanges();
 
     dispatchMouseEvent(trigger, 'mouseleave');
     flush();
+    fixture.detectChanges();
 
     const overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeNull();
