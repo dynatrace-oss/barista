@@ -490,6 +490,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       this._updateFilterByLabel();
       this._updateTagData();
       this._isFocused = false;
+      this._writeInputValue('');
       this._switchToRootDef(false);
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
