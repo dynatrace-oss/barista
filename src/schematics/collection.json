@@ -18,6 +18,12 @@
       "factory": "./dt-demo/index",
       "schema": "./dt-demo/schema.json",
       "aliases": ["dtd"]
+    },
+    "dt-linting-rule": {
+      "description": "Create a new linting rule",
+      "factory": "./dt-linting-rule/index",
+      "schema": "./dt-linting-rule/schema.json",
+      "aliases": ["dtl"]
     }
   }
 }
