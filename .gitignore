@@ -35,6 +35,7 @@ package-lock.json
 /typings
 *.log
 report.*.json
+.git-credentials
 
 # e2e
 /e2e/*.js
