@@ -1,3 +1,9 @@
+## 4.2.1 (2019-07-26)
+
+### Bug Fixes
+
+- **deps:** Added d3-scale to library peer depencencies
+
 ## 4.2.0 (2019-07-25)
 
 ### Bug Fixes
