@@ -20,7 +20,7 @@ You have to import the `DtCopyToClipboardModule` when you want to use the
 
 ```typescript
 @NgModule({
-  imports: [DtCopyClipboardModule],
+  imports: [DtCopyToClipboardModule],
 })
 class MyModule {}
 ```
