@@ -9,7 +9,7 @@ import { Component, EventEmitter } from '@angular/core';
  */
 export function MockComponent(
   selector: string,
-  options: Component & { identifier?: any }
+  options: Component & { identifier?: any },
 ): Component {
   const metadata: Component & { identifier: any } = {
     selector,

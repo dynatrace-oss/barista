@@ -1,25 +1,25 @@
 import { strings } from '@angular-devkit/core';
 import {
-  Rule,
-  Tree,
   apply,
   chain,
   mergeWith,
   move,
+  Rule,
   template,
+  Tree,
   url,
 } from '@angular-devkit/schematics';
 import * as path from 'path';
 import * as ts from 'typescript';
 import {
+  addDeclarationsToDevAppModule,
   addImport,
+  addNavitemToDevApp,
   findNodes,
   getIndentation,
   getSourceFile,
-  addNavitemToDevApp,
-  addDeclarationsToDevAppModule,
 } from '../utils/ast-utils';
-import { InsertChange, commitChanges } from '../utils/change';
+import { commitChanges, InsertChange } from '../utils/change';
 import { DtDemoOptions } from './schema';
 
 /**
@@ -36,7 +36,7 @@ function addRoute(options: DtDemoOptions): Rule {
       modulePath,
       sourceFile,
       importName,
-      importLocation
+      importLocation,
     );
 
     /**
@@ -44,9 +44,9 @@ function addRoute(options: DtDemoOptions): Rule {
      */
     const routesDeclaration = findNodes(
       sourceFile,
-      ts.SyntaxKind.VariableDeclaration
+      ts.SyntaxKind.VariableDeclaration,
     ).find(
-      (node: ts.VariableDeclaration) => node.name.getText() === 'routes'
+      (node: ts.VariableDeclaration) => node.name.getText() === 'routes',
     ) as ts.VariableDeclaration;
     const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression)
       .elements;
