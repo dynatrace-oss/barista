@@ -6,6 +6,12 @@
   "properties": {
     "name": {
       "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string"
     }
   }
 }
