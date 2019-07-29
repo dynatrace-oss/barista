@@ -1,5 +1,5 @@
-{
+{<%= category ? `\n  "rulesDirectory": "../../../../../dist/lib/tslint/rules/${category}",` : '' %>
   "rules": {
-    "<%=name%>": true
+    "<%= name %>": true
   }
 }
