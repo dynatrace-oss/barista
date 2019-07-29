@@ -54,7 +54,7 @@ export class InsertChange implements Change {
 export function commitChanges(
   host: Tree,
   changes: InsertChange[],
-  path: string
+  path: string,
 ): Tree {
   const recorder = host.beginUpdate(path);
   changes.forEach(change => {
