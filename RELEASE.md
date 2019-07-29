@@ -7,6 +7,19 @@ middle of a sprint is also possible.
 [Breaking changes](***REMOVED***
 are released with the next (future) major version.
 
+## Versioning
+
+The versioning of the angular component library closely follows **SemVer**. This
+means, every version number consists of three parts (x.y.z) that have a
+different meaning and describe the type of change this version introduces.
+
+- **Patch:** (x.y.**z**): A patch version only includes fixes and small patches.
+- **Minor:** (x.**y**.z): A minor version includes new features that do **NOT**
+  introduce a breaking change
+- **Major:** (**x**.y.z): A major version is the only version that can contain
+  breaking changes. These versions are released very rarely and are announced
+  weeks in advance.
+
 ## How to release
 
 **Note: Releasing should only be done by the maintainers of the
