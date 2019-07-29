@@ -38,9 +38,9 @@
   in template expressions, `@ViewChildren` / `@ContentChildren` properties, host
   bindings, and `@Input` / `@Output` properties (when using an alias).
 
-#### Getters and setters
+#### Getters and Setters
 
-- Getters and setters should only be used when additional logic is required
+- Getters and Setters should only be used when additional logic is required
   despite setting/getting a property. For example the call of a coercion
   function.
 - Avoid long or complex getters and setters. Introduce a new method to contain
