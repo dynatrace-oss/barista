@@ -1,2 +1,2 @@
-export * from './<%=dasherize(name)%>-module';
-export * from './<%=dasherize(name)%>';
+export * from './<%= dasherize(name) %>-module';
+export * from './<%= dasherize(name) %>';

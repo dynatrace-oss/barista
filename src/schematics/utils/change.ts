@@ -1,4 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
+import { isArray } from 'rxjs/internal-compatibility';
 
 export interface Host {
   write(path: string, content: string): Promise<void>;
@@ -21,7 +22,7 @@ export interface Change {
 }
 
 /**
- * Will add text to the source code.
+ * Adds text to the source code.
  */
 export class InsertChange implements Change {
   order: number;
@@ -48,18 +49,48 @@ export class InsertChange implements Change {
   }
 }
 
+// /**
+//  * Creates a new directory if it does not already exist.
+//  */
+// export class CreateDirectoryChange implements Change {
+//   description: string;
+//
+//   constructor(public path: string, public order: number) {
+//     if (order < 0) {
+//       throw new Error('Negative order is invalid');
+//     }
+//     this.description = `Create directory ${path}`;
+//   }
+//
+//   /**
+//    * This method does not insert spaces if there is none in the original string.
+//    */
+//   apply(host: Host): Promise<void> {
+//     return host.read(this.path).then(content => {
+//       const prefix = content.substring(0, this.pos);
+//       const suffix = content.substring(this.pos);
+//
+//       return host.write(this.path, `${prefix}${this.toAdd}${suffix}`);
+//     });
+//   }
+// }
+
 /**
  * Commit changes to host
  */
 export function commitChanges(
   host: Tree,
-  changes: InsertChange[],
+  changes: Change | Change[],
   path: string,
 ): Tree {
   const recorder = host.beginUpdate(path);
-  changes.forEach(change => {
-    recorder.insertLeft(change.pos, change.toAdd);
-  });
+
+  for (const change of isArray(changes) ? changes : [changes]) {
+    if (change instanceof InsertChange) {
+      recorder.insertLeft(change.pos, change.toAdd);
+    }
+  }
   host.commitUpdate(recorder);
+
   return host;
 }
