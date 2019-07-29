@@ -13,14 +13,7 @@ export function getSourceFile(host: Tree, path: string): ts.SourceFile {
     throw new SchematicsException(`File ${path} does not exist.`);
   }
   const content = buffer.toString();
-  const source = ts.createSourceFile(
-    path,
-    content,
-    ts.ScriptTarget.Latest,
-    true,
-  );
-
-  return source;
+  return ts.createSourceFile(path, content, ts.ScriptTarget.Latest, true);
 }
 
 /**
@@ -29,9 +22,9 @@ export function getSourceFile(host: Tree, path: string): ts.SourceFile {
 export function findNodes(
   node: ts.Node,
   kind: ts.SyntaxKind,
-  max = Infinity,
+  max: number = Infinity,
 ): ts.Node[] {
-  if (!node || max == 0) {
+  if (!node || max === 0) {
     return [];
   }
 
