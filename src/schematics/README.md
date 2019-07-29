@@ -1,6 +1,6 @@
 # Angular Components Schematics
 
-A collection of Schematics for the Dynatrace Angular Components library
+A collection of Schematics for the Dynatrace Angular Components library.
 
 ## Collection
 
