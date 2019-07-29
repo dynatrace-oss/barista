@@ -1,29 +1,29 @@
-import { Tree } from '@angular-devkit/schematics';
-import { getSourceFile, findNodes, getIndentation } from './ast-utils';
-import { InsertChange, commitChanges } from './change';
 import { strings } from '@angular-devkit/core';
+import { Tree } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 import { DtComponentOptions } from '../dt-component/schema';
 import { DtDemoOptions } from '../dt-demo/schema';
+import { findNodes, getIndentation, getSourceFile } from './ast-utils';
+import { commitChanges, InsertChange } from './change';
 
 export function addNavItem(
   host: Tree,
   options: DtComponentOptions | DtDemoOptions,
-  modulePath: string
+  modulePath: string,
 ): Tree {
   const sourceFile = getSourceFile(host, modulePath);
   const changes: InsertChange[] = [];
 
   const routesDeclaration = findNodes(
     sourceFile,
-    ts.SyntaxKind.PropertyDeclaration
+    ts.SyntaxKind.PropertyDeclaration,
   ).find(
-    (node: ts.PropertyDeclaration) => node.name.getText() === 'navItems'
+    (node: ts.PropertyDeclaration) => node.name.getText() === 'navItems',
   ) as ts.PropertyDeclaration;
   const routes = (routesDeclaration.initializer as ts.ArrayLiteralExpression)
     .elements;
   const toInsert = `{ name: '${strings.capitalize(
-    options.name
+    options.name,
   )}', route: '/${strings.dasherize(options.name)}' },`;
   let navItemBefore = routes
     .filter((node: ts.Expression) => !node.getText().includes("route: '/'"))
@@ -38,7 +38,7 @@ export function addNavItem(
   const routesChange = new InsertChange(
     modulePath,
     end,
-    `${toInsert}${indentation}`
+    `${toInsert}${indentation}`,
   );
   changes.push(routesChange);
 
