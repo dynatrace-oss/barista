@@ -322,11 +322,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       this._dataSubscription = null;
     }
 
-    if (this._outsideClickSubscription) {
-      this._outsideClickSubscription.unsubscribe();
-      this._outsideClickSubscription = null;
-    }
-
+    this._clearOutsideClickSubscription();
     this._destroy.next();
     this._destroy.complete();
   }
@@ -423,7 +419,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         const removed = event.data.filterValues.splice(1);
         // Keep the removed values in the stashed member, to reapply them if necessary.
         this._editModeStashedValue = removed;
-        this._outsideClickSubscription = this._cancelEditModeSubscription();
+        this._listenForEditModeCancellation();
         this._currentFilterValues = event.data.filterValues;
         this._currentDef = value;
 
@@ -460,9 +456,10 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /**
    * Creates a subscription that fires once the editMode should be cancelled.
    */
-  private _cancelEditModeSubscription(): Subscription {
-    return merge(
-      this._getOutsideClickStream(),
+  private _listenForEditModeCancellation(): void {
+    this._clearOutsideClickSubscription();
+    this._outsideClickSubscription = merge(
+      this._getFreeTextOutsideClickStream(),
       this._autocomplete.closed,
       this._filterfieldRange.closed,
     )
@@ -472,16 +469,20 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       });
   }
 
+  /** Clear the outside click subscription. */
+  private _clearOutsideClickSubscription(): void {
+    if (this._outsideClickSubscription) {
+      this._outsideClickSubscription.unsubscribe();
+      this._outsideClickSubscription = null;
+    }
+  }
+
   /**
    * Cancels the editmode and resets the filter to the root definition.
    * It resets the currently edited filter back to the stashed value.
    */
   private _cancelEditMode(): void {
-    // Clear the outside click subscription.
-    if (this._outsideClickSubscription) {
-      this._outsideClickSubscription.unsubscribe();
-      this._outsideClickSubscription = null;
-    }
+    this._clearOutsideClickSubscription();
     // If we have a stashed value, reset the filter to the previous state and make
     // the necessary updates.
     if (this._editModeStashedValue) {
@@ -502,11 +503,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
    * usual behaviour of writing filters should continue.
    */
   private _resetEditMode(): void {
-    // Clear the outside click subscription.
-    if (this._outsideClickSubscription) {
-      this._outsideClickSubscription.unsubscribe();
-      this._outsideClickSubscription = null;
-    }
+    this._clearOutsideClickSubscription();
     this._editModeStashedValue = null;
   }
 
@@ -664,16 +661,13 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     );
   }
 
-  /**
-   * Creates a stream of clicks outside the filter field.
-   */
-  // tslint:disable-next-line:no-any
-  private _getOutsideClickStream(): Observable<any> {
+  /** Creates a stream of clicks outside the filter field in free text mode */
+  private _getFreeTextOutsideClickStream(): Observable<void> {
     if (!this._document) {
-      return observableOf(null);
+      return observableOf();
     }
 
-    return merge(
+    return (merge(
       fromEvent<MouseEvent>(this._document, 'click'),
       fromEvent<TouchEvent>(this._document, 'touchend'),
     ).pipe(
@@ -681,11 +675,12 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         const clickTarget = event.target as HTMLElement;
         const filterField = this._elementRef.nativeElement;
         return (
+          isDtFreeTextDef(this._currentDef) &&
           clickTarget !== filterField &&
           (!filterField || !filterField.contains(clickTarget))
         );
       }),
-    );
+    ) as any) as Observable<void>;
   }
 
   /**
