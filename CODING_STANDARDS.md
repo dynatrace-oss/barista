@@ -258,7 +258,15 @@ cannot be prevented.
 
 - Suffix all public, internal, private and local Observables with `$`.
 - Omit the `$` suffix for `@Output` streams.
+<<<<<<< HEAD
+<<<<<<< HEAD
 - Suffix subscriptions with `Subscription`
+=======
+- Suffix subscriptions with `Sub` or `Subscription`
+>>>>>>> 87e5163d... ***REMOVED*** docs:  Added coding standards
+=======
+- Suffix subscriptions with `Subscription`
+>>>>>>> 8fb250b2... docs: Added best practices section, implemented feedback
 - Make sure to always unsubscribe from observables (either by using `async`
   pipes, by calling unsubscribe or by using the "destroy subject pattern").
 
