@@ -51,6 +51,9 @@ export class ChartDemo {
         },
       },
     },
+    time: {
+      timezoneOffset: new Date().getTimezoneOffset(),
+    },
   };
   series: Highcharts.IndividualSeriesOptions[] = [
     {
@@ -172,6 +175,9 @@ export class ChartDemo {
         },
       },
     },
+    time: {
+      timezoneOffset: new Date().getTimezoneOffset(),
+    },
   };
   lineChartWithGapsSeries: Highcharts.LineChartSeriesOptions[] = [
     {
@@ -219,6 +225,9 @@ export class ChartDemo {
         innerSize: '80%',
         borderWidth: 0,
       },
+    },
+    time: {
+      timezoneOffset: new Date().getTimezoneOffset(),
     },
   };
   barChartSeries: Highcharts.BarChartSeriesOptions[] = [
@@ -294,6 +303,9 @@ export class ChartDemo {
         tickInterval: 25,
       },
     ],
+    time: {
+      timezoneOffset: new Date().getTimezoneOffset(),
+    },
   };
   lineChartSeries: Highcharts.LineChartSeriesOptions[] = [
     {
@@ -354,6 +366,9 @@ export class ChartDemo {
           hover: undefined,
         },
       },
+    },
+    time: {
+      timezoneOffset: new Date().getTimezoneOffset(),
     },
   };
   minMaxChartSeries: Highcharts.IndividualSeriesOptions[] = [
