@@ -9,15 +9,22 @@ export interface Host {
 export interface Change {
   apply(host: Host): Promise<void>;
 
-  // The file this change should be applied to. Some changes might not apply to
-  // a file (maybe the config).
+  /**
+   * The file this change should be applied to. Some changes might not apply to
+   * a file (maybe the config).
+   */
   readonly path: string | null;
 
-  // The order this change should be applied. Normally the position inside the file.
-  // Changes are applied from the bottom of a file to the top.
+  /**
+   * The order this change should be applied. Normally the position inside
+   * the file. Changes are applied from the bottom of a file to the top.
+   */
   readonly order: number;
 
-  // The description of this change. This will be outputted in a dry or verbose run.
+  /**
+   * The description of this change. This will be outputted in a dry or
+   * verbose run.
+   */
   readonly description: string;
 }
 
@@ -37,58 +44,30 @@ export class InsertChange implements Change {
   }
 
   /**
-   * This method does not insert spaces if there is none in the original string.
+   * This implementation does not insert spaces if there are none in the
+   * original string.
    */
-  apply(host: Host): Promise<void> {
-    return host.read(this.path).then(content => {
-      const prefix = content.substring(0, this.pos);
-      const suffix = content.substring(this.pos);
+  async apply(host: Host): Promise<void> {
+    const content = await host.read(this.path);
+    const prefix = content.substring(0, this.pos);
+    const suffix = content.substring(this.pos);
 
-      return host.write(this.path, `${prefix}${this.toAdd}${suffix}`);
-    });
+    return host.write(this.path, `${prefix}${this.toAdd}${suffix}`);
   }
 }
 
-// /**
-//  * Creates a new directory if it does not already exist.
-//  */
-// export class CreateDirectoryChange implements Change {
-//   description: string;
-//
-//   constructor(public path: string, public order: number) {
-//     if (order < 0) {
-//       throw new Error('Negative order is invalid');
-//     }
-//     this.description = `Create directory ${path}`;
-//   }
-//
-//   /**
-//    * This method does not insert spaces if there is none in the original string.
-//    */
-//   apply(host: Host): Promise<void> {
-//     return host.read(this.path).then(content => {
-//       const prefix = content.substring(0, this.pos);
-//       const suffix = content.substring(this.pos);
-//
-//       return host.write(this.path, `${prefix}${this.toAdd}${suffix}`);
-//     });
-//   }
-// }
-
 /**
- * Commit changes to host
+ * Commits changes to host.
  */
 export function commitChanges(
   host: Tree,
-  changes: Change | Change[],
+  changes: InsertChange | InsertChange[],
   path: string,
 ): Tree {
   const recorder = host.beginUpdate(path);
 
   for (const change of isArray(changes) ? changes : [changes]) {
-    if (change instanceof InsertChange) {
-      recorder.insertLeft(change.pos, change.toAdd);
-    }
+    recorder.insertLeft(change.pos, change.toAdd);
   }
   host.commitUpdate(recorder);
 
