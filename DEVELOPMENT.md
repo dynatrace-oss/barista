@@ -82,12 +82,6 @@ Stylelint
 yarn lint
 ```
 
-Pre-commit sanity check (runs all tests + linting)
-
-```
-./gradlew completeBuild
-```
-
 ## Running the Barista examples app
 
 To run the Barista examples app with all examples that will be used inside the
@@ -160,22 +154,3 @@ To see complete list of gradlew builds, run:
 ```
 ./gradlew tasks
 ```
-
-## Versioning
-
-### Git repository version
-
-Version in package.json is hardcoded to match x.x.0-dev pattern. Specific patch
-versions are bumped by CI but not commited to the repository.
-
-### Master branch versions
-
-Each CI build from master branch bumps patch version (e.g. `0.1.4 -> 0.1.5`)
-
-### Incrementing major/minor version
-
-Angular components are stil in 0.x version and major part should not be
-increased for now. Minor version should be bumped if breaking changes are
-introduced and it has to be done manually. To do it, open `package.json` and
-increase minor number by one. Remember to leave patch and suffix section
-unchanged (e.g. `0.5.0-dev -> 0.6.0-dev`, `1.6.0-dev -> 2.0.0-dev`)
