@@ -22,7 +22,9 @@
       i18n
     >from</label>
     <input
-      type="number"
+      type="text"
+      required
+      pattern="\d+"
       dtInput
       [value]="_valueFrom"
       (input)="_valueFrom = $event.target.value"
@@ -35,7 +37,9 @@
     <ng-container *ngIf="_isOperatorType('range')">
       <label [for]="_getLocalId('to')" class="dt-filter-field-range-label" i18n>to</label>
       <input
-        type="number"
+        type="text"
+        required
+        pattern="\d+"
         dtInput
         [value]="_valueTo"
         (input)="_valueTo = $event.target.value"
