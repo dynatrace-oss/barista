@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   template: '',
 })
-export class <%=classify(exampleComponentName) %> { }
+export class <%= classify(exampleComponentName) %> { }

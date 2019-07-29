@@ -1,11 +1,11 @@
 /**
- * Test file for testing the <%=name%> rule.
+ * Test file for testing the <%= name %> rule.
  */
 
 @Component({
   template: `
     <dt-my-custom-component>
-      ~~~~~~~~~~~~~~~~~~~~~ [Something is wrong here.]
+    ~~~~~~~~~~~~~~~~~~~~~~~~ [Something is wrong here.]
     </dt-my-custom-component>
   `,
 })

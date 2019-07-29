@@ -2,9 +2,9 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure } from '../utils';
+import { addFailure } from '<%= category ? '../../' : '../' %>utils';
 
-class <%=classify(name)%>Visitor extends BasicTemplateAstVisitor {
+class <%= classify(name) %>Visitor extends BasicTemplateAstVisitor {
   visitElement(element: ElementAst, context: any): void {
     this._validateElement(element);
     super.visitElement(element, context);
@@ -16,7 +16,7 @@ class <%=classify(name)%>Visitor extends BasicTemplateAstVisitor {
 }
 
 /**
- * The <%=camelize(name)%>Rule ensures that ~~~insert description here~~~.
+ * The <%= camelize(name) %>Rule ensures that ~~~insert description here~~~.
  *
  * The following example passes the lint checks:
  * ~~~Add example code here~~~
@@ -30,7 +30,7 @@ export class Rule extends Rules.AbstractRule {
     options: null, // tslint:disable-line:no-null-keyword
     optionsDescription: 'Not configurable.',
     rationale: '~~~insert rationale here~~~.',
-    ruleName: '<%=name%>',
+    ruleName: '<%= name %>',
     type: 'maintainability',
     typescriptOnly: true,
   };
@@ -38,7 +38,7 @@ export class Rule extends Rules.AbstractRule {
   apply(sourceFile: SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: <%=classify(name)%>Visitor,
+        templateVisitorCtrl: <%= classify(name) %>Visitor,
       }),
     );
   }
