@@ -25,12 +25,14 @@ import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-li
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 import { createComponent } from '../../../testing/create-component';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
+import { MockIntersectionObserver } from '../../../testing/mock-intersection-observer';
 
 describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   let chartComponent: DtChart;
   let fixture: ComponentFixture<ChartTest>;
+  const mockIntersectionObserver = new MockIntersectionObserver();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -63,10 +65,13 @@ describe('DtChartTooltip', () => {
       // we can potentially have multiple overlay containers.
       currentOverlayContainer.ngOnDestroy();
       overlayContainer.ngOnDestroy();
+
+      mockIntersectionObserver.clearMock();
     },
   ));
 
   it('should dismiss the overlay when the tooltip close event is called', fakeAsync(() => {
+    mockIntersectionObserver.mockAllIsIntersecting(true);
     chartComponent.tooltipDataChange.next({
       data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
     });
@@ -79,6 +84,7 @@ describe('DtChartTooltip', () => {
   }));
 
   it('should dismiss the overlay when the tooltip data event is called but has no data for the point', fakeAsync(() => {
+    mockIntersectionObserver.mockAllIsIntersecting(true);
     const newData: DtChartTooltipData = { ...DUMMY_TOOLTIP_DATA_LINE_SERIES };
     newData.points = undefined;
     chartComponent.tooltipDataChange.next({ data: newData });
@@ -88,8 +94,20 @@ describe('DtChartTooltip', () => {
     expect(overlayContainerElement.innerHTML).toEqual('');
   }));
 
+  it('should not show the tooltip if the chart is not in the viewport', fakeAsync(() => {
+    mockIntersectionObserver.mockAllIsIntersecting(true);
+    chartComponent.tooltipDataChange.next({
+      data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
+    });
+    fixture.detectChanges();
+    tick();
+    flush();
+    expect(overlayContainerElement.innerHTML).not.toEqual('');
+  }));
+
   describe('content', () => {
     beforeEach(fakeAsync(() => {
+      mockIntersectionObserver.mockAllIsIntersecting(true);
       chartComponent.tooltipDataChange.next({
         data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
       });
