@@ -1,30 +1,30 @@
 import {
-  Component,
-  SkipSelf,
-  Inject,
-  TemplateRef,
-  ContentChild,
-  NgZone,
-  OnDestroy,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Optional,
-  ViewContainerRef,
-  ChangeDetectorRef,
-  AfterViewInit,
-} from '@angular/core';
-import { DtChart, DT_CHART_RESOLVER, DtChartResolver } from '../chart';
-import { takeUntil, filter } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import {
   ConnectedPosition,
   Overlay,
-  OverlayRef,
   OverlayConfig,
+  OverlayRef,
 } from '@angular/cdk/overlay';
-import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 import { TemplatePortal } from '@angular/cdk/portal';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChild,
+  Inject,
+  NgZone,
+  OnDestroy,
+  Optional,
+  SkipSelf,
+  TemplateRef,
+  ViewContainerRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import { isDefined } from '@dynatrace/angular-components/core';
+import { of, Subject, Subscription } from 'rxjs';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { DtChart, DtChartResolver, DT_CHART_RESOLVER } from '../chart';
+import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 
 interface HighchartsPlotBackgroundInformation {
   x: number;
@@ -74,6 +74,7 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
   private _overlayRef: OverlayRef | null;
   private _portal: TemplatePortal;
   private _plotBackgroundInfo: HighchartsPlotBackgroundInformation;
+  private _overlayRefDetachSubscription: Subscription = Subscription.EMPTY;
 
   constructor(
     private _overlay: Overlay,
@@ -89,8 +90,13 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
   ngAfterViewInit(): void {
     const parentChart = this._resolveParentChart();
     if (parentChart) {
-      parentChart.tooltipDataChange
-        .pipe(takeUntil(this._destroy))
+      parentChart._isInViewport$
+        .pipe(
+          switchMap(isVisible =>
+            isVisible ? parentChart.tooltipDataChange.asObservable() : of(null),
+          ),
+          takeUntil(this._destroy),
+        )
         .subscribe(event => {
           this._ngZone.run(() => {
             // create the overlay here when the tooltip should be open
@@ -107,6 +113,7 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
             }
           });
         });
+
       // handle dismissing an existing overlay when the overlay already exists and should be closed
       parentChart.tooltipOpenChange
         .pipe(takeUntil(this._destroy))
@@ -133,6 +140,7 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+    this._overlayRefDetachSubscription.unsubscribe();
   }
 
   /** Create a new overlay for the tooltip */
@@ -158,7 +166,12 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
         this._viewContainerRef,
         { $implicit: data },
       );
-
+      this._overlayRefDetachSubscription.unsubscribe();
+      this._overlayRefDetachSubscription = overlayRef
+        .detachments()
+        .subscribe(() => {
+          parentChart._resetHighchartsPointer();
+        });
       overlayRef.attach(this._portal);
 
       this._overlayRef = overlayRef;

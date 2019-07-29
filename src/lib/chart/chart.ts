@@ -1,4 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
+import { Platform } from '@angular/cdk/platform';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -44,6 +45,7 @@ import {
   defer,
   merge,
   Observable,
+  of,
   Subject,
   Subscription,
 } from 'rxjs';
@@ -51,15 +53,16 @@ import {
   delay,
   distinctUntilChanged,
   filter,
+  flatMap,
   map,
   switchMap,
   take,
   takeUntil,
 } from 'rxjs/operators';
 import {
+  DtChartConfig,
   DT_CHART_CONFIG,
   DT_CHART_DEFAULT_CONFIG,
-  DtChartConfig,
 } from './chart-config';
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
 import {
@@ -82,6 +85,7 @@ import { DtChartRange } from './range/range';
 import { DtChartTimestamp } from './timestamp/timestamp';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
+const CHART_INTERSECTION_THRESHOLD = 0.9;
 
 export type DtChartOptions = HighchartsOptions & {
   series?: undefined;
@@ -163,13 +167,20 @@ export class DtChart
   >;
 
   private _series?: Observable<DtChartSeries[]> | DtChartSeries[];
-  private _tooltipOpen = false;
   private _currentSeries?: IndividualSeriesOptions[];
   private _options: DtChartOptions;
   private _dataSub: Subscription | null = null;
   private _highchartsOptions: HighchartsOptions;
   private readonly _destroy$ = new Subject<void>();
   private readonly _tooltipRefreshed: Subject<DtChartTooltipEvent | null> = new Subject();
+  private _isTooltipOpen = false;
+
+  /** @internal whether the chart is in the viewport or not */
+  _isInViewport$ = createInViewportStream(
+    this._elementRef,
+    this._platform.isBrowser,
+    CHART_INTERSECTION_THRESHOLD,
+  );
 
   /** Deals with the selection logic. */
   private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
@@ -231,6 +242,7 @@ export class DtChart
 
   /** Eventemitter that fires every time the chart is updated */
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
+
   /** Eventemitter that fires every time the tooltip opens or closes */
   @Output() readonly tooltipOpenChange: EventEmitter<
     boolean
@@ -299,6 +311,8 @@ export class DtChart
     @SkipSelf()
     @Inject(DT_CHART_CONFIG)
     private _config: DtChartConfig,
+    private _elementRef: ElementRef,
+    private _platform: Platform,
   ) {
     this._config = this._config || DT_CHART_DEFAULT_CONFIG;
 
@@ -383,17 +397,17 @@ export class DtChart
 
     // adds event-listener to highcharts custom event for tooltip closed
     addHighchartsEvent(this._chartObject, 'tooltipClosed', () => {
-      this._tooltipOpen = false;
-      this.tooltipOpenChange.next(false);
+      this._isTooltipOpen = false;
+      this.tooltipOpenChange.emit(false);
       this._tooltipRefreshed.next(null);
     });
     // Adds event-listener to highcharts custom event for tooltip refreshed closed */
     // We cannot type the event param, because the types for highcharts are incorrect
     // tslint:disable-next-line:no-any
     addHighchartsEvent(this._chartObject, 'tooltipRefreshed', (event: any) => {
-      if (!this._tooltipOpen) {
-        this._tooltipOpen = true;
-        this.tooltipOpenChange.next(true);
+      if (!this._isTooltipOpen) {
+        this._isTooltipOpen = true;
+        this.tooltipOpenChange.emit(true);
       }
       this._tooltipRefreshed.next({
         data: (event as DtHcTooltipEventPayload).data,
@@ -452,6 +466,14 @@ export class DtChart
       this._dataSub.unsubscribe();
     }
     this._afterRender.complete();
+  }
+
+  /** @internal Resets the pointer so Highcharts handles new mouse interactions correctly (e.g. after programmatic destruction of tooltips) */
+  _resetHighchartsPointer(): void {
+    this._ngZone.runOutsideAngular(() => {
+      // tslint:disable-next-line: no-any
+      (this._chartObject! as any).pointer.reset();
+    });
   }
 
   /** @internal Creates new highcharts options and applies it to the chart. */
@@ -537,4 +559,30 @@ export class DtChart
       );
     }
   }
+}
+
+/** Creates a cold stream that emits whenever the intersection of the nativeelement of the given elementRef changes */
+function createInViewportStream(
+  elementRef: ElementRef,
+  isBrowser: boolean,
+  threshold: number | number[] = 1,
+): Observable<boolean> {
+  return isBrowser
+    ? new Observable<IntersectionObserverEntry[]>(observer => {
+        const intersectionObserver = new IntersectionObserver(
+          entries => {
+            observer.next(entries);
+          },
+          { threshold },
+        );
+        intersectionObserver.observe(elementRef.nativeElement);
+        return () => {
+          intersectionObserver.disconnect();
+        };
+      }).pipe(
+        flatMap(entries => entries),
+        map(entry => entry.isIntersecting),
+        distinctUntilChanged(),
+      )
+    : of(true);
 }
