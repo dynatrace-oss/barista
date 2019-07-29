@@ -1333,6 +1333,26 @@ describe('DtFilterField', () => {
       expect(filterTags[2].value).toBe('15s - 80s');
     });
 
+    it('should not reset the range filter when focusing the range input element', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+      tags[2].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      const inputfields = getRangeInputFields(overlayContainerElement);
+      inputfields[0].click();
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      expect(filterField.filters).toHaveLength(3);
+      // Range filter should have set only the root filter (range def)
+      expect(filterField.filters[2]).toHaveLength(1);
+    });
+
     it('should make the edit to the first tag', () => {
       const tags = fixture.debugElement.queryAll(
         By.css('.dt-filter-field-tag-label'),
