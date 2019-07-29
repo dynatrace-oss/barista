@@ -16,6 +16,7 @@ export class UIApp {
   navItems = [
     { name: 'Start', route: '/' },
     { name: 'Consumption', route: '/consumption' },
+    { name: 'Radial-chart', route: '/radial-chart' },
     { name: 'Tabs', route: '/tabs' },
     { name: 'Button', route: '/button' },
     { name: 'ButtonGroup', route: '/button-group' },

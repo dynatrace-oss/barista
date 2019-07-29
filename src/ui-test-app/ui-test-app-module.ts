@@ -50,6 +50,8 @@ import { TabsUI } from './tabs/tabs-ui';
 import { TileUI } from './tile/tile-ui';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
 import { Home, UIApp } from './ui-test-app/ui-test-app';
+import { DtRadialChartModule } from '@dynatrace/angular-components/radial-chart';
+import { RadialChartUI } from './radial-chart/radial-chart-ui';
 
 /**
  * NgModule that contains all lib modules that are required to serve the ui-test-app.
@@ -83,6 +85,7 @@ import { Home, UIApp } from './ui-test-app/ui-test-app';
     // tslint:disable-next-line: deprecation
     DtSelectionAreaModule,
     DtConsumptionModule,
+    DtRadialChartModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -122,6 +125,7 @@ export class DynatraceAngularCompModule {}
     UIApp,
     OverlayUI,
     ConsumptionUI,
+    RadialChartUI,
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],

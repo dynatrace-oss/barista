@@ -33,6 +33,7 @@ import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
 import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
 import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-circle';
+import { DtRadialChartModule } from '@dynatrace/angular-components/radial-chart';
 import { DtRadioModule } from '@dynatrace/angular-components/radio';
 import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
@@ -102,6 +103,7 @@ import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
     DtTimelineChartModule,
     DtLegendModule,
     DtEmptyStateModule,
+    DtRadialChartModule,
   ],
 })
 export class DevAppDynatraceModule {}

@@ -47,6 +47,7 @@ import { OverlayDemo } from './overlay/overlay-demo.component';
 import { PaginationDemo } from './pagination/pagination-demo.component';
 import { ProgressBarDemo } from './progress-bar/progress-bar-demo.component';
 import { ProgressCircleDemo } from './progress-circle/progress-circle-demo.component';
+import { RadialChartDemo } from './radial-chart/radial-chart-demo.component';
 import { RadioDemo } from './radio/radio-demo.component';
 import { SelectDemo } from './select/select-demo.component';
 import { SelectionAreaDemo } from './selection-area/selection-area-demo.component';
@@ -126,6 +127,7 @@ export class NoopRouteComponent {}
     TimelineChartDemo,
     LegendDemo,
     EmptyStateDemo,
+    RadialChartDemo,
   ],
   entryComponents: [DevApp],
   bootstrap: [DevApp],
