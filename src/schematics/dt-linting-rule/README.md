@@ -3,6 +3,6 @@
 Adds a new linting rule to the `@dynatrace/angular-components` library.
 
 ```
-ng generate @dynatrace/components-schematics:dt-linting-rule --name=dt-my-new-rule #or shorter
-ng g @dynatrace/components-schematics:dtl --name=dt-my-new-rule
+ng generate @dynatrace/components-schematics:dt-linting-rule --name=my-new-verification # or shorter
+ng g @dynatrace/components-schematics:dtl --name=my-new-verification
 ```
