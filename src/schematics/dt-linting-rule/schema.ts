@@ -1,4 +1,3 @@
-export interface DtLintOptions {
+export interface DtLintingRuleOptions {
   name: string;
-  path: string;
 }
