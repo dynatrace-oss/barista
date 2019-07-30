@@ -15,7 +15,7 @@
   when cancelling edit mode
   ([***REMOVED***](***REMOVED***/***REMOVED***))
 - **filter-field:** Fixes weird spacing for range labels
-  ([***REMOVED***])(***REMOVED***/***REMOVED***)
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
 - **overlay:** Fixes an issue when hovering over child elements of the trigger
   the overlay is destroyed and recreated.
   ([***REMOVED***](***REMOVED***/***REMOVED***))
