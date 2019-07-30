@@ -11,7 +11,9 @@
       "type": "string"
     },
     "severity": {
-      "type": "string"
+      "type": "string",
+      "enum": ["warning", "error"],
+      "default": "error"
     }
   }
 }
