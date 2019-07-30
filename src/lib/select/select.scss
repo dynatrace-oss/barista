@@ -4,6 +4,7 @@
 @import '../core/style/interactive-common';
 
 $dt-select-panel-max-height: 256px;
+$dt-select-panel-max-width: 300px !default;
 $dt-select-panel-min-width: 112px !default;
 
 :host {
@@ -92,7 +93,7 @@ $dt-select-panel-min-width: 112px !default;
 }
 
 .dt-select-panel {
-  width: 100%;
+  max-width: $dt-select-panel-max-width;
   background: #ffffff;
   box-sizing: border-box;
   border: 1px solid $disabledcolor;
