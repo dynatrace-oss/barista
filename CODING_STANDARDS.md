@@ -10,6 +10,120 @@
 - Except for `@Input` properties, use `is` and `has` prefixes for boolean
   properties / methods.
 
+### Local Variables
+
+- Declare all local variables with either `const` or `let`. Use `const` by
+  default, unless a variable needs to be reassigned.
+- The `var` keyword must not be used.
+- Every local variable declaration declares only one variable: declarations such
+  as `let a = 1, b = 2;` are not used.
+- Local variables are not always declared at the start of their containing block
+  or block-like construct. Instead, local variables can also be declared close
+  to the point they are first used (within reason), to minimize their scope.
+
+### Arrays
+
+- Do not use the Array constructor. The constructor is error-prone if arguments
+  are added or removed. Use a literal instead.
+
+Bad:
+
+```ts
+const a1 = new Array(x1, x2, x3);
+```
+
+Good:
+
+```ts
+const a1 = [x1, x2, x3];
+```
+
+- Explicitly allocating an array of a given length using `new Array(length)` is
+  allowed when appropriate.
+- Do not define or use non-numeric properties on an array (other than length).
+  Use a `Map` (or `Object`) instead.
+
+#### Destructuring
+
+- Array literals may be used on the left-hand side of an assignment to perform
+  destructuring. A final rest element may be included.
+
+```ts
+const [a, b, c, ...rest] = generateResults();
+```
+
+- Not used elements should be omitted when performing a destructuring.
+
+```ts
+let [, b, , d] = someArray;
+```
+
+#### Spread operator
+
+- Array literals may include the spread operator (`...`) to flatten elements out
+  of one or more other iterables.
+- The spread operator should be used instead of more awkward constructs with
+  Array.prototype.
+
+```ts
+[...foo]   // preferred over Array.prototype.slice.call(foo)
+[...foo, ...bar]   // preferred over foo.concat(bar)
+```
+
+### Objects
+
+- Do not use the Object constructor. Use an object literal (`{}` or
+  `{ a: 0, b: 1, c: 2 }`) instead.
+- Do not mix quoted and unquoted keys. Object literals may represent either
+  _structs_ (with unquoted keys and/or symbols) or _dicts_ (with quoted and/or
+  computed keys).
+- For dicts consider using `Map` instead.
+- Avoid using methods in objects if possible. Consider using [Classes](#classes)
+  instead.
+- Shorthand properties are allowed on object literals.
+
+#### Destructuring
+
+- Object destructuring patterns may be used on the left-hand side of an
+  assignment to perform destructuring and unpack multiple values from a single
+  object.
+- Destructured objects may also be used as function parameters, but should be
+  kept as simple as possible: a single level of unquoted shorthand properties.
+- Deeper levels of nesting and computed properties may not be used in parameter
+  destructuring.
+- Specify any default values in the left-hand-side of the destructured parameter
+  (`{str = 'some default'} = {}`, rather than `{str} = {str: 'some default'}`)
+
+Example:
+
+```ts
+function destructured(ordinary, { num, str = 'some default' } = {});
+```
+
+### Enums
+
+- Additional properties may not be added to an enum after it is defined.
+- All enum values must be deeply immutable.
+- Prefer `const` enums for improved compile output.
+
+Discouraged:
+
+```ts
+enum OptionType {
+  Option1,
+  Option2,
+}
+```
+
+Preferred:
+
+```ts
+const enum OptionType {
+  Option1,
+  Option2,
+}
+```
+
 ### Classes
 
 - Classes should be named based on what they're responsible for. Names should
@@ -132,6 +246,13 @@ const text =
 - `Object.prototype.hasOwnProperty` should be used in for-in loops to exclude
   unwanted prototype properties.
 - Prefer `for-of` and `Object.keys` over `for-in` when possible.
+
+#### Try-Catch
+
+Avoid `try-catch` blocks, instead preferring to prevent an error from being
+thrown in the first place. When impossible to avoid, the `try-catch` block must
+include a comment that explains the specific error being caught and why it
+cannot be prevented.
 
 ### RxJS
 
