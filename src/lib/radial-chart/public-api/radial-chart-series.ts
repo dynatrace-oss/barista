@@ -1,4 +1,11 @@
-import { Directive, Input, OnInit } from '@angular/core';
+import {
+  Directive,
+  Input,
+  SimpleChanges,
+  OnChanges,
+  OnDestroy,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 // let uniqueId = 1;
 
@@ -9,19 +16,19 @@ import { Directive, Input, OnInit } from '@angular/core';
     class: 'dt-radial-chart-series',
   },
 })
-export class DtRadialChartSeries implements OnInit {
+export class DtRadialChartSeries implements OnChanges, OnDestroy {
   @Input() value: number;
   @Input() name: string;
-  @Input() color: string;
+  @Input() color: string; // TODO: nope! color should be set internally
 
-  constructor() {
-    console.log('constructor of radial chart series (public api)');
+  /** @internal fires when value changes */
+  _valueChanges = new BehaviorSubject<DtRadialChartSeries>(this);
+
+  ngOnChanges(_changes: SimpleChanges): void {
+    this._valueChanges.next(this);
   }
 
-  ngOnInit(): void {
-    console.log('init dt-radial-chart-series');
-    console.log(this.value);
-    console.log(this.name);
-    console.log(this.color);
+  ngOnDestroy(): void {
+    this._valueChanges.complete();
   }
 }

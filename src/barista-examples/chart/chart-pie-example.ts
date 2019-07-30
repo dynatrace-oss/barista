@@ -45,12 +45,12 @@ export class ChartPieExample {
       name: 'Browsers',
       data: [
         {
-          name: 'Chrome',
-          y: 55,
-        },
-        {
           name: 'Firefox',
           y: 25,
+        },
+        {
+          name: 'Chrome',
+          y: 55,
         },
         {
           name: 'Edge',

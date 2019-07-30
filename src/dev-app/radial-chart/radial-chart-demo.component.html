@@ -1,17 +1,51 @@
-<dt-radial-chart
-  [type]="type"
-  [background]="background"
-  [maxValue]="maxValue"
-  [start]="start"
->
+<dt-radial-chart [type]="type" [maxValue]="maxValue" [start]="start">
   <dt-radial-chart-series
-    [name]="series1.name"
-    [color]="series1.color"
-    [value]="series1.value"
-  ></dt-radial-chart-series>
-  <dt-radial-chart-series
-    [name]="series2.name"
-    [color]="series2.color"
-    [value]="series2.value"
-  ></dt-radial-chart-series>
+    *ngFor="let s of renderedSeries"
+    [name]="s.name"
+    [color]="s.color"
+    [value]="s.value"
+  >
+  </dt-radial-chart-series>
 </dt-radial-chart>
+
+<div class="flex-wrapper">
+  <div class="test-data">
+    <h2>Test data</h2>
+    <strong>Chart type:</strong> {{ type }}<br />
+    <strong>Series data</strong>
+    <ul *ngFor="let series of allSeries">
+      <li>Value: {{ series.value }}</li>
+      <li>Name: {{ series.name }}</li>
+      <li>Color: {{ series.color }}</li>
+    </ul>
+    <strong>Series 3 visible:</strong> {{ showSeries3 }}<br />
+    <strong>Start value:</strong> {{ start }}<br />
+    <strong>Maximum value:</strong> {{ maxValue }}<br />
+  </div>
+  <div class="modify-test-data">
+    <h2>Modify test data</h2>
+    <button dt-button variant="secondary" (click)="_toggleSeries()">
+      toggle series 3
+    </button>
+    <button
+      dt-button
+      variant="secondary"
+      (click)="maxValue = maxValue ? undefined : maxValuePreset"
+    >
+      toggle max value
+    </button>
+    <button
+      dt-button
+      variant="secondary"
+      (click)="type = type === 'pie' ? 'donut' : 'pie'"
+    >
+      toggle type
+    </button>
+
+    <!-- <button dt-button
+    variant="secondary"
+    (click)="_sortSeries()">
+    Toggle sorting
+    </button> -->
+  </div>
+</div>

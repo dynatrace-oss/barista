@@ -1,14 +1,10 @@
-<p>radial-chart</p>
-<!-- <ul>
-  <li *ngFor="let series of __radialChartSeries">{{series}}</li>
-</ul> -->
-
 <svg [attr.viewBox]="_viewBox" [attr.width]="_width">
-  <circle cx="50" cy="50" [attr.r]="_radius"></circle>
-</svg>
-
-<svg [attr.viewBox]="_viewBox" [attr.width]="_width">
-  <svg:g *ngFor="let series of _radialChartSeries">
+  <svg:path
+    *ngIf="_hasBackground"
+    fill="#f8f8f8"
+    [attr.d]="_backgroundPath"
+  ></svg:path>
+  <svg:g *ngFor="let series of _renderData | async">
     <svg:g
       dt-radial-chart-series
       [path]="series.path"
@@ -17,12 +13,3 @@
     ></svg:g>
   </svg:g>
 </svg>
-
-<div>
-  <strong>my data:</strong>
-  <ul *ngFor="let series of _radialChartSeries">
-    <li>Path: {{ series.path }}</li>
-    <li>Color: {{ series.color }}</li>
-    <li>Name: {{ series.name }}</li>
-  </ul>
-</div>

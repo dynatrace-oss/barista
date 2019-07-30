@@ -1,12 +1,6 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  // ViewEncapsulation,
-  Input,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'g[dt-radial-chart-series]',
   templateUrl: 'radial-chart-series.html',
   styleUrls: ['radial-chart-series.scss'],
