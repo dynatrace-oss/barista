@@ -1,10 +1,17 @@
-import { strings } from '@angular-devkit/core';
+import {
+  JsonAstObject,
+  JsonParseMode,
+  parseJsonAst,
+  Position,
+  strings,
+} from '@angular-devkit/core';
 import {
   apply,
   chain,
   mergeWith,
   move,
   Rule,
+  SchematicsException,
   template,
   Tree,
   url,
@@ -14,7 +21,7 @@ import { getSourceFile } from '../utils/ast-utils';
 import { commitChanges, InsertChange } from '../utils/change';
 import { DtLintingRuleOptions } from './schema';
 
-function createRuleName(name: string): string {
+function _createRuleName(name: string): string {
   const dasherizedName = strings.dasherize(name);
   const ruleName = dasherizedName.startsWith('dt-')
     ? dasherizedName
@@ -23,6 +30,54 @@ function createRuleName(name: string): string {
   return ruleName.endsWith('-rule')
     ? ruleName.substring(0, ruleName.length - '-rule'.length)
     : ruleName;
+}
+
+function _parseTslintJson(host: Tree, modulePath: string): JsonAstObject {
+  const sourceFile = getSourceFile(host, modulePath);
+  const tslintJson = parseJsonAst(sourceFile.text, JsonParseMode.Strict);
+
+  if (tslintJson.kind !== 'object') {
+    throw new SchematicsException(
+      'Invalid tslint.json: was expecting an object',
+    );
+  }
+  return tslintJson;
+}
+
+function _findRulePosition(
+  tslintJson: JsonAstObject,
+  ruleName: string,
+): Position {
+  for (const property of tslintJson.properties) {
+    if (property.key.value === 'rules') {
+      const rules = property.value;
+
+      if (rules.kind !== 'object') {
+        throw new SchematicsException(
+          'Invalid tslint.json: property "rules" is supposed to be an object',
+        );
+      }
+
+      const quotedRuleName = `"${ruleName}"`;
+
+      for (const rule of rules.properties) {
+        const currentRuleName = rule.key.text;
+
+        if (
+          currentRuleName !== '"i18n"' &&
+          currentRuleName !== '"no-magic-numbers"' &&
+          quotedRuleName.localeCompare(currentRuleName) < 0
+        ) {
+          return rule.start;
+        }
+      }
+      return rules.end;
+    }
+  }
+
+  throw new SchematicsException(
+    'Invalid tslint.json: Could not find "rules" object',
+  );
 }
 
 /**
@@ -50,13 +105,16 @@ function addLintingRuleToTslintJson(
   modulePath: string,
 ): Rule {
   return (host: Tree) => {
-    const sourceFile = getSourceFile(host, modulePath);
-    const end =
-      sourceFile.text.indexOf('"rules": {') + '"rules": {\n    '.length;
+    const tslintJson = _parseTslintJson(host, modulePath);
+    const rulePos = _findRulePosition(tslintJson, ruleName);
     const toInsert = `"${ruleName}": ${
       warningSeverity ? '{ "severity": "warning" }' : true
     },\n    `;
-    const lintingRuleChange = new InsertChange(modulePath, end, toInsert);
+    const lintingRuleChange = new InsertChange(
+      modulePath,
+      rulePos.offset,
+      toInsert,
+    );
 
     return commitChanges(host, lintingRuleChange, modulePath);
   };
@@ -67,10 +125,10 @@ export default function(options: DtLintingRuleOptions): Rule {
   const severity = options.severity;
 
   if (severity && severity !== 'warning') {
-    throw new Error(`Unsupported severity level: ${severity}`);
+    throw new SchematicsException(`Unsupported severity level: ${severity}`);
   }
 
-  const ruleName = (options.name = createRuleName(options.name));
+  const ruleName = (options.name = _createRuleName(options.name));
   const category = options.category
     ? strings.dasherize(options.category)
     : undefined;
