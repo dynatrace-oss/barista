@@ -38,9 +38,9 @@
   in template expressions, `@ViewChildren` / `@ContentChildren` properties, host
   bindings, and `@Input` / `@Output` properties (when using an alias).
 
-#### Getters and Setters
+#### Getters and setters
 
-- Getters and Setters should only be used when additional logic is required
+- Getters and setters should only be used when additional logic is required
   despite setting/getting a property. For example the call of a coercion
   function.
 - Avoid long or complex getters and setters. Introduce a new method to contain
@@ -168,15 +168,18 @@ representation thereof.
 ## CSS & SCSS
 
 - Prefer styling via class selectors / attribute selectors over id selectors.
+- Avoid styling Angular specific attributes like `ng-reflect` or `nghost`.
 
 ### Classnames
 
-- Prefix all classnames with `dt-` to avoid collisions and identify styling
-  classes as part of the component library.
+- Prefix all classnames with `dt-<component-name>` (i.e. `dt-button-label`) to
+  avoid collisions and identify styling classes as part of the component
+  library.
 - Use descriptive classnames that define what the element / style should
-  represent rather than what it looks like:  
-  Good: `dt-tag`  
-  Bad: `dt-gray-tag`
+  represent rather than what it looks like. Avoid using colors or specific
+  representational names in class names: Good: `dt-tag`, `dt-tag-label`,
+  `dt-tag-action`  
+  Bad: `dt-tag-gray`, `dt-tag-rounded-corners`, `dt-tag-margin-top-4`
 - We do not follow a specific BEM or other naming convention.
 
 ### SCSS specifics
