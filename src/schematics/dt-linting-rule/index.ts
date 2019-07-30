@@ -140,12 +140,6 @@ function addLintingRuleToTslintJson(
 
 // tslint:disable-next-line:no-default-export
 export default function(options: DtLintingRuleOptions): Rule {
-  const severity = options.severity;
-
-  if (severity && severity !== 'warning') {
-    throw new SchematicsException(`Unsupported severity level: ${severity}`);
-  }
-
   const ruleName = (options.name = _createRuleName(options.name));
   const category = options.category
     ? strings.dasherize(options.category)
@@ -166,12 +160,12 @@ export default function(options: DtLintingRuleOptions): Rule {
     mergeWith(templateSource),
     addLintingRuleToTslintJson(
       ruleName,
-      severity === 'warning',
+      options.severity === 'warning',
       path.join('src', 'barista-examples', 'tslint.json'),
     ),
     addLintingRuleToTslintJson(
       ruleName,
-      severity === 'warning',
+      options.severity === 'warning',
       path.join('src', 'linting', 'tslint.json'),
     ),
     addLintingRuleToReadme(ruleName),
