@@ -15,7 +15,7 @@
   when cancelling edit mode
   ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
 - **filter-field:** Fixes weird spacing for range labels
-  ([***REMOVED***])(https://dev-jira.dynatrace.org/browse/***REMOVED***)
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
 - **overlay:** Fixes an issue when hovering over child elements of the trigger
   the overlay is destroyed and recreated.
   ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
