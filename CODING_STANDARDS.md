@@ -1,6 +1,66 @@
 # Coding Standards
 
+Beside Dynatrace specific guidelines the following coding standards are also
+heavily inspired by the
+[Angular Material Coding Standards](https://github.com/angular/components/blob/master/CODING_STANDARDS.md)
+and the
+[Google JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html)
+which give us a solid foundation for our component library.
+
 ## General
+
+### Comments
+
+- Write useful comments
+- Comments that explain what some block of code does are nice. They can tell you
+  something in less time than it would take to follow through the code itself.
+- Comments that explain why some block of code exists at all, or does something
+  the way it does, are invaluable. The "why" is difficult, or sometimes
+  impossible, to track down without seeking out the original author.
+- In TypeScript code, use JsDoc-style comments for descriptions (on classes,
+  members, etc.) and use `//` style comments for everything else (explanations,
+  background info, etc.).
+- In SCSS code, always use `//` style comments.
+
+### Granularity
+
+- Prefer more focused, granular components vs. complex, configurable components.
+- Prefer small, focused modules.
+- Keeping modules to a single responsibility makes the code easier to test,
+  consume, and maintain. Ideally, individual files are 200 - 300 lines of code.
+- As a rule of thumb, once a file draws near 400 lines (barring abnormally long
+  constants / comments), start considering how to refactor into smaller pieces.
+
+## API Design
+
+- Once a feature is released, it never goes away. We should avoid adding
+  features that don't offer high user value for price we pay both in
+  maintenance, complexity, and payload size. When in doubt, leave it out.
+- This applies especially to providing two different APIs to accomplish the same
+  thing. Always prefer sticking to a single API for accomplishing something.
+- Avoid adding boolean arguments to a method in cases where that argument means
+  "do something extra". In these cases, prefer breaking the behavior up into
+  different functions.
+
+Bad:
+
+```ts
+function getTargetElement(createIfNotFound = false) {
+  // ...
+}
+```
+
+Good:
+
+```ts
+function getExistingTargetElement() {
+  // ...
+}
+
+function createTargetElement() {
+  // ...
+}
+```
 
 ## Typescript
 
@@ -128,6 +188,7 @@ const enum OptionType {
 
 - Classes should be named based on what they're responsible for. Names should
   capture what the code does, not how it is used.
+- Each class should have a single responsibility. Avoid God-Objects.
 - Avoid suffixing a class with "Service" or "Component", as it communicates
   nothing about what the class does.
 - Prefix consumer facing classes with `Dt` (e.g. `DtButton`).
@@ -246,6 +307,12 @@ const text =
 - `Object.prototype.hasOwnProperty` should be used in for-in loops to exclude
   unwanted prototype properties.
 - Prefer `for-of` and `Object.keys` over `for-in` when possible.
+- Each `switch` statement should include a default statement group, even if it
+  contains no code.
+- Only use `this` in class constructors and methods, or in arrow functions
+  defined within class constructors and methods.
+- Never use `this` to refer to the global object, the context of an `eval`, the
+  target of an event, or unnecessarily `call()`ed or `apply()`ed functions.
 
 #### Try-Catch
 
@@ -258,17 +325,24 @@ cannot be prevented.
 
 - Suffix all public, internal, private and local Observables with `$`.
 - Omit the `$` suffix for `@Output` streams.
-<<<<<<< HEAD
-<<<<<<< HEAD
 - Suffix subscriptions with `Subscription`
-=======
-- Suffix subscriptions with `Sub` or `Subscription`
->>>>>>> 87e5163d... ***REMOVED*** docs:  Added coding standards
-=======
-- Suffix subscriptions with `Subscription`
->>>>>>> 8fb250b2... docs: Added best practices section, implemented feedback
 - Make sure to always unsubscribe from observables (either by using `async`
   pipes, by calling unsubscribe or by using the "destroy subject pattern").
+
+### Disallowed features
+
+- Do not use the `with` keyword. It makes your code harder to understand and has
+  been banned in strict mode since ES5.
+- Do not use `eval` or the `Function(...string)` constructor. These features are
+  potentially dangerous!
+- Do not use non-standard features. This includes old features that have been
+  removed (e.g., `WeakMap.clear`), new features that are not yet standardized,
+  or proprietary features that are only implemented in some browsers.
+- Never use `new` on the primitive object wrappers (`Boolean`, `Number`,
+  `String`, `Symbol`), nor include them in type annotations.
+- Never modify builtin types, either by adding methods to their constructors or
+  to their prototypes. Avoid depending on libraries that do this.
+- Do not add symbols to the global object unless absolutely necessary.
 
 ## HTML
 
