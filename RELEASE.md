@@ -9,13 +9,13 @@ are released with the next (future) major version.
 
 ## Versioning
 
-The versioning of the angular component library closely follows **SemVer**. This
+The versioning of the Angular component library closely follows **SemVer**. This
 means, every version number consists of three parts (x.y.z) that have a
 different meaning and describe the type of change this version introduces.
 
 - **Patch:** (x.y.**z**): A patch version only includes fixes and small patches.
 - **Minor:** (x.**y**.z): A minor version includes new features that do **NOT**
-  introduce a breaking change
+  introduce a breaking change.
 - **Major:** (**x**.y.z): A major version is the only version that can contain
   breaking changes. These versions are released very rarely and are announced
   weeks in advance.
@@ -60,7 +60,7 @@ conflicts are resolved, follow these steps:
   that apply to the public library release. Move commits marked with
   `BREAKING CHANGE` to an extra "Breaking changes" section on top. When done,
   proceed by confirming the prompt in your command line tool.
-- The new changelog and the version bump will automatically be commited, and
+- The new changelog and the version bump will automatically be committed, and
   pushed to the remote repository.
 - Create a new pull request from this branch against the master branch.
 - Once all required tests in the pull request have successfully been run and you
