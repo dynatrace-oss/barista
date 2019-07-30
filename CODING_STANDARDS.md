@@ -166,3 +166,68 @@ understanding the HTML structure and content without having any visual
 representation thereof.
 
 ## CSS & SCSS
+
+- Prefer styling via class selectors / attribute selectors over id selectors.
+
+### Classnames
+
+- Prefix all classnames with `dt-` to avoid collisions and identify styling
+  classes as part of the component library.
+- Use descriptive classnames that define what the element / style should
+  represent rather than what it looks like:  
+  Good: `dt-tag`  
+  Bad: `dt-gray-tag`
+- We do not follow a specific BEM or other naming convention.
+
+### SCSS specifics
+
+- Avoid using scss class nesting if it is not immediately required for
+  specificity. Sass nesting does not necessarily need to follow html structure.
+
+```html
+<div class="dt-tag">
+  <span class="dt-tag-label">Label</span>
+  <button class="dt-tag-action">X</button>
+</div>
+```
+
+Good:
+
+```scss
+.dt-tag {
+  background-color: $gray-400;
+}
+
+.dt-tag-label {
+  font-size: 14px;
+}
+```
+
+Bad:
+
+```scss
+.dt-tag {
+  background-color: $gray-400;
+
+  .dt-tag-label {
+    font-size: 14px;
+  }
+}
+```
+
+- Do not use `@extend` as it modfies the original instance, which bloats the
+  selectors and the resulting files.
+- Do not use `&` to concatenate selector-names, this will make it almost
+  impossible to find the class `dt-tag-label` in the source code.
+
+Bad:
+
+```scss
+.dt-tag {
+  background-color: $gray-400;
+
+  &-label {
+    font-size: 14px;
+  }
+}
+```
