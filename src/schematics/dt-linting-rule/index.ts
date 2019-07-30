@@ -88,9 +88,27 @@ function addLintingRuleToReadme(ruleName: string): Rule {
     const modulePath = path.join('TSLINT.md');
     const sourceFile = getSourceFile(host, modulePath);
     const readmeText = sourceFile.text;
-    const end = readmeText.indexOf('\n', readmeText.indexOf('| ----')) + 1;
-    const toInsert = `| \`${ruleName}\` | ~~~Insert linting rule description here~~~. |\n`;
-    const lintingRuleChange = new InsertChange(modulePath, end, toInsert);
+    let tableEntriesPos =
+      readmeText.indexOf('\n', readmeText.indexOf('| ----')) + 1;
+
+    for (const line of readmeText.substring(tableEntriesPos).split('\n')) {
+      const currentRuleName = line.replace(/^\|\s*`([a-z0-9-]+)`.*$/, '$1');
+
+      if (
+        line.charAt(0) !== '|' ||
+        ruleName.localeCompare(currentRuleName) < 0
+      ) {
+        break;
+      }
+      tableEntriesPos += line.length + 1;
+    }
+
+    const toInsert = `| \`${ruleName}\` | +++ Insert linting rule description here +++. |\n`;
+    const lintingRuleChange = new InsertChange(
+      modulePath,
+      tableEntriesPos,
+      toInsert,
+    );
 
     return commitChanges(host, lintingRuleChange, modulePath);
   };
