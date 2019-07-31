@@ -143,4 +143,26 @@ const text =
 
 ## HTML
 
+- Avoid unnecessary complexity in your templates.
+- Avoid inline styles within templates. Add CSS classes to elements and add
+  styling information to (S)CSS files.
+
+### Semantics
+
+- Use tags in a semantically correct way, e.g. a `<button>` element instead of a
+  `<span>` for a part of the component that triggers some action.
+- Use HTML5 tags with semantic meaning (e.g. `<nav>`, `<figure>`,) instead of
+  `<div>` or `<span>` when appropriate.
+- Don't use headline tags (`h1` - `h6`) within component templates as you can't
+  know where the component is actually used and what heading level would fit
+  best. If you want to indicate something as headline, use `role="heading"` and
+  let the consumer of the component set the `aria-level` via an `@Input`
+  property.
+
+### Accessibility
+
+Add appropriate ARIA attributes to elements to support assistive technologies in
+understanding the HTML structure and content without having any visual
+representation thereof.
+
 ## CSS & SCSS
