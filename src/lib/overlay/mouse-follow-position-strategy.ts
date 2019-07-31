@@ -48,15 +48,13 @@ export class DtMouseFollowPositionStrategy implements PositionStrategy {
   }
 
   /** sets the movement constraint */
-  withMovementContraint(
-    constraint: 'xAxis' | 'yAxis',
-  ): DtMouseFollowPositionStrategy {
+  withMovementContraint(constraint: 'xAxis' | 'yAxis'): this {
     this._constraint = constraint;
     return this;
   }
 
   /** sets the positions for the overlay */
-  withPositions(positions: ConnectedPosition[]): DtMouseFollowPositionStrategy {
+  withPositions(positions: ConnectedPosition[]): this {
     this._relativePositions = positions;
     this._flexiblePositionStrategy.withPositions(positions);
     return this;
