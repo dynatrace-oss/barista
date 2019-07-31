@@ -4,6 +4,8 @@ $dt-timeline-chart-tick-color: $gray-300;
 $dt-timeline-chart-bar-1-color: $blue-300;
 $dt-timeline-chart-timing-marker-color: $gray-640;
 $dt-timeline-chart-key-timing-marker-color: $blue-500;
+$dt-timeline-chart-marker-bubble-size: 16px;
+$dt-timeline-chart-marker-stroke-width-size: 2px;
 
 :host {
   display: block;
@@ -66,8 +68,8 @@ $dt-timeline-chart-key-timing-marker-color: $blue-500;
 .dt-timeline-chart-timing-marker {
   display: block;
   position: absolute;
-  width: 2px;
-  height: 58px;
+  width: $dt-timeline-chart-marker-stroke-width-size;
+  height: 58px + $dt-timeline-chart-marker-bubble-size;
   background: $dt-timeline-chart-timing-marker-color;
 }
 
@@ -75,14 +77,15 @@ $dt-timeline-chart-key-timing-marker-color: $blue-500;
 .dt-timeline-chart-timing-marker-bubble,
 .dt-timeline-chart-key-timing-marker-bubble {
   display: block;
-  width: 16px;
-  height: 16px;
+  width: $dt-timeline-chart-marker-bubble-size;
+  height: $dt-timeline-chart-marker-bubble-size;
   border-radius: 50%;
   color: #ffffff;
   font-size: 10px;
   font-weight: bold;
-  line-height: 16px;
+  line-height: $dt-timeline-chart-marker-bubble-size;
   text-align: center;
+  cursor: default;
 }
 
 .dt-timeline-chart-legend-symbol,
@@ -92,8 +95,9 @@ $dt-timeline-chart-key-timing-marker-color: $blue-500;
 
 .dt-timeline-chart-timing-marker-bubble {
   position: absolute;
-  bottom: -16px;
-  left: -7px;
+  bottom: 0;
+  left: ($dt-timeline-chart-marker-bubble-size / -2) +
+    ($dt-timeline-chart-marker-stroke-width-size / 2);
 }
 
 .dt-timeline-chart-key-timing-marker-container {
@@ -106,22 +110,24 @@ $dt-timeline-chart-key-timing-marker-color: $blue-500;
   display: block;
   position: absolute;
   width: 0;
-  height: 58px;
+  height: 62px + $dt-timeline-chart-marker-bubble-size;
   bottom: 0;
-  border-left: 2px dashed $dt-timeline-chart-key-timing-marker-color;
+  border-left: $dt-timeline-chart-marker-stroke-width-size dashed
+    $dt-timeline-chart-key-timing-marker-color;
 }
 
 .dt-timeline-chart-key-timing-marker-bubble {
   background: $dt-timeline-chart-key-timing-marker-color;
   position: absolute;
-  top: -16px;
-  left: -9px;
+  top: 0;
+  left: ($dt-timeline-chart-marker-bubble-size / -2) -
+    ($dt-timeline-chart-marker-stroke-width-size / 2);
 }
 
 .dt-timeline-chart-key-timing-marker-label {
   display: block;
   position: absolute;
-  top: -18px;
+  top: -2px;
   left: 12px;
   font-size: 12px;
   white-space: nowrap;

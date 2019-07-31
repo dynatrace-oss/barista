@@ -121,10 +121,12 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
     if (this._dtOverlayRef && !this._dtOverlayRef.pinned) {
       const host = this.elementRef.nativeElement as HTMLElement;
       const target = event.target as HTMLElement;
-      const hostLeft = host.getBoundingClientRect().left;
-      const hostTop = host.getBoundingClientRect().top;
-      const targetLeft = target.getBoundingClientRect().left;
-      const targetTop = target.getBoundingClientRect().top;
+      const hostRect = host.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const hostLeft = hostRect.left;
+      const hostTop = hostRect.top;
+      const targetLeft = targetRect.left;
+      const targetTop = targetRect.top;
       let offsetX = event.offsetX;
       let offsetY = event.offsetY;
       if (event.target !== host) {

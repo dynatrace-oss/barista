@@ -50,9 +50,21 @@ export class DtTimelineChartMarker {
   @ViewChild('contentPortal', { read: CdkPortal, static: true })
   _contentPortal: CdkPortal;
 
+  /** @internal Portal for projecting the overlay title and text into the overlay. */
+  @ViewChild('overlayTemplate', { read: TemplateRef, static: true })
+  _overlayTemplate: TemplateRef<{}>;
+
+  /** @internal The title that should be rendered in the overlay. */
+  @ContentChild(DtTimelineChartOverlayTitle, { static: true })
+  _overlayTitle: DtTimelineChartOverlayTitle;
+
+  /** @internal The text that should be rendered in the overlay. */
+  @ContentChild(DtTimelineChartOverlayText, { static: true })
+  _overlayText: DtTimelineChartOverlayText;
+
   /** @internal Whether there is content to be displayed in an overlay. */
   get _hasOverlay(): boolean {
-    return false;
+    return !!this._overlayText || !!this._overlayTitle;
   }
 }
 
@@ -70,24 +82,7 @@ export class DtTimelineChartMarker {
     },
   ],
 })
-export class DtTimelineChartTimingMarker extends DtTimelineChartMarker {
-  /** @internal Portal for projecting the overlay title and text into the legend's overlay. */
-  @ViewChild('overlayTemplate', { read: TemplateRef, static: true })
-  _overlayTemplate: TemplateRef<{}>;
-
-  /** @internal The title that should be rendered in the legends overlay. */
-  @ContentChild(DtTimelineChartOverlayTitle, { static: true })
-  _overlayTitle: DtTimelineChartOverlayTitle;
-
-  /** @internal The text that should be rendered in the legends overlay. */
-  @ContentChild(DtTimelineChartOverlayText, { static: true })
-  _overlayText: DtTimelineChartOverlayText;
-
-  /** @internal Whether there is content to be displayed in an overlay. */
-  get _hasOverlay(): boolean {
-    return !!this._overlayText || !!this._overlayTitle;
-  }
-}
+export class DtTimelineChartTimingMarker extends DtTimelineChartMarker {}
 
 /** Element for the consumer to create timing markers on the timeline chart. */
 @Component({
