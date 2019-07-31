@@ -159,50 +159,6 @@ export function DT_CHART_RESOVER_PROVIDER_FACTORY(c: DtChart): DtChartResolver {
 })
 export class DtChart
   implements AfterViewInit, OnDestroy, OnChanges, AfterContentInit {
-  @ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
-
-  // tslint:disable-next-line: no-forward-ref
-  @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<
-    DtChartHeatfield
-  >;
-
-  private _series?: Observable<DtChartSeries[]> | DtChartSeries[];
-  private _currentSeries?: IndividualSeriesOptions[];
-  private _options: DtChartOptions;
-  private _dataSub: Subscription | null = null;
-  private _highchartsOptions: HighchartsOptions;
-  private readonly _destroy$ = new Subject<void>();
-  private readonly _tooltipRefreshed: Subject<DtChartTooltipEvent | null> = new Subject();
-  private _isTooltipOpen = false;
-
-  /** @internal whether the chart is in the viewport or not */
-  _isInViewport$ = createInViewportStream(
-    this._elementRef,
-    this._platform.isBrowser,
-    CHART_INTERSECTION_THRESHOLD,
-  );
-
-  /** Deals with the selection logic. */
-  private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
-
-  /** @internal The offset of the plotBackground in relation to the chart container on the xAxis  */
-  _plotBackgroundChartOffset = 0;
-
-  /** @internal stream that emits every time the plotBackground changes */
-  _plotBackground$ = new BehaviorSubject<SVGRectElement | null>(null);
-
-  /**
-   * @internal
-   * hold the state if there is a range or a timestamp if one of them is there we need a selection area
-   */
-  _hasSelectionArea = false;
-
-  /** @internal Emits when highcharts finishes rendering. */
-  readonly _afterRender = new Subject<void>();
-
-  /** @internal The highcharts chart object */
-  _chartObject: ChartObject | null;
-
   /** Options to configure the chart. */
   @Input()
   get options(): DtChartOptions {
@@ -271,6 +227,57 @@ export class DtChart
       : {};
   }
 
+  @ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
+
+  // tslint:disable-next-line: no-forward-ref
+  @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<
+    DtChartHeatfield
+  >;
+
+  /** @internal Instance of the Chart range used by the selection area */
+  @ContentChild(DtChartRange, { static: false }) _range?: DtChartRange;
+
+  /** @internal Instance of the Chart timestamp used by the selection area */
+  @ContentChild(DtChartTimestamp, { static: false })
+  _timestamp?: DtChartTimestamp;
+
+  private _series?: Observable<DtChartSeries[]> | DtChartSeries[];
+  private _currentSeries?: IndividualSeriesOptions[];
+  private _options: DtChartOptions;
+  private _dataSub: Subscription | null = null;
+  private _highchartsOptions: HighchartsOptions;
+  private readonly _destroy$ = new Subject<void>();
+  private readonly _tooltipRefreshed: Subject<DtChartTooltipEvent | null> = new Subject();
+  private _isTooltipOpen = false;
+
+  /** @internal whether the chart is in the viewport or not */
+  _isInViewport$ = createInViewportStream(
+    this._elementRef,
+    this._platform.isBrowser,
+    CHART_INTERSECTION_THRESHOLD,
+  );
+
+  /** Deals with the selection logic. */
+  private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
+
+  /** @internal The offset of the plotBackground in relation to the chart container on the xAxis  */
+  _plotBackgroundChartOffset = 0;
+
+  /** @internal stream that emits every time the plotBackground changes */
+  _plotBackground$ = new BehaviorSubject<SVGRectElement | null>(null);
+
+  /**
+   * @internal
+   * hold the state if there is a range or a timestamp if one of them is there we need a selection area
+   */
+  _hasSelectionArea = false;
+
+  /** @internal Emits when highcharts finishes rendering. */
+  readonly _afterRender = new Subject<void>();
+
+  /** @internal The highcharts chart object */
+  _chartObject: ChartObject | null;
+
   /** @internal Whether the loading distractor should be shown. */
   get _isLoading(): boolean {
     return (
@@ -279,13 +286,6 @@ export class DtChart
         !this._highchartsOptions.series.length)
     );
   }
-
-  /** @internal Instance of the Chart range used by the selection area */
-  @ContentChild(DtChartRange, { static: false }) _range?: DtChartRange;
-
-  /** @internal Instance of the Chart timestamp used by the selection area */
-  @ContentChild(DtChartTimestamp, { static: false })
-  _timestamp?: DtChartTimestamp;
 
   private readonly _heatfieldActiveChanges: Observable<
     DtChartHeatfieldActiveChange
