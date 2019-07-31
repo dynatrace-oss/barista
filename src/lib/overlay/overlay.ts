@@ -33,21 +33,13 @@ export type DtOverlayOrigin =
   | ElementRef
   | HTMLElement
   | { x: number; y: number };
-export const DT_OVERLAY_DEFAULT_OFFSET = 6;
+export const DT_OVERLAY_DEFAULT_OFFSET = 12;
 
-const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
+const DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
     originX: 'start',
-    originY: 'bottom',
+    originY: 'top',
     overlayX: 'start',
-    overlayY: 'top',
-    offsetX: DT_OVERLAY_DEFAULT_OFFSET,
-    offsetY: DT_OVERLAY_DEFAULT_OFFSET,
-  },
-  {
-    originX: 'start',
-    originY: 'bottom',
-    overlayX: 'end',
     overlayY: 'top',
     offsetX: DT_OVERLAY_DEFAULT_OFFSET,
     offsetY: DT_OVERLAY_DEFAULT_OFFSET,
@@ -64,15 +56,17 @@ const DEFAULT_DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
     originX: 'start',
     originY: 'top',
     overlayX: 'end',
-    overlayY: 'bottom',
-    offsetX: DT_OVERLAY_DEFAULT_OFFSET,
-    offsetY: -DT_OVERLAY_DEFAULT_OFFSET,
+    overlayY: 'top',
+    offsetX: -DT_OVERLAY_DEFAULT_OFFSET,
+    offsetY: DT_OVERLAY_DEFAULT_OFFSET,
   },
   {
-    originX: 'center',
+    originX: 'start',
     originY: 'top',
-    overlayX: 'center',
-    overlayY: 'top',
+    overlayX: 'end',
+    overlayY: 'bottom',
+    offsetX: -DT_OVERLAY_DEFAULT_OFFSET,
+    offsetY: -DT_OVERLAY_DEFAULT_OFFSET,
   },
 ];
 
@@ -147,22 +141,13 @@ export class DtOverlay implements OnDestroy {
     origin: DtOverlayOrigin,
     config: DtOverlayConfig,
   ): OverlayRef {
-    let positions = config._positions || DEFAULT_DT_OVERLAY_POSITIONS;
-    if (!config._positions && config.originY === 'center') {
-      positions = positions.map(pos => {
-        const newPos = { ...pos };
-        newPos.originY = 'center';
-        return newPos;
-      });
-    }
-
     const positionStrategy = new DtMouseFollowPositionStrategy(
       origin,
       this._viewportRuler,
       this._document,
       this._platform,
       this._overlayContainer,
-    ).withPositions(positions);
+    ).withPositions(DT_OVERLAY_POSITIONS);
 
     if (config.movementConstraint) {
       positionStrategy.withMovementContraint(config.movementConstraint);

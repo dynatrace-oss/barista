@@ -48,6 +48,9 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
 
   /** Overlay pane containing the content */
   @Input('dtOverlay')
+  get overlay(): TemplateRef<T> {
+    return this._content;
+  }
   set overlay(value: TemplateRef<T>) {
     this._content = value;
   }
@@ -116,7 +119,19 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
       });
     }
     if (this._dtOverlayRef && !this._dtOverlayRef.pinned) {
-      this._dtOverlayRef.updatePosition(event.offsetX, event.offsetY);
+      const host = this.elementRef.nativeElement as HTMLElement;
+      const target = event.target as HTMLElement;
+      const hostLeft = host.getBoundingClientRect().left;
+      const hostTop = host.getBoundingClientRect().top;
+      const targetLeft = target.getBoundingClientRect().left;
+      const targetTop = target.getBoundingClientRect().top;
+      let offsetX = event.offsetX;
+      let offsetY = event.offsetY;
+      if (event.target !== host) {
+        offsetX = targetLeft - hostLeft + offsetX;
+        offsetY = targetTop - hostTop + offsetY;
+      }
+      this._dtOverlayRef.updatePosition(offsetX, offsetY);
     }
   }
 
@@ -141,14 +156,16 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
 
   /** Function that creates an overlay and stores the reference. */
   private _createOverlay(): void {
-    const ref = this._dtOverlayService.create<T>(
-      this.elementRef,
-      this._content,
-      this._config,
-    );
-    ref.disposableFns.push(() => {
-      this._dtOverlayRef = null;
-    });
-    this._dtOverlayRef = ref;
+    if (this._content) {
+      const ref = this._dtOverlayService.create<T>(
+        this.elementRef,
+        this._content,
+        this._config,
+      );
+      ref.disposableFns.push(() => {
+        this._dtOverlayRef = null;
+      });
+      this._dtOverlayRef = ref;
+    }
   }
 }
