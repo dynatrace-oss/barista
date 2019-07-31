@@ -1,9 +1,6 @@
-import { ConnectedPosition } from '@angular/cdk/overlay';
-
-// tslint:disable:no-inferrable-types
-
 export class DtOverlayConfig {
   /** enables pinning the overlay */
+  // tslint:disable-next-line:no-inferrable-types
   pinnable?: boolean = false;
 
   /** Constrains movement along an axis */
@@ -15,9 +12,6 @@ export class DtOverlayConfig {
    * if the overlay fits below the origin element and the top edge otherwise.
    */
   originY?: 'edge' | 'center' = 'center';
-
-  /** @internal Positiones passed to the overlay if you need to override the default positioning system */
-  _positions?: ConnectedPosition[];
 
   /** Data passed to the overlay as the $implicit context object */
   // tslint:disable-next-line:no-any
