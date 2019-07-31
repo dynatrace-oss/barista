@@ -1,3 +1,37 @@
+## 4.3.0 (2019-07-31)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the chart tooltip is positioned off on mouse
+  move.
+- **chart:** Fixes an issue where the tooltip was not opened again after the
+  user scrolled.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **chart:** Fixes an issue that the tooltip was misplaced when the chart was
+  not fully visible.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Fixes an issue where the selected range values have been
+  removed when clicking an input field in the range overlay in the edit mode.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Fixes issue where larger numbers are cut of in the range
+  input fields. ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **legend:** Fixes issue where legend items did not wrap on smaller screens.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **overlay:** Fixes issue where overlay position was not correct when hovering
+  child elements of the overlay trigger.
+- **select:** Fixes an issue where options where cut off even with very short
+  values. ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
+### Features
+
+- **chart:** Add Keyboard support for the chart selection area to add proper
+  accessibility.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **timeline-chart:** Added possibility to add overlays to markers.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **schematics:** Create new schematic for generating linting rules.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 4.2.1 (2019-07-26)
 
 ### Bug Fixes
