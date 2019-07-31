@@ -4,6 +4,8 @@
       class="dt-timeline-chart-timing-marker"
       *ngFor="let markerObj of _renderTimingMarkers"
       [style.left.%]="markerObj.position"
+      [dtOverlay]="markerObj.marker._hasOverlay ? markerObj.marker._overlayTemplate : undefined"
+      [disabled]="!markerObj.marker._hasOverlay"
     >
       <span class="dt-timeline-chart-timing-marker-bubble">
         {{ markerObj.marker.identifier }}
@@ -34,6 +36,8 @@
       class="dt-timeline-chart-key-timing-marker"
       *ngFor="let markerObj of _renderKeyTimingMarkers"
       [style.left.%]="markerObj.position"
+      [dtOverlay]="markerObj.marker._hasOverlay ? markerObj.marker._overlayTemplate : undefined"
+      [disabled]="!markerObj.marker._hasOverlay"
     >
       <span class="dt-timeline-chart-key-timing-marker-bubble">
         {{ markerObj.marker.identifier }}
