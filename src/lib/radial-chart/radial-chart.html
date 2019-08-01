@@ -4,12 +4,12 @@
     fill="#f8f8f8"
     [attr.d]="_backgroundPath"
   ></svg:path>
-  <svg:g *ngFor="let series of _renderData | async">
-    <svg:g
-      dt-radial-chart-series
-      [path]="series.path"
-      [color]="series.color"
-      [name]="series.name"
-    ></svg:g>
+  <svg:g *ngFor="let series of _renderData">
+    <svg:path
+      class="dt-radial-chart-series"
+      [attr.d]="series.path"
+      [attr.fill]="series.color"
+      [attr.aria-label]="series.ariaLabel"
+    ></svg:path>
   </svg:g>
 </svg>

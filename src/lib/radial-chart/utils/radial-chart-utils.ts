@@ -1,15 +1,18 @@
 import { arc, pie, PieArcDatum } from 'd3-shape';
 
 export function getSum(values: number[]): number {
-  return values.reduce((sum, currentValue) => sum + currentValue, 0);
+  return values.reduce(
+    (sum, currentValue) => (currentValue ? sum + currentValue : sum),
+    0,
+  );
 }
 
 export function getEndAngle(maxValue: number, sumValue: number): number {
   if (maxValue <= 0) {
-    // TODO: throw error: max value must be greater than 0
+    // TODO: ? throw error: max value must be greater than 0
   }
   if (maxValue < sumValue) {
-    // TODO: throw error: max value must be greater or equal than the sum of all series values
+    // TODO: ? throw error: max value must be greater or equal than the sum of all series values
   }
   // tslint:disable-next-line:no-magic-numbers
   return (Math.PI * sumValue * 2) / maxValue;
@@ -17,7 +20,7 @@ export function getEndAngle(maxValue: number, sumValue: number): number {
 
 export function generatePieArcData(
   seriesValues: number[],
-  maxValue: number,
+  maxValue: number | null,
 ): Array<PieArcDatum<number>> {
   const pieGenerator = pie<number>();
   /**

@@ -1,51 +1,80 @@
-<dt-radial-chart [type]="type" [maxValue]="maxValue" [start]="start">
-  <dt-radial-chart-series
-    *ngFor="let s of renderedSeries"
-    [name]="s.name"
-    [color]="s.color"
-    [value]="s.value"
-  >
-  </dt-radial-chart-series>
-</dt-radial-chart>
+<div class="radial-chart-wrapper">
+  <dt-radial-chart [type]="type" [maxValue]="maxValue" [start]="start">
+    <dt-radial-chart-series
+      *ngFor="let s of renderedSeries"
+      [name]="s.name"
+      [color]="s.color"
+      [value]="s.value"
+    >
+    </dt-radial-chart-series>
+  </dt-radial-chart>
+</div>
 
 <div class="flex-wrapper">
   <div class="test-data">
     <h2>Test data</h2>
     <strong>Chart type:</strong> {{ type }}<br />
+    <strong>Start value:</strong> {{ start }}<br />
+    <strong>Sorted by value:</strong> {{ sorted }}<br />
+    <strong>Maximum value:</strong
+    ><span
+      [dtIndicator]="maxValue && maxValue! < sumAllSeries"
+      dtIndicatorColor="error"
+    >
+      {{ maxValue }}</span
+    ><br />
+    <strong>Sum of series values:</strong> {{ sumAllSeries }}<br />
     <strong>Series data</strong>
     <ul *ngFor="let series of allSeries">
       <li>Value: {{ series.value }}</li>
       <li>Name: {{ series.name }}</li>
       <li>Color: {{ series.color }}</li>
     </ul>
-    <strong>Series 3 visible:</strong> {{ showSeries3 }}<br />
-    <strong>Start value:</strong> {{ start }}<br />
-    <strong>Maximum value:</strong> {{ maxValue }}<br />
   </div>
   <div class="modify-test-data">
     <h2>Modify test data</h2>
-    <button dt-button variant="secondary" (click)="_toggleSeries()">
-      toggle series 3
-    </button>
-    <button
-      dt-button
-      variant="secondary"
-      (click)="maxValue = maxValue ? undefined : maxValuePreset"
-    >
-      toggle max value
-    </button>
     <button
       dt-button
       variant="secondary"
       (click)="type = type === 'pie' ? 'donut' : 'pie'"
     >
-      toggle type
+      Toggle chart type
+    </button>
+    <dt-form-field>
+      <dt-label>Max value</dt-label>
+      <input
+        type="number"
+        dtInput
+        [(ngModel)]="maxValue"
+        placeholder="no max value set"
+      />
+    </dt-form-field>
+    <button
+      dt-button
+      variant="secondary"
+      (click)="maxValue = maxValue ? null : maxValuePreset"
+    >
+      toggle max value
+    </button>
+    <h3>Modify series</h3>
+    <button
+      dt-button
+      variant="secondary"
+      (click)="_addRandomDataToRenderedSeries()"
+    >
+      add random series
+    </button>
+    <button
+      dt-button
+      variant="secondary"
+      (click)="_removeLastSeries()"
+      [disabled]="renderedSeries.length < 1"
+    >
+      remove series
     </button>
 
-    <!-- <button dt-button
-    variant="secondary"
-    (click)="_sortSeries()">
-    Toggle sorting
-    </button> -->
+    <button dt-button variant="secondary" (click)="_toggleSorting()">
+      Toggle sorting
+    </button>
   </div>
 </div>
