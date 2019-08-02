@@ -93,6 +93,10 @@
   }
 }
 
+a.dt-button[disabled] {
+  pointer-events: none;
+}
+
 // Apply the button theme to all theme definitions
 @include dt-apply-theme() {
   @include dt-theme-button($dt-current-theme);
