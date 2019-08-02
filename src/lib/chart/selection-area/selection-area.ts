@@ -131,7 +131,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
    * Highcharts plotBackground is used to size the selection area according to this area
    * is set after Highcharts render is completed.
    */
-  private _plotBackground: SVGRectElement;
+  private _plotBackground: SVGRectElement | null;
 
   /** Array of Elements where we capture events in case that we disable pointer events on selection Area */
   private _mouseDownElements: Element[] = [];
@@ -160,7 +160,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         filter(Boolean),
         takeUntil(this._destroy$),
       )
-      .subscribe(plotBackground => {
+      .subscribe((plotBackground: SVGRectElement | null) => {
         this._plotBackground = plotBackground;
         this._range = this._chart._range;
         this._timestamp = this._chart._timestamp;
@@ -803,7 +803,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     // get Bounding client Rects of the plot background and the host to calculateRelativeXPos
     // a relative offset.
-    const hostBCR = this._elementRef.nativeElement.getBoundingClientRect();
+    const hostBCR = this._chart._elementRef.nativeElement.getBoundingClientRect();
     const plotBCR = this._plotBackground.getBoundingClientRect();
 
     const topOffset = plotBCR.top - hostBCR.top;
