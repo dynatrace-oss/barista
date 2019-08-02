@@ -311,8 +311,9 @@ export class DtChart
     @SkipSelf()
     @Inject(DT_CHART_CONFIG)
     private _config: DtChartConfig,
-    private _elementRef: ElementRef,
     private _platform: Platform,
+    /** @internal used for the selection area to calculate the bounding client rect */
+    public _elementRef: ElementRef,
   ) {
     this._config = this._config || DT_CHART_DEFAULT_CONFIG;
 

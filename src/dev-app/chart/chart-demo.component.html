@@ -1,148 +1,22 @@
-<dt-expandable-section>
-  <dt-expandable-section-header>My header text</dt-expandable-section-header>
-  <p>
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-    diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-    amet.
-  </p>
-</dt-expandable-section>
-
-<dt-chart [options]="options" [series]="series">
-  <!-- <dt-chart-heatfield [start]="1370304000000" [end]="1370325600000">
-    Problem 1:<br/>
-    <a class="dt-link">View problem details</a>
-  </dt-chart-heatfield> -->
-
-  <dt-chart-heatfield [start]="1370335500000">
-    Problem 2:
-    <br />
-    <a class="dt-link">View problem details</a>
-  </dt-chart-heatfield>
-  <dt-chart-tooltip>
-    <ng-template let-tooltip>
-      <dt-key-value-list style="width: 200px">
-        <dt-key-value-list-item *ngFor="let data of tooltip.points">
-          <dt-key-value-list-key>{{ data.series.name }}</dt-key-value-list-key>
-          <dt-key-value-list-value>{{ data.point.y }}</dt-key-value-list-value>
-        </dt-key-value-list-item>
-      </dt-key-value-list>
-    </ng-template>
-  </dt-chart-tooltip>
-
-  <dt-chart-timestamp>
-    <button dt-button dtChartSelectionAreaAction>Analyze</button>
-  </dt-chart-timestamp>
-  <dt-chart-range (valid)="rangeValidChanges($event)">
-    <button dt-button dtChartSelectionAreaAction [disabled]="!validRange">
-      Inspect
+<dt-chart *ngIf="series && options" [options]="options" [series]="series">
+  <dt-chart-range
+    aria-label-close="Close the selection"
+    aria-label-left-handle="The left handle to update the selection"
+    aria-label-right-handle="The right handle to update the selection"
+    aria-label-selected-area="The selected time-frame"
+    (valid)="onTimeframeValidChanges($event)"
+  >
+    <button
+      aria-label="Apply the selection"
+      dt-button
+      dtChartSelectionAreaAction
+      [disabled]="!validRange"
+      i18n
+      (click)="onTimeframeApply()"
+    >
+      Apply
     </button>
   </dt-chart-range>
 </dt-chart>
 
-<div class="controls">
-  <!-- <dt-switch (change)="disableSelectionArea($event)">Disable Selection Area</dt-switch> -->
-  <!-- <dt-switch (change)="disableRange($event)">Disable Range</dt-switch>
-  <dt-switch (change)="disableTimestamp($event)">Disable Timestamp</dt-switch> -->
-
-  <dt-form-field>
-    <dt-label>Timestamp position</dt-label>
-    <dt-select
-      placeholder="Select your Time"
-      (selectionChange)="changeTimestamp($event)"
-    >
-      <dt-option *ngFor="let time of timeValues" [value]="time">
-        {{ time | date: 'h:mm:ss' }}
-      </dt-option>
-    </dt-select>
-  </dt-form-field>
-
-  <div class="range-input">
-    <dt-form-field>
-      <dt-label>Range from {{ startRange | date: 'h:mm' }}</dt-label>
-      <dt-select
-        placeholder="Select your Time"
-        [(ngModel)]="startRange"
-        (selectionChange)="changeRange($event)"
-      >
-        <dt-option selected>---</dt-option>
-        <dt-option *ngFor="let time of timeValues" [value]="time">
-          {{ time | date: 'h:mm:ss' }}
-        </dt-option>
-      </dt-select>
-    </dt-form-field>
-
-    <dt-form-field>
-      <dt-label>to {{ endRange | date: 'h:mm' }}</dt-label>
-      <dt-select
-        placeholder="Select your Time"
-        [(ngModel)]="endRange"
-        (selectionChange)="changeRange($event)"
-      >
-        <dt-option selected>---</dt-option>
-        <dt-option *ngFor="let time of timeValues" [value]="time">
-          {{ time | date: 'h:mm' }}
-        </dt-option>
-      </dt-select>
-    </dt-form-field>
-  </div>
-</div>
-
-<dt-chart [options]="options" [series]="series">
-  <dt-chart-timestamp>
-    <button dt-button dtChartSelectionAreaAction>Analyze</button>
-  </dt-chart-timestamp>
-  <!-- [value]="[1370309400000,1370319300000]" -->
-  <dt-chart-range>
-    <button dt-button dtChartSelectionAreaAction>Analyze</button>
-  </dt-chart-range>
-</dt-chart>
-
-<h2>Timestamp only</h2>
-<dt-chart [options]="options" [series]="series">
-  <!-- [value]="1370309400000" -->
-  <dt-chart-timestamp>
-    <button dt-button dtChartSelectionAreaAction>Analyze</button>
-  </dt-chart-timestamp>
-</dt-chart>
-
-<h2>Range only</h2>
-<dt-chart [options]="options" [series]="series">
-  <dt-chart-range>
-    <button dt-button dtChartSelectionAreaAction>Analyze</button>
-  </dt-chart-range>
-</dt-chart>
-
-<h2>Only Chart</h2>
-<dt-chart [options]="options" [series]="series"> </dt-chart>
-
-<hr />
-
-<dt-chart
-  [options]="lineChartWithGapsOptions"
-  [series]="lineChartWithGapsSeries"
-></dt-chart>
-
-<hr />
-
-<dt-chart [options]="barChartOptions" [series]="barChartSeries"></dt-chart>
-
-<hr />
-
-<dt-chart [options]="donutChartOptions" [series]="donutChartSeries"></dt-chart>
-
-<hr />
-
-<dt-chart [options]="lineChartOptions" [series]="lineChartSeries"></dt-chart>
-
-<hr />
-
-<dt-chart
-  [options]="minMaxChartOptions"
-  [series]="minMaxChartSeries"
-></dt-chart>
+<button (click)="switchData()">change</button>
