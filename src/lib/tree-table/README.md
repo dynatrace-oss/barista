@@ -4,8 +4,6 @@ type: 'component'
 
 # TreeTable
 
-<docs-source-example example="TreeTableDefaultExample" fullwidth="true"></docs-source-example>
-
 ## Imports
 
 You have to import the `DtTreeTableModule` when you want to use the
@@ -251,4 +249,12 @@ shown in front of the row.
 | `isExpandable`      | `(row: T) => boolean`                                    | function that returns wether a node is expandable                                                |
 | `transformFunction` | `(row: T, level: number) => F`                           |  function that transforms from type T to flat type F                                             |
 
+## Advanced usecases
+
+You can load children async if needed.
+
 <docs-source-example example="TreeTableAsyncShowMoreExample" fullwidth="true"></docs-source-example>
+
+Use the `dt-info-group` for rows with multiple lines of text and icons.
+
+<docs-source-example example="TreeTableDefaultExample" fullwidth="true"></docs-source-example>
