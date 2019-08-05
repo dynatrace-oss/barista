@@ -1,4 +1,18 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+interface NavItem {
+  name: string;
+  route: string;
+}
 
 @Component({
   selector: 'dev-app',
@@ -6,8 +20,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   templateUrl: 'devapp.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DevApp {
-  navItems = [
+export class DevApp implements AfterContentInit, OnDestroy {
+  navItems: NavItem[] = [
     { name: 'Alert', route: '/alert' },
     { name: 'Autocomplete', route: '/autocomplete' },
     { name: 'Bar indicator', route: '/bar-indicator' },
@@ -66,4 +80,56 @@ export class DevApp {
     { value: 'royalblue', name: 'Royalblue' },
     { value: 'royalblue:dark', name: 'Royalblue dark' },
   ];
+
+  private _urlSubscription: Subscription;
+  private _navItemsFilterValue = '';
+  private _filteredNavItems = [...this.navItems];
+
+  @Input('navItemValue')
+  get navItemsFilterValue(): string {
+    return this._navItemsFilterValue;
+  }
+  set navItemsFilterValue(value: string) {
+    const filterValue = value.trim();
+
+    if (this._navItemsFilterValue !== filterValue) {
+      this._navItemsFilterValue = filterValue;
+      this._updateFilteredNavItems();
+    }
+  }
+
+  get filteredNavItems(): NavItem[] {
+    return this._filteredNavItems;
+  }
+
+  constructor(
+    private readonly _router: Router,
+    private readonly _changeDetectorRef: ChangeDetectorRef,
+  ) {}
+
+  ngAfterContentInit(): void {
+    this._urlSubscription = this._router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        window.document.body.scrollIntoView(true);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._urlSubscription.unsubscribe();
+  }
+
+  private _updateFilteredNavItems(): void {
+    if (this._navItemsFilterValue.length === 0) {
+      this._filteredNavItems = [...this.navItems];
+    } else {
+      const filterValue = this._navItemsFilterValue.toLocaleLowerCase();
+
+      this._filteredNavItems = this.navItems.filter(navItem =>
+        navItem.name.toLocaleLowerCase().includes(filterValue),
+      );
+    }
+
+    this._changeDetectorRef.markForCheck();
+  }
 }
