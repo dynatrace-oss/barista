@@ -78,27 +78,25 @@ import {
 } from './filter-field-errors';
 import { DOCUMENT } from '@angular/common';
 
-// tslint:disable:no-any
-
-export class DtFilterFieldChangeEvent<T> {
+export class DtFilterFieldChangeEvent<T, F> {
   constructor(
-    public source: DtFilterField<T>,
+    public source: DtFilterField<T, F>,
     /** Filter data objects added */
-    public added: T[][],
+    public added: F[][],
     /** Filter data objects removed. */
-    public removed: T[][],
+    public removed: F[][],
     /** Current state of filter data objects. */
-    public filters: T[][],
+    public filters: F[][],
   ) {}
 }
 
-export class DtFilterFieldCurrentFilterChangeEvent<T> {
+export class DtFilterFieldCurrentFilterChangeEvent<T, F> {
   constructor(
-    public source: DtFilterField<T>,
-    public added: T[],
-    public removed: T[],
-    public currentFilter: T[],
-    public filters: T[][],
+    public source: DtFilterField<T, F>,
+    public added: F[],
+    public removed: F[],
+    public currentFilter: F[],
+    public filters: F[][],
   ) {}
 }
 
@@ -118,7 +116,8 @@ export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
+export class DtFilterField<T, F>
+  implements AfterViewInit, OnDestroy, OnChanges {
   /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';
 
@@ -148,26 +147,26 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
 
   /** Currently applied filters */
   @Input()
-  get filters(): any[][] {
+  get filters(): F[][] {
     return this._filters.map(values => getSourcesOfDtFilterValues(values));
   }
-  set filters(value: any[][]) {
+  set filters(value: F[][]) {
     this._tryApplyFilters(value);
     this._changeDetectorRef.markForCheck();
   }
   private _filters: DtFilterValue[][] = [];
 
-  /** Emits an event with the current value of the input field everytime the user types. */
+  /** Emits an event with the current value of the input field every time the user types. */
   @Output() readonly inputChange = new EventEmitter<string>();
 
   /** Emits when a new filter has been added or removed. */
   @Output() readonly filterChanges = new EventEmitter<
-    DtFilterFieldChangeEvent<T>
+    DtFilterFieldChangeEvent<T, F>
   >();
 
   /** Emits when a part has been added to the currently active filter. */
   @Output() readonly currentFilterChanges = new EventEmitter<
-    DtFilterFieldCurrentFilterChangeEvent<T>
+    DtFilterFieldCurrentFilterChangeEvent<T, F>
   >();
 
   /**
@@ -291,8 +290,8 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         this._isFocused = isDefined(origin);
       });
 
-    // tslint:disable-next-line:no-any
     this._autocomplete.optionSelected.subscribe(
+      // tslint:disable-next-line:no-any
       (event: DtAutocompleteSelectedEvent<any>) => {
         this._handleAutocompleteSelected(event);
       },
@@ -680,6 +679,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
           (!filterField || !filterField.contains(clickTarget))
         );
       }),
+      // tslint:disable-next-line: no-any
     ) as any) as Observable<void>;
   }
 
@@ -829,7 +829,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     return ids;
   }
 
-  private _tryApplyFilters(filters: any[][]): void {
+  private _tryApplyFilters(filters: F[][]): void {
     this._filters = filters.map(sources => {
       if (this._rootDef) {
         const values = findFilterValuesForSources(

@@ -198,8 +198,7 @@ export function optionFilterTextPredicate(
 }
 
 /** Transforms a RangeSource to the Tag data values. */
-// tslint:disable-next-line: no-any
-function transformRangeSourceToTagData(
+function transformRangeValueToTagData(
   result: DtRangeValue,
 ): { separator: string; value: string } {
   if (result.operator === 'range') {
@@ -251,7 +250,7 @@ export function createTagDataForFilterValues(
       break;
     } else if (isDtRangeValue(filterValue)) {
       // Assigning variables destructed variables to already defined ones needs to be within braces.
-      ({ value, separator } = transformRangeSourceToTagData(filterValue));
+      ({ value, separator } = transformRangeValueToTagData(filterValue));
       break;
     }
     isFirstValue = false;
@@ -316,8 +315,8 @@ export function findFilterValuesForSources<T>(
 }
 
 /** Tries to find a definition for the provided source. It will start the lookup at the provided def. */
-export function findDefForSource(
-  source: any, // tslint:disable-line:no-any
+export function findDefForSource<S>(
+  source: S,
   def: DtNodeDef,
 ): DtNodeDef | null {
   if (isDtAutocompleteDef(def)) {

@@ -308,6 +308,6 @@ export type DtFilterValue = DtAutocompletValue | DtFreeTextValue | DtRangeValue;
 export function getSourceOfDtFilterValue<T>(value: DtFilterValue): T {
   return isDtNodeDef(value) ? value.data : value;
 }
-export function getSourcesOfDtFilterValues(values: DtFilterValue[]): any[] {
+export function getSourcesOfDtFilterValues<T>(values: DtFilterValue[]): T[] {
   return values.map(value => getSourceOfDtFilterValue<any>(value));
 }

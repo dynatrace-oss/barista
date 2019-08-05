@@ -171,9 +171,9 @@ export type DtFilterFieldDefaultDataSourceType =
  *   }
  * }
  */
-// @breaking-change 5.0.0 Generic `T` to be changed to `T extends DtFilterFieldDefaultDataSourceType
-export class DtFilterFieldDefaultDataSource<T>
-  implements DtFilterFieldDataSource {
+export class DtFilterFieldDefaultDataSource<
+  T extends DtFilterFieldDefaultDataSourceType
+> implements DtFilterFieldDataSource {
   private readonly _data$: BehaviorSubject<T>;
 
   /** Structure of data that is used, transformed and rendered by the filter-field. */
@@ -194,9 +194,7 @@ export class DtFilterFieldDefaultDataSource<T>
    * displayed by the DtFilterFieldViewer (filter-field)
    */
   connect(): Observable<DtNodeDef | null> {
-    // @breaking-change 5.0.0 Type cast to `any` to be removed
-    // tslint:disable-next-line: no-any
-    return this._data$.pipe(map(data => this._transformObject(data as any)));
+    return this._data$.pipe(map(data => this._transformObject(data)));
   }
 
   /** Used by the DtFilterField. Called when it is destroyed. No-op. */

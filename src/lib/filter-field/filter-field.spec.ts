@@ -167,7 +167,7 @@ describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
-  let filterField: DtFilterField<any>;
+  let filterField: DtFilterField<any, any>;
   let zone: MockNgZone;
 
   beforeEach(fakeAsync(() => {
@@ -429,7 +429,7 @@ describe('DtFilterField', () => {
     }));
 
     it('should emit filterChanges when adding an option', fakeAsync(() => {
-      let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
+      let filterChangeEvent: DtFilterFieldChangeEvent<any, any> | undefined;
 
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
@@ -456,7 +456,7 @@ describe('DtFilterField', () => {
     }));
 
     it('should emit filterChanges when removing an option', fakeAsync(() => {
-      let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
+      let filterChangeEvent: DtFilterFieldChangeEvent<any, any> | undefined;
 
       fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
@@ -1554,5 +1554,6 @@ export class TestApp {
 
   label = 'Filter by';
 
-  @ViewChild(DtFilterField, { static: false }) filterField: DtFilterField<any>;
+  @ViewChild(DtFilterField, { static: false })
+  filterField: DtFilterField<any, any>;
 }
