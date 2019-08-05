@@ -25,11 +25,11 @@ export abstract class DtFilterFieldDataSource {
 }
 
 /** Shape of an object to be usable as a option in an autocomplete */
-type Option = { name: string } | string;
+export type DtFilterFieldDefaultDataSourceOption = { name: string } | string;
 
 /** Whether the provided data object is of type OptionData */
 // tslint:disable-next-line: no-any
-function isOption(data: any): data is Option {
+function isOption(data: any): data is DtFilterFieldDefaultDataSourceOption {
   return (
     typeof data === 'string' ||
     (isObject(data) && typeof data.name === 'string')
@@ -37,14 +37,14 @@ function isOption(data: any): data is Option {
 }
 
 /** Shape of an object to be usable as a group in an autocomplete */
-interface Group {
+export interface DtFilterFieldDefaultDataSourceGroup {
   name: string;
-  options: Option[];
+  options: DtFilterFieldDefaultDataSourceOption[];
 }
 
 /** Whether the provided data object is of type GroupData */
 // tslint:disable-next-line: no-any
-function isGroup(data: any): data is Group {
+function isGroup(data: any): data is DtFilterFieldDefaultDataSourceGroup {
   return (
     isObject(data) &&
     typeof data.name === 'string' &&
@@ -53,30 +53,36 @@ function isGroup(data: any): data is Group {
 }
 
 /** Shape of an object to be usable as an autocomplete */
-interface Autocomplete {
-  autocomplete: Array<Option | Group>;
+export interface DtFilterFieldDefaultDataSourceAutocomplete {
+  autocomplete: Array<
+    DtFilterFieldDefaultDataSourceOption | DtFilterFieldDefaultDataSourceGroup
+  >;
   distinct?: boolean;
   async?: boolean;
 }
 
 /** Whether the provided data object is of type AutocompleteData */
-// tslint:disable-next-line: no-any
-function isAutocomplete(data: any): data is Autocomplete {
+function isAutocomplete(
+  // tslint:disable-next-line: no-any
+  data: any,
+): data is DtFilterFieldDefaultDataSourceAutocomplete {
   return isObject(data) && Array.isArray(data.autocomplete);
 }
 
 /** Shape of an object to be usable as a free text variant */
-interface FreeText {
-  suggestions: Array<Option | Group>;
+export interface DtFilterFieldDefaultDataSourceFreeText {
+  suggestions: Array<
+    DtFilterFieldDefaultDataSourceOption | DtFilterFieldDefaultDataSourceGroup
+  >;
 }
 
 /** Whether the provided data object is of type FreeTextData */
 // tslint:disable-next-line: no-any
-function isFreeText(data: any): data is FreeText {
+function isFreeText(data: any): data is DtFilterFieldDefaultDataSourceFreeText {
   return isObject(data) && Array.isArray(data.suggestions);
 }
 
-interface Range {
+export interface DtFilterFieldDefaultDataSourceRange {
   range: {
     unit: string;
     operators: {
@@ -89,9 +95,16 @@ interface Range {
 }
 /** Whether the provided data object is of type RangeData */
 // tslint:disable-next-line: no-any
-function isRange(data: any): data is Range {
+function isRange(data: any): data is DtFilterFieldDefaultDataSourceRange {
   return isObject(data) && isObject(data.range);
 }
+
+export type DtFilterFieldDefaultDataSourceType =
+  | DtFilterFieldDefaultDataSourceOption
+  | DtFilterFieldDefaultDataSourceGroup
+  | DtFilterFieldDefaultDataSourceAutocomplete
+  | DtFilterFieldDefaultDataSourceFreeText
+  | DtFilterFieldDefaultDataSourceRange;
 
 // tslint:disable: no-bitwise
 
@@ -158,6 +171,7 @@ function isRange(data: any): data is Range {
  *   }
  * }
  */
+// @breaking-change 5.0.0 Generic `T` to be changed to `T extends DtFilterFieldDefaultDataSourceType
 export class DtFilterFieldDefaultDataSource<T>
   implements DtFilterFieldDataSource {
   private readonly _data$: BehaviorSubject<T>;
@@ -180,7 +194,9 @@ export class DtFilterFieldDefaultDataSource<T>
    * displayed by the DtFilterFieldViewer (filter-field)
    */
   connect(): Observable<DtNodeDef | null> {
-    return this._data$.pipe(map(data => this._transformObject(data)));
+    // @breaking-change 5.0.0 Type cast to `any` to be removed
+    // tslint:disable-next-line: no-any
+    return this._data$.pipe(map(data => this._transformObject(data as any)));
   }
 
   /** Used by the DtFilterField. Called when it is destroyed. No-op. */
@@ -190,7 +206,7 @@ export class DtFilterFieldDefaultDataSource<T>
 
   /** Transforms the provided data into an internal data structure that can be used by the filter-field. */
   private _transformObject(
-    data: any | null, // tslint:disable-line:no-any
+    data: DtFilterFieldDefaultDataSourceType | null,
     parent: DtNodeDef | null = null,
   ): DtNodeDef | null {
     let def: DtNodeDef | null = null;
@@ -240,7 +256,7 @@ export class DtFilterFieldDefaultDataSource<T>
 
   /** Transforms the provided list of data objects into an internal data structure that can be used by the filter field. */
   private _transformList(
-    list: any[], // tslint:disable-line:no-any
+    list: DtFilterFieldDefaultDataSourceType[],
     parent: DtNodeDef | null = null,
   ): DtNodeDef[] {
     return list
