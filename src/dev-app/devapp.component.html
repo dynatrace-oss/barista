@@ -11,8 +11,28 @@
 </nav>
 <div class="content-wrapper" [dtTheme]="selectedTheme">
   <nav class="sidenav">
+    <form class="searchform" novalidate>
+      <input
+        dtInput
+        [dtAutocomplete]="auto"
+        [(ngModel)]="navItemsFilterValue"
+        type="search"
+        name="searchbar"
+        placeholder="Search for components"
+        aria-label="Search for components"
+      />
+      <dt-autocomplete #auto="dtAutocomplete">
+        <dt-option
+          *ngFor="let navItem of filteredNavItems"
+          [value]="navItem.name"
+        >
+          {{ navItem.name }}
+        </dt-option>
+      </dt-autocomplete>
+    </form>
+
     <ul>
-      <li *ngFor="let navItem of navItems">
+      <li *ngFor="let navItem of filteredNavItems">
         <a
           [routerLink]="[navItem.route]"
           routerLinkActive
