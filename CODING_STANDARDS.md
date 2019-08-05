@@ -81,6 +81,24 @@ function createTargetElement() {
   or block-like construct. Instead, local variables can also be declared close
   to the point they are first used (within reason), to minimize their scope.
 
+### Constants
+
+Module (file) wide constants that may also be exported should be uppercase.
+Local constants should be handled like [local variables](#local-variables) or
+changed to a global one.
+
+Bad:
+
+```ts
+export const dtColors = ['#ffffff', '#000000'];
+```
+
+Good:
+
+```ts
+export const DT_COLORS = ['#ffffff', '#000000'];
+```
+
 ### Arrays
 
 - Do not use the Array constructor. The constructor is error-prone if arguments
