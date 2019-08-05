@@ -18,6 +18,7 @@ import { DtButton, DtContextDialog } from '@dynatrace/angular-components';
       <button dt-button variant="secondary">Focused</button>
     </dt-context-dialog>
   `,
+  styles: ['.dt-button + .dt-context-dialog { margin-left: 8px; }'],
 })
 export class ContextDialogPreviousFocusExample {
   @ViewChild('focusme', { static: true }) focusMe: DtButton;
