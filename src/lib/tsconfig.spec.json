@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "../../dist/unit-test",
     "module": "commonjs",
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "sourceMap": false
   },
   "files": ["test-setup.ts"],
   "include": ["**/*.spec.ts", "../../typings.d.ts"]
