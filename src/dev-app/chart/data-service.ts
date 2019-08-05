@@ -1,3 +1,4 @@
+// tslint:disable: max-file-line-count
 export const dataSmall = [
   {
     name: 'Code execution',
