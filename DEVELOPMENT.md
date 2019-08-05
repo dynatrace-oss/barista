@@ -50,6 +50,12 @@ Developing with the dev-app
 yarn dev
 ```
 
+Developing examples for Barista
+
+```
+yarn barista-examples
+```
+
 ## Running tests and style lint
 
 Unit tests:
