@@ -1,11 +1,17 @@
 @import '../lib/style/font-mixins';
 
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
 // replace this with nav component as soon as it is ready - if there is one
 .nav {
   display: block;
   height: 2.75rem;
   background-color: #242424;
-  position: relative;
 }
 
 .theme-selector {
@@ -16,6 +22,11 @@
 
 .content-wrapper {
   display: flex;
+  flex-grow: 1;
+
+  .searchform {
+    padding: 8px;
+  }
 }
 
 .main {
