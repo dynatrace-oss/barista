@@ -11,7 +11,7 @@ import {
   QueryList,
   ViewEncapsulation,
 } from '@angular/core';
-import { DT_CHART_COLOR_PALETTE_ORDERED } from '@dynatrace/angular-components/chart/chart-colors';
+import { DT_CHART_COLOR_PALETTE_ORDERED } from '@dynatrace/angular-components/chart';
 import {
   DtViewportResizer,
   isNumber,
@@ -24,11 +24,18 @@ import { DtRadialChartRenderData } from './utils/radial-chart-interfaces';
 import {
   generatePathData,
   generatePieArcData,
+  generateStrokePath,
+  getCentroid,
+  getLabelStrokePoints,
+  getLabelTextPosition,
   getSum,
 } from './utils/radial-chart-utils';
 
 /** Size of the inner (empty) circle in proportion to the circle's radius. */
 const DONUT_INNER_CIRCLE_FRACTION = 0.8;
+
+/** Length of the label stroke */
+const LABEL_STROKE_LENGTH = 40;
 
 @Component({
   moduleId: module.id,
@@ -105,6 +112,16 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
   /** @internal Sum of all series values. */
   _totalValue: number;
 
+  /** @internal */
+  get _labelStrokeLength(): number {
+    return this._radius * 0.1;
+  }
+
+  get _labelStrokeWidth(): number {
+    const width = Math.ceil(this._radius * 0.005);
+    return width < 1 ? 1 : width;
+  }
+
   /**
    * @internal
    * Flag if a background shape should be rendered.
@@ -125,7 +142,13 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
    * Adjust the viewbox to center the circle.
    */
   get _viewBox(): string {
-    return `${-this._radius} ${-this._radius} ${this._width} ${this._width}`;
+    return `${-this._svgWidth / 2} ${-this._svgWidth / 2} ${this._svgWidth} ${
+      this._svgWidth
+    }`;
+  }
+
+  get _svgWidth(): number {
+    return this._width + LABEL_STROKE_LENGTH * 4;
   }
 
   /** @internal The chart's inner radius based on the chart type and defined fraction. */
@@ -158,7 +181,9 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
         ),
       )
       .subscribe((): void => {
-        this._updateRenderData();
+        Promise.resolve().then(() => {
+          this._updateRenderData();
+        });
       });
 
     /**
@@ -171,8 +196,10 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
         startWith(null),
       )
       .subscribe(() => {
-        this._width = this._elementRef.nativeElement.getBoundingClientRect().width;
-        this._updateRenderData();
+        Promise.resolve().then(() => {
+          this._width = this._elementRef.nativeElement.getBoundingClientRect().width;
+          this._updateRenderData();
+        });
       });
   }
 
@@ -213,6 +240,14 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
 
+  /** @internal Decide if label should be displayed depending on size of value. */
+  _displaySeriesLabel(series: DtRadialChartSeries): boolean {
+    const threshold = this.maxValue
+      ? this.maxValue * 0.03
+      : this._totalValue * 0.03;
+    return series.value > threshold;
+  }
+
   /**
    * Puts together an object with all data needed
    * to render the SVG.
@@ -230,6 +265,21 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
         arcData.endAngle,
       ) || '';
 
+    const centroid = getCentroid(
+      this._radius,
+      this._innerRadius,
+      arcData.startAngle,
+      arcData.endAngle,
+    );
+
+    const labelStrokePoints = getLabelStrokePoints(
+      centroid,
+      this._radius,
+      this._labelStrokeLength,
+    );
+    const labelStroke = generateStrokePath(labelStrokePoints);
+    const endPoint = labelStrokePoints[labelStrokePoints.length - 1];
+
     // The series' color overrides the given color from the chart color palette.
     const color = series.color ? series.color : chartColor;
 
@@ -244,6 +294,8 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
       ariaLabel,
       name: series.name,
       value: series.value,
+      labelStroke,
+      labelCoordinates: getLabelTextPosition(endPoint),
     };
   }
 }

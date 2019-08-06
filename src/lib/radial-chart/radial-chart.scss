@@ -1,3 +1,10 @@
+@import '../core/style/variables';
+
 :host {
   display: block;
+}
+
+text {
+  font-family: $default-font-family;
+  font-size: 16px;
 }
