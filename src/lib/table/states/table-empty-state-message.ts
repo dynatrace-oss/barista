@@ -1,9 +1,13 @@
 import {
-  Component,
   ChangeDetectionStrategy,
+  Component,
   ViewEncapsulation,
 } from '@angular/core';
 
+/**
+ * @deprecated Use `<dt-empty-state>` instead.
+ * @breaking-change To be removed with 6.0.0.
+ */
 @Component({
   moduleId: module.id,
   selector: 'dt-table-empty-state-message',
