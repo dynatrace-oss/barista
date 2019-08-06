@@ -1,14 +1,18 @@
 import {
-  Component,
-  ViewEncapsulation,
   ChangeDetectionStrategy,
-  Directive,
+  Component,
   ContentChild,
+  Directive,
+  ViewEncapsulation,
 } from '@angular/core';
 import { DtTableEmptyStateImage } from './table-empty-state-image';
-import { DtTableEmptyStateTitle } from './table-empty-state-title';
 import { DtTableEmptyStateMessage } from './table-empty-state-message';
+import { DtTableEmptyStateTitle } from './table-empty-state-title';
 
+/**
+ * @deprecated Use `<dt-empty-state>` instead.
+ * @breaking-change To be removed with 6.0.0.
+ */
 @Component({
   moduleId: module.id,
   selector: 'dt-table-empty-state',
@@ -23,11 +27,15 @@ import { DtTableEmptyStateMessage } from './table-empty-state-message';
   },
 })
 export class DtTableEmptyState {
-  @ContentChild(DtTableEmptyStateImage, { static: true }) emptyImage;
-  @ContentChild(DtTableEmptyStateTitle, { static: true }) emptyTitle;
-  @ContentChild(DtTableEmptyStateMessage, { static: true }) emptyMessage;
+  @ContentChild(DtTableEmptyStateImage, { static: true }) emptyImage; // tslint:disable-line:deprecation
+  @ContentChild(DtTableEmptyStateTitle, { static: true }) emptyTitle; // tslint:disable-line:deprecation
+  @ContentChild(DtTableEmptyStateMessage, { static: true }) emptyMessage; // tslint:disable-line:deprecation
 }
 
+/**
+ * @deprecated Use `<dt-empty-state>` instead.
+ * @breaking-change To be removed with 6.0.0.
+ */
 @Directive({
   selector: '[dtTableEmptyState]',
 })
