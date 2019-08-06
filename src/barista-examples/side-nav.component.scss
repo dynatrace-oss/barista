@@ -1,7 +1,11 @@
 // redeclare variables since the barista build cannot deal with a relative reference to the lib folder here
 $gray-200: #e6e6e6;
-$gray-300: #ccc;
+$gray-300: #cccccc;
 $turquoise-600: #00a1b2;
+
+.searchform {
+  padding: 8px;
+}
 
 // replace this with the sidenav component as soon as this is ready
 .barista-side-nav {
