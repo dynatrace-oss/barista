@@ -16,6 +16,7 @@ import {
   DtTreeFlattener,
 } from '@dynatrace/angular-components/core';
 import { DtDrawerModule } from '@dynatrace/angular-components/drawer';
+import { DtEmptyStateModule } from '@dynatrace/angular-components/empty-state';
 import { DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
 import { DtHighlightModule } from '@dynatrace/angular-components/highlight';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
@@ -34,10 +35,10 @@ import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtTableModule } from '@dynatrace/angular-components/table';
 import { DtTagModule } from '@dynatrace/angular-components/tag';
 import { DtTileModule } from '@dynatrace/angular-components/tile';
+import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
 import { DtIconType } from '@dynatrace/dt-iconpack';
-import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
 
 const TESTDATA: ThreadNode[] = [
   {
@@ -232,6 +233,7 @@ export class KitchenSink {
     DtConsumptionModule,
     DtFilterFieldModule,
     DtMenuModule,
+    DtEmptyStateModule,
     DtTimelineChartModule,
   ],
   bootstrap: [KitchenSink],

@@ -14,6 +14,7 @@ import {
   DtCopyToClipboardModule,
   DtCtaCardModule,
   DtDrawerModule,
+  DtEmptyStateModule,
   DtExpandablePanelModule,
   DtExpandableSectionModule,
   DtFilterFieldModule,
@@ -25,6 +26,7 @@ import {
   DtInlineEditorModule,
   DtInputModule,
   DtKeyValueListModule,
+  DtLegendModule,
   DtLoadingDistractorModule,
   DtMenuModule,
   DtMicroChartModule,
@@ -42,11 +44,10 @@ import {
   DtTagModule,
   DtThemingModule,
   DtTileModule,
+  DtTimelineChartModule,
   DtToastModule,
   DtToggleButtonGroupModule,
   DtTreeTableModule,
-  DtTimelineChartModule,
-  DtLegendModule,
 } from '@dynatrace/angular-components';
 
 /**
@@ -102,6 +103,7 @@ import {
     DtMenuModule,
     DtTimelineChartModule,
     DtLegendModule,
+    DtEmptyStateModule,
   ],
 })
 export class DevAppDynatraceModule {}

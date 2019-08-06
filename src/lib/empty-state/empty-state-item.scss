@@ -1,0 +1,65 @@
+@import '../style/variables';
+@import '../style/font-mixins';
+@import '../core/style/card';
+
+:host {
+  display: flex;
+  flex-grow: 1;
+
+  .dt-empty-state-item-content-area {
+    display: flex;
+  }
+
+  .dt-empty-state-item-text-area {
+    max-width: 80ch;
+  }
+
+  .dt-empty-state-item-image-area {
+    margin: 0 16px 0 0;
+  }
+
+  .dt-empty-state-item-icon-area {
+    display: none;
+  }
+
+  ::ng-deep {
+    .dt-empty-state-item-title {
+      display: block;
+      margin-bottom: 16px;
+      @include dt-h3-font();
+    }
+
+    .dt-empty-state-footer-actions {
+      margin-top: 16px;
+      @include dt-card-actions-spacing();
+    }
+  }
+}
+
+:host-context(.dt-empty-state-multiple-items) {
+  .dt-empty-state-item-icon-area {
+    display: flex;
+    width: 60px;
+    flex: 0 0 60px;
+    height: 100%;
+
+    dt-icon {
+      width: 28px;
+      height: 28px;
+      margin: auto;
+
+      ::ng-deep svg {
+        fill: $gray-300;
+      }
+    }
+  }
+
+  .dt-empty-state-item-content-area {
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .dt-empty-state-item-image-area {
+    margin: 0 auto 16px auto; // stylelint-disable shorthand-property-no-redundant-values
+  }
+}

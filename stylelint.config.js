@@ -6,6 +6,19 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': true,
+    'unit-whitelist': [
+      'px',
+      '%',
+      'deg',
+      'ms',
+      'em',
+      'rem',
+      'ch',
+      'vh',
+      'vw',
+      'vmin',
+      's',
+    ],
     'scss/no-duplicate-dollar-variables': null,
     'scss/dollar-variable-colon-newline-after': null,
     // This rule breaks with prettier formatting, as prettier can break long lines after an operator
