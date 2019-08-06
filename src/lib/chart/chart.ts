@@ -338,7 +338,7 @@ export class DtChart
         .subscribe(() => {
           if (this._currentSeries && this._highchartsOptions) {
             this._updateColorOptions();
-            this._updateChart(false);
+            this._updateChart();
           }
         });
     }
@@ -385,37 +385,8 @@ export class DtChart
   }
 
   ngAfterViewInit(): void {
-    // Creating a new highcharts chart.
-    // This needs to be done outside the ngZone so the events, highcharts listens to, do not pollute our change detection.
-    this._chartObject = this._ngZone.runOutsideAngular(() =>
-      chart(this.container.nativeElement, this.highchartsOptions),
-    );
-
-    addHighchartsEvent(this._chartObject, 'redraw', () => {
-      this._notifyAfterRender();
-    });
+    this._createHighchartsChart();
     this._notifyAfterRender();
-
-    // adds event-listener to highcharts custom event for tooltip closed
-    addHighchartsEvent(this._chartObject, 'tooltipClosed', () => {
-      this._isTooltipOpen = false;
-      this.tooltipOpenChange.emit(false);
-      this._tooltipRefreshed.next(null);
-    });
-    // Adds event-listener to highcharts custom event for tooltip refreshed closed */
-    // We cannot type the event param, because the types for highcharts are incorrect
-    // tslint:disable-next-line:no-any
-    addHighchartsEvent(this._chartObject, 'tooltipRefreshed', (event: any) => {
-      if (!this._isTooltipOpen) {
-        this._isTooltipOpen = true;
-        this.tooltipOpenChange.emit(true);
-      }
-      this._tooltipRefreshed.next({
-        data: (event as DtHcTooltipEventPayload).data,
-        chart: this._chartObject!,
-      });
-    });
-
     // set the toPixels method on the timestamp and range to calculate a px value for an
     // value on the xAxis alongside with the toValue function.
     if (this._chartObject) {
@@ -484,13 +455,9 @@ export class DtChart
       this._currentSeries,
     );
 
-    // Check if x Axis type has changes (e.g. numeric -> category)
-    const xAxisHasChanged =
-      highchartsOptions.xAxis !== this.highchartsOptions.xAxis;
-
     this._highchartsOptions = highchartsOptions;
     this._updateColorOptions();
-    this._updateChart(xAxisHasChanged);
+    this._updateChart();
     this._changeDetectorRef.markForCheck();
   }
 
@@ -498,8 +465,40 @@ export class DtChart
   _toggleTooltip(enabled: boolean): void {
     if (this._highchartsOptions.tooltip!.enabled !== enabled) {
       this._highchartsOptions.tooltip!.enabled = enabled;
-      this._updateChart(false);
+      this._updateChart();
     }
+  }
+
+  private _createHighchartsChart(): void {
+    // Creating a new highcharts chart.
+    // This needs to be done outside the ngZone so the events, highcharts listens to, do not pollute our change detection.
+    this._chartObject = this._ngZone.runOutsideAngular(() =>
+      chart(this.container.nativeElement, this.highchartsOptions),
+    );
+
+    addHighchartsEvent(this._chartObject, 'redraw', () => {
+      this._notifyAfterRender();
+    });
+
+    // adds event-listener to highcharts custom event for tooltip closed
+    addHighchartsEvent(this._chartObject, 'tooltipClosed', () => {
+      this._isTooltipOpen = false;
+      this.tooltipOpenChange.emit(false);
+      this._tooltipRefreshed.next(null);
+    });
+    // Adds event-listener to highcharts custom event for tooltip refreshed closed */
+    // We cannot type the event param, because the types for highcharts are incorrect
+    // tslint:disable-next-line:no-any
+    addHighchartsEvent(this._chartObject, 'tooltipRefreshed', (event: any) => {
+      if (!this._isTooltipOpen) {
+        this._isTooltipOpen = true;
+        this.tooltipOpenChange.emit(true);
+      }
+      this._tooltipRefreshed.next({
+        data: (event as DtHcTooltipEventPayload).data,
+        chart: this._chartObject!,
+      });
+    });
   }
 
   private _notifyAfterRender(): void {
@@ -540,16 +539,12 @@ export class DtChart
   }
 
   /** Updates the chart with current options and series. */
-  private _updateChart(xAxisHasChanged: boolean): void {
+  private _updateChart(): void {
     if (this._chartObject) {
-      this._ngZone.runOutsideAngular(() => {
-        if (xAxisHasChanged) {
-          this._chartObject!.update({ series: [] }, false, true);
-        }
-        this._chartObject!.update({ ...this._highchartsOptions }, true, true);
-      });
-      this.updated.emit();
+      this._chartObject.destroy();
     }
+    this._createHighchartsChart();
+    this.updated.emit();
   }
 
   private _updateColorOptions(): void {
