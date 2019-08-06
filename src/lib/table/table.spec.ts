@@ -18,6 +18,8 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtCell,
+  DtEmptyState,
+  DtEmptyStateModule,
   DtExpandableCell,
   DtExpandableRow,
   DtHeaderCell,
@@ -27,9 +29,6 @@ import {
   DtLoadingDistractorModule,
   DtRow,
   DtTable,
-  DtTableEmptyStateDirective,
-  DtTableEmptyStateMessage,
-  DtTableEmptyStateTitle,
   DtTableLoadingState,
   DtTableModule,
 } from '@dynatrace/angular-components';
@@ -41,6 +40,7 @@ describe('DtTable', () => {
       imports: [
         CommonModule,
         DtTableModule,
+        DtEmptyStateModule,
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
         DtLoadingDistractorModule,
         HttpClientModule,
@@ -162,33 +162,21 @@ describe('DtTable', () => {
       const fixture = createComponent(TestApp);
 
       const noEmptyComponent = fixture.debugElement.query(
-        By.directive(DtTableEmptyStateDirective),
+        By.directive(DtEmptyState),
       );
       expect(noEmptyComponent).toBeFalsy();
 
       const emptyDataSources = [[], null, undefined];
 
-      emptyDataSources.forEach(ds => {
+      for (const ds of emptyDataSources) {
         fixture.componentInstance.dataSource = ds;
         fixture.detectChanges();
 
         const emptyComponent = fixture.debugElement.query(
-          By.directive(DtTableEmptyStateDirective),
+          By.directive(DtEmptyState),
         );
         expect(emptyComponent).toBeTruthy();
-
-        const emptyTitleComponent = fixture.debugElement.query(
-          By.directive(DtTableEmptyStateTitle),
-        );
-        // Expected the DtTableEmptyStateTitle rendered for empty tables
-        expect(emptyTitleComponent).toBeTruthy();
-
-        const emptyMessageComponent = fixture.debugElement.query(
-          By.directive(DtTableEmptyStateMessage),
-        );
-        // Expected the DtTableEmptyStateMessage rendered for empty tables
-        expect(emptyMessageComponent).toBeTruthy();
-      });
+      }
     });
 
     it('Should render a LoadingComponent', () => {
@@ -641,12 +629,14 @@ describe('DtTable', () => {
         <dt-cell *dtCellDef="let row">{{ row.col3 }}</dt-cell>
       </ng-container>
 
-      <dt-table-empty-state dtTableEmptyState>
-        <dt-table-empty-state-title>No host</dt-table-empty-state-title>
-        <dt-table-empty-state-message>
+      <dt-empty-state>
+        <dt-empty-state-item>
+          <dt-empty-state-item-title>
+            No host
+          </dt-empty-state-item-title>
           Test message
-        </dt-table-empty-state-message>
-      </dt-table-empty-state>
+        </dt-empty-state-item>
+      </dt-empty-state>
 
       <dt-loading-distractor dtTableLoadingState>
         Loading...

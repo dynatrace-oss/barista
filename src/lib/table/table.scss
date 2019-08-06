@@ -3,7 +3,7 @@
 @import './header/header-cell';
 @import './info-group-overrides';
 
-:host.dt-table {
+:host {
   display: flex;
   flex-flow: column nowrap;
   min-width: 100%;
@@ -18,5 +18,10 @@
     justify-content: center;
     height: 100%;
     width: 100%;
+  }
+
+  ::ng-deep .dt-empty-state {
+    margin: 8px auto;
+    width: calc(100% - 16px);
   }
 }

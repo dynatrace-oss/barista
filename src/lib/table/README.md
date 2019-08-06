@@ -395,19 +395,9 @@ could look like this:
 When there is no data to display an empty state is shown. It can consist of some
 text that explains why there is no content and an illustration that helps to
 visualize the problem. Pass an empty state to the table using the
-`dtTableEmptyState` directive. The recommended approach is to use the following
-components: `<dt-table-empty-state>`, `<dt-table-empty-state-image>`,
-`<dt-table-empty-state-title>`, and `<dt-table-empty-state-message>`.
+`<dt-empty-state>` component.
 
 <docs-source-example example="TableEmptyStateExample" fullwidth="true"></docs-source-example>
-
-| Name                           | Type      | Description                                                                   |
-| ------------------------------ | --------- | ----------------------------------------------------------------------------- |
-| `dtTableEmptyState`            | Directive | Placeholder for the content displayed when the table is empty.                |
-| `dt-table-empty-state`         | Component | Placeholder for the formatted content displayed when the table is empty.      |
-| `dt-table-empty-state-image`   | Component | Placeholder for the image or icon to use within the `<dt-table-empty-table>`. |
-| `dt-table-empty-state-title`   | Component | Placeholder for the title to use within the `<dt-table-empty-table>`.         |
-| `dt-table-empty-state-message` | Component | Placeholder for the message to use within the `<dt-table-empty-table>`.       |
 
 ### Loading state
 

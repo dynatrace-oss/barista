@@ -3,7 +3,7 @@
 <ng-container footerRowOutlet></ng-container>
 
 <ng-container *ngIf="isEmptyDataSource">
-  <ng-content select="[dtTableEmptyState]"></ng-content>
+  <ng-content select="[dtTableEmptyState], dt-empty-state"></ng-content>
 </ng-container>
 
 <div *ngIf="loading" class="dt-table-float-loading">
