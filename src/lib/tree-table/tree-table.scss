@@ -1,6 +1,7 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../table/header/header-cell';
+@import '../table/info-group-overrides';
 
 :host {
   display: table;
