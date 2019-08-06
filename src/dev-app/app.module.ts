@@ -26,6 +26,7 @@ import { DevAppRoutingModule } from './devapp-routing.module';
 import { DevApp } from './devapp.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
 import { DevAppDynatraceModule } from './dt-components.module';
+import { EmptyStateDemo } from './empty-state/empty-state-demo';
 import { ExpandablePanelDemo } from './expandable-panel/expandable-panel-demo.component';
 import { ExpandableSectionDemo } from './expandable-section/expandable-section-demo.component';
 import { FilterFieldDemo } from './filter-field/filter-field-demo.component';
@@ -124,6 +125,7 @@ export class NoopRouteComponent {}
     MenuDemo,
     TimelineChartDemo,
     LegendDemo,
+    EmptyStateDemo,
   ],
   entryComponents: [DevApp],
   bootstrap: [DevApp],

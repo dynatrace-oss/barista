@@ -23,6 +23,7 @@
     "dt-consumption-icon-alt-text": true,
     "dt-context-dialog-alt-text": { "severity": "warning" },
     "dt-copy-to-clipboard-no-empty": true,
+    "dt-empty-state-requires-item": true,
     "dt-expandable-trigger-is-button": { "severity": "warning" },
     "dt-icon-button-alt-text": true,
     "dt-icon-button-needs-icon": true,
