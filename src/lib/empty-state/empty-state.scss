@@ -1,0 +1,19 @@
+@import '../style/font-mixins';
+
+:host {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  @include dt-default-font();
+
+  .dt-empty-state-item-container {
+    width: 100%;
+  }
+
+  &.dt-empty-state-multiple-items > .dt-empty-state-item-container {
+    display: flex;
+    width: calc(100% + 60px);
+  }
+}

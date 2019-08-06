@@ -1,0 +1,12 @@
+/**
+ * Test file for testing the dt-empty-state-requires-item rule.
+ */
+
+@Component({
+  template: `
+    <dt-empty-state>
+    ~~~~~~~~~~~~~~~~ [dt-empty-state does not contain any dt-empty-state-items.]
+    </dt-empty-state>
+  `,
+})
+class TestClass {}

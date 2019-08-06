@@ -1,0 +1,182 @@
+<div class="control-buttons">
+  <dt-checkbox (change)="multiple = !multiple">
+    Toggle multiple items
+  </dt-checkbox>
+</div>
+
+<dt-empty-state>
+  <dt-empty-state-item>
+    <dt-empty-state-item-img>
+      <img src="/assets/cta-noagent.svg" alt="No agent" />
+    </dt-empty-state-item-img>
+
+    <dt-empty-state-item-title>Optional Heading</dt-empty-state-item-title>
+
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+    voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+  </dt-empty-state-item>
+
+  <dt-empty-state-item *ngIf="multiple">
+    <dt-empty-state-item-img>
+      <img src="/assets/cta-noagent.svg" alt="No agent" />
+    </dt-empty-state-item-img>
+
+    <dt-empty-state-item-title>Optional Heading</dt-empty-state-item-title>
+
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+    voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+  </dt-empty-state-item>
+
+  <dt-empty-state-item *ngIf="multiple">
+    <dt-empty-state-item-img>
+      <img src="/assets/cta-noagent.svg" alt="No agent" />
+    </dt-empty-state-item-img>
+
+    <dt-empty-state-item-title>Optional Heading</dt-empty-state-item-title>
+
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+    voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+  </dt-empty-state-item>
+</dt-empty-state>
+
+<hr />
+
+<h2>[ CTA card using dt-card and dt-empty-state with multiple items ]</h2>
+
+<div class="demo-card">
+  <dt-card>
+    <dt-card-title>
+      CTA card title
+    </dt-card-title>
+
+    <dt-card-title-actions aria-label="Close card">
+      <button dt-icon-button variant="secondary" color="cta">
+        <dt-icon name="abort"></dt-icon>
+      </button>
+    </dt-card-title-actions>
+
+    <dt-empty-state>
+      <dt-empty-state-item>
+        <dt-empty-state-item-img>
+          <img src="/assets/cta-noagent.svg" alt="My Asset" />
+        </dt-empty-state-item-img>
+
+        <dt-empty-state-item-title>
+          Optional heading 1
+        </dt-empty-state-item-title>
+
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+        voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+      </dt-empty-state-item>
+      <dt-empty-state-item>
+        <dt-empty-state-item-img>
+          <img src="/assets/cta-noagent.svg" alt="My Asset" />
+        </dt-empty-state-item-img>
+
+        <dt-empty-state-item-title>
+          Optional heading 2
+        </dt-empty-state-item-title>
+
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+        voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+      </dt-empty-state-item>
+      <dt-empty-state-item>
+        <dt-empty-state-item-img>
+          <img src="/assets/cta-noagent.svg" alt="My Asset" />
+        </dt-empty-state-item-img>
+
+        <dt-empty-state-item-title>
+          Optional heading 3
+        </dt-empty-state-item-title>
+
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+        voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+      </dt-empty-state-item>
+    </dt-empty-state>
+
+    <dt-card-footer-actions>
+      <a dt-button color="cta" i18n>View release</a>
+      <a dt-button color="cta" i18n>More info</a>
+    </dt-card-footer-actions>
+  </dt-card>
+</div>
+
+<hr />
+
+<h2>[ CTA card using dt-card and dt-empty-state with only one item ]</h2>
+
+<div class="demo-card">
+  <dt-card>
+    <dt-card-title>
+      Start monitoring your Cloud Foundry foundation VMs
+    </dt-card-title>
+
+    <dt-card-title-actions aria-label="Close card">
+      <button dt-icon-button variant="secondary" color="cta">
+        <dt-icon name="abort"></dt-icon>
+      </button>
+    </dt-card-title-actions>
+
+    <dt-empty-state>
+      <dt-empty-state-item>
+        <dt-empty-state-item-img>
+          <img src="/assets/cta-noagent.svg" alt="My Asset" />
+        </dt-empty-state-item-img>
+
+        Deploy Dynatrace OneAgent via the Dynatrace OneAgent BOSH release to
+        your Cloud Foundry foundation VMs. Get monitoring insights into all
+        Cloud Foundry components including Diego cells, Gorouters, and more.
+        Benefit from automatic monitoring of Cloud Foundry applications, down to
+        the code and query level, thanks to built-in auto-injection for
+        Garden-runC containers.
+        <a class="dt-link" color="cta" i18n>Read more...</a>
+
+        <dt-empty-state-footer-actions>
+          <a dt-button color="cta" i18n>View release</a>
+          <a dt-button color="cta" i18n>More info</a>
+        </dt-empty-state-footer-actions>
+      </dt-empty-state-item>
+    </dt-empty-state>
+  </dt-card>
+</div>
+
+<hr />
+
+<h2>[ cta-card (deprecated) ]</h2>
+
+<div class="demo-card">
+  <dt-cta-card>
+    <dt-cta-card-title i18n>
+      Start monitoring your Cloud Foundry foundation VMs
+    </dt-cta-card-title>
+
+    <dt-cta-card-image><img src="/assets/cta-noagent.svg"/></dt-cta-card-image>
+
+    <dt-cta-card-title-actions aria-label="Close card">
+      <button dt-icon-button variant="secondary" color="cta">
+        <dt-icon name="abort"></dt-icon>
+      </button>
+    </dt-cta-card-title-actions>
+
+    <span i18n>
+      Deploy Dynatrace OneAgent via the Dynatrace OneAgent BOSH release to your
+      Cloud Foundry foundation VMs. Get monitoring insights into all Cloud
+      Foundry components including Diego cells, Gorouters, and more. Benefit
+      from automatic monitoring of Cloud Foundry applications, down to the code
+      and query level, thanks to built-in auto-injection for Garden-runC
+      containers.
+      <a class="dt-link" color="cta" i18n>Read more...</a>
+    </span>
+
+    <dt-cta-card-footer-actions>
+      <a dt-button color="cta" i18n>View release</a>
+      <a dt-button color="cta" i18n>More info</a>
+    </dt-cta-card-footer-actions>
+  </dt-cta-card>
+</div>
