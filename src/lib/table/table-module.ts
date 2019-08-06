@@ -1,34 +1,35 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
-import { DtTable } from './table';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtIndicatorModule } from '@dynatrace/angular-components/core';
-import { DtSortHeader } from './sort/sort-header';
-import { DtSort } from './sort/sort';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
-import {
-  DtHeaderRow,
-  DtHeaderRowDef,
-  DtHeaderCell,
-  DtHeaderCellDef,
-} from './header/index';
-import { DtRow, DtRowDef } from './row';
+import { DtIndicatorModule } from '@dynatrace/angular-components/core';
+import { DtEmptyStateModule } from '@dynatrace/angular-components/empty-state';
+import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtCell, DtCellDef, DtColumnDef } from './cell';
 import { DtExpandableCell, DtExpandableRow } from './expandable/index';
 import {
-  DtTableEmptyState,
-  DtTableEmptyStateDirective,
-  DtTableEmptyStateImage,
-  DtTableEmptyStateTitle,
-  DtTableEmptyStateMessage,
-  DtTableLoadingState,
-} from './states/index';
-import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
+  DtHeaderCell,
+  DtHeaderCellDef,
+  DtHeaderRow,
+  DtHeaderRowDef,
+} from './header/index';
+import { DtRow, DtRowDef } from './row';
 import {
   DtSimpleNumberColumn,
   DtSimpleTextColumn,
 } from './simple-columns/index';
+import { DtSort } from './sort/sort';
+import { DtSortHeader } from './sort/sort-header';
+import {
+  DtTableEmptyState,
+  DtTableEmptyStateDirective,
+  DtTableEmptyStateImage,
+  DtTableEmptyStateMessage,
+  DtTableEmptyStateTitle,
+  DtTableLoadingState,
+} from './states/index';
+import { DtTable } from './table';
 
 const EXPORTED_DECLARATIONS = [
   DtTable,
@@ -43,11 +44,11 @@ const EXPORTED_DECLARATIONS = [
   DtExpandableRow,
   DtHeaderCell,
   DtHeaderCellDef,
-  DtTableEmptyState,
-  DtTableEmptyStateDirective,
-  DtTableEmptyStateImage,
-  DtTableEmptyStateTitle,
-  DtTableEmptyStateMessage,
+  DtTableEmptyState, // tslint:disable-line:deprecation
+  DtTableEmptyStateDirective, // tslint:disable-line:deprecation
+  DtTableEmptyStateImage, // tslint:disable-line:deprecation
+  DtTableEmptyStateTitle, // tslint:disable-line:deprecation
+  DtTableEmptyStateMessage, // tslint:disable-line:deprecation
   DtTableLoadingState,
   DtSort,
   DtSortHeader,
@@ -63,6 +64,7 @@ const EXPORTED_DECLARATIONS = [
     DtButtonModule,
     DtIndicatorModule,
     DtFormattersModule,
+    DtEmptyStateModule,
   ],
   exports: [...EXPORTED_DECLARATIONS, DtIndicatorModule],
   declarations: [...EXPORTED_DECLARATIONS],
