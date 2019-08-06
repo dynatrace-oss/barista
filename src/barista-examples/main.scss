@@ -8,12 +8,16 @@
 }
 
 html {
+  width: 100%;
+  height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
 body {
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -29,6 +33,6 @@ body {
 
 .dark {
   background-color: #242424;
-  color: #fff;
+  color: #ffffff;
   padding: 16px;
 }

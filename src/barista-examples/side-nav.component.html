@@ -1,16 +1,42 @@
 <!-- TODO replace with sidebar component when available -->
 <nav>
+  <form class="searchform" novalidate>
+    <input
+      dtInput
+      [dtAutocomplete]="auto"
+      [(ngModel)]="componentItemsFilterValue"
+      type="search"
+      name="searchbar"
+      placeholder="Search for components"
+      aria-label="Search for components"
+    />
+    <dt-autocomplete #auto="dtAutocomplete">
+      <dt-option
+        *ngFor="let navItem of filteredComponentItems"
+        [value]="navItem.name"
+      >
+        {{ navItem.name }}
+      </dt-option>
+    </dt-autocomplete>
+  </form>
+
   <ul>
     <li
-      *ngFor="let component of componentItems"
+      *ngFor="let component of filteredComponentItems"
       class="expandable-item"
-      [class.expandable-item-open]="panel.expanded"
+      [class.expandable-item-open]="expandablePanel.expanded"
     >
-      <button class="item-entry" [dtExpandablePanel]="panel">
+      <button class="item-entry" [dtExpandablePanel]="expandablePanel">
         <span>{{ component.name }}</span>
         <dt-icon name="dropdownopen"></dt-icon>
       </button>
-      <dt-expandable-panel #panel>
+
+      <dt-expandable-panel
+        [expanded]="
+          expandablePanel.expanded || _isSelectedComponent(component.name)
+        "
+        #expandablePanel
+      >
         <ul>
           <li *ngFor="let example of component.examples">
             <a
