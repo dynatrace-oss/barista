@@ -61,11 +61,11 @@ have to
 Import the NgModule for each component you want to use:
 
 ```typescript
-import {DTButtonModule, DTSelectModule} from '@dynatrace/angular-components';
+import {DtButtonModule, DtSelectModule} from '@dynatrace/angular-components';
 
 @NgModule({
   ...
-  imports: [DTButtonModule, DTSelectModule],
+  imports: [DtButtonModule, DtSelectModule],
   ...
 })
 export class PizzaPartyAppModule { }
