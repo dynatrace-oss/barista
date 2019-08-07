@@ -8,12 +8,14 @@ import {
 /** Key of a keyValueList, needed as it's used as a selector in the API. */
 @Directive({
   selector: `dt-key-value-list-key, [dtKeyValueListKey]`,
+  exportAs: 'dtKeyValueListKey',
 })
 export class DtKeyValueListKey {}
 
 /** Value of a keyValueList, needed as it's used as a selector in the API. */
 @Directive({
   selector: `dt-key-value-list-value, [dtKeyValueListValue]`,
+  exportAs: 'dtKeyValueListValue',
 })
 export class DtKeyValueListValue {}
 

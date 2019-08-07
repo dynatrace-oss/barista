@@ -12,6 +12,7 @@ import {
 /** Key of a tag, needed as it's used as a selector in the API. */
 @Directive({
   selector: `dt-tag-key`,
+  exportAs: 'dtTagKey',
   host: {
     class: 'tag-key',
   },

@@ -16,6 +16,7 @@ import {
  */
 @Directive({
   selector: '[dtHeaderRowDef]',
+  exportAs: 'dtHeaderRowDef',
   providers: [{ provide: CdkHeaderRowDef, useExisting: DtHeaderRowDef }],
   inputs: ['columns: dtHeaderRowDef', 'sticky: dtHeaderRowDefSticky'],
 })

@@ -12,10 +12,11 @@ import {
  * @breaking-change To be removed with 6.0.0.
  */
 @Directive({
+  selector: 'dt-cta-card-title',
+  exportAs: 'dtCtaCardTitle',
   host: {
     class: 'dt-cta-card-title',
   },
-  selector: 'dt-cta-card-title',
 })
 export class DtCtaCardTitle {}
 
@@ -26,10 +27,11 @@ export class DtCtaCardTitle {}
  * @breaking-change To be removed with 6.0.0.
  */
 @Directive({
+  selector: 'dt-cta-card-image',
+  exportAs: 'dtCtaCardImage',
   host: {
     class: 'dt-cta-card-image',
   },
-  selector: 'dt-cta-card-image',
 })
 export class DtCtaCardImage {}
 
@@ -40,10 +42,11 @@ export class DtCtaCardImage {}
  * @breaking-change To be removed with 6.0.0.
  */
 @Directive({
+  selector: 'dt-cta-card-footer-actions',
+  exportAs: 'dtCtaCardFooterActions',
   host: {
     class: 'dt-cta-card-footer-actions',
   },
-  selector: 'dt-cta-card-footer-actions',
 })
 export class DtCtaCardFooterActions {}
 
@@ -54,10 +57,11 @@ export class DtCtaCardFooterActions {}
  * @breaking-change To be removed with 6.0.0.
  */
 @Directive({
+  selector: 'dt-cta-card-title-actions',
+  exportAs: 'dtCtaCardTitleActions',
   host: {
     class: 'dt-cta-card-title-actions',
   },
-  selector: 'dt-cta-card-title-actions',
 })
 export class DtCtaCardTitleActions {}
 

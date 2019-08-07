@@ -22,6 +22,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 /** Title of a tile, needed as it's used as a selector in the API. */
 @Directive({
   selector: `dt-tile-title, [dt-tile-title], [dtTileTitle]`,
+  exportAs: 'dtTileTitle',
   host: {
     class: 'dt-tile-title',
   },
@@ -31,6 +32,7 @@ export class DtTileTitle {}
 /** Icon of a tile, needed as it's used as a selector in the API. */
 @Directive({
   selector: `dt-tile-icon, [dt-tile-icon], [dtTileIcon]`,
+  exportAs: 'dtTileIcon',
   host: {
     class: 'dt-tile-icon',
   },
@@ -40,6 +42,7 @@ export class DtTileIcon {}
 /** Sub-title of a tile, needed as it's used as a selector in the API. */
 @Directive({
   selector: `dt-tile-subtitle, [dt-tile-subtitle], [dtTileSubtitle]`,
+  exportAs: 'dtTileSubtitle',
   host: {
     class: 'dt-tile-subtitle',
   },

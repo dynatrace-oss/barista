@@ -7,9 +7,9 @@ import { Directive } from '@angular/core';
  */
 @Directive({
   selector: `dt-selection-area-actions, [dt-selection-area-actions], [dtSelectionAreaActions]`,
+  exportAs: 'dtSelectionAreaActions',
   host: {
     class: 'dt-selection-area-actions',
   },
-  exportAs: 'dtSelectionAreaActions',
 })
 export class DtSelectionAreaActions {}

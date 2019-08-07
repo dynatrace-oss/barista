@@ -87,8 +87,8 @@ export const _DtColorMixinBase = mixinColor(DtColorBase);
  */
 @Directive({
   selector: '[dtColor]',
-  inputs: ['color'],
   exportAs: 'dtColor',
+  inputs: ['color'],
 })
 export class DtColor extends _DtColorMixinBase
   implements CanColor<DtThemePalette> {
