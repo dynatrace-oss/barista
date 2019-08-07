@@ -6,21 +6,6 @@
   ></svg:path>
   <svg:g *ngFor="let series of _renderData">
     <svg:path
-      *ngIf="_displaySeriesLabel(series)"
-      [attr.d]="series.labelStroke"
-      [attr.stroke]="series.color"
-      [attr.stroke-width]="_labelStrokeWidth"
-      fill="none"
-    ></svg:path>
-    <svg:text
-      *ngIf="_displaySeriesLabel(series)"
-      [attr.x]="series.labelCoordinates.x"
-      [attr.y]="series.labelCoordinates.y"
-      [attr.text-anchor]="series.labelCoordinates.x < 0 ? 'end' : 'start'"
-    >
-      {{ series.name }}
-    </svg:text>
-    <svg:path
       class="dt-radial-chart-series"
       [attr.d]="series.path"
       [attr.fill]="series.color"
