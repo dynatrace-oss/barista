@@ -1,11 +1,15 @@
-/src/schematics/*/files/**/*
 /src/barista-examples/app.module.ts
 /src/barista-examples/app.module.template
 /src/barista-examples/app.component.ts
 /src/barista-examples/app.component.template
 
+/src/schematics/*/files/**/*
+
 /test/**/*
-/tools/**/*
+/tools/gulp/**/*
+/tools/release/**/*
+/tools/stylelint/**/*
+/tools/templates/**/*
 
 /.gradle/**/*
 /.idea/**/*
