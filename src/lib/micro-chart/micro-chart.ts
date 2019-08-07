@@ -191,9 +191,10 @@ export class DtMicroChart implements OnDestroy {
   private _transformSeries(
     series: DtChartSeries[] | DtChartSeries,
   ): DtChartSeries[] {
+    // We are cloning the series here since we dont want to mutate the passed reference
     const singleSeries: DtChartSeries = Array.isArray(series)
-      ? series[0]
-      : series;
+      ? { ...series[0] }
+      : { ...series };
 
     if (isDevMode()) {
       checkUnsupportedType(singleSeries.type);
