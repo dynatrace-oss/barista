@@ -208,10 +208,11 @@ describe('DtMicroChart', () => {
       const { fixture, microChartComponent } = setupTestCase(Formatter);
       fixture.detectChanges();
 
-      expect(microChartComponent.labelFormatter).toEqual(
-        fixture.componentInstance.formatterFn,
-      );
-      expect(fixture.componentInstance.formatterInvocations).toEqual(2);
+      const seriesData = microChartComponent.highchartsOptions.series![0].data!;
+      expect(seriesData[0]).not.toHaveProperty('dataLabels');
+      expect((seriesData[1] as any).dataLabels.formatter).toBeDefined();
+      expect(seriesData[2]).not.toHaveProperty('dataLabels');
+      expect((seriesData[3] as any).dataLabels.formatter).toBeDefined();
     });
 
     it('should fetch metric ids', () => {
