@@ -17,6 +17,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
  */
 @Directive({
   selector: 'dt-show-less-label',
+  exportAs: 'dtShowLessLabel',
 })
 export class DtShowLessLabel {}
 

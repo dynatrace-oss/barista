@@ -376,6 +376,7 @@ export const DT_CHECKBOX_REQUIRED_VALIDATOR: Provider = {
 @Directive({
   selector: `dt-checkbox[required][formControlName],
              dt-checkbox[required][formControl], dt-checkbox[required][ngModel]`,
+  exportAs: 'dtCheckboxRequiredValidator',
   providers: [DT_CHECKBOX_REQUIRED_VALIDATOR],
   host: { '[attr.required]': 'required ? "" : null' },
 })

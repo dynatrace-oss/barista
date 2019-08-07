@@ -7,6 +7,7 @@ import {
 
 @Directive({
   selector: `dt-info-group-title, [dt-info-group-title], [dtInfoGroupTitle]`,
+  exportAs: 'dtInfoGroupTitle',
   host: {
     class: 'dt-info-group-title',
   },
@@ -16,6 +17,7 @@ export class DtInfoGroupTitle {}
 /** Icon of the info group, needed as it's used as a selector in the API. */
 @Directive({
   selector: `dt-info-group-icon, [dt-info-group-icon], [dtInfoGroupIcon]`,
+  exportAs: 'dtInfoGroupIcon',
   host: {
     class: 'dt-info-group-icon',
   },
