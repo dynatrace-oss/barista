@@ -567,7 +567,7 @@ function createInViewportStream(
   isBrowser: boolean,
   threshold: number | number[] = 1,
 ): Observable<boolean> {
-  return isBrowser
+  return isBrowser && window && window.IntersectionObserver
     ? new Observable<IntersectionObserverEntry[]>(observer => {
         const intersectionObserver = new IntersectionObserver(
           entries => {
