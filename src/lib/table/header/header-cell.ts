@@ -10,6 +10,7 @@ import { takeUntil, startWith } from 'rxjs/operators';
  */
 @Directive({
   selector: '[dtHeaderCellDef]',
+  exportAs: 'dtHeaderCellDef',
   providers: [{ provide: CdkHeaderCellDef, useExisting: DtHeaderCellDef }],
 })
 export class DtHeaderCellDef extends CdkHeaderCellDef {}
@@ -17,11 +18,11 @@ export class DtHeaderCellDef extends CdkHeaderCellDef {}
 /** Header cell template container that adds the right classes and role. */
 @Directive({
   selector: 'dt-header-cell',
+  exportAs: 'dtHeaderCell',
   host: {
     class: 'dt-header-cell',
     role: 'columnheader',
   },
-  exportAs: 'dtHeaderCell',
 })
 export class DtHeaderCell implements OnDestroy {
   /** Destroy subject which will fire when the component gets destroyed. */

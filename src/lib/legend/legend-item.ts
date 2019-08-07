@@ -20,6 +20,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 /** Symbol (e.g. some kind of icon) that should be placed before the text of a legend item. */
 @Directive({
   selector: 'dt-legend-symbol, [dtLegendSymbol]',
+  exportAs: 'dtLegendSymbol',
   host: {
     class: 'dt-legend-symbol',
   },
@@ -29,6 +30,7 @@ export class DtLegendSymbol {}
 /** Template that should be rendered in an overlay on the legend item when hovered. */
 @Directive({
   selector: 'ng-template[dtLegendOverlay]',
+  exportAs: 'dtLegendOverlay',
 })
 export class DtLegendOverlay {}
 

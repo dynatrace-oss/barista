@@ -21,8 +21,8 @@ import {
  * a when predicate that describes when this row should be used.
  */
 @Directive({
-  exportAs: 'dtRowDef',
   selector: '[dtRowDef]',
+  exportAs: 'dtRowDef',
   providers: [{ provide: CdkRowDef, useExisting: DtRowDef }],
   inputs: ['columns: dtRowDefColumns', 'when: dtRowDefWhen'],
 })
