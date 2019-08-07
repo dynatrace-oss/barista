@@ -30,6 +30,8 @@ class NoFocusedRuleWalker extends RuleWalker {
   }
 }
 
+const MATCH_REGEX = /.+\.(spec|test|e2e)\.ts$/;
+
 /**
  * Implementation of the dt-no-focused-tests rule
  */
@@ -45,14 +47,20 @@ export class Rule extends Rules.AbstractRule {
   };
 
   static FAILURE_STRING = 'Focused tests are not allowed';
-  static MATCH_REGEX = /.+\.(spec|test|e2e)\.ts$/gm;
 
   apply(sourceFile: ts.SourceFile): RuleFailure[] {
-    if (sourceFile.fileName.match(Rule.MATCH_REGEX)) {
-      return this.applyWithWalker(
-        new NoFocusedRuleWalker(sourceFile, this.getOptions()),
-      );
+    if (!MATCH_REGEX.test(sourceFile.fileName)) {
+      return [];
     }
-    return [];
+
+    // startMonitoring(Rule.metadata.ruleName);
+
+    const ruleFailures = this.applyWithWalker(
+      new NoFocusedRuleWalker(sourceFile, this.getOptions()),
+    );
+
+    // stopMonitoring(Rule.metadata.ruleName);
+
+    return ruleFailures;
   }
 }
