@@ -273,6 +273,7 @@ export const DT_SWITCH_REQUIRED_VALIDATOR: Provider = {
 @Directive({
   selector: `dt-switch[required][formControlName],
              dt-switch[required][formControl], dt-switch[required][ngModel]`,
+  exportAs: 'dtSwitchRequiredValidator',
   providers: [DT_SWITCH_REQUIRED_VALIDATOR],
   host: { '[attr.required]': 'required ? "" : null' },
 })

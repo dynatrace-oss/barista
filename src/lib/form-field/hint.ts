@@ -5,6 +5,7 @@ let nextUniqueId = 0;
 /** Hint text to be shown underneath the form field control. */
 @Directive({
   selector: 'dt-hint',
+  exportAs: 'dtHint',
   host: {
     class: 'dt-hint',
     '[class.dt-hint-right]': 'align == "end"',

@@ -69,6 +69,7 @@ export class DtTabBody {
  */
 @Directive({
   selector: '[dtTabBodyHost]',
+  exportAs: 'dtTabBodyPortal',
 })
 export class DtTabBodyPortal extends CdkPortalOutlet
   implements OnInit, OnDestroy {

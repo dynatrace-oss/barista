@@ -46,6 +46,7 @@ export type DtTableColumnTypedAlign =
  */
 @Directive({
   selector: '[dtCellDef]',
+  exportAs: 'dtCellDef',
   providers: [{ provide: CdkCellDef, useExisting: DtCellDef }],
 })
 export class DtCellDef extends CdkCellDef {}
@@ -56,6 +57,7 @@ export class DtCellDef extends CdkCellDef {}
  */
 @Directive({
   selector: '[dtColumnDef]',
+  exportAs: 'dtColumnDef',
   providers: [{ provide: CdkColumnDef, useExisting: DtColumnDef }],
 })
 export class DtColumnDef extends CdkColumnDef implements OnChanges {
