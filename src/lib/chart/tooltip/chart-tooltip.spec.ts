@@ -94,7 +94,7 @@ describe('DtChartTooltip', () => {
     expect(overlayContainerElement.innerHTML).toEqual('');
   }));
 
-  it('should not show the tooltip if the chart is not in the viewport', fakeAsync(() => {
+  it('should show the tooltip if the chart is in the viewport', fakeAsync(() => {
     mockIntersectionObserver.mockAllIsIntersecting(true);
     chartComponent.tooltipDataChange.next({
       data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
@@ -103,6 +103,17 @@ describe('DtChartTooltip', () => {
     tick();
     flush();
     expect(overlayContainerElement.innerHTML).not.toEqual('');
+  }));
+
+  it('should not show the tooltip if the chart is not in the viewport', fakeAsync(() => {
+    mockIntersectionObserver.mockAllIsIntersecting(false);
+    chartComponent.tooltipDataChange.next({
+      data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
+    });
+    fixture.detectChanges();
+    tick();
+    flush();
+    expect(overlayContainerElement.innerHTML).toEqual('');
   }));
 
   describe('content', () => {
