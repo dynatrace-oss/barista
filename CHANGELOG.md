@@ -1,3 +1,30 @@
+## 4.4.0 (2019-08-07)
+
+### Bug Fixes
+
+- **chart:** Adds fallback for missing IntersectionObserver
+- **chart:** Fixes an edge case where the selection area was outside the chart
+  with a specific data set
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **chart:** Fixes an issue where highcharts would not update all options when
+  using the update method on the chart object
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **micro-chart:** Fixes an issue where the series was not properly cloned
+  before mutation and therefore microcharts with the same series would influence
+  each other
+- **tree-table:** Fixes spacing for info-groups in the tree-table
+
+### Features
+
+- **empty-state:** Added empty state component
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Adds data types for the DtFilterFieldDefaultDataSource
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **menu:** Added menu component
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **table, cta-card:** Deprecated dt-table-empty-state and cta-card
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 4.3.0 (2019-07-31)
 
 ### Bug Fixes
