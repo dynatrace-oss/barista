@@ -347,6 +347,40 @@ cannot be prevented.
 - Make sure to always unsubscribe from observables (either by using `async`
   pipes, by calling unsubscribe or by using the "destroy subject pattern").
 
+### Symbol ordering in components/directives/services
+
+For consistency and an easy way to find symbols in components, directives or
+services stick to the following ordering in the class.
+
+This ordering also applies for classes in general, without the component
+specific fields.
+
+1. Inputs
+2. Outputs
+3. Public properties
+4. View/ContentChildren
+5. Internal properties
+6. Private properties
+7. Constructor
+8. Public methods
+9. Internal methods
+10. Private methods
+
+For better readability when using getters/setters the associated private
+property should be placed directly after the setter instead of moving it down
+the class to the other privates.
+
+```ts
+@Input()
+get disabled(): boolean {
+  return this._disabled;
+}
+set disabled(value: boolean) {
+  this._disabled = coerceBooleanProperty(value);
+}
+private _disabled: boolean;
+```
+
 ### Disallowed features
 
 - Do not use the `with` keyword. It makes your code harder to understand and has
