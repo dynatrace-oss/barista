@@ -29,4 +29,8 @@ export class ChartDemo {
     this.series = dataSmall;
     this.dataSet = 'small';
   }
+
+  onTimeframeApply(): void {
+    console.log('do something');
+  }
 }
