@@ -1,3 +1,9 @@
+## 4.4.1 (2019-08-08)
+
+### Bug Fixes
+
+- **tslint:** Remove prettier dependency from shipped tslint config
+
 ## 4.4.0 (2019-08-07)
 
 ### Bug Fixes
