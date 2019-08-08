@@ -1,5 +1,4 @@
 {
-  "extends": ["tslint-plugin-prettier", "tslint-config-prettier"],
   "rulesDirectory": [
     "./rules",
     "./rules/button",
@@ -8,12 +7,6 @@
     "./rules/tile"
   ],
   "rules": {
-    "prettier": true,
-    "linebreak-style": [true, "LF"],
-    "trailing-comma": [
-      true,
-      { "multiline": "always", "singleline": "never", "esSpecCompliant": false }
-    ],
     "dt-breadcrumbs-alt-text": { "severity": "warning" },
     "dt-button-no-empty": true,
     "dt-card-direct-children": true,
