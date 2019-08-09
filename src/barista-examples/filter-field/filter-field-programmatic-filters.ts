@@ -7,11 +7,12 @@ import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/fi
   template: `
     <dt-filter-field
       [dataSource]="_dataSource"
+      [filters]="_filters"
       label="Filter by"
     ></dt-filter-field>
   `,
 })
-export class FilterFieldDefaultExample {
+export class FilterFieldProgrammaticFiltersExample {
   private DATA = {
     autocomplete: [
       {
@@ -43,4 +44,16 @@ export class FilterFieldDefaultExample {
   };
 
   _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
+
+  _filters = [
+    // Filter AUT -> Vienna
+    [this.DATA.autocomplete[0], this.DATA.autocomplete[0].autocomplete![1]],
+
+    // Filter USA -> Custom -> Miami
+    [
+      this.DATA.autocomplete[1],
+      this.DATA.autocomplete[1].autocomplete![3],
+      'Miami',
+    ],
+  ];
 }
