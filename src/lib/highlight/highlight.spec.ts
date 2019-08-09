@@ -4,7 +4,7 @@
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtHighlightModule } from '@dynatrace/angular-components';
+import { DtHighlightModule } from '@dynatrace/angular-components/highlight';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtHighlight', () => {

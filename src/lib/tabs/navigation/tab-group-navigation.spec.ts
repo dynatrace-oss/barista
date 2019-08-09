@@ -17,7 +17,7 @@ import {
   DtTabNavigationAdapter,
   DtTabRouterFragmentAdapter,
   DtTabsModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/tabs';
 import { checkSelected } from '../tab-group.spec';
 
 describe('DtTabRouterFragmentAdapter', () => {

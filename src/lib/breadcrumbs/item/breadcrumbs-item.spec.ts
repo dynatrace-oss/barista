@@ -9,7 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   DtBreadcrumbsItem,
   DtBreadcrumbsModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/breadcrumbs';
 import { createComponent } from '../../../testing/create-component';
 import { createMouseEvent } from '../../../testing/event-objects';
 

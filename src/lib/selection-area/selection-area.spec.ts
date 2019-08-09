@@ -10,12 +10,14 @@ import {
   inject,
   tick,
 } from '@angular/core/testing';
+import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtCardModule } from '@dynatrace/angular-components/card';
 import {
-  DtSelectionAreaModule,
-  DtIconModule,
   DtChart,
-  DtCardModule,
-} from '@dynatrace/angular-components';
+  DtChartSelectionAreaOrigin,
+  getDtChartSelectionAreaDateTimeAxisError,
+} from '@dynatrace/angular-components/chart';
 import {
   Component,
   ViewChild,
@@ -48,10 +50,6 @@ import {
 } from '@angular/cdk/keycodes';
 import { MockNgZone } from '../../testing/mock-ng-zone';
 import { Subject } from 'rxjs';
-import {
-  DtChartSelectionAreaOrigin,
-  getDtChartSelectionAreaDateTimeAxisError,
-} from '@dynatrace/angular-components/chart';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 import { createComponent } from '../../testing/create-component';
 

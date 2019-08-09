@@ -19,7 +19,7 @@ import {
   DtSwitch,
   DtSwitchChange,
   DtSwitchModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/switch';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtSwitch', () => {

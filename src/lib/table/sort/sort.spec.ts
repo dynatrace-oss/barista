@@ -14,19 +14,19 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtCell,
-  DtIconModule,
   DtSort,
-  DtSortDirection,
   DtSortEvent,
   DtSortHeader,
   DtTableModule,
   getDtSortHeaderNotContainedWithinSortError,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/table';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { createComponent } from '../../../testing/create-component';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
+import { DtSortDirection } from '@dynatrace/angular-components/core';
 
 describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;

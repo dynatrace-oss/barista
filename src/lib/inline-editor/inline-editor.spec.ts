@@ -12,8 +12,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtInlineEditor,
   DtInlineEditorModule,
-  DtIconModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/inline-editor';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { Observable } from 'rxjs';
 import {
   dispatchFakeEvent,

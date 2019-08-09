@@ -31,7 +31,7 @@ import {
   DtDrawerContainer,
   DtDrawerModule,
   getDtDuplicateDrawerError,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/drawer';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 
 // TODO: [e2e] move to e2e test in case getBoundingClientRect is not available in jsdom

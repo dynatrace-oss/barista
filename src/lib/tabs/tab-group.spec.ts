@@ -6,12 +6,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DT_TABGROUP_SINGLE_TAB_ERROR,
-  DtLogConsumer,
-  DtLogEntry,
   DtTab,
   DtTabChange,
   DtTabsModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/tabs';
+import { DtLogConsumer, DtLogEntry } from '@dynatrace/angular-components/core';
 import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/angular-components/tabs/tab-group';
 import { Subscription } from 'rxjs';
 import { createComponent } from '../../testing/create-component';

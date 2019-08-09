@@ -7,7 +7,7 @@ import {
   DtBreadcrumbsItem,
   DtBreadcrumbsModule,
   DtBreadcrumbs,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/breadcrumbs';
 import { By } from '@angular/platform-browser';
 import { createComponent } from '../../testing/create-component';
 
