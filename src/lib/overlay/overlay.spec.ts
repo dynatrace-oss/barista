@@ -15,7 +15,10 @@ import {
   TemplateRef,
   NgModule,
 } from '@angular/core';
-import { DtOverlayModule, DtOverlay } from '@dynatrace/angular-components';
+import {
+  DtOverlayModule,
+  DtOverlay,
+} from '@dynatrace/angular-components/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import {

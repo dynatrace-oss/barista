@@ -7,10 +7,10 @@ import { Component, DebugElement } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  DtIconModule,
   DtShowMore,
   DtShowMoreModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/show-more';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtShowMore', () => {

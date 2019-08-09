@@ -11,7 +11,7 @@ import {
   DtTabNavigationAdapter,
   DtTabsModule,
   DtTabRouterFragmentAdapter,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/tabs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LocationStrategy, Location } from '@angular/common';

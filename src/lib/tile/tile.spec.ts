@@ -2,7 +2,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { TestBed, async } from '@angular/core/testing';
-import { DtTileModule } from '@dynatrace/angular-components';
+import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { createComponent } from '../../testing/create-component';

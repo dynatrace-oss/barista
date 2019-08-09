@@ -29,12 +29,11 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtFormFieldModule,
-  DtInput,
-  DtInputModule,
-  ErrorStateMatcher,
   getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/form-field';
+import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
+import { DtInput, DtInputModule } from '@dynatrace/angular-components/input';
 import { createComponent } from '../../testing/create-component';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';

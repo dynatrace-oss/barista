@@ -37,13 +37,17 @@ import {
   DtAutocomplete,
   DtAutocompleteModule,
   DtAutocompleteTrigger,
+  getDtAutocompleteMissingPanelError,
+} from '@dynatrace/angular-components/autocomplete';
+import {
   DtFormField,
   DtFormFieldModule,
-  DtInputModule,
+} from '@dynatrace/angular-components/form-field';
+import { DtInputModule } from '@dynatrace/angular-components/input';
+import {
   DtOption,
   DtOptionSelectionChange,
-  getDtAutocompleteMissingPanelError,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/core';
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import {

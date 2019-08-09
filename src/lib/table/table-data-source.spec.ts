@@ -13,13 +13,15 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  DtIconModule,
-  DtPagination,
   DtTableDataSource,
-} from '@dynatrace/angular-components';
+  DtTableModule,
+} from '@dynatrace/angular-components/table';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import {
+  DtPaginationModule,
+  DtPagination,
+} from '@dynatrace/angular-components/pagination';
 import { createComponent } from '../../testing/create-component';
-import { DtPaginationModule } from '../pagination';
-import { DtTableModule } from './table-module';
 
 const PAGE_SIZE = 2;
 

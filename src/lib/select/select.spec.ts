@@ -40,16 +40,18 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import {
-  DtFormFieldModule,
-  DtIconModule,
-  DtOption,
-  DtOptionSelectionChange,
   DtSelect,
   DtSelectModule,
-  ErrorStateMatcher,
   getDtSelectNonFunctionValueError,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/select';
+import {
+  ErrorStateMatcher,
+  DtOption,
+  DtOptionSelectionChange,
+} from '@dynatrace/angular-components/core';
 import { map } from 'rxjs/operators';
 import { createComponent } from '../../testing/create-component';
 import {

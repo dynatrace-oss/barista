@@ -8,17 +8,19 @@ import { async, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  DtFormattersModule,
-  DtIconModule,
-  DtIndicatorThemePalette,
-  DtLoadingDistractorModule,
   DtSort,
   DtTableDataSource,
   DtTableModule,
+} from '@dynatrace/angular-components/table';
+import { DtIndicatorThemePalette } from '@dynatrace/angular-components/core';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import {
   formatBytes,
   formatPercent,
   formatRate,
-} from '@dynatrace/angular-components';
+  DtFormattersModule,
+} from '@dynatrace/angular-components/formatters';
 import { createComponent } from '../../../testing/create-component';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 

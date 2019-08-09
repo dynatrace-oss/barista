@@ -19,8 +19,8 @@ import {
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
-  DtThemingModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/chart';
+import { DtThemingModule } from '@dynatrace/angular-components/theming';
 import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 import { createComponent } from '../../../testing/create-component';

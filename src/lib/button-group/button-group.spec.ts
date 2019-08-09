@@ -8,7 +8,7 @@ import {
   DtButtonGroup,
   DtButtonGroupItem,
   DtButtonGroupModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/button-group';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtButtonGroup', () => {

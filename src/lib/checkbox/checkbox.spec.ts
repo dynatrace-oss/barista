@@ -19,7 +19,7 @@ import {
   DtCheckbox,
   DtCheckboxChange,
   DtCheckboxModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/checkbox';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtCheckbox', () => {

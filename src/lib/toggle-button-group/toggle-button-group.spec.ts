@@ -13,7 +13,7 @@ import {
   DtToggleButtonGroup,
   DtToggleButtonGroupModule,
   DtToggleButtonItem,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/toggle-button-group';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtToggleButtonGroup', () => {
