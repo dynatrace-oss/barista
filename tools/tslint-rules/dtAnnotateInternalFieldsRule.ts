@@ -1,14 +1,9 @@
 import { IRuleMetadata, RuleFailure, Rules, WalkContext } from 'tslint';
 import { getJsDoc, hasModifier } from 'tsutils';
 import * as ts from 'typescript';
+import { createMemberDeclarationWalker, MemberDeclaration } from './utils';
 
-type CheckedDeclaration =
-  | ts.GetAccessorDeclaration
-  | ts.SetAccessorDeclaration
-  | ts.PropertyDeclaration
-  | ts.MethodDeclaration;
-
-function hasInternalAnnotation(declaration: CheckedDeclaration): boolean {
+function hasInternalAnnotation(declaration: MemberDeclaration): boolean {
   const jsDoc = getJsDoc(declaration);
 
   for (const doc of jsDoc) {
@@ -23,9 +18,9 @@ function hasInternalAnnotation(declaration: CheckedDeclaration): boolean {
   return false;
 }
 
-function verifyDeclaration(
+function verifyDeclarationIsAnnotatedAsInternal(
   context: WalkContext<any>, // tslint:disable-line:no-any
-  declaration: CheckedDeclaration,
+  declaration: MemberDeclaration,
 ): void {
   if (
     !hasModifier(
@@ -44,33 +39,7 @@ function verifyDeclaration(
   }
 }
 
-// tslint:disable-next-line:no-any
-function walk(context: WalkContext<any>): void {
-  function checkNode(node: ts.Node): void {
-    // TODO ChMa: can we optimize linting by aborting early for certain kinds of nodes?
-
-    switch (node.kind) {
-      case ts.SyntaxKind.GetAccessor:
-        verifyDeclaration(context, node as ts.GetAccessorDeclaration);
-        break;
-      case ts.SyntaxKind.SetAccessor:
-        verifyDeclaration(context, node as ts.SetAccessorDeclaration);
-        break;
-      case ts.SyntaxKind.PropertyDeclaration:
-        verifyDeclaration(context, node as ts.PropertyDeclaration);
-        break;
-      case ts.SyntaxKind.MethodDeclaration:
-        verifyDeclaration(context, node as ts.MethodDeclaration);
-        break;
-      default:
-        ts.forEachChild(node, checkNode);
-    }
-  }
-
-  ts.forEachChild(context.sourceFile, checkNode);
-}
-
-const MATCH_REGEX = /.+\.ts$/gm;
+const MATCH_REGEX = /(?!dt).*(?!Rule)\.ts$/;
 
 /**
  * The dtAnnotateInternalFieldsRule ensures that all public fields with names
@@ -97,8 +66,20 @@ export class Rule extends Rules.AbstractRule {
   };
 
   apply(sourceFile: ts.SourceFile): RuleFailure[] {
-    return sourceFile.fileName.match(MATCH_REGEX)
-      ? this.applyWithFunction(sourceFile, walk, this.getOptions())
-      : [];
+    if (!MATCH_REGEX.test(sourceFile.fileName)) {
+      return [];
+    }
+
+    // startMonitoring(Rule.metadata.ruleName);
+
+    const ruleFailures = this.applyWithFunction(
+      sourceFile,
+      createMemberDeclarationWalker(verifyDeclarationIsAnnotatedAsInternal),
+      this.getOptions(),
+    );
+
+    // stopMonitoring(Rule.metadata.ruleName);
+
+    return ruleFailures;
   }
 }
