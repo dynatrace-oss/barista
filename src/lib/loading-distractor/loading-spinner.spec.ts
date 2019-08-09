@@ -4,7 +4,7 @@
 import { Component } from '@angular/core';
 import { async, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtLoadingDistractorModule } from '@dynatrace/angular-components';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtLoadingSpinner', () => {

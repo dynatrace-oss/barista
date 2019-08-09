@@ -17,7 +17,7 @@ import {
   DT_OVERLAY_DEFAULT_OFFSET,
   DtOverlayConfig,
   DtOverlayModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/overlay';
 import { createComponent } from '../../testing/create-component';
 import {
   dispatchKeyboardEvent,

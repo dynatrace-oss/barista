@@ -17,7 +17,7 @@ import {
   DT_TOAST_FADE_TIME,
   DT_TOAST_MIN_DURATION,
   DT_TOAST_CHAR_LIMIT,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/toast';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';

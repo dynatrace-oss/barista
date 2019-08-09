@@ -4,7 +4,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtIndicatorModule, DtIndicator } from '@dynatrace/angular-components';
+import {
+  DtIndicatorModule,
+  DtIndicator,
+} from '@dynatrace/angular-components/core';
 
 describe('DtIndicator without table', () => {
   beforeEach(fakeAsync(() => {

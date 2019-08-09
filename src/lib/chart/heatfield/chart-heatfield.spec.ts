@@ -20,11 +20,11 @@ import { By } from '@angular/platform-browser';
 import {
   DtChart,
   DtChartModule,
-  DtThemingModule,
   DtChartHeatfield,
   DtChartHeatfieldActiveChange,
   DtChartOptions,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/chart';
+import { DtThemingModule } from '@dynatrace/angular-components/theming';
 import { Subject, Subscription } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ENTER } from '@angular/cdk/keycodes';

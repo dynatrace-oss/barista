@@ -4,9 +4,10 @@
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { DtTagModule, DtIconModule } from '@dynatrace/angular-components';
+import { DtTagModule } from '@dynatrace/angular-components/tag';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '../../testing/create-component';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 
 describe('DtTag', () => {
   beforeEach(async(() => {

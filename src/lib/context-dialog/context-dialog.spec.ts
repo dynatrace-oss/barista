@@ -19,8 +19,8 @@ import {
   DtContextDialog,
   DtContextDialogModule,
   DtContextDialogTrigger,
-  DtIconModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/context-dialog';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { createComponent } from '../../testing/create-component';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 
