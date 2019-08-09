@@ -18,21 +18,25 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtCell,
-  DtEmptyState,
-  DtEmptyStateModule,
   DtExpandableCell,
   DtExpandableRow,
   DtHeaderCell,
-  DtIconModule,
-  DtIndicatorModule,
-  DtLoadingDistractor,
-  DtLoadingDistractorModule,
   DtRow,
   DtTable,
   DtTableLoadingState,
   DtTableModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/table';
+import {
+  DtLoadingDistractor,
+  DtLoadingDistractorModule,
+} from '@dynatrace/angular-components/loading-distractor';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import {
+  DtEmptyState,
+  DtEmptyStateModule,
+} from '@dynatrace/angular-components/empty-state';
 import { createComponent } from '../../testing/create-component';
+import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 
 describe('DtTable', () => {
   beforeEach(async(() => {

@@ -4,12 +4,10 @@
 import { Component } from '@angular/core';
 import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  DtButtonModule,
-  DtCopyToClipboardModule,
-  DtIconModule,
-  DtInputModule,
-} from '@dynatrace/angular-components';
+import { DtButtonModule } from '@dynatrace/angular-components/button';
+import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtInputModule } from '@dynatrace/angular-components/input';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '../../testing/create-component';
 

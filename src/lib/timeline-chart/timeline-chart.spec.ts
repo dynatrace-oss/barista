@@ -3,7 +3,7 @@
 
 import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { DtTimelineChartModule } from '@dynatrace/angular-components';
+import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
 import { createComponent } from '../../testing/create-component';
 import { By } from '@angular/platform-browser';
 

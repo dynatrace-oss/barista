@@ -3,7 +3,7 @@
 
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DtKeyValueListModule } from '@dynatrace/angular-components';
+import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtKeyValueList', () => {

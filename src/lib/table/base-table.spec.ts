@@ -3,7 +3,7 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
-import { _DtTableBase } from '@dynatrace/angular-components';
+import { _DtTableBase } from '@dynatrace/angular-components/table';
 import { _DtTableBaseModule } from './base-table';
 import { DtTableModule } from './table-module';
 

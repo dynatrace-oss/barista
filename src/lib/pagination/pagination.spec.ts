@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {
   DtPaginationModule,
   DtPagination,
-  DtIconModule,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/pagination';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import {

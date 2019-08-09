@@ -1,7 +1,7 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { DtOptionModule, DtOption } from '@dynatrace/angular-components';
+import { DtOptionModule, DtOption } from '@dynatrace/angular-components/core';
 import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';

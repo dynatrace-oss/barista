@@ -4,7 +4,10 @@
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DtChartModule, DtChartTimestamp } from '@dynatrace/angular-components';
+import {
+  DtChartModule,
+  DtChartTimestamp,
+} from '@dynatrace/angular-components/chart';
 import {
   TimestampStateChangedEvent,
   ARIA_DEFAULT_SELECTED_LABEL,
