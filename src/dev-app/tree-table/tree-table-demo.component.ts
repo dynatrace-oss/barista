@@ -5,7 +5,7 @@ import {
   DtTreeDataSource,
   DtTreeFlattener,
   DtTreeControl,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/core';
 import { BehaviorSubject } from 'rxjs';
 
 const TESTDATA: ThreadNode[] = [

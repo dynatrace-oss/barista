@@ -1,8 +1,9 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { DtColors, DtChartSeries } from '@dynatrace/angular-components';
+import { DtChartSeries } from '@dynatrace/angular-components/chart';
 import { generateData } from './chart-data-utils';
+import { DtColors } from '@dynatrace/angular-components/theming';
 
 @Component({
   selector: 'barista-demo',

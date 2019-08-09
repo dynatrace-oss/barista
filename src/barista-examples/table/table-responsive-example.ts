@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { DtViewportResizer } from '@dynatrace/angular-components';
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
 import { startWith, switchMap, take } from 'rxjs/operators';
 import { ViewportRuler } from '@angular/cdk/overlay';
 
