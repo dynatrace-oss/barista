@@ -122,6 +122,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
    * Adjust the viewbox to center the circle.
    */
   get _viewBox(): string {
+    // tslint:disable-next-line: no-magic-numbers
     return `${-this._width / 2} ${-this._width / 2} ${this._width} ${
       this._width
     }`;
