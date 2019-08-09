@@ -4,7 +4,7 @@ import {
   DtFilterFieldCurrentFilterChangeEvent,
   DtFilterFieldDefaultDataSource,
   DtFilterFieldTag,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/filter-field';
 import { Subscription } from 'rxjs';
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';

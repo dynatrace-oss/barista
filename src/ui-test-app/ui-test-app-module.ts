@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { DtSelectionAreaModule } from '@dynatrace/angular-components';
+import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
 import { DtChartModule } from '@dynatrace/angular-components/chart';

@@ -3,7 +3,7 @@ import {
   DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/core';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 
 const TESTDATA: ThreadNode[] = [
