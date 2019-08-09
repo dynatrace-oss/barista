@@ -1,6 +1,6 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import {
-  AfterViewInit,
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -18,7 +18,7 @@ import {
 } from '@dynatrace/angular-components/core';
 import { PieArcDatum } from 'd3-shape';
 import { combineLatest, of, Subject } from 'rxjs';
-import { startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { DtRadialChartSeries } from './radial-chart-series';
 import { DtRadialChartRenderData } from './utils/radial-chart-interfaces';
 import {
@@ -43,7 +43,7 @@ const DONUT_INNER_CIRCLE_FRACTION = 0.8;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtRadialChart implements AfterViewInit, OnDestroy {
+export class DtRadialChart implements AfterContentInit, OnDestroy {
   /**
    * The chart type. Can either be 'pie' or 'donut'.
    * Defaults to 'pie'.
@@ -102,9 +102,6 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
     return this._width / 2;
   }
 
-  /** @internal Sum of all series values. */
-  _totalValue: number;
-
   /**
    * @internal
    * Flag if a background shape should be rendered.
@@ -141,8 +138,8 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
   ) {}
 
-  /** AfterViewInit hook */
-  ngAfterViewInit(): void {
+  /** AfterContentInit hook */
+  ngAfterContentInit(): void {
     /**
      * Fires every time a value within one of the series changes
      * or the series data itself gets an update (one series is added or removed).
@@ -150,7 +147,6 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
     this._radialChartSeries.changes
       .pipe(
         takeUntil(this._destroy),
-        startWith(null),
         switchMap(() =>
           this._radialChartSeries.length
             ? combineLatest(
@@ -160,9 +156,7 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
         ),
       )
       .subscribe((): void => {
-        Promise.resolve().then(() => {
-          this._updateRenderData();
-        });
+        this._updateRenderData();
       });
 
     /**
@@ -171,14 +165,12 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
     this._viewportResizer
       .change()
       .pipe(
-        takeUntil(this._destroy),
         startWith(null),
+        takeUntil(this._destroy),
       )
       .subscribe(() => {
-        Promise.resolve().then(() => {
-          this._width = this._elementRef.nativeElement.getBoundingClientRect().width;
-          this._updateRenderData();
-        });
+        this._width = this._elementRef.nativeElement.getBoundingClientRect().width;
+        this._updateRenderData();
       });
   }
 
@@ -197,19 +189,20 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
     if (this._radialChartSeries && this._radialChartSeries.length > 0) {
       const seriesValues = this._radialChartSeries.map(s => s.value);
       const arcs = generatePieArcData(seriesValues, this.maxValue);
+      const totalSeriesValue = getSum(seriesValues);
 
-      this._renderData = this._radialChartSeries.map((s, i) => {
+      this._renderData = this._radialChartSeries.map((series, i) => {
         const colorIdx = i % DT_CHART_COLOR_PALETTE_ORDERED.length;
         return this._getSeriesRenderData(
-          s,
+          series,
           arcs[i],
           DT_CHART_COLOR_PALETTE_ORDERED[colorIdx],
+          totalSeriesValue,
         );
       });
 
-      this._totalValue = getSum(seriesValues);
       this._hasBackground =
-        isNumber(this.maxValue) && this._totalValue < this.maxValue!;
+        isNumber(this.maxValue) && totalSeriesValue < this.maxValue!;
       this._backgroundPath =
         // tslint:disable-next-line: no-magic-numbers
         generatePathData(this._radius, this._innerRadius, 0, Math.PI * 2) || '';
@@ -227,6 +220,7 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
     series: DtRadialChartSeries,
     arcData: PieArcDatum<number>,
     chartColor: string,
+    totalSeriesValue: number,
   ): DtRadialChartRenderData {
     const path =
       generatePathData(
@@ -241,7 +235,7 @@ export class DtRadialChart implements AfterViewInit, OnDestroy {
 
     // The path's aria label consists of the series' name, value and the chart's max-value
     const ariaLabel = `${series.name}: ${series.value} of ${
-      this.maxValue ? this.maxValue : this._totalValue
+      this.maxValue ? this.maxValue : totalSeriesValue
     }`;
 
     return {
