@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DtSelectionAreaChange } from '@dynatrace/angular-components';
+import { DtSelectionAreaChange } from '@dynatrace/angular-components/selection-area';
 
 @Component({
   selector: 'barista-demo',

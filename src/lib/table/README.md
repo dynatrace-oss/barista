@@ -15,7 +15,7 @@ the Getting started Guide.
 
 ```typescript
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DtTableModule } from '@dynatrace/angular-components';
+import { DtTableModule } from '@dynatrace/angular-components/table';
 
 @NgModule({
   imports: [BrowserAnimationsModule, DtTableModule],

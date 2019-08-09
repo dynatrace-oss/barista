@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
-import { formatPercent, formatBytes } from '@dynatrace/angular-components';
+import {
+  formatPercent,
+  formatBytes,
+} from '@dynatrace/angular-components/formatters';
 
 @Component({
   moduleId: module.id,

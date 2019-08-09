@@ -1,5 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { DtDrawerContainer, DtDrawer } from '@dynatrace/angular-components';
+import {
+  DtDrawerContainer,
+  DtDrawer,
+} from '@dynatrace/angular-components/drawer';
 
 @Component({
   moduleId: module.id,

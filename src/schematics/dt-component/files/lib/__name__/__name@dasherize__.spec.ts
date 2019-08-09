@@ -4,7 +4,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Dt<%= classify(name) %>Module, Dt<%= classify(name) %> } from '@dynatrace/angular-components';
+import { Dt<%= classify(name) %>Module, Dt<%= classify(name) %> } from '@dynatrace/angular-components/<%= name %>';
 
 describe('Dt<%= classify(name) %>', () => {
   beforeEach(async(() => {

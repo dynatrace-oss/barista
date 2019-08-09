@@ -8,7 +8,7 @@ import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DtIconModule } from '@dynatrace/angular-components';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { AlertDemo } from './alert/alert-demo.component';
 import { AutocompleteDemo } from './autocomplete/autocomplete-demo.component';
 import { BarIndicatorDemo } from './bar-indicator/bar-indicator-demo.component';

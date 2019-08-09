@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DtSortEvent } from '@dynatrace/angular-components';
+import { DtSortEvent } from '@dynatrace/angular-components/table';
 
 @Component({
   moduleId: module.id,
