@@ -4,7 +4,7 @@
     [id]="id"
     (submit)="_handleSubmit($event)"
   >
-    <dt-button-group [(value)]="_selectedOperator">
+    <dt-button-group [(value)]="_selectedOperator" class="dt-filter-field-range-operators">
       <dt-button-group-item *ngIf="_hasRangeOperator" value="range">Range</dt-button-group-item>
       <dt-button-group-item *ngIf="_hasLowerEqualOperator" value="lower-equal">&le;</dt-button-group-item>
       <dt-button-group-item
