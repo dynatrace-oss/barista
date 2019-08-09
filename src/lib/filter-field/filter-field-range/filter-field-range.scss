@@ -38,3 +38,7 @@
   display: inline-flex;
   margin: 0;
 }
+
+.dt-filter-field-range-operators + .dt-filter-field-range-input {
+  margin-left: 8px;
+}
