@@ -4,8 +4,9 @@ import {
   ViewChildren,
   QueryList,
 } from '@angular/core';
-import { DtPagination, DtTableDataSource } from '@dynatrace/angular-components';
+import { DtPagination } from '@dynatrace/angular-components/pagination';
 import { startWith } from 'rxjs/operators';
+import { DtTableDataSource } from '@dynatrace/angular-components/table';
 
 @Component({
   moduleId: module.id,

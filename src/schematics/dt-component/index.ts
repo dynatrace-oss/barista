@@ -16,15 +16,14 @@ import * as ts from 'typescript';
 import {
   addDeclarationsToDevAppModule,
   addDynatraceAngularComponentsBaristaExampleModule,
-  addDynatraceAngularComponentsImport,
-  addDynatraceSubPackageImport,
-  addImport,
   addNavitemToDevApp,
   addToNgModule,
   findNodes,
   getIndentation,
   getSourceFile,
   getSourceNodes,
+  addImport,
+  addDynatraceSubPackageImport,
 } from '../utils/ast-utils';
 import { commitChanges, InsertChange } from '../utils/change';
 import { addNavItem } from '../utils/nav-items';
@@ -267,11 +266,7 @@ function addReferenceToDevAppDtComponentsModule(
     const importName = options.moduleName;
 
     changes.push(
-      addDynatraceAngularComponentsImport(
-        sourceFile,
-        sourceFilePath,
-        importName,
-      ),
+      addDynatraceSubPackageImport(sourceFilePath, sourceFile, options),
     );
     changes.push(
       addToNgModule(sourceFilePath, sourceFile, importName, 'exports'),
@@ -295,11 +290,7 @@ function addReferenceToBaristaExamplesDtModules(
     const importName = options.moduleName;
 
     changes.push(
-      addDynatraceAngularComponentsImport(
-        sourceFile,
-        sourceFilePath,
-        importName,
-      ),
+      addDynatraceSubPackageImport(sourceFilePath, sourceFile, options),
     );
     changes.push(
       addDynatraceAngularComponentsBaristaExampleModule(

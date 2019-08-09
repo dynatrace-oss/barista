@@ -1,12 +1,11 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import {
-  DtSort,
-  DtTableDataSource,
   formatPercent,
   formatBytes,
   formatRate,
-  DtPagination,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/formatters';
+import { DtPagination } from '@dynatrace/angular-components/pagination';
+import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
 
 @Component({
   moduleId: module.id,

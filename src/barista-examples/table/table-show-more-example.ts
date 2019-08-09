@@ -1,11 +1,11 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
-  DtTableDataSource,
-  formatPercent,
   formatBytes,
+  formatPercent,
   formatRate,
-  DtShowMore,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/formatters';
+import { DtShowMore } from '@dynatrace/angular-components/show-more';
+import { DtTableDataSource } from '@dynatrace/angular-components/table';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

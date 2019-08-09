@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import {
   DtSelectionAreaChange,
-  DtChart,
   DtSelectionArea,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/selection-area';
+import { DtChart } from '@dynatrace/angular-components/chart';
 
 @Component({
   selector: 'barista-demo',

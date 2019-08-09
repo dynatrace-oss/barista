@@ -1,11 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
 import {
-  DtSort,
-  DtTableDataSource,
   formatPercent,
   formatBytes,
   formatRate,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/formatters';
 
 @Component({
   moduleId: module.id,

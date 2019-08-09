@@ -5,7 +5,7 @@ import {
   DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
-} from '@dynatrace/angular-components';
+} from '@dynatrace/angular-components/core';
 
 const TESTDATA: ThreadNode[] = [
   {
