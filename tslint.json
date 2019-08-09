@@ -90,6 +90,8 @@
       "check-type",
       "check-preblock"
     ],
+    // banning root module imports, only sub module imports are allowed
+    "import-blacklist": [true, "@dynatrace/angular-components"],
 
     // Angular specific
     "angular-whitespace": false,
