@@ -39,13 +39,7 @@
       >
         <ul>
           <li *ngFor="let example of component.examples">
-            <a
-              class="dt-link"
-              [routerLink]="[example.route]"
-              routerLinkActive
-              #routerLinkActiveInstance="routerLinkActive"
-              [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
-            >
+            <a class="dt-link" [routerLink]="[example.route]" routerLinkActive>
               {{ example.name }}
             </a>
           </li>
