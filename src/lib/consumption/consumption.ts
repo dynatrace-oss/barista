@@ -1,3 +1,4 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import {
   ConnectedPosition,
@@ -26,7 +27,6 @@ import {
   readKeyCode,
 } from '@dynatrace/angular-components/core';
 import { DtConsumptionOverlay } from './consumption-directives';
-import { FocusMonitor } from '@angular/cdk/a11y';
 
 export type DtConsumptionThemePalette = 'main' | 'warning' | 'error';
 
@@ -122,6 +122,7 @@ export class DtConsumption extends _DtConsumption
     }
   }
 
+  /** @internal Tab index */
   _tabIndex = -1;
 
   private _min = 0;
@@ -157,8 +158,8 @@ export class DtConsumption extends _DtConsumption
   }
 
   /**
-   * Creates and displays an overlay that displays the overlay template. If no
-   * overlay template has been declared no overlay will appear.
+   * @internal Creates and displays an overlay that displays the overlay
+   * template. If no overlay template has been declared no overlay will appear.
    */
   _createOverlay(): void {
     if (this._overlayRef) {
@@ -181,7 +182,7 @@ export class DtConsumption extends _DtConsumption
   }
 
   /**
-   * Hides and destroys the overlay displaying the overlay template.
+   * @internal Hides and destroys the overlay displaying the overlay template.
    */
   _destroyOverlay(): void {
     if (this._overlayRef) {
@@ -190,6 +191,9 @@ export class DtConsumption extends _DtConsumption
     }
   }
 
+  /**
+   * @internal Toggles the overlay.
+   */
   _toggleOverlay(keyEvent: KeyboardEvent): void {
     if (readKeyCode(keyEvent) === KEY_RETURN) {
       if (this._overlayRef) {
