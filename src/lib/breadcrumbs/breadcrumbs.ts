@@ -9,11 +9,12 @@ import {
   QueryList,
   ViewEncapsulation,
 } from '@angular/core';
-import { NEVER } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
 
 import { Constructor, mixinColor } from '@dynatrace/angular-components/core';
 
+import { DtBreadcrumbsItem2 } from './breadcrumbs-item';
 import { DtBreadcrumbsItem } from './item/breadcrumbs-item';
 
 export type DtBreadcrumbThemePalette = 'main' | 'error' | 'neutral';
@@ -46,19 +47,27 @@ export class DtBreadcrumbs extends _DtBreadcrumbMixinBase
   implements AfterContentInit, OnDestroy {
   /** Aria label for the breadcrumbs */
   @Input('aria-label') ariaLabel: string;
-  @ContentChildren(DtBreadcrumbsItem) private _items: QueryList<
-    DtBreadcrumbsItem
+  // tslint:disable:deprecation
+  @ContentChildren(DtBreadcrumbsItem)
+  private _items: QueryList<DtBreadcrumbsItem>;
+  // tslint:enable:deprecation
+
+  @ContentChildren(DtBreadcrumbsItem2) private _items2: QueryList<
+    DtBreadcrumbsItem2
   >;
 
-  private _itemChangesSub = NEVER.subscribe();
+  private _destroy$ = new Subject<void>();
 
   constructor(elementRef: ElementRef) {
     super(elementRef);
   }
 
   ngAfterContentInit(): void {
-    this._itemChangesSub = this._items.changes
-      .pipe(startWith(null))
+    this._items.changes
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy$),
+      )
       .subscribe(() => {
         // We need to notify the items whether they are the last one in the list,
         // because they use this information to determine their active state.
@@ -66,9 +75,20 @@ export class DtBreadcrumbs extends _DtBreadcrumbMixinBase
           item._lastItem = this._items.length - 1 === index;
         });
       });
+    this._items2.changes
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy$),
+      )
+      .subscribe(() => {
+        this._items2.forEach((item, index) => {
+          item._setCurrent(this._items2.length - 1 === index);
+        });
+      });
   }
 
   ngOnDestroy(): void {
-    this._itemChangesSub.unsubscribe();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }
