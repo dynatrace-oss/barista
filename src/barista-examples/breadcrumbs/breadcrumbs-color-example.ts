@@ -5,11 +5,11 @@ import { Component } from '@angular/core';
   selector: 'demo-component',
   template: `
     <dt-breadcrumbs [color]="color" aria-label="Breadcrumbs navigation">
-      <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>
-      <dt-breadcrumbs-item [href]="['first', 'second', { param: 123 }]">
+      <a dtBreadcrumbsItem href="first">First view</a>
+      <a dtBreadcrumbsItem href="first/second">
         Second view
-      </dt-breadcrumbs-item>
-      <dt-breadcrumbs-item>Current view</dt-breadcrumbs-item>
+      </a>
+      <a dtBreadcrumbsItem>Current view</a>
     </dt-breadcrumbs>
     <dt-button-group
       [value]="color"
