@@ -20,6 +20,7 @@ h3 {
   @include dt-h3-font();
 }
 
+pre,
 code {
   @include dt-code-font();
 }
