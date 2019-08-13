@@ -10,30 +10,35 @@ export type MemberDeclaration =
 
 // tslint:disable-next-line:no-any
 export type ContextWalker = (context: WalkContext<any>) => void;
+export interface StateContainer {
+  [key: string]: any; // tslint:disable-line:no-any
+}
 
 export type MemberDeclarationVerifier = (
   context: WalkContext<any>, // tslint:disable-line:no-any
   verifyDeclaration: MemberDeclaration,
+  state?: StateContainer,
 ) => void;
 
 export function createMemberDeclarationWalker(
   verifyDeclaration: MemberDeclarationVerifier,
+  state?: StateContainer,
 ): ContextWalker {
   // tslint:disable-next-line:no-any
   return (context: WalkContext<any>) => {
     const verifyNode = (node: ts.Node) => {
       switch (node.kind) {
         case ts.SyntaxKind.GetAccessor:
-          verifyDeclaration(context, node as ts.GetAccessorDeclaration);
+          verifyDeclaration(context, node as ts.GetAccessorDeclaration, state);
           break;
         case ts.SyntaxKind.SetAccessor:
-          verifyDeclaration(context, node as ts.SetAccessorDeclaration);
+          verifyDeclaration(context, node as ts.SetAccessorDeclaration, state);
           break;
         case ts.SyntaxKind.PropertyDeclaration:
-          verifyDeclaration(context, node as ts.PropertyDeclaration);
+          verifyDeclaration(context, node as ts.PropertyDeclaration, state);
           break;
         case ts.SyntaxKind.MethodDeclaration:
-          verifyDeclaration(context, node as ts.MethodDeclaration);
+          verifyDeclaration(context, node as ts.MethodDeclaration, state);
           break;
         case ts.SyntaxKind.ClassDeclaration:
         case ts.SyntaxKind.InterfaceDeclaration:

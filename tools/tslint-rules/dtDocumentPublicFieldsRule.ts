@@ -1,7 +1,11 @@
 import { IRuleMetadata, RuleFailure, Rules, WalkContext } from 'tslint';
 import { getJsDoc, hasModifier } from 'tsutils';
 import * as ts from 'typescript';
-import { createMemberDeclarationWalker, MemberDeclaration } from './utils';
+import {
+  createMemberDeclarationWalker,
+  MemberDeclaration,
+  StateContainer,
+} from './utils';
 
 const lifecycleHooks = new Set<string>([
   'ngOnChanges',
@@ -17,22 +21,47 @@ const lifecycleHooks = new Set<string>([
 function verifyDeclarationHasJSDoc(
   context: WalkContext<any>, // tslint:disable-line:no-any
   declaration: MemberDeclaration,
+  state?: StateContainer,
 ): void {
+  if (state === undefined) {
+    throw new Error('state must not be undefined');
+  }
+
   if (
     !hasModifier(declaration.modifiers, ts.SyntaxKind.PrivateKeyword) &&
     declaration.name.kind === ts.SyntaxKind.Identifier &&
     declaration.name.text.charAt(0) !== '_' &&
-    !lifecycleHooks.has(declaration.name.text) &&
-    getJsDoc(declaration).length === 0
+    !lifecycleHooks.has(declaration.name.text)
   ) {
-    context.addFailureAtNode(
-      declaration,
-      `Non-private member '${declaration.name.text}' lacks JSDoc`,
-    );
+    const hasJsDoc = getJsDoc(declaration).length > 0;
+    const declarationName = declaration.name.text;
+
+    if (ts.isGetAccessorDeclaration(declaration)) {
+      if (state[declarationName] === 'set') {
+        return; // setter with JSDoc already exists
+      } else if (hasJsDoc) {
+        state[declarationName] = 'get';
+        return;
+      }
+    } else if (ts.isSetAccessorDeclaration(declaration)) {
+      if (state[declarationName] === 'get') {
+        return; // getter with JSDoc already exists
+      } else if (hasJsDoc) {
+        state[declarationName] = 'set';
+        return;
+      }
+    }
+
+    if (!hasJsDoc) {
+      context.addFailureAtNode(
+        declaration,
+        `Non-private member '${declarationName}' lacks JSDoc`,
+      );
+    }
   }
 }
 
-const MATCH_REGEX = /(?!dt).*(?!Rule)\.ts$/;
+const MATCH_REGEX = /src\/lib\/(?:[\w-]+\/)*[\w-]+(?!\.spec)\.ts$/i;
 
 /**
  * The dtDocumentPublicFieldsRule ensures that all non-private fields with
@@ -66,7 +95,7 @@ export class Rule extends Rules.AbstractRule {
 
     const ruleFailures = this.applyWithFunction(
       sourceFile,
-      createMemberDeclarationWalker(verifyDeclarationHasJSDoc),
+      createMemberDeclarationWalker(verifyDeclarationHasJSDoc, {}),
       this.getOptions(),
     );
 

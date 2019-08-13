@@ -39,7 +39,7 @@ function verifyDeclarationIsAnnotatedAsInternal(
   }
 }
 
-const MATCH_REGEX = /(?!dt).*(?!Rule)\.ts$/;
+const MATCH_REGEX = /src\/lib\/(?:[\w-]+\/)*[\w-]+(?!\.spec)\.ts$/i;
 
 /**
  * The dtAnnotateInternalFieldsRule ensures that all public fields with names
