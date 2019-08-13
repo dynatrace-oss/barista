@@ -19,6 +19,7 @@ import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
         name="memoryPerc"
         label="Memory"
         [formatter]="percentageFormatter"
+        dtColumnProportion="3"
       ></dt-simple-number-column>
       <dt-simple-number-column
         name="memoryConsumption"

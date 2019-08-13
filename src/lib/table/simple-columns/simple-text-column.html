@@ -1,4 +1,8 @@
-<ng-container [dtColumnDef]="name" dtColumnAlign="text">
+<ng-container
+  [dtColumnDef]="name"
+  dtColumnAlign="text"
+  [dtColumnProportion]="proportion"
+>
   <ng-container *dtHeaderCellDef>
     <dt-header-cell [dt-sort-header]="sortable">{{ label || name }}</dt-header-cell>
   </ng-container>
