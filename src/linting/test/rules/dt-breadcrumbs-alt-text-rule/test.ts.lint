@@ -6,15 +6,15 @@
 @Component({
   template: `
     <dt-breadcrumbs [color]="color" aria-label="Breadcrumbs navigation">
-      <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>
-      <dt-breadcrumbs-item [href]="['first', 'second', {param: 123}]">Second view</dt-breadcrumbs-item>
-      <dt-breadcrumbs-item>Current view</dt-breadcrumbs-item>
+      <a dtBreadcrumbsItem href="first">First view</a>
+      <a dtBreadcrumbsItem href="first/second">Second view</a>
+      <a dtBreadcrumbsItem>Current view</a>
     </dt-breadcrumbs>
 
     <dt-breadcrumbs>
     ~~~~~~~~~~~~~~~~  [Breadcrumbs must provide an alternative text in form of an aria-label attribute.]
       <!-- data$ emits a new items list after each 5 seconds -->
-      <dt-breadcrumbs-item *ngFor="let item of data$ | async" [href]="item.href">{{ item.label }}</dt-breadcrumbs-item>
+      <a dtBreadcrumbsItem *ngFor="let item of data$ | async" [href]="item.href">{{ item.label }}</a>
     </dt-breadcrumbs>
   `,
 })

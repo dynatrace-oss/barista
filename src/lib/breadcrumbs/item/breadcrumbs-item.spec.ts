@@ -279,6 +279,7 @@ class TestBreadcrumbsItem {
   href: string | any[] = '';
   external = false;
 
+  // tslint:disable-next-line:deprecation
   @ViewChild(DtBreadcrumbsItem, { static: false }) item;
 
   set _lastItem(value: boolean) {

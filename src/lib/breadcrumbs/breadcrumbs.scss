@@ -1,5 +1,12 @@
 @import '../core/theming/theming';
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+@import '../style/font-mixins';
 @import 'breadcrumbs-theme';
+
+$height: 32px;
+$arrow-width: 8px;
+$arrow-padding: 2px;
 
 :host {
   display: flex;
@@ -8,4 +15,66 @@
 
 @include dt-apply-theme() {
   @include dt-theme-breadcrumbs($dt-current-theme, $dt-current-theme-name);
+}
+
+:host ::ng-deep a.dt-breadcrumbs-item {
+  &,
+  &:visited {
+    @include dt-main-font($height);
+    display: block;
+    position: relative;
+    height: $height;
+    margin-top: 0;
+    margin-left: $arrow-padding;
+    padding: 0 10px 0 #{$arrow-width + 8px};
+    color: #ffffff;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  &:not(:last-child) {
+    @include dt-interactive-reset();
+    @include dt-cdkmonitor-focus-style();
+  }
+
+  &:first-child {
+    margin-left: 0;
+    padding-left: 14px;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  &:last-child {
+    flex-grow: 1;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &::before,
+  &::after {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: 0;
+    width: $arrow-width * 2;
+    height: $height;
+    box-sizing: border-box;
+    border-color: transparent transparent transparent #ffffff;
+    border-style: solid;
+    border-width: #{$height / 2} $arrow-width;
+  }
+
+  &::before {
+    left: 0;
+    z-index: 1;
+  }
+
+  &::after {
+    left: 100%;
+    z-index: 2;
+  }
 }
