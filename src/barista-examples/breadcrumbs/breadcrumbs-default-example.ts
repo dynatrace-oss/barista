@@ -4,16 +4,14 @@ import { Component } from '@angular/core';
   selector: 'barista-demo',
   template: `
     <dt-breadcrumbs aria-label="Breadcrumbs navigation">
-      <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>
-      <dt-breadcrumbs-item [href]="['first', 'second', { param: 123 }]">
+      <a dtBreadcrumbsItem href="first">First view</a>
+      <a dtBreadcrumbsItem href="first/second">
         Second view
-      </dt-breadcrumbs-item>
-      <dt-breadcrumbs-item
-        [href]="['first', 'second', { param: 123 }, 'third']"
-      >
+      </a>
+      <a dtBreadcrumbsItem href="first/second/third">
         Third view
-      </dt-breadcrumbs-item>
-      <dt-breadcrumbs-item>Current view</dt-breadcrumbs-item>
+      </a>
+      <a dtBreadcrumbsItem>Current view</a>
     </dt-breadcrumbs>
   `,
 })

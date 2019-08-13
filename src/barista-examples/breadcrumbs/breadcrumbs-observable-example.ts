@@ -8,12 +8,13 @@ import { map } from 'rxjs/operators';
   template: `
     <dt-breadcrumbs aria-label="Breadcrumbs navigation">
       <!-- data$ emits a new items list after each 5 seconds -->
-      <dt-breadcrumbs-item
+      <a
+        dtBreadcrumbsItem
         *ngFor="let item of data$ | async"
         [href]="item.href"
       >
         {{ item.label }}
-      </dt-breadcrumbs-item>
+      </a>
     </dt-breadcrumbs>
   `,
 })

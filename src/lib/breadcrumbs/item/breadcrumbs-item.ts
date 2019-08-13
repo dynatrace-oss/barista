@@ -29,6 +29,10 @@ const ensureProvided = <T extends Router | LocationStrategy | ActivatedRoute>(
   return variable;
 };
 
+/**
+ * @deprecated Use {@link DtBreadcrumbsItem2} instead.
+ * @breaking-change To be removed with 6.0.0
+ */
 @Component({
   moduleId: module.id,
   selector: 'dt-breadcrumbs-item',

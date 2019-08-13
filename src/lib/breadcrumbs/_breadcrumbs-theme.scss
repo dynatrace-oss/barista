@@ -16,7 +16,8 @@
       $namespace: ':host.dt-color-#{$name}';
     }
 
-    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link {
+    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link,
+    #{$namespace} ::ng-deep a.dt-breadcrumbs-item:not(:last-child) {
       background-color: $active-color;
 
       &::after {
@@ -29,7 +30,8 @@
       }
     }
 
-    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link:hover {
+    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link:hover,
+    #{$namespace} ::ng-deep a.dt-breadcrumbs-item:not(:last-child):hover {
       background-color: $hover-color;
 
       &::after {
@@ -37,7 +39,8 @@
       }
     }
 
-    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link:active {
+    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link:active,
+    #{$namespace} ::ng-deep a.dt-breadcrumbs-item:not(:last-child):active {
       background-color: $active-color;
 
       &::after {
@@ -45,7 +48,8 @@
       }
     }
 
-    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-non-clickable {
+    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-non-clickable,
+    #{$namespace} ::ng-deep a.dt-breadcrumbs-item:last-child {
       background-color: $default-color;
     }
   }
