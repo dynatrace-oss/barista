@@ -35,6 +35,7 @@ export class DtTagKey {}
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtTag<T> {
+  /** Arbitrary value that represents this tag. */
   @Input() value?: T;
 
   /**
@@ -50,6 +51,9 @@ export class DtTag<T> {
   }
   private _disabled = false;
 
+  /**
+   * Decides whether the tag is removable by the user.
+   */
   @Input()
   get removable(): boolean {
     return this._removable;
@@ -59,9 +63,11 @@ export class DtTag<T> {
   }
   private _removable = false;
 
+  /** Emits events when the tag gets removed. */
   @Output()
   readonly removed: EventEmitter<T> = new EventEmitter<T>();
 
+  /** @internal Emits an removed event if the tag is not disabled. */
   _removeTag(): void {
     if (!this._disabled) {
       this.removed.emit(this.value);
