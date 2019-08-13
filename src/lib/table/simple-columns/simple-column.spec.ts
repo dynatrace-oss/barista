@@ -468,6 +468,61 @@ describe('DtTable SimpleColumns', () => {
       expect(rows[3].nativeElement.classList).toContain('dt-color-error');
     });
   });
+  describe('columnProportion', () => {
+    it('should set ColumnProportion to initial value', () => {
+      const fixture = createComponent(TestSimpleColumnsApp);
+
+      fixture.detectChanges();
+
+      const affectedHeaderCell = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-memoryPerc'),
+      );
+      const affectedCell = fixture.debugElement.query(
+        By.css('.dt-cell.dt-table-column-memoryPerc'),
+      );
+
+      expect(affectedHeaderCell.nativeElement.getAttribute('style')).toContain(
+        'flex-grow: 10;',
+      );
+      expect(affectedHeaderCell.nativeElement.getAttribute('style')).toContain(
+        'flex-shrink: 10;',
+      );
+      expect(affectedCell.nativeElement.getAttribute('style')).toContain(
+        'flex-grow: 10;',
+      );
+      expect(affectedCell.nativeElement.getAttribute('style')).toContain(
+        'flex-shrink: 10;',
+      );
+    });
+    it('should update ColumnProportion at runtime', () => {
+      const fixture = createComponent(TestSimpleColumnsApp);
+
+      fixture.detectChanges();
+
+      const affectedHeaderCell = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-memoryPerc'),
+      );
+      const affectedCell = fixture.debugElement.query(
+        By.css('.dt-cell.dt-table-column-memoryPerc'),
+      );
+
+      fixture.componentInstance.testColumnProportion = 3;
+      fixture.detectChanges();
+
+      expect(affectedHeaderCell.nativeElement.getAttribute('style')).toContain(
+        'flex-grow: 3;',
+      );
+      expect(affectedHeaderCell.nativeElement.getAttribute('style')).toContain(
+        'flex-shrink: 3;',
+      );
+      expect(affectedCell.nativeElement.getAttribute('style')).toContain(
+        'flex-grow: 3;',
+      );
+      expect(affectedCell.nativeElement.getAttribute('style')).toContain(
+        'flex-shrink: 3;',
+      );
+    });
+  });
 });
 
 @Component({
@@ -481,6 +536,7 @@ describe('DtTable SimpleColumns', () => {
         name="memoryPerc"
         label="Memory"
         [formatter]="percentageFormatter"
+        [dtColumnProportion]="testColumnProportion"
       ></dt-simple-number-column>
       <dt-simple-number-column
         name="memoryConsumption"
@@ -551,6 +607,8 @@ class TestSimpleColumnsApp implements AfterViewInit {
       traffic: 98700000,
     },
   ];
+
+  testColumnProportion = 10;
 
   // Get the viewChild to pass the sorter reference to the datasource.
   @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;

@@ -46,6 +46,11 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   _name: string;
 
   /**
+   * Exposes the dtColumnProportion of the dtCell directive for use with simple columns
+   */
+  @Input('dtColumnProportion') proportion: number;
+
+  /**
    * Text label that should be used for the column header. If this property is not
    * set, the header text will default to the column name.
    */
