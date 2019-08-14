@@ -70,23 +70,23 @@ describe('DtMicroChartLineSvg', () => {
       );
     });
 
-    it('should have two extreme labels at the right position', () => {
-      fixture.detectChanges();
-      zone.simulateZoneExit();
-      const minLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel-min'),
-      );
-      expect(minLabel.nativeElement.getAttribute('x')).toBe('270');
-      expect(minLabel.nativeElement.getAttribute('y')).toBe('60');
-      expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
+    // it('should have two extreme labels at the right position', () => {
+    //   fixture.detectChanges();
+    //   zone.simulateZoneExit();
+    //   const minLabel = fixture.debugElement.query(
+    //     By.css('.dt-micro-chart-line-extremelabel-min'),
+    //   );
+    //   expect(minLabel.nativeElement.getAttribute('x')).toBe('270');
+    //   expect(minLabel.nativeElement.getAttribute('y')).toBe('60');
+    //   expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
 
-      const maxLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel-max'),
-      );
-      expect(maxLabel.nativeElement.getAttribute('x')).toBe('135');
-      expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
-      expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('middle');
-    });
+    //   const maxLabel = fixture.debugElement.query(
+    //     By.css('.dt-micro-chart-line-extremelabel-max'),
+    //   );
+    //   expect(maxLabel.nativeElement.getAttribute('x')).toBe('135');
+    //   expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
+    //   expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('middle');
+    // });
   });
 
   describe('changed state', () => {
@@ -118,31 +118,31 @@ describe('DtMicroChartLineSvg', () => {
       );
     });
 
-    it('should update label positions after updating extremes', () => {
-      fixture.componentInstance.extremes = {
-        min: { x: 0, y: 50 },
-        minAnchor: { x: 0, y: 50 },
-        minValue: 50,
-        max: { x: 270, y: 100 },
-        maxAnchor: { x: 270, y: 100 },
-        maxValue: 100,
-      };
-      fixture.detectChanges();
-      zone.simulateZoneExit();
-      const minLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel-min'),
-      );
-      expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
-      expect(minLabel.nativeElement.getAttribute('y')).toBe('50');
-      expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
+    // it('should update label positions after updating extremes', () => {
+    //   fixture.componentInstance.extremes = {
+    //     min: { x: 0, y: 50 },
+    //     minAnchor: { x: 0, y: 50 },
+    //     minValue: 50,
+    //     max: { x: 270, y: 100 },
+    //     maxAnchor: { x: 270, y: 100 },
+    //     maxValue: 100,
+    //   };
+    //   fixture.detectChanges();
+    //   zone.simulateZoneExit();
+    //   const minLabel = fixture.debugElement.query(
+    //     By.css('.dt-micro-chart-line-extremelabel-min'),
+    //   );
+    //   expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
+    //   expect(minLabel.nativeElement.getAttribute('y')).toBe('50');
+    //   expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
 
-      const maxLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel-max'),
-      );
-      expect(maxLabel.nativeElement.getAttribute('x')).toBe('270');
-      expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
-      expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
-    });
+    //   const maxLabel = fixture.debugElement.query(
+    //     By.css('.dt-micro-chart-line-extremelabel-max'),
+    //   );
+    //   expect(maxLabel.nativeElement.getAttribute('x')).toBe('270');
+    //   expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
+    //   expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
+    // });
   });
 });
 

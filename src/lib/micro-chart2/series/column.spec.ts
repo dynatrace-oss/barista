@@ -76,23 +76,23 @@ describe('DtMicroChartColumnSvg', () => {
       );
     });
 
-    it('should have two extreme labels at the right position', () => {
-      fixture.detectChanges();
-      zone.simulateZoneExit();
-      const minLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-column-extremelabel-min'),
-      );
-      expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
-      expect(minLabel.nativeElement.getAttribute('y')).toBe('64');
-      expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
+    // it('should have two extreme labels at the right position', () => {
+    //   fixture.detectChanges();
+    //   zone.simulateZoneExit();
+    //   const minLabel = fixture.debugElement.query(
+    //     By.css('.dt-micro-chart-column-extremelabel-min'),
+    //   );
+    //   expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
+    //   expect(minLabel.nativeElement.getAttribute('y')).toBe('64');
+    //   expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
 
-      const maxLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-column-extremelabel-max'),
-      );
-      expect(maxLabel.nativeElement.getAttribute('x')).toBe('147');
-      expect(maxLabel.nativeElement.getAttribute('y')).toBe('99');
-      expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('middle');
-    });
+    //   const maxLabel = fixture.debugElement.query(
+    //     By.css('.dt-micro-chart-column-extremelabel-max'),
+    //   );
+    //   expect(maxLabel.nativeElement.getAttribute('x')).toBe('147');
+    //   expect(maxLabel.nativeElement.getAttribute('y')).toBe('99');
+    //   expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('middle');
+    // });
   });
 
   describe('changed state', () => {
@@ -124,31 +124,31 @@ describe('DtMicroChartColumnSvg', () => {
       );
     });
 
-    it('should update label positions after updating extremes', () => {
-      fixture.componentInstance.extremes = {
-        min: { x: 0, y: 50, height: 36, width: 24 },
-        minAnchor: { x: 0, y: 50 },
-        minValue: 50,
-        max: { x: 270, y: 100, height: 36, width: 24 },
-        maxAnchor: { x: 270, y: 100 },
-        maxValue: 100,
-      };
-      fixture.detectChanges();
-      zone.simulateZoneExit();
-      const minLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-column-extremelabel-min'),
-      );
-      expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
-      expect(minLabel.nativeElement.getAttribute('y')).toBe('50');
-      expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
+    // it('should update label positions after updating extremes', () => {
+    //   fixture.componentInstance.extremes = {
+    //     min: { x: 0, y: 50, height: 36, width: 24 },
+    //     minAnchor: { x: 0, y: 50 },
+    //     minValue: 50,
+    //     max: { x: 270, y: 100, height: 36, width: 24 },
+    //     maxAnchor: { x: 270, y: 100 },
+    //     maxValue: 100,
+    //   };
+    //   fixture.detectChanges();
+    //   zone.simulateZoneExit();
+    //   const minLabel = fixture.debugElement.query(
+    //     By.css('.dt-micro-chart-column-extremelabel-min'),
+    //   );
+    //   expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
+    //   expect(minLabel.nativeElement.getAttribute('y')).toBe('50');
+    //   expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
 
-      const maxLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-column-extremelabel-max'),
-      );
-      expect(maxLabel.nativeElement.getAttribute('x')).toBe('270');
-      expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
-      expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
-    });
+    //   const maxLabel = fixture.debugElement.query(
+    //     By.css('.dt-micro-chart-column-extremelabel-max'),
+    //   );
+    //   expect(maxLabel.nativeElement.getAttribute('x')).toBe('270');
+    //   expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
+    //   expect(maxLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
+    // });
   });
 });
 
