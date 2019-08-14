@@ -17,7 +17,7 @@ $arrow-padding: 2px;
     flex-grow: 1;
   }
 
-  &:first-child .dt-breadcrumb-item {
+  &:first-child .dt-breadcrumbs-item-wrapper {
     margin-left: 0;
     padding-left: 14px;
 
@@ -27,7 +27,7 @@ $arrow-padding: 2px;
   }
 }
 
-.dt-breadcrumb-item {
+.dt-breadcrumbs-item-wrapper {
   margin-left: $arrow-padding;
   padding: 0 10px 0 #{$arrow-width + 8px};
 

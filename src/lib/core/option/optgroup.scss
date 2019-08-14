@@ -2,9 +2,14 @@
 
 :host {
   display: block;
+
+  ::ng-deep .dt-option {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
-.dt-optgroup + :host,
+:host + :host,
 .dt-option + :host {
   margin-top: 16px;
 }
@@ -15,9 +20,4 @@
   padding: 0 12px;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-:host ::ng-deep .dt-option {
-  padding-left: 24px;
-  padding-right: 24px;
 }
