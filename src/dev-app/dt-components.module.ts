@@ -33,6 +33,7 @@ import { DtLegendModule } from '@dynatrace/angular-components/legend';
 import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 import { DtMenuModule } from '@dynatrace/angular-components/menu';
 import { DtMicroChartModule } from '@dynatrace/angular-components/micro-chart';
+import { DtMicroChart2Module } from '@dynatrace/angular-components/micro-chart2';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
 import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
