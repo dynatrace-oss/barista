@@ -33,6 +33,7 @@ import { Component } from '@angular/core';
       </dt-context-dialog>
     </div>
   `,
+  styles: ['.dt-context-dialog + .dt-button { margin-left: 8px; }'],
 })
 export class ContextDialogDarkExample {}
 // tslint:enable:max-line-length
