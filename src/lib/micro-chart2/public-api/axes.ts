@@ -12,7 +12,7 @@ export class DtMicroChartAxis implements OnChanges, OnDestroy {
   /** Maximum extent of the axis. */
   @Input() max: number;
 
-  /** Orientation of the axis. Defines whether the axis applies to x or y orientation. */
+  /** @internal Orientation of the axis. Defines whether the axis applies to x or y orientation. */
   _orientation: DtMicroChartAxisOrientation;
 
   /** @internal Unique identifier for the axis within the chart. */
@@ -40,6 +40,7 @@ export class DtMicroChartAxis implements OnChanges, OnDestroy {
   exportAs: 'dtMicroChartXAxis',
 })
 export class DtMicroChartXAxis extends DtMicroChartAxis {
+  /** @internal Orientation of the axis. */
   _orientation: DtMicroChartAxisOrientation = 'x';
 }
 
@@ -48,5 +49,6 @@ export class DtMicroChartXAxis extends DtMicroChartAxis {
   exportAs: 'dtMicroChartYAxis',
 })
 export class DtMicroChartYAxis extends DtMicroChartAxis {
+  /** @internal Orientation of the axis. */
   _orientation: DtMicroChartAxisOrientation = 'y';
 }

@@ -100,13 +100,14 @@ export class DtMicroChart2 extends _DtMicroChartBase2
     DtMicroChartYAxis
   >;
 
+  /** @internal A QueryList of all stacked containers  */
+  @ContentChildren(DtMicroChartStackContainer) _stackContainer: QueryList<
+    DtMicroChartStackContainer
+  >;
+
   /** @internal A QueryList of all rendered internal series. */
   @ViewChildren(DtMicroChartSeriesSVG) _allSeriesSVG: QueryList<
     DtMicroChartSeriesSVG
-  >;
-
-  @ContentChildren(DtMicroChartStackContainer) _stackContainer: QueryList<
-    DtMicroChartStackContainer
   >;
 
   /** @internal Returns a viewbox string for the micro-chart2 svg container. */
@@ -133,7 +134,7 @@ export class DtMicroChart2 extends _DtMicroChartBase2
     private _changeDetectorRef: ChangeDetectorRef,
     @Inject(DT_MICRO_CHART_RENDERER)
     private _chartRenderer: DtMicroChartSvgRenderer,
-    @Inject(DT_MICRO_CHART_DEFAULT_OPTIONS) private _config: DtMicroChartConfig
+    @Inject(DT_MICRO_CHART_DEFAULT_OPTIONS) private _config: DtMicroChartConfig,
   ) {
     super(_elementRef);
   }
@@ -152,9 +153,9 @@ export class DtMicroChart2 extends _DtMicroChartBase2
       filter(() => !!this._allSeriesExternal.length),
       switchMap(() =>
         combineLatest(
-          this._allSeriesExternal.map(seriesExt => seriesExt._stateChanges)
-        )
-      )
+          this._allSeriesExternal.map(seriesExt => seriesExt._stateChanges),
+        ),
+      ),
       // TODO: figure it out - prevent multiple emissions when data changes
       // switchMap((series) => this._zone.onMicrotaskEmpty.pipe(take(1), map(() => series)))
     );
@@ -165,11 +166,11 @@ export class DtMicroChart2 extends _DtMicroChartBase2
       switchMap(() => {
         if (!!this._allXAxesExternal.length) {
           return combineLatest(
-            this._allXAxesExternal.map(axisExt => axisExt._stateChanges)
+            this._allXAxesExternal.map(axisExt => axisExt._stateChanges),
           );
         }
         return of(null);
-      })
+      }),
     );
 
     // This is a stream that emits every time one of the x axes' inputs change.
@@ -178,11 +179,11 @@ export class DtMicroChart2 extends _DtMicroChartBase2
       switchMap(() => {
         if (!!this._allYAxesExternal.length) {
           return combineLatest(
-            this._allYAxesExternal.map(axisExt => axisExt._stateChanges)
+            this._allYAxesExternal.map(axisExt => axisExt._stateChanges),
           );
         }
         return of(null);
-      })
+      }),
     );
 
     // This is a stream that emits every time the viewport size changes and applies the new width of the chart.
@@ -191,8 +192,8 @@ export class DtMicroChart2 extends _DtMicroChartBase2
       map(
         () =>
           (this._elementRef
-            .nativeElement as HTMLElement).getBoundingClientRect().width
-      )
+            .nativeElement as HTMLElement).getBoundingClientRect().width,
+      ),
     );
 
     // we merge the seriesInputChanges with the viewport resizer changes to
@@ -216,7 +217,7 @@ export class DtMicroChart2 extends _DtMicroChartBase2
           if (xAxes !== null || yAxes !== null) {
             domains = applyAxesExtentsToDomain(
               [...(xAxes || []), ...(yAxes || [])],
-              domains
+              domains,
             );
           }
 
@@ -241,10 +242,10 @@ export class DtMicroChart2 extends _DtMicroChartBase2
                   s as DtMicroChartColumnSeries,
                   domains,
                   this._config,
-                  stack
+                  stack,
                 );
                 rendererData = this._chartRenderer.createColumnSeriesRenderData(
-                  data
+                  data,
                 );
                 break;
               }
@@ -254,10 +255,10 @@ export class DtMicroChart2 extends _DtMicroChartBase2
                   s as DtMicroChartBarSeries,
                   domains,
                   this._config,
-                  stack
+                  stack,
                 );
                 rendererData = this._chartRenderer.createBarSeriesRenderData(
-                  data
+                  data,
                 );
                 break;
               }
@@ -267,10 +268,10 @@ export class DtMicroChart2 extends _DtMicroChartBase2
                   width,
                   s as DtMicroChartLineSeries,
                   domains,
-                  this._config
+                  this._config,
                 );
                 rendererData = this._chartRenderer.createLineSeriesRenderData(
-                  data
+                  data,
                 );
               }
             }

@@ -7,7 +7,7 @@ let stackId = 0;
 export class DtMicroChartStackContainerBase {}
 
 export const _DtMicroChartStackContainerBase = mixinDisabled(
-  DtMicroChartStackContainerBase
+  DtMicroChartStackContainerBase,
 );
 
 @Directive({
@@ -17,5 +17,6 @@ export const _DtMicroChartStackContainerBase = mixinDisabled(
 })
 export class DtMicroChartStackContainer extends _DtMicroChartStackContainerBase
   implements CanDisable {
+  /** @internal Unique id for the chart stack container. */
   readonly _stackId = stackId++;
 }

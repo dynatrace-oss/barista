@@ -26,7 +26,7 @@ export function handleChartLineSeries(
   width: number,
   series: DtMicroChartLineSeries,
   domains: DtMicroChartDomains,
-  config: DtMicroChartConfig
+  config: DtMicroChartConfig,
 ): DtMicroChartLineSeriesData {
   const { x, y } = getScales(width, domains, config);
   let data = series._transformedData;
@@ -64,7 +64,7 @@ export function handleChartLineSeries(
 function getScales(
   width: number,
   domains: DtMicroChartDomains,
-  config: DtMicroChartConfig
+  config: DtMicroChartConfig,
 ): DtMicroChartLineScales {
   const x = scaleLinear()
     .range([0, width - config.marginLeft - config.marginRight])

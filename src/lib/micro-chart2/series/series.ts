@@ -8,8 +8,10 @@ export abstract class DtMicroChartSeriesSVG extends DtMicroChartSeries
   /** @internal Destroy subject that fires when the component gets destroyed */
   protected _destroy = new Subject<void>();
 
+  /** Represents the color of the SVG series. */
   color: string;
 
+  /** @internal Configuration object for the SVG series. */
   _config: DtMicroChartConfig;
 
   ngOnDestroy(): void {

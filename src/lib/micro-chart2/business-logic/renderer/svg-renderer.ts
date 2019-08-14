@@ -40,14 +40,15 @@ export type DtMicroChartRendererSeriesData =
   | DtMicroChartBarSeriesSvgData;
 
 export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
+  /** Creates an svg renderable line series. */
   createLineSeriesRenderData(
-    data: DtMicroChartLineSeriesData
+    data: DtMicroChartLineSeriesData,
   ): DtMicroChartLineSeriesSvgData {
     const linePoints = data.points.map(dp => [dp.x, dp.y] as [number, number]);
     // Defined path
     const lineGenerator = line().defined(
       (dp: [number, number | null], index) =>
-        dp[1] !== null && data.points[index].interpolated === undefined
+        dp[1] !== null && data.points[index].interpolated === undefined,
     );
     const path = lineGenerator(linePoints) || '';
 
@@ -70,8 +71,9 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
     };
   }
 
+  /** Creates an svg renderable column series. */
   createColumnSeriesRenderData(
-    data: DtMicroChartColumnSeriesData
+    data: DtMicroChartColumnSeriesData,
   ): DtMicroChartColumnSeriesSvgData {
     const offset = 3;
     let renderData: DtMicroChartColumnSeriesSvgData = {
@@ -106,8 +108,9 @@ export class DtMicroChartSvgRenderer extends DtMicroChartRenderer {
     return renderData;
   }
 
+  /** Creates an svg renderable bar series. */
   createBarSeriesRenderData(
-    data: DtMicroChartBarSeriesData
+    data: DtMicroChartBarSeriesData,
   ): DtMicroChartBarSeriesSvgData {
     return {
       points: data.points,

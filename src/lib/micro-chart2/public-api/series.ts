@@ -32,10 +32,15 @@ export interface DtMicroChartRenderDataExtremes {
 let uniqueId = 1;
 
 export abstract class DtMicroChartSeries implements OnChanges, OnDestroy {
+  /** Defines the type of the microchart series. */
   readonly type: DtMicroChartSeriesType;
 
   private _data: Array<number | null> | Array<[number, number | null]>;
 
+  /**
+   * Data input for the chart series. The data can be represented as a number[] or array
+   * as a tuple of numbers array representing x and y values.
+   */
   @Input()
   get data(): Array<number | null> | Array<[number, number | null]> {
     return this._data;
@@ -99,6 +104,7 @@ export abstract class DtMicroChartSeries implements OnChanges, OnDestroy {
 }
 
 export abstract class DtMicroChartStackableSeries extends DtMicroChartSeries {
+  /** Representing if the series is stacked or not. */
   get isStacked(): boolean {
     return !!this._stackedContainer && !this._stackedContainer.disabled;
   }

@@ -33,19 +33,19 @@ import {
  * after creating this map we pass that to the stack function of d3
  */
 export function createStack(
-  series: DtMicroChartSeries[]
+  series: DtMicroChartSeries[],
 ): Array<Series<{ [key: string]: number }, string>> {
   // Map that holds a map for each stackContainer containing the summed values for a key (xAxis)
   const stackMap = new Map<string, { [key: string]: number }>();
 
   const stackedSeries = series.filter(
-    s => s instanceof DtMicroChartStackableSeries && s.isStacked
+    s => s instanceof DtMicroChartStackableSeries && s.isStacked,
   );
 
   stackedSeries.forEach(s => {
     for (const dp of s._transformedData) {
       const stackedDataMap: { [key: string]: number } = stackMap.has(
-        dp.x.toString()
+        dp.x.toString(),
       )
         ? stackMap.get(dp.x.toString())!
         : {};
@@ -56,13 +56,13 @@ export function createStack(
   });
 
   return d3Stack().keys(Array.from(stackedSeries.map(s => s._id)))(
-    Array.from(stackMap.values())
+    Array.from(stackMap.values()),
   );
 }
 
 export function extendDomainForStack(
   domains: DtMicroChartDomains,
-  stack: Array<Series<{ [key: string]: number }, string>>
+  stack: Array<Series<{ [key: string]: number }, string>>,
 ): DtMicroChartDomains {
   if (!stack.length) {
     return domains;

@@ -2,7 +2,7 @@ import { SVGTextAnchor } from './business-logic/renderer/svg-renderer';
 import { DtMicroChartDataPoint } from './business-logic/core/chart';
 
 export function getMinMaxValues(
-  numbers: number[]
+  numbers: number[],
 ): { min: number; max: number } {
   return {
     min: Math.min(...numbers),
@@ -17,7 +17,7 @@ export function getMinMaxValues(
 // tslint:disable-next-line:no-any
 export function findMinimum<T>(
   values: T[],
-  accessor?: (arg0: T) => number | null
+  accessor?: (arg0: T) => number | null,
 ): number | T {
   let minValue;
   let min;
@@ -26,8 +26,9 @@ export function findMinimum<T>(
     for (const value of values) {
       if (
         value !== null &&
-        // tslint:disable-next-line: no-tautology-expression
+        // tslint:disable-next-line: no-tautology-expression strict-comparisons
         value >= value &&
+        // tslint:disable-next-line: strict-comparisons
         (min === undefined || min > value)
       ) {
         minValue = value;
@@ -57,7 +58,7 @@ export function findMinimum<T>(
  */
 export function findMaximum<T>(
   values: T[],
-  accessor?: (arg0: T) => number | null
+  accessor?: (arg0: T) => number | null,
 ): number | T {
   let maxValue;
   let max;
@@ -66,8 +67,9 @@ export function findMaximum<T>(
     for (const value of values) {
       if (
         value !== null &&
-        // tslint:disable-next-line: no-tautology-expression
+        // tslint:disable-next-line: no-tautology-expression strict-comparisons
         value >= value &&
+        // tslint:disable-next-line: strict-comparisons
         (max === undefined || max < value)
       ) {
         maxValue = value;
@@ -96,7 +98,7 @@ export function findMaximum<T>(
  */
 export function findExtremes<T>(
   values: T[],
-  accessor?: (arg0: T) => number | null
+  accessor?: (arg0: T) => number | null,
 ): { min: T; max: T; minIndex: number; maxIndex: number } {
   let minValue;
   let min;
@@ -110,8 +112,9 @@ export function findExtremes<T>(
     for (const value of values) {
       if (
         value !== null &&
-        // tslint:disable-next-line: no-tautology-expression
+        // tslint:disable-next-line: no-tautology-expression strict-comparisons
         value >= value &&
+        // tslint:disable-next-line: strict-comparisons
         (min === undefined || min < value)
       ) {
         minValue = value;
@@ -120,8 +123,9 @@ export function findExtremes<T>(
       }
       if (
         value !== null &&
-        // tslint:disable-next-line: no-tautology-expression
+        // tslint:disable-next-line: no-tautology-expression strict-comparisons
         value >= value &&
+        // tslint:disable-next-line: strict-comparisons
         (max === undefined || max < value)
       ) {
         maxValue = value;
@@ -170,7 +174,7 @@ export function findExtremes<T>(
 export function calculateLabelPosition(
   pointX: number,
   textLength: number,
-  chartWidth: number
+  chartWidth: number,
 ): SVGTextAnchor {
   const fitMiddleAnchor =
     // tslint:disable-next-line:no-magic-numbers
@@ -197,7 +201,7 @@ function linearInterpolation(
   start: number,
   end: number,
   steps: number,
-  step: number
+  step: number,
 ): number {
   const t = 1 - step / steps;
   return (1 - t) * start + t * end;
@@ -207,7 +211,7 @@ function linearInterpolation(
  * Interpolate null value data.
  */
 export function interpolateNullValues(
-  data: DtMicroChartDataPoint[]
+  data: DtMicroChartDataPoint[],
 ): DtMicroChartDataPoint[] {
   // Make a copy to not mutate the original
   const copiedData = data.map(datapoint => ({ ...datapoint }));
@@ -241,7 +245,7 @@ export function interpolateNullValues(
             lastKnownValue,
             value,
             interpolationSpread,
-            i - j
+            i - j,
           );
           copiedData[j].interpolated = true;
         }

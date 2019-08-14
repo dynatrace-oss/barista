@@ -31,7 +31,7 @@ export interface DtMicroChartDataPoint {
 
 /** Unify the series data to a map where the x value is the key and the y value is the value in the map. */
 export function unifySeriesData(
-  data: Array<number | null> | Array<[number, number | null]>
+  data: Array<number | null> | Array<[number, number | null]>,
 ): DtMicroChartDataPoint[] {
   const transform = data && data.length && !(data[0] instanceof Array);
   return transform
@@ -44,7 +44,7 @@ export function unifySeriesData(
 
 export function reduceSeriesToChartDomains(
   aggregator: DtMicroChartDomains,
-  series: DtMicroChartSeries
+  series: DtMicroChartSeries,
 ): DtMicroChartDomains {
   let xMin = aggregator.x.min;
   let xMax = aggregator.x.max;
@@ -96,7 +96,7 @@ export function reduceSeriesToChartDomains(
 
 /** Create chart domains for all combined series. */
 export function createChartDomains(
-  series: DtMicroChartSeries[]
+  series: DtMicroChartSeries[],
 ): DtMicroChartDomains {
   // TODO: this needs some smarts
   const standardDomain: DtMicroChartDomains = {
@@ -117,7 +117,7 @@ export function createChartDomains(
 /** Axis can move the chart domains. Calculate the extents of the configured axis and apply it to the domains. */
 export function applyAxesExtentsToDomain(
   axes: DtMicroChartAxis[],
-  domains: DtMicroChartDomains
+  domains: DtMicroChartDomains,
 ): DtMicroChartDomains {
   let xAxisMin;
   let xAxisMax;

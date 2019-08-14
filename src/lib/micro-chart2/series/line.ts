@@ -24,8 +24,13 @@ import { DtMicroChartExtremeSeriesSVG } from './series-extreme';
 export class DtMicroChartLineSeriesSVG extends DtMicroChartExtremeSeriesSVG<
   DtMicroChartLineDataPoint
 > {
+  /** Points to render in the line series. */
   @Input() points: DtMicroChartLineDataPoint[];
+
+  /** Svg path string representing data as a line. */
   @Input() path: string;
+
+  /** Svg path string representing the interpolated values. */
   @Input() interpolatedPath: string;
 
   /** @internal Radius for the point markers. */

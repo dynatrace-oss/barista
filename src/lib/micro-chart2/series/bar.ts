@@ -16,5 +16,6 @@ import { DtMicroChartBarDataPoint } from '../business-logic/core/bar';
   ],
 })
 export class DtMicroChartBarSeriesSVG extends DtMicroChartSeriesSVG {
+  /** Points to render in the bar chart series. */
   @Input() points: DtMicroChartBarDataPoint[];
 }

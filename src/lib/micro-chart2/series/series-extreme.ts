@@ -38,10 +38,10 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG
   // tslint:disable-next-line:no-any
   @Input() maxTemplate: TemplateRef<any>;
 
-  /** Template portals for the minimum label content projection. */
+  /** @internal Template portals for the minimum label content projection. */
   _minPortal: TemplatePortal;
 
-  /** Template portals for the maximum label content projection. */
+  /** @internal Template portals for the maximum label content projection. */
   _maxPortal: TemplatePortal;
 
   /** @internal Element reference for the minimum Label. Needed for rendering the label into the svg */
@@ -52,7 +52,7 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG
 
   constructor(
     private _viewContainerRef: ViewContainerRef,
-    private _zone: NgZone
+    private _zone: NgZone,
   ) {
     super();
   }
@@ -63,17 +63,17 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG
       this._minPortal = new TemplatePortal(
         this.minTemplate,
         this._viewContainerRef,
-        { $implicit: this.extremes.minValue }
+        { $implicit: this.extremes.minValue },
       );
       this._maxPortal = new TemplatePortal(
         this.maxTemplate,
         this._viewContainerRef,
-        { $implicit: this.extremes.maxValue }
+        { $implicit: this.extremes.maxValue },
       );
       this._zone.onStable
         .pipe(
           takeUntil(this._destroy),
-          take(1)
+          take(1),
         )
         .subscribe(() => {
           this._setExtremeLabelPosition();
@@ -93,12 +93,12 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG
       const minLabelTextAnchor = calculateLabelPosition(
         this.extremes.minAnchor.x + this.plotOffsetX,
         minLabelLength,
-        this.width
+        this.width,
       );
       // We set the text-anchor attribute directly on the element to prevent an additional ChangeDetection cycle.
       this._minLabelElementRef.nativeElement.setAttribute(
         'text-anchor',
-        minLabelTextAnchor
+        minLabelTextAnchor,
       );
     }
     if (
@@ -111,12 +111,12 @@ export class DtMicroChartExtremeSeriesSVG<T> extends DtMicroChartSeriesSVG
       const maxLabelTextAnchor = calculateLabelPosition(
         this.extremes.maxAnchor.x + this.plotOffsetX,
         maxLabelLength,
-        this.width
+        this.width,
       );
       // We set the text-anchor attribute directly on the element to prevent an additional ChangeDetection cycle.
       this._maxLabelElementRef.nativeElement.setAttribute(
         'text-anchor',
-        maxLabelTextAnchor
+        maxLabelTextAnchor,
       );
     }
   }

@@ -36,11 +36,14 @@ export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries
   implements OnChanges, OnDestroy {
   private _highlightExtremes;
 
+  /** Defines the type of the microchart series. */
   readonly type: DtMicroChartSeriesType = 'column';
 
+  /** @internal The label templateReference for the minimum extreme label that should be rendered. */
   @ContentChild(DtMicroChartMinLabel, { static: true, read: TemplateRef })
   _minLabelTemplate: TemplateRef<any>; // tslint:disable-line:no-any
 
+  /** @internal The label templateReference for the maximum extreme label that should be rendered. */
   @ContentChild(DtMicroChartMaxLabel, { static: true, read: TemplateRef })
   _maxLabelTemplate: TemplateRef<any>; // tslint:disable-line:no-any
 
@@ -56,12 +59,7 @@ export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries
     this._highlightExtremes = coerceBooleanProperty(value);
   }
 
-  constructor(
-    @Optional() @SkipSelf() public _stackedContainer: DtMicroChartStackContainer
-  ) {
-    super(_stackedContainer);
-  }
-
+  /** @internal Renderdata getter that combines all relevant information about the series. */
   get _renderData(): DtMicroChartRenderDataBase &
     DtMicroChartRenderDataExtremes {
     return {
@@ -73,5 +71,13 @@ export class DtMicroChartColumnSeries extends DtMicroChartStackableSeries
       _minLabelTemplate: this._minLabelTemplate,
       _maxLabelTemplate: this._maxLabelTemplate,
     };
+  }
+
+  constructor(
+    @Optional()
+    @SkipSelf()
+    public _stackedContainer: DtMicroChartStackContainer,
+  ) {
+    super(_stackedContainer);
   }
 }

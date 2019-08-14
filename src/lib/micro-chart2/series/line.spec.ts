@@ -47,7 +47,7 @@ describe('DtMicroChartLineSvg', () => {
 
     it('should render a line with the path', () => {
       const line = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line:not(.dt-micro-chart-interpolated-line)')
+        By.css('.dt-micro-chart-line:not(.dt-micro-chart-interpolated-line)'),
       );
       const path = line.nativeElement.getAttribute('d');
       expect(path).toBe(fixture.componentInstance.path);
@@ -55,7 +55,7 @@ describe('DtMicroChartLineSvg', () => {
 
     it('should render extreme highlights', () => {
       const highlightMarker = fixture.debugElement.queryAll(
-        By.css('.dt-micro-chart-line-extreme')
+        By.css('.dt-micro-chart-line-extreme'),
       );
       expect(highlightMarker.length).toBe(2);
     });
@@ -63,10 +63,10 @@ describe('DtMicroChartLineSvg', () => {
     it('should have the initial min template applied', () => {
       fixture.detectChanges();
       const minOutlet = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel')
+        By.css('.dt-micro-chart-line-extremelabel'),
       );
       expect(minOutlet.nativeElement.textContent.trim()).toBe(
-        'Min template 60'
+        'Min template 60',
       );
     });
 
@@ -74,14 +74,14 @@ describe('DtMicroChartLineSvg', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
       const minLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel-min')
+        By.css('.dt-micro-chart-line-extremelabel-min'),
       );
       expect(minLabel.nativeElement.getAttribute('x')).toBe('270');
       expect(minLabel.nativeElement.getAttribute('y')).toBe('60');
       expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('end');
 
       const maxLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel-max')
+        By.css('.dt-micro-chart-line-extremelabel-max'),
       );
       expect(maxLabel.nativeElement.getAttribute('x')).toBe('135');
       expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');
@@ -101,7 +101,7 @@ describe('DtMicroChartLineSvg', () => {
       fixture.componentInstance.highlightExtremes = false;
       fixture.detectChanges();
       const highlightMarker = fixture.debugElement.queryAll(
-        By.css('.dt-micro-chart-line-extreme')
+        By.css('.dt-micro-chart-line-extreme'),
       );
       expect(highlightMarker.length).toBe(0);
     });
@@ -111,10 +111,10 @@ describe('DtMicroChartLineSvg', () => {
         fixture.componentInstance.updatedMinTemplate;
       fixture.detectChanges();
       const minOutlet = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel')
+        By.css('.dt-micro-chart-line-extremelabel'),
       );
       expect(minOutlet.nativeElement.textContent.trim()).toBe(
-        'Updated template 60'
+        'Updated template 60',
       );
     });
 
@@ -130,14 +130,14 @@ describe('DtMicroChartLineSvg', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
       const minLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel-min')
+        By.css('.dt-micro-chart-line-extremelabel-min'),
       );
       expect(minLabel.nativeElement.getAttribute('x')).toBe('0');
       expect(minLabel.nativeElement.getAttribute('y')).toBe('50');
       expect(minLabel.nativeElement.getAttribute('text-anchor')).toBe('start');
 
       const maxLabel = fixture.debugElement.query(
-        By.css('.dt-micro-chart-line-extremelabel-max')
+        By.css('.dt-micro-chart-line-extremelabel-max'),
       );
       expect(maxLabel.nativeElement.getAttribute('x')).toBe('270');
       expect(maxLabel.nativeElement.getAttribute('y')).toBe('100');

@@ -27,10 +27,13 @@ import { DtMicroChartStackContainer } from './stacked-container';
 })
 export class DtMicroChartBarSeries extends DtMicroChartStackableSeries
   implements OnChanges, OnDestroy {
+  /** Defines the type of the microchart series. */
   readonly type: DtMicroChartSeriesType = 'bar';
 
   constructor(
-    @Optional() @SkipSelf() public _stackedContainer: DtMicroChartStackContainer
+    @Optional()
+    @SkipSelf()
+    public _stackedContainer: DtMicroChartStackContainer,
   ) {
     super(_stackedContainer);
   }

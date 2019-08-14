@@ -36,7 +36,7 @@ function calculatePoint(
   dp: number | null,
   domains: DtMicroChartDomains,
   scales: DtMicroChartColumnScales,
-  dpStacked?: number
+  dpStacked?: number,
 ): DtMicroChartColumnDataPoint {
   // Bandwidth x is a unique string identifier.
   const x = scales.x(index) as number;
@@ -72,26 +72,26 @@ export function handleChartColumnSeries(
   series: DtMicroChartColumnSeries,
   domains: DtMicroChartDomains,
   config: DtMicroChartConfig,
-  stack?: Array<Series<{ [key: string]: number }, string>>
+  stack?: Array<Series<{ [key: string]: number }, string>>,
 ): DtMicroChartColumnSeriesData {
   const scales = getScales(width, domains, config);
   let data = series._transformedData;
   // Calculate Min and Max values
   const { min, minIndex, max, maxIndex } = findExtremes<DtMicroChartDataPoint>(
     data,
-    d => d.y
+    d => d.y,
   );
   const minPoint = calculatePoint(
     minIndex,
     min.y,
     domains,
-    scales
+    scales,
   ) as DtMicroChartColumnExtremePoint;
   const maxPoint = calculatePoint(
     maxIndex,
     max.y,
     domains,
-    scales
+    scales,
   ) as DtMicroChartColumnExtremePoint;
 
   let transformedData: DtMicroChartColumnSeriesData = {
@@ -101,7 +101,7 @@ export function handleChartColumnSeries(
 
   if (stack) {
     const stackData = stack.find(
-      stackedSeries => stackedSeries.key === series._id
+      stackedSeries => stackedSeries.key === series._id,
     );
     if (stackData) {
       transformedData.points = stackData.map((d, index) => {
@@ -147,7 +147,7 @@ export function handleChartColumnSeries(
 function getScales(
   width: number,
   domains: DtMicroChartDomains,
-  config: DtMicroChartConfig
+  config: DtMicroChartConfig,
 ): DtMicroChartColumnScales {
   const x = scaleBand<number>()
     .range([0, width - config.marginLeft - config.marginRight])
