@@ -3,13 +3,13 @@
   cdkMonitorElementFocus
   [href]="_calculatedHref()"
   (click)="_linkClicked($event)"
-  class="dt-breadcrumb-item dt-breadcrumb-link"
+  class="dt-breadcrumbs-item-wrapper dt-breadcrumb-link"
 >
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
 <span
   *ngIf="_lastItem"
-  class="dt-breadcrumb-item dt-breadcrumb-non-clickable"
+  class="dt-breadcrumbs-item-wrapper dt-breadcrumb-non-clickable"
   aria-current="page"
 >
   <ng-container *ngTemplateOutlet="content"></ng-container>

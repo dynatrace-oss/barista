@@ -14,17 +14,17 @@
   padding-right: $dt-table-cell-horizontal-padding;
   padding-top: $dt-table-cell-vertical-padding;
   padding-bottom: $dt-table-cell-vertical-padding;
+
+  &.dt-table-column-align-right {
+    text-align: right;
+  }
+
+  &.dt-table-column-align-center {
+    text-align: center;
+  }
 }
 
 .dt-tree-table-header-cell-wrap {
   position: relative;
   display: inline-table;
-}
-
-:host.dt-table-column-align-right {
-  text-align: right;
-}
-
-:host.dt-table-column-align-center {
-  text-align: center;
 }
