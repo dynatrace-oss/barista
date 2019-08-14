@@ -338,6 +338,36 @@ export class TableComponent implements OnInit {
 }
 ```
 
+The `DtTableDataSource` exposes two functions, that let the user define sort
+accessors for named columns. This enables the user to leverage
+`DtTableDataSource` sorting without the use of `dt-simple-columns`. The function
+`addSortAccessorFunction(columnName: string, fn: DtSortAccessorFunction)` can be
+used to add a custom sortAccessor function to the data source. The custom added
+sort accessors takes precedence over the automatically added ones from
+`dt-simple-columns`.
+
+The function `removeSortAccessorFunction(columnName: string)` enables the user
+to remove a previously defined sortAccessor function.
+
+```ts
+export class TableComponent implements OnInit, OnDestroy {
+  //...
+  // Create the Datasource instanciate it.
+  dataSource: DtTableDataSource<object>;
+  constructor() {
+    this.dataSource = new DtTableDataSource(this.data);
+    this.dataSource.addSortAccessorFunction('memory', row => {
+      return (row.memoryPerc / 100) * row.memoryTotal;
+    });
+  }
+
+  ngOnDestroy() {
+    // Not necessary, but possible
+    this.dataSource.removeSortAccessorFunction('memory');
+  }
+}
+```
+
 ## Expandable table rows
 
 To show more details in context of a single table row, use expandable rows. They

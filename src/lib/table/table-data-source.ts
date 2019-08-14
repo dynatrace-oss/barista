@@ -18,6 +18,8 @@ import {
 import { DtSort, DtSortEvent } from './sort/sort';
 import { DtTable } from './table';
 
+export type DtSortAccessorFunction<T> = (data: T) => any; // tslint:disable-line:no-any
+
 const DEFAULT_PAGE_SIZE = 10;
 export class DtTableDataSource<T> extends DataSource<T> {
   /**
@@ -41,11 +43,21 @@ export class DtTableDataSource<T> extends DataSource<T> {
     DtSimpleColumnDisplayAccessorFunction<T>
   > = new Map();
 
-  /** @internal SortAccessorMap for SimpleColumn sortAccessor functions. */
-  _sortAccessorMap: Map<
+  /**
+   * @internal SortAccessorMap for SimpleColumn sortAccessor functions. This sortAccessorMap
+   * is automatically populated by the sortAccessor functions on the dt-simple-columns.
+   */
+  _simpleColumnSortAccessorMap: Map<
     string,
     DtSimpleColumnSortAccessorFunction<T>
   > = new Map();
+
+  /**
+   * @internal
+   * SortAccessorMap for SimpleColumn sortAccessor functions. This sortAccessorMap
+   * is exposed to the outside and can be filled by the consumer.
+   */
+  _customSortAccessorMap: Map<string, DtSortAccessorFunction<T>> = new Map();
 
   /** Stream that emits when a new data array is set on the data source. */
   private readonly _data: BehaviorSubject<T[]>;
@@ -141,8 +153,13 @@ export class DtTableDataSource<T> extends DataSource<T> {
     sortHeaderId: string,
   ): string | number | null => {
     let value;
-    if (this._sortAccessorMap.has(sortHeaderId)) {
-      value = this._sortAccessorMap.get(sortHeaderId)!(data, sortHeaderId);
+    if (this._customSortAccessorMap.has(sortHeaderId)) {
+      value = this._customSortAccessorMap.get(sortHeaderId)!(data);
+    } else if (this._simpleColumnSortAccessorMap.has(sortHeaderId)) {
+      value = this._simpleColumnSortAccessorMap.get(sortHeaderId)!(
+        data,
+        sortHeaderId,
+      );
     } else if (this._displayAccessorMap.has(sortHeaderId)) {
       value = this._displayAccessorMap.get(sortHeaderId)!(data, sortHeaderId);
     } else {
@@ -362,7 +379,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
       .pipe(takeUntil(this._destroy))
       .subscribe(({ displayAccessorMap, sortAccessorMap }) => {
         this._displayAccessorMap = displayAccessorMap;
-        this._sortAccessorMap = sortAccessorMap;
+        this._simpleColumnSortAccessorMap = sortAccessorMap;
         this._updateChangeSubscription();
       });
     return this._renderData;
@@ -374,5 +391,27 @@ export class DtTableDataSource<T> extends DataSource<T> {
   disconnect(): void {
     this._destroy.next();
     this._destroy.complete();
+  }
+
+  /**
+   * Lets the user define a sortAccessor function for a named column,
+   * that is being used for sorting when the DataSource is used in combination
+   * with simple and non-simple columns.
+   */
+  addSortAccessorFunction(
+    columnName: string,
+    fn: DtSortAccessorFunction<T>,
+  ): void {
+    this._customSortAccessorMap.set(columnName, fn);
+    this._data.next(this._data.value);
+  }
+
+  /**
+   * Lets the user remove a sortAccessor function for a named column,
+   * that is being used for sorting when the DataSource is used in combination
+   * with simple and non-simple columns.
+   */
+  removeSortAccessorFunction(columnName: string): void {
+    this._customSortAccessorMap.delete(columnName);
   }
 }

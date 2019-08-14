@@ -15,6 +15,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtTableDataSource,
   DtTableModule,
+  DtSort,
 } from '@dynatrace/angular-components/table';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import {
@@ -22,6 +23,7 @@ import {
   DtPagination,
 } from '@dynatrace/angular-components/pagination';
 import { createComponent } from '../../testing/create-component';
+import { dispatchMouseEvent } from '../../testing/dispatch-events';
 
 const PAGE_SIZE = 2;
 
@@ -85,9 +87,6 @@ const DATA_SET: object[] = [
 ];
 
 describe('DtTableDataSource', () => {
-  let fixture: ComponentFixture<PaginationTestApp>;
-  let component: PaginationTestApp;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -97,110 +96,182 @@ describe('DtTableDataSource', () => {
         DtPaginationModule,
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
-      declarations: [PaginationTestApp],
+      declarations: [PaginationTestApp, TableSortingMixedTestApp],
     }).compileComponents();
   }));
 
-  beforeEach(fakeAsync(() => {
-    fixture = createComponent(PaginationTestApp);
-    component = fixture.componentInstance;
-  }));
+  describe('pagination', () => {
+    let fixture: ComponentFixture<PaginationTestApp>;
+    let component: PaginationTestApp;
 
-  it('should have a pagination attached to the dataSource', () => {
-    const instance = fixture.componentInstance;
-    const paginationInstance = instance.dataSource.pagination as DtPagination;
+    beforeEach(fakeAsync(() => {
+      fixture = createComponent(PaginationTestApp);
+      component = fixture.componentInstance;
+    }));
 
-    expect(paginationInstance).not.toBeUndefined();
-    expect(paginationInstance).not.toBeNull();
-    expect(paginationInstance.constructor).toBe(DtPagination);
-    expect(instance.dataSource.pageSize).toBe(PAGE_SIZE);
-    expect(instance.dataSource.data.constructor).toBe(Array);
+    it('should have a pagination attached to the dataSource', () => {
+      const instance = fixture.componentInstance;
+      const paginationInstance = instance.dataSource.pagination as DtPagination;
+
+      expect(paginationInstance).not.toBeUndefined();
+      expect(paginationInstance).not.toBeNull();
+      expect(paginationInstance.constructor).toBe(DtPagination);
+      expect(instance.dataSource.pageSize).toBe(PAGE_SIZE);
+      expect(instance.dataSource.data.constructor).toBe(Array);
+    });
+
+    it('should page the data for the table', fakeAsync(() => {
+      flush();
+      fixture.detectChanges();
+
+      let rows = fixture.debugElement.queryAll(By.css('dt-row'));
+      expect(rows.length).toBe(PAGE_SIZE);
+
+      fixture.componentInstance.dataSource.pageSize = 1;
+      flush();
+      fixture.detectChanges();
+
+      rows = fixture.debugElement.queryAll(By.css('dt-row'));
+      expect(rows.length).toBe(1);
+
+      fixture.componentInstance.dataSource.pageSize = 50;
+      flush();
+      fixture.detectChanges();
+
+      rows = fixture.debugElement.queryAll(By.css('dt-row'));
+      expect(rows.length).toBe(DATA_SET.length);
+    }));
+
+    it('should have a pagination attached to the table', fakeAsync(() => {
+      flush();
+      fixture.detectChanges();
+
+      const paginationList = fixture.debugElement.queryAll(
+        By.css('.dt-pagination li'),
+      );
+      const length = DATA_SET.length / PAGE_SIZE + 2; // +2 for arrow left and right
+
+      expect(paginationList.length).toBe(length);
+    }));
+
+    it('should filter the table', fakeAsync(() => {
+      flush();
+      fixture.detectChanges();
+
+      let rows = fixture.debugElement.queryAll(By.css('dt-row'));
+      expect(rows.length).toBe(PAGE_SIZE);
+
+      fixture.componentInstance.dataSource.filter = 'docker';
+      flush();
+      fixture.detectChanges();
+      rows = fixture.debugElement.queryAll(By.css('dt-row'));
+
+      expect(rows.length).toBe(1);
+
+      fixture.componentInstance.dataSource.filter = 'asdf';
+      flush();
+      fixture.detectChanges();
+      rows = fixture.debugElement.queryAll(By.css('dt-row'));
+
+      expect(rows.length).toBe(0);
+
+      fixture.componentInstance.dataSource.filter = '';
+      flush();
+      fixture.detectChanges();
+      rows = fixture.debugElement.queryAll(By.css('dt-row'));
+
+      expect(rows.length).toBe(PAGE_SIZE);
+    }));
+
+    it('should adapt the paging when the pagination is set to null', fakeAsync(() => {
+      flush();
+      fixture.detectChanges();
+      let rows = fixture.debugElement.queryAll(By.css('dt-row'));
+
+      expect(rows.length).toBe(PAGE_SIZE);
+
+      component.dataSource.pagination = null;
+      flush();
+      fixture.detectChanges();
+
+      rows = fixture.debugElement.queryAll(By.css('dt-row'));
+      expect(rows.length).toBe(DATA_SET.length);
+
+      component.dataSource.pagination = component.pagination;
+      flush();
+      fixture.detectChanges();
+
+      rows = fixture.debugElement.queryAll(By.css('dt-row'));
+      expect(rows.length).toBe(PAGE_SIZE);
+    }));
   });
 
-  it('should page the data for the table', fakeAsync(() => {
-    flush();
-    fixture.detectChanges();
+  describe('sorting', () => {
+    let fixture: ComponentFixture<TableSortingMixedTestApp>;
+    let component: TableSortingMixedTestApp;
 
-    let rows = fixture.debugElement.queryAll(By.css('dt-row'));
-    expect(rows.length).toBe(PAGE_SIZE);
+    beforeEach(fakeAsync(() => {
+      fixture = createComponent(TableSortingMixedTestApp);
+      component = fixture.componentInstance;
+    }));
 
-    fixture.componentInstance.dataSource.pageSize = 1;
-    flush();
-    fixture.detectChanges();
+    it('should sort the non-simple-column by the provided function (asc.)', () => {
+      const sortHeader = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-memory'),
+      );
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.detectChanges();
 
-    rows = fixture.debugElement.queryAll(By.css('dt-row'));
-    expect(rows.length).toBe(1);
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-memory'),
+      );
+      expect(cells[0].nativeElement.textContent).toContain('7.86 / 5820000000');
+      expect(cells[1].nativeElement.textContent).toContain('35 / 5810000000');
+      expect(cells[2].nativeElement.textContent).toContain('38 / 5830000000');
+      expect(cells[3].nativeElement.textContent).toContain('46 / 6000000000');
+    });
 
-    fixture.componentInstance.dataSource.pageSize = 50;
-    flush();
-    fixture.detectChanges();
+    it('should sort the non-simple-column by the provided function (desc.)', () => {
+      const sortHeader = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-memory'),
+      );
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.detectChanges();
 
-    rows = fixture.debugElement.queryAll(By.css('dt-row'));
-    expect(rows.length).toBe(DATA_SET.length);
-  }));
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.detectChanges();
 
-  it('should have a pagination attached to the table', fakeAsync(() => {
-    flush();
-    fixture.detectChanges();
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-memory'),
+      );
+      expect(cells[0].nativeElement.textContent).toContain('46 / 6000000000');
+      expect(cells[1].nativeElement.textContent).toContain('38 / 5830000000');
+      expect(cells[2].nativeElement.textContent).toContain('35 / 5810000000');
+      expect(cells[3].nativeElement.textContent).toContain('7.86 / 5820000000');
+    });
 
-    const paginationList = fixture.debugElement.queryAll(
-      By.css('.dt-pagination li'),
-    );
-    const length = DATA_SET.length / PAGE_SIZE + 2; // +2 for arrow left and right
+    it('should let you update the sorting accessor at runtime', () => {
+      const sortHeader = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-memory'),
+      );
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.detectChanges();
 
-    expect(paginationList.length).toBe(length);
-  }));
+      component.dataSource.addSortAccessorFunction(
+        'memory',
+        row => row.memoryPerc % 30,
+      );
+      fixture.detectChanges();
 
-  it('should filter the table', fakeAsync(() => {
-    flush();
-    fixture.detectChanges();
-
-    let rows = fixture.debugElement.queryAll(By.css('dt-row'));
-    expect(rows.length).toBe(PAGE_SIZE);
-
-    fixture.componentInstance.dataSource.filter = 'docker';
-    flush();
-    fixture.detectChanges();
-    rows = fixture.debugElement.queryAll(By.css('dt-row'));
-
-    expect(rows.length).toBe(1);
-
-    fixture.componentInstance.dataSource.filter = 'asdf';
-    flush();
-    fixture.detectChanges();
-    rows = fixture.debugElement.queryAll(By.css('dt-row'));
-
-    expect(rows.length).toBe(0);
-
-    fixture.componentInstance.dataSource.filter = '';
-    flush();
-    fixture.detectChanges();
-    rows = fixture.debugElement.queryAll(By.css('dt-row'));
-
-    expect(rows.length).toBe(PAGE_SIZE);
-  }));
-
-  it('should adapt the paging when the pagination is set to null', fakeAsync(() => {
-    flush();
-    fixture.detectChanges();
-    let rows = fixture.debugElement.queryAll(By.css('dt-row'));
-
-    expect(rows.length).toBe(PAGE_SIZE);
-
-    component.dataSource.pagination = null;
-    flush();
-    fixture.detectChanges();
-
-    rows = fixture.debugElement.queryAll(By.css('dt-row'));
-    expect(rows.length).toBe(DATA_SET.length);
-
-    component.dataSource.pagination = component.pagination;
-    flush();
-    fixture.detectChanges();
-
-    rows = fixture.debugElement.queryAll(By.css('dt-row'));
-    expect(rows.length).toBe(PAGE_SIZE);
-  }));
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-memory'),
+      );
+      expect(cells[0].nativeElement.textContent).toContain('35 / 5810000000'); // 35 % 30 = 5
+      expect(cells[1].nativeElement.textContent).toContain('7.86 / 5820000000'); // 7.86 % 30 = 7.86
+      expect(cells[2].nativeElement.textContent).toContain('38 / 5830000000'); // 38 % 30 = 8
+      expect(cells[3].nativeElement.textContent).toContain('46 / 6000000000'); // 46 % 30 = 16
+    });
+  });
 });
 
 @Component({
@@ -262,5 +333,75 @@ export class PaginationTestApp implements OnInit {
     this.dataSource.pagination = this.pagination;
     // Set the pageSize to override the default page size.
     this.dataSource.pageSize = 2;
+  }
+}
+
+@Component({
+  moduleId: module.id,
+  selector: 'demo-component',
+  // tslint:disable
+  template: `
+    <dt-table [dataSource]="dataSource" dtSort #sortable>
+      <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
+
+      <ng-container dtColumnDef="memory" dtColumnAlign="number">
+        <dt-header-cell *dtHeaderCellDef dt-sort-header>Memory</dt-header-cell>
+        <dt-cell *dtCellDef="let row">
+          {{ row.memoryPerc }} / {{ row.memoryTotal }}
+        </dt-cell>
+      </ng-container>
+
+      <dt-header-row *dtHeaderRowDef="['host', 'memory']"></dt-header-row>
+      <dt-row *dtRowDef="let row; columns: ['host', 'memory']"></dt-row>
+    </dt-table>
+  `,
+  // tslint:enable
+})
+export class TableSortingMixedTestApp implements OnInit {
+  data: Array<{ host: string; memoryPerc: number; memoryTotal: number }> = [
+    {
+      host: 'et-demo-2-win4',
+      memoryPerc: 38,
+      memoryTotal: 5830000000,
+    },
+    {
+      host: 'et-demo-2-win3',
+      memoryPerc: 46,
+      memoryTotal: 6000000000,
+    },
+    {
+      host: 'docker-host2',
+      memoryPerc: 35,
+      memoryTotal: 5810000000,
+    },
+    {
+      host: 'et-demo-2-win1',
+      memoryPerc: 7.86,
+      memoryTotal: 5820000000,
+    },
+  ];
+
+  // Get the viewChild to pass the sorter reference to the datasource.
+  @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
+
+  // Initialize the table's data source
+  dataSource: DtTableDataSource<{
+    host: string;
+    memoryPerc: number;
+    memoryTotal: number;
+  }>;
+  constructor() {
+    this.dataSource = new DtTableDataSource(this.data);
+    this.dataSource.addSortAccessorFunction(
+      'memory',
+      row =>
+        // Any accessor computation that returns a comparable value.
+        (row.memoryPerc / 100) * row.memoryTotal,
+    );
+  }
+
+  ngOnInit(): void {
+    // Set the dtSort reference on the dataSource, so it can react to sorting.
+    this.dataSource.sort = this.sortable;
   }
 }
