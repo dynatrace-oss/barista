@@ -21,6 +21,15 @@ import { getSourceFile } from '../utils/ast-utils';
 import { commitChanges, InsertChange } from '../utils/change';
 import { DtLintingRuleOptions } from './schema';
 
+const TSLINT_MARKDOWN_FILE = path.join('documentation', 'linting.md');
+const LINTING_RULES_DIRECTORY = path.join('src', 'linting', 'rules');
+const LINTING_TSLINT_CONFIG = path.join('src', 'linting', 'tslint.json');
+const BARISTA_EXAMPLES_TSLINT_CONFIG = path.join(
+  'src',
+  'barista-examples',
+  'tslint.json',
+);
+
 function _createRuleName(name: string): string {
   const dasherizedName = strings.dasherize(name);
   const ruleName = dasherizedName.startsWith('dt-')
@@ -82,9 +91,9 @@ function _findRulePosition(
 /**
  * Adds the new linting rule to TSLINT.md.
  */
-function addLintingRuleToReadme(ruleName: string): Rule {
+function _addLintingRuleToReadme(ruleName: string): Rule {
   return (host: Tree) => {
-    const modulePath = path.join('TSLINT.md');
+    const modulePath = TSLINT_MARKDOWN_FILE;
     const sourceFile = getSourceFile(host, modulePath);
     const readmeText = sourceFile.text;
     let tableEntriesPos =
@@ -116,7 +125,7 @@ function addLintingRuleToReadme(ruleName: string): Rule {
 /**
  * Adds the new linting rule to a specific tslint.json.
  */
-function addLintingRuleToTslintJson(
+function _addLintingRuleToTslintJson(
   ruleName: string,
   warningSeverity: boolean,
   modulePath: string,
@@ -157,22 +166,22 @@ export default function(options: DtLintingRuleOptions): Rule {
   ]);
   const rules = [
     mergeWith(templateSource),
-    addLintingRuleToTslintJson(
+    _addLintingRuleToTslintJson(
       ruleName,
       options.severity === 'warning',
-      path.join('src', 'barista-examples', 'tslint.json'),
+      BARISTA_EXAMPLES_TSLINT_CONFIG,
     ),
-    addLintingRuleToTslintJson(
+    _addLintingRuleToTslintJson(
       ruleName,
       options.severity === 'warning',
-      path.join('src', 'linting', 'tslint.json'),
+      LINTING_TSLINT_CONFIG,
     ),
-    addLintingRuleToReadme(ruleName),
+    _addLintingRuleToReadme(ruleName),
   ];
 
   if (category) {
     const ruleImpl = `${strings.camelize(ruleName)}Rule.ts`;
-    const rulesPath = path.join('src', 'linting', 'rules');
+    const rulesPath = LINTING_RULES_DIRECTORY;
 
     rules.push(
       move(
