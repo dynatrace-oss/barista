@@ -192,8 +192,9 @@ export function addDeclarationsToDevAppModule(name: string): Rule {
   return (host: Tree) => {
     const modulePath = join('src', 'dev-app', 'app.module.ts');
     const sourceFile = getSourceFile(host, modulePath);
+    const dasherizedName = strings.dasherize(name);
     const importName = `${strings.classify(name)}Demo`;
-    const importLocation = `'./${name}/${name}-demo.component';`;
+    const importLocation = `'./${dasherizedName}/${dasherizedName}-demo.component';`;
     const importChange = addImport(
       modulePath,
       sourceFile,
