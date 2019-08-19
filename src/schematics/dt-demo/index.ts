@@ -29,9 +29,9 @@ function addRoute(options: DtDemoOptions): Rule {
   return (host: Tree) => {
     const modulePath = path.join('src', 'dev-app', 'devapp-routing.module.ts');
     const sourceFile = getSourceFile(host, modulePath);
-
+    const dasherizedName = strings.dasherize(options.name);
     const importName = `${strings.classify(options.name)}Demo`;
-    const importLocation = `'./${options.name}/${options.name}-demo.component';`;
+    const importLocation = `'./${dasherizedName}/${dasherizedName}-demo.component';`;
     const importChange = addImport(
       modulePath,
       sourceFile,
