@@ -4,7 +4,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Dt<%= classify(name) %>Module, Dt<%= classify(name) %> } from '@dynatrace/angular-components/<%= name %>';
+import {
+  Dt<%= classify(name) %>Module,
+  Dt<%= classify(name) %>,
+} from '@dynatrace/angular-components/<%= name %>';
 
 describe('Dt<%= classify(name) %>', () => {
   beforeEach(async(() => {
@@ -21,13 +24,11 @@ describe('Dt<%= classify(name) %>', () => {
    */
 });
 
-  /** Test component that contains an Dt<%= classify(name) %>. */
+/** Test component that contains an Dt<%= classify(name) %>. */
 @Component({
   selector: 'dt-test-app',
   template: `
     <!-- insert your component testapp usage here -->
   `,
 })
-class TestApp {
-
-}
+class TestApp {}
