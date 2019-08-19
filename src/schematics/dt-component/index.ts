@@ -16,14 +16,14 @@ import * as ts from 'typescript';
 import {
   addDeclarationsToDevAppModule,
   addDynatraceAngularComponentsBaristaExampleModule,
+  addDynatraceSubPackageImport,
+  addImport,
   addNavitemToDevApp,
   addToNgModule,
   findNodes,
   getIndentation,
   getSourceFile,
   getSourceNodes,
-  addImport,
-  addDynatraceSubPackageImport,
 } from '../utils/ast-utils';
 import { commitChanges, InsertChange } from '../utils/change';
 import { addNavItem } from '../utils/nav-items';
@@ -213,10 +213,9 @@ function addRouteToDevApp(options: DtComponentOptions): Rule {
   return (host: Tree) => {
     const modulePath = path.join('src', 'dev-app', 'devapp-routing.module.ts');
     const sourceFile = getSourceFile(host, modulePath);
+    const dasherizedName = strings.dasherize(options.name);
     const importName = `${strings.classify(options.name)}Demo`;
-    const importLocation = `'./${strings.dasherize(
-      options.name,
-    )}/${strings.dasherize(options.name)}-demo.component';`;
+    const importLocation = `'./${dasherizedName}/${dasherizedName}-demo.component';`;
 
     const importChange = addImport(
       modulePath,

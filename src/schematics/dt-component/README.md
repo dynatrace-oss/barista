@@ -14,7 +14,7 @@ The following options are available:
 | Name        | Type      | Default | Description                                                             |
 | ----------- | --------- | ------- | ----------------------------------------------------------------------- |
 | `universal` | `boolean` | `true`  | Adds the component to the universal kitchen sink.                       |
-| `ui-test`   | `boolean` | `false` | Adds the component to the ui-tests-app and creates a ui-test spec file. |
+| `uitest`    | `boolean` | `true`  | Adds the component to the ui-tests-app and creates a ui-test spec file. |
 
 e.g.
 
