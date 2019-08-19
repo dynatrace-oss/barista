@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -21,15 +25,19 @@ import { Component } from '@angular/core';
       </dt-confirmation-dialog-state>
     </dt-confirmation-dialog>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmationDialogDefaultExample {
   dialogState: string | null;
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
   save(): void {
     this.dialogState = 'success';
 
     setTimeout(() => {
       this.clear();
+      this._changeDetectorRef.markForCheck();
     }, 2000);
   }
 
