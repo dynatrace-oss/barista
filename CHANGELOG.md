@@ -1,3 +1,26 @@
+## 4.5.0 (2019-08-19)
+
+### Bug Fixes
+
+- **button:** Fixes issue that disabled anchor buttons would still trigger
+  pointer events
+- **chart:** Fixes issue where the selection-area-action directive was not
+  applied because of a broken selector.
+- **filter-field:** Fixes an issue where the spacing between range operators and
+  input was missing
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **font-styles:** Adds the pre tag to be covered by the monospaced font styles
+
+### Features
+
+- **confirmation-dialog:** Added confirmation dialog component
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **table:** Added the ability to define customSortAccessor function for the
+  DtTableDataSource
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **table:** Exposes the dtColumnProportion on SimpleColumns
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 4.4.1 (2019-08-08)
 
 ### Bug Fixes
