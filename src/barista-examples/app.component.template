@@ -1,6 +1,6 @@
 // tslint:disable: indent object-literal-key-quotes quotemark trailing-comma max-line-length no-duplicate-imports max-file-line-count
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 ${imports}
 
 export const ROUTES = ${routes};
@@ -9,6 +9,7 @@ export const ROUTES = ${routes};
   selector: 'barista-examples',
   styleUrls: ['app.component.scss'],
   templateUrl: 'app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   componentItems = ${navItems};
