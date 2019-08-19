@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -26,11 +26,14 @@ export class ConfirmationDialogShowBackdropExample {
   dialogState: string | null;
   showBackdrop: boolean;
 
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+
   cancel(): void {
     this.dialogState = 'backdrop';
     setTimeout(() => {
       this.showBackdrop = false;
       this.dialogState = null;
+      this._changeDetectorRef.markForCheck();
     }, 3000);
   }
 
