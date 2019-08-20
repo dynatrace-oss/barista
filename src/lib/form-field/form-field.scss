@@ -10,18 +10,7 @@
 }
 
 .dt-form-field-body {
-  display: flex;
-
-  // Do not set `align-items` as it breaks SVGs baseline alignment
-  // align-items: baseline;
-  box-sizing: border-box;
-
-  width: 100%;
-  @include dt-form-control();
-
-  // We need to set overflow visible to prevent the outline
-  // of inner interactive elements (like buttons) to be cut off
-  overflow: visible;
+  @include dt-form-control-body();
 
   .dt-focused & {
     @include dt-focus-style();
@@ -155,12 +144,7 @@
 
 .dt-hint,
 .dt-error {
-  @include dt-label-font();
-  text-decoration: none;
-  appearance: none;
-  display: block;
-  box-sizing: border-box;
-  white-space: normal;
+  @include dt-form-control-hint();
 }
 
 .dt-hint {

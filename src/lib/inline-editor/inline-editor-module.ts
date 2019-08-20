@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import {
@@ -21,7 +20,6 @@ import { DtInlineEditor } from './inline-editor';
     DtInputModule,
     DtFormFieldModule,
     DtIconModule,
-    FormsModule,
   ],
   exports: [DtInlineEditor, DtError],
   declarations: [DtInlineEditor],

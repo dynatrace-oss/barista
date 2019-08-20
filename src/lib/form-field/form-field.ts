@@ -1,9 +1,9 @@
 import {
-  animate,
   state,
   style,
   transition,
   trigger,
+  useAnimation,
 } from '@angular/animations';
 import {
   AfterContentChecked,
@@ -31,6 +31,10 @@ import { DtHint } from './hint';
 import { DtLabel } from './label';
 import { DtPrefix } from './prefix';
 import { DtSuffix } from './suffix';
+import {
+  DT_ERROR_ENTER_DELAYED_ANIMATION,
+  DT_ERROR_ENTER_ANIMATION,
+} from '@dynatrace/angular-components/core';
 
 let nextUniqueId = 0;
 
@@ -58,13 +62,9 @@ let nextUniqueId = 0;
   animations: [
     trigger('transitionErrors', [
       state('enter', style({ opacity: 1, transform: 'scaleY(1)' })),
-      transition('void => enter', [
-        style({ opacity: 0, transform: 'scaleY(0)' }),
-        animate('150ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
-      ]),
+      transition('void => enter', [useAnimation(DT_ERROR_ENTER_ANIMATION)]),
       transition('void => enter-delayed', [
-        style({ opacity: 0, transform: 'scaleY(0)' }),
-        animate(`250ms 150ms cubic-bezier(0.55, 0, 0.55, 0.2)`),
+        useAnimation(DT_ERROR_ENTER_DELAYED_ANIMATION),
       ]),
     ]),
   ],
