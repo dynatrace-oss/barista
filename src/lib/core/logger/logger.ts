@@ -30,11 +30,14 @@ export class DtLogger {
   }
 
   private _log(level: DtLogLevel, message: string, param?: Error): void {
+    const stack = new Error().stack;
+
     this._consumer.log({
       loggerName: this.name,
       level,
       message,
       param,
+      stack,
     });
   }
 }
