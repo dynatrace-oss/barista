@@ -1,0 +1,15 @@
+{
+  "name": "import-sort-style-dynatrace",
+  "version": "0.0.0",
+  "description": "An import-sort style that groups and sorts by module but treats @dynatrace/angular-components imports as internal",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "import-sort-style": "^6.0.0",
+    "import-sort-parser-typescript": "^6.0.0",
+    "typescript": "~3.4.3"
+  }
+}
