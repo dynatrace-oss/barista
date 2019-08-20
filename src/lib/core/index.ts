@@ -6,3 +6,4 @@ export * from './viewport/index';
 export * from './option/index';
 export * from './indicator/index';
 export * from './tree/index';
+export * from './animations/index';

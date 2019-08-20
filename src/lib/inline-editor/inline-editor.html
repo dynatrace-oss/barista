@@ -13,39 +13,48 @@
 
 <dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
-<dt-form-field *ngIf="editing || saving">
-  <input
-    dtInput
-    #input
-    [required]="required"
-    [disabled]="saving"
-    [(ngModel)]="value"
-    [errorStateMatcher]="errorStateMatcher"
-    (keydown)="onKeyDown($event)"
-    class="dt-form-field-input"
-  />
-
-  <dt-error *ngFor="let error of _errorChildrenSource | async" [id]="error.id">
-    {{error.message}}
-  </dt-error>
-
-  <button
-    dt-icon-button
-    dtSuffix
-    variant="nested"
-    [attr.aria-label]="ariaLabelSave"
-    (click)="saveAndQuitEditing()"
-  >
-    <dt-icon name="checkmark"></dt-icon>
-  </button>
-
-  <button
-    dt-icon-button
-    dtSuffix
-    variant="nested"
-    [attr.aria-label]="ariaLabelCancel"
-    (click)="cancelAndQuitEditing()"
-  >
-    <dt-icon name="abort"></dt-icon>
-  </button>
-</dt-form-field>
+<div *ngIf="editing || saving">
+  <div class="dt-inline-editor-edit-body">
+    <div class="dt-inline-editor-infix">
+      <input
+        dtInput
+        [errorStateMatcher]="errorStateMatcher"
+        [required]="required"
+        [disabled]="saving"
+        [value]="value"
+        (keydown)="onKeyDown($event)"
+        (input)="_onInput($event)"
+      />
+    </div>
+    <div class="dt-inline-editor-suffix">
+      <button
+        dt-icon-button
+        class="dt-inline-editor-edit"
+        variant="nested"
+        [attr.aria-label]="ariaLabelSave"
+        (click)="saveAndQuitEditing()"
+        [disabled]="errorState"
+      >
+        <dt-icon name="checkmark"></dt-icon>
+      </button>
+      <button
+        dt-icon-button
+        class="dt-inline-editor-cancel"
+        variant="nested"
+        [attr.aria-label]="ariaLabelCancel"
+        (click)="cancelAndQuitEditing()"
+      >
+        <dt-icon name="abort"></dt-icon>
+      </button>
+    </div>
+  </div>
+  <div class="dt-inline-editor-errors-subscript">
+    <div
+      class="dt-inline-editor-errors"
+      *ngIf="_getDisplayedError()"
+      [@transitionErrors]="_errorAnimationState"
+    >
+      <ng-content select="dt-error"></ng-content>
+    </div>
+  </div>
+</div>
