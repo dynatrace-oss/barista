@@ -6,8 +6,20 @@ import { PlatformModule } from '@angular/cdk/platform';
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ViewChild } from '@angular/core';
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  TestBed,
+  tick,
+  fakeAsync,
+  ComponentFixture,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  ValidatorFn,
+  AbstractControl,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
@@ -42,6 +54,7 @@ describe('DtInlineEditor', () => {
         TestAppWithFailureSave,
         TestComponentWithRequiredValidation,
         TestComponentWithWithCustomErrorStateMatcher,
+        TestComponentWithWithValidator,
       ],
       providers: [
         {
@@ -278,7 +291,44 @@ describe('DtInlineEditor', () => {
     expect(saveButtonReference).not.toBeFalsy();
     expect(cancelButtonReference).not.toBeFalsy();
   });
+
+  it('should display the error correctly with validator attached', fakeAsync(() => {
+    const fixture = createComponent(TestComponentWithWithValidator);
+
+    const instance = fixture.componentInstance.inlineEditor;
+
+    instance.enterEditing();
+    fixture.detectChanges();
+
+    const inputElement = fixture.debugElement.query(By.css('input'))
+      .nativeElement;
+
+    // Expected zero error messages to have been rendered.
+    expect(getErrorHtmlElement(fixture)).toBe(null);
+
+    inputElement.value = 'bar';
+    dispatchFakeEvent(inputElement, 'input');
+    fixture.detectChanges();
+
+    // Expected one error messages to have been rendered.
+    expect(getErrorHtmlElement(fixture)!.textContent!.trim()).toBe(
+      "Value must include the string 'barista'",
+    );
+
+    inputElement.value = 'barista';
+    dispatchFakeEvent(inputElement, 'input');
+    fixture.detectChanges();
+
+    // Expected one error messages to have been rendered.
+    expect(getErrorHtmlElement(fixture)).toBe(null);
+  }));
 });
+
+function getErrorHtmlElement<T>(
+  fixture: ComponentFixture<T>,
+): HTMLElement | null {
+  return fixture.debugElement.nativeElement.querySelector('dt-error');
+}
 
 @Component({
   template: `
@@ -360,4 +410,37 @@ class TestComponentWithWithCustomErrorStateMatcher {
   customErrorStateMatcher = {
     isErrorState: () => this.errorState,
   };
+}
+
+function baristaValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const required = !control.value.includes('barista');
+    return required ? { barista: { value: control.value } } : null;
+  };
+}
+
+@Component({
+  template: `
+    <form [formGroup]="queryTitleForm">
+      <em dt-inline-editor formControlName="queryTitleControl">
+        <dt-error *ngIf="hasCustomError">
+          Value must include the string 'barista'
+        </dt-error>
+      </em>
+    </form>
+  `,
+})
+class TestComponentWithWithValidator {
+  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
+  queryTitleControl = new FormControl('123', [
+    // tslint:disable-next-line: no-unbound-method
+    baristaValidator(),
+  ]);
+  queryTitleForm = new FormGroup({
+    queryTitleControl: this.queryTitleControl,
+  });
+
+  get hasCustomError(): boolean {
+    return this.queryTitleControl.hasError('barista');
+  }
 }
