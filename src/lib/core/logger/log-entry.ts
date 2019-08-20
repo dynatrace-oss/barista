@@ -8,4 +8,5 @@ export interface DtLogEntry {
   message: string;
   level: DtLogLevel;
   param?: DtLogEntryParam;
+  stack?: string;
 }
