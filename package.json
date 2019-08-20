@@ -22,9 +22,10 @@
     "prettier:fix": "yarn prettier --write",
     "import-sort": "import-sort \"src/!(schematics)/**/*.{ts,js}\" \"tools/tslint-rules/**/*.{ts,js}\" \"ui-tests/**/*.{ts,js}\"",
     "import-sort:fix": "yarn import-sort --write",
+    "import-sort-style-dynatrace:build": "tsc -b tools/import-sort-style-dynatrace && copyfiles -u 2 \"tools/import-sort-style-dynatrace/*.json\" node_modules/import-sort-style-dynatrace",
     "universal": "gulp universal",
     "schematics:build": "gulp schematics:build",
-    "postinstall": "gulp schematics:build && gulp barista-example:generate"
+    "postinstall": "gulp schematics:build && gulp barista-example:generate && yarn import-sort-style-dynatrace:build"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
@@ -47,11 +48,11 @@
   "importSort": {
     ".ts": {
       "parser": "typescript",
-      "style": "eslint"
+      "style": "dynatrace"
     },
     ".js": {
       "parser": "babylon",
-      "style": "eslint"
+      "style": "dynatrace"
     }
   },
   "lint-staged": {

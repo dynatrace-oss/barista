@@ -1,0 +1,18 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "../../node_modules/import-sort-style-dynatrace/lib",
+    "rootDir": "src",
+    "target": "es6",
+    "declaration": true,
+    "declarationMap": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strictNullChecks": true,
+    "baseUrl": "./packages",
+    "composite": true,
+    "types": ["node"],
+    "lib": ["es2017"]
+  },
+  "include": ["src"]
+}
