@@ -20,12 +20,51 @@
     "stylelint-check": "stylelint-config-prettier-check",
     "prettier": "prettier \"./**/*.{ts,js,css,scss,json,html,md}\"",
     "prettier:fix": "yarn prettier --write",
+    "import-sort": "import-sort \"src/!(schematics)/**/*.{ts,js}\" \"tools/tslint-rules/**/*.{ts,js}\" \"ui-tests/**/*.{ts,js}\"",
+    "import-sort:fix": "yarn import-sort --write",
     "universal": "gulp universal",
     "schematics:build": "gulp schematics:build",
     "postinstall": "gulp schematics:build && gulp barista-example:generate"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
+  "browserslist": [
+    "last 1 year",
+    "Firefox ESR",
+    "safari >= 10",
+    "ie 11"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-commit": "git update-index --again"
+    }
+  },
+  "jestSonar": {
+    "reportPath": "dist/sonar-test-results/",
+    "reportFile": "unit-tests.xml"
+  },
+  "importSort": {
+    ".ts": {
+      "parser": "typescript",
+      "style": "eslint"
+    },
+    ".js": {
+      "parser": "babylon",
+      "style": "eslint"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "import-sort --write",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{scss,css,html,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@angular/animations": "~8.0.0",
     "@angular/cdk": "^8.0.0",
@@ -73,6 +112,7 @@
     "compare-func": "^1.3.2",
     "conventional-changelog": "^3.0.5",
     "conventional-recommended-bump": "^4.0.4",
+    "copyfiles": "^2.1.1",
     "cross-spawn": "^6.0.5",
     "fs-extra": "^8.0.1",
     "gulp": "^4.0.2",
@@ -80,17 +120,20 @@
     "gulp-util": "^3.0.8",
     "highcharts": "^6.0.7",
     "husky": "^3.0.0",
+    "import-sort": "^6.0.0",
+    "import-sort-cli": "^6.0.0",
+    "import-sort-parser-typescript": "^6.0.0",
     "inquirer": "^6.2.1",
     "jasmine-reporters": "^2.3.2",
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
     "jest-preset-angular": "^7.1.1",
     "jest-sonar-reporter": "^2.0.0",
+    "lint-staged": "^9.2.1",
     "merge2": "^1.2.3",
     "minimatch": "^3.0.4",
     "ng-packagr": "^5.3.0",
     "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1",
     "protractor": "^5.4.1",
     "puppeteer": "^1.17.0",
     "q": "^1.5.1",
@@ -112,20 +155,5 @@
     "typescript-tslint-plugin": "^0.5.0",
     "undertaker-forward-reference": "^1.0.2",
     "web-animations-js": "^2.3.1"
-  },
-  "browserslist": [
-    "last 1 year",
-    "Firefox ESR",
-    "safari >= 10",
-    "ie 11"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
-  "jestSonar": {
-    "reportPath": "dist/sonar-test-results/",
-    "reportFile": "unit-tests.xml"
   }
 }
