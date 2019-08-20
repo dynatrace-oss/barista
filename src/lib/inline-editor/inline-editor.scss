@@ -1,10 +1,65 @@
+@import '../style/font-mixins';
+@import '../core/style/variables';
+@import '../core/style/form-control';
+@import '../core/style/interactive-common';
+
 :host {
   display: flex;
   align-items: center;
 }
 
-.dt-form-field-input::-ms-clear {
-  display: none;
-  width: 0;
-  height: 0;
+:host.dt-focused .dt-inline-editor-edit-body {
+  @include dt-focus-style();
+}
+
+.dt-inline-editor-edit-body {
+  @include dt-form-control-body();
+}
+
+.dt-inline-editor-infix {
+  display: block;
+  position: relative;
+  flex: auto;
+  min-width: 0;
+}
+
+// Hack to make sure the child element of the infix, prefix or suffix container is display block.
+// This is needed to prevent a 1px spacing issue if the child has display inline-block or inline.
+.dt-inline-editor-infix,
+.dt-inline-editor-suffix {
+  > * {
+    display: block;
+  }
+}
+
+.dt-inline-editor-infix .dt-input {
+  border: none;
+  border-radius: none;
+  min-height: 30px;
+}
+
+.dt-inline-editor-suffix {
+  white-space: nowrap;
+  flex: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dt-inline-editor-errors-subscript {
+  position: relative;
+}
+
+.dt-inline-editor-errors {
+  @include dt-form-control-errors();
+}
+
+.dt-inline-editor-invalid .dt-input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.dt-inline-editor-errors ::ng-deep .dt-error {
+  @include dt-form-control-hint();
+  color: $error-color;
 }

@@ -33,7 +33,10 @@
     min-height: 30px;
   }
 
-  :not(.dt-form-field-infix) > &:focus:not([disabled]) {
+  :not(.dt-form-field-infix)
+    > &:focus:not([disabled])
+    :not(.dt-inline-editor-infix)
+    > &:focus:not([disabled]) {
     @include dt-focus-style();
   }
 

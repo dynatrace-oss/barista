@@ -48,19 +48,24 @@ component.
 
 <docs-source-example example="FormFieldHintExample"></docs-source-example>
 
-## Error messages
+## Error messages & Validation
 
 Error messages can be shown under the form field by adding `<dt-error>` elements
-inside the form field. Errors are hidden initially and will be displayed on
-invalid form fields, after the user has interacted with the element or the
-parent form has been submitted. The errors will appear on top of the hint labels
-and will overlap them.
+inside the form field. By default errors are hidden initially and will be
+displayed on invalid form fields, after the user has interacted with the element
+or the parent form has been submitted. The errors will appear on top of the hint
+labels and will overlap them. If you want to show the errors at a different time
+you can customize this behaviour by passing an ErrorStateMatcher to the input
+used in the form field.
 
-If a form field can have more than one error state, it is up to the consumer to
-toggle which messages should be displayed. This can be done with `ngIf` or
-`ngSwitch`.
+A form field can have more than one error, it is up to the consumer to toggle
+which messages should be displayed. This can be done with `ngIf` or `ngSwitch`.
 
 <docs-source-example example="FormFieldErrorExample"></docs-source-example>
+
+See the following example for custom validators working with the form field.
+
+<docs-source-example example="FormFieldErrorCustomValidatorExample"></docs-source-example>
 
 ## Prefix & suffix
 
