@@ -1,0 +1,100 @@
+@import '../core/style/variables';
+@import './event-chart-constants';
+
+:host {
+  display: block;
+}
+
+.dt-event-chart-container {
+  display: flex;
+  width: 100%;
+}
+
+.dt-event-chart-lane-labels {
+  flex-grow: 0;
+  flex-shrink: 1;
+  padding-right: $dt-event-chart-event-height;
+}
+
+.dt-event-chart-lane-label {
+  display: flex;
+  height: $dt-event-chart-lane-height + 1;
+  align-items: center;
+  overflow: hidden;
+}
+
+.dt-event-chart-canvas {
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  // Do not remove
+  width: 100%;
+  overflow: hidden;
+}
+
+.dt-event-chart-grid-line {
+  stroke: $gray-300;
+  stroke-width: 1;
+}
+
+.dt-event-chart-tick-label {
+  fill: $textcolor;
+}
+
+.dt-event-chart-path {
+  fill: none;
+  stroke: $purple-200;
+  stroke-width: 2;
+}
+
+.dt-event-chart-event {
+  stroke-width: 16;
+  stroke: $purple-300;
+  stroke-linecap: round;
+}
+
+.dt-event-chart-event-sausage-default {
+  stroke: url('#dt-event-chart-sausage-pattern-default');
+}
+
+.dt-event-chart-event-sausage-error {
+  stroke: url('#dt-event-chart-sausage-pattern-error');
+}
+
+.dt-event-chart-event-sausage-conversion {
+  stroke: url('#dt-event-chart-sausage-pattern-conversion');
+}
+
+.dt-event-chart-event-conversion {
+  stroke: $blue-400;
+}
+
+::ng-deep .dt-event-chart-sausage-pattern-default {
+  .dt-event-chart-sausage-pattern-bg {
+    fill: $purple-100;
+  }
+
+  .dt-event-chart-sausage-pattern-strokes {
+    stroke: $purple-300;
+  }
+}
+
+::ng-deep .dt-event-chart-sausage-pattern-error {
+  .dt-event-chart-sausage-pattern-bg {
+    fill: $red-100;
+  }
+
+  .dt-event-chart-sausage-pattern-strokes {
+    stroke: $red-500;
+  }
+}
+
+::ng-deep .dt-event-chart-sausage-pattern-conversion {
+  .dt-event-chart-sausage-pattern-bg {
+    fill: $blue-100;
+  }
+
+  .dt-event-chart-sausage-pattern-strokes {
+    stroke: $blue-400;
+  }
+}

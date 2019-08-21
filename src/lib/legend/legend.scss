@@ -3,6 +3,6 @@
   flex-wrap: wrap;
 }
 
-:host ::ng-deep .dt-legend-item {
+:host ::ng-deep .dt-legend-item + .dt-legend-item {
   margin-left: 16px;
 }

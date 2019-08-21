@@ -1,0 +1,136 @@
+<ng-content></ng-content>
+
+<div class="dt-event-chart-container">
+  <div class="dt-event-chart-lane-labels" #laneLabels>
+    <div *ngFor="let lane of _lanes" class="dt-event-chart-lane-label">
+      {{ lane.label }}
+    </div>
+  </div>
+
+  <div class="dt-event-chart-canvas" #canvas>
+    <svg [attr.viewBox]="_svgViewBox" [attr.width]="_svgWidth">
+      <!-- Left border -->
+      <line
+        x1="1"
+        y1="0"
+        x2="1"
+        [attr.y2]="_svgPlotHeight"
+        class="dt-event-chart-grid-line"
+      />
+
+      <!-- Right border -->
+      <line
+        [attr.x1]="_svgWidth - 1"
+        y1="0"
+        [attr.x2]="_svgWidth - 1"
+        [attr.y2]="_svgPlotHeight"
+        class="dt-event-chart-grid-line"
+      />
+
+      <!-- Bottom border -->
+      <line
+        x1="1"
+        [attr.y1]="_svgPlotHeight - 1"
+        [attr.x2]="_svgWidth"
+        [attr.y2]="_svgPlotHeight - 1"
+        class="dt-event-chart-grid-line"
+      />
+
+      <line
+        *ngFor="let tick of _renderTicks"
+        [attr.x1]="tick.x"
+        [attr.y1]="_svgPlotHeight"
+        [attr.x2]="tick.x"
+        [attr.y2]="_svgPlotHeight + 8"
+        class="dt-event-chart-grid-line"
+      />
+
+      <text
+        *ngFor="let tick of _renderTicks; let last = last"
+        [attr.x]="tick.x"
+        [attr.y]="_svgPlotHeight + 12"
+        [attr.text-anchor]="last ? 'end' : 'middle'"
+        [attr.dx]="last ? 10 : 0"
+        class="dt-event-chart-tick-label"
+        alignment-baseline="hanging"
+      >
+        {{ tick.value }}
+      </text>
+
+      <!-- Lanes -->
+      <line
+        *ngFor="let lane of _renderLanes"
+        x1="1"
+        [attr.y1]="lane.y"
+        [attr.x2]="_svgWidth"
+        [attr.y2]="lane.y"
+        class="dt-event-chart-grid-line"
+      />
+
+      <!-- Path between events -->
+      <path
+        *ngIf="_renderPath"
+        [attr.d]="_renderPath"
+        class="dt-event-chart-path"
+      />
+
+      <!--
+        Event bubbles and sausages.
+        Bubbles are just like sausages but their x2 equals x1.
+      -->
+      <line
+        *ngFor="let renderEvent of _renderEvents"
+        [attr.x1]="renderEvent.x1"
+        [attr.x2]="renderEvent.x2"
+        [attr.y1]="renderEvent.y"
+        [attr.y2]="renderEvent.y"
+        class="dt-event-chart-event"
+        [ngClass]="
+          (renderEvent.x1 === renderEvent.x2
+            ? 'dt-event-chart-event-'
+            : 'dt-event-chart-event-sausage-') + renderEvent.color
+        "
+        [dtOverlay]="renderEvent.event._overlay"
+      />
+    </svg>
+  </div>
+</div>
+
+<dt-event-chart-legend
+  [lanes]="_lanes ? _lanes.toArray() : []"
+  [legendItems]="_legendItems ? _legendItems.toArray() : []"
+></dt-event-chart-legend>
+
+<ng-template #patternDefs let-colors>
+  <svg>
+    <defs>
+      <pattern
+        *ngFor="let color of colors"
+        [attr.id]="'dt-event-chart-sausage-pattern-' + color"
+        [attr.class]="'dt-event-chart-sausage-pattern-' + color"
+        x="0"
+        y="0"
+        width="6"
+        height="6"
+        patternUnits="userSpaceOnUse"
+        patternTransform="rotate(45)"
+      >
+        <rect
+          class="dt-event-chart-sausage-pattern-bg"
+          x="0"
+          y="0"
+          width="6"
+          height="6"
+        ></rect>
+        <line
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="6"
+          stroke-width="6"
+          class="dt-event-chart-sausage-pattern-strokes"
+        />
+      </pattern>
+    </defs>
+  </svg>
+</ng-template>

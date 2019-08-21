@@ -17,8 +17,10 @@ import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.
 import { CtaCardDemo } from './cta-card/cta-card-demo.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
 import { EmptyStateDemo } from './empty-state/empty-state-demo';
+import { EventChartDemo } from './event-chart/event-chart-demo.component';
 import { ExpandablePanelDemo } from './expandable-panel/expandable-panel-demo.component';
 import { ExpandableSectionDemo } from './expandable-section/expandable-section-demo.component';
+import { ExpandableTextDemo } from './expandable-text/expandable-text-demo.component';
 import { FilterFieldDemo } from './filter-field/filter-field-demo.component';
 import { FormFieldDemo } from './form-field/form-field-demo.component';
 import { FormattersDemo } from './formatters/formatters-demo.component';
@@ -51,7 +53,6 @@ import { TimelineChartDemo } from './timeline-chart/timeline-chart-demo.componen
 import { ToastDemo } from './toast/toast-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
-import { ExpandableTextDemo } from './expandable-text/expandable-text-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
@@ -104,6 +105,7 @@ const routes: Routes = [
   { path: 'timeline-chart', component: TimelineChartDemo },
   { path: 'legend', component: LegendDemo },
   { path: 'expandable-text', component: ExpandableTextDemo },
+  { path: 'event-chart', component: EventChartDemo },
   { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
 ];
 
