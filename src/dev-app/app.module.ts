@@ -30,8 +30,10 @@ import { DevApp } from './devapp.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
 import { DevAppDynatraceModule } from './dt-components.module';
 import { EmptyStateDemo } from './empty-state/empty-state-demo';
+import { EventChartDemo } from './event-chart/event-chart-demo.component';
 import { ExpandablePanelDemo } from './expandable-panel/expandable-panel-demo.component';
 import { ExpandableSectionDemo } from './expandable-section/expandable-section-demo.component';
+import { ExpandableTextDemo } from './expandable-text/expandable-text-demo.component';
 import { FilterFieldDemo } from './filter-field/filter-field-demo.component';
 import { FormFieldDemo } from './form-field/form-field-demo.component';
 import { FormattersDemo } from './formatters/formatters-demo.component';
@@ -64,7 +66,6 @@ import { TimelineChartDemo } from './timeline-chart/timeline-chart-demo.componen
 import { ToastDemo } from './toast/toast-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
-import { ExpandableTextDemo } from './expandable-text/expandable-text-demo.component';
 
 // tslint:disable-next-line: use-component-selector
 @Component({ template: '' })
@@ -134,6 +135,7 @@ export class NoopRouteComponent {}
     LegendDemo,
     EmptyStateDemo,
     ExpandableTextDemo,
+    EventChartDemo,
   ],
   entryComponents: [DevApp],
   bootstrap: [DevApp],

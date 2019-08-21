@@ -1,0 +1,23 @@
+@import '../core/style/variables';
+@import './event-chart-constants';
+
+:host {
+  display: block;
+  margin-top: 20px;
+}
+
+.dt-event-chart-legend-symbol {
+  display: inline-block;
+  width: $dt-event-chart-event-height;
+  height: $dt-event-chart-event-height;
+  background: $purple-300;
+  border-radius: 50%;
+}
+
+.dt-event-chart-legend-symbol-conversion {
+  background: $blue-400;
+}
+
+.dt-event-chart-legend-symbol-error {
+  background: $red-500;
+}
