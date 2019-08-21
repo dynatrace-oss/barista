@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+
 import { DtInlineEditor } from '@dynatrace/angular-components/inline-editor';
 
 @Component({

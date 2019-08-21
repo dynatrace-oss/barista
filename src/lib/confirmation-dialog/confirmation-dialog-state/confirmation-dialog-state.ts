@@ -1,10 +1,11 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import {
-  Component,
   ChangeDetectionStrategy,
-  Input,
   ChangeDetectorRef,
+  Component,
+  Input,
 } from '@angular/core';
-import { trigger, style, transition, animate } from '@angular/animations';
+
 import { DT_CONFIRMATION_FADE_DURATION } from '../confirmation-dialog-constants';
 
 @Component({

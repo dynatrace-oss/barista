@@ -2,14 +2,16 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, ViewChild } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+
 import {
   DtBreadcrumbsItem,
   DtBreadcrumbsModule,
 } from '@dynatrace/angular-components/breadcrumbs';
+
 import { createComponent } from '../../../testing/create-component';
 import { createMouseEvent } from '../../../testing/event-objects';
 

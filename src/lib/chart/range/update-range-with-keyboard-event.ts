@@ -1,7 +1,9 @@
-import { getKeyboardNavigationOffset } from '../utils';
-import { DtSelectionAreaEventTarget } from '../selection-area/position-utils';
+import { END, HOME } from '@angular/cdk/keycodes';
+
 import { readKeyCode } from '@dynatrace/angular-components/core';
-import { HOME, END } from '@angular/cdk/keycodes';
+
+import { DtSelectionAreaEventTarget } from '../selection-area/position-utils';
+import { getKeyboardNavigationOffset } from '../utils';
 
 /**
  * @internal

@@ -1,7 +1,8 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { FlatTreeControl, TreeControl } from '@angular/cdk/tree';
-import { BehaviorSubject, merge, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, merge } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+
 import { isDefined } from '../util';
 
 /**

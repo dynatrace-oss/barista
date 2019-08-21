@@ -2,25 +2,27 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, Type, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { AxisOptions, DataPoint } from 'highcharts';
+import { merge } from 'lodash';
+import { BehaviorSubject } from 'rxjs';
+
 import {
+  DtChartModule,
   DtChartOptions,
   DtChartSeries,
-  DtChartModule,
 } from '@dynatrace/angular-components/chart';
-import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
-import { DtMicroChart } from './micro-chart';
+import { DtMicroChartModule } from '@dynatrace/angular-components/micro-chart';
 import {
   DtColors,
-  DtThemingModule,
   DtTheme,
+  DtThemingModule,
 } from '@dynatrace/angular-components/theming';
+
+import { DtMicroChart } from './micro-chart';
+import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 import objectContaining = jasmine.objectContaining;
-import { AxisOptions, DataPoint } from 'highcharts';
-import { BehaviorSubject } from 'rxjs';
-import { DtMicroChartModule } from '@dynatrace/angular-components/micro-chart';
-import { merge } from 'lodash';
 
 describe('DtMicroChart', () => {
   beforeEach(async(() => {

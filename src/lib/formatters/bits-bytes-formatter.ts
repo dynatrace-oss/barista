@@ -1,7 +1,8 @@
-import { SourceData, FormattedData, DtFormattedValue } from './formatted-value';
-import { DtUnit } from './unit';
-import { DtNumberFormatOptions, adjustNumber } from './number-formatter';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
+
+import { DtFormattedValue, FormattedData, SourceData } from './formatted-value';
+import { DtNumberFormatOptions, adjustNumber } from './number-formatter';
+import { DtUnit } from './unit';
 
 export interface DtUnitConversion {
   multiplier: number;

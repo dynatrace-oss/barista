@@ -15,16 +15,17 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
-  async,
   ComponentFixture,
+  TestBed,
+  async,
   fakeAsync,
   flush,
   inject,
-  TestBed,
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import {
   DT_DRAWER_OPEN_CLASS,
   DtDrawer,
@@ -32,6 +33,7 @@ import {
   DtDrawerModule,
   getDtDuplicateDrawerError,
 } from '@dynatrace/angular-components/drawer';
+
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 
 // TODO: [e2e] move to e2e test in case getBoundingClientRect is not available in jsdom

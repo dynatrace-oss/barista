@@ -2,8 +2,8 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import {
-  calculatePosition,
   DtSelectionAreaEventTarget,
+  calculatePosition,
 } from './positioning-utils';
 
 // tslint:disable-next-line: dt-no-focused-tests

@@ -1,4 +1,4 @@
-import { browser, by, element, Key } from 'protractor';
+import { Key, browser, by, element } from 'protractor';
 
 describe('Overlay', () => {
   beforeEach(async () => browser.get('/overlay'));

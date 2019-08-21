@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { DtCheckboxChange } from '@dynatrace/angular-components/checkbox';
 
 @Component({

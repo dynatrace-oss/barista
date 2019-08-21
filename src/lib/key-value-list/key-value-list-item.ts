@@ -1,8 +1,8 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
+  Component,
   Directive,
+  ViewEncapsulation,
 } from '@angular/core';
 
 /** Key of a keyValueList, needed as it's used as a selector in the API. */

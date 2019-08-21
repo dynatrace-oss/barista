@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { DtInfoGroup, DtInfoGroupTitle, DtInfoGroupIcon } from './info-group';
+
+import { DtInfoGroup, DtInfoGroupIcon, DtInfoGroupTitle } from './info-group';
 
 @NgModule({
   exports: [DtInfoGroup, DtInfoGroupTitle, DtInfoGroupIcon],

@@ -22,17 +22,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  addCssClass,
-  readKeyCode,
-  removeCssClass,
-} from '@dynatrace/angular-components/core';
-import {
-  animationFrameScheduler,
   EMPTY,
-  merge,
   Observable,
-  of,
   Subject,
+  animationFrameScheduler,
+  merge,
+  of,
 } from 'rxjs';
 import {
   concatMapTo,
@@ -47,6 +42,13 @@ import {
   tap,
   throttleTime,
 } from 'rxjs/operators';
+
+import {
+  addCssClass,
+  readKeyCode,
+  removeCssClass,
+} from '@dynatrace/angular-components/core';
+
 import { DtChart } from '../chart';
 import { clampRange } from '../range/clamp-range';
 import { DtChartRange } from '../range/range';
@@ -59,12 +61,12 @@ import {
 } from '../utils';
 import {
   DT_SELECTION_AREA_OVERLAY_POSITIONS,
-  getDtNoPlotBackgroundError,
   GRAB_CURSOR_CLASS,
   HIGHCHARTS_SERIES_GROUP,
   HIGHCHARTS_X_AXIS_GRID,
   HIGHCHARTS_Y_AXIS_GRID,
   NO_POINTER_EVENTS_CLASS,
+  getDtNoPlotBackgroundError,
 } from './constants';
 import {
   getClickStream,

@@ -6,6 +6,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -13,21 +15,21 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
   Renderer2,
   ViewChild,
   ViewEncapsulation,
-  OnDestroy,
 } from '@angular/core';
-import { DtTable } from '../table';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { filter } from 'rxjs/operators';
+
 import {
   addCssClass,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
+
 import { DtRow } from '../row';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { filter } from 'rxjs/operators';
+import { DtTable } from '../table';
 
 let nextUniqueId = 0;
 export class DtExpandableRowChangeEvent {

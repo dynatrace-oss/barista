@@ -1,8 +1,9 @@
-import { adjustNumber } from '../number-formatter';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
+
 import { DtFormattedValue } from './../formatted-value';
 import { DtUnit } from './../unit';
 import { SourceData } from '../formatted-value';
+import { adjustNumber } from '../number-formatter';
 
 /**
  * Util function that adds percent formatting to any number

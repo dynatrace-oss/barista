@@ -1,19 +1,21 @@
+import { CDK_ROW_TEMPLATE, CdkRow, CdkRowDef } from '@angular/cdk/table';
 import {
   ChangeDetectionStrategy,
   Component,
   Directive,
-  ViewEncapsulation,
-  OnDestroy,
   ElementRef,
+  OnDestroy,
+  ViewEncapsulation,
 } from '@angular/core';
-import { CDK_ROW_TEMPLATE, CdkRow, CdkRowDef } from '@angular/cdk/table';
-import { DtCell } from './cell';
-import { merge, Subscription } from 'rxjs';
+import { Subscription, merge } from 'rxjs';
+
 import {
-  replaceCssClass,
   addCssClass,
   removeCssClass,
+  replaceCssClass,
 } from '@dynatrace/angular-components/core';
+
+import { DtCell } from './cell';
 
 /**
  * Data row definition for the dt-table.

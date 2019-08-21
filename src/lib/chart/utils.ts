@@ -8,9 +8,10 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 import { ElementRef, QueryList } from '@angular/core';
-import { readKeyCode } from '@dynatrace/angular-components/core';
-import { fromEvent, merge, Observable, OperatorFunction } from 'rxjs';
+import { Observable, OperatorFunction, fromEvent, merge } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+
+import { readKeyCode } from '@dynatrace/angular-components/core';
 
 /** @internal the large offset for keyboard navigation */
 const KEYBOARD_NAVIGATION_LARGE_OFFSET = 10;

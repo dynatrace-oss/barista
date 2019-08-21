@@ -1,31 +1,32 @@
 import {
-  Injectable,
-  TemplateRef,
-  ElementRef,
-  Inject,
-  Injector,
-  OnDestroy,
-} from '@angular/core';
-import { DtOverlayConfig } from './overlay-config';
-import {
-  Overlay,
-  OverlayRef,
-  OverlayConfig,
-  ViewportRuler,
   ConnectedPosition,
+  Overlay,
+  OverlayConfig,
   OverlayContainer,
+  OverlayRef,
+  ViewportRuler,
 } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import {
   ComponentPortal,
-  TemplatePortal,
   ComponentType,
   PortalInjector,
+  TemplatePortal,
 } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
+import {
+  ElementRef,
+  Inject,
+  Injectable,
+  Injector,
+  OnDestroy,
+  TemplateRef,
+} from '@angular/core';
+
+import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
+import { DtOverlayConfig } from './overlay-config';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef } from './overlay-ref';
-import { DOCUMENT } from '@angular/common';
-import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
-import { Platform } from '@angular/cdk/platform';
 
 // TODO: FlexibleConnectedPositionStrategyOrigin is not exported by cdk/overlay
 // https://github.com/angular/material2/blob/master/src/cdk/overlay/position/flexible-connected-position-strategy.ts#L33

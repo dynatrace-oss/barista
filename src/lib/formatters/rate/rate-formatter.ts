@@ -1,5 +1,5 @@
-import { DtUnit, DtRateUnit } from '../unit';
 import { DtFormattedValue, FormattedData } from '../formatted-value';
+import { DtRateUnit, DtUnit } from '../unit';
 
 /**
  * Util function that adds rate formatting

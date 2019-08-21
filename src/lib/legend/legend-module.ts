@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
+
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
+
 import { DtLegend } from './legend';
-import { DtLegendItem, DtLegendSymbol, DtLegendOverlay } from './legend-item';
+import { DtLegendItem, DtLegendOverlay, DtLegendSymbol } from './legend-item';
 
 const DT_LEGEND_DIRECTIVES = [
   DtLegend,

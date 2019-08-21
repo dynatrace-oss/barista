@@ -1,25 +1,27 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { TestBed, async } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-import {
-  DtPaginationModule,
-  DtPagination,
-} from '@dynatrace/angular-components/pagination';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { Component, ViewChild } from '@angular/core';
+import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import {
+  DtPagination,
+  DtPaginationModule,
+} from '@dynatrace/angular-components/pagination';
+
+import { createComponent } from '../../testing/create-component';
+import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import {
+  ARIA_DEFAULT_CURRENT_LABEL,
+  ARIA_DEFAULT_ELLIPSES,
   ARIA_DEFAULT_LABEL,
   ARIA_DEFAULT_NEXT_LABEL,
   ARIA_DEFAULT_PAGE_LABEL,
   ARIA_DEFAULT_PREVIOUS_LABEL,
-  ARIA_DEFAULT_CURRENT_LABEL,
-  ARIA_DEFAULT_ELLIPSES,
 } from './pagination-defaults';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
-import { createComponent } from '../../testing/create-component';
 
 describe('DtPagination', () => {
   beforeEach(async(() => {

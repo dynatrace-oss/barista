@@ -1,82 +1,84 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BACKSPACE, ENTER, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
+import { DOCUMENT } from '@angular/common';
 import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
-  OnDestroy,
-  EventEmitter,
-  Output,
-  NgZone,
-  Input,
   AfterViewInit,
-  SimpleChanges,
-  ViewChildren,
-  QueryList,
-  OnChanges,
-  Optional,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
   Inject,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  Optional,
+  Output,
+  QueryList,
+  SimpleChanges,
+  ViewChild,
+  ViewChildren,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  takeUntil,
-  switchMap,
-  take,
-  debounceTime,
-  filter,
-} from 'rxjs/operators';
-import { ENTER, BACKSPACE, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
-import {
+  Observable,
   Subject,
   Subscription,
   fromEvent,
   merge,
-  Observable,
   of as observableOf,
 } from 'rxjs';
+import {
+  debounceTime,
+  filter,
+  switchMap,
+  take,
+  takeUntil,
+} from 'rxjs/operators';
+
 import {
   DtAutocomplete,
   DtAutocompleteSelectedEvent,
   DtAutocompleteTrigger,
 } from '@dynatrace/angular-components/autocomplete';
-import { readKeyCode, isDefined } from '@dynatrace/angular-components/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
+import { isDefined, readKeyCode } from '@dynatrace/angular-components/core';
+
 import { DtFilterFieldDataSource } from './filter-field-data-source';
-import {
-  DtNodeDef,
-  isDtAutocompleteDef,
-  isDtFreeTextDef,
-  isDtRangeDef,
-  DtFilterFieldTagData,
-  isDtOptionDef,
-  isAsyncDtAutocompleteDef,
-  DtFilterValue,
-  getSourcesOfDtFilterValues,
-  DtAutocompletValue,
-  isDtAutocompletValue,
-  isDtRangeValue,
-} from './types';
-import {
-  filterAutocompleteDef,
-  filterFreeTextDef,
-  peekOptionId,
-  createTagDataForFilterValues,
-  findFilterValuesForSources,
-  applyDtOptionIds,
-} from './filter-field-util';
-import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-range-trigger';
-import {
-  DtFilterFieldRangeSubmittedEvent,
-  DtFilterFieldRange,
-  DtFilterFieldRangeOperator,
-} from './filter-field-range/filter-field-range';
 import {
   getDtFilterFieldApplyFilterNoRootDataProvidedError,
   getDtFilterFieldApplyFilterParseError,
 } from './filter-field-errors';
-import { DOCUMENT } from '@angular/common';
+import {
+  DtFilterFieldRange,
+  DtFilterFieldRangeOperator,
+  DtFilterFieldRangeSubmittedEvent,
+} from './filter-field-range/filter-field-range';
+import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-range-trigger';
+import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
+import {
+  applyDtOptionIds,
+  createTagDataForFilterValues,
+  filterAutocompleteDef,
+  filterFreeTextDef,
+  findFilterValuesForSources,
+  peekOptionId,
+} from './filter-field-util';
+import {
+  DtAutocompletValue,
+  DtFilterFieldTagData,
+  DtFilterValue,
+  DtNodeDef,
+  getSourcesOfDtFilterValues,
+  isAsyncDtAutocompleteDef,
+  isDtAutocompletValue,
+  isDtAutocompleteDef,
+  isDtFreeTextDef,
+  isDtOptionDef,
+  isDtRangeDef,
+  isDtRangeValue,
+} from './types';
 
 // tslint:disable:no-any
 

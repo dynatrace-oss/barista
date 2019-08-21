@@ -2,8 +2,10 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+
 import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtKeyValueList', () => {

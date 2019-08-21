@@ -2,11 +2,12 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, ViewChild } from '@angular/core';
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import {
-  DtIndicatorModule,
   DtIndicator,
+  DtIndicatorModule,
 } from '@dynatrace/angular-components/core';
 
 describe('DtIndicator without table', () => {

@@ -1,4 +1,5 @@
 import { DataPoint } from 'highcharts';
+
 import { isDefined } from '@dynatrace/angular-components/core';
 
 /**

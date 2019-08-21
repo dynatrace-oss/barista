@@ -1,32 +1,34 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import {
+  Component,
+  ElementRef,
+  NgModule,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   fakeAsync,
-  inject,
   flush,
+  inject,
 } from '@angular/core/testing';
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  TemplateRef,
-  NgModule,
-} from '@angular/core';
-import {
-  DtOverlayModule,
-  DtOverlay,
-} from '@dynatrace/angular-components/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { OverlayContainer } from '@angular/cdk/overlay';
+
 import {
-  dispatchMouseEvent,
-  dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
-import { ESCAPE } from '@angular/cdk/keycodes';
+  DtOverlay,
+  DtOverlayModule,
+} from '@dynatrace/angular-components/overlay';
+
 import { createComponent } from '../../testing/create-component';
+import {
+  dispatchKeyboardEvent,
+  dispatchMouseEvent,
+} from '../../testing/dispatch-events';
 
 describe('DtOverlay', () => {
   let dtOverlay: DtOverlay;

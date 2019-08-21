@@ -3,9 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  forwardRef,
   Input,
-  isDevMode,
   OnDestroy,
   Optional,
   Output,
@@ -13,16 +11,9 @@ import {
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
+  forwardRef,
+  isDevMode,
 } from '@angular/core';
-import {
-  DT_CHART_CONFIG,
-  DT_CHART_RESOLVER,
-  DtChart,
-  DtChartOptions,
-  DtChartResolver,
-  DtChartSeries,
-} from '@dynatrace/angular-components/chart';
-import { DtTheme } from '@dynatrace/angular-components/theming';
 import {
   ColumnChartSeriesOptions,
   DataPoint,
@@ -32,6 +23,17 @@ import {
 import { merge as lodashMerge } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import {
+  DT_CHART_CONFIG,
+  DT_CHART_RESOLVER,
+  DtChart,
+  DtChartOptions,
+  DtChartResolver,
+  DtChartSeries,
+} from '@dynatrace/angular-components/chart';
+import { DtTheme } from '@dynatrace/angular-components/theming';
+
 import { getDtMicrochartColorPalette } from './micro-chart-colors';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 import {

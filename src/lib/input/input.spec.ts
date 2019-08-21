@@ -3,11 +3,13 @@
 
 import { PlatformModule } from '@angular/cdk/platform';
 import { Component } from '@angular/core';
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { DtInputModule } from '@dynatrace/angular-components/input';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtInput without forms', () => {

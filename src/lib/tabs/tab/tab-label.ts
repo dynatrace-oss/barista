@@ -1,5 +1,5 @@
-import { TemplateRef, ViewContainerRef, Directive } from '@angular/core';
 import { CdkPortal } from '@angular/cdk/portal';
+import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 
 /**
  * Directive to be able to render the given label inside the portaloutlet

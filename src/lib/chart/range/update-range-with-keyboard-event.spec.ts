@@ -1,9 +1,10 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { updateRangeWithKeyboardEvent } from './update-range-with-keyboard-event';
+import { END, HOME } from '@angular/cdk/keycodes';
+
 import { createKeyboardEvent } from '../../../testing/event-objects';
-import { HOME, END } from '@angular/cdk/keycodes';
+import { updateRangeWithKeyboardEvent } from './update-range-with-keyboard-event';
 
 describe('DtChartRange update range with keyboard', () => {
   const maxWidth = 500;

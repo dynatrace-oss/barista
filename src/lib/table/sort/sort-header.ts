@@ -1,3 +1,4 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -8,16 +9,17 @@ import {
   Optional,
   ViewEncapsulation,
 } from '@angular/core';
+import { Subscription, merge } from 'rxjs';
+
 import {
   CanDisable,
-  mixinDisabled,
   DtSortDirection,
+  mixinDisabled,
 } from '@dynatrace/angular-components/core';
-import { merge, Subscription } from 'rxjs';
+
 import { DtColumnDef } from '../cell';
 import { DtSort } from './sort';
 import { getDtSortHeaderNotContainedWithinSortError } from './sort-errors';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * Boilerplate for applying mixins to the sort header.

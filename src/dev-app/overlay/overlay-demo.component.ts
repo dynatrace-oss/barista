@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
 
 @Component({

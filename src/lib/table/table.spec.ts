@@ -13,9 +13,20 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { DtIndicatorModule } from '@dynatrace/angular-components/core';
+import {
+  DtEmptyState,
+  DtEmptyStateModule,
+} from '@dynatrace/angular-components/empty-state';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import {
+  DtLoadingDistractor,
+  DtLoadingDistractorModule,
+} from '@dynatrace/angular-components/loading-distractor';
 import {
   DtCell,
   DtExpandableCell,
@@ -26,17 +37,8 @@ import {
   DtTableLoadingState,
   DtTableModule,
 } from '@dynatrace/angular-components/table';
-import {
-  DtLoadingDistractor,
-  DtLoadingDistractorModule,
-} from '@dynatrace/angular-components/loading-distractor';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import {
-  DtEmptyState,
-  DtEmptyStateModule,
-} from '@dynatrace/angular-components/empty-state';
+
 import { createComponent } from '../../testing/create-component';
-import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 
 describe('DtTable', () => {
   beforeEach(async(() => {

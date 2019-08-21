@@ -1,6 +1,6 @@
 import {
-  Component,
   ChangeDetectionStrategy,
+  Component,
   ViewEncapsulation,
 } from '@angular/core';
 

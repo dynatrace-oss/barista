@@ -1,4 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import {
   formatBytes,
   formatPercent,
@@ -6,8 +9,6 @@ import {
 } from '@dynatrace/angular-components/formatters';
 import { DtShowMore } from '@dynatrace/angular-components/show-more';
 import { DtTableDataSource } from '@dynatrace/angular-components/table';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,

@@ -1,4 +1,4 @@
-import { MAX_PAGINATION_ITEMS, BOUND } from './pagination-defaults';
+import { BOUND, MAX_PAGINATION_ITEMS } from './pagination-defaults';
 
 /**
  * @internal

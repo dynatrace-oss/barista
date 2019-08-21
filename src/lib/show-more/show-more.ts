@@ -1,15 +1,15 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
+  ChangeDetectorRef,
+  Component,
+  ContentChild,
+  Directive,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
-  Directive,
-  ContentChild,
-  ChangeDetectorRef,
+  ViewEncapsulation,
 } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * @deprecated There is no show less label needed according to UX guidelines.

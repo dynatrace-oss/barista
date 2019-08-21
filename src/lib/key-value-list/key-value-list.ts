@@ -1,19 +1,21 @@
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
-  QueryList,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
   Input,
-  ChangeDetectorRef,
-  AfterContentInit,
   OnDestroy,
+  QueryList,
+  ViewEncapsulation,
 } from '@angular/core';
-import { DtKeyValueListItem } from './key-value-list-item';
-import { startWith } from 'rxjs/operators';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
+
 import { isDefined } from '@dynatrace/angular-components/core';
+
+import { DtKeyValueListItem } from './key-value-list-item';
 
 const DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS = 12;
 const DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS = 18;

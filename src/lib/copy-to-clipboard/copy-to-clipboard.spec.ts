@@ -1,14 +1,16 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtInputModule } from '@dynatrace/angular-components/input';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtCopyToClipboard', () => {

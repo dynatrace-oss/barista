@@ -6,12 +6,14 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { async, inject, TestBed } from '@angular/core/testing';
+import { TestBed, async, inject } from '@angular/core/testing';
+
 import {
   DtIconModule,
   getDtIconNoConfigProviderError,
   getDtIconNoHttpProviderError,
 } from '@dynatrace/angular-components/icon';
+
 import { createComponent } from '../../testing/create-component';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
 

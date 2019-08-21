@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtOption } from './option';
+import { NgModule } from '@angular/core';
+
 import { DtOptgroup } from './optgroup';
+import { DtOption } from './option';
 
 @NgModule({
   imports: [CommonModule],

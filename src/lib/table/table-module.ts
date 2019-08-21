@@ -1,11 +1,13 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 import { DtEmptyStateModule } from '@dynatrace/angular-components/empty-state';
 import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+
 import { DtCell, DtCellDef, DtColumnDef } from './cell';
 import { DtExpandableCell, DtExpandableRow } from './expandable/index';
 import {

@@ -6,6 +6,7 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
+
 import {
   CanColor,
   Constructor,

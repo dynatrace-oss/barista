@@ -4,28 +4,30 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import {
-  async,
   ComponentFixture,
+  TestBed,
+  async,
   fakeAsync,
   flush,
   inject,
-  TestBed,
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import {
   DtChart,
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
 } from '@dynatrace/angular-components/chart';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
 import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
+import { DtThemingModule } from '@dynatrace/angular-components/theming';
+
 import { createComponent } from '../../../testing/create-component';
-import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 import { MockIntersectionObserver } from '../../../testing/mock-intersection-observer';
+import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 
 describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;

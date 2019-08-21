@@ -1,21 +1,21 @@
-import {
-  IterableDiffers,
-  ChangeDetectorRef,
-  ElementRef,
-  Component,
-  Attribute,
-  Input,
-  NgModule,
-  Inject,
-} from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Platform } from '@angular/cdk/platform';
 import {
-  CdkTable,
   CDK_TABLE_TEMPLATE,
+  CdkTable,
   CdkTableModule,
 } from '@angular/cdk/table';
-import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
+import {
+  Attribute,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  IterableDiffers,
+  NgModule,
+} from '@angular/core';
 
 @Component({
   selector: 'dt-table-base',

@@ -1,6 +1,7 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
+
 import { generateData } from './chart-data-utils';
 
 @Component({

@@ -8,6 +8,7 @@ import {
   RIGHT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
+
 import { clamp } from '@dynatrace/angular-components/core';
 
 /** The step size for the keyboard interaction on PAGE UP and PAGE DOWN */

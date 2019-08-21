@@ -4,23 +4,25 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { async, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { TestBed, async, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { DtIndicatorThemePalette } from '@dynatrace/angular-components/core';
+import {
+  DtFormattersModule,
+  formatBytes,
+  formatPercent,
+  formatRate,
+} from '@dynatrace/angular-components/formatters';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 import {
   DtSort,
   DtTableDataSource,
   DtTableModule,
 } from '@dynatrace/angular-components/table';
-import { DtIndicatorThemePalette } from '@dynatrace/angular-components/core';
-import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import {
-  formatBytes,
-  formatPercent,
-  formatRate,
-  DtFormattersModule,
-} from '@dynatrace/angular-components/formatters';
+
 import { createComponent } from '../../../testing/create-component';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 

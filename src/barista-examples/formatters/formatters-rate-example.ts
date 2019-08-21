@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { DtRateUnit } from '@dynatrace/angular-components/formatters';
 
 @Component({

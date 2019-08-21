@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+
 import { DtSort } from '@dynatrace/angular-components/table';
 
 @Component({

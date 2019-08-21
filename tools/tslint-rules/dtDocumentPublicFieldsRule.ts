@@ -1,10 +1,11 @@
 import { IRuleMetadata, RuleFailure, Rules, WalkContext } from 'tslint';
 import { getJsDoc, hasModifier } from 'tsutils';
 import * as ts from 'typescript';
+
 import {
-  createMemberDeclarationWalker,
   MemberDeclaration,
   StateContainer,
+  createMemberDeclarationWalker,
 } from './utils';
 
 const lifecycleHooks = new Set<string>([

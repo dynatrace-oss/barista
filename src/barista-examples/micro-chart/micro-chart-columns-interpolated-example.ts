@@ -1,10 +1,12 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
+
 import {
-  DtChartSeries,
   DtChartOptions,
+  DtChartSeries,
 } from '@dynatrace/angular-components/chart';
+
 import { generateData } from './data';
 
 @Component({

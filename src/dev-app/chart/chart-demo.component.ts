@@ -1,7 +1,8 @@
 // tslint:disable no-magic-numbers no-any max-file-line-count
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { chartOptions } from './chart-options';
-import { dataSmall, dataBig } from './data-service';
+import { dataBig, dataSmall } from './data-service';
 
 @Component({
   selector: 'chart-demo',

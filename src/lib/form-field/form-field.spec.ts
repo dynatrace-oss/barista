@@ -11,9 +11,9 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
+  TestBed,
   fakeAsync,
   flush,
-  TestBed,
 } from '@angular/core/testing';
 import {
   AbstractControl,
@@ -27,13 +27,15 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
 import {
   DtFormFieldModule,
   getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError,
 } from '@dynatrace/angular-components/form-field';
-import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
 import { DtInput, DtInputModule } from '@dynatrace/angular-components/input';
+
 import { createComponent } from '../../testing/create-component';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';

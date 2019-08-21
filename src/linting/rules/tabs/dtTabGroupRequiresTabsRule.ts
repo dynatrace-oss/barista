@@ -2,7 +2,8 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
-import { addFailure, isElementWithName, findChild } from '../../utils';
+
+import { addFailure, findChild, isElementWithName } from '../../utils';
 
 class DtTabGroupVisitor extends BasicTemplateAstVisitor {
   visitElement(element: ElementAst, context: any): void {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { DtConsumptionThemePalette } from '@dynatrace/angular-components/consumption';
 
 @Component({

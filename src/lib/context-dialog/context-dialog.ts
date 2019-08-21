@@ -18,7 +18,6 @@ import {
   EventEmitter,
   Inject,
   Input,
-  isDevMode,
   OnDestroy,
   Optional,
   Output,
@@ -26,7 +25,11 @@ import {
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  isDevMode,
 } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import {
   CanDisable,
   DtLogger,
@@ -36,8 +39,7 @@ import {
   mixinTabIndex,
   readKeyCode,
 } from '@dynatrace/angular-components/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+
 import { DtContextDialogTrigger } from './context-dialog-trigger';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialog');

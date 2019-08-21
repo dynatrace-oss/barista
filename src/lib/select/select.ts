@@ -1,85 +1,86 @@
 import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  ElementRef,
-  OnInit,
-  AfterContentInit,
-  OnChanges,
-  OnDestroy,
-  DoCheck,
-  Input,
-  Output,
-  EventEmitter,
-  NgZone,
-  ChangeDetectorRef,
-  Optional,
-  Self,
-  Attribute,
-  ViewChild,
-  ContentChildren,
-  QueryList,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  NgForm,
-  FormGroupDirective,
-  NgControl,
-  ControlValueAccessor,
-} from '@angular/forms';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ActiveDescendantKeyManager, FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { CdkConnectedOverlay } from '@angular/cdk/overlay';
-import {
-  trigger,
+  animate,
+  animateChild,
+  group,
+  query,
   state,
   style,
   transition,
-  animate,
-  group,
-  query,
-  animateChild,
+  trigger,
 } from '@angular/animations';
+import { ActiveDescendantKeyManager, FocusMonitor } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { SelectionModel } from '@angular/cdk/collections';
 import {
   DOWN_ARROW,
-  LEFT_ARROW,
-  UP_ARROW,
-  RIGHT_ARROW,
-  ENTER,
-  SPACE,
-  HOME,
   END,
+  ENTER,
+  HOME,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  SPACE,
+  UP_ARROW,
 } from '@angular/cdk/keycodes';
-import { Subject, Observable, merge, defer } from 'rxjs';
+import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
-  take,
-  switchMap,
-  takeUntil,
-  startWith,
+  AfterContentInit,
+  Attribute,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  DoCheck,
+  ElementRef,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Output,
+  QueryList,
+  Self,
+  SimpleChanges,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormGroupDirective,
+  NgControl,
+  NgForm,
+} from '@angular/forms';
+import { Observable, Subject, defer, merge } from 'rxjs';
+import {
   distinctUntilChanged,
+  startWith,
+  switchMap,
+  take,
+  takeUntil,
 } from 'rxjs/operators';
+
 import {
-  ErrorStateMatcher,
-  mixinTabIndex,
-  mixinDisabled,
-  mixinErrorState,
   CanDisable,
-  HasTabIndex,
   CanUpdateErrorState,
-  DtOption,
-  DtOptionSelectionChange,
-  DtOptgroup,
-  _countGroupLabelsBeforeOption,
-  _getOptionScrollPosition,
   DtLogger,
   DtLoggerFactory,
+  DtOptgroup,
+  DtOption,
+  DtOptionSelectionChange,
+  ErrorStateMatcher,
+  HasTabIndex,
+  _countGroupLabelsBeforeOption,
+  _getOptionScrollPosition,
   isDefined,
+  mixinDisabled,
+  mixinErrorState,
+  mixinTabIndex,
   readKeyCode,
 } from '@dynatrace/angular-components/core';
 import {
-  DtFormFieldControl,
   DtFormField,
+  DtFormFieldControl,
 } from '@dynatrace/angular-components/form-field';
 
 let uniqueId = 0;

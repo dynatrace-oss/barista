@@ -1,14 +1,14 @@
 import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Directive,
-} from '@angular/core';
-import {
-  CdkHeaderRow,
   CDK_ROW_TEMPLATE,
+  CdkHeaderRow,
   CdkHeaderRowDef,
 } from '@angular/cdk/table';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  ViewEncapsulation,
+} from '@angular/core';
 
 /**
  * Header row definition for the dt-table.

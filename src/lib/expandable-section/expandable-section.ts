@@ -3,15 +3,16 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  NgZone,
   Output,
   ViewChild,
   ViewEncapsulation,
-  NgZone,
 } from '@angular/core';
-import { DtExpandablePanel } from '@dynatrace/angular-components/expandable-panel';
-import { CanDisable } from '@dynatrace/angular-components/core';
 import { Observable, defer } from 'rxjs';
-import { take, switchMap, filter } from 'rxjs/operators';
+import { filter, switchMap, take } from 'rxjs/operators';
+
+import { CanDisable } from '@dynatrace/angular-components/core';
+import { DtExpandablePanel } from '@dynatrace/angular-components/expandable-panel';
 
 @Component({
   moduleId: module.id,

@@ -5,14 +5,16 @@ import { ENTER } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, Provider, Type } from '@angular/core';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Subject } from 'rxjs';
+
 import { DtChartModule } from '@dynatrace/angular-components/chart';
+import * as formatters from '@dynatrace/angular-components/formatters';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtThemingModule } from '@dynatrace/angular-components/theming';
-import * as formatters from '@dynatrace/angular-components/formatters';
-import { Subject } from 'rxjs';
+
 import {
   dispatchKeyboardEvent,
   dispatchMouseEvent,
