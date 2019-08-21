@@ -16,8 +16,10 @@ import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-c
 import { DtCtaCardModule } from '@dynatrace/angular-components/cta-card';
 import { DtDrawerModule } from '@dynatrace/angular-components/drawer';
 import { DtEmptyStateModule } from '@dynatrace/angular-components/empty-state';
+import { DtEventChartModule } from '@dynatrace/angular-components/event-chart';
 import { DtExpandablePanelModule } from '@dynatrace/angular-components/expandable-panel';
 import { DtExpandableSectionModule } from '@dynatrace/angular-components/expandable-section';
+import { DtExpandableTextModule } from '@dynatrace/angular-components/expandable-text';
 import { DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
 import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
 import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
@@ -50,7 +52,6 @@ import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-ch
 import { DtToastModule } from '@dynatrace/angular-components/toast';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
-import { DtExpandableTextModule } from '@dynatrace/angular-components/expandable-text';
 
 /**
  * NgModule that includes all Dynatrace angular components modules that are required to serve the examples.
@@ -109,6 +110,7 @@ import { DtExpandableTextModule } from '@dynatrace/angular-components/expandable
     DtLegendModule,
     DtEmptyStateModule,
     DtExpandableTextModule,
+    DtEventChartModule,
   ],
 })
 export class DevAppDynatraceModule {}

@@ -19,6 +19,8 @@ import {
 } from '@dynatrace/angular-components/core';
 import { DtDrawerModule } from '@dynatrace/angular-components/drawer';
 import { DtEmptyStateModule } from '@dynatrace/angular-components/empty-state';
+import { DtEventChartModule } from '@dynatrace/angular-components/event-chart';
+import { DtExpandableTextModule } from '@dynatrace/angular-components/expandable-text';
 import { DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
 import { DtHighlightModule } from '@dynatrace/angular-components/highlight';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
@@ -40,7 +42,6 @@ import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
-import { DtExpandableTextModule } from '@dynatrace/angular-components/expandable-text';
 
 const TESTDATA: ThreadNode[] = [
   {
@@ -238,6 +239,7 @@ export class KitchenSink {
     DtEmptyStateModule,
     DtTimelineChartModule,
     DtExpandableTextModule,
+    DtEventChartModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],

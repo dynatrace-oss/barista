@@ -1,0 +1,11 @@
+<dt-legend class="dt-event-chart-legend">
+  <dt-legend-item *ngFor="let renderItem of _renderLegendItems">
+    <dt-legend-symbol
+      class="dt-event-chart-legend-symbol"
+      [ngClass]="'dt-event-chart-legend-symbol-' + renderItem.color"
+    ></dt-legend-symbol>
+    <ng-container
+      *ngTemplateOutlet="renderItem.item._contentTemplate"
+    ></ng-container>
+  </dt-legend-item>
+</dt-legend>
