@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
-import { DtAlert } from './alert';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+
+import { DtAlert } from './alert';
 
 @NgModule({
   imports: [CommonModule, DtIconModule],

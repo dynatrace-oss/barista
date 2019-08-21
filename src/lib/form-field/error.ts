@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef } from '@angular/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 
 let nextUniqueId = 0;
 

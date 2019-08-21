@@ -10,7 +10,6 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  forwardRef,
   Input,
   OnDestroy,
   OnInit,
@@ -19,6 +18,7 @@ import {
   Renderer2,
   ViewChild,
   ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
 import {
   CheckboxRequiredValidator,
@@ -26,10 +26,11 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+
 import {
-  addCssClass,
   CanDisable,
   HasTabIndex,
+  addCssClass,
   mixinDisabled,
   mixinTabIndex,
 } from '@dynatrace/angular-components/core';

@@ -7,6 +7,7 @@ import {
   ViewportRuler,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
+
 import { DtOverlayOrigin } from './overlay';
 
 export class DtMouseFollowPositionStrategy implements PositionStrategy {

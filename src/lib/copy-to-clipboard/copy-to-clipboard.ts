@@ -11,14 +11,13 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-
-import { DtInput } from '@dynatrace/angular-components/input';
+import { Subscription, timer } from 'rxjs';
 
 import {
   addCssClass,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
-import { Subscription, timer } from 'rxjs';
+import { DtInput } from '@dynatrace/angular-components/input';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
 const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';

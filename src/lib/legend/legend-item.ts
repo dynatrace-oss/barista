@@ -1,21 +1,22 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import {
-  Component,
-  Directive,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  ContentChild,
-  TemplateRef,
-  ElementRef,
-  OnDestroy,
-  NgZone,
   AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  Directive,
+  ElementRef,
   Input,
+  NgZone,
+  OnDestroy,
+  TemplateRef,
+  ViewEncapsulation,
 } from '@angular/core';
+
 import {
   DtOverlay,
   DtOverlayTrigger,
 } from '@dynatrace/angular-components/overlay';
-import { FocusMonitor } from '@angular/cdk/a11y';
 
 /** Symbol (e.g. some kind of icon) that should be placed before the text of a legend item. */
 @Directive({

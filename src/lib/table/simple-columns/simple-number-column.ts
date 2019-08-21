@@ -1,13 +1,15 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
+  Component,
   Optional,
+  ViewEncapsulation,
 } from '@angular/core';
-import { DtSimpleColumnBase } from './simple-column-base';
-import { DtTable } from '../table';
+
 import { isDefined, isNumber } from '@dynatrace/angular-components/core';
 import { formatCount } from '@dynatrace/angular-components/formatters';
+
+import { DtTable } from '../table';
+import { DtSimpleColumnBase } from './simple-column-base';
 
 @Component({
   selector: 'dt-simple-number-column',

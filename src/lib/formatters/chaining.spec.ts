@@ -1,9 +1,9 @@
-import { DtRate } from './rate/rate';
-import { DtBytes } from './bytes/bytes';
 import { DtBits } from './bits/bits';
+import { DtBytes } from './bytes/bytes';
 import { DtKilobytes } from './bytes/kilobytes';
 import { DtMegabytes } from './bytes/megabytes';
 import { DtCount } from './count/count';
+import { DtRate } from './rate/rate';
 
 describe('PIPES: Chaining order', () => {
   let ratePipe: DtRate;

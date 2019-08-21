@@ -1,28 +1,30 @@
+import { ENTER } from '@angular/cdk/keycodes';
 import {
+  AfterViewInit,
+  Attribute,
   Directive,
+  ElementRef,
   Input,
   NgZone,
-  ElementRef,
-  OnDestroy,
-  Attribute,
-  SimpleChanges,
   OnChanges,
-  AfterViewInit,
+  OnDestroy,
+  SimpleChanges,
 } from '@angular/core';
-import { DtSelectionArea } from './selection-area';
+import { Subject, Subscription } from 'rxjs';
+import { switchMap, take, takeUntil } from 'rxjs/operators';
+
 import {
-  mixinDisabled,
-  DtViewportResizer,
   CanDisable,
-  mixinTabIndex,
+  DtViewportResizer,
   HasTabIndex,
-  readKeyCode,
   addCssClass,
+  mixinDisabled,
+  mixinTabIndex,
+  readKeyCode,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
-import { take, takeUntil, switchMap } from 'rxjs/operators';
-import { Subscription, Subject } from 'rxjs';
-import { ENTER } from '@angular/cdk/keycodes';
+
+import { DtSelectionArea } from './selection-area';
 
 /**
  * @deprecated The selection area will be replaced with the chart selection area

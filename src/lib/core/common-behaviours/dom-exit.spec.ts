@@ -1,7 +1,8 @@
-import { mixinNotifyDomExit } from './dom-exit';
 import { NgZone } from '@angular/core';
-import { Subject } from 'rxjs';
 import { fakeAsync, flushMicrotasks } from '@angular/core/testing';
+import { Subject } from 'rxjs';
+
+import { mixinNotifyDomExit } from './dom-exit';
 
 describe('mixinNotifyDomExit', () => {
   it('should augment an existing class with a _onDomExit subject', () => {

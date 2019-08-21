@@ -1,19 +1,21 @@
 import {
   Directive,
-  Input,
   ElementRef,
-  Optional,
-  SkipSelf,
+  Input,
   OnDestroy,
-  isDevMode,
+  Optional,
   Renderer2,
+  SkipSelf,
+  isDevMode,
 } from '@angular/core';
-import { Subject, Subscription, NEVER } from 'rxjs';
+import { NEVER, Subject, Subscription } from 'rxjs';
+
 import {
   DtLogger,
   DtLoggerFactory,
   replaceCssClass,
 } from '@dynatrace/angular-components/core';
+
 import {
   getDtThemeNotValidError,
   getDtThemeVariantNotValidError,

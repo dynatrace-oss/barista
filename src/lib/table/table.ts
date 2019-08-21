@@ -1,30 +1,32 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  ViewEncapsulation,
-  IterableDiffers,
-  ChangeDetectorRef,
-  ElementRef,
-  Attribute,
-  QueryList,
-  ContentChildren,
-  OnDestroy,
-  NgZone,
-  Inject,
-} from '@angular/core';
-import { _DtTableBase } from './base-table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Platform } from '@angular/cdk/platform';
+import { DOCUMENT } from '@angular/common';
+import {
+  Attribute,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  ElementRef,
+  Inject,
+  Input,
+  IterableDiffers,
+  NgZone,
+  OnDestroy,
+  QueryList,
+  ViewEncapsulation,
+} from '@angular/core';
+import { Observable, Subject, defer } from 'rxjs';
+import { map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
+
+import { isDefined } from '@dynatrace/angular-components/core';
+
+import { _DtTableBase } from './base-table';
 import {
   DtSimpleColumnBase,
   DtSimpleColumnDisplayAccessorFunction,
   DtSimpleColumnSortAccessorFunction,
 } from './simple-columns/simple-column-base';
-import { takeUntil, take, switchMap, startWith, map } from 'rxjs/operators';
-import { Subject, Observable, defer } from 'rxjs';
-import { isDefined } from '@dynatrace/angular-components/core';
-import { DOCUMENT } from '@angular/common';
-import { Platform } from '@angular/cdk/platform';
 
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;

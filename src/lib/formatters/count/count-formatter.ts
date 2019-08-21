@@ -1,7 +1,8 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { DtUnit } from '../unit';
+
 import { DtFormattedValue, SourceData } from '../formatted-value';
 import { adjustNumber } from '../number-formatter';
+import { DtUnit } from '../unit';
 
 /**
  * Util function formats the given number to a set of counting abbreviations (e.g. '20000000' will result in '20 mil')

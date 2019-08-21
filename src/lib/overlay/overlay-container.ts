@@ -1,6 +1,6 @@
 import {
-  animate,
   AnimationEvent,
+  animate,
   state,
   style,
   transition,
@@ -21,13 +21,14 @@ import {
   ElementRef,
   EmbeddedViewRef,
   Inject,
-  isDevMode,
   NgZone,
   Optional,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  isDevMode,
 } from '@angular/core';
+
 import {
   CanNotifyOnExit,
   DtLogger,

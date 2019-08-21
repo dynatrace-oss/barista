@@ -1,21 +1,22 @@
-import {
-  Input,
-  ElementRef,
-  Renderer2,
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  ViewChild,
-  AfterContentChecked,
-  OnChanges,
-  NgZone,
-  PLATFORM_ID,
-  Inject,
-} from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { addCssClass } from '@dynatrace/angular-components/core';
-import { take } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  AfterContentChecked,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  NgZone,
+  OnChanges,
+  PLATFORM_ID,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import { take } from 'rxjs/operators';
+
+import { addCssClass } from '@dynatrace/angular-components/core';
 
 const HIGHLIGHTED_CLASS = 'dt-highlight-mark';
 const HIGHLIGHTED_ELEMENT = 'mark';

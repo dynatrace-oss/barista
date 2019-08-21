@@ -2,17 +2,19 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
+
+import { DtLogConsumer, DtLogEntry } from '@dynatrace/angular-components/core';
 import {
   DT_TABGROUP_SINGLE_TAB_ERROR,
   DtTab,
   DtTabChange,
   DtTabsModule,
 } from '@dynatrace/angular-components/tabs';
-import { DtLogConsumer, DtLogEntry } from '@dynatrace/angular-components/core';
 import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/angular-components/tabs/tab-group';
-import { Subscription } from 'rxjs';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtTabs', () => {

@@ -1,4 +1,5 @@
 import { browser, by, element } from 'protractor';
+
 import { getConsoleErrors } from './utils/console-errors';
 
 describe('chart', () => {

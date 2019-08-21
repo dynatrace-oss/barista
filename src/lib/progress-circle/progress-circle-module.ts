@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { DtProgressCircle } from './progress-circle';
 
 @NgModule({

@@ -25,6 +25,9 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
+
 import {
   addCssClass,
   isNumber,
@@ -32,8 +35,7 @@ import {
   removeCssClass,
 } from '@dynatrace/angular-components/core';
 import { dtFormatDateRange } from '@dynatrace/angular-components/formatters';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { startWith, takeUntil } from 'rxjs/operators';
+
 import { DtSelectionAreaEventTarget } from '../selection-area/position-utils';
 import { clampRange } from './clamp-range';
 import {

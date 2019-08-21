@@ -1,34 +1,36 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  NgZone,
-  Output,
-  Renderer2,
-  ViewEncapsulation,
-  ComponentFactoryResolver,
-  ApplicationRef,
-  ViewContainerRef,
-  ViewChild,
-  TemplateRef,
-  SimpleChanges,
-  AfterViewInit,
-  OnChanges,
-  OnDestroy,
-  DoCheck,
-} from '@angular/core';
-import { addCssClass } from '@dynatrace/angular-components/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import {
-  DomPortalOutlet,
   ComponentPortal,
+  DomPortalOutlet,
   TemplatePortal,
 } from '@angular/cdk/portal';
+import {
+  AfterViewInit,
+  ApplicationRef,
+  ChangeDetectionStrategy,
+  Component,
+  ComponentFactoryResolver,
+  DoCheck,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  Output,
+  Renderer2,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation,
+} from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
+
+import { addCssClass } from '@dynatrace/angular-components/core';
+
 import {
   DtSelectionAreaContainer,
   DtSelectionAreaContainerChange,
 } from './selection-area-container';
-import { map, take, switchMap } from 'rxjs/operators';
 
 /**
  * @deprecated The selection area will be replaced with the chart selection area

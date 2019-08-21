@@ -2,8 +2,9 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { createComponent } from '../../testing/create-component';
 import { DtProgressBarModule } from './index';
 

@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
+
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
 import { DtChartModule } from '@dynatrace/angular-components/chart';
@@ -23,10 +23,12 @@ import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
 import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
 import { DtRadioModule } from '@dynatrace/angular-components/radio';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
+import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
 import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { DtTileModule } from '@dynatrace/angular-components/tile';
+
 import { ButtonGroupUi } from './button-group/button-group-ui';
 import { ButtonUI } from './button/button-ui';
 import { ChartHighchartsUI } from './chart/chart-highcharts-ui';

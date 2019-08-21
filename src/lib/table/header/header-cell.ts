@@ -1,8 +1,9 @@
-import { DtColumnDef, _updateDtColumnStyles } from '../cell';
-import { Renderer2, ElementRef, Directive, OnDestroy } from '@angular/core';
 import { CdkHeaderCellDef } from '@angular/cdk/table';
+import { Directive, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil, startWith } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
+
+import { DtColumnDef, _updateDtColumnStyles } from '../cell';
 
 /**
  * Header cell definition for the dt-table.

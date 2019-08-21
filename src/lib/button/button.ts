@@ -12,6 +12,8 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
+import { NEVER, Subscription } from 'rxjs';
+
 import {
   CanColor,
   CanDisable,
@@ -22,7 +24,6 @@ import {
   replaceCssClass,
 } from '@dynatrace/angular-components/core';
 import { DtIcon } from '@dynatrace/angular-components/icon';
-import { NEVER, Subscription } from 'rxjs';
 
 export type DtButtonThemePalette = 'main' | 'warning' | 'cta';
 

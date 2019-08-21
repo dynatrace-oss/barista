@@ -1,7 +1,9 @@
 import { DataPoint } from 'highcharts';
+
 import { DtChartOptions } from '@dynatrace/angular-components/chart';
-import { DtMicroChartColorPalette } from './micro-chart-colors';
 import { DtColors } from '@dynatrace/angular-components/theming';
+
+import { DtMicroChartColorPalette } from './micro-chart-colors';
 
 export function createDtMicrochartDefaultOptions(
   palette: DtMicroChartColorPalette,

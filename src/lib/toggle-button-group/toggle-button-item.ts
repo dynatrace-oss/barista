@@ -1,21 +1,22 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
-  ElementRef,
   ChangeDetectorRef,
-  Output,
+  Component,
+  ElementRef,
   EventEmitter,
   Input,
+  Output,
+  ViewEncapsulation,
 } from '@angular/core';
+
 import {
-  mixinTabIndex,
   CanDisable,
   HasTabIndex,
   mixinDisabled,
+  mixinTabIndex,
 } from '@dynatrace/angular-components/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { FocusMonitor } from '@angular/cdk/a11y';
 
 /** Change event emitted for a change in the DtToggleButton. */
 export interface DtToggleButtonChange<T> {

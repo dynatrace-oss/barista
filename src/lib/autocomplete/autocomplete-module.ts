@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { DtOptionModule } from '@dynatrace/angular-components/core';
-import { DtAutocompleteTrigger } from './autocomplete-trigger';
+
 import { DtAutocomplete } from './autocomplete';
 import { DtAutocompleteOrigin } from './autocomplete-origin';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { DtAutocompleteTrigger } from './autocomplete-trigger';
 
 @NgModule({
   imports: [CommonModule, OverlayModule, DtOptionModule],

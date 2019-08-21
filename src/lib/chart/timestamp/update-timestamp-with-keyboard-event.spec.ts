@@ -11,6 +11,7 @@ import {
   RIGHT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
+
 import { createKeyboardEvent } from '../../../testing/event-objects';
 import { updateTimestampWithKeyboardEvent } from './update-timestamp-with-keyboard-event';
 

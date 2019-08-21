@@ -1,17 +1,13 @@
 import { ElementRef, NgZone, QueryList } from '@angular/core';
-import {
-  addCssClass,
-  removeCssClass,
-} from '@dynatrace/angular-components/core';
 import { isEqual } from 'lodash';
 import {
+  Observable,
+  SchedulerLike,
+  Subject,
   animationFrameScheduler,
   combineLatest,
   fromEvent,
   merge,
-  Observable,
-  SchedulerLike,
-  Subject,
 } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -25,6 +21,12 @@ import {
   tap,
   throttleTime,
 } from 'rxjs/operators';
+
+import {
+  addCssClass,
+  removeCssClass,
+} from '@dynatrace/angular-components/core';
+
 import {
   captureAndMergeEvents,
   getElementRef,
@@ -32,8 +34,8 @@ import {
 } from '../utils';
 import { NO_POINTER_EVENTS_CLASS } from './constants';
 import {
-  calculatePosition,
   DtSelectionAreaEventTarget,
+  calculatePosition,
 } from './position-utils';
 
 /**

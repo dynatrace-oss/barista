@@ -1,28 +1,30 @@
 import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  QueryList,
-  ContentChildren,
-  Output,
-  EventEmitter,
   AfterContentInit,
-  ElementRef,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
   OnDestroy,
+  Output,
+  QueryList,
+  ViewEncapsulation,
   forwardRef,
 } from '@angular/core';
-import { DtTab, DtTabChange } from './tab/tab';
+import { Subscription, merge } from 'rxjs';
+
 import {
+  CanColor,
+  CanDisable,
+  Constructor,
+  DtLogger,
+  DtLoggerFactory,
   mixinColor,
   mixinDisabled,
-  DtLoggerFactory,
-  DtLogger,
-  CanDisable,
-  CanColor,
-  Constructor,
 } from '@dynatrace/angular-components/core';
-import { Subscription, merge } from 'rxjs';
+
+import { DtTab, DtTabChange } from './tab/tab';
 
 export const DT_TABGROUP_SINGLE_TAB_ERROR =
   'Only one single tab is not allowed inside a tabgroup';

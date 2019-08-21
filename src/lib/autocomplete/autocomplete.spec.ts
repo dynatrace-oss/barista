@@ -21,17 +21,20 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {
-  async,
   ComponentFixture,
+  TestBed,
+  async,
   fakeAsync,
   flush,
   inject,
-  TestBed,
   tick,
 } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Observable, Subscription } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
 import {
   DT_AUTOCOMPLETE_DEFAULT_OPTIONS,
   DtAutocomplete,
@@ -40,16 +43,15 @@ import {
   getDtAutocompleteMissingPanelError,
 } from '@dynatrace/angular-components/autocomplete';
 import {
+  DtOption,
+  DtOptionSelectionChange,
+} from '@dynatrace/angular-components/core';
+import {
   DtFormField,
   DtFormFieldModule,
 } from '@dynatrace/angular-components/form-field';
 import { DtInputModule } from '@dynatrace/angular-components/input';
-import {
-  DtOption,
-  DtOptionSelectionChange,
-} from '@dynatrace/angular-components/core';
-import { Observable, Subscription } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+
 import {
   dispatchEvent,
   dispatchFakeEvent,

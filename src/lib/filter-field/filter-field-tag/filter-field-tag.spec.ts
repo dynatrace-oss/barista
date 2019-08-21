@@ -1,20 +1,22 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import {
+  ComponentFixture,
   TestBed,
   fakeAsync,
-  ComponentFixture,
   tick,
 } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { By } from '@angular/platform-browser';
+
 import {
-  DtFilterFieldTag,
   DtFilterFieldModule,
+  DtFilterFieldTag,
 } from '@dynatrace/angular-components/filter-field';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+
 import { createComponent } from '../../../testing/create-component';
 
 describe('DtFilterFieldTag', () => {

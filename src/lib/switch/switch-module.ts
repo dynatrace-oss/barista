@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { DtSwitch, DtSwitchRequiredValidator } from './switch';
 
 @NgModule({

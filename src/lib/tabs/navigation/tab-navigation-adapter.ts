@@ -1,13 +1,15 @@
+import {
+  HashLocationStrategy,
+  Location,
+  LocationStrategy,
+} from '@angular/common';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import {
-  Location,
-  LocationStrategy,
-  HashLocationStrategy,
-} from '@angular/common';
-import { DtTabsRouterFragmentBuilder } from './tab-fragment-builder';
+
 import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+
+import { DtTabsRouterFragmentBuilder } from './tab-fragment-builder';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtTabRouterFragmentAdapter');
 

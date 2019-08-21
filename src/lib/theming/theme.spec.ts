@@ -2,12 +2,14 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, ViewChild } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import {
   DtTheme,
   DtThemingModule,
 } from '@dynatrace/angular-components/theming';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtTheme', () => {

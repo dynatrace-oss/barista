@@ -1,5 +1,5 @@
-import { DtPercent } from './percent';
 import { NO_DATA } from '../formatted-value';
+import { DtPercent } from './percent';
 
 describe('DtPercentPipe', () => {
   interface TestCase {

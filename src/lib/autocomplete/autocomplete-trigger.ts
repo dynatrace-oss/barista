@@ -1,67 +1,69 @@
-import {
-  Provider,
-  forwardRef,
-  Directive,
-  Input,
-  ElementRef,
-  Renderer2,
-  OnDestroy,
-  ChangeDetectorRef,
-  Host,
-  Optional,
-  NgZone,
-  Inject,
-} from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
-  OverlayRef,
-  Overlay,
+  DOWN_ARROW,
+  ENTER,
+  ESCAPE,
+  TAB,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
+import {
   FlexibleConnectedPositionStrategy,
-  PositionStrategy,
+  Overlay,
   OverlayConfig,
+  OverlayRef,
+  PositionStrategy,
 } from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Directive,
+  ElementRef,
+  Host,
+  Inject,
+  Input,
+  NgZone,
+  OnDestroy,
+  Optional,
+  Provider,
+  Renderer2,
+  forwardRef,
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  EMPTY,
+  Observable,
+  Subject,
+  Subscription,
+  defer,
+  fromEvent,
+  merge,
+  of as observableOf,
+} from 'rxjs';
+import {
+  delay,
+  filter,
+  map,
+  startWith,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
+
+import {
+  DtOption,
+  DtOptionSelectionChange,
+  DtViewportResizer,
+  _countGroupLabelsBeforeOption,
+  _getOptionScrollPosition,
+  isDefined,
+  readKeyCode,
+} from '@dynatrace/angular-components/core';
 import { DtFormField } from '@dynatrace/angular-components/form-field';
+
 import { DtAutocomplete } from './autocomplete';
 import { getDtAutocompleteMissingPanelError } from './autocomplete-errors';
 import { DtAutocompleteOrigin } from './autocomplete-origin';
-import {
-  ESCAPE,
-  UP_ARROW,
-  ENTER,
-  DOWN_ARROW,
-  TAB,
-} from '@angular/cdk/keycodes';
-import {
-  Subject,
-  EMPTY,
-  Subscription,
-  merge,
-  Observable,
-  of as observableOf,
-  defer,
-  fromEvent,
-} from 'rxjs';
-import {
-  DtViewportResizer,
-  DtOptionSelectionChange,
-  isDefined,
-  DtOption,
-  _countGroupLabelsBeforeOption,
-  _getOptionScrollPosition,
-  readKeyCode,
-} from '@dynatrace/angular-components/core';
-import {
-  tap,
-  take,
-  delay,
-  switchMap,
-  filter,
-  map,
-  takeUntil,
-  startWith,
-} from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
 
 /** Provider that allows the autocomplete to register as a ControlValueAccessor. */
 export const DT_AUTOCOMPLETE_VALUE_ACCESSOR: Provider = {

@@ -1,9 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import {
-  DtSelectionAreaChange,
-  DtSelectionArea,
-} from '@dynatrace/angular-components/selection-area';
+
 import { DtChart } from '@dynatrace/angular-components/chart';
+import {
+  DtSelectionArea,
+  DtSelectionAreaChange,
+} from '@dynatrace/angular-components/selection-area';
+
 import { generateData } from '../chart/chart-data';
 
 @Component({

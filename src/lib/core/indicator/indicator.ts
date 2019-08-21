@@ -1,13 +1,14 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   Directive,
   ElementRef,
   Input,
-  OnDestroy,
   OnChanges,
+  OnDestroy,
 } from '@angular/core';
-import { Constructor, mixinColor, CanColor } from '../common-behaviours/index';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
+
+import { CanColor, Constructor, mixinColor } from '../common-behaviours/index';
 
 export type DtIndicatorThemePalette = 'error' | 'warning' | undefined;
 

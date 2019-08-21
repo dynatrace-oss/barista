@@ -10,8 +10,13 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { DtSortDirection } from '@dynatrace/angular-components/core';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
 import {
   DtCell,
   DtSort,
@@ -20,13 +25,10 @@ import {
   DtTableModule,
   getDtSortHeaderNotContainedWithinSortError,
 } from '@dynatrace/angular-components/table';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
 import { createComponent } from '../../../testing/create-component';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';
 import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
-import { DtSortDirection } from '@dynatrace/angular-components/core';
 
 describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;

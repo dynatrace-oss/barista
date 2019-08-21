@@ -3,8 +3,8 @@ import {
   IOptions,
   IRuleMetadata,
   RuleFailure,
-  Rules,
   RuleWalker,
+  Rules,
 } from 'tslint';
 import * as ts from 'typescript';
 

@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { DtDrawer } from './drawer';
 import { DtDrawerContainer } from './drawer-container';
 

@@ -1,36 +1,38 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { ENTER } from '@angular/cdk/keycodes';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import {
+  AfterViewInit,
   Component,
   ContentChild,
-  ViewChild,
-  AfterViewInit,
   OnDestroy,
+  ViewChild,
 } from '@angular/core';
 import {
-  async,
-  TestBed,
-  fakeAsync,
-  inject,
   ComponentFixture,
+  TestBed,
+  async,
+  fakeAsync,
   flush,
+  inject,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Subject, Subscription } from 'rxjs';
+
 import {
   DtChart,
-  DtChartModule,
   DtChartHeatfield,
   DtChartHeatfieldActiveChange,
+  DtChartModule,
   DtChartOptions,
 } from '@dynatrace/angular-components/chart';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
-import { Subject, Subscription } from 'rxjs';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { ENTER } from '@angular/cdk/keycodes';
-import { dispatchKeyboardEvent } from '../../../testing/dispatch-events';
 import { getDtHeatfieldUnsupportedChartError } from '@dynatrace/angular-components/chart/heatfield/chart-heatfield-errors';
+import { DtThemingModule } from '@dynatrace/angular-components/theming';
+
 import { createComponent } from '../../../testing/create-component';
+import { dispatchKeyboardEvent } from '../../../testing/dispatch-events';
 
 const PLOTMARGIN_LEFT = 100;
 const PLOTMARGIN_RIGHT = 100;

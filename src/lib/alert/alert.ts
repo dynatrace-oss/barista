@@ -1,8 +1,8 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
+  Component,
   Input,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({

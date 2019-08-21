@@ -1,6 +1,7 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+
 import { DtIcon } from './icon';
+import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
 
 @NgModule({
   exports: [DtIcon],

@@ -1,15 +1,17 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { isObject } from '@dynatrace/angular-components/core';
+
 import {
   DtNodeDef,
   dtAutocompleteDef,
-  dtOptionDef,
+  dtFreeTextDef,
   dtGroupDef,
+  dtOptionDef,
+  dtRangeDef,
   isDtAutocompleteDef,
   isDtGroupDef,
-  dtFreeTextDef,
-  dtRangeDef,
 } from './types';
 
 export abstract class DtFilterFieldDataSource {

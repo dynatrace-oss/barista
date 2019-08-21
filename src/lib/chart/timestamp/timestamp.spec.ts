@@ -1,35 +1,37 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import {
+  BACKSPACE,
+  DELETE,
+  DOWN_ARROW,
+  END,
+  HOME,
+  LEFT_ARROW,
+  PAGE_DOWN,
+  PAGE_UP,
+  RIGHT_ARROW,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import {
   DtChartModule,
   DtChartTimestamp,
 } from '@dynatrace/angular-components/chart';
-import {
-  TimestampStateChangedEvent,
-  ARIA_DEFAULT_SELECTED_LABEL,
-} from './timestamp';
+
 import { createComponent } from '../../../testing/create-component';
-import { createKeyboardEvent } from '../../../testing/event-objects';
 import {
   dispatchEvent,
   dispatchKeyboardEvent,
 } from '../../../testing/dispatch-events';
+import { createKeyboardEvent } from '../../../testing/event-objects';
 import {
-  UP_ARROW,
-  RIGHT_ARROW,
-  LEFT_ARROW,
-  DOWN_ARROW,
-  PAGE_UP,
-  PAGE_DOWN,
-  HOME,
-  END,
-  BACKSPACE,
-  DELETE,
-} from '@angular/cdk/keycodes';
+  ARIA_DEFAULT_SELECTED_LABEL,
+  TimestampStateChangedEvent,
+} from './timestamp';
 
 const TIMESTAMP_SELECTOR = '.dt-chart-timestamp-selector';
 

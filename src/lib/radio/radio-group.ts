@@ -1,18 +1,20 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
-  Directive,
   AfterContentInit,
-  forwardRef,
+  ChangeDetectorRef,
+  ContentChildren,
+  Directive,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
-  ContentChildren,
   QueryList,
-  ChangeDetectorRef,
+  forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+
 import { CanDisable } from '@dynatrace/angular-components/core';
+
 import { DtRadioButton, DtRadioChange } from './radio';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 let nextUniqueId = 0;
 

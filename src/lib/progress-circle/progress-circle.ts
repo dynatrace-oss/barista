@@ -5,6 +5,7 @@ import {
   ElementRef,
   ViewEncapsulation,
 } from '@angular/core';
+
 import {
   CanColor,
   Constructor,

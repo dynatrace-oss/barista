@@ -1,7 +1,7 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 
 let nextUniqueId = 0;

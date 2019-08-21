@@ -1,20 +1,22 @@
 import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Input,
   Attribute,
+  ChangeDetectionStrategy,
+  Component,
   ElementRef,
-  SimpleChanges,
+  Input,
   OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
 } from '@angular/core';
-import { take } from 'rxjs/operators';
-import { DtIconRegistry } from './icon-registry';
 import { DtIconType } from '@dynatrace/dt-iconpack';
+import { take } from 'rxjs/operators';
+
 import {
-  setComponentColorClasses,
   DtLoggerFactory,
+  setComponentColorClasses,
 } from '@dynatrace/angular-components/core';
+
+import { DtIconRegistry } from './icon-registry';
 
 export type DtIconColorPalette =
   | 'main'

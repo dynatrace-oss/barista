@@ -1,23 +1,25 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Input,
   ChangeDetectorRef,
-  ElementRef,
+  Component,
   ContentChild,
+  ElementRef,
+  Input,
+  ViewEncapsulation,
 } from '@angular/core';
+
 import {
-  mixinColor,
   CanColor,
+  Constructor,
   DtProgressChange,
   HasProgressValues,
-  mixinHasProgress,
-  Constructor,
   isDefined,
+  mixinColor,
+  mixinHasProgress,
 } from '@dynatrace/angular-components/core';
-import { DtProgressBarDescription } from './progress-bar-description';
+
 import { DtProgressBarCount } from './progress-bar-count';
+import { DtProgressBarDescription } from './progress-bar-description';
 
 export type DtProgressBarChange = DtProgressChange;
 

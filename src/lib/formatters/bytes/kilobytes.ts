@@ -1,9 +1,11 @@
-import { DtUnit } from '../unit';
-import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { Pipe, PipeTransform } from '@angular/core';
+
+import { isEmpty, isNumber } from '@dynatrace/angular-components/core';
+
+import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { KILO_MULTIPLIER } from '../number-formatter';
+import { DtUnit } from '../unit';
 import { formatBytes } from './bytes-formatter';
-import { isNumber, isEmpty } from '@dynatrace/angular-components/core';
 
 /**
  * Pipe for formatting a given number to Kilobytes

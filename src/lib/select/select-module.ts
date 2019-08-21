@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { DtOptionModule } from '@dynatrace/angular-components/core';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+
 import { DtSelect } from './select';
 
 @NgModule({

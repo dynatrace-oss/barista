@@ -1,4 +1,5 @@
-import { OnInit, Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
 
 @Component({

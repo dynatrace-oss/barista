@@ -2,11 +2,12 @@ import { AttrAst, ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
+
 import {
   addFailure,
+  hasTextContentAlternative,
   isButtonElement,
   isIconButtonAttr,
-  hasTextContentAlternative,
 } from '../../utils';
 
 interface FailureStrings {

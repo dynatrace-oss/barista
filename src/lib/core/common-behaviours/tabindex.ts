@@ -1,6 +1,7 @@
+import { coerceNumberProperty } from '@angular/cdk/coercion';
+
 import { Constructor } from './constructor';
 import { CanDisable } from './disabled';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 export interface HasTabIndex {
   /** Tabindex of the component. */

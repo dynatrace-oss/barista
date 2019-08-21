@@ -3,10 +3,12 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtButton', () => {

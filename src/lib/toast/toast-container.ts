@@ -1,29 +1,31 @@
 import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Inject,
-  OnDestroy,
-  NgZone,
-  ChangeDetectorRef,
-  ElementRef,
-} from '@angular/core';
-import { DT_TOAST_MESSAGE } from './toast';
-import { DT_TOAST_FADE_TIME } from './toast-config';
-import {
-  trigger,
+  AnimationEvent,
+  animate,
   state,
   style,
   transition,
-  animate,
-  AnimationEvent,
+  trigger,
 } from '@angular/animations';
-import { Subject } from 'rxjs';
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  NgZone,
+  OnDestroy,
+  ViewEncapsulation,
+} from '@angular/core';
+import { Subject } from 'rxjs';
+
+import {
+  CanNotifyOnExit,
   HasNgZone,
   mixinNotifyDomExit,
-  CanNotifyOnExit,
 } from '@dynatrace/angular-components/core';
+
+import { DT_TOAST_MESSAGE } from './toast';
+import { DT_TOAST_FADE_TIME } from './toast-config';
 
 // Boilerplate for applying mixins to DtToastContainer.
 export class DtToastContainerBase implements HasNgZone {

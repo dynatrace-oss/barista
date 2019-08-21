@@ -1,33 +1,35 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
 import {
-  Directive,
-  Input,
-  ElementRef,
-  OnDestroy,
+  FlexibleConnectedPositionStrategy,
+  Overlay,
+  OverlayConfig,
+  OverlayRef,
+  PositionStrategy,
+} from '@angular/cdk/overlay';
+import {
   ChangeDetectorRef,
+  Directive,
+  ElementRef,
+  Input,
   NgZone,
+  OnDestroy,
   Renderer2,
 } from '@angular/core';
 import {
-  Overlay,
-  OverlayRef,
-  OverlayConfig,
-  FlexibleConnectedPositionStrategy,
-  PositionStrategy,
-} from '@angular/cdk/overlay';
-import { ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
-import {
+  EMPTY,
+  Observable,
+  Subject,
   Subscription,
   fromEvent,
   merge,
   of as observableOf,
-  Observable,
-  Subject,
-  EMPTY,
 } from 'rxjs';
-import { take, filter, map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
+
 import { readKeyCode } from '@dynatrace/angular-components/core';
+
 import { DtFilterFieldRange } from './filter-field-range';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Directive({
   selector: `input[dtFilterFieldRange]`,

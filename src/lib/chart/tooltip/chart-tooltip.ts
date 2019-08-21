@@ -20,10 +20,12 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { isDefined } from '@dynatrace/angular-components/core';
-import { of, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, of } from 'rxjs';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
-import { DtChart, DtChartResolver, DT_CHART_RESOLVER } from '../chart';
+
+import { isDefined } from '@dynatrace/angular-components/core';
+
+import { DT_CHART_RESOLVER, DtChart, DtChartResolver } from '../chart';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 
 interface HighchartsPlotBackgroundInformation {

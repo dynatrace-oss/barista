@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 /** An interface which allows a control to work inside of a `DtFormField`. */
 export abstract class DtFormFieldControl<T> {

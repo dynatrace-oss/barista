@@ -9,13 +9,14 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  forwardRef,
   Input,
   OnDestroy,
   Output,
   QueryList,
   ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
+
 import {
   CanColor,
   CanDisable,

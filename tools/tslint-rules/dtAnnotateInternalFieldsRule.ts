@@ -1,7 +1,8 @@
 import { IRuleMetadata, RuleFailure, Rules, WalkContext } from 'tslint';
 import { getJsDoc, hasModifier } from 'tsutils';
 import * as ts from 'typescript';
-import { createMemberDeclarationWalker, MemberDeclaration } from './utils';
+
+import { MemberDeclaration, createMemberDeclarationWalker } from './utils';
 
 function hasInternalAnnotation(declaration: MemberDeclaration): boolean {
   const jsDoc = getJsDoc(declaration);
