@@ -1,7 +1,8 @@
+import { Inject, Injectable, InjectionToken } from '@angular/core';
+
 import { DtLogConsumer } from './log-consumer';
 import { DtLogEntryParam } from './log-entry';
 import { DtLogLevel } from './log-level.enum';
-import { Inject, Injectable, InjectionToken } from '@angular/core';
 
 export const DT_LOGGER_NAME = new InjectionToken<string>('DtLoggerName');
 

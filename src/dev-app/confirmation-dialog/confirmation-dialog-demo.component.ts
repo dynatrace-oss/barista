@@ -1,4 +1,5 @@
-import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+
 import { DtConfirmationDialog } from '@dynatrace/angular-components/confirmation-dialog';
 
 @Component({

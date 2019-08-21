@@ -1,16 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import {
-  Component,
-  Input,
-  ElementRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, take, debounceTime, tap } from 'rxjs/operators';
-import { Subscription, BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { DtIconType } from '@dynatrace/dt-iconpack';
+import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
+import { debounceTime, map, take, tap } from 'rxjs/operators';
+
 import { Viewport } from './viewport';
 
 @Component({

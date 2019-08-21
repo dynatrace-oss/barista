@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { DtTag } from '@dynatrace/angular-components/tag';
 
 @Component({

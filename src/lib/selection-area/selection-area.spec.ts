@@ -2,56 +2,58 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import {
-  async,
+  DOWN_ARROW,
+  END,
+  ENTER,
+  HOME,
+  LEFT_ARROW,
+  PAGE_DOWN,
+  PAGE_UP,
+  RIGHT_ARROW,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  NgZone,
+  OnDestroy,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  ComponentFixture,
   TestBed,
+  async,
   fakeAsync,
   flush,
-  ComponentFixture,
   inject,
   tick,
 } from '@angular/core/testing';
-import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { By } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+
 import { DtCardModule } from '@dynatrace/angular-components/card';
 import {
   DtChart,
   DtChartSelectionAreaOrigin,
   getDtChartSelectionAreaDateTimeAxisError,
 } from '@dynatrace/angular-components/chart';
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  ViewEncapsulation,
-  NgZone,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
-import { DtButtonModule } from '../button';
-import {
-  dispatchMouseEvent,
-  dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
-import { By } from '@angular/platform-browser';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DtSelectionArea } from './selection-area';
-import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import {
-  ENTER,
-  LEFT_ARROW,
-  UP_ARROW,
-  DOWN_ARROW,
-  RIGHT_ARROW,
-  PAGE_DOWN,
-  PAGE_UP,
-  HOME,
-  END,
-} from '@angular/cdk/keycodes';
-import { MockNgZone } from '../../testing/mock-ng-zone';
-import { Subject } from 'rxjs';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
+
 import { createComponent } from '../../testing/create-component';
+import {
+  dispatchKeyboardEvent,
+  dispatchMouseEvent,
+} from '../../testing/dispatch-events';
+import { MockNgZone } from '../../testing/mock-ng-zone';
+import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
+import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+import { DtButtonModule } from '../button';
+import { DtSelectionArea } from './selection-area';
 
 // tslint:disable-next-line: dt-no-focused-tests
 describe.skip('DtSelectionArea', () => {

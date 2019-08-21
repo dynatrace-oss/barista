@@ -1,4 +1,12 @@
 import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -7,14 +15,6 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { filter } from 'rxjs/operators';
 
 @Component({

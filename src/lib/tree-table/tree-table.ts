@@ -1,18 +1,19 @@
+import { Platform } from '@angular/cdk/platform';
+import { DOCUMENT } from '@angular/common';
 import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  Input,
-  ChangeDetectorRef,
-  ElementRef,
   Attribute,
-  IterableDiffers,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
   Inject,
+  Input,
+  IterableDiffers,
+  ViewEncapsulation,
 } from '@angular/core';
+
 import { DtTreeControl } from '@dynatrace/angular-components/core';
 import { _DtTableBase } from '@dynatrace/angular-components/table';
-import { DOCUMENT } from '@angular/common';
-import { Platform } from '@angular/cdk/platform';
 
 /** Dynatrace Tree Table component */
 @Component({

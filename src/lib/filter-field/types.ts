@@ -1,4 +1,5 @@
 import { isDefined, isObject } from '@dynatrace/angular-components/core';
+
 import { getDtFilterFieldRangeNoOperatorsError } from './filter-field-errors';
 
 // tslint:disable:no-bitwise no-magic-numbers no-any

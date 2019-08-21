@@ -1,29 +1,31 @@
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Input,
-  ElementRef,
-  ViewChild,
-  Output,
-  EventEmitter,
-  ChangeDetectorRef,
-  Optional,
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
+  Optional,
+  Output,
   Renderer2,
+  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
+
 import {
-  mixinTabIndex,
   CanDisable,
   HasTabIndex,
-  removeCssClass,
   addCssClass,
+  mixinTabIndex,
+  removeCssClass,
 } from '@dynatrace/angular-components/core';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+
 import { DtRadioGroup } from './radio-group';
 
 let nextUniqueId = 0;

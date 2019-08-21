@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+
 import { DtSelect } from '@dynatrace/angular-components/select';
 
 @Component({

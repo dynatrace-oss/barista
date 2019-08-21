@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtTile, DtTileTitle, DtTileSubtitle, DtTileIcon } from './tile';
+import { NgModule } from '@angular/core';
+
+import { DtTile, DtTileIcon, DtTileSubtitle, DtTileTitle } from './tile';
 
 @NgModule({
   imports: [CommonModule],

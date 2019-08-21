@@ -1,8 +1,8 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
+  Component,
   Directive,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Directive({

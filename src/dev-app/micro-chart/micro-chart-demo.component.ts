@@ -1,8 +1,9 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { generateData } from '../chart/chart-data';
 import { merge as lodashMerge } from 'lodash';
+
+import { generateData } from '../chart/chart-data';
 
 @Component({
   selector: 'micro-chart-demo',

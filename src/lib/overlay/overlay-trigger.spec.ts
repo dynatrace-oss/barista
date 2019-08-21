@@ -6,18 +6,20 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import {
   ComponentFixture,
+  TestBed,
   fakeAsync,
   flush,
   inject,
-  TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import {
   DT_OVERLAY_DEFAULT_OFFSET,
   DtOverlayConfig,
   DtOverlayModule,
 } from '@dynatrace/angular-components/overlay';
+
 import { createComponent } from '../../testing/create-component';
 import {
   dispatchKeyboardEvent,

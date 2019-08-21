@@ -2,6 +2,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { DataPoint } from 'highcharts';
+
 import {
   extractColumnGapDataPoints,
   extractGaps,

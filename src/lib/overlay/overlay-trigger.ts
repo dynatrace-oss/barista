@@ -1,25 +1,27 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import {
-  Directive,
-  Input,
-  ElementRef,
-  TemplateRef,
-  NgZone,
   Attribute,
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
   OnDestroy,
+  TemplateRef,
 } from '@angular/core';
+import { Subscription, fromEvent } from 'rxjs';
+
+import {
+  CanDisable,
+  HasTabIndex,
+  mixinDisabled,
+  mixinTabIndex,
+  readKeyCode,
+} from '@dynatrace/angular-components/core';
+
 import { DtOverlay } from './overlay';
 import { DtOverlayConfig } from './overlay-config';
 import { DtOverlayRef } from './overlay-ref';
-import { Subscription, fromEvent } from 'rxjs';
-import { ENTER, SPACE } from '@angular/cdk/keycodes';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import {
-  mixinTabIndex,
-  HasTabIndex,
-  mixinDisabled,
-  CanDisable,
-  readKeyCode,
-} from '@dynatrace/angular-components/core';
 
 export class DtOverlayTriggerBase {}
 export const _DtOverlayTriggerMixin = mixinTabIndex(

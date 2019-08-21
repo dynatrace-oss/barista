@@ -1,27 +1,29 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   fakeAsync,
-  inject,
   flush,
-  tick,
   flushMicrotasks,
+  inject,
+  tick,
 } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import {
-  DtToastModule,
-  DtToast,
+  DT_TOAST_CHAR_LIMIT,
   DT_TOAST_FADE_TIME,
   DT_TOAST_MIN_DURATION,
-  DT_TOAST_CHAR_LIMIT,
+  DtToast,
+  DtToastModule,
 } from '@dynatrace/angular-components/toast';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
+
 import { createComponent } from '../../testing/create-component';
+import { dispatchFakeEvent } from '../../testing/dispatch-events';
 
 describe('DtToast', () => {
   let dtToast: DtToast;

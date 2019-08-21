@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
+import { Component } from '@angular/core';
 import { DtIconType } from '@dynatrace/dt-iconpack';
+import { BehaviorSubject } from 'rxjs';
+
 import {
+  DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
-  DtTreeControl,
 } from '@dynatrace/angular-components/core';
-import { BehaviorSubject } from 'rxjs';
 
 const TESTDATA: ThreadNode[] = [
   {

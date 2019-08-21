@@ -1,7 +1,8 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 import {
-  formatPercent,
   formatBytes,
+  formatPercent,
   formatRate,
 } from '@dynatrace/angular-components/formatters';
 import { DtPagination } from '@dynatrace/angular-components/pagination';

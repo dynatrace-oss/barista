@@ -1,8 +1,10 @@
 import { DOWN_ARROW, ENTER, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Directive, Input, OnDestroy } from '@angular/core';
-import { DtExpandablePanel } from './expandable-panel';
-import { CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
 import { Subscription } from 'rxjs';
+
+import { CanDisable, readKeyCode } from '@dynatrace/angular-components/core';
+
+import { DtExpandablePanel } from './expandable-panel';
 
 @Directive({
   // @breaking-change update selector to button[dtExpandablePanel] in 5.0.0

@@ -1,23 +1,25 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Input,
-  ChangeDetectorRef,
-  ContentChildren,
-  QueryList,
-  AfterContentInit,
-  OnDestroy,
-  ElementRef,
-} from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { scaleLinear, ScaleLinear } from 'd3-scale';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  ElementRef,
+  Input,
+  OnDestroy,
+  QueryList,
+  ViewEncapsulation,
+} from '@angular/core';
+import { ScaleLinear, scaleLinear } from 'd3-scale';
 import { Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 import { DtViewportResizer } from '@dynatrace/angular-components/core';
+
 import {
-  DtTimelineChartTimingMarker,
   DtTimelineChartKeyTimingMarker,
+  DtTimelineChartTimingMarker,
 } from './timeline-chart-directives';
 
 const POSITION_PRECISION = 10000;

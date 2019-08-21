@@ -1,10 +1,12 @@
-import { Input, ViewChild, Optional, OnDestroy, OnInit } from '@angular/core';
-import { DtColumnDef, DtCellDef } from '../cell';
-import { DtTable } from '../table';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Input, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
+
 import { DtIndicatorThemePalette } from '@dynatrace/angular-components/core';
 import { DtFormattedValue } from '@dynatrace/angular-components/formatters';
+
+import { DtCellDef, DtColumnDef } from '../cell';
 import { DtHeaderCellDef } from '../header/header-cell';
+import { DtTable } from '../table';
 
 /** Signature type for the dataAccessor function which can be passed to the simpleColumn. */
 export type DtSimpleColumnDisplayAccessorFunction<T> = (

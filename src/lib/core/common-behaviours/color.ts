@@ -1,4 +1,5 @@
 import { Directive, ElementRef, NgModule } from '@angular/core';
+
 import { replaceCssClass } from '../util/platform-util';
 import { Constructor } from './constructor';
 

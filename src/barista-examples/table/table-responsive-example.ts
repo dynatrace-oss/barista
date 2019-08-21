@@ -1,7 +1,8 @@
-import { Component, NgZone } from '@angular/core';
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
-import { startWith, switchMap, take } from 'rxjs/operators';
 import { ViewportRuler } from '@angular/cdk/overlay';
+import { Component, NgZone } from '@angular/core';
+import { startWith, switchMap, take } from 'rxjs/operators';
+
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
 
 const NARROW_THRESHHOLD = 1000;
 

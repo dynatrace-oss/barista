@@ -1,4 +1,5 @@
 import { Component, DoCheck, ViewEncapsulation } from '@angular/core';
+
 import {
   DtChartOptions,
   DtChartSeries,

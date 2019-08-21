@@ -5,19 +5,21 @@ import { Location, LocationStrategy } from '@angular/common';
 import { Component, DebugElement } from '@angular/core';
 import {
   ComponentFixture,
-  fakeAsync,
   TestBed,
+  fakeAsync,
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+
 import {
   DtTabGroup,
   DtTabNavigationAdapter,
   DtTabRouterFragmentAdapter,
   DtTabsModule,
 } from '@dynatrace/angular-components/tabs';
+
 import { checkSelected } from '../tab-group.spec';
 
 describe('DtTabRouterFragmentAdapter', () => {

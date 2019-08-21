@@ -1,11 +1,12 @@
 import {
-  Component,
   AfterViewInit,
-  ViewChildren,
+  Component,
   QueryList,
+  ViewChildren,
 } from '@angular/core';
-import { DtPagination } from '@dynatrace/angular-components/pagination';
 import { startWith } from 'rxjs/operators';
+
+import { DtPagination } from '@dynatrace/angular-components/pagination';
 import { DtTableDataSource } from '@dynatrace/angular-components/table';
 
 @Component({

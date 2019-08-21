@@ -1,6 +1,6 @@
 import {
-  calculatePosition,
   DtSelectionAreaEventTarget,
+  calculatePosition,
 } from './position-utils';
 
 // tslint:disable:no-magic-numbers

@@ -1,7 +1,8 @@
-import { Constructor } from './constructor';
-import { Subject } from 'rxjs';
 import { NgZone } from '@angular/core';
+import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
+
+import { Constructor } from './constructor';
 
 export interface CanNotifyOnExit {
   readonly _onDomExit: Subject<void>;

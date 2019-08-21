@@ -1,21 +1,22 @@
+import { AnimationEvent } from '@angular/animations';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import {
-  Component,
-  ViewEncapsulation,
+  AfterContentChecked,
   ChangeDetectionStrategy,
-  Output,
+  Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
-  ElementRef,
   OnInit,
-  AfterContentChecked,
+  Output,
+  ViewEncapsulation,
 } from '@angular/core';
-import { AnimationEvent } from '@angular/animations';
+import { Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
+
 import { dtDrawerAnimation } from './drawer-animation';
-import { Subject, Observable } from 'rxjs';
-import { filter, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 /** The breakpoint when the side mode changes to an overlay mode */
 export const DT_DRAWER_MODE_BREAKPOINT = 1024;

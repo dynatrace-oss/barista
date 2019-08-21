@@ -1,4 +1,5 @@
 import { ElementAst, EmbeddedTemplateAst } from '@angular/compiler';
+
 import { isElementWithName } from './isElementWithName';
 
 /**

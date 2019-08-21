@@ -1,7 +1,8 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { Constructor } from './constructor';
-import { clamp } from '../util/number-util';
 import { EventEmitter } from '@angular/core';
+
+import { clamp } from '../util/number-util';
+import { Constructor } from './constructor';
 
 export interface DtProgressChange {
   newValue: number;

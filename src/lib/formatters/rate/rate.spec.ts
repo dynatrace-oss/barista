@@ -1,7 +1,7 @@
-import { DtRateUnit } from '../unit';
-import { DtRate } from './rate';
 import { DtBytes } from '../bytes/bytes';
 import { NO_DATA } from '../formatted-value';
+import { DtRateUnit } from '../unit';
+import { DtRate } from './rate';
 
 describe('DtRate', () => {
   interface TestCase {

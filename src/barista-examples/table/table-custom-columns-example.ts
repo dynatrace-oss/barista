@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import {
-  formatPercent,
   formatBytes,
+  formatPercent,
 } from '@dynatrace/angular-components/formatters';
 
 @Component({

@@ -7,9 +7,10 @@ import {
   SkipSelf,
   ViewChild,
 } from '@angular/core';
-import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
-import { fromEvent, Subscription } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
+
+import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
 
 // tslint:disable:no-magic-numbers
 

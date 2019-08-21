@@ -1,30 +1,32 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
-  Input,
-  ElementRef,
-  Component,
-  ViewEncapsulation,
   ChangeDetectionStrategy,
-  OnInit,
-  TemplateRef,
-  ContentChild,
-  ViewContainerRef,
   ChangeDetectorRef,
-  Optional,
+  Component,
+  ContentChild,
+  ElementRef,
   Inject,
+  Input,
+  OnInit,
+  Optional,
+  TemplateRef,
+  ViewContainerRef,
+  ViewEncapsulation,
   forwardRef,
 } from '@angular/core';
-import {
-  mixinDisabled,
-  CanDisable,
-  mixinTabIndex,
-  HasTabIndex,
-} from '@dynatrace/angular-components/core';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { DtTabLabel } from './tab-label';
-import { DtTabContent } from './tab-content';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { DtTabGroup } from '../tab-group';
 import { Subject } from 'rxjs';
+
+import {
+  CanDisable,
+  HasTabIndex,
+  mixinDisabled,
+  mixinTabIndex,
+} from '@dynatrace/angular-components/core';
+
+import { DtTabGroup } from '../tab-group';
+import { DtTabContent } from './tab-content';
+import { DtTabLabel } from './tab-label';
 
 let nextUniqueId = 0;
 

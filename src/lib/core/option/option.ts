@@ -1,22 +1,23 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  Input,
-  Output,
-  EventEmitter,
-  ElementRef,
-  Optional,
-  ChangeDetectorRef,
-  AfterViewChecked,
-  OnDestroy,
-  QueryList,
-} from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import {
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Optional,
+  Output,
+  QueryList,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Subject } from 'rxjs';
-import { DtOptgroup } from './optgroup';
+
 import { readKeyCode } from '../util/index';
+import { DtOptgroup } from './optgroup';
 
 let _uniqueId = 0;
 

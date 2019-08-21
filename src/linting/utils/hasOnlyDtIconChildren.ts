@@ -4,8 +4,9 @@ import {
   TemplateAst,
   TextAst,
 } from '@angular/compiler';
-import { isElementWithName } from './isElementWithName';
+
 import { hasTextContent } from './hasContent';
+import { isElementWithName } from './isElementWithName';
 
 /**
  * Filters whitespace text elements.

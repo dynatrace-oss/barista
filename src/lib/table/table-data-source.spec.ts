@@ -4,24 +4,26 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
-  async,
   ComponentFixture,
+  TestBed,
+  async,
   fakeAsync,
   flush,
-  TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  DtTableDataSource,
-  DtTableModule,
-  DtSort,
-} from '@dynatrace/angular-components/table';
+
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import {
-  DtPaginationModule,
   DtPagination,
+  DtPaginationModule,
 } from '@dynatrace/angular-components/pagination';
+import {
+  DtSort,
+  DtTableDataSource,
+  DtTableModule,
+} from '@dynatrace/angular-components/table';
+
 import { createComponent } from '../../testing/create-component';
 import { dispatchMouseEvent } from '../../testing/dispatch-events';
 

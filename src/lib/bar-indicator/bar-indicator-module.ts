@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { DtBarIndicator } from './bar-indicator';
 
 @NgModule({

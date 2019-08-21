@@ -1,13 +1,14 @@
 import {
-  LEFT_ARROW,
-  UP_ARROW,
-  RIGHT_ARROW,
   DOWN_ARROW,
-  PAGE_UP,
-  PAGE_DOWN,
-  HOME,
   END,
+  HOME,
+  LEFT_ARROW,
+  PAGE_DOWN,
+  PAGE_UP,
+  RIGHT_ARROW,
+  UP_ARROW,
 } from '@angular/cdk/keycodes';
+
 import { clamp } from '@dynatrace/angular-components/core';
 
 /** The step size for the keyboard interaction on PAGE UP and PAGE DOWN */

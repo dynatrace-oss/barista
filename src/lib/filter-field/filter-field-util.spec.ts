@@ -2,22 +2,22 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import {
-  dtOptionDef,
-  dtGroupDef,
-  dtFreeTextDef,
   dtAutocompleteDef,
+  dtFreeTextDef,
+  dtGroupDef,
+  dtOptionDef,
 } from '@dynatrace/angular-components/filter-field';
 
 // Import locally because utils are not exported for the public
 import {
-  generateOptionId,
   DELIMITER,
-  peekOptionId,
-  findDefForSource,
-  optionFilterTextPredicate,
-  optionSelectedPredicate,
-  optionOrGroupFilteredPredicate,
   createTagDataForFilterValues,
+  findDefForSource,
+  generateOptionId,
+  optionFilterTextPredicate,
+  optionOrGroupFilteredPredicate,
+  optionSelectedPredicate,
+  peekOptionId,
 } from './filter-field-util';
 import { DtFilterValue } from './types';
 

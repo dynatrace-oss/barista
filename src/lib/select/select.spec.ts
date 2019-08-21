@@ -22,12 +22,12 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {
-  async,
   ComponentFixture,
+  TestBed,
+  async,
   fakeAsync,
   flush,
   inject,
-  TestBed,
   tick,
 } from '@angular/core/testing';
 import {
@@ -40,6 +40,13 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { map } from 'rxjs/operators';
+
+import {
+  DtOption,
+  DtOptionSelectionChange,
+  ErrorStateMatcher,
+} from '@dynatrace/angular-components/core';
 import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import {
@@ -47,12 +54,7 @@ import {
   DtSelectModule,
   getDtSelectNonFunctionValueError,
 } from '@dynatrace/angular-components/select';
-import {
-  ErrorStateMatcher,
-  DtOption,
-  DtOptionSelectionChange,
-} from '@dynatrace/angular-components/core';
-import { map } from 'rxjs/operators';
+
 import { createComponent } from '../../testing/create-component';
 import {
   dispatchEvent,

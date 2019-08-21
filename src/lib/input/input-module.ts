@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
-import { DtInput } from './input';
-import { CommonModule } from '@angular/common';
 import { PlatformModule } from '@angular/cdk/platform';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { DtInput } from './input';
 
 @NgModule({
   imports: [CommonModule, PlatformModule],

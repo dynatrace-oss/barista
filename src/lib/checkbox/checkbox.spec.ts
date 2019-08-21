@@ -4,9 +4,9 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
+  TestBed,
   fakeAsync,
   flush,
-  TestBed,
 } from '@angular/core/testing';
 import {
   FormControl,
@@ -15,11 +15,13 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+
 import {
   DtCheckbox,
   DtCheckboxChange,
   DtCheckboxModule,
 } from '@dynatrace/angular-components/checkbox';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtCheckbox', () => {

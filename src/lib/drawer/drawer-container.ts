@@ -1,24 +1,26 @@
+import { AnimationEvent } from '@angular/animations';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
+  ElementRef,
+  OnDestroy,
   QueryList,
   ViewEncapsulation,
-  ChangeDetectionStrategy,
-  ElementRef,
-  AfterContentInit,
-  OnDestroy,
-  ChangeDetectorRef,
 } from '@angular/core';
-import { AnimationEvent } from '@angular/animations';
-import { filter, takeUntil, startWith } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { DtDrawer } from './drawer';
+import { filter, startWith, takeUntil } from 'rxjs/operators';
+
 import {
   addCssClass,
-  removeCssClass,
   readKeyCode,
+  removeCssClass,
 } from '@dynatrace/angular-components/core';
-import { ESCAPE } from '@angular/cdk/keycodes';
+
+import { DtDrawer } from './drawer';
 
 export const DT_DRAWER_OPEN_CLASS = 'dt-drawer-is-open';
 

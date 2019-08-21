@@ -2,11 +2,13 @@
 
 import { Component } from '@angular/core';
 import { Observable, timer } from 'rxjs';
-import {
-  DtChartSeries,
-  DtChartOptions,
-} from '@dynatrace/angular-components/chart';
 import { map } from 'rxjs/operators';
+
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/angular-components/chart';
+
 import { generateData } from './data';
 
 @Component({

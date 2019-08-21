@@ -1,12 +1,12 @@
-import { Optional, Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Inject, Injectable, Optional } from '@angular/core';
+import { DtIconType } from '@dynatrace/dt-iconpack';
 import { Observable, of } from 'rxjs';
-import { finalize, share, map, tap } from 'rxjs/operators';
+import { finalize, map, share, tap } from 'rxjs/operators';
+
+import { sanitizeSvg } from '@dynatrace/angular-components/core';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
-import { DtIconType } from '@dynatrace/dt-iconpack';
-import { sanitizeSvg } from '@dynatrace/angular-components/core';
 
 interface SvgIconConfig {
   name: DtIconType;

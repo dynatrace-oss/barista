@@ -1,17 +1,19 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { OverlayRef } from '@angular/cdk/overlay';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
+
 import {
   addCssClass,
-  removeCssClass,
   readKeyCode,
+  removeCssClass,
 } from '@dynatrace/angular-components/core';
-import { Subscription, Observable, Subject } from 'rxjs';
-import { DtOverlayContainer } from './overlay-container';
+
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
-import { DtOverlayConfig } from './overlay-config';
-import { filter, take } from 'rxjs/operators';
-import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DT_OVERLAY_NO_POINTER_CLASS } from './overlay';
+import { DtOverlayConfig } from './overlay-config';
+import { DtOverlayContainer } from './overlay-container';
 
 export class DtOverlayRef<T> {
   /** The instance of component opened into the overlay. */

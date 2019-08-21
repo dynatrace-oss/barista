@@ -1,4 +1,4 @@
-import { browser, by, element, ExpectedConditions } from 'protractor';
+import { ExpectedConditions, browser, by, element } from 'protractor';
 
 describe('switch', () => {
   describe('disabling behavior', () => {

@@ -1,16 +1,18 @@
 import { DataSource } from '@angular/cdk/table';
-import { compareValues, isNumber } from '@dynatrace/angular-components/core';
-import { DtPagination } from '@dynatrace/angular-components/pagination';
 import {
   BehaviorSubject,
-  combineLatest,
-  merge,
   Observable,
-  of,
   Subject,
   Subscription,
+  combineLatest,
+  merge,
+  of,
 } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+
+import { compareValues, isNumber } from '@dynatrace/angular-components/core';
+import { DtPagination } from '@dynatrace/angular-components/pagination';
+
 import {
   DtSimpleColumnDisplayAccessorFunction,
   DtSimpleColumnSortAccessorFunction,

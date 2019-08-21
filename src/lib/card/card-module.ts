@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import {
   DtCard,
-  DtCardTitle,
-  DtCardSubtitle,
-  DtCardIcon,
-  DtCardTitleActions,
   DtCardFooterActions,
+  DtCardIcon,
+  DtCardSubtitle,
+  DtCardTitle,
+  DtCardTitleActions,
 } from './card';
 
 @NgModule({

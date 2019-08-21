@@ -1,7 +1,7 @@
+import { NO_DATA } from '../formatted-value';
+import { KILO_MULTIPLIER } from '../number-formatter';
 import { DtUnit } from '../unit';
 import { DtBits } from './bits';
-import { KILO_MULTIPLIER } from '../number-formatter';
-import { NO_DATA } from '../formatted-value';
 
 describe('DtBits', () => {
   interface TestCase {

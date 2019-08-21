@@ -1,12 +1,14 @@
-import { DtTheme } from '@dynatrace/angular-components/theming';
-import { Options as HighchartsOptions, AxisOptions } from 'highcharts';
+import { AxisOptions, Options as HighchartsOptions } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
-import {
-  DT_CHART_DEFAULT_OPTIONS,
-  DT_CHART_DEFAULT_AXIS_STYLES,
-} from '../chart-options';
-import { DtChartSeries, DtChartOptions } from '../chart';
+
+import { DtTheme } from '@dynatrace/angular-components/theming';
+
+import { DtChartOptions, DtChartSeries } from '../chart';
 import { getDtChartColorPalette } from '../chart-colors';
+import {
+  DT_CHART_DEFAULT_AXIS_STYLES,
+  DT_CHART_DEFAULT_OPTIONS,
+} from '../chart-options';
 
 /** Create a pure highcharts options out of provided chart options and/or series. */
 export function createHighchartOptions(

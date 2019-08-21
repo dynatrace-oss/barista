@@ -1,18 +1,20 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
-  ViewEncapsulation,
   ContentChildren,
-  QueryList,
-  AfterContentInit,
-  OnDestroy,
-  Input,
   ElementRef,
+  Input,
+  OnDestroy,
+  QueryList,
+  ViewEncapsulation,
 } from '@angular/core';
-import { startWith } from 'rxjs/operators';
 import { NEVER } from 'rxjs';
+import { startWith } from 'rxjs/operators';
+
+import { Constructor, mixinColor } from '@dynatrace/angular-components/core';
+
 import { DtBreadcrumbsItem } from './item/breadcrumbs-item';
-import { mixinColor, Constructor } from '@dynatrace/angular-components/core';
 
 export type DtBreadcrumbThemePalette = 'main' | 'error' | 'neutral';
 

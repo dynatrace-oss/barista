@@ -6,10 +6,11 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { DtTableDataSource } from '@dynatrace/angular-components/table';
-import { of, Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+
 import { DtPagination } from '@dynatrace/angular-components/pagination';
+import { DtTableDataSource } from '@dynatrace/angular-components/table';
 
 interface HostUnit {
   host: string;

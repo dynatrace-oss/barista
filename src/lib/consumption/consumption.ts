@@ -20,12 +20,14 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
+
 import {
   Constructor,
   isDefined,
   mixinColor,
   readKeyCode,
 } from '@dynatrace/angular-components/core';
+
 import { DtConsumptionOverlay } from './consumption-directives';
 
 export type DtConsumptionThemePalette = 'main' | 'warning' | 'error';

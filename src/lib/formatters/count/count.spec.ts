@@ -1,6 +1,6 @@
-import { DtCount } from './count';
-import { DtUnit } from '../unit';
 import { NO_DATA } from '../formatted-value';
+import { DtUnit } from '../unit';
+import { DtCount } from './count';
 
 describe('DtCount', () => {
   interface TestCase {

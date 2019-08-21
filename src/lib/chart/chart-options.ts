@@ -1,5 +1,7 @@
-import { DtColors } from '@dynatrace/angular-components/theming';
 import { AxisOptions, GlobalOptions } from 'highcharts';
+
+import { DtColors } from '@dynatrace/angular-components/theming';
+
 import { DtChartOptions } from './chart';
 
 // tslint:disable:no-magic-numbers

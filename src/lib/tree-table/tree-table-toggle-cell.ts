@@ -1,23 +1,25 @@
-import { DtCell, DtColumnDef } from '@dynatrace/angular-components/table';
-import {
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Renderer2,
-  ElementRef,
-  SkipSelf,
-  Component,
-  ChangeDetectorRef,
-  Input,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
-import { DtTreeTableRow } from './tree-table-row';
-import { DtTreeControl } from '@dynatrace/angular-components/core';
-import { DtTreeTable } from './tree-table';
-import { filter } from 'rxjs/operators';
 import { SelectionChange } from '@angular/cdk/collections';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  Renderer2,
+  SkipSelf,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+import { DtTreeControl } from '@dynatrace/angular-components/core';
+import { DtCell, DtColumnDef } from '@dynatrace/angular-components/table';
+
+import { DtTreeTable } from './tree-table';
+import { DtTreeTableRow } from './tree-table-row';
 
 /** The indentation in px for a level in the tree-table */
 const DT_TREE_TABLE_INDENT_PX = 16;

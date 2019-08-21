@@ -1,19 +1,20 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  ChangeDetectorRef,
-  Output,
   AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
   ContentChildren,
-  QueryList,
   NgZone,
   OnDestroy,
+  Output,
+  QueryList,
+  ViewEncapsulation,
 } from '@angular/core';
-import { DtToggleButtonItem, DtToggleButtonChange } from './toggle-button-item';
+import { Observable, Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, take, takeUntil } from 'rxjs/operators';
-import { merge, defer, Observable, Subject } from 'rxjs';
-import { SelectionModel } from '@angular/cdk/collections';
+
+import { DtToggleButtonChange, DtToggleButtonItem } from './toggle-button-item';
 
 /** DtToggleButtonGroup wraps the DtToggleButtonItems as a select 0 or 1 container. */
 @Component({

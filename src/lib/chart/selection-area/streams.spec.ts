@@ -2,10 +2,12 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { ElementRef, NgZone, QueryList } from '@angular/core';
-import * as core from '@dynatrace/angular-components/core';
-import { interval, Observable, of, Subject, timer } from 'rxjs';
+import { Observable, Subject, interval, of, timer } from 'rxjs';
 import { delay, map, mapTo, take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
+
+import * as core from '@dynatrace/angular-components/core';
+
 import { createMouseEvent } from '../../../testing/event-objects';
 import { MockNgZone } from '../../../testing/mock-ng-zone';
 import * as utils from '../utils';

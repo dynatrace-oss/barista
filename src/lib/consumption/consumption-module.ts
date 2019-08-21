@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
+
 import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
 import { DtThemingModule } from '@dynatrace/angular-components/theming';
+
 import { DtConsumption } from './consumption';
 import {
   DtConsumptionCount,

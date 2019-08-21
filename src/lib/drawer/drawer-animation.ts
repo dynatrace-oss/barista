@@ -1,10 +1,10 @@
 import {
+  AnimationTriggerMetadata,
   animate,
   state,
   style,
   transition,
   trigger,
-  AnimationTriggerMetadata,
 } from '@angular/animations';
 
 export const dtDrawerAnimation: AnimationTriggerMetadata[] = [
