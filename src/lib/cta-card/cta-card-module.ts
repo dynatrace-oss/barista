@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+
 import { DtCardModule } from '@dynatrace/angular-components/card';
+
 import {
   DtCtaCard,
   DtCtaCardFooterActions,

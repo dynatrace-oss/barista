@@ -9,7 +9,6 @@ import {
   ComponentFactoryResolver,
   Directive,
   EventEmitter,
-  forwardRef,
   Inject,
   Input,
   OnDestroy,
@@ -18,6 +17,7 @@ import {
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 

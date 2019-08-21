@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { COUNTRIES, countryCompareWithFn, CountryOption } from './countries';
+
+import { COUNTRIES, CountryOption, countryCompareWithFn } from './countries';
 
 @Component({
   moduleId: module.id,

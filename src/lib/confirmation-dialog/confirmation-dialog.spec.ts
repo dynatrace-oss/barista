@@ -1,16 +1,17 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
-  inject,
   fakeAsync,
-  tick,
   flush,
+  inject,
+  tick,
 } from '@angular/core/testing';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component } from '@angular/core';
+
 import { DT_CONFIRMATION_FADE_DURATION } from './confirmation-dialog-constants';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { DtConfirmationDialogModule } from './confirmation-dialog-module';
 
 describe('ConfirmationDialogComponent', () => {

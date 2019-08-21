@@ -1,8 +1,9 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { mixinColor } from './color';
 import { ElementRef } from '@angular/core';
+
+import { mixinColor } from './color';
 
 describe('MixinColor', () => {
   it('should augment an existing class with a color property', () => {

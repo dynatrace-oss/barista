@@ -5,11 +5,13 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import {
   DtChartModule,
   DtChartRange,
 } from '@dynatrace/angular-components/chart';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+
 import { dispatchFakeEvent } from '../../../testing/dispatch-events';
 import {
   ARIA_DEFAULT_LEFT_HANDLE_LABEL,

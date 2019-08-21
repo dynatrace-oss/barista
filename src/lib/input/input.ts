@@ -1,25 +1,26 @@
-import {
-  Directive,
-  Input,
-  Optional,
-  Self,
-  ElementRef,
-  DoCheck,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import {
+  Directive,
+  DoCheck,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Self,
+} from '@angular/core';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { Subject } from 'rxjs';
+
+import {
+  CanUpdateErrorState,
   ErrorStateMatcher,
   mixinErrorState,
-  CanUpdateErrorState,
 } from '@dynatrace/angular-components/core';
 import { DtFormFieldControl } from '@dynatrace/angular-components/form-field';
-import { Subject } from 'rxjs';
 
 let nextUniqueId = 0;
 

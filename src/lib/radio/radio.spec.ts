@@ -3,10 +3,10 @@
 
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import {
-  async,
   ComponentFixture,
-  fakeAsync,
   TestBed,
+  async,
+  fakeAsync,
   tick,
 } from '@angular/core/testing';
 import {
@@ -16,12 +16,14 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+
 import {
   DtRadioButton,
   DtRadioChange,
   DtRadioGroup,
   DtRadioModule,
 } from '@dynatrace/angular-components/radio';
+
 import { createComponent } from '../../testing/create-component';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
 

@@ -1,9 +1,10 @@
 import {
-  Component,
-  ViewEncapsulation,
   ChangeDetectionStrategy,
+  Component,
   Input,
+  ViewEncapsulation,
 } from '@angular/core';
+
 import { CanDisable, mixinDisabled } from '../common-behaviours/disabled';
 
 let _uniqueId = 0;

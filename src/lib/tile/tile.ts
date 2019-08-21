@@ -1,23 +1,24 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Directive,
+  Component,
   ContentChild,
+  Directive,
   ElementRef,
   OnDestroy,
+  ViewEncapsulation,
 } from '@angular/core';
+
 import {
-  CanDisable,
-  mixinDisabled,
-  HasTabIndex,
-  mixinTabIndex,
-  HasElementRef,
   CanColor,
-  mixinColor,
+  CanDisable,
   Constructor,
+  HasElementRef,
+  HasTabIndex,
+  mixinColor,
+  mixinDisabled,
+  mixinTabIndex,
 } from '@dynatrace/angular-components/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 
 /** Title of a tile, needed as it's used as a selector in the API. */
 @Directive({

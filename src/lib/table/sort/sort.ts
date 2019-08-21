@@ -2,18 +2,20 @@ import {
   Directive,
   EventEmitter,
   Input,
-  isDevMode,
   OnChanges,
   OnDestroy,
-  Output,
   OnInit,
+  Output,
+  isDevMode,
 } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+
 import {
   CanDisable,
-  mixinDisabled,
   DtSortDirection,
+  mixinDisabled,
 } from '@dynatrace/angular-components/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+
 import { getDtSortInvalidDirectionError } from './sort-errors';
 import { DtSortHeader } from './sort-header';
 

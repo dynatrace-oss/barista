@@ -1,7 +1,7 @@
-import { Injectable, ElementRef } from '@angular/core';
 import { ScrollDispatcher, ViewportRuler } from '@angular/cdk/scrolling';
-import { map, filter, distinctUntilChanged } from 'rxjs/operators';
-import { Subject, Observable, merge } from 'rxjs';
+import { ElementRef, Injectable } from '@angular/core';
+import { Observable, Subject, merge } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class Viewport {

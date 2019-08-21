@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject, interval, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 const MAX_ROWS = 5;

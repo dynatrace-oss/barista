@@ -1,17 +1,18 @@
-import { DtToastContainer } from './toast-container';
 import { OverlayRef } from '@angular/cdk/overlay';
-import {
-  Subject,
-  Observable,
-  fromEvent,
-  merge,
-  interval,
-  EMPTY,
-  Subscription,
-} from 'rxjs';
-import { startWith, switchMap, mapTo, scan, takeWhile } from 'rxjs/operators';
-import { DT_TOAST_CHAR_READ_TIME } from './toast-config';
 import { NgZone } from '@angular/core';
+import {
+  EMPTY,
+  Observable,
+  Subject,
+  Subscription,
+  fromEvent,
+  interval,
+  merge,
+} from 'rxjs';
+import { mapTo, scan, startWith, switchMap, takeWhile } from 'rxjs/operators';
+
+import { DT_TOAST_CHAR_READ_TIME } from './toast-config';
+import { DtToastContainer } from './toast-container';
 
 export class DtToastRef {
   /** The instance for the toast-container that holds the message */

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/filter-field';
 
 @Component({

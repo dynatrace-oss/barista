@@ -1,9 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { DtFormattedValue, NO_DATA } from '../formatted-value';
-import { formatRate } from './rate-formatter';
-import { DtRateUnit } from '../unit';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { Pipe, PipeTransform } from '@angular/core';
+
 import { isEmpty, isNumber } from '@dynatrace/angular-components/core';
+
+import { DtFormattedValue, NO_DATA } from '../formatted-value';
+import { DtRateUnit } from '../unit';
+import { formatRate } from './rate-formatter';
 
 /** Pipe used to add a rate (e.g. per second) to the value */
 @Pipe({

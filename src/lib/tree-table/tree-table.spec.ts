@@ -6,12 +6,14 @@ import { DataSource } from '@angular/cdk/table';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, Type, ViewChild } from '@angular/core';
 import {
-  async,
   ComponentFixture,
-  fakeAsync,
   TestBed,
+  async,
+  fakeAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 import {
   DtIndicatorModule,
   DtTreeControl,
@@ -23,7 +25,7 @@ import {
   DtTreeTable,
   DtTreeTableModule,
 } from '@dynatrace/angular-components/tree-table';
-import { BehaviorSubject, Observable } from 'rxjs';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtTreeTable', () => {

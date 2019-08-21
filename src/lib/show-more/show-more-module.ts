@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
-import { DtShowMore, DtShowLessLabel } from './show-more';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+
+import { DtShowLessLabel, DtShowMore } from './show-more';
 
 // tslint:disable:deprecation
 @NgModule({

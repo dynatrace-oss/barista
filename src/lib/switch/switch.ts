@@ -1,34 +1,35 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  OnDestroy,
-  AfterViewInit,
-  Provider,
-  forwardRef,
-  Input,
-  Output,
-  ViewChild,
-  EventEmitter,
-  ElementRef,
-  Attribute,
-  ChangeDetectorRef,
-  Directive,
-  Renderer2,
-} from '@angular/core';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { FocusOrigin, FocusMonitor } from '@angular/cdk/a11y';
 import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  NG_VALIDATORS,
+  AfterViewInit,
+  Attribute,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+  Provider,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation,
+  forwardRef,
+} from '@angular/core';
+import {
   CheckboxRequiredValidator,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+
 import {
-  HasTabIndex,
   CanDisable,
-  mixinTabIndex,
+  HasTabIndex,
   mixinDisabled,
+  mixinTabIndex,
 } from '@dynatrace/angular-components/core';
 
 // Increasing integer for generating unique ids for switch components.

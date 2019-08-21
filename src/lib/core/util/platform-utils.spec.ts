@@ -1,9 +1,10 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ElementRef, Renderer2, Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
-import { replaceCssClass, hasCssClass, parseCssValue } from './platform-util';
+
+import { hasCssClass, parseCssValue, replaceCssClass } from './platform-util';
 
 describe('PlatformUtil', () => {
   beforeEach(async(() => {

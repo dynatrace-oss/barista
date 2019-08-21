@@ -1,10 +1,12 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { TestBed, async } from '@angular/core/testing';
-import { DtTileModule } from '@dynatrace/angular-components/tile';
-import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
+import { TestBed, async } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { DtTileModule } from '@dynatrace/angular-components/tile';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtTile', () => {

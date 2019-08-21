@@ -14,19 +14,21 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { Subject } from 'rxjs';
+
 import {
-  addCssClass,
   HasTabIndex,
+  addCssClass,
   isDefined,
   mixinDisabled,
   mixinTabIndex,
   readKeyCode,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
-import { Subject } from 'rxjs';
+
 import {
-  calculatePosition,
   DtSelectionAreaEventTarget,
+  calculatePosition,
   getOffsetForKeyCode,
 } from './positioning-utils';
 

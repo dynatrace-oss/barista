@@ -1,21 +1,23 @@
+import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { TemplatePortal } from '@angular/cdk/portal';
 // tslint:disable: template-cyclomatic-complexity
 import {
-  Component,
-  ViewChild,
   AfterViewInit,
-  TemplateRef,
-  ViewContainerRef,
-  Output,
-  EventEmitter,
-  ViewEncapsulation,
-  Input,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+  ViewEncapsulation,
 } from '@angular/core';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { isDefined } from '@dynatrace/angular-components/core';
+
 import { DtButtonGroup } from '@dynatrace/angular-components/button-group';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { isDefined } from '@dynatrace/angular-components/core';
+
 import { DtRangeOperatorFlags } from '../types';
 
 let _uniqueIdCounter = 0;

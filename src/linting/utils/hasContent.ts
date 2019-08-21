@@ -1,4 +1,4 @@
-import { ElementAst, TextAst, EmbeddedTemplateAst } from '@angular/compiler';
+import { ElementAst, EmbeddedTemplateAst, TextAst } from '@angular/compiler';
 
 /**
  * Check if element contains text apart from whitespace characters.

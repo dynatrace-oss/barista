@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
-import { DtToastContainer } from './toast-container';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { NgModule } from '@angular/core';
+
+import { DtToastContainer } from './toast-container';
 
 @NgModule({
   imports: [OverlayModule],

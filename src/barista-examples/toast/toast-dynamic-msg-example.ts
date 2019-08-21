@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { DtToast, DtToastRef } from '@dynatrace/angular-components/toast';
 import { Observable, timer } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+
+import { DtToast, DtToastRef } from '@dynatrace/angular-components/toast';
 
 const TIMERINTERVAL = 50;
 

@@ -1,10 +1,12 @@
-import { DtFormattedValue, NO_DATA } from '../formatted-value';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Pipe, PipeTransform } from '@angular/core';
-import { formatBits } from './bits-formatter';
+
+import { isEmpty, isNumber } from '@dynatrace/angular-components/core';
+
+import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { KILO_MULTIPLIER } from '../number-formatter';
 import { DtUnit } from '../unit';
-import { isEmpty, isNumber } from '@dynatrace/angular-components/core';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { formatBits } from './bits-formatter';
 
 /** Pipe for formatting a given number to Bits */
 @Pipe({

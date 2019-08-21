@@ -1,11 +1,11 @@
-import { DtUnit } from '../unit';
+import { DtUnitConversion, formatToBitsBytes } from '../bits-bytes-formatter';
 import { DtFormattedValue } from '../formatted-value';
 import {
+  DtNumberFormatOptions,
   KIBI_MULTIPLIER,
   KILO_MULTIPLIER,
-  DtNumberFormatOptions,
 } from '../number-formatter';
-import { formatToBitsBytes, DtUnitConversion } from '../bits-bytes-formatter';
+import { DtUnit } from '../unit';
 
 const DEFAULT_BYTES_OPTIONS: DtNumberFormatOptions = {
   factor: KILO_MULTIPLIER,

@@ -10,7 +10,6 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  forwardRef,
   Inject,
   InjectionToken,
   Input,
@@ -25,29 +24,28 @@ import {
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
-import { DtTheme } from '@dynatrace/angular-components/theming';
 // tslint:disable-next-line:no-duplicate-imports
 import * as Highcharts from 'highcharts';
 // tslint:disable-next-line:no-duplicate-imports
 import {
+  ChartObject,
+  Options as HighchartsOptions,
+  IndividualSeriesOptions,
   addEvent as addHighchartsEvent,
   chart,
-  ChartObject,
-  IndividualSeriesOptions,
-  Options as HighchartsOptions,
   setOptions,
 } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import {
   BehaviorSubject,
-  defer,
-  merge,
   Observable,
-  of,
   Subject,
   Subscription,
+  defer,
+  merge,
+  of,
 } from 'rxjs';
 import {
   delay,
@@ -59,10 +57,14 @@ import {
   take,
   takeUntil,
 } from 'rxjs/operators';
+
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import { DtTheme } from '@dynatrace/angular-components/theming';
+
 import {
-  DtChartConfig,
   DT_CHART_CONFIG,
   DT_CHART_DEFAULT_CONFIG,
+  DtChartConfig,
 } from './chart-config';
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
 import {
@@ -72,8 +74,8 @@ import {
 import { applyHighchartsErrorHandler } from './highcharts/highcharts-errors';
 import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides';
 import {
-  addTooltipEvents,
   DtHcTooltipEventPayload,
+  addTooltipEvents,
   findHoveredSeriesIndex,
 } from './highcharts/highcharts-tooltip-extensions';
 import { DtChartTooltipEvent } from './highcharts/highcharts-tooltip-types';

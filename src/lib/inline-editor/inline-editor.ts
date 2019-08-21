@@ -1,30 +1,31 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  ContentChildren,
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnDestroy,
   Output,
-  ViewChild,
-  forwardRef,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  NgZone,
-  ContentChildren,
   QueryList,
-  AfterViewInit,
+  ViewChild,
+  ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
-import { DtFormField, DtError } from '@dynatrace/angular-components/form-field';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { map, startWith, take } from 'rxjs/operators';
+
 import {
   ErrorStateMatcher,
   readKeyCode,
 } from '@dynatrace/angular-components/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Observable, Subscription } from 'rxjs';
-import { take, map, startWith } from 'rxjs/operators';
-import { ESCAPE, ENTER } from '@angular/cdk/keycodes';
+import { DtError, DtFormField } from '@dynatrace/angular-components/form-field';
 
 const enum MODES {
   IDLE,

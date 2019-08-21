@@ -6,21 +6,23 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
-  async,
   ComponentFixture,
+  TestBed,
+  async,
   fakeAsync,
   flush,
   inject,
-  TestBed,
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import {
   DtContextDialog,
   DtContextDialogModule,
   DtContextDialogTrigger,
 } from '@dynatrace/angular-components/context-dialog';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+
 import { createComponent } from '../../testing/create-component';
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 

@@ -2,6 +2,7 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
+
 import { addFailure, getAttribute, isElementWithName } from '../utils';
 
 class DtMenuAndGroupVisitor extends BasicTemplateAstVisitor {

@@ -3,9 +3,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { DtChartSeries } from '@dynatrace/angular-components/chart';
-import { generateData } from './chart-data-utils';
 import { DtColors } from '@dynatrace/angular-components/theming';
+
+import { generateData } from './chart-data-utils';
 
 @Injectable({ providedIn: 'root' })
 export class ChartService {

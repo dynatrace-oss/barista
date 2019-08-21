@@ -1,4 +1,5 @@
 import { Renderer2 } from '@angular/core';
+
 import { isNumber, isString } from './type-util';
 
 /**

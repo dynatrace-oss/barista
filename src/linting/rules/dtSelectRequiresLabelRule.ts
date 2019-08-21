@@ -2,13 +2,14 @@ import { ElementAst } from '@angular/compiler';
 import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
+
 import {
+  ParentElement,
   addFailure,
   getParentElement,
   hasFormFieldParentWithLabel,
   hasTextContentAlternative,
   isElementWithName,
-  ParentElement,
 } from '../utils';
 
 class DtSelectVisitor extends BasicTemplateAstVisitor {

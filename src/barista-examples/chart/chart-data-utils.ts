@@ -1,7 +1,8 @@
 // tslint:disable no-magic-numbers no-any max-file-line-count
 
-import { isNumber } from '@dynatrace/angular-components/core';
 import { DataPoint } from 'highcharts';
+
+import { isNumber } from '@dynatrace/angular-components/core';
 
 export function randomize(min: number, max: number): number {
   if (min > max) {

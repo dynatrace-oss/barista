@@ -1,11 +1,14 @@
-import { renderModuleFactory } from '@angular/platform-server';
-import { readFileSync, writeFileSync } from 'fs-extra';
-import { log } from 'gulp-util';
 import { join } from 'path';
+
 // tslint:disable-next-line:no-import-side-effect
 import 'reflect-metadata';
 // tslint:disable-next-line:no-import-side-effect
 import 'zone.js';
+
+import { renderModuleFactory } from '@angular/platform-server';
+import { readFileSync, writeFileSync } from 'fs-extra';
+import { log } from 'gulp-util';
+
 import { KitchenSinkServerModuleNgFactory } from './kitchen-sink/kitchen-sink.ngfactory';
 
 const result = renderModuleFactory(KitchenSinkServerModuleNgFactory, {

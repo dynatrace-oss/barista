@@ -1,15 +1,15 @@
-import {
-  Input,
-  Component,
-  ViewChild,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Directive,
-  ContentChild,
-  TemplateRef,
-} from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { CdkPortal } from '@angular/cdk/portal';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  Directive,
+  Input,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 
 /** Element to define a title for a marker that will be rendered inside the legends overlay. */
 @Directive({

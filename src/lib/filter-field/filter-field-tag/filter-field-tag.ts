@@ -1,14 +1,15 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  EventEmitter,
-  Output,
-  Input,
-  ChangeDetectorRef,
-} from '@angular/core';
-import { DtFilterFieldTagData } from '../types';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+
+import { DtFilterFieldTagData } from '../types';
 
 // tslint:disable:class-name
 

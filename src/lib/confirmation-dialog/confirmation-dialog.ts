@@ -16,16 +16,18 @@ import {
   Component,
   ContentChildren,
   Input,
-  isDevMode,
   OnDestroy,
   QueryList,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  isDevMode,
 } from '@angular/core';
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
 import { Subscription } from 'rxjs';
+
+import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+
 import {
   DT_CONFIRMATION_BACKDROP_ACTIVE_OPACITY,
   DT_CONFIRMATION_POP_DURATION,

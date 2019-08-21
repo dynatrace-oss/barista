@@ -3,17 +3,19 @@
 
 import { Component, DebugElement } from '@angular/core';
 import {
-  async,
   ComponentFixture,
-  fakeAsync,
   TestBed,
+  async,
+  fakeAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import {
   DtToggleButtonGroup,
   DtToggleButtonGroupModule,
   DtToggleButtonItem,
 } from '@dynatrace/angular-components/toggle-button-group';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtToggleButtonGroup', () => {

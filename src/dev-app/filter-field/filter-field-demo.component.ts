@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import {
   DtFilterField,
   DtFilterFieldCurrentFilterChangeEvent,
   DtFilterFieldDefaultDataSource,
   DtFilterFieldTag,
 } from '@dynatrace/angular-components/filter-field';
-import { Subscription } from 'rxjs';
+
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
 import { TEST_DATA, TEST_DATA_ASYNC } from './testdata';

@@ -1,9 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { DtUnit } from '../unit';
-import { DtFormattedValue, NO_DATA } from '../formatted-value';
-import { formatCount } from './count-formatter';
-import { isNumber, isEmpty } from '@dynatrace/angular-components/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { Pipe, PipeTransform } from '@angular/core';
+
+import { isEmpty, isNumber } from '@dynatrace/angular-components/core';
+
+import { DtFormattedValue, NO_DATA } from '../formatted-value';
+import { DtUnit } from '../unit';
+import { formatCount } from './count-formatter';
 
 @Pipe({
   name: 'dtCount',

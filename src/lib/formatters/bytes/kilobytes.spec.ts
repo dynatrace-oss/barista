@@ -1,6 +1,6 @@
+import { NO_DATA } from '../formatted-value';
 import { DtUnit } from '../unit';
 import { DtKilobytes } from './kilobytes';
-import { NO_DATA } from '../formatted-value';
 
 describe('DtKilobytes', () => {
   interface TestCase {

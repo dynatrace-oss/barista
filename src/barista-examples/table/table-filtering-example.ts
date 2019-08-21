@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { DtTableDataSource } from '@dynatrace/angular-components/table';
+
 import {
-  formatPercent,
   formatBytes,
+  formatPercent,
 } from '@dynatrace/angular-components/formatters';
+import { DtTableDataSource } from '@dynatrace/angular-components/table';
 
 @Component({
   moduleId: module.id,

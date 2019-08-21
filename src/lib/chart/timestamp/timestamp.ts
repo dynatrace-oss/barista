@@ -1,12 +1,12 @@
 import { CdkTrapFocus } from '@angular/cdk/a11y';
 import {
-  TAB,
-  DOWN_ARROW,
-  UP_ARROW,
-  LEFT_ARROW,
-  RIGHT_ARROW,
   BACKSPACE,
   DELETE,
+  DOWN_ARROW,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  TAB,
+  UP_ARROW,
 } from '@angular/cdk/keycodes';
 import {
   AfterViewInit,
@@ -26,9 +26,11 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { isNumber, readKeyCode } from '@dynatrace/angular-components/core';
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
+
+import { isNumber, readKeyCode } from '@dynatrace/angular-components/core';
+
 import { updateTimestampWithKeyboardEvent } from './update-timestamp-with-keyboard-event';
 
 /** @internal Aria label for the selected time. */

@@ -1,6 +1,8 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServerModule } from '@angular/platform-server';
+import { DtIconType } from '@dynatrace/dt-iconpack';
+
 import { DtAlertModule } from '@dynatrace/angular-components/alert';
 import { DtAutocompleteModule } from '@dynatrace/angular-components/autocomplete';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
@@ -38,7 +40,6 @@ import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
-import { DtIconType } from '@dynatrace/dt-iconpack';
 
 const TESTDATA: ThreadNode[] = [
   {

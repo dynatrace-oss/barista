@@ -1,18 +1,20 @@
-import { Injectable, Injector, InjectionToken, NgZone } from '@angular/core';
-import { DtToastContainer } from './toast-container';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
-import { DtToastRef } from './toast-ref';
+import { Injectable, InjectionToken, Injector, NgZone } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+
 import {
   DT_TOAST_BOTTOM_SPACING,
-  DT_TOAST_DEFAULT_CONFIG,
-  DT_TOAST_PERCEIVE_TIME,
-  DT_TOAST_CHAR_READ_TIME,
-  DT_TOAST_MIN_DURATION,
   DT_TOAST_CHAR_LIMIT,
+  DT_TOAST_CHAR_READ_TIME,
+  DT_TOAST_DEFAULT_CONFIG,
+  DT_TOAST_MIN_DURATION,
+  DT_TOAST_PERCEIVE_TIME,
 } from './toast-config';
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
-import { Subscription } from 'rxjs';
+import { DtToastContainer } from './toast-container';
+import { DtToastRef } from './toast-ref';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtToast');
 

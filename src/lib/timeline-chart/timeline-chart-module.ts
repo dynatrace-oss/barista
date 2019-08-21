@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
-import { DtTimelineChart } from './timeline-chart';
-import {
-  DtTimelineChartTimingMarker,
-  DtTimelineChartKeyTimingMarker,
-  DtTimelineChartOverlayTitle,
-  DtTimelineChartOverlayText,
-} from './timeline-chart-directives';
-import { CommonModule } from '@angular/common';
 import { PortalModule } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { DtLegendModule } from '@dynatrace/angular-components/legend';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
+
+import { DtTimelineChart } from './timeline-chart';
+import {
+  DtTimelineChartKeyTimingMarker,
+  DtTimelineChartOverlayText,
+  DtTimelineChartOverlayTitle,
+  DtTimelineChartTimingMarker,
+} from './timeline-chart-directives';
 
 export const DT_TIMELINE_CHART_DIRECTIVES = [
   DtTimelineChart,

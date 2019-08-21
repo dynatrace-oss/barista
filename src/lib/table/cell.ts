@@ -1,32 +1,34 @@
+import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { CdkCellDef, CdkColumnDef } from '@angular/cdk/table';
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  ContentChildren,
   Directive,
   ElementRef,
   Input,
-  Renderer2,
-  ViewEncapsulation,
-  ContentChildren,
-  QueryList,
-  Optional,
-  SkipSelf,
-  ChangeDetectorRef,
   OnChanges,
   OnDestroy,
-  AfterContentInit,
+  Optional,
+  QueryList,
+  Renderer2,
+  SkipSelf,
+  ViewEncapsulation,
 } from '@angular/core';
-import { CdkCellDef, CdkColumnDef } from '@angular/cdk/table';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { DtRow } from './row';
-import { Subject, merge, Subscription } from 'rxjs';
+import { Subject, Subscription, merge } from 'rxjs';
+import { filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
+
 import {
-  isDefined,
-  addCssClass,
   DtIndicator,
-  removeCssClass,
+  addCssClass,
+  isDefined,
   parseCssValue,
+  removeCssClass,
 } from '@dynatrace/angular-components/core';
-import { switchMap, filter, takeUntil, startWith } from 'rxjs/operators';
+
+import { DtRow } from './row';
 import { DtSort, DtSortEvent } from './sort/sort';
 
 /** Custom Types for Cell alignments */

@@ -1,8 +1,9 @@
-import { Directive, Self, OnDestroy, AfterContentInit } from '@angular/core';
-import { DtTabGroup } from '../tab-group';
-import { DtTabChange, DtTab } from '../tab/tab';
+import { AfterContentInit, Directive, OnDestroy, Self } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { DtTabGroup } from '../tab-group';
+import { DtTab, DtTabChange } from '../tab/tab';
 import {
   DtTabGroupNavigationControl,
   DtTabNavigationAdapter,

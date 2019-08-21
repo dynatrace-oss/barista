@@ -1,26 +1,28 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-  Input,
-  ChangeDetectorRef,
-  Output,
-  EventEmitter,
-  OnInit,
-} from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { AsyncSubject } from 'rxjs';
+
+import { isNumber } from '@dynatrace/angular-components/core';
+
 import { calculatePages } from './pagination-calculate-pages';
 import {
-  DEFAULT_PAGE_SIZE,
-  ARIA_DEFAULT_PREVIOUS_LABEL,
-  ARIA_DEFAULT_NEXT_LABEL,
-  ARIA_DEFAULT_LABEL,
-  ARIA_DEFAULT_ELLIPSES,
-  ARIA_DEFAULT_PAGE_LABEL,
   ARIA_DEFAULT_CURRENT_LABEL,
+  ARIA_DEFAULT_ELLIPSES,
+  ARIA_DEFAULT_LABEL,
+  ARIA_DEFAULT_NEXT_LABEL,
+  ARIA_DEFAULT_PAGE_LABEL,
+  ARIA_DEFAULT_PREVIOUS_LABEL,
+  DEFAULT_PAGE_SIZE,
 } from './pagination-defaults';
-import { isNumber } from '@dynatrace/angular-components/core';
-import { AsyncSubject } from 'rxjs';
 
 @Component({
   moduleId: module.id,

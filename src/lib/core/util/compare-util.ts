@@ -1,4 +1,4 @@
-import { isString, isDefined } from './type-util';
+import { isDefined, isString } from './type-util';
 
 /** Sort directions */
 export type DtSortDirection = 'asc' | 'desc' | '';

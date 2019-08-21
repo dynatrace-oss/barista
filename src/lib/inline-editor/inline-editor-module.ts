@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtInlineEditor } from './inline-editor';
-import { DtInputModule } from '@dynatrace/angular-components/input';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
 import {
-  DtFormFieldModule,
   DtError,
+  DtFormFieldModule,
 } from '@dynatrace/angular-components/form-field';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { FormsModule } from '@angular/forms';
+import { DtInputModule } from '@dynatrace/angular-components/input';
+import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
+
+import { DtInlineEditor } from './inline-editor';
 
 @NgModule({
   imports: [

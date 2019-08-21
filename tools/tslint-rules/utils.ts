@@ -1,4 +1,5 @@
-import { performance, PerformanceObserver } from 'perf_hooks';
+import { PerformanceObserver, performance } from 'perf_hooks';
+
 import { WalkContext } from 'tslint';
 import * as ts from 'typescript';
 

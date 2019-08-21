@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { DtToast } from '@dynatrace/angular-components/toast';
 
 @Component({

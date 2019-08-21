@@ -2,19 +2,21 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { IndividualSeriesOptions } from 'highcharts';
+import { BehaviorSubject } from 'rxjs';
+
 import {
-  DT_CHART_COLOR_PALETTE_ORDERED,
   DT_CHART_COLOR_PALETTES,
+  DT_CHART_COLOR_PALETTE_ORDERED,
   DtChart,
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
 } from '@dynatrace/angular-components/chart';
 import { DtThemingModule } from '@dynatrace/angular-components/theming';
-import { IndividualSeriesOptions } from 'highcharts';
-import { BehaviorSubject } from 'rxjs';
+
 import { createComponent } from '../../testing/create-component';
 
 describe('DtChart', () => {

@@ -1,26 +1,27 @@
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
+  AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
-  ViewEncapsulation,
+  ChangeDetectorRef,
   Component,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  Inject,
   InjectionToken,
   Input,
   Output,
-  EventEmitter,
-  ChangeDetectorRef,
-  ElementRef,
-  Inject,
-  AfterContentInit,
-  ViewChild,
-  TemplateRef,
-  ContentChildren,
   QueryList,
-  AfterViewInit,
+  TemplateRef,
+  ViewChild,
   ViewContainerRef,
+  ViewEncapsulation,
 } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { DtOption, DtOptgroup } from '@dynatrace/angular-components/core';
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { TemplatePortal } from '@angular/cdk/portal';
+
+import { DtOptgroup, DtOption } from '@dynatrace/angular-components/core';
 
 let _uniqueIdCounter = 0;
 

@@ -1,6 +1,6 @@
+import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component } from '@angular/core';
 
-import { FlatTreeControl } from '@angular/cdk/tree';
 import {
   DtTreeControl,
   DtTreeDataSource,

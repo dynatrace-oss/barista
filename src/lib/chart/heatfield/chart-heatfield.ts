@@ -1,10 +1,13 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ENTER } from '@angular/cdk/keycodes';
+import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
-  forwardRef,
   Inject,
   Input,
   OnDestroy,
@@ -12,21 +15,20 @@ import {
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
-  AfterViewInit,
+  forwardRef,
 } from '@angular/core';
-import { ENTER } from '@angular/cdk/keycodes';
-import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { clamp, round } from 'lodash';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 import {
   CanColor,
+  Constructor,
   isDefined,
   mixinColor,
   readKeyCode,
-  Constructor,
 } from '@dynatrace/angular-components/core';
+
 import { DtChart } from '../chart';
 import { getDtHeatfieldUnsupportedChartError } from './chart-heatfield-errors';
 
