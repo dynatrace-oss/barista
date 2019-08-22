@@ -6,6 +6,7 @@ import {
   MemberDeclaration,
   StateContainer,
   createMemberDeclarationWalker,
+  verifyGetterSetterState,
 } from './utils';
 
 const lifecycleHooks = new Set<string>([
@@ -32,33 +33,17 @@ function verifyDeclarationHasJSDoc(
     !hasModifier(declaration.modifiers, ts.SyntaxKind.PrivateKeyword) &&
     declaration.name.kind === ts.SyntaxKind.Identifier &&
     declaration.name.text.charAt(0) !== '_' &&
-    !lifecycleHooks.has(declaration.name.text)
+    !lifecycleHooks.has(declaration.name.text) &&
+    !verifyGetterSetterState(
+      getJsDoc(declaration).length > 0,
+      declaration,
+      state,
+    )
   ) {
-    const hasJsDoc = getJsDoc(declaration).length > 0;
-    const declarationName = declaration.name.text;
-
-    if (ts.isGetAccessorDeclaration(declaration)) {
-      if (state[declarationName] === 'set') {
-        return; // setter with JSDoc already exists
-      } else if (hasJsDoc) {
-        state[declarationName] = 'get';
-        return;
-      }
-    } else if (ts.isSetAccessorDeclaration(declaration)) {
-      if (state[declarationName] === 'get') {
-        return; // getter with JSDoc already exists
-      } else if (hasJsDoc) {
-        state[declarationName] = 'set';
-        return;
-      }
-    }
-
-    if (!hasJsDoc) {
-      context.addFailureAtNode(
-        declaration,
-        `Non-private member '${declarationName}' lacks JSDoc`,
-      );
-    }
+    context.addFailureAtNode(
+      declaration,
+      `Non-private member '${declaration.name.text}' lacks JSDoc`,
+    );
   }
 }
 
