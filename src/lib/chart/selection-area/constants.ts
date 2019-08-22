@@ -8,13 +8,16 @@ export function getDtNoPlotBackgroundError(): Error {
 }
 
 /** @internal Selector for the xAxis grid in Highcharts */
-export const HIGHCHARTS_X_AXIS_GRID = '.highcharts-grid highcharts-xaxis-grid';
+export const HIGHCHARTS_X_AXIS_GRID = '.highcharts-grid.highcharts-xaxis-grid';
 
 /** @internal Selector for the yAxis grid in Highcharts */
-export const HIGHCHARTS_Y_AXIS_GRID = '.highcharts-grid highcharts-yaxis-grid';
+export const HIGHCHARTS_Y_AXIS_GRID = '.highcharts-grid.highcharts-yaxis-grid';
 
 /** @internal Selector for the series group in Highcharts */
 export const HIGHCHARTS_SERIES_GROUP = '.highcharts-series-group';
+
+/** @internal Selector for the plot background in Highcharts */
+export const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 
 /** @internal Class that toggles pointer events on the element */
 export const NO_POINTER_EVENTS_CLASS = 'dt-no-pointer-events';
