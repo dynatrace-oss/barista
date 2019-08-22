@@ -12,3 +12,7 @@
 :host-context(.dt-tree-table).dt-cell {
   @include dt-base-cell-table();
 }
+
+:host ::ng-deep .dt-info-group .dt-info-group-icon .dt-icon svg {
+  fill: $gray-700;
+}
