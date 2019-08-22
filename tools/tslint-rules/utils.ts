@@ -11,6 +11,7 @@ export type MemberDeclaration =
 
 // tslint:disable-next-line:no-any
 export type ContextWalker = (context: WalkContext<any>) => void;
+
 export interface StateContainer {
   [key: string]: any; // tslint:disable-line:no-any
 }
@@ -20,6 +21,37 @@ export type MemberDeclarationVerifier = (
   verifyDeclaration: MemberDeclaration,
   state?: StateContainer,
 ) => void;
+
+export function verifyGetterSetterState(
+  condition: boolean,
+  declaration: MemberDeclaration,
+  state: StateContainer,
+): boolean {
+  if (declaration.name.kind !== ts.SyntaxKind.Identifier) {
+    throw new Error('MemberDeclaration must be an Identifier');
+  }
+
+  const declarationName = declaration.name.text;
+
+  if (ts.isGetAccessorDeclaration(declaration)) {
+    if (state[declarationName] === 'set') {
+      return true; // setter annotated with @internal already exists
+    } else if (condition) {
+      state[declarationName] = 'get';
+      return true;
+    }
+  } else if (ts.isSetAccessorDeclaration(declaration)) {
+    if (state[declarationName] === 'get') {
+      return true; // getter annotated with @internal already exists
+    } else if (condition) {
+      state[declarationName] = 'set';
+      return true;
+    }
+  } else if (condition) {
+    return true;
+  }
+  return false;
+}
 
 export function createMemberDeclarationWalker(
   verifyDeclaration: MemberDeclarationVerifier,

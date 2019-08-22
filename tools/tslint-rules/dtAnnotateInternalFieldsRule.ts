@@ -2,7 +2,12 @@ import { IRuleMetadata, RuleFailure, Rules, WalkContext } from 'tslint';
 import { getJsDoc, hasModifier } from 'tsutils';
 import * as ts from 'typescript';
 
-import { MemberDeclaration, createMemberDeclarationWalker } from './utils';
+import {
+  MemberDeclaration,
+  StateContainer,
+  createMemberDeclarationWalker,
+  verifyGetterSetterState,
+} from './utils';
 
 function hasInternalAnnotation(declaration: MemberDeclaration): boolean {
   const jsDoc = getJsDoc(declaration);
@@ -22,7 +27,12 @@ function hasInternalAnnotation(declaration: MemberDeclaration): boolean {
 function verifyDeclarationIsAnnotatedAsInternal(
   context: WalkContext<any>, // tslint:disable-line:no-any
   declaration: MemberDeclaration,
+  state?: StateContainer,
 ): void {
+  if (state === undefined) {
+    throw new Error('state must not be undefined');
+  }
+
   if (
     !hasModifier(
       declaration.modifiers,
@@ -31,7 +41,11 @@ function verifyDeclarationIsAnnotatedAsInternal(
     ) &&
     declaration.name.kind === ts.SyntaxKind.Identifier &&
     declaration.name.text.charAt(0) === '_' &&
-    !hasInternalAnnotation(declaration)
+    !verifyGetterSetterState(
+      hasInternalAnnotation(declaration),
+      declaration,
+      state,
+    )
   ) {
     context.addFailureAtNode(
       declaration,
@@ -75,7 +89,7 @@ export class Rule extends Rules.AbstractRule {
 
     const ruleFailures = this.applyWithFunction(
       sourceFile,
-      createMemberDeclarationWalker(verifyDeclarationIsAnnotatedAsInternal),
+      createMemberDeclarationWalker(verifyDeclarationIsAnnotatedAsInternal, {}),
       this.getOptions(),
     );
 
