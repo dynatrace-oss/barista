@@ -91,6 +91,7 @@ export const DT_CHART_DEFAULT_GLOBAL_OPTIONS: GlobalOptions = {
     numericSymbols: ['k', 'mil', 'bil'],
   },
   time: {
-    useUTC: false,
+    useUTC: true,
+    timezoneOffset: new Date().getTimezoneOffset(),
   },
 };
