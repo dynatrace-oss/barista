@@ -10,9 +10,5 @@
     :host.dt-table-row-indicator.dt-color-#{$name}::before {
       background-color: $default-color;
     }
-
-    ::ng-deep .dt-cell .dt-info-group .dt-info-group-icon .dt-icon svg {
-      fill: $gray-700;
-    }
   }
 }
