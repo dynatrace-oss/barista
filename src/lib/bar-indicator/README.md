@@ -1,5 +1,25 @@
 ---
-type: 'component'
+title: "Bar indicator"
+description: "Bar-indicators are used to compare values (e.g. time) with each other."
+postid: bar-indicator
+category: "components"
+public: true
+toc: true
+themable: true
+contributors:
+  dev:
+    - thomas.heller 
+  ux:
+    - andreas.mayr
+    - kathrin.aigner
+angular: "bar-indicator"
+tags:
+  - "progress"
+  - "progress bar"
+  - "angular"
+  - "component"
+  - "indicator"
+  - "micro chart"
 ---
 
 # Bar-indicator
@@ -50,7 +70,26 @@ class MyModule {}
 | --------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
 | `percent` | `number` | Returns the percentage value for the current `value` between `min` and `max`. Inherited from `HasProgressValues`. |
 
-## Examples
+
+## Variants
+
+The bar indicator is mostly used within table rows with the table column header as a label. It can also be used as a standalone component, which requires labels next to the bars then. As the bar indicator is not used to show total percentages of a number, but rather to compare ratios, it can't be used as a single, separated bar.  
+The indicator is themeable and can also show problems.
+
+{{#component-demo name="BarIndicatorColorExample"}}{{/component-demo}}
+
+
+## Bar indicator in use
+
+Bar-indicators are often used in tables.
+
+![bar-indicator in tables](https://dt-cdn.net/images/bar-indicator-in-tables-620-987fc7c632.png)
+
+
+But they can also stand alone and be compared with each other.
+
+![standalone bar-indicator](https://dt-cdn.net/images/standalone-bar-indicator-317-88cbbbff8e.png)
+
 
 Bar-indicator set to a fixed value.
 
