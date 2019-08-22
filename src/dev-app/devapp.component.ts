@@ -40,6 +40,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Empty-state', route: '/empty-state' },
     { name: 'Expandable-panel', route: '/expandable-panel' },
     { name: 'Expandable-section', route: '/expandable-section' },
+    { name: 'Expandable-text', route: '/expandable-text' },
     { name: 'Filter-field', route: '/filter-field' },
     { name: 'Form-field', route: '/form-field' },
     { name: 'Formatters', route: '/formatters' },

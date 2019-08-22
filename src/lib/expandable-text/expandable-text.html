@@ -1,0 +1,8 @@
+<span class="dt-expandable-text-content">
+  <ng-container *ngIf="expanded">
+    <ng-content></ng-content>
+  </ng-container>
+</span>
+<button class="dt-expandable-text-trigger" (click)="toggle()">
+  {{!expanded ? label : labelClose}}
+</button>

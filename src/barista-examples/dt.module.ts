@@ -50,6 +50,7 @@ import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-ch
 import { DtToastModule } from '@dynatrace/angular-components/toast';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
+import { DtExpandableTextModule } from '@dynatrace/angular-components/expandable-text';
 
 const DT_MODULES = [
   DtAlertModule,
@@ -103,6 +104,7 @@ const DT_MODULES = [
   DtTimelineChartModule,
   DtLegendModule,
   DtMenuModule,
+  DtExpandableTextModule,
 ];
 
 /**
