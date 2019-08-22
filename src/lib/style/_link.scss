@@ -5,13 +5,7 @@
 $dark-link-hover-bg: rgba(255, 255, 255, 0.2);
 $dark-link-active-bg: rgba(255, 255, 255, 0.3);
 
-a.dt-link {
-  @include dt-custom-font-styles(
-    $turquoise-600,
-    $default-font-weight,
-    'inherit',
-    'inherit'
-  );
+@mixin dt-link-base() {
   cursor: pointer;
   text-decoration: none;
 
@@ -32,20 +26,9 @@ a.dt-link {
   &:active:focus {
     outline: none;
   }
-
-  &.dt-external::after {
-    content: '\e686';
-    @include icons-before('fonticons');
-
-    display: inline-block;
-    position: relative;
-    bottom: -0.05em;
-    margin-left: 4px;
-  }
 }
 
-.dt-theme-dark a.dt-link,
-a.dt-link.dt-theme-dark {
+@mixin dt-link-dark() {
   color: #ffffff;
   text-decoration: underline;
 
@@ -64,4 +47,29 @@ a.dt-link.dt-theme-dark {
   &:focus {
     outline: 2px solid $gray-300;
   }
+}
+
+a.dt-link {
+  @include dt-link-base();
+  @include dt-custom-font-styles(
+    $turquoise-600,
+    $default-font-weight,
+    'inherit',
+    'inherit'
+  );
+
+  &.dt-external::after {
+    content: '\e686';
+    @include icons-before('fonticons');
+
+    display: inline-block;
+    position: relative;
+    bottom: -0.05em;
+    margin-left: 4px;
+  }
+}
+
+.dt-theme-dark a.dt-link,
+a.dt-link.dt-theme-dark {
+  @include dt-link-dark();
 }
