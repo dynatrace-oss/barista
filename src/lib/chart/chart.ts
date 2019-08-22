@@ -388,26 +388,6 @@ export class DtChart
 
   ngAfterViewInit(): void {
     this._createHighchartsChart();
-    this._notifyAfterRender();
-    // set the toPixels method on the timestamp and range to calculate a px value for an
-    // value on the xAxis alongside with the toValue function.
-    if (this._chartObject) {
-      const xAxis = this._chartObject.xAxis[0];
-
-      if (this._timestamp) {
-        this._timestamp._valueToPixels = xAxis.toPixels.bind(xAxis);
-        this._timestamp._pixelsToValue = xAxis.toValue.bind(xAxis);
-        this._timestamp._maxValue = xAxis.dataMax;
-        this._timestamp._minValue = xAxis.dataMin;
-      }
-
-      if (this._range) {
-        this._range._valueToPixels = xAxis.toPixels.bind(xAxis);
-        this._range._pixelsToValue = xAxis.toValue.bind(xAxis);
-        this._range._maxValue = xAxis.dataMax;
-        this._range._minValue = xAxis.dataMin;
-      }
-    }
   }
 
   ngAfterContentInit(): void {
@@ -501,6 +481,8 @@ export class DtChart
         chart: this._chartObject!,
       });
     });
+
+    this._notifyAfterRender();
   }
 
   private _notifyAfterRender(): void {

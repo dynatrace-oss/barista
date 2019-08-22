@@ -6,11 +6,6 @@ export const chartOptions = {
     height: 250,
   },
   xAxis: {
-    crosshair: {
-      color: '#00a1b2',
-      width: 2,
-      zIndex: 10,
-    },
     type: 'datetime',
   },
   yAxis: {
