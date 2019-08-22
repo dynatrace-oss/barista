@@ -173,8 +173,8 @@ export class DtAnchor extends DtButton {
   }
 
   /**
-   * @internal Halts all events when the button is disable.
-   * This is required because otherwise the anchor would redirect to it's href
+   * @internal Halts all events when the button is disabled.
+   * This is required because otherwise the anchor would redirect to its href.
    */
   _haltDisabledEvents(event: Event): void {
     // A disabled button shouldn't apply any actions
