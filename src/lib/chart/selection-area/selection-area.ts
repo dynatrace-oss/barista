@@ -159,13 +159,33 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       .pipe(
         concatMapTo(this._chart._plotBackground$),
         // plot background can be null as well
-        filter(Boolean),
+        filter<SVGRectElement>(Boolean),
         takeUntil(this._destroy$),
       )
-      .subscribe((plotBackground: SVGRectElement | null) => {
+      .subscribe(plotBackground => {
         this._plotBackground = plotBackground;
         this._range = this._chart._range;
         this._timestamp = this._chart._timestamp;
+
+        // set the toPixels method on the timestamp and range to calculate a px value for an
+        // value on the xAxis alongside with the toValue function.
+        if (this._chart._chartObject) {
+          const xAxis = this._chart._chartObject.xAxis[0];
+
+          if (this._timestamp) {
+            this._timestamp._valueToPixels = xAxis.toPixels.bind(xAxis);
+            this._timestamp._pixelsToValue = xAxis.toValue.bind(xAxis);
+            this._timestamp._maxValue = xAxis.dataMax;
+            this._timestamp._minValue = xAxis.dataMin;
+          }
+
+          if (this._range) {
+            this._range._valueToPixels = xAxis.toPixels.bind(xAxis);
+            this._range._pixelsToValue = xAxis.toValue.bind(xAxis);
+            this._range._maxValue = xAxis.dataMax;
+            this._range._minValue = xAxis.dataMin;
+          }
+        }
 
         if (this._timestamp) {
           this._timestamp._plotBackgroundChartOffset = this._chart._plotBackgroundChartOffset;
@@ -191,19 +211,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // the range and timestamp each time something changes.
     this._chart._afterRender
       .pipe(
-        skip(1),
+        skip(1), // don't reset on first draw
         takeUntil(this._destroy$),
       )
       .subscribe(() => {
-        // If the chart changes we need to destroy the range and the timestamp
-        if (this._range) {
-          this._range._reset();
-        }
-
-        if (this._timestamp) {
-          this._timestamp._reset();
-        }
-        this._closeOverlay();
+        this._reset();
       });
   }
 
@@ -234,6 +246,19 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       // tslint:disable-next-line: no-magic-numbers
       this._setRange(quarter, quarter * 2);
     }
+  }
+
+  /** Resets the range and timestamp if present */
+  private _reset(): void {
+    // If the chart changes we need to destroy the range and the timestamp
+    if (this._range) {
+      this._range._reset();
+    }
+
+    if (this._timestamp) {
+      this._timestamp._reset();
+    }
+    this._closeOverlay();
   }
 
   /** Toggles the range and sets it programmatically with the provided values */
