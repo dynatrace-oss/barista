@@ -1,0 +1,29 @@
+@import '../style/font-mixins';
+@import '../core/style/variables';
+@import '../icons/icons-mixin';
+@import '../style/link';
+
+:host {
+  display: inline;
+}
+
+.dt-expandable-text-trigger {
+  @include dt-link-base();
+  @include dt-custom-font-styles($turquoise-600, $default-font-weight, 100%);
+
+  &:focus {
+    outline: 0;
+  }
+
+  border: none;
+  padding: 0;
+}
+
+.dt-expandable-text-content {
+  opacity: 0;
+  transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+:host.dt-expandable-text-expanded .dt-expandable-text-content {
+  opacity: 1;
+}

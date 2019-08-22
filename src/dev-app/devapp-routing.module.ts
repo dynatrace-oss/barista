@@ -51,6 +51,7 @@ import { TimelineChartDemo } from './timeline-chart/timeline-chart-demo.componen
 import { ToastDemo } from './toast/toast-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
+import { ExpandableTextDemo } from './expandable-text/expandable-text-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
@@ -102,6 +103,7 @@ const routes: Routes = [
   { path: 'menu', component: MenuDemo },
   { path: 'timeline-chart', component: TimelineChartDemo },
   { path: 'legend', component: LegendDemo },
+  { path: 'expandable-text', component: ExpandableTextDemo },
   { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
 ];
 
