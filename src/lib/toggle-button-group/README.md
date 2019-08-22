@@ -1,8 +1,33 @@
 ---
-type: 'component'
+title: 'Toggle button group'
+postid: toggle-button-group
+category: 'components'
+public: true
+toc: true
+themable: true
+contributors:
+  dev:
+    - thomas.heller
+  ux:
+    - florian.rammerstorfer
+tags:
+  - 'toggle'
+  - 'button'
+  - 'component'
+  - 'angular'
+  - 'group'
+  - 'findings'
 ---
 
-# ToggleButtonGroup
+# Toggle button group
+
+The toggle button component is used for highlighting a subset of information in
+a complex view by desaturating all other information.
+
+A toggle button holds an icon and a text indicating what will be highlighted
+when clicked.
+
+<docs-source-example example="ToggleButtonGroupDefaultExample"></docs-source-example>
 
 ## Imports
 
@@ -30,11 +55,13 @@ the left hand side:
 - `<dt-toggle-button-item-icon>` should be filled only with a `dt-icon` which
   will be styled and rendered according to the toggle-button-group container.
 
+## DtToggleButtonGroup
+
 ### Outputs
 
-| Name     | Type                                    | Default | Description                                                                                                                                                                                                      |
-| -------- | --------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `change` | `EventEmitter<DtToggleButtonChange<T>>` | -       | EventEmitter that fires every time the selection changes. `DtToggleButtonChange` is an interface for the following object signature: `{ source: DtToggleButtonItem<T>, value: T | null, isUserInput: boolean }`. |
+| Name     | Type                                    | Description                                                                                                                                                                                                      |
+| -------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `change` | `EventEmitter<DtToggleButtonChange<T>>` | EventEmitter that fires every time the selection changes. `DtToggleButtonChange` is an interface for the following object signature: `{ source: DtToggleButtonItem<T>, value: T | null, isUserInput: boolean }`. |
 
 ### Methods
 
@@ -43,7 +70,7 @@ the left hand side:
 | `selectedItem` | `DtToggleButtonItem<T>` | -       | Getter to access the currently selected `DtToggleButtonItem<T>` instance or `null` if none is selected. |
 | `value`        | `<T>`                   | null    | Getter to access the currently selected value.                                                          |
 
-## Toggle button item
+## DtToggleButtonItem
 
 ### Inputs
 
@@ -59,24 +86,56 @@ the left hand side:
 
 ### Outputs
 
-| Name     | Type                                    | Default | Description                                                                     |
-| -------- | --------------------------------------- | ------- | ------------------------------------------------------------------------------- |
-| `change` | `EventEmitter<DtToggleButtonChange<T>>` | -       | EventEmitter that fires when the selection of the `DtToggleButtonItem` changes. |
+| Name     | Type                                    | Description                                                                     |
+| -------- | --------------------------------------- | ------------------------------------------------------------------------------- |
+| `change` | `EventEmitter<DtToggleButtonChange<T>>` | EventEmitter that fires when the selection of the `DtToggleButtonItem` changes. |
 
 ### Methods
 
-| Name       | Type       | Default | Description                                                       |
-| ---------- | ---------- | ------- | ----------------------------------------------------------------- |
-| `focus`    | `function` | -       | Function to programatically call focus on a `DtToggleButtonItem`. |
-| `select`   | `function` | -       | Function to programmatically select on a `DtToggleButtonItem`.    |
-| `deselect` | `function` | -       | Function to programmatically deselect on a `DtToggleButtonItem`.  |
+| Name       | Description                                                       |
+| ---------- | ----------------------------------------------------------------- |
+| `focus`    | Function to programatically call focus on a `DtToggleButtonItem`. |
+| `select`   | Function to programmatically select on a `DtToggleButtonItem`.    |
+| `deselect` | Function to programmatically deselect on a `DtToggleButtonItem`.  |
 
-## Examples
+## Behavior
 
-### Default
+When a toggle button is clicked, the toggle button is set into active state and
+all information except the subset of information of the toggle button is
+desaturated.
 
-<docs-source-example example="ToggleButtonGroupDefaultExample"></docs-source-example>
+Only one toggle button in a group can be selected at the same time.
 
-### Dynamic items
+If the toggle buttons do not fit the available space within a toggle button
+group, the button of the last visible row is replaced by a "show all" link. As
+soon as the "Show all" button is clicked, the remaining toggle buttons will be
+added to the end of the group.
+
+<!-- TODO: examle -->
+
+{{#figure fullwidth='true'}}
+![Toggle button group show more](https://d24pvdz4mvzd04.cloudfront.net/test/toggle-button-group-example2-822-7a6ccc3075.png)
+{{/figure}}
+
+### Adding toggle button items
+
+Items can be added dynamically to a toggle button group.
 
 <docs-source-example example="ToggleButtonGroupDynamicItemsExample"></docs-source-example>
+
+## Toggle button group in use
+
+The toggle button group is placed on top of complex content within a card (e.g.
+a lot of entities, a complicated sequence of actions, etc.).
+
+A toggle button item always has 16px vertical and horizontal margin to the next
+one.
+
+In the example below, the toggle button is used to highlight CDN resources in a
+waterfall view.
+
+<!-- TODO: example -->
+
+{{#figure fullwidth='true'}}
+![Toggle button group example](https://d24pvdz4mvzd04.cloudfront.net/test/toggle-button-group-example-1189-78a0538c99.png)
+{{/figure}}
