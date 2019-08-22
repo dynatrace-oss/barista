@@ -50,6 +50,7 @@ import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-ch
 import { DtToastModule } from '@dynatrace/angular-components/toast';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
+import { DtExpandableTextModule } from '@dynatrace/angular-components/expandable-text';
 
 /**
  * NgModule that includes all Dynatrace angular components modules that are required to serve the examples.
@@ -107,6 +108,7 @@ import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
     DtTimelineChartModule,
     DtLegendModule,
     DtEmptyStateModule,
+    DtExpandableTextModule,
   ],
 })
 export class DevAppDynatraceModule {}

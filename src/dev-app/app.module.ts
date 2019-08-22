@@ -64,6 +64,7 @@ import { TimelineChartDemo } from './timeline-chart/timeline-chart-demo.componen
 import { ToastDemo } from './toast/toast-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
+import { ExpandableTextDemo } from './expandable-text/expandable-text-demo.component';
 
 // tslint:disable-next-line: use-component-selector
 @Component({ template: '' })
@@ -132,6 +133,7 @@ export class NoopRouteComponent {}
     TimelineChartDemo,
     LegendDemo,
     EmptyStateDemo,
+    ExpandableTextDemo,
   ],
   entryComponents: [DevApp],
   bootstrap: [DevApp],
