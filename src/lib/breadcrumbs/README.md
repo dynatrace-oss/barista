@@ -5,6 +5,8 @@ postid: breadcrumbs
 category: "components"
 public: true
 toc: true
+properties:
+  - 'work in progress'
 contributors:
   dev:
     - fabian.friedl
@@ -41,7 +43,7 @@ class MyModule {}
 
 ## dt-breadcrumbs
 
-`dt-breadcrumbs` component accepts a `color` property to define the color
+The `dt-breadcrumbs` component accepts a `color` property to define the color
 version of the breadcrumbs. Anchor elements with the `dtBreadcrumbsItem`
 directive applied can be used as breadcrumbs items.
 
@@ -60,40 +62,36 @@ directive applied can be used as breadcrumbs items.
 | -------------- | --------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `<ng-content>` | `html`                |         | HTML to be rendered as item content                                                                                                                                                            |
 | `href`         | `string`              | any[]   | Value passed to the `routerLink` attribute underneath, accepts the same values as the directive. Element will be item as active automatically if the href attribute matches the current route. |
-| `external`     | `boolean | undefined` | false   | If empty or truthy parameter given, the `href` attribute will not be interpreted as internal router link but rather as en external href                                 
+| `external`     | `boolean | undefined` | false   | If empty or truthy parameter given, the `href` attribute will not be interpreted as internal router link but rather as en external href   |                              
 
 ## Behavior
 
-Items within a breadcrumb have a maximum length. To ensure that unusually long items do not take up too much space, their text value will be abbreviated using three ellipses as soon as the maximum length is exceeded. 
+Items within a breadcrumb have a maximum length. To ensure that unusually long items do not take up too much space, their text value will be abbreviated using an ellipsis as soon as the maximum length is exceeded. 
 
 {{#figure imagebox='true'}}
 ![Breadcrumb items grouped together closed](https://dt-cdn.net/images/breadcrumb-grouping-closed-530-50b55aee7f.png)
-
-![Breadcrumb items grouped together expanded](https://dt-cdn.net/images/breadcrumb-grouping-expanded-530-c1e0bd5e27.png)
 {{/figure}}
 
 Should there not be enough space in the component to show all items, individual items are grouped together (starting from the left) and can be accessed by clicking the `...` item in the breadcrumb.
 
-## Colors
+{{#figure imagebox='true'}}
+![Breadcrumb items grouped together expanded](https://dt-cdn.net/images/breadcrumb-grouping-expanded-530-c1e0bd5e27.png)
+{{/figure}}
+
+## Theming
 
 Breadcrumbs always have the theme color of the current page the user is visiting. If the page does not have a theme color (e.g. in the settings), then the breadcrumbs will be displayed in gray.
 
 <docs-source-example example="BreadcrumbsColorExample"></docs-source-example>
 
 
-## Breadcrumbs in use
+## Breadcrumb in use
 
 ### Listening to an observable
 
 Content within the breadcrumb can change.
 
 <docs-source-example example="BreadcrumbsObservableExample"></docs-source-example>
-
-### External
-
-External links can be displayed in breadcrumbs.
-
-<docs-source-example example="BreadcrumbsExternalExample"></docs-source-example>
 
 ### Dark
 

@@ -58,32 +58,17 @@ class MyModule {}
 | `currentFilterChanges` | `EventEmitter<DtFilterFieldCurrentFilterChangeEvent>` | Event emitted when a part has been added to the currently selected filter (the filter the user is currently working on). |
 | `inputChange`          | `EventEmitter<string>`                                | Event emitted when the input value changes (e.g. when the user is typing).                                               |
 
-## Data source
+## Distinct options
 
-The filter-field needs a `DtFilterFieldDataSource` so data can be applied. The main purpose of the data source is to convert the data that should be fed into the filter-field into a form the filter-field can understand.
+Usually all options of an autocomplete can be selected, but sometimes there is the need to remove the whole list of options once one of them is selected (e.g. when you only want the user to select one city of a full list).
 
-_Note: Provide only one data source instance per filter-field._
+You can do that by setting the `distinct: true` property onto the autocomplete object.
 
-A `DataSource` needs to be a class that implements the `DtFilterFieldDataSource` interface.
+<docs-source-example example="FilterFieldDistinctExample"></docs-source-example>
 
-The filter-field provides a default implementation of a `DataSource`, named `DtFilterFieldDefaultDataSource`, that takes a specific form of data (`DtFilterFieldDefaultDataSourceType`). If your data has a different form you can either transform your data so the default data source can understand it, or you create your own custom data source.
+## Loading options asynchronously
 
-When creating a custom data source, we also provide a lot of utility functions for converting and creating data into the form of definition node objects the filter-field can understand. You can also take a look at the implementation of the `DtFilterFieldDefaultDataSource` to get a better understanding on how to create a custom data source.
-
-### Data utility functions
-
-A list of the most useful utility functions for creating and checking definition node objects:
-
-| Name                  | Description                                                                                                            |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `dtAutocompleteDef`   | Creates a node definition object or extends one and applies an autocomplete definition object based on the parameters. |
-| `isDtAutocompleteDef` | Whether the provided definition object is of type `NodeDef` and consists of an autocomplete definition.                |
-| `dtFreeTextDef`       | Creates a node definition object or extends one and applies a free-text definition object based on the parameters.     |
-| `isDtFreeTextDef`     | Whether the provided definition object is of type `NodeDef` and consists of a free-text definition.                    |
-| `dtOptionDef`         | Creates a node definition object or extends one and applies an option definition object based on the parameters.       |
-| `isDtOptionDef`       | Whether the provided definition object is of type `NodeDef` and consists of an option definition.                      |
-| `dtGroupDef`          | Creates a node definition object or extends one and applies a group definition object based on the parameters.         |
-| `isDtGroupDef`        | Whether the provided definition object is of type `NodeDef` and consists of a group definition.    
+When working with huge sets of data, there is often the need to load parts of it asynchronously when the user needs it. You can do this by setting the `async: true` property on the autocomplete instead of options, then load the data and apply it to the data source.
 
 ## Filters
 
@@ -132,17 +117,33 @@ properly.
 
 <docs-source-example example="FilterFieldProgrammaticFiltersExample"></docs-source-example>
 
-## Distinct options
+## Data source
 
-Usually all options of an autocomplete can be selected, but sometimes there is the need to remove the whole list of options once one of them is selected (e.g. when you only want the user to select one city of a full list).
+The filter-field needs a `DtFilterFieldDataSource` so data can be applied. The main purpose of the data source is to convert the data that should be fed into the filter-field into a form the filter-field can understand.
 
-You can do that by setting the `distinct: true` property onto the autocomplete object.
+_Note: Provide only one data source instance per filter-field._
 
-<docs-source-example example="FilterFieldDistinctExample"></docs-source-example>
+A `DataSource` needs to be a class that implements the `DtFilterFieldDataSource` interface.
 
-## Loading options asynchronously
+The filter-field provides a default implementation of a `DataSource`, named `DtFilterFieldDefaultDataSource`, that takes a specific form of data (`DtFilterFieldDefaultDataSourceType`). If your data has a different form you can either transform your data so the default data source can understand it, or you create your own custom data source.
 
-When working with huge sets of data, there is often the need to load parts of it asynchronously when the user needs it. You can do this by setting the `async: true` property on the autocomplete instead of options, then load the data and apply it to the data source.
+When creating a custom data source, we also provide a lot of utility functions for converting and creating data into the form of definition node objects the filter-field can understand. You can also take a look at the implementation of the `DtFilterFieldDefaultDataSource` to get a better understanding on how to create a custom data source.
+
+### Data utility functions
+
+A list of the most useful utility functions for creating and checking definition node objects:
+
+| Name                  | Description                                                                                                            |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `dtAutocompleteDef`   | Creates a node definition object or extends one and applies an autocomplete definition object based on the parameters. |
+| `isDtAutocompleteDef` | Whether the provided definition object is of type `NodeDef` and consists of an autocomplete definition.                |
+| `dtFreeTextDef`       | Creates a node definition object or extends one and applies a free-text definition object based on the parameters.     |
+| `isDtFreeTextDef`     | Whether the provided definition object is of type `NodeDef` and consists of a free-text definition.                    |
+| `dtOptionDef`         | Creates a node definition object or extends one and applies an option definition object based on the parameters.       |
+| `isDtOptionDef`       | Whether the provided definition object is of type `NodeDef` and consists of an option definition.                      |
+| `dtGroupDef`          | Creates a node definition object or extends one and applies a group definition object based on the parameters.         |
+| `isDtGroupDef`        | Whether the provided definition object is of type `NodeDef` and consists of a group definition.    
+
 
 ## Behavior
 
