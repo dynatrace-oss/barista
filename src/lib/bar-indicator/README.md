@@ -1,6 +1,6 @@
 ---
 title: "Bar indicator"
-description: "Bar-indicators are used to compare values (e.g. time) with each other."
+description: "Bar-indicators are used to compare values with each other."
 postid: bar-indicator
 category: "components"
 public: true
@@ -12,7 +12,6 @@ contributors:
   ux:
     - andreas.mayr
     - kathrin.aigner
-angular: "bar-indicator"
 tags:
   - "progress"
   - "progress bar"
@@ -60,9 +59,9 @@ class MyModule {}
 
 ## Outputs
 
-| Name          | Type                                 | Default | Description                                                |
-| ------------- | ------------------------------------ | ------- | ---------------------------------------------------------- |
-| `valueChange` | `EventEmitter<DtBarIndicatorChange>` |         | Event emitted when the value of the bar-indicator cahnges. |
+| Name          | Type                                 | Description                                                |
+| ------------- | ------------------------------------ | ---------------------------------------------------------- |
+| `valueChange` | `EventEmitter<DtBarIndicatorChange>` | Event emitted when the value of the bar-indicator cahnges. |
 
 ## Properties
 
@@ -76,32 +75,23 @@ class MyModule {}
 The bar indicator is mostly used within table rows with the table column header as a label. It can also be used as a standalone component, which requires labels next to the bars then. As the bar indicator is not used to show total percentages of a number, but rather to compare ratios, it can't be used as a single, separated bar.  
 The indicator is themeable and can also show problems.
 
-{{#component-demo name="BarIndicatorColorExample"}}{{/component-demo}}
+<docs-source-example example="BarIndicatorColorExample"></docs-source-example>
 
 
 ## Bar indicator in use
 
+<!-- TODO: delete image, add demo-->
 Bar-indicators are often used in tables.
-
 ![bar-indicator in tables](https://dt-cdn.net/images/bar-indicator-in-tables-620-987fc7c632.png)
 
-
-But they can also stand alone and be compared with each other.
-
-![standalone bar-indicator](https://dt-cdn.net/images/standalone-bar-indicator-317-88cbbbff8e.png)
-
-
-Bar-indicator set to a fixed value.
-
-<docs-source-example example="BarIndicatorDefaultExample"></docs-source-example>
-
-Bar-indicator in different color variations.
-
+### Theming and validation
+Depending on the context, the bar-indicator can be colored according to the page's theme or use the validation colors.
 <docs-source-example example="BarIndicatorColorExample"></docs-source-example>
 
-Bar-indicator with alignment set to end
+### Alignment
+It's possible to set the alignment to `end`. This is used when a bar-indicator is part of a table row with right-alignment.
 <docs-source-example example="BarIndicatorAlignmentExample"></docs-source-example>
 
+### Value bindings
 Bar-indicator with variable `min`, `max` and `value` bindings.
-
 <docs-source-example example="BarIndicatorDynamicExample"></docs-source-example>
