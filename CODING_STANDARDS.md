@@ -1,3 +1,15 @@
+---
+title: 'Coding standards'
+description:
+  'To ensure good code quality we provide some coding standards that should be
+  kept in mind when developing Angular components.'
+order: 4
+tags:
+  - 'guideline'
+  - 'coding standards'
+  - 'best practice'
+---
+
 # Coding Standards
 
 Beside Dynatrace specific guidelines the following coding standards are also
