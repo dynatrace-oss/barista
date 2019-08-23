@@ -1,3 +1,31 @@
+## 4.6.0 (2019-08-23)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the references are lost on the selection area
+  when the chart series or options are updated.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **chart:** Fixes chart time config defaults to useUTC=true and use the users
+  timezone ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **inline-editor:** Fixes an issue that the inline editor did not work with
+  validators correctly
+- **table:** Fixes an issue that the info-group icon was not colored correctly
+  when only using expandable-rows
+
+### Features
+
+- **breadcrumbs:** Added dtBreadcrumbsItem directive and deprecated
+  dt-breadcrumbs-item component
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **Logger:** Add stack param to LogEntry
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **secondary-nav:** Added the dt-secondary-nav component
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Special Thanks
+
+Arnaud Crowther, Kamil Knitter and Bartosz Bobin
+
 ## 4.5.0 (2019-08-19)
 
 ### Bug Fixes
