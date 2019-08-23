@@ -1,5 +1,5 @@
 ---
-title: 'Icon component'
+title: 'Icon'
 description:
   'The icon component is used to display any Dynatrace icon within the UI.'
 postid: icon
