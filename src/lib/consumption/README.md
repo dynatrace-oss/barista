@@ -1,5 +1,15 @@
 ---
-type: 'component'
+title: 'Consumption'
+description:
+  'The consumption component visualizes data combining an icon, a title, a
+  progress bar and some description text.'
+contributors:
+  dev:
+    - christoph.matscheko
+tags:
+  - 'progress'
+  - 'progress bar'
+  - 'icon'
 ---
 
 # Consumption

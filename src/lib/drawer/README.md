@@ -1,24 +1,29 @@
 ---
+title: 'Drawer'
 description:
-  The drawer is a component that adds collapsible side content to some primary
-  content.
+  'The drawer is a component that adds collapsible side content to some primary
+  content.'
 contributors:
   dev:
     - lukas.holzer
+tags:
+  - 'side content'
+  - 'aside'
+properties:
+  - 'dev utility'
 ---
 
 # Drawer
 
-The Dynatrace Drawer is a component designed to add collapsible side content
-_(often navigation, though it can be any content)_ alongside some primary
-content.
+The drawer is a component designed to add collapsible side content _(often
+navigation, though it can be any content)_ alongside some primary content.
 
 <docs-source-example example="DrawerDefaultExample"></docs-source-example>
 
 ## Imports
 
 You have to import the `DtDrawerModule` when you want to use the `<dt-drawer>`
-and `<dt-drawer-container>`, note that you need Angular's
+and `<dt-drawer-container>`. Note that you need Angular's
 `BrowserAnimationsModule` if you want to have animations or the
 `NoopAnimationsModule` if you don't.
 
@@ -39,11 +44,11 @@ the content that should be pushed to off-canvas.
 
 ## Inputs
 
-| Name       | Type              | Default   | Description                                                                                                                     |
-| ---------- | ----------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`     | `'side' | 'over'` | `'side'`  | The behavior of the drawer, can overlay over or shrink the primary content.                                                     |
-| `position` | `'start' | 'end'` | `'start'` | Defines if the drawer is on the left or right side in a container. _(A drawer container can only have one drawer per position)_ |
-| `opened`   | `boolean`         | `false`   | The actual open state of the drawer.                                                                                            |
+| Name       | Type              | Default   | Description                                                                                                                      |
+| ---------- | ----------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `'side' | 'over'` | `'side'`  | The behavior of the drawer, can overlay over or shrink the primary content.                                                      |
+| `position` | `'start' | 'end'` | `'start'` | Defines if the drawer is on the left or right side in a container. _(A drawer container can only have one drawer per position.)_ |
+| `opened`   | `boolean`         | `false`   | The actual open state of the drawer.                                                                                             |
 
 ## Outputs
 
