@@ -1,3 +1,17 @@
+---
+title: 'Get started'
+description:
+  'This guide provides an overview how to get started with the Dynatrace Angular
+  components library.'
+order: 1
+tags:
+  - 'guideline'
+  - 'how to'
+  - 'tutorial'
+  - 'getting started'
+  - 'install'
+---
+
 ## Step 1: Install the angular-components and Angular CDK
 
 This library is available in our internal Artifactory. To make it installable

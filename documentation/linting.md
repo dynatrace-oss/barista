@@ -1,4 +1,19 @@
-# TSLint
+---
+title: 'Linting'
+description: 'We provide a set of custom TSLint rules to help you using the Angular components
+correctly as intended.'
+order: 5
+tags:
+  - "tslint"
+  - "linting"
+  - "quality"
+  - "code quality"
+  - "accessibility"
+  - "a11y"
+  - "development"
+---
+
+# Linting
 
 To ensure a high code quality, the Angular components library comes with a set
 of custom TSLint rules to prevent wrong usage of components.
