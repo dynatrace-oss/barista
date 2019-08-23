@@ -1,4 +1,15 @@
 ---
+title: 'Indicator'
+description:
+  'The dtIndicator directive can be used with any component to indicate a
+  warning or an error.'
+properties:
+  - 'dev utility'
+tags:
+  - 'indicator'
+  - 'validation'
+  - 'warning'
+  - 'error'
 type: 'component'
 ---
 
@@ -9,6 +20,8 @@ warning or an error.
 
 This directive was introduced to add indicators in the `<dt-table>`, but can be
 used in other components as well to handle error or warning indications.
+
+<docs-source-example example="TableProblemExample" fullwidth="true"></docs-source-example>
 
 ## Imports
 
@@ -25,11 +38,11 @@ class MyModule {}
 ## Initialization
 
 To apply the dynatrace indicator, add the `dtIndicator` directive to any
-component or html element.
+component or HTML element.
 
 ## Inputs
 
-| Name               | Type                    | Default | Description                                         |
-| ------------------ | ----------------------- | ------- | --------------------------------------------------- |
-| `dtIndicator`      | `boolean`               | `true`  | Wether the indicator is active.                     |
-| `dtIndicatorColor` | `string` \| `undefined` | `error` | Sets color. Possible options: `error` \| `warning`. |
+| Name               | Type                  | Default | Description                      |
+| ------------------ | --------------------- | ------- | -------------------------------- |
+| `dtIndicator`      | `boolean`             | `true`  | Whether the indicator is active. |
+| `dtIndicatorColor` | `'error' | 'warning'` | `error` | Sets the color.                  |
