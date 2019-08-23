@@ -1,3 +1,12 @@
+---
+title: 'How to contribute'
+description:
+  'Find all the information about contributing to the Angular components library
+  summarized on this page.'
+baristafilename: 'contribute.md'
+order: 2
+---
+
 # Contributing to the Angular Components Library
 
 ## Found an Issue?
