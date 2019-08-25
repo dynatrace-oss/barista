@@ -5,7 +5,6 @@ description:
 postid: info-group
 identifier: 'Ig'
 category: 'components'
-layout: page-angular.hbs
 public: true
 toc: true
 themable: true

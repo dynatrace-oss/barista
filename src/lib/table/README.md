@@ -1,5 +1,27 @@
 ---
-type: 'component'
+title: 'Table'
+description:
+  'A table is a two-dimensional structure composed of rows and columns
+  displaying a set of comparable data.'
+postid: table
+identifier: 'Tl'
+category: 'components'
+public: true
+toc: true
+contributors:
+  dev:
+    - fabian.friedl
+    - thomas.heller
+    - lara.aigmueller
+  ux:
+    - marike.sorgdrager
+wiki: https://dev-wiki.dynatrace.org/display/UX/Tables
+tags:
+  - 'table'
+  - 'component'
+  - 'angular'
+related:
+  - tree-table
 ---
 
 # Table
@@ -8,20 +30,7 @@ The table component can be a static or an interactive element. Some tables
 provide the possiblity to add, remove, edit a row or expand it for further
 information.
 
-You have to import the `DtTableModule` to use the `dt-table`. If you want to use
-the `dt-expandable-cell` component, Angular's `BrowserAnimationsModule` is
-required for animations. For more details on this see _Step 2: Animations_ in
-the Getting started Guide.
-
-```typescript
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DtTableModule } from '@dynatrace/angular-components/table';
-
-@NgModule({
-  imports: [BrowserAnimationsModule, DtTableModule],
-})
-class MyModule {}
-```
+<docs-source-example example="TableDefaultExample" fullwidth="true"></docs-source-example>
 
 The `DtTable` implementation enhances the
 [Material's CDK table](https://material.angular.io/cdk/table/overview) and also
@@ -32,6 +41,23 @@ Instead, you need to define all possible columns that the table may show
 (depending on the data available) and then define which subset of columns you
 want to show in the table header and body by selecting from the column
 definitions.
+
+## Imports
+
+You have to import the `DtTableModule` to use the `dt-table`. If you want to use
+the `dt-expandable-cell` component, Angular's `BrowserAnimationsModule` is
+required for animations. For more details on this see
+[Step 2: Animations in the getting started guide](***REMOVED***
+
+```typescript
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DtTableModule } from '@dynatrace/angular-components/table';
+
+@NgModule({
+  imports: [BrowserAnimationsModule, DtTableModule],
+})
+class MyModule {}
+```
 
 ## Table inputs
 
@@ -419,6 +445,30 @@ could look like this:
 </ng-container>
 ```
 
+### Content limitations
+
+To guarantee a reasonable perception of the content in the content area (i.e.
+the expanded section), there are some limitations of controls which can be used:
+
+- [Switches]({{link_to_id id='switch' }})
+- [Checkboxes]({{link_to_id id='checkbox' }})
+- [Radio Buttons]({{link_to_id id='radio' }})
+- [Input fields]({{link_to_id id='input' }})
+- [Dropdowns]({{link_to_id id='select' }})
+- [Key-value lists]({{link_to_id id='key-value-list' }}) up to 12 lines
+- [Buttons]({{link_to_id id='button' }}) (primary and secondary) for drill downs
+  and additional information
+
+Keep in mind to limit the content in expandable table rows for better visual
+perception. As a rule of thumb we recommend to keep the content height under
+580px (estimated available height on a screen width of 1024px). If there is a
+lot of content, consider navigating to a details page.
+
+Please keep in mind:
+
+- **Do not** put a table or an expandable in an expandable table!
+- **Do not** add content that requires any kind of pagination!
+
 ## States
 
 ### Empty state
@@ -455,6 +505,19 @@ indicator by using the input named the same as `dtIndicator`.
 ```html
 <dt-cell [dtIndicator]="active" ...></dt-cell>
 ```
+
+### Single metric problem indication
+
+If a single metric in a table entry is affected, only the affected value is
+highlighted.
+
+### Problem indication of entity or table row
+
+If the problem affects the entity, but the affected metric is not in the table,
+the entity name is highlighted by the appropriate status color.
+
+**Note:** Don't color hyperlinks even if the whole entity is affected, in this
+case use only the indicator on the left.
 
 The example below shows both usages – a single metric inside a cell and the
 entire cell enhanced with the `dtIndicator`.
@@ -551,3 +614,39 @@ simpleColumn could look like this (example from the `dt-simple-number-column`).
   </dt-cell>
 </ng-container>
 ```
+
+## Tables in use
+
+### Buttons or switches in tables
+
+- It is possible to use [buttons in tables]({{link_to_id id='button' }}), but
+  should be used sparingly.
+- [Switches]({{link_to_id id='switch' }}) in tables (e.g. to enable/disable
+  monitoring of an entity) are vertically centered in the table row.
+
+### Charts in tables
+
+Micro bar charts can be used in tables to visualize information and enable easy
+comparison. Keep the number of bar charts to one and explain the chart with an
+appropriate table header. The metric can be added in the same column. For good
+legibility the metric should be right aligned in front of the bar chart.
+
+<!-- TODO: add example -->
+
+{{#figure styleguide='true'}}
+![Micro bar charts in tables](https://d24pvdz4mvzd04.cloudfront.net/test/table-micro-bar-chart-580-06eeb208d7.png)
+{{#figcaption}}
+
+```
+x: 8px
+y: 16px
+```
+
+{{/figcaption}} {{/figure}}
+
+Colors are always dependent on the environment the chart is in [theme
+colors]({{link_to_id id='theming' }}).
+
+### Tables in Overlays
+
+It is possible to use [overlays with tables]({{link_to_id id='overlay' }}).
