@@ -1,6 +1,19 @@
+import {
+  state,
+  style,
+  transition,
+  trigger,
+  useAnimation,
+} from '@angular/animations';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { BACKSPACE, ENTER, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
+import {
+  BACKSPACE,
+  DELETE,
+  ENTER,
+  ESCAPE,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
@@ -43,7 +56,13 @@ import {
   DtAutocompleteSelectedEvent,
   DtAutocompleteTrigger,
 } from '@dynatrace/angular-components/autocomplete';
-import { isDefined, readKeyCode } from '@dynatrace/angular-components/core';
+import {
+  DT_ERROR_ENTER_ANIMATION,
+  DT_ERROR_ENTER_DELAYED_ANIMATION,
+  ErrorStateMatcher,
+  isDefined,
+  readKeyCode,
+} from '@dynatrace/angular-components/core';
 
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {
@@ -65,6 +84,7 @@ import {
   findFilterValuesForSources,
   peekOptionId,
 } from './filter-field-util';
+import { DtFilterFieldControl } from './filter-field-validation';
 import {
   DtAutocompletValue,
   DtFilterFieldTagData,
@@ -119,11 +139,24 @@ export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('transitionErrors', [
+      state('enter', style({ opacity: 1, transform: 'scaleY(1)' })),
+      transition('void => enter', [useAnimation(DT_ERROR_ENTER_ANIMATION)]),
+      transition('void => enter-delayed', [
+        useAnimation(DT_ERROR_ENTER_DELAYED_ANIMATION),
+      ]),
+    ]),
+  ],
 })
 export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';
 
+  /** An object used to control when error messages are shown. */
+  @Input() errorStateMatcher: ErrorStateMatcher;
+
+  /** Filter field data source that describes the fields and field types of the filter field */
   @Input()
   get dataSource(): DtFilterFieldDataSource {
     return this._dataSource;
@@ -230,6 +263,15 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal Value of the input element. */
   _inputValue = '';
 
+  /** @internal Virtual control that acts like a form control and manages the validations and values */
+  _control: DtFilterFieldControl | null = null;
+
+  /**
+   * @internal
+   * holds the validation errors of the current free text input field
+   */
+  _errors: string[] = [];
+
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
 
@@ -246,7 +288,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     private _elementRef: ElementRef,
     // tslint:disable-next-line:no-any
     @Optional() @Inject(DOCUMENT) private _document: any,
+    defaultErrorStateMatcher: ErrorStateMatcher,
   ) {
+    this.errorStateMatcher = defaultErrorStateMatcher;
     this._stateChanges
       .pipe(switchMap(() => this._zone.onMicrotaskEmpty.pipe(take(1))))
       .subscribe(() => {
@@ -355,9 +399,11 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     const value = this._inputEl.nativeElement.value;
     if (value !== this._inputValue) {
       this._inputValue = value;
+      this._writeControlValue(value);
       this._updateAutocompleteOptionsOrGroups();
       this.inputChange.emit(value);
 
+      this._validateInput();
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -365,7 +411,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal */
   _handleInputKeyDown(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
-    if (keyCode === BACKSPACE && !this._inputValue.length) {
+    if ([BACKSPACE, DELETE].includes(keyCode) && !this._inputValue.length) {
       if (this._currentFilterValues.length) {
         this._removeFilter(this._currentFilterValues);
       } else if (this._prefixTagData.length) {
@@ -388,7 +434,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     if (
       keyCode === ENTER &&
       this._inputValue.length &&
-      isDtFreeTextDef(this._currentDef)
+      isDtFreeTextDef(this._currentDef) &&
+      this._control &&
+      this._control.valid
     ) {
       this._handleFreeTextSubmitted();
     }
@@ -425,6 +473,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         this._currentFilterValues = event.data.filterValues;
         this._currentDef = value;
 
+        this._updateControl();
         this._updateLoading();
         this._updateAutocompleteOptionsOrGroups();
         // If the currently edited part is a range it should prefill the
@@ -452,6 +501,22 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         this._removeFilter(event.data.filterValues);
       }
       this.focus();
+    }
+  }
+
+  /**
+   * Validates the value of a control with the validators that are provided
+   * in the control. Sets the error messages if they should be shown according to the
+   * error matcher.
+   */
+  private _validateInput(): void {
+    if (this._control) {
+      const errors = this._control._validate();
+
+      // if the error state matcher matches we assign the errors from above
+      this._errors = this.errorStateMatcher.isErrorState(this._control, null)
+        ? errors
+        : [];
     }
   }
 
@@ -524,6 +589,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       isDtRangeDef(optionDef)
     ) {
       this._currentDef = optionDef;
+      this._updateControl();
       this._updateLoading();
       this._updateFilterByLabel();
       this._updateAutocompleteOptionsOrGroups();
@@ -588,8 +654,18 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     this._inputEl && (this._inputEl.nativeElement.value = value);
     if (this._inputValue !== value) {
       this._inputValue = value;
+      this._writeControlValue(value);
       this.inputChange.emit(value);
       this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  /** Write a value to the filter field control if there is a control active */
+  private _writeControlValue(value: string): void {
+    if (this._control) {
+      this._control.setValue(value);
+      this._control.markAsDirty();
+      this._control.markAsTouched();
     }
   }
 
@@ -722,6 +798,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
             this._rootDef = def;
           }
           this._currentDef = def;
+          this._updateControl();
           this._updateLoading();
           this._updateAutocompleteOptionsOrGroups();
           this._stateChanges.next();
@@ -741,6 +818,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   private _switchToRootDef(shouldEmit: boolean = false): void {
     this._currentDef = this._rootDef;
     this._filterByLabel = '';
+    this._updateControl();
     this._updateLoading();
     this._updateAutocompleteOptionsOrGroups();
     if (shouldEmit && this._currentFilterValues.length) {
@@ -748,6 +826,21 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     }
     this._currentFilterValues = [];
     this._updateTagData();
+  }
+
+  /**
+   * If the currentDef is a free text node it initializes a virtual FilterFieldControl
+   * that handles the validation of the value
+   */
+  private _updateControl(): void {
+    if (isDtFreeTextDef(this._currentDef)) {
+      this._control = new DtFilterFieldControl(
+        this._currentDef.freeText.validators,
+      );
+    } else {
+      this._control = null;
+      this._errors = [];
+    }
   }
 
   /** Updates prefix and suffix tag data for displaying filter tags. */

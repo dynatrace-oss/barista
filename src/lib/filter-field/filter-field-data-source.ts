@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 
 import { isObject } from '@dynatrace/angular-components/core';
 
+import { DtFilterFieldValidator } from './filter-field-validation';
 import {
   DtNodeDef,
   dtAutocompleteDef,
@@ -76,6 +77,7 @@ export interface DtFilterFieldDefaultDataSourceFreeText {
   suggestions: Array<
     DtFilterFieldDefaultDataSourceOption | DtFilterFieldDefaultDataSourceGroup
   >;
+  validators?: DtFilterFieldValidator[];
 }
 
 /** Whether the provided data object is of type FreeTextData */
@@ -219,7 +221,8 @@ export class DtFilterFieldDefaultDataSource<T>
         def,
       );
     } else if (isFreeText(data)) {
-      def = dtFreeTextDef([], data, null);
+      // @breaking-change 5.0.0 data.validators is then required so `|| []` can be removed
+      def = dtFreeTextDef([], data.validators || [], data, null);
       def.freeText!.suggestions = this._transformList(data.suggestions, def);
     } else if (isRange(data)) {
       def = dtRangeDef(
