@@ -1,6 +1,7 @@
 import { isDefined, isObject } from '@dynatrace/angular-components/core';
 
 import { getDtFilterFieldRangeNoOperatorsError } from './filter-field-errors';
+import { DtFilterFieldValidator } from './filter-field-validation';
 
 // tslint:disable:no-bitwise no-magic-numbers no-any
 export enum DtNodeFlags {
@@ -35,6 +36,8 @@ export interface DtAutocompleteDef {
 
 export interface DtFreeTextDef {
   suggestions: DtNodeDef[];
+  // @breaking-change 5.0.0 To be non optional
+  validators?: DtFilterFieldValidator[];
 }
 
 export interface DtGroupDef {
@@ -213,15 +216,44 @@ export function isDtGroupDef(
   return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeGroup);
 }
 
-/** Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one. */
+/**
+ * @deprecated
+ * Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one.
+ *
+ * @breaking-change 5.0.0 To be removed, validators required
+ */
 export function dtFreeTextDef(
   suggestions: DtNodeDef[],
   data: any,
   existingNodeDef: DtNodeDef | null,
+): DtNodeDef;
+
+/** Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one. */
+export function dtFreeTextDef(
+  suggestions: DtNodeDef[],
+  validators: DtFilterFieldValidator[],
+  data: any,
+  existingNodeDef: DtNodeDef | null,
+): DtNodeDef;
+
+export function dtFreeTextDef(
+  suggestions: DtNodeDef[],
+  dataOrValidators: any | DtFilterFieldValidator[],
+  existingNodeDefOrData: DtNodeDef | null,
+  existingNodeDef: DtNodeDef | null = null,
 ): DtNodeDef {
+  let data: any = dataOrValidators;
+  let validators: DtFilterFieldValidator[] = [];
+  let currentNodeDef: DtNodeDef | null = existingNodeDefOrData;
+  if (!isDtNodeDef(existingNodeDefOrData)) {
+    data = existingNodeDefOrData;
+    validators = dataOrValidators;
+    currentNodeDef = existingNodeDef;
+  }
+
   const def = {
-    ...nodeDef(data, existingNodeDef),
-    freeText: { suggestions },
+    ...nodeDef(data, currentNodeDef),
+    freeText: { suggestions, validators },
   };
   def.nodeFlags |= DtNodeFlags.TypeFreeText;
   return def;

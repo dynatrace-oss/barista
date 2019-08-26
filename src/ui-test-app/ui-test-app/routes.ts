@@ -12,6 +12,7 @@ import { CopyToClipboardUI } from '../copy-to-clipboard/copy-to-clipboard-ui';
 import { DrawerUI } from '../drawer/drawer-ui';
 import { ExpandablePanelUi } from '../expandable-panel/expandable-panel-ui';
 import { ExpandableSectionUi } from '../expandable-section/expandable-section-ui';
+import { FilterFieldUi } from '../filter-field/filter-field-ui';
 import { KeyValueListUI } from '../key-value-list/key-value-list-ui';
 import { OverlayUI } from '../overlay/overlay-ui';
 import { PaginationUI } from '../pagination/pagination-ui';
@@ -41,6 +42,7 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'copy-to-clipboard', component: CopyToClipboardUI },
   { path: 'expandable-panel', component: ExpandablePanelUi },
   { path: 'expandable-section', component: ExpandableSectionUi },
+  { path: 'filter-field', component: FilterFieldUi },
   { path: 'key-value-list', component: KeyValueListUI },
   { path: 'pagination', component: PaginationUI },
   { path: 'radio', component: RadioUI },

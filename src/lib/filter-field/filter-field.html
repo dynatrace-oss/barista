@@ -66,3 +66,12 @@
     (edit)="_handleTagEdit($event)"
   ></dt-filter-field-tag>
 </div>
+
+<div class="dt-filter-field-subscript-wrapper" *ngIf="_errors.length">
+  <div
+    class="dt-filter-field-error"
+    [@transitionErrors]="true"
+  >
+    <p *ngFor="let error of _errors">{{ error }}</p>
+  </div>
+</div>
