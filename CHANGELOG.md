@@ -1,3 +1,9 @@
+## 4.6.1 (2019-08-26)
+
+### Bug Fixes
+
+- **core:** Changes css selector for optgroup to avoid potential oom exception
+
 ## 4.6.0 (2019-08-23)
 
 ### Bug Fixes
