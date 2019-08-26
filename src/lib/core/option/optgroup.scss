@@ -9,7 +9,7 @@
   }
 }
 
-:host + :host,
+.dt-optgroup + :host,
 .dt-option + :host {
   margin-top: 16px;
 }
