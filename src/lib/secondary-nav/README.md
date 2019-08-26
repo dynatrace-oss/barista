@@ -1,5 +1,20 @@
 ---
 type: 'component'
+contributors:
+  ux:
+    - ryan.deliso
+  dev:
+    - arnaud.crowther
+    - thomas.pink
+tags:
+  - 'navigation'
+  - 'menu'
+  - 'secondary'
+  - 'sidemenu'
+  - 'settings'
+  - 'list'
+  - 'component'
+  - 'angular'
 ---
 
 # Secondary nav
