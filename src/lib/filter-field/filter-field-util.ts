@@ -54,7 +54,13 @@ export function filterFreeTextDef(
         filterOptionDef(option, new Set(), filterText),
       )
     : [];
-  return dtFreeTextDef(suggestions, def.data, def);
+
+  return dtFreeTextDef(
+    suggestions,
+    def.freeText!.validators || [],
+    def.data,
+    def,
+  );
 }
 
 /**
