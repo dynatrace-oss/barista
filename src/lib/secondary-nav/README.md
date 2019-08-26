@@ -2,7 +2,7 @@
 type: 'component'
 ---
 
-# SecondaryNav
+# Secondary nav
 
 `<dt-secondary-nav>` is a navigation menu used to control in-app routing and
 provide a way to display external links as well. By using the
