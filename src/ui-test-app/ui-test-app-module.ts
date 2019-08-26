@@ -29,6 +29,7 @@ import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { DtTileModule } from '@dynatrace/angular-components/tile';
 
+import { DtFilterFieldModule } from '../lib';
 import { ButtonGroupUi } from './button-group/button-group-ui';
 import { ButtonUI } from './button/button-ui';
 import { ChartHighchartsUI } from './chart/chart-highcharts-ui';
@@ -41,6 +42,7 @@ import { CopyToClipboardUI } from './copy-to-clipboard/copy-to-clipboard-ui';
 import { DrawerUI } from './drawer/drawer-ui';
 import { ExpandablePanelUi } from './expandable-panel/expandable-panel-ui';
 import { ExpandableSectionUi } from './expandable-section/expandable-section-ui';
+import { FilterFieldUi } from './filter-field/filter-field-ui';
 import { KeyValueListUI } from './key-value-list/key-value-list-ui';
 import { OverlayUI } from './overlay/overlay-ui';
 import { PaginationUI } from './pagination/pagination-ui';
@@ -62,13 +64,16 @@ import { Home, UIApp } from './ui-test-app/ui-test-app';
     DtButtonModule,
     DtChartModule,
     DtCheckboxModule,
+    DtConsumptionModule,
     DtContextDialogModule,
     DtCopyToClipboardModule,
     DtDrawerModule,
     DtExpandablePanelModule,
     DtExpandableSectionModule,
+    DtFilterFieldModule,
     DtInputModule,
     DtKeyValueListModule,
+    DtOverlayModule,
     DtOverlayModule,
     DtPaginationModule,
     DtProgressBarModule,
@@ -76,15 +81,11 @@ import { Home, UIApp } from './ui-test-app/ui-test-app';
     // tslint:disable-next-line: deprecation
     DtSelectionAreaModule,
     DtSelectModule,
+    DtSelectModule,
     DtShowMoreModule,
     DtSwitchModule,
     DtTabsModule,
     DtTileModule,
-    DtSelectModule,
-    DtOverlayModule,
-    // tslint:disable-next-line: deprecation
-    DtSelectionAreaModule,
-    DtConsumptionModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -106,13 +107,16 @@ export class DynatraceAngularCompModule {}
     ChartSelectionAreaUI,
     ChartUI,
     CheckboxUI,
+    ConsumptionUI,
     ContextDialogUI,
     CopyToClipboardUI,
     DrawerUI,
     ExpandablePanelUi,
     ExpandableSectionUi,
+    FilterFieldUi,
     Home,
     KeyValueListUI,
+    OverlayUI,
     OverlayUI,
     PaginationUI,
     ProgressBarUI,
@@ -122,8 +126,6 @@ export class DynatraceAngularCompModule {}
     TabsUI,
     TileUI,
     UIApp,
-    OverlayUI,
-    ConsumptionUI,
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],
