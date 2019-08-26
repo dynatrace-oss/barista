@@ -49,6 +49,19 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
           },
         },
       },
+      events: {
+        // tslint:disable-next-line:no-any
+        legendItemClick: (e: any) => {
+          const chart = e.target.chart;
+          const visibleSeriesCount = chart.series.reduce(
+            (counter: number, s) => (s.visible ? counter + 1 : counter),
+            0,
+          );
+          if (e.target.visible && visibleSeriesCount <= 1) {
+            e.preventDefault();
+          }
+        },
+      },
     },
   },
   title: {
