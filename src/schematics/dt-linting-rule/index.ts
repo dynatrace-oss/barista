@@ -1,44 +1,58 @@
+import * as path from 'path';
+
 import {
   JsonAstObject,
   JsonParseMode,
-  parseJsonAst,
+  Path,
   Position,
+  parseJsonAst,
   strings,
 } from '@angular-devkit/core';
 import {
-  apply,
-  chain,
-  mergeWith,
-  move,
   Rule,
   SchematicsException,
-  template,
   Tree,
+  apply,
+  chain,
+  filter,
+  mergeWith,
+  move,
+  template,
   url,
 } from '@angular-devkit/schematics';
-import * as path from 'path';
+
 import { getSourceFile } from '../utils/ast-utils';
-import { commitChanges, InsertChange } from '../utils/change';
+import { InsertChange, commitChanges } from '../utils/change';
 import { DtLintingRuleOptions } from './schema';
 
 const TSLINT_MARKDOWN_FILE = path.join('documentation', 'linting.md');
-const LINTING_RULES_DIRECTORY = path.join('src', 'linting', 'rules');
-const LINTING_TSLINT_CONFIG = path.join('src', 'linting', 'tslint.json');
+const LINTING_DIRECTORY = path.join('src', 'linting');
+const LINTING_RULES_DIRECTORY = path.join(LINTING_DIRECTORY, 'rules');
+const LINTING_RULES_TEST_DIRECTORY = path.join(
+  LINTING_DIRECTORY,
+  'test',
+  'rules',
+);
+const LINTING_TSLINT_CONFIG = path.join(LINTING_DIRECTORY, 'tslint.json');
 const BARISTA_EXAMPLES_TSLINT_CONFIG = path.join(
   'src',
   'barista-examples',
   'tslint.json',
 );
 
-function _createRuleName(name: string): string {
-  const dasherizedName = strings.dasherize(name);
-  const ruleName = dasherizedName.startsWith('dt-')
-    ? dasherizedName
-    : `dt-${dasherizedName}`;
+function _createRuleName(name: string, altText?: string): string {
+  let ruleName = strings.dasherize(name);
 
-  return ruleName.endsWith('-rule')
-    ? ruleName.substring(0, ruleName.length - '-rule'.length)
-    : ruleName;
+  if (!ruleName.startsWith('dt-')) {
+    ruleName = `dt-${ruleName}`;
+  }
+  if (ruleName.endsWith('-rule')) {
+    ruleName = ruleName.substring(0, ruleName.length - '-rule'.length);
+  }
+  if (altText && !ruleName.endsWith('-alt-text')) {
+    ruleName = `${ruleName}-alt-text`;
+  }
+  return ruleName;
 }
 
 function _parseTslintJson(host: Tree, modulePath: string): JsonAstObject {
@@ -91,7 +105,7 @@ function _findRulePosition(
 /**
  * Adds the new linting rule to TSLINT.md.
  */
-function _addLintingRuleToReadme(ruleName: string): Rule {
+function _addLintingRuleToReadme(ruleName: string, altText?: string): Rule {
   return (host: Tree) => {
     const modulePath = TSLINT_MARKDOWN_FILE;
     const sourceFile = getSourceFile(host, modulePath);
@@ -111,7 +125,10 @@ function _addLintingRuleToReadme(ruleName: string): Rule {
       tableEntriesPos += line.length + 1;
     }
 
-    const toInsert = `| \`${ruleName}\` | +++ Insert linting rule description here +++. |\n`;
+    const toInsert =
+      altText === undefined
+        ? `| \`${ruleName}\` | +++ Insert linting rule description here +++. |\n`
+        : `| \`${ruleName}\` | A \`${altText}\` must always have an alternative text in form of an \`aria-label\` or an \`aria-labelledby\` attribute. |\n`;
     const lintingRuleChange = new InsertChange(
       modulePath,
       tableEntriesPos,
@@ -146,49 +163,94 @@ function _addLintingRuleToTslintJson(
   };
 }
 
+function _altTextFilterPredicate(p: Path): boolean {
+  return (
+    p !== '/linting/rules/__name@camelize__Rule.ts' &&
+    p !== '/linting/test/rules/__name@dasherize__-rule/test.ts.lint'
+  );
+}
+
+function _squigglyLine(altText: string): string {
+  let line = '~~'; // start with 2 tildes for the angle brackets
+
+  for (let i = 0; i < altText.length; i++) {
+    line += '~';
+  }
+  return line;
+}
+
 // tslint:disable-next-line:no-default-export
 export default function(options: DtLintingRuleOptions): Rule {
-  const ruleName = (options.name = _createRuleName(options.name));
-  const category = options.category
-    ? strings.dasherize(options.category)
-    : undefined;
+  options.name = _createRuleName(options.name, options.alttext);
 
-  if (category) {
-    options.category = category;
+  if (options.category) {
+    options.category = strings.dasherize(options.category);
   }
 
-  const templateSource = apply(url('./files'), [
-    template({
-      ...strings,
-      ...options,
-    }),
-    move('src'),
-  ]);
+  const templateRules = options.alttext
+    ? [
+        filter(_altTextFilterPredicate),
+        template({
+          ...strings,
+          ...options,
+          ...{ squigglyLine: _squigglyLine(options.alttext) },
+        }),
+        move('src'),
+      ]
+    : [template({ ...strings, ...options }), move('src')];
+  const templateSource = apply(url('./files'), templateRules);
+
   const rules = [
     mergeWith(templateSource),
     _addLintingRuleToTslintJson(
-      ruleName,
+      options.name,
       options.severity === 'warning',
       BARISTA_EXAMPLES_TSLINT_CONFIG,
     ),
     _addLintingRuleToTslintJson(
-      ruleName,
+      options.name,
       options.severity === 'warning',
       LINTING_TSLINT_CONFIG,
     ),
-    _addLintingRuleToReadme(ruleName),
+    _addLintingRuleToReadme(options.name, options.alttext),
   ];
 
-  if (category) {
-    const ruleImpl = `${strings.camelize(ruleName)}Rule.ts`;
-    const rulesPath = LINTING_RULES_DIRECTORY;
+  if (options.alttext) {
+    const testDirectory = path.join(
+      LINTING_RULES_TEST_DIRECTORY,
+      `${strings.dasherize(options.name)}-rule`,
+    );
 
     rules.push(
       move(
-        path.join(rulesPath, ruleImpl),
-        path.join(rulesPath, category, ruleImpl),
+        path.join(
+          LINTING_RULES_DIRECTORY,
+          `${strings.camelize(options.name)}AltTextRule.ts`,
+        ),
+        path.join(
+          LINTING_RULES_DIRECTORY,
+          `${strings.camelize(options.name)}Rule.ts`,
+        ),
+      ),
+    );
+    rules.push(
+      move(
+        path.join(testDirectory, 'alt-text-test.ts.lint'),
+        path.join(testDirectory, 'test.ts.lint'),
       ),
     );
   }
+
+  if (options.category) {
+    const ruleImpl = `${strings.camelize(options.name)}Rule.ts`;
+
+    rules.push(
+      move(
+        path.join(LINTING_RULES_DIRECTORY, ruleImpl),
+        path.join(LINTING_RULES_DIRECTORY, options.category, ruleImpl),
+      ),
+    );
+  }
+
   return chain(rules);
 }
