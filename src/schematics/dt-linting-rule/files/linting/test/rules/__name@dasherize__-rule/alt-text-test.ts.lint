@@ -1,0 +1,12 @@
+/**
+ * Test file for testing the <%= name %> rule.
+ */
+
+@Component({
+  template: `
+    <<%= alttext %>>
+    <%= squigglyLine %> [A <%= alttext %> must either have an aria-label or an aria-labelledby attribute.]
+    </<%= alttext %>>
+  `,
+})
+class TestClass {}

@@ -5,7 +5,7 @@
 @Component({
   template: `
     <dt-my-custom-component>
-    ~~~~~~~~~~~~~~~~~~~~~~~~ [Something is wrong here.]
+    ~~~~~~~~~~~~~~~~~~~~~~~~ [Insert failure message here.]
     </dt-my-custom-component>
   `,
 })

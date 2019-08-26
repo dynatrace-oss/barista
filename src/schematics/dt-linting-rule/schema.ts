@@ -1,5 +1,6 @@
 export interface DtLintingRuleOptions {
   name: string;
-  category: string;
+  category?: string;
+  alttext?: string;
   severity: 'warning' | 'error';
 }
