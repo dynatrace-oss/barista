@@ -28,8 +28,9 @@ body {
   border: 1px solid #f2f2f2;
 }
 
-.demo-card.dark {
-  padding: 0;
+.dt-theme-dark .demo-card {
+  background-color: #242424;
+  border: none;
 }
 
 .dark {
