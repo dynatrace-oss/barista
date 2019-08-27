@@ -13,6 +13,7 @@ contributors:
     - szymon.bultrowicz
   ux:
     - andreas.haslinger
+wiki: https://dev-wiki.dynatrace.org/display/UX/Breadcrumbs
 themable: true
 tags:
   - "nav"
