@@ -259,6 +259,16 @@ export function addDynatraceAngularComponentsBaristaExampleModule(
  * Adds a new navitem inside the navitems
  */
 export function addNavitemToDevApp(name: string): Rule {
+  let selector = strings.dasherize(name);
+
+  if (!selector.startsWith('dt-')) {
+    selector = `dt-${name}`;
+  }
+
   return (host: Tree) =>
-    addNavItem(host, { name }, join('src', 'dev-app', 'devapp.component.ts'));
+    addNavItem(
+      host,
+      { name, selector },
+      join('src', 'dev-app', 'devapp.component.ts'),
+    );
 }

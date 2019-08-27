@@ -5,6 +5,7 @@ import {
   mergeWith,
   move,
   Rule,
+  SchematicsException,
   template,
   Tree,
   url,
@@ -61,12 +62,19 @@ function addRoute(options: DtDemoOptions): Rule {
 
 // tslint:disable-next-line:no-default-export
 export default function(options: DtDemoOptions): Rule {
+  if (!options.name) {
+    throw new SchematicsException(
+      `You need to specify a name using the --name flag`,
+    );
+  }
+
+  const name = strings.dasherize(options.name);
+
+  options.selector = name.startsWith('dt-') ? name : `dt-${name}`;
+
   const templateSource = apply(url('./files'), [
-    template({
-      ...strings,
-      ...options,
-    }),
-    move('src/dev-app'),
+    template({ ...strings, ...options }),
+    move('src'),
   ]);
 
   return chain([
