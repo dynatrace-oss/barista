@@ -25,6 +25,7 @@ import { DtRadioModule } from '@dynatrace/angular-components/radio';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
 import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
+import { DtStepperModule } from '@dynatrace/angular-components/stepper';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { DtTileModule } from '@dynatrace/angular-components/tile';
@@ -85,6 +86,7 @@ import { Home, UIApp } from './ui-test-app/ui-test-app';
     DtSelectModule,
     DtSelectModule,
     DtShowMoreModule,
+    DtStepperModule,
     DtSwitchModule,
     DtTabsModule,
     DtTileModule,
