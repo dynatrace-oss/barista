@@ -4,7 +4,7 @@ import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/fi
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-filter-field
       [dataSource]="_dataSource"

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 // tslint:disable:max-line-length
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-radio-group name="newsletter">
       <dt-radio-button value="opt-in">

@@ -4,7 +4,7 @@ import { DtToast } from '@dynatrace/angular-components/toast';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: '<button dt-button (click)="createToast()">Save</button>',
 })
 export class ToastDefaultExample {

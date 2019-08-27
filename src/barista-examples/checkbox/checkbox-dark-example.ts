@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <div dtTheme=":dark" class="dark">
       <dt-checkbox checked>Check me</dt-checkbox>

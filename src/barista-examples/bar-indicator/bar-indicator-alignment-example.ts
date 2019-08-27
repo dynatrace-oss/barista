@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-bar-indicator value="30" [align]="alignment"></dt-bar-indicator>
     <dt-button-group

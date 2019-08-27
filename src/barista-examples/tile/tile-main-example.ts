@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-tile color="main">
       <dt-tile-icon><dt-icon name="agent"></dt-icon></dt-tile-icon>
