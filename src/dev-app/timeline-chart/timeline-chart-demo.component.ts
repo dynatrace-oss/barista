@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'timeline-chart-demo',
+  selector: 'timeline-chart-dev-app-demo',
   templateUrl: './timeline-chart-demo-component.html',
   styles: [
     `

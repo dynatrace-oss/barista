@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { DtToast } from '@dynatrace/angular-components/toast';
 
 @Component({
-  selector: 'toast-demo',
+  selector: 'toast-dev-app-demo',
   templateUrl: './toast-demo.component.html',
   styleUrls: ['./toast-demo.component.scss'],
 })

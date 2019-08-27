@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
 
 @Component({
-  selector: 'overlay-demo',
+  selector: 'overlay-dev-app-demo',
   templateUrl: './overlay-demo.component.html',
   styleUrls: ['./overlay-demo.component.scss'],
 })
