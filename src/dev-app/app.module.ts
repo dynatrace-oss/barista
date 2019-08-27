@@ -1,3 +1,4 @@
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {
   Location,
   LocationStrategy,
@@ -57,6 +58,7 @@ import { SecondaryNavDemo } from './secondary-nav/secondary-nav-demo.component';
 import { SelectDemo } from './select/select-demo.component';
 import { SelectionAreaDemo } from './selection-area/selection-area-demo.component';
 import { ShowMoreDemo } from './show-more/show-more-demo.component';
+import { StepperDemo } from './stepper/stepper-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
@@ -138,12 +140,14 @@ export class NoopRouteComponent {}
     ExpandableTextDemo,
     EventChartDemo,
     TopBarNavigationDemo,
+    StepperDemo,
   ],
   entryComponents: [DevApp],
   bootstrap: [DevApp],
   providers: [
     Location,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } },
   ],
 })
 export class AppModule {}
