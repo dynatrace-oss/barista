@@ -1,0 +1,38 @@
+<dt-stepper #stepper>
+  <dt-step>
+    <ng-template dtStepLabel>Step 1</ng-template>
+
+    <p>
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+      voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+      clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+      amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+      nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+      diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
+      sit amet.
+    </p>
+
+    <button variant="primary" (click)="stepper.next()" dt-button>Next</button>
+  </dt-step>
+  <dt-step hasError>
+    <ng-template dtStepLabel>Step 2</ng-template>
+
+    <p>My second content.</p>
+
+    <button variant="secondary" (click)="stepper.previous()" dt-button>
+      Previous
+    </button>
+    <button variant="primary" (click)="stepper.next()" dt-button>Next</button>
+  </dt-step>
+  <dt-step>
+    <ng-template dtStepLabel>Step 3</ng-template>
+
+    <p>My third content.</p>
+
+    <button variant="secondary" (click)="stepper.previous()" dt-button>
+      Previous
+    </button>
+  </dt-step>
+</dt-stepper>

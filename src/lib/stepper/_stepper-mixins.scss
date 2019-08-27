@@ -1,0 +1,22 @@
+@import '../style/variables';
+
+$dt-step-icon-radius: 10px;
+$dt-step-icon-diameter: $dt-step-icon-radius * 2;
+$dt-step-icon-circle-diameter: 12px;
+$dt-step-header-padding-vertical: 12px;
+$dt-stepper-label-margin-bottom: 8px;
+$dt-step-header-padding-horizontal: 24px;
+$dt-step-line-color: $gray-300;
+$dt-step-active-color: $turquoise-600;
+
+$dt-stepper-line-top-position: $dt-step-icon-radius +
+  $dt-step-header-padding-vertical + ($default-font-size * $default-line-height) +
+  $dt-stepper-label-margin-bottom;
+
+@mixin dt-stepper-horizontal-line() {
+  flex-grow: 1;
+  align-self: flex-end;
+  margin-bottom: $dt-step-icon-radius;
+  height: 100%;
+  border-bottom: 1px solid $gray-300;
+}
