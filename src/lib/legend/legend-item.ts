@@ -1,4 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -66,8 +67,9 @@ export class DtLegendItem extends DtOverlayTrigger<{}>
     elementRef: ElementRef,
     zone: NgZone,
     focusMonitor: FocusMonitor,
+    platform: Platform,
   ) {
-    super(elementRef, overlay, zone, focusMonitor, '0');
+    super(elementRef, overlay, zone, focusMonitor, '0', platform);
   }
 
   ngAfterContentInit(): void {
