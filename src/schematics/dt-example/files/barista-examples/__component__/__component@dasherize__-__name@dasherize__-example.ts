@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  template: '',
+  selector: '<%= dasherize(component) %>-<%= dasherize(name) %>-barista-example',
+  template: `
+    <<%= selector %>></<%= selector %>>
+  `,
 })
-export class <%= classify(exampleComponentName) %> { }
+export class <%= classify(component) %><%= classify(name) %>Example {}

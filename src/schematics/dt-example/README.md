@@ -8,5 +8,6 @@ ng generate @dynatrace/components-schematics:dt-example --name=default --compone
 ng g @dynatrace/components-schematics:dte --name=default --component=select
 ```
 
+- Specifying a name is required using the --name flag
 - Specifying a component is required using the --component flag
 - Adds new example to a component with the correct imports
