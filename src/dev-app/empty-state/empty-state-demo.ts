@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'default-demo',
+  selector: 'default-dev-app-demo',
   templateUrl: 'empty-state-demo.html',
 })
 export class EmptyStateDemo {

@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { DtSelect } from '@dynatrace/angular-components/select';
 
 @Component({
-  selector: 'select-demo',
+  selector: 'select-dev-app-demo',
   templateUrl: './select-demo.component.html',
   styleUrls: ['./select-demo.component.scss'],
 })

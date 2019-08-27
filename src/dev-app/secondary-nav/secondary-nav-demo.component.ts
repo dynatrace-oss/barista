@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'secondary-nav-demo',
+  selector: 'secondary-nav-dev-app-demo',
   templateUrl: './secondary-nav-demo.component.html',
 })
 export class SecondaryNavDemo {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'legend-demo',
+  selector: 'legend-dev-app-demo',
   template: `
     <dt-legend>
       <dt-legend-item>
