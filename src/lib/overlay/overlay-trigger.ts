@@ -1,6 +1,8 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { Platform } from '@angular/cdk/platform';
 import {
+  AfterViewInit,
   Attribute,
   Directive,
   ElementRef,
@@ -42,11 +44,14 @@ export const _DtOverlayTriggerMixin = mixinTabIndex(
   inputs: ['disabled', 'tabIndex'],
 })
 export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
-  implements CanDisable, HasTabIndex, OnDestroy {
+  implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit {
   private _content: TemplateRef<T>;
   private _config: DtOverlayConfig = new DtOverlayConfig();
   private _dtOverlayRef: DtOverlayRef<T> | null = null;
   private _moveSub = Subscription.EMPTY;
+
+  private _hostRect: ClientRect;
+  private _svgRect: ClientRect | null = null;
 
   /** Overlay pane containing the content */
   @Input('dtOverlay')
@@ -57,6 +62,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
     this._content = value;
   }
 
+  /** An overlay config that will be passed to the overlay. */
   @Input()
   get dtOverlayConfig(): DtOverlayConfig {
     return this._config;
@@ -66,19 +72,19 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
   }
 
   constructor(
-    private elementRef: ElementRef,
+    private elementRef: ElementRef<Element>,
     private _dtOverlayService: DtOverlay,
     private _ngZone: NgZone,
     private _focusMonitor: FocusMonitor,
     @Attribute('tabindex') tabIndex: string,
+    private _platform: Platform,
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
   }
 
-  /** Focuses the trigger. */
-  focus(): void {
-    this._focusMonitor.focusVia(this.elementRef.nativeElement, 'keyboard');
+  ngAfterViewInit(): void {
+    this._updateDimensions();
   }
 
   /** On destroy hook to react to trigger being destroyed. */
@@ -89,11 +95,20 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
     }
   }
 
+  /** Focuses the trigger. */
+  focus(): void {
+    this._focusMonitor.focusVia(
+      this.elementRef.nativeElement as HTMLElement,
+      'keyboard',
+    );
+  }
+
   /** @internal MouseEnter listener function that attaches the move subscription to the mouse. */
   _handleMouseEnter(event: MouseEvent): void {
     if (!this.disabled) {
       event.stopPropagation();
       this._moveSub.unsubscribe();
+      this._updateDimensions();
       this._moveSub = this._ngZone.runOutsideAngular(() =>
         fromEvent(this.elementRef.nativeElement, 'mousemove').subscribe(
           (ev: MouseEvent) => {
@@ -121,17 +136,21 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
       });
     }
     if (this._dtOverlayRef && !this._dtOverlayRef.pinned) {
-      const host = this.elementRef.nativeElement as HTMLElement;
-      const target = event.target as HTMLElement;
-      const hostRect = host.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
-      const hostLeft = hostRect.left;
-      const hostTop = hostRect.top;
-      const targetLeft = targetRect.left;
-      const targetTop = targetRect.top;
+      const host = this.elementRef.nativeElement;
+      const target = event.target as Element;
+      const hostLeft = this._hostRect.left;
+      const hostTop = this._hostRect.top;
+
       let offsetX = event.offsetX;
       let offsetY = event.offsetY;
+      if (this._svgRect) {
+        offsetX = offsetX - (hostLeft - this._svgRect.left);
+        offsetY = offsetY - (hostTop - this._svgRect.top);
+      }
       if (event.target !== host) {
+        const targetRect = target.getBoundingClientRect();
+        const targetLeft = targetRect.left;
+        const targetTop = targetRect.top;
         offsetX = targetLeft - hostLeft + offsetX;
         offsetY = targetTop - hostTop + offsetY;
       }
@@ -170,6 +189,19 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
         this._dtOverlayRef = null;
       });
       this._dtOverlayRef = ref;
+    }
+  }
+
+  private _updateDimensions(): void {
+    if (this._platform.isBrowser) {
+      const host = this.elementRef.nativeElement;
+      this._hostRect = host.getBoundingClientRect();
+      if (host instanceof SVGElement) {
+        const svgParent = host.closest('svg');
+        this._svgRect = svgParent ? svgParent.getBoundingClientRect() : null;
+      } else {
+        this._svgRect = null;
+      }
     }
   }
 }
