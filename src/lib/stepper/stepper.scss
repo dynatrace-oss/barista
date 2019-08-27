@@ -1,0 +1,48 @@
+@import '../style/variables';
+@import '../core/style/interactive-common';
+@import '../core/style/button';
+
+@import 'stepper-mixins';
+
+:host {
+  display: block;
+  font-size: 14px;
+  color: $gray-700;
+}
+
+.dt-stepper-header-container {
+  display: flex;
+}
+
+.dt-stepper-content-container {
+  margin-top: 24px;
+}
+
+.dt-stepper-content {
+  @include dt-cdkmonitor-focus-style();
+}
+
+.dt-stepper-horizontal-line {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: $dt-step-line-color;
+  flex: auto;
+  margin: 0;
+  min-width: 0;
+  position: relative;
+  top: $dt-stepper-line-top-position;
+  height: 0;
+}
+
+:host.dt-stepper-linear
+  .dt-stepper-horizontal-line.dt-stepper-horizontal-line-completed {
+  border-color: $dt-step-active-color;
+}
+
+.dt-stepper-content ::ng-deep .dt-step-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+
+  @include dt-button-child-button-spacing();
+}

@@ -42,6 +42,7 @@ import { DtSecondaryNavModule } from '@dynatrace/angular-components/secondary-na
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
 import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
+import { DtStepperModule } from '@dynatrace/angular-components/stepper';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtTableModule } from '@dynatrace/angular-components/table';
 import { DtTabsModule } from '@dynatrace/angular-components/tabs';
@@ -109,6 +110,7 @@ const DT_MODULES = [
   DtExpandableTextModule,
   DtEventChartModule,
   DtTopBarNavigationModule,
+  DtStepperModule,
 ];
 
 /**

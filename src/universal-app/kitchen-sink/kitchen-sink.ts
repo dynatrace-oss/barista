@@ -35,6 +35,7 @@ import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-c
 import { DtRadioModule } from '@dynatrace/angular-components/radio';
 import { DtSelectModule } from '@dynatrace/angular-components/select';
 import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
+import { DtStepperModule } from '@dynatrace/angular-components/stepper';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtTableModule } from '@dynatrace/angular-components/table';
 import { DtTagModule } from '@dynatrace/angular-components/tag';
@@ -242,6 +243,7 @@ export class KitchenSink {
     DtExpandableTextModule,
     DtEventChartModule,
     DtTopBarNavigationModule,
+    DtStepperModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],
