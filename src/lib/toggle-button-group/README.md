@@ -108,7 +108,7 @@ Only one toggle button in a group can be selected at the same time.
 
 If the toggle buttons do not fit the available space within a toggle button
 group, the button of the last visible row is replaced by a "show all" link. As
-soon as the "Show all" button is clicked, the remaining toggle buttons will be
+soon as the "show all" button is clicked, the remaining toggle buttons will be
 added to the end of the group.
 
 <!-- TODO: examle -->
