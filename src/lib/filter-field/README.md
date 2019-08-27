@@ -13,6 +13,7 @@ contributors:
     - thomas.heller
   ux:
     - andreas.haslinger
+wiki: https://dev-wiki.dynatrace.org/display/UX/Filter+field
 tags:
   - "filter"
   - "filterfield"
