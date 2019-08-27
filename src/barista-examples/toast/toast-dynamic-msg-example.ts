@@ -8,7 +8,7 @@ const TIMERINTERVAL = 50;
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-form-field>
       <dt-label>Message</dt-label>

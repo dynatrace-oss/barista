@@ -4,7 +4,7 @@ import { DtSortEvent } from '@dynatrace/angular-components/table';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   styles: ['button { margin-top: 16px; }'],
   // tslint:disable
   template: `

@@ -4,14 +4,14 @@ import { DtOverlay } from '@dynatrace/angular-components/overlay';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: 'overlay',
 })
 export class DummyOverlay {}
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <button dt-button (click)="createOverlay()">Create overlay</button>
     <button dt-button (click)="dismiss()">Dismiss</button>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <section class="dark" dtTheme=":dark">
       <dt-show-more [showLess]="showLess" (changed)="showLess = !showLess">

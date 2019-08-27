@@ -7,7 +7,7 @@ import { COUNTRIES, CountryOption, countryCompareWithFn } from './countries';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <input
       dtInput

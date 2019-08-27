@@ -11,7 +11,7 @@ import { DtTableDataSource } from '@dynatrace/angular-components/table';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <ng-container *ngIf="show">
       <dt-table [dataSource]="dataSource">

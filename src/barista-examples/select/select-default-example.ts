@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-select placeholder="Choose your coffee" aria-label="Choose your coffee">
       <dt-option value="ThePerfectPour">ThePerfectPour</dt-option>

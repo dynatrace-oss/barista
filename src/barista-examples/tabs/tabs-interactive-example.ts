@@ -4,7 +4,7 @@ import { take } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-tab-group>
       <dt-tab [disabled]="disableFirst">

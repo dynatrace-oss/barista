@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'alert-dark-barista-example',
   template: `
     <section class="dark" dtTheme=":dark">
       <dt-alert severity="warning">{{ text }}</dt-alert>

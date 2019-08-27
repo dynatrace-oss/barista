@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <div class="dark" dtTheme=":dark">
       <dt-breadcrumbs aria-label="Breadcrumbs navigation">

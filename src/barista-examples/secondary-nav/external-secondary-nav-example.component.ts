@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-secondary-nav aria-label="External Links Secondary Nav Example">
       <dt-secondary-nav-title>Settings</dt-secondary-nav-title>

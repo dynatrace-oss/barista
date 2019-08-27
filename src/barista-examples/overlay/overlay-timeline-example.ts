@@ -174,7 +174,7 @@ export class TimelinePointComponent {
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-timeline>
       <dt-timeline-point id="1" position="10"></dt-timeline-point>

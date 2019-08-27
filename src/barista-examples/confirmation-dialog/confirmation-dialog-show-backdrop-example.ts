@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <button dt-button (click)="resetExample()">Start example</button>
 
