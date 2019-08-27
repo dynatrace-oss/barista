@@ -44,6 +44,7 @@ import { SecondaryNavDemo } from './secondary-nav/secondary-nav-demo.component';
 import { SelectDemo } from './select/select-demo.component';
 import { SelectionAreaDemo } from './selection-area/selection-area-demo.component';
 import { ShowMoreDemo } from './show-more/show-more-demo.component';
+import { StepperDemo } from './stepper/stepper-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
@@ -71,8 +72,11 @@ const routes: Routes = [
   { path: 'copy-to-clipboard', component: CopyToClipboardDemo },
   { path: 'cta-card', component: CtaCardDemo },
   { path: 'drawer', component: DrawerDemo },
+  { path: 'empty-state', component: EmptyStateDemo },
   { path: 'expandable-panel', component: ExpandablePanelDemo },
   { path: 'expandable-section', component: ExpandableSectionDemo },
+  { path: 'expandable-text', component: ExpandableTextDemo },
+  { path: 'event-chart', component: EventChartDemo },
   { path: 'filter-field', component: FilterFieldDemo },
   { path: 'form-field', component: FormFieldDemo },
   { path: 'formatters', component: FormattersDemo },
@@ -82,8 +86,10 @@ const routes: Routes = [
   { path: 'inline-editor', component: InlineEditorDemo },
   { path: 'input', component: InputDemo },
   { path: 'key-value-list', component: KeyValueListDemo },
+  { path: 'legend', component: LegendDemo },
   { path: 'link', component: LinkDemo },
   { path: 'loading-distractor', component: LoadingDistractorDemo },
+  { path: 'menu', component: MenuDemo },
   { path: 'micro-chart', component: MicroChartDemo },
   { path: 'overlay', component: OverlayDemo },
   { path: 'pagination', component: PaginationDemo },
@@ -94,21 +100,21 @@ const routes: Routes = [
   { path: 'select', component: SelectDemo },
   { path: 'selection-area', component: SelectionAreaDemo },
   { path: 'show-more', component: ShowMoreDemo },
+  { path: 'stepper', component: StepperDemo },
   { path: 'switch', component: SwitchDemo },
   { path: 'table', component: TableDemo },
   { path: 'tabs', component: TabsDemo },
   { path: 'tag', component: TagDemo },
   { path: 'tile', component: TileDemo },
-  { path: 'toast', component: ToastDemo },
-  { path: 'tree-table', component: TreeTableDemo },
-  { path: 'empty-state', component: EmptyStateDemo },
-  { path: 'menu', component: MenuDemo },
   { path: 'timeline-chart', component: TimelineChartDemo },
   { path: 'legend', component: LegendDemo },
   { path: 'expandable-text', component: ExpandableTextDemo },
   { path: 'event-chart', component: EventChartDemo },
   { path: 'top-bar-navigation', component: TopBarNavigationDemo },
+  { path: 'stepper', component: StepperDemo },
+  { path: 'toast', component: ToastDemo },
   { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
+  { path: 'tree-table', component: TreeTableDemo },
 ];
 
 @NgModule({

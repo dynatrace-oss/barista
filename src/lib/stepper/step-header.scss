@@ -1,0 +1,145 @@
+@import '../style/variables';
+@import '../style/font-mixins';
+
+@import '../core/style/interactive-common';
+
+@import 'stepper-mixins';
+
+:host {
+  margin: 0;
+  padding: $dt-step-header-padding-vertical $dt-step-header-padding-horizontal;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  border-radius: 3px;
+
+  @include dt-default-font();
+  color: $gray-500;
+
+  max-width: 280px;
+}
+
+:host:focus {
+  outline: none;
+}
+
+:host:hover,
+:host.cdk-keyboard-focused,
+:host.cdk-program-focused {
+  outline: none;
+  background-color: $gray-130;
+  color: $gray-700;
+  cursor: pointer;
+
+  .dt-step-icon-circle {
+    background-color: $gray-700;
+  }
+}
+
+.dt-step-label {
+  margin-bottom: $dt-stepper-label-margin-bottom;
+  text-align: center;
+  @include dt-text-ellipsis();
+}
+
+.dt-step-text-label {
+  @include dt-default-font();
+  @include dt-text-ellipsis();
+}
+
+.dt-step-icon-container {
+  display: flex;
+  justify-content: center;
+}
+
+:host:first-child {
+  .dt-step-icon-container {
+    justify-content: flex-start;
+  }
+  .dt-step-label.dt-step-label::after {
+    right: 0;
+    width: calc(100% - 54px);
+  }
+}
+
+:host:last-child {
+  .dt-step-icon-container {
+    justify-content: flex-end;
+  }
+  .dt-step-label.dt-step-label::before {
+    left: 0;
+    width: calc(100% - 54px);
+  }
+}
+
+.dt-step-icon {
+  margin: 0 2px;
+  width: $dt-step-icon-diameter;
+  height: $dt-step-icon-diameter;
+  border-radius: $dt-step-icon-radius;
+}
+
+.dt-step-icon-circle {
+  margin: 4px;
+  width: $dt-step-icon-circle-diameter;
+  height: $dt-step-icon-circle-diameter;
+  border-radius: ($dt-step-icon-circle-diameter / 2);
+  background-color: $gray-400;
+}
+
+:host.dt-step-active {
+  .dt-step-icon-circle {
+    background-color: $turquoise-600;
+  }
+}
+
+// The step that is currently selected - there can only be 1
+:host.dt-step-selected {
+  color: $gray-700;
+
+  .dt-step-icon {
+    border: 2px solid $gray-300;
+  }
+
+  .dt-step-icon-circle {
+    margin: 2px;
+    background-color: $turquoise-600;
+  }
+}
+
+// The steps that is currently active - might be multiple all previous selected steps are active
+:host-context(.dt-stepper-linear).dt-step-active:not(:first-child)
+  .dt-step-label::before {
+  border-color: $dt-step-active-color;
+}
+:host-context(.dt-stepper-linear).dt-next-step-active:not(:last-child)
+  .dt-step-label::before {
+  border-color: $dt-step-active-color;
+}
+
+:host-context(.dt-stepper-linear).dt-next-step-active.dt-next-step-active
+  .dt-step-label::after {
+  border-color: $dt-step-active-color;
+}
+
+// Step label line logic
+:host:not(:last-child) .dt-step-label::after {
+  right: 0;
+}
+
+:host:not(:first-child) .dt-step-label::before {
+  left: 0;
+}
+
+:host:not(:last-child) .dt-step-label::after,
+:host:not(:first-child) .dt-step-label::before {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: $dt-step-line-color;
+  content: '';
+  display: inline-block;
+  height: 0;
+  position: absolute;
+  top: $dt-stepper-line-top-position;
+  width: calc(50% - #{$dt-step-icon-diameter});
+}
