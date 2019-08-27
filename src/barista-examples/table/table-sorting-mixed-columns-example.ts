@@ -4,7 +4,7 @@ import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   // tslint:disable
   template: `
     <dt-table [dataSource]="dataSource" dtSort #sortable>

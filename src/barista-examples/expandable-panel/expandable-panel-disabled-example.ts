@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-expandable-panel #panel disabled [expanded]="true">
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy

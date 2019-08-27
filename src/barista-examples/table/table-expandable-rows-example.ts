@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   styles: ['button { margin-top: 16px; }'],
   // tslint:disable
   template: `

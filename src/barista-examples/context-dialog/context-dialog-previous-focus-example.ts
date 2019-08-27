@@ -5,7 +5,7 @@ import { DtContextDialog } from '@dynatrace/angular-components/context-dialog';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <button dt-button variant="secondary" (click)="open()" #focusme>
       Open

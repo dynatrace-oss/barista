@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-menu aria-label="Default Menu Example" class="default-menu-example">
       <dt-menu-group label="Dashboards & reports">

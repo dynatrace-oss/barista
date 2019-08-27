@@ -5,7 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'demo-component-barista-example',
   template: `
     <div dtAutocompleteOrigin #origin="dtAutocompleteOrigin">
       <input

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'alert-interactive-barista-example',
   template: `
     <div>
       <dt-alert severity="error" #alert1>This is a message!</dt-alert>

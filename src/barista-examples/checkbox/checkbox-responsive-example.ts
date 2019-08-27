@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 // tslint:disable:max-line-length
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-checkbox>
       Check this checkbox to subscribe to our product news newsletter and other
