@@ -1,6 +1,8 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
 @import '../core/style/card';
+@import '../core/theming/theming';
+@import './card-theme';
 
 .dt-card {
   @include dt-main-font();
@@ -70,23 +72,4 @@
   display: flex;
   justify-content: flex-end;
   margin-top: $card-footer-actions-spacing;
-}
-
-.dt-theme-dark {
-  .dt-card {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .dt-card-icon svg {
-    fill: #ffffff;
-  }
-
-  .dt-card-title {
-    color: #ffffff;
-  }
-
-  .dt-card-subtitle {
-    color: #ffffff;
-  }
 }
