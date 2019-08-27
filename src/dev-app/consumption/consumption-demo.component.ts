@@ -4,7 +4,7 @@ import { DtConsumptionThemePalette } from '@dynatrace/angular-components/consump
 
 @Component({
   moduleId: module.id,
-  selector: 'consumption-demo',
+  selector: 'consumption-dev-app-demo',
   templateUrl: './consumption-demo.component.html',
   styleUrls: ['./consumption-demo.component.scss'],
 })

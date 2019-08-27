@@ -5,7 +5,7 @@ import { chartOptions } from './chart-options';
 import { dataBig, dataSmall } from './data-service';
 
 @Component({
-  selector: 'chart-demo',
+  selector: 'chart-dev-app-demo',
   templateUrl: './chart-demo.component.html',
   styleUrls: ['./chart-demo.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

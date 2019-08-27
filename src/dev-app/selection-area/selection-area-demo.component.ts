@@ -9,7 +9,7 @@ import {
 import { generateData } from '../chart/chart-data';
 
 @Component({
-  selector: 'selection-area-demo',
+  selector: 'selection-area-dev-app-demo',
   templateUrl: './selection-area-demo.component.html',
   styleUrls: ['./selection-area-demo.component.scss'],
 })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'checkbox-demo',
+  selector: 'checkbox-dev-app-demo',
   templateUrl: './checkbox-demo.component.html',
   styleUrls: ['./checkbox-demo.component.scss'],
 })

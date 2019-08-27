@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'key-value-list-demo',
+  selector: 'key-value-list-dev-app-demo',
   templateUrl: './key-value-list-demo.component.html',
   styleUrls: ['./key-value-list-demo.component.scss'],
 })

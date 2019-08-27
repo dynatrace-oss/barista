@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'radio-demo',
+  selector: 'radio-dev-app-demo',
   templateUrl: './radio-demo.component.html',
   styleUrls: ['./radio-demo.component.scss'],
 })

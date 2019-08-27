@@ -21,7 +21,7 @@ const DATA_SETS = new Map<string, any>([
 ]);
 
 @Component({
-  selector: 'filter-field-demo',
+  selector: 'filter-field-dev-app-demo',
   templateUrl: './filter-field-demo.component.html',
   styleUrls: ['./filter-field-demo.component.scss'],
 })

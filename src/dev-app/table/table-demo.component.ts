@@ -20,7 +20,7 @@ interface HostUnit {
 }
 
 @Component({
-  selector: 'table-demo',
+  selector: 'table-dev-app-demo',
   templateUrl: './table-demo.component.html',
   styleUrls: ['./table-demo.component.scss'],
 })
