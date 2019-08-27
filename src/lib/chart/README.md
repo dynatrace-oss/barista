@@ -357,8 +357,8 @@ to understand why the content isn't shown.
 {{#figcaption}}Too much data to render{{/figcaption}} {{/figure}}
 
 Please keep in mind to use the correct empty state according to the use case.
-Check our [empty state]({{link_to_id id='micro-chart'}}) pattern for guidelines
-and other examples.
+Check our [empty states pattern]({{link_to_id id='empty-states'}}) for
+guidelines and other examples.
 
 ### Loading state
 
