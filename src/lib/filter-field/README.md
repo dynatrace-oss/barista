@@ -13,6 +13,7 @@ contributors:
     - thomas.heller
   ux:
     - andreas.haslinger
+wiki: ***REMOVED***
 tags:
   - "filter"
   - "filterfield"

@@ -13,6 +13,7 @@ contributors:
     - szymon.bultrowicz
   ux:
     - andreas.haslinger
+wiki: ***REMOVED***
 themable: true
 tags:
   - "nav"
