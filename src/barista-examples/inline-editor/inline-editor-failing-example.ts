@@ -5,7 +5,7 @@ const TIMEOUT_MS = 2000;
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <em
       dt-inline-editor

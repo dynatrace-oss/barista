@@ -9,7 +9,7 @@ import {
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <form [formGroup]="passwordForm">
       <dt-form-field>

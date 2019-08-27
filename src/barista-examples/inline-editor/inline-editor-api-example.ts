@@ -4,7 +4,7 @@ import { DtInlineEditor } from '@dynatrace/angular-components/inline-editor';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <em
       #sampleEditor

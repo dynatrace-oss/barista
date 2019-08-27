@@ -4,7 +4,7 @@ import { DtDrawer } from '@dynatrace/angular-components/drawer';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-checkbox (change)="toggle()">Toggle drawer</dt-checkbox>
 

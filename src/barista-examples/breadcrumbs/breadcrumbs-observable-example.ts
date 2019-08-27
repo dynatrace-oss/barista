@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-breadcrumbs aria-label="Breadcrumbs navigation">
       <!-- data$ emits a new items list after each 5 seconds -->

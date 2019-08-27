@@ -4,7 +4,7 @@ import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <span
       [dtOverlay]="overlay"

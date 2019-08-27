@@ -16,7 +16,7 @@ export const _filter = (opt: string[], value: string): string[] => {
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <form [formGroup]="stateForm">
       <dt-form-field>

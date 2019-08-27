@@ -4,7 +4,7 @@ import { DtRateUnit } from '@dynatrace/angular-components/formatters';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-form-field>
       <dt-label>Value to be transformed</dt-label>

@@ -8,7 +8,7 @@ import { DtTableDataSource } from '@dynatrace/angular-components/table';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   styles: ['dt-table { margin-bottom: 24px; }'],
   // tslint:disable
   template: `

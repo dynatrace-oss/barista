@@ -4,7 +4,7 @@ import { DtTag } from '@dynatrace/angular-components/tag';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <div>
       <dt-tag

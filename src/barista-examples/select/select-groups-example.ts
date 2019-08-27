@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'demo-component',
+  selector: 'component-barista-example',
   template: `
     <dt-select placeholder="Select filter type" aria-label="Select filter type">
       <dt-option value="Application">Application</dt-option>
