@@ -5,7 +5,7 @@ import { DtConfirmationDialog } from '@dynatrace/angular-components/confirmation
 @Component({
   moduleId: module.id,
   templateUrl: 'confirmation-dialog-demo.component.html',
-  selector: 'confirmation-dialog-demo',
+  selector: 'confirmation-dialog-dev-app-demo',
 })
 export class ConfirmationDialogDemo {
   // the dialog's state input is bound to this field.

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { DtTag } from '@dynatrace/angular-components/tag';
 
 @Component({
-  selector: 'tag-demo',
+  selector: 'tag-dev-app-demo',
   templateUrl: './tag-demo.component.html',
   styleUrls: ['./tag-demo.component.scss'],
 })

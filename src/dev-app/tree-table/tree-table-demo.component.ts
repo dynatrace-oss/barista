@@ -113,7 +113,7 @@ export class ThreadFlatNode {
 }
 
 @Component({
-  selector: 'tree-table-demo',
+  selector: 'tree-table-dev-app-demo',
   templateUrl: 'tree-table-demo.component.html',
   styleUrls: ['tree-table-demo.component.scss'],
 })

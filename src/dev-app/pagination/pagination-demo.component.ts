@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'pagination-demo',
+  selector: 'pagination-dev-app-demo',
   templateUrl: './pagination-demo.component.html',
   styleUrls: ['./pagination-demo.component.scss'],
 })

@@ -6,7 +6,7 @@ import { merge as lodashMerge } from 'lodash';
 import { generateData } from '../chart/chart-data';
 
 @Component({
-  selector: 'micro-chart-demo',
+  selector: 'micro-chart-dev-app-demo',
   templateUrl: './micro-chart-demo.component.html',
   styleUrls: ['./micro-chart-demo.component.scss'],
 })
