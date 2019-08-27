@@ -12,20 +12,24 @@ import { DtExampleOptions } from './schema';
 
 // tslint:disable-next-line:no-default-export
 export default function(options: DtExampleOptions): Rule {
-  if (!options.component) {
+  if (!options.name) {
     throw new SchematicsException(
-      `You need to specify a component using --component flag`,
+      `You need to specify a name using the --name flag`,
     );
   }
-  options.component = strings.decamelize(options.component);
-  options.name = strings.decamelize(options.name);
-  options.exampleComponentName = `${strings.classify(
-    options.component,
-  )}${strings.classify(options.name)}Example`;
-  const templateSource = apply(url('./files'), [
-    template({ ...strings, ...options }),
-    move('src'),
-  ]);
+  if (!options.component) {
+    throw new SchematicsException(
+      `You need to specify a component using the --component flag`,
+    );
+  }
 
-  return mergeWith(templateSource);
+  const component = strings.dasherize(options.component);
+
+  options.selector = component.startsWith('dt-')
+    ? component
+    : `dt-${component}`;
+
+  return mergeWith(
+    apply(url('./files'), [template({ ...strings, ...options }), move('src')]),
+  );
 }
