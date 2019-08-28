@@ -17,6 +17,4 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class Dt<%= classify(name) %> {
-
-}
+export class Dt<%= classify(name) %> {}
