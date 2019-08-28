@@ -45,6 +45,7 @@ import {
 
 import {
   addCssClass,
+  getElementBoundingClientRect,
   readKeyCode,
   removeCssClass,
 } from '@dynatrace/angular-components/core';
@@ -184,6 +185,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
             this._range._pixelsToValue = xAxis.toValue.bind(xAxis);
             this._range._maxValue = xAxis.dataMax;
             this._range._minValue = xAxis.dataMin;
+            this._range._maxWidth = getElementBoundingClientRect(
+              plotBackground,
+            ).width;
+            this._range._reflectToDom();
           }
         }
 
@@ -198,7 +203,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         // resize the selection area to the size of the Highcharts plot background.
         this._updateSelectionAreaSize();
         // get the BCR of the selection Area
-        this._selectionAreaBcr = this._elementRef.nativeElement.getBoundingClientRect();
+        this._selectionAreaBcr = getElementBoundingClientRect(this._elementRef);
 
         // start initializing the selection area with all the mouse events.
         this._initializeSelectionArea();
@@ -831,8 +836,8 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     // get Bounding client Rects of the plot background and the host to calculateRelativeXPos
     // a relative offset.
-    const hostBCR = this._chart._elementRef.nativeElement.getBoundingClientRect();
-    const plotBCR = this._plotBackground.getBoundingClientRect();
+    const hostBCR = getElementBoundingClientRect(this._chart._elementRef);
+    const plotBCR = getElementBoundingClientRect(this._plotBackground);
 
     const topOffset = plotBCR.top - hostBCR.top;
     const leftOffset = plotBCR.left - hostBCR.left;
