@@ -23,7 +23,8 @@ tags:
 # Key-value list
 
 The key-value list is used to visualize properties as key-value-pairs. The
-key-value list behaves responsively with a maximum width of 580px.
+key-value list behaves responsively and can span multiple columns when enough
+space is available.
 
 <docs-source-example example="KeyValueListDefaultExample"></docs-source-example>
 
@@ -54,6 +55,12 @@ following tags to define the list and its items.
 - the `<dt-key-value-list-value>` or `[dt-key-value-list-value]` or
   `[dtKeyValueListValue]` to define the items value (right label) to be
   displayed.
+
+## Inputs
+
+| Name      | Type     | Default     | Description                                                                                                                               |
+| --------- | -------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `columns` | `number` | `undefined` | The number of columns the key-value list spans. If not set, the number is calculated based on the number of list items. The maximum is 6. |
 
 ## Key-value list in use
 

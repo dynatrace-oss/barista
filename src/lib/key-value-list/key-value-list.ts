@@ -42,7 +42,7 @@ export class DtKeyValueList implements AfterContentInit, OnDestroy {
   _calculatedColumns = 1;
   private _itemsChangeSub = Subscription.EMPTY;
 
-  /** If not set programatically, columns are calclated depending on the number of items. */
+  /** If not set programatically, columns are calculated depending on the number of items. */
   @Input()
   get columns(): number {
     return this._columns;
