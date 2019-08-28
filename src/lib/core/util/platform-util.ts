@@ -1,4 +1,5 @@
-import { Renderer2 } from '@angular/core';
+import { coerceElement } from '@angular/cdk/coercion';
+import { ElementRef, Renderer2 } from '@angular/core';
 
 import { isNumber, isString } from './type-util';
 
@@ -84,4 +85,37 @@ export function parseCssValue(
     }
   }
   return null;
+}
+
+/**
+ * Returns the bounding client rect of an element or element ref.
+ * It is shimmed on platforms where this function is not available.
+ * In this case a client rect with all properties set to `0` is returned.
+ *
+ * The client rect is also extended with the property `isNativeRect`.
+ * This property is set to false, if a shimmed client rect is return.
+ */
+export function getElementBoundingClientRect(
+  el: Element | ElementRef,
+): ClientRect & {
+  /** Whether the returned client rect is provided by the platform or is shimmed. */
+  isNativeRect: boolean;
+} {
+  const element: Element = coerceElement(el);
+
+  const clientRect: ClientRect | DOMRect =
+    element && element.getBoundingClientRect
+      ? element.getBoundingClientRect()
+      : {
+          bottom: 0,
+          height: 0,
+          left: 0,
+          right: 0,
+          top: 0,
+          width: 0,
+        };
+
+  return (clientRect as DOMRect).toJSON
+    ? { ...(clientRect as DOMRect).toJSON(), isNativeRect: true }
+    : { ...clientRect, isNativeRect: false };
 }

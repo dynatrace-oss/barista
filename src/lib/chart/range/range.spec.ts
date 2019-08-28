@@ -48,6 +48,7 @@ describe('DtChart Range', () => {
       fixture = TestBed.createComponent<RangeTestComponent>(RangeTestComponent);
       range = fixture.debugElement.query(By.css('dt-chart-range'))
         .componentInstance;
+      range._maxWidth = 400;
       fixture.detectChanges();
     });
 
@@ -158,6 +159,7 @@ describe('DtChart Range', () => {
         RangeTestBindingValuesComponent,
       );
       range = fixture.componentInstance.range;
+      range._maxWidth = 400;
       fixture.detectChanges();
     });
 
