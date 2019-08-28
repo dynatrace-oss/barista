@@ -319,6 +319,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       // top center point of the timestamp or range.
       .withPositions(DT_SELECTION_AREA_OVERLAY_POSITIONS)
       .setOrigin(ref)
+      .withPush(false)
       .withLockedPosition(false);
 
     return positionStrategy;
