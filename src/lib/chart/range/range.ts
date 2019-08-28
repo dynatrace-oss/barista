@@ -4,7 +4,6 @@ import {
   coerceNumberProperty,
 } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, TAB } from '@angular/cdk/keycodes';
-import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,11 +11,9 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Inject,
   Input,
   OnDestroy,
   Output,
-  PLATFORM_ID,
   QueryList,
   Renderer2,
   TemplateRef,
@@ -30,6 +27,7 @@ import { startWith, takeUntil } from 'rxjs/operators';
 
 import {
   addCssClass,
+  getElementBoundingClientRect,
   isNumber,
   readKeyCode,
   removeCssClass,
@@ -199,7 +197,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     return this._rangeArea;
   }
   set _area(area: { left: number; width: number }) {
-    this._rangeArea = area;
+    this._rangeArea = clampRange(area, this._maxWidth, 0);
     // set the correct styles on the range element
     this._reflectStyleToDom();
     // set the value according the selected range
@@ -266,7 +264,6 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     private _elementRef: ElementRef<HTMLElement>,
     private _changeDetectorRef: ChangeDetectorRef,
     private _renderer: Renderer2,
-    @Inject(PLATFORM_ID) private _platformId: string,
   ) {}
 
   ngOnDestroy(): void {
@@ -281,12 +278,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe(() => {
-        if (isPlatformBrowser(this._platformId)) {
-          this._maxWidth = this._elementRef.nativeElement.getBoundingClientRect().width;
-        }
-        this._reflectStyleToDom();
-        this._reflectValueToDom();
-        this._reflectRangeValid();
+        this._reflectToDom();
       });
   }
 
@@ -295,6 +287,15 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     if (this._rangeElementRef && this._rangeElementRef.first) {
       this._rangeElementRef.first.nativeElement.focus();
     }
+  }
+
+  /** @internal Reflects styles, value and validity to the dom. */
+  _reflectToDom(): void {
+    this._maxWidth =
+      this._maxWidth || getElementBoundingClientRect(this._elementRef).width;
+    this._reflectStyleToDom();
+    this._reflectValueToDom();
+    this._reflectRangeValid();
   }
 
   /**
@@ -488,9 +489,11 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   /** Calculate the px values out of the unit values */
   private _reflectValueToArea(): void {
     if (this._valueToPixelsFn) {
-      this._rangeArea.left = this._valueToPixelsFn(this._value[0]);
-      this._rangeArea.width =
-        this._valueToPixelsFn(this._value[1]) - this._rangeArea.left;
+      const left = this._valueToPixelsFn(this._value[0]);
+      const width = this._valueToPixelsFn(this._value[1]) - left;
+      const range = clampRange({ left, width }, this._maxWidth, 0);
+      this._rangeArea.left = range.left;
+      this._rangeArea.width = range.width;
     }
 
     this._reflectStyleToDom();
