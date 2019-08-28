@@ -8,5 +8,6 @@ import { Dt<%= classify(name) %> } from './<%= name %>';
   declarations: [
     Dt<%= classify(name) %>,
   ],
+  imports: [],
 })
-export class Dt<%= classify(name) %>Module { }
+export class Dt<%= classify(name) %>Module {}
