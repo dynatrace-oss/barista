@@ -2,7 +2,7 @@
 title: 'Linting'
 description: 'We provide a set of custom TSLint rules to help you using the Angular components
 correctly as intended.'
-order: 5
+order: 6
 tags:
   - "tslint"
   - "linting"

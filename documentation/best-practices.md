@@ -1,8 +1,16 @@
 ---
-draft: true
+title: 'Best practices and patterns'
+postid: 'angular-components-best-practices'
+order: 5
+tags:
+  - 'documentation'
+  - 'angular'
+  - 'best practices'
+  - 'guidelines'
+  - 'patterns'
 ---
 
-# Best Practices and Patterns
+# Best practices and patterns
 
 ## RxJs
 
@@ -11,7 +19,7 @@ draft: true
 #### Subscriptions
 
 The best way to work with subscription properties is to initialize it with an
-empty Subscription so you do not need to check for it when unsubscribing. Doing
+empty subscription so you do not need to check for it when unsubscribing. Doing
 this is useful if you only have a small amount of subscriptions to handle or if
 you use the `replay` or `sharedReplay` operator. See the
 [Destroy Subject pattern](#destroy-subject-pattern) on how to handle multiple
