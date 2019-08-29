@@ -2,6 +2,7 @@
 title: 'Best practices and patterns'
 postid: 'angular-components-best-practices'
 order: 5
+public: false
 tags:
   - 'documentation'
   - 'angular'

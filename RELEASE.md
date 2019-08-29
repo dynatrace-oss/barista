@@ -4,6 +4,7 @@ description:
   'At the end of every sprint a new version of the Angular components library is
   released. Releasing is done by the DesignOps team.'
 order: 7
+public: false
 tags:
   - 'releasing'
   - 'release'
