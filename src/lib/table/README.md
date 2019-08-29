@@ -635,14 +635,7 @@ legibility the metric should be right aligned in front of the bar chart.
 
 {{#figure styleguide='true'}}
 ![Micro bar charts in tables](https://d24pvdz4mvzd04.cloudfront.net/test/table-micro-bar-chart-580-06eeb208d7.png)
-{{#figcaption}}
-
-```
-x: 8px
-y: 16px
-```
-
-{{/figcaption}} {{/figure}}
+{{/figure}}
 
 Colors are always dependent on the environment the chart is in [theme
 colors]({{link_to_id id='theming' }}).

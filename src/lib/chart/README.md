@@ -354,7 +354,7 @@ to understand why the content isn't shown.
 
 {{#figure imagebox='true' fullwidth="true"}}
 ![Too much data to render](https://d24pvdz4mvzd04.cloudfront.net/test/empty-state-example-custom-charting-1280-aa7bef666c.png)
-{{#figcaption}}Too much data to render{{/figcaption}} {{/figure}}
+{{/figure}}
 
 Please keep in mind to use the correct empty state according to the use case.
 Check our [empty states pattern]({{link_to_id id='empty-states'}}) for
@@ -398,7 +398,7 @@ visible.
 
 {{#figure imagebox='true'}}
 ![Data points in charts](https://d24pvdz4mvzd04.cloudfront.net/test/single-data-points-1034-aad3d399da.png)
-{{#figcaption}}single data points in charts{{/figcaption}} {{/figure}}
+{{/figure}}
 
 ## Switching metrics
 
