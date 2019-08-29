@@ -4,6 +4,7 @@ description:
   'This guide provides an overview how to get started with the Dynatrace Angular
   components library.'
 order: 1
+public: false
 tags:
   - 'guideline'
   - 'how to'
