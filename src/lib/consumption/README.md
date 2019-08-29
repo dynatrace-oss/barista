@@ -1,22 +1,30 @@
 ---
 title: 'Consumption'
 description:
-  'The consumption component visualizes data combining an icon, a title, a
-  progress bar and some description text.'
+  'The consumption component visualizes service usage data combining an icon,
+  a title, a progress bar and some description text.'
+postid: consumption
+category: 'components'
 contributors:
   dev:
     - christoph.matscheko
+  ux:
+    - jayme.brown
 tags:
   - 'progress'
   - 'progress bar'
   - 'icon'
+  - 'consumption'
+  - 'angular'
 ---
 
 # Consumption
 
-The `<dt-consumption>` is a data visualization box with an icon, a title, a
-progress bar with a value label and a description text. To set the content for a
-consumption component, the following tags are available:
+The consumption component visualizes usage data of account services. It utilizes
+an icon, a title, a progress bar with a value label and a description text. The
+bar grows as the usage increases with color indicating the service status. The
+value label is directly correlated with the growth of the progress bar. To set
+the content for a consumption component, the following tags are available:
 
 <docs-source-example example="ConsumptionDefaultExample"></docs-source-example>
 
@@ -63,10 +71,20 @@ Icons defined with `<dt-consumption-icon>` must be given a meaningful label via
 
 ## Examples
 
-### Warning mode
+### Overage view (warning state)
+
+Services that are incurring overages display a full yellow bar (warning state).
+The yellow color specifically depicts a service in overage. This means the
+service has used all of its pre-paid quota and is utilizing service outside the
+contracted amount.
 
 <docs-source-example example="ConsumptionWarningExample"></docs-source-example>
 
-### Error mode
+### Limits reached view (error state)
+
+Services that have used their full contracted amount display a full red bar
+(error state). The red color specifically depicts a service that has hit its
+contracted limit and the service will no longer be available until quotas are
+increased or renewed.
 
 <docs-source-example example="ConsumptionErrorExample"></docs-source-example>
