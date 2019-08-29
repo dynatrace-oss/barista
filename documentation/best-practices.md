@@ -5,8 +5,8 @@ order: 5
 tags:
   - 'documentation'
   - 'angular'
-  - 'best practices'
-  - 'guidelines'
+  - 'best practice'
+  - 'guideline'
   - 'patterns'
 ---
 
