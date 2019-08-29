@@ -17,7 +17,7 @@ tags:
 The `dt-highlight` component is designed to highlight some characters in a
 string that has been searched of filtererd for. It can be either used for
 [filtering tables](/components/table#filtering) or in the drop-down panel of the
-[filter field](/components/filter/).
+[filter field](/components/filter-field/).
 
 <docs-source-example example="HighlightDefaultExample"></docs-source-example>
 
