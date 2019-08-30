@@ -1,3 +1,4 @@
+import { Platform } from '@angular/cdk/platform';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -5,12 +6,15 @@ import {
   Component,
   ContentChildren,
   Directive,
+  ElementRef,
   OnDestroy,
   QueryList,
   ViewEncapsulation,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
 
 /**
  * An empty state item. An empty state card may contain one or more such items.
@@ -106,6 +110,9 @@ export class DtEmptyStateFooterActions {}
   host: {
     class: 'dt-empty-state',
     '[class.dt-empty-state-multiple-items]': '_items.length > 1',
+    '[class.dt-empty-state-single-item-mini-mode]': '_isSingleItemMiniMode()',
+    '[class.dt-empty-state-multiple-items-mini-mode]':
+      '_isMultipleItemsMiniMode()',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -116,18 +123,61 @@ export class DtEmptyState implements AfterContentInit, OnDestroy {
   @ContentChildren(DtEmptyStateItem)
   _items: QueryList<DtEmptyStateItem>;
 
+  /** @internal The current width of this component */
+  _componentWidth = 0;
+  /** @internal The width threshold under which the component layout changes when there is only one item */
+  _singleItemBreakPoint = 540;
+  /** @internal The width threshold under which the component layout changes when there are multiple items */
+  _multipleItemsBreakPoint = 760;
+
   private readonly _destroy$ = new Subject<void>();
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _elementRef: ElementRef<HTMLElement>,
+    private _viewportResizer: DtViewportResizer,
+    private _platform: Platform,
+  ) {}
 
   ngAfterContentInit(): void {
     this._items.changes.pipe(takeUntil(this._destroy$)).subscribe(() => {
       this._changeDetectorRef.markForCheck();
     });
+    this._viewportResizer
+      .change()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this._updateDimensions();
+      });
+
+    this._updateDimensions();
   }
 
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  /** @internal Returns true if the component has only one item and its width is below the break point */
+  _isSingleItemMiniMode(): boolean {
+    return (
+      this._items.length === 1 &&
+      this._componentWidth < this._singleItemBreakPoint
+    );
+  }
+
+  /** @internal Returns true if the component has more than one item and its width is below the break point */
+  _isMultipleItemsMiniMode(): boolean {
+    return (
+      this._items.length > 1 &&
+      this._componentWidth < this._multipleItemsBreakPoint
+    );
+  }
+
+  private _updateDimensions(): void {
+    if (this._platform.isBrowser) {
+      this._componentWidth = this._elementRef.nativeElement.getBoundingClientRect().width;
+      this._changeDetectorRef.markForCheck();
+    }
   }
 }
