@@ -1,5 +1,7 @@
 @import '../style/font-mixins';
 
+@import './variables';
+
 :host {
   position: relative;
   display: block;
@@ -14,6 +16,12 @@
 
   &.dt-empty-state-multiple-items > .dt-empty-state-item-container {
     display: flex;
-    width: calc(100% + 60px);
+    width: calc(100% + #{$empty-state-arrow-size});
   }
+}
+
+:host.dt-empty-state-multiple-items-mini-mode > .dt-empty-state-item-container {
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% + #{$empty-state-arrow-size});
 }

@@ -2,6 +2,8 @@
 @import '../style/font-mixins';
 @import '../core/style/card';
 
+@import './variables';
+
 :host {
   display: flex;
   flex-grow: 1;
@@ -10,12 +12,14 @@
     display: flex;
   }
 
-  .dt-empty-state-item-text-area {
-    max-width: 80ch;
-  }
-
   .dt-empty-state-item-image-area {
     margin: 0 16px 0 0;
+    min-width: 120px;
+    max-width: 180px;
+  }
+
+  .dt-empty-state-item-text-area {
+    max-width: 580px;
   }
 
   .dt-empty-state-item-icon-area {
@@ -23,6 +27,16 @@
   }
 
   ::ng-deep {
+    .dt-empty-state-item-img {
+      width: 100%;
+      display: block;
+
+      img,
+      svg {
+        width: 100%;
+      }
+    }
+
     .dt-empty-state-item-title {
       display: block;
       margin-bottom: 16px;
@@ -39,11 +53,11 @@
 :host-context(.dt-empty-state-multiple-items) {
   .dt-empty-state-item-icon-area {
     display: flex;
-    width: 60px;
-    flex: 0 0 60px;
+    width: $empty-state-arrow-size;
+    flex: 0 0 $empty-state-arrow-size;
     height: 100%;
 
-    dt-icon {
+    .dt-icon {
       width: 28px;
       height: 28px;
       margin: auto;
@@ -61,5 +75,33 @@
 
   .dt-empty-state-item-image-area {
     margin: 0 auto 16px auto; // stylelint-disable shorthand-property-no-redundant-values
+  }
+}
+
+:host-context(.dt-empty-state-single-item-mini-mode) {
+  .dt-empty-state-item-content-area {
+    flex-direction: column;
+  }
+
+  .dt-empty-state-item-image-area {
+    margin: auto;
+  }
+}
+
+:host-context(.dt-empty-state-multiple-items-mini-mode) {
+  flex-direction: column;
+
+  &:last-child > .dt-empty-state-item-icon-area {
+    display: none;
+  }
+
+  .dt-empty-state-item-icon-area {
+    width: 100%;
+    flex: 0 0 100%;
+    height: $empty-state-arrow-size;
+
+    .dt-icon ::ng-deep svg {
+      transform: rotate(90deg);
+    }
   }
 }
