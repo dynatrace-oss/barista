@@ -90,7 +90,10 @@ export class DtTile extends _DtTileMixinBase
     CanColor<DtTileThemePalette>,
     HasTabIndex,
     OnDestroy {
+  /** @internal The tiles subtitle */
   @ContentChild(DtTileSubtitle, { static: true }) _subTitle: DtTileSubtitle;
+
+  /** @internal The tiles icon */
   @ContentChild(DtTileIcon, { static: true }) _icon: DtTileIcon;
 
   constructor(elementRef: ElementRef, private _focusMonitor: FocusMonitor) {
@@ -102,8 +105,8 @@ export class DtTile extends _DtTileMixinBase
     this._focusMonitor.stopMonitoring(this._elementRef);
   }
 
+  /** @internal A disabled tile shouldn't apply any actions */
   _haltDisabledEvents(event: Event): void {
-    // A disabled tile shouldn't apply any actions
     if (this.disabled) {
       event.preventDefault();
       event.stopImmediatePropagation();

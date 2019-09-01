@@ -89,6 +89,7 @@ export class DtInput extends _DtInputMixinBase
   /** Implemented as part of DtFormFieldControl. */
   autofilled = false;
 
+  /** The id of the input element. */
   @Input()
   get id(): string {
     return this._id;
@@ -97,6 +98,7 @@ export class DtInput extends _DtInputMixinBase
     this._id = value || this._uid;
   }
 
+  /** Whether the input is disabled. */
   @Input()
   get disabled(): boolean {
     if (this.ngControl && this.ngControl.disabled !== null) {
@@ -116,6 +118,7 @@ export class DtInput extends _DtInputMixinBase
     }
   }
 
+  /** Whether the input is required. */
   @Input()
   get required(): boolean {
     return this._required;
@@ -124,6 +127,7 @@ export class DtInput extends _DtInputMixinBase
     this._required = coerceBooleanProperty(value);
   }
 
+  /** The placeholder of the input element. */
   @Input() placeholder = '';
 
   /** Input type of the element. */
@@ -143,6 +147,7 @@ export class DtInput extends _DtInputMixinBase
     }
   }
 
+  /** The value of the input element */
   @Input()
   get value(): string {
     return this._elementRef.nativeElement.value;
@@ -176,7 +181,7 @@ export class DtInput extends _DtInputMixinBase
     );
   }
 
-  /** The aria-describedby attribute on the input for improved a11y. */
+  /** @internal The aria-describedby attribute on the input for improved a11y. */
   _ariaDescribedby: string;
 
   protected _neverEmptyInputTypes = [
@@ -260,12 +265,13 @@ export class DtInput extends _DtInputMixinBase
     this.focus();
   }
 
+  /** @internal Handles the input change - noop method */
   _onInput(): void {
     // _onInput is basically just a noop function to let change detection know
     // when the user types. Never remove this function, even if it's empty.
   }
 
-  /** Callback for the cases where the focused state of the input changes. */
+  /** @internal Callback for the cases where the focused state of the input changes. */
   _focusChanged(isFocused: boolean): void {
     if (isFocused !== this.focused && !this.readonly) {
       this.focused = isFocused;

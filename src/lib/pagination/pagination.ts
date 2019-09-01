@@ -113,7 +113,7 @@ export class DtPagination implements OnInit {
    */
   _initialized = new AsyncSubject<boolean>();
 
-  /* @internal Array of the pages to be displayed */
+  /** @internal Array of the pages to be displayed */
   _pages: number[][] = [];
 
   /** @internal Whether the current page is the first page */

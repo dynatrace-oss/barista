@@ -96,6 +96,10 @@ import {
   },
 })
 export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
+  /** @internal The timestamp that follows the mouse */
+  @ViewChild('hairline', { static: true })
+  _hairline: ElementRef<HTMLDivElement>;
+
   /** mousedown event stream on the selection area emits only left mouse */
   private _mousedown$: Observable<MouseEvent> = EMPTY;
 
@@ -110,10 +114,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   /** click event stream that emits only click events on the selection area */
   private _click$: Observable<{ x: number; y: number }> = EMPTY;
-
-  /** The timestamp that follows the mouse */
-  @ViewChild('hairline', { static: true })
-  private _hairline: ElementRef<HTMLDivElement>;
 
   /** Instance of the chart range if one is present */
   private _range?: DtChartRange;

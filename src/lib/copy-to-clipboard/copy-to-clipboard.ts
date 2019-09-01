@@ -38,38 +38,51 @@ const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
 export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   constructor(private _cd: ChangeDetectorRef) {}
 
+  /** Emits a stream when the content has been copied. */
   @Output() readonly copied: EventEmitter<void> = new EventEmitter();
+
+  /** Emits a stream when copying has failed. */
   @Output() readonly copyFailed: EventEmitter<void> = new EventEmitter();
+
+  /** Emits a stream after the content has been copied. */
   @Output() readonly afterCopy: EventEmitter<void> = new EventEmitter();
 
-  private _showIcon = false;
+  /** Whether the icon should be displayed. */
   get showIcon(): boolean {
     return this._showIcon;
   }
+  private _showIcon = false;
+
+  /** @internal Reference to the input element provided via ng-content. */
+  @ContentChild(DtInput, { read: ElementRef, static: false })
+  _input: ElementRef;
+
+  /** @internal Reference to the dt-input directive provided via ng-content. */
+  @ContentChild(DtInput, { static: false }) private inputComponent: DtInput;
+
+  /** @internal Reference to the copy button element. */
+  @ViewChild('copyButton', { read: ElementRef, static: true })
+  _copyButton: ElementRef;
 
   private _timer: Subscription;
-  @ContentChild(DtInput, { read: ElementRef, static: false })
-  private input: ElementRef;
-  @ContentChild(DtInput, { static: false }) private inputComponent: DtInput;
-  @ViewChild('copyButton', { read: ElementRef, static: true })
-  private copyButton: ElementRef;
 
+  /** Copies the provided content to the clipboard. */
   copyToClipboard(): void {
-    if (this.input) {
-      this.input.nativeElement.select();
+    if (this._input) {
+      this._input.nativeElement.select();
       const copyResult = document.execCommand('copy');
       if (!copyResult) {
         this.copyFailed.emit();
         return;
       }
       this._showIcon = true;
-      addCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
-      if (this.copyButton) {
+      addCssClass(this._input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+      if (this._copyButton) {
         addCssClass(
-          this.copyButton.nativeElement,
+          this._copyButton.nativeElement,
           DT_COPY_TO_CLIPBOARD_SUCCESSFUL,
         );
-        this.copyButton.nativeElement.focus();
+        this._copyButton.nativeElement.focus();
       }
     }
 
@@ -83,10 +96,10 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
 
   private _resetCopyState(): void {
     this._showIcon = false;
-    removeCssClass(this.input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
-    if (this.copyButton) {
+    removeCssClass(this._input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+    if (this._copyButton) {
       removeCssClass(
-        this.copyButton.nativeElement,
+        this._copyButton.nativeElement,
         DT_COPY_TO_CLIPBOARD_SUCCESSFUL,
       );
     }

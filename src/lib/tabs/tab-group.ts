@@ -69,6 +69,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
     OnDestroy,
     CanColor<DtTabGroupThemePalette>,
     CanDisable {
+  /** @internal List of all the tabs of this group */
   // tslint:disable-next-line:no-forward-ref
   @ContentChildren(forwardRef(() => DtTab)) _tabs: QueryList<DtTab>;
 
@@ -78,8 +79,9 @@ export class DtTabGroup extends _DtTabGroupMixinBase
   /** Subscription to the state of a tab */
   private _tabStateSubscription = Subscription.EMPTY;
 
+  /** @internal The currently selected tab */
   _selected: DtTab | null = null;
-  /** internal only - used to notify only the tabs in the same tab-group */
+  /** @internal Used to notify only the tabs in the same tab-group */
   _groupId = `dt-tab-group-${++nextId}`;
 
   /** Emits an event every time the selected tab changes */
@@ -121,7 +123,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
     this._tabsSubscription.unsubscribe();
   }
 
-  /** internal - Dispatch change event with current selection - dispatched inside the tab */
+  /** @internal Dispatch change event with current selection - dispatched inside the tab */
   _tabChange(selected: DtTab, isUserInteraction: boolean): void {
     /** unselect all other tabs */
     this._selected = selected;
@@ -136,7 +138,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
     this._changeDetectorRef.markForCheck();
   }
 
-  /** Returns a unique id for each tab content element */
+  /** @internal Returns a unique id for each tab content element */
   _getTabContentId(tabId: string): string {
     return `${this._groupId}-content-${tabId}`;
   }
@@ -162,7 +164,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
     });
   }
 
-  /** Selects the tab  */
+  /** @internal Selects the tab  */
   _selectTab(): void {
     if (this._tabs) {
       const hasEnabledTabs = this._tabs.some(t => !t.disabled);

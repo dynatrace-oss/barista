@@ -72,5 +72,6 @@ export class DtCardFooterActions {}
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtCard {
+  /** @internal Reference to the card title directive. */
   @ContentChild(DtCardTitle, { static: false }) _title: DtCardTitle;
 }

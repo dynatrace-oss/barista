@@ -3,6 +3,7 @@ import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 
 /** Error state matcher that matches when a control is invalid and dirty. */
 export class DefaultErrorStateMatcher {
+  /** Whether the control is in an error state an errors should be displayed. */
   isErrorState(
     control: FormControl | null,
     form: FormGroupDirective | NgForm | null,
@@ -25,6 +26,7 @@ export class DefaultErrorStateMatcher {
 
 @Injectable({ providedIn: 'root', useClass: DefaultErrorStateMatcher })
 export abstract class ErrorStateMatcher {
+  /** Whether the control is in an error state and errors should be displayed. */
   abstract isErrorState(
     control: FormControl | null,
     form: FormGroupDirective | NgForm | null,

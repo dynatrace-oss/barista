@@ -25,8 +25,13 @@ export interface DtTabGroupNavigationControl {
  */
 @Injectable({ providedIn: 'root' })
 export abstract class DtTabNavigationAdapter {
+  /** Registers a tabcontrol with the adapater */
   abstract registerTabControl(control: DtTabGroupNavigationControl): void;
+
+  /** Unregister a tabcontrol with the adapter */
   abstract unregisterTabControl(control: DtTabGroupNavigationControl): void;
+
+  /** Updates the stored values in the hash navigation */
   abstract update(id: string, idsToRemove: string[]): void;
 }
 
@@ -78,9 +83,9 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
   }
 
   /**
-   * Updates the stored values in the hash havigation
+   * Updates the stored values in the hash navigation
    * takes one id that is added to the navigation and an array of ids to remove,
-   * basically one tab gets added and all other tabs in the same tabgroup get removed
+   * basically one tab gets added and all other tabs in the same tab group get removed
    * requires pathlocationstrategy to be used
    */
   update(id: string, idsToRemove: string[]): void {

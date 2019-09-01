@@ -229,12 +229,13 @@ export class DtChart
       : {};
   }
 
+  /** @internal Reference to the container element. */
   @ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
 
+  /** @internal List of Heatfield references */
   // tslint:disable-next-line: no-forward-ref
-  @ContentChildren(forwardRef(() => DtChartHeatfield)) _heatfields: QueryList<
-    DtChartHeatfield
-  >;
+  @ContentChildren(forwardRef(() => DtChartHeatfield))
+  _heatfields: QueryList<DtChartHeatfield>;
 
   /** @internal Instance of the Chart range used by the selection area */
   @ContentChild(DtChartRange, { static: false }) _range?: DtChartRange;

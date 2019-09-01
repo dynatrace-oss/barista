@@ -27,5 +27,6 @@ export class DtDefaultViewportResizer implements DtViewportResizer {
   deps: [ViewportRuler],
 })
 export abstract class DtViewportResizer {
+  /** Event emitted when the viewport size changes. */
   abstract change(): Observable<void>;
 }

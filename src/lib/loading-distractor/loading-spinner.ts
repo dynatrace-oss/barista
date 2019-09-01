@@ -26,7 +26,11 @@ export class DtLoadingSpinner {
   // We have to disable the no-input-rename rule here because the
   // minus character can't be used in an variable name.
   // tslint:disable:no-input-rename
+
+  /** The aria-labelledby attribute. */
   @Input('aria-labelledby') ariaLabelledby: string;
+
+  /** The aria-label attribute. */
   @Input('aria-label') ariaLabel: string;
   // tslint:enable:no-input-rename
 }

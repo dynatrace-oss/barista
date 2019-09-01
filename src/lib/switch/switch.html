@@ -14,8 +14,8 @@
       [attr.aria-label]="ariaLabel || null"
       [attr.aria-labelledby]="ariaLabelledby"
       [attr.aria-checked]="_getAriaChecked()"
-      (change)="_onInputChange($event)"
-      (click)="_onInputClick($event)"
+      (change)="_handleInputChange($event)"
+      (click)="_handleInputClick($event)"
     />
   </div>
 

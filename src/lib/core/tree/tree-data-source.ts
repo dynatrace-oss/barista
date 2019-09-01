@@ -128,10 +128,13 @@ export class DtTreeFlattener<T, F> {
  * to type `F` for `DtTree` pr `DtTreeTable` to consume.
  */
 export class DtTreeDataSource<T, F> extends DataSource<F> {
+  /** @internal Subject that emits the flattened data */
   _flattenedData = new BehaviorSubject<F[]>([]);
 
+  /** @internal Subject that emits the expanded data */
   _expandedData = new BehaviorSubject<F[]>([]);
 
+  /** @internal Subject that emits the actual data */
   _data: BehaviorSubject<T[]>;
   /** The data for the datasource */
   get data(): T[] {
