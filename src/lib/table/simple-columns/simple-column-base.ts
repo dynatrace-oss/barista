@@ -45,7 +45,7 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
       this._columnDef.name = name;
     }
   }
-  _name: string;
+  private _name: string;
 
   /**
    * Exposes the dtColumnProportion of the dtCell directive for use with simple columns
@@ -86,7 +86,6 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   @Input() hasProblem: DtSimpleColumnHasProblemFunction<T>;
 
   /** Whether the column is sortable */
-  private _sortable = true;
   @Input()
   get sortable(): boolean {
     return this._sortable;
@@ -94,11 +93,27 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   set sortable(sortable: boolean) {
     this._sortable = coerceBooleanProperty(sortable);
   }
+  private _sortable = true;
 
-  /** @internal Reference to the DtColumnDef defined in the template. Will be passed to the registering table. */
+  /**
+   * @internal
+   * Reference to the DtColumnDef defined in the template.
+   * Will be passed to the registering table.
+   */
   @ViewChild(DtColumnDef, { static: true }) _columnDef: DtColumnDef;
 
+  /**
+   * @internal
+   * Reference to the DtHeaderCellDef defined in the template.
+   * Will be passed to the registering table.
+   */
   @ViewChild(DtHeaderCellDef, { static: true }) _headerDef: DtHeaderCellDef;
+
+  /**
+   * @internal
+   * Reference to the DtCellDef defined in the template.
+   * Will be passed to the registering table.
+   */
   @ViewChild(DtCellDef, { static: true }) _cellDef: DtCellDef;
 
   constructor(@Optional() public table: DtTable<T>) {}

@@ -69,6 +69,10 @@ export class DtButton extends _DtButtonMixinBase
     CanDisable,
     CanColor<DtButtonThemePalette>,
     HasElementRef {
+  /**
+   * The variant of the button.
+   * It can be either 'primary', 'secondary' or 'nested'.
+   */
   @Input()
   get variant(): ButtonVariant {
     return this._variant;
@@ -83,6 +87,7 @@ export class DtButton extends _DtButtonMixinBase
   private _variant: ButtonVariant;
   private _iconChangesSub: Subscription = NEVER.subscribe();
 
+  /** @internal References of the icons. */
   @ContentChildren(DtIcon) _icons: QueryList<DtIcon>;
 
   /** @internal Whether the button is icon only. */

@@ -26,7 +26,13 @@ import { DtExpandableRow } from './expandable-row';
   exportAs: 'dtExpandableCell',
 })
 export class DtExpandableCell extends DtCell {
-  /** @internal Retyped for the AOT compiler, as _row member will always be a DtExpandableRow for the DtExpandable cell. */
+  /**
+   * @internal
+   * Retyped for the AOT compiler, as _row member will always be a DtExpandableRow
+   * for the DtExpandable cell.
+   */
   _row: DtExpandableRow;
+
+  /** Aria label applied to the cell for better accessibility. */
   @Input('aria-label') ariaLabel: string;
 }

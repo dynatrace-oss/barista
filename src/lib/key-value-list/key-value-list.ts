@@ -36,9 +36,10 @@ const DT_KEY_VALUE_LIST_MAX_COLUMNS = 6;
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtKeyValueList implements AfterContentInit, OnDestroy {
+  /** @internal References of the key value items. */
   @ContentChildren(DtKeyValueListItem) items: QueryList<DtKeyValueListItem>;
 
-  /** @internal */
+  /** @internal Calculated amount of colums. */
   _calculatedColumns = 1;
   private _itemsChangeSub = Subscription.EMPTY;
 

@@ -47,6 +47,7 @@ const ensureProvided = <T extends Router | LocationStrategy | ActivatedRoute>(
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtBreadcrumbsItem {
+  /** Whether the item is an external link */
   @Input()
   get external(): boolean {
     return this._external;
@@ -56,6 +57,7 @@ export class DtBreadcrumbsItem {
     this._external = coerceBooleanProperty(value);
   }
 
+  /** The link's href. */
   @Input() href?: RouterLinkAccepted;
 
   /**
@@ -122,9 +124,14 @@ export class DtBreadcrumbsItem {
     return urlTree;
   }
 
-  // calling navigateByUrl is needed to avoid page reload if the link targets the same app.
-  // Regular click on a with [href] causes page reload.
-  // See:  https://github.com/angular/angular/blob/05e3e4d71eb84617a7d3/packages/router/src/directives/router_link.ts#L227-L243
+  /**
+   * @internal
+   * Handles the click on the link.
+   *
+   * Calling navigateByUrl is needed to avoid page reload if the link targets the same app.
+   * Regular click on a with [href] causes page reload.
+   * See:  https://github.com/angular/angular/blob/05e3e4d71eb84617a7d3/packages/router/src/directives/router_link.ts#L227-L243
+   */
   _linkClicked(event: MouseEvent): boolean {
     if (
       event.button !== 0 ||

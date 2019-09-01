@@ -57,9 +57,10 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   @ContentChildren(forwardRef(() => DtButtonGroupItem), { descendants: true })
   private _items: QueryList<DtButtonGroupItem<T>>;
 
-  @Output()
-  readonly valueChange: EventEmitter<T | null> = new EventEmitter<T | null>();
+  /** Emits a stream when the value changes. */
+  @Output() readonly valueChange = new EventEmitter<T | null>();
 
+  /** The value of the button group. */
   @Input()
   get value(): T | null {
     return !this.disabled ? this._value : null;
@@ -108,7 +109,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
     }
   }
 
-  /** Dispatch change event with current selection and group value. */
+  /** @internal Dispatch change event with current selection and group value. */
   _emitChangeEvent(): void {
     this.valueChange.emit(this._value);
   }
@@ -140,6 +141,7 @@ export interface DtButtonGroupItemSelectionChange<T> {
 
 export type DtButtonGroupThemePalette = 'main' | 'error';
 export class DtButtonGroupItemBase {
+  /** Whether the button group item is disabled. */
   disabled: boolean;
   constructor(public _elementRef: ElementRef) {}
 }
@@ -185,6 +187,7 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
   private _value: T;
   private _disabled = false;
 
+  /** Emits a stream when this item is selected or deselected. */
   @Output() readonly selectionChange = new EventEmitter<
     DtButtonGroupItemSelectionChange<T>
   >();
@@ -249,6 +252,7 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
     this._focusMonitor.stopMonitoring(this._elementRef);
   }
 
+  /** @internal Selects this item. */
   _onSelect(event: Event): void {
     event.stopPropagation();
     const groupValueChanged =
@@ -261,7 +265,7 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
     }
   }
 
-  /** Ensures the option is selected when activated from the keyboard. */
+  /** @internal Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
     if (keyCode === ENTER || keyCode === SPACE) {
@@ -272,6 +276,7 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
     }
   }
 
+  /** @internal Marks this item to be checked on the next CD cycle. */
   _markForCheck(): void {
     this._changeDetectorRef.markForCheck();
   }

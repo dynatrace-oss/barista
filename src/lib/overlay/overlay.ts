@@ -82,6 +82,7 @@ export class DtOverlay implements OnDestroy {
   // tslint:disable-next-line:no-any
   private _dtOverlayRef: DtOverlayRef<any> | null;
 
+  /** The reference of the currently open overlay */
   // tslint:disable-next-line:no-any
   get overlayRef(): DtOverlayRef<any> | null {
     return this._dtOverlayRef;

@@ -66,8 +66,10 @@ export class DtToastContainer extends _DtToastContainerMixin
   implements OnDestroy, CanNotifyOnExit {
   private _destroyed = false;
 
+  /** @internal Stream that emits when a toast enters the view. */
   readonly _onEnter: Subject<void> = new Subject();
 
+  /** @internal The current state of the animation. */
   _animationState = 'void';
 
   constructor(
@@ -84,7 +86,7 @@ export class DtToastContainer extends _DtToastContainerMixin
     this._notifyDomExit();
   }
 
-  /** Animation callback */
+  /** @internal Animation callback. */
   _animationDone(event: AnimationEvent): void {
     const { fromState, toState } = event;
 

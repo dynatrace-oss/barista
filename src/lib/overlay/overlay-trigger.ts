@@ -62,7 +62,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
     this._content = value;
   }
 
-  /** An overlay config that will be passed to the overlay. */
+  /** Overlay config to be applied to the overlay. */
   @Input()
   get dtOverlayConfig(): DtOverlayConfig {
     return this._config;

@@ -48,9 +48,13 @@ export class DtOverlayContainerBase extends BasePortalOutlet
   constructor(public _ngZone: NgZone) {
     super();
   }
+
+  /** Part of the PortalOutlet class. */
   attachComponentPortal<T>(_portal: ComponentPortal<T>): ComponentRef<T> {
     throw new Error('Method not implemented.');
   }
+
+  /** Part of the PortalOutlet class. */
   attachTemplatePortal<C>(_portal: TemplatePortal<C>): EmbeddedViewRef<C> {
     throw new Error('Method not implemented.');
   }
@@ -145,7 +149,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin
     this._animationState = 'exit';
   }
 
-  /** Animation callback */
+  /** @internal Animation callback */
   _animationDone(event: AnimationEvent): void {
     const { fromState, toState } = event;
 
@@ -156,7 +160,7 @@ export class DtOverlayContainer extends _DtOverlayContainerMixin
     }
   }
 
-  /** Moves the focus inside the focus trap. */
+  /** @internal Moves the focus inside the focus trap. */
   _trapFocus(): void {
     this._savePreviouslyFocusedElement();
     if (!this._focusTrap) {

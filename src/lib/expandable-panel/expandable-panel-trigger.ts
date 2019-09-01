@@ -24,6 +24,7 @@ import { DtExpandablePanel } from './expandable-panel';
   },
 })
 export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
+  /** The expandable panel that should be connected to this trigger. */
   @Input()
   get dtExpandablePanel(): DtExpandablePanel {
     return this._panel;

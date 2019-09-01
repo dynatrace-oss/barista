@@ -66,11 +66,17 @@ export class DtColumnDef extends CdkColumnDef implements OnChanges {
   /** Unique name for this column. */
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnDef') name: string;
+
+  /** The alignment of the colums */
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnAlign') align: DtTableColumnTypedAlign | DtTableColumnAlign =
     'left';
+
+  /** The proportion of the column compared to the others. */
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnProportion') proportion: number;
+
+  /** The min width of the column. */
   // TODO: Consider switching to ngStyle syntax in the future - value.unit
   // tslint:disable-next-line:no-input-rename
   @Input('dtColumnMinWidth') minWidth: string | number;
@@ -100,9 +106,9 @@ type IndicatorType = 'error' | 'warning';
   exportAs: 'dtCell',
 })
 export class DtCell implements AfterContentInit, OnDestroy {
-  @ContentChildren(DtIndicator, { descendants: true }) _indicators: QueryList<
-    DtIndicator
-  >;
+  /** @internal A list of references of the applied indicator. */
+  @ContentChildren(DtIndicator, { descendants: true })
+  _indicators: QueryList<DtIndicator>;
 
   /** Whether the cell has an error */
   get hasError(): boolean {

@@ -64,7 +64,11 @@ export class DtTab extends _DtTabMixinBase
   /** Content for the tab label */
   @ContentChild(DtTabLabel, { static: true }) label: DtTabLabel;
 
-  /** ContentRef if the content is provided inside a ng-template with a dtTabContent directive for lazy loading */
+  /**
+   * @internal
+   * ContentRef if the content is provided inside a ng-template
+   * with a dtTabContent directive for lazy loading
+   */
   @ContentChild(DtTabContent, { read: TemplateRef, static: true })
   _lazyContentRef: TemplateRef<any>; // tslint:disable-line:no-any
 
@@ -125,7 +129,7 @@ export class DtTab extends _DtTabMixinBase
   /** Reference to the element that the tab is labelled by. */
   @Input('aria-labelledby') ariaLabelledby: string;
 
-  /** Internal stream that emits whenever an input of a tab changes */
+  /** @internal Stream that emits whenever an input of a tab changes */
   readonly _stateChanges = new Subject<void>();
 
   /** Portal that will be the hosted content of the tab */
@@ -137,7 +141,7 @@ export class DtTab extends _DtTabMixinBase
   private _color: TabThemePalette = defaultPalette;
   private _id: string;
 
-  /** private only used in the tabgroup to get the content template portal */
+  /** @internal Used in the tabgroup to get the content template portal */
   get _content(): TemplatePortal | null {
     return this._contentPortal;
   }
@@ -168,12 +172,14 @@ export class DtTab extends _DtTabMixinBase
     }
   }
 
+  /** @internal Selects the tab and notifies its group */
   _select(viaInteraction: boolean): void {
     this._selected = true;
     this._notifyTabGroup(viaInteraction);
     this._changeDetectorRef.markForCheck();
   }
 
+  /** @internal Deselects the tab */
   _deselect(): void {
     this._selected = false;
   }

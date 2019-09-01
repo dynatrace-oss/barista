@@ -65,6 +65,7 @@ export class DtShowMore {
   // tslint:disable-next-line: deprecation
   @ContentChild(DtShowLessLabel, { static: true }) _lessLabel: DtShowLessLabel;
 
+  /** Whether the show less label is visible. */
   @Input()
   get showLess(): boolean {
     return this._showLess;

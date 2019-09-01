@@ -110,11 +110,13 @@ export class DtSelectionArea
     null,
   );
 
+  /** @internal Reference to the overlay content template. */
   @ViewChild('content', { read: TemplateRef, static: true })
-  _overlayContent: TemplateRef<any>; // tslint:disable-line:no-any
+  _overlayContent: TemplateRef<void>;
 
+  /** @internal Reference to the overlay actions template. */
   @ViewChild('actions', { read: TemplateRef, static: true })
-  _overlayActions: TemplateRef<any>; // tslint:disable-line:no-any
+  _overlayActions: TemplateRef<void>;
 
   constructor(
     private _renderer: Renderer2,

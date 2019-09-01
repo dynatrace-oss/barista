@@ -77,7 +77,11 @@ export class DtToastRef {
     this._countdownSub.unsubscribe();
   }
 
-  /** Starts a timer to dismiss the toast automatically after the duration is over. Handles pausing and resuming the timer. */
+  /**
+   * @internal
+   * Starts a timer to dismiss the toast automatically after the duration is over.
+   * Handles pausing and resuming the timer.
+   */
   _dismissAfterTimeout(): void {
     this._zone.runOutsideAngular(() => {
       this._countdownSub = merge(this._pause$, this._resume$)
