@@ -62,11 +62,14 @@ export const _DtProgressBar = mixinHasProgress(
 })
 export class DtProgressBar extends _DtProgressBar
   implements CanColor<DtProgressBarThemePalette>, HasProgressValues {
+  /** Defines the alignment of the bar. */
   @Input() align: 'start' | 'end' = 'start';
 
-  /** Contentchildren reference to the description and count sub-components */
+  /** @internal Reference to the description sub-component */
   @ContentChild(DtProgressBarDescription, { static: true })
   _description: DtProgressBarDescription;
+
+  /** @internal Reference to the count sub-component */
   @ContentChild(DtProgressBarCount, { static: true })
   _count: DtProgressBarCount;
 
@@ -77,13 +80,16 @@ export class DtProgressBar extends _DtProgressBar
     super(elementRef);
   }
 
-  /** Updates all view parameters */
+  /** @internal Updates all view parameters */
   _updateValues(): void {
     super._updateValues();
     this._changeDetectorRef.markForCheck();
   }
 
-  /** Getter that returns true if either description or count are defined as contentchildren. */
+  /**
+   * @internal
+   * Getter that returns true if either description or count are defined as contentchildren.
+   */
   get _hasDescriptionOrCount(): boolean {
     return isDefined(this._description) || isDefined(this._count);
   }

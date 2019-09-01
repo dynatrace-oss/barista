@@ -25,6 +25,7 @@ export class DtOverlayRef<T> {
     return this._pinned;
   }
 
+  /** Whether the overlay can be pinned or not */
   get pinnable(): boolean {
     return coerceBooleanProperty(this._config.pinnable);
   }
@@ -36,6 +37,7 @@ export class DtOverlayRef<T> {
   private _backDropClickSub = Subscription.EMPTY;
   private _disposableFns: Array<() => void> = [];
 
+  /** List of functions to be called when the overlay is disposed. */
   get disposableFns(): Array<() => void> {
     return this._disposableFns;
   }

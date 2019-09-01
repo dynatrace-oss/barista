@@ -28,8 +28,13 @@ import { DtTableEmptyStateTitle } from './table-empty-state-title';
   },
 })
 export class DtTableEmptyState {
+  /** @internal The image of the empty state */
   @ContentChild(DtTableEmptyStateImage, { static: true }) emptyImage; // tslint:disable-line:deprecation
+
+  /** @internal The title of the empty state */
   @ContentChild(DtTableEmptyStateTitle, { static: true }) emptyTitle; // tslint:disable-line:deprecation
+
+  /** @internal The message of the empty state */
   @ContentChild(DtTableEmptyStateMessage, { static: true }) emptyMessage; // tslint:disable-line:deprecation
 }
 

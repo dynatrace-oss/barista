@@ -52,6 +52,8 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
+
+  /** @internal A generated UID */
   _uniqueId = `dt-table-${nextUniqueId++}`;
 
   /** Whether the loading state should be displayed. */
@@ -146,6 +148,11 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     this._destroy$.complete();
   }
 
+  /**
+   * Renders rows based on the table's latest set of data,
+   * which was either provided directly as an input or retrieved
+   * through an Observable stream (directly or from a DataSource).
+   */
   renderRows(): void {
     super.renderRows();
     if (this.isEmptyDataSource) {
@@ -153,5 +160,6 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     }
   }
 
+  /** CSS class added to any row or cell that has sticky positioning applied. */
   protected stickyCssClass = 'dt-table-sticky';
 }

@@ -133,12 +133,13 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     boolean
   >();
 
-  /** Panel that holds the content */
+  /** @internal Panel that holds the content */
   @ViewChild('panel', { static: false }) _panel: ElementRef;
 
-  // tslint:disable-next-line: no-any
-  @ViewChild(TemplateRef, { static: true }) _overlayTemplate: TemplateRef<any>;
+  /** @internal Reference to the overlay template. */
+  @ViewChild(TemplateRef, { static: true }) _overlayTemplate: TemplateRef<void>;
 
+  /** @internal Reference to the overlay origin. */
   @ViewChild(CdkOverlayOrigin, { static: false })
   _defaultTrigger: CdkOverlayOrigin;
 
@@ -295,6 +296,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
       });
   }
 
+  /** @internal Registers a trigger for this context dialog. */
   _registerTrigger(trigger: DtContextDialogTrigger): void {
     if (this.hasCustomTrigger) {
       LOG.debug('Already has a custom trigger registered');
@@ -303,6 +305,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     this._changeDetectorRef.markForCheck();
   }
 
+  /** @internal Unregisters a previously registered trigger for this context dialog. */
   _unregisterTrigger(trigger: DtContextDialogTrigger): void {
     if (this._trigger !== trigger) {
       LOG.debug('Trying to unregister a trigger that is not assigned');

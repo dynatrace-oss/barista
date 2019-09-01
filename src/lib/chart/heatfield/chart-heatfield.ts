@@ -138,6 +138,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
     }
   }
 
+  /** Provide an aria-label for better accessibility. */
   @Input('aria-label') ariaLabel: string;
 
   private _destroyed = new Subject<void>();
@@ -171,13 +172,14 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
     return isDefined(this.start) && isValidEnd;
   }
 
-  /** The backdrop that is positioned behind the chart */
+  /** @internal The backdrop that is positioned behind the chart */
   @ViewChild('backdrop', { read: ElementRef, static: true })
   _backdrop: ElementRef;
 
-  /** The marker button used to activate the heatfield */
+  /** @internal The marker button used to activate the heatfield */
   @ViewChild('marker', { read: ElementRef, static: true }) _marker: ElementRef;
 
+  /** @internal The reference to the overlay. */
   @ViewChild(CdkConnectedOverlay, { static: false })
   _overlay: CdkConnectedOverlay;
 

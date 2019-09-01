@@ -55,18 +55,27 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   }
   private _value = 0;
 
+  /** @internal The timing markers passed in via ng-content. */
   @ContentChildren(DtTimelineChartTimingMarker)
   _timingMarkers: QueryList<DtTimelineChartTimingMarker>;
 
+  /** @internal The key-timing markers passed in via ng-content. */
   @ContentChildren(DtTimelineChartKeyTimingMarker)
   _keyTimingMarkers: QueryList<DtTimelineChartKeyTimingMarker>;
 
+  /** @internal The generated bars that are actually rendered. */
   _renderBars: number[] = [];
+
+  /** @internal The calculated ticks on the x-axis. */
   _renderTicks: { position: number; value: number }[] = [];
+
+  /** @internal The timing markers that are rendered on a specific position */
   _renderTimingMarkers: {
     position: number;
     marker: DtTimelineChartTimingMarker;
   }[] = [];
+
+  /** @internal The key-timing markers that are rendered on a specific position */
   _renderKeyTimingMarkers: {
     position: number;
     marker: DtTimelineChartKeyTimingMarker;

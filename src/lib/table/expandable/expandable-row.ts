@@ -110,11 +110,11 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
   @Output() readonly expandChange = new EventEmitter<
     DtExpandableRowChangeEvent
   >();
-  /** Event emitted when the row is expanded. */
+  /** @internal Event emitted when the row is expanded. */
   @Output('expanded') readonly _expandedStream = this.expandChange.pipe(
     filter(changeEvent => changeEvent.row.expanded),
   );
-  /** Event emitted when the row is collapsed. */
+  /** @internal Event emitted when the row is collapsed. */
   @Output('collapsed') readonly _collapsedStream = this.expandChange.pipe(
     filter(changeEvent => !changeEvent.row.expanded),
   );
@@ -155,6 +155,7 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
     }
   }
 
+  /** @internal Collapses the row */
   _collapse(): void {
     if (this._expanded) {
       this._expanded = false;
@@ -164,6 +165,7 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
     }
   }
 
+  /** @internal Expands the row. This is only called as a result of an user action. */
   _expandViaInteraction(): void {
     if (!this._expanded) {
       this._expanded = true;

@@ -102,9 +102,13 @@ export class DtMicroChart implements OnDestroy {
     | DtChartSeries;
   private _currentSeries: DtChartSeries;
 
+  /** @internal Transformed options to be applied to highcharts. */
   _transformedOptions: DtChartOptions;
+
+  /** @internal Transformed series to be applied to highcharts. */
   _transformedSeries: Observable<DtChartSeries[]> | DtChartSeries[];
 
+  /** Options to configure the chart. */
   @Input()
   get options(): DtChartOptions {
     return this._options;
@@ -117,6 +121,7 @@ export class DtMicroChart implements OnDestroy {
     this._transformedOptions = this._transformOptions(options);
   }
 
+  /** Series of data points or a stream rendered in this chart */
   @Input()
   get series():
     | Observable<DtChartSeries[]>
@@ -143,7 +148,7 @@ export class DtMicroChart implements OnDestroy {
     this._series = series;
   }
 
-  private _labelFormatter = (input: number) => input.toString();
+  /** Formatter function to format the label. */
   @Input()
   get labelFormatter(): (input: number) => string {
     return this._labelFormatter;
@@ -152,15 +157,19 @@ export class DtMicroChart implements OnDestroy {
     this._labelFormatter = formatter;
     this._updateTransformedSeries();
   }
+  private _labelFormatter = (input: number) => input.toString();
 
+  /** Emits when the chart (its options or series) is updated. */
   @Output() readonly updated = new EventEmitter<void>();
 
+  /** List of all series ids. */
   get seriesId(): string | undefined {
     return this._dtChart.seriesIds === undefined
       ? undefined
       : this._dtChart.seriesIds[0];
   }
 
+  /** The options of the internal highcharts object. */
   get highchartsOptions(): Options {
     return this._dtChart.highchartsOptions;
   }

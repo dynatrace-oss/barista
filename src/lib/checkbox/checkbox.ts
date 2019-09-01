@@ -206,14 +206,15 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   /** Event emitted when the checkbox's `indeterminate` value changes. */
   @Output() readonly indeterminateChange = new EventEmitter<boolean>();
 
-  /** The native radio input element */
+  /** @internal The native radio input element */
   @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
-  /** Returns the unique id for the visual hidden input. */
+  /** @internal Returns the unique id for the visual hidden input. */
   get _inputId(): string {
     return `${this.id}-input`;
   }
 
+  /** @internal Implemented as part of the ValueAccessor interface */
   _onTouched: () => void = () => {};
 
   private _checked = false;
@@ -275,6 +276,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     this.checked = !this.checked;
   }
 
+  /** @internal Handles the click on the input element. */
   _onInputClick(event: Event): void {
     // We have to stop propagation for click events on the visual hidden input element.
     // Otherwise this will lead to multiple click events.
@@ -293,6 +295,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     }
   }
 
+  /** @internal Handles the change on the input element. */
   _onInputChange(event: Event): void {
     // We always have to stop propagation on the change event.
     // Otherwise the change event, from the input element, will bubble up and
@@ -300,6 +303,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     event.stopPropagation();
   }
 
+  /** @internal Transforms the checked and indeterminate state to a string consumed by aria-checked. */
   _getAriaChecked(): 'true' | 'false' | 'mixed' {
     return this.checked ? 'true' : this.indeterminate ? 'mixed' : 'false';
   }

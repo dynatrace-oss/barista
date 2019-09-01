@@ -321,6 +321,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
   }
 
   /**
+   * @internal
    * Returns a sorted copy of the data if DtSort has a sort applied, otherwise just returns the
    * data array as provided. Uses the default data accessor for data lookup, unless a
    * sortDataAccessor function is defined.

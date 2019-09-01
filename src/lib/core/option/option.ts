@@ -78,7 +78,10 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
     DtOptionSelectionChange<T>
   >();
 
-  /** Emits when the state of the option changes and any parents have to be notified. */
+  /**
+   * @internal
+   * Emits when the state of the option changes and any parents have to be notified.
+   */
   readonly _stateChanges = new Subject<void>();
 
   /** The unique ID of the option. */
@@ -187,7 +190,7 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
     return this.viewValue;
   }
 
-  /** Ensures the option is selected when activated from the keyboard. */
+  /** @internal Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
     if (keyCode === ENTER || keyCode === SPACE) {
@@ -198,6 +201,7 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
     }
   }
 
+  /** @internal Handles the click on the option and selects it. */
   _handleClick(event: MouseEvent): void {
     // Prevent the event from reaching parent elements, which causes components,
     // like filter-field to close the autocomplete because it detected an outside click
@@ -207,8 +211,9 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
   }
 
   /**
-   * `Selects the option while indicating the selection came from the user. Used to
-   * determine if the select's view -> model callback should be invoked.`
+   * @internal
+   * Selects the option while indicating the selection came from the user. Used to
+   * determine if the select's view -> model callback should be invoked.
    */
   _selectViaInteraction(): void {
     if (!this.disabled) {
@@ -218,12 +223,12 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
     }
   }
 
-  /** Returns the correct tabindex for the option depending on disabled state. */
+  /** @internal Returns the correct tabindex for the option depending on disabled state. */
   _getTabIndex(): string {
     return this.disabled ? '-1' : '0';
   }
 
-  /** Gets the host DOM element. */
+  /** @internal Gets the host DOM element. */
   _getHostElement(): HTMLElement {
     return this._element.nativeElement;
   }

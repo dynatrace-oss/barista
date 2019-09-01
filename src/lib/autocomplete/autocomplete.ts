@@ -125,12 +125,14 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
     this._setVisibilityClasses(this._classList);
     this._elementRef.nativeElement.className = '';
   }
+  /** @internal Via classList input applied classes */
   _classList: { [key: string]: boolean } = {};
 
   /** Whether the autocomplete panel is open. */
   get isOpen(): boolean {
     return this._isOpen && this.showPanel;
   }
+  /** @internal Whether the autocomplete panel is open. */
   _isOpen = false;
 
   /**
@@ -145,12 +147,38 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
   id = `dt-autocomplete-${_uniqueIdCounter++}`;
 
+  /**
+   * @internal
+   * Reference to the template that will be rendered into the panel once it is open.
+   *
+   * @breaking-change Make internal in 5.0.0
+   */
   // tslint:disable-next-line:no-any
   @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+
+  /**
+   * @internal
+   * Reference to the panel which will be created in the overlay.
+   *
+   * @breaking-change Make internal in 5.0.0
+   */
   @ViewChild('panel', { static: false }) panel: ElementRef;
-  @ContentChildren(DtOption, { descendants: true }) options: QueryList<
-    DtOption<T>
-  >;
+
+  /**
+   * @internal
+   * References to all the options that are currently applied.
+   *
+   * @breaking-change Make internal in 5.0.0
+   */
+  @ContentChildren(DtOption, { descendants: true })
+  options: QueryList<DtOption<T>>;
+
+  /**
+   * @internal
+   * References to all the option groups that are currently applied.
+   *
+   * @breaking-change Make internal in 5.0.0
+   */
   @ContentChildren(DtOptgroup) optionGroups: QueryList<DtOptgroup>;
 
   constructor(

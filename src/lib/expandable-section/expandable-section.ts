@@ -86,11 +86,13 @@ export class DtExpandableSection implements CanDisable {
       switchMap(() => this.expandChange),
     );
   });
-  /** Event emitted when the section is expanded. */
+
+  /** @internal Event emitted when the section is expanded. */
   @Output('expanded') readonly _sectionExpanded = this.expandChange.pipe(
     filter(v => v),
   );
-  /** Event emitted when the section is collapsed. */
+
+  /** @internal Event emitted when the section is collapsed. */
   @Output('collapsed') readonly _sectionCollapsed = this.expandChange.pipe(
     filter(v => !v),
   );

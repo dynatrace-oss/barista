@@ -7,10 +7,12 @@ const LOG_BUS = new Subject<DtLogEntry>();
 
 @Injectable({ providedIn: 'root' })
 export class DtLogConsumer {
+  /** Emits when a new log entry is emitted. */
   consume(): Observable<DtLogEntry> {
     return LOG_BUS.asObservable();
   }
 
+  /** Emits a new log entry. */
   log(logEntry: DtLogEntry): void {
     LOG_BUS.next(logEntry);
   }

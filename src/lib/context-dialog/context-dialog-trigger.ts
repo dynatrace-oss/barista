@@ -22,6 +22,7 @@ export class DtContextDialogTrigger extends CdkOverlayOrigin
   implements OnDestroy {
   private _dialog?: DtContextDialog;
 
+  /** The dialog the trigger will be connected to. */
   @Input('dtContextDialogTrigger')
   get dialog(): DtContextDialog | undefined {
     return this._dialog;
@@ -36,6 +37,7 @@ export class DtContextDialogTrigger extends CdkOverlayOrigin
     }
   }
 
+  /** Emits an event when the dialog opens or closes. */
   @Output() readonly openChange = new EventEmitter<void>();
 
   constructor(elementRef: ElementRef) {
@@ -46,6 +48,7 @@ export class DtContextDialogTrigger extends CdkOverlayOrigin
     this._unregisterFromDialog();
   }
 
+  /** @internal Unregisters this trigger from the dialog. */
   _unregisterFromDialog(): void {
     if (this._dialog) {
       this._dialog._unregisterTrigger(this);

@@ -21,6 +21,11 @@ import {
 import { EMPTY, merge } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
+import {
+  DT_ERROR_ENTER_ANIMATION,
+  DT_ERROR_ENTER_DELAYED_ANIMATION,
+} from '@dynatrace/angular-components/core';
+
 import { DtError } from './error';
 import { DtFormFieldControl } from './form-field-control';
 import {
@@ -31,10 +36,6 @@ import { DtHint } from './hint';
 import { DtLabel } from './label';
 import { DtPrefix } from './prefix';
 import { DtSuffix } from './suffix';
-import {
-  DT_ERROR_ENTER_DELAYED_ANIMATION,
-  DT_ERROR_ENTER_ANIMATION,
-} from '@dynatrace/angular-components/core';
 
 let nextUniqueId = 0;
 
@@ -78,18 +79,29 @@ let nextUniqueId = 0;
 })
 export class DtFormField<T>
   implements AfterContentInit, AfterContentChecked, AfterViewInit {
-  // Unique id for the internal form field label.
+  /** @internal Unique id for the internal form field label. */
   _labelId = `dt-form-field-label-${nextUniqueId++}`;
 
-  /** State of the dt-error animations. */
+  /** @internal State of the dt-error animations. */
   _errorAnimationState: '' | 'enter' | 'enter-delayed' = '';
 
+  /** @internal Reference to the label */
   @ContentChild(DtLabel, { static: false }) _labelChild: DtLabel;
+
+  /** @internal References to the hints */
   @ContentChildren(DtHint) _hintChildren: QueryList<DtHint>;
+
+  /** @internal References to the errors */
   @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
+
+  /** @internal Reference to the control */
   @ContentChild(DtFormFieldControl, { static: false })
   _control: DtFormFieldControl<T>;
+
+  /** @internal References to the prefixes */
   @ContentChildren(DtPrefix) _prefixChildren: QueryList<DtPrefix>;
+
+  /** @internal References to the suffixes */
   @ContentChildren(DtSuffix) _suffixChildren: QueryList<DtSuffix>;
 
   constructor(
@@ -151,14 +163,14 @@ export class DtFormField<T>
     return this._elementRef;
   }
 
-  /** Determines whether a class from the NgControl should be forwarded to the host element. */
+  /** @internal Determines whether a class from the NgControl should be forwarded to the host element. */
   _shouldForward(prop: string): boolean {
     const ngControl = this._control ? this._control.ngControl : null;
     // tslint:disable-next-line:no-any no-unnecessary-type-assertion
     return ngControl && (ngControl as any)[prop];
   }
 
-  /** Determines whether to display errors or not. */
+  /** @internal Determines whether to display errors or not. */
   _getDisplayedError(): boolean {
     return (
       this._errorChildren &&

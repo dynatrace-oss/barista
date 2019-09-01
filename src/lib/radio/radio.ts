@@ -38,6 +38,7 @@ export interface DtRadioChange<T> {
 
 // Boilerplate for applying mixins to DtRadioButton.
 export class DtRadioButtonBase {
+  /** Whether the radio button is disabled */
   disabled: boolean;
 }
 export const _DtRadioButtonMixinBase = mixinTabIndex(DtRadioButtonBase);
@@ -164,16 +165,17 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   // tslint:disable-next-line:no-input-rename
   @Input('aria-describedby') ariaDescribedby: string;
 
+  /** Emits when this radio button becomes selected or not. */
   // Disabling no-output-native rule because we want to keep a similar API to the native radio button
   // tslint:disable-next-line: no-output-native
   @Output() readonly change = new EventEmitter<DtRadioChange<T>>();
 
-  /** ID of the native input element */
+  /** @internal ID of the native input element */
   get _inputId(): string {
     return `${this.id || this._uniqueId}-input`;
   }
 
-  /** The native radio input element */
+  /** @internal The native radio input element */
   @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
   constructor(
@@ -219,12 +221,14 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
   }
 
+  /** @internal Handles the click on the hidden radio input. */
   _onInputClick(event: Event): void {
     // We have to stop propagation for click events on the visual hidden input element.
     // Otherwise this will lead to multiple click events.
     event.stopPropagation();
   }
 
+  /** @internal Handles the input change of the hidden radio input. */
   _onInputChange(event: Event): void {
     // We always have to stop propagation on the change event.
     // Otherwise the change event, from the input element, will bubble up and
@@ -245,6 +249,7 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     }
   }
 
+  /** @internal Marks the radio button to be checked in the next CD cycle */
   _markForCheck(): void {
     this._changeDetector.markForCheck();
   }

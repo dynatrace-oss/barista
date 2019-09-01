@@ -13,6 +13,7 @@ let nextUniqueId = 0;
   },
 })
 export class DtError {
+  /** Generated unique id for the error element. */
   @Input() id = `dt-error-${nextUniqueId++}`;
 
   constructor(private _elementRef: ElementRef) {}
