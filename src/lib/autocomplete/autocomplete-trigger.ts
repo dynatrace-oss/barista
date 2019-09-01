@@ -296,6 +296,7 @@ export class DtAutocompleteTrigger<T>
     }
   }
 
+  /** @internal Handler when the trigger receives focus. */
   _handleFocus(): void {
     if (!this._canOpenOnNextFocus) {
       this._canOpenOnNextFocus = true;
@@ -305,6 +306,7 @@ export class DtAutocompleteTrigger<T>
     }
   }
 
+  /** @internal Handler when the trigger loses focus. */
   _handleBlur(): void {
     if (this.panelOpen) {
       this.autocomplete.closed
@@ -320,6 +322,7 @@ export class DtAutocompleteTrigger<T>
     }
   }
 
+  /** @internal Handler when the user is typing. */
   _handleInput(event: KeyboardEvent): void {
     const target = event.target as HTMLInputElement;
     let value: number | string | null = target.value;
@@ -347,6 +350,7 @@ export class DtAutocompleteTrigger<T>
     }
   }
 
+  /** @internal Handler for the users key down events. */
   _handleKeydown(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
 
@@ -663,25 +667,25 @@ export class DtAutocompleteTrigger<T>
     this.autocomplete._setScrollTop(newScrollPosition);
   }
 
-  // Implemented as part of ControlValueAccessor.
+  /** Implemented as part of ControlValueAccessor. */
   writeValue(value: T): void {
     Promise.resolve(null).then(() => {
       this._setTriggerValue(value);
     });
   }
 
-  // Implemented as part of ControlValueAccessor.
+  /** Implemented as part of ControlValueAccessor. */
   // tslint:disable-next-line:no-any
   registerOnChange(fn: (value: any) => {}): void {
     this._onChange = fn;
   }
 
-  // Implemented as part of ControlValueAccessor.
+  /** Implemented as part of ControlValueAccessor. */
   registerOnTouched(fn: () => {}): void {
     this._onTouched = fn;
   }
 
-  // Implemented as part of ControlValueAccessor.
+  /** Implemented as part of ControlValueAccessor. */
   setDisabledState(isDisabled: boolean): void {
     this._element.nativeElement.disabled = isDisabled;
   }

@@ -213,28 +213,29 @@ export class DtSelect<T> extends _DtSelectMixinBase
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
 
-  /** The last measured value for the trigger's client bounding rect. */
+  /** @internal The last measured value for the trigger's client bounding rect. */
   _triggerRect: ClientRect;
 
-  /** The aria-describedby attribute on the select for improved a11y. */
+  /** @internal The aria-describedby attribute on the select for improved a11y. */
   _ariaDescribedby: string;
 
-  /** Deals with the selection logic. */
+  /** @internal Deals with the selection logic. */
   _selectionModel: SelectionModel<DtOption<T>>;
 
-  /** Manages keyboard events for options in the panel. */
+  /** @internal Manages keyboard events for options in the panel. */
   _keyManager: ActiveDescendantKeyManager<DtOption<T>>;
 
-  /** `View -> model callback called when value changes` */
+  /** @internal `View -> model callback called when value changes` */
   _onChange: (value: T) => void = () => {};
 
-  /** `View -> model callback called when select has been touched` */
+  /** @internal `View -> model callback called when select has been touched` */
   _onTouched = () => {};
 
-  /** The IDs of child options to be passed to the aria-owns attribute. */
+  /** @internal The IDs of child options to be passed to the aria-owns attribute. */
   _optionIds = '';
 
   /**
+   * @internal
    * This position config ensures that the top "start" corner of the overlay
    * is aligned with with the top "start" of the origin by default (overlapping
    * the trigger completely). If the panel cannot fit below the trigger, it
@@ -269,10 +270,10 @@ export class DtSelect<T> extends _DtSelectMixinBase
     },
   ];
 
-  /** Whether the panel's animation is done. */
+  /** @internal Whether the panel's animation is done. */
   _panelDoneAnimating = false;
 
-  /** Emits when the panel element is finished transforming in. */
+  /** @internal Emits when the panel element is finished transforming in. */
   _panelDoneAnimatingStream = new Subject<string>();
 
   /** Whether the select is focused. */
@@ -615,7 +616,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     this.open();
   }
 
-  /** Handles all keydown events on the select. */
+  /** @internal Handles all keydown events on the select. */
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
       if (this.panelOpen) {
@@ -626,6 +627,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     }
   }
 
+  /** @internal Handles the focus of the select element. */
   _onFocus(): void {
     if (!this.disabled) {
       this._focused = true;
@@ -633,6 +635,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     }
   }
 
+  /** @internal Handles leaving the focus of the select element. */
   _onBlur(): void {
     this._focused = false;
 
@@ -643,7 +646,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     }
   }
 
-  /** Callback that is invoked when the overlay panel has been attached. */
+  /** @internal Callback that is invoked when the overlay panel has been attached. */
   _onAttached(): void {
     this.overlayDir.positionChange.pipe(take(1)).subscribe(() => {
       this._changeDetectorRef.detectChanges();
@@ -652,6 +655,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   }
 
   /**
+   * @internal
    * When the panel content is done fading in, the _panelDoneAnimating property is
    * set so the proper class can be added to the panel.
    */
@@ -660,14 +664,14 @@ export class DtSelect<T> extends _DtSelectMixinBase
     this._changeDetectorRef.markForCheck();
   }
 
-  /** Returns the aria-label of the select component. */
+  /** @internal Returns the aria-label of the select component. */
   _getAriaLabel(): string | null {
     // If an ariaLabelledby value has been set by the consumer, the select should not overwrite the
     // `aria-labelledby` value by setting the ariaLabel to the placeholder.
     return this.ariaLabelledby ? null : this.ariaLabel || this.placeholder;
   }
 
-  /** Returns the aria-labelledby of the select component. */
+  /** @internal Returns the aria-labelledby of the select component. */
   _getAriaLabelledby(): string | null {
     if (this.ariaLabelledby) {
       return this.ariaLabelledby;
@@ -682,7 +686,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     return this._parentFormField._labelId || null;
   }
 
-  /** Determines the `aria-activedescendant` to be set on the host. */
+  /** @internal Determines the `aria-activedescendant` to be set on the host. */
   _getAriaActiveDescendant(): string | null {
     if (this.panelOpen && this._keyManager && this._keyManager.activeItem) {
       return this._keyManager.activeItem.id;

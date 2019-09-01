@@ -147,7 +147,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   // tslint:disable-next-line: no-output-native
   @Output() readonly change = new EventEmitter<DtSwitchChange<T>>();
 
-  /** The native switch input element */
+  /** @internal The native switch input element */
   @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
   /** Returns the unique id for the visual hidden input. */
@@ -155,6 +155,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     return `${this.id}-input`;
   }
 
+  /** @internal Implemented as part of the ControlValueAccessor */
   _onTouched: () => void = () => {};
 
   private _checked = false;
@@ -190,17 +191,20 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
   }
 
+  /** Toggles the checked state of the switch */
   toggle(): void {
     this.checked = !this.checked;
   }
 
-  _onInputClick(event: Event): void {
+  /** @internal Handles clicking the hidden input element */
+  _handleInputClick(event: Event): void {
     // We have to stop propagation for click events on the visual hidden input element.
     // Otherwise this will lead to multiple click events.
     event.stopPropagation();
   }
 
-  _onInputChange(event: Event): void {
+  /** @internal Handles the input change event */
+  _handleInputChange(event: Event): void {
     // We always have to stop propagation on the change event.
     // Otherwise the change event, from the input element, will bubble up and
     // emit its event object to the `change` output.
@@ -213,6 +217,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     this._emitChangeEvent();
   }
 
+  /** @internal Transforms the checked state to a string so it can be set as aria-checked. */
   _getAriaChecked(): 'true' | 'false' {
     return this.checked ? 'true' : 'false';
   }

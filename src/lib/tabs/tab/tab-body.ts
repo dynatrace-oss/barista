@@ -40,7 +40,11 @@ import { Subscription } from 'rxjs';
   },
 })
 export class DtTabBody {
-  /** The portal host inside of this container into which the tab body content will be loaded. */
+  /**
+   * @internal
+   * The portal host inside of this container into which
+   * the tab body content will be loaded.
+   */
   @ViewChild(PortalHostDirective, { static: true })
   _portalHost: PortalHostDirective;
 
@@ -57,7 +61,7 @@ export class DtTabBody {
     this._activeChanged.emit(value);
   }
 
-  /** emits events whenever the active input changes */
+  /** @internal Emits events whenever the active input changes */
   @Output() readonly _activeChanged: EventEmitter<boolean> = new EventEmitter();
 
   private _isActive = false;
@@ -94,7 +98,7 @@ export class DtTabBodyPortal extends CdkPortalOutlet
     });
   }
 
-  /**  Attaches the content to the portaloutlet if necessary */
+  /**  Attaches the content to the portal outlet if necessary */
   private _handleActiveTabChange(active: boolean): void {
     if (active && !this.hasAttached() && this._host && this._host.content) {
       this.attach(this._host.content);

@@ -17,5 +17,6 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtLoadingDistractor {
+  /** @internal The generated label id. */
   _labelId = `"dt-loading-distractor-label-${nextUniqueId++}`;
 }

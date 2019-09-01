@@ -156,7 +156,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;
 
-  /** Filter field data source that describes the fields and field types of the filter field */
+  /** The data source instance that should be connected to the filter field. */
   @Input()
   get dataSource(): DtFilterFieldDataSource {
     return this._dataSource;
@@ -171,6 +171,10 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   private _stateChanges = new Subject<void>();
   private _outsideClickSubscription: Subscription | null;
 
+  /**
+   * Whether a loading spinner should be shown or not.
+   * This will be automatically set if you provide set async to true via the data source.
+   */
   @Input()
   get loading(): boolean {
     return this._loading;

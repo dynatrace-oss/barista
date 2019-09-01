@@ -25,6 +25,7 @@ import {
 export class _DtTableBase<T> extends CdkTable<T> {
   private _interactiveRows = false;
 
+  /** Whether the defined rows are interactive. */
   @Input()
   get interactiveRows(): boolean {
     return this._interactiveRows;

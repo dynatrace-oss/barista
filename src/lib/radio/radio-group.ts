@@ -97,15 +97,18 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
     this._markRadiosForCheck();
   }
 
+  /** Emits when a radio of this group is changed. */
   // Disabling no-output-native rule because we want to keep a similar API to the native radio group
   // tslint:disable-next-line: no-output-native
   @Output() readonly change = new EventEmitter<DtRadioChange<T>>();
 
+  /** @internal Part of the ControlValueAccessor interface. */
   onTouched: () => void = () => {};
 
-  /** The method to be called in order to update ngModel */
+  /** @internal The method to be called in order to update ngModel */
   _controlValueAccessorChangeFn: (value: T) => void = () => {};
 
+  /** @internal References to the radio buttons of this group. */
   // tslint:disable-next-line:no-forward-ref
   @ContentChildren(forwardRef(() => DtRadioButton), { descendants: true })
   _radios: QueryList<DtRadioButton<T>>;
@@ -119,19 +122,21 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
     this._isInitialized = true;
   }
 
+  /** @internal Checks the selected radio button */
   _checkSelectedRadioButton(): void {
     if (this._selected && !this._selected.checked) {
       this._selected.checked = true;
     }
   }
 
+  /** @internal Called when the control is touched. */
   _touch(): void {
     if (this.onTouched) {
       this.onTouched();
     }
   }
 
-  /** Dispatch change event with current selection and group value. */
+  /** @internal Dispatch change event with current selection and group value. */
   _emitChangeEvent(): void {
     if (this._isInitialized) {
       this.change.emit({ source: this._selected!, value: this._value });

@@ -58,7 +58,7 @@ export const _DtProgressCircle = mixinHasProgress(
 })
 export class DtProgressCircle extends _DtProgressCircle
   implements CanColor<DtProgressCircleThemePalette>, HasProgressValues {
-  /** Dash offset base on the values percentage */
+  /** @internal Dash offset base on the values percentage */
   _dashOffset: number = CIRCLE_CIRCUMFERENCE;
 
   constructor(
@@ -68,7 +68,7 @@ export class DtProgressCircle extends _DtProgressCircle
     super(_elementRef);
   }
 
-  /** Updates all view parameters */
+  /** @internal Updates all view parameters */
   _updateValues(): void {
     super._updateValues();
     this._dashOffset = this._calculateDashOffset(this.percent);

@@ -106,11 +106,13 @@ export class DtExpandablePanel {
   @Output() readonly expandChange: EventEmitter<boolean> = new EventEmitter<
     boolean
   >();
-  /** Event emitted when the panel is expanded. */
+
+  /** @internal Event emitted when the panel is expanded. */
   @Output('expanded') readonly _panelExpanded = this.expandChange.pipe(
     filter(v => v),
   );
-  /** Event emitted when the panel is collapsed. */
+
+  /**  @internal Event emitted when the panel is collapsed. */
   @Output('collapsed') readonly _panelCollapsed = this.expandChange.pipe(
     filter(v => !v),
   );

@@ -47,7 +47,7 @@ export class DtTabGroupNavigation
     this._destroyed.complete();
   }
 
-  /** Adapter calls this function with ids - selects the tab for these ids */
+  /** @internal Adapter calls this function with ids - selects the tab for these ids */
   _updateWithTabIds(ids: string[]): void {
     const tabs = this._getTabs();
     if (tabs) {

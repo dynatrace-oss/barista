@@ -1,14 +1,14 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Directive,
   EventEmitter,
   Input,
   Output,
   ViewEncapsulation,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
 } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -99,16 +99,14 @@ export class DtSecondaryNavSection {
   private _active = false;
 
   /** Event emitted when the section's expandable state changes. */
-  @Output() readonly expandChange: EventEmitter<boolean> = new EventEmitter<
-    boolean
-  >();
+  @Output() readonly expandChange = new EventEmitter<boolean>();
 
-  /** Event emitted when the section is expanded. */
+  /** @internal Event emitted when the section is expanded. */
   @Output('expanded') readonly _sectionExpand = this.expandChange.pipe(
     filter(v => v),
   );
 
-  /** Event emitted when the section is collapsed. */
+  /** @internal Event emitted when the section is collapsed. */
   @Output('collapsed') readonly _sectionCollapse = this.expandChange.pipe(
     filter(v => !v),
   );

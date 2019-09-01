@@ -49,6 +49,7 @@ export const _DtBarIndicator = mixinHasProgress(
 })
 export class DtBarIndicator extends _DtBarIndicator
   implements CanColor<DtBarIndicatorThemePalette>, HasProgressValues {
+  /** Whether the indicator is aligned to the start or end. */
   @Input() align: 'start' | 'end' = 'start';
 
   constructor(

@@ -35,6 +35,6 @@ export class DtOptgroup extends _DtOptgroupMixinBase implements CanDisable {
   /** Label for the option group. */
   @Input() label: string;
 
-  /** Unique id for the underlying label. */
+  /** @internal Unique id for the underlying label. */
   _labelId = `dt-optgroup-label-${_uniqueId++}`;
 }
