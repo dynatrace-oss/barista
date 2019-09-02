@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'component-barista-example',
   template: `
-    <dt-expandable-section [opened]="true">
+    <dt-expandable-section [expanded]="true">
       <dt-expandable-section-header>
         My header text
       </dt-expandable-section-header>
