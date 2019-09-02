@@ -121,6 +121,7 @@
     "dt-docs-import-barista": true,
     "dt-no-focused-tests": true,
     "dt-annotate-internal-fields": { "severity": "warning" },
+    "dt-internal-fields-underscore": { "severity": "warning" },
     "dt-document-public-fields": { "severity": "warning" }
   }
 }
