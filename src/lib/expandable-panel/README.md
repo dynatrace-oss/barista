@@ -1,13 +1,31 @@
 ---
-type: 'component'
+title: 'Expandable panel'
+description:
+  'The expandable panel component is responsible for showing and hiding context
+  information.'
+postid: expandable-panel
+category: 'components'
+contributors:
+  dev:
+    - lara.aigmueller
+  ux:
+    - gabriele.hasson-birkenmayer
+tags:
+  - 'expand'
+  - 'collapse'
+  - 'inline doc'
+  - 'angular'
+  - 'component'
 ---
 
 # Expandable panel
 
-This Angular component provides basic expand/collapse functionality without any
-styling. The expandable trigger directive `dtExpandablePanel` allows you to bind
-a custom element as trigger to an expandable panel `<dt-expandable-panel>`. The
-expandable trigger binds to key and click events.
+The expandable panel component provides basic expand/collapse functionality
+without any styling. The expandable trigger directive `dtExpandablePanel` allows
+you to bind a custom element as trigger to an expandable panel
+`<dt-expandable-panel>`. The expandable trigger binds to key and click events.
+
+<docs-source-example example="ExpandablePanelDefaultExample"></docs-source-example>
 
 **Note:** In version 5.0.0 the selector for the panel's trigger will be updated
 to `button[dtExpandablePanel]`, then only a button element can be used as
@@ -38,8 +56,6 @@ element.
 | `dt-expandable-panel`        | The expandable panel, with the behaviour, but without styling                                            |
 | `[dtExpandablePanel]=#panel` | The expandable trigger which listens on click and key events. The trigger needs to get a panel assigned. |
 
-<docs-source-example example="ExpandablePanelDefaultExample"></docs-source-example>
-
 ## Inputs
 
 | Name       | Type      | Default | Description                              |
@@ -52,8 +68,8 @@ element.
 | Name           | Type                    | Description                                     |
 | -------------- | ----------------------- | ----------------------------------------------- |
 | `expandChange` | `EventEmitter<boolean>` | Emits an event when the expanded state changes. |
-| `expanded`     |  `EventEmitter<void>`   |  Event emitted when the panel is expanded.      |
-| `collapsed`    |  `EventEmitter<void>`   |  Event emitted when the panel is collapsed.     |
+| `expanded`     | `EventEmitter<void>`    |  Event emitted when the panel is expanded.      |
+| `collapsed`    | `EventEmitter<void>`    |  Event emitted when the panel is collapsed.     |
 
 ## Properties
 
@@ -69,11 +85,7 @@ element.
 | ------------------- | ------------------- | ----------- | --------------------------------------------- |
 | `dtExpandablePanel` | `DtExpandablePanel` | `undefined` | Attaches an expandable panel to this trigger. |
 
-## Examples
-
-### Default
-
-<docs-source-example example="ExpandablePanelDefaultExample"></docs-source-example>
+## Expandable panel in use
 
 ### Disabled
 
