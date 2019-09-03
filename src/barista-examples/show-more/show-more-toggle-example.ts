@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { DtExpandablePanel } from '@dynatrace/angular-components';
+
+import { DtExpandablePanel } from '@dynatrace/angular-components/expandable-panel';
 
 @Component({
   moduleId: module.id,
