@@ -1,13 +1,30 @@
 ---
-type: 'component'
+title: 'Radio button'
+description:
+  'The radio button component is used to select one option from a set.'
+postid: radio
+category: 'components'
+contributors:
+  dev:
+    - thomas.pink
+  ux:
+    - raphaela.raudaschl
+tags:
+  - 'radiobutton'
+  - 'component'
+  - 'angular'
+  - 'input'
+baristafilename: 'radio-button.md'
 ---
 
-# Radio
+# Radio button
 
-`<dt-radio-button>` provides the same functionality as a native
+The `<dt-radio-button>` provides the same functionality as a native
 `<input type="radio">` element, enhanced with styling and animations. Radio
 elements are generally used within radio-groups to describe a set of related
 options. Only one radio element can be selected at the same time.
+
+<docs-source-example example="RadioDefaultExample"></docs-source-example>
 
 ## Imports
 
@@ -21,36 +38,35 @@ You have to import the `DtRadioModule` when you want to use the
 class MyModule {}
 ```
 
-## Options & Properties
+## Inputs
 
-| Name                        | Type                             | Default                        | Description                                                                                                                        |
-| --------------------------- | -------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `@Input() id`               | `string`                         | `dt-radio-{consecutiveNumber}` | The unique ID for the radio button.                                                                                                |
-| `@Input() Input`            | `boolean`                        |                                | Sets whether the radio button is disabled.                                                                                         |
-| `@Input() checked`          | `boolean`                        |                                | Whether this radio button is checked.                                                                                              |
-| `@Input() value`            | `T`                              |                                | The value of this radio button.                                                                                                    |
-| `@Input() name`             | `string`                         |                                | Analog to HTML 'name' attribute used to group radios for unique selection. Will be inherited from the `dt-radio-group` if not set. |
-| `@Input() aria-label`       | `string`                         |                                | Used to set the 'aria-label' attribute on the underlying input element.                                                            |
-| `@Input() aria-labelledby`  | `string`                         |                                | The 'aria-labelledby' attribute takes precedence as the element's text alternative.                                                |
-| `@Input() aria-describedby` | `string`                         |                                | The 'aria-describedby' attribute is read after the element's label and field type.                                                 |
-| `@Output() change`          | `EventEmitter<DtRadioChange<T>>` |                                | Emits a `DtRadioChange` event when the selection changes.                                                                          |
-| `focus`                     | `function`                       |                                | Let's you set the focus on this radio element.                                                                                     |
+| Name               | Type      | Description                                                                                                                        |
+| ------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `id`               | `string`  | The unique ID for the radio button. Default is `dt-radio-{consecutiveNumber}`.                                                     |
+| `name`             | `string`  | Analog to HTML 'name' attribute used to group radios for unique selection. Will be inherited from the `dt-radio-group` if not set. |
+| `value`            | `T`       | The value of this radio button.                                                                                                    |
+| `checked`          | `boolean` | Whether this radio button is checked.                                                                                              |
+| `required`         | `boolean` | Whether the radio button is required.                                                                                              |
+| `disabled`         | `boolean` | Whether the radio button is disabled.                                                                                              |
+| `tabIndex`         | `number`  | The element's tab index.                                                                                                           |
+| `aria-label`       | `string`  | Used to set the 'aria-label' attribute on the underlying input element.                                                            |
+| `aria-labelledby`  | `string`  | The 'aria-labelledby' attribute takes precedence as the element's text alternative.                                                |
+| `aria-describedby` | `string`  | The 'aria-describedby' attribute is read after the element's label and field type.                                                 |
+| `<ng-content>`     | `string`  | The text will be set as the label.                                                                                                 |
 
-## Imports
+## Outputs
 
-You have to import the `DtRadioModule` when you want to use the `dt-radio-group`
-and `dt-radio-button`:
+| Name     | Type                             | Description                                               |
+| -------- | -------------------------------- | --------------------------------------------------------- |
+| `change` | `EventEmitter<DtRadioChange<T>>` | Emits a `DtRadioChange` event when the selection changes. |
 
-```typescript
-@NgModule({
-  imports: [DtRadioModule],
-})
-class MyModule {}
-```
+## Methods
 
-## Grouping
+| Name      | Description                                    | Return value |
+| --------- | ---------------------------------------------- | ------------ |
+| `focus()` | Let's you set the focus on this radio element. | `void`       |
 
-### Radio groups
+## Radio groups
 
 Radio-buttons should typically be placed inside of a `<dt-radio-group>`
 component unless the DOM structure would make that impossible. The radio-group
@@ -58,26 +74,37 @@ has a value property that reflects the currently selected radio-button inside of
 the group. Individual radio-buttons inside of a radio-group will inherit the
 name of the group.
 
-| Name                | Type                             | Default                              | Description                                                                  |
-| ------------------- | -------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------- |
-| `@Input() name`     | `string`                         | `dt-radio-group-{consecutiveNumber}` | The unique ID for the radio group button.                                    |
-| `@Input() value`    | `T | null`                       |                                      | Currently selected value of the radio group.                                 |
-| `@Input() selected` | `DtRadioButton<T> | null`        |                                      | Currently selected radio button within the group.                            |
-| `@Input() disabled` | `boolean`                        | `false`                              | Whether the radio group is disabled.                                         |
-| `@Input() required` | `boolean`                        | `false`                              | Whether the radio group is required.                                         |
-| `@Output() change`  | `EventEmitter<DtRadioChange<T>>` |                                      | Emits a `DtRadioChange` event when the selection on the radio-group changes. |
+`<dt-radio-group>` is compatible with @angular/forms and supports both
+`FormsModule` and `ReactiveFormsModule`.
+
+### Inputs
+
+| Name       | Type                      | Default                              | Description                                       |
+| ---------- | ------------------------- | ------------------------------------ | ------------------------------------------------- |
+| `name`     | `string`                  | `dt-radio-group-{consecutiveNumber}` | The unique ID for the radio group button.         |
+| `value`    | `T | null`                |                                      | Currently selected value of the radio group.      |
+| `selected` | `DtRadioButton<T> | null` |                                      | Currently selected radio button within the group. |
+| `disabled` | `boolean`                 | `false`                              | Whether the radio group is disabled.              |
+| `required` | `boolean`                 | `false`                              | Whether the radio group is required.              |
+
+### Outputs
+
+| Name     | Type                             | Description                                                                  |
+| -------- | -------------------------------- | ---------------------------------------------------------------------------- |
+| `change` | `EventEmitter<DtRadioChange<T>>` | Emits a `DtRadioChange` event when the selection on the radio-group changes. |
 
 ### Grouping by name
 
-All radio-buttons with the same name comprise a set from which only one may be
-selected at a time.
+If it's not possible to use a `<dt-radio-group>` add the same name to all radio
+buttons within a group.
 
 <docs-source-example example="RadioNameGroupingExample"></docs-source-example>
 
-## Angular forms
+## Dark background
 
-`<dt-radio-group>` is compatible with @angular/forms and supports both
-FormsModule and ReactiveFormsModule.
+A radio button can be placed on dark background.
+
+<docs-source-example example="RadioDarkExample" themedark="true"></docs-source-example>
 
 ## Accessibility
 
@@ -88,16 +115,14 @@ automatically labelled by the text content of the `<dt-radio-button>` element.
 Radio button groups should be given a meaningful label via `aria-label` or
 `aria-labelledby`.
 
-## Examples
+## Radio buttons in use
 
-### Default
+When radio buttons are placed below each other, the distance between two radio
+button components must be `20px`.
 
-<docs-source-example example="RadioDefaultExample"></docs-source-example>
+### Responsive behavior
 
-### Responsive
+Once the label next to the radio button does not fit into one line anymore, the
+line breaks.
 
 <docs-source-example example="RadioResponsiveExample"></docs-source-example>
-
-## Dark theme
-
-<docs-source-example example="RadioDarkExample" themedark="true"></docs-source-example>
