@@ -17,8 +17,6 @@ import {
   exportAs: 'dtConsumptionTitle',
   host: {
     class: 'dt-consumption-title',
-    'aria-role': 'heading',
-    'aria-level': '1',
   },
 })
 export class DtConsumptionTitle {}
@@ -34,8 +32,6 @@ export class DtConsumptionTitle {}
   exportAs: 'dtConsumptionSubtitle',
   host: {
     class: 'dt-consumption-subtitle',
-    'aria-role': 'heading',
-    'aria-level': '2',
   },
 })
 export class DtConsumptionSubtitle {}
