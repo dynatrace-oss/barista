@@ -700,6 +700,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         this._updateAutocompleteOptionsOrGroups();
         this._filterByLabel = '';
       }
+      this._resetEditMode();
       this._emitFilterChanges([], removedFilters);
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
