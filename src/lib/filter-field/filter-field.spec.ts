@@ -1389,6 +1389,36 @@ describe('DtFilterField', () => {
       expect(filterTags[2].separator).toBe(':');
       expect(filterTags[2].value).toBe('15s - 80s');
     });
+
+    it('should not reset anything when a filter is deleted in edit mode and an outside click is triggered', () => {
+      let tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+
+      expect(tags.length).toBe(3);
+
+      tags[0].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      const inputEl = getInput(fixture);
+      dispatchKeyboardEvent(inputEl, 'keydown', BACKSPACE);
+      fixture.detectChanges();
+      tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+
+      expect(tags.length).toBe(2);
+
+      dispatchFakeEvent(document, 'click');
+      fixture.detectChanges();
+      tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+
+      expect(tags.length).toBe(2);
+    });
   });
 
   describe('programmatic setting', () => {
