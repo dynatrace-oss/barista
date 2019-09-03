@@ -20,6 +20,7 @@
     aria-label-right-handle="The right handle to update the selection"
     aria-label-selected-area="The selected time-frame"
     (valid)="onTimeframeValidChanges($event)"
+    (closed)="closed()"
   >
     <button
       aria-label="Apply the selection"

@@ -71,7 +71,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   }
   set value(value: number) {
     if (!isNumber(value)) {
-      this._reset();
+      this._handleOverlayClose();
       return;
     }
     this._value = value;
@@ -83,6 +83,9 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
 
   /** Emits the new value of the timestamp when it is changed by user triggered events */
   @Output() readonly valueChanges = new EventEmitter<number>();
+
+  /** Event that is emitted when the timestamp is closed. */
+  @Output() readonly closed = new EventEmitter<void>();
 
   /**
    * @internal
@@ -234,6 +237,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   _handleOverlayClose(): void {
     this._closeOverlay.next();
     this._reset();
+    this.closed.emit();
   }
 
   /**
@@ -273,8 +277,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
 
     if ([BACKSPACE, DELETE].includes(readKeyCode(event))) {
       // reset the timestamp
-      this._reset();
-      this._closeOverlay.next();
+      this._handleOverlayClose();
       this._emitStateChanges();
     }
 
