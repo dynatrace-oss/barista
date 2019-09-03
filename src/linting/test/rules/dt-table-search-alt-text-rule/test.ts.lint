@@ -1,0 +1,12 @@
+/**
+ * Test file for testing the dt-table-search-alt-text rule.
+ */
+
+@Component({
+  template: `
+    <dt-table-search>
+    ~~~~~~~~~~~~~~~~~ [A dt-table-search must either have an aria-label or an aria-labelledby attribute.]
+    </dt-table-search>
+  `,
+})
+class TestClass {}
