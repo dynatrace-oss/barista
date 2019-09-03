@@ -1,8 +1,17 @@
+<dt-table-search
+  name="tableSearch"
+  [(ngModel)]="searchValue"
+  placeholder="Search table data..."
+  aria-label="Search table data"
+></dt-table-search>
+
 <ng-container *ngIf="show">
   <dt-table [dataSource]="dataSource">
     <ng-container dtColumnDef="host" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
-      <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
+      <dt-cell *dtCellDef="let row">
+        <dt-highlight [term]="searchValue">{{ row.host }}</dt-highlight>
+      </dt-cell>
     </ng-container>
     <ng-container dtColumnDef="cpu" dtColumnAlign="number">
       <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>

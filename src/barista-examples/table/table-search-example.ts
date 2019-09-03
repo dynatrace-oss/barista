@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import {
   formatBytes,
   formatPercent,
 } from '@dynatrace/angular-components/formatters';
-import { DtTableDataSource } from '@dynatrace/angular-components/table';
+import {
+  DtTableDataSource,
+  DtTableSearch,
+} from '@dynatrace/angular-components/table';
 
 @Component({
   moduleId: module.id,
@@ -12,11 +15,18 @@ import { DtTableDataSource } from '@dynatrace/angular-components/table';
   styles: ['dt-table { margin-bottom: 24px; }'],
   // tslint:disable
   template: `
+    <dt-table-search
+      name="tableSearch"
+      [(ngModel)]="searchValue"
+      placeholder="Search table data..."
+      aria-label="Search table data"
+    ></dt-table-search>
+
     <dt-table [dataSource]="dataSource">
       <ng-container dtColumnDef="host" dtColumnAlign="text">
         <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
         <dt-cell *dtCellDef="let row">
-          <dt-highlight [term]="value">{{ row.host }}</dt-highlight>
+          <dt-highlight [term]="searchValue">{{ row.host }}</dt-highlight>
         </dt-cell>
       </ng-container>
 
@@ -44,23 +54,10 @@ import { DtTableDataSource } from '@dynatrace/angular-components/table';
         *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
       ></dt-row>
     </dt-table>
-
-    <input
-      dtInput
-      [dtAutocomplete]="auto"
-      [(ngModel)]="value"
-      (ngModelChange)="filter()"
-      placeholder="Filter this table"
-    />
-    <dt-autocomplete #auto="dtAutocomplete">
-      <dt-option *ngFor="let option of filterableValues" [value]="option">
-        {{ option }}
-      </dt-option>
-    </dt-autocomplete>
   `,
   // tslint:enable
 })
-export class TableFilteringExample {
+export class TableSearchExample implements OnInit {
   data: object[] = [
     {
       host: 'et-demo-2-win4',
@@ -113,27 +110,18 @@ export class TableFilteringExample {
     },
   ];
 
-  value: string;
-  dataSource: DtTableDataSource<object>;
+  @ViewChild(DtTableSearch, { static: true })
+  tableSearch: DtTableSearch;
 
-  get filterableValues(): string[] {
-    return this.data.map(
-      (data: {
-        host: string;
-        cpu: number;
-        memoryPerc: number;
-        memoryTotal: number;
-        traffic: number;
-      }) => data.host,
-    );
-  }
+  searchValue = '';
+  dataSource: DtTableDataSource<object>;
 
   constructor() {
     this.dataSource = new DtTableDataSource(this.data);
   }
 
-  filter(): void {
-    this.dataSource.filter = this.value;
+  ngOnInit(): void {
+    this.dataSource.search = this.tableSearch;
   }
 
   // tslint:disable-next-line: no-any
