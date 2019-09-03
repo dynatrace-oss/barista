@@ -4,13 +4,17 @@ import {
   OnDestroy,
   OnInit,
   QueryList,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { Subscription, of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { DtPagination } from '@dynatrace/angular-components/pagination';
-import { DtTableDataSource } from '@dynatrace/angular-components/table';
+import {
+  DtTableDataSource,
+  DtTableSearch,
+} from '@dynatrace/angular-components/table';
 
 interface HostUnit {
   host: string;
@@ -27,15 +31,21 @@ interface HostUnit {
 export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
   show = true;
   pageSize = 3;
+  searchValue = '';
   dataSource: DtTableDataSource<HostUnit> = new DtTableDataSource();
+
   private subscription: Subscription = Subscription.EMPTY;
 
-  @ViewChildren(DtPagination) paginationList: QueryList<DtPagination>;
+  @ViewChild(DtTableSearch, { static: true })
+  tableSearch: DtTableSearch;
+  @ViewChildren(DtPagination)
+  paginationList: QueryList<DtPagination>;
 
   ngOnInit(): void {
     this.subscription = of(this.dataSource1).subscribe((data: HostUnit[]) => {
       this.dataSource.data = data;
     });
+    this.dataSource.search = this.tableSearch;
   }
 
   ngAfterViewInit(): void {
@@ -47,6 +57,10 @@ export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
         this.dataSource.pagination = null;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   dataSource1: HostUnit[] = [
@@ -148,8 +162,4 @@ export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
       ],
     },
   ];
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 }

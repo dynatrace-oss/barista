@@ -50,6 +50,7 @@ required for animations. For more details on this see
 [Step 2: Animations in the getting started guide](***REMOVED***
 
 ```typescript
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DtTableModule } from '@dynatrace/angular-components/table';
 
@@ -294,16 +295,34 @@ direction. The event contains the following properties.
 | `active`    | `string`          | The ID of the currently active column.         |
 | `direction` | `DtSortDirection` | The direction for the currently active column. |
 
-## Filtering
+## Searching/Filtering
 
 When tables contain large amounts of data, make it easier for the user to find
-entries by providing a filter field above the table.
+entries by providing a search field above the table. The `DtTableSearch`
+component can be used in combination with a table to provide this functionality.
 
 Filtering data for the table means filtering out rows that are passed via the
 data source. For highlighting the matched strings in the table the `DtHighlight`
 component can be used.
 
-<docs-source-example example="TableFilteringExample" fullwidth="true"></docs-source-example>
+<docs-source-example example="TableSearchExample" fullwidth="true"></docs-source-example>
+
+### DtTableSearch
+
+#### Inputs
+
+| Name              | Type     | Default     | Description                                                                       |
+| ----------------- | -------- | ----------- | --------------------------------------------------------------------------------- |
+| `value`           | `string` | `''`        | The current search term.                                                          |
+| `placeholder`     | `string` | `undefined` | Placeholder string for the input field (always needs to start with "Search ..."). |
+| `aria-label`      | `string` | `undefined` | An ARIA label describing the input field.                                         |
+| `aria-labelledby` | `string` | `undefined` | A reference to an ARIA description of the input field.                            |
+
+#### Outputs
+
+| Name          | Type                                     | Description                                          |
+| ------------- | ---------------------------------------- | ---------------------------------------------------- |
+| `valueChange` | `EventEmitter<DtTableSearchChangeEvent>` | Event emitted when the user changes the search term. |
 
 ## Pagination and show more
 
