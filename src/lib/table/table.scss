@@ -25,3 +25,7 @@
     width: calc(100% - 16px);
   }
 }
+
+.dt-table-search + :host {
+  margin-top: 8px;
+}

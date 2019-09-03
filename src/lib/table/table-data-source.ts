@@ -13,6 +13,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { compareValues, isNumber } from '@dynatrace/angular-components/core';
 import { DtPagination } from '@dynatrace/angular-components/pagination';
 
+import { DtTableSearch } from './search';
 import {
   DtSimpleColumnDisplayAccessorFunction,
   DtSimpleColumnSortAccessorFunction,
@@ -31,13 +32,6 @@ export class DtTableDataSource<T> extends DataSource<T> {
    * shown to the user rather than all the data.
    */
   filteredData: T[];
-
-  /**
-   * @internal
-   * Subscription to the changes that should trigger an update to the table's rendered rows, such
-   * as filtering, sorting, pagination, or base data changes.
-   */
-  _renderChangesSubscription = Subscription.EMPTY;
 
   /** @internal DisplayAccessorMap for SimpleColumn displayAccessor functions. */
   _displayAccessorMap: Map<
@@ -76,6 +70,13 @@ export class DtTableDataSource<T> extends DataSource<T> {
   /** Used for unsubscribing */
   private readonly _destroy = new Subject<void>();
 
+  /**
+   * Subscription to the changes that should trigger an update to the table's rendered rows, such
+   * as filtering, sorting, pagination, or base data changes.
+   */
+  private _renderChangesSubscription = Subscription.EMPTY;
+  private _searchChangeSubscription = Subscription.EMPTY;
+
   /** Array of data that should be rendered by the table, where each object represents one row. */
   get data(): T[] {
     return this._data.value;
@@ -86,8 +87,9 @@ export class DtTableDataSource<T> extends DataSource<T> {
   }
 
   /**
-   * Instance of the DtSort directive used by the table to control its sorting. Sort changes
-   * emitted by the DtSort will trigger an update to the tables rendered data.
+   * Instance of the DtSort directive used by the table to control its sorting.
+   * Sort changes emitted by the DtSort will trigger an update to the tables
+   * rendered data.
    */
   get sort(): DtSort | null {
     return this._sort;
@@ -97,6 +99,32 @@ export class DtTableDataSource<T> extends DataSource<T> {
     this._updateChangeSubscription();
   }
   private _sort: DtSort | null;
+
+  /**
+   * Instance of the DtTableSearch directive used by the table to control which
+   * rows are displayed. Search changes emitted by the DtTableSearch will
+   * trigger an update to the tables rendered data.
+   */
+  get search(): DtTableSearch | null {
+    return this._search;
+  }
+
+  set search(search: DtTableSearch | null) {
+    this._search = search;
+
+    this._searchChangeSubscription.unsubscribe();
+
+    if (this._search !== null) {
+      this._searchChangeSubscription = this._search.valueChange.subscribe(
+        event => {
+          this._filter.next(event.value);
+        },
+      );
+    } else {
+      this._searchChangeSubscription = Subscription.EMPTY;
+    }
+  }
+  private _search: DtTableSearch | null = null;
 
   /** Filter term that should be used to filter out objects from the data array. */
   get filter(): string {
@@ -391,6 +419,9 @@ export class DtTableDataSource<T> extends DataSource<T> {
    * Used by the DtTable. Called when it is destroyed. No-op.
    */
   disconnect(): void {
+    this._renderChangesSubscription.unsubscribe();
+    this._searchChangeSubscription.unsubscribe();
+
     this._destroy.next();
     this._destroy.complete();
   }
