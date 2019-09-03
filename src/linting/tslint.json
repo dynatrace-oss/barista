@@ -39,6 +39,7 @@
     "dt-tab-label-no-empty": true,
     "dt-tab-requires-content": { "severity": "warning" },
     "dt-tab-requires-label": { "severity": "warning" },
+    "dt-table-search-alt-text": true,
     "dt-tag-no-empty": true,
     "dt-tile-direct-children": true,
     "dt-tile-icon-needs-icon": { "severity": "warning" },
