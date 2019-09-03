@@ -1,0 +1,44 @@
+branch master
+  commander
+    thomas.pink
+    fabian.friedl
+    thomas.heller
+  !commander
+    thomas.pink
+    fabian.friedl
+    thomas.heller
+  +path src/lib/alert/**
+    lara.aigmueller
+  +path src/lib/chart/selection-area/**, src/lib/chart/range/**, src/lib/chart/timestamp/**
+    lukas.holzer
+  +path src/lib/consumption/**
+    christoph.matscheko
+  +path src/lib/drawer/**
+    lukas.holzer
+  +path src/lib/empty-state/**
+    christoph matscheko
+  +path src/lib/expandable-panel/**, src/lib/expandable-section/**
+    lara.aigmueller
+  +path src/lib/expandable-text/**
+    rowa.audil
+  +path src/lib/highlight/**
+    lukas.holzer
+  +path src/lib/menu/**
+    christoph.matscheko
+  +path src/lib/pagination/**
+    lukas.holzer
+  +path src/lib/show-more/**
+    lara.aigmueller
+  +path src/lib/switch/**
+    lara.aigmueller
+  +path src/lib/table/**
+    lara.aigmueller
+  +path src/lib/tag/**
+    christoph.matscheko
+
+branch release-stage/*
+  path **
+    thomas.pink
+    fabian.friedl
+    thomas.heller
+
