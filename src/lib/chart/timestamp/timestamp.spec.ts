@@ -143,6 +143,26 @@ describe('DtChart Timestamp', () => {
       timestamp = fixture.componentInstance.timestamp;
     });
 
+    it('should emit a close event when the timestamp is destroyed by calling the handle close function', () => {
+      expect(fixture.componentInstance._closed).toBe(0);
+
+      timestamp._handleOverlayClose();
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance._closed).toBe(1);
+    });
+
+    it('should emit a close event when the timestamp is destroyed by pressing delete key', () => {
+      expect(fixture.componentInstance._closed).toBe(0);
+
+      const fakeEvent = createKeyboardEvent('keyupEvent', DELETE);
+
+      timestamp._handleKeyUp(fakeEvent);
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance._closed).toBe(1);
+    });
+
     it('should have initial values from binding and update them', () => {
       expect(timestamp._hidden).toBe(false);
       let container = fixture.debugElement.query(By.css(TIMESTAMP_SELECTOR))
@@ -398,16 +418,23 @@ export class TimestampTestA11yComponent implements OnInit {
 
 @Component({
   selector: 'timestamp-test-bind-value-component',
-  template: '<dt-chart-timestamp [value]="value"></dt-chart-timestamp>',
+  template:
+    '<dt-chart-timestamp [value]="value" (closed)="closed()"></dt-chart-timestamp>',
 })
 export class TimestampTestBindingValuesComponent implements OnInit {
   @ViewChild(DtChartTimestamp, { static: true }) timestamp: DtChartTimestamp;
   value = 10;
+
+  _closed = 0;
 
   ngOnInit(): void {
     this.timestamp._minValue = new Date('2019/01/01 00:00:00').getTime();
     this.timestamp._maxValue = new Date('2019/12/31 00:00:00').getTime();
     this.timestamp._valueToPixels = (value: number) => value;
     this.timestamp._pixelsToValue = (value: number) => value;
+  }
+
+  closed(): void {
+    this._closed++;
   }
 }

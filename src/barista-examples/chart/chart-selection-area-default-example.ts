@@ -9,6 +9,7 @@ import { generateData } from './chart-data-utils';
     <dt-chart [options]="options" [series]="series">
       <dt-chart-timestamp
         aria-label-close="Close the selection"
+        (closed)="closed()"
       ></dt-chart-timestamp>
       <dt-chart-range
         aria-label-close="Close the selection"
@@ -16,6 +17,7 @@ import { generateData } from './chart-data-utils';
         aria-label-right-handle="The right handle to update the selection"
         aria-label-selected-area="The selected time-frame"
         (valid)="rangeValidChanges($event)"
+        (closed)="closed()"
       >
         <button
           aria-label="Apply the selection"
@@ -35,6 +37,11 @@ export class ChartSelectionAreaDefaultExample {
   rangeValidChanges(valid: boolean): void {
     this.validRange = valid;
   }
+
+  closed(): void {
+    // emits when the selection gets closed
+  }
+
   /** Chart options and series */
   options: Highcharts.Options = {
     xAxis: {

@@ -113,8 +113,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   }
   set value(value: [number, number]) {
     if (!isNumber(value[0]) || !isNumber(value[1])) {
-      this._reset();
-      this._closeOverlay.next();
+      this._handleOverlayClose();
       return;
     }
     this._value = value;
@@ -140,6 +139,9 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
 
   /** Emits when the selection area is valid *(greater than the minimum constraint)* */
   @Output() readonly valid = new BehaviorSubject(false);
+
+  /** Event that is emitted when the range is closed. */
+  @Output() readonly closed = new EventEmitter<void>();
 
   /**
    * @internal
@@ -316,6 +318,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   _handleOverlayClose(): void {
     this._closeOverlay.next();
     this._reset();
+    this.closed.emit();
   }
 
   /**
@@ -363,8 +366,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
           ? this._rangeArea.left
           : this._rangeArea.left + this._rangeArea.width;
       // reset the range
-      this._reset();
-      this._closeOverlay.next();
+      this._handleOverlayClose();
       this._emitStateChanges();
       this._switchToTimestamp.next(timestamp);
       return;
