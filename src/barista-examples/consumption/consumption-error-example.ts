@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
       </dt-consumption-count>
 
       <dt-consumption-label>
-        Restricted host unit hours
+        Restricted overages
       </dt-consumption-label>
 
       <dt-consumption-overlay>
@@ -38,6 +38,6 @@ import { Component } from '@angular/core';
 })
 export class ConsumptionErrorExample {
   min = 0;
-  max = 20;
-  value = 5;
+  max = 8000000000;
+  value = 8000000000;
 }
