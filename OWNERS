@@ -7,6 +7,10 @@ branch master
     thomas.pink
     fabian.friedl
     thomas.heller
+  path **
+    thomas.pink
+    fabian.friedl
+    thomas.heller
   +path src/lib/alert/**
     lara.aigmueller
   +path src/lib/chart/selection-area/**, src/lib/chart/range/**, src/lib/chart/timestamp/**
@@ -35,10 +39,3 @@ branch master
     lara.aigmueller
   +path src/lib/tag/**
     christoph.matscheko
-
-branch release-stage/*
-  path **
-    thomas.pink
-    fabian.friedl
-    thomas.heller
-
