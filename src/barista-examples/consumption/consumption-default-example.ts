@@ -22,9 +22,9 @@ import { Component } from '@angular/core';
 
       <dt-consumption-overlay>
         <dt-consumption
-          [min]="0"
-          [max]="100000000"
-          [value]="100000000"
+          [min]="min"
+          [max]="max"
+          [value]="value"
           class="overlay-value-panel"
         >
           <dt-consumption-title>
@@ -40,6 +40,7 @@ import { Component } from '@angular/core';
 
         <div class="overlay-value-panel">
           <div>Consumption breakdown</div>
+
           <dt-key-value-list>
             <dt-key-value-list-item *ngFor="let entry of breakdown">
               <dt-key-value-list-key>{{ entry.name }}</dt-key-value-list-key>
@@ -72,8 +73,8 @@ export class ConsumptionDefaultExample {
   max = 20;
   value = 5;
   breakdown = [
-    { name: 'SAAS', value: 2 },
+    { name: 'Cloud infrastructure', value: 2 },
     { name: 'Full stack', value: 2 },
-    { name: 'PAAS', value: 1 },
+    { name: 'Cloud app platform', value: 1 },
   ];
 }

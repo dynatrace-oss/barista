@@ -23,8 +23,8 @@ import { Component } from '@angular/core';
       <dt-consumption-overlay>
         <dt-consumption
           [min]="0"
-          [max]="100000000"
-          [value]="100000000"
+          [max]="quota"
+          [value]="quota"
           color="warning"
           class="overlay-value-panel"
         >
@@ -35,14 +35,14 @@ import { Component } from '@angular/core';
             Quota
           </dt-consumption-subtitle>
           <dt-consumption-count>
-            {{ 100000000 | dtCount }}/{{ 100000000 | dtCount }}
+            {{ quota | dtCount }}/{{ quota | dtCount }}
           </dt-consumption-count>
         </dt-consumption>
 
         <dt-consumption
           [min]="0"
-          [max]="10500000"
-          [value]="10500000"
+          [max]="flexibleOverages"
+          [value]="flexibleOverages"
           color="warning"
           class="overlay-value-panel"
         >
@@ -50,7 +50,7 @@ import { Component } from '@angular/core';
             Flexible overages
           </dt-consumption-subtitle>
           <dt-consumption-count>
-            {{ 10500000 | dtCount }}/unlimited
+            {{ flexibleOverages | dtCount }}/unlimited
           </dt-consumption-count>
         </dt-consumption>
 
@@ -68,8 +68,8 @@ import { Component } from '@angular/core';
 
         <dt-consumption
           [min]="0"
-          [max]="20000000"
-          [value]="20000000"
+          [max]="free"
+          [value]="free"
           color="warning"
           class="overlay-value-panel"
         >
@@ -77,7 +77,7 @@ import { Component } from '@angular/core';
             Free (Exp. 20. Mar 2019)
           </dt-consumption-subtitle>
           <dt-consumption-count>
-            {{ 20000000 | dtCount }}/{{ 20000000 | dtCount }}
+            {{ free | dtCount }}/{{ free | dtCount }}
           </dt-consumption-count>
         </dt-consumption>
       </dt-consumption-overlay>
@@ -86,8 +86,13 @@ import { Component } from '@angular/core';
 })
 export class ConsumptionWarningExample {
   min = 0;
-  max = 20;
-  value = 5;
+  max = 120_000_000;
+  value = 130_500_000;
+
+  free = 20_000_000;
+  quota = 100_000_000;
+  flexibleOverages = 10_500_000;
+
   breakdown = [
     { name: 'Synthetic actions', value: 36_500_000 },
     { name: 'Sessions', value: 37_400_000 },
