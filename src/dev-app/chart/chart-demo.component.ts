@@ -34,4 +34,8 @@ export class ChartDemo {
   onTimeframeApply(): void {
     console.log('do something');
   }
+
+  closed(): void {
+    console.log('selection area closed');
+  }
 }

@@ -254,6 +254,7 @@ and `aria-label-close`, to meet our accessibility standards.
 | -------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | `valueChanges` | `EventEmitter<[number, number]>` | Event emitted when the values of the selected range have changed. Emits when the drag is complete. _(Not triggered programmatically.)_ |
 | `valid`        | `BehaviorSubject<boolean>`       | Event emitted when the selection area is valid, i.e. greater than the minimum constraint.                                              |
+| `closed`       | `EventEmitter<void>`             | Event emitted when the range has been closed.                                                                                          |
 
 #### Methods
 
@@ -290,6 +291,7 @@ and `aria-label-close`, to meet our accessibility standards.
 | Name           | Type                   | Description                                                                                                                   |
 | -------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `valueChanges` | `EventEmitter<number>` | Event emitted when the value of the timestamp has changed by user triggered interactions. _(Not triggered programmatically.)_ |
+| `closed`       | `EventEmitter<void>`   | Event emitted when the timestamp has been closed.                                                                             |
 
 #### Methods
 

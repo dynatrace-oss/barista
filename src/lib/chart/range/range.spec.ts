@@ -1,6 +1,7 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { DELETE } from '@angular/cdk/keycodes';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -13,6 +14,7 @@ import {
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 
 import { dispatchFakeEvent } from '../../../testing/dispatch-events';
+import { createKeyboardEvent } from '../../../testing/event-objects';
 import {
   ARIA_DEFAULT_LEFT_HANDLE_LABEL,
   ARIA_DEFAULT_RIGHT_HANDLE_LABEL,
@@ -161,6 +163,35 @@ describe('DtChart Range', () => {
       range = fixture.componentInstance.range;
       range._maxWidth = 400;
       fixture.detectChanges();
+    });
+
+    it('should emit a close event when the range is destroyed by resetting the value', () => {
+      expect(fixture.componentInstance._closed).toBe(0);
+
+      fixture.componentInstance.values = [];
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance._closed).toBe(1);
+    });
+
+    it('should emit a close event when the range is destroyed by calling the handle close function', () => {
+      expect(fixture.componentInstance._closed).toBe(0);
+
+      range._handleOverlayClose();
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance._closed).toBe(1);
+    });
+
+    it('should emit a close event when the range is destroyed by pressing delete key', () => {
+      expect(fixture.componentInstance._closed).toBe(0);
+
+      const fakeEvent = createKeyboardEvent('keyupEvent', DELETE);
+
+      range._handleKeyUp(fakeEvent, 'left');
+      fixture.detectChanges();
+
+      expect(fixture.componentInstance._closed).toBe(1);
     });
 
     it('should have initial values from binding and update them', () => {
@@ -396,14 +427,21 @@ export class RangeA11yTestComponent implements OnInit {
 
 @Component({
   selector: 'range-test-bind-value-component',
-  template: '<dt-chart-range [value]="values"></dt-chart-range>',
+  template:
+    '<dt-chart-range [value]="values" (closed)="closed()"></dt-chart-range>',
 })
 export class RangeTestBindingValuesComponent implements OnInit {
   @ViewChild(DtChartRange, { static: true }) range: DtChartRange;
 
   values = [10, 100];
 
+  _closed = 0;
+
   ngOnInit(): void {
     this.range._valueToPixels = (value: number) => value;
+  }
+
+  closed(): void {
+    this._closed++;
   }
 }
