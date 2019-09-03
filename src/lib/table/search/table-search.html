@@ -1,0 +1,13 @@
+<dt-form-field>
+  <input
+    dtInput
+    type="text"
+    (blur)="_handleBlur()"
+    (input)="_handleInputChange($event)"
+    [value]="value"
+    [placeholder]="placeholder"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledBy"
+  />
+  <dt-icon dtPrefix color="dark" name="search-magnifyingglass">$</dt-icon>
+</dt-form-field>

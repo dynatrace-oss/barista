@@ -5,8 +5,10 @@ import { NgModule } from '@angular/core';
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtIndicatorModule } from '@dynatrace/angular-components/core';
 import { DtEmptyStateModule } from '@dynatrace/angular-components/empty-state';
+import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
 import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtInputModule } from '@dynatrace/angular-components/input';
 
 import { DtCell, DtCellDef, DtColumnDef } from './cell';
 import { DtExpandableCell, DtExpandableRow } from './expandable/index';
@@ -17,6 +19,7 @@ import {
   DtHeaderRowDef,
 } from './header/index';
 import { DtRow, DtRowDef } from './row';
+import { DtTableSearch } from './search/index';
 import {
   DtSimpleNumberColumn,
   DtSimpleTextColumn,
@@ -54,6 +57,7 @@ const EXPORTED_DECLARATIONS = [
   DtTableLoadingState,
   DtSort,
   DtSortHeader,
+  DtTableSearch,
   DtSimpleTextColumn,
   DtSimpleNumberColumn,
 ];
@@ -63,6 +67,8 @@ const EXPORTED_DECLARATIONS = [
     CommonModule,
     CdkTableModule,
     DtIconModule,
+    DtFormFieldModule,
+    DtInputModule,
     DtButtonModule,
     DtIndicatorModule,
     DtFormattersModule,
