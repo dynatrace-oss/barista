@@ -55,4 +55,3 @@ export * from '@dynatrace/angular-components/menu';
 export * from '@dynatrace/angular-components/timeline-chart';
 export * from '@dynatrace/angular-components/legend';
 export * from '@dynatrace/angular-components/expandable-text';
-export * from '@dynatrace/angular-components/event-chart';
