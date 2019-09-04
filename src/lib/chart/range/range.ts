@@ -474,6 +474,8 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     if (value) {
       this._value = value;
     }
+    // mark for check to update the value binding in the range overlay
+    this._changeDetectorRef.markForCheck();
   }
 
   /**
