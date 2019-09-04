@@ -1,3 +1,41 @@
+## 4.7.0 (2019-09-03)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue that the chart selection area overlay pushed itself
+  on the screen.
+- **chart:** Fixes an issue that the range was able to grow outside the
+  boundaries when the drag started on a series.
+- **chart:** Fixes an issue where the change detection of the overlay did not
+  work when the component was onPush
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **chart:** Provides new default options for legendItemClick event handler for
+  non pie charts that prevent all legend items to be disabled.
+- **consumption:** Fixes an issue where ARIA heading role was hard-coded.
+- **empty-state:** Fixes an issue where empty state did not scale in a
+  responsive way.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Fixes an issue where the edit mode did not reset when a
+  filter is removed.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **overlay:** Fixes an issue where positioning in svg elements was off.
+
+### Features
+
+- **chart:** Added a closed output to the range and timestamp component.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **event-chart:** Added event chart as an experimental component. Note that the
+  event-chart is not part of the root package - please import from
+  @dynatrace/angular-components/event-chart
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **expandable-text:** Added expandable-text component.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Added free text validation to the filter field with Angular
+  forms validators.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **table-search:** Added table-search component.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 4.6.1 (2019-08-26)
 
 ### Bug Fixes
