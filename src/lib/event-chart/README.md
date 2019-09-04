@@ -1,8 +1,31 @@
 ---
-type: 'component'
+title: 'Event chart (experimental)'
+postid: event-chart
+identifier: 'Ec'
+category: 'components'
+properties:
+  - 'experimental'
+contributors:
+  dev:
+    - thomas.pink
+    - thomas.heller
+  ux:
+    - xavier.javaloyas
+  tags:
+    - 'chart'
+    - 'event-chart'
+    - 'component'
+    - 'angular'
+related:
+  - chart
+  - micro-chart
+  - timeline-chart
 ---
 
-# EventChart (experimental)
+# Event chart (experimental)
+
+Note: This component is still experimental, use with caution! Help us get this
+component out of the experimental state by providing feedback.
 
 <docs-source-example example="EventChartDefaultExample"></docs-source-example>
 
@@ -57,5 +80,3 @@ TODO
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 
-
-## Examples
