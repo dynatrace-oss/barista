@@ -106,8 +106,10 @@ window.highchartsMore = require('highcharts/highcharts-more')(Highcharts);
 // Override Highcharts prototypes
 // added to the window so uglify does not drop this from the bundle
 window.configureLegendSymbols = configureLegendSymbols;
+window.highchartsGlobalOptions = ((): void => {
+  setOptions(DT_CHART_DEFAULT_GLOBAL_OPTIONS);
+})();
 // Highcharts global options, set outside component so its not set every time a chart is created
-setOptions(DT_CHART_DEFAULT_GLOBAL_OPTIONS);
 // added to the window so uglify does not drop this from the bundle
 window.highchartsTooltipEventsAdded = addTooltipEvents();
 
