@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'warning-consumption-example',
   template: `
-    <dt-consumption [min]="min" [max]="max" [value]="value" color="warning">
+    <dt-consumption [max]="max" [value]="value" color="warning">
       <dt-consumption-icon aria-label="User Group">
         <dt-icon name="usergroup"></dt-icon>
       </dt-consumption-icon>
@@ -22,7 +22,6 @@ import { Component } from '@angular/core';
 
       <dt-consumption-overlay>
         <dt-consumption
-          [min]="0"
           [max]="quota"
           [value]="quota"
           color="warning"
@@ -67,7 +66,6 @@ import { Component } from '@angular/core';
         </div>
 
         <dt-consumption
-          [min]="0"
           [max]="free"
           [value]="free"
           color="warning"
@@ -85,7 +83,6 @@ import { Component } from '@angular/core';
   `,
 })
 export class ConsumptionWarningExample {
-  min = 0;
   max = 120_000_000;
   value = 130_500_000;
 
