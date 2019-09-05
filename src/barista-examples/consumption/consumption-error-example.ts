@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'error-consumption-example',
   template: `
-    <dt-consumption [min]="min" [max]="max" [value]="value" color="error">
+    <dt-consumption [max]="max" [value]="value" color="error">
       <dt-consumption-icon aria-label="Log file">
         <dt-icon name="logfile"></dt-icon>
       </dt-consumption-icon>
@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
       </dt-consumption-label>
 
       <dt-consumption-overlay>
-        <dt-consumption [min]="min" [max]="max" [value]="value" color="error">
+        <dt-consumption [max]="max" [value]="value" color="error">
           <dt-consumption-title>
             Log analytics
           </dt-consumption-title>
@@ -37,7 +37,6 @@ import { Component } from '@angular/core';
   `,
 })
 export class ConsumptionErrorExample {
-  min = 0;
   max = 8000000000;
   value = 8000000000;
 }

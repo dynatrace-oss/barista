@@ -78,7 +78,12 @@ const KEY_RETURN = 13;
 })
 export class DtConsumption extends _DtConsumption
   implements AfterViewInit, OnDestroy {
-  /** Smallest possible {@link value} for this consumption component instance. */
+  /**
+   * Smallest possible {@link value} for this consumption component instance.
+   *
+   * @deprecated Do not use this input, minimum value is `0` in all use-cases
+   * @breaking-change Min property will be removed in version 5.0.0
+   */
   @Input()
   get min(): number {
     return this._min;

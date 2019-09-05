@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'default-consumption-example',
   template: `
-    <dt-consumption [min]="min" [max]="max" [value]="value">
+    <dt-consumption [max]="max" [value]="value">
       <dt-consumption-icon aria-label="Host">
         <dt-icon name="host"></dt-icon>
       </dt-consumption-icon>
@@ -21,12 +21,7 @@ import { Component } from '@angular/core';
       </dt-consumption-label>
 
       <dt-consumption-overlay>
-        <dt-consumption
-          [min]="min"
-          [max]="max"
-          [value]="value"
-          class="overlay-value-panel"
-        >
+        <dt-consumption [max]="max" [value]="value" class="overlay-value-panel">
           <dt-consumption-title>
             Host units
           </dt-consumption-title>
@@ -51,12 +46,7 @@ import { Component } from '@angular/core';
           </dt-key-value-list>
         </div>
 
-        <dt-consumption
-          [min]="0"
-          [max]="5"
-          [value]="0"
-          class="overlay-value-panel"
-        >
+        <dt-consumption [max]="5" [value]="0" class="overlay-value-panel">
           <dt-consumption-subtitle>
             Free credits (Exp. 20. Mar 2019)
           </dt-consumption-subtitle>
@@ -69,7 +59,6 @@ import { Component } from '@angular/core';
   `,
 })
 export class ConsumptionDefaultExample {
-  min = 0;
   max = 20;
   value = 5;
   breakdown = [
