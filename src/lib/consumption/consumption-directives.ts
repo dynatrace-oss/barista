@@ -54,7 +54,11 @@ export class DtConsumptionSubtitle {}
   },
 })
 export class DtConsumptionIcon {
-  /** Accessibility label describing the icon in the consumption component. */
+  /**
+   * Accessibility label describing the icon in the consumption component.
+   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
+   * @breaking-change to be removed in 6.0.0
+   */
   @Input('aria-label') ariaLabel: string;
 }
 
