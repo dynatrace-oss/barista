@@ -59,7 +59,6 @@ class MyModule {}
 
 | Name  | Type   | Default  | Description                                                                                                                |
 | ----- | ------ | -------- | -------------------------------------------------------------------------------------------------------------------------- |
-| min   | number | `0`      | Smallest possible value for this consumption component instance                                                            |
 | max   | number | `0`      | Largest possible value for this consumption component instance                                                             |
 | value | number | `0`      | The currently displayed value for this consumption component instance. The value must be within the interval `[min, max]`. |
 | color | string | `'main'` | The color scheme used for the progress bar. Only values defined in type `DtConsumptionThemePalette` are considered valid.  |

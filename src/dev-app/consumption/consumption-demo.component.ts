@@ -9,7 +9,6 @@ import { DtConsumptionThemePalette } from '@dynatrace/angular-components/consump
   styleUrls: ['./consumption-demo.component.scss'],
 })
 export class ConsumptionDemo {
-  min = 0;
   max = 20;
   value = 5;
   color: DtConsumptionThemePalette = 'main';
@@ -20,7 +19,6 @@ export class ConsumptionDemo {
     { name: 'PAAS', value: 1 },
   ];
 
-  warningMin = 0;
   warningMax = 130_500_000;
   warningValue = 120_000_000;
   warningColor: DtConsumptionThemePalette = 'warning';
@@ -31,12 +29,10 @@ export class ConsumptionDemo {
     { name: 'Sessions w/ replay data', value: 36_600_000 },
   ];
 
-  errorMin = 0;
   errorMax = 8_000_000_000;
   errorValue = 8_000_000_000;
   errorColor: DtConsumptionThemePalette = 'error';
 
-  noOverlayMin = 0;
   noOverlayMax = 55_000_000;
   noOverlayValue = 45_600_000;
   noOverlayColor: DtConsumptionThemePalette = 'main';
