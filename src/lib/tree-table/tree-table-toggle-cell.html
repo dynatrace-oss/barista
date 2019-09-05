@@ -6,6 +6,7 @@
     [disabled]="!_expandable"
     (click)="_treeControl.toggle(_rowData);"
     [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledBy"
   >
     <dt-icon
       *ngIf="_expandable"

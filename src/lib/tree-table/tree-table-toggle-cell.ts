@@ -42,6 +42,8 @@ export class DtTreeTableToggleCell<T> extends DtCell
   implements OnDestroy, AfterViewInit {
   /** The aria label for the toggle button */
   @Input('aria-label') ariaLabel: string;
+  /** Aria reference to a label describing the toggle button. */
+  @Input('aria-labelledby') ariaLabelledBy: string;
 
   /** @internal Wether the row is expanded */
   get _isExpanded(): boolean {

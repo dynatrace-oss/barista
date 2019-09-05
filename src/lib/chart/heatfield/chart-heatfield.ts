@@ -140,6 +140,8 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
 
   /** Provide an aria-label for better accessibility. */
   @Input('aria-label') ariaLabel: string;
+  /** Aria reference to a label for better accessibility. */
+  @Input('aria-labelledby') ariaLabelledBy: string;
 
   private _destroyed = new Subject<void>();
   private _relativeBoundingBox: { top: number; left: number; width: number };

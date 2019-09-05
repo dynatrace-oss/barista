@@ -116,6 +116,8 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   /** Aria label of the context-dialog. */
   @Input('aria-label') ariaLabel: string;
+  /** Aria reference to a label describing the context-dialog. */
+  @Input('aria-labelledby') ariaLabelledBy: string;
 
   /** Aria label of the context-dialog's close button. */
   @Input('aria-label-close-button') ariaLabelClose: string;
