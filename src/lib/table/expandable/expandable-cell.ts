@@ -35,4 +35,6 @@ export class DtExpandableCell extends DtCell {
 
   /** Aria label applied to the cell for better accessibility. */
   @Input('aria-label') ariaLabel: string;
+  /** Aria reference to a label describing the cell. */
+  @Input('aria-labelledby') ariaLabelledBy: string;
 }

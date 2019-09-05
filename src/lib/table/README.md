@@ -450,9 +450,9 @@ using the row's `expanded` input.
 ### DtExpandableCell
 
 Expandable rows have to contain one column definition which contains a
-`dt-expandable-cell`. Its `ariaLabel` input describes the action of toggling the
-state of the expandable row. A sample column definition for the details column
-could look like this:
+`dt-expandable-cell`. Its `aria-label` or `aria-labelledby` input describes the
+action of toggling the state of the expandable row. A sample column definition
+for the details column could look like this:
 
 ```html
 <ng-container dtColumnDef="details" dtColumnAlign="control">
