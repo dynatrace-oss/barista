@@ -1,7 +1,6 @@
 <div class="consumption-demo">
   <div class="demo-component">
     <dt-consumption
-      [min]="min"
       [max]="max"
       [value]="value"
       [color]="color"
@@ -70,9 +69,6 @@
   </div>
   <div class="demo-settings">
     <dl>
-      <dt>Min:</dt>
-      <dd><input type="number" [(ngModel)]="min" /></dd>
-
       <dt>Max:</dt>
       <dd><input type="number" [(ngModel)]="max" /></dd>
 
@@ -92,7 +88,6 @@
 
   <div class="demo-component">
     <dt-consumption
-      [min]="warningMin"
       [max]="warningMax"
       [value]="warningValue"
       [color]="warningColor"
@@ -178,9 +173,6 @@
   </div>
   <div class="demo-settings">
     <dl>
-      <dt>Min:</dt>
-      <dd><input type="number" [(ngModel)]="warningMin" /></dd>
-
       <dt>Max:</dt>
       <dd><input type="number" [(ngModel)]="warningMax" /></dd>
 
@@ -200,7 +192,6 @@
 
   <div class="demo-component">
     <dt-consumption
-      [min]="errorMin"
       [max]="errorMax"
       [value]="errorValue"
       [color]="errorColor"
@@ -243,9 +234,6 @@
   </div>
   <div class="demo-settings">
     <dl>
-      <dt>Min:</dt>
-      <dd><input type="number" [(ngModel)]="errorMin" /></dd>
-
       <dt>Max:</dt>
       <dd><input type="number" [(ngModel)]="errorMax" /></dd>
 
@@ -265,7 +253,6 @@
 
   <div class="demo-component">
     <dt-consumption
-      [min]="noOverlayMin"
       [max]="noOverlayMax"
       [value]="noOverlayValue"
       [color]="noOverlayColor"
@@ -289,9 +276,6 @@
   </div>
   <div class="demo-settings">
     <dl>
-      <dt>Min:</dt>
-      <dd><input type="number" [(ngModel)]="noOverlayMin" /></dd>
-
       <dt>Max:</dt>
       <dd><input type="number" [(ngModel)]="noOverlayMax" /></dd>
 
