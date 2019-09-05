@@ -96,6 +96,10 @@ export class DtMenuGroup {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtMenu {
-  /** Accessibility label describing the menu. */
+  /**
+   * Accessibility label describing the menu.
+   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
+   * @breaking-change to be removed in 6.0.0
+   */
   @Input('aria-label') ariaLabel: string;
 }

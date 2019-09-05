@@ -53,21 +53,29 @@ displayed, in order to force the user to save or discard a change. The
 `dt-confirmation-dialog-actions` directive can be used to properly group action
 buttons used within a `dt-confirmation-dialog-state`
 
-## Options and Properties
+## Options & Properties
 
-### dt-confirmation-dialog
+### DtConfirmationDialog
 
-| Name                    | Type            | Default | Description                                                                                    |
-| ----------------------- | --------------- | ------- | ---------------------------------------------------------------------------------------------- |
-| `@Input() state`        | `string | null` | `null`  | The name of the currently active state, or a falsey value if none are active.                  |
-| `@Input() aria-label`   | `string`        |         | Accessibility label describing the dialog.                                                     |
-| `@Input() showBackdrop` | `boolean`       | `false` | Whether or not to show the backdrop disabling all other page functionality besides the dialog. |
+#### Inputs
 
-### dt-confirmation-dialog-state
+| Name              | Type            | Default     | Description                                                                                    |
+| ----------------- | --------------- | ----------- | ---------------------------------------------------------------------------------------------- |
+| `state`           | `string | null` | `null`      | The name of the currently active state, or a falsey value if none are active.                  |
+| `aria-label`      | `string`        | `undefined` | Accessibility label describing the dialog.                                                     |
+| `aria-labelledby` | `string`        | `undefined` | ARIA reference to a label describing the confirmation dialog                                   |
+| `showBackdrop`    | `boolean`       | `false`     | Whether or not to show the backdrop disabling all other page functionality besides the dialog. |
 
-| Name            | Type            | Default | Description                                                                          |
-| --------------- | --------------- | ------- | ------------------------------------------------------------------------------------ |
-| `@Input() name` | `string | null` | `null`  | The name of the state that corresponds to this dt-confirmation-dialog-state element. |
+To make our components accessible it is obligatory to provide either an
+`aria-label` or `aria-labelledby`.
+
+### DtConfirmationDialogState
+
+#### Inputs
+
+| Name   | Type            | Default | Description                                                                          |
+| ------ | --------------- | ------- | ------------------------------------------------------------------------------------ |
+| `name` | `string | null` | `null`  | The name of the state that corresponds to this dt-confirmation-dialog-state element. |
 
 ## Responsiveness
 

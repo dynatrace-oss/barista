@@ -45,7 +45,11 @@ export const _DtBreadcrumbMixinBase = mixinColor<
 })
 export class DtBreadcrumbs extends _DtBreadcrumbMixinBase
   implements AfterContentInit, OnDestroy {
-  /** Aria label for the breadcrumbs */
+  /**
+   * Aria label for the breadcrumbs
+   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
+   * @breaking-change to be removed in 6.0.0
+   */
   @Input('aria-label') ariaLabel: string;
   // tslint:disable:deprecation
   @ContentChildren(DtBreadcrumbsItem)

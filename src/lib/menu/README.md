@@ -29,13 +29,20 @@ You have to import the `DtMenuModule` when you want to use the `<dt-menu>`:
 class MyModule {}
 ```
 
-## DtMenu Inputs
+## DtMenu
 
-| Name       | Type   | Default     | Description                                 |
-| ---------- | ------ | ----------- | ------------------------------------------- |
-| aria-label | string | `undefined` | An accessibility label describing the menu. |
+### Inputs
 
-## DtMenuGroup Inputs
+| Name       | Type     | Default     | Description                                 |
+| ---------- | -------- | ----------- | ------------------------------------------- |
+| aria-label | `string` | `undefined` | An accessibility label describing the menu. |
+
+To make our components accessible it is obligatory to provide either an
+`aria-label` or `aria-labelledby`.
+
+## DtMenuGroup
+
+### Inputs
 
 | Name  | Type   | Default     | Description                   |
 | ----- | ------ | ----------- | ----------------------------- |

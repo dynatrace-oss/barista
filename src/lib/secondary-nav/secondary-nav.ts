@@ -1,3 +1,4 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -5,14 +6,14 @@ import {
   ContentChildren,
   Directive,
   Input,
+  OnDestroy,
   QueryList,
   ViewEncapsulation,
-  OnDestroy,
 } from '@angular/core';
+import { Subject, Subscription, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 import { DtSecondaryNavSection } from './section/secondary-nav-section';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Subscription, Subject, merge } from 'rxjs';
 
 @Directive({
   selector: '[dtSecondaryNavLink]',
@@ -49,7 +50,11 @@ export class DtSecondaryNavTitle {}
   encapsulation: ViewEncapsulation.None,
 })
 export class DtSecondaryNav implements AfterViewInit, OnDestroy {
-  /** Accessibility label describing the nav. */
+  /**
+   * Accessibility label describing the nav.
+   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
+   * @breaking-change to be removed in 6.0.0
+   */
   @Input('aria-label') ariaLabel: string;
 
   /** Whether the nav has multi section support. */
