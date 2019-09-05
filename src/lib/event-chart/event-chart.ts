@@ -395,6 +395,9 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
     }
 
     const patternHost = this._document.createElement('div');
+    // Move off-canvas so it does not overlap elements
+    patternHost.style =
+      'pointer-events: none; position: absolute; left: -999px;';
     this._document.body.appendChild(patternHost);
 
     const portal = new TemplatePortal(
