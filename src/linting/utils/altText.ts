@@ -52,8 +52,8 @@ export function hasTextContentAlternative(
     return (
       checkForAttribute('aria-label') ||
       checkForAttribute('attr.aria-label') ||
-      checkForAttribute('aria-labelledby') ||
-      checkForAttribute('attr.aria-labelledby')
+      checkForAttribute('attr.aria-labelledby') ||
+      checkForAttribute('aria-labelledby')
     );
   }
   return checkForAttribute(attribute);

@@ -58,20 +58,6 @@ describe('DtBreadcrumbs', () => {
 
     expect(breadcrumbs).not.toBeFalsy();
   });
-
-  it('should make sure aria label is set programmatically', () => {
-    const fixture = createComponent(TestBreadcrumbs);
-    const breadcrumbs = fixture.componentInstance.breadcrumbs;
-    breadcrumbs.ariaLabel = 'myverycoollabel';
-
-    fixture.detectChanges();
-
-    const breadcrumbsNative = fixture.debugElement.query(
-      By.css('dt-breadcrumbs[aria-label=myverycoollabel]'),
-    );
-
-    expect(breadcrumbsNative).not.toBeFalsy();
-  });
 });
 
 @Component({
@@ -89,7 +75,7 @@ class TestBreadcrumbs {
 
 @Component({
   template: `
-    <dt-breadcrumbs [aria-label]="ariaLabel">
+    <dt-breadcrumbs [aria-label]="'breadcrumbs'">
       <a dtBreadcrumbsItem></a>
       <a dtBreadcrumbsItem></a>
     </dt-breadcrumbs>

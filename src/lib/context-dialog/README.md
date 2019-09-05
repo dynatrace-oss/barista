@@ -26,13 +26,17 @@ class MyModule {}
 
 ## Inputs
 
-| Name                      | Type                                                       | Default | Description                                                                                             |
-| ------------------------- | ---------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------- |
-| `tabIndex`                | `number`                                                   | `0`     | Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex.                           |
-| `disabled`                | `boolean`                                                  | `false` | Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled.                  |
-| `aria-label`              | `string`                                                   |         | ARIA label of the context dialog trigger button.                                                        |
-| `aria-label-close-button` | `string`                                                   |         | ARIA label of the context dialog close button.                                                          |
-| `overlayPanelClass`       | `string | string[] | Set<string> | { [key: string]: any }` |         | Custom css classes to add to the overlay panel element. Can be used to scope styling within the overlay |
+| Name                      | Type                                                       | Default     | Description                                                                                             |
+| ------------------------- | ---------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- |
+| `tabIndex`                | `number`                                                   | `0`         | Gets and sets the tabIndex on the context dialog. Inherited by mixinTabIndex.                           |
+| `disabled`                | `boolean`                                                  | `false`     | Gets and sets the disabled property on the context dialog. Inherited by mixinDisabled.                  |
+| `aria-label`              | `string`                                                   | `undefined` | ARIA label of the context dialog trigger button.                                                        |
+| `aria-labelledby`         | `string`                                                   | `undefined` | ARIA reference to a label describing the context-dialog.                                                |
+| `aria-label-close-button` | `string`                                                   |             | ARIA label of the context dialog close button.                                                          |
+| `overlayPanelClass`       | `string | string[] | Set<string> | { [key: string]: any }` |             | Custom css classes to add to the overlay panel element. Can be used to scope styling within the overlay |
+
+To make our components accessible it is obligatory to provide either an
+`aria-label` or `aria-labelledby`.
 
 ## Properties
 
