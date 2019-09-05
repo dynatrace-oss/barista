@@ -70,6 +70,9 @@ included on inner section links in order to style them.
 | `aria-label` | `string`  | An accessibility label describing the menu.                                  |
 | `multi`      | `boolean` | Whether or not the nav allows multiple sections to be opened simultaneously. |
 
+To make our components accessible it is obligatory to provide either an
+`aria-label` or `aria-labelledby`.
+
 ## DtSecondaryNavSection
 
 ### Inputs

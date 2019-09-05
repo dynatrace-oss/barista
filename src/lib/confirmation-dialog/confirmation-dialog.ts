@@ -47,7 +47,6 @@ const LOG: DtLogger = DtLoggerFactory.create('DtConfirmationDialog');
   preserveWhitespaces: false,
   host: {
     class: 'dt-confirmation-dialog',
-    '[attr.aria-label]': 'ariaLabel',
   },
   animations: [
     trigger('pop', [
@@ -76,6 +75,8 @@ export class DtConfirmationDialog
   implements AfterContentChecked, AfterContentInit, OnDestroy {
   /** Input for the aria-label on the confirmation dialog */
   @Input('aria-label') ariaLabel: string;
+  /** Aria reference to a label describing the confirmation dialog */
+  @Input('aria-labelledby') ariaLabelledBy: string;
 
   /** Show a backdrop covering all page functionality except the confirmation dialog. */
   @Input()

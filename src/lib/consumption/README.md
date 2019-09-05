@@ -1,8 +1,8 @@
 ---
 title: 'Consumption'
 description:
-  'The consumption component visualizes service usage data combining an icon,
-  a title, a progress bar and some description text.'
+  'The consumption component visualizes service usage data combining an icon, a
+  title, a progress bar and some description text.'
 postid: consumption
 category: 'components'
 contributors:
@@ -57,11 +57,26 @@ class MyModule {}
 
 ## Options & Properties
 
+### DtConsumption
+
+#### Inputs
+
 | Name  | Type   | Default  | Description                                                                                                                |
 | ----- | ------ | -------- | -------------------------------------------------------------------------------------------------------------------------- |
 | max   | number | `0`      | Largest possible value for this consumption component instance                                                             |
 | value | number | `0`      | The currently displayed value for this consumption component instance. The value must be within the interval `[min, max]`. |
 | color | string | `'main'` | The color scheme used for the progress bar. Only values defined in type `DtConsumptionThemePalette` are considered valid.  |
+
+### DtConsumptionIcon
+
+#### Inputs
+
+| Name       | Type     | Default     | Description                                                           |
+| ---------- | -------- | ----------- | --------------------------------------------------------------------- |
+| aria-label | `string` | `undefined` | Accessibility label describing the icon in the consumption component. |
+
+To make our components accessible it is obligatory to provide either an
+`aria-label` or `aria-labelledby`.
 
 ## Accessibility
 

@@ -203,9 +203,11 @@ shown in front of the row.
 | Name                 | Type               | Default | Description                                                                                                             |
 | -------------------- | ------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `treeControl`        | `DtTreeControl<T>` | -       | Input for the treeControl that handles expand/collapse of rows                                                          |
-| `ariaLabel`          | `string`           | ''      | Input for the aria label of the treetable                                                                               |
+| `ariaLabel`          | `string`           | ''      | Input for the aria label of the tree-table                                                                              |
 | `hasInteractiveRows` | `boolean`          | `false` | Input wether the tree-table should have interactive rows - results in a hover effect                                    |
 | `trackBy`            | `Fn(index, T)`     |         | Tracking function that will be used to check the differences in data changes. Used similarly to ngFor trackBy function. |
+
+It is obligatory to provide either an `aria-label` or `aria-labelledby`.
 
 ### DtTreeTableRow
 

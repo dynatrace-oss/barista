@@ -55,10 +55,13 @@ directive applied can be used as breadcrumbs items.
 
 ## Inputs
 
-| Name         | Type                           | Default | Description                                                                            |
-| ------------ | ------------------------------ | ------- | -------------------------------------------------------------------------------------- |
-| `color`      | `'main' | 'error' | 'neutral'` | `main`  | Current variation of the theme color which is applied to the color of the breadcrumbs. |
-| `aria-label` | `string`                       | -       | Takes precedence as the element's text alternative.                                    |
+| Name         | Type                           | Default     | Description                                                                            |
+| ------------ | ------------------------------ | ----------- | -------------------------------------------------------------------------------------- |
+| `color`      | `'main' | 'error' | 'neutral'` | `main`      | Current variation of the theme color which is applied to the color of the breadcrumbs. |
+| `aria-label` | `string`                       | `undefined` | Takes precedence as the element's text alternative.                                    |
+
+To make our components accessible it is obligatory to provide either an
+`aria-label` or `aria-labelledby`.
 
 ## Behavior
 
