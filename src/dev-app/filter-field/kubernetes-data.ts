@@ -30,6 +30,7 @@ export const KUBERNETES_DATA = {
         {
           name: 'Node Label',
           key: 'MyKey',
+          unique: true,
           suggestions: ['some cool', 'very weird'],
         },
       ],
