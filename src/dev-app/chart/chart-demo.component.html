@@ -1,4 +1,9 @@
-<dt-chart *ngIf="series && options" [options]="options" [series]="series">
+<dt-chart
+  *ngIf="series && options"
+  [options]="options"
+  [series]="series"
+  (seriesVisibilityChange)="seriesVisibilityChanged($event)"
+>
   <dt-chart-tooltip>
     <ng-template let-tooltip>
       <dt-key-value-list style="min-width: 100px">
