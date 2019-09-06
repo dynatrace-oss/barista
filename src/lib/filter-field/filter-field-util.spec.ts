@@ -1,6 +1,8 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers deprecation
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { Validators } from '@angular/forms';
+
 import {
   dtAutocompleteDef,
   dtFreeTextDef,
@@ -12,6 +14,7 @@ import {
 import {
   DELIMITER,
   createTagDataForFilterValues,
+  defUniquePredicate,
   findDefForSource,
   generateOptionId,
   optionFilterTextPredicate,
@@ -19,7 +22,7 @@ import {
   optionSelectedPredicate,
   peekOptionId,
 } from './filter-field-util';
-import { DtFilterValue } from './types';
+import { DtFilterValue, isDtFreeTextDef } from './types';
 
 describe('DtFilterField Util', () => {
   describe('generateOptionId', () => {
@@ -694,6 +697,111 @@ describe('DtFilterField Util', () => {
       expect(optionOrGroupFilteredPredicate(groupDef, selectedIds, false)).toBe(
         true,
       );
+    });
+  });
+
+  describe('dtFreeTextDef', () => {
+    let optionSource;
+    let optionDef;
+    let validator;
+    beforeEach(() => {
+      optionSource = { name: 'Option 1', uid: '1' };
+      optionDef = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        optionSource.uid,
+        null,
+        null,
+        null,
+      );
+      validator = { validatorFn: Validators.required, error: 'is required' };
+    });
+    it('should create a dtFreeTextDef with the deprecated API without validators and unique and no existing def', () => {
+      const freeTextDef = dtFreeTextDef([], optionSource, null);
+      expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
+      expect(freeTextDef.freeText!.suggestions).toEqual([]);
+      expect(freeTextDef.freeText!.unique).toBeFalsy();
+      expect(freeTextDef.freeText!.validators).toEqual([]);
+    });
+    it('should create a dtFreeTextDef with the deprecated API without validators and unique', () => {
+      const freeTextDef = dtFreeTextDef([], optionSource, optionDef);
+      expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
+      expect(freeTextDef.freeText!.suggestions).toEqual([]);
+      expect(freeTextDef.freeText!.unique).toBeFalsy();
+      expect(freeTextDef.freeText!.validators).toEqual([]);
+    });
+    it('should create a dtFreeTextDef with validators', () => {
+      const freeTextDef = dtFreeTextDef(
+        [],
+        [validator],
+        optionSource,
+        optionDef,
+      );
+      expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
+      expect(freeTextDef.freeText!.suggestions).toEqual([]);
+      expect(freeTextDef.freeText!.unique).toBeFalsy();
+      expect(freeTextDef.freeText!.validators).toEqual([validator]);
+    });
+
+    it('should create a dtFreeTextDef with validators', () => {
+      const freeTextDef = dtFreeTextDef(
+        [],
+        [validator],
+        true,
+        optionSource,
+        optionDef,
+      );
+      expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
+      expect(freeTextDef.freeText!.suggestions).toEqual([]);
+      expect(freeTextDef.freeText!.unique).toBeTruthy();
+      expect(freeTextDef.freeText!.validators).toEqual([validator]);
+    });
+  });
+
+  describe('defUniquePredicate', () => {
+    it('should return false if the unique freetext is already in the selectedIds', () => {
+      const optionSource = { name: 'Option 1', uid: '1' };
+      const selectedIds = new Set([optionSource.uid]);
+      const optionDef = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        optionSource.uid,
+        null,
+        null,
+        null,
+      );
+      const freeTextDef = dtFreeTextDef([], [], true, optionSource, optionDef);
+      expect(defUniquePredicate(freeTextDef, selectedIds)).toBe(false);
+    });
+
+    it('should return true if the unique freetext is not already in the selectedIds', () => {
+      const optionSource = { name: 'Option 1', uid: '1' };
+      const selectedIds = new Set();
+      const optionDef = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        optionSource.uid,
+        null,
+        null,
+        null,
+      );
+      const freeTextDef = dtFreeTextDef([], [], true, optionSource, optionDef);
+      expect(defUniquePredicate(freeTextDef, selectedIds)).toBe(true);
+    });
+
+    it('should return true if the freetext is not unique but already in the selectedIds', () => {
+      const optionSource = { name: 'Option 1', uid: '1' };
+      const selectedIds = new Set([optionSource.uid]);
+      const optionDef = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        optionSource.uid,
+        null,
+        null,
+        null,
+      );
+      const freeTextDef = dtFreeTextDef([], [], false, optionSource, optionDef);
+      expect(defUniquePredicate(freeTextDef, selectedIds)).toBe(true);
     });
   });
 });
