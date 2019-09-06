@@ -38,6 +38,8 @@ export interface DtFreeTextDef {
   suggestions: DtNodeDef[];
   // @breaking-change 5.0.0 To be non optional
   validators?: DtFilterFieldValidator[];
+  // @breaking-change 5.0.0 To be non optional
+  unique?: boolean;
 }
 
 export interface DtGroupDef {
@@ -228,7 +230,11 @@ export function dtFreeTextDef(
   existingNodeDef: DtNodeDef | null,
 ): DtNodeDef;
 
-/** Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one. */
+/**
+ * @deprecated
+ * Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one.
+ * @breaking-change 5.0.0 To be removed, unique required
+ */
 export function dtFreeTextDef(
   suggestions: DtNodeDef[],
   validators: DtFilterFieldValidator[],
@@ -236,24 +242,51 @@ export function dtFreeTextDef(
   existingNodeDef: DtNodeDef | null,
 ): DtNodeDef;
 
+/** Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one. */
 export function dtFreeTextDef(
   suggestions: DtNodeDef[],
-  dataOrValidators: any | DtFilterFieldValidator[],
-  existingNodeDefOrData: DtNodeDef | null,
+  validators: DtFilterFieldValidator[],
+  unique: boolean,
+  data: any,
+  existingNodeDef: DtNodeDef | null,
+): DtNodeDef;
+
+export function dtFreeTextDef(
+  suggestions: DtNodeDef[],
+  validatorsOrData: any | DtFilterFieldValidator[],
+  uniqueOrDataOrExistingNodeDef: DtNodeDef | null | any | boolean,
+  existingNodeDefOrData: DtNodeDef | null | any = null,
   existingNodeDef: DtNodeDef | null = null,
 ): DtNodeDef {
-  let data: any = dataOrValidators;
+  let data: any = validatorsOrData;
   let validators: DtFilterFieldValidator[] = [];
   let currentNodeDef: DtNodeDef | null = existingNodeDefOrData;
-  if (!isDtNodeDef(existingNodeDefOrData)) {
+  let unique;
+
+  // TODO: Check whether we can remove all of this madness with ***REMOVED***
+  if (
+    isDtNodeDef(uniqueOrDataOrExistingNodeDef) ||
+    uniqueOrDataOrExistingNodeDef === null
+  ) {
+    validators = [];
+    unique = false;
+    data = validatorsOrData;
+    currentNodeDef = uniqueOrDataOrExistingNodeDef;
+  } else if (typeof uniqueOrDataOrExistingNodeDef === 'boolean') {
+    validators = validatorsOrData;
+    unique = uniqueOrDataOrExistingNodeDef;
     data = existingNodeDefOrData;
-    validators = dataOrValidators;
+    currentNodeDef = existingNodeDef;
+  } else {
+    validators = validatorsOrData;
+    unique = false;
+    data = uniqueOrDataOrExistingNodeDef;
     currentNodeDef = existingNodeDef;
   }
 
   const def = {
     ...nodeDef(data, currentNodeDef),
-    freeText: { suggestions, validators },
+    freeText: { suggestions, validators, unique },
   };
   def.nodeFlags |= DtNodeFlags.TypeFreeText;
   return def;
