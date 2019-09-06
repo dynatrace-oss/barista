@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isObject } from '@dynatrace/angular-components/core';
+import { isDefined, isObject } from '@dynatrace/angular-components/core';
 
 import { DtFilterFieldValidator } from './filter-field-validation';
 import {
@@ -78,6 +78,7 @@ export interface DtFilterFieldDefaultDataSourceFreeText {
     DtFilterFieldDefaultDataSourceOption | DtFilterFieldDefaultDataSourceGroup
   >;
   validators?: DtFilterFieldValidator[];
+  unique?: boolean;
 }
 
 /** Whether the provided data object is of type FreeTextData */
@@ -222,7 +223,13 @@ export class DtFilterFieldDefaultDataSource<T>
       );
     } else if (isFreeText(data)) {
       // @breaking-change 5.0.0 data.validators is then required so `|| []` can be removed
-      def = dtFreeTextDef([], data.validators || [], data, null);
+      def = dtFreeTextDef(
+        [],
+        data.validators || [],
+        isDefined(data.unique) ? data.unique! : false,
+        data,
+        null,
+      );
       def.freeText!.suggestions = this._transformList(data.suggestions, def);
     } else if (isRange(data)) {
       def = dtRangeDef(

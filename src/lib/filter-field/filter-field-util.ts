@@ -1,3 +1,5 @@
+import { isDefined } from '@dynatrace/angular-components/core';
+
 import {
   DtAutocompletValue,
   DtFilterFieldTagData,
@@ -10,6 +12,7 @@ import {
   isAsyncDtAutocompleteDef,
   isDtAutocompletValue,
   isDtAutocompleteDef,
+  isDtFreeTextDef,
   isDtFreeTextValue,
   isDtGroupDef,
   isDtOptionDef,
@@ -58,6 +61,7 @@ export function filterFreeTextDef(
   return dtFreeTextDef(
     suggestions,
     def.freeText!.validators || [],
+    isDefined(def.freeText!.unique) ? def.freeText!.unique! : false,
     def.data,
     def,
   );
@@ -97,7 +101,9 @@ export function filterOptionDef(
     selectedOptionIds,
     !!def.option!.parentAutocomplete &&
       def.option!.parentAutocomplete.autocomplete!.distinct,
-  ) && optionFilterTextPredicate(def, filterText || '')
+  ) &&
+    defUniquePredicate(def, selectedOptionIds) &&
+    optionFilterTextPredicate(def, filterText || '')
     ? def
     : null;
 }
@@ -134,6 +140,23 @@ export function defDistinctPredicate(
     );
   }
   return true;
+}
+
+/**
+ * A predicate function that checks if a freetext option should be included in the options
+ * returns false if the freetext option should NOT be included
+ */
+export function defUniquePredicate(
+  def: DtNodeDef,
+  selectedOptionIds: Set<string>,
+): boolean {
+  return !(
+    isDtFreeTextDef(def) &&
+    def.freeText.unique &&
+    isDtOptionDef(def) &&
+    def.option.uid &&
+    selectedOptionIds.has(def.option.uid)
+  );
 }
 
 /** Whether a filtered list of options or groups contains items. */
