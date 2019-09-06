@@ -138,6 +138,12 @@ export function DT_CHART_RESOVER_PROVIDER_FACTORY(c: DtChart): DtChartResolver {
   return resolver;
 }
 
+export interface DtChartSeriesVisibilityChangeEvent {
+  source: DtChart;
+  visible: boolean;
+  series: DtChartSeries;
+}
+
 @Component({
   moduleId: module.id,
   selector: 'dt-chart',
@@ -210,6 +216,12 @@ export class DtChart
   /** Eventemitter that fires every time the data inside the chart tooltip changes */
   @Output()
   readonly tooltipDataChange: EventEmitter<DtChartTooltipEvent | null> = new EventEmitter();
+
+  /** Eventemitter that fires every time a legend item is clicked and a series visibility changes */
+  @Output()
+  readonly seriesVisibilityChange = new EventEmitter<
+    DtChartSeriesVisibilityChangeEvent
+  >();
 
   /** returns an array of ids for the series data */
   get seriesIds(): Array<string | undefined> | undefined {
@@ -460,6 +472,27 @@ export class DtChart
     this._chartObject = this._ngZone.runOutsideAngular(() =>
       chart(this.container.nativeElement, this.highchartsOptions),
     );
+
+    this._chartObject.series.forEach((series, index) => {
+      addHighchartsEvent(series, 'hide', () => {
+        if (this._currentSeries) {
+          this.seriesVisibilityChange.emit({
+            source: this,
+            visible: false,
+            series: this._currentSeries[index],
+          });
+        }
+      });
+      addHighchartsEvent(series, 'show', () => {
+        if (this._currentSeries) {
+          this.seriesVisibilityChange.emit({
+            source: this,
+            visible: true,
+            series: this._currentSeries[index],
+          });
+        }
+      });
+    });
 
     addHighchartsEvent(this._chartObject, 'redraw', () => {
       this._notifyAfterRender();

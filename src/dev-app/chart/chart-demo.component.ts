@@ -1,6 +1,8 @@
 // tslint:disable no-magic-numbers no-any max-file-line-count
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+import { DtChartSeriesVisibilityChangeEvent } from '@dynatrace/angular-components/chart';
+
 import { chartOptions } from './chart-options';
 import { dataBig, dataSmall } from './data-service';
 
@@ -37,5 +39,9 @@ export class ChartDemo {
 
   closed(): void {
     console.log('selection area closed');
+  }
+
+  seriesVisibilityChanged(event: DtChartSeriesVisibilityChangeEvent): void {
+    console.log(event);
   }
 }

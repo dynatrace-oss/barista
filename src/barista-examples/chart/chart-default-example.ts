@@ -2,12 +2,18 @@
 
 import { Component } from '@angular/core';
 
+import { DtChartSeriesVisibilityChangeEvent } from '@dynatrace/angular-components/chart';
+
 import { generateData } from './chart-data-utils';
 
 @Component({
   selector: 'barista-demo',
   template: `
-    <dt-chart [options]="options" [series]="series">
+    <dt-chart
+      [options]="options"
+      [series]="series"
+      (seriesVisibilityChange)="seriesVisibilityChanged($event)"
+    >
       <dt-chart-tooltip>
         <ng-template let-tooltip>
           <dt-key-value-list style="min-width: 100px">
@@ -78,6 +84,10 @@ export class ChartDefaultExample {
       data: generateData(40, 0, 20, 1370304000000, 900000),
     },
   ];
+
+  seriesVisibilityChanged(_: DtChartSeriesVisibilityChangeEvent): void {
+    // NOOP
+  }
 }
 
 // tslint:enable:no-magic-numbers
