@@ -66,11 +66,12 @@ component about viewport changes that trigger a reflow of the `dt-chart`.
 
 ## Outputs
 
-| Name                | Type                                       | Description                                                 |
-| ------------------- | ------------------------------------------ | ----------------------------------------------------------- |
-| `updated`           | `EventEmitter<void>`                       | Event emitted when the chart options or series are updated. |
-| `tooltipOpenChange` | `EventEmitter<boolean>`                    | Event emitted when the chart tooltip opens or closes.       |
-| `tooltipDataChange` | `EventEmitter<DtChartTooltipEvent | null>` | Event emitted when the tooltip data changes.                |
+| Name                     | Type                                               | Description                                                                      |
+| ------------------------ | -------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `updated`                | `EventEmitter<void>`                               | Event emitted when the chart options or series are updated.                      |
+| `tooltipOpenChange`      | `EventEmitter<boolean>`                            | Event emitted when the chart tooltip opens or closes.                            |
+| `tooltipDataChange`      | `EventEmitter<DtChartTooltipEvent | null>`         | Event emitted when the tooltip data changes.                                     |
+| `seriesVisibilityChange` | `EventEmitter<DtChartSeriesVisibilityChangeEvent>` | Event emitted when a series visibility changes because a legend item was clicked |
 
 ## Types
 
