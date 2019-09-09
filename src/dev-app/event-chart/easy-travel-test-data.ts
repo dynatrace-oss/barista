@@ -126,6 +126,10 @@ export class EasyTravelDataSource implements EventChartDemoDataSource {
       value: obj.x,
       duration: obj.source.actionDuration || 0,
       lane: obj.y.toString(),
+      data: {
+        name: (obj.source && obj.source.name) || '',
+        type: (obj.source && obj.source.type) || '',
+      },
     }));
   }
 

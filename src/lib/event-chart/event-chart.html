@@ -2,7 +2,7 @@
 
 <div class="dt-event-chart-container">
   <div class="dt-event-chart-lane-labels" #laneLabels>
-    <div *ngFor="let lane of _lanes" class="dt-event-chart-lane-label">
+    <div *ngFor="let lane of _lanesReversed" class="dt-event-chart-lane-label">
       {{ lane.label }}
     </div>
   </div>
@@ -78,27 +78,43 @@
         Event bubbles and sausages.
         Bubbles are just like sausages but their x2 equals x1.
       -->
-      <line
-        *ngFor="let renderEvent of _renderEvents"
-        [attr.x1]="renderEvent.x1"
-        [attr.x2]="renderEvent.x2"
-        [attr.y1]="renderEvent.y"
-        [attr.y2]="renderEvent.y"
-        class="dt-event-chart-event"
-        [ngClass]="
-          (renderEvent.x1 === renderEvent.x2
-            ? 'dt-event-chart-event-'
-            : 'dt-event-chart-event-sausage-') + renderEvent.color
-        "
-        [dtOverlay]="renderEvent.event._overlay"
-      />
+      <ng-container *ngFor="let renderEvent of _renderEvents">
+        <line
+          [attr.x1]="renderEvent.x1"
+          [attr.x2]="renderEvent.x2"
+          [attr.y1]="renderEvent.y"
+          [attr.y2]="renderEvent.y"
+          class="dt-event-chart-event"
+          [ngClass]="
+            (renderEvent.x1 === renderEvent.x2
+              ? 'dt-event-chart-event-'
+              : 'dt-event-chart-event-sausage-') + renderEvent.color
+          "
+          role="button"
+          tabindex="0"
+          (click)="_eventSelected(renderEvent)"
+          (keydown)="_handleEventKeyDown($event, renderEvent)"
+          (mouseenter)="_handleEventMouseEnter($event, renderEvent)"
+          (mouseleave)="_handleEventMouseLeave()"
+        />
+        <text
+          *ngIf="renderEvent.events.length >= 2"
+          [attr.x]="renderEvent.x1"
+          [attr.y]="renderEvent.y + 12"
+          font-size="10"
+          dy="-8"
+          class="dt-event-chart-event-mergednumber"
+        >
+          {{ renderEvent.events.length }}
+        </text>
+      </ng-container>
     </svg>
   </div>
 </div>
 
 <dt-event-chart-legend
-  [lanes]="_lanes ? _lanes.toArray() : []"
-  [legendItems]="_legendItems ? _legendItems.toArray() : []"
+  [legendItems]="_legendItems"
+  [renderedEvents]="_renderEvents"
 ></dt-event-chart-legend>
 
 <ng-template #patternDefs let-colors>
