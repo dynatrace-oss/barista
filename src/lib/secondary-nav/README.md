@@ -22,15 +22,16 @@ tags:
 
 # Secondary nav
 
-The secondary nav is a navigation menu used to control in-app routing and
-provide a way to display external links as well.
+The secondary nav component provides a navigation menu which has a clear
+hierarchy and allows for a condensed way to help users navigate in-app routing
+or external links.
 
 <docs-source-example example="SecondaryNavDefaultExample"></docs-source-example>
 
 A title for the secondary nav is optional. The secondary nav contains individual
 expandable and non-expandable menu sections. Within a section the title is
-mandatory whereas a description is optional. Links within a section can be
-grouped.
+mandatory whereas a description is optional. Links within a section can be a
+list or grouped according to categories.
 
 ## Imports
 
