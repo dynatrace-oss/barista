@@ -3226,14 +3226,22 @@ export class SessionReplayDataSource implements EventChartDemoDataSource {
     TEST_DATA.forEach(event => {
       events.push({
         value: event.started,
-        duration: event.actionDuration || 0,
+        duration: Math.floor((event.actionDuration || 0) / 500), // Treat everything below 500 as 0
         lane: event.type,
+        data: {
+          name: event.name,
+          type: event.type,
+        },
       });
       if (event.converted) {
         events.push({
           value: event.started,
-          duration: event.actionDuration || 0,
+          duration: Math.floor((event.actionDuration || 0) / 500), // Treat everything below 500 as 0
           lane: 'Conversion',
+          data: {
+            name: event.name,
+            type: event.type,
+          },
         });
       }
     });
