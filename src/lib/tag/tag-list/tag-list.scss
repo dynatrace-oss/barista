@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+:host ::ng-deep .dt-tag {
+  margin: 4px;
+}
+
+:host ::ng-deep .dt-tag-add {
+  margin: 4px;
+}
+
+.dt-tag-list-container {
+  min-width: auto;
+  display: flex;
+}
+
+.dt-tag-list-wrapper {
+  min-height: 32px;
+  width: auto;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.dt-tag-list-more-btn {
+  font-variant: tabular-nums;
+  height: 32px;
+  min-width: 72px;
+  line-height: 32px;
+  text-align: left;
+  vertical-align: middle;
+}

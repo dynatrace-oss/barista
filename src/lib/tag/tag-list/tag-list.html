@@ -1,0 +1,20 @@
+<div class="dt-tag-list-container" [attr.aria-label]="ariaLabel">
+  <div class="dt-tag-list-wrapper" #wrapper>
+    <ng-content select="dt-tag"></ng-content>
+    <ng-template
+      [ngTemplateOutlet]="dtAddTag"
+      *ngIf="_showAllTags"
+    ></ng-template>
+  </div>
+  <div class="dt-tag-list-more-btn" *ngIf="!_isOneLine && !_showAllTags">
+    <a (click)="_expand()" class="dt-link">{{ _hiddenTagCount }} More...</a>
+  </div>
+  <ng-template
+    [ngTemplateOutlet]="dtAddTag"
+    *ngIf="!_showAllTags"
+  ></ng-template>
+</div>
+
+<ng-template #dtAddTag>
+  <ng-content select="dt-tag-add"></ng-content>
+</ng-template>
