@@ -1,0 +1,85 @@
+@import '../../style/font-mixins';
+@import '../../core/style/variables';
+@import '../../core/style/interactive-common';
+
+:host {
+  display: inline-block;
+
+  cursor: pointer;
+}
+
+.dt-tag-add-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dt-tag-add-button {
+  height: 24px;
+  width: 90px;
+  font-size: 12px;
+
+  color: $turquoise-700;
+  background-color: #ffffff;
+  text-align: left;
+
+  border: 1px solid $turquoise-600;
+  border-radius: 12px;
+
+  padding-right: 12px;
+  padding-left: 8px;
+
+  cursor: pointer;
+  &:active {
+    outline: none;
+  }
+}
+
+.dt-tag-add-overlay {
+  width: 320px;
+  height: 82px; // UX requested value: 78
+  border: 1px solid $gray-700;
+  border-radius: 3px;
+  background-color: $gray-700;
+  padding: 8px;
+  padding-top: 5px;
+}
+
+.dt-tag-add-header {
+  height: 20px;
+  color: #ffffff;
+  font-size: 14px;
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  outline: inherit;
+
+  @include dt-cdkmonitor-focus-style(true);
+}
+
+.dt-tag-add-icon,
+.dt-tag-add-icon-button {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-top;
+  display: inline-block;
+  fill: #ffffff;
+}
+
+.dt-tag-add-icon-button {
+  fill: $turquoise-600;
+}
+
+.dt-tag-add-submit-button {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.dt-tag-add-fields {
+  display: flex;
+  margin-top: 12px; // UX requested value: 16
+}
+
+.dt-tag-add-input {
+  margin-right: 8px;
+}
