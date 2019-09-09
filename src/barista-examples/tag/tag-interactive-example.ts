@@ -6,7 +6,7 @@ import { DtTag } from '@dynatrace/angular-components/tag';
   moduleId: module.id,
   selector: 'component-barista-example',
   template: `
-    <div>
+    <dt-tag-list>
       <dt-tag
         [removable]="canRemove"
         [value]="value1"
@@ -27,7 +27,7 @@ import { DtTag } from '@dynatrace/angular-components/tag';
         <dt-tag-key *ngIf="hasKey">[AWS]Category:</dt-tag-key>
         Managed
       </dt-tag>
-    </div>
+    </dt-tag-list>
     <button
       dt-button
       (click)="canRemove = !canRemove"

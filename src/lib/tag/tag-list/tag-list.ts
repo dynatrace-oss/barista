@@ -1,0 +1,216 @@
+import { Platform } from '@angular/cdk/platform';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  ElementRef,
+  Input,
+  NgZone,
+  OnDestroy,
+  QueryList,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+import {
+  startWith,
+  switchMap,
+  switchMapTo,
+  take,
+  takeUntil,
+} from 'rxjs/operators';
+
+import { DtViewportResizer } from '@dynatrace/angular-components/core';
+
+import { DtTag } from '../tag';
+import { DtTagAdd } from '../tag-add/tag-add';
+
+const DT_TAG_LIST_HEIGHT = 32;
+const DT_TAG_LIST_LAST_TAG_SPACING = 8;
+
+@Component({
+  moduleId: module.id,
+  selector: 'dt-tag-list',
+  exportAs: 'dtTagList',
+  templateUrl: 'tag-list.html',
+  styleUrls: ['tag-list.scss'],
+  host: {
+    class: 'dt-tag-list',
+    role: 'listbox',
+    ariaLabel: '',
+  },
+  preserveWhitespaces: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
+})
+export class DtTagList implements AfterContentInit, OnDestroy {
+  /** Used to set the 'aria-label' attribute on the underlying input element. */
+  @Input('aria-label') ariaLabel: string;
+
+  private readonly _destroy$ = new Subject<void>();
+
+  /** @internal Reference to wrapper directives */
+  @ViewChild('wrapper', { static: true }) _wrapperTagList: ElementRef;
+
+  /** @internal List of Tag references */
+  @ContentChildren(DtTag, { read: ElementRef })
+  _tagElements: QueryList<ElementRef>;
+
+  /** @internal List of Tag Add references */
+  @ContentChildren(DtTagAdd, { read: DtTagAdd }) _tagAddElements: QueryList<
+    DtTagAdd
+  >;
+
+  /** @internal List of Tag Add subcriptions */
+  _tagAddSubscriptions: Subscription[] = [];
+
+  /** @internal Value for setting width of wrapper directive */
+  _wrapperWidth: number | null = null;
+
+  /** @internal Value for setting height of wrapper directive */
+  _wrapperHeight: number | null = null;
+
+  /** @internal Represents amount of hidden tags */
+  _hiddenTagCount = 0;
+
+  /** @internal Whether the tag-list fits in one line */
+  _isOneLine = false;
+
+  /** @internal Whether user wants all tags to be shown */
+  _showAllTags = false;
+
+  constructor(
+    private _viewportResizer: DtViewportResizer,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _zone: NgZone,
+    private _platform: Platform,
+  ) {}
+
+  ngAfterContentInit(): void {
+    if (this._platform.isBrowser) {
+      this._tagElements.changes
+        .pipe(
+          startWith(null),
+          switchMapTo(this._zone.onMicrotaskEmpty.pipe(take(1))),
+          switchMap(() => this._viewportResizer.change().pipe(startWith(null))),
+          takeUntil(this._destroy$),
+        )
+        .subscribe(() => {
+          if (!this._showAllTags) {
+            this._setWrapperBoundingProperties(false);
+            const tagArray = this._tagElements.toArray();
+            const index = getIndexForFirstHiddenTag(
+              tagArray.map(elRef => elRef.nativeElement),
+            );
+            if (index !== 0) {
+              this._handleWrapperProperties(tagArray, index);
+            } else {
+              this._isOneLine = true;
+            }
+          }
+          this._changeDetectorRef.markForCheck();
+        });
+      this._tagAddElements.changes
+        .pipe(
+          startWith(null),
+          takeUntil(this._destroy$),
+        )
+        .subscribe(() => {
+          this._unsubscribeFromTagAddElements();
+          this._subscribeToTagAddElements();
+        });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
+  /** @internal Expands the wrapper directive by setting width and height to 'auto' which shows all tags. */
+  _expand(): void {
+    this._showAllTags = true;
+    this._isOneLine = true;
+    this._setWrapperBoundingProperties(false);
+  }
+
+  /** @internal Calculates bounding of wrapper and show more value */
+  _handleWrapperProperties(tagArray: ElementRef[], index: number): void {
+    this._isOneLine = false;
+    this._hiddenTagCount = tagArray.length - index;
+    // Reapplying wrapper height because changing the viewsize might result in tags being rendered on multiple lines
+    // but we only want to show the first row
+    const wrapperLeft = this._wrapperTagList.nativeElement.getBoundingClientRect()
+      .left;
+    this._wrapperWidth = getWrapperWidth(
+      tagArray.map(elRef => elRef.nativeElement)[index - 1],
+      wrapperLeft,
+    );
+    this._setWrapperBoundingProperties(true);
+  }
+
+  /** @internal Sets the wrappers height and width properties */
+  _setWrapperBoundingProperties(isCollapsed: boolean): void {
+    if (isCollapsed) {
+      this._wrapperTagList.nativeElement.style.width = `${this._wrapperWidth}px`;
+      this._wrapperTagList.nativeElement.style.height = `${DT_TAG_LIST_HEIGHT}px`;
+    } else {
+      this._wrapperTagList.nativeElement.style.width = '';
+      this._wrapperTagList.nativeElement.style.height = '';
+    }
+  }
+
+  /** Saves Tag Add subscriptions and adds _expandTagList on dt-tag-add event of Tag Add Element */
+  private _subscribeToTagAddElements(): void {
+    this._tagAddElements.map(el =>
+      this._tagAddSubscriptions.push(
+        el.tagAdded.pipe(takeUntil(this._destroy$)).subscribe(() => {
+          this._expand();
+          this._changeDetectorRef.markForCheck();
+        }),
+      ),
+    );
+  }
+
+  /** Unsubscribes every tag-add subscription */
+  private _unsubscribeFromTagAddElements(): void {
+    this._tagAddSubscriptions.forEach(subscribtion => {
+      subscribtion.unsubscribe();
+    });
+    this._tagAddSubscriptions = [];
+  }
+}
+
+/** Returns the width of a directive by calculating the last visible elements and the directives position. */
+export function getWrapperWidth(
+  lastVisibleTag: HTMLElement,
+  wrapperLeft: number,
+): number {
+  const tagBounding = lastVisibleTag.getBoundingClientRect();
+  const width = Math.round(
+    tagBounding.left -
+      wrapperLeft +
+      tagBounding.width +
+      DT_TAG_LIST_LAST_TAG_SPACING,
+  );
+
+  return width;
+}
+
+/** Checks y.position of ElementRef Array and returns the index of the first Element in a new line  */
+export function getIndexForFirstHiddenTag(tagArray: HTMLElement[]): number {
+  if (tagArray.length) {
+    let yPrev = tagArray[0].getBoundingClientRect().top;
+    for (let index = 0; index < tagArray.length; index++) {
+      const el = tagArray[index];
+      const y = el.getBoundingClientRect().top;
+      if (y > yPrev) {
+        return index;
+      }
+      yPrev = y;
+    }
+  }
+  return 0;
+}

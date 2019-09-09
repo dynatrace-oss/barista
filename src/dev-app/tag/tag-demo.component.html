@@ -1,4 +1,4 @@
-<div>
+<dt-tag-list>
   <dt-tag
     [removable]="canRemove"
     [disabled]="isDisabled"
@@ -34,7 +34,7 @@
     <dt-tag-key *ngIf="hasKey">[AWS]Category:</dt-tag-key>
     Super duper long tag that is very long and has to be abbreviated
   </dt-tag>
-</div>
+</dt-tag-list>
 
 <div class="control-buttons">
   <button
@@ -60,4 +60,15 @@
   >
     Toggle disabled
   </button>
+</div>
+<br /><br />
+
+<div class="listing">
+  <dt-tag-list>
+    <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
+    <dt-tag-add
+      placeholder="insert tag here"
+      (tagAdded)="addTag($event)"
+    ></dt-tag-add>
+  </dt-tag-list>
 </div>

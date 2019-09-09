@@ -1,0 +1,55 @@
+<div class="dt-tag-add-container">
+  <button
+    #tagAddButton
+    class="dt-tag-add-button"
+    cdk-overlay-origin
+    (click)="open()"
+    #origin="cdkOverlayOrigin"
+  >
+    <dt-icon class="dt-tag-add-icon-button" name="plus-add"></dt-icon> Add Tag
+  </button>
+  <ng-template
+    #overlay
+    cdk-connected-overlay
+    cdkConnectedOverlayLockPosition
+    cdkConnectedOverlayHasBackdrop
+    cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="_showOverlay"
+    [cdkConnectedOverlayPositions]="_positions"
+    (backdropClick)="close()"
+    (attach)="_onAttached()"
+    (detach)="close()"
+  >
+    <div #panel class="dt-tag-add-overlay">
+      <div cdkTrapFocus cdkTrapFocusAutoCapture>
+        <button
+          class="dt-tag-add-header"
+          (click)="close()"
+          cdkMonitorElementFocus
+        >
+          <dt-icon class="dt-tag-add-icon" name="plus-add"></dt-icon> Add Tag
+        </button>
+        <div class="dt-tag-add-fields" dtTheme=":dark">
+          <input
+            class="dt-tag-add-input"
+            type="text"
+            #input
+            dtInput
+            [placeholder]="placeholder"
+            [attr.aria-label]="ariaLabel"
+            (keyup.enter)="_addTagFromOverlayInput($event)"
+          />
+          <button
+            class="dt-tag-add-submit-button"
+            dt-button
+            (click)="_addTag(input.value)"
+            [disabled]="input.value.length == 0"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
