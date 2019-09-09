@@ -8,9 +8,10 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { DtChartRange } from '@dynatrace/angular-components/chart';
-
-import { DtChartSeriesVisibilityChangeEvent } from '@dynatrace/angular-components/chart';
+import {
+  DtChartRange,
+  DtChartSeriesVisibilityChangeEvent,
+} from '@dynatrace/angular-components/chart';
 
 import { chartOptions } from './chart-options';
 import { dataBig, dataSmall } from './data-service';

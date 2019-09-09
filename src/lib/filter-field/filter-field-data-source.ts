@@ -25,34 +25,101 @@ export abstract class DtFilterFieldDataSource {
 
   /** Used by the DtFilterField. Called when it is destroyed. */
   abstract disconnect(): void;
+
+  /** Whether the provided data object can be transformed into an DtAutocompleteDef. */
+  // tslint:disable-next-line: no-any
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract isAutocomplete(data: any): boolean;
+
+  /** Whether the provided data object can be transformed into an DtOptionDef. */
+  // tslint:disable-next-line: no-any
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract isOption(data: any): boolean;
+
+  /** Whether the provided data object can be transformed into an DtGroupDef. */
+  // tslint:disable-next-line: no-any
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract isGroup(data: any): boolean;
+
+  /** Whether the provided data object can be transformed into an DtFreeTextDef. */
+  // tslint:disable-next-line: no-any
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract isFreeText(data: any): boolean;
+
+  /** Whether the provided data object can be transformed into an DtRangeDef. */
+  // tslint:disable-next-line: no-any
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract isRange(data: any): boolean;
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtAutocompleteDef. */
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract transformAutocomplete(
+  //   // tslint:disable-next-line: no-any
+  //   data: any,
+  //   parent: DtNodeDef | null,
+  //   existingDef: DtNodeDef | null,
+  // ): DtNodeDef;
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtOptionDef. */
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract transformOption(
+  //   // tslint:disable-next-line: no-any
+  //   data: any,
+  //   parentAutocompleteOrOption: DtNodeDef | null,
+  //   existingDef: DtNodeDef | null,
+  // ): DtNodeDef;
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtGroupDef. */
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract transformGroup(
+  //   // tslint:disable-next-line: no-any
+  //   data: any,
+  //   parentAutocomplete: DtNodeDef | null,
+  //   existingDef: DtNodeDef | null,
+  // ): DtNodeDef;
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtFreeTextDef. */
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract transformFreeText(
+  //   // tslint:disable-next-line: no-any
+  //   data: any,
+  //   parent: DtNodeDef | null,
+  //   existingDef: DtNodeDef | null,
+  // ): DtNodeDef;
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtRangeDef. */
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract transformRange(
+  //   // tslint:disable-next-line: no-any
+  //   data: any,
+  //   parent: DtNodeDef | null,
+  //   existingDef: DtNodeDef | null,
+  // ): DtNodeDef;
+
+  /** Transforms the provided data into a DtNodeDef. */
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract transformObject(
+  //   // tslint:disable-next-line: no-any
+  //   data: any | null,
+  //   parent: DtNodeDef | null,
+  // ): DtNodeDef | null;
+
+  /** Transforms the provided list of data objects into an array of DtNodeDefs. */
+  // @breaking-change 5.0.0 Uncomment the following abstract method definition.
+  // abstract transformList(
+  //   // tslint:disable-next-line: no-any
+  //   list: any[],
+  //   parent: DtNodeDef | null,
+  // ): DtNodeDef[];
 }
 
 /** Shape of an object to be usable as a option in an autocomplete */
 export type DtFilterFieldDefaultDataSourceOption = { name: string } | string;
 
-/** Whether the provided data object is of type OptionData */
-// tslint:disable-next-line: no-any
-function isOption(data: any): data is DtFilterFieldDefaultDataSourceOption {
-  return (
-    typeof data === 'string' ||
-    (isObject(data) && typeof data.name === 'string')
-  );
-}
-
 /** Shape of an object to be usable as a group in an autocomplete */
 export interface DtFilterFieldDefaultDataSourceGroup {
   name: string;
   options: DtFilterFieldDefaultDataSourceOption[];
-}
-
-/** Whether the provided data object is of type GroupData */
-// tslint:disable-next-line: no-any
-function isGroup(data: any): data is DtFilterFieldDefaultDataSourceGroup {
-  return (
-    isObject(data) &&
-    typeof data.name === 'string' &&
-    Array.isArray(data.options)
-  );
 }
 
 /** Shape of an object to be usable as an autocomplete */
@@ -64,14 +131,6 @@ export interface DtFilterFieldDefaultDataSourceAutocomplete {
   async?: boolean;
 }
 
-/** Whether the provided data object is of type AutocompleteData */
-function isAutocomplete(
-  // tslint:disable-next-line: no-any
-  data: any,
-): data is DtFilterFieldDefaultDataSourceAutocomplete {
-  return isObject(data) && Array.isArray(data.autocomplete);
-}
-
 /** Shape of an object to be usable as a free text variant */
 export interface DtFilterFieldDefaultDataSourceFreeText {
   suggestions: Array<
@@ -79,12 +138,6 @@ export interface DtFilterFieldDefaultDataSourceFreeText {
   >;
   validators?: DtFilterFieldValidator[];
   unique?: boolean;
-}
-
-/** Whether the provided data object is of type FreeTextData */
-// tslint:disable-next-line: no-any
-function isFreeText(data: any): data is DtFilterFieldDefaultDataSourceFreeText {
-  return isObject(data) && Array.isArray(data.suggestions);
 }
 
 export interface DtFilterFieldDefaultDataSourceRange {
@@ -97,11 +150,6 @@ export interface DtFilterFieldDefaultDataSourceRange {
       lessThanEqual?: boolean;
     };
   };
-}
-/** Whether the provided data object is of type RangeData */
-// tslint:disable-next-line: no-any
-function isRange(data: any): data is DtFilterFieldDefaultDataSourceRange {
-  return isObject(data) && isObject(data.range);
 }
 
 export type DtFilterFieldDefaultDataSourceType =
@@ -201,7 +249,7 @@ export class DtFilterFieldDefaultDataSource<T>
   connect(): Observable<DtNodeDef | null> {
     // @breaking-change 5.0.0 Type cast to `any` to be removed
     // tslint:disable-next-line: no-any
-    return this._data$.pipe(map(data => this._transformObject(data as any)));
+    return this._data$.pipe(map(data => this.transformObject(data as any)));
   }
 
   /** Used by the DtFilterField. Called when it is destroyed. No-op. */
@@ -209,70 +257,161 @@ export class DtFilterFieldDefaultDataSource<T>
     this._data$.complete();
   }
 
-  /** Transforms the provided data into an internal data structure that can be used by the filter-field. */
-  private _transformObject(
+  /** Whether the provided data object is of type AutocompleteData */
+  isAutocomplete(
+    // tslint:disable-next-line: no-any
+    data: any,
+  ): data is DtFilterFieldDefaultDataSourceAutocomplete {
+    return isObject(data) && Array.isArray(data.autocomplete);
+  }
+
+  /** Whether the provided data object is of type OptionData */
+  // tslint:disable-next-line: no-any
+  isOption(data: any): data is DtFilterFieldDefaultDataSourceOption {
+    return (
+      typeof data === 'string' ||
+      (isObject(data) && typeof data.name === 'string')
+    );
+  }
+
+  /** Whether the provided data object is of type GroupData */
+  // tslint:disable-next-line: no-any
+  isGroup(data: any): data is DtFilterFieldDefaultDataSourceGroup {
+    return (
+      isObject(data) &&
+      typeof data.name === 'string' &&
+      Array.isArray(data.options)
+    );
+  }
+
+  /** Whether the provided data object is of type FreeTextData */
+  // tslint:disable-next-line: no-any
+  isFreeText(data: any): data is DtFilterFieldDefaultDataSourceFreeText {
+    return isObject(data) && Array.isArray(data.suggestions);
+  }
+
+  /** Whether the provided data object is of type RangeData */
+  // tslint:disable-next-line: no-any
+  isRange(data: any): data is DtFilterFieldDefaultDataSourceRange {
+    return isObject(data) && isObject(data.range);
+  }
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtAutocompleteDef. */
+  transformAutocomplete(
+    data: DtFilterFieldDefaultDataSourceAutocomplete,
+  ): DtNodeDef {
+    const def = dtAutocompleteDef(
+      [],
+      !!data.distinct,
+      !!data.async,
+      data,
+      null,
+    );
+    def.autocomplete!.optionsOrGroups = this.transformList(
+      data.autocomplete,
+      def,
+    );
+    return def;
+  }
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtOptionDef. */
+  transformOption(
+    data: DtFilterFieldDefaultDataSourceOption,
+    parentAutocompleteOrOption: DtNodeDef | null = null,
+    existingDef: DtNodeDef | null = null,
+  ): DtNodeDef {
+    const parentGroup = isDtGroupDef(parentAutocompleteOrOption)
+      ? parentAutocompleteOrOption
+      : null;
+    const parentAutocomplete =
+      parentGroup !== null
+        ? parentGroup.group.parentAutocomplete
+        : isDtAutocompleteDef(parent)
+        ? (parent as DtNodeDef)
+        : null;
+    return dtOptionDef(
+      typeof data === 'string' ? data : data.name,
+      data,
+      null,
+      existingDef,
+      parentAutocomplete,
+      parentGroup,
+    );
+  }
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtGroupDef. */
+  transformGroup(
+    data: DtFilterFieldDefaultDataSourceGroup,
+    parentAutocomplete: DtNodeDef | null = null,
+    existingDef: DtNodeDef | null = null,
+  ): DtNodeDef {
+    const def = dtGroupDef(
+      data.name,
+      [],
+      data,
+      existingDef,
+      parentAutocomplete,
+    );
+    def.group!.options = this.transformList(data.options, def);
+    return def;
+  }
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtFreeTextDef. */
+  transformFreeText(data: DtFilterFieldDefaultDataSourceFreeText): DtNodeDef {
+    // @breaking-change 5.0.0 data.validators is then required so `|| []` can be removed
+    const def = dtFreeTextDef(
+      [],
+      data.validators || [],
+      isDefined(data.unique) ? data.unique! : false,
+      data,
+      null,
+    );
+    def.freeText!.suggestions = this.transformList(data.suggestions, def);
+    return def;
+  }
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtRangeDef. */
+  transformRange(data: DtFilterFieldDefaultDataSourceRange): DtNodeDef {
+    return dtRangeDef(
+      !!data.range.operators.range,
+      !!data.range.operators.equal,
+      !!data.range.operators.greaterThanEqual,
+      !!data.range.operators.lessThanEqual,
+      data.range.unit,
+      data,
+      null,
+    );
+  }
+
+  /** Transforms the provided data into a DtNodeDef. */
+  transformObject(
     data: DtFilterFieldDefaultDataSourceType | null,
     parent: DtNodeDef | null = null,
   ): DtNodeDef | null {
     let def: DtNodeDef | null = null;
-    if (isAutocomplete(data)) {
-      def = dtAutocompleteDef([], !!data.distinct, !!data.async, data, null);
-      def.autocomplete!.optionsOrGroups = this._transformList(
-        data.autocomplete,
-        def,
-      );
-    } else if (isFreeText(data)) {
-      // @breaking-change 5.0.0 data.validators is then required so `|| []` can be removed
-      def = dtFreeTextDef(
-        [],
-        data.validators || [],
-        isDefined(data.unique) ? data.unique! : false,
-        data,
-        null,
-      );
-      def.freeText!.suggestions = this._transformList(data.suggestions, def);
-    } else if (isRange(data)) {
-      def = dtRangeDef(
-        !!data.range.operators.range,
-        !!data.range.operators.equal,
-        !!data.range.operators.greaterThanEqual,
-        !!data.range.operators.lessThanEqual,
-        data.range.unit,
-        data,
-        null,
-      );
+    if (this.isAutocomplete(data)) {
+      def = this.transformAutocomplete(data);
+    } else if (this.isFreeText(data)) {
+      def = this.transformFreeText(data);
+    } else if (this.isRange(data)) {
+      def = this.transformRange(data);
     }
 
-    let parentAutocomplete = isDtAutocompleteDef(parent)
-      ? (parent as DtNodeDef)
-      : null;
-    if (isGroup(data)) {
-      def = dtGroupDef(data.name, [], data, def, parentAutocomplete);
-      def.group!.options = this._transformList(data.options, def);
-    } else if (isOption(data)) {
-      const parentGroup = isDtGroupDef(parent) ? parent : null;
-      parentAutocomplete =
-        parentAutocomplete ||
-        ((parentGroup && parentGroup.group.parentAutocomplete) || null);
-      def = dtOptionDef(
-        typeof data === 'string' ? data : data.name,
-        data,
-        null,
-        def,
-        parentAutocomplete,
-        parentGroup,
-      );
+    if (this.isGroup(data)) {
+      def = this.transformGroup(data);
+    } else if (this.isOption(data)) {
+      def = this.transformOption(data, parent, def);
     }
     return def;
   }
 
-  /** Transforms the provided list of data objects into an internal data structure that can be used by the filter field. */
-  private _transformList(
+  /** Transforms the provided list of data objects into an array of DtNodeDefs. */
+  transformList(
     list: DtFilterFieldDefaultDataSourceType[],
     parent: DtNodeDef | null = null,
   ): DtNodeDef[] {
     return list
-      .map(item => this._transformObject(item, parent))
+      .map(item => this.transformObject(item, parent))
       .filter(item => item !== null) as DtNodeDef[];
   }
 }

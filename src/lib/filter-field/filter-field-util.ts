@@ -1,7 +1,7 @@
 import { isDefined } from '@dynatrace/angular-components/core';
 
 import {
-  DtAutocompletValue,
+  DtAutocompleteValue,
   DtFilterFieldTagData,
   DtFilterValue,
   DtNodeDef,
@@ -10,15 +10,17 @@ import {
   dtFreeTextDef,
   dtGroupDef,
   isAsyncDtAutocompleteDef,
-  isDtAutocompletValue,
   isDtAutocompleteDef,
+  isDtAutocompleteValue,
   isDtFreeTextDef,
   isDtFreeTextValue,
   isDtGroupDef,
   isDtOptionDef,
+  isDtRangeDef,
   isDtRangeValue,
   isDtRenderType,
 } from './types';
+import { DtFilterFieldDataSource } from '.';
 
 /**
  * Either returns the provided autocomplete def or null on whether the autocomplete still contains
@@ -266,7 +268,7 @@ export function createTagDataForFilterValues(
   let isFirstValue = true;
 
   for (const filterValue of filterValues) {
-    if (isDtAutocompletValue(filterValue)) {
+    if (isDtAutocompleteValue(filterValue)) {
       if (isFirstValue && filterValues.length > 1) {
         key = filterValue.option.viewValue;
       }
@@ -295,9 +297,23 @@ export function findFilterValuesForSources<T>(
   sources: T[],
   rootDef: DtNodeDef,
   asyncDefs: Map<DtNodeDef, DtNodeDef>,
+  dataSource: DtFilterFieldDataSource,
 ): DtFilterValue[] | null {
   const foundValues: DtFilterValue[] = [];
   let parentDef = rootDef;
+
+  // @breaking-change 5.0.0 Remove the following function and
+  // call the method `transformObject` on the data source directly.
+  const dataSourceTransformFn: (
+    // tslint:disable-next-line: no-any
+    data: any | null,
+    parent: DtNodeDef | null,
+  ) => DtNodeDef | null =
+    // tslint:disable-next-line: no-string-literal
+    typeof dataSource['transformObject'] === 'function'
+      ? // tslint:disable-next-line: no-string-literal no-any
+        (...args: any[]) => dataSource['transformObject'](...args)
+      : () => null;
 
   if (!sources.length) {
     return null;
@@ -306,39 +322,45 @@ export function findFilterValuesForSources<T>(
   for (let i = 0; i < sources.length; i++) {
     const source = sources[i];
     const isLastSource = i + 1 === sources.length;
-    const def = findDefForSource(source, parentDef);
-    if (def) {
+    const def =
+      findDefForSource(source, parentDef) ||
+      dataSourceTransformFn(source, parentDef);
+
+    if (
+      isLastSource &&
+      ((isDtFreeTextValue(source) && isDtFreeTextDef(parentDef)) ||
+        (isDtRangeValue(source) && isDtRangeDef(parentDef)))
+    ) {
+      foundValues.push(source);
+      return foundValues;
+    } else if (def) {
       if (isDtRenderType(def)) {
         if (isLastSource) {
-          return null; // throw ?
+          return null;
         }
         if (isAsyncDtAutocompleteDef(def)) {
           const asyncDef = asyncDefs.get(def);
-          if (!asyncDef || !isDtAutocompleteDef(asyncDef)) {
-            return null; // throw ?
+          if (asyncDef) {
+            parentDef = asyncDef;
+            foundValues.push(def, asyncDef as DtAutocompleteValue);
+          } else {
+            parentDef = def;
+            foundValues.push(def);
           }
-          parentDef = asyncDef;
-          foundValues.push(def, asyncDef as DtAutocompletValue);
         } else if (isDtOptionDef(def)) {
           parentDef = def;
           foundValues.push(def);
         } else {
           return null;
         }
-      } else if (isLastSource) {
-        foundValues.push(def);
-        return foundValues;
       } else {
-        return null; // throw ?
+        foundValues.push(def);
+        if (isLastSource) {
+          return foundValues;
+        }
       }
-    } else if (
-      isLastSource &&
-      (isDtFreeTextValue(source) || isDtRangeValue(source))
-    ) {
-      foundValues.push(source);
-      return foundValues;
     } else {
-      return null; // throw ?
+      return null;
     }
   }
   return null;
@@ -375,26 +397,42 @@ export function findDefForSource(
 export const DELIMITER = '◬';
 
 /** Peeks into a option node definition and returns its distinct id or creates a new one. */
-export function peekOptionId(def: DtNodeDef, prefix?: string): string {
-  const id = def.option!.uid ? def.option!.uid : generateOptionId(def, prefix);
+export function peekOptionId(
+  def: DtNodeDef,
+  prefix?: string,
+  prefixOnly?: boolean,
+): string {
+  const id = def.option!.uid
+    ? def.option!.uid
+    : generateOptionId(def, prefix, prefixOnly);
   def.option!.uid = id;
   return id;
 }
 
 /** Generates a new option id for the provided node def. */
-export function generateOptionId(def: DtNodeDef, prefix: string = ''): string {
+export function generateOptionId(
+  def: DtNodeDef,
+  prefix: string = '',
+  prefixOnly: boolean = false,
+): string {
   const groupRef = def.option!.parentGroup
     ? `${def.option!.parentGroup.group!.label}${DELIMITER}`
     : '';
-  return `${prefix}${groupRef}${def.option!.viewValue}${DELIMITER}`;
+  return prefixOnly
+    ? prefix
+    : `${prefix}${groupRef}${def.option!.viewValue}${DELIMITER}`;
 }
 
 /** Generates and applies ids for the provided option and all its children. */
-export function applyDtOptionIds(def: DtNodeDef, prefix: string = ''): void {
+export function applyDtOptionIds(
+  def: DtNodeDef,
+  prefix: string = '',
+  skipRootDef: boolean = false,
+): void {
   if (isDtOptionDef(def)) {
     // Reassigning is ok here as the prefix param is of type string
     // tslint:disable-next-line: no-parameter-reassignment
-    prefix = peekOptionId(def, prefix);
+    prefix = peekOptionId(def, prefix, skipRootDef);
   }
   if (isDtAutocompleteDef(def)) {
     for (const optionOrGroup of def.autocomplete.optionsOrGroups) {

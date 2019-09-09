@@ -86,11 +86,42 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
 
   setValues(): void {
     if (this._dataSource.data === TEST_DATA) {
-      const filter1 = [
-        TEST_DATA.autocomplete[0],
-        (TEST_DATA as any).autocomplete[0].autocomplete[0],
+      this.filterField.filters = [
+        // Free text
+        [
+          TEST_DATA.autocomplete[0],
+          TEST_DATA.autocomplete[0].autocomplete![2],
+          'foo',
+        ],
+
+        // async data
+        [TEST_DATA.autocomplete[2], (TEST_DATA_ASYNC as any).autocomplete[0]],
+
+        // option as a string
+        [TEST_DATA.autocomplete[0], TEST_DATA.autocomplete[0].autocomplete![1]],
+
+        // Different object reference
+        [
+          {
+            name: 'US',
+            autocomplete: [
+              {
+                name: 'Miami',
+              },
+              {
+                name: 'Los Angeles',
+              },
+              {
+                name: 'custom',
+                suggestions: [],
+              },
+            ],
+          },
+          {
+            name: 'Miami',
+          },
+        ],
       ];
-      this.filterField.filters = [filter1];
     }
   }
 }
