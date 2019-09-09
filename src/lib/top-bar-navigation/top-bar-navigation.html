@@ -1,0 +1,9 @@
+<nav class="top-bar" dtTheme=":dark" [attr.aria-label]="ariaLabel">
+  <ng-content
+    select="dt-top-bar-navigation-item:not([align='end']),[dt-top-bar-navigation-item]:not([align='end'])"
+  ></ng-content>
+  <span class="dt-top-bar-navigation-spacer"></span>
+  <ng-content
+    select="dt-top-bar-navigation-item[align='end'],[dt-top-bar-navigation-item][align='end']"
+  ></ng-content>
+</nav>

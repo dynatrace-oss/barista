@@ -1,0 +1,86 @@
+@import '../core/style/variables';
+@import '../core/style/interactive-common';
+@import '../style/font-mixins';
+
+// height of the top-bar-navigation
+$top-bar-height: 44px;
+// padding of an item
+$space: 12px;
+
+.dt-top-bar-navigation {
+  display: block;
+  background-color: $gray-900;
+  height: $top-bar-height;
+  color: $white;
+}
+
+.top-bar {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+}
+
+.dt-top-bar-navigation-spacer {
+  margin-right: auto;
+}
+
+dt-top-bar-navigation-item {
+  @include dt-interactive-reset();
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+[dt-top-bar-action],
+dt-top-bar-action {
+  @include dt-default-font(
+    $default-font-size,
+    $default-line-height,
+    $default-font-weight,
+    $white
+  );
+  @include dt-interactive-reset();
+  @include dt-text-ellipsis();
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms ease-out;
+  margin: 0;
+  background: $gray-900;
+  padding: 0 $space;
+  min-width: $top-bar-height;
+  height: $top-bar-height;
+  text-decoration: none;
+
+  &.has-problem {
+    @include dt-default-font(
+      18px,
+      $top-bar-height,
+      $default-font-weight,
+      $white
+    );
+    background: $red-400;
+
+    &:hover {
+      background: $red-300;
+    }
+
+    &:active {
+      background: $red-200;
+    }
+  }
+
+  &:hover {
+    background: $gray-700;
+  }
+
+  dt-icon {
+    width: $top-bar-height - $space * 2;
+    height: $top-bar-height - $space * 2;
+  }
+
+  dt-icon svg {
+    fill: $white;
+  }
+}

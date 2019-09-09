@@ -22,6 +22,7 @@ import { ShowMoreUI } from '../show-more/show-more-ui';
 import { SwitchUI } from '../switch/switch-ui';
 import { TabsUI } from '../tabs/tabs-ui';
 import { TileUI } from '../tile/tile-ui';
+import { TopBarNavigationUI } from '../top-bar-navigation/top-bar-navigation-ui';
 import { Home } from './ui-test-app';
 
 export const UI_TEST_APP_ROUTES: Routes = [
@@ -52,5 +53,6 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'tabs', component: TabsUI },
   { path: 'overlay', component: OverlayUI },
   { path: 'consumption', component: ConsumptionUI },
+  { path: 'top-bar-navigation', component: TopBarNavigationUI },
   { path: 'tile', component: TileUI },
 ];
