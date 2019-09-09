@@ -345,12 +345,26 @@ export function isDtFreeTextValue(value: any): value is DtFreeTextValue {
 }
 
 /** @internal */
-export type DtAutocompletValue = DtNodeDef & { option: DtOptionDef };
+export type DtAutocompleteValue = DtNodeDef & { option: DtOptionDef };
+/**
+ * @internal
+ * @deprecated Use `DtAutocompleteValue` instead.
+ * @breaking-change 5.0.0 To be removed.
+ */
+export type DtAutocompletValue = DtAutocompleteValue;
 
 /** @internal */
-export function isDtAutocompletValue(value: any): value is DtAutocompletValue {
+export function isDtAutocompleteValue(
+  value: any,
+): value is DtAutocompleteValue {
   return isDtOptionDef(value);
 }
+/**
+ * @internal
+ * @deprecated Use `isDtAutocompleteValue` instead.
+ * @breaking-change 5.0.0 To be removed.
+ */
+export const isDtAutocompletValue = isDtAutocompleteValue;
 
 /** @internal */
 export interface DtRangeValue {
@@ -369,7 +383,10 @@ export function isDtRangeValue(value: any): value is DtRangeValue {
 }
 
 /** @internal */
-export type DtFilterValue = DtAutocompletValue | DtFreeTextValue | DtRangeValue;
+export type DtFilterValue =
+  | DtAutocompleteValue
+  | DtFreeTextValue
+  | DtRangeValue;
 
 export function getSourceOfDtFilterValue<T>(value: DtFilterValue): T {
   return isDtNodeDef(value) ? value.data : value;

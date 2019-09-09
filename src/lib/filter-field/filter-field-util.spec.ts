@@ -82,6 +82,20 @@ describe('DtFilterField Util', () => {
         `Prefix${DELIMITER}Group${DELIMITER}Option 1${DELIMITER}`,
       );
     });
+
+    it('should return the prefix if prefixOnly is set to true', () => {
+      const optionDef = dtOptionDef(
+        'Option 1',
+        'Option 1',
+        null,
+        null,
+        null,
+        null,
+      );
+      expect(generateOptionId(optionDef, `Prefix${DELIMITER}`, true)).toBe(
+        `Prefix${DELIMITER}`,
+      );
+    });
   });
 
   describe('peekOptionId', () => {
@@ -97,7 +111,7 @@ describe('DtFilterField Util', () => {
       expect(peekOptionId(optionDef)).toBe('id1');
     });
 
-    it('should create and return an ui of an option definition if there is none', () => {
+    it('should create and return an uid of an option definition if there is none', () => {
       const optionDef = dtOptionDef(
         'Option 1',
         'Option 1',
@@ -108,6 +122,36 @@ describe('DtFilterField Util', () => {
       );
       expect(peekOptionId(optionDef)).toBe(`Option 1${DELIMITER}`);
       expect(optionDef.option!.uid).toBe(`Option 1${DELIMITER}`);
+    });
+
+    it('should create and return an uid of an option definition with an applied prefix', () => {
+      const prefix = `Autocomplete${DELIMITER}`;
+      const optionDef = dtOptionDef(
+        'Option 1',
+        'Option 1',
+        null,
+        null,
+        null,
+        null,
+      );
+      expect(peekOptionId(optionDef, prefix)).toBe(
+        `${prefix}Option 1${DELIMITER}`,
+      );
+      expect(optionDef.option!.uid).toBe(`${prefix}Option 1${DELIMITER}`);
+    });
+
+    it('should create and return an uid which is exactly the prefix of an option definition if prefixOnly is set to true', () => {
+      const prefix = `Autocomplete${DELIMITER}`;
+      const optionDef = dtOptionDef(
+        'Option 1',
+        'Option 1',
+        null,
+        null,
+        null,
+        null,
+      );
+      expect(peekOptionId(optionDef, prefix, true)).toBe(prefix);
+      expect(optionDef.option!.uid).toBe(prefix);
     });
   });
 

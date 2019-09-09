@@ -11,9 +11,7 @@ export const TEST_DATA = {
         {
           name: 'Vienna',
         },
-        {
-          name: 'Linz',
-        },
+        'Linz',
         {
           name: 'custom',
           suggestions: [],
