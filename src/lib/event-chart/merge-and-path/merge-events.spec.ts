@@ -1,0 +1,298 @@
+/* tslint:disable no-magic-numbers no-any */
+import { RenderEvent } from '../event-chart';
+import {
+  DtEventChartColors,
+  DtEventChartEvent,
+} from '../event-chart-directives';
+import {
+  dtEventChartIsOverlappingEvent,
+  dtEventChartMergeEvents,
+} from './merge-events';
+
+function createRenderEvent<T = any>(
+  color: DtEventChartColors,
+  lane: string,
+  x1: number,
+  x2: number,
+  y: number,
+  eventValue: T,
+  // tslint:disable-next-line: no-any
+): RenderEvent<T> {
+  const event = new DtEventChartEvent<T>();
+  event.data = eventValue;
+  return {
+    color,
+    lane,
+    x1,
+    x2,
+    y,
+    events: [event],
+  };
+}
+
+// Assuming a sizing for the event bubbles.
+const EVENT_BUBBLE_SIZE = 16;
+const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE / 2;
+
+describe('DtEventChart RenderEvent overlap', () => {
+  it('should report overlapping events as overlapping', () => {
+    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1');
+    const eventB = createRenderEvent('default', '1', 5, 5, 0, 'event 2');
+    const isOverlapping = dtEventChartIsOverlappingEvent(
+      eventA,
+      eventB,
+      EVENT_BUBBLE_OVERLAP_THRESHOLD,
+    );
+    expect(isOverlapping).toBe(true);
+  });
+
+  it('should report overlapping events if they are on the same position', () => {
+    const eventA = createRenderEvent('default', '1', 5, 5, 0, 'event 1');
+    const eventB = createRenderEvent('default', '1', 5, 5, 0, 'event 2');
+    const isOverlapping = dtEventChartIsOverlappingEvent(
+      eventA,
+      eventB,
+      EVENT_BUBBLE_OVERLAP_THRESHOLD,
+    );
+    expect(isOverlapping).toBe(true);
+  });
+
+  it('should report not overlapping events as not overlapping', () => {
+    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1');
+    const eventB = createRenderEvent('default', '1', 10, 10, 0, 'event 2');
+    const isOverlapping = dtEventChartIsOverlappingEvent(
+      eventA,
+      eventB,
+      EVENT_BUBBLE_OVERLAP_THRESHOLD,
+    );
+    expect(isOverlapping).toBe(false);
+  });
+
+  it('should report the event as not overlapping if eventA has a duration', () => {
+    const eventA = createRenderEvent('default', '1', 0, 5, 0, 'event 1');
+    const eventB = createRenderEvent('default', '1', 10, 10, 0, 'event 2');
+    const isOverlapping = dtEventChartIsOverlappingEvent(
+      eventA,
+      eventB,
+      EVENT_BUBBLE_OVERLAP_THRESHOLD,
+    );
+    expect(isOverlapping).toBe(false);
+  });
+
+  it('should report the event as not overlapping if eventB has a duration', () => {
+    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1');
+    const eventB = createRenderEvent('default', '1', 5, 10, 0, 'event 2');
+    const isOverlapping = dtEventChartIsOverlappingEvent(
+      eventA,
+      eventB,
+      EVENT_BUBBLE_OVERLAP_THRESHOLD,
+    );
+    expect(isOverlapping).toBe(false);
+  });
+});
+
+describe('DtEventChart RenderEvent merging', () => {
+  describe('should merge', () => {
+    it('two points next to each other', () => {
+      const renderEvents = [
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
+        createRenderEvent('default', '1', 5, 5, 0, 'event 2'),
+      ];
+      const mergedEvents = dtEventChartMergeEvents<any>(
+        renderEvents,
+        EVENT_BUBBLE_OVERLAP_THRESHOLD,
+      );
+      expect(mergedEvents).toHaveLength(1);
+      expect(mergedEvents[0]).toMatchObject({
+        color: 'default',
+        lane: '1',
+        x1: 0,
+        x2: 0,
+        y: 0,
+        events: [renderEvents[0].events[0], renderEvents[1].events[0]],
+        mergedWith: [1],
+      });
+    });
+
+    it('multiple (5) points after another', () => {
+      const renderEvents = [
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
+        createRenderEvent('default', '1', 2, 2, 0, 'event 2'),
+        createRenderEvent('default', '1', 3, 3, 0, 'event 3'),
+        createRenderEvent('default', '1', 4, 4, 0, 'event 4'),
+        createRenderEvent('default', '1', 6, 6, 0, 'event 5'),
+      ];
+      const mergedEvents = dtEventChartMergeEvents<any>(
+        renderEvents,
+        EVENT_BUBBLE_OVERLAP_THRESHOLD,
+      );
+      expect(mergedEvents).toHaveLength(1);
+      expect(mergedEvents[0]).toMatchObject({
+        color: 'default',
+        lane: '1',
+        x1: 0,
+        x2: 0,
+        y: 0,
+        events: [
+          renderEvents[0].events[0],
+          renderEvents[1].events[0],
+          renderEvents[2].events[0],
+          renderEvents[3].events[0],
+          renderEvents[4].events[0],
+        ],
+        mergedWith: [1, 2, 3, 4],
+      });
+    });
+
+    it('points on one lane interrupted by another lane', () => {
+      const renderEvents = [
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
+        createRenderEvent('default', '2', 2, 2, 0, 'event 2'),
+        createRenderEvent('default', '1', 3, 3, 0, 'event 3'),
+      ];
+      const mergedEvents = dtEventChartMergeEvents<any>(
+        renderEvents,
+        EVENT_BUBBLE_OVERLAP_THRESHOLD,
+      );
+      expect(mergedEvents).toHaveLength(2);
+      expect(mergedEvents[0]).toMatchObject({
+        color: 'default',
+        lane: '1',
+        x1: 0,
+        x2: 0,
+        y: 0,
+        events: [renderEvents[0].events[0], renderEvents[2].events[0]],
+        mergedWith: [2],
+      });
+      expect(mergedEvents[1]).toMatchObject(renderEvents[1]);
+    });
+
+    it('points on one lane interrupted by another lane which has another color', () => {
+      const renderEvents = [
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
+        createRenderEvent('conversion', '2', 2, 2, 0, 'event 2'),
+        createRenderEvent('default', '1', 3, 3, 0, 'event 3'),
+      ];
+      const mergedEvents = dtEventChartMergeEvents<any>(
+        renderEvents,
+        EVENT_BUBBLE_OVERLAP_THRESHOLD,
+      );
+      expect(mergedEvents).toHaveLength(2);
+      expect(mergedEvents[0]).toMatchObject({
+        color: 'default',
+        lane: '1',
+        x1: 0,
+        x2: 0,
+        y: 0,
+        events: [renderEvents[0].events[0], renderEvents[2].events[0]],
+        mergedWith: [2],
+      });
+      expect(mergedEvents[1]).toMatchObject(renderEvents[1]);
+    });
+
+    // Colon indicates that points should be merged by the merging algorithm
+    //
+    //     3     6   8
+    //     |   /  \ | \
+    //  1:2:4:5    7   9
+    it('points and should continue with unmergable ones', () => {
+      const renderEvents = [
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
+        createRenderEvent('default', '1', 2, 2, 0, 'event 2'),
+        createRenderEvent('default', '2', 3, 3, 2, 'event 3'),
+        createRenderEvent('default', '1', 4, 4, 0, 'event 4'),
+        createRenderEvent('default', '1', 5, 5, 0, 'event 5'),
+        createRenderEvent('default', '2', 15, 15, 2, 'event 6'),
+        createRenderEvent('default', '1', 25, 25, 0, 'event 7'),
+        createRenderEvent('default', '2', 35, 35, 2, 'event 8'),
+        createRenderEvent('default', '1', 45, 45, 0, 'event 9'),
+      ];
+      const mergedEvents = dtEventChartMergeEvents<any>(
+        renderEvents,
+        EVENT_BUBBLE_OVERLAP_THRESHOLD,
+      );
+      expect(mergedEvents).toHaveLength(6);
+      expect(mergedEvents[0]).toMatchObject({
+        color: 'default',
+        lane: '1',
+        x1: 0,
+        x2: 0,
+        y: 0,
+        events: [
+          renderEvents[0].events[0],
+          renderEvents[1].events[0],
+          renderEvents[3].events[0],
+          renderEvents[4].events[0],
+        ],
+        mergedWith: [1, 3, 4],
+      });
+      expect(mergedEvents[1]).toMatchObject(renderEvents[2]);
+      expect(mergedEvents[2]).toMatchObject(renderEvents[5]);
+      expect(mergedEvents[3]).toMatchObject(renderEvents[6]);
+      expect(mergedEvents[4]).toMatchObject(renderEvents[7]);
+      expect(mergedEvents[5]).toMatchObject(renderEvents[8]);
+    });
+  });
+
+  describe('should not merge', () => {
+    it('two points next to each other but on different lanes', () => {
+      const renderEvents = [
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
+        createRenderEvent('default', '2', 5, 5, 0, 'event 2'),
+      ];
+      const mergedEvents = dtEventChartMergeEvents<any>(
+        renderEvents,
+        EVENT_BUBBLE_OVERLAP_THRESHOLD,
+      );
+      expect(mergedEvents).toHaveLength(2);
+      expect(mergedEvents[0]).toMatchObject(renderEvents[0]);
+      expect(mergedEvents[1]).toMatchObject(renderEvents[1]);
+    });
+
+    it('two points next to each other with different colors', () => {
+      const renderEvents = [
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
+        createRenderEvent('error', '1', 5, 5, 0, 'event 2'),
+      ];
+      const mergedEvents = dtEventChartMergeEvents<any>(
+        renderEvents,
+        EVENT_BUBBLE_OVERLAP_THRESHOLD,
+      );
+      expect(mergedEvents).toHaveLength(2);
+      expect(mergedEvents[0]).toMatchObject(renderEvents[0]);
+      expect(mergedEvents[1]).toMatchObject(renderEvents[1]);
+    });
+
+    it('two points separated by a duration event', () => {
+      const renderEvents = [
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
+        createRenderEvent('default', '1', 2, 5, 0, 'event 2'),
+        createRenderEvent('default', '1', 5, 5, 0, 'event 3'),
+      ];
+      const mergedEvents = dtEventChartMergeEvents<any>(
+        renderEvents,
+        EVENT_BUBBLE_OVERLAP_THRESHOLD,
+      );
+      expect(mergedEvents).toHaveLength(3);
+      expect(mergedEvents[0]).toMatchObject(renderEvents[0]);
+      expect(mergedEvents[1]).toMatchObject(renderEvents[1]);
+      expect(mergedEvents[2]).toMatchObject(renderEvents[2]);
+    });
+
+    it('two points separated by another color event', () => {
+      const renderEvents = [
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
+        createRenderEvent('error', '1', 2, 2, 0, 'event 2'),
+        createRenderEvent('default', '1', 5, 5, 0, 'event 3'),
+      ];
+      const mergedEvents = dtEventChartMergeEvents<any>(
+        renderEvents,
+        EVENT_BUBBLE_OVERLAP_THRESHOLD,
+      );
+      expect(mergedEvents).toHaveLength(3);
+      expect(mergedEvents[0]).toMatchObject(renderEvents[0]);
+      expect(mergedEvents[1]).toMatchObject(renderEvents[1]);
+      expect(mergedEvents[2]).toMatchObject(renderEvents[2]);
+    });
+  });
+});

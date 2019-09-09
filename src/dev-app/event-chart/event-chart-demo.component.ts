@@ -4,6 +4,8 @@ import {
   Component,
 } from '@angular/core';
 
+import { DtEventChartEvent } from '@dynatrace/angular-components/event-chart';
+
 import { EasyTravelDataSource } from './easy-travel-test-data';
 import {
   EventChartDemoDataSource,
@@ -11,6 +13,7 @@ import {
   EventChartDemoLane,
   EventChartDemoLegendItem,
 } from './event-chart-demo-data';
+import { MobileActionDataSource } from './mobile-actions-test-data';
 import { SessionReplayDataSource } from './session-replay-test-data';
 
 interface DataSet {
@@ -21,6 +24,7 @@ interface DataSet {
 const DATA_SETS: DataSet[] = [
   { key: 'easy travel', dataSource: new EasyTravelDataSource() },
   { key: 'session replay', dataSource: new SessionReplayDataSource() },
+  { key: 'mobile actions replay', dataSource: new MobileActionDataSource() },
 ];
 
 @Component({
@@ -46,9 +50,14 @@ export class EventChartDemo {
     this._legendItems = value.dataSource.getLegendItems();
     this._changeDetectorRef.markForCheck();
   }
-  private _ds = DATA_SETS[0];
+  private _ds = DATA_SETS[1];
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
     this._selectedDataSet = this._ds;
+  }
+
+  // tslint:disable-next-line: no-any
+  logSelected(event: DtEventChartEvent<any>): void {
+    console.log(event);
   }
 }

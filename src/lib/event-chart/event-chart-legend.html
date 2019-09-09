@@ -2,8 +2,29 @@
   <dt-legend-item *ngFor="let renderItem of _renderLegendItems">
     <dt-legend-symbol
       class="dt-event-chart-legend-symbol"
-      [ngClass]="'dt-event-chart-legend-symbol-' + renderItem.color"
-    ></dt-legend-symbol>
+      [ngClass]="'dt-event-chart-legend-symbol-' + renderItem.item.color"
+      [class.dt-event-chart-legend-symbol-sausage]="renderItem.item.hasDuration"
+    >
+      <svg
+        viewBox="0 0 16 16"
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <circle
+          class="dt-event-chart-legend-symbol-background"
+          cx="8"
+          cy="8"
+          r="7.5"
+        ></circle>
+        <circle
+          class="dt-event-chart-legend-symbol-pattern"
+          cx="8"
+          cy="8"
+          r="7.5"
+        ></circle>
+      </svg>
+    </dt-legend-symbol>
     <ng-container
       *ngTemplateOutlet="renderItem.item._contentTemplate"
     ></ng-container>
