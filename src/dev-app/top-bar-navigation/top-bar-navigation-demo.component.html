@@ -1,0 +1,17 @@
+<dt-top-bar-navigation>
+  <dt-top-bar-navigation-item align="start">
+    <a routerLink="" dt-top-bar-action><dt-icon name="agent"></dt-icon></a>
+  </dt-top-bar-navigation-item>
+
+  <dt-top-bar-navigation-item align="end">
+    <button dt-top-bar-action>my button</button>
+  </dt-top-bar-navigation-item>
+
+  <dt-top-bar-navigation-item align="end" *ngIf="problems > 0">
+    <a href="" dt-top-bar-action hasProblem>{{ problems }}</a>
+  </dt-top-bar-navigation-item>
+
+  <dt-top-bar-navigation-item align="end">
+    <button dt-top-bar-action><dt-icon name="user-uem"></dt-icon></button>
+  </dt-top-bar-navigation-item>
+</dt-top-bar-navigation>

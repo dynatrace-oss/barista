@@ -73,6 +73,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Timeline-chart', route: '/timeline-chart' },
     { name: 'Toggle-button-group', route: '/toggle-button-group' },
     { name: 'Toast', route: '/toast' },
+    { name: 'Top-bar-navigation', route: '/top-bar-navigation' },
     { name: 'TreeTable', route: '/tree-table' },
   ];
   selectedTheme = 'turquoise';
