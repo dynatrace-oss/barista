@@ -2,6 +2,9 @@ export interface EventChartDemoEvent {
   lane: string;
   value: number;
   duration: number;
+  color?: 'default' | 'error' | 'filtered';
+  // tslint:disable-next-line: no-any
+  data?: any;
 }
 
 export interface EventChartDemoLane {

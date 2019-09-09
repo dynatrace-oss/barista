@@ -1,4 +1,10 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ENTER } from '@angular/cdk/keycodes';
+import {
+  ConnectedPosition,
+  Overlay,
+  OverlayConfig,
+  OverlayRef,
+} from '@angular/cdk/overlay';
 import {
   DomPortalOutlet,
   PortalOutlet,
@@ -12,11 +18,11 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
+  ContentChild,
   ContentChildren,
   ElementRef,
   Inject,
   Injector,
-  Input,
   NgZone,
   OnDestroy,
   OnInit,
@@ -27,7 +33,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ScaleLinear, ScaleTime, scaleLinear, scaleTime } from 'd3-scale';
-import { line } from 'd3-shape';
 import { Subject, merge } from 'rxjs';
 import {
   startWith,
@@ -37,7 +42,11 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import {
+  DtViewportResizer,
+  isDefined,
+  readKeyCode,
+} from '@dynatrace/angular-components/core';
 
 import {
   DT_EVENT_CHART_COLORS,
@@ -45,11 +54,16 @@ import {
   DtEventChartEvent,
   DtEventChartLane,
   DtEventChartLegendItem,
+  DtEventChartOverlay,
+  DtEventChartSelectedEvent,
 } from './event-chart-directives';
+import { dtCreateEventPath } from './merge-and-path/create-event-path';
+import { dtEventChartMergeEvents } from './merge-and-path/merge-events';
 
 const EVENT_BUBBLE_SIZE = 16;
 const EVENT_BUBBLE_SPACING = 4;
-// const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE / 2;
+// tslint:disable-next-line: no-magic-numbers
+const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE / 2;
 const TICK_HEIGHT = 24;
 
 // tslint:disable-next-line: no-magic-numbers
@@ -57,14 +71,34 @@ const LANE_HEIGHT = EVENT_BUBBLE_SIZE * 3;
 
 let patternDefsOutlet: PortalOutlet;
 
-interface RenderEvent {
+export interface RenderEvent<T> {
   x1: number;
   x2: number;
   y: number;
+  lane: string;
   color: DtEventChartColors;
-  event: DtEventChartEvent;
-  mergeCount: number;
+  events: DtEventChartEvent<T>[];
+  mergedWith?: number[];
+  originalIndex?: number;
 }
+
+const OVERLAY_PANEL_CLASS = 'dt-event-chart-overlay-panel';
+const OVERLAY_POSITIONS: ConnectedPosition[] = [
+  {
+    originX: 'center',
+    originY: 'center',
+    overlayX: 'start',
+    overlayY: 'center',
+    offsetX: EVENT_BUBBLE_SIZE,
+  },
+  {
+    originX: 'center',
+    originY: 'center',
+    overlayX: 'end',
+    overlayY: 'center',
+    offsetX: -EVENT_BUBBLE_SIZE,
+  },
+];
 
 // tslint:disable: template-cyclomatic-complexity
 @Component({
@@ -80,65 +114,86 @@ interface RenderEvent {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
-  /** THIS IS FOR DEBUGGING PURPOSES - REMOVE BEFORE SHIPPING */
-  @Input()
-  get merge(): boolean {
-    return this._merge;
-  }
-  set merge(value: boolean) {
-    this._merge = coerceBooleanProperty(value);
-  }
-  private _merge = false;
+export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
+  /** @internal Template reference for the DtEventChart overlay. */
+  @ContentChild(DtEventChartOverlay, { static: false, read: TemplateRef })
+  // tslint:disable-next-line: no-any
+  private _overlay: TemplateRef<any>;
 
-  /** @internal */
+  /** @internal Selection of events passed into the DtEventChart via child components. */
   @ContentChildren(DtEventChartEvent)
-  _events: QueryList<DtEventChartEvent>;
+  _events: QueryList<DtEventChartEvent<T>>;
 
-  /** @internal */
+  /** @internal Selection of lanes passed into the DtEventChart via child components. */
   @ContentChildren(DtEventChartLane)
   _lanes: QueryList<DtEventChartLane>;
 
-  /** @internal */
+  /**
+   * @internal A clone of the provided lanes in reverse order.
+   * The reverse order is necessary to paint them in the right way.
+   */
+  _lanesReversed: DtEventChartLane[] = [];
+
+  /**
+   * @internal A list of all legend items that are provided
+   * to the DtEventChart. Which of the the legendItems are rendered
+   * is defined by the points and lanes drawn.
+   */
   @ContentChildren(DtEventChartLegendItem)
   _legendItems: QueryList<DtEventChartLegendItem>;
 
-  /** @internal */
+  /** @internal Reference to the root svgElement. */
   @ViewChild('canvas', { static: true })
   _canvasEl: ElementRef;
 
-  /** @internal */
+  /**
+   * @internal
+   * Reference to the rendered lane labels.
+   * These references are needed to calculate the width of the labels,
+   * to determine the effective width of the svgCanvas.
+   */
   @ViewChild('laneLabels', { static: true })
   _laneLabelsEl: ElementRef;
 
-  /** @internal */
+  /**
+   * @internal
+   * Reference to the pattern definitions for the svg.
+   */
   @ViewChild('patternDefs', { static: true })
   _patternDefsTemplate: TemplateRef<{ $implicit: string[] }>;
 
-  /** @internal */
+  /** @internal Lanes that are being rendered in the svgCanvas. */
   _renderLanes: { y: number; lane: DtEventChartLane }[] = [];
 
-  /** @internal */
-  _renderEvents: RenderEvent[] = [];
+  /** @internal Events that are being rendered in the svgCanvas. */
+  _renderEvents: RenderEvent<T>[] = [];
 
-  /** @internal */
+  /** @internal Svg path definition, which connects all renderEvents. */
   _renderPath: string | null = null;
 
-  /** @internal */
+  /** @internal X axis ticks that are being rendered in the svgCanvas. */
   _renderTicks: { x: number; value: string }[] = [];
 
-  /** @internal The with of the SVG. */
+  /** @internal The width of the svg. */
   _svgWidth = 0;
 
-  /** @internal The height of the SVG. */
+  /** @internal The height of the svg. */
   _svgHeight = 0;
 
-  /** @internal The height of the SVG. */
+  /** @internal The height of the svg plot. */
   _svgPlotHeight = 0;
 
-  /** @internal The viewBox of the SVG. Starts at 0/0 and ends at a calculated width and height. */
+  /** @internal The viewBox of the svg. Starts at 0/0 and ends at a calculated width and height. */
   _svgViewBox: string;
 
+  /** Template portal for the default overlay */
+  // tslint:disable-next-line: use-default-type-parameter no-any
+  private _portal: TemplatePortal<any> | null;
+
+  /** Reference to the open overlay. */
+  private _overlayRef: OverlayRef;
+
+  /** Destroy subject which fires once the component is destroyed. */
   private _destroy$ = new Subject<void>();
 
   constructor(
@@ -149,6 +204,7 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _appRef: ApplicationRef,
     private _injector: Injector,
+    private _overlayService: Overlay,
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private _document: any,
   ) {}
@@ -158,13 +214,14 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
   }
 
   ngAfterContentInit(): void {
+    // Get all state-changes events from the dt-event-chart-event content children.
     const eventChanges$ = this._events.changes.pipe(
       takeUntil(this._destroy$),
       switchMap(() =>
         merge(...this._events.map(e => e._stateChanges$)).pipe(startWith(null)),
       ),
     );
-
+    // Get all state-changes events from the dt-event-chart-lane content children.
     const laneChanges$ = this._lanes.changes.pipe(
       takeUntil(this._destroy$),
       switchMap(() =>
@@ -176,6 +233,8 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
       this._changeDetectorRef.markForCheck();
     });
 
+    // Combine all state-changes events from events and lanes to be notified
+    // about all value or configuration changes in the content children.
     const contentChanges$ = merge(eventChanges$, laneChanges$).pipe(
       startWith(null),
       takeUntil(this._destroy$),
@@ -185,6 +244,8 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
     // before the actual render of the SVG we need make angular recognize
     // that content children did change, so they are alway checked in the main CD cycle.
     contentChanges$.subscribe(() => {
+      // Save a reversed version of the lanes, as they need to be drawn that way.
+      this._lanesReversed = this._lanes.toArray().reverse();
       this._changeDetectorRef.markForCheck();
     });
 
@@ -205,6 +266,129 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
+  /** @internal Handle the keyDown event on the svg RenderEvent bubble. */
+  _handleEventKeyDown(
+    keyEvent: KeyboardEvent,
+    renderEvent: RenderEvent<T>,
+  ): void {
+    const key = readKeyCode(keyEvent);
+    if (key === ENTER) {
+      keyEvent.preventDefault();
+      this._eventSelected(renderEvent);
+    }
+  }
+
+  /** @internal Emits the data of the selected event. */
+  _eventSelected(renderEvent: RenderEvent<T>): void {
+    const sources = new DtEventChartSelectedEvent(renderEvent.events);
+    // If merged events are in the list, the selected event is only triggered on the
+    // first (and hence displayed) event bubble.
+    this._getRepresentingEvent(renderEvent).selected.emit(sources);
+  }
+
+  /** @internal Returns the primary DtEventChartEvent of a list of DtEventChartEvents. */
+  _getRepresentingEvent(renderEvent: RenderEvent<T>): DtEventChartEvent<T> {
+    return renderEvent.events[0];
+  }
+
+  /** @internal Handles the mouseEnter event on a svg RenderEvent bubble. */
+  _handleEventMouseEnter(event: MouseEvent, renderEvent: RenderEvent<T>): void {
+    this._createOverlay();
+    // Update the position for the overlay.
+    const originBB = (event.target as SVGElement).getBoundingClientRect();
+    const origin = {
+      x: originBB.left,
+      y: originBB.top,
+    };
+    this._updateOverlay(origin, renderEvent);
+  }
+
+  /** @internal Handles the mouseLeave event on a svg RenderEvent bubble. */
+  _handleEventMouseLeave(): void {
+    if (this._overlayRef) {
+      // We need to run the detach through the zone.
+      // Because the way we have set up the 2 step rendering of the chart
+      // (one render step to get the lane width, so we can determine the correct chart
+      // width in the next one), the zone does not get unStable on mouseEnter of the
+      // svgBubble.
+      this._zone.run(() => {
+        this._overlayRef.detach();
+      });
+      this._portal = null;
+    }
+  }
+
+  /** Creates the overlay and attaches it. */
+  private _createOverlay(): void {
+    // If we do not have an overlay defined, we do not need to attach it
+    if (!this._overlay) {
+      return;
+    }
+
+    // Create the template portal
+    if (!this._portal) {
+      // tslint:disable-next-line: no-any
+      this._portal = new TemplatePortal<any>(
+        this._overlay,
+        this._viewContainerRef,
+        { $implicit: [] },
+      );
+    }
+
+    // If we don't have an overlayRef, create one
+    if (!this._overlayRef) {
+      const overlayConfig = new OverlayConfig({
+        panelClass: OVERLAY_PANEL_CLASS,
+        hasBackdrop: false,
+      });
+      this._overlayRef = this._overlayService.create(overlayConfig);
+    }
+
+    // If the portal is not yet attached to the overlay, attach it.
+    if (!this._overlayRef.hasAttached()) {
+      this._overlayRef.attach(this._portal);
+    }
+  }
+
+  /** Update the overlay position and the implicit context. */
+  private _updateOverlay(
+    origin: { x: number; y: number },
+    renderEvent: RenderEvent<T>,
+  ): void {
+    // If there is no overlay defined, we don't need
+    // to run the update call.
+    if (!this._overlay) {
+      return;
+    }
+
+    const updatedPositionStrategy = this._overlayService
+      .position()
+      .flexibleConnectedTo(origin)
+      .setOrigin(origin)
+      .withPositions(OVERLAY_POSITIONS)
+      .withFlexibleDimensions(true)
+      .withPush(false)
+      .withGrowAfterOpen(true)
+      .withViewportMargin(0)
+      .withLockedPosition(false);
+    this._overlayRef.updatePositionStrategy(updatedPositionStrategy);
+
+    // We need to run the implicit context update on the portal through
+    // the zone. Because the way we have set up the 2 step rendering of the chart
+    // (one render step to get the lane width, so we can determine the correct chart
+    // width in the next one), the zone does not get unStable on mouseEnter of the
+    // svgBubble.
+    this._zone.run(() => {
+      if (this._portal) {
+        this._portal.context.$implicit = renderEvent.events;
+      }
+    });
+  }
+
+  /**
+   * Updates all the data and internals that are needed
+   * to render the dtEventChart correctly.
+   */
   private _update(): void {
     const [min, max] = this._getMinMaxValuesOfEvents();
     // Note: Do not move update calls.
@@ -244,10 +428,12 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
 
   /** Updates the event objects that are actually used for rendering. */
   private _updateRenderEvents(min: number, max: number): void {
-    const events = this._events.toArray();
+    const events = this._events
+      .toArray()
+      .sort((eventA, eventB) => eventA.value - eventB.value);
     const scale = this._getScaleForEvents(min, max);
 
-    const renderEvents: RenderEvent[] = [];
+    const renderEvents: RenderEvent<T>[] = [];
     for (const event of events) {
       const lane = this._getLaneByName(event.lane);
       if (lane) {
@@ -262,48 +448,41 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
           const x1 = scale(event.value);
           let x2 = x1;
 
-          // If the event has a duration the event is a sausage instead of a single point,
-          // which means we need to calculate the x value of the events end.
+          // If the event has a duration the event is a sausage instead of a
+          // single point, which means we need to calculate the x value
+          // of the events end.
           if (event.duration) {
             x2 = scale(event.value + event.duration);
           }
 
-          // if (this._merge) {
-          //   if (prevEvent && prevEvent.event.lane === event.lane) {
-          //     const overlap = x - prevEvent.x;
-          //     if (overlap <= EVENT_BUBBLE_OVERLAP_THRESHOLD) {
-          //       console.log(event);
-          //       // prevEvent.mergeCount += 1;
-          //       // continue;
-          //     }
-          //   }
-          // }
+          // Determine the color of the RenderEvent based on
+          // the eventColor or laneColor
+          let color = isValidColor(lane.color) ? lane.color : 'default';
+          if (isValidColor(event.color)) {
+            color = event.color;
+          }
 
           renderEvents.push({
             x1,
             x2,
             y,
-            color: lane.color,
-            event,
-            mergeCount: 0,
+            lane: event.lane,
+            color,
+            events: [event],
           });
         }
       }
     }
 
-    this._renderEvents = renderEvents;
+    this._renderEvents = dtEventChartMergeEvents<T>(
+      renderEvents,
+      EVENT_BUBBLE_OVERLAP_THRESHOLD,
+    );
   }
 
   /** Generates and updates the path that connects all the render events. */
   private _updateRenderPath(): void {
-    const points: [number, number][] = [];
-    for (const renderEvent of this._renderEvents) {
-      points.push([renderEvent.x1, renderEvent.y]);
-      if (renderEvent.x1 !== renderEvent.x2) {
-        points.push([renderEvent.x2, renderEvent.y]);
-      }
-    }
-    this._renderPath = line()(points);
+    this._renderPath = dtCreateEventPath(this._renderEvents);
   }
 
   /** Generates and updates the ticks for the x-axis. */
@@ -321,7 +500,10 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
     });
   }
 
-  /** Generate a linear scale function based on all values provided by the events. */
+  /**
+   * Generate a linear scale function based on all values provided
+   * by the events.
+   */
   private _getScaleForEvents(
     min: number,
     max: number,
@@ -383,10 +565,7 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
 
   /** Returns the position (reversed index) of a lane. */
   private _getLanePosition(lane: DtEventChartLane): number {
-    return this._lanes
-      .toArray()
-      .reverse()
-      .indexOf(lane);
+    return this._lanesReversed.indexOf(lane);
   }
 
   private _tryCreatePatternDefs(): void {
@@ -416,6 +595,12 @@ export class DtEventChart implements AfterContentInit, OnInit, OnDestroy {
 
     patternDefsOutlet = outlet;
   }
+}
+
+/** Determines if a passed parameter is part of the DtEventChartColors. */
+// tslint:disable-next-line: no-any
+function isValidColor(color: any): color is DtEventChartColors {
+  return isDefined(color) && DT_EVENT_CHART_COLORS.indexOf(color) !== -1;
 }
 
 /** Formats a relative timestamp into a readable text. */

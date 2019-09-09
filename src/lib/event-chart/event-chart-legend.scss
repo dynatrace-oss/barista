@@ -10,14 +10,34 @@
   display: inline-block;
   width: $dt-event-chart-event-height;
   height: $dt-event-chart-event-height;
-  background: $purple-300;
-  border-radius: 50%;
 }
 
-.dt-event-chart-legend-symbol-conversion {
-  background: $blue-400;
+// Event color styles
+.dt-event-chart-legend-symbol
+  ::ng-deep
+  .dt-event-chart-legend-symbol-background {
+  fill: $purple-300;
 }
 
-.dt-event-chart-legend-symbol-error {
-  background: $red-500;
+.dt-event-chart-legend-symbol-conversion
+  ::ng-deep
+  .dt-event-chart-legend-symbol-background {
+  fill: $blue-400;
+}
+
+.dt-event-chart-legend-symbol-error
+  ::ng-deep
+  .dt-event-chart-legend-symbol-background {
+  fill: $red-500;
+}
+
+// Pattern styles
+.dt-event-chart-legend-symbol ::ng-deep .dt-event-chart-legend-symbol-pattern {
+  fill: transparent;
+}
+
+.dt-event-chart-legend-symbol-sausage
+  ::ng-deep
+  .dt-event-chart-legend-symbol-pattern {
+  fill: url('#dt-event-chart-sausage-pattern-default');
 }
