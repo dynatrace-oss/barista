@@ -86,14 +86,14 @@ import {
 } from './filter-field-util';
 import { DtFilterFieldControl } from './filter-field-validation';
 import {
-  DtAutocompletValue,
+  DtAutocompleteValue,
   DtFilterFieldTagData,
   DtFilterValue,
   DtNodeDef,
   getSourcesOfDtFilterValues,
   isAsyncDtAutocompleteDef,
-  isDtAutocompletValue,
   isDtAutocompleteDef,
+  isDtAutocompleteValue,
   isDtFreeTextDef,
   isDtOptionDef,
   isDtRangeDef,
@@ -196,7 +196,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   }
   private _filters: DtFilterValue[][] = [];
 
-  /** Emits an event with the current value of the input field everytime the user types. */
+  /** Emits an event with the current value of the input field every time the user types. */
   @Output() readonly inputChange = new EventEmitter<string>();
 
   /** Emits when a new filter has been added or removed. */
@@ -244,7 +244,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /**
    * @internal
    * The NodeDefs of the asynchronously loaded data.
-   * The key represents the Def that triggerd the async loading,
+   * The key represents the Def that triggered the async loading,
    * the value is the Def of the loaded data.
    */
   _asyncDefs = new Map<DtNodeDef, DtNodeDef>();
@@ -279,7 +279,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
 
-  /** Member value that holds the previous filter values, to reset them if editmode is cancelled. */
+  /** Member value that holds the previous filter values, to reset them if edit-mode is cancelled. */
   private _editModeStashedValue: DtFilterValue[] | null;
 
   /** Whether the filter field or one of it's child elements is focused. */
@@ -317,8 +317,8 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
             return;
           }
           // It is necessary to restore the focus back to the input field
-          // so the user can directly coninue creating more filter nodes.
-          // This be done once all microtasks have been completed (the zone is stable)
+          // so the user can directly continue creating more filter nodes.
+          // This be done once all micro-tasks have been completed (the zone is stable)
           // and the rendering has been finished.
           this.focus();
         }
@@ -466,7 +466,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     if (!this._currentFilterValues.length && event.data.filterValues.length) {
       const value = event.data.filterValues[0];
       if (
-        (isDtAutocompletValue(value) && isDtAutocompleteDef(value)) ||
+        (isDtAutocompleteValue(value) && isDtAutocompleteDef(value)) ||
         isDtRangeDef(value) ||
         isDtFreeTextDef(value)
       ) {
@@ -480,7 +480,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         this._updateControl();
         this._updateLoading();
         this._updateAutocompleteOptionsOrGroups();
-        // If the currently edited part is a range it should prefill the
+        // If the currently edited part is a range it should pre-fill the
         // previously set values.
         if (removed.length === 1) {
           // Needed to reassign in order for typescript to understand the type.
@@ -549,7 +549,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Cancels the editmode and resets the filter to the root definition.
+   * Cancels the edit-mode and resets the filter to the root definition.
    * It resets the currently edited filter back to the stashed value.
    */
   private _cancelEditMode(): void {
@@ -570,8 +570,8 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /**
-   * If any changes to the filter have been made during the editmode, the editmode should be exited and the
-   * usual behaviour of writing filters should continue.
+   * If any changes to the filter have been made during the edit-mode, the edit-mode should be exited and the
+   * usual behavior of writing filters should continue.
    */
   private _resetEditMode(): void {
     this._clearOutsideClickSubscription();
@@ -582,10 +582,11 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   private _handleAutocompleteSelected(
     event: DtAutocompleteSelectedEvent<DtNodeDef>,
   ): void {
-    const optionDef = event.option.value as DtAutocompletValue;
+    const optionDef = event.option.value as DtAutocompleteValue;
     this._peekCurrentFilterValues().push(optionDef);
     // Reset input value to empty string after handling the value provided by the autocomplete.
-    // Otherwise the value of the autocomplete would be in the input elements and the next options would be filtered by the inputvalue
+    // Otherwise the value of the autocomplete would be in the input elements and the next options
+    // would be filtered by the input value
     this._writeInputValue('');
     if (
       isDtAutocompleteDef(optionDef) ||
@@ -609,7 +610,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       }
     });
 
-    // if any changes happen, cancel the editmode.
+    // if any changes happen, cancel the edit-mode.
     this._resetEditMode();
 
     this._stateChanges.next();
@@ -624,7 +625,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     const sources = this._peekCurrentFilterValues();
     sources.push(this._inputValue);
 
-    // if any changes happen, cancel the editmode.
+    // if any changes happen, cancel the edit-mode.
     this._resetEditMode();
 
     this._writeInputValue('');
@@ -645,7 +646,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     this._writeInputValue('');
     this._switchToRootDef(true);
 
-    // if any changes happen, cancel the editmode.
+    // if any changes happen, cancel the edit-mode.
     this._resetEditMode();
 
     this._stateChanges.next();
@@ -767,7 +768,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Takes a new Datasource and switches the filter date to the provided one.
+   * Takes a new data source and switches the filter date to the provided one.
    * Handles all the disconnecting and data switching.
    */
   private _switchDataSource(dataSource: DtFilterFieldDataSource): void {
@@ -794,7 +795,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
               isDtOptionDef(this._currentDef) &&
               this._currentDef.option.uid
             ) {
-              applyDtOptionIds(def, this._currentDef.option.uid);
+              applyDtOptionIds(def, this._currentDef.option.uid, true);
             }
           } else {
             if (def) {
@@ -810,7 +811,8 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
           this._changeDetectorRef.markForCheck();
         },
         (error: Error) => {
-          // If parsing the data in the datasource fails, we need to throw to notify the developer about the error.
+          // If parsing the data in the data source fails,
+          // we need to throw to notify the developer about the error.
           throw error;
         },
       );
@@ -919,7 +921,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     for (const currentFilter of this._filters) {
       let currentId = '';
       for (const value of currentFilter) {
-        if (isDtAutocompletValue(value)) {
+        if (isDtAutocompleteValue(value)) {
           const id = peekOptionId(value, currentId);
           ids.add(id);
           currentId = id;
@@ -936,6 +938,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
           sources,
           this._rootDef,
           this._asyncDefs,
+          this._dataSource,
         );
         if (values === null) {
           throw getDtFilterFieldApplyFilterParseError();

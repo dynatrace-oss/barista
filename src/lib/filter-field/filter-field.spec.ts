@@ -162,6 +162,22 @@ const TEST_DATA_EDITMODE = {
         unit: 's',
       },
     },
+    {
+      name: 'DE (async)',
+      async: true,
+      autocomplete: [],
+    },
+  ],
+};
+
+export const TEST_DATA_EDITMODE_ASYNC = {
+  name: 'DE (async)',
+  autocomplete: [
+    { name: 'Berlin' },
+    {
+      name: 'München',
+      suggestions: [],
+    },
   ],
 };
 
@@ -1488,6 +1504,54 @@ describe('DtFilterField', () => {
       expect(tags[0].key).toBe('Requests per minute');
       expect(tags[0].separator).toBe('≥');
       expect(tags[0].value).toBe('75s');
+    });
+
+    it('should set a filter which has the same shape but a different reference', () => {
+      filterField.filters = [
+        [
+          {
+            name: 'USA',
+            autocomplete: ['Los Angeles', 'San Fran'],
+          },
+          'Los Angeles',
+        ],
+      ];
+      fixture.detectChanges();
+      const tags = getFilterTags(fixture);
+      expect(tags[0].key).toBe('USA');
+      expect(tags[0].separator).toBe(':');
+      expect(tags[0].value).toBe('Los Angeles');
+    });
+
+    it('should set a filter that is not part of the current data set', () => {
+      filterField.filters = [
+        [
+          {
+            name: 'Spain',
+            autocomplete: ['Madrid', 'Barcelona'],
+          },
+          'Madrid',
+        ],
+      ];
+      fixture.detectChanges();
+      const tags = getFilterTags(fixture);
+      expect(tags[0].key).toBe('Spain');
+      expect(tags[0].separator).toBe(':');
+      expect(tags[0].value).toBe('Madrid');
+    });
+
+    it('should set a filter that has async parts', () => {
+      filterField.filters = [
+        [
+          TEST_DATA_EDITMODE.autocomplete[4],
+          (TEST_DATA_EDITMODE_ASYNC as any).autocomplete[0],
+        ],
+      ];
+      fixture.detectChanges();
+      const tags = getFilterTags(fixture);
+      expect(tags[0].key).toBe('DE (async)');
+      expect(tags[0].separator).toBe(':');
+      expect(tags[0].value).toBe('Berlin');
     });
   });
 });
