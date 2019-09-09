@@ -1,3 +1,13 @@
+## 4.7.1 (2019-09-09)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue that the build optimizer removed the highcharts
+  global settings during builds with the prod flag
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **event-chart:** Fixes issue where svg element for pattern definitions had a
+  size and did overlay other elements.
+
 ## 4.7.0 (2019-09-03)
 
 ### Bug Fixes
