@@ -1,0 +1,121 @@
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
+import { Component, Type } from '@angular/core';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { DtTopBarNavigationModule } from '@dynatrace/angular-components/top-bar-navigation';
+
+export function createFixture<T>(
+  component: Type<T>,
+  selector?: string,
+): {
+  fixture: ComponentFixture<T>;
+  instance: T;
+  containerEl: HTMLElement;
+} {
+  const fixture = TestBed.createComponent(component);
+  const container = selector
+    ? fixture.debugElement.query(By.css(selector)).nativeElement
+    : undefined;
+  return {
+    fixture,
+    instance: fixture.debugElement.componentInstance,
+    containerEl: container,
+  };
+}
+
+describe('DtTopBarNavigation', () => {
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [DtTopBarNavigationModule],
+      declarations: [BasicTopBar, TopBarWithAction],
+    });
+
+    TestBed.compileComponents();
+  }));
+
+  describe('check the content projection', () => {
+    it('should project the content in the right order based on the alignment', () => {
+      const fixture = TestBed.createComponent(BasicTopBar);
+
+      const items: HTMLElement[] = [].slice.call(
+        fixture.debugElement.nativeElement.querySelectorAll('.top-bar > *'),
+      );
+
+      expect(items).toHaveLength(5);
+      expect(items[0].textContent).toMatch('1');
+      expect(items[1].textContent).toMatch('without property');
+      expect(items[2].classList).toContain('dt-top-bar-navigation-spacer');
+      expect(items[3].textContent).toMatch('2');
+      expect(items[4].textContent).toMatch('3');
+    });
+  });
+
+  describe('check the top bar action', () => {
+    it('should apply the problem to the top-bar-item when it has the top-bar-action', () => {
+      const fixture = TestBed.createComponent(TopBarWithAction);
+      fixture.detectChanges();
+
+      const items: HTMLElement[] = [].slice.call(
+        fixture.debugElement.nativeElement.querySelectorAll('.top-bar > *'),
+      );
+
+      expect(items[0].classList).toContain('has-problem');
+      expect(items[1].classList).not.toContain('has-problem');
+    });
+
+    it('should apply the problem to the top-bar-action button', () => {
+      const fixture = TestBed.createComponent(TopBarWithAction);
+      fixture.detectChanges();
+
+      const item: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector(
+        'button',
+      );
+      expect(item.classList).toContain('has-problem');
+    });
+  });
+
+  describe('a11y', () => {
+    it('should contain the correct aria label', () => {
+      const fixture = TestBed.createComponent(BasicTopBar);
+      fixture.detectChanges();
+
+      const nav: HTMLElement = fixture.debugElement.query(By.css('nav'))
+        .nativeElement;
+
+      expect(nav.getAttribute('aria-label')).toBe('Main');
+    });
+  });
+});
+
+/** Test component that contains an DtTopBarNavigation. */
+@Component({
+  selector: 'dt-basic-test-app',
+  template: `
+    <dt-top-bar-navigation aria-label="Main">
+      <dt-top-bar-navigation-item align="start">1</dt-top-bar-navigation-item>
+      <dt-top-bar-navigation-item>without property</dt-top-bar-navigation-item>
+      <dt-top-bar-navigation-item align="end">2</dt-top-bar-navigation-item>
+      <dt-top-bar-navigation-item align="end">3</dt-top-bar-navigation-item>
+    </dt-top-bar-navigation>
+  `,
+})
+class BasicTopBar {}
+
+/** Test component that contains an DtTopBarNavigation. */
+@Component({
+  selector: 'dt-basic-test-app',
+  template: `
+    <dt-top-bar-navigation aria-label="Main">
+      <dt-top-bar-navigation-item align="start" dt-top-bar-action hasProblem>
+        1
+      </dt-top-bar-navigation-item>
+      <dt-top-bar-navigation-item>
+        <button dt-top-bar-action hasProblem>1</button>
+      </dt-top-bar-navigation-item>
+    </dt-top-bar-navigation>
+  `,
+})
+class TopBarWithAction {}

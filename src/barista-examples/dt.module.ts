@@ -51,6 +51,7 @@ import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
 import { DtToastModule } from '@dynatrace/angular-components/toast';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
+import { DtTopBarNavigationModule } from '@dynatrace/angular-components/top-bar-navigation';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
 
 const DT_MODULES = [
@@ -107,6 +108,7 @@ const DT_MODULES = [
   DtMenuModule,
   DtExpandableTextModule,
   DtEventChartModule,
+  DtTopBarNavigationModule,
 ];
 
 /**

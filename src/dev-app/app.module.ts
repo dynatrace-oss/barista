@@ -65,6 +65,7 @@ import { TileDemo } from './tile/tile-demo.component';
 import { TimelineChartDemo } from './timeline-chart/timeline-chart-demo.component';
 import { ToastDemo } from './toast/toast-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
+import { TopBarNavigationDemo } from './top-bar-navigation/top-bar-navigation-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
 
 // tslint:disable-next-line: use-component-selector
@@ -136,6 +137,7 @@ export class NoopRouteComponent {}
     EmptyStateDemo,
     ExpandableTextDemo,
     EventChartDemo,
+    TopBarNavigationDemo,
   ],
   entryComponents: [DevApp],
   bootstrap: [DevApp],

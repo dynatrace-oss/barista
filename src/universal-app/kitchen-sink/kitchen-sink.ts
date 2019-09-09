@@ -41,6 +41,7 @@ import { DtTagModule } from '@dynatrace/angular-components/tag';
 import { DtTileModule } from '@dynatrace/angular-components/tile';
 import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
 import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
+import { DtTopBarNavigationModule } from '@dynatrace/angular-components/top-bar-navigation';
 import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
 
 const TESTDATA: ThreadNode[] = [
@@ -240,6 +241,7 @@ export class KitchenSink {
     DtTimelineChartModule,
     DtExpandableTextModule,
     DtEventChartModule,
+    DtTopBarNavigationModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],

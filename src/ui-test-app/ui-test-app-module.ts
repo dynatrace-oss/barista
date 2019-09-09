@@ -28,6 +28,7 @@ import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 import { DtTabsModule } from '@dynatrace/angular-components/tabs';
 import { DtTileModule } from '@dynatrace/angular-components/tile';
+import { DtTopBarNavigationModule } from '@dynatrace/angular-components/top-bar-navigation';
 
 import { DtFilterFieldModule } from '../lib';
 import { ButtonGroupUi } from './button-group/button-group-ui';
@@ -52,6 +53,7 @@ import { ShowMoreUI } from './show-more/show-more-ui';
 import { SwitchUI } from './switch/switch-ui';
 import { TabsUI } from './tabs/tabs-ui';
 import { TileUI } from './tile/tile-ui';
+import { TopBarNavigationUI } from './top-bar-navigation/top-bar-navigation-ui';
 import { UI_TEST_APP_ROUTES } from './ui-test-app/routes';
 import { Home, UIApp } from './ui-test-app/ui-test-app';
 
@@ -86,6 +88,7 @@ import { Home, UIApp } from './ui-test-app/ui-test-app';
     DtSwitchModule,
     DtTabsModule,
     DtTileModule,
+    DtTopBarNavigationModule,
   ],
 })
 export class DynatraceAngularCompModule {}
@@ -126,6 +129,7 @@ export class DynatraceAngularCompModule {}
     TabsUI,
     TileUI,
     UIApp,
+    TopBarNavigationUI,
   ],
   entryComponents: [UIApp],
   bootstrap: [UIApp],
