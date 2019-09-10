@@ -1,6 +1,7 @@
 ---
 title: 'Event chart (experimental)'
 postid: event-chart
+public: false
 identifier: 'Ec'
 category: 'components'
 properties:
