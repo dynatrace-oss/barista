@@ -23,27 +23,27 @@ import { DtDrawer } from '@dynatrace/angular-components/drawer';
   template: `
     <dt-drawer-container class="drawer">
       <dt-drawer>
-        <button dt-top-bar-action (click)="closeDrawer()">
+        <button dtTopBarAction (click)="closeDrawer()">
           <dt-icon name="menu-close"></dt-icon>
         </button>
       </dt-drawer>
       <dt-top-bar-navigation aria-label="Main">
         <dt-top-bar-navigation-item align="start" *ngIf="showHamburger | async">
-          <button dt-top-bar-action (click)="openDrawer()">
+          <button dtTopBarAction (click)="openDrawer()">
             <dt-icon name="menu-hamburger"></dt-icon>
           </button>
         </dt-top-bar-navigation-item>
 
         <dt-top-bar-navigation-item align="end">
-          <button dt-top-bar-action>my button</button>
+          <button dtTopBarAction>my button</button>
         </dt-top-bar-navigation-item>
 
         <dt-top-bar-navigation-item align="end" *ngIf="problems > 0">
-          <a href="" dt-top-bar-action hasProblem>{{ problems }}</a>
+          <a href="" dtTopBarAction hasProblem>{{ problems }}</a>
         </dt-top-bar-navigation-item>
 
         <dt-top-bar-navigation-item align="end">
-          <button dt-top-bar-action><dt-icon name="user-uem"></dt-icon></button>
+          <button dtTopBarAction><dt-icon name="user-uem"></dt-icon></button>
         </dt-top-bar-navigation-item>
       </dt-top-bar-navigation>
     </dt-drawer-container>

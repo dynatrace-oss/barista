@@ -1,7 +1,7 @@
 ---
 title: Top Bar Navigation
 description:
-  'A navigation bar for first level navigation on the pages top area.'
+  'A navigation bar for first level navigation commonly placed on the page's top area.'
 public: true
 toc: true
 contributors:
@@ -9,6 +9,11 @@ contributors:
     - lukas.holzer
   ux:
     - arkadius.lipiarz
+related:
+  - drawer
+  - menu
+  - navigation
+  - secondary-nav
 ---
 
 # Top Bar Navigation
@@ -38,7 +43,7 @@ create a top bar navigation and align the navigation items on the right or left.
 
 ## DtTopBarNavigationItem
 
-The `DtTopBarNavigationItem` Directive is used to align the items on the left or
+The `DtTopBarNavigationItem` directive is used to align the items on the left or
 right side of the navigation bar.
 
 This can be achieved with the `align` property.
@@ -51,10 +56,18 @@ This can be achieved with the `align` property.
 
 ## DtTopBarAction
 
-The `DtTopBarAction` Directive is used to apply the styling and hover behavior
+The `DtTopBarAction` directive is used to apply the styling and hover behavior
 to the navigation items. It provides the base styling for a typical icon
 element. Furthermore it can handle a problem state when the `hasProblem` input
 is set.
+
+```html
+<dt-top-bar-navigation aria-label="Main">
+  <dt-top-bar-navigation-item align="start">
+    <a dtTopBarAction hasProblem>41</a>
+  </dt-top-bar-navigation-item>
+</dt-top-bar-navigation>
+```
 
 | Name         | Type      | Default | Description                                |
 | ------------ | --------- | ------- | ------------------------------------------ |
@@ -73,6 +86,6 @@ role and the contents of the label.
 </dt-top-bar-navigation>
 ```
 
-## TopBarNavigation in use
+## Top Bar Navigation in use
 
 <docs-source-example example="TopBarNavigationDrawerExample"></docs-source-example>
