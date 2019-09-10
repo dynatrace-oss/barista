@@ -53,7 +53,7 @@ dt-top-bar-action {
   height: $top-bar-height;
   text-decoration: none;
 
-  &.has-problem {
+  &.dt-top-bar-action-has-problem {
     @include dt-default-font(
       18px,
       $top-bar-height,

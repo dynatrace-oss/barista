@@ -46,7 +46,7 @@ export class DtTopBarNavigation {
  * A Directive to align a navigation item weather left or right.
  */
 @Directive({
-  selector: 'dt-top-bar-navigation-item,[dt-top-bar-navigation-item]',
+  selector: 'dt-top-bar-navigation-item, [dtTopBarNavigationItem]',
   exportAs: 'dtTopBarNavigationItem',
   host: {
     class: 'dt-top-bar-navigation-item',
@@ -61,9 +61,11 @@ export class DtTopBarNavigationItem {
  * A Directive to apply the hover styles to a navigation item.
  */
 @Directive({
-  selector: 'dt-top-bar-action,[dt-top-bar-action]',
+  selector: '[dtTopBarAction]',
+  exportAs: 'dtTopBarAction',
   host: {
-    '[class.has-problem]': 'hasProblem',
+    class: 'dt-top-bar-action',
+    '[class.dt-top-bar-action-has-problem]': 'hasProblem',
   },
 })
 export class DtTopBarAction {
