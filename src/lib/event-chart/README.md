@@ -6,6 +6,7 @@ identifier: 'Ec'
 category: 'components'
 properties:
   - 'experimental'
+  - 'work in progress'
 contributors:
   dev:
     - thomas.pink
