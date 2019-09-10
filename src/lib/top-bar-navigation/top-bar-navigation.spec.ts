@@ -62,8 +62,8 @@ describe('DtTopBarNavigation', () => {
         fixture.debugElement.nativeElement.querySelectorAll('.top-bar > *'),
       );
 
-      expect(items[0].classList).toContain('has-problem');
-      expect(items[1].classList).not.toContain('has-problem');
+      expect(items[0].classList).toContain('dt-top-bar-action-has-problem');
+      expect(items[1].classList).not.toContain('dt-top-bar-action-has-problem');
     });
 
     it('should apply the problem to the top-bar-action button', () => {
@@ -73,7 +73,7 @@ describe('DtTopBarNavigation', () => {
       const item: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector(
         'button',
       );
-      expect(item.classList).toContain('has-problem');
+      expect(item.classList).toContain('dt-top-bar-action-has-problem');
     });
   });
 
@@ -109,11 +109,11 @@ class BasicTopBar {}
   selector: 'dt-basic-test-app',
   template: `
     <dt-top-bar-navigation aria-label="Main">
-      <dt-top-bar-navigation-item align="start" dt-top-bar-action hasProblem>
+      <dt-top-bar-navigation-item align="start" dtTopBarAction hasProblem>
         1
       </dt-top-bar-navigation-item>
       <dt-top-bar-navigation-item>
-        <button dt-top-bar-action hasProblem>1</button>
+        <button dtTopBarAction hasProblem>1</button>
       </dt-top-bar-navigation-item>
     </dt-top-bar-navigation>
   `,
