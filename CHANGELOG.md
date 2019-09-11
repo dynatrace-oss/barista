@@ -1,3 +1,9 @@
+## 4.7.2 (2019-09-11)
+
+### Bug Fixes
+
+- **empty-state:** Fixes an issue where an expression has changed after checked
+
 ## 4.7.1 (2019-09-09)
 
 ### Bug Fixes
