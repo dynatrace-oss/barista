@@ -1,6 +1,7 @@
 import { Platform } from '@angular/cdk/platform';
 import {
   AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -110,15 +111,16 @@ export class DtEmptyStateFooterActions {}
   host: {
     class: 'dt-empty-state',
     '[class.dt-empty-state-multiple-items]': '_items.length > 1',
-    '[class.dt-empty-state-single-item-mini-mode]': '_isSingleItemMiniMode()',
+    '[class.dt-empty-state-single-item-mini-mode]': '_isSingleItemMiniMode',
     '[class.dt-empty-state-multiple-items-mini-mode]':
-      '_isMultipleItemsMiniMode()',
+      '_isMultipleItemsMiniMode',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtEmptyState implements AfterContentInit, OnDestroy {
+export class DtEmptyState
+  implements AfterContentInit, AfterViewInit, OnDestroy {
   /** @internal Empty state items (1..n) */
   @ContentChildren(DtEmptyStateItem)
   _items: QueryList<DtEmptyStateItem>;
@@ -143,14 +145,18 @@ export class DtEmptyState implements AfterContentInit, OnDestroy {
     this._items.changes.pipe(takeUntil(this._destroy$)).subscribe(() => {
       this._changeDetectorRef.markForCheck();
     });
+  }
+
+  ngAfterViewInit(): void {
     this._viewportResizer
       .change()
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {
-        this._updateDimensions();
+        this._updateDimensionsAndBreakpoints();
       });
-
-    this._updateDimensions();
+    Promise.resolve().then(() => {
+      this._updateDimensionsAndBreakpoints();
+    });
   }
 
   ngOnDestroy(): void {
@@ -158,25 +164,21 @@ export class DtEmptyState implements AfterContentInit, OnDestroy {
     this._destroy$.complete();
   }
 
-  /** @internal Returns true if the component has only one item and its width is below the break point */
-  _isSingleItemMiniMode(): boolean {
-    return (
-      this._items.length === 1 &&
-      this._componentWidth < this._singleItemBreakPoint
-    );
-  }
+  /** @internal Represents if the component has only one item and its width is below the miniMode breakpoint. */
+  _isSingleItemMiniMode = false;
 
-  /** @internal Returns true if the component has more than one item and its width is below the break point */
-  _isMultipleItemsMiniMode(): boolean {
-    return (
-      this._items.length > 1 &&
-      this._componentWidth < this._multipleItemsBreakPoint
-    );
-  }
+  /** @internal Represents if the component has multiple item and its width is below the miniMode breakpoint. */
+  _isMultipleItemsMiniMode = false;
 
-  private _updateDimensions(): void {
+  private _updateDimensionsAndBreakpoints(): void {
     if (this._platform.isBrowser) {
       this._componentWidth = this._elementRef.nativeElement.getBoundingClientRect().width;
+      this._isMultipleItemsMiniMode =
+        this._items.length > 1 &&
+        this._componentWidth < this._multipleItemsBreakPoint;
+      this._isSingleItemMiniMode =
+        this._items.length === 1 &&
+        this._componentWidth < this._singleItemBreakPoint;
       this._changeDetectorRef.markForCheck();
     }
   }
