@@ -24,6 +24,7 @@
     aria-label-left-handle="The left handle to update the selection"
     aria-label-right-handle="The right handle to update the selection"
     aria-label-selected-area="The selected time-frame"
+    min="0"
     (valid)="onTimeframeValidChanges($event)"
     (closed)="closed()"
   >
@@ -33,7 +34,7 @@
       dtChartSelectionAreaAction
       [disabled]="!validRange"
       i18n
-      (click)="onTimeframeApply()"
+      (click)="simulateLoading()"
     >
       Apply
     </button>
