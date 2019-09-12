@@ -1,5 +1,14 @@
 // tslint:disable no-magic-numbers no-any max-file-line-count
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  NgZone,
+  ViewChild,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+import { DtChartRange } from '@dynatrace/angular-components/chart';
 
 import { DtChartSeriesVisibilityChangeEvent } from '@dynatrace/angular-components/chart';
 
@@ -13,32 +22,52 @@ import { dataBig, dataSmall } from './data-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartDemo {
+  @ViewChild(DtChartRange, { static: false }) dtChartRange: DtChartRange;
+
   validRange = false;
   options = chartOptions;
-  series = dataSmall;
+  series = new BehaviorSubject(dataSmall);
 
   dataSet = 'small';
+
+  private lastTimeframe: [number, number];
+
+  constructor(private _zone: NgZone) {}
+
+  switchData(): void {
+    if (this.dataSet === 'small') {
+      this.series.next(dataBig);
+      this.dataSet = 'large';
+      return;
+    }
+    this.series.next(dataSmall);
+    this.dataSet = 'small';
+  }
+
+  simulateLoading(): void {
+    console.log('[LOADING]');
+
+    this._zone.onStable.pipe(take(1)).subscribe(() => {
+      if (
+        !!this.lastTimeframe &&
+        this.lastTimeframe.length === 2 &&
+        (this.lastTimeframe[0] > 0 || this.lastTimeframe[1] > 0)
+      ) {
+        this.dtChartRange.value = this.lastTimeframe;
+      }
+    });
+  }
 
   onTimeframeValidChanges(valid: boolean): void {
     this.validRange = valid;
   }
 
-  switchData(): void {
-    if (this.dataSet === 'small') {
-      this.series = dataBig;
-      this.dataSet = 'large';
-      return;
-    }
-    this.series = dataSmall;
-    this.dataSet = 'small';
-  }
-
-  onTimeframeApply(): void {
-    console.log('do something');
-  }
-
   closed(): void {
-    console.log('selection area closed');
+    this.lastTimeframe = [0, 0];
+  }
+
+  onTimeframeChanges(timeframe: [number, number]): void {
+    this.lastTimeframe = timeframe;
   }
 
   seriesVisibilityChanged(event: DtChartSeriesVisibilityChangeEvent): void {
