@@ -46,8 +46,9 @@ export class DtRowDef<T> extends CdkRowDef<T> {}
 })
 export class DtRow extends CdkRow implements OnDestroy {
   /**
-   * @internal
    * Necessary due to the fact that we cannot get the DtRow via normal DI
+   *
+   * @breaking-change 5.0.0 Make internal
    */
   static mostRecentRow: DtRow | null = null;
 
