@@ -243,7 +243,11 @@ export class DtChart
       : {};
   }
 
-  /** @internal Reference to the container element. */
+  /**
+   * Reference to the container element.
+   *
+   * @breaking-change Make internal in 5.0.0
+   */
   @ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
 
   /** @internal List of Heatfield references */

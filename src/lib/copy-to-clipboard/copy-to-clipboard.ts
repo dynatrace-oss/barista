@@ -58,7 +58,7 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   _input: ElementRef;
 
   /** @internal Reference to the dt-input directive provided via ng-content. */
-  @ContentChild(DtInput, { static: false }) private inputComponent: DtInput;
+  @ContentChild(DtInput, { static: false }) _inputComponent: DtInput;
 
   /** @internal Reference to the copy button element. */
   @ViewChild('copyButton', { read: ElementRef, static: true })
@@ -108,8 +108,8 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit(): void {
-    if (this.inputComponent) {
-      this.inputComponent.readonly = true;
+    if (this._inputComponent) {
+      this._inputComponent.readonly = true;
     }
   }
 
