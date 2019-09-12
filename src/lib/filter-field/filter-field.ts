@@ -153,6 +153,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';
 
+  /** Label for the "Clear all" button in the filter field (e.g. "Clear all"). */
+  @Input() clearAllLabel = '';
+
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;
 
@@ -241,7 +244,11 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal List of sources of the filter that the user currently works on. */
   _currentFilterValues: DtFilterValue[] = [];
 
-  /** @internal The root NodeDef. The filter field will always switch to this def once the user completes a filter. */
+  /**
+   * @internal
+   * The root NodeDef.
+   * The filter field will always switch to this def once the user completes a filter.
+   */
   _rootDef: DtNodeDef | null = null;
 
   /**
@@ -264,20 +271,47 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal Filter nodes to be rendered _after_ the input element. */
   _suffixTagData: DtFilterFieldTagData[] = [];
 
-  /** @internal Holds the view value of the filter by label. Will be set when the first part of a filter has been selected. */
+  /**
+   * @internal
+   * Holds the view value of the filter by label.
+   * Will be set when the first part of a filter has been selected.
+   */
   _filterByLabel = '';
 
   /** @internal Value of the input element. */
   _inputValue = '';
 
-  /** @internal Virtual control that acts like a form control and manages the validations and values */
+  /**
+   * @internal
+   * Virtual control that acts like a form control and
+   * manages the validations and values.
+   */
   _control: DtFilterFieldControl | null = null;
 
   /**
    * @internal
-   * holds the validation errors of the current free text input field
+   * Holds the validation errors of the current free text input field
    */
   _errors: string[] = [];
+
+  /** @internal Whether the clear all button is shown. */
+  get _showClearAll(): boolean {
+    return Boolean(
+      // Show button only if we are not in the edit mode
+      this._rootDef === this._currentDef &&
+        // and only if there are actual filters that can be cleared
+        this._filters.length &&
+        // The button should also only be visible if the filter field is not focused
+        !this._isFocused &&
+        // and as the filter field can not be focused but a panel
+        // from the autocomplete or range can be open,
+        // we also need to check for those.
+        !this._autocomplete.isOpen &&
+        !this._filterfieldRange.isOpen &&
+        // A label has to be provided to show the button.
+        this.clearAllLabel,
+    );
+  }
 
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
@@ -509,6 +543,14 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       }
       this.focus();
     }
+  }
+
+  /** @internal Clears all filters and switch to root def. */
+  _clearAll(event: Event): void {
+    event.stopPropagation();
+    this._filters = [];
+    this._switchToRootDef(true);
+    this._changeDetectorRef.markForCheck();
   }
 
   /**
