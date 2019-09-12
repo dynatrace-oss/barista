@@ -45,20 +45,21 @@ import {
   Subscription,
   defer,
   merge,
-  of,
 } from 'rxjs';
 import {
   delay,
   distinctUntilChanged,
   filter,
-  flatMap,
   map,
   switchMap,
   take,
   takeUntil,
 } from 'rxjs/operators';
 
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import {
+  DtViewportResizer,
+  createInViewportStream,
+} from '@dynatrace/angular-components/core';
 import { DtTheme } from '@dynatrace/angular-components/theming';
 
 import {
@@ -274,7 +275,6 @@ export class DtChart
   /** @internal whether the chart is in the viewport or not */
   _isInViewport$ = createInViewportStream(
     this._elementRef,
-    this._platform.isBrowser,
     CHART_INTERSECTION_THRESHOLD,
   );
 
@@ -332,7 +332,9 @@ export class DtChart
     @SkipSelf()
     @Inject(DT_CHART_CONFIG)
     private _config: DtChartConfig,
-    private _platform: Platform,
+    // @breaking-change 5.0.0 Remove platform param
+    // tslint:disable-next-line: no-any
+    _platform: Platform,
     /** @internal used for the selection area to calculate the bounding client rect */
     public _elementRef: ElementRef,
   ) {
@@ -579,30 +581,4 @@ export class DtChart
       );
     }
   }
-}
-
-/** Creates a cold stream that emits whenever the intersection of the nativeelement of the given elementRef changes */
-function createInViewportStream(
-  elementRef: ElementRef,
-  isBrowser: boolean,
-  threshold: number | number[] = 1,
-): Observable<boolean> {
-  return isBrowser && window && window.IntersectionObserver
-    ? new Observable<IntersectionObserverEntry[]>(observer => {
-        const intersectionObserver = new IntersectionObserver(
-          entries => {
-            observer.next(entries);
-          },
-          { threshold },
-        );
-        intersectionObserver.observe(elementRef.nativeElement);
-        return () => {
-          intersectionObserver.disconnect();
-        };
-      }).pipe(
-        flatMap(entries => entries),
-        map(entry => entry.isIntersecting),
-        distinctUntilChanged(),
-      )
-    : of(true);
 }
