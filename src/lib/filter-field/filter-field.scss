@@ -105,6 +105,11 @@ dt-filter-field-tag {
   margin-left: 8px;
 }
 
+button.dt-filter-field-clear-all-button {
+  margin-top: 3px;
+  margin-left: 8px;
+}
+
 // We need to double the class to get a better specificity than the original autocomplete panel selector
 ::ng-deep .dt-autocomplete-panel.dt-filter-field-panel.dt-filter-field-panel {
   margin-top: 0;
