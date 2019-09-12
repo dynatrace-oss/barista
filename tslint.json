@@ -120,8 +120,8 @@
     "ts-loader": true,
     "dt-docs-import-barista": true,
     "dt-no-focused-tests": true,
-    "dt-annotate-internal-fields": { "severity": "warning" },
-    "dt-internal-fields-underscore": { "severity": "warning" },
-    "dt-document-public-fields": { "severity": "warning" }
+    "dt-annotate-internal-fields": true,
+    "dt-internal-fields-underscore": true,
+    "dt-document-public-fields": true
   }
 }
