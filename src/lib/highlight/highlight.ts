@@ -1,7 +1,8 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   AfterContentChecked,
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -9,14 +10,21 @@ import {
   Input,
   NgZone,
   OnChanges,
+  OnDestroy,
+  Optional,
   PLATFORM_ID,
   Renderer2,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { addCssClass } from '@dynatrace/angular-components/core';
+import {
+  addCssClass,
+  createInViewportStream,
+  isDefined,
+} from '@dynatrace/angular-components/core';
 
 const HIGHLIGHTED_CLASS = 'dt-highlight-mark';
 const HIGHLIGHTED_ELEMENT = 'mark';
@@ -49,10 +57,8 @@ function escapeRegExp(text: string): string {
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtHighlight implements AfterContentChecked, OnChanges {
-  private _caseSensitive = false;
-  private _lastTextContent = '';
-
+export class DtHighlight
+  implements AfterContentChecked, AfterViewInit, OnChanges, OnDestroy {
   /**
    * The caseSensitive input can be set to search for case sensitive occurrences.
    * Per default the search is case insensitive.
@@ -64,12 +70,13 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
   set caseSensitive(sensitive: boolean) {
     this._caseSensitive = coerceBooleanProperty(sensitive);
   }
+  private _caseSensitive = false;
 
   /**
    * The term is the string that should be highlighted in the projected content.
    * Every occurrence of the string is going to be highlighted.
    */
-  @Input() term: string;
+  @Input() term = '';
 
   /** @internal */
   @ViewChild('source', { static: true })
@@ -79,11 +86,26 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
   @ViewChild('transformed', { static: true })
   _transformedElement: ElementRef<HTMLElement>;
 
+  private _textContent: string | null = null;
+  private _isInViewport = false;
+  private _isInViewportSubscription = Subscription.EMPTY;
+
   constructor(
-    private _renderer: Renderer2,
+    // @deprecated To be removed
+    // @breaking-change Remove this line in 5.0.0
+    _renderer: Renderer2,
     private _zone: NgZone,
-    @Inject(PLATFORM_ID) private _platformId: string,
-  ) {}
+    // @deprecated To be removed
+    // @breaking-change Remove this line in 5.0.0
+    @Inject(PLATFORM_ID) _platformId: string,
+    // @deprecated @breaking-change 5.0.0 `elementRef` to become required.
+    private _elementRef?: ElementRef,
+    // tslint:disable-next-line: no-any
+    @Optional() @Inject(DOCUMENT) private _document?: any,
+  ) {
+    // @breaking-change Remove this line in 5.0.0
+    this._isInViewport = !isDefined(_elementRef);
+  }
 
   /** Highlight if either the term or the caseSensitive input changes. */
   ngOnChanges(): void {
@@ -92,71 +114,85 @@ export class DtHighlight implements AfterContentChecked, OnChanges {
 
   /** Highlight if the content of the highlight component changes. */
   ngAfterContentChecked(): void {
-    this._zone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => {
+    this._zone.onStable.pipe(take(1)).subscribe(() => {
       // check if the text has actually changed, if not skip the highlight.
       const textContent = this._getTextContent();
-      if (textContent === this._lastTextContent) {
-        return;
+      if (textContent !== this._textContent) {
+        this._textContent = textContent;
+        this._highlight();
       }
-      this._highlight(textContent);
     });
   }
 
-  /** Get the textContent of the highlight component. */
-  private _getTextContent(): string | undefined {
-    // check if we are in a browser context
-    if (isPlatformBrowser(this._platformId)) {
-      return this._sourceElement.nativeElement.innerHTML.trim();
+  ngAfterViewInit(): void {
+    // @breaking-change Remove this check in 5.0.0
+    if (this._elementRef) {
+      // Observable whether the component is in the viewport.
+      this._isInViewportSubscription = createInViewportStream(
+        this._elementRef,
+        0,
+      ).subscribe(value => {
+        this._isInViewport = value;
+        if (value) {
+          this._highlight();
+        }
+      });
     }
-    return undefined;
+  }
+
+  ngOnDestroy(): void {
+    this._isInViewportSubscription.unsubscribe();
+  }
+
+  /** Get the textContent of the highlight component. */
+  private _getTextContent(): string | null {
+    // check if we are in a browser context
+    if (this._document) {
+      const text = this._sourceElement.nativeElement.innerHTML.trim();
+      return text.length ? text : null;
+    }
+    return null;
   }
 
   /** The highlight function triggers the highlighting process if we are in a browser context. */
-  private _highlight(content?: string): void {
-    const textContent = content || this._getTextContent();
-    // clear the transformed element output
-    removeNodeChildren(this._transformedElement.nativeElement);
-
-    if (textContent && textContent.length) {
-      this._transformAndDisplay(textContent);
-      this._lastTextContent = textContent;
-    }
-  }
-
-  /**
-   * The transform function wraps all occurrences of the provided string
-   * in inline elements that are highlighted.
-   */
-  private _transformAndDisplay(content: string): void {
-    let textTokens = [content];
-
-    if (this.term && this.term.length) {
-      const flags = this._caseSensitive ? 'gm' : 'gmi';
-      const regExp = new RegExp(`(${escapeRegExp(this.term)})`, flags);
-      textTokens = content.split(regExp).filter(s => s.length);
+  private _highlight(): void {
+    // Make sure to only update the highlight if it is in the viewport.
+    // This is needed because the highlight component can possibly be
+    // rendered a lot if it is used for example in a big data table or autocomplete.
+    if (!this._isInViewport || !this._document) {
+      return;
     }
 
-    const max = textTokens.length;
+    // As we create the highlight nodes with browser native functions we do not depend on Angular's CD.
+    // So we can run this code outside the zone to boost performance.
+    this._zone.runOutsideAngular(() => {
+      const textContent = this._textContent;
+      const term = this.term;
+      const transformedEl = this._transformedElement.nativeElement;
 
-    for (let i = 0; i < max; i += 1) {
-      const node = textTokens[i];
-      const text = this._renderer.createText(node);
+      // Remove the old nodes.
+      removeNodeChildren(transformedEl);
 
-      if (node.toLowerCase() === (this.term && this.term.toLowerCase())) {
-        const span = this._renderer.createElement(HIGHLIGHTED_ELEMENT);
-        addCssClass(span, HIGHLIGHTED_CLASS);
-        // append the created span with the class
-        this._renderer.appendChild(span, text);
-        this._renderer.appendChild(
-          this._transformedElement.nativeElement,
-          span,
-        );
-      } else {
-        this._renderer.appendChild(
-          this._transformedElement.nativeElement,
-          text,
-        );
+      if (textContent !== null && Boolean(term && term.length)) {
+        const flags = this._caseSensitive ? 'gm' : 'gmi';
+        const regExp = new RegExp(`(${escapeRegExp(term)})`, flags);
+        const textTokens = textContent.split(regExp).filter(s => s.length);
+
+        for (const token of textTokens) {
+          const text = this._document.createTextNode(token);
+
+          if (token.toLowerCase() === term.toLowerCase()) {
+            const span = this._document.createElement(HIGHLIGHTED_ELEMENT);
+            addCssClass(span, HIGHLIGHTED_CLASS);
+            span.appendChild(text);
+            transformedEl.appendChild(span);
+          } else {
+            transformedEl.appendChild(text);
+          }
+        }
+      } else if (textContent !== null) {
+        transformedEl.appendChild(this._document.createTextNode(textContent));
       }
-    }
+    });
   }
 }

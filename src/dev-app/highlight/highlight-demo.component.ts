@@ -11,6 +11,10 @@ export class HighlightDemo {
 
   name = 'John';
 
+  items = Array(2000).fill(1);
+
+  searchTerm = '';
+
   constructor() {
     setTimeout(() => {
       this.name = 'Jane';
