@@ -1582,6 +1582,110 @@ describe('DtFilterField', () => {
       expect(tags[0].value).toBe('Berlin');
     });
   });
+
+  describe('clear all', () => {
+    beforeEach(() => {
+      fixture.componentInstance.dataSource.data = TEST_DATA_EDITMODE;
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+    });
+
+    it('should not display the clear all button if no filters are set', () => {
+      expect(getClearAll(fixture)).toBeNull();
+
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      fixture.detectChanges();
+
+      expect(getClearAll(fixture)).not.toBeNull();
+    });
+
+    // the user is in the edit mode of a filter
+    it('should not display the clear all button if the filter field is focused', () => {
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      fixture.detectChanges();
+
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      expect(getClearAll(fixture)).toBeNull();
+    });
+
+    // the user is in the edit mode of a filter
+    it('should not display the clear all button if the current def is not the root def or a panel is open', () => {
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      fixture.detectChanges();
+
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      const options = getOptions(overlayContainerElement);
+      const autOption = options[0];
+      autOption.click();
+
+      expect(getClearAll(fixture)).toBeNull();
+    });
+
+    it('should not display the clear all button if no label is provided', () => {
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      fixture.componentInstance.clearAllLabel = '';
+      fixture.detectChanges();
+
+      expect(getClearAll(fixture)).toBeNull();
+    });
+
+    it('should reset the entire filter field', () => {
+      // Autocomplete filter for AUT -> Upper Austria -> Cities -> Linz
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      fixture.detectChanges();
+
+      const tagsBefore = getFilterTags(fixture);
+      expect(tagsBefore.length).toBe(1);
+      expect(tagsBefore[0].key).toBe('AUT');
+      expect(tagsBefore[0].separator).toBe(':');
+      expect(tagsBefore[0].value).toBe('Linz');
+
+      const clearAllButtonEl = getClearAll(fixture);
+      clearAllButtonEl!.click();
+      fixture.detectChanges();
+
+      const tagsAfter = getFilterTags(fixture);
+      expect(tagsAfter.length).toBe(0);
+    });
+  });
 });
 
 function getOptions(overlayContainerElement: HTMLElement): HTMLElement[] {
@@ -1663,12 +1767,21 @@ function getInput(fixture: ComponentFixture<any>): HTMLInputElement {
     .nativeElement;
 }
 
+// tslint:disable-next-line:no-any
+function getClearAll(fixture: ComponentFixture<any>): HTMLButtonElement | null {
+  const dbgEl = fixture.debugElement.query(
+    By.css('.dt-filter-field-clear-all-button'),
+  );
+  return dbgEl ? dbgEl.nativeElement : null;
+}
+
 @Component({
   selector: 'test-app',
   template: `
     <dt-filter-field
       [dataSource]="dataSource"
       [label]="label"
+      [clearAllLabel]="clearAllLabel"
     ></dt-filter-field>
   `,
 })
@@ -1677,6 +1790,7 @@ export class TestApp {
   dataSource = new DtFilterFieldDefaultDataSource<any>(TEST_DATA);
 
   label = 'Filter by';
+  clearAllLabel = 'Clear all';
 
   @ViewChild(DtFilterField, { static: false }) filterField: DtFilterField<any>;
 }

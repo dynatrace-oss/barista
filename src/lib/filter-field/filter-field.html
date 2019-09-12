@@ -15,6 +15,14 @@
     (edit)="_handleTagEdit($event)"
   ></dt-filter-field-tag>
 
+  <button
+    dt-button
+    variant="secondary"
+    class="dt-filter-field-clear-all-button"
+    (click)="_clearAll($event)"
+    *ngIf="_showClearAll"
+  >{{clearAllLabel}}</button>
+
   <div class="dt-filter-field-infix">
     <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{_filterByLabel}}</span>
     <input
@@ -52,6 +60,7 @@
         </ng-template>
       </ng-container>
     </dt-autocomplete>
+
     <dt-filter-field-range
       #range="dtFilterFieldRange"
       [enabledOperators]="_currentDef && !!_currentDef.range && _currentDef!.range!.operatorFlags"
