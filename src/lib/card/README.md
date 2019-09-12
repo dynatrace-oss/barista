@@ -1,8 +1,8 @@
 ---
-title: "Card"
+title: 'Card'
 postid: card
-identifier: "Cd"
-category: "components"
+identifier: 'Cd'
+category: 'components'
 public: true
 toc: true
 contributors:
@@ -10,19 +10,19 @@ contributors:
     - fabian.friedl
   ux:
     - raphaela.raudaschl
-angular: "card"
+angular: 'card'
 tags:
-  - "card"
-  - "content"
-  - "layout"
-  - "island"
-  - "section"
-  - "list"
-  - "panel"
-  - "grouping"
-  - "page structure"
-  - "angular"
-  - "component"
+  - 'card'
+  - 'content'
+  - 'layout'
+  - 'island'
+  - 'section'
+  - 'list'
+  - 'panel'
+  - 'grouping'
+  - 'page structure'
+  - 'angular'
+  - 'component'
 ---
 
 <!-- styling to change background color of component demos -->
@@ -34,7 +34,8 @@ tags:
 
 # Card
 
-The card component is a visual container for wrapping a wide variety of contents. 
+The card component is a visual container for wrapping a wide variety of
+contents.
 
 <docs-source-example example="CardDefaultExample"></docs-source-example>
 
@@ -69,17 +70,23 @@ Details about sections within a card are described below.
 
 ## Card content structure
 
-A card consists of multiple sections. To ensure a consistent look follow these simple patterns about how the content of a card should be structured.
+A card consists of multiple sections. To ensure a consistent look follow these
+simple patterns about how the content of a card should be structured.
 
 ### Header
 
 The header of a card consists of the following elements:
-* a title (required),
-* a subtitle,
-* an icon and
-* actions.
 
-Actions are [secondary buttons]({{link_to_id id='button' }}) placed in the card's top right corner. Multiple actions can be shown to the user. If space is limited, move less important actions to a [context actions menu]({{link_to_id id='context-dialog' }}). The decision which button is shown and which ones are grouped in a context actions menu depends on the use case.
+- a title (required),
+- a subtitle,
+- an icon and
+- actions.
+
+Actions are [secondary buttons]({{link_to_id id='button' }}) placed in the
+card's top right corner. Multiple actions can be shown to the user. If space is
+limited, move less important actions to a [context actions
+menu]({{link_to_id id='context-dialog' }}). The decision which button is shown
+and which ones are grouped in a context actions menu depends on the use case.
 
 <docs-source-example example="CardSubtitleExample"></docs-source-example>
 
@@ -87,15 +94,25 @@ Actions are [secondary buttons]({{link_to_id id='button' }}) placed in the card'
 
 ### Description
 
-The optional description section contains information about the content of the card (only if an explanation is necessary). If the text is longer than one sentence, use the [context help]({{link_to_id id='inline-help' }}#context-help) to make the full text expandable.
+The optional description section contains information about the content of the
+card (only if an explanation is necessary). If the text is longer than one
+sentence, use the [context help]({{link_to_id id='inline-help' }}#context-help)
+to make the full text expandable.
 
-### Content
+### Card content
 
-This is the main section of the card and can contain all kinds of components that present data to the user. How content within a card rearranges on different screen sizes depends strongly on the content and the use case and should always be discussed with a UX designer.
+This is the main section of the card and can contain all kinds of components
+that present data to the user. How content within a card rearranges on different
+screen sizes depends strongly on the content and the use case and should always
+be discussed with a UX designer.
 
 ### Actions
 
-Actions can be put above and/or below the content section. Buttons that navigate to another page or drill down to more details should be placed after the content section, whereas buttons that modify content within a card should be placed above the content to be updated. When placing buttons in a card, follow the [button alignment pattern]({{link_to_id id='button-alignment' }}).
+Actions can be put above and/or below the content section. Buttons that navigate
+to another page or drill down to more details should be placed after the content
+section, whereas buttons that modify content within a card should be placed
+above the content to be updated. When placing buttons in a card, follow the
+[button alignment pattern]({{link_to_id id='button-alignment' }}).
 
 #### Header actions
 
@@ -107,8 +124,10 @@ Actions can be put above and/or below the content section. Buttons that navigate
 
 ### Pagination
 
-The optional pagination section contains a [pagination]({{link_to_id id='pagination' }}) or a [show more]({{link_to_id id='show-more' }}) component to extend the card content. This section must always be the last one within a card.
-
+The optional pagination section contains a
+[pagination]({{link_to_id id='pagination' }}) or a [show
+more]({{link_to_id id='show-more' }}) component to extend the card content. This
+section must always be the last one within a card.
 
 ## Dark background
 
@@ -118,21 +137,25 @@ A card can be placed on dark background.
 
 ## Card in use
 
-See the [layout pattern]({{link_to_id id='layout' }}#cards) for rules how to rearrange cards on a view depending on the container size.
+See the [layout pattern]({{link_to_id id='layout' }}#cards) for rules how to
+rearrange cards on a view depending on the container size.
 
-See the following table for margin and padding values depending on predefined breakpoints.
+See the following table for margin and padding values depending on predefined
+breakpoints.
 
-| container min-width | margin        | padding         |
-|:----------------- | :-------------- | :-------------- |
-| default           | 8px             | 8px             |
-| 460px             | 8px             | 12px            |
-| 992px             | 16px            | 16px            |
-| 1200px            | 20px            | 16px            |
-
+| container min-width | margin | padding |
+| :------------------ | :----- | :------ |
+| default             | 8px    | 8px     |
+| 460px               | 8px    | 12px    |
+| 992px               | 16px   | 16px    |
+| 1200px              | 20px   | 16px    |
 
 {{#internal-content}}
 
 ### Event card
-An exemplary use of the card component can be seen in the <a href="https://demo.dev.dynatracelabs.com/ui/docs/events-card/" target="_blank" rel="noopener">event card</a>.
+
+An exemplary use of the card component can be seen in the
+<a href="https://demo.dev.dynatracelabs.com/ui/docs/events-card/" target="_blank" rel="noopener">event
+card</a>.
 
 {{/internal-content}}
