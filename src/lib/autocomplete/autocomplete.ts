@@ -148,7 +148,6 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   id = `dt-autocomplete-${_uniqueIdCounter++}`;
 
   /**
-   * @internal
    * Reference to the template that will be rendered into the panel once it is open.
    *
    * @breaking-change Make internal in 5.0.0
@@ -157,7 +156,6 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 
   /**
-   * @internal
    * Reference to the panel which will be created in the overlay.
    *
    * @breaking-change Make internal in 5.0.0
@@ -165,7 +163,6 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   @ViewChild('panel', { static: false }) panel: ElementRef;
 
   /**
-   * @internal
    * References to all the options that are currently applied.
    *
    * @breaking-change Make internal in 5.0.0
@@ -174,7 +171,6 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   options: QueryList<DtOption<T>>;
 
   /**
-   * @internal
    * References to all the option groups that are currently applied.
    *
    * @breaking-change Make internal in 5.0.0

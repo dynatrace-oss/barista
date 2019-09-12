@@ -102,7 +102,11 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
   // tslint:disable-next-line: no-output-native
   @Output() readonly change = new EventEmitter<DtRadioChange<T>>();
 
-  /** @internal Part of the ControlValueAccessor interface. */
+  /**
+   * Part of the ControlValueAccessor interface.
+   *
+   * @breaking-change Make internal in 5.0.0
+   */
   onTouched: () => void = () => {};
 
   /** @internal The method to be called in order to update ngModel */
