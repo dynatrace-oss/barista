@@ -101,3 +101,10 @@
   </span>
   <hr />
 </div>
+
+<hr />
+<input dtInput [(ngModel)]="searchTerm" />
+
+<p dt-highlight *ngFor="let item of items" [term]="searchTerm">
+  Some text where a part should be highlighted
+</p>
