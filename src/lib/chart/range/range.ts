@@ -493,8 +493,12 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   /** Calculate the px values out of the unit values */
   private _reflectValueToArea(): void {
     if (this._valueToPixelsFn) {
-      const left = this._valueToPixelsFn(this._value[0]);
-      const width = this._valueToPixelsFn(this._value[1]) - left;
+      const left =
+        this._valueToPixelsFn(this._value[0]) - this._plotBackgroundChartOffset;
+      const width =
+        this._valueToPixelsFn(this._value[1]) -
+        left -
+        this._plotBackgroundChartOffset;
       const range = clampRange({ left, width }, this._maxWidth, 0);
       this._rangeArea.left = range.left;
       this._rangeArea.width = range.width;
