@@ -1,3 +1,25 @@
+## 4.8.0 (2019-09-13)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the selection area was affected by the width
+  of the charts y-axis label when applied programmatically.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Fixes issue where filters can not be set programmatically
+  when some data is loaded asynchronously.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Features
+
+- **chart:** Added seriesVisibilityChange output that emits whenever a
+  legend-item is clicked and a series visibility changes.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **consumption:** Deprecated redundant input 'min' in consumption component.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Added support for unique free-text filters.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **top-bar-navigation:** Added the Top Bar Navigation component.
+
 ## 4.7.2 (2019-09-11)
 
 ### Bug Fixes
