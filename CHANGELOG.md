@@ -1,3 +1,10 @@
+## 4.8.1 (2019-09-13)
+
+### Bug Fixes
+
+- **top-bar-navigation:** Fixes a problem where styling was not applied due to a
+  wrong css selector
+
 ## 4.8.0 (2019-09-13)
 
 ### Bug Fixes
