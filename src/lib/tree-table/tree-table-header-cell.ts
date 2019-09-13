@@ -11,6 +11,7 @@ import {
   templateUrl: 'tree-table-header-cell.html',
   host: {
     class: 'dt-tree-table-header-cell',
+    role: 'columnheader',
   },
 })
 export class DtTreeTableHeaderCell {

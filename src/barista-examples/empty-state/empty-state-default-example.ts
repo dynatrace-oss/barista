@@ -10,7 +10,9 @@ import { Component } from '@angular/core';
           <img src="/assets/cta-noagent.svg" alt="No agent" />
         </dt-empty-state-item-img>
 
-        <dt-empty-state-item-title>Optional Heading</dt-empty-state-item-title>
+        <dt-empty-state-item-title aria-level="2"
+          >Optional Heading</dt-empty-state-item-title
+        >
 
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam

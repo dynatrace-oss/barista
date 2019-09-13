@@ -83,6 +83,7 @@ export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
   selector: `input[dtAutocomplete], textarea[dtAutocomplete]`,
   exportAs: 'dtAutocompleteTrigger',
   host: {
+    class: 'dt-autocomplete-trigger',
     '[attr.autocomplete]': 'autocompleteAttribute',
     '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
     '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
