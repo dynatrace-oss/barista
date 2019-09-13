@@ -1,6 +1,5 @@
 /**
  * Test file for testing the dt-breadcrumbs-alt-text rule.
- * dt-breadcrumbs must always provide an aria-label.
  */
 
 @Component({
@@ -12,10 +11,10 @@
     </dt-breadcrumbs>
 
     <dt-breadcrumbs>
-    ~~~~~~~~~~~~~~~~  [Breadcrumbs must provide an alternative text in form of an aria-label attribute.]
+    ~~~~~~~~~~~~~~~~ [A dt-breadcrumbs must either have an aria-label or an aria-labelledby attribute.]
       <!-- data$ emits a new items list after each 5 seconds -->
       <a dtBreadcrumbsItem *ngFor="let item of data$ | async" [href]="item.href">{{ item.label }}</a>
     </dt-breadcrumbs>
   `,
 })
-class TestClass { }
+class TestClass {}

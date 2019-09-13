@@ -1,35 +1,12 @@
-import { ElementAst } from '@angular/compiler';
-import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
+import { NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
 
-import {
-  addFailure,
-  hasTextContentAlternative,
-  isElementWithName,
-} from '../utils';
-
-class DtConsumptionIconVisitor extends BasicTemplateAstVisitor {
-  visitElement(element: ElementAst, context: any): void {
-    this._validateElement(element);
-    super.visitElement(element, context);
-  }
-
-  private _validateElement(element: ElementAst): any {
-    if (!isElementWithName(element, 'dt-consumption-icon')) {
-      return;
-    }
-
-    if (hasTextContentAlternative(element, 'aria-label')) {
-      return;
-    }
-
-    addFailure(this, element, 'A dt-consumption-icon must have an aria-label.');
-  }
-}
+import { createAltTextVisitor } from '../utils';
 
 /**
- * The dtConsumptionIconAltTextRule ensures that a dt-consumption-icon always has an aria-label set.
+ * The dtConsumptionIconAltTextRule ensures that a `dt-consumption-icon` always either
+ * has an `aria-label` or an `aria-labelledby` attribute set.
  *
  * The following example passes the lint checks:
  * <dt-consumption>
@@ -48,11 +25,11 @@ class DtConsumptionIconVisitor extends BasicTemplateAstVisitor {
 export class Rule extends Rules.AbstractRule {
   static readonly metadata: IRuleMetadata = {
     description:
-      'Ensures that a dt-consumption-icon always has an aria-label set.',
+      'Ensures that a dt-consumption-icon always either has an `aria-label` or an `aria-labelledby` attribute set.',
     options: null, // tslint:disable-line:no-null-keyword
     optionsDescription: 'Not configurable.',
     rationale:
-      'A dt-consumption-icon must have an aria-label that describes the icon.',
+      'A dt-consumption-icon must always have an aria-label or an aria-labelledby attribute that describes the element.',
     ruleName: 'dt-consumption-icon-alt-text',
     type: 'maintainability',
     typescriptOnly: true,
@@ -61,7 +38,7 @@ export class Rule extends Rules.AbstractRule {
   apply(sourceFile: SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: DtConsumptionIconVisitor,
+        templateVisitorCtrl: createAltTextVisitor('dt-consumption-icon'),
       }),
     );
   }
