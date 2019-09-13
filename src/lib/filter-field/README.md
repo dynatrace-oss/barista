@@ -55,6 +55,7 @@ class MyModule {}
 | `filters`    | `any[][]`                 |         | The currently selected filters. This input can also be used to programmatically add filters to the filter-field. |
 | `label`      | `string`                  |         | The label for the input field. Can be set to something like "Filter by".                                         |
 | `loading`    | `boolean`                 | `false` | Whether the filter-field is loading data and should show a loading spinner.                                      |
+| `aria-label` | `string`                  |         | Sets the value for the Aria-Label attribute.                                                                     |
 
 ## Outputs
 

@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
           <a dt-button color="cta" i18n>View release</a>
         </dt-cta-card-footer-actions>
         <dt-cta-card-image>
-          <img src="/assets/cta-noagent.svg" />
+          <img alt="no agent svg" src="/assets/cta-noagent.svg" />
         </dt-cta-card-image>
         Deploy Dynatrace OneAgent via the Dynatrace OneAgent BOSH release to
         your Cloud Foundry foundation VMs. Get monitoring insights into all
