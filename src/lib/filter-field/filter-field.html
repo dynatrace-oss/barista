@@ -21,6 +21,7 @@
       #input
       type="text"
       class="dt-filter-field-input"
+      [attr.aria-label]="ariaLabel"
       [dtAutocomplete]="autocomplete"
       [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length || loading"
       [dtFilterFieldRange]="range"
