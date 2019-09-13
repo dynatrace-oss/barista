@@ -196,6 +196,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   }
   private _filters: DtFilterValue[][] = [];
 
+  /** Set the Aria-Label attribute */
+  @Input('aria-label') ariaLabel = '';
+
   /** Emits an event with the current value of the input field every time the user types. */
   @Output() readonly inputChange = new EventEmitter<string>();
 
