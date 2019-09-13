@@ -41,7 +41,6 @@ export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));
   host: {
     class: 'dt-button-group',
     '[attr.aria-disabled]': 'disabled.toString()',
-    'aria-multiselectable': 'false',
     role: 'radiogroup',
   },
   encapsulation: ViewEncapsulation.Emulated,

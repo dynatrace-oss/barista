@@ -25,7 +25,6 @@ import { DtToggleButtonChange, DtToggleButtonItem } from './toggle-button-item';
   styleUrls: ['toggle-button-group.scss'],
   host: {
     class: 'dt-toggle-button-group',
-    'aria-multiselectable': 'false',
     role: 'radiogroup',
   },
   preserveWhitespaces: false,
