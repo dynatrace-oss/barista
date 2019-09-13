@@ -1,35 +1,12 @@
-import { ElementAst } from '@angular/compiler';
-import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
+import { NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
 
-import {
-  addFailure,
-  hasTextContentAlternative,
-  isElementWithName,
-} from '../utils';
-
-class DtMenuVisitor extends BasicTemplateAstVisitor {
-  visitElement(element: ElementAst, context: any): void {
-    this._validateElement(element);
-    super.visitElement(element, context);
-  }
-
-  private _validateElement(element: ElementAst): any {
-    if (!isElementWithName(element, 'dt-menu')) {
-      return;
-    }
-
-    if (hasTextContentAlternative(element, 'aria-label')) {
-      return;
-    }
-
-    addFailure(this, element, 'A dt-menu must have an aria-label.');
-  }
-}
+import { createAltTextVisitor } from '../utils';
 
 /**
- * The dtMenuAltTextRule ensures that a dt-menu always has an aria-label set.
+ * The dtMenuAltTextRule ensures that a `dt-menu` always either
+ * has an `aria-label` or an `aria-labelledby` attribute set.
  *
  * The following example passes the lint checks:
  * <dt-menu aria-label="Example Menu">
@@ -43,10 +20,12 @@ class DtMenuVisitor extends BasicTemplateAstVisitor {
  */
 export class Rule extends Rules.AbstractRule {
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that a dt-menu always has an aria-label set.',
+    description:
+      'Ensures that a dt-menu always either has an `aria-label` or an `aria-labelledby` attribute set.',
     options: null, // tslint:disable-line:no-null-keyword
     optionsDescription: 'Not configurable.',
-    rationale: 'A dt-menu must have an aria-label that describes the menu.',
+    rationale:
+      'A dt-menu must always have an aria-label or an aria-labelledby attribute that describes the element.',
     ruleName: 'dt-menu-alt-text',
     type: 'maintainability',
     typescriptOnly: true,
@@ -55,7 +34,7 @@ export class Rule extends Rules.AbstractRule {
   apply(sourceFile: SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: DtMenuVisitor,
+        templateVisitorCtrl: createAltTextVisitor('dt-menu'),
       }),
     );
   }

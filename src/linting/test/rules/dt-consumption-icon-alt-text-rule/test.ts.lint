@@ -1,13 +1,12 @@
 /**
- * Test file for testing the dt-consumption-icon-has-aria-label rule.
- * dt-consumption-icon must always provide an aria-label.
+ * Test file for testing the dt-consumption-icon-alt-text rule.
  */
 
 @Component({
   template: `
     <dt-consumption [min]="min" [max]="max" [value]="value">
       <dt-consumption-icon>
-      ~~~~~~~~~~~~~~~~~~~~~ [A dt-consumption-icon must have an aria-label.]
+      ~~~~~~~~~~~~~~~~~~~~~ [A dt-consumption-icon must either have an aria-label or an aria-labelledby attribute.]
         <dt-icon name="host"></dt-icon>
       </dt-consumption-icon>
       <dt-consumption-title>
@@ -41,4 +40,4 @@
     </dt-consumption>
   `,
 })
-class TestClass { }
+class TestClass {}

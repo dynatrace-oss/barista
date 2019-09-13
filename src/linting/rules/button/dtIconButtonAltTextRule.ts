@@ -1,70 +1,27 @@
-import { AttrAst, ElementAst } from '@angular/compiler';
-import { BasicTemplateAstVisitor, NgWalker } from 'codelyzer';
+import { NgWalker } from 'codelyzer';
 import { IRuleMetadata, RuleFailure, Rules } from 'tslint';
 import { SourceFile } from 'typescript';
 
-import {
-  addFailure,
-  hasTextContentAlternative,
-  isButtonElement,
-  isIconButtonAttr,
-} from '../../utils';
-
-interface FailureStrings {
-  [key: string]: string;
-}
-
-class DtButtonVisitor extends BasicTemplateAstVisitor {
-  visitElement(element: ElementAst, context: any): void {
-    this._validateElement(element);
-    super.visitElement(element, context);
-  }
-
-  private _validateElement(element: ElementAst): any {
-    if (!isButtonElement(element)) {
-      return;
-    }
-
-    const attrs: AttrAst[] = element.attrs;
-    const isIconButton = attrs.some(attr => isIconButtonAttr(attr));
-    if (!isIconButton) {
-      return;
-    }
-
-    if (hasTextContentAlternative(element)) {
-      return;
-    }
-
-    // tslint:disable-next-line: no-use-before-declare
-    addFailure(this, element, Rule.FAILURE_STRINGS[element.name]);
-  }
-}
+import { createAltTextVisitor } from '../../utils';
 
 /**
- * The dtIconButtonAltTextRule ensures that text alternatives are given for icon buttons.
+ * The dtIconButtonAltTextRule ensures that a `dt-icon-button` always either
+ * has an `aria-label` or an `aria-labelledby` attribute set.
  *
  * The following example passes the lint checks:
- * <button dt-icon-button variant="nested" aria-label="Install agent"><dt-icon name="agent"></dt-icon></button>
+ * <dt-icon-button aria-label="Description goes here"></dt-icon-button>
  *
  * For the following example the linter throws errors:
- * <a dt-icon-button variant="nested"><dt-icon name="agent"></dt-icon></a>, no text alternative given
+ * <dt-icon-button></dt-icon-button>
  */
 export class Rule extends Rules.AbstractRule {
-  static readonly ELEMENTS = ['a', 'button'];
-  static readonly FAILURE_STRINGS: FailureStrings = {
-    a:
-      'An icon-button link must have an aria-label or an aria-labelledby attribute.',
-    button:
-      'An icon-button must have an aria-label or an aria-labelledby attribute.',
-  };
-
   static readonly metadata: IRuleMetadata = {
-    description: 'Ensures that text alternatives are given for icon buttons.',
-    // tslint:disable-next-line:no-null-keyword
-    options: null,
+    description:
+      'Ensures that a dt-icon-button always either has an `aria-label` or an `aria-labelledby` attribute set.',
+    options: null, // tslint:disable-line:no-null-keyword
     optionsDescription: 'Not configurable.',
     rationale:
-      'Buttons without a text content need additional attributes to provide text alternatives.',
+      'A dt-icon-button must always have an aria-label or an aria-labelledby attribute that describes the element.',
     ruleName: 'dt-icon-button-alt-text',
     type: 'maintainability',
     typescriptOnly: true,
@@ -73,7 +30,10 @@ export class Rule extends Rules.AbstractRule {
   apply(sourceFile: SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new NgWalker(sourceFile, this.getOptions(), {
-        templateVisitorCtrl: DtButtonVisitor,
+        templateVisitorCtrl: createAltTextVisitor(
+          ['button', 'a'],
+          'dt-icon-button',
+        ),
       }),
     );
   }
