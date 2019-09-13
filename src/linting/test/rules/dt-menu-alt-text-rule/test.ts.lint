@@ -5,7 +5,7 @@
 @Component({
   template: `
     <dt-menu>
-    ~~~~~~~~~ [A dt-menu must have an aria-label.]
+    ~~~~~~~~~ [A dt-menu must either have an aria-label or an aria-labelledby attribute.]
       <a dtMenuItem>Menu item</a>
     </dt-menu>
 
