@@ -41,6 +41,7 @@ export const _DtToggleButtonMixinBase = mixinTabIndex(
   inputs: ['disabled', 'tabIndex'],
   host: {
     class: 'dt-toggle-button-item',
+    role: 'radio',
     '[class.dt-toggle-button-item-selected]': 'selected',
     '[class.dt-toggle-button-item-disabled]': 'disabled',
     '[attr.disabled]': 'disabled === true ? true : null',
