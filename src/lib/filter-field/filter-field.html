@@ -1,6 +1,10 @@
 <div class="dt-filter-field-body">
+  <dt-loading-spinner
+    class="dt-filter-field-spinner"
+    *ngIf="loading"
+  ></dt-loading-spinner>
   <div class="dt-filter-field-label">
-    <dt-icon name="filter" class="dt-filter-field-icon"></dt-icon>
+    <dt-icon *ngIf="!loading" name="filter" class="dt-filter-field-icon"></dt-icon>
     <span>{{label}}</span>
   </div>
 
@@ -13,10 +17,6 @@
 
   <div class="dt-filter-field-infix">
     <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{_filterByLabel}}</span>
-    <dt-loading-spinner
-      class="dt-filter-field-spinner"
-      *ngIf="loading"
-    ></dt-loading-spinner>
     <input
       #input
       type="text"
