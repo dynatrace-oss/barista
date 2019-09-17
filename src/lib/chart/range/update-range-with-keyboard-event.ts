@@ -23,33 +23,46 @@ export function updateRangeWithKeyboardEvent(
   let { left, width } = currentRange;
 
   if (readKeyCode(event) === HOME) {
-    left =
-      handle === DtSelectionAreaEventTarget.LeftHandle ? 0 : currentRange.left;
-
-    width =
-      handle === DtSelectionAreaEventTarget.LeftHandle
-        ? currentRange.left + currentRange.width
-        : 0;
+    switch (handle) {
+      case DtSelectionAreaEventTarget.LeftHandle:
+        left = 0;
+        width = currentRange.left + currentRange.width;
+        break;
+      case DtSelectionAreaEventTarget.RightHandle:
+        left = currentRange.left;
+        width = 0;
+        break;
+      default:
+        left = 0;
+        width = currentRange.width;
+    }
   } else if (readKeyCode(event) === END) {
-    left =
-      handle === DtSelectionAreaEventTarget.LeftHandle
-        ? currentRange.left + currentRange.width
-        : currentRange.left;
-
-    width =
-      handle === DtSelectionAreaEventTarget.LeftHandle
-        ? 0
-        : maxWidth - currentRange.left;
+    switch (handle) {
+      case DtSelectionAreaEventTarget.LeftHandle:
+        left = currentRange.left + currentRange.width;
+        width = 0;
+        break;
+      case DtSelectionAreaEventTarget.RightHandle:
+        left = currentRange.left;
+        width = maxWidth - currentRange.left;
+        break;
+      default:
+        left = maxWidth - currentRange.width;
+    }
   } else {
-    left =
-      handle === DtSelectionAreaEventTarget.LeftHandle
-        ? currentRange.left + offset
-        : currentRange.left;
-
-    width =
-      handle === DtSelectionAreaEventTarget.LeftHandle
-        ? currentRange.width - offset
-        : currentRange.width + offset;
+    // if the key is a arrow key or a page up or down key
+    switch (handle) {
+      case DtSelectionAreaEventTarget.LeftHandle:
+        left = currentRange.left + offset;
+        width = currentRange.width - offset;
+        break;
+      case DtSelectionAreaEventTarget.RightHandle:
+        left = currentRange.left;
+        width = currentRange.width + offset;
+        break;
+      default:
+        left = currentRange.left + offset;
+    }
   }
 
   return { left, width };

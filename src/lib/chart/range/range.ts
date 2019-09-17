@@ -354,13 +354,19 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    * @param event Keyboard event that provides information how to move the handle
    * @param handle indicates whether the left or the right handle triggered the event
    */
-  _handleKeyUp(event: KeyboardEvent, handle: string): void {
+  _handleKeyDown(event: KeyboardEvent, handle: string): void {
     if (readKeyCode(event) === TAB) {
       // we want to stay in our focus trap so continue
       return;
     }
 
     if ([BACKSPACE, DELETE].includes(readKeyCode(event))) {
+      // if the backspace or delete is pressed on the selected area we want to close it
+      if (handle === DtSelectionAreaEventTarget.SelectedArea) {
+        this._handleOverlayClose();
+        return;
+      }
+
       const timestamp =
         handle === DtSelectionAreaEventTarget.RightHandle
           ? this._rangeArea.left
@@ -384,6 +390,9 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
 
     const minWidth = this._calculateMinWidth(range.left);
     this._area = clampRange(range, this._maxWidth, minWidth);
+
+    // prevent handle keyup from bubbling up to the selection area
+    event.stopImmediatePropagation();
   }
 
   /**

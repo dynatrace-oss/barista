@@ -188,7 +188,7 @@ describe('DtChart Range', () => {
 
       const fakeEvent = createKeyboardEvent('keyupEvent', DELETE);
 
-      range._handleKeyUp(fakeEvent, 'left');
+      range._handleKeyDown(fakeEvent, 'left');
       fixture.detectChanges();
 
       expect(fixture.componentInstance._closed).toBe(1);
