@@ -15,6 +15,7 @@ import {
       [dataSource]="_dataSource"
       (currentFilterChanges)="currentFilterChanged($event)"
       label="Filter by"
+      clearAllLabel="Clear all"
     ></dt-filter-field>
   `,
 })
