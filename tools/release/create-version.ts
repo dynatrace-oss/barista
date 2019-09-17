@@ -1,11 +1,15 @@
-import {Version} from './parse-version';
-import {VersionType} from './publish-branch';
+import { Version } from './parse-version';
+import { VersionType } from './publish-branch';
 
 export type ReleaseType = VersionType;
 
 /** Creates a new version that can be used for the given release type. */
-export function createNewVersion(currentVersion: Version, releaseType: ReleaseType): Version {
-  // Clone the version object in order to keep the original version info un-modified.
+export function createNewVersion(
+  currentVersion: Version,
+  releaseType: ReleaseType,
+): Version {
+  // Clone the version object in order to keep the
+  // original version info un-modified.
   const newVersion = currentVersion.clone();
 
   // tslint:disable-next-line:prefer-switch
