@@ -2,7 +2,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { ElementRef, NgZone, QueryList } from '@angular/core';
-import { Observable, Subject, interval, of, timer } from 'rxjs';
+import { Subject, interval, of, timer } from 'rxjs';
 import { delay, map, mapTo, take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -44,7 +44,6 @@ const MOVE_VALUES = {
 describe('Selection Area Streams', () => {
   let selectionArea: HTMLElement;
   let testScheduler: TestScheduler;
-  let mouseMoveXFn: () => Observable<MouseEvent>;
   let relativeMousePositionSpy: jest.SpyInstance;
 
   beforeEach(() => {
@@ -54,21 +53,14 @@ describe('Selection Area Streams', () => {
     relativeMousePositionSpy = jest
       .spyOn(utils, 'getRelativeMousePosition')
       .mockImplementation(event => ({
-        x: event.clientX - MOCK_BOUNDING_CLIENT_RECT.left,
-        y: event.clientY - MOCK_BOUNDING_CLIENT_RECT.top,
+        x: (event as MouseEvent).clientX - MOCK_BOUNDING_CLIENT_RECT.left,
+        y: (event as MouseEvent).clientY - MOCK_BOUNDING_CLIENT_RECT.top,
       }));
 
     // Set up the TestScheduler to assert with the framework your using (Jasmine in this case)
     testScheduler = new TestScheduler((actual, expected) => {
       expect(actual).toEqual(expected);
     });
-
-    // create a mocked mouseMove function
-    mouseMoveXFn = () =>
-      interval(1).pipe(
-        map(curX => createMouseEvent('mousemove', curX + 201, 100)),
-        take(4),
-      );
   });
 
   afterEach(() => {
@@ -79,18 +71,29 @@ describe('Selection Area Streams', () => {
     const dragStart$ = of(DtSelectionAreaEventTarget.LeftHandle);
     const dragEnd$ = timer(5).pipe(mapTo(createMouseEvent('mouseup')));
 
+    const mouseMoveInterval = interval(1).pipe(
+      map(curX => createMouseEvent('mousemove', curX + 201, 100)),
+      take(4),
+    );
+
     testScheduler.run(({ expectObservable }) => {
       expectObservable(
-        getDragStream(selectionArea, dragStart$, dragEnd$, mouseMoveXFn),
+        getDragStream(selectionArea, dragStart$, dragEnd$, mouseMoveInterval),
       ).toBe('-abc(d|)', MOVE_VALUES);
     });
   });
 
   it('should create a mousemove stream', () => {
     // mock the capture and merge events to return our faked mousemove
+
+    const mouseMoveInterval = interval(1).pipe(
+      map(curX => createMouseEvent('mousemove', curX + 201, 100)),
+      take(4),
+    );
+
     const utilaSpy = jest
       .spyOn(utils, 'captureAndMergeEvents')
-      .mockReturnValue(mouseMoveXFn());
+      .mockReturnValue(mouseMoveInterval);
 
     testScheduler.run(({ expectObservable }) => {
       expectObservable(getMouseMove(selectionArea, [selectionArea])).toBe(
@@ -143,9 +146,10 @@ describe('Selection Area Streams', () => {
     const coreSpy = jest.spyOn(core, 'addCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
-      expectObservable(
-        getMouseUpStream(selectionArea, () => of(fakeMouseUp)),
-      ).toBe('(a|)', { a: fakeMouseUp });
+      expectObservable(getMouseUpStream(selectionArea, of(fakeMouseUp))).toBe(
+        '(a|)',
+        { a: fakeMouseUp },
+      );
       // need to execute all side effects before expecting
       flush();
 
@@ -331,13 +335,13 @@ describe('Selection Area Streams', () => {
 
     const clickStart$ = of(createMouseEvent('mousedown'));
     const clickEnd$ = of(clickEndEvent).pipe(delay(5));
-    const mouseMoveFn = () => of(createMouseEvent('mousemove')).pipe(delay(3));
+    const mouseMove$ = of(createMouseEvent('mousemove')).pipe(delay(3));
 
     jest.spyOn(utils, 'getRelativeMousePosition');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
-        getClickStream(selectionArea, clickStart$, clickEnd$, mouseMoveFn),
+        getClickStream(selectionArea, clickStart$, clickEnd$, mouseMove$),
       ).toBe('-----|'); // delay clickEnd$ for 5ms
       // need to execute all side effects before expecting
       flush();

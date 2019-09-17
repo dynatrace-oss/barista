@@ -118,11 +118,26 @@ export function getScrollOffset(): { x: number; y: number } {
  * @internal
  * Get the mouse position from a mouse event.
  * Returns the x and y coordinates
+ * @param event The MouseEvent where the x and y coordinates are taken.
  */
-export function getMousePosition(event: MouseEvent): { x: number; y: number } {
+export const getMousePosition = (
+  event: MouseEvent,
+): { x: number; y: number } => ({
+  x: event.clientX,
+  y: event.clientY,
+});
+
+/**
+ * @internal
+ * Get the position from a touch event.
+ * Returns the x and y coordinates
+ * @param event Touch event where the last touch is taken to get the x and y coordinates.
+ */
+export function getTouchPosition(event: TouchEvent): { x: number; y: number } {
+  const index = event.touches.length - 1;
   return {
-    x: event.clientX,
-    y: event.clientY,
+    x: event.touches[index].clientX,
+    y: event.touches[index].clientY,
   };
 }
 
@@ -130,12 +145,17 @@ export function getMousePosition(event: MouseEvent): { x: number; y: number } {
  * @internal
  * Get the relative mouse position to a provided container
  * from a provided mouse event
+ * @param event The touch or mouse event to get the coordinates from.
+ * @param container The `HTMLElement` where the relative position should be calculated.
  */
 export function getRelativeMousePosition(
-  event: MouseEvent,
+  event: MouseEvent | TouchEvent,
   container: HTMLElement,
 ): { x: number; y: number } {
-  const { x: clientX, y: clientY } = getMousePosition(event);
+  const { x: clientX, y: clientY } =
+    event instanceof TouchEvent
+      ? getTouchPosition(event)
+      : getMousePosition(event);
   const boundingClientRect = container.getBoundingClientRect();
   const scroll = getScrollOffset();
 
