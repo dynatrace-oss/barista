@@ -26,6 +26,7 @@ import {
   Observable,
   Subject,
   animationFrameScheduler,
+  fromEvent,
   merge,
   of,
 } from 'rxjs';
@@ -55,6 +56,7 @@ import { clampRange } from '../range/clamp-range';
 import { DtChartRange } from '../range/range';
 import { DtChartTimestamp } from '../timestamp/timestamp';
 import {
+  captureAndMergeEvents,
   chainFocusTraps,
   getElementRef,
   getRelativeMousePosition,
@@ -79,6 +81,10 @@ import {
   getMouseUpStream,
   getRangeCreateStream,
   getRangeResizeStream,
+  getTouchEndStream,
+  getTouchMove,
+  getTouchStartStream,
+  getTouchStream,
 } from './streams';
 
 @Component({
@@ -437,6 +443,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // The following section is for registering the events that track the mousedown, hover
     // drag and all interactions. This streams are stored in class members.
 
+    // stream that emits a touch start on all mouse down elements
+    const touchStart$ = getTouchStartStream(
+      this._elementRef.nativeElement,
+      this._mouseDownElements,
+    );
+    const touchEnd$ = getTouchEndStream(this._elementRef.nativeElement);
+
     this._mousedown$ = getMouseDownStream(
       this._elementRef.nativeElement,
       this._mouseDownElements,
@@ -444,10 +457,21 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     this._mouseup$ = getMouseUpStream(this._elementRef.nativeElement);
 
-    this._click$ = getClickStream(
-      this._elementRef.nativeElement,
-      this._mousedown$,
-      this._mouseup$,
+    this._click$ = merge(
+      getClickStream(
+        this._elementRef.nativeElement,
+        this._mousedown$,
+        this._mouseup$,
+      ),
+      getTouchStream(
+        this._elementRef.nativeElement,
+        touchStart$,
+        getTouchEndStream(
+          this._elementRef.nativeElement,
+          captureAndMergeEvents('touchend', this._mouseDownElements),
+        ),
+        getTouchMove(this._mouseDownElements),
+      ),
     );
 
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -487,10 +511,21 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // If there is a range component we have to check for drag events and resizing
     // and updates of the range.
     if (this._range) {
-      this._drag$ = getDragStream(
-        this._elementRef.nativeElement,
-        this._mousedown$,
-        this._mouseup$,
+      // touch factory on the window that creates a touchmove
+      const touch = fromEvent<TouchEvent>(window, 'touchmove');
+
+      this._drag$ = merge(
+        getDragStream(
+          this._elementRef.nativeElement,
+          this._mousedown$,
+          this._mouseup$,
+        ),
+        getDragStream(
+          this._elementRef.nativeElement,
+          touchStart$,
+          touchEnd$,
+          touch,
+        ),
       );
 
       // Create a stream for drag handle event in case we have to block the click event
@@ -505,23 +540,37 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         }),
       );
 
-      this._dragHandle$ = getDragStream(
-        this._elementRef.nativeElement,
-        dragStart$,
-        this._mouseup$,
-      );
-
-      const relativeMouseDown$ = this._mousedown$.pipe(
-        map((event: MouseEvent) =>
-          getRelativeMousePosition(event, this._elementRef.nativeElement),
+      this._dragHandle$ = merge(
+        getDragStream(
+          this._elementRef.nativeElement,
+          dragStart$,
+          this._mouseup$,
+        ),
+        getDragStream(
+          this._elementRef.nativeElement,
+          dragStart$,
+          touchEnd$,
+          touch,
         ),
       );
+
+      const relativeTouchOrMouseDown = <T extends TouchEvent | MouseEvent>(
+        event$: Observable<T>,
+      ) =>
+        event$.pipe(
+          map((event: T) =>
+            getRelativeMousePosition(event, this._elementRef.nativeElement),
+          ),
+        );
 
       // Create a range on the selection area if a drag is happening.
       // and listen for resizing of an existing selection area
       merge(
         getRangeCreateStream(
-          relativeMouseDown$,
+          merge(
+            relativeTouchOrMouseDown(this._mousedown$),
+            relativeTouchOrMouseDown(touchStart$),
+          ),
           this._drag$,
           this._selectionAreaBcr!.width,
         ),
@@ -559,13 +608,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         // merge the streams of the initial drag start and the handle drag start
         const startResizing$ = merge(initialDragStart$, dragHandleStart$);
         // map to false to end the resize
-        const mouseRelease$ = this._mouseup$.pipe(mapTo(-1));
+        const release$ = merge(this._mouseup$, touchEnd$).pipe(mapTo(-1));
 
         // mouse Release is -1
         const isMouseRelease = (resize: number) => resize === -1;
 
         // stream that emits drag start end end
-        merge(startResizing$, mouseRelease$)
+        merge(startResizing$, release$)
           .pipe(
             distinctUntilChanged(),
             takeUntil(this._destroy$),
@@ -600,7 +649,9 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // On a mousedown the range and the timestamp have to be hidden.
     const startShowingTimestamp$ = this._click$.pipe(mapTo(true));
     const startShowingRange$ = this._drag$.pipe(mapTo(true));
-    const hideTimestampAndRange$ = this._mousedown$.pipe(mapTo(false));
+    const hideTimestampAndRange$ = merge(this._mousedown$, touchStart$).pipe(
+      mapTo(false),
+    );
 
     merge(startShowingRange$, hideTimestampAndRange$)
       .pipe(
@@ -653,6 +704,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       this._timestamp ? this._timestamp._closeOverlay : of(null),
       this._range ? this._range._closeOverlay : of(null),
       this._mousedown$,
+      touchStart$,
     )
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {

@@ -62,17 +62,58 @@ export function getMouseDownStream(
  * In case it is used to end our actions we want to dispatch a side effect that adds the pointer
  * events back on the target. Starting actions remove the pointer events class.
  * @param target The HTMLElement where the no pointer events class should be toggled.
- * @param mouseUpFactory TODO LuHo: write JSDoc for parameter
+ * @param mouseUpStream$ Optional stream that emits the start
  */
 export function getMouseUpStream(
   target: HTMLElement,
-  mouseUpFactory?: () => Observable<MouseEvent>,
+  mouseUpStream$?: Observable<MouseEvent>,
 ): Observable<MouseEvent> {
-  const mouseUp$ = mouseUpFactory
-    ? mouseUpFactory()
+  const mouseUp$ = mouseUpStream$
+    ? mouseUpStream$
     : fromEvent<MouseEvent>(window, 'mouseup');
 
   return mouseUp$.pipe(
+    tap(() => {
+      addCssClass(target, NO_POINTER_EVENTS_CLASS);
+    }),
+    share(),
+  );
+}
+
+/**
+ * Creates a touch start stream on the provided elements and removes the pointer events class
+ * @param target The HTMLElement where the class should be toggled
+ * @param mousedownElements Array of elements that is used as event targets
+ * to capture the mouse move event
+ */
+export function getTouchStartStream(
+  target: HTMLElement,
+  mousedownElements: Element[],
+): Observable<TouchEvent> {
+  return captureAndMergeEvents('touchstart', mousedownElements).pipe(
+    tap(() => {
+      removeCssClass(target, NO_POINTER_EVENTS_CLASS);
+    }),
+    share(),
+  );
+}
+
+/**
+ * Creates a touch end stream on the window. Used to end other streams and actions.
+ * In case it is used to end our actions we want to dispatch a side effect that adds the pointer
+ * events back on the target. Starting actions remove the pointer events class.
+ * @param target The HTMLElement where the no pointer events class should be toggled.
+ * @param touchEnd$ A stream that emits a touch end event
+ */
+export function getTouchEndStream(
+  target: HTMLElement,
+  touchEnd$?: Observable<TouchEvent>,
+): Observable<TouchEvent> {
+  const touchEndStream$ = touchEnd$
+    ? touchEnd$
+    : fromEvent<TouchEvent>(window, 'touchend');
+
+  return touchEndStream$.pipe(
     tap(() => {
       addCssClass(target, NO_POINTER_EVENTS_CLASS);
     }),
@@ -112,25 +153,68 @@ export function getMouseOutStream(
  * And capture the move events so that we can check if it is not a drag
  * @param clickStart$ A mousedown stream that indicates a click
  * @param clickEnd$ A mouseup stream that ends a click
- * @param dragMoveFactory TODO LuHo: write JSDoc for parameter
+ * @param dragMove$ A stream that emits a move event
  */
 export function getClickStream(
   target: HTMLElement,
   clickStart$: Observable<MouseEvent>,
   clickEnd$: Observable<MouseEvent>,
-  dragMoveFactory?: () => Observable<MouseEvent>,
+  dragMove$?: Observable<MouseEvent>,
 ): Observable<{ x: number; y: number }> {
-  return merge(
-    clickStart$,
-    dragMoveFactory
-      ? dragMoveFactory()
-      : fromEvent<MouseEvent>(target, 'mousemove'),
-    clickEnd$,
-  ).pipe(
+  const drag$ = dragMove$
+    ? dragMove$
+    : fromEvent<MouseEvent>(target, 'mousemove');
+
+  return merge(clickStart$, drag$, clickEnd$).pipe(
     pairwise(),
     filter(([a, b]) => a.type === 'mousedown' && b.type === 'mouseup'),
     map(([b]) => b),
     map((event: MouseEvent) => getRelativeMousePosition(event, target)),
+    share(),
+  );
+}
+
+/**
+ * Creates a stream that provides relative position for a click.
+ * It is the similar function like the `getClickStream` only optimized for touch support
+ * @param target The HTMLElement that should used to calculate the relative position
+ * And capture the move events so that we can check if it is not a drag
+ * @param touchStart$ A touch start stream that indicates a click
+ * @param touchEnd$  A touch end stream that indicates a click
+ * @param touchMove$ A stream that emits a move event
+ */
+export function getTouchStream(
+  target: HTMLElement,
+  touchStart$: Observable<TouchEvent>,
+  touchEnd$: Observable<TouchEvent>,
+  touchMove$?: Observable<TouchEvent>,
+): Observable<{ x: number; y: number }> {
+  const touch$ = touchMove$
+    ? touchMove$
+    : fromEvent<TouchEvent>(target, 'touchmove');
+  return merge(touchStart$, touch$, touchEnd$).pipe(
+    pairwise(),
+    filter(([a, b]) => a.type === 'touchstart' && b.type === 'touchend'),
+    map(([b]) => b),
+    map((event: TouchEvent) => getRelativeMousePosition(event, target)),
+    share(),
+  );
+}
+
+/**
+ * Creates a Stream that emits a touch move on one to n event targets.
+ * Uses the animationFrameScheduler to throttle the move by default.
+ * @param mousedownElements Array of Elements that is used as event targets
+ * to capture the mouse move event
+ * @param scheduler A scheduler to throttle the mouse move per default the
+ * animationFrameScheduler will be taken.
+ */
+export function getTouchMove(
+  mousedownElements: Element[],
+  scheduler?: SchedulerLike,
+): Observable<TouchEvent> {
+  return captureAndMergeEvents('touchmove', mousedownElements).pipe(
+    throttleTime(0, scheduler || animationFrameScheduler),
     share(),
   );
 }
@@ -157,35 +241,29 @@ export function getMouseMove(
 }
 
 /**
- * A factory function that creates a mousemove event on the window.
- * Returns a stream of MouseEvents
- */
-export const getWindowMouseMoveStream: () => Observable<MouseEvent> = () =>
-  fromEvent<MouseEvent>(window, 'mousemove');
-
-/**
  * Creates a Stream that emits a drag on a provided element.
  * @param target The HTMLElement that should used to calculate the relative position
- * @param dragStart$ Any Stream that emits the start of the drag. (mostly a mousedown)
- * @param dragEnd$  The Stream that triggers the end of a drag. (mostly a mouseup)
- * @param dragMove The stream that fires the moves – by default a mousemove on the window.
- * @param scheduler TODO LuHo: write JSDoc for parameter
+ * @param dragStart$ Any Stream that emits the start of the drag. (mostly a mousedown or touchstart)
+ * @param dragEnd$  The Stream that triggers the end of a drag. (mostly a mouseup or touchend)
+ * @param dragMove$ The stream that fires the moves – by default a mousemove on the window.
+ * @param scheduler A scheduler that throttles the drag – by default the `animationFrameScheduler` is used
  */
 export function getDragStream(
   target: HTMLElement,
   dragStart$: Observable<unknown>,
-  dragEnd$: Observable<MouseEvent>,
-  dragMove?: () => Observable<MouseEvent>,
+  dragEnd$: Observable<MouseEvent | TouchEvent>,
+  dragMove$?: Observable<MouseEvent | TouchEvent>,
   scheduler?: SchedulerLike,
 ): Observable<{ x: number; y: number }> {
+  const drag$ = dragMove$
+    ? dragMove$
+    : fromEvent<MouseEvent>(window, 'mousemove');
   return dragStart$.pipe(
-    switchMap(() =>
-      (dragMove || getWindowMouseMoveStream)().pipe(
-        takeUntil(dragEnd$.pipe(take(1))),
-      ),
-    ),
+    switchMap(() => drag$.pipe(takeUntil(dragEnd$.pipe(take(1))))),
     throttleTime(0, scheduler || animationFrameScheduler),
-    map((event: MouseEvent) => getRelativeMousePosition(event, target)),
+    map((event: MouseEvent | TouchEvent) =>
+      getRelativeMousePosition(event, target),
+    ),
     share(),
   );
 }

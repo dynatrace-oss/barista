@@ -23,6 +23,7 @@
   [attr.aria-valuemin]="_minValue"
   [attr.aria-valuemax]="_maxValue"
   [attr.aria-label]="ariaLabelSelectedArea"
+  (keydown)="_handleKeyDown($event, 'selected-area')"
 >
   <button
     class="dt-chart-left-handle"
@@ -30,8 +31,9 @@
     [attr.aria-valuemin]="_minValue"
     [attr.aria-valuemax]="_maxValue"
     [attr.aria-label]="ariaLabelLeftHandle"
-    (keydown)="_handleKeyUp($event, 'left')"
+    (keydown)="_handleKeyDown($event, 'left')"
     (mousedown)="_dragHandle($event, 'left')"
+    (touchstart)="_dragHandle($event, 'left')"
   >
     <dt-icon name="handle"></dt-icon>
   </button>
@@ -42,8 +44,9 @@
     [attr.aria-valuemin]="_minValue"
     [attr.aria-valuemax]="_maxValue"
     [attr.aria-label]="ariaLabelRightHandle"
-    (keydown)="_handleKeyUp($event, 'right')"
+    (keydown)="_handleKeyDown($event, 'right')"
     (mousedown)="_dragHandle($event, 'right')"
+    (touchstart)="_dragHandle($event, 'right')"
   >
     <dt-icon name="handle"></dt-icon>
   </button>

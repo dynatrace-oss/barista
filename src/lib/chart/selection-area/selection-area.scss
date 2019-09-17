@@ -1,5 +1,6 @@
 @import '../../core/style/variables';
 @import '../../core/style/overlay';
+@import '../../core/style/interactive-common';
 
 .dt-chart-selection-area {
   position: absolute;
@@ -13,6 +14,10 @@
 
   &.dt-no-pointer-events {
     pointer-events: none;
+  }
+
+  &:focus {
+    @include dt-focus-style();
   }
 }
 
