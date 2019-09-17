@@ -31,7 +31,7 @@ export class ChartDemo {
 
   dataSet = 'small';
 
-  private lastTimeframe: [number, number];
+  lastTimeframe: [number, number];
 
   constructor(private _zone: NgZone) {}
 

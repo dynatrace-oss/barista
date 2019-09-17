@@ -24,8 +24,8 @@
     aria-label-left-handle="The left handle to update the selection"
     aria-label-right-handle="The right handle to update the selection"
     aria-label-selected-area="The selected time-frame"
-    min="0"
     (valid)="onTimeframeValidChanges($event)"
+    (valueChanges)="onTimeframeChanges($event)"
     (closed)="closed()"
   >
     <button
@@ -39,6 +39,7 @@
       Apply
     </button>
   </dt-chart-range>
+  <dt-chart-timestamp></dt-chart-timestamp>
 </dt-chart>
 
 <button (click)="switchData()">change</button>
