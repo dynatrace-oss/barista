@@ -10,6 +10,7 @@ import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/fi
       [dataSource]="_dataSource"
       label="Filter by"
       aria-label="Filter By Inputvalue"
+      clearAllLabel="Clear all"
     ></dt-filter-field>
   `,
 })
