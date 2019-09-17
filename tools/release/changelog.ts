@@ -1,7 +1,14 @@
-import { prompt } from 'inquirer';
+import {
+  ReadStream,
+  createReadStream,
+  createWriteStream,
+  readFileSync,
+} from 'fs';
 import { Readable } from 'stream';
-import { readFileSync, createReadStream, createWriteStream, ReadStream } from 'fs';
+
 import { grey } from 'chalk';
+import { prompt } from 'inquirer';
+
 import preset from './conventional-changelog-preset';
 
 // These imports lack type definitions.
@@ -11,18 +18,25 @@ const merge2 = require('merge2');
 // tslint:enable:no-var-requires no-require-imports
 
 /** Prompts for a changelog release name and prepends the new changelog. */
-export async function promptAndGenerateChangelog(changelogPath: string, releaseName: string): Promise<any> {
-  await prependChangelogFromLatestTag(changelogPath, releaseName);
+export async function promptAndGenerateChangelog(
+  changelogPath: string,
+  releaseName: string,
+): Promise<any> {
+  return prependChangelogFromLatestTag(changelogPath, releaseName);
 }
 
 /** Writes the changelog from the latest Semver tag to the current HEAD. */
-export async function prependChangelogFromLatestTag(changelogPath: string, releaseName: string): Promise<any> {
+export async function prependChangelogFromLatestTag(
+  changelogPath: string,
+  releaseName: string,
+): Promise<any> {
   const outputStream: Readable = conventionalChangelog(
     { config: preset }, // dynatrace preset
     { title: releaseName }, // context options
     null, // raw-commits options
     null, // commit parser options
-    createDedupeWriterOptions(changelogPath)); // writer options
+    createDedupeWriterOptions(changelogPath),
+  ); // writer options
 
   // Stream for reading the existing changelog. This is necessary because we want to
   // actually prepend the new changelog to the existing one.
@@ -32,14 +46,22 @@ export async function prependChangelogFromLatestTag(changelogPath: string, relea
     // Sequentially merge the changelog output and the previous changelog stream, so that
     // the new changelog section comes before the existing versions. Afterwards, pipe into the
     // changelog file, so that the changes are reflected on file system.
-    const mergedCompleteChangelog: ReadStream = merge2(outputStream, previousChangelogStream);
+    const mergedCompleteChangelog: ReadStream = merge2(
+      outputStream,
+      previousChangelogStream,
+    );
 
     // Wait for the previous changelog to be completely read because otherwise we would
     // read and write from the same source which causes the content to be thrown off.
     previousChangelogStream.on('end', () => {
-      mergedCompleteChangelog.pipe(createWriteStream(changelogPath))
-        .once('error', (error: any) => { reject(error); })
-        .once('finish', () => { resolve(); });
+      mergedCompleteChangelog
+        .pipe(createWriteStream(changelogPath))
+        .once('error', (error: any) => {
+          reject(error);
+        })
+        .once('finish', () => {
+          resolve();
+        });
     });
   });
 }
