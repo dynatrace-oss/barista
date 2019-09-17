@@ -72,6 +72,7 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
   },
   tooltip: {
     shared: true,
+    followTouchMove: false,
   },
   legend: {
     itemStyle: {
