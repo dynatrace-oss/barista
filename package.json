@@ -8,6 +8,7 @@
     "barista-tools:build": "ng build barista-tools",
     "barista-tools:run": "yarn barista-tools:build && node dist/tools/barista/main.js",
     "ide-completions": "gulp ide-completions",
+    "generate-docs": "ts-node --project tools/docs/tsconfig.json tools/docs/generate-docs.ts",
     "dev": "ng serve dev-app",
     "barista": "yarn barista-tools:run && ng serve barista",
     "build": "gulp library:build && gulp ts-linting-rules:build",
