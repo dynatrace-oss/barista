@@ -115,7 +115,13 @@ export function getElementBoundingClientRect(
           width: 0,
         };
 
-  return (clientRect as DOMRect).toJSON
-    ? { ...(clientRect as DOMRect).toJSON(), isNativeRect: true }
-    : { ...clientRect, isNativeRect: false };
+  return {
+    top: clientRect.top,
+    height: clientRect.height,
+    bottom: clientRect.bottom,
+    left: clientRect.left,
+    right: clientRect.right,
+    width: clientRect.width,
+    isNativeRect: element.getBoundingClientRect && !!window,
+  };
 }
