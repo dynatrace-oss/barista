@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
 export class KeyValueListLongtextExample {
   entries: object[] = [
     {
-      key: 'Hostanem in Amazon AWS Region EU-West 1 (public access)',
+      key: 'Hostname in Amazon AWS Region EU-West 1 (public access)',
       value: 'ec25217103181.eu-west1.compute.amazon-aws.com',
     },
     {
