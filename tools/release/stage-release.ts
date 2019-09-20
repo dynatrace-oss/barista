@@ -9,10 +9,7 @@ import { getReleaseCommit } from './get-release-version';
 import { GitClient } from './git-client';
 import { promptForNewVersion } from './new-version-prompt';
 import { Version, parseVersionName } from './parse-version';
-import {
-  getAllowedPublishBranches,
-  verifyPublishBranch,
-} from './publish-branch';
+import { getAllowedPublishBranches } from './publish-branch';
 
 /** Default filename for the changelog. */
 const CHANGELOG_FILE_NAME = 'CHANGELOG.md';
@@ -86,7 +83,6 @@ class StageReleaseTask {
     const publishBranch = this._switchToPublishBranch(newVersion);
 
     this.verifyLocalCommitsMatchUpstream(publishBranch);
-    this.verifyPublishBranch('master');
 
     if (!this.git.checkoutNewBranch(stagingBranch)) {
       console.error(
@@ -239,13 +235,6 @@ class StageReleaseTask {
       this.packageJsonPath,
       `${JSON.stringify(newPackageJson, null, 2)}\n`,
     );
-  }
-
-  /** Verifies that the user is on the specified publish branch. */
-  private verifyPublishBranch(expectedPublishBranch: string): void {
-    if (!verifyPublishBranch(expectedPublishBranch, this.git)) {
-      process.exit(1);
-    }
   }
 
   /**
