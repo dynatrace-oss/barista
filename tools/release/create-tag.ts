@@ -4,6 +4,7 @@ import { join } from 'path';
 import { italic, red } from 'chalk';
 
 import { GitClient } from './git-client';
+import { parseVersionName } from './parse-version';
 import { verifyPublishBranch } from './publish-branch';
 
 /** Creates a new version tag based on the version in the package.json. */
@@ -26,12 +27,13 @@ function createTag(projectDir: string, repositoryName: string) {
     process.exit(1);
   }
 
-  if (!verifyPublishBranch('master', git)) {
-    process.exit(1);
-  }
-
   const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
   const packageJsonVersion = packageJson.version;
+  const version = parseVersionName(packageJsonVersion);
+
+  if (!verifyPublishBranch(version, git)) {
+    process.exit(1);
+  }
 
   if (!git.createTag(packageJsonVersion)) {
     console.error(
