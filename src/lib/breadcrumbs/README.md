@@ -33,7 +33,7 @@ breadcrumbs are hierarchy-based, which means that every item of the breadcrumb
 represents a page and thus also the path that led up to the currenty visited
 page.
 
-<component-demo name="BreadcrumbsDefaultExample"></component-demo>
+<docs-source-example example="BreadcrumbsDefaultExample"></docs-source-example>
 
 ## Imports
 
