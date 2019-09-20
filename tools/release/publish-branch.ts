@@ -34,20 +34,18 @@ export function getSemverVersionType(version: Version): VersionType {
 }
 
 /** Verifies that the user is on the specified publish branch. */
-export function verifyPublishBranch(
-  expectedPublishBranch: string,
-  git: GitClient,
-): boolean {
+export function verifyPublishBranch(version: Version, git: GitClient): boolean {
+  const allowedBranches = getAllowedPublishBranches(version);
   const currentBranchName = git.getCurrentBranch();
 
   // Check if current branch matches the expected publish branch.
-  if (expectedPublishBranch !== currentBranchName) {
+  if (!allowedBranches.includes(currentBranchName)) {
     console.error(
       red(
         `  ✘ Cannot stage release from "${italic(
           currentBranchName,
         )}". Please ` +
-          `stage the release from "${bold(expectedPublishBranch)}".`,
+          `stage the release from "${bold(allowedBranches.join(', '))}".`,
       ),
     );
     return false;
