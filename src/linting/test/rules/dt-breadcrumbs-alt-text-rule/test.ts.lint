@@ -15,6 +15,21 @@
       <!-- data$ emits a new items list after each 5 seconds -->
       <a dtBreadcrumbsItem *ngFor="let item of data$ | async" [href]="item.href">{{ item.label }}</a>
     </dt-breadcrumbs>
+
+    <dt-breadcrumbs [attr.aria-label]="some">
+      <!-- data$ emits a new items list after each 5 seconds -->
+      <a dtBreadcrumbsItem *ngFor="let item of data$ | async" [href]="item.href">{{ item.label }}</a>
+    </dt-breadcrumbs>
+
+    <dt-breadcrumbs [attr.aria-labelledby]="some">
+      <!-- data$ emits a new items list after each 5 seconds -->
+      <a dtBreadcrumbsItem *ngFor="let item of data$ | async" [href]="item.href">{{ item.label }}</a>
+    </dt-breadcrumbs>
+
+        <dt-breadcrumbs aria-labelledby="labelled by">
+      <!-- data$ emits a new items list after each 5 seconds -->
+      <a dtBreadcrumbsItem *ngFor="let item of data$ | async" [href]="item.href">{{ item.label }}</a>
+    </dt-breadcrumbs>
   `,
 })
 class TestClass {}
