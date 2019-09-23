@@ -4,7 +4,6 @@ description: 'The filter is used to narrow down displayed content.'
 postid: filter-field
 category: 'components'
 public: true
-toc: true
 properties:
   - 'work in progress'
 contributors:

@@ -1,5 +1,21 @@
 ---
-type: 'component'
+title: 'Empty state'
+description:
+  'The empty state is used if a component or entity view has no data to show.'
+postid: empty-state
+identifier: 'Es'
+category: 'components'
+public: true
+wiki: ***REMOVED***
+contributors:
+  dev:
+    - christoph.matscheko
+  ux:
+    - andreas.mayr
+tags:
+  - 'empty state'
+  - 'call to action'
+  - 'illustration'
 ---
 
 # Empty state
@@ -32,24 +48,22 @@ You have to import the `DtEmptyStateModule` when you want to use the
 class MyModule {}
 ```
 
-## Examples
+## Variants
 
-### Multiple items
+If multiple steps are needed in an explanation, they will be seperated with an
+arrow. If a main call to action button is needed, add it to the card component.
+This is mainly used in an empty entity view.
 
-Uses a `<dt-empty-state>` component with several items.
+<docs-source-example example="EmptyStateMultipleItemsExample"></docs-source-example>
 
-<docs-source-example example="EmptyStateMultipleItemsExample" fullwidth="true"></docs-source-example>
+## Empty state in use
 
-### Implement a CTA card
-
-Uses a `<dt-empty-state>` component in combination with a
-[card](/components/card) to implement a CTA card.
+The empty state is often used in combination with a card component (replaces the
+deprecated [cta card]({{link_to_id id='cta-card'}})) or in a empty table or
+chart.
 
 <docs-source-example example="EmptyStateInCardExample"></docs-source-example>
 
-### Implement a CTA card (multiple items)
-
-Uses a `<dt-empty-state>` component with multiple items in combination with a
-[card](/components/card) to implement a CTA card.
+The following example shows a CTA card with multiple empty state items.
 
 <docs-source-example example="EmptyStateMultipleItemsInCardExample"></docs-source-example>

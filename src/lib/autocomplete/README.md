@@ -1,5 +1,20 @@
 ---
-type: 'component'
+title: 'Autocomplete'
+description:
+  'The autocomplete component is used in combination with an input to suggest
+  options according to the input.'
+postid: autocomplete
+category: 'components'
+public: true
+draft: true
+contributors:
+  dev:
+    - thomas.pink
+tags:
+  - 'combobox'
+  - 'input'
+  - 'angular'
+  - 'component'
 ---
 
 # Autocomplete
@@ -70,7 +85,7 @@ the `dtAutocompleteOrigin` directive together with the
 ## Option groups
 
 Of course the `dt-autocomplete` component also supports collecting `dt-option`
-elements into groups using the `dt-optgroup element`.
+elements into groups using the `dt-optgroup` element.
 
 <docs-source-example example="AutocompleteGroupsExample"></docs-source-example>
 

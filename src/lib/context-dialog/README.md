@@ -1,14 +1,31 @@
 ---
-type: 'component'
+title: 'Context dialog'
+description:
+  'The context dialog is an overlay which appears on click of a button.'
+postid: context-dialog
+identifier: 'Cd'
+category: 'components'
+public: true
+wiki: ***REMOVED***
+contributors:
+  dev:
+    - fabian.friedl
+  ux:
+    - andreas.mayr
+tags:
+  - 'angular'
+  - 'button'
+  - 'component'
+  - 'context action'
+  - 'overlay'
 ---
 
 # Context dialog
 
-The `<dt-context-dialog>` creates a container that is hidden inside an overlay.
-It is possible to disable the entire context dialog. The context dialog traps
-the focus inside the overlay until it is closed again. It sets the focus to the
-previously focused element when closed. The closing button inside the context
-dialog will get the focus, when the context menu is opened.
+The context dialog is an overlay which appears on click of a button. It holds
+context related actions and contains other components like
+[buttons]({{link_to_id id='button'}}), [links]({{link_to_id id='link' }}),
+[checkboxes]({{link_to_id id='checkbox' }}), etc.
 
 <docs-source-example example="ContextDialogDefaultExample"></docs-source-example>
 
@@ -64,14 +81,37 @@ Context dialogs should be given a meaningful label via `aria-label` for the open
 trigger and via `aria-label-close-button` for the close trigger, because the
 buttons do not contain text.
 
-## Examples
+## States
 
-### Focus previously focused element on close
+It is possible to disable the entire context dialog.
 
-To show the previous focused element working - please use the button labeled
-"Open" and not the button with the icon to open the context dialog
+<docs-source-example example="ContextDialogInteractiveExample"></docs-source-example>
+
+## Behavior
+
+As soon as the context dialog is open, the focus is set on the first interactive
+element within the dialog. The context dialog traps the focus inside the
+overlay. When it is closed again, the focus is set to the previously focused
+element. The dialog can be opened via "ENTER" or "SPACE" when focused, "ESC"
+closes it.
 
 <docs-source-example example="ContextDialogPreviousFocusExample"></docs-source-example>
+
+## Dark background
+
+The context dialog component can be used on dark background.
+
+<docs-source-example example="ContextDialogDarkExample" themedark="true"></docs-source-example>
+
+## Context dialog in use
+
+### Context actions menu
+
+The context actions menu is a variant of the context dialog placed on the top
+right within a [card]({{link_to_id id='card' }}), containing [secondary
+buttons]({{link_to_id id='button' }}).
+
+![Context dialog example](https://d24pvdz4mvzd04.cloudfront.net/test/context-dialog-example-100-4075494172.png)
 
 ### Context dialog with custom icon
 
@@ -84,11 +124,3 @@ correct context dialog.
 ### Context dialog with a header
 
 <docs-source-example example="ContextDialogHeaderExample"></docs-source-example>
-
-### Context dialog on dark background
-
-<docs-source-example example="ContextDialogDarkExample" themedark="true"></docs-source-example>
-
-### Interactive
-
-<docs-source-example example="ContextDialogInteractiveExample"></docs-source-example>

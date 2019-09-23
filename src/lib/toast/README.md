@@ -1,5 +1,22 @@
 ---
-type: 'component'
+title: 'Toast'
+description:
+  'Toasts display status messages or feedback that is directly related to an
+  action.'
+postid: toast
+category: 'components'
+public: true
+contributors:
+  dev:
+    - fabian.friedl
+  ux:
+    - andreas.mayr
+tags:
+  - 'toast'
+  - 'message'
+  - 'saving'
+  - 'feedback'
+  - 'component'
 ---
 
 # Toast
@@ -12,8 +29,9 @@ length. Dismissing the toast is paused while the user is hovering the message.
 
 You have to import the `DtToastModule` when you want to use the `DtToast`
 service. The `DtToast` service component also requires Angular's
-`BrowserAnimationsModule` for animations. For more details on this see _Step 2:
-Animations_ in the Getting started Guide.
+`BrowserAnimationsModule` for animations. For more details on this see
+[Step 2: Animations](***REMOVED***
+in the getting started guide.
 
 ```typescript
 @NgModule({
@@ -24,8 +42,8 @@ class MyModule {}
 
 ## Initialization
 
-You can get the `DtToast` instance with DI in any of your components. The
-`DtToast` ensures that there is only one toast open at one time.
+You can get the `DtToast` instance with dependency injection (DI) in any of your
+components. The `DtToast` ensures that there is only one toast open at one time.
 
 ```typescript
 ...
@@ -37,14 +55,24 @@ constructor(private _dtToast: DtToast) {}
 
 The `DtToast` service has the following two methods:
 
+### Create message
+
 ```typescript
 create(message: string): DtToastRef | null
 ```
 
-creates a new toast with the given message and returns the ref to the created
+Creates a new toast with the given message and returns the ref to the created
 toast. The toast duration is calculated based on the message length and gets
 dismissed automatically after the time passed. If the message is empty no toast
 will be created and `null` is returned.
+
+It is crucial to show short to the point messages that can be perceived easily.
+Therefore, toasts only support messages up to 120 characters. They can not
+contain any actions or icons. They are not clickable.
+
+<docs-source-example example="ToastDynamicMsgExample"></docs-source-example>
+
+### Dismiss toast
 
 ```typescript
 dismiss(): void
@@ -53,12 +81,20 @@ dismiss(): void
 Dismisses the currently displayed toast. Can be used if a toast needs to be
 dismissed before the calculated time passes.
 
-## Examples
+## Animation
 
-### Default
+The timeframe a message is displayed depends on the number of characters.
+Fade-in and fade-out animations last 150 ms.
 
-<docs-source-example example="ToastDefaultExample"></docs-source-example>
+A full animation circle consists of
 
-### Dynamic message
+- fade-in animation (f = 150ms)
+- time to perceive the information (p = 500ms)
+- time to read and understand the text (r \* Number of characters) (r = 50ms)
+- and fade-out (f = 150ms)
 
-<docs-source-example example="ToastDynamicMsgExample"></docs-source-example>
+Animation time = (f + p + (r \* Number of characters) + f);
+
+As the maximum number of characters is 120, therfore, the display time of a
+toast can not be longer than 6800 ms. The minumum display time is 2000ms to
+guarantee that the message can be perceived by the user.

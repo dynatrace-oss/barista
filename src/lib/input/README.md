@@ -1,17 +1,40 @@
 ---
-type: 'component'
+title: 'Input fields'
+description: 'An input field allows to enter various types of data.'
+postid: input
+identifier: 'If'
+category: 'components'
+public: true
+wiki: ***REMOVED***
+contributors:
+  dev:
+    - thomas.pink
+    - jordi.masramon
+  ux:
+    - raphaela.raudaschl
+related:
+  - 'form-field'
+  - 'inline-editor'
+  - 'validation'
+tags:
+  - 'input fields'
+  - 'input'
+  - 'textarea'
+  - 'edit'
+  - 'forms'
+  - 'validation'
 ---
 
-# Input & Textarea
-
-`dtInput` is a directive that applies Dynatrace styling to native `<input>` and
+`dtInput` is a directive that applies styling to native `<input>` and
 `<textarea>` elements and allows them to work with `<dt-form-field>`.
 
 <docs-source-example example="InputDefaultExample"></docs-source-example>
 
+<docs-source-example example="InputTextareaExample"></docs-source-example>
+
 ## Imports
 
-You have to import the `DtInputModule` when you want to use `dtInput`:
+You have to import the `DtInputModule` when you want to use `dtInput`.
 
 ```typescript
 @NgModule({
@@ -22,16 +45,13 @@ class MyModule {}
 
 ## Initialization
 
-To apply the Dynatrace input, add the `dtInput` attribute to the `<input>` and
-`<textarea>` elements.
-
-## Attributes
+The `dtInput` directive can be added to `<input>` and `<textarea>` elements.
 
 All valid `<input>` and `<textarea>` attributes can be used on `dtInput`
-including `ngModel` and `formControl`. The only exception ist type where not all
-values are possible.
+including `ngModel` and `formControl`. The only exception is the type attribute
+where not all values are possible.
 
-**Invalid input type values are:**
+### Invalid input types
 
 | Invalid type(s)                      | Description                                                                                    |
 | ------------------------------------ | ---------------------------------------------------------------------------------------------- |
@@ -39,22 +59,39 @@ values are possible.
 | `checkbox`                           | Use the [checkbox component](/components/checkbox/) instead.                                   |
 | `file`                               | Is not (yet) supported. Maybe there will be an upload component in the future.                 |
 | `hidden`                             | Hidden input fields should not be a thing in a client side app. They also do not need styling. |
-| `radio`                              | Use the [radio-button component](/components/radio-buttons/) instead                           |
+| `radio`                              | Use the [radio-button component](/components/radio-buttons/) instead.                          |
 | `range`                              | Is not (yet) supported. Maybe there will be a slider/range component in the future.            |
 
-## Options & Properties
+## Inputs
 
-| Name                         | Type                | Default                    | Description                                            |
-| ---------------------------- | ------------------- | -------------------------- | ------------------------------------------------------ |
-| `@Input() id`                | `string`            | `-`                        | Id of the element.                                     |
-| `@Input() disabled`          | `boolean`           | `false`                    | Whether the element is disabled.                       |
-| `@Input() required`          | `boolean`           | `false`                    | Whether the input is required. Used for validation.    |
-| `@Input() placeholder`       | `string`            | `-`                        | Input placeholder text.                                |
-| `@Input() type`              | `string`            | `text`                     | Input type of the element. See valid types above.      |
-| `@Input() value`             | `string`            | `-`                        | Input value of the input.                              |
-| `@Input() readonly`          | `boolean`           | `false`                    | Whether the input is readonly.                         |
-| `@Input() errorStateMatcher` | `ErrorStateMatcher` | `DefaultErrorStateMatcher` | A class used to control when error messages are shown. |
-| `empty()`                    | `boolean`           | `-`                        | Whether the input is empty.                            |
+| Name                | Type                | Default                    | Description                                            |
+| ------------------- | ------------------- | -------------------------- | ------------------------------------------------------ |
+| `id`                | `string`            | `-`                        | Id of the element.                                     |
+| `disabled`          | `boolean`           | `false`                    | Whether the element is disabled.                       |
+| `required`          | `boolean`           | `false`                    | Whether the input is required. Used for validation.    |
+| `placeholder`       | `string`            | `-`                        | Input placeholder text.                                |
+| `type`              | `string`            | `text`                     | Input type of the element. See valid types above.      |
+| `value`             | `string`            | `-`                        | Input value of the input.                              |
+| `readonly`          | `boolean`           | `false`                    | Whether the input is readonly.                         |
+| `errorStateMatcher` | `ErrorStateMatcher` | `DefaultErrorStateMatcher` | A class used to control when error messages are shown. |
+
+## Properties
+
+| Name    | Type      | Description                 |
+| ------- | --------- | --------------------------- |
+| `empty` | `boolean` | Whether the input is empty. |
+
+## Input and ngModel
+
+The `dtInput` works with `ngModel` as shown in the following example.
+
+<docs-source-example example="InputNgModelExample"></docs-source-example>
+
+## Dark background
+
+Input fields can be placed on dark background.
+
+<docs-source-example example="InputDarkExample" themedark="true"></docs-source-example>
 
 ## Accessibility
 
@@ -65,20 +102,51 @@ should be added. Any `dt-error` and `dt-hint` are automatically added to the
 input's `aria-describedby` list, and `aria-invalid` is automatically updated
 based on the input's validity state.
 
-## Examples
+## Input validation
 
-### Disabled & readonly
+For input validation, please consider the [validation
+guidelines]({{link_to_id id='validation' }}).
+
+### Hints
+
+Input fields can be extended by hints that should help the user preventing
+errors. Use the [form field component]({{link_to_id id='form-field' }}) to
+combine input fields and hints.
+
+## Input fields in use
+
+Input fields can be disabled or readonly.
 
 <docs-source-example example="InputDisabledReadonlyExample"></docs-source-example>
 
-### NgModel
+### Input values
 
-<docs-source-example example="InputNgModelExample"></docs-source-example>
+In Dynatrace all displayed input fields are mandatory. If an input field is
+optional this is indicated by a placeholder text `optional`. It is not possible
+to overwrite mandatory information with an empty field. In that case [an error
+would appear]({{link_to_id id='validation' }}) informing the user that this
+action is not possible.
 
-### Textarea
+If there is saved data from a previous entry, it should always be displayed. In
+case of a password or other sensitive data, it should be masked. This helps the
+user understand that information has already been entered.
 
-<docs-source-example example="InputTextareaExample"></docs-source-example>
+### Input fields in a form
 
-### Dark
+When input fields are used in a form together with labels and buttons use the
+following measures. This ensures that the components have enough space to be
+clicked or tapped on mobile.
 
-<docs-source-example example="InputDarkExample" themedark="true"></docs-source-example>
+<!-- TODO: provide a barista-example and remove image, ***REMOVED*** -->
+
+{{#figure styleguide='true'}}
+![Input fields styleguide measures](https://d24pvdz4mvzd04.cloudfront.net/test/inputs-styleguide-measures-332-b386bddc51.png)
+{{#figcaption}}
+
+```
+x: 12px
+y: 20px
+z: 8px
+```
+
+{{/figcaption}} {{/figure}}
