@@ -1,3 +1,11 @@
+## 4.8.2 (2019-09-23)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the bounding client rect could not be
+  retrieved on IE Edge.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 4.8.1 (2019-09-13)
 
 ### Bug Fixes
