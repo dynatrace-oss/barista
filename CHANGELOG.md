@@ -1,3 +1,13 @@
+## 4.8.3 (2019-09-23)
+
+### Bug Fixes
+
+- **empty-state:** Fixes an issue where expressionChangedAfterChecked error was
+  thrown when the viewportResizer provided sync value.
+- **filter-field:** Fixes an issue where distinct hasn't been set properly due
+  to a falsely applied parent-autocomplete for options.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 4.8.2 (2019-09-23)
 
 ### Bug Fixes
