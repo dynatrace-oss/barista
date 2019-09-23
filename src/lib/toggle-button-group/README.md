@@ -9,7 +9,7 @@ contributors:
   dev:
     - thomas.heller
   ux:
-    - florian.rammerstorfer
+    - raphaela.raudaschl
 tags:
   - 'toggle'
   - 'button'

@@ -8,6 +8,7 @@ identifier: 'Ch'
 category: 'components'
 public: true
 toc: true
+wiki: ***REMOVED***
 contributors:
   dev:
     - fabian.friedl

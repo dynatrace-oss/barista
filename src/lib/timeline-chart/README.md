@@ -1,18 +1,42 @@
 ---
-type: 'component'
+title: 'Timeline chart'
+description:
+  'The timeline chart enables a quick duration analysis of a user action.'
+postid: timeline-chart
+identifier: 'Tc'
+category: 'components'
+public: true
+wiki: ***REMOVED***
+properties:
+  - 'work in progress'
+contributors:
+  dev:
+    - thomas.pink
+  ux:
+    - ursula.wieshofer
+tags:
+  - 'duration'
+  - 'action'
+  - 'bar'
+  - 'contributor breakdown'
+  - 'waterfall'
+  - 'timeline'
+  - 'performance'
 ---
 
-# TimelineChart
+The timeline chart is used to analyze user actions and can indicate a violation
+of defined thresholds and provide additional timing information by showing
+markers.
 
-The timeline chart takes a value, a unit and a number of timing and key-timing
-markers and displays them on a horizontal bar.
+The overall duration is shown as a horizontal bar. The markers indicate timing
+events during this duration.
 
 <docs-source-example example="TimelineChartDefaultExample"></docs-source-example>
 
 ## Imports
 
 You have to import the `DtTimelineChartModule` when you want to use the
-`<dt-timeline-chart>`:
+`<dt-timeline-chart>`.
 
 ```typescript
 @NgModule({
@@ -31,21 +55,63 @@ class MyModule {}
 ## Markers
 
 The chart takes "timing" (`DtTimelineChartTimingMarker`) markers and
-"key-timing" (`DtTimelineChartKeyTimingMarker`) markers. Each marker needs an
-identifier which should be a single unique character and a value. The value is
-used to position the marker on the horizontal timeline bar. For each timing
-marker the chart will also create an item in the legend below the chart.
+"key-timing" (`DtTimelineChartKeyTimingMarker`) markers, which are used to show
+key performance metrics. Each marker needs an identifier which should be a
+single unique character and a value. The value is used to position the marker on
+the horizontal timeline bar. For each timing marker the chart will also create
+an item in the legend below the chart.
 
-**Inputs**
+### Marker inputs
 
 | Name         | Type     | Default | Description                                 |
 | ------------ | -------- | ------- | ------------------------------------------- |
 | `identifier` | `string` | -       | The single character identifier character." |
 | `value`      | `number` | `0`     | The actual value of the marker.             |
 
-**Overlay**
+### Overlay
 
 For timing markers you can also add additional information that will be
 displayed in an overlay when hovering the legend item.
 
 <docs-source-example example="TimelineChartOverlayExample"></docs-source-example>
+
+### Showing thresholds
+
+**Note:** Threshold markers are not yet implemented in Angular.
+
+It is possible to show a threshold marker in the timeline chart. For each
+threshold marker a color needs to be defined. If the duration exceeds the
+threshold the bar's color changes to the threshold-color.
+
+![Timeline chart threshold](https://dt-cdn.net/images/timeline-chart-threshold-618-68e05c6ece.png)
+
+If the overall duration is exceeding 70% of a configured threshold (i.e. it's
+close to hit the threshold), the timeframe of the chart expands to show the
+threshold marker in order to see how close the duration is in respect to the
+threshold.
+
+![Timeline chart threshold marker](https://dt-cdn.net/images/timeline-chart-threshold-marker-618-08731581c2.jpg)
+
+The timeframe shown in the chart is expanded to accommodate space for threshold
+markers, so that they can be displayed without wrapping or cutting off their
+text label.
+
+### Responsive behavior
+
+**Note:** Overlaying markers are not yet implemented in Angular.
+
+If multiple markers are displayed on the same position, they are overlaying each
+other (last marker to be added is on top). Hovering a timing marker in the
+legend moves the corresponding marker in the chart temporarily to the top in
+order to see where the marker is hidden otherwise. Markers overlap as soon as
+they get closer together than the radius of one marker.
+
+![timeline chart marker overlap](https://dt-cdn.net/images/timeline-chart-marker-overlap-160-22f3d859c7.jpg)
+
+## Timeline chart in use
+
+A timeline chart is used as a preview for a detailed timing analysis of a user
+action. Most of the time it is accompanied with a link (button) to drill-down to
+a detailed analysis.
+
+![Timeline chart in use](https://dt-cdn.net/images/timeline-chart-in-use-726-3af8a337f4.jpg)

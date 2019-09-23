@@ -1,10 +1,37 @@
 ---
-type: 'component'
+title: 'Button group'
+description:
+  'The button group component is used to switch between different views.'
+postid: button-group
+identifier: 'Bg'
+category: 'components'
+public: true
+themable: true
+contributors:
+  dev:
+    - thomas.heller
+    - daniel.kaneider
+  ux:
+    - raphaela.raudaschl
+related:
+  - 'chart'
+  - 'button'
+  - 'tabs'
+tags:
+  - 'tabs'
+  - 'component'
+  - 'angular'
+  - 'button'
+  - 'buttongroup'
 ---
 
 # ButtonGroup
 
-This component creates a button group element with Dynatrace styling.
+A button group has the same behavior as the [tabs
+component]({{link_to_id id='tabs'}}) and is used to switch between different
+views. The first non-disabled button is always preselected.
+
+<docs-source-example example="ButtonGroupDefaultExample"></docs-source-example>
 
 ## Imports
 
@@ -24,7 +51,7 @@ class MyModule {}
 
 ## Initialization
 
-To apply the Dynatrace button group, use the `<dt-button-group>` and
+To apply the button group component, use the `<dt-button-group>` and
 `<dt-button-group-item>` elements.
 
 | Attribute              | Description                                                                                      |
@@ -39,6 +66,8 @@ To apply the Dynatrace button group, use the `<dt-button-group>` and
 | `value`    | `T | undefined`       | `undefined` | Gets and sets the current value                                             |
 | `disabled` | `boolean | undefined` | `undefined` | Sets disabled state if property is set and the value is truthy or undefined |
 | `tabIndex` | `number`              | `0`         | Sets and gets the tabIndex property                                         |
+
+<docs-source-example example="ButtonGroupInteractiveExample"></docs-source-example>
 
 ## Outputs
 
@@ -69,24 +98,32 @@ To apply the Dynatrace button group, use the `<dt-button-group>` and
 | --------- | ------------------------------------------- | ------------ |
 | `focus()` | Sets focus to the `<dt-button-group-item>`. | `void`       |
 
-## Examples
+## States
 
-### Default
-
-<docs-source-example example="ButtonGroupDefaultExample"></docs-source-example>
-
-### Group disabled
-
-<docs-source-example example="ButtonGroupDisabledExample"></docs-source-example>
-
-### Item disabled
+Buttons within a button group have a default, hover, active, focus, and disabled
+state.
 
 <docs-source-example example="ButtonGroupItemDisabledExample"></docs-source-example>
 
+### Group disabled
+
+The complete button group can be disabled.
+
+<docs-source-example example="ButtonGroupDisabledExample"></docs-source-example>
+
 ### Error state
+
+A button group can hold buttons in an error state.
 
 <docs-source-example example="ButtonGroupErrorExample"></docs-source-example>
 
-### Interactive example
+## Button group in use
 
-<docs-source-example example="ButtonGroupInteractiveExample"></docs-source-example>
+### Chart tabs
+
+A button group placed above the [chart]({{link_to_id id='chart'}}) can be used
+to switch metrics displayed in a chart. Combined with a chart button groups are
+also called chart tabs. These tabs can contain single metrics or metric groups
+(e.g. response time and requests).
+
+![Chart tabs](https://d24pvdz4mvzd04.cloudfront.net/test/chart-behavior-switch-580-f368373ea8.png)

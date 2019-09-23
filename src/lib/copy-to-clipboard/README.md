@@ -1,22 +1,36 @@
 ---
-type: 'component'
+title: 'Copy to clipboard'
+description:
+  'The copy to clipboard component is used to let the user copy links, code
+  snippets and more.'
+postid: copy-to-clipboard
+category: 'components'
+public: true
+contributors:
+  dev:
+    - fabian.friedl
+    - daniel.moertenschlag
+  ux:
+    - raphaela.raudaschl
+tags:
+  - 'copy'
+  - 'share'
 ---
 
 # Copy to clipboard
 
-The `<dt-copy-to-clipboard>` creates a container including a textarea, input or
-a label ready to be copied to the clipboard. It is possible to disable the
-entire copy clipboard container.
-
-Using `<dt-copy-to-clipboard-label>` defines the button content (e.g. text like
-"click here to copy").
+The copy to clipboard component is a combination of a readonly input field or
+text area, and a copy button. It is used to copy links, code snippets and more.
+This component takes the hassle out of selecting any given amount of text and
+copying it to the clipboard. This is especially helpful for complex or large
+amount of content.
 
 <docs-source-example example="CopyToClipboardDefaultExample"></docs-source-example>
 
 ## Imports
 
 You have to import the `DtCopyToClipboardModule` when you want to use the
-`dt-copy-to-clipboard`:
+`dt-copy-to-clipboard`.
 
 ```typescript
 @NgModule({
@@ -25,11 +39,13 @@ You have to import the `DtCopyToClipboardModule` when you want to use the
 class MyModule {}
 ```
 
-## Inputs
+## Initialization
 
-| Name       | Type      | Default | Description                                                                               |
-| ---------- | --------- | ------- | ----------------------------------------------------------------------------------------- |
-| `disabled` | `boolean` | `false` | If `true` (= default) the included button and textarea are disabled, no copy is possible. |
+The `<dt-copy-to-clipboard>` creates a container including a textarea, input or
+a label ready to be copied to the clipboard.
+
+Using `<dt-copy-to-clipboard-label>` defines the button content (e.g. text like
+"click here to copy").
 
 ## Outputs
 
@@ -39,22 +55,48 @@ class MyModule {}
 | `afterCopy`  | `EventEmitter<void>` | Callback that is triggered after a successful copy and after the copy animation is stopped. |
 | `copyFailed` | `EventEmitter<void>` | Callback that is triggered after a failed copy.                                             |
 
+The following example shows a copy to clipboard component that triggers a
+callback function after a successful copy action.
+
+<docs-source-example example="CopyToClipboardCallbackExample"></docs-source-example>
+
 ## Methods
 
 | Name                | Description                                  | Return value |
 | ------------------- | -------------------------------------------- | ------------ |
 | `copyToClipboard()` | Triggers copy to clipboard programmatically. | `void`       |
 
-## Examples
+## Error state
 
-### With Callback
+In case of an error, e.g. if the user is not able to copy something to their
+clipboard, there should be an [alert]({{link_to_id id='alert' }}) below the copy
+to clipboard component informing the user about the problem and possible
+solutions.
 
-<docs-source-example example="CopyToClipboardCallbackExample"></docs-source-example>
+![Error message under copy to clipboard component](https://dt-cdn.net/images/copy-to-clipboard-validation-414-c09f60c917-414-c09f60c917.png)
 
-### Dark theme
+## Dark theme
+
+The copy to clipboard component can be placed on dark background.
 
 <docs-source-example example="CopyToClipboardDarkExample" themedark="true"></docs-source-example>
 
+## Copy to clipboard in use
+
+There are two versions of the copy to clipboard component. One uses a readonly
+text area and the other uses a readonly input field. The text area is used to
+display large amount of text, and the input field is used to display links and
+one-liners. The main difference between the two is the way they handle long
+content.
+
+The height of the text area is not defined per default, it is recommended to
+make the text area high enough to fit the whole content, this avoids unnecessary
+scrollbars.
+
 ### Example within context dialog
+
+The component can also be placed inside a [context
+dialog]({{link_to_id id='context-dialog' }}) and is most often used to share
+links.
 
 <docs-source-example example="CopyToClipboardContextExample"></docs-source-example>
