@@ -8,6 +8,7 @@ identifier: 'Ch'
 category: 'components'
 public: true
 toc: true
+wiki: https://dev-wiki.dynatrace.org/display/UX/Charts
 contributors:
   dev:
     - fabian.friedl
