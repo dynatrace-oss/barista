@@ -1,5 +1,28 @@
 ---
-type: 'component'
+title: 'Selection area'
+description:
+  'The selection area creates a selected area inside an origin element.'
+postid: selection-area
+identifier: 'Sa'
+category: 'components'
+public: true
+contributors:
+  dev:
+    - fabian.friedl
+  ux:
+    - kathrin.aigner
+related:
+  - 'micro-chart'
+  - 'chart'
+tags:
+  - 'angular'
+  - 'component'
+  - 'chart'
+  - 'zoom'
+  - 'selection area'
+  - 'selection'
+properties:
+  - deprecated
 ---
 
 # Selection Area
@@ -14,6 +37,8 @@ coupled with the chart component but this is the main usecase. To connect the
 selection area and the chart you have to use the `dtChartSelectionArea`
 directive on the `dt-chart` component and provide the instance of the
 `dt-selection-area` component as an input.
+
+<docs-source-example example="SelectionAreaChartExample" fullwidth="true"></docs-source-example>
 
 ```html
 <dt-chart ... [dtChartSelectionArea]="area"></dt-chart>
@@ -38,7 +63,7 @@ action button is available called `dt-selection-area-actions`.
 
 The `dt-selection-area` component will fire a change event when the selected
 area changes with the values for the positions of the handles. When used with a
-chart the values in the event are the x Axis values for the chart. If used with
+chart the values in the event are the x-axis values for the chart. If used with
 any other element the values will be pixel values.
 
 When you want to use the selection area connected to any other element than a
@@ -90,15 +115,45 @@ a text.
 | `close` | Closes the selection area's selected area.     |              |
 | `focus` | Focuses the selected area if one is available. |              |
 
-## Examples
+## Interaction
 
-### Usage on a non chart origin
+Our selection area was built for mouse, keyboard and touch support. It is
+possible to build the component according to your needs and use cases with the
+following functionalities:
 
-You can use the selection area connected to any element. Not only charts are
-supported.
+### Mouse
 
-<docs-source-example example="SelectionAreaDefaultExample" fullwidth="true"></docs-source-example>
+- **Timestamp:** it is possible to set a timestamp via click. It consists of a
+  line and an overlay. The overlay shows the selected timeframe as well as an
+  optional primary button and a secondary close button. Timestamps can be used
+  for filtering or for drilldowns which can also lead to follow-up screens.
+- **Timeframe:** drag creates an area. The overlay additionally consists of a
+  primary apply button and a secondary close button. By clicking "apply" the
+  chart will zoom into the selected timeframe. The global timeframe will change.
+- **Positioning and adjustments:** The chosen timeframe can be adjusted with
+  handles. Creating a new area on a different position will destroy the old one.
+  A timestamp can be repositioned by creating a new one via click. If a
+  timestamp functionality is not needed, a click can also be used to create a
+  predefined area.
 
-### Usage with a chart
+### Keyboard
 
-<docs-source-example example="SelectionAreaChartExample" fullwidth="true"></docs-source-example>
+To be able to create a timeframe or timestamp, it is necessary to focus the
+chart first.
+
+- **Timestamp:** depending on the use case "Enter" will create a line with an
+  overlay in the middle of the chart.
+- **Timeframe:** a timestamp will transform into an area as soon as you push
+  "Shift left" or "Shift right".
+- **Positioning and adjustments:** timestamp and timeframe can be adjusted or
+  moved to a preferred position by using keys aligned with WAI-ARIA practices.
+  For further information on how to use keyboard support, visit the
+  <a href="https://www.w3.org/TR/wai-aria-practices/examples/slider/multithumb-slider.html" target="_blank" rel="noopener">
+  W3C Horizontal Multi-Thumb Slider Example</a>
+
+### Touch
+
+- **Timestamp:** it is possible to create a timestamp via tap on a preferred
+  position.
+- **Timeframe:** dragging will create an area.
+- **Positioning and adjustments:** same behavior as for mouse support is used.

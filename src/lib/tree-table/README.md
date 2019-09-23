@@ -1,13 +1,46 @@
 ---
-type: 'component'
+title: 'Tree-table'
+description:
+  'The tree-table is used to show a tree of entities with additional data in a
+  grid/table, hence with table headers.'
+postid: tree-table
+category: 'components'
+public: true
+identifier: Tt
+angular: 'tree-table'
+contributors:
+  dev:
+    - fabian.friedl
+  ux:
+    - perihan.rashed
+tags:
+  - 'angular'
+  - 'component'
+  - 'tree'
+  - 'table'
+  - 'trable'
+  - 'treetable'
+related:
+  - 'table'
 ---
 
-# TreeTable
+The `<dt-tree-table>` provides the functionality of a tree displayed in a
+grid/table. The API is very similar to the
+[`<dt-table>` component](/components/table). You define the different columns
+and rows and choose which columns should be rendered inside each row.
+
+It is also possible to have multiple different row templates that can be
+switched when a row should have a special behavior e.g. a show more row for lazy
+loading more rows.
+
+In a tree-table it is never possible to sort for a column.
+
+<docs-source-example example="TreeTableSimpleExample" fullwidth="true"></docs-source-example>
 
 ## Imports
 
 You have to import the `DtTreeTableModule` when you want to use the
-`<dt-tree-table>`:
+`<dt-tree-table>`.
 
 ```typescript
 @NgModule({
@@ -16,16 +49,7 @@ You have to import the `DtTreeTableModule` when you want to use the
 class MyModule {}
 ```
 
-## Description
-
-The `<dt-tree-table>` provides the functionality of a tree displayed in a
-grid/table. The api is very similar to the `<dt-table>` component. You define
-the different columns and rows and choose which columns should be rendered
-inside each row. It is also possible to have multiple different row templates
-that can be switched when a row should have a special behavior e.g. a show more
-row for lazy loading more rows.
-
-## Usage
+## Initialization
 
 Start by adding the `<dt-tree-table>` component to your template and provide it
 with a datasource and a treecontrol.
@@ -194,30 +218,23 @@ shown in front of the row.
 
 <docs-source-example example="TreeTableProblemIndicatorExample" fullwidth="true"></docs-source-example>
 
-## Options & Properties & Methods
-
-### DtTreeTable
-
-#### Inputs
+## DtTreeTable inputs
 
 | Name                 | Type               | Default | Description                                                                                                             |
 | -------------------- | ------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `treeControl`        | `DtTreeControl<T>` | -       | Input for the treeControl that handles expand/collapse of rows                                                          |
-| `ariaLabel`          | `string`           | ''      | Input for the aria label of the tree-table                                                                              |
 | `hasInteractiveRows` | `boolean`          | `false` | Input wether the tree-table should have interactive rows - results in a hover effect                                    |
 | `trackBy`            | `Fn(index, T)`     |         | Tracking function that will be used to check the differences in data changes. Used similarly to ngFor trackBy function. |
 
 It is obligatory to provide either an `aria-label` or `aria-labelledby`.
 
-### DtTreeTableRow
-
-#### Inputs
+## DtTreeTableRow inputs
 
 | Name   | Type | Description                                                                                                                              |
 | ------ | ---- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | `data` | `T`  | The data for the row. Note that this might be removed rather soon and made obsolete due to a feature request on the underlying cdk table |
 
-### DtTreeControl
+## DtTreeControl
 
 | Name             | Type                                                     | Default | Description                                                                                      |
 | ---------------- | -------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
@@ -227,7 +244,7 @@ It is obligatory to provide either an `aria-label` or `aria-labelledby`.
 | `getLevel`       | `(row: T) => number`                                     |         | accessor fn for the level of the row                                                             |
 | `isExpandable`   | `(dataNode: T) => boolean`                               |         | function that returns wether a node is expandable                                                |
 
-#### Methods
+### Methods
 
 | Name                          | Return value | Description                        |
 | ----------------------------- | ------------ | ---------------------------------- |
@@ -242,7 +259,7 @@ It is obligatory to provide either an `aria-label` or `aria-labelledby`.
 | `toggle(row: T)`              | `void`       | Toggles a single row               |
 | `toggleDescendants(row: T)`   | `void`       | Toggles descendants of a row       |
 
-### DtTreeFlattener<T, F>
+## DtTreeFlattener<T, F>
 
 | Parameters          | Type                                                     | Description                                                                                      |
 | ------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -251,12 +268,25 @@ It is obligatory to provide either an `aria-label` or `aria-labelledby`.
 | `isExpandable`      | `(row: T) => boolean`                                    | function that returns wether a node is expandable                                                |
 | `transformFunction` | `(row: T, level: number) => F`                           |  function that transforms from type T to flat type F                                             |
 
-## Advanced usecases
+## Tree table in use
 
-You can load children async if needed.
-
-<docs-source-example example="TreeTableAsyncShowMoreExample" fullwidth="true"></docs-source-example>
+### Rows with multiple lines
 
 Use the `dt-info-group` for rows with multiple lines of text and icons.
 
 <docs-source-example example="TreeTableDefaultExample" fullwidth="true"></docs-source-example>
+
+### Load entries asynchronously
+
+In some cases there are too many hierarchy levels or too many entries in a tree,
+it's not possible to show them all at once. In this case one row can be used for
+an expand button which will load all entries at once.
+
+<docs-source-example example="TreeTableAsyncShowMoreExample" fullwidth="true"></docs-source-example>
+
+### Responsive behavior
+
+As long as a screen is big enough the tree-table can show all desired columns.
+Once a screen width decreases columns disappear according to their importance
+for a specific use case. The least important column will disappear first. The
+only column always visible is the tree itself (name of entity).
