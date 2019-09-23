@@ -4,56 +4,59 @@ import {
   ElementAst,
 } from '@angular/compiler';
 import { BasicTemplateAstVisitor, TemplateAstVisitorCtr } from 'codelyzer';
-import { isArray } from 'rxjs/internal-compatibility';
 
 import { addFailure } from './addFailure';
 import { isElementWithName } from './isElementWithName';
 
 /**
- * Checks for attribute or bindings with given name.
+ * Returns <code>true</code> if an input or an attribute exists. If the value
+ * of an attribute only consists of whitespace, it is considered empty.
  *
- * @param name The attribute name
- * @param attrs element attributes.
- * @param inputs element inputs / attribute bindings.
- * @returns true if aria-labelledby attribute or binding is set, false otherwise.
+ * @param attrs Element attributes
+ * @param inputs Element inputs / attribute bindings
+ * @param name The name of the attribute to check for
+ * @param requireValue Whether the attribute must also have a non-empty value
+ * @returns <code>true</code> if the input or attribute has been found
  */
-function hasAttributeValue(
-  name: string,
+function hasAttribute(
   attrs: AttrAst[],
   inputs: BoundElementPropertyAst[],
+  name: string,
+  requireValue: boolean = true,
 ): boolean {
-  const hasAttr = attrs.some(
-    attr => attr.name === name && attr.value.trim().length > 0,
+  return (
+    attrs.some(
+      attr =>
+        attr.name === name && (!requireValue || attr.value.trim().length > 0),
+    ) || inputs.some(input => input.name === name)
   );
-  const hasInput = inputs.some(input => input.name === name);
-  // TODO: check reference if aria-labelledby given?
-
-  return hasAttr || hasInput;
 }
 
 /**
- * Checks if the given element provides text alternatives in form of an aria-label
- * or aria-labelledby attribute.
+ * Checks if the given element provides text alternatives in form of an
+ * aria-label or aria-labelledby attribute.
  *
- * @param element the element to check.
- * @param attribute the attribute to look for (optional); aria-label and aria-labelledby when not given
- * @returns whether a text alternative is given.
+ * @param element The element to check.
+ * @param attribute The attribute to look for (optional); aria-label and
+ *   aria-labelledby when not given
+ * @returns <code>true</code> if the element provides a text alternative
  */
 export function hasTextContentAlternative(
   element: ElementAst,
   attribute?: string,
 ): boolean {
-  const attrs: AttrAst[] = element.attrs;
-  const inputs: BoundElementPropertyAst[] = element.inputs;
+  const checkForAttribute = (name: string) =>
+    hasAttribute(element.attrs, element.inputs, name);
 
   if (attribute === undefined) {
     return (
-      hasAttributeValue('aria-label', attrs, inputs) ||
-      hasAttributeValue('aria-labelledby', attrs, inputs)
+      checkForAttribute('aria-label') ||
+      checkForAttribute('attr.aria-label') ||
+      checkForAttribute('aria-labelledby') ||
+      checkForAttribute('attr.aria-labelledby')
     );
   }
-
-  return hasAttributeValue(attribute, attrs, inputs);
+  return checkForAttribute(attribute);
 }
 
 /**
@@ -61,49 +64,47 @@ export function hasTextContentAlternative(
  * the given element name and does not provide text alternatives in form of an
  * aria-label or aria-labelledby attribute.
  *
- * @param element The name of the element to check
- * @param attribute The attributes to look for (optional); aria-label and aria-labelledby when not specified
+ * @param elements The name(s) of the element(s) to check for
+ * @param attributes The attribute(s) to look for (optional)
  */
 export function createAltTextVisitor(
-  element: string | string[],
-  attribute?: string | string[],
+  elements: string | string[],
+  attributes?: string | string[],
 ): TemplateAstVisitorCtr {
   const matchesElement = (ast: ElementAst, elementName: string): boolean => {
     if (isElementWithName(ast, elementName)) {
-      if (attribute === undefined) {
+      if (attributes === undefined) {
         return true;
       }
-      if (isArray(attribute)) {
-        return attribute.some(attr =>
-          hasAttributeValue(attr, ast.attrs, ast.inputs),
-        );
-      }
-      return hasAttributeValue(attribute, ast.attrs, ast.inputs);
+
+      const checkForAttribute = (name: string) =>
+        hasAttribute(ast.attrs, ast.inputs, name, false);
+
+      return Array.isArray(attributes)
+        ? attributes.some(checkForAttribute)
+        : checkForAttribute(attributes);
     }
     return false;
   };
-  const matches = (ast: ElementAst): boolean => {
-    return isArray(element)
-      ? element.some(el => matchesElement(ast, el))
-      : matchesElement(ast, element);
-  };
+  const matches = (ast: ElementAst): boolean =>
+    Array.isArray(elements)
+      ? elements.some(elementName => matchesElement(ast, elementName))
+      : matchesElement(ast, elements);
   const failureMessage = () => {
     let componentName;
 
-    if (attribute !== undefined) {
-      componentName = isArray(attribute) ? attribute[0] : attribute;
+    // tslint:disable-next-line:prefer-conditional-expression
+    if (attributes !== undefined) {
+      componentName = Array.isArray(attributes) ? attributes[0] : attributes;
     } else {
-      componentName = isArray(element) ? element[0] : element;
+      componentName = Array.isArray(elements) ? elements[0] : elements;
     }
-
     return `A ${componentName} must either have an aria-label or an aria-labelledby attribute.`;
   };
 
   return class AltTextVisitor extends BasicTemplateAstVisitor {
     visitElement(ast: ElementAst, context: any): void {
       if (matches(ast) && !hasTextContentAlternative(ast)) {
-        // console.log(`Incorrect element detected: ${failureMessage()}`);
-
         addFailure(this, ast, failureMessage());
       }
       super.visitElement(ast, context);
