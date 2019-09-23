@@ -5,8 +5,7 @@ description:
 postid: icon
 identifier: 'Ic'
 category: 'components'
-public: true
-toc: true
+public: false
 contributors:
   dev:
     - thomas.pink

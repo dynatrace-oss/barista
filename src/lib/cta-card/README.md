@@ -1,35 +1,37 @@
 ---
-type: 'component'
+title: 'CTA card'
+description:
+  'The CTA card is a specific type of card, showing a call to action content.'
+postid: cta-card
+identifier: 'Ca'
+category: 'components'
+public: true
+properties:
+  - deprecated
+contributors:
+  dev:
+    - christoph.matscheko
+    - alexander.lagler
+  ux:
+    - raphaela.raudaschl
+tags:
+  - 'call to action'
+  - 'cta'
+  - 'section'
+  - 'card'
+  - 'component'
+  - 'illustration'
+related:
+  - 'empty-state'
+  - 'card'
 ---
 
 # Cta Card
 
 **DEPRECATED – will be removed with version 6.0.0** Please use
-`<dt-empty-state>` in combination with `<dt-card>` instead.
-
-Example:
-
-```angular2html
-<dt-card>
-  <dt-card-title>Some title</dt-card-title>
-
-  <dt-empty-state>
-    <dt-empty-state-item>
-      <dt-empty-state-item-img>
-        <img src="/assets/cta-noagent.svg" alt="No agent" />
-      </dt-empty-state-item-img>
-
-      <dt-empty-state-item-title>Some Heading</dt-empty-state-item-title>
-
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
-    </dt-empty-state-item>
-  </dt-empty-state>
-
-  <dt-card-footer-actions>
-    <button color="cta">My Action</button>
-  </dt-card-footer-actions>
-</dt-card>
-```
+`<dt-empty-state>` in combination with `<dt-card>` instead. See the
+[empty state](/components/empty-state) and the [card](/components/card) for more
+details.
 
 The `<dt-cta-card>` is a specific type of card showing a call to action content,
 defined by a title, an image, a teaser text and an action button. In addition to
@@ -60,8 +62,8 @@ Please note that you should not use the cta-card's elements like title to hold
 any arbitrary content just for spacing purposes, make sure to put only the cards
 title inside the `<dt-cta-card-title>` element and not controls like buttons.
 
-## Examples
+## Variants
 
-### Closable
+### Closeable Card
 
 <docs-source-example example="CtaCardClosableExample"></docs-source-example>

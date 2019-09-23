@@ -1,10 +1,31 @@
 ---
-type: 'component'
+title: 'Show more'
+description: 'The show more component creates a show more pagination widget.'
+postid: show-more
+category: 'components'
+public: true
+contributors:
+  dev:
+    - lara.aigmueller
+    - daniel.kaneider
+  ux:
+    - gabriele.hasson-birkenmayer
+related:
+  - 'pagination'
+tags:
+  - 'component'
+  - 'angular'
+  - 'pagination'
+  - 'show more'
+  - 'pager'
 ---
 
 # Show More
 
-This component creates a show more pagination widget.
+The show more component is used to split long lists of items into smaller sets
+and load them one by one.
+
+<docs-source-example example="ShowMoreDefaultExample"></docs-source-example>
 
 ## Imports
 
@@ -20,11 +41,11 @@ class MyModule {}
 
 ## Initialization
 
-To apply the dynatrace show more component, use the `<dt-show-more>` element
-with some content as text. To use a _Show less_ label an additional
-`<dt-show-less-label>` tag can be used.
+To apply the show more component, use the `<dt-show-more>` element with some
+content as text. To use a _Show less_ label an additional `<dt-show-less-label>`
+tag can be used.
 
-## Options & Properties
+## Properties
 
 ### Button group
 
@@ -35,24 +56,44 @@ with some content as text. To use a _Show less_ label an additional
 | `[tabIndex]`   | `number`      | `0`     | Sets and gets the tabIndex property.                                                                                                               |
 | `(changed)`    | `event<void>` |         | The event which gets fired when the state changes. The event is fired when the user clicks on the component, as well as using SPACE or ENTER keys. |
 
-## Examples
+## Show more on dark background
 
-### Default
+{{#component-demo name="ShowMoreDarkExample" themedark="true"}}{{/component-demo}}
 
-<docs-source-example example="ShowMoreDefaultExample"></docs-source-example>
+## Behavior
 
-### Without text
+As the list is divided into equal parts, the button shows the number of entries
+of the next part, if possible. As soon as there are no more entries available,
+the show more button is hidden. Once expanded, the list cannot be collapsed
+anymore without a full page reload.
+
+Another variant of the paging behavior - loading more items if not everything is
+visible initially - is the [pagination
+component]({{link_to_id id='pagination'}}).
+
+## States
+
+The show more component can be disabled.
+
+<docs-source-example example="ShowMoreDisabledExample"></docs-source-example>
+
+## Show more in use
+
+{{#figure styleguide='true'}}
+![Show more distances](https://d24pvdz4mvzd04.cloudfront.net/test/pagination-styleguide-showmore-distances-550-7e6bcae0ab.png)
+{{#figcaption}}
+
+```
+x: 20px
+y: 8px
+```
+
+{{/figcaption}} {{/figure}}
+
+### Show more without text
 
 <docs-source-example example="ShowMoreNoTextExample"></docs-source-example>
 
 ### Interactive example
 
 <docs-source-example example="ShowMoreInteractiveExample"></docs-source-example>
-
-### Dark theme
-
-<docs-source-example example="ShowMoreDarkExample" themedark="true"></docs-source-example>
-
-### Disabled
-
-<docs-source-example example="ShowMoreDisabledExample"></docs-source-example>

@@ -55,11 +55,9 @@ You have to import the `DtConsumptionModule` when you want to use the
 class MyModule {}
 ```
 
-## Options & Properties
+## Inputs
 
 ### DtConsumption
-
-#### Inputs
 
 | Name  | Type   | Default  | Description                                                                                                                |
 | ----- | ------ | -------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -68,8 +66,6 @@ class MyModule {}
 | color | string | `'main'` | The color scheme used for the progress bar. Only values defined in type `DtConsumptionThemePalette` are considered valid.  |
 
 ### DtConsumptionIcon
-
-#### Inputs
 
 | Name       | Type     | Default     | Description                                                           |
 | ---------- | -------- | ----------- | --------------------------------------------------------------------- |
@@ -83,9 +79,7 @@ To make our components accessible it is obligatory to provide either an
 Icons defined with `<dt-consumption-icon>` must be given a meaningful label via
 `aria-label`.
 
-## Examples
-
-### Overage view (warning state)
+## Overage view (warning state)
 
 Services that are incurring overages display a full yellow bar (warning state).
 The yellow color specifically depicts a service in overage. This means the
@@ -94,7 +88,7 @@ contracted amount.
 
 <docs-source-example example="ConsumptionWarningExample"></docs-source-example>
 
-### Limits reached view (error state)
+## Limits reached view (error state)
 
 Services that have used their full contracted amount display a full red bar
 (error state). The red color specifically depicts a service that has hit its
@@ -102,3 +96,8 @@ contracted limit and the service will no longer be available until quotas are
 increased or renewed.
 
 <docs-source-example example="ConsumptionErrorExample"></docs-source-example>
+
+## Accessibility
+
+Icons defined with `<dt-consumption-icon>` must be given a meaningful label via
+`aria-label`.
