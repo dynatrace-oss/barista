@@ -326,8 +326,8 @@ export class DtFilterFieldDefaultDataSource<T>
     const parentAutocomplete =
       parentGroup !== null
         ? parentGroup.group.parentAutocomplete
-        : isDtAutocompleteDef(parent)
-        ? (parent as DtNodeDef)
+        : isDtAutocompleteDef(parentAutocompleteOrOption)
+        ? (parentAutocompleteOrOption as DtNodeDef)
         : null;
     return dtOptionDef(
       typeof data === 'string' ? data : data.name,
