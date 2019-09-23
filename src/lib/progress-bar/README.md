@@ -1,8 +1,23 @@
 ---
-type: 'component'
+title: 'Progress bar'
+description: 'The progress bar component is used to visualize progress.'
+postid: progress-bar
+category: 'components'
+public: true
+themable: true
+contributors:
+  dev:
+    - thomas.heller
+    - daniel.kaneider
+  ux:
+    - andreas.mayr
+tags:
+  - 'progress'
+  - 'loading'
+  - 'progress bar'
+  - 'angular'
+  - 'component'
 ---
-
-# Progress bar
 
 The `<dt-progress-bar>` creates a simple progress bar. It is possible to set the
 value for the progress bars as well as setting a min and max value. The color
@@ -10,15 +25,12 @@ property can be set to specify the color of the progress. The color depends on
 the theme the progress bars is in. The value will be clamped between the min and
 max values.
 
-The progress bar should be used to display a distinct progress of a process or
-status, i.e. a download progress or used status of a disk.
-
 <docs-source-example example="ProgressBarDefaultExample"></docs-source-example>
 
 ## Imports
 
 You have to import the `DtProgressBarModule` when you want to use the
-`dt-progress-bar`:
+`dt-progress-bar`.
 
 ```typescript
 @NgModule({
@@ -27,10 +39,38 @@ You have to import the `DtProgressBarModule` when you want to use the
 class MyModule {}
 ```
 
+## Inputs
+
+| Name    | Type              | Default | Description                                                           |
+| ------- | ----------------- | ------- | --------------------------------------------------------------------- |
+| `value` | `number`          | `0`     | Gets and sets the value on the progress-bar.                          |
+| `min`   | `number`          | `0`     | Gets and sets the minimum value on the progress bar                   |
+| `max`   | `number`          | `100`   | Gets and sets the maximum value on the progress bar                   |
+| `align` | `'start' | 'end'` | `start` | Sets the alignment of the progress element to the star or to the end. |
+
+Using the `align` input the alignment of the progress bar can be changed to
+`end`.
+
+<docs-source-example example="ProgressBarRightAlignedExample"></docs-source-example>
+
+## Outputs
+
+| Name          | Type                                                   | Description                                        |
+| ------------- | ------------------------------------------------------ | -------------------------------------------------- |
+| `valueChange` | `EventEmitter<{ oldValue: number, newValue: number }>` | Event emitted when the progress bar value changes. |
+
+<docs-source-example example="ProgressBarChangeExample"></docs-source-example>
+
+## Properties
+
+| Name         | Type     | Description                                     |
+| ------------ | -------- | ----------------------------------------------- |
+| `percentage` | `number` | Gets the percentage used to render the progress |
+
 ## Progress bar description
 
 The `<dt-progress-bar-description>` component lets you add a description to the
-progress-bar. It utilises ng-content selection within the `<dt-progress-bar>`
+progress-bar. It utilises `ng-content` selection within the `<dt-progress-bar>`
 component to position the description correctly. Use the description to provide
 more insight into what the progress bar actually indicates.
 
@@ -61,64 +101,47 @@ values. Use the count to display a text representation of the progress.
 </dt-progress-bar>
 ```
 
+<docs-source-example example="ProgressBarWithCountExample"></docs-source-example>
+
 <docs-source-example example="ProgressBarWithCountAndDescriptionExample"></docs-source-example>
+
+## Colors
+
+The progress bar can be colored based on its color theme palette.
+
+<docs-source-example example="ProgressBarWithColorExample"></docs-source-example>
+
+## Dark background
+
+Progress bars can be placed on dark background.
+
+<docs-source-example example="ProgressBarDarkExample" themedark="true"></docs-source-example>
 
 ## Accessibility
 
 Progress bars should be given a meaningful label via aria-label or
 aria-labelledby.
 
-## Inputs
+## Progress bar in use
 
-| Name    | Type              | Default | Description                                                           |
-| ------- | ----------------- | ------- | --------------------------------------------------------------------- |
-| `value` | `number`          | `0`     | Gets and sets the value on the progress-bar.                          |
-| `min`   | `number`          | `0`     | Gets and sets the minimum value on the progress bar                   |
-| `max`   | `number`          | `100`   | Gets and sets the maximum value on the progress bar                   |
-| `align` | `'start' | 'end'` | `start` | Sets the alignment of the progress element to the star or to the end. |
+While the [loading distractor]({{link_to_id id='loading-distractor' }}) does not
+indicate how long something will take, the progress bar displays how far along
+the process is.
 
-## Outputs
+The progress bar should be used to display a distinct progress of a process or
+status, i.e. a download progress or used status of a disk.
 
-| Name          | Type                                                   | Description                                        |
-| ------------- | ------------------------------------------------------ | -------------------------------------------------- |
-| `valueChange` | `EventEmitter<{ oldValue: number, newValue: number }>` | Event emitted when the progress bar value changes. |
+### Animation
 
-## Properties
+Once the bar has finished loading, it will fade out after 1s and the loaded
+content will move up to fill the space where the progress bar used to be. The
+fade out transition takes 500ms.
 
-| Name         | Type     | Description                                     |
-| ------------ | -------- | ----------------------------------------------- |
-| `percentage` | `number` | Gets the percentage used to render the progress |
+![Progress bar animation](https://d24pvdz4mvzd04.cloudfront.net/test/progress-animation-e086f3c372.gif)
 
-## Examples
+### Progress bar with indicator
 
-### Progress bars with color
-
-<docs-source-example example="ProgressBarWithColorExample"></docs-source-example>
-
-### Progress bars change
-
-<docs-source-example example="ProgressBarChangeExample"></docs-source-example>
-
-### Progress bar alignment
-
-<docs-source-example example="ProgressBarRightAlignedExample"></docs-source-example>
-
-### Progress bar with description
-
-<docs-source-example example="ProgressBarWithDescriptionExample"></docs-source-example>
-
-### Progress bar with counter
-
-<docs-source-example example="ProgressBarWithCountExample"></docs-source-example>
-
-### Progress bar with description and counter
-
-<docs-source-example example="ProgressBarWithCountAndDescriptionExample"></docs-source-example>
-
-### Progress bar with description and counter - Uses dt-indicator above 75/100 days
+When the progress value reaches a defined threshold an indicator can be used to
+highlight the number as shown in the following example.
 
 <docs-source-example example="ProgressBarWithCountAndDescriptionIndicatorExample"></docs-source-example>
-
-### Progress bar on dark background
-
-<docs-source-example example="ProgressBarDarkExample" themedark="true"></docs-source-example>

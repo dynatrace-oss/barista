@@ -1,5 +1,19 @@
 ---
-type: 'component'
+title: 'Progress circle'
+description: 'The progress circle component is used to visualize progress.'
+postid: progress-circle
+category: 'components'
+public: true
+themable: true
+contributors:
+  dev:
+    - fabian.friedl
+  ux:
+    - andreas.mayr
+tags:
+  - 'loading'
+  - 'angular'
+  - 'component'
 ---
 
 # Progress circle
@@ -16,7 +30,7 @@ inside the progress-circle can be set.
 ## Imports
 
 You have to import the `DtProgressCircleModule` when you want to use the
-`dt-progress-circle`:
+`dt-progress-circle`.
 
 ```typescript
 @NgModule({
@@ -25,18 +39,11 @@ You have to import the `DtProgressCircleModule` when you want to use the
 class MyModule {}
 ```
 
-## Accessibility
-
-Progress circles should be given a meaningful label via aria-label or
-aria-labelledby.
-
-## Options & Properties
-
 ## Inputs
 
 | Name    | Type     | Default | Description                                            |
 | ------- | -------- | ------- | ------------------------------------------------------ |
-| `value` | `number` | `0`     | Gets and sets the value on the progress-circle.        |
+| `value` | `number` | `0`     | Gets and sets the value on the progress circle.        |
 | `min`   | `number` | `0`     | Gets and sets the minimum value on the progress circle |
 | `max`   | `number` | `100`   | Gets and sets the maximum value on the progress circle |
 
@@ -46,26 +53,29 @@ aria-labelledby.
 | ------------- | ------------------------------------------------------ | ----------------------------------------------------- |
 | `valueChange` | `EventEmitter<{ oldValue: number, newValue: number }>` | Event emitted when the progress circle value changes. |
 
+<docs-source-example example="ProgressCircleChangeExample"></docs-source-example>
+
 ## Properties
 
-| Name         | Type     | Description                                     |
-| ------------ | -------- | ----------------------------------------------- |
-| `percentage` | `number` | Gets the percentage used to render the progress |
+| Name         | Type     | Description                                      |
+| ------------ | -------- | ------------------------------------------------ |
+| `percentage` | `number` | Gets the percentage used to render the progress. |
 
-## Examples
+## Variants
 
-### Progress circle with text in content
-
-<docs-source-example example="ProgressCircleWithTextExample"></docs-source-example>
-
-### Progress circle with icon in content
+Progress circles can be used with icons or text as content.
 
 <docs-source-example example="ProgressCircleWithIconExample"></docs-source-example>
 
-### Progress circle with color
+<docs-source-example example="ProgressCircleWithTextExample"></docs-source-example>
+
+## Colors
+
+The progress circle can be colored based on its color theme palette.
 
 <docs-source-example example="ProgressCircleWithColorExample"></docs-source-example>
 
-### Progress circle change
+## Accessibility
 
-<docs-source-example example="ProgressCircleChangeExample"></docs-source-example>
+Progress circles should be given a meaningful label via aria-label or
+aria-labelledby.

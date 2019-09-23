@@ -1,5 +1,15 @@
 ---
-type: 'component'
+title: 'Legend'
+postid: legend
+category: 'components'
+public: false
+draft: true
+contributors:
+  dev:
+    - thomas.pink
+tags:
+  - 'angular'
+  - 'component'
 ---
 
 # Legend
