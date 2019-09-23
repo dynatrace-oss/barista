@@ -148,13 +148,13 @@ export class DtEmptyState
   }
 
   ngAfterViewInit(): void {
-    this._viewportResizer
-      .change()
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(() => {
-        this._updateDimensionsAndBreakpoints();
-      });
     Promise.resolve().then(() => {
+      this._viewportResizer
+        .change()
+        .pipe(takeUntil(this._destroy$))
+        .subscribe(() => {
+          this._updateDimensionsAndBreakpoints();
+        });
       this._updateDimensionsAndBreakpoints();
     });
   }
