@@ -46,6 +46,10 @@
     "dt-tile-needs-icon": true,
     "dt-tile-needs-title": true,
     "dt-tile-no-empty": { "severity": "warning" },
-    "dt-toggle-button-group-item-is-button": true
+    "dt-toggle-button-group-item-is-button": true,
+    "import-blacklist": {
+      "options": ["@dynatrace/angular-components"],
+      "severity": "warning"
+    }
   }
 }
