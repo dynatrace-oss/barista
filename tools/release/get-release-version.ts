@@ -14,10 +14,10 @@ export function getReleaseCommit(version: string): string {
  * Evaluates if the current commit is a release and returns its version.
  * Otherwise it returns "no-release".
  */
-export function getReleaseVersion(
+export function getReleaseVersionAndHash(
   projectDir: string,
   repositoryName: string,
-): string | 'no-release' {
+): { version: string | null; hash: string } {
   const packageJsonPath = join(projectDir, 'package.json');
   const git = new GitClient(
     projectDir,
@@ -38,18 +38,32 @@ export function getReleaseVersion(
     const packageJsonVersion = packageJson.version;
     const commit = git.getLastCommit();
 
-    if (commit && commit.indexOf(getReleaseCommit(packageJsonVersion)) !== -1) {
-      return packageJsonVersion;
+    const commitParts = commit.match(/commit (\w+)/);
+
+    if (commit) {
+      return {
+        version:
+          commit.indexOf(getReleaseCommit(packageJsonVersion)) !== -1
+            ? packageJsonVersion
+            : 'no-release',
+        hash: commitParts ? commitParts[1] : 'no-hash',
+      };
     }
   }
-
-  return 'no-release';
+  return {
+    version: 'no-release',
+    hash: 'no-hash',
+  };
 }
 
 /** Writes the determined release version to a .version file */
 export function writeReleaseVersion(projectDir: string) {
-  const releaseVersion = getReleaseVersion(projectDir, 'angular-components');
-  writeFileSync(join(projectDir, 'dist/.version'), releaseVersion, 'utf-8');
+  const { version, hash } = getReleaseVersionAndHash(
+    projectDir,
+    'angular-components',
+  );
+  writeFileSync(join(projectDir, 'dist/.version'), version, 'utf-8');
+  writeFileSync(join(projectDir, 'dist/.commit_hash'), hash, 'utf-8');
 }
 
 /** Entry-point for the release version determination script. */
