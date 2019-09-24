@@ -1,4 +1,4 @@
-import { ChoiceType, prompt } from 'inquirer';
+import { prompt } from 'inquirer';
 
 import preset from './conventional-changelog-preset';
 import { ReleaseType, createNewVersion } from './create-version';
