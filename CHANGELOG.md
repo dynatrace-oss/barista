@@ -1,3 +1,12 @@
+## 4.8.4 (2019-09-24)
+
+### Bug Fixes
+
+- **filter-field:** Fixes an issue where the spinner was placed in an odd
+  positions in certain scenarios. The spinner is now replacing the filter icon
+  in loading states.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 4.8.3 (2019-09-23)
 
 ### Bug Fixes
