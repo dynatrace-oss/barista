@@ -4,6 +4,8 @@ import { join } from 'path';
 import { italic, red } from 'chalk';
 
 import { GitClient } from './git-client';
+import { parseVersionName } from './parse-version';
+import { getAllowedPublishBranch, verifyPublishBranch } from './publish-branch';
 
 /** Creates a release commit message for the specified version. */
 export function getReleaseCommit(version: string): string {
@@ -36,11 +38,18 @@ export function getReleaseVersionAndHash(
   } else {
     const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
     const packageJsonVersion = packageJson.version;
+    const version = parseVersionName(packageJsonVersion);
+    // CI exposes branch name of triggerd build.
+    // It checks out a detached HEAD so we can not
+    // grab the branch name from git
+    const branch = process.env.BRANCH_NAME;
+    const allowedBranch = getAllowedPublishBranch(version);
+
     const commit = git.getLastCommit();
 
     const commitParts = commit.match(/commit (\w+)/);
 
-    if (commit) {
+    if (branch && branch === allowedBranch && commit) {
       return {
         version:
           commit.indexOf(getReleaseCommit(packageJsonVersion)) !== -1

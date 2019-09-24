@@ -9,7 +9,7 @@ import { getReleaseCommit } from './get-release-version';
 import { GitClient } from './git-client';
 import { promptForNewVersion } from './new-version-prompt';
 import { Version, parseVersionName } from './parse-version';
-import { getAllowedPublishBranches } from './publish-branch';
+import { getAllowedPublishBranch } from './publish-branch';
 
 /** Default filename for the changelog. */
 const CHANGELOG_FILE_NAME = 'CHANGELOG.md';
@@ -172,57 +172,39 @@ class StageReleaseTask {
    * for the specified version.
    */
   private _switchToPublishBranch(newVersion: Version): string {
-    const allowedBranches = getAllowedPublishBranches(newVersion);
+    const allowedBranch = getAllowedPublishBranch(newVersion);
     const currentBranchName = this.git.getCurrentBranch();
 
     // If current branch already matches one of the allowed publish branches,
     // just continue by exiting this function and returning the currently
     // used publish branch.
-    if (allowedBranches.includes(currentBranchName)) {
+    if (allowedBranch === currentBranchName) {
       console.log(
         green(`  ✓   Using the "${italic(currentBranchName)}" branch.`),
       );
       return currentBranchName;
-    }
+    } else {
+      if (!this.git.checkoutBranch(allowedBranch)) {
+        console.error(
+          red(
+            `  ✘   Could not switch to the "${italic(allowedBranch)}" ` +
+              `branch.`,
+          ),
+        );
+        console.error(
+          red(
+            `      Please ensure that the branch exists or manually switch ` +
+              `to the branch.`,
+          ),
+        );
+        process.exit(1);
+      }
 
-    // In case there are multiple allowed publish branches for this version,
-    // we just exit and let the user decide which branch they want to
-    // release from.
-    if (allowedBranches.length !== 1) {
-      console.warn(yellow('  ✘   You are not on an allowed publish branch.'));
-      console.warn(
-        yellow(
-          `      Please switch to one of the following branches: ` +
-            `${allowedBranches.join(', ')}`,
-        ),
+      console.log(
+        green(`  ✓   Switched to the "${italic(allowedBranch)}" branch.`),
       );
-      process.exit(0);
     }
-
-    // For this version there is only *one* allowed publish branch, so we could
-    // automatically switch to that branch in case the user isn't on it yet.
-    const defaultPublishBranch = allowedBranches[0];
-
-    if (!this.git.checkoutBranch(defaultPublishBranch)) {
-      console.error(
-        red(
-          `  ✘   Could not switch to the "${italic(defaultPublishBranch)}" ` +
-            `branch.`,
-        ),
-      );
-      console.error(
-        red(
-          `      Please ensure that the branch exists or manually switch ` +
-            `to the branch.`,
-        ),
-      );
-      process.exit(1);
-    }
-
-    console.log(
-      green(`  ✓   Switched to the "${italic(defaultPublishBranch)}" branch.`),
-    );
-    return defaultPublishBranch;
+    return allowedBranch;
   }
 
   /**
