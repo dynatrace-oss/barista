@@ -1,27 +1,18 @@
 @import '../style/font-mixins';
 
-@import './variables';
-
 :host {
-  position: relative;
   display: block;
-  overflow: hidden;
-  box-sizing: border-box;
-  width: 100%;
   @include dt-default-font();
 
-  .dt-empty-state-item-container {
-    width: 100%;
-  }
-
-  &.dt-empty-state-multiple-items > .dt-empty-state-item-container {
+  &.dt-empty-state-layout-horizontal {
     display: flex;
-    width: calc(100% + #{$empty-state-arrow-size});
   }
 }
 
-:host.dt-empty-state-multiple-items-mini-mode > .dt-empty-state-item-container {
-  flex-direction: column;
-  width: 100%;
-  height: calc(100% + #{$empty-state-arrow-size});
+/* Show the arrow icon between two empty state icons. */
+::ng-deep
+  .dt-empty-state-item
+  + .dt-empty-state-item
+  .dt-empty-state-item-icon-area {
+  display: flex;
 }
