@@ -17,6 +17,12 @@ import { takeUntil } from 'rxjs/operators';
 
 import { DtViewportResizer } from '@dynatrace/angular-components/core';
 
+/** The min-width from which empty state items are displayed horizontally. */
+const ITEMS_HORIZONTAL_BREAKPOINT = 540;
+
+/** The min-width from which the empty state items are aligned next to each other. */
+const LAYOUT_HORIZONTAL_BREAKPOINT = 760;
+
 /**
  * An empty state item. An empty state card may contain one or more such items.
  *
@@ -102,18 +108,13 @@ export class DtEmptyStateFooterActions {}
   moduleId: module.id,
   selector: 'dt-empty-state',
   exportAs: 'dtEmptyState',
-  template: `
-    <div class="dt-empty-state-item-container">
-      <ng-content></ng-content>
-    </div>
-  `,
+  template: '<ng-content></ng-content>',
   styleUrls: ['empty-state.scss'],
   host: {
     class: 'dt-empty-state',
-    '[class.dt-empty-state-multiple-items]': '_items.length > 1',
-    '[class.dt-empty-state-single-item-mini-mode]': '_isSingleItemMiniMode',
-    '[class.dt-empty-state-multiple-items-mini-mode]':
-      '_isMultipleItemsMiniMode',
+    '[class.dt-empty-state-layout-horizontal]': '_isLayoutHorizontal',
+    '[class.dt-empty-state-items-horizontal]':
+      '_isItemLayoutHorizontal && !_isLayoutHorizontal',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -124,13 +125,6 @@ export class DtEmptyState
   /** @internal Empty state items (1..n) */
   @ContentChildren(DtEmptyStateItem)
   _items: QueryList<DtEmptyStateItem>;
-
-  /** @internal The current width of this component */
-  _componentWidth = 0;
-  /** @internal The width threshold under which the component layout changes when there is only one item */
-  _singleItemBreakPoint = 540;
-  /** @internal The width threshold under which the component layout changes when there are multiple items */
-  _multipleItemsBreakPoint = 760;
 
   private readonly _destroy$ = new Subject<void>();
 
@@ -164,21 +158,27 @@ export class DtEmptyState
     this._destroy$.complete();
   }
 
-  /** @internal Represents if the component has only one item and its width is below the miniMode breakpoint. */
-  _isSingleItemMiniMode = false;
+  /**
+   * @internal
+   * Whether empty state items should have a horizontal layout
+   * (i.e. image and text next to each other).
+   */
+  _isItemLayoutHorizontal = false;
 
-  /** @internal Represents if the component has multiple item and its width is below the miniMode breakpoint. */
-  _isMultipleItemsMiniMode = false;
+  /**
+   * @internal
+   * Whether empty state items should be aligned next to each other.
+   */
+  _isLayoutHorizontal = false;
 
   private _updateDimensionsAndBreakpoints(): void {
     if (this._platform.isBrowser) {
-      this._componentWidth = this._elementRef.nativeElement.getBoundingClientRect().width;
-      this._isMultipleItemsMiniMode =
-        this._items.length > 1 &&
-        this._componentWidth < this._multipleItemsBreakPoint;
-      this._isSingleItemMiniMode =
-        this._items.length === 1 &&
-        this._componentWidth < this._singleItemBreakPoint;
+      const componentWidth = this._elementRef.nativeElement.getBoundingClientRect()
+        .width;
+      this._isItemLayoutHorizontal =
+        componentWidth > ITEMS_HORIZONTAL_BREAKPOINT;
+      this._isLayoutHorizontal =
+        this._items.length > 1 && componentWidth > LAYOUT_HORIZONTAL_BREAKPOINT;
       this._changeDetectorRef.markForCheck();
     }
   }
