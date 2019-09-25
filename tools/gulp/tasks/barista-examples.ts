@@ -1,18 +1,13 @@
 import * as fs from 'fs';
-import { dirname, join } from 'path';
+import { basename, dirname, join, relative } from 'path';
 
 import { sync as glob } from 'glob';
 import { dest, series, src, task } from 'gulp';
 import * as through from 'through2';
+import * as ts from 'typescript';
 
 import { buildConfig } from '../build-config';
-import {
-  AppComponentRouteSetup,
-  ExampleMetadata,
-  buildImportsTemplate,
-  generateRouteMetadata,
-  getExampleMetadata,
-} from '../util/examples-metadata';
+import { generateRouteMetadata } from '../util/examples-metadata';
 import { replaceInFile } from '../util/file-replacer';
 import { execNodeTask } from '../util/task-runner';
 
@@ -42,9 +37,100 @@ const getDeployUrl = () => {
 
 const { examplesDir, libDir } = buildConfig;
 
+interface ExampleMetadata {
+  component: string;
+  sourcePath: string;
+  fileContent?: string;
+}
+
 interface InvalidExampleReferences {
   name: string;
   sourcePath: string;
+}
+
+interface AppComponentRouteSetup {
+  name: string;
+  examples: Array<{ name: string; route: string; className: string, import: string }>;
+}
+
+/** Parses the examples and collects all data */
+function getExampleMetadata(sourceFiles: string[]): ExampleMetadata[] {
+  const parsedData: Set<ExampleMetadata> = new Set();
+  sourceFiles.forEach((sourceFilePath) => {
+    const content = fs.readFileSync(sourceFilePath, { encoding: 'utf-8' });
+    const fileName = basename(sourceFilePath);
+    const components = retrieveExampleClassNames(fileName, content);
+    components.forEach((component) => {
+      const metadata: ExampleMetadata = {
+        component,
+        sourcePath: relative(examplesDir, sourceFilePath),
+        fileContent: content,
+      };
+      parsedData.add(metadata);
+    });
+  });
+  return [...parsedData];
+}
+
+/** Parse the AST of the given source file and collects Angular component metadata. */
+export function retrieveExampleClassNames(fileName: string, content: string): string[] {
+  const sourceFile = ts.createSourceFile(fileName, content, ts.ScriptTarget.Latest, false);
+  const componentClassNames: string[] = [];
+  // tslint:disable-next-line:no-any
+  const visitNode = (node: any): void => {
+    if (node.kind === ts.SyntaxKind.ClassDeclaration) {
+      if (node.decorators && node.decorators.length) {
+        for (const decorator of node.decorators) {
+          if (decorator.expression.expression.text === 'Component') {
+            componentClassNames.push(node.name.text);
+          }
+        }
+      }
+    }
+
+    ts.forEachChild(node, visitNode);
+  };
+
+  visitNode(sourceFile);
+  return componentClassNames;
+}
+
+/** Parse the AST of the given source file and collects Angular component metadata. */
+export function retrieveExampleTemplateContent(fileName: string, content: string): string | undefined {
+  const sourceFile = ts.createSourceFile(fileName, content, ts.ScriptTarget.Latest, false);
+  const componentTemplates: string[] = [];
+  // tslint:disable-next-line:no-any
+  const visitNode = (node: any): void => {
+    if (node.kind === ts.SyntaxKind.PropertyAssignment) {
+
+      if (node.name && node.name.escapedText === 'template' && node.initializer && node.initializer.text) {
+        componentTemplates.push(sanitzeTemplateText(node.initializer.text));
+      }
+    }
+
+    ts.forEachChild(node, visitNode);
+  };
+
+  visitNode(sourceFile);
+  return componentTemplates.length > 0 ? componentTemplates[0] : undefined;
+}
+
+function sanitzeTemplateText(template: string) {
+  if (template.startsWith('\n    ')) {
+    template = template.replace(/$\n    /gm, '\n');
+  }
+  if (template.startsWith('\n')) {
+    template = template.replace('\n', ''); // remove leading newline
+  }
+
+  return template;
+}
+
+/** Build ES module import statements for the given example metadata. */
+function buildImportsTemplate(data: ExampleMetadata): string {
+  const relativeSrcPath = data.sourcePath.replace(/\\/g, '/').replace('.ts', '');
+
+  return `import { ${data.component} } from './${relativeSrcPath}';`;
 }
 
 /**
@@ -190,6 +276,37 @@ task('barista-example:generate', done => {
   done();
 });
 
+task('ide-completions', (done) => {
+  const metadata = getExampleMetadata(glob(join(examplesDir, '*/*.ts')));
+
+  const transformedMetaData = metadata
+  .map(metaData => {
+    const templateContent = retrieveExampleTemplateContent(
+      metaData.sourcePath,
+      metaData.fileContent as string,
+    );
+
+    return {
+      name: 'dt-' + basename(metaData.sourcePath).replace('-example.ts', '').replace('.ts', ''),
+      template: templateContent,
+    };
+  });
+
+  const suggestions = {
+    version: 1,
+    description: "More Information about components at [Barista](***REMOVED***
+    items: transformedMetaData,
+  };
+
+  fs.writeFileSync(
+    join(examplesDir, 'angular-components.json'),
+    JSON.stringify(suggestions),
+    { encoding: 'utf8' },
+  );
+
+  done();
+});
+
 /** Sets the deployUrl depending on the environment */
 task('barista-examples:set-env', () => {
   const deployUrl = getDeployUrl();
@@ -211,9 +328,9 @@ task(
 task(
   'barista-examples:build',
   series(
-    'barista-examples:validate',
-    'barista-examples:set-env',
-    'barista-example:generate',
+  'barista-examples:validate',
+  'barista-examples:set-env',
+  'barista-example:generate',
     'barista-examples:compile',
   ),
 );
