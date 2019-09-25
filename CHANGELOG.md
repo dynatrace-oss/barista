@@ -1,3 +1,11 @@
+## 4.7.3 (2019-09-25)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the bounding client rect could not be
+  retrieved on IE Edge.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 4.7.2 (2019-09-11)
 
 ### Bug Fixes
