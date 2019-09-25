@@ -5,6 +5,7 @@
   "scripts": {
     "barista-examples": "gulp barista-example:generate && ng serve barista-examples",
     "barista-examples:build": "gulp barista-examples:build",
+    "ide-completions": "gulp ide-completions",
     "dev": "ng serve dev-app",
     "build": "gulp library:build && gulp ts-linting-rules:build",
     "stage-release": "ts-node --project tools/release/tsconfig.json tools/release/stage-release.ts",
