@@ -12,8 +12,8 @@ import { Component } from '@angular/core';
       <dt-copy-to-clipboard (afterCopy)="contextdialog.close()">
         <input
           dtInput
-          value="https://context.dynatrace.com"
-          aria-label="Text that is copied to clipboard"
+          value="https://barista.dynatrace.com/"
+          aria-label="The value of this input field will be copied to clipboard."
         />
         <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
       </dt-copy-to-clipboard>
