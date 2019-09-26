@@ -148,10 +148,6 @@ remain pinned to be able to use these elements. Normal overlays will always
 change to interactive overlays if used on touch. Interactive overlays always
 contain a nested close button.
 
-<!-- ??? can not pin overlay... -->
-
-<docs-source-example example="OverlayTimelineExample"></docs-source-example>
-
 ### Overlay content
 
 The content in overlays can vary depending on the usage. Use our Angular
