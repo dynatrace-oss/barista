@@ -97,6 +97,18 @@ a.dt-button[disabled] {
   pointer-events: none;
 }
 
+// Text-buttons in table cells need to be smaller
+.dt-cell .dt-button:not(.dt-icon-button) {
+  height: 24px;
+  line-height: 24px;
+
+  .dt-button-icon {
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+  }
+}
+
 // Apply the button theme to all theme definitions
 @include dt-apply-theme() {
   @include dt-theme-button($dt-current-theme);
