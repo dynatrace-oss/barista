@@ -1,4 +1,4 @@
-branch master
+branch master,~[0-9]+\.[0-9]+\.x,~[0-9]+\.x
   commander
     thomas.pink
     fabian.friedl
