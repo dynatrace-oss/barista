@@ -70,7 +70,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   currentFilterChanges(
     event: DtFilterFieldCurrentFilterChangeEvent<any>,
   ): void {
-    if (event.added[0] === TEST_DATA.autocomplete[2]) {
+    if (event.currentFilter[0] === TEST_DATA.autocomplete[2]) {
       // Simulate async data loading
       setTimeout(() => {
         this._dataSource.data = TEST_DATA_ASYNC;
@@ -119,6 +119,16 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
           },
           {
             name: 'Miami',
+          },
+        ],
+
+        // Range
+        [
+          TEST_DATA.autocomplete[4],
+          {
+            operator: 'range',
+            range: [1.01, 2],
+            unit: 's',
           },
         ],
       ];
