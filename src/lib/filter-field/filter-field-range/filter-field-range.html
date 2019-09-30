@@ -24,7 +24,7 @@
     <input
       type="text"
       required
-      pattern="\d+"
+      pattern="\d+\.?\d*"
       dtInput
       [value]="_valueFrom"
       (input)="_valueFrom = $event.target.value"
@@ -39,7 +39,7 @@
       <input
         type="text"
         required
-        pattern="\d+"
+        pattern="\d+\.?\d*"
         dtInput
         [value]="_valueTo"
         (input)="_valueTo = $event.target.value"
