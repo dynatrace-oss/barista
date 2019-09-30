@@ -1,3 +1,22 @@
+## 4.9.0 (2019-09-30)
+
+### Bug Fixes
+
+- **filter-field:** Fixes an issue where the spinner was placed in an odd
+  positions in certain scenarios. The spinner is now replacing the filter icon
+  in loading states.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **highlight:** Fixes performance issues when updating terms on a lot of
+  highlight component at once.
+
+### Features
+
+- Add aria-labelledby input to components that only had an aria-label
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **chart:** Adds touch support for the chart selection area and added the
+  keyboard support to move the whole selection.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 4.8.4 (2019-09-24)
 
 ### Bug Fixes
