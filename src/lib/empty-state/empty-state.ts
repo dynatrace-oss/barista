@@ -128,6 +128,19 @@ export class DtEmptyState
 
   private readonly _destroy$ = new Subject<void>();
 
+  /**
+   * @internal
+   * Whether empty state items should have a horizontal layout
+   * (i.e. image and text next to each other).
+   */
+  _isItemLayoutHorizontal = false;
+
+  /**
+   * @internal
+   * Whether empty state items should be aligned next to each other.
+   */
+  _isLayoutHorizontal = false;
+
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
@@ -147,9 +160,9 @@ export class DtEmptyState
         .change()
         .pipe(takeUntil(this._destroy$))
         .subscribe(() => {
-          this._updateDimensionsAndBreakpoints();
+          this._updateLayout();
         });
-      this._updateDimensionsAndBreakpoints();
+      this._updateLayout();
     });
   }
 
@@ -158,20 +171,7 @@ export class DtEmptyState
     this._destroy$.complete();
   }
 
-  /**
-   * @internal
-   * Whether empty state items should have a horizontal layout
-   * (i.e. image and text next to each other).
-   */
-  _isItemLayoutHorizontal = false;
-
-  /**
-   * @internal
-   * Whether empty state items should be aligned next to each other.
-   */
-  _isLayoutHorizontal = false;
-
-  private _updateDimensionsAndBreakpoints(): void {
+  private _updateLayout(): void {
     if (this._platform.isBrowser) {
       const componentWidth = this._elementRef.nativeElement.getBoundingClientRect()
         .width;
