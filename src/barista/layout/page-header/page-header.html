@@ -1,0 +1,14 @@
+<header>
+  <h1 class="ba-page__title">{{ title }}</h1>
+  <p *ngIf="description" class="ba-page__description">{{ description }}</p>
+  <div *ngIf="_hasPropertiesList" class="ba-page__properties">
+    <!-- TODO -->
+  </div>
+  <div *ngIf="_showContributors" class="ba-contributors">
+    <ba-contributors [type]="'ux'" [names]="contributors.ux"></ba-contributors>
+    <ba-contributors
+      [type]="'dev'"
+      [names]="contributors.dev"
+    ></ba-contributors>
+  </div>
+</header>
