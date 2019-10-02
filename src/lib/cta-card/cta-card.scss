@@ -1,4 +1,4 @@
-@import '../core/style/card';
+@import '../core/style/button';
 
 .dt-cta-card-flex-container {
   display: flex;
@@ -17,10 +17,10 @@
 
 .dt-cta-card-text-wrapper {
   max-width: 580px;
-  margin: 0 0 $card-footer-actions-spacing;
+  margin: 0 0 16px;
 }
 
 :host ::ng-deep .dt-cta-card-title-actions,
 :host ::ng-deep .dt-cta-card-footer-actions {
-  @include dt-card-actions-spacing();
+  @include dt-button-child-button-spacing();
 }

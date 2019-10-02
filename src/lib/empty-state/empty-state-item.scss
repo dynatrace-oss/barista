@@ -1,6 +1,6 @@
 @import '../style/variables';
 @import '../style/font-mixins';
-@import '../core/style/card';
+@import '../core/style/button';
 
 $empty-state-icon-size: 28px;
 $empty-state-icon-area-size: 60px;
@@ -59,7 +59,7 @@ $empty-state-icon-area-size: 60px;
 
   .dt-empty-state-footer-actions {
     margin-top: 16px;
-    @include dt-card-actions-spacing();
+    @include dt-button-child-button-spacing();
   }
 }
 
