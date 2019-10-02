@@ -1,0 +1,228 @@
+@import '../../../lib/core/style/colors';
+@import './button-mixins';
+
+$buttoncolor: $turquoise-600;
+$buttonhovercolor: $turquoise-700;
+$buttonactivecolor: $turquoise-800;
+
+.ba-btn {
+  font-family: $mainfont;
+  box-sizing: border-box;
+  position: relative;
+
+  // Reset browser <button> styles.
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+
+  // Make anchors render like buttons.
+  display: inline-block;
+  white-space: nowrap;
+  text-decoration: none;
+  vertical-align: middle;
+  text-align: center;
+  overflow: hidden;
+
+  // CI
+  height: 32px;
+  border-style: solid;
+  border-radius: 3px;
+  border-width: 1px;
+  border-color: $turquoise-600;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 14px;
+  line-height: 32px;
+  line-height: -moz-block-height;
+
+  &:hover {
+    text-decoration: none;
+    border-color: $buttonhovercolor;
+  }
+
+  &:active {
+    border-color: $buttonactivecolor;
+  }
+
+  &[disabled] {
+    border-color: $gray-300;
+    cursor: default;
+    box-shadow: none;
+    pointer-events: none;
+  }
+
+  &:focus {
+    @include focusStyle();
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  .ba-icon {
+    margin-right: 0;
+  }
+
+  > .ba-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    margin-top: 5px;
+    vertical-align: top;
+  }
+}
+
+.ba-btn--primary {
+  // setting default colors for primary btn
+  @include btn-primary-variant(
+    $buttoncolor,
+    $buttonhovercolor,
+    $buttonactivecolor
+  );
+
+  color: #ffffff;
+
+  &:hover,
+  &:visited {
+    color: #ffffff;
+  }
+
+  &[disabled] {
+    background-color: $gray-300;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  > .ba-icon,
+  > .ba-icon * {
+    fill: #ffffff;
+  }
+
+  &[disabled] > .ba-icon,
+  &[disabled] > .ba-icon * {
+    fill: rgba(255, 255, 255, 0.6);
+  }
+
+  &.ba-theme--dark > .ba-icon,
+  &.ba-theme--dark > .ba-icon * {
+    fill: #ffffff;
+  }
+
+  &.ba-theme--dark[disabled] > .ba-icon,
+  &.ba-theme--dark[disabled] > .ba-icon * {
+    fill: rgba(255, 255, 255, 0.6);
+  }
+
+  &.ba-btn--cta {
+    @include btn-primary-variant($green-600, $green-700, $green-800);
+  }
+
+  &.ba-btn--error {
+    @include btn-primary-variant($red-600, $red-700, $red-800);
+  }
+
+  &.ba-btn--warning {
+    @include btn-primary-variant($yellow-600, $yellow-700, $yellow-800);
+  }
+}
+
+.ba-btn--secondary {
+  // setting default colors for secondary btn
+  @include btn-secondary-variant(
+    $buttoncolor,
+    $buttonhovercolor,
+    $buttonactivecolor
+  );
+
+  background-color: transparent;
+
+  &:hover {
+    background-color: $gray-130;
+  }
+
+  &:active {
+    background-color: $gray-130;
+  }
+
+  &[disabled] {
+    color: $gray-300;
+  }
+
+  &[disabled] > .ba-icon,
+  &[disabled] > .ba-icon * {
+    fill: $gray-300;
+  }
+
+  &.ba-btn--cta {
+    @include btn-secondary-variant($green-600, $green-700, $green-800);
+  }
+
+  &.ba-btn--error {
+    @include btn-secondary-variant($red-600, $red-700, $red-800);
+  }
+
+  &.ba-btn--warning {
+    @include btn-secondary-variant($yellow-600, $yellow-700, $yellow-800);
+  }
+}
+
+/*
+* btn--primary--darktheme styles
+*/
+.ba-btn--primary.ba-theme--dark,
+.ba-theme--dark .ba-btn--primary {
+  @include btn-primary-theme-dark();
+  @include btn-primary-variant-theme-dark(
+    $turquoise-500,
+    $turquoise-400,
+    $turquoise-300
+  );
+
+  &.ba-btn--cta {
+    @include btn-primary-variant-theme-dark($green-500, $green-400, $green-300);
+  }
+
+  &.ba-btn--error {
+    @include btn-primary-variant-theme-dark($red-500, $red-400, $red-300);
+  }
+
+  &.ba-btn--warning {
+    @include btn-primary-variant-theme-dark(
+      $yellow-600,
+      $yellow-500,
+      $yellow-400
+    );
+  }
+}
+
+/*
+* btn--secondary--darktheme styles
+*/
+.ba-theme--dark .ba-btn--secondary,
+.ba-btn--secondary.ba-theme--dark {
+  @include btn-secondary-theme-dark();
+
+  &.ba-btn--cta {
+    @include btn-secondary-variant-theme-dark(
+      $green-500,
+      $green-400,
+      $green-300
+    );
+  }
+
+  &.ba-btn--error {
+    @include btn-secondary-variant-theme-dark($red-500, $red-400, $red-300);
+  }
+
+  &.ba-btn--warning {
+    @include btn-secondary-variant-theme-dark(
+      $yellow-600,
+      $yellow-500,
+      $yellow-400
+    );
+  }
+}

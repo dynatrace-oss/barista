@@ -1,0 +1,32 @@
+:host {
+  grid-area: title;
+
+  .ba-page__title {
+    margin-bottom: 0;
+  }
+
+  .ba-page__description {
+    font-size: 1.3rem;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .ba-contributors {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5rem;
+  }
+
+  .ba-page__properties {
+    margin-top: 0.5rem;
+  }
+
+  .ba-tag.ba-page__property {
+    margin: 0;
+  }
+
+  .ba-page__deprecation {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}

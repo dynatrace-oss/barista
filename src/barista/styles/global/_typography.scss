@@ -1,0 +1,114 @@
+pre {
+  width: auto;
+  display: block;
+  padding: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  background: $gray-100;
+  white-space: pre-line;
+
+  @include textContentWidth();
+}
+
+pre > code {
+  white-space: pre-wrap;
+}
+
+/* stylelint-disable selector-list-comma-newline-after */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0.8rem;
+}
+
+h1 {
+  @include fluidSizes(font-size, 32, 44);
+  font-weight: 600;
+}
+
+h2 {
+  @include fluidSizes(font-size, 24, 32);
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+h3 {
+  @include fluidSizes(font-size, 20, 24);
+  font-weight: 600;
+}
+
+h4 {
+  @include fluidSizes(font-size, 16, 20);
+  font-weight: 600;
+}
+
+h5,
+h6 {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 0.4rem;
+}
+
+p {
+  line-height: 1.6;
+}
+
+.ba-page {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 1em;
+    margin-bottom: 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  dl {
+    @include textContentWidth();
+  }
+
+  p {
+    margin-bottom: 2rem;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:not(:first-child) {
+      margin-top: 2em;
+    }
+  }
+
+  h1 + h2,
+  h2 + h3,
+  h3 + h4,
+  h4 + h5,
+  h5 + h6 {
+    margin-top: 0;
+  }
+}
+/* stylelint-enable */
+
+.ba-meta-text {
+  color: $gray-600;
+  font-size: 0.875rem;
+}
