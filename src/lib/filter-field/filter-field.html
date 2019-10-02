@@ -25,7 +25,7 @@
       [dtAutocomplete]="autocomplete"
       [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length || loading"
       [dtFilterFieldRange]="range"
-      [dtFilterFieldRangeDisabled]="!(_currentDef && !!_currentDef.range)"
+      [dtFilterFieldRangeDisabled]="!(_currentDef && !!_currentDef.range) || loading"
       (keydown)="_handleInputKeyDown($event)"
       (keyup)="_handleInputKeyUp($event)"
       [value]="_inputValue"
