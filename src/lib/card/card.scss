@@ -1,6 +1,6 @@
 @import '../style/font-mixins';
 @import '../core/style/variables';
-@import '../core/style/card';
+@import '../core/style/button';
 @import '../core/theming/theming';
 @import './card-theme';
 
@@ -65,11 +65,11 @@
 .dt-card-footer-actions {
   display: block;
 
-  @include dt-card-actions-spacing();
+  @include dt-button-child-button-spacing();
 }
 
 .dt-card-footer-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: $card-footer-actions-spacing;
+  margin-top: 16px;
 }
