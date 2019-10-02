@@ -1,0 +1,42 @@
+@mixin list-reset() {
+  list-style: none;
+  padding-left: 0;
+
+  li::before {
+    position: absolute;
+    content: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    width: auto;
+    height: auto;
+    float: none;
+  }
+}
+
+@mixin focusStyle() {
+  outline: none;
+  box-shadow: 0 0 0 2px $gray-300;
+}
+
+@mixin iconButton() {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.25rem;
+}
+
+/*
+* Set the max width to the defined max text width (see variables.scss).
+*/
+@mixin textContentWidth() {
+  display: block;
+  width: 100%;
+  max-width: $max-text-width;
+}
+
+@mixin fluidSizes($property, $min, $max) {
+  #{$property}: calc(
+    #{$min + 'px'} + (#{$max} - #{$min}) * (100vw - 360px) / (1920 - 360)
+  );
+}

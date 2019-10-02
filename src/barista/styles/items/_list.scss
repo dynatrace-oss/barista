@@ -1,0 +1,122 @@
+$unordered-list-theme-color: $turquoise-500;
+
+.ba-list {
+  padding-left: 0.25rem;
+
+  li {
+    position: relative;
+  }
+
+  li > ul,
+  li > ol {
+    margin-bottom: 0;
+  }
+}
+
+ul,
+ol {
+  margin-left: 1rem;
+}
+
+ul.ba-list,
+ol.ba-list {
+  display: block;
+  width: 100%;
+  max-width: calc(#{$max-text-width} - 1rem);
+}
+
+ul.ba-list,
+ul.ba-list ul,
+ul.ba-list ol ul,
+ol.ba-list ul,
+ol.ba-list ol ul {
+  list-style: none;
+
+  li::before {
+    content: ' ';
+    display: inline-block;
+    background-color: $unordered-list-theme-color;
+    width: 0.5rem;
+    height: 0.5rem;
+    position: relative;
+    margin-left: -1.25rem;
+    margin-right: 0.5rem;
+    margin-top: 0.4em;
+    vertical-align: top;
+    float: left;
+  }
+}
+
+ol.ba-list,
+ul.ba-list ol,
+ol.ba-list ul ol,
+ul.ba-list ul ol {
+  li::before {
+    content: none;
+  }
+}
+
+ul.ba-list ul,
+ol.ba-list ol ul ul {
+  li::before {
+    height: 2px;
+    margin-top: 0.65em;
+  }
+}
+
+.ba-list ul ul {
+  list-style: none;
+
+  li::before {
+    height: 1px;
+    margin-top: 0.65em;
+  }
+}
+
+.ba-list ul ul,
+.ba-list ol ol,
+.ba-list ul ol,
+.ba-list ol ul {
+  li {
+    margin-top: 0;
+  }
+}
+
+.ba-list ol {
+  li::before {
+    content: none;
+  }
+}
+
+@media (max-width: $screen-xxl) {
+  ul.ba-list,
+  ol.ba-list {
+    width: auto;
+  }
+}
+
+@mixin unorderdlisttheme($color) {
+  .ba-list li::before {
+    background-color: $color;
+  }
+}
+
+.ba-theme--blue {
+  @include unorderdlisttheme($blue-600);
+}
+
+.ba-theme--turquoise {
+  @include unorderdlisttheme($turquoise-500);
+}
+
+.ba-theme--purple {
+  @include unorderdlisttheme($purple-600);
+}
+
+.ba-theme--royalblue {
+  @include unorderdlisttheme($royalblue-500);
+}
+
+.ba-theme--green {
+  @include unorderdlisttheme($green-500);
+}

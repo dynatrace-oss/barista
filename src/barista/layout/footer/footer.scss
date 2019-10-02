@@ -1,0 +1,65 @@
+@import '../../../lib/core/style/colors';
+@import '../../styles/global/mixins.scss';
+@import '../../styles/global/variables';
+
+.ba-footer {
+  background-color: $gray-800;
+  color: #ffffff;
+  padding: 44px;
+  padding-bottom: 3rem;
+}
+
+.ba-footer__legal {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.ba-footer__linklist {
+  margin: 0;
+}
+
+.ba-footer__socials {
+  text-align: center;
+}
+
+.ba-footer__linkitem {
+  list-style: none;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.ba-footer__linkitem a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.ba-footer__linkitem a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+.ba-footer__sociallink.ba-footer__sociallink {
+  @include iconButton();
+  fill: #ffffff;
+  margin: 1rem 0.5rem 0;
+  transition: background-color 100ms ease-in-out, fill 100ms ease-in-out;
+}
+
+.ba-footer__linklist--horizontal .ba-footer__linkitem {
+  display: inline-block;
+}
+
+.ba-footer__linklist--horizontal
+  .ba-footer__linkitem
+  + .ba-footer__linkitem::before {
+  content: ' | ';
+  color: #ffffff;
+}
+
+@media (min-width: $screen-md) {
+  .ba-section--footer-internal .ba-column--1-of-2:last-child {
+    text-align: right;
+  }
+}

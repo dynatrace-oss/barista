@@ -1,0 +1,22 @@
+<div class="ba-page--grid">
+  <nav class="ba-sidebar">sidebar goes here</nav>
+  <!-- TODO: sidebar component -->
+
+  <ba-page-header
+    *ngIf="content"
+    [title]="content.title"
+    [description]="content.description"
+    [contributors]="content.contributors"
+  ></ba-page-header>
+
+  <main class="ba-page__main" id="main" role="main">
+    <article class="ba-page__content">
+      <ba-page-content [data]="content.contentHtml"></ba-page-content>
+    </article>
+  </main>
+
+  <footer class="ba-page__footer">
+    <!-- TODO: page-footer component -->
+    <span class="ba-page__footer__title">Explore more content</span>
+  </footer>
+</div>
