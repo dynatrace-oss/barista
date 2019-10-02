@@ -1,12 +1,17 @@
-import { task, parallel, series } from 'gulp';
-import { execNodeTask } from '../util/task-runner';
-import { buildConfig } from '../build-config';
-import { join } from 'path';
 import { createWriteStream } from 'fs';
+import { join } from 'path';
+
 import { ensureDirSync } from 'fs-extra';
+import { parallel, series, task } from 'gulp';
+
+import { buildConfig } from '../build-config';
+import { execNodeTask } from '../util/task-runner';
 
 /** Glob that matches all SCSS or CSS files that should be linted. */
-const stylesGlob = 'src/lib/**/!(*.bundle).+(css|scss)';
+const stylesGlob = [
+  'src/lib/**/!(*.bundle).+(css|scss)',
+  'src/barista/**/!(*.bundle).+(css|scss)',
+];
 
 const tsGlob = 'src/lib/**/!(*.spec).ts';
 const tsSpecsGlob = 'src/lib/**/*.spec.ts';
@@ -14,6 +19,7 @@ const tsUiTestApp = 'src/ui-test-app/**/!(*.spec).ts';
 const tsUniversalApp = 'src/universal-app/**/!(*.spec).ts';
 const tsUiSpecsGlob = 'ui-tests/**/*.spec.ts';
 const tsDev = 'src/dev-app/**/!(*.spec).ts';
+const tsBarista = 'src/barista/**/!(*.spec).ts';
 const tsBaristaExamplesGlob = 'src/barista-examples/**/!(*.spec).ts';
 const tsLintingGlob = 'src/linting/**/!(*.spec).ts';
 
@@ -22,7 +28,7 @@ const stylelintOutFile = join(lintOutDir, 'stylelint.xml');
 
 const ciArgs = ['--format', 'checkstyle', '--out'];
 
-const stylelintArgs = [stylesGlob, '--config', 'stylelint.config.js', '--syntax', 'scss'];
+const stylelintArgs = [...stylesGlob, '--config', 'stylelint.config.js', '--syntax', 'scss'];
 const ciStylelintArgs = [...stylelintArgs, '--custom-formatter', 'node_modules/stylelint-checkstyle-formatter/index.js',];
 
 const isCi = process.env.CI === 'true';
@@ -105,6 +111,14 @@ task('tslint:barista-examples', series(
     )
   )));
 
+task('tslint:barista', series('ensureOutDirectory', execNodeTask(
+  'tslint', outputToXML(
+    isCi,
+    ['--config', 'src/barista/tslint.json', '--project', 'src/barista/tsconfig.app.json', tsBarista],
+    'checkstyle-barista.xml'
+  )
+)));
+
 task('tslint:linting', series('ensureOutDirectory', execNodeTask(
   'tslint', outputToXML(
     isCi,
@@ -122,5 +136,6 @@ task('lint', series(
   'tslint:ui-tests',
   'tslint:dev-app',
   'tslint:barista-examples',
+  'tslint:barista',
   'tslint:linting'
 ));

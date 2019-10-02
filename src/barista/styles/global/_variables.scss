@@ -1,0 +1,15 @@
+@import '../../../lib/core/style/colors';
+
+$mainfont: 'BerninaSans', 'Open Sans', sans-serif;
+$textcolor: $gray-700;
+$linkcolor: $turquoise-600;
+
+$screen-xs: 320px;
+$screen-sm: 460px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+$screen-xxl: 1500px;
+$screen-xxxl: 1920px;
+
+$max-text-width: 660px; /* 27.8 x 1.48 x 16px, See ***REMOVED*** */
