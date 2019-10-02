@@ -644,7 +644,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       range: event.range,
       unit: event.unit,
     });
-    this._filterfieldRangeTrigger.closePanel();
+    this._filterfieldRangeTrigger.closePanel(false);
     this._isFocused = true;
     this._writeInputValue('');
     this._switchToRootDef(true);
