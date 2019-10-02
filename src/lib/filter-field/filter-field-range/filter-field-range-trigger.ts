@@ -159,12 +159,12 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
   }
 
   /** Closes the filter-field range panel. */
-  closePanel(): void {
+  closePanel(shouldEmit: boolean = true): void {
     if (this._overlayRef && !this._overlayRef.hasAttached()) {
       return;
     }
 
-    if (this.panelOpen) {
+    if (this.panelOpen && shouldEmit) {
       // Only emit if the panel was visible.
       this.range.closed.emit();
     }
