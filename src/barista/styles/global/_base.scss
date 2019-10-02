@@ -1,0 +1,84 @@
+* {
+  box-sizing: border-box;
+}
+
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  font-family: $mainfont;
+  color: $textcolor;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  /* pagetheme color fallback */
+  --ba-pagetheme: #{$turquoise-500};
+  --ba-pagetheme-dark: #{$turquoise-700};
+  --ba-pagetheme-light: #{$turquoise-400};
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: $linkcolor;
+  transition: color 100ms ease-out;
+}
+
+a:hover {
+  color: $turquoise-700;
+  text-decoration: underline;
+}
+
+.ba-theme--dark a,
+a.ba-theme--dark {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.ba-theme--dark a:hover,
+a.ba-theme--dark:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.ba-theme--dark a:active,
+a.ba-theme--dark:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+a > img {
+  display: inline;
+}
+
+pre {
+  max-width: 100%;
+  overflow: auto;
+}
+
+mark {
+  background-color: $yellow-200;
+}
+
+code {
+  font-family: 'Bitstream Vera', monospace;
+}

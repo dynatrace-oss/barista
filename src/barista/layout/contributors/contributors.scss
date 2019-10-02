@@ -1,0 +1,44 @@
+@import '../../../lib/core/style/colors';
+
+:host {
+  margin-right: 2rem;
+  margin-bottom: 0;
+}
+
+.ba-contributors__column__title {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.ba-contributors__list {
+  list-style: none;
+  margin: 0;
+}
+
+.ba-contributors__list-item {
+  display: inline-block;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.ba-contributors__list-item:last-child {
+  margin-bottom: 0;
+}
+
+.ba-contributors__list-item a {
+  display: flex;
+  align-items: center;
+}
+
+.ba-contributors__list-item img {
+  background-color: $gray-100;
+  border: 2px solid $turquoise-600;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.ba-contributors__list-item a:hover img {
+  border-color: $turquoise-700;
+}
