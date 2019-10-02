@@ -217,6 +217,92 @@
         }
       }
     },
+    "barista": {
+      "root": "src/barista",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/barista",
+            "index": "src/barista/index.html",
+            "main": "src/barista/main.ts",
+            "tsConfig": "src/barista/tsconfig.app.json",
+            "polyfills": "src/barista/polyfills.ts",
+            "assets": [
+              {
+                "glob": "**",
+                "input": "src/lib/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "src/barista/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "metadata.json",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*.json",
+                "input": "src/barista/data",
+                "output": "/data"
+              }
+            ],
+            "styles": [
+              "src/barista/main.scss",
+              "src/lib/core/style/_colors.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "src/barista/tsconfig.app.json",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "statsJson": true
+            },
+            "production-aot": {
+              "tsConfig": "src/barista/tsconfig.app.json",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "aot": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "barista:build",
+            "host": "0.0.0.0"
+          },
+          "configurations": {}
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [],
+            "exclude": []
+          }
+        }
+      }
+    },
     "a11y-test-app": {
       "root": "src/barista-examples",
       "sourceRoot": "src",
