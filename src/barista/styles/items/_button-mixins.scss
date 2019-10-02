@@ -1,0 +1,141 @@
+// TODO: refactor/rename button mixins, do we still need them?
+
+/*
+* mixin for btn--primary variant
+*/
+@mixin btn-primary-variant($default, $hover, $active) {
+  background-color: $default;
+  border-color: $default;
+
+  &:hover {
+    background-color: $hover;
+    border-color: $hover;
+  }
+
+  &:active {
+    background-color: $active;
+    border-color: $active;
+  }
+}
+
+/*
+* mixin for btn--secondary variant
+*/
+@mixin btn-secondary-variant(
+  $default,
+  $hover,
+  $active,
+  $iconSelector: '.ba-icon'
+) {
+  color: $default;
+  border-color: $default;
+
+  &:visited {
+    color: $default;
+  }
+
+  &:hover {
+    color: $hover;
+    border-color: $hover;
+  }
+
+  &:active {
+    color: $active;
+    border-color: $active;
+  }
+
+  > #{$iconSelector},
+  > #{$iconSelector } * {
+    fill: $default;
+  }
+}
+
+/*
+* mixin for btn--icon styles
+*/
+@mixin btn-icon() {
+  padding-left: 0;
+  padding-right: 0;
+  width: 32px;
+  text-align: center;
+}
+
+/*
+* mixin for btn--primary-theme-dark styles
+*/
+@mixin btn-primary-theme-dark() {
+  border-color: #ffffff;
+  text-decoration: none;
+
+  &:hover {
+    border-color: #ffffff;
+  }
+
+  &:active {
+    border-color: #ffffff;
+  }
+
+  &[disabled] {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    border-color: transparent;
+  }
+}
+
+@mixin btn-primary-variant-theme-dark($default, $hover, $active) {
+  background-color: $default;
+  // border-color: #ffffff;
+
+  &:hover {
+    background-color: $hover;
+  }
+
+  &:active {
+    background-color: $active;
+  }
+}
+
+/*
+* mixin for btn--secondary-theme-dark styles
+*/
+@mixin btn-secondary-theme-dark() {
+  border-color: #ffffff;
+  text-decoration: none;
+  color: #ffffff;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  &[disabled] {
+    color: rgba(255, 255, 255, 0.6);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  > .ba-icon,
+  > .ba-icon * {
+    fill: #ffffff;
+  }
+
+  &[disabled] > .ba-icon,
+  &[disabled] > .ba-icon * {
+    fill: rgba(255, 255, 255, 0.6);
+  }
+}
+
+@mixin btn-secondary-variant-theme-dark($default, $hover, $active) {
+  border-color: $default;
+  color: #ffffff;
+
+  &:hover {
+    border-color: $hover;
+  }
+
+  &:active {
+    border-color: $active;
+  }
+}
