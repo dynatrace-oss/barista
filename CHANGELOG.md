@@ -1,3 +1,27 @@
+## 4.10.0 (2019-10-02)
+
+### Bug Fixes
+
+- **button:** Fixes the distance between two buttons.
+- **empty-state:** Fixes an issue where the icons had a wrong position in
+  Firefox and Edge.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Fixes an issue where the currentFilter event was not emitted
+  when the editing of a range has been completed.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **form-field:** Fixes an issue where the label padding was not aligned with
+  our 4px grid.
+
+### Features
+
+- **event-chart:** Added missing features for version 1, including custom colors
+  for events, event merging, custom providable overlay, better legend detection
+  and testing ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Added support for floating point numbers in filter field
+  range input. ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **table:** Added styling for text-buttons within a certain component context.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 4.9.0 (2019-09-30)
 
 ### Bug Fixes
