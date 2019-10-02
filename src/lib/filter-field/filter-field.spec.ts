@@ -1435,6 +1435,34 @@ describe('DtFilterField', () => {
 
       expect(tags.length).toBe(2);
     });
+
+    it('should emit a filterchange event when the edit of a range is completed', () => {
+      let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
+
+      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
+      const sub = filterField.filterChanges.subscribe(
+        ev => (filterChangeEvent = ev),
+      );
+
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+
+      tags[2].nativeElement.click();
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      const applyButton = getRangeApplyButton(overlayContainerElement)[0];
+      applyButton.click();
+      fixture.detectChanges();
+
+      expect(filterChangeEvent).toBeDefined();
+      expect(filterChangeEvent!.added.length).toBe(1);
+      expect(filterChangeEvent!.removed.length).toBe(0);
+
+      sub.unsubscribe();
+    });
   });
 
   describe('programmatic setting', () => {
