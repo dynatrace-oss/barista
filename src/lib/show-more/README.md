@@ -58,7 +58,7 @@ tag can be used.
 
 ## Show more on dark background
 
-{{#component-demo name="ShowMoreDarkExample" themedark="true"}}{{/component-demo}}
+<docs-source-example example="ShowMoreDarkExample" themedark="true"></docs-source-example>
 
 ## Behavior
 
@@ -79,16 +79,8 @@ The show more component can be disabled.
 
 ## Show more in use
 
-{{#figure styleguide='true'}}
-![Show more distances](https://d24pvdz4mvzd04.cloudfront.net/test/pagination-styleguide-showmore-distances-550-7e6bcae0ab.png)
-{{#figcaption}}
-
-```
-x: 20px
-y: 8px
-```
-
-{{/figcaption}} {{/figure}}
+When combining the show more component with other components, make sure there is
+always a 20px space above and below the show more component.
 
 ### Show more without text
 
