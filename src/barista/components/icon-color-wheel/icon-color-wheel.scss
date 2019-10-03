@@ -1,0 +1,27 @@
+@import '../../../lib/core/style/colors';
+@import '../../styles/global/variables';
+
+:host {
+  display: block;
+}
+
+.ba-icon-color-wheel-previewbackground {
+  fill: $gray-200;
+  transition: fill 250ms $custom-ease;
+}
+
+.ba-icon-color-wheel-previewbackground.ba-is-dark {
+  fill: $gray-800;
+}
+
+.ba-icon-color-wheel-preview {
+  transition: fill 150ms $custom-ease;
+}
+
+.ba-icon-color-wheel-blob {
+  cursor: pointer;
+}
+
+circle:focus {
+  outline: none;
+}
