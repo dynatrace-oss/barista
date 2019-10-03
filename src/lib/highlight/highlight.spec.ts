@@ -20,9 +20,10 @@ describe('DtHighlight', () => {
         TestComponentWithMultipleHighlights,
         TestComponentWithStaticCaseSensitive,
         TestComponentWithHighlightedHtml,
-        TestComponentWithInputBindung,
+        TestComponentWithInputBinding,
         TestComponentWithTextBinding,
         TestCasingHighlighted,
+        TestComponentWithHtmlChars,
       ],
     });
 
@@ -151,11 +152,26 @@ describe('DtHighlight', () => {
       expect(highlights[0].tagName).toMatch('MARK');
       expect(highlights[0].innerHTML).toMatch('wher');
     });
+
+    it('should render and highlight special HTML char', () => {
+      const fixture = createComponent(TestComponentWithHtmlChars);
+      const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
+        .nativeElement;
+
+      fixture.detectChanges();
+
+      const transformed = containerEl.lastChild as HTMLElement;
+      expect(transformed.textContent).toMatch(`<>"&— '¢£¥€©®∀∅∃∇∈∉∋∏∑`);
+
+      const highlights = transformed.querySelectorAll('.dt-highlight-mark');
+      expect(highlights.length).toBe(1);
+      expect(highlights[0].textContent).toMatch('>');
+    });
   });
 
   describe('with dynamic bindings', () => {
     it('should update the highlight when term is changed', () => {
-      const fixture = createComponent(TestComponentWithInputBindung);
+      const fixture = createComponent(TestComponentWithInputBinding);
       const instance = fixture.componentInstance;
       const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
         .nativeElement;
@@ -186,7 +202,7 @@ describe('DtHighlight', () => {
     });
 
     it('should update the highlight when caseSensitive is changed', () => {
-      const fixture = createComponent(TestComponentWithInputBindung);
+      const fixture = createComponent(TestComponentWithInputBinding);
       const instance = fixture.componentInstance;
       const containerEl = fixture.debugElement.query(By.css('.dt-highlight'))
         .nativeElement;
@@ -210,7 +226,7 @@ describe('DtHighlight', () => {
     });
 
     it('should highlight when term contains quantifier characters', () => {
-      const fixture = createComponent(TestComponentWithInputBindung);
+      const fixture = createComponent(TestComponentWithInputBinding);
       const instance = fixture.componentInstance;
       instance.term = 'highlighted?';
       fixture.detectChanges();
@@ -362,7 +378,7 @@ class TestCasingHighlighted {
     </dt-highlight>
   `,
 })
-class TestComponentWithInputBindung {
+class TestComponentWithInputBinding {
   term = '';
   caseSensitive = false;
 }
@@ -377,3 +393,12 @@ class TestComponentWithInputBindung {
 class TestComponentWithTextBinding {
   name = 'John';
 }
+
+@Component({
+  template: `
+    <dt-highlight term=">">
+      &lt;&gt;&quot;&amp;&mdash;&nbsp;&apos;&cent;&pound;&yen;&euro;&copy;&reg;&forall;&empty;&exist;&nabla;&isin;&notin;&ni;&prod;&sum;
+    </dt-highlight>
+  `,
+})
+class TestComponentWithHtmlChars {}
