@@ -73,7 +73,7 @@ clipboard, there should be an [alert]({{link_to_id id='alert' }}) below the copy
 to clipboard component informing the user about the problem and possible
 solutions.
 
-![Error message under copy to clipboard component](https://dt-cdn.net/images/copy-to-clipboard-validation-414-c09f60c917-414-c09f60c917.png)
+<docs-source-example example="CopyToClipboardErrorExample"></docs-source-example>
 
 ## Dark theme
 
@@ -92,6 +92,8 @@ content.
 The height of the text area is not defined per default, it is recommended to
 make the text area high enough to fit the whole content, this avoids unnecessary
 scrollbars.
+
+<docs-source-example example="CopyToClipboardTextareaExample"></docs-source-example>
 
 ### Example within context dialog
 

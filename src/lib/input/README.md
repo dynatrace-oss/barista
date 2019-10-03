@@ -137,16 +137,4 @@ When input fields are used in a form together with labels and buttons use the
 following measures. This ensures that the components have enough space to be
 clicked or tapped on mobile.
 
-<!-- TODO: provide a barista-example and remove image, ***REMOVED*** -->
-
-{{#figure styleguide='true'}}
-![Input fields styleguide measures](https://d24pvdz4mvzd04.cloudfront.net/test/inputs-styleguide-measures-332-b386bddc51.png)
-{{#figcaption}}
-
-```
-x: 12px
-y: 20px
-z: 8px
-```
-
-{{/figcaption}} {{/figure}}
+<docs-source-example example="InputFormExample"></docs-source-example>

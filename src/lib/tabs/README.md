@@ -137,15 +137,25 @@ content in a tab has recovered the tab item is green.
 
 {{#grid columns='2'}}
 
-{{#griditem}} {{#figure marker='do'}}
+{{#griditem}}
+
+{{#figure marker='do'}}
 ![Do - abbreviate with ...](https://d24pvdz4mvzd04.cloudfront.net/test/tab-abbreviation-do-324-bbb38d763f.png)
-{{#figcaption}} Abbreviate long names with "..." {{/figcaption}} {{/figure}}
+{{#figcaption}} Abbreviate long names with "..." {{/figcaption}}
+
+{{/figure}}
+
 {{/griditem}}
 
-{{#griditem}} {{#figure marker='dont'}}
+{{#griditem}}
+
+{{#figure marker='dont'}}
 ![Don't - use multiple lines](https://d24pvdz4mvzd04.cloudfront.net/test/tab-abbreviation-dont-324-2beb0e2685.png)
 {{#figcaption}} Don't use more than one line for tabs. {{/figcaption}}
-{{/figure}} {{/griditem}}
+
+{{/figure}}
+
+{{/griditem}}
 
 {{/grid}}
 
@@ -153,15 +163,27 @@ content in a tab has recovered the tab item is green.
 
 {{#grid columns='2'}}
 
-{{#griditem}} {{#figure marker='do'}}
+{{#griditem}}
+
+{{#figure marker='do'}}
 ![Do - use headline instead of tab](https://d24pvdz4mvzd04.cloudfront.net/test/tab-single-do-290-f105648d41.png)
 {{#figcaption}} If there is only one tab, use a headline instead of a tab.
-{{/figcaption}} {{/figure}} {{/griditem}}
+{{/figcaption}}
 
-{{#griditem}} {{#figure marker='dont'}}
+{{/figure}}
+
+{{/griditem}}
+
+{{#griditem}}
+
+{{#figure marker='dont'}}
 ![Don't - use a single tab](https://d24pvdz4mvzd04.cloudfront.net/test/tab-single-dont-290-7282424245.png)
 {{#figcaption}} Don't use one single tab, a minimum of two tabs is required.
-{{/figcaption}} {{/figure}} {{/griditem}}
+{{/figcaption}}
+
+{{/figure}}
+
+{{/griditem}}
 
 {{/grid}}
 
