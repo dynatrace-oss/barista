@@ -1,0 +1,46 @@
+<p>
+  Hover over a color to see the preview, click a color to download the icon.
+</p>
+<dt-switch (change)="_switchChanged($event)">Convert to png</dt-switch>
+
+<svg viewBox="0 0 512 512" style="display: none">
+  <defs>
+    <symbol [attr.id]="_iconId">
+      <ng-content></ng-content>
+    </symbol>
+  </defs>
+</svg>
+
+<svg #colorwheel viewBox="0 0 120 120">
+  <circle
+    [ngClass]="{ 'ba-is-dark': _previewCircleColorIsDark }"
+    class="ba-icon-color-wheel-previewbackground"
+    cx="60"
+    cy="60"
+    r="10"
+  ></circle>
+
+  <svg width="17" height="17" x="51.5" y="51.5" viewBox="0 0 512 512">
+    <use [attr.xlink:href]="'#' + _iconId" [attr.fill]="_iconFillColor"></use>
+  </svg>
+
+  <g transform="translate(60 60)">
+    <ng-container *ngFor="let blob of _coloredBlobs">
+      <circle
+        class="ba-icon-color-wheel-blob"
+        [dtOverlay]="overlay"
+        [attr.cx]="blob.cx"
+        [attr.cy]="blob.cy"
+        [attr.fill]="blob.fillColor"
+        [attr.r]="blob.r"
+        [attr.stroke]="blob.border"
+        stroke-width="0.3"
+        (click)="_handleBlobClick(blob.fillColor, blob.colorName)"
+        (mouseover)="_handleBlobHover(blob.fillColor, blob.isLight)"
+      ></circle>
+      <ng-template #overlay>
+        {{ blob.colorName }} - Click to download
+      </ng-template>
+    </ng-container>
+  </g>
+</svg>
