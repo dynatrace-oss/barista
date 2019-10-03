@@ -129,6 +129,13 @@ The select component also supports non string, non basic value types.
 
 <docs-source-example example="SelectComplexValueExample"></docs-source-example>
 
+## Select with icons
+
+It is possible to use icons to differentiate between the types of items in a
+select.
+
+<docs-source-example example="SelectWithIconsExample"></docs-source-example>
+
 ## Accessibility
 
 The select component without text or label should be given a meaningful label
