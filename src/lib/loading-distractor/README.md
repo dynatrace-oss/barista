@@ -66,41 +66,23 @@ If loading is caused by triggering a [button]({{link_to_id id='button' }}), the
 loading distractor can be shown in the button. The button gets disabled and the
 loading distractor is placed left aligned in the button with a description.
 
-{{#figure styleguide='true'}}
-![Loading distractor in button](https://d24pvdz4mvzd04.cloudfront.net/test/loading-button-416-7cb2ba6cef.png)
-{{#figcaption}}
+![Loading distractor in a button](https://d24pvdz4mvzd04.cloudfront.net/test/loading-button-416-7cb2ba6cef.png)
 
-```
-x: 16px
-y: 8px
-```
+#### Styles
 
-#### Loading spinner
-
-```
-width: 16px
-height: 16px
-color: same as disabled button font
-```
-
-{{/figcaption}} {{/figure}}
+- x: 16px
+- y: 8px
+- Loading spinner width: 16px
+- Loading spinner height: 16px
+- Loading spinner color: same as disabled button font
 
 ### Loading spinnner in comboboxes
 
-{{#figure styleguide='true'}}
 ![Loading distractor in comboboxes](https://d24pvdz4mvzd04.cloudfront.net/test/loading-combobox-355-0d7a853704.png)
-{{#figcaption}}
 
-```
-x: 12px
-```
+#### Styles
 
-#### Loading spinner
-
-```
-width: 12px
-height: 12px
-color: $gray-500
-```
-
-{{/figcaption}} {{/figure}}
+- x: 12px
+- Loading spinner width: 12px
+- Loading spinner height: 12px
+- Loading spinner color: gray-500
