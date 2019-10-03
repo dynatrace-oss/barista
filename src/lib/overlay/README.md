@@ -156,7 +156,7 @@ responsively. Overlays should always fit the available screensize and the
 content should reflow accordingly. When in doubt please contact an UX
 teammember.
 
-![Overlay responsive behaviour](https://d24pvdz4mvzd04.cloudfront.net/test/overlay-responsive-328-8ec5ce6444.png)
+<docs-source-example example="OverlayComplexContentExample"></docs-source-example>
 
 ### Table overlay
 
@@ -166,13 +166,13 @@ highlighted within the overlay.
 
 ![Table overlay](https://d24pvdz4mvzd04.cloudfront.net/test/overlay-example-table-609-97451ffd9a.png)
 
+### Tile overlay
+
+<docs-source-example example="OverlayTileExample"></docs-source-example>
+
 ### Tag overlay
 
 ![Overlay example with tags](https://d24pvdz4mvzd04.cloudfront.net/test/overlay-example-tags-490-088e74fdf7.png)
-
-### Tile overlay
-
-![Overlay example with tile](https://d24pvdz4mvzd04.cloudfront.net/test/overlay-example-tile-622-7fc4cb5b37.png)
 
 ## Do's and don'ts
 
