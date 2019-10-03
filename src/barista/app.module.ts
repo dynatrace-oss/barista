@@ -14,8 +14,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaContributors } from 'layout/contributors/contributors';
 
 import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
+import { DtSwitchModule } from '@dynatrace/angular-components/switch';
 
 import { BaApp } from './app';
+import { BaIconColorWheel } from './components/icon-color-wheel/icon-color-wheel';
 import { environment } from './environments/environment';
 import { BaFooter } from './layout/footer/footer';
 import { BaNav } from './layout/nav/nav';
@@ -42,6 +45,8 @@ import { BaPageService } from './shared/page.service';
         '',
       )}/assets/icons/{{name}}.svg`,
     }),
+    DtSwitchModule,
+    DtOverlayModule,
   ],
   exports: [],
   declarations: [
@@ -55,6 +60,7 @@ import { BaPageService } from './shared/page.service';
     BaPageOutlet,
     BaComponentPage,
     BaSimplePage,
+    BaIconColorWheel,
   ],
   providers: [
     BaPageService,
