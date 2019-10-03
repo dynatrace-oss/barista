@@ -29,6 +29,13 @@ import {
 const HIGHLIGHTED_CLASS = 'dt-highlight-mark';
 const HIGHLIGHTED_ELEMENT = 'mark';
 
+const HTML_CHARS_OVERRIDES: [string, string][] = [
+  ['&lt;', '<'],
+  ['&gt;', '>'],
+  ['&amp;', '&'],
+  ['&nbsp;', ' '],
+];
+
 /**
  * Helper function to remove all children of a parent node.
  * This can be every dom element.
@@ -148,7 +155,10 @@ export class DtHighlight
   private _getTextContent(): string | null {
     // check if we are in a browser context
     if (this._document) {
-      const text = this._sourceElement.nativeElement.innerHTML.trim();
+      let text = this._sourceElement.nativeElement.innerHTML.trim();
+      for (const [needle, replacement] of HTML_CHARS_OVERRIDES) {
+        text = text.replace(new RegExp(needle, 'g'), replacement);
+      }
       return text.length ? text : null;
     }
     return null;
