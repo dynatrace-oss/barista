@@ -11,6 +11,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -175,6 +176,76 @@ describe('DtSort', () => {
       fixture.detectChanges();
       expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
       expect(checkCellsSorted(component.cells, false, 'column_b')).toBeTruthy();
+    });
+  });
+
+  describe('checking the initial active setting', () => {
+    it('should default sort direction to the ascending start value when no direction is given', () => {
+      component.active = 'column_b';
+      fixture.detectChanges();
+
+      // Check if the header is now set as sorted ascending.
+      const headerCellContainer = fixture.debugElement.query(
+        By.css(
+          '.dt-header-cell.dt-table-column-column_b .dt-sort-header-container',
+        ),
+      );
+      expect(headerCellContainer.nativeElement.classList.toString()).toContain(
+        'dt-sort-header-sorted',
+      );
+
+      const headerCell = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-column_b'),
+      );
+      expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
+        'ascending',
+      );
+    });
+
+    it('should use given sort direction and not default', () => {
+      component.active = 'column_b';
+      component.direction = 'asc';
+      fixture.detectChanges();
+
+      // Check if the header is now set as sorted ascending.
+      const headerCellContainer = fixture.debugElement.query(
+        By.css(
+          '.dt-header-cell.dt-table-column-column_b .dt-sort-header-container',
+        ),
+      );
+      expect(headerCellContainer.nativeElement.classList.toString()).toContain(
+        'dt-sort-header-sorted',
+      );
+
+      const headerCell = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-column_b'),
+      );
+      expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
+        'ascending',
+      );
+    });
+
+    it('should use given sort direction and not default', () => {
+      component.active = 'column_b';
+      component.direction = 'desc';
+      fixture.detectChanges();
+
+      // Check if the header is now set as sorted ascending.
+      const headerCellContainer = fixture.debugElement.query(
+        By.css(
+          '.dt-header-cell.dt-table-column-column_b .dt-sort-header-container',
+        ),
+      );
+      expect(headerCellContainer.nativeElement.classList.toString()).toContain(
+        'dt-sort-header-sorted',
+      );
+
+      const headerCell = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-column_b'),
+      );
+      expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
+        'descending',
+      );
     });
   });
 
