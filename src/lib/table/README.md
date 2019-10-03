@@ -643,6 +643,8 @@ simpleColumn could look like this (example from the `dt-simple-number-column`).
 - [Switches]({{link_to_id id='switch' }}) in tables (e.g. to enable/disable
   monitoring of an entity) are vertically centered in the table row.
 
+<docs-source-example example="TableButtonsExample" fullwidth="true"></docs-source-example>
+
 ### Charts in tables
 
 Micro bar charts can be used in tables to visualize information and enable easy
