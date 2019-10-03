@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
   isDevMode,
 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -13,6 +14,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import {
   CanDisable,
   DtSortDirection,
+  isDefined,
   mixinDisabled,
 } from '@dynatrace/angular-components/core';
 
@@ -115,7 +117,16 @@ export class DtSort extends _DtSortMixinBase
     this._initialized.next(true);
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    // If the active column is set initially but the target direction is not defined
+    // we need to default the sort direction to the start direction.
+    if (
+      isDefined(changes.active) &&
+      changes.active.firstChange &&
+      this.direction === ''
+    ) {
+      this.direction = this.start;
+    }
     this._stateChanges.next();
   }
 
