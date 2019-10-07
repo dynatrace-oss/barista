@@ -1,0 +1,8 @@
+{
+  "watch": ["tools/bitbucket-tools/src"],
+  "ext": "ts",
+  "ignore": ["tools/bitbucket-tools/src/**/*.spec.ts"],
+  "execMap": {
+    "ts": "ts-node --project tools/bitbucket-tools/tsconfig.json"
+  }
+}

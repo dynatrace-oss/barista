@@ -1,0 +1,13 @@
+{
+  "name": "commit-message-checker",
+  "version": "1.0.0",
+  "description": "This is a package json for the deployable docker image, which only contains the bare minimum of required dependencies for the system to run.",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {}
+}
