@@ -23,6 +23,7 @@ import { ChartDemo } from './chart/chart-demo.component';
 import { CheckboxDemo } from './checkbox/checkbox-demo.component';
 import { ConfirmationDialogDemo } from './confirmation-dialog/confirmation-dialog-demo.component';
 import { ConsumptionDemo } from './consumption/consumption-demo.component';
+import { ContainerBreakpointObserverDemo } from './container-breakpoint-observer/container-breakpoint-observer-demo.component';
 import { ContextDialogDemo } from './context-dialog/context-dialog-demo.component';
 import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.component';
 import { CtaCardDemo } from './cta-card/cta-card-demo.component';
@@ -143,6 +144,7 @@ export class NoopRouteComponent {}
     TopBarNavigationDemo,
     StepperDemo,
     SidenavDemo,
+    ContainerBreakpointObserverDemo,
   ],
   entryComponents: [DevApp],
   bootstrap: [DevApp],
