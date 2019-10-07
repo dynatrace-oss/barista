@@ -10,6 +10,7 @@ import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group'
 import { DtCardModule } from '@dynatrace/angular-components/card';
 import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
 import { DtConsumptionModule } from '@dynatrace/angular-components/consumption';
+import { DtContainerBreakpointObserverModule } from '@dynatrace/angular-components/container-breakpoint-observer';
 import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
 import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
 import {
@@ -244,6 +245,7 @@ export class KitchenSink {
     DtEventChartModule,
     DtTopBarNavigationModule,
     DtStepperModule,
+    DtContainerBreakpointObserverModule,
   ],
   bootstrap: [KitchenSink],
   declarations: [KitchenSink],

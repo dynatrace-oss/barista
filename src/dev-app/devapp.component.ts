@@ -35,6 +35,10 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Checkbox', route: '/checkbox' },
     { name: 'Confirmation-dialog', route: '/confirmation-dialog' },
     { name: 'Consumption', route: '/consumption' },
+    {
+      name: 'Container-breakpoint-observer',
+      route: '/container-breakpoint-observer',
+    },
     { name: 'Context-dialog', route: '/context-dialog' },
     { name: 'Copy-to-clipboard', route: '/copy-to-clipboard' },
     { name: 'Cta-card', route: '/cta-card' },
