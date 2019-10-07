@@ -1,0 +1,77 @@
+<div>
+  <dt-container-breakpoint-observer #bo1>
+    <div [class.demo-breakpoint-matches]="_matches">
+      <h2 class="my-headline">Some headline</h2>
+      <dt-alert>ALARM, ALARM!</dt-alert>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+    </div>
+  </dt-container-breakpoint-observer>
+</div>
+
+<dt-container-breakpoint-observer #bo2>
+  <dt-table [dataSource]="dataSource">
+    <ng-container dtColumnDef="host" dtColumnAlign="text">
+      <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+      <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="cpu" dtColumnAlign="text">
+      <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
+      <dt-cell *dtCellDef="let row">{{ row.cpu }}</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="memory" dtColumnAlign="number">
+      <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
+      <dt-cell *dtCellDef="let row">{{ row.memory }}</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="traffic" dtColumnAlign="control">
+      <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
+      <dt-cell *dtCellDef="let row">{{ row.traffic }}</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="details" dtColumnAlign="number">
+      <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
+      <dt-expandable-cell *dtCellDef></dt-expandable-cell>
+    </ng-container>
+
+    <dt-header-row *dtHeaderRowDef="_headerColumns"></dt-header-row>
+    <dt-row
+      *dtRowDef="
+        let row;
+        columns: ['host', 'cpu', 'memory', 'traffic'];
+        let rowIndex = index;
+        when: !_isTableNarrow
+      "
+    ></dt-row>
+    <dt-expandable-row
+      *dtRowDef="
+        let row;
+        columns: ['host', 'cpu', 'details'];
+        let rowIndex = index;
+        when: _isTableNarrow
+      "
+    >
+      <ng-template dtExpandableRowContent>
+        <dt-key-value-list>
+          <dt-key-value-list-item>
+            <dt-key-value-list-key>Memory</dt-key-value-list-key>
+            <dt-key-value-list-value>{{ row.memory }}</dt-key-value-list-value>
+          </dt-key-value-list-item>
+          <dt-key-value-list-item>
+            <dt-key-value-list-key>Traffic</dt-key-value-list-key>
+            <dt-key-value-list-value>{{ row.traffic }}</dt-key-value-list-value>
+          </dt-key-value-list-item>
+        </dt-key-value-list>
+      </ng-template>
+    </dt-expandable-row>
+  </dt-table>
+</dt-container-breakpoint-observer>
