@@ -59,3 +59,5 @@ Thumbs.db
 
 # Barista
 /src/barista/data/
+# Build of bitbucket-tools
+/tools/bitbucket-tools/dist/
