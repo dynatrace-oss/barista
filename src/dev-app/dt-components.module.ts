@@ -11,6 +11,7 @@ import { DtChartModule } from '@dynatrace/angular-components/chart';
 import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
 import { DtConfirmationDialogModule } from '@dynatrace/angular-components/confirmation-dialog';
 import { DtConsumptionModule } from '@dynatrace/angular-components/consumption';
+import { DtContainerBreakpointObserverModule } from '@dynatrace/angular-components/container-breakpoint-observer';
 import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
 import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
 import { DtCtaCardModule } from '@dynatrace/angular-components/cta-card';
@@ -115,6 +116,7 @@ import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
     DtEventChartModule,
     DtTopBarNavigationModule,
     DtStepperModule,
+    DtContainerBreakpointObserverModule,
   ],
 })
 export class DevAppDynatraceModule {}
