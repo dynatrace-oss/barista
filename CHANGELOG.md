@@ -1,3 +1,29 @@
+## 4.11.0 (2019-10-07)
+
+### Bug Fixes
+
+- **confirmation-dialog:** Fixes an issue where the dark theme was not applied.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Fixes and issue where the filter-tags where pushed all the
+  way to the right when editing another filter.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **highlight:** Fixes an issue when certain html entities are escaped in the
+  highlights rendered text.
+- **table:** Fixes an issue where the sort header did not apply sorted-styling
+  when not providing a sortDirection.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Features
+
+- **filter-field:** Added clear-all button to allow removing all active filters.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **stepper:** Added stepper component.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Special Thanks
+
+Todd Baert
+
 ## 4.10.0 (2019-10-02)
 
 ### Bug Fixes
