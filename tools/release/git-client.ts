@@ -85,6 +85,21 @@ export class GitClient {
     return this._spawnGitProcess(['log', '-1']).stdout.trim();
   }
 
+  /** Cherrypicks a commit into the current branch */
+  cherrypick(commitNumber: string): { output: string; success: boolean } {
+    const response = this._spawnGitProcess(['cherry-pick', commitNumber]);
+    const success = response.status === 0;
+    return {
+      success,
+      output: response.stdout.toString(),
+    };
+  }
+
+  /** Run a clone into the current directory. */
+  clone(): boolean {
+    return this._spawnGitProcess(['clone', this.remoteGitUrl, '.']).status === 0;
+  }
+
   /**
    * Spawns a child process running Git.
    * The "stderr" output is inherited and will be printed in case of errors.
