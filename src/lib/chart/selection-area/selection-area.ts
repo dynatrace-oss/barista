@@ -1,19 +1,24 @@
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 import { ENTER } from '@angular/cdk/keycodes';
 import {
-  FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayConfig,
+  OverlayContainer,
   OverlayRef,
+  ViewportRuler,
 } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Inject,
   NgZone,
   OnDestroy,
+  Optional,
   Renderer2,
   SkipSelf,
   TemplateRef,
@@ -45,6 +50,8 @@ import {
 } from 'rxjs/operators';
 
 import {
+  DtFlexibleConnectedPositionStrategy,
+  DtViewportResizer,
   addCssClass,
   getElementBoundingClientRect,
   readKeyCode,
@@ -158,6 +165,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     private _renderer: Renderer2,
     private _overlay: Overlay,
     private _zone: NgZone,
+    private _viewportRuler: ViewportRuler,
+    private _platform: Platform,
+    private _overlayContainer: OverlayContainer,
+    @Inject(DOCUMENT) private _document: Document,
+    @Optional() private _viewportResizer: DtViewportResizer,
   ) {}
 
   ngAfterContentInit(): void {
@@ -321,17 +333,29 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
    */
   private _calculateOverlayPosition(
     ref: ElementRef<HTMLElement>,
-  ): FlexibleConnectedPositionStrategy {
-    const positionStrategy = this._overlay
-      .position()
-      // Create position attached to the ref of the timestamp or range
-      .flexibleConnectedTo(ref)
-      // Attach overlay's center bottom point to the
-      // top center point of the timestamp or range.
+  ): DtFlexibleConnectedPositionStrategy {
+    const positionStrategy = new DtFlexibleConnectedPositionStrategy(
+      ref,
+      this._viewportRuler,
+      this._document,
+      this._platform,
+      this._overlayContainer,
+    )
+      // .withViewportMargin(20)
       .withPositions(DT_SELECTION_AREA_OVERLAY_POSITIONS)
-      .setOrigin(ref)
       .withPush(false)
       .withLockedPosition(false);
+
+    // const positionStrategy = this._overlay
+    //   .position()
+    //   // Create position attached to the ref of the timestamp or range
+    //   .flexibleConnectedTo(ref)
+    //   // Attach overlay's center bottom point to the
+    //   // top center point of the timestamp or range.
+    //   .withPositions(DT_SELECTION_AREA_OVERLAY_POSITIONS)
+    //   .setOrigin(ref)
+    //   .withPush(false)
+    //   .withLockedPosition(false);
 
     return positionStrategy;
   }
