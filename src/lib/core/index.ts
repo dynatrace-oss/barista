@@ -7,3 +7,4 @@ export * from './option/index';
 export * from './indicator/index';
 export * from './tree/index';
 export * from './animations/index';
+export * from './overlay/index';
