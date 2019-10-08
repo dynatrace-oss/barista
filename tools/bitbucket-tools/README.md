@@ -144,3 +144,114 @@ that it follows:
                                      *target:patch* and        *target:minor*
                                      *target:minor*            *target:patch*
 ```
+
+## Auto cherry picker
+
+This tooling project works with git and the bitbucket api to cherry pick the
+relevant commits into their respective release branches after the merge. The
+auto-cherry-picker will look at the labels added by the
+cherry-pick-target-finder (see above) and cherry pick the commits within a pull
+request to the target branches.
+
+### Architecture
+
+The code for this tooling is bundled within a docker image at
+***REMOVED***
+
+This image is then being used by a jenkins task
+***REMOVED***
+which will run the code in the image. This jenkins task is being triggered by
+the following bitbucket webhooks:
+
+- Pull request merged
+
+### Development
+
+To start developing on this tool, first you will need to expose certain
+environment variables required by the tooling.
+
+- **BITBUCKET_USER**: Bitbucket username which will be used for api access.
+  Needs write access to the repository.
+- **BITBUCKET_PASSWORD**: Bitbucket password (either your password or a personal
+  access token will work).
+- **PR_ID**: Pull request number, for which the validation and labelling should
+  be running.
+- **LOCAL_GIT_REPO_PATH**: Local file path where the angular components can be
+  cloned to.
+
+You can start developing the auto-cherry-picker with the following command from
+angular-components root:
+`BITBUCKET_USER=*** BITBUCKET_PASSWORD=*** PR_ID=800 LOCAL_GIT_REPO_PATH=/path/to/your/local/git/repo yarn bitbucket-tools ./tools/bitbucket-tools/src/auto-cherry-picker.ts`
+
+:warning: Running this tool will change the history of the given target
+repository and the remote (determined from the pull request to reference). Make
+sure to work on a clone of the angular-components when developing on this tool.
+
+### Rules for the auto cherry picker and flow graph
+
+```
+               +--------------------------------+
+               |                                |
+               | PR:Merged event from Bitbucket |
+               |                                |
+               +--------------+-----------------+
+                              |
+                              v
+   +--------------------------+-----------------------------+
+   |                                                        |
+   |  if the title contains [cherrypick-needs-human] label  +----->  YES  +--->  BAIL out, nothing to do
+   |                                                        |
+   +--------------------------+-----------------------------+
+                              |
+                              v
+
+                              NO
+
+                              +
+                              |
+         +--------------------+----------------------+
+         |                                           |
+         |  Get the commits within the pull request  |
+         |                                           |
+         +--------------------+----------------------+
+                              |
+                              v
+                   +----------+------------+
+                   |                       |
+                   |  Get target branches  |
+                   |                       |
+                   +----------+------------+
+                              |
+            v-----------------+--------------v
+   +---------------------+         +---------------------+
+   |                     |         |                     |
+   |  if [target:minor]  |         |  if [target:patch]  |
+   |                     |         |                     |
+   +--------+------------+         +---------+-----------+
+            |                                |
+            v                                v
++-----------+--------------------------------+------------------+
+|                                                               |
+|  * checkout branch                                            |
+|                                                               |
+|  * iterate over commits and cherry pick #commit               |
+|                                                               |
+|  * if cherry pick fails, switch target branch to temp-branch  |
+|                                                               |
+|  * push target branch                                         |
+|                                                               |
++-----------+--------------------------------+------------------+
+            |                                |
+            v                                v
+         +--+--------------------------------+----+
+         |                                        |
+         |  If successful, report the outcome     |
+         |  to the original pull request.         |
+         |                                        |
+         |  If it fails, report the outcome to    |
+         |  the original pull request and open a  |
+         |  pull request to resolve the failing   |
+         |  cherry picks.                         |
+         |                                        |
+         +----------------------------------------+
+```

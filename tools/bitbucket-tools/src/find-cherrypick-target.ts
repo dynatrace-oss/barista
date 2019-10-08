@@ -2,7 +2,7 @@ import {
   addTagsToPullRequest,
   updateCherryPickLabels,
 } from './bitbucket-communication/add-tags-to-pull-request';
-import { getCommitsForPullRequest } from './bitbucket-communication/get-commits-for-pull-request';
+import { getCommitMessagesForPullRequest } from './bitbucket-communication/get-commits-for-pull-request';
 import {
   getPullRequestById,
   getPullRequestByRefId,
@@ -56,7 +56,7 @@ async function main(): Promise<void> {
   }
 
   // get the commits for the given pull request
-  const commitsForPR = await getCommitsForPullRequest(pr);
+  const commitsForPR = await getCommitMessagesForPullRequest(pr);
   // Parse the commits to make them more easily accessible by code.
   const parsedCommitsForPr = commitsForPR.map(splitStringIntoCommitMessage);
 
