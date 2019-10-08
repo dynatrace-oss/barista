@@ -5,3 +5,4 @@ export const BITBUCKET_USER = process.env.BBUSER as string;
 export const BITBUCKET_PASSWORD = process.env.BBACCESSTOKEN as string;
 export const REF_ID = process.env.REF_ID as string;
 export const PR_ID = process.env.PR_ID as string;
+export const LOCAL_GIT_REPO_PATH = process.env.LOCAL_GIT_REPO_PATH as string;

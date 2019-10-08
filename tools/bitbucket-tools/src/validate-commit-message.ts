@@ -2,7 +2,7 @@ import {
   addTagsToPullRequest,
   removeTagsFromPullRequest,
 } from './bitbucket-communication/add-tags-to-pull-request';
-import { getCommitsForPullRequest } from './bitbucket-communication/get-commits-for-pull-request';
+import { getCommitMessagesForPullRequest } from './bitbucket-communication/get-commits-for-pull-request';
 import {
   getPullRequestById,
   getPullRequestByRefId,
@@ -33,7 +33,7 @@ async function main(): Promise<void> {
     return;
   }
   // Get all commits for the current pull request.
-  const commitsForPR = await getCommitsForPullRequest(pr);
+  const commitsForPR = await getCommitMessagesForPullRequest(pr);
   // Get parsed commits to better handle them in the following process.
   const parsedCommitsForPr = commitsForPR.map(splitStringIntoCommitMessage);
   // Validate all commits and find the errors.
