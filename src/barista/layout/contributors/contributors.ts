@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { formatContributorName } from '../../utils/formatContributorNames';
+
 const BITBUCKET_USERNAME_LENGTH = 20;
 
 @Component({
@@ -13,6 +15,14 @@ const BITBUCKET_USERNAME_LENGTH = 20;
 export class BaContributors {
   @Input() type: 'ux' | 'dev';
   @Input() names: string[];
+
+  /**
+   * @internal
+   * returns the name capitalized and with a space between first and last name
+   */
+  _displayName(name: string): string {
+    return formatContributorName(name);
+  }
 
   /** @internal */
   _imageUrl(name: string): string {
