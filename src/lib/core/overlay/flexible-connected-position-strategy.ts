@@ -6,6 +6,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+/**
+ * This is a temporary solution to get a workaround of a missing feature of Angular Materials
+ * `FlexibleConnectedPositionStrategy` that we can add a viewport boundary for the top and left
+ * edges where the overlay should not push in.
+ *
+ * In our case it is especially needed to avoid positioning the overlay above the page ribbon in the cluster.
+ *
+ * TODO: Try to contribute this feature to the material library
+ */
+
+// tslint:disable
 import { coerceArray, coerceCssPixelValue } from '@angular/cdk/coercion';
 import { OverlayContainer, PositionStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -62,6 +73,9 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
   /** Last size used for the bounding box. Used to avoid resizing the overlay after open. */
   private _lastBoundingBoxSize = { width: 0, height: 0 };
 
+  /** Whether the overlay was pushed out of the viewport */
+  private _isOutsideViewport = false;
+
   /** Whether the overlay was pushed in a previous positioning. */
   private _isPushed = false;
 
@@ -88,6 +102,9 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
 
   /** Amount of space that must be maintained between the overlay and the edge of the viewport. */
   private _viewportMargin = 0;
+
+  /** The margin between the overlay and the viewport top and left edges in pixels. */
+  private _viewportBoundaries: ViewportBoundaries = { top: 0, left: 0 };
 
   /** The Scrollable containers used to check scrollable view properties on position change. */
   private _scrollables: CdkScrollable[] = [];
@@ -323,9 +340,11 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
       return;
     }
 
+    this._hideOverlay();
+
     // All options for getting the overlay within the viewport have been exhausted, so go with the
     // position that went off-screen the least.
-    this._applyPosition(fallback!.position, fallback!.originPoint);
+    // this._applyPosition(fallback!.position, fallback!.originPoint);
   }
 
   detach(): void {
@@ -353,6 +372,7 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
         width: '',
         alignItems: '',
         justifyContent: '',
+        display: '',
       } as CSSStyleDeclaration);
     }
 
@@ -422,6 +442,15 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
    */
   withViewportMargin(margin: number): this {
     this._viewportMargin = margin;
+    return this;
+  }
+
+  /**
+   * Sets a boundary to the edge of the viewport in which the overlay wont be positioned
+   * @param boundaries Required margin between the overlay and the viewport top and left edges in pixels.
+   */
+  withViewportBoundaries(boundaries: ViewportBoundaries): this {
+    this._viewportBoundaries = boundaries;
     return this;
   }
 
@@ -585,25 +614,36 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
     const topOverflow = 0 - y;
     const bottomOverflow = y + overlay.height - viewport.height;
 
+    const insideHorizontalViewPortRect = y >= this._viewportBoundaries.top;
+
     // Visible parts of the element on each axis.
     const visibleWidth = this._subtractOverflows(
       overlay.width,
       leftOverflow,
       rightOverflow,
     );
-    const visibleHeight = this._subtractOverflows(
+    let visibleHeight = this._subtractOverflows(
       overlay.height,
       topOverflow,
       bottomOverflow,
     );
+
+    if (!insideHorizontalViewPortRect) {
+      visibleHeight -= this._viewportBoundaries.top - y;
+    }
+
     const visibleArea = visibleWidth * visibleHeight;
+    const isCompletelyWithinViewport =
+      overlay.width * overlay.height === visibleArea;
+    const fitsInViewportVertically = visibleHeight === overlay.height;
+    const fitsInViewportHorizontally = visibleWidth == overlay.width;
 
     return {
       visibleArea,
       isCompletelyWithinViewport:
-        overlay.width * overlay.height === visibleArea,
-      fitsInViewportVertically: visibleHeight === overlay.height,
-      fitsInViewportHorizontally: visibleWidth == overlay.width,
+        isCompletelyWithinViewport && insideHorizontalViewPortRect,
+      fitsInViewportVertically,
+      fitsInViewportHorizontally,
     };
   }
 
@@ -895,7 +935,9 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
       );
     }
 
-    const styles = {} as CSSStyleDeclaration;
+    const styles = {
+      display: '',
+    } as CSSStyleDeclaration;
 
     if (this._hasExactPosition()) {
       styles.top = styles.left = '0';
@@ -937,8 +979,22 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
     }
 
     this._lastBoundingBoxSize = boundingBoxRect;
+    this._isOutsideViewport = false;
 
     extendStyles(this._boundingBox!.style, styles);
+  }
+
+  /** Hides the overlay bounding box if it is out of the current viewport */
+  private _hideOverlay(): void {
+    if (this._isOutsideViewport) {
+      return;
+    }
+
+    this._isOutsideViewport = true;
+
+    if (this._boundingBox) {
+      this._boundingBox.style.display = 'none';
+    }
   }
 
   /** Resets the styles for the bounding box so that a new positioning can be computed. */
@@ -1312,6 +1368,11 @@ interface BoundingBoxRect {
   right: number;
   height: number;
   width: number;
+}
+
+export interface ViewportBoundaries {
+  top: number;
+  left: number;
 }
 
 /** Record of measures determining how well a given position will fit with flexible dimensions. */
