@@ -1,3 +1,7 @@
+---
+draft: true
+---
+
 # Barista Design System
 
 This is the app for our design system website
