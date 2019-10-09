@@ -1,32 +1,42 @@
+@import '../../../lib/core/style/colors';
+@import '../../styles/items/tags';
+
 :host {
   grid-area: title;
+  border-bottom: 2px solid $gray-130;
+  padding-bottom: 2.5rem;
+}
 
-  .ba-page__title {
-    margin-bottom: 0;
-  }
+.ba-page-title {
+  margin-bottom: 0;
+}
 
-  .ba-page__description {
-    font-size: 1.3rem;
-    max-width: 100%;
-    margin-bottom: 0.5rem;
-  }
+.ba-page-description {
+  font-size: 1.3rem;
+  max-width: 100%;
+  margin-bottom: 0.5rem;
+}
 
-  .ba-contributors {
-    display: flex;
-    flex-direction: row;
-    margin-top: 1.5rem;
-  }
+.ba-contributors {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.5rem;
+}
 
-  .ba-page__properties {
-    margin-top: 0.5rem;
-  }
+.ba-page-properties {
+  margin-top: 0.5rem;
+}
 
-  .ba-tag.ba-page__property {
-    margin: 0;
-  }
+.ba-tag.ba-page-property {
+  margin: 0;
+}
 
-  .ba-page__deprecation {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
+.ba-page-deprecation {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+dt-tag {
+  cursor: default;
+  margin: 0 7px 5px 0;
 }

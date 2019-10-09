@@ -7,23 +7,30 @@ import { environment } from './../../environments/environment';
   templateUrl: 'page-header.html',
   styleUrls: ['page-header.scss'],
   host: {
-    class: 'ba-page__header',
+    class: 'ba-page-header',
   },
 })
 export class BaPageHeader {
+  /** the title of the current page */
   @Input() title: string;
+
+  /** the description of the current page */
   @Input() description: string;
+
+  /** the contributors of the component on the current page */
   @Input() contributors: {
     ux: string[];
     dev: string[];
   };
+
+  /** additional page properties, such as deprecated, dev utility,.. */
   @Input() properties: string[];
 
-  /** @internal */
-  _hasPropertiesList(): boolean {
-    // TODO: also check for themable, deprecated, wiki link
-    return this.properties.length > 0;
-  }
+  /** @internal the link to the component on the current page has a link to the wiki page */
+  @Input() wiki: string;
+
+  /** @internal whether the component on the current page is themeable */
+  @Input() themable: boolean;
 
   /** @internal */
   get _showContributors(): boolean {
