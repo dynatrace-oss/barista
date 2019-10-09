@@ -53,21 +53,4 @@
   margin-bottom: 2rem;
 }
 
-.ba-page__footer {
-  grid-area: footer;
-  padding-top: 1rem;
-  border-top: 2px solid $gray-130;
-
-  .ba-page-related .ba-meta-text {
-    margin-bottom: 0.5rem;
-  }
-}
-
-.ba-page__footer__title {
-  font-weight: 600;
-  line-height: 1.3;
-  display: block;
-  margin-bottom: 1rem;
-}
-
 /* stylelint-enable */
