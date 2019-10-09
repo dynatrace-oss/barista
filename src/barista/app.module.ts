@@ -19,6 +19,7 @@ import { BaApp } from './app';
 import { environment } from './environments/environment';
 import { BaFooter } from './layout/footer/footer';
 import { BaNav } from './layout/nav/nav';
+import { BaPageFooter } from './layout/page-footer/page-footer';
 import { BaPageHeader } from './layout/page-header/page-header';
 import { BaComponentPage } from './pages/component-page/component-page';
 import { BaPageContent } from './pages/page-content';
@@ -49,6 +50,7 @@ import { BaPageService } from './shared/page.service';
     BaFooter,
     BaPageContent,
     BaPageHeader,
+    BaPageFooter,
     BaContributors,
     BaPageOutlet,
     BaComponentPage,
@@ -65,6 +67,7 @@ import { BaPageService } from './shared/page.service';
     BaSimplePage,
     BaPageHeader,
     BaContributors,
+    BaPageFooter,
   ],
   bootstrap: [BaApp],
 })
