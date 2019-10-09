@@ -15,8 +15,10 @@
     </article>
   </main>
 
-  <footer class="ba-page__footer">
-    <!-- TODO: page-footer component -->
-    <span class="ba-page__footer__title">Explore more content</span>
-  </footer>
+  <ba-page-footer
+    *ngIf="content"
+    [tags]="content.tags"
+    [relatedTopics]="content.related"
+  >
+  </ba-page-footer>
 </div>
