@@ -5,7 +5,7 @@
   <li *ngFor="let name of names" class="ba-contributors__list-item">
     <a href="https://dynatrace.slack.com/messages/CJUCU3J6T">
       <img [src]="_imageUrl(name)" />
-      <span>{{ name }}</span>
+      <span>{{ _displayName(name) }}</span>
     </a>
   </li>
 </ul>
