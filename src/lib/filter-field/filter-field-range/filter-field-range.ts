@@ -233,7 +233,9 @@ export class DtFilterFieldRange implements AfterViewInit {
     const valueFromOrNull = coerceNumberProperty(this._valueFrom, null);
     if (this._selectedOperator === 'range' && valueFromOrNull !== null) {
       const valueToOrNull = coerceNumberProperty(this._valueTo, null);
-      return valueToOrNull !== null ? [valueFromOrNull, valueToOrNull] : null;
+      return valueToOrNull !== null && valueFromOrNull <= valueToOrNull
+        ? [valueFromOrNull, valueToOrNull]
+        : null;
     }
     return valueFromOrNull;
   }
