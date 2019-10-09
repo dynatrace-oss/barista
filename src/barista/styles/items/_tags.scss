@@ -1,0 +1,30 @@
+@import '../../styles/global/mixins.scss';
+
+.ba-tag {
+  appearance: none;
+  display: inline-block;
+  height: 24px;
+  border-radius: 12px;
+  border: 1px solid $gray-300;
+  padding: 0 8px;
+  font-size: 12px;
+  line-height: 23px;
+  color: $turquoise-600;
+  margin: 5px 7px 5px 0;
+}
+
+.ba-tag:focus {
+  @include focusStyle();
+}
+
+.ba-tag:hover {
+  text-decoration: none;
+  background-color: $gray-100;
+  border-color: $gray-400;
+  color: $turquoise-700;
+  cursor: pointer;
+}
+
+.ba-taglist {
+  margin-bottom: 0.8rem;
+}
