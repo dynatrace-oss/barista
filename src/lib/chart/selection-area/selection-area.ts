@@ -31,6 +31,7 @@ import {
   Observable,
   Subject,
   animationFrameScheduler,
+  combineLatest,
   fromEvent,
   merge,
   of,
@@ -42,6 +43,7 @@ import {
   map,
   mapTo,
   skip,
+  startWith,
   switchMap,
   take,
   takeUntil,
@@ -52,6 +54,7 @@ import {
 import {
   DtFlexibleConnectedPositionStrategy,
   DtViewportResizer,
+  ViewportBoundaries,
   addCssClass,
   getElementBoundingClientRect,
   readKeyCode,
@@ -158,6 +161,8 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** Subject to unsubscribe from every subscription */
   private _destroy$ = new Subject<void>();
 
+  private _viewportBoundaries$: Observable<ViewportBoundaries> = EMPTY;
+
   constructor(
     @SkipSelf() private _chart: DtChart,
     private _elementRef: ElementRef<HTMLElement>,
@@ -168,11 +173,16 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     private _viewportRuler: ViewportRuler,
     private _platform: Platform,
     private _overlayContainer: OverlayContainer,
-    @Inject(DOCUMENT) private _document: Document,
+    // tslint:disable-next-line: no-any
+    @Inject(DOCUMENT) private _document: any,
     @Optional() private _viewportResizer: DtViewportResizer,
   ) {}
 
   ngAfterContentInit(): void {
+    this._viewportBoundaries$ = this._viewportResizer
+      ? this._viewportResizer.offset$.pipe(startWith({ top: 0, left: 0 }))
+      : of({ left: 0, top: 0 });
+
     // after Highcharts is rendered we can start initializing the selection area.
     this._chart._afterRender
       .pipe(
@@ -333,31 +343,19 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
    */
   private _calculateOverlayPosition(
     ref: ElementRef<HTMLElement>,
+    viewportOffset: ViewportBoundaries,
   ): DtFlexibleConnectedPositionStrategy {
-    const positionStrategy = new DtFlexibleConnectedPositionStrategy(
+    return new DtFlexibleConnectedPositionStrategy(
       ref,
       this._viewportRuler,
       this._document,
       this._platform,
       this._overlayContainer,
     )
-      // .withViewportMargin(20)
       .withPositions(DT_SELECTION_AREA_OVERLAY_POSITIONS)
+      .withViewportBoundaries(viewportOffset)
       .withPush(false)
       .withLockedPosition(false);
-
-    // const positionStrategy = this._overlay
-    //   .position()
-    //   // Create position attached to the ref of the timestamp or range
-    //   .flexibleConnectedTo(ref)
-    //   // Attach overlay's center bottom point to the
-    //   // top center point of the timestamp or range.
-    //   .withPositions(DT_SELECTION_AREA_OVERLAY_POSITIONS)
-    //   .setOrigin(ref)
-    //   .withPush(false)
-    //   .withLockedPosition(false);
-
-    return positionStrategy;
   }
 
   /**
@@ -368,12 +366,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     template: TemplateRef<T>,
     ref: ElementRef<HTMLElement>,
     viewRef: ViewContainerRef,
+    viewportOffset: ViewportBoundaries,
   ): void {
     // create a new overlay configuration with a position strategy that connects
     // to the provided ref.
     // The overlay should be repositioned on scroll.
     const overlayConfig = new OverlayConfig({
-      positionStrategy: this._calculateOverlayPosition(ref),
+      positionStrategy: this._calculateOverlayPosition(ref, viewportOffset),
       backdropClass: 'dt-no-pointer',
       hasBackdrop: true,
       panelClass: ['dt-chart-selection-area-overlay'],
@@ -402,14 +401,15 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     template: TemplateRef<T>,
     ref: ElementRef<HTMLElement>,
     viewRef: ViewContainerRef,
+    viewportOffset: ViewportBoundaries = { left: 0, top: 0 },
   ): void {
     if (this._portal && this._overlayRef) {
       // We already have an overlay so update the position
       this._overlayRef.updatePositionStrategy(
-        this._calculateOverlayPosition(ref),
+        this._calculateOverlayPosition(ref, viewportOffset),
       );
     } else {
-      this._createOverlay<T>(template, ref, viewRef);
+      this._createOverlay<T>(template, ref, viewRef, viewportOffset);
     }
   }
 
@@ -737,52 +737,63 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     // handling of the overlay for the range
     if (this._range) {
-      getElementRefStream<HTMLDivElement>(
-        this._range._stateChanges,
-        this._destroy$,
-        this._range._rangeElementRef,
-        this._zone,
-      ).subscribe(ref => {
+      combineLatest([
+        getElementRefStream<HTMLDivElement>(
+          this._range._stateChanges,
+          this._destroy$,
+          this._range._rangeElementRef,
+          this._zone,
+        ),
+        this._viewportBoundaries$,
+      ]).subscribe(([ref, viewPortOffset]) => {
         if (this._range && this._range._overlayTemplate) {
           this._updateOrCreateOverlay(
             this._range._overlayTemplate,
             ref,
             this._range._viewContainerRef,
+            viewPortOffset,
           );
         }
       });
 
       // On dragHandle we want to reposition the overlay with a small delay and an animationFrameScheduler
-      this._dragHandle$
-        .pipe(
+
+      combineLatest([
+        this._dragHandle$.pipe(
           throttleTime(0, animationFrameScheduler),
           getElementRef(this._range._rangeElementRef),
           takeUntil(this._destroy$),
-        )
-        .subscribe(ref => {
-          if (this._range && this._range._overlayTemplate) {
-            this._updateOrCreateOverlay(
-              this._range._overlayTemplate,
-              ref,
-              this._range._viewContainerRef,
-            );
-          }
-        });
+        ),
+        this._viewportBoundaries$,
+      ]).subscribe(([ref, viewPortOffset]) => {
+        if (this._range && this._range._overlayTemplate) {
+          this._updateOrCreateOverlay(
+            this._range._overlayTemplate,
+            ref,
+            this._range._viewContainerRef,
+            viewPortOffset,
+          );
+        }
+      });
     }
 
     // handling of the overlay for the timestamp
     if (this._timestamp) {
-      getElementRefStream<HTMLDivElement>(
-        this._timestamp._stateChanges,
-        this._destroy$,
-        this._timestamp._timestampElementRef,
-        this._zone,
-      ).subscribe(ref => {
+      combineLatest([
+        getElementRefStream<HTMLDivElement>(
+          this._timestamp._stateChanges,
+          this._destroy$,
+          this._timestamp._timestampElementRef,
+          this._zone,
+        ),
+        this._viewportBoundaries$,
+      ]).subscribe(([ref, viewPortOffset]) => {
         if (this._timestamp && this._timestamp._overlayTemplate) {
           this._updateOrCreateOverlay(
             this._timestamp._overlayTemplate,
             ref,
             this._timestamp._viewContainerRef,
+            viewPortOffset,
           );
         }
       });
