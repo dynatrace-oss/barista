@@ -56,3 +56,6 @@ Thumbs.db
 # Examples build
 /src/barista-examples/app.module.ts
 /src/barista-examples/app.component.ts
+
+# Barista
+/src/barista/data/
