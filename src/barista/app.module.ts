@@ -17,6 +17,7 @@ import { BaTile } from 'layout/tile/tile';
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
 import { DtSwitchModule } from '@dynatrace/angular-components/switch';
+import { DtTagModule } from '@dynatrace/angular-components/tag';
 
 import { BaApp } from './app';
 import { BaIconColorWheel } from './components/icon-color-wheel/icon-color-wheel';
@@ -40,6 +41,7 @@ import { BaPageService } from './shared/page.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    DtTagModule,
     DtIconModule.forRoot({
       svgIconLocation: `${environment.deployUrl.replace(
         /\/+$/,
