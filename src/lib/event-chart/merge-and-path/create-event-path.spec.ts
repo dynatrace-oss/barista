@@ -14,6 +14,7 @@ function createRenderEvent<T = any>(
   x2: number,
   y: number,
   eventValue: T,
+  pattern: boolean,
   // tslint:disable-next-line: no-any
 ): RenderEvent<T> {
   const event = new DtEventChartEvent<T>();
@@ -25,6 +26,7 @@ function createRenderEvent<T = any>(
     x2,
     y,
     events: [event],
+    pattern,
   };
 }
 // Assuming a sizing for the event bubbles.
@@ -37,11 +39,11 @@ describe('DtEventChart RenderEvent overlap', () => {
   // 1 - 2 - 3 - 4 - 5
   it('should generate a default path of connected simple events', () => {
     const renderEvents = [
-      createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-      createRenderEvent('default', '1', 2, 2, 0, 'event 2'),
-      createRenderEvent('default', '1', 3, 3, 0, 'event 3'),
-      createRenderEvent('default', '1', 4, 4, 0, 'event 4'),
-      createRenderEvent('default', '1', 6, 6, 0, 'event 5'),
+      createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+      createRenderEvent('default', '1', 2, 2, 0, 'event 2', false),
+      createRenderEvent('default', '1', 3, 3, 0, 'event 3', false),
+      createRenderEvent('default', '1', 4, 4, 0, 'event 4', false),
+      createRenderEvent('default', '1', 6, 6, 0, 'event 5', false),
     ];
     const path = dtCreateEventPath(renderEvents);
     const expectedPath = [
@@ -59,11 +61,11 @@ describe('DtEventChart RenderEvent overlap', () => {
   // 1 - 2 - 3333333 - 4 - 5
   it('should generate a default path of connected simple events, with durations', () => {
     const renderEvents = [
-      createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-      createRenderEvent('default', '1', 2, 2, 0, 'event 2'),
-      createRenderEvent('default', '1', 3, 7, 0, 'event 3'),
-      createRenderEvent('default', '1', 9, 9, 0, 'event 4'),
-      createRenderEvent('default', '1', 10, 10, 0, 'event 5'),
+      createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+      createRenderEvent('default', '1', 2, 2, 0, 'event 2', false),
+      createRenderEvent('default', '1', 3, 7, 0, 'event 3', false),
+      createRenderEvent('default', '1', 9, 9, 0, 'event 4', false),
+      createRenderEvent('default', '1', 10, 10, 0, 'event 5', false),
     ];
     const path = dtCreateEventPath(renderEvents);
     const expectedPath = [
@@ -84,15 +86,15 @@ describe('DtEventChart RenderEvent overlap', () => {
   //  1:2:4:5    7   9
   it('should generate the correct path if during merged points the path switches lanes', () => {
     const renderEvents = [
-      createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-      createRenderEvent('default', '1', 2, 2, 0, 'event 2'),
-      createRenderEvent('default', '2', 3, 3, 2, 'event 3'),
-      createRenderEvent('default', '1', 4, 4, 0, 'event 4'),
-      createRenderEvent('default', '1', 5, 5, 0, 'event 5'),
-      createRenderEvent('default', '2', 15, 15, 2, 'event 6'),
-      createRenderEvent('default', '1', 25, 25, 0, 'event 7'),
-      createRenderEvent('default', '2', 35, 35, 2, 'event 8'),
-      createRenderEvent('default', '1', 45, 45, 0, 'event 9'),
+      createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+      createRenderEvent('default', '1', 2, 2, 0, 'event 2', false),
+      createRenderEvent('default', '2', 3, 3, 2, 'event 3', false),
+      createRenderEvent('default', '1', 4, 4, 0, 'event 4', false),
+      createRenderEvent('default', '1', 5, 5, 0, 'event 5', false),
+      createRenderEvent('default', '2', 15, 15, 2, 'event 6', false),
+      createRenderEvent('default', '1', 25, 25, 0, 'event 7', false),
+      createRenderEvent('default', '2', 35, 35, 2, 'event 8', false),
+      createRenderEvent('default', '1', 45, 45, 0, 'event 9', false),
     ];
     const mergedEvents = dtEventChartMergeEvents(
       renderEvents,
@@ -118,13 +120,13 @@ describe('DtEventChart RenderEvent overlap', () => {
   //  1:2   4  6 - 7
   it('should generate the correct path if during merged points the path switches lanes', () => {
     const renderEvents = [
-      createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-      createRenderEvent('default', '1', 2, 2, 0, 'event 2'),
-      createRenderEvent('default', '2', 14, 14, 2, 'event 3'),
-      createRenderEvent('default', '1', 15, 15, 0, 'event 4'),
-      createRenderEvent('default', '2', 16, 16, 2, 'event 5'),
-      createRenderEvent('default', '1', 25, 25, 0, 'event 6'),
-      createRenderEvent('default', '1', 35, 35, 0, 'event 7'),
+      createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+      createRenderEvent('default', '1', 2, 2, 0, 'event 2', false),
+      createRenderEvent('default', '2', 14, 14, 2, 'event 3', false),
+      createRenderEvent('default', '1', 15, 15, 0, 'event 4', false),
+      createRenderEvent('default', '2', 16, 16, 2, 'event 5', false),
+      createRenderEvent('default', '1', 25, 25, 0, 'event 6', false),
+      createRenderEvent('default', '1', 35, 35, 0, 'event 7', false),
     ];
     const mergedEvents = dtEventChartMergeEvents(
       renderEvents,
@@ -149,13 +151,13 @@ describe('DtEventChart RenderEvent overlap', () => {
   //  1:2   444  6 - 7
   it('should generate the correct path for complex combinations of merging, lane switching and durations', () => {
     const renderEvents = [
-      createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-      createRenderEvent('default', '1', 2, 2, 0, 'event 2'),
-      createRenderEvent('default', '2', 14, 14, 2, 'event 3'),
-      createRenderEvent('default', '1', 14, 17, 0, 'event 4'),
-      createRenderEvent('default', '2', 15, 15, 2, 'event 5'),
-      createRenderEvent('default', '1', 25, 25, 0, 'event 6'),
-      createRenderEvent('default', '1', 35, 35, 0, 'event 7'),
+      createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+      createRenderEvent('default', '1', 2, 2, 0, 'event 2', false),
+      createRenderEvent('default', '2', 14, 14, 2, 'event 3', false),
+      createRenderEvent('default', '1', 14, 17, 0, 'event 4', false),
+      createRenderEvent('default', '2', 15, 15, 2, 'event 5', false),
+      createRenderEvent('default', '1', 25, 25, 0, 'event 6', false),
+      createRenderEvent('default', '1', 35, 35, 0, 'event 7', false),
     ];
     const mergedEvents = dtEventChartMergeEvents(
       renderEvents,

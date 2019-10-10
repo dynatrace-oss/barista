@@ -138,6 +138,18 @@ export class DtEventChartLane implements OnChanges, OnDestroy {
   @Input() color: DtEventChartColors = 'default';
 
   /**
+   * Defines if the lane should apply a pattern to the events or not.
+   */
+  @Input()
+  get pattern(): boolean {
+    return this._pattern;
+  }
+  set pattern(value: boolean) {
+    this._pattern = coerceBooleanProperty(value);
+  }
+  private _pattern = false;
+
+  /**
    * @internal
    * Subject that fires when either of the inputs changes, the
    * dtEventChart will subscribe to a collection of these stateChanges
@@ -166,17 +178,16 @@ export class DtEventChartLegendItem implements OnChanges, OnDestroy {
   @Input() lanes: string[] | string = [];
 
   /**
-   * Defines if this DtEventChartLegend is applicable to
-   * a durationEvent or not.
+   * Defines if the legendItem applies to pattern events or not.
    */
   @Input()
-  get hasDuration(): boolean {
-    return this._hasDuration;
+  get pattern(): boolean {
+    return this._pattern;
   }
-  set hasDuration(value: boolean) {
-    this._hasDuration = coerceBooleanProperty(value);
+  set pattern(value: boolean) {
+    this._pattern = coerceBooleanProperty(value);
   }
-  private _hasDuration = false;
+  private _pattern = false;
 
   /** Defines the color for which this DtEventChartLegend applies. */
   @Input() color: DtEventChartColors = 'default';

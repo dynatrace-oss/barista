@@ -2,30 +2,15 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtEventChartModule } from '@dynatrace/angular-components/event-chart';
 
 import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import { DtEventChart } from './event-chart';
 import { DtEventChartSelectedEvent } from './event-chart-directives';
-
-/** Gets the rendered events for easier comparison. */
-function getRenderedEventBubbles(
-  fixture: ComponentFixture<any>,
-): { x1: number; x2: number; y1: number; y2: number; classList: string }[] {
-  const bubbles = fixture.debugElement.queryAll(
-    By.css('.dt-event-chart-event'),
-  );
-  return bubbles.map(bubble => ({
-    x1: parseFloat(bubble.nativeElement.getAttribute('x1')),
-    x2: parseFloat(bubble.nativeElement.getAttribute('x2')),
-    y1: parseFloat(bubble.nativeElement.getAttribute('y1')),
-    y2: parseFloat(bubble.nativeElement.getAttribute('y2')),
-    classList: bubble.nativeElement.classList.toString(),
-  }));
-}
 
 /** Gets the rendered merged numbering. */
 function getRenderedMergedTextLabels(fixture: ComponentFixture<any>): string[] {
@@ -51,7 +36,7 @@ function getLegendItems(
   hasErrorColor: boolean;
   hasConversionColor: boolean;
   hasFilteredColor: boolean;
-  hasDuration: boolean;
+  hasPattern: boolean;
 }[] {
   const legendItemElements = fixture.debugElement.queryAll(
     By.css('.dt-legend-item'),
@@ -72,16 +57,19 @@ function getLegendItems(
       .query(By.css('.dt-event-chart-legend-symbol'))
       .nativeElement.classList.toString()
       .includes('filtered');
-    const hasDuration = element
-      .query(By.css('.dt-event-chart-legend-symbol'))
-      .nativeElement.classList.toString()
-      .includes('sausage');
+    const hasPattern =
+      // tslint:disable-next-line: strict-type-predicates
+      element.query(
+        By.css(
+          '.dt-event-chart-legend-symbol .dt-event-chart-legend-symbol-pattern',
+        ),
+      ) !== null;
     return {
       label,
       hasErrorColor,
       hasConversionColor,
       hasFilteredColor,
-      hasDuration,
+      hasPattern,
     };
   });
 }
@@ -136,54 +124,45 @@ describe('DtEventChart', () => {
     });
 
     it('should render the events correctly', () => {
-      const renderedEvents = getRenderedEventBubbles(fixture);
-
+      const renderedEvents =
+        fixture.componentInstance._eventChartInstance._renderEvents;
       // Expect the correct amount of dots being drawn
       expect(renderedEvents).toHaveLength(6);
 
       expect(renderedEvents[0]).toMatchObject({
         x1: 13,
         x2: 13,
-        y1: 73,
-        y2: 73,
-        classList: 'dt-event-chart-event dt-event-chart-event-default',
+        y: 73,
+        pattern: true,
+        color: 'default',
       });
 
       // Check points for bubble 1
       expect(renderedEvents[1].x1).toBeCloseTo(146, 0.5);
       expect(renderedEvents[1].x2).toBeCloseTo(146, 0.5);
-      expect(renderedEvents[1].y1).toBe(24);
-      expect(renderedEvents[1].y2).toBe(24);
+      expect(renderedEvents[1].y).toBe(24);
 
       // Check points for bubble 2
       expect(renderedEvents[2].x1).toBeCloseTo(212.6, 0.5);
       expect(renderedEvents[2].x2).toBeCloseTo(212.6, 0.5);
-      expect(renderedEvents[2].y1).toBe(73);
-      expect(renderedEvents[2].y2).toBe(73);
+      expect(renderedEvents[2].y).toBe(73);
 
       // Check points for bubble 3
       expect(renderedEvents[3].x1).toBeCloseTo(345.6, 0.5);
       expect(renderedEvents[3].x2).toBeCloseTo(345.6, 0.5);
-      expect(renderedEvents[3].y1).toBe(73);
-      expect(renderedEvents[3].y2).toBe(73);
-      expect(renderedEvents[3].classList).toContain(
-        'dt-event-chart-event-error',
-      );
+      expect(renderedEvents[3].y).toBe(73);
+      expect(renderedEvents[3].color).toContain('error');
 
       // Check points for bubble 4
       expect(renderedEvents[4].x1).toBeCloseTo(478.7, 0.5);
       expect(renderedEvents[4].x2).toBeCloseTo(678.3, 0.5);
-      expect(renderedEvents[4].y1).toBe(73);
-      expect(renderedEvents[4].y2).toBe(73);
-      expect(renderedEvents[4].classList).toContain(
-        'dt-event-chart-event-sausage-default',
-      );
+      expect(renderedEvents[4].y).toBe(73);
+      expect(renderedEvents[4].pattern).toBe(true);
 
       // Check points for bubble 5
       expect(renderedEvents[5].x1).toBeCloseTo(1011, 0.5);
       expect(renderedEvents[5].x2).toBeCloseTo(1011, 0.5);
-      expect(renderedEvents[5].y1).toBe(24);
-      expect(renderedEvents[5].y2).toBe(24);
+      expect(renderedEvents[5].y).toBe(24);
     });
 
     it('should render the path correctly', () => {
@@ -244,31 +223,31 @@ describe('DtEventChart', () => {
     it('should have the correct legends', () => {
       const legends = getLegendItems(fixture);
 
-      // Default label for a single event.
-      expect(legends[0]).toMatchObject({
-        label: 'This is the default legend',
-        hasErrorColor: false,
-        hasConversionColor: false,
-        hasFilteredColor: false,
-        hasDuration: false,
-      });
-
-      // Legend for the error event
-      expect(legends[1]).toMatchObject({
-        label: 'This is the error legend',
-        hasErrorColor: true,
-        hasConversionColor: false,
-        hasFilteredColor: false,
-        hasDuration: false,
-      });
-
       // Legend for the default duration event
-      expect(legends[2]).toMatchObject({
+      expect(legends[0]).toMatchObject({
         label: 'This is the default duration legend',
         hasErrorColor: false,
         hasConversionColor: false,
         hasFilteredColor: false,
-        hasDuration: true,
+        hasPattern: true,
+      });
+
+      // Default label for a single event.
+      expect(legends[1]).toMatchObject({
+        label: 'This is the default legend',
+        hasErrorColor: false,
+        hasConversionColor: false,
+        hasFilteredColor: false,
+        hasPattern: false,
+      });
+
+      // Legend for the error event
+      expect(legends[2]).toMatchObject({
+        label: 'This is the error legend',
+        hasErrorColor: true,
+        hasConversionColor: false,
+        hasFilteredColor: false,
+        hasPattern: true,
       });
     });
 
@@ -334,6 +313,17 @@ describe('DtEventChart', () => {
         data: '1',
       });
     });
+
+    it('should select an event when a bubble is clicked', () => {
+      const firstBubble = fixture.debugElement.query(
+        By.css('.dt-event-chart-event'),
+      );
+      dispatchFakeEvent(firstBubble.nativeElement, 'click');
+      fixture.detectChanges();
+      expect(firstBubble.nativeElement.classList).toContain(
+        'dt-event-chart-event-selected',
+      );
+    });
   });
 
   describe('with dynamic data', () => {
@@ -360,23 +350,18 @@ describe('DtEventChart', () => {
     });
 
     it('should render the correct amount of events', () => {
-      const renderedEvents = getRenderedEventBubbles(fixture);
+      const renderedEvents =
+        fixture.componentInstance._eventChartInstance._renderEvents;
 
       // Expect the correct amount of dots being drawn
       expect(renderedEvents).toHaveLength(7);
 
       // Expect the event to have a error color
-      expect(renderedEvents[3].classList).toContain(
-        'dt-event-chart-event-error',
-      );
+      expect(renderedEvents[3].color).toBe('error');
       // Expect the event to have a conversion color
-      expect(renderedEvents[4].classList).toContain(
-        'dt-event-chart-event-conversion',
-      );
+      expect(renderedEvents[4].color).toBe('conversion');
       // Expect the event to have a duration
-      expect(renderedEvents[5].classList).toContain(
-        'dt-event-chart-event-sausage-default',
-      );
+      expect(renderedEvents[5].pattern).toBe(true);
     });
 
     it('should render the correct lanes and lables', () => {
@@ -391,22 +376,17 @@ describe('DtEventChart', () => {
       fixture.componentInstance._events = newEvents;
       fixture.detectChanges();
 
-      const renderedEvents = getRenderedEventBubbles(fixture);
+      const renderedEvents =
+        fixture.componentInstance._eventChartInstance._renderEvents;
       // Expect the length to decrease.
       expect(renderedEvents).toHaveLength(6);
 
       // Expect the event to have a error color
-      expect(renderedEvents[2].classList).toContain(
-        'dt-event-chart-event-error',
-      );
+      expect(renderedEvents[2].color).toBe('error');
       // Expect the event to have a conversion color
-      expect(renderedEvents[3].classList).toContain(
-        'dt-event-chart-event-conversion',
-      );
+      expect(renderedEvents[3].color).toBe('conversion');
       // Expect the event to have a duration
-      expect(renderedEvents[4].classList).toContain(
-        'dt-event-chart-event-sausage-default',
-      );
+      expect(renderedEvents[4].pattern).toBe(true);
     });
 
     it('should update the rendered events if one event is added', () => {
@@ -420,7 +400,8 @@ describe('DtEventChart', () => {
       });
       fixture.componentInstance._events = newEvents;
       fixture.detectChanges();
-      const renderedEvents = getRenderedEventBubbles(fixture);
+      const renderedEvents =
+        fixture.componentInstance._eventChartInstance._renderEvents;
       // Expect the length to increase.
       expect(renderedEvents).toHaveLength(8);
     });
@@ -436,7 +417,8 @@ describe('DtEventChart', () => {
       });
       fixture.componentInstance._events = newEvents;
       fixture.detectChanges();
-      const renderedEvents = getRenderedEventBubbles(fixture);
+      const renderedEvents =
+        fixture.componentInstance._eventChartInstance._renderEvents;
       // Expect the length to stay the same, as the newly added one should be merged.
       expect(renderedEvents).toHaveLength(7);
     });
@@ -525,29 +507,26 @@ describe('DtEventChart', () => {
 
     it('should render the correct legend items', () => {
       const legendItems = getLegendItems(fixture);
-      expect(legendItems).toHaveLength(3);
-      expect(legendItems[0].label).toBe('This is the default legend');
+      expect(legendItems).toHaveLength(2);
+      expect(legendItems[0].label).toBe('This is the default duration legend');
       expect(legendItems[1].label).toBe('This is the error legend');
-      expect(legendItems[2].label).toBe('This is the default duration legend');
     });
 
     it('should update the legends if they are changed dynamically', () => {
       fixture.componentInstance._errorLegendEnabled = false;
       fixture.detectChanges();
       const legendItems = getLegendItems(fixture);
-      expect(legendItems).toHaveLength(2);
-      expect(legendItems[0].label).toBe('This is the default legend');
-      expect(legendItems[1].label).toBe('This is the default duration legend');
+      expect(legendItems).toHaveLength(1);
+      expect(legendItems[0].label).toBe('This is the default duration legend');
     });
 
     it('should update the legends if a binding inside changes', () => {
       fixture.componentInstance._durationLabel = 'Updated label';
       fixture.detectChanges();
       const legendItems = getLegendItems(fixture);
-      expect(legendItems).toHaveLength(3);
-      expect(legendItems[0].label).toBe('This is the default legend');
+      expect(legendItems).toHaveLength(2);
+      expect(legendItems[0].label).toBe('Updated label');
       expect(legendItems[1].label).toBe('This is the error legend');
-      expect(legendItems[2].label).toBe('Updated label');
     });
 
     it('should react to changing lanes', () => {
@@ -558,7 +537,8 @@ describe('DtEventChart', () => {
       expect(lanes).toStrictEqual(['XHR']);
 
       // Events on lanes, that are not defined, should not be rendered.
-      const renderedEvents = getRenderedEventBubbles(fixture);
+      const renderedEvents =
+        fixture.componentInstance._eventChartInstance._renderEvents;
       expect(renderedEvents).toHaveLength(5);
     });
   });
@@ -584,7 +564,11 @@ describe('DtEventChart', () => {
       ></dt-event-chart-event>
       <dt-event-chart-event value="75" lane="user-event"></dt-event-chart-event>
 
-      <dt-event-chart-lane name="xhr" label="XHR"></dt-event-chart-lane>
+      <dt-event-chart-lane
+        name="xhr"
+        label="XHR"
+        pattern="true"
+      ></dt-event-chart-lane>
       <dt-event-chart-lane
         name="user-event"
         label="User event"
@@ -592,7 +576,10 @@ describe('DtEventChart', () => {
     </dt-event-chart>
   `,
 })
-class EventChartStaticData {}
+class EventChartStaticData {
+  @ViewChild(DtEventChart, { static: true })
+  _eventChartInstance: DtEventChart<any>;
+}
 
 @Component({
   selector: 'dt-test-app',
@@ -631,7 +618,11 @@ class EventChartStaticData {}
         data="5"
       ></dt-event-chart-event>
 
-      <dt-event-chart-lane name="xhr" label="XHR"></dt-event-chart-lane>
+      <dt-event-chart-lane
+        name="xhr"
+        label="XHR"
+        pattern="true"
+      ></dt-event-chart-lane>
       <dt-event-chart-lane
         name="user-event"
         label="User event"
@@ -640,10 +631,10 @@ class EventChartStaticData {}
       <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']">
         This is the default legend
       </dt-event-chart-legend-item>
-      <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']" hasDuration>
+      <dt-event-chart-legend-item [lanes]="['xhr']" pattern>
         This is the default duration legend
       </dt-event-chart-legend-item>
-      <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']" color="error">
+      <dt-event-chart-legend-item [lanes]="['xhr']" pattern color="error">
         This is the error legend
       </dt-event-chart-legend-item>
 
@@ -657,6 +648,10 @@ class EventChartStaticData {}
 })
 class EventChartStaticDataWithLegendAndOverlay {
   selected;
+
+  @ViewChild(DtEventChart, { static: true })
+  _eventChartInstance: DtEventChart<any>;
+
   logSelected(selected: DtEventChartSelectedEvent<string>): void {
     this.selected = selected;
   }
@@ -676,7 +671,11 @@ class EventChartStaticDataWithLegendAndOverlay {
         [data]="event.data"
       ></dt-event-chart-event>
 
-      <dt-event-chart-lane name="xhr" label="XHR"></dt-event-chart-lane>
+      <dt-event-chart-lane
+        name="xhr"
+        label="XHR"
+        pattern="true"
+      ></dt-event-chart-lane>
       <dt-event-chart-lane
         *ngIf="_userEventsLaneEnabled"
         name="user-event"
@@ -686,7 +685,7 @@ class EventChartStaticDataWithLegendAndOverlay {
       <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']">
         This is the default legend
       </dt-event-chart-legend-item>
-      <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']" hasDuration>
+      <dt-event-chart-legend-item [lanes]="['xhr']" pattern>
         {{ _durationLabel }}
       </dt-event-chart-legend-item>
       <dt-event-chart-legend-item
@@ -706,6 +705,9 @@ class EventChartStaticDataWithLegendAndOverlay {
   `,
 })
 class EventChartDynamicData {
+  @ViewChild(DtEventChart, { static: true })
+  _eventChartInstance: DtEventChart<any>;
+
   selected;
   logSelected(selected: DtEventChartSelectedEvent<number>): void {
     this.selected = selected;
