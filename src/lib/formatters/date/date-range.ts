@@ -1,6 +1,28 @@
 import { formatDate } from '@angular/common';
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 
+import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+
+/**
+ * Error message that should be logged if no numbers are provided to the dateRange formatter.
+ * @internal
+ */
+export const ERROR_MESSAGE_NO_NUMBERS_PROVIDED =
+  'The DtDateRange formatter could not format the provided values! Please ensure that two numbers are provided!';
+
+/**
+ * Error message that should be logged if not 2 numbers are provided.
+ * @internal
+ */
+export const ERROR_MESSAGE_WRONG_FORMAT =
+  'The DtDateRange formatter expects an array of two numbers that should be formatted!';
+
+/** @internal Placeholder that should be displayed if no valid timestamps are provided */
+export const PLACEHOLDER = '{from} – {to}';
+
+/** Instance of the logger for the date range formatter */
+const logger: DtLogger = DtLoggerFactory.create('DtDateRange Formatter');
+
 @Pipe({
   name: 'dtDateRange',
   pure: true,
@@ -24,7 +46,8 @@ export class DtDateRange implements PipeTransform {
   transform(value: [number, number]): string {
     // tslint:disable-next-line no-magic-numbers
     if (!Array.isArray(value) || value.length !== 2) {
-      return '';
+      logger.error(ERROR_MESSAGE_WRONG_FORMAT);
+      return PLACEHOLDER;
     }
 
     return dtFormatDateRange(value[0], value[1], this._locale);
@@ -46,6 +69,11 @@ export function dtFormatDateRange(
   end: number,
   locale: string = 'en-US',
 ): string {
+  if (isNaN(start) || isNaN(end)) {
+    logger.error(ERROR_MESSAGE_NO_NUMBERS_PROVIDED);
+    return PLACEHOLDER;
+  }
+
   const date1 = new Date(start);
   const date2 = new Date(end);
   const now = new Date(Date.now());
