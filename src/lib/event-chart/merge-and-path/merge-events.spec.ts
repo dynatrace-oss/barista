@@ -16,6 +16,7 @@ function createRenderEvent<T = any>(
   x2: number,
   y: number,
   eventValue: T,
+  pattern: boolean,
   // tslint:disable-next-line: no-any
 ): RenderEvent<T> {
   const event = new DtEventChartEvent<T>();
@@ -27,6 +28,7 @@ function createRenderEvent<T = any>(
     x2,
     y,
     events: [event],
+    pattern,
   };
 }
 
@@ -36,8 +38,8 @@ const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE / 2;
 
 describe('DtEventChart RenderEvent overlap', () => {
   it('should report overlapping events as overlapping', () => {
-    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1');
-    const eventB = createRenderEvent('default', '1', 5, 5, 0, 'event 2');
+    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1', false);
+    const eventB = createRenderEvent('default', '1', 5, 5, 0, 'event 2', false);
     const isOverlapping = dtEventChartIsOverlappingEvent(
       eventA,
       eventB,
@@ -47,8 +49,8 @@ describe('DtEventChart RenderEvent overlap', () => {
   });
 
   it('should report overlapping events if they are on the same position', () => {
-    const eventA = createRenderEvent('default', '1', 5, 5, 0, 'event 1');
-    const eventB = createRenderEvent('default', '1', 5, 5, 0, 'event 2');
+    const eventA = createRenderEvent('default', '1', 5, 5, 0, 'event 1', false);
+    const eventB = createRenderEvent('default', '1', 5, 5, 0, 'event 2', false);
     const isOverlapping = dtEventChartIsOverlappingEvent(
       eventA,
       eventB,
@@ -58,8 +60,16 @@ describe('DtEventChart RenderEvent overlap', () => {
   });
 
   it('should report not overlapping events as not overlapping', () => {
-    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1');
-    const eventB = createRenderEvent('default', '1', 10, 10, 0, 'event 2');
+    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1', false);
+    const eventB = createRenderEvent(
+      'default',
+      '1',
+      10,
+      10,
+      0,
+      'event 2',
+      false,
+    );
     const isOverlapping = dtEventChartIsOverlappingEvent(
       eventA,
       eventB,
@@ -69,8 +79,16 @@ describe('DtEventChart RenderEvent overlap', () => {
   });
 
   it('should report the event as not overlapping if eventA has a duration', () => {
-    const eventA = createRenderEvent('default', '1', 0, 5, 0, 'event 1');
-    const eventB = createRenderEvent('default', '1', 10, 10, 0, 'event 2');
+    const eventA = createRenderEvent('default', '1', 0, 5, 0, 'event 1', false);
+    const eventB = createRenderEvent(
+      'default',
+      '1',
+      10,
+      10,
+      0,
+      'event 2',
+      false,
+    );
     const isOverlapping = dtEventChartIsOverlappingEvent(
       eventA,
       eventB,
@@ -80,8 +98,16 @@ describe('DtEventChart RenderEvent overlap', () => {
   });
 
   it('should report the event as not overlapping if eventB has a duration', () => {
-    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1');
-    const eventB = createRenderEvent('default', '1', 5, 10, 0, 'event 2');
+    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1', false);
+    const eventB = createRenderEvent(
+      'default',
+      '1',
+      5,
+      10,
+      0,
+      'event 2',
+      false,
+    );
     const isOverlapping = dtEventChartIsOverlappingEvent(
       eventA,
       eventB,
@@ -95,8 +121,8 @@ describe('DtEventChart RenderEvent merging', () => {
   describe('should merge', () => {
     it('two points next to each other', () => {
       const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-        createRenderEvent('default', '1', 5, 5, 0, 'event 2'),
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+        createRenderEvent('default', '1', 5, 5, 0, 'event 2', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,
@@ -116,11 +142,11 @@ describe('DtEventChart RenderEvent merging', () => {
 
     it('multiple (5) points after another', () => {
       const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-        createRenderEvent('default', '1', 2, 2, 0, 'event 2'),
-        createRenderEvent('default', '1', 3, 3, 0, 'event 3'),
-        createRenderEvent('default', '1', 4, 4, 0, 'event 4'),
-        createRenderEvent('default', '1', 6, 6, 0, 'event 5'),
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+        createRenderEvent('default', '1', 2, 2, 0, 'event 2', false),
+        createRenderEvent('default', '1', 3, 3, 0, 'event 3', false),
+        createRenderEvent('default', '1', 4, 4, 0, 'event 4', false),
+        createRenderEvent('default', '1', 6, 6, 0, 'event 5', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,
@@ -146,9 +172,9 @@ describe('DtEventChart RenderEvent merging', () => {
 
     it('points on one lane interrupted by another lane', () => {
       const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-        createRenderEvent('default', '2', 2, 2, 0, 'event 2'),
-        createRenderEvent('default', '1', 3, 3, 0, 'event 3'),
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+        createRenderEvent('default', '2', 2, 2, 0, 'event 2', false),
+        createRenderEvent('default', '1', 3, 3, 0, 'event 3', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,
@@ -169,9 +195,9 @@ describe('DtEventChart RenderEvent merging', () => {
 
     it('points on one lane interrupted by another lane which has another color', () => {
       const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-        createRenderEvent('conversion', '2', 2, 2, 0, 'event 2'),
-        createRenderEvent('default', '1', 3, 3, 0, 'event 3'),
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+        createRenderEvent('conversion', '2', 2, 2, 0, 'event 2', false),
+        createRenderEvent('default', '1', 3, 3, 0, 'event 3', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,
@@ -197,15 +223,15 @@ describe('DtEventChart RenderEvent merging', () => {
     //  1:2:4:5    7   9
     it('points and should continue with unmergable ones', () => {
       const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-        createRenderEvent('default', '1', 2, 2, 0, 'event 2'),
-        createRenderEvent('default', '2', 3, 3, 2, 'event 3'),
-        createRenderEvent('default', '1', 4, 4, 0, 'event 4'),
-        createRenderEvent('default', '1', 5, 5, 0, 'event 5'),
-        createRenderEvent('default', '2', 15, 15, 2, 'event 6'),
-        createRenderEvent('default', '1', 25, 25, 0, 'event 7'),
-        createRenderEvent('default', '2', 35, 35, 2, 'event 8'),
-        createRenderEvent('default', '1', 45, 45, 0, 'event 9'),
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+        createRenderEvent('default', '1', 2, 2, 0, 'event 2', false),
+        createRenderEvent('default', '2', 3, 3, 2, 'event 3', false),
+        createRenderEvent('default', '1', 4, 4, 0, 'event 4', false),
+        createRenderEvent('default', '1', 5, 5, 0, 'event 5', false),
+        createRenderEvent('default', '2', 15, 15, 2, 'event 6', false),
+        createRenderEvent('default', '1', 25, 25, 0, 'event 7', false),
+        createRenderEvent('default', '2', 35, 35, 2, 'event 8', false),
+        createRenderEvent('default', '1', 45, 45, 0, 'event 9', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,
@@ -237,8 +263,8 @@ describe('DtEventChart RenderEvent merging', () => {
   describe('should not merge', () => {
     it('two points next to each other but on different lanes', () => {
       const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-        createRenderEvent('default', '2', 5, 5, 0, 'event 2'),
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+        createRenderEvent('default', '2', 5, 5, 0, 'event 2', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,
@@ -251,8 +277,8 @@ describe('DtEventChart RenderEvent merging', () => {
 
     it('two points next to each other with different colors', () => {
       const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-        createRenderEvent('error', '1', 5, 5, 0, 'event 2'),
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+        createRenderEvent('error', '1', 5, 5, 0, 'event 2', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,
@@ -265,9 +291,9 @@ describe('DtEventChart RenderEvent merging', () => {
 
     it('two points separated by a duration event', () => {
       const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-        createRenderEvent('default', '1', 2, 5, 0, 'event 2'),
-        createRenderEvent('default', '1', 5, 5, 0, 'event 3'),
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+        createRenderEvent('default', '1', 2, 5, 0, 'event 2', false),
+        createRenderEvent('default', '1', 5, 5, 0, 'event 3', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,
@@ -281,9 +307,9 @@ describe('DtEventChart RenderEvent merging', () => {
 
     it('two points separated by another color event', () => {
       const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1'),
-        createRenderEvent('error', '1', 2, 2, 0, 'event 2'),
-        createRenderEvent('default', '1', 5, 5, 0, 'event 3'),
+        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
+        createRenderEvent('error', '1', 2, 2, 0, 'event 2', false),
+        createRenderEvent('default', '1', 5, 5, 0, 'event 3', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,

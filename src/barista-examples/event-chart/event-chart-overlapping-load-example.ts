@@ -1,0 +1,391 @@
+import { Component } from '@angular/core';
+
+// tslint:disable: max-file-line-count
+interface EventChartDemoEvent {
+  lane: string;
+  value: number;
+  duration: number;
+  color?: 'default' | 'error' | 'filtered';
+  // tslint:disable-next-line: no-any
+  data?: any;
+}
+
+@Component({
+  moduleId: module.id,
+  selector: 'event-chart-demo',
+  template: `
+    <dt-event-chart>
+      <dt-event-chart-event
+        *ngFor="let event of _events"
+        [value]="event.value"
+        [duration]="event.duration"
+        [lane]="event.lane"
+        [color]="event.color"
+        [data]="event.data"
+      >
+      </dt-event-chart-event>
+
+      <dt-event-chart-lane
+        name="Load"
+        label="Load"
+        pattern="true"
+      ></dt-event-chart-lane>
+      <dt-event-chart-lane
+        name="UserTag"
+        label="User tag"
+      ></dt-event-chart-lane>
+      <dt-event-chart-lane
+        name="Conversion"
+        label="Conversion"
+        color="conversion"
+      ></dt-event-chart-lane>
+
+      <dt-event-chart-legend-item
+        [lanes]="['Load', 'Xhr', 'UserTag', 'Conversion']"
+      >
+        User action or event
+      </dt-event-chart-legend-item>
+
+      <dt-event-chart-legend-item [lanes]="['Conversion']" color="conversion">
+        User action or event
+      </dt-event-chart-legend-item>
+
+      <dt-event-chart-legend-item [lanes]="['Load']" pattern>
+        Load Action
+      </dt-event-chart-legend-item>
+
+      <dt-event-chart-legend-item
+        [lanes]="['Load', 'Xhr', 'UserTag', 'Conversion']"
+        color="error"
+      >
+        Errors and annoyances
+      </dt-event-chart-legend-item>
+
+      <ng-template dtEventChartOverlay let-tooltip>
+        <div *ngFor="let t of tooltip">
+          <p>{{ t.data.name }}</p>
+          <dt-key-value-list>
+            <dt-key-value-list-item>
+              <dt-key-value-list-key>Type</dt-key-value-list-key>
+              <dt-key-value-list-value>{{
+                t.data.type
+              }}</dt-key-value-list-value>
+            </dt-key-value-list-item>
+          </dt-key-value-list>
+        </div>
+      </ng-template>
+    </dt-event-chart>
+  `,
+})
+export class EventChartOverlappingLoadExample {
+  /** Cleaned up data received from session replay. */
+  private TEST_DATA = [
+    {
+      type: 'Load',
+      actionDuration: 120000,
+      converted: true,
+      started: 1566386627156,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 16,
+      converted: false,
+      started: 1566386643136,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 188,
+      converted: true,
+      started: 1566386643190,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 26,
+      converted: false,
+      started: 1566386643702,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 88,
+      converted: true,
+      started: 1566386659337,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 28,
+      converted: false,
+      started: 1566386659787,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 67,
+      converted: true,
+      started: 1566386675104,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 26,
+      converted: false,
+      started: 1566386675556,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 60,
+      converted: true,
+      started: 1566386691235,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 27,
+      converted: false,
+      started: 1566386691725,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 291,
+      converted: true,
+      started: 1566386707287,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 23,
+      converted: false,
+      started: 1566386707739,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 69,
+      converted: true,
+      started: 1566386722814,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 24,
+      converted: false,
+      started: 1566386723246,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: true,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 52,
+      converted: true,
+      started: 1566386738266,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 22,
+      converted: false,
+      started: 1566386738741,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 41,
+      converted: true,
+      started: 1566386753999,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 29,
+      converted: false,
+      started: 1566386754469,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 309,
+      converted: true,
+      started: 1566386770530,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 50,
+      converted: false,
+      started: 1566386770928,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 87,
+      converted: true,
+      started: 1566386786078,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 29,
+      converted: false,
+      started: 1566386786520,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 49,
+      converted: true,
+      started: 1566386801551,
+      name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 32,
+      converted: true,
+      started: 1566386802066,
+      name: '/easytravel/rest/locations?match=<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 270,
+      converted: true,
+      started: 1566386803293,
+      name: '/easytravel/rest/journeys/<masked>',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      type: 'Load',
+      actionDuration: 42,
+      converted: true,
+      started: 1566386804080,
+      name: '/easytravel/rest/login',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: 'Satisfying',
+    },
+    {
+      started: 1566386804122,
+      name: 'Arrivaldi Apriando',
+      type: 'UserTag',
+      error: false,
+      application: 'easytravel-ang.lab.dynatrace.org',
+      apdexRating: '',
+    },
+  ];
+
+  /** internal data of converted events to be used in the template. */
+  _events: EventChartDemoEvent[];
+
+  constructor() {
+    this._events = this.getEvents();
+  }
+
+  /**
+   * Transformer function that converts sample data into a usable datastructure
+   * for the template.
+   */
+  getEvents(): EventChartDemoEvent[] {
+    const events: EventChartDemoEvent[] = [];
+    this.TEST_DATA.forEach(event => {
+      if (event.converted) {
+        events.push({
+          value: event.started,
+          duration: 0,
+          lane: 'Conversion',
+          data: {
+            name: event.name,
+            type: event.type,
+          },
+        });
+      }
+      events.push({
+        value: event.started,
+        duration: event.type === 'Load' ? event.actionDuration || 0 : 0,
+        lane: event.type,
+        color: event.error ? 'error' : undefined,
+        data: {
+          name: event.name,
+          type: event.type,
+        },
+      });
+    });
+    return events;
+  }
+}
