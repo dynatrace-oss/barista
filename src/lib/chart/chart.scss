@@ -4,6 +4,10 @@
   display: block;
 }
 
+.dt-chart.dt-chart-selectable {
+  cursor: crosshair;
+}
+
 .dt-chart-container {
   position: relative;
 }
