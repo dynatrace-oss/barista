@@ -87,11 +87,12 @@ case-sensitive.
 
 #### Inputs
 
-| Name    | Type                 | Default   | Description                                                                    |
-| ------- | -------------------- | --------- | ------------------------------------------------------------------------------ |
-| `name`  | `string`             | -         | Name identifier of the lane.                                                   |
-| `label` | `string`             | -         | Label for the lane (will be rendered on the left hand side of the eventChart). |
-| `color` | `DtEventChartColors` | `default` | Defines the color for the given lane.                                          |
+| Name      | Type                 | Default   | Description                                                                    |
+| --------- | -------------------- | --------- | ------------------------------------------------------------------------------ |
+| `name`    | `string`             | -         | Name identifier of the lane.                                                   |
+| `label`   | `string`             | -         | Label for the lane (will be rendered on the left hand side of the eventChart). |
+| `pattern` | `boolean`            | false     | Defines if the events get a pattern within the given lane.                     |
+| `color`   | `DtEventChartColors` | `default` | Defines the color for the given lane.                                          |
 
 ### DtEventChartLegendItem
 
@@ -103,11 +104,11 @@ below the EventChart.
 
 #### Inputs
 
-| Name          | Type                 | Default   | Description                                                        |
-| ------------- | -------------------- | --------- | ------------------------------------------------------------------ |
-| `lanes`       | `string | string[]`  | -         | Defines for which lanes this legend item can be used for.          |
-| `hasDuration` | `boolean`            | -         | Defines that this legend item is used for duration events.         |
-| `color`       | `DtEventChartColors` | `default` | Defines that this legend item is only usable for the passed color. |
+| Name      | Type                 | Default   | Description                                                        |
+| --------- | -------------------- | --------- | ------------------------------------------------------------------ |
+| `lanes`   | `string | string[]`  | -         | Defines for which lanes this legend item can be used for.          |
+| `pattern` | `boolean`            | false     | Defines that this legend item is used for pattern events.          |
+| `color`   | `DtEventChartColors` | `default` | Defines that this legend item is only usable for the passed color. |
 
 ### DtEventChartOverlay
 
