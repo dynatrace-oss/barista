@@ -20,7 +20,7 @@ import { Component } from '@angular/core';
       ></dt-event-chart-event>
       <dt-event-chart-event value="75" lane="user-event"></dt-event-chart-event>
 
-      <dt-event-chart-lane name="xhr" label="XHR"></dt-event-chart-lane>
+      <dt-event-chart-lane name="xhr" label="XHR" pattern></dt-event-chart-lane>
       <dt-event-chart-lane
         name="user-event"
         label="User event"
@@ -29,11 +29,11 @@ import { Component } from '@angular/core';
       <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']">
         Legend label for default events
       </dt-event-chart-legend-item>
-      <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']" color="error">
-        Legend label for error events
+      <dt-event-chart-legend-item [lanes]="['xhr']" pattern>
+        Legend label for patterned events
       </dt-event-chart-legend-item>
-      <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']" hasDuration>
-        Legend label for duration events
+      <dt-event-chart-legend-item [lanes]="['xhr']" color="error" pattern>
+        Legend label for error events
       </dt-event-chart-legend-item>
     </dt-event-chart>
   `,

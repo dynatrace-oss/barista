@@ -54,7 +54,11 @@ export class DtEventChartLegend<T> implements OnChanges {
   private _legendItemSubscription = Subscription.EMPTY;
 
   /** @internal List that holds the actually rendered eventChartLegendItems. */
-  _renderLegendItems: { color: string; item: DtEventChartLegendItem }[];
+  _renderLegendItems: {
+    color: string;
+    item: DtEventChartLegendItem;
+    pattern: boolean;
+  }[];
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
@@ -71,35 +75,37 @@ export class DtEventChartLegend<T> implements OnChanges {
     // To calculate the legend items that we would need to display
     // we need to iterate over the renderedEvents and determine, which
     // elements are actually needed.
-    // Dataset will look like this neededLegends[lane][hasDuration][color];
+    // Dataset will look like this neededLegends[lane][pattern][color];
     const neededLegends: Array<Array<DtEventChartColors[]>> = [];
     const legendItems = new Set<DtEventChartLegendItem>();
 
     for (const renderEvent of this.renderedEvents) {
       const currentLane = renderEvent.lane;
-      const hasDuration = renderEvent.x1 === renderEvent.x2 ? 0 : 1;
+      // We are taking the pattern definition from the renderEvent itself.
+      // Primarily this is handled by the lane defining this event.
+      const pattern = renderEvent.pattern ? 'pattern' : 'no-pattern';
       const color = renderEvent.color;
       // Check if we have a dataset for the current lane already, otherwise assign one.
       neededLegends[currentLane] = neededLegends[currentLane] || [];
       // Check if we have a dataset for the current lane and duration combination,
       // otherwise create one.
-      neededLegends[currentLane][hasDuration] =
-        neededLegends[currentLane][hasDuration] || [];
+      neededLegends[currentLane][pattern] =
+        neededLegends[currentLane][pattern] || [];
       // Check if we have a dataset for the current lane, duration and color combination,
       // otherwise create one.
-      neededLegends[currentLane][hasDuration][color] =
-        neededLegends[currentLane][hasDuration][color] || false;
+      neededLegends[currentLane][pattern][color] =
+        neededLegends[currentLane][pattern][color] || false;
       // If we have have already found a legend item for this combination
       // don't look for another
-      if (!neededLegends[currentLane][hasDuration][color]) {
+      if (!neededLegends[currentLane][pattern][color]) {
         const selectedLegendItem = this.legendItems.find(
           item =>
             item.lanes.includes(currentLane) &&
-            item.hasDuration === !!hasDuration &&
+            item.pattern === renderEvent.pattern &&
             item.color === color,
         );
         if (selectedLegendItem) {
-          neededLegends[currentLane][hasDuration][color] = true;
+          neededLegends[currentLane][pattern][color] = true;
           legendItems.add(selectedLegendItem);
         }
       }
@@ -108,6 +114,7 @@ export class DtEventChartLegend<T> implements OnChanges {
     this._renderLegendItems = Array.from(legendItems).map(item => ({
       item,
       color: item.color,
+      pattern: item.pattern,
     }));
     this._changeDetectorRef.markForCheck();
   }
