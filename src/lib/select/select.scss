@@ -93,6 +93,7 @@ $dt-select-panel-min-width: 112px !default;
 }
 
 .dt-select-panel {
+  width: 100%;
   max-width: $dt-select-panel-max-width;
   background: #ffffff;
   box-sizing: border-box;
