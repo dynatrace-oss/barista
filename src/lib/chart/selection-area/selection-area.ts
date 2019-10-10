@@ -42,6 +42,7 @@ import {
   filter,
   map,
   mapTo,
+  shareReplay,
   skip,
   startWith,
   switchMap,
@@ -180,7 +181,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     this._viewportBoundaries$ = this._viewportResizer
-      ? this._viewportResizer.offset$.pipe(startWith({ top: 0, left: 0 }))
+      ? this._viewportResizer.offset$.pipe(
+          startWith({ top: 0, left: 0 }),
+          distinctUntilChanged(),
+          shareReplay(),
+        )
       : of({ left: 0, top: 0 });
 
     // after Highcharts is rendered we can start initializing the selection area.
@@ -724,80 +729,83 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // O V E R L A Y
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     // listen for a _closeOverlay event if there is a timestamp or a range
-    merge(
-      this._timestamp ? this._timestamp._closeOverlay : of(null),
-      this._range ? this._range._closeOverlay : of(null),
-      this._mousedown$,
-      touchStart$,
-    )
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(() => {
-        this._closeOverlay();
-      });
 
-    // handling of the overlay for the range
-    if (this._range) {
-      combineLatest([
-        getElementRefStream<HTMLDivElement>(
-          this._range._stateChanges,
-          this._destroy$,
-          this._range._rangeElementRef,
-          this._zone,
-        ),
-        this._viewportBoundaries$,
-      ]).subscribe(([ref, viewPortOffset]) => {
-        if (this._range && this._range._overlayTemplate) {
-          this._updateOrCreateOverlay(
-            this._range._overlayTemplate,
-            ref,
-            this._range._viewContainerRef,
-            viewPortOffset,
-          );
-        }
-      });
+    this._zone.runOutsideAngular(() => {
+      merge(
+        this._timestamp ? this._timestamp._closeOverlay : of(null),
+        this._range ? this._range._closeOverlay : of(null),
+        this._mousedown$,
+        touchStart$,
+      )
+        .pipe(takeUntil(this._destroy$))
+        .subscribe(() => {
+          this._closeOverlay();
+        });
 
-      // On dragHandle we want to reposition the overlay with a small delay and an animationFrameScheduler
+      // handling of the overlay for the range
+      if (this._range) {
+        combineLatest([
+          getElementRefStream<HTMLDivElement>(
+            this._range._stateChanges,
+            this._destroy$,
+            this._range._rangeElementRef,
+            this._zone,
+          ),
+          this._viewportBoundaries$,
+        ]).subscribe(([ref, viewPortOffset]) => {
+          if (this._range && this._range._overlayTemplate) {
+            this._updateOrCreateOverlay(
+              this._range._overlayTemplate,
+              ref,
+              this._range._viewContainerRef,
+              viewPortOffset,
+            );
+          }
+        });
 
-      combineLatest([
-        this._dragHandle$.pipe(
-          throttleTime(0, animationFrameScheduler),
-          getElementRef(this._range._rangeElementRef),
-          takeUntil(this._destroy$),
-        ),
-        this._viewportBoundaries$,
-      ]).subscribe(([ref, viewPortOffset]) => {
-        if (this._range && this._range._overlayTemplate) {
-          this._updateOrCreateOverlay(
-            this._range._overlayTemplate,
-            ref,
-            this._range._viewContainerRef,
-            viewPortOffset,
-          );
-        }
-      });
-    }
+        // On dragHandle we want to reposition the overlay with a small delay and an animationFrameScheduler
 
-    // handling of the overlay for the timestamp
-    if (this._timestamp) {
-      combineLatest([
-        getElementRefStream<HTMLDivElement>(
-          this._timestamp._stateChanges,
-          this._destroy$,
-          this._timestamp._timestampElementRef,
-          this._zone,
-        ),
-        this._viewportBoundaries$,
-      ]).subscribe(([ref, viewPortOffset]) => {
-        if (this._timestamp && this._timestamp._overlayTemplate) {
-          this._updateOrCreateOverlay(
-            this._timestamp._overlayTemplate,
-            ref,
-            this._timestamp._viewContainerRef,
-            viewPortOffset,
-          );
-        }
-      });
-    }
+        combineLatest([
+          this._dragHandle$.pipe(
+            throttleTime(0, animationFrameScheduler),
+            getElementRef(this._range._rangeElementRef),
+            takeUntil(this._destroy$),
+          ),
+          this._viewportBoundaries$,
+        ]).subscribe(([ref, viewPortOffset]) => {
+          if (this._range && this._range._overlayTemplate) {
+            this._updateOrCreateOverlay(
+              this._range._overlayTemplate,
+              ref,
+              this._range._viewContainerRef,
+              viewPortOffset,
+            );
+          }
+        });
+      }
+
+      // handling of the overlay for the timestamp
+      if (this._timestamp) {
+        combineLatest([
+          getElementRefStream<HTMLDivElement>(
+            this._timestamp._stateChanges,
+            this._destroy$,
+            this._timestamp._timestampElementRef,
+            this._zone,
+          ),
+          this._viewportBoundaries$,
+        ]).subscribe(([ref, viewPortOffset]) => {
+          if (this._timestamp && this._timestamp._overlayTemplate) {
+            this._updateOrCreateOverlay(
+              this._timestamp._overlayTemplate,
+              ref,
+              this._timestamp._viewContainerRef,
+              viewPortOffset,
+            );
+          }
+        });
+      }
+    });
   }
 
   /** initializes the hairline the light blue line that follows the cursor */
