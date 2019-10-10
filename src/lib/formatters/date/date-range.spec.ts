@@ -1,7 +1,25 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { DtDateRange } from './date-range';
+const logger = {
+  error: jest.fn(),
+};
+
+const loggerSpy = jest.spyOn(logger, 'error');
+
+// Mock needs to be done before importing from the module
+jest.mock('@dynatrace/angular-components/core', () => ({
+  DtLoggerFactory: {
+    create: () => logger,
+  },
+}));
+
+import {
+  DtDateRange,
+  ERROR_MESSAGE_NO_NUMBERS_PROVIDED,
+  ERROR_MESSAGE_WRONG_FORMAT,
+  PLACEHOLDER,
+} from './date-range';
 
 describe('DtDateRange', () => {
   let pipe: DtDateRange;
@@ -16,16 +34,32 @@ describe('DtDateRange', () => {
 
   afterEach(() => {
     spiedDate.mockClear();
+    loggerSpy.mockClear();
   });
 
   describe('Transforming date range with default en-US locale', () => {
     it('should transform an empty array to an empty string', () => {
-      expect(pipe.transform([] as any).toString()).toEqual('');
+      expect(pipe.transform([] as any).toString()).toEqual(PLACEHOLDER);
+      expect(loggerSpy).toHaveBeenNthCalledWith(1, ERROR_MESSAGE_WRONG_FORMAT);
     });
 
     it('should transform to long or short arrays to an empty string', () => {
-      expect(pipe.transform([1] as any).toString()).toEqual('');
-      expect(pipe.transform([1, 2, 3] as any).toString()).toEqual('');
+      expect(pipe.transform([1] as any).toString()).toEqual(PLACEHOLDER);
+      expect(loggerSpy).toHaveBeenNthCalledWith(1, ERROR_MESSAGE_WRONG_FORMAT);
+      expect(pipe.transform([1, 2, 3] as any).toString()).toEqual(PLACEHOLDER);
+      expect(loggerSpy).toHaveBeenNthCalledWith(2, ERROR_MESSAGE_WRONG_FORMAT);
+    });
+
+    it('should log an error when the the array has no numbers', () => {
+      const toBeTransformed = [NaN, NaN] as [number, number];
+
+      const transformed = pipe.transform(toBeTransformed);
+
+      expect(loggerSpy).toHaveBeenNthCalledWith(
+        1,
+        ERROR_MESSAGE_NO_NUMBERS_PROVIDED,
+      );
+      expect(transformed).toEqual(PLACEHOLDER);
     });
 
     it('should format two dates on the same day without a second day', () => {
