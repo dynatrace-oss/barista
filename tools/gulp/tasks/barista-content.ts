@@ -3,9 +3,10 @@ import * as stream from 'stream';
 
 import * as matter from 'gray-matter';
 import { dest, src, task } from 'gulp';
+import * as markdownIt from 'markdown-it';
 import * as through from 'through2';
 
-const md = require('markdown-it')({
+const md = new markdownIt({
   html: true,
   typographer: false,
 });
