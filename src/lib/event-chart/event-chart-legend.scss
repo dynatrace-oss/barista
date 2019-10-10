@@ -31,13 +31,14 @@
   fill: $red-500;
 }
 
-// Pattern styles
-.dt-event-chart-legend-symbol ::ng-deep .dt-event-chart-legend-symbol-pattern {
-  fill: transparent;
-}
-
-.dt-event-chart-legend-symbol-sausage
+.dt-event-chart-legend-symbol-default
   ::ng-deep
   .dt-event-chart-legend-symbol-pattern {
   fill: url('#dt-event-chart-sausage-pattern-default');
+}
+
+.dt-event-chart-legend-symbol-error
+  ::ng-deep
+  .dt-event-chart-legend-symbol-pattern {
+  fill: url('#dt-event-chart-sausage-pattern-error');
 }

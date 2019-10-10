@@ -2,8 +2,7 @@
   <dt-legend-item *ngFor="let renderItem of _renderLegendItems">
     <dt-legend-symbol
       class="dt-event-chart-legend-symbol"
-      [ngClass]="'dt-event-chart-legend-symbol-' + renderItem.item.color"
-      [class.dt-event-chart-legend-symbol-sausage]="renderItem.item.hasDuration"
+      [ngClass]="'dt-event-chart-legend-symbol-' + renderItem.color"
     >
       <svg
         viewBox="0 0 16 16"
@@ -18,6 +17,7 @@
           r="7.5"
         ></circle>
         <circle
+          *ngIf="renderItem.pattern"
           class="dt-event-chart-legend-symbol-pattern"
           cx="8"
           cy="8"

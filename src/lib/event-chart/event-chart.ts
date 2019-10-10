@@ -1,3 +1,4 @@
+// tslint:disable: template-cyclomatic-complexity
 import { ENTER } from '@angular/cdk/keycodes';
 import {
   ConnectedPosition,
@@ -62,6 +63,7 @@ import { dtEventChartMergeEvents } from './merge-and-path/merge-events';
 
 const EVENT_BUBBLE_SIZE = 16;
 const EVENT_BUBBLE_SPACING = 4;
+
 // tslint:disable-next-line: no-magic-numbers
 const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE / 2;
 const TICK_HEIGHT = 24;
@@ -77,6 +79,7 @@ export interface RenderEvent<T> {
   y: number;
   lane: string;
   color: DtEventChartColors;
+  pattern: boolean;
   events: DtEventChartEvent<T>[];
   mergedWith?: number[];
   originalIndex?: number;
@@ -88,19 +91,46 @@ const OVERLAY_POSITIONS: ConnectedPosition[] = [
     originX: 'center',
     originY: 'center',
     overlayX: 'start',
-    overlayY: 'center',
-    offsetX: EVENT_BUBBLE_SIZE,
+    overlayY: 'top',
+    offsetY: EVENT_BUBBLE_SIZE,
+  },
+  {
+    originX: 'center',
+    originY: 'center',
+    overlayX: 'center',
+    overlayY: 'top',
+    offsetY: EVENT_BUBBLE_SIZE,
   },
   {
     originX: 'center',
     originY: 'center',
     overlayX: 'end',
-    overlayY: 'center',
-    offsetX: -EVENT_BUBBLE_SIZE,
+    overlayY: 'top',
+    offsetY: EVENT_BUBBLE_SIZE,
+  },
+  {
+    originX: 'center',
+    originY: 'center',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    offsetY: -EVENT_BUBBLE_SIZE,
+  },
+  {
+    originX: 'center',
+    originY: 'center',
+    overlayX: 'center',
+    overlayY: 'bottom',
+    offsetY: -EVENT_BUBBLE_SIZE,
+  },
+  {
+    originX: 'center',
+    originY: 'center',
+    overlayX: 'end',
+    overlayY: 'bottom',
+    offsetY: -EVENT_BUBBLE_SIZE,
   },
 ];
 
-// tslint:disable: template-cyclomatic-complexity
 @Component({
   moduleId: module.id,
   selector: 'dt-event-chart, dt-sausage-chart',
@@ -186,12 +216,18 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** @internal The viewBox of the svg. Starts at 0/0 and ends at a calculated width and height. */
   _svgViewBox: string;
 
+  /** @internal Selected renderEvent index. */
+  _selectedRenderEventIndex: number | undefined;
+
   /** Template portal for the default overlay */
   // tslint:disable-next-line: use-default-type-parameter no-any
   private _portal: TemplatePortal<any> | null;
 
   /** Reference to the open overlay. */
   private _overlayRef: OverlayRef;
+
+  /** Representation if the overlay is currently pinned. */
+  private _overlayPinned = false;
 
   /** Destroy subject which fires once the component is destroyed. */
   private _destroy$ = new Subject<void>();
@@ -257,7 +293,13 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe(() => {
-        this._update();
+        // Because we are waiting for the next zoneStable cycle to actually update
+        // the template, we need to explicitly run this inside the zone
+        // otherwise, the zone will not care about any events emitted from
+        // the template bindings.
+        this._zone.run(() => {
+          this._update();
+        });
       });
   }
 
@@ -274,16 +316,84 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     const key = readKeyCode(keyEvent);
     if (key === ENTER) {
       keyEvent.preventDefault();
-      this._eventSelected(renderEvent);
+      this._eventSelected(keyEvent, renderEvent);
     }
   }
 
-  /** @internal Emits the data of the selected event. */
-  _eventSelected(renderEvent: RenderEvent<T>): void {
+  /**
+   * @internal Emits the data of the selected event and
+   * registers the event as selected.
+   */
+  _eventSelected(
+    event: MouseEvent | KeyboardEvent,
+    renderEvent: RenderEvent<T>,
+  ): void {
     const sources = new DtEventChartSelectedEvent(renderEvent.events);
     // If merged events are in the list, the selected event is only triggered on the
     // first (and hence displayed) event bubble.
-    this._getRepresentingEvent(renderEvent).selected.emit(sources);
+    const representingEvent = this._getRepresentingEvent(renderEvent);
+    representingEvent.selected.emit(sources);
+
+    // Select the rendered event
+    this._selectedRenderEventIndex = renderEvent.originalIndex;
+
+    // Pin the overlay
+    const origin = this.getOriginFromInteractionEvent(event);
+    this._pinOverlay(origin, renderEvent);
+
+    // Update the renderEventsArray to force a repaint
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** @internal Reset the event selection and unpins the overlay */
+  _resetEventSelection(): void {
+    this._selectedRenderEventIndex = undefined;
+  }
+
+  /**
+   * @internal
+   * Calculate the svg path for the selected renderEvent.
+   * This needs to be a path, as events with duration can also be
+   * selected and the border around it should still encase the load event as
+   * well. The path will be a rectangle with rounded corners.
+   */
+  _calculateEventOutline(
+    renderEvent: RenderEvent<T>,
+    offset: number = 0,
+  ): string {
+    // tslint:disable-next-line: no-magic-numbers
+    const eventBubbleRadius = EVENT_BUBBLE_SIZE / 2 + offset;
+
+    const path: string[] = [];
+    // Move to start position
+    path.push(`M ${renderEvent.x1 - eventBubbleRadius} ${renderEvent.y}`);
+    // Curve up from center to top left
+    path.push(
+      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${
+        renderEvent.x1
+      } ${renderEvent.y - eventBubbleRadius}`,
+    );
+    // Path the top border
+    path.push(`H ${renderEvent.x2}`);
+    // Curve to down from top right to center
+    path.push(
+      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${renderEvent.x2 +
+        eventBubbleRadius} ${renderEvent.y}`,
+    );
+    // Curve to down from center to bottom right
+    path.push(
+      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${
+        renderEvent.x2
+      } ${renderEvent.y + eventBubbleRadius}`,
+    );
+    // Path the bottom border
+    path.push(`H ${renderEvent.x1}`);
+    // Curve to up from bottom left to center
+    path.push(
+      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${renderEvent.x1 -
+        eventBubbleRadius} ${renderEvent.y}`,
+    );
+    return path.join(' ');
   }
 
   /** @internal Returns the primary DtEventChartEvent of a list of DtEventChartEvents. */
@@ -293,33 +403,22 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
   /** @internal Handles the mouseEnter event on a svg RenderEvent bubble. */
   _handleEventMouseEnter(event: MouseEvent, renderEvent: RenderEvent<T>): void {
-    this._createOverlay();
-    // Update the position for the overlay.
-    const originBB = (event.target as SVGElement).getBoundingClientRect();
-    const origin = {
-      x: originBB.left,
-      y: originBB.top,
-    };
-    this._updateOverlay(origin, renderEvent);
+    if (!this._overlayPinned) {
+      this._createOverlay();
+      const origin = this.getOriginFromInteractionEvent(event);
+      this._updateOverlay(origin, renderEvent);
+    }
   }
 
   /** @internal Handles the mouseLeave event on a svg RenderEvent bubble. */
   _handleEventMouseLeave(): void {
-    if (this._overlayRef) {
-      // We need to run the detach through the zone.
-      // Because the way we have set up the 2 step rendering of the chart
-      // (one render step to get the lane width, so we can determine the correct chart
-      // width in the next one), the zone does not get unStable on mouseEnter of the
-      // svgBubble.
-      this._zone.run(() => {
-        this._overlayRef.detach();
-      });
-      this._portal = null;
+    if (this._overlayRef && !this._overlayPinned) {
+      this._dismissOverlay();
     }
   }
 
   /** Creates the overlay and attaches it. */
-  private _createOverlay(): void {
+  private _createOverlay(pin: boolean = false): void {
     // If we do not have an overlay defined, we do not need to attach it
     if (!this._overlay) {
       return;
@@ -335,16 +434,26 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       );
     }
 
-    // If we don't have an overlayRef, create one
-    if (!this._overlayRef) {
-      const overlayConfig = new OverlayConfig({
-        panelClass: OVERLAY_PANEL_CLASS,
-        hasBackdrop: false,
-      });
-      this._overlayRef = this._overlayService.create(overlayConfig);
+    const overlayConfig = new OverlayConfig({
+      panelClass: OVERLAY_PANEL_CLASS,
+      hasBackdrop: pin,
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+    });
+    this._overlayRef = this._overlayService.create(overlayConfig);
+    this._overlayPinned = pin;
+    // Subscribe to the backdrop click, to actually close the overlay again.
+    if (pin) {
+      this._overlayRef
+        .backdropClick()
+        .pipe(take(1))
+        .subscribe(() => {
+          this._dismissOverlay();
+          this._resetEventSelection();
+          this._changeDetectorRef.markForCheck();
+        });
     }
 
-    // If the portal is not yet attached to the overlay, attach it.
+    // // If the portal is not yet attached to the overlay, attach it.
     if (!this._overlayRef.hasAttached()) {
       this._overlayRef.attach(this._portal);
     }
@@ -373,16 +482,45 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       .withLockedPosition(false);
     this._overlayRef.updatePositionStrategy(updatedPositionStrategy);
 
-    // We need to run the implicit context update on the portal through
-    // the zone. Because the way we have set up the 2 step rendering of the chart
-    // (one render step to get the lane width, so we can determine the correct chart
-    // width in the next one), the zone does not get unStable on mouseEnter of the
-    // svgBubble.
-    this._zone.run(() => {
-      if (this._portal) {
-        this._portal.context.$implicit = renderEvent.events;
-      }
-    });
+    if (this._portal) {
+      this._portal.context.$implicit = renderEvent.events;
+    }
+  }
+
+  /** Pins the overlay in place. */
+  private _pinOverlay(
+    origin: { x: number; y: number },
+    renderEvent: RenderEvent<T>,
+  ): void {
+    this._dismissOverlay();
+    this._createOverlay(true);
+    this._updateOverlay(origin, renderEvent);
+  }
+
+  /** Dismisses the overlay. */
+  private _dismissOverlay(): void {
+    if (this._overlayRef) {
+      this._overlayRef.detach();
+      this._overlayPinned = false;
+      this._portal = null;
+    }
+  }
+
+  /**
+   * Calculates the origin for the overlay based on the target of the
+   * event passed into it.
+   */
+  private getOriginFromInteractionEvent(
+    event: KeyboardEvent | MouseEvent,
+  ): { x: number; y: number } {
+    // Update the position for the overlay.
+    const originBB = (event.target as SVGElement).getBoundingClientRect();
+    return {
+      // tslint:disable-next-line: no-magic-numbers
+      x: originBB.left + originBB.width / 2,
+      // tslint:disable-next-line: no-magic-numbers
+      y: originBB.top + originBB.height / 2,
+    };
   }
 
   /**
@@ -468,6 +606,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
             y,
             lane: event.lane,
             color,
+            pattern: lane.pattern,
             events: [event],
           });
         }
@@ -552,7 +691,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
           ? event.value + event.duration
           : event.value;
         min = event.value < min ? event.value : min;
-        max = eventEnd > max ? event.value : max;
+        max = eventEnd > max ? eventEnd : max;
       }
     }
     return [min, max];
@@ -582,7 +721,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     const portal = new TemplatePortal(
       this._patternDefsTemplate,
       this._viewContainerRef,
-      { $implicit: DT_EVENT_CHART_COLORS },
+      { $implicit: [...DT_EVENT_CHART_COLORS, 'hovered'] },
     );
     const outlet = new DomPortalOutlet(
       patternHost,

@@ -1,48 +1,115 @@
 import { Component } from '@angular/core';
 
+import { DtEventChartSelectedEvent } from '@dynatrace/angular-components/event-chart';
+
 @Component({
-  moduleId: module.id,
-  selector: 'event-chart-demo',
+  selector: 'dt-test-app',
   template: `
     <dt-event-chart>
-      <dt-event-chart-event value="0" lane="xhr"></dt-event-chart-event>
-      <dt-event-chart-event value="15" lane="xhr"></dt-event-chart-event>
-      <dt-event-chart-event value="25" lane="xhr"></dt-event-chart-event>
-      <dt-event-chart-event value="10" lane="user-event"></dt-event-chart-event>
       <dt-event-chart-event
-        value="35"
-        lane="xhr"
-        duration="15"
+        *ngFor="let event of _events"
+        [value]="event.value"
+        [duration]="event.duration"
+        [lane]="event.lane"
+        [color]="event.color"
+        (selected)="logSelected($event)"
+        [data]="event.data"
       ></dt-event-chart-event>
-      <dt-event-chart-event value="75" lane="user-event"></dt-event-chart-event>
 
-      <dt-event-chart-lane name="xhr" label="XHR"></dt-event-chart-lane>
       <dt-event-chart-lane
+        name="xhr"
+        label="XHR"
+        pattern="true"
+      ></dt-event-chart-lane>
+      <dt-event-chart-lane
+        *ngIf="_userEventsLaneEnabled"
         name="user-event"
         label="User event"
       ></dt-event-chart-lane>
+
+      <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']">
+        This is the default legend
+      </dt-event-chart-legend-item>
+      <dt-event-chart-legend-item [lanes]="['xhr']" pattern>
+        {{ _durationLabel }}
+      </dt-event-chart-legend-item>
+      <dt-event-chart-legend-item
+        *ngIf="_errorLegendEnabled"
+        [lanes]="['xhr', 'user-event']"
+        color="error"
+      >
+        This is the error legend
+      </dt-event-chart-legend-item>
+
+      <ng-template dtEventChartOverlay let-tooltip>
+        <div *ngFor="let t of tooltip">
+          {{ t.data }}
+        </div>
+      </ng-template>
     </dt-event-chart>
   `,
 })
 export class EventChartDefaultExample {
-  events = [
-    { value: 0, duration: 2964, lane: '0' },
-    { value: 2965, lane: '0' },
-    { value: 3055, lane: '1' },
-    { value: 3080, lane: '0' },
-    { value: 3323, lane: '2' },
-    { value: 3428, lane: '1' },
-    { value: 3437, lane: '0' },
-  ];
+  selected: DtEventChartSelectedEvent<number>;
+  logSelected(selected: DtEventChartSelectedEvent<number>): void {
+    this.selected = selected;
+  }
 
-  lanes = [
-    { name: '0', label: 'User action', color: 'default' },
-    { name: '1', label: 'User event', color: 'default' },
-    { name: '2', label: 'Errors', color: 'error' },
-  ];
+  _userEventsLaneEnabled = true;
 
-  legendItems = [
-    { label: 'User action or event', lanes: ['0', '1'] },
-    { label: '2', lanes: ['2'] },
+  _errorLegendEnabled = false;
+
+  _durationLabel = 'This is the default duration legend';
+
+  _events = [
+    {
+      value: 0,
+      duration: 0,
+      lane: 'xhr',
+      color: 'default',
+      data: 1,
+    },
+    {
+      value: 15,
+      duration: 0,
+      lane: 'xhr',
+      color: 'default',
+      data: 2,
+    },
+    {
+      value: 35,
+      duration: 0,
+      lane: 'xhr',
+      color: 'default',
+      data: 3,
+    },
+    {
+      value: 45,
+      duration: 0,
+      lane: 'user-event',
+      color: 'error',
+      data: 4,
+    },
+    {
+      value: 65,
+      duration: 0,
+      lane: 'user-event',
+      color: 'conversion',
+      data: 5,
+    },
+    {
+      value: 80,
+      duration: 20,
+      lane: 'xhr',
+      color: 'default',
+      data: 6,
+    },
+    {
+      value: 110,
+      duration: 0,
+      lane: 'xhr',
+      color: 'default',
+      data: 7,
+    },
   ];
 }
