@@ -75,3 +75,11 @@
 </dt-chart>
 
 <button (click)="switchData()">change</button>
+
+<dt-chart
+  *ngIf="series && options"
+  [options]="options"
+  [series]="series"
+  (seriesVisibilityChange)="seriesVisibilityChanged($event)"
+>
+</dt-chart>
