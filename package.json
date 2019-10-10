@@ -109,6 +109,7 @@
     "@types/inquirer": "^0.0.43",
     "@types/jest": "^24.0.15",
     "@types/lodash": "^4.14.134",
+    "@types/markdown-it": "^0.0.9",
     "@types/sass-graph": "^2.1.2",
     "@types/stylelint": "^9.10.0",
     "@types/through2": "^2.0.33",
