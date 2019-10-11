@@ -418,14 +418,17 @@ export class TableComponent implements OnInit, OnDestroy {
 To show more details in context of a single table row, use expandable rows. They
 can be defined using the `dt-expandable-row` component. An expandable row **has
 to** contain a column with a details cell. A details cell can be added using
-`dt-expandable-cell`.
+`dt-expandable-cell`. The content inside the `dt-expandable-row` needs to be
+wrapped inside a `ng-template` with the `dtExpandableRowContent` directive to
+lazy load the content when the row is expanded.
 
 <docs-source-example example="TableExpandableRowsExample" fullwidth="true"></docs-source-example>
 
-| Component/Attribute  | Type      | Description                                                                                                                               |
-| -------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `dt-expandable-row`  | Component | Placeholder for the expandable data rows. It is a container for the cell outlet and an expandable section. Adds the right class and role. |
-| `dt-expandable-cell` | Component | Adds the appropriate classes, role and content for the details cell in an expandable table.                                               |
+| Component/Attribute               | Type      | Description                                                                                                                               |
+| --------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `dt-expandable-row`               | Component | Placeholder for the expandable data rows. It is a container for the cell outlet and an expandable section. Adds the right class and role. |
+| `dt-expandable-cell`              | Component | Adds the appropriate classes, role and content for the details cell in an expandable table.                                               |
+| `ng-template dtExpandableContent` | Directive | Wraps the content of the expandable row for lazy loading                                                                                  |
 
 Use the table's `multiExpand` input to allow multiple rows to be expanded at a
 time. The expanded state of an expandable row can be set programmatically by
