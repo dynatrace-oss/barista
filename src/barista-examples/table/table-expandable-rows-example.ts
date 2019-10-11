@@ -45,7 +45,9 @@ import { Component } from '@angular/core';
         "
         [expanded]="row.expanded"
       >
-        Expandable section for {{ row.host }}
+        <ng-template dtExpandableRowContent>
+          Expandable section for {{ row.host }}
+        </ng-template>
       </dt-expandable-row>
     </dt-table>
     <button dt-button variant="secondary" (click)="multiExpand = !multiExpand">

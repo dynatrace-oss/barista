@@ -11,7 +11,11 @@ import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtInputModule } from '@dynatrace/angular-components/input';
 
 import { DtCell, DtCellDef, DtColumnDef } from './cell';
-import { DtExpandableCell, DtExpandableRow } from './expandable/index';
+import {
+  DtExpandableCell,
+  DtExpandableRow,
+  DtExpandableRowContent,
+} from './expandable/index';
 import {
   DtHeaderCell,
   DtHeaderCellDef,
@@ -60,6 +64,7 @@ const EXPORTED_DECLARATIONS = [
   DtTableSearch,
   DtSimpleTextColumn,
   DtSimpleNumberColumn,
+  DtExpandableRowContent,
 ];
 
 @NgModule({
