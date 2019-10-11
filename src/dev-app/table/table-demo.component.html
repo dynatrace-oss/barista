@@ -5,7 +5,7 @@
   aria-label="Search table data"
 ></dt-table-search>
 
-<ng-container *ngIf="show">
+<ng-container>
   <dt-table [dataSource]="dataSource">
     <ng-container dtColumnDef="host" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
@@ -25,12 +25,45 @@
       <dt-header-cell *dtHeaderCellDef>Traffic</dt-header-cell>
       <dt-cell *dtCellDef="let row">{{ row.traffic }}</dt-cell>
     </ng-container>
+    <ng-container dtColumnDef="details" dtColumnAlign="number">
+      <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
+      <dt-expandable-cell
+        *dtCellDef
+        ariaLabel="Expand the row"
+      ></dt-expandable-cell>
+    </ng-container>
     <dt-header-row
-      *dtHeaderRowDef="['host', 'memory', 'cpu', 'traffic']"
+      *dtHeaderRowDef="['host', 'memory', 'cpu', 'traffic', 'details']"
     ></dt-header-row>
-    <dt-row
-      *dtRowDef="let row; columns: ['host', 'memory', 'cpu', 'traffic']"
-    ></dt-row>
+    <dt-expandable-row
+      *dtRowDef="
+        let row;
+        columns: ['host', 'memory', 'cpu', 'traffic', 'details']
+      "
+      [expanded]="row.expanded"
+    >
+      <ng-template dtExpandableRowContent *ngIf="!show">
+        <dt-chart [options]="options" [series]="series">
+          <dt-chart-tooltip>
+            <ng-template let-tooltip>
+              <dt-key-value-list style="min-width: 100px">
+                <dt-key-value-list-item *ngFor="let data of tooltip.points">
+                  <dt-key-value-list-key>
+                    {{ data.series.name }}
+                  </dt-key-value-list-key>
+                  <dt-key-value-list-value>
+                    {{ data.point.y }}
+                  </dt-key-value-list-value>
+                </dt-key-value-list-item>
+              </dt-key-value-list>
+            </ng-template>
+          </dt-chart-tooltip>
+        </dt-chart>
+      </ng-template>
+      <ng-template dtExpandableRowContent *ngIf="show">
+        no chart
+      </ng-template>
+    </dt-expandable-row>
   </dt-table>
 
   <dt-pagination></dt-pagination>

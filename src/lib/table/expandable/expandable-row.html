@@ -13,6 +13,10 @@
     class="dt-expandable-row-expandable"
     [ngClass]="{'dt-expandable-row-expandable-expanded': expanded}"
   >
+    <ng-container
+      *ngIf="expanded"
+      [ngTemplateOutlet]="_expandableContentTemplate"
+    ></ng-container>
     <div #dtExpandableContent>
       <ng-content></ng-content>
     </div>
