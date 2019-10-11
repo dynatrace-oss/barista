@@ -9,19 +9,25 @@ import {
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChildren,
+  Directive,
   ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   Output,
+  QueryList,
   Renderer2,
+  TemplateRef,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { filter, startWith } from 'rxjs/operators';
 
 import {
   addCssClass,
@@ -35,6 +41,12 @@ let nextUniqueId = 0;
 export class DtExpandableRowChangeEvent {
   constructor(public row: DtExpandableRow) {}
 }
+
+@Directive({
+  selector: 'ng-template[dtExpandableRowContent]',
+  exportAs: 'DtExpandableRowContent',
+})
+export class DtExpandableRowContent {}
 
 /**
  * Data row template container that contains the cell outlet and an expandable section.
@@ -88,7 +100,8 @@ export class DtExpandableRowChangeEvent {
   encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtExpandableRow',
 })
-export class DtExpandableRow extends DtRow implements OnDestroy {
+export class DtExpandableRow extends DtRow
+  implements OnDestroy, AfterContentInit {
   private _expanded = false;
   private _uniqueId = `dt-expandable-row-${nextUniqueId++}`;
 
@@ -121,6 +134,17 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
 
   @ViewChild('dtExpandableRow', { static: true }) private _rowRef: ElementRef;
 
+  /** Querylist of content templates */
+  @ContentChildren(DtExpandableRowContent, { read: TemplateRef })
+  // tslint:disable-next-line: no-any
+  private _expandableContentTemplates: QueryList<TemplateRef<{}>>;
+
+  private _templateSubscription = Subscription.EMPTY;
+
+  /** @internal the single reference that gets used in the template outlet */
+  // tslint:disable-next-line: no-any
+  _expandableContentTemplate: TemplateRef<any> | null;
+
   constructor(
     // tslint:disable-next-line:no-any
     private _table: DtTable<any>,
@@ -144,6 +168,21 @@ export class DtExpandableRow extends DtRow implements OnDestroy {
         this._collapse();
       }
     });
+  }
+
+  ngAfterContentInit(): void {
+    this._templateSubscription = this._expandableContentTemplates.changes
+      .pipe(startWith(null))
+      .subscribe(() => {
+        this._expandableContentTemplate =
+          this._expandableContentTemplates.first || null;
+        this._changeDetectorRef.markForCheck();
+      });
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this._templateSubscription.unsubscribe();
   }
 
   private _expand(): void {

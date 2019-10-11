@@ -1,5 +1,5 @@
 import { ViewportRuler } from '@angular/cdk/overlay';
-import { Component, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { startWith, switchMap, take } from 'rxjs/operators';
 
 import { DtViewportResizer } from '@dynatrace/angular-components/core';
@@ -62,16 +62,22 @@ interface HostMetricResponsive {
           when: isNarrow
         "
       >
-        <dt-key-value-list>
-          <dt-key-value-list-item>
-            <dt-key-value-list-key>Memory</dt-key-value-list-key>
-            <dt-key-value-list-value>{{ row.memory }}</dt-key-value-list-value>
-          </dt-key-value-list-item>
-          <dt-key-value-list-item>
-            <dt-key-value-list-key>Traffic</dt-key-value-list-key>
-            <dt-key-value-list-value>{{ row.traffic }}</dt-key-value-list-value>
-          </dt-key-value-list-item>
-        </dt-key-value-list>
+        <ng-template dtExpandableRowContent>
+          <dt-key-value-list>
+            <dt-key-value-list-item>
+              <dt-key-value-list-key>Memory</dt-key-value-list-key>
+              <dt-key-value-list-value>{{
+                row.memory
+              }}</dt-key-value-list-value>
+            </dt-key-value-list-item>
+            <dt-key-value-list-item>
+              <dt-key-value-list-key>Traffic</dt-key-value-list-key>
+              <dt-key-value-list-value>{{
+                row.traffic
+              }}</dt-key-value-list-value>
+            </dt-key-value-list-item>
+          </dt-key-value-list>
+        </ng-template>
       </dt-expandable-row>
     </dt-table>
   `,
@@ -119,6 +125,7 @@ export class TableResponsiveExample {
     private _viewportResizer: DtViewportResizer,
     private _viewportRuler: ViewportRuler,
     private _zone: NgZone,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     this._viewportResizer
       .change()
@@ -146,6 +153,7 @@ export class TableResponsiveExample {
           this._headerColumns.add('traffic');
           this._headerColumns.delete('details');
         }
+        this._changeDetectorRef.markForCheck();
       });
   }
 }
