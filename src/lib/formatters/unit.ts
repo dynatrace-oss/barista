@@ -23,6 +23,7 @@ export const enum DtUnit {
  * e.g. per second, per minute
  */
 export enum DtRateUnit {
+  PER_NANOSECOND = 'ns',
   PER_MILLISECOND = 'ms',
   PER_SECOND = 's',
   PER_MINUTE = 'min',
@@ -31,4 +32,16 @@ export enum DtRateUnit {
   PER_WEEK = 'w',
   PER_MONTH = 'mo',
   PER_YEAR = 'y',
+}
+
+export enum DtTimeUnit {
+  YEAR = 'y',
+  MONTH = 'mo',
+  DAY = 'd',
+  HOUR = 'h',
+  MINUTE = 'min',
+  SECOND = 's',
+  MILLISECOND = 'ms',
+  MICROSECOND = 'µs',
+  NANOSECOND = 'ns',
 }
