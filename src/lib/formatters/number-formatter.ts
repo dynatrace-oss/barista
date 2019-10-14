@@ -17,6 +17,8 @@ const ABBREVIATION_LEVELS = [
   { multiplier: Math.pow(KILO_MULTIPLIER, 2), postfix: 'mil' },
   { multiplier: KILO_MULTIPLIER, postfix: 'k' },
 ];
+
+const MIN_VALUE = 0.001;
 // tslint:enable:no-magic-numbers
 
 /**
@@ -39,7 +41,11 @@ export function adjustNumber(
 function adjustPrecision(value: number): string {
   // tslint:disable:no-magic-numbers
   let digits = 0;
-  if (value < 1) {
+  if (value === 0) {
+    return '0';
+  } else if (value < MIN_VALUE) {
+    return `< ${MIN_VALUE}`;
+  } else if (value < 1) {
     digits = 3;
   } else if (value < 10) {
     digits = 2;

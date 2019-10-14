@@ -83,6 +83,10 @@ describe('FormatterUtil', () => {
         input: 123,
         output: '123',
       },
+      {
+        input: 0.0001,
+        output: '< 0.001',
+      },
     ].forEach((testCase: TestCase) => {
       it(`should return ${testCase.input} in abbreviated version`, () => {
         expect(adjustNumber(testCase.input, true).toString()).toEqual(
