@@ -16,6 +16,7 @@ tags:
   - 'pipe'
 properties:
   - 'dev utility'
+  - 'work in progress'
 related:
   - 'units'
 ---
@@ -64,6 +65,12 @@ bytes as kB The `dtMegabytes` pipe provides a way to display bytes as MB
 The `dtRate` pipe provides a way to add a rate info to the value
 
 <docs-source-example example="FormattersRateExample"></docs-source-example>
+
+### Time
+
+The `dtTime` pipe provides a way to format a input time to a timestamp
+
+<docs-source-example example="FormattersTimeExample"></docs-source-example>
 
 ## Util functions
 
@@ -152,6 +159,19 @@ from a previous pipe with a rate. The function takes the following parameters:
 | ---------- | --------------------------- | ------- | ------------------------------------------- |
 | `input`    | `DtFormattedValue | number` |         | numeric value to be transformed by the pipe |
 | `rateUnit` | `DtRateUnit | string`       |         | rate unit                                   |
+
+### Time
+
+The `formatTime` function converts a number to a timestamp. Default behaviour
+will print the first available value/unit and only the next two descending
+steps. Optionally you can set the input unit and which unit you want to set as
+the lower limit.
+
+| Name        | Type         | Default     | Description                                                                                                    |
+| ----------- | ------------ | ----------- | -------------------------------------------------------------------------------------------------------------- |
+| `input`     | `number`     | `ms`        | numeric value to be transformed by the pipe                                                                    |
+| `inputUnit` | `DtTimeUnit` | `undefined` | Which timeunit is used for the input                                                                           |
+| `toUnit`    | `DtTimeUnit` | `undefined` | Which timeunit is the smallest possible output (Pipe disregards toUnit when unit is bigger than the inputUnit) |
 
 ## Special uses (e.g. infographics, tiles)
 
