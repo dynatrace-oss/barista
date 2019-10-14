@@ -1,3 +1,31 @@
+## 4.12.0 (2019-10-14)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the chart selection area overlay needed a
+  custom viewport size to disappear and reposition.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **chart:** Fixes an issue where the wrong cursor was displayed if a chart
+  selection was possible.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **chart:** Optimizes the performance of the selection area overlay.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Fixes an issue where the "from" value can be smaller than
+  the "to" value in the range.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **formatters:** Fixes an issue where an error was thrown due to improper
+  arguments that where passed to the date range formatter.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **select:** Fixes an issue where the select dropdown was not growing in width
+  with the select element.
+
+### Features
+
+- **table:** Added dtExpandableRowContent directive that enables lazy loading of
+  expandable row content.
+- **tag-add:** Added tag-add and tag-list component.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 4.11.0 (2019-10-07)
 
 ### Bug Fixes
