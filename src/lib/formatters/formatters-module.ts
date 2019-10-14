@@ -9,6 +9,7 @@ import { DtCount } from './count/count';
 import { DtDateRange } from './date/date-range';
 import { DtPercent } from './percent/percent';
 import { DtRate } from './rate/rate';
+import { DtTime } from './time/time';
 
 const FORMATTERS = [
   DtBytes,
@@ -19,6 +20,7 @@ const FORMATTERS = [
   DtPercent,
   DtRate,
   DtDateRange,
+  DtTime,
 ];
 
 @NgModule({
