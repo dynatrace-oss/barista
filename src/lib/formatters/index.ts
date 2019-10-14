@@ -14,4 +14,5 @@ export { formatRate } from './rate/rate-formatter';
 export * from './rate/rate';
 export * from './bits/bits-formatter';
 export * from './bits/bits';
+export * from './time/time';
 export { DtDateRange, dtFormatDateRange } from './date/date-range';
