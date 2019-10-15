@@ -1,9 +1,9 @@
 // TODO: refactor/rename button mixins, do we still need them?
 
 /*
-* mixin for btn--primary variant
+* mixin for ba-btn-primary variant
 */
-@mixin btn-primary-variant($default, $hover, $active) {
+@mixin ba-btn-primary-variant($default, $hover, $active) {
   background-color: $default;
   border-color: $default;
 
@@ -19,9 +19,9 @@
 }
 
 /*
-* mixin for btn--secondary variant
+* mixin for ba-btn-secondary variant
 */
-@mixin btn-secondary-variant(
+@mixin ba-btn-secondary-variant(
   $default,
   $hover,
   $active,
@@ -51,9 +51,9 @@
 }
 
 /*
-* mixin for btn--icon styles
+* mixin for ba-btn-icon styles
 */
-@mixin btn-icon() {
+@mixin ba-btn-icon() {
   padding-left: 0;
   padding-right: 0;
   width: 32px;
@@ -61,9 +61,9 @@
 }
 
 /*
-* mixin for btn--primary-theme-dark styles
+* mixin for ba-btn-primary-theme-dark styles
 */
-@mixin btn-primary-theme-dark() {
+@mixin ba-btn-primary-theme-dark() {
   border-color: #ffffff;
   text-decoration: none;
 
@@ -82,9 +82,8 @@
   }
 }
 
-@mixin btn-primary-variant-theme-dark($default, $hover, $active) {
+@mixin ba-btn-primary-variant-theme-dark($default, $hover, $active) {
   background-color: $default;
-  // border-color: #ffffff;
 
   &:hover {
     background-color: $hover;
@@ -96,9 +95,9 @@
 }
 
 /*
-* mixin for btn--secondary-theme-dark styles
+* mixin for ba-btn-secondary-theme-dark styles
 */
-@mixin btn-secondary-theme-dark() {
+@mixin ba-btn-secondary-theme-dark() {
   border-color: #ffffff;
   text-decoration: none;
   color: #ffffff;
@@ -127,7 +126,7 @@
   }
 }
 
-@mixin btn-secondary-variant-theme-dark($default, $hover, $active) {
+@mixin ba-btn-secondary-variant-theme-dark($default, $hover, $active) {
   border-color: $default;
   color: #ffffff;
 

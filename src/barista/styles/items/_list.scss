@@ -34,7 +34,6 @@ ol.ba-list ol ul {
 
   li::before {
     content: ' ';
-    display: inline-block;
     background-color: $unordered-list-theme-color;
     width: 0.5rem;
     height: 0.5rem;
@@ -101,22 +100,22 @@ ol.ba-list ol ul ul {
   }
 }
 
-.ba-theme--blue {
+.ba-theme-blue {
   @include unorderdlisttheme($blue-600);
 }
 
-.ba-theme--turquoise {
+.ba-theme-turquoise {
   @include unorderdlisttheme($turquoise-500);
 }
 
-.ba-theme--purple {
+.ba-theme-purple {
   @include unorderdlisttheme($purple-600);
 }
 
-.ba-theme--royalblue {
+.ba-theme-royalblue {
   @include unorderdlisttheme($royalblue-500);
 }
 
-.ba-theme--green {
+.ba-theme-green {
   @include unorderdlisttheme($green-500);
 }

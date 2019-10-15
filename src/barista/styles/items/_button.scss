@@ -38,7 +38,6 @@ $buttonactivecolor: $turquoise-800;
   padding-right: 15px;
   font-size: 14px;
   line-height: 32px;
-  line-height: -moz-block-height;
 
   &:hover {
     text-decoration: none;
@@ -77,9 +76,9 @@ $buttonactivecolor: $turquoise-800;
   }
 }
 
-.ba-btn--primary {
+.ba-btn-primary {
   // setting default colors for primary btn
-  @include btn-primary-variant(
+  @include ba-btn-primary-variant(
     $buttoncolor,
     $buttonhovercolor,
     $buttonactivecolor
@@ -107,32 +106,32 @@ $buttonactivecolor: $turquoise-800;
     fill: rgba(255, 255, 255, 0.6);
   }
 
-  &.ba-theme--dark > .ba-icon,
-  &.ba-theme--dark > .ba-icon * {
+  &.ba-theme-dark > .ba-icon,
+  &.ba-theme-dark > .ba-icon * {
     fill: #ffffff;
   }
 
-  &.ba-theme--dark[disabled] > .ba-icon,
-  &.ba-theme--dark[disabled] > .ba-icon * {
+  &.ba-theme-dark[disabled] > .ba-icon,
+  &.ba-theme-dark[disabled] > .ba-icon * {
     fill: rgba(255, 255, 255, 0.6);
   }
 
-  &.ba-btn--cta {
-    @include btn-primary-variant($green-600, $green-700, $green-800);
+  &.ba-btn-cta {
+    @include ba-btn-primary-variant($green-600, $green-700, $green-800);
   }
 
-  &.ba-btn--error {
-    @include btn-primary-variant($red-600, $red-700, $red-800);
+  &.ba-btn-error {
+    @include ba-btn-primary-variant($red-600, $red-700, $red-800);
   }
 
-  &.ba-btn--warning {
-    @include btn-primary-variant($yellow-600, $yellow-700, $yellow-800);
+  &.ba-btn-warning {
+    @include ba-btn-primary-variant($yellow-600, $yellow-700, $yellow-800);
   }
 }
 
-.ba-btn--secondary {
+.ba-btn-secondary {
   // setting default colors for secondary btn
-  @include btn-secondary-variant(
+  @include ba-btn-secondary-variant(
     $buttoncolor,
     $buttonhovercolor,
     $buttonactivecolor
@@ -157,41 +156,45 @@ $buttonactivecolor: $turquoise-800;
     fill: $gray-300;
   }
 
-  &.ba-btn--cta {
-    @include btn-secondary-variant($green-600, $green-700, $green-800);
+  &.ba-btn-cta {
+    @include ba-btn-secondary-variant($green-600, $green-700, $green-800);
   }
 
-  &.ba-btn--error {
-    @include btn-secondary-variant($red-600, $red-700, $red-800);
+  &.ba-btn-error {
+    @include ba-btn-secondary-variant($red-600, $red-700, $red-800);
   }
 
-  &.ba-btn--warning {
-    @include btn-secondary-variant($yellow-600, $yellow-700, $yellow-800);
+  &.ba-btn-warning {
+    @include ba-btn-secondary-variant($yellow-600, $yellow-700, $yellow-800);
   }
 }
 
 /*
-* btn--primary--darktheme styles
+* ba-btn-primary-darktheme styles
 */
-.ba-btn--primary.ba-theme--dark,
-.ba-theme--dark .ba-btn--primary {
-  @include btn-primary-theme-dark();
-  @include btn-primary-variant-theme-dark(
+.ba-btn-primary.ba-theme-dark,
+.ba-theme-dark .ba-btn-primary {
+  @include ba-btn-primary-theme-dark();
+  @include ba-btn-primary-variant-theme-dark(
     $turquoise-500,
     $turquoise-400,
     $turquoise-300
   );
 
-  &.ba-btn--cta {
-    @include btn-primary-variant-theme-dark($green-500, $green-400, $green-300);
+  &.ba-btn-cta {
+    @include ba-btn-primary-variant-theme-dark(
+      $green-500,
+      $green-400,
+      $green-300
+    );
   }
 
-  &.ba-btn--error {
-    @include btn-primary-variant-theme-dark($red-500, $red-400, $red-300);
+  &.ba-btn-error {
+    @include ba-btn-primary-variant-theme-dark($red-500, $red-400, $red-300);
   }
 
-  &.ba-btn--warning {
-    @include btn-primary-variant-theme-dark(
+  &.ba-btn-warning {
+    @include ba-btn-primary-variant-theme-dark(
       $yellow-600,
       $yellow-500,
       $yellow-400
@@ -200,26 +203,26 @@ $buttonactivecolor: $turquoise-800;
 }
 
 /*
-* btn--secondary--darktheme styles
+* ba-btn-secondary-darktheme styles
 */
-.ba-theme--dark .ba-btn--secondary,
-.ba-btn--secondary.ba-theme--dark {
-  @include btn-secondary-theme-dark();
+.ba-theme-dark .ba-btn-secondary,
+.ba-btn-secondary.ba-theme-dark {
+  @include ba-btn-secondary-theme-dark();
 
-  &.ba-btn--cta {
-    @include btn-secondary-variant-theme-dark(
+  &.ba-btn-cta {
+    @include ba-btn-secondary-variant-theme-dark(
       $green-500,
       $green-400,
       $green-300
     );
   }
 
-  &.ba-btn--error {
-    @include btn-secondary-variant-theme-dark($red-500, $red-400, $red-300);
+  &.ba-btn-error {
+    @include ba-btn-secondary-variant-theme-dark($red-500, $red-400, $red-300);
   }
 
-  &.ba-btn--warning {
-    @include btn-secondary-variant-theme-dark(
+  &.ba-btn-warning {
+    @include ba-btn-secondary-variant-theme-dark(
       $yellow-600,
       $yellow-500,
       $yellow-400

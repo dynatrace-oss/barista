@@ -1,7 +1,7 @@
 @import '../../../lib/core/style/colors';
 @import '../../styles/global/mixins.scss';
+@import '../../styles/global/variables.scss';
 
-$nav-breakpoint: 760px;
 $nav-search-width: 400px;
 $nav-line-height: 2.75rem;
 $nav-primary-background: $gray-860;
@@ -16,7 +16,7 @@ $nav-current-mobile: $gray-600;
   position: relative;
 }
 
-.ba-nav__bar {
+.ba-nav-bar {
   position: absolute;
   z-index: 10;
   width: 0;
@@ -28,12 +28,12 @@ $nav-current-mobile: $gray-600;
   transition: width 125ms ease-out;
 }
 
-.ba-nav__bar.is-active {
+.ba-nav-bar.is-active {
   width: 100%;
 }
 
-@media (min-width: $nav-breakpoint) {
-  .ba-nav__bar {
+@media (min-width: $screen-md) {
+  .ba-nav-bar {
     position: relative;
     overflow: visible;
     width: auto;
@@ -41,7 +41,7 @@ $nav-current-mobile: $gray-600;
     transition: none;
   }
 
-  .ba-nav__bar.is-active {
+  .ba-nav-bar.is-active {
     width: auto;
   }
 }
@@ -50,7 +50,7 @@ $nav-current-mobile: $gray-600;
 * Brand logo
 */
 
-.ba-nav__brand {
+.ba-nav-brand {
   position: absolute;
   z-index: 12;
   top: 0.7rem;
@@ -58,7 +58,7 @@ $nav-current-mobile: $gray-600;
   width: 7rem;
 }
 
-.ba-nav__logo {
+.ba-nav-logo {
   max-width: 100%;
 }
 
@@ -66,17 +66,17 @@ $nav-current-mobile: $gray-600;
 * Nav lists & items
 */
 
-.ba-nav__list {
+.ba-nav-list {
   @include list-reset();
   margin: 0;
 }
 
-.ba-nav__item {
+.ba-nav-item {
   margin: 0;
   white-space: nowrap;
 }
 
-.ba-nav__link {
+.ba-nav-link {
   color: $gray-200;
   text-decoration: none;
   outline: 0;
@@ -84,21 +84,21 @@ $nav-current-mobile: $gray-600;
   padding: 0.5rem 1rem;
 }
 
-.ba-nav__link:visited {
+.ba-nav-link:visited {
   color: $gray-200;
 }
 
-.ba-nav__link:hover {
+.ba-nav-link:hover {
   color: #ffffff;
   text-decoration: none;
 }
 
-.ba-nav__item.ba-is-current {
+.ba-nav-item.ba-is-current {
   background-color: $nav-current-mobile;
 }
 
-@media (min-width: $nav-breakpoint) {
-  .ba-nav__list {
+@media (min-width: $screen-md) {
+  .ba-nav-list {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -107,49 +107,49 @@ $nav-current-mobile: $gray-600;
     overflow: hidden;
   }
 
-  .ba-nav__item,
-  .ba-nav__link {
+  .ba-nav-item,
+  .ba-nav-link {
     line-height: 1em;
     height: $nav-line-height;
   }
 
-  .ba-nav__link {
+  .ba-nav-link {
     padding: 0.85rem 1.5rem;
   }
 
-  .ba-nav__item {
+  .ba-nav-item {
     position: static;
   }
 
-  .ba-nav__item.ba-is-current {
+  .ba-nav-item.ba-is-current {
     background-color: $nav-primary-current;
   }
 
-  .ba-nav__item .ba-nav__link {
+  .ba-nav-item .ba-nav-link {
     padding-left: 1.5rem;
   }
 
-  .ba-nav__item .ba-nav__link:hover {
+  .ba-nav-item .ba-nav-link:hover {
     background-color: $nav-primary-current;
   }
 
   /* pull nav item right */
-  .ba-nav__item--right {
+  .ba-nav-item-right {
     margin-left: auto;
 
-    ~ .ba-nav__item--right {
+    ~ .ba-nav-item-right {
       margin-left: 0;
     }
   }
 }
 
 /* nav modifier */
-.ba-nav__bar.is-active .ba-nav__list {
+.ba-nav-bar.is-active .ba-nav-list {
   background-color: $nav-primary-current;
 }
 
-@media (min-width: $nav-breakpoint) {
-  .ba-nav__bar.is-active .ba-nav__list {
+@media (min-width: $screen-md) {
+  .ba-nav-bar.is-active .ba-nav-list {
     background-color: $nav-primary-background;
   }
 }
@@ -159,7 +159,7 @@ $nav-current-mobile: $gray-600;
 * Search, Menu toggle
 */
 
-.ba-nav__buttongroup {
+.ba-nav-buttongroup {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -169,7 +169,7 @@ $nav-current-mobile: $gray-600;
   z-index: 12;
 }
 
-.ba-nav__btn {
+.ba-nav-btn {
   color: #ffffff;
   font-size: 1em;
   font-family: inherit;
@@ -185,29 +185,29 @@ $nav-current-mobile: $gray-600;
   display: inline-block;
 }
 
-.ba-nav__btn:visited {
+.ba-nav-btn:visited {
   color: #ffffff;
   background-color: transparent;
 }
 
-.ba-nav__btn:hover {
+.ba-nav-btn:hover {
   color: #ffffff;
   background-color: $nav-primary-hover;
   text-decoration: none;
 }
 
-.ba-nav__btn:focus,
-.ba-nav__link:focus {
+.ba-nav-btn:focus,
+.ba-nav-link:focus {
   @include focusStyle();
 }
 
-@media (min-width: $nav-breakpoint) {
-  .ba-nav__btn--menutoggle {
+@media (min-width: $screen-md) {
+  .ba-nav-btn-menutoggle {
     display: none;
   }
 }
 
-@media (min-width: $nav-breakpoint) {
+@media (min-width: $screen-md) {
   body::after {
     content: 'widescreen';
     display: none;
