@@ -9,7 +9,7 @@ import {
 } from '@angular/cdk/keycodes';
 import { ElementRef, QueryList } from '@angular/core';
 import { Observable, OperatorFunction, fromEvent, merge } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { readKeyCode } from '@dynatrace/angular-components/core';
 
@@ -49,9 +49,14 @@ export function captureAndMergeEvents<
   T extends keyof WindowEventMap
 >(type: T, elements: E[]): Observable<WindowEventMap[T]> {
   return merge(
-    ...elements
-      .filter(Boolean)
-      .map((element: E) => fromEvent<WindowEventMap[T]>(element, type)),
+    ...elements.filter(Boolean).map((element: E) =>
+      fromEvent<WindowEventMap[T]>(element, type).pipe(
+        tap(event => {
+          // we need to prevent the event from bubbling up so that the event is only emitting once
+          event.stopImmediatePropagation();
+        }),
+      ),
+    ),
   );
 }
 
