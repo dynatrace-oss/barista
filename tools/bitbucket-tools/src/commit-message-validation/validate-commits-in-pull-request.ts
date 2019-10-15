@@ -1,7 +1,10 @@
 import { BitbucketApiRef } from '../interfaces/bitbucket/bitbucket-api-ref';
 import { CommitMessage } from '../interfaces/commit-message';
 import { pullRequestContainsBreakingChanges } from '../utils/pull-request-contains-breaking-changes';
-import { isMinorTarget, isPatchTarget } from '../utils/pull-request-target-check';
+import {
+  isMinorTarget,
+  isPatchTarget,
+} from '../utils/pull-request-target-check';
 import { validateBreakingChange } from './validators/validate-breaking-change';
 import { validateCommitsForMinorTarget } from './validators/validate-commits-for-minor-target';
 import { validateCommitsForPatchTarget } from './validators/validate-commits-for-patch-target';
@@ -56,6 +59,7 @@ export type ValidatorResult = PrError | undefined;
 export function validateCommitsInPr(
   commits: CommitMessage[],
   target: BitbucketApiRef,
+  isReleasePullRequest: boolean,
 ): PrError[] {
   const errors: ValidatorResult[] = [];
 
@@ -76,12 +80,14 @@ export function validateCommitsInPr(
   // Run checks that apply only based on target branches.
   // Check if the target branch is a patch branch as there are only
   // fix or perf commits allowed.
-  if (isPatchTarget(target)) {
+  // Exceptions are release-pull requests
+  if (isPatchTarget(target) && !isReleasePullRequest) {
     errors.push(validateCommitsForPatchTarget(commits));
   }
   // Check if the target branch is a minor branch as there are only
   // feat commits allowed.
-  if (isMinorTarget(target)) {
+  // Exceptions are release-pull requests
+  if (isMinorTarget(target) && !isReleasePullRequest) {
     errors.push(validateCommitsForMinorTarget(commits));
   }
   // If the PR contains breaking changes, it is only allowed to target
