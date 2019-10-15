@@ -42,6 +42,7 @@ import {
   filter,
   map,
   mapTo,
+  share,
   shareReplay,
   skip,
   startWith,
@@ -540,8 +541,20 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // If there is a range component we have to check for drag events and resizing
     // and updates of the range.
     if (this._range) {
-      // touch factory on the window that creates a touchmove
+      // touch event on the window that creates a touchmove
       const touch = fromEvent<TouchEvent>(window, 'touchmove');
+      // Create a stream for drag handle event in case we have to block the click event
+      // with an event prevent default inside the range component. Therefore we emit the
+      // dragHandleStart$ stream to notify when a drag on a handle happens.
+      const dragHandleStart$ = this._range._handleDragStarted.pipe(
+        tap(() => {
+          removeCssClass(
+            this._elementRef.nativeElement,
+            NO_POINTER_EVENTS_CLASS,
+          );
+        }),
+        share(),
+      );
 
       this._drag$ = merge(
         getDragStream(
@@ -557,27 +570,15 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         ),
       );
 
-      // Create a stream for drag handle event in case we have to block the click event
-      // with an event prevent default inside the range component. Therefore we emit the
-      // dragHandleStart$ stream to notify when a drag on a handle happens.
-      const dragStart$ = this._range._handleDragStarted.pipe(
-        tap(() => {
-          removeCssClass(
-            this._elementRef.nativeElement,
-            NO_POINTER_EVENTS_CLASS,
-          );
-        }),
-      );
-
       this._dragHandle$ = merge(
         getDragStream(
           this._elementRef.nativeElement,
-          dragStart$,
+          dragHandleStart$,
           this._mouseup$,
         ),
         getDragStream(
           this._elementRef.nativeElement,
-          dragStart$,
+          dragHandleStart$,
           touchEnd$,
           touch,
         ),
@@ -606,7 +607,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         // update a selection area according to a resize through the side handles
         getRangeResizeStream(
           this._dragHandle$,
-          this._range._handleDragStarted.pipe(distinctUntilChanged()),
+          dragHandleStart$,
           this._selectionAreaBcr!.width,
           () => this._range!._area,
           (start: number, end: number) =>
@@ -632,19 +633,19 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         });
 
       this._zone.runOutsideAngular(() => {
-        const dragHandleStart$ = this._dragHandle$.pipe(mapTo(1));
+        const dragHandleStartMapped$ = this._dragHandle$.pipe(mapTo(1));
         const initialDragStart$ = this._drag$.pipe(mapTo(0));
         // merge the streams of the initial drag start and the handle drag start
-        const startResizing$ = merge(initialDragStart$, dragHandleStart$);
+        const startResizing$ = merge(initialDragStart$, dragHandleStartMapped$);
         // map to false to end the resize
         const release$ = merge(this._mouseup$, touchEnd$).pipe(mapTo(-1));
 
         // mouse Release is -1
         const isMouseRelease = (resize: number) => resize === -1;
 
-        // stream that emits drag start end end
-        merge(startResizing$, release$)
+        startResizing$
           .pipe(
+            switchMap(startValue => release$.pipe(startWith(startValue))),
             distinctUntilChanged(),
             takeUntil(this._destroy$),
           )
@@ -923,7 +924,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     );
   }
 
-  /** Set the position of the select-able area to the size of the highcharts plot background */
+  /** Set the position of the select-able area to the size of the Highcharts plot background */
   private _updateSelectionAreaSize(): void {
     if (!this._plotBackground) {
       throw getDtNoPlotBackgroundError();

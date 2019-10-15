@@ -17,6 +17,7 @@ import { generateData } from './chart-data-utils';
         aria-label-right-handle="The right handle to update the selection"
         aria-label-selected-area="The selected time-frame"
         (valid)="rangeValidChanges($event)"
+        (valueChanges)="valueChanges($event)"
         (closed)="closed()"
       >
         <button
@@ -40,6 +41,10 @@ export class ChartSelectionAreaDefaultExample {
 
   closed(): void {
     // emits when the selection gets closed
+  }
+
+  valueChanges(_value: [number, number]): void {
+    // emits when the value changes
   }
 
   /** Chart options and series */
