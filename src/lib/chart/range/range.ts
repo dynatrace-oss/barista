@@ -427,6 +427,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    */
   _emitDragEnd(): void {
     this.valueChanges.emit(this._value);
+    this._changeDetectorRef.markForCheck();
   }
 
   /**
