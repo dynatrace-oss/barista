@@ -12,6 +12,7 @@ import { convertErrorsToPullRequestComment } from './commit-message-validation/c
 import { splitStringIntoCommitMessage } from './commit-message-validation/split-message-into-components';
 import { validateCommitsInPr } from './commit-message-validation/validate-commits-in-pull-request';
 import { PR_ID, REF_ID } from './config';
+import { isReleasePullRequest } from './utils/pull-request-is-release-request';
 
 /**
  * Evaluates the commits of a given pull request and runs certain checks against
@@ -39,6 +40,7 @@ async function main(): Promise<void> {
   const commitValidationErrors = validateCommitsInPr(
     parsedCommitsForPr,
     pr.toRef,
+    isReleasePullRequest(pr),
   );
 
   // If there are validation errors in the PRs found add the needs-rebase label
