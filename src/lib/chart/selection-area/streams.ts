@@ -264,6 +264,7 @@ export function getDragStream(
     map((event: MouseEvent | TouchEvent) =>
       getRelativeMousePosition(event, target),
     ),
+    distinctUntilChanged(isEqual),
     share(),
   );
 }
