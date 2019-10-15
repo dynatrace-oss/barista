@@ -1,6 +1,7 @@
-import { getCommitHashesForPullRequest } from './bitbucket-communication/get-commits-for-pull-request';
+import { getCommitsForPullRequest } from './bitbucket-communication/get-commits-for-pull-request';
 import { getPackageVersionFromTargetRef } from './bitbucket-communication/get-package-version-From-target-ref';
 import { getPullRequestById } from './bitbucket-communication/get-pull-request';
+import { matchCommitsInMaster } from './bitbucket-communication/match-commits-in-master';
 import { openPullRequest } from './bitbucket-communication/open-pull-request';
 import { sendCommentToPullRequest } from './bitbucket-communication/send-comment-to-pull-request';
 import { cherryPickCommitsToTargetBranch } from './cherry-pick/cherry-pick-to-branch';
@@ -67,56 +68,68 @@ async function main(): Promise<void> {
     return;
   }
 
-  // Get the commit hashes that need to be cherry-picked
-  const commitsInPullRequest = await getCommitHashesForPullRequest(pullRequest);
-  const version = await getPackageVersionFromTargetRef(
-    pullRequest,
-    pullRequest.toRef,
-  );
+  try {
+    // Get the commit hashes that need to be cherry-picked
+    const commitsInPullRequest = await getCommitsForPullRequest(pullRequest);
+    const matchedCommitsInMaster = await matchCommitsInMaster(
+      commitsInPullRequest,
+    );
+    const version = await getPackageVersionFromTargetRef(
+      pullRequest,
+      pullRequest.toRef,
+    );
 
-  // Get the remote url of the repository from the pull request data
-  const remoteUrl = pullRequest.toRef.repository.links.clone.find(
-    link => link.name === 'http',
-  )!.href;
+    // Get the remote url of the repository from the pull request data
+    const remoteUrl = pullRequest.toRef.repository.links.clone.find(
+      link => link.name === 'http',
+    )!.href;
 
-  // If there is something to cherry pick, perform a checkout of the remote
-  if (
-    pullRequest.title.includes('[target:minor]') ||
-    pullRequest.title.includes('[target:patch]')
-  ) {
-    const cloneRepoResult = cloneRepository(remoteUrl);
-    if (!cloneRepoResult) {
-      await sendCommentToPullRequest(
-        `[AutoCherryPicker]: Failed to clone ${remoteUrl}. Please cherry-pick it yourself`,
+    // If there is something to cherry pick, perform a checkout of the remote
+    if (
+      pullRequest.title.includes('[target:minor]') ||
+      pullRequest.title.includes('[target:patch]')
+    ) {
+      const cloneRepoResult = cloneRepository(remoteUrl);
+      if (!cloneRepoResult) {
+        await sendCommentToPullRequest(
+          `[AutoCherryPicker]: Failed to clone ${remoteUrl}. Please cherry-pick it yourself`,
+          pullRequest,
+        );
+        return;
+      }
+    }
+    // We need to reverse the commits to keep them in the correct order as they were
+    const reversedCommits = matchedCommitsInMaster.reverse();
+
+    // If the pull request is labelled with target minor, execute the cherry-picking
+    // to the minor branch.
+    if (pullRequest.title.includes('[target:minor]')) {
+      performCherryPickForTarget(
+        'minor',
+        version,
+        reversedCommits,
+        remoteUrl,
         pullRequest,
       );
-      return;
     }
+    if (pullRequest.title.includes('[target:patch]')) {
+      performCherryPickForTarget(
+        'patch',
+        version,
+        reversedCommits,
+        remoteUrl,
+        pullRequest,
+      );
+    }
+  } catch (err) {
+    const message = [
+      '[AutoCherryPicker]: Cherry picking failed ',
+      '```',
+      err.message,
+      '```',
+    ].join('\n');
+    await sendCommentToPullRequest(message, pullRequest);
   }
-  // We need to reverse the commits to keep them in the correct order as they were
-  const reversedCommits = commitsInPullRequest.reverse();
-
-  // If the pull request is labelled with target minor, execute the cherry-picking
-  // to the minor branch.
-  if (pullRequest.title.includes('[target:minor]')) {
-    performCherryPickForTarget(
-      'minor',
-      version,
-      reversedCommits,
-      remoteUrl,
-      pullRequest,
-    );
-  }
-  if (pullRequest.title.includes('[target:patch]')) {
-    performCherryPickForTarget(
-      'patch',
-      version,
-      reversedCommits,
-      remoteUrl,
-      pullRequest,
-    );
-  }
-  console.log(commitsInPullRequest, version);
 }
 
 main()
