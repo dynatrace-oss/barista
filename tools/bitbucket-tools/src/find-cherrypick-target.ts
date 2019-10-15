@@ -10,6 +10,7 @@ import {
 import { determineCherryPickLabelsForMasterTarget } from './cherry-pick-target/determine-cherry-pick-labels';
 import { splitStringIntoCommitMessage } from './commit-message-validation/split-message-into-components';
 import { PR_ID, REF_ID } from './config';
+import { isReleasePullRequest } from './utils/pull-request-is-release-request';
 import { isMasterTarget } from './utils/pull-request-target-check';
 
 /**
@@ -28,6 +29,13 @@ async function main(): Promise<void> {
   // If there is no PR for this commit open yet, just exit.
   if (!pr) {
     console.log('Skipped out, because no pull request was found.');
+    return;
+  }
+
+  // If the PR is a release commit, for now just exit.
+  // TODO: For cherry picking releases back to master, we will need to determine
+  // the target here.
+  if (isReleasePullRequest(pr)) {
     return;
   }
 
