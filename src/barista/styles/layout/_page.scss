@@ -1,6 +1,6 @@
 /* stylelint-disable unit-whitelist */
 
-.ba-page--grid {
+.ba-page-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
@@ -12,7 +12,7 @@
 }
 
 @media (min-width: $screen-md) {
-  .ba-page--grid {
+  .ba-page-grid {
     grid-template-columns: 300px minmax(0, 1fr);
     grid-template-rows: repeat(2, max-content) repeat(2, auto);
     grid-column-gap: 2rem;
@@ -26,7 +26,7 @@
 }
 
 @media (min-width: $screen-xxl) {
-  .ba-page--grid {
+  .ba-page-grid {
     grid-template-columns: 300px minmax(0, 1fr) 280px;
     grid-template-rows: repeat(2, max-content) auto;
     grid-template-rows: max-content auto;
@@ -39,7 +39,7 @@
 
 /* All columns + column gaps = 1626px */
 @media (min-width: 1630px) {
-  .ba-page--grid {
+  .ba-page-grid {
     grid-template-columns: 300px auto 950px 280px auto;
     grid-template-areas:
       'sidebar . title . .'
@@ -48,7 +48,7 @@
   }
 }
 
-.ba-page__main {
+.ba-page-main {
   grid-area: main;
   margin-bottom: 2rem;
 }

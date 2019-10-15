@@ -9,7 +9,7 @@ const BITBUCKET_USERNAME_LENGTH = 20;
   templateUrl: 'contributors.html',
   styleUrls: ['contributors.scss'],
   host: {
-    class: 'ba-contributors__column',
+    class: 'ba-contributors-column',
   },
 })
 export class BaContributors {
