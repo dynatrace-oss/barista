@@ -36,6 +36,13 @@ export const TEST_DATA = {
     {
       name: 'DE (async)',
       async: true,
+      distinct: false,
+      autocomplete: [],
+    },
+    {
+      name: 'DE (async, distinct)',
+      async: true,
+      distinct: true,
       autocomplete: [],
     },
     {
@@ -66,6 +73,19 @@ export const TEST_DATA = {
 
 export const TEST_DATA_ASYNC = {
   name: 'DE (async)',
+  autocomplete: [
+    { name: 'Berlin' },
+    {
+      name: 'München',
+      suggestions: [],
+      validators: [{ validatorFn: Validators.required, error: 'is required' }],
+    },
+  ],
+};
+
+export const TEST_DATA_ASYNC_2 = {
+  name: 'DE (async, distinct)',
+  distinct: true,
   autocomplete: [
     { name: 'Berlin' },
     {
