@@ -1,0 +1,46 @@
+<a [href]="data.link" class="ba-tile">
+  <div *ngIf="data.badge" class="ba-tile__status {{_cssClassComponentState}}">
+    <svg class="ba-tile__status-icon-triangle" viewBox="0 0 50 50">
+      <polygon points="50,0 0,0 50,50" />
+    </svg>
+    <svg
+      class="ba-tile__status-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="512"
+      height="512"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M64.199 343.67l58.577-58.577 82.13 22.008 22.005 82.131-58.569 58.569c30.577 1.826 61.757-8.91 85.12-32.272 29.481-29.49 38.894-71.431 28.264-108.889l160.531-160.53c7.657-7.657 7.657-20.07.002-27.727L393.63 69.744c-7.656-7.658-20.071-7.659-27.729-.001L205.368 230.277c-37.458-10.624-79.406-1.212-108.889 28.264-23.365 23.366-34.104 54.556-32.28 85.13z"
+      />
+      <path
+        d="M112.476 399.53l35.707 9.544 26.164-26.161-9.544-35.709-35.709-9.545-26.164 26.162z"
+      />
+    </svg>
+    <!-- <svg class="ba-tile__status-icon" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M443.9 436.6l-4.2-28.7c-.9-6.3-4.4-15.8-7.7-21.2L311 189.1c-3.3-5.4-6-15-6-21.3V115c0-6.3 5.1-11.5 11.4-11.5h2.1c6.3 0 12.8-5 14.6-11.1l5-17.3c1.8-6.1-1.9-11.1-8.2-11.1H182.1c-6.3 0-9.9 5-8.2 11.1l5 17.3c1.8 6.1 8.3 11.1 14.6 11.1h2.1c6.3 0 11.4 5.2 11.4 11.5v52.8c0 6.3-2.7 15.9-6 21.3L80 386.7c-3.3 5.4-6.7 14.9-7.7 21.2l-4.2 28.7c-.9 6.3 3.4 11.4 9.7 11.4h356.4c6.2 0 10.6-5.1 9.7-11.4zm-71.4-30.1h-233c-4 0-5.6-2.8-3.5-6.3l33.6-55.3c2.1-3.5 7.1-6.3 11.2-6.3H335c4 0 8.9 2.9 10.9 6.5l30.4 55c1.9 3.5.3 6.4-3.8 6.4z"/></svg> -->
+    <!-- <svg class="ba-tile__status-icon" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M394.44 468l-52.875-161.952L480 205.956H308.888L255.998 44l-52.872 161.956H32l138.44 100.092L117.57 468l138.427-100.09z"/></svg> -->
+    <!-- <svg class="ba-tile__status-icon" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M256 44L32.224 431.602h447.552L256 44zm28 352h-56v-56.002h56V396zm-56-108V156h56v132h-56z"/></svg> -->
+  </div>
+  <div class="ba-tile__content">
+    <div class="ba-tile__header">
+      <div class="ba-tile__img">
+        <!-- {{#if tileThumbnail}}
+          <img src="{{tileThumbnail}}">
+    {{else}}
+      {{#if iconfilename}}
+        {{{icon for=url}}} -->
+        <span>{{data.identifier}}</span>
+      </div>
+      <div class="ba-tile__headertext">
+        <div class="ba-tile__title">{{data.title}}</div>
+        <div class="ba-tile__type">{{data.category}}</div>
+      </div>
+    </div>
+    <div class="ba-tile__description">
+      {{data.description}}
+    </div>
+    <div class="ba-tile__footer">
+      <span>{{data.title}} details&nbsp;→</span>
+    </div>
+  </div>
+</a>
