@@ -1,10 +1,9 @@
 <div
-  *ngIf="_hasBackdrop"
-  (click)="_handleBackdropClick()"
   class="dt-drawer-backdrop"
+  (click)="_handleBackdropClick()"
+  *ngIf="_hasBackdrop"
 ></div>
 
-<ng-content select="dt-drawer"></ng-content>
 <ng-content select="dt-sidenav"></ng-content>
 
 <div

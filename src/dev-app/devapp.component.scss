@@ -5,7 +5,6 @@ $top-bar-navigation-height: 44px;
 :host {
   display: flex;
   flex-direction: column;
-  margin-top: $top-bar-navigation-height;
   width: 100%;
   height: 100%;
 }
@@ -27,10 +26,10 @@ $top-bar-navigation-height: 44px;
 }
 
 .nav {
-  position: fixed;
   top: 0;
-  width: 100vw;
-  z-index: 100;
+  width: 100%;
+  right: 0;
+  z-index: 1;
 }
 
 .theme-selector {
@@ -51,43 +50,36 @@ $top-bar-navigation-height: 44px;
 .main {
   flex: 1 1 auto;
   padding: 20px;
-  max-width: calc(100vw - 240px);
 }
 
 .dt-theme-dark .main {
   background-color: #242424;
 }
 
-// replace this with the sidenav component as soon as this is ready
-.sidenav {
-  background-color: #f2f2f2;
-  width: 240px;
+.sidenav-title {
+  display: inline-flex;
+  line-height: 44px;
+  font-size: 112%;
+}
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+.sidenav-title-image {
+  height: 24px;
+  width: 24px;
+  fill: #ffffff;
+  line-height: 56px;
+  margin-right: 10px;
+}
 
-  a {
-    @include dt-default-font(15px, 60px);
-    display: block;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-decoration: none;
-    white-space: nowrap;
+.top-bar-button {
+  width: 44px;
+  height: 44px;
+  fill: #ffffff;
+  background: #191919;
+  border: 0;
+  outline: none;
+  cursor: pointer;
 
-    &:hover {
-      color: #00a1b2;
-    }
-  }
-
-  li + li {
-    border-top: 1px solid #e6e6e6;
-  }
-
-  .router-link-active {
-    border-left: 6px solid #525252;
-    padding-left: 14px;
+  &:hover {
+    background: #353535;
   }
 }

@@ -1,12 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+
 import { DtDrawer } from './drawer';
 import { DtDrawerContainer } from './drawer-container';
+import { DtSidenav, DtSidenavHeader } from './sidenav';
+import { DtSidenavContainer } from './sidenav-container';
+
+const COMPONENTS = [
+  DtDrawer,
+  DtDrawerContainer,
+  DtSidenavContainer,
+  DtSidenav,
+  DtSidenavHeader,
+];
 
 @NgModule({
-  imports: [CommonModule],
-  exports: [DtDrawer, DtDrawerContainer],
-  declarations: [DtDrawer, DtDrawerContainer],
+  imports: [CommonModule, DtIconModule],
+  exports: COMPONENTS,
+  declarations: COMPONENTS,
 })
 export class DtDrawerModule {}

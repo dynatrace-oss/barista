@@ -75,6 +75,38 @@ The container class `DtDrawerContainer` has follwing methods:
 | `open`  | Opens all the drawers in the container  | `void`       |
 | `close` | Closes all the drawers in the container | `void`       |
 
+## Sidenav
+
+The sidenav components is designed to add side content to a fullscreen app. To
+set up a sidenav we use two components: `dt-sidenav-container` which act as a
+structural container for our content, sidenav and `dt-sidenav` which represents
+the added side content. The component is always at the root of the page.
+
+## Basic example
+
+```html
+<dt-sidenav-container>
+  <dt-sidenav mode="side" opened>
+    Sidenav content
+  </dt-sidenav>
+  Main content
+</dt-sidenav-container>
+```
+
+## Example with custom header
+
+```html
+<dt-sidenav-container>
+  <dt-sidenav mode="side" opened]>
+    <dt-sidenav-header>
+      Title
+    </dt-sidenav-header>
+    Sidenav content
+  </dt-sidenav>
+  Main content
+</dt-sidenav-container>
+```
+
 ## Examples
 
 ### Over laying mode Drawer Example
