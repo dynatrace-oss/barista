@@ -17,11 +17,11 @@ export class BaPageFooter {
 
   /** @internal */
   get _hasTags(): boolean {
-    return this.tags.length > 0;
+    return this.tags && this.tags.length > 0;
   }
 
   /** @internal */
   get _hasRelatedTopics(): boolean {
-    return this.relatedTopics.length > 0;
+    return this.relatedTopics && this.relatedTopics.length > 0;
   }
 }

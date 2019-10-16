@@ -3,22 +3,22 @@
   <!-- TODO: sidebar component -->
 
   <ba-page-header
-    *ngIf="content"
-    [title]="content.title"
-    [description]="content.description"
-    [contributors]="content.contributors"
+    *ngIf="contents"
+    [title]="contents.title"
+    [description]="contents.description"
+    [contributors]="contents.contributors"
   ></ba-page-header>
 
   <main class="ba-page__main" id="main" role="main">
     <article class="ba-page__content">
-      <ba-page-content [data]="content.contentHtml"></ba-page-content>
+      <ba-page-content [data]="contents.contentHtml"></ba-page-content>
     </article>
   </main>
 
   <ba-page-footer
-    *ngIf="content"
-    [tags]="content.tags"
-    [relatedTopics]="content.related"
+    *ngIf="contents"
+    [tags]="contents.tags"
+    [relatedTopics]="contents.related"
   >
   </ba-page-footer>
 </div>
