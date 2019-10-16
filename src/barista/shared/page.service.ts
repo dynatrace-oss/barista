@@ -4,7 +4,7 @@ import { AsyncSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { BaLocationService } from './location.service';
-import { BaPageContents } from './page-contents';
+import { BaSinglePageContents } from './page-contents';
 
 const CONTENT_PATH_PREFIX = 'data/';
 
@@ -13,12 +13,12 @@ export class BaPageService {
   /**
    * Caches pages once they have been loaded.
    */
-  private _cache = new Map<string, Observable<BaPageContents>>();
+  private _cache = new Map<string, Observable<BaSinglePageContents>>();
 
   /**
    * The current page that should be displayed.
    */
-  currentPage: Observable<BaPageContents>;
+  currentPage: Observable<BaSinglePageContents>;
 
   constructor(private http: HttpClient, location: BaLocationService) {
     // Whenever the URL changes we try to get the appropriate doc
@@ -31,7 +31,7 @@ export class BaPageService {
    * Gets page from cache.
    * @param url - path to page
    */
-  private _getPage(url: string): Observable<BaPageContents> {
+  private _getPage(url: string): Observable<BaSinglePageContents> {
     const id = url || 'index';
     if (!this._cache.has(id)) {
       this._cache.set(id, this._fetchPage(id));
@@ -43,12 +43,12 @@ export class BaPageService {
    * Fetches page from data source.
    * @param id - page id (path).
    */
-  private _fetchPage(id: string): Observable<BaPageContents> {
+  private _fetchPage(id: string): Observable<BaSinglePageContents> {
     const requestPath = `${CONTENT_PATH_PREFIX}${id}.json`;
-    const subject = new AsyncSubject<BaPageContents>();
+    const subject = new AsyncSubject<BaSinglePageContents>();
 
     this.http
-      .get<BaPageContents>(requestPath, { responseType: 'json' })
+      .get<BaSinglePageContents>(requestPath, { responseType: 'json' })
       .pipe
       // tap(data => {
       //   console.log(data);

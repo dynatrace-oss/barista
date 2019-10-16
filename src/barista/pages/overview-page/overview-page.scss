@@ -1,0 +1,115 @@
+@import '../../layout/overview-item/overview-item.scss';
+
+li {
+  list-style-type: none;
+}
+
+.ba-page {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding: 1rem;
+  overflow: auto;
+  position: relative;
+}
+
+$breakpoint: 1024px;
+$no-columns: 15px;
+
+.ba-tilegrid {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.ba-tilegrid {
+  .ba-tile {
+    min-width: $tilesize;
+    flex-basis: $tilesize;
+    margin: 1rem;
+  }
+
+  .ba-tile__identifier {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: $screen-md) {
+  .ba-tilegrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+
+    .ba-tile {
+      margin: 0;
+    }
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .ba-tilegrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: $screen-xl) {
+  .ba-tilegrid--components {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* View toggle buttons */
+.ba-button-group {
+  display: flex;
+  position: absolute;
+  top: 3.5rem;
+  right: 1rem;
+}
+
+.ba-button-group__button {
+  /* Reset browser <button> styles. */
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+
+  display: block;
+  font-family: $mainfont;
+  border: 1px solid $gray-300;
+  background-color: #fff;
+  line-height: 1;
+  padding: 4px 12px;
+
+  svg {
+    fill: $gray-700;
+    width: 28px;
+    height: 28px;
+  }
+
+  &:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+
+  &:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+}
+
+.ba-button-group__button:not(.ba-is-active):hover {
+  border-color: $turquoise-600;
+}
+
+.ba-button-group__button.ba-is-active {
+  background-color: $gray-300;
+}
+
+.ba-tilegrid--listview {
+  .ba-tile__description,
+  .ba-tile__footer {
+    display: none;
+  }
+}
