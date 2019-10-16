@@ -10,6 +10,7 @@ import { generateData } from './chart-data-utils';
       <dt-chart-timestamp
         aria-label-close="Close the selection"
         (closed)="closed()"
+        (valueChanges)="valueChanges($event)"
       ></dt-chart-timestamp>
       <dt-chart-range
         aria-label-close="Close the selection"
@@ -43,7 +44,7 @@ export class ChartSelectionAreaDefaultExample {
     // emits when the selection gets closed
   }
 
-  valueChanges(_value: [number, number]): void {
+  valueChanges(_value: number | [number, number]): void {
     // emits when the value changes
   }
 
