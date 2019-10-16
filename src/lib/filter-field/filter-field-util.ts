@@ -126,12 +126,18 @@ export function defDistinctPredicate(
 
   if (
     isDtOptionDef(def) &&
-    !optionOrGroupFilteredPredicate(def, selectedOptionIds, isDistinct)
+    !optionSelectedPredicate(def, selectedOptionIds, isDistinct)
   ) {
     return false;
   }
 
   if (isDtAutocompleteDef(def)) {
+    if (def.autocomplete.async && isDtOptionDef(def)) {
+      return !(
+        def.autocomplete.distinct && isOptionSelected(def, selectedOptionIds)
+      );
+    }
+
     return (
       def.autocomplete.async ||
       optionOrGroupListFilteredPredicate(
@@ -208,8 +214,7 @@ export function optionSelectedPredicate(
   isDistinct: boolean,
 ): boolean {
   return !(
-    def.option!.uid &&
-    selectedIds.has(def.option!.uid) &&
+    isOptionSelected(def, selectedIds) &&
     (!isDtRenderType(def) || isDistinct)
   );
 }
@@ -226,6 +231,12 @@ export function optionFilterTextPredicate(
     !transformedFilter.length ||
     transformedViewValue.indexOf(transformedFilter) !== -1
   );
+}
+
+/** Whether the option is selected (its uid is contained in the selectedIds list). */
+function isOptionSelected(def: DtNodeDef, selectedIds: Set<string>): boolean {
+  const uid = def.option!.uid;
+  return Boolean(uid && selectedIds.has(uid));
 }
 
 /** Transforms a RangeSource to the Tag data values. */
