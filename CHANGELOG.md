@@ -1,3 +1,25 @@
+## 4.12.1 (2019-10-16)
+
+### Bug Fixes
+
+- **button:** Fixes a contrast issue with nested buttons in odd table-rows by
+  using a darker shade of gray for the hover on nested buttons in general.
+  ([***REMOVED***])(***REMOVED***/***REMOVED***))
+- **chart:** Fixes an issue where the chart emitted a timeframe change event
+  without interaction
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **chart:** Fixes an issue where the timeframe-change event is emitted twice
+  when a timeframe is selected.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **chart:** Fixes an issue where the timestamp was shifted by the legend offset
+  when it was set programatical
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Fixes an issue where distinct did not work properly when
+  loading data asynchronously.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **formatters:** Fixes an issue where very small numbers where rounded to 0
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 4.12.0 (2019-10-14)
 
 ### Bug Fixes
