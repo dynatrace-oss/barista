@@ -14,6 +14,7 @@ import {
 import {
   DELIMITER,
   createTagDataForFilterValues,
+  defDistinctPredicate,
   defUniquePredicate,
   findDefForSource,
   generateOptionId,
@@ -741,6 +742,29 @@ describe('DtFilterField Util', () => {
       expect(optionOrGroupFilteredPredicate(groupDef, selectedIds, false)).toBe(
         true,
       );
+    });
+  });
+
+  describe('defDistinctPredicate', () => {
+    it('should return true if an autocomplete is async and also an option; it is not selected and not distinct', () => {
+      let def = dtAutocompleteDef([], false, true, {}, null);
+      def = dtOptionDef('foo', {}, 'id0', def, null, null);
+      const ids = new Set(['id1']);
+      expect(defDistinctPredicate(def, ids, false)).toBe(true);
+    });
+
+    it('should return true if an autocomplete is async and also an option; it is selected but not distinct', () => {
+      let def = dtAutocompleteDef([], false, true, {}, null);
+      def = dtOptionDef('foo', {}, 'id0', def, null, null);
+      const ids = new Set(['id0', 'id1']);
+      expect(defDistinctPredicate(def, ids, false)).toBe(true);
+    });
+
+    it('should return false if an autocomplete is async and also an option; it is selected and distinct', () => {
+      let def = dtAutocompleteDef([], true, true, {}, null);
+      def = dtOptionDef('foo', {}, 'id0', def, null, null);
+      const ids = new Set(['id0', 'id1']);
+      expect(defDistinctPredicate(def, ids, false)).toBe(false);
     });
   });
 
