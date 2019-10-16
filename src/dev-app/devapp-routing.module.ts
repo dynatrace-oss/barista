@@ -44,6 +44,7 @@ import { SecondaryNavDemo } from './secondary-nav/secondary-nav-demo.component';
 import { SelectDemo } from './select/select-demo.component';
 import { SelectionAreaDemo } from './selection-area/selection-area-demo.component';
 import { ShowMoreDemo } from './show-more/show-more-demo.component';
+import { SidenavDemo } from './sidenav/sidenav-demo.component';
 import { StepperDemo } from './stepper/stepper-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
@@ -114,6 +115,7 @@ const routes: Routes = [
   { path: 'stepper', component: StepperDemo },
   { path: 'toast', component: ToastDemo },
   { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
+  { path: 'sidenav', component: SidenavDemo },
   { path: 'tree-table', component: TreeTableDemo },
 ];
 
