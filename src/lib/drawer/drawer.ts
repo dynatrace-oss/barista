@@ -7,6 +7,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  InjectionToken,
   Input,
   OnDestroy,
   OnInit,
@@ -17,10 +18,15 @@ import { Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 
 import { dtDrawerAnimation } from './drawer-animation';
+import { DtDrawerContainer } from './drawer-container';
 
 /** The breakpoint when the side mode changes to an overlay mode */
 export const DT_DRAWER_MODE_BREAKPOINT = 1024;
 export type DtDrawerAnimationState = 'open' | 'open-instant' | 'closed';
+
+export const DT_DRAWER_CONTAINER = new InjectionToken<DtDrawerContainer>(
+  'DT_DRAWER_CONTAINER',
+);
 
 @Component({
   moduleId: module.id,

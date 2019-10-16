@@ -1,49 +1,36 @@
-<dt-top-bar-navigation aria-labe="Main" class="nav">
-  <dt-top-bar-navigation-item align="end">
-    <dt-select
-      class="theme-selector"
-      placeholder="Select a theme"
-      [(ngModel)]="selectedTheme"
-    >
-      <dt-option *ngFor="let theme of themes" [value]="theme.value">
-        {{ theme.name }}
-      </dt-option>
-    </dt-select>
-  </dt-top-bar-navigation-item>
-</dt-top-bar-navigation>
-
-<div class="content-wrapper" [dtTheme]="selectedTheme">
-  <nav class="sidenav">
-    <form class="searchform" novalidate>
-      <input
-        dtInput
-        [dtAutocomplete]="auto"
-        [(ngModel)]="navItemsFilterValue"
-        type="search"
-        name="searchbar"
-        placeholder="Search for components"
-        aria-label="Search for components"
-      />
-      <dt-autocomplete #auto="dtAutocomplete">
-        <dt-option
-          *ngFor="let navItem of filteredNavItems"
-          [value]="navItem.name"
-        >
-          {{ navItem.name }}
+<dt-sidenav-container>
+  <dt-sidenav #sidenav mode="side" opened>
+    <dt-sidenav-header>
+      <div class="sidenav-title">
+        <dt-icon class="sidenav-title-image" name="dynatrace"></dt-icon>
+        Dyntrace
+      </div>
+    </dt-sidenav-header>
+    <dt-menu *ngFor="let navItem of filteredNavItems">
+      <a [routerLink]="[navItem.route]" routerLinkActive dtMenuItem>
+        {{ navItem.name }}
+      </a>
+    </dt-menu>
+  </dt-sidenav>
+  <dt-top-bar-navigation aria-labe="Main" class="nav">
+    <dt-top-bar-navigation-item *ngIf="!sidenav.opened" align="start">
+      <button class="top-bar-button" (click)="sidenav.open()">
+        <dt-icon name="menu-hamburger"></dt-icon>
+      </button>
+    </dt-top-bar-navigation-item>
+    <dt-top-bar-navigation-item align="end">
+      <dt-select
+        class="theme-selector"
+        placeholder="Select a theme"
+        [(ngModel)]="selectedTheme"
+      >
+        <dt-option *ngFor="let theme of themes" [value]="theme.value">
+          {{ theme.name }}
         </dt-option>
-      </dt-autocomplete>
-    </form>
-
-    <ul>
-      <li *ngFor="let navItem of filteredNavItems">
-        <a [routerLink]="[navItem.route]" routerLinkActive>
-          {{ navItem.name }}
-        </a>
-      </li>
-    </ul>
-  </nav>
-
+      </dt-select>
+    </dt-top-bar-navigation-item>
+  </dt-top-bar-navigation>
   <main class="main">
     <router-outlet></router-outlet>
   </main>
-</div>
+</dt-sidenav-container>

@@ -1,0 +1,11 @@
+<header class="dt-sidenav-header" (click)="close()">
+  <div class="dt-sidenav-header-title">
+    <ng-content select="dt-sidenav-header"></ng-content>
+  </div>
+  <button class="dt-sidenav-close-button">
+    <dt-icon class="dt-sidenav-close-button-icon" name="left"></dt-icon>
+  </button>
+</header>
+<div class="dt-drawer-body">
+  <ng-content></ng-content>
+</div>
