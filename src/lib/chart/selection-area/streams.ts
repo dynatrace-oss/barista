@@ -111,7 +111,7 @@ export function getTouchEndStream(
 ): Observable<TouchEvent> {
   const touchEndStream$ = touchEnd$
     ? touchEnd$
-    : fromEvent<TouchEvent>(window, 'touchend');
+    : fromEvent<TouchEvent>(window, 'touchend', { passive: true });
 
   return touchEndStream$.pipe(
     tap(() => {
@@ -191,7 +191,7 @@ export function getTouchStream(
 ): Observable<{ x: number; y: number }> {
   const touch$ = touchMove$
     ? touchMove$
-    : fromEvent<TouchEvent>(target, 'touchmove');
+    : fromEvent<TouchEvent>(target, 'touchmove', { passive: true });
   return merge(touchStart$, touch$, touchEnd$).pipe(
     pairwise(),
     filter(([a, b]) => a.type === 'touchstart' && b.type === 'touchend'),
