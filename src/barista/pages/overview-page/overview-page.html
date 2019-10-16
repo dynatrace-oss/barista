@@ -1,0 +1,16 @@
+<div class="ba-content">
+  <h1>{{contents.title}}</h1>
+  <p *ngIf="contents.description">
+    {{contents.description}}
+  </p>
+  <div *ngFor="let section of contents.sections" class="ba-page-section">
+    <h2>{{ section.title }}</h2>
+    <nav>
+      <ul class="ba-tilegrid">
+        <li *ngFor="let item of section.items">
+          <ba-overview-item [data]="item"></ba-overview-item>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
