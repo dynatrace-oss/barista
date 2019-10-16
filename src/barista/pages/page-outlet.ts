@@ -10,12 +10,12 @@ import {
 } from '@angular/core';
 
 import { BaPageContents } from '../shared/page-contents';
-import { BaComponentPage } from './component-page/component-page';
-import { BaSimplePage } from './simple-page/simple-page';
+import { BaOverviewPage } from './overview-page/overview-page';
+import { BaSinglePage } from './single-page/single-page';
 
 const LAYOUT_PAGES_MAPPING = {
-  default: BaSimplePage,
-  component: BaComponentPage,
+  default: BaSinglePage,
+  overview: BaOverviewPage,
 };
 
 /**
@@ -23,7 +23,7 @@ const LAYOUT_PAGES_MAPPING = {
  * have to implement the BaPage interface.
  */
 export interface BaPage {
-  content: BaPageContents;
+  contents: BaPageContents;
 }
 
 @Component({
@@ -67,7 +67,7 @@ export class BaPageOutlet {
       this._viewContainerRef.length,
       this._injector,
     );
-    componentRef.instance.content = contents;
+    componentRef.instance.contents = contents;
 
     // At this point the component has been instantiated, so we move it to the location in the DOM
     // where we want it to be rendered.
