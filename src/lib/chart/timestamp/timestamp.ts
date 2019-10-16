@@ -302,7 +302,8 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   /** Calculate the px value out of the unit value */
   private _reflectValueToPosition(): void {
     if (this._valueToPixelsFn) {
-      this._positionX = this._valueToPixelsFn(this._value);
+      this._positionX =
+        this._valueToPixelsFn(this._value) - this._plotBackgroundChartOffset;
     }
 
     this._reflectStyleToDom();
