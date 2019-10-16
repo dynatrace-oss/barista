@@ -63,7 +63,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
   _contentMargins: DtDrawerMargin = { left: null, right: null };
 
   /** List of all drawers in the container */
-  @ContentChildren(DtDrawer) private _drawers: QueryList<DtDrawer>;
+  @ContentChildren(DtDrawer) protected _drawers: QueryList<DtDrawer>;
 
   /** The drawer at the start (left side) */
   private _start: DtDrawer | null = null;

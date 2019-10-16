@@ -1,0 +1,53 @@
+@import '../core/style/variables';
+
+:host {
+  transform: translateX(-100%);
+  will-change: transform;
+  background-color: $gray-700;
+  min-width: 240px;
+  height: 100%;
+  z-index: 100;
+}
+
+.dt-sidenav-header {
+  display: flex;
+  max-height: 44px !important;
+  width: 240px;
+  cursor: pointer;
+  color: #ffffff;
+  background: #525252;
+}
+
+.dt-sidenav-close-button {
+  max-height: 44px;
+  width: 44px;
+  background: #525252;
+  border: none;
+  fill: #ffffff;
+  text-align: center;
+  margin-left: auto;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #444646;
+  }
+}
+
+.dt-sidenav-close-button-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.dt-sidenav-header-title {
+  max-height: 44px;
+  width: 196px;
+  padding-left: 12px;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.dt-drawer-body {
+  height: calc(100% - 44px);
+  overflow-y: scroll;
+}
