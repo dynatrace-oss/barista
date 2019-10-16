@@ -10,7 +10,7 @@ import {
 
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
-import { TEST_DATA, TEST_DATA_ASYNC } from './testdata';
+import { TEST_DATA, TEST_DATA_ASYNC, TEST_DATA_ASYNC_2 } from './testdata';
 
 // tslint:disable:no-any
 
@@ -74,6 +74,11 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
       // Simulate async data loading
       setTimeout(() => {
         this._dataSource.data = TEST_DATA_ASYNC;
+      }, 2000);
+    } else if (event.currentFilter[0] === TEST_DATA.autocomplete[3]) {
+      // Simulate async data loading
+      setTimeout(() => {
+        this._dataSource.data = TEST_DATA_ASYNC_2;
       }, 2000);
     }
   }
