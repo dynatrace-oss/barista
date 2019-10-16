@@ -29,6 +29,7 @@ export class BaPageHeader {
   get _showContributors(): boolean {
     return (
       environment.internal &&
+      this.contributors &&
       this.contributors.dev.length + this.contributors.ux.length > 0
     );
   }

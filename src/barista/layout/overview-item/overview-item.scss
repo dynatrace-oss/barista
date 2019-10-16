@@ -1,0 +1,213 @@
+@import '../../../lib/core/style/colors';
+@import '../../styles/global/variables';
+
+$tilesize: 290px;
+$tilefontsize: 28px;
+$tilefontsize-big: 42px;
+$gridgap: 20px;
+
+@mixin tile-theme($link-color, $hover-color, $active-color) {
+  .ba-tile,
+  &.ba-tile {
+    color: $link-color;
+  }
+
+  .ba-tile:hover,
+  &.ba-tile:hover {
+    border-color: $hover-color;
+    text-decoration: none;
+  }
+
+  .ba-tile__img {
+    color: $hover-color;
+  }
+
+  .ba-tile:active,
+  &.ba-tile:active {
+    border-color: $active-color;
+  }
+
+  .ba-overview-item-badge-warning,
+  &.ba-overview-item-badge-warning {
+    .ba-tile__status-icon-triangle {
+      fill: $yellow-600;
+    }
+  }
+
+  .ba-overview-item-badge-favorite,
+  &.ba-overview-item-badge-favorite {
+    .ba-tile__status-icon-triangle {
+      fill: $link-color;
+    }
+  }
+
+  .ba-overview-item-badge-wip,
+  &.ba-overview-item-badge-wip {
+    .ba-tile__status-icon-triangle {
+      fill: #fff;
+    }
+
+    svg {
+      transform: rotate(90deg);
+      fill: $link-color;
+    }
+  }
+
+  .ba-tile.ba-shortcut-focus:focus,
+  &.ba-tile.ba-shortcut-focus:focus {
+    outline: 2px solid $hover-color;
+  }
+}
+
+.ba-tile {
+  display: block;
+  background-color: #fff;
+  border: 1px solid $gray-200;
+  border-radius: 3px;
+  height: auto;
+  min-width: $tilesize;
+  position: relative;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+
+  @include tile-theme($turquoise-600, $turquoise-600, $turquoise-700);
+
+  .ba-tile__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .ba-tile__header {
+    display: flex;
+    align-items: center;
+  }
+
+  .ba-tile__headertext {
+    font-size: 1.2rem;
+  }
+
+  .ba-tile__img {
+    font-size: $tilefontsize-big;
+    margin-right: 1.5rem;
+    min-width: 60px;
+    text-align: center;
+
+    svg {
+      max-width: 50px;
+      height: 100%;
+      vertical-align: middle;
+    }
+  }
+
+  .ba-tile__type {
+    font-size: 0.9rem;
+    color: $gray-500;
+    line-height: 1.2;
+  }
+
+  .ba-tile__title {
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
+
+  .ba-tile__description {
+    margin: 1rem 0 0;
+    flex-grow: 1;
+    color: $textcolor;
+  }
+
+  .ba-tile__footer {
+    color: $gray-500;
+    margin-top: 2rem;
+  }
+
+  .ba-tile__status {
+    position: absolute;
+    width: 50px;
+    top: 0;
+    right: 0;
+  }
+
+  .ba-tile__status-icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    fill: #fff;
+  }
+}
+
+.ba-tile--thumbnail {
+  .ba-tile__header {
+    margin: auto 0;
+  }
+
+  .ba-tile__footer {
+    display: none;
+  }
+
+  .ba-tile__img {
+    font-size: $tilefontsize-big;
+    width: 50px;
+    max-height: 50px;
+    overflow: hidden;
+  }
+
+  img[src$='svg'] {
+    background-color: $gray-400;
+  }
+}
+
+.ba-tile:focus {
+  outline: 2px solid $gray-300;
+}
+
+// .ba-theme--blue {
+
+//   @include tile-theme($blue-600, $blue-600, $blue-700);
+// }
+
+// .ba-theme--purple {
+
+//   @include tile-theme($purple-600, $purple-600, $purple-700);
+// }
+
+// .ba-theme--royalblue {
+
+//   @include tile-theme($royalblue-500, $royalblue-500, $royalblue-700);
+// }
+
+// .ba-theme--green {
+
+//   @include tile-theme($green-500, $green-500, $green-700);
+// }
+
+// .ba-theme--yellow {
+
+//   @include tile-theme($yellow-600, $yellow-600, $yellow-700);
+// }
+
+// .ba-theme--turquoise {
+
+//   @include tile-theme($turquoise-600, $turquoise-600, $turquoise-700);
+// }
+
+/* Tile empty state */
+.ba-tile--empty.ba-tile--empty {
+  color: transparent;
+  background-color: $gray-100;
+  cursor: default;
+  pointer-events: none;
+
+  .ba-smalltile__identifier {
+    display: none;
+  }
+
+  .ba-smalltile__title {
+    display: none;
+  }
+}
