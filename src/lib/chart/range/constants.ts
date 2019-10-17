@@ -2,7 +2,7 @@
 export const DT_RANGE_RELEASED_CLASS = 'dt-chart-range-released';
 
 /** @internal class that indicates weather the range is valid or not */
-export const DT_RANGE_UN_VALID_CLASS = 'dt-chart-range-valid';
+export const DT_RANGE_INVALID_CLASS = 'dt-chart-range-invalid';
 
 /** @internal Aria label for the left handle. */
 export const ARIA_DEFAULT_LEFT_HANDLE_LABEL = 'left handle';

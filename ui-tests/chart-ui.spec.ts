@@ -21,43 +21,15 @@ describe('chart', () => {
 
     it('should only trigger docheck once on init', async () => {
       expect(await element(by.id('change-detection-counter')).getText()).toBe(
-        '1',
+        '2',
       );
       await browser
         .actions()
         .mouseMove(element(by.css('.dt-chart')), { x: 100, y: 100 })
         .perform();
       expect(await element(by.id('change-detection-counter')).getText()).toBe(
-        '1',
+        '2',
       );
     });
   });
-
-  describe('selection-area', () => {
-    beforeEach(async () => browser.get('/chart/selection-area'));
-
-    it('should make the plotbackground focusable', async () => {
-      expect(
-        await element(by.css('.highcharts-plot-background')).getAttribute(
-          'tabindex',
-        ),
-      ).toBe('0');
-    });
-
-    // ui-test fails for no reason on ci
-    // it('should interpolate to the x Axis value and show it in the overlay', async () => {
-    //   await createSelectionArea();
-    //   const overlayText = await element(by.css('.dt-selection-area-content')).getText();
-    //   expect(overlayText).toContain('Jun 4, 2013 -');
-    // });
-  });
 });
-
-// async function createSelectionArea(): Promise<void> {
-//   await browser.actions()
-//     .mouseMove(element(by.css('.dt-chart')), { x: 170, y: 100 })
-//     .mouseDown()
-//     .mouseMove(element(by.css('.dt-chart')), { x: 340, y: 100 })
-//     .mouseUp()
-//     .perform();
-// }

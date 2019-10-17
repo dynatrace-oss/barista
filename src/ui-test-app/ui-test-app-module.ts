@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 
 import { DtButtonModule } from '@dynatrace/angular-components/button';
 import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
-import { DtChartModule } from '@dynatrace/angular-components/chart';
 import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
 import { DtConsumptionModule } from '@dynatrace/angular-components/consumption';
 import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
@@ -34,9 +33,6 @@ import { DtTopBarNavigationModule } from '@dynatrace/angular-components/top-bar-
 import { DtFilterFieldModule } from '../lib';
 import { ButtonGroupUi } from './button-group/button-group-ui';
 import { ButtonUI } from './button/button-ui';
-import { ChartHighchartsUI } from './chart/chart-highcharts-ui';
-import { ChartSelectionAreaUI } from './chart/chart-selection-area-ui';
-import { ChartUI } from './chart/chart-ui';
 import { CheckboxUI } from './checkbox/checkbox-ui';
 import { ConsumptionUI } from './consumption/consumption-ui';
 import { ContextDialogUI } from './context-dialog/context-dialog-ui';
@@ -65,7 +61,6 @@ import { Home, UIApp } from './ui-test-app/ui-test-app';
   exports: [
     DtButtonGroupModule,
     DtButtonModule,
-    DtChartModule,
     DtCheckboxModule,
     DtConsumptionModule,
     DtContextDialogModule,
@@ -108,9 +103,6 @@ export class DynatraceAngularCompModule {}
   declarations: [
     ButtonGroupUi,
     ButtonUI,
-    ChartHighchartsUI,
-    ChartSelectionAreaUI,
-    ChartUI,
     CheckboxUI,
     ConsumptionUI,
     ContextDialogUI,

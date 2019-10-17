@@ -24,8 +24,8 @@
     "lib": ["dom", "es2017"],
     "paths": {
       "@dynatrace/angular-components": ["src/lib"],
-      "@dynatrace/angular-components/*": ["src/lib/*"],
       "@dynatrace/angular-components/testing": ["src/testing/*"],
+      "@dynatrace/angular-components/*": ["src/lib/*"],
       "highcharts": ["node_modules/highcharts"]
     },
     "strictNullChecks": true,
